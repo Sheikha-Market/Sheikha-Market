@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sheikha CLI</title>
+    <style>
+        :root { --bg:#0a0f1b; --panel:#0f182b; --line:#2a3f6f; --text:#eef3ff; --muted:#9eb0d4; --gold:#d4af37; --cyan:#4fd1ff; }
+        body { margin:0; font-family:'Tajawal', sans-serif; background:#0a0f1b; color:var(--text); }
+        .wrap { max-width:980px; margin:0 auto; padding:24px 16px 54px; }
+        .shell { border:1px solid var(--line); border-radius:14px; background:var(--panel); padding:14px; }
+        h1 { margin-top:0; color:var(--gold); }
+        .muted { color:var(--muted); line-height:1.9; }
+        .cmd { direction:ltr; text-align:left; background:#091225; border:1px solid var(--line); border-radius:10px; padding:10px; margin:8px 0; color:var(--cyan); }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="shell">
+            <h1>Sheikha CLI Surface</h1>
+            <p class="muted">أوامر تشغيلية موحّدة لمتابعة السوق والعقود والتغذية والحوكمة وتكامل Git.</p>
+            <div class="cmd">sheikha status</div>
+            <div class="cmd">sheikha market live</div>
+            <div class="cmd">sheikha contracts inspect</div>
+            <div class="cmd">sheikha supply sync</div>
+            <div class="cmd">sheikha governance check</div>
+            <div class="cmd">sheikha sdk list</div>
+            <div class="cmd">sheikha mcp health</div>
+            <div class="cmd">sheikha git report</div>
+            <p class="muted">API مكافئ: <a href="/api/git/report" style="color:var(--cyan)">/api/git/report</a></p>
+        </section>
+    </main>
+</body>
+</html>

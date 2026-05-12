@@ -1,0 +1,634 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>شيخة — منظومة الشهادات والاعتمادات والمعايير</title>
+    <link rel="manifest" href="/manifest.json">
+    <link rel="icon" href="/icons/icon-192x192.png">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--gold:#D4AF37;--copper:#B87333;--dark:#0a0a0a;--dark2:#111;--dark3:#1a1a1a;--dark4:#222;--text:#e8e8e8;--text2:#999;--green:#22c55e;--blue:#3b82f6;--purple:#a855f7;--teal:#14b8a6;--red:#ef4444}
+        *{box-sizing:border-box;margin:0;padding:0}
+        body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);direction:rtl;min-height:100vh}
+        /* Header */
+        .hdr{background:linear-gradient(135deg,#0a0a0a,#1a0a00,#0a0a0a);border-bottom:2px solid var(--gold);padding:20px 32px;text-align:center;position:relative}
+        .hdr-bism{font-size:14px;color:var(--gold);opacity:.8;margin-bottom:4px}
+        .hdr h1{font-size:1.9rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text}
+        .hdr-sub{font-size:12px;color:var(--text2);margin-top:4px}
+        .hdr-ayah{font-size:13px;color:var(--gold);margin-top:4px;opacity:.9}
+        .nav-back{position:absolute;top:20px;left:20px;color:var(--gold);text-decoration:none;font-size:13px}
+        /* Engine Banner */
+        .banner{background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(184,115,51,.05));border:1px solid rgba(212,175,55,.25);border-radius:14px;padding:14px 20px;margin:16px auto;max-width:1400px;display:flex;align-items:center;gap:16px;flex-wrap:wrap}
+        .dot{width:9px;height:9px;border-radius:50%;background:var(--green);box-shadow:0 0 8px var(--green);animation:pulse 2s infinite}
+        @keyframes pulse{0%,100%{opacity:1}50%{opacity:.3}}
+        .eng-stats{display:flex;gap:20px;flex-wrap:wrap;margin-right:auto}
+        .es{text-align:center}.es-v{font-size:1.1rem;font-weight:900;color:var(--gold)}.es-l{font-size:10px;color:var(--text2)}
+        /* Wrap */
+        .wrap{max-width:1400px;margin:0 auto;padding:16px}
+        /* Tabs */
+        .tabs{display:flex;gap:5px;flex-wrap:wrap;background:var(--dark2);padding:8px;border-radius:12px;border:1px solid #2a2a2a;margin-bottom:20px}
+        .tb{padding:7px 14px;border:none;border-radius:8px;background:transparent;color:var(--text2);cursor:pointer;font-family:'Tajawal',sans-serif;font-size:12px;font-weight:500;transition:all .2s;white-space:nowrap}
+        .tb.on{background:linear-gradient(135deg,var(--gold),var(--copper));color:#000;font-weight:700}
+        .tb:hover:not(.on){background:var(--dark3);color:var(--text)}
+        .tp{display:none}.tp.on{display:block}
+        /* Section Title */
+        .st{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+        .st::after{content:'';flex:1;height:1px;background:linear-gradient(90deg,var(--gold),transparent)}
+        /* Cards Grid */
+        .cg{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;margin-bottom:20px}
+        .c{background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:18px;transition:all .2s}
+        .c:hover{border-color:var(--gold);transform:translateY(-1px)}
+        /* Standard Card */
+        .sc{background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:18px;margin-bottom:12px}
+        .sc.iso{border-right:3px solid var(--blue)}
+        .sc.mgmt{border-right:3px solid var(--copper)}
+        .sc.islamic{border-right:3px solid var(--green)}
+        .sc.tech{border-right:3px solid var(--purple)}
+        .sc-head{display:flex;align-items:flex-start;gap:12px;margin-bottom:10px;cursor:pointer}
+        .sc-code{font-size:.75rem;font-weight:900;background:var(--dark3);padding:3px 8px;border-radius:6px;color:var(--gold);white-space:nowrap}
+        .sc-name{font-size:.95rem;font-weight:700;color:var(--text)}
+        .sc-body{display:none;padding-top:10px;border-top:1px solid #1e1e1e}
+        .sc-body.open{display:block}
+        .tag{display:inline-block;padding:2px 8px;border-radius:15px;font-size:10px;margin:2px;background:var(--dark3);color:var(--text2);border:1px solid #333}
+        .tag-gold{background:rgba(212,175,55,.12);color:var(--gold);border-color:rgba(212,175,55,.3)}
+        .tag-green{background:rgba(34,197,94,.12);color:var(--green);border-color:rgba(34,197,94,.3)}
+        .tag-blue{background:rgba(59,130,246,.12);color:var(--blue);border-color:rgba(59,130,246,.3)}
+        /* Cert Program */
+        .cp{background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:18px;margin-bottom:12px;border-top:3px solid var(--gold)}
+        .cp-head{display:flex;align-items:center;gap:10px;margin-bottom:10px}
+        .cp-code{font-size:.8rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--copper));color:#000;padding:3px 8px;border-radius:6px}
+        .cp-name{font-size:1rem;font-weight:700;color:var(--gold)}
+        .cp-body strong{color:var(--copper)}
+        .criteria-row{display:flex;align-items:center;gap:8px;padding:5px 0;border-bottom:1px solid #1a1a1a}
+        .criteria-w{min-width:36px;font-size:.9rem;font-weight:900;color:var(--gold)}
+        .criteria-name{font-size:13px;color:var(--text);flex:1}
+        .criteria-desc{font-size:11px;color:var(--text2)}
+        /* Badge */
+        .badge-card{background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:16px;text-align:center;transition:all .2s}
+        .badge-card:hover{transform:translateY(-2px)}
+        .badge-icon{font-size:2.5rem;margin-bottom:8px}
+        .badge-name{font-size:.85rem;font-weight:700;color:var(--text);margin-bottom:4px}
+        .badge-level{font-size:10px;margin-bottom:4px}
+        .badge-criteria{font-size:10px;color:var(--text2)}
+        /* Form */
+        .fm{background:var(--dark2);border:1px solid #2a2a2a;border-radius:16px;padding:24px}
+        .fg{margin-bottom:14px}
+        .fl{display:block;font-size:13px;font-weight:600;color:var(--text);margin-bottom:5px}
+        .fl span{color:var(--gold)}
+        .fi,.fta,.fse{width:100%;padding:9px 13px;background:var(--dark3);border:1px solid #3a3a3a;border-radius:9px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:13px;direction:rtl;transition:border-color .2s}
+        .fi:focus,.fta:focus,.fse:focus{outline:none;border-color:var(--gold)}
+        .fta{min-height:80px;resize:vertical}
+        .fse option{background:var(--dark3)}
+        .btn-m{padding:10px 20px;background:linear-gradient(135deg,var(--gold),var(--copper));border:none;border-radius:10px;color:#000;font-family:'Tajawal',sans-serif;font-size:14px;font-weight:700;cursor:pointer;transition:all .2s}
+        .btn-m:hover{opacity:.9;transform:translateY(-1px)}
+        .btn-m:disabled{opacity:.5;cursor:not-allowed;transform:none}
+        /* Certificate Display */
+        .cert-display{background:linear-gradient(135deg,var(--dark3),#1a1200,var(--dark3));border:2px solid var(--gold);border-radius:16px;padding:28px;text-align:center;position:relative;overflow:hidden;margin-top:16px}
+        .cert-display::before{content:'';position:absolute;inset:6px;border:1px solid rgba(212,175,55,.2);border-radius:12px;pointer-events:none}
+        .cert-seal{font-size:2.5rem;margin-bottom:8px}
+        .cert-bism{font-size:12px;color:var(--gold);opacity:.8;margin-bottom:6px}
+        .cert-title{font-size:1.4rem;font-weight:900;color:var(--gold);margin-bottom:4px}
+        .cert-entity{font-size:1.1rem;font-weight:700;color:var(--text);margin-bottom:4px}
+        .cert-type{font-size:12px;color:var(--copper);margin-bottom:12px}
+        .cert-num{font-size:.75rem;color:var(--text2);margin-bottom:4px;font-family:monospace}
+        .cert-dates{display:flex;justify-content:center;gap:24px;margin-top:10px;flex-wrap:wrap}
+        .cert-date-item{font-size:11px;color:var(--text2)}
+        .cert-date-val{font-size:12px;color:var(--gold);font-weight:700}
+        .cert-score-badge{display:inline-block;background:linear-gradient(135deg,var(--gold),var(--copper));color:#000;padding:8px 20px;border-radius:20px;font-size:1rem;font-weight:900;margin:10px 0}
+        .cert-verify{font-size:10px;color:var(--teal);margin-top:8px;font-family:monospace}
+        .cert-note{font-size:10px;color:var(--text2);margin-top:8px;font-style:italic}
+        /* Result */
+        .fr{padding:12px;border-radius:10px;margin-top:12px;font-size:13px;display:none;text-align:center}
+        .fr.ok{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25);color:var(--green)}
+        .fr.err{background:rgba(239,68,68,.08);border:1px solid rgba(239,68,68,.25);color:var(--red)}
+        /* Grid 2-col */
+        .g2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+        @media(max-width:768px){.g2{grid-template-columns:1fr}}
+        /* Score Grid */
+        .sg{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;margin:10px 0}
+        .si{background:var(--dark3);border-radius:8px;padding:10px;text-align:center}
+        .sv{font-size:1.3rem;font-weight:900}.sl{font-size:10px;color:var(--text2);margin-top:2px}
+        .good{color:var(--green)}.med{color:var(--gold)}.low{color:var(--red)}
+        /* PDCA */
+        .pdca{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:16px}
+        @media(max-width:600px){.pdca{grid-template-columns:1fr 1fr}}
+        .pdca-p{border-radius:12px;padding:14px;text-align:center}
+        .pdca-p.plan{background:rgba(59,130,246,.08);border:1px solid rgba(59,130,246,.25)}
+        .pdca-p.do{background:rgba(34,197,94,.08);border:1px solid rgba(34,197,94,.25)}
+        .pdca-p.check{background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.25)}
+        .pdca-p.act{background:rgba(168,85,247,.08);border:1px solid rgba(168,85,247,.25)}
+        .pdca-t{font-size:.9rem;font-weight:900;margin-bottom:8px}
+        .pdca-s{font-size:11px;color:var(--text2);padding:2px 0}
+        /* Body card */
+        .bc{background:var(--dark2);border:1px solid #2a2a2a;border-radius:12px;padding:16px;margin-bottom:10px}
+        .bc-t{font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:6px}
+        .bc-d{font-size:12px;color:var(--text2);line-height:1.7}
+        /* Loading */
+        .ld{text-align:center;padding:40px;color:var(--text2)}
+        .sp{display:inline-block;width:28px;height:28px;border:3px solid #333;border-top-color:var(--gold);border-radius:50%;animation:spin .7s linear infinite;margin-bottom:8px}
+        @keyframes spin{to{transform:rotate(360deg)}}
+        @media(max-width:500px){.tabs{overflow-x:auto;flex-wrap:nowrap}.tb{flex-shrink:0}.hdr h1{font-size:1.3rem}}
+    </style>
+</head>
+<body>
+<div class="hdr">
+    <a href="/" class="nav-back">← الرئيسية</a>
+    <div class="hdr-bism">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <h1>🏆 منظومة الشهادات والاعتمادات والمعايير</h1>
+    <div class="hdr-sub">أعلى وأقوى وأندر الشهادات الإدارية والتقنية والإسلامية — رقمنة جودة لا تتوقف</div>
+    <div class="hdr-ayah">«إن الله يحب إذا عمل أحدكم عملاً أن يتقنه» | ﴿وَقُل رَّبِّ زِدْنِي عِلْمًا﴾</div>
+</div>
+
+<!-- Engine Banner -->
+<div class="banner">
+    <div style="display:flex;align-items:center;gap:8px"><div class="dot"></div><span style="font-size:12px;font-weight:700;color:var(--green)">محرك الشهادات يعمل</span></div>
+    <div class="eng-stats">
+        <div class="es"><div class="es-v" id="eQScore">—</div><div class="es-l">نقاط الجودة</div></div>
+        <div class="es"><div class="es-v" id="eTotalStd">—</div><div class="es-l">معيار مُفعَّل</div></div>
+        <div class="es"><div class="es-v" id="eCertProg">—</div><div class="es-l">برنامج شهادة</div></div>
+        <div class="es"><div class="es-v" id="eCertIssued">—</div><div class="es-l">شهادة صادرة</div></div>
+        <div class="es"><div class="es-v" id="eCycles">—</div><div class="es-l">دورة تحسين</div></div>
+    </div>
+</div>
+
+<div class="wrap">
+<div class="tabs">
+    <button class="tb on" onclick="showTab('issue')">📜 إصدار شهادة</button>
+    <button class="tb" onclick="showTab('assess')">🔍 تقييم الجودة</button>
+    <button class="tb" onclick="showTab('iso')">🌐 معايير ISO</button>
+    <button class="tb" onclick="showTab('mgmt')">📊 المعايير الإدارية</button>
+    <button class="tb" onclick="showTab('islamic')">☪️ المعايير الإسلامية</button>
+    <button class="tb" onclick="showTab('tech')">🔐 المعايير التقنية</button>
+    <button class="tb" onclick="showTab('programs')">🎓 برامج الشهادات</button>
+    <button class="tb" onclick="showTab('pdca')">🔄 التحسين المستمر</button>
+    <button class="tb" onclick="showTab('badges')">🏅 الشارات الرقمية</button>
+    <button class="tb" onclick="showTab('bodies')">🏛️ جهات الاعتماد</button>
+    <button class="tb" onclick="showTab('verify')">✅ التحقق من شهادة</button>
+</div>
+
+<!-- ═══ إصدار شهادة ═══ -->
+<div class="tp on" id="tp-issue">
+    <div class="st">📜 إصدار شهادة رقمية معتمدة</div>
+    <div class="g2">
+        <div class="fm">
+            <div class="fg"><label class="fl">اسم الجهة / الشركة / الشخص <span>*</span></label><input class="fi" id="issEntityName" placeholder="مثال: شركة الراجح للمعادن"></div>
+            <div class="fg"><label class="fl">نوع الجهة</label><select class="fse" id="issEntityType"><option>شركة</option><option>تاجر فردي</option><option>مشروع ناشئ</option><option>منظمة</option><option>فرد</option></select></div>
+            <div class="fg"><label class="fl">برنامج الشهادة <span>*</span></label>
+                <select class="fse" id="issCertId">
+                    <option value="sheikha-excellence">SEA-I — شهادة تميز شيخة (المستوى الأول)</option>
+                    <option value="sheikha-excellence-gold">SEA-II — تميز شيخة الذهبية</option>
+                    <option value="sheikha-sharia-cert">SSC-I — شهادة الامتثال الشرعي الرقمي</option>
+                    <option value="sheikha-innovation-cert">SIC-I — شهادة الابتكار الإسلامي</option>
+                    <option value="sheikha-trader-cert">STC-I — شهادة التاجر المعتمد</option>
+                </select>
+            </div>
+            <div style="background:rgba(212,175,55,.06);border-radius:10px;padding:12px;margin-bottom:14px;font-size:12px;color:var(--text2)">
+                ⚠️ هذه شهادات من منصة شيخة. للاعتماد الدولي الرسمي (ISO/AAOIFI) يُراجع الجهات المُعتمدة المُدرجة في تبويب جهات الاعتماد.
+            </div>
+            <button class="btn-m" id="btnIssue" onclick="issueCertificate()" style="width:100%">📜 أصدر الشهادة الآن</button>
+            <div id="issueMsg" class="fr"></div>
+        </div>
+        <div id="certDisplayWrap">
+            <div style="background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:20px;text-align:center;color:var(--text2)">
+                <div style="font-size:3rem;margin-bottom:8px">📜</div>
+                <div>أدخل بيانات الجهة واضغط "أصدر" لإنشاء الشهادة</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ تقييم الجودة ═══ -->
+<div class="tp" id="tp-assess">
+    <div class="st">🔍 تقييم مستوى الجودة والامتثال</div>
+    <div class="g2">
+        <div class="fm">
+            <div class="fg"><label class="fl">اسم الجهة <span>*</span></label><input class="fi" id="assEntityName" placeholder="اسم الشركة أو المشروع"></div>
+            <div class="fg"><label class="fl">القطاع</label>
+                <select class="fse" id="assSector">
+                    <option value="معادن">معادن وسكراب</option>
+                    <option value="تقنية">تقنية وبرمجيات</option>
+                    <option value="تمويل">تمويل إسلامي</option>
+                    <option value="تجارة">تجارة عامة</option>
+                    <option value="تعليم">تعليم وتدريب</option>
+                    <option value="صحة">صحة وطب</option>
+                </select>
+            </div>
+            <div class="fg"><label class="fl">حجم المنشأة</label><select class="fse" id="assSize"><option>صغيرة (أقل من 50)</option><option>متوسطة (50-250)</option><option>كبيرة (أكثر من 250)</option></select></div>
+            <button class="btn-m" id="btnAssess" onclick="assessQuality()" style="width:100%">🔍 قيّم مستوى الجودة الآن</button>
+            <div id="assessMsg" class="fr"></div>
+        </div>
+        <div id="assessResult">
+            <div style="background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:20px;text-align:center;color:var(--text2)">
+                <div style="font-size:3rem;margin-bottom:8px">🔍</div>
+                <div>أدخل بيانات جهتك لتقييم مستوى امتثالها للمعايير الدولية والإسلامية</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ═══ معايير ISO ═══ -->
+<div class="tp" id="tp-iso">
+    <div class="st">🌐 معايير ISO الدولية المُفعَّلة في شيخة</div>
+    <div id="isoList"><div class="ld"><div class="sp"></div></div></div>
+</div>
+
+<!-- ═══ المعايير الإدارية ═══ -->
+<div class="tp" id="tp-mgmt">
+    <div class="st">📊 أفضل المعايير الإدارية العالمية + المنهج الإسلامي</div>
+    <div id="mgmtList"><div class="ld"><div class="sp"></div></div></div>
+</div>
+
+<!-- ═══ المعايير الإسلامية ═══ -->
+<div class="tp" id="tp-islamic">
+    <div class="st">☪️ المعايير الإسلامية الدولية والمقاصد الشرعية</div>
+    <div id="islamicList"><div class="ld"><div class="sp"></div></div></div>
+</div>
+
+<!-- ═══ المعايير التقنية ═══ -->
+<div class="tp" id="tp-tech">
+    <div class="st">🔐 المعايير التقنية والأمنية والرقمية</div>
+    <div id="techList"><div class="ld"><div class="sp"></div></div></div>
+</div>
+
+<!-- ═══ برامج الشهادات ═══ -->
+<div class="tp" id="tp-programs">
+    <div class="st">🎓 برامج شهادات شيخة — الأعلى قيمة والأقوى معياراً</div>
+    <div id="programsList"><div class="ld"><div class="sp"></div></div></div>
+</div>
+
+<!-- ═══ التحسين المستمر ═══ -->
+<div class="tp" id="tp-pdca">
+    <div class="st">🔄 منظومة التحسين المستمر — PDCA + DMAIC + كايزن الإسلامي</div>
+    <div id="pdcaContent"><div class="ld"><div class="sp"></div></div></div>
+</div>
+
+<!-- ═══ الشارات الرقمية ═══ -->
+<div class="tp" id="tp-badges">
+    <div class="st">🏅 الشارات الرقمية المعتمدة</div>
+    <div id="badgesGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:14px"></div>
+</div>
+
+<!-- ═══ جهات الاعتماد ═══ -->
+<div class="tp" id="tp-bodies">
+    <div class="st">🏛️ جهات الاعتماد الرسمية المحلية والدولية والإسلامية</div>
+    <div id="bodiesList" class="cg"></div>
+</div>
+
+<!-- ═══ التحقق من شهادة ═══ -->
+<div class="tp" id="tp-verify">
+    <div class="st">✅ التحقق من صحة شهادة</div>
+    <div class="fm" style="max-width:600px">
+        <div class="fg"><label class="fl">رقم الشهادة <span>*</span></label><input class="fi" id="verifyCertNum" placeholder="SHEIKHA-XXX-000000000000-XXXXXX" style="font-family:monospace"></div>
+        <button class="btn-m" id="btnVerify" onclick="verifyCert()" style="width:100%">✅ تحقق من الشهادة</button>
+        <div id="verifyResult" class="fr"></div>
+        <div id="verifyDisplay"></div>
+    </div>
+</div>
+
+</div><!-- /wrap -->
+
+<script>
+// ═════════════════════════════════════════════
+// Helpers
+// ═════════════════════════════════════════════
+let cache = {};
+const loaded = new Set(['issue','assess']);
+
+async function api(url, opts) {
+    if (cache[url] && !opts) return cache[url];
+    const r = await fetch(url, opts);
+    const d = await r.json();
+    if (!opts) cache[url] = d;
+    return d;
+}
+
+function showTab(name) {
+    document.querySelectorAll('.tp').forEach(e => e.classList.remove('on'));
+    document.querySelectorAll('.tb').forEach(e => e.classList.remove('on'));
+    document.getElementById('tp-' + name).classList.add('on');
+    event.target.classList.add('on');
+    if (!loaded.has(name)) { loaded.add(name); renderTab(name); }
+}
+
+async function renderTab(name) {
+    switch(name) {
+        case 'iso': await renderISO(); break;
+        case 'mgmt': await renderMgmt(); break;
+        case 'islamic': await renderIslamic(); break;
+        case 'tech': await renderTech(); break;
+        case 'programs': await renderPrograms(); break;
+        case 'pdca': await renderPDCA(); break;
+        case 'badges': await renderBadges(); break;
+        case 'bodies': await renderBodies(); break;
+    }
+}
+
+// ═════════════════════════════════════════════
+// Engine Status
+// ═════════════════════════════════════════════
+async function loadStatus() {
+    try {
+        const d = await api('/api/certification/status');
+        if (d.success) {
+            document.getElementById('eQScore').textContent = d.data.qualityScore?.toFixed(1) + '%';
+            document.getElementById('eTotalStd').textContent = d.data.totalStandards;
+            document.getElementById('eCertProg').textContent = d.data.totalCertPrograms;
+            document.getElementById('eCertIssued').textContent = d.data.kpis.certificatesIssued;
+            document.getElementById('eCycles').textContent = d.data.kpis.improvementCycles;
+        }
+    } catch(e) { console.warn(e); }
+}
+
+// ═════════════════════════════════════════════
+// Issue Certificate
+// ═════════════════════════════════════════════
+async function issueCertificate() {
+    const entityName = document.getElementById('issEntityName').value.trim();
+    const entityType = document.getElementById('issEntityType').value;
+    const certId = document.getElementById('issCertId').value;
+    const msg = document.getElementById('issueMsg');
+    if (!entityName) { msg.innerHTML='⚠️ اسم الجهة مطلوب'; msg.className='fr err'; msg.style.display='block'; return; }
+    const btn = document.getElementById('btnIssue');
+    btn.disabled=true; btn.textContent='⏳ جاري الإصدار...';
+    try {
+        const d = await api('/api/certification/issue', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ entityName, entityType, certId })
+        });
+        if (d.success) {
+            msg.innerHTML = `✅ ${d.message}`;
+            msg.className='fr ok'; msg.style.display='block';
+            renderCertificate(d.data);
+            delete cache['/api/certification/status'];
+            loadStatus();
+        } else { msg.innerHTML='❌ '+(d.message||'خطأ'); msg.className='fr err'; msg.style.display='block'; }
+    } catch(e) { msg.innerHTML='❌ خطأ في الاتصال'; msg.className='fr err'; msg.style.display='block'; }
+    btn.disabled=false; btn.textContent='📜 أصدر الشهادة الآن';
+}
+
+function renderCertificate(cert) {
+    const scoreColor = cert.totalScore >= 90 ? 'var(--green)' : cert.totalScore >= 75 ? 'var(--gold)' : 'var(--red)';
+    const isValid = new Date(cert.expiryDate) > new Date();
+    document.getElementById('certDisplayWrap').innerHTML = `
+        <div class="cert-display">
+            <div class="cert-seal">🏆</div>
+            <div class="cert-bism">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+            <div class="cert-title">${cert.certNameAr}</div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:8px">${cert.certNameEn}</div>
+            <div style="font-size:13px;color:var(--text2);margin-bottom:4px">تشهد منصة شيخة بأن</div>
+            <div class="cert-entity">${cert.entityName}</div>
+            <div class="cert-type">${cert.entityType}</div>
+            <div class="cert-score-badge" style="background:linear-gradient(135deg,${scoreColor},${scoreColor}88)">
+                الدرجة: ${cert.totalScore}%
+            </div>
+            <div class="cert-num">رقم الشهادة: ${cert.certNumber}</div>
+            <div class="cert-dates">
+                <div class="cert-date-item"><div class="cert-date-val">${new Date(cert.issueDate).toLocaleDateString('ar-SA')}</div>تاريخ الإصدار</div>
+                <div class="cert-date-item"><div class="cert-date-val" style="color:${isValid?'var(--green)':'var(--red)'}">${new Date(cert.expiryDate).toLocaleDateString('ar-SA')}</div>تاريخ الانتهاء</div>
+            </div>
+            <div class="cert-verify">🔗 ${cert.verificationUrl}</div>
+            <div class="cert-note">⚠️ ${cert.note}</div>
+            <div style="margin-top:10px;display:flex;justify-content:center;gap:6px">
+                <span class="tag tag-gold">${cert.issuer}</span>
+                <span class="tag ${isValid?'tag-green':''}">${isValid?'✅ سارية':'❌ منتهية'}</span>
+            </div>
+        </div>`;
+}
+
+// ═════════════════════════════════════════════
+// Assess Quality
+// ═════════════════════════════════════════════
+async function assessQuality() {
+    const entityName = document.getElementById('assEntityName').value.trim();
+    const msg = document.getElementById('assessMsg');
+    if (!entityName) { msg.innerHTML='⚠️ اسم الجهة مطلوب'; msg.className='fr err'; msg.style.display='block'; return; }
+    const btn = document.getElementById('btnAssess');
+    btn.disabled=true; btn.textContent='⏳ جاري التقييم...';
+    try {
+        const d = await api('/api/certification/assess', {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({
+                entityName,
+                sector: document.getElementById('assSector').value,
+                size: document.getElementById('assSize').value
+            })
+        });
+        if (d.success) {
+            const a = d.data;
+            const sc = a.qualityScore;
+            const scColor = sc >= 80 ? 'var(--green)' : sc >= 60 ? 'var(--gold)' : 'var(--red)';
+            document.getElementById('assessResult').innerHTML = `
+                <div style="background:var(--dark2);border:1px solid #2a2a2a;border-radius:14px;padding:18px">
+                    <div class="st" style="font-size:.95rem">📊 نتيجة تقييم ${a.entityName}</div>
+                    <div style="text-align:center;margin-bottom:14px">
+                        <div style="font-size:3rem;font-weight:900;color:${scColor}">${sc}%</div>
+                        <div style="font-size:12px;color:var(--text2)">مستوى الجودة والامتثال</div>
+                    </div>
+                    ${a.strengths.length > 0 ? `<div style="font-size:12px;font-weight:700;color:var(--green);margin-bottom:6px">✅ نقاط القوة</div>
+                    ${a.strengths.map(s=>`<div style="font-size:12px;color:var(--text2);padding:2px 0">✓ ${s.standard}</div>`).join('')}` : ''}
+                    ${a.gaps.length > 0 ? `<div style="font-size:12px;font-weight:700;color:var(--red);margin:8px 0 6px">❌ الفجوات</div>
+                    ${a.gaps.map(g=>`<div style="font-size:12px;color:var(--text2);padding:2px 0">◦ ${g.standard} — <span style="color:var(--gold)">${g.action}</span></div>`).join('')}` : ''}
+                    <div style="margin-top:10px;background:rgba(212,175,55,.06);border-radius:8px;padding:10px">
+                        <div style="font-size:12px;font-weight:700;color:var(--gold);margin-bottom:6px">💡 التوصيات</div>
+                        ${a.recommendations.map(r=>`<div style="font-size:12px;color:var(--text2);padding:2px 0">→ ${r}</div>`).join('')}
+                    </div>
+                    <div style="font-size:11px;color:var(--teal);margin-top:8px">☪️ ${a.islamicNote}</div>
+                </div>`;
+            msg.innerHTML='✅ تم التقييم بنجاح'; msg.className='fr ok'; msg.style.display='block';
+        }
+    } catch(e) { msg.innerHTML='❌ خطأ في الاتصال'; msg.className='fr err'; msg.style.display='block'; }
+    btn.disabled=false; btn.textContent='🔍 قيّم مستوى الجودة الآن';
+}
+
+// ═════════════════════════════════════════════
+// Render Standards
+// ═════════════════════════════════════════════
+function renderStandardCard(s, type) {
+    const importanceColor = {'حرجة':'var(--red)','عالية':'var(--gold)','متوسطة':'var(--text2)'}[s.importance] || 'var(--text2)';
+    return `<div class="sc ${type}" id="sc-${s.id}">
+        <div class="sc-head" onclick="this.nextElementSibling.classList.toggle('open')">
+            <span class="sc-code">${s.code}</span>
+            <div style="flex:1">
+                <div class="sc-name">${s.nameAr}</div>
+                <div style="font-size:11px;color:var(--text2)">${s.nameEn || ''}</div>
+            </div>
+            <span style="font-size:10px;font-weight:700;color:${importanceColor}">${s.importance}</span>
+            <span style="color:var(--text2);margin-right:4px">▾</span>
+        </div>
+        <div class="sc-body">
+            <div style="font-size:12px;color:var(--text2);margin-bottom:8px">${s.body}</div>
+            ${s.islamicLink ? `<div style="background:rgba(212,175,55,.06);border-radius:8px;padding:8px;font-size:12px;color:var(--gold);margin-bottom:8px">☪️ ${s.islamicLink}</div>` : ''}
+            ${s.islamicPrinciples ? s.islamicPrinciples.map(p=>`<div style="font-size:11px;color:var(--teal);padding:2px 0">🌙 ${p}</div>`).join('') : ''}
+            ${s.principles ? `<div style="font-size:12px;margin:8px 0 4px;color:var(--text)">المبادئ:</div><div>${s.principles.map(p=>`<span class="tag">${p}</span>`).join('')}</div>` : ''}
+            ${s.requirements ? `<div style="font-size:12px;margin:8px 0 4px;color:var(--text)">المتطلبات:</div><div>${s.requirements.map(r=>`<span class="tag tag-blue">${r}</span>`).join('')}</div>` : ''}
+            ${s.applicableFor ? `<div style="font-size:12px;margin:8px 0 4px;color:var(--text)">ينطبق على:</div><div>${s.applicableFor.map(a=>`<span class="tag tag-gold">${a}</span>`).join('')}</div>` : ''}
+            ${s.implementationSteps ? `<div style="font-size:12px;margin:8px 0 4px;color:var(--text)">خطوات التطبيق:</div>
+            <ol style="padding-right:18px">${s.implementationSteps.map(st=>`<li style="font-size:11px;color:var(--text2);padding:2px 0">${st}</li>`).join('')}</ol>` : ''}
+            <div style="display:flex;gap:6px;margin-top:8px;flex-wrap:wrap">
+                <span class="tag tag-gold">🏛️ ${s.body}</span>
+                ${s.renewalPeriod ? `<span class="tag">🔄 ${s.renewalPeriod}</span>` : ''}
+                ${s.cost ? `<span class="tag">💰 التكلفة: ${s.cost}</span>` : ''}
+            </div>
+        </div>
+    </div>`;
+}
+
+async function renderISO() {
+    const d = await api('/api/certification/iso');
+    document.getElementById('isoList').innerHTML = d.data?.map(s => renderStandardCard(s, 'iso')).join('') || '<div class="ld">لا توجد بيانات</div>';
+}
+async function renderMgmt() {
+    const d = await api('/api/certification/management');
+    document.getElementById('mgmtList').innerHTML = d.data?.map(s => renderStandardCard(s, 'mgmt')).join('') || '<div class="ld">لا توجد بيانات</div>';
+}
+async function renderIslamic() {
+    const d = await api('/api/certification/islamic');
+    document.getElementById('islamicList').innerHTML = d.data?.map(s => renderStandardCard(s, 'islamic')).join('') || '<div class="ld">لا توجد بيانات</div>';
+}
+async function renderTech() {
+    const d = await api('/api/certification/tech');
+    document.getElementById('techList').innerHTML = d.data?.map(s => renderStandardCard(s, 'tech')).join('') || '<div class="ld">لا توجد بيانات</div>';
+}
+
+async function renderPrograms() {
+    const d = await api('/api/certification/programs');
+    if (!d.success) return;
+    document.getElementById('programsList').innerHTML = d.data.map(p => `
+        <div class="cp">
+            <div class="cp-head">
+                <span class="cp-code">${p.code}</span>
+                <div>
+                    <div class="cp-name">${p.nameAr}</div>
+                    <div style="font-size:11px;color:var(--text2)">${p.nameEn}</div>
+                </div>
+                <span style="font-size:10px;color:var(--text2);margin-right:auto">${p.body}</span>
+            </div>
+            <div style="font-size:12px;color:var(--gold);margin-bottom:10px">☪️ ${p.islamicLink}</div>
+            <div style="font-size:12px;font-weight:700;color:var(--text);margin-bottom:6px">معايير التقييم:</div>
+            ${p.criteria.map(c => `
+            <div class="criteria-row">
+                <div class="criteria-w">${c.weight}%</div>
+                <div class="criteria-name">${c.area}</div>
+                <div class="criteria-desc">${c.desc}</div>
+            </div>`).join('')}
+            <div style="margin-top:10px;display:flex;gap:6px;flex-wrap:wrap">
+                <span class="tag tag-gold">🕐 ${p.validity}</span>
+                ${p.benefits?.slice(0,3).map(b=>`<span class="tag tag-green">${b}</span>`).join('') || ''}
+            </div>
+            <button onclick="document.getElementById('issCertId').value='${p.id}';showTab('issue')" 
+                style="margin-top:10px;padding:6px 14px;background:var(--dark3);border:1px solid var(--gold);border-radius:8px;color:var(--gold);cursor:pointer;font-family:'Tajawal',sans-serif;font-size:12px">
+                📜 اطلب هذه الشهادة
+            </button>
+        </div>`).join('');
+}
+
+async function renderPDCA() {
+    const d = await api('/api/certification/quality-frameworks');
+    const ci = await api('/api/certification/continuous-improvement');
+    if (!d.success) return;
+    const qf = d.data;
+
+    let html = '';
+
+    // PDCA
+    html += `<div class="st" style="margin-top:0">🔄 PDCA — دورة ديمنج</div>
+    <div style="font-size:12px;color:var(--gold);margin-bottom:12px">☪️ ${qf.pdca.islamicLink}</div>
+    <div class="pdca">
+        ${qf.pdca.phases.map((p,i) => `
+        <div class="pdca-p ${['plan','do','check','act'][i]}">
+            <div class="pdca-t" style="color:${['var(--blue)','var(--green)','var(--gold)','var(--purple)'][i]}">${p.phase}</div>
+            ${p.steps.map(s=>`<div class="pdca-s">${s}</div>`).join('')}
+        </div>`).join('')}
+    </div>`;
+
+    // DMAIC
+    html += `<div class="st">⚡ DMAIC — Six Sigma</div>
+    <div style="font-size:12px;color:var(--gold);margin-bottom:12px">☪️ ${qf.dmaic.islamicLink}</div>
+    <div class="pdca" style="grid-template-columns:repeat(5,1fr)">
+        ${qf.dmaic.phases.map((p,i) => `
+        <div class="pdca-p" style="background:rgba(168,85,247,.06);border:1px solid rgba(168,85,247,.2)">
+            <div class="pdca-t" style="color:var(--purple)">${p.phase}</div>
+            ${p.steps.map(s=>`<div class="pdca-s">${s}</div>`).join('')}
+        </div>`).join('')}
+    </div>`;
+
+    // Kaizen
+    html += `<div class="st">🌸 كايزن الإسلامي — التحسين المستمر</div>
+    <div style="font-size:12px;color:var(--gold);margin-bottom:12px">☪️ ${qf.kaizenIslamic.islamicLink}</div>
+    <div class="cg">${qf.kaizenIslamic.principles.map(p=>`<div class="c"><div style="font-size:13px;color:var(--text)">🌸 ${p}</div></div>`).join('')}</div>`;
+
+    // CI
+    if (ci.success) {
+        html += `<div class="st">📅 جدول التحسين المستمر التلقائي</div>
+        <div style="font-size:12px;color:var(--gold);margin-bottom:12px">☪️ ${ci.data.islamicNote}</div>
+        <div class="cg">${ci.data.activities.map(a=>`
+        <div class="c">
+            <div style="font-size:.9rem;font-weight:700;color:var(--teal);margin-bottom:4px">${a.activity}</div>
+            <div style="font-size:10px;color:var(--gold);margin-bottom:6px">${a.frequency}</div>
+            <div style="font-size:12px;color:var(--text2)">${a.action}</div>
+        </div>`).join('')}</div>`;
+    }
+
+    document.getElementById('pdcaContent').innerHTML = html;
+}
+
+async function renderBadges() {
+    const d = await api('/api/certification/badges');
+    if (!d.success) return;
+    document.getElementById('badgesGrid').innerHTML = d.data.map(b => `
+        <div class="badge-card" style="border:1px solid ${b.color}33;border-top:3px solid ${b.color}">
+            <div class="badge-icon">${b.icon}</div>
+            <div class="badge-name">${b.nameAr}</div>
+            <div class="badge-level" style="color:${b.color};font-weight:700">${b.level}</div>
+            <div class="badge-criteria">${b.criteria}</div>
+            <div style="font-size:10px;color:var(--text2);margin-top:4px">صالحة: ${b.validFor}</div>
+        </div>`).join('');
+}
+
+async function renderBodies() {
+    const d = await api('/api/certification/bodies');
+    if (!d.success) return;
+    document.getElementById('bodiesList').innerHTML = d.data.map(b => `
+        <div class="c">
+            <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:6px">${b.nameAr}</div>
+            <div style="font-size:11px;color:var(--text2);margin-bottom:4px">${b.nameEn}</div>
+            <div style="font-size:11px;color:var(--copper);margin-bottom:6px">🌍 ${b.country}</div>
+            <div style="font-size:12px;color:var(--text2);margin-bottom:6px">🎯 ${b.focus}</div>
+            <div style="font-size:11px;color:var(--teal)">☪️ ${b.islamicNote}</div>
+            ${b.url ? `<div style="margin-top:8px"><a href="https://${b.url}" target="_blank" rel="noopener" style="font-size:11px;color:var(--blue)">🔗 ${b.url}</a></div>` : ''}
+        </div>`).join('');
+}
+
+// ═════════════════════════════════════════════
+// Verify Certificate
+// ═════════════════════════════════════════════
+async function verifyCert() {
+    const num = document.getElementById('verifyCertNum').value.trim();
+    const res = document.getElementById('verifyResult');
+    const display = document.getElementById('verifyDisplay');
+    if (!num) { res.innerHTML='⚠️ رقم الشهادة مطلوب'; res.className='fr err'; res.style.display='block'; return; }
+    const btn = document.getElementById('btnVerify');
+    btn.disabled=true; btn.textContent='⏳...';
+    try {
+        const d = await api(`/api/certification/verify/${encodeURIComponent(num)}`, {});
+        if (d.success) {
+            res.innerHTML = `${d.data.verificationStatus} — ${d.message}`;
+            res.className = d.data.isValid ? 'fr ok' : 'fr err';
+            res.style.display = 'block';
+            if (d.data.isValid) renderCertificate(d.data);
+        } else { res.innerHTML = '❌ الشهادة غير موجودة'; res.className='fr err'; res.style.display='block'; display.innerHTML=''; }
+    } catch(e) { res.innerHTML='❌ خطأ في الاتصال'; res.className='fr err'; res.style.display='block'; }
+    btn.disabled=false; btn.textContent='✅ تحقق من الشهادة';
+}
+
+// ═════════════════════════════════════════════
+// Init
+// ═════════════════════════════════════════════
+(async () => {
+    await loadStatus();
+    setInterval(loadStatus, 60_000);
+})();
+</script>
+</body>
+</html>

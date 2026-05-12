@@ -9,70 +9,47 @@
     },
     "categories": [
         "AI",
-        "Programming Languages",
-        "Machine Learning",
-        "Data Science",
+        "Chat",
         "Education",
         "Snippets",
-        "Linters",
-        "Notebooks",
         "Other"
     ],
     "keywords": [
         "sheikha",
         "copilot",
         "ai",
-        "ai toolkit",
-        "sdk",
-        "ide",
-        "github",
-        "machine learning",
-        "deep learning",
-        "neural network",
-        "data science",
+        "coding assistant",
+        "developer productivity",
+        "vscode extension",
+        "programming assistant",
         "code suggestions",
         "inline completions",
         "code completion",
         "chat",
         "agent mode",
-        "code review",
+        "inline chat",
         "refactoring",
         "debugging",
-        "unit testing",
         "arabic",
-        "RTL",
+        "rtl",
+        "bilingual",
         "sharia",
-        "intelligent coding",
+        "ethical ai",
+        "safe coding",
         "javascript",
         "typescript",
         "python",
         "nodejs",
-        "react",
-        "vue",
-        "angular",
-        "css",
-        "html",
-        "backend",
-        "frontend",
-        "fullstack",
-        "devops",
-        "azure",
-        "aws",
-        "docker",
-        "kubernetes",
+        "java",
+        "php",
+        "go",
+        "rust",
         "git",
         "security",
         "api",
-        "rest",
-        "graphql",
-        "database",
-        "sql",
-        "nosql",
-        "snippets",
-        "linter",
-        "formatter",
+        "learning",
+        "teaching coding",
         "productivity",
-        "developer tools",
         "islamic",
         "arabic programming"
     ],
@@ -93,6 +70,7 @@
         "END-TO-END.md",
         "LICENSE.md",
         "build-vsix.sh",
+        "scripts/vs-background-server.js",
         "node_modules/node-fetch/**",
         "node_modules/tr46/**",
         "node_modules/webidl-conversions/**",
@@ -143,6 +121,21 @@
             {
                 "command": "sheikha.manageAccount",
                 "title": "Sheikha: إدارة الحساب",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.activateVisualStudioProfessional",
+                "title": "Sheikha: تفعيل Visual Studio Professional",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.activateVisualStudioEnterprise",
+                "title": "Sheikha: تفعيل Visual Studio Enterprise",
+                "category": "Sheikha Account"
+            },
+            {
+                "command": "sheikha.activateAll",
+                "title": "Sheikha: تفعيل الكل",
                 "category": "Sheikha Account"
             },
             {
@@ -294,6 +287,15 @@
                 },
                 {
                     "command": "sheikha.manageAccount"
+                },
+                {
+                    "command": "sheikha.activateVisualStudioProfessional"
+                },
+                {
+                    "command": "sheikha.activateVisualStudioEnterprise"
+                },
+                {
+                    "command": "sheikha.activateAll"
                 },
                 {
                     "command": "sheikha.syncIntegrations"

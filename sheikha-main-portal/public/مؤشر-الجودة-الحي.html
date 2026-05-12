@@ -1,0 +1,516 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>مؤشر شيخة الشامل للجودة | SHEIKHA Quality Index</title>
+<link rel="manifest" href="/manifest.json">
+<link rel="icon" href="/icons/icon-192.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --gold2:#B8960C; --copper:#B87333;
+    --dark:#050508; --dark2:#0a0a10; --dark3:#111118; --dark4:#181824;
+    --text:#e8e8f0; --text2:#9090a8; --text3:#6060788;
+    --green:#27ae60; --blue:#2980b9; --purple:#8e44ad;
+    --teal:#16a085; --red:#e74c3c; --orange:#d35400;
+    --radius:12px; --radius2:20px;
+    --glow: 0 0 20px rgba(212,175,55,.18);
+    --glow2: 0 0 40px rgba(212,175,55,.10);
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{
+    font-family:'Tajawal',sans-serif;
+    background:var(--dark);
+    color:var(--text);
+    min-height:100vh;
+    overflow-x:hidden;
+}
+/* خلفية نجوم */
+body::before{
+    content:'';
+    position:fixed;top:0;left:0;right:0;
+    height:100%;pointer-events:none;z-index:0;
+    background:
+        radial-gradient(ellipse at 20% 50%, rgba(212,175,55,.05) 0%, transparent 60%),
+        radial-gradient(ellipse at 80% 20%, rgba(22,160,133,.04) 0%, transparent 50%);
+}
+.wrap{position:relative;z-index:1;max-width:1400px;margin:0 auto;padding:0 1.5rem}
+
+/* ── Header ─────────────────────────────────────────────────── */
+header{
+    background:linear-gradient(135deg,rgba(10,10,16,.98),rgba(18,18,30,.98));
+    border-bottom:1px solid rgba(212,175,55,.2);
+    padding:1.5rem 0;
+    position:sticky;top:0;z-index:100;
+    backdrop-filter:blur(12px);
+}
+.header-inner{
+    max-width:1400px;margin:0 auto;padding:0 1.5rem;
+    display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:1rem;
+}
+.logo-block{display:flex;align-items:center;gap:1rem}
+.logo-icon{
+    width:56px;height:56px;
+    background:linear-gradient(135deg,var(--gold),var(--copper));
+    border-radius:50%;display:flex;align-items:center;justify-content:center;
+    font-size:1.8rem;box-shadow:0 4px 20px rgba(212,175,55,.3);
+}
+.logo-text h1{font-size:1.4rem;font-weight:900;color:var(--gold);line-height:1.2}
+.logo-text p{font-size:.8rem;color:var(--text2)}
+.nav-links{display:flex;gap:.6rem;flex-wrap:wrap}
+.nav-link{
+    padding:.4rem .9rem;border-radius:20px;font-size:.82rem;
+    color:var(--text2);text-decoration:none;transition:.2s;
+    border:1px solid rgba(255,255,255,.06);
+}
+.nav-link:hover,.nav-link.active{background:rgba(212,175,55,.12);color:var(--gold);border-color:rgba(212,175,55,.3)}
+
+/* ── Hero SQI Gauge ─────────────────────────────────────────── */
+.hero{
+    padding:3rem 0 2rem;
+    text-align:center;
+}
+.hero-verse{
+    font-size:1.15rem;color:var(--gold);
+    margin-bottom:2rem;opacity:.9;
+    font-style:italic;
+}
+.sqi-gauge-wrap{
+    display:flex;justify-content:center;align-items:center;
+    gap:3rem;flex-wrap:wrap;margin-bottom:2.5rem;
+}
+.sqi-ring{
+    position:relative;width:220px;height:220px;
+}
+.sqi-ring svg{transform:rotate(-90deg)}
+.sqi-ring__bg{fill:none;stroke:rgba(255,255,255,.06);stroke-width:14}
+.sqi-ring__fill{
+    fill:none;stroke:url(#goldGrad);stroke-width:14;
+    stroke-linecap:round;
+    stroke-dasharray:628;stroke-dashoffset:628;
+    transition:stroke-dashoffset 2.2s cubic-bezier(.4,0,.2,1);
+}
+.sqi-ring__inner{
+    position:absolute;inset:0;
+    display:flex;flex-direction:column;align-items:center;justify-content:center;
+    pointer-events:none;
+}
+.sqi-value{font-size:3rem;font-weight:900;color:var(--gold);line-height:1}
+.sqi-label{font-size:.9rem;color:var(--text2);margin-top:.3rem}
+.sqi-grade{
+    font-size:1.2rem;font-weight:700;margin-top:.4rem;
+}
+.sqi-meta{text-align:right}
+.sqi-meta h2{font-size:1.8rem;font-weight:900;color:var(--text);margin-bottom:.4rem}
+.sqi-meta .seal{
+    display:inline-flex;align-items:center;gap:.5rem;
+    background:linear-gradient(135deg,rgba(39,174,96,.15),rgba(39,174,96,.05));
+    border:1px solid rgba(39,174,96,.3);
+    color:var(--green);padding:.5rem 1.2rem;border-radius:20px;
+    font-size:.88rem;font-weight:600;margin-bottom:.8rem;
+}
+.sqi-meta .dna{
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    border-radius:8px;padding:.4rem .8rem;
+    font-family:monospace;font-size:.78rem;color:var(--text2);
+    word-break:break-all;
+}
+.sqi-stats{
+    display:flex;gap:1rem;flex-wrap:wrap;justify-content:center;
+    margin-top:1.5rem;
+}
+.sqi-stat{
+    background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);
+    border-radius:10px;padding:.8rem 1.2rem;min-width:110px;text-align:center;
+}
+.sqi-stat .num{font-size:1.5rem;font-weight:700;color:var(--gold)}
+.sqi-stat .lbl{font-size:.76rem;color:var(--text2);margin-top:.2rem}
+
+/* ── Sections ───────────────────────────────────────────────── */
+.section{margin:2rem 0}
+.section-title{
+    font-size:1.25rem;font-weight:700;color:var(--gold);
+    margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;
+}
+.section-title::after{
+    content:'';flex:1;height:1px;
+    background:linear-gradient(to left,transparent,rgba(212,175,55,.2));
+}
+
+/* Dimensions grid */
+.dims-grid{
+    display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;
+}
+.dim-card{
+    background:linear-gradient(135deg,rgba(255,255,255,.04),rgba(255,255,255,.02));
+    border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);
+    padding:1.2rem;transition:.25s;
+}
+.dim-card:hover{border-color:rgba(212,175,55,.25);transform:translateY(-2px)}
+.dim-header{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
+.dim-icon{font-size:1.4rem}
+.dim-name{font-size:1rem;font-weight:700}
+.dim-weight{
+    margin-right:auto;background:rgba(212,175,55,.1);
+    color:var(--gold);border-radius:12px;padding:.15rem .5rem;
+    font-size:.75rem;font-weight:600;
+}
+.dim-bar-wrap{background:rgba(255,255,255,.05);border-radius:4px;height:8px;overflow:hidden;margin:.6rem 0}
+.dim-bar{height:100%;border-radius:4px;background:linear-gradient(to left,var(--gold),var(--copper));transition:width 1.8s ease}
+.dim-percent{text-align:left;font-size:.85rem;font-weight:700;color:var(--gold)}
+.dim-verse{font-size:.78rem;color:var(--text2);margin-top:.5rem;font-style:italic}
+
+/* KPI Live Grid */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.kpi-engine{
+    background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.07);
+    border-radius:var(--radius);padding:1rem;
+}
+.kpi-engine-title{font-size:.95rem;font-weight:700;color:var(--text);margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.kpi-row{
+    display:flex;align-items:center;justify-content:space-between;
+    padding:.35rem 0;border-bottom:1px solid rgba(255,255,255,.04);font-size:.82rem;
+}
+.kpi-row:last-child{border:none}
+.kpi-name{color:var(--text2);flex:1}
+.kpi-val{font-weight:700;color:var(--text)}
+.kpi-status{margin-right:.4rem}
+
+/* Engines health */
+.engines-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.7rem}
+.engine-chip{
+    background:rgba(39,174,96,.06);border:1px solid rgba(39,174,96,.2);
+    border-radius:10px;padding:.7rem 1rem;display:flex;align-items:center;gap:.7rem;
+    font-size:.85rem;
+}
+.engine-phase{
+    background:rgba(212,175,55,.12);color:var(--gold);
+    border-radius:8px;padding:.15rem .5rem;font-size:.72rem;font-weight:700;white-space:nowrap;
+}
+.engine-name{flex:1;color:var(--text)}
+.engine-status{font-size:.9rem}
+
+/* Certificate */
+.cert-card{
+    background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.04));
+    border:1px solid rgba(212,175,55,.25);
+    border-radius:var(--radius2);padding:2rem;
+    text-align:center;max-width:640px;margin:0 auto;
+}
+.cert-seal{font-size:3rem;margin-bottom:.5rem}
+.cert-id{font-family:monospace;font-size:.8rem;color:var(--text2);margin:.4rem 0}
+.cert-grade{font-size:2rem;font-weight:900;color:var(--gold)}
+.cert-details{
+    display:flex;flex-wrap:wrap;gap:.6rem;justify-content:center;margin-top:1rem;
+}
+.cert-tag{
+    background:rgba(255,255,255,.06);border-radius:8px;
+    padding:.35rem .8rem;font-size:.78rem;color:var(--text2);
+}
+
+/* Refresh button */
+.refresh-btn{
+    display:inline-flex;align-items:center;gap:.5rem;
+    background:linear-gradient(135deg,var(--gold),var(--copper));
+    color:#000;font-weight:700;font-size:.88rem;
+    padding:.6rem 1.4rem;border-radius:24px;border:none;
+    cursor:pointer;transition:.2s;box-shadow:0 4px 16px rgba(212,175,55,.3);
+    font-family:'Tajawal',sans-serif;
+}
+.refresh-btn:hover{transform:translateY(-1px);box-shadow:0 6px 20px rgba(212,175,55,.45)}
+.refresh-btn:active{transform:translateY(0)}
+
+/* Loading */
+.loading{
+    display:flex;align-items:center;justify-content:center;
+    gap:.7rem;padding:2rem;color:var(--text2);
+}
+.spinner{
+    width:24px;height:24px;border:3px solid rgba(212,175,55,.2);
+    border-top-color:var(--gold);border-radius:50%;
+    animation:spin 1s linear infinite;
+}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Footer */
+footer{
+    text-align:center;padding:2rem;color:var(--text2);font-size:.82rem;
+    border-top:1px solid rgba(255,255,255,.06);margin-top:3rem;
+}
+
+/* Hadith banner */
+.hadith-banner{
+    background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.04));
+    border:1px solid rgba(212,175,55,.15);border-radius:var(--radius);
+    padding:1rem 1.5rem;text-align:center;margin:1.5rem 0;
+}
+.hadith-text{font-size:1rem;color:var(--gold);font-weight:500}
+.hadith-source{font-size:.78rem;color:var(--text2);margin-top:.25rem}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header>
+<div class="header-inner">
+    <div class="logo-block">
+        <div class="logo-icon">⚖️</div>
+        <div class="logo-text">
+            <h1>مؤشر شيخة الشامل</h1>
+            <p>Sheikha Universal Quality Index — SQI</p>
+        </div>
+    </div>
+    <nav class="nav-links">
+        <a href="/" class="nav-link">الرئيسية</a>
+        <a href="/سوق-شيخة.html" class="nav-link">السوق</a>
+        <a href="/المعايير-والجودة.html" class="nav-link">المعايير</a>
+        <a href="/التكامل-الشامل.html" class="nav-link">التكامل</a>
+        <a href="/لوحة-الادمن.html" class="nav-link">الإدارة</a>
+    </nav>
+</div>
+</header>
+
+<div class="wrap">
+
+<!-- آية الميزان -->
+<div class="hadith-banner" style="margin-top:2rem">
+    <div class="hadith-text">﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾</div>
+    <div class="hadith-source">سورة الإسراء — آية ٣٥</div>
+</div>
+
+<!-- Hero Gauge -->
+<section class="hero">
+    <div id="heroLoading" class="loading"><div class="spinner"></div> جاري حساب المؤشر...</div>
+    <div id="heroContent" style="display:none">
+        <div class="sqi-gauge-wrap">
+            <!-- Ring SVG -->
+            <div class="sqi-ring" id="sqiRing">
+                <svg width="220" height="220" viewBox="0 0 220 220">
+                    <defs>
+                        <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="0%">
+                            <stop offset="0%" stop-color="#D4AF37"/>
+                            <stop offset="100%" stop-color="#B87333"/>
+                        </linearGradient>
+                    </defs>
+                    <circle class="sqi-ring__bg" cx="110" cy="110" r="96"/>
+                    <circle class="sqi-ring__fill" id="ringFill" cx="110" cy="110" r="96"/>
+                </svg>
+                <div class="sqi-ring__inner">
+                    <div class="sqi-value" id="sqiValue">--</div>
+                    <div class="sqi-label">SQI / 100</div>
+                    <div class="sqi-grade" id="sqiGrade">--</div>
+                </div>
+            </div>
+            <!-- Meta -->
+            <div class="sqi-meta">
+                <h2>مؤشر شيخة الشامل للجودة</h2>
+                <div class="seal" id="shariaSeal">⏳ جاري التحقق...</div>
+                <div style="font-size:.82rem;color:var(--text2);margin-bottom:.5rem">بصمة DNA جودة شيخة:</div>
+                <div class="dna" id="sqiDna">--</div>
+            </div>
+        </div>
+        <div class="sqi-stats" id="sqiStats"></div>
+        <div style="margin-top:1.5rem">
+            <button class="refresh-btn" onclick="loadAll(true)">🔄 تحديث المؤشر</button>
+        </div>
+    </div>
+</section>
+
+<!-- حديث الإتقان -->
+<div class="hadith-banner">
+    <div class="hadith-text">«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ»</div>
+    <div class="hadith-source">رواه الطبراني والبيهقي — صحيح</div>
+</div>
+
+<!-- أبعاد المؤشر -->
+<section class="section">
+    <div class="section-title">📊 أبعاد مؤشر شيخة الخمسة</div>
+    <div class="dims-grid" id="dimsGrid">
+        <div class="loading"><div class="spinner"></div> جاري التحميل...</div>
+    </div>
+</section>
+
+<!-- KPIs الحية -->
+<section class="section">
+    <div class="section-title">📡 مؤشرات الأداء الحية للمحركات</div>
+    <div class="kpi-grid" id="kpiGrid">
+        <div class="loading"><div class="spinner"></div> جاري التحميل...</div>
+    </div>
+</section>
+
+<!-- المحركات المُسجَّلة -->
+<section class="section">
+    <div class="section-title">⚙️ محركات منظومة شيخة المُفعَّلة</div>
+    <div class="engines-grid" id="enginesGrid">
+        <div class="loading"><div class="spinner"></div> جاري التحميل...</div>
+    </div>
+</section>
+
+<!-- الشهادة الرقمية -->
+<section class="section">
+    <div class="section-title">🏅 الشهادة الرقمية لمنظومة شيخة</div>
+    <div id="certBlock" class="loading"><div class="spinner"></div> جاري إصدار الشهادة...</div>
+</section>
+
+</div><!-- /wrap -->
+
+<footer>
+    <div>منظومة شيخة — الاقتصاد الإسلامي الرقمي الأول | sheikha.top</div>
+    <div style="margin-top:.4rem;font-size:.75rem;opacity:.5">
+        ﴿وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ﴾
+    </div>
+</footer>
+
+<script>
+const API = '';
+
+// ── جلب المؤشر ─────────────────────────────────────────────
+async function loadAll(force = false) {
+    document.getElementById('heroLoading').style.display = 'flex';
+    document.getElementById('heroContent').style.display  = 'none';
+
+    try {
+        const [sqiRes, kpiRes, engRes, certRes] = await Promise.all([
+            fetch(`${API}/api/sheikha-index/live-dashboard${force ? '?refresh=1' : ''}`),
+            fetch(`${API}/api/sheikha-index/kpis`),
+            fetch(`${API}/api/sheikha-index/engines`),
+            fetch(`${API}/api/sheikha-index/certificate`),
+        ]);
+
+        const sqiData  = await sqiRes.json();
+        const kpiData  = await kpiRes.json();
+        const engData  = await engRes.json();
+        const certData = await certRes.json();
+
+        if (sqiData.success) renderHero(sqiData.data.sqi, sqiData.data.health);
+        if (sqiData.success) renderDims(sqiData.data.sqi.dimensions);
+        if (kpiData.success) renderKPIs(kpiData.data.all_engines);
+        if (engData.success) renderEngines(engData.data);
+        if (certData.success) renderCert(certData.data);
+
+    } catch(e) {
+        document.getElementById('heroLoading').innerHTML = '<span style="color:#e74c3c">⚠️ تعذّر الاتصال بالخادم</span>';
+    }
+}
+
+// ── عرض Hero ────────────────────────────────────────────────
+function renderHero(sqi, health) {
+    const score  = sqi.sqi;
+    const circ   = 2 * Math.PI * 96; // ≈ 603.2
+    const offset = circ - (score / 100) * circ;
+
+    document.getElementById('sqiValue').textContent = score;
+    document.getElementById('sqiGrade').textContent = sqi.grade_ar;
+    document.getElementById('sqiDna').textContent   = sqi.quality_dna;
+    document.getElementById('shariaSeal').textContent = sqi.sharia_seal;
+
+    // تلوين الدرجة
+    const gradeEl = document.getElementById('sqiGrade');
+    gradeEl.style.color = score >= 90 ? '#27ae60' : score >= 80 ? '#D4AF37' : score >= 70 ? '#d35400' : '#e74c3c';
+
+    // تحريك الحلقة
+    setTimeout(() => {
+        document.getElementById('ringFill').style.strokeDashoffset = offset;
+    }, 200);
+
+    // الإحصاءات السريعة
+    const stats = [
+        { num: score,                  lbl: 'SQI الكلي' },
+        { num: sqi.total_phases + '+', lbl: 'مرحلة مُفعَّلة' },
+        { num: sqi.total_apis,          lbl: 'API نشط' },
+        { num: health.active_engines,   lbl: 'محرك مُسجَّل' },
+        { num: Object.keys(sqi.dimensions).length, lbl: 'بُعد مُقاس' },
+    ];
+    document.getElementById('sqiStats').innerHTML = stats.map(s =>
+        `<div class="sqi-stat"><div class="num">${s.num}</div><div class="lbl">${s.lbl}</div></div>`
+    ).join('');
+
+    document.getElementById('heroLoading').style.display = 'none';
+    document.getElementById('heroContent').style.display  = 'block';
+}
+
+// ── عرض الأبعاد ─────────────────────────────────────────────
+function renderDims(dims) {
+    const container = document.getElementById('dimsGrid');
+    container.innerHTML = Object.entries(dims).map(([id, d]) => `
+        <div class="dim-card">
+            <div class="dim-header">
+                <span class="dim-icon">${d.icon}</span>
+                <span class="dim-name">${d.name}</span>
+                <span class="dim-weight">${d.weight}%</span>
+            </div>
+            <div class="dim-bar-wrap">
+                <div class="dim-bar" style="width:0%" data-target="${d.percent}"></div>
+            </div>
+            <div class="dim-percent">${d.percent}% — ${d.grade}</div>
+            <div class="dim-verse">${d.verse}</div>
+        </div>
+    `).join('');
+
+    // تحريك الأشرطة
+    setTimeout(() => {
+        document.querySelectorAll('.dim-bar').forEach(bar => {
+            bar.style.width = bar.dataset.target + '%';
+        });
+    }, 300);
+}
+
+// ── عرض KPIs ───────────────────────────────────────────────
+function renderKPIs(engines) {
+    const container = document.getElementById('kpiGrid');
+    container.innerHTML = Object.entries(engines).map(([id, eng]) => `
+        <div class="kpi-engine">
+            <div class="kpi-engine-title">📊 ${eng.name}</div>
+            ${eng.kpis.map(k => `
+                <div class="kpi-row">
+                    <span class="kpi-name">${k.name}</span>
+                    <span class="kpi-val">${k.value} ${k.unit}</span>
+                    <span class="kpi-status">${k.status}</span>
+                </div>
+            `).join('')}
+        </div>
+    `).join('');
+}
+
+// ── عرض المحركات ────────────────────────────────────────────
+function renderEngines(engines) {
+    const container = document.getElementById('enginesGrid');
+    container.innerHTML = engines.map(e => `
+        <div class="engine-chip">
+            <span class="engine-phase">مرحلة ${e.phase}</span>
+            <span class="engine-name">${e.name}</span>
+            <span class="engine-status">✅</span>
+        </div>
+    `).join('');
+}
+
+// ── عرض الشهادة ─────────────────────────────────────────────
+function renderCert(cert) {
+    document.getElementById('certBlock').innerHTML = `
+        <div class="cert-card">
+            <div class="cert-seal">🏅</div>
+            <div style="font-size:1.4rem;font-weight:900;color:var(--text);margin:.4rem 0">شهادة جودة منظومة شيخة</div>
+            <div class="cert-id">${cert.certificate_id}</div>
+            <div class="cert-grade">${cert.grade} — ${cert.score}/100</div>
+            <div style="color:var(--green);margin:.5rem 0">${cert.sharia_seal}</div>
+            <div class="cert-details">
+                <span class="cert-tag">📋 ${cert.standard}</span>
+                <span class="cert-tag">✅ ${cert.checks_count} فحص</span>
+                <span class="cert-tag">📅 صلاحية: ${cert.validity}</span>
+                <span class="cert-tag">🧬 DNA: ${cert.quality_dna.slice(0,12)}...</span>
+            </div>
+            <div style="margin-top:1rem;font-size:.82rem;color:var(--text2)">${cert.quran_ref}</div>
+        </div>
+    `;
+}
+
+// ── تشغيل تلقائي ────────────────────────────────────────────
+loadAll();
+
+// تحديث كل دقيقتين
+setInterval(() => loadAll(true), 120_000);
+</script>
+</body>
+</html>

@@ -1,0 +1,347 @@
+{
+  "covenant": {
+    "title": "ميثاق أهداف الوزارات والإمارات",
+    "basis": "تعمق الأهداف الوطنية على مستوى القطاع",
+    "principle": "كل وزارة تكيف الأهداف الوطنية لتخصصها"
+  },
+  "ministryGoals": [
+    {
+      "id": "MOI-GOALS-001",
+      "ministry": "وزارة الداخلية | Ministry of Interior",
+      "sheikhaEntity": "Sheikha-MoI",
+      "category": "governmental-services",
+      "linkedNationalGoals": [
+        "KG-2026-001",
+        "KG-2026-002",
+        "SG-2026-001"
+      ],
+      "goals": [
+        {
+          "id": "MOI-G-001",
+          "title": "تطوير خدمات الأحوال المدنية الرقمية",
+          "description": "تحويل جميع خدمات الأحوال المدنية إلى خدمات رقمية متكاملة",
+          "linkedToNational": "KG-2026-002",
+          "metrics": [
+            {
+              "name": "نسبة الخدمات الرقمية",
+              "unit": "%",
+              "target": 100,
+              "current": 0
+            },
+            {
+              "name": "متوسط وقت الخدمة",
+              "unit": "دقيقة",
+              "target": 10,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31",
+          "budget": "200M SAR",
+          "kpiFormula": "min(digital_services_pct, 100) * 0.5 + (1 - service_time/target_time) * 0.5"
+        },
+        {
+          "id": "MOI-G-002",
+          "title": "تحقيق الشفافية الكاملة في العمليات الأمنية",
+          "description": "توثيق وتشفير جميع العمليات الأمنية بطريقة آمنة وشفافة",
+          "linkedToNational": "KG-2026-001",
+          "metrics": [
+            {
+              "name": "نسبة التوثيق",
+              "unit": "%",
+              "target": 100,
+              "current": 0
+            },
+            {
+              "name": "مؤشر الثقة العام",
+              "unit": "%",
+              "target": 95,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        },
+        {
+          "id": "MOI-G-003",
+          "title": "تكامل المراكز الأمنية في السوق الموحدة",
+          "description": "ربط جميع المراكز الأمنية بمنصة شيخة للمراقبة والتنسيق",
+          "linkedToNational": "CPG-2026-001",
+          "metrics": [
+            {
+              "name": "عدد المراكز المربوطة",
+              "unit": "مركز",
+              "target": 1500,
+              "current": 0
+            },
+            {
+              "name": "سرعة التنسيق",
+              "unit": "دقيقة",
+              "target": 5,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-06-30"
+        }
+      ]
+    },
+    {
+      "id": "MOH-GOALS-001",
+      "ministry": "وزارة الصحة | Ministry of Health",
+      "sheikhaEntity": "Sheikha-MoH",
+      "category": "health-services",
+      "linkedNationalGoals": [
+        "SG-2026-001",
+        "SG-2026-003"
+      ],
+      "goals": [
+        {
+          "id": "MOH-G-001",
+          "title": "توحيد سجلات المريض الطبية",
+          "description": "بناء سجل موحد للمريض يتكامل مع جميع المستشفيات والعيادات",
+          "linkedToNational": "KG-2026-002",
+          "metrics": [
+            {
+              "name": "نسبة التغطية",
+              "unit": "%",
+              "target": 100,
+              "current": 0
+            },
+            {
+              "name": "جودة البيانات",
+              "unit": "%",
+              "target": 98,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        },
+        {
+          "id": "MOH-G-002",
+          "title": "توفير الرعاية الصحية العادلة",
+          "description": "ضمان وصول جميع فئات المجتمع للرعاية الصحية بجودة عالية",
+          "linkedToNational": "SG-2026-003",
+          "metrics": [
+            {
+              "name": "الفئات المستفيدة",
+              "unit": "نوع",
+              "target": 20,
+              "current": 0
+            },
+            {
+              "name": "مؤشر الرضا",
+              "unit": "%",
+              "target": 92,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        }
+      ]
+    },
+    {
+      "id": "MOE-GOALS-001",
+      "ministry": "وزارة التعليم | Ministry of Education",
+      "sheikhaEntity": "Sheikha-MoE",
+      "category": "education-services",
+      "linkedNationalGoals": [
+        "SG-2026-001",
+        "KG-2026-003"
+      ],
+      "goals": [
+        {
+          "id": "MOE-G-001",
+          "title": "تكامل التعليم العام والجامعي والمهني",
+          "description": "بناء جسور تكاملية بين المسارات التعليمية المختلفة",
+          "linkedToNational": "KG-2026-001",
+          "metrics": [
+            {
+              "name": "عدد الجسور التكاملية",
+              "unit": "جسر",
+              "target": 100,
+              "current": 0
+            },
+            {
+              "name": "رضا الطلاب والأسر",
+              "unit": "%",
+              "target": 88,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        }
+      ]
+    },
+    {
+      "id": "MOF-GOALS-001",
+      "ministry": "وزارة المالية | Ministry of Finance",
+      "sheikhaEntity": "Sheikha-MoF",
+      "category": "financial-services",
+      "linkedNationalGoals": [
+        "KG-2026-003",
+        "SG-2026-002"
+      ],
+      "goals": [
+        {
+          "id": "MOF-G-001",
+          "title": "رقمنة البرامج والموازنات الحكومية",
+          "description": "تحويل جميع المعاملات المالية الحكومية إلى نظام رقمي موحد",
+          "linkedToNational": "KG-2026-002",
+          "metrics": [
+            {
+              "name": "اكتمالية التحويل",
+              "unit": "%",
+              "target": 100,
+              "current": 0
+            },
+            {
+              "name": "الشفافية المالية",
+              "unit": "%",
+              "target": 99,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        }
+      ]
+    },
+    {
+      "id": "SDAIA-GOALS-001",
+      "ministry": "الهيئة السعودية للبيانات والذكاء الاصطناعي | SDAIA",
+      "sheikhaEntity": "Sheikha-SDAIA",
+      "category": "data-ai-services",
+      "linkedNationalGoals": [
+        "KG-2026-002",
+        "CPG-2026-002"
+      ],
+      "goals": [
+        {
+          "id": "SDAIA-G-001",
+          "title": "بناء هياكل البيانات الموحدة",
+          "description": "توحيد معايير جمع وتخزين ومعالجة البيانات عبر المؤسسات",
+          "linkedToNational": "KG-2026-002",
+          "metrics": [
+            {
+              "name": "معايير موحدة",
+              "unit": "معيار",
+              "target": 50,
+              "current": 0
+            },
+            {
+              "name": "نسبة الامتثال",
+              "unit": "%",
+              "target": 100,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-06-30"
+        },
+        {
+          "id": "SDAIA-G-002",
+          "title": "تطوير أنظمة الاستشارات الذكية",
+          "description": "بناء محركات توصيات ذكية لتحسين الأهداف المؤسسية",
+          "linkedToNational": "CPG-2026-002",
+          "metrics": [
+            {
+              "name": "دقة التوصيات",
+              "unit": "%",
+              "target": 85,
+              "current": 0
+            },
+            {
+              "name": "سرعة المعالجة",
+              "unit": "ثانية",
+              "target": 5,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        }
+      ]
+    }
+  ],
+  "emirateGoals": [
+    {
+      "id": "RIYADH-EMIRATE-GOALS-001",
+      "emirate": "إمارة الرياض | Riyadh Region",
+      "sheikhaEntity": "Sheikha-Emirate-Riyadh",
+      "parentGovernance": "Crown-Prince-Office",
+      "category": "regional-development",
+      "linkedNationalGoals": [
+        "KG-2026-001",
+        "SG-2026-001",
+        "SG-2026-002"
+      ],
+      "goals": [
+        {
+          "id": "RIYADH-G-001",
+          "title": "تطوير المدينة الرقمية الذكية",
+          "description": "تحويل الرياض إلى نموذج رقمي ذكي للمدن السعودية",
+          "linkedToNational": "KG-2026-002",
+          "metrics": [
+            {
+              "name": "عدد الخدمات الرقمية",
+              "unit": "خدمة",
+              "target": 500,
+              "current": 0
+            },
+            {
+              "name": "رضا السكان",
+              "unit": "%",
+              "target": 90,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        }
+      ]
+    },
+    {
+      "id": "MAKKAH-EMIRATE-GOALS-001",
+      "emirate": "إمارة مكة المكرمة | Makkah Region",
+      "sheikhaEntity": "Sheikha-Emirate-Makkah",
+      "parentGovernance": "Crown-Prince-Office",
+      "category": "religious-tourism-economic",
+      "linkedNationalGoals": [
+        "SG-2026-001",
+        "SG-2026-002",
+        "KG-2026-003"
+      ],
+      "goals": [
+        {
+          "id": "MAKKAH-G-001",
+          "title": "تكامل خدمات الحج والعمرة",
+          "description": "توحيد جميع خدمات الحج والعمرة في منصة واحدة آمنة وشفافة",
+          "linkedToNational": "KG-2026-002",
+          "metrics": [
+            {
+              "name": "عدد الحجاج المخدومين",
+              "unit": "حاج",
+              "target": 2000000,
+              "current": 0
+            },
+            {
+              "name": "مؤشر الرضا",
+              "unit": "%",
+              "target": 95,
+              "current": 0
+            }
+          ],
+          "timeline": "2026-12-31"
+        }
+      ]
+    }
+  ],
+  "refreshMechanism": {
+    "quarterly": true,
+    "annualMajorReview": "2027-01-01",
+    "trigger": "achievement-tracking-system",
+    "updateProcess": "ministry-wide-consultation"
+  },
+  "metadata": {
+    "generatedAt": "2026-03-21T20:11:00.877Z",
+    "version": "1.0.0",
+    "buildScript": "sheikha-ministry-goals-build.js",
+    "totalMinistries": 7,
+    "totalEmriates": 4,
+    "totalGoals": 20
+  }
+}

@@ -1,0 +1,513 @@
+{
+  "program": "SHEIKHA_GLOBAL_COUNTRY_CLASSIFICATIONS",
+  "version": "2.0.0",
+  "generatedAt": "2026-03-22T22:40:00.000Z",
+  "sourceOfTruth": "Real-world data + Islamic principles",
+  "covenantBasis": "الكتاب والسنة + العدل + الإحسان",
+  "objectiveAr": "تصنيف دول العالم بناءً على معايير متعددة لتحقيق التكامل والتطور المستدام والعدل الحضاري",
+  "classificationDimensions": {
+    "geography": {
+      "nameAr": "التصنيف الجغرافي (القارات)",
+      "priority": 1,
+      "status": "active",
+      "continents": [
+        {
+          "id": "africa",
+          "nameAr": "أفريقيا",
+          "englishName": "Africa",
+          "countries": 54,
+          "developmentTier": "Mixed",
+          "keyCountries": ["مصر", "نيجيريا", "جنوب أفريقيا", "إثيوبيا", "كينيا"],
+          "englishKeyCountries": ["Egypt", "Nigeria", "South Africa", "Ethiopia", "Kenya"],
+          "population": "1.4B",
+          "gdp": "$3.1T",
+          "growthRate": "4.5%"
+        },
+        {
+          "id": "asia",
+          "nameAr": "آسيا",
+          "englishName": "Asia",
+          "countries": 48,
+          "developmentTier": "Highly Mixed",
+          "keyCountries": ["الصين", "الهند", "اليابان", "السعودية", "إندونيسيا"],
+          "englishKeyCountries": ["China", "India", "Japan", "Saudi Arabia", "Indonesia"],
+          "population": "4.7B",
+          "gdp": "$35T",
+          "growthRate": "5.2%"
+        },
+        {
+          "id": "europe",
+          "nameAr": "أوروبا",
+          "englishName": "Europe",
+          "countries": 44,
+          "developmentTier": "Developed",
+          "keyCountries": ["فرنسا", "ألمانيا", "بريطانيا", "إيطاليا", "إسبانيا"],
+          "englishKeyCountries": ["France", "Germany", "UK", "Italy", "Spain"],
+          "population": "0.75B",
+          "gdp": "$18T",
+          "growthRate": "1.8%"
+        },
+        {
+          "id": "americas",
+          "nameAr": "الأمريكيتان",
+          "englishName": "Americas",
+          "countries": 35,
+          "developmentTier": "Mixed",
+          "keyCountries": ["الولايات المتحدة", "كندا", "البرازيل", "المكسيك", "الأرجنتين"],
+          "englishKeyCountries": ["USA", "Canada", "Brazil", "Mexico", "Argentina"],
+          "population": "1.0B",
+          "gdp": "$32T",
+          "growthRate": "2.5%"
+        },
+        {
+          "id": "oceania",
+          "nameAr": "أوقيانوسيا",
+          "englishName": "Oceania",
+          "countries": 14,
+          "developmentTier": "Developed",
+          "keyCountries": ["أستراليا", "نيوزيلندا", "جزر الفيجي"],
+          "englishKeyCountries": ["Australia", "New Zealand", "Fiji"],
+          "population": "0.045B",
+          "gdp": "$1.8T",
+          "growthRate": "2.1%"
+        }
+      ]
+    },
+    "education": {
+      "nameAr": "التصنيف التعليمي",
+      "priority": 2,
+      "status": "active",
+      "tiers": [
+        {
+          "id": "tier-1-education",
+          "nameAr": "دول متقدمة تعليمياً",
+          "description": "معدل التحاق بالتعليم العالي > 70%",
+          "countries": ["فنلندا", "هولندا", "السويد", "بريطانيا", "اليابان", "كوريا الجنوبية", "الدنمارك", "بلجيكا", "سويسرا", "كندا"],
+          "literacy": ">99%",
+          "universityRate": "70-85%",
+          "qiScore": "500+"
+        },
+        {
+          "id": "tier-2-education",
+          "nameAr": "دول متوسطة تعليمياً",
+          "description": "معدل الالتحاق 40-70%",
+          "countries": ["الصين", "الهند", "البرازيل", "روسيا", "المكسيك", "تركيا", "مصر", "إيران", "باكستان"],
+          "literacy": "80-98%",
+          "universityRate": "40-70%",
+          "qiScore": "300-500"
+        },
+        {
+          "id": "tier-3-education",
+          "nameAr": "دول نامية تعليمياً",
+          "description": "معدل الالتحاق < 40%",
+          "countries": ["أفريقيا الوسطى", "بوركينا فاسو", "مالي", "النيجر", "تشاد", "سيراليون"],
+          "literacy": "<80%",
+          "universityRate": "<40%",
+          "qiScore": "<300"
+        }
+      ]
+    },
+    "wealth": {
+      "nameAr": "التصنيف الاقتصادي (الثروة)",
+      "priority": 3,
+      "status": "active",
+      "tiers": [
+        {
+          "id": "high-income",
+          "nameAr": "دول عالية الدخل",
+          "gdpPerCapita": ">$50,000",
+          "countries": ["الولايات المتحدة", "السويس", "النرويج", "الدنمارك", "أيسلندا", "لوكسمبرج", "قطر", "الإمارات", "السعودية", "اليابان", "ألمانيا", "فرنسا"],
+          "populationPercent": "15%",
+          "wealthShare": "85%",
+          "developmentIndex": "Very High"
+        },
+        {
+          "id": "upper-middle-income",
+          "nameAr": "دول الدخل الأعلى من المتوسط",
+          "gdpPerCapita": "$12,500-$50,000",
+          "countries": ["الصين", "البرازيل", "المكسيك", "روسيا", "تركيا", "تايلاند", "ماليزيا", "الأرجنتين"],
+          "populationPercent": "20%",
+          "wealthShare": "10%",
+          "developmentIndex": "High"
+        },
+        {
+          "id": "lower-middle-income",
+          "nameAr": "دول الدخل الأقل من المتوسط",
+          "gdpPerCapita": "$4,000-$12,500",
+          "countries": ["الهند", "إندونيسيا", "الفيتنام", "مصر", "نيجيريا", "باكستان", "بنغلاديش", "أوكرانيا"],
+          "populationPercent": "40%",
+          "wealthShare": "4%",
+          "developmentIndex": "Lower-Middle"
+        },
+        {
+          "id": "low-income",
+          "nameAr": "دول منخفضة الدخل",
+          "gdpPerCapita": "<$4,000",
+          "countries": ["أفريقيا الوسطى", "كوت ديفوار", "بنين", "مالي", "النيجر", "بوركينا فاسو", "تشاد", "موزمبيق", "ملاوي"],
+          "populationPercent": "25%",
+          "wealthShare": "1%",
+          "developmentIndex": "Low"
+        }
+      ]
+    },
+    "religion": {
+      "nameAr": "التصنيف الديني",
+      "priority": 4,
+      "status": "active",
+      "majorReligions": [
+        {
+          "id": "islam",
+          "nameAr": "الدول الإسلامية",
+          "englishName": "Islamic Countries",
+          "majority": ">50% Muslim",
+          "countries": 57,
+          "population": "1.9B",
+          "examples": ["السعودية", "مصر", "إندونيسيا", "باكستان", "بنغلاديش", "ماليزيا", "تركيا", "إيران", "نيجيريا", "مغرب", "تونس", "الإمارات", "قطر", "الكويت"],
+          "majorJurisprudences": "Hanafi, Maliki, Shafi'i, Hanbali, Jafari"
+        },
+        {
+          "id": "christianity",
+          "nameAr": "دول مسيحية الأغلبية",
+          "englishName": "Christian-Majority Countries",
+          "majority": ">50% Christian",
+          "countries": 160,
+          "population": "2.4B",
+          "examples": ["الولايات المتحدة", "فرنسا", "بريطانيا", "ألمانيا", "إيطاليا", "إسبانيا", "بولندا", "البرازيل", "كندا", "أستراليا"]
+        },
+        {
+          "id": "hinduism",
+          "nameAr": "دول هندوسية الأغلبية",
+          "englishName": "Hindu-Majority Countries",
+          "majority": ">50% Hindu",
+          "countries": 2,
+          "population": "1.1B",
+          "examples": ["الهند", "نيبال"]
+        },
+        {
+          "id": "buddhism",
+          "nameAr": "دول بوذية الأغلبية",
+          "englishName": "Buddhist-Majority Countries",
+          "majority": ">50% Buddhist",
+          "countries": 8,
+          "population": "0.3B",
+          "examples": ["تايلاند", "ميانمار", "كمبوديا", "لاوس", "سري لانكا", "بوتان"]
+        },
+        {
+          "id": "secular",
+          "nameAr": "دول علمانية/غير دينية الأغلبية",
+          "englishName": "Secular/Non-Religious Majority",
+          "majority": ">50% Non-Religious",
+          "countries": 5,
+          "population": "0.2B",
+          "examples": ["الصين", "فيتنام", "لاوس", "كوريا الشمالية", "أوروغواي"]
+        }
+      ]
+    },
+    "sectarian": {
+      "nameAr": "التصنيف المذهبي (داخل الإسلام)",
+      "priority": 5,
+      "status": "active",
+      "description": "تصنيف الدول الإسلامية حسب التركيبة المذهبية",
+      "mainSects": [
+        {
+          "id": "sunni-majority",
+          "nameAr": "دول سنية الأغلبية",
+          "percentage": ">80% Sunni",
+          "countries": 45,
+          "examples": ["السعودية", "مصر", "إندونيسيا", "باكستان", "بنغلاديش", "ماليزيا", "تركيا", "نيجيريا", "مغرب", "تونس"]
+        },
+        {
+          "id": "shia-majority",
+          "nameAr": "دول شيعية الأغلبية",
+          "percentage": ">40% Shia",
+          "countries": 2,
+          "examples": ["إيران", "العراق"]
+        },
+        {
+          "id": "mixed-islamic",
+          "nameAr": "دول إسلامية مختلطة",
+          "percentage": "20-50% Shia, Sunni balanced",
+          "countries": 10,
+          "examples": ["لبنان", "سوريا", "الكويت", "اليمن", "البحرين", "أفغانستان"]
+        },
+        {
+          "id": "ibadi-majority",
+          "nameAr": "دول إباضية الأغلبية",
+          "percentage": ">50% Ibadi",
+          "countries": 1,
+          "examples": ["عمان"]
+        }
+      ]
+    },
+    "naturalResources": {
+      "nameAr": "التصنيف حسب الموارد الطبيعية",
+      "priority": 6,
+      "status": "active",
+      "resourceTypes": [
+        {
+          "id": "oil-gas-rich",
+          "nameAr": "دول غنية بالنفط والغاز",
+          "reserves": "Top 10 globally",
+          "countries": 15,
+          "examples": ["السعودية", "روسيا", "الولايات المتحدة", "إيران", "العراق", "الكويت", "الإمارات", "قطر", "ليبيا", "البرازيل", "كندا", "النرويج", "المكسيك", "أذربيجان", "كازاخستان"],
+          "totalReserves": "~2 Trillion barrels oil, 200 TCM gas"
+        },
+        {
+          "id": "minerals-metals",
+          "nameAr": "دول غنية بالمعادن والمعادن النفيسة",
+          "examples": ["جنوب أفريقيا", "أستراليا", "الصين", "كندا", "بيرو", "تشيلي", "الكونغو", "موزمبيق", "جمهورية التشيك"],
+          "mainMinerals": "الذهب، الفضة، النحاس، الليثيوم، الكوبالت، الزنك"
+        },
+        {
+          "id": "agricultural",
+          "nameAr": "دول زراعية غنية",
+          "examples": ["الهند", "إندونيسيا", "البرازيل", "الولايات المتحدة", "الأرجنتين", "أوكرانيا", "فرنسا", "مصر", "باكستان", "تايلاند"],
+          "mainCrops": "الأرز، القمح، الذرة، فول الصويا، الكاكاو، الموز"
+        },
+        {
+          "id": "forest-water",
+          "nameAr": "دول غنية بالغابات والمياه العذبة",
+          "examples": ["البرازيل", "روسيا", "كندا، إندونيسيا", "تنزانيا", "زامبيا", "الكونغو", "النرويج", "فنلندا"],
+          "coverage": "20-60% forest coverage"
+        },
+        {
+          "id": "marine-resources",
+          "nameAr": "دول غنية بالموارد البحرية",
+          "examples": ["اليابان", "البيرو", "موريتانيا", "إندونيسيا", "الصين", "تايلاند", "بنغلاديش", "فيتنام"],
+          "mainResources": "السمك، المأكولات البحرية، الملح"
+        }
+      ]
+    },
+    "technology": {
+      "nameAr": "التصنيف التكنولوجي",
+      "priority": 7,
+      "status": "active",
+      "tiers": [
+        {
+          "id": "tech-leaders",
+          "nameAr": "قادة التكنولوجيا العالمية",
+          "criteria": "R&D > 2% of GDP, Patent leaders, AI/ML hubs",
+          "countries": 8,
+          "examples": ["الولايات المتحدة", "الصين", "اليابان", "كوريا الجنوبية", "سنغافورة", "إسرائيل", "السويد", "فنلندا"],
+          "characteristics": "AI Hub, Cloud Leaders, Chip Manufacturing"
+        },
+        {
+          "id": "tech-advanced",
+          "nameAr": "دول متقدمة تكنولوجياً",
+          "criteria": "R&D 1-2% of GDP, Growing innovation",
+          "countries": 22,
+          "examples": ["ألمانيا", "فرنسا", "كندا", "النرويج", "سويسرا", "الدنمارك", "هولندا", "إيطاليا", "إسبانيا", "تايوان", "الهند", "تركيا"],
+          "characteristics": "Software Dev, Biotech, Renewable Energy"
+        },
+        {
+          "id": "tech-emerging",
+          "nameAr": "دول ناشئة تكنولوجياً",
+          "criteria": "R&D < 1% of GDP, Growing startups",
+          "countries": 40,
+          "examples": ["البرازيل", "المكسيك", "مصر", "نيجيريا", "جنوب أفريقيا", "الفيتنام", "تايلاند", "ماليزيا", "الأرجنتين"],
+          "characteristics": "Tech Startups, Mobile First, Cost-effective Solutions"
+        },
+        {
+          "id": "tech-developing",
+          "nameAr": "دول نامية تكنولوجياً",
+          "criteria": "Limited digital infrastructure",
+          "countries": 80,
+          "examples": ["أفريقيا الوسطى", "مالي", "النيجر", "بوركينا فاسو", "سيراليون", "كمبوديا", "لاوس"],
+          "characteristics": "Mobile-only internet, Limited R&D, Tech import dependent"
+        }
+      ]
+    },
+    "supplyChain": {
+      "nameAr": "التصنيف حسب دورها في سلاسل الإمداد العالمية",
+      "priority": 8,
+      "status": "active",
+      "roles": [
+        {
+          "id": "supply-chain-hub",
+          "nameAr": "مراكز سلاسل الإمداد العالمية",
+          "description": "نقاط توزيع وتجميع عالمية",
+          "countries": 12,
+          "examples": ["الصين", "اليابان", "سنغافورة", "هونج كونج", "الإمارات", "هولندا", "بلجيكا", "ألمانيا", "فرنسا", "الولايات المتحدة", "كندا"],
+          "characteristics": "Major ports, Logistics hubs, Manufacturing centers"
+        },
+        {
+          "id": "raw-material-suppliers",
+          "nameAr": "موردو المواد الخام",
+          "examples": ["السعودية", "روسيا", "أستراليا", "كندا", "البرازيل", "إندونيسيا", "جنوب أفريقيا", "تشيلي", "بيرو"],
+          "characteristics": "Oil, metals, agricultural materials"
+        },
+        {
+          "id": "manufacturing-hubs",
+          "nameAr": "مراكز التصنيع",
+          "examples": ["الصين", "الهند", "اليابان", "كوريا الجنوبية", "تايلاند", "فيتنام", "بنغلاديش", "المكسيكو"],
+          "characteristics": "Electronics, Textiles, Auto parts, Consumer goods"
+        },
+        {
+          "id": "technology-suppliers",
+          "nameAr": "موردو التكنولوجيا والمكونات",
+          "examples": ["الولايات المتحدة", "اليابان", "كوريا الجنوبية", "تايوان", "سويسرا", "ألمانيا", "هولندا"],
+          "characteristics": "Semiconductors, Advanced materials, Software"
+        }
+      ]
+    },
+    "industry": {
+      "nameAr": "التصنيف الصناعي",
+      "priority": 9,
+      "status": "active",
+      "industrialSegments": [
+        {
+          "id": "advanced-manufacturing",
+          "nameAr": "الدول ذات التصنيع المتقدم",
+          "countries": 15,
+          "examples": ["الولايات المتحدة", "ألمانيا", "اليابان", "كوريا الجنوبية", "سويسرا", "نمسا", "بلجيكا", "هولندا", "إيطاليا", "السويد", "الدنمارك", "فنلندا", "التشيك"],
+          "sectors": "Precision machinery, Automation, Robotics, Aerospace"
+        },
+        {
+          "id": "mass-manufacturing",
+          "nameAr": "دول التصنيع الجماعي",
+          "countries": 8,
+          "examples": ["الصين", "الهند", "إندونيسيا", "تايلاند", "فيتنام", "بنغلاديش", "باكستان", "المكسيكو"],
+          "sectors": "Electronics, Textiles, Consumer goods, Auto assembly"
+        },
+        {
+          "id": "petrochemical",
+          "nameAr": "دول البتروكيماويات",
+          "countries": 12,
+          "examples": ["السعودية", "الإمارات", "قطر", "الكويت", "العراق", "إيران", "روسيا", "كندا", "البرازيل", "النرويج", "الولايات المتحدة"],
+          "sectors": "Chemicals, Plastics, Fertilizers, Refining"
+        },
+        {
+          "id": "pharmaceutical-biotech",
+          "nameAr": "دول الأدوية والتكنولوجيا الحيوية",
+          "countries": 10,
+          "examples": ["الولايات المتحدة", "سويسرا", "ألمانيا", "فرنسا", "بريطانيا", "اليابان", "كندا", "بلجيكا", "السويد", "إسرائيل"],
+          "sectors": "Pharmaceuticals, Medical devices, Biotech research"
+        }
+      ]
+    },
+    "energy": {
+      "nameAr": "التصنيف حسب قطاع الطاقة",
+      "priority": 10,
+      "status": "active",
+      "energyTypes": [
+        {
+          "id": "fossil-fuel-producer",
+          "nameAr": "دول منتجة للوقود الأحفوري",
+          "types": "Oil, Gas, Coal",
+          "topProducers": ["الولايات المتحدة", "روسيا", "السعودية", "الصين", "كندا", "إيران", "العراق", "الكويت", "الإمارات", "قطر", "البرازيل", "المكسيكو", "النرويج", "كازاخستان"],
+          "globalShare": "85% of global energy"
+        },
+        {
+          "id": "renewable-energy-leader",
+          "nameAr": "دول رائدة في الطاقة المتجددة",
+          "types": "Solar, Wind, Hydro, Geothermal",
+          "topProducers": ["النرويج", "كندا", "البرازيل", "الولايات المتحدة", "الصين", "ألمانيا", "الهند", "فرنسا", "إسبانيا", "المكسيك", "السويد", "نيوزيلندا"],
+          "globalShare": "28% of global electricity"
+        },
+        {
+          "id": "nuclear-energy",
+          "nameAr": "دول الطاقة النووية",
+          "types": "Nuclear Power",
+          "producers": ["فرنسا", "الولايات المتحدة", "روسيا", "اليابان", "كوريا الجنوبية", "ألمانيا", "كندا", "أوكرانيا", "بريطانيا", "بلجيكا", "السويد", "فنلندا"],
+          "globalShare": "10% of global electricity",
+          "capacity": "440+ GW"
+        },
+        {
+          "id": "energy-importer",
+          "nameAr": "دول مستوردة للطاقة",
+          "description": "تعتمد على الاستيراد لـ 50-100% من احتياجاتها",
+          "countries": 60,
+          "examples": ["اليابان", "البوسنة والهرسك", "إيطاليا", "تركيا", "الهند", "النمسا", "بولندا"]
+        }
+      ]
+    },
+    "mediaInfluence": {
+      "nameAr": "التصنيف حسب القوة الإعلامية والتأثير",
+      "priority": 11,
+      "status": "active",
+      "influenceTiers": [
+        {
+          "id": "global-media-power",
+          "nameAr": "قوى إعلامية عالمية",
+          "description": "تتحكم في 70%+ من المحتوى الإعلامي العالمي",
+          "countries": 5,
+          "examples": ["الولايات المتحدة", "بريطانيا", "فرنسا", "اليابان", "الصين"],
+          "platforms": "CNN, BBC, Reuters, AFP, Xinhua, Al Jazeera, Bloomberg",
+          "audience": "4+ Billion globally"
+        },
+        {
+          "id": "regional-media-power",
+          "nameAr": "قوى إعلامية إقليمية",
+          "description": "متأثرة في منطقتها الجغرافية",
+          "countries": 15,
+          "examples": ["ألمانيا", "روسيا", "المكسيكو", "الهند", "تركيا", "السعودية", "الإمارات", "مصر", "تايلاند", "كوريا الجنوبية"],
+          "platforms": "Deutsche Welle, RT, Telemundo, India Today, TRT, Saudi Media"
+        },
+        {
+          "id": "emerging-media",
+          "nameAr": "وسائط إعلامية ناشئة",
+          "description": "آفاق متنامية في وسائل التواصل الرقمية",
+          "countries": 50,
+          "examples": ["نيجيريا", "إندونيسيا", "البرازيل", "باكستان", "بنغلاديش", "فيتنام", "بولندا"]
+        }
+      ]
+    },
+    "innovation": {
+      "nameAr": "التصنيف حسب الابتكار والإبداع",
+      "priority": 12,
+      "status": "active",
+      "innovationIndexes": [
+        {
+          "id": "innovation-leaders",
+          "nameAr": "قادة الابتكار العالميين",
+          "criteria": "Global Innovation Index > 60",
+          "countries": 8,
+          "examples": ["سويسرا", "السويد", "الولايات المتحدة", "الهولندا", "بريطانيا", "فنلندا", "سنغافورة", "الدنمارك"],
+          "characteristics": "Patents, Startups, R&D investment, Unicorns",
+          "unicorns": "500+"
+        },
+        {
+          "id": "innovation-performers",
+          "nameAr": "الدول ذات الأداء الابتكاري الجيد",
+          "criteria": "GII 40-60",
+          "countries": 20,
+          "examples": ["ألمانيا", "فرنسا", "كندا", "اليابان", "كوريا الجنوبية", "إسرائيل", "النمسا", "بلجيكا", "الصين", "الهند"],
+          "unicorns": "100-300"
+        },
+        {
+          "id": "emerging-innovators",
+          "nameAr": "المبتكرون الناشئون",
+          "criteria": "GII 30-40",
+          "countries": 40,
+          "examples": ["البرازيل", "المكسيكو", "تايلاند", "ماليزيا", "الفيتنام", "إندونيسيا", "الفلبين", "تايوان", "مصر"],
+          "unicorns": "10-100"
+        },
+        {
+          "id": "innovation-potential",
+          "nameAr": "الدول ذات الإمكانات الابتكارية",
+          "criteria": "GII < 30 + Growing potential",
+          "countries": 100,
+          "examples": ["أفريقيا الوسطى", "نيجيريا", "باكستان", "بنغلاديش", "كينيا", "أوغندا"]
+        }
+      ]
+    }
+  },
+  "unifiedObjectives": {
+    "shared": [
+      "رفع مستوى المعيشة العالمي بكل عدل",
+      "نشر الإسلام بالحكمة والموعظة الحسنة",
+      "التكامل الاقتصادي والتقني العادل",
+      "استدامة الموارد الطبيعية للأجيال القادمة",
+      "نقل المعرفة والتكنولوجيا للدول النامية",
+      "العمل المشترك دون ظلم ولا احتكار",
+      "الحفاظ على الاستقرار العالمي والسلام"
+    ]
+  },
+  "statistics": {
+    "totalCountries": 195,
+    "totalPopulation": "8.0B",
+    "totalGDP": "$104T",
+    "classification_active": 12,
+    "last_updated": "2026-03-22T22:40:00.000Z"
+  }
+}

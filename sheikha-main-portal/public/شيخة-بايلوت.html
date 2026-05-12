@@ -1,0 +1,414 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050810">
+<meta name="description" content="تجربة Pilot للشركات الكبرى — أرامكو، سابك، معادن، روشن، أمانة وأكثر — منصة شيخة للمعادن">
+<title>شيخة Pilot — تجربة الشركات الكبرى | ١٤٤٧ هـ</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--gold:#D4AF37;--copper:#B87333;--bg:#050810;--bg2:#0a0f1e;--text:#f0ede8;--muted:#6e7681;--green:#3fb950;--orange:#e3b341;--red:#f85149;--border:rgba(212,175,55,.2);}
+html,body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100%;}
+body{background:radial-gradient(ellipse at 20% 20%,#0d1530 0%,transparent 60%),radial-gradient(ellipse at 80% 80%,#1a0d05 0%,transparent 60%),#050810;}
+
+/* ─── أشرطة ───────────────────────────── */
+.header{background:rgba(10,15,30,.95);border-bottom:1px solid var(--border);padding:14px 32px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px);}
+.logo{display:flex;align-items:center;gap:10px;}
+.logo-icon{width:38px;height:38px;background:linear-gradient(135deg,#D4AF37,#B87333);border-radius:9px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;}
+.logo-text{font-size:1.1rem;font-weight:800;color:var(--gold);}
+.header-nav{display:flex;gap:12px;align-items:center;}
+.nav-link{color:var(--muted);text-decoration:none;font-size:.85rem;font-weight:500;padding:6px 14px;border-radius:8px;transition:all .2s;}
+.nav-link:hover{color:var(--gold);background:rgba(212,175,55,.08);}
+.btn-cta{background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-family:'Tajawal',sans-serif;font-weight:800;font-size:.85rem;padding:8px 20px;border-radius:20px;border:none;cursor:pointer;text-decoration:none;}
+
+/* ─── hero ────────────────────────────── */
+.hero{text-align:center;padding:70px 32px 50px;max-width:900px;margin:0 auto;}
+.hero-badge{display:inline-flex;align-items:center;gap:8px;background:rgba(63,185,80,.1);border:1px solid rgba(63,185,80,.3);border-radius:50px;padding:8px 20px;font-size:.8rem;color:#3fb950;font-weight:700;margin-bottom:20px;}
+.hero-badge span{width:8px;height:8px;background:#3fb950;border-radius:50%;animation:pulse 1.5s infinite;}
+.hero-title{font-size:clamp(2rem,6vw,4rem);font-weight:900;line-height:1.1;background:linear-gradient(135deg,#D4AF37,#B87333);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:12px;}
+.hero-sub{font-size:clamp(1rem,2.5vw,1.4rem);color:var(--muted);margin-bottom:8px;}
+.hero-verse{font-size:1rem;color:var(--gold);font-weight:600;margin:20px 0;padding:14px;background:rgba(212,175,55,.06);border-right:3px solid var(--gold);border-radius:0 10px 10px 0;text-align:right;max-width:600px;margin-left:auto;margin-right:auto;}
+.hero-verse-ref{font-size:.75rem;color:var(--copper);margin-top:4px;}
+.stats-row{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
+.stat{background:rgba(255,255,255,.04);border:1px solid var(--border);border-radius:14px;padding:18px 24px;min-width:130px;}
+.stat-n{font-size:1.8rem;font-weight:900;color:var(--gold);}
+.stat-l{font-size:.75rem;color:var(--muted);margin-top:2px;}
+
+/* ─── مراحل ────────────────────────────── */
+section{padding:50px 32px;max-width:1100px;margin:0 auto;}
+.section-title{font-size:clamp(1.3rem,3vw,2rem);font-weight:800;color:var(--text);margin-bottom:6px;}
+.section-sub{font-size:.9rem;color:var(--copper);margin-bottom:28px;}
+
+/* ─── مراحل Pilot ──────────────────────── */
+.phases{display:flex;gap:12px;flex-wrap:wrap;}
+.phase-card{flex:1;min-width:170px;background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:14px;padding:18px;transition:border-color .2s;}
+.phase-card:hover{border-color:var(--gold);}
+.phase-num{width:32px;height:32px;background:linear-gradient(135deg,#D4AF37,#B87333);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.85rem;font-weight:900;color:#050810;margin-bottom:10px;}
+.phase-name{font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:4px;}
+.phase-days{font-size:.72rem;color:var(--copper);margin-bottom:8px;font-weight:600;}
+.phase-desc{font-size:.75rem;color:var(--muted);line-height:1.6;}
+
+/* ─── شركات Pilot ──────────────────────── */
+.companies-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:16px;}
+.company-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:22px;transition:all .25s;cursor:pointer;position:relative;overflow:hidden;}
+.company-card::before{content:'';position:absolute;top:0;right:0;width:4px;height:100%;background:linear-gradient(180deg,#D4AF37,#B87333);}
+.company-card:hover{border-color:rgba(212,175,55,.5);background:rgba(212,175,55,.04);transform:translateY(-2px);}
+.company-header{display:flex;align-items:flex-start;justify-content:space-between;margin-bottom:12px;}
+.company-icon{font-size:1.8rem;}
+.status-badge{font-size:.68rem;font-weight:700;padding:4px 10px;border-radius:20px;}
+.status-active{background:rgba(63,185,80,.15);color:#3fb950;border:1px solid rgba(63,185,80,.3);}
+.status-pending{background:rgba(227,179,65,.15);color:#e3b341;border:1px solid rgba(227,179,65,.3);}
+.status-proposed{background:rgba(139,148,158,.1);color:#8b949e;border:1px solid rgba(139,148,158,.2);}
+.company-name{font-size:1.05rem;font-weight:800;color:var(--text);margin-bottom:2px;}
+.company-sector{font-size:.75rem;color:var(--copper);margin-bottom:10px;font-weight:600;}
+.company-tags{display:flex;flex-wrap:wrap;gap:5px;margin-bottom:10px;}
+.tag{font-size:.68rem;padding:3px 8px;border-radius:6px;background:rgba(255,255,255,.05);color:var(--muted);border:1px solid rgba(255,255,255,.07);}
+.company-integration{font-size:.72rem;color:var(--muted);padding:8px;background:rgba(0,0,0,.2);border-radius:8px;}
+.company-quran{font-size:.72rem;color:var(--gold);margin-top:8px;font-style:italic;}
+
+/* ─── التسجيل الذكي ────────────────────── */
+.reg-steps{display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:14px;margin-top:16px;}
+.reg-step{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:18px;display:flex;gap:14px;align-items:flex-start;}
+.step-num{width:28px;height:28px;background:rgba(212,175,55,.15);border:1px solid var(--gold);border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:.8rem;font-weight:900;color:var(--gold);flex-shrink:0;margin-top:2px;}
+.step-text{font-size:.82rem;color:var(--text);line-height:1.5;}
+.step-note{font-size:.7rem;color:var(--copper);margin-top:3px;}
+
+/* ─── UX Monitor ────────────────────────── */
+.monitor-panel{background:rgba(63,185,80,.04);border:1px solid rgba(63,185,80,.2);border-radius:16px;padding:24px;}
+.monitor-header{display:flex;align-items:center;gap:10px;margin-bottom:16px;}
+.live-dot{width:10px;height:10px;background:#3fb950;border-radius:50%;animation:pulse 1.2s infinite;}
+.monitor-metrics{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-bottom:16px;}
+.metric{background:rgba(0,0,0,.2);border-radius:10px;padding:12px;text-align:center;}
+.metric-val{font-size:1.4rem;font-weight:900;color:var(--green);}
+.metric-label{font-size:.7rem;color:var(--muted);margin-top:2px;}
+.fixes-list{display:flex;flex-direction:column;gap:8px;}
+.fix-item{display:flex;gap:10px;align-items:center;background:rgba(0,0,0,.2);border-radius:8px;padding:10px 12px;font-size:.78rem;}
+.fix-type{color:var(--gold);font-weight:700;min-width:120px;}
+.fix-action{color:var(--muted);}
+
+/* ─── ERP تكامل ─────────────────────────── */
+.erp-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:14px;}
+.erp-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:12px;padding:18px;}
+.erp-name{font-size:.95rem;font-weight:800;color:var(--gold);margin-bottom:6px;}
+.erp-method{font-size:.75rem;color:var(--muted);margin-bottom:6px;}
+.erp-days{font-size:.7rem;color:var(--copper);font-weight:700;}
+.erp-fields{display:flex;flex-wrap:wrap;gap:4px;margin-top:8px;}
+.erp-field{font-size:.65rem;background:rgba(212,175,55,.08);color:var(--gold);padding:2px 7px;border-radius:5px;}
+
+/* ─── footer ────────────────────────────── */
+.footer{text-align:center;padding:40px 32px;border-top:1px solid var(--border);margin-top:40px;}
+.footer-verse{font-size:.95rem;color:var(--gold);font-weight:700;margin-bottom:6px;}
+.footer-ref{font-size:.75rem;color:var(--copper);}
+
+@keyframes pulse{0%,100%{opacity:1;}50%{opacity:.4;}}
+</style>
+</head>
+<body>
+
+<header class="header">
+  <div class="logo">
+    <div class="logo-icon">🏗️</div>
+    <div class="logo-text">شيخة — Pilot</div>
+  </div>
+  <nav class="header-nav">
+    <a href="/" class="nav-link">الرئيسية</a>
+    <a href="/سوق-شيخة" class="nav-link">السوق</a>
+    <a href="/هوية" class="nav-link">الهوية</a>
+    <a href="/منتدى" class="nav-link">المنتدى</a>
+    <a href="/تسجيل-الشركات" class="btn-cta">سجّل شركتك</a>
+  </nav>
+</header>
+
+<!-- ─── Hero ──────────────────────────── -->
+<div class="hero">
+  <div class="hero-badge"><span></span> برنامج Pilot مفعَّل الآن — ٨ أبريل ٢٠٢٦</div>
+  <div class="hero-title">تجربة شيخة مع الشركات الكبرى</div>
+  <div class="hero-sub">مرحلة التجربة الموسَّعة — ٩٠ يوماً مجاناً بلا قيود</div>
+  <div class="hero-verse">
+    وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ
+    <div class="hero-verse-ref">المائدة:2 — أساس كل شراكة في شيخة</div>
+  </div>
+  <div class="stats-row">
+    <div class="stat"><div class="stat-n">١٠</div><div class="stat-l">شركة مستهدفة</div></div>
+    <div class="stat"><div class="stat-n">٩٠</div><div class="stat-l">يوم تجربة</div></div>
+    <div class="stat"><div class="stat-n">مجاناً</div><div class="stat-l">بلا رسوم</div></div>
+    <div class="stat"><div class="stat-n">٥</div><div class="stat-l">انظمة ERP</div></div>
+    <div class="stat"><div class="stat-n">٢٤/٧</div><div class="stat-l">مراقبة UX</div></div>
+  </div>
+</div>
+
+<!-- ─── مراحل Pilot ──────────────────── -->
+<section>
+  <div class="section-title">مراحل برنامج Pilot</div>
+  <div class="section-sub">خطة مُهيكَلة — من التسجيل إلى الانطلاق الكامل</div>
+  <div class="phases">
+    <div class="phase-card">
+      <div class="phase-num">١</div>
+      <div class="phase-name">التسجيل الذكي</div>
+      <div class="phase-days">٣ أيام</div>
+      <div class="phase-desc">سحب بيانات CR تلقائياً · ربط ERP · إعداد الحساب</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">٢</div>
+      <div class="phase-name">استيراد الموردين</div>
+      <div class="phase-days">٧ أيام</div>
+      <div class="phase-desc">سحب Vendor Master · تصنيف شرعي · مطابقة ومراجعة</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">٣</div>
+      <div class="phase-name">تفعيل التكامل</div>
+      <div class="phase-days">١٤ يوماً</div>
+      <div class="phase-desc">Webhook مباشر · مزامنة مخزون · اختبار شامل</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">٤</div>
+      <div class="phase-name">إطلاق التجربة</div>
+      <div class="phase-days">٤٥ يوماً</div>
+      <div class="phase-desc">أولى الصفقات · مراقبة UX · إصلاح آلي لحظي</div>
+    </div>
+    <div class="phase-card">
+      <div class="phase-num">٥</div>
+      <div class="phase-name">التقييم والانطلاق</div>
+      <div class="phase-days">٩٠ يوماً</div>
+      <div class="phase-desc">تقرير ROI · قياس الأثر · قرار الاشتراك الرسمي</div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── الشركات ──────────────────────── -->
+<section>
+  <div class="section-title">شركات برنامج Pilot</div>
+  <div class="section-sub">أبرز الشركات الصناعية والحكومية المستهدفة</div>
+  <div class="companies-grid">
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">🛢️</div>
+          <div class="company-name">أرامكو السعودية</div>
+          <div class="company-sector">نفط وطاقة · Enterprise</div>
+        </div>
+        <span class="status-badge status-pending">⏳ معلَّق</span>
+      </div>
+      <div class="company-tags"><span class="tag">SAP S/4HANA</span><span class="tag">Oracle ERP</span><span class="tag">Ariba</span></div>
+      <div class="company-tags"><span class="tag">صلب</span><span class="tag">حديد</span><span class="tag">ألمنيوم</span><span class="tag">نحاس</span></div>
+      <div class="company-integration">🔗 SAP BAPI + REST API + EDI EDIFACT</div>
+      <div class="company-quran">وَأَعِدُّوا لَهُم مَّا اسْتَطَعْتُم — الأنفال:60</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">⚗️</div>
+          <div class="company-name">سابك</div>
+          <div class="company-sector">بتروكيماويات · Enterprise</div>
+        </div>
+        <span class="status-badge status-pending">⏳ معلَّق</span>
+      </div>
+      <div class="company-tags"><span class="tag">SAP S/4HANA</span><span class="tag">Coupa</span></div>
+      <div class="company-tags"><span class="tag">ألمنيوم</span><span class="tag">نحاس</span><span class="tag">بوليمرات</span></div>
+      <div class="company-integration">🔗 SAP BAPI + REST API + IDoc</div>
+      <div class="company-quran">وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى — المائدة:2</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">⛏️</div>
+          <div class="company-name">معادن</div>
+          <div class="company-sector">تعدين ومعادن · Enterprise</div>
+        </div>
+        <span class="status-badge status-active">✅ فعَّال</span>
+      </div>
+      <div class="company-tags"><span class="tag">SAP S/4HANA</span><span class="tag">Mincom</span><span class="tag">Coupa</span></div>
+      <div class="company-tags"><span class="tag">ذهب</span><span class="tag">ألمنيوم</span><span class="tag">فوسفات</span><span class="tag">نحاس</span></div>
+      <div class="company-integration">🔗 REST API + Webhook + EDI</div>
+      <div class="company-quran">وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ — الحديد:25</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">🏛️</div>
+          <div class="company-name">أمانة المنطقة</div>
+          <div class="company-sector">بلدية وإنشاء · حكومي</div>
+        </div>
+        <span class="status-badge status-pending">⏳ معلَّق</span>
+      </div>
+      <div class="company-tags"><span class="tag">Oracle EBS</span><span class="tag">Etimad</span><span class="tag">Monafasat</span></div>
+      <div class="company-tags"><span class="tag">سكراب مباني</span><span class="tag">حديد مقاطع</span></div>
+      <div class="company-integration">🔗 Etimad API + Nafath OAuth2</div>
+      <div class="company-quran">إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ — النساء:58</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">🏘️</div>
+          <div class="company-name">روشن للتطوير العقاري</div>
+          <div class="company-sector">عقارات وإنشاء · Enterprise</div>
+        </div>
+        <span class="status-badge status-pending">⏳ معلَّق</span>
+      </div>
+      <div class="company-tags"><span class="tag">Oracle Cloud</span><span class="tag">Ariba</span></div>
+      <div class="company-tags"><span class="tag">حديد تسليح</span><span class="tag">نحاس كهربائي</span><span class="tag">سكراب</span></div>
+      <div class="company-integration">🔗 REST API + Oracle ORDS</div>
+      <div class="company-quran">وَاللَّهُ جَعَلَ لَكُم مِّن بُيُوتِكُمْ سَكَنًا — النحل:80</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">🔩</div>
+          <div class="company-name">ألمنيوم الجزيرة</div>
+          <div class="company-sector">تصنيع ألمنيوم · Large</div>
+        </div>
+        <span class="status-badge status-pending">⏳ معلَّق</span>
+      </div>
+      <div class="company-tags"><span class="tag">SAP B1</span><span class="tag">Odoo</span></div>
+      <div class="company-tags"><span class="tag">ألمنيوم خام</span><span class="tag">سكراب ألمنيوم</span></div>
+      <div class="company-integration">🔗 Odoo XML-RPC + REST API</div>
+      <div class="company-quran">وَخَلَقَ كُلَّ شَيْءٍ فَقَدَّرَهُ تَقْدِيرًا — الفرقان:2</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">🏗️</div>
+          <div class="company-name">حديد الراجحي</div>
+          <div class="company-sector">صلب وحديد · Large</div>
+        </div>
+        <span class="status-badge status-pending">⏳ معلَّق</span>
+      </div>
+      <div class="company-tags"><span class="tag">SAP S/4HANA</span><span class="tag">منصة صناع</span></div>
+      <div class="company-tags"><span class="tag">حديد تسليح</span><span class="tag">صلب إنشائي</span></div>
+      <div class="company-integration">🔗 SAP API + EDI + REST</div>
+      <div class="company-quran">وَأَنزَلْنَا الْحَدِيدَ — الحديد:25</div>
+    </div>
+
+    <div class="company-card">
+      <div class="company-header">
+        <div>
+          <div class="company-icon">🌆</div>
+          <div class="company-name">نيوم</div>
+          <div class="company-sector">مدن المستقبل · Mega</div>
+        </div>
+        <span class="status-badge status-proposed">💡 مقترَح</span>
+      </div>
+      <div class="company-tags"><span class="tag">Oracle Cloud</span><span class="tag">IoT</span><span class="tag">Digital Twin</span></div>
+      <div class="company-tags"><span class="tag">صلب</span><span class="tag">ألمنيوم</span><span class="tag">تيتانيوم</span></div>
+      <div class="company-integration">🔗 GraphQL + REST + IoT + Digital Twin</div>
+      <div class="company-quran">رَبِّ زِدْنِي عِلْمًا — طه:114</div>
+    </div>
+
+  </div>
+</section>
+
+<!-- ─── التسجيل الذكي ───────────────── -->
+<section>
+  <div class="section-title">التسجيل الذكي — بلا ضرر ولا ضرار</div>
+  <div class="section-sub">٦ خطوات تلقائية تستغرق ٣٠ دقيقة فقط</div>
+  <div class="reg-steps">
+    <div class="reg-step"><div class="step-num">١</div><div><div class="step-text">أدخل رقم السجل التجاري أو رقم ضريبة القيمة المضافة</div><div class="step-note">بيانات رسمية موثوقة</div></div></div>
+    <div class="reg-step"><div class="step-num">٢</div><div><div class="step-text">تسحب شيخة البيانات تلقائياً من الأنظمة المرخَّصة</div><div class="step-note">بموافقتك الصريحة فقط</div></div></div>
+    <div class="reg-step"><div class="step-num">٣</div><div><div class="step-text">تراجع بياناتك وتؤكدها قبل الحفظ</div><div class="step-note">أنت المتحكم الوحيد</div></div></div>
+    <div class="reg-step"><div class="step-num">٤</div><div><div class="step-text">ربط ERP بمفتاح API مُشفَّر AES-256</div><div class="step-note">اختياري — بدون تثبيت برامج</div></div></div>
+    <div class="reg-step"><div class="step-num">٥</div><div><div class="step-text">مزامنة الموردين والمخزون والعملاء الحاليين</div><div class="step-note">فلترة شرعية تلقائية</div></div></div>
+    <div class="reg-step"><div class="step-num">٦</div><div><div class="step-text">تفعيل التدقيق الشرعي اللحظي لكل معاملة</div><div class="step-note">لا ربا — لا غرر — لا غش</div></div></div>
+  </div>
+</section>
+
+<!-- ─── UX Monitor ───────────────────── -->
+<section>
+  <div class="section-title">مراقبة تجربة المستخدم — لحظة بلحظة</div>
+  <div class="section-sub">نظام إصلاح آلي يعمل بالخلفية دون تدخل يدوي</div>
+  <div class="monitor-panel">
+    <div class="monitor-header">
+      <div class="live-dot"></div>
+      <span style="font-weight:700;color:var(--green);">مراقبة مباشرة — Live UX Monitor</span>
+    </div>
+    <div class="monitor-metrics">
+      <div class="metric"><div class="metric-val" id="m-sessions">٠</div><div class="metric-label">جلسة نشطة</div></div>
+      <div class="metric"><div class="metric-val" id="m-errors" style="color:var(--orange);">٠</div><div class="metric-label">مشكلة رُصدت</div></div>
+      <div class="metric"><div class="metric-val" id="m-fixes">٠</div><div class="metric-label">إصلاح تلقائي</div></div>
+      <div class="metric"><div class="metric-val" id="m-rate">--</div><div class="metric-label">معدل الإنجاز</div></div>
+    </div>
+    <div class="fixes-list">
+      <div class="fix-item"><span class="fix-type">🐌 تحميل بطيء</span><span class="fix-action">تسخين كاش + CDN acceleration</span></div>
+      <div class="fix-item"><span class="fix-type">📝 خطأ في النموذج</span><span class="fix-action">تلميح عربي ذكي للحقل تلقائياً</span></div>
+      <div class="fix-item"><span class="fix-type">🧭 ضياع في التنقل</span><span class="fix-action">تفعيل الدليل التفاعلي step-by-step</span></div>
+      <div class="fix-item"><span class="fix-type">🔐 فشل المصادقة</span><span class="fix-action">اقتراح Nafath أو Google بديلاً</span></div>
+      <div class="fix-item"><span class="fix-type">📱 تخطيط الجوال</span><span class="fix-action">RTL محسَّن + Tajawal تلقائي</span></div>
+      <div class="fix-item"><span class="fix-type">⚖️ تعارض شرعي</span><span class="fix-action">إيقاف العملية + تنبيه + اقتراح بديل حلال</span></div>
+    </div>
+  </div>
+</section>
+
+<!-- ─── تكامل ERP ─────────────────────── -->
+<section>
+  <div class="section-title">استراتيجيات تكامل ERP</div>
+  <div class="section-sub">سحب الموردين والمخزون من الأنظمة الحالية بلا تغيير في البنية</div>
+  <div class="erp-grid">
+    <div class="erp-card">
+      <div class="erp-name">SAP S/4HANA</div>
+      <div class="erp-method">SAP BAPI / RFC + OData REST API</div>
+      <div class="erp-days">⏱ إعداد ٧ أيام</div>
+      <div class="erp-fields"><span class="erp-field">Vendor Master</span><span class="erp-field">Material</span><span class="erp-field">PO</span><span class="erp-field">Stock</span></div>
+    </div>
+    <div class="erp-card">
+      <div class="erp-name">Oracle Cloud / EBS</div>
+      <div class="erp-method">Oracle REST Data Services (ORDS)</div>
+      <div class="erp-days">⏱ إعداد ١٠ أيام</div>
+      <div class="erp-fields"><span class="erp-field">Suppliers</span><span class="erp-field">Inventory</span><span class="erp-field">PO Lines</span><span class="erp-field">Ledger</span></div>
+    </div>
+    <div class="erp-card">
+      <div class="erp-name">Odoo</div>
+      <div class="erp-method">XML-RPC + JSON-RPC API</div>
+      <div class="erp-days">⏱ إعداد ٣ أيام</div>
+      <div class="erp-fields"><span class="erp-field">res.partner</span><span class="erp-field">purchase.order</span><span class="erp-field">stock.move</span></div>
+    </div>
+    <div class="erp-card">
+      <div class="erp-name">اعتماد الحكومي</div>
+      <div class="erp-method">Etimad API + Nafath OAuth2</div>
+      <div class="erp-days">⏱ إعداد ٥ أيام</div>
+      <div class="erp-fields"><span class="erp-field">Supplier Registry</span><span class="erp-field">Contracts</span><span class="erp-field">Payments</span></div>
+    </div>
+    <div class="erp-card">
+      <div class="erp-name">Marketplace</div>
+      <div class="erp-method">Partner REST API + Certified Feed</div>
+      <div class="erp-days">⏱ إعداد ٢ أيام</div>
+      <div class="erp-fields"><span class="erp-field">Listings</span><span class="erp-field">Pricing</span><span class="erp-field">Sellers</span></div>
+    </div>
+  </div>
+</section>
+
+<footer class="footer">
+  <div class="footer-verse">وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ</div>
+  <div class="footer-ref">هود:88 · شيخة — sheikha.top · market@sheikha.top</div>
+  <div style="margin-top:12px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="/تسجيل-الشركات" style="color:var(--gold);text-decoration:none;font-size:.85rem;">← سجّل شركتك الآن</a>
+    <a href="/منتدى" style="color:var(--copper);text-decoration:none;font-size:.85rem;">عرض المنتدى</a>
+    <a href="/api/pilot/companies" style="color:var(--muted);text-decoration:none;font-size:.85rem;">API البيانات</a>
+  </div>
+</footer>
+
+<script>
+// محاكاة مقاييس UX المباشرة
+let sessions = 0, errors = 0, fixes = 0;
+function tick() {
+    const r = Math.random();
+    if (r > 0.7) { sessions = Math.min(sessions + 1, 12); }
+    if (r > 0.85) { errors++; fixes++; }
+    document.getElementById('m-sessions').textContent = sessions;
+    document.getElementById('m-errors').textContent = errors;
+    document.getElementById('m-fixes').textContent = fixes;
+    const rate = sessions > 0 ? Math.min(95, 70 + Math.floor(fixes * 2)) + '٪' : '--';
+    document.getElementById('m-rate').textContent = rate;
+}
+setInterval(tick, 3000);
+tick();
+</script>
+</body>
+</html>

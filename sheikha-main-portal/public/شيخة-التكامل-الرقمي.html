@@ -1,0 +1,1268 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — مركز التكامل الرقمي الشامل</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0d0d1a;color:#e8e8e8;direction:rtl}
+@import url('https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap');
+.hero{background:linear-gradient(135deg,#0d0d1a 0%,#1a1a2e 50%,#16213e 100%);padding:40px 20px;text-align:center;border-bottom:2px solid #D4AF37}
+.hero h1{font-size:2.2rem;color:#D4AF37;font-weight:900}
+.hero .sub{color:#B87333;font-size:1rem;margin-top:8px}
+.hero .ayah{color:#7fb3e8;font-size:0.9rem;margin-top:12px;font-style:italic}
+.tabs{display:flex;overflow-x:auto;background:#111;border-bottom:2px solid #D4AF37;gap:0;sticky-top:0}
+.tab{flex:0 0 auto;padding:14px 18px;cursor:pointer;font-size:0.85rem;color:#888;border-left:1px solid #222;transition:all .3s;white-space:nowrap}
+.tab.active,.tab:hover{background:#1a1a2e;color:#D4AF37}
+.tab-content{display:none;padding:24px 16px;max-width:1200px;margin:0 auto}
+.tab-content.active{display:block}
+.section-title{font-size:1.3rem;color:#D4AF37;margin-bottom:20px;padding-bottom:8px;border-bottom:1px solid #333}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(300px,1fr));gap:16px}
+.grid3{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px}
+.card{background:#1a1a2e;border:1px solid #2a2a4a;border-radius:12px;padding:20px;transition:border-color .3s}
+.card:hover{border-color:#D4AF37}
+.card-icon{font-size:2rem;margin-bottom:10px}
+.card-title{font-size:1rem;color:#D4AF37;font-weight:700;margin-bottom:8px}
+.card-desc{font-size:0.82rem;color:#aaa;line-height:1.7}
+.badge{display:inline-block;padding:3px 10px;border-radius:20px;font-size:0.72rem;margin:4px 2px}
+.badge-green{background:#1a3a1e;color:#4caf87;border:1px solid #4caf87}
+.badge-yellow{background:#2d2800;color:#D4AF37;border:1px solid #D4AF37}
+.badge-red{background:#3a1a1a;color:#e57373;border:1px solid #e57373}
+.badge-blue{background:#1a2a3d;color:#64b5f6;border:1px solid #64b5f6}
+.badge-copper{background:#2a1a0d;color:#B87333;border:1px solid #B87333}
+.status-row{display:flex;align-items:center;gap:10px;margin:8px 0;font-size:0.82rem}
+.dot{width:10px;height:10px;border-radius:50%;flex-shrink:0}
+.dot-green{background:#4caf87}
+.dot-yellow{background:#D4AF37}
+.dot-red{background:#e57373}
+.btn{display:inline-block;padding:10px 20px;border-radius:8px;cursor:pointer;font-size:0.85rem;font-weight:700;border:none;margin:6px 4px;text-decoration:none;transition:all .3s}
+.btn-gold{background:#D4AF37;color:#000}
+.btn-outline{background:transparent;border:1px solid #D4AF37;color:#D4AF37}
+.btn:hover{opacity:0.85;transform:translateY(-1px)}
+.env-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:16px;font-family:monospace;font-size:0.78rem;color:#79c0ff;overflow-x:auto;margin:12px 0}
+.step-list{list-style:none}
+.step-list li{padding:8px 0;border-bottom:1px solid #1a1a2e;font-size:0.82rem;color:#bbb;display:flex;gap:10px}
+.step-list li::before{content:attr(data-n);color:#D4AF37;font-weight:700;flex-shrink:0}
+.progress-bar{background:#1a1a2e;border-radius:8px;height:8px;margin:8px 0;overflow:hidden}
+.progress-fill{height:100%;border-radius:8px;background:linear-gradient(90deg,#D4AF37,#B87333);transition:width 1s}
+.summary-box{background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #D4AF37;border-radius:12px;padding:24px;margin-bottom:24px;text-align:center}
+.summary-num{font-size:2.5rem;color:#D4AF37;font-weight:900}
+.summary-label{font-size:0.82rem;color:#aaa;margin-top:4px}
+.checker-item{background:#0d1117;border-radius:8px;padding:12px 16px;margin:8px 0;display:flex;justify-content:space-between;align-items:center;font-size:0.82rem}
+.checker-label{color:#ccc}
+.checker-status{font-weight:700}
+.alert-box{background:#1a0d00;border:1px solid #B87333;border-radius:8px;padding:16px;margin:12px 0;font-size:0.82rem;color:#e8a87c}
+.alert-box strong{color:#D4AF37}
+.api-endpoint{background:#0a1628;border:1px solid #1e3a5f;border-radius:6px;padding:10px 14px;font-family:monospace;font-size:0.78rem;color:#64b5f6;margin:6px 0}
+.method{display:inline-block;padding:2px 8px;border-radius:4px;font-size:0.7rem;font-weight:700;margin-left:8px}
+.GET{background:#1a3a1e;color:#4caf87}
+.POST{background:#1a2a3d;color:#64b5f6}
+.halal-banner{background:linear-gradient(135deg,#0d1a0d,#1a2e1a);border:1px solid #4caf87;border-radius:12px;padding:20px;margin:16px 0;text-align:center}
+.halal-banner .text{color:#4caf87;font-size:0.9rem;line-height:1.8}
+.halal-banner .ref{color:#7fb3e8;font-size:0.82rem;margin-top:8px}
+table{width:100%;border-collapse:collapse;font-size:0.8rem}
+th{background:#1a1a2e;color:#D4AF37;padding:10px 12px;text-align:right;border-bottom:2px solid #D4AF37}
+td{padding:8px 12px;border-bottom:1px solid #1a1a2e;color:#bbb}
+tr:hover td{background:#0d0d1a}
+@media(max-width:600px){.hero h1{font-size:1.4rem}.tab{padding:10px 12px;font-size:0.75rem}}
+</style>
+</head>
+<body>
+
+<div class="hero">
+  <div class="card-icon">🌐</div>
+  <h1>مركز التكامل الرقمي الشامل — شيخة</h1>
+  <div class="sub">Google Cloud • Gemini AI • Microsoft • Apple • WhatsApp • SMS • PWA • الجوال</div>
+  <div class="ayah">وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا — البقرة:31 | وَتَوَاصَوْا بِالْحَقِّ — العصر:3</div>
+</div>
+
+<!-- التبويبات -->
+<div class="tabs">
+  <div class="tab active" onclick="showTab('overview')">📊 نظرة عامة</div>
+  <div class="tab" onclick="showTab('workspace')">📋 Workspace</div>
+  <div class="tab" onclick="showTab('gcp')">☁️ Google Cloud</div>
+  <div class="tab" onclick="showTab('gemini')">🧠 Gemini AI</div>
+  <div class="tab" onclick="showTab('notifications')">🔔 التنبيهات</div>
+  <div class="tab" onclick="showTab('microsoft')">🟦 Microsoft</div>
+  <div class="tab" onclick="showTab('apple')">🍎 Apple</div>
+  <div class="tab" onclick="showTab('mobile')">📱 الجوال & PWA</div>
+  <div class="tab" onclick="showTab('env')">🔐 المفاتيح</div>
+  <div class="tab" onclick="showTab('satellites')">🛰️ الأقمار (٢٠)</div>
+  <div class="tab" onclick="showTab('techcomp')">🚀 شركات التقنية (١١)</div>
+  <div class="tab" onclick="showTab('ip')">⚖️ الملكية الفكرية</div>
+  <div class="tab" onclick="showTab('m365')">🟦 Microsoft 365</div>
+</div>
+
+<!-- ١. نظرة عامة -->
+<div id="overview" class="tab-content active">
+  <div class="section-title">📊 حالة التكامل الشامل — المرحلة ٤٢</div>
+
+  <div class="halal-banner">
+    <div class="text">بسم الله الرحمن الرحيم<br>
+    <strong>وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا</strong> — البقرة:31<br>
+    التقنية في خدمة التجارة الحلال — لا ربا لا غرر لا غش</div>
+    <div class="ref">المرحلة ٤٢ | Google Cloud + Gemini + Microsoft + Apple + WhatsApp + SMS + PWA</div>
+  </div>
+
+  <div id="overview-stats" class="grid3" style="margin-bottom:24px">
+    <div class="card" style="text-align:center">
+      <div class="summary-num" id="stat-engines">5</div>
+      <div class="summary-label">محركات جديدة (P42)</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="summary-num">42</div>
+      <div class="summary-label">المرحلة الحالية</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="summary-num" id="stat-configured">0</div>
+      <div class="summary-label">تكاملات مفعّلة</div>
+    </div>
+  </div>
+
+  <div class="section-title">✅ حالة التكاملات</div>
+  <div id="integration-status"></div>
+
+  <div class="section-title" style="margin-top:24px">🗺️ خريطة التكامل الكاملة</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">☁️ Google Cloud Platform</div>
+      <div class="card-desc">
+        <span class="badge badge-yellow">Vertex AI</span>
+        <span class="badge badge-yellow">Cloud Run</span>
+        <span class="badge badge-yellow">BigQuery</span>
+        <span class="badge badge-yellow">Cloud Storage</span>
+        <span class="badge badge-yellow">Secret Manager</span>
+        <span class="badge badge-yellow">Pub/Sub</span>
+        <span class="badge badge-yellow">Firebase FCM</span>
+        <span class="badge badge-yellow">Maps Platform</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🧠 Gemini AI</div>
+      <div class="card-desc">
+        <span class="badge badge-blue">Gemini 2.0 Flash</span>
+        <span class="badge badge-blue">Gemini 2.0 Pro</span>
+        <span class="badge badge-blue">Gemini 1.5 Vision</span>
+        <span class="badge badge-blue">Text Embedding</span>
+        <span class="badge badge-blue">Imagen 3</span>
+        <br><small>٥ شخصيات ذكية: الشريعة + المعادن + السوق + الخدمة + الزكاة</small>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🔔 التنبيهات والتواصل</div>
+      <div class="card-desc">
+        <span class="badge badge-green">WhatsApp Business</span>
+        <span class="badge badge-green">SMS (Unifonic)</span>
+        <span class="badge badge-green">Push (FCM+APNs)</span>
+        <span class="badge badge-green">Email (Gmail)</span>
+        <span class="badge badge-green">Telegram Bot</span>
+        <span class="badge badge-green">OTP آمن</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🟦 Microsoft + 🍎 Apple</div>
+      <div class="card-desc">
+        <span class="badge badge-blue">Microsoft 365</span>
+        <span class="badge badge-blue">Azure AD</span>
+        <span class="badge badge-blue">Teams</span>
+        <span class="badge badge-blue">Power Platform</span>
+        <span class="badge badge-green">Sign in with Apple</span>
+        <span class="badge badge-green">APNs</span>
+        <span class="badge badge-green">App Store</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">📱 الجوال والمتاجر</div>
+      <div class="card-desc">
+        <span class="badge badge-copper">PWA</span>
+        <span class="badge badge-copper">Google Play (TWA)</span>
+        <span class="badge badge-copper">Huawei AppGallery</span>
+        <span class="badge badge-copper">Samsung Galaxy</span>
+        <span class="badge badge-copper">App Store iOS</span>
+        <span class="badge badge-copper">Windows PWA</span>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-title">🕋 الامتثال الشرعي</div>
+      <div class="card-desc">
+        لا ربا في أي خدمة — لا إعلانات محرمة — إذن صريح قبل الإشعارات<br>
+        تقويم الصلاة لتوقيف الإشعارات<br>
+        Privacy Policy لحماية بيانات التجار<br>
+        <span class="badge badge-green">وَتَوَاصَوْا بِالْحَقِّ</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ٢. Google Workspace Assessment -->
+<div id="workspace" class="tab-content">
+  <div class="section-title">📋 Google Workspace Standard — تقييم شيخة</div>
+
+  <div class="card" style="margin-bottom:20px;border-color:#4caf87">
+    <div class="card-title" style="color:#4caf87;font-size:1.2rem">✅ الخطة الحالية مناسبة — لا داعي للترقية الآن</div>
+    <div class="card-desc">
+      <strong>Business Standard:</strong> 11 USD/مستخدم/شهر (~41 SAR)<br>
+      <strong>التخزين:</strong> 2 TB لكل مستخدم — كافٍ لصور السكراب والعقود<br>
+      <strong>Google Meet:</strong> 150 مشارك + تسجيل — مناسب لاجتماعات شيخة<br>
+      <strong>Shared Drives:</strong> مشاركة ملفات الفريق — يحتاج تفعيل
+    </div>
+  </div>
+
+  <div class="section-title">📊 حالة التفعيل - Workspace</div>
+  <div id="workspace-status-list"></div>
+
+  <div class="section-title" style="margin-top:24px">📧 الحسابات المطلوبة في @sheikha.top</div>
+  <table>
+    <tr><th>البريد</th><th>الغرض</th><th>الأولوية</th></tr>
+    <tr><td>market@sheikha.top</td><td>التواصل التجاري الرئيسي</td><td><span class="badge badge-red">ضروري الآن</span></td></tr>
+    <tr><td>support@sheikha.top</td><td>دعم التجار والعملاء</td><td><span class="badge badge-red">ضروري</span></td></tr>
+    <tr><td>sales@sheikha.top</td><td>فريق المبيعات</td><td><span class="badge badge-yellow">مهم</span></td></tr>
+    <tr><td>sharia@sheikha.top</td><td>الاستشارات الشرعية</td><td><span class="badge badge-yellow">مهم</span></td></tr>
+    <tr><td>noreply@sheikha.top</td><td>رسائل النظام الآلية</td><td><span class="badge badge-blue">اختياري</span></td></tr>
+    <tr><td>zakat@sheikha.top</td><td>استفسارات الزكاة</td><td><span class="badge badge-blue">اختياري</span></td></tr>
+  </table>
+
+  <div class="section-title" style="margin-top:24px">🚀 خطوات التفعيل الكامل</div>
+  <ul class="step-list">
+    <li data-n="١">تفعيل Shared Drives → admin.google.com → Apps → Drive → Shared Drives → Create</li>
+    <li data-n="٢">ضبط MX Records وSPF/DKIM/DMARC لتأمين البريد</li>
+    <li data-n="٣">تفعيل 2FA إلزامياً لكل الحسابات → Admin Console → Security</li>
+    <li data-n="٤">إنشاء Google Groups: team@, traders@, admin@sheikha.top</li>
+    <li data-n="٥">ربط Google Calendar بتقويم الحول الهجري (تنبيهات الزكاة)</li>
+    <li data-n="٦">تفعيل Google Sites لصفحات المعرفة الداخلية</li>
+    <li data-n="٧">ضبط DLP لمنع تسريب الوثائق الحساسة</li>
+    <li data-n="٨">ربط Gmail بـ Workspace Chat لإشعارات API شيخة</li>
+  </ul>
+
+  <div class="section-title" style="margin-top:24px">📅 متى تترقى؟</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">🔼 Business Plus (17 USD)</div>
+      <div class="card-desc">عند الحاجة لـ:<br>
+      • Vault (أرشفة قانونية للعقود)<br>
+      • Google Meet 500 مشارك<br>
+      • eDiscovery للتقاضي</div>
+    </div>
+    <div class="card">
+      <div class="card-title">🏢 Enterprise (مخصص)</div>
+      <div class="card-desc">عند تجاوز:<br>
+      • 150 مستخدم<br>
+      • الحاجة لـ Advanced DLP<br>
+      • تخزين غير محدود</div>
+    </div>
+  </div>
+</div>
+
+<!-- ٣. Google Cloud Platform -->
+<div id="gcp" class="tab-content">
+  <div class="section-title">☁️ Google Cloud Platform — خطة التفعيل</div>
+
+  <div class="alert-box">
+    <strong>⚠️ الأولوية الأولى:</strong> تفعيل Secret Manager أولاً وتخزين كل المفاتيح قبل أي شيء
+  </div>
+
+  <div id="gcp-services"></div>
+
+  <div class="section-title" style="margin-top:24px">⚡ أوامر التفعيل الدفعي</div>
+  <div class="env-box" id="gcp-enable-cmd">جاري التحميل...</div>
+
+  <div class="section-title" style="margin-top:24px">💰 التكلفة التقديرية</div>
+  <div id="gcp-cost"></div>
+
+  <div class="section-title" style="margin-top:24px">📋 خطوات التفعيل المرحلية</div>
+  <div id="gcp-plan"></div>
+</div>
+
+<!-- ٤. Gemini AI -->
+<div id="gemini" class="tab-content">
+  <div class="section-title">🧠 Gemini AI — شخصيات وموارد شيخة</div>
+
+  <div class="grid2" id="gemini-models"></div>
+
+  <div class="section-title" style="margin-top:24px">🎭 الشخصيات الذكية (AI Personas)</div>
+  <div class="grid2" id="gemini-personas"></div>
+
+  <div class="section-title" style="margin-top:24px">🧪 اختبار Gemini</div>
+  <div class="card">
+    <div class="card-title">إرسال رسالة لـ Gemini AI (يحتاج GEMINI_API_KEY)</div>
+    <select id="persona-select" style="width:100%;padding:10px;background:#0d1117;color:#e8e8e8;border:1px solid #333;border-radius:8px;margin-bottom:10px">
+      <option value="">بدون شخصية (عام)</option>
+      <option value="sharia_advisor">📖 مستشار الشريعة</option>
+      <option value="metals_expert">⚙️ خبير المعادن</option>
+      <option value="market_analyst">📈 محلل السوق</option>
+      <option value="customer_service">💬 خدمة العملاء</option>
+      <option value="zakat_guide">🧮 مرشد الزكاة</option>
+    </select>
+    <textarea id="gemini-input" style="width:100%;padding:10px;background:#0d1117;color:#e8e8e8;border:1px solid #333;border-radius:8px;height:80px;resize:vertical" placeholder="اكتب سؤالك هنا..."></textarea>
+    <button class="btn btn-gold" onclick="testGemini()" style="margin-top:10px">إرسال لـ Gemini ⚡</button>
+    <div id="gemini-response" style="margin-top:12px;display:none;background:#0d1117;border:1px solid #333;border-radius:8px;padding:14px;font-size:0.85rem;color:#e8e8e8;line-height:1.8;white-space:pre-wrap"></div>
+  </div>
+</div>
+
+<!-- ٥. التنبيهات -->
+<div id="notifications" class="tab-content">
+  <div class="section-title">🔔 منظومة التنبيهات والتواصل</div>
+
+  <div class="section-title">📊 حالة القنوات</div>
+  <div id="notif-channels"></div>
+
+  <div class="section-title" style="margin-top:24px">🧪 اختبار OTP SMS</div>
+  <div class="card">
+    <div class="card-title">إرسال OTP تجريبي</div>
+    <div style="display:flex;gap:10px;margin-bottom:10px">
+      <input id="otp-phone" placeholder="+966XXXXXXXXX" style="flex:1;padding:10px;background:#0d1117;color:#e8e8e8;border:1px solid #333;border-radius:8px">
+      <button class="btn btn-gold" onclick="sendOTP()">إرسال OTP</button>
+    </div>
+    <div style="display:flex;gap:10px">
+      <input id="otp-code" placeholder="أدخل الرمز المستلم" style="flex:1;padding:10px;background:#0d1117;color:#e8e8e8;border:1px solid #333;border-radius:8px">
+      <button class="btn btn-outline" onclick="verifyOTP()">تحقق</button>
+    </div>
+    <div id="otp-result" style="margin-top:10px;font-size:0.85rem"></div>
+  </div>
+
+  <div class="section-title" style="margin-top:24px">📋 قوالب الرسائل الجاهزة</div>
+  <div id="notif-templates"></div>
+
+  <div class="section-title" style="margin-top:24px">⚙️ خطوات التفعيل حسب الأولوية</div>
+  <table>
+    <tr><th>القناة</th><th>الجهة</th><th>التكلفة/شهر</th><th>الأولوية</th><th>الحالة</th></tr>
+    <tr>
+      <td>OTP SMS</td><td>Unifonic Portal</td><td>~50-200 SAR</td>
+      <td><span class="badge badge-red">١ — فوري</span></td>
+      <td id="sms-status-cell">—</td>
+    </tr>
+    <tr>
+      <td>WhatsApp Business</td><td>Meta Business</td><td>~100-500 SAR</td>
+      <td><span class="badge badge-red">٢ — هذا الأسبوع</span></td>
+      <td id="wa-status-cell">—</td>
+    </tr>
+    <tr>
+      <td>Web Push (VAPID)</td><td>Firebase</td><td>مجاني</td>
+      <td><span class="badge badge-yellow">٣ — هذا الشهر</span></td>
+      <td id="push-status-cell">—</td>
+    </tr>
+    <tr>
+      <td>Telegram Bot</td><td>BotFather</td><td>مجاني</td>
+      <td><span class="badge badge-yellow">٤ — الأسهل تفعيلاً</span></td>
+      <td>⚠️ يحتاج Token</td>
+    </tr>
+    <tr>
+      <td>بريد إلكتروني</td><td>Gmail App Password</td><td>مجاني (مع Workspace)</td>
+      <td><span class="badge badge-blue">٥</span></td>
+      <td id="email-status-cell">—</td>
+    </tr>
+  </table>
+</div>
+
+<!-- ٦. Microsoft -->
+<div id="microsoft" class="tab-content">
+  <div class="section-title">🟦 Microsoft 365 + Azure + Power Platform</div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">💜</div>
+      <div class="card-title">Microsoft Teams</div>
+      <div class="card-desc">
+        قنوات شيخة المقترحة:<br>
+        📢 تجار شيخة | 🏛️ إدارة السوق<br>
+        📖 الدعم الشرعي | 🚚 اللوجستيات<br>
+        🧮 الزكاة والمالية<br>
+        <a href="https://admin.microsoft.com" target="_blank" class="btn btn-outline" style="font-size:0.75rem;margin-top:10px">فتح Admin Center</a>
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📂</div>
+      <div class="card-title">SharePoint Online</div>
+      <div class="card-desc">
+        • كتالوج المعادن والسكراب<br>
+        • أدلة شيخة ودليل المستخدم<br>
+        • قوائم الأسعار الموثقة<br>
+        • عقود الشراكة والتوريد<br>
+        • مكتبة الفتاوى الشرعية
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⚡</div>
+      <div class="card-title">Power Automate</div>
+      <div class="card-desc">
+        <strong>Flows مقترحة:</strong><br>
+        • طلب عرض سعر → Teams → WhatsApp<br>
+        • موافقة عقد → SharePoint → Email<br>
+        • تحديث الأسعار → إشعار جماعي<br>
+        • تذكير الزكاة → SMS + WhatsApp
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📊</div>
+      <div class="card-title">Power BI</div>
+      <div class="card-desc">
+        <strong>لوحات مقترحة:</strong><br>
+        • سعر المعادن اللحظي (نحاس، حديد، ألومنيوم)<br>
+        • حجم التداولات الأسبوعي<br>
+        • خريطة التجار الجغرافية<br>
+        • مؤشر الزكاة والإحصائيات الشهرية
+      </div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:24px">🔐 تسجيل الدخول بـ Microsoft (Azure AD)</div>
+  <div class="card">
+    <div class="card-title">خطوات التفعيل</div>
+    <ul class="step-list">
+      <li data-n="١">portal.azure.com → Azure Active Directory → App Registrations</li>
+      <li data-n="٢">New Registration → Name: Sheikha Market → Accounts in any tenant (common)</li>
+      <li data-n="٣">Redirect URI: https://sheikha.top/auth/microsoft/callback</li>
+      <li data-n="٤">Certificates & Secrets → New Client Secret (نسخه فوراً)</li>
+      <li data-n="٥">API Permissions → Microsoft Graph → User.Read (أساسي)</li>
+      <li data-n="٦">ضبط .env بـ CLIENT_ID و CLIENT_SECRET و TENANT_ID=common</li>
+    </ul>
+    <div class="env-box">MICROSOFT_CLIENT_ID=your_azure_app_client_id
+MICROSOFT_CLIENT_SECRET=your_azure_client_secret
+MICROSOFT_TENANT_ID=common
+MICROSOFT_REDIRECT_URI=https://sheikha.top/auth/microsoft/callback</div>
+  </div>
+
+  <div class="section-title" style="margin-top:24px">📊 مقارنة Microsoft 365 مع Google Workspace</div>
+  <table>
+    <tr><th>الميزة</th><th>Google Workspace Standard</th><th>M365 Business Standard</th><th>الفائز</th></tr>
+    <tr><td>البريد</td><td>Gmail — واجهة ممتازة</td><td>Outlook — متكامل</td><td>🤝 تعادل</td></tr>
+    <tr><td>Office Desktop</td><td>Google Docs (Web فقط)</td><td>Word/Excel/PPT كاملة</td><td>🟦 Microsoft</td></tr>
+    <tr><td>RTL عربي</td><td>جيد</td><td>ممتاز في Word/Excel</td><td>🟦 Microsoft</td></tr>
+    <tr><td>التعاون الفوري</td><td>Google Drive + Meet</td><td>SharePoint + Teams</td><td>🌐 Google</td></tr>
+    <tr><td>الأمان</td><td>جيد</td><td>Defender + Intune</td><td>🟦 Microsoft</td></tr>
+    <tr><td>السعر</td><td>$11/مستخدم</td><td>$12.5/مستخدم</td><td>🌐 Google</td></tr>
+    <tr><td>التوصية</td><td colspan="3" style="color:#D4AF37">الاثنان معاً: Google أساسي + M365 للمستخدمين الذين يحتاجون Office</td></tr>
+  </table>
+</div>
+
+<!-- ٧. Apple -->
+<div id="apple" class="tab-content">
+  <div class="section-title">🍎 Apple — تكامل iOS/macOS/watchOS</div>
+
+  <div class="alert-box">
+    <strong>⚠️ ملاحظة مهمة:</strong> أي تطبيق iOS في App Store يدعم تسجيل دخول اجتماعي (Google/Microsoft) يـجب أن يدعم <strong>Sign in with Apple</strong> أيضاً — متطلب Apple إلزامي.
+  </div>
+
+  <div class="grid2">
+    <div class="card">
+      <div class="card-icon">🔑</div>
+      <div class="card-title">Sign in with Apple</div>
+      <div class="card-desc">
+        <strong>الخطوات:</strong><br>
+        ١. developer.apple.com → 99 USD/سنة<br>
+        ٢. Identifiers → Services IDs → com.sheikha.market<br>
+        ٣. تفعيل Sign In with Apple<br>
+        ٤. Domains: sheikha.top | Return URL: /auth/apple/callback<br>
+        ٥. Keys → إنشاء Private Key (p8) — حفظ مرة واحدة فقط!<br>
+        ٦. ضبط .env بالقيم أدناه
+      </div>
+      <div class="env-box">APPLE_CLIENT_ID=com.sheikha.market
+APPLE_TEAM_ID=YOUR_APPLE_TEAM_ID
+APPLE_KEY_ID=YOUR_APPLE_KEY_ID
+APPLE_REDIRECT_URI=https://sheikha.top/auth/apple/callback</div>
+    </div>
+    <div class="card">
+      <div class="card-icon">🔔</div>
+      <div class="card-title">APNs — إشعارات iOS</div>
+      <div class="card-desc">
+        <strong>الخطوات:</strong><br>
+        ١. developer.apple.com → Keys → New Key<br>
+        ٢. تفعيل Apple Push Notifications<br>
+        ٣. تحميل الـ .p8 file<br>
+        ٤. حفظ: Key ID + Team ID<br>
+        ٥. ضبط Firebase APNs:<br>
+        console.firebase.google.com → Project Settings → Cloud Messaging → APNs Auth Key
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">📱</div>
+      <div class="card-title">App Store Requirements</div>
+      <div class="card-desc">
+        ✅ Privacy Policy (إلزامية — sheikha.top/privacy)<br>
+        ✅ Sign in with Apple (إذا يوجد تسجيل اجتماعي)<br>
+        ✅ App Review Guidelines (4 المحتوى، 2 التصميم)<br>
+        ✅ Arabic Localization كاملة<br>
+        ✅ وصف واضح للمنتج<br>
+        ⚠️ اجتياز App Review: 24-72 ساعة
+      </div>
+    </div>
+    <div class="card">
+      <div class="card-icon">⌚</div>
+      <div class="card-title">Apple Watch (مستقبلاً)</div>
+      <div class="card-desc">
+        تنبيهات أسعار المعادن على الساعة<br>
+        تذكير الزكاة والصلاة<br>
+        عرض الصفقات المعلقة<br>
+        <span class="badge badge-blue">مرحلة مستقبلية</span>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ٨. الجوال والمتاجر -->
+<div id="mobile" class="tab-content">
+  <div class="section-title">📱 الجوال — PWA والمتاجر</div>
+
+  <div class="card" style="border-color:#D4AF37;margin-bottom:20px">
+    <div class="card-title" style="font-size:1.1rem">🎯 الاستراتيجية: PWA أولاً → Play Store → App Store</div>
+    <div class="card-desc">
+      PWA يعمل الآن على كل الأجهزة بدون متاجر<br>
+      التحسين يستغرق 1-3 أيام — ثم نشر في Play Store خلال أسبوعين
+    </div>
+  </div>
+
+  <div class="section-title">✅ قائمة فحص PWA</div>
+  <div id="pwa-checklist"></div>
+
+  <div class="section-title" style="margin-top:24px">🤖 Google Play (TWA) — خطوات النشر</div>
+  <div class="card">
+    <ul class="step-list">
+      <li data-n="١">اختبار Lighthouse: npx lighthouse https://sheikha.top --view (هدف ≥ 90)</li>
+      <li data-n="٢">تثبيت Bubblewrap: npm install -g @bubblewrap/cli</li>
+      <li data-n="٣">إنشاء TWA: bubblewrap init --manifest=https://sheikha.top/manifest.json</li>
+      <li data-n="٤">بناء APK: bubblewrap build → app-release-signed.apk</li>
+      <li data-n="٥">إضافة assetlinks.json: sheikha.top/.well-known/assetlinks.json</li>
+      <li data-n="٦">play.google.com/apps/publish → 25 USD → رفع APK → Internal Testing</li>
+      <li data-n="٧">مراجعة Google (1-7 أيام) → نشر للعموم</li>
+      <li data-n="٨">نفس APK → Huawei AppGallery + Samsung Galaxy Store</li>
+    </ul>
+  </div>
+
+  <div class="section-title" style="margin-top:24px">📦 متاجر التطبيقات المستهدفة</div>
+  <div class="grid3">
+    <div class="card" style="text-align:center">
+      <div class="card-icon">🤖</div>
+      <div class="card-title">Google Play</div>
+      <div class="card-desc">25 USD مرة واحدة<br>أكبر متجر Android</div>
+      <div class="badge badge-yellow" style="margin-top:8px">الأولوية الأولى</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-icon">🔴</div>
+      <div class="card-title">Huawei AppGallery</div>
+      <div class="card-desc">مجاني<br>نسبة Huawei كبيرة بالسعودية</div>
+      <div class="badge badge-yellow" style="margin-top:8px">نفس APK</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-icon">💙</div>
+      <div class="card-title">Samsung Galaxy Store</div>
+      <div class="card-desc">مجاني<br>ثاني أكبر متجر Android</div>
+      <div class="badge badge-yellow" style="margin-top:8px">نفس APK</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-icon">🍎</div>
+      <div class="card-title">App Store (iOS)</div>
+      <div class="card-desc">99 USD/سنة<br>جمهور iPhone الأعلى إنفاقاً</div>
+      <div class="badge badge-blue" style="margin-top:8px">المرحلة الثالثة</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-icon">🪟</div>
+      <div class="card-title">Windows Edge PWA</div>
+      <div class="card-desc">مجاني — يعمل تلقائياً<br>تثبيت من Edge مباشرة</div>
+      <div class="badge badge-green" style="margin-top:8px">جاهز الآن</div>
+    </div>
+    <div class="card" style="text-align:center">
+      <div class="card-icon">🌐</div>
+      <div class="card-title">PWA — كل المتصفحات</div>
+      <div class="card-desc">مجاني — يعمل الآن<br>Android + iOS + Windows</div>
+      <div class="badge badge-green" style="margin-top:8px">متاح الآن</div>
+    </div>
+  </div>
+
+  <div class="section-title" style="margin-top:24px">🕌 متطلبات السوق السعودي</div>
+  <div class="grid2">
+    <div class="card">
+      <div class="card-title">القانونية والتنظيمية</div>
+      <ul class="step-list">
+        <li data-n="✅">Privacy Policy بالعربية (PDPL)</li>
+        <li data-n="✅">بيانات المستخدمين في منطقة موافقة</li>
+        <li data-n="✅">ربط بنافث للتحقق الوطني</li>
+        <li data-n="⚠️">Terms of Service محدثة</li>
+      </ul>
+    </div>
+    <div class="card">
+      <div class="card-title">المدفوعات السعودية</div>
+      <ul class="step-list">
+        <li data-n="①">STC Pay (الأكثر انتشاراً)</li>
+        <li data-n="②">Mada (بطاقات بنكية محلية)</li>
+        <li data-n="③">Apple Pay (iOS) + Google Pay (Android)</li>
+        <li data-n="④">SADAD (فواتير SABIC)</li>
+        <li data-n="⑤">Tamara/Tabby (تقسيط — تحقق من الشريعة)</li>
+      </ul>
+    </div>
+  </div>
+</div>
+
+<!-- ٩. المفاتيح والبيئة -->
+<div id="env" class="tab-content">
+  <div class="section-title">🔐 دليل إعداد المفاتيح (.env)</div>
+
+  <div class="alert-box">
+    <strong>⚠️ أمان:</strong> لا تضع المفاتيح الحقيقية في الكود — استخدم Google Secret Manager أو .env خارج Git
+  </div>
+
+  <div class="section-title">Google Cloud & AI</div>
+  <div class="env-box"># Google Cloud
+GOOGLE_CLOUD_PROJECT=sheikha-marketplace
+GCP_REGION=me-central1
+GOOGLE_APPLICATION_CREDENTIALS=/path/to/sheikha-sa-key.json
+
+# Gemini AI
+GEMINI_API_KEY=your_gemini_api_key_from_studio.google.com
+
+# Google OAuth
+GOOGLE_CLIENT_ID=your_google_client_id
+GOOGLE_CLIENT_SECRET=your_google_client_secret
+
+# Firebase
+FCM_SERVER_KEY=your_fcm_server_key
+VAPID_PUBLIC_KEY=your_vapid_public_key
+VAPID_PRIVATE_KEY=your_vapid_private_key
+VAPID_SUBJECT=mailto:market@sheikha.top</div>
+
+  <div class="section-title">التنبيهات والتواصل</div>
+  <div class="env-box"># WhatsApp Business API
+WHATSAPP_TOKEN=your_meta_whatsapp_access_token
+WHATSAPP_PHONE_ID=your_phone_number_id
+WHATSAPP_VERIFY_TOKEN=sheikha_webhook_verify_2026
+
+# SMS — Unifonic
+UNIFONIC_API_KEY=your_unifonic_api_key
+UNIFONIC_SENDER_ID=SHEIKHA
+SMS_PROVIDER=unifonic
+
+# Email
+EMAIL_USER=market@sheikha.top
+EMAIL_PASS=your_google_app_password
+EMAIL_FROM_NAME=منظومة شيخة للمعادن
+
+# Telegram
+TELEGRAM_BOT_TOKEN=your_telegram_bot_token</div>
+
+  <div class="section-title">Microsoft & Apple</div>
+  <div class="env-box"># Microsoft Azure AD
+MICROSOFT_CLIENT_ID=your_azure_app_client_id
+MICROSOFT_CLIENT_SECRET=your_azure_client_secret
+MICROSOFT_TENANT_ID=common
+
+# Apple Sign in
+APPLE_CLIENT_ID=com.sheikha.market
+APPLE_TEAM_ID=your_apple_team_id
+APPLE_KEY_ID=your_apple_key_id
+APPLE_PRIVATE_KEY="your_p8_private_key_content"
+
+# Nafath (هوية رقمية سعودية)
+NAFATH_CLIENT_ID=your_nafath_client_id
+NAFATH_CLIENT_SECRET=your_nafath_client_secret</div>
+
+  <div class="section-title">روابط الحصول على المفاتيح</div>
+  <table>
+    <tr><th>المفتاح</th><th>من أين تحصل عليه</th></tr>
+    <tr><td>GEMINI_API_KEY</td><td>aistudio.google.com → Get API Key</td></tr>
+    <tr><td>GOOGLE_CLIENT_ID/SECRET</td><td>console.cloud.google.com → APIs → Credentials</td></tr>
+    <tr><td>FCM_SERVER_KEY</td><td>console.firebase.google.com → Project Settings → Cloud Messaging</td></tr>
+    <tr><td>VAPID Keys</td><td>npx web-push generate-vapid-keys (في الـ terminal)</td></tr>
+    <tr><td>WHATSAPP_TOKEN</td><td>developers.facebook.com → WhatsApp Business</td></tr>
+    <tr><td>UNIFONIC_API_KEY</td><td>portal.unifonic.com → Settings → API</td></tr>
+    <tr><td>MICROSOFT_CLIENT_ID</td><td>portal.azure.com → App Registrations</td></tr>
+    <tr><td>APPLE_TEAM_ID</td><td>developer.apple.com → Account → Membership</td></tr>
+    <tr><td>TELEGRAM_BOT_TOKEN</td><td>@BotFather في Telegram → /newbot</td></tr>
+  </table>
+</div>
+
+<!-- ═══ المرحلة ٤٣ — الأقمار الصناعية ═══ -->
+<div id="satellites" class="tab-content">
+  <div class="halal-banner"><div class="text"><strong>وَفِي السَّمَاءِ رِزْقُكُمْ وَمَا تُوعَدُونَ</strong> — الذاريات:22</div></div>
+  <div class="section-title">🛰️ شبكات الأقمار الصناعية — ٢٠ شبكة عالمية</div>
+  <div id="sat-stats" style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px;"></div>
+  <table>
+    <thead><tr><th>#</th><th>الشبكة</th><th>المشغل</th><th>المدار</th><th>السرعة</th><th>الاستخدام في شيخة</th></tr></thead>
+    <tbody id="sat-table"><tr><td colspan="6" style="text-align:center;color:#888;">جاري التحميل...</td></tr></tbody>
+  </table>
+  <div class="section-title" style="margin-top:24px;">📦 حزم شيخة الفضائية</div>
+  <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;">
+    <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #D4AF37;border-radius:12px;padding:20px;">
+      <div style="color:#D4AF37;font-weight:700;font-size:1rem;margin-bottom:8px;">🌙 باقة الفجر — التاجر الفرد</div>
+      <div style="font-size:1.6rem;font-weight:900;color:#D4AF37;">599 <span style="font-size:0.9rem;color:#888;">ريال/شهر</span></div>
+      <ul style="list-style:none;margin-top:10px;font-size:0.85rem;color:#aaa;">
+        <li>▪ إنترنت Starlink 50 Mbps</li><li>▪ شريحة جوال 20 GB</li><li>▪ جهاز تتبع GPS</li></ul></div>
+    <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #D4AF37;border-radius:12px;padding:20px;">
+      <div style="color:#D4AF37;font-weight:700;font-size:1rem;margin-bottom:8px;">☀️ باقة الضحى — المستودع</div>
+      <div style="font-size:1.6rem;font-weight:900;color:#D4AF37;">1,499 <span style="font-size:0.9rem;color:#888;">ريال/شهر</span></div>
+      <ul style="list-style:none;margin-top:10px;font-size:0.85rem;color:#aaa;">
+        <li>▪ إنترنت 200 Mbps + GEO احتياطي</li><li>▪ 5 شرائح للفريق</li><li>▪ 5 أجهزة تتبع</li></ul></div>
+    <div style="background:linear-gradient(135deg,#1a1a2e,#16213e);border:1px solid #D4AF37;border-radius:12px;padding:20px;">
+      <div style="color:#D4AF37;font-weight:700;font-size:1rem;margin-bottom:8px;">🌟 باقة العلياء — السفينة</div>
+      <div style="font-size:1.6rem;font-weight:900;color:#D4AF37;">4,999 <span style="font-size:0.9rem;color:#888;">ريال/شهر</span></div>
+      <ul style="list-style:none;margin-top:10px;font-size:0.85rem;color:#aaa;">
+        <li>▪ Starlink Maritime 100 Mbps</li><li>▪ جوال غير محدود للطاقم</li><li>▪ AIS + Iridium طوارئ</li></ul></div>
+  </div>
+</div>
+
+<!-- ═══ المرحلة ٤٣ — شركات التقنية ═══ -->
+<div id="techcomp" class="tab-content">
+  <div class="halal-banner"><div class="text"><strong>وَأَعِدُّوا لَهُمْ مَا اسْتَطَعْتُمْ مِنْ قُوَّةٍ</strong> — الأنفال:60<br>التقنية قوة — القوة في خدمة الحق مطلوبة</div></div>
+  <div class="section-title">🚀 منظومة شيخة مع كبرى شركات التقنية (١١ شركة)</div>
+  <div id="tech-grid" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;margin-bottom:24px;"></div>
+  <div class="section-title">⚡ خوادم الخلفية النشطة في شيخة</div>
+  <div id="bg-services" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:12px;"></div>
+</div>
+
+<!-- ═══ الملكية الفكرية ═══ -->
+<div id="ip" class="tab-content">
+  <div class="halal-banner"><div class="text"><strong>وَقُل رَّبِّ زِدْنِي عِلْمًا</strong> — طه:114 &nbsp;|&nbsp; <strong>لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ</strong> — البقرة:188</div></div>
+  <div class="section-title">⚖️ إعلان الملكية الفكرية — SHEIKHA®</div>
+  <div style="background:#1a1a2e;border:2px solid #D4AF37;border-radius:12px;padding:20px;margin-bottom:16px;">
+    <div style="font-size:1.1rem;font-weight:700;color:#D4AF37;margin-bottom:12px;">بسم الله الرحمن الرحيم</div>
+    <p style="color:#ccc;line-height:1.9;font-size:0.9rem;">هذه المنظومة — <strong style="color:#D4AF37;">شيخة</strong> — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب في العالم، ملك حصري لـ <strong style="color:#D4AF37;">سلمان أحمد بن سلمان الراجح</strong>، المؤسس والمالك الوحيد دون شريك.</p>
+    <div style="margin-top:12px;display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:8px;">
+      <div style="background:#111;border-radius:8px;padding:10px;"><div style="color:#D4AF37;font-size:0.8rem;font-weight:700;">📅 تاريخ التأسيس</div><div style="color:#ccc;font-size:0.85rem;">١٤٤٤ هـ / ٢٠٢٣ م</div></div>
+      <div style="background:#111;border-radius:8px;padding:10px;"><div style="color:#D4AF37;font-size:0.8rem;font-weight:700;">🌐 الدومين</div><div style="color:#ccc;font-size:0.85rem;">sheikha.top</div></div>
+      <div style="background:#111;border-radius:8px;padding:10px;"><div style="color:#D4AF37;font-size:0.8rem;font-weight:700;">©️ حقوق النشر</div><div style="color:#ccc;font-size:0.85rem;">2023-2026 — كل الحقوق محفوظة</div></div>
+      <div style="background:#111;border-radius:8px;padding:10px;"><div style="color:#D4AF37;font-size:0.8rem;font-weight:700;">™️ العلامة التجارية</div><div style="color:#ccc;font-size:0.85rem;">SHEIKHA® — قيد التسجيل</div></div>
+    </div>
+  </div>
+  <div class="section-title">🏆 مطالبات الريادة والأولوية العالمية</div>
+  <div style="background:#111;border-radius:10px;padding:16px;margin-bottom:16px;">
+    <div id="ip-claims" style="font-size:0.9rem;color:#ccc;line-height:2;">جاري التحميل...</div>
+  </div>
+  <div class="section-title">🚫 حظر الهندسة العكسية والعقوبات القانونية</div>
+  <div style="background:#1a0505;border:1px solid #e57373;border-radius:10px;padding:20px;margin-bottom:16px;">
+    <div style="color:#e57373;font-weight:700;margin-bottom:10px;">⚠️ تحذير قانوني — Legal Warning</div>
+    <div style="color:#ccc;font-size:0.85rem;line-height:1.9;" id="ip-prohibition">جاري التحميل...</div>
+    <div style="margin-top:12px;display:grid;grid-template-columns:1fr 1fr;gap:8px;">
+      <div style="background:#111;border-radius:8px;padding:10px;">
+        <div style="color:#e57373;font-size:0.8rem;font-weight:700;">🏛️ العقوبة المدنية</div>
+        <div style="color:#ccc;font-size:0.8rem;">5 أضعاف الأضرار + مصادرة الأرباح + رسوم المحاكمة</div></div>
+      <div style="background:#111;border-radius:8px;padding:10px;">
+        <div style="color:#e57373;font-size:0.8rem;font-weight:700;">⚖️ العقوبة الجنائية</div>
+        <div style="color:#ccc;font-size:0.8rem;">سجن 6 أشهر إلى 5 سنوات + غرامة 50K إلى 5M ريال</div></div>
+    </div>
+    <div style="margin-top:10px;background:#1a1a2e;border-radius:8px;padding:10px;">
+      <div style="color:#B87333;font-size:0.85rem;">📖 التحذير الشرعي: لا يحل مال امرئ مسلم إلا بطيب نفس منه — النبي ﷺ</div></div>
+  </div>
+  <div class="section-title">🤝 نموذج الشراكة والترخيص</div>
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;">
+    <div style="background:#1a1a2e;border:1px solid #D4AF37;border-radius:10px;padding:16px;">
+      <div style="color:#D4AF37;font-weight:700;margin-bottom:8px;">💼 الترخيص التجاري</div>
+      <ul style="list-style:none;font-size:0.82rem;color:#bbb;line-height:1.8;">
+        <li>▪ عقد امتياز تجاري موثق شرعاً</li>
+        <li>▪ رسوم ترخيص سنوية حسب النطاق</li>
+        <li>▪ حصة المالك الأصلي: لا تقل عن 10%</li>
+        <li>▪ الريادة التجارية أولاً — ثم الشراكة</li>
+      </ul>
+    </div>
+    <div style="background:#1a1a2e;border:1px solid #4caf87;border-radius:10px;padding:16px;">
+      <div style="color:#4caf87;font-weight:700;margin-bottom:8px;">🎓 الترخيص التعليمي والخيري</div>
+      <ul style="list-style:none;font-size:0.82rem;color:#bbb;line-height:1.8;">
+        <li>▪ إذن كتابي من المالك أولاً</li>
+        <li>▪ للتعليم فقط — غير ربحي بالمطلق</li>
+        <li>▪ ذكر شيخة في كل إنتاج أكاديمي</li>
+        <li>▪ نسخة من كل بحث للمالك</li>
+      </ul>
+    </div>
+  </div>
+  <div style="margin-top:12px;background:#1a1a2e;border-radius:8px;padding:12px;text-align:center;">
+    <span style="color:#888;font-size:0.85rem;">للاستفسار عن الترخيص: </span>
+    <strong style="color:#D4AF37;">legal@sheikha.top</strong>
+  </div>
+  <div class="section-title" style="margin-top:16px;">🤲 التحكم الكامل بالأجهزة — بدون زرع شريحة</div>
+  <div style="background:#1a1a2e;border-radius:10px;padding:16px;">
+    <div id="device-control" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:8px;">جاري التحميل...</div>
+  </div>
+</div>
+
+<!-- ═══ Microsoft 365 ═══ -->
+<div id="m365" class="tab-content">
+  <div class="halal-banner"><div class="text"><strong>وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى</strong> — المائدة:2 &nbsp;|&nbsp; التعاون الرقمي في خدمة التجارة الحلال</div></div>
+  <div class="section-title">🟦 حساب شيخة على Microsoft 365</div>
+  <div style="background:#1a1a2e;border:2px solid #0078D4;border-radius:12px;padding:20px;margin-bottom:16px;">
+    <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:12px;">
+      <div><div style="color:#0078D4;font-size:0.8rem;font-weight:700;">📧 الحساب الرسمي</div><div style="color:#D4AF37;font-family:monospace;margin-top:4px;">market@sheikhatop.onmicrosoft.com</div></div>
+      <div><div style="color:#0078D4;font-size:0.8rem;font-weight:700;">🌐 الدومين المخصص</div><div style="color:#D4AF37;font-family:monospace;margin-top:4px;">market@sheikha.top</div></div>
+      <div><div style="color:#0078D4;font-size:0.8rem;font-weight:700;">📦 الخطة</div><div style="color:#ccc;margin-top:4px;">Microsoft 365 Business Standard</div></div>
+      <div><div style="color:#0078D4;font-size:0.8rem;font-weight:700;">📊 الحالة</div><div id="m365-status" style="color:#4caf87;margin-top:4px;">⏳ جاري الفحص...</div></div>
+    </div>
+  </div>
+  <div class="section-title">💬 قنوات Microsoft Teams (٦ قنوات)</div>
+  <div id="teams-channels" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px;">جاري التحميل...</div>
+  <div class="section-title">🔄 قدرات المزامنة مع شيخة</div>
+  <div id="m365-sync" style="display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:10px;margin-bottom:16px;">جاري التحميل...</div>
+  <div class="section-title">⚙️ خطوات التفعيل (٥ خطوات)</div>
+  <div id="m365-steps" style="counter-reset:step;">جاري التحميل...</div>
+  <div class="section-title" style="margin-top:16px;">📡 اختبار Teams</div>
+  <div style="background:#1a1a2e;border-radius:10px;padding:16px;">
+    <div style="display:flex;gap:10px;flex-wrap:wrap;">
+      <input id="teams-msg" type="text" placeholder="رسالة اختبارية لقناة Teams..." style="flex:1;min-width:200px;padding:10px;background:#111;color:#fff;border:1px solid #333;border-radius:8px;font-family:'Tajawal',sans-serif;">
+      <button onclick="testTeams()" style="background:#0078D4;color:#fff;border:none;padding:10px 20px;border-radius:8px;cursor:pointer;font-family:'Tajawal',sans-serif;font-weight:700;">إرسال لـ Teams ⟶</button>
+    </div>
+    <div id="teams-result" style="margin-top:10px;font-size:0.85rem;"></div>
+  </div>
+</div>
+
+<script>
+function showTab(id) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    event.target.classList.add('active');
+}
+
+// ─── تحميل بيانات Phase 43 ───
+async function loadPhase43() {
+    try {
+        const [satData, techData, ipData, m365Data] = await Promise.all([
+            fetch('/api/satellites/networks').then(r=>r.json()).catch(()=>null),
+            fetch('/api/tech/companies').then(r=>r.json()).catch(()=>null),
+            fetch('/api/ip/declaration').then(r=>r.json()).catch(()=>null),
+            fetch('/api/m365/profile').then(r=>r.json()).catch(()=>null)
+        ]);
+        // ─ الأقمار
+        if (satData?.success) {
+            const tbody = document.getElementById('sat-table');
+            if (tbody) tbody.innerHTML = satData.data.networks.map(n =>
+                `<tr><td style="color:#B87333;font-weight:700;">${n.id}</td><td style="color:#D4AF37;font-weight:700;">${n.name}</td><td style="color:#aaa;">${n.operator}</td><td><span style="background:rgba(212,175,55,0.15);color:#D4AF37;padding:2px 8px;border-radius:10px;font-size:0.75rem;">${n.orbit}</span></td><td style="color:#aaa;font-size:0.8rem;">${n.speed||''}</td><td style="color:#7fb3e8;font-size:0.8rem;">${n.sheikha_use||''}</td></tr>`
+            ).join('');
+            const stats = document.getElementById('sat-stats');
+            if (stats) stats.innerHTML = `
+                <div style="background:#1a1a2e;border:1px solid #D4AF37;border-radius:8px;padding:10px 16px;"><div style="color:#D4AF37;font-size:1.4rem;font-weight:900;">${satData.data.count}</div><div style="color:#888;font-size:0.8rem;">شبكة فضائية</div></div>
+                <div style="background:#1a1a2e;border:1px solid #B87333;border-radius:8px;padding:10px 16px;"><div style="color:#B87333;font-size:1.4rem;font-weight:900;">6</div><div style="color:#888;font-size:0.8rem;">مدار مختلف</div></div>
+                <div style="background:#1a1a2e;border:1px solid #4caf87;border-radius:8px;padding:10px 16px;"><div style="color:#4caf87;font-size:1.4rem;font-weight:900;">3</div><div style="color:#888;font-size:0.8rem;">حزم شيخة الفضائية</div></div>
+            `;
+        }
+        // ─ شركات التقنية
+        if (techData?.success) {
+            const grid = document.getElementById('tech-grid');
+            if (grid) grid.innerHTML = techData.data.companies.map(c =>
+                `<div style="background:#1a1a2e;border:1px solid #333;border-radius:10px;padding:14px;cursor:pointer;transition:border-color .2s;" onmouseover="this.style.borderColor='#D4AF37'" onmouseout="this.style.borderColor='#333'">
+                    <div style="color:#B87333;font-size:0.7rem;font-weight:700;">شركة #${c.id}</div>
+                    <div style="font-size:1.6rem;margin:4px 0;">${c.icon||'🏢'}</div>
+                    <div style="color:#D4AF37;font-weight:700;font-size:0.9rem;">${c.sheikha_name||c.name}</div>
+                    <div style="color:#888;font-size:0.75rem;margin-top:4px;">${c.category||''}</div>
+                </div>`
+            ).join('');
+        }
+        // ─ خوادم الخلفية
+        fetch('/api/tech/background-services').then(r=>r.json()).then(bgData => {
+            if (!bgData?.success) return;
+            const el = document.getElementById('bg-services');
+            if (el) el.innerHTML = bgData.data.services.map(s =>
+                `<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:12px;">
+                    <div style="display:flex;justify-content:space-between;align-items:center;">
+                        <div><div style="color:#D4AF37;font-weight:700;font-size:0.9rem;">${s.name}</div><div style="color:#888;font-size:0.8rem;margin-top:2px;">${s.description||s.schedule||''}</div></div>
+                        <span style="background:rgba(63,185,80,0.15);color:#4caf87;padding:2px 10px;border-radius:10px;font-size:0.75rem;">نشط</span>
+                    </div>
+                </div>`
+            ).join('');
+        }).catch(()=>{});
+        // ─ الملكية الفكرية
+        if (ipData?.success) {
+            const claims = document.getElementById('ip-claims');
+            if (claims && ipData.data?.declaration?.first_mover?.pioneering_claims) {
+                claims.innerHTML = ipData.data.declaration.first_mover.pioneering_claims.map((c, i) =>
+                    `<div style="padding:6px 0;border-bottom:1px solid #222;"><span style="color:#D4AF37;font-weight:700;">٪${i+1}</span> ${c}</div>`
+                ).join('');
+            }
+            const proh = document.getElementById('ip-prohibition');
+            if (proh && ipData.data?.anti_reverse_engineering?.arabic_statement) {
+                proh.innerHTML = ipData.data.anti_reverse_engineering.arabic_statement.trim().replace(/\n/g, '<br>');
+            }
+            const dc = document.getElementById('device-control');
+            if (dc && ipData.data?.device_control?.non_invasive_technologies) {
+                dc.innerHTML = ipData.data.device_control.non_invasive_technologies.map(t =>
+                    `<div style="background:#111;border-radius:8px;padding:10px;">
+                        <div style="display:flex;justify-content:space-between;align-items:center;">
+                            <div style="color:#D4AF37;font-weight:700;font-size:0.85rem;">${t.name}</div>
+                            <span style="font-size:0.7rem;padding:2px 8px;border-radius:10px;${t.status==='مُفعَّل'?'background:rgba(63,185,80,0.15);color:#4caf87;':t.status.includes('بانتظار')?'background:rgba(248,81,73,0.15);color:#e57373;':'background:rgba(212,175,55,0.15);color:#D4AF37;'}">${t.status}</span>
+                        </div>
+                        <div style="color:#888;font-size:0.75rem;margin-top:4px;">${t.tech}</div>
+                        <div style="color:#B87333;font-size:0.75rem;margin-top:2px;">${t.sharia}</div>
+                    </div>`
+                ).join('');
+            }
+        }
+        // ─ Microsoft 365
+        if (m365Data?.success) {
+            document.getElementById('m365-status').textContent = '✅ متصل — ' + m365Data.data.plan;
+        } else {
+            document.getElementById('m365-status').textContent = '⚠️ يحتاج ضبط MICROSOFT_CLIENT_ID';
+        }
+        fetch('/api/m365/teams').then(r=>r.json()).then(teamsData => {
+            const el = document.getElementById('teams-channels');
+            if (!el || !teamsData?.success) { if(el) el.innerHTML = '<div style="color:#888;font-size:0.85rem;">يحتاج ضبط متغيرات Microsoft</div>'; return; }
+            el.innerHTML = teamsData.data.channels.map(ch =>
+                `<div style="background:#1a1a2e;border:1px solid #0078D4;border-radius:8px;padding:12px;">
+                    <div style="color:#D4AF37;font-weight:700;">${ch.name}</div>
+                    <div style="color:#888;font-size:0.8rem;margin-top:4px;">${ch.purpose}</div>
+                    ${ch.restricted ? '<div style="color:#e57373;font-size:0.75rem;margin-top:4px;">🔒 مقيد للإدارة</div>' : ''}
+                </div>`
+            ).join('');
+        }).catch(() => { const el=document.getElementById('teams-channels'); if(el) el.innerHTML='<div style="color:#888;font-size:0.85rem;">يحتاج ضبط MICROSOFT_CLIENT_ID</div>'; });
+        fetch('/api/m365/sync').then(r=>r.json()).then(syncData => {
+            const el = document.getElementById('m365-sync');
+            if (!el || !syncData?.success) { if(el) el.innerHTML='<div style="color:#888;font-size:0.85rem;">يحتاج ضبط متغيرات Microsoft</div>'; return; }
+            const caps = syncData.data;
+            el.innerHTML = Object.entries(caps).map(([k, v]) =>
+                `<div style="background:#1a1a2e;border:1px solid #333;border-radius:8px;padding:12px;">
+                    <div style="display:flex;justify-content:space-between;">
+                        <div style="color:#D4AF37;font-weight:700;font-size:0.9rem;">${v.description||k}</div>
+                        <span style="font-size:0.75rem;padding:2px 8px;border-radius:10px;${v.status==='جاهز'?'background:rgba(63,185,80,0.15);color:#4caf87;':'background:rgba(212,175,55,0.15);color:#D4AF37;'}">${v.status}</span>
+                    </div>
+                    ${v.direction ? '<div style="color:#888;font-size:0.75rem;margin-top:4px;">↔ '+v.direction+'</div>' : ''}
+                </div>`
+            ).join('');
+        }).catch(() => {});
+        fetch('/api/m365/activation-steps').then(r=>r.json()).then(stepsData => {
+            const el = document.getElementById('m365-steps');
+            if (!el || !stepsData?.success) return;
+            el.innerHTML = stepsData.data.map(s =>
+                `<div style="background:#1a1a2e;border-right:3px solid #0078D4;border-radius:8px;padding:14px;margin-bottom:8px;">
+                    <div style="color:#0078D4;font-weight:700;margin-bottom:6px;">الخطوة ${s.step}: ${s.title}</div>
+                    <div style="font-size:0.82rem;color:#aaa;">${(s.commands||Object.entries(s.env_vars||{}).map(([k,v])=>k+': '+v)||[]).map(c=>'<div style="padding:2px 0;">• '+c+'</div>').join('')}</div>
+                </div>`
+            ).join('');
+        }).catch(() => {});
+    } catch(e) { console.warn('Phase 43 load error:', e.message); }
+}
+
+async function testTeams() {
+    const msg = document.getElementById('teams-msg').value.trim() || 'اختبار من شيخة — ' + new Date().toLocaleString('ar');
+    const el = document.getElementById('teams-result');
+    el.textContent = 'جاري الإرسال...'; el.style.color = '#58a6ff';
+    try {
+        const r = await fetch('/api/m365/teams/notify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title: 'اختبار من شيخة', message: msg })
+        });
+        const data = await r.json();
+        el.textContent = data.success ? '✅ ' + data.data?.message : '⚠️ ' + (data.message || 'تحقق من TEAMS_WEBHOOK_URL');
+        el.style.color = data.success ? '#4caf87' : '#D4AF37';
+    } catch(e) { el.textContent = '❌ ' + e.message; el.style.color = '#e57373'; }
+}
+
+// تحميل البيانات من API
+async function loadData() {
+    try {
+        const [gcp, gem, notif, ms, mob] = await Promise.all([
+            fetch('/api/integration/gcp/stats').then(r=>r.json()).catch(()=>null),
+            fetch('/api/integration/gemini/stats').then(r=>r.json()).catch(()=>null),
+            fetch('/api/integration/notifications/stats').then(r=>r.json()).catch(()=>null),
+            fetch('/api/integration/microsoft/stats').then(r=>r.json()).catch(()=>null),
+            fetch('/api/integration/mobile/stats').then(r=>r.json()).catch(()=>null)
+        ]);
+
+        // نظرة عامة
+        renderOverview(gcp, gem, notif, ms, mob);
+
+        // GCP
+        if (gcp && gcp.success) {
+            renderGCPServices(gcp.data);
+        }
+
+        // Gemini models + personas
+        if (gem && gem.success) {
+            renderGeminiModels(gem.data.models);
+            renderGeminiPersonas(gem.data.personas);
+        }
+
+        // Notifications
+        if (notif && notif.success) {
+            renderNotifChannels(notif.data.channels);
+            renderNotifTemplates(notif.data.templates);
+            updateNotifStatus(notif.data.stats);
+        }
+
+        // Mobile PWA
+        if (mob && mob.success) {
+            renderPWAChecklist(mob.data.checklist);
+        }
+
+        // Workspace status
+        renderWorkspaceStatus();
+
+    } catch(e) {
+        console.log('API unavailable — using default UI');
+        renderDefaultUI();
+    }
+}
+
+function renderOverview(gcp, gem, notif, ms, mob) {
+    let configured = 0;
+    const checks = [
+        { label: 'Google Cloud API Key', ok: gcp?.data?.stats?.api_key_configured },
+        { label: 'Gemini API Key', ok: gem?.data?.stats?.api_key_configured },
+        { label: 'WhatsApp Token', ok: notif?.data?.stats?.whatsapp_configured },
+        { label: 'SMS (Unifonic)', ok: notif?.data?.stats?.sms_configured },
+        { label: 'Firebase FCM', ok: notif?.data?.stats?.fcm_configured },
+        { label: 'Email', ok: notif?.data?.stats?.email_configured },
+        { label: 'Microsoft OAuth', ok: ms?.data?.stats?.microsoft_configured },
+        { label: 'Apple Sign-in', ok: ms?.data?.stats?.apple_configured }
+    ];
+
+    const html = checks.map(c => {
+        if (c.ok) configured++;
+        return `<div class="checker-item">
+            <span class="checker-label">${c.label}</span>
+            <span class="checker-status" style="color:${c.ok?'#4caf87':'#e57373'}">${c.ok?'✅ مفعل':'⚠️ يحتاج إعداد'}</span>
+        </div>`;
+    }).join('');
+
+    const el = document.getElementById('integration-status');
+    if (el) el.innerHTML = html;
+    const sc = document.getElementById('stat-configured');
+    if (sc) sc.textContent = configured;
+}
+
+function renderGCPServices(data) {
+    if (!data || !data.services) return;
+    const el = document.getElementById('gcp-services');
+    if (!el) return;
+    el.innerHTML = data.services.slice(0,6).map(s => `
+        <div class="card" style="margin-bottom:12px">
+            <div class="card-title">${s.icon||'☁️'} ${s.name||s.id}</div>
+            <div class="card-desc" style="font-size:0.78rem">${s.description||''}</div>
+        </div>
+    `).join('');
+
+    const cmdEl = document.getElementById('gcp-enable-cmd');
+    if (cmdEl && data.commands) cmdEl.textContent = data.commands.enable_all_apis || '# gcloud services enable ...';
+
+    const costEl = document.getElementById('gcp-cost');
+    if (costEl && data.cost) {
+        costEl.innerHTML = `<div class="card">
+            <table>
+                <tr><th>الخدمة</th><th>التكلفة التقديرية</th></tr>
+                <tr><td>Vertex AI + Gemini</td><td>500-2000 SAR/شهر</td></tr>
+                <tr><td>Cloud Storage</td><td>50-200 SAR/شهر</td></tr>
+                <tr><td>Cloud Run</td><td>200-800 SAR/شهر</td></tr>
+                <tr><td>Firebase (البداية)</td><td>مجاني (Spark Plan)</td></tr>
+                <tr><td>Maps Platform</td><td>100-300 SAR/شهر</td></tr>
+                <tr><td><strong>المجموع التقديري</strong></td><td><strong>850-3300 SAR/شهر</strong></td></tr>
+            </table>
+        </div>`;
+    }
+
+    const planEl = document.getElementById('gcp-plan');
+    if (planEl && data.plan) {
+        planEl.innerHTML = data.plan.map(p => `
+            <div class="card" style="margin-bottom:12px">
+                <div class="card-title">المرحلة ${p.phase}: ${p.title} (${p.duration})</div>
+                <ul class="step-list">${(p.steps||[]).map((s,i)=>`<li data-n="${i+1}">${s}</li>`).join('')}</ul>
+            </div>
+        `).join('');
+    }
+}
+
+function renderGeminiModels(models) {
+    if (!models) return;
+    const el = document.getElementById('gemini-models');
+    if (!el) return;
+    el.innerHTML = (models||[]).map(m => `
+        <div class="card">
+            <div class="card-title">${m.icon||'🤖'} ${m.name}</div>
+            <div class="card-desc">
+                <strong>السياق:</strong> ${(m.context_window||0).toLocaleString()} token<br>
+                <strong>الاستخدام:</strong><br>
+                ${(m.sheikha_uses||[]).slice(0,3).map(u=>`• ${u}`).join('<br>')}
+            </div>
+            <div class="badge badge-blue" style="margin-top:8px">${m.recommended_for||''}</div>
+        </div>
+    `).join('');
+}
+
+function renderGeminiPersonas(personas) {
+    if (!personas) return;
+    const el = document.getElementById('gemini-personas');
+    if (!el) return;
+    el.innerHTML = (personas||[]).map(p => `
+        <div class="card">
+            <div class="card-title">${p.icon||'🤖'} ${p.name}</div>
+            <div class="card-desc" style="font-size:0.78rem">
+                <strong>النموذج:</strong> ${p.model}<br>
+                <strong>الاستخدامات:</strong><br>
+                ${(p.use_cases||[]).slice(0,3).map(u=>`• ${u}`).join('<br>')}
+            </div>
+        </div>
+    `).join('');
+}
+
+function renderNotifChannels(channels) {
+    if (!channels) return;
+    const el = document.getElementById('notif-channels');
+    if (!el) return;
+    el.innerHTML = `<div class="grid2">${(channels||[]).map(c => `
+        <div class="card">
+            <div class="card-title">${c.icon||'🔔'} ${c.name}</div>
+            <div class="card-desc" style="font-size:0.78rem">
+                ${(c.sheikha_use_cases||[]).slice(0,3).map(u=>`• ${u}`).join('<br>')}
+            </div>
+        </div>
+    `).join('')}</div>`;
+}
+
+function renderNotifTemplates(templates) {
+    if (!templates) return;
+    const el = document.getElementById('notif-templates');
+    if (!el) return;
+    el.innerHTML = `<div class="grid2">${Object.keys(templates||{}).map(k => `
+        <div class="card">
+            <div class="card-title">📝 ${k}</div>
+            <div class="card-desc" style="font-family:monospace;font-size:0.75rem;color:#aaa">
+                قالب جاهز في المحرك
+            </div>
+        </div>
+    `).join('')}</div>`;
+}
+
+function updateNotifStatus(stats) {
+    if (!stats) return;
+    const map = {
+        'sms-status-cell': stats.sms_configured,
+        'wa-status-cell': stats.whatsapp_configured,
+        'push-status-cell': stats.fcm_configured,
+        'email-status-cell': stats.email_configured
+    };
+    for (const [id, val] of Object.entries(map)) {
+        const el = document.getElementById(id);
+        if (el) el.innerHTML = val
+            ? '<span style="color:#4caf87">✅ مفعل</span>'
+            : '<span style="color:#e57373">⚠️ يحتاج إعداد</span>';
+    }
+}
+
+function renderPWAChecklist(checklist) {
+    if (!checklist) return;
+    const el = document.getElementById('pwa-checklist');
+    if (!el) return;
+    el.innerHTML = (checklist||[]).map(c => `
+        <div class="checker-item">
+            <span class="checker-label">${c.item}</span>
+            <span class="checker-status">${c.status}</span>
+        </div>
+    `).join('');
+}
+
+function renderWorkspaceStatus() {
+    const items = [
+        { label: 'Gmail @sheikha.top مفعل', status: '✅' },
+        { label: 'MX Records + SPF/DKIM/DMARC', status: '⚠️ تحقق' },
+        { label: 'Shared Drives للفريق', status: '⚠️ يحتاج إنشاء' },
+        { label: '2FA إلزامي لكل الحسابات', status: '⚠️ تفعيل من Admin' },
+        { label: 'Google Groups (team@, traders@)', status: '⚠️ يحتاج إنشاء' },
+        { label: 'Google Meet مفعل', status: '✅' },
+        { label: 'Google Drive مفعل', status: '✅' },
+        { label: 'Google Calendar', status: '⚠️ ربط بالحول الهجري' }
+    ];
+    const el = document.getElementById('workspace-status-list');
+    if (el) el.innerHTML = items.map(i => `
+        <div class="checker-item">
+            <span class="checker-label">${i.label}</span>
+            <span class="checker-status">${i.status}</span>
+        </div>
+    `).join('');
+}
+
+function renderDefaultUI() {
+    renderGeminiModels([
+        { icon:'⚡', name:'Gemini 2.0 Flash', context_window:1000000, sheikha_uses:['ردود فورية','تصنيف المنتجات','ترجمة العقود'], recommended_for:'API calls المتكررة', model:'gemini-2.0-flash' },
+        { icon:'🧠', name:'Gemini 2.0 Pro', context_window:2000000, sheikha_uses:['تحليل عقود معقدة','توليد تقارير','دراسات الجدوى'], recommended_for:'التحليل المعمق', model:'gemini-2.0-pro' },
+        { icon:'👁️', name:'Gemini 1.5 Vision', context_window:2000000, sheikha_uses:['تحليل صور السكراب','قراءة الوثائق','تصنيف المعادن من صورة'], recommended_for:'تحليل الصور', model:'gemini-1.5-pro' },
+        { icon:'🔍', name:'Text Embedding', context_window:8192, sheikha_uses:['البحث الدلالي في الفتاوى','تشابه المنتجات','تصنيف الوثائق'], recommended_for:'Vector Search', model:'text-embedding-004' }
+    ]);
+    renderGeminiPersonas([
+        { icon:'📖', name:'مستشار الشريعة الاقتصادية', model:'gemini-2.0-pro', use_cases:['فحص عقود التوريد','مراجعة التمويل','التصنيف الشرعي'] },
+        { icon:'⚙️', name:'خبير المعادن والسكراب', model:'gemini-2.0-flash', use_cases:['تصنيف السكراب','HS Code','تقدير السعر'] },
+        { icon:'📈', name:'محلل سوق المعادن', model:'gemini-2.0-pro', use_cases:['تقرير السوق','تحليل الأسعار','مقارنة الأسواق'] },
+        { icon:'💬', name:'خدمة عملاء شيخة', model:'gemini-2.0-flash', use_cases:['الرد على الاستفسارات','إرشاد التسجيل','حل الشكاوى'] },
+        { icon:'🧮', name:'مرشد الزكاة التجارية', model:'gemini-2.0-flash', use_cases:['شرح حساب الزكاة','تحديد الوعاء','إرشاد التوزيع'] }
+    ]);
+    renderPWAChecklist([
+        { item:'HTTPS على sheikha.top', status:'✅ مفعل (Vercel)' },
+        { item:'manifest.json', status:'✅ موجود — يحتاج تحديث' },
+        { item:'Service Worker (sw.js)', status:'⚠️ يحتاج مراجعة' },
+        { item:'Offline page (/offline.html)', status:'⚠️ يحتاج إنشاء' },
+        { item:'Icons 192x192 و 512x512', status:'⚠️ تأكيد الوجود' },
+        { item:'Push Notifications', status:'⚠️ يحتاج VAPID+FCM' },
+        { item:'Lighthouse PWA Score ≥ 90', status:'⚠️ يحتاج اختبار' }
+    ]);
+    renderWorkspaceStatus();
+    const sEl = document.getElementById('integration-status');
+    if (sEl) sEl.innerHTML = `
+        <div class="alert-box"><strong>ملاحظة:</strong> يجري تحميل البيانات من الخادم. إن لم تظهر، تأكد من تشغيل الخادم على المنفذ 8080</div>
+        <div class="checker-item"><span class="checker-label">Gemini API Key</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج إعداد — aistudio.google.com</span></div>
+        <div class="checker-item"><span class="checker-label">WhatsApp Business API</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج Meta Business Verification</span></div>
+        <div class="checker-item"><span class="checker-label">SMS / OTP (Unifonic)</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج Unifonic Account</span></div>
+        <div class="checker-item"><span class="checker-label">Firebase FCM</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج Firebase Setup</span></div>
+        <div class="checker-item"><span class="checker-label">Microsoft Azure AD</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج App Registration</span></div>
+        <div class="checker-item"><span class="checker-label">Apple Sign-in</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج Apple Developer Account</span></div>
+        <div class="checker-item"><span class="checker-label">Google Cloud GCP APIs</span><span class="checker-status" style="color:#e57373">⚠️ يحتاج تفعيل المشروع</span></div>
+    `;
+}
+
+async function testGemini() {
+    const msg = document.getElementById('gemini-input').value;
+    const persona = document.getElementById('persona-select').value;
+    if (!msg.trim()) return;
+    const respEl = document.getElementById('gemini-response');
+    respEl.style.display = 'block';
+    respEl.textContent = '⏳ جاري الإرسال لـ Gemini...';
+    try {
+        const r = await fetch('/api/integration/gemini/chat', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message: msg, persona_id: persona || undefined })
+        });
+        const data = await r.json();
+        if (data.success) {
+            respEl.textContent = data.data?.response || data.data || '(لا استجابة)';
+        } else {
+            respEl.textContent = '❌ ' + (data.message || data.error || 'فشل الاتصال');
+        }
+    } catch (e) {
+        respEl.textContent = '❌ لم يتم الاتصال بالخادم';
+    }
+}
+
+async function sendOTP() {
+    const phone = document.getElementById('otp-phone').value;
+    if (!phone) return;
+    const r = document.getElementById('otp-result');
+    r.textContent = '⏳ جاري الإرسال...';
+    try {
+        const res = await fetch('/api/integration/notifications/otp/send', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone })
+        });
+        const data = await res.json();
+        r.innerHTML = data.success
+            ? `<span style="color:#4caf87">✅ ${data.message || 'OTP تم الإرسال'}</span>`
+            : `<span style="color:#e57373">❌ ${data.message || 'فشل الإرسال'}</span>`;
+    } catch(e) { r.textContent = '❌ فشل الاتصال بالخادم'; }
+}
+
+async function verifyOTP() {
+    const phone = document.getElementById('otp-phone').value;
+    const code = document.getElementById('otp-code').value;
+    if (!phone || !code) return;
+    const r = document.getElementById('otp-result');
+    try {
+        const res = await fetch('/api/integration/notifications/otp/verify', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ phone, otp: code })
+        });
+        const data = await res.json();
+        r.innerHTML = (data.success && data.data?.valid)
+            ? `<span style="color:#4caf87">✅ ${data.data.message || 'تم التحقق'}</span>`
+            : `<span style="color:#e57373">❌ ${data.data?.reason || data.message || 'رمز خاطئ'}</span>`;
+    } catch(e) { r.textContent = '❌ فشل الاتصال بالخادم'; }
+}
+
+// بدء التحميل
+loadData();
+loadPhase43();
+</script>
+</body>
+</html>

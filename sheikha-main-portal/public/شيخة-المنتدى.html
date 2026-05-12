@@ -1,0 +1,510 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+<meta name="theme-color" content="#050810">
+<title>شيخة — منتدى الغرفة التجارية الصناعية | ١٤٤٧ هـ</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--gold:#D4AF37;--copper:#B87333;--bg:#050810;--bg2:#0a0f1e;--text:#f0ede8;--muted:#8b949e;}
+html,body{height:100%;overflow:hidden;font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);}
+
+/* ─── شاشات العرض ─────────────────────────────── */
+.slide{display:none;width:100vw;height:100vh;position:relative;overflow:hidden;align-items:center;justify-content:center;}
+.slide.active{display:flex;}
+
+/* ─── خلفيات الشرائح ──────────────────────────── */
+.slide-hero{background:radial-gradient(ellipse at 60% 40%,#0d1a3e 0%,#050810 70%);}
+.slide-vision{background:radial-gradient(ellipse at 40% 60%,#0a1f0a 0%,#050810 70%);}
+.slide-problem{background:radial-gradient(ellipse at 50% 50%,#1a0d05 0%,#050810 70%);}
+.slide-solution{background:radial-gradient(ellipse at 60% 40%,#050d1a 0%,#050810 70%);}
+.slide-numbers{background:radial-gradient(ellipse at 40% 60%,#0d0a1a 0%,#050810 70%);}
+.slide-partners{background:radial-gradient(ellipse at 50% 50%,#0a1205 0%,#050810 70%);}
+.slide-ministry{background:radial-gradient(ellipse at 60% 40%,#1a1005 0%,#050810 70%);}
+.slide-cta{background:radial-gradient(ellipse at 50% 50%,#0d0810 0%,#050810 70%);}
+
+/* ─── مؤثرات زخرفية ──────────────────────────── */
+.glow-orb{position:absolute;border-radius:50%;filter:blur(80px);opacity:.15;pointer-events:none;}
+.glow-gold{background:#D4AF37;}
+.glow-copper{background:#B87333;}
+.glow-blue{background:#1a4fa0;}
+
+/* ─── عناصر مشتركة ───────────────────────────── */
+.slide-inner{position:relative;z-index:2;width:100%;max-width:1100px;padding:40px 60px;text-align:center;}
+.slide-no{position:absolute;top:24px;left:32px;font-size:.75rem;color:rgba(212,175,55,.4);font-weight:700;letter-spacing:2px;}
+.logo-top{position:absolute;top:20px;right:32px;display:flex;align-items:center;gap:10px;}
+.logo-icon{width:36px;height:36px;background:linear-gradient(135deg,#D4AF37,#B87333);border-radius:8px;display:flex;align-items:center;justify-content:center;font-size:1.1rem;}
+.logo-name{font-size:.9rem;font-weight:700;color:var(--gold);}
+.quran-top{position:absolute;top:24px;left:50%;transform:translateX(-50%);font-size:.8rem;color:rgba(212,175,55,.6);white-space:nowrap;}
+
+/* ─── تايبوغرافي ──────────────────────────────── */
+.mega{font-size:clamp(2.5rem,7vw,5.5rem);font-weight:900;line-height:1.05;}
+.large{font-size:clamp(1.6rem,4vw,3rem);font-weight:800;line-height:1.2;}
+.medium{font-size:clamp(1rem,2.5vw,1.6rem);font-weight:500;line-height:1.5;}
+.small{font-size:clamp(.8rem,1.5vw,1rem);color:var(--muted);}
+.gold{color:var(--gold);}
+.copper{color:var(--copper);}
+.gradient-text{background:linear-gradient(135deg,var(--gold),var(--copper));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+
+/* ─── بطاقات ─────────────────────────────────── */
+.cards-row{display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:32px;}
+.card{background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.2);border-radius:16px;padding:24px 28px;min-width:220px;flex:1;max-width:280px;}
+.card-icon{font-size:2rem;margin-bottom:10px;}
+.card-val{font-size:clamp(1.6rem,4vw,2.8rem);font-weight:900;color:var(--gold);}
+.card-label{font-size:.82rem;color:var(--muted);margin-top:4px;}
+
+/* ─── قائمة نقاط ─────────────────────────────── */
+.points{list-style:none;text-align:right;max-width:700px;margin:24px auto 0;}
+.points li{padding:10px 0;border-bottom:1px solid rgba(255,255,255,.06);font-size:clamp(.85rem,2vw,1.1rem);display:flex;gap:12px;align-items:flex-start;}
+.points li::before{content:'◈';color:var(--gold);flex-shrink:0;margin-top:2px;}
+
+/* ─── شريط التنقل ────────────────────────────── */
+.nav-bar{position:fixed;bottom:28px;left:50%;transform:translateX(-50%);display:flex;gap:8px;z-index:100;background:rgba(5,8,16,.8);border:1px solid rgba(212,175,55,.2);border-radius:50px;padding:10px 18px;backdrop-filter:blur(12px);}
+.nav-dot{width:10px;height:10px;border-radius:50%;background:rgba(212,175,55,.3);cursor:pointer;transition:all .3s;border:none;}
+.nav-dot.active{background:var(--gold);transform:scale(1.3);}
+.nav-arrows{position:fixed;bottom:26px;right:32px;display:flex;gap:10px;z-index:100;}
+.nav-btn{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);color:var(--gold);width:44px;height:44px;border-radius:50%;font-size:1.2rem;cursor:pointer;transition:all .2s;display:flex;align-items:center;justify-content:center;}
+.nav-btn:hover{background:var(--gold);color:#050810;}
+.slide-counter{position:fixed;bottom:33px;left:32px;font-size:.8rem;color:var(--muted);z-index:100;}
+
+/* ─── divider ────────────────────────────────── */
+.divider{width:80px;height:3px;background:linear-gradient(90deg,var(--gold),var(--copper));border-radius:2px;margin:20px auto;}
+.divider-wide{width:200px;}
+
+/* ─── شارة الوزارة ───────────────────────────── */
+.ministry-badge{display:inline-flex;align-items:center;gap:10px;background:linear-gradient(135deg,rgba(212,175,55,.12),rgba(184,115,51,.08));border:1px solid rgba(212,175,55,.4);border-radius:50px;padding:10px 24px;margin-bottom:20px;}
+
+/* ─── جدول المقارنة ──────────────────────────── */
+.compare-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin-top:24px;max-width:800px;margin-left:auto;margin-right:auto;}
+.compare-bad{background:rgba(248,81,73,.06);border:1px solid rgba(248,81,73,.2);border-radius:12px;padding:20px;}
+.compare-good{background:rgba(63,185,80,.06);border:1px solid rgba(63,185,80,.2);border-radius:12px;padding:20px;}
+.compare-title{font-size:.85rem;font-weight:700;margin-bottom:10px;}
+.compare-bad .compare-title{color:#f85149;}
+.compare-good .compare-title{color:#3fb950;}
+</style>
+</head>
+<body>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ١ — الافتتاحية الكبرى                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-hero active" id="s1">
+  <div class="glow-orb glow-gold" style="width:500px;height:500px;top:-150px;right:-100px;"></div>
+  <div class="glow-orb glow-blue" style="width:400px;height:400px;bottom:-100px;left:-80px;"></div>
+  <div class="slide-no">٠١ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA — شيخة</div></div>
+
+  <div class="slide-inner">
+    <div class="ministry-badge">
+      <span>🏛️</span>
+      <span style="font-size:.85rem;color:var(--gold);font-weight:700;">منتدى الغرفة التجارية الصناعية · ٨ أبريل ٢٠٢٦</span>
+    </div>
+    <div class="mega gradient-text">شيخة</div>
+    <div class="large" style="margin-top:8px;color:var(--text);">أول منظومة اقتصادية إسلامية رقمية</div>
+    <div class="medium" style="margin-top:12px;color:var(--muted);">للمعادن والسكراب في العالم</div>
+    <div class="divider divider-wide"></div>
+    <div style="font-size:clamp(1rem,2.5vw,1.4rem);color:var(--gold);font-weight:700;line-height:1.8;">
+      وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا
+    </div>
+    <div style="font-size:.85rem;color:var(--copper);margin-top:4px;">البقرة:275 — مبدأ التأسيس</div>
+    <div class="cards-row" style="margin-top:36px;">
+      <div class="card"><div class="card-icon">🏗️</div><div class="card-val">٢٠٠+</div><div class="card-label">API وخدمة رقمية</div></div>
+      <div class="card"><div class="card-icon">🌍</div><div class="card-val">٤٤</div><div class="card-label">مرحلة تطوير</div></div>
+      <div class="card"><div class="card-icon">⚖️</div><div class="card-val">١٠٠٪</div><div class="card-label">متوافقة مع الشريعة</div></div>
+      <div class="card"><div class="card-icon">🛰️</div><div class="card-val">٢٠</div><div class="card-label">شبكة أقمار متكاملة</div></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٢ — رؤية ٢٠٣٠ والتوافق الصناعي            -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-vision" id="s2">
+  <div class="glow-orb glow-gold" style="width:400px;height:400px;bottom:-80px;right:-60px;"></div>
+  <div class="slide-no">٠٢ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner">
+    <div class="small" style="letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;">رؤية المملكة ٢٠٣٠</div>
+    <div class="large gradient-text">شيخة تُرسِّخ أهداف رؤية ٢٠٣٠</div>
+    <div class="divider"></div>
+    <div class="compare-grid">
+      <div class="compare-bad">
+        <div class="compare-title">❌ الواقع الحالي في السوق</div>
+        <ul class="list" style="font-size:.82rem;color:#ccc;line-height:2;list-style:none;">
+          <li>• تسعير غير موحد — فرص للغش</li>
+          <li>• لا توثيق رقمي للصفقات</li>
+          <li>• لا تقييم شرعي آلي للعقود</li>
+          <li>• بيانات السوق متفرقة وغير دقيقة</li>
+          <li>• تجارة السكراب خارج المنظومة الرسمية</li>
+        </ul>
+      </div>
+      <div class="compare-good">
+        <div class="compare-title">✅ شيخة — الحل الرقمي الشامل</div>
+        <ul class="list" style="font-size:.82rem;color:#ccc;line-height:2;list-style:none;">
+          <li>• مؤشر شيخة — سعر موحد شرعي</li>
+          <li>• عقود رقمية موثقة لحظياً</li>
+          <li>• محرك شريعة آلي لكل صفقة</li>
+          <li>• بيانات السوق لحظية ودقيقة</li>
+          <li>• HS Codes + تصنيف جمركي رسمي</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:24px;display:flex;gap:16px;justify-content:center;flex-wrap:wrap;">
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:10px;padding:12px 20px;font-size:.85rem;"><span class="gold">🎯 رؤية ٢٠٣٠:</span> تنويع مصادر الدخل غير النفطي</div>
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:10px;padding:12px 20px;font-size:.85rem;"><span class="gold">🏭 الصناعة:</span> رفع مساهمة التعدين في الناتج المحلي</div>
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:10px;padding:12px 20px;font-size:.85rem;"><span class="gold">🔗 التحول الرقمي:</span> رقمنة كاملة لقطاع المعادن</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٣ — المشكلة في السوق                    -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-problem" id="s3">
+  <div class="glow-orb glow-copper" style="width:450px;height:450px;top:-100px;left:-80px;"></div>
+  <div class="slide-no">٠٣ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner">
+    <div class="quran-top">يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ — النساء:29</div>
+    <div class="medium copper" style="margin-top:28px;">المشكلة التي يعانيها السوق</div>
+    <div class="large gradient-text">قطاع معادن بلا منظومة رقمية إسلامية</div>
+    <div class="divider"></div>
+    <ul class="points">
+      <li>غياب التوحيد في التسعير — يفتح باب الغش والغبن والاحتكار المحرم</li>
+      <li>تداول السكراب يفتقر للتوثيق الرسمي والرقمي — ضياع حقوق وضرائب</li>
+      <li>لا يوجد نظام آلي للتحقق من صحة المعاملة شرعياً في لحظة الصفقة</li>
+      <li>الاستيراد والتصدير يعاني من تعقيد HS Codes بدون مرجع موحد عربي إسلامي</li>
+      <li>التجار الصغار محرومون من المعلومة السعرية الدقيقة — تضخم وسطاء غير منضبطين</li>
+      <li>لا ربط بين حساب الزكاة ومخزون المعادن الفعلي — إهدار لحقوق الله في المال</li>
+    </ul>
+    <div style="margin-top:24px;font-size:clamp(.7rem,1.5vw,.9rem);color:var(--muted);">
+      قيمة سوق المعادن والسكراب في السعودية: <span class="gold">+٤٠ مليار ريال سنوياً</span> — تفتقر لمنظومة رقمية إسلامية متكاملة
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٤ — الحل: منظومة شيخة                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-solution" id="s4">
+  <div class="glow-orb glow-blue" style="width:500px;height:500px;top:-120px;right:-100px;"></div>
+  <div class="slide-no">٠٤ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner">
+    <div class="quran-top">إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ</div>
+    <div class="medium copper" style="margin-top:28px;">الحل الشامل</div>
+    <div class="large gradient-text">منظومة شيخة — ٤٤ مرحلة منجزة</div>
+    <div class="divider"></div>
+    <div class="cards-row">
+      <div class="card">
+        <div class="card-icon">🏛️</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">سوق المعادن</div>
+        <div style="font-size:.78rem;color:var(--muted);">HS Codes + تسعير + RFQ + مؤشر شيخة</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">⚖️</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">محرك الشريعة</div>
+        <div style="font-size:.78rem;color:var(--muted);">تدقيق آلي — لا ربا لا غرر لا غش</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🧮</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">حاسبة الزكاة</div>
+        <div style="font-size:.78rem;color:var(--muted);">حول + نصاب + حساب آلي دقيق</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🤖</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">ذكاء اصطناعي</div>
+        <div style="font-size:.78rem;color:var(--muted);">Gemini + GPT + تصنيف السكراب</div>
+      </div>
+    </div>
+    <div class="cards-row" style="margin-top:12px;">
+      <div class="card">
+        <div class="card-icon">🛰️</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">٢٠ قمر صناعي</div>
+        <div style="font-size:.78rem;color:var(--muted);">مراقبة + اتصال + تتبع الشحنات</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🔐</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">هوية رقمية</div>
+        <div style="font-size:.78rem;color:var(--muted);">نافث + JWT + OAuth — KSA Compliant</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">📊</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">تقارير لحظية</div>
+        <div style="font-size:.78rem;color:var(--muted);">BigQuery + Power BI + مؤشرات</div>
+      </div>
+      <div class="card">
+        <div class="card-icon">🌍</div>
+        <div style="font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;">سوق عالمي</div>
+        <div style="font-size:.78rem;color:var(--muted);">تصدير + استيراد + ٥ لغات</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٥ — الأرقام والإنجازات                   -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-numbers" id="s5">
+  <div class="glow-orb glow-gold" style="width:600px;height:600px;top:-200px;left:50%;transform:translateX(-50%);"></div>
+  <div class="slide-no">٠٥ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner">
+    <div class="medium copper">الإنجازات الرقمية لمنظومة شيخة</div>
+    <div class="large gradient-text">تقنية عالمية — روح إسلامية</div>
+    <div class="divider divider-wide"></div>
+    <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:20px;margin-top:12px;">
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">١٤</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">صفحة HTML شاملة</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">200+</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">API endpoint</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">٤٤</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">مرحلة تطوير</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">٣</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">سنوات بناء</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">٢٠</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">شبكة أقمار</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">١١</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">شركة تقنية مدمجة</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">٥</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">طرق مصادقة آمنة</div>
+      </div>
+      <div style="padding:20px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);border-radius:14px;">
+        <div style="font-size:clamp(1.8rem,4vw,3.2rem);font-weight:900;color:var(--gold);">٧</div>
+        <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">مطالبات ريادة عالمية</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;font-size:.85rem;color:var(--copper);font-weight:700;">
+      🏆 أول منصة إسلامية رقمية للمعادن في العالم — مُسجَّلة بحقوق الملكية الفكرية الكاملة
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٦ — الشراكات والتكاملات                  -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-partners" id="s6">
+  <div class="glow-orb glow-gold" style="width:400px;height:400px;bottom:-100px;right:-60px;"></div>
+  <div class="slide-no">٠٦ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner">
+    <div class="quran-top">وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى — المائدة:2</div>
+    <div class="medium copper" style="margin-top:24px;">شركاء التقنية العالمية</div>
+    <div class="large gradient-text">منظومة شيخة تتكامل مع العالم</div>
+    <div class="divider"></div>
+    <div style="display:grid;grid-template-columns:repeat(5,1fr);gap:12px;margin-top:16px;">
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🤖</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">OpenAI GPT</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🧠</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">Google Gemini</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">☁️</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">Google Cloud</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🟦</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">Microsoft 365</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🚀</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">SpaceX/Starlink</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🟢</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">NVIDIA CUDA</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">𝕏</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">X / Grok AI</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🛰️</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">Arabsat / BADR</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🍎</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">Apple / iOS</div>
+      </div>
+      <div style="background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08);border-radius:10px;padding:14px 8px;text-align:center;">
+        <div style="font-size:1.6rem;">🏛️</div>
+        <div style="font-size:.72rem;color:var(--gold);font-weight:700;margin-top:4px;">نافث السعودية</div>
+      </div>
+    </div>
+    <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:8px 16px;font-size:.8rem;color:var(--gold);">📊 Google Analytics</div>
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:8px 16px;font-size:.8rem;color:var(--gold);">💚 WhatsApp Business</div>
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:8px 16px;font-size:.8rem;color:var(--gold);">💳 STC Pay / Mada</div>
+      <div style="background:rgba(212,175,55,.1);border:1px solid rgba(212,175,55,.3);border-radius:8px;padding:8px 16px;font-size:.8rem;color:var(--gold);">🏦 ربط بنكي مُخطَّط</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٧ — أهداف اللقاء مع الوزارة              -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-ministry" id="s7">
+  <div class="glow-orb glow-copper" style="width:500px;height:500px;bottom:-150px;left:50%;transform:translateX(-50%);"></div>
+  <div class="slide-no">٠٧ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner">
+    <div class="ministry-badge">
+      <span>🏛️</span>
+      <span style="font-size:.85rem;color:var(--gold);font-weight:700;">أهداف اللقاء مع وزارة الصناعة والغرفة التجارية</span>
+    </div>
+    <div class="large gradient-text">ماذا نطلب — وماذا نُقدِّم</div>
+    <div class="divider"></div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px;text-align:right;">
+      <div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--copper);margin-bottom:12px;">📌 ما تُقدِّمه شيخة للقطاع الصناعي:</div>
+        <ul class="points" style="margin:0;">
+          <li>منصة رقمية جاهزة لتنظيم تجارة السكراب والمعادن</li>
+          <li>تسعير موحد وشفاف يحمي التاجر والمشتري</li>
+          <li>توثيق رقمي يدعم الجباية الضريبية والجمارك</li>
+          <li>تقارير لحظية لصانعي القرار في الوزارة</li>
+          <li>امتثال كامل لـ PDPL وأنظمة التجارة الإلكترونية</li>
+        </ul>
+      </div>
+      <div>
+        <div style="font-size:.85rem;font-weight:700;color:var(--gold);margin-bottom:12px;">🎯 ما تطلبه شيخة من الجهات الرسمية:</div>
+        <ul class="points" style="margin:0;">
+          <li>الاعتراف الرسمي كمنصة مرجعية لسوق السكراب</li>
+          <li>ربط مع منصات الحكومة الرقمية (أبشر — نافث)</li>
+          <li>تسهيل تسجيل التجار والشركات الرسمي عبر شيخة</li>
+          <li>شراكة مع الغرف التجارية لتوثيق الصفقات</li>
+          <li>دعم الانطلاق كمنصة وطنية رسمية لرؤية ٢٠٣٠</li>
+        </ul>
+      </div>
+    </div>
+    <div style="margin-top:20px;background:linear-gradient(135deg,rgba(212,175,55,.1),rgba(184,115,51,.06));border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:16px;font-size:.85rem;color:var(--gold);font-weight:700;">
+      🤝 شيخة ليست منافساً للجهات الحكومية — بل ذراع رقمي داعم وشريك استراتيجي
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════ -->
+<!-- شريحة ٨ — الدعوة للتواصل                      -->
+<!-- ═══════════════════════════════════════════════ -->
+<div class="slide slide-cta" id="s8">
+  <div class="glow-orb glow-gold" style="width:700px;height:700px;top:50%;left:50%;transform:translate(-50%,-50%);"></div>
+  <div class="slide-no">٠٨ / ٠٨</div>
+  <div class="logo-top"><div class="logo-icon">🏛️</div><div class="logo-name">SHEIKHA</div></div>
+
+  <div class="slide-inner" style="padding-top:20px;">
+    <div class="mega gradient-text" style="margin-bottom:8px;">ابدأ رحلتك</div>
+    <div class="large" style="color:var(--text);">مع أول سوق إسلامي رقمي للمعادن</div>
+    <div class="divider divider-wide"></div>
+    <div style="display:flex;gap:20px;justify-content:center;flex-wrap:wrap;margin-top:16px;">
+      <div style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:20px 28px;min-width:200px;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">🌐</div>
+        <div style="font-size:.75rem;color:var(--muted);">الموقع</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--gold);">sheikha.top</div>
+      </div>
+      <div style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:20px 28px;min-width:200px;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">📧</div>
+        <div style="font-size:.75rem;color:var(--muted);">البريد</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--gold);">market@sheikha.top</div>
+      </div>
+      <div style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:20px 28px;min-width:200px;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">𝕏</div>
+        <div style="font-size:.75rem;color:var(--muted);">تويتر/X</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--gold);">@SheikhaMetals</div>
+      </div>
+      <div style="background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.3);border-radius:14px;padding:20px 28px;min-width:200px;">
+        <div style="font-size:1.4rem;margin-bottom:6px;">📩</div>
+        <div style="font-size:.75rem;color:var(--muted);">التواصل المباشر</div>
+        <div style="font-size:1rem;font-weight:700;color:var(--gold);">legal@sheikha.top</div>
+      </div>
+    </div>
+    <div style="margin-top:24px;">
+      <a href="/بطاقة" style="display:inline-block;background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:900;padding:14px 36px;border-radius:50px;text-decoration:none;margin-left:12px;transition:transform .2s;" onmouseover="this.style.transform='translateY(-2px)'" onmouseout="this.style.transform='none'">
+        📱 البطاقة الرقمية
+      </a>
+      <a href="/" style="display:inline-block;background:transparent;color:var(--gold);font-family:'Tajawal',sans-serif;font-size:1rem;font-weight:700;padding:14px 36px;border-radius:50px;text-decoration:none;border:2px solid rgba(212,175,55,.4);transition:all .2s;" onmouseover="this.style.borderColor='#D4AF37'" onmouseout="this.style.borderColor='rgba(212,175,55,.4)'">
+        🏛️ زيارة المنصة
+      </a>
+    </div>
+    <div style="margin-top:28px;font-size:1rem;color:var(--gold);font-weight:700;line-height:2;">
+      وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ
+    </div>
+    <div style="font-size:.8rem;color:var(--copper);">هود:88 — التوكل على الله في كل مسعى</div>
+  </div>
+</div>
+
+<!-- ─── شريط التنقل ──────────────────────────────── -->
+<div class="nav-bar" id="dots"></div>
+<div class="nav-arrows">
+  <button class="nav-btn" onclick="navigate(-1)">›</button>
+  <button class="nav-btn" onclick="navigate(1)">‹</button>
+</div>
+<div class="slide-counter" id="counter">١ / ٨</div>
+
+<script>
+const TOTAL = 8;
+let cur = 1;
+const arabic = ['','١','٢','٣','٤','٥','٦','٧','٨'];
+
+// بناء النقاط
+const dotsEl = document.getElementById('dots');
+for(let i=1;i<=TOTAL;i++){
+  const d = document.createElement('button');
+  d.className = 'nav-dot' + (i===1?' active':'');
+  d.onclick = () => goTo(i);
+  dotsEl.appendChild(d);
+}
+
+function goTo(n){
+  document.getElementById('s'+cur).classList.remove('active');
+  document.querySelectorAll('.nav-dot')[cur-1].classList.remove('active');
+  cur = Math.max(1, Math.min(TOTAL, n));
+  document.getElementById('s'+cur).classList.add('active');
+  document.querySelectorAll('.nav-dot')[cur-1].classList.add('active');
+  document.getElementById('counter').textContent = arabic[cur] + ' / ' + arabic[TOTAL];
+}
+
+function navigate(dir){
+  goTo(cur - dir); // RTL: left=next, right=prev
+}
+
+// مفاتيح لوحة المفاتيح
+document.addEventListener('keydown', e => {
+  if(e.key==='ArrowLeft'||e.key==='ArrowDown') goTo(cur+1);
+  if(e.key==='ArrowRight'||e.key==='ArrowUp') goTo(cur-1);
+  if(e.key==='Escape') window.location.href='/';
+  if(e.key==='f'||e.key==='F') document.documentElement.requestFullscreen?.();
+});
+
+// سحب باللمس
+let ts=0;
+document.addEventListener('touchstart',e=>ts=e.touches[0].clientX,{passive:true});
+document.addEventListener('touchend',e=>{
+  const diff = ts - e.changedTouches[0].clientX;
+  if(Math.abs(diff)>50) diff>0 ? goTo(cur+1) : goTo(cur-1);
+},{passive:true});
+</script>
+</body>
+</html>

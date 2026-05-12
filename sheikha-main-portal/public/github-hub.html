@@ -1,0 +1,1005 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub Hub — منظومة شيخة</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --gold: #D4AF37;
+            --copper: #B87333;
+            --bg-dark: #0d1117;
+            --bg-card: #161b22;
+            --bg-input: #21262d;
+            --border: #30363d;
+            --text: #c9d1d9;
+            --text-dim: #8b949e;
+            --accent-blue: #58a6ff;
+            --accent-green: #3fb950;
+            --accent-red: #f85149;
+            --accent-orange: #d29922;
+            --accent-purple: #a5a0f5;
+        }
+        * { box-sizing: border-box; margin: 0; padding: 0; }
+        body {
+            font-family: 'Tajawal', sans-serif;
+            background: var(--bg-dark);
+            color: var(--text);
+            min-height: 100vh;
+            direction: rtl;
+        }
+
+        /* ─── Header ─────────────────────────────────────────────────────────── */
+        .header {
+            background: var(--bg-card);
+            border-bottom: 1px solid var(--border);
+            padding: 1rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+        .header-logo {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+        .header-logo svg { width: 32px; height: 32px; fill: var(--gold); }
+        .header-title { font-size: 1.3rem; font-weight: 700; color: var(--gold); }
+        .header-subtitle { font-size: 0.8rem; color: var(--text-dim); margin-top: 2px; }
+        .status-badge {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            padding: 6px 14px;
+            font-size: 0.85rem;
+        }
+        .status-dot {
+            width: 8px; height: 8px;
+            border-radius: 50%;
+            background: var(--accent-red);
+        }
+        .status-dot.active { background: var(--accent-green); animation: pulse 2s infinite; }
+        @keyframes pulse { 0%,100% { opacity:1; } 50% { opacity:0.5; } }
+
+        /* ─── Main Layout ─────────────────────────────────────────────────────── */
+        .main { display: flex; min-height: calc(100vh - 65px); }
+        .sidebar {
+            width: 220px;
+            background: var(--bg-card);
+            border-left: 1px solid var(--border);
+            padding: 1.5rem 1rem;
+            flex-shrink: 0;
+        }
+        .sidebar-section { margin-bottom: 1.5rem; }
+        .sidebar-label {
+            font-size: 0.7rem;
+            color: var(--text-dim);
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 8px;
+            font-weight: 600;
+        }
+        .sidebar-item {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 8px 10px;
+            border-radius: 6px;
+            cursor: pointer;
+            transition: background .2s;
+            font-size: 0.9rem;
+            margin-bottom: 2px;
+            color: var(--text);
+            border: none;
+            background: transparent;
+            width: 100%;
+            text-align: right;
+        }
+        .sidebar-item:hover { background: var(--bg-input); }
+        .sidebar-item.active { background: rgba(212,175,55,.15); color: var(--gold); font-weight: 600; }
+        .sidebar-item .count {
+            margin-right: auto;
+            background: var(--bg-input);
+            border-radius: 10px;
+            padding: 1px 7px;
+            font-size: 0.75rem;
+            color: var(--text-dim);
+        }
+        .sidebar-item.active .count { background: rgba(212,175,55,.2); color: var(--gold); }
+
+        /* ─── Content ─────────────────────────────────────────────────────────── */
+        .content { flex: 1; padding: 2rem; overflow-y: auto; }
+        .panel { display: none; }
+        .panel.active { display: block; }
+
+        /* ─── Stats Grid ──────────────────────────────────────────────────────── */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 1rem;
+            margin-bottom: 2rem;
+        }
+        .stat-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+        .stat-card:hover { border-color: var(--gold); transition: border-color .2s; }
+        .stat-label { font-size: 0.8rem; color: var(--text-dim); }
+        .stat-value {
+            font-size: 2rem;
+            font-weight: 700;
+            color: var(--gold);
+            line-height: 1;
+        }
+        .stat-desc { font-size: 0.75rem; color: var(--text-dim); }
+
+        /* ─── Section ─────────────────────────────────────────────────────────── */
+        .section { margin-bottom: 2rem; }
+        .section-header {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            margin-bottom: 1rem;
+        }
+        .section-title {
+            font-size: 1.1rem;
+            font-weight: 600;
+            color: var(--text);
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+
+        /* ─── Table ───────────────────────────────────────────────────────────── */
+        .data-table {
+            width: 100%;
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            overflow: hidden;
+        }
+        .data-table table { width: 100%; border-collapse: collapse; }
+        .data-table th {
+            background: var(--bg-input);
+            padding: 10px 14px;
+            text-align: right;
+            font-size: 0.8rem;
+            color: var(--text-dim);
+            font-weight: 600;
+            border-bottom: 1px solid var(--border);
+        }
+        .data-table td {
+            padding: 10px 14px;
+            font-size: 0.85rem;
+            border-bottom: 1px solid rgba(48,54,61,.5);
+            vertical-align: middle;
+        }
+        .data-table tr:last-child td { border-bottom: none; }
+        .data-table tr:hover td { background: rgba(255,255,255,.02); }
+
+        /* ─── Badges ──────────────────────────────────────────────────────────── */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 4px;
+            padding: 3px 8px;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: 500;
+        }
+        .badge-green { background: rgba(63,185,80,.15); color: var(--accent-green); }
+        .badge-blue { background: rgba(88,166,255,.15); color: var(--accent-blue); }
+        .badge-orange { background: rgba(210,153,34,.15); color: var(--accent-orange); }
+        .badge-red { background: rgba(248,81,73,.15); color: var(--accent-red); }
+        .badge-purple { background: rgba(165,160,245,.15); color: var(--accent-purple); }
+        .badge-gold { background: rgba(212,175,55,.15); color: var(--gold); }
+
+        /* ─── Copilot Panel ───────────────────────────────────────────────────── */
+        .copilot-header {
+            background: linear-gradient(135deg, rgba(212,175,55,.1), rgba(88,166,255,.1));
+            border: 1px solid rgba(212,175,55,.3);
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+        .copilot-icon {
+            width: 60px; height: 60px;
+            background: var(--bg-input);
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2rem;
+            flex-shrink: 0;
+        }
+        .copilot-title { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+        .copilot-desc { font-size: 0.85rem; color: var(--text-dim); margin-top: 4px; }
+
+        .capabilities-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(160px, 1fr));
+            gap: .8rem;
+        }
+        .cap-item {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.85rem;
+        }
+        .cap-icon { font-size: 1.1rem; }
+        .cap-on { color: var(--accent-green); }
+
+        /* ─── Code Analyzer ────────────────────────────────────────────────────── */
+        .analyzer-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+        }
+        .form-group { margin-bottom: 1rem; }
+        .form-label { font-size: 0.85rem; color: var(--text-dim); display: block; margin-bottom: 6px; }
+        .form-input, .form-select, .form-textarea {
+            width: 100%;
+            background: var(--bg-input);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 10px 12px;
+            border-radius: 6px;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            direction: ltr;
+        }
+        .form-textarea { font-family: 'Courier New', monospace; min-height: 180px; resize: vertical; direction: ltr; }
+        .form-select { direction: rtl; }
+        .btn {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-family: 'Tajawal', sans-serif;
+            font-size: 0.9rem;
+            font-weight: 600;
+            transition: all .2s;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+        .btn-primary { background: var(--gold); color: #000; }
+        .btn-primary:hover { background: #e6c040; transform: translateY(-1px); }
+        .btn-secondary { background: var(--bg-input); color: var(--text); border: 1px solid var(--border); }
+        .btn-secondary:hover { border-color: var(--gold); }
+        .btn-danger { background: rgba(248,81,73,.15); color: var(--accent-red); border: 1px solid rgba(248,81,73,.3); }
+        .btn-sm { padding: 6px 12px; font-size: 0.8rem; }
+
+        /* ─── Analysis Result ─────────────────────────────────────────────────── */
+        .analysis-result {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+        .score-bar { background: var(--bg-input); border-radius: 4px; height: 8px; margin: 8px 0; overflow: hidden; }
+        .score-fill { height: 100%; border-radius: 4px; transition: width 1s ease; }
+        .issue-item {
+            display: flex;
+            align-items: flex-start;
+            gap: 10px;
+            padding: 10px;
+            background: var(--bg-input);
+            border-radius: 6px;
+            margin-bottom: 6px;
+        }
+        .issue-icon { font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+        /* ─── Refresh & Actions ───────────────────────────────────────────────── */
+        .action-bar {
+            display: flex;
+            align-items: center;
+            gap: .8rem;
+            margin-bottom: 1.5rem;
+        }
+        .last-sync { font-size: 0.8rem; color: var(--text-dim); margin-right: auto; }
+
+        /* ─── Models Grid ─────────────────────────────────────────────────────── */
+        .models-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+            gap: 1rem;
+        }
+        .model-card {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.2rem;
+        }
+        .model-card.active { border-color: var(--gold); }
+        .model-name { font-weight: 600; margin-bottom: 4px; }
+        .model-type { font-size: 0.8rem; color: var(--text-dim); }
+        .model-status { margin-top: 8px; }
+
+        /* ─── Issue Form ───────────────────────────────────────────────────────── */
+        .create-issue-form {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 1.5rem;
+        }
+
+        /* ─── Skeleton loader ─────────────────────────────────────────────────── */
+        .skeleton {
+            background: linear-gradient(90deg, var(--bg-card) 25%, var(--bg-input) 50%, var(--bg-card) 75%);
+            background-size: 200% 100%;
+            animation: shimmer 1.5s infinite;
+            border-radius: 4px;
+            height: 14px;
+        }
+        @keyframes shimmer { 0% { background-position: 200% 0; } 100% { background-position: -200% 0; } }
+
+        /* ─── Empty State ─────────────────────────────────────────────────────── */
+        .empty-state { text-align: center; padding: 3rem; color: var(--text-dim); }
+        .empty-state .icon { font-size: 3rem; margin-bottom: 1rem; }
+
+        /* ─── Toast ───────────────────────────────────────────────────────────── */
+        .toast-container { position: fixed; bottom: 1.5rem; left: 1.5rem; z-index: 9999; display: flex; flex-direction: column; gap: .6rem; }
+        .toast {
+            background: var(--bg-card);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 12px 16px;
+            font-size: 0.9rem;
+            max-width: 350px;
+            animation: slideUp .3s ease;
+            display: flex;
+            align-items: center;
+            gap: 8px;
+        }
+        .toast.success { border-color: var(--accent-green); }
+        .toast.error { border-color: var(--accent-red); }
+        @keyframes slideUp { from { transform: translateY(20px); opacity:0; } to { transform:translateY(0); opacity:1; } }
+
+        @media (max-width: 768px) {
+            .sidebar { display: none; }
+            .stats-grid { grid-template-columns: 1fr 1fr; }
+        }
+    </style>
+</head>
+<body>
+<!-- ═══ Header ═══ -->
+<header class="header">
+    <div class="header-logo">
+        <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 .297c-6.63 0-12 5.373-12 12 0 5.303 3.438 9.8 8.205 11.385.6.113.82-.258.82-.577 0-.285-.01-1.04-.015-2.04-3.338.724-4.042-1.61-4.042-1.61C4.422 18.07 3.633 17.7 3.633 17.7c-1.087-.744.084-.729.084-.729 1.205.084 1.838 1.236 1.838 1.236 1.07 1.835 2.809 1.305 3.495.998.108-.776.417-1.305.76-1.605-2.665-.3-5.466-1.332-5.466-5.93 0-1.31.465-2.38 1.235-3.22-.135-.303-.54-1.523.105-3.176 0 0 1.005-.322 3.3 1.23.96-.267 1.98-.399 3-.405 1.02.006 2.04.138 3 .405 2.28-1.552 3.285-1.23 3.285-1.23.645 1.653.24 2.873.12 3.176.765.84 1.23 1.91 1.23 3.22 0 4.61-2.805 5.625-5.475 5.92.42.36.81 1.096.81 2.22 0 1.606-.015 2.896-.015 3.286 0 .315.21.69.825.57C20.565 22.092 24 17.592 24 12.297c0-6.627-5.373-12-12-12"/></svg>
+        <div>
+            <div class="header-title">Sheikha GitHub Hub</div>
+            <div class="header-subtitle">منظومة التكامل مع GitHub + Copilot</div>
+        </div>
+    </div>
+    <div class="status-badge">
+        <div class="status-dot" id="statusDot"></div>
+        <span id="statusText">جارٍ التحميل...</span>
+    </div>
+</header>
+
+<div class="main">
+    <!-- ═══ Sidebar ═══ -->
+    <aside class="sidebar">
+        <div class="sidebar-section">
+            <div class="sidebar-label">الأقسام</div>
+            <button class="sidebar-item active" onclick="showPanel('overview')">
+                📊 نظرة عامة
+            </button>
+            <button class="sidebar-item" onclick="showPanel('repos')">
+                📁 المستودعات
+                <span class="count" id="reposCount">—</span>
+            </button>
+            <button class="sidebar-item" onclick="showPanel('commits')">
+                ⚡ الـ Commits
+                <span class="count" id="commitsCount">—</span>
+            </button>
+            <button class="sidebar-item" onclick="showPanel('issues')">
+                🔍 الـ Issues
+                <span class="count" id="issuesCount">—</span>
+            </button>
+            <button class="sidebar-item" onclick="showPanel('prs')">
+                🔀 Pull Requests
+                <span class="count" id="prsCount">—</span>
+            </button>
+            <button class="sidebar-item" onclick="showPanel('branches')">
+                🌿 الفروع
+                <span class="count" id="branchesCount">—</span>
+            </button>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">Copilot</div>
+            <button class="sidebar-item" onclick="showPanel('copilot')">
+                🤖 Copilot Bridge
+            </button>
+            <button class="sidebar-item" onclick="showPanel('analyzer')">
+                🔬 محلل الكود
+            </button>
+            <button class="sidebar-item" onclick="showPanel('commitMsg')">
+                ✍️ رسائل Commit
+            </button>
+            <button class="sidebar-item" onclick="showPanel('models')">
+                🧠 النماذج
+            </button>
+        </div>
+        <div class="sidebar-section">
+            <div class="sidebar-label">الأدوات</div>
+            <button class="sidebar-item" onclick="showPanel('newIssue')">
+                ➕ Issue جديد
+            </button>
+        </div>
+    </aside>
+
+    <!-- ═══ Content ═══ -->
+    <main class="content">
+
+        <!-- ── Overview Panel ── -->
+        <div class="panel active" id="panel-overview">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">📊 نظرة عامة على المستودع</h1>
+                <button class="btn btn-secondary btn-sm" onclick="doSync()">🔄 مزامنة</button>
+                <span class="last-sync" id="lastSyncText">—</span>
+            </div>
+
+            <div class="stats-grid" id="statsGrid">
+                <div class="stat-card"><div class="stat-label">المستودعات</div><div class="stat-value" id="s-repos">—</div><div class="stat-desc">في منظمة Sheikha-top</div></div>
+                <div class="stat-card"><div class="stat-label">Issues مفتوحة</div><div class="stat-value" id="s-issues">—</div><div class="stat-desc">تحتاج اهتماماً</div></div>
+                <div class="stat-card"><div class="stat-label">Pull Requests</div><div class="stat-value" id="s-prs">—</div><div class="stat-desc">قيد المراجعة</div></div>
+                <div class="stat-card"><div class="stat-label">الفروع</div><div class="stat-value" id="s-branches">—</div><div class="stat-desc">في المستودع الرئيسي</div></div>
+                <div class="stat-card"><div class="stat-label">مكالمات API</div><div class="stat-value" id="s-api">—</div><div class="stat-desc">إجمالي استدعاءات</div></div>
+                <div class="stat-card"><div class="stat-label">عمليات مزامنة</div><div class="stat-value" id="s-syncs">—</div><div class="stat-desc">ناجحة</div></div>
+            </div>
+
+            <!-- User info -->
+            <div class="section">
+                <div class="section-header"><div class="section-title">👤 حساب GitHub</div></div>
+                <div id="userInfo" class="data-table">
+                    <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+                </div>
+            </div>
+
+            <!-- Recent commits -->
+            <div class="section">
+                <div class="section-header">
+                    <div class="section-title">⚡ آخر الـ Commits</div>
+                    <button class="btn btn-secondary btn-sm" onclick="showPanel('commits')">عرض الكل</button>
+                </div>
+                <div id="recentCommits" class="data-table">
+                    <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Repos Panel ── -->
+        <div class="panel" id="panel-repos">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">📁 المستودعات</h1>
+                <button class="btn btn-secondary btn-sm" onclick="doSync()">🔄 تحديث</button>
+            </div>
+            <div id="reposList" class="data-table">
+                <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ── Commits Panel ── -->
+        <div class="panel" id="panel-commits">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">⚡ الـ Commits</h1>
+            </div>
+            <div id="commitsList" class="data-table">
+                <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ── Issues Panel ── -->
+        <div class="panel" id="panel-issues">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">🔍 الـ Issues</h1>
+                <button class="btn btn-secondary btn-sm" onclick="showPanel('newIssue')">➕ إنشاء Issue</button>
+            </div>
+            <div id="issuesList" class="data-table">
+                <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ── Pull Requests Panel ── -->
+        <div class="panel" id="panel-prs">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">🔀 Pull Requests</h1>
+            </div>
+            <div id="prsList" class="data-table">
+                <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ── Branches Panel ── -->
+        <div class="panel" id="panel-branches">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">🌿 الفروع</h1>
+            </div>
+            <div id="branchesList" class="data-table">
+                <div style="padding:2rem; color:var(--text-dim); text-align:center;">جارٍ التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ── Copilot Panel ── -->
+        <div class="panel" id="panel-copilot">
+            <div class="copilot-header">
+                <div class="copilot-icon">🤖</div>
+                <div>
+                    <div class="copilot-title">Sheikha Copilot Bridge</div>
+                    <div class="copilot-desc">جسر ذكاء اصطناعي — يربط منظومة شيخة بنماذج GitHub Copilot والذكاء المحلي والسحابي</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title" style="margin-bottom:1rem;">⚙️ القدرات المفعّلة</div>
+                <div class="capabilities-grid" id="capabilitiesGrid">
+                    <div style="color:var(--text-dim);padding:1rem;">جارٍ التحميل...</div>
+                </div>
+            </div>
+
+            <div class="section">
+                <div class="section-title" style="margin-bottom:1rem;">📈 إحصاءات الاستخدام</div>
+                <div class="stats-grid">
+                    <div class="stat-card"><div class="stat-label">إجمالي الطلبات</div><div class="stat-value" id="cop-requests">—</div></div>
+                    <div class="stat-card"><div class="stat-label">إجمالي الـ Tokens</div><div class="stat-value" id="cop-tokens">—</div></div>
+                    <div class="stat-card"><div class="stat-label">Heartbeats</div><div class="stat-value" id="cop-heartbeats">—</div></div>
+                    <div class="stat-card"><div class="stat-label">آخر نبضة</div><div class="stat-value" style="font-size:1rem;" id="cop-lasthb">—</div></div>
+                </div>
+            </div>
+        </div>
+
+        <!-- ── Code Analyzer Panel ── -->
+        <div class="panel" id="panel-analyzer">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">🔬 محلل الكود بالذكاء الاصطناعي</h1>
+            </div>
+            <div class="analyzer-form">
+                <div class="form-group">
+                    <label class="form-label">اللغة البرمجية</label>
+                    <select class="form-select" id="codeLanguage" style="direction:ltr; width:auto;">
+                        <option value="javascript">JavaScript</option>
+                        <option value="python">Python</option>
+                        <option value="typescript">TypeScript</option>
+                        <option value="html">HTML</option>
+                        <option value="css">CSS</option>
+                        <option value="json">JSON</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الكود للتحليل</label>
+                    <textarea class="form-textarea" id="codeInput" placeholder="// الصق الكود هنا للتحليل..."></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="analyzeCode()">🔍 تحليل الكود</button>
+            </div>
+            <div id="analysisResult" style="display:none;"></div>
+        </div>
+
+        <!-- ── Commit Message Panel ── -->
+        <div class="panel" id="panel-commitMsg">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">✍️ توليد رسائل Commit</h1>
+            </div>
+            <div class="analyzer-form">
+                <div class="form-group">
+                    <label class="form-label">سياق التعديل (اختياري)</label>
+                    <input class="form-input" type="text" id="commitContext" placeholder="مثال: إصلاح خطأ تسجيل الدخول بـ OAuth" style="direction:rtl;">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الـ Diff (git diff output)</label>
+                    <textarea class="form-textarea" id="diffInput" placeholder="+Added code&#10;-Removed code" style="min-height:140px;"></textarea>
+                </div>
+                <button class="btn btn-primary" onclick="generateCommitMessage()">⚡ توليد الرسالة</button>
+            </div>
+            <div id="commitResult" style="display:none;"></div>
+        </div>
+
+        <!-- ── Models Panel ── -->
+        <div class="panel" id="panel-models">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">🧠 نماذج الذكاء الاصطناعي</h1>
+            </div>
+            <div class="models-grid" id="modelsGrid">
+                <div style="color:var(--text-dim);padding:1rem;">جارٍ التحميل...</div>
+            </div>
+        </div>
+
+        <!-- ── New Issue Panel ── -->
+        <div class="panel" id="panel-newIssue">
+            <div class="action-bar">
+                <h1 style="font-size:1.4rem; font-weight:700; color: var(--gold);">➕ إنشاء Issue جديد</h1>
+            </div>
+            <div class="create-issue-form">
+                <div class="form-group">
+                    <label class="form-label">العنوان *</label>
+                    <input class="form-input" type="text" id="issueTitle" placeholder="عنوان الـ Issue..." style="direction:rtl;" maxlength="255">
+                </div>
+                <div class="form-group">
+                    <label class="form-label">الوصف (Markdown مدعوم)</label>
+                    <textarea class="form-textarea" id="issueBody" placeholder="وصف تفصيلي للـ Issue..." style="direction:rtl; min-height:160px; font-family:'Tajawal',sans-serif;"></textarea>
+                </div>
+                <div class="form-group">
+                    <label class="form-label">التصنيفات (مفصولة بفاصلة)</label>
+                    <input class="form-input" type="text" id="issueLabels" placeholder="bug, enhancement, question" style="direction:ltr;">
+                </div>
+                <div style="display:flex; gap:.8rem;">
+                    <button class="btn btn-primary" onclick="createIssue()">✅ إنشاء Issue</button>
+                    <button class="btn btn-secondary" onclick="document.getElementById('issueTitle').value=''; document.getElementById('issueBody').value=''; document.getElementById('issueLabels').value='';">🗑️ مسح</button>
+                </div>
+            </div>
+        </div>
+
+    </main>
+</div>
+
+<!-- Toast Container -->
+<div class="toast-container" id="toastContainer"></div>
+
+<script>
+// ═══════════════════════════════════════════════════════════════════════════════
+// Sheikha GitHub Hub — Frontend Engine
+// ═══════════════════════════════════════════════════════════════════════════════
+'use strict';
+
+let hubData = null;
+
+// ─── Panel switcher ───────────────────────────────────────────────────────────
+function showPanel(name) {
+    document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.sidebar-item').forEach(b => b.classList.remove('active'));
+    const panel = document.getElementById('panel-' + name);
+    if (panel) panel.classList.add('active');
+    const btn = document.querySelector(`[onclick="showPanel('${name}')"]`);
+    if (btn) btn.classList.add('active');
+}
+
+// ─── Toast ────────────────────────────────────────────────────────────────────
+function toast(message, type = 'info') {
+    const icons = { success: '✅', error: '❌', info: 'ℹ️' };
+    const el = document.createElement('div');
+    el.className = 'toast ' + type;
+    el.innerHTML = `<span>${icons[type] || ''}</span><span>${message}</span>`;
+    document.getElementById('toastContainer').appendChild(el);
+    setTimeout(() => el.remove(), 4000);
+}
+
+// ─── Fetch helper ─────────────────────────────────────────────────────────────
+async function apiFetch(url, options = {}) {
+    const res = await fetch(url, options);
+    const json = await res.json();
+    return json;
+}
+
+// ─── تحديث الحالة ───────────────────────────────────────────────────────────
+async function loadStatus() {
+    try {
+        const res = await apiFetch('/api/github/status');
+        if (res.success && res.data) {
+            const d = res.data;
+            const dot = document.getElementById('statusDot');
+            const txt = document.getElementById('statusText');
+            if (d.running) {
+                dot.classList.add('active');
+                txt.textContent = `متصل — ${d.org}`;
+            } else {
+                txt.textContent = 'الخادم متوقف';
+            }
+            // Stats
+            document.getElementById('s-repos').textContent = d.repos || '0';
+            document.getElementById('s-issues').textContent = d.openIssues || '0';
+            document.getElementById('s-prs').textContent = d.openPRs || '0';
+            document.getElementById('s-branches').textContent = d.branches || '0';
+            document.getElementById('s-api').textContent = (d.stats && d.stats.apiCalls) ? d.stats.apiCalls.toLocaleString('ar') : '0';
+            document.getElementById('s-syncs').textContent = (d.stats && d.stats.successfulSyncs) ? d.stats.successfulSyncs : '0';
+            // Sidebar counts
+            document.getElementById('reposCount').textContent = d.repos || '0';
+            document.getElementById('issuesCount').textContent = d.openIssues || '0';
+            document.getElementById('prsCount').textContent = d.openPRs || '0';
+            document.getElementById('branchesCount').textContent = d.branches || '0';
+            // User
+            if (d.user) {
+                document.getElementById('userInfo').innerHTML = `<div style="padding:1rem;display:flex;align-items:center;gap:1rem;"><div style="font-size:2rem;">🐙</div><div><div style="font-weight:600;">${d.user.name || d.user.login}</div><div style="font-size:.85rem;color:var(--text-dim);">@${d.user.login} — ${d.tokenStatus}</div></div></div>`;
+            }
+            // Last sync
+            if (d.lastSync) {
+                const dt = new Date(d.lastSync);
+                const ago = Math.floor((Date.now() - dt.getTime()) / 60000);
+                document.getElementById('lastSyncText').textContent = `آخر مزامنة: منذ ${ago} دقيقة`;
+            }
+            // Copilot
+            if (d.copilot) {
+                document.getElementById('cop-requests').textContent = (d.copilot.stats && d.copilot.stats.totalRequests) || '0';
+                document.getElementById('cop-tokens').textContent = (d.copilot.stats && d.copilot.stats.totalTokens) || '0';
+                document.getElementById('cop-heartbeats').textContent = d.copilot.heartbeatCount || '0';
+                document.getElementById('cop-lasthb').textContent = d.copilot.lastHeartbeat ? new Date(d.copilot.lastHeartbeat).toLocaleTimeString('ar') : '—';
+                // Capabilities
+                if (d.copilot.capabilities) {
+                    const icons = { codeCompletion: '💡', chat: '💬', codeReview: '🔍', commitMessages: '✍️', prDescriptions: '📄', issueAnalysis: '🔎', arabicSupport: '🇸🇦', shariaCompliance: '🌙' };
+                    const names = { codeCompletion: 'إكمال الكود', chat: 'الدردشة', codeReview: 'مراجعة الكود', commitMessages: 'رسائل Commit', prDescriptions: 'وصف PR', issueAnalysis: 'تحليل Issues', arabicSupport: 'دعم العربية', shariaCompliance: 'امتثال شرعي' };
+                    document.getElementById('capabilitiesGrid').innerHTML = Object.entries(d.copilot.capabilities).map(([k, v]) =>
+                        `<div class="cap-item"><span class="cap-icon">${icons[k] || '⚙️'}</span><span style="flex:1;">${names[k] || k}</span><span class="cap-on">${v ? '✅' : '❌'}</span></div>`
+                    ).join('');
+                }
+                // Models
+                if (d.copilot.models) {
+                    document.getElementById('modelsGrid').innerHTML = d.copilot.models.map((m, i) =>
+                        `<div class="model-card ${m.priority === 1 ? 'active' : ''}">
+                            <div class="model-name">${m.name}</div>
+                            <div class="model-type">${m.type}</div>
+                            <div class="model-status">${m.available ? '<span class="badge badge-green">✅ متاح</span>' : '<span class="badge badge-red">❌ غير متوفر</span>'}</div>
+                            ${m.priority === 1 ? '<div style="font-size:.75rem;color:var(--gold);margin-top:6px;">★ النموذج الأساسي</div>' : ''}
+                        </div>`
+                    ).join('');
+                }
+            }
+        }
+    } catch (e) {
+        document.getElementById('statusText').textContent = 'خطأ في الاتصال';
+    }
+}
+
+// ─── تحميل البيانات الكاملة ──────────────────────────────────────────────────
+async function loadFullData() {
+    try {
+        const res = await apiFetch('/api/github/full');
+        if (!res.success) return;
+        const d = res.data;
+        hubData = d;
+
+        // Commits
+        const commitsCount = (d.commits || []).length;
+        document.getElementById('commitsCount').textContent = commitsCount;
+
+        // Recent commits in overview
+        if (d.commits && d.commits.length > 0) {
+            const rows = d.commits.slice(0, 5).map(c =>
+                `<tr>
+                    <td><code style="background:var(--bg-input);padding:2px 6px;border-radius:4px;font-size:.8rem;">${c.sha}</code></td>
+                    <td style="max-width:300px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;">${esc(c.message)}</td>
+                    <td>${esc(c.author)}</td>
+                    <td>${c.date ? new Date(c.date).toLocaleDateString('ar-SA') : '—'}</td>
+                </tr>`
+            ).join('');
+            document.getElementById('recentCommits').innerHTML = `<table><thead><tr><th>SHA</th><th>الرسالة</th><th>الكاتب</th><th>التاريخ</th></tr></thead><tbody>${rows}</tbody></table>`;
+        } else {
+            document.getElementById('recentCommits').innerHTML = `<div class="empty-state"><div class="icon">📭</div><div>لا توجد commits</div></div>`;
+        }
+
+        // Commits list
+        if (d.commits && d.commits.length > 0) {
+            const rows = d.commits.map(c =>
+                `<tr>
+                    <td><a href="${c.url || '#'}" target="_blank" rel="noopener noreferrer" style="color:var(--accent-blue);text-decoration:none;font-family:monospace;font-size:.85rem;">${c.sha}</a></td>
+                    <td>${esc(c.message)}</td>
+                    <td>${esc(c.author)}</td>
+                    <td>${c.date ? new Date(c.date).toLocaleDateString('ar-SA') : '—'}</td>
+                </tr>`
+            ).join('');
+            document.getElementById('commitsList').innerHTML = `<table><thead><tr><th>SHA</th><th>الرسالة</th><th>الكاتب</th><th>التاريخ</th></tr></thead><tbody>${rows}</tbody></table>`;
+        }
+
+        // Issues
+        if (d.issues && d.issues.length > 0) {
+            const rows = d.issues.map(i =>
+                `<tr>
+                    <td>#${i.id}</td>
+                    <td><a href="${i.url || '#'}" target="_blank" rel="noopener noreferrer" style="color:var(--text);">${esc(i.title)}</a></td>
+                    <td>${i.labels.map(l => `<span class="badge badge-blue">${esc(l)}</span>`).join(' ')}</td>
+                    <td>${esc(i.author)}</td>
+                    <td>${i.createdAt ? new Date(i.createdAt).toLocaleDateString('ar-SA') : '—'}</td>
+                </tr>`
+            ).join('');
+            document.getElementById('issuesList').innerHTML = `<table><thead><tr><th>#</th><th>العنوان</th><th>التصنيفات</th><th>بواسطة</th><th>التاريخ</th></tr></thead><tbody>${rows}</tbody></table>`;
+        } else {
+            document.getElementById('issuesList').innerHTML = `<div class="empty-state"><div class="icon">🎉</div><div>لا توجد issues مفتوحة — بارك الله فيكم</div></div>`;
+        }
+
+        // PRs
+        if (d.pullRequests && d.pullRequests.length > 0) {
+            const rows = d.pullRequests.map(pr =>
+                `<tr>
+                    <td>#${pr.id}</td>
+                    <td><a href="${pr.url || '#'}" target="_blank" rel="noopener noreferrer" style="color:var(--text);">${esc(pr.title)}${pr.draft ? ' <span class="badge badge-orange">Draft</span>' : ''}</a></td>
+                    <td><code style="font-size:.8rem;">${esc(pr.branch)}</code></td>
+                    <td>${esc(pr.author)}</td>
+                    <td>${pr.createdAt ? new Date(pr.createdAt).toLocaleDateString('ar-SA') : '—'}</td>
+                </tr>`
+            ).join('');
+            document.getElementById('prsList').innerHTML = `<table><thead><tr><th>#</th><th>العنوان</th><th>الفرع</th><th>بواسطة</th><th>التاريخ</th></tr></thead><tbody>${rows}</tbody></table>`;
+        } else {
+            document.getElementById('prsList').innerHTML = `<div class="empty-state"><div class="icon">🔀</div><div>لا توجد Pull Requests مفتوحة</div></div>`;
+        }
+
+        // Repos
+        if (d.repos && d.repos.length > 0) {
+            const rows = d.repos.map(r =>
+                `<tr>
+                    <td><a href="${r.url || '#'}" target="_blank" rel="noopener noreferrer" style="color:var(--accent-blue);font-weight:600;">${esc(r.name)}</a></td>
+                    <td style="max-width:220px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap;color:var(--text-dim);">${esc(r.description || '—')}</td>
+                    <td>${r.language ? `<span class="badge badge-purple">${esc(r.language)}</span>` : '—'}</td>
+                    <td>⭐ ${r.stars || 0}</td>
+                    <td>${r.isPrivate ? '<span class="badge badge-orange">خاص</span>' : '<span class="badge badge-green">عام</span>'}</td>
+                    <td>${r.updatedAt ? new Date(r.updatedAt).toLocaleDateString('ar-SA') : '—'}</td>
+                </tr>`
+            ).join('');
+            document.getElementById('reposList').innerHTML = `<table><thead><tr><th>الاسم</th><th>الوصف</th><th>اللغة</th><th>النجوم</th><th>النوع</th><th>آخر تحديث</th></tr></thead><tbody>${rows}</tbody></table>`;
+        }
+
+        // Branches
+        if (d.branches && d.branches.length > 0) {
+            const rows = d.branches.map(b =>
+                `<tr>
+                    <td><code style="background:var(--bg-input);padding:2px 8px;border-radius:4px;">${esc(b.name)}</code></td>
+                    <td>${b.protected ? '<span class="badge badge-orange">🔒 محمي</span>' : '<span class="badge badge-green">عادي</span>'}</td>
+                </tr>`
+            ).join('');
+            document.getElementById('branchesList').innerHTML = `<table><thead><tr><th>الفرع</th><th>الحماية</th></tr></thead><tbody>${rows}</tbody></table>`;
+        }
+
+    } catch (e) {
+        console.warn('loadFullData error:', e);
+    }
+}
+
+// ─── مزامنة فورية ────────────────────────────────────────────────────────────
+async function doSync() {
+    toast('جارٍ المزامنة مع GitHub...', 'info');
+    try {
+        const res = await apiFetch('/api/github/sync', { method: 'POST', headers: { 'Content-Type': 'application/json' } });
+        if (res.success) {
+            toast('تمت المزامنة بنجاح ✅', 'success');
+            await loadStatus();
+            await loadFullData();
+        } else {
+            toast('فشلت المزامنة: ' + (res.message || ''), 'error');
+        }
+    } catch (e) {
+        toast('خطأ أثناء المزامنة', 'error');
+    }
+}
+
+// ─── تحليل الكود ─────────────────────────────────────────────────────────────
+async function analyzeCode() {
+    const code = document.getElementById('codeInput').value.trim();
+    const lang = document.getElementById('codeLanguage').value;
+    if (!code) { toast('الرجاء إدخال الكود', 'error'); return; }
+    try {
+        const res = await apiFetch('/api/github/copilot-bridge/analyze', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ code, language: lang })
+        });
+        if (!res.success) { toast('فشل التحليل: ' + res.message, 'error'); return; }
+        const d = res.data;
+        const scoreColor = d.score >= 80 ? 'var(--accent-green)' : d.score >= 50 ? 'var(--accent-orange)' : 'var(--accent-red)';
+        const issueHtml = d.issues.length > 0
+            ? d.issues.map(i => {
+                const icons = { security: '🔴', quality: '🟡', cleanup: '🔵', islamic_quality: '🌙' };
+                return `<div class="issue-item"><span class="issue-icon">${icons[i.type] || '⚠️'}</span><div><strong style="font-size:.8rem;color:var(--text-dim);text-transform:uppercase;">${i.type}</strong><div>${esc(i.message)}</div></div></div>`;
+            }).join('')
+            : '<div style="color:var(--accent-green);padding:.5rem;">لا توجد مشكلات ✅</div>';
+
+        document.getElementById('analysisResult').style.display = 'block';
+        document.getElementById('analysisResult').innerHTML = `
+            <div class="analysis-result">
+                <div style="display:flex;align-items:center;justify-content:space-between;margin-bottom:1rem;">
+                    <h3>نتيجة التحليل</h3>
+                    <span style="font-size:1.5rem;font-weight:700;color:${scoreColor};">${d.score}/100</span>
+                </div>
+                <div class="score-bar"><div class="score-fill" style="width:${d.score}%;background:${scoreColor};"></div></div>
+                <div style="display:grid;grid-template-columns:1fr 1fr;gap:.5rem;margin:1rem 0;font-size:.85rem;">
+                    <div>اللغة: <strong>${esc(d.language)}</strong></div>
+                    <div>الأسطر: <strong>${d.linesCount}</strong></div>
+                    <div>المشكلات: <strong>${d.issues.length}</strong></div>
+                    <div>التقييم: <strong>${esc(d.recommendation)}</strong></div>
+                </div>
+                <div>${issueHtml}</div>
+            </div>`;
+    } catch (e) {
+        toast('خطأ في التحليل', 'error');
+    }
+}
+
+// ─── توليد رسالة Commit ──────────────────────────────────────────────────────
+async function generateCommitMessage() {
+    const diff = document.getElementById('diffInput').value.trim();
+    const context = document.getElementById('commitContext').value.trim();
+    if (!diff) { toast('الرجاء إدخال الـ Diff', 'error'); return; }
+    try {
+        const res = await apiFetch('/api/github/copilot-bridge/commit-message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ diff, context })
+        });
+        if (!res.success) { toast('فشل توليد الرسالة: ' + res.message, 'error'); return; }
+        const d = res.data;
+        document.getElementById('commitResult').style.display = 'block';
+        document.getElementById('commitResult').innerHTML = `
+            <div class="analysis-result" style="margin-top:1rem;">
+                <h3 style="margin-bottom:1rem;">رسالة الـ Commit المقترحة</h3>
+                <div style="background:var(--bg-input);padding:1rem;border-radius:6px;font-family:monospace;font-size:1rem;margin-bottom:1rem;direction:ltr;">${esc(d.message)}</div>
+                <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:.5rem;font-size:.85rem;margin-bottom:1rem;">
+                    <div>النوع: <span class="badge badge-blue">${esc(d.type)}</span></div>
+                    <div>أضيفت: <strong style="color:var(--accent-green);">+${d.stats.added}</strong></div>
+                    <div>حُذفت: <strong style="color:var(--accent-red);">-${d.stats.removed}</strong></div>
+                </div>
+                <div style="font-size:.8rem;color:var(--gold);background:rgba(212,175,55,.1);padding:.8rem;border-radius:6px;">${esc(d.islamicNote)}</div>
+                <button class="btn btn-secondary btn-sm" style="margin-top:1rem;" onclick="navigator.clipboard.writeText('${d.message.replace(/'/g, "\\'")}').then(()=>toast('تم النسخ','success'))">📋 نسخ</button>
+            </div>`;
+    } catch (e) {
+        toast('خطأ في التوليد', 'error');
+    }
+}
+
+// ─── إنشاء Issue ─────────────────────────────────────────────────────────────
+async function createIssue() {
+    const title = document.getElementById('issueTitle').value.trim();
+    const body = document.getElementById('issueBody').value.trim();
+    const labelsRaw = document.getElementById('issueLabels').value.trim();
+    const labels = labelsRaw ? labelsRaw.split(',').map(l => l.trim()).filter(Boolean) : [];
+
+    if (!title) { toast('العنوان مطلوب', 'error'); return; }
+    try {
+        const res = await apiFetch('/api/github/issues', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ title, body, labels })
+        });
+        if (res.success) {
+            toast('تم إنشاء Issue بنجاح ✅', 'success');
+            document.getElementById('issueTitle').value = '';
+            document.getElementById('issueBody').value = '';
+            document.getElementById('issueLabels').value = '';
+            showPanel('issues');
+            await doSync();
+        } else {
+            toast('فشل إنشاء Issue: ' + (res.message || ''), 'error');
+        }
+    } catch (e) {
+        toast('خطأ أثناء الإنشاء', 'error');
+    }
+}
+
+// ─── XSS protection ──────────────────────────────────────────────────────────
+function esc(str) {
+    if (typeof str !== 'string') return '';
+    return str.replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;').replace(/'/g,'&#x27;');
+}
+
+// ─── Init ─────────────────────────────────────────────────────────────────────
+async function init() {
+    await loadStatus();
+    await loadFullData();
+    // تحديث تلقائي كل دقيقة
+    setInterval(async () => { await loadStatus(); }, 60 * 1000);
+    // تحديث البيانات كل 5 دقائق
+    setInterval(async () => { await loadFullData(); }, 5 * 60 * 1000);
+}
+
+init();
+</script>
+</body>
+</html>

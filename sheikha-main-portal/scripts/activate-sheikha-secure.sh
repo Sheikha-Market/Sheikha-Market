@@ -5,6 +5,7 @@ PORT="${PORT:-8080}"
 HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:${PORT}/api/sheikha/status}"
 APP_LOG="${APP_LOG:-/tmp/sheikha-dev-nocursor.log}"
 
+unset npm_config_prefix NPM_CONFIG_PREFIX npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP || true
 source "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
 nvm use 25.6.1 >/dev/null 2>&1 || true
 

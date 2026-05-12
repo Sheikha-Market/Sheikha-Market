@@ -1,0 +1,725 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — Google Workspace | market@sheikha.top</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0f0a;color:#e8e8e0;direction:rtl;min-height:100vh}
+:root{--gold:#D4AF37;--copper:#B87333;--green:#34A853;--blue:#4285F4;--red:#EA4335;--yellow:#FBBC04;--dark:#0a0f0a;--card:#111811;--border:#1e2a1e}
+
+.header{background:linear-gradient(135deg,#0a0f0a,#0d1a0d);border-bottom:1px solid var(--green);padding:20px 30px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.7rem;font-weight:900;color:var(--gold)}
+.logo span{color:var(--green)}
+.email-badge{background:rgba(52,168,83,0.15);border:1px solid rgba(52,168,83,0.4);color:#6fcf97;padding:6px 18px;border-radius:20px;font-size:0.88rem;font-weight:700;font-family:monospace;direction:ltr}
+
+/* Google Brand Colors Strip */
+.google-strip{display:flex;height:4px}
+.google-strip div{flex:1}
+.g-blue{background:#4285F4}.g-red{background:#EA4335}.g-yellow{background:#FBBC04}.g-green{background:#34A853}
+
+/* Hero */
+.hero{padding:30px;margin:20px;background:linear-gradient(135deg,rgba(52,168,83,0.08),rgba(66,133,244,0.08));border:1px solid var(--border);border-radius:16px}
+.sync-status{display:flex;align-items:center;gap:16px;padding:16px 20px;background:rgba(52,168,83,0.1);border:1px solid rgba(52,168,83,0.3);border-radius:12px;margin-bottom:20px}
+.sync-dot{width:12px;height:12px;border-radius:50%;background:var(--green);animation:pulse 2s infinite;flex-shrink:0}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1)}50%{opacity:0.6;transform:scale(1.2)}}
+
+.service-quick-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:10px}
+.service-pill{background:var(--card);border:1px solid var(--border);border-radius:10px;padding:12px 8px;text-align:center;cursor:pointer;transition:all 0.3s;font-size:0.78rem}
+.service-pill:hover{border-color:var(--green);transform:translateY(-3px)}
+.service-pill .sicon{font-size:1.6rem;margin-bottom:4px}
+.service-pill.active-s{border-color:var(--green);background:rgba(52,168,83,0.1)}
+
+/* Tabs */
+.tabs{display:flex;gap:6px;padding:0 20px;flex-wrap:wrap;border-bottom:1px solid var(--border)}
+.tab{padding:11px 20px;border-radius:10px 10px 0 0;cursor:pointer;font-size:0.88rem;font-weight:600;color:#888;border:none;background:none;transition:all 0.3s;border:1px solid transparent;border-bottom:none}
+.tab.active,.tab:hover{color:var(--green);background:var(--card);border-color:var(--border)}
+.tab-content{display:none;padding:24px 20px;animation:fadeIn 0.3s}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(6px)}to{opacity:1;transform:translateY(0)}}
+
+/* Cards */
+.card{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:22px;margin-bottom:16px}
+.card-title{font-size:1.05rem;font-weight:700;color:var(--green);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+.grid-4{display:grid;grid-template-columns:repeat(4,1fr);gap:12px}
+
+/* Service Cards */
+.svc-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:18px;transition:all 0.3s;cursor:pointer}
+.svc-card:hover{border-color:var(--green);background:rgba(52,168,83,0.05)}
+.svc-header{display:flex;align-items:center;gap:12px;margin-bottom:12px}
+.svc-icon{font-size:1.8rem}
+.svc-name{font-weight:700;color:#ddd;font-size:0.95rem}
+.svc-category{font-size:0.73rem;color:#666;background:rgba(255,255,255,0.05);padding:2px 8px;border-radius:8px;margin-top:2px;display:inline-block}
+.svc-use{font-size:0.82rem;color:#888;line-height:1.6;margin-bottom:12px}
+.steps-list{list-style:none}
+.steps-list li{font-size:0.8rem;color:#aaa;padding:5px 0;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px}
+.steps-list li::before{content:attr(data-n);color:var(--green);font-weight:700;flex-shrink:0;min-width:16px}
+
+/* Plan Cards */
+.plan-card{border:2px solid var(--border);border-radius:14px;padding:20px;position:relative;transition:all 0.3s}
+.plan-card:hover{border-color:var(--green)}
+.plan-card.recommended{border-color:var(--green);background:rgba(52,168,83,0.06)}
+.plan-badge{position:absolute;top:-12px;right:16px;background:var(--green);color:#000;font-size:0.72rem;font-weight:900;padding:3px 12px;border-radius:20px}
+.plan-price{font-size:2rem;font-weight:900;color:var(--gold);margin:10px 0 4px}
+.plan-price span{font-size:0.9rem;font-weight:400;color:#666}
+
+/* Security Checklist */
+.check-item{display:flex;gap:12px;padding:14px;border-radius:10px;margin-bottom:8px;background:rgba(255,255,255,0.02);border:1px solid var(--border);align-items:flex-start}
+.check-item:hover{border-color:#333}
+.priority-badge{padding:2px 10px;border-radius:10px;font-size:0.73rem;font-weight:700;flex-shrink:0;margin-top:2px}
+.priority-CRITICAL{background:rgba(234,67,53,0.2);color:#ea4335}
+.priority-HIGH{background:rgba(251,188,4,0.2);color:#fbbc04}
+.priority-MEDIUM{background:rgba(66,133,244,0.2);color:#4285f4}
+.priority-LOW{background:rgba(52,168,83,0.2);color:#34a853}
+.check-path{font-size:0.73rem;color:#555;font-family:monospace;direction:ltr;text-align:left;margin-top:4px}
+.check-done{width:20px;height:20px;border:2px solid #444;border-radius:4px;flex-shrink:0;cursor:pointer;transition:all 0.2s}
+.check-done.done{background:var(--green);border-color:var(--green)}
+.check-done.done::after{content:'✓';color:#000;font-size:0.75rem;display:flex;justify-content:center}
+
+/* Sync Guide */
+.sync-step{display:flex;gap:14px;padding:16px;border-radius:10px;margin-bottom:10px;background:rgba(255,255,255,0.02);border:1px solid var(--border)}
+.sync-num{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--green),#2d7a48);color:#000;font-weight:900;display:flex;align-items:center;justify-content:center;font-size:0.9rem;flex-shrink:0}
+.sync-detail{font-size:0.82rem;color:#888;margin-top:4px}
+.code-block{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:14px;font-family:'Courier New',monospace;font-size:0.8rem;color:#58a6ff;direction:ltr;text-align:left;overflow-x:auto;margin-top:8px}
+
+/* Phase Timeline */
+.phase-block{border:1px solid var(--border);border-radius:12px;padding:16px;margin-bottom:12px;position:relative;padding-right:20px}
+.phase-block::before{content:'';position:absolute;right:0;top:0;bottom:0;width:4px;border-radius:12px 0 0 12px;background:var(--green)}
+.phase-title{font-weight:700;color:var(--gold);margin-bottom:10px;font-size:0.95rem}
+.phase-steps{list-style:none}
+.phase-steps li{padding:5px 0;font-size:0.82rem;color:#aaa;border-bottom:1px solid rgba(255,255,255,0.04);display:flex;gap:8px}
+.phase-steps li::before{content:'←';color:var(--green);font-size:0.8rem}
+
+/* Info Rows */
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:10px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border:none}
+.info-label{color:#888;font-size:0.88rem}
+.info-value{color:#ddd;font-weight:600;font-size:0.9rem}
+
+/* Apps Marketplace */
+.app-pill{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:10px;padding:12px;display:flex;align-items:center;gap:10px;transition:all 0.2s}
+.app-pill:hover{border-color:var(--blue)}
+.app-icon{font-size:1.4rem;flex-shrink:0}
+
+/* Loading */
+.loading{text-align:center;padding:40px;color:#555}
+.spinner{width:28px;height:28px;border:3px solid #1a2a1a;border-top-color:var(--green);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 10px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Halal note */
+.halal-note{background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.2);border-radius:8px;padding:10px 16px;font-size:0.82rem;color:#aaa;margin-top:14px}
+
+/* Email highlight */
+.email-hl{color:var(--green);font-weight:700;font-family:monospace;direction:ltr}
+
+@media(max-width:768px){
+.service-quick-grid{grid-template-columns:repeat(4,1fr)}
+.grid-2,.grid-3,.grid-4{grid-template-columns:1fr}
+.tabs{gap:4px}.tab{padding:8px 12px;font-size:0.78rem}
+}
+</style>
+</head>
+<body>
+
+<div class="google-strip"><div class="g-blue"></div><div class="g-red"></div><div class="g-yellow"></div><div class="g-green"></div></div>
+
+<div class="header">
+    <div>
+        <div class="logo">شيخة <span>Google Workspace</span></div>
+        <div style="color:#666;font-size:0.82rem;margin-top:4px">دليل التفعيل الكامل والمزامنة</div>
+    </div>
+    <div class="email-badge">market@sheikha.top</div>
+</div>
+
+<!-- Hero Sync Status -->
+<div class="hero" style="margin:20px">
+    <div class="sync-status">
+        <div class="sync-dot"></div>
+        <div>
+            <div style="font-weight:700;color:#ddd">حساب Google Workspace نشط</div>
+            <div style="font-size:0.82rem;color:#888;margin-top:2px">
+                البريد: <span class="email-hl">market@sheikha.top</span> — 
+                الدومين: <span class="email-hl">sheikha.top</span>
+            </div>
+        </div>
+        <div style="margin-right:auto;text-align:left">
+            <div style="font-size:0.75rem;color:#555">آخر فحص</div>
+            <div id="lastCheck" style="font-size:0.82rem;color:var(--green)">الآن</div>
+        </div>
+    </div>
+
+    <!-- Services Quick View -->
+    <div style="font-size:0.82rem;color:#666;margin-bottom:10px">خدمات Workspace المتاحة — اضغط للانتقال:</div>
+    <div class="service-quick-grid">
+        <div class="service-pill active-s" onclick="showTab('mail')"><div class="sicon">📧</div>Gmail</div>
+        <div class="service-pill" onclick="showTab('meet')"><div class="sicon">📹</div>Meet</div>
+        <div class="service-pill" onclick="showTab('drive')"><div class="sicon">💾</div>Drive</div>
+        <div class="service-pill" onclick="showTab('calendar')"><div class="sicon">📅</div>Calendar</div>
+        <div class="service-pill" onclick="showTab('security')"><div class="sicon">🛡️</div>أمان</div>
+        <div class="service-pill" onclick="showTab('ai')"><div class="sicon">🤖</div>Gemini AI</div>
+        <div class="service-pill" onclick="showTab('plans')"><div class="sicon">💳</div>الخطط</div>
+        <div class="service-pill" onclick="showTab('activate')"><div class="sicon">🚀</div>خطة التفعيل</div>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+    <button class="tab active" onclick="showTab('sync')">🔄 المزامنة</button>
+    <button class="tab" onclick="showTab('mail')">📧 البريد</button>
+    <button class="tab" onclick="showTab('meet')">📹 Meet & Chat</button>
+    <button class="tab" onclick="showTab('drive')">💾 Drive & Docs</button>
+    <button class="tab" onclick="showTab('calendar')">📅 Calendar</button>
+    <button class="tab" onclick="showTab('security')">🛡️ الأمان</button>
+    <button class="tab" onclick="showTab('ai')">🤖 Gemini AI</button>
+    <button class="tab" onclick="showTab('plans')">💳 الخطط</button>
+    <button class="tab" onclick="showTab('activate')">🚀 خطة التفعيل</button>
+    <button class="tab" onclick="showTab('services')">⚙️ كل الخدمات</button>
+</div>
+
+<!-- TAB: مزامنة market@sheikha.top -->
+<div id="tab-sync" class="tab-content active">
+    <div class="card">
+        <div class="card-title">🔄 مزامنة <span class="email-hl" style="font-size:0.95rem">market@sheikha.top</span> مع Google Workspace</div>
+        <p style="color:#aaa;font-size:0.88rem;margin-bottom:20px">خطوات ربط حسابك الحالي وتفعيل المزامنة الكاملة</p>
+
+        <div class="sync-step">
+            <div class="sync-num">1</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">تسجيل الدخول عبر السوبر أدمن</div>
+                <div class="sync-detail">ادخل على <code style="color:var(--green)">admin.google.com</code> بحساب <span class="email-hl">market@sheikha.top</span></div>
+                <div class="code-block">admin.google.com → تسجيل الدخول بـ market@sheikha.top</div>
+            </div>
+        </div>
+
+        <div class="sync-step">
+            <div class="sync-num">2</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">التحقق من ملكية الدومين sheikha.top</div>
+                <div class="sync-detail">إضافة TXT record في DNS لإثبات ملكية الدومين</div>
+                <div class="code-block">admin.google.com → Domains → Manage Domains
+→ Add domain → sheikha.top → Verify
+→ انسخ TXT record → أضفه في DNS الدومين
+→ التحقق يستغرق ٢٤-٤٨ ساعة</div>
+            </div>
+        </div>
+
+        <div class="sync-step">
+            <div class="sync-num">3</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">إعداد MX Records — لتفعيل استقبال البريد</div>
+                <div class="sync-detail">أضف هذه السجلات في DNS مزود الدومين (Vercel / Namecheap / GoDaddy):</div>
+                <div class="code-block">Priority 1:  ASPMX.L.GOOGLE.COM
+Priority 5:  ALT1.ASPMX.L.GOOGLE.COM
+Priority 5:  ALT2.ASPMX.L.GOOGLE.COM
+Priority 10: ALT3.ASPMX.L.GOOGLE.COM
+Priority 10: ALT4.ASPMX.L.GOOGLE.COM</div>
+            </div>
+        </div>
+
+        <div class="sync-step">
+            <div class="sync-num">4</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">إضافة SPF + DKIM + DMARC (الأمان)</div>
+                <div class="sync-detail">حماية البريد من الانتحال والبريد المزيف</div>
+                <div class="code-block">SPF (TXT): v=spf1 include:_spf.google.com ~all
+DKIM: admin.google.com → Gmail → Authenticate Email → Generate Key → أضف TXT
+DMARC (TXT): v=DMARC1; p=quarantine; rua=mailto:market@sheikha.top</div>
+            </div>
+        </div>
+
+        <div class="sync-step">
+            <div class="sync-num">5</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">مزامنة جهات الاتصال والتقويم مع الأجهزة</div>
+                <div class="sync-detail">لمزامنة الجوال والحاسب مع Google Workspace:</div>
+                <div class="code-block">iPhone/iPad:
+Settings → Mail → Add Account → Google
+→ sign in with market@sheikha.top
+→ فعّل: Mail + Contacts + Calendars + Notes
+
+Android:
+Settings → Accounts → Add Account → Google
+→ market@sheikha.top → فعّل كل الخيارات
+
+Desktop (Outlook/Thunderbird):
+IMAP: imap.gmail.com (SSL, port 993)
+SMTP: smtp.gmail.com (SSL, port 465)
+→ استخدم App Password من myaccount.google.com/apppasswords</div>
+            </div>
+        </div>
+
+        <div class="sync-step">
+            <div class="sync-num">6</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">مزامنة Google Drive مع الكمبيوتر</div>
+                <div class="sync-detail">تثبيت Google Drive for Desktop لمزامنة ملفات شيخة محلياً + سحابياً</div>
+                <div class="code-block">الرابط: dl.google.com/drive-file-stream/GoogleDriveSetup.exe
+→ تثبيت → تسجيل الدخول بـ market@sheikha.top
+→ اختر المجلدات المراد مزامنتها
+→ تظهر كقرص G: في ويندوز أو مجلد في ماك</div>
+            </div>
+        </div>
+
+        <div class="sync-step">
+            <div class="sync-num">7</div>
+            <div>
+                <div style="font-weight:600;color:#ddd">ربط Google Workspace بـ server.js (شيخة API)</div>
+                <div class="sync-detail">Apps Script لإرسال بيانات شيخة مباشرة لـ Gmail وSheets</div>
+                <div class="code-block">// Google Apps Script → script.google.com
+function syncSheikhaData() {
+  const url = 'https://sheikha.top/api/metals/precious';
+  const res = UrlFetchApp.fetch(url);
+  const data = JSON.parse(res.getContentText());
+  
+  // كتابة في Sheets
+  const sheet = SpreadsheetApp.getActiveSheet();
+  sheet.getRange('A1').setValue(data.message);
+  
+  // إرسال بريد يومي
+  GmailApp.sendEmail(
+    'market@sheikha.top',
+    'أسعار المعادن اليومية — شيخة',
+    JSON.stringify(data.data, null, 2)
+  );
+}
+// ضبط Trigger: يومياً الساعة 8 صباحاً</div>
+            </div>
+        </div>
+
+        <div class="halal-note">✅ مزامنتك مع Google Workspace تُنظّم عملك وتحفظ أسرارك التجارية — خير من الفوضى</div>
+    </div>
+</div>
+
+<!-- TAB: البريد -->
+<div id="tab-mail" class="tab-content">
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📧 إعداد Gmail المؤسسي</div>
+            <div class="info-row"><span class="info-label">البريد الرئيسي</span><span class="info-value email-hl">market@sheikha.top</span></div>
+            <div class="info-row"><span class="info-label">التخزين</span><span class="info-value">٣٠ GB (Starter) / ٢ TB (Standard)</span></div>
+            <div class="info-row"><span class="info-label">الأمان</span><span class="info-value">TLS + SPF + DKIM + DMARC</span></div>
+            <div style="margin-top:16px">
+                <div style="font-size:0.82rem;color:#888;margin-bottom:8px">بريدات إضافية موصى بها لشيخة:</div>
+                <div style="display:flex;flex-wrap:wrap;gap:6px">
+                    <span class="email-hl" style="background:rgba(52,168,83,0.1);padding:4px 10px;border-radius:8px;font-size:0.8rem">admin@sheikha.top</span>
+                    <span class="email-hl" style="background:rgba(52,168,83,0.1);padding:4px 10px;border-radius:8px;font-size:0.8rem">sales@sheikha.top</span>
+                    <span class="email-hl" style="background:rgba(52,168,83,0.1);padding:4px 10px;border-radius:8px;font-size:0.8rem">support@sheikha.top</span>
+                    <span class="email-hl" style="background:rgba(52,168,83,0.1);padding:4px 10px;border-radius:8px;font-size:0.8rem">info@sheikha.top</span>
+                    <span class="email-hl" style="background:rgba(52,168,83,0.1);padding:4px 10px;border-radius:8px;font-size:0.8rem">market@sheikha.top</span>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📋 خطوات التفعيل</div>
+            <ul class="steps-list">
+                <li data-n="1">admin.google.com → Apps → Gmail → تفعيل</li>
+                <li data-n="2">إضافة MX Records في DNS sheikha.top</li>
+                <li data-n="3">إعداد SPF / DKIM / DMARC للأمان</li>
+                <li data-n="4">إنشاء مجموعات البريد (team@ / sales@ / support@)</li>
+                <li data-n="5">ضبط فلاتر الرسائل وقواعد الأتمتة</li>
+                <li data-n="6">تفعيل Confidential Mode للعقود</li>
+                <li data-n="7">ضبط Out-of-Office للعطل الرسمية</li>
+            </ul>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">🎯 استخدامات Gmail لشيخة</div>
+        <div class="grid-3">
+            <div style="padding:14px;background:rgba(52,168,83,0.05);border-radius:10px;border:1px solid rgba(52,168,83,0.15)">
+                <div style="font-size:1.2rem;margin-bottom:6px">📜</div>
+                <div style="font-weight:600;color:#ddd;margin-bottom:4px">العقود التجارية</div>
+                <div style="font-size:0.8rem;color:#888">إرسال واستقبال عقود المعادن والسكراب ببريد rسمي موثوق</div>
+            </div>
+            <div style="padding:14px;background:rgba(66,133,244,0.05);border-radius:10px;border:1px solid rgba(66,133,244,0.15)">
+                <div style="font-size:1.2rem;margin-bottom:6px">💰</div>
+                <div style="font-weight:600;color:#ddd;margin-bottom:4px">عروض الأسعار</div>
+                <div style="font-size:0.8rem;color:#888">إرسال RFQ وعروض الأسعار لكل المستخدمين</div>
+            </div>
+            <div style="padding:14px;background:rgba(251,188,4,0.05);border-radius:10px;border:1px solid rgba(251,188,4,0.15)">
+                <div style="font-size:1.2rem;margin-bottom:6px">🤝</div>
+                <div style="font-weight:600;color:#ddd;margin-bottom:4px">خدمة العملاء</div>
+                <div style="font-size:0.8rem;color:#888">Collaborative Inbox لاستقبال ومتابعة استفسارات المشترين</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: Meet & Chat -->
+<div id="tab-meet" class="tab-content">
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📹 Google Meet</div>
+            <ul class="steps-list">
+                <li data-n="1">يُفعَّل تلقائياً مع Gmail — تأكيد من admin.google.com</li>
+                <li data-n="2">ضبط Meet Quality Tool لمراقبة جودة الاتصال</li>
+                <li data-n="3">تفعيل التسجيل التلقائي (Standard+)</li>
+                <li data-n="4">إضافة خلفية شيخة المخصصة للاجتماعات</li>
+                <li data-n="5">ضبط Breakout Rooms لاجتماعات الفرق</li>
+                <li data-n="6">تفعيل Live Captions بالعربية</li>
+            </ul>
+            <div style="margin-top:12px;padding:10px;background:rgba(52,168,83,0.08);border-radius:8px;font-size:0.8rem;color:#888">
+                <strong style="color:var(--green)">لشيخة:</strong> اجتماعات العملاء عن بُعد + عروض أسعار المعادن + التفاوض على الصفقات الكبيرة
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">💬 Google Chat — القنوات المقترحة لشيخة</div>
+            <div style="display:grid;gap:8px">
+                <div class="app-pill"><div class="app-icon">⚖️</div><div><div style="font-weight:600;color:#ddd;font-size:0.88rem">#أسعار-المعادن</div><div style="font-size:0.75rem;color:#666">أسعار يومية + تحديثات السوق</div></div></div>
+                <div class="app-pill"><div class="app-icon">🚢</div><div><div style="font-weight:600;color:#ddd;font-size:0.88rem">#الشحن-والجمارك</div><div style="font-size:0.75rem;color:#666">متابعة الشحنات + مستندات التخليص</div></div></div>
+                <div class="app-pill"><div class="app-icon">🤝</div><div><div style="font-weight:600;color:#ddd;font-size:0.88rem">#العملاء</div><div style="font-size:0.75rem;color:#666">متابعة المشترين والبائعين</div></div></div>
+                <div class="app-pill"><div class="app-icon">🕌</div><div><div style="font-weight:600;color:#ddd;font-size:0.88rem">#الشريعة-والفقه</div><div style="font-size:0.75rem;color:#666">استشارات الحلال والمراجعات الشرعية</div></div></div>
+                <div class="app-pill"><div class="app-icon">💻</div><div><div style="font-weight:600;color:#ddd;font-size:0.88rem">#التطوير</div><div style="font-size:0.75rem;color:#666">فريق server.js والمنصة التقنية</div></div></div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: Drive -->
+<div id="tab-drive" class="tab-content">
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">💾 Google Drive — هيكل الشيخة</div>
+            <div style="font-size:0.82rem;color:#888;margin-bottom:12px">Shared Drives المقترحة:</div>
+            <div style="display:grid;gap:6px">
+                <div class="app-pill"><div class="app-icon">📜</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">شيخة / العقود والوثائق</div><div style="font-size:0.75rem;color:#666">عقود البيع، الشراء، الشحن</div></div></div>
+                <div class="app-pill"><div class="app-icon">💰</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">شيخة / الفواتير</div><div style="font-size:0.75rem;color:#666">فواتير المعادن، الشحن، الجمارك</div></div></div>
+                <div class="app-pill"><div class="app-icon">📊</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">شيخة / تحليلات السوق</div><div style="font-size:0.75rem;color:#666">أسعار المعادن، تقارير يومية</div></div></div>
+                <div class="app-pill"><div class="app-icon">🔬</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">شيخة / شهادات التحليل</div><div style="font-size:0.75rem;color:#666">CoA، تقارير فحص البضاعة</div></div></div>
+                <div class="app-pill"><div class="app-icon">🚢</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">شيخة / مستندات الشحن</div><div style="font-size:0.75rem;color:#666">B/L، البيان الجمركي، الشهادات</div></div></div>
+                <div class="app-pill"><div class="app-icon">💻</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">شيخة / التطوير</div><div style="font-size:0.75rem;color:#666">وثائق API، خرائط النظام</div></div></div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">📄 Google Docs / Sheets — Templates شيخة</div>
+            <div style="font-size:0.82rem;color:#888;margin-bottom:12px">نماذج جاهزة للبناء:</div>
+            <ul class="steps-list">
+                <li data-n="1">عقد بيع معادن — بالعربية والإنجليزية</li>
+                <li data-n="2">فاتورة بيع / شراء سكراب ومعادن</li>
+                <li data-n="3">نموذج RFQ (طلب عرض سعر)</li>
+                <li data-n="4">جدول تتبع الشحنات (Sheets)</li>
+                <li data-n="5">تقرير أسعار المعادن اليومي</li>
+                <li data-n="6">جدول مقارنة Incoterms لكل صفقة</li>
+            </ul>
+            <div style="margin-top:12px">
+                <div style="font-size:0.82rem;color:#666;margin-bottom:8px">Apps Script — ربط Sheets بـ شيخة API:</div>
+                <div class="code-block">function fetchMetalPrices() {
+  const r = UrlFetchApp.fetch(
+    'https://sheikha.top/api/metals/precious'
+  );
+  const d = JSON.parse(r.getContentText());
+  const s = SpreadsheetApp.getActiveSheet();
+  s.getRange('B2').setValue(new Date());
+  // استمرار...
+}</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: Calendar -->
+<div id="tab-calendar" class="tab-content">
+    <div class="card">
+        <div class="card-title">📅 Google Calendar — جدول شيخة</div>
+        <div class="grid-2">
+            <div>
+                <div style="font-size:0.85rem;color:#888;margin-bottom:10px">تقويمات مشتركة مقترحة:</div>
+                <div style="display:grid;gap:6px">
+                    <div class="app-pill"><div class="app-icon">🚢</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">جدول الشحنات</div><div style="font-size:0.75rem;color:#666">مواعيد التحميل والوصول والتسليم</div></div></div>
+                    <div class="app-pill"><div class="app-icon">🤝</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">اجتماعات العملاء</div><div style="font-size:0.75rem;color:#666">مواعيد التفاوض وعروض الأسعار</div></div></div>
+                    <div class="app-pill"><div class="app-icon">🔬</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">فحص البضاعة</div><div style="font-size:0.75rem;color:#666">مواعيد الفحص والتقييم</div></div></div>
+                    <div class="app-pill"><div class="app-icon">📊</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">إصدار التقارير</div><div style="font-size:0.75rem;color:#666">تقارير شهرية وسنوية</div></div></div>
+                </div>
+            </div>
+            <div>
+                <div style="font-size:0.85rem;color:#888;margin-bottom:10px">Appointment Scheduling — صفحة حجز عامة:</div>
+                <ul class="steps-list">
+                    <li data-n="1">calendar.google.com → Appointment Schedules</li>
+                    <li data-n="2">إنشاء: "حجز استشارة شيخة للمعادن"</li>
+                    <li data-n="3">الأوقات المتاحة: الأحد-الخميس ٩ص-٤م</li>
+                    <li data-n="4">مدة الجلسة: ٣٠ أو ٦٠ دقيقة</li>
+                    <li data-n="5">رابط عام: calendar.app.google/XXXXX</li>
+                    <li data-n="6">إضافته في موقع sheikha.top</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: الأمان -->
+<div id="tab-security" class="tab-content">
+    <div class="card">
+        <div class="card-title">🛡️ قائمة التحقق الأمني — <span class="email-hl">market@sheikha.top</span></div>
+        <p style="color:#888;font-size:0.85rem;margin-bottom:16px">اضغط على المربع لتحديد الإنجاز:</p>
+        <div id="securityList">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: Gemini AI -->
+<div id="tab-ai" class="tab-content">
+    <div class="card">
+        <div class="card-title">🤖 Gemini for Google Workspace — الذكاء الاصطناعي</div>
+        <div style="color:#aaa;font-size:0.88rem;margin-bottom:20px">إضافة مدفوعة: $20/مستخدم/شهر — موصى بها بشدة لشيخة</div>
+        <div class="grid-2">
+            <div>
+                <div style="font-size:0.85rem;color:#888;margin-bottom:10px">ما يفعله Gemini لشيخة:</div>
+                <div style="display:grid;gap:8px">
+                    <div class="app-pill"><div class="app-icon">📧</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">Gemini in Gmail</div><div style="font-size:0.75rem;color:#666">كتابة مسودات الردود على العملاء بالعربية والإنجليزية</div></div></div>
+                    <div class="app-pill"><div class="app-icon">📄</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">Gemini in Docs</div><div style="font-size:0.75rem;color:#666">كتابة عقود المعادن وتلخيص الوثائق الطويلة</div></div></div>
+                    <div class="app-pill"><div class="app-icon">📊</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">Gemini in Sheets</div><div style="font-size:0.75rem;color:#666">تحليل بيانات الأسعار بالذكاء الاصطناعي + توقعات</div></div></div>
+                    <div class="app-pill"><div class="app-icon">📹</div><div><div style="font-weight:600;color:#ddd;font-size:0.85rem">Gemini in Meet</div><div style="font-size:0.75rem;color:#666">تلخيص الاجتماعات تلقائياً + ترجمة فورية</div></div></div>
+                </div>
+            </div>
+            <div>
+                <div style="font-size:0.85rem;color:#888;margin-bottom:10px">خطوات التفعيل:</div>
+                <ul class="steps-list">
+                    <li data-n="1">admin.google.com → Billing → Add Gemini Add-on</li>
+                    <li data-n="2">اختيار المستخدمين الذين يحتاجون الترخيص</li>
+                    <li data-n="3">Apps → Gemini → ضبط السياسات</li>
+                    <li data-n="4">ضبط Data Governance (لا حفظ للبيانات الحساسة)</li>
+                    <li data-n="5">تدريب الفريق على Prompt Writing بالعربية</li>
+                </ul>
+                <div class="code-block">// مثال Prompt لشيخة في Gmail:
+"اكتب رداً احترافياً بالعربية لعميل يسأل
+عن سعر ١٠٠ طن نحاس CAT1 CIF جدة"</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: الخطط -->
+<div id="tab-plans" class="tab-content">
+    <div id="plansContent">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- TAB: خطة التفعيل -->
+<div id="tab-activate" class="tab-content">
+    <div class="card">
+        <div class="card-title">🚀 خطة التفعيل الكاملة — ٤ مراحل</div>
+        <div id="activationPlan">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: كل الخدمات -->
+<div id="tab-services" class="tab-content">
+    <div id="allServicesContent">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:24px;color:#333;font-size:0.78rem;border-top:1px solid #111;margin-top:20px">
+    شيخة — Google Workspace | market@sheikha.top — بسم الله الرحمن الرحيم<br>
+    نظّم عملك — احفظ أسرارك — قدّم الخير
+</div>
+
+<script>
+const API = '';
+const tabsLoaded = {};
+
+function showTab(name) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    if (event && event.target) event.target.classList.add('active');
+    loadTabData(name);
+}
+
+function loadTabData(name) {
+    if (tabsLoaded[name]) return;
+    tabsLoaded[name] = true;
+    if (name === 'security') loadSecurity();
+    else if (name === 'plans') loadPlans();
+    else if (name === 'activate') loadActivation();
+    else if (name === 'services') loadServices();
+}
+
+// Update time
+setInterval(() => {
+    document.getElementById('lastCheck').textContent =
+        new Date().toLocaleTimeString('ar-SA');
+}, 10000);
+
+// Security Checklist
+async function loadSecurity() {
+    try {
+        const res = await fetch(API + '/api/workspace/engine/security');
+        const json = await res.json();
+        const items = json.data;
+        const saved = JSON.parse(localStorage.getItem('sheikha_security_done') || '{}');
+
+        document.getElementById('securityList').innerHTML = items.map(item => `
+            <div class="check-item">
+                <div class="check-done ${saved[item.id] ? 'done' : ''}"
+                     id="cb_${item.id}"
+                     onclick="toggleCheck('${item.id}', this)"
+                     title="انقر للتحديد كمنجز"></div>
+                <div style="flex:1">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                        <span class="priority-badge priority-${item.priority}">${item.priority}</span>
+                        <span style="color:#ddd;font-size:0.88rem">${item.task}</span>
+                    </div>
+                    <div class="check-path">${item.admin_path}</div>
+                </div>
+            </div>
+        `).join('');
+    } catch(e) {
+        // عرض القائمة statically
+        const fallback = [
+            { id:'sc1', priority:'CRITICAL', task:'تفعيل التحقق بخطوتين (2FA) لجميع المستخدمين إلزامياً', admin_path:'admin.google.com → Security → 2-step verification' },
+            { id:'sc2', priority:'CRITICAL', task:'إعداد سجلات DNS: MX + SPF + DKIM + DMARC لدومين sheikha.top', admin_path:'لوحة تحكم مزود الدومين' },
+            { id:'sc3', priority:'HIGH', task:'مراجعة التطبيقات المرتبطة وإلغاء غير الضرورية', admin_path:'admin.google.com → Security → API permissions' },
+            { id:'sc4', priority:'HIGH', task:'ضبط Context-Aware Access', admin_path:'admin.google.com → Security → Access & data control' },
+            { id:'sc5', priority:'HIGH', task:'تشغيل Security Checkup', admin_path:'myaccount.google.com/security-checkup' },
+            { id:'sc6', priority:'MEDIUM', task:'ضبط سياسة كلمة المرور: ١٢+ حرف', admin_path:'admin.google.com → Security → Password management' },
+            { id:'sc7', priority:'MEDIUM', task:'ضبط DLP لمنع تسريب الوثائق الحساسة', admin_path:'admin.google.com → Rules → DLP rules' },
+            { id:'sc8', priority:'MEDIUM', task:'تفعيل Mobile Device Management', admin_path:'admin.google.com → Devices' },
+            { id:'sc9', priority:'LOW', task:'مراجعة Audit Logs أسبوعياً', admin_path:'admin.google.com → Reporting → Audit' },
+            { id:'sc10', priority:'LOW', task:'إنشاء Recovery Email و Phone للسوبر أدمن', admin_path:'admin.google.com → Account recovery' }
+        ];
+        const saved = JSON.parse(localStorage.getItem('sheikha_security_done') || '{}');
+        document.getElementById('securityList').innerHTML = fallback.map(item => `
+            <div class="check-item">
+                <div class="check-done ${saved[item.id] ? 'done' : ''}"
+                     id="cb_${item.id}"
+                     onclick="toggleCheck('${item.id}', this)"></div>
+                <div style="flex:1">
+                    <div style="display:flex;align-items:center;gap:8px;margin-bottom:4px">
+                        <span class="priority-badge priority-${item.priority}">${item.priority}</span>
+                        <span style="color:#ddd;font-size:0.88rem">${item.task}</span>
+                    </div>
+                    <div class="check-path">${item.admin_path}</div>
+                </div>
+            </div>
+        `).join('');
+    }
+}
+
+function toggleCheck(id, el) {
+    const saved = JSON.parse(localStorage.getItem('sheikha_security_done') || '{}');
+    saved[id] = !saved[id];
+    localStorage.setItem('sheikha_security_done', JSON.stringify(saved));
+    el.classList.toggle('done');
+}
+
+// Plans
+async function loadPlans() {
+    try {
+        const res = await fetch(API + '/api/workspace/engine/plans');
+        const json = await res.json();
+        renderPlans(Object.values(json.data));
+    } catch(e) {
+        renderPlans([
+            { icon:'🥉', name:'Business Starter', price_usd_user_month:6, storage:'30 GB', best_for:'فرق صغيرة', sheikha_verdict:'كافٍ للبداية — مساحة محدودة', highlights:['Gmail','Drive 30GB','Meet 100'] },
+            { icon:'🥈', name:'Business Standard', price_usd_user_month:12, storage:'2 TB', best_for:'فرق متوسطة', sheikha_verdict:'الأنسب لشيخة حالياً', highlights:['كل Starter +','تسجيل Meet','Drive 2TB','AppSheet'], recommended:true },
+            { icon:'🥇', name:'Business Plus', price_usd_user_month:18, storage:'5 TB', best_for:'مع متطلبات قانونية', sheikha_verdict:'موصى به عند التوسع — يضيف Google Vault', highlights:['كل Standard +','Google Vault','Meet 500 مشارك'] },
+            { icon:'👑', name:'Enterprise', price_usd_user_month:'مخصص', storage:'غير محدود', best_for:'المؤسسات الكبيرة', sheikha_verdict:'للمستقبل عند التوسع الكامل', highlights:['كل شيء','Meet 1000 + بث','DLP متقدم'] }
+        ]);
+    }
+}
+
+function renderPlans(plans) {
+    document.getElementById('plansContent').innerHTML = `
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;padding:0 0 20px">
+            ${plans.map(p => `
+                <div class="plan-card ${p.recommended ? 'recommended' : ''}">
+                    ${p.recommended ? '<div class="plan-badge">⭐ الأنسب لشيخة</div>' : ''}
+                    <div style="font-size:2rem;margin-bottom:8px">${p.icon}</div>
+                    <div style="font-weight:700;color:#ddd;font-size:1rem">${p.name}</div>
+                    <div class="plan-price">$${p.price_usd_user_month}<span>/مستخدم/شهر</span></div>
+                    <div style="font-size:0.78rem;color:#666;margin-bottom:12px">التخزين: ${p.storage}</div>
+                    <ul style="list-style:none;margin-bottom:12px">
+                        ${(p.highlights||[]).map(h => `<li style="font-size:0.8rem;color:#aaa;padding:3px 0;border-bottom:1px solid rgba(255,255,255,0.04)">✓ ${h}</li>`).join('')}
+                    </ul>
+                    <div style="font-size:0.78rem;color:#aaa;background:rgba(255,255,255,0.03);padding:8px;border-radius:6px;font-style:italic">
+                        💡 ${p.sheikha_verdict}
+                    </div>
+                </div>
+            `).join('')}
+        </div>
+    `;
+}
+
+// Activation Plan
+async function loadActivation() {
+    try {
+        const res = await fetch(API + '/api/workspace/engine/activation');
+        const json = await res.json();
+        renderActivation(json.data);
+    } catch(e) {
+        renderActivation({
+            phase1_immediate: { title:'المرحلة الأولى — فوري (يوم ١)', steps:['تسجيل الدخول admin.google.com بـ market@sheikha.top','تفعيل 2FA إلزامي لكل المستخدمين','إعداد MX + SPF + DKIM + DMARC','إنشاء حسابات الفريق: admin@, sales@, support@','تفعيل Gmail + Calendar + Meet + Drive + Chat','تشغيل Security Checkup'] },
+            phase2_week1: { title:'المرحلة الثانية — الأسبوع الأول', steps:['إنشاء Shared Drives لكل قسم','إعداد Templates: عقود + فواتير + RFQ','إنشاء قنوات Chat لكل قسم','ضبط Calendar Resources','تدريب الفريق ٢ ساعة','ربط Google Forms لاستقبال طلبات العملاء'] },
+            phase3_month1: { title:'المرحلة الثالثة — الشهر الأول', steps:['تثبيت DocuSign للتوقيع الإلكتروني','إنشاء Intranet في Google Sites','Apps Script: تقرير يومي بأسعار المعادن','AppSheet: تطبيق جوال لمندوبي المبيعات','ضبط DLP للوثائق السرية','مراجعة الأذونات وتدقيق الوصول'] },
+            phase4_growth: { title:'المرحلة الرابعة — النمو', steps:['إضافة Gemini Add-on: AI في كل Workspace','ترقية لـ Business Plus + Google Vault','تكامل Workspace مع server.js شيخة','إعداد Shared Drives للعملاء الخارجيين','تفعيل Context-Aware Access','Advanced Training للفريق الفني'] }
+        });
+    }
+}
+
+function renderActivation(plan) {
+    const icons = ['🚀', '🏗️', '⚙️', '🌟'];
+    document.getElementById('activationPlan').innerHTML = Object.values(plan).map((phase, i) => `
+        <div class="phase-block">
+            <div class="phase-title">${icons[i]} ${phase.title}</div>
+            <ul class="phase-steps">
+                ${phase.steps.map(s => `<li>${s}</li>`).join('')}
+            </ul>
+        </div>
+    `).join('');
+}
+
+// All Services
+async function loadServices() {
+    try {
+        const res = await fetch(API + '/api/workspace/engine/services');
+        const json = await res.json();
+        renderServices(Object.values(json.data));
+    } catch(e) {
+        document.getElementById('allServicesContent').innerHTML = '<p style="color:#555;text-align:center;padding:40px">فحص الاتصال بالخادم</p>';
+    }
+}
+
+function renderServices(services) {
+    const cats = {};
+    services.forEach(s => {
+        if (!cats[s.category]) cats[s.category] = [];
+        cats[s.category].push(s);
+    });
+    document.getElementById('allServicesContent').innerHTML = Object.entries(cats).map(([cat, svcs]) => `
+        <div class="card">
+            <div class="card-title">📂 ${cat}</div>
+            <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:14px">
+                ${svcs.map(s => `
+                    <div class="svc-card">
+                        <div class="svc-header">
+                            <div class="svc-icon">${s.icon}</div>
+                            <div>
+                                <div class="svc-name">${s.name_ar || s.name}</div>
+                                <span class="svc-category">${s.category}</span>
+                            </div>
+                        </div>
+                        <div class="svc-use">${s.sheikha_use}</div>
+                        <ul class="steps-list">
+                            ${(s.activation_steps || []).slice(0,3).map((step, i) => `<li data-n="${i+1}">${step}</li>`).join('')}
+                            ${s.activation_steps && s.activation_steps.length > 3 ? `<li data-n="..." style="color:#555">و${s.activation_steps.length - 3} خطوات إضافية...</li>` : ''}
+                        </ul>
+                    </div>
+                `).join('')}
+            </div>
+        </div>
+    `).join('');
+}
+
+// Load initial data
+loadSecurity();
+</script>
+</body>
+</html>

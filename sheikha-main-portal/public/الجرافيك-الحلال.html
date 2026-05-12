@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1.0">
+<title>الجرافيك الحلال — منظومة شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--copper:#B87333;--dark:#050508;--dark2:#0a0a10;--dark3:#111118;--text:#e8e8f0;--text2:#9090a8;--green:#27ae60;--blue:#2980b9;--purple:#8e44ad;--teal:#16a085;--red:#e74c3c}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+header{background:linear-gradient(135deg,var(--dark2),var(--dark3));border-bottom:2px solid var(--gold);padding:20px 40px}
+header h1{font-size:1.8rem;font-weight:900;color:var(--gold)}
+header p{color:var(--text2);font-size:.95rem;margin-top:4px}
+nav{padding:14px 40px;border-bottom:1px solid rgba(255,255,255,.07)}
+nav a{color:var(--text2);text-decoration:none;margin-left:20px;font-size:.9rem}nav a:hover{color:var(--gold)}
+.hero{text-align:center;padding:50px 20px 30px;background:radial-gradient(ellipse at center,rgba(212,175,55,.07) 0%,transparent 70%)}
+.hero .verse{font-size:1.4rem;color:var(--gold);margin-bottom:10px;font-weight:700}
+.hero .sub{color:var(--text2);max-width:700px;margin:0 auto;font-size:1rem}
+.section{padding:30px 40px}
+.section h2{color:var(--gold);font-size:1.2rem;margin-bottom:18px;display:flex;align-items:center;gap:10px}
+.dims-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:14px}
+.dim-card{background:var(--dark2);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:18px;text-align:center;cursor:pointer;transition:all .2s}
+.dim-card:hover{border-color:var(--gold);transform:translateY(-3px)}
+.dim-card .dim-label{font-size:1.4rem;font-weight:900;color:var(--gold)}
+.dim-card .name{font-size:.9rem;color:var(--text);margin:4px 0}
+.dim-card .use{font-size:.78rem;color:var(--text2)}
+.patterns-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px}
+.pattern-card{background:var(--dark3);border-radius:12px;padding:20px;border-right:4px solid;transition:transform .2s}
+.pattern-card:hover{transform:translateX(4px)}
+.pattern-card h3{font-size:1rem;font-weight:700;margin-bottom:6px}
+.pattern-card p{font-size:.85rem;color:var(--text2);line-height:1.5}
+.rules-list{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:16px}
+.rule-card{background:var(--dark2);border-radius:12px;padding:20px;border-top:3px solid}
+.rule-card.halal{border-color:var(--green)}
+.rule-card.haram{border-color:var(--red)}
+.rule-card h3{font-size:.95rem;font-weight:700;margin-bottom:8px}
+.rule-card p{font-size:.83rem;color:var(--text2);line-height:1.6}
+.verdict{display:inline-block;padding:3px 12px;border-radius:20px;font-size:.78rem;font-weight:700;margin-top:8px}
+.verdict.جائز,.verdict.جائز\ ومستحب,.verdict.جائز\ للغرض\ التجاري,.verdict.جائز\ ومفيد{background:rgba(39,174,96,.15);color:var(--green)}
+.verdict.محرم{background:rgba(231,76,60,.15);color:var(--red)}
+.check-box{background:var(--dark2);border:1px solid rgba(212,175,55,.2);border-radius:12px;padding:24px;margin-top:20px}
+.check-box h3{color:var(--gold);margin-bottom:14px}
+.check-input{display:flex;gap:12px}
+.check-input input{flex:1;background:var(--dark3);border:1px solid rgba(255,255,255,.15);border-radius:8px;padding:12px 16px;color:var(--text);font-family:'Tajawal',sans-serif;font-size:.95rem}
+.check-input button{background:linear-gradient(135deg,var(--gold),var(--copper));color:#050508;font-weight:700;border:none;border-radius:8px;padding:0 20px;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.95rem}
+.check-result{margin-top:14px;padding:14px;border-radius:8px;display:none}
+.check-result.show{display:block}
+</style>
+</head>
+<body>
+<header>
+  <h1>🎨 الجرافيك الحلال — ٢D حتى ∞D</h1>
+  <p>تقنيات الجرافيك والفيديو والواقع الافتراضي وفق أحكام الشريعة الإسلامية</p>
+</header>
+<nav>
+  <a href="/">الرئيسية</a>
+  <a href="/رابطة-العالم-الإسلامي.html">المنظمات</a>
+  <a href="/هيرمس-والفيديو.html">هيرمس</a>
+  <a href="/الحوسبة-الكمية.html">الكم</a>
+</nav>
+
+<div class="hero">
+  <div class="verse">﴿إِنَّ اللَّهَ جَمِيلٌ يُحِبُّ الْجَمَالَ﴾</div>
+  <p class="sub">لا تصوير ذوي الأرواح — الجمال الإسلامي في أعلى مستوى تقني ممكن</p>
+</div>
+
+<div class="section">
+  <h2>⚖️ قواعد الجرافيك الحلال (من الكتاب والسنة)</h2>
+  <div class="rules-list" id="rulesList">جاري التحميل...</div>
+</div>
+
+<div class="section">
+  <h2>📐 الأبعاد المدعومة (٢D → ∞D)</h2>
+  <div class="dims-grid" id="dimsGrid">جاري التحميل...</div>
+</div>
+
+<div class="section">
+  <h2>🌺 أنماط الجرافيك الحلال</h2>
+  <div class="patterns-grid" id="patternsGrid">جاري التحميل...</div>
+</div>
+
+<div class="section">
+  <div class="check-box">
+    <h3>🔍 فحص شرعي للمحتوى</h3>
+    <div class="check-input">
+      <input type="text" id="contentInput" placeholder="أدخل نوع المحتوى... مثلاً: هندسة إسلامية، وجه بشري...">
+      <button onclick="checkContent()">افحص</button>
+    </div>
+    <div class="check-result" id="checkResult"></div>
+  </div>
+</div>
+
+<script>
+async function loadRules(){
+  const r=await fetch('/api/graphics/rules');
+  const d=await r.json();
+  if(!d.success)return;
+  document.getElementById('rulesList').innerHTML=d.data.map(rule=>`
+    <div class="rule-card ${rule.verdict==='محرم'?'haram':'halal'}">
+      <h3>${rule.rule}</h3>
+      <p>${rule.arabic}</p>
+      <p style="margin-top:8px;font-size:.8rem;color:var(--teal)">📚 ${rule.daleel}</p>
+      <span class="verdict ${rule.verdict}">${rule.verdict}</span>
+    </div>`).join('');
+}
+async function loadDims(){
+  const r=await fetch('/api/graphics/dimensions');
+  const d=await r.json();
+  if(!d.success)return;
+  document.getElementById('dimsGrid').innerHTML=d.data.map(dim=>`
+    <div class="dim-card">
+      <div class="dim-label">${dim.dim}</div>
+      <div class="name">${dim.label}</div>
+      <div class="use">${dim.tech.slice(0,2).join(' • ')}</div>
+    </div>`).join('');
+}
+async function loadPatterns(){
+  const r=await fetch('/api/graphics/patterns');
+  const d=await r.json();
+  if(!d.success)return;
+  document.getElementById('patternsGrid').innerHTML=d.data.map(p=>`
+    <div class="pattern-card" style="border-color:${p.color}">
+      <h3 style="color:${p.color}">${p.label}</h3>
+      <p>${p.desc}</p>
+    </div>`).join('');
+}
+async function checkContent(){
+  const v=document.getElementById('contentInput').value.trim();
+  if(!v)return;
+  const r=await fetch('/api/graphics/check',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify({content_type:v})});
+  const d=await r.json();
+  if(!d.success)return;
+  const el=document.getElementById('checkResult');
+  const clr=d.data.allowed?'rgba(39,174,96,.15)':'rgba(231,76,60,.15)';
+  el.style.background=clr;
+  el.style.borderRadius='8px';
+  el.innerHTML=`<strong style="color:${d.data.allowed?'#27ae60':'#e74c3c'}">${d.data.verdict}</strong><br><span style="color:var(--text2)">${d.data.advice}</span>`;
+  el.classList.add('show');
+}
+loadRules();loadDims();loadPatterns();
+</script>
+</body>
+</html>

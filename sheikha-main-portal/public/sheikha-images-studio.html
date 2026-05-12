@@ -1,0 +1,1189 @@
+<!DOCTYPE html>
+<html dir="rtl" lang="ar">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>استوديو شيخة للصور والفيديو</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&display=swap" rel="stylesheet">
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary-gold: #D4AF37;
+      --primary-copper: #B87333;
+      --dark-bg: #1a1a1a;
+      --darker-bg: #0f0f0f;
+      --light-text: #f5f5f5;
+      --gray-text: #b0b0b0;
+      --success: #10b981;
+      --warning: #f59e0b;
+      --danger: #ef4444;
+      --blue: #3b82f6;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      background: linear-gradient(135deg, var(--dark-bg) 0%, var(--darker-bg) 100%);
+      color: var(--light-text);
+      line-height: 1.6;
+    }
+
+    .container {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 2rem;
+    }
+
+    /* ==================== الرأس والتنقل ==================== */
+    header {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(184, 115, 51, 0.05) 100%);
+      border-bottom: 2px solid var(--primary-gold);
+      padding: 2rem;
+      margin-bottom: 2rem;
+      border-radius: 12px;
+    }
+
+    h1 {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-gold);
+      margin-bottom: 0.5rem;
+      text-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+    }
+
+    .subtitle {
+      color: var(--gray-text);
+      font-size: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .tabs-nav {
+      display: flex;
+      gap: 1rem;
+      flex-wrap: wrap;
+      margin-top: 1.5rem;
+    }
+
+    .tab-btn {
+      padding: 0.75rem 1.5rem;
+      border: 2px solid var(--primary-copper);
+      background: transparent;
+      color: var(--primary-copper);
+      border-radius: 6px;
+      cursor: pointer;
+      font-size: 1rem;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .tab-btn:hover,
+    .tab-btn.active {
+      background: var(--primary-gold);
+      color: var(--dark-bg);
+      border-color: var(--primary-gold);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    /* ==================== الأقسام ==================== */
+    .tabs-content {
+      display: grid;
+      gap: 2rem;
+    }
+
+    .tab-section {
+      display: none;
+    }
+
+    .tab-section.active {
+      display: block;
+      animation: fadeIn 0.3s ease;
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    .section-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 2rem;
+    }
+
+    .card {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.1) 0%, rgba(184, 115, 51, 0.05) 100%);
+      border: 1px solid var(--primary-copper);
+      border-radius: 12px;
+      padding: 1.5rem;
+      transition: all 0.3s ease;
+    }
+
+    .card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.2);
+      border-color: var(--primary-gold);
+    }
+
+    .card h3 {
+      color: var(--primary-gold);
+      font-size: 1.3rem;
+      margin-bottom: 0.75rem;
+      display: flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .card p {
+      color: var(--gray-text);
+      font-size: 0.9rem;
+      margin-bottom: 1rem;
+      line-height: 1.5;
+    }
+
+    /* ==================== النماذج ==================== */
+    .form-group {
+      margin-bottom: 1.5rem;
+    }
+
+    label {
+      display: block;
+      color: var(--primary-gold);
+      font-weight: 600;
+      margin-bottom: 0.5rem;
+      font-size: 0.9rem;
+    }
+
+    input,
+    select,
+    textarea {
+      width: 100%;
+      padding: 0.75rem 1rem;
+      background: rgba(255, 255, 255, 0.05);
+      border: 1px solid var(--primary-copper);
+      border-radius: 6px;
+      color: var(--light-text);
+      font-family: 'Tajawal', sans-serif;
+      font-size: 0.9rem;
+      transition: all 0.3s ease;
+    }
+
+    input:focus,
+    select:focus,
+    textarea:focus {
+      outline: none;
+      border-color: var(--primary-gold);
+      box-shadow: 0 0 12px rgba(212, 175, 55, 0.3);
+      background: rgba(255, 255, 255, 0.08);
+    }
+
+    textarea {
+      resize: vertical;
+      min-height: 100px;
+    }
+
+    /* ==================== الأزرار ==================== */
+    .btn {
+      padding: 0.75rem 1.5rem;
+      border: none;
+      border-radius: 6px;
+      font-family: 'Tajawal', sans-serif;
+      font-weight: 600;
+      font-size: 0.95rem;
+      cursor: pointer;
+      transition: all 0.3s ease;
+      display: inline-flex;
+      align-items: center;
+      gap: 0.5rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary-gold) 0%, var(--primary-copper) 100%);
+      color: var(--dark-bg);
+      box-shadow: 0 4px 12px rgba(212, 175, 55, 0.3);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 6px 16px rgba(212, 175, 55, 0.4);
+    }
+
+    .btn-secondary {
+      background: transparent;
+      border: 2px solid var(--primary-copper);
+      color: var(--primary-copper);
+    }
+
+    .btn-secondary:hover {
+      background: var(--primary-copper);
+      color: var(--dark-bg);
+    }
+
+    .btn-small {
+      padding: 0.5rem 1rem;
+      font-size: 0.85rem;
+    }
+
+    .btn-full {
+      width: 100%;
+    }
+
+    /* ==================== قائمة الأوامر ==================== */
+    .commands-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+      gap: 1.5rem;
+    }
+
+    .command-item {
+      background: rgba(212, 175, 55, 0.08);
+      border-right: 4px solid var(--primary-gold);
+      padding: 1.25rem;
+      border-radius: 6px;
+      cursor: pointer;
+      transition: all 0.3s ease;
+    }
+
+    .command-item:hover {
+      background: rgba(212, 175, 55, 0.15);
+      transform: translateX(4px);
+    }
+
+    .command-item strong {
+      color: var(--primary-gold);
+      display: block;
+      margin-bottom: 0.5rem;
+      font-size: 1rem;
+    }
+
+    .command-item span {
+      color: var(--gray-text);
+      font-size: 0.85rem;
+      display: block;
+    }
+
+    /* ==================== الحالة والإحصائيات ==================== */
+    .stats-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      gap: 1.5rem;
+      margin-bottom: 2rem;
+    }
+
+    .stat-card {
+      background: linear-gradient(135deg, rgba(212, 175, 55, 0.15) 0%, rgba(184, 115, 51, 0.08) 100%);
+      border: 1px solid var(--primary-copper);
+      border-radius: 12px;
+      padding: 1.5rem;
+      text-align: center;
+    }
+
+    .stat-number {
+      font-size: 2.5rem;
+      font-weight: 900;
+      color: var(--primary-gold);
+      margin: 0.5rem 0;
+    }
+
+    .stat-label {
+      color: var(--gray-text);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    /* ==================== الرسائل والنتائج ==================== */
+    .message {
+      padding: 1rem 1.5rem;
+      border-radius: 6px;
+      margin: 1rem 0;
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+      font-size: 0.9rem;
+    }
+
+    .message.success {
+      background: rgba(16, 185, 129, 0.15);
+      border: 1px solid var(--success);
+      color: var(--success);
+    }
+
+    .message.error {
+      background: rgba(239, 68, 68, 0.15);
+      border: 1px solid var(--danger);
+      color: var(--danger);
+    }
+
+    .message.info {
+      background: rgba(59, 130, 246, 0.15);
+      border: 1px solid var(--blue);
+      color: var(--blue);
+    }
+
+    /* ==================== الموضع/الحالة ==================== */
+    .status-badge {
+      display: inline-block;
+      padding: 0.4rem 0.8rem;
+      border-radius: 4px;
+      font-size: 0.75rem;
+      font-weight: 700;
+      text-transform: uppercase;
+    }
+
+    .status-pending {
+      background: rgba(245, 158, 11, 0.2);
+      color: var(--warning);
+    }
+
+    .status-processing {
+      background: rgba(59, 130, 246, 0.2);
+      color: var(--blue);
+    }
+
+    .status-completed {
+      background: rgba(16, 185, 129, 0.2);
+      color: var(--success);
+    }
+
+    .status-failed {
+      background: rgba(239, 68, 68, 0.2);
+      color: var(--danger);
+    }
+
+    /* ==================== اللوحة الحية ==================== */
+    .live-panel {
+      background: rgba(15, 15, 15, 0.8);
+      border: 1px solid var(--primary-copper);
+      border-radius: 12px;
+      padding: 1.5rem;
+      margin-top: 1.5rem;
+      max-height: 400px;
+      overflow-y: auto;
+    }
+
+    .live-panel h4 {
+      color: var(--primary-gold);
+      margin-bottom: 1rem;
+      font-size: 1.1rem;
+    }
+
+    .live-item {
+      padding: 0.75rem;
+      border-bottom: 1px solid rgba(212, 175, 55, 0.1);
+      font-size: 0.85rem;
+      color: var(--gray-text);
+    }
+
+    .live-item:last-child {
+      border-bottom: none;
+    }
+
+    .live-item strong {
+      color: var(--primary-gold);
+    }
+
+    /* ==================== التصميم على الهاتف ==================== */
+    @media (max-width: 768px) {
+      .container {
+        padding: 1rem;
+      }
+
+      h1 {
+        font-size: 1.8rem;
+      }
+
+      .section-grid,
+      .stats-grid,
+      .commands-list {
+        grid-template-columns: 1fr;
+      }
+
+      .tabs-nav {
+        flex-direction: column;
+      }
+
+      .tab-btn {
+        width: 100%;
+        text-align: center;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <!-- الرأس -->
+    <header>
+      <h1>🎨 استوديو شيخة</h1>
+      <p class="subtitle">منصة متكاملة لتوليد ومعالجة الصور والفيديو</p>
+      
+      <div class="tabs-nav">
+        <button class="tab-btn active" onclick="switchTab('images-studio')">
+          🖼️ استوديو الصور
+        </button>
+        <button class="tab-btn" onclick="switchTab('video-studio')">
+          🎬 استوديو الفيديو
+        </button>
+        <button class="tab-btn" onclick="switchTab('media-library')">
+          📚 مكتبة الوسائط
+        </button>
+        <button class="tab-btn" onclick="switchTab('sheikha-commands')">
+          ⚡ أوامر شيخة
+        </button>
+      </div>
+    </header>
+
+    <!-- محتويات الأقسام -->
+    <div class="tabs-content">
+
+      <!-- ==================== 1. استوديو الصور ==================== -->
+      <div id="images-studio" class="tab-section active">
+        <div class="stats-grid" id="images-stats">
+          <div class="stat-card">
+            <div class="stat-label">إجمالي الصور</div>
+            <div class="stat-number" id="total-images">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">قيد المعالجة</div>
+            <div class="stat-number" id="processing-images">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">المكتملة</div>
+            <div class="stat-number" id="completed-images">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">الفاشلة</div>
+            <div class="stat-number" id="failed-images">0</div>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <!-- بطاقة التخطيط -->
+          <div class="card">
+            <h3>📋 تخطيط الصورة</h3>
+            <p>خطط لصورة جديدة قبل التوليد</p>
+            <div class="form-group">
+              <label>نوع الصورة</label>
+              <select id="image-type">
+                <option value="identity">هوية/شعار</option>
+                <option value="marketing">تسويقية</option>
+                <option value="ui">واجهة مستخدم</option>
+                <option value="concept">مفهوم</option>
+                <option value="banner">بانر</option>
+                <option value="icon">أيقونة</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الأسلوب</label>
+              <select id="image-style">
+                <option value="modern">حديث</option>
+                <option value="classic">كلاسيكي</option>
+                <option value="minimalist">بسيط</option>
+                <option value="elegant">فاخر</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="planImage()">
+              ✓ تخطيط المهمة
+            </button>
+          </div>
+
+          <!-- بطاقة التوليد -->
+          <div class="card">
+            <h3>🎨 توليد صورة</h3>
+            <p>أنشئ صورة جديدة من وصف نصي</p>
+            <div class="form-group">
+              <label>وصف الصورة</label>
+              <textarea id="image-prompt" placeholder="مثال: صورة هوية تقنية بألوان ذهبية ونحاسية"></textarea>
+            </div>
+            <div class="form-group">
+              <label>المحرك</label>
+              <select id="image-engine">
+                <option value="internal">داخلي (سريع)</option>
+                <option value="external">خارجي (عالي الجودة)</option>
+                <option value="hybrid">هجين</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="generateImage()">
+              ⚡ بدء التوليد
+            </button>
+            <div id="image-result"></div>
+          </div>
+
+          <!-- بطاقة التحليل -->
+          <div class="card">
+            <h3>🔍 تحليل الصورة</h3>
+            <p>حلل الصور المولدة</p>
+            <div class="form-group">
+              <label>معرّف المهمة</label>
+              <input type="text" id="image-analyze-id" placeholder="img_xxxxx">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="analyzeImage()">
+              🔬 تحليل
+            </button>
+            <div id="image-analysis"></div>
+          </div>
+        </div>
+
+        <!-- لوحة مهام الصور -->
+        <div class="live-panel">
+          <h4>📊 آخر مهام الصور</h4>
+          <div id="images-jobs-list">
+            <div class="live-item">لا توجد مهام حتى الآن</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 2. استوديو الفيديو ==================== -->
+      <div id="video-studio" class="tab-section">
+        <div class="stats-grid" id="video-stats">
+          <div class="stat-card">
+            <div class="stat-label">إجمالي الفيديوهات</div>
+            <div class="stat-number" id="total-videos">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">قيد المعالجة</div>
+            <div class="stat-number" id="rendering-videos">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">المكتملة</div>
+            <div class="stat-number" id="completed-videos">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">الفاشلة</div>
+            <div class="stat-number" id="failed-videos">0</div>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <!-- بطاقة التخطيط -->
+          <div class="card">
+            <h3>📋 تخطيط الفيديو</h3>
+            <p>خطط لفيديو جديد</p>
+            <div class="form-group">
+              <label>نوع الفيديو</label>
+              <select id="video-type">
+                <option value="intro">مقدمة</option>
+                <option value="tutorial">شرح توضيحي</option>
+                <option value="demo">عرض توضيحي</option>
+                <option value="marketing">تسويقي</option>
+                <option value="explainer">تفسيري</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>المدة الزمنية</label>
+              <select id="video-duration">
+                <option value="15s">15 ثانية</option>
+                <option value="30s">30 ثانية</option>
+                <option value="60s">دقيقة واحدة</option>
+                <option value="2m">دقيقتان</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="planVideo()">
+              ✓ تخطيط المهمة
+            </button>
+          </div>
+
+          <!-- بطاقة المعالجة -->
+          <div class="card">
+            <h3>🎬 معالجة الفيديو</h3>
+            <p>اعمل على فيديو جديد</p>
+            <div class="form-group">
+              <label>عدد المشاهد</label>
+              <input type="number" id="video-scenes" value="5" min="1">
+            </div>
+            <div class="form-group">
+              <label>الموسيقى</label>
+              <select id="video-music">
+                <option value="none">بدون موسيقى</option>
+                <option value="background">موسيقى خلفية</option>
+                <option value="cinematic">سينمائية</option>
+                <option value="epic">ملحمية</option>
+              </select>
+            </div>
+            <button class="btn btn-primary btn-full" onclick="renderVideo()">
+              🚀 بدء المعالجة
+            </button>
+            <div id="video-result"></div>
+          </div>
+
+          <!-- بطاقة التحليل -->
+          <div class="card">
+            <h3>🔍 تحليل الفيديو</h3>
+            <p>تحليل الفيديوهات المولدة</p>
+            <div class="form-group">
+              <label>معرّف المهمة</label>
+              <input type="text" id="video-analyze-id" placeholder="vid_xxxxx">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="analyzeVideo()">
+              📊 تحليل
+            </button>
+            <div id="video-analysis"></div>
+          </div>
+        </div>
+
+        <!-- لوحة مهام الفيديو -->
+        <div class="live-panel">
+          <h4>📹 آخر مهام الفيديو</h4>
+          <div id="video-jobs-list">
+            <div class="live-item">لا توجد مهام حتى الآن</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 3. مكتبة الوسائط ==================== -->
+      <div id="media-library" class="tab-section">
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-label">إجمالي الأصول</div>
+            <div class="stat-number" id="total-assets">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">صور</div>
+            <div class="stat-number" id="identity-assets">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">تسويقية</div>
+            <div class="stat-number" id="marketing-assets">0</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-label">فيديوهات</div>
+            <div class="stat-number" id="video-assets">0</div>
+          </div>
+        </div>
+
+        <div class="section-grid">
+          <!-- بطاقة الرفع -->
+          <div class="card">
+            <h3>📤 رفع أصل</h3>
+            <p>أضف صورة أو فيديو إلى المكتبة</p>
+            <div class="form-group">
+              <label>اسم الملف</label>
+              <input type="text" id="asset-filename" placeholder="مثال: banner-sheikha.png">
+            </div>
+            <div class="form-group">
+              <label>النوع</label>
+              <select id="asset-type">
+                <option value="identity">هوية</option>
+                <option value="marketing">تسويقية</option>
+                <option value="ui">واجهة مستخدم</option>
+                <option value="banner">بانر</option>
+                <option value="video">فيديو</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label>الوسوم (مفصولة بفاصلة)</label>
+              <input type="text" id="asset-tags" placeholder="مثال: ذهبي, حديث, شيخة">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="uploadAsset()">
+              ✓ الرفع للمكتبة
+            </button>
+            <div id="upload-result"></div>
+          </div>
+
+          <!-- بطاقة البحث -->
+          <div class="card">
+            <h3>🔍 البحث</h3>
+            <p>ابحث في مكتبة الوسائط</p>
+            <div class="form-group">
+              <input type="text" id="search-query" placeholder="ابحث عن صور أو وسوم...">
+            </div>
+            <button class="btn btn-primary btn-full" onclick="searchLibrary()">
+              🔎 بحث
+            </button>
+          </div>
+        </div>
+
+        <!-- قائمة الأصول -->
+        <div class="live-panel">
+          <h4>📚 محتويات المكتبة</h4>
+          <div id="library-list">
+            <div class="live-item">المكتبة فارغة حالياً</div>
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================== 4. أوامر لغة شيخة ==================== -->
+      <div id="sheikha-commands" class="tab-section">
+        <h2 style="color: var(--primary-gold); margin-bottom: 1.5rem; font-size: 1.5rem;">
+          ⚡ أوامر لغة شيخة للصور والفيديو
+        </h2>
+
+        <div style="margin-bottom: 2rem;">
+          <h3 style="color: var(--primary-copper); margin-bottom: 1rem;">صيغة الأمر</h3>
+          <div class="live-panel">
+            <div class="live-item">
+              أرسل طلب POST إلى <strong>/api/sheikha-code/command</strong>
+            </div>
+            <div class="live-item">
+              مثال: <strong>{ "command": "أنشئ صورة هوية" }</strong>
+            </div>
+          </div>
+        </div>
+
+        <!-- أوامر الصور -->
+        <h3 style="color: var(--primary-gold); margin-bottom: 1rem; margin-top: 2rem;">
+          📸 أوامر الصور
+        </h3>
+        <div class="commands-list">
+          <div class="command-item" onclick="executeCommand('أنشئ صورة هوية تقنية لشيخة')">
+            <strong>أنشئ صورة هوية</strong>
+            <span>صورة هوية براقة وحديثة</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('حلل الصورة الحالية')">
+            <strong>حلل الصورة</strong>
+            <span>تحليل شامل للألوان والأسلوب</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('أضف الصورة إلى المكتبة')">
+            <strong>احفظ في المكتبة</strong>
+            <span>احفظ آخر صورة في المكتبة</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('أنشئ بانر لسوق شيخة')">
+            <strong>أنشئ بانر</strong>
+            <span>بانر تسويقي بألوان العلامة</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('اعرض حالة مهام الصور')">
+            <strong>حالة المهام</strong>
+            <span>عرض حالة جميع مهام الصور</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('اعرض مكتبة الصور')">
+            <strong>عرض المكتبة</strong>
+            <span>عرض جميع الصور المحفوظة</span>
+          </div>
+        </div>
+
+        <!-- أوامر الفيديو -->
+        <h3 style="color: var(--primary-gold); margin-bottom: 1rem; margin-top: 2rem;">
+          🎬 أوامر الفيديو
+        </h3>
+        <div class="commands-list">
+          <div class="command-item" onclick="executeCommand('أنشئ فيديو تعريفي قصير')">
+            <strong>فيديو تعريفي</strong>
+            <span>فيديو 30 ثانية تعريفي</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('حلل الفيديو الحالي')">
+            <strong>حلل الفيديو</strong>
+            <span>تحليل الجودة والفريمات</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('اعرض آخر فيديو')">
+            <strong>آخر فيديو</strong>
+            <span>عرض آخر فيديو تم تصنيعه</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('اعرض حالة مهام الفيديو')">
+            <strong>حالة الفيديوهات</strong>
+            <span>عرض جميع مهام الفيديو</span>
+          </div>
+        </div>
+
+        <!-- أوامر التكامل -->
+        <h3 style="color: var(--primary-gold); margin-bottom: 1rem; margin-top: 2rem;">
+          🔗 أوامر التكامل
+        </h3>
+        <div class="commands-list">
+          <div class="command-item" onclick="executeCommand('ربط الوسائط مع GitHub')">
+            <strong>ربط GitHub</strong>
+            <span>احفظ الأصول في المستودع</span>
+          </div>
+          <div class="command-item" onclick="executeCommand('اعرض إحصائيات محرك الصور')">
+            <strong>الإحصائيات</strong>
+            <span>إحصائيات شاملة للمحرك</span>
+          </div>
+        </div>
+
+        <!-- لوحة تنفيذ الأوامر -->
+        <div class="card" style="margin-top: 2rem;">
+          <h3>⚙️ تنفيذ أمر مخصص</h3>
+          <div class="form-group">
+            <label>أمر شيخة</label>
+            <textarea id="custom-command" placeholder="مثال: أنشئ صورة جميلة بألوان ذهبية ونحاسية للمتجر"></textarea>
+          </div>
+          <button class="btn btn-primary btn-full" onclick="executeCustomCommand()">
+            ⚡ تنفيذ الأمر
+          </button>
+          <div id="command-result" style="margin-top: 1rem;"></div>
+        </div>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    // ==================== التنقل بين الأقسام ====================
+    function switchTab(tabId) {
+      // إخفاء جميع الأقسام
+      document.querySelectorAll('.tab-section').forEach(section => {
+        section.classList.remove('active');
+      });
+      
+      // إزالة حالة النشاط من جميع الأزرار
+      document.querySelectorAll('.tab-btn').forEach(btn => {
+        btn.classList.remove('active');
+      });
+      
+      // إظهار القسم المختار
+      document.getElementById(tabId).classList.add('active');
+      
+      // تفعيل الزر المختار
+      event.target.classList.add('active');
+      
+      // تحديث الإحصائيات
+      loadStats();
+    }
+
+    // ==================== تحميل الإحصائيات ====================
+    async function loadStats() {
+      try {
+        const response = await fetch('/api/images/stats');
+        const data = await response.json();
+        
+        if (data.success && data.data) {
+          const stats = data.data;
+          
+          // إحصائيات الصور
+          document.getElementById('total-images').textContent = stats.images.total;
+          document.getElementById('processing-images').textContent = stats.images.processing;
+          document.getElementById('completed-images').textContent = stats.images.completed;
+          document.getElementById('failed-images').textContent = stats.images.failed;
+          
+          // إحصائيات الفيديو
+          document.getElementById('total-videos').textContent = stats.videos.total;
+          document.getElementById('rendering-videos').textContent = stats.videos.rendering;
+          document.getElementById('completed-videos').textContent = stats.videos.completed;
+          document.getElementById('failed-videos').textContent = stats.videos.failed;
+          
+          // إحصائيات المكتبة
+          document.getElementById('total-assets').textContent = stats.library.total;
+          document.getElementById('identity-assets').textContent = stats.library.byType.identity;
+          document.getElementById('marketing-assets').textContent = stats.library.byType.marketing;
+          document.getElementById('video-assets').textContent = stats.library.byType.video;
+          
+          // تحديث لوائح المهام
+          updateJobsList(stats);
+        }
+      } catch (error) {
+        console.error('خطأ في تحميل الإحصائيات:', error);
+      }
+    }
+
+    function updateJobsList(stats) {
+      const imagesList = document.getElementById('images-jobs-list');
+      const videosList = document.getElementById('video-jobs-list');
+      
+      // تحديث قائمة الصور
+      if (stats.images.latest) {
+        imagesList.innerHTML = `
+          <div class="live-item">
+            <strong>${stats.images.latest.id}</strong> - ${stats.images.latest.type}
+            <span class="status-badge status-${stats.images.latest.status}">
+              ${stats.images.latest.status}
+            </span>
+          </div>
+        `;
+      }
+      
+      // تحديث قائمة الفيديو
+      if (stats.videos.latest) {
+        videosList.innerHTML = `
+          <div class="live-item">
+            <strong>${stats.videos.latest.id}</strong> - ${stats.videos.latest.type}
+            <span class="status-badge status-${stats.videos.latest.status}">
+              ${stats.videos.latest.status}
+            </span>
+          </div>
+        `;
+      }
+    }
+
+    // ==================== وظائف الصور ====================
+    async function planImage() {
+      const type = document.getElementById('image-type').value;
+      const style = document.getElementById('image-style').value;
+      
+      try {
+        const response = await fetch('/api/images/plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, style })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          showMessage('✓ تم تخطيط المهمة بنجاح', 'success');
+          console.log('خطة الصورة:', data.data);
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في التخطيط', 'error');
+      }
+    }
+
+    async function generateImage() {
+      const prompt = document.getElementById('image-prompt').value;
+      const style = document.getElementById('image-style').value;
+      const engine = document.getElementById('image-engine').value;
+      
+      if (!prompt) {
+        showMessage('✗ يرجى إدخال وصف الصورة', 'error');
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/images/generate', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ prompt, style, engine })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          showMessage('✓ تم بدء توليد الصورة', 'success');
+          document.getElementById('image-result').innerHTML = `
+            <div class="message success">
+              معرّف المهمة: <strong>${data.data.id}</strong>
+            </div>
+          `;
+          loadStats();
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في التوليد', 'error');
+      }
+    }
+
+    async function analyzeImage() {
+      const jobId = document.getElementById('image-analyze-id').value;
+      
+      if (!jobId) {
+        showMessage('✗ يرجى إدخال معرّف المهمة', 'error');
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/images/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jobId })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          const analysis = data.data.analysis;
+          document.getElementById('image-analysis').innerHTML = `
+            <div class="message info">
+              <strong>الألوان:</strong> ${analysis.colors.join(', ')}<br>
+              <strong>الأسلوب:</strong> ${analysis.style}<br>
+              <strong>الجودة:</strong> ${analysis.quality}
+            </div>
+          `;
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في التحليل', 'error');
+      }
+    }
+
+    // ==================== وظائف الفيديو ====================
+    async function planVideo() {
+      const type = document.getElementById('video-type').value;
+      const duration = document.getElementById('video-duration').value;
+      
+      try {
+        const response = await fetch('/api/video/plan', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, duration })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          showMessage('✓ تم تخطيط الفيديو بنجاح', 'success');
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في التخطيط', 'error');
+      }
+    }
+
+    async function renderVideo() {
+      const type = document.getElementById('video-type').value;
+      const duration = document.getElementById('video-duration').value;
+      const scenes = parseInt(document.getElementById('video-scenes').value);
+      const music = document.getElementById('video-music').value;
+      
+      try {
+        const response = await fetch('/api/video/render', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ type, duration, scenes, music })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          showMessage('✓ تم بدء معالجة الفيديو', 'success');
+          document.getElementById('video-result').innerHTML = `
+            <div class="message success">
+              معرّف المهمة: <strong>${data.data.id}</strong>
+            </div>
+          `;
+          loadStats();
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في المعالجة', 'error');
+      }
+    }
+
+    async function analyzeVideo() {
+      const jobId = document.getElementById('video-analyze-id').value;
+      
+      if (!jobId) {
+        showMessage('✗ يرجى إدخال معرّف المهمة', 'error');
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/video/analyze', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ jobId })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          const analysis = data.data.analysis;
+          document.getElementById('video-analysis').innerHTML = `
+            <div class="message info">
+              <strong>المدة:</strong> ${analysis.duration}<br>
+              <strong>الدقة:</strong> ${analysis.resolution}<br>
+              <strong>FPS:</strong> ${analysis.framerate}<br>
+              <strong>الجودة:</strong> ${analysis.quality}
+            </div>
+          `;
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في التحليل', 'error');
+      }
+    }
+
+    // ==================== وظائف المكتبة ====================
+    async function uploadAsset() {
+      const filename = document.getElementById('asset-filename').value;
+      const type = document.getElementById('asset-type').value;
+      const tags = document.getElementById('asset-tags').value.split(',').map(t => t.trim());
+      
+      if (!filename) {
+        showMessage('✗ يرجى إدخال اسم الملف', 'error');
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/images/upload', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ filename, type, tags })
+        });
+        const data = await response.json();
+        
+        if (data.success) {
+          showMessage('✓ تم رفع الملف بنجاح', 'success');
+          document.getElementById('upload-result').innerHTML = `
+            <div class="message success">
+              معرّف الأصل: <strong>${data.data.id}</strong>
+            </div>
+          `;
+          document.getElementById('asset-filename').value = '';
+          loadStats();
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في الرفع', 'error');
+      }
+    }
+
+    async function searchLibrary() {
+      const query = document.getElementById('search-query').value;
+      
+      try {
+        const response = await fetch(`/api/images/library?search=${encodeURIComponent(query)}`);
+        const data = await response.json();
+        
+        if (data.success) {
+          const assets = data.data.assets;
+          const libraryList = document.getElementById('library-list');
+          
+          if (assets.length === 0) {
+            libraryList.innerHTML = '<div class="live-item">لا توجد نتائج</div>';
+            return;
+          }
+          
+          libraryList.innerHTML = assets.map(asset => `
+            <div class="live-item">
+              <strong>${asset.filename}</strong> - ${asset.type}
+              <br><span>${asset.tags.join(', ')}</span>
+            </div>
+          `).join('');
+        }
+      } catch (error) {
+        showMessage('✗ خطأ في البحث', 'error');
+      }
+    }
+
+    // ==================== أوامر شيخة ====================
+    async function executeCommand(command) {
+      try {
+        const response = await fetch('/api/sheikha-code/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ command })
+        });
+        const data = await response.json();
+        
+        showMessage(`✓ تم تنفيذ الأمر: ${command}`, 'success');
+        loadStats();
+      } catch (error) {
+        showMessage('✗ خطأ في تنفيذ الأمر', 'error');
+      }
+    }
+
+    async function executeCustomCommand() {
+      const command = document.getElementById('custom-command').value;
+      
+      if (!command) {
+        showMessage('✗ يرجى إدخال أمر', 'error');
+        return;
+      }
+      
+      try {
+        const response = await fetch('/api/sheikha-code/command', {
+          method: 'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({ command })
+        });
+        const data = await response.json();
+        
+        document.getElementById('command-result').innerHTML = `
+          <div class="message success">
+            تم تنفيذ الأمر بنجاح:<br>
+            <strong>${command}</strong>
+          </div>
+        `;
+        loadStats();
+      } catch (error) {
+        showMessage('✗ خطأ في تنفيذ الأمر', 'error');
+      }
+    }
+
+    // ==================== دوال مساعدة ====================
+    function showMessage(message, type = 'info') {
+      console.log(`[${type.toUpperCase()}] ${message}`);
+      // يمكن تحسينها لاحقاً بإضافة notification
+    }
+
+    // تحديث الإحصائيات عند التحميل
+    window.addEventListener('load', () => {
+      loadStats();
+      // تحديث الإحصائيات كل 5 ثوان
+      setInterval(loadStats, 5000);
+    });
+  </script>
+</body>
+</html>

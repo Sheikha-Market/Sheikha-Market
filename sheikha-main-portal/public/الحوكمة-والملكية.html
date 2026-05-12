@@ -1,0 +1,345 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>حوكمة شيخة — الملكية والهيكل المزدوج</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --gold:#D4AF37; --copper:#B87333; --dark:#0a0a0a; --dark2:#111; --dark3:#1a1a1a; --dark4:#222; --text:#e8e0d0; --text2:#b0a898; --green:#2ecc71; --blue:#3498db; --purple:#9b59b6; --teal:#1abc9c; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); min-height:100vh; overflow-x:hidden; }
+
+/* Hero */
+.hero { background:linear-gradient(160deg,#0a0a0a 0%,#100a00 50%,#0a0a0a 100%); border-bottom:2px solid var(--gold); padding:70px 24px 50px; text-align:center; position:relative; overflow:hidden; }
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at 50% 0%, rgba(212,175,55,0.08) 0%,transparent 70%); pointer-events:none; }
+.basmala { font-size:clamp(1.5rem,3vw,2.2rem); color:var(--gold); margin-bottom:20px; font-weight:700; text-shadow:0 0 40px rgba(212,175,55,0.3); }
+.hero-title { font-size:clamp(2rem,5vw,3.5rem); font-weight:900; background:linear-gradient(135deg,var(--gold),#fff,var(--copper)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:8px; }
+.hero-sub { color:var(--text2); font-size:1rem; margin-bottom:20px; }
+.owner-badge { display:inline-block; background:rgba(212,175,55,0.12); border:2px solid var(--gold); border-radius:40px; padding:10px 28px; color:var(--gold); font-size:1rem; font-weight:700; }
+.prayer { margin-top:20px; color:var(--text2); font-style:italic; font-size:0.95rem; }
+
+nav { background:var(--dark2); border-bottom:1px solid #333; padding:0 24px; display:flex; gap:4px; overflow-x:auto; }
+nav a { padding:14px 18px; color:var(--text2); text-decoration:none; font-size:0.9rem; white-space:nowrap; border-bottom:3px solid transparent; }
+nav a.active, nav a:hover { color:var(--gold); border-color:var(--gold); }
+
+.container { max-width:1400px; margin:0 auto; padding:28px 24px; }
+.section { display:none; animation:fadeIn .4s; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+
+.grid-2 { display:grid; grid-template-columns:repeat(auto-fill,minmax(400px,1fr)); gap:20px; }
+.grid-3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+
+.card { background:var(--dark3); border:1px solid #333; border-radius:14px; padding:22px; transition:.3s; }
+.card:hover { border-color:var(--gold); transform:translateY(-3px); box-shadow:0 8px 24px rgba(212,175,55,0.08); }
+.card-gold { border-color:rgba(212,175,55,0.3); background:linear-gradient(135deg,var(--dark3),rgba(212,175,55,0.04)); }
+.card-green { border-color:rgba(46,204,113,0.3); background:linear-gradient(135deg,var(--dark3),rgba(46,204,113,0.04)); }
+.card-copper { border-color:rgba(184,115,51,0.3); background:linear-gradient(135deg,var(--dark3),rgba(184,115,51,0.04)); }
+
+.section-title { font-size:1.3rem; font-weight:800; color:var(--gold); margin:32px 0 18px; display:flex; align-items:center; gap:10px; }
+.card-title { font-size:1rem; font-weight:700; color:var(--gold); margin-bottom:8px; }
+.card-desc { color:var(--text2); font-size:0.85rem; line-height:1.7; }
+.quran { color:var(--gold); font-style:italic; font-size:0.88rem; margin:8px 0; }
+.hadith { color:var(--text2); font-size:0.82rem; font-style:italic; }
+.badge { display:inline-block; padding:3px 10px; border-radius:20px; font-size:0.75rem; margin:2px; }
+.badge-gold { background:rgba(212,175,55,0.15); color:var(--gold); }
+.badge-green { background:rgba(46,204,113,0.15); color:var(--green); }
+.badge-blue { background:rgba(52,152,219,0.15); color:var(--blue); }
+
+.track-header { display:flex; align-items:center; gap:16px; padding:24px; border-radius:14px; margin-bottom:20px; }
+.track-icon-big { font-size:3rem; }
+
+.flow-step { display:flex; align-items:center; gap:12px; padding:12px 16px; background:var(--dark4); border-radius:8px; margin-bottom:8px; }
+.flow-num { width:28px; height:28px; border-radius:50%; background:var(--gold); color:#000; display:flex; align-items:center; justify-content:center; font-weight:800; font-size:0.85rem; flex-shrink:0; }
+
+.dist-row { display:flex; justify-content:space-between; align-items:center; padding:12px 0; border-bottom:1px solid #2a2a2a; }
+.dist-row:last-child { border-bottom:none; }
+.dist-pct { font-size:1.4rem; font-weight:900; color:var(--gold); }
+.dist-bar-wrap { height:6px; background:#222; border-radius:3px; margin-top:4px; }
+.dist-bar { height:100%; border-radius:3px; background:linear-gradient(90deg,var(--gold),var(--copper)); }
+
+.loading { color:var(--text2); text-align:center; padding:40px; }
+.spinner { width:32px; height:32px; border:3px solid #333; border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 12px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+
+@media (max-width:768px) { .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; } nav a { padding:10px 12px; font-size:0.8rem; } .track-header { flex-direction:column; text-align:center; } }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div style="font-size:4.5rem; margin-bottom:12px;">🏛️</div>
+    <div class="hero-title">حوكمة منظومة شيخة</div>
+    <div class="hero-sub">الملكية — الهيكل المزدوج — الخير والتجارة</div>
+    <div class="owner-badge">👑 سلمان أحمد بن سلمان الراجح — المالك الوحيد</div>
+    <div class="prayer">
+        اللَّهُمَّ اعْزِزْ بِي الإِسْلامَ وَانْفَعْنِي وَانْفَعْ أُمَّةَ مُحَمَّدٍ ﷺ وَالدِّينَ الإِسْلَامِيّ
+    </div>
+    <div style="margin-top:12px; color:var(--text2); font-style:italic;">
+        ﴿وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ وَرَسُولُهُ وَالْمُؤْمِنُونَ﴾ — التوبة ١٠٥
+    </div>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="showSec('sec-owner',this)">👑 الملكية</a>
+    <a href="#" onclick="showSec('sec-structure',this)">🏗️ الهيكل</a>
+    <a href="#" onclick="showSec('sec-charitable',this)">🕌 الخيري والأوقاف</a>
+    <a href="#" onclick="showSec('sec-commercial',this)">💼 التجاري</a>
+    <a href="#" onclick="showSec('sec-integration',this)">🔗 نموذج التكامل</a>
+    <a href="#" onclick="showSec('sec-principles',this)">📖 المبادئ</a>
+</nav>
+
+<div class="container">
+
+<!-- ══ Owner ══ -->
+<div class="section active" id="sec-owner">
+    <div id="ownerContent" class="loading"><div class="spinner"></div></div>
+</div>
+
+<!-- ══ Structure ══ -->
+<div class="section" id="sec-structure">
+    <div class="grid-2">
+        <!-- خيري -->
+        <div class="card card-gold">
+            <div class="track-header" style="background:linear-gradient(135deg,rgba(212,175,55,0.1),transparent);border:1px solid rgba(212,175,55,0.3);margin:-22px -22px 20px -22px;border-radius:14px 14px 0 0;padding:24px;">
+                <div class="track-icon-big">🕌</div>
+                <div>
+                    <div style="font-size:1.3rem;font-weight:900;color:var(--gold);">ذراع الخير والأوقاف</div>
+                    <div style="color:var(--text2);font-size:0.85rem;">شيخة الخيرية والأوقاف</div>
+                    <div style="color:var(--gold);font-style:italic;font-size:0.82rem;margin-top:4px;">﴿مَنْ ذَا الَّذِي يُقْرِضُ اللَّهَ قَرْضًا حَسَنًا﴾</div>
+                </div>
+            </div>
+            <div class="card-desc" id="charitableTracks"><div class="spinner" style="margin:20px auto;"></div></div>
+        </div>
+        <!-- تجاري -->
+        <div class="card card-copper">
+            <div class="track-header" style="background:linear-gradient(135deg,rgba(184,115,51,0.1),transparent);border:1px solid rgba(184,115,51,0.3);margin:-22px -22px 20px -22px;border-radius:14px 14px 0 0;padding:24px;">
+                <div class="track-icon-big">💼</div>
+                <div>
+                    <div style="font-size:1.3rem;font-weight:900;color:var(--copper);">ذراع الأعمال التجارية</div>
+                    <div style="color:var(--text2);font-size:0.85rem;">شيخة للأعمال</div>
+                    <div style="color:var(--copper);font-style:italic;font-size:0.82rem;margin-top:4px;">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾</div>
+                </div>
+            </div>
+            <div class="card-desc" id="commercialTracks"><div class="spinner" style="margin:20px auto;"></div></div>
+        </div>
+    </div>
+
+    <div class="section-title">💰 توزيع الأرباح</div>
+    <div class="card card-gold" style="max-width:640px;" id="profitDist"><div class="spinner" style="margin:20px auto;"></div></div>
+</div>
+
+<!-- ══ Charitable ══ -->
+<div class="section" id="sec-charitable">
+    <div id="charitableDetail" class="loading"><div class="spinner"></div></div>
+</div>
+
+<!-- ══ Commercial ══ -->
+<div class="section" id="sec-commercial">
+    <div id="commercialDetail" class="loading"><div class="spinner"></div></div>
+</div>
+
+<!-- ══ Integration ══ -->
+<div class="section" id="sec-integration">
+    <div id="integrationContent" class="loading"><div class="spinner"></div></div>
+</div>
+
+<!-- ══ Principles ══ -->
+<div class="section" id="sec-principles">
+    <div class="grid-3" id="principlesGrid"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+</div>
+
+<script>
+const API = async (ep) => { try { const r = await fetch(ep); return r.ok ? r.json() : null; } catch { return null; } };
+
+function showSec(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    const map = { 'sec-owner': loadOwner, 'sec-structure': loadStructure, 'sec-charitable': loadCharitable, 'sec-commercial': loadCommercial, 'sec-integration': loadIntegration, 'sec-principles': loadPrinciples };
+    if (map[id]) map[id]();
+    return false;
+}
+
+async function loadOwner() {
+    const [s, o] = await Promise.all([API('/api/governance/status'), API('/api/governance/owner')]);
+    if (!o?.data) return;
+    const owner = o.data.owner;
+    const mission = o.data.mission;
+    document.getElementById('ownerContent').innerHTML = `
+        <!-- إعلان الملكية -->
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.12),rgba(184,115,51,0.06));border:2px solid var(--gold);border-radius:18px;padding:36px;text-align:center;margin-bottom:28px;">
+            <div style="font-size:4rem;margin-bottom:12px;">👑</div>
+            <div style="font-size:1.6rem;font-weight:900;color:var(--gold);">${owner.name}</div>
+            <div style="color:var(--text2);margin:6px 0;">${owner.role}</div>
+            <div style="color:var(--text);font-size:1rem;margin:12px 0;font-weight:600;">${owner.declaration}</div>
+            <div style="background:rgba(0,0,0,0.3);border-radius:12px;padding:16px;margin-top:16px;border-right:4px solid var(--gold);">
+                <div style="color:var(--gold);font-size:1.05rem;font-weight:700;">دعاء المالك:</div>
+                <div style="color:var(--text);font-size:1.1rem;margin-top:6px;line-height:1.8;">${owner.prayer}</div>
+            </div>
+            <div style="color:var(--gold);font-style:italic;margin-top:14px;font-size:0.9rem;">${owner.quran}</div>
+            <div style="color:var(--text2);font-size:0.8rem;margin-top:8px;">تاريخ التأسيس: ${owner.date}</div>
+        </div>
+
+        <!-- رسالة المنظومة -->
+        <div class="section-title">🌍 رسالة المنظومة ومقصدها</div>
+        <div class="card card-gold" style="margin-bottom:16px;">
+            <div class="card-desc" style="font-size:0.95rem;line-height:2;">${mission.arabic}</div>
+            <div style="color:var(--text2);margin-top:8px;">${mission.vision}</div>
+        </div>
+        <div class="grid-3">
+            ${(mission.pillars||[]).map(p => `<div class="card"><div style="color:var(--gold);">✦ ${p}</div></div>`).join('')}
+        </div>`;
+}
+
+async function loadStructure() {
+    const [ch, co] = await Promise.all([API('/api/governance/charitable'), API('/api/governance/commercial')]);
+    if (ch?.data) {
+        document.getElementById('charitableTracks').innerHTML = ch.data.tracks.map(t => `
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #2a2a2a;">
+                <div style="font-size:1.4rem;">${t.icon}</div>
+                <div><div style="font-weight:700;color:var(--gold);">${t.name}</div>
+                <div style="color:var(--text2);font-size:0.82rem;margin-top:2px;">${t.desc}</div></div>
+            </div>`).join('');
+    }
+    if (co?.data) {
+        document.getElementById('commercialTracks').innerHTML = co.data.tracks.map(t => `
+            <div style="display:flex;gap:10px;align-items:flex-start;padding:10px 0;border-bottom:1px solid #2a2a2a;">
+                <div style="font-size:1.4rem;">${t.icon}</div>
+                <div><div style="font-weight:700;color:var(--copper);">${t.name}</div>
+                <div style="color:var(--text2);font-size:0.82rem;margin-top:2px;">${t.desc}</div></div>
+            </div>`).join('');
+        const dist = co.data.profitDistribution;
+        document.getElementById('profitDist').innerHTML = `
+            <div class="card-title">💰 توزيع الأرباح</div>
+            ${Object.entries(dist).map(([k,v]) => {
+                const pct = parseInt(v);
+                const labels = { reinvestment:'إعادة استثمار', owner:'المالك', charitable_arm:'الذراع الخيري', team:'الفريق' };
+                return `<div class="dist-row"><div><div style="font-weight:600;">${labels[k]||k}</div><div class="dist-bar-wrap"><div class="dist-bar" style="width:${pct}%;"></div></div></div><div class="dist-pct">${v}</div></div>`;
+            }).join('')}`;
+    }
+}
+
+async function loadCharitable() {
+    const r = await API('/api/governance/charitable');
+    if (!r?.data) return;
+    const d = r.data;
+    document.getElementById('charitableDetail').innerHTML = `
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.1),transparent);border:2px solid rgba(212,175,55,0.4);border-radius:16px;padding:28px;text-align:center;margin-bottom:24px;">
+            <div style="font-size:3rem;">${d.icon}</div>
+            <div style="font-size:1.3rem;font-weight:800;color:var(--gold);margin:8px 0;">${d.arabicName}</div>
+            <div style="color:var(--text2);">${d.desc}</div>
+            <div style="color:var(--gold);font-style:italic;margin-top:8px;">${d.quran}</div>
+            <div style="color:var(--text2);font-size:0.82rem;font-style:italic;margin-top:4px;">«${d.hadith}»</div>
+        </div>
+        <div class="section-title">🌱 مسارات الخير الخمسة</div>
+        <div class="grid-3">
+            ${d.tracks.map(t => `
+            <div class="card card-gold">
+                <div style="font-size:1.8rem;margin-bottom:10px;">${t.icon}</div>
+                <div class="card-title">${t.name}</div>
+                <div class="card-desc">${t.desc}</div>
+                <div style="margin-top:10px;color:var(--text2);font-size:0.8rem;">المستفيدون:</div>
+                <div style="display:flex;flex-wrap:wrap;gap:4px;margin-top:4px;">
+                    ${(t.beneficiaries||[]).map(b => `<span class="badge badge-gold">${b}</span>`).join('')}
+                </div>
+                <div style="margin-top:8px;background:rgba(212,175,55,0.08);border-radius:6px;padding:8px;font-size:0.8rem;color:var(--text2);">نموذج: ${t.model}</div>
+            </div>`).join('')}
+        </div>
+        <div class="section-title">📊 المؤشرات المستهدفة</div>
+        <div class="grid-3">
+            ${Object.entries(d.metrics||{}).map(([k,v]) => `<div class="card"><div style="font-size:1.6rem;font-weight:900;color:var(--gold);">${v}</div><div style="color:var(--text2);font-size:0.82rem;">${k}</div></div>`).join('')}
+        </div>`;
+}
+
+async function loadCommercial() {
+    const r = await API('/api/governance/commercial');
+    if (!r?.data) return;
+    const d = r.data;
+    document.getElementById('commercialDetail').innerHTML = `
+        <div style="background:linear-gradient(135deg,rgba(184,115,51,0.1),transparent);border:2px solid rgba(184,115,51,0.4);border-radius:16px;padding:28px;text-align:center;margin-bottom:24px;">
+            <div style="font-size:3rem;">${d.icon}</div>
+            <div style="font-size:1.3rem;font-weight:800;color:var(--copper);margin:8px 0;">${d.arabicName}</div>
+            <div style="color:var(--text2);">${d.desc}</div>
+            <div style="color:var(--copper);font-style:italic;margin-top:8px;">${d.quran}</div>
+            <div style="color:var(--text2);font-size:0.82rem;font-style:italic;margin-top:4px;">«${d.hadith}»</div>
+        </div>
+        <div class="section-title">📈 المسارات التجارية الستة</div>
+        <div class="grid-3">
+            ${d.tracks.map(t => `
+            <div class="card card-copper">
+                <div style="font-size:1.8rem;margin-bottom:10px;">${t.icon}</div>
+                <div class="card-title" style="color:var(--copper);">${t.name}</div>
+                <div class="card-desc">${t.desc}</div>
+                <div style="margin-top:8px;background:rgba(184,115,51,0.08);border-radius:6px;padding:8px;font-size:0.8rem;">
+                    <span style="color:var(--green);">💰 ${t.revenue}</span>
+                </div>
+                <div style="font-size:0.75rem;color:var(--gold);margin-top:6px;">✅ ${t.sharia}</div>
+            </div>`).join('')}
+        </div>`;
+}
+
+async function loadIntegration() {
+    const r = await API('/api/governance/integration');
+    if (!r?.data) return;
+    const d = r.data;
+    document.getElementById('integrationContent').innerHTML = `
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(46,204,113,0.05));border:2px solid rgba(212,175,55,0.3);border-radius:16px;padding:32px;text-align:center;margin-bottom:28px;">
+            <div style="font-size:3rem;">🔗</div>
+            <div style="font-size:1.3rem;font-weight:800;color:var(--gold);margin:10px 0;">${d.name}</div>
+            <div style="color:var(--text2);">${d.desc}</div>
+            <div style="color:var(--gold);font-style:italic;margin-top:10px;">${d.quran}</div>
+        </div>
+        <div class="section-title">🔄 دورة التكامل</div>
+        ${(d.flow||[]).map((step, i) => `
+            <div class="flow-step">
+                <div class="flow-num">${i+1}</div>
+                <div style="font-size:0.9rem;">${step}</div>
+            </div>`).join('')}
+        <div style="margin-top:20px;background:rgba(212,175,55,0.08);border:1px solid rgba(212,175,55,0.3);border-radius:12px;padding:16px;text-align:center;">
+            <div style="color:var(--gold);font-style:italic;">«${d.hadith}»</div>
+        </div>
+        <div class="section-title">⚖️ المعادلة الإسلامية</div>
+        <div class="grid-3">
+            <div class="card card-gold" style="text-align:center;padding:28px;">
+                <div style="font-size:2.5rem;">🕌</div>
+                <div style="font-weight:800;color:var(--gold);margin:8px 0;">الخير</div>
+                <div style="color:var(--text2);font-size:0.85rem;">وقف + زكاة + صدقة جارية</div>
+            </div>
+            <div class="card" style="text-align:center;padding:28px;display:flex;align-items:center;justify-content:center;flex-direction:column;">
+                <div style="font-size:2.5rem;">🔗</div>
+                <div style="font-weight:700;color:var(--text2);margin-top:8px;">تكامل إسلامي</div>
+                <div style="color:var(--text2);font-size:0.82rem;">كل منهما يقوي الآخر</div>
+            </div>
+            <div class="card card-copper" style="text-align:center;padding:28px;">
+                <div style="font-size:2.5rem;">💼</div>
+                <div style="font-weight:800;color:var(--copper);margin:8px 0;">التجارة</div>
+                <div style="color:var(--text2);font-size:0.85rem;">بيع حلال + ربح عادل</div>
+            </div>
+        </div>`;
+}
+
+async function loadPrinciples() {
+    const r = await API('/api/governance/principles');
+    if (!r?.data) return;
+    document.getElementById('principlesGrid').innerHTML = r.data.map(p => `
+        <div class="card card-gold" style="text-align:center;padding:28px;">
+            <div style="font-size:2.5rem;margin-bottom:10px;">${p.icon}</div>
+            <div class="card-title" style="font-size:1.1rem;">${p.name}</div>
+            <div class="card-desc">${p.desc}</div>
+            ${p.quran ? `<div class="quran" style="margin-top:10px;">${p.quran}</div>` : ''}
+            ${p.hadith ? `<div class="hadith">«${p.hadith}»</div>` : ''}
+        </div>`).join('');
+}
+
+// تحميل أولي
+loadOwner();
+</script>
+</body>
+</html>

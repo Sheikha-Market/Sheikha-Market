@@ -1,0 +1,25 @@
+# بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ
+# شيخة — Azure Developer CLI Configuration
+# azd up → ينشر كل شيء تلقائياً
+
+name: sheikha-portal
+metadata:
+  template: sheikha-portal@1.0.0
+
+infra:
+  provider: bicep
+  path: infra
+  module: main
+
+services:
+  portal:
+    project: .
+    language: js
+    host: containerapp
+    docker:
+      path: ./Dockerfile
+      context: .
+      platform: linux/amd64
+
+pipeline:
+  provider: github

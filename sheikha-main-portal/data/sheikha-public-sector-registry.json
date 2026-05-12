@@ -1,0 +1,1624 @@
+{
+    "success": true,
+    "data": {
+        "generatedAt": "2026-03-21T20:11:00.603Z",
+        "covenant": {
+            "basis": "الكتاب والسنة",
+            "declaration": "التكامل المؤسسي موجّه للمنفعة العامة ويُنفّذ ضمن الأطر النظامية والتفويضات الرسمية المعتمدة."
+        },
+        "entities": [
+            {
+                "sheikhaName": "Sheikha-Royal-Court",
+                "slug": "Sheikha-Royal-Court",
+                "sourceNameArabic": "الديوان الملكي",
+                "category": "delegated-authority",
+                "subtype": "sovereign-office",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "custodian-of-the-two-holy-mosques",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Royal-Court Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [
+                        {
+                            "id": "DA-001",
+                            "title": "مواءمة الأولويات الوطنية",
+                            "kpi": "خريطة مبادرات موحدة"
+                        }
+                    ],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Crown-Prince-Office",
+                "slug": "Sheikha-Crown-Prince-Office",
+                "sourceNameArabic": "مكتب سمو ولي العهد الأمير محمد بن سلمان آل سعود",
+                "category": "delegated-authority",
+                "subtype": "strategic-execution",
+                "ownerClass": "government",
+                "parent": "Sheikha-Royal-Court",
+                "delegationPath": "delegated-by-custodian-according-to-regulations",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Crown-Prince-Office Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [
+                        {
+                            "id": "DA-002",
+                            "title": "تسريع التنفيذ الاستراتيجي",
+                            "kpi": "نسبة إنجاز البرامج الوطنية"
+                        }
+                    ],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Emirate-Eastern-Province",
+                "slug": "Sheikha-Emirate-Eastern-Province",
+                "sourceNameArabic": "إمارة المنطقة الشرقية",
+                "category": "region-emirate",
+                "subtype": "regional-governance",
+                "ownerClass": "government",
+                "parent": "Sheikha-Crown-Prince-Office",
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Emirate-Eastern-Province Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [
+                        {
+                            "id": "EM-001",
+                            "title": "تكامل الخدمات الإقليمية",
+                            "kpi": "زمن إغلاق المعاملات"
+                        }
+                    ],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Emirate-Riyadh",
+                "slug": "Sheikha-Emirate-Riyadh",
+                "sourceNameArabic": "إمارة منطقة الرياض",
+                "category": "region-emirate",
+                "subtype": "regional-governance",
+                "ownerClass": "government",
+                "parent": "Sheikha-Crown-Prince-Office",
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Emirate-Riyadh Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Emirate-Makkah",
+                "slug": "Sheikha-Emirate-Makkah",
+                "sourceNameArabic": "إمارة منطقة مكة المكرمة",
+                "category": "region-emirate",
+                "subtype": "regional-governance",
+                "ownerClass": "government",
+                "parent": "Sheikha-Crown-Prince-Office",
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Emirate-Makkah Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Emirate-Madinah",
+                "slug": "Sheikha-Emirate-Madinah",
+                "sourceNameArabic": "إمارة منطقة المدينة المنورة",
+                "category": "region-emirate",
+                "subtype": "regional-governance",
+                "ownerClass": "government",
+                "parent": "Sheikha-Crown-Prince-Office",
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Emirate-Madinah Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-MoI",
+                "slug": "Sheikha-MoI",
+                "sourceNameArabic": "وزارة الداخلية",
+                "category": "ministry",
+                "subtype": "public-security",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-MoI Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-MoF",
+                "slug": "Sheikha-MoF",
+                "sourceNameArabic": "وزارة المالية",
+                "category": "ministry",
+                "subtype": "public-finance",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-MoF Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-MoE",
+                "slug": "Sheikha-MoE",
+                "sourceNameArabic": "وزارة التعليم",
+                "category": "ministry",
+                "subtype": "education",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-MoE Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-MoT",
+                "slug": "Sheikha-MoT",
+                "sourceNameArabic": "وزارة النقل والخدمات اللوجستية",
+                "category": "ministry",
+                "subtype": "transport",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-MoT Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-MoH",
+                "slug": "Sheikha-MoH",
+                "sourceNameArabic": "وزارة الصحة",
+                "category": "ministry",
+                "subtype": "healthcare",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-MoH Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-MoC",
+                "slug": "Sheikha-MoC",
+                "sourceNameArabic": "وزارة التجارة",
+                "category": "ministry",
+                "subtype": "commerce",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-MoC Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-SDAIA",
+                "slug": "Sheikha-SDAIA",
+                "sourceNameArabic": "الهيئة السعودية للبيانات والذكاء الاصطناعي",
+                "category": "authority",
+                "subtype": "data-ai",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-SDAIA Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-ZATCA",
+                "slug": "Sheikha-ZATCA",
+                "sourceNameArabic": "هيئة الزكاة والضريبة والجمارك",
+                "category": "authority",
+                "subtype": "tax-customs",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-ZATCA Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-NDMO",
+                "slug": "Sheikha-NDMO",
+                "sourceNameArabic": "المركز الوطني لإدارة الدين",
+                "category": "authority",
+                "subtype": "debt-management",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-NDMO Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Mawani",
+                "slug": "Sheikha-Mawani",
+                "sourceNameArabic": "الهيئة العامة للموانئ",
+                "category": "ports",
+                "subtype": "maritime-logistics",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Mawani Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-SAR",
+                "slug": "Sheikha-SAR",
+                "sourceNameArabic": "الخطوط الحديدية السعودية",
+                "category": "railways",
+                "subtype": "land-logistics",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-SAR Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Elm",
+                "slug": "Sheikha-Elm",
+                "sourceNameArabic": "شركة علم",
+                "category": "state-owned-company",
+                "subtype": "digital-services",
+                "ownerClass": "state-owned",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Elm Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [
+                        {
+                            "id": "SO-ELM-001",
+                            "title": "التحول الرقمي للخدمات",
+                            "kpi": "نسبة الخدمات المؤتمتة"
+                        }
+                    ],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Maaden",
+                "slug": "Sheikha-Maaden",
+                "sourceNameArabic": "شركة معادن",
+                "category": "state-owned-company",
+                "subtype": "mining",
+                "ownerClass": "state-owned",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Maaden Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [
+                        {
+                            "id": "SO-MDN-001",
+                            "title": "تعظيم قيمة الثروات التعدينية",
+                            "kpi": "العائد التنموي من سلاسل التعدين"
+                        }
+                    ],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-SEC",
+                "slug": "Sheikha-SEC",
+                "sourceNameArabic": "الشركة السعودية للكهرباء",
+                "category": "state-owned-company",
+                "subtype": "energy-utility",
+                "ownerClass": "state-owned",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-SEC Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-STC",
+                "slug": "Sheikha-STC",
+                "sourceNameArabic": "شركة الاتصالات السعودية",
+                "category": "semi-government-company",
+                "subtype": "telecom",
+                "ownerClass": "semi-government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-STC Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-Saudi-Post-SPL",
+                "slug": "Sheikha-Saudi-Post-SPL",
+                "sourceNameArabic": "سبل",
+                "category": "state-owned-company",
+                "subtype": "postal-logistics",
+                "ownerClass": "state-owned",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-Saudi-Post-SPL Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-KSU",
+                "slug": "Sheikha-KSU",
+                "sourceNameArabic": "جامعة الملك سعود",
+                "category": "public-university",
+                "subtype": "university",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-KSU Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-KFUPM",
+                "slug": "Sheikha-KFUPM",
+                "sourceNameArabic": "جامعة الملك فهد للبترول والمعادن",
+                "category": "public-university",
+                "subtype": "university",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-KFUPM Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-KAU",
+                "slug": "Sheikha-KAU",
+                "sourceNameArabic": "جامعة الملك عبدالعزيز",
+                "category": "public-university",
+                "subtype": "university",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-KAU Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-IAU",
+                "slug": "Sheikha-IAU",
+                "sourceNameArabic": "جامعة الإمام عبدالرحمن بن فيصل",
+                "category": "public-university",
+                "subtype": "university",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-IAU Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            },
+            {
+                "sheikhaName": "Sheikha-PNU",
+                "slug": "Sheikha-PNU",
+                "sourceNameArabic": "جامعة الأميرة نورة بنت عبدالرحمن",
+                "category": "public-university",
+                "subtype": "university",
+                "ownerClass": "government",
+                "parent": null,
+                "delegationPath": "official-authorized-chain-required",
+                "identity": {
+                    "brand": "Sheikha",
+                    "integrationTitle": "Sheikha-PNU Public Integration",
+                    "mission": "تحويل التكامل المؤسسي إلى أثر عام قابل للقياس"
+                },
+                "goals": {
+                    "shared": [
+                        {
+                            "id": "PB-001",
+                            "title": "المنفعة العامة",
+                            "kpi": "تحسين جودة الخدمات للمواطن والمقيم"
+                        },
+                        {
+                            "id": "PB-002",
+                            "title": "الكفاءة التشغيلية",
+                            "kpi": "تقليل زمن الخدمة ورفع الاعتمادية"
+                        },
+                        {
+                            "id": "PB-003",
+                            "title": "حوكمة البيانات",
+                            "kpi": "توثيق وتتبع مؤشرات الأداء بشفافية"
+                        },
+                        {
+                            "id": "PB-004",
+                            "title": "تكامل الجهات",
+                            "kpi": "تشغيل مسارات مشتركة بين الجهات"
+                        },
+                        {
+                            "id": "PB-005",
+                            "title": "استدامة الأثر",
+                            "kpi": "خطط تطوير طويلة المدى قابلة للقياس"
+                        }
+                    ],
+                    "specific": [],
+                    "sharia": {
+                        "basis": "الكتاب والسنة",
+                        "controls": [
+                            "العدل",
+                            "الأمانة",
+                            "الإحسان",
+                            "لا ضرر ولا ضرار"
+                        ]
+                    }
+                },
+                "governance": {
+                    "requiresOfficialApproval": true,
+                    "approvalNote": "أي تفعيل تشغيلي واقعي يتطلب تفويضًا نظاميًا موثقًا من الجهة المختصة."
+                }
+            }
+        ],
+        "counts": {
+            "total": 27,
+            "byCategory": {
+                "delegated-authority": 2,
+                "region-emirate": 4,
+                "ministry": 6,
+                "authority": 3,
+                "ports": 1,
+                "railways": 1,
+                "state-owned-company": 4,
+                "semi-government-company": 1,
+                "public-university": 5
+            }
+        }
+    },
+    "message": "تم بناء سجل التكامل مع الجهات العامة والكيانات المملوكة للدولة باسم شيخة",
+    "timestamp": "2026-03-21T20:11:00.603Z"
+}

@@ -1,0 +1,833 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha Mission Control</title>
+    <meta name="theme-color" content="#d4af37">
+    <link rel="apple-touch-icon" href="/icons/icon-192.svg">
+    <link rel="manifest" href="/manifest.json">
+    <style>
+        :root {
+            --bg-main: #030712;
+            --bg-card: #0b1220;
+            --border: #1f2937;
+            --text-main: #f9fafb;
+            --text-muted: #9ca3af;
+            --brand-gold: #d4af37;
+            --brand-gold-dark: #b8941f;
+            --brand-copper: #b87333;
+            --ok: #10b981;
+            --warn: #f59e0b;
+            --danger: #ef4444;
+            --info: #38bdf8;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            padding: 18px;
+            background: radial-gradient(circle at top right, #111827 0%, #030712 55%);
+            color: var(--text-main);
+            font-family: 'Tajawal', sans-serif;
+            min-height: 100vh;
+        }
+
+        .header {
+            margin: 0 0 16px;
+            padding: 18px;
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            background: linear-gradient(135deg, rgba(212, 175, 55, 0.12), rgba(184, 115, 51, 0.07));
+        }
+
+        .header h1 {
+            margin: 0 0 6px;
+            color: var(--brand-gold);
+            font-size: 1.7rem;
+        }
+
+        .header p {
+            margin: 0;
+            color: var(--text-muted);
+        }
+
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 12px;
+        }
+
+        .live-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: 10px;
+            margin-bottom: 12px;
+        }
+
+        .live-box {
+            border: 1px solid #273449;
+            background: #070f1c;
+            border-radius: 10px;
+            padding: 10px;
+        }
+
+        .live-box h3 {
+            margin: 0 0 8px;
+            font-size: 0.95rem;
+            color: var(--brand-copper);
+        }
+
+        .live-box pre {
+            min-height: 92px;
+            max-height: 180px;
+            margin: 0;
+            font-size: 0.8rem;
+        }
+
+        .box {
+            border: 1px solid var(--border);
+            background: var(--bg-card);
+            padding: 15px;
+            border-radius: 12px;
+        }
+
+        h2 {
+            margin-top: 0;
+            margin-bottom: 12px;
+            color: var(--brand-gold);
+            font-size: 1.08rem;
+        }
+
+        input, textarea {
+            width: 100%;
+            border: 1px solid #334155;
+            background: #0f172a;
+            color: var(--text-main);
+            padding: 10px;
+            border-radius: 8px;
+            margin-bottom: 8px;
+            font-family: inherit;
+        }
+
+        textarea {
+            min-height: 70px;
+            resize: vertical;
+        }
+
+        button {
+            background: var(--brand-gold);
+            border: none;
+            color: #111827;
+            padding: 10px 14px;
+            cursor: pointer;
+            border-radius: 9px;
+            font-weight: 700;
+            transition: background 0.2s ease;
+        }
+
+        button:hover {
+            background: var(--brand-gold-dark);
+        }
+
+        .quick-actions {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-bottom: 8px;
+        }
+
+        .quick-actions button {
+            background: #1f2937;
+            color: var(--text-main);
+            border: 1px solid #374151;
+            padding: 7px 10px;
+            font-size: 0.9rem;
+        }
+
+        .quick-actions button:hover {
+            background: #273548;
+        }
+
+        .status-strip {
+            margin-top: 12px;
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .badge {
+            padding: 5px 10px;
+            border-radius: 999px;
+            border: 1px solid var(--border);
+            font-size: 0.82rem;
+        }
+
+        .ok {
+            color: var(--ok);
+            border-color: rgba(16, 185, 129, 0.4);
+        }
+
+        .warn {
+            color: var(--warn);
+            border-color: rgba(245, 158, 11, 0.4);
+        }
+
+        pre {
+            margin: 10px 0 0;
+            border: 1px solid #1e293b;
+            background: #020617;
+            color: #cbd5e1;
+            border-radius: 8px;
+            padding: 10px;
+            min-height: 140px;
+            max-height: 280px;
+            overflow: auto;
+            white-space: pre-wrap;
+            word-break: break-word;
+            font-size: 0.85rem;
+            line-height: 1.4;
+        }
+
+        .full {
+            margin-top: 12px;
+        }
+
+        .toolbar {
+            display: flex;
+            gap: 8px;
+            flex-wrap: wrap;
+            margin-top: 10px;
+        }
+
+        .toolbar button {
+            background: transparent;
+            border: 1px solid #475569;
+            color: var(--text-main);
+            font-size: 0.85rem;
+            padding: 7px 10px;
+        }
+
+        .toolbar button:hover {
+            background: #1e293b;
+        }
+
+        .info {
+            color: var(--info);
+            border-color: rgba(56, 189, 248, 0.5);
+        }
+
+        @media (max-width: 640px) {
+            body {
+                padding: 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <section class="header">
+        <h1>🧠 Sheikha Creative Operating System</h1>
+        <p>Mission Control حي: لغة شيخة + بصري + Git + Orchestrator + FIO + سجل التنفيذ</p>
+        <div class="status-strip">
+            <span class="badge ok" id="visualHealthBadge">Visual: غير مفحوص</span>
+            <span class="badge warn" id="orchestratorBadge">Orchestrator: غير مفحوص</span>
+            <span class="badge info" id="realtimeBadge">Realtime: غير متصل</span>
+            <span class="badge warn" id="lastActionBadge">آخر عملية: —</span>
+        </div>
+        <div class="toolbar">
+            <button id="installAppBtn" disabled>تثبيت التطبيق</button>
+            <button onclick="enableNotifications()">تفعيل الإشعارات</button>
+            <button onclick="connectRealtime()">إعادة ربط البث</button>
+        </div>
+    </section>
+
+    <section class="live-grid">
+        <div class="live-box">
+            <h3>حالة البث الحي</h3>
+            <pre id="liveRealtimeStatus">بانتظار الاتصال...</pre>
+        </div>
+        <div class="live-box">
+            <h3>آخر Visual Jobs</h3>
+            <pre id="liveVisualJobs">لا توجد بيانات بعد.</pre>
+        </div>
+        <div class="live-box">
+            <h3>آخر قرارات Orchestrator</h3>
+            <pre id="liveOrchestratorDecisions">لا توجد قرارات بعد.</pre>
+        </div>
+        <div class="live-box">
+            <h3>أوامر لغة شيخة المنفذة</h3>
+            <pre id="liveSheikhaCommands">لا توجد أوامر منفذة بعد.</pre>
+        </div>
+        <div class="live-box">
+            <h3>سير الـ Pipeline الحي</h3>
+            <pre id="livePipelineFlow">لا توجد مراحل بعد.</pre>
+        </div>
+        <div class="live-box">
+            <h3>حالة الـ Jobs</h3>
+            <pre id="liveJobStatus">لا توجد وظائف بعد.</pre>
+        </div>
+    </section>
+
+    <section class="grid">
+        <div class="box">
+            <h2>🔤 لغة شيخة</h2>
+            <div class="quick-actions">
+                <button onclick="fillCommand('أنشئ صورة هوية تقنية')">أمر: صورة هوية</button>
+                <button onclick="fillCommand('شغّل التنفيذ التلقائي')">أمر: تنفيذ تلقائي</button>
+                <button onclick="fillCommand('أنشئ ملفًا في GitHub')">أمر: ملف GitHub</button>
+            </div>
+            <textarea id="command" placeholder="اكتب أمر لغة شيخة..."></textarea>
+            <button onclick="runCommand()">تنفيذ</button>
+            <pre id="cmdResult">سيظهر ناتج تنفيذ أمر لغة شيخة هنا...</pre>
+        </div>
+
+        <div class="box">
+            <h2>🎨 المحرك البصري</h2>
+            <input id="visualPrompt" placeholder="وصف الصورة (مثال: هوية تقنية متقدمة لسوق شيخة)">
+            <div class="toolbar">
+                <button onclick="generateVisual()">توليد صورة</button>
+                <button onclick="generateVideo()">توليد فيديو</button>
+                <button onclick="loadJobs()">عرض آخر jobs</button>
+            </div>
+            <pre id="visualResult">سيظهر ناتج التوليد البصري هنا...</pre>
+        </div>
+
+        <div class="box">
+            <h2>🧠 Orchestrator</h2>
+            <div class="toolbar">
+                <button onclick="loadState()">تحديث</button>
+                <button onclick="runAutoExecution()">تشغيل auto execution</button>
+            </div>
+            <pre id="state">سيظهر هنا وضع orchestrator الحالي...</pre>
+        </div>
+
+        <div class="box">
+            <h2>🧾 GitHub</h2>
+            <input id="filePath" placeholder="مسار الملف (مثال: README.md أو docs/x.md)">
+            <div class="toolbar">
+                <button onclick="readFile()">قراءة</button>
+                <button onclick="createGitFile()">إنشاء ملف في GitHub</button>
+            </div>
+            <pre id="git">سيظهر هنا ناتج قراءة الملف من GitHub API...</pre>
+        </div>
+
+        <div class="box">
+            <h2>⚙️ FIO</h2>
+            <div class="toolbar">
+                <button onclick="runFioBenchmark()">benchmark FIO</button>
+                <button onclick="readFioStatus()">حالة FIO</button>
+            </div>
+            <pre id="fio">سيظهر هنا قياس FIO والحالة.</pre>
+        </div>
+
+        <div class="box">
+            <h2>📡 البث الحي</h2>
+            <div class="toolbar">
+                <button onclick="loadRealtimeRecent()">آخر أحداث البث</button>
+                <button onclick="clearExecutionLog()">تنظيف السجل</button>
+            </div>
+            <pre id="realtimeEvents">قناة البث بانتظار الاتصال...</pre>
+        </div>
+    </section>
+
+    <section class="box full">
+        <h2>📚 مكتبة المحرك البصري</h2>
+        <button onclick="loadVisualLibrary()">تحديث المكتبة</button>
+        <pre id="library">سيظهر هنا محتوى مكتبة الأصول البصرية...</pre>
+    </section>
+
+    <section class="box full">
+        <h2>🗂️ سجل التنفيذ الحي</h2>
+        <pre id="executionLog">السجل جاهز لاستقبال الأحداث...</pre>
+    </section>
+
+    <section class="box full">
+        <h2>🎬 آخر مهام الصور والفيديو</h2>
+        <pre id="jobs">سيظهر هنا آخر jobs من visual/video.</pre>
+    </section>
+
+    <script>
+        let eventSource = null;
+        let deferredInstallPrompt = null;
+        const liveState = {
+            visualJobs: [],
+            orchestratorDecisions: [],
+            sheikhaCommands: [],
+            pipelineFlow: [],
+            jobStatus: [],
+            lastChannel: '—',
+            connected: false,
+            clients: null
+        };
+
+        function renderLivePre(targetId, rows, fallback) {
+            const text = rows && rows.length > 0 ? rows.join('\n') : fallback;
+            document.getElementById(targetId).innerText = text;
+        }
+
+        function pushLiveEntry(bucketName, value, limit = 12) {
+            const list = liveState[bucketName];
+            list.unshift(value);
+            if (list.length > limit) {
+                list.length = limit;
+            }
+        }
+
+        function renderLivePanels() {
+            renderLivePre('liveVisualJobs', liveState.visualJobs, 'لا توجد بيانات بعد.');
+            renderLivePre('liveOrchestratorDecisions', liveState.orchestratorDecisions, 'لا توجد قرارات بعد.');
+            renderLivePre('liveSheikhaCommands', liveState.sheikhaCommands, 'لا توجد أوامر منفذة بعد.');
+            renderLivePre('livePipelineFlow', liveState.pipelineFlow, 'لا توجد مراحل بعد.');
+            renderLivePre('liveJobStatus', liveState.jobStatus, 'لا توجد وظائف بعد.');
+
+            const now = new Date().toLocaleTimeString('ar-SA');
+            const statusRows = [
+                `connection: ${liveState.connected ? 'connected' : 'disconnected'}`,
+                `lastChannel: ${liveState.lastChannel}`,
+                `clients: ${liveState.clients === null ? '—' : liveState.clients}`,
+                `updatedAt: ${now}`
+            ];
+            renderLivePre('liveRealtimeStatus', statusRows, 'بانتظار الاتصال...');
+        }
+
+        async function refreshRealtimeHealth() {
+            try {
+                const res = await fetch('/api/realtime/health');
+                const data = await res.json();
+                if (data && data.success && data.data) {
+                    liveState.clients = data.data.clients;
+                    renderLivePanels();
+                }
+            } catch (error) {
+                console.warn('realtime health polling failed', error.message);
+            }
+        }
+
+        function hydrateLivePanelsFromEvent(evt) {
+            if (!evt || !evt.channel) {
+                return;
+            }
+
+            liveState.lastChannel = evt.channel;
+            const payload = evt.payload || {};
+            const stamp = new Date(evt.timestamp || Date.now()).toLocaleTimeString('ar-SA');
+
+            if (evt.channel.startsWith('visual.job.')) {
+                const jobId = payload.jobId || payload.id || '-';
+                const status = payload.status || (evt.channel.endsWith('.completed') ? 'completed' : 'created');
+                pushLiveEntry('visualJobs', `[${stamp}] ${status} :: ${jobId}`);
+            }
+
+            if (evt.channel === 'orchestrator.mode.changed') {
+                const mode = payload.mode || payload.currentMode || '-';
+                const reason = payload.reason || payload.decision || '-';
+                pushLiveEntry('orchestratorDecisions', `[${stamp}] ${mode} :: ${reason}`);
+            }
+
+            if (evt.channel === 'sheikha.command.executed') {
+                const cmd = payload.command || payload.input || '-';
+                pushLiveEntry('sheikhaCommands', `[${stamp}] ${cmd}`);
+            }
+
+            if (evt.channel === 'sheikha.pipeline.completed') {
+                const command = payload.command || '-';
+                const stage = payload.stage || '-';
+                const target = payload.payload?.target || '-';
+                pushLiveEntry('pipelineFlow', `[${stamp}] ${stage} :: ${target} :: ${command}`);
+            }
+
+            if (evt.channel.startsWith('job.')) {
+                const jobId = payload.jobId || '-';
+                const status = payload.status || evt.channel.replace('job.', '');
+                const detail = payload.error || payload.type || '-';
+                pushLiveEntry('jobStatus', `[${stamp}] ${status} :: ${jobId} :: ${detail}`);
+            }
+
+            renderLivePanels();
+        }
+
+        function setLastAction(text) {
+            document.getElementById('lastActionBadge').innerText = `آخر عملية: ${text}`;
+        }
+
+        function setPretty(targetId, data) {
+            document.getElementById(targetId).innerText = JSON.stringify(data, null, 2);
+        }
+
+        function fillCommand(value) {
+            document.getElementById('command').value = value;
+        }
+
+        function appendExecutionLog(entry) {
+            const el = document.getElementById('executionLog');
+            const now = new Date().toLocaleTimeString('ar-SA');
+            const existing = el.innerText.split('\n').filter(Boolean);
+            const next = [`[${now}] ${entry}`, ...existing].slice(0, 80);
+            el.innerText = next.join('\n');
+        }
+
+        function clearExecutionLog() {
+            document.getElementById('executionLog').innerText = 'تم تنظيف السجل.';
+        }
+
+        function updateRealtimeBadge(status, isOk = false) {
+            const badge = document.getElementById('realtimeBadge');
+            badge.innerText = `Realtime: ${status}`;
+            badge.className = isOk ? 'badge ok' : 'badge warn';
+        }
+
+        function handleRealtimeEvent(evt) {
+            const channel = evt.channel || 'unknown';
+            hydrateLivePanelsFromEvent(evt);
+            appendExecutionLog(`${channel} :: ${JSON.stringify(evt.payload || {})}`);
+
+            if (channel === 'visual.job.created' || channel === 'visual.job.completed') {
+                loadJobs();
+            }
+
+            if (channel === 'orchestrator.mode.changed') {
+                loadState();
+            }
+
+            if (channel === 'git.file.created' || channel === 'git.file.updated') {
+                appendExecutionLog('تم تحديث حالة Git live');
+            }
+
+            if (channel === 'fio.benchmark.completed') {
+                setPretty('fio', evt.payload || {});
+            }
+
+            if (channel === 'sheikha.command.executed') {
+                appendExecutionLog(`تم تنفيذ أمر: ${(evt.payload || {}).command || '-'}`);
+            }
+
+            if (channel === 'sheikha.pipeline.completed') {
+                appendExecutionLog('تم تحديث مسار pipeline الحي');
+            }
+
+            if (channel.startsWith('job.')) {
+                loadJobs();
+            }
+        }
+
+        function connectRealtime() {
+            if (eventSource) {
+                eventSource.close();
+            }
+
+            eventSource = new EventSource('/api/realtime/stream');
+
+            eventSource.onopen = () => {
+                liveState.connected = true;
+                updateRealtimeBadge('متصل', true);
+                appendExecutionLog('تم الاتصال بقناة البث الحي.');
+                renderLivePanels();
+            };
+
+            eventSource.onerror = () => {
+                liveState.connected = false;
+                updateRealtimeBadge('انقطاع', false);
+                renderLivePanels();
+            };
+
+            eventSource.onmessage = (event) => {
+                try {
+                    const data = JSON.parse(event.data);
+                    if (data && (data.channel || data.type)) {
+                        handleRealtimeEvent({
+                            channel: data.channel || data.type,
+                            payload: data.payload || {},
+                            timestamp: data.timestamp,
+                            id: data.id
+                        });
+                    }
+
+                    if ((data.channel || data.type) === 'system.ready') {
+                        setPretty('realtimeEvents', data);
+                    }
+                } catch (error) {
+                    console.error('realtime event parse error', error);
+                }
+            };
+        }
+
+        async function runCommand() {
+            const cmd = document.getElementById('command').value.trim();
+            if (!cmd) {
+                setPretty('cmdResult', { ok: false, message: 'اكتب أمرًا أولاً' });
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/sheikha-code/command', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ command: cmd })
+                });
+
+                const data = await res.json();
+                setPretty('cmdResult', data);
+                setLastAction(`أمر لغة شيخة: ${cmd}`);
+                appendExecutionLog(`أمر شيخة نُفّذ: ${cmd}`);
+            } catch (error) {
+                setPretty('cmdResult', { ok: false, message: error.message });
+            }
+        }
+
+        async function generateVisual() {
+            const prompt = document.getElementById('visualPrompt').value.trim();
+            if (!prompt) {
+                setPretty('visualResult', { success: false, message: 'اكتب وصفًا بصريًا أولاً' });
+                return;
+            }
+
+            try {
+                const res = await fetch('/api/visual/generate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ prompt, type: 'image' })
+                });
+
+                const data = await res.json();
+                setPretty('visualResult', data);
+                setLastAction(`توليد بصري: ${prompt}`);
+                await loadVisualLibrary();
+                await loadJobs();
+            } catch (error) {
+                setPretty('visualResult', { success: false, message: error.message });
+            }
+        }
+
+        async function generateVideo() {
+            const prompt = document.getElementById('visualPrompt').value.trim() || 'فيديو تعريفي لمنظومة شيخة';
+
+            try {
+                const res = await fetch('/api/video/render', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        type: 'intro',
+                        duration: '30s',
+                        scenes: 5,
+                        music: 'background',
+                        script: prompt
+                    })
+                });
+                const data = await res.json();
+                setPretty('visualResult', data);
+                setLastAction('توليد فيديو');
+                await loadJobs();
+            } catch (error) {
+                setPretty('visualResult', { success: false, message: error.message });
+            }
+        }
+
+        async function loadState() {
+            try {
+                const res = await fetch('/api/execution-orchestrator/state');
+                const data = await res.json();
+                setPretty('state', data);
+                setLastAction('تحديث حالة النظام');
+
+                document.getElementById('orchestratorBadge').innerText = 'Orchestrator: متاح';
+                document.getElementById('orchestratorBadge').className = 'badge ok';
+            } catch (error) {
+                setPretty('state', { ok: false, message: error.message });
+                document.getElementById('orchestratorBadge').innerText = 'Orchestrator: خطأ';
+                document.getElementById('orchestratorBadge').className = 'badge warn';
+            }
+        }
+
+        async function runAutoExecution() {
+            try {
+                const res = await fetch('/api/execution-orchestrator/auto', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({})
+                });
+                const data = await res.json();
+                setPretty('state', data);
+                setLastAction('تشغيل auto execution');
+            } catch (error) {
+                setPretty('state', { ok: false, message: error.message });
+            }
+        }
+
+        async function readFile() {
+            const filePath = document.getElementById('filePath').value.trim();
+            if (!filePath) {
+                setPretty('git', { ok: false, message: 'اكتب مسار الملف أولاً' });
+                return;
+            }
+
+            try {
+                const res = await fetch(`/api/git/file?path=${encodeURIComponent(filePath)}`);
+                const data = await res.json();
+                setPretty('git', data);
+                setLastAction(`قراءة ملف GitHub: ${filePath}`);
+            } catch (error) {
+                setPretty('git', { ok: false, message: error.message });
+            }
+        }
+
+        async function createGitFile() {
+            const filePath = document.getElementById('filePath').value.trim() || `docs/sheikha-live-${Date.now()}.md`;
+            try {
+                const res = await fetch('/api/git/create-file', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        path: filePath,
+                        content: `# Sheikha Live\n\nGenerated at ${new Date().toISOString()}`,
+                        message: 'إنشاء ملف تلقائي من لوحة Mission Control'
+                    })
+                });
+                const data = await res.json();
+                setPretty('git', data);
+                setLastAction(`إنشاء ملف: ${filePath}`);
+            } catch (error) {
+                setPretty('git', { ok: false, message: error.message });
+            }
+        }
+
+        async function runFioBenchmark() {
+            try {
+                const res = await fetch('/api/realtime/benchmark/fio', {
+                    method: 'POST'
+                });
+                const data = await res.json();
+                setPretty('fio', data);
+                setLastAction('benchmark FIO');
+            } catch (error) {
+                setPretty('fio', { ok: false, message: error.message });
+            }
+        }
+
+        async function readFioStatus() {
+            try {
+                const res = await fetch('/api/neural/fio/status');
+                const data = await res.json();
+                setPretty('fio', data);
+                setLastAction('قراءة حالة FIO');
+            } catch (error) {
+                setPretty('fio', { ok: false, message: error.message });
+            }
+        }
+
+        async function loadVisualLibrary() {
+            try {
+                const res = await fetch('/api/visual/library');
+                const data = await res.json();
+                setPretty('library', data);
+            } catch (error) {
+                setPretty('library', { success: false, message: error.message });
+            }
+        }
+
+        async function loadJobs() {
+            try {
+                const [visualRes, videoRes] = await Promise.all([
+                    fetch('/api/visual/jobs'),
+                    fetch('/api/video/jobs')
+                ]);
+                const visualData = await visualRes.json();
+                const videoData = await videoRes.json();
+
+                setPretty('jobs', {
+                    visual: visualData.data || {},
+                    video: videoData.data || {},
+                    timestamp: new Date().toISOString()
+                });
+            } catch (error) {
+                setPretty('jobs', { ok: false, message: error.message });
+            }
+        }
+
+        async function loadRealtimeRecent() {
+            try {
+                const res = await fetch('/api/realtime/recent?limit=20');
+                const data = await res.json();
+                setPretty('realtimeEvents', data);
+
+                const events = ((data || {}).data || {}).events || [];
+                events.slice().reverse().forEach((evt) => hydrateLivePanelsFromEvent(evt));
+            } catch (error) {
+                setPretty('realtimeEvents', { ok: false, message: error.message });
+            }
+        }
+
+        async function registerPwa() {
+            if (!('serviceWorker' in navigator)) {
+                return;
+            }
+
+            try {
+                await navigator.serviceWorker.register('/sw-unified.js');
+                appendExecutionLog('تم تسجيل Service Worker للوحة الموحدة.');
+            } catch (error) {
+                appendExecutionLog(`فشل تسجيل Service Worker: ${error.message}`);
+            }
+        }
+
+        async function enableNotifications() {
+            if (!('Notification' in globalThis)) {
+                appendExecutionLog('المتصفح لا يدعم الإشعارات.');
+                return;
+            }
+
+            const result = await Notification.requestPermission();
+            appendExecutionLog(`حالة الإشعارات: ${result}`);
+        }
+
+        globalThis.addEventListener('beforeinstallprompt', (event) => {
+            event.preventDefault();
+            deferredInstallPrompt = event;
+            const installBtn = document.getElementById('installAppBtn');
+            installBtn.disabled = false;
+        });
+
+        document.getElementById('installAppBtn').addEventListener('click', async () => {
+            if (!deferredInstallPrompt) {
+                return;
+            }
+            deferredInstallPrompt.prompt();
+            await deferredInstallPrompt.userChoice;
+            deferredInstallPrompt = null;
+            document.getElementById('installAppBtn').disabled = true;
+        });
+
+        async function refreshHealth() {
+            try {
+                const res = await fetch('/api/visual/health');
+                const data = await res.json();
+                if (data && data.success) {
+                    document.getElementById('visualHealthBadge').innerText = `Visual: ${data.data.status}`;
+                    document.getElementById('visualHealthBadge').className = 'badge ok';
+                } else {
+                    document.getElementById('visualHealthBadge').innerText = 'Visual: غير متاح';
+                    document.getElementById('visualHealthBadge').className = 'badge warn';
+                }
+            } catch (error) {
+                console.error('visual health failed', error);
+                document.getElementById('visualHealthBadge').innerText = 'Visual: خطأ';
+                document.getElementById('visualHealthBadge').className = 'badge warn';
+            }
+        }
+
+        (async function boot() {
+            await registerPwa();
+            await refreshHealth();
+            await refreshRealtimeHealth();
+            await loadState();
+            await loadVisualLibrary();
+            await loadJobs();
+            await loadRealtimeRecent();
+            connectRealtime();
+            setInterval(refreshRealtimeHealth, 20000);
+        })();
+    </script>
+</body>
+</html>

@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sheikha MCP</title>
+    <style>
+        :root { --bg:#08111f; --panel:#101d35; --line:#233a66; --text:#ecf2ff; --muted:#a5b7de; --gold:#d4af37; --green:#50e3a4; }
+        body { margin:0; font-family:'Tajawal', sans-serif; background:linear-gradient(180deg,#08111f,#070d19); color:var(--text); }
+        .wrap { max-width:1080px; margin:0 auto; padding:28px 16px 56px; }
+        .panel { border:1px solid var(--line); border-radius:16px; padding:18px; background:var(--panel); }
+        h1 { margin-top:0; color:var(--gold); }
+        .muted { color:var(--muted); line-height:1.9; }
+        .nodes { display:grid; grid-template-columns:repeat(auto-fit,minmax(170px,1fr)); gap:10px; margin-top:12px; }
+        .node { border:1px solid var(--line); border-radius:10px; padding:10px; background:#0a1630; }
+        .ok { color:var(--green); }
+        pre { direction:ltr; text-align:left; white-space:pre-wrap; background:#0a1630; border:1px solid var(--line); border-radius:12px; padding:12px; }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="panel">
+            <h1>مركز MCP الموحد</h1>
+            <p class="muted">عرض حي لحالة الربط بين الأدوات والخدمات والتنفيذ عبر مسارات Git وOrchestrator.</p>
+            <div class="nodes">
+                <div class="node"><b>Nodes Map</b><div class="muted">SDK, IDE, CLI, Market</div></div>
+                <div class="node"><b>Tools Registry</b><div class="muted">Git + Orchestrator APIs</div></div>
+                <div class="node"><b>Health State</b><div id="health" class="ok">Checking...</div></div>
+                <div class="node"><b>Execution Stream</b><div class="muted">آخر أحداث التشغيل</div></div>
+            </div>
+            <h3>Git Health</h3>
+            <pre id="gitBox">Loading...</pre>
+        </section>
+    </main>
+    <script>
+        (async function boot() {
+            try {
+                const res = await fetch('/api/git/health');
+                const data = await res.json();
+                document.getElementById('health').textContent = data.success ? 'UP' : 'DOWN';
+                document.getElementById('gitBox').textContent = JSON.stringify(data, null, 2);
+            } catch (error) {
+                document.getElementById('health').textContent = 'ERROR';
+                document.getElementById('gitBox').textContent = error.message;
+            }
+        }());
+    </script>
+</body>
+</html>

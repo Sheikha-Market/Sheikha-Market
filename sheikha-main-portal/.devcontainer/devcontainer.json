@@ -1,9 +1,8 @@
 {
     "name": "Sheikha Dev",
-    "build": {
-        "dockerfile": "Dockerfile",
-        "context": ".."
-    },
+    "dockerComposeFile": "docker-compose.yml",
+    "service": "app",
+    "workspaceFolder": "/workspace",
     "customizations": {
         "vscode": {
             "extensions": [

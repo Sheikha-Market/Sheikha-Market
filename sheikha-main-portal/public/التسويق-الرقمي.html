@@ -190,6 +190,10 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--txt);min-
   <a class="sb-link" onclick="show('materials')"><span class="icon">📁</span> مكتبة المواد</a>
   <a class="sb-link" onclick="show('seo')"><span class="icon">🔍</span> SEO + تحليلات</a>
 
+  <div class="sb-group">الأسواق الإسلامية</div>
+  <a class="sb-link" onclick="show('islamic_markets')"><span class="icon">🌐</span> الأسواق الإسلامية الكونية</a>
+  <a class="sb-link" href="/الأسواق-الإسلامية-الكونية.html"><span class="icon">🕌</span> صفحة الأسواق الكاملة</a>
+
   <div class="sb-group">روابط</div>
   <a class="sb-link" href="/لوحة-الادمن.html"><span class="icon">⚙️</span> لوحة الأدمن</a>
   <a class="sb-link" href="/سوق-شيخة.html"><span class="icon">🏪</span> السوق</a>
@@ -468,6 +472,27 @@ body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--txt);min-
   </div>
 </div>
 
+<div id="sec-islamic_markets" class="section">
+  <div class="sec-head"><div class="sec-title">🌐 الأسواق الإسلامية الكونية — من آدم إلى شيخة</div></div>
+  <div class="card" style="margin-bottom:16px;background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(184,115,51,.04));border-color:var(--gold-l)">
+    <div style="text-align:center;padding:8px 0;">
+      <div style="font-size:1.1rem;color:var(--gold);font-weight:700;margin-bottom:4px;">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾</div>
+      <div style="font-size:.85rem;color:var(--txt3);">«هذا سوقكم فلا يضيق عليكم ولا يُؤخذ منكم فيه خَراج» — النبي ﷺ</div>
+    </div>
+  </div>
+  <div class="grid grid-3" id="im-stats" style="margin-bottom:16px;">
+    <div class="card" style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);font-weight:900" id="im-s1">—</div><div style="font-size:.75rem;color:var(--txt3)">سوق الأنبياء</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);font-weight:900" id="im-s2">—</div><div style="font-size:.75rem;color:var(--txt3)">الخلفاء الراشدون</div></div>
+    <div class="card" style="text-align:center"><div style="font-size:1.6rem;color:var(--gold);font-weight:900" id="im-s3">—</div><div style="font-size:.75rem;color:var(--txt3)">إجمالي مرقمن</div></div>
+  </div>
+  <div class="grid grid-2" id="im-cards">
+    <div style="text-align:center;padding:30px;color:var(--txt3);grid-column:1/-1">جاري تحميل الأسواق...</div>
+  </div>
+  <div style="text-align:center;margin-top:16px;">
+    <a href="/الأسواق-الإسلامية-الكونية.html" style="display:inline-flex;align-items:center;gap:6px;padding:10px 24px;background:var(--gold);border-radius:8px;color:#000;font-weight:700;text-decoration:none;font-size:.9rem;">🌐 استكشاف الصفحة الكاملة للأسواق الإسلامية</a>
+  </div>
+</div>
+
 </div><!-- main -->
 
 <!-- MODALS -->
@@ -513,6 +538,7 @@ function show(id){
   if(id==='channels')loadChannels();
   if(id==='materials')loadMaterials();
   if(id==='calendar')loadCalendar();
+  if(id==='islamic_markets')loadIslamicMarkets();
 }
 
 async function refreshDashboard(){
@@ -633,6 +659,35 @@ async function setupCalendar(){
 function openModal(id){document.getElementById('modal-'+id).classList.add('show');}
 function closeModals(){document.querySelectorAll('.modal-bg').forEach(m=>m.classList.remove('show'));}
 document.querySelectorAll('.checkbox-item').forEach(i=>i.addEventListener('click',()=>i.classList.toggle('selected')));
+
+// الأسواق الإسلامية الكونية — تحميل البيانات
+let _imLoaded = false;
+async function loadIslamicMarkets() {
+  if (_imLoaded) return;
+  try {
+    const [stats, prophets, rashideen] = await Promise.all([
+      fetch('/api/islamic-markets/stats').then(r=>r.json()),
+      fetch('/api/islamic-markets/prophets').then(r=>r.json()),
+      fetch('/api/islamic-markets/rashideen').then(r=>r.json()),
+    ]);
+    const s = stats.data || {};
+    document.getElementById('im-s1').textContent = s.prophets_markets || '—';
+    document.getElementById('im-s2').textContent = s.rashideen_expansion || '—';
+    document.getElementById('im-s3').textContent = s.total_markets_digitized || '—';
+
+    const allCards = [...(prophets.data||[]), ...(rashideen.data||[])].slice(0,6);
+    document.getElementById('im-cards').innerHTML = allCards.map(m=>`
+      <div style="background:rgba(212,175,55,.04);border:1px solid rgba(212,175,55,.15);border-radius:10px;padding:14px;">
+        <div style="font-size:1.4rem;margin-bottom:4px;">${m.icon||'🏪'}</div>
+        <div style="font-weight:700;font-size:.9rem;color:var(--gold);">${m.name||m.caliph||m.era||'—'}</div>
+        <div style="font-size:.75rem;color:var(--txt3);margin-top:4px;">${m.principle||m.contribution||m.era||''}</div>
+        ${m.verse?`<div style="margin-top:6px;font-size:.75rem;color:var(--gold-l);font-style:italic;">${m.verse}</div>`:''}
+      </div>`).join('');
+    _imLoaded = true;
+  } catch(e) {
+    document.getElementById('im-cards').innerHTML = '<div style="color:var(--txt3);grid-column:1/-1;text-align:center;padding:20px;">تأكد من تشغيل الخادم</div>';
+  }
+}
 
 window.addEventListener('DOMContentLoaded',()=>{refreshDashboard();loadChannels();loadMaterials();});
 </script>

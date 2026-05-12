@@ -1,0 +1,28 @@
+sequenceDiagram
+    participant U as User
+    participant E as Edge/CDN
+    participant G as API Gateway
+    participant A as App Core
+    participant C as Cache
+    participant D as Database
+    participant Q as Queue
+    participant W as Worker
+
+    U->>E: HTTP request
+    E->>G: Forward filtered request
+    G->>A: Authenticated request
+    A->>C: Read hot key
+    alt Cache hit
+        C-->>A: Cached response
+    else Cache miss
+        A->>D: Query transactional data
+        D-->>A: Data
+        A->>C: Refresh cache
+    end
+    A-->>G: API response
+    G-->>E: Response
+    E-->>U: Final response
+
+    A->>Q: Emit async job
+    Q->>W: Deliver job
+    W->>D: Persist job result

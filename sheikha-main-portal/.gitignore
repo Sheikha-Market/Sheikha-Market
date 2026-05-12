@@ -24,6 +24,8 @@ credentials/
 data/*.bak
 data/*.tmp
 data/monitor-state.json
+data/finance-ledger.json
+data/backups/finance/
 
 # Build
 dist/
@@ -34,3 +36,75 @@ build/
 .cursor/
 .vscode/
 *.swp
+
+# Runtime investment reports
+# =========================================
+# Sheikha Runtime Reports
+# =========================================
+
+# state investments — runtime only
+reports/state-investments/*.json
+!reports/state-investments/*latest.json
+!reports/state-investments/.gitkeep
+
+# education — runtime only
+reports/education/*.json
+!reports/education/*latest.json
+
+# academy connectors — runtime only
+reports/servers/academy-connectors/*.json
+!reports/servers/academy-connectors/*latest.json
+
+# IP/architecture reports — runtime only
+reports/ip/
+reports/architecture/
+
+# operations/organization runtime snapshots
+reports/operations/kpi-snapshots/*.json
+!reports/operations/kpi-snapshots/*latest.json
+reports/organization/neural-flow-quality-comparison-*.json
+!reports/organization/*latest.json
+
+# =========================================
+# Server Backup Files (لا تُرفع في git)
+# =========================================
+server.js.backup*
+
+# Archive/Backup bundles
+backups/*.tar.gz
+backups/*.sha256
+*.tar.gz
+*.zip
+
+# Runtime/deploy generated folders
+runtime/
+deploy/
+
+# Temporary save copies
+*.save
+*.save.*
+
+/var/sheikha/
+/tmp/sheikha/
+.vercel
+.env*.local
+.venv/
+.checkpoints/
+runtime/backups/
+logs/
+*.ndjson
+*.tar.gz
+*.zip
+
+repos/git-sheikha/sheikha-git-automation/
+
+# Sheikha Governance
+data/*.json
+data/**/*.json
+data/**/*.ndjson
+
+reports/**/sheikha-*-latest.json
+
+# Runtime
+node_modules/
+.env

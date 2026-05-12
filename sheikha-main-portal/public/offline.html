@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1.0">
+    <title>وضع بلا إنترنت | شيخة</title>
+    <meta name="theme-color" content="#D4AF37">
+    <style>
+        :root {
+            --bg: #050810;
+            --card: #0f172a;
+            --gold: #D4AF37;
+            --copper: #B87333;
+            --text: #f8fafc;
+            --muted: #94a3b8;
+            --ok: #22c55e;
+            --warn: #f59e0b;
+        }
+
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            min-height: 100vh;
+            font-family: 'Tajawal', sans-serif;
+            color: var(--text);
+            background:
+                radial-gradient(circle at 15% 20%, rgba(212,175,55,0.10), transparent 45%),
+                radial-gradient(circle at 85% 80%, rgba(184,115,51,0.14), transparent 48%),
+                var(--bg);
+            display: grid;
+            place-items: center;
+            padding: 1.2rem;
+        }
+
+        .card {
+            width: min(760px, 96vw);
+            border: 1px solid rgba(212,175,55,0.25);
+            background: linear-gradient(165deg, rgba(15,23,42,0.96), rgba(2,6,23,0.96));
+            border-radius: 18px;
+            padding: 1.4rem;
+            box-shadow: 0 24px 70px rgba(0,0,0,0.5);
+        }
+
+        h1 {
+            margin: 0;
+            font-size: clamp(1.3rem, 2vw, 2rem);
+            color: var(--gold);
+        }
+
+        p {
+            margin: .7rem 0;
+            color: var(--muted);
+            line-height: 1.8;
+        }
+
+        .row {
+            display: flex;
+            flex-wrap: wrap;
+            gap: .8rem;
+            align-items: center;
+            justify-content: space-between;
+            margin-top: 1rem;
+            padding: .8rem;
+            border-radius: 12px;
+            background: rgba(2,6,23,.65);
+            border: 1px solid rgba(148,163,184,.2);
+        }
+
+        .status {
+            font-weight: 800;
+            color: var(--warn);
+        }
+
+        .status.online {
+            color: var(--ok);
+        }
+
+        .cache-list {
+            margin-top: 1rem;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+            gap: .65rem;
+        }
+
+        .cache-item {
+            border: 1px solid rgba(148,163,184,.18);
+            background: rgba(15,23,42,.6);
+            border-radius: 10px;
+            padding: .7rem;
+            color: var(--muted);
+            font-size: .9rem;
+        }
+
+        .actions {
+            margin-top: 1rem;
+            display: flex;
+            flex-wrap: wrap;
+            gap: .65rem;
+        }
+
+        .btn {
+            border: 1px solid rgba(212,175,55,.45);
+            background: rgba(212,175,55,.1);
+            color: var(--gold);
+            border-radius: 10px;
+            padding: .56rem .95rem;
+            font-weight: 700;
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .btn.primary {
+            background: linear-gradient(135deg, var(--gold), var(--copper));
+            color: #111827;
+            border: none;
+        }
+
+        .ayah {
+            margin-top: 1rem;
+            padding-top: .9rem;
+            border-top: 1px dashed rgba(148,163,184,.28);
+            color: #e2e8f0;
+            line-height: 2;
+            font-size: .96rem;
+        }
+    </style>
+</head>
+<body>
+    <main class="card" aria-live="polite">
+        <h1>وضع بلا إنترنت</h1>
+        <p>الاتصال بالشبكة غير متاح حاليًا. تم حفظ العمليات محليًا وسيتم إرسالها تلقائيًا عند عودة الاتصال.</p>
+
+        <section class="row">
+            <div>حالة الاتصال:</div>
+            <div id="networkStatus" class="status">🔴 غير متصل</div>
+        </section>
+
+        <section class="cache-list" id="cacheList"></section>
+
+        <section class="actions">
+            <button class="btn primary" id="retryBtn">🔄 إعادة المحاولة</button>
+            <a class="btn" href="/">🏠 الصفحة الرئيسية</a>
+        </section>
+
+        <section class="ayah">
+            ﴿ وَمَنْ يَتَّقِ اللَّهَ يَجْعَلْ لَهُ مَخْرَجًا ۝ وَيَرْزُقْهُ مِنْ حَيْثُ لَا يَحْتَسِبُ ﴾
+            <br>
+            <small style="color:#94a3b8">سورة الطلاق: 2-3</small>
+        </section>
+    </main>
+
+    <script>
+        (function() {
+            const statusEl = document.getElementById('networkStatus');
+            const cacheListEl = document.getElementById('cacheList');
+            const retryBtn = document.getElementById('retryBtn');
+
+            function updateNetworkStatus() {
+                const online = navigator.onLine;
+                statusEl.classList.toggle('online', online);
+                statusEl.textContent = online ? '🟢 متصل' : '🔴 غير متصل';
+
+                if (online) {
+                    window.location.href = '/';
+                }
+            }
+
+            async function loadCaches() {
+                if (!('caches' in window)) {
+                    cacheListEl.innerHTML = '<div class="cache-item">المتصفح لا يدعم Cache API.</div>';
+                    return;
+                }
+
+                const keys = await caches.keys();
+                if (!keys.length) {
+                    cacheListEl.innerHTML = '<div class="cache-item">لا توجد نسخ مخبأة حاليًا.</div>';
+                    return;
+                }
+
+                cacheListEl.innerHTML = keys.map((key) => (
+                    '<div class="cache-item">📦 ' + key + '</div>'
+                )).join('');
+            }
+
+            retryBtn.addEventListener('click', () => {
+                if (navigator.onLine) {
+                    window.location.href = '/';
+                    return;
+                }
+                location.reload();
+            });
+
+            window.addEventListener('online', updateNetworkStatus);
+            window.addEventListener('offline', updateNetworkStatus);
+
+            updateNetworkStatus();
+            loadCaches().catch(() => {
+                cacheListEl.innerHTML = '<div class="cache-item">تعذّر قراءة الكاش.</div>';
+            });
+        })();
+    </script>
+</body>
+</html>

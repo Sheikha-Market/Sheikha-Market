@@ -1,0 +1,149 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-03-27T23:40:02.626Z",
+  "monitorIdentity": {
+    "name": "Sheikha Ummah Market Monitor",
+    "mission": "رقمنة ومراقبة المؤتمرات والمنتديات واللقاءات الاقتصادية والتجارية محليا وعالميا",
+    "governanceReference": "الكتاب والسنة — العدل ومنع الظلم والفساد"
+  },
+  "taxonomy": {
+    "eventTypes": [
+      "conference",
+      "forum",
+      "summit",
+      "meeting",
+      "roundtable"
+    ],
+    "scopes": [
+      "local",
+      "regional",
+      "global"
+    ],
+    "trackingSignals": [
+      "inflation",
+      "conflicts",
+      "political-negotiations",
+      "supply-shocks",
+      "trade-agreements"
+    ]
+  },
+  "timeline": {
+    "historicalCoverage": "منذ عهد الأنبياء إلى العصر الحديث",
+    "propheticTradeNote": "رقمنة قيم التجارة في العصور النبوية وشبكات القوافل والرحلات التجارية"
+  },
+  "events": [
+    {
+      "id": "event-1774654802626",
+      "title": "المنتدى العالمي للتجارة العادلة",
+      "type": "forum",
+      "region": "Global",
+      "status": "tracked",
+      "organizer": "Sheikha Global Governance Council",
+      "timelineDate": "2026-12-15",
+      "category": [
+        "general-economy"
+      ],
+      "goals": [
+        "توثيق الأهداف",
+        "منع الفساد",
+        "مواءمة الشفافية"
+      ],
+      "source": {
+        "label": "manual",
+        "url": ""
+      },
+      "createdAt": "2026-03-27T23:40:02.626Z"
+    },
+    {
+      "id": "future-investment-initiative",
+      "title": "مؤتمر مستقبل الاستثمار",
+      "type": "conference",
+      "region": "Saudi Arabia",
+      "status": "tracked",
+      "organizer": "Future Investment Initiative",
+      "timelineDate": "2026-10-01",
+      "category": [
+        "investment",
+        "global-economy",
+        "innovation"
+      ],
+      "goals": [
+        "تعزيز الشراكات الاستثمارية العادلة",
+        "رفع كفاءة سلاسل الإمداد",
+        "دعم الابتكار الاقتصادي المسؤول"
+      ],
+      "source": {
+        "label": "FII Official",
+        "url": "https://www.futureinvestmentinitiative.com"
+      }
+    },
+    {
+      "id": "saudi-us-investment-forum",
+      "title": "المنتدى السعودي الأمريكي للاستثمار",
+      "type": "forum",
+      "region": "Saudi Arabia / USA",
+      "status": "archived-tracked",
+      "organizer": "Joint business councils",
+      "timelineDate": "2025-05-12",
+      "category": [
+        "investment",
+        "policy-dialogue"
+      ],
+      "goals": [
+        "توسيع الاستثمار الثنائي",
+        "تفعيل برامج نقل المعرفة",
+        "تعزيز الاستقرار التجاري"
+      ],
+      "source": {
+        "label": "Public economic coverage",
+        "url": "https://www.spa.gov.sa"
+      }
+    },
+    {
+      "id": "global-supply-chain-summit",
+      "title": "مؤتمر سلاسل الإمداد والتوريد العالمي",
+      "type": "summit",
+      "region": "Global",
+      "status": "tracked",
+      "organizer": "International supply chain networks",
+      "timelineDate": "2026-09-20",
+      "category": [
+        "supply-chain",
+        "logistics",
+        "trade-resilience"
+      ],
+      "goals": [
+        "مرونة سلاسل التوريد",
+        "تقليل الهدر والتضخم",
+        "رفع شفافية التتبع"
+      ],
+      "source": {
+        "label": "Global logistics publications",
+        "url": "https://www.weforum.org"
+      }
+    }
+  ],
+  "goalsLedger": {
+    "sharedGoals": [
+      "تحقيق عدالة تجارية عالمية",
+      "رفع الشفافية والامتثال",
+      "منع الفساد والغش والاحتكار",
+      "تنسيق أهداف اقتصادية مشتركة بين الجهات"
+    ],
+    "lastSyncAt": "2026-03-27T23:40:02.626Z",
+    "latestPulse": {
+      "inflationRisk": 44,
+      "conflictRisk": 33,
+      "negotiationMomentum": 72,
+      "tradeStability": 75,
+      "overallRisk": 34,
+      "opportunityIndex": 74,
+      "generatedAt": "2026-03-27T23:39:56.619Z"
+    }
+  },
+  "updatePolicy": {
+    "mode": "scheduled",
+    "recommendedIntervalSeconds": 900,
+    "refreshCommand": "node scripts/refresh-sheikha-ummah-market-monitor.js"
+  }
+}

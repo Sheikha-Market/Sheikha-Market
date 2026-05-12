@@ -1,0 +1,373 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>أعظم شبكة تجارية في التاريخ — منظومة شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --copper:#B87333; --dark:#050508; --dark2:#0a0a10;
+    --dark3:#111118; --dark4:#18181f; --text:#e8e8f0; --text2:#9090a8;
+    --green:#27ae60; --blue:#2980b9; --purple:#8e44ad;
+    --teal:#16a085; --red:#c0392b; --orange:#d35400; --sand:#c9a84c;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); direction:rtl; }
+
+/* hero */
+.hero {
+    background:linear-gradient(160deg,#050306,#0a0305,#050508);
+    border-bottom:2px solid rgba(212,175,55,.45);
+    padding:52px 20px 34px; text-align:center; position:relative; overflow:hidden;
+}
+.hero::before {
+    content:''; position:absolute; inset:0;
+    background:radial-gradient(ellipse at 50% 0%, rgba(212,175,55,.07) 0%, transparent 60%);
+}
+.basmala { font-size:clamp(1.2rem,3vw,1.8rem); color:var(--gold); margin-bottom:12px; font-weight:700; position:relative; }
+.hero-title {
+    font-size:clamp(1.5rem,4vw,2.6rem); font-weight:900; position:relative;
+    background:linear-gradient(135deg,var(--gold),#fff8dc,var(--copper),var(--gold));
+    background-size:200%; -webkit-background-clip:text; -webkit-text-fill-color:transparent;
+    background-clip:text; animation:shimmer 4s linear infinite; margin-bottom:10px;
+}
+@keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+.hero-verse { font-size:clamp(.85rem,2vw,1rem); color:var(--gold); opacity:.85; margin-bottom:6px; position:relative; }
+.hero-sub { font-size:.82rem; color:var(--text2); max-width:720px; margin:0 auto; line-height:1.8; position:relative; }
+
+/* nav */
+nav { position:sticky; top:0; z-index:50; background:rgba(5,5,8,.93); backdrop-filter:blur(20px); border-bottom:1px solid rgba(212,175,55,.1); padding:0 12px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+nav::-webkit-scrollbar { display:none; }
+nav a { padding:12px 13px; color:var(--text2); text-decoration:none; font-size:.77rem; white-space:nowrap; border-bottom:3px solid transparent; transition:all .2s; font-weight:600; }
+nav a.active, nav a:hover { color:var(--gold); border-color:var(--gold); }
+
+.container { max-width:1400px; margin:0 auto; padding:1.4rem 1.1rem; }
+.section { display:none; animation:fadeIn .35s; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+
+/* verse banner */
+.verse-banner {
+    background:linear-gradient(135deg,rgba(212,175,55,.07),rgba(184,115,51,.05));
+    border:1px solid rgba(212,175,55,.18); border-radius:12px;
+    padding:.9rem 1.2rem; margin-bottom:1.2rem; font-size:.85rem;
+    color:var(--gold); text-align:center; line-height:1.9;
+}
+
+/* stats */
+.stat-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(130px,1fr)); gap:.7rem; margin-bottom:1.2rem; }
+.stat-box { background:var(--dark3); border-radius:10px; padding:.85rem; text-align:center; border:1px solid rgba(255,255,255,.04); }
+.stat-num { font-size:1.55rem; font-weight:900; line-height:1.1; }
+.stat-label { font-size:.67rem; color:var(--text2); margin-top:.2rem; }
+
+/* prophets grid */
+.prophet-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.9rem; }
+.prophet-card {
+    background:var(--dark3); border-radius:13px; padding:1.2rem;
+    border:1px solid rgba(255,255,255,.05); transition:all .22s;
+}
+.prophet-card:hover { border-color:rgba(212,175,55,.28); transform:translateY(-2px); }
+.p-name { font-size:.98rem; font-weight:900; color:var(--gold); margin-bottom:.3rem; }
+.p-rank { font-size:.7rem; color:var(--copper); font-weight:700; margin-bottom:.4rem; }
+.p-verse { font-size:.75rem; color:var(--gold); opacity:.8; font-style:italic; line-height:1.6; margin-bottom:.5rem; background:rgba(212,175,55,.05); border-radius:6px; padding:.4rem .6rem; }
+.p-trade { font-size:.78rem; color:var(--text); line-height:1.7; }
+.p-lesson { font-size:.72rem; color:var(--teal); margin-top:.4rem; font-weight:600; }
+.p-sheikha { font-size:.7rem; color:var(--purple); margin-top:.3rem; font-style:italic; }
+
+/* routes / networks */
+.route-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.9rem; }
+.route-card { background:var(--dark3); border-radius:12px; padding:1.1rem; border:1px solid rgba(255,255,255,.05); }
+.r-name { font-size:.9rem; font-weight:800; color:var(--copper); margin-bottom:.3rem; }
+.r-goods { font-size:.73rem; color:var(--text2); margin:.3rem 0; }
+.r-tag { display:inline-block; padding:.12rem .4rem; border-radius:8px; font-size:.63rem; font-weight:600; background:rgba(184,115,51,.1); color:var(--copper); border:1px solid rgba(184,115,51,.15); margin:.15rem; }
+
+/* vision goals */
+.vision-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:.8rem; }
+.vision-card { background:var(--dark3); border-radius:11px; padding:.95rem; border-left:3px solid var(--gold); }
+.v-num { font-size:.65rem; color:var(--text2); font-weight:700; margin-bottom:.2rem; }
+.v-title { font-size:.85rem; font-weight:800; color:var(--gold); }
+.v-desc { font-size:.73rem; color:var(--text2); margin-top:.3rem; line-height:1.6; }
+
+.nav-back { padding:.6rem 1.2rem; background:var(--dark2); border-bottom:1px solid rgba(255,255,255,.04); font-size:.78rem; color:var(--text2); }
+.nav-back a { color:var(--gold); text-decoration:none; }
+
+.sec-title { font-size:1rem; font-weight:800; color:var(--gold); margin:1.2rem 0 .8rem; display:flex; align-items:center; gap:.4rem; }
+.loading { text-align:center; padding:2rem; color:var(--text2); font-size:.85rem; }
+
+/* hadith box */
+.hadith-box { background:rgba(212,175,55,.05); border:1px solid rgba(212,175,55,.15); border-radius:10px; padding:.8rem 1.1rem; margin-bottom:1rem; font-size:.82rem; color:var(--gold); line-height:1.8; }
+
+/* map placeholder */
+.map-visual {
+    background:linear-gradient(135deg,var(--dark3),var(--dark2));
+    border:1px solid rgba(184,115,51,.15); border-radius:14px;
+    padding:2.5rem; text-align:center; margin-bottom:1.2rem; position:relative; overflow:hidden;
+}
+.map-visual::before {
+    content:'🗺️'; font-size:4rem; position:absolute; opacity:.07; right:10%; top:50%; transform:translateY(-50%);
+}
+.route-path { font-size:.78rem; color:var(--text2); line-height:2; }
+.route-arrow { color:var(--gold); font-weight:700; }
+</style>
+</head>
+<body>
+
+<div class="nav-back"><a href="/">← الرئيسية</a> &nbsp;|&nbsp; أعظم شبكة تجارية في التاريخ</div>
+
+<div class="hero">
+    <div class="basmala">بسم الله الرحمن الرحيم</div>
+    <h1 class="hero-title">📜 أعظم شبكة تجارية في التاريخ</h1>
+    <div class="hero-verse">﴿لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ﴾ — قريش ١–٢</div>
+    <p class="hero-sub">
+        من تجارة نوح بالسفن — إلى إبراهيم رحّالاً بين العراق والشام ومصر ومكة — إلى رحلة الصيف والشتاء — إلى طريق الحرير — إلى المحيط الهندي — إلى شيخة<br>
+        كل مسارات التجارة العظيمة في التاريخ — مُعاد بناؤها رقمياً — لله
+    </p>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="show('overview',this)">🌍 نظرة عامة</a>
+    <a href="#" onclick="show('prophets',this)">🕌 تجارة الأنبياء</a>
+    <a href="#" onclick="show('silkroad',this)">🧵 طريق الحرير</a>
+    <a href="#" onclick="show('ocean',this)">🌊 المحيط الهندي</a>
+    <a href="#" onclick="show('vision',this)">🚀 رؤية شيخة</a>
+</nav>
+
+<!-- نظرة عامة -->
+<div class="section active container" id="overview">
+    <div class="verse-banner">
+        ﴿هَلْ أَدُلُّكُمْ عَلَىٰ تِجَارَةٍ تُنجِيكُم مِّنْ عَذَابٍ أَلِيمٍ ۝ تُؤْمِنُونَ بِاللَّهِ وَرَسُولِهِ وَتُجَاهِدُونَ فِي سَبِيلِ اللَّهِ﴾ — الصف ١٠–١١<br>
+        <span style="font-size:.78rem;opacity:.75;">أعظم تجارة = الإيمان بالله — تجارة الدنيا وسيلة لهذه الغاية</span>
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box"><div class="stat-num" style="color:var(--gold);">٨</div><div class="stat-label">أنبياء ورسل تجار</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--copper);">١٢</div><div class="stat-label">شبكة تجارية تاريخية</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--blue);">٧٠+</div><div class="stat-label">آية وحديث تجاري</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--green);">١٠</div><div class="stat-label">هدف رؤية شيخة</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--purple);">١٥</div><div class="stat-label">عملية خلفية نشطة</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--teal);">∞</div><div class="stat-label">إمكانية التوسع</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;">
+        <div style="background:var(--dark3);border-radius:12px;padding:1.1rem;border:1px solid rgba(212,175,55,.1);">
+            <div style="font-size:.9rem;font-weight:800;color:var(--gold);margin-bottom:.7rem;">⚖️ مبدأ شيخة التجاري</div>
+            <div style="font-size:.78rem;color:var(--text2);line-height:1.9;">
+                <div>أفضل تجارة = تجارة مع الله أولاً</div>
+                <div>ربح الدنيا = وسيلة لنشر دين الله</div>
+                <div>كل صفقة = زكاة + صدقة + أثر إسلامي</div>
+                <div>الصدق والأمانة = الأساس لا الاستثناء</div>
+                <div>المنافسة = تقديم الأفضل لا الإضرار بالغير</div>
+            </div>
+        </div>
+        <div style="background:var(--dark3);border-radius:12px;padding:1.1rem;border:1px solid rgba(184,115,51,.12);">
+            <div style="font-size:.9rem;font-weight:800;color:var(--copper);margin-bottom:.7rem;">🗺️ المسارات التجارية الكبرى</div>
+            <div style="font-size:.78rem;color:var(--text2);line-height:1.9;">
+                <div>طريق الحرير — الصين إلى أوروبا عبر المسلمين</div>
+                <div>شبكة المحيط الهندي — الأعظم قبل الاستعمار</div>
+                <div>رحلة الشتاء — الشام + مصر + الحبشة</div>
+                <div>رحلة الصيف — فارس + العراق + الخليج</div>
+                <div>طريق اللبان — اليمن عبر الجزيرة لبلاد الشام</div>
+            </div>
+        </div>
+    </div>
+
+    <div class="hadith-box" id="overviewHadith">
+        جاري التحميل...
+    </div>
+</div>
+
+<!-- تجارة الأنبياء -->
+<div class="section container" id="prophets">
+    <div class="sec-title">🕌 تجارة الأنبياء والرسل — خير تجارة في التاريخ</div>
+    <div class="verse-banner">
+        ﴿وَآخَرُونَ يَضْرِبُونَ فِي الْأَرْضِ يَبْتَغُونَ مِن فَضْلِ اللَّهِ﴾ — المزمل ٢٠<br>
+        <span style="font-size:.78rem;opacity:.75;">الله فضّل الأنبياء — وجعل بعضهم تجاراً — عبادةً لله وإعماراً للأرض</span>
+    </div>
+    <div class="prophet-grid" id="prophetsGrid">
+        <div class="loading">جاري التحميل من API...</div>
+    </div>
+</div>
+
+<!-- طريق الحرير -->
+<div class="section container" id="silkroad">
+    <div class="sec-title">🧵 طريق الحرير — أعظم شبكة تجارية قبل الرقمي</div>
+    <div class="verse-banner">
+        ﴿لِإِيلَافِ قُرَيْشٍ ۝ إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ﴾<br>
+        <span style="font-size:.78rem;opacity:.75;">قريش = مركز شبكة طريق الحرير — بحماية الله وبذمّة البيت الحرام</span>
+    </div>
+    <div class="map-visual">
+        <div style="font-size:.88rem;font-weight:800;color:var(--gold);margin-bottom:.6rem;">🗺️ خريطة طريق الحرير الإسلامي</div>
+        <div class="route-path" id="silkRoutePath">جاري التحميل...</div>
+    </div>
+    <div class="route-grid" id="silkGrid">
+        <div class="loading">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- المحيط الهندي -->
+<div class="section container" id="ocean">
+    <div class="sec-title">🌊 شبكة المحيط الهندي الإسلامية — ٧٠٠ سنة سيادة</div>
+    <div class="verse-banner">
+        ﴿وَسَخَّرَ لَكُمُ الْفُلْكَ لِتَجْرِيَ فِي الْبَحْرِ بِأَمْرِهِ﴾ — إبراهيم ٣٢<br>
+        <span style="font-size:.78rem;opacity:.75;">المسلمون سيطروا على تجارة المحيط الهندي ٧٠٠ سنة — من القرن ٩ إلى القرن ١٦م</span>
+    </div>
+    <div class="route-grid" id="oceanGrid">
+        <div class="loading">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- رؤية شيخة -->
+<div class="section container" id="vision">
+    <div class="sec-title">🚀 رؤية شيخة — وارثة أعظم شبكات التجارة</div>
+    <div class="verse-banner">
+        ﴿وَابْتَغِ فِيمَا آتَاكَ اللَّهُ الدَّارَ الْآخِرَةَ ۖ وَلَا تَنسَ نَصِيبَكَ مِنَ الدُّنْيَا﴾ — القصص ٧٧
+    </div>
+    <div class="vision-grid" id="visionGrid">
+        <div class="loading">جاري التحميل...</div>
+    </div>
+    <div id="backgroundOps" style="margin-top:1.2rem;"></div>
+</div>
+
+<script>
+const API = '/api/greatest-trade';
+
+async function loadAll() {
+    try {
+        const [dash, prophets, silk, ocean, vision, bg] = await Promise.all([
+            fetch(`${API}/dashboard`).then(r=>r.json()),
+            fetch(`${API}/prophets`).then(r=>r.json()),
+            fetch(`${API}/silk-road`).then(r=>r.json()),
+            fetch(`${API}/indian-ocean`).then(r=>r.json()),
+            fetch(`${API}/vision`).then(r=>r.json()),
+            fetch(`${API}/background`).then(r=>r.json()),
+        ]);
+        renderOverview(dash.data);
+        renderProphets(prophets.data);
+        renderSilkRoad(silk.data);
+        renderOcean(ocean.data);
+        renderVision(vision.data, bg.data);
+    } catch(e) { console.error('فشل التحميل:', e); }
+}
+
+function renderOverview(d) {
+    if (!d) return;
+    document.getElementById('overviewHadith').innerHTML = `
+        <div style="font-size:.78rem;color:var(--gold);margin-bottom:.3rem;">💡 رؤية المحرك</div>
+        <div style="font-size:.8rem;line-height:1.8;">${d.vision||''}</div>
+        <div style="font-size:.75rem;color:var(--text2);margin-top:.5rem;font-style:italic;">${d.dua||''}</div>`;
+}
+
+function renderProphets(d) {
+    if (!d || !d.prophets) return;
+    document.getElementById('prophetsGrid').innerHTML = [
+        ...(d.prophets||[]),
+    ].map(p => `
+        <div class="prophet-card">
+            <div class="p-name">🕌 ${p.prophet}</div>
+            <div class="p-rank">${p.rank||''}</div>
+            <div class="p-verse">${p.verse||''}</div>
+            <div class="p-trade">${p.trade||''}</div>
+            ${p.lesson ? `<div class="p-lesson">💡 ${p.lesson}</div>` : ''}
+            ${p.sheikhConnection ? `<div class="p-sheikha">🔗 ${p.sheikhConnection}</div>` : ''}
+            ${p.network ? `<div style="font-size:.7rem;color:var(--blue);margin-top:.3rem;">🗺️ ${p.network}</div>` : ''}
+        </div>`).join('');
+    if (d.divineTradeFirst) {
+        const box = document.createElement('div');
+        box.className = 'verse-banner';
+        box.style.marginBottom = '.8rem';
+        box.innerHTML = `<strong>التجارة الإلهية الأولى</strong><br>${d.divineTradeFirst.verse}<br><span style="font-size:.75rem;opacity:.8;">${d.divineTradeFirst.meaning}</span>`;
+        document.getElementById('prophetsGrid').prepend(box);
+    }
+}
+
+function renderSilkRoad(d) {
+    if (!d) return;
+    const routes = d.mainRoutes || d.routes || [];
+    const muslimRole = d.islamicRole || d.muslimRole || {};
+
+    document.getElementById('silkRoutePath').innerHTML = (d.routeSegments||[
+        {from:'الصين',to:'سمرقند'},{from:'سمرقند',to:'بغداد'},{from:'بغداد',to:'مكة'},
+        {from:'مكة',to:'القاهرة'},{from:'القاهرة',to:'القسطنطينية'},{from:'القسطنطينية',to:'روما'}
+    ]).map(s=>`<span>${s.from||s}</span> <span class="route-arrow">—→</span> <span>${s.to||''}</span>`).join(' &nbsp;&nbsp; ');
+
+    document.getElementById('silkGrid').innerHTML = (routes.length ? routes : [
+        {name:'الحرير الصيني',goods:'الحرير + الخزف + غلال',role:'وسيط حضاري'},
+        {name:'التوابل الهندية',goods:'الفلفل + الهيل + القرفة',role:'احتكار إسلامي'},
+        {name:'المعادن الفارسية',goods:'الذهب + الفضة + النحاس',role:'عملة تداول'},
+        {name:'الصمغ والعطور',goods:'العود + الزعفران + المر',role:'تجارة عالية القيمة'},
+        {name:'القطن المصري',goods:'أقمشة + كتان + بردي',role:'مركز إنتاج'},
+        {name:'السكر اليمني والعراقي',goods:'تكرير + تصدير',role:'ابتكار إسلامي'},
+    ]).map(r => `
+        <div class="route-card">
+            <div class="r-name">🧵 ${r.name}</div>
+            <div class="r-goods">📦 ${r.goods||r.description||''}</div>
+            <span class="r-tag">${r.role||r.type||''}</span>
+            ${r.verse ? `<div style="font-size:.7rem;color:var(--gold);margin-top:.4rem;font-style:italic;">${r.verse}</div>` : ''}
+        </div>`).join('');
+}
+
+function renderOcean(d) {
+    if (!d) return;
+    const ports = d.mainPorts || d.ports || [];
+    const goods = d.mainGoods || d.goods || [];
+    document.getElementById('oceanGrid').innerHTML = (ports.length ? ports.map(p => `
+        <div class="route-card">
+            <div class="r-name">⚓ ${p.name||p}</div>
+            <div class="r-goods">${p.role||p.goods||p.description||''}</div>
+            ${p.period ? `<span class="r-tag">${p.period}</span>` : ''}
+            ${p.verse ? `<div style="font-size:.7rem;color:var(--gold);margin-top:.4rem;">${p.verse}</div>` : ''}
+        </div>`) : [
+        {n:'كاليكوت (الهند)',r:'أكبر سوق للبهارات — ٩٠٪ تجارة إسلامية'},
+        {n:'مالقا (ماليزيا)',r:'مركز تجارة جنوب شرق آسيا — بعد إسلامها'},
+        {n:'زنجبار (أفريقيا)',r:'مركز التوابل + العاج + الذهب الأفريقي'},
+        {n:'هرمز (الخليج)',r:'بوابة الخليج — مفتاح تجارة المحيط الهندي'},
+        {n:'عدن (اليمن)',r:'أكبر ميناء عربي — بوابة المحيط الهندي'},
+        {n:'الفسطاط/القاهرة',r:'ربط البحر الأحمر بالمتوسط — عبر مصر'},
+    ].map(p => `
+        <div class="route-card"><div class="r-name">⚓ ${p.n}</div><div class="r-goods">${p.r}</div></div>`)).join('');
+}
+
+function renderVision(v, bg) {
+    if (!v) return;
+    const goals = v.goals || v.sheikhMission || [];
+    document.getElementById('visionGrid').innerHTML = (goals.length ? goals : [
+        'أفضل وأقوى وأكبر شبكة رقمية إسلامية',
+        'إعادة بناء طريق الحرير رقمياً',
+        'ربط ١٨٠ دولة OIC في منظومة واحدة',
+        'البصمة الجينية DNA لكل منتج',
+        'صفر ربا في كل تبادل',
+        'الزكاة في كل صفقة تلقائياً',
+        'دعم ٣٠٠ مليون مسلم فقير',
+        'شبكة تجارة فضائية مستقبلية',
+        'الدينار والدرهم — عودة العملة الحقيقية',
+        'كل الطرق تؤدي للمدينة المنورة رقمياً',
+    ]).map((g,i) => `
+        <div class="vision-card">
+            <div class="v-num">${i+1}.</div>
+            <div class="v-title">${typeof g === 'string' ? g : g.title||g.goal||JSON.stringify(g)}</div>
+            ${(typeof g === 'object' && g.description) ? `<div class="v-desc">${g.description}</div>` : ''}
+        </div>`).join('');
+
+    if (bg) {
+        const ops = bg.backgroundOperations || bg.backgroundProcesses || [];
+        document.getElementById('backgroundOps').innerHTML = ops.length ? `
+            <div class="sec-title">⚙️ العمليات الخلفية النشطة</div>
+            <div style="background:var(--dark3);border-radius:12px;padding:1rem;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:.4rem;">
+                ${ops.map(o=>`<div style="font-size:.73rem;color:var(--text2);padding:.3rem .4rem;border-bottom:1px solid rgba(255,255,255,.03);">⚡ ${o}</div>`).join('')}
+            </div>` : '';
+    }
+}
+
+function show(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+    document.getElementById(id)?.classList.add('active');
+    el?.classList.add('active');
+}
+
+loadAll();
+</script>
+</body>
+</html>

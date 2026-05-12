@@ -1,0 +1,794 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الأسواق الإسلامية الكونية — شيخة</title>
+<meta name="description" content="رقمنة موحدة لكل الأسواق الإسلامية من آدم عليه السلام إلى اليوم — بالكتاب والسنة وسنة الخلفاء الراشدين المهديين">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&family=Cairo:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --gold: #D4AF37;
+    --gold-l: #F0D060;
+    --copper: #B87333;
+    --bg: #050810;
+    --bg2: #0a1020;
+    --bg3: #111827;
+    --border: rgba(212,175,55,0.25);
+    --green: #10b981;
+    --blue: #3b82f6;
+    --red: #ef4444;
+    --text: #e0e4ef;
+    --text2: #8892a4;
+    --radius: 12px;
+    --transition: 0.3s ease;
+  }
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+  html { scroll-behavior: smooth; }
+  body {
+    font-family: 'Tajawal', sans-serif;
+    background: var(--bg);
+    color: var(--text);
+    min-height: 100vh;
+    direction: rtl;
+  }
+
+  /* ═══ HEADER ═══ */
+  .hdr {
+    background: linear-gradient(135deg, #0a1020 0%, #0d1529 50%, #080f1e 100%);
+    border-bottom: 2px solid var(--gold);
+    padding: 1.5rem 2rem;
+    text-align: center;
+    position: relative;
+    overflow: hidden;
+  }
+  .hdr::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background: radial-gradient(ellipse at center top, rgba(212,175,55,0.08) 0%, transparent 70%);
+    pointer-events: none;
+  }
+  .hdr-verse {
+    font-size: 1.15rem;
+    color: var(--gold);
+    font-weight: 600;
+    letter-spacing: 0.02em;
+    margin-bottom: 0.75rem;
+    text-shadow: 0 0 20px rgba(212,175,55,0.3);
+  }
+  .hdr h1 {
+    font-size: clamp(1.6rem, 4vw, 2.6rem);
+    font-weight: 900;
+    background: linear-gradient(135deg, var(--gold), var(--gold-l), var(--copper));
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: 0.5rem;
+  }
+  .hdr-sub {
+    color: var(--text2);
+    font-size: 1rem;
+  }
+  .hdr-hadith {
+    margin-top: 1rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(212,175,55,0.08);
+    border: 1px solid var(--border);
+    border-radius: 50px;
+    display: inline-block;
+    color: var(--gold-l);
+    font-size: 0.9rem;
+    font-style: italic;
+  }
+
+  /* ═══ TABS ═══ */
+  .tabs-bar {
+    background: var(--bg2);
+    border-bottom: 1px solid var(--border);
+    padding: 0 1.5rem;
+    display: flex;
+    gap: 0.25rem;
+    overflow-x: auto;
+    scrollbar-width: none;
+    position: sticky;
+    top: 0;
+    z-index: 50;
+  }
+  .tabs-bar::-webkit-scrollbar { display: none; }
+  .tab-btn {
+    background: none;
+    border: none;
+    padding: 1rem 1.25rem;
+    color: var(--text2);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.9rem;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+    border-bottom: 3px solid transparent;
+    transition: var(--transition);
+  }
+  .tab-btn:hover { color: var(--gold); }
+  .tab-btn.active { color: var(--gold); border-bottom-color: var(--gold); }
+
+  /* ═══ SECTIONS ═══ */
+  .section { display: none; padding: 2rem 1.5rem; max-width: 1400px; margin: 0 auto; }
+  .section.active { display: block; }
+
+  /* ═══ STAT CARDS ═══ */
+  .stats-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+    gap: 1rem;
+    margin-bottom: 2rem;
+  }
+  .stat-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.25rem;
+    text-align: center;
+    transition: var(--transition);
+  }
+  .stat-card:hover { border-color: var(--gold); transform: translateY(-2px); }
+  .stat-num { font-size: 2rem; font-weight: 900; color: var(--gold); }
+  .stat-label { color: var(--text2); font-size: 0.85rem; margin-top: 0.25rem; }
+
+  /* ═══ CARDS ═══ */
+  .cards-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 1.25rem;
+  }
+  .market-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.5rem;
+    transition: var(--transition);
+    cursor: pointer;
+    position: relative;
+    overflow: hidden;
+  }
+  .market-card::before {
+    content: '';
+    position: absolute;
+    top: 0; right: 0;
+    width: 4px;
+    height: 100%;
+    background: linear-gradient(to bottom, var(--gold), var(--copper));
+    opacity: 0;
+    transition: var(--transition);
+  }
+  .market-card:hover { border-color: var(--gold); transform: translateY(-3px); box-shadow: 0 8px 30px rgba(212,175,55,0.12); }
+  .market-card:hover::before { opacity: 1; }
+  .card-icon { font-size: 2rem; margin-bottom: 0.5rem; }
+  .card-title { font-size: 1.1rem; font-weight: 700; color: var(--gold); margin-bottom: 0.25rem; }
+  .card-era { font-size: 0.8rem; color: var(--green); margin-bottom: 0.5rem; }
+  .card-desc { color: var(--text2); font-size: 0.88rem; line-height: 1.7; }
+  .card-verse {
+    margin-top: 0.75rem;
+    padding: 0.5rem 0.75rem;
+    background: rgba(212,175,55,0.06);
+    border-right: 3px solid var(--gold);
+    border-radius: 0 6px 6px 0;
+    font-size: 0.85rem;
+    color: var(--gold-l);
+    font-style: italic;
+  }
+  .card-hadith {
+    margin-top: 0.5rem;
+    font-size: 0.82rem;
+    color: var(--green);
+    font-style: italic;
+  }
+  .card-tag {
+    display: inline-block;
+    padding: 0.2rem 0.6rem;
+    background: rgba(16,185,129,0.1);
+    border: 1px solid rgba(16,185,129,0.3);
+    border-radius: 50px;
+    font-size: 0.75rem;
+    color: var(--green);
+    margin-top: 0.75rem;
+  }
+
+  /* ═══ SECTION HEADING ═══ */
+  .s-heading {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  .s-heading h2 {
+    font-size: 1.8rem;
+    font-weight: 800;
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+  }
+  .s-heading p { color: var(--text2); font-size: 0.95rem; }
+
+  /* ═══ TIMELINE ═══ */
+  .timeline { position: relative; padding-right: 2rem; }
+  .timeline::before {
+    content: '';
+    position: absolute;
+    right: 0.75rem;
+    top: 0; bottom: 0;
+    width: 2px;
+    background: linear-gradient(to bottom, var(--gold), transparent);
+  }
+  .tl-item {
+    position: relative;
+    margin-bottom: 1.5rem;
+    padding-right: 1.5rem;
+  }
+  .tl-item::before {
+    content: '';
+    position: absolute;
+    right: -0.35rem;
+    top: 0.5rem;
+    width: 12px;
+    height: 12px;
+    background: var(--gold);
+    border-radius: 50%;
+    box-shadow: 0 0 8px rgba(212,175,55,0.5);
+  }
+  .tl-era {
+    font-size: 0.75rem;
+    color: var(--green);
+    font-weight: 700;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+  }
+  .tl-title { font-size: 1rem; font-weight: 700; color: var(--gold); }
+  .tl-desc { font-size: 0.85rem; color: var(--text2); margin-top: 0.25rem; line-height: 1.6; }
+
+  /* ═══ CHARTER SECTION ═══ */
+  .charter-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 1rem;
+    margin-top: 1.5rem;
+  }
+  .charter-item {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.2rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: var(--transition);
+  }
+  .charter-item:hover { border-color: var(--gold); }
+  .charter-num {
+    width: 36px;
+    height: 36px;
+    background: linear-gradient(135deg, var(--gold), var(--copper));
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 900;
+    font-size: 0.95rem;
+    color: #000;
+    flex-shrink: 0;
+  }
+  .charter-text strong { color: var(--gold); display: block; font-size: 0.95rem; }
+  .charter-text span { color: var(--text2); font-size: 0.85rem; }
+
+  /* ═══ LOADING ═══ */
+  .loading {
+    text-align: center;
+    padding: 3rem;
+    color: var(--text2);
+  }
+  .spinner {
+    display: inline-block;
+    width: 40px; height: 40px;
+    border: 3px solid rgba(212,175,55,0.2);
+    border-top-color: var(--gold);
+    border-radius: 50%;
+    animation: spin 0.8s linear infinite;
+    margin-bottom: 1rem;
+  }
+  @keyframes spin { to { transform: rotate(360deg); } }
+
+  /* ═══ SEARCH ═══ */
+  .search-box {
+    display: flex;
+    gap: 0.75rem;
+    margin-bottom: 1.5rem;
+  }
+  .search-input {
+    flex: 1;
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    padding: 0.75rem 1rem;
+    color: var(--text);
+    font-family: 'Tajawal', sans-serif;
+    font-size: 0.95rem;
+  }
+  .search-input:focus { outline: none; border-color: var(--gold); }
+  .search-btn {
+    padding: 0.75rem 1.5rem;
+    background: var(--gold);
+    border: none;
+    border-radius: 8px;
+    color: #000;
+    font-family: 'Tajawal', sans-serif;
+    font-weight: 700;
+    cursor: pointer;
+    font-size: 0.9rem;
+  }
+  .search-btn:hover { background: var(--gold-l); }
+
+  /* ═══ CALIPH CARDS ═══ */
+  .caliph-card {
+    background: var(--bg3);
+    border: 1px solid var(--border);
+    border-radius: var(--radius);
+    padding: 1.75rem;
+    margin-bottom: 1.5rem;
+    transition: var(--transition);
+  }
+  .caliph-card:hover { border-color: var(--gold); }
+  .caliph-hdr {
+    display: flex;
+    align-items: center;
+    gap: 1rem;
+    margin-bottom: 1rem;
+  }
+  .caliph-icon {
+    font-size: 2.5rem;
+    width: 60px; height: 60px;
+    display: flex; align-items: center; justify-content: center;
+    background: rgba(212,175,55,0.1);
+    border-radius: 50%;
+    border: 2px solid var(--gold);
+    flex-shrink: 0;
+  }
+  .caliph-name { font-size: 1.2rem; font-weight: 700; color: var(--gold); }
+  .caliph-era { font-size: 0.85rem; color: var(--green); }
+  .tag-list { display: flex; flex-wrap: wrap; gap: 0.5rem; margin-top: 0.75rem; }
+  .tag { padding: 0.25rem 0.75rem; background: rgba(212,175,55,0.08); border: 1px solid var(--border); border-radius: 50px; font-size: 0.8rem; color: var(--gold-l); }
+
+  /* ═══ MISSION BANNER ═══ */
+  .mission-banner {
+    background: linear-gradient(135deg, rgba(212,175,55,0.08), rgba(184,115,51,0.05));
+    border: 1px solid var(--gold);
+    border-radius: var(--radius);
+    padding: 2rem;
+    text-align: center;
+    margin: 2rem 0;
+  }
+  .mission-banner .verse {
+    font-size: 1.3rem;
+    color: var(--gold);
+    font-weight: 600;
+    margin-bottom: 0.5rem;
+  }
+  .mission-banner p { color: var(--text2); }
+
+  /* ═══ NAV LINKS ═══ */
+  .back-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem 1.5rem;
+    background: rgba(212,175,55,0.1);
+    border: 1px solid var(--border);
+    border-radius: 8px;
+    color: var(--gold);
+    text-decoration: none;
+    font-weight: 600;
+    font-size: 0.9rem;
+    transition: var(--transition);
+    margin-bottom: 1.5rem;
+  }
+  .back-link:hover { background: rgba(212,175,55,0.2); }
+
+  /* ═══ RESPONSIVE ═══ */
+  @media (max-width: 768px) {
+    .hdr { padding: 1rem; }
+    .cards-grid { grid-template-columns: 1fr; }
+    .section { padding: 1.5rem 1rem; }
+  }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header class="hdr">
+  <div class="hdr-verse">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ — البقرة ٢٧٥</div>
+  <h1>🌐 الأسواق الإسلامية الكونية</h1>
+  <p class="hdr-sub">رقمنة موحَّدة بالكتاب والسنة — من سوق آدم عليه السلام إلى سوق شيخة الرقمي</p>
+  <div class="hdr-hadith">
+    «هذا سوقكم فلا يضيق عليكم ولا يُؤخذ منكم فيه خَراج» — النبي محمد ﷺ عند تأسيس سوق المدينة
+  </div>
+</header>
+
+<!-- TABS -->
+<nav class="tabs-bar" role="tablist">
+  <button class="tab-btn active" onclick="showTab('overview')">🏠 نظرة عامة</button>
+  <button class="tab-btn" onclick="showTab('prophets')">🌿 أسواق الأنبياء</button>
+  <button class="tab-btn" onclick="showTab('pre-islamic')">🐪 قريش وعكاظ</button>
+  <button class="tab-btn" onclick="showTab('prophet-era')">🕌 عهد النبي ﷺ</button>
+  <button class="tab-btn" onclick="showTab('rashideen')">⚖️ الخلفاء الراشدون</button>
+  <button class="tab-btn" onclick="showTab('historical')">🕰️ التاريخ الإسلامي</button>
+  <button class="tab-btn" onclick="showTab('foreign')">🌍 تفاعل الحضارات</button>
+  <button class="tab-btn" onclick="showTab('charter')">📜 الميثاق الإسلامي</button>
+  <button class="tab-btn" onclick="showTab('search')">🔍 بحث</button>
+</nav>
+
+<!-- ═══════════════════ TAB: OVERVIEW ═══════════════════ -->
+<section id="tab-overview" class="section active">
+  <a href="/" class="back-link">← العودة للرئيسية</a>
+  <div class="s-heading">
+    <h2>🌐 الأسواق الإسلامية الكونية</h2>
+    <p>أكبر قاعدة بيانات مرقمنة لأسواق التاريخ الإسلامي — موحَّدة بالكتاب والسنة</p>
+  </div>
+
+  <div class="stats-grid" id="stats-container">
+    <div class="loading"><div class="spinner"></div><br>تحميل الإحصائيات...</div>
+  </div>
+
+  <div class="mission-banner">
+    <div class="verse">﴿لِإِيلَافِ قُرَيْشٍ * إِيلَافِهِمْ رِحْلَةَ الشِّتَاءِ وَالصَّيْفِ﴾</div>
+    <p>قريش ذُكرت في القرآن لأنها أقامت تجارة الرحلتين — شيخة تُقيم رحلة رقمية دائمة لا تنقطع</p>
+  </div>
+
+  <div class="cards-grid" id="overview-highlights">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: PROPHETS ═══════════════════ -->
+<section id="tab-prophets" class="section">
+  <div class="s-heading">
+    <h2>🌿 أسواق الأنبياء الكرام</h2>
+    <p>من آدم عليه السلام إلى نبينا محمد ﷺ — كل سوق آية من آيات الله في الأرض</p>
+  </div>
+  <div class="cards-grid" id="prophets-container">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: PRE-ISLAMIC ═══════════════════ -->
+<section id="tab-pre-islamic" class="section">
+  <div class="s-heading">
+    <h2>🐪 أسواق قريش وعرب الجاهلية</h2>
+    <p>الأسواق العربية قبل الإسلام — رحلة الشتاء والصيف وسوق عكاظ</p>
+  </div>
+  <div class="cards-grid" id="pre-islamic-container">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: PROPHET ERA ═══════════════════ -->
+<section id="tab-prophet-era" class="section">
+  <div class="s-heading">
+    <h2>🕌 أسواق عهد النبي ﷺ</h2>
+    <p>سوق المدينة المنورة — أسَّسه النبي ﷺ بيده الشريفة بلا خراج ولا ضريبة</p>
+  </div>
+
+  <!-- سوق المدينة المنورة — بارز -->
+  <div id="madinah-featured" class="loading"><div class="spinner"></div></div>
+
+  <div class="cards-grid" id="prophet-era-container" style="margin-top:1.5rem">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: RASHIDEEN ═══════════════════ -->
+<section id="tab-rashideen" class="section">
+  <div class="s-heading">
+    <h2>⚖️ أسواق الخلفاء الراشدين المهديين</h2>
+    <p>«عليكم بسنتي وسنة الخلفاء الراشدين المهديين — تمسكوا بها وعضوا عليها بالنواجذ»</p>
+  </div>
+  <div id="rashideen-container">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: HISTORICAL ═══════════════════ -->
+<section id="tab-historical" class="section">
+  <div class="s-heading">
+    <h2>🕰️ الأسواق الإسلامية عبر التاريخ</h2>
+    <p>من الدولة الأموية إلى المملكة العربية السعودية — ١٤ قرناً من التجارة الإسلامية</p>
+  </div>
+  <div class="cards-grid" id="historical-container">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: FOREIGN ═══════════════════ -->
+<section id="tab-foreign" class="section">
+  <div class="s-heading">
+    <h2>🌍 تفاعل الأسواق الإسلامية مع الحضارات الأخرى</h2>
+    <p>الروم البيزنطيون — الفرس الساسانيون — الهند والصين — أفريقيا</p>
+  </div>
+  <div class="mission-banner" style="margin-top:0; margin-bottom:1.5rem;">
+    <div class="verse">﴿لَا يَنْهَاكُمُ اللَّهُ عَنِ الَّذِينَ لَمْ يُقَاتِلُوكُمْ فِي الدِّينِ... أَن تَبَرُّوهُمْ وَتُقْسِطُوا إِلَيْهِمْ﴾</div>
+    <p>التجارة مع غير المسلمين جائزة بالعدل والقسط — شيخة تفتح أبوابها للعالم</p>
+  </div>
+  <div class="cards-grid" id="foreign-container">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: CHARTER ═══════════════════ -->
+<section id="tab-charter" class="section">
+  <div class="s-heading">
+    <h2>📜 ميثاق السوق الإسلامي في شيخة</h2>
+    <p>مبادئ سوق المدينة المنورة — ما أسسه النبي ﷺ يحيا رقمياً في شيخة</p>
+  </div>
+
+  <div class="mission-banner">
+    <div class="verse">«هذا سوقكم فلا يضيق عليكم ولا يُؤخذ منكم فيه خَراج»</div>
+    <p>النبي محمد ﷺ عند تأسيس سوق المدينة — الأصل الذي بنيت عليه شيخة</p>
+  </div>
+
+  <div class="charter-grid" id="charter-container">
+    <div class="loading"><div class="spinner"></div></div>
+  </div>
+</section>
+
+<!-- ═══════════════════ TAB: SEARCH ═══════════════════ -->
+<section id="tab-search" class="section">
+  <div class="s-heading">
+    <h2>🔍 بحث في الأسواق الإسلامية</h2>
+    <p>ابحث في كل الأسواق — الأنبياء، الخلفاء، الحضارات، الآيات والأحاديث</p>
+  </div>
+  <div class="search-box">
+    <input class="search-input" id="search-input" type="text" placeholder="ابحث... مثال: عكاظ، يوسف، عمر، الروم، الحديد..." dir="rtl">
+    <button class="search-btn" onclick="doSearch()">بحث</button>
+  </div>
+  <div id="search-results"></div>
+</section>
+
+<script>
+'use strict';
+
+const BASE = '';
+const tabsLoaded = {};
+
+// ── Tab switching ──
+function showTab(name) {
+  document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+  document.getElementById('tab-' + name)?.classList.add('active');
+  event?.currentTarget?.classList?.add('active');
+  if (!tabsLoaded[name]) {
+    tabsLoaded[name] = true;
+    loadTab(name);
+  }
+}
+
+async function apiFetch(path) {
+  const r = await fetch(BASE + path);
+  if (!r.ok) throw new Error('HTTP ' + r.status);
+  const j = await r.json();
+  return j.data;
+}
+
+// ── Render card ──
+function renderCard(m) {
+  const name    = m.name || m.era || m.prophet || '—';
+  const icon    = m.icon || '🏪';
+  const era     = m.era || m.era_type || m.period || m.active_period || m.approx_years || '';
+  const desc    = m.principle || m.contribution || m.significance || m.story || m.sheikha_integration || '';
+  const verse   = m.verse || '';
+  const hadith  = m.hadith || '';
+  const tag     = m.category || m.era_type || '';
+  const sheikha = m.sheikha_mission || m.sheikha_lesson || '';
+  return `
+    <div class="market-card">
+      <div class="card-icon">${icon}</div>
+      <div class="card-title">${name}</div>
+      ${era ? `<div class="card-era">📅 ${era}</div>` : ''}
+      ${desc ? `<div class="card-desc">${desc}</div>` : ''}
+      ${verse ? `<div class="card-verse">${verse}</div>` : ''}
+      ${hadith ? `<div class="card-hadith">💬 ${hadith}</div>` : ''}
+      ${sheikha ? `<div class="card-hadith" style="color:var(--blue)">🌐 شيخة: ${sheikha}</div>` : ''}
+      ${tag ? `<span class="card-tag">${tag}</span>` : ''}
+    </div>`;
+}
+
+// ── Render caliph card ──
+function renderCaliphCard(c) {
+  const markets  = (c.markets || []).map(m => `<span class="tag">${m}</span>`).join('');
+  const actions  = (c.key_actions || []).map(a => `<li>${a}</li>`).join('');
+  return `
+    <div class="caliph-card">
+      <div class="caliph-hdr">
+        <div class="caliph-icon">${c.icon || '👑'}</div>
+        <div>
+          <div class="caliph-name">${c.caliph}</div>
+          <div class="caliph-era">📅 ${c.era || ''}</div>
+        </div>
+      </div>
+      <p style="color:var(--text2); font-size:.9rem; margin-bottom:.75rem;">${c.contribution || ''}</p>
+      ${markets ? `<div class="tag-list">${markets}</div>` : ''}
+      ${actions ? `<ul style="margin-top:.75rem; padding-right:1.25rem; color:var(--text2); font-size:.85rem; line-height:1.8;">${actions}</ul>` : ''}
+      ${c.verse ? `<div class="card-verse" style="margin-top:.75rem;">${c.verse}</div>` : ''}
+      ${c.sheikha_lesson ? `<div class="card-hadith" style="color:var(--blue); margin-top:.5rem;">🌐 ${c.sheikha_lesson}</div>` : ''}
+    </div>`;
+}
+
+// ── Load tabs ──
+async function loadTab(name) {
+  try {
+    switch (name) {
+      case 'overview':    await loadOverview();    break;
+      case 'prophets':    await loadProphets();    break;
+      case 'pre-islamic': await loadPreIslamic();  break;
+      case 'prophet-era': await loadProphetEra();  break;
+      case 'rashideen':   await loadRashideen();   break;
+      case 'historical':  await loadHistorical();  break;
+      case 'foreign':     await loadForeign();     break;
+      case 'charter':     await loadCharter();     break;
+    }
+  } catch (e) {
+    console.error('loadTab error', name, e);
+  }
+}
+
+async function loadOverview() {
+  const data = await apiFetch('/api/islamic-markets/overview');
+  const s = data.stats || {};
+
+  // Stats
+  const statCards = [
+    { num: s.prophets_markets || 0,       label: 'سوق الأنبياء', icon: '🌿' },
+    { num: s.pre_islamic_markets || 0,    label: 'أسواق الجاهلية', icon: '🐪' },
+    { num: s.prophet_era_markets || 0,    label: 'عهد النبي ﷺ', icon: '🕌' },
+    { num: s.rashideen_expansion || 0,    label: 'الخلفاء الراشدون', icon: '⚖️' },
+    { num: s.historical_eras || 0,        label: 'حقب إسلامية', icon: '🕰️' },
+    { num: s.foreign_interactions || 0,   label: 'تفاعل حضاري', icon: '🌍' },
+    { num: s.total_markets_digitized ||0, label: 'إجمالي مرقمن', icon: '💻' },
+    { num: s.civilizations_spanned || 0,  label: 'حضارة مرصودة', icon: '🏛️' },
+  ];
+  document.getElementById('stats-container').innerHTML = statCards.map(c =>
+    `<div class="stat-card"><div class="stat-num">${c.icon} ${c.num}</div><div class="stat-label">${c.label}</div></div>`
+  ).join('');
+
+  // Highlights
+  const highlights = [
+    { icon: '🕌', name: 'سوق المدينة المنورة', era: 'تأسيس ١ هـ', verse: data.hadith, desc: 'أسَّسه النبي ﷺ بلا خراج — أصل شيخة', category: 'الأصل' },
+    { icon: '⚖️', name: 'الميثاق الإسلامي للتجارة', era: 'دائم', verse: data.verse, desc: 'لا ربا — لا غش — لا احتكار — البيع بالتواضع', category: 'مبادئ' },
+    { icon: data.charter?.digital_extension ? '🌐' : '📊', name: data.charter?.digital_extension || 'شيخة الرقمي', era: 'اليوم', desc: s.sheikha_mission || 'رقمنة موحدة', category: 'الامتداد' },
+  ];
+  document.getElementById('overview-highlights').innerHTML = highlights.map(renderCard).join('');
+}
+
+async function loadProphets() {
+  const data = await apiFetch('/api/islamic-markets/prophets');
+  document.getElementById('prophets-container').innerHTML = data.map(renderCard).join('');
+}
+
+async function loadPreIslamic() {
+  const data = await apiFetch('/api/islamic-markets/pre-islamic');
+  document.getElementById('pre-islamic-container').innerHTML = data.map(renderCard).join('');
+}
+
+async function loadProphetEra() {
+  const [madinah, all] = await Promise.all([
+    apiFetch('/api/islamic-markets/madinah'),
+    apiFetch('/api/islamic-markets/prophet-era'),
+  ]);
+
+  // Featured Madinah card
+  const m = madinah;
+  const principlesList = (m.principles || []).map(p => `<li>${p}</li>`).join('');
+  const sheikhaList    = (m.sheikha_principles || []).map(p => `<li>${p}</li>`).join('');
+  document.getElementById('madinah-featured').innerHTML = `
+    <div style="background:linear-gradient(135deg,rgba(212,175,55,0.08),rgba(184,115,51,0.05));border:2px solid var(--gold);border-radius:16px;padding:2rem;margin-bottom:1.5rem;">
+      <div style="font-size:2.5rem; margin-bottom:.75rem;">${m.icon || '🕌'}</div>
+      <h3 style="font-size:1.5rem; font-weight:800; color:var(--gold); margin-bottom:.5rem;">${m.name}</h3>
+      <p style="color:var(--green); font-size:.85rem; margin-bottom:1rem;">📅 ${m.founded} | 📍 ${m.location}</p>
+      <p style="color:var(--text2); line-height:1.8; margin-bottom:1rem;">${m.story || ''}</p>
+      <div style="display:grid; grid-template-columns:1fr 1fr; gap:1rem;">
+        <div>
+          <strong style="color:var(--gold); display:block; margin-bottom:.5rem;">مبادئ السوق النبوي:</strong>
+          <ul style="color:var(--text2); font-size:.88rem; line-height:1.8; padding-right:1rem;">${principlesList}</ul>
+        </div>
+        <div>
+          <strong style="color:var(--blue); display:block; margin-bottom:.5rem;">🌐 شيخة امتداده الرقمي:</strong>
+          <ul style="color:var(--text2); font-size:.88rem; line-height:1.8; padding-right:1rem;">${sheikhaList}</ul>
+        </div>
+      </div>
+      ${m.verse ? `<div class="card-verse" style="margin-top:1rem;">${m.verse}</div>` : ''}
+      ${m.hadith ? `<div class="card-hadith" style="margin-top:.5rem;">💬 ${m.hadith}</div>` : ''}
+    </div>`;
+
+  document.getElementById('prophet-era-container').innerHTML = all.filter(a => a.id !== 'madinah_market').map(renderCard).join('');
+}
+
+async function loadRashideen() {
+  const data = await apiFetch('/api/islamic-markets/rashideen');
+  document.getElementById('rashideen-container').innerHTML = data.map(renderCaliphCard).join('');
+}
+
+async function loadHistorical() {
+  const data = await apiFetch('/api/islamic-markets/historical');
+  document.getElementById('historical-container').innerHTML = data.map(m => {
+    const centers = (m.centers || []).map(c => `<span class="tag">${c}</span>`).join('');
+    return `
+      <div class="market-card">
+        <div class="card-icon">${m.icon || '🏛️'}</div>
+        <div class="card-title">${m.era}</div>
+        ${m.period ? `<div class="card-era">📅 ${m.period}</div>` : ''}
+        ${m.contribution ? `<div class="card-desc">${m.contribution}</div>` : ''}
+        ${m.special ? `<div class="card-hadith" style="color:var(--blue);margin-top:.5rem;">✨ ${m.special}</div>` : ''}
+        ${m.sheikha_integration ? `<div class="card-hadith" style="margin-top:.5rem;">🌐 ${m.sheikha_integration}</div>` : ''}
+        ${centers ? `<div class="tag-list" style="margin-top:.75rem;">${centers}</div>` : ''}
+        ${m.verse ? `<div class="card-verse" style="margin-top:.75rem;">${m.verse}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+async function loadForeign() {
+  const data = await apiFetch('/api/islamic-markets/foreign-interactions');
+  document.getElementById('foreign-container').innerHTML = data.map(m => {
+    const goods    = (m.goods_exchanged || []).map(g => `<span class="tag">${g}</span>`).join('');
+    const interact = (m.interaction_with_islam || []).map(i => `<li>${i}</li>`).join('');
+    return `
+      <div class="market-card">
+        <div class="card-icon">${m.icon || '🌍'}</div>
+        <div class="card-title">${m.name}</div>
+        ${m.period ? `<div class="card-era">📅 ${m.period}</div>` : ''}
+        ${interact ? `<ul style="color:var(--text2);font-size:.85rem;line-height:1.8;padding-right:1rem;margin:.5rem 0;">${interact}</ul>` : ''}
+        ${goods ? `<div class="tag-list">${goods}</div>` : ''}
+        ${m.islamic_rule ? `<div class="card-hadith" style="color:var(--green);margin-top:.75rem;">⚖️ ${m.islamic_rule}</div>` : ''}
+        ${m.sheikha_lesson ? `<div class="card-hadith" style="color:var(--blue)">🌐 ${m.sheikha_lesson}</div>` : ''}
+        ${m.verse ? `<div class="card-verse">${m.verse}</div>` : ''}
+      </div>`;
+  }).join('');
+}
+
+async function loadCharter() {
+  const data = await apiFetch('/api/islamic-markets/charter');
+  document.getElementById('charter-container').innerHTML = (data.principles || []).map((p, i) => `
+    <div class="charter-item">
+      <div class="charter-num">${i + 1}</div>
+      <div class="charter-text">
+        <strong>${p.ar}</strong>
+        <span>${p.detail}</span>
+      </div>
+    </div>`
+  ).join('');
+}
+
+async function doSearch() {
+  const q = document.getElementById('search-input').value.trim();
+  if (q.length < 2) return;
+  const el = document.getElementById('search-results');
+  el.innerHTML = '<div class="loading"><div class="spinner"></div></div>';
+  try {
+    const data = await apiFetch('/api/islamic-markets/search?q=' + encodeURIComponent(q));
+    if (!data.length) {
+      el.innerHTML = '<p style="color:var(--text2);text-align:center;padding:2rem;">لا نتائج — جرب كلمة أخرى</p>';
+    } else {
+      el.innerHTML = `<p style="color:var(--green);margin-bottom:1rem;">✅ ${data.length} نتيجة</p>
+        <div class="cards-grid">${data.map(renderCard).join('')}</div>`;
+    }
+  } catch (e) {
+    el.innerHTML = '<p style="color:var(--red);text-align:center;padding:2rem;">خطأ في البحث — حاول مجدداً</p>';
+  }
+}
+
+document.getElementById('search-input').addEventListener('keydown', e => {
+  if (e.key === 'Enter') doSearch();
+});
+
+// ── Boot ──
+(function init() {
+  tabsLoaded['overview'] = true;
+  loadTab('overview');
+})();
+</script>
+</body>
+</html>

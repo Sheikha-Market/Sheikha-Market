@@ -3750,6 +3750,18 @@ function verifyPassword(pwd, hash) {
 
 const app = express();
 
+// ✅ التشغيل خلف Nginx/Proxy: لازم trust proxy لتعامل صحيح مع X-Forwarded-For
+// افتراضياً نثق بأول proxy، ويمكن تخصيصه عبر ENV: TRUST_PROXY=1 أو loopback أو true
+const trustProxySetting = process.env.TRUST_PROXY;
+app.set(
+    'trust proxy',
+    trustProxySetting
+        ? (trustProxySetting === 'true'
+            ? true
+            : (/^\d+$/.test(trustProxySetting) ? Number(trustProxySetting) : trustProxySetting))
+        : 1
+);
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -3949,7 +3961,7 @@ function verifyTokenRole(req) {
         const cookieToken = req.cookies ? req.cookies.sheikha_token : null;
         const activeToken = token || cookieToken;
         if (!activeToken) return null;
-        const decoded = jwt.verify(activeToken, process.env.JWT_SECRET || 'sheikha-secret-2026');
+        const decoded = jwt.verify(activeToken, JWT_SECRET);
         return decoded;
     } catch (e) {
         return null;
@@ -5504,6 +5516,124 @@ app.use('/docs', express.static(path.join(__dirname, 'docs')));
 app.get('/admin', (req, res) => res.redirect('/لوحة-الادمن.html'));
 app.get('/dashboard', (req, res) => res.redirect('/لوحة-تحكم-المستخدم.html'));
 app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
+
+// ─── صفحات المحادثة والتفعيل (حل مشكلة: لا تفتح) ───
+function escapeHtml(text) {
+    return String(text || '')
+        .replace(/&/g, '&amp;')
+        .replace(/</g, '&lt;')
+        .replace(/>/g, '&gt;')
+        .replace(/"/g, '&quot;')
+        .replace(/'/g, '&#39;');
+}
+
+function sendMarkdownAsHtml(res, fileName, pageTitle) {
+    const filePath = path.join(__dirname, fileName);
+    if (!fs.existsSync(filePath)) {
+        return res.status(404).send('الملف غير موجود');
+    }
+
+    const content = fs.readFileSync(filePath, 'utf-8');
+    const title = pageTitle || fileName;
+
+    return res
+        .status(200)
+        .set('Content-Type', 'text/html; charset=utf-8')
+        .send(`<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>${escapeHtml(title)}</title>
+    <style>
+        :root { --bg:#060b14; --panel:#111a2b; --line:#253754; --text:#eaf0ff; --muted:#9fb0d1; --gold:#d4af37; }
+        body { margin:0; background:var(--bg); color:var(--text); font-family:'Tajawal',sans-serif; }
+        .wrap { max-width:1100px; margin:0 auto; padding:24px 16px 56px; }
+        .card { border:1px solid var(--line); background:var(--panel); border-radius:14px; padding:16px; }
+        h1 { margin-top:0; color:var(--gold); }
+        .muted { color:var(--muted); }
+        pre { white-space:pre-wrap; line-height:1.85; direction:rtl; background:#0b1323; border:1px solid var(--line); border-radius:12px; padding:12px; }
+        .links { margin: 12px 0 0; display:flex; gap:8px; flex-wrap:wrap; }
+        .links a { color:#7fd2ff; text-decoration:none; border:1px solid var(--line); padding:8px 10px; border-radius:10px; }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="card">
+            <h1>${escapeHtml(title)}</h1>
+            <p class="muted">تم فتح الملف عبر عارض شيخة لضمان عمل صفحة المحادثة والقوائم بشكل صحيح.</p>
+            <div class="links">
+                <a href="/محادثة-تعريف-عن-شيخة">محادثة تعريف عن شيخة</a>
+                <a href="/CHAT-CONVERSATIONS-LIST.md">قائمة المحادثات</a>
+                <a href="/QUICK-ACTIVATION.md">قائمة التفعيل</a>
+                <a href="/CHAT-HISTORY-RECOVERY.md">استرجاع المحادثات</a>
+            </div>
+            <pre>${escapeHtml(content)}</pre>
+        </section>
+    </main>
+</body>
+</html>`);
+}
+
+app.get('/محادثة-تعريف-عن-شيخة', (req, res) => {
+    return res
+        .status(200)
+        .set('Content-Type', 'text/html; charset=utf-8')
+        .send(`<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>محادثة تعريف عن شيخة</title>
+    <style>
+        :root { --bg:#070d18; --panel:#121c2f; --line:#2a3f66; --text:#eaf0ff; --muted:#9fb2d9; --gold:#d4af37; }
+        body { margin:0; background:linear-gradient(180deg,#070d18,#050a13); color:var(--text); font-family:'Tajawal',sans-serif; }
+        .wrap { max-width:1024px; margin:0 auto; padding:24px 16px 56px; }
+        .card { border:1px solid var(--line); border-radius:14px; padding:16px; background:var(--panel); }
+        h1 { margin-top:0; color:var(--gold); }
+        .muted { color:var(--muted); line-height:1.9; }
+        .links { margin-top:14px; display:grid; grid-template-columns:repeat(auto-fit,minmax(220px,1fr)); gap:10px; }
+        .links a { color:#7fd2ff; text-decoration:none; border:1px solid var(--line); border-radius:10px; padding:10px; background:#0b1530; }
+    </style>
+</head>
+<body>
+    <main class="wrap">
+        <section class="card">
+            <h1>محادثة تعريف عن شيخة</h1>
+            <p class="muted">هذه الصفحة تجمع لك المحادثة التعريفية الكاملة مع قائمة التفعيل والملفات المرتبطة. إذا لم تكن الروابط تفتح سابقاً، تم إصلاح المسارات هنا.</p>
+            <div class="links">
+                <a href="/CHAT-CONVERSATIONS-LIST.md">فتح: قائمة المحادثات</a>
+                <a href="/CHAT-HISTORY-RECOVERY.md">فتح: استرجاع المحادثات</a>
+                <a href="/استرجاع-المحادثات-السابقة.md">فتح: استرجاع المحادثات السابقة</a>
+                <a href="/QUICK-ACTIVATION.md">فتح: قائمة التفعيل السريع</a>
+                <a href="/ACTIVATION-SUMMARY.md">فتح: ملخص التفعيل</a>
+                <a href="/api/ai/conversations">API: المحادثات المخزنة</a>
+            </div>
+        </section>
+    </main>
+</body>
+</html>`);
+});
+
+app.get('/CHAT-CONVERSATIONS-LIST.md', (req, res) => sendMarkdownAsHtml(res, 'CHAT-CONVERSATIONS-LIST.md', 'قائمة المحادثات'));
+app.get('/CHAT-HISTORY-RECOVERY.md', (req, res) => sendMarkdownAsHtml(res, 'CHAT-HISTORY-RECOVERY.md', 'استرجاع المحادثات'));
+app.get('/استرجاع-المحادثات-السابقة.md', (req, res) => sendMarkdownAsHtml(res, 'استرجاع-المحادثات-السابقة.md', 'استرجاع المحادثات السابقة'));
+app.get('/%D8%A7%D8%B3%D8%AA%D8%B1%D8%AC%D8%A7%D8%B9-%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D8%AF%D8%AB%D8%A7%D8%AA-%D8%A7%D9%84%D8%B3%D8%A7%D8%A8%D9%82%D8%A9.md', (req, res) =>
+    sendMarkdownAsHtml(res, 'استرجاع-المحادثات-السابقة.md', 'استرجاع المحادثات السابقة'));
+app.get('/QUICK-ACTIVATION.md', (req, res) => sendMarkdownAsHtml(res, 'QUICK-ACTIVATION.md', 'قائمة التفعيل السريع'));
+app.get('/ACTIVATION-SUMMARY.md', (req, res) => sendMarkdownAsHtml(res, 'ACTIVATION-SUMMARY.md', 'ملخص التفعيل'));
+
+// مسارات بديلة للمحادثة السابقة (لتجنب مشكلة: "لا تفتح")
+app.get('/المحادثة-السابقة', (req, res) => res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/%D8%A7%D9%84%D9%85%D8%AD%D8%A7%D8%AF%D8%AB%D8%A9-%D8%A7%D9%84%D8%B3%D8%A7%D8%A8%D9%82%D8%A9', (req, res) =>
+    res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/المحادثه-السابقة', (req, res) => res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/محادثة-سابقة', (req, res) => res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/محادثه-سابقة', (req, res) => res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/محاثه-سابقة', (req, res) => res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/chat-history', (req, res) => res.redirect('/استرجاع-المحادثات-السابقة.md'));
+app.get('/%D9%85%D8%AD%D8%A7%D8%AF%D8%AB%D8%A9-%D8%AA%D8%B9%D8%B1%D9%8A%D9%81-%D8%B9%D9%86-%D8%B4%D9%8A%D8%AE%D8%A9', (req, res) =>
+    res.redirect('/محادثة-تعريف-عن-شيخة'));
 
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
@@ -31892,6 +32022,197 @@ console.log(
 console.log('   📡 Islamic APIs: /api/green/islamic-foundation, /api/green/islamic-search');
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 📡 نظام البث الحي (SSE) — Realtime Event Hub
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const realtimeRoutes = require('./routes/realtime.routes');
+    app.use('/api/realtime', realtimeRoutes);
+    console.log('✅ [Realtime] نظام البث الحي — مُركَّب على /api/realtime');
+    console.log('   📡 نقاط الوصول:');
+    console.log('      GET  /api/realtime/health — حالة البث');
+    console.log('      GET  /api/realtime/channels — قائمة القنوات');
+    console.log('      GET  /api/realtime/recent — آخر الأحداث');
+    console.log('      GET  /api/realtime/archive — أرشيف الأحداث');
+    console.log('      GET  /api/realtime/events — بث SSE الحي');
+    console.log('      POST /api/realtime/emit — نشر حدث');
+    console.log('      POST /api/realtime/seed — زراعة أحداث تجريبية');
+    console.log('      POST /api/realtime/benchmark/fio — اختبار الأداء');
+} catch (e) {
+    console.warn('⚠️ [Realtime] لم يتم تحميل نظام البث:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🎨 Visual + ⚙️ Orchestrator + 🗂️ Git + 🧠 Sheikha Code
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const visualRoutes = require('./routes/visual.routes');
+    app.use('/api/visual', visualRoutes);
+    console.log('✅ [Visual] Visual Engine — مُركَّب على /api/visual');
+} catch (e) {
+    console.warn('⚠️ [Visual] لم يتم تحميل Visual Engine:', e.message);
+}
+
+try {
+    const jobQueueRoutes = require('./routes/job-queue.routes');
+    app.use('/api/jobs', jobQueueRoutes);
+    console.log('✅ [Job-Queue] Sheikha Job Queue — مُركَّب على /api/jobs');
+} catch (e) {
+    console.warn('⚠️ [Job-Queue] لم يتم تحميل Job Queue Routes:', e.message);
+}
+
+try {
+    const executionOrchestratorRoutes = require('./routes/execution-orchestrator.routes');
+    app.use('/api/execution-orchestrator', executionOrchestratorRoutes.router);
+    console.log('✅ [Orchestrator] Execution Orchestrator — مُركَّب على /api/execution-orchestrator');
+} catch (e) {
+    console.warn('⚠️ [Orchestrator] لم يتم تحميل Execution Orchestrator:', e.message);
+}
+
+try {
+    const gitRoutes = require('./routes/git');
+    app.use('/api/git', gitRoutes);
+    console.log('✅ [Git] Git API — مُركَّب على /api/git');
+} catch (e) {
+    console.warn('⚠️ [Git] لم يتم تحميل Git API:', e.message);
+}
+
+try {
+    const sheikhaCodingLanguageRoutes = require('./routes/sheikha-coding-language.routes');
+    app.use('/api/sheikha-code', sheikhaCodingLanguageRoutes.router);
+    console.log('✅ [SheikhaCode] Sheikha Coding Language — مُركَّب على /api/sheikha-code');
+} catch (e) {
+    console.warn('⚠️ [SheikhaCode] لم يتم تحميل Sheikha Coding Language:', e.message);
+}
+
+try {
+    const sheikhaCsLanguageRoutes = require('./routes/sheikha-cs-language.routes');
+    app.use('/api/cs-language', sheikhaCsLanguageRoutes.router);
+    console.log('✅ [CS-Language] Unified CS Language Runtime — مُركَّب على /api/cs-language');
+} catch (e) {
+    console.warn('⚠️ [CS-Language] لم يتم تحميل Unified CS Language Runtime:', e.message);
+}
+
+try {
+    const sheikhaCodeDecisionRoutes = require('./routes/sheikha-code-decision.routes');
+    app.use('/api/sheikha-code-decision', sheikhaCodeDecisionRoutes.router || sheikhaCodeDecisionRoutes);
+    console.log('✅ [SheikhaDecision] Decision Engine — مُركَّب على /api/sheikha-code-decision');
+} catch (e) {
+    console.warn('⚠️ [SheikhaDecision] لم يتم تحميل Decision Engine:', e.message);
+}
+
+try {
+    const sheikhaCommandPipelineRoutes = require('./routes/sheikha-command-pipeline.routes');
+    app.use('/api/sheikha-pipeline', sheikhaCommandPipelineRoutes.router || sheikhaCommandPipelineRoutes);
+    console.log('✅ [SheikhaPipeline] Unified Command Pipeline — مُركَّب على /api/sheikha-pipeline');
+} catch (e) {
+    console.warn('⚠️ [SheikhaPipeline] لم يتم تحميل Unified Command Pipeline:', e.message);
+}
+
+try {
+    const arabicGrammarRoutes = require('./routes/arabic-grammar.routes');
+    app.use('/api/arabic-grammar', arabicGrammarRoutes.router || arabicGrammarRoutes);
+    console.log('✅ [ArabicGrammar] Arabic Grammar Engine — مُركَّب على /api/arabic-grammar');
+} catch (e) {
+    console.warn('⚠️ [ArabicGrammar] لم يتم تحميل Arabic Grammar Engine:', e.message);
+}
+
+// ✅ Operations Routes — Persistence, Job Queue, Encoding
+try {
+    const operationsRoutes = require('./routes/operations.routes');
+    app.use('/api/operations', operationsRoutes);
+    console.log('✅ [Operations] Persistence + Job Queue + Encoding — مُركَّب على /api/operations');
+} catch (e) {
+    console.warn('⚠️ [Operations] لم يتم تحميل Operations:', e.message);
+}
+
+try {
+    const sheikhaNetworkRoutes = require('./routes/sheikha-network.js');
+    app.use('/api/network', sheikhaNetworkRoutes);
+    console.log('✅ [SHEIKHA-NETWORK] شبكة شيخة المتكاملة — مُفعَّلة');
+} catch (e) {
+    console.warn('⚠️ [SHEIKHA-NETWORK] فشل تحميل مسارات الشبكة المتكاملة:', e.message);
+}
+
+try {
+    const telecomUnifiedRoutes = require('./routes/telecom-unified.routes');
+    app.use('/api/telecom/sheikha/unified', telecomUnifiedRoutes);
+    console.log('✅ [Telecom-Unified] الشبكة العصبية الموحدة — مُركَّبة على /api/telecom/sheikha/unified');
+} catch (e) {
+    console.warn('⚠️ [Telecom-Unified] لم يتم تحميل الشبكة العصبية الموحدة:', e.message);
+}
+
+try {
+    const agentRoutes = require('./routes/agent.routes');
+    app.use('/api/agent', agentRoutes);
+    console.log('✅ [Cloud-Agent] Sheikha Cloud Agent — مُركَّب على /api/agent');
+} catch (e) {
+    console.warn('⚠️ [Cloud-Agent] لم يتم تحميل مسارات الوكيل السحابي:', e.message);
+}
+
+// ✅ Sheikha Language Layer + Supreme CS Engine
+let sheikhaLanguageLayer = null;
+let sheikhaSupremeCsEngine = null;
+
+try {
+    sheikhaLanguageLayer = require('./lib/sheikha-language-layer');
+    sheikhaSupremeCsEngine = require('./lib/sheikha-supreme-cs-engine');
+
+    app.get('/api/language-layer/activate', (_req, res) => {
+        return res.json(sheikhaLanguageLayer.activate());
+    });
+
+    app.get('/api/language-layer/history', (_req, res) => {
+        return res.json({
+            success: true,
+            schema: 'sheikha/v2',
+            data: sheikhaLanguageLayer.getHistory(),
+            message: 'سجل الطبقة اللغوية',
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/language-layer/neural', (_req, res) => {
+        return res.json({
+            success: true,
+            schema: 'sheikha/v2',
+            data: sheikhaLanguageLayer.getNeuralCells(),
+            message: 'الخلايا العصبية للطبقة اللغوية',
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/supreme-cs/info', (_req, res) => {
+        return res.json(sheikhaSupremeCsEngine.execute('info'));
+    });
+
+    app.get('/api/cs/overview', (_req, res) => {
+        return res.json(sheikhaSupremeCsEngine.execute('info'));
+    });
+
+    app.post('/api/supreme-cs/execute', (req, res) => {
+        const { command, payload } = req.body || {};
+        return res.json(sheikhaSupremeCsEngine.execute(command, payload));
+    });
+
+    console.log('✅ [Language-Layer] Sheikha Language Layer — مُركَّبة على /api/language-layer/*');
+    console.log('✅ [Supreme-CS] Sheikha Supreme CS Engine — مُركَّب على /api/supreme-cs/*');
+} catch (e) {
+    console.warn('⚠️ [Language/Supreme] لم يتم تحميل طبقة اللغة أو المحرك العلوي:', e.message);
+}
+
+try {
+    const SheikhaJobQueueWorker = require('./lib/sheikha-job-queue-worker');
+    const sheikhaJobQueueWorker = new SheikhaJobQueueWorker({
+        rootDir: __dirname,
+        intervalMs: 1500
+    });
+    sheikhaJobQueueWorker.start();
+    console.log('✅ [Job-Queue-Worker] عامل التنفيذ التلقائي — مُفعَّل');
+} catch (e) {
+    console.warn('⚠️ [Job-Queue-Worker] لم يتم تحميل عامل التنفيذ:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 منظومة الذكاء الاصطناعي المتقدمة — RAG + Agents + Production
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
@@ -35306,7 +35627,8 @@ try {
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const server = app.listen(PORT, '127.0.0.1', () => {
+const listenHost = process.env.NODE_ENV === 'production' ? '0.0.0.0' : '127.0.0.1';
+const server = app.listen(PORT, listenHost, () => {
     addSystemLog('success', 'Server', `Server started on port ${PORT}`);
 
     // ═══ تفعيل محرك الأتمتة v2.0 — تسجيل APIs + بدء الجدولة ═══

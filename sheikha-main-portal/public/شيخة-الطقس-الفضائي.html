@@ -1,0 +1,643 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>شيخة — طقس الفضاء | القمر شمس</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:#0a0a0f;color:#e8e0d0;direction:rtl;min-height:100vh}
+:root{--gold:#D4AF37;--copper:#B87333;--dark:#0a0a0f;--card:#12121a;--border:#1e1e2e;--space-green:#00C851;--space-yellow:#FFD700;--space-orange:#FF6600;--space-red:#FF1744;--space-blue:#00B4FF}
+
+/* Header */
+.header{background:linear-gradient(135deg,#0a0a0f 0%,#0d0d20 50%,#0a0a0f 100%);border-bottom:1px solid var(--gold);padding:20px 30px;display:flex;align-items:center;justify-content:space-between}
+.logo{font-size:1.8rem;font-weight:900;color:var(--gold);text-decoration:none}
+.logo span{color:var(--space-blue)}
+.tagline{color:#888;font-size:0.85rem;margin-top:4px}
+.live-badge{background:rgba(255,23,68,0.2);border:1px solid var(--space-red);color:var(--space-red);padding:4px 14px;border-radius:20px;font-size:0.8rem;font-weight:700;animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{opacity:1}50%{opacity:0.6}}
+
+/* Hero - Space Alert */
+.space-hero{background:linear-gradient(180deg,#0d0d20 0%,#0a0a0f 100%);padding:30px;margin:20px;border-radius:16px;border:1px solid var(--border);position:relative;overflow:hidden}
+.space-hero::before{content:'';position:absolute;top:0;left:0;right:0;bottom:0;background:radial-gradient(ellipse at center,rgba(0,180,255,0.05) 0%,transparent 70%);pointer-events:none}
+.alert-badge{display:inline-flex;align-items:center;gap:8px;padding:8px 20px;border-radius:30px;font-weight:700;font-size:1rem;margin-bottom:15px}
+.alert-badge.green{background:rgba(0,200,81,0.15);border:2px solid var(--space-green);color:var(--space-green)}
+.alert-badge.yellow{background:rgba(255,215,0,0.15);border:2px solid var(--space-yellow);color:var(--space-yellow)}
+.alert-badge.orange{background:rgba(255,102,0,0.15);border:2px solid var(--space-orange);color:var(--space-orange)}
+.alert-badge.red{background:rgba(255,23,68,0.15);border:2px solid var(--space-red);color:var(--space-red);animation:pulse 1s infinite}
+
+.sensor-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;margin-top:20px}
+.sensor-card{background:rgba(255,255,255,0.03);border:1px solid var(--border);border-radius:12px;padding:20px;text-align:center;transition:all 0.3s}
+.sensor-card:hover{border-color:var(--space-blue);transform:translateY(-3px)}
+.sensor-icon{font-size:2.5rem;margin-bottom:10px}
+.sensor-value{font-size:1.6rem;font-weight:900;color:var(--gold);font-variant-numeric:tabular-nums}
+.sensor-unit{font-size:0.75rem;color:#666;margin-top:2px}
+.sensor-name{font-size:0.9rem;color:#aaa;margin-top:8px}
+.sensor-status{display:inline-block;width:8px;height:8px;border-radius:50%;margin-left:6px}
+.sensor-status.safe{background:var(--space-green)}
+.sensor-status.warn{background:var(--space-orange)}
+.sensor-status.danger{background:var(--space-red)}
+
+/* Tabs */
+.tabs{display:flex;gap:8px;padding:0 20px;flex-wrap:wrap;border-bottom:1px solid var(--border);margin-bottom:0}
+.tab{padding:12px 20px;border-radius:10px 10px 0 0;cursor:pointer;font-size:0.9rem;font-weight:600;color:#888;border:none;background:none;transition:all 0.3s;border:1px solid transparent;border-bottom:none}
+.tab.active,.tab:hover{color:var(--gold);background:var(--card);border-color:var(--border)}
+.tab-content{display:none;padding:25px 20px;animation:fadeIn 0.3s}
+.tab-content.active{display:block}
+@keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Cards */
+.card{background:var(--card);border-radius:14px;border:1px solid var(--border);padding:24px;margin-bottom:16px}
+.card-title{font-size:1.1rem;font-weight:700;color:var(--gold);margin-bottom:16px;display:flex;align-items:center;gap:8px}
+.grid-2{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.grid-3{display:grid;grid-template-columns:repeat(3,1fr);gap:16px}
+
+/* Impact Sectors */
+.sector-card{background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:18px;transition:all 0.3s}
+.sector-card:hover{border-color:var(--gold)}
+.sector-icon{font-size:2rem;margin-bottom:10px}
+.sector-name{font-weight:700;color:#ddd;margin-bottom:6px}
+.sector-risk{display:inline-block;padding:2px 10px;border-radius:12px;font-size:0.78rem;font-weight:700;margin-bottom:8px}
+.risk-none{background:rgba(0,200,81,0.2);color:var(--space-green)}
+.risk-low{background:rgba(255,215,0,0.2);color:var(--space-yellow)}
+.risk-medium{background:rgba(255,102,0,0.2);color:var(--space-orange)}
+.risk-high{background:rgba(255,23,68,0.2);color:var(--space-red)}
+.sector-action{font-size:0.85rem;color:#aaa;border-top:1px solid var(--border);margin-top:10px;padding-top:10px}
+
+/* Forecast Chart */
+.forecast-bar{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+.f-hour{color:#666;font-size:0.8rem;width:55px;text-align:left;direction:ltr}
+.f-bar{height:24px;border-radius:4px;transition:all 0.3s;display:flex;align-items:center;padding:0 8px;font-size:0.75rem;font-weight:600;color:rgba(255,255,255,0.9);min-width:40px}
+.f-label{font-size:0.75rem;color:#888;margin-right:auto}
+
+/* Satellite Info */
+.info-row{display:flex;justify-content:space-between;align-items:center;padding:12px 0;border-bottom:1px solid var(--border)}
+.info-row:last-child{border-bottom:none}
+.info-label{color:#888;font-size:0.9rem}
+.info-value{color:#ddd;font-weight:600;text-align:left;direction:ltr}
+
+/* Crew cards */
+.crew-card{background:rgba(212,175,55,0.05);border:1px solid rgba(212,175,55,0.2);border-radius:12px;padding:16px;display:flex;align-items:center;gap:14px}
+.crew-avatar{width:50px;height:50px;border-radius:50%;background:linear-gradient(135deg,var(--gold),var(--copper));display:flex;align-items:center;justify-content:center;font-size:1.4rem;flex-shrink:0}
+
+/* Recommendations */
+.rec-item{display:flex;gap:12px;padding:12px;background:rgba(255,255,255,0.03);border-radius:8px;margin-bottom:8px;border-right:3px solid var(--space-blue)}
+.rec-item.warning{border-right-color:var(--space-orange)}
+.rec-item.danger{border-right-color:var(--space-red)}
+.rec-num{color:var(--gold);font-weight:900;font-size:1.1rem;flex-shrink:0;min-width:24px}
+
+/* Data API Box */
+.api-box{background:#0d1117;border:1px solid #30363d;border-radius:8px;padding:16px;font-family:'Courier New',monospace;font-size:0.82rem;color:#58a6ff;overflow-x:auto;direction:ltr;text-align:left}
+
+/* Stats strip */
+.stats-strip{display:flex;gap:16px;flex-wrap:wrap;margin-bottom:20px}
+.stat-pill{background:var(--card);border:1px solid var(--border);border-radius:20px;padding:8px 18px;display:flex;align-items:center;gap:8px}
+.stat-num{font-size:1.1rem;font-weight:900;color:var(--gold)}
+.stat-lbl{font-size:0.78rem;color:#888}
+
+/* Loading */
+.loading{text-align:center;padding:40px;color:#666}
+.spinner{width:32px;height:32px;border:3px solid #222;border-top-color:var(--gold);border-radius:50%;animation:spin 0.8s linear infinite;margin:0 auto 12px}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* Halal badge */
+.halal-note{background:rgba(212,175,55,0.07);border:1px solid rgba(212,175,55,0.2);border-radius:8px;padding:10px 16px;font-size:0.82rem;color:#aaa;margin-top:16px}
+
+/* Responsive */
+@media(max-width:768px){
+.sensor-grid{grid-template-columns:repeat(2,1fr)}
+.grid-2,.grid-3{grid-template-columns:1fr}
+.tabs{gap:4px}
+.tab{padding:8px 12px;font-size:0.8rem}
+.header{flex-direction:column;gap:12px;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="header">
+    <div>
+        <a href="/" class="logo">شيخة <span>الفضاء</span></a>
+        <div class="tagline">طقس الفضاء — القمر السعودي شمس — مهمة آرتميس ٢</div>
+    </div>
+    <div style="text-align:center">
+        <div id="currentTime" style="color:#aaa;font-size:0.85rem"></div>
+        <div id="mainAlertBadge" class="alert-badge green" style="margin-top:8px;margin-bottom:0">
+            <span>●</span> <span id="mainAlertText">جاري التحميل...</span>
+        </div>
+    </div>
+    <span class="live-badge">● مباشر</span>
+</div>
+
+<!-- Hero Sensors -->
+<div class="space-hero" id="heroSection">
+    <div style="font-size:0.8rem;color:#888;margin-bottom:8px">📡 بيانات مباشرة من القمر الصناعي شمس — مهمة آرتميس ٢ — ٢ أبريل ٢٠٢٦</div>
+    <div id="heroDescription" style="color:#bbb;margin-bottom:4px">جاري تحميل بيانات الفضاء...</div>
+    <div id="heroSheikhaStatus" style="color:#888;font-size:0.85rem"></div>
+    <div class="sensor-grid" id="sensorGrid">
+        <div class="sensor-card"><div class="loading"><div class="spinner"></div></div></div>
+        <div class="sensor-card"><div class="loading"><div class="spinner"></div></div></div>
+        <div class="sensor-card"><div class="loading"><div class="spinner"></div></div></div>
+        <div class="sensor-card"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+</div>
+
+<!-- Tabs -->
+<div class="tabs">
+    <button class="tab active" onclick="showTab('overview')">📊 نظرة عامة</button>
+    <button class="tab" onclick="showTab('impact')">🎯 تأثير على شيخة</button>
+    <button class="tab" onclick="showTab('forecast')">🔮 تنبؤ ٢٤ ساعة</button>
+    <button class="tab" onclick="showTab('sensors')">🔬 المستشعرات</button>
+    <button class="tab" onclick="showTab('satellite')">🛸 القمر شمس</button>
+    <button class="tab" onclick="showTab('crew')">👨‍🚀 رواد الفضاء</button>
+    <button class="tab" onclick="showTab('data')">💻 بيانات وAPI</button>
+</div>
+
+<!-- TAB: Overview -->
+<div id="tab-overview" class="tab-content active">
+    <div id="overviewContent">
+        <div class="loading"><div class="spinner"></div><p>جاري التحميل...</p></div>
+    </div>
+</div>
+
+<!-- TAB: Impact -->
+<div id="tab-impact" class="tab-content">
+    <div class="card">
+        <div class="card-title">🎯 تأثير طقس الفضاء على عمليات شيخة</div>
+        <div id="impactGrid" style="display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">📋 توصيات شيخة الآنية</div>
+        <div id="recommendationsList">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+        <div class="halal-note">⚖️ ملاحظة: هذه معلومات تشغيلية للتوجيه فقط — لا قرار مالي ملزم — شيخة تُعلم ولا تُلزم</div>
+    </div>
+</div>
+
+<!-- TAB: Forecast -->
+<div id="tab-forecast" class="tab-content">
+    <div class="card">
+        <div class="card-title">🔮 تنبؤ طقس الفضاء — الـ ٢٤ ساعة القادمة</div>
+        <div id="forecastContent">
+            <div class="loading"><div class="spinner"></div></div>
+        </div>
+        <div class="halal-note">📡 تنبؤ تقريبي بناءً على بيانات القمر شمس ونشاط الدورة الشمسية الـ ٢٥ — للتوجيه التشغيلي فقط</div>
+    </div>
+</div>
+
+<!-- TAB: Sensors -->
+<div id="tab-sensors" class="tab-content">
+    <div class="card" id="sensorsContent">
+        <div class="loading"><div class="spinner"></div></div>
+    </div>
+</div>
+
+<!-- TAB: Satellite -->
+<div id="tab-satellite" class="tab-content">
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">🛸 القمر الصناعي شمس</div>
+            <div id="satelliteInfo"><div class="loading"><div class="spinner"></div></div></div>
+        </div>
+        <div class="card">
+            <div class="card-title">🌍 الإنجاز التاريخي</div>
+            <div style="line-height:2">
+                <div class="info-row">
+                    <span class="info-label">📅 تاريخ الإطلاق</span>
+                    <span class="info-value">٢ أبريل ٢٠٢٦</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">🚀 الصاروخ</span>
+                    <span class="info-value">NASA SLS — أقوى صاروخ في العالم</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">📍 موقع الإطلاق</span>
+                    <span class="info-value">Kennedy Space Center — Florida</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">🌟 الإنجاز</span>
+                    <span class="info-value" style="color:var(--gold)">أول قمر عربي في Artemis</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">🔭 المهمة العلمية</span>
+                    <span class="info-value">رصد طقس الفضاء والنشاط الشمسي</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">📡 نوع القمر</span>
+                    <span class="info-value">CubeSat 12U — تطوير سعودي 100%</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">🛰️ المدار</span>
+                    <span class="info-value">HEO — 500 إلى 70,000 كم</span>
+                </div>
+                <div class="info-row">
+                    <span class="info-label">🎯 رؤية 2030</span>
+                    <span class="info-value" style="color:var(--gold)">توطين تقنيات الفضاء</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">📊 محاور الرصد والبيانات المُنتجة</div>
+        <div class="grid-2">
+            <div style="padding:16px;background:rgba(0,180,255,0.05);border-radius:10px;border:1px solid rgba(0,180,255,0.15)">
+                <div style="font-size:1.3rem;margin-bottom:8px">🛡️</div>
+                <div style="font-weight:700;color:#ddd;margin-bottom:6px">حماية الاتصالات و GPS</div>
+                <div style="font-size:0.85rem;color:#888">التنبؤ بالاضطرابات قبل وصولها للأرض — منع انقطاع إشارات الملاحة والإنترنت الفضائي</div>
+            </div>
+            <div style="padding:16px;background:rgba(212,175,55,0.05);border-radius:10px;border:1px solid rgba(212,175,55,0.15)">
+                <div style="font-size:1.3rem;margin-bottom:8px">⚡</div>
+                <div style="font-weight:700;color:#ddd;margin-bottom:6px">أمان شبكات الكهرباء</div>
+                <div style="font-size:0.85rem;color:#888">تحذير مبكر لشركات الطاقة لضبط أحمال الشبكة وحماية المحولات من التلف</div>
+            </div>
+            <div style="padding:16px;background:rgba(0,200,81,0.05);border-radius:10px;border:1px solid rgba(0,200,81,0.15)">
+                <div style="font-size:1.3rem;margin-bottom:8px">🛰️</div>
+                <div style="font-weight:700;color:#ddd;margin-bottom:6px">سلامة الأقمار الصناعية</div>
+                <div style="font-size:0.85rem;color:#888">توجيه الأقمار لوضع السكون أثناء العواصف — حماية رواد الفضاء في مهام آرتميس</div>
+            </div>
+            <div style="padding:16px;background:rgba(184,115,51,0.05);border-radius:10px;border:1px solid rgba(184,115,51,0.15)">
+                <div style="font-size:1.3rem;margin-bottom:8px">🔬</div>
+                <div style="font-weight:700;color:#ddd;margin-bottom:6px">البحث العلمي الوطني</div>
+                <div style="font-size:0.85rem;color:#888">أرشيف بيانات للجامعات السعودية — تطوير نماذج التنبؤ بالطقس الفضائي</div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- TAB: Crew -->
+<div id="tab-crew" class="tab-content">
+    <div class="card">
+        <div class="card-title">👨‍🚀 رواد الفضاء السعوديون — إنجاز رؤية ٢٠٣٠</div>
+        <div id="crewContent"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+</div>
+
+<!-- TAB: Data API -->
+<div id="tab-data" class="tab-content">
+    <div class="card">
+        <div class="card-title">💻 واجهة برمجية (API) — بيانات القمر شمس</div>
+        <p style="color:#aaa;margin-bottom:16px;font-size:0.9rem">
+            شيخة تقدم بيانات طقس الفضاء للمطورين والمحللين عبر API موحدة — استناداً لبيانات القمر شمس
+        </p>
+        <div class="api-box" id="apiEndpoints">
+GET /api/space-weather/stats
+GET /api/space-weather/satellite
+GET /api/space-weather/current
+GET /api/space-weather/forecast
+GET /api/space-weather/sensors
+GET /api/space-weather/alert-levels
+GET /api/space-weather/sheikha-impact
+GET /api/space-weather/operational-status/:level
+        </div>
+    </div>
+    <div class="grid-2">
+        <div class="card">
+            <div class="card-title">📦 نموذج استجابة القمر شمس</div>
+            <div class="api-box" id="sampleResponse">
+// جاري التحميل...
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">🐍 مثال Python — ربط بيانات شمس</div>
+            <div class="api-box">import requests
+
+url = "https://sheikha.top/api/space-weather/current"
+response = requests.get(url)
+data = response.json()
+
+alert = data["data"]["alert"]
+print(f"مستوى الخطر: {alert['label_ar']}")
+print(f"الحالة: {alert['description']}")
+
+# توصيات شيخة
+for rec in data["data"]["recommendations"]:
+    print(f"  → {rec}")</div>
+        </div>
+    </div>
+    <div class="card">
+        <div class="card-title">📊 الإحصاءات</div>
+        <div id="statsContent"><div class="loading"><div class="spinner"></div></div></div>
+    </div>
+</div>
+
+<div style="text-align:center;padding:30px;color:#444;font-size:0.8rem;border-top:1px solid #111;margin-top:20px">
+    شيخة — طقس الفضاء | القمر شمس — بسم الله الرحمن الرحيم<br>
+    بيانات علمية للتوجيه فقط — لا قرار مالي ملزم — والله على ما نقول شهيد
+</div>
+
+<script>
+const API = '';
+
+function showTab(name) {
+    document.querySelectorAll('.tab-content').forEach(t => t.classList.remove('active'));
+    document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    loadTab(name);
+}
+
+const loaded = {};
+
+function loadTab(name) {
+    if (loaded[name]) return;
+    loaded[name] = true;
+    if (name === 'forecast') loadForecast();
+    else if (name === 'sensors') loadSensors();
+    else if (name === 'satellite') loadSatellite();
+    else if (name === 'crew') loadCrew();
+    else if (name === 'data') loadData();
+}
+
+// Alert level CSS class
+function alertClass(code) {
+    return {GREEN:'green', YELLOW:'yellow', ORANGE:'orange', RED:'red'}[code] || 'green';
+}
+function riskClass(risk) {
+    if (!risk || risk === 'منعدم') return 'risk-none';
+    if (risk === 'منخفض') return 'risk-low';
+    if (risk === 'متوسط') return 'risk-medium';
+    return 'risk-high';
+}
+
+// Update time
+function updateTime() {
+    const now = new Date();
+    document.getElementById('currentTime').textContent =
+        now.toLocaleDateString('ar-SA') + ' — ' + now.toLocaleTimeString('ar-SA');
+}
+setInterval(updateTime, 1000);
+updateTime();
+
+// Load hero + overview
+async function loadHero() {
+    try {
+        const res = await fetch(API + '/api/space-weather/current');
+        const json = await res.json();
+        const d = json.data;
+        const alert = d.alert;
+        const sensors = d.reading.sensors;
+        const ac = alertClass(alert.code);
+
+        // Update alert badge
+        const badge = document.getElementById('mainAlertBadge');
+        badge.className = 'alert-badge ' + ac;
+        document.getElementById('mainAlertText').textContent = alert.label_ar + ' — ' + alert.code;
+        document.getElementById('heroDescription').textContent = alert.description;
+        document.getElementById('heroSheikhaStatus').textContent = '⚙️ ' + alert.sheikha_status;
+
+        // Sensor grid
+        const sensorInfo = [
+            { icon: '🧲', name: 'المجال المغناطيسي', value: sensors.magnetic.toLocaleString('ar'), unit: 'nT', safe: sensors.magnetic > 28000 },
+            { icon: '☀️', name: 'الأشعة السينية', value: sensors.xray.toExponential(2), unit: 'W/m²', safe: sensors.xray < 1e-4 },
+            { icon: '⚡', name: 'الإشعاع الكوني', value: sensors.radiation, unit: 'mGy', safe: sensors.radiation < 60 },
+            { icon: '🔬', name: 'الجسيمات المشحونة', value: sensors.particles.toLocaleString('ar'), unit: 'p/cm²/s', safe: sensors.particles < 800 }
+        ];
+        document.getElementById('sensorGrid').innerHTML = sensorInfo.map(s => `
+            <div class="sensor-card">
+                <div class="sensor-icon">${s.icon}</div>
+                <div class="sensor-value">${s.value}</div>
+                <div class="sensor-unit">${s.unit}</div>
+                <div class="sensor-name">
+                    <span class="sensor-status ${s.safe ? 'safe' : 'danger'}"></span>
+                    ${s.name}
+                </div>
+            </div>
+        `).join('');
+
+        // Overview tab
+        const xrayClass = d.alert.triggers?.xray_class || {};
+        document.getElementById('overviewContent').innerHTML = `
+            <div class="stats-strip">
+                <div class="stat-pill"><span class="stat-num">${d.reading.satellite}</span><span class="stat-lbl">القمر</span></div>
+                <div class="stat-pill"><span class="stat-num">${d.reading.orbit_altitude_km.toLocaleString('ar')} كم</span><span class="stat-lbl">الارتفاع</span></div>
+                <div class="stat-pill"><span class="stat-num" style="color:${alert.color}">${alert.label_ar}</span><span class="stat-lbl">المستوى</span></div>
+                <div class="stat-pill"><span class="stat-num">${xrayClass.class || 'A'}</span><span class="stat-lbl">فئة X-Ray</span></div>
+            </div>
+            <div class="grid-2">
+                <div class="card">
+                    <div class="card-title">🌞 حالة النشاط الشمسي</div>
+                    ${Object.entries(d.alert.sensor_readings || {}).map(([k,v]) => `
+                        <div class="info-row">
+                            <span class="info-label">${k.replace('_',' ')}</span>
+                            <span class="info-value" style="color:${v.safe ? 'var(--space-green)' : 'var(--space-orange)'}">
+                                ${v.value} ${v.unit} ${v.classification ? `— ${v.classification}` : ''}
+                            </span>
+                        </div>
+                    `).join('')}
+                </div>
+                <div class="card">
+                    <div class="card-title">⚙️ الحالة التشغيلية لشيخة</div>
+                    ${Object.values(d.operational_status).slice(0,4).map(s => `
+                        <div class="info-row">
+                            <span class="info-label">${s.icon} ${s.name}</span>
+                            <span class="info-value" style="font-size:0.85rem">${s.impact?.action || '—'}</span>
+                        </div>
+                    `).join('')}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">📋 التوصيات الآنية</div>
+                ${d.recommendations.map((r,i) => `
+                    <div class="rec-item ${ac === 'orange' ? 'warning' : ac === 'red' ? 'danger' : ''}">
+                        <span class="rec-num">${i+1}</span>
+                        <span style="color:#ddd">${r}</span>
+                    </div>
+                `).join('')}
+                <div class="halal-note">⚖️ للتوجيه فقط — لا قرار مالي ملزم — شيخة تُعلم ولا تُلزم</div>
+            </div>
+        `;
+
+        // Impact tab
+        document.getElementById('impactGrid').innerHTML = Object.values(d.operational_status).map(s => `
+            <div class="sector-card">
+                <div class="sector-icon">${s.icon}</div>
+                <div class="sector-name">${s.name}</div>
+                <div class="sector-risk ${riskClass(s.impact?.risk)}">${s.impact?.risk || 'غير محدد'}</div>
+                <div style="font-size:0.82rem;color:#aaa;margin:6px 0">${s.explanation}</div>
+                <div class="sector-action">${s.impact?.action || '—'}</div>
+            </div>
+        `).join('');
+
+        document.getElementById('recommendationsList').innerHTML = d.recommendations.map((r,i) => `
+            <div class="rec-item ${ac === 'orange' ? 'warning' : ac === 'red' ? 'danger' : ''}">
+                <span class="rec-num">${i+1}</span>
+                <span style="color:#ddd">${r}</span>
+            </div>
+        `).join('');
+
+        // Sample response in data tab
+        const sample = {
+            satellite: d.reading.satellite,
+            alert: { code: alert.code, label_ar: alert.label_ar },
+            sensors: sensors
+        };
+        document.getElementById('sampleResponse').textContent = JSON.stringify(sample, null, 2);
+
+    } catch(e) {
+        console.error(e);
+        document.getElementById('heroDescription').textContent = 'تعذر تحميل البيانات — تحقق من الخادم';
+    }
+}
+
+async function loadForecast() {
+    try {
+        const res = await fetch(API + '/api/space-weather/forecast');
+        const json = await res.json();
+        const h = json.data.hourly;
+        const colorMap = {GREEN:'var(--space-green)', YELLOW:'var(--space-yellow)', ORANGE:'var(--space-orange)', RED:'var(--space-red)'};
+        const worst = json.data.worst_expected;
+
+        document.getElementById('forecastContent').innerHTML = `
+            <div class="card" style="background:rgba(0,180,255,0.05);border-color:rgba(0,180,255,0.2);margin-bottom:16px">
+                <div style="font-size:0.9rem;color:#aaa">أسوأ حالة متوقعة خلال ٢٤ ساعة:
+                    <strong style="color:${colorMap[worst.alert_code]}">${worst.alert_label}</strong> في ${worst.hour}
+                </div>
+            </div>
+            ${h.map(hr => {
+                const col = colorMap[hr.alert_code] || 'var(--space-green)';
+                const width = { GREEN:15, YELLOW:30, ORANGE:60, RED:90 }[hr.alert_code] || 15;
+                return `<div class="forecast-bar">
+                    <span class="f-hour">${hr.hour}</span>
+                    <div class="f-bar" style="background:${col};width:${width}%">${hr.xray_class}-class</div>
+                    <span class="f-label">${hr.alert_label}</span>
+                    <span style="color:#555;font-size:0.75rem;direction:ltr">${hr.magnetic.toLocaleString()} nT</span>
+                </div>`;
+            }).join('')}
+        `;
+    } catch(e) {
+        document.getElementById('forecastContent').innerHTML = '<p style="color:#555">تعذر التحميل</p>';
+    }
+}
+
+async function loadSensors() {
+    try {
+        const res = await fetch(API + '/api/space-weather/sensors');
+        const json = await res.json();
+        const sensors = json.data;
+        document.getElementById('sensorsContent').innerHTML = `
+            <div class="card-title">🔬 المستشعرات الأربعة — القمر شمس</div>
+            <div class="grid-2">
+                ${Object.values(sensors).map(s => `
+                    <div style="background:rgba(255,255,255,0.02);border:1px solid var(--border);border-radius:12px;padding:20px">
+                        <div style="font-size:2.2rem;margin-bottom:10px">${s.icon}</div>
+                        <div style="font-weight:700;color:var(--gold);margin-bottom:4px">${s.name}</div>
+                        <div style="font-size:0.8rem;color:#888;font-family:monospace;margin-bottom:8px;direction:ltr">${s.name_en}</div>
+                        <div style="font-size:0.85rem;color:#aaa;margin-bottom:10px">${s.measures}</div>
+                        <div class="info-row" style="border-color:#1a1a2e">
+                            <span class="info-label">الوحدة</span>
+                            <span class="info-value" style="font-size:0.8rem;direction:ltr">${s.unit}</span>
+                        </div>
+                        <div style="margin-top:10px">
+                            <div style="font-size:0.78rem;color:#555;margin-bottom:4px">يحمي:</div>
+                            ${(s.protects || []).map(p => `<span style="display:inline-block;padding:2px 8px;background:rgba(0,180,255,0.1);border-radius:10px;font-size:0.75rem;color:var(--space-blue);margin:2px">${p}</span>`).join('')}
+                        </div>
+                        <div style="margin-top:10px;font-size:0.82rem;color:#666;border-top:1px solid var(--border);padding-top:8px">${s.data_produced}</div>
+                    </div>
+                `).join('')}
+            </div>
+        `;
+    } catch(e) {}
+}
+
+async function loadSatellite() {
+    // Already rendered statically in HTML, just fetch additional data
+    try {
+        const res = await fetch(API + '/api/space-weather/satellite');
+        const json = await res.json();
+        const s = json.data;
+        document.getElementById('satelliteInfo').innerHTML = Object.entries({
+            'الاسم': s.name,
+            'النوع': s.type,
+            'تاريخ الإطلاق': s.launch_date,
+            'المهمة': s.mission,
+            'المدار': s.orbit_type,
+            'الارتفاع': `${s.orbit_altitude_km.min} – ${s.orbit_altitude_km.max} كم`,
+            'المطور': s.developer,
+            'الهدف': s.objective
+        }).map(([k,v]) => `
+            <div class="info-row">
+                <span class="info-label">${k}</span>
+                <span class="info-value">${v}</span>
+            </div>
+        `).join('');
+    } catch(e) {}
+}
+
+async function loadCrew() {
+    try {
+        const res = await fetch(API + '/api/space-weather/satellite');
+        const json = await res.json();
+        const crew = json.data.saudi_space_crew || [];
+        const emojis = ['👩‍🚀', '👨‍🚀', '🌟'];
+        document.getElementById('crewContent').innerHTML = crew.map((c,i) => `
+            <div class="crew-card" style="margin-bottom:12px">
+                <div class="crew-avatar">${emojis[i]}</div>
+                <div>
+                    <div style="font-weight:700;color:var(--gold);font-size:1.05rem">${c.name}</div>
+                    <div style="color:#aaa;font-size:0.88rem;margin:4px 0">${c.role}</div>
+                    <div style="color:#666;font-size:0.8rem">🚀 ${c.mission}</div>
+                </div>
+            </div>
+        `).join('') + `
+            <div style="margin-top:20px;padding:16px;background:rgba(212,175,55,0.05);border-radius:10px;border:1px solid rgba(212,175,55,0.15)">
+                <div style="font-weight:700;color:var(--gold);margin-bottom:8px">🏆 إنجازات التاريخ</div>
+                <div style="font-size:0.88rem;color:#aaa;line-height:1.8">
+                    ✦ ١٩٨٥ — الأمير سلطان أول رائد فضاء عربي وسعودي على مكوك ديسكفري<br>
+                    ✦ ٢٠٢٣ — ريانة برناوي أول رائدة فضاء سعودية وعربية — ١٤ تجربة علمية على ISS<br>
+                    ✦ ٢٠٢٦ — القمر شمس — أول مشاركة عربية في برنامج آرتميس — Artemis II<br>
+                    ✦ رؤية ٢٠٣٠ — توطين صناعة الفضاء بأيدٍ سعودية
+                </div>
+            </div>
+        `;
+    } catch(e) {}
+}
+
+async function loadData() {
+    try {
+        const res = await fetch(API + '/api/space-weather/stats');
+        const json = await res.json();
+        const s = json.data;
+        document.getElementById('statsContent').innerHTML = `
+            <div class="grid-3">
+                ${[
+                    ['🛰️', 'القمر', s.satellite],
+                    ['📅', 'الإطلاق', s.launch],
+                    ['🌍', 'المهمة', s.mission],
+                    ['📡', 'عدد المستشعرات', s.sensors_count],
+                    ['⚠️', 'مستويات التحذير', s.alert_levels],
+                    ['🎯', 'قطاعات شيخة المراقبة', s.sheikha_sectors_monitored],
+                ].map(([icon, label, val]) => `
+                    <div class="stat-pill" style="flex-direction:column;align-items:flex-start;padding:14px 18px;border-radius:12px">
+                        <span style="font-size:1.2rem">${icon}</span>
+                        <span class="stat-num" style="font-size:1rem;margin:4px 0">${val}</span>
+                        <span class="stat-lbl">${label}</span>
+                    </div>
+                `).join('')}
+            </div>
+            <div style="margin-top:16px">
+                ${s.data_products.map(p => `<span style="display:inline-block;padding:4px 14px;background:rgba(0,180,255,0.1);border:1px solid rgba(0,180,255,0.2);border-radius:16px;color:var(--space-blue);font-size:0.82rem;margin:4px">${p}</span>`).join('')}
+            </div>
+        `;
+    } catch(e) {}
+}
+
+// Auto-refresh every 60 seconds
+setInterval(() => {
+    Object.keys(loaded).forEach(k => delete loaded[k]);
+    loadHero();
+    const activeTab = document.querySelector('.tab.active');
+    if (activeTab) {
+        const tabName = activeTab.getAttribute('onclick')?.match(/showTab\('(\w+)'\)/)?.[1];
+        if (tabName && tabName !== 'overview') loadTab(tabName);
+    }
+}, 60000);
+
+// Initial load
+loadHero();
+</script>
+</body>
+</html>

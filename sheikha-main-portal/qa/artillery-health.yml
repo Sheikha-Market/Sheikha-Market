@@ -1,0 +1,82 @@
+config:
+  target: 'http://127.0.0.1:8080'
+  phases:
+    - duration: 20
+      arrivalRate: 5
+
+scenarios:
+  - name: health-check-load
+    flow:
+      - get:
+          url: '/api/health'
+
+    { key: 'load', label: 'Load', command: 'npm run -s qa:load' },
+    { key: 'lint', label: 'Lint', command: 'npm run -s qa:lint' },
+    { key: 'security', label: 'Security', command: 'npm run -s qa:security' }
+];
+
+function runCommand(command) {
+    return spawnSync(command, {
+        cwd: ROOT,
+        shell: true,
+        encoding: 'utf8',
+        timeout: 10 * 60 * 1000
+    });
+}
+
+function ensureDir(dirPath) {
+    if (!fs.existsSync(dirPath)) {
+        fs.mkdirSync(dirPath, { recursive: true });
+    }
+}
+
+function writeReport(report) {
+    ensureDir(OUT_DIR);
+    const file = path.join(OUT_DIR, 'latest-qa-report.json');
+    fs.writeFileSync(file, JSON.stringify(report, null, 4));
+    return file;
+}
+
+function main() {
+    const startedAt = new Date().toISOString();
+    const results = [];
+
+    for (const step of steps) {
+        const run = runCommand(step.command);
+        results.push({
+            key: step.key,
+            label: step.label,
+            command: step.command,
+            exitCode: run.status,
+            ok: run.status === 0,
+            stdout: (run.stdout || '').slice(-8000),
+            stderr: (run.stderr || '').slice(-8000)
+        });
+
+        if (run.status !== 0 && step.key !== 'security') {
+            break;
+        }
+    }
+
+    const ok = results.every(item => item.ok || item.key === 'security');
+    const report = {
+        success: ok,
+        startedAt,
+        finishedAt: new Date().toISOString(),
+        totalSteps: results.length,
+        passedSteps: results.filter(item => item.ok).length,
+        results
+    };
+
+    const file = writeReport(report);
+    console.log(JSON.stringify({
+        success: report.success,
+        message: report.success ? 'QA pipeline passed' : 'QA pipeline has failures',
+        report: file,
+        finishedAt: report.finishedAt
+    }, null, 4));
+
+    process.exit(report.success ? 0 : 1);
+}
+
+main();

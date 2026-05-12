@@ -1,0 +1,365 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#050810">
+<meta name="description" content="هوية شيخة الحضارية — الماضي للتعلم · الحاضر للعمل · المستقبل بالخير — بالكتاب والسنة">
+<title>هوية شيخة — الحضارة الإسلامية الرقمية | SHEIKHA Identity</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&family=Scheherazade+New:wght@400;700&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--gold:#D4AF37;--copper:#B87333;--bg:#050810;--text:#f0ede8;--muted:#6e7681;--border:rgba(212,175,55,.2);--teal:#1a6b8a;}
+html,body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);min-height:100%;overflow-x:hidden;}
+
+/* ─── Hero Parallax ─── */
+.hero-identity{
+  min-height:100vh;display:flex;align-items:center;justify-content:center;text-align:center;
+  position:relative;overflow:hidden;
+  background:radial-gradient(ellipse at 50% 30%,#0d1a3e 0%,#050810 60%);
+  padding:80px 32px 60px;
+}
+.hero-orb{position:absolute;border-radius:50%;filter:blur(100px);opacity:.12;pointer-events:none;animation:float 8s ease-in-out infinite;}
+.orb1{width:600px;height:600px;background:#D4AF37;top:-200px;right:-150px;}
+.orb2{width:500px;height:500px;background:#B87333;bottom:-200px;left:-100px;animation-delay:-4s;}
+.orb3{width:300px;height:300px;background:#1a6b8a;top:50%;left:50%;transform:translate(-50%,-50%);}
+
+.hero-inner{position:relative;z-index:2;max-width:900px;}
+.bismillah{font-family:'Scheherazade New',serif;font-size:clamp(1.6rem,4vw,2.8rem);color:var(--gold);margin-bottom:24px;opacity:.9;line-height:1.5;}
+.hero-name{font-size:clamp(4rem,12vw,9rem);font-weight:900;background:linear-gradient(135deg,#D4AF37 0%,#fff8e7 40%,#B87333 70%,#D4AF37 100%);-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;line-height:1;margin-bottom:12px;animation:shimmer 4s ease-in-out infinite;}
+.hero-en{font-size:clamp(.9rem,2.5vw,1.4rem);letter-spacing:8px;color:rgba(212,175,55,.6);font-weight:300;margin-bottom:20px;text-transform:uppercase;}
+.hero-tagline{font-size:clamp(1rem,2.5vw,1.5rem);color:var(--text);font-weight:500;line-height:1.6;margin-bottom:24px;}
+.hero-foundation{font-family:'Scheherazade New',serif;font-size:clamp(1.1rem,3vw,1.8rem);color:var(--gold);font-weight:700;padding:20px;border:1px solid rgba(212,175,55,.2);border-radius:14px;background:rgba(212,175,55,.04);margin:0 auto;max-width:700px;}
+.hero-ref{font-size:.8rem;color:var(--copper);margin-top:6px;font-family:'Tajawal',sans-serif;}
+
+/* ─── Timeline أقسام ─── */
+.timeline-section{padding:80px 32px;max-width:1100px;margin:0 auto;}
+
+/* ─── شريط بصري للزمن ─── */
+.time-nav{display:flex;justify-content:center;gap:0;margin-bottom:60px;border:1px solid var(--border);border-radius:50px;overflow:hidden;max-width:500px;margin-left:auto;margin-right:auto;}
+.time-btn{flex:1;padding:12px 20px;background:transparent;border:none;font-family:'Tajawal',sans-serif;font-size:.9rem;font-weight:700;color:var(--muted);cursor:pointer;transition:all .3s;}
+.time-btn.active{background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;}
+
+/* ─── محتوى الأقسام ─── */
+.content-section{display:none;}
+.content-section.show{display:block;}
+
+/* ─── الماضي ─── */
+.heritage-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:20px;margin-top:12px;}
+.heritage-card{background:linear-gradient(135deg,rgba(212,175,55,.05),rgba(184,115,51,.03));border:1px solid rgba(212,175,55,.18);border-radius:18px;padding:26px;position:relative;overflow:hidden;transition:transform .2s;}
+.heritage-card:hover{transform:translateY(-4px);}
+.heritage-card::after{content:'';position:absolute;bottom:0;right:0;width:60px;height:60px;background:radial-gradient(circle,rgba(212,175,55,.15),transparent);border-radius:0 0 18px 0;}
+.heritage-era{font-size:.75rem;color:var(--copper);font-weight:700;letter-spacing:1px;margin-bottom:4px;text-transform:uppercase;}
+.heritage-century{font-size:.7rem;color:var(--muted);margin-bottom:10px;}
+.heritage-lesson{font-size:.9rem;font-weight:700;color:var(--gold);margin-bottom:8px;line-height:1.4;}
+.heritage-app{font-size:.8rem;color:var(--text);line-height:1.6;margin-bottom:8px;}
+.heritage-hadith{font-family:'Scheherazade New',serif;font-size:.85rem;color:rgba(212,175,55,.7);font-style:italic;border-right:2px solid rgba(212,175,55,.3);padding-right:10px;margin-top:8px;}
+
+/* ─── الحاضر ─── */
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:16px;margin-top:12px;}
+.pillar-card{background:rgba(255,255,255,.03);border:1px solid var(--border);border-radius:16px;padding:24px;text-align:center;transition:all .25s;}
+.pillar-card:hover{border-color:var(--gold);background:rgba(212,175,55,.04);}
+.pillar-icon{font-size:2rem;margin-bottom:10px;}
+.pillar-name{font-size:1.05rem;font-weight:800;color:var(--gold);margin-bottom:6px;}
+.pillar-verse{font-family:'Scheherazade New',serif;font-size:.8rem;color:rgba(212,175,55,.7);margin-bottom:8px;line-height:1.5;}
+.pillar-desc{font-size:.78rem;color:var(--muted);}
+
+/* achievements ─── */
+.achievements-row{display:flex;gap:16px;flex-wrap:wrap;justify-content:center;margin-top:32px;}
+.ach{background:rgba(212,175,55,.06);border:1px solid var(--border);border-radius:16px;padding:20px 28px;text-align:center;min-width:140px;}
+.ach-num{font-size:clamp(1.8rem,4vw,3rem);font-weight:900;color:var(--gold);}
+.ach-label{font-size:.75rem;color:var(--muted);margin-top:3px;}
+
+/* ─── المستقبل ─── */
+.future-header{text-align:center;margin-bottom:40px;}
+.dream-text{font-size:clamp(1.3rem,3.5vw,2.2rem);font-weight:800;color:var(--gold);line-height:1.4;margin-bottom:10px;}
+.dream-hadith{font-family:'Scheherazade New',serif;font-size:1rem;color:var(--copper);}
+.targets-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:16px;margin-top:20px;}
+.target-card{background:linear-gradient(135deg,rgba(26,107,138,.08),rgba(5,8,16,.6));border:1px solid rgba(26,107,138,.3);border-radius:14px;padding:20px;display:flex;gap:14px;align-items:flex-start;}
+.target-icon{font-size:1.4rem;flex-shrink:0;}
+.target-text{font-size:.85rem;color:var(--text);line-height:1.6;}
+.aspirations{margin-top:32px;display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:14px;}
+.aspiration{background:rgba(212,175,55,.04);border:1px solid var(--border);border-radius:12px;padding:16px 20px;font-size:.85rem;color:var(--text);display:flex;gap:10px;}
+.aspiration::before{content:'✦';color:var(--gold);flex-shrink:0;}
+
+/* ─── قسم الهوية البصرية ─── */
+.visual-section{background:linear-gradient(135deg,rgba(212,175,55,.05),rgba(184,115,51,.03));border:1px solid var(--border);border-radius:24px;padding:40px;max-width:1100px;margin:0 auto 60px;}
+.colors-row{display:flex;gap:16px;flex-wrap:wrap;margin-top:16px;}
+.color-swatch{display:flex;align-items:center;gap:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.06);border-radius:12px;padding:14px 18px;flex:1;min-width:180px;}
+.swatch-circle{width:48px;height:48px;border-radius:50%;flex-shrink:0;box-shadow:0 0 20px rgba(212,175,55,.2);}
+
+/* ─── البيان الشرعي ─── */
+.sharia-section{background:rgba(212,175,55,.04);border:1px solid var(--border);border-radius:20px;padding:36px;max-width:900px;margin:0 auto 60px;text-align:center;}
+.sharia-no{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:16px;}
+.sharia-badge-no{background:rgba(248,81,73,.08);border:1px solid rgba(248,81,73,.2);color:#f85149;font-size:.82rem;font-weight:700;padding:7px 16px;border-radius:20px;}
+.sharia-yes{display:flex;flex-wrap:wrap;gap:10px;justify-content:center;margin-bottom:20px;}
+.sharia-badge-yes{background:rgba(63,185,80,.08);border:1px solid rgba(63,185,80,.2);color:#3fb950;font-size:.82rem;font-weight:700;padding:7px 16px;border-radius:20px;}
+.quran-verses{list-style:none;margin-top:16px;}
+.quran-verses li{font-family:'Scheherazade New',serif;font-size:.95rem;color:var(--gold);padding:10px 0;border-bottom:1px solid rgba(212,175,55,.1);line-height:1.7;}
+
+/* ─── Footer ─── */
+.identity-footer{text-align:center;padding:50px 32px;border-top:1px solid var(--border);}
+.footer-big{font-family:'Scheherazade New',serif;font-size:clamp(1.2rem,3vw,2rem);color:var(--gold);margin-bottom:8px;line-height:1.6;}
+.footer-ref{font-size:.8rem;color:var(--copper);}
+
+/* ─── animations ─── */
+@keyframes float{0%,100%{transform:translate(0,0);}50%{transform:translate(20px,20px);}}
+@keyframes shimmer{0%,100%{filter:brightness(1);}50%{filter:brightness(1.15);}}
+
+/* ─── divider ─── */
+.gold-line{height:1px;background:linear-gradient(90deg,transparent,var(--gold),transparent);margin:60px 0;}
+.section-label{font-size:.7rem;color:var(--copper);letter-spacing:3px;text-transform:uppercase;margin-bottom:8px;font-weight:700;}
+.section-title{font-size:clamp(1.4rem,3.5vw,2.2rem);font-weight:800;color:var(--text);margin-bottom:6px;}
+.section-sub{font-size:.9rem;color:var(--muted);margin-bottom:0;}
+</style>
+</head>
+<body>
+
+<!-- ════════════════════════════════════ -->
+<!-- HERO — الهوية الكبرى                -->
+<!-- ════════════════════════════════════ -->
+<div class="hero-identity">
+  <div class="hero-orb orb1"></div>
+  <div class="hero-orb orb2"></div>
+  <div class="hero-orb orb3"></div>
+
+  <div class="hero-inner">
+    <div class="bismillah">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div class="hero-name">شيخة</div>
+    <div class="hero-en">SHEIKHA</div>
+    <div class="hero-tagline">الماضي للتعلم · الحاضر للعمل · المستقبل بالخير</div>
+    <div class="hero-foundation">
+      وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا
+      <div class="hero-ref">البقرة:275 — آية التأسيس · أول منظومة اقتصادية إسلامية رقمية للمعادن</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════════════════════════════════ -->
+<!-- التنقل الزمني                        -->
+<!-- ════════════════════════════════════ -->
+<div class="timeline-section">
+  <div class="time-nav">
+    <button class="time-btn active" onclick="showSection('past',this)">📚 الماضي للتعلم</button>
+    <button class="time-btn" onclick="showSection('present',this)">⚡ الحاضر للعمل</button>
+    <button class="time-btn" onclick="showSection('future',this)">🔭 المستقبل بالخير</button>
+  </div>
+
+  <!-- ── الماضي ── -->
+  <div class="content-section show" id="sec-past">
+    <div class="section-label">التراث الحضاري</div>
+    <div class="section-title">جذور شيخة في الحضارة الإسلامية</div>
+    <div class="section-sub" style="margin-bottom:28px;">أُمَّة تعلَّمت التجارة من النبوة — شيخة ترث ذلك رقمياً</div>
+    <div class="heritage-grid">
+      <div class="heritage-card">
+        <div class="heritage-era">سوق المدينة المنورة</div>
+        <div class="heritage-century">القرن الأول الهجري</div>
+        <div class="heritage-lesson">النبي ﷺ نظَّم السوق بيده — لا غش لا احتكار لا غرر</div>
+        <div class="heritage-app">شيخة تُطبِّق أخلاق سوق المدينة في الفضاء الرقمي كاملاً</div>
+        <div class="heritage-hadith">مَنْ غَشَّنَا فَلَيْسَ مِنَّا — رواه مسلم</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">الحسبة الإسلامية</div>
+        <div class="heritage-century">القرن الثاني — الثامن الهجري</div>
+        <div class="heritage-lesson">المحتسب يراقب السوق ويضمن العدل والأمانة والوزن الصحيح</div>
+        <div class="heritage-app">محرك الشريعة في شيخة = محتسب رقمي آلي يعمل ٢٤/٧ بلا توقف</div>
+        <div class="heritage-hadith">الماوردي — الأحكام السلطانية · فصل الحسبة في الأسواق</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">طريق الحرير الإسلامي</div>
+        <div class="heritage-century">القرن الثالث — العاشر الهجري</div>
+        <div class="heritage-lesson">التجار المسلمون حملوا الأمانة والإسلام عبر ثلاث قارات</div>
+        <div class="heritage-app">شيخة مستمرة لهذا النهج — تجارة إسلامية دولية رقمية تُكسب وتُنشر القيم</div>
+        <div class="heritage-hadith">ابن بطوطة رحل شرقاً وغرباً بأمانة التاجر المسلم</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">فقه المعاملات الإسلامية</div>
+        <div class="heritage-century">أئمة المذاهب الأربعة</div>
+        <div class="heritage-lesson">تقنين دقيق للبيع والشركة والزكاة والديون — فقه لا يعتريه تناقض</div>
+        <div class="heritage-app">كل بند برمجي في شيخة مُستنبَط من فقه المعاملات المعاصرة</div>
+        <div class="heritage-hadith">ابن قدامة — المغني · الكاساني — بدائع الصنائع</div>
+      </div>
+      <div class="heritage-card">
+        <div class="heritage-era">مقدمة ابن خلدون</div>
+        <div class="heritage-century">القرن الثامن الهجري</div>
+        <div class="heritage-lesson">العصبية + التخصص + تقسيم العمل = أُسس الحضارة الاقتصادية</div>
+        <div class="heritage-app">شيخة تبني عصبية رقمية إسلامية حول المعادن — تخصص + شبكة + ذكاء</div>
+        <div class="heritage-hadith">ابن خلدون — المقدمة · فصل الصنائع والأسواق</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── الحاضر ── -->
+  <div class="content-section" id="sec-present">
+    <div class="section-label">الإنجاز الرقمي</div>
+    <div class="section-title">شيخة اليوم — الفعل والحضور</div>
+    <div class="section-sub" style="margin-bottom:28px;">منظومة رقمية حية — تعمل الآن وتنمو كل يوم</div>
+
+    <div class="achievements-row">
+      <div class="ach"><div class="ach-num">٢٠٠+</div><div class="ach-label">API وخدمة رقمية</div></div>
+      <div class="ach"><div class="ach-num">٤٤</div><div class="ach-label">مرحلة تطوير</div></div>
+      <div class="ach"><div class="ach-num">١٠٠٪</div><div class="ach-label">امتثال شرعي</div></div>
+      <div class="ach"><div class="ach-num">٢٠</div><div class="ach-label">شبكة أقمار</div></div>
+      <div class="ach"><div class="ach-num">١١</div><div class="ach-label">شركة تقنية</div></div>
+      <div class="ach"><div class="ach-num">٥</div><div class="ach-label">طرق مصادقة</div></div>
+    </div>
+
+    <div style="height:32px;"></div>
+    <div class="section-label">ركائز الهوية</div>
+    <div class="section-title">القيم التي نعمل بها</div>
+    <div class="pillars-grid" style="margin-top:16px;">
+      <div class="pillar-card">
+        <div class="pillar-icon">⚖️</div>
+        <div class="pillar-name">الشفافية</div>
+        <div class="pillar-verse">وَيُحِقُّ اللَّهُ الْحَقَّ بِكَلِمَاتِهِ — يونس:82</div>
+        <div class="pillar-desc">أسعار موحدة مرئية للجميع — لا اختلاف بين عرض ومطلوب مخفي</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🤝</div>
+        <div class="pillar-name">الأمانة</div>
+        <div class="pillar-verse">إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ — النساء:58</div>
+        <div class="pillar-desc">حماية بيانات العملاء والموردين — شيخة أمين لا مالك</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🏛️</div>
+        <div class="pillar-name">العدل</div>
+        <div class="pillar-verse">إِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ — النساء:58</div>
+        <div class="pillar-desc">لا فرق بين كبير وصغير — الكيلو بالكيلو والسعر بالسعر</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">💎</div>
+        <div class="pillar-name">الإتقان</div>
+        <div class="pillar-verse">إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ</div>
+        <div class="pillar-desc">جودة لا تُساوَم — كل سطر كود مُراجَع كما يُراجع المحدِّث حديثه</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🌍</div>
+        <div class="pillar-name">التعاون</div>
+        <div class="pillar-verse">وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى — المائدة:2</div>
+        <div class="pillar-desc">شراكات تنفع الجميع — لا رابح بضرر الآخر</div>
+      </div>
+      <div class="pillar-card">
+        <div class="pillar-icon">🚀</div>
+        <div class="pillar-name">الابتكار</div>
+        <div class="pillar-verse">رَبِّ زِدْنِي عِلْمًا — طه:114</div>
+        <div class="pillar-desc">تقنية في خدمة الإنسان — الذكاء الاصطناعي خادم للقيم لا سيد</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- ── المستقبل ── -->
+  <div class="content-section" id="sec-future">
+    <div class="future-header">
+      <div class="section-label">الحلم الحضاري</div>
+      <div class="dream-text">إعادة بناء سوق إسلامي رقمي عادل<br>يخدم البشرية بأسرها</div>
+      <div class="dream-hadith">خَيْرُكُمْ مَنْ يُرْجَى خَيْرُهُ وَيُؤْمَنُ شَرُّهُ — الترمذي</div>
+    </div>
+    <div class="targets-grid">
+      <div class="target-card"><div class="target-icon">🏢</div><div class="target-text">أولى ١٠٠٠ شركة مُسجَّلة في شيخة بحلول ٢٠٢٧ — من ١٠ دول</div></div>
+      <div class="target-card"><div class="target-icon">🌙</div><div class="target-text">مؤشر شيخة — مرجع معتمد لأسعار المعادن في العالم الإسلامي</div></div>
+      <div class="target-card"><div class="target-icon">🧮</div><div class="target-text">زكاة آلية محسوبة لأكثر من مليار ريال من المعادن سنوياً</div></div>
+      <div class="target-card"><div class="target-icon">📄</div><div class="target-text">توثيق ١٠٠٠٠ صفقة شهرياً رقمياً — كل صفقة بعقد مُدقَّق شرعياً</div></div>
+      <div class="target-card"><div class="target-icon">🤖</div><div class="target-text">أول ذكاء اصطناعي إسلامي متخصص في المعادن ومعتمد من علماء الشريعة</div></div>
+      <div class="target-card"><div class="target-icon">🌐</div><div class="target-text">ربط سوق المعادن في ٥٧ دولة إسلامية بمنظومة شيخة الموحدة ٢٠٤٠</div></div>
+    </div>
+    <div class="aspirations" style="margin-top:32px;">
+      <div class="aspiration">أن تكون شيخة قدوة في الاقتصاد الإسلامي الرقمي — يُستشهد بها في الجامعات</div>
+      <div class="aspiration">أن تُساهم في إخراج الناس من الربا إلى البيع الحلال الشفاف</div>
+      <div class="aspiration">أن تدعم أُسر التجار الصغار بمعلومة عادلة وسعر حقيقي موحَّد</div>
+      <div class="aspiration">أن يُذكر اسمها في تاريخ الحضارة الإسلامية الرقمية كمنارة</div>
+    </div>
+    <div style="text-align:center;margin-top:40px;">
+      <div style="font-family:'Scheherazade New',serif;font-size:clamp(1.2rem,3vw,1.8rem);color:var(--gold);line-height:2;">
+        وَهُوَ خَيْرُ الرَّازِقِينَ
+      </div>
+      <div style="font-size:.8rem;color:var(--copper);margin-top:4px;">المؤمنون:72</div>
+    </div>
+  </div>
+</div>
+
+<div class="gold-line" style="max-width:1100px;margin:0 auto 60px;"></div>
+
+<!-- ════════ الهوية البصرية ════════ -->
+<div class="visual-section">
+  <div class="section-label">الهوية البصرية</div>
+  <div class="section-title">ألوان الحضارة وخطوطها</div>
+  <div class="colors-row" style="margin-top:24px;">
+    <div class="color-swatch">
+      <div class="swatch-circle" style="background:#D4AF37;"></div>
+      <div><div style="font-size:.9rem;font-weight:700;color:var(--gold);">ذهبي الحضارة</div><div style="font-size:.72rem;color:var(--muted);">#D4AF37 · الأصالة + النور + القيمة</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-circle" style="background:#B87333;"></div>
+      <div><div style="font-size:.9rem;font-weight:700;color:var(--copper);">نحاسي المعادن</div><div style="font-size:.72rem;color:var(--muted);">#B87333 · الحرفة + الصناعة + الأرض</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-circle" style="background:#050810;border:1px solid rgba(255,255,255,.1);"></div>
+      <div><div style="font-size:.9rem;font-weight:700;color:#8b949e;">نيل الفضاء</div><div style="font-size:.72rem;color:var(--muted);">#050810 · العمق + التأمل + السكينة</div></div>
+    </div>
+    <div class="color-swatch">
+      <div class="swatch-circle" style="background:#1a6b8a;"></div>
+      <div><div style="font-size:.9rem;font-weight:700;color:#1a9bc0;">فيروزي الماء</div><div style="font-size:.72rem;color:var(--muted);">#1a6b8a · النماء + الحياة + الحركة</div></div>
+    </div>
+  </div>
+  <div style="margin-top:20px;display:flex;gap:16px;flex-wrap:wrap;">
+    <div style="flex:1;min-width:200px;background:rgba(0,0,0,.2);border-radius:12px;padding:16px;">
+      <div style="font-size:.75rem;color:var(--copper);font-weight:700;margin-bottom:6px;">الخط الرئيسي</div>
+      <div style="font-size:1.2rem;font-weight:800;color:var(--gold);">Tajawal — رشاقة عربية</div>
+      <div style="font-family:'Scheherazade New',serif;font-size:.95rem;color:var(--muted);margin-top:4px;">Scheherazade — الأصالة الكلاسيكية</div>
+    </div>
+    <div style="flex:1;min-width:200px;background:rgba(0,0,0,.2);border-radius:12px;padding:16px;">
+      <div style="font-size:.75rem;color:var(--copper);font-weight:700;margin-bottom:6px;">الأنماط الزخرفية</div>
+      <div style="font-size:.85rem;color:var(--text);">نقش هندسي إسلامي — الزليج والأرابيسك</div>
+      <div style="font-size:.78rem;color:var(--muted);margin-top:4px;">نجمة ثمانية الرؤوس — رمز الحضارة الإسلامية</div>
+    </div>
+  </div>
+</div>
+
+<!-- ════════ البيان الشرعي ════════ -->
+<div class="sharia-section">
+  <div class="section-label" style="text-align:center;">البيان الشرعي</div>
+  <div class="section-title" style="text-align:center;margin-bottom:20px;">شيخة والتزام الفريضة</div>
+  <div class="sharia-no">
+    <span class="sharia-badge-no">✗ لا ربا</span>
+    <span class="sharia-badge-no">✗ لا غرر</span>
+    <span class="sharia-badge-no">✗ لا غش</span>
+    <span class="sharia-badge-no">✗ لا نجش</span>
+    <span class="sharia-badge-no">✗ لا احتكار</span>
+    <span class="sharia-badge-no">✗ لا ضرر ولا ضرار</span>
+  </div>
+  <div class="sharia-yes">
+    <span class="sharia-badge-yes">✓ الأمانة</span>
+    <span class="sharia-badge-yes">✓ الشفافية</span>
+    <span class="sharia-badge-yes">✓ العدل</span>
+    <span class="sharia-badge-yes">✓ الإتقان</span>
+    <span class="sharia-badge-yes">✓ التعاون</span>
+    <span class="sharia-badge-yes">✓ النماء الحلال</span>
+  </div>
+  <ul class="quran-verses">
+    <li>يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُم بَيْنَكُم بِالْبَاطِلِ — النساء:29</li>
+    <li>وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ — الأنعام:152</li>
+    <li>يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ — المائدة:1</li>
+  </ul>
+</div>
+
+<footer class="identity-footer">
+  <div class="footer-big">وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ</div>
+  <div class="footer-ref">هود:88 · شيخة — sheikha.top · سلمان أحمد الراجح</div>
+  <div style="margin-top:16px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+    <a href="/" style="color:var(--gold);text-decoration:none;font-size:.85rem;">الرئيسية</a>
+    <a href="/سوق-شيخة" style="color:var(--copper);text-decoration:none;font-size:.85rem;">السوق</a>
+    <a href="/بايلوت" style="color:var(--muted);text-decoration:none;font-size:.85rem;">Pilot</a>
+    <a href="/بطاقة" style="color:var(--muted);text-decoration:none;font-size:.85rem;">البطاقة</a>
+  </div>
+</footer>
+
+<script>
+function showSection(id, btn) {
+    document.querySelectorAll('.content-section').forEach(s => s.classList.remove('show'));
+    document.querySelectorAll('.time-btn').forEach(b => b.classList.remove('active'));
+    document.getElementById('sec-' + id).classList.add('show');
+    btn.classList.add('active');
+}
+</script>
+</body>
+</html>

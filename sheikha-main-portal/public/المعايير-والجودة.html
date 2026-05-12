@@ -1,0 +1,362 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>المعايير والجودة والـ KPI — منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#D4AF37;--copper:#B87333;--dark:#050508;--dark2:#0a0a10;--dark3:#111118;--text:#e8e8f0;--text2:#9090a8;--green:#27ae60;--blue:#2980b9;--teal:#16a085;--purple:#8e44ad;--red:#e74c3c;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--text);font-family:'Tajawal',sans-serif;direction:rtl;}
+  .basmala{text-align:center;font-size:1.6rem;color:var(--gold);padding:1.2rem;letter-spacing:.04em;border-bottom:1px solid rgba(212,175,55,.18);}
+  header{background:linear-gradient(135deg,#050508 0%,#0a0a18 50%,#050508 100%);border-bottom:2px solid var(--gold);padding:1.5rem 2rem;}
+  .header-inner{max-width:1400px;margin:0 auto;display:flex;align-items:center;gap:1.2rem;flex-wrap:wrap;}
+  .page-icon{font-size:3rem;}
+  .header-text h1{font-size:2rem;font-weight:900;color:var(--gold);}
+  .header-text p{color:var(--text2);font-size:.95rem;margin-top:.3rem;}
+  .tabs{max-width:1400px;margin:1.5rem auto 0;padding:0 2rem;display:flex;gap:.7rem;flex-wrap:wrap;}
+  .tab-btn{padding:.6rem 1.4rem;border-radius:8px;border:1px solid rgba(212,175,55,.3);background:var(--dark2);color:var(--text2);cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.92rem;transition:all .25s;}
+  .tab-btn.active,.tab-btn:hover{background:var(--gold);color:#000;border-color:var(--gold);font-weight:700;}
+  main{max-width:1400px;margin:2rem auto;padding:0 2rem;}
+  .tab-panel{display:none;animation:fadeIn .3s ease;}
+  .tab-panel.active{display:block;}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(12px)}to{opacity:1;transform:translateY(0)}}
+  .section-title{font-size:1.3rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem;}
+  .section-title::before{content:'';display:block;width:4px;height:24px;background:var(--gold);border-radius:3px;}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1.2rem;}
+  .grid-2{display:grid;grid-template-columns:repeat(auto-fill,minmax(460px,1fr));gap:1.2rem;}
+  .card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:14px;padding:1.4rem;transition:all .25s;}
+  .card:hover{border-color:rgba(212,175,55,.5);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.4);}
+  .card-title{font-size:1.05rem;font-weight:700;color:var(--gold);margin-bottom:.6rem;}
+  .card-sub{font-size:.85rem;color:var(--text2);line-height:1.7;}
+  .tag{display:inline-block;padding:.2rem .7rem;border-radius:12px;font-size:.78rem;margin:.2rem;font-weight:600;}
+  .tag-gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.3);}
+  .tag-teal{background:rgba(22,160,133,.15);color:var(--teal);border:1px solid rgba(22,160,133,.3);}
+  .tag-blue{background:rgba(41,128,185,.15);color:var(--blue);border:1px solid rgba(41,128,185,.3);}
+  .tag-green{background:rgba(39,174,96,.15);color:var(--green);border:1px solid rgba(39,174,96,.3);}
+  .tag-purple{background:rgba(142,68,173,.15);color:var(--purple);border:1px solid rgba(142,68,173,.3);}
+  .verse-box{background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(212,175,55,.03));border:1px solid rgba(212,175,55,.3);border-radius:12px;padding:1rem 1.4rem;margin:1rem 0;font-size:1.1rem;color:var(--gold);text-align:center;line-height:1.8;}
+  .loading{color:var(--text2);font-size:.9rem;padding:2rem;text-align:center;}
+  .stat-row{display:flex;flex-wrap:wrap;gap:1rem;margin:1.2rem 0;}
+  .stat-box{background:var(--dark3);border:1px solid rgba(212,175,55,.18);border-radius:10px;padding:.9rem 1.4rem;text-align:center;flex:1;min-width:140px;}
+  .stat-num{font-size:2.2rem;font-weight:900;color:var(--gold);}
+  .stat-label{font-size:.8rem;color:var(--text2);margin-top:.3rem;}
+  .kpi-row{display:flex;justify-content:space-between;align-items:center;padding:.7rem;border-bottom:1px solid rgba(255,255,255,.05);}
+  .kpi-name{font-size:.9rem;font-weight:600;}
+  .kpi-target{font-size:.8rem;color:var(--teal);}
+  .progress-bar{height:6px;border-radius:3px;background:rgba(255,255,255,.07);margin-top:.4rem;overflow:hidden;}
+  .progress-fill{height:100%;border-radius:3px;background:linear-gradient(90deg,var(--gold),var(--teal));}
+  .dim-card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:12px;padding:1.2rem;display:flex;gap:1rem;align-items:flex-start;}
+  .dim-weight{font-size:1.8rem;font-weight:900;color:rgba(212,175,55,.35);min-width:50px;text-align:center;}
+  .sector-btn{padding:.5rem 1rem;border-radius:8px;border:1px solid rgba(212,175,55,.3);background:var(--dark3);color:var(--text2);cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.85rem;transition:all .2s;}
+  .sector-btn.active,.sector-btn:hover{background:var(--gold);color:#000;font-weight:700;}
+  table{width:100%;border-collapse:collapse;}
+  th{background:rgba(212,175,55,.1);color:var(--gold);padding:.7rem;font-size:.85rem;text-align:right;}
+  td{border-bottom:1px solid rgba(255,255,255,.05);padding:.6rem;font-size:.83rem;color:var(--text2);}
+  td:first-child{color:var(--text);}
+  footer{text-align:center;padding:2rem;color:var(--text2);font-size:.85rem;border-top:1px solid rgba(212,175,55,.1);margin-top:3rem;}
+</style>
+</head>
+<body>
+<div class="basmala">بسم الله الرحمن الرحيم</div>
+
+<header>
+  <div class="header-inner">
+    <span class="page-icon">⚖️</span>
+    <div class="header-text">
+      <h1>المعايير والجودة والـ KPI الشامل</h1>
+      <p>ISO + شريعة + هندسة + طب + تقنية • ﴿وَزِنُوا بِالْقِسْطَاسِ الْمُسْتَقِيمِ﴾ • إتقان العمل فريضة إسلامية</p>
+    </div>
+  </div>
+</header>
+
+<div class="tabs">
+  <button class="tab-btn active" onclick="showTab('overview')">📊 نظرة عامة</button>
+  <button class="tab-btn" onclick="showTab('dimensions')">🎯 أبعاد الجودة</button>
+  <button class="tab-btn" onclick="showTab('frameworks')">📋 أُطر المعايير</button>
+  <button class="tab-btn" onclick="showTab('kpis')">📈 KPIs القطاعية</button>
+  <button class="tab-btn" onclick="showTab('boundaries')">🚫 حدود الجودة</button>
+  <button class="tab-btn" onclick="showTab('integration')">🔗 التكامل الشبكي</button>
+</div>
+
+<main>
+  <!-- ── widget: مؤشر شيخة الشامل (Phase 23) ── -->
+  <div id="sqi-widget" style="
+    background:linear-gradient(135deg,rgba(212,175,55,.08),rgba(184,115,51,.04));
+    border:1px solid rgba(212,175,55,.25);border-radius:16px;padding:1.2rem 1.5rem;
+    margin-bottom:1.5rem;display:flex;align-items:center;justify-content:space-between;
+    flex-wrap:wrap;gap:1rem;">
+    <div style="display:flex;align-items:center;gap:1rem">
+      <div style="font-size:2.5rem">⚖️</div>
+      <div>
+        <div style="font-size:.78rem;color:var(--text2)">مؤشر شيخة الشامل للجودة — SQI</div>
+        <div id="sqi-score-val" style="font-size:2rem;font-weight:900;color:#D4AF37">...</div>
+        <div id="sqi-seal" style="font-size:.8rem;color:#27ae60;margin-top:.2rem"></div>
+      </div>
+    </div>
+    <a href="/مؤشر-الجودة-الحي.html" style="
+      background:linear-gradient(135deg,#D4AF37,#B87333);
+      color:#000;font-weight:700;font-size:.85rem;padding:.6rem 1.4rem;
+      border-radius:24px;text-decoration:none;white-space:nowrap;">
+      📊 لوحة المؤشر الحية
+    </a>
+  </div>
+  <script>
+  (function(){
+    fetch('/api/sheikha-index/overview').then(r=>r.json()).then(d=>{
+      if(!d.success) return;
+      document.getElementById('sqi-score-val').textContent = d.data.sqi_score + ' / 100 — ' + d.data.grade;
+      document.getElementById('sqi-seal').textContent = d.data.sharia_seal;
+    }).catch(()=>{});
+  })();
+  </script>
+
+  <!-- نظرة عامة -->
+  <div id="tab-overview" class="tab-panel active">
+    <div class="verse-box">«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلاً أَنْ يُتْقِنَهُ» — حديث شريف<br><small>الإتقان = ISO الإسلامي — الجودة واجب ديني قبل أن تكون تنافساً تجارياً</small></div>
+    <div class="stat-row">
+      <div class="stat-box"><div class="stat-num">8</div><div class="stat-label">أبعاد الجودة الشاملة</div></div>
+      <div class="stat-box"><div class="stat-num">14</div><div class="stat-label">إطار معياري دولي وإسلامي</div></div>
+      <div class="stat-box"><div class="stat-num">7</div><div class="stat-label">قطاعات مقاسة بـ KPI</div></div>
+      <div class="stat-box"><div class="stat-num">0%</div><div class="stat-label">ربا • غرر • غش مسموح</div></div>
+    </div>
+    <div id="overview-data" class="loading">⏳ جاري التحميل...</div>
+    <div class="section-title" style="margin-top:2rem;">🏆 المبادئ الأساسية</div>
+    <div class="grid-3">
+      <div class="card">
+        <div class="card-title">⚖️ الميزان العادل</div>
+        <p class="card-sub">﴿وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ﴾ — الرحمن ٩<br>كل قياس = أمانة بين العبد وربه</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🌟 الإتقان الرباني</div>
+        <p class="card-sub">«إن الله يحب إذا عمل أحدكم عملاً أن يتقنه» — الجودة محبوبة عند الله قبل العملاء</p>
+      </div>
+      <div class="card">
+        <div class="card-title">🚫 حدود الله = حدود الجودة</div>
+        <p class="card-sub">الحد الأعلى لكل معيار = رضا الله • الحد الأدنى = ما لا يجوز شرعاً = صفر تسامح</p>
+      </div>
+    </div>
+  </div>
+
+  <!-- أبعاد الجودة -->
+  <div id="tab-dimensions" class="tab-panel">
+    <div class="verse-box">﴿الَّذِي أَحْسَنَ كُلَّ شَيْءٍ خَلَقَهُ﴾ — السجدة ٧<br><small>الله أحسن كل شيء — الإحسان في كل بُعد = تشبه بالإبداع الإلهي</small></div>
+    <div class="section-title">🎯 الأبعاد الثمانية للجودة + الإسلامية</div>
+    <div id="dimensions-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- أُطر المعايير -->
+  <div id="tab-frameworks" class="tab-panel">
+    <div class="verse-box">﴿وَمَا اخْتَلَفْتُمْ فِيهِ مِن شَيْءٍ فَحُكْمُهُ إِلَى اللَّهِ﴾ — الشورى ١٠<br><small>القرآن = المعيار الأعلى — ISO وغيره تحته</small></div>
+    <div class="section-title">📋 أُطر المعايير الدولية</div>
+    <div id="intl-frameworks" class="loading">⏳ جاري التحميل...</div>
+    <div class="section-title" style="margin-top:2rem;">🕌 أُطر المعايير الإسلامية</div>
+    <div id="islamic-frameworks" class="loading">⏳ جاري التحميل...</div>
+  </div>
+
+  <!-- KPIs القطاعية -->
+  <div id="tab-kpis" class="tab-panel">
+    <div class="verse-box">«مَا عَمِلَ ابْنُ آدَمَ عَمَلاً إِلَّا كُتِبَ لَهُ» — كلٌّ محسوب ومقاس</div>
+    <div style="display:flex;gap:.7rem;flex-wrap:wrap;margin-bottom:1.5rem;">
+      <button class="sector-btn active" onclick="loadSectorKPI('trade',this)">🛒 التجارة</button>
+      <button class="sector-btn" onclick="loadSectorKPI('logistics',this)">🚢 اللوجستيك</button>
+      <button class="sector-btn" onclick="loadSectorKPI('healthcare',this)">🏥 الصحة</button>
+      <button class="sector-btn" onclick="loadSectorKPI('technology',this)">💻 التقنية</button>
+      <button class="sector-btn" onclick="loadSectorKPI('finance',this)">💰 المالية</button>
+      <button class="sector-btn" onclick="loadSectorKPI('education',this)">📚 التعليم</button>
+      <button class="sector-btn" onclick="loadSectorKPI('environment',this)">🌿 البيئة</button>
+    </div>
+    <div id="kpi-data" class="loading">⏳ اختر قطاعاً لعرض KPIs...</div>
+    <div class="section-title" style="margin-top:2rem;">📊 تقرير KPI لقطاع</div>
+    <button onclick="generateReport()" style="background:var(--gold);color:#000;border:none;border-radius:8px;padding:.7rem 1.5rem;font-family:'Tajawal',sans-serif;font-weight:700;cursor:pointer;margin-bottom:1rem;">📊 توليد تقرير الآن</button>
+    <div id="report-data"></div>
+  </div>
+
+  <!-- حدود الجودة الإسلامية -->
+  <div id="tab-boundaries" class="tab-panel">
+    <div class="verse-box">﴿تِلْكَ حُدُودُ اللَّهِ فَلَا تَقْرَبُوهَا﴾ — البقرة ١٨٧<br><small>حدود الجودة = حدود الله — لا تفاوض عليها</small></div>
+    <div class="section-title">🚫 الأصفار المطلقة في منظومة شيخة</div>
+    <div id="boundaries-data" class="loading">⏳ جاري التحميل...</div>
+    <div class="section-title" style="margin-top:2rem;">✅ المعادلة الإلهية للجودة</div>
+    <div class="card">
+      <div class="card-title">الجودة الكاملة في الإسلام</div>
+      <div class="verse-box" style="font-size:1rem;">
+        الجودة الكاملة = الإتقان + الأمانة + الصدق + الحلال<br>
+        الحد الأدنى = ما أحله الله • الحد الأعلى = كماله وإحسانه<br>
+        كل معيار يُرفع نحو الكمال = تقرب إلى الله
+      </div>
+    </div>
+  </div>
+
+  <!-- التكامل الشبكي -->
+  <div id="tab-integration" class="tab-panel">
+    <div class="verse-box">﴿مَّا تَرَىٰ فِي خَلْقِ الرَّحْمَٰنِ مِن تَفَاوُتٍ﴾ — الملك ٣<br><small>الكون في توازن — كل KPI مؤثر في غيره</small></div>
+    <div class="section-title">🔗 مصفوفة التكامل بين القطاعات</div>
+    <div id="integration-data" class="loading">⏳ جاري التحميل...</div>
+    <div class="section-title" style="margin-top:2rem;">📐 مخطط DNA لمؤشر KPI</div>
+    <div id="schema-data" class="loading">⏳ جاري التحميل...</div>
+  </div>
+</main>
+
+<footer>
+  <p>منظومة شيخة • المعايير والجودة والـ KPI الشامل</p>
+  <p style="color:rgba(212,175,55,.5);margin-top:.4rem;">«إن الله يحب إذا عمل أحدكم عملاً أن يتقنه»</p>
+</footer>
+
+<script>
+let currentSector = 'trade';
+function showTab(id){
+  document.querySelectorAll('.tab-panel').forEach(p=>p.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  document.getElementById('tab-'+id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  if(id==='dimensions')loadDimensions();
+  else if(id==='frameworks')loadFrameworks();
+  else if(id==='boundaries')loadBoundaries();
+  else if(id==='integration'){loadIntegration();loadSchema();}
+}
+
+async function fetchData(url){
+  const r=await fetch(url);
+  const d=await r.json();
+  return d.data||d;
+}
+
+async function loadOverview(){
+  try{
+    const d=await fetchData('/api/standards/overview');
+    document.getElementById('overview-data').innerHTML=`
+      <div class="grid-3">
+        ${Object.entries(d).filter(([k])=>k!=='بسم_الله').slice(0,6).map(([k,v])=>`
+          <div class="card"><div class="card-title">${k}</div><p class="card-sub">${typeof v==='object'?JSON.stringify(v).slice(0,120):String(v)}</p></div>`).join('')}
+      </div>`;
+  }catch(e){document.getElementById('overview-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadDimensions(){
+  if(document.getElementById('dimensions-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/standards/dimensions');
+    const dims=d.dimensions||[];
+    document.getElementById('dimensions-data').innerHTML=`
+      <div class="grid-2">${dims.map(dim=>`
+        <div class="dim-card">
+          <div class="dim-weight">${dim.weight}%</div>
+          <div>
+            <div class="card-title">${dim.name} — ${dim.nameEn}</div>
+            <p class="card-sub" style="margin-bottom:.5rem;"><span class="tag tag-teal">KPI: ${dim.kpi.slice(0,60)}</span></p>
+            <p style="font-size:.82rem;color:var(--gold);">🕌 ${dim.islamic}</p>
+            <div class="progress-bar"><div class="progress-fill" style="width:${dim.weight*3}%;"></div></div>
+          </div>
+        </div>`).join('')}
+      </div>`;
+  }catch(e){document.getElementById('dimensions-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadFrameworks(){
+  if(document.getElementById('intl-frameworks').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/standards/frameworks');
+    const fw=d.frameworks||d;
+    const intl=fw.international||[];
+    const isl=fw.islamic||[];
+    document.getElementById('intl-frameworks').innerHTML=`
+      <table><tr><th>المعيار</th><th>الاسم</th><th>المجال</th><th>مؤشرات KPI</th></tr>
+      ${intl.map(f=>`<tr><td><span class="tag tag-blue">${f.code}</span></td><td>${f.name}</td><td>${f.domain}</td><td>${(f.kpis||[]).slice(0,3).join(' • ')}</td></tr>`).join('')}
+      </table>`;
+    document.getElementById('islamic-frameworks').innerHTML=`
+      <table><tr><th>المعيار</th><th>الاسم</th><th>المجال</th><th>الجهة</th></tr>
+      ${isl.map(f=>`<tr><td><span class="tag tag-gold">${f.code}</span></td><td>${f.name}</td><td>${f.domain}</td><td>${f.body||'-'}</td></tr>`).join('')}
+      </table>`;
+  }catch(e){document.getElementById('intl-frameworks').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadSectorKPI(sector, btn){
+  currentSector=sector;
+  document.querySelectorAll('.sector-btn').forEach(b=>b.classList.remove('active'));
+  btn.classList.add('active');
+  document.getElementById('kpi-data').innerHTML='⏳ جاري التحميل...';
+  try{
+    const d=await fetchData(`/api/standards/kpis?sector=${sector}`);
+    const kpis=d.kpis||[];
+    document.getElementById('kpi-data').innerHTML=`
+      <div class="card">
+        <div class="card-title">📈 KPIs قطاع: ${d.name||sector}</div>
+        <table><tr><th>المؤشر</th><th>الوحدة</th><th>الهدف</th><th>منهجية القياس</th></tr>
+        ${kpis.map(k=>`<tr><td>${k.name}</td><td><span class="tag tag-teal">${k.unit}</span></td><td><span class="tag tag-gold">${k.target}</span></td><td>${k.method}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }catch(e){document.getElementById('kpi-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function generateReport(){
+  document.getElementById('report-data').innerHTML='⏳ جاري التقرير...';
+  try{
+    const d=await fetchData(`/api/standards/report/${currentSector}`);
+    const kpis=d.kpis||[];
+    document.getElementById('report-data').innerHTML=`
+      <div class="card">
+        <div class="card-title">📊 تقرير ${d.sector_name||currentSector} — الدرجة: <span style="color:var(--gold);">${d.overall_score}/100</span> — <span class="tag tag-green">${d.grade}</span></div>
+        <table><tr><th>المؤشر</th><th>الهدف</th><th>الحالي</th><th>الاتجاه</th><th>الحالة</th></tr>
+        ${kpis.map(k=>`<tr><td>${k.name}</td><td>${k.target}</td><td>${k.current||'-'}</td><td>${k.trend||'→'}</td><td>${k.status||'✅'}</td></tr>`).join('')}
+        </table>
+        <p style="margin-top:.8rem;font-size:.82rem;color:var(--teal);">${d.sharia_compliance||''}</p>
+      </div>`;
+  }catch(e){document.getElementById('report-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadBoundaries(){
+  if(document.getElementById('boundaries-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/standards/islamic-boundaries');
+    const b=d.boundaries||d;
+    const zeros=b.absolute_zeros||[];
+    document.getElementById('boundaries-data').innerHTML=`
+      <div class="grid-2">${zeros.map(z=>`
+        <div class="card" style="border-color:rgba(231,76,60,.3);">
+          <div class="card-title" style="color:var(--red);">🚫 ${z.name}</div>
+          <p class="card-sub">${z.desc}</p>
+          <span class="tag" style="background:rgba(231,76,60,.1);color:var(--red);border:1px solid rgba(231,76,60,.3);">${z.verse}</span>
+        </div>`).join('')}
+      </div>`;
+  }catch(e){document.getElementById('boundaries-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadIntegration(){
+  if(document.getElementById('integration-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/standards/integration');
+    const flows=(d.matrix||d).flows||[];
+    document.getElementById('integration-data').innerHTML=`
+      <div class="verse-box" style="font-size:.9rem;">${(d.matrix||d).cosmic_verse||''}</div>
+      <table><tr><th>من</th><th>إلى</th><th>تأثير KPI</th><th>القوة</th></tr>
+      ${flows.map(f=>`<tr><td><span class="tag tag-gold">${f.from}</span></td><td><span class="tag tag-teal">${f.to}</span></td><td>${f.kpi}</td><td><span class="tag ${f.strength==='عالي'?'tag-green':'tag-blue'}">${f.strength}</span></td></tr>`).join('')}
+      </table>`;
+  }catch(e){document.getElementById('integration-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+async function loadSchema(){
+  if(document.getElementById('schema-data').innerHTML!=='⏳ جاري التحميل...')return;
+  try{
+    const d=await fetchData('/api/standards/kpi-schema');
+    const schema=d.schema||d;
+    const fields=schema.fields||[];
+    document.getElementById('schema-data').innerHTML=`
+      <div class="card">
+        <div class="card-title">🧬 حقول DNA مؤشر KPI</div>
+        <table><tr><th>الحقل</th><th>النوع</th><th>الوصف</th></tr>
+        ${fields.map(f=>`<tr><td><code style="color:var(--teal);">${f.field}</code></td><td><span class="tag tag-purple">${f.type}</span></td><td>${f.desc}</td></tr>`).join('')}
+        </table>
+      </div>`;
+  }catch(e){document.getElementById('schema-data').innerHTML=`<p>⚠️ ${e.message}</p>`;}
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  loadOverview();
+  loadSectorKPI('trade',document.querySelector('.sector-btn.active'));
+});
+</script>
+</body>
+</html>

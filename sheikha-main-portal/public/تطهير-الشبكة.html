@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>تطهير الشبكة — منظومة شيخة الحيوية</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --copper:#B87333;
+    --dark:#0a0a0a; --dark2:#111; --dark3:#1a1a1a; --dark4:#222;
+    --text:#e8e0d0; --text2:#b0a898;
+    --green:#2ecc71; --teal:#1abc9c; --blue:#3498db;
+    --red:#e74c3c; --orange:#e67e22; --purple:#9b59b6;
+    --heart:#e74c3c; --vein:#9b59b6; --artery:#e74c3c;
+    --body-bg:linear-gradient(135deg,#060a0a,#0a1210,#060a0a);
+}
+*{margin:0;padding:0;box-sizing:border-box;}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);direction:rtl;}
+
+.hero{background:linear-gradient(135deg,#030a06,#071510,#030a06);border-bottom:3px solid var(--teal);padding:48px 24px 32px;text-align:center;}
+.basmala{font-size:clamp(1.2rem,2.5vw,1.7rem);color:var(--teal);margin-bottom:10px;font-weight:700;}
+.hero-title{font-size:clamp(1.8rem,4.5vw,3rem);font-weight:900;background:linear-gradient(135deg,var(--teal),var(--green),var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;margin-bottom:8px;}
+.hero-verse{font-size:clamp(.9rem,2vw,1.05rem);color:var(--teal);margin-bottom:4px;}
+.hero-sub{font-size:.8rem;color:var(--text2);}
+
+nav{background:var(--dark2);border-bottom:1px solid #1e2e2a;padding:0 20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none;}
+nav::-webkit-scrollbar{display:none;}
+nav a{padding:12px 14px;color:var(--text2);text-decoration:none;font-size:.82rem;white-space:nowrap;border-bottom:3px solid transparent;transition:all .2s;font-weight:500;}
+nav a.active,nav a:hover{color:var(--teal);border-color:var(--teal);}
+
+.wrap{max-width:1400px;margin:0 auto;padding:1.4rem 1.2rem;}
+.sec{display:none;animation:fi .3s;}
+.sec.active{display:block;}
+@keyframes fi{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* ══ الشبكة الحيوية ══ */
+.body-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.9rem;margin-bottom:1.3rem;}
+.organ-card{border-radius:12px;padding:1rem;border:1px solid #2a2a2a;position:relative;overflow:hidden;}
+.organ-pulse{width:12px;height:12px;border-radius:50%;position:absolute;top:10px;left:10px;animation:pulse 1s infinite;}
+@keyframes pulse{0%,100%{opacity:1;transform:scale(1);}50%{opacity:.4;transform:scale(.7);}}
+.organ-icon{font-size:2rem;margin-bottom:.5rem;}
+.organ-name{font-size:.9rem;font-weight:800;margin-bottom:.3rem;}
+.organ-role{font-size:.75rem;color:var(--text2);margin-bottom:.4rem;}
+.organ-stat{font-size:.85rem;font-weight:700;}
+
+.vitals-row{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:.7rem;margin-bottom:1.3rem;}
+.vital{background:var(--dark3);border-radius:10px;padding:.9rem;text-align:center;}
+.vital-num{font-size:1.6rem;font-weight:900;line-height:1.1;}
+.vital-label{font-size:.72rem;color:var(--text2);margin-top:.2rem;}
+
+/* النبض المتحرك للقلب */
+.heart-container{background:linear-gradient(135deg,#0a0006,#130010,#0a0006);border:1px solid rgba(231,76,60,.2);border-radius:14px;padding:1.2rem;text-align:center;margin-bottom:1.2rem;}
+.beat-bar{display:flex;align-items:flex-end;justify-content:center;gap:3px;height:60px;overflow:hidden;}
+.beat-b{width:6px;background:var(--heart);border-radius:3px 3px 0 0;animation:beat-a 1.2s infinite;}
+.beat-b:nth-child(2n){animation-delay:.15s;}
+.beat-b:nth-child(3n){animation-delay:.3s;}
+@keyframes beat-a{0%,100%{height:8px;}50%{height:calc(20px + 30px * var(--h,0.5));}}
+
+/* ══ الفضلات ══ */
+.waste-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:.9rem;}
+.waste-card{background:var(--dark3);border-radius:12px;padding:1rem;border:1px solid #2a2a2a;border-right:4px solid var(--red);}
+.w-header{display:flex;justify-content:space-between;align-items:center;margin-bottom:.6rem;}
+.w-name{font-size:.9rem;font-weight:800;}
+.sev-badge{padding:.1rem .5rem;border-radius:8px;font-size:.68rem;font-weight:700;}
+.sev-critical{background:rgba(231,76,60,.15);color:var(--red);border:1px solid rgba(231,76,60,.3);}
+.sev-high{background:rgba(230,126,34,.12);color:var(--orange);border:1px solid rgba(230,126,34,.25);}
+.sev-medium{background:rgba(52,152,219,.1);color:var(--blue);border:1px solid rgba(52,152,219,.2);}
+.sev-low{background:rgba(46,204,113,.1);color:var(--green);border:1px solid rgba(46,204,113,.2);}
+.w-quran{font-size:.78rem;color:var(--gold);font-style:italic;padding:.3rem .6rem;background:rgba(212,175,55,.05);border-right:2px solid var(--gold);border-radius:5px;margin-bottom:.5rem;}
+.w-treat{font-size:.78rem;color:var(--text2);}
+.w-rec{display:inline-block;margin-top:.4rem;padding:.1rem .45rem;border-radius:8px;font-size:.68rem;}
+.rec-yes{background:rgba(26,188,156,.1);color:var(--teal);border:1px solid rgba(26,188,156,.2);}
+.rec-no{background:rgba(231,76,60,.07);color:var(--red);border:1px solid rgba(231,76,60,.15);}
+
+/* ══ مراحل التطهير ══ */
+.stages-flow{display:flex;flex-direction:column;gap:.7rem;}
+.stage-card{background:var(--dark3);border-radius:12px;padding:1rem 1.2rem;border:1px solid #2a2a2a;display:flex;align-items:flex-start;gap:.9rem;}
+.stage-num{width:40px;height:40px;border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.1rem;font-weight:900;flex-shrink:0;background:var(--dark2);}
+.stage-info{flex:1;}
+.stage-title{font-size:.9rem;font-weight:800;margin-bottom:.2rem;}
+.stage-analogy{display:inline-block;padding:.12rem .5rem;border-radius:8px;font-size:.7rem;color:var(--teal);background:rgba(26,188,156,.08);border:1px solid rgba(26,188,156,.15);margin-bottom:.3rem;}
+.stage-desc{font-size:.78rem;color:var(--text2);}
+.stage-connector{text-align:center;color:var(--text2);font-size:1rem;padding:.1rem;}
+
+/* ══ الخريطة الجينية ══ */
+.timeline{position:relative;padding-right:30px;}
+.timeline::before{content:'';position:absolute;right:12px;top:0;bottom:0;width:2px;background:linear-gradient(to bottom,var(--gold),var(--teal));}
+.era-item{position:relative;margin-bottom:1.1rem;padding-right:25px;}
+.era-dot{position:absolute;right:-6px;width:14px;height:14px;border-radius:50%;border:2px solid var(--text2);background:var(--dark);}
+.era-dot.active-era{border-color:var(--gold);background:var(--gold);box-shadow:0 0 10px rgba(212,175,55,.5);}
+.era-year{font-size:.72rem;color:var(--gold);font-weight:700;margin-bottom:.1rem;}
+.era-name{font-size:.9rem;font-weight:800;margin-bottom:.2rem;}
+.era-desc{font-size:.78rem;color:var(--text2);}
+.era-badge{display:inline-block;padding:.12rem .5rem;border-radius:8px;font-size:.68rem;margin-top:.3rem;}
+
+/* ══ محاكاة ══ */
+.sim-wrap{display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;}
+@media(max-width:700px){.sim-wrap{grid-template-columns:1fr;}}
+.sim-left,.sim-right{background:var(--dark3);border-radius:14px;padding:1.2rem;border:1px solid #2a2a2a;}
+.sim-title{font-size:.92rem;font-weight:700;color:var(--teal);margin-bottom:.9rem;}
+.frow{margin-bottom:.6rem;}
+.frow label{display:block;font-size:.75rem;color:var(--text2);margin-bottom:.2rem;}
+.frow select,.frow textarea{width:100%;background:var(--dark2);border:1px solid #2a3a30;border-radius:7px;padding:.45rem .7rem;color:var(--text);font-size:.82rem;font-family:inherit;resize:vertical;}
+.frow select:focus,.frow textarea:focus{outline:none;border-color:var(--teal);}
+.cbtn{width:100%;margin-top:.4rem;background:linear-gradient(135deg,#0d6644,var(--teal));color:#fff;border:none;padding:.7rem;border-radius:9px;font-size:.88rem;font-weight:700;cursor:pointer;font-family:inherit;}
+.sim-stage{background:var(--dark2);border-radius:8px;padding:.7rem;margin-bottom:.4rem;display:none;}
+.sim-stage.show{display:block;}
+.sim-stage-header{display:flex;align-items:center;gap:.5rem;margin-bottom:.3rem;}
+.sim-icon{font-size:1.1rem;}
+.sim-stage-title{font-size:.82rem;font-weight:700;}
+.sim-result{background:var(--dark2);border-radius:8px;padding:.9rem;font-size:.8rem;display:none;}
+.status-log{font-family:monospace;font-size:.72rem;color:var(--teal);margin-top:.5rem;min-height:60px;max-height:200px;overflow-y:auto;line-height:1.7;}
+
+.sec-title{font-size:1.05rem;font-weight:700;color:var(--teal);margin:1.2rem 0 .8rem;}
+.nav-back{padding:.7rem 1.5rem;background:var(--dark2);border-bottom:1px solid #1e2e2a;font-size:.83rem;color:var(--text2);}
+.nav-back a{color:var(--teal);text-decoration:none;}
+</style>
+</head>
+<body>
+
+<div class="nav-back"><a href="/">← الرئيسية</a> &nbsp;|&nbsp; تطهير الشبكة — المنظومة الحيوية</div>
+
+<div class="hero">
+    <div class="basmala">بسم الله الرحمن الرحيم</div>
+    <h1 class="hero-title">🧬 تطهير الشبكة</h1>
+    <div class="hero-verse">﴿وَاللَّهُ يُحِبُّ الْمُطَّهِّرِينَ﴾ — التوبة ١٠٨</div>
+    <div class="hero-sub">المنظومة الحيوية لشيخة — شبكة عروق وشرايين وقلب وكبد ومناعة</div>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="show('body',this)">🫀 الشبكة الحيوية</a>
+    <a href="#" onclick="show('waste',this)">🧹 أنواع الفضلات</a>
+    <a href="#" onclick="show('stages',this)">⚗️ مراحل التطهير</a>
+    <a href="#" onclick="show('genetic',this)">🧬 الخريطة الجينية</a>
+    <a href="#" onclick="show('sim',this)">🔬 محاكاة التطهير</a>
+</nav>
+
+<!-- ══ الشبكة الحيوية ══ -->
+<div class="sec active wrap" id="body">
+    <div class="sec-title">🫀 الشبكة الحيوية لـ شيخة</div>
+
+    <div class="heart-container">
+        <div style="font-size:.85rem;color:var(--red);font-weight:700;margin-bottom:.6rem;">💓 نبض قلب الخادم</div>
+        <div class="beat-bar" id="beatBar"></div>
+        <div style="font-size:.78rem;color:var(--text2);margin-top:.6rem;">الخادم يعالج <span id="rps" style="color:var(--green);font-weight:700;">—</span> طلب/ثانية</div>
+    </div>
+
+    <div class="vitals-row">
+        <div class="vital"><div class="vital-num" style="color:var(--red);" id="v_uptime">🔴</div><div class="vital-label">وقت التشغيل (ساعات)</div></div>
+        <div class="vital"><div class="vital-num" style="color:var(--green);" id="v_mem">—</div><div class="vital-label">ذاكرة مستخدمة (MB)</div></div>
+        <div class="vital"><div class="vital-num" style="color:var(--teal);" id="v_routes">200+</div><div class="vital-label">مسارات API نشطة</div></div>
+        <div class="vital"><div class="vital-num" style="color:var(--gold);">8080</div><div class="vital-label">المنفذ</div></div>
+    </div>
+
+    <div class="body-grid">
+        <div class="organ-card" style="background:linear-gradient(135deg,#0a0306,#140a10);border-color:rgba(231,76,60,.25);">
+            <div class="organ-pulse" style="background:var(--red);"></div>
+            <div class="organ-icon">❤️</div>
+            <div class="organ-name" style="color:var(--red);">القلب — الخادم الرئيسي</div>
+            <div class="organ-role">server.js — ضربات منتظمة، مستمر بلا توقف</div>
+            <div class="organ-stat" style="color:var(--red);">يضخ الطلبات كل ميلي ثانية</div>
+        </div>
+        <div class="organ-card" style="background:linear-gradient(135deg,#030a06,#071510);border-color:rgba(26,188,156,.2);">
+            <div class="organ-pulse" style="background:var(--teal);"></div>
+            <div class="organ-icon">🩸</div>
+            <div class="organ-name" style="color:var(--teal);">العروق — API Routes</div>
+            <div class="organ-role">تنقل البيانات من القلب لكل العضو — 200+ مسار نشط</div>
+            <div class="organ-stat" style="color:var(--teal);">تدفق مستمر ثنائي الاتجاه</div>
+        </div>
+        <div class="organ-card" style="background:linear-gradient(135deg,#0a0600,#141000);border-color:rgba(230,126,34,.2);">
+            <div class="organ-pulse" style="background:var(--orange);"></div>
+            <div class="organ-icon">🧡</div>
+            <div class="organ-name" style="color:var(--orange);">الشرايين — WebSocket</div>
+            <div class="organ-role">أسعار لحظية — بث مباشر — ضغط دم ثابت</div>
+            <div class="organ-stat" style="color:var(--orange);">Real-time بلا انقطاع</div>
+        </div>
+        <div class="organ-card" style="background:linear-gradient(135deg,#080304,#12070a);border-color:rgba(155,89,182,.2);">
+            <div class="organ-pulse" style="background:var(--purple);"></div>
+            <div class="organ-icon">🔮</div>
+            <div class="organ-name" style="color:var(--purple);">الكبد — محرك الشريعة</div>
+            <div class="organ-role">تصفية: حلال/حرام — يطهّر كل معاملة قبل تنفيذها</div>
+            <div class="organ-stat" style="color:var(--purple);">تصفية + حماية + تطهير</div>
+        </div>
+        <div class="organ-card" style="background:linear-gradient(135deg,#030a06,#071510);border-color:rgba(46,204,113,.2);">
+            <div class="organ-pulse" style="background:var(--green);"></div>
+            <div class="organ-icon">🛡️</div>
+            <div class="organ-name" style="color:var(--green);">المناعة — Middleware</div>
+            <div class="organ-role">Auth + Security + Rate Limiting — يصد كل تهديد</div>
+            <div class="organ-stat" style="color:var(--green);">جدار نار رقمي إسلامي</div>
+        </div>
+        <div class="organ-card" style="background:linear-gradient(135deg,#080800,#121200);border-color:rgba(212,175,55,.2);">
+            <div class="organ-pulse" style="background:var(--gold);"></div>
+            <div class="organ-icon">🧠</div>
+            <div class="organ-name" style="color:var(--gold);">العقل — محرك الذكاء الاصطناعي</div>
+            <div class="organ-role">يتعلم + يتكيف + يرشد — بحدود الكتاب والسنة</div>
+            <div class="organ-stat" style="color:var(--gold);">ذاكرة + تحليل + قرار</div>
+        </div>
+    </div>
+
+    <div style="background:rgba(26,188,156,.05);border:1px solid rgba(26,188,156,.15);border-radius:10px;padding:1rem;text-align:center;font-size:.82rem;color:var(--text2);">
+        «جَسَدٌ كُلُّهُ إِذَا صَلَحَتْ صَلَحَ الْجَسَدُ كُلُّهُ، وَإِذَا فَسَدَتْ فَسَدَ الْجَسَدُ كُلُّهُ»
+        <br>— صحيح البخاري — القلب يحكم الجسد كله
+    </div>
+</div>
+
+<!-- ══ أنواع الفضلات ══ -->
+<div class="sec wrap" id="waste">
+    <div class="sec-title">🧹 أنواع الفضلات الرقمية — ٧ تصنيفات</div>
+    <div class="waste-grid">
+        <div class="waste-card" style="border-color:var(--red);">
+            <div class="w-header"><div class="w-name">١ — الربا المعاملاتي</div><span class="sev-badge sev-critical">حرج بالغ</span></div>
+            <div class="w-quran">﴿وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا﴾ البقرة ٢٧٥</div>
+            <div class="w-treat">العلاج: إتلاف فوري — لا قيمة تاريخية — ممحو نهائيًا</div>
+            <span class="w-rec rec-no">لا يُعاد تدوير</span>
+        </div>
+        <div class="waste-card" style="border-color:var(--orange);">
+            <div class="w-header"><div class="w-name">٢ — الغرر والجهالة</div><span class="sev-badge sev-high">عالي</span></div>
+            <div class="w-quran">«نَهَى رَسُولُ اللَّهِ ﷺ عَنْ بَيْعِ الغَرَرِ» — مسلم</div>
+            <div class="w-treat">العلاج: توضيح الغامض — من غرر يُصبح بيان</div>
+            <span class="w-rec rec-yes">يُعاد تدوير</span>
+        </div>
+        <div class="waste-card" style="border-color:var(--red);">
+            <div class="w-header"><div class="w-name">٣ — التدليس والغش</div><span class="sev-badge sev-critical">حرج بالغ</span></div>
+            <div class="w-quran">«مَنْ غَشَّنَا فَلَيْسَ مِنَّا» — مسلم</div>
+            <div class="w-treat">العلاج: عزل + توثيق + إتلاف البيانات المزوّرة</div>
+            <span class="w-rec rec-no">لا يُعاد تدوير</span>
+        </div>
+        <div class="waste-card" style="border-color:var(--orange);">
+            <div class="w-header"><div class="w-name">٤ — الاحتكار والإضرار</div><span class="sev-badge sev-high">عالي</span></div>
+            <div class="w-quran">«مَنِ احْتَكَرَ فَهُوَ خَاطِئٌ» — مسلم</div>
+            <div class="w-treat">العلاج: تحرير السوق — توزيع الموارد — تفكيك الهيمنة</div>
+            <span class="w-rec rec-yes">يُعاد تدوير</span>
+        </div>
+        <div class="waste-card" style="border-color:var(--blue);">
+            <div class="w-header"><div class="w-name">٥ — البيانات الفاسدة</div><span class="sev-badge sev-medium">متوسط</span></div>
+            <div class="w-quran">«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ» — الطبراني</div>
+            <div class="w-treat">العلاج: تدقيق + تصحيح + إعادة بناء</div>
+            <span class="w-rec rec-yes">يُعاد تدوير</span>
+        </div>
+        <div class="waste-card" style="border-color:var(--blue);">
+            <div class="w-header"><div class="w-name">٦ — تلوث الشبكة</div><span class="sev-badge sev-medium">متوسط</span></div>
+            <div class="w-quran">«لا ضَرَرَ وَلا ضِرَارَ» — ابن ماجه وحسّنه</div>
+            <div class="w-treat">العلاج: عزل + تنظيف + حجر صحي رقمي</div>
+            <span class="w-rec rec-no">لا يُعاد تدوير</span>
+        </div>
+        <div class="waste-card" style="border-color:var(--green);">
+            <div class="w-header"><div class="w-name">٧ — المعرفة المنتهية</div><span class="sev-badge sev-low">منخفض</span></div>
+            <div class="w-quran">«اطلبوا العلم من المهد إلى اللحد» — حكمة إسلامية</div>
+            <div class="w-treat">العلاج: تحديث + تجديد + تسميد معرفي للأجيال القادمة</div>
+            <span class="w-rec rec-yes">يُعاد تدوير</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ مراحل التطهير ══ -->
+<div class="sec wrap" id="stages">
+    <div class="sec-title">⚗️ مراحل التطهير — ٦ مراحل تشبه جهاز الهضم</div>
+    <div class="stages-flow">
+        <div class="stage-card" style="border-color:rgba(52,152,219,.25);">
+            <div class="stage-num" style="background:rgba(52,152,219,.15);color:var(--blue);">١</div>
+            <div class="stage-info">
+                <div class="stage-title" style="color:var(--blue);">الكشف والاستشعار</div>
+                <span class="stage-analogy">🩸 الأوردة والأعصاب</span>
+                <div class="stage-desc">الخوارزميات ترصد الشبكة — مثل الأعصاب الحسية — تكتشف الشذوذ فور وقوعه</div>
+            </div>
+        </div>
+        <div class="stage-connector">↓</div>
+        <div class="stage-card" style="border-color:rgba(155,89,182,.25);">
+            <div class="stage-num" style="background:rgba(155,89,182,.15);color:var(--purple);">٢</div>
+            <div class="stage-info">
+                <div class="stage-title" style="color:var(--purple);">التصنيف والتحليل</div>
+                <span class="stage-analogy">🩺 الكبد</span>
+                <div class="stage-desc">محرك الشريعة يصنّف: حلال / حرام / مشبوه — كالكبد يميّز المفيد من الضار</div>
+            </div>
+        </div>
+        <div class="stage-connector">↓</div>
+        <div class="stage-card" style="border-color:rgba(231,76,60,.25);">
+            <div class="stage-num" style="background:rgba(231,76,60,.15);color:var(--red);">٣</div>
+            <div class="stage-info">
+                <div class="stage-title" style="color:var(--red);">العزل والحجر الصحي</div>
+                <span class="stage-analogy">🛡️ جهاز المناعة</span>
+                <div class="stage-desc">البيانات الفاسدة تُعزل — مثل الجهاز المناعي يحجر الميكروب قبل انتشاره</div>
+            </div>
+        </div>
+        <div class="stage-connector">↓</div>
+        <div class="stage-card" style="border-color:rgba(212,175,55,.25);">
+            <div class="stage-num" style="background:rgba(212,175,55,.1);color:var(--gold);">٤</div>
+            <div class="stage-info">
+                <div class="stage-title" style="color:var(--gold);">استخلاص الدرس</div>
+                <span class="stage-analogy">🫁 الأمعاء الدقيقة</span>
+                <div class="stage-desc">من كل فضلة يُستخلص درس — كالأمعاء تمتص الغذاء المفيد وترمي الباقي</div>
+            </div>
+        </div>
+        <div class="stage-connector">↓</div>
+        <div class="stage-card" style="border-color:rgba(26,188,156,.25);">
+            <div class="stage-num" style="background:rgba(26,188,156,.1);color:var(--teal);">٥</div>
+            <div class="stage-info">
+                <div class="stage-title" style="color:var(--teal);">الإتلاف الآمن</div>
+                <span class="stage-analogy">🫘 الكلى</span>
+                <div class="stage-desc">ما لا يُعاد تدويره يُتلف بطريقة آمنة — كالكلى تُخرج السموم دون أذى للجسم</div>
+            </div>
+        </div>
+        <div class="stage-connector">↓</div>
+        <div class="stage-card" style="border-color:rgba(46,204,113,.25);">
+            <div class="stage-num" style="background:rgba(46,204,113,.1);color:var(--green);">٦</div>
+            <div class="stage-info">
+                <div class="stage-title" style="color:var(--green);">التسميد المعرفي</div>
+                <span class="stage-analogy">🌱 التربة والتسميد</span>
+                <div class="stage-desc">الفضلات القابلة للتدوير تُحوّل لمعرفة — تُغذّي الجيل القادم كالسماد يُغذّي التربة</div>
+            </div>
+        </div>
+    </div>
+    <div style="margin-top:1.2rem;background:rgba(26,188,156,.05);border:1px solid rgba(26,188,156,.15);border-radius:10px;padding:1rem;text-align:center;font-size:.82rem;color:var(--teal);">
+        ﴿وَيُحِلُّ لَهُمُ الطَّيِّبَاتِ وَيُحَرِّمُ عَلَيْهِمُ الْخَبَائِثَ﴾ — الأعراف ١٥٧
+    </div>
+</div>
+
+<!-- ══ الخريطة الجينية ══ -->
+<div class="sec wrap" id="genetic">
+    <div class="sec-title">🧬 الخريطة الجينية للشبكة الإسلامية — ٩ حقب عبر التاريخ</div>
+    <div class="timeline">
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">٦١٠ م</div>
+            <div class="era-name">عصر النبوة ﷺ</div>
+            <div class="era-desc">الشبكة الأولى — المسجد النبوي — الصحابة — نمط الجين الأصلي: التوحيد والعدل والصدق</div>
+            <span class="era-badge" style="background:rgba(212,175,55,.1);color:var(--gold);">DNA الأصل</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">٦٣٢–٦٦١ م</div>
+            <div class="era-name">الخلفاء الراشدون</div>
+            <div class="era-desc">الدولة الإسلامية كمنظومة — الزكاة + الجيش + القضاء — أول شبكة حوكمة إسلامية متكاملة</div>
+            <span class="era-badge" style="background:rgba(26,188,156,.1);color:var(--teal);">الجين المؤسسي</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">٦٦١–٧٥٠ م</div>
+            <div class="era-name">الأمويون</div>
+            <div class="era-desc">توسع الشبكة — دور السك — البريد الإسلامي — الدينار الأموي الموحّد لأول مرة</div>
+            <span class="era-badge" style="background:rgba(52,152,219,.1);color:var(--blue);">الجين التوسعي</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">٧٥٠–١٢٥٨ م</div>
+            <div class="era-name">العباسيون — بيت الحكمة</div>
+            <div class="era-desc">الشبكة المعرفية — علوم + ترجمة + تجارة — بغداد مركز الشبكة العالمية</div>
+            <span class="era-badge" style="background:rgba(155,89,182,.1);color:var(--purple);">الجين المعرفي</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">٦٠٠–١٤٠٠ م</div>
+            <div class="era-name">طرق التجارة الإسلامية</div>
+            <div class="era-desc">الحرير + التوابل + الذهب — شبكة تجارة إسلامية تمتد من المغرب لجنوب آسيا</div>
+            <span class="era-badge" style="background:rgba(230,126,34,.1);color:var(--orange);">الجين التجاري</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">١٤٠٠–١٨٠٠ م</div>
+            <div class="era-name">الدول الإسلامية الكبرى</div>
+            <div class="era-desc">العثمانيون + الصفويون + المغول الهنود — ثلاث شبكات حضارية متوازية</div>
+            <span class="era-badge" style="background:rgba(52,152,219,.1);color:var(--blue);">الجين التعددي</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">١٨٠٠–١٩٥٠ م</div>
+            <div class="era-name">الصحوة والنهضة</div>
+            <div class="era-desc">محاولات إحياء — العروة الوثقى — الخلافة — الجين الدفاعي تحت الاستعمار</div>
+            <span class="era-badge" style="background:rgba(231,76,60,.1);color:var(--red);">الجين المقاوم</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot"></div>
+            <div class="era-year">١٩٩٠–٢٠٢٠ م</div>
+            <div class="era-name">الإنترنت والمال الرقمي</div>
+            <div class="era-desc">التمويل الإسلامي الرقمي — البنوك الإسلامية عبر الإنترنت — بدايات البلوك تشين</div>
+            <span class="era-badge" style="background:rgba(46,204,113,.1);color:var(--green);">الجين الرقمي</span>
+        </div>
+
+        <div class="era-item">
+            <div class="era-dot active-era"></div>
+            <div class="era-year">٢٠٢٤ م — الحاضر</div>
+            <div class="era-name" style="color:var(--gold);">🌟 عصر شيخة — الجمع الكامل</div>
+            <div class="era-desc">منظومة تجمع ١٤ قرنًا في شبكة رقمية واحدة — الدينار الرقمي + الشريعة الذكية + الاقتصاد الإسلامي المتكامل</div>
+            <span class="era-badge" style="background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.3);">★ DNA الاكتمال</span>
+        </div>
+    </div>
+</div>
+
+<!-- ══ محاكاة التطهير ══ -->
+<div class="sec wrap" id="sim">
+    <div class="sec-title">🔬 محاكاة التطهير — تجربة النظام الحيوي</div>
+    <div class="sim-wrap">
+        <div class="sim-left">
+            <div class="sim-title">⚗️ أدخل فضلة للتطهير</div>
+            <div class="frow">
+                <label>نوع الفضلة</label>
+                <select id="w_type">
+                    <option value="riba">الربا المعاملاتي — ربا الزيادة</option>
+                    <option value="gharar">الغرر والجهالة</option>
+                    <option value="fraud">التدليس والغش</option>
+                    <option value="monopoly">الاحتكار والإضرار</option>
+                    <option value="corrupt_data">بيانات فاسدة</option>
+                    <option value="pollution">تلوث الشبكة</option>
+                    <option value="expired">معرفة منتهية الصلاحية</option>
+                </select>
+            </div>
+            <div class="frow">
+                <label>وصف النمط (اختياري)</label>
+                <textarea id="w_desc" rows="3" placeholder="صِف المشكلة..."></textarea>
+            </div>
+            <button class="cbtn" onclick="runPurification()">🧪 ابدأ محاكاة التطهير</button>
+        </div>
+        <div class="sim-right">
+            <div class="sim-title">📊 نتائج التطهير</div>
+            <div id="sim_stages">
+                <div style="color:var(--text2);font-size:.82rem;text-align:center;padding:2rem;">
+                    اختر فضلة من اليسار ثم ابدأ المحاكاة
+                </div>
+            </div>
+            <div id="sim_summary" class="sim-result">
+                <div class="cres-row" style="border:none;margin-bottom:.5rem;"><span style="font-weight:700;color:var(--teal);">📋 ملخص التطهير</span></div>
+                <div id="r_verdict" style="font-size:.85rem;margin-bottom:.5rem;"></div>
+                <div id="r_lesson" style="font-size:.78rem;color:var(--text2);"></div>
+            </div>
+            <div class="status-log" id="sim_log"></div>
+        </div>
+    </div>
+</div>
+
+<script>
+function show(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.sec').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+}
+
+// نبض القلب
+(function buildBeats() {
+    const bar = document.getElementById('beatBar');
+    if (!bar) return;
+    const heights = [0.15,0.25,0.8,1.0,0.7,0.2,0.15,0.3,0.9,0.95,0.6,0.15,0.1,0.2,0.7,1.0,0.8,0.25];
+    heights.forEach((h,i) => {
+        const b = document.createElement('div');
+        b.className = 'beat-b';
+        b.style.setProperty('--h', h);
+        b.style.animationDelay = (i * 0.07) + 's';
+        bar.appendChild(b);
+    });
+})();
+
+// تحديث الـ vitals من الـ API
+async function loadVitals() {
+    try {
+        const r = await fetch('/api/purify/network-vitals');
+        const d = await r.json();
+        if (d.success && d.data) {
+            const v = d.data;
+            document.getElementById('v_uptime').textContent = v.heart?.uptime_hours?.toFixed(1) || '🔴';
+            document.getElementById('v_mem').textContent = v.heart?.memory_mb?.toFixed(0) || '—';
+            document.getElementById('v_routes').textContent = v.veins?.active_routes || '200+';
+            document.getElementById('rps').textContent = v.veins?.requests_per_second || '—';
+        }
+    } catch(e) {
+        document.getElementById('v_uptime').textContent = '--';
+    }
+}
+loadVitals();
+
+// بيانات المحاكاة
+const WASTE_DATA = {
+    riba: { name:'الربا المعاملاتي', recyclable:false, verdict:'❌ إتلاف فوري — لا بديل', lesson:'الربا ظلم + تضخم كاذب — البديل: المضاربة والمشاركة', color:'var(--red)' },
+    gharar: { name:'الغرر والجهالة', recyclable:true, verdict:'♻️ إعادة تدوير — يُحوّل لبيان شفاف', lesson:'الغموض يُحوّل لعقد واضح — التفاصيل تُوثَّق', color:'var(--orange)' },
+    fraud: { name:'التدليس والغش', recyclable:false, verdict:'❌ إتلاف + تحذير للشبكة', lesson:'الغش يُدمّر الثقة — الصادق محبوب وإن خسر لحظيًا', color:'var(--red)' },
+    monopoly: { name:'الاحتكار والإضرار', recyclable:true, verdict:'♻️ تحرير السوق — تفكيك الهيمنة', lesson:'الاحتكار يضر الأمة — التنافس الحر ينفع الجميع', color:'var(--orange)' },
+    corrupt_data: { name:'بيانات فاسدة', recyclable:true, verdict:'♻️ تصحيح وإعادة بناء', lesson:'الإتقان واجب — «إن الله يحب إذا عمل أحدكم عملًا أن يتقنه»', color:'var(--blue)' },
+    pollution: { name:'تلوث الشبكة', recyclable:false, verdict:'❌ حجر صحي رقمي فوري', lesson:'لا ضرر ولا ضرار — الشبكة النظيفة تنفع الجميع', color:'var(--blue)' },
+    expired: { name:'معرفة منتهية الصلاحية', recyclable:true, verdict:'♻️ تحديث + تجديد معرفي', lesson:'العلم يتطور — التجديد الإسلامي واجب — «اطلبوا العلم»', color:'var(--green)' },
+};
+
+const STAGES = [
+    { id:1, name:'الكشف', icon:'👁️', color:'var(--blue)' },
+    { id:2, name:'التصنيف', icon:'⚖️', color:'var(--purple)' },
+    { id:3, name:'العزل', icon:'🔒', color:'var(--red)' },
+    { id:4, name:'استخلاص الدرس', icon:'📖', color:'var(--gold)' },
+    { id:5, name:'الإتلاف الآمن', icon:'🗑️', color:'var(--teal)' },
+    { id:6, name:'التسميد المعرفي', icon:'🌱', color:'var(--green)' },
+];
+
+function runPurification() {
+    const type = document.getElementById('w_type').value;
+    const desc = document.getElementById('w_desc').value || '—';
+    const info = WASTE_DATA[type];
+    const log = document.getElementById('sim_log');
+    const stagesDiv = document.getElementById('sim_stages');
+    const summary = document.getElementById('sim_summary');
+
+    stagesDiv.innerHTML = '';
+    summary.style.display = 'none';
+    log.innerHTML = '';
+
+    let delay = 0;
+    STAGES.forEach((s, i) => {
+        setTimeout(() => {
+            const el = document.createElement('div');
+            el.className = 'sim-stage show';
+            el.style.borderRight = '3px solid ' + s.color;
+            el.innerHTML = `
+                <div class="sim-stage-header">
+                    <span class="sim-icon">${s.icon}</span>
+                    <span class="sim-stage-title" style="color:${s.color}">المرحلة ${s.id} — ${s.name}</span>
+                </div>
+                <div style="font-size:.76rem;color:var(--text2);">جارٍ معالجة: ${info.name}</div>
+            `;
+            stagesDiv.appendChild(el);
+            log.innerHTML += `[${new Date().toLocaleTimeString('ar')}] المرحلة ${s.id}: ${s.name} ← ${info.name}\n`;
+
+            if (i === STAGES.length - 1) {
+                setTimeout(() => {
+                    document.getElementById('r_verdict').innerHTML = `<strong>الحكم:</strong> ${info.verdict}`;
+                    document.getElementById('r_verdict').style.color = info.color;
+                    document.getElementById('r_lesson').innerHTML = `<strong>الدرس المستخلص:</strong> ${info.lesson}`;
+                    summary.style.display = 'block';
+                    log.innerHTML += `\n✅ التطهير اكتمل — ${info.recyclable ? 'أُعيد تدوير المادة' : 'أُتلف نهائيًا'}\n`;
+                }, 400);
+            }
+        }, delay);
+        delay += 550;
+    });
+}
+</script>
+</body>
+</html>

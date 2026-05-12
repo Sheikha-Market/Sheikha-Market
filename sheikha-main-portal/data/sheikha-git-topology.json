@@ -1,0 +1,154 @@
+{
+    "program": "Git Sheikha",
+    "version": "2.0.0",
+    "updatedAt": "2026-04-01",
+    "principle": "بسم الله الرحمن الرحيم — توحيد الله فوق كل شيء — لا ضرر ولا ضرار",
+    "root": "repos/git-sheikha",
+
+    "accounts": [
+        {
+            "id": "sheikha-top",
+            "login": "Sheikha-top",
+            "type": "Organization",
+            "tier": "enterprise",
+            "role": "owner",
+            "displayName": "Sheikha.top",
+            "url": "https://github.com/Sheikha-top",
+            "status": "active",
+            "description": "المالك المؤسسي الرسمي لمنظومة شيخة — تحت هذه المنظمة تُنشر المستودعات الإنتاجية والعلنية.",
+            "repos": ["sheikha-enterprise-portal"],
+            "permissions": "admin",
+            "isDefault": true
+        },
+        {
+            "id": "sheikha-market",
+            "login": "Sheikha-Market",
+            "type": "User",
+            "tier": "developer",
+            "role": "developer-operator",
+            "displayName": "Sheikha",
+            "url": "https://github.com/Sheikha-Market",
+            "status": "active",
+            "description": "حساب المطوّر والتشغيل اليومي — التطوير والاختبار والـ fork والـ PR يتم هنا ثم يُدفع إلى Sheikha-top.",
+            "repos": ["Sheikha-Market"],
+            "permissions": "developer",
+            "isDefault": false
+        },
+        {
+            "id": "sheikha-gitlab",
+            "login": "Sheikha",
+            "type": "User",
+            "tier": "mirror",
+            "role": "mirror-operator",
+            "displayName": "Sheikha (GitLab)",
+            "url": "https://gitlab.com/Sheikha",
+            "status": "planned",
+            "description": "مرآة GitLab — نسخة احتياطية ومسار CI/CD ثانوي عند الحاجة.",
+            "repos": ["sheikha"],
+            "permissions": "developer",
+            "isDefault": false
+        }
+    ],
+
+    "informationFlow": {
+        "principle": "المعلومات تتدفق من التطوير إلى التنظيم إلى الإنتاج — لا عكس إلا بمراجعة.",
+        "flows": [
+            {
+                "from": "Sheikha-Market (developer)",
+                "to": "Sheikha-top/sheikha-enterprise-portal",
+                "via": "Pull Request + Code Review",
+                "branch": "feature/* → review/safe-analysis → main",
+                "description": "التطوير اليومي يبدأ هنا، يُرفع للمراجعة، ثم يُدمج في الإنتاج"
+            },
+            {
+                "from": "Sheikha-top/sheikha-enterprise-portal",
+                "to": "GitLab/Sheikha",
+                "via": "git push mirror (مزامنة تلقائية)",
+                "branch": "main → main",
+                "description": "المرآة الاحتياطية تُزامَن تلقائياً عند كل push إلى main"
+            },
+            {
+                "from": "Sheikha-top (org)",
+                "to": "Production / Deploy",
+                "via": "GitHub Actions / npm run deploy",
+                "branch": "main",
+                "description": "الإطلاق الإنتاجي يتم فقط من main تحت Sheikha-top"
+            }
+        ]
+    },
+
+    "remotes": {
+        "origin": {
+            "url": "git@github.com:Sheikha-top/sheikha-enterprise-portal.git",
+            "role": "primary-authoritative",
+            "account": "sheikha-top",
+            "push": true,
+            "fetch": true
+        },
+        "github": {
+            "url": "git@github.com:Sheikha-Market/Sheikha-Market.git",
+            "role": "developer-mirror",
+            "account": "sheikha-market",
+            "push": false,
+            "fetch": true,
+            "note": "Push معطل — يُدفع عبر PR فقط"
+        },
+        "gitlab": {
+            "url": "git@gitlab.com:Sheikha/sheikha.git",
+            "role": "backup-mirror",
+            "account": "sheikha-gitlab",
+            "push": false,
+            "fetch": true,
+            "note": "يحتاج تهيئة SSH key لـ GitLab أولاً"
+        }
+    },
+
+    "branchPolicy": {
+        "main": "إنتاج — لا push مباشر — فقط merge من review/*",
+        "review/safe-analysis": "الفرع الحالي للتطوير والمراجعة",
+        "feature/*": "فروع الميزات — تُفتح من review/* وتُغلق بـ PR"
+    },
+
+    "controlPlane": {
+        "name": "sheikha-enterprise-portal",
+        "path": ".",
+        "role": "control-plane",
+        "provider": "github",
+        "status": "active",
+        "description": "البوابة الأساسية، لوحة الحوكمة، طبقة API والعرض الموحد."
+    },
+    "repositories": [
+        {
+            "name": "sheikha-git-governance",
+            "path": "repos/git-sheikha/sheikha-git-governance",
+            "role": "governance",
+            "provider": "any-git",
+            "status": "planned",
+            "description": "سياسات الفروع، الهوية، الحوكمة، الصلاحيات، نماذج التفعيل المؤسسي."
+        },
+        {
+            "name": "sheikha-git-connectors",
+            "path": "repos/git-sheikha/sheikha-git-connectors",
+            "role": "connectors",
+            "provider": "github-gitlab-anygit",
+            "status": "planned",
+            "description": "موصلات GitHub وGitLab وAny Git، مزامنة remotes، طبقة تكامل متعددة المزودين."
+        },
+        {
+            "name": "sheikha-git-automation",
+            "path": "repos/git-sheikha/sheikha-git-automation",
+            "role": "automation",
+            "provider": "github-gitlab-anygit",
+            "status": "planned",
+            "description": "تشغيل workflows، سكربتات bootstrap، مزامنة المرايا، تفعيل CI/CD وعمليات Git Sheikha."
+        },
+        {
+            "name": "sheikha-git-mirrors",
+            "path": "repos/git-sheikha/sheikha-git-mirrors",
+            "role": "mirrors",
+            "provider": "gitlab-anygit",
+            "status": "planned",
+            "description": "مرآة وتشغيل ثانوي، عزل المسارات البديلة، واستضافة المسارات المؤسسية أو الحكومية أو التجارية."
+        }
+    ]
+}

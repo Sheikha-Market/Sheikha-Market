@@ -1,0 +1,89 @@
+{
+  "version": "1.0.0",
+  "lastUpdated": "2026-04-12T00:00:00.000Z",
+  "pixel": {
+    "name": "Sheikha Market Pixel",
+    "pixelId": "4383900581880844",
+    "owner": "Sheikha",
+    "enabled": true,
+    "pixelIdEnv": "META_PIXEL_ID",
+    "events": ["PageView", "ViewContent", "Lead", "Purchase"],
+    "status": "active"
+  },
+  "conversionsApi": {
+    "enabled": true,
+    "endpoint": "https://graph.facebook.com/v20.0/<PIXEL_ID>/events",
+    "accessTokenEnv": "META_CAPI_ACCESS_TOKEN",
+    "deduplication": true,
+    "status": "active"
+  },
+  "crm": {
+    "enabled": true,
+    "provider": "internal_sheikha_crm",
+    "leadPipeline": ["new", "qualified", "proposal", "won", "lost"],
+    "sources": ["facebook", "instagram", "whatsapp", "threads"],
+    "status": "active"
+  },
+  "automation": {
+    "enabled": false,
+    "crossPosting": false,
+    "welcomeFlows": false,
+    "retargeting": false,
+    "status": "paused_for_policy_review"
+  },
+  "activationPlan": {
+    "status": "ready_to_execute",
+    "goal": "تفعيل المنتجات + Pixel + CAPI + مزامنة العملاء في Meta Business",
+    "requiredEnv": ["META_PIXEL_ID", "META_CAPI_ACCESS_TOKEN", "META_AD_ACCOUNT_ID", "META_CATALOG_ID"],
+    "phases": [
+      {
+        "id": "phase_1_catalog",
+        "title": "تفعيل الكتالوج والمنتجات",
+        "owner": "commerce_manager",
+        "steps": [
+          "مراجعة المنتجات (الاسم، السعر، الصورة، التوفر)",
+          "ربط الكتالوج مع Facebook Shop و Instagram Shop",
+          "تفعيل WhatsApp Catalog",
+          "اختبار ظهور 3 منتجات على الأقل"
+        ],
+        "successCriteria": "ظهور المنتجات في Facebook/Instagram/WhatsApp بدون أخطاء"
+      },
+      {
+        "id": "phase_2_pixel",
+        "title": "تفعيل Meta Pixel",
+        "owner": "tracking_manager",
+        "steps": [
+          "إدخال META_PIXEL_ID في البيئة السرية",
+          "تفعيل أحداث PageView و ViewContent و Lead و Purchase",
+          "اختبار الأحداث عبر Meta Events Manager",
+          "التحقق من وصول event_id للتوافق مع CAPI"
+        ],
+        "successCriteria": "استقبال الأحداث الأساسية خلال 15 دقيقة"
+      },
+      {
+        "id": "phase_3_capi",
+        "title": "تفعيل Conversions API",
+        "owner": "backend_manager",
+        "steps": [
+          "إدخال META_CAPI_ACCESS_TOKEN في البيئة السرية",
+          "إرسال نفس الأحداث من الخادم مع deduplication",
+          "مطابقة event_name و event_id بين Pixel و CAPI",
+          "تأكيد جودة الإشارة في Meta"
+        ],
+        "successCriteria": "تحسن Event Match Quality وانخفاض فقدان التحويلات"
+      },
+      {
+        "id": "phase_4_leads",
+        "title": "مزامنة العملاء المحتملين مع CRM",
+        "owner": "crm_manager",
+        "steps": [
+          "التقاط Lead من Facebook/Instagram/WhatsApp",
+          "إدخال المصدر في CRM (facebook/instagram/whatsapp/threads)",
+          "تفعيل welcome flow آلي",
+          "متابعة خط الأنابيب حتى won/lost"
+        ],
+        "successCriteria": "كل Lead جديد يظهر في CRM خلال أقل من 1 دقيقة"
+      }
+    ]
+  }
+}

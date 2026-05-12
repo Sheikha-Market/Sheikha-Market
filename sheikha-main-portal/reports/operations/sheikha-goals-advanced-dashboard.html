@@ -1,0 +1,204 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>لوحة شيخة المتقدمة للأهداف</title>
+<style>
+:root {
+    --bg: #f3efe7;
+    --panel: #fffaf1;
+    --ink: #1d2b24;
+    --gold: #b88a2a;
+    --copper: #9a5e2c;
+    --green: #2f6f57;
+    --danger: #9f2f2f;
+}
+* { box-sizing: border-box; }
+body { margin: 0; font-family: 'Tajawal', sans-serif; background: radial-gradient(circle at 15% 20%, #f9f2dd, var(--bg)); color: var(--ink); }
+.header { padding: 24px; background: linear-gradient(110deg, var(--gold), var(--copper)); color: #fff; }
+.header h1 { margin: 0 0 8px; }
+.container { padding: 20px; display: grid; gap: 16px; }
+.cards { display: grid; grid-template-columns: repeat(auto-fit, minmax(170px, 1fr)); gap: 12px; }
+.card { background: var(--panel); border: 1px solid #e8dabb; border-radius: 14px; padding: 14px; box-shadow: 0 6px 18px rgba(80, 49, 16, 0.08); }
+.card strong { display: block; font-size: 28px; color: var(--green); }
+.panel { background: var(--panel); border: 1px solid #e8dabb; border-radius: 14px; padding: 14px; }
+table { width: 100%; border-collapse: collapse; }
+th, td { border-bottom: 1px solid #eadfc8; padding: 10px; text-align: right; vertical-align: middle; }
+th { color: #593b1d; }
+.bar { position: relative; min-width: 160px; padding-inline-end: 48px; }
+.bar span { display: block; height: 10px; border-radius: 999px; background: linear-gradient(90deg, var(--green), var(--gold)); }
+.bar em { position: absolute; inset-inline-end: 0; inset-block-start: -4px; font-style: normal; font-size: 12px; }
+.badges { display: flex; gap: 8px; flex-wrap: wrap; }
+.badge { border-radius: 999px; padding: 6px 10px; font-size: 12px; color: #fff; }
+.critical { background: var(--danger); }
+.high { background: #c05a1f; }
+.medium { background: #8c7f2b; }
+.footer { padding: 16px 20px 30px; color: #5f4d33; font-size: 14px; }
+@media (max-width: 640px) {
+    .header h1 { font-size: 22px; }
+    th, td { font-size: 13px; padding: 8px; }
+}
+</style>
+</head>
+<body>
+<header class="header">
+    <h1>لوحة شيخة المتقدمة للأهداف</h1>
+    <p>قياس الإنجاز، التنبيهات، التقارير، والتكامل متعدد القطاعات بمنهج الكتاب والسنة</p>
+</header>
+<main class="container">
+    <section class="cards">
+        <article class="card"><div>إجمالي الأهداف</div><strong>62</strong></article>
+        <article class="card"><div>متوسط الإنجاز</div><strong>5.4%</strong></article>
+        <article class="card"><div>أهداف متأخرة</div><strong>49</strong></article>
+        <article class="card"><div>أهداف متجاوزة الموعد</div><strong>0</strong></article>
+        <article class="card"><div>تكامل التعليم/الدولة</div><strong>15</strong></article>
+    </section>
+
+    <section class="panel">
+        <h3>مؤشرات الطبقات</h3>
+        <table>
+            <thead>
+                <tr><th>الطبقة</th><th>عدد الأهداف</th><th>متوسط الإنجاز</th><th>متأخر</th><th>متجاوز الموعد</th></tr>
+            </thead>
+            <tbody>
+        <tr>
+            <td>national</td>
+            <td>6</td>
+            <td><div class="bar"><span style="width:15%"></span><em>14.7%</em></div></td>
+            <td>4</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>ministry</td>
+            <td>9</td>
+            <td><div class="bar"><span style="width:23%"></span><em>23.3%</em></div></td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>emirate</td>
+            <td>2</td>
+            <td><div class="bar"><span style="width:19%"></span><em>18.5%</em></div></td>
+            <td>0</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>entity</td>
+            <td>45</td>
+            <td><div class="bar"><span style="width:2%"></span><em>0.0%</em></div></td>
+            <td>45</td>
+            <td>0</td>
+        </tr>
+    </tbody>
+        </table>
+    </section>
+
+    <section class="panel">
+        <h3>الجهات الأعلى أداء</h3>
+        <table>
+            <thead>
+                <tr><th>الجهة</th><th>الأهداف</th><th>متوسط الإنجاز</th><th>متأخر</th><th>متجاوز الموعد</th></tr>
+            </thead>
+            <tbody>
+        <tr>
+            <td>Sheikha-SDAIA</td>
+            <td>3</td>
+            <td><div class="bar"><span style="width:21%"></span><em>20.7%</em></div></td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Crown-Prince-Office</td>
+            <td>3</td>
+            <td><div class="bar"><span style="width:17%"></span><em>17.4%</em></div></td>
+            <td>3</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-MoI</td>
+            <td>6</td>
+            <td><div class="bar"><span style="width:13%"></span><em>13.2%</em></div></td>
+            <td>3</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Royal-Court</td>
+            <td>3</td>
+            <td><div class="bar"><span style="width:12%"></span><em>12.0%</em></div></td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-Emirate-Makkah</td>
+            <td>2</td>
+            <td><div class="bar"><span style="width:11%"></span><em>10.5%</em></div></td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-Emirate-Riyadh</td>
+            <td>2</td>
+            <td><div class="bar"><span style="width:8%"></span><em>8.0%</em></div></td>
+            <td>1</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-MoH</td>
+            <td>5</td>
+            <td><div class="bar"><span style="width:7%"></span><em>7.4%</em></div></td>
+            <td>3</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-MoF</td>
+            <td>4</td>
+            <td><div class="bar"><span style="width:4%"></span><em>4.0%</em></div></td>
+            <td>3</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-MoE</td>
+            <td>4</td>
+            <td><div class="bar"><span style="width:4%"></span><em>3.8%</em></div></td>
+            <td>3</td>
+            <td>0</td>
+        </tr>
+    
+        <tr>
+            <td>Sheikha-Royal-Court</td>
+            <td>2</td>
+            <td><div class="bar"><span style="width:2%"></span><em>0.0%</em></div></td>
+            <td>2</td>
+            <td>0</td>
+        </tr>
+    </tbody>
+        </table>
+    </section>
+
+    <section class="panel">
+        <h3>مستويات التنبيهات</h3>
+        <div class="badges">
+            <span class="badge critical">حرج: 0</span>
+            <span class="badge high">عالٍ: 0</span>
+            <span class="badge medium">متوسط: 49</span>
+            <span class="badge" style="background:#2f6f57">الإجمالي: 49</span>
+        </div>
+    </section>
+</main>
+<footer class="footer">
+    آخر تحديث: 2026-03-21T20:11:03.194Z | المبدأ الحاكم: "العدل والإحسان والأمانة وتحقيق المصلحة العامة"
+</footer>
+</body>
+</html>

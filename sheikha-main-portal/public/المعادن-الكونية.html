@@ -1,0 +1,286 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="شيخة للمعادن الكونية — أسعار المعادن الثمينة والصناعية والنادرة والسكراب مقيسة بالدينار الإسلامي">
+<title>شيخة للمعادن الكونية ⚡</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Cairo:wght@400;600;700&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold: #D4AF37;
+    --silver: #C0C0C0;
+    --copper: #B87333;
+    --bg: #050810;
+    --bg2: #0a1020;
+    --bg3: #111827;
+    --green: #10b981;
+    --blue: #3b82f6;
+    --text: #e2e8f0;
+    --text2: #94a3b8;
+    --border: #1e2d4a;
+    --card: #0d1b30;
+}
+* { margin: 0; padding: 0; box-sizing: border-box; }
+body { background: var(--bg); color: var(--text); font-family: 'Tajawal', sans-serif; direction: rtl; min-height: 100vh; }
+.hero {
+    background: linear-gradient(135deg, #050810 0%, #0c1628 50%, #050810);
+    border-bottom: 1px solid var(--border);
+    padding: 2rem 1.5rem 1.2rem;
+    text-align: center;
+    position: relative;
+}
+.hero::before { content:''; position:absolute; inset:0; background:radial-gradient(ellipse at top,rgba(212,175,55,0.09),transparent 70%); pointer-events:none; }
+.bismillah { color:var(--gold); font-size:0.95rem; margin-bottom:0.4rem; }
+.hero-verse { font-family:'Cairo',serif; font-size:1.1rem; color:var(--gold); margin-bottom:0.7rem; opacity:0.95; }
+.hero-title { font-size:clamp(1.7rem,4vw,2.6rem); font-weight:900; background:linear-gradient(135deg,var(--gold),#f5d571,var(--gold)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; margin-bottom:0.4rem; }
+.hero-sub { color:var(--text2); font-size:0.88rem; }
+.nav-tabs { background:var(--bg2); border-bottom:1px solid var(--border); display:flex; flex-wrap:wrap; position:sticky; top:0; z-index:50; }
+.nav-tab { padding:0.65rem 0.9rem; color:var(--text2); cursor:pointer; border:none; background:none; font-family:'Tajawal',sans-serif; font-size:0.8rem; font-weight:500; transition:all 0.2s; border-bottom:2px solid transparent; white-space:nowrap; }
+.nav-tab:hover { color:var(--text); }
+.nav-tab.active { color:var(--gold); border-bottom-color:var(--gold); }
+.main { max-width:1400px; margin:0 auto; padding:1.5rem; }
+.tab-panel { display:none; }
+.tab-panel.active { display:block; }
+.section-title { font-size:1.1rem; font-weight:700; color:var(--gold); margin-bottom:0.9rem; display:flex; align-items:center; gap:0.4rem; padding-bottom:0.4rem; border-bottom:1px solid var(--border); }
+.stats-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(150px,1fr)); gap:0.8rem; margin-bottom:1.2rem; }
+.stat-card { background:var(--card); border:1px solid var(--border); border-radius:10px; padding:0.9rem; text-align:center; }
+.stat-icon { font-size:1.5rem; margin-bottom:0.3rem; }
+.stat-value { font-size:1.4rem; font-weight:700; color:var(--gold); }
+.stat-label { font-size:0.72rem; color:var(--text2); }
+.metals-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:1rem; }
+.metal-card {
+    background:var(--card); border:1px solid var(--border); border-radius:14px; padding:1rem;
+    transition:border-color 0.2s, transform 0.2s; position:relative; overflow:hidden;
+}
+.metal-card::before { content:''; position:absolute; top:0; right:0; width:3px; height:100%; background:var(--card-accent,var(--gold)); }
+.metal-card:hover { border-color:rgba(212,175,55,0.4); transform:translateY(-2px); }
+.metal-icon { font-size:2rem; margin-bottom:0.4rem; }
+.metal-name-ar { font-size:1.1rem; font-weight:700; }
+.metal-name-en { font-size:0.75rem; color:var(--text2); font-family:'Outfit',sans-serif; }
+.metal-price { font-size:1.3rem; font-weight:700; color:var(--green); margin:0.5rem 0 0.2rem; }
+.metal-unit { font-size:0.72rem; color:var(--text2); }
+.metal-dinar { font-size:0.8rem; color:var(--gold); }
+.uses-tags { display:flex; flex-wrap:wrap; gap:0.25rem; margin-top:0.5rem; }
+.use-tag { font-size:0.68rem; padding:0.1rem 0.4rem; border-radius:20px; background:rgba(59,130,246,0.12); color:#93c5fd; }
+.verse-note { font-family:'Cairo',serif; font-size:0.75rem; color:var(--copper); margin-top:0.4rem; }
+.table-wrap { overflow-x:auto; border-radius:10px; border:1px solid var(--border); margin-bottom:1rem; }
+.table { width:100%; border-collapse:collapse; font-size:0.82rem; }
+.table th { background:var(--bg2); color:var(--gold); padding:0.5rem 0.7rem; text-align:right; border-bottom:1px solid var(--border); white-space:nowrap; }
+.table td { padding:0.5rem 0.7rem; border-bottom:1px solid rgba(30,45,74,0.5); }
+.table tr:hover td { background:rgba(212,175,55,0.03); }
+.badge { display:inline-block; padding:0.12rem 0.45rem; border-radius:8px; font-size:0.68rem; font-weight:600; }
+.badge-gold { background:rgba(212,175,55,0.15); color:var(--gold); }
+.badge-silver { background:rgba(192,192,192,0.15); color:var(--silver); }
+.badge-blue { background:rgba(59,130,246,0.15); color:#93c5fd; }
+.badge-green { background:rgba(16,185,129,0.15); color:#6ee7b7; }
+.badge-red { background:rgba(239,68,68,0.15); color:#fca5a5; }
+.alert { padding:0.7rem 1rem; border-radius:8px; margin-bottom:0.9rem; font-size:0.85rem; }
+.alert-gold { background:rgba(212,175,55,0.1); border:1px solid rgba(212,175,55,0.3); color:var(--gold); font-family:'Cairo',serif; }
+.loading { text-align:center; padding:2.5rem; color:var(--text2); }
+.spinner { width:28px; height:28px; border:2px solid var(--border); border-top-color:var(--gold); border-radius:50%; animation:spin 0.8s linear infinite; margin:0 auto 0.8rem; }
+@keyframes spin { to { transform:rotate(360deg); } }
+.sharia-card { background:var(--card); border:1px solid rgba(212,175,55,0.2); border-radius:12px; padding:1rem; margin-bottom:0.8rem; }
+</style>
+</head>
+<body>
+
+<div class="hero">
+    <div class="bismillah">بسم الله الرحمن الرحيم</div>
+    <div class="hero-verse">﴿وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ﴾ — الحديد ٢٥</div>
+    <h1 class="hero-title">⚡ شيخة للمعادن الكونية</h1>
+    <p class="hero-sub">كل معادن الكون — ثمينة، صناعية، نادرة، سكراب — مقيسة بالدينار الإسلامي</p>
+</div>
+
+<nav class="nav-tabs">
+    <button class="nav-tab active" onclick="showTab('overview')">📊 نظرة عامة</button>
+    <button class="nav-tab" onclick="showTab('precious')">🥇 المعادن الثمينة</button>
+    <button class="nav-tab" onclick="showTab('industrial')">🏭 المعادن الصناعية</button>
+    <button class="nav-tab" onclick="showTab('rare')">💎 المعادن النادرة</button>
+    <button class="nav-tab" onclick="showTab('scrap')">♻️ السكراب والخردة</button>
+    <button class="nav-tab" onclick="showTab('universe')">🌌 الجدول الكوني</button>
+    <button class="nav-tab" onclick="showTab('strategic')">🏆 الترتيب الاستراتيجي</button>
+    <button class="nav-tab" onclick="showTab('sharia')">🌙 القيم الشرعية</button>
+</nav>
+
+<div class="main">
+    <div id="tab-overview" class="tab-panel active">
+        <div id="overview-content"><div class="loading"><div class="spinner"></div>جارٍ التحميل...</div></div>
+    </div>
+    <div id="tab-precious" class="tab-panel">
+        <div class="section-title">🥇 المعادن الثمينة — أسعار وتحليل بالدينار</div>
+        <div id="precious-grid" class="metals-grid"></div>
+    </div>
+    <div id="tab-industrial" class="tab-panel">
+        <div class="section-title">🏭 المعادن الصناعية الأساسية</div>
+        <div id="industrial-grid" class="metals-grid"></div>
+    </div>
+    <div id="tab-rare" class="tab-panel">
+        <div class="section-title">💎 المعادن النادرة والحرجة</div>
+        <div id="rare-grid" class="metals-grid"></div>
+    </div>
+    <div id="tab-scrap" class="tab-panel">
+        <div class="section-title">♻️ أسعار السكراب والخردة</div>
+        <div id="scrap-grid" class="metals-grid"></div>
+    </div>
+    <div id="tab-universe" class="tab-panel">
+        <div class="section-title">🌌 جدول معادن الكون الشامل</div>
+        <div class="table-wrap"><table class="table">
+            <thead><tr><th>#</th><th>المعدن</th><th>الفئة</th><th>السعر $/جرام</th><th>السعر/أوقية</th><th>الدينار/جرام</th><th>الاستخدام</th></tr></thead>
+            <tbody id="universe-table"></tbody>
+        </table></div>
+    </div>
+    <div id="tab-strategic" class="tab-panel">
+        <div class="section-title">🏆 الترتيب الاستراتيجي لأهم المعادن</div>
+        <div id="strategic-content"></div>
+    </div>
+    <div id="tab-sharia" class="tab-panel">
+        <div class="section-title">🌙 قيم المعادن بالدينار والدرهم الإسلامي</div>
+        <div id="sharia-content"></div>
+    </div>
+</div>
+
+<script>
+let DATA = {};
+
+function showTab(name) {
+    document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+    document.querySelectorAll('.nav-tab').forEach(b => b.classList.remove('active'));
+    document.getElementById('tab-' + name).classList.add('active');
+    event.target.classList.add('active');
+    loadTab(name);
+}
+
+async function api(endpoint) {
+    if (DATA[endpoint]) return DATA[endpoint];
+    const res = await fetch('/api/metals/' + endpoint);
+    const json = await res.json();
+    DATA[endpoint] = json.data;
+    return json.data;
+}
+
+async function loadTab(name) {
+    try {
+        if (name === 'overview') await loadOverview();
+        else if (name === 'precious') await loadMetals('precious', 'precious-grid');
+        else if (name === 'industrial') await loadMetals('industrial', 'industrial-grid');
+        else if (name === 'rare') await loadMetals('rare-earth', 'rare-grid');
+        else if (name === 'scrap') await loadScrap();
+        else if (name === 'universe') await loadUniverse();
+        else if (name === 'strategic') await loadStrategic();
+        else if (name === 'sharia') await loadSharia();
+    } catch(e) { console.error(e); }
+}
+
+async function loadOverview() {
+    const stats = await api('stats');
+    document.getElementById('overview-content').innerHTML = `
+        <div class="stats-grid">
+            <div class="stat-card"><div class="stat-icon">🥇</div><div class="stat-value">${stats.precious_count || 8}</div><div class="stat-label">معدن ثمين</div></div>
+            <div class="stat-card"><div class="stat-icon">🏭</div><div class="stat-value">${stats.industrial_count || 12}</div><div class="stat-label">معدن صناعي</div></div>
+            <div class="stat-card"><div class="stat-icon">💎</div><div class="stat-value">${stats.rare_earth_count || 18}</div><div class="stat-label">معدن نادر وحرج</div></div>
+            <div class="stat-card"><div class="stat-icon">♻️</div><div class="stat-value">${stats.scrap_count || 8}</div><div class="stat-label">فئة سكراب</div></div>
+        </div>
+        <div class="alert alert-gold">﴿وَأَنزَلْنَا الْحَدِيدَ فِيهِ بَأْسٌ شَدِيدٌ وَمَنَافِعُ لِلنَّاسِ وَلِيَعْلَمَ اللَّهُ مَن يَنصُرُهُ وَرُسُلَهُ بِالْغَيْبِ﴾ — الحديد ٢٥</div>
+    `;
+}
+
+function metalCardHTML(m) {
+    const pricePerGram = m.price_usd_gram || (m.price_usd_oz ? (m.price_usd_oz / 31.1035) : m.price_usd_ton ? (m.price_usd_ton / 1e6) : 0);
+    const priceDisplay = m.price_usd_oz ? `$${(+m.price_usd_oz).toLocaleString()} /أوقية`
+        : m.price_usd_ton ? `$${(+m.price_usd_ton).toLocaleString()} /طن`
+        : m.price_usd_gram ? `$${(+m.price_usd_gram).toFixed(3)} /جرام` : '-';
+    return `
+        <div class="metal-card" style="--card-accent:${m.color || 'var(--gold)'}">
+            <div class="metal-icon">${m.icon || '⚙️'}</div>
+            <div class="metal-name-ar">${m.name_ar}</div>
+            <div class="metal-name-en">${m.name_en} ${m.symbol ? '(' + m.symbol + ')' : ''}</div>
+            <div class="metal-price">${priceDisplay}</div>
+            ${m.price_usd_gram ? `<div class="metal-unit">$${(+m.price_usd_gram).toFixed(4)} / جرام</div>` : ''}
+            ${m.dinar_per_gram ? `<div class="metal-dinar">🌙 ${(+m.dinar_per_gram).toFixed(6)} دينار/جرام</div>` : ''}
+            ${m.uses ? `<div class="uses-tags">${m.uses.slice(0,4).map(u => `<span class="use-tag">${u}</span>`).join('')}</div>` : ''}
+            ${m.verse ? `<div class="verse-note">${m.verse}</div>` : ''}
+            ${m.islamic_role ? `<div style="margin-top:0.4rem;font-size:0.75rem;color:var(--copper);">${m.islamic_role}</div>` : ''}
+        </div>
+    `;
+}
+
+async function loadMetals(endpoint, gridId) {
+    const metals = await api(endpoint);
+    document.getElementById(gridId).innerHTML = metals.map(m => metalCardHTML(m)).join('');
+}
+
+async function loadScrap() {
+    const scrap = await api('scrap');
+    document.getElementById('scrap-grid').innerHTML = scrap.map(s => `
+        <div class="metal-card" style="--card-accent:#78716c">
+            <div class="metal-icon">${s.icon || '♻️'}</div>
+            <div class="metal-name-ar">${s.name_ar}</div>
+            <div class="metal-name-en">${s.name_en}</div>
+            <div class="metal-price">$${(+s.price_usd_ton).toLocaleString()} /طن</div>
+            <div class="metal-unit">≈ SAR ${(+(s.price_usd_ton) * 3.75 / 1000).toFixed(2)} / كجم</div>
+            ${s.grades ? `<div class="uses-tags">${s.grades.slice(0,3).map(g => `<span class="use-tag">${g}</span>`).join('')}</div>` : ''}
+            ${s.note ? `<div style="font-size:0.75rem;color:var(--text2);margin-top:0.3rem;">${s.note}</div>` : ''}
+        </div>
+    `).join('');
+}
+
+async function loadUniverse() {
+    const metals = await api('universe');
+    const catColor = { precious:'badge-gold', industrial:'badge-blue', 'rare-earth':'badge-green', scrap:'badge-red' };
+    document.getElementById('universe-table').innerHTML = metals.map((m, i) => `
+        <tr>
+            <td style="color:var(--text2);">${i + 1}</td>
+            <td><strong>${m.name_ar}</strong><br><span style="font-size:0.72rem;color:var(--text2);">${m.name_en}</span></td>
+            <td><span class="badge ${catColor[m.category] || 'badge-blue'}">${m.category}</span></td>
+            <td style="color:var(--green);">$${(+(m.price_usd_gram || 0)).toLocaleString(undefined,{maximumFractionDigits:4})}</td>
+            <td>${m.price_usd_oz ? '$' + (+(m.price_usd_oz)).toLocaleString() : m.price_usd_ton ? '$' + (+(m.price_usd_ton)).toLocaleString() + '/t' : '-'}</td>
+            <td style="color:var(--gold);">${m.dinar_per_gram ? (+(m.dinar_per_gram)).toFixed(6) : '-'}</td>
+            <td style="font-size:0.72rem;color:var(--text2);">${(m.uses||[]).slice(0,2).join(', ')}</td>
+        </tr>
+    `).join('');
+}
+
+async function loadStrategic() {
+    const ranking = await api('strategic-ranking');
+    document.getElementById('strategic-content').innerHTML = ranking.map((m, i) => `
+        <div style="display:flex;align-items:center;gap:0.8rem;padding:0.7rem;background:var(--card);border:1px solid var(--border);border-radius:10px;margin-bottom:0.5rem;">
+            <div style="font-size:1.4rem;font-weight:900;color:var(--gold);min-width:2rem;text-align:center;">${i < 3 ? ['🥇','🥈','🥉'][i] : i+1}</div>
+            <div style="font-size:1.3rem;">${m.icon || '⚙️'}</div>
+            <div style="flex:1">
+                <div style="font-weight:700;">${m.name_ar}</div>
+                <div style="font-size:0.75rem;color:var(--text2);">${m.name_en} — ${m.category}</div>
+            </div>
+            <div style="text-align:left;">
+                <div style="color:var(--green);font-weight:600;">$${(+(m.price_usd_gram||0)).toLocaleString(undefined,{maximumFractionDigits:3})}/g</div>
+                ${m.strategic_importance ? `<div style="font-size:0.72rem;color:var(--blue);">${m.strategic_importance}</div>` : ''}
+            </div>
+        </div>
+    `).join('');
+}
+
+async function loadSharia() {
+    const sharia = await api('sharia-values');
+    document.getElementById('sharia-content').innerHTML = `
+        <div class="alert alert-gold">﴿وَالَّذِينَ يَكْنِزُونَ الذَّهَبَ وَالْفِضَّةَ وَلَا يُنفِقُونَهَا فِي سَبِيلِ اللَّهِ﴾ — التوبة ٣٤</div>
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(260px,1fr));gap:0.8rem;">
+        ${sharia.map(m => `
+            <div class="sharia-card">
+                <div style="font-size:1.5rem;margin-bottom:0.3rem;">${m.icon || '🌙'}</div>
+                <div style="font-weight:700;font-size:0.95rem;">${m.name_ar}</div>
+                <div style="font-size:0.78rem;color:var(--text2);margin:0.2rem 0;">${m.name_en}</div>
+                ${m.price_usd_oz ? `<div style="color:var(--green);font-weight:600;margin:0.3rem 0;">$${(+m.price_usd_oz).toLocaleString()} / أوقية</div>` : ''}
+                ${m.dinar_per_gram ? `<div style="color:var(--gold);">🌙 ${(+m.dinar_per_gram).toFixed(6)} دينار / جرام</div>` : ''}
+                ${m.verse ? `<div class="verse-note" style="margin-top:0.4rem;">${m.verse}</div>` : ''}
+                ${m.islamic_role ? `<div style="font-size:0.75rem;color:var(--copper);margin-top:0.3rem;">${m.islamic_role}</div>` : ''}
+            </div>
+        `).join('')}
+        </div>
+    `;
+}
+
+document.addEventListener('DOMContentLoaded', () => loadOverview());
+</script>
+</body>
+</html>

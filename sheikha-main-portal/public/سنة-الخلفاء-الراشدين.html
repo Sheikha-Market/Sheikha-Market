@@ -1,0 +1,307 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>سنة الخلفاء الراشدين المهديين | منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+    :root {
+        --gold:       #C8973A;
+        --gold-light: #E8B45A;
+        --green:      #1A6B5A;
+        --green2:     #2E7D62;
+        --bg:         #050A14;
+        --card:       rgba(200,151,58,0.05);
+        --border:     rgba(200,151,58,0.2);
+        --white:      #F8FAFC;
+    }
+    * { margin:0; padding:0; box-sizing:border-box; }
+    body { font-family:'Tajawal',sans-serif; background:var(--bg); color:var(--white); min-height:100vh; }
+
+    /* ── هيدر ── */
+    header {
+        background: linear-gradient(160deg, #0a1628 0%, #0c1f3d 60%, #0a1628 100%);
+        border-bottom: 1px solid var(--border);
+        text-align: center;
+        padding: 28px 20px 0;
+        position: relative;
+        overflow: hidden;
+    }
+    header::before {
+        content:'';
+        position:absolute; inset:0;
+        background: radial-gradient(ellipse at 50% -10%, rgba(200,151,58,0.12) 0%, transparent 65%);
+        pointer-events:none;
+    }
+    .hadith-main {
+        font-family:'Amiri',serif;
+        font-size: clamp(1rem, 2.5vw, 1.3rem);
+        color: var(--gold-light);
+        line-height: 1.9;
+        margin-bottom: 6px;
+        direction: rtl;
+    }
+    .hadith-source { font-size:0.78rem; color:rgba(200,151,58,0.55); margin-bottom:18px; }
+    h1 {
+        font-size: clamp(1.8rem, 4vw, 2.6rem);
+        font-weight: 900;
+        background: linear-gradient(135deg, var(--gold), #fff8e0, var(--green));
+        -webkit-background-clip: text; -webkit-text-fill-color: transparent; background-clip: text;
+        margin-bottom: 8px;
+    }
+    .sub { color:rgba(200,151,58,0.7); font-size:0.95rem; margin-bottom:24px; }
+    nav {
+        display:flex; justify-content:center; gap:10px; flex-wrap:wrap;
+        border-top:1px solid var(--border); padding:12px 20px;
+    }
+    nav a { color:rgba(248,250,252,.65); text-decoration:none; font-size:.85rem; padding:4px 12px; border-radius:20px; border:1px solid rgba(200,151,58,.15); transition:.2s; }
+    nav a:hover { color:var(--gold); border-color:var(--gold); }
+
+    /* ── هرمية السنة ── */
+    main { max-width:1160px; margin:0 auto; padding:32px 20px; }
+
+    .hierarchy-strip {
+        display:flex; flex-direction:column; gap:12px;
+        background: linear-gradient(135deg, rgba(26,107,90,0.1), rgba(200,151,58,0.06));
+        border:1px solid var(--border); border-radius:16px; padding:24px 28px;
+        margin-bottom:36px;
+    }
+    .hier-title { font-size:1.2rem; font-weight:700; color:var(--gold); margin-bottom:4px; }
+    .hierarchy-row {
+        display:flex; align-items:center; gap:14px;
+        background:rgba(255,255,255,0.03); border-radius:10px; padding:12px 16px;
+        border-right:4px solid var(--green);
+    }
+    .hierarchy-row.rank-1 { border-color:var(--gold); background:rgba(200,151,58,0.08); }
+    .hierarchy-row.rank-2 { border-color:var(--gold-light); }
+    .hierarchy-row.rank-3 { border-color:var(--green2); }
+    .hier-rank { font-size:1.5rem; font-weight:900; color:var(--gold); min-width:32px; text-align:center; }
+    .hier-icon { font-size:1.6rem; }
+    .hier-source { font-weight:700; font-size:1rem; }
+    .hier-status { font-size:0.78rem; color:rgba(248,250,252,0.5); margin-top:2px; }
+
+    /* ── ملاحظة الأئمة ── */
+    .imams-note {
+        background: rgba(26,107,90,0.12);
+        border:1px solid rgba(46,125,98,0.4);
+        border-radius:12px; padding:18px 22px;
+        margin-bottom:36px;
+        display:flex; gap:14px; align-items:flex-start;
+    }
+    .imams-note-icon { font-size:1.8rem; flex-shrink:0; }
+    .imams-note h3 { font-size:1rem; font-weight:700; color:var(--gold); margin-bottom:6px; }
+    .imams-note p  { font-size:0.85rem; color:rgba(248,250,252,0.75); line-height:1.7; }
+
+    /* ── بطاقات الخلفاء ── */
+    .section-title {
+        font-size:1.3rem; font-weight:700; color:var(--gold);
+        margin-bottom:20px; display:flex; align-items:center; gap:10px;
+    }
+    .section-title::after { content:''; flex:1; height:1px; background:linear-gradient(90deg,var(--border),transparent); }
+
+    .caliphs-grid {
+        display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr));
+        gap:20px; margin-bottom:40px;
+    }
+    .caliph-card {
+        background:var(--card);
+        border:1px solid var(--border);
+        border-radius:16px; padding:22px;
+        transition:.3s; position:relative; overflow:hidden;
+    }
+    .caliph-card:hover { border-color:var(--gold); transform:translateY(-3px); box-shadow:0 8px 32px rgba(200,151,58,0.12); }
+    .caliph-card::before {
+        content:''; position:absolute; top:0; right:0;
+        width:5px; height:100%;
+        background:linear-gradient(180deg,var(--gold),var(--green));
+    }
+    .caliph-rank { font-size:0.72rem; color:var(--gold-light); margin-bottom:4px; }
+    .caliph-name { font-size:1.15rem; font-weight:900; margin-bottom:2px; }
+    .caliph-title { font-size:0.78rem; color:rgba(200,151,58,0.6); margin-bottom:14px; }
+    .caliph-icon-row { display:flex; gap:8px; flex-wrap:wrap; margin-bottom:12px; }
+    .trait-badge {
+        font-size:0.7rem; padding:3px 9px; border-radius:12px;
+        background:rgba(26,107,90,0.3); color:rgba(46,210,160,0.9);
+        white-space:nowrap;
+    }
+    .caliph-legacy { list-style:none; margin-bottom:14px; }
+    .caliph-legacy li { font-size:0.82rem; color:rgba(248,250,252,0.75); padding:3px 0; padding-right:12px; position:relative; }
+    .caliph-legacy li::before { content:'✦'; position:absolute; right:0; color:var(--green2); font-size:0.7rem; top:5px; }
+    .caliph-verse {
+        font-family:'Amiri',serif; font-size:0.88rem; color:var(--gold-light);
+        background:rgba(200,151,58,0.07); padding:8px 12px; border-radius:8px;
+        border-right:3px solid var(--gold); margin-bottom:10px;
+    }
+    .caliph-lesson {
+        font-size:0.78rem; font-weight:700; color:var(--green2);
+        padding:6px 10px; background:rgba(26,107,90,0.15); border-radius:8px;
+    }
+    .caliph-dates { font-size:0.72rem; color:rgba(248,250,252,0.4); margin-top:8px; }
+
+    /* ── أساس السنة كامل ── */
+    .sunnah-hadith-card {
+        background: linear-gradient(135deg, rgba(200,151,58,0.12), rgba(26,107,90,0.08));
+        border:1px solid var(--gold);
+        border-radius:16px; padding:28px; text-align:center; margin-bottom:36px;
+    }
+    .sunnah-hadith-card .hadith-text {
+        font-family:'Amiri',serif;
+        font-size:clamp(1.1rem,2.5vw,1.4rem);
+        color:var(--white); line-height:2.2;
+        margin-bottom:10px;
+    }
+    .hadith-text span.highlight { color:var(--gold-light); font-weight:700; }
+    .sunnah-hadith-card .src { font-size:0.8rem; color:rgba(200,151,58,0.6); }
+
+    footer {
+        border-top:1px solid var(--border); padding:20px;
+        text-align:center; color:rgba(248,250,252,.35); font-size:.8rem; margin-top:40px;
+    }
+    footer a { color:rgba(200,151,58,.6); text-decoration:none; }
+    footer a:hover { color:var(--gold); }
+
+    @media(max-width:600px) {
+        .caliphs-grid { grid-template-columns:1fr; }
+        .hierarchy-row { flex-direction:column; align-items:flex-start; gap:6px; }
+    }
+</style>
+</head>
+<body>
+
+<header>
+    <div class="hadith-main">
+        «عَلَيكُمْ بِسُنَّتِي وَسُنَّةِ الخُلَفَاءِ الرَّاشِدِينَ المَهْدِيِّينَ مِنْ بَعْدِي
+        <br>عَضُّوا عَلَيهَا بِالنَّوَاجِذِ — وَإِيَّاكُمْ وَمُحْدَثَاتِ الأُمُورِ»
+    </div>
+    <div class="hadith-source">رواه أبو داود والترمذي — حديث حسن صحيح</div>
+    <h1>📜 سنة الخلفاء الراشدين المهديين</h1>
+    <div class="sub">منظومة شيخة — الكتاب والسنة النبوية أساسٌ لا يُنازَع</div>
+    <nav>
+        <a href="/">الرئيسية</a>
+        <a href="/أهداف-شيخة-الإسلامية.html">الأهداف الإسلامية</a>
+        <a href="/التكامل-الشامل.html">التكامل الشامل</a>
+        <a href="/رابطة-العالم-الإسلامي.html">رابطة العالم الإسلامي</a>
+        <a href="/الشريعة-الاسلامية.html">الشريعة الإسلامية</a>
+    </nav>
+</header>
+
+<main>
+    <!-- الحديث كاملاً -->
+    <div class="sunnah-hadith-card">
+        <div class="hadith-text" id="hadith-full">
+            «عَلَيكُمْ بِ<span class="highlight">سُنَّتِي</span> وَسُنَّةِ <span class="highlight">الخُلَفَاءِ الرَّاشِدِينَ الْمَهْدِيِّينَ</span> مِنْ بَعْدِي —<br>
+            عَضُّوا عَلَيهَا بِالنَّوَاجِذِ — وَإِيَّاكُمْ وَمُحْدَثَاتِ الأُمُورِ<br>
+            فَإِنَّ كُلَّ مُحْدَثَةٍ <span class="highlight">بِدْعَةٌ</span> وَكُلَّ بِدْعَةٍ ضَلَالَةٌ»
+        </div>
+        <div class="src">المصطفى ﷺ — رواه أبو داود (٤٦٠٧) والترمذي (٢٦٧٦) — حسن صحيح</div>
+    </div>
+
+    <!-- هرمية المصادر -->
+    <div class="hierarchy-strip">
+        <div class="hier-title">🏛️ هرمية المصادر في منظومة شيخة</div>
+        <div id="hierarchy-rows">
+            <!-- ديناميكي -->
+        </div>
+        <!-- ملاحظة الأئمة داخل البطاقة -->
+        <div style="margin-top:14px; font-size:0.82rem; color:rgba(248,250,252,0.55); padding-right:8px; border-right:2px solid rgba(200,151,58,0.3);" id="four-imams-note">
+            <!-- ديناميكي -->
+        </div>
+    </div>
+
+    <!-- ملاحظة الأئمة الأربعة -->
+    <div class="imams-note">
+        <div class="imams-note-icon">📚</div>
+        <div>
+            <h3>الأئمة الأربعة — علماء دين نكرمهم ولا نتعصب</h3>
+            <p id="imams-clarification">
+                أبو حنيفة ومالك والشافعي وأحمد — جماعة علم وفقه واجتهاد.
+                نستفيد من علمهم، ولكن المرجع دائماً الكتاب والسنة.
+                كلهم قالوا: «إذا صح الحديث فهو مذهبي» — وكلهم أمروا أتباعهم بترك قولهم للحديث الصحيح.
+                منظومة شيخة تتبع النص الصحيح أولاً، وتستأنس بالفقه الإسلامي بلا تعصب.
+            </p>
+        </div>
+    </div>
+
+    <!-- بطاقات الخلفاء -->
+    <div class="section-title">🕊️ الخلفاء الراشدون المهديون الأربعة</div>
+    <div class="caliphs-grid" id="caliphs-grid">
+        <!-- ديناميكي -->
+    </div>
+</main>
+
+<footer>
+    <p>منظومة شيخة — تفعيل سنة الخلفاء الراشدين المهديين</p>
+    <p style="margin-top:6px">
+        <a href="/api/islamic-goals/rightly-guided-caliphs">واجهة API</a> •
+        <a href="/api/islamic-goals/sunnah-foundation">أساس السنة</a> •
+        <a href="/api/islamic-goals/goal/sunnah_rashideen">الهدف الحادي عشر</a>
+    </p>
+    <p style="margin-top:10px; font-family:'Amiri',serif; font-size:0.95rem; color:rgba(200,151,58,0.55)">
+        ﴿وَأَطِيعُوا اللَّهَ وَأَطِيعُوا الرَّسُولَ﴾
+    </p>
+</footer>
+
+<script>
+(async function() {
+    // تحميل أساس السنة
+    try {
+        const r  = await fetch('/api/islamic-goals/sunnah-foundation');
+        const j  = await r.json();
+        if (j.success) {
+            const d = j.data;
+            // هرمية المصادر
+            document.getElementById('hierarchy-rows').innerHTML =
+                d.hierarchy.map(h => `
+                <div class="hierarchy-row rank-${h.rank}">
+                    <div class="hier-rank">${h.rank}</div>
+                    <div class="hier-icon">${h.icon}</div>
+                    <div>
+                        <div class="hier-source">${h.source}</div>
+                        <div class="hier-status">${h.status}</div>
+                    </div>
+                </div>`).join('');
+
+            // ملاحظة الأئمة
+            const fi = d.four_imams_clarification;
+            document.getElementById('four-imams-note').innerHTML =
+                `<strong style="color:rgba(200,151,58,0.8)">${fi.note}</strong><br><br>
+                ${fi.all_said}<br><br>✦ مقاربة شيخة: ${fi.sheikha_approach}`;
+            document.getElementById('imams-clarification').textContent =
+                `${fi.note} — ${fi.all_said} — المقاربة: ${fi.sheikha_approach}`;
+        }
+    } catch(e) {
+        document.getElementById('hierarchy-rows').innerHTML =
+            '<p style="color:rgba(248,250,252,0.4);padding:20px">جارٍ التحميل...</p>';
+    }
+
+    // تحميل الخلفاء
+    try {
+        const r = await fetch('/api/islamic-goals/rightly-guided-caliphs');
+        const j = await r.json();
+        if (!j.success) return;
+        document.getElementById('caliphs-grid').innerHTML = j.data.map(c => `
+        <div class="caliph-card">
+            <div class="caliph-rank">الخليفة ${c.rank > 3 ? 'الرابع' : c.rank > 2 ? 'الثالث' : c.rank > 1 ? 'الثاني' : 'الأول'}</div>
+            <div style="font-size:2rem; margin-bottom:4px">${c.icon}</div>
+            <div class="caliph-name">${c.name}</div>
+            <div class="caliph-title">${c.title}</div>
+            <div class="caliph-icon-row">
+                ${(c.key_traits || []).map(t => `<span class="trait-badge">${t}</span>`).join('')}
+            </div>
+            ${c.verse ? `<div class="caliph-verse">${c.verse}</div>` : ''}
+            <ul class="caliph-legacy">
+                ${(c.legacy || []).map(l => `<li>${l}</li>`).join('')}
+            </ul>
+            <div class="caliph-lesson">💡 درس لشيخة: ${c.sheikha_lesson}</div>
+            <div class="caliph-dates">📅 الخلافة: ${c.caliphate_years} (${c.duration})</div>
+        </div>`).join('');
+    } catch(e) {
+        document.getElementById('caliphs-grid').innerHTML =
+            '<p style="color:rgba(248,250,252,0.4);text-align:center;padding:40px">جارٍ التحميل...</p>';
+    }
+})();
+</script>
+</body>
+</html>

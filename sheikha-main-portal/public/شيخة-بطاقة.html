@@ -1,0 +1,284 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+<meta name="theme-color" content="#050810">
+<meta name="description" content="سلمان أحمد الراجح — مؤسس شيخة | أول منظومة اقتصادية إسلامية رقمية للمعادن">
+<meta property="og:title" content="شيخة — البطاقة الرقمية">
+<meta property="og:description" content="أول منظومة إسلامية رقمية للمعادن والسكراب | sheikha.top">
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://sheikha.top/بطاقة">
+<meta name="twitter:card" content="summary">
+<title>شيخة — البطاقة الرقمية | سلمان الراجح</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+*{margin:0;padding:0;box-sizing:border-box;}
+:root{--gold:#D4AF37;--copper:#B87333;--bg:#050810;--bg2:#0a0f1e;--text:#f0ede8;--border:rgba(212,175,55,.2);}
+html,body{min-height:100%;font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--text);display:flex;align-items:center;justify-content:center;padding:20px;}
+
+body::before{
+  content:'';position:fixed;inset:0;
+  background:radial-gradient(ellipse at 30% 30%,#0d1530 0%,transparent 60%),
+             radial-gradient(ellipse at 70% 70%,#1a0d05 0%,transparent 60%);
+  pointer-events:none;
+}
+
+.card-wrap{position:relative;z-index:1;width:100%;max-width:480px;}
+
+/* ─── البطاقة الرئيسية ───────────────────────── */
+.card{
+  background:linear-gradient(135deg,#0e1428 0%,#0a0f1e 50%,#0d1020 100%);
+  border:1px solid rgba(212,175,55,.35);
+  border-radius:28px;
+  padding:40px 36px 32px;
+  box-shadow:0 0 60px rgba(212,175,55,.06), 0 0 0 1px rgba(212,175,55,.08);
+  text-align:center;
+  position:relative;
+  overflow:hidden;
+}
+.card::before{
+  content:'';position:absolute;top:-80px;right:-80px;width:200px;height:200px;
+  border-radius:50%;background:#D4AF37;filter:blur(80px);opacity:.05;
+}
+.card::after{
+  content:'';position:absolute;bottom:-80px;left:-80px;width:200px;height:200px;
+  border-radius:50%;background:#B87333;filter:blur(80px);opacity:.05;
+}
+
+/* ─── شعار ────────────────────────────────────── */
+.logo-circle{
+  width:80px;height:80px;margin:0 auto 16px;
+  background:linear-gradient(135deg,#D4AF37 0%,#B87333 100%);
+  border-radius:50%;display:flex;align-items:center;justify-content:center;
+  font-size:2rem;box-shadow:0 0 30px rgba(212,175,55,.3);
+}
+
+/* ─── الاسم والمسمى ──────────────────────────── */
+.name{font-size:1.6rem;font-weight:900;color:var(--text);margin-bottom:4px;}
+.title{font-size:.9rem;color:var(--copper);font-weight:600;margin-bottom:4px;}
+.platform-name{
+  font-size:1.1rem;font-weight:800;
+  background:linear-gradient(135deg,#D4AF37,#B87333);
+  -webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;
+  margin-bottom:20px;
+}
+
+/* ─── divider ────────────────────────────────── */
+.divider{height:1px;background:linear-gradient(90deg,transparent,rgba(212,175,55,.3),transparent);margin:20px 0;}
+
+/* ─── آية ────────────────────────────────────── */
+.ayah{
+  font-size:.88rem;color:var(--gold);font-weight:600;line-height:1.8;
+  font-style:italic;padding:12px;
+  border-right:3px solid var(--gold);
+  background:rgba(212,175,55,.04);
+  border-radius:0 8px 8px 0;
+  text-align:right;
+  margin-bottom:20px;
+}
+.ayah-ref{font-size:.72rem;color:var(--copper);margin-top:4px;font-style:normal;}
+
+/* ─── قائمة معلومات التواصل ────────────────── */
+.contact-list{list-style:none;text-align:right;margin-bottom:20px;}
+.contact-list li{
+  display:flex;align-items:center;gap:12px;
+  padding:12px 14px;
+  border-radius:10px;
+  border:1px solid transparent;
+  transition:all .2s;
+  margin-bottom:6px;
+}
+.contact-list li:hover{background:rgba(212,175,55,.06);border-color:var(--border);}
+.contact-icon{font-size:1.1rem;width:28px;text-align:center;flex-shrink:0;}
+.contact-label{font-size:.7rem;color:#6e7681;width:44px;flex-shrink:0;}
+.contact-val{font-size:.9rem;font-weight:600;color:var(--text);}
+.contact-val a{color:var(--gold);text-decoration:none;}
+.contact-val a:hover{text-decoration:underline;}
+
+/* ─── QR ─────────────────────────────────────── */
+.qr-section{
+  background:rgba(255,255,255,.02);border:1px solid var(--border);
+  border-radius:14px;padding:16px;margin-bottom:20px;
+  display:flex;align-items:center;gap:16px;
+}
+.qr-img{width:100px;height:100px;border-radius:8px;background:#fff;padding:4px;}
+.qr-info{text-align:right;flex:1;}
+.qr-title{font-size:.82rem;color:var(--muted);margin-bottom:6px;}
+.qr-url{font-size:.95rem;font-weight:700;color:var(--gold);}
+.qr-desc{font-size:.72rem;color:#6e7681;margin-top:4px;}
+
+/* ─── أزرار المشاركة ─────────────────────────── */
+.btn-row{display:flex;gap:10px;margin-bottom:16px;}
+.btn{
+  flex:1;padding:12px 8px;border-radius:12px;font-family:'Tajawal',sans-serif;
+  font-size:.85rem;font-weight:700;cursor:pointer;border:none;
+  transition:all .2s;display:flex;align-items:center;justify-content:center;gap:6px;
+}
+.btn-primary{background:linear-gradient(135deg,#D4AF37,#B87333);color:#050810;}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 4px 20px rgba(212,175,55,.3);}
+.btn-secondary{background:rgba(255,255,255,.05);color:var(--text);border:1px solid var(--border);}
+.btn-secondary:hover{background:rgba(212,175,55,.08);border-color:var(--gold);}
+.btn-whatsapp{background:rgba(37,211,102,.1);color:#25D366;border:1px solid rgba(37,211,102,.3);}
+.btn-whatsapp:hover{background:rgba(37,211,102,.15);}
+
+/* ─── footer ─────────────────────────────────── */
+.card-footer{font-size:.72rem;color:#4a5568;text-align:center;margin-top:6px;}
+
+/* ─── شارة مُتطورة ───────────────────────────── */
+.badge-row{display:flex;gap:8px;justify-content:center;flex-wrap:wrap;margin-bottom:20px;}
+.badge{
+  font-size:.72rem;font-weight:700;padding:5px 12px;border-radius:20px;
+  background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.2);color:var(--gold);
+}
+
+/* ─── إشعار النسخ ────────────────────────────── */
+.copy-toast{
+  position:fixed;bottom:32px;left:50%;transform:translateX(-50%);
+  background:#D4AF37;color:#050810;font-family:'Tajawal',sans-serif;
+  font-size:.85rem;font-weight:700;padding:10px 24px;border-radius:50px;
+  opacity:0;transition:opacity .3s;pointer-events:none;z-index:999;
+}
+.copy-toast.show{opacity:1;}
+</style>
+</head>
+<body>
+
+<div class="card-wrap">
+  <div class="card">
+
+    <!-- الشعار -->
+    <div class="logo-circle">🏛️</div>
+
+    <!-- الاسم -->
+    <div class="name">سلمان أحمد الراجح</div>
+    <div class="title">مؤسس ومالك المنظومة</div>
+    <div class="platform-name">شيخة — SHEIKHA</div>
+
+    <!-- الشارات -->
+    <div class="badge-row">
+      <span class="badge">🏆 ريادة تقنية</span>
+      <span class="badge">⚖️ امتثال شرعي</span>
+      <span class="badge">🌍 معادن رقمية</span>
+      <span class="badge">🇸🇦 رؤية ٢٠٣٠</span>
+    </div>
+
+    <!-- آية -->
+    <div class="ayah">
+      وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا
+      <div class="ayah-ref">البقرة:275 — أساس المنظومة الاقتصادية الإسلامية</div>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- معلومات التواصل -->
+    <ul class="contact-list">
+      <li>
+        <span class="contact-icon">🌐</span>
+        <span class="contact-label">الموقع</span>
+        <span class="contact-val"><a href="https://sheikha.top" target="_blank">sheikha.top</a></span>
+      </li>
+      <li>
+        <span class="contact-icon">📧</span>
+        <span class="contact-label">البريد</span>
+        <span class="contact-val"><a href="mailto:market@sheikha.top">market@sheikha.top</a></span>
+      </li>
+      <li>
+        <span class="contact-icon">⚖️</span>
+        <span class="contact-label">الشؤون</span>
+        <span class="contact-val"><a href="mailto:legal@sheikha.top">legal@sheikha.top</a></span>
+      </li>
+      <li>
+        <span class="contact-icon">🏛️</span>
+        <span class="contact-label">المنصة</span>
+        <span class="contact-val">أول سوق إسلامي رقمي للمعادن والسكراب</span>
+      </li>
+    </ul>
+
+    <div class="divider"></div>
+
+    <!-- QR Code -->
+    <div class="qr-section">
+      <img class="qr-img" 
+           src="https://api.qrserver.com/v1/create-qr-code/?size=200x200&color=D4AF37&bgcolor=050810&data=https://sheikha.top"
+           alt="QR شيخة"
+           loading="lazy"
+           onerror="this.src='https://api.qrserver.com/v1/create-qr-code/?size=200x200&data=https://sheikha.top'">
+      <div class="qr-info">
+        <div class="qr-title">امسح للزيارة المباشرة</div>
+        <div class="qr-url">sheikha.top</div>
+        <div class="qr-desc">المنظومة الاقتصادية الإسلامية الرائدة</div>
+        <div style="margin-top:8px;font-size:.72rem;color:var(--copper);">٢٠٠+ API · ٤٤ مرحلة · ١٠٠٪ شريعة</div>
+      </div>
+    </div>
+
+    <!-- أزرار -->
+    <div class="btn-row">
+      <button class="btn btn-primary" onclick="shareCard()">📤 مشاركة البطاقة</button>
+      <button class="btn btn-whatsapp" onclick="shareWhatsApp()">💚 واتساب</button>
+    </div>
+    <div class="btn-row">
+      <button class="btn btn-secondary" onclick="copyLink()">🔗 نسخ الرابط</button>
+      <a href="/منتدى" class="btn btn-secondary" style="text-decoration:none;">🎤 عرض المنتدى</a>
+      <a href="/" class="btn btn-secondary" style="text-decoration:none;">🏛️ المنصة</a>
+    </div>
+
+    <div class="divider"></div>
+
+    <!-- آية ختامية -->
+    <div style="font-size:.8rem;color:var(--gold);font-weight:600;line-height:1.9;text-align:center;">
+      وَمَا تَوْفِيقِي إِلَّا بِاللَّهِ ۚ عَلَيْهِ تَوَكَّلْتُ وَإِلَيْهِ أُنِيبُ
+    </div>
+    <div style="font-size:.7rem;color:var(--copper);text-align:center;margin-top:2px;">هود:88</div>
+
+    <div class="card-footer" style="margin-top:16px;">
+      SHEIKHA · sheikha.top · market@sheikha.top<br>
+      © ١٤٤٧ هـ — جميع الحقوق محفوظة · سلمان أحمد الراجح
+    </div>
+  </div>
+</div>
+
+<div class="copy-toast" id="toast">✅ تم نسخ الرابط</div>
+
+<script>
+const CARD_URL = 'https://sheikha.top/بطاقة';
+const MSG = '🏛️ شيخة — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب\n\nسلمان أحمد الراجح | مؤسس شيخة\n🌐 ' + CARD_URL + '\n📧 market@sheikha.top\n\nوَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا';
+
+function shareCard() {
+  if (navigator.share) {
+    navigator.share({
+      title: 'شيخة — البطاقة الرقمية',
+      text: 'سلمان أحمد الراجح | مؤسس شيخة | أول منظومة إسلامية رقمية للمعادن',
+      url: CARD_URL
+    }).catch(() => copyLink());
+  } else {
+    copyLink();
+  }
+}
+
+function shareWhatsApp() {
+  window.open('https://wa.me/?text=' + encodeURIComponent(MSG), '_blank');
+}
+
+function copyLink() {
+  if (navigator.clipboard) {
+    navigator.clipboard.writeText(CARD_URL).then(showToast);
+  } else {
+    const el = document.createElement('textarea');
+    el.value = CARD_URL;
+    document.body.appendChild(el);
+    el.select();
+    document.execCommand('copy');
+    document.body.removeChild(el);
+    showToast();
+  }
+}
+
+function showToast() {
+  const t = document.getElementById('toast');
+  t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2400);
+}
+</script>
+</body>
+</html>

@@ -39,13 +39,35 @@
     <meta name="twitter:description" content="سوق إسلامي رقمي متكامل للمعادن والسكراب — تسعير نبوي — تجارة حلال">
     <meta name="twitter:image" content="https://sheikha.top/images/og-sheikha.png">
     <meta name="twitter:image:alt" content="منظومة وسوق شيخة — أول سوق إسلامي رقمي للمعادن">
+    <!-- Meta Pixel Code -->
+    <script>
+        !function(f,b,e,v,n,t,s)
+        {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+        n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+        if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+        n.queue=[];t=b.createElement(e);t.async=!0;
+        t.src=v;s=b.getElementsByTagName(e)[0];
+        s.parentNode.insertBefore(t,s)}(window, document,'script',
+        'https://connect.facebook.net/en_US/fbevents.js');
+            fbq('init', '1283625109854806');
+        fbq('track', 'PageView');
+    </script>
+    <noscript><img height="1" width="1" style="display:none"
+        src="https://www.facebook.com/tr?id=1283625109854806&ev=PageView&noscript=1"
+    /></noscript>
+    <!-- End Meta Pixel Code -->
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="/js/safe-api.js"></script>
+    <script src="/js/sheikha-offline-db.js" defer></script>
+    <script src="/js/sheikha-neural-engine.js" defer></script>
     <script src="/js/sheikha-meta-injector.js" defer></script>
     <script src="/js/sheikha-meta-helper.js"></script>
     <script src="/js/sheikha-access.js"></script>
     <script src="/js/sheikha-smart-fab.js" defer></script>
     <script src="/js/sheikha-i18n.js" defer></script>
+    <script src="/js/alrajeh-divine-opening.js" defer></script>
+    <link rel="stylesheet" href="/css/sheikha-beta-banner.css">
+    <script src="/js/sheikha-beta-banner.js" defer></script>
     <style>
         /* ═══ Language Switcher ═══ */
         .sheikha-i18n-switcher{display:flex;gap:4px;flex-wrap:wrap}
@@ -518,7 +540,8 @@
     }
     </script>
 </head>
-<body>
+<body data-neural-opacity="0.28">
+
 <div class="geo"></div>
 
 <!-- ═══ NAV ═══ -->
@@ -662,12 +685,42 @@
         <li data-access="all"><a href="/الوكلاء-الإسلاميين.html">الوكلاء الإسلاميون</a></li>
             <!-- 5.2. مركز التدريب متعدد اللغات -->
             <li data-access="all"><a href="/مركز-التدريب-متعدد-اللغات.html">مركز التدريب العالمي</a></li>
-        <!-- 5.3. التكامل الذكي: EI × VS Code × RAG -->
-        <li data-access="all"><a href="/تكامل-شيخة-الذكي.html">التكامل الذكي ⚡</a></li>
-        <!-- 5.4. لوحة التكامل الموحدة -->
-        <li data-access="all"><a href="/لوحة-تكامل-شيخة-الموحدة.html">لوحة التكامل الموحدة</a></li>
-        <!-- 5.5. منطق الصفحات والأيقونات -->
-        <li data-access="all"><a href="/منطق-الصفحات-والايقونات.html">منطق الصفحات والايقونات</a></li>
+        <!-- 5.3. التقارير والأهداف — dropdown للوحات والبيانات -->
+        <li class="nav-drop" data-access="all" id="nav-reports-btn">
+            <button class="nav-drop-trigger">التقارير والأهداف <svg viewBox="0 0 12 12" fill="none" style="width:10px;height:10px;margin-right:4px"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
+            <div class="mega-menu" style="min-width:280px;grid-template-columns:1fr">
+                <div class="mega-section">
+                    <a href="/goals-dashboard" class="mega-link">
+                        <div class="ml-icon">📊</div>
+                        <div class="ml-text"><div class="ml-name">لوحة الأهداف المتقدمة</div><div class="ml-desc">تتبع وتحليل الأهداف الوطنية والقطاعية</div></div>
+                    </a>
+                    <a href="/reports/final/" class="mega-link">
+                        <div class="ml-icon">📈</div>
+                        <div class="ml-text"><div class="ml-name">التقارير النهائية</div><div class="ml-desc">تقارير الإنجاز والأداء</div></div>
+                    </a>
+                    <a href="/reports/operations/" class="mega-link">
+                        <div class="ml-icon">⚙️</div>
+                        <div class="ml-text"><div class="ml-name">التقارير التشغيلية</div><div class="ml-desc">بيانات التشغيل والمتابعة</div></div>
+                    </a>
+                    <a href="/reports/operations/sheikha-faith-communities-report.html" class="mega-link">
+                        <div class="ml-icon">🧭</div>
+                        <div class="ml-text"><div class="ml-name">رقمنة فئات المجتمع</div><div class="ml-desc">سجل الهوية المجتمعية بالكتاب والسنة</div></div>
+                    </a>
+                    <a href="/reports/operations/sheikha-arabian-gulf-identity-report.html" class="mega-link">
+                        <div class="ml-icon">🌍</div>
+                        <div class="ml-text"><div class="ml-name">هوية الجزيرة والخليج</div><div class="ml-desc">منظومة الجزيرة العربية والخليج العربي</div></div>
+                    </a>
+                    <a href="/reports/operations/sheikha-arabian-organization-governance-report.html" class="mega-link">
+                        <div class="ml-icon">🏛️</div>
+                        <div class="ml-text"><div class="ml-name">تنظيم جزيرة العرب</div><div class="ml-desc">الديني والثقافي والتجاري والتطوير</div></div>
+                    </a>
+                    <a href="/reports/operations/sheikha-integration-no-harm-guard-report.json" class="mega-link">
+                        <div class="ml-icon">🛡️</div>
+                        <div class="ml-text"><div class="ml-name">حارس لا ضرر</div><div class="ml-desc">تدقيق حفظ المعلومات ومنع الضرر</div></div>
+                    </a>
+                </div>
+            </div>
+        </li>
         <!-- 6. التسجيل — dropdown للأنواع المختلفة -->
         <li class="nav-drop" data-access="all" id="nav-register-btn">
             <button class="nav-drop-trigger">التسجيل <svg viewBox="0 0 12 12" fill="none" style="width:10px;height:10px;margin-right:4px"><path d="M3 4.5L6 7.5L9 4.5" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"/></svg></button>
@@ -705,6 +758,10 @@
                     <a href="/لوحة-تحكم-المستخدم.html" class="mega-link" id="nav-dash-link-2">
                         <div class="ml-icon">📊</div>
                         <div class="ml-text"><div class="ml-name">لوحة التحكم</div><div class="ml-desc">إدارة حسابك وصفقاتك</div></div>
+                    </a>
+                    <a href="/goals-dashboard" class="mega-link" id="nav-goals-dash-link">
+                        <div class="ml-icon">📈</div>
+                        <div class="ml-text"><div class="ml-name">لوحة الأهداف</div><div class="ml-desc">تتبع الأهداف الوطنية والقطاعية</div></div>
                     </a>
                     <a href="/سوق-شيخة.html" class="mega-link">
                         <div class="ml-icon">🏪</div>
@@ -1627,8 +1684,8 @@
                 </div>
         <div class="fls">
             <div class="fc"><h4>السوق</h4><a href="/سوق-شيخة.html?cat=steel">الحديد والصلب</a><a href="/سوق-شيخة.html?cat=precious">المعادن الثمينة</a><a href="/سوق-شيخة.html?cat=rare">المعادن النادرة</a><a href="/سوق-شيخة.html?cat=scrap">السكراب</a></div>
-            <div class="fc"><h4>المنظومة</h4><a href="/تسجيل-الدخول.html?tab=register&type=trader">سجّل كتاجر</a><a href="/المجتمع.html">المجتمع</a><a href="/الشريعة-الاسلامية.html">الشريعة</a><a href="/الوكلاء-الإسلاميين.html">الوكلاء الإسلاميون</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a><a href="/تكامل-شيخة-الذكي.html">التكامل الذكي</a><a href="/لوحة-تكامل-شيخة-الموحدة.html">لوحة التكامل الموحدة</a><a href="/منطق-الصفحات-والايقونات.html">منطق الصفحات والايقونات</a><a href="/تسجيل-الدخول.html">تسجيل الدخول</a></div>
-            <div class="fc"><h4>اكتشف المزيد</h4><a href="/بنك-شيخة.html">بنك شيخة</a><a href="/العاصمة-الاقتصادية.html">العاصمة الاقتصادية</a><a href="/آيات-التجارة.html">آيات التجارة</a><a href="/معايير-الأحاديث.html">معايير الأحاديث</a><a href="/منظومة-البركة.html">منظومة البركة</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a><a href="/المجتمع.html">المجتمع</a><a href="https://saudipedia.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">🇸🇦 سعوديبيديا</a><a href="https://ar.wikipedia.org" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">📖 ويكيبيديا</a></div>
+            <div class="fc"><h4>المنظومة</h4><a href="/تسجيل-الدخول.html?tab=register&type=trader">سجّل كتاجر</a><a href="/المجتمع.html">المجتمع</a><a href="/الشريعة-الاسلامية.html">الشريعة</a><a href="/الوكلاء-الإسلاميين.html">الوكلاء الإسلاميون</a><a href="/هوية-السوق.html">هوية السوق</a><a href="/سوق-المدينة.html">سوق المدينة</a><a href="/تسجيل-الدخول.html">تسجيل الدخول</a></div>
+            <div class="fc"><h4>اكتشف المزيد</h4><a href="/بنك-شيخة.html">بنك شيخة</a><a href="/العاصمة-الاقتصادية.html">العاصمة الاقتصادية</a><a href="/آيات-التجارة.html">آيات التجارة</a><a href="/معايير-الأحاديث.html">معايير الأحاديث</a><a href="/منظومة-البركة.html">منظومة البركة</a><a href="/SHEIKHA-SMART-DIGITAL.html">المعمارية الرقمية الذكية</a><a href="/SHEIKHA-MARKET-SYSTEM.html">منظومة السوق</a><a href="/SHEIKHA-DIGITAL-IDENTITY.html">الهوية الرقمية</a><a href="/SHEIKHA-COMMUNICATIONS.html">منظومة الاتصالات</a><a href="https://saudipedia.com" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">🇸🇦 سعوديبيديا</a><a href="https://ar.wikipedia.org" target="_blank" rel="noopener" style="display:flex;align-items:center;gap:6px">📖 ويكيبيديا</a></div>
             <div class="fc"><h4>القانونية</h4><a href="/الشروط-والسياسات.html">الشروط والأحكام</a><a href="/سياسة-الخصوصية.html">سياسة الخصوصية</a><a href="/SHEIKHA-LIVE-EVALUATION-v2.html">تقرير التقييم الحي</a></div>
             <div class="fc"><h4>تواصل معنا</h4><a href="mailto:market@sheikha.top">market@sheikha.top</a><a href="https://wa.me/966554942904" target="_blank">واتساب: 0554942904</a><a href="https://sheikha.top">sheikha.top</a></div>
             <div class="fc"><h4>حمّل التطبيق</h4><a href="https://play.google.com/store/apps/details?id=sa.sheikha.market" target="_blank">Google Play</a><a href="https://apps.apple.com/app/sheikha-market/id000000000" target="_blank">App Store</a><a href="https://appgallery.huawei.com" target="_blank">AppGallery</a><a href="#" id="homeInstallPwaLink">تثبيت التطبيق (PWA)</a></div>
@@ -1761,6 +1818,43 @@ if (!window.matchMedia('(display-mode: standalone)').matches && !navigator.stand
         SheikhaI18n.init('langBar');
     }
         });
+
+// ═══ Live Status Bar ═══
+(function() {
+    var bar = document.createElement('div');
+    bar.id = 'sheikha-status-bar';
+    bar.style.cssText = 'position:fixed;bottom:0;left:0;right:0;z-index:9990;display:flex;align-items:center;justify-content:center;gap:1.5rem;padding:6px 1.5rem;background:rgba(3,7,18,.92);backdrop-filter:blur(20px);border-top:1px solid rgba(212,175,55,.1);font-family:inherit;font-size:.72rem;color:#9CA3AF;direction:rtl;flex-wrap:wrap;';
+    bar.innerHTML = '<span style="color:#D4AF37;font-weight:700">⚡ شيخة</span>' +
+        '<span id="sb-status">🟢 مشغّل</span>' +
+        '<span id="sb-traders">…</span>' +
+        '<span id="sb-listings">…</span>' +
+        '<span id="sb-uptime">…</span>' +
+        '<a href="/المعمارية-والهيكلة.html" style="color:#D4AF37;font-weight:600;text-decoration:none">🏛️ المعمارية</a>' +
+        '<a href="/github-hub.html" style="color:#9CA3AF;text-decoration:none">🐙 GitHub Hub</a>';
+    document.body.appendChild(bar);
+    document.body.style.paddingBottom = '36px';
+    function refreshBar() {
+        Promise.all([
+            fetch('/api/admin/stats').then(function(r){return r.json()}).catch(function(){return null}),
+            fetch('/api/server/health').then(function(r){return r.json()}).catch(function(){return null})
+        ]).then(function(results) {
+            var stats = results[0], health = results[1];
+            if (stats && stats.success !== false) {
+                var sd = stats.data || stats;
+                document.getElementById('sb-traders').textContent = '🏪 ' + (sd.traders || sd.tradersCount || '—') + ' تاجر';
+                document.getElementById('sb-listings').textContent = '📋 ' + (sd.listings || sd.activeListings || '—') + ' منتج';
+            }
+            if (health && health.success !== false) {
+                var hd = health.data || health;
+                var up = hd.uptime || hd.uptimeSeconds || 0;
+                var h = Math.floor(up/3600), m = Math.floor((up%3600)/60);
+                document.getElementById('sb-uptime').textContent = '⏱️ ' + h + 'س ' + m + 'د';
+            }
+        });
+    }
+    refreshBar();
+    setInterval(refreshBar, 60000);
+})();
 
 // ═══ بوابة المدير السرية — نقر الشعار 5 مرات ═══
 (function() {

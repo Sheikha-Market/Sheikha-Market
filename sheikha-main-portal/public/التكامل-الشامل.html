@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>لوحة التكامل الشامل — منظومة شيخة</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+  :root{--gold:#D4AF37;--copper:#B87333;--dark:#050508;--dark2:#0a0a10;--dark3:#111118;--text:#e8e8f0;--text2:#9090a8;--green:#27ae60;--blue:#2980b9;--teal:#16a085;--purple:#8e44ad;--red:#e74c3c;--orange:#d35400;}
+  *{margin:0;padding:0;box-sizing:border-box;}
+  body{background:var(--dark);color:var(--text);font-family:'Tajawal',sans-serif;direction:rtl;}
+  .basmala{text-align:center;font-size:1.6rem;color:var(--gold);padding:1.2rem;letter-spacing:.04em;border-bottom:1px solid rgba(212,175,55,.18);}
+  header{background:linear-gradient(135deg,#050508 0%,#080810 60%,#050508 100%);border-bottom:2px solid var(--gold);padding:2rem;}
+  .header-inner{max-width:1600px;margin:0 auto;text-align:center;}
+  .header-title{font-size:2.4rem;font-weight:900;background:linear-gradient(135deg,var(--gold),#fff,var(--gold));-webkit-background-clip:text;-webkit-text-fill-color:transparent;background-clip:text;}
+  .header-sub{color:var(--text2);margin-top:.5rem;font-size:.95rem;}
+  .verse-center{text-align:center;font-size:1.1rem;color:var(--gold);padding:1rem 2rem;background:rgba(212,175,55,.04);border-top:1px solid rgba(212,175,55,.1);border-bottom:1px solid rgba(212,175,55,.1);}
+  main{max-width:1600px;margin:0 auto;padding:2rem;}
+  .section-title{font-size:1.3rem;font-weight:700;color:var(--gold);margin:2rem 0 1.2rem;display:flex;align-items:center;gap:.6rem;}
+  .section-title::before{content:'';display:block;width:4px;height:24px;background:var(--gold);border-radius:3px;}
+  /* الشبكة العليا */
+  .cosmos-grid{display:grid;grid-template-columns:1fr;gap:1.5rem;}
+  .phase-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:1rem;}
+  .phase-card{background:var(--dark2);border:1px solid rgba(212,175,55,.15);border-radius:14px;padding:1.2rem;cursor:pointer;transition:all .25s;text-decoration:none;color:inherit;display:block;}
+  .phase-card:hover{border-color:rgba(212,175,55,.6);transform:translateY(-3px);box-shadow:0 8px 28px rgba(0,0,0,.4);}
+  .phase-num{font-size:2.5rem;font-weight:900;color:rgba(212,175,55,.2);float:left;margin-left:.5rem;}
+  .phase-name{font-size:1rem;font-weight:700;color:var(--gold);}
+  .phase-desc{font-size:.8rem;color:var(--text2);margin-top:.3rem;}
+  .phase-apis{font-size:.75rem;color:var(--teal);margin-top:.4rem;}
+  .phase-status{display:inline-block;padding:.15rem .6rem;border-radius:10px;font-size:.72rem;margin-top:.4rem;font-weight:600;}
+  .status-active{background:rgba(39,174,96,.15);color:var(--green);border:1px solid rgba(39,174,96,.3);}
+  .tag{display:inline-block;padding:.2rem .7rem;border-radius:12px;font-size:.78rem;margin:.2rem;font-weight:600;}
+  .tag-gold{background:rgba(212,175,55,.15);color:var(--gold);border:1px solid rgba(212,175,55,.3);}
+  .tag-teal{background:rgba(22,160,133,.15);color:var(--teal);border:1px solid rgba(22,160,133,.3);}
+  .tag-green{background:rgba(39,174,96,.15);color:var(--green);border:1px solid rgba(39,174,96,.3);}
+  /* الإحصائيات */
+  .stats-mega{display:grid;grid-template-columns:repeat(auto-fill,minmax(160px,1fr));gap:1rem;margin:1.5rem 0;}
+  .stat-mega{background:linear-gradient(135deg,var(--dark2),var(--dark3));border:1px solid rgba(212,175,55,.2);border-radius:14px;padding:1.2rem;text-align:center;}
+  .stat-mega-num{font-size:2.8rem;font-weight:900;color:var(--gold);display:block;}
+  .stat-mega-label{font-size:.78rem;color:var(--text2);margin-top:.3rem;}
+  /* طبقات الكون */
+  .cosmic-layers{display:flex;flex-direction:column;gap:.6rem;margin:1rem 0;}
+  .cos-layer{border-radius:10px;padding:.9rem 1.4rem;display:flex;justify-content:space-between;align-items:center;flex-wrap:wrap;gap:.5rem;}
+  /* APIs الاختبار */
+  .api-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:.7rem;}
+  .api-item{background:var(--dark3);border:1px solid rgba(255,255,255,.06);border-radius:8px;padding:.7rem 1rem;display:flex;justify-content:space-between;align-items:center;}
+  .api-path{font-size:.78rem;color:var(--teal);font-family:monospace;direction:ltr;}
+  .api-status{font-size:.75rem;}
+  .api-test-btn{background:rgba(212,175,55,.15);border:1px solid rgba(212,175,55,.3);color:var(--gold);border-radius:6px;padding:.2rem .6rem;cursor:pointer;font-family:'Tajawal',sans-serif;font-size:.75rem;}
+  /* شبكة الروابط */
+  .link-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.8rem;}
+  .link-card{background:var(--dark3);border:1px solid rgba(212,175,55,.12);border-radius:10px;padding:1rem;text-align:center;cursor:pointer;transition:all .2s;text-decoration:none;color:inherit;}
+  .link-card:hover{border-color:var(--gold);background:rgba(212,175,55,.05);}
+  .link-icon{font-size:2rem;display:block;margin-bottom:.4rem;}
+  .link-name{font-size:.88rem;font-weight:700;color:var(--gold);}
+  footer{text-align:center;padding:2.5rem;color:var(--text2);font-size:.85rem;border-top:1px solid rgba(212,175,55,.1);margin-top:3rem;}
+  .pulse{display:inline-block;width:8px;height:8px;border-radius:50%;background:var(--green);animation:p 1.5s infinite;margin-right:.4rem;}
+  @keyframes p{0%,100%{opacity:1}50%{opacity:.3;transform:scale(1.5)}}
+  @keyframes fadeIn{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+</style>
+</head>
+<body>
+<div class="basmala">بسم الله الرحمن الرحيم</div>
+<header>
+  <div class="header-inner">
+    <div class="header-title">🌌 لوحة التكامل الشامل — منظومة شيخة</div>
+    <div class="header-sub">كل المراحل والمحركات والـ API في مكان واحد • <span class="pulse"></span>نظام حي</div>
+  </div>
+</header>
+<div class="verse-center">﴿إِنَّ هَٰذِهِ أُمَّتُكُمْ أُمَّةً وَاحِدَةً وَأَنَا رَبُّكُمْ فَاعْبُدُونِ﴾ — الأنبياء ٩٢</div>
+
+<main>
+  <!-- إحصائيات ضخمة -->
+  <div class="section-title">📊 إحصائيات المنظومة الكاملة</div>
+  <div class="stats-mega">
+    <div class="stat-mega"><span class="stat-mega-num">22+</span><div class="stat-mega-label">مرحلة مُفعَّلة</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">200+</span><div class="stat-mega-label">نقطة API</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">25+</span><div class="stat-mega-label">محرك متخصص</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">14</span><div class="stat-mega-label">صفحة HTML</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">12</span><div class="stat-mega-label">نطاق DNS إسلامي</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">57</span><div class="stat-mega-label">دولة OIC شبكة</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">0%</span><div class="stat-mega-label">ربا / غرر / غش</div></div>
+    <div class="stat-mega"><span class="stat-mega-num">∞</span><div class="stat-mega-label">رضا الله الهدف</div></div>
+  </div>
+
+  <!-- المراحل الكاملة -->
+  <div class="section-title">🏗️ المراحل من ١ إلى ٢٢+</div>
+  <div class="phase-grid" id="phases-grid">
+    <!-- تُولَّد تلقائياً -->
+  </div>
+
+  <!-- الطبقات الكونية -->
+  <div class="section-title">🌌 الطبقات الكونية لمنظومة شيخة</div>
+  <div class="cosmic-layers">
+    <div class="cos-layer" style="background:linear-gradient(135deg,rgba(212,175,55,.15),rgba(212,175,55,.05));border:1px solid rgba(212,175,55,.4);">
+      <span style="font-weight:900;color:var(--gold);font-size:1.1rem;">🌟 المصدر الأول — الله</span>
+      <span style="color:var(--text2);font-size:.85rem;">﴿وَهُوَ بِكُلِّ شَيْءٍ عَلِيمٌ﴾</span>
+    </div>
+    <div class="cos-layer" style="background:rgba(22,160,133,.08);border:1px solid rgba(22,160,133,.25);">
+      <span style="color:var(--teal);font-weight:700;">📖 طبقة الشريعة والقيم</span>
+      <div><span class="tag tag-teal">قرآن</span><span class="tag tag-teal">سنة</span><span class="tag tag-teal">فقه</span><span class="tag tag-teal">أخلاق</span></div>
+    </div>
+    <div class="cos-layer" style="background:rgba(41,128,185,.08);border:1px solid rgba(41,128,185,.25);">
+      <span style="color:var(--blue);font-weight:700;">🧠 طبقة العلوم والمعرفة</span>
+      <div><span class="tag tag-blue">CS</span><span class="tag tag-blue">رياضيات</span><span class="tag tag-blue">طب</span><span class="tag tag-blue">فيزياء</span><span class="tag tag-blue">AI</span></div>
+    </div>
+    <div class="cos-layer" style="background:rgba(142,68,173,.08);border:1px solid rgba(142,68,173,.25);">
+      <span style="color:var(--purple);font-weight:700;">🌐 طبقة الشبكات الكونية</span>
+      <div><span class="tag tag-purple">اتصالات</span><span class="tag tag-purple">طاقة</span><span class="tag tag-purple">ماء</span><span class="tag tag-purple">نقل</span><span class="tag tag-purple">إنترنت</span></div>
+    </div>
+    <div class="cos-layer" style="background:rgba(211,84,0,.08);border:1px solid rgba(211,84,0,.25);">
+      <span style="color:var(--orange);font-weight:700;">💰 طبقة الاقتصاد الإسلامي</span>
+      <div><span class="tag" style="background:rgba(211,84,0,.1);color:var(--orange);border:1px solid rgba(211,84,0,.3);">تجارة</span><span class="tag" style="background:rgba(211,84,0,.1);color:var(--orange);border:1px solid rgba(211,84,0,.3);">تمويل</span><span class="tag" style="background:rgba(211,84,0,.1);color:var(--orange);border:1px solid rgba(211,84,0,.3);">لوجستيك</span><span class="tag" style="background:rgba(211,84,0,.1);color:var(--orange);border:1px solid rgba(211,84,0,.3);">صناعة</span></div>
+    </div>
+    <div class="cos-layer" style="background:rgba(39,174,96,.08);border:1px solid rgba(39,174,96,.25);">
+      <span style="color:var(--green);font-weight:700;">🌍 طبقة الحضارة الإسلامية</span>
+      <div><span class="tag tag-green">أمة موحدة</span><span class="tag tag-green">عدالة اجتماعية</span><span class="tag tag-green">استدامة بيئية</span></div>
+    </div>
+  </div>
+
+  <!-- روابط الصفحات -->
+  <div class="section-title">🔗 صفحات منظومة شيخة</div>
+  <div class="link-grid">
+    <a href="/" class="link-card"><span class="link-icon">🏠</span><div class="link-name">الرئيسية</div></a>
+    <a href="/سوق-شيخة.html" class="link-card"><span class="link-icon">🛒</span><div class="link-name">سوق شيخة</div></a>
+    <a href="/الاتصالات-والـDNS.html" class="link-card"><span class="link-icon">📡</span><div class="link-name">الاتصالات والـDNS</div></a>
+    <a href="/المعايير-والجودة.html" class="link-card"><span class="link-icon">⚖️</span><div class="link-name">المعايير والجودة</div></a>
+    <a href="/علوم-الحاسب.html" class="link-card"><span class="link-icon">💻</span><div class="link-name">علوم الحاسب</div></a>
+    <a href="/الشبكة-العصبية-الكونية.html" class="link-card"><span class="link-icon">🧠</span><div class="link-name">الشبكة العصبية</div></a>
+    <a href="/الدينار-والدرهم.html" class="link-card"><span class="link-icon">🪙</span><div class="link-name">الدينار والدرهم</div></a>
+    <a href="/تطهير-الشبكة.html" class="link-card"><span class="link-icon">🧹</span><div class="link-name">تطهير الشبكة</div></a>
+    <a href="/أعظم-تجارة.html" class="link-card"><span class="link-icon">🌍</span><div class="link-name">أعظم تجارة</div></a>
+    <a href="/الصحة-الإسلامية-الرقمية.html" class="link-card"><span class="link-icon">🏥</span><div class="link-name">الصحة الإسلامية</div></a>
+    <a href="/اللوجستيك-الإسلامي.html" class="link-card"><span class="link-icon">🚢</span><div class="link-name">اللوجستيك</div></a>
+    <a href="/الشريعة-الاسلامية.html" class="link-card"><span class="link-icon">🕌</span><div class="link-name">الشريعة الإسلامية</div></a>
+    <a href="/لوحة-الادمن.html" class="link-card"><span class="link-icon">⚙️</span><div class="link-name">لوحة الأدمن</div></a>
+    <a href="/المجتمع.html" class="link-card"><span class="link-icon">👥</span><div class="link-name">المجتمع</div></a>
+    <a href="/مؤشر-الجودة-الحي.html" class="link-card" style="border-color:rgba(212,175,55,.3)"><span class="link-icon">⚖️</span><div class="link-name" style="color:#D4AF37">مؤشر الجودة الحي</div></a>
+    <a href="/التعليم-الرقمي-الإسلامي.html" class="link-card"><span class="link-icon">📖</span><div class="link-name">التعليم الرقمي الإسلامي</div></a>
+    <a href="/الهوية-السيادية.html" class="link-card"><span class="link-icon">🔐</span><div class="link-name">الهوية السيادية</div></a>
+    <a href="/الحوسبة-السيادية.html" class="link-card"><span class="link-icon">🖥️</span><div class="link-name">الحوسبة السيادية</div></a>
+    <a href="/رابطة-العالم-الإسلامي.html" class="link-card" style="border-color:rgba(200,151,58,.3)"><span class="link-icon">🌍</span><div class="link-name" style="color:#C8973A">منظمات العالم الإسلامي</div></a>
+    <a href="/أهداف-شيخة-الإسلامية.html" class="link-card" style="border-color:rgba(200,151,58,.3)"><span class="link-icon">🕋</span><div class="link-name" style="color:#C8973A">الأهداف الإسلامية الشاملة</div></a>    <a href="/سنة-الخلفاء-الراشدين.html" class="link-card" style="border-color:rgba(200,151,58,.4)"><span class="link-icon">📜</span><div class="link-name" style="color:#E8B45A">سنة الخلفاء الراشدين</div></a>    <a href="/الجرافيك-الحلال.html" class="link-card" style="border-color:rgba(200,151,58,.3)"><span class="link-icon">🎨</span><div class="link-name" style="color:#C8973A">الجرافيك الحلال</div></a>
+    <a href="/هيرمس-والفيديو.html" class="link-card" style="border-color:rgba(200,151,58,.3)"><span class="link-icon">🤖</span><div class="link-name" style="color:#C8973A">هيرمس والفيديو</div></a>
+    <a href="/الحوسبة-الكمية.html" class="link-card" style="border-color:rgba(200,151,58,.3)"><span class="link-icon">⚛️</span><div class="link-name" style="color:#C8973A">الحوسبة الكمية</div></a>
+  </div>
+
+  <!-- اختبار الـ API الشاملة -->
+  <div class="section-title">🔬 اختبار API جميع المحركات</div>
+  <div id="api-test-area">
+    <div style="display:flex;gap:.7rem;margin-bottom:1rem;flex-wrap:wrap;">
+      <button onclick="testAll()" style="background:var(--gold);color:#000;border:none;border-radius:8px;padding:.7rem 1.5rem;font-family:'Tajawal',sans-serif;font-weight:700;cursor:pointer;">⚡ اختبار الكل</button>
+      <button onclick="clearResults()" style="background:var(--dark3);color:var(--text2);border:1px solid rgba(255,255,255,.1);border-radius:8px;padding:.7rem 1rem;font-family:'Tajawal',sans-serif;cursor:pointer;">🗑️ مسح</button>
+    </div>
+    <div class="api-grid" id="api-grid"></div>
+  </div>
+</main>
+
+<footer>
+  <p style="color:var(--gold);font-size:1rem;font-weight:700;">منظومة شيخة — أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب</p>
+  <p style="margin-top:.5rem;">﴿مَا شَاءَ اللَّهُ لَا قُوَّةَ إِلَّا بِاللَّهِ﴾</p>
+  <p style="margin-top:.3rem;color:rgba(212,175,55,.4);">النية: لوجه الله — توحيد الأمة رقمياً • sheikha.top</p>
+</footer>
+
+<script>
+const PHASES = [
+  { num:1,  name:'السيادة الرقمية', desc:'DNS + PKI إسلامي', apis:['GET /api/sovereignty/overview'], icon:'🏛️' },
+  { num:2,  name:'منظومة الحوكمة', desc:'إدارة رقمية شرعية', apis:['GET /api/governance/overview'], icon:'⚖️' },
+  { num:3,  name:'التجارة الإسلامية', desc:'HS Codes + بيع شرعي', apis:['GET /api/trade/overview'], icon:'🛒' },
+  { num:4,  name:'التمويل الإسلامي', desc:'صكوك + مرابحة + تكافل', apis:['GET /api/finance/overview'], icon:'💰' },
+  { num:5,  name:'الأوقاف الرقمية', desc:'وقف رقمي + تطوير', apis:['GET /api/waqf/overview'], icon:'🕌' },
+  { num:6,  name:'الزكاة والصدقات', desc:'حساب + توزيع ذكي', apis:['GET /api/zakat/overview'], icon:'🤲' },
+  { num:7,  name:'بيت المال الرقمي', desc:'خزانة الأمة', apis:['GET /api/bayt-al-mal/overview'], icon:'🏦' },
+  { num:8,  name:'التكافل الاجتماعي', desc:'تأمين إسلامي', apis:['GET /api/takaful/overview'], icon:'🤝' },
+  { num:9,  name:'الحلال العالمي', desc:'تتبع + شهادات', apis:['GET /api/halal/overview'], icon:'✅' },
+  { num:10, name:'الطاقة الإسلامية', desc:'متجددة + شرعية', apis:['GET /api/energy/overview'], icon:'⚡' },
+  { num:11, name:'نظام KPI الرئيسي', desc:'لوحة قياس شاملة', apis:['GET /api/kpi/dashboard'], icon:'📊' },
+  { num:12, name:'الاتصالات والـDNS', desc:'5G + 12 TLD إسلامي', apis:['GET /api/telecom/status','GET /api/telecom/dns/tlds'], icon:'📡' },
+  { num:13, name:'الدينار والدرهم', desc:'ذهب + فضة + بلوك تشين', apis:['GET /api/dinar-dirham/overview'], icon:'🪙' },
+  { num:14, name:'تطهير الشبكة', desc:'إزالة النفايات الرقمية', apis:['GET /api/purification/overview'], icon:'🧹' },
+  { num:15, name:'الشبكة العصبية الكونية', desc:'جسد الأمة = جسد إنسان', apis:['GET /api/cosmic/overview'], icon:'🧠' },
+  { num:16, name:'شعاع AI الإسلامي', desc:'ذكاء شرعي + قرآن + سنة', apis:['GET /api/ai/overview'], icon:'🤖' },
+  { num:17, name:'الذكاء الشرعي', desc:'فتاوى + أحكام رقمية', apis:['GET /api/sharia/overview'], icon:'📖' },
+  { num:18, name:'أعظم تجارة', desc:'طريق الحرير الرقمي', apis:['GET /api/greatest-trade/dashboard'], icon:'🌍' },
+  { num:19, name:'الصحة الإسلامية الرقمية', desc:'مستشفى + رقية + AI', apis:['GET /api/healthcare/overview'], icon:'🏥' },
+  { num:20, name:'اللوجستيك الإسلامي', desc:'سلاسل إمداد + موانئ', apis:['GET /api/supply-chain/dashboard'], icon:'🚢' },
+  { num:21, name:'المعايير والجودة والـKPI', desc:'ISO + شريعة + قياس شامل', apis:['GET /api/standards/overview','GET /api/standards/kpis'], icon:'⚖️' },
+  { num:22, name:'علوم الحاسب الكوني', desc:'CS + شبكات + جسد أمة', apis:['GET /api/cs/overview','GET /api/cs/branches'], icon:'💻' },
+];
+
+const ALL_APIS = [
+  {path:'/api/telecom/status', name:'اتصالات: الحالة'},
+  {path:'/api/telecom/dns/tlds', name:'اتصالات: DNS TLDs'},
+  {path:'/api/telecom/oic-network', name:'اتصالات: شبكة OIC'},
+  {path:'/api/cosmic/overview', name:'كوني: نظرة عامة'},
+  {path:'/api/cosmic/body-layers', name:'كوني: طبقات الجسد'},
+  {path:'/api/dinar-dirham/overview', name:'دينار: نظرة عامة'},
+  {path:'/api/purification/overview', name:'تطهير: نظرة عامة'},
+  {path:'/api/greatest-trade/dashboard', name:'أعظم تجارة: لوحة'},
+  {path:'/api/healthcare/overview', name:'صحة: نظرة عامة'},
+  {path:'/api/supply-chain/dashboard', name:'لوجستيك: لوحة'},
+  {path:'/api/standards/overview', name:'معايير: نظرة عامة'},
+  {path:'/api/standards/frameworks', name:'معايير: أُطر'},
+  {path:'/api/standards/kpis', name:'معايير: KPIs'},
+  {path:'/api/cs/overview', name:'CS: نظرة عامة'},
+  {path:'/api/cs/branches', name:'CS: الفروع'},
+  {path:'/api/cs/networks', name:'CS: الشبكات'},
+  {path:'/api/cs/body-analogy', name:'CS: جسد الأمة'},
+  {path:'/api/cs/evolution', name:'CS: التطور الجيني'},
+];
+
+function renderPhases(){
+  document.getElementById('phases-grid').innerHTML = PHASES.map(p=>`
+    <div class="phase-card" onclick="window.location.hash='phase-${p.num}'">
+      <div class="phase-num">${p.num}</div>
+      <div style="overflow:hidden;">
+        <div class="phase-name">${p.icon} ${p.name}</div>
+        <div class="phase-desc">${p.desc}</div>
+        <div class="phase-apis">${p.apis.map(a=>`<code style="font-size:.7rem;color:var(--teal);direction:ltr;">${a}</code>`).join('<br>')}</div>
+        <span class="phase-status status-active">✅ مُفعَّل</span>
+      </div>
+    </div>`).join('');
+}
+
+function renderAPIGrid(){
+  document.getElementById('api-grid').innerHTML = ALL_APIS.map((a,i)=>`
+    <div class="api-item" id="api-item-${i}">
+      <div>
+        <div style="font-size:.82rem;color:var(--text);">${a.name}</div>
+        <div class="api-path">${a.path}</div>
+      </div>
+      <button class="api-test-btn" onclick="testSingleAPI('${a.path}','api-item-${i}')">اختبر</button>
+    </div>`).join('');
+}
+
+async function testSingleAPI(path, elId){
+  const el=document.getElementById(elId);
+  if(!el)return;
+  el.style.borderColor='rgba(212,175,55,.4)';
+  try{
+    const s=Date.now();
+    const r=await fetch(path);
+    const d=await r.json();
+    const ms=Date.now()-s;
+    el.style.borderColor=d.success?'rgba(39,174,96,.4)':'rgba(231,76,60,.3)';
+    const statusEl=el.querySelector('.api-status');
+    if(statusEl) statusEl.textContent=d.success?`✅ ${ms}ms`:'❌';
+    else el.querySelector('.api-test-btn').textContent=d.success?`✅ ${ms}ms`:'❌';
+  }catch(e){
+    el.style.borderColor='rgba(231,76,60,.3)';
+    el.querySelector('.api-test-btn').textContent='❌';
+  }
+}
+
+async function testAll(){
+  for(let i=0;i<ALL_APIS.length;i++){
+    await testSingleAPI(ALL_APIS[i].path,`api-item-${i}`);
+    await new Promise(r=>setTimeout(r,150));
+  }
+}
+
+function clearResults(){
+  document.querySelectorAll('.api-item').forEach(el=>{
+    el.style.borderColor='rgba(255,255,255,.06)';
+  });
+  document.querySelectorAll('.api-test-btn').forEach(b=>b.textContent='اختبر');
+  renderAPIGrid();
+}
+
+document.addEventListener('DOMContentLoaded',()=>{
+  renderPhases();
+  renderAPIGrid();
+});
+</script>
+</body>
+</html>

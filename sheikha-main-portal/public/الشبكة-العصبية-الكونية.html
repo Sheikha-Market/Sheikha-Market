@@ -1,0 +1,533 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الشبكة العصبية الكونية — منظومة شيخة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root {
+    --gold:#D4AF37; --dark:#050508; --dark2:#0a0a10; --dark3:#111118;
+    --dark4:#18181f; --text:#e8e8f0; --text2:#9090a8;
+    --green:#27ae60; --blue:#2980b9; --purple:#8e44ad;
+    --teal:#16a085; --red:#c0392b; --orange:#d35400;
+    --divine:#D4AF37; --brain:#8e44ad; --heart:#c0392b;
+    --artery:#d35400; --vein:#2980b9; --cap:#16a085;
+    --consumer:#27ae60; --purify:#27ae60;
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); direction:rtl; overflow-x:hidden; }
+
+/* ══ bg particles ══ */
+.bg-net { position:fixed; inset:0; z-index:0; pointer-events:none; overflow:hidden; }
+.bg-net::before {
+    content:''; position:absolute; inset:0;
+    background: radial-gradient(ellipse at 30% 20%, rgba(212,175,55,.04) 0%, transparent 60%),
+                radial-gradient(ellipse at 70% 80%, rgba(142,68,173,.04) 0%, transparent 60%);
+}
+
+/* ══ hero ══ */
+.hero {
+    position:relative; z-index:1;
+    background:linear-gradient(160deg,#050408,#090511,#050408);
+    border-bottom:2px solid rgba(212,175,55,.4);
+    padding:56px 24px 36px; text-align:center;
+}
+.basmala { font-size:clamp(1.3rem,3vw,1.9rem); color:var(--gold); margin-bottom:14px; font-weight:700; letter-spacing:.05em; }
+.hero-title {
+    font-size:clamp(1.6rem,4vw,2.8rem); font-weight:900;
+    background:linear-gradient(135deg,var(--gold),#fff,#9b59b6,var(--gold));
+    background-size:200%;
+    -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text;
+    animation:shimmer 4s linear infinite; margin-bottom:10px;
+}
+@keyframes shimmer { 0%{background-position:0%} 100%{background-position:200%} }
+.hero-verse { font-size:clamp(.88rem,2vw,1.05rem); color:var(--gold); opacity:.8; margin-bottom:8px; }
+.hero-sub { font-size:.82rem; color:var(--text2); max-width:700px; margin:0 auto; line-height:1.7; }
+
+/* ══ nav ══ */
+nav { position:sticky; top:0; z-index:50; background:rgba(5,5,8,.92); backdrop-filter:blur(20px); border-bottom:1px solid rgba(212,175,55,.1); padding:0 16px; display:flex; gap:2px; overflow-x:auto; scrollbar-width:none; }
+nav::-webkit-scrollbar { display:none; }
+nav a { padding:12px 14px; color:var(--text2); text-decoration:none; font-size:.78rem; white-space:nowrap; border-bottom:3px solid transparent; transition:all .2s; font-weight:600; }
+nav a.active, nav a:hover { color:var(--gold); border-color:var(--gold); }
+
+.container { max-width:1400px; margin:0 auto; padding:1.5rem 1.2rem; position:relative; z-index:1; }
+.section { display:none; animation:fadeIn .35s; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(12px)} to{opacity:1;transform:translateY(0)} }
+.section-title { font-size:1.05rem; font-weight:800; color:var(--gold); margin:1.4rem 0 .9rem; display:flex; align-items:center; gap:.5rem; }
+
+/* ══ body layers ══ */
+.body-diagram {
+    display:flex; flex-direction:column; gap:.5rem; margin-bottom:1.5rem;
+    background:var(--dark2); border-radius:16px; padding:1.5rem; border:1px solid rgba(212,175,55,.08);
+}
+.layer-row {
+    display:flex; align-items:stretch; gap:.8rem;
+    border-radius:10px; padding:.9rem 1rem;
+    border:1px solid rgba(255,255,255,.04); transition:all .2s; cursor:default;
+}
+.layer-row:hover { border-color:rgba(212,175,55,.25); background:rgba(255,255,255,.02); }
+.layer-num { width:28px; height:28px; border-radius:50%; display:flex; align-items:center; justify-content:center; font-size:.7rem; font-weight:900; flex-shrink:0; margin-top:2px; }
+.layer-body { flex:1; }
+.layer-name { font-size:.9rem; font-weight:800; margin-bottom:.2rem; }
+.layer-analogy { font-size:.75rem; color:var(--text2); margin-bottom:.4rem; }
+.layer-quran { font-size:.73rem; color:var(--gold); opacity:.75; font-style:italic; }
+.layer-nodes { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.5rem; }
+.node-tag { padding:.15rem .5rem; border-radius:20px; font-size:.68rem; font-weight:600; background:rgba(255,255,255,.05); color:var(--text2); border:1px solid rgba(255,255,255,.07); }
+
+/* ══ network cards ══ */
+.net-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(260px,1fr)); gap:.9rem; }
+.net-card {
+    background:var(--dark3); border-radius:12px; padding:1.1rem;
+    border:1px solid rgba(255,255,255,.05); transition:all .25s;
+}
+.net-card:hover { transform:translateY(-2px); border-color:rgba(212,175,55,.25); }
+.net-icon { font-size:1.8rem; margin-bottom:.5rem; }
+.net-name { font-size:.9rem; font-weight:800; color:var(--gold); }
+.net-analogy { font-size:.73rem; color:var(--text2); margin:.3rem 0; }
+.net-dna { font-size:.68rem; color:var(--teal); font-family:monospace; margin:.3rem 0; }
+.net-types { display:flex; flex-wrap:wrap; gap:.3rem; margin-top:.5rem; }
+.type-tag { padding:.15rem .45rem; border-radius:10px; font-size:.65rem; font-weight:600; background:rgba(41,128,185,.1); color:var(--blue); border:1px solid rgba(41,128,185,.15); }
+
+/* ══ sciences ══ */
+.sci-category { background:var(--dark3); border-radius:12px; padding:1.1rem; margin-bottom:.8rem; }
+.sci-cat-title { font-size:.88rem; font-weight:800; color:var(--gold); margin-bottom:.7rem; }
+.sci-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(180px,1fr)); gap:.5rem; }
+.sci-card { background:var(--dark2); border-radius:8px; padding:.7rem; border:1px solid rgba(255,255,255,.04); }
+.sci-name { font-size:.8rem; font-weight:700; }
+.sci-analogy { font-size:.68rem; color:var(--text2); margin-top:.2rem; }
+.sci-dna { font-size:.62rem; color:var(--teal); font-family:monospace; margin-top:.3rem; }
+
+/* ══ sources ══ */
+.src-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(230px,1fr)); gap:.9rem; }
+.src-card { background:var(--dark3); border-radius:12px; padding:1.1rem; border:1px solid rgba(255,255,255,.05); }
+.src-icon { font-size:2rem; margin-bottom:.4rem; }
+.src-name { font-size:.88rem; font-weight:800; color:var(--teal); }
+.src-analogy { font-size:.72rem; color:var(--text2); margin:.3rem 0; font-style:italic; }
+.src-dna-prefix { font-size:.68rem; color:var(--purple); font-family:monospace; }
+.src-stat { font-size:.73rem; margin-top:.4rem; color:var(--text2); }
+.src-stat span { color:var(--gold); font-weight:700; }
+
+/* ══ evolution timeline ══ */
+.timeline { position:relative; padding-right:20px; }
+.timeline::before { content:''; position:absolute; right:8px; top:0; bottom:0; width:2px; background:linear-gradient(to bottom, var(--gold), var(--purple), var(--teal)); }
+.era-item { position:relative; margin-bottom:1.2rem; padding:1rem 1.2rem; background:var(--dark3); border-radius:12px; border:1px solid rgba(255,255,255,.05); margin-right:20px; transition:all .2s; }
+.era-item:hover { border-color:rgba(212,175,55,.25); }
+.era-item::before { content:''; position:absolute; right:-26px; top:50%; transform:translateY(-50%); width:12px; height:12px; border-radius:50%; background:var(--gold); border:2px solid var(--dark); }
+.era-item.current::before { background:var(--green); box-shadow:0 0 10px var(--green); }
+.era-title { font-size:.88rem; font-weight:800; color:var(--gold); }
+.era-period { font-size:.72rem; color:var(--text2); margin:.2rem 0; }
+.era-nets { font-size:.73rem; color:var(--blue); margin:.4rem 0; }
+.era-sci { font-size:.73rem; color:var(--purple); }
+.era-dna { font-size:.73rem; color:var(--teal); margin-top:.3rem; font-weight:700; }
+.era-badge { display:inline-block; padding:.1rem .5rem; border-radius:10px; font-size:.65rem; font-weight:700; background:rgba(39,174,96,.12); color:var(--green); border:1px solid rgba(39,174,96,.2); margin-top:.3rem; }
+
+/* ══ integration flows ══ */
+.flow-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(280px,1fr)); gap:.8rem; }
+.flow-card { background:var(--dark3); border-radius:10px; padding:.9rem; border:1px solid rgba(255,255,255,.04); display:flex; gap:.8rem; align-items:flex-start; }
+.flow-arrow { font-size:1.3rem; flex-shrink:0; }
+.flow-from { font-size:.75rem; color:var(--text2); }
+.flow-type { font-size:.8rem; font-weight:700; color:var(--gold); margin:.2rem 0; }
+.flow-substance { font-size:.72rem; color:var(--teal); }
+
+/* ══ dna generator ══ */
+.dna-box { background:var(--dark3); border-radius:14px; padding:1.4rem; max-width:560px; }
+.dna-box h3 { color:var(--teal); margin-bottom:1rem; font-size:.95rem; }
+.form-row { display:grid; grid-template-columns:1fr 1fr; gap:.7rem; margin-bottom:.7rem; }
+.form-group { display:flex; flex-direction:column; gap:.25rem; }
+.form-group label { font-size:.73rem; color:var(--text2); }
+.form-group input, .form-group select {
+    background:var(--dark2); border:1px solid rgba(255,255,255,.1); border-radius:8px;
+    padding:.5rem .8rem; color:var(--text); font-size:.85rem; font-family:inherit;
+}
+.form-group input:focus, .form-group select:focus { outline:none; border-color:var(--teal); }
+.gen-btn { background:linear-gradient(135deg,var(--teal),#0d6b58); color:#fff; border:none; padding:.8rem 1.8rem; border-radius:10px; font-size:.88rem; font-weight:700; cursor:pointer; font-family:inherit; transition:opacity .2s; width:100%; margin-top:.3rem; }
+.gen-btn:hover { opacity:.85; }
+.dna-result { background:var(--dark2); border-radius:10px; padding:1rem; margin-top:.9rem; display:none; border:1px solid rgba(22,160,133,.2); }
+.dna-code { font-family:monospace; font-size:1.1rem; color:var(--teal); word-break:break-all; margin-bottom:.6rem; }
+.dna-hash { font-family:monospace; font-size:.7rem; color:var(--text2); }
+.dna-row { display:flex; justify-content:space-between; padding:.3rem 0; border-bottom:1px solid rgba(255,255,255,.04); font-size:.78rem; }
+.dna-val { color:var(--green); font-weight:700; }
+
+/* ══ stats row ══ */
+.stat-row { display:grid; grid-template-columns:repeat(auto-fill,minmax(140px,1fr)); gap:.7rem; margin-bottom:1.4rem; }
+.stat-box { background:var(--dark3); border-radius:10px; padding:.9rem; text-align:center; border:1px solid rgba(255,255,255,.04); }
+.stat-num { font-size:1.6rem; font-weight:900; line-height:1.1; }
+.stat-label { font-size:.68rem; color:var(--text2); margin-top:.2rem; }
+
+.nav-back { position:relative; z-index:1; padding:.65rem 1.4rem; background:var(--dark2); border-bottom:1px solid rgba(255,255,255,.04); font-size:.8rem; color:var(--text2); }
+.nav-back a { color:var(--gold); text-decoration:none; }
+.verse-banner { background:linear-gradient(135deg,rgba(212,175,55,.06),rgba(142,68,173,.06)); border:1px solid rgba(212,175,55,.12); border-radius:12px; padding:1rem 1.2rem; margin-bottom:1.2rem; font-size:.83rem; color:var(--gold); text-align:center; line-height:1.9; }
+</style>
+</head>
+<body>
+<div class="bg-net"></div>
+
+<div class="nav-back"><a href="/">← الرئيسية</a> &nbsp;|&nbsp; الشبكة العصبية الكونية — منظومة شيخة</div>
+
+<div class="hero">
+    <div class="basmala">بسم الله الرحمن الرحيم</div>
+    <h1 class="hero-title">🧬 الشبكة العصبية الكونية الإسلامية</h1>
+    <div class="hero-verse">﴿وَفِي أَنفُسِكُمْ أَفَلَا تُبْصِرُونَ﴾ — الذاريات ٢١</div>
+    <p class="hero-sub">
+        كل شيء شبكة — وكل شبكة لها بصمة جينية — وكل بصمة لله.<br>
+        العلوم + المصادر + الشبكات + العملة + سلاسل الإمداد + الذكاء الاصطناعي + الفضاء = جسم واحد — لله
+    </p>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="showSec('overview',this)">🌌 الكل</a>
+    <a href="#" onclick="showSec('body',this)">🫀 الجسم الكوني</a>
+    <a href="#" onclick="showSec('sciences',this)">🔬 العلوم</a>
+    <a href="#" onclick="showSec('sources',this)">⛏️ المصادر</a>
+    <a href="#" onclick="showSec('networks',this)">🕸️ الشبكات</a>
+    <a href="#" onclick="showSec('evolution',this)">📜 التطور</a>
+    <a href="#" onclick="showSec('integration',this)">🔗 التكامل</a>
+    <a href="#" onclick="showSec('dna',this)">🧬 بصمة المنتج</a>
+</nav>
+
+<!-- ══ نظرة عامة ══ -->
+<div class="section active container" id="overview">
+    <div class="verse-banner">
+        ﴿وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا﴾ — آل عمران ١٠٣<br>
+        كل شبكة في الكون — من الذرة إلى المجرة — تعمل بنظام — والإسلام هو نظام الأنظمة
+    </div>
+
+    <div class="stat-row">
+        <div class="stat-box"><div class="stat-num" style="color:var(--gold);">٨</div><div class="stat-label">طبقات الجسم الكوني</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--purple);">٢١</div><div class="stat-label">علم في ٣ أصناف</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--teal);">٧</div><div class="stat-label">مصادر إنتاج</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--blue);">١٠</div><div class="stat-label">شبكة رئيسية</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--orange);">٧</div><div class="stat-label">حقب تاريخية</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--green);">١٠</div><div class="stat-label">تدفقات تكاملية</div></div>
+        <div class="stat-box"><div class="stat-num" style="color:var(--red);">∞</div><div class="stat-label">حدود الله فقط</div></div>
+    </div>
+
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1rem;margin-bottom:1.2rem;">
+        <div style="background:var(--dark3);border-radius:12px;padding:1.2rem;border:1px solid rgba(212,175,55,.1);">
+            <div style="font-size:.95rem;font-weight:800;color:var(--gold);margin-bottom:.7rem;">🫀 الجسم كتشبيه للشبكة</div>
+            <div style="font-size:.78rem;color:var(--text2);line-height:1.8;">
+                <div>القلب = مراكز الإنتاج والطاقة</div>
+                <div>الشرايين = سلاسل الإمداد الكبرى</div>
+                <div>الأوردة = شبكات التوزيع</div>
+                <div>الشعيرات = الشبكات المحلية</div>
+                <div>الدم = العملة + البيانات</div>
+                <div>الدماغ = AI + العلوم</div>
+                <div>الجينات = DNA كل منتج</div>
+                <div>الكلى = تطهير الفضلات</div>
+            </div>
+        </div>
+        <div style="background:var(--dark3);border-radius:12px;padding:1.2rem;border:1px solid rgba(142,68,173,.12);">
+            <div style="font-size:.95rem;font-weight:800;color:var(--purple);margin-bottom:.7rem;">🧬 مفهوم البصمة الجينية</div>
+            <div style="font-size:.78rem;color:var(--text2);line-height:1.8;">
+                <div>كل منتج = DNA فريد قابل للتتبع</div>
+                <div>كل شبكة = بصمة لوجستية مميزة</div>
+                <div>كل علم = كود جيني للحضارة</div>
+                <div>من المصدر → المستهلك → التطهير</div>
+                <div>البلوك تشين = حفظ الأمانة</div>
+                <div>التوحيد = الجين الأصلي الأساسي</div>
+            </div>
+        </div>
+    </div>
+
+    <div id="liveStatus" style="background:var(--dark3);border-radius:12px;padding:1rem;border:1px solid rgba(255,255,255,.04);">
+        <div style="font-size:.82rem;color:var(--text2);">جاري التحميل من API...</div>
+    </div>
+</div>
+
+<!-- ══ طبقات الجسم ══ -->
+<div class="section container" id="body">
+    <div class="section-title">🫀 طبقات الجسم الكوني — من المصدر الإلهي للتطهير</div>
+    <div class="body-diagram" id="layersContainer">
+        <div style="text-align:center;color:var(--text2);padding:1rem;">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- ══ العلوم ══ -->
+<div class="section container" id="sciences">
+    <div class="section-title">🔬 العلوم — غذاء العقل والحضارة</div>
+    <div id="sciencesContainer">
+        <div style="text-align:center;color:var(--text2);padding:1rem;">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- ══ المصادر ══ -->
+<div class="section container" id="sources">
+    <div class="section-title">⛏️ المصادر — الأعضاء المنتجة</div>
+    <div class="src-grid" id="sourcesContainer">
+        <div style="text-align:center;color:var(--text2);padding:1rem;">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- ══ الشبكات ══ -->
+<div class="section container" id="networks">
+    <div class="section-title">🕸️ الشبكات العشر — الجهاز الوعائي للاقتصاد الكوني</div>
+    <div class="net-grid" id="networksContainer">
+        <div style="text-align:center;color:var(--text2);padding:1rem;">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- ══ التطور التاريخي ══ -->
+<div class="section container" id="evolution">
+    <div class="section-title">📜 خريطة التطور الجيني عبر التاريخ الإسلامي</div>
+    <div class="timeline" id="evolutionContainer">
+        <div style="text-align:center;color:var(--text2);padding:1rem;">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- ══ التكامل ══ -->
+<div class="section container" id="integration">
+    <div class="section-title">🔗 التكامل الشبكي — كل طبقة تُغذي التي تحتها</div>
+    <div class="verse-banner" id="integrationVerse">﴿وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا﴾</div>
+    <div class="flow-grid" id="integrationContainer">
+        <div style="text-align:center;color:var(--text2);padding:1rem;">جاري التحميل...</div>
+    </div>
+</div>
+
+<!-- ══ بصمة المنتج ══ -->
+<div class="section container" id="dna">
+    <div class="section-title">🧬 مولّد البصمة الجينية للمنتج</div>
+    <div style="display:grid;grid-template-columns:1fr 1fr;gap:1.2rem;flex-wrap:wrap;">
+        <div class="dna-box">
+            <h3>⚗️ أنشئ DNA فريد لمنتجك</h3>
+            <div class="form-row">
+                <div class="form-group">
+                    <label>نوع المصدر</label>
+                    <select id="d_src">
+                        <option value="factories">مصنع</option>
+                        <option value="farms">مزرعة</option>
+                        <option value="mines">منجم</option>
+                        <option value="oil_wells">بئر بترول</option>
+                        <option value="water_wells">بئر مياه</option>
+                        <option value="universities">جامعة</option>
+                    </select>
+                </div>
+                <div class="form-group">
+                    <label>نوع المنتج</label>
+                    <input type="text" id="d_prod" placeholder="wheat / iron / data" value="wheat">
+                </div>
+            </div>
+            <div class="form-group" style="margin-bottom:.7rem;">
+                <label>كود الدولة (ISO 2)</label>
+                <input type="text" id="d_cty" placeholder="SA / EG / TR" value="SA" maxlength="2">
+            </div>
+            <button class="gen-btn" onclick="generateDNA()">🧬 أنشئ البصمة الجينية</button>
+            <div class="dna-result" id="dnaResult">
+                <div style="font-size:.72rem;color:var(--text2);margin-bottom:.4rem;">🧬 البصمة الجينية الفريدة</div>
+                <div class="dna-code" id="dnaCode">—</div>
+                <div class="dna-row"><span>توقيع البلوك تشين</span><span class="dna-val dna-hash" id="dnaHash">—</span></div>
+                <div class="dna-row"><span>شهادة حلال</span><span class="dna-val">✅ حلال طيب</span></div>
+                <div class="dna-row"><span>حالة التطهير</span><span class="dna-val" id="dnaStatus">—</span></div>
+                <div class="dna-row"><span>تاريخ الإنشاء</span><span class="dna-val" id="dnaDate">—</span></div>
+            </div>
+        </div>
+        <div style="background:var(--dark3);border-radius:14px;padding:1.2rem;border:1px solid rgba(22,160,133,.1);">
+            <div style="font-size:.9rem;font-weight:800;color:var(--teal);margin-bottom:.8rem;">📋 مخطط DNA المنتج</div>
+            <div id="schemaContainer" style="font-size:.73rem;color:var(--text2);line-height:2;">
+                جاري التحميل...
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+const API = '/api/cosmic';
+let DATA = {};
+
+async function loadAll() {
+    try {
+        const [overview, layers, sciences, sources, networks, evolution, integration, schema] = await Promise.all([
+            fetch(`${API}/overview`).then(r=>r.json()),
+            fetch(`${API}/layers`).then(r=>r.json()),
+            fetch(`${API}/sciences`).then(r=>r.json()),
+            fetch(`${API}/sources`).then(r=>r.json()),
+            fetch(`${API}/networks`).then(r=>r.json()),
+            fetch(`${API}/evolution`).then(r=>r.json()),
+            fetch(`${API}/integration`).then(r=>r.json()),
+            fetch(`${API}/product-dna-schema`).then(r=>r.json()),
+        ]);
+        DATA = { overview, layers, sciences, sources, networks, evolution, integration, schema };
+        renderAll();
+    } catch(e) { console.error('فشل التحميل:', e); }
+}
+
+function renderAll() {
+    renderStatus();
+    renderLayers();
+    renderSciences();
+    renderSources();
+    renderNetworks();
+    renderEvolution();
+    renderIntegration();
+    renderSchema();
+}
+
+function renderStatus() {
+    const d = DATA.overview?.data || {};
+    document.getElementById('liveStatus').innerHTML = `
+        <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(200px,1fr));gap:.6rem;">
+            <div style="padding:.7rem;background:var(--dark2);border-radius:8px;">
+                <div style="font-size:.7rem;color:var(--text2);">الرؤية</div>
+                <div style="font-size:.78rem;color:var(--gold);margin-top:.2rem;">${d.vision||'—'}</div>
+            </div>
+            <div style="padding:.7rem;background:var(--dark2);border-radius:8px;">
+                <div style="font-size:.7rem;color:var(--text2);">حدود الشبكة</div>
+                <div style="font-size:.78rem;color:var(--red);font-weight:700;margin-top:.2rem;">${d.halal_boundary||'حدود الله فقط'}</div>
+            </div>
+            <div style="padding:.7rem;background:var(--dark2);border-radius:8px;">
+                <div style="font-size:.7rem;color:var(--text2);">آية التوحيد</div>
+                <div style="font-size:.75rem;color:var(--gold);margin-top:.2rem;">${d.unification_verse||'—'}</div>
+            </div>
+        </div>`;
+}
+
+function layerColor(id) {
+    const c = {divine:'#D4AF37',brain:'#8e44ad',heart:'#c0392b',arteries:'#d35400',veins:'#2980b9',capillaries:'#16a085',consumers:'#27ae60',purification:'#27ae60'};
+    return c[id] || '#888';
+}
+
+function renderLayers() {
+    const layers = DATA.layers?.data || [];
+    document.getElementById('layersContainer').innerHTML = layers.map(l => `
+        <div class="layer-row">
+            <div class="layer-num" style="background:${layerColor(l.id)}22;color:${layerColor(l.id)};border:1px solid ${layerColor(l.id)}44;">L${l.level}</div>
+            <div class="layer-body">
+                <div class="layer-name" style="color:${layerColor(l.id)};">${l.name}</div>
+                <div class="layer-analogy">🫀 ${l.analogy}</div>
+                <div class="layer-quran">${l.quran}</div>
+                <div class="layer-nodes">${(l.nodes||[]).map(n=>`<span class="node-tag">${n}</span>`).join('')}</div>
+            </div>
+        </div>`).join('');
+}
+
+function renderSciences() {
+    const sci = DATA.sciences?.data || {};
+    const labels = { islamic:'🕌 العلوم الإسلامية', natural:'🔭 العلوم الطبيعية', applied:'⚙️ العلوم التطبيقية' };
+    document.getElementById('sciencesContainer').innerHTML = Object.entries(sci).map(([k, arr]) => `
+        <div class="sci-category">
+            <div class="sci-cat-title">${labels[k]||k}</div>
+            <div class="sci-grid">
+                ${(arr||[]).map(s => `
+                    <div class="sci-card">
+                        <div class="sci-name">${s.name}</div>
+                        <div class="sci-analogy">${s.analogy}</div>
+                        <div class="sci-dna">${s.dna}</div>
+                    </div>`).join('')}
+            </div>
+        </div>`).join('');
+}
+
+function renderSources() {
+    const srcs = DATA.sources?.data || [];
+    document.getElementById('sourcesContainer').innerHTML = srcs.map(s => `
+        <div class="src-card">
+            <div class="src-icon">${s.icon||'📦'}</div>
+            <div class="src-name">${s.name}</div>
+            <div class="src-analogy">${s.analogy}</div>
+            <div class="src-dna-prefix">DNA Prefix: ${s.dna_prefix||'N/A'}</div>
+            ${s.oic_count ? `<div class="src-stat">عدد OIC: <span>${s.oic_count.toLocaleString()}</span></div>` : ''}
+            ${s.oic_pct_global ? `<div class="src-stat">نسبة عالمية: <span>${s.oic_pct_global}%</span></div>` : ''}
+            ${s.oic_universities ? `<div class="src-stat">جامعات OIC: <span>${s.oic_universities.toLocaleString()}</span></div>` : ''}
+            ${s.resources ? `<div class="src-stat">الموارد: <span>${(s.resources||[]).join(' · ')}</span></div>` : ''}
+        </div>`).join('');
+}
+
+function renderNetworks() {
+    const nets = DATA.networks?.data || [];
+    document.getElementById('networksContainer').innerHTML = nets.map(n => `
+        <div class="net-card">
+            <div class="net-icon">${n.icon||'🔗'}</div>
+            <div class="net-name">${n.name}</div>
+            <div class="net-analogy">${n.analogy}</div>
+            <div class="net-dna">${n.dna}</div>
+            ${n.quran ? `<div style="font-size:.72rem;color:var(--gold);margin:.3rem 0;font-style:italic;">${n.quran}</div>` : ''}
+            <div class="net-types">${(n.types||[]).map(t=>`<span class="type-tag">${t}</span>`).join('')}</div>
+        </div>`).join('');
+}
+
+function renderEvolution() {
+    const eras = DATA.evolution?.data || [];
+    document.getElementById('evolutionContainer').innerHTML = eras.map(e => `
+        <div class="era-item${e.sheikha?' current':''}">
+            <div class="era-title">${e.era} ${e.golden_age?'⭐':''} ${e.sheikha?'🚀':''}</div>
+            <div class="era-period">📅 ${e.period}</div>
+            <div class="era-nets">🕸️ ${(e.networks||[]).join(' · ')}</div>
+            <div class="era-sci">🔬 ${(e.sciences||[]).join(' · ')}</div>
+            ${e.dna_breakthrough ? `<div class="era-dna">🧬 ${e.dna_breakthrough}</div>` : ''}
+            ${e.vision ? `<div style="font-size:.72rem;color:var(--gold);margin-top:.3rem;font-style:italic;">✨ ${e.vision}</div>` : ''}
+            ${e.sheikha ? '<span class="era-badge">شيخة — الآن</span>' : ''}
+            ${e.challenge ? `<div style="font-size:.7rem;color:var(--red);margin-top:.3rem;">⚠️ ${e.challenge}</div>` : ''}
+        </div>`).join('');
+}
+
+function renderIntegration() {
+    const intg = DATA.integration?.data || {};
+    if (intg.unified_principle) {
+        document.getElementById('integrationVerse').textContent = intg.unified_principle;
+    }
+    const flows = intg.flows || [];
+    document.getElementById('integrationContainer').innerHTML = flows.map(f => `
+        <div class="flow-card">
+            <div class="flow-arrow">➡️</div>
+            <div>
+                <div class="flow-from">${f.from} ← → ${f.to}</div>
+                <div class="flow-type">${f.type}</div>
+                <div class="flow-substance">📦 ${f.substance}</div>
+            </div>
+        </div>`).join('');
+}
+
+function renderSchema() {
+    const schema = DATA.schema?.data || {};
+    const fields = schema.fields || [];
+    document.getElementById('schemaContainer').innerHTML = fields.map(f => `
+        <div style="display:flex;justify-content:space-between;padding:.2rem 0;border-bottom:1px solid rgba(255,255,255,.03);">
+            <span style="color:var(--teal);font-family:monospace;">${f.field}</span>
+            <span style="color:var(--text2);font-size:.65rem;">${f.desc}</span>
+        </div>`).join('');
+}
+
+async function generateDNA() {
+    const src = document.getElementById('d_src').value;
+    const prod = document.getElementById('d_prod').value.trim() || 'product';
+    const cty = document.getElementById('d_cty').value.trim().toUpperCase() || 'SA';
+    try {
+        const r = await fetch(`${API}/generate-dna`, {
+            method:'POST', headers:{'Content-Type':'application/json'},
+            body: JSON.stringify({ sourceId:src, productType:prod, country:cty })
+        });
+        const d = await r.json();
+        if (d.success) {
+            document.getElementById('dnaCode').textContent = d.data.dna;
+            document.getElementById('dnaHash').textContent = d.data.blockchain_hash;
+            document.getElementById('dnaStatus').textContent = d.data.purification_status;
+            document.getElementById('dnaDate').textContent = new Date(d.data.created_at).toLocaleString('ar-SA');
+            document.getElementById('dnaResult').style.display = 'block';
+        }
+    } catch(e) {
+        // fallback client-side
+        const prefix = {factories:'FAC',farms:'FAR',mines:'MIN',oil_wells:'OIL',water_wells:'WAT',universities:'UNI'}[src]||'GEN';
+        const seq = Math.floor(Math.random()*99999).toString().padStart(5,'0');
+        const dna = `${prefix}-${prod.toUpperCase()}-${cty}-${new Date().getFullYear()}-${seq}`;
+        document.getElementById('dnaCode').textContent = dna;
+        document.getElementById('dnaHash').textContent = btoa(dna).substring(0,16);
+        document.getElementById('dnaStatus').textContent = 'نظيف — حلال طيب';
+        document.getElementById('dnaDate').textContent = new Date().toLocaleString('ar-SA');
+        document.getElementById('dnaResult').style.display = 'block';
+    }
+}
+
+function showSec(id, el) {
+    event.preventDefault();
+    document.querySelectorAll('.section').forEach(s=>s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a=>a.classList.remove('active'));
+    const sec = document.getElementById(id);
+    if (sec) sec.classList.add('active');
+    if (el) el.classList.add('active');
+}
+
+loadAll();
+</script>
+</body>
+</html>

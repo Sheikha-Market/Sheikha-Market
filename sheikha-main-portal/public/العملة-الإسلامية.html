@@ -1,0 +1,321 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>الدرهم الرقمي — العملة الإسلامية الموحدة</title>
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root { --gold:#D4AF37; --copper:#B87333; --dark:#0a0a0a; --dark2:#111; --dark3:#1a1a1a; --dark4:#222; --text:#e8e0d0; --text2:#b0a898; --green:#2ecc71; --blue:#3498db; --purple:#9b59b6; --teal:#1abc9c; --red:#e74c3c; }
+* { margin:0; padding:0; box-sizing:border-box; }
+body { font-family:'Tajawal',sans-serif; background:var(--dark); color:var(--text); min-height:100vh; overflow-x:hidden; }
+.hero { background:linear-gradient(135deg,#0a0a0a,#1a1000,#0a0a0a); border-bottom:2px solid var(--gold); padding:60px 24px 40px; text-align:center; }
+.basmala { font-size:clamp(1.4rem,3vw,2rem); color:var(--gold); margin-bottom:16px; font-weight:700; }
+.hero-title { font-size:clamp(1.8rem,4vw,3rem); font-weight:900; background:linear-gradient(135deg,var(--gold),#fff,var(--copper)); -webkit-background-clip:text; -webkit-text-fill-color:transparent; background-clip:text; }
+nav { background:var(--dark2); border-bottom:1px solid #333; padding:0 24px; display:flex; gap:4px; overflow-x:auto; }
+nav a { padding:14px 18px; color:var(--text2); text-decoration:none; font-size:0.9rem; white-space:nowrap; border-bottom:3px solid transparent; }
+nav a.active, nav a:hover { color:var(--gold); border-color:var(--gold); }
+.container { max-width:1400px; margin:0 auto; padding:24px; }
+.section { display:none; animation:fadeIn .4s; }
+.section.active { display:block; }
+@keyframes fadeIn { from{opacity:0;transform:translateY(10px)} to{opacity:1;transform:translateY(0)} }
+.grid-2 { display:grid; grid-template-columns:repeat(auto-fill,minmax(380px,1fr)); gap:16px; }
+.grid-3 { display:grid; grid-template-columns:repeat(auto-fill,minmax(300px,1fr)); gap:16px; }
+.grid-4 { display:grid; grid-template-columns:repeat(auto-fill,minmax(240px,1fr)); gap:16px; }
+.card { background:var(--dark3); border:1px solid #333; border-radius:12px; padding:20px; transition:.3s; }
+.card:hover { border-color:var(--gold); transform:translateY(-2px); }
+.card-gold { border-color:rgba(212,175,55,0.3); background:linear-gradient(135deg,var(--dark3),rgba(212,175,55,0.05)); }
+.card-green { border-color:rgba(46,204,113,0.3); background:linear-gradient(135deg,var(--dark3),rgba(46,204,113,0.05)); }
+.card-title { font-size:1rem; font-weight:700; color:var(--gold); margin-bottom:8px; }
+.card-desc { color:var(--text2); font-size:0.85rem; line-height:1.6; }
+.section-title { font-size:1.3rem; font-weight:800; color:var(--gold); margin:28px 0 16px; }
+.badge { display:inline-block; padding:2px 10px; border-radius:20px; font-size:0.75rem; margin:2px; }
+.badge-gold { background:rgba(212,175,55,0.15); color:var(--gold); }
+.badge-green { background:rgba(46,204,113,0.15); color:var(--green); }
+.badge-blue { background:rgba(52,152,219,0.15); color:var(--blue); }
+.loading { color:var(--text2); text-align:center; padding:40px; }
+.spinner { width:30px; height:30px; border:3px solid #333; border-top-color:var(--gold); border-radius:50%; animation:spin .8s linear infinite; margin:0 auto 12px; }
+@keyframes spin { to{transform:rotate(360deg)} }
+.big-n { font-size:2rem; font-weight:900; color:var(--gold); }
+.stat-card { background:var(--dark4); border:1px solid rgba(212,175,55,0.3); border-radius:12px; padding:24px; text-align:center; }
+.rate-row { display:flex; justify-content:space-between; align-items:center; padding:10px; border-bottom:1px solid #2a2a2a; }
+.rate-row:last-child { border-bottom:none; }
+input, select { background:var(--dark4); border:1px solid #444; border-radius:8px; padding:10px 14px; color:var(--text); font-family:'Tajawal',sans-serif; font-size:0.9rem; width:100%; }
+input:focus, select:focus { outline:none; border-color:var(--gold); }
+.btn { background:linear-gradient(135deg,var(--gold),var(--copper)); color:#000; border:none; border-radius:8px; padding:12px 24px; font-family:'Tajawal',sans-serif; font-size:1rem; font-weight:700; cursor:pointer; transition:.3s; }
+.btn:hover { transform:translateY(-2px); box-shadow:0 4px 16px rgba(212,175,55,0.3); }
+@media (max-width:768px) { .grid-2,.grid-3,.grid-4 { grid-template-columns:1fr; } nav a { padding:10px 12px; font-size:0.8rem; } }
+</style>
+</head>
+<body>
+<div class="hero">
+    <div class="basmala">بِسْمِ اللَّهِ الرَّحْمَنِ الرَّحِيمِ</div>
+    <div style="font-size:4rem;">🪙</div>
+    <div class="hero-title">الدرهم الرقمي الإسلامي — DHM</div>
+    <div style="color:var(--text2);margin-top:8px;">العملة الإسلامية الموحدة — مدعومة بالذهب والفضة</div>
+    <div style="margin-top:12px;color:var(--gold);font-style:italic;">﴿وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ﴾ — الأنعام ١٥٢</div>
+</div>
+
+<nav>
+    <a href="#" class="active" onclick="showSec('sec-overview',this)">🏠 نظرة عامة</a>
+    <a href="#" onclick="showSec('sec-rates',this)">📈 الأسعار</a>
+    <a href="#" onclick="showSec('sec-convert',this)">🔄 محوّل</a>
+    <a href="#" onclick="showSec('sec-zakat',this)">🌙 الزكاة</a>
+    <a href="#" onclick="showSec('sec-foundation',this)">🏛️ الأساس</a>
+    <a href="#" onclick="showSec('sec-services',this)">💼 الخدمات</a>
+    <a href="#" onclick="showSec('sec-reserve',this)">🏦 الاحتياطي</a>
+</nav>
+
+<div class="container">
+
+<!-- ══ Overview ══ -->
+<div class="section active" id="sec-overview">
+    <div id="overviewHero" class="loading"><div class="spinner"></div></div>
+    <div class="grid-4" id="statsGrid"></div>
+</div>
+
+<!-- ══ Rates ══ -->
+<div class="section" id="sec-rates">
+    <div id="ratesContent" class="loading"><div class="spinner"></div></div>
+</div>
+
+<!-- ══ Convert ══ -->
+<div class="section" id="sec-convert">
+    <div class="grid-2">
+        <div class="card card-gold">
+            <div class="card-title">🔄 محوّل العملات الإسلامي</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+                <div><div style="color:var(--text2);font-size:0.85rem;margin-bottom:4px;">المبلغ</div>
+                    <input type="number" id="cAmount" value="100" min="0.01"></div>
+                <div><div style="color:var(--text2);font-size:0.85rem;margin-bottom:4px;">من</div>
+                    <select id="cFrom" onchange="convert()"><option value="SAR">ريال سعودي (SAR)</option><option value="USD">دولار أمريكي (USD)</option><option value="EUR">يورو (EUR)</option><option value="AED">درهم إماراتي (AED)</option><option value="KWD">دينار كويتي (KWD)</option><option value="DHM">درهم إسلامي (DHM)</option></select></div>
+                <div><div style="color:var(--text2);font-size:0.85rem;margin-bottom:4px;">إلى</div>
+                    <select id="cTo" onchange="convert()"><option value="DHM" selected>درهم إسلامي (DHM)</option><option value="SAR">ريال سعودي (SAR)</option><option value="USD">دولار أمريكي (USD)</option><option value="EUR">يورو (EUR)</option><option value="AED">درهم إماراتي (AED)</option></select></div>
+                <button class="btn" onclick="convert()">تحويل</button>
+                <div id="convertResult" style="background:var(--dark4);border:1px solid var(--gold);border-radius:8px;padding:16px;text-align:center;display:none;">
+                    <div style="font-size:0.85rem;color:var(--text2);">النتيجة</div>
+                    <div id="convertValue" style="font-size:2rem;font-weight:900;color:var(--gold);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="card">
+            <div class="card-title">ℹ️ عن الدرهم الرقمي</div>
+            <div id="convInfo" class="card-desc"></div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Zakat ══ -->
+<div class="section" id="sec-zakat">
+    <div class="grid-2">
+        <div class="card card-gold">
+            <div class="card-title">🌙 حاسبة الزكاة</div>
+            <div style="display:flex;flex-direction:column;gap:12px;margin-top:12px;">
+                <div><div style="color:var(--text2);font-size:0.85rem;margin-bottom:4px;">المبلغ / الوزن</div>
+                    <input type="number" id="zAmount" value="10000" min="0"></div>
+                <div><div style="color:var(--text2);font-size:0.85rem;margin-bottom:4px;">نوع المال</div>
+                    <select id="zType">
+                        <option value="cash">نقد وأوراق مالية</option>
+                        <option value="gold">ذهب (بالجرام)</option>
+                        <option value="silver">فضة (بالجرام)</option>
+                        <option value="trade">عروض تجارة</option>
+                        <option value="dirham">درهم رقمي (DHM)</option>
+                    </select></div>
+                <button class="btn" onclick="calcZakat()">احسب الزكاة</button>
+                <div id="zakatResult" style="display:none;"></div>
+            </div>
+        </div>
+        <div class="card" id="zakatInfo">
+            <div class="card-title">🌙 أحكام الزكاة</div>
+            <div class="card-desc">الزكاة الركن الثالث من أركان الإسلام. تجب على كل مسلم بلغ نصابها وحال عليها الحول.<br><br>
+            النصاب: 85 جرام ذهب أو 595 جرام فضة.<br>
+            المعدل: 2.5% من المال الزكوي.<br><br>
+            <span style="color:var(--gold);">﴿وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ﴾ — البقرة ٤٣</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ══ Foundation ══ -->
+<div class="section" id="sec-foundation">
+    <div id="foundationContent" class="loading"><div class="spinner"></div></div>
+</div>
+
+<!-- ══ Services ══ -->
+<div class="section" id="sec-services">
+    <div class="grid-3" id="servicesGrid"><div class="loading"><div class="spinner"></div></div></div>
+</div>
+
+<!-- ══ Reserve ══ -->
+<div class="section" id="sec-reserve">
+    <div id="reserveContent" class="loading"><div class="spinner"></div></div>
+</div>
+
+</div>
+
+<script>
+const API = async (ep) => { try { const r = await fetch(ep); return r.ok ? r.json() : null; } catch { return null; } };
+
+function showSec(id, el) {
+    document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
+    document.querySelectorAll('nav a').forEach(a => a.classList.remove('active'));
+    document.getElementById(id).classList.add('active');
+    el.classList.add('active');
+    const loaders = { 'sec-overview': loadOverview, 'sec-rates': loadRates, 'sec-convert': loadConvertInfo, 'sec-zakat': ()=>{}, 'sec-foundation': loadFoundation, 'sec-services': loadServices, 'sec-reserve': loadReserve };
+    if (loaders[id]) loaders[id]();
+    return false;
+}
+
+async function loadOverview() {
+    const s = await API('/api/dirham/status');
+    if (!s?.data) return;
+    const d = s.data;
+    document.getElementById('overviewHero').innerHTML = `
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(184,115,51,0.05));border:2px solid var(--gold);border-radius:16px;padding:32px;text-align:center;margin-bottom:24px;">
+            <div style="font-size:3.5rem;">🪙</div>
+            <div style="font-size:1.5rem;font-weight:900;color:var(--gold);margin:8px 0;">${d.symbol} — ${d.name}</div>
+            <div style="font-size:1rem;color:var(--text2);">${d.arabicSymbol||'د.ر'}</div>
+            <div style="margin-top:8px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap;">
+                <span style="background:rgba(46,204,113,0.15);color:var(--green);padding:4px 14px;border-radius:20px;">${d.active ? '🟢 نشط' : '⚠️ انتظار'}</span>
+                <span class="badge badge-gold">🌍 ${d.oicCountries||57} دولة OIC</span>
+            </div>
+        </div>`;
+    document.getElementById('statsGrid').innerHTML = [
+        { label:'السعر الحالي', value:'1 DHM', icon:'💰' },
+        { label:'الدعم الذهبي', value:d.goldBacking||'2.975g', icon:'🥇' },
+        { label:'الدعم الفضي', value:d.silverBacking||'X g', icon:'🥈' },
+        { label:'إجمالي الإصدار', value:(d.totalSupply||21000000).toLocaleString(), icon:'📊' },
+        { label:'المتداول', value:(d.circulatingSupply||0).toLocaleString(), icon:'🔄' },
+        { label:'الاحتياطي', value:d.reserveRatio||'70%+', icon:'🏦' },
+        { label:'الحوكمة', value:d.governance||'OIC', icon:'🏛️' },
+        { label:'الالتزام الشرعي', value:'100% حلال', icon:'✅' },
+    ].map(s => `<div class="stat-card"><div style="font-size:1.3rem;">${s.icon}</div><div class="big-n" style="font-size:1.4rem;">${s.value}</div><div style="color:var(--text2);font-size:0.75rem;">${s.label}</div></div>`).join('');
+}
+
+async function loadRates() {
+    const r = await API('/api/dirham/rates');
+    if (!r?.data) return;
+    const rates = r.data;
+    document.getElementById('ratesContent').innerHTML = `
+        <div class="grid-2">
+            <div class="card card-gold">
+                <div class="card-title">💱 أسعار الصرف — 1 DHM</div>
+                <div>
+                ${Object.entries(rates).filter(([k])=>k!=='DHM').map(([curr, val]) => `
+                    <div class="rate-row">
+                        <div style="font-weight:600;">${curr}</div>
+                        <div style="font-weight:700;color:var(--gold);">${typeof val==='number'?val.toFixed(4):val}</div>
+                    </div>`).join('')}
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-title">📊 معلومات السعر</div>
+                <div class="card-desc" style="line-height:2;">
+                    الدرهم الرقمي مدعوم بـ 70% ذهب + 30% فضة.<br>
+                    السعر مستقر ومرتبط بالمعادن الإسلامية التاريخية.<br>
+                    لا مضاربة — لا ربا — قيمة حقيقية من السلع.<br>
+                    <span style="color:var(--gold);">الدرهم الكلاسيكي = 2.975 جرام فضة</span><br>
+                    <span style="color:var(--gold);">الدينار الكلاسيكي = 4.25 جرام ذهب</span>
+                </div>
+            </div>
+        </div>`;
+}
+
+async function loadConvertInfo() {
+    const s = await API('/api/dirham/status');
+    if (!s?.data) return;
+    document.getElementById('convInfo').innerHTML = `
+        الدرهم الرقمي (DHM) هو العملة الإسلامية الموحدة، مدعومة بالذهب والفضة وفقاً للسنة النبوية.<br><br>
+        <strong style="color:var(--gold);">المميزات:</strong><br>
+        • لا رسوم ربوية<br>• تحويل فوري بين 57 دولة OIC<br>• حساب الزكاة تلقائياً<br>
+        • الدعم الذهبي: ${s.data.goldBacking||'2.975g'}<br>`;
+}
+
+async function convert() {
+    const amount = document.getElementById('cAmount').value;
+    const from = document.getElementById('cFrom').value;
+    const to = document.getElementById('cTo').value;
+    const r = await API(`/api/dirham/convert?amount=${amount}&from=${from}&to=${to}`);
+    const el = document.getElementById('convertResult');
+    if (r?.data) {
+        el.style.display = 'block';
+        document.getElementById('convertValue').textContent = `${r.data.converted?.toFixed(4)||'—'} ${to}`;
+    } else {
+        el.style.display = 'block';
+        document.getElementById('convertValue').textContent = 'تعذّر التحويل';
+    }
+}
+
+async function calcZakat() {
+    const amount = document.getElementById('zAmount').value;
+    const type = document.getElementById('zType').value;
+    const r = await API(`/api/dirham/zakat?amount=${amount}&type=${type}`);
+    const el = document.getElementById('zakatResult');
+    el.style.display = 'block';
+    if (r?.data) {
+        const d = r.data;
+        el.innerHTML = `
+            <div style="background:var(--dark4);border:1px solid var(--gold);border-radius:8px;padding:16px;">
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color:var(--text2);">المبلغ المُدخل</span><span style="color:var(--gold);font-weight:700;">${amount} ${type==='cash'?'SAR':type==='gold'||type==='silver'?'g':'وحدة'}</span></div>
+                <div style="display:flex;justify-content:space-between;margin-bottom:8px;"><span style="color:var(--text2);">نسبة الزكاة</span><span style="color:var(--gold);font-weight:700;">${d.rate||'2.5%'}</span></div>
+                <div style="border-top:1px solid #444;margin:8px 0;"></div>
+                <div style="display:flex;justify-content:space-between;"><span style="font-weight:700;">الزكاة المستحقة</span><span style="font-size:1.4rem;font-weight:900;color:var(--green);">${d.zakat?.toFixed(2)||'—'}</span></div>
+                ${d.eligible===false ? '<div style="color:var(--red);margin-top:8px;">⚠️ لم يبلغ النصاب — لا زكاة</div>' : ''}
+                ${d.note ? `<div style="color:var(--text2);font-size:0.8rem;margin-top:8px;">${d.note}</div>` : ''}
+            </div>`;
+    } else {
+        el.innerHTML = '<div style="color:var(--red);">تعذّر الحساب</div>';
+    }
+}
+
+async function loadFoundation() {
+    const f = await API('/api/dirham/foundation');
+    if (!f?.data) return;
+    const d = f.data;
+    document.getElementById('foundationContent').innerHTML = `
+        <div style="background:linear-gradient(135deg,rgba(212,175,55,0.1),rgba(184,115,51,0.05));border:2px solid var(--gold);border-radius:16px;padding:28px;margin-bottom:24px;text-align:center;">
+            <div style="font-size:1.2rem;font-weight:800;color:var(--gold);">الأساس الشرعي والتاريخي للدرهم الرقمي</div>
+        </div>
+        <div class="grid-3">
+            ${(d.pillars||[]).map(p => `<div class="card card-gold"><div style="font-size:1.8rem;margin-bottom:8px;">${p.icon||'📜'}</div><div class="card-title">${p.name}</div><div class="card-desc">${p.desc}</div>${p.value?`<div style="color:var(--green);margin-top:8px;">💰 ${p.value}</div>`:''}</div>`).join('')}
+        </div>`;
+}
+
+async function loadServices() {
+    const s = await API('/api/dirham/services');
+    if (!s?.data) return;
+    document.getElementById('servicesGrid').innerHTML = s.data.map(svc => `
+        <div class="card card-green">
+            <div style="font-size:1.8rem;margin-bottom:8px;">${svc.icon||'💼'}</div>
+            <div class="card-title" style="color:var(--green);">${svc.name}</div>
+            <div class="card-desc">${svc.desc}</div>
+            <div style="margin-top:10px;display:flex;flex-wrap:wrap;gap:4px;">
+                ${(svc.features||[]).map(f => `<span class="badge badge-green">${f}</span>`).join('')}
+            </div>
+        </div>`).join('');
+}
+
+async function loadReserve() {
+    const r = await API('/api/dirham/reserve');
+    if (!r?.data) return;
+    const d = r.data;
+    document.getElementById('reserveContent').innerHTML = `
+        <div class="card card-gold" style="margin-bottom:16px;text-align:center;padding:28px;">
+            <div style="font-size:2rem;">🏦</div>
+            <div style="font-size:1.2rem;font-weight:800;color:var(--gold);margin:8px 0;">${d.name||'احتياطي الدرهم'}</div>
+            <div style="color:var(--text2);">${d.totalReserve||''}</div>
+        </div>
+        <div class="section-title">📊 تركيبة الاحتياطي</div>
+        <div class="grid-4">
+            ${(d.composition||[]).map(c => `<div class="stat-card"><div style="font-size:1.4rem;">${c.icon||'📦'}</div><div class="big-n">${c.percentage||c.ratio||'—'}</div><div style="color:var(--text2);font-size:0.8rem;">${c.name||c.asset}</div></div>`).join('')}
+        </div>
+        <div class="section-title">🏛️ مبادئ الحوكمة</div>
+        <div class="grid-3">
+            ${(d.governance||[]).map(g => `<div class="card"><div style="color:var(--gold);">✅ ${g.name||g}</div><div style="color:var(--text2);font-size:0.8rem;margin-top:4px;">${g.desc||''}</div></div>`).join('')}
+        </div>`;
+}
+
+loadOverview();
+</script>
+</body>
+</html>

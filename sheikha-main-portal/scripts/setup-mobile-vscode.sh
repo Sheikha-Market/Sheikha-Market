@@ -93,12 +93,28 @@ install_code_server() {
 
     info "جاري تثبيت code-server..."
 
-    # الطريقة 1: سكربت التثبيت الرسمي
-    if curl -fsSL https://code-server.dev/install.sh | sh -s -- --dry-run &>/dev/null; then
-        curl -fsSL https://code-server.dev/install.sh | sh
+    # الطريقة 1: تنزيل سكربت التثبيت الرسمي مع إعادة المحاولة ثم تشغيله
+    INSTALL_SCRIPT="$(mktemp)"
+    trap 'rm -f "$INSTALL_SCRIPT"' RETURN
+
+    if curl --retry 8 --retry-delay 2 --retry-all-errors -fsSL https://code-server.dev/install.sh -o "$INSTALL_SCRIPT"; then
+        sh "$INSTALL_SCRIPT"
         log "تم التثبيت عبر السكربت الرسمي"
-    # الطريقة 2: npm
-    elif npm install -g code-server; then
+        return 0
+    fi
+
+    # fallback إضافي عند تعثر curl: استخدام wget إن كان متاحاً
+    if command -v wget &>/dev/null; then
+        warn "تعذر التنزيل عبر curl — محاولة عبر wget"
+        if wget -q -O "$INSTALL_SCRIPT" https://code-server.dev/install.sh; then
+            sh "$INSTALL_SCRIPT"
+            log "تم التثبيت عبر السكربت الرسمي (wget)"
+            return 0
+        fi
+    fi
+
+    # الطريقة 2: npm مع إعدادات retry
+    if npm install -g code-server --fetch-retries=8 --fetch-retry-mintimeout=2000 --fetch-retry-maxtimeout=120000; then
         log "تم التثبيت عبر npm"
     else
         error "فشل تثبيت code-server!"

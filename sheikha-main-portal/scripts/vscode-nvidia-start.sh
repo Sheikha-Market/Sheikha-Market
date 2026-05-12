@@ -38,16 +38,44 @@ is_port_ready() {
     return $?
 }
 
+wait_for_port_free() {
+    for _ in {1..20}; do
+        if ! is_port_ready; then
+            return 0
+        fi
+        sleep 1
+    done
+    return 1
+}
+
 is_api_ready() {
     local body
     body="$(curl -sS -m 3 "http://127.0.0.1:${PORT}${READY_ENDPOINT}" || true)"
+    if echo "$body" | grep -q '"success":true'; then
+        return 0
+    fi
+
+    body="$(curl -sS -m 3 "http://127.0.0.1:${PORT}/api/sheikha/status" || true)"
     echo "$body" | grep -q '"success":true'
 }
 
 source "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
 nvm use 25.6.1 >/dev/null 2>&1 || true
 
+if is_port_ready && is_api_ready; then
+    echo "OK: sheikha already running on ${PORT} (API-ready: ${READY_ENDPOINT})"
+    exit 0
+fi
+
 kill_port_if_busy
+if ! wait_for_port_free; then
+    echo "ERROR: port ${PORT} is still busy after cleanup"
+    if command -v lsof >/dev/null 2>&1; then
+        lsof -i :"${PORT}" || true
+    fi
+    exit 1
+fi
+
 if command -v setsid >/dev/null 2>&1; then
     setsid env AI_MODE=nvidia NVIDIA_NIM_PRIORITY=true NVIDIA_CUDA_ENABLED=true npm start </dev/null >/tmp/sheikha-vscode.log 2>&1 &
     echo $! >/tmp/sheikha-vscode.pid

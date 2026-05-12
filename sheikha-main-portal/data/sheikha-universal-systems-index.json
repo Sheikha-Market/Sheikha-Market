@@ -1,0 +1,439 @@
+{
+  "version": "1.0.0",
+  "generatedAt": "2026-03-27T22:35:06.140Z",
+  "governance": {
+    "layerName": "Sheikha Governance Layer",
+    "policy": "Good-first, secure-by-default, human-governed automation"
+  },
+  "mission": "Unified integration index across local, enterprise, and global ecosystems",
+  "systems": [
+    {
+      "id": "sheikha-governance-core",
+      "name": "Sheikha Governance Core",
+      "family": "governance",
+      "owner": "Sheikha",
+      "mode": "direct",
+      "status": "active"
+    },
+    {
+      "id": "sheikha-intel-core",
+      "name": "Sheikha Intel Core",
+      "family": "compute",
+      "owner": "Intel ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-nvidia",
+      "name": "Sheikha NVIDIA",
+      "family": "compute",
+      "owner": "NVIDIA ecosystem",
+      "mode": "direct",
+      "status": "active"
+    },
+    {
+      "id": "sheikha-msi",
+      "name": "Sheikha MSI",
+      "family": "compute",
+      "owner": "MSI ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-apple",
+      "name": "Sheikha Apple",
+      "family": "os",
+      "owner": "Apple ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-android",
+      "name": "Sheikha Android",
+      "family": "os",
+      "owner": "Google ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-pop",
+      "name": "Sheikha Pop",
+      "family": "os",
+      "owner": "System76 ecosystem",
+      "mode": "direct",
+      "status": "active"
+    },
+    {
+      "id": "sheikha-linux",
+      "name": "Sheikha Linux",
+      "family": "os",
+      "owner": "Linux ecosystem",
+      "mode": "direct",
+      "status": "active"
+    },
+    {
+      "id": "sheikha-microsoft",
+      "name": "Sheikha Microsoft",
+      "family": "ecosystem",
+      "owner": "Microsoft ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-google",
+      "name": "Sheikha Google",
+      "family": "ecosystem",
+      "owner": "Google ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-windows",
+      "name": "Sheikha Windows",
+      "family": "os",
+      "owner": "Microsoft ecosystem",
+      "mode": "partner",
+      "status": "planned"
+    },
+    {
+      "id": "sheikha-copilot",
+      "name": "Sheikha Copilot",
+      "family": "ai",
+      "owner": "Sheikha",
+      "mode": "direct",
+      "status": "active"
+    },
+    {
+      "id": "sheikha-ollama",
+      "name": "Sheikha Ollama",
+      "family": "ai",
+      "owner": "Sheikha local AI",
+      "mode": "direct",
+      "status": "active"
+    },
+    {
+      "id": "sheikha-gpt",
+      "name": "Sheikha GPT",
+      "family": "ai",
+      "owner": "OpenAI integration",
+      "mode": "partner",
+      "status": "conditional"
+    }
+  ],
+  "connectors": [
+    {
+      "id": "connector-sheikha-intel-core",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-intel-core",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-nvidia",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-nvidia",
+      "type": "api-bridge",
+      "mode": "direct",
+      "status": "active",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-msi",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-msi",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-apple",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-apple",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-android",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-android",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-pop",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-pop",
+      "type": "api-bridge",
+      "mode": "direct",
+      "status": "active",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-linux",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-linux",
+      "type": "api-bridge",
+      "mode": "direct",
+      "status": "active",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-microsoft",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-microsoft",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-google",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-google",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-windows",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-windows",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "planned",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-copilot",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-copilot",
+      "type": "api-bridge",
+      "mode": "direct",
+      "status": "active",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-ollama",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-ollama",
+      "type": "api-bridge",
+      "mode": "direct",
+      "status": "active",
+      "autoSync": true
+    },
+    {
+      "id": "connector-sheikha-gpt",
+      "from": "sheikha-governance-core",
+      "to": "sheikha-gpt",
+      "type": "api-bridge",
+      "mode": "partner",
+      "status": "conditional",
+      "autoSync": true
+    }
+  ],
+  "networkGraph": {
+    "nodes": [
+      {
+        "id": "sheikha-governance-core",
+        "label": "Sheikha Governance Core",
+        "family": "governance"
+      },
+      {
+        "id": "sheikha-intel-core",
+        "label": "Sheikha Intel Core",
+        "family": "compute"
+      },
+      {
+        "id": "sheikha-nvidia",
+        "label": "Sheikha NVIDIA",
+        "family": "compute"
+      },
+      {
+        "id": "sheikha-msi",
+        "label": "Sheikha MSI",
+        "family": "compute"
+      },
+      {
+        "id": "sheikha-apple",
+        "label": "Sheikha Apple",
+        "family": "os"
+      },
+      {
+        "id": "sheikha-android",
+        "label": "Sheikha Android",
+        "family": "os"
+      },
+      {
+        "id": "sheikha-pop",
+        "label": "Sheikha Pop",
+        "family": "os"
+      },
+      {
+        "id": "sheikha-linux",
+        "label": "Sheikha Linux",
+        "family": "os"
+      },
+      {
+        "id": "sheikha-microsoft",
+        "label": "Sheikha Microsoft",
+        "family": "ecosystem"
+      },
+      {
+        "id": "sheikha-google",
+        "label": "Sheikha Google",
+        "family": "ecosystem"
+      },
+      {
+        "id": "sheikha-windows",
+        "label": "Sheikha Windows",
+        "family": "os"
+      },
+      {
+        "id": "sheikha-copilot",
+        "label": "Sheikha Copilot",
+        "family": "ai"
+      },
+      {
+        "id": "sheikha-ollama",
+        "label": "Sheikha Ollama",
+        "family": "ai"
+      },
+      {
+        "id": "sheikha-gpt",
+        "label": "Sheikha GPT",
+        "family": "ai"
+      }
+    ],
+    "edges": [
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-intel-core",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-nvidia",
+        "relation": "api-bridge",
+        "mode": "direct"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-msi",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-apple",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-android",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-pop",
+        "relation": "api-bridge",
+        "mode": "direct"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-linux",
+        "relation": "api-bridge",
+        "mode": "direct"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-microsoft",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-google",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-windows",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-copilot",
+        "relation": "api-bridge",
+        "mode": "direct"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-ollama",
+        "relation": "api-bridge",
+        "mode": "direct"
+      },
+      {
+        "from": "sheikha-governance-core",
+        "to": "sheikha-gpt",
+        "relation": "api-bridge",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-google",
+        "to": "sheikha-android",
+        "relation": "ecosystem-link",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-microsoft",
+        "to": "sheikha-windows",
+        "relation": "ecosystem-link",
+        "mode": "partner"
+      },
+      {
+        "from": "sheikha-linux",
+        "to": "sheikha-pop",
+        "relation": "distribution-link",
+        "mode": "direct"
+      },
+      {
+        "from": "sheikha-nvidia",
+        "to": "sheikha-intel-core",
+        "relation": "hardware-interoperability",
+        "mode": "partner"
+      }
+    ]
+  },
+  "universeCoverage": {
+    "note": "Catalog is extensible and continuously refreshable. Not every global proprietary system can be integrated without formal agreements.",
+    "globalDomains": [
+      "Operating Systems",
+      "Chipsets and GPUs",
+      "Cloud and SaaS",
+      "AI Platforms and LLMs",
+      "Developer Platforms",
+      "Enterprise Security",
+      "Databases and Storage",
+      "Mobile and Edge Devices",
+      "Browsers and Communication"
+    ]
+  },
+  "updatePolicy": {
+    "mode": "scheduled",
+    "recommendedIntervalSeconds": 900,
+    "refreshCommand": "node scripts/refresh-sheikha-integration-atlas.js"
+  }
+}

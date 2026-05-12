@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>التعليم الرقمي الإسلامي | منظومة شيخة</title>
+<link rel="icon" href="/icons/icon-192.png">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;700;900&display=swap" rel="stylesheet">
+<style>
+:root{--gold:#D4AF37;--copper:#B87333;--dark:#050508;--dark2:#0a0a10;--dark3:#111118;--text:#e8e8f0;--text2:#9090a8;--green:#27ae60;--blue:#2980b9;--teal:#16a085;--radius:12px}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:'Tajawal',sans-serif;background:var(--dark);color:var(--text);min-height:100vh}
+body::before{content:'';position:fixed;inset:0;pointer-events:none;background:radial-gradient(ellipse at 20% 40%,rgba(212,175,55,.05),transparent 60%),radial-gradient(ellipse at 80% 70%,rgba(22,160,133,.04),transparent 50%)}
+.wrap{max-width:1300px;margin:0 auto;padding:0 1.5rem;position:relative;z-index:1}
+header{background:linear-gradient(135deg,rgba(10,10,16,.98),rgba(18,18,30,.98));border-bottom:1px solid rgba(212,175,55,.2);padding:1.3rem 0;position:sticky;top:0;z-index:100;backdrop-filter:blur(12px)}
+.header-inner{max-width:1300px;margin:0 auto;padding:0 1.5rem;display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:.8rem}
+.logo{display:flex;align-items:center;gap:.8rem}
+.logo-icon{width:50px;height:50px;background:linear-gradient(135deg,var(--gold),var(--copper));border-radius:50%;display:flex;align-items:center;justify-content:center;font-size:1.5rem;box-shadow:0 2px 16px rgba(212,175,55,.3)}
+.logo h1{font-size:1.25rem;font-weight:900;color:var(--gold)}
+.logo p{font-size:.75rem;color:var(--text2)}
+nav{display:flex;gap:.5rem;flex-wrap:wrap}
+nav a{padding:.35rem .8rem;border-radius:18px;font-size:.8rem;color:var(--text2);text-decoration:none;border:1px solid rgba(255,255,255,.06);transition:.2s}
+nav a:hover{background:rgba(212,175,55,.12);color:var(--gold);border-color:rgba(212,175,55,.25)}
+.verse-banner{text-align:center;padding:1.8rem 0 .5rem;font-size:1.15rem;color:var(--gold);font-style:italic;opacity:.9}
+.hadith{text-align:center;font-size:.88rem;color:var(--text2);margin-bottom:2rem}
+/* Stats */
+.stats{display:flex;gap:.8rem;flex-wrap:wrap;justify-content:center;margin-bottom:2.5rem}
+.stat{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:.8rem 1.4rem;text-align:center;min-width:110px}
+.stat-n{font-size:1.6rem;font-weight:900;color:var(--gold)}
+.stat-l{font-size:.75rem;color:var(--text2);margin-top:.2rem}
+/* Sections */
+.sec{margin:2.5rem 0}
+.sec-title{font-size:1.2rem;font-weight:700;color:var(--gold);margin-bottom:1.2rem;display:flex;align-items:center;gap:.6rem}
+.sec-title::after{content:'';flex:1;height:1px;background:linear-gradient(to left,transparent,rgba(212,175,55,.2))}
+/* Pillars */
+.pillars-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(220px,1fr));gap:.8rem}
+.pillar{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:1rem;transition:.2s}
+.pillar:hover{border-color:rgba(212,175,55,.2);transform:translateY(-2px)}
+.pillar-header{display:flex;align-items:center;gap:.6rem;margin-bottom:.5rem}
+.pillar-icon{font-size:1.3rem}
+.pillar-name{font-size:.9rem;font-weight:700}
+.pillar-priority{margin-right:auto;background:rgba(212,175,55,.1);color:var(--gold);border-radius:10px;padding:.1rem .45rem;font-size:.7rem}
+.pillar-sharia{font-size:.75rem;color:var(--text2)}
+/* Programs */
+.prog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(300px,1fr));gap:1rem}
+.prog{background:linear-gradient(135deg,rgba(255,255,255,.05),rgba(255,255,255,.02));border:1px solid rgba(255,255,255,.08);border-radius:var(--radius);padding:1.2rem;transition:.2s}
+.prog:hover{border-color:rgba(212,175,55,.25);transform:translateY(-2px)}
+.prog-head{display:flex;align-items:center;gap:.7rem;margin-bottom:.8rem}
+.prog-icon{font-size:1.6rem}
+.prog-title{font-size:1rem;font-weight:700}
+.prog-meta{display:flex;gap:.5rem;flex-wrap:wrap;margin-bottom:.7rem}
+.prog-tag{background:rgba(255,255,255,.07);border-radius:8px;padding:.2rem .6rem;font-size:.75rem;color:var(--text2)}
+.prog-tag.green{background:rgba(39,174,96,.12);color:var(--green)}
+.prog-features{list-style:none}
+.prog-features li{font-size:.8rem;color:var(--text2);padding:.25rem 0;border-bottom:1px solid rgba(255,255,255,.04)}
+.prog-features li::before{content:'✓ ';color:var(--green)}
+.prog-verse{font-size:.75rem;color:rgba(212,175,55,.7);margin-top:.6rem;font-style:italic}
+/* Levels */
+.levels-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.8rem}
+.level{background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.07);border-radius:var(--radius);padding:1rem;text-align:center;transition:.2s}
+.level:hover{border-color:rgba(212,175,55,.2)}
+.level-icon{font-size:2rem;margin-bottom:.4rem}
+.level-name{font-size:.9rem;font-weight:700;margin-bottom:.3rem;color:var(--gold)}
+.level-approach{font-size:.75rem;color:var(--text2)}
+/* Partners */
+.partners-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(180px,1fr));gap:.7rem}
+.partner{background:rgba(39,174,96,.06);border:1px solid rgba(39,174,96,.15);border-radius:var(--radius);padding:.9rem;text-align:center}
+.partner-count{font-size:1.8rem;font-weight:900;color:var(--green)}
+.partner-type{font-weight:700;font-size:.9rem;margin:.2rem 0}
+.partner-ex{font-size:.72rem;color:var(--text2)}
+/* Loading */
+.loading{display:flex;align-items:center;gap:.6rem;padding:1.5rem;color:var(--text2);font-size:.88rem}
+.spi{width:20px;height:20px;border:2px solid rgba(212,175,55,.2);border-top-color:var(--gold);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+footer{text-align:center;padding:2rem;color:var(--text2);font-size:.8rem;border-top:1px solid rgba(255,255,255,.06);margin-top:3rem}
+</style>
+</head>
+<body>
+<header>
+<div class="header-inner">
+    <div class="logo">
+        <div class="logo-icon">📖</div>
+        <div>
+            <h1>التعليم الرقمي الإسلامي</h1>
+            <p>المرحلة ٢٤ — Sheikha Islamic Digital Education</p>
+        </div>
+    </div>
+    <nav>
+        <a href="/">الرئيسية</a>
+        <a href="/سوق-شيخة.html">السوق</a>
+        <a href="/الهوية-السيادية.html">الهوية السيادية</a>
+        <a href="/الحوسبة-السيادية.html">الحوسبة</a>
+        <a href="/التكامل-الشامل.html">التكامل</a>
+    </nav>
+</div>
+</header>
+
+<div class="wrap">
+<div class="verse-banner">﴿اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ﴾ — العلق ١</div>
+<div class="hadith">«طَلَبُ الْعِلْمِ فَرِيضَةٌ عَلَى كُلِّ مُسْلِمٍ» — ابن ماجه</div>
+
+<!-- KPIs -->
+<div class="stats" id="statsRow">
+    <div class="loading"><div class="spi"></div> جاري التحميل...</div>
+</div>
+
+<!-- الأركان الاثني عشر -->
+<div class="sec">
+    <div class="sec-title">🕌 الركائز الاثنتا عشرة للتعليم الإسلامي</div>
+    <div class="pillars-grid" id="pillarsGrid">
+        <div class="loading"><div class="spi"></div></div>
+    </div>
+</div>
+
+<!-- البرامج -->
+<div class="sec">
+    <div class="sec-title">🎓 برامج شيخة التعليمية الستة</div>
+    <div class="prog-grid" id="progsGrid">
+        <div class="loading"><div class="spi"></div></div>
+    </div>
+</div>
+
+<!-- المستويات -->
+<div class="sec">
+    <div class="sec-title">🌱 مستويات التعليم</div>
+    <div class="levels-grid" id="levelsGrid">
+        <div class="loading"><div class="spi"></div></div>
+    </div>
+</div>
+
+<!-- الشراكات -->
+<div class="sec">
+    <div class="sec-title">🤝 شبكة الشراكات التعليمية</div>
+    <div class="partners-grid" id="partnersGrid">
+        <div class="loading"><div class="spi"></div></div>
+    </div>
+</div>
+</div>
+
+<footer>
+    <div style="color:var(--gold);font-weight:700">التعليم الصدقة الجارية — منظومة شيخة</div>
+    <div style="margin-top:.4rem;opacity:.5">﴿يَرْفَعِ اللَّهُ الَّذِينَ آمَنُوا مِنكُمْ وَالَّذِينَ أُوتُوا الْعِلْمَ دَرَجَاتٍ﴾</div>
+</footer>
+
+<script>
+const API = '';
+async function load() {
+    const [ovRes, pillRes, progRes, lvlRes, parRes] = await Promise.all([
+        fetch(API + '/api/education/overview').then(r => r.json()),
+        fetch(API + '/api/education/pillars').then(r => r.json()),
+        fetch(API + '/api/education/programs').then(r => r.json()),
+        fetch(API + '/api/education/levels').then(r => r.json()),
+        fetch(API + '/api/education/partners').then(r => r.json()),
+    ]);
+
+    // Stats
+    if (ovRes.success) {
+        const k = ovRes.data.kpis;
+        document.getElementById('statsRow').innerHTML = [
+            { n: k.total_learners.toLocaleString(), l: 'متعلم مُسجَّل' },
+            { n: k.courses_active, l: 'دورة نشطة' },
+            { n: k.completion_rate + '%', l: 'معدل الإتمام' },
+            { n: k.satisfaction_nps, l: 'NPS الرضا' },
+            { n: k.languages.length, l: 'لغة تدريس' },
+            { n: '100%', l: 'مجاني — وقف رقمي' },
+        ].map(s => `<div class="stat"><div class="stat-n">${s.n}</div><div class="stat-l">${s.l}</div></div>`).join('');
+    }
+
+    // Pillars
+    if (pillRes.success) {
+        document.getElementById('pillarsGrid').innerHTML = pillRes.data.map(p => `
+            <div class="pillar">
+                <div class="pillar-header">
+                    <span class="pillar-icon">${p.icon}</span>
+                    <span class="pillar-name">${p.name}</span>
+                    <span class="pillar-priority">P${p.priority}</span>
+                </div>
+                <div class="pillar-sharia">${p.sharia}</div>
+            </div>`).join('');
+    }
+
+    // Programs
+    if (progRes.success) {
+        document.getElementById('progsGrid').innerHTML = progRes.data.map(p => `
+            <div class="prog">
+                <div class="prog-head">
+                    <span class="prog-icon">${p.icon}</span>
+                    <span class="prog-title">${p.name}</span>
+                </div>
+                <div class="prog-meta">
+                    <span class="prog-tag">⏱ ${p.duration}</span>
+                    ${p.students ? `<span class="prog-tag green">👤 ${p.students.toLocaleString()}</span>` : '<span class="prog-tag green">🕌 وقف رقمي</span>'}
+                </div>
+                <ul class="prog-features">${p.features.map(f => `<li>${f}</li>`).join('')}</ul>
+                <div class="prog-verse">${p.verse}</div>
+            </div>`).join('');
+    }
+
+    // Levels
+    if (lvlRes.success) {
+        document.getElementById('levelsGrid').innerHTML = lvlRes.data.map(l => `
+            <div class="level">
+                <div class="level-icon">${l.icon}</div>
+                <div class="level-name">${l.name}</div>
+                <div class="level-approach">${l.approach}</div>
+            </div>`).join('');
+    }
+
+    // Partners
+    if (parRes.success) {
+        document.getElementById('partnersGrid').innerHTML = parRes.data.map(p => `
+            <div class="partner">
+                <div class="partner-count">${p.count}+</div>
+                <div class="partner-type">${p.type}</div>
+                <div class="partner-ex">${p.example}</div>
+            </div>`).join('');
+    }
+}
+load();
+</script>
+</body>
+</html>
