@@ -1,0 +1,70 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$ROOT_DIR"
+
+echo "[pre-commit] Reliability gate started"
+
+# 1) Block unsafe staged paths that were intentionally excluded from baseline tracking
+blocked_paths='^(data/|repos/|scripts/)'
+staged_files="$(git diff --cached --name-only)"
+if [[ -n "$staged_files" ]] && echo "$staged_files" | grep -Eq "$blocked_paths"; then
+  echo "[pre-commit] Blocked: staged files include local/runtime drift paths (data/, repos/, scripts/)"
+  echo "$staged_files" | grep -E "$blocked_paths" || true
+  echo "[pre-commit] Move artifacts to approved tracked paths or update policy intentionally."
+  exit 1
+fi
+
+# 2) Prevent conflict markers from entering repository
+if [[ -n "$staged_files" ]]; then
+  if git diff --cached --name-only -z | xargs -0 -r rg -n "^(<<<<<<<|=======|>>>>>>>)" >/dev/null; then
+    echo "[pre-commit] Blocked: merge conflict markers detected in staged changes"
+    git diff --cached --name-only -z | xargs -0 -r rg -n "^(<<<<<<<|=======|>>>>>>>)" || true
+    exit 1
+  fi
+fi
+
+# 3) Always validate staged whitespace issues
+git diff --check --cached
+
+# 4) Validate server.js syntax when present
+if [[ -f server.js ]]; then
+  node --check server.js
+fi
+
+# 5) Optional runtime enforcer (fail only on real audit failure)
+node - <<'NODE'
+const fs = require('fs');
+const modulePath = './lib/sheikha-root-neural-runtime-enforcer';
+const exists = fs.existsSync(modulePath) || fs.existsSync(`${modulePath}.js`) || fs.existsSync(`${modulePath}/index.js`);
+
+if (!exists) {
+  console.log('[pre-commit] Optional runtime enforcer not found, skipping.');
+  process.exit(0);
+}
+
+let enforcer;
+try {
+  enforcer = require(modulePath);
+} catch (err) {
+  console.error('[pre-commit] Runtime enforcer load failure:', err.message);
+  process.exit(1);
+}
+
+if (!enforcer || typeof enforcer.audit !== 'function') {
+  console.error('[pre-commit] Runtime enforcer is missing audit().');
+  process.exit(1);
+}
+
+const result = enforcer.audit();
+if (!result || result.success !== true) {
+  console.error('[pre-commit] Runtime enforcer audit failed.');
+  console.error(JSON.stringify(result, null, 2));
+  process.exit(1);
+}
+
+console.log('[pre-commit] Runtime enforcer audit passed.');
+NODE
+
+echo "[pre-commit] Reliability gate passed"
