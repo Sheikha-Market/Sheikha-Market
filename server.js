@@ -9,6 +9,7 @@ const { v4: uuidv4 } = require('uuid');
 const path = require('path');
 const fs = require('fs');
 const crypto = require('crypto');
+const { execSync } = require('child_process');
 const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
 const WebSocket = require('ws');
@@ -30,6 +31,21 @@ const MCP_DENY_BY_DEFAULT = true; // ✅ P0-4: لا أداة إلا بـ allowli
 
 const SHEIKHA_RUNTIME_RING = process.env.SHEIKHA_RUNTIME_RING || 'stable';
 const SHEIKHA_RUNTIME_STRICT_FINGERPRINT = process.env.SHEIKHA_RUNTIME_STRICT_FINGERPRINT === 'true';
+
+function readGitMetadata() {
+    try {
+        const branch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+        const commit = execSync('git rev-parse --short HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
+        return { branch, commit };
+    } catch (_) {
+        return {
+            branch: process.env.GIT_BRANCH || 'stable/runtime-baseline',
+            commit: process.env.GIT_COMMIT || 'unknown'
+        };
+    }
+}
+
+const GIT_METADATA = readGitMetadata();
 
 function calculateSha256(filePath) {
     const content = fs.readFileSync(filePath);
@@ -100,6 +116,17 @@ console.warn = (...args) => {
     }
     __nativeWarn(...args);
 };
+
+let runtimeCore = null;
+try {
+    runtimeCore = require('./lib/runtime');
+    runtimeCore.init().catch((err) => {
+        console.warn('⚠️ [RUNTIME] init failed:', err.message);
+    });
+    console.log('✅ [RUNTIME] core layer active');
+} catch (err) {
+    console.warn('⚠️ [RUNTIME] core layer unavailable:', err.message);
+}
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -10508,8 +10535,8 @@ app.get('/api/version', (req, res) => {
         service: 'sheikha-main-portal',
         node: process.version,
         ring: SHEIKHA_RUNTIME_RING,
-        branch: process.env.GIT_BRANCH || 'stable/runtime-baseline',
-        commit: process.env.GIT_COMMIT || 'unknown',
+        branch: GIT_METADATA.branch,
+        commit: GIT_METADATA.commit,
         timestamp: new Date().toISOString()
     });
 });
@@ -10531,6 +10558,7 @@ app.get('/api/runtime', (req, res) => {
             suppressOptionalWarnings: SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
             strictFingerprint: SHEIKHA_RUNTIME_STRICT_FINGERPRINT
         },
+        core: runtimeCore ? runtimeCore.status() : null,
         fingerprint: RUNTIME_FINGERPRINT_STATUS,
         timestamp: new Date().toISOString()
     });
