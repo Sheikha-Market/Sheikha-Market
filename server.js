@@ -2067,25 +2067,42 @@ const sanitizeInput = (obj) => {
 // 5. Rate Limiters — حماية من الإغراق (DDoS)
 let generalLimiter, authLimiter, aiLimiter;
 if (rateLimit) {
+    const trustedLocalIps = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
+    const trustedLocalPaths = [
+        '/api/health',
+        '/api/sheikha/llm/status',
+        '/api/sheikha/snrn/status',
+        '/api/sheikha/snrn/activate',
+    ];
+
+    const skipTrustedLocalTraffic = (req) => {
+        const ip = req.ip || req.socket?.remoteAddress || '';
+        if (!trustedLocalIps.has(ip)) return false;
+        return trustedLocalPaths.some(pathPrefix => req.path === pathPrefix || req.path.startsWith(`${pathPrefix}/`));
+    };
+
     // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
     generalLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 500,
         message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
         standardHeaders: true,
-        legacyHeaders: false
+        legacyHeaders: false,
+        skip: skipTrustedLocalTraffic,
     });
     // حد صارم لتسجيل الدخول — 5 محاولات كل 15 دقيقة
     authLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 5,
-        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' }
+        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' },
+        skip: skipTrustedLocalTraffic,
     });
     // حد لـ AI — 20 طلب كل 15 دقيقة
     aiLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 20,
-        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' }
+        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' },
+        skip: skipTrustedLocalTraffic,
     });
     console.log('✅ rate-limit مفعّل — حماية من الإغراق');
 }
@@ -20271,6 +20288,64 @@ async function probeJson(url, timeoutMs = 2500) {
     }
 }
 
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 SNRN — Sheikha Neural Root Network (شبكة الخلايا العصبية الجذرية)
+// ═══════════════════════════════════════════════════════════════════════════════
+const snrnState = {
+    enabled: true,
+    mode: 'root-neural-cells',
+    version: '3.0.0',
+    activationLevel: 'quantum-ready',
+    innovationRank: 'frontier',
+    status: 'active',
+    onlineProviders: 0,
+    totalProviders: 0,
+    healthScore: 0,
+    lastUpdatedAt: new Date().toISOString(),
+    topology: {
+        nodes: [],
+        edges: [],
+    },
+};
+
+function updateSnrnState(providers) {
+    const safeProviders = Array.isArray(providers) ? providers : [];
+    const onlineProviders = safeProviders.filter(provider => provider && provider.connected).length;
+    const totalProviders = safeProviders.length;
+    const healthScore = totalProviders > 0 ? Math.round((onlineProviders / totalProviders) * 100) : 0;
+
+    const nodes = safeProviders.map((provider, index) => ({
+        id: provider.id,
+        index,
+        role: provider.id === 'openai-gpt' ? 'root-intelligence' : 'mesh-node',
+        connected: !!provider.connected,
+        latencyClass: provider.connected ? 'low' : 'unknown',
+    }));
+
+    const rootNodeId = safeProviders.find(provider => provider.id === 'openai-gpt' && provider.connected)?.id
+        || safeProviders.find(provider => provider.connected)?.id
+        || null;
+
+    const edges = rootNodeId
+        ? safeProviders
+            .filter(provider => provider.id !== rootNodeId)
+            .map(provider => ({
+                from: rootNodeId,
+                to: provider.id,
+                active: !!provider.connected,
+            }))
+        : [];
+
+    snrnState.onlineProviders = onlineProviders;
+    snrnState.totalProviders = totalProviders;
+    snrnState.healthScore = healthScore;
+    snrnState.status = healthScore >= 80 ? 'hyper-active' : (healthScore >= 40 ? 'active' : 'degraded');
+    snrnState.lastUpdatedAt = new Date().toISOString();
+    snrnState.topology = { nodes, edges };
+
+    return snrnState;
+}
+
 app.get('/api/sheikha/copilot/vscode-bridge', async (req, res) => {
     const bridge = await probeJson('http://127.0.0.1:3091/health');
     const active = bridge.ok;
@@ -20364,6 +20439,7 @@ app.get('/api/sheikha/llm/status', async (req, res) => {
 
     const online = providers.filter(provider => provider.connected).length;
     const offline = providers.length - online;
+    const snrn = updateSnrnState(providers);
 
     res.json({
         success: true,
@@ -20377,8 +20453,53 @@ app.get('/api/sheikha/llm/status', async (req, res) => {
             total: providers.length,
             preferred: providers.find(provider => provider.connected)?.id || 'ollama',
             providers,
+            snrn,
             uptime: Math.floor(process.uptime()),
             timestamp: new Date().toISOString(),
+        },
+    });
+});
+
+app.get('/api/sheikha/snrn/status', (req, res) => {
+    res.json({
+        success: true,
+        message: snrnState.enabled ? 'SNRN مفعّل ويعمل' : 'SNRN غير مفعّل',
+        data: {
+            id: 'SHEIKHA_ROOT_NEURAL_CELL_NETWORK',
+            architecture: 'SNRN — Sheikha Neural Root Network',
+            ...snrnState,
+            uptime: Math.floor(process.uptime()),
+            timestamp: new Date().toISOString(),
+        },
+    });
+});
+
+app.post('/api/sheikha/snrn/activate', async (req, res) => {
+    const [ollama, copilotBridge, vscodeBridge] = await Promise.all([
+        probeJson('http://127.0.0.1:11434/api/tags'),
+        probeJson('http://127.0.0.1:3091/health'),
+        probeJson('http://127.0.0.1:3091/copilot/vscode-bridge'),
+    ]);
+
+    const openaiConnected = !!process.env.OPENAI_API_KEY;
+    const githubConnected = !!(process.env.GITHUB_COPILOT_TOKEN || process.env.GITHUB_TOKEN);
+    const providers = [
+        { id: 'ollama', connected: ollama.ok },
+        { id: 'openai-gpt', connected: openaiConnected },
+        { id: 'github-copilot', connected: githubConnected },
+        { id: 'copilot-bridge', connected: copilotBridge.ok },
+        { id: 'vscode-bridge', connected: copilotBridge.ok || vscodeBridge.ok },
+    ];
+
+    snrnState.enabled = true;
+    updateSnrnState(providers);
+
+    res.json({
+        success: true,
+        message: 'تم تفعيل شبكة الخلايا العصبية الجذرية بنجاح',
+        data: {
+            ...snrnState,
+            activatedAt: new Date().toISOString(),
         },
     });
 });
