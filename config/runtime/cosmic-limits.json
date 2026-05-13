@@ -1,0 +1,24 @@
+{
+  "version": "1.0.0",
+  "principle": "لا ضرر ولا ضرار",
+  "ring": "stable",
+  "limits": {
+    "health_http": 200,
+    "node_lts": "22.22.2",
+    "max_rss_mb": 512,
+    "max_heap_percent": 85,
+    "max_restart_count_per_hour": 3,
+    "max_event_loop_lag_ms": 150,
+    "max_p95_latency_ms": 750,
+    "max_error_rate_percent": 1,
+    "max_log_size_mb": 100,
+    "max_disk_usage_percent": 80,
+    "min_uptime_minutes_before_promotion": 30
+  },
+  "renewal_policy": {
+    "mode": "safe_improvement",
+    "promote_only_if_verified": true,
+    "rollback_on_limit_breach": true,
+    "require_fingerprint_verified": true
+  }
+}

@@ -21,112 +21,18 @@ const WebSocket = require('ws');
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const SHEIKHA_CHARTER_ENFORCED = true; // ✅ الميثاق حاكم
-
-// المرحلة الثالثة: الرقمنة المنضبطة — L0-only startup
-const STARTUP_L0_ONLY = true; // ✅ الهدف: تحميل L0 (21 محرك) فقط عند البداية
-
-// جامع الأمان والأمن: Deny-by-default للأدوات الخطرة
-const MCP_DENY_BY_DEFAULT = true; // ✅ P0-4: لا أداة إلا بـ allowlist
-
-const SHEIKHA_RUNTIME_RING = process.env.SHEIKHA_RUNTIME_RING || 'stable';
-const SHEIKHA_RUNTIME_STRICT_FINGERPRINT = process.env.SHEIKHA_RUNTIME_STRICT_FINGERPRINT === 'true';
-
-function readGitMetadata() {
-    try {
-        const branch = execSync('git rev-parse --abbrev-ref HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
-        const commit = execSync('git rev-parse --short HEAD', { cwd: __dirname, stdio: ['ignore', 'pipe', 'ignore'] }).toString().trim();
-        return { branch, commit };
-    } catch (_) {
-        return {
-            branch: process.env.GIT_BRANCH || 'stable/runtime-baseline',
-            commit: process.env.GIT_COMMIT || 'unknown'
-        };
-    }
-}
-
-const GIT_METADATA = readGitMetadata();
-
-function calculateSha256(filePath) {
-    const content = fs.readFileSync(filePath);
-    return crypto.createHash('sha256').update(content).digest('hex');
-}
-
-function verifyRuntimeFingerprint() {
-    const fpPath = path.join(__dirname, '.runtime-fingerprint');
-    if (!fs.existsSync(fpPath)) {
-        return { enabled: false, status: 'missing-fingerprint-file', mismatches: [] };
-    }
-
-    const lines = fs.readFileSync(fpPath, 'utf8').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).filter((line) => !line.startsWith('#'));
-    const mismatches = [];
-
-    for (const line of lines) {
-        const match = line.match(/^([a-f0-9]{64})\s+\*?(.+)$/i);
-        if (!match) continue;
-
-        const expected = match[1].toLowerCase();
-        const relativePath = match[2];
-        const absolutePath = path.join(__dirname, relativePath);
-
-        if (!fs.existsSync(absolutePath)) {
-            mismatches.push({ file: relativePath, reason: 'missing-file' });
-            continue;
-        }
-
-        const actual = calculateSha256(absolutePath);
-        if (actual !== expected) {
-            mismatches.push({ file: relativePath, reason: 'hash-mismatch', expected, actual });
-        }
-    }
-
-    return {
-        enabled: true,
-        status: mismatches.length === 0 ? 'verified' : 'mismatch',
-        mismatches
-    };
-}
-
-const RUNTIME_FINGERPRINT_STATUS = verifyRuntimeFingerprint();
-if (RUNTIME_FINGERPRINT_STATUS.status === 'mismatch') {
-    console.warn('⚠️ [RUNTIME-FINGERPRINT] Mismatch detected:', JSON.stringify(RUNTIME_FINGERPRINT_STATUS.mismatches));
-    if (SHEIKHA_RUNTIME_STRICT_FINGERPRINT) {
-        console.error('🚫 [RUNTIME-FINGERPRINT] Strict mode enabled. Startup blocked.');
-        process.exit(1);
-    }
-}
-
-// تقليل ضجيج التحذيرات الخاصة بالمحركات الاختيارية فقط (بدون إخفاء التحذيرات الحقيقية)
-const SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = process.env.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS !== 'false';
-const __nativeWarn = console.warn.bind(console);
-const __optionalWarningPatterns = [
-    /\bis not defined\b/i,
-    /Cannot find module/i,
-    /\bis not a constructor\b/i,
-    /Cannot read properties of null/i
-];
-
-console.warn = (...args) => {
-    if (SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS) {
-        const text = args.map(a => (typeof a === 'string' ? a : (a && a.message) ? a.message : String(a))).join(' ');
-        if (__optionalWarningPatterns.some((rx) => rx.test(text))) {
-            console.log('⏸️ [OPTIONAL] ' + text);
-            return;
-        }
-    }
-    __nativeWarn(...args);
-};
-
-let runtimeCore = null;
-try {
-    runtimeCore = require('./lib/runtime');
-    runtimeCore.init().catch((err) => {
-        console.warn('⚠️ [RUNTIME] init failed:', err.message);
-    });
-    console.log('✅ [RUNTIME] core layer active');
-} catch (err) {
-    console.warn('⚠️ [RUNTIME] core layer unavailable:', err.message);
-}
+const runtimeBootstrap = require('./lib/runtime/bootstrap');
+const {
+    SHEIKHA_CHARTER_ENFORCED,
+    STARTUP_L0_ONLY,
+    SHEIKHA_RUNTIME_RING,
+    SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+    GIT_METADATA,
+    RUNTIME_FINGERPRINT_STATUS,
+    runtimeCore,
+    observability
+} = runtimeBootstrap({ rootDir: __dirname });
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -2091,6 +1997,12 @@ function hashPassword(pwd) { return crypto.createHash('sha256').update(PASSWORD_
 function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
+
+if (observability && typeof observability.createLatencyMiddleware === 'function') {
+    app.use(observability.createLatencyMiddleware({
+        slowMs: Number(process.env.SHEIKHA_SLOW_REQUEST_MS || 1000)
+    }));
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
@@ -10470,98 +10382,28 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-// فحص صحة النظام — محسّن (عتبة الذاكرة 95% بدل 90% لتناسب حجم المشروع الكبير)
-// ═══════════════════════════════════════════════════════════════════════════════
-// فحص الذاكرة المُحسّن — Memory Health (حسب تدقيق Claude الأمني)
-// ═══════════════════════════════════════════════════════════════════════════════
-app.get('/api/health', (req, res) => {
-    const mem = process.memoryUsage();
-    const heapUsedMB = Math.round(mem.heapUsed / 1024 / 1024);
-    const heapTotalMB = Math.round(mem.heapTotal / 1024 / 1024);
-    const rssMB = Math.round(mem.rss / 1024 / 1024);
-    const heapPercent = Math.round((mem.heapUsed / mem.heapTotal) * 100);
-
-    // بسم الله — عتبة ذكية: heap صغير (< 100MB) طبيعي عند 90%+ | كبير يُحد بـ 85% | RSS < 512MB
-    const memoryOk = rssMB < 512 && (heapTotalMB < 100 || heapPercent < 85);
-
-    const checks = {
-        server: true,
-        database: fs.existsSync(path.join(__dirname, 'data', 'users.json')),
-        memory: memoryOk
-    };
-
-    // الخادم صحي إذا الخادم والبيانات يعملان — الذاكرة تحذيرية
-    const healthy = checks.server && checks.database;
-    const status = healthy ? (memoryOk ? 'healthy' : 'degraded') : 'unhealthy';
-
-    res.status(healthy ? 200 : 503).json({
-        success: healthy,
-        status,
-        checks,
-        memoryDetails: {
-            heapUsed: heapUsedMB + ' MB',
-            heapTotal: heapTotalMB + ' MB',
-            rss: rssMB + ' MB',
-            heapPercent: heapPercent + '%',
-            threshold: '85% heap / 512MB RSS'
-        },
-        security: {
-            helmet: !!helmet,
-            compression: !!compression,
-            rateLimiting: !!rateLimit,
-            inputSanitization: true,
-            cors: 'restricted'
-        },
-        service: 'sheikha-main-portal',
-        uptime: Math.floor(process.uptime()) + 's',
-        node: process.version,
-        timestamp: new Date().toISOString()
-    });
-});
-
-// فحص جاهزية النظام
-app.get('/api/ready', (req, res) => {
-    res.json({
-        success: true,
-        ready: true,
-        uptime: Date.now() - SERVER_START_TIME,
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/version', (req, res) => {
-    res.json({
-        success: true,
-        service: 'sheikha-main-portal',
-        node: process.version,
-        ring: SHEIKHA_RUNTIME_RING,
-        branch: GIT_METADATA.branch,
-        commit: GIT_METADATA.commit,
-        timestamp: new Date().toISOString()
-    });
-});
-
-app.get('/api/runtime', (req, res) => {
-    const expectedNode = process.env.NODE_VERSION || null;
-    const activeNode = process.version.replace(/^v/, '');
-    const nodeMatches = expectedNode ? activeNode === expectedNode : null;
-
-    res.json({
-        success: true,
-        ring: SHEIKHA_RUNTIME_RING,
-        runtime: {
-            node: process.version,
-            expectedNode,
-            nodeMatches,
-            pm2Runtime: process.env.PM2_RUNTIME || null,
-            port: Number(process.env.PORT || 8080),
-            suppressOptionalWarnings: SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-            strictFingerprint: SHEIKHA_RUNTIME_STRICT_FINGERPRINT
-        },
-        core: runtimeCore ? runtimeCore.status() : null,
-        fingerprint: RUNTIME_FINGERPRINT_STATUS,
-        timestamp: new Date().toISOString()
-    });
+const { registerRuntimeContracts } = require('./lib/runtime/contracts');
+registerRuntimeContracts(app, {
+    fs,
+    path,
+    processVersion: process.version,
+    runtimeCore,
+    observability,
+    ring: SHEIKHA_RUNTIME_RING,
+    gitMetadata: GIT_METADATA,
+    fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+    env: {
+        helmet,
+        compression,
+        rateLimit,
+        PORT,
+        NODE_VERSION: process.env.NODE_VERSION,
+        PM2_RUNTIME: process.env.PM2_RUNTIME,
+        SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+        SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+        serverStartTime: SERVER_START_TIME
+    },
+    port: PORT
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════

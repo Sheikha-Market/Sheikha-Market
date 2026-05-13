@@ -4,7 +4,7 @@ set -euo pipefail
 ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
 cd "$ROOT_DIR"
 
-files=("server.js" "ecosystem.config.js" ".env.runtime.example")
+files=("server.js" "ecosystem.config.js" ".env.runtime.example" "lib/runtime/index.js" "lib/runtime/bootstrap.js" "lib/runtime/contracts.js")
 {
   echo "# sha256 fingerprint for baseline runtime files"
   for f in "${files[@]}"; do
