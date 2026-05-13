@@ -2124,7 +2124,7 @@ if (rateLimit) {
 
 // === تطبيق الـ middleware بالترتيب الصحيح ===
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
 
 // تنظيف المدخلات
 app.use((req, res, next) => {
@@ -2238,8 +2238,7 @@ if (pilotEngine) {
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
 
-app.use(cors());
-app.use(express.json({ limit: '10mb' }));
+// JSON/CORS تم تفعيله مسبقًا ضمن إعدادات الأمان أعلاه.
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Cache Control for HTML pages
