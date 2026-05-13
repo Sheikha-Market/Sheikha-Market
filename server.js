@@ -97,6 +97,8 @@ function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
 
+const safeLoadEngine = require('./lib/runtime/core/engine-loader');
+
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
 // 🤖 محرك ذكاء شيخة المتقدم
@@ -177,9 +179,15 @@ console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب
 // ✅ L0 CRITICAL — يُحمّل فوراً
 let pilotEngine = null;
 try {
-    const SheikaPilotEngine = require('./lib/sheikha-pilot-engine.js');
-    pilotEngine = new SheikaPilotEngine(__dirname);
-    console.log(`✅ Pilot Engine — وضع التشغيل: ${pilotEngine.mode}`);
+    const pilotEngineLoad = safeLoadEngine('./lib/sheikha-pilot-engine.js');
+    pilotEngine = pilotEngineLoad.ok
+        ? new pilotEngineLoad.engine(__dirname)
+        : null;
+    if (pilotEngine) {
+        console.log(`✅ Pilot Engine — وضع التشغيل: ${pilotEngine.mode}`);
+    } else {
+        console.log('⚠️ Pilot Engine غير متوفر: missing');
+    }
 } catch (e) {
     console.log('⚠️ Pilot Engine غير متوفر:', e.message);
 }
@@ -724,10 +732,16 @@ try {
 // ☪️ محرك سوق المدينة المنورة — Souq Al-Madinah Engine
 let souqMadinahEngine = null;
 try {
-    const SheikhaSouqMadinahEngine = require('./lib/sheikha-souq-madinah-engine.js');
-    souqMadinahEngine = new SheikhaSouqMadinahEngine();
-    const sm = souqMadinahEngine.getDashboard();
-    console.log(`✅ محرك سوق المدينة — ${sm.summary.pillars} ركن | ${sm.summary.tradeLaws} حكم بيوع | ${sm.summary.designSpecs} مواصفة | ${sm.summary.totalRules} قاعدة`);
+    const souqEngineLoad = safeLoadEngine('./lib/sheikha-souq-madinah-engine.js');
+    souqMadinahEngine = souqEngineLoad.ok
+        ? new souqEngineLoad.engine()
+        : null;
+    if (souqMadinahEngine) {
+        const sm = souqMadinahEngine.getDashboard();
+        console.log(`✅ محرك سوق المدينة — ${sm.summary.pillars} ركن | ${sm.summary.tradeLaws} حكم بيوع | ${sm.summary.designSpecs} مواصفة | ${sm.summary.totalRules} قاعدة`);
+    } else {
+        console.log('⚠️ Souq Madinah Engine غير متوفر: missing');
+    }
 } catch (e) {
     console.log('⚠️ Souq Madinah Engine غير متوفر:', e.message);
 }
@@ -1997,6 +2011,18 @@ function hashPassword(pwd) { return crypto.createHash('sha256').update(PASSWORD_
 function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
+
+const ObservabilityService = require('./lib/runtime/services/observability-service');
+const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
+const runtimeObservability = new ObservabilityService();
+
+app.use(
+    '/api',
+    createRuntimeRouter(
+        runtimeCore,
+        runtimeObservability
+    )
+);
 
 if (observability && typeof observability.createLatencyMiddleware === 'function') {
     app.use(observability.createLatencyMiddleware({

@@ -23,3 +23,15 @@ repos/
 # Local runtime helper scripts (not part of production source baseline)
 scripts/
 sync-neural-cells.sh
+
+# Editor/runtime local artifacts
+.checkpoints/
+.cursor/
+.codex/
+.vercel/
+runtime/
+reports/
+docs/reports/
+*.backup
+*.save
+*.temp
