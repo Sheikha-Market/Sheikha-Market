@@ -2014,12 +2014,30 @@ const app = express();
 
 const ObservabilityService = require('./lib/runtime/services/observability-service');
 const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
+const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
 const runtimeObservability = new ObservabilityService();
+const metalsMarket = new MetalsMarketEngine();
+const runtimeCoreProfile = {
+    ...runtimeCore,
+    organization: 'SHEIKHA',
+    runtime: 'stable',
+    architecture: 'modular-runtime',
+    markets: [
+        'metals',
+        'scrap',
+        'gold',
+        'silver',
+        'financial',
+        'real-estate',
+        'ai',
+        'supply-chain'
+    ]
+};
 
 app.use(
     '/api',
     createRuntimeRouter(
-        runtimeCore,
+        runtimeCoreProfile,
         runtimeObservability
     )
 );
@@ -18384,6 +18402,17 @@ app.get('/api/scrap/quality-standards', (req, res) => {
 });
 
 // ─── APIs: منظومة الأسواق ─────────────────────────────────────
+app.get('/api/markets/status', (req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Markets Organization',
+        markets: {
+            metals: metalsMarket.getStatus()
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.get('/api/markets/exchanges', (req, res) => {
     if (!metalsScrapMarketsEngine) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
     res.json({ success: true, البورصات: metalsScrapMarketsEngine.markets.globalExchanges });
