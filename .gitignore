@@ -12,4 +12,11 @@ logs/
 tmp/
 */.backup*
 */.temp
-data/backups/
+data/
+!data/.gitkeep
+
+# Local nested repositories/worktrees
+repos/
+
+# Local runtime helper scripts (not part of production source baseline)
+scripts/
