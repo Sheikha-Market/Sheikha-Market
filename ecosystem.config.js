@@ -3,6 +3,7 @@ module.exports = {
     {
       name: "sheikha-main-portal",
       script: "server.js",
+      cwd: "/home/sheikha/Projects/sheikha/sheikha-main-portal",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,

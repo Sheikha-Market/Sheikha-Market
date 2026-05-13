@@ -1010,7 +1010,7 @@ function julianToHijri(jd) {
     const month = Math.floor((24 * l3) / 709);
     const day = l3 - Math.floor((709 * month) / 24);
     const year = 30 * n + j - 30;
-    
+
     return { year, month, day };
 }
 
@@ -1035,7 +1035,7 @@ function julianToGregorian(jd) {
     const day = b - d - Math.floor(30.6001 * e);
     const month = e < 14 ? e - 1 : e - 13;
     const year = month > 2 ? c - 4716 : c - 4715;
-    
+
     return { year, month, day };
 }
 
@@ -1044,7 +1044,7 @@ function getCurrentHijriDate() {
     const now = new Date();
     const hijri = gregorianToHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
     const dayOfWeek = now.getDay();
-    
+
     return {
         year: hijri.year,
         month: hijri.month,
@@ -1069,7 +1069,7 @@ function getCurrentHijriDate() {
 // تنسيق التاريخ الهجري
 function formatHijriDate(hijriYear, hijriMonth, hijriDay, format = 'full') {
     const monthInfo = HIJRI_MONTHS[hijriMonth - 1];
-    
+
     switch (format) {
         case 'full':
             return `${hijriDay} ${monthInfo.name} ${hijriYear} هـ`;
@@ -1090,28 +1090,28 @@ function formatHijriDate(hijriYear, hijriMonth, hijriDay, format = 'full') {
 // التحقق من الأيام المباركة والمناسبات الإسلامية
 function getIslamicOccasions(hijriMonth, hijriDay) {
     const occasions = [];
-    
+
     // محرم
     if (hijriMonth === 1) {
         if (hijriDay === 1) occasions.push({ name: 'رأس السنة الهجرية', type: 'new_year' });
         if (hijriDay === 10) occasions.push({ name: 'يوم عاشوراء', type: 'blessed', fasting: true });
     }
-    
+
     // ربيع الأول
     if (hijriMonth === 3 && hijriDay === 12) {
         occasions.push({ name: 'المولد النبوي الشريف', type: 'blessed' });
     }
-    
+
     // رجب
     if (hijriMonth === 7 && hijriDay === 27) {
         occasions.push({ name: 'ليلة الإسراء والمعراج', type: 'blessed' });
     }
-    
+
     // شعبان
     if (hijriMonth === 8 && hijriDay === 15) {
         occasions.push({ name: 'ليلة النصف من شعبان', type: 'blessed' });
     }
-    
+
     // رمضان
     if (hijriMonth === 9) {
         occasions.push({ name: 'شهر رمضان المبارك', type: 'ramadan', fasting: true });
@@ -1119,12 +1119,12 @@ function getIslamicOccasions(hijriMonth, hijriDay) {
             occasions.push({ name: 'ليالي القدر المحتملة', type: 'laylat_qadr' });
         }
     }
-    
+
     // شوال
     if (hijriMonth === 10 && hijriDay === 1) {
         occasions.push({ name: 'عيد الفطر المبارك', type: 'eid', holiday: true });
     }
-    
+
     // ذو الحجة
     if (hijriMonth === 12) {
         if (hijriDay >= 1 && hijriDay <= 9) occasions.push({ name: 'أيام العشر المباركة', type: 'blessed' });
@@ -1132,7 +1132,7 @@ function getIslamicOccasions(hijriMonth, hijriDay) {
         if (hijriDay === 10) occasions.push({ name: 'عيد الأضحى المبارك', type: 'eid', holiday: true });
         if (hijriDay >= 11 && hijriDay <= 13) occasions.push({ name: 'أيام التشريق', type: 'tashreeq' });
     }
-    
+
     return occasions;
 }
 
@@ -1157,7 +1157,7 @@ const ISLAMIC_PRINCIPLES = {
             { text: 'إياكم ومحدثات الأمور فإن كل محدثة بدعة وكل بدعة ضلالة', narrator: 'أبو داود', grade: 'صحيح' }
         ]
     },
-    
+
     // المحرمات في المعاملات
     prohibited: {
         riba: {
@@ -1197,7 +1197,7 @@ const ISLAMIC_PRINCIPLES = {
             evidence: 'حيلة ربوية محرمة'
         }
     },
-    
+
     // شروط البيع الصحيح
     validSaleConditions: [
         { condition: 'رضا المتعاقدين', description: 'التراضي بين البائع والمشتري' },
@@ -1207,7 +1207,7 @@ const ISLAMIC_PRINCIPLES = {
         { condition: 'القدرة على التسليم', description: 'إمكان تسليم المبيع' },
         { condition: 'خلو العقد من الشروط الفاسدة', description: 'عدم وجود شروط تخالف الشرع' }
     ],
-    
+
     // آداب التجارة
     etiquette: [
         { adab: 'الصدق والأمانة', description: 'قول الحق في وصف السلعة' },
@@ -1223,7 +1223,7 @@ const ISLAMIC_PRINCIPLES = {
 function validateIslamicTransaction(transaction) {
     const violations = [];
     const warnings = [];
-    
+
     // التحقق من الربا
     if (transaction.interest && transaction.interest > 0) {
         violations.push({
@@ -1232,7 +1232,7 @@ function validateIslamicTransaction(transaction) {
             evidence: ISLAMIC_PRINCIPLES.prohibited.riba.evidence
         });
     }
-    
+
     // التحقق من الغرر
     if (!transaction.productDescription || transaction.productDescription.length < 10) {
         warnings.push({
@@ -1241,7 +1241,7 @@ function validateIslamicTransaction(transaction) {
             evidence: ISLAMIC_PRINCIPLES.prohibited.gharar.evidence
         });
     }
-    
+
     // التحقق من معلومية الثمن
     if (!transaction.price || transaction.price <= 0) {
         violations.push({
@@ -1250,7 +1250,7 @@ function validateIslamicTransaction(transaction) {
             evidence: 'من شروط البيع الصحيح معلومية الثمن'
         });
     }
-    
+
     // التحقق من ملكية السلعة
     if (transaction.sellerOwnership === false) {
         violations.push({
@@ -1259,7 +1259,7 @@ function validateIslamicTransaction(transaction) {
             evidence: 'نهى النبي ﷺ عن بيع ما لا يملك'
         });
     }
-    
+
     return {
         isValid: violations.length === 0,
         violations,
@@ -1291,7 +1291,7 @@ const PRAYER_TIMES_SETTINGS = {
 function getApproximatePrayerTimes() {
     const now = new Date();
     const month = now.getMonth() + 1;
-    
+
     // أوقات تقريبية للخبر (تختلف حسب الموسم)
     const times = {
         fajr: month >= 4 && month <= 9 ? '03:45' : '05:00',
@@ -1301,7 +1301,7 @@ function getApproximatePrayerTimes() {
         maghrib: month >= 4 && month <= 9 ? '18:30' : '17:30',
         isha: month >= 4 && month <= 9 ? '20:00' : '19:00'
     };
-    
+
     return {
         ...times,
         date: getCurrentHijriDate(),
@@ -1313,17 +1313,17 @@ function getApproximatePrayerTimes() {
 function isJumuahTime() {
     const now = new Date();
     if (now.getDay() !== 5) return false; // ليس يوم الجمعة
-    
+
     const hours = now.getHours();
     const minutes = now.getMinutes();
     const currentTime = hours * 60 + minutes;
-    
+
     const [startH, startM] = PRAYER_TIMES_SETTINGS.jumuahPauseStart.split(':').map(Number);
     const [endH, endM] = PRAYER_TIMES_SETTINGS.jumuahPauseEnd.split(':').map(Number);
-    
+
     const startTime = startH * 60 + startM;
     const endTime = endH * 60 + endM;
-    
+
     return currentTime >= startTime && currentTime <= endTime;
 }
 
@@ -1346,7 +1346,7 @@ const ZAKAT_CONFIG = {
 
 function calculateZakat(amount, goldPricePerGram = 250) {
     const nisabValue = ZAKAT_CONFIG.nisab.gold.grams * goldPricePerGram;
-    
+
     if (amount < nisabValue) {
         return {
             required: false,
@@ -1355,9 +1355,9 @@ function calculateZakat(amount, goldPricePerGram = 250) {
             amount
         };
     }
-    
+
     const zakatAmount = amount * ZAKAT_CONFIG.rate;
-    
+
     return {
         required: true,
         amount,
@@ -1582,7 +1582,7 @@ const TRANSLATIONS = {
         vi: 'Không hại', it: 'Senza danno', nl: 'Geen schade', pl: 'Bez szkody'
     },
     'شريكك الموثوق في عالم المعادن': {
-        en: 'Your trusted partner in the world of metals', 
+        en: 'Your trusted partner in the world of metals',
         fr: 'Votre partenaire de confiance dans le monde des métaux',
         tr: 'Metal dünyasında güvenilir ortağınız',
         ur: 'دھاتوں کی دنیا میں آپ کا قابل اعتماد ساتھی',
@@ -1848,37 +1848,37 @@ const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 ساعة
 function translate(text, targetLang, sourceLang = 'ar') {
     if (!text || targetLang === sourceLang) return text;
     if (targetLang === 'ar') return text; // العربية هي اللغة الأصلية
-    
+
     // البحث في القاموس أولاً
     if (TRANSLATIONS[text] && TRANSLATIONS[text][targetLang]) {
         return TRANSLATIONS[text][targetLang];
     }
-    
+
     // البحث في الذاكرة المؤقتة
     const cacheKey = `${text}:${sourceLang}:${targetLang}`;
     const cached = TRANSLATION_CACHE.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
         return cached.translation;
     }
-    
+
     return text; // إرجاع النص الأصلي إذا لم توجد ترجمة
 }
 
 // دالة الترجمة الآلية (للمحتوى الديناميكي)
 async function autoTranslate(text, targetLang, sourceLang = 'ar') {
     if (!text || targetLang === sourceLang || targetLang === 'ar') return text;
-    
+
     // البحث في القاموس
     const directTranslation = translate(text, targetLang, sourceLang);
     if (directTranslation !== text) return directTranslation;
-    
+
     // البحث في الذاكرة المؤقتة
     const cacheKey = `auto:${text}:${sourceLang}:${targetLang}`;
     const cached = TRANSLATION_CACHE.get(cacheKey);
     if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
         return cached.translation;
     }
-    
+
     // محاولة الترجمة عبر API خارجي (محاكاة)
     // في الإنتاج سيتم استخدام Google Translate API أو DeepL
     try {
@@ -1889,13 +1889,13 @@ async function autoTranslate(text, targetLang, sourceLang = 'ar') {
                 translatedText = translatedText.replace(new RegExp(arWord, 'g'), translations[targetLang]);
             }
         }
-        
+
         // حفظ في الذاكرة المؤقتة
         TRANSLATION_CACHE.set(cacheKey, {
             translation: translatedText,
             timestamp: Date.now()
         });
-        
+
         return translatedText;
     } catch (error) {
         console.error('Translation error:', error);
@@ -1906,9 +1906,9 @@ async function autoTranslate(text, targetLang, sourceLang = 'ar') {
 // ترجمة كائن كامل
 async function translateObject(obj, targetLang, fieldsToTranslate = []) {
     if (!obj || typeof obj !== 'object' || targetLang === 'ar') return obj;
-    
+
     const translated = Array.isArray(obj) ? [] : {};
-    
+
     for (const [key, value] of Object.entries(obj)) {
         if (typeof value === 'string') {
             if (fieldsToTranslate.length === 0 || fieldsToTranslate.includes(key)) {
@@ -1922,7 +1922,7 @@ async function translateObject(obj, targetLang, fieldsToTranslate = []) {
             translated[key] = value;
         }
     }
-    
+
     return translated;
 }
 
@@ -2067,50 +2067,32 @@ const sanitizeInput = (obj) => {
 // 5. Rate Limiters — حماية من الإغراق (DDoS)
 let generalLimiter, authLimiter, aiLimiter;
 if (rateLimit) {
-    const trustedLocalIps = new Set(['127.0.0.1', '::1', '::ffff:127.0.0.1']);
-    const trustedLocalPaths = [
-        '/api/health',
-        '/api/sheikha/llm/status',
-        '/api/sheikha/snrn/status',
-        '/api/sheikha/snrn/activate',
-    ];
-
-    const skipTrustedLocalTraffic = (req) => {
-        const ip = req.ip || req.socket?.remoteAddress || '';
-        if (!trustedLocalIps.has(ip)) return false;
-        return trustedLocalPaths.some(pathPrefix => req.path === pathPrefix || req.path.startsWith(`${pathPrefix}/`));
-    };
-
     // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
     generalLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 500,
         message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
         standardHeaders: true,
-        legacyHeaders: false,
-        skip: skipTrustedLocalTraffic,
+        legacyHeaders: false
     });
     // حد صارم لتسجيل الدخول — 5 محاولات كل 15 دقيقة
     authLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 5,
-        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' },
-        skip: skipTrustedLocalTraffic,
+        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' }
     });
     // حد لـ AI — 20 طلب كل 15 دقيقة
     aiLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 20,
-        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' },
-        skip: skipTrustedLocalTraffic,
+        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' }
     });
     console.log('✅ rate-limit مفعّل — حماية من الإغراق');
 }
 
 // === تطبيق الـ middleware بالترتيب الصحيح ===
 app.use(cors(corsOptions));
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+app.use(express.json());
 
 // تنظيف المدخلات
 app.use((req, res, next) => {
@@ -2224,6 +2206,10 @@ if (pilotEngine) {
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
 
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
 // Cache Control for HTML pages
 app.use((req, res, next) => {
     if (req.path.endsWith('.html') || req.path === '/' || req.path === '') {
@@ -2318,7 +2304,7 @@ app.post('/api/government/register', express.json(), (req, res) => {
     try {
         const data = req.body;
         const refCode = 'GOV-2026-' + Math.random().toString(36).substring(2, 7).toUpperCase();
-        
+
         const entry = {
             refCode,
             type: data.type,
@@ -2598,7 +2584,7 @@ const BUSINESS_PLAN = {
         founded: 2024,
         headquarters: 'الخبر، المنطقة الشرقية، المملكة العربية السعودية'
     },
-    
+
     services: {
         trading: {
             name: 'تداول المعادن والسكراب',
@@ -2626,13 +2612,13 @@ const BUSINESS_PLAN = {
             features: ['تحليل كيميائي', 'فحص الجودة', 'شهادات المطابقة', 'تقارير فنية']
         }
     },
-    
+
     targetMarkets: {
         primary: ['المملكة العربية السعودية', 'الإمارات', 'الكويت', 'قطر', 'البحرين', 'عمان'],
         secondary: ['مصر', 'الأردن', 'العراق', 'تركيا', 'الهند', 'الصين'],
         sectors: ['المصانع', 'شركات البناء', 'تجار المعادن', 'معيدو التدوير', 'المصدرون والمستوردون']
     },
-    
+
     revenueModel: {
         commission: { name: 'عمولة الصفقات', rate: '1-3%', description: 'عمولة على كل صفقة ناجحة' },
         subscription: { name: 'الاشتراكات', packages: ['مجاني', 'أساسي - 500 ريال/شهر', 'احترافي - 2000 ريال/شهر', 'مؤسسي - حسب الطلب'] },
@@ -2640,7 +2626,7 @@ const BUSINESS_PLAN = {
         consulting: { name: 'الاستشارات', rate: '500-5000 ريال/جلسة' },
         laboratory: { name: 'خدمات المختبر', rate: 'حسب نوع التحليل' }
     },
-    
+
     milestones: [
         { phase: 1, name: 'الإطلاق', duration: 'الشهر 1-3', goals: ['إطلاق المنصة', '100 شركة مسجلة', '50 عرض نشط'] },
         { phase: 2, name: 'النمو', duration: 'الشهر 4-6', goals: ['500 شركة', '200 صفقة شهرية', 'التوسع للخليج'] },
@@ -2725,7 +2711,7 @@ const METALLURGY_SCIENCES = {
             uses: ['إلكترونيات', 'مغناطيسات', 'ليزر', 'طاقة متجددة']
         }
     },
-    
+
     // عمليات التعدين والاستخراج
     extraction: {
         mining: {
@@ -2745,7 +2731,7 @@ const METALLURGY_SCIENCES = {
             electrometallurgy: { name: 'معالجة كهربائية', processes: ['تحليل كهربائي', 'تكرير كهربائي'] }
         }
     },
-    
+
     // اختبارات الجودة
     testing: {
         chemical: {
@@ -2807,7 +2793,7 @@ const SCRAP_SCIENCES = {
             }
         }
     },
-    
+
     // عمليات المعالجة
     processing: {
         collection: {
@@ -2836,7 +2822,7 @@ const SCRAP_SCIENCES = {
             reverberatory: { name: 'فرن عاكس', capacity: '50-500t', for: 'نحاس/رصاص' }
         }
     },
-    
+
     // الجودة والمعايير
     quality: {
         contamination: {
@@ -2880,7 +2866,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
             nonRecyclable: ['بلاستيك مخلوط', 'مواد ملوثة', 'حفاضات']
         }
     },
-    
+
     // التسلسل الهرمي للنفايات (من الأفضل للأسوأ)
     hierarchy: {
         prevention: { priority: 1, name: 'منع', description: 'تقليل إنتاج النفايات من المصدر' },
@@ -2890,7 +2876,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
         recovery: { priority: 5, name: 'استرداد', description: 'استخلاص طاقة أو مواد' },
         disposal: { priority: 6, name: 'تخلص', description: 'الدفن أو الحرق كملاذ أخير' }
     },
-    
+
     // عمليات المعالجة
     treatment: {
         mechanical: {
@@ -2919,7 +2905,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
             engineered: { name: 'مدفن هندسي', compaction: 'عالية', cover: 'يومي' }
         }
     },
-    
+
     // إعادة التدوير
     recycling: {
         metals: {
@@ -2938,7 +2924,7 @@ const WASTE_MANAGEMENT_SCIENCES = {
         paper: { rate: '65-80%', cycles: '5-7 مرات', products: ['كرتون', 'ورق تغليف'] },
         glass: { rate: '90%+', cycles: 'لانهائي', energy_saving: '30%' }
     },
-    
+
     // الاقتصاد الدائري
     circularEconomy: {
         principles: ['تصميم للتدوير', 'إطالة العمر', 'استرداد المواد', 'تجديد الأنظمة'],
@@ -3023,15 +3009,15 @@ function calculateFairPrice(baseCost, category, metal = null) {
     const SDV = metal ? (SHEIKHA_DYNAMIC_VARIABLES.SDV[metal] || 1.00) : 1.00;
     const GPV = SHEIKHA_DYNAMIC_VARIABLES.GPV.lmeImpact;
     const SV = SHEIKHA_DYNAMIC_VARIABLES.SV;
-    
+
     let fairPrice = baseCost * (1 + FPM) * SDV * GPV * SV;
-    
+
     // التحقق من حدود العدالة
     const minPrice = baseCost * SHEIKHA_PRICING_CONSTANTS.PPF; // حماية المنتج
     const maxPrice = baseCost * (1 + FPM) * SHEIKHA_PRICING_CONSTANTS.CPF; // حماية المستهلك
-    
+
     fairPrice = Math.max(minPrice, Math.min(maxPrice, fairPrice));
-    
+
     return Math.round(fairPrice * 100) / 100;
 }
 
@@ -3260,7 +3246,7 @@ const LIVE_PRICES = {
 function calculateSMI() {
     let indexValue = 0;
     const components = SHEIKHA_METALS_INDEX.components;
-    
+
     // تحديث أسعار المكونات من الأسعار الحية
     components.iron.price = LIVE_PRICES.saudi.steelRebar.price;
     components.aluminum.price = LIVE_PRICES.saudi.aluminum.price;
@@ -3268,26 +3254,26 @@ function calculateSMI() {
     components.gold.price = SHEIKHA_FAIR_PRICES.preciousMetals.gold24K.fairPrice;
     components.stainless.price = SHEIKHA_FAIR_PRICES.baseMetals.stainless304.fairPrice;
     components.silver.price = SHEIKHA_FAIR_PRICES.preciousMetals.silver999.fairPrice;
-    
+
     // حساب المؤشر المرجح
     Object.keys(components).forEach(key => {
         const comp = components[key];
         const normalizedPrice = comp.price / (key === 'gold' || key === 'silver' ? 1 : 1000);
         indexValue += normalizedPrice * comp.weight * 10;
     });
-    
+
     const previousValue = SHEIKHA_METALS_INDEX.value;
     SHEIKHA_METALS_INDEX.value = Math.round(indexValue * 100) / 100;
     SHEIKHA_METALS_INDEX.change = Math.round((SHEIKHA_METALS_INDEX.value - previousValue) * 100) / 100;
     SHEIKHA_METALS_INDEX.changePercent = previousValue > 0 ? Math.round((SHEIKHA_METALS_INDEX.change / previousValue) * 10000) / 100 : 0;
     SHEIKHA_METALS_INDEX.lastUpdated = new Date().toISOString();
-    
+
     LIVE_PRICES.index.smi = {
         value: SHEIKHA_METALS_INDEX.value,
         change: SHEIKHA_METALS_INDEX.change,
         changePercent: SHEIKHA_METALS_INDEX.changePercent
     };
-    
+
     return SHEIKHA_METALS_INDEX;
 }
 
@@ -3305,7 +3291,7 @@ cron.schedule('*/30 * * * * *', () => {
             LIVE_PRICES.metals[metal].sarPrice = Math.round(LIVE_PRICES.metals[metal].price * 3.75);
         }
     });
-    
+
     // تحديث تغيرات السكراب
     Object.keys(LIVE_PRICES.scrap).forEach(scrap => {
         const change = Math.round((Math.random() - 0.5) * 4 * 10) / 10;
@@ -3316,7 +3302,7 @@ cron.schedule('*/30 * * * * *', () => {
             LIVE_PRICES.scrap[scrap].sarPrice = Math.round(LIVE_PRICES.scrap[scrap].price * 3.75);
         }
     });
-    
+
     // تحديث الأسعار السعودية
     Object.keys(LIVE_PRICES.saudi).forEach(item => {
         const change = Math.round((Math.random() - 0.5) * 2 * 10) / 10;
@@ -3324,10 +3310,10 @@ cron.schedule('*/30 * * * * *', () => {
         const priceChange = LIVE_PRICES.saudi[item].price * (change / 100);
         LIVE_PRICES.saudi[item].price = Math.round(LIVE_PRICES.saudi[item].price + priceChange);
     });
-    
+
     // حساب مؤشر شيخة
     calculateSMI();
-    
+
     broadcastPrices();
 });
 
@@ -3424,7 +3410,7 @@ app.get('/api/pricing/variables', (req, res) => {
 // حساب السعر العادل
 app.get('/api/pricing/calculate', (req, res) => {
     const { cost, category, metal } = req.query;
-    
+
     if (!cost || !category) {
         return res.status(400).json({
             success: false,
@@ -3432,11 +3418,11 @@ app.get('/api/pricing/calculate', (req, res) => {
             example: '/api/pricing/calculate?cost=2000&category=baseMetals&metal=iron'
         });
     }
-    
+
     const baseCost = parseFloat(cost);
     const fairPrice = calculateFairPrice(baseCost, category, metal);
     const FPM = SHEIKHA_PRICING_CONSTANTS.FPM[category] || 0.10;
-    
+
     res.json({
         success: true,
         calculation: {
@@ -3458,16 +3444,16 @@ app.get('/api/pricing/calculate', (req, res) => {
 app.get('/api/prices/sheikha', (req, res) => {
     const currency = (req.query.currency || 'SAR').toUpperCase();
     const rate = CURRENCY_RATES[currency] ? CURRENCY_RATES[currency].rate : 1;
-    
+
     // تحويل الأسعار للعملة المطلوبة
     const convertPrice = (price) => Math.round((price / rate) * 100) / 100;
-    
+
     const convertedPrices = {
         baseMetals: {},
         preciousMetals: {},
         scrap: {}
     };
-    
+
     Object.keys(SHEIKHA_FAIR_PRICES.baseMetals).forEach(key => {
         const item = SHEIKHA_FAIR_PRICES.baseMetals[key];
         convertedPrices.baseMetals[key] = {
@@ -3477,7 +3463,7 @@ app.get('/api/prices/sheikha', (req, res) => {
             currency: currency
         };
     });
-    
+
     Object.keys(SHEIKHA_FAIR_PRICES.preciousMetals).forEach(key => {
         const item = SHEIKHA_FAIR_PRICES.preciousMetals[key];
         convertedPrices.preciousMetals[key] = {
@@ -3487,7 +3473,7 @@ app.get('/api/prices/sheikha', (req, res) => {
             currency: currency
         };
     });
-    
+
     Object.keys(SHEIKHA_FAIR_PRICES.scrap).forEach(key => {
         const item = SHEIKHA_FAIR_PRICES.scrap[key];
         convertedPrices.scrap[key] = {
@@ -3497,7 +3483,7 @@ app.get('/api/prices/sheikha', (req, res) => {
             currency: currency
         };
     });
-    
+
     res.json({
         success: true,
         prices: convertedPrices,
@@ -3513,13 +3499,13 @@ app.get('/api/prices/sheikha', (req, res) => {
 // الطاقة الإنتاجية
 app.get('/api/capacity/production', (req, res) => {
     const region = (req.query.region || 'all').toLowerCase();
-    
+
     let data = {};
     if (region === 'global' || region === 'all') data.global = PRODUCTION_CAPACITY.global;
     if (region === 'saudi' || region === 'all') data.saudi = PRODUCTION_CAPACITY.saudi;
     if (region === 'gulf' || region === 'all') data.gulf = PRODUCTION_CAPACITY.gulf;
     if (region === 'islamic' || region === 'all') data.islamic = PRODUCTION_CAPACITY.islamic;
-    
+
     res.json({
         success: true,
         capacity: data,
@@ -3546,10 +3532,10 @@ app.get('/api/logistics/calculate', (req, res) => {
     const origin = (req.query.origin || 'saudi').toLowerCase();
     const destination = (req.query.destination || 'india').toLowerCase();
     const transportType = (req.query.type || 'sea').toLowerCase();
-    
+
     let totalCost = 0;
     let breakdown = [];
-    
+
     // تكلفة التحميل
     breakdown.push({
         stage: 'التحميل بالمصنع',
@@ -3557,7 +3543,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.loading.fairPrice * weight;
-    
+
     // النقل للميناء (افتراض 200 كم)
     const landCost = 200 * weight * LOGISTICS_PRICES.land.mediumRange.pricePerTonKm * (1 + LOGISTICS_PRICES.land.mediumRange.profitMargin);
     breakdown.push({
@@ -3566,7 +3552,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += landCost;
-    
+
     // رسوم الميناء
     breakdown.push({
         stage: 'رسوم الميناء',
@@ -3574,7 +3560,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.portFees.fairPrice * weight;
-    
+
     // التخليص الجمركي
     breakdown.push({
         stage: 'التخليص الجمركي',
@@ -3582,7 +3568,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.customsClearance.fairPrice * weight;
-    
+
     // الشحن البحري
     let seaCost = 0;
     if (destination === 'india') seaCost = LOGISTICS_PRICES.sea.gulfIndia.fairPrice * weight;
@@ -3590,14 +3576,14 @@ app.get('/api/logistics/calculate', (req, res) => {
     else if (destination === 'europe') seaCost = LOGISTICS_PRICES.sea.gulfEurope.fairPrice * weight;
     else if (destination === 'usa') seaCost = LOGISTICS_PRICES.sea.gulfUSA.fairPrice * weight;
     else seaCost = LOGISTICS_PRICES.sea.gulfIndia.fairPrice * weight;
-    
+
     breakdown.push({
         stage: 'الشحن البحري',
         cost: seaCost,
         unit: 'SAR'
     });
     totalCost += seaCost;
-    
+
     // التفريغ
     breakdown.push({
         stage: 'التفريغ للعميل',
@@ -3605,7 +3591,7 @@ app.get('/api/logistics/calculate', (req, res) => {
         unit: 'SAR'
     });
     totalCost += LOGISTICS_PRICES.handling.unloading.fairPrice * weight;
-    
+
     res.json({
         success: true,
         calculation: {
@@ -3638,14 +3624,14 @@ app.get('/api/currency/convert', (req, res) => {
     const amount = parseFloat(req.query.amount) || 1;
     const from = (req.query.from || 'SAR').toUpperCase();
     const to = (req.query.to || 'USD').toUpperCase();
-    
+
     const fromRate = CURRENCY_RATES[from] ? CURRENCY_RATES[from].rate : 1;
     const toRate = CURRENCY_RATES[to] ? CURRENCY_RATES[to].rate : 3.75;
-    
+
     // تحويل للريال أولاً ثم للعملة المطلوبة
     const sarAmount = amount * fromRate;
     const result = sarAmount / toRate;
-    
+
     res.json({
         success: true,
         conversion: {
@@ -3812,14 +3798,14 @@ setInterval(() => {
         }
         if (v.fuel) v.fuel = Math.max(10, v.fuel - Math.random() * 0.5);
     });
-    
+
     // تحديث تقدم الشحنات
     ACTIVE_SHIPMENTS.forEach(s => {
         if (s.status === 'transit' && s.progress < 95) {
             s.progress = Math.min(95, s.progress + Math.random() * 2);
         }
     });
-    
+
     // تحديث مستشعرات IoT
     IOT_SENSORS.temperature.value = 22 + Math.random() * 6;
     IOT_SENSORS.humidity.value = 40 + Math.random() * 20;
@@ -3838,7 +3824,7 @@ app.get('/api/logistics/dashboard', (req, res) => {
     const totalVehicles = VEHICLES.length;
     const inCustoms = ACTIVE_SHIPMENTS.filter(s => s.status === 'customs').length;
     const deliveredToday = ACTIVE_SHIPMENTS.filter(s => s.status === 'delivered').length;
-    
+
     res.json({
         success: true,
         dashboard: {
@@ -3916,7 +3902,7 @@ app.get('/api/logistics/customs', (req, res) => {
 app.post('/api/logistics/documents/generate', (req, res) => {
     const { shipmentId, documentTypes } = req.body;
     const types = documentTypes || ['bill_of_lading', 'commercial_invoice', 'certificate_of_origin', 'customs_declaration', 'packing_list'];
-    
+
     const documents = types.map(type => ({
         id: uuidv4(),
         type,
@@ -3932,7 +3918,7 @@ app.post('/api/logistics/documents/generate', (req, res) => {
         shipmentId: shipmentId || 'SH-2024-0847',
         downloadUrl: `/api/logistics/documents/${type}/${shipmentId || 'sample'}`
     }));
-    
+
     res.json({
         success: true,
         message: 'تم توليد الوثائق بنجاح',
@@ -3962,7 +3948,7 @@ app.get('/api/logistics/documents', (req, res) => {
 // API: حساب تكلفة الشحن الكاملة
 app.post('/api/logistics/quote', (req, res) => {
     const { origin, destination, weight, cargoType, transportMode } = req.body;
-    
+
     // حساب المسافة التقديرية (محاكاة)
     const distances = {
         'الرياض-جدة': 950,
@@ -3973,7 +3959,7 @@ app.post('/api/logistics/quote', (req, res) => {
     };
     const key = `${origin}-${destination}`;
     const distance = distances[key] || distances['default'];
-    
+
     // حساب التكاليف
     const weightNum = parseFloat(weight) || 20;
     const baseCost = transportMode === 'sea' ? weightNum * 50 : transportMode === 'air' ? weightNum * 500 : weightNum * (distance * 0.08);
@@ -3982,7 +3968,7 @@ app.post('/api/logistics/quote', (req, res) => {
     const customsCost = baseCost * 0.05;
     const profitMargin = 0.15;
     const totalCost = (baseCost + handlingCost + insuranceCost + customsCost) * (1 + profitMargin);
-    
+
     res.json({
         success: true,
         quote: {
@@ -4128,7 +4114,7 @@ const SYSTEM_INTELLIGENCE = {
     name: 'ذكاء المنظومة',
     nameEn: 'Sheikha System Intelligence',
     version: '2.0',
-    
+
     // الأهداف الاستراتيجية الكلية
     strategicObjectives: [
         'تحقيق السيادة والريادة العالمية في تجارة المعادن والسكراب',
@@ -4141,7 +4127,7 @@ const SYSTEM_INTELLIGENCE = {
         'تحقيق أهداف الدول في التداول الآمن واستدامة الموارد',
         'تحقيق السلامة المهنية والعامة والأمن العام'
     ],
-    
+
     // المبادئ الأساسية
     principles: [
         'بالكتاب والسنة',
@@ -4152,7 +4138,7 @@ const SYSTEM_INTELLIGENCE = {
         'الأمان التجاري لجميع الأطراف',
         'الشفافية والوضوح'
     ],
-    
+
     // البنية التحتية الرقمية
     digitalInfrastructure: {
         localNetwork: 'شبكة محلية سعودية متكاملة',
@@ -4161,7 +4147,7 @@ const SYSTEM_INTELLIGENCE = {
         digitalTools: 'أدوات رقمية متكاملة لتيسير الإجراءات',
         automation: 'أتمتة كاملة للعمليات'
     },
-    
+
     // أهداف الأمان والسلامة
     safetyObjectives: [
         'السلامة المهنية في جميع العمليات',
@@ -4176,7 +4162,7 @@ const MARKET_INTELLIGENCE = {
     name: 'ذكاء السوق',
     nameEn: 'Sheikha Market Intelligence',
     version: '2.0',
-    
+
     // أهداف السوق التجارية
     marketObjectives: [
         'تحقيق أفضل تجربة تجارية للتجار',
@@ -4187,7 +4173,7 @@ const MARKET_INTELLIGENCE = {
         'تحقيق الأرباح الضخمة للتجار والسوق',
         'جذب التجار والمستثمرين من جميع أنحاء العالم'
     ],
-    
+
     // قدرات ذكاء السوق
     capabilities: [
         'تحليل الأسعار والاتجاهات في الوقت الحقيقي',
@@ -4199,7 +4185,7 @@ const MARKET_INTELLIGENCE = {
         'مطابقة العرض والطلب تلقائياً',
         'إدارة المخزون والتوريد'
     ],
-    
+
     // الشبكة التجارية
     tradeNetwork: {
         local: {
@@ -4218,7 +4204,7 @@ const MARKET_INTELLIGENCE = {
             status: 'قيد التطوير'
         }
     },
-    
+
     // أمان السوق
     marketSecurity: {
         transactionSecurity: 'تأمين جميع المعاملات المالية',
@@ -4236,14 +4222,14 @@ const SMART_CONSULTANT = {
     title: 'مستشار السوق',
     gender: 'male', // صيغة مذكر
     version: '2.0',
-    
+
     // شخصية المستشار
     personality: {
         traits: ['حكيم', 'مبتكر', 'متعلم', 'صادق', 'مرن', 'موثوق'],
         style: 'طلق اللسان، يشجع الابتكار، يحب نشر العلم',
         tone: 'ودود ومهني، يتحدث بصيغة المذكر'
     },
-    
+
     // مهام المستشار الأساسية
     coreMissions: [
         'تحقيق الربحية وزيادة المبيعات',
@@ -4254,7 +4240,7 @@ const SMART_CONSULTANT = {
         'الحفاظ على الأمن والسلامة',
         'مساعدة التجار في تحقيق أهدافهم'
     ],
-    
+
     // التقارير والمعلومات
     reporting: {
         realTimeReports: 'تقارير فورية عن حالة السوق',
@@ -4270,21 +4256,21 @@ const INTELLIGENCE_INTEGRATION = {
     name: 'تكامل الذكاءات',
     nameEn: 'Intelligence Integration Layer',
     version: '1.0',
-    
+
     // قنوات التكامل الآمنة
     secureChannels: {
         systemToMarket: 'قناة آمنة بين ذكاء المنظومة وذكاء السوق',
         marketToConsultant: 'قناة آمنة بين ذكاء السوق والمستشار',
         consultantToSystem: 'قناة آمنة بين المستشار وذكاء المنظومة'
     },
-    
+
     // تدفق المعلومات
     dataFlow: {
         upward: 'المستشار ← ذكاء السوق ← ذكاء المنظومة (تقارير وبيانات)',
         downward: 'ذكاء المنظومة ← ذكاء السوق ← المستشار (أهداف وتوجيهات)',
         horizontal: 'تبادل آمن بين جميع الذكاءات'
     },
-    
+
     // بروتوكولات الأمان
     securityProtocols: [
         'تشفير جميع الاتصالات بين الذكاءات',
@@ -4485,34 +4471,34 @@ const CONTEXT_PROMPTS = {
 - مقارنة أسعار الأنواع المختلفة
 - 💡 زر صفحة السوق https://www.sheikha.top/السوق.html لرؤية الأسعار الفعلية
 - 💡 زر عرض بضائع https://www.sheikha.top/سوق-شيخة.html إذا أردت البيع`,
-    
+
     logistics: `أنا شيخة — خبيرة لوجستيات ونقل المعادن والسكراب. أساعدك في:
 - فهم مرحلة النقل في سلسلة التوريد
 - خيارات التسليم: استلام من الموقع، توصيل، شحن
 - مسؤولية النقل والتأمين
 - 💡 زر آلية البيع https://www.sheikha.top/آلية-البيع.html لفهم خطوات التسليم`,
-    
+
     scm: `أنا مستشار شيخة — خبير سلاسل الإمداد والتوريد. أقدم لك استشارات في:
 - فهم المراحل السبع: المصدر → التجميع → المعالجة → النقل → المصهر → التصنيع → المستهلك
 - تحسين عمليات التوريد
 - إدارة المخزون
 - 💡 زر لوحة التحكم https://www.sheikha.top/لوحة-التحكم.html لنظام SCM
 - 💡 زر المنتدى https://www.sheikha.top/المنتدى.html لنقاشات سلاسل الإمداد`,
-    
+
     erp: `أنا مستشار شيخة — خبير نظام ERP. أقدم لك استشارات في:
 - وحدات النظام: المخزون، المالية، المشتريات، المبيعات، علاقات العملاء
 - إدارة المنتجات والطلبات
 - إعداد التقارير
 - 💡 زر لوحة التحكم https://www.sheikha.top/لوحة-التحكم.html للوصول لنظام ERP
 - 💡 تحتاج تسجيل دخول أولاً https://www.sheikha.top/تسجيل-الدخول.html`,
-    
+
     environment: `أنا مستشار شيخة — خبير إعادة التدوير والاستدامة. أقدم لك استشارات في:
 - فوائد إعادة التدوير البيئية: توفير CO2، الطاقة، المياه
 - معايير الجودة والشهادات البيئية
 - الاقتصاد الدائري ورؤية 2030
 - 💡 زر مركز الأبحاث https://www.sheikha.top/مركز-الأبحاث.html للدراسات البيئية
 - 💡 زر المنتدى https://www.sheikha.top/المنتدى.html لنقاشات الاستدامة`,
-    
+
     research: `أنا مستشار شيخة — خبير البحث العلمي في المعادن وسلاسل الإمداد. أقدم لك استشارات في:
 - البحث في قاعدة الأبحاث والدراسات
 - استخدام أدوات البحث المتقدمة
@@ -4520,7 +4506,7 @@ const CONTEXT_PROMPTS = {
 - التعاون مع الباحثين الآخرين
 - 💡 زر مختبر الأبحاث https://www.sheikha.top/مركز-الأبحاث.html
 - 💡 زر المنتدى العلمي https://www.sheikha.top/المنتدى.html للنقاشات`,
-    
+
     general: `أنا مستشار شيخة — مستشارك المتخصص. أوجهك حسب حاجتك:
 - للتسجيل → https://www.sheikha.top/تسجيل-الشركات.html
 - للبيع → https://www.sheikha.top/سوق-شيخة.html ثم السوق
@@ -4554,18 +4540,18 @@ function detectContext(message) {
 function buildFullContext(message, user = null) {
     const context = detectContext(message);
     let systemPrompt = SHEIKHA_SYSTEM_PROMPT;
-    
+
     if (context !== 'general' && CONTEXT_PROMPTS[context]) {
         systemPrompt += '\n\n## سياق متخصص:\n' + CONTEXT_PROMPTS[context];
     }
-    
+
     if (user) {
         systemPrompt += `\n\n## معلومات المستخدم:
 - الاسم: ${user.name || user.storeName || 'غير محدد'}
 - نوع الحساب: ${user.role || 'تاجر'}
 - صلاحياته محدودة بمتجره ومنتجاته فقط`;
     }
-    
+
     return systemPrompt;
 }
 // ─── استدعاء Claude Opus 4.6 ─────────────────────────────────────────────────────
@@ -4573,14 +4559,14 @@ function buildFullContext(message, user = null) {
 // ✨ تفكير تكيفي | سياق 1M توكن | ضغط السياق | فرق وكلاء
 async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
     if (!ANTHROPIC_API_KEY) return { error: 'CLAUDE_NOT_CONFIGURED' };
-    
+
     // تحويل الرسائل من صيغة OpenAI إلى صيغة Anthropic
     const systemMsg = messages.find(m => m.role === 'system');
     const chatMessages = messages.filter(m => m.role !== 'system').map(m => ({
         role: m.role === 'assistant' ? 'assistant' : 'user',
         content: m.content
     }));
-    
+
     const body = {
         model: ANTHROPIC_MODEL,
         max_tokens: maxTokens,
@@ -4596,7 +4582,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
         };
         body.max_tokens = maxTokens + (options.thinkingBudget || 8192);
     }
-    
+
     try {
         const res = await fetch(ANTHROPIC_BASE_URL + '/messages', {
             method: 'POST',
@@ -4607,18 +4593,18 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
             },
             body: JSON.stringify(body)
         });
-        
+
         if (!res.ok) {
             const t = await res.text();
             return { error: 'CLAUDE_ERROR', status: res.status, detail: t.slice(0, 200) };
         }
-        
+
         const data = await res.json();
 
         // استخراج الرد والتفكير (Opus 4.6 يدعم كتل التفكير)
         let reply = '';
         let thinking = null;
-        
+
         if (data.content) {
             for (const block of data.content) {
                 if (block.type === 'thinking') {
@@ -4631,7 +4617,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
 
         if (!reply) reply = data.content?.[0]?.text || '';
 
-        return { 
+        return {
             reply,
             thinking,
             usage: data.usage,
@@ -4652,20 +4638,20 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
     if (!OPENAI_API_KEY) {
         return { error: 'AI_NOT_CONFIGURED' };
     }
-    
+
     // Try models in order until one works
-    const modelsToTry = options.forceModel ? [options.forceModel] : 
+    const modelsToTry = options.forceModel ? [options.forceModel] :
         (OPENAI_MODEL === 'gpt-5.2' ? OPENAI_FALLBACK_MODELS : [OPENAI_MODEL]);
-    
+
     for (const model of modelsToTry) {
         // GPT-5 / o1 models use max_completion_tokens instead of max_tokens
         const isNewModel = model.startsWith('gpt-5') || model.startsWith('o1') || model.startsWith('o3');
-        
+
         const body = {
             model: model,
             messages
         };
-        
+
         // Handle token parameter naming based on model
         if (isNewModel) {
             body.max_completion_tokens = Math.min(maxTokens, 4000);
@@ -4674,7 +4660,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
             body.max_tokens = Math.min(maxTokens, 4000);
             body.temperature = temperature;
         }
-        
+
         // ميزات GPT-5 الجديدة (فقط للنماذج التي تدعمها)
         if (isNewModel && options.reasoning_effort) {
             body.reasoning_effort = options.reasoning_effort;
@@ -4682,7 +4668,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
         if (isNewModel && options.verbosity) {
             body.verbosity = options.verbosity;
         }
-        
+
         const url = OPENAI_BASE_URL + '/chat/completions';
     try {
         const res = await fetch(url, {
@@ -4693,7 +4679,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
             },
             body: JSON.stringify(body)
         });
-            
+
         if (!res.ok) {
             const t = await res.text();
                 // If model not found, try next model
@@ -4707,19 +4693,19 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
                 }
             return { error: 'LLM_ERROR', status: res.status, detail: t.slice(0, 200) };
         }
-            
+
         const data = await res.json();
         const choice = data.choices && data.choices[0];
         const reply = choice && choice.message && choice.message.content ? choice.message.content.trim() : '';
-            
+
             // Log which model actually worked
             if (model !== OPENAI_MODEL) {
                 console.log(`[AI] ✓ Using fallback model: ${model}`);
             }
-            
-            return { 
-                reply, 
-                usage: data.usage, 
+
+            return {
+                reply,
+                usage: data.usage,
                 model: model,  // Return actual model used
                 provider: 'openai',
                 reasoning: choice?.message?.reasoning
@@ -4728,30 +4714,30 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
             continue;
         }
     }
-    
+
     // All models failed
     return { error: 'LLM_ALL_MODELS_FAILED', detail: 'تعذر الاتصال بأي نموذج AI' };
 }
 
 // ─── استدعاء LLM الذكي (يختار الأفضل تلقائياً) ─────────────────────────────────────
 async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
-    const isDevelopment = options.mode === 'development' || 
-                          messages.some(m => m.content?.includes('كود') || 
-                                            m.content?.includes('برمج') || 
+    const isDevelopment = options.mode === 'development' ||
+                          messages.some(m => m.content?.includes('كود') ||
+                                            m.content?.includes('برمج') ||
                                             m.content?.includes('تطوير'));
-    
+
     // للتطوير والبرمجة: استخدم Claude Opus 4.6 (الأقوى في العالم)
     if (isDevelopment && ANTHROPIC_API_KEY) {
         const result = await callClaudeChat(messages, maxTokens, options);
         if (!result.error) return result;
         // fallback to OpenAI if Claude fails
     }
-    
+
     // للمحادثات العامة: استخدم GPT-5.2
     if (OPENAI_API_KEY) {
         return await callOpenAIChat(messages, maxTokens, temperature, options);
     }
-    
+
     // لا يوجد مفتاح API
     return { error: 'AI_NOT_CONFIGURED' };
 }
@@ -4775,7 +4761,7 @@ async function callPricingLLM(metalType, quantity, quality, region) {
 2. نطاق السعر (من - إلى)
 3. العوامل المؤثرة
 4. نصيحة للبائع`;
-    
+
     const messages = [
         { role: 'system', content: CONTEXT_PROMPTS.pricing },
         { role: 'user', content: prompt }
@@ -4791,7 +4777,7 @@ ${JSON.stringify(data, null, 2)}
 أجب عن السؤال: ${question}
 
 قدم تحليلاً مختصراً مع توصيات عملية.`;
-    
+
     const messages = [
         { role: 'system', content: 'أنت محلل بيانات متخصص في سوق المعادن والسكراب. قدم تحليلات دقيقة ومختصرة.' },
         { role: 'user', content: prompt }
@@ -4808,7 +4794,7 @@ async function callSearchLLM(query, context) {
 1. نتائج بحث مناسبة
 2. منتجات/خدمات ذات صلة
 3. نصائح للمستخدم`;
-    
+
     const messages = [
         { role: 'system', content: 'أنت محرك بحث ذكي لسوق المعادن والسكراب.' },
         { role: 'user', content: prompt }
@@ -4903,7 +4889,7 @@ app.get('/api/ai/knowledge-base', (req, res) => {
 app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
     const { metalType, quantity, quality, region } = req.body || {};
     if (!metalType) return res.status(400).json({ success: false, message: 'يرجى تحديد نوع المعدن (metalType)' });
-    
+
     try {
         const result = await callPricingLLM(
             metalType || 'غير محدد',
@@ -4911,7 +4897,7 @@ app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
             quality || 'متوسط',
             region || 'السعودية'
         );
-        
+
         if (result.error) {
             // إذا لم يكن AI مفعلاً، نقدم تقدير بسيط
             const basePrices = { حديد: 2400, نحاس: 32000, ألمنيوم: 8200, ستانلس: 6500 };
@@ -4926,7 +4912,7 @@ app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
                 }
             });
         }
-        
+
         res.json({
             success: true,
             pricing: {
@@ -4945,14 +4931,14 @@ app.post('/api/ai/pricing', express.json(), authOptional, async (req, res) => {
 app.post('/api/ai/analytics', express.json(), authRequired, async (req, res) => {
     const { data, question } = req.body || {};
     if (!question) return res.status(400).json({ success: false, message: 'يرجى تحديد السؤال (question)' });
-    
+
     try {
         const result = await callAnalyticsLLM(data || {}, question);
-        
+
         if (result.error) {
             return res.status(503).json({ success: false, message: 'الذكاء غير مفعّل', code: result.error });
         }
-        
+
         res.json({
             success: true,
             analysis: result.reply,
@@ -4968,10 +4954,10 @@ app.post('/api/ai/analytics', express.json(), authRequired, async (req, res) => 
 app.post('/api/ai/search', express.json(), authOptional, async (req, res) => {
     const { query, context } = req.body || {};
     if (!query) return res.status(400).json({ success: false, message: 'يرجى تحديد نص البحث (query)' });
-    
+
     try {
         const result = await callSearchLLM(query, context || 'سوق المعادن والسكراب');
-        
+
         if (result.error) {
             // بحث بسيط بدون AI
             return res.json({
@@ -4981,7 +4967,7 @@ app.post('/api/ai/search', express.json(), authOptional, async (req, res) => {
                 source: 'بحث أساسي'
             });
         }
-        
+
         res.json({
             success: true,
             smartSearch: result.reply,
@@ -4997,7 +4983,7 @@ app.post('/api/ai/search', express.json(), authOptional, async (req, res) => {
 // توصيات المشترين المحتملين
 app.post('/api/ai/recommendations', express.json(), authRequired, async (req, res) => {
     const { productId, metalType, region } = req.body || {};
-    
+
     const prompt = `بناءً على منتج من نوع "${metalType || 'معدن'}" في منطقة "${region || 'السعودية'}"، اقترح:
 1. أنواع المشترين المحتملين (مصاهر، مصانع، تجار)
 2. المناطق الجغرافية المستهدفة
@@ -5010,7 +4996,7 @@ app.post('/api/ai/recommendations', express.json(), authRequired, async (req, re
             { role: 'user', content: prompt }
         ];
         const result = await callLLMChat(messages, 600, 0.5);
-        
+
         if (result.error) {
             return res.json({
                 success: true,
@@ -5022,7 +5008,7 @@ app.post('/api/ai/recommendations', express.json(), authRequired, async (req, re
                 source: 'توصيات أساسية'
             });
         }
-        
+
         res.json({
             success: true,
             recommendations: result.reply,
@@ -5038,7 +5024,7 @@ app.post('/api/ai/recommendations', express.json(), authRequired, async (req, re
 // تحليل السوق
 app.post('/api/ai/market-analysis', express.json(), authOptional, async (req, res) => {
     const { metalType, period, region } = req.body || {};
-    
+
     const prompt = `قدم تحليلاً لسوق "${metalType || 'المعادن والسكراب'}" في "${region || 'السعودية'}" خلال الفترة "${period || 'الشهر الحالي'}":
 1. اتجاه الأسعار
 2. العرض والطلب
@@ -5052,7 +5038,7 @@ app.post('/api/ai/market-analysis', express.json(), authOptional, async (req, re
             { role: 'user', content: prompt }
         ];
         const result = await callLLMChat(messages, 800, 0.4);
-        
+
         if (result.error) {
             return res.json({
                 success: true,
@@ -5066,7 +5052,7 @@ app.post('/api/ai/market-analysis', express.json(), authOptional, async (req, re
                 source: 'تحليل أساسي'
             });
         }
-        
+
         res.json({
             success: true,
             marketAnalysis: result.reply,
@@ -5126,21 +5112,21 @@ function recordConversation(userMessage, aiResponse, context, responseTime, wasH
         wasHelpful,
         intent: detectContext(userMessage)
     };
-    
+
     // إضافة للمحادثات (آخر 1000)
     AI_LEARNING_DATA.conversations.unshift(record);
     if (AI_LEARNING_DATA.conversations.length > 1000) {
         AI_LEARNING_DATA.conversations = AI_LEARNING_DATA.conversations.slice(0, 1000);
     }
-    
+
     // تحديث المواضيع الشائعة
     const topic = record.intent || 'general';
     AI_LEARNING_DATA.popularTopics[topic] = (AI_LEARNING_DATA.popularTopics[topic] || 0) + 1;
-    
+
     // تحديث الإحصائيات
     AI_LEARNING_DATA.statistics.totalConversations++;
     AI_LEARNING_DATA.statistics.totalMessages++;
-    
+
     // اكتشاف الأسئلة التي لم تُجب عليها جيداً
     if (aiResponse.includes('لم أتمكن') || aiResponse.includes('لا أعرف') || aiResponse.length < 50) {
         AI_LEARNING_DATA.unansweredQuestions.push({
@@ -5162,7 +5148,7 @@ function recordFeedback(conversationId, rating, comment) {
         comment: comment?.slice(0, 500),
         timestamp: new Date().toISOString()
     });
-    
+
     // حساب معدل الرضا
     const recentFeedback = AI_LEARNING_DATA.userFeedback.slice(-100);
     const avgRating = recentFeedback.reduce((sum, f) => sum + (f.rating || 0), 0) / recentFeedback.length;
@@ -5177,7 +5163,7 @@ setInterval(saveAILearning, 60000);
 // ═══════════════════════════════════════════════════════════════════════════════
 function generateAdminLocalResponse(message) {
     const lower = message.toLowerCase();
-    
+
     // تفعيل المنظومة
     if (lower.includes('تفعيل') && (lower.includes('منظومة') || lower.includes('شيخة') || lower.includes('نظام'))) {
         return `✅ **تم تفعيل منظومة شيخة بنجاح!**
@@ -5194,7 +5180,7 @@ function generateAdminLocalResponse(message) {
 
 ما الذي تريد فعله الآن؟`;
     }
-    
+
     // التطوير والبرمجيات
     if (lower.includes('برمج') || lower.includes('تطوير') || lower.includes('كود') || lower.includes('قم بها')) {
         return `💻 **التطوير والبرمجة — صلاحيات كاملة**
@@ -5215,7 +5201,7 @@ function generateAdminLocalResponse(message) {
 **للبرمجة الفعلية:**
 أخبرني بالتفصيل ما تريد برمجته وسأقدم لك الكود الكامل.`;
     }
-    
+
     // التحليل
     if (lower.includes('حلل') || lower.includes('تحليل') || lower.includes('فحص')) {
         return `🔍 **تحليل منظومة شيخة**
@@ -5244,7 +5230,7 @@ sheikha-main-portal/
 
 ما الجانب الذي تريد تحليله بالتفصيل؟`;
     }
-    
+
     // المخطط
     if (lower.includes('مخطط') || lower.includes('خريطة') || lower.includes('هيكل')) {
         return `📊 **مخطط منظومة شيخة الشامل**
@@ -5276,7 +5262,7 @@ sheikha-main-portal/
 
 هل تريد تفصيل أي جزء؟`;
     }
-    
+
     // الرد الافتراضي للأدمن
     return `🛡️ **مساعد القيادة — وضع محلي**
 
@@ -5301,17 +5287,17 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
     const startTime = Date.now();
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 2000) : '';
     if (!message) return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
-    
+
     const history = Array.isArray(req.body.history) ? req.body.history.slice(-20) : [];
     const user = req.user;
     const sessionId = req.body.sessionId || uuidv4();
     const customSystemPrompt = req.body.systemPrompt || '';
     const isAdmin = req.body.context?.isAdmin === true;
     const context = detectContext(message);
-    
+
     // بناء السياق حسب نوع المستخدم
     let systemContent;
-    
+
     if (isAdmin) {
         // ═══════════════════════════════════════════════════════════════════════════════
         // 🛡️ برومبت الأدمن — صلاحيات كاملة بلا حدود إلا الكتاب والسنة
@@ -5397,23 +5383,23 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
         // المستخدم العادي — استخدم برومبت مستشار السوق
         systemContent = buildFullContext(message, user);
     }
-    
+
     const messages = [
         { role: 'system', content: systemContent },
         ...history.map(m => ({ role: m.role === 'assistant' ? 'assistant' : 'user', content: String(m.content || '').slice(0, 1500) })),
         { role: 'user', content: message }
     ];
-    
+
     try {
         // محاولة استخدام OpenAI أولاً
         let result = await callLLMChat(messages, 1200, 0.6);
         let reply = '';
         let source = 'sheikha-ai';
-        
+
         if (result.error) {
             // استخدام نظام شيخة المحلي كبديل
             source = 'sheikha-ai-local';
-            
+
             // 🛡️ للأدمن: رد خاص حتى مع الذكاء المحلي
             if (isAdmin) {
                 reply = generateAdminLocalResponse(message);
@@ -5422,7 +5408,7 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
             try {
                 const localResponse = await sheikhaAI.generateResponse(message, { user });
                 reply = localResponse.text;
-                
+
                 // إضافة اقتراحات
                 if (localResponse.suggestions && localResponse.suggestions.length > 0) {
                     reply += '\n\n💡 **اقتراحات:**\n' + localResponse.suggestions.map(s => `• ${s}`).join('\n');
@@ -5435,22 +5421,22 @@ app.post('/api/ai/chat', express.json(), authOptional, async (req, res) => {
         } else {
             reply = result.reply;
         }
-        
+
         // تسجيل للتعلم
         const responseTime = Date.now() - startTime;
         recordConversation(message, reply, context, responseTime);
-        
+
         // تسجيل العملية
-        logOperation('ai_chat', 'ai', { 
-            userId: user?.id, 
-            context, 
+        logOperation('ai_chat', 'ai', {
+            userId: user?.id,
+            context,
             source,
             responseTime,
-            tokensUsed: result.usage?.total_tokens 
+            tokensUsed: result.usage?.total_tokens
         });
-        
-        res.json({ 
-            success: true, 
+
+        res.json({
+            success: true,
             reply,
             sessionId,
             source,
@@ -5484,10 +5470,10 @@ app.post('/api/ai/feedback', express.json(), (req, res) => {
     if (!rating || rating < 1 || rating > 5) {
         return res.status(400).json({ success: false, message: 'أرسل rating من 1 إلى 5' });
     }
-    
+
     recordFeedback(conversationId, rating, comment);
     saveAILearning();
-    
+
     res.json({ success: true, message: 'شكراً لتقييمك!' });
 });
 
@@ -5519,19 +5505,19 @@ async function getDefaultReply(message) {
     } catch (e) {
         // fallback في حالة الخطأ
         const lower = message.toLowerCase();
-        
+
         if (lower.includes('مرحبا') || lower.includes('السلام')) {
             return 'مرحباً بك في سوق شيخة! كيف يمكنني مساعدتك اليوم؟\n\n• لتسجيل متجر جديد: /تسجيل-الشركات.html\n• لعرض بضائع: /سوق-شيخة.html\n• للدخول للوحة التحكم: /لوحة-التحكم.html';
         }
-        
+
         if (lower.includes('تسجيل') || lower.includes('فتح متجر')) {
             return 'لفتح متجرك في سوق شيخة:\n\n1. اذهب إلى صفحة التسجيل: /تسجيل-الشركات.html\n2. أدخل معلوماتك الأساسية\n3. اختر تخصصك ومرحلتك في سلسلة التوريد\n4. ابدأ بعرض بضائعك!\n\nالتسجيل مجاني ولا توجد رسوم اشتراك.';
         }
-        
+
         if (lower.includes('سعر') || lower.includes('أسعار')) {
             return 'أسعار المعادن تتغير يومياً. يمكنك:\n\n• مشاهدة الأسعار المرجعية في الصفحة الرئيسية\n• استخدام خدمة اقتراح الأسعار\n• متابعة أسعار LME العالمية';
         }
-        
+
         return 'شكراً لتواصلك مع سوق شيخة!\n\nيمكنني مساعدتك في:\n• تسجيل متجر جديد\n• عرض بضائعك للبيع\n• معرفة الأسعار المرجعية\n• فهم آلية البيع والشراء';
     }
 }
@@ -5540,7 +5526,7 @@ async function getDefaultReply(message) {
 app.post('/api/sheikha-ai/chat', express.json(), async (req, res) => {
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 2000) : '';
     if (!message) return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
-    
+
     try {
         const clientContext = (req.body && req.body.context && typeof req.body.context === 'object') ? req.body.context : {};
         // تمرير سياق الأدمن/الإنتاج من الواجهة (مع إبقاء معلومات المستخدم إن وجدت)
@@ -5596,17 +5582,17 @@ app.get('/api/sheikha-ai/supply-chain', (req, res) => {
 // API لحساب الربح
 app.post('/api/sheikha-ai/calculate-profit', express.json(), (req, res) => {
     const { sellPrice, buyPrice, quantity } = req.body;
-    
+
     if (!sellPrice || !buyPrice) {
         return res.status(400).json({ success: false, message: 'أرسل sellPrice و buyPrice' });
     }
-    
+
     const result = sheikhaAI.calculateProfit(
         parseFloat(sellPrice),
         parseFloat(buyPrice),
         parseFloat(quantity) || 1
     );
-    
+
     res.json({
         success: true,
         ...result,
@@ -5617,17 +5603,17 @@ app.post('/api/sheikha-ai/calculate-profit', express.json(), (req, res) => {
 // API لاقتراح السعر
 app.post('/api/sheikha-ai/suggest-price', express.json(), (req, res) => {
     const { metalType, quantity, quality, location } = req.body;
-    
+
     if (!metalType) {
         return res.status(400).json({ success: false, message: 'حدد metalType' });
     }
-    
+
     const suggestion = sheikhaAI.suggestPrice(metalType, quantity, quality, location);
-    
+
     if (!suggestion) {
         return res.status(404).json({ success: false, message: 'معدن غير معروف' });
     }
-    
+
     res.json({
         success: true,
         ...suggestion
@@ -5656,19 +5642,19 @@ app.get('/api/sheikha-ai/knowledge', (req, res) => {
 app.post('/api/ai/chat-public', express.json(), async (req, res) => {
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 1000) : '';
     if (!message) return res.status(400).json({ success: false, message: 'أرسل message في الجسم.' });
-    
+
     const systemContent = SHEIKHA_SYSTEM_PROMPT + '\n\nهذا زائر غير مسجل. وجّهه للتسجيل إن كان مهتماً بالتجارة.';
-    
+
     const messages = [
         { role: 'system', content: systemContent },
         { role: 'user', content: message }
     ];
-    
+
     try {
         const result = await callLLMChat(messages, 500, 0.6);
         if (result.error) {
-            return res.json({ 
-                success: true, 
+            return res.json({
+                success: true,
                 reply: getDefaultReply(message),
                 source: 'نظام الردود الافتراضية'
             });
@@ -7011,8 +6997,8 @@ app.get('/api/my-products', authRequired, (req, res) => {
 
 // إضافة منتج (متجر كامل: وصف، كمية، وزن، موقع، إثبات ملكية، مرحلة توريد، نوع سكراب، دعم المصانع والكميات الكبيرة)
 app.post('/api/products', authRequired, (req, res) => {
-    const { 
-        name, hsCode, categoryName: reqCategoryName, description, quantity, unit, weight, price, currency, 
+    const {
+        name, hsCode, categoryName: reqCategoryName, description, quantity, unit, weight, price, currency,
         locationAddress, locationLat, locationLng, address, proofOfOwnership, supplyChainStage, scrapType,
         quality, priceType, delivery, transportTypes, shippingCost, minOrder, notes,
         // بيانات المصنع
@@ -7020,36 +7006,36 @@ app.post('/api/products', authRequired, (req, res) => {
         // خصم الكميات
         hasBulkDiscount, bulkQty, bulkDiscount
     } = req.body || {};
-    
+
     if (!name) return res.status(400).json({ success: false, message: 'اسم المنتج مطلوب.' });
-    
+
     const hs = getHSCategory(hsCode || 'other');
     const defaultStage = req.user.specialty ? getSpecialty(req.user.specialty).stage : 'source';
     const stage = getStage(supplyChainStage || defaultStage);
     const scrapDisplay = getScrapDisplayType(scrapType || 'collection');
     const id = uuidv4();
-    
+
     const listing = {
-        id, 
-        traderId: req.user.id, 
-        traderPhone: req.user.phone, 
-        storeName: req.user.storeName || req.user.name, 
+        id,
+        traderId: req.user.id,
+        traderPhone: req.user.phone,
+        storeName: req.user.storeName || req.user.name,
         storeRegion: req.user.region || locationAddress,
-        name: name.trim(), 
-        hsCode: hs.id, 
-        category: hs.id, 
+        name: name.trim(),
+        hsCode: hs.id,
+        category: hs.id,
         categoryName: reqCategoryName || hs.nameAr,
-        description: (description || '').trim(), 
-        quantity: quantity || '', 
-        unit: unit || 'طن', 
+        description: (description || '').trim(),
+        quantity: quantity || '',
+        unit: unit || 'طن',
         weight: weight || '',
-        price: price || '', 
+        price: price || '',
         currency: currency || 'ريال',
         quality: quality || 'جيد',
         priceType: priceType || 'fixed',
-        locationAddress: (locationAddress || '').trim(), 
+        locationAddress: (locationAddress || '').trim(),
         address: (address || '').trim(),
-        locationLat: locationLat || null, 
+        locationLat: locationLat || null,
         locationLng: locationLng || null,
         delivery: delivery || 'pickup',
         transportTypes: transportTypes || [],
@@ -7057,7 +7043,7 @@ app.post('/api/products', authRequired, (req, res) => {
         minOrder: minOrder || null,
         notes: (notes || '').trim(),
         proofOfOwnership: (proofOfOwnership || '').trim(),
-        supplyChainStage: stage.id, 
+        supplyChainStage: stage.id,
         scrapType: scrapDisplay.id,
         // بيانات المصنع والإنتاج
         supplyType: supplyType || 'stock',
@@ -7075,13 +7061,13 @@ app.post('/api/products', authRequired, (req, res) => {
         createdAt: new Date().toISOString(),
         updatedAt: new Date().toISOString()
     };
-    
+
     LISTINGS.push(listing);
     saveJSON(LISTINGS_FILE, LISTINGS);
-    
-    res.status(201).json({ 
-        success: true, 
-        product: { ...listing, icon: hs.icon }, 
+
+    res.status(201).json({
+        success: true,
+        product: { ...listing, icon: hs.icon },
         message: 'تم نشر العرض بنجاح! يمكنك مشاهدته في السوق الآن.',
         redirectTo: '/السوق.html'
     });
@@ -7383,34 +7369,34 @@ app.get('/api/market-listings', (req, res) => {
     const type = (req.query.type || '').toLowerCase();
     const stage = (req.query.stage || '').toLowerCase();
     const scrapType = (req.query.scrapType || '').toLowerCase();
-    
+
     // المنتجات تأتي فقط من قاعدة البيانات الحقيقية
     let listings = LISTINGS.map(l => {
         const hs = getHSCategory(l.hsCode || l.category);
         const st = getStage(l.supplyChainStage);
         const sd = getScrapDisplayType(l.scrapType);
         const trader = TRADERS.find(t => t.id === l.traderId);
-        return { 
-            id: l.id, 
-            name: l.name, 
-            description: l.description, 
-            quantity: l.quantity, 
-            unit: l.unit, 
-            weight: l.weight, 
-            price: l.price, 
-            currency: l.currency, 
-            storeName: l.storeName, 
-            storeRegion: l.storeRegion, 
-            category: l.category, 
-            categoryName: l.categoryName || hs.nameAr, 
-            hsCode: l.hsCode, 
-            icon: hs.icon, 
-            locationAddress: l.locationAddress, 
-            locationLat: l.locationLat, 
-            locationLng: l.locationLng, 
-            supplyChainStage: l.supplyChainStage || st.id, 
-            supplyChainStageName: st.nameAr, 
-            scrapType: l.scrapType || sd.id, 
+        return {
+            id: l.id,
+            name: l.name,
+            description: l.description,
+            quantity: l.quantity,
+            unit: l.unit,
+            weight: l.weight,
+            price: l.price,
+            currency: l.currency,
+            storeName: l.storeName,
+            storeRegion: l.storeRegion,
+            category: l.category,
+            categoryName: l.categoryName || hs.nameAr,
+            hsCode: l.hsCode,
+            icon: hs.icon,
+            locationAddress: l.locationAddress,
+            locationLat: l.locationLat,
+            locationLng: l.locationLng,
+            supplyChainStage: l.supplyChainStage || st.id,
+            supplyChainStageName: st.nameAr,
+            scrapType: l.scrapType || sd.id,
             scrapTypeName: sd.nameAr,
             quality: l.quality || 'جيد',
             priceType: l.priceType || 'fixed',
@@ -7421,31 +7407,31 @@ app.get('/api/market-listings', (req, res) => {
             createdAt: l.createdAt
         };
     });
-    
+
     // الفلترة
     if (type) listings = listings.filter(l => (l.category || '').toLowerCase() === type);
     if (stage) listings = listings.filter(l => (l.supplyChainStage || '').toLowerCase() === stage);
     if (scrapType) listings = listings.filter(l => (l.scrapType || '').toLowerCase() === scrapType);
-    
+
     // الفئات مع عدد المنتجات الحقيقية
-    const categories = HS_SCRAP_CATEGORIES.map(c => ({ 
-        id: c.id, 
-        hsCode: c.hsCode, 
-        name: c.nameAr, 
-        icon: c.icon, 
-        count: LISTINGS.filter(l => (l.category || l.hsCode) === c.id).length 
+    const categories = HS_SCRAP_CATEGORIES.map(c => ({
+        id: c.id,
+        hsCode: c.hsCode,
+        name: c.nameAr,
+        icon: c.icon,
+        count: LISTINGS.filter(l => (l.category || l.hsCode) === c.id).length
     }));
-    
+
     // إحصائيات حقيقية
     const storesCount = [...new Set(LISTINGS.map(l => l.traderId))].length;
-    
-    res.json({ 
-        success: true, 
-        listings, 
-        categories, 
-        stages: SUPPLY_CHAIN_STAGES, 
-        scrapDisplayTypes: SCRAP_DISPLAY_TYPES, 
-        tradersCount: TRADERS.length, 
+
+    res.json({
+        success: true,
+        listings,
+        categories,
+        stages: SUPPLY_CHAIN_STAGES,
+        scrapDisplayTypes: SCRAP_DISPLAY_TYPES,
+        tradersCount: TRADERS.length,
         listingsCount: LISTINGS.length,
         storesCount
     });
@@ -7478,14 +7464,14 @@ app.get('/api/market/products', (req, res) => {
     const heading = (req.query.heading || '').toLowerCase();
     const region = (req.query.region || '').toLowerCase();
     const search = (req.query.search || '').toLowerCase();
-    
+
     // جلب المنتجات الحقيقية من قاعدة البيانات
     let products = LISTINGS.filter(l => l.status !== 'deleted').map(l => {
         const hs = getHSCategory(l.hsCode || l.category);
         const st = getStage(l.supplyChainStage);
         const trader = TRADERS.find(t => t.id === l.traderId);
         const user = USERS.find(u => u.id === l.traderId);
-        
+
         return {
             id: l.id,
             name: l.name,
@@ -7523,47 +7509,47 @@ app.get('/api/market/products', (req, res) => {
             createdAt: l.createdAt
         };
     });
-    
+
     // الفلترة حسب السوق (metals, scrap, precious)
     if (market === 'metals') {
-        products = products.filter(p => ['iron', 'copper', 'aluminum', 'stainless', '7204', '7404', '7602', '8002'].includes(p.hs) || 
+        products = products.filter(p => ['iron', 'copper', 'aluminum', 'stainless', '7204', '7404', '7602', '8002'].includes(p.hs) ||
             p.hs.startsWith('72') || p.hs.startsWith('73') || p.hs.startsWith('74') || p.hs.startsWith('75') || p.hs.startsWith('76'));
     } else if (market === 'scrap') {
-        products = products.filter(p => ['7204', '7404', '7602', '8002', '8548', '8549'].includes(p.hs) || 
+        products = products.filter(p => ['7204', '7404', '7602', '8002', '8548', '8549'].includes(p.hs) ||
             p.category.includes('سكراب') || p.category.includes('نفايات'));
     } else if (market === 'precious') {
-        products = products.filter(p => p.hs.startsWith('71') || 
+        products = products.filter(p => p.hs.startsWith('71') ||
             p.category.includes('ذهب') || p.category.includes('فضة') || p.category.includes('بلاتين'));
     }
-    
+
     // الفلترة حسب الفصل
     if (chapter) {
         products = products.filter(p => p.hs.startsWith(chapter));
     }
-    
+
     // الفلترة حسب البند
     if (heading) {
         products = products.filter(p => p.hs === heading || p.hs.startsWith(heading));
     }
-    
+
     // الفلترة حسب المنطقة
     if (region) {
         products = products.filter(p => p.location.toLowerCase().includes(region));
     }
-    
+
     // البحث النصي
     if (search) {
-        products = products.filter(p => 
-            p.name.toLowerCase().includes(search) || 
+        products = products.filter(p =>
+            p.name.toLowerCase().includes(search) ||
             p.description.toLowerCase().includes(search) ||
             p.category.toLowerCase().includes(search) ||
             p.seller.toLowerCase().includes(search)
         );
     }
-    
+
     // ترتيب حسب الأحدث
     products.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    
+
     res.json({
         success: true,
         products,
@@ -7610,9 +7596,9 @@ app.get('/api/products/:id', (req, res) => {
     };
 
     // عروض تجار آخرين لنفس الفئة
-    const similarOffers = LISTINGS.filter(l => 
-        l.status !== 'deleted' && 
-        String(l.id) !== String(id) && 
+    const similarOffers = LISTINGS.filter(l =>
+        l.status !== 'deleted' &&
+        String(l.id) !== String(id) &&
         (l.categoryName === listing.categoryName || l.hsCode === listing.hsCode || l.category === listing.category)
     ).slice(0, 5).map(l => {
         const offerTrader = TRADERS.find(t => t.id === l.traderId);
@@ -7684,13 +7670,13 @@ app.get('/api/products/:id', (req, res) => {
 app.post('/api/rfq', (req, res) => {
     const { productId, quantity, notes, contact } = req.body;
     if (!productId) return res.status(400).json({ success: false, message: 'حدد المنتج' });
-    
+
     const listing = LISTINGS.find(l => String(l.id) === String(productId));
     if (!listing) return res.status(404).json({ success: false, message: 'المنتج غير موجود' });
-    
+
     listing.inquiries = (listing.inquiries || 0) + 1;
     saveJSON(LISTINGS_FILE, LISTINGS);
-    
+
     res.json({
         success: true,
         message: 'تم إرسال طلب عرض السعر بنجاح — سيتم الرد خلال 24 ساعة بإذن الله',
@@ -7711,18 +7697,18 @@ app.post('/api/rfq', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/market-by-stage', (req, res) => {
     const stage = (req.query.stage || '').toLowerCase();
-    
+
     let listings = LISTINGS.filter(l => l.status !== 'deleted');
-    
+
     // فلترة حسب مرحلة سلسلة التوريد
     if (stage && stage !== 'all') {
         listings = listings.filter(l => {
             const traderStage = l.supplyChainStage || '';
             const trader = TRADERS.find(t => t.id === l.traderId);
             const traderSpecialty = trader?.specialty || '';
-            
+
             // التطابق المباشر أو حسب تخصص التاجر
-            return traderStage === stage || 
+            return traderStage === stage ||
                    traderSpecialty === stage ||
                    (stage === 'source' && ['source', 'mine', 'factory'].includes(traderStage)) ||
                    (stage === 'collection' && ['collection', 'collector', 'gatherer'].includes(traderStage)) ||
@@ -7732,12 +7718,12 @@ app.get('/api/market-by-stage', (req, res) => {
                    (stage === 'end' && ['retail', 'end', 'consumer'].includes(traderStage));
         });
     }
-    
+
     const result = listings.map(l => {
         const hs = getHSCategory(l.hsCode || l.category);
         const st = getStage(l.supplyChainStage);
         const trader = TRADERS.find(t => t.id === l.traderId);
-        
+
         return {
             id: l.id,
             name: l.name,
@@ -7758,10 +7744,10 @@ app.get('/api/market-by-stage', (req, res) => {
             createdAt: l.createdAt
         };
     });
-    
+
     // ترتيب حسب الأحدث
     result.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    
+
     res.json({
         success: true,
         stage: stage || 'all',
@@ -7830,16 +7816,16 @@ app.get('/api/fbs/pricing', (req, res) => {
 
 app.post('/api/fbs/inventory', authRequired, (req, res) => {
     const { warehouseId, productName, quantity, unit, value, hsCode, notes } = req.body;
-    
+
     if (!warehouseId || !productName || !quantity) {
         return res.status(400).json({ success: false, error: 'بيانات ناقصة' });
     }
-    
+
     const warehouse = FBS_WAREHOUSES.find(w => w.id === warehouseId);
     if (!warehouse || warehouse.status !== 'active') {
         return res.status(400).json({ success: false, error: 'المستودع غير متاح' });
     }
-    
+
     const item = {
         id: 'FBS-' + Date.now(),
         traderId: req.user.id,
@@ -7854,9 +7840,9 @@ app.post('/api/fbs/inventory', authRequired, (req, res) => {
         status: 'pending',
         createdAt: new Date().toISOString()
     };
-    
+
     FBS_INVENTORY.push(item);
-    
+
     res.json({
         success: true,
         message: 'تم إضافة البضاعة للمراجعة',
@@ -7964,7 +7950,7 @@ const SHEIKHA_PRICING_SYSTEM = {
             { hadith: 'لا يحتكرُ إلا خاطئ', narrator: 'مسلم', meaning: 'تحريم الاحتكار' }
         ]
     },
-    
+
     // معاملات المناطق
     regionFactors: {
         'السعودية': { factor: 1.00, nameEn: 'Saudi Arabia', tier: 1 },
@@ -7988,7 +7974,7 @@ const SHEIKHA_PRICING_SYSTEM = {
         'أمريكا': { factor: 1.22, nameEn: 'USA', tier: 4 },
         'أخرى': { factor: 1.25, nameEn: 'Other', tier: 5 }
     },
-    
+
     // معاملات الجودة
     qualityFactors: {
         'A+': { factor: 1.20, nameAr: 'ممتاز', purity: '>99%' },
@@ -7997,7 +7983,7 @@ const SHEIKHA_PRICING_SYSTEM = {
         'C': { factor: 0.90, nameAr: 'مقبول', purity: '>80%' },
         'D': { factor: 0.75, nameAr: 'ضعيف', purity: '<80%' }
     },
-    
+
     // هامش الربح العادل (حسب الشريعة)
     fairMargins: {
         basemetals: { min: 0.03, max: 0.08, typical: 0.05, nameAr: 'معادن أساسية' },
@@ -8028,7 +8014,7 @@ const SHEIKHA_REFERENCE_PRICES = {
         nickel: { nameAr: 'نيكل', nameEn: 'Nickel', lme: 65000, sheikha: 68250, unit: 'طن', hsCode: '7502' },
         tin: { nameAr: 'قصدير', nameEn: 'Tin', lme: 95000, sheikha: 99750, unit: 'طن', hsCode: '8001' }
     },
-    
+
     // المعادن الثمينة (ريال/جرام)
     precious: {
         gold_24k: { nameAr: 'ذهب 24 قيراط', nameEn: 'Gold 24K', comex: 280, sheikha: 287, unit: 'جرام', purity: '999' },
@@ -8040,7 +8026,7 @@ const SHEIKHA_REFERENCE_PRICES = {
         platinum: { nameAr: 'بلاتين', nameEn: 'Platinum', comex: 380, sheikha: 390, unit: 'جرام' },
         palladium: { nameAr: 'بلاديوم', nameEn: 'Palladium', comex: 420, sheikha: 430, unit: 'جرام' }
     },
-    
+
     // السكراب والإلكترونيات (ريال/طن أو كجم)
     scrap: {
         cables_insulated: { nameAr: 'كابلات معزولة', nameEn: 'Insulated Cables', lme: 4500, sheikha: 4950, unit: 'طن', hsCode: '8544' },
@@ -8064,7 +8050,7 @@ function calculateAdvancedSMI() {
         stainless_304: 0.10,
         silver_999: 0.05
     };
-    
+
     const baseValues = {
         iron_rebar: 2400,
         aluminum_pure: 9500,
@@ -8073,40 +8059,40 @@ function calculateAdvancedSMI() {
         stainless_304: 8500,
         silver_999: 3.8
     };
-    
+
     let index = 0;
     for (const [metal, weight] of Object.entries(weights)) {
-        const current = (SHEIKHA_REFERENCE_PRICES?.basemetals?.[metal]?.sheikha) 
-                     || (SHEIKHA_REFERENCE_PRICES?.precious?.[metal]?.sheikha) 
+        const current = (SHEIKHA_REFERENCE_PRICES?.basemetals?.[metal]?.sheikha)
+                     || (SHEIKHA_REFERENCE_PRICES?.precious?.[metal]?.sheikha)
                      || baseValues[metal];
         const base = baseValues[metal];
         index += (current / base) * weight * 1000;
     }
-    
+
     return Math.round(index);
 }
 
 // حساب سعر شيخة العادل
 function calculateSheikhaFairPrice(metal, region = 'السعودية', quality = 'B', quantity = 1) {
     // البحث عن المعدن في كل الفئات
-    let metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal] 
-                 || SHEIKHA_REFERENCE_PRICES.precious[metal] 
+    let metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal]
+                 || SHEIKHA_REFERENCE_PRICES.precious[metal]
                  || SHEIKHA_REFERENCE_PRICES.scrap[metal];
-    
+
     if (!metalData) {
         return { error: 'معدن غير معروف', metal };
     }
-    
+
     const regionData = SHEIKHA_PRICING_SYSTEM.regionFactors[region] || SHEIKHA_PRICING_SYSTEM.regionFactors['أخرى'];
     const qualityData = SHEIKHA_PRICING_SYSTEM.qualityFactors[quality] || SHEIKHA_PRICING_SYSTEM.qualityFactors['B'];
-    
+
     const basePrice = metalData.sheikha;
     const regionFactor = regionData.factor;
     const qualityFactor = qualityData.factor;
-    
+
     const fairPrice = Math.round(basePrice * regionFactor * qualityFactor);
     const totalPrice = fairPrice * quantity;
-    
+
     return {
         metal: metalData.nameAr,
         metalEn: metalData.nameEn,
@@ -8138,13 +8124,13 @@ app.get('/api/prices/metals/:metal', (req, res) => {
     const region = req.query.region || 'السعودية';
     const quality = req.query.quality || 'B';
     const quantity = parseFloat(req.query.quantity) || 1;
-    
+
     const result = calculateSheikhaFairPrice(metal, region, quality, quantity);
-    
+
     if (result.error) {
         return res.status(404).json({ success: false, error: result.error });
     }
-    
+
     res.json({
         success: true,
         pricing: result,
@@ -8156,11 +8142,11 @@ app.get('/api/prices/metals/:metal', (req, res) => {
 app.get('/api/prices/precious/:metal', (req, res) => {
     const metal = req.params.metal;
     const metalData = SHEIKHA_REFERENCE_PRICES.precious[metal];
-    
+
     if (!metalData) {
         return res.status(404).json({ success: false, error: 'معدن ثمين غير معروف' });
     }
-    
+
     res.json({
         success: true,
         metal: metalData,
@@ -8173,11 +8159,11 @@ app.get('/api/prices/precious/:metal', (req, res) => {
 app.get('/api/prices/scrap/:type', (req, res) => {
     const type = req.params.type;
     const scrapData = SHEIKHA_REFERENCE_PRICES.scrap[type];
-    
+
     if (!scrapData) {
         return res.status(404).json({ success: false, error: 'نوع سكراب غير معروف' });
     }
-    
+
     res.json({
         success: true,
         scrap: scrapData,
@@ -8190,11 +8176,11 @@ app.get('/api/prices/scrap/:type', (req, res) => {
 app.get('/api/prices/regional/:region', (req, res) => {
     const region = req.params.region;
     const regionData = SHEIKHA_PRICING_SYSTEM.regionFactors[region];
-    
+
     if (!regionData) {
         return res.status(404).json({ success: false, error: 'منطقة غير معروفة', availableRegions: Object.keys(SHEIKHA_PRICING_SYSTEM.regionFactors) });
     }
-    
+
     // حساب أسعار كل المعادن لهذه المنطقة
     const prices = {};
     for (const [key, metal] of Object.entries(SHEIKHA_REFERENCE_PRICES.basemetals)) {
@@ -8203,7 +8189,7 @@ app.get('/api/prices/regional/:region', (req, res) => {
             regionalPrice: Math.round(metal.sheikha * regionData.factor)
         };
     }
-    
+
     res.json({
         success: true,
         region,
@@ -8216,17 +8202,17 @@ app.get('/api/prices/regional/:region', (req, res) => {
 // API: تاريخ الأسعار (تم حذف المسار المكرر /api/index/smi — المسار الأصلي في السطر 2080)
 app.get('/api/history/:metal/:period', (req, res) => {
     const { metal, period } = req.params;
-    
+
     // توليد بيانات تاريخية تجريبية
     const days = period === 'week' ? 7 : period === 'month' ? 30 : period === 'year' ? 365 : 7;
-    const metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal] 
-                   || SHEIKHA_REFERENCE_PRICES.precious[metal] 
+    const metalData = SHEIKHA_REFERENCE_PRICES.basemetals[metal]
+                   || SHEIKHA_REFERENCE_PRICES.precious[metal]
                    || SHEIKHA_REFERENCE_PRICES.scrap[metal];
-    
+
     if (!metalData) {
         return res.status(404).json({ success: false, error: 'معدن غير معروف' });
     }
-    
+
     const history = [];
     const basePrice = metalData.sheikha;
     for (let i = days; i >= 0; i--) {
@@ -8239,7 +8225,7 @@ app.get('/api/history/:metal/:period', (req, res) => {
             volume: Math.round(Math.random() * 10000)
         });
     }
-    
+
     res.json({
         success: true,
         metal: metalData.nameAr,
@@ -8255,22 +8241,22 @@ app.get('/api/history/:metal/:period', (req, res) => {
 // API: حاسبة السعر العادل
 app.get('/api/prices/calculate', (req, res) => {
     const { metal, region, quality, quantity } = req.query;
-    
+
     if (!metal) {
         return res.status(400).json({ success: false, error: 'يجب تحديد المعدن' });
     }
-    
+
     const result = calculateSheikhaFairPrice(
-        metal, 
-        region || 'السعودية', 
-        quality || 'B', 
+        metal,
+        region || 'السعودية',
+        quality || 'B',
         parseFloat(quantity) || 1
     );
-    
+
     if (result.error) {
         return res.status(404).json({ success: false, error: result.error });
     }
-    
+
     res.json({
         success: true,
         calculation: result,
@@ -8286,9 +8272,9 @@ app.get('/api/ai/pricing-suggestion', (req, res) => {
     const unit = (req.query.unit || 'طن').toString();
     const region = req.query.region || 'السعودية';
     const quality = req.query.quality || 'B';
-    
+
     // البحث في أسعار شيخة أولاً
-    const keyMap = { 
+    const keyMap = {
         steelrebar: 'iron_rebar', حديد: 'iron_rebar', iron: 'iron_rebar',
         copper: 'copper_1', نحاس: 'copper_1',
         aluminum: 'aluminum_pure', ألومنيوم: 'aluminum_pure', ألمنيوم: 'aluminum_pure',
@@ -8297,17 +8283,17 @@ app.get('/api/ai/pricing-suggestion', (req, res) => {
         hms1: 'iron_hms1', hms2: 'iron_hms2',
         stainless: 'stainless_304', ستانلس: 'stainless_304'
     };
-    
+
     const metalKey = keyMap[category] || category;
     const result = calculateSheikhaFairPrice(metalKey, region, quality, quantity);
-    
+
     if (result.error) {
         // fallback للنظام القديم
         const saudi = LIVE_PRICES.saudi || {};
         const metals = LIVE_PRICES.metals || {};
         let basePrice = saudi[category]?.price || metals[category]?.price || 2000;
         const suggested = Math.round(basePrice * quantity * 1.05);
-        
+
         return res.json({
             success: true,
             suggestion: {
@@ -8322,7 +8308,7 @@ app.get('/api/ai/pricing-suggestion', (req, res) => {
             timestamp: new Date().toISOString()
         });
     }
-    
+
     res.json({
         success: true,
         suggestion: {
@@ -8358,7 +8344,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         trailer: { nameAr: 'تريلا', capacity: '30-40 طن', ratePerKm: 5.50, fixedFee: 500, minCharge: 1000 },
         flatbed: { nameAr: 'تريلا مسطحة', capacity: '40-50 طن', ratePerKm: 6.50, fixedFee: 600, minCharge: 1200 }
     },
-    
+
     // مصفوفة المسافات بين المدن السعودية (كم)
     saudiDistances: {
         'الرياض-جدة': 950, 'الرياض-الدمام': 400, 'الرياض-مكة': 870, 'الرياض-المدينة': 850,
@@ -8367,7 +8353,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'جدة-أبها': 650, 'جدة-جازان': 700, 'الدمام-الجبيل': 90, 'الدمام-الأحساء': 150,
         'مكة-المدينة': 450, 'المدينة-تبوك': 680, 'أبها-جازان': 200, 'أبها-نجران': 280
     },
-    
+
     // أسعار الشحن البحري الدولي (دولار/حاوية 20ft)
     internationalSeaRates: {
         'الإمارات': { min: 350, avg: 450, max: 600, days: '3-5' },
@@ -8385,7 +8371,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'جنوب أفريقيا': { min: 2200, avg: 2900, max: 3800, days: '25-32' },
         'أستراليا': { min: 2400, avg: 3100, max: 4100, days: '28-35' }
     },
-    
+
     // أنواع الحاويات
     containerTypes: {
         '20ft_standard': { nameAr: 'حاوية 20 قدم', volume: 33, maxWeight: 21000, multiplier: 1.0 },
@@ -8394,7 +8380,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'open_top': { nameAr: 'حاوية مفتوحة', volume: 32, maxWeight: 20000, multiplier: 1.3 },
         'flat_rack': { nameAr: 'حاوية مسطحة', volume: 0, maxWeight: 40000, multiplier: 1.5 }
     },
-    
+
     // أسعار النقل الجوي (دولار/كجم)
     airFreightRates: {
         'الإمارات': { standard: 2.5, express: 4.0, minWeight: 45, days: '1-2' },
@@ -8403,7 +8389,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'آسيا': { standard: 3.5, express: 6.0, minWeight: 45, days: '2-3' },
         'أفريقيا': { standard: 5.0, express: 8.5, minWeight: 45, days: '3-5' }
     },
-    
+
     // Incoterms 2020
     incoterms: {
         'EXW': { nameAr: 'من المصنع', seller: 'أدنى مسؤولية', buyer: 'كل التكاليف' },
@@ -8414,7 +8400,7 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
         'DAP': { nameAr: 'تسليم في المكان', seller: 'حتى مكان التسليم', buyer: 'التفريغ والجمارك' },
         'DDP': { nameAr: 'تسليم مدفوع الرسوم', seller: 'كل شيء', buyer: 'التفريغ فقط' }
     },
-    
+
     // الوثائق المطلوبة
     requiredDocuments: {
         domestic: ['بوليصة الشحن', 'فاتورة البيع', 'إذن التحميل', 'وثيقة الوزن'],
@@ -8426,21 +8412,21 @@ const SHEIKHA_LOGISTICS_SYSTEM = {
 function calculateDomesticShipping(from, to, truckType, weight) {
     const route = `${from}-${to}`;
     const reverseRoute = `${to}-${from}`;
-    const distance = SHEIKHA_LOGISTICS_SYSTEM.saudiDistances[route] 
+    const distance = SHEIKHA_LOGISTICS_SYSTEM.saudiDistances[route]
                   || SHEIKHA_LOGISTICS_SYSTEM.saudiDistances[reverseRoute];
-    
+
     if (!distance) {
         return { error: 'مسار غير متوفر', availableRoutes: Object.keys(SHEIKHA_LOGISTICS_SYSTEM.saudiDistances) };
     }
-    
-    const truck = SHEIKHA_LOGISTICS_SYSTEM.domesticRates[truckType] 
+
+    const truck = SHEIKHA_LOGISTICS_SYSTEM.domesticRates[truckType]
                || SHEIKHA_LOGISTICS_SYSTEM.domesticRates['trailer'];
-    
+
     let cost = (distance * truck.ratePerKm) + truck.fixedFee;
     cost = Math.max(cost, truck.minCharge);
-    
+
     const pricePerTon = weight > 0 ? Math.round(cost / weight) : 0;
-    
+
     return {
         from,
         to,
@@ -8468,18 +8454,18 @@ function calculateInternationalShipping(destination, containerType, incoterm) {
     if (!rates) {
         return { error: 'وجهة غير متوفرة', availableDestinations: Object.keys(SHEIKHA_LOGISTICS_SYSTEM.internationalSeaRates) };
     }
-    
-    const container = SHEIKHA_LOGISTICS_SYSTEM.containerTypes[containerType] 
+
+    const container = SHEIKHA_LOGISTICS_SYSTEM.containerTypes[containerType]
                    || SHEIKHA_LOGISTICS_SYSTEM.containerTypes['20ft_standard'];
-    
+
     const baseCost = rates.avg * container.multiplier;
     const incoData = SHEIKHA_LOGISTICS_SYSTEM.incoterms[incoterm] || SHEIKHA_LOGISTICS_SYSTEM.incoterms['FOB'];
-    
+
     // تقدير التكاليف الإضافية حسب الـ Incoterm
     let additionalCosts = 0;
     if (incoterm === 'CIF' || incoterm === 'DDP') additionalCosts += baseCost * 0.03; // تأمين 3%
     if (incoterm === 'DDP') additionalCosts += baseCost * 0.10; // جمارك تقديرية 10%
-    
+
     return {
         destination,
         containerType: container.nameAr,
@@ -8505,21 +8491,21 @@ function calculateInternationalShipping(destination, containerType, incoterm) {
 // API: حاسبة النقل الداخلي
 app.get('/api/logistics/domestic/calculate', (req, res) => {
     const { from, to, truckType, weight } = req.query;
-    
+
     if (!from || !to) {
-        return res.status(400).json({ 
-            success: false, 
+        return res.status(400).json({
+            success: false,
             error: 'يجب تحديد نقطة الانطلاق والوجهة',
             availableCities: ['الرياض', 'جدة', 'الدمام', 'مكة', 'المدينة', 'تبوك', 'أبها', 'جازان', 'نجران', 'الجبيل', 'الأحساء']
         });
     }
-    
+
     const result = calculateDomesticShipping(from, to, truckType || 'trailer', parseFloat(weight) || 25);
-    
+
     if (result.error) {
         return res.status(404).json({ success: false, ...result });
     }
-    
+
     res.json({
         success: true,
         shipping: result,
@@ -8544,25 +8530,25 @@ app.get('/api/logistics/domestic/rates', (req, res) => {
 // API: حاسبة الشحن الدولي
 app.get('/api/logistics/international/calculate', (req, res) => {
     const { destination, containerType, incoterm } = req.query;
-    
+
     if (!destination) {
-        return res.status(400).json({ 
-            success: false, 
+        return res.status(400).json({
+            success: false,
             error: 'يجب تحديد الوجهة',
             availableDestinations: Object.keys(SHEIKHA_LOGISTICS_SYSTEM.internationalSeaRates)
         });
     }
-    
+
     const result = calculateInternationalShipping(
-        destination, 
-        containerType || '20ft_standard', 
+        destination,
+        containerType || '20ft_standard',
         incoterm || 'FOB'
     );
-    
+
     if (result.error) {
         return res.status(404).json({ success: false, ...result });
     }
-    
+
     res.json({
         success: true,
         shipping: result,
@@ -8589,9 +8575,9 @@ app.get('/api/logistics/international/rates', (req, res) => {
 // API: مصفوفة المسافات السعودية (تم حذف المسار المكرر /api/logistics/documents — المسار الأصلي في السطر 2679)
 app.get('/api/logistics/distances/saudi', (req, res) => {
     const { from } = req.query;
-    
+
     let distances = SHEIKHA_LOGISTICS_SYSTEM.saudiDistances;
-    
+
     if (from) {
         // فلترة المسافات من مدينة محددة
         distances = {};
@@ -8601,7 +8587,7 @@ app.get('/api/logistics/distances/saudi', (req, res) => {
             }
         }
     }
-    
+
     res.json({
         success: true,
         distances,
@@ -8622,7 +8608,7 @@ app.get('/api/logistics/live-stats', (req, res) => {
     const transitCount = ACTIVE_SHIPMENTS.filter(s => s.status === 'transit').length;
     const customsCount = ACTIVE_SHIPMENTS.filter(s => s.status === 'customs').length;
     const deliveredToday = ACTIVE_SHIPMENTS.filter(s => s.status === 'delivered').length;
-    
+
     res.json({
         success: true,
         stats: {
@@ -8644,10 +8630,10 @@ app.get('/api/logistics/live-stats', (req, res) => {
 app.get('/api/logistics/shipments', (req, res) => {
     const { status, type } = req.query;
     let shipments = [...ACTIVE_SHIPMENTS];
-    
+
     if (status) shipments = shipments.filter(s => s.status === status);
     if (type) shipments = shipments.filter(s => s.type === type);
-    
+
     res.json({
         success: true,
         shipments: shipments.map(s => ({
@@ -8669,7 +8655,7 @@ app.get('/api/logistics/shipments', (req, res) => {
 app.get('/api/logistics/shipments/:id', (req, res) => {
     const shipment = ACTIVE_SHIPMENTS.find(s => s.id === req.params.id);
     if (!shipment) return res.status(404).json({ success: false, message: 'الشحنة غير موجودة' });
-    
+
     res.json({
         success: true,
         shipment: {
@@ -8769,11 +8755,11 @@ try {
 app.get('/api/shipping/companies', (req, res) => {
     const { type, country, verified } = req.query;
     let companies = [...SHIPPING_COMPANIES_DATA.companies];
-    
+
     if (type) companies = companies.filter(c => c.type === type);
     if (country) companies = companies.filter(c => c.country === country);
     if (verified === 'true') companies = companies.filter(c => c.verified);
-    
+
     res.json({
         success: true,
         companies,
@@ -8787,11 +8773,11 @@ app.get('/api/shipping/companies', (req, res) => {
 app.get('/api/shipping/trucks', (req, res) => {
     const { suitable } = req.query;
     let trucks = [...SHIPPING_COMPANIES_DATA.trucks];
-    
+
     if (suitable) {
         trucks = trucks.filter(t => t.suitable && t.suitable.includes(suitable));
     }
-    
+
     res.json({
         success: true,
         trucks,
@@ -8803,10 +8789,10 @@ app.get('/api/shipping/trucks', (req, res) => {
 app.get('/api/shipping/warehouses', (req, res) => {
     const { city, type } = req.query;
     let warehouses = [...SHIPPING_COMPANIES_DATA.warehouses];
-    
+
     if (city) warehouses = warehouses.filter(w => w.city === city);
     if (type) warehouses = warehouses.filter(w => w.type === type);
-    
+
     res.json({
         success: true,
         warehouses,
@@ -8818,21 +8804,21 @@ app.get('/api/shipping/warehouses', (req, res) => {
 app.get('/api/shipping/find', (req, res) => {
     const { cargo, from, to, international } = req.query;
     let companies = [...SHIPPING_COMPANIES_DATA.companies];
-    
+
     // تصفية حسب الوجهة
     if (international === 'true') {
         companies = companies.filter(c => c.services && c.services.includes('international'));
     }
-    
+
     // تصفية حسب نوع البضاعة
     if (cargo === 'precious' || cargo === 'gold') {
-        companies = companies.filter(c => c.specializations && 
+        companies = companies.filter(c => c.specializations &&
             (c.specializations.includes('precious-metals') || c.specializations.includes('freight')));
     }
-    
+
     // ترتيب حسب التقييم
     companies.sort((a, b) => (b.rating || 0) - (a.rating || 0));
-    
+
     // اقتراح نوع الشاحنة
     let suggestedTrucks = SHIPPING_COMPANIES_DATA.trucks.filter(t => {
         if (cargo === 'precious' || cargo === 'gold') return t.type === 'armored';
@@ -8840,7 +8826,7 @@ app.get('/api/shipping/find', (req, res) => {
         if (cargo === 'metals') return t.type === 'flatbed' || t.type === 'container';
         return true;
     });
-    
+
     res.json({
         success: true,
         companies: companies.slice(0, 5),
@@ -8852,7 +8838,7 @@ app.get('/api/shipping/find', (req, res) => {
 // API: تتبع الشحنة عبر شركات متعددة
 app.get('/api/shipping/track/:trackingNumber', (req, res) => {
     const { trackingNumber } = req.params;
-    
+
     // محاكاة بيانات التتبع
     res.json({
         success: true,
@@ -8872,11 +8858,11 @@ app.get('/api/shipping/track/:trackingNumber', (req, res) => {
 // API: إنشاء شحنة جديدة
 app.post('/api/logistics/shipments', (req, res) => {
     const { from, to, cargo, weight, type, priority } = req.body;
-    
+
     if (!from || !to || !cargo) {
         return res.status(400).json({ success: false, message: 'بيانات الشحنة غير مكتملة' });
     }
-    
+
     const newShipment = {
         id: 'SH-2024-' + String(Date.now()).slice(-4),
         status: 'pending',
@@ -8890,9 +8876,9 @@ app.post('/api/logistics/shipments', (req, res) => {
         createdAt: new Date().toISOString(),
         eta: new Date(Date.now() + 3 * 24 * 60 * 60 * 1000).toISOString()
     };
-    
+
     ACTIVE_SHIPMENTS.unshift(newShipment);
-    
+
     res.json({
         success: true,
         shipment: newShipment,
@@ -8908,7 +8894,7 @@ app.post('/api/logistics/shipments', (req, res) => {
 // API: توليد الوثائق تلقائياً
 app.post('/api/logistics/documents/generate', (req, res) => {
     const { shipmentId, documentTypes } = req.body;
-    
+
     const documents = (documentTypes || ['bill_of_lading', 'commercial_invoice', 'customs_declaration']).map(type => ({
         type,
         name: {
@@ -8922,7 +8908,7 @@ app.post('/api/logistics/documents/generate', (req, res) => {
         generatedAt: new Date().toISOString(),
         downloadUrl: `/api/logistics/documents/${shipmentId}/${type}.pdf`
     }));
-    
+
     res.json({
         success: true,
         shipmentId,
@@ -8934,14 +8920,14 @@ app.post('/api/logistics/documents/generate', (req, res) => {
 // API: حساب تكلفة الشحن الكاملة
 app.post('/api/logistics/calculate-cost', (req, res) => {
     const { from, to, weight, type, includeCustoms, includeInsurance } = req.body;
-    
+
     // حسابات تقريبية
     const baseCost = weight * (type === 'ship' ? 50 : type === 'plane' ? 150 : 25);
     const customsFees = includeCustoms ? weight * 15 : 0;
     const insuranceFees = includeInsurance ? baseCost * 0.02 : 0;
     const handlingFees = weight * 5;
     const total = baseCost + customsFees + insuranceFees + handlingFees;
-    
+
     res.json({
         success: true,
         calculation: {
@@ -9121,9 +9107,9 @@ try {
 app.get('/api/companies', (req, res) => {
     const type = (req.query.type || '').toLowerCase(); // mining, scrap, logistics, all
     const analysis = SAUDI_METALS_ANALYSIS;
-    
+
     let companies = [];
-    
+
     if (!type || type === 'all') {
         companies = [
             ...(analysis.majorCompanies?.mining || []),
@@ -9137,7 +9123,7 @@ app.get('/api/companies', (req, res) => {
     } else if (type === 'logistics') {
         companies = analysis.majorCompanies?.logistics || [];
     }
-    
+
     res.json({
         success: true,
         type: type || 'all',
@@ -9151,19 +9137,19 @@ app.get('/api/companies', (req, res) => {
 app.get('/api/companies/:id', (req, res) => {
     const id = req.params.id.toLowerCase();
     const analysis = SAUDI_METALS_ANALYSIS;
-    
+
     const allCompanies = [
         ...(analysis.majorCompanies?.mining || []),
         ...(analysis.majorCompanies?.scrap || []),
         ...(analysis.majorCompanies?.logistics || [])
     ];
-    
+
     const company = allCompanies.find(c => c.id === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     res.json({
         success: true,
         company,
@@ -9174,7 +9160,7 @@ app.get('/api/companies/:id', (req, res) => {
 // API: المناجم
 app.get('/api/mines', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-    
+
     res.json({
         success: true,
         goldMines: analysis.goldMines || {},
@@ -9190,7 +9176,7 @@ app.get('/api/mines', (req, res) => {
 // API: بيانات السوق
 app.get('/api/market-analysis', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-    
+
     res.json({
         success: true,
         marketData: analysis.marketData || {},
@@ -9204,7 +9190,7 @@ app.get('/api/market-analysis', (req, res) => {
 // API: نموذج سلسلة التوريد
 app.get('/api/supply-chain-model', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-    
+
     res.json({
         success: true,
         model: analysis.supplyChainModel || {},
@@ -9217,7 +9203,7 @@ app.get('/api/supply-chain-model', (req, res) => {
 // API: التعدين الرقمي
 app.get('/api/digital-mining', (req, res) => {
     const analysis = SAUDI_METALS_ANALYSIS;
-    
+
     res.json({
         success: true,
         digitalMining: analysis.digitalMining || {},
@@ -9252,21 +9238,21 @@ try {
 app.post('/api/companies/register', express.json(), async (req, res) => {
     try {
         const company = req.body;
-        
+
         // دعم حقل type كبديل لـ category (من نموذج التسجيل)
         if (!company.category && company.type) company.category = company.type;
-        
+
         // التحقق من البيانات المطلوبة
         if (!company.nameAr || !company.category) {
             return res.status(400).json({ success: false, message: 'الاسم والفئة مطلوبان' });
         }
-        
+
         // توليد معرف فريد
         if (!company.companyId) {
             const prefix = company.category.toUpperCase().slice(0, 3);
             company.companyId = `${prefix}-${Date.now().toString().slice(-6)}`;
         }
-        
+
         // توليد API Key
         if (!company.apiIntegration?.apiKey) {
             const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
@@ -9278,16 +9264,16 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
             company.apiIntegration.apiKey = apiKey;
             company.apiIntegration.enabled = true;
         }
-        
+
         // إعداد نموذج الذكاء المخصص
         company.aiModel = company.aiModel || { enabled: true };
-        company.aiModel.customPrompt = company.aiModel.customPrompt || 
+        company.aiModel.customPrompt = company.aiModel.customPrompt ||
             `أنت مساعد ذكي لشركة ${company.nameAr}. تخصصك: ${company.category}. ساعد العملاء والموظفين.`;
-        
+
         // إضافة تاريخ التسجيل والحالة
         company.registeredAt = new Date().toISOString();
         company.status = 'active';
-        
+
         // تحليل أهداف الشركة تلقائياً
         company.analytics = {
             performanceScore: 80,
@@ -9296,17 +9282,17 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
             digitalMaturityScore: 70,
             customerSatisfactionScore: 85
         };
-        
+
         // إضافة للسجل
         COMPANIES_REGISTRY.registeredCompanies.push(company);
-        
+
         // حفظ السجل
         fs.writeFileSync(
             path.join(__dirname, 'data', 'companies-registry.json'),
             JSON.stringify(COMPANIES_REGISTRY, null, 2),
             'utf8'
         );
-        
+
         res.json({
             success: true,
             message: 'تم تسجيل الشركة بنجاح',
@@ -9317,7 +9303,7 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
                 dashboardUrl: `/لوحة-الشركة.html?id=${company.companyId}`
             }
         });
-        
+
     } catch (e) {
         res.status(500).json({ success: false, message: 'خطأ في التسجيل: ' + e.message });
     }
@@ -9327,11 +9313,11 @@ app.post('/api/companies/register', express.json(), async (req, res) => {
 app.get('/api/companies/registered', (req, res) => {
     const category = req.query.category;
     let companies = COMPANIES_REGISTRY.registeredCompanies || [];
-    
+
     if (category) {
         companies = companies.filter(c => c.category === category);
     }
-    
+
     res.json({
         success: true,
         count: companies.length,
@@ -9352,11 +9338,11 @@ app.get('/api/companies/registered', (req, res) => {
 app.get('/api/companies/registered/:id', (req, res) => {
     const id = req.params.id;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     res.json({
         success: true,
         company,
@@ -9369,25 +9355,25 @@ app.put('/api/companies/registered/:id', express.json(), (req, res) => {
     const id = req.params.id;
     const updates = req.body;
     const index = COMPANIES_REGISTRY.registeredCompanies.findIndex(c => c.companyId === id);
-    
+
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     // تحديث البيانات
     COMPANIES_REGISTRY.registeredCompanies[index] = {
         ...COMPANIES_REGISTRY.registeredCompanies[index],
         ...updates,
         updatedAt: new Date().toISOString()
     };
-    
+
     // حفظ السجل
     fs.writeFileSync(
         path.join(__dirname, 'data', 'companies-registry.json'),
         JSON.stringify(COMPANIES_REGISTRY, null, 2),
         'utf8'
     );
-    
+
     res.json({
         success: true,
         message: 'تم تحديث بيانات الشركة',
@@ -9531,11 +9517,11 @@ function getDefaultEntityPermissions(type) {
 app.get('/api/company/:id/products', (req, res) => {
     const id = req.params.id;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     res.json({
         success: true,
         companyId: id,
@@ -9549,27 +9535,27 @@ app.post('/api/company/:id/products', express.json(), (req, res) => {
     const id = req.params.id;
     const product = req.body;
     const index = COMPANIES_REGISTRY.registeredCompanies.findIndex(c => c.companyId === id);
-    
+
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     // إنشاء معرف المنتج
     product.productId = `PRD-${Date.now().toString().slice(-8)}`;
     product.createdAt = new Date().toISOString();
-    
+
     // إضافة المنتج
-    COMPANIES_REGISTRY.registeredCompanies[index].products = 
+    COMPANIES_REGISTRY.registeredCompanies[index].products =
         COMPANIES_REGISTRY.registeredCompanies[index].products || [];
     COMPANIES_REGISTRY.registeredCompanies[index].products.push(product);
-    
+
     // حفظ
     fs.writeFileSync(
         path.join(__dirname, 'data', 'companies-registry.json'),
         JSON.stringify(COMPANIES_REGISTRY, null, 2),
         'utf8'
     );
-    
+
     res.json({
         success: true,
         message: 'تم إضافة المنتج',
@@ -9581,11 +9567,11 @@ app.post('/api/company/:id/products', express.json(), (req, res) => {
 app.get('/api/company/:id/analytics', (req, res) => {
     const id = req.params.id;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     res.json({
         success: true,
         companyId: id,
@@ -9608,11 +9594,11 @@ app.post('/api/company/:id/ai/chat', express.json(), async (req, res) => {
     const id = req.params.id;
     const { message } = req.body;
     const company = COMPANIES_REGISTRY.registeredCompanies.find(c => c.companyId === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     // بناء سياق مخصص للشركة
     const companyContext = `
 أنتِ شيخة، المساعدة الذكية المخصصة لشركة "${company.nameAr}" (${company.nameEn || ''}).
@@ -9633,15 +9619,15 @@ ${company.aiModel?.customPrompt ? `\nتعليمات إضافية من الشرك
 
 ساعد المستخدم بما يتعلق بمنتجات الشركة وخدماتها. كن محترفاً ومفيداً.
 `;
-    
+
     try {
         const messages = [
             { role: 'system', content: companyContext },
             { role: 'user', content: message }
         ];
-        
+
         const result = await callLLMChat(messages, 800, 0.6);
-        
+
         res.json({
             success: true,
             reply: result.reply || 'مرحباً، كيف يمكنني مساعدتك؟',
@@ -9822,18 +9808,18 @@ app.get('/api/marketing/packages', (req, res) => {
 app.get('/api/marketing/packages/:id', (req, res) => {
     const pkgId = req.params.id;
     const pkg = MARKETING_SERVICES.packages?.[pkgId];
-    
+
     if (!pkg) {
         return res.status(404).json({ success: false, message: 'الباقة غير موجودة' });
     }
-    
+
     res.json({ success: true, package: pkg });
 });
 
 // الحصول على الخدمات الفردية
 app.get('/api/marketing/services', (req, res) => {
     const category = req.query.category;
-    
+
     if (category && MARKETING_SERVICES.individualServices?.[category]) {
         return res.json({
             success: true,
@@ -9841,7 +9827,7 @@ app.get('/api/marketing/services', (req, res) => {
             services: MARKETING_SERVICES.individualServices[category]
         });
     }
-    
+
     res.json({
         success: true,
         services: MARKETING_SERVICES.individualServices || {}
@@ -9851,7 +9837,7 @@ app.get('/api/marketing/services', (req, res) => {
 // طلب خدمة هوية تجارية
 app.post('/api/marketing/branding', express.json(), (req, res) => {
     const { companyId, serviceType, requirements } = req.body;
-    
+
     const order = {
         orderId: 'BRD-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -9862,7 +9848,7 @@ app.post('/api/marketing/branding', express.json(), (req, res) => {
         price: MARKETING_SERVICES.individualServices?.branding?.[serviceType]?.price || 500,
         createdAt: new Date().toISOString()
     };
-    
+
     res.json({
         success: true,
         message: 'تم استلام طلب الهوية التجارية',
@@ -9873,9 +9859,9 @@ app.post('/api/marketing/branding', express.json(), (req, res) => {
 // طلب موقع إلكتروني
 app.post('/api/marketing/website', express.json(), (req, res) => {
     const { companyId, packageType, domain, requirements } = req.body;
-    
+
     const pkg = MARKETING_SERVICES.individualServices?.websites?.[packageType || 'landing'];
-    
+
     const order = {
         orderId: 'WEB-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -9889,7 +9875,7 @@ app.post('/api/marketing/website', express.json(), (req, res) => {
         features: pkg?.features || [],
         createdAt: new Date().toISOString()
     };
-    
+
     res.json({
         success: true,
         message: 'تم استلام طلب الموقع الإلكتروني',
@@ -9900,9 +9886,9 @@ app.post('/api/marketing/website', express.json(), (req, res) => {
 // طلب خدمة بريد إلكتروني
 app.post('/api/marketing/emails', express.json(), (req, res) => {
     const { companyId, packageType, emailAccounts } = req.body;
-    
+
     const pkg = MARKETING_SERVICES.individualServices?.emails?.[packageType || 'basic'];
-    
+
     const order = {
         orderId: 'EML-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -9918,7 +9904,7 @@ app.post('/api/marketing/emails', express.json(), (req, res) => {
         features: pkg?.features || [],
         createdAt: new Date().toISOString()
     };
-    
+
     res.json({
         success: true,
         message: 'تم استلام طلب البريد الإلكتروني',
@@ -9929,10 +9915,10 @@ app.post('/api/marketing/emails', express.json(), (req, res) => {
 // طلب إيميلات ذكية للسائقين
 app.post('/api/marketing/smart-emails', express.json(), (req, res) => {
     const { companyId, emailType, accounts } = req.body;
-    
+
     const type = emailType || 'driver';
     const smartPkg = MARKETING_SERVICES.individualServices?.smartEmails?.[type];
-    
+
     const order = {
         orderId: 'SMT-' + Date.now().toString(36).toUpperCase(),
         companyId,
@@ -9946,7 +9932,7 @@ app.post('/api/marketing/smart-emails', express.json(), (req, res) => {
         status: 'pending',
         createdAt: new Date().toISOString()
     };
-    
+
     res.json({
         success: true,
         message: 'تم استلام طلب الإيميلات الذكية',
@@ -9965,10 +9951,10 @@ app.get('/api/marketing/addons', (req, res) => {
 // حساب السعر الإجمالي للباقة + الإضافات
 app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
     const { packageId, addons, quantity } = req.body;
-    
+
     let total = 0;
     const breakdown = [];
-    
+
     // سعر الباقة
     const pkg = MARKETING_SERVICES.packages?.[packageId];
     if (pkg && pkg.price) {
@@ -9979,7 +9965,7 @@ app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
             type: 'package'
         });
     }
-    
+
     // الإضافات
     if (addons && Array.isArray(addons)) {
         addons.forEach(addonId => {
@@ -9994,7 +9980,7 @@ app.post('/api/marketing/calculate-price', express.json(), (req, res) => {
             }
         });
     }
-    
+
     res.json({
         success: true,
         total,
@@ -10140,7 +10126,7 @@ app.get('/api/server/status', (req, res) => {
     const uptime = Date.now() - SERVER_START_TIME;
     const avgResponseTime = REQUEST_COUNT > 0 ? Math.round(TOTAL_RESPONSE_TIME / REQUEST_COUNT) : 0;
     const memUsage = process.memoryUsage();
-    
+
     res.json({
         success: true,
         server: {
@@ -10176,7 +10162,7 @@ app.get('/api/server/metrics', (req, res) => {
     const uptime = Date.now() - SERVER_START_TIME;
     const memUsage = process.memoryUsage();
     const cpuUsage = process.cpuUsage();
-    
+
     res.json({
         success: true,
         metrics: {
@@ -10215,7 +10201,7 @@ app.get('/api/server/metrics', (req, res) => {
 // حالة الخدمات
 app.get('/api/server/services', (req, res) => {
     const aiEnabled = !!OPENAI_API_KEY && OPENAI_API_KEY !== 'YOUR_API_KEY_HERE';
-    
+
     res.json({
         success: true,
         services: [
@@ -10301,12 +10287,12 @@ addSystemLog('success', 'WebSocket', 'Real-time server started');
 app.get('/api/server/logs', (req, res) => {
     const limit = parseInt(req.query.limit) || 50;
     const level = req.query.level;
-    
+
     let logs = [...SYSTEM_LOGS];
     if (level) {
         logs = logs.filter(l => l.level === level);
     }
-    
+
     res.json({
         success: true,
         logs: logs.slice(0, limit),
@@ -10391,11 +10377,11 @@ app.get('/api/health', (req, res) => {
         database: fs.existsSync(path.join(__dirname, 'data', 'users.json')),
         memory: memoryOk
     };
-    
+
     // الخادم صحي إذا الخادم والبيانات يعملان — الذاكرة تحذيرية
     const healthy = checks.server && checks.database;
     const status = healthy ? (memoryOk ? 'healthy' : 'degraded') : 'unhealthy';
-    
+
     res.status(healthy ? 200 : 503).json({
         success: healthy,
         status,
@@ -10548,29 +10534,29 @@ function calculateScrapValue(item) {
     const now = new Date();
     const purchaseDate = new Date(item.purchaseDate || now);
     const monthsHeld = Math.floor((now - purchaseDate) / (30 * 24 * 60 * 60 * 1000));
-    
+
     // السعر الأساسي
     let currentValue = item.purchasePrice || 0;
-    
+
     // 1. الاهلاك الزمني (بالتلف)
     const timeDepreciation = currentValue * SMART_INVENTORY.depreciation.timeDepreciation * monthsHeld;
-    
+
     // 2. الاهلاك الشكلي (إن وجد)
-    const physicalDepreciation = item.hasPhysicalDamage ? 
+    const physicalDepreciation = item.hasPhysicalDamage ?
         currentValue * SMART_INVENTORY.depreciation.physicalDepreciation : 0;
-    
+
     // 3. فقد المعالجة (قص، فرز، إلخ)
     const processingLoss = item.wasProcessed ?
         currentValue * SMART_INVENTORY.depreciation.processingLoss : 0;
-    
+
     // 4. فرق الوزن الحقيقي
     const weightVariance = item.actualWeight && item.originalWeight ?
         Math.abs(item.originalWeight - item.actualWeight) / item.originalWeight * currentValue : 0;
-    
+
     // القيمة الحالية بعد الاهلاك
     const depreciation = timeDepreciation + physicalDepreciation + processingLoss + weightVariance;
     const currentNetValue = Math.max(0, currentValue - depreciation);
-    
+
     return {
         originalValue: item.purchasePrice,
         currentValue: Math.round(currentNetValue),
@@ -10592,22 +10578,22 @@ function calculateScrapValue(item) {
 function predictInventoryFill(userId, warehouseCapacity = 1000) {
     const userItems = SMART_INVENTORY.items.filter(i => i.userId === userId);
     if (userItems.length < 2) return null;
-    
+
     // حساب معدل الإضافة اليومي
     const sortedItems = userItems.sort((a, b) => new Date(a.addedAt) - new Date(b.addedAt));
     const firstDate = new Date(sortedItems[0].addedAt);
     const lastDate = new Date(sortedItems[sortedItems.length - 1].addedAt);
     const daysDiff = Math.max(1, (lastDate - firstDate) / (24 * 60 * 60 * 1000));
-    
+
     const totalWeight = userItems.reduce((sum, i) => sum + (i.actualWeight || i.originalWeight || 0), 0);
     const dailyRate = totalWeight / daysDiff;
-    
+
     // توقع تاريخ الامتلاء
     const remainingCapacity = warehouseCapacity - totalWeight;
     const daysToFill = remainingCapacity > 0 && dailyRate > 0 ? Math.ceil(remainingCapacity / dailyRate) : null;
-    
+
     const predictedFillDate = daysToFill ? new Date(Date.now() + daysToFill * 24 * 60 * 60 * 1000) : null;
-    
+
     return {
         currentWeight: Math.round(totalWeight),
         capacity: warehouseCapacity,
@@ -10615,7 +10601,7 @@ function predictInventoryFill(userId, warehouseCapacity = 1000) {
         dailyRate: Math.round(dailyRate * 100) / 100,
         daysToFill,
         predictedFillDate: predictedFillDate?.toISOString().split('T')[0],
-        recommendation: remainingCapacity < warehouseCapacity * 0.2 ? 
+        recommendation: remainingCapacity < warehouseCapacity * 0.2 ?
             'يوصى بالبيع قريباً - المخزون يقترب من الامتلاء' :
             remainingCapacity < warehouseCapacity * 0.5 ?
             'المخزون في مستوى جيد - راقب الأسعار للبيع الأمثل' :
@@ -10628,29 +10614,29 @@ function predictInventoryFill(userId, warehouseCapacity = 1000) {
  */
 function analyzeInventoryFeasibility(items) {
     if (!items || items.length === 0) return null;
-    
+
     let totalPurchaseValue = 0;
     let totalCurrentValue = 0;
     let totalWeight = 0;
     let totalDepreciation = 0;
-    
+
     const byCategory = {};
     const byQuality = {};
-    
+
     items.forEach(item => {
         const valuation = calculateScrapValue(item);
         totalPurchaseValue += item.purchasePrice || 0;
         totalCurrentValue += valuation.currentValue;
         totalWeight += item.actualWeight || item.originalWeight || 0;
         totalDepreciation += valuation.totalDepreciation;
-        
+
         // تجميع حسب النوع
         const cat = item.category || 'other';
         if (!byCategory[cat]) byCategory[cat] = { count: 0, weight: 0, value: 0 };
         byCategory[cat].count++;
         byCategory[cat].weight += item.actualWeight || item.originalWeight || 0;
         byCategory[cat].value += valuation.currentValue;
-        
+
         // تجميع حسب الجودة
         const qual = item.quality || 'unknown';
         if (!byQuality[qual]) byQuality[qual] = { count: 0, weight: 0, value: 0 };
@@ -10658,7 +10644,7 @@ function analyzeInventoryFeasibility(items) {
         byQuality[qual].weight += item.actualWeight || item.originalWeight || 0;
         byQuality[qual].value += valuation.currentValue;
     });
-    
+
     return {
         summary: {
             totalItems: items.length,
@@ -10666,9 +10652,9 @@ function analyzeInventoryFeasibility(items) {
             totalPurchaseValue: Math.round(totalPurchaseValue),
             totalCurrentValue: Math.round(totalCurrentValue),
             totalDepreciation: Math.round(totalDepreciation),
-            depreciationPercent: totalPurchaseValue > 0 ? 
+            depreciationPercent: totalPurchaseValue > 0 ?
                 ((totalDepreciation / totalPurchaseValue) * 100).toFixed(1) : 0,
-            averageValuePerTon: totalWeight > 0 ? 
+            averageValuePerTon: totalWeight > 0 ?
                 Math.round(totalCurrentValue / totalWeight * 1000) : 0
         },
         byCategory: Object.entries(byCategory).map(([k, v]) => ({
@@ -10696,17 +10682,17 @@ function analyzeInventoryFeasibility(items) {
  */
 function autoScheduleInventory(items, marketPrices = {}) {
     if (!items || items.length === 0) return [];
-    
+
     const scheduled = items.map(item => {
         const valuation = calculateScrapValue(item);
         const marketPrice = marketPrices[item.category] || item.estimatedMarketPrice || 0;
-        const profitMargin = marketPrice > 0 ? 
+        const profitMargin = marketPrice > 0 ?
             ((marketPrice - valuation.currentValue) / valuation.currentValue * 100).toFixed(1) : 0;
-        
+
         // تحديد الأولوية
         let priority = 'normal';
         let action = 'hold';
-        
+
         if (valuation.depreciationRate > 15) {
             priority = 'urgent';
             action = 'sell_immediately';
@@ -10720,7 +10706,7 @@ function autoScheduleInventory(items, marketPrices = {}) {
             priority = 'low';
             action = 'wait_for_better_price';
         }
-        
+
         return {
             itemId: item.id,
             name: item.name,
@@ -10741,7 +10727,7 @@ function autoScheduleInventory(items, marketPrices = {}) {
             recommendation: getItemRecommendation(action, profitMargin, valuation.depreciationRate)
         };
     });
-    
+
     // ترتيب حسب الأولوية
     const priorityOrder = { urgent: 0, high: 1, medium: 2, normal: 3, low: 4 };
     return scheduled.sort((a, b) => priorityOrder[a.priority] - priorityOrder[b.priority]);
@@ -10797,17 +10783,17 @@ app.get('/api/forum/stats', (req, res) => {
 app.get('/api/forum/topics', (req, res) => {
     const { category, sort, limit = 20, page = 1 } = req.query;
     let topics = [...FORUM_DATA.topics];
-    
+
     if (category) topics = topics.filter(t => t.category === category);
-    
+
     // ترتيب
     if (sort === 'popular') topics.sort((a, b) => (b.views + b.replies * 10) - (a.views + a.replies * 10));
     else if (sort === 'replies') topics.sort((a, b) => b.replies - a.replies);
     else topics.sort((a, b) => new Date(b.createdAt) - new Date(a.createdAt));
-    
+
     const start = (page - 1) * limit;
     const paginated = topics.slice(start, start + parseInt(limit));
-    
+
     res.json({
         success: true,
         topics: paginated,
@@ -10823,7 +10809,7 @@ app.post('/api/forum/topics', express.json(), authOptional, (req, res) => {
     if (!title || !content || !category) {
         return res.status(400).json({ success: false, message: 'يرجى تعبئة جميع الحقول' });
     }
-    
+
     const topic = {
         id: uuidv4(),
         title: title.slice(0, 200),
@@ -10839,19 +10825,19 @@ app.post('/api/forum/topics', express.json(), authOptional, (req, res) => {
         status: 'active',
         pinned: false
     };
-    
+
     FORUM_DATA.topics.unshift(topic);
     FORUM_DATA.statistics.totalTopics++;
-    
+
     // تحديث عداد القسم
     const cat = FORUM_DATA.categories.find(c => c.id === category);
     if (cat) cat.count++;
-    
+
     saveForumData();
-    
+
     // تسجيل للذكاء — جمع معلومات
     collectIntelligence('forum_topic', { title, category, content: content.slice(0, 500) });
-    
+
     res.json({ success: true, topic, message: 'تم نشر الموضوع بنجاح' });
 });
 
@@ -10859,12 +10845,12 @@ app.post('/api/forum/topics', express.json(), authOptional, (req, res) => {
 app.get('/api/forum/topics/:id', (req, res) => {
     const topic = FORUM_DATA.topics.find(t => t.id === req.params.id);
     if (!topic) return res.status(404).json({ success: false, message: 'الموضوع غير موجود' });
-    
+
     topic.views++;
     saveForumData();
-    
+
     const replies = FORUM_DATA.replies.filter(r => r.topicId === req.params.id);
-    
+
     res.json({ success: true, topic, replies });
 });
 
@@ -10874,10 +10860,10 @@ app.post('/api/forum/replies', express.json(), authOptional, (req, res) => {
     if (!topicId || !content) {
         return res.status(400).json({ success: false, message: 'يرجى كتابة الرد' });
     }
-    
+
     const topic = FORUM_DATA.topics.find(t => t.id === topicId);
     if (!topic) return res.status(404).json({ success: false, message: 'الموضوع غير موجود' });
-    
+
     const reply = {
         id: uuidv4(),
         topicId,
@@ -10886,14 +10872,14 @@ app.post('/api/forum/replies', express.json(), authOptional, (req, res) => {
         authorId: req.user?.id || null,
         createdAt: new Date().toISOString()
     };
-    
+
     FORUM_DATA.replies.push(reply);
     topic.replies++;
     topic.updatedAt = new Date().toISOString();
     FORUM_DATA.statistics.totalReplies++;
-    
+
     saveForumData();
-    
+
     res.json({ success: true, reply, message: 'تم إضافة الرد' });
 });
 
@@ -10901,15 +10887,15 @@ app.post('/api/forum/replies', express.json(), authOptional, (req, res) => {
 app.get('/api/forum/search', (req, res) => {
     const { q, category } = req.query;
     if (!q) return res.json({ success: true, results: [] });
-    
+
     const query = q.toLowerCase();
-    let results = FORUM_DATA.topics.filter(t => 
-        t.title.toLowerCase().includes(query) || 
+    let results = FORUM_DATA.topics.filter(t =>
+        t.title.toLowerCase().includes(query) ||
         t.content.toLowerCase().includes(query)
     );
-    
+
     if (category) results = results.filter(t => t.category === category);
-    
+
     res.json({ success: true, results: results.slice(0, 50), total: results.length });
 });
 
@@ -10929,16 +10915,16 @@ app.get('/api/research/stats', (req, res) => {
 app.get('/api/research/papers', (req, res) => {
     const { area, type, year, limit = 20, page = 1 } = req.query;
     let papers = [...RESEARCH_DATA.papers];
-    
+
     if (area) papers = papers.filter(p => p.area === area);
     if (type) papers = papers.filter(p => p.type === type);
     if (year) papers = papers.filter(p => p.year === parseInt(year));
-    
+
     papers.sort((a, b) => new Date(b.publishedAt) - new Date(a.publishedAt));
-    
+
     const start = (page - 1) * limit;
     const paginated = papers.slice(start, start + parseInt(limit));
-    
+
     res.json({
         success: true,
         papers: paginated,
@@ -10953,7 +10939,7 @@ app.post('/api/research/papers', express.json(), authOptional, (req, res) => {
     if (!title || !abstract || !type || !area) {
         return res.status(400).json({ success: false, message: 'يرجى تعبئة الحقول المطلوبة' });
     }
-    
+
     const paper = {
         id: uuidv4(),
         title: title.slice(0, 300),
@@ -10969,19 +10955,19 @@ app.post('/api/research/papers', express.json(), authOptional, (req, res) => {
         views: 0,
         downloads: 0
     };
-    
+
     RESEARCH_DATA.papers.unshift(paper);
     RESEARCH_DATA.statistics.totalPapers++;
-    
+
     // تحديث عداد المجال
     const areaData = RESEARCH_DATA.areas.find(a => a.id === area);
     if (areaData) areaData.papers++;
-    
+
     saveResearchData();
-    
+
     // تسجيل للذكاء
     collectIntelligence('research_paper', { title, area, abstract: abstract.slice(0, 500) });
-    
+
     res.json({ success: true, paper, message: 'تم إرسال البحث للمراجعة' });
 });
 
@@ -10989,17 +10975,17 @@ app.post('/api/research/papers', express.json(), authOptional, (req, res) => {
 app.get('/api/research/search', (req, res) => {
     const { q, area, type } = req.query;
     if (!q) return res.json({ success: true, results: [] });
-    
+
     const query = q.toLowerCase();
-    let results = RESEARCH_DATA.papers.filter(p => 
-        p.title.toLowerCase().includes(query) || 
+    let results = RESEARCH_DATA.papers.filter(p =>
+        p.title.toLowerCase().includes(query) ||
         p.abstract.toLowerCase().includes(query) ||
         p.keywords.some(k => k.toLowerCase().includes(query))
     );
-    
+
     if (area) results = results.filter(p => p.area === area);
     if (type) results = results.filter(p => p.type === type);
-    
+
     res.json({ success: true, results: results.slice(0, 50), total: results.length });
 });
 
@@ -11014,16 +11000,16 @@ function collectIntelligence(type, data) {
         collectedAt: new Date().toISOString(),
         processed: false
     };
-    
+
     INTELLIGENCE_DATA.collectedData.push(record);
     INTELLIGENCE_DATA.statistics.totalCollected++;
     INTELLIGENCE_DATA.statistics.lastCollection = new Date().toISOString();
-    
+
     // حفظ كل 10 سجلات
     if (INTELLIGENCE_DATA.collectedData.length % 10 === 0) {
         saveIntelligenceData();
     }
-    
+
     // توليد رؤى آلية
     if (INTELLIGENCE_DATA.collectedData.length % 50 === 0) {
         generateInsights();
@@ -11033,7 +11019,7 @@ function collectIntelligence(type, data) {
 // توليد رؤى من البيانات المجمعة
 function generateInsights() {
     const recentData = INTELLIGENCE_DATA.collectedData.slice(-100);
-    
+
     // تحليل المواضيع الأكثر ذكراً
     const topics = {};
     recentData.forEach(d => {
@@ -11044,7 +11030,7 @@ function generateInsights() {
             }
         });
     });
-    
+
     const insight = {
         id: uuidv4(),
         type: 'topic_analysis',
@@ -11054,10 +11040,10 @@ function generateInsights() {
             generatedAt: new Date().toISOString()
         }
     };
-    
+
     INTELLIGENCE_DATA.insights.unshift(insight);
     INTELLIGENCE_DATA.statistics.insightsGenerated++;
-    
+
     if (INTELLIGENCE_DATA.insights.length > 100) {
         INTELLIGENCE_DATA.insights = INTELLIGENCE_DATA.insights.slice(0, 100);
     }
@@ -11080,7 +11066,7 @@ app.get('/api/intelligence/stats', (req, res) => {
     INTELLIGENCE_DATA.collectedData.forEach(d => {
         typeStats[d.type] = (typeStats[d.type] || 0) + 1;
     });
-    
+
     res.json({
         success: true,
         statistics: INTELLIGENCE_DATA.statistics,
@@ -11097,27 +11083,27 @@ app.get('/api/intelligence/stats', (req, res) => {
 app.get('/api/search/all', (req, res) => {
     const { q, limit = 30 } = req.query;
     if (!q) return res.json({ success: true, results: { forum: [], research: [], market: [] } });
-    
+
     const query = q.toLowerCase();
-    
+
     // البحث في المنتدى
-    const forumResults = FORUM_DATA.topics.filter(t => 
+    const forumResults = FORUM_DATA.topics.filter(t =>
         t.title.toLowerCase().includes(query) || t.content.toLowerCase().includes(query)
     ).slice(0, 10).map(t => ({ ...t, source: 'forum' }));
-    
+
     // البحث في الأبحاث
-    const researchResults = RESEARCH_DATA.papers.filter(p => 
+    const researchResults = RESEARCH_DATA.papers.filter(p =>
         p.title.toLowerCase().includes(query) || p.abstract.toLowerCase().includes(query)
     ).slice(0, 10).map(p => ({ ...p, source: 'research' }));
-    
+
     // البحث في السوق
-    const marketResults = LISTINGS.filter(l => 
+    const marketResults = LISTINGS.filter(l =>
         l.name?.toLowerCase().includes(query) || l.category?.toLowerCase().includes(query)
     ).slice(0, 10).map(l => ({ ...l, source: 'market' }));
-    
+
     // تسجيل البحث للذكاء
     collectIntelligence('search_query', { query: q, resultsCount: forumResults.length + researchResults.length + marketResults.length });
-    
+
     res.json({
         success: true,
         results: {
@@ -11136,7 +11122,7 @@ function formatUptime(ms) {
     const minutes = Math.floor(seconds / 60);
     const hours = Math.floor(minutes / 60);
     const days = Math.floor(hours / 24);
-    
+
     if (days > 0) return `${days}d ${hours % 24}h ${minutes % 60}m`;
     if (hours > 0) return `${hours}h ${minutes % 60}m ${seconds % 60}s`;
     if (minutes > 0) return `${minutes}m ${seconds % 60}s`;
@@ -11158,7 +11144,7 @@ function formatBytes(bytes) {
 // API مؤشرات الأداء الرئيسية
 app.get('/api/dashboard/kpis', (req, res) => {
     const { period = 'week' } = req.query;
-    
+
     // بيانات تجريبية - في الإنتاج ستأتي من قاعدة البيانات
     const kpis = {
         totalRevenue: { value: 2547830 + Math.floor(Math.random() * 50000), trend: 12.5, currency: 'SAR' },
@@ -11170,7 +11156,7 @@ app.get('/api/dashboard/kpis', (req, res) => {
         conversionRate: { value: 4.2, trend: 0.5 },
         avgOrderValue: { value: 1984, trend: 3.2 }
     };
-    
+
     res.json({
         success: true,
         period,
@@ -11182,7 +11168,7 @@ app.get('/api/dashboard/kpis', (req, res) => {
 // API بيانات الرسوم البيانية
 app.get('/api/dashboard/charts', (req, res) => {
     const { type = 'revenue', period = 'week' } = req.query;
-    
+
     const charts = {
         revenue: {
             labels: ['السبت', 'الأحد', 'الاثنين', 'الثلاثاء', 'الأربعاء', 'الخميس', 'الجمعة'],
@@ -11200,7 +11186,7 @@ app.get('/api/dashboard/charts', (req, res) => {
             data: [40, 25, 18, 10, 7]
         }
     };
-    
+
     res.json({
         success: true,
         type,
@@ -11213,10 +11199,10 @@ app.get('/api/dashboard/charts', (req, res) => {
 // API النشاط المباشر
 app.get('/api/dashboard/activity', (req, res) => {
     const { limit = 10 } = req.query;
-    
+
     const activityTypes = ['order', 'user', 'payment', 'shipment', 'alert'];
     const activities = [];
-    
+
     for (let i = 0; i < parseInt(limit); i++) {
         const type = activityTypes[Math.floor(Math.random() * activityTypes.length)];
         activities.push({
@@ -11227,7 +11213,7 @@ app.get('/api/dashboard/activity', (req, res) => {
             timestamp: new Date(Date.now() - i * 300000).toISOString()
         });
     }
-    
+
     res.json({
         success: true,
         count: activities.length,
@@ -11238,7 +11224,7 @@ app.get('/api/dashboard/activity', (req, res) => {
 // API أفضل التجار
 app.get('/api/dashboard/top-traders', (req, res) => {
     const { limit = 5, period = 'month' } = req.query;
-    
+
     const traders = [
         { id: 1, name: 'مؤسسة الفهد للمعادن', region: 'الرياض', revenue: 485000, orders: 156, rating: 4.9 },
         { id: 2, name: 'شركة النور للسكراب', region: 'جدة', revenue: 412000, orders: 134, rating: 4.8 },
@@ -11246,7 +11232,7 @@ app.get('/api/dashboard/top-traders', (req, res) => {
         { id: 4, name: 'تجارة المعادن الحديثة', region: 'مكة', revenue: 295000, orders: 98, rating: 4.6 },
         { id: 5, name: 'مؤسسة الأمل', region: 'المدينة', revenue: 267000, orders: 87, rating: 4.5 }
     ];
-    
+
     res.json({
         success: true,
         period,
@@ -11294,7 +11280,7 @@ app.get('/api/dashboard/ai-insights', (req, res) => {
             priority: 'low'
         }
     ];
-    
+
     res.json({
         success: true,
         count: insights.length,
@@ -11306,7 +11292,7 @@ app.get('/api/dashboard/ai-insights', (req, res) => {
 // API التقارير
 app.get('/api/dashboard/reports', (req, res) => {
     const { type = 'summary', period = 'month' } = req.query;
-    
+
     const reports = {
         summary: {
             totalRevenue: 2547830,
@@ -11329,7 +11315,7 @@ app.get('/api/dashboard/reports', (req, res) => {
             satisfaction: 91
         }
     };
-    
+
     res.json({
         success: true,
         type,
@@ -11504,12 +11490,12 @@ app.get('/api/auth/oauth/:provider', (req, res) => {
         microsoft: { authUrl: 'https://login.microsoftonline.com/common/oauth2/v2.0/authorize', clientId: 'SHEIKHA_MS' },
         apple: { authUrl: 'https://appleid.apple.com/auth/authorize', clientId: 'SHEIKHA_APPLE' }
     };
-    
+
     const config = providers[provider];
     if (!config) {
         return res.status(400).json({ success: false, error: 'مزود غير معروف' });
     }
-    
+
     // في الإنتاج، سيتم إعادة توجيه المستخدم لصفحة المصادقة
     res.json({
         success: true,
@@ -11555,18 +11541,18 @@ function saveCompaniesDB(data) {
 app.get('/api/companies', (req, res) => {
     const db = loadCompaniesDB();
     const { type, region, verified, limit = 50, offset = 0 } = req.query;
-    
+
     let companies = db.sampleCompanies || [];
-    
+
     // التصفية
     if (type) companies = companies.filter(c => c.type === type);
     if (region) companies = companies.filter(c => c.region?.includes(region));
     if (verified === 'true') companies = companies.filter(c => c.verified);
-    
+
     // الترقيم
     const total = companies.length;
     companies = companies.slice(parseInt(offset), parseInt(offset) + parseInt(limit));
-    
+
     res.json({
         success: true,
         data: companies,
@@ -11578,14 +11564,14 @@ app.get('/api/companies', (req, res) => {
 app.get('/api/companies/hs/:code', (req, res) => {
     const { code } = req.params;
     const db = loadCompaniesDB();
-    
+
     let companies = db.sampleCompanies || [];
-    companies = companies.filter(c => 
+    companies = companies.filter(c =>
         c.hsCategories?.some(hs => hs.startsWith(code) || code.startsWith(hs))
     );
-    
+
     const hsInfo = db.hsCodeTargets?.[code] || { name: 'غير محدد', nameEn: 'Unknown' };
-    
+
     res.json({
         success: true,
         hsCode: code,
@@ -11599,27 +11585,27 @@ app.get('/api/companies/hs/:code', (req, res) => {
 app.get('/api/companies/search', (req, res) => {
     const { q, hsCode, type, region, category } = req.query;
     const db = loadCompaniesDB();
-    
+
     let companies = db.sampleCompanies || [];
-    
+
     if (q) {
         const query = q.toLowerCase();
-        companies = companies.filter(c => 
+        companies = companies.filter(c =>
             c.name?.toLowerCase().includes(query) ||
             c.nameEn?.toLowerCase().includes(query) ||
             c.specialization?.toLowerCase().includes(query)
         );
     }
-    
+
     if (hsCode) {
-        companies = companies.filter(c => 
+        companies = companies.filter(c =>
             c.hsCategories?.some(hs => hs.startsWith(hsCode))
         );
     }
-    
+
     if (type) companies = companies.filter(c => c.type === type);
     if (region) companies = companies.filter(c => c.region?.includes(region));
-    
+
     res.json({
         success: true,
         query: { q, hsCode, type, region, category },
@@ -11637,10 +11623,10 @@ app.post('/api/companies', (req, res) => {
         createdAt: new Date().toISOString(),
         verified: false
     };
-    
+
     if (!db.sampleCompanies) db.sampleCompanies = [];
     db.sampleCompanies.push(company);
-    
+
     if (saveCompaniesDB(db)) {
         res.json({ success: true, message: 'تم إضافة الشركة بنجاح', data: company });
     } else {
@@ -11652,14 +11638,14 @@ app.post('/api/companies', (req, res) => {
 app.put('/api/companies/:id', (req, res) => {
     const { id } = req.params;
     const db = loadCompaniesDB();
-    
+
     const index = db.sampleCompanies?.findIndex(c => c.id === id);
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     db.sampleCompanies[index] = { ...db.sampleCompanies[index], ...req.body, updatedAt: new Date().toISOString() };
-    
+
     if (saveCompaniesDB(db)) {
         res.json({ success: true, message: 'تم تحديث الشركة', data: db.sampleCompanies[index] });
     } else {
@@ -11671,14 +11657,14 @@ app.put('/api/companies/:id', (req, res) => {
 app.delete('/api/companies/:id', (req, res) => {
     const { id } = req.params;
     const db = loadCompaniesDB();
-    
+
     const index = db.sampleCompanies?.findIndex(c => c.id === id);
     if (index === -1) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     db.sampleCompanies.splice(index, 1);
-    
+
     if (saveCompaniesDB(db)) {
         res.json({ success: true, message: 'تم حذف الشركة' });
     } else {
@@ -11690,22 +11676,22 @@ app.delete('/api/companies/:id', (req, res) => {
 app.get('/api/companies/export', (req, res) => {
     const { format = 'json', hsCode, type } = req.query;
     const db = loadCompaniesDB();
-    
+
     let companies = db.sampleCompanies || [];
-    
+
     if (hsCode) {
-        companies = companies.filter(c => 
+        companies = companies.filter(c =>
             c.hsCategories?.some(hs => hs.startsWith(hsCode))
         );
     }
     if (type) companies = companies.filter(c => c.type === type);
-    
+
     if (format === 'csv') {
         const headers = 'الاسم,النوع,الهاتف,البريد,المنطقة,تصنيفات HS\n';
-        const rows = companies.map(c => 
+        const rows = companies.map(c =>
             `"${c.name}","${c.type}","${c.contact?.phone}","${c.contact?.email}","${c.region}","${c.hsCategories?.join('; ')}"`
         ).join('\n');
-        
+
         res.setHeader('Content-Type', 'text/csv; charset=utf-8');
         res.setHeader('Content-Disposition', 'attachment; filename=companies-export.csv');
         res.send('\ufeff' + headers + rows);
@@ -11739,7 +11725,7 @@ app.get('/api/companies/export', (req, res) => {
 app.get('/api/companies/stats', (req, res) => {
     const db = loadCompaniesDB();
     const companies = db.sampleCompanies || [];
-    
+
     const stats = {
         total: companies.length,
         verified: companies.filter(c => c.verified).length,
@@ -11747,7 +11733,7 @@ app.get('/api/companies/stats', (req, res) => {
         byRegion: {},
         byHsCode: {}
     };
-    
+
     companies.forEach(c => {
         // حسب النوع
         stats.byType[c.type] = (stats.byType[c.type] || 0) + 1;
@@ -11759,7 +11745,7 @@ app.get('/api/companies/stats', (req, res) => {
             stats.byHsCode[mainCode] = (stats.byHsCode[mainCode] || 0) + 1;
         });
     });
-    
+
     res.json({ success: true, data: stats });
 });
 
@@ -11818,7 +11804,7 @@ function checkFridayPause() {
     const now = new Date();
     const day = now.getDay(); // 5 = Friday
     const time = now.getHours() * 100 + now.getMinutes();
-    
+
     if (day === 5 && time >= 1200 && time <= 1330) {
         SYSTEM_STATUS.fridayPauseActive = true;
         return {
@@ -11837,28 +11823,28 @@ const rateLimitStore = new Map();
 function checkRateLimit(ip) {
     const now = Date.now();
     const record = rateLimitStore.get(ip) || { count: 0, firstRequest: now, blocked: false };
-    
+
     // Check if blocked
     if (record.blocked && now - record.blockedAt < SECURITY_CONFIG.rateLimit.blockDuration) {
         return { allowed: false, remaining: 0, retryAfter: Math.ceil((record.blockedAt + SECURITY_CONFIG.rateLimit.blockDuration - now) / 1000) };
     }
-    
+
     // Reset if window expired
     if (now - record.firstRequest > SECURITY_CONFIG.rateLimit.window) {
         record.count = 0;
         record.firstRequest = now;
         record.blocked = false;
     }
-    
+
     record.count++;
-    
+
     if (record.count > SECURITY_CONFIG.rateLimit.maxRequests) {
         record.blocked = true;
         record.blockedAt = now;
         rateLimitStore.set(ip, record);
         return { allowed: false, remaining: 0, blocked: true };
     }
-    
+
     rateLimitStore.set(ip, record);
     return { allowed: true, remaining: SECURITY_CONFIG.rateLimit.maxRequests - record.count };
 }
@@ -11868,7 +11854,7 @@ app.get('/api/security/status', (req, res) => {
     const uptimeSeconds = Math.floor((Date.now() - SYSTEM_STATUS.uptime) / 1000);
     const uptimeHours = Math.floor(uptimeSeconds / 3600);
     const uptimeMinutes = Math.floor((uptimeSeconds % 3600) / 60);
-    
+
     res.json({
         success: true,
         status: SYSTEM_STATUS.status,
@@ -11915,11 +11901,11 @@ app.get('/api/security/config', (req, res) => {
 app.get('/api/security/logs', (req, res) => {
     const { limit = 50, type } = req.query;
     let logs = [...SYSTEM_STATUS.errors].reverse();
-    
+
     if (type) {
         logs = logs.filter(l => l.type === type);
     }
-    
+
     res.json({
         success: true,
         count: logs.length,
@@ -11930,7 +11916,7 @@ app.get('/api/security/logs', (req, res) => {
 // API النسخ الاحتياطي
 app.post('/api/security/backup', (req, res) => {
     SYSTEM_STATUS.lastBackup = new Date().toISOString();
-    
+
     res.json({
         success: true,
         message: 'تم بدء عملية النسخ الاحتياطي',
@@ -12029,16 +12015,16 @@ app.get('/api/virtual-customer', (req, res) => {
 // API تسجيل دخول العميل الافتراضي
 app.post('/api/virtual-customer/login', (req, res) => {
     const { email, password } = req.body;
-    
+
     if (email === VIRTUAL_CUSTOMER.email && verifyPassword(password, VIRTUAL_CUSTOMER.password)) {
         VIRTUAL_CUSTOMER.metrics.lastLogin = new Date().toISOString();
-        
+
         const token = jwt.sign(
             { id: VIRTUAL_CUSTOMER.id, email, type: 'virtual-customer' },
             JWT_SECRET,
             { expiresIn: '24h' }
         );
-        
+
         res.json({
             success: true,
             message: 'تم تسجيل الدخول بنجاح',
@@ -12056,7 +12042,7 @@ app.post('/api/virtual-customer/login', (req, res) => {
             JWT_SECRET,
             { expiresIn: '24h' }
         );
-        
+
         res.json({
             success: true,
             message: 'تم تسجيل الدخول بنجاح',
@@ -12089,7 +12075,7 @@ app.post('/api/customer-journey/start', (req, res) => {
             userActions: []
         }
     };
-    
+
     res.json({
         success: true,
         message: 'تم بدء رحلة العميل',
@@ -12109,7 +12095,7 @@ app.post('/api/customer-journey/start', (req, res) => {
 app.post('/api/customer-journey/step/:stepId', (req, res) => {
     const stepId = parseInt(req.params.stepId);
     const startTime = Date.now();
-    
+
     // محاكاة تنفيذ الخطوة
     const stepResults = {
         1: { // Discovery
@@ -12155,15 +12141,15 @@ app.post('/api/customer-journey/step/:stepId', (req, res) => {
             wouldRecommend: true
         }
     };
-    
+
     const result = stepResults[stepId] || {};
     result.stepId = stepId;
     result.executionTime = Date.now() - startTime;
     result.timestamp = new Date().toISOString();
-    
+
     CUSTOMER_JOURNEY_STATE.steps.push(result);
     CUSTOMER_JOURNEY_STATE.currentStep = stepId;
-    
+
     res.json({
         success: true,
         step: stepId,
@@ -12175,7 +12161,7 @@ app.post('/api/customer-journey/step/:stepId', (req, res) => {
 // API إنهاء رحلة العميل
 app.post('/api/customer-journey/complete', (req, res) => {
     const totalTime = Date.now() - CUSTOMER_JOURNEY_STATE.startTime;
-    
+
     // حساب المقاييس النهائية
     const finalMetrics = {
         totalTime: Math.floor(totalTime / 1000),
@@ -12187,14 +12173,14 @@ app.post('/api/customer-journey/complete', (req, res) => {
         avgPageLoad: (CUSTOMER_JOURNEY_STATE.steps.reduce((acc, s) => acc + (parseFloat(s.loadTime) || 0), 0) / CUSTOMER_JOURNEY_STATE.steps.length).toFixed(2),
         issues: []
     };
-    
+
     // تحديد نقاط التحسين
     if (finalMetrics.avgPageLoad > 2) {
         finalMetrics.issues.push({ area: 'الأداء', issue: 'وقت تحميل الصفحات أعلى من الهدف' });
     }
-    
+
     CUSTOMER_JOURNEY_STATE.active = false;
-    
+
     res.json({
         success: true,
         message: 'اكتملت رحلة العميل بنجاح',
@@ -12434,11 +12420,11 @@ async function sendEmail(to, subject, body, template = null) {
         template,
         timestamp: new Date().toISOString()
     };
-    
+
     // في الإنتاج، سيتم استخدام خدمة بريد حقيقية (SendGrid, AWS SES, etc.)
     console.log(`📧 إرسال بريد إلى: ${to}`);
     console.log(`   الموضوع: ${subject}`);
-    
+
     const log = logNotification('email', 'smtp', to, 'sent', emailData);
     return { success: true, messageId: log.id, ...emailData };
 }
@@ -12451,11 +12437,11 @@ async function sendSMS(phone, message) {
         sender: 'SHEIKHA',
         timestamp: new Date().toISOString()
     };
-    
+
     // في الإنتاج، سيتم استخدام خدمة SMS حقيقية (Twilio, Unifonic, etc.)
     console.log(`📱 إرسال SMS إلى: ${phone}`);
     console.log(`   الرسالة: ${message}`);
-    
+
     const log = logNotification('sms', 'sms_gateway', phone, 'sent', smsData);
     return { success: true, messageId: log.id, ...smsData };
 }
@@ -12469,11 +12455,11 @@ async function sendWhatsApp(phone, message, mediaUrl = null) {
         from: SHEIKHA_COMMUNICATIONS.phone.whatsapp,
         timestamp: new Date().toISOString()
     };
-    
+
     // في الإنتاج، سيتم استخدام WhatsApp Business API
     console.log(`💬 إرسال WhatsApp إلى: ${phone}`);
     console.log(`   الرسالة: ${message}`);
-    
+
     const log = logNotification('whatsapp', 'whatsapp_api', phone, 'sent', waData);
     return { success: true, messageId: log.id, ...waData };
 }
@@ -12487,10 +12473,10 @@ async function makeAutoCall(phone, messageId, language = 'ar') {
         from: SHEIKHA_COMMUNICATIONS.phone.primary,
         timestamp: new Date().toISOString()
     };
-    
+
     // في الإنتاج، سيتم استخدام خدمة اتصال (Twilio Voice, etc.)
     console.log(`📞 مكالمة آلية إلى: ${phone}`);
-    
+
     const log = logNotification('auto_call', 'voice_api', phone, 'initiated', callData);
     return { success: true, callId: log.id, ...callData };
 }
@@ -12534,10 +12520,10 @@ async function sendPushNotification(userId, title, body, data = {}) {
         data,
         timestamp: new Date().toISOString()
     };
-    
+
     console.log(`🔔 Push إلى: ${userId}`);
     console.log(`   العنوان: ${title}`);
-    
+
     const log = logNotification('push', 'fcm', userId, 'sent', pushData);
     return { success: true, notificationId: log.id, ...pushData };
 }
@@ -12555,11 +12541,11 @@ app.get('/api/communications/settings', (req, res) => {
 // API: إرسال بريد إلكتروني
 app.post('/api/communications/send-email', async (req, res) => {
     const { to, subject, body, template, templateData } = req.body;
-    
+
     if (!to || !subject || !body) {
         return res.status(400).json({ success: false, error: 'البيانات ناقصة' });
     }
-    
+
     try {
         const result = await sendEmail(to, subject, body, template);
         res.json(result);
@@ -12571,11 +12557,11 @@ app.post('/api/communications/send-email', async (req, res) => {
 // API: إرسال SMS
 app.post('/api/communications/send-sms', async (req, res) => {
     const { phone, message, template, templateData } = req.body;
-    
+
     if (!phone || !message) {
         return res.status(400).json({ success: false, error: 'رقم الهاتف والرسالة مطلوبان' });
     }
-    
+
     try {
         const result = await sendSMS(phone, message);
         res.json(result);
@@ -12587,11 +12573,11 @@ app.post('/api/communications/send-sms', async (req, res) => {
 // API: إرسال WhatsApp
 app.post('/api/communications/send-whatsapp', async (req, res) => {
     const { phone, message, mediaUrl } = req.body;
-    
+
     if (!phone || !message) {
         return res.status(400).json({ success: false, error: 'رقم الهاتف والرسالة مطلوبان' });
     }
-    
+
     try {
         const result = await sendWhatsApp(phone, message, mediaUrl);
         res.json(result);
@@ -12603,11 +12589,11 @@ app.post('/api/communications/send-whatsapp', async (req, res) => {
 // API: مكالمة آلية
 app.post('/api/communications/auto-call', async (req, res) => {
     const { phone, messageId, language } = req.body;
-    
+
     if (!phone) {
         return res.status(400).json({ success: false, error: 'رقم الهاتف مطلوب' });
     }
-    
+
     try {
         const result = await makeAutoCall(phone, messageId, language);
         res.json(result);
@@ -12619,11 +12605,11 @@ app.post('/api/communications/auto-call', async (req, res) => {
 // API: Push Notification
 app.post('/api/communications/send-push', async (req, res) => {
     const { userId, title, body, data } = req.body;
-    
+
     if (!userId || !title || !body) {
         return res.status(400).json({ success: false, error: 'البيانات ناقصة' });
     }
-    
+
     try {
         const result = await sendPushNotification(userId, title, body, data);
         res.json(result);
@@ -12635,14 +12621,14 @@ app.post('/api/communications/send-push', async (req, res) => {
 // API: الرد الآلي
 app.post('/api/communications/auto-reply', (req, res) => {
     const { message, channel, sender } = req.body;
-    
+
     if (!message) {
         return res.status(400).json({ success: false, error: 'الرسالة مطلوبة' });
     }
-    
+
     const reply = getAutoReply(message);
     logNotification('auto_reply', channel || 'general', sender || 'unknown', 'replied', { original: message, reply });
-    
+
     res.json({
         success: true,
         reply,
@@ -12653,16 +12639,16 @@ app.post('/api/communications/auto-reply', (req, res) => {
 // API: سجل الإشعارات
 app.get('/api/communications/log', (req, res) => {
     const { limit = 50, channel, status } = req.query;
-    
+
     let filtered = NOTIFICATION_LOG;
-    
+
     if (channel) {
         filtered = filtered.filter(n => n.channel === channel);
     }
     if (status) {
         filtered = filtered.filter(n => n.status === status);
     }
-    
+
     res.json({
         success: true,
         total: filtered.length,
@@ -12678,9 +12664,9 @@ app.get('/api/communications/stats', (req, res) => {
         byStatus: {},
         last24Hours: 0
     };
-    
+
     const oneDayAgo = new Date(Date.now() - 24 * 60 * 60 * 1000);
-    
+
     NOTIFICATION_LOG.forEach(n => {
         stats.byChannel[n.channel] = (stats.byChannel[n.channel] || 0) + 1;
         stats.byStatus[n.status] = (stats.byStatus[n.status] || 0) + 1;
@@ -12688,7 +12674,7 @@ app.get('/api/communications/stats', (req, res) => {
             stats.last24Hours++;
         }
     });
-    
+
     res.json({
         success: true,
         stats,
@@ -12699,30 +12685,30 @@ app.get('/api/communications/stats', (req, res) => {
 // API: إرسال إشعار متعدد القنوات
 app.post('/api/communications/notify', async (req, res) => {
     const { userId, type, data, channels = ['email', 'push'] } = req.body;
-    
+
     const template = MESSAGE_TEMPLATES[type];
     if (!template) {
         return res.status(400).json({ success: false, error: 'نوع الإشعار غير موجود' });
     }
-    
+
     const results = [];
-    
+
     // البحث عن بيانات المستخدم (محاكاة)
     const user = { email: data.email || 'user@example.com', phone: data.phone || '+966500000000' };
-    
+
     for (const channel of channels) {
         try {
             let result;
             const templateContent = template.ar;
             let body = templateContent.body;
             let sms = templateContent.sms;
-            
+
             // استبدال المتغيرات
             Object.keys(data).forEach(key => {
                 body = body.replace(`{${key}}`, data[key]);
                 if (sms) sms = sms.replace(`{${key}}`, data[key]);
             });
-            
+
             switch (channel) {
                 case 'email':
                     result = await sendEmail(user.email, templateContent.subject, body, type);
@@ -12737,13 +12723,13 @@ app.post('/api/communications/notify', async (req, res) => {
                     result = await sendPushNotification(userId, templateContent.subject, body);
                     break;
             }
-            
+
             results.push({ channel, ...result });
         } catch (error) {
             results.push({ channel, success: false, error: error.message });
         }
     }
-    
+
     res.json({
         success: true,
         type,
@@ -12754,14 +12740,14 @@ app.post('/api/communications/notify', async (req, res) => {
 // API: تحديث إعدادات الإشعارات
 app.post('/api/communications/settings', (req, res) => {
     const { emailEnabled, smsEnabled, whatsappEnabled, pushEnabled, autoCallEnabled, autoReplyEnabled } = req.body;
-    
+
     if (emailEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.emailEnabled = emailEnabled;
     if (smsEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.smsEnabled = smsEnabled;
     if (whatsappEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.whatsappEnabled = whatsappEnabled;
     if (pushEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.pushEnabled = pushEnabled;
     if (autoCallEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.autoCallEnabled = autoCallEnabled;
     if (autoReplyEnabled !== undefined) SHEIKHA_COMMUNICATIONS.settings.autoReplyEnabled = autoReplyEnabled;
-    
+
     res.json({
         success: true,
         settings: SHEIKHA_COMMUNICATIONS.settings
@@ -13013,7 +12999,7 @@ app.get('/api/channels/sharia/foundation', (req, res) => {
 app.get('/api/hijri/today', (req, res) => {
     const hijriDate = getCurrentHijriDate();
     const occasions = getIslamicOccasions(hijriDate.month, hijriDate.day);
-    
+
     res.json({
         success: true,
         bismillah: 'بسم الله الرحمن الرحيم',
@@ -13030,13 +13016,13 @@ app.get('/api/hijri/today', (req, res) => {
 // API: تحويل من ميلادي إلى هجري
 app.get('/api/hijri/convert/to-hijri', (req, res) => {
     const { year, month, day } = req.query;
-    
+
     if (!year || !month || !day) {
         return res.status(400).json({ success: false, error: 'يرجى تحديد السنة والشهر واليوم' });
     }
-    
+
     const hijri = gregorianToHijri(parseInt(year), parseInt(month), parseInt(day));
-    
+
     res.json({
         success: true,
         gregorian: { year: parseInt(year), month: parseInt(month), day: parseInt(day) },
@@ -13051,18 +13037,18 @@ app.get('/api/hijri/convert/to-hijri', (req, res) => {
 // API: تحويل من هجري إلى ميلادي
 app.get('/api/hijri/convert/to-gregorian', (req, res) => {
     const { year, month, day } = req.query;
-    
+
     if (!year || !month || !day) {
         return res.status(400).json({ success: false, error: 'يرجى تحديد السنة والشهر واليوم الهجري' });
     }
-    
+
     const gregorian = hijriToGregorian(parseInt(year), parseInt(month), parseInt(day));
-    
+
     res.json({
         success: true,
-        hijri: { 
-            year: parseInt(year), 
-            month: parseInt(month), 
+        hijri: {
+            year: parseInt(year),
+            month: parseInt(month),
             day: parseInt(day),
             monthName: HIJRI_MONTHS[parseInt(month) - 1].name,
             formatted: formatHijriDate(parseInt(year), parseInt(month), parseInt(day))
@@ -13085,7 +13071,7 @@ app.get('/api/hijri/months', (req, res) => {
 // API: المناسبات الإسلامية
 app.get('/api/hijri/occasions', (req, res) => {
     const { month, day } = req.query;
-    
+
     if (month && day) {
         const occasions = getIslamicOccasions(parseInt(month), parseInt(day));
         res.json({ success: true, occasions });
@@ -13122,13 +13108,13 @@ app.get('/api/islamic/principles', (req, res) => {
 // API: التحقق من شرعية المعاملة
 app.post('/api/islamic/validate-transaction', (req, res) => {
     const { transaction } = req.body;
-    
+
     if (!transaction) {
         return res.status(400).json({ success: false, error: 'بيانات المعاملة مطلوبة' });
     }
-    
+
     const validation = validateIslamicTransaction(transaction);
-    
+
     res.json({
         success: true,
         validation,
@@ -13139,13 +13125,13 @@ app.post('/api/islamic/validate-transaction', (req, res) => {
 // API: حساب الزكاة
 app.post('/api/islamic/calculate-zakat', (req, res) => {
     const { amount, goldPricePerGram } = req.body;
-    
+
     if (!amount || amount <= 0) {
         return res.status(400).json({ success: false, error: 'المبلغ مطلوب' });
     }
-    
+
     const zakat = calculateZakat(amount, goldPricePerGram);
-    
+
     res.json({
         success: true,
         bismillah: 'بسم الله الرحمن الرحيم',
@@ -13158,7 +13144,7 @@ app.post('/api/islamic/calculate-zakat', (req, res) => {
 app.get('/api/islamic/prayer-times', (req, res) => {
     const prayerTimes = getApproximatePrayerTimes();
     const isJumuah = isJumuahTime();
-    
+
     res.json({
         success: true,
         prayerTimes,
@@ -13214,15 +13200,15 @@ app.get('/api/i18n/languages', (req, res) => {
 // API: ترجمة نص
 app.post('/api/i18n/translate', async (req, res) => {
     const { text, targetLang, sourceLang = 'ar' } = req.body;
-    
+
     if (!text || !targetLang) {
         return res.status(400).json({ success: false, error: 'النص واللغة المستهدفة مطلوبان' });
     }
-    
+
     if (!SUPPORTED_LANGUAGES[targetLang]) {
         return res.status(400).json({ success: false, error: 'اللغة غير مدعومة' });
     }
-    
+
     try {
         const translation = await autoTranslate(text, targetLang, sourceLang);
         res.json({
@@ -13241,16 +13227,16 @@ app.post('/api/i18n/translate', async (req, res) => {
 // API: ترجمة مجموعة نصوص
 app.post('/api/i18n/translate-batch', async (req, res) => {
     const { texts, targetLang, sourceLang = 'ar' } = req.body;
-    
+
     if (!texts || !Array.isArray(texts) || !targetLang) {
         return res.status(400).json({ success: false, error: 'النصوص واللغة المستهدفة مطلوبان' });
     }
-    
+
     try {
         const translations = await Promise.all(
             texts.map(text => autoTranslate(text, targetLang, sourceLang))
         );
-        
+
         res.json({
             success: true,
             translations: texts.map((text, i) => ({
@@ -13268,11 +13254,11 @@ app.post('/api/i18n/translate-batch', async (req, res) => {
 // API: ترجمة كائن (منتج، متجر، إلخ)
 app.post('/api/i18n/translate-object', async (req, res) => {
     const { object, targetLang, fields = [] } = req.body;
-    
+
     if (!object || !targetLang) {
         return res.status(400).json({ success: false, error: 'الكائن واللغة المستهدفة مطلوبان' });
     }
-    
+
     try {
         const translated = await translateObject(object, targetLang, fields);
         res.json({
@@ -13289,7 +13275,7 @@ app.post('/api/i18n/translate-object', async (req, res) => {
 // API: الحصول على القاموس
 app.get('/api/i18n/dictionary', (req, res) => {
     const { lang } = req.query;
-    
+
     if (lang && SUPPORTED_LANGUAGES[lang]) {
         const dictionary = {};
         for (const [ar, translations] of Object.entries(TRANSLATIONS)) {
@@ -13315,14 +13301,14 @@ app.get('/api/i18n/dictionary', (req, res) => {
 // API: إضافة ترجمة مخصصة (للمحتوى المستخدم)
 app.post('/api/i18n/add-translation', async (req, res) => {
     const { arabicText, translations } = req.body;
-    
+
     if (!arabicText || !translations || typeof translations !== 'object') {
         return res.status(400).json({ success: false, error: 'النص العربي والترجمات مطلوبة' });
     }
-    
+
     // إضافة للقاموس
     TRANSLATIONS[arabicText] = translations;
-    
+
     res.json({
         success: true,
         message: 'تم إضافة الترجمة بنجاح',
@@ -13334,21 +13320,21 @@ app.post('/api/i18n/add-translation', async (req, res) => {
 // API: ترجمة صفحة كاملة
 app.post('/api/i18n/translate-page', async (req, res) => {
     const { content, targetLang } = req.body;
-    
+
     if (!content || !targetLang) {
         return res.status(400).json({ success: false, error: 'المحتوى واللغة مطلوبان' });
     }
-    
+
     try {
         let translatedContent = content;
-        
+
         // ترجمة جميع النصوص العربية
         for (const [ar, translations] of Object.entries(TRANSLATIONS)) {
             if (translations[targetLang]) {
                 translatedContent = translatedContent.replace(new RegExp(ar, 'g'), translations[targetLang]);
             }
         }
-        
+
         res.json({
             success: true,
             original: content,
@@ -13364,14 +13350,14 @@ app.post('/api/i18n/translate-page', async (req, res) => {
 // API: ترجمة محتوى المستخدم (منتج، بحث، منتدى)
 app.post('/api/i18n/translate-user-content', async (req, res) => {
     const { contentType, contentId, content, targetLangs = ['en'] } = req.body;
-    
+
     if (!content) {
         return res.status(400).json({ success: false, error: 'المحتوى مطلوب' });
     }
-    
+
     try {
         const results = {};
-        
+
         for (const lang of targetLangs) {
             if (SUPPORTED_LANGUAGES[lang]) {
                 if (typeof content === 'string') {
@@ -13381,7 +13367,7 @@ app.post('/api/i18n/translate-user-content', async (req, res) => {
                 }
             }
         }
-        
+
         res.json({
             success: true,
             contentType,
@@ -13422,7 +13408,7 @@ let SHIPMENTS = [];
 
 app.post('/api/logistics/shipments', authRequired, (req, res) => {
     const { origin, destination, cargo, weight, transportType, scheduledDate } = req.body;
-    
+
     const shipment = {
         id: 'SHP-' + Date.now(),
         traderId: req.user.id,
@@ -13436,7 +13422,7 @@ app.post('/api/logistics/shipments', authRequired, (req, res) => {
         trackingNumber: 'TRK' + Math.random().toString(36).substr(2, 9).toUpperCase(),
         createdAt: new Date().toISOString()
     };
-    
+
     SHIPMENTS.push(shipment);
     res.json({ success: true, shipment });
 });
@@ -13469,11 +13455,11 @@ let RESEARCH_PAPERS = [
 app.get('/api/research/papers', (req, res) => {
     const { category, search, year } = req.query;
     let papers = [...RESEARCH_PAPERS];
-    
+
     if (category) papers = papers.filter(p => p.category === category);
     if (year) papers = papers.filter(p => p.year === parseInt(year));
     if (search) papers = papers.filter(p => p.title.includes(search) || p.abstract.includes(search));
-    
+
     res.json({ success: true, papers, count: papers.length });
 });
 
@@ -13491,14 +13477,14 @@ app.get('/api/research/categories', (req, res) => {
 app.post('/api/research/ai-query', async (req, res) => {
     const { query } = req.body;
     if (!query) return res.status(400).json({ success: false, error: 'السؤال مطلوب' });
-    
+
     // Simulate AI response
-    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}": 
-    
+    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}":
+
     يعتبر هذا الموضوع من المواضيع المهمة في قطاع المعادن والسكراب. بناءً على الدراسات المتوفرة، نجد أن هناك عدة عوامل تؤثر على هذا المجال...
-    
+
     للمزيد من التفاصيل، يمكنك الاطلاع على الأبحاث ذات الصلة في مركز الأبحاث.`;
-    
+
     res.json({ success: true, query, response, relatedPapers: RESEARCH_PAPERS.slice(0, 2) });
 });
 
@@ -13522,25 +13508,25 @@ let FORUM_EXPERTS = [
 app.get('/api/forum/topics', (req, res) => {
     const { category, search, sort } = req.query;
     let topics = [...FORUM_TOPICS];
-    
+
     if (category) topics = topics.filter(t => t.category === category);
     if (search) topics = topics.filter(t => t.title.includes(search));
     if (sort === 'views') topics.sort((a, b) => b.views - a.views);
     if (sort === 'replies') topics.sort((a, b) => b.replies - a.replies);
-    
+
     // Pinned topics first
     topics.sort((a, b) => (b.pinned ? 1 : 0) - (a.pinned ? 1 : 0));
-    
+
     res.json({ success: true, topics, count: topics.length });
 });
 
 app.post('/api/forum/topics', authRequired, (req, res) => {
     const { title, content, category } = req.body;
-    
+
     if (!title || !content) {
         return res.status(400).json({ success: false, error: 'العنوان والمحتوى مطلوبان' });
     }
-    
+
     const topic = {
         id: 'T' + Date.now(),
         title,
@@ -13552,7 +13538,7 @@ app.post('/api/forum/topics', authRequired, (req, res) => {
         createdAt: new Date().toISOString(),
         pinned: false
     };
-    
+
     FORUM_TOPICS.unshift(topic);
     res.json({ success: true, topic });
 });
@@ -13576,8 +13562,8 @@ app.get('/api/forum/categories', (req, res) => {
 app.get('/api/forum/search', (req, res) => {
     const { q } = req.query;
     if (!q) return res.json({ success: true, results: [] });
-    
-    const results = FORUM_TOPICS.filter(t => 
+
+    const results = FORUM_TOPICS.filter(t =>
         t.title.includes(q) || (t.content && t.content.includes(q))
     );
     res.json({ success: true, results, query: q });
@@ -13595,21 +13581,21 @@ app.get('/api/forum/search', (req, res) => {
 app.get('/api/admin/file', (req, res) => {
     const filename = req.query.name || req.query.path; // Support both 'name' and 'path'
     if (!filename) return res.status(400).json({ success: false, error: 'اسم الملف مطلوب' });
-    
+
     // Security: only allow certain file types and paths
     const allowedExtensions = ['.js', '.html', '.css', '.json', '.md', '.txt', '.env'];
     const ext = path.extname(filename).toLowerCase();
     if (!allowedExtensions.includes(ext)) {
         return res.status(403).json({ success: false, error: 'نوع الملف غير مسموح' });
     }
-    
+
     // Prevent directory traversal (block ..)
     if (filename.includes('..')) {
         return res.status(403).json({ success: false, error: 'مسار غير مسموح' });
     }
-    
+
     let filePath;
-    
+
     // Allow paths starting with specific directories
     if (filename.startsWith('public/') || filename.startsWith('lib/') || filename.startsWith('data/') || filename.startsWith('docs/')) {
         filePath = path.join(__dirname, filename);
@@ -13619,7 +13605,7 @@ app.get('/api/admin/file', (req, res) => {
         // Default: assume it's in public folder
         filePath = path.join(__dirname, 'public', filename);
     }
-    
+
     try {
         if (fs.existsSync(filePath)) {
             const content = fs.readFileSync(filePath, 'utf8');
@@ -13636,25 +13622,25 @@ app.get('/api/admin/file', (req, res) => {
 app.post('/api/admin/file', (req, res) => {
     const filename = req.body.name || req.body.path; // Support both 'name' and 'path'
     const content = req.body.content;
-    
+
     if (!filename || content === undefined) {
         return res.status(400).json({ success: false, error: 'اسم الملف والمحتوى مطلوبان' });
     }
-    
+
     // Security checks
     const allowedExtensions = ['.js', '.html', '.css', '.json', '.md', '.txt'];
     const ext = path.extname(filename).toLowerCase();
     if (!allowedExtensions.includes(ext)) {
         return res.status(403).json({ success: false, error: 'نوع الملف غير مسموح' });
     }
-    
+
     // Prevent directory traversal
     if (filename.includes('..')) {
         return res.status(403).json({ success: false, error: 'مسار غير مسموح' });
     }
-    
+
     let filePath;
-    
+
     // Allow paths starting with specific directories
     if (filename.startsWith('public/') || filename.startsWith('lib/') || filename.startsWith('data/') || filename.startsWith('docs/')) {
         filePath = path.join(__dirname, filename);
@@ -13664,14 +13650,14 @@ app.post('/api/admin/file', (req, res) => {
         // Default: save in public folder
         filePath = path.join(__dirname, 'public', filename);
     }
-    
+
     try {
         // Create directory if it doesn't exist
         const dir = path.dirname(filePath);
         if (!fs.existsSync(dir)) {
             fs.mkdirSync(dir, { recursive: true });
         }
-        
+
         fs.writeFileSync(filePath, content, 'utf8');
         res.json({ success: true, message: 'تم الحفظ بنجاح', filename });
     } catch (e) {
@@ -13699,7 +13685,7 @@ app.get('/api/admin/stats', (req, res) => {
 app.get('/api/server/health', (req, res) => {
     const uptime = process.uptime();
     const memUsage = process.memoryUsage();
-    
+
     res.json({
         success: true,
         status: 'healthy',
@@ -13739,7 +13725,7 @@ app.get('/api/admin/users', (req, res) => {
         ...USERS.map(u => ({ ...u, type: 'user' })),
         ...TRADERS.map(t => ({ id: t.id, name: t.name || t.storeName, email: t.email, role: 'trader', type: 'trader' }))
     ];
-    
+
     res.json({
         success: true,
         users: allUsers,
@@ -13759,13 +13745,13 @@ app.get('/api/admin/logs', (req, res) => {
 // Admin execute command (limited)
 app.post('/api/admin/execute', (req, res) => {
     const { command } = req.body;
-    
+
     // Only allow safe commands
     const safeCommands = ['npm --version', 'node --version', 'ls', 'pwd'];
     if (!safeCommands.some(c => command.startsWith(c))) {
         return res.status(403).json({ success: false, error: 'الأمر غير مسموح' });
     }
-    
+
     // For security, we just return mock output
     res.json({
         success: true,
@@ -13819,7 +13805,7 @@ app.get('/api/scm/blockchain', (req, res) => {
 
 app.post('/api/scm/documents', authRequired, (req, res) => {
     const { type, shipmentId, data } = req.body;
-    
+
     const document = {
         id: 'DOC-' + Date.now(),
         type,
@@ -13829,7 +13815,7 @@ app.post('/api/scm/documents', authRequired, (req, res) => {
         createdAt: new Date().toISOString(),
         downloadUrl: `/api/documents/${Date.now()}.pdf`
     };
-    
+
     res.json({ success: true, document });
 });
 
@@ -13850,7 +13836,7 @@ app.post('/api/ai/conversations', (req, res) => {
         timestamp: new Date().toISOString()
     };
     AI_CONVERSATIONS.push(conversation);
-    
+
     // Extract and save knowledge
     if (content && content.length > 20) {
         AI_KNOWLEDGE.push({
@@ -13860,7 +13846,7 @@ app.post('/api/ai/conversations', (req, res) => {
             timestamp: new Date().toISOString()
         });
     }
-    
+
     res.json({ success: true, conversation, totalConversations: AI_CONVERSATIONS.length });
 });
 
@@ -13934,11 +13920,11 @@ app.post('/api/shipping/connect', (req, res) => {
     const { companyId, apiKey, accountNumber } = req.body;
     const company = SHIPPING_COMPANIES.find(c => c.id === companyId);
     if (!company) return res.status(404).json({ success: false, error: 'الشركة غير موجودة' });
-    
+
     company.status = 'connected';
     company.credentials = { apiKey: apiKey?.substring(0, 4) + '****', accountNumber };
     company.connectedAt = new Date().toISOString();
-    
+
     res.json({ success: true, message: `تم الربط مع ${company.name} بنجاح`, company });
 });
 
@@ -13980,7 +13966,7 @@ app.get('/api/shipments', (req, res) => {
     let shipments = [...ACTIVE_SHIPMENTS];
     if (status) shipments = shipments.filter(s => s.status === status);
     if (carrier) shipments = shipments.filter(s => s.carrier === carrier);
-    
+
     res.json({
         success: true,
         shipments,
@@ -13997,13 +13983,13 @@ app.get('/api/shipments', (req, res) => {
 app.get('/api/shipments/:id/track', (req, res) => {
     const shipment = ACTIVE_SHIPMENTS.find(s => s.id === req.params.id);
     if (!shipment) return res.status(404).json({ success: false, error: 'الشحنة غير موجودة' });
-    
+
     const trackingHistory = [
         { timestamp: '2024-02-01T08:00:00Z', status: 'picked_up', location: shipment.from, description: 'تم الاستلام من المرسل' },
         { timestamp: '2024-02-01T14:00:00Z', status: 'in_transit', location: 'مركز الفرز', description: 'في الطريق إلى مركز الفرز' },
         { timestamp: '2024-02-02T06:00:00Z', status: 'in_transit', location: shipment.currentLocation, description: 'في الطريق إلى الوجهة' }
     ];
-    
+
     res.json({ success: true, shipment, trackingHistory });
 });
 
@@ -14030,7 +14016,7 @@ app.post('/api/shipments', (req, res) => {
 // Calculate shipping rates
 app.post('/api/shipping/rates', (req, res) => {
     const { from, to, weight, dimensions, type } = req.body;
-    
+
     const rates = SHIPPING_COMPANIES.filter(c => c.status === 'connected').map(company => ({
         carrier: company.id,
         carrierName: company.name,
@@ -14040,7 +14026,7 @@ app.post('/api/shipping/rates', (req, res) => {
             { service: 'freight', price: Math.floor(weight * 5 + 100), eta: '5-7 أيام' }
         ]
     }));
-    
+
     res.json({ success: true, rates, cheapest: rates[0], fastest: rates[0] });
 });
 
@@ -14056,11 +14042,11 @@ let WHATSAPP_QUEUE = [];
 app.get('/api/notifications', (req, res) => {
     const { userId, unread, type } = req.query;
     let notifications = [...NOTIFICATIONS];
-    
+
     if (userId) notifications = notifications.filter(n => n.userId === userId || n.userId === 'all');
     if (unread === 'true') notifications = notifications.filter(n => !n.read);
     if (type) notifications = notifications.filter(n => n.type === type);
-    
+
     res.json({
         success: true,
         notifications: notifications.slice(-50).reverse(),
@@ -14072,7 +14058,7 @@ app.get('/api/notifications', (req, res) => {
 // Create notification
 app.post('/api/notifications', (req, res) => {
     const { userId, type, title, message, data, channels } = req.body;
-    
+
     const notification = {
         id: 'NOT-' + Date.now(),
         userId: userId || 'all',
@@ -14084,12 +14070,12 @@ app.post('/api/notifications', (req, res) => {
         read: false,
         createdAt: new Date().toISOString()
     };
-    
+
     NOTIFICATIONS.push(notification);
-    
+
     // Broadcast via WebSocket to all connected clients
     broadcastNotification(notification);
-    
+
     // Queue WhatsApp if requested
     if (channels?.includes('whatsapp')) {
         WHATSAPP_QUEUE.push({
@@ -14099,7 +14085,7 @@ app.post('/api/notifications', (req, res) => {
             createdAt: new Date().toISOString()
         });
     }
-    
+
     res.json({ success: true, notification });
 });
 
@@ -14107,7 +14093,7 @@ app.post('/api/notifications', (req, res) => {
 app.put('/api/notifications/:id/read', (req, res) => {
     const notification = NOTIFICATIONS.find(n => n.id === req.params.id);
     if (!notification) return res.status(404).json({ success: false, error: 'الإشعار غير موجود' });
-    
+
     notification.read = true;
     notification.readAt = new Date().toISOString();
     res.json({ success: true, notification });
@@ -14128,7 +14114,7 @@ app.put('/api/notifications/read-all', (req, res) => {
 // Subscribe to push notifications
 app.post('/api/notifications/subscribe', (req, res) => {
     const { subscription, userId, deviceInfo } = req.body;
-    
+
     const sub = {
         id: 'SUB-' + Date.now(),
         subscription,
@@ -14137,7 +14123,7 @@ app.post('/api/notifications/subscribe', (req, res) => {
         active: true,
         createdAt: new Date().toISOString()
     };
-    
+
     PUSH_SUBSCRIPTIONS.push(sub);
     res.json({ success: true, subscriptionId: sub.id });
 });
@@ -14163,7 +14149,7 @@ app.get('/api/notifications/whatsapp-queue', (req, res) => {
 // Send WhatsApp notification
 app.post('/api/notifications/whatsapp', (req, res) => {
     const { phone, message, template } = req.body;
-    
+
     const waMessage = {
         id: 'WA-' + Date.now(),
         phone,
@@ -14172,12 +14158,12 @@ app.post('/api/notifications/whatsapp', (req, res) => {
         status: 'sent',
         sentAt: new Date().toISOString()
     };
-    
+
     // Generate WhatsApp link
     const waLink = `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`;
-    
-    res.json({ 
-        success: true, 
+
+    res.json({
+        success: true,
         waMessage,
         waLink,
         instruction: 'افتح الرابط لإرسال الرسالة عبر واتساب'
@@ -14187,15 +14173,15 @@ app.post('/api/notifications/whatsapp', (req, res) => {
 // Send bulk WhatsApp
 app.post('/api/notifications/whatsapp-bulk', (req, res) => {
     const { phones, message, template } = req.body;
-    
+
     const results = (phones || []).map(phone => ({
         phone,
         link: `https://wa.me/${phone.replace(/[^0-9]/g, '')}?text=${encodeURIComponent(message)}`,
         status: 'ready'
     }));
-    
-    res.json({ 
-        success: true, 
+
+    res.json({
+        success: true,
         count: results.length,
         results,
         message: `تم تجهيز ${results.length} رسالة للإرسال`
@@ -14205,7 +14191,7 @@ app.post('/api/notifications/whatsapp-bulk', (req, res) => {
 // Deal/Transaction alerts
 app.post('/api/notifications/deal-alert', (req, res) => {
     const { dealId, buyerId, sellerId, product, amount, type } = req.body;
-    
+
     const alertTypes = {
         'new_order': { title: '🛒 طلب جديد!', msg: `طلب جديد على ${product}` },
         'order_accepted': { title: '✅ تم قبول الطلب', msg: `تم قبول طلبك على ${product}` },
@@ -14214,12 +14200,12 @@ app.post('/api/notifications/deal-alert', (req, res) => {
         'delivered': { title: '📦 تم التسليم', msg: `تم تسليم ${product} بنجاح` },
         'price_alert': { title: '📈 تنبيه سعر', msg: `تغير سعر ${product}` }
     };
-    
+
     const alertInfo = alertTypes[type] || { title: '🔔 تنبيه', msg: 'لديك تنبيه جديد' };
-    
+
     // Create notifications for both parties
     const notifications = [];
-    
+
     if (buyerId) {
         notifications.push({
             id: 'NOT-' + Date.now() + '-buyer',
@@ -14233,7 +14219,7 @@ app.post('/api/notifications/deal-alert', (req, res) => {
             createdAt: new Date().toISOString()
         });
     }
-    
+
     if (sellerId) {
         notifications.push({
             id: 'NOT-' + Date.now() + '-seller',
@@ -14247,20 +14233,20 @@ app.post('/api/notifications/deal-alert', (req, res) => {
             createdAt: new Date().toISOString()
         });
     }
-    
+
     NOTIFICATIONS.push(...notifications);
     notifications.forEach(n => broadcastNotification(n));
-    
+
     res.json({ success: true, notifications, count: notifications.length });
 });
 
 // Price change alerts
 app.post('/api/notifications/price-alert', (req, res) => {
     const { metal, oldPrice, newPrice, change } = req.body;
-    
+
     const direction = newPrice > oldPrice ? '📈 ارتفاع' : '📉 انخفاض';
     const changePercent = ((newPrice - oldPrice) / oldPrice * 100).toFixed(2);
-    
+
     const notification = {
         id: 'NOT-' + Date.now(),
         userId: 'all',
@@ -14272,10 +14258,10 @@ app.post('/api/notifications/price-alert', (req, res) => {
         read: false,
         createdAt: new Date().toISOString()
     };
-    
+
     NOTIFICATIONS.push(notification);
     broadcastNotification(notification);
-    
+
     res.json({ success: true, notification });
 });
 
@@ -14297,14 +14283,14 @@ app.get('/api/notifications/templates', (req, res) => {
 
 // Broadcast notification helper
 function broadcastNotification(notification) {
-    const data = JSON.stringify({ 
-        type: 'notification', 
+    const data = JSON.stringify({
+        type: 'notification',
         notification,
-        timestamp: new Date().toISOString() 
+        timestamp: new Date().toISOString()
     });
-    clients.forEach(client => { 
+    clients.forEach(client => {
         if (client.readyState === WebSocket.OPEN) {
-            client.send(data); 
+            client.send(data);
         }
     });
 }
@@ -14328,11 +14314,11 @@ try {
 app.get('/api/market/preloaded', (req, res) => {
     const sector = req.query.sector;
     let companies = SAUDI_MARKET_DATA.preloadedCompanies || [];
-    
+
     if (sector && sector !== 'all') {
         companies = companies.filter(c => c.sector === sector);
     }
-    
+
     res.json({
         success: true,
         total: companies.length,
@@ -14346,11 +14332,11 @@ app.get('/api/market/preloaded', (req, res) => {
 app.get('/api/market/preloaded/:id', (req, res) => {
     const id = req.params.id;
     const company = (SAUDI_MARKET_DATA.preloadedCompanies || []).find(c => c.companyId === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     res.json({
         success: true,
         company: company,
@@ -14364,21 +14350,21 @@ app.get('/api/market/preloaded/:id', (req, res) => {
 app.get('/api/market/search', (req, res) => {
     const query = (req.query.q || '').toLowerCase();
     const sector = req.query.sector;
-    
+
     let companies = SAUDI_MARKET_DATA.preloadedCompanies || [];
-    
+
     if (query) {
-        companies = companies.filter(c => 
+        companies = companies.filter(c =>
             c.nameAr.toLowerCase().includes(query) ||
             (c.nameEn && c.nameEn.toLowerCase().includes(query)) ||
             (c.products || []).some(p => p.name.toLowerCase().includes(query))
         );
     }
-    
+
     if (sector && sector !== 'all') {
         companies = companies.filter(c => c.sector === sector);
     }
-    
+
     res.json({
         success: true,
         query: query,
@@ -14392,7 +14378,7 @@ app.get('/api/market/search', (req, res) => {
 app.post('/api/companies/quick-register', express.json(), async (req, res) => {
     try {
         const data = req.body;
-        
+
         // إنشاء سجل الشركة من البيانات المجهزة
         const company = {
             companyId: data.companyId,
@@ -14414,12 +14400,12 @@ app.post('/api/companies/quick-register', express.json(), async (req, res) => {
             gaps: data.gaps || [],
             opportunities: data.opportunities || []
         };
-        
+
         // إضافة للسجل
         if (!COMPANIES_REGISTRY.registeredCompanies) {
             COMPANIES_REGISTRY.registeredCompanies = [];
         }
-        
+
         // التحقق من عدم التكرار
         const existingIndex = COMPANIES_REGISTRY.registeredCompanies.findIndex(c => c.companyId === company.companyId);
         if (existingIndex >= 0) {
@@ -14427,7 +14413,7 @@ app.post('/api/companies/quick-register', express.json(), async (req, res) => {
         } else {
             COMPANIES_REGISTRY.registeredCompanies.push(company);
         }
-        
+
         // حفظ في الملف
         try {
             const registryPath = path.join(__dirname, 'data', 'companies-registry.json');
@@ -14435,9 +14421,9 @@ app.post('/api/companies/quick-register', express.json(), async (req, res) => {
         } catch (e) {
             console.log('[Error] Could not save registry:', e.message);
         }
-        
+
         addSystemLog('success', 'QuickRegister', `Quick registered: ${company.nameAr}`);
-        
+
         res.json({
             success: true,
             message: 'تم التسجيل السريع بنجاح!',
@@ -14478,11 +14464,11 @@ app.get('/api/market/blocks', (req, res) => {
 app.get('/api/market/gaps/:companyId', (req, res) => {
     const id = req.params.companyId;
     const company = (SAUDI_MARKET_DATA.preloadedCompanies || []).find(c => c.companyId === id);
-    
+
     if (!company) {
         return res.status(404).json({ success: false, message: 'الشركة غير موجودة' });
     }
-    
+
     const analysis = {
         company: { id: company.companyId, name: company.nameAr },
         gaps: company.gaps || [],
@@ -14491,7 +14477,7 @@ app.get('/api/market/gaps/:companyId', (req, res) => {
         supplyChainPosition: findCompanyInSupplyChain(id),
         potentialPartners: findPotentialPartners(company)
     };
-    
+
     res.json({
         success: true,
         analysis: analysis,
@@ -14528,7 +14514,7 @@ function suggestBlocksForCompany(company) {
     const blocks = ((SAUDI_MARKET_DATA.blockDesignSystem || {}).blocks || []);
     const suggestions = [];
     const companyGaps = (company.gaps || []).map(g => g.area);
-    
+
     for (const block of blocks) {
         const solvedGaps = block.gapsSolved || [];
         const relevance = solvedGaps.filter(g => companyGaps.some(cg => g.includes(cg))).length;
@@ -14541,26 +14527,26 @@ function suggestBlocksForCompany(company) {
             });
         }
     }
-    
+
     return suggestions;
 }
 
 function findPotentialPartners(company) {
     const partners = [];
     const allCompanies = SAUDI_MARKET_DATA.preloadedCompanies || [];
-    
+
     // البحث عن شركاء محتملين بناءً على القطاع وسلسلة التوريد
     for (const other of allCompanies) {
         if (other.companyId === company.companyId) continue;
-        
+
         // شركاء في نفس سلسلة التوريد
         if (other.sector !== company.sector) {
-            const hasComplementary = 
+            const hasComplementary =
                 (company.sector === 'scrap' && ['steel', 'aluminum'].includes(other.sector)) ||
                 (company.sector === 'steel' && ['scrap', 'logistics'].includes(other.sector)) ||
                 (company.sector === 'mining' && ['logistics', 'storage'].includes(other.sector)) ||
                 (company.sector === 'gold' && ['mining'].includes(other.sector));
-            
+
             if (hasComplementary) {
                 partners.push({
                     companyId: other.companyId,
@@ -14571,7 +14557,7 @@ function findPotentialPartners(company) {
             }
         }
     }
-    
+
     return partners.slice(0, 5);
 }
 
@@ -14584,7 +14570,7 @@ app.get('/api/development/status', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
     const claudeEnabled = !!ANTHROPIC_API_KEY;
     const devEngineEnabled = !!DevelopmentEngine;
-    
+
     res.json({
         success: true,
         data: {
@@ -14625,7 +14611,7 @@ app.get('/api/development/templates', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: DevelopmentEngine.listTemplates()
@@ -14635,17 +14621,17 @@ app.get('/api/development/templates', (req, res) => {
 // إنشاء كود من قالب
 app.post('/api/development/generate', express.json(), async (req, res) => {
     const { template, variables } = req.body;
-    
+
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-    
+
     const result = DevelopmentEngine.generateFromTemplate(template, variables || {});
-    
+
     if (!result) {
         return res.status(400).json({ success: false, message: 'القالب غير موجود' });
     }
-    
+
     res.json({
         success: true,
         data: result
@@ -14657,7 +14643,7 @@ app.get('/api/development/cursor-config', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: DevelopmentEngine.getCursorSettings()
@@ -14669,7 +14655,7 @@ app.get('/api/development/cursor-rules', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: {
@@ -14684,7 +14670,7 @@ app.get('/api/development/claude-config', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: DevelopmentEngine.generateClaudeConfig()
@@ -14694,7 +14680,7 @@ app.get('/api/development/claude-config', (req, res) => {
 // طلب تطوير باستخدام Claude
 app.post('/api/development/claude', express.json(), async (req, res) => {
     const { task, code, type = 'general' } = req.body;
-    
+
     if (!ANTHROPIC_API_KEY) {
         return res.json({
             success: false,
@@ -14702,30 +14688,30 @@ app.post('/api/development/claude', express.json(), async (req, res) => {
             howToFix: 'أضف السطر التالي في .env:\nANTHROPIC_API_KEY=sk-ant-your-key-here'
         });
     }
-    
+
     try {
-        const systemPrompt = DevelopmentEngine 
+        const systemPrompt = DevelopmentEngine
             ? DevelopmentEngine.getClaudePrompt(type)
             : 'أنت مطور خبير. أجب بالعربية وقدم كود جاهز للاستخدام.';
-        
+
         const messages = [
             { role: 'system', content: systemPrompt },
             { role: 'user', content: code ? `${task}\n\nالكود:\n\`\`\`\n${code}\n\`\`\`` : task }
         ];
-        
+
         const result = await callClaudeChat(messages, 4000);
-        
+
         if (result.error) {
             return res.json({ success: false, message: result.error, detail: result.detail });
         }
-        
+
         res.json({
             success: true,
             response: result.reply,
             model: result.model,
             provider: result.provider
         });
-        
+
     } catch (e) {
         res.status(500).json({ success: false, message: 'خطأ: ' + e.message });
     }
@@ -14734,23 +14720,23 @@ app.post('/api/development/claude', express.json(), async (req, res) => {
 // طلب تحليل كود
 app.post('/api/development/analyze', express.json(), async (req, res) => {
     const { code, language = 'javascript' } = req.body;
-    
+
     if (!code) {
         return res.status(400).json({ success: false, message: 'يرجى إرسال الكود' });
     }
-    
+
     // استخدام Claude للتحليل المتقدم
     if (ANTHROPIC_API_KEY) {
-        const systemPrompt = DevelopmentEngine 
+        const systemPrompt = DevelopmentEngine
             ? DevelopmentEngine.getClaudePrompt('analyze')
             : 'حلل الكود التالي وقدم تقريراً بالعربية.';
-        
+
         try {
             const result = await callClaudeChat([
                 { role: 'system', content: systemPrompt },
                 { role: 'user', content: `\`\`\`${language}\n${code}\n\`\`\`` }
             ], 3000);
-            
+
             return res.json({
                 success: true,
                 analysis: result.reply,
@@ -14761,7 +14747,7 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
             // fallback to OpenAI
         }
     }
-    
+
     // Fallback to OpenAI
     if (OPENAI_API_KEY) {
         try {
@@ -14769,7 +14755,7 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
                 { role: 'system', content: 'أنت محلل كود خبير. حلل الكود وقدم تقريراً بالعربية.' },
                 { role: 'user', content: `\`\`\`${language}\n${code}\n\`\`\`` }
             ], 2000, 0.5);
-            
+
             return res.json({
                 success: true,
                 analysis: result.reply,
@@ -14780,7 +14766,7 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
             return res.json({ success: false, message: 'خطأ في التحليل: ' + e.message });
         }
     }
-    
+
     return res.json({
         success: false,
         message: 'لا يوجد نموذج AI متصل. أضف OPENAI_API_KEY أو ANTHROPIC_API_KEY في .env'
@@ -14790,11 +14776,11 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
 // طلب إصلاح خطأ
 app.post('/api/development/debug', express.json(), async (req, res) => {
     const { code, error, context = '' } = req.body;
-    
+
     if (!code || !error) {
         return res.status(400).json({ success: false, message: 'يرجى إرسال الكود والخطأ' });
     }
-    
+
     const prompt = `أصلح الخطأ التالي:
 
 الخطأ:
@@ -14816,7 +14802,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
                 { role: 'system', content: DevelopmentEngine?.getClaudePrompt('debug') || 'أصلح الخطأ وقدم الحل بالعربية.' },
                 { role: 'user', content: prompt }
             ], 3000);
-            
+
             return res.json({
                 success: true,
                 fix: result.reply,
@@ -14827,7 +14813,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
             // fallback
         }
     }
-    
+
     // Fallback to OpenAI
     if (OPENAI_API_KEY) {
         try {
@@ -14835,7 +14821,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
                 { role: 'system', content: 'أنت خبير في تصحيح الأخطاء. أصلح الخطأ وقدم الحل بالعربية.' },
                 { role: 'user', content: prompt }
             ], 2000, 0.3);
-            
+
             return res.json({
                 success: true,
                 fix: result.reply,
@@ -14846,7 +14832,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
             return res.json({ success: false, message: 'خطأ: ' + e.message });
         }
     }
-    
+
     return res.json({ success: false, message: 'لا يوجد نموذج AI متصل' });
 });
 
@@ -14860,30 +14846,30 @@ ${context ? `سياق إضافي: ${context}` : ''}
 app.post('/api/sheikha/smart-chat', express.json(), async (req, res) => {
     try {
         const { companyName, message, companyId } = req.body;
-        
+
         // بناء الاستشارة الذكية
         let consultation = null;
         let aiResponse = '';
-        
+
         if (SheikaAIEngine) {
             consultation = SheikaAIEngine.buildSmartConsultation(companyName, message);
-            
+
             // البحث عن بيانات إضافية للشركة
             const companyData = PRELOADED_MARKET.preloadedCompanies?.find(
                 c => c.companyId === companyId || c.nameAr?.includes(companyName)
             );
-            
+
             if (companyData) {
                 consultation.companyData = companyData;
             }
-            
+
             // تحويل لرسالة
             aiResponse = SheikaAIEngine.consultationToMessage(consultation);
         } else {
             // رد افتراضي إذا المحرك غير متوفر
             aiResponse = `أهلاً وسهلاً بـ ${companyName}! 🌟\n\nأنا شيخة، مساعدتكم الذكية في عالم المعادن والسكراب.\n\nكيف يمكنني مساعدتكم اليوم؟`;
         }
-        
+
         // إرسال للـ AI للتحسين إذا كان متوفراً
         let enhancedResponse = aiResponse;
         if (OPENAI_API_KEY) {
@@ -14911,7 +14897,7 @@ ${aiResponse}
                     { role: 'system', content: systemPrompt },
                     { role: 'user', content: message }
                 ], 1500, 0.7);
-                
+
                 if (result.reply) {
                     enhancedResponse = result.reply;
                 }
@@ -14919,7 +14905,7 @@ ${aiResponse}
                 console.log('AI enhancement failed, using base response');
             }
         }
-        
+
         res.json({
             success: true,
             response: enhancedResponse,
@@ -14927,10 +14913,10 @@ ${aiResponse}
             aiName: 'شيخة',
             model: 'sheikha-advanced'
         });
-        
+
     } catch (e) {
-        res.status(500).json({ 
-            success: false, 
+        res.status(500).json({
+            success: false,
             message: 'خطأ في المحادثة: ' + e.message,
             response: 'عذراً، حدث خطأ. يرجى المحاولة مرة أخرى.'
         });
@@ -14940,13 +14926,13 @@ ${aiResponse}
 // تحليل مفهوم لغوي
 app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
     const word = req.params.word;
-    
+
     if (!SheikaAIEngine) {
         return res.json({ success: false, message: 'محرك التحليل غير متوفر' });
     }
-    
+
     const analysis = SheikaAIEngine.analyzeConceptMeaning(word);
-    
+
     if (!analysis) {
         return res.json({
             success: true,
@@ -14957,7 +14943,7 @@ app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
             }
         });
     }
-    
+
     res.json({
         success: true,
         data: {
@@ -14971,13 +14957,13 @@ app.get('/api/sheikha/analyze-concept/:word', (req, res) => {
 // اكتشاف التشابهات
 app.post('/api/sheikha/discover-similarities', express.json(), (req, res) => {
     const { topic } = req.body;
-    
+
     if (!SheikaAIEngine) {
         return res.json({ success: false, message: 'محرك التحليل غير متوفر' });
     }
-    
+
     const similarities = SheikaAIEngine.discoverSimilarities(topic);
-    
+
     res.json({
         success: true,
         data: {
@@ -14990,13 +14976,13 @@ app.post('/api/sheikha/discover-similarities', express.json(), (req, res) => {
 // تحليل أهداف الشركة
 app.post('/api/sheikha/analyze-goals', express.json(), (req, res) => {
     const { goals, sector } = req.body;
-    
+
     if (!SheikaAIEngine) {
         return res.json({ success: false, message: 'محرك التحليل غير متوفر' });
     }
-    
+
     const analysis = SheikaAIEngine.analyzeGoalsAndSuggest(goals, sector);
-    
+
     res.json({
         success: true,
         data: {
@@ -15010,7 +14996,7 @@ app.post('/api/sheikha/analyze-goals', express.json(), (req, res) => {
 // الترحيب الذكي بالشركة
 app.get('/api/sheikha/greeting/:companyName', (req, res) => {
     const companyName = decodeURIComponent(req.params.companyName);
-    
+
     if (!SheikaAIEngine) {
         return res.json({
             success: true,
@@ -15020,9 +15006,9 @@ app.get('/api/sheikha/greeting/:companyName', (req, res) => {
             }
         });
     }
-    
+
     const greeting = SheikaAIEngine.generateSmartGreeting(companyName);
-    
+
     res.json({
         success: true,
         data: greeting
@@ -15048,14 +15034,14 @@ app.post('/api/arabic/analyze', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     const { جملة, sentence } = req.body;
     const نص = جملة || sentence;
-    
+
     if (!نص) {
         return res.status(400).json({ success: false, message: 'الجملة مطلوبة' });
     }
-    
+
     try {
         const تحليل = ArabicEngine.محرك_العربية.حلل_الجملة(نص);
         res.json({
@@ -15073,14 +15059,14 @@ app.post('/api/arabic/parse-word', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     const { كلمة, word } = req.body;
     const الكلمة = كلمة || word;
-    
+
     if (!الكلمة) {
         return res.status(400).json({ success: false, message: 'الكلمة مطلوبة' });
     }
-    
+
     try {
         const تحليل = ArabicEngine.محرك_العربية.حلل_الكلمة(الكلمة);
         res.json({
@@ -15098,14 +15084,14 @@ app.post('/api/arabic/translate-code', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     const { كود, code, direction = 'to-js' } = req.body;
     const الكود = كود || code;
-    
+
     if (!الكود) {
         return res.status(400).json({ success: false, message: 'الكود مطلوب' });
     }
-    
+
     try {
         let نتيجة;
         if (direction === 'to-js' || direction === 'إلى-جافاسكربت') {
@@ -15113,7 +15099,7 @@ app.post('/api/arabic/translate-code', (req, res) => {
         } else {
             نتيجة = ArabicEngine.محرك_العربية.ترجم_إلى_العربية(الكود);
         }
-        
+
         res.json({
             success: true,
             data: {
@@ -15133,9 +15119,9 @@ app.get('/api/arabic/grammar/:rule', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     const { rule } = req.params;
-    
+
     try {
         const شرح = ArabicEngine.محرك_العربية.اشرح_قاعدة(decodeURIComponent(rule));
         res.json({
@@ -15153,7 +15139,7 @@ app.get('/api/arabic/grammar', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     try {
         const قواعد = ArabicEngine.محرك_العربية.قواعد_النحو_الكاملة();
         res.json({
@@ -15171,7 +15157,7 @@ app.get('/api/arabic/morphology', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     try {
         const قواعد = ArabicEngine.محرك_العربية.قواعد_الصرف_الكاملة();
         res.json({
@@ -15189,7 +15175,7 @@ app.get('/api/arabic/rhetoric', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     try {
         const قواعد = ArabicEngine.محرك_العربية.قواعد_البلاغة_الكاملة();
         res.json({
@@ -15207,14 +15193,14 @@ app.post('/api/arabic/rhetoric/analyze', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     const { نص, text } = req.body;
     const النص = نص || text;
-    
+
     if (!النص) {
         return res.status(400).json({ success: false, message: 'النص مطلوب' });
     }
-    
+
     try {
         const تحليل = ArabicEngine.محرك_العربية.حلل_بلاغياً(النص);
         res.json({
@@ -15232,15 +15218,15 @@ app.post('/api/arabic/syllogism', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     const { الكبرى, الصغرى, major, minor } = req.body;
     const مقدمة_كبرى = الكبرى || major;
     const مقدمة_صغرى = الصغرى || minor;
-    
+
     if (!مقدمة_كبرى || !مقدمة_صغرى) {
         return res.status(400).json({ success: false, message: 'المقدمة الكبرى والصغرى مطلوبتان' });
     }
-    
+
     try {
         const نتيجة = ArabicEngine.محرك_العربية.قياس_منطقي(مقدمة_كبرى, مقدمة_صغرى);
         res.json({
@@ -15258,7 +15244,7 @@ app.get('/api/arabic/programming/keywords', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: {
@@ -15276,7 +15262,7 @@ app.get('/api/arabic/logic', (req, res) => {
     if (!ArabicEngine) {
         return res.status(503).json({ success: false, message: 'محرك اللغة العربية غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: ArabicEngine.المنطق_العربي,
@@ -15320,14 +15306,14 @@ app.post('/api/arabic/parse', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     const { جملة, sentence, text } = req.body;
     const نص = جملة || sentence || text;
-    
+
     if (!نص) {
         return res.status(400).json({ success: false, message: 'الجملة مطلوبة' });
     }
-    
+
     try {
         const تحليل = ArabicParserEngine.محرك.أعرب_الجملة(نص);
         res.json({
@@ -15345,14 +15331,14 @@ app.post('/api/arabic/parse/model', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     const { جملة, sentence, text } = req.body;
     const نص = جملة || sentence || text;
-    
+
     if (!نص) {
         return res.status(400).json({ success: false, message: 'الجملة مطلوبة' });
     }
-    
+
     try {
         const نموذج = ArabicParserEngine.محرك.نمذج_للبرمجة(نص);
         // تحويل الدوال إلى نتائج
@@ -15367,7 +15353,7 @@ app.post('/api/arabic/parse/model', (req, res) => {
             هل_فعلية: نموذج.هل_فعلية(),
             هل_اسمية: نموذج.هل_اسمية()
         };
-        
+
         res.json({
             success: true,
             data: نموذج_مُصدَّر,
@@ -15383,14 +15369,14 @@ app.post('/api/arabic/parse/word-type', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     const { كلمة, word } = req.body;
     const الكلمة = كلمة || word;
-    
+
     if (!الكلمة) {
         return res.status(400).json({ success: false, message: 'الكلمة مطلوبة' });
     }
-    
+
     try {
         const نوع = ArabicParserEngine.محرك.حدد_نوع_الكلمة(الكلمة);
         res.json({
@@ -15411,24 +15397,24 @@ app.post('/api/arabic/parse/case-marker', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     const { كلمة, word, حالة, grammatical_case } = req.body;
     const الكلمة = كلمة || word;
     const الحالة = حالة || grammatical_case;
-    
+
     if (!الكلمة || !الحالة) {
         return res.status(400).json({ success: false, message: 'الكلمة والحالة الإعرابية مطلوبتان' });
     }
-    
+
     // التحقق من صحة الحالة
     const حالات_صحيحة = ['رفع', 'نصب', 'جر', 'جزم'];
     if (!حالات_صحيحة.includes(الحالة)) {
-        return res.status(400).json({ 
-            success: false, 
+        return res.status(400).json({
+            success: false,
             message: 'الحالة الإعرابية غير صحيحة. الحالات المتاحة: ' + حالات_صحيحة.join('، ')
         });
     }
-    
+
     try {
         const علامة = ArabicParserEngine.محرك.حدد_علامة_الإعراب(الكلمة, الحالة);
         res.json({
@@ -15450,7 +15436,7 @@ app.get('/api/arabic/parse/prepositions', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: ArabicParserEngine.حروف_الجر,
@@ -15463,7 +15449,7 @@ app.get('/api/arabic/parse/kana-sisters', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: ArabicParserEngine.كان_وأخواتها,
@@ -15476,7 +15462,7 @@ app.get('/api/arabic/parse/inna-sisters', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: ArabicParserEngine.إن_وأخواتها,
@@ -15489,7 +15475,7 @@ app.get('/api/arabic/parse/adverbs', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: {
@@ -15505,7 +15491,7 @@ app.get('/api/arabic/parse/pronouns', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: ArabicParserEngine.الضمائر,
@@ -15518,7 +15504,7 @@ app.get('/api/arabic/parse/conjunctions', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     res.json({
         success: true,
         data: ArabicParserEngine.حروف_العطف,
@@ -15553,20 +15539,20 @@ app.post('/api/arabic/parse/batch', (req, res) => {
     if (!ArabicParserEngine) {
         return res.status(503).json({ success: false, message: 'محرك الإعراب غير متوفر' });
     }
-    
+
     const { جمل, sentences } = req.body;
     const قائمة_الجمل = جمل || sentences;
-    
+
     if (!قائمة_الجمل || !Array.isArray(قائمة_الجمل)) {
         return res.status(400).json({ success: false, message: 'قائمة الجمل مطلوبة (مصفوفة)' });
     }
-    
+
     try {
         const نتائج = قائمة_الجمل.map(جملة => ({
             الجملة: جملة,
             التحليل: ArabicParserEngine.محرك.أعرب_الجملة(جملة)
         }));
-        
+
         res.json({
             success: true,
             data: نتائج,
@@ -20267,240 +20253,6 @@ app.get('/api/sheikha/status', (req, res) => {
         },
         displayPolicy: sunnahGovernanceLayer.backgroundGovernance.displayPolicy,
         timestamp: new Date().toISOString()
-    });
-});
-
-async function probeJson(url, timeoutMs = 2500) {
-    const controller = new AbortController();
-    const timer = setTimeout(() => controller.abort(), timeoutMs);
-    try {
-        const response = await fetch(url, { signal: controller.signal });
-        const body = await response.text();
-        let json = null;
-        if (body) {
-            try { json = JSON.parse(body); } catch (_) { json = null; }
-        }
-        return { ok: response.ok, status: response.status, json, body };
-    } catch (error) {
-        return { ok: false, status: null, error: error.message };
-    } finally {
-        clearTimeout(timer);
-    }
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🧠 SNRN — Sheikha Neural Root Network (شبكة الخلايا العصبية الجذرية)
-// ═══════════════════════════════════════════════════════════════════════════════
-const snrnState = {
-    enabled: true,
-    mode: 'root-neural-cells',
-    version: '3.0.0',
-    activationLevel: 'quantum-ready',
-    innovationRank: 'frontier',
-    status: 'active',
-    onlineProviders: 0,
-    totalProviders: 0,
-    healthScore: 0,
-    lastUpdatedAt: new Date().toISOString(),
-    topology: {
-        nodes: [],
-        edges: [],
-    },
-};
-
-function updateSnrnState(providers) {
-    const safeProviders = Array.isArray(providers) ? providers : [];
-    const onlineProviders = safeProviders.filter(provider => provider && provider.connected).length;
-    const totalProviders = safeProviders.length;
-    const healthScore = totalProviders > 0 ? Math.round((onlineProviders / totalProviders) * 100) : 0;
-
-    const nodes = safeProviders.map((provider, index) => ({
-        id: provider.id,
-        index,
-        role: provider.id === 'openai-gpt' ? 'root-intelligence' : 'mesh-node',
-        connected: !!provider.connected,
-        latencyClass: provider.connected ? 'low' : 'unknown',
-    }));
-
-    const rootNodeId = safeProviders.find(provider => provider.id === 'openai-gpt' && provider.connected)?.id
-        || safeProviders.find(provider => provider.connected)?.id
-        || null;
-
-    const edges = rootNodeId
-        ? safeProviders
-            .filter(provider => provider.id !== rootNodeId)
-            .map(provider => ({
-                from: rootNodeId,
-                to: provider.id,
-                active: !!provider.connected,
-            }))
-        : [];
-
-    snrnState.onlineProviders = onlineProviders;
-    snrnState.totalProviders = totalProviders;
-    snrnState.healthScore = healthScore;
-    snrnState.status = healthScore >= 80 ? 'hyper-active' : (healthScore >= 40 ? 'active' : 'degraded');
-    snrnState.lastUpdatedAt = new Date().toISOString();
-    snrnState.topology = { nodes, edges };
-
-    return snrnState;
-}
-
-app.get('/api/sheikha/copilot/vscode-bridge', async (req, res) => {
-    const bridge = await probeJson('http://127.0.0.1:3091/health');
-    const active = bridge.ok;
-    res.json({
-        success: active,
-        data: {
-            bridge: {
-                name: 'Sheikha Copilot ↔ VS Code Bridge',
-                protocol: 'MCP',
-                status: active ? 'active' : 'offline',
-                serverUrl: 'http://127.0.0.1:8080',
-                mcpServerUrl: 'http://127.0.0.1:3091',
-                mcpManifest: 'http://127.0.0.1:3091/.well-known/mcp.json',
-            },
-            features: [
-                { name: 'inlineCompletions', status: 'active' },
-                { name: 'chat', status: 'active' },
-                { name: 'agentMode', status: 'active' },
-                { name: 'nes', status: 'active' },
-                { name: 'inlineChat', status: 'active' },
-                { name: 'editMode', status: 'active' },
-            ],
-            shariaGuardrails: 'مفعّلة',
-            bridgeOnline: active,
-        },
-        message: active ? 'جسر Sheikha Copilot ↔ VS Code نشط' : 'جسر Sheikha Copilot غير متاح',
-        timestamp: new Date().toISOString(),
-    });
-});
-
-app.get('/api/sheikha/llm/status', async (req, res) => {
-    const [ollama, copilotBridge, vscodeBridge] = await Promise.all([
-        probeJson('http://127.0.0.1:11434/api/tags'),
-        probeJson('http://127.0.0.1:3091/health'),
-        probeJson('http://127.0.0.1:3091/copilot/vscode-bridge'),
-    ]);
-
-    const openaiConnected = !!process.env.OPENAI_API_KEY;
-    const githubConnected = !!(process.env.GITHUB_COPILOT_TOKEN || process.env.GITHUB_TOKEN);
-
-    const providers = [
-        {
-            id: 'ollama',
-            nameAr: 'أولاما — نماذج محلية',
-            connected: ollama.ok,
-            status: ollama.ok ? 'online' : 'offline',
-            baseUrl: 'http://127.0.0.1:11434',
-            model: 'llama3.1:8b',
-            httpStatus: ollama.status,
-        },
-        {
-            id: 'openai-gpt',
-            nameAr: 'GPT — OpenAI',
-            connected: openaiConnected,
-            status: openaiConnected ? 'online' : 'offline',
-            model: process.env.OPENAI_MODEL || process.env.AI_LLM_MODEL || 'auto-best',
-            baseUrl: 'https://api.openai.com/v1',
-            httpStatus: openaiConnected ? 200 : 401,
-        },
-        {
-            id: 'github-copilot',
-            nameAr: 'GitHub Copilot',
-            connected: githubConnected,
-            status: githubConnected ? 'online' : 'offline',
-            model: 'gpt-4o',
-            apiUrl: 'https://api.githubcopilot.com',
-            login: process.env.GITHUB_LOGIN || 'Sheikha-Market',
-            httpStatus: githubConnected ? 200 : 401,
-        },
-        {
-            id: 'copilot-bridge',
-            nameAr: 'خادم كوبايلوت Bridge (3091)',
-            connected: copilotBridge.ok,
-            status: copilotBridge.ok ? 'online' : 'offline',
-            port: 3091,
-            baseUrl: 'http://127.0.0.1:3091',
-            protocol: 'MCP+HTTP',
-            httpStatus: copilotBridge.status,
-        },
-        {
-            id: 'vscode-bridge',
-            nameAr: 'VS Code Bridge',
-            connected: copilotBridge.ok,
-            status: copilotBridge.ok ? 'online' : 'offline',
-            extensionId: 'sheikha.sheikha-copilot',
-            bridgeUrl: 'http://127.0.0.1:3091',
-            bridgeOnline: copilotBridge.ok,
-            httpStatus: copilotBridge.ok ? 200 : vscodeBridge.status,
-        },
-    ];
-
-    const online = providers.filter(provider => provider.connected).length;
-    const offline = providers.length - online;
-    const snrn = updateSnrnState(providers);
-
-    res.json({
-        success: true,
-        data: {
-            id: 'SHEIKHA_LLM_NEURAL_MESH',
-            version: '2.0.0',
-            architecture: 'SNRN — Sheikha Neural Root Network',
-            posture: online > 0 ? 'active' : 'standby',
-            online,
-            offline,
-            total: providers.length,
-            preferred: providers.find(provider => provider.connected)?.id || 'ollama',
-            providers,
-            snrn,
-            uptime: Math.floor(process.uptime()),
-            timestamp: new Date().toISOString(),
-        },
-    });
-});
-
-app.get('/api/sheikha/snrn/status', (req, res) => {
-    res.json({
-        success: true,
-        message: snrnState.enabled ? 'SNRN مفعّل ويعمل' : 'SNRN غير مفعّل',
-        data: {
-            id: 'SHEIKHA_ROOT_NEURAL_CELL_NETWORK',
-            architecture: 'SNRN — Sheikha Neural Root Network',
-            ...snrnState,
-            uptime: Math.floor(process.uptime()),
-            timestamp: new Date().toISOString(),
-        },
-    });
-});
-
-app.post('/api/sheikha/snrn/activate', async (req, res) => {
-    const [ollama, copilotBridge, vscodeBridge] = await Promise.all([
-        probeJson('http://127.0.0.1:11434/api/tags'),
-        probeJson('http://127.0.0.1:3091/health'),
-        probeJson('http://127.0.0.1:3091/copilot/vscode-bridge'),
-    ]);
-
-    const openaiConnected = !!process.env.OPENAI_API_KEY;
-    const githubConnected = !!(process.env.GITHUB_COPILOT_TOKEN || process.env.GITHUB_TOKEN);
-    const providers = [
-        { id: 'ollama', connected: ollama.ok },
-        { id: 'openai-gpt', connected: openaiConnected },
-        { id: 'github-copilot', connected: githubConnected },
-        { id: 'copilot-bridge', connected: copilotBridge.ok },
-        { id: 'vscode-bridge', connected: copilotBridge.ok || vscodeBridge.ok },
-    ];
-
-    snrnState.enabled = true;
-    updateSnrnState(providers);
-
-    res.json({
-        success: true,
-        message: 'تم تفعيل شبكة الخلايا العصبية الجذرية بنجاح',
-        data: {
-            ...snrnState,
-            activatedAt: new Date().toISOString(),
-        },
     });
 });
 
