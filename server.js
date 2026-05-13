@@ -2083,11 +2083,27 @@ const sanitizeInput = (obj) => {
 // 5. Rate Limiters — حماية من الإغراق (DDoS)
 let generalLimiter, authLimiter, aiLimiter;
 if (rateLimit) {
+    const runtimeLimiterBypassPaths = new Set([
+        '/api/live',
+        '/api/health',
+        '/api/ready',
+        '/api/version',
+        '/api/runtime',
+        '/api/sheikha-node/status',
+        '/api/observability/summary'
+    ]);
+
+    const shouldBypassGeneralLimiter = (req) => {
+        const requestPath = (req.originalUrl || req.url || '').split('?')[0];
+        return runtimeLimiterBypassPaths.has(requestPath);
+    };
+
     // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
     generalLimiter = rateLimit({
         windowMs: 15 * 60 * 1000,
         max: 500,
         message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
+        skip: shouldBypassGeneralLimiter,
         standardHeaders: true,
         legacyHeaders: false
     });
