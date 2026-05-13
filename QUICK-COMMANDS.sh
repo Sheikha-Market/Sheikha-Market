@@ -392,3 +392,16 @@ echo "📖 للمزيد، اقرأ أحد الملفات التالية:"
 echo "   - docs/PIXEL-ECOSYSTEM-GUIDE-AR.md"
 echo "   - PIXEL-ECOSYSTEM-EXECUTIVE-SUMMARY.md"
 echo ""
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🔭 منظومة الاستكشاف والبحث — تشغيل سريع
+# ═══════════════════════════════════════════════════════════════════════════════
+
+echo "🔭 أوامر منظومة الاستكشاف والبحث"
+echo ""
+echo "1. دليل المنهجية:       cat docs/exploration/PLAYBOOK.md"
+echo "2. قالب تجربة:          cat docs/exploration/templates/research-run.md"
+echo "3. بدء دورة استكشاف:    bash tools/exploration/init-run.sh EXP-2026-001 earth-sky-space"
+echo "4. التحقق التشغيلي:      pm2 status && curl http://127.0.0.1:8080/api/health"
+echo "5. مراجعة السجلات:       pm2 logs sheikha-main-portal --lines 50 --nostream"
+echo ""

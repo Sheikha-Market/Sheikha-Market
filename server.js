@@ -24,6 +24,27 @@ const STARTUP_L0_ONLY = true; // ✅ الهدف: تحميل L0 (21 محرك) ف�
 // جامع الأمان والأمن: Deny-by-default للأدوات الخطرة
 const MCP_DENY_BY_DEFAULT = true; // ✅ P0-4: لا أداة إلا بـ allowlist
 
+// تقليل ضجيج التحذيرات الخاصة بالمحركات الاختيارية فقط (بدون إخفاء التحذيرات الحقيقية)
+const SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = process.env.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS !== 'false';
+const __nativeWarn = console.warn.bind(console);
+const __optionalWarningPatterns = [
+    /\bis not defined\b/i,
+    /Cannot find module/i,
+    /\bis not a constructor\b/i,
+    /Cannot read properties of null/i
+];
+
+console.warn = (...args) => {
+    if (SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS) {
+        const text = args.map(a => (typeof a === 'string' ? a : (a && a.message) ? a.message : String(a))).join(' ');
+        if (__optionalWarningPatterns.some((rx) => rx.test(text))) {
+            console.log('⏸️ [OPTIONAL] ' + text);
+            return;
+        }
+    }
+    __nativeWarn(...args);
+};
+
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
 
