@@ -11,7 +11,10 @@
 ## خط الأساس التشغيلي
 - الفرع المرجعي: stable/runtime-baseline
 - التشغيل عبر PM2 باستخدام ecosystem.config.js
+- ملف البيئة الموحد: .env.runtime (محلي) و .env.runtime.example (مرجعي)
 - صحة الخدمة: /api/health
+- عقود الصحة: /api/live و /api/ready و /api/version و /api/runtime
+- بصمة التشغيل: .runtime-fingerprint
 
 ## منظومة منع الفشل
 - Git reliability gates عبر .githooks/pre-commit

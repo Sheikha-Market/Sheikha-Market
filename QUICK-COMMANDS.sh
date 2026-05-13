@@ -405,3 +405,19 @@ echo "3. بدء دورة استكشاف:    bash tools/exploration/init-run.sh E
 echo "4. التحقق التشغيلي:      pm2 status && curl http://127.0.0.1:8080/api/health"
 echo "5. مراجعة السجلات:       pm2 logs sheikha-main-portal --lines 50 --nostream"
 echo ""
+
+# ═══════════════════════════════════════════════════════════════════════════════
+# 🧭 Runtime OS — أوامر موثوقية التشغيل المستمر
+# ═══════════════════════════════════════════════════════════════════════════════
+
+echo "🧭 Runtime OS Commands"
+echo ""
+echo "1. تهيئة hooks:           bash tools/setup-hooks.sh"
+echo "2. تحديث البصمة:          bash tools/runtime/update-fingerprint.sh"
+echo "3. تحقق runtime:          bash tools/runtime/verify-runtime.sh"
+echo "4. جمع metrics:           bash tools/runtime/collect-runtime-metrics.sh"
+echo "5. Contracts check:       curl http://127.0.0.1:8080/api/live"
+echo "                          curl http://127.0.0.1:8080/api/ready"
+echo "                          curl http://127.0.0.1:8080/api/version"
+echo "                          curl http://127.0.0.1:8080/api/runtime"
+echo ""

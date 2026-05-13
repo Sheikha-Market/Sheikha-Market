@@ -4,6 +4,7 @@ module.exports = {
       name: "sheikha-main-portal",
       script: "server.js",
       cwd: "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+      env_file: ".env.runtime",
       instances: 1,
       exec_mode: "fork",
       autorestart: true,

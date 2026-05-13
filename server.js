@@ -1,4 +1,8 @@
-try { require('dotenv').config(); } catch (_) {}
+try {
+    const dotenv = require('dotenv');
+    dotenv.config({ path: '.env.runtime' });
+    dotenv.config();
+} catch (_) {}
 const express = require('express');
 const cors = require('cors');
 const { v4: uuidv4 } = require('uuid');
@@ -23,6 +27,58 @@ const STARTUP_L0_ONLY = true; // ✅ الهدف: تحميل L0 (21 محرك) ف�
 
 // جامع الأمان والأمن: Deny-by-default للأدوات الخطرة
 const MCP_DENY_BY_DEFAULT = true; // ✅ P0-4: لا أداة إلا بـ allowlist
+
+const SHEIKHA_RUNTIME_RING = process.env.SHEIKHA_RUNTIME_RING || 'stable';
+const SHEIKHA_RUNTIME_STRICT_FINGERPRINT = process.env.SHEIKHA_RUNTIME_STRICT_FINGERPRINT === 'true';
+
+function calculateSha256(filePath) {
+    const content = fs.readFileSync(filePath);
+    return crypto.createHash('sha256').update(content).digest('hex');
+}
+
+function verifyRuntimeFingerprint() {
+    const fpPath = path.join(__dirname, '.runtime-fingerprint');
+    if (!fs.existsSync(fpPath)) {
+        return { enabled: false, status: 'missing-fingerprint-file', mismatches: [] };
+    }
+
+    const lines = fs.readFileSync(fpPath, 'utf8').split(/\r?\n/).map((line) => line.trim()).filter(Boolean).filter((line) => !line.startsWith('#'));
+    const mismatches = [];
+
+    for (const line of lines) {
+        const match = line.match(/^([a-f0-9]{64})\s+\*?(.+)$/i);
+        if (!match) continue;
+
+        const expected = match[1].toLowerCase();
+        const relativePath = match[2];
+        const absolutePath = path.join(__dirname, relativePath);
+
+        if (!fs.existsSync(absolutePath)) {
+            mismatches.push({ file: relativePath, reason: 'missing-file' });
+            continue;
+        }
+
+        const actual = calculateSha256(absolutePath);
+        if (actual !== expected) {
+            mismatches.push({ file: relativePath, reason: 'hash-mismatch', expected, actual });
+        }
+    }
+
+    return {
+        enabled: true,
+        status: mismatches.length === 0 ? 'verified' : 'mismatch',
+        mismatches
+    };
+}
+
+const RUNTIME_FINGERPRINT_STATUS = verifyRuntimeFingerprint();
+if (RUNTIME_FINGERPRINT_STATUS.status === 'mismatch') {
+    console.warn('⚠️ [RUNTIME-FINGERPRINT] Mismatch detected:', JSON.stringify(RUNTIME_FINGERPRINT_STATUS.mismatches));
+    if (SHEIKHA_RUNTIME_STRICT_FINGERPRINT) {
+        console.error('🚫 [RUNTIME-FINGERPRINT] Strict mode enabled. Startup blocked.');
+        process.exit(1);
+    }
+}
 
 // تقليل ضجيج التحذيرات الخاصة بالمحركات الاختيارية فقط (بدون إخفاء التحذيرات الحقيقية)
 const SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = process.env.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS !== 'false';
@@ -2574,8 +2630,16 @@ app.use((req, res, next) => {
     next();
 });
 
-// ═══ P0-2: Health Check — للتحقق السريع من جاهزية الخادم ═══
-app.get('/api/health', (req, res) => res.json({status:'ok'}));
+// ═══ P0-2: Live Check — للتحقق السريع من حيوية العملية ═══
+app.get('/api/live', (req, res) => {
+    res.json({
+        success: true,
+        live: true,
+        pid: process.pid,
+        uptimeSeconds: Math.floor(process.uptime()),
+        timestamp: new Date().toISOString()
+    });
+});
 
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
@@ -10434,6 +10498,40 @@ app.get('/api/ready', (req, res) => {
         success: true,
         ready: true,
         uptime: Date.now() - SERVER_START_TIME,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/version', (req, res) => {
+    res.json({
+        success: true,
+        service: 'sheikha-main-portal',
+        node: process.version,
+        ring: SHEIKHA_RUNTIME_RING,
+        branch: process.env.GIT_BRANCH || 'stable/runtime-baseline',
+        commit: process.env.GIT_COMMIT || 'unknown',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/runtime', (req, res) => {
+    const expectedNode = process.env.NODE_VERSION || null;
+    const activeNode = process.version.replace(/^v/, '');
+    const nodeMatches = expectedNode ? activeNode === expectedNode : null;
+
+    res.json({
+        success: true,
+        ring: SHEIKHA_RUNTIME_RING,
+        runtime: {
+            node: process.version,
+            expectedNode,
+            nodeMatches,
+            pm2Runtime: process.env.PM2_RUNTIME || null,
+            port: Number(process.env.PORT || 8080),
+            suppressOptionalWarnings: SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+            strictFingerprint: SHEIKHA_RUNTIME_STRICT_FINGERPRINT
+        },
+        fingerprint: RUNTIME_FINGERPRINT_STATUS,
         timestamp: new Date().toISOString()
     });
 });

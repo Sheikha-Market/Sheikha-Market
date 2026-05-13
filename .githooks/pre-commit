@@ -25,7 +25,16 @@ if [[ -n "$staged_files" ]]; then
   fi
 fi
 
-# 3) Always validate staged whitespace issues
+# 3) Require runtime fingerprint refresh when core runtime files change
+if [[ -n "$staged_files" ]] && echo "$staged_files" | grep -Eq '^(server\.js|ecosystem\.config\.js|\.env\.runtime\.example)$'; then
+  if ! echo "$staged_files" | grep -Eq '^\.runtime-fingerprint$'; then
+    echo "[pre-commit] Blocked: runtime core files changed without updating .runtime-fingerprint"
+    echo "[pre-commit] Run: bash tools/runtime/update-fingerprint.sh && git add .runtime-fingerprint"
+    exit 1
+  fi
+fi
+
+# 4) Always validate staged whitespace issues
 git diff --check --cached
 
 # 4) Validate server.js syntax when present
