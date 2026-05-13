@@ -2092,7 +2092,8 @@ if (rateLimit) {
 
 // === تطبيق الـ middleware بالترتيب الصحيح ===
 app.use(cors(corsOptions));
-app.use(express.json());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // تنظيف المدخلات
 app.use((req, res, next) => {
@@ -2205,10 +2206,6 @@ if (pilotEngine) {
     app.use(pilotEngine.middleware());
     console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
 }
-
-app.use(cors());
-app.use(express.json({ limit: '10mb' }));
-app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Cache Control for HTML pages
 app.use((req, res, next) => {
@@ -20253,6 +20250,136 @@ app.get('/api/sheikha/status', (req, res) => {
         },
         displayPolicy: sunnahGovernanceLayer.backgroundGovernance.displayPolicy,
         timestamp: new Date().toISOString()
+    });
+});
+
+async function probeJson(url, timeoutMs = 2500) {
+    const controller = new AbortController();
+    const timer = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        const response = await fetch(url, { signal: controller.signal });
+        const body = await response.text();
+        let json = null;
+        if (body) {
+            try { json = JSON.parse(body); } catch (_) { json = null; }
+        }
+        return { ok: response.ok, status: response.status, json, body };
+    } catch (error) {
+        return { ok: false, status: null, error: error.message };
+    } finally {
+        clearTimeout(timer);
+    }
+}
+
+app.get('/api/sheikha/copilot/vscode-bridge', async (req, res) => {
+    const bridge = await probeJson('http://127.0.0.1:3091/health');
+    const active = bridge.ok;
+    res.json({
+        success: active,
+        data: {
+            bridge: {
+                name: 'Sheikha Copilot ↔ VS Code Bridge',
+                protocol: 'MCP',
+                status: active ? 'active' : 'offline',
+                serverUrl: 'http://127.0.0.1:8080',
+                mcpServerUrl: 'http://127.0.0.1:3091',
+                mcpManifest: 'http://127.0.0.1:3091/.well-known/mcp.json',
+            },
+            features: [
+                { name: 'inlineCompletions', status: 'active' },
+                { name: 'chat', status: 'active' },
+                { name: 'agentMode', status: 'active' },
+                { name: 'nes', status: 'active' },
+                { name: 'inlineChat', status: 'active' },
+                { name: 'editMode', status: 'active' },
+            ],
+            shariaGuardrails: 'مفعّلة',
+            bridgeOnline: active,
+        },
+        message: active ? 'جسر Sheikha Copilot ↔ VS Code نشط' : 'جسر Sheikha Copilot غير متاح',
+        timestamp: new Date().toISOString(),
+    });
+});
+
+app.get('/api/sheikha/llm/status', async (req, res) => {
+    const [ollama, copilotBridge, vscodeBridge] = await Promise.all([
+        probeJson('http://127.0.0.1:11434/api/tags'),
+        probeJson('http://127.0.0.1:3091/health'),
+        probeJson('http://127.0.0.1:3091/copilot/vscode-bridge'),
+    ]);
+
+    const openaiConnected = !!process.env.OPENAI_API_KEY;
+    const githubConnected = !!(process.env.GITHUB_COPILOT_TOKEN || process.env.GITHUB_TOKEN);
+
+    const providers = [
+        {
+            id: 'ollama',
+            nameAr: 'أولاما — نماذج محلية',
+            connected: ollama.ok,
+            status: ollama.ok ? 'online' : 'offline',
+            baseUrl: 'http://127.0.0.1:11434',
+            model: 'llama3.1:8b',
+            httpStatus: ollama.status,
+        },
+        {
+            id: 'openai-gpt',
+            nameAr: 'GPT — OpenAI',
+            connected: openaiConnected,
+            status: openaiConnected ? 'online' : 'offline',
+            model: process.env.OPENAI_MODEL || process.env.AI_LLM_MODEL || 'auto-best',
+            baseUrl: 'https://api.openai.com/v1',
+            httpStatus: openaiConnected ? 200 : 401,
+        },
+        {
+            id: 'github-copilot',
+            nameAr: 'GitHub Copilot',
+            connected: githubConnected,
+            status: githubConnected ? 'online' : 'offline',
+            model: 'gpt-4o',
+            apiUrl: 'https://api.githubcopilot.com',
+            login: process.env.GITHUB_LOGIN || 'Sheikha-Market',
+            httpStatus: githubConnected ? 200 : 401,
+        },
+        {
+            id: 'copilot-bridge',
+            nameAr: 'خادم كوبايلوت Bridge (3091)',
+            connected: copilotBridge.ok,
+            status: copilotBridge.ok ? 'online' : 'offline',
+            port: 3091,
+            baseUrl: 'http://127.0.0.1:3091',
+            protocol: 'MCP+HTTP',
+            httpStatus: copilotBridge.status,
+        },
+        {
+            id: 'vscode-bridge',
+            nameAr: 'VS Code Bridge',
+            connected: copilotBridge.ok,
+            status: copilotBridge.ok ? 'online' : 'offline',
+            extensionId: 'sheikha.sheikha-copilot',
+            bridgeUrl: 'http://127.0.0.1:3091',
+            bridgeOnline: copilotBridge.ok,
+            httpStatus: copilotBridge.ok ? 200 : vscodeBridge.status,
+        },
+    ];
+
+    const online = providers.filter(provider => provider.connected).length;
+    const offline = providers.length - online;
+
+    res.json({
+        success: true,
+        data: {
+            id: 'SHEIKHA_LLM_NEURAL_MESH',
+            version: '2.0.0',
+            architecture: 'SNRN — Sheikha Neural Root Network',
+            posture: online > 0 ? 'active' : 'standby',
+            online,
+            offline,
+            total: providers.length,
+            preferred: providers.find(provider => provider.connected)?.id || 'ollama',
+            providers,
+            uptime: Math.floor(process.uptime()),
+            timestamp: new Date().toISOString(),
+        },
     });
 });
 
