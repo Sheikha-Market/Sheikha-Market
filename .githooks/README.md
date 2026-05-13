@@ -9,6 +9,10 @@ This project tracks Git hooks in `.githooks/` to keep runtime safety checks cons
 - Runs `node --check server.js`.
 - Runs optional runtime enforcer audit if module exists.
 
+## What the pre-push hook enforces
+- For changed run files in `docs/exploration/runs/*.md`, blocks push if `- Best path:` is missing.
+- Blocks push if `- Best path:` is still unresolved (for example: `(to be filled)`, `TBD`, `N/A`, or empty).
+
 ## Enable tracked hooks
 Run:
 

@@ -1,0 +1,50 @@
+#!/usr/bin/env bash
+set -euo pipefail
+
+ROOT_DIR="$(git rev-parse --show-toplevel 2>/dev/null || pwd)"
+cd "$ROOT_DIR"
+
+branch="$(git rev-parse --abbrev-ref HEAD 2>/dev/null || echo unknown)"
+
+# If no upstream is configured, allow push (first push/bootstrap case).
+if ! git rev-parse --abbrev-ref "${branch}@{upstream}" >/dev/null 2>&1; then
+  echo "[pre-push] No upstream for ${branch}; skipping exploration decision gate."
+  exit 0
+fi
+
+base_ref="${branch}@{upstream}"
+run_files="$(git diff --name-only "${base_ref}"...HEAD -- 'docs/exploration/runs/*.md' || true)"
+
+if [[ -z "${run_files}" ]]; then
+  echo "[pre-push] No exploration run updates detected; gate passed."
+  exit 0
+fi
+
+echo "[pre-push] Validating exploration decision fields in run files..."
+failed=0
+
+while IFS= read -r file; do
+  [[ -z "$file" ]] && continue
+  [[ ! -f "$file" ]] && continue
+
+  best_line="$(grep -Ei '^- Best path:' "$file" | tail -n1 || true)"
+  if [[ -z "$best_line" ]]; then
+    echo "[pre-push] Blocked: missing '- Best path:' in ${file}"
+    failed=1
+    continue
+  fi
+
+  best_value="$(echo "$best_line" | sed -E 's/^- [Bb]est path:[[:space:]]*//')"
+  if [[ -z "$best_value" ]] || echo "$best_value" | grep -Eqi '^\(to be filled\)$|^TBD$|^N/?A$|^-$'; then
+    echo "[pre-push] Blocked: unresolved best path in ${file}"
+    echo "[pre-push] Current value: ${best_value:-<empty>}"
+    failed=1
+  fi
+done <<< "$run_files"
+
+if [[ "$failed" -ne 0 ]]; then
+  echo "[pre-push] Push blocked. Complete exploration decision fields first."
+  exit 1
+fi
+
+echo "[pre-push] Exploration decision gate passed."

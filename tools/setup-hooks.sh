@@ -9,7 +9,13 @@ if [[ ! -f .githooks/pre-commit ]]; then
   exit 1
 fi
 
+if [[ ! -f .githooks/pre-push ]]; then
+  echo "Missing .githooks/pre-push"
+  exit 1
+fi
+
 chmod +x .githooks/pre-commit
+chmod +x .githooks/pre-push
 
 git config core.hooksPath .githooks
 
