@@ -100,7 +100,7 @@
 - Security & Compliance Impact
 - Operational Runbook Impact
 - Dependencies
-- Timeline Window (Format: `T+<n><w|m|q>` حيث `n` رقم موجب متعدد الخانات، مثل `T+6w` أو `T+12w` أو `T+2q`)
+- Timeline Window (Format: `T+<n><w|m|q>` حيث `n` رقم موجب، مثل `T+6w` أو `T+12w` أو `T+2q`)
 - Decision Record (Approved / Deferred / Rejected)
 
 **تعريف T:**  
@@ -160,23 +160,23 @@
 1. **Phase 1 — Stabilize Modular Monolith:** فصل الوحدات الداخلية المنطقية مع تثبيت التشغيل والمراقبة.  
    Completion Criteria: حدود الوحدات موثقة + استقرار تشغيلي مثبت.  
    Dependencies: جاهزية التوثيق الأساسي والحالة التشغيلية الحالية.  
-   Timeline Field: Short-term baseline window (must be declared in phase RFC).
+   Timeline Field: Short-term (`T+0w` → `T+12w`).
 2. **Phase 2 — Runtime Separation:** فصل Runtime Core وواجهات APIs وEngines وWorkers إلى حدود واضحة.  
    Completion Criteria: عقود واجهات وحدود تشغيل معتمدة.  
    Dependencies: إنجاز واعتماد Phase 1.  
-   Timeline Field: Mid-term separation window (must be declared in phase RFC).
+   Timeline Field: Mid-term (`T+13w` → `T+26w`).
 3. **Phase 3 — Event-Driven Enablement:** اعتماد قنوات أحداث لضبط التكامل والمرونة التشغيلية.  
    Completion Criteria: تدفقات أحداث موثقة وقابلة للمراقبة.  
    Dependencies: إنجاز واعتماد Phase 2.  
-   Timeline Field: Mid-term event enablement window (must be declared in phase RFC).
+   Timeline Field: Mid-term (`T+13w` → `T+26w`).
 4. **Phase 4 — Distributed Fabric:** توزيع الأحمال والخدمات ضمن Fabric تشغيلي قابل للتوسع.  
    Completion Criteria: توزيع خدمات فعّال + سياسات توازن أحمال معتمدة.  
    Dependencies: إنجاز واعتماد Phase 3.  
-   Timeline Field: Scale-up window (must be declared in phase RFC).
+   Timeline Field: Scale-up (`T+27w` → `T+52w`).
 5. **Phase 5 — Global Sovereign Network:** تفعيل عقد تشغيل عالمية بحوكمة سيادية موحّدة.  
    Completion Criteria: تشغيل عقد متعددة النطاق مع حوكمة موحّدة.  
    Dependencies: إنجاز واعتماد Phase 4.  
-   Timeline Field: Global rollout window (must be declared in phase RFC).
+   Timeline Field: Global rollout (`T+53w` → `T+104w`).
 
 ## 12) البنية المرجعية الرسمية (Reference Structure)
 
