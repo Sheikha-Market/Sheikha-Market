@@ -85,6 +85,23 @@
 3. مؤشرات النجاح
 4. التوافق المعماري
 
+### سلطة الاعتماد (Approval Authority)
+- الاعتماد المعماري: **Architecture Council**
+- اعتماد القيمة السوقية: **Product & Market Council**
+- اعتماد الامتثال والمخاطر: **Governance & Compliance Council**
+
+### نموذج التوثيق الإلزامي (Expansion RFC Template)
+أي توسع جديد يجب أن يمر عبر وثيقة **Expansion RFC** تتضمن:
+- Scope
+- Owner
+- Value Hypothesis
+- Success Metrics
+- Architectural Fit
+- Security & Compliance Impact
+- Operational Runbook Impact
+- Dependencies
+- Decision Record (Approved / Deferred / Rejected)
+
 ## 7) خارطة التطور المعمارية الثابتة
 
 1. **Modular Monolith**
@@ -130,14 +147,30 @@
 - **SHEIKHA Infrastructure Fabric**
 
 ### مراحل التحول التنفيذية (Transformation Milestones)
-1. **Phase 1 — Stabilize Modular Monolith:** فصل الوحدات الداخلية المنطقية مع تثبيت التشغيل والمراقبة.
-2. **Phase 2 — Runtime Separation:** فصل Runtime Core وواجهات APIs وEngines وWorkers إلى حدود واضحة.
-3. **Phase 3 — Event-Driven Enablement:** اعتماد قنوات أحداث لضبط التكامل والمرونة التشغيلية.
-4. **Phase 4 — Distributed Fabric:** توزيع الأحمال والخدمات ضمن Fabric تشغيلي قابل للتوسع.
-5. **Phase 5 — Global Sovereign Network:** تفعيل عقد تشغيل عالمية بحوكمة سيادية موحّدة.
+1. **Phase 1 — Stabilize Modular Monolith:** فصل الوحدات الداخلية المنطقية مع تثبيت التشغيل والمراقبة.  
+   Completion Criteria: حدود الوحدات موثقة + استقرار تشغيلي مثبت.  
+   Dependencies: جاهزية التوثيق الأساسي والحالة التشغيلية الحالية.  
+   Timeline Field: Short-term baseline window (must be declared in phase RFC).
+2. **Phase 2 — Runtime Separation:** فصل Runtime Core وواجهات APIs وEngines وWorkers إلى حدود واضحة.  
+   Completion Criteria: عقود واجهات وحدود تشغيل معتمدة.  
+   Dependencies: إنجاز واعتماد Phase 1.  
+   Timeline Field: Mid-term separation window (must be declared in phase RFC).
+3. **Phase 3 — Event-Driven Enablement:** اعتماد قنوات أحداث لضبط التكامل والمرونة التشغيلية.  
+   Completion Criteria: تدفقات أحداث موثقة وقابلة للمراقبة.  
+   Dependencies: إنجاز واعتماد Phase 2.  
+   Timeline Field: Mid-term event enablement window (must be declared in phase RFC).
+4. **Phase 4 — Distributed Fabric:** توزيع الأحمال والخدمات ضمن Fabric تشغيلي قابل للتوسع.  
+   Completion Criteria: توزيع خدمات فعّال + سياسات توازن أحمال معتمدة.  
+   Dependencies: إنجاز واعتماد Phase 3.  
+   Timeline Field: Scale-up window (must be declared in phase RFC).
+5. **Phase 5 — Global Sovereign Network:** تفعيل عقد تشغيل عالمية بحوكمة سيادية موحّدة.  
+   Completion Criteria: تشغيل عقد متعددة النطاق مع حوكمة موحّدة.  
+   Dependencies: إنجاز واعتماد Phase 4.  
+   Timeline Field: Global rollout window (must be declared in phase RFC).
 
 ## 12) البنية المرجعية الرسمية (Reference Structure)
 
+### Infrastructure Directories
 - `/core`: النواة المشتركة والثوابت المؤسسية.
 - `/runtime`: دورة حياة التشغيل وإدارة السياق التشغيلي.
 - `/fabric`: الربط بين الطبقات والعُقد التشغيلية.
@@ -149,6 +182,8 @@
 - `/security`: ضوابط الأمان والصلاحيات والحماية.
 - `/integration`: الموصلات والتكاملات الخارجية.
 - `/governance`: السياسات والامتثال والتدقيق.
+
+### Domain Directories
 - `/ai`: قدرات الذكاء والتحليل التنبئي.
 - `/supply-chain`: نطاق سلسلة الإمداد.
 - `/industry`: نطاق الصناعة والعمليات الصناعية.
