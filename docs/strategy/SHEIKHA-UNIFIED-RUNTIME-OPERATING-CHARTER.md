@@ -100,7 +100,7 @@
 - Security & Compliance Impact
 - Operational Runbook Impact
 - Dependencies
-- Timeline Window (Format: `T+<number><w|m|q>` مثل `T+6w` أو `T+2q`)
+- Timeline Window (Format: `T+<n><w|m|q>` حيث `n` رقم موجب متعدد الخانات، مثل `T+6w` أو `T+12w` أو `T+2q`)
 - Decision Record (Approved / Deferred / Rejected)
 
 **تعريف T:**  
@@ -153,9 +153,9 @@
 ### مراحل التحول التنفيذية (Transformation Milestones)
 تعريف نوافذ الزمن:
 - Short-term = `T+0w` إلى `T+12w`
-- Mid-term = `T+3m` إلى `T+6m`
-- Scale-up = `T+6m` إلى `T+12m`
-- Global rollout = `T+12m` إلى `T+24m`
+- Mid-term = `T+13w` إلى `T+26w`
+- Scale-up = `T+27w` إلى `T+52w`
+- Global rollout = `T+53w` إلى `T+104w`
 
 1. **Phase 1 — Stabilize Modular Monolith:** فصل الوحدات الداخلية المنطقية مع تثبيت التشغيل والمراقبة.  
    Completion Criteria: حدود الوحدات موثقة + استقرار تشغيلي مثبت.  
