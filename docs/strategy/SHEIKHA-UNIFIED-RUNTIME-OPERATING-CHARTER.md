@@ -103,6 +103,9 @@
 - Timeline Window (Format: `T+<number><w|m|q>` مثل `T+6w` أو `T+2q`)
 - Decision Record (Approved / Deferred / Rejected)
 
+**تعريف T:**  
+`T` = تاريخ اعتماد الـ RFC (Approval Date) ويُستخدم كنقطة مرجعية موحدة لحساب الجداول.
+
 ## 7) خارطة التطور المعمارية الثابتة
 
 1. **Modular Monolith**
@@ -148,6 +151,12 @@
 - **SHEIKHA Infrastructure Fabric**
 
 ### مراحل التحول التنفيذية (Transformation Milestones)
+تعريف نوافذ الزمن:
+- Short-term = `T+0w` إلى `T+12w`
+- Mid-term = `T+3m` إلى `T+6m`
+- Scale-up = `T+6m` إلى `T+12m`
+- Global rollout = `T+12m` إلى `T+24m`
+
 1. **Phase 1 — Stabilize Modular Monolith:** فصل الوحدات الداخلية المنطقية مع تثبيت التشغيل والمراقبة.  
    Completion Criteria: حدود الوحدات موثقة + استقرار تشغيلي مثبت.  
    Dependencies: جاهزية التوثيق الأساسي والحالة التشغيلية الحالية.  
