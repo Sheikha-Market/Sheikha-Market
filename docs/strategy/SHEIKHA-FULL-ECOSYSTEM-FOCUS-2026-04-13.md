@@ -60,6 +60,7 @@
 
 ## مخرجات مطلوبة لاحقًا
 
+- SHEIKHA-UNIFIED-RUNTIME-OPERATING-CHARTER.md ✅ (تمت الإضافة)
 - SHEIKHA-FULL-ECOSYSTEM-OPERATING-MODEL.md
 - SHEIKHA-FIRST-REVENUE-OFFER.md
 - SHEIKHA-EDUCATION-REVENUE-MODEL.md
@@ -69,3 +70,5 @@
 ## الحالة
 
 هذا الملف مرجع استراتيجي للمحادثة القادمة، لتوجيه العمل نحو المنظومة كاملة.
+تم اعتماد ميثاق تشغيلي رسمي داعم لهذا التوجه في:
+`docs/strategy/SHEIKHA-UNIFIED-RUNTIME-OPERATING-CHARTER.md`.
