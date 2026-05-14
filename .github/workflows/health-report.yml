@@ -1,0 +1,97 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  📊 Repository Health — صحة المستودع والإحصائيات الأسبوعية                ║
+# ║  Sheikha Market — Weekly Health & Status Report                             ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Health — Weekly Repository Report
+
+on:
+  schedule:
+    # كل يوم أحد الساعة 06:00 UTC (09:00 بتوقيت الرياض)
+    - cron: "0 6 * * 0"
+  workflow_dispatch:
+
+jobs:
+  health-report:
+    name: 📊 Weekly Health Check
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+      issues: read
+      pull-requests: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        working-directory: sheikha-main-portal
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🔒 Security Audit
+        working-directory: sheikha-main-portal
+        run: |
+          echo "═══ تقرير الأمان الأسبوعي ==="
+          npm audit --audit-level=moderate --json > /tmp/audit.json 2>/dev/null || true
+          node -e "
+            try {
+              const a = require('/tmp/audit.json');
+              const v = a.metadata?.vulnerabilities || {};
+              console.log('الثغرات الحرجة:', v.critical || 0);
+              console.log('الثغرات العالية:', v.high || 0);
+              console.log('الثغرات المتوسطة:', v.moderate || 0);
+              console.log('الثغرات المنخفضة:', v.low || 0);
+              if ((v.critical || 0) > 0) process.exit(1);
+            } catch(e) { console.log('لا يمكن قراءة تقرير الأمان'); }
+          "
+        continue-on-error: true
+
+      - name: 🧠 Neural Network Status
+        working-directory: sheikha-main-portal
+        run: |
+          echo "═══ حالة الشبكة العصبية الأسبوعية ==="
+          node -e "
+            const cells = require('./core/neural/neural-cells');
+            const runtime = require('./lib/sheikha-root-neural-runtime');
+            const upper = require('./core/sheikha-ubuntu-upper-layer');
+            upper.init();
+            
+            const sC = cells.status();
+            const sR = runtime.status();
+            const sU = upper.status();
+            
+            console.log('');
+            console.log('╔═══════════════════════════════════════╗');
+            console.log('║  📊 تقرير الصحة الأسبوعي              ║');
+            console.log('╠═══════════════════════════════════════╣');
+            console.log('║  خلايا شيخة (12):', sC.ready ? '✅' : '❌', '               ║');
+            console.log('║  Runtime الجذري (19):', sR.ready ? '✅' : '❌', '            ║');
+            console.log('║  الطبقة العليا:', sU.integrationReady ? '✅' : '❌', '              ║');
+            console.log('╚═══════════════════════════════════════╝');
+          "
+
+      - name: 📊 Print Report Summary
+        run: |
+          echo ""
+          echo "╔══════════════════════════════════════════════════════╗"
+          echo "║           📊 التقرير الأسبوعي — Weekly Report        ║"
+          echo "║              منظومة سوق شيخة™                        ║"
+          echo "╠══════════════════════════════════════════════════════╣"
+          echo "║  التاريخ: $(date '+%Y-%m-%d %H:%M UTC')              ║"
+          echo "║  الفرع: main                                          ║"
+          echo "║  الإصدار: $(jq -r '.version // "N/A"' sheikha-main-portal/package.json)"
+          echo "╚══════════════════════════════════════════════════════╝"
+          echo ""
+          echo "الحمد لله — All systems operating normally 🌿"

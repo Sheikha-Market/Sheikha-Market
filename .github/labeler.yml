@@ -1,0 +1,113 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🏷️ Labeler Configuration — إعداد التصنيف التلقائي                        ║
+# ║  يُصنّف PRs تلقائياً بناءً على الملفات المتغيرة                            ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+
+# ─── البنية التحتية والـ CI ─────────────────────────────────────────────────
+"ci/cd":
+  - changed-files:
+    - any-glob-to-any-file:
+      - ".github/workflows/**"
+      - ".github/actions/**"
+
+"dependencies":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/package.json"
+      - "sheikha-main-portal/package-lock.json"
+      - ".github/dependabot.yml"
+
+# ─── الأمان ─────────────────────────────────────────────────────────────────
+"security":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "SECURITY.md"
+      - "sheikha-main-portal/SECURITY.md"
+      - "sheikha-main-portal/lib/sheikha-security-engine.js"
+      - "sheikha-main-portal/lib/sheikha-encryption-security-engine.js"
+      - "sheikha-main-portal/lib/sheikha-sovereign-auth-engine.js"
+      - "sheikha-main-portal/lib/sheikha-trust-auth-engine.js"
+      - "sheikha-main-portal/middleware/**"
+
+# ─── الشبكة العصبية الجذرية ──────────────────────────────────────────────────
+"neural-network":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/core/neural/**"
+      - "sheikha-main-portal/core/neural-root-network/**"
+      - "sheikha-main-portal/lib/sheikha-root-neural-cell-network.js"
+      - "sheikha-main-portal/lib/sheikha-root-neural-runtime.js"
+      - "sheikha-main-portal/lib/sheikha-master-neural-cell-network.js"
+      - "sheikha-main-portal/lib/sheikha-neural-*.js"
+      - "sheikha-main-portal/core/sheikha-ubuntu-upper-layer.js"
+
+# ─── الخادم الرئيسي ──────────────────────────────────────────────────────────
+"server":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/server.js"
+      - "sheikha-main-portal/routes/**"
+      - "sheikha-main-portal/middleware/**"
+
+# ─── الوكيل السحابي ──────────────────────────────────────────────────────────
+"cloud-agent":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/core/sheikha-cloud-agent/**"
+      - "sheikha-main-portal/lib/sheikha-cloud-*.js"
+
+# ─── الشريعة والامتثال ───────────────────────────────────────────────────────
+"sharia-compliance":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/lib/sheikha-sharia-engine.js"
+      - "sheikha-main-portal/lib/sheikha-taqwa-engine.js"
+      - "sheikha-main-portal/lib/sheikha-tawheed-*.js"
+      - "sheikha-main-portal/lib/sharia-compliance.js"
+      - "sheikha-main-portal/core/neural-root-network/halal-validator.js"
+      - "CHARTER.md"
+
+# ─── الاختبارات ──────────────────────────────────────────────────────────────
+"testing":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/tests/**"
+      - "sheikha-main-portal/**/*.test.js"
+      - "sheikha-main-portal/**/*.spec.js"
+      - "sheikha-main-portal/scripts/seed-*.js"
+
+# ─── التوثيق ─────────────────────────────────────────────────────────────────
+"documentation":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "**/*.md"
+      - "docs/**"
+      - "README.md"
+      - "CHARTER.md"
+
+# ─── البنية التحتية السحابية ─────────────────────────────────────────────────
+"infrastructure":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/Dockerfile"
+      - "sheikha-main-portal/.dockerignore"
+      - "sheikha-main-portal/infra/**"
+      - "sheikha-main-portal/infrastructure/**"
+      - "sheikha-main-portal/render.yaml"
+      - "sheikha-main-portal/railway.json"
+      - "sheikha-main-portal/vercel.json"
+
+# ─── واجهة المستخدم ──────────────────────────────────────────────────────────
+"frontend":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/public/**"
+      - "sheikha-main-portal/**/*.html"
+      - "sheikha-main-portal/**/*.css"
+
+# ─── API والتكاملات ───────────────────────────────────────────────────────────
+"api":
+  - changed-files:
+    - any-glob-to-any-file:
+      - "sheikha-main-portal/routes/**"
+      - "sheikha-main-portal/lib/sheikha-api-*.js"
