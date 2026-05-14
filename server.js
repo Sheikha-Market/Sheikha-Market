@@ -2019,14 +2019,19 @@ const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
 const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
 const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
 const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
+const SpaceEngine = require('./lib/runtime/engines/space-engine');
+const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
 const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
+const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
 const smartCities = new SmartCitiesEngine();
 const supplyChain = new SupplyChainEngine();
 const recycling = new RecyclingEngine();
 const traceability = new TraceabilityEngine();
+const space = new SpaceEngine();
+const communicationsRuntime = new CommunicationsEngine();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -18459,6 +18464,24 @@ app.get('/api/traceability/status', (req, res) => {
     });
 });
 
+app.get('/api/space/status', (req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Space Organization',
+        data: space.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/communications/runtime/status', (req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Communications Organization',
+        data: communicationsRuntime.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.get('/api/hs/runtime/status', (req, res) => {
     res.json({
         success: true,
@@ -18466,6 +18489,36 @@ app.get('/api/hs/runtime/status', (req, res) => {
         chapters: hsRuntimeRegistry.chapters,
         layers: hsRuntimeRegistry.layers,
         strategicSources: hsRuntimeRegistry.strategicSources,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/root-system/status', (req, res) => {
+    res.json({
+        success: true,
+        rootSystem: rootSystemRegistry,
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/control-center/status', (req, res) => {
+    res.json({
+        success: true,
+        controlCenter: {
+            runtime: runtimeCoreProfile,
+            organizations: runtimeRegistry.organizations,
+            layers: rootSystemRegistry.layers,
+            markets: {
+                metals: metalsMarket.getStatus(),
+                smartCities: smartCities.getStatus()
+            },
+            supplyChain: supplyChain.getStatus(),
+            recycling: recycling.getStatus(),
+            traceability: traceability.getStatus(),
+            space: space.getStatus(),
+            communications: communicationsRuntime.getStatus(),
+            hsRegistry: hsRuntimeRegistry.meta
+        },
         timestamp: new Date().toISOString()
     });
 });
