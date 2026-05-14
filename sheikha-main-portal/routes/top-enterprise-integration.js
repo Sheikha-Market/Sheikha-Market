@@ -10,6 +10,7 @@ const neuralCells = require('../core/neural/neural-cells');
 
 let enterpriseIntegrationEngine = null;
 const activationRuns = new Map();
+const MAX_ACTIVATION_RUNS = 200;
 
 function getEnterpriseEngine() {
     if (!enterpriseIntegrationEngine) {
@@ -75,7 +76,7 @@ function getUnifiedStatus() {
 }
 
 function runActivationWorkflow(payload = {}, initiatedBy = null) {
-    const workflowId = `tei_${Date.now()}_${crypto.randomUUID()}`;
+    const workflowId = `tei_${crypto.randomUUID()}`;
     const now = new Date().toISOString();
     const unified = getUnifiedStatus();
 
@@ -119,7 +120,20 @@ function runActivationWorkflow(payload = {}, initiatedBy = null) {
     };
 
     activationRuns.set(workflowId, report);
+    while (activationRuns.size > MAX_ACTIVATION_RUNS) {
+        const oldestKey = activationRuns.keys().next().value;
+        activationRuns.delete(oldestKey);
+    }
     return report;
+}
+
+function sanitizeActivationPayload(rawBody) {
+    const body = rawBody && typeof rawBody === 'object' ? rawBody : {};
+    const allowedModes = new Set(['enterprise-top', 'retry']);
+    const requestedMode = typeof body.activationMode === 'string' ? body.activationMode.trim() : '';
+    return {
+        activationMode: allowedModes.has(requestedMode) ? requestedMode : 'enterprise-top'
+    };
 }
 
 router.get('/status', (req, res) => {
@@ -138,13 +152,16 @@ router.get('/status', (req, res) => {
 });
 
 router.post('/activation/workflow', authenticate, authorize('admin', 'enterprise', 'organization'), (req, res) => {
-    const report = runActivationWorkflow(req.body || {}, req.user?.email || req.user?.id || 'authorized-user');
+    const payload = sanitizeActivationPayload(req.body);
+    const report = runActivationWorkflow(payload, req.user?.email || req.user?.id || 'authorized-user');
     const httpCode = report.status === 'activated' ? 200 : 409;
     res.status(httpCode).json({ success: report.status === 'activated', report });
 });
 
 router.post('/activation/retry', authenticate, authorize('admin', 'enterprise', 'organization'), (req, res) => {
-    const report = runActivationWorkflow({ ...(req.body || {}), activationMode: 'retry' }, req.user?.email || req.user?.id || 'authorized-user');
+    const payload = sanitizeActivationPayload(req.body);
+    payload.activationMode = 'retry';
+    const report = runActivationWorkflow(payload, req.user?.email || req.user?.id || 'authorized-user');
     const httpCode = report.status === 'activated' ? 200 : 409;
     res.status(httpCode).json({ success: report.status === 'activated', report });
 });
