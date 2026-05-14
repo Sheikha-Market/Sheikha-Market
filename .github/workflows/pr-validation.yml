@@ -70,7 +70,7 @@ jobs:
       - name: ✅ Lint check
         working-directory: sheikha-main-portal
         run: |
-          if npm run lint --if-present 2>/dev/null; then
+          if npm run lint --if-present; then
             echo "✅ Lint passed"
           else
             echo "ℹ️ No lint script — skipping"

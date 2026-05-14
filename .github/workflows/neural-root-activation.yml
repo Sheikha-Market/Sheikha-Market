@@ -262,21 +262,27 @@ jobs:
     steps:
       - name: 📊 Print Activation Summary
         run: |
+          L0="${{ needs.root-layer-0.result }}"
+          L1="${{ needs.root-layer-1.result }}"
+          L2="${{ needs.root-layer-2.result }}"
+          
+          [ "$L0" = "success" ] && S0="✅ مُفعَّل" || S0="❌ فشل"
+          [ "$L1" = "success" ] && S1="✅ مُفعَّل" || S1="❌ فشل"
+          [ "$L2" = "success" ] && S2="✅ مُفعَّل" || S2="❌ فشل"
+          
           echo "╔═══════════════════════════════════════════════════════╗"
           echo "║        🌳 تقرير تفعيل الشبكة العصبية الجذرية         ║"
           echo "║         Root Neural Cell Network — Activation Report   ║"
           echo "╠═══════════════════════════════════════════════════════╣"
-          echo "║  Layer-0 (خلايا شيخة 12):   ${{ needs.root-layer-0.result == 'success' && '✅ مُفعَّل' || '❌ فشل' }}"
-          echo "║  Layer-1 (Runtime الجذري 19): ${{ needs.root-layer-1.result == 'success' && '✅ مُفعَّل' || '❌ فشل' }}"
-          echo "║  Layer-2 (NCN الكاملة 92):   ${{ needs.root-layer-2.result == 'success' && '✅ مُفعَّل' || '❌ فشل' }}"
+          echo "║  Layer-0 (خلايا شيخة 12):    $S0"
+          echo "║  Layer-1 (Runtime الجذري 19): $S1"
+          echo "║  Layer-2 (NCN الكاملة 92):    $S2"
           echo "╠═══════════════════════════════════════════════════════╣"
           echo "║  «صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ»       ║"
           echo "╚═══════════════════════════════════════════════════════╝"
           
           # تقييم النتيجة الكلية
-          if [ "${{ needs.root-layer-0.result }}" = "success" ] && \
-             [ "${{ needs.root-layer-1.result }}" = "success" ] && \
-             [ "${{ needs.root-layer-2.result }}" = "success" ]; then
+          if [ "$L0" = "success" ] && [ "$L1" = "success" ] && [ "$L2" = "success" ]; then
             echo "✅ شبكة الخلايا الجذرية مُفعَّلة بالكامل — الحمد لله"
           else
             echo "⚠️ بعض طبقات الشبكة تحتاج مراجعة"

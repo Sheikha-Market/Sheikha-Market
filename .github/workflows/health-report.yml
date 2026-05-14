@@ -91,7 +91,7 @@ jobs:
           echo "╠══════════════════════════════════════════════════════╣"
           echo "║  التاريخ: $(date '+%Y-%m-%d %H:%M UTC')              ║"
           echo "║  الفرع: main                                          ║"
-          echo "║  الإصدار: $(cat sheikha-main-portal/package.json | python3 -c "import sys,json; print(json.load(sys.stdin).get('version','N/A'))")"
+          echo "║  الإصدار: $(jq -r '.version // "N/A"' sheikha-main-portal/package.json)"
           echo "╚══════════════════════════════════════════════════════╝"
           echo ""
           echo "الحمد لله — All systems operating normally 🌿"
