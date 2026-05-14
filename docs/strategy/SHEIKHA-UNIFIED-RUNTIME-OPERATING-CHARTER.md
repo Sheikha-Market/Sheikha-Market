@@ -1,4 +1,4 @@
-# SHEIKHA Unified Runtime Operating Charter
+# SHEIKHA Sovereign Cognitive Infrastructure Operating Charter
 
 ## الاعتماد الرسمي
 
@@ -7,18 +7,21 @@
 ## 1) الهوية الطبقية الرسمية (Official Naming Stack)
 
 - الهوية الأم: **SHEIKHA**
-- الاسم التسويقي الرسمي: **SHEIKHA Global Runtime Platform**
-- الاسم التقني الرسمي: **SHEIKHA Unified Global Industrial & Trade Runtime Platform**
-- الاختصار التقني: **SHEIKHA UGIT-RP**
-- الهوية الاستراتيجية طويلة المدى: **SHEIKHA Sovereign Runtime Ecosystem**
+- الطبقة التنفيذية: **SHEIKHA Sovereign Runtime**
+- الطبقة العالمية: **SHEIKHA Global Infrastructure**
+- الطبقة المستقبلية: **SHEIKHA Cognitive Civilization Infrastructure**
+- الاسم السيادي الأعلى: **SHEIKHA Sovereign Cognitive Infrastructure**
+- الصيغة التقنية العالية: **SHEIKHA Unified Autonomous Infrastructure**
+- الصيغة التقنية البديلة: **SHEIKHA Global Cognitive Runtime Fabric**
+- الصيغة المؤسسية الصناعية: **SHEIKHA Industrial Intelligence Operating System**
 
 ## 2) الرؤية والهدف الأعلى
 
 ### الرؤية
-بناء منظومة تشغيل عالمية موحدة تربط الصناعة والتجارة وسلاسل الإمداد والخدمات والمدن الذكية ضمن بيئة تشغيل ذكية قابلة للتوسع والتحسين المستمر.
+بناء بنية تشغيل عالمية موحدة للصناعة والتجارة والخدمات والبنية الذكية والمدن والأنظمة التشغيلية ضمن منظومة سيادية قابلة للتوسع والتحسين المستمر.
 
 ### الهدف الأعلى
-التحول من تطبيق منفرد إلى **Operational Runtime Infrastructure** عالمي.
+التحول من تطبيق منفرد إلى **Global Operational Intelligence Infrastructure**.
 
 ## 3) الحوكمة المؤسسية لمنع التشتت
 
@@ -36,11 +39,11 @@
 ### قاعدة قرار موحّدة
 لا يعتمد أي توسع أو تغيير جوهري إلا بعد المرور بمعايير موحدة مشتركة بين المجالس الثلاثة.
 
-## 4) نموذج التحسين المستمر (Self-Improving Runtime Organization)
+## 4) نموذج التحسين المستمر (SHEIKHA Continuous Evolution System)
 
 الدورة التشغيلية الإلزامية:
 
-**Observe → Measure → Analyze → Optimize → Deploy → Validate → Repeat**
+**Observe → Measure → Analyze → Optimize → Simulate → Validate → Deploy → Learn Operationally → Repeat**
 
 ### إيقاع المراجعات
 - مراجعة تشغيلية أسبوعية
@@ -103,35 +106,35 @@
 
 ## 10) الصيغة المعتمدة للاستخدام
 
-### الاستخدام التقني الرسمي
-**SHEIKHA Unified Global Industrial & Trade Runtime Platform**
+### الهوية الرسمية المعتمدة
+**SHEIKHA Sovereign Cognitive Infrastructure**
 
-### الاختصار الرسمي
-**SHEIKHA UGIT-RP**
+### التنفيذ التشغيلي
+**SHEIKHA Sovereign Runtime**
 
-### الاستخدام التسويقي
-**SHEIKHA Global Runtime Platform**
+### التموضع العالمي
+**SHEIKHA Global Infrastructure**
 
 ### الإطار المستقبلي طويل المدى
-**SHEIKHA Sovereign Runtime Ecosystem**
+**SHEIKHA Cognitive Civilization Infrastructure**
 
-## 11) نموذج طبقات Runtime المرجعي
+## 11) نموذج طبقات Infrastructure Fabric المرجعي
 
-SHEIKHA Runtime Architecture
+SHEIKHA Infrastructure Fabric
 
-- Identity Layer
-- Market Runtime
-- Supply Runtime
-- Industrial Runtime
-- AI Runtime
-- Analytics Runtime
-- Neural Sync Runtime
-- Security Runtime
-- Smart Cities Runtime
-- Trade Exchange Runtime
-- Financial Runtime
-- Global Integration Runtime
-- Observability Runtime
+- Runtime Kernel
+- Identity Fabric
+- Industrial Fabric
+- Trade Fabric
+- AI Fabric
+- Supply Chain Fabric
+- Financial Fabric
+- Smart Cities Fabric
+- Observability Fabric
+- Security Fabric
+- Global Integration Fabric
+- Autonomous Orchestration Fabric
+- Sovereign Governance Fabric
 
 ## الحالة
 

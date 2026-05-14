@@ -72,3 +72,5 @@
 هذا الملف مرجع استراتيجي للمحادثة القادمة، لتوجيه العمل نحو المنظومة كاملة.
 تم اعتماد ميثاق تشغيلي رسمي داعم لهذا التوجه في:
 `docs/strategy/SHEIKHA-UNIFIED-RUNTIME-OPERATING-CHARTER.md`.
+ويعتمد الاسم السيادي الأعلى:
+**SHEIKHA Sovereign Cognitive Infrastructure**.
