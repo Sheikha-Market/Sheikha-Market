@@ -138,6 +138,7 @@ const GEO_ACTIVATION_PROFILES = {
     }
 };
 
+// مأخوذة من معمارية `sheikha-root-neural-cell-network` الحالية (L0→L6 = 7 طبقات، 92 خلية إجمالاً).
 const EXPECTED_ROOT_CELL_COUNT = 92;
 const EXPECTED_ROOT_LAYER_COUNT = 7;
 const UNITY_SCORE_WEIGHTS = Object.freeze({
@@ -249,6 +250,8 @@ function buildUnityScore() {
     const rootLayerRatio = rootStatus && rootStatus.layersCount
         ? Math.min(rootStatus.layersCount / EXPECTED_ROOT_LAYER_COUNT, 1)
         : 0;
+    // نمنح خصماً بسيطاً فقط عند غياب الطبقة legacy لأن الهدف الأساسي الآن هو الجذر الجديد،
+    // لكننا نحتفظ بإشارة طفيفة إلى اكتمال التكامل التاريخي عندما تكون متاحة.
     const legacyBonus = legacyStatus ? 1 : 0.85;
 
     const score = Number((
