@@ -24,11 +24,27 @@ const express = require('express');
 const router = express.Router();
 
 // ─── تحميل الوحدات ───────────────────────────────────────────────────────────
-let unifiedNN, digitizer;
+let rootRuntime, rootNCN, unifiedNN, digitizer;
+
+try {
+    rootRuntime = require('../lib/sheikha-root-neural-runtime.js');
+    console.log('✅ [NEURAL-ROOT-ROUTES] Runtime الشبكة الجذرية محمّل');
+} catch (e) {
+    console.log('⚠️ [NEURAL-ROOT-ROUTES] فشل تحميل Runtime الجذري:', e.message);
+    rootRuntime = null;
+}
+
+try {
+    rootNCN = require('../lib/sheikha-root-neural-cell-network.js');
+    console.log('✅ [NEURAL-ROOT-ROUTES] شبكة الخلايا العصبية الجذرية محمّلة');
+} catch (e) {
+    console.log('⚠️ [NEURAL-ROOT-ROUTES] فشل تحميل شبكة الخلايا الجذرية:', e.message);
+    rootNCN = null;
+}
 
 try {
     unifiedNN = require('../lib/sheikha-unified-neural-network.js');
-    console.log('✅ [NEURAL-ROOT-ROUTES] شبكة التوحيد الجذرية محمّلة');
+    console.log('✅ [NEURAL-ROOT-ROUTES] شبكة التوحيد الجذرية المحافِظة محمّلة');
 } catch (e) {
     console.log('⚠️ [NEURAL-ROOT-ROUTES] فشل تحميل شبكة التوحيد:', e.message);
     unifiedNN = null;
@@ -164,12 +180,89 @@ function validateGeoBody(rawBody) {
     return { ok: true, body };
 }
 
+function hasRootRuntime() {
+    return !!(rootRuntime && typeof rootRuntime.status === 'function');
+}
+
+function hasRootNetwork() {
+    return !!(rootNCN && typeof rootNCN.status === 'function');
+}
+
+function getRuntimeStatus() {
+    if (!hasRootRuntime()) return null;
+    return rootRuntime.status();
+}
+
+function getRootNetworkStatus() {
+    if (!hasRootNetwork()) return null;
+    return rootNCN.status();
+}
+
+function getLegacyStatus() {
+    if (!unifiedNN || typeof unifiedNN.getStatus !== 'function') return null;
+    return unifiedNN.getStatus();
+}
+
+function normalizeInputText(body = {}) {
+    if (typeof body.inputText === 'string' && body.inputText.trim()) return body.inputText.trim();
+    if (typeof body.text === 'string' && body.text.trim()) return body.text.trim();
+    if (typeof body.concept === 'string' && body.concept.trim()) return body.concept.trim();
+    if (typeof body.action === 'string' && body.action.trim()) return body.action.trim();
+    if (Object.keys(body).length > 0) return JSON.stringify(body);
+    return 'تشغيل الشبكة العصبية الجذرية';
+}
+
+function buildUnityScore() {
+    const runtimeStatus = getRuntimeStatus();
+    const rootStatus = getRootNetworkStatus();
+    const legacyStatus = getLegacyStatus();
+
+    const runtimeCellRatio = runtimeStatus && runtimeStatus.totalCells
+        ? runtimeStatus.activeCells / runtimeStatus.totalCells
+        : 0;
+    const runtimeNetworkKeys = Object.keys(runtimeStatus?.networks || {});
+    const runtimeNetworkRatio = runtimeNetworkKeys.length
+        ? runtimeNetworkKeys.filter((key) => runtimeStatus.networks[key]).length / runtimeNetworkKeys.length
+        : 0;
+    const rootCoverage = rootStatus && rootStatus.totalCells
+        ? Math.min(rootStatus.totalCells / 92, 1)
+        : 0;
+    const rootLayerRatio = rootStatus && rootStatus.layersCount
+        ? Math.min(rootStatus.layersCount / 7, 1)
+        : 0;
+    const legacyBonus = legacyStatus ? 1 : 0.85;
+
+    const score = Number((
+        (runtimeCellRatio * 0.30) +
+        (runtimeNetworkRatio * 0.25) +
+        (rootCoverage * 0.25) +
+        (rootLayerRatio * 0.10) +
+        (legacyBonus * 0.10)
+    ).toFixed(4));
+
+    return {
+        value: Number((score * 100).toFixed(2)),
+        breakdown: {
+            runtimeCellRatio: Number((runtimeCellRatio * 100).toFixed(2)),
+            runtimeNetworkRatio: Number((runtimeNetworkRatio * 100).toFixed(2)),
+            rootCoverage: Number((rootCoverage * 100).toFixed(2)),
+            rootLayerRatio: Number((rootLayerRatio * 100).toFixed(2)),
+            legacyAvailable: !!legacyStatus
+        }
+    };
+}
+
 // ─── مساعد التحقق ────────────────────────────────────────────────────────────
 function nnCheck(res) {
-    if (!unifiedNN) {
+    if (!hasRootRuntime() || !hasRootNetwork()) {
         res.status(503).json({
             success: false,
             message: 'شبكة الخلايا العصبية الجذرية غير متاحة',
+            availability: {
+                runtime: hasRootRuntime(),
+                rootNetwork: hasRootNetwork(),
+                legacyUnified: !!unifiedNN
+            },
             timestamp: new Date().toISOString()
         });
         return false;
@@ -184,10 +277,18 @@ function nnCheck(res) {
 router.get('/status', (req, res) => {
     if (!nnCheck(res)) return;
     try {
+        const runtimeStatus = getRuntimeStatus();
+        const rootStatus = getRootNetworkStatus();
+        const legacyStatus = getLegacyStatus();
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
-            data: unifiedNN.getStatus(),
+            data: {
+                runtime: runtimeStatus,
+                rootNeuralCellNetwork: rootStatus,
+                legacyUnifiedNetwork: legacyStatus,
+                unityScore: buildUnityScore()
+            },
             timestamp: new Date().toISOString()
         });
     } catch (e) {
@@ -204,11 +305,24 @@ router.post('/activate', (req, res) => {
     if (!nnCheck(res)) return;
     try {
         const { domain = 'general' } = req.body || {};
-        const result = unifiedNN.activate(domain);
+        const inputText = normalizeInputText(req.body || {});
+        const runtimeActivation = rootRuntime.init();
+        const pulse = rootRuntime.pulse({
+            type: domain,
+            context: inputText,
+            data: { domain, source: 'api/neural/root/activate' }
+        });
+        const inference = rootNCN.infer(inputText);
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
-            data: result,
+            data: {
+                runtime: runtimeActivation,
+                pulse,
+                inference,
+                rootNeuralCellNetwork: rootNCN.status(),
+                unityScore: buildUnityScore()
+            },
             timestamp: new Date().toISOString()
         });
     } catch (e) {
@@ -223,7 +337,16 @@ router.post('/activate', (req, res) => {
 router.get('/unity-score', (req, res) => {
     if (!nnCheck(res)) return;
     try {
-        const result = unifiedNN.unify();
+        const runtimeStatus = getRuntimeStatus();
+        const rootStatus = getRootNetworkStatus();
+        const result = {
+            ...buildUnityScore(),
+            runtimeReady: !!runtimeStatus?.ready,
+            activeRuntimeCells: runtimeStatus?.activeCells || 0,
+            totalRuntimeCells: runtimeStatus?.totalCells || 0,
+            totalRootCells: rootStatus?.totalCells || 0,
+            rootLayers: rootStatus?.layersCount || 0
+        };
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
@@ -268,12 +391,16 @@ router.post('/digitize', (req, res) => {
 router.get('/cells', (req, res) => {
     if (!nnCheck(res)) return;
     try {
-        const cells = unifiedNN.getAllCells();
+        const runtimeCells = rootRuntime.listCells();
+        const rootCells = rootNCN.getCells();
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
-            total: cells.length,
-            cells,
+            total: runtimeCells.length + rootCells.length,
+            runtimeCellsCount: runtimeCells.length,
+            rootCellsCount: rootCells.length,
+            runtimeCells,
+            rootCells,
             quranRef: '﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: 31',
             timestamp: new Date().toISOString()
         });
@@ -291,7 +418,16 @@ router.post('/forward', (req, res) => {
     if (!nnCheck(res)) return;
     try {
         const inputs = req.body || {};
-        const result = unifiedNN.forward(inputs);
+        const inputText = normalizeInputText(inputs);
+        const result = {
+            runtimePulse: rootRuntime.pulse({
+                type: 'forward',
+                context: inputText,
+                data: inputs
+            }),
+            rootForward: rootNCN.forward(inputText),
+            rootInference: rootNCN.infer(inputText)
+        };
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
@@ -323,8 +459,17 @@ router.post('/activate/geo', (req, res) => {
         const profile = resolveGeoProfile(region);
         const action = (payload.action || '').trim();
 
-        const forwardResult = unifiedNN.forward(profile.neuralInputs);
-        const activationResult = unifiedNN.activate(profile.domain);
+        const activationText = action || `تشغيل ${profile.labelAr} ضمن المجال ${profile.domain}`;
+        const forwardResult = rootRuntime.pulse({
+            type: profile.domain,
+            context: activationText,
+            data: {
+                region: profile.id,
+                neuralInputs: profile.neuralInputs,
+                governance: profile.governance
+            }
+        });
+        const activationResult = rootNCN.infer(activationText);
         const verifyResult = digitizer ? digitizer.verify(action || `تشغيل ${profile.labelAr}`) : null;
 
         res.json({
