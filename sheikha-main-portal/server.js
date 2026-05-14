@@ -36461,6 +36461,21 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🧠🔗 NEURAL SYNC — مزامنة الشبكة العصبية الجذرية بين المستودعين
+// «وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا وَلَا تَفَرَّقُوا» — آل عمران: 103
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const neuralSyncRoutes = require('./routes/neural-sync.js');
+    app.use('/api/neural-sync', neuralSyncRoutes);
+    console.log('✅ [NEURAL-SYNC] مزامنة الخلايا العصبية الجذرية — مُفعَّلة');
+    console.log('   ├─ GET  /api/neural-sync/status   — حالة المزامنة (origin + enterprise)');
+    console.log('   ├─ POST /api/neural-sync/trigger  — تشغيل المزامنة يدوياً (يتطلب VPS key)');
+    console.log('   └─ GET  /api/neural-sync/policy   — سياسة المزامنة متعددة المستودعات');
+} catch (e) {
+    console.log('⚠️ [NEURAL-SYNC] فشل تحميل مسار مزامنة الشبكة العصبية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🌐 API GATEWAY — بوابة API الموحدة (metrics + correlation IDs + health)
 // ═══════════════════════════════════════════════════════════════════════════════
 try {
