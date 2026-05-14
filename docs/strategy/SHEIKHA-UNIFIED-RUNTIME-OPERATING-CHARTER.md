@@ -129,27 +129,32 @@
 إلى:
 - **SHEIKHA Infrastructure Fabric**
 
+### مراحل التحول التنفيذية (Transformation Milestones)
+1. **Phase 1 — Stabilize Modular Monolith:** فصل الوحدات الداخلية المنطقية مع تثبيت التشغيل والمراقبة.
+2. **Phase 2 — Runtime Separation:** فصل Runtime Core وواجهات APIs وEngines وWorkers إلى حدود واضحة.
+3. **Phase 3 — Event-Driven Enablement:** اعتماد قنوات أحداث لضبط التكامل والمرونة التشغيلية.
+4. **Phase 4 — Distributed Fabric:** توزيع الأحمال والخدمات ضمن Fabric تشغيلي قابل للتوسع.
+5. **Phase 5 — Global Sovereign Network:** تفعيل عقد تشغيل عالمية بحوكمة سيادية موحّدة.
+
 ## 12) البنية المرجعية الرسمية (Reference Structure)
 
-```
-/core
-/runtime
-/fabric
-/services
-/engines
-/modules
-/orchestration
-/observability
-/security
-/integration
-/governance
-/ai
-/supply-chain
-/industry
-/trade
-/financial
-/smart-cities
-```
+- `/core`: النواة المشتركة والثوابت المؤسسية.
+- `/runtime`: دورة حياة التشغيل وإدارة السياق التشغيلي.
+- `/fabric`: الربط بين الطبقات والعُقد التشغيلية.
+- `/services`: خدمات الأعمال القابلة للاستهلاك.
+- `/engines`: محركات القرار والتحليل والتنفيذ.
+- `/modules`: وحدات قابلة للتركيب والتوسعة المنضبطة.
+- `/orchestration`: تنسيق التدفقات والمهام والجداول.
+- `/observability`: القياس والتتبع والتنبيهات والتقارير.
+- `/security`: ضوابط الأمان والصلاحيات والحماية.
+- `/integration`: الموصلات والتكاملات الخارجية.
+- `/governance`: السياسات والامتثال والتدقيق.
+- `/ai`: قدرات الذكاء والتحليل التنبئي.
+- `/supply-chain`: نطاق سلسلة الإمداد.
+- `/industry`: نطاق الصناعة والعمليات الصناعية.
+- `/trade`: نطاق التجارة والتبادل.
+- `/financial`: نطاق المالية والتسويات.
+- `/smart-cities`: نطاق المدن الذكية والبنية التشغيلية الحضرية.
 
 ## 13) طبقات النظام الرسمية (System Layers)
 
