@@ -22,10 +22,12 @@ const RUN_ID = Date.now().toString(36);
 const BUYER_EMAIL    = `buyer-${RUN_ID}@test.sheikha.local`;
 const SUPPLIER_EMAIL = `supplier-${RUN_ID}@test.sheikha.local`;
 const ADMIN_EMAIL    = `admin-${RUN_ID}@test.sheikha.local`;
+const ENTERPRISE_EMAIL = `enterprise-${RUN_ID}@test.sheikha.local`;
 const TEST_PASSWORD  = 'TestPass@2026!';
 
 let BUYER_TOKEN    = null;
 let SUPPLIER_TOKEN = null;
+let ENTERPRISE_TOKEN = null;
 let BUYER_ID       = null;
 let SUPPLIER_ID    = null;
 let PRODUCT_ID     = null;
@@ -183,6 +185,18 @@ async function testRegistration() {
         assert.ok(r.body.token, 'Missing JWT token');
         SUPPLIER_TOKEN = r.body.token;
         SUPPLIER_ID    = r.body.user.id;
+    });
+
+    await test('POST /api/auth/register — حساب مؤسسي', async () => {
+        const r = await req('POST', '/api/auth/register', {
+            name: `مؤسسي اختبار ${RUN_ID}`,
+            email: ENTERPRISE_EMAIL,
+            password: TEST_PASSWORD,
+            role: 'enterprise'
+        });
+        assert.ok([200, 201].includes(r.status), `Expected 2xx, got ${r.status}: ${JSON.stringify(r.body)}`);
+        assert.ok(r.body.token, 'Missing JWT token');
+        ENTERPRISE_TOKEN = r.body.token;
     });
 
     await test('تسجيل بريد مكرر → 409', async () => {
@@ -513,6 +527,71 @@ async function testOrderCancellation() {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// المجموعة 9 — التفعيل المؤسسي الموحّد
+// ═══════════════════════════════════════════════════════════════════════════════
+async function testTopEnterpriseIntegration() {
+    group('9. التفعيل المؤسسي الموحّد — Top Enterprise Integration');
+
+    let createdOrgId = null;
+
+    await test('GET /api/top-enterprise/status — حالة موحّدة', async () => {
+        const r = await req('GET', '/api/top-enterprise/status');
+        assert.ok(r.status === 200, `Expected 200, got ${r.status}`);
+        assert.ok(r.body.success, 'Expected success:true');
+        assert.ok(r.body.model && r.body.model.enterpriseAccount, 'Missing enterpriseAccount model');
+        assert.ok(r.body.model && r.body.model.organizationAccount, 'Missing organizationAccount model');
+        assert.ok(r.body.model && r.body.model.domainProfile, 'Missing domainProfile model');
+        assert.ok(r.body.model && r.body.model.neuralStatus, 'Missing neuralStatus model');
+    });
+
+    await test('POST /api/top-enterprise/activation/workflow — بدون توكن → 401', async () => {
+        const r = await req('POST', '/api/top-enterprise/activation/workflow', {});
+        assert.ok(r.status === 401, `Expected 401, got ${r.status}`);
+    });
+
+    await test('POST /api/top-enterprise/activation/workflow — فشل جزئي متوقع قبل تفعيل المنظمة', async () => {
+        const r = await req('POST', '/api/top-enterprise/activation/workflow', {}, ENTERPRISE_TOKEN);
+        assert.ok([200, 409].includes(r.status), `Expected 200/409, got ${r.status}`);
+        assert.ok(r.body.report, 'Missing report');
+        assert.ok(r.body.report.status === 'partial-failure', `Expected partial-failure, got ${r.body.report.status}`);
+    });
+
+    await test('POST /api/organizations — إنشاء منظمة (مسار عام)', async () => {
+        const r = await req('POST', '/api/organizations', {
+            nameAr: `منظمة اختبار ${RUN_ID}`,
+            type: 'specialized',
+            sector: 'technology'
+        });
+        assert.ok([200, 201].includes(r.status), `Expected 2xx, got ${r.status}: ${JSON.stringify(r.body)}`);
+        assert.ok(r.body.organization && r.body.organization.id, 'Missing organization id');
+        createdOrgId = r.body.organization.id;
+    });
+
+    await test('POST /api/organizations/:id/accept-charter — تفعيل المنظمة', async () => {
+        const r = await req('POST', `/api/organizations/${createdOrgId}/accept-charter`, {
+            acceptedBy: `enterprise-${RUN_ID}`,
+            confirmations: {
+                noRiba: true,
+                noGharar: true,
+                noGhish: true,
+                noIhtikar: true,
+                noDarar: true,
+                acceptsKitabAndSunnah: true
+            }
+        });
+        assert.ok(r.status === 200, `Expected 200, got ${r.status}`);
+        assert.ok(r.body.success, 'Expected success:true');
+    });
+
+    await test('POST /api/top-enterprise/activation/retry — إعادة محاولة التفعيل', async () => {
+        const r = await req('POST', '/api/top-enterprise/activation/retry', {}, ENTERPRISE_TOKEN);
+        assert.ok([200, 409].includes(r.status), `Expected 200/409, got ${r.status}`);
+        assert.ok(r.body.report, 'Missing report');
+        assert.ok(['activated', 'partial-failure'].includes(r.body.report.status), 'Unexpected workflow status');
+    });
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // نقطة الدخول الرئيسية
 // ═══════════════════════════════════════════════════════════════════════════════
 async function main() {
@@ -544,6 +623,7 @@ async function main() {
     await testAnalytics();
     await testProductManagement();
     await testOrderCancellation();
+    await testTopEnterpriseIntegration();
 
     const elapsed = ((Date.now() - start) / 1000).toFixed(1);
 

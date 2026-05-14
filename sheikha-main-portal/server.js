@@ -36444,6 +36444,22 @@ try {
     console.log('⚠️ [ENTERPRISE] فشل تحميل مسارات التكامل المؤسسي:', e.message);
 }
 
+try {
+    const organizationsRoutes = require('./routes/organizations.js');
+    app.use('/api/organizations', organizationsRoutes);
+    console.log('✅ [ORGANIZATIONS] مسارات المنظمات — مُفعَّلة | /api/organizations');
+} catch (e) {
+    console.log('⚠️ [ORGANIZATIONS] فشل تحميل مسارات المنظمات:', e.message);
+}
+
+try {
+    const topEnterpriseIntegrationRoutes = require('./routes/top-enterprise-integration.js');
+    app.use('/api/top-enterprise', topEnterpriseIntegrationRoutes);
+    console.log('✅ [TOP-ENTERPRISE] تكامل الحساب المؤسسي الموحّد — مُفعَّل | /api/top-enterprise/status');
+} catch (e) {
+    console.log('⚠️ [TOP-ENTERPRISE] فشل تحميل مسار التكامل الموحّد:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🌐 API GATEWAY — بوابة API الموحدة (metrics + correlation IDs + health)
 // ═══════════════════════════════════════════════════════════════════════════════
