@@ -2016,10 +2016,17 @@ const ObservabilityService = require('./lib/runtime/services/observability-servi
 const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
 const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
 const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
+const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
+const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
+const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
+const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
 const smartCities = new SmartCitiesEngine();
+const supplyChain = new SupplyChainEngine();
+const recycling = new RecyclingEngine();
+const traceability = new TraceabilityEngine();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -18421,6 +18428,44 @@ app.get('/api/smart-cities/status', (req, res) => {
         success: true,
         organization: 'SHEIKHA Smart Cities Organization',
         data: smartCities.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/supply-chain/status', (req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Supply Chain Organization',
+        data: supplyChain.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/recycling/status', (req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Recycling Organization',
+        data: recycling.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/traceability/status', (req, res) => {
+    res.json({
+        success: true,
+        runtime: 'SHEIKHA Traceability Runtime',
+        data: traceability.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/hs/runtime/status', (req, res) => {
+    res.json({
+        success: true,
+        registry: hsRuntimeRegistry.meta,
+        chapters: hsRuntimeRegistry.chapters,
+        layers: hsRuntimeRegistry.layers,
+        strategicSources: hsRuntimeRegistry.strategicSources,
         timestamp: new Date().toISOString()
     });
 });
