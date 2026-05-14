@@ -138,6 +138,16 @@ const GEO_ACTIVATION_PROFILES = {
     }
 };
 
+const EXPECTED_ROOT_CELL_COUNT = 92;
+const EXPECTED_ROOT_LAYER_COUNT = 7;
+const UNITY_SCORE_WEIGHTS = Object.freeze({
+    runtimeCells: 0.30,
+    runtimeNetworks: 0.25,
+    rootCoverage: 0.25,
+    rootLayers: 0.10,
+    legacyBonus: 0.10
+});
+
 function resolveGeoProfile(rawRegion) {
     const value = String(rawRegion || '').trim().toLowerCase();
     if (!value) return GEO_ACTIVATION_PROFILES.saudi;
@@ -188,6 +198,15 @@ function hasRootNetwork() {
     return !!(rootNCN && typeof rootNCN.status === 'function');
 }
 
+function hasLegacyNetwork() {
+    return !!(
+        unifiedNN &&
+        typeof unifiedNN.getStatus === 'function' &&
+        typeof unifiedNN.activate === 'function' &&
+        typeof unifiedNN.forward === 'function'
+    );
+}
+
 function getRuntimeStatus() {
     if (!hasRootRuntime()) return null;
     return rootRuntime.status();
@@ -225,19 +244,19 @@ function buildUnityScore() {
         ? runtimeNetworkKeys.filter((key) => runtimeStatus.networks[key]).length / runtimeNetworkKeys.length
         : 0;
     const rootCoverage = rootStatus && rootStatus.totalCells
-        ? Math.min(rootStatus.totalCells / 92, 1)
+        ? Math.min(rootStatus.totalCells / EXPECTED_ROOT_CELL_COUNT, 1)
         : 0;
     const rootLayerRatio = rootStatus && rootStatus.layersCount
-        ? Math.min(rootStatus.layersCount / 7, 1)
+        ? Math.min(rootStatus.layersCount / EXPECTED_ROOT_LAYER_COUNT, 1)
         : 0;
     const legacyBonus = legacyStatus ? 1 : 0.85;
 
     const score = Number((
-        (runtimeCellRatio * 0.30) +
-        (runtimeNetworkRatio * 0.25) +
-        (rootCoverage * 0.25) +
-        (rootLayerRatio * 0.10) +
-        (legacyBonus * 0.10)
+        (runtimeCellRatio * UNITY_SCORE_WEIGHTS.runtimeCells) +
+        (runtimeNetworkRatio * UNITY_SCORE_WEIGHTS.runtimeNetworks) +
+        (rootCoverage * UNITY_SCORE_WEIGHTS.rootCoverage) +
+        (rootLayerRatio * UNITY_SCORE_WEIGHTS.rootLayers) +
+        (legacyBonus * UNITY_SCORE_WEIGHTS.legacyBonus)
     ).toFixed(4));
 
     return {
@@ -254,14 +273,15 @@ function buildUnityScore() {
 
 // ─── مساعد التحقق ────────────────────────────────────────────────────────────
 function nnCheck(res) {
-    if (!hasRootRuntime() || !hasRootNetwork()) {
+    const rootReady = hasRootRuntime() && hasRootNetwork();
+    if (!rootReady && !hasLegacyNetwork()) {
         res.status(503).json({
             success: false,
             message: 'شبكة الخلايا العصبية الجذرية غير متاحة',
             availability: {
                 runtime: hasRootRuntime(),
                 rootNetwork: hasRootNetwork(),
-                legacyUnified: !!unifiedNN
+                legacyUnified: hasLegacyNetwork()
             },
             timestamp: new Date().toISOString()
         });
@@ -306,6 +326,18 @@ router.post('/activate', (req, res) => {
     try {
         const { domain = 'general' } = req.body || {};
         const inputText = normalizeInputText(req.body || {});
+        if (!hasRootRuntime() || !hasRootNetwork()) {
+            const legacyActivation = unifiedNN.activate(domain);
+            return res.json({
+                success: true,
+                bismillah: 'بسم الله الرحمن الرحيم',
+                data: {
+                    legacyUnifiedNetwork: legacyActivation,
+                    mode: 'legacy-fallback'
+                },
+                timestamp: new Date().toISOString()
+            });
+        }
         const runtimeActivation = rootRuntime.init();
         const pulse = rootRuntime.pulse({
             type: domain,
@@ -337,6 +369,17 @@ router.post('/activate', (req, res) => {
 router.get('/unity-score', (req, res) => {
     if (!nnCheck(res)) return;
     try {
+        if ((!hasRootRuntime() || !hasRootNetwork()) && unifiedNN && typeof unifiedNN.unify === 'function') {
+            return res.json({
+                success: true,
+                bismillah: 'بسم الله الرحمن الرحيم',
+                data: {
+                    legacyUnifiedNetwork: unifiedNN.unify(),
+                    mode: 'legacy-fallback'
+                },
+                timestamp: new Date().toISOString()
+            });
+        }
         const runtimeStatus = getRuntimeStatus();
         const rootStatus = getRootNetworkStatus();
         const result = {
@@ -391,6 +434,21 @@ router.post('/digitize', (req, res) => {
 router.get('/cells', (req, res) => {
     if (!nnCheck(res)) return;
     try {
+        if ((!hasRootRuntime() || !hasRootNetwork()) && unifiedNN && typeof unifiedNN.getAllCells === 'function') {
+            const cells = unifiedNN.getAllCells();
+            return res.json({
+                success: true,
+                bismillah: 'بسم الله الرحمن الرحيم',
+                total: cells.length,
+                runtimeCellsCount: 0,
+                rootCellsCount: cells.length,
+                runtimeCells: [],
+                rootCells: cells,
+                mode: 'legacy-fallback',
+                quranRef: '﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: 31',
+                timestamp: new Date().toISOString()
+            });
+        }
         const runtimeCells = rootRuntime.listCells();
         const rootCells = rootNCN.getCells();
         res.json({
@@ -419,6 +477,17 @@ router.post('/forward', (req, res) => {
     try {
         const inputs = req.body || {};
         const inputText = normalizeInputText(inputs);
+        if (!hasRootRuntime() || !hasRootNetwork()) {
+            return res.json({
+                success: true,
+                bismillah: 'بسم الله الرحمن الرحيم',
+                data: {
+                    legacyForward: unifiedNN.forward(inputs),
+                    mode: 'legacy-fallback'
+                },
+                timestamp: new Date().toISOString()
+            });
+        }
         const result = {
             runtimePulse: rootRuntime.pulse({
                 type: 'forward',
@@ -458,6 +527,36 @@ router.post('/activate/geo', (req, res) => {
         const regionWasOmitted = !region;
         const profile = resolveGeoProfile(region);
         const action = (payload.action || '').trim();
+
+        if (!hasRootRuntime() || !hasRootNetwork()) {
+            const forwardResult = unifiedNN.forward(profile.neuralInputs);
+            const activationResult = unifiedNN.activate(profile.domain);
+            const verifyResult = digitizer ? digitizer.verify(action || `تشغيل ${profile.labelAr}`) : null;
+
+            return res.json({
+                success: true,
+                bismillah: 'بسم الله الرحمن الرحيم',
+                mode: 'legacy-fallback',
+                profile: {
+                    id: profile.id,
+                    labelAr: profile.labelAr,
+                    scope: profile.scope,
+                    defaultedFrom: regionWasOmitted ? 'saudi' : null,
+                    iso: profile.iso,
+                    governance: profile.governance,
+                    language: profile.language,
+                    currency: profile.currency
+                },
+                data: {
+                    forward: forwardResult,
+                    activation: activationResult,
+                    sharia: verifyResult
+                },
+                tawheed: '﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾',
+                noHarm: 'لا ضرر ولا ضرار',
+                timestamp: new Date().toISOString()
+            });
+        }
 
         const activationText = action || `تشغيل ${profile.labelAr} ضمن المجال ${profile.domain}`;
         const forwardResult = rootRuntime.pulse({
