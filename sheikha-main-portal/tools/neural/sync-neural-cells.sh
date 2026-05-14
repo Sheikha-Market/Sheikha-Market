@@ -179,31 +179,31 @@ sync_feature_branches() {
     done
 
     local synced=0
-    for feature in "${unique_features[@]}"; do
-        info "Processing feature: ${feature}"
+    for feature_name in "${unique_features[@]}"; do
+        info "Processing feature: ${feature_name}"
 
         # من origin → enterprise
-        if git rev-parse "${ORIGIN_REMOTE}/feature/${feature}" >/dev/null 2>&1; then
+        if git rev-parse "${ORIGIN_REMOTE}/feature/${feature_name}" >/dev/null 2>&1; then
             if git push "${ENTERPRISE_REMOTE}" \
-                "${ORIGIN_REMOTE}/feature/${feature}:refs/heads/feature/${feature}" \
+                "${ORIGIN_REMOTE}/feature/${feature_name}:refs/heads/feature/${feature_name}" \
                 --force-with-lease 2>/dev/null; then
-                info "  ↑ Pushed feature/${feature} → ${ENTERPRISE_REMOTE}"
+                info "  ↑ Pushed feature/${feature_name} → ${ENTERPRISE_REMOTE}"
                 (( synced++ )) || true
             else
-                warn "Failed to sync ${feature}"
+                warn "Failed to sync ${feature_name}"
             fi
         fi
 
         # من enterprise → origin (إذا لم يكن موجوداً في origin)
-        if ! git rev-parse "${ORIGIN_REMOTE}/feature/${feature}" >/dev/null 2>&1; then
-            if git rev-parse "${ENTERPRISE_REMOTE}/feature/${feature}" >/dev/null 2>&1; then
+        if ! git rev-parse "${ORIGIN_REMOTE}/feature/${feature_name}" >/dev/null 2>&1; then
+            if git rev-parse "${ENTERPRISE_REMOTE}/feature/${feature_name}" >/dev/null 2>&1; then
                 if git push "${ORIGIN_REMOTE}" \
-                    "${ENTERPRISE_REMOTE}/feature/${feature}:refs/heads/feature/${feature}" \
+                    "${ENTERPRISE_REMOTE}/feature/${feature_name}:refs/heads/feature/${feature_name}" \
                     --force-with-lease 2>/dev/null; then
-                    info "  ↓ Pulled feature/${feature} ← ${ENTERPRISE_REMOTE}"
+                    info "  ↓ Pulled feature/${feature_name} ← ${ENTERPRISE_REMOTE}"
                     (( synced++ )) || true
                 else
-                    warn "Failed to pull ${feature} from enterprise"
+                    warn "Failed to pull ${feature_name} from enterprise"
                 fi
             fi
         fi

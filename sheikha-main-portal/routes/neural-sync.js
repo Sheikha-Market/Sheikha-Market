@@ -162,19 +162,33 @@ router.get('/status', (req, res) => {
     }
 });
 
+// ── أنواع المزامنة المسموح بها / Allowed sync types ─────────────────────────
+const ALLOWED_SYNC_TYPES = new Set(['full', 'docs', 'features', 'validate']);
+
 // ── POST /trigger ─────────────────────────────────────────────────────────────
 /**
  * تشغيل المزامنة يدوياً — يتطلب VPS key أو JWT
  * Manually trigger the sync script (requires SHEIKHA_VPS_KEY header)
  */
 router.post('/trigger', (req, res) => {
-    // التحقق البسيط من المفتاح — Simple API key guard
-    const providedKey = req.headers['x-sheikha-vps-key'] || req.body?.key;
+    // التحقق من المفتاح بمقارنة ثابتة الوقت — Constant-time key comparison
+    const providedKey = req.headers['x-sheikha-vps-key'] || req.body?.key || '';
     const expectedKey = process.env.SHEIKHA_ENTERPRISE_VPS_KEY ||
                         process.env.SHEIKHA_VPS_KEY ||
                         process.env.VPS_KEY || '';
 
-    if (!expectedKey || providedKey !== expectedKey) {
+    if (!expectedKey) {
+        return res.status(503).json({ success: false, error: 'VPS key غير مُهيأ على الخادم' });
+    }
+
+    // استخدام crypto.timingSafeEqual لمنع هجمات التوقيت — timing-safe comparison
+    const providedBuf = Buffer.alloc(expectedKey.length);
+    const expectedBuf = Buffer.from(expectedKey);
+    providedBuf.write(providedKey.slice(0, expectedKey.length));
+    const keysMatch = crypto.timingSafeEqual(providedBuf, expectedBuf) &&
+                      providedKey.length === expectedKey.length;
+
+    if (!keysMatch) {
         return res.status(401).json({ success: false, error: 'غير مصرح — Unauthorized' });
     }
 
@@ -186,10 +200,18 @@ router.post('/trigger', (req, res) => {
         });
     }
 
+    // التحقق من نوع المزامنة ضد القائمة البيضاء — Validate syncType against allowlist
+    const syncType = req.body?.type || 'full';
+    if (!ALLOWED_SYNC_TYPES.has(syncType)) {
+        return res.status(400).json({
+            success: false,
+            error:   `نوع مزامنة غير مسموح به: ${syncType}. المسموح: full | docs | features | validate`,
+        });
+    }
+
     try {
-        const syncType = req.body?.type || 'full';
-        const output   = execSync(
-            `bash "${scriptPath}" ${syncType}`,
+        const output = execSync(
+            `bash "${scriptPath}" "${syncType}"`,
             { cwd: process.cwd(), timeout: 60000 }
         ).toString();
 
