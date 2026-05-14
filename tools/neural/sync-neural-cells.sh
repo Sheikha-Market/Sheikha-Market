@@ -11,6 +11,7 @@ ENTERPRISE_REPO="enterprise"
 SYNC_LOG_DIR="logs"
 SYNC_AUDIT_FILE="${SYNC_LOG_DIR}/sync-audit.ndjson"
 SCRIPT_VERSION="1.0.0"
+ENTERPRISE_AVAILABLE=1
 
 # Options
 SYNC_TYPE=${1:-full}
@@ -84,7 +85,16 @@ verify_remotes() {
 
   if ! git remote get-url $ENTERPRISE_REPO > /dev/null 2>&1; then
     log_message "WARN" "Enterprise remote '$ENTERPRISE_REPO' not found, skipping enterprise sync"
-    return 1
+    log_audit "WARN" "VERIFY_REMOTES" "Enterprise remote not found; enterprise sync disabled"
+    ENTERPRISE_AVAILABLE=0
+    return 0
+  fi
+
+  if ! git ls-remote --heads $ENTERPRISE_REPO > /dev/null 2>&1; then
+    log_message "WARN" "Enterprise remote exists but is not accessible (auth/policy), skipping enterprise sync"
+    log_audit "WARN" "VERIFY_REMOTES" "Enterprise remote inaccessible; enterprise sync disabled"
+    ENTERPRISE_AVAILABLE=0
+    return 0
   fi
 
   log_message "INFO" "Remotes verified successfully"
@@ -92,6 +102,12 @@ verify_remotes() {
 }
 
 sync_runtime_branches() {
+  if [[ $ENTERPRISE_AVAILABLE -eq 0 ]]; then
+    log_message "WARN" "Enterprise sync disabled; skipping runtime branch push"
+    log_audit "WARN" "SYNC_RUNTIME_SKIPPED" "Enterprise unavailable"
+    return 0
+  fi
+
   log_message "INFO" "Syncing runtime branches: $ORIGIN_REPO → $ENTERPRISE_REPO"
   log_audit "INFO" "SYNC_RUNTIME_START" "Synchronizing stable/runtime-baseline"
 
@@ -100,6 +116,12 @@ sync_runtime_branches() {
 
   for branch in "${branches[@]}"; do
     log_message "INFO" "Processing branch: $branch"
+
+    # Skip branches that do not exist on origin
+    if ! git ls-remote --heads $ORIGIN_REPO "$branch" | grep -q "$branch"; then
+      log_message "INFO" "Skipping missing origin branch: $branch"
+      continue
+    fi
 
     # Fetch from origin
     if ! git fetch $ORIGIN_REPO "$branch" 2>&1 | tee -a "$SYNC_LOG_DIR/fetch.log"; then
@@ -136,6 +158,12 @@ sync_runtime_branches() {
 }
 
 sync_docs() {
+  if [[ $ENTERPRISE_AVAILABLE -eq 0 ]]; then
+    log_message "WARN" "Enterprise sync disabled; skipping docs sync"
+    log_audit "WARN" "SYNC_DOCS_SKIPPED" "Enterprise unavailable"
+    return 0
+  fi
+
   log_message "INFO" "Syncing strategic docs: $ENTERPRISE_REPO → $ORIGIN_REPO"
   log_audit "INFO" "SYNC_DOCS_START" "Synchronizing strategic documents"
 
@@ -198,6 +226,12 @@ sync_docs() {
 }
 
 sync_feature_branches() {
+  if [[ $ENTERPRISE_AVAILABLE -eq 0 ]]; then
+    log_message "WARN" "Enterprise sync disabled; skipping feature sync"
+    log_audit "WARN" "SYNC_FEATURES_SKIPPED" "Enterprise unavailable"
+    return 0
+  fi
+
   log_message "INFO" "Syncing feature branches: bidirectional"
   log_audit "INFO" "SYNC_FEATURES_START" "Synchronizing feature branches"
 
@@ -234,6 +268,28 @@ validate_sync() {
   log_audit "INFO" "VALIDATE_START" "Validating neural cell sync"
 
   local issues=0
+
+  if [[ $ENTERPRISE_AVAILABLE -eq 0 ]]; then
+    log_message "INFO" "Enterprise unavailable; running origin-only validation"
+
+    local origin_main_hash=$(git rev-parse $ORIGIN_REPO/main 2>/dev/null || echo "MISSING")
+    if [[ "$origin_main_hash" == "MISSING" ]]; then
+      log_message "WARN" "Origin main branch not found"
+      ((issues++))
+    else
+      log_message "INFO" "✅ Origin main visible: $origin_main_hash"
+    fi
+
+    log_audit "INFO" "VALIDATE_END" "Origin-only validation completed with $issues issues"
+
+    if [[ $issues -gt 0 ]]; then
+      log_message "WARN" "Validation found $issues issues (non-critical)"
+      return 1
+    fi
+
+    log_message "INFO" "✅ Origin-only validations passed"
+    return 0
+  fi
 
   # Check stable/runtime-baseline consistency
   local origin_hash=$(git rev-parse $ORIGIN_REPO/stable/runtime-baseline 2>/dev/null || echo "MISSING")
@@ -318,7 +374,7 @@ main() {
 
     *)
       log_message "ERROR" "Unknown sync type: $SYNC_TYPE"
-      echo "Usage: bash scripts/sync-neural-cells.sh [runtime|docs|features|full] [--dry-run] [--verbose]"
+      echo "Usage: bash tools/neural/sync-neural-cells.sh [runtime|docs|features|full] [--dry-run] [--verbose]"
       exit 1
       ;;
   esac
