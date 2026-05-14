@@ -15,7 +15,7 @@
   يعرض نموذج الحالة الموحّد:
   - `enterpriseAccount`
   - `organizationAccount`
-  - `domainProfile` (sheikha.top + readiness مفتاح VPS)
+- `domainProfile` (sheikha.top + جاهزية مفتاح VPS)
   - `neuralStatus` (جاهزية الشبكة العصبية + 12 خلية)
 
 - `POST /api/top-enterprise/activation/workflow`  

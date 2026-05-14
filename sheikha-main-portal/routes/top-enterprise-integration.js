@@ -50,7 +50,6 @@ function getUnifiedStatus() {
         domainProfile: {
             domain: sheikhaTopDomain,
             linked: vpsKeyConfigured,
-            vpsKeyConfigured,
             source: '/api/sheikha/status'
         },
         neuralStatus: {
