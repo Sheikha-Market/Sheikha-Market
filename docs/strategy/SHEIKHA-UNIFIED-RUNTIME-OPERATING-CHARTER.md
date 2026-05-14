@@ -100,6 +100,7 @@
 - Security & Compliance Impact
 - Operational Runbook Impact
 - Dependencies
+- Timeline Window (Format: `T+<number><w|m|q>` مثل `T+6w` أو `T+2q`)
 - Decision Record (Approved / Deferred / Rejected)
 
 ## 7) خارطة التطور المعمارية الثابتة
