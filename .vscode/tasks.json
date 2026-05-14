@@ -1,0 +1,23 @@
+{
+  "version": "2.0.0",
+  "tasks": [
+    {
+      "label": "Sheikha: Verify Runtime",
+      "type": "shell",
+      "command": "node --check server.js && curl -s http://127.0.0.1:8080/api/health && echo && curl -s http://127.0.0.1:8080/api/root-neural-cells/status",
+      "group": "test"
+    },
+    {
+      "label": "Sheikha: Restart PM2",
+      "type": "shell",
+      "command": "pm2 restart sheikha-main-portal --update-env",
+      "group": "build"
+    },
+    {
+      "label": "Sheikha: Update Fingerprint",
+      "type": "shell",
+      "command": "bash tools/runtime/update-fingerprint.sh",
+      "group": "build"
+    }
+  ]
+}

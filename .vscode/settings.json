@@ -1,20 +1,10 @@
 {
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "terminal.integrated.env.linux": {
-    "PATH": "/home/sheikha/.nvm/versions/node/v22.22.2/bin:${env:PATH}"
-  },
-  "files.autoSave": "afterDelay",
   "editor.formatOnSave": true,
-  "git.autofetch": true,
-  "git.enableSmartCommit": true,
-  "npm.packageManager": "npm",
-  "typescript.tsdk": "node_modules/typescript/lib",
-  "eslint.enable": true,
-  "editor.tabSize": 2,
   "files.trimTrailingWhitespace": true,
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/.git": true,
-    "**/logs": true
-  }
+  "files.insertFinalNewline": true,
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "github.copilot.enable": {
+    "*": true
+  },
+  "chat.agent.enabled": true
 }
