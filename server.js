@@ -2027,6 +2027,7 @@ const EducationEngine = require('./lib/runtime/engines/education-engine');
 const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
 const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
 const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
+const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
 const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
 const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
@@ -2050,6 +2051,7 @@ const education = new EducationEngine();
 const innovation = new InnovationEngine();
 const knowledgeGraph = new KnowledgeGraphEngine();
 const consulting = new InternationalConsultingEngine();
+const rootNeuralCells = new RootNeuralCellsNetwork();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -18575,6 +18577,14 @@ app.get('/api/neural-sync/status', (req, res) => {
     });
 });
 
+app.get('/api/root-neural-cells/status', (req, res) => {
+    res.json({
+        success: true,
+        data: rootNeuralCells.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.get('/api/root-system/status', (req, res) => {
     res.json({
         success: true,
@@ -18605,6 +18615,7 @@ app.get('/api/control-center/status', (req, res) => {
             innovation: innovation.getStatus(),
             knowledgeGraph: knowledgeGraph.getStatus(),
             consulting: consulting.getStatus(),
+            rootNeuralCells: rootNeuralCells.getStatus(),
             neuralCells: getNeuralCellsStatus(__dirname),
             hsRegistry: hsRuntimeRegistry.meta
         },
