@@ -38139,6 +38139,18 @@ app.get('/api/adaptive/status', (req, res) => {
 });
 console.log('✅ [ADAPTIVE] نظام التكيف الجغرافي — مُفعَّل على /api/adaptive/status');
 
+const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
+const smartCities = new SmartCitiesEngine();
+
+app.get('/api/smart-cities/status', (_req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Smart Cities Organization',
+        data: smartCities.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
 // 🛡️ FAILSAFE ROUTES — خط الدفاع الأخير (قبل 404 مباشرة)
 // يضمن استجابة صحيحة حتى لو فشل تحميل أي router أعلاه
 // ═══════════════════════════════════════════════════════════════════════════════
