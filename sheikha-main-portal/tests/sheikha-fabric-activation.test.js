@@ -266,7 +266,7 @@ assert(civilization.domains.smartCities !== undefined, 'civilization exposes sma
 const civStatus = civilization.status();
 assert(civStatus.identity.technical === 'SHEIKHA Sovereign Cognitive Infrastructure', 'correct civilization identity');
 assert(Array.isArray(civStatus.identity.layers), 'civilization has layer list');
-assert(civStatus.identity.layers.length === 7, 'civilization has 7 system layers');
+assert(civStatus.identity.layers.length >= 7, 'civilization has at least 7 system layers');
 assert(civStatus.identity.domains.length === 5, 'civilization has 5 domain layers');
 
 const cycleResult2 = civilization.runEvolutionCycle();

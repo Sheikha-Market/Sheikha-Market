@@ -199,7 +199,15 @@ function setBalancingStrategy(strategy) {
     _bus.emit('balancer:strategy', { strategy });
 }
 
-// ─── Adaptive Scaling ─────────────────────────────────────────────────────────
+// ─── Scale Thresholds ─────────────────────────────────────────────────────────
+
+/**
+ * عوامل حدود التوسع التكيّفي.
+ */
+const SCALE_UP_THRESHOLD   = 1.2; // utilization > target × 1.2  → scale up
+const SCALE_DOWN_THRESHOLD = 0.5; // utilization < target × 0.5  → scale down
+
+
 
 /**
  * قرار التوسع التكيّفي بناءً على مقاييس النظام.
@@ -220,10 +228,10 @@ function adaptiveScalingDecision(metrics, policy = {}) {
 
     let action, reason;
 
-    if (avgUtil > targetUtilization * 1.2) {
+    if (avgUtil > targetUtilization * SCALE_UP_THRESHOLD) {
         action = 'scale-up';
-        reason = `utilization ${(avgUtil * 100).toFixed(1)}% exceeds target ${(targetUtilization * 120).toFixed(0)}%`;
-    } else if (avgUtil < targetUtilization * 0.5) {
+        reason = `utilization ${(avgUtil * 100).toFixed(1)}% exceeds target ${(targetUtilization * SCALE_UP_THRESHOLD * 100).toFixed(0)}%`;
+    } else if (avgUtil < targetUtilization * SCALE_DOWN_THRESHOLD) {
         action = 'scale-down';
         reason = `utilization ${(avgUtil * 100).toFixed(1)}% well below target`;
     } else {

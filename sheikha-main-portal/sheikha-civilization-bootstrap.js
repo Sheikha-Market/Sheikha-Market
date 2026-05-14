@@ -122,24 +122,18 @@ function activate() {
     _banner();
 
     // ══════════════════════════════════════════════════════════════════
-    // [PHASE-A] تسجيل خطوات الإقلاع في Kernel الجديد
+    // [PHASE-A] تسجيل خطوات الإقلاع في Kernel الجديد (للاستخدام المستقبلي)
+    // هذه الخطوات تُستخدم عند استدعاء runtimeKernel.boot() مستقلاً
     // ══════════════════════════════════════════════════════════════════
 
-    // 2. Initialize Security
-    runtimeKernel.registerBootStep('init-security', async () => {
-        security.start();
-    });
-
-    // 3. Initialize Observability
+    // 3. Initialize Observability (registered for future standalone boot)
     runtimeKernel.registerBootStep('init-observability', async () => {
-        observability.start();
-        observability.record('civilization.bootTime', CIVILIZATION_IDENTITY.bootTime);
+        // observability يُبدأ في Phase-B — لا نُشغّله مرتين
     });
 
     // 4. Initialize Runtime Fabric
     runtimeKernel.registerBootStep('init-runtime-fabric', async () => {
-        fabric.initialize();
-        distributed.start();
+        // fabric + distributed يُبدآن في Phase-B — لا نُشغّلهما مرتين
     });
 
     // 5. Initialize Engines
@@ -197,7 +191,10 @@ function activate() {
     });
 
     // ══════════════════════════════════════════════════════════════════
-    // [PHASE-B] تشغيل Kernel القديم (للتوافق مع الطبقات الموجودة)
+    // [PHASE-B] تشغيل الطبقات مباشرة (تسلسل الإقلاع المنضبط)
+    // الترتيب: Security → Observability → Fabric → Distributed →
+    //          Intelligence → Governance → Integration → Orchestrator →
+    //          Modules → Domains
     // ══════════════════════════════════════════════════════════════════
     kernel.boot();
     kernel.registerService('infrastructure-fabric', { critical: true });
@@ -215,12 +212,11 @@ function activate() {
     kernel.registerService('financial',             { critical: false });
     kernel.registerService('smart-cities',          { critical: false });
 
-    // تشغيل طبقة الأمان أولاً
+    // 1. Security — أولاً دائماً (Deny-by-Default)
     security.start();
     kernel.startService('security-fabric');
 
-    // المراقبة
-    observability.record('civilization.bootTime', CIVILIZATION_IDENTITY.bootTime);
+    // 2. Observability
     kernel.on('kernel:health', (report) => {
         observability.record('kernel.engines', report.engines);
         observability.record('kernel.services.running', report.services.running);
