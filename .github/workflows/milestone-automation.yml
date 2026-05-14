@@ -1,0 +1,212 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🎯 Milestone Automation — إدارة المراحل التلقائية                          ║
+# ║  Sheikha Market — Automated Milestone & Sprint Management                   ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Milestone — Auto-Management
+
+on:
+  # إنشاء المراحل المطلوبة عند دفع تغيير للـ main
+  push:
+    branches: [main]
+    paths:
+      - ".github/workflows/milestone-automation.yml"
+  # تشغيل يدوي لإعادة ضبط المراحل
+  workflow_dispatch:
+    inputs:
+      reset_milestones:
+        description: "إعادة إنشاء المراحل المفقودة"
+        required: false
+        default: true
+        type: boolean
+  # جدولة أسبوعية للتحقق وتحديث نسب الاكتمال
+  schedule:
+    # كل اثنين الساعة 07:00 UTC (10:00 بتوقيت الرياض)
+    - cron: "0 7 * * 1"
+
+jobs:
+  # ─── إنشاء وصيانة المراحل ─────────────────────────────────────────────────
+  manage-milestones:
+    name: 🎯 Manage Project Milestones
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: write
+
+    steps:
+      - name: 🎯 Ensure milestones exist
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            // تعريف المراحل المطلوبة للمشروع
+            const requiredMilestones = [
+              {
+                title: 'v1.x — Security Patches',
+                description: '🔒 تحديثات الأمان والإصلاحات الطارئة — Security updates & emergency fixes',
+                state: 'open',
+              },
+              {
+                title: 'v1.x — Bug Fixes',
+                description: '🐛 إصلاح الأخطاء والمشكلات المُبلَّغ عنها — Bug fixes & reported issues',
+                state: 'open',
+              },
+              {
+                title: 'v1.x — Docs & Cleanup',
+                description: '📖 تحسين التوثيق والتنظيم — Documentation improvements & code cleanup',
+                state: 'open',
+              },
+              {
+                title: 'v2.0 — Feature Releases',
+                description: '✨ الميزات الجديدة والتحسينات الكبرى — New features & major enhancements',
+                state: 'open',
+              },
+              {
+                title: 'v2.x — AI & Analytics',
+                description: '🧠 تطوير المحرك العصبي وتحليلات السوق — Neural engine & market analytics',
+                state: 'open',
+              },
+              {
+                title: 'v3.0 — Mobile & Scale',
+                description: '📱 التطبيق المحمول والتوسع — Mobile app & scaling',
+                state: 'open',
+              },
+            ];
+
+            // جلب المراحل الموجودة
+            const existing = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const existingTitles = new Set(existing.data.map(m => m.title));
+            let created = 0;
+            let skipped = 0;
+
+            for (const ms of requiredMilestones) {
+              if (existingTitles.has(ms.title)) {
+                console.log(`✅ موجودة: "${ms.title}"`);
+                skipped++;
+                continue;
+              }
+
+              await github.rest.issues.createMilestone({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                title: ms.title,
+                description: ms.description,
+                state: ms.state,
+              });
+
+              console.log(`🆕 أُنشئت: "${ms.title}"`);
+              created++;
+            }
+
+            console.log('');
+            console.log(`🎯 المراحل: ${created} جديدة | ${skipped} موجودة مسبقاً`);
+
+  # ─── تقرير حالة المراحل ───────────────────────────────────────────────────
+  milestone-status-report:
+    name: 📊 Milestone Progress Report
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: manage-milestones
+    permissions:
+      issues: read
+
+    steps:
+      - name: 📊 Print milestone progress
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            console.log('');
+            console.log('╔══════════════════════════════════════════════════════════╗');
+            console.log('║        🎯 تقرير المراحل — Milestone Progress Report       ║');
+            console.log('╠══════════════════════════════════════════════════════════╣');
+
+            for (const ms of milestones.data) {
+              const total = ms.open_issues + ms.closed_issues;
+              const pct = total > 0 ? Math.round((ms.closed_issues / total) * 100) : 0;
+              const bar = '█'.repeat(Math.floor(pct / 10)) + '░'.repeat(10 - Math.floor(pct / 10));
+
+              console.log(`║  📌 ${ms.title}`);
+              console.log(`║     [${bar}] ${pct}% (${ms.closed_issues}/${total} issues)`);
+              console.log('║');
+            }
+
+            console.log('╚══════════════════════════════════════════════════════════╝');
+            console.log('الحمد لله — Milestone report complete 🌿');
+
+  # ─── تحديث Issues المعلّقة لفترة طويلة ────────────────────────────────────
+  flag-stale-milestone-issues:
+    name: ⚠️ Flag Overdue Milestone Issues
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'schedule' || github.event_name == 'workflow_dispatch'
+    permissions:
+      issues: write
+
+    steps:
+      - name: ⚠️ Check for overdue issues in milestones
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const now = Date.now();
+            const STALE_DAYS = 30; // أيام بدون نشاط
+            const STALE_MS = STALE_DAYS * 24 * 60 * 60 * 1000;
+
+            let totalFlagged = 0;
+
+            for (const ms of milestones.data) {
+              if (ms.open_issues === 0) continue;
+
+              const issues = await github.rest.issues.listForRepo({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                milestone: ms.number,
+                state: 'open',
+                per_page: 50,
+              });
+
+              for (const issue of issues.data) {
+                const updatedAt = new Date(issue.updated_at).getTime();
+                const ageMs = now - updatedAt;
+                const ageDays = Math.floor(ageMs / (24 * 60 * 60 * 1000));
+
+                if (ageMs > STALE_MS) {
+                  const labels = issue.labels.map(l => l.name);
+
+                  // تجنب إضافة label إذا كانت موجودة
+                  if (!labels.includes('stale') && !labels.includes('needs-triage')) {
+                    console.log(`⚠️ Issue #${issue.number} معلّقة منذ ${ageDays} يوماً في "${ms.title}"`);
+                    // ملاحظة: Stale workflow يتولى هذا — هنا فقط نسجّل
+                    totalFlagged++;
+                  }
+                }
+              }
+            }
+
+            if (totalFlagged > 0) {
+              console.log(`⚠️ ${totalFlagged} issue معلّقة منذ أكثر من ${STALE_DAYS} يوماً`);
+            } else {
+              console.log('✅ لا توجد issues معلّقة في المراحل المفتوحة');
+            }
+
+            console.log('الحمد لله — Milestone health check complete 🌿');

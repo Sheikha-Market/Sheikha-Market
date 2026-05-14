@@ -1,0 +1,177 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  💬 Discussions Automation — أتمتة النقاشات                                ║
+# ║  Sheikha Market — Discussion Management & Community Engagement              ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Discussions — Community Automation
+
+on:
+  discussion:
+    types: [created, answered]
+  discussion_comment:
+    types: [created]
+  workflow_dispatch:
+
+jobs:
+  # ─── الترحيب بمناقشات جديدة ───────────────────────────────────────────────
+  welcome-new-discussion:
+    name: 👋 Welcome New Discussion
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'discussion' && github.event.action == 'created'
+    permissions:
+      discussions: write
+
+    steps:
+      - name: 👋 Post welcome comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const discussion = context.payload.discussion;
+            const author = discussion.user.login;
+            const category = discussion.category?.name || 'عام';
+
+            console.log(`💬 نقاش جديد من @${author}: "${discussion.title}"`);
+            console.log(`📂 التصنيف: ${category}`);
+
+            // رسائل الترحيب حسب التصنيف
+            const categoryMessages = {
+              'General':        'نقاش عام 💬',
+              'Ideas':          'فكرة جديدة 💡',
+              'Q&A':            'سؤال واستفسار ❓',
+              'Show and tell':  'عرض وإظهار 🎤',
+              'Announcements':  'إعلان رسمي 📢',
+              'Polls':          'استطلاع رأي 📊',
+            };
+
+            const catEmoji = categoryMessages[category] || `${category} 💬`;
+
+            const welcomeBody = [
+              `## 🕌 أهلاً @${author} في نقاشات سوق شيخة™`,
+              '',
+              `شكراً لمشاركتك في تصنيف **${catEmoji}**!`,
+              '',
+              '### 🔗 روابط مفيدة',
+              '| الرابط | الوصف |',
+              '|--------|-------|',
+              '| [📖 README](../../blob/main/README.md) | نظرة عامة على المشروع |',
+              '| [🕌 الميثاق](../../blob/main/CHARTER.md) | قيم ومبادئ شيخة |',
+              '| [🔒 الأمان](../../blob/main/SECURITY.md) | سياسة الأمان |',
+              '| [🐛 الإبلاغ عن خطأ](../../issues/new?template=bug_report.md) | رفع Issue جديد |',
+              '',
+              '> *﴿وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ﴾ — المائدة: ٢*',
+              '',
+              '*منظومة سوق شيخة™ — السوق الذكي المتكامل*',
+            ].join('\n');
+
+            // GraphQL mutation لإضافة تعليق على النقاش
+            await github.graphql(`
+              mutation($discussionId: ID!, $body: String!) {
+                addDiscussionComment(input: { discussionId: $discussionId, body: $body }) {
+                  comment { id }
+                }
+              }
+            `, {
+              discussionId: discussion.node_id,
+              body: welcomeBody,
+            });
+
+            console.log(`✅ رسالة الترحيب أُرسلت للنقاش #${discussion.number}`);
+
+  # ─── إبراز الإجابات المميزة ───────────────────────────────────────────────
+  highlight-answered:
+    name: ⭐ Highlight Answered Discussion
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'discussion' && github.event.action == 'answered'
+    permissions:
+      discussions: write
+
+    steps:
+      - name: ⭐ Add answered badge comment
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const discussion = context.payload.discussion;
+            console.log(`⭐ تم الإجابة على نقاش #${discussion.number}: "${discussion.title}"`);
+
+            const answeredBody = [
+              '## ✅ تم الإجابة — Question Answered',
+              '',
+              'تم تحديد إجابة لهذا السؤال. إذا كان لديك سؤال مشابه، يمكنك:',
+              '- قراءة الإجابة المُعلّمة أعلاه',
+              '- فتح نقاش جديد إذا احتجت مزيداً من التوضيح',
+              '',
+              '*الحمد لله — منظومة سوق شيخة™*',
+            ].join('\n');
+
+            await github.graphql(`
+              mutation($discussionId: ID!, $body: String!) {
+                addDiscussionComment(input: { discussionId: $discussionId, body: $body }) {
+                  comment { id }
+                }
+              }
+            `, {
+              discussionId: discussion.node_id,
+              body: answeredBody,
+            });
+
+            console.log('✅ تعليق "تم الإجابة" أُضيف');
+
+  # ─── تقرير صحة المجتمع الأسبوعي ──────────────────────────────────────────
+  community-health-summary:
+    name: 📊 Community Health Summary
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    if: github.event_name == 'workflow_dispatch'
+    permissions:
+      discussions: read
+      issues: read
+      pull-requests: read
+
+    steps:
+      - name: 📊 Generate community summary
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const { data: openIssues } = await github.rest.issues.listForRepo({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const { data: openPRs } = await github.rest.pulls.list({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            // تحليل Labels
+            const labelCounts = {};
+            for (const issue of openIssues) {
+              for (const label of issue.labels) {
+                labelCounts[label.name] = (labelCounts[label.name] || 0) + 1;
+              }
+            }
+
+            const topLabels = Object.entries(labelCounts)
+              .sort((a, b) => b[1] - a[1])
+              .slice(0, 5)
+              .map(([name, count]) => `  - ${name}: ${count}`)
+              .join('\n');
+
+            console.log('');
+            console.log('╔══════════════════════════════════════════════╗');
+            console.log('║     📊 تقرير صحة المجتمع — Community Health  ║');
+            console.log('╠══════════════════════════════════════════════╣');
+            console.log(`║  Issues المفتوحة: ${openIssues.length}`);
+            console.log(`║  PRs المفتوحة: ${openPRs.length}`);
+            console.log('╠══════════════════════════════════════════════╣');
+            console.log('║  أكثر Labels استخداماً:');
+            console.log(topLabels || '  لا توجد بيانات');
+            console.log('╚══════════════════════════════════════════════╝');
+            console.log('الحمد لله — Community health report complete 🌿');
