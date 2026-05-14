@@ -12,6 +12,7 @@
     "start:proxy": "node scripts/proxy-8081.js",
     "test": "node tests/integration.test.js",
     "test:integration": "node tests/integration.test.js",
+    "test:fabric": "node tests/sheikha-fabric-activation.test.js",
     "test:grid": "bash scripts/test-cellular-grid.sh",
     "seed": "node scripts/seed-market-data.js",
     "seed:market": "node scripts/seed-market-data.js",
