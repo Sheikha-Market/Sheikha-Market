@@ -11,9 +11,9 @@
 - الطبقة العالمية: **SHEIKHA Global Infrastructure**
 - الطبقة المستقبلية: **SHEIKHA Cognitive Civilization Infrastructure**
 - الاسم السيادي الأعلى: **SHEIKHA Sovereign Cognitive Infrastructure**
-- الصيغة التقنية العالية: **SHEIKHA Unified Autonomous Infrastructure**
-- الصيغة التقنية البديلة: **SHEIKHA Global Cognitive Runtime Fabric**
-- الصيغة المؤسسية الصناعية: **SHEIKHA Industrial Intelligence Operating System**
+- الهوية التقنية الرسمية: **SHEIKHA Sovereign Cognitive Infrastructure**
+- الوصف التنفيذي الرسمي: **Unified Global Operational Intelligence Infrastructure**
+- صيغ مرجعية داعمة: **SHEIKHA Unified Autonomous Infrastructure** / **SHEIKHA Global Cognitive Runtime Fabric** / **SHEIKHA Industrial Intelligence Operating System**
 
 ## 2) الرؤية والهدف الأعلى
 
@@ -43,7 +43,7 @@
 
 الدورة التشغيلية الإلزامية:
 
-**Observe → Measure → Analyze → Optimize → Simulate → Validate → Deploy → Learn Operationally → Repeat**
+**Observe → Measure → Analyze → Optimize → Simulate → Validate → Deploy → Monitor → Improve → Scale → Repeat**
 
 ### إيقاع المراجعات
 - مراجعة تشغيلية أسبوعية
@@ -118,9 +118,62 @@
 ### الإطار المستقبلي طويل المدى
 **SHEIKHA Cognitive Civilization Infrastructure**
 
-## 11) نموذج طبقات Infrastructure Fabric المرجعي
+### الوصف التنفيذي الرسمي
+**Unified Global Operational Intelligence Infrastructure**
 
-SHEIKHA Infrastructure Fabric
+## 11) التحول المعماري الرسمي
+
+من:
+- **Monolithic server.js**
+
+إلى:
+- **SHEIKHA Infrastructure Fabric**
+
+## 12) البنية المرجعية الرسمية (Reference Structure)
+
+```
+/core
+/runtime
+/fabric
+/services
+/engines
+/modules
+/orchestration
+/observability
+/security
+/integration
+/governance
+/ai
+/supply-chain
+/industry
+/trade
+/financial
+/smart-cities
+```
+
+## 13) طبقات النظام الرسمية (System Layers)
+
+- Infrastructure Layer
+- Runtime Layer
+- Intelligence Layer
+- Orchestration Layer
+- Governance Layer
+- Observability Layer
+- Autonomous Operations Layer
+
+## 14) النواة التشغيلية العليا (SHEIKHA Runtime Kernel)
+
+تتحمل مسؤوليات:
+- orchestration
+- runtime lifecycle
+- engine loading
+- health monitoring
+- distributed coordination
+- sync
+- observability
+- autonomous runtime operations
+
+## 15) بنية SHEIKHA Infrastructure Fabric
 
 - Runtime Kernel
 - Identity Fabric
@@ -135,6 +188,38 @@ SHEIKHA Infrastructure Fabric
 - Global Integration Fabric
 - Autonomous Orchestration Fabric
 - Sovereign Governance Fabric
+
+## 16) الهيكل المستقبلي العالمي (SHEIKHA Global Runtime Fabric)
+
+يتكون من:
+- Regional Runtime Nodes
+- Industrial Runtime Nodes
+- Trade Runtime Nodes
+- Supply Runtime Nodes
+- AI Runtime Nodes
+- Smart Cities Runtime Nodes
+
+## 17) طبقة الذكاء التشغيلي (SHEIKHA Operational Intelligence Layer)
+
+تشمل:
+- runtime analysis
+- predictive maintenance operationally
+- orchestration optimization
+- infrastructure awareness
+- workload balancing
+- adaptive scaling
+- operational observability
+
+## 18) طبقة السيادة (SHEIKHA Sovereign Governance Fabric)
+
+تشمل:
+- policies
+- governance
+- permissions
+- audit
+- compliance
+- operational control
+- deployment control
 
 ## الحالة
 
