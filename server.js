@@ -2021,6 +2021,11 @@ const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
 const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
 const SpaceEngine = require('./lib/runtime/engines/space-engine');
 const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
+const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
+const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
+const EducationEngine = require('./lib/runtime/engines/education-engine');
+const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
+const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
 const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
 const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
@@ -2032,6 +2037,11 @@ const recycling = new RecyclingEngine();
 const traceability = new TraceabilityEngine();
 const space = new SpaceEngine();
 const communicationsRuntime = new CommunicationsEngine();
+const legislative = new LegislativeEngine();
+const arbitration = new ArbitrationEngine();
+const education = new EducationEngine();
+const innovation = new InnovationEngine();
+const knowledgeGraph = new KnowledgeGraphEngine();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -18482,6 +18492,51 @@ app.get('/api/communications/runtime/status', (req, res) => {
     });
 });
 
+app.get('/api/legislative/status', (req, res) => {
+    res.json({
+        success: true,
+        system: 'SHEIKHA Legislative System',
+        data: legislative.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/arbitration/status', (req, res) => {
+    res.json({
+        success: true,
+        system: 'SHEIKHA Judicial and Arbitration System',
+        data: arbitration.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/education/status', (req, res) => {
+    res.json({
+        success: true,
+        system: 'SHEIKHA Knowledge and Education System',
+        data: education.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/innovation/status', (req, res) => {
+    res.json({
+        success: true,
+        system: 'SHEIKHA Innovation and Exploration System',
+        data: innovation.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/knowledge-graph/status', (req, res) => {
+    res.json({
+        success: true,
+        system: 'SHEIKHA Global Knowledge Graph',
+        data: knowledgeGraph.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.get('/api/hs/runtime/status', (req, res) => {
     res.json({
         success: true,
@@ -18517,8 +18572,25 @@ app.get('/api/control-center/status', (req, res) => {
             traceability: traceability.getStatus(),
             space: space.getStatus(),
             communications: communicationsRuntime.getStatus(),
+            legislative: legislative.getStatus(),
+            arbitration: arbitration.getStatus(),
+            education: education.getStatus(),
+            innovation: innovation.getStatus(),
+            knowledgeGraph: knowledgeGraph.getStatus(),
             hsRegistry: hsRuntimeRegistry.meta
         },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/civilizational/status', (req, res) => {
+    res.json({
+        success: true,
+        platform: 'SHEIKHA Civilizational Operating System',
+        root: rootSystemRegistry.root,
+        systems: rootSystemRegistry.systems,
+        council: rootSystemRegistry.globalCouncil,
+        organizations: runtimeRegistry.organizations,
         timestamp: new Date().toISOString()
     });
 });
