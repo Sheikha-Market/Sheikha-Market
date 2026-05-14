@@ -62,11 +62,12 @@ if curl -fsS --max-time "$CURL_TIMEOUT" "$STATUS_URL" > "$status_file" 2>/dev/nu
     sync_status=$(python3 -c "
 import json, sys
 try:
-    d = json.load(open('$status_file'))
+    with open('$status_file') as f:
+        d = json.load(f)
     origin_ok = d.get('origin', {}).get('status') == 'ready'
     enterprise_ok = d.get('enterprise', {}).get('status') == 'ready'
     print('both-ready' if origin_ok and enterprise_ok else 'degraded')
-except:
+except (FileNotFoundError, json.JSONDecodeError, KeyError) as e:
     print('parse-error')
 " 2>/dev/null || echo "unknown")
 

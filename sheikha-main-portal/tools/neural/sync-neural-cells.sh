@@ -164,6 +164,7 @@ sync_feature_branches() {
     # فروع الميزات المُكتشفة من كلا الجانبين
     local -a features=()
     while IFS= read -r line; do
+        local branch
         branch=$(echo "$line" | sed 's|.*remotes/[^/]*/feature/||')
         [[ -n "$branch" ]] && features+=("$branch")
     done < <(git branch -r 2>/dev/null | grep 'feature/' | sort -u)

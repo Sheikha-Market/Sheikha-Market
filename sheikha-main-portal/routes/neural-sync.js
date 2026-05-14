@@ -25,6 +25,7 @@ const router   = express.Router();
 const { execSync } = require('child_process');
 const path     = require('path');
 const fs       = require('fs');
+const crypto   = require('crypto');
 
 // ── ثوابت الشبكة العصبية / Network Constants ─────────────────────────────────
 const NETWORK_NAME    = 'SHEIKHA Root Neural Cells Network';
