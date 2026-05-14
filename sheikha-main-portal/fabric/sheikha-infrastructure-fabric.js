@@ -74,7 +74,7 @@ const FABRIC_LAYERS = [
 // ─── Fabric Initialization ────────────────────────────────────────────────────
 
 /**
- * تهيئة بنية الفابريك الكاملة وتسجيل الطلاث عشرة طبقة.
+ * تهيئة بنية الفابريك الكاملة وتسجيل الثلاث عشرة طبقة.
  */
 function initialize() {
     if (FABRIC_IDENTITY.initializedAt) {
