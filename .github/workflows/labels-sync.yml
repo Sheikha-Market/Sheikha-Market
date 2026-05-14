@@ -1,0 +1,32 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🏷️ Labels Sync — مزامنة التسميات تلقائياً                                ║
+# ║  Sheikha Market — Sync GitHub Labels from labels.yml                        ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Labels — Sync
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - ".github/labels.yml"
+      - ".github/workflows/labels-sync.yml"
+  workflow_dispatch:
+
+jobs:
+  labels:
+    name: 🏷️ Sync Labels
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    permissions:
+      issues: write
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🏷️ Sync labels from labels.yml
+        uses: EndBug/label-sync@v2
+        with:
+          config-file: .github/labels.yml
+          delete-other-labels: false
+          token: ${{ secrets.GITHUB_TOKEN }}

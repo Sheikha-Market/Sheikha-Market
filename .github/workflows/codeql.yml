@@ -1,0 +1,71 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🔐 CodeQL Security Analysis — تحليل الأمان التلقائي                       ║
+# ║  Sheikha Market — GitHub Advanced Security                                  ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: CodeQL Security Analysis
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/**/*.js"
+      - ".github/workflows/codeql.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/**/*.js"
+  schedule:
+    # كل يوم أحد الساعة 03:00 بتوقيت الرياض (= 00:00 UTC)
+    - cron: "0 0 * * 0"
+  workflow_dispatch:
+
+jobs:
+  analyze:
+    name: 🔐 CodeQL Analyze (JavaScript)
+    runs-on: ubuntu-latest
+    timeout-minutes: 30
+    permissions:
+      actions: read
+      contents: read
+      security-events: write
+
+    strategy:
+      fail-fast: false
+      matrix:
+        language: [javascript]
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🔬 Initialize CodeQL
+        uses: github/codeql-action/init@v3
+        with:
+          languages: ${{ matrix.language }}
+          # قواعد أمنية موسّعة — Extended security queries
+          queries: security-extended,security-and-quality
+          config: |
+            paths:
+              - sheikha-main-portal
+            paths-ignore:
+              - sheikha-main-portal/node_modules
+              - sheikha-main-portal/public
+              - "**/*.test.js"
+              - "**/*.spec.js"
+
+      - name: 🔨 Autobuild
+        uses: github/codeql-action/autobuild@v3
+
+      - name: 🧪 Perform CodeQL Analysis
+        uses: github/codeql-action/analyze@v3
+        with:
+          category: "/language:${{ matrix.language }}"
+          output: codeql-results
+          upload: always
+
+      - name: 📊 Upload SARIF results
+        uses: github/codeql-action/upload-sarif@v3
+        if: always()
+        with:
+          sarif_file: codeql-results
+        continue-on-error: true

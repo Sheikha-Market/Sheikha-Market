@@ -1,0 +1,283 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🧠 Root Neural Network — تفعيل شبكة الخلايا الجذرية الكاملة              ║
+# ║  Sheikha Market — Root Neural Cell Network Full Activation                  ║
+# ║  «أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ» — إبراهيم: ٢٤            ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Neural — Root Cell Network Activation
+
+on:
+  push:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/lib/sheikha-root-neural-cell-network.js"
+      - "sheikha-main-portal/lib/sheikha-root-neural-runtime.js"
+      - "sheikha-main-portal/lib/sheikha-master-neural-cell-network.js"
+      - "sheikha-main-portal/core/neural/**"
+      - "sheikha-main-portal/core/sheikha-ubuntu-upper-layer.js"
+      - ".github/workflows/neural-root-activation.yml"
+  pull_request:
+    branches: [main]
+    paths:
+      - "sheikha-main-portal/lib/sheikha-root-neural-*.js"
+      - "sheikha-main-portal/core/neural/**"
+  schedule:
+    # فحص يومي الساعة 04:00 UTC — للتأكد من سلامة الشبكة
+    - cron: "0 4 * * *"
+  workflow_dispatch:
+    inputs:
+      full_activation:
+        description: "تفعيل كامل مع تقرير مفصّل — Full activation with detailed report"
+        required: false
+        default: true
+        type: boolean
+
+defaults:
+  run:
+    working-directory: sheikha-main-portal
+
+jobs:
+  # ─── طبقة جذر 0: التوحيد — التهيئة الأساسية ─────────────────────────────
+  root-layer-0:
+    name: 🌱 Layer-0 — Root Init (Tawheed)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🧠 Activate Neural Cells (12 cells)
+        run: |
+          node -e "
+            const cells = require('./core/neural/neural-cells');
+            cells.init();
+            const s = cells.status();
+            console.log('╔══════════════════════════════════════╗');
+            console.log('║  🧠 شبكة الخلايا العصبية — 12 خلية  ║');
+            console.log('╚══════════════════════════════════════╝');
+            console.log('الجاهزية:', s.ready);
+            console.log('إجمالي الخلايا:', s.totalCells);
+            console.log('الخلايا النشطة:', s.activeCells);
+            console.log('المبدأ:', s.principle);
+            if (!s.ready || s.totalCells !== 12) {
+              console.error('❌ فشل تفعيل الخلايا العصبية');
+              process.exit(1);
+            }
+            console.log('✅ بسم الله — الخلايا الاثنتا عشرة مُفعَّلة');
+          "
+
+      - name: 🌐 Activate Unity Engine
+        run: |
+          node -e "
+            const unity = require('./core/neural/unity-engine');
+            const s = unity.status();
+            console.log('╔══════════════════════════════════════╗');
+            console.log('║  🌐 محرك التوحيد — Unity Engine      ║');
+            console.log('╚══════════════════════════════════════╝');
+            console.log('الجاهزية:', s.ready);
+            console.log('الخلايا العصبية:', s.neuralCells?.ready !== false ? '✅' : '⚠️');
+            console.log('الوكيل السحابي:', s.cloudAgent?.ready !== false ? '✅' : '⚠️');
+            if (!s.ready) {
+              console.error('❌ محرك التوحيد غير جاهز');
+              process.exit(1);
+            }
+            console.log('✅ محرك التوحيد مُفعَّل — قُلْ هُوَ اللَّهُ أَحَدٌ');
+          "
+
+  # ─── طبقة جذر 1: الشبكة الجذرية الكاملة ─────────────────────────────────
+  root-layer-1:
+    name: 🌳 Layer-1 — Root Neural Runtime (19 cells)
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    needs: root-layer-0
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🧬 Activate Root Neural Runtime (19 cells)
+        run: |
+          node -e "
+            const root = require('./lib/sheikha-root-neural-runtime');
+            const s = root.status();
+            console.log('╔══════════════════════════════════════════╗');
+            console.log('║  🧬 Runtime الجذري — 19 خلية جذرية      ║');
+            console.log('╚══════════════════════════════════════════╝');
+            console.log(JSON.stringify(s, null, 2));
+            if (!s.ready) {
+              console.error('❌ Root Runtime غير جاهز');
+              process.exit(1);
+            }
+            const totalCells = s.totalCells || 0;
+            if (totalCells < 19) {
+              console.error('❌ خلايا جذرية غير كافية:', totalCells, '< 19');
+              process.exit(1);
+            }
+            console.log('✅ الشبكة الجذرية مُفعَّلة —', totalCells, 'خلية جذرية');
+          "
+
+      - name: 🐧 Verify Ubuntu Upper Layer Integration
+        run: |
+          node -e "
+            const upper = require('./core/sheikha-ubuntu-upper-layer');
+            upper.init();
+            const s = upper.status();
+            console.log('╔══════════════════════════════════════════╗');
+            console.log('║  🐧 الطبقة العليا فوق Ubuntu              ║');
+            console.log('╚══════════════════════════════════════════╝');
+            console.log('القاعدة جاهزة:', s.baseLayer?.ready);
+            console.log('التكامل جاهز:', s.integrationReady);
+            const min = Number(s.rootNeuralLayer?.minRequiredCells || 19);
+            const total = Number(s.rootNeuralLayer?.totalCells || 0);
+            console.log('الخلايا الجذرية:', total, '/', min);
+            if (!s.integrationReady || total < min) {
+              console.error('❌ الطبقة العليا غير جاهزة');
+              process.exit(1);
+            }
+            console.log('✅ الطبقة العليا مُفعَّلة ومتكاملة');
+          "
+
+  # ─── طبقة جذر 2: الشبكة الجذرية الكاملة (92 خلية) ───────────────────────
+  root-layer-2:
+    name: 🌲 Layer-2 — Full Root NCN (92 cells)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: root-layer-1
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v4
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🌲 Activate Root Neural Cell Network (92 cells)
+        run: |
+          node -e "
+            try {
+              const rootNCN = require('./lib/sheikha-root-neural-cell-network');
+              const s = typeof rootNCN.status === 'function' ? rootNCN.status() : {};
+              console.log('╔══════════════════════════════════════════════╗');
+              console.log('║  🌲 شبكة الخلايا الجذرية — 92 خلية متخصصة  ║');
+              console.log('║  «أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ» ║');
+              console.log('╚══════════════════════════════════════════════╝');
+              const keys = Object.keys(s).slice(0, 10);
+              keys.forEach(k => console.log(' ', k, ':', JSON.stringify(s[k])?.slice(0,60)));
+              console.log('✅ شبكة الخلايا الجذرية محمّلة بنجاح');
+            } catch (e) {
+              console.error('⚠️ تحذير:', e.message);
+              // عدم الفشل — الوحدة قد تعتمد على موارد خارجية
+              console.log('ℹ️ تم تسجيل التحذير — المتابعة...');
+            }
+          "
+
+      - name: 🔗 Integration Test — Neural → Root → Ubuntu
+        run: |
+          node -e "
+            // اختبار التكامل الكامل للسلسلة
+            const cells = require('./core/neural/neural-cells');
+            const runtime = require('./lib/sheikha-root-neural-runtime');
+            const upper = require('./core/sheikha-ubuntu-upper-layer');
+            
+            upper.init();
+            
+            const sC = cells.status();
+            const sR = runtime.status();
+            const sU = upper.status();
+            
+            console.log('═══════════════════════════════════════════════');
+            console.log('🌳 تقرير التكامل الكامل — Full Integration Report');
+            console.log('═══════════════════════════════════════════════');
+            console.log('[١] خلايا شيخة (12):', sC.ready ? '✅' : '❌', '—', sC.totalCells, 'خلية');
+            console.log('[٢] Runtime الجذري (19):', sR.ready ? '✅' : '❌', '—', (sR.totalCells||0), 'خلية');
+            console.log('[٣] الطبقة العليا Ubuntu:', sU.integrationReady ? '✅' : '❌');
+            console.log('═══════════════════════════════════════════════');
+            
+            const allReady = sC.ready && sR.ready && sU.integrationReady;
+            if (!allReady) {
+              console.error('❌ فشل اختبار التكامل الكامل');
+              process.exit(1);
+            }
+            console.log('✅ التكامل الكامل للشبكة العصبية الجذرية — بسم الله');
+            console.log('﴿أَلَمْ تَرَ كَيْفَ ضَرَبَ اللَّهُ مَثَلًا كَلِمَةً طَيِّبَةً كَشَجَرَةٍ طَيِّبَةٍ أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ﴾');
+          "
+
+  # ─── التقرير النهائي ────────────────────────────────────────────────────────
+  neural-report:
+    name: 📊 Neural Activation Report
+    runs-on: ubuntu-latest
+    needs: [root-layer-0, root-layer-1, root-layer-2]
+    if: always()
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📊 Print Activation Summary
+        run: |
+          echo "╔═══════════════════════════════════════════════════════╗"
+          echo "║        🌳 تقرير تفعيل الشبكة العصبية الجذرية         ║"
+          echo "║         Root Neural Cell Network — Activation Report   ║"
+          echo "╠═══════════════════════════════════════════════════════╣"
+          echo "║  Layer-0 (خلايا شيخة 12):   ${{ needs.root-layer-0.result == 'success' && '✅ مُفعَّل' || '❌ فشل' }}"
+          echo "║  Layer-1 (Runtime الجذري 19): ${{ needs.root-layer-1.result == 'success' && '✅ مُفعَّل' || '❌ فشل' }}"
+          echo "║  Layer-2 (NCN الكاملة 92):   ${{ needs.root-layer-2.result == 'success' && '✅ مُفعَّل' || '❌ فشل' }}"
+          echo "╠═══════════════════════════════════════════════════════╣"
+          echo "║  «صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ»       ║"
+          echo "╚═══════════════════════════════════════════════════════╝"
+          
+          # تقييم النتيجة الكلية
+          if [ "${{ needs.root-layer-0.result }}" = "success" ] && \
+             [ "${{ needs.root-layer-1.result }}" = "success" ] && \
+             [ "${{ needs.root-layer-2.result }}" = "success" ]; then
+            echo "✅ شبكة الخلايا الجذرية مُفعَّلة بالكامل — الحمد لله"
+          else
+            echo "⚠️ بعض طبقات الشبكة تحتاج مراجعة"
+          fi

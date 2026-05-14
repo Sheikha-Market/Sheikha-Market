@@ -1,0 +1,81 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  🗑️ Stale Issues & PRs — إدارة Issues والـ PRs الخاملة                    ║
+# ║  Sheikha Market — Automated Stale Management                                ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Stale — Issues & PRs
+
+on:
+  schedule:
+    # يومياً الساعة 02:00 UTC (05:00 بتوقيت الرياض)
+    - cron: "0 2 * * *"
+  workflow_dispatch:
+
+jobs:
+  stale:
+    name: 🗑️ Mark & Close Stale Items
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      issues: write
+      pull-requests: write
+
+    steps:
+      - name: 🗑️ Stale — Issues
+        uses: actions/stale@v9
+        with:
+          repo-token: ${{ secrets.GITHUB_TOKEN }}
+
+          # ─── Issues ───────────────────────────────────────────────
+          days-before-issue-stale: 60
+          days-before-issue-close: 14
+          stale-issue-label: "stale"
+          stale-issue-message: |
+            🕐 **تنبيه: Issue خامل — Stale Issue**
+
+            لم يُتخذ أي إجراء على هذا الـ Issue منذ **60 يوماً**.
+
+            إذا كانت المشكلة لا تزال قائمة، يُرجى:
+            - إضافة تعليق لتحديث الحالة
+            - إضافة التسمية `keep-open` لإبقائه مفتوحاً
+
+            سيُغلق هذا الـ Issue تلقائياً بعد **14 يوماً** إضافية إذا لم يكن هناك أي نشاط.
+
+            ---
+            *«لَا تَقْفُ مَا لَيْسَ لَكَ بِهِ عِلْمٌ» — الإسراء:٣٦*
+          close-issue-message: |
+            🔒 **تم الغلق تلقائياً — Auto-closed**
+
+            تم غلق هذا الـ Issue بسبب عدم النشاط لمدة طويلة.
+            يمكن إعادة فتحه إذا ظلت المشكلة قائمة.
+
+            شكراً لمساهمتك في تحسين سوق شيخة™ 🙏
+
+          # ─── Pull Requests ─────────────────────────────────────────
+          days-before-pr-stale: 30
+          days-before-pr-close: 7
+          stale-pr-label: "stale"
+          stale-pr-message: |
+            🕐 **تنبيه: PR خامل — Stale Pull Request**
+
+            لم يُتخذ أي إجراء على هذا الـ PR منذ **30 يوماً**.
+
+            يُرجى:
+            - مراجعة الـ PR وإجراء التعديلات اللازمة
+            - أو إضافة التسمية `keep-open` لإبقائه مفتوحاً
+
+            سيُغلق تلقائياً بعد **7 أيام** إذا لم يكن هناك نشاط.
+          close-pr-message: |
+            🔒 **تم الغلق تلقائياً — Auto-closed**
+
+            تم غلق هذا الـ PR بسبب عدم النشاط.
+            يمكن إعادة فتحه في أي وقت.
+
+          # ─── استثناءات — Exemptions ──────────────────────────────
+          exempt-issue-labels: "keep-open,pinned,security,critical,in-progress"
+          exempt-pr-labels: "keep-open,pinned,security,critical,in-progress"
+          exempt-all-milestones: true
+
+          # ─── حماية من الإغراق ──────────────────────────────────
+          operations-per-run: 100
+          remove-stale-when-updated: true
+          close-issue-reason: "not_planned"
