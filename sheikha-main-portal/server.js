@@ -37120,6 +37120,36 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🏛️ SICO — منظمة شيخة للاستشارات الدولية | International Consulting Organization
+// Consulting + Runtime + Intelligence + Operations
+// ﴿ وَشَاوِرْهُمْ فِي الْأَمْرِ ﴾ — آل عمران: 159
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const consultingRoutes = require('./routes/consulting.js');
+    app.use('/api/consulting', consultingRoutes);
+    console.log('✅ [SICO] منظمة شيخة للاستشارات الدولية — مُفعَّلة على /api/consulting');
+    console.log('   ├─ GET  /api/consulting/status             — حالة المنظمة والمنظومة');
+    console.log('   ├─ GET  /api/consulting/profile            — الملف المؤسسي الكامل');
+    console.log('   ├─ GET  /api/consulting/divisions          — الأقسام المؤسسية (12 قسم)');
+    console.log('   ├─ GET  /api/consulting/services           — خدمات الاستشارات (12 خدمة)');
+    console.log('   ├─ GET  /api/consulting/markets            — سوق الاستشارات الدولية');
+    console.log('   ├─ GET  /api/consulting/governance         — نظام الحوكمة والسياسات');
+    console.log('   ├─ GET  /api/consulting/kpi/dashboard      — لوحة تحكم KPI');
+    console.log('   ├─ POST /api/consulting/kpi/update         — تحديث مؤشر أداء');
+    console.log('   ├─ GET  /api/consulting/hs-codes           — محرك HS Intelligence');
+    console.log('   ├─ GET  /api/consulting/supply-chain       — استشارات سلاسل الإمداد');
+    console.log('   ├─ GET  /api/consulting/recycling          — استشارات التدوير والاستدامة');
+    console.log('   ├─ GET  /api/consulting/economic-analysis  — التحليل الاقتصادي');
+    console.log('   ├─ GET  /api/consulting/methodologies      — المنهجيات التشغيلية');
+    console.log('   ├─ GET  /api/consulting/playbooks          — Playbooks التشغيلية');
+    console.log('   ├─ POST /api/consulting/projects           — تسجيل مشروع استشاري جديد');
+    console.log('   ├─ GET  /api/consulting/projects           — قائمة المشاريع');
+    console.log('   └─ GET  /api/consulting/command-center     — SHEIKHA CONSULTING COMMAND CENTER');
+} catch (e) {
+    console.warn('⚠️ [SICO] فشل تحميل منظمة الاستشارات الدولية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🧠 NEURAL ROOT NETWORK — شبكة الخلايا العصبية الجذرية الموحّدة
 // ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: 31
 // ═══════════════════════════════════════════════════════════════════════════════

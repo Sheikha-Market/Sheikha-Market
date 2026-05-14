@@ -1,5 +1,9 @@
 # 🏛️ معمارية شيخة النخبوية | SHEIKHA ELITE ARCHITECTURE
 
+> **مرجع رسمي موحّد:**  
+> الملف `docs/architecture/SHEIKHA-ROOT-OPERATING-CHARTER.md` هو المرجع الجذري المعتمد،
+> وأي طبقات أو نماذج تشغيلية في هذا المستند تُقرأ كتفصيل تابع له.
+
 ## مستوى التميز: WORLD-CLASS ENTERPRISE
 ### أعلى من Professional — مستوى النخبة العالمية
 
