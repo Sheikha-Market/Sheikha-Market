@@ -549,13 +549,14 @@ async function testTopEnterpriseIntegration() {
         assert.ok(r.status === 401, `Expected 401, got ${r.status}`);
     });
 
-    await test('POST /api/top-enterprise/activation/workflow — فشل جزئي قبل تفعيل المنظمة', async () => {
+    await test('POST /api/top-enterprise/activation/workflow — فشل جزئي متوقع قبل تفعيل المنظمة', async () => {
         const r = await req('POST', '/api/top-enterprise/activation/workflow', {}, ENTERPRISE_TOKEN);
         assert.ok([200, 409].includes(r.status), `Expected 200/409, got ${r.status}`);
         assert.ok(r.body.report, 'Missing report');
+        assert.ok(r.body.report.status === 'partial-failure', `Expected partial-failure, got ${r.body.report.status}`);
     });
 
-    await test('POST /api/organizations — إنشاء منظمة', async () => {
+    await test('POST /api/organizations — إنشاء منظمة (مسار عام)', async () => {
         const r = await req('POST', '/api/organizations', {
             nameAr: `منظمة اختبار ${RUN_ID}`,
             type: 'specialized',

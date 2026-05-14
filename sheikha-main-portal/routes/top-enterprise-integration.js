@@ -26,11 +26,11 @@ function getUnifiedStatus() {
     const activeOrganizations = organizations.filter(org => org.status === 'active');
     const neuralStatus = neuralCells.status();
 
-    const vpsKeyConfigured = Boolean(
-        process.env.SHEIKHA_ENTERPRISE_VPS_KEY ||
+    const rawVpsKey = process.env.SHEIKHA_ENTERPRISE_VPS_KEY ||
         process.env.SHEIKHA_VPS_KEY ||
-        process.env.VPS_KEY
-    );
+        process.env.VPS_KEY ||
+        '';
+    const vpsKeyConfigured = typeof rawVpsKey === 'string' && rawVpsKey.trim().length >= 16;
 
     const enterpriseEnabled = process.env.SHEIKHA_ENTERPRISE_ENABLED !== 'false';
     const sheikhaTopDomain = process.env.SHEIKHA_TOP_DOMAIN || 'sheikha.top';
@@ -119,7 +119,7 @@ function runActivationWorkflow(payload = {}, initiatedBy = null) {
     };
 
     activationRuns.set(workflowId, report);
-    while (activationRuns.size > MAX_ACTIVATION_RUNS) {
+    if (activationRuns.size > MAX_ACTIVATION_RUNS) {
         const oldestKey = activationRuns.keys().next().value;
         activationRuns.delete(oldestKey);
     }
