@@ -8,10 +8,39 @@ set -o pipefail
 # Configuration
 ORIGIN_REPO="origin"
 ENTERPRISE_REPO="enterprise"
+ENV_FILE="${NEURAL_SYNC_ENV_FILE:-.env.neural-sync}"
 SYNC_LOG_DIR="logs"
 SYNC_AUDIT_FILE="${SYNC_LOG_DIR}/sync-audit.ndjson"
 SCRIPT_VERSION="1.0.0"
 ENTERPRISE_AVAILABLE=1
+
+# Load optional env file for enterprise auth and runtime options.
+if [[ -f "$ENV_FILE" ]]; then
+  set -a
+  # shellcheck disable=SC1090
+  source "$ENV_FILE"
+  set +a
+fi
+
+if [[ -n "${ENTERPRISE_REMOTE_NAME:-}" ]]; then
+  ENTERPRISE_REPO="$ENTERPRISE_REMOTE_NAME"
+fi
+
+configure_enterprise_auth() {
+  if [[ -z "${ENTERPRISE_GIT_USERNAME:-}" ]] || [[ -z "${ENTERPRISE_GIT_TOKEN:-}" ]]; then
+    return 0
+  fi
+
+  if [[ -z "${ENTERPRISE_REPO_URL:-}" ]]; then
+    ENTERPRISE_REPO_URL="https://github.com/Sheikha-top/sheikha-enterprise-portal.git"
+  fi
+
+  git remote set-url "$ENTERPRISE_REPO" "$ENTERPRISE_REPO_URL" > /dev/null 2>&1 || true
+  git config --global credential.helper store > /dev/null 2>&1 || true
+
+  printf "protocol=https\nhost=github.com\nusername=%s\npassword=%s\n\n" \
+    "$ENTERPRISE_GIT_USERNAME" "$ENTERPRISE_GIT_TOKEN" | git credential approve
+}
 
 # Options
 SYNC_TYPE=${1:-full}
@@ -325,6 +354,8 @@ validate_sync() {
 
 main() {
   local timestamp=$(date -u +%Y-%m-%dT%H:%M:%SZ)
+
+  configure_enterprise_auth
 
   echo "[Neural Cell] Sync initiated at $timestamp"
   echo "[Neural Cell] Sync type: $SYNC_TYPE"
