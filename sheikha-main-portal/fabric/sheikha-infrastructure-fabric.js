@@ -82,7 +82,7 @@ function initialize() {
         return;
     }
     FABRIC_IDENTITY.initializedAt = new Date().toISOString();
-    _log('info', `بدء تهيئة ${FABRIC_LAYERS.length} طبقة من طبقات الفابريك…`);
+    _log('info', `بدء تهيئة ${FABRIC_LAYERS.length} طبقة من طبقات الفابريك الثلاث عشرة…`);
 
     for (const layer of FABRIC_LAYERS) {
         _layers.set(layer.id, {

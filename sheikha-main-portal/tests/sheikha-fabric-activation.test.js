@@ -214,6 +214,10 @@ let contractThrew = false;
 try { tr.createContract('c2', [], []); } catch (_) { contractThrew = true; }
 assert(contractThrew, 'contract without terms throws (anti-gharar)');
 
+// positive case: valid contract
+const validContract = tr.createContract('con-002', ['buyer-002', 'seller-002'], ['delivery in 14 days', 'quality grade A']);
+assert(validContract.status === 'active', 'valid contract with terms is created');
+
 // ─── 11. Domain: Financial ────────────────────────────────────────────────────
 console.log('\n[11] Domain: Financial');
 const fin = require('../financial/index');

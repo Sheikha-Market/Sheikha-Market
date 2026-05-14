@@ -114,6 +114,7 @@ function snapshot() {
     record('system.uptime', snap.uptime);
     record('system.memory.rss', snap.memory.rss);
     record('system.memory.heapUsed', snap.memory.heapUsed);
+    record('system.memory.heapTotal', snap.memory.heapTotal);
 
     _bus.emit('observability:snapshot', snap);
     return snap;
@@ -194,8 +195,7 @@ function generateReport() {
 function analyzeBottlenecks() {
     const bottlenecks = [];
     const heapUsed = get('system.memory.heapUsed');
-    const heapTotal = _metrics.has('system.memory.heapUsed')
-        ? (_metrics.get('system.memory.heapUsed').value || 0) : 0;
+    const heapTotal = get('system.memory.heapTotal');
 
     if (heapUsed && heapTotal && heapUsed / heapTotal > 0.85) {
         bottlenecks.push({ type: 'memory', severity: 'high', detail: 'heap > 85%' });
