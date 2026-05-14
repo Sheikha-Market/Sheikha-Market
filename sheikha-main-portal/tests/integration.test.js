@@ -22,6 +22,7 @@ const RUN_ID = Date.now().toString(36);
 const BUYER_EMAIL    = `buyer-${RUN_ID}@test.sheikha.local`;
 const SUPPLIER_EMAIL = `supplier-${RUN_ID}@test.sheikha.local`;
 const ADMIN_EMAIL    = `admin-${RUN_ID}@test.sheikha.local`;
+const ENTERPRISE_EMAIL = `enterprise-${RUN_ID}@test.sheikha.local`;
 const TEST_PASSWORD  = 'TestPass@2026!';
 
 let BUYER_TOKEN    = null;
@@ -189,7 +190,7 @@ async function testRegistration() {
     await test('POST /api/auth/register — حساب مؤسسي', async () => {
         const r = await req('POST', '/api/auth/register', {
             name: `مؤسسي اختبار ${RUN_ID}`,
-            email: ADMIN_EMAIL,
+            email: ENTERPRISE_EMAIL,
             password: TEST_PASSWORD,
             role: 'enterprise'
         });

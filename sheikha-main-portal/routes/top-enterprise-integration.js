@@ -2,20 +2,21 @@
 
 const express = require('express');
 const router = express.Router();
+const crypto = require('crypto');
 
 const Organization = require('../models/Organization');
 const { authenticate, authorize } = require('../middleware/auth');
 const neuralCells = require('../core/neural/neural-cells');
 
-let enterpriseEngine = null;
+let enterpriseIntegrationEngine = null;
 const activationRuns = new Map();
 
 function getEnterpriseEngine() {
-    if (!enterpriseEngine) {
+    if (!enterpriseIntegrationEngine) {
         const Engine = require('../lib/sheikha-enterprise-integration');
-        enterpriseEngine = new Engine();
+        enterpriseIntegrationEngine = new Engine();
     }
-    return enterpriseEngine;
+    return enterpriseIntegrationEngine;
 }
 
 function getUnifiedStatus() {
@@ -60,10 +61,10 @@ function getUnifiedStatus() {
     };
 
     const readinessChecks = [
-        { key: 'enterprise_enabled', passed: model.enterpriseAccount.enabled },
-        { key: 'organization_active', passed: model.organizationAccount.ready },
-        { key: 'domain_linked', passed: model.domainProfile.linked },
-        { key: 'neural_ready_12_cells', passed: model.neuralStatus.ready }
+        { key: 'enterpriseEnabled', passed: model.enterpriseAccount.enabled },
+        { key: 'organizationActive', passed: model.organizationAccount.ready },
+        { key: 'domainLinked', passed: model.domainProfile.linked },
+        { key: 'neuralReady12Cells', passed: model.neuralStatus.ready }
     ];
 
     return {
@@ -74,7 +75,7 @@ function getUnifiedStatus() {
 }
 
 function runActivationWorkflow(payload = {}, initiatedBy = null) {
-    const workflowId = `tei_${Date.now()}_${Math.random().toString(36).slice(2, 8)}`;
+    const workflowId = `tei_${Date.now()}_${crypto.randomUUID()}`;
     const now = new Date().toISOString();
     const unified = getUnifiedStatus();
 
