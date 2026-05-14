@@ -2015,9 +2015,11 @@ const app = express();
 const ObservabilityService = require('./lib/runtime/services/observability-service');
 const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
 const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
+const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
+const smartCities = new SmartCitiesEngine();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -18410,6 +18412,15 @@ app.get('/api/markets/status', (req, res) => {
         markets: {
             metals: metalsMarket.getStatus()
         },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/smart-cities/status', (req, res) => {
+    res.json({
+        success: true,
+        organization: 'SHEIKHA Smart Cities Organization',
+        data: smartCities.getStatus(),
         timestamp: new Date().toISOString()
     });
 });
