@@ -23,8 +23,13 @@ repos/
 
 # Local runtime helper scripts (not part of production source baseline)
 scripts/
-sync-neural-cells.sh
-!sync-neural-cells.sh
+!scripts/
+scripts/*
+scripts/sync-neural-cells.sh
+!scripts/neural-sync-watch.sh
+!scripts/setup-neural-sync-cron.sh
+/sync-neural-cells.sh
+!/sync-neural-cells.sh
 
 # Editor/runtime local artifacts
 .checkpoints/

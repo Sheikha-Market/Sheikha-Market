@@ -264,8 +264,8 @@ sync_feature_branches() {
   log_message "INFO" "Syncing feature branches: bidirectional"
   log_audit "INFO" "SYNC_FEATURES_START" "Synchronizing feature branches"
 
-  # Get all feature branches on origin
-  local feature_branches=$(git branch -r | grep "$ORIGIN_REPO/feature/" | sed 's|.*/||')
+  # Get all feature branches on origin while preserving feature/* path.
+  local feature_branches=$(git branch -r | sed 's/^\s*//' | grep "^$ORIGIN_REPO/feature/" | sed "s|^$ORIGIN_REPO/||")
   local synced=0
 
   for branch in $feature_branches; do
@@ -277,7 +277,7 @@ sync_feature_branches() {
       continue
     fi
 
-    # Push to enterprise
+    # Push full feature path to enterprise (e.g., feature/targeted-improvement).
     if git push $ENTERPRISE_REPO "$ORIGIN_REPO/$branch:$branch" -f 2>&1 | tee -a "$SYNC_LOG_DIR/push-features.log"; then
       log_message "INFO" "✅ Synced $branch"
       ((synced++))
@@ -320,25 +320,35 @@ validate_sync() {
     return 0
   fi
 
-  # Check stable/runtime-baseline consistency
-  local origin_hash=$(git rev-parse $ORIGIN_REPO/stable/runtime-baseline 2>/dev/null || echo "MISSING")
-  local enterprise_hash=$(git rev-parse $ENTERPRISE_REPO/stable/runtime-baseline 2>/dev/null || echo "MISSING")
-
-  if [[ "$origin_hash" != "$enterprise_hash" ]]; then
-    log_message "WARN" "stable/runtime-baseline hashes differ"
-    log_message "INFO" "  Origin:     $origin_hash"
-    log_message "INFO" "  Enterprise: $enterprise_hash"
-    ((issues++))
-  else
-    log_message "INFO" "✅ stable/runtime-baseline consistent"
+  # Check stable/runtime-baseline consistency only when the branch exists on origin.
+  local origin_has_stable=0
+  if git ls-remote --heads $ORIGIN_REPO "stable/runtime-baseline" | grep -q "stable/runtime-baseline"; then
+    origin_has_stable=1
   fi
 
-  # Check .runtime-fingerprint
-  if ! git diff $ORIGIN_REPO/stable/runtime-baseline -- .runtime-fingerprint | grep -q "^"; then
-    log_message "INFO" "✅ .runtime-fingerprint consistent"
+  if [[ $origin_has_stable -eq 1 ]]; then
+    local origin_hash=$(git rev-parse $ORIGIN_REPO/stable/runtime-baseline 2>/dev/null || echo "MISSING")
+    local enterprise_hash=$(git rev-parse $ENTERPRISE_REPO/stable/runtime-baseline 2>/dev/null || echo "MISSING")
+
+    if [[ "$origin_hash" != "$enterprise_hash" ]]; then
+      log_message "WARN" "stable/runtime-baseline hashes differ"
+      log_message "INFO" "  Origin:     $origin_hash"
+      log_message "INFO" "  Enterprise: $enterprise_hash"
+      ((issues++))
+    else
+      log_message "INFO" "✅ stable/runtime-baseline consistent"
+    fi
+
+    # Check .runtime-fingerprint against stable/runtime-baseline when available.
+    if ! git diff $ORIGIN_REPO/stable/runtime-baseline -- .runtime-fingerprint | grep -q "^"; then
+      log_message "INFO" "✅ .runtime-fingerprint consistent"
+    else
+      log_message "WARN" ".runtime-fingerprint differs from origin"
+      ((issues++))
+    fi
   else
-    log_message "WARN" ".runtime-fingerprint differs from origin"
-    ((issues++))
+    log_message "INFO" "Origin branch stable/runtime-baseline is missing; skipping stable consistency checks"
+    log_message "INFO" "✅ .runtime-fingerprint check skipped (no origin stable/runtime-baseline)"
   fi
 
   log_audit "INFO" "VALIDATE_END" "Validation completed with $issues issues"
