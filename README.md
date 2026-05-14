@@ -19,7 +19,7 @@
 | Copilot Cloud Agent (وكيل البرمجة الذكي) | ✅ مُفعَّل |
 | Copilot Instructions مخصصة للمشروع | ✅ [`.github/copilot-instructions.md`](.github/copilot-instructions.md) |
 
-### ⚙️ GitHub Actions (15 Workflow)
+### ⚙️ GitHub Actions (15 Workflows)
 | الـ Workflow | الوظيفة |
 |-------------|---------|
 | CI — Lint & Security & MVP Smoke Test | فحص الكود والأمان والاختبار |
