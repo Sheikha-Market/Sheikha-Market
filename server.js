@@ -2026,9 +2026,15 @@ const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
 const EducationEngine = require('./lib/runtime/engines/education-engine');
 const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
 const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
+const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
 const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
 const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
+const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
+const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
+const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
+const consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
+const createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
 const smartCities = new SmartCitiesEngine();
@@ -2042,6 +2048,7 @@ const arbitration = new ArbitrationEngine();
 const education = new EducationEngine();
 const innovation = new InnovationEngine();
 const knowledgeGraph = new KnowledgeGraphEngine();
+const consulting = new InternationalConsultingEngine();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -2066,6 +2073,17 @@ app.use(
         runtimeObservability
     )
 );
+
+app.use('/api/consulting', createConsultingRouter({
+    consultingRegistry,
+    consultingGovernance,
+    consultingKpi,
+    consultingKnowledgeBase,
+    consultingEngine: consulting,
+    hsRuntimeRegistry,
+    supplyChain,
+    recycling
+}));
 
 if (observability && typeof observability.createLatencyMiddleware === 'function') {
     app.use(observability.createLatencyMiddleware({
@@ -18577,6 +18595,7 @@ app.get('/api/control-center/status', (req, res) => {
             education: education.getStatus(),
             innovation: innovation.getStatus(),
             knowledgeGraph: knowledgeGraph.getStatus(),
+            consulting: consulting.getStatus(),
             hsRegistry: hsRuntimeRegistry.meta
         },
         timestamp: new Date().toISOString()
