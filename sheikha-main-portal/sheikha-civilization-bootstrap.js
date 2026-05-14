@@ -64,8 +64,11 @@ const governance   = require('./governance/sheikha-governance-fabric');
 const integration  = require('./integration/sheikha-integration-gateway');
 
 // ─── Distributed & Intelligence Layers ───────────────────────────────────────
-const distributed  = require('./distributed/sheikha-distributed-fabric');
-const intelligence = require('./intelligence/sheikha-intelligence-fabric');
+const distributed   = require('./distributed/sheikha-distributed-fabric');
+const intelligence  = require('./intelligence/sheikha-intelligence-fabric');
+
+// ─── Neural Root Network ──────────────────────────────────────────────────────
+const neuralRoot    = require('./intelligence/sheikha-neural-root-activator');
 
 // ─── Orchestration Layer ──────────────────────────────────────────────────────
 const orchestrator = require('./orchestration/sheikha-orchestrator');
@@ -82,6 +85,9 @@ const smartCities  = require('./smart-cities/index');
 
 // ─── Civilization Identity ───────────────────────────────────────────────────
 
+// ─── Civilization Identity v2.0 ──────────────────────────────────────────────
+// الهوية الرسمية الكاملة للمنظومة — 10 طبقات، 5 نطاقات، بنية موزّعة-نمطية
+// SHEIKHA Sovereign Cognitive Infrastructure — الهيكل الكامل
 const CIVILIZATION_IDENTITY = {
     name:      'SHEIKHA',
     technical: 'SHEIKHA Sovereign Cognitive Infrastructure',
@@ -94,6 +100,7 @@ const CIVILIZATION_IDENTITY = {
         'Security Layer',
         'Observability Layer',
         'Intelligence Layer',
+        'Neural Root Network Layer',
         'Orchestration Layer',
         'Governance Layer',
         'Autonomous Operations Layer',
@@ -203,6 +210,7 @@ function activate() {
     kernel.registerService('governance-fabric',     { critical: true });
     kernel.registerService('distributed-fabric',    { critical: false });
     kernel.registerService('intelligence-fabric',   { critical: false });
+    kernel.registerService('neural-root-network',   { critical: false });
     kernel.registerService('integration-gateway',   { critical: false });
     kernel.registerService('orchestrator',          { critical: false });
     kernel.registerService('modules-registry',      { critical: false });
@@ -234,6 +242,11 @@ function activate() {
     // Intelligence
     intelligence.start();
     kernel.startService('intelligence-fabric');
+
+    // Neural Root Network — شبكة الخلايا العصبية الجذرية (128 خلية)
+    neuralRoot.activate();
+    neuralRoot.syncWithIntelligence(intelligence);
+    kernel.startService('neural-root-network');
 
     // Governance
     governance.start();
@@ -273,12 +286,14 @@ function activate() {
     kernel.loadEngine('fabric',        fabric);
     kernel.loadEngine('distributed',   distributed);
     kernel.loadEngine('intelligence',  intelligence);
+    kernel.loadEngine('neural-root',   neuralRoot);
 
     // ── Final Health Check ─────────────────────────────────────────────
     const health = kernel.healthCheck();
     observability.record('civilization.servicesRunning', health.services.running);
+    observability.record('civilization.neuralCells', neuralRoot.health().totalCells);
 
-    _log(`✅ المنظومة مُفعَّلة v2.0 | ${health.services.running}/${health.services.total} خدمة تعمل`);
+    _log(`✅ المنظومة مُفعَّلة v2.0 | ${health.services.running}/${health.services.total} خدمة تعمل | ${neuralRoot.health().totalCells} خلية عصبية جذرية`);
 
     return {
         runtimeKernel,
@@ -290,6 +305,7 @@ function activate() {
         integration,
         distributed,
         intelligence,
+        neuralRoot,
         orchestrator,
         modules,
         domains: { supplyChain, industry, trade, financial, smartCities },
@@ -297,6 +313,10 @@ function activate() {
         health: () => kernel.healthCheck(),
         status: () => civilizationStatus(),
         runEvolutionCycle: (ctx) => orchestrator.runEvolutionCycle(ctx),
+        // Neural Root shortcuts
+        infer:     (input) => neuralRoot.infer(input),
+        halalCheck: (tx)   => neuralRoot.quickHalalCheck(tx),
+        maqasid:   (tx)    => neuralRoot.assessMaqasid(tx),
     };
 }
 
@@ -314,6 +334,7 @@ function civilizationStatus() {
         integration: integration.status(),
         distributed: distributed.status(),
         intelligence: intelligence.status(),
+        neuralRoot: neuralRoot.status(),
         orchestrator: orchestrator.status(),
         modules: modules.status(),
         domains: {

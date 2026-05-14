@@ -285,7 +285,7 @@ assert(civilization.runtimeKernel !== undefined, 'civilization v2 exposes runtim
 // Updated identity
 const civStatus = civilization.status();
 assert(civStatus.identity.version === '2.0.0', 'civilization identity is v2.0.0');
-assert(civStatus.identity.layers.length === 9, 'civilization v2 has 9 system layers');
+assert(civStatus.identity.layers.length === 10, 'civilization v2 has 10 system layers (incl. Neural Root)');
 assert(civStatus.identity.layers.includes('Security Layer'), 'Security Layer present');
 assert(civStatus.identity.layers.includes('Intelligence Layer'), 'Intelligence Layer present');
 assert(civStatus.identity.layers.includes('Distributed Fabric Layer'), 'Distributed Fabric Layer present');

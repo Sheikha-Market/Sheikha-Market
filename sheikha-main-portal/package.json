@@ -15,6 +15,8 @@
     "test:fabric": "node tests/sheikha-fabric-activation.test.js",
     "test:fabric:v2": "node tests/sheikha-infrastructure-v2.test.js",
     "test:all-fabric": "node tests/sheikha-fabric-activation.test.js && node tests/sheikha-infrastructure-v2.test.js",
+    "test:neural-root": "node tests/sheikha-neural-root.test.js",
+    "test:all": "node tests/sheikha-fabric-activation.test.js && node tests/sheikha-infrastructure-v2.test.js && node tests/sheikha-neural-root.test.js",
     "test:grid": "bash scripts/test-cellular-grid.sh",
     "seed": "node scripts/seed-market-data.js",
     "seed:market": "node scripts/seed-market-data.js",
