@@ -1,0 +1,301 @@
+# ╔══════════════════════════════════════════════════════════════════════════════╗
+# ║  📋 Projects Automation — أتمتة لوحة المشاريع                              ║
+# ║  Sheikha Market — GitHub Projects Auto-Management                           ║
+# ╚══════════════════════════════════════════════════════════════════════════════╝
+name: Projects — Auto-Management
+
+on:
+  issues:
+    types: [opened, labeled, closed, reopened]
+  pull_request_target:
+    types: [opened, labeled, closed, merged, ready_for_review, converted_to_draft]
+  workflow_dispatch:
+    inputs:
+      dry_run:
+        description: "تشغيل تجريبي بدون تغييرات فعلية"
+        required: false
+        default: false
+        type: boolean
+
+jobs:
+  # ─── ربط Issues الجديدة بلوحة المشاريع ────────────────────────────────────
+  add-issue-to-project:
+    name: 📋 Add Issue to Project Board
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'issues' && github.event.action == 'opened'
+    permissions:
+      issues: write
+      repository-projects: write
+
+    steps:
+      - name: 🔗 Add to Project Board
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const issue = context.payload.issue;
+            const labels = issue.labels.map(l => l.name);
+
+            // تصنيف تلقائي بناءً على Labels
+            let priority = '🔵 Normal';
+            if (labels.includes('critical') || labels.includes('security')) {
+              priority = '🔴 Critical';
+            } else if (labels.includes('bug') || labels.includes('high-priority')) {
+              priority = '🟠 High';
+            } else if (labels.includes('enhancement') || labels.includes('feature')) {
+              priority = '🟡 Medium';
+            }
+
+            console.log(`📋 Issue #${issue.number}: "${issue.title}"`);
+            console.log(`🏷️  Labels: ${labels.join(', ') || 'none'}`);
+            console.log(`⚡ Priority: ${priority}`);
+            console.log(`🔗 URL: ${issue.html_url}`);
+
+            // إضافة تعليق بمعلومات التتبع
+            const trackingComment = [
+              '## 📋 تم إضافة هذا الـ Issue لقائمة العمل — Added to Work Queue',
+              '',
+              `| المعلومة | القيمة |`,
+              `|----------|--------|`,
+              `| الرقم | #${issue.number} |`,
+              `| الأولوية | ${priority} |`,
+              `| التاريخ | ${new Date().toLocaleDateString('ar-SA', { timeZone: 'Asia/Riyadh' })} |`,
+              `| الحالة | 🔄 في الانتظار — Pending |`,
+              '',
+              '> سيتم مراجعة هذا الطلب وتحديد موعده في أقرب وقت بإذن الله.',
+              '',
+              '*منظومة سوق شيخة™*',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              body: trackingComment,
+            });
+
+            console.log('✅ تم إضافة Issue لقائمة العمل');
+
+  # ─── تصنيف Issues بناءً على Labels ────────────────────────────────────────
+  triage-labeled-issue:
+    name: 🏷️ Triage Labeled Issue
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'issues' && github.event.action == 'labeled'
+    permissions:
+      issues: write
+
+    steps:
+      - name: 🏷️ Auto-assign milestone by label
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const label = context.payload.label.name;
+            const issue = context.payload.issue;
+
+            console.log(`🏷️ Label added: "${label}" to Issue #${issue.number}`);
+
+            // قواعد الإسناد التلقائي بناءً على Label
+            const milestoneMap = {
+              'security':      'v1.x — Security Patches',
+              'critical':      'v1.x — Security Patches',
+              'bug':           'v1.x — Bug Fixes',
+              'enhancement':   'v2.0 — Feature Releases',
+              'feature':       'v2.0 — Feature Releases',
+              'documentation': 'v1.x — Docs & Cleanup',
+              'performance':   'v2.0 — Feature Releases',
+            };
+
+            const targetMilestone = milestoneMap[label];
+            if (!targetMilestone) {
+              console.log(`ℹ️ No milestone rule for label "${label}" — skipping`);
+              return;
+            }
+
+            // البحث عن المرحلة
+            const milestones = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+            });
+
+            const milestone = milestones.data.find(m => m.title === targetMilestone);
+            if (!milestone) {
+              console.log(`ℹ️ Milestone "${targetMilestone}" not found — skipping`);
+              return;
+            }
+
+            await github.rest.issues.update({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: issue.number,
+              milestone: milestone.number,
+            });
+
+            console.log(`✅ Issue #${issue.number} assigned to milestone: ${targetMilestone}`);
+
+  # ─── ربط PRs بلوحة المشاريع ────────────────────────────────────────────────
+  add-pr-to-project:
+    name: 🔀 Track Pull Request
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: |
+      github.event_name == 'pull_request_target' &&
+      github.event.action == 'opened'
+    permissions:
+      pull-requests: write
+      repository-projects: write
+
+    steps:
+      - name: 🔀 Add PR tracking info
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            const labels = pr.labels.map(l => l.name);
+            const isDraft = pr.draft;
+
+            console.log(`🔀 PR #${pr.number}: "${pr.title}"`);
+            console.log(`📋 Draft: ${isDraft}`);
+            console.log(`🏷️  Labels: ${labels.join(', ') || 'none'}`);
+
+            const status = isDraft ? '🔧 في التطوير — In Development' : '👀 جاهز للمراجعة — Ready for Review';
+
+            const trackingBody = [
+              '## 🔀 تتبع Pull Request — PR Tracking',
+              '',
+              `| المعلومة | القيمة |`,
+              `|----------|--------|`,
+              `| الرقم | #${pr.number} |`,
+              `| الفرع | \`${pr.head.ref}\` ← \`${pr.base.ref}\` |`,
+              `| الحالة | ${status} |`,
+              `| التاريخ | ${new Date().toLocaleDateString('ar-SA', { timeZone: 'Asia/Riyadh' })} |`,
+              '',
+              '### ✅ قائمة التحقق للمراجعة',
+              '- [ ] اجتياز جميع فحوصات CI',
+              '- [ ] مراجعة Copilot Code Review',
+              '- [ ] التوافق مع [ميثاق شيخة](../../blob/main/CHARTER.md)',
+              '- [ ] لا credentials أو secrets في الكود',
+              '',
+              '*منظومة سوق شيخة™ — «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ»*',
+            ].join('\n');
+
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: pr.number,
+              body: trackingBody,
+            });
+
+            console.log('✅ PR tracking comment added');
+
+  # ─── تحديث حالة PR عند الإغلاق أو الدمج ──────────────────────────────────
+  update-pr-status:
+    name: 🔄 Update PR Status on Close/Merge
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: |
+      github.event_name == 'pull_request_target' &&
+      (github.event.action == 'closed')
+    permissions:
+      pull-requests: write
+      issues: write
+
+    steps:
+      - name: 🔄 Comment merge/close status
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const pr = context.payload.pull_request;
+            const merged = pr.merged;
+
+            if (merged) {
+              console.log(`✅ PR #${pr.number} was MERGED`);
+
+              await github.rest.issues.createComment({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: pr.number,
+                body: [
+                  '## ✅ تم الدمج بنجاح — Successfully Merged',
+                  '',
+                  `تم دمج هذا الـ Pull Request في \`${pr.base.ref}\` بنجاح.`,
+                  '',
+                  `> *الحمد لله — «وَأَتِمُّوا الْحَجَّ وَالْعُمْرَةَ لِلَّهِ»*`,
+                  '',
+                  '*منظومة سوق شيخة™*',
+                ].join('\n'),
+              });
+            } else {
+              console.log(`❌ PR #${pr.number} was CLOSED without merge`);
+            }
+
+  # ─── إنشاء المراحل (Milestones) التلقائية ─────────────────────────────────
+  ensure-milestones:
+    name: 🎯 Ensure Required Milestones
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    if: github.event_name == 'workflow_dispatch'
+    permissions:
+      issues: write
+
+    steps:
+      - name: 🎯 Create milestones if not exist
+        uses: actions/github-script@v7
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          script: |
+            const requiredMilestones = [
+              {
+                title: 'v1.x — Security Patches',
+                description: 'تحديثات الأمان والإصلاحات الطارئة — Security updates and emergency fixes',
+                due_on: null,
+              },
+              {
+                title: 'v1.x — Bug Fixes',
+                description: 'إصلاح الأخطاء والمشكلات المُبلَّغ عنها — Bug fixes and reported issues',
+                due_on: null,
+              },
+              {
+                title: 'v1.x — Docs & Cleanup',
+                description: 'تحسين التوثيق والتنظيم — Documentation and code cleanup',
+                due_on: null,
+              },
+              {
+                title: 'v2.0 — Feature Releases',
+                description: 'الميزات الجديدة والتحسينات — New features and enhancements',
+                due_on: null,
+              },
+            ];
+
+            const existing = await github.rest.issues.listMilestones({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              state: 'open',
+              per_page: 100,
+            });
+
+            const existingTitles = existing.data.map(m => m.title);
+
+            for (const ms of requiredMilestones) {
+              if (existingTitles.includes(ms.title)) {
+                console.log(`✅ Milestone already exists: "${ms.title}"`);
+                continue;
+              }
+
+              const body = { ...ms };
+              if (body.due_on === null) delete body.due_on;
+
+              await github.rest.issues.createMilestone({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                ...body,
+              });
+              console.log(`✅ Created milestone: "${ms.title}"`);
+            }
+
+            console.log('🎯 Milestones setup complete');
