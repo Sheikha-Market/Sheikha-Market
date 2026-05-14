@@ -13,6 +13,8 @@
     "test": "node tests/integration.test.js",
     "test:integration": "node tests/integration.test.js",
     "test:fabric": "node tests/sheikha-fabric-activation.test.js",
+    "test:fabric:v2": "node tests/sheikha-infrastructure-v2.test.js",
+    "test:all-fabric": "node tests/sheikha-fabric-activation.test.js && node tests/sheikha-infrastructure-v2.test.js",
     "test:grid": "bash scripts/test-cellular-grid.sh",
     "seed": "node scripts/seed-market-data.js",
     "seed:market": "node scripts/seed-market-data.js",
