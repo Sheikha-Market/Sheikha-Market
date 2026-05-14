@@ -2030,6 +2030,7 @@ const InternationalConsultingEngine = require('./lib/runtime/engines/internation
 const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
 const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
 const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
+const { getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry');
 const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
 const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
 const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
@@ -18566,6 +18567,14 @@ app.get('/api/hs/runtime/status', (req, res) => {
     });
 });
 
+app.get('/api/neural-sync/status', (req, res) => {
+    res.json({
+        success: true,
+        ...getNeuralCellsStatus(__dirname),
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.get('/api/root-system/status', (req, res) => {
     res.json({
         success: true,
@@ -18596,6 +18605,7 @@ app.get('/api/control-center/status', (req, res) => {
             innovation: innovation.getStatus(),
             knowledgeGraph: knowledgeGraph.getStatus(),
             consulting: consulting.getStatus(),
+            neuralCells: getNeuralCellsStatus(__dirname),
             hsRegistry: hsRuntimeRegistry.meta
         },
         timestamp: new Date().toISOString()
