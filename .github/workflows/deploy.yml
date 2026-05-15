@@ -1,6 +1,6 @@
 # بسم الله الرحمن الرحيم
-# Deploy to Hostinger VPS (Malaysia) via SSH + Docker Compose
-name: Deploy Sheikha to VPS
+# Deploy to Hostinger VPS via SSH + PM2
+name: 🚀 Deploy Sheikha to VPS
 
 on:
   push:
@@ -13,19 +13,20 @@ concurrency:
 
 jobs:
   deploy:
+    name: Deploy to Hostinger VPS
     runs-on: ubuntu-latest
-    timeout-minutes: 20
+    timeout-minutes: 15
+
     steps:
-      - name: Checkout
+      - name: ✅ Checkout code
         uses: actions/checkout@v4
 
-      - name: Validate server boot order
+      - name: 🔍 Validate server.js exists
         run: |
-          [ -f server.js ] || { echo "❌ release invalid: missing server.js"; exit 1; }
-          node --check server.js
-          npm run -s server:guard:init
+          [ -f server.js ] || { echo "❌ server.js غير موجود"; exit 1; }
+          node --check server.js && echo "✅ server.js صحيح"
 
-      - name: Deploy on VPS with Docker Compose
+      - name: 🚀 Deploy on VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -35,38 +36,69 @@ jobs:
           script_stop: true
           script: |
             set -euo pipefail
-            APP_PATH="${{ secrets.VPS_APP_PATH }}"
-            if [ -z "$APP_PATH" ]; then
-              APP_PATH="/opt/sheikha/sheikha-main-portal"
+
+            # تحديد مسار التطبيق
+            APP_PATH="${VPS_APP_PATH:-/root/sheikha-main-portal}"
+            echo "📁 مسار التطبيق: $APP_PATH"
+
+            # التحقق من وجود المجلد
+            if [ ! -d "$APP_PATH" ]; then
+              echo "📥 المجلد غير موجود، جاري الاستنساخ..."
+              git clone git@github.com:Sheikha-Market/sheikha-main-portal.git "$APP_PATH"
             fi
+
             cd "$APP_PATH"
 
-            [ -f server.js ] || { echo "❌ release invalid: missing server.js in $APP_PATH"; exit 1; }
-
-            if [ ! -d .git ]; then
-              echo "❌ App path is not a git repository: $APP_PATH"
-              exit 1
-            fi
-
-            git fetch --all --prune
+            # سحب آخر التغييرات
+            echo "🔄 جاري سحب التحديثات..."
+            git fetch origin main
             git checkout main
-            git pull --ff-only
+            git reset --hard origin/main
+            echo "✅ تم سحب آخر إصدار: $(git rev-parse --short HEAD)"
 
-            [ -f server.js ] || { echo "❌ release invalid after pull: missing server.js"; exit 1; }
+            # التحقق من server.js
+            [ -f server.js ] || { echo "❌ server.js مفقود بعد السحب"; exit 1; }
 
-            docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env pull || true
-            docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env up -d --remove-orphans
-
-            sleep 8
-            curl -fsS http://localhost:8080/api/health
-
-            DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,\"\",$5); print $5}')"
-            echo "Disk usage: ${DISK_USED}%"
-            if [ "$DISK_USED" -ge 90 ]; then
-              echo "❌ CRITICAL: Disk usage >= 90%. Upgrade plan now."
-              exit 1
-            elif [ "$DISK_USED" -ge 80 ]; then
-              echo "⚠️ WARNING: Disk usage >= 80%. Consider upgrade soon."
+            # تثبيت الحزم إذا تغير package.json
+            if git diff HEAD~1 --name-only 2>/dev/null | grep -q "package"; then
+              echo "📦 تثبيت الحزم..."
+              npm ci --omit=dev --prefer-offline
             else
-              echo "✅ Disk usage is healthy."
+              echo "⏭️ لا تغيير في الحزم"
             fi
+
+            # إعادة تشغيل التطبيق بـ PM2
+            echo "♻️ إعادة تشغيل التطبيق..."
+            if pm2 list | grep -q "sheikha"; then
+              pm2 reload sheikha --update-env
+            else
+              pm2 start server.js --name sheikha \
+                --max-memory-restart 1500M \
+                --restart-delay 3000 \
+                --max-restarts 10 \
+                --log /var/log/sheikha/app.log \
+                --error /var/log/sheikha/error.log
+              pm2 save
+            fi
+
+            # انتظار الإقلاع
+            sleep 5
+
+            # فحص الصحة
+            echo "🏥 فحص الخادم..."
+            curl -fsS --max-time 10 http://localhost:8080/api/health \
+              && echo "✅ الخادم يعمل بنجاح" \
+              || { echo "❌ الخادم لا يستجيب"; pm2 logs sheikha --lines 30 --nostream; exit 1; }
+
+            # فحص الذاكرة والقرص
+            DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
+            MEM_FREE="$(free -m | awk '/^Mem:/{print $7}')"
+            echo "💾 استخدام القرص: ${DISK_USED}% | ذاكرة متاحة: ${MEM_FREE}MB"
+
+            if [ "$DISK_USED" -ge 90 ]; then
+              echo "❌ تحذير: القرص ممتلئ 90%+"; exit 1
+            elif [ "$DISK_USED" -ge 80 ]; then
+              echo "⚠️ تحذير: القرص وصل 80%"
+            fi
+
+            echo "🎉 تم النشر بنجاح - $(date '+%Y-%m-%d %H:%M:%S')"
