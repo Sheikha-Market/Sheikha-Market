@@ -28,7 +28,32 @@ scrape_configs:
     static_configs:
       - targets: ["main-portal:8080"]
 
+  - job_name: "neural-root-health"
+    metrics_path: /api/neural-root/health
+    static_configs:
+      - targets: ["main-portal:8080"]
+
+  - job_name: "cloud-health"
+    metrics_path: /api/cloud/health
+    static_configs:
+      - targets: ["main-portal:8080"]
+
+  - job_name: "cloud-neural-health"
+    metrics_path: /api/cloud-neural
+    static_configs:
+      - targets: ["main-portal:8080"]
+
   - job_name: "mcp-health"
     metrics_path: /health
     static_configs:
       - targets: ["mcp-server:8080"]
+
+  - job_name: "mcp-sdk-health"
+    metrics_path: /sdk/health
+    static_configs:
+      - targets: ["mcp-sdk:3001"]
+
+  - job_name: "mcp-ide-health"
+    metrics_path: /ide/health
+    static_configs:
+      - targets: ["mcp-ide:3002"]
