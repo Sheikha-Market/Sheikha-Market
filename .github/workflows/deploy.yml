@@ -46,90 +46,60 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_SSH_PORT || 22 }}
           script_stop: true
+          debug: true
           script: |
-            set -eu
+            echo "=== STEP 1: navigate ==="
+            cd /opt/sheikha/current && echo "OK: cd"
 
-            APP_PATH="/opt/sheikha/current"
-            PM2_NAME="sheikha-main-portal"
-            echo "📁 مسار التطبيق: $APP_PATH"
+            echo "=== STEP 2: git fetch ==="
+            git fetch origin main && echo "OK: fetch"
 
-            cd "$APP_PATH"
+            echo "=== STEP 3: git reset ==="
+            git reset --hard origin/main && echo "OK: reset"
 
-            # سحب آخر التغييرات (بدون git checkout لتجنب أخطاء HEAD)
-            echo "🔄 جاري سحب التحديثات..."
-            git fetch origin main
-            git reset --hard origin/main
-            echo "✅ تم سحب آخر إصدار: $(git rev-parse --short HEAD)"
+            echo "=== STEP 4: check server.js ==="
+            ls -la server.js && echo "OK: server.js"
 
-            # التحقق من server.js
-            [ -f server.js ] || { echo "❌ server.js مفقود بعد السحب"; exit 1; }
+            echo "=== STEP 5: git diff ==="
+            CHANGED=$(git diff HEAD~1 --name-only 2>/dev/null || echo "")
+            echo "CHANGED: $CHANGED"
 
-            # تثبيت الحزم إذا تغير package.json
-            CHANGED=$(git diff HEAD~1 --name-only 2>/dev/null || true)
-            if echo "$CHANGED" | grep -q "package"; then
-              echo "📦 تثبيت الحزم..."
-              npm ci --omit=dev --prefer-offline
+            echo "=== STEP 6: pm2 check ==="
+            pm2_running=$(pm2 list 2>/dev/null | grep -c "sheikha-main-portal" || echo "0")
+            echo "pm2_running: $pm2_running"
+
+            echo "=== STEP 7: mkdir logs ==="
+            mkdir -p /var/log/sheikha && echo "OK: mkdir"
+
+            echo "=== STEP 8: pm2 reload ==="
+            if [ "$pm2_running" -gt "0" ]; then
+              pm2 reload sheikha-main-portal --update-env && echo "OK: reload"
             else
-              echo "⏭️ لا تغيير في الحزم"
+              pm2 start server.js --name sheikha-main-portal && pm2 save && echo "OK: start"
             fi
 
-            # إنشاء مجلد logs إذا غير موجود
-            mkdir -p /var/log/sheikha
-
-            # إعادة تشغيل التطبيق بـ PM2
-            echo "♻️ إعادة تشغيل التطبيق..."
-            if pm2 list | grep -q "$PM2_NAME"; then
-              pm2 reload "$PM2_NAME" --update-env
-            else
-              pm2 start server.js --name "$PM2_NAME" \
-                --max-memory-restart 1500M \
-                --restart-delay 3000 \
-                --max-restarts 10 \
-                --log /var/log/sheikha/app.log \
-                --error /var/log/sheikha/error.log
-              pm2 save
-            fi
-
-            # انتظار الإقلاع
+            echo "=== STEP 9: wait ==="
             sleep 5
 
-            # فحص الصحة (تحقق من أن الخادم يستجيب - حتى 500 يعني أنه يعمل)
-            echo "🏥 فحص الخادم..."
+            echo "=== STEP 10: health check ==="
             HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
+            echo "HTTP_CODE: $HTTP_CODE"
             if [ "$HTTP_CODE" = "000" ]; then
-              echo "❌ الخادم لا يستجيب (timeout/connection refused)"
-              pm2 logs "$PM2_NAME" --lines 30 --nostream
+              echo "❌ الخادم لا يستجيب"
+              pm2 logs sheikha-main-portal --lines 20 --nostream
               exit 1
-            else
-              echo "✅ الخادم يستجيب - HTTP $HTTP_CODE"
             fi
 
-            # فحص القرص والذاكرة
-            DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
-            MEM_FREE="$(free -m | awk '/^Mem:/{print $7}')"
-            echo "💾 القرص: ${DISK_USED}% | الذاكرة المتاحة: ${MEM_FREE}MB"
-
-            if [ "$DISK_USED" -ge 90 ]; then
-              echo "❌ تحذير: القرص ممتلئ 90%+"; exit 1
-            elif [ "$DISK_USED" -ge 80 ]; then
-              echo "⚠️ تحذير: القرص وصل 80%"
-            fi
-
-            echo "🎉 تم النشر بنجاح - $(date '+%Y-%m-%d %H:%M:%S')"
+            echo "=== DONE: HTTP $HTTP_CODE ==="
+            echo "🎉 تم النشر - $(date '+%Y-%m-%d %H:%M:%S')"
 
       - name: ✅ Deployment successful
         if: success()
         run: |
-          echo "📊 ملخص النشر:"
-          echo "- ✅ الكود محدّث على origin/main"
-          echo "- ✅ PM2 أعاد التشغيل"
-          echo "- ✅ الخادم يستجيب"
-          echo "- 🌐 http://31.97.190.74:8080"
-          echo "- 📝 Commit: ${{ github.sha }}"
-          echo "- 👤 بواسطة: ${{ github.actor }}"
+          echo "✅ النشر نجح - Commit: ${{ github.sha }}"
 
       - name: ❌ Deployment failed
         if: failure()
         run: |
-          echo "❌ فشل النشر - يرجى مراجعة السجلات أعلاه"
+          echo "❌ فشل النشر"
           exit 1
