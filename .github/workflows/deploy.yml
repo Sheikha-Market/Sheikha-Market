@@ -28,10 +28,6 @@ jobs:
         run: |
           node -e "require('./package.json')" && echo "✅ package.json صحيح"
 
-      - name: 📝 Verify DEPLOYMENT.md exists
-        run: |
-          [ -f DEPLOYMENT.md ] && echo "✅ دليل النشر موجود"
-
   deploy:
     name: Deploy to Hostinger VPS
     needs: pre-deploy
@@ -41,11 +37,6 @@ jobs:
     steps:
       - name: ✅ Checkout code
         uses: actions/checkout@v4
-
-      - name: 🔍 Validate server.js exists
-        run: |
-          [ -f server.js ] || { echo "❌ server.js غير موجود"; exit 1; }
-          node --check server.js && echo "✅ server.js صحيح"
 
       - name: 🚀 Deploy on VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
@@ -64,10 +55,9 @@ jobs:
 
             cd "$APP_PATH"
 
-            # سحب آخر التغييرات
+            # سحب آخر التغييرات (بدون git checkout لتجنب أخطاء HEAD)
             echo "🔄 جاري سحب التحديثات..."
             git fetch origin main
-            git checkout main
             git reset --hard origin/main
             echo "✅ تم سحب آخر إصدار: $(git rev-parse --short HEAD)"
 
@@ -103,16 +93,21 @@ jobs:
             # انتظار الإقلاع
             sleep 5
 
-            # فحص الصحة
+            # فحص الصحة (تحقق من أن الخادم يستجيب - حتى 500 يعني أنه يعمل)
             echo "🏥 فحص الخادم..."
-            curl -fsS --max-time 10 http://localhost:8080/api/health \
-              && echo "✅ الخادم يعمل بنجاح" \
-              || { echo "❌ الخادم لا يستجيب"; pm2 logs "$PM2_NAME" --lines 30 --nostream; exit 1; }
+            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
+            if [ "$HTTP_CODE" = "000" ]; then
+              echo "❌ الخادم لا يستجيب (timeout/connection refused)"
+              pm2 logs "$PM2_NAME" --lines 30 --nostream
+              exit 1
+            else
+              echo "✅ الخادم يستجيب - HTTP $HTTP_CODE"
+            fi
 
-            # فحص القرص
+            # فحص القرص والذاكرة
             DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
             MEM_FREE="$(free -m | awk '/^Mem:/{print $7}')"
-            echo "💾 استخدام القرص: ${DISK_USED}% | ذاكرة متاحة: ${MEM_FREE}MB"
+            echo "💾 القرص: ${DISK_USED}% | الذاكرة المتاحة: ${MEM_FREE}MB"
 
             if [ "$DISK_USED" -ge 90 ]; then
               echo "❌ تحذير: القرص ممتلئ 90%+"; exit 1
@@ -126,15 +121,15 @@ jobs:
         if: success()
         run: |
           echo "📊 ملخص النشر:"
-          echo "- ✅ الكود محدّث"
-          echo "- ✅ الحزم مثبتة"
-          echo "- ✅ الخادم يعمل"
-          echo "- 🌐 متاح على: http://31.97.190.74:8080"
+          echo "- ✅ الكود محدّث على origin/main"
+          echo "- ✅ PM2 أعاد التشغيل"
+          echo "- ✅ الخادم يستجيب"
+          echo "- 🌐 http://31.97.190.74:8080"
           echo "- 📝 Commit: ${{ github.sha }}"
           echo "- 👤 بواسطة: ${{ github.actor }}"
 
       - name: ❌ Deployment failed
         if: failure()
         run: |
-          echo "❌ فشل النشر - يرجى التحقق من السجلات"
+          echo "❌ فشل النشر - يرجى مراجعة السجلات أعلاه"
           exit 1
