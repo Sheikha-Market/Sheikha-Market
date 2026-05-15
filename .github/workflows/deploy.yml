@@ -46,60 +46,84 @@ jobs:
           key: ${{ secrets.VPS_SSH_KEY }}
           port: ${{ secrets.VPS_SSH_PORT || 22 }}
           script_stop: true
-          debug: true
           script: |
-            echo "=== STEP 1: navigate ==="
-            cd /opt/sheikha/current && echo "OK: cd"
+            APP_PATH="/opt/sheikha/current"
+            PM2_NAME="sheikha-main-portal"
 
-            echo "=== STEP 2: git fetch ==="
-            git fetch origin main && echo "OK: fetch"
+            cd "$APP_PATH"
+            echo "📁 مسار التطبيق: $APP_PATH"
 
-            echo "=== STEP 3: git reset ==="
-            git reset --hard origin/main && echo "OK: reset"
+            # سحب آخر التغييرات
+            echo "🔄 سحب التحديثات من origin/main..."
+            git fetch origin main
+            git reset --hard origin/main
+            echo "✅ الإصدار: $(git rev-parse --short HEAD)"
 
-            echo "=== STEP 4: check server.js ==="
-            ls -la server.js && echo "OK: server.js"
+            # التحقق من server.js
+            ls server.js > /dev/null || { echo "❌ server.js مفقود"; exit 1; }
 
-            echo "=== STEP 5: git diff ==="
+            # تثبيت الحزم إذا تغير package.json
             CHANGED=$(git diff HEAD~1 --name-only 2>/dev/null || echo "")
-            echo "CHANGED: $CHANGED"
-
-            echo "=== STEP 6: pm2 check ==="
-            pm2_running=$(pm2 list 2>/dev/null | grep -c "sheikha-main-portal" || echo "0")
-            echo "pm2_running: $pm2_running"
-
-            echo "=== STEP 7: mkdir logs ==="
-            mkdir -p /var/log/sheikha && echo "OK: mkdir"
-
-            echo "=== STEP 8: pm2 reload ==="
-            if [ "$pm2_running" -gt "0" ]; then
-              pm2 reload sheikha-main-portal --update-env && echo "OK: reload"
+            if echo "$CHANGED" | grep -q "package"; then
+              echo "📦 تثبيت الحزم..."
+              npm ci --omit=dev --prefer-offline
             else
-              pm2 start server.js --name sheikha-main-portal && pm2 save && echo "OK: start"
+              echo "⏭️ لا تغيير في الحزم"
             fi
 
-            echo "=== STEP 9: wait ==="
+            # إنشاء مجلد logs
+            mkdir -p /var/log/sheikha
+
+            # إعادة تشغيل التطبيق بـ PM2
+            echo "♻️ إعادة تشغيل التطبيق..."
+            pm2_running=$(pm2 list 2>/dev/null | grep -c "$PM2_NAME" || echo "0")
+            if [ "$pm2_running" -gt "0" ]; then
+              pm2 reload "$PM2_NAME" --update-env
+            else
+              pm2 start server.js --name "$PM2_NAME" \
+                --max-memory-restart 1500M \
+                --restart-delay 3000 \
+                --max-restarts 10 \
+                --log /var/log/sheikha/app.log \
+                --error /var/log/sheikha/error.log
+              pm2 save
+            fi
+
+            # انتظار الإقلاع
             sleep 5
 
-            echo "=== STEP 10: health check ==="
+            # فحص الصحة
+            echo "🏥 فحص الخادم..."
             HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
-            echo "HTTP_CODE: $HTTP_CODE"
             if [ "$HTTP_CODE" = "000" ]; then
               echo "❌ الخادم لا يستجيب"
-              pm2 logs sheikha-main-portal --lines 20 --nostream
+              pm2 logs "$PM2_NAME" --lines 30 --nostream
               exit 1
             fi
 
-            echo "=== DONE: HTTP $HTTP_CODE ==="
-            echo "🎉 تم النشر - $(date '+%Y-%m-%d %H:%M:%S')"
+            # فحص القرص
+            DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
+            MEM_FREE="$(free -m | awk '/^Mem:/{print $7}')"
+            echo "💾 القرص: ${DISK_USED}% | الذاكرة المتاحة: ${MEM_FREE}MB"
+            if [ "$DISK_USED" -ge 90 ]; then
+              echo "❌ القرص ممتلئ 90%+"; exit 1
+            fi
+
+            echo "🎉 تم النشر - HTTP $HTTP_CODE - $(date '+%Y-%m-%d %H:%M:%S')"
 
       - name: ✅ Deployment successful
         if: success()
         run: |
-          echo "✅ النشر نجح - Commit: ${{ github.sha }}"
+          echo "📊 ملخص النشر:"
+          echo "- ✅ الكود محدّث"
+          echo "- ✅ PM2 أعاد التشغيل"
+          echo "- ✅ الخادم يستجيب"
+          echo "- 🌐 http://31.97.190.74:8080"
+          echo "- 📝 Commit: ${{ github.sha }}"
+          echo "- 👤 بواسطة: ${{ github.actor }}"
 
       - name: ❌ Deployment failed
         if: failure()
         run: |
-          echo "❌ فشل النشر"
+          echo "❌ فشل النشر - راجع السجلات أعلاه"
           exit 1
