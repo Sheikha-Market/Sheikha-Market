@@ -1,6 +1,6 @@
 # بسم الله الرحمن الرحيم
 # Deploy to Hostinger VPS via SSH + PM2
-name: 🚀 Deploy Sheikha to VPS
+name: Deploy Sheikha to VPS
 
 on:
   push:
@@ -16,17 +16,16 @@ jobs:
     name: Pre-deployment Checks
     runs-on: ubuntu-latest
     steps:
-      - name: ✅ Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🔍 Validate Node.js syntax
+      - name: Validate server.js
         run: |
-          [ -f server.js ] || { echo "❌ server.js غير موجود"; exit 1; }
-          node --check server.js && echo "✅ server.js صحيح"
+          [ -f server.js ] || { echo "server.js not found"; exit 1; }
+          node --check server.js && echo "server.js OK"
 
-      - name: 📋 Check package.json
-        run: |
-          node -e "require('./package.json')" && echo "✅ package.json صحيح"
+      - name: Check package.json
+        run: node -e "require('./package.json')" && echo "package.json OK"
 
   deploy:
     name: Deploy to Hostinger VPS
@@ -35,10 +34,10 @@ jobs:
     timeout-minutes: 15
 
     steps:
-      - name: ✅ Checkout code
+      - name: Checkout code
         uses: actions/checkout@v4
 
-      - name: 🚀 Deploy on VPS via SSH
+      - name: Deploy on VPS via SSH
         uses: appleboy/ssh-action@v1.0.3
         with:
           host: ${{ secrets.VPS_HOST }}
@@ -50,34 +49,32 @@ jobs:
             APP_PATH="/opt/sheikha/current"
             PM2_NAME="sheikha-main-portal"
 
-            cd "$APP_PATH"
-            echo "📁 مسار التطبيق: $APP_PATH"
+            echo "==> cd $APP_PATH"
+            cd "$APP_PATH" || { echo "FAIL: cannot cd to $APP_PATH"; exit 1; }
 
-            # سحب آخر التغييرات
-            echo "🔄 سحب التحديثات من origin/main..."
+            echo "==> git fetch origin main"
             git fetch origin main
+
+            echo "==> git reset --hard origin/main"
             git reset --hard origin/main
-            echo "✅ الإصدار: $(git rev-parse --short HEAD)"
 
-            # التحقق من server.js
-            ls server.js > /dev/null || { echo "❌ server.js مفقود"; exit 1; }
+            COMMIT=$(git rev-parse --short HEAD)
+            echo "==> HEAD: $COMMIT"
 
-            # تثبيت الحزم إذا تغير package.json
-            CHANGED=$(git diff HEAD~1 --name-only 2>/dev/null || echo "")
-            if echo "$CHANGED" | grep -q "package"; then
-              echo "📦 تثبيت الحزم..."
-              npm ci --omit=dev --prefer-offline
-            else
-              echo "⏭️ لا تغيير في الحزم"
+            if [ ! -f server.js ]; then
+              echo "FAIL: server.js not found after reset"
+              ls -la
+              exit 1
             fi
+            echo "==> server.js OK"
 
-            # إنشاء مجلد logs
+            echo "==> npm ci"
+            npm ci --omit=dev 2>&1 | tail -5
+
             mkdir -p /var/log/sheikha
 
-            # إعادة تشغيل التطبيق بـ PM2
-            echo "♻️ إعادة تشغيل التطبيق..."
-            pm2_running=$(pm2 list 2>/dev/null | grep -c "$PM2_NAME" || echo "0")
-            if [ "$pm2_running" -gt "0" ]; then
+            echo "==> PM2 reload/start"
+            if pm2 describe "$PM2_NAME" > /dev/null 2>&1; then
               pm2 reload "$PM2_NAME" --update-env
             else
               pm2 start server.js --name "$PM2_NAME" \
@@ -89,41 +86,30 @@ jobs:
               pm2 save
             fi
 
-            # انتظار الإقلاع
-            sleep 5
+            sleep 6
 
-            # فحص الصحة
-            echo "🏥 فحص الخادم..."
+            echo "==> Health check"
             HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
+            echo "==> HTTP: $HTTP_CODE"
+
             if [ "$HTTP_CODE" = "000" ]; then
-              echo "❌ الخادم لا يستجيب"
-              pm2 logs "$PM2_NAME" --lines 30 --nostream
+              echo "FAIL: server not responding"
+              pm2 logs "$PM2_NAME" --lines 20 --nostream
               exit 1
             fi
 
-            # فحص القرص
             DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
-            MEM_FREE="$(free -m | awk '/^Mem:/{print $7}')"
-            echo "💾 القرص: ${DISK_USED}% | الذاكرة المتاحة: ${MEM_FREE}MB"
-            if [ "$DISK_USED" -ge 90 ]; then
-              echo "❌ القرص ممتلئ 90%+"; exit 1
-            fi
+            echo "==> Disk: ${DISK_USED}%"
 
-            echo "🎉 تم النشر - HTTP $HTTP_CODE - $(date '+%Y-%m-%d %H:%M:%S')"
+            echo "==> Deploy OK - commit $COMMIT - HTTP $HTTP_CODE"
 
-      - name: ✅ Deployment successful
+      - name: Deployment successful
         if: success()
         run: |
-          echo "📊 ملخص النشر:"
-          echo "- ✅ الكود محدّث"
-          echo "- ✅ PM2 أعاد التشغيل"
-          echo "- ✅ الخادم يستجيب"
-          echo "- 🌐 http://31.97.190.74:8080"
-          echo "- 📝 Commit: ${{ github.sha }}"
-          echo "- 👤 بواسطة: ${{ github.actor }}"
+          echo "Deploy succeeded"
+          echo "Commit: ${{ github.sha }}"
+          echo "Actor:  ${{ github.actor }}"
 
-      - name: ❌ Deployment failed
+      - name: Deployment failed
         if: failure()
-        run: |
-          echo "❌ فشل النشر - راجع السجلات أعلاه"
-          exit 1
+        run: echo "Deploy FAILED - check logs above" && exit 1
