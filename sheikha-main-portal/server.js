@@ -4809,6 +4809,84 @@ app.post('/api/infra/vision', express.json(), (req, res) => {
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 شبكة الخلايا العصبية الجذرية — SHEIKHA Neural Root Network Endpoints
+// ═══════════════════════════════════════════════════════════════════════════════
+
+let _neuralRoot = null;
+try {
+    _neuralRoot = require('./intelligence/sheikha-neural-root-activator');
+} catch (_) {}
+
+// GET /api/neural-root/status — حالة الشبكة الجذرية الكاملة
+app.get('/api/neural-root/status', (req, res) => {
+    try {
+        if (!_neuralRoot) {
+            return res.status(503).json({ success: false, message: 'Neural Root غير متاح' });
+        }
+        const s = _neuralRoot.status();
+        res.json({ success: true, data: s, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// GET /api/neural-root/health — فحص صحة سريع
+app.get('/api/neural-root/health', (req, res) => {
+    try {
+        if (!_neuralRoot) {
+            return res.status(503).json({ success: false, message: 'Neural Root غير متاح' });
+        }
+        res.json({ success: true, data: _neuralRoot.health(), timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/neural-root/infer — استدلال موحّد عبر الشبكة الجذرية
+app.post('/api/neural-root/infer', express.json(), (req, res) => {
+    try {
+        if (!_neuralRoot || !_neuralRoot.status().ready) {
+            return res.status(503).json({ success: false, message: 'شبكة الخلايا الجذرية غير مُفعَّلة' });
+        }
+        const input = req.body.input || req.body.text || req.body;
+        const result = _neuralRoot.infer(input);
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/neural-root/halal — فحص الحلال الفوري
+app.post('/api/neural-root/halal', express.json(), (req, res) => {
+    try {
+        if (!_neuralRoot) {
+            return res.status(503).json({ success: false, message: 'Neural Root غير متاح' });
+        }
+        const tx = req.body;
+        const result = _neuralRoot.quickHalalCheck(tx);
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+// POST /api/neural-root/maqasid — تقييم المقاصد الشرعية الخمس
+app.post('/api/neural-root/maqasid', express.json(), (req, res) => {
+    try {
+        if (!_neuralRoot) {
+            return res.status(503).json({ success: false, message: 'Neural Root غير متاح' });
+        }
+        const tx = req.body;
+        const result = _neuralRoot.assessMaqasid(tx);
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
+
+
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ التسجيل الحكومي — Government Registration System
 // ═══════════════════════════════════════════════════════════════════════════════
 

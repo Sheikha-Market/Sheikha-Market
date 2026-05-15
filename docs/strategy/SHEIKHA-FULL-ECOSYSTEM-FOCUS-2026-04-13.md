@@ -60,6 +60,7 @@
 
 ## مخرجات مطلوبة لاحقًا
 
+- SHEIKHA-UNIFIED-RUNTIME-OPERATING-CHARTER.md ✅ (تمت الإضافة)
 - SHEIKHA-FULL-ECOSYSTEM-OPERATING-MODEL.md
 - SHEIKHA-FIRST-REVENUE-OFFER.md
 - SHEIKHA-EDUCATION-REVENUE-MODEL.md
@@ -69,3 +70,11 @@
 ## الحالة
 
 هذا الملف مرجع استراتيجي للمحادثة القادمة، لتوجيه العمل نحو المنظومة كاملة.
+تم اعتماد ميثاق تشغيلي رسمي داعم لهذا التوجه في:
+[SHEIKHA-UNIFIED-RUNTIME-OPERATING-CHARTER.md](./SHEIKHA-UNIFIED-RUNTIME-OPERATING-CHARTER.md).
+ويعتمد الاسم السيادي الأعلى:
+**SHEIKHA Sovereign Cognitive Infrastructure**.
+والوصف التنفيذي الرسمي:
+**Unified Global Operational Intelligence Infrastructure**.
+ومرجع التحول المعماري:
+**من Monolithic server.js إلى SHEIKHA Infrastructure Fabric**.
