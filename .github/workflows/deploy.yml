@@ -12,8 +12,29 @@ concurrency:
   cancel-in-progress: false
 
 jobs:
+  pre-deploy:
+    name: Pre-deployment Checks
+    runs-on: ubuntu-latest
+    steps:
+      - name: ✅ Checkout code
+        uses: actions/checkout@v4
+
+      - name: 🔍 Validate Node.js syntax
+        run: |
+          [ -f server.js ] || { echo "❌ server.js غير موجود"; exit 1; }
+          node --check server.js && echo "✅ server.js صحيح"
+
+      - name: 📋 Check package.json
+        run: |
+          node -e "require('./package.json')" && echo "✅ package.json صحيح"
+
+      - name: 📝 Verify DEPLOYMENT.md exists
+        run: |
+          [ -f DEPLOYMENT.md ] && echo "✅ دليل النشر موجود"
+
   deploy:
     name: Deploy to Hostinger VPS
+    needs: pre-deploy
     runs-on: ubuntu-latest
     timeout-minutes: 15
 
@@ -100,3 +121,20 @@ jobs:
             fi
 
             echo "🎉 تم النشر بنجاح - $(date '+%Y-%m-%d %H:%M:%S')"
+
+      - name: ✅ Deployment successful
+        if: success()
+        run: |
+          echo "📊 ملخص النشر:"
+          echo "- ✅ الكود محدّث"
+          echo "- ✅ الحزم مثبتة"
+          echo "- ✅ الخادم يعمل"
+          echo "- 🌐 متاح على: http://31.97.190.74:8080"
+          echo "- 📝 Commit: ${{ github.sha }}"
+          echo "- 👤 بواسطة: ${{ github.actor }}"
+
+      - name: ❌ Deployment failed
+        if: failure()
+        run: |
+          echo "❌ فشل النشر - يرجى التحقق من السجلات"
+          exit 1
