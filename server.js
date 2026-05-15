@@ -144,6 +144,7 @@ const WebSocket = require('ws');
 // ====== SHARIA GUARD GLOBAL MIDDLEWARE ======
 // ====== SHARIA GUARD GLOBAL MIDDLEWARE & ROUTES ======
 const shariaGuard = require('./middleware/sheikha-sharia-guard');
+const runtimeSecurityMiddleware = require('./middleware/security');
 const tradeRoutes = require('./routes/trade.routes');
 const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
@@ -4334,6 +4335,9 @@ if (rateLimit) {
 // === تطبيق الـ middleware بالترتيب الصحيح ===
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(runtimeSecurityMiddleware.securityHeaders);
+app.use(runtimeSecurityMiddleware.ipOwnershipHeaders);
+app.use(runtimeSecurityMiddleware.responseIntegritySignature);
 
 // تفعيل شبكة الخلايا العصبية الجذرية المتقدمة بعد JSON/CORS/SRE
 const rootNeuralRoutesPath = path.join(__dirname, 'routes', 'root-neural-network.routes.js');
