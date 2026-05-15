@@ -31,7 +31,11 @@ jobs:
             set -euo pipefail
             APP_PATH="${{ secrets.VPS_APP_PATH }}"
             if [ -z "$APP_PATH" ]; then
-              APP_PATH="/opt/sheikha/sheikha-main-portal"
+              if [ -d /opt/sheikha/current ]; then
+                APP_PATH="/opt/sheikha/current"
+              else
+                APP_PATH="/opt/sheikha/sheikha-main-portal"
+              fi
             fi
             cd "$APP_PATH"
 
@@ -40,9 +44,11 @@ jobs:
               exit 1
             fi
 
-            git fetch --all --prune
+            git fetch origin --prune
             git checkout main
-            git pull --ff-only
+            git branch --set-upstream-to=origin/main main || true
+            git clean -fd
+            git pull --ff-only origin main
 
             docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env pull || true
             docker compose -f infra/docker/compose/prod/docker-compose.yml --env-file infra/docker/compose/prod/.env up -d --remove-orphans

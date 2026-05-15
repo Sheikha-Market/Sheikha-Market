@@ -17,6 +17,7 @@ LAST_GOOD_FILE="${LAST_GOOD_FILE:-/opt/sheikha/last_good_commit.txt}"
 HEALTH_RETRIES="${HEALTH_RETRIES:-10}"
 HEALTH_RETRY_DELAY="${HEALTH_RETRY_DELAY:-3}"
 ALLOW_NON_MAIN="${ALLOW_NON_MAIN:-false}"
+CLEAN_UNTRACKED="${CLEAN_UNTRACKED:-false}"
 
 log() { echo "[SAFE-DEPLOY] $*"; }
 warn() { echo "[SAFE-DEPLOY] ⚠️  $*"; }
@@ -118,6 +119,20 @@ rollback_and_recover() {
   fail "Rollback executed successfully. Investigate the failed deployment before retrying"
 }
 
+ensure_branch_tracking() {
+  git -C "$APP_DIR" show-ref --verify --quiet "refs/remotes/${REMOTE}/${BRANCH}" \
+    || fail "Remote branch not found: ${REMOTE}/${BRANCH}"
+
+  if git -C "$APP_DIR" show-ref --verify --quiet "refs/heads/${BRANCH}"; then
+    git -C "$APP_DIR" checkout "$BRANCH"
+  else
+    git -C "$APP_DIR" checkout -b "$BRANCH" --track "${REMOTE}/${BRANCH}"
+  fi
+
+  git -C "$APP_DIR" branch --set-upstream-to="${REMOTE}/${BRANCH}" "$BRANCH" >/dev/null
+  log "Branch tracking aligned: ${BRANCH} -> ${REMOTE}/${BRANCH}"
+}
+
 main() {
   require_cmd git
   require_cmd curl
@@ -133,6 +148,11 @@ main() {
   current_branch="$(git -C "$APP_DIR" rev-parse --abbrev-ref HEAD)"
   log "Current branch: $current_branch | Target branch: $BRANCH"
 
+  if [ "$CLEAN_UNTRACKED" = "true" ]; then
+    warn "Cleaning untracked files before deployment"
+    git -C "$APP_DIR" clean -fd
+  fi
+
   if [ -n "$(git -C "$APP_DIR" status --porcelain)" ]; then
     fail "Repository has uncommitted changes. Commit/stash before deployment"
   fi
@@ -147,8 +167,8 @@ main() {
   log "Fetching latest refs from $REMOTE"
   git -C "$APP_DIR" fetch "$REMOTE" --prune
 
-  log "Checking out branch: $BRANCH"
-  git -C "$APP_DIR" checkout "$BRANCH"
+  log "Checking out and aligning branch: $BRANCH"
+  ensure_branch_tracking
 
   log "Pulling latest commit with fast-forward only"
   if ! git -C "$APP_DIR" pull --ff-only "$REMOTE" "$BRANCH"; then
