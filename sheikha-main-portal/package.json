@@ -28,7 +28,7 @@
     "server:status": "pm2 describe sheikha-api",
     "server:logs": "pm2 logs sheikha-api --lines 100",
     "server:smoke": "bash scripts/sheikha-smoke-test.sh",
-    "server:deploy": "git pull && npm run server:restart && sleep 5 && npm run server:smoke",
+    "server:deploy": "bash scripts/server-deploy-safe.sh",
     "sdk:start": "node mcp-servers/sheikha-sdk-server.js",
     "ide:start": "node mcp-servers/sheikha-ide-server.js",
     "sdk:pm2:start": "pm2 start ecosystem.config.js --only sheikha-sdk-server && pm2 save",
@@ -358,7 +358,9 @@
     "ops:control:stable": "bash scripts/sheikha-control.sh stable",
     "ops:control:power": "bash scripts/sheikha-control.sh power",
     "ops:control:status": "bash scripts/sheikha-control.sh status",
-    "ops:control:report": "bash scripts/sheikha-control.sh report"
+    "ops:control:report": "bash scripts/sheikha-control.sh report",
+    "server:deploy:safe": "bash scripts/server-deploy-safe.sh",
+    "server:rollback:last-good": "test -f /opt/sheikha/last_good_commit.txt && git reset --hard \"$(cat /opt/sheikha/last_good_commit.txt)\" || (echo \"No /opt/sheikha/last_good_commit.txt found\" && exit 1)"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.95.1",

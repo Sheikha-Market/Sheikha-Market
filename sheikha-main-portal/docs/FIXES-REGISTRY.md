@@ -75,7 +75,7 @@ npm run server:restart
 npm run server:status
 npm run server:logs
 npm run server:smoke
-npm run server:deploy   ← git pull + restart + smoke
+npm run server:deploy   ← نشر آمن (backup + ff-only pull + restart + healthcheck + rollback)
 ```
 
 ---
