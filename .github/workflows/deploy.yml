@@ -35,7 +35,7 @@ jobs:
           port: ${{ secrets.VPS_SSH_PORT || 22 }}
           script_stop: true
           script: |
-            set -euo pipefail
+            set -eu
 
             APP_PATH="/opt/sheikha/current"
             PM2_NAME="sheikha-main-portal"
@@ -54,7 +54,8 @@ jobs:
             [ -f server.js ] || { echo "❌ server.js مفقود بعد السحب"; exit 1; }
 
             # تثبيت الحزم إذا تغير package.json
-            if git diff HEAD~1 --name-only 2>/dev/null | grep -q "package"; then
+            CHANGED=$(git diff HEAD~1 --name-only 2>/dev/null || true)
+            if echo "$CHANGED" | grep -q "package"; then
               echo "📦 تثبيت الحزم..."
               npm ci --omit=dev --prefer-offline
             else
@@ -87,7 +88,7 @@ jobs:
               && echo "✅ الخادم يعمل بنجاح" \
               || { echo "❌ الخادم لا يستجيب"; pm2 logs "$PM2_NAME" --lines 30 --nostream; exit 1; }
 
-            # فحص الذاكرة والقرص
+            # فحص القرص
             DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
             MEM_FREE="$(free -m | awk '/^Mem:/{print $7}')"
             echo "💾 استخدام القرص: ${DISK_USED}% | ذاكرة متاحة: ${MEM_FREE}MB"
