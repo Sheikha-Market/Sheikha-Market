@@ -37,15 +37,9 @@ jobs:
           script: |
             set -euo pipefail
 
-            # تحديد مسار التطبيق
-            APP_PATH="${VPS_APP_PATH:-/root/sheikha-main-portal}"
+            APP_PATH="/opt/sheikha/current"
+            PM2_NAME="sheikha-main-portal"
             echo "📁 مسار التطبيق: $APP_PATH"
-
-            # التحقق من وجود المجلد
-            if [ ! -d "$APP_PATH" ]; then
-              echo "📥 المجلد غير موجود، جاري الاستنساخ..."
-              git clone git@github.com:Sheikha-Market/sheikha-main-portal.git "$APP_PATH"
-            fi
 
             cd "$APP_PATH"
 
@@ -67,12 +61,15 @@ jobs:
               echo "⏭️ لا تغيير في الحزم"
             fi
 
+            # إنشاء مجلد logs إذا غير موجود
+            mkdir -p /var/log/sheikha
+
             # إعادة تشغيل التطبيق بـ PM2
             echo "♻️ إعادة تشغيل التطبيق..."
-            if pm2 list | grep -q "sheikha"; then
-              pm2 reload sheikha --update-env
+            if pm2 list | grep -q "$PM2_NAME"; then
+              pm2 reload "$PM2_NAME" --update-env
             else
-              pm2 start server.js --name sheikha \
+              pm2 start server.js --name "$PM2_NAME" \
                 --max-memory-restart 1500M \
                 --restart-delay 3000 \
                 --max-restarts 10 \
@@ -88,7 +85,7 @@ jobs:
             echo "🏥 فحص الخادم..."
             curl -fsS --max-time 10 http://localhost:8080/api/health \
               && echo "✅ الخادم يعمل بنجاح" \
-              || { echo "❌ الخادم لا يستجيب"; pm2 logs sheikha --lines 30 --nostream; exit 1; }
+              || { echo "❌ الخادم لا يستجيب"; pm2 logs "$PM2_NAME" --lines 30 --nostream; exit 1; }
 
             # فحص الذاكرة والقرص
             DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
