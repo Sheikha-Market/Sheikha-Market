@@ -40,6 +40,9 @@ check "network-health"    "$BASE/api/network/health"
 # ── شبكة الخلايا العصبية ─────────────────────────────────────────
 check "shl-neural"        "$BASE/api/shl-neural/health"
 check "master-ncn"        "$BASE/api/master-ncn/health"
+check "neural-root"       "$BASE/api/neural-root/health"
+check "cloud-health"      "$BASE/api/cloud/health"
+check "cloud-neural"      "$BASE/api/cloud-neural"
 
 # ── بروتوكول شيخة ────────────────────────────────────────────────
 check "protocol-events"   "$BASE/api/protocol-events/health"

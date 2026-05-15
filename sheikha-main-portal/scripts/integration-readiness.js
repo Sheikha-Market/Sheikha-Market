@@ -117,7 +117,15 @@ async function run() {
   }
 
   section('Integration Readiness');
-  const integrationKeys = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'ALERT_WEBHOOK_URL', 'VPS_HOST'];
+  const integrationKeys = [
+    'OPENAI_API_KEY',
+    'ANTHROPIC_API_KEY',
+    'ALERT_WEBHOOK_URL',
+    'VPS_HOST',
+    'SHEIKHA_SDK_TOKEN',
+    'SHEIKHA_IDE_TOKEN',
+    'BACKUP_PASSPHRASE'
+  ];
   for (const key of integrationKeys) {
     if (env[key] && String(env[key]).trim().length > 0) {
       console.log(`OK: ${key} configured`);
@@ -143,6 +151,37 @@ async function run() {
     console.log(`WARN: /api/health unreachable (${e.message})`);
   }
 
+  section('Production Assets');
+  const productionFiles = [
+    'scripts/harden-ubuntu-vps.sh',
+    'scripts/generate-production-env.js',
+    'scripts/backup-encrypted.sh',
+    'scripts/restore-backup-drill.sh',
+    'mcp-servers/sheikha-sdk-server.js',
+    'mcp-servers/sheikha-ide-server.js',
+    'mcp-servers/Dockerfile',
+    'sheikha-vscode-extension/package.json',
+    'scripts/activate-hyperscale-foundation.js'
+  ];
+  for (const rel of productionFiles) {
+    const p = path.join(ROOT, rel);
+    if (fs.existsSync(p)) console.log(`OK: ${rel}`);
+    else {
+      critical++;
+      console.log(`CRITICAL: Missing ${rel}`);
+    }
+  }
+
+  const repoLevelFiles = ['../.github/workflows/sheikha-cloud-agent.yml', '../.github/workflows/neural-root-activation.yml'];
+  for (const rel of repoLevelFiles) {
+    const p = path.join(ROOT, rel);
+    if (fs.existsSync(p)) console.log(`OK: ${rel}`);
+    else {
+      critical++;
+      console.log(`CRITICAL: Missing ${rel}`);
+    }
+  }
+
   section('Summary');
   console.log(`Critical: ${critical}`);
   console.log(`Warnings: ${warnings}`);
@@ -160,4 +199,3 @@ run().catch((err) => {
   console.error('Unhandled error:', err);
   process.exit(1);
 });
-

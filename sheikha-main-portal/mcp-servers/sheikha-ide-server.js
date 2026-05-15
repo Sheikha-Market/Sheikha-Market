@@ -22,12 +22,16 @@
 'use strict';
 
 const http = require('http');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
 
 const IDE_PORT = parseInt(process.env.SHEIKHA_IDE_PORT || '3002', 10);
+const IDE_HOST = process.env.SHEIKHA_IDE_HOST || '127.0.0.1';
 const MAIN_API = process.env.SHEIKHA_MAIN_URL || 'http://localhost:8080';
+const IDE_TOKEN = (process.env.SHEIKHA_IDE_TOKEN || '').trim();
+const MCP_ALLOWED_ORIGIN = (process.env.SHEIKHA_MCP_ALLOWED_ORIGIN || '').trim();
 const ROOT = path.join(__dirname, '..');
 
 // ─── دوال مساعدة ─────────────────────────────────────────────────────────────
@@ -36,9 +40,10 @@ function sendJSON(res, status, data) {
     const body = JSON.stringify(data, null, 2);
     res.writeHead(status, {
         'Content-Type': 'application/json; charset=utf-8',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': MCP_ALLOWED_ORIGIN || '*',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Cache-Control': 'no-store',
         'X-Sheikha-IDE': 'v1.0.0',
         'X-Server': 'Sheikha-IDE-Server'
     });
@@ -55,6 +60,28 @@ function readBody(req) {
         });
         req.on('error', () => resolve({}));
     });
+}
+
+function secureEquals(left, right) {
+    const leftBuffer = Buffer.from(String(left || ''));
+    const rightBuffer = Buffer.from(String(right || ''));
+    if (leftBuffer.length !== rightBuffer.length) return false;
+    return crypto.timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function getBearerToken(req) {
+    const header = req.headers.authorization || '';
+    const match = header.match(/^Bearer\s+(.+)$/i);
+    return match ? match[1].trim() : '';
+}
+
+function isPublicRoute(urlPath) {
+    return urlPath === '/ide/health';
+}
+
+function isAuthorized(req, urlPath) {
+    if (!IDE_TOKEN || isPublicRoute(urlPath)) return true;
+    return secureEquals(getBearerToken(req), IDE_TOKEN);
 }
 
 // ─── نظام الملفات ─────────────────────────────────────────────────────────────
@@ -342,6 +369,12 @@ const ROUTES = {
                 sidq:  'الصدق في القول والفعل',
                 amanah:'الأمانة في الأداء'
             },
+            security: {
+                bindHost: IDE_HOST,
+                tokenProtected: Boolean(IDE_TOKEN),
+                publicRoutes: ['/ide/health'],
+                allowedOrigin: MCP_ALLOWED_ORIGIN || '*'
+            },
             timestamp: new Date().toISOString()
         });
     }
@@ -363,6 +396,14 @@ const httpServer = http.createServer(async (req, res) => {
     const urlPath = (req.url || '/').split('?')[0].replace(/\/$/, '') || '/';
     const routeKey = `${req.method} ${urlPath}`;
     const handler = ROUTES[routeKey];
+
+    if (!isAuthorized(req, urlPath)) {
+        return sendJSON(res, 401, {
+            success: false,
+            error: 'غير مصرح — يتطلب Bearer token صالحاً',
+            timestamp: new Date().toISOString()
+        });
+    }
 
     if (handler) {
         try {
@@ -386,17 +427,17 @@ const httpServer = http.createServer(async (req, res) => {
     });
 });
 
-httpServer.listen(IDE_PORT, '0.0.0.0', () => {
+httpServer.listen(IDE_PORT, IDE_HOST, () => {
     console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║  🖥️  SHEIKHA IDE SERVER — خادم بيئة التطوير                 ║
 ║  «اقرأ باسم ربك الذي خلق»                                   ║
 ╠══════════════════════════════════════════════════════════════╣
-║  🌐 الرابط:      http://localhost:${IDE_PORT}                   ║
-║  📚 توثيق:       http://localhost:${IDE_PORT}/ide/docs         ║
-║  ❤️  الصحة:      http://localhost:${IDE_PORT}/ide/health       ║
-║  🌳 الملفات:     http://localhost:${IDE_PORT}/ide/tree         ║
-║  🔍 البحث:       http://localhost:${IDE_PORT}/ide/search?q=    ║
+║  🌐 الرابط:      http://${IDE_HOST}:${IDE_PORT}                   ║
+║  📚 توثيق:       http://${IDE_HOST}:${IDE_PORT}/ide/docs         ║
+║  ❤️  الصحة:      http://${IDE_HOST}:${IDE_PORT}/ide/health       ║
+║  🌳 الملفات:     http://${IDE_HOST}:${IDE_PORT}/ide/tree         ║
+║  🔍 البحث:       http://${IDE_HOST}:${IDE_PORT}/ide/search?q=    ║
 ║  ✅ مدقق الكود:  POST /ide/analyze  |  /ide/syntax-check     ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  SDK Server:  http://localhost:3001                          ║

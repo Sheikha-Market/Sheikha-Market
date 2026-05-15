@@ -22,11 +22,15 @@
 'use strict';
 
 const http = require('http');
+const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
 const SDK_PORT = parseInt(process.env.SHEIKHA_SDK_PORT || '3001', 10);
+const SDK_HOST = process.env.SHEIKHA_SDK_HOST || '127.0.0.1';
 const MAIN_API = process.env.SHEIKHA_MAIN_URL || 'http://localhost:8080';
+const SDK_TOKEN = (process.env.SHEIKHA_SDK_TOKEN || '').trim();
+const MCP_ALLOWED_ORIGIN = (process.env.SHEIKHA_MCP_ALLOWED_ORIGIN || '').trim();
 const ROOT = path.join(__dirname, '..');
 
 // ─── مسارات ──────────────────────────────────────────────────────────────────
@@ -40,9 +44,10 @@ function sendJSON(res, status, data) {
     const body = JSON.stringify(data, null, 2);
     res.writeHead(status, {
         'Content-Type': 'application/json; charset=utf-8',
-        'Access-Control-Allow-Origin': '*',
+        'Access-Control-Allow-Origin': MCP_ALLOWED_ORIGIN || '*',
         'Access-Control-Allow-Methods': 'GET, POST, OPTIONS',
         'Access-Control-Allow-Headers': 'Content-Type, Authorization',
+        'Cache-Control': 'no-store',
         'X-Sheikha-SDK': 'v1.0.0',
         'X-Server': 'Sheikha-SDK-Server'
     });
@@ -76,6 +81,28 @@ function callMainAPI(apiPath, timeout = 8000) {
         req.on('error', (e) => resolve({ ok: false, error: e.message }));
         req.on('timeout', () => { req.destroy(); resolve({ ok: false, error: 'timeout' }); });
     });
+}
+
+function secureEquals(left, right) {
+    const leftBuffer = Buffer.from(String(left || ''));
+    const rightBuffer = Buffer.from(String(right || ''));
+    if (leftBuffer.length !== rightBuffer.length) return false;
+    return crypto.timingSafeEqual(leftBuffer, rightBuffer);
+}
+
+function getBearerToken(req) {
+    const header = req.headers.authorization || '';
+    const match = header.match(/^Bearer\s+(.+)$/i);
+    return match ? match[1].trim() : '';
+}
+
+function isPublicRoute(urlPath) {
+    return urlPath === '/sdk/health';
+}
+
+function isAuthorized(req, urlPath) {
+    if (!SDK_TOKEN || isPublicRoute(urlPath)) return true;
+    return secureEquals(getBearerToken(req), SDK_TOKEN);
 }
 
 // ─── قوائم المكتبات والبيانات ─────────────────────────────────────────────────
@@ -261,6 +288,12 @@ const ROUTES = {
                 ide:   `http://localhost:3002`,
                 sdk:   `http://localhost:${SDK_PORT}`
             },
+            security: {
+                bindHost: SDK_HOST,
+                tokenProtected: Boolean(SDK_TOKEN),
+                publicRoutes: ['/sdk/health'],
+                allowedOrigin: MCP_ALLOWED_ORIGIN || '*'
+            },
             timestamp: new Date().toISOString()
         });
     }
@@ -285,6 +318,14 @@ const httpServer = http.createServer(async (req, res) => {
     // مطابقة مسار بسيط (تجاهل query string)
     const handler = ROUTES[routeKey];
 
+    if (!isAuthorized(req, urlPath)) {
+        return sendJSON(res, 401, {
+            success: false,
+            error: 'غير مصرح — يتطلب Bearer token صالحاً',
+            timestamp: new Date().toISOString()
+        });
+    }
+
     if (handler) {
         try {
             await handler(req, res);
@@ -307,17 +348,17 @@ const httpServer = http.createServer(async (req, res) => {
     });
 });
 
-httpServer.listen(SDK_PORT, '0.0.0.0', () => {
+httpServer.listen(SDK_PORT, SDK_HOST, () => {
     console.log(`
 ╔══════════════════════════════════════════════════════════════╗
 ║  🔧 SHEIKHA SDK SERVER — خادم SDK شيخة                      ║
 ║  «إن الله يحب إذا عمل أحدكم عملاً أن يتقنه»               ║
 ╠══════════════════════════════════════════════════════════════╣
-║  🌐 الرابط:  http://localhost:${SDK_PORT}                       ║
-║  📚 توثيق:   http://localhost:${SDK_PORT}/sdk/docs             ║
-║  ❤️  الصحة:   http://localhost:${SDK_PORT}/sdk/health          ║
-║  ⚡ الحالة:  http://localhost:${SDK_PORT}/sdk/status           ║
-║  🧠 العصبي:  http://localhost:${SDK_PORT}/sdk/neural           ║
+║  🌐 الرابط:  http://${SDK_HOST}:${SDK_PORT}                       ║
+║  📚 توثيق:   http://${SDK_HOST}:${SDK_PORT}/sdk/docs             ║
+║  ❤️  الصحة:   http://${SDK_HOST}:${SDK_PORT}/sdk/health          ║
+║  ⚡ الحالة:  http://${SDK_HOST}:${SDK_PORT}/sdk/status           ║
+║  🧠 العصبي:  http://${SDK_HOST}:${SDK_PORT}/sdk/neural           ║
 ╠══════════════════════════════════════════════════════════════╣
 ║  الخادم الرئيسي (مطلوب): http://localhost:8080               ║
 ╚══════════════════════════════════════════════════════════════╝

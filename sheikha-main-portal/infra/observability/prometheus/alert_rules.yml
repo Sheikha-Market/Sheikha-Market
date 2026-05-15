@@ -40,3 +40,53 @@ groups:
         annotations:
           summary: "MCP server health endpoint down"
           description: "MCP server /health is not reachable."
+
+      - alert: NeuralRootHealthDown
+        expr: up{job="neural-root-health"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: neural-root
+        annotations:
+          summary: "Neural root health endpoint down"
+          description: "main-portal /api/neural-root/health is not reachable."
+
+      - alert: CloudHealthDown
+        expr: up{job="cloud-health"} == 0
+        for: 2m
+        labels:
+          severity: warning
+          service: cloud
+        annotations:
+          summary: "Cloud orchestration health endpoint down"
+          description: "main-portal /api/cloud/health is not reachable."
+
+      - alert: CloudNeuralDown
+        expr: up{job="cloud-neural-health"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: cloud-neural
+        annotations:
+          summary: "Cloud neural endpoint down"
+          description: "main-portal /api/cloud-neural is not reachable."
+
+      - alert: MCPSDKDown
+        expr: up{job="mcp-sdk-health"} == 0
+        for: 2m
+        labels:
+          severity: warning
+          service: mcp-sdk
+        annotations:
+          summary: "MCP SDK health endpoint down"
+          description: "mcp-sdk /sdk/health is not reachable."
+
+      - alert: MCPIDEDown
+        expr: up{job="mcp-ide-health"} == 0
+        for: 2m
+        labels:
+          severity: warning
+          service: mcp-ide
+        annotations:
+          summary: "MCP IDE health endpoint down"
+          description: "mcp-ide /ide/health is not reachable."

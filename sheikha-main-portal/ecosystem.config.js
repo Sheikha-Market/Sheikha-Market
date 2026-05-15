@@ -148,6 +148,60 @@ module.exports = {
             merge_logs: true,
             max_restarts: 10,
             min_uptime: '5s',
+        },
+
+        /* ─── MCP SDK HTTP Server — للمطورين والتكاملات ───────── */
+        {
+            name: 'sheikha-sdk-server',
+            cwd: __dirname,
+            script: './mcp-servers/sheikha-sdk-server.js',
+            instances: 1,
+            exec_mode: 'fork',
+            autorestart: true,
+            watch: false,
+            max_memory_restart: '128M',
+            restart_delay: 3000,
+            env: {
+                NODE_ENV: 'production',
+                SHEIKHA_MAIN_URL: 'http://127.0.0.1:8080',
+                SHEIKHA_SDK_HOST: process.env.SHEIKHA_SDK_HOST || '127.0.0.1',
+                SHEIKHA_SDK_PORT: process.env.SHEIKHA_SDK_PORT || 3001,
+                SHEIKHA_SDK_TOKEN: process.env.SHEIKHA_SDK_TOKEN || '',
+                SHEIKHA_MCP_ALLOWED_ORIGIN: process.env.SHEIKHA_MCP_ALLOWED_ORIGIN || ''
+            },
+            error_file: './logs/sdk-server-error.log',
+            out_file: './logs/sdk-server-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 10,
+            min_uptime: '5s'
+        },
+
+        /* ─── MCP IDE HTTP Server — IDE / Cursor / VS Code ───── */
+        {
+            name: 'sheikha-ide-server',
+            cwd: __dirname,
+            script: './mcp-servers/sheikha-ide-server.js',
+            instances: 1,
+            exec_mode: 'fork',
+            autorestart: true,
+            watch: false,
+            max_memory_restart: '128M',
+            restart_delay: 3000,
+            env: {
+                NODE_ENV: 'production',
+                SHEIKHA_MAIN_URL: 'http://127.0.0.1:8080',
+                SHEIKHA_IDE_HOST: process.env.SHEIKHA_IDE_HOST || '127.0.0.1',
+                SHEIKHA_IDE_PORT: process.env.SHEIKHA_IDE_PORT || 3002,
+                SHEIKHA_IDE_TOKEN: process.env.SHEIKHA_IDE_TOKEN || '',
+                SHEIKHA_MCP_ALLOWED_ORIGIN: process.env.SHEIKHA_MCP_ALLOWED_ORIGIN || ''
+            },
+            error_file: './logs/ide-server-error.log',
+            out_file: './logs/ide-server-out.log',
+            log_date_format: 'YYYY-MM-DD HH:mm:ss Z',
+            merge_logs: true,
+            max_restarts: 10,
+            min_uptime: '5s'
         }
     ]
 };

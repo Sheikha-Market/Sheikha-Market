@@ -66,6 +66,62 @@ services:
     networks:
       - back_net
 
+  mcp-sdk:
+    profiles: [mcp]
+    build:
+      context: ../../../../
+      dockerfile: mcp-servers/Dockerfile
+    image: sheikha-mcp-http:local
+    command: ["node", "sheikha-sdk-server.js"]
+    container_name: sheikha-mcp-sdk
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - SHEIKHA_MAIN_URL=http://main-portal:8080
+      - SHEIKHA_SDK_PORT=3001
+      - SHEIKHA_SDK_HOST=0.0.0.0
+      - SHEIKHA_MCP_ALLOWED_ORIGIN=${SHEIKHA_MCP_ALLOWED_ORIGIN:-https://admin.sheikha.top}
+    depends_on:
+      - main-portal
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3001/sdk/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - back_net
+
+  mcp-ide:
+    profiles: [mcp]
+    build:
+      context: ../../../../
+      dockerfile: mcp-servers/Dockerfile
+    image: sheikha-mcp-http:local
+    command: ["node", "sheikha-ide-server.js"]
+    container_name: sheikha-mcp-ide
+    restart: unless-stopped
+    env_file:
+      - .env
+    environment:
+      - NODE_ENV=production
+      - SHEIKHA_MAIN_URL=http://main-portal:8080
+      - SHEIKHA_IDE_PORT=3002
+      - SHEIKHA_IDE_HOST=0.0.0.0
+      - SHEIKHA_MCP_ALLOWED_ORIGIN=${SHEIKHA_MCP_ALLOWED_ORIGIN:-https://admin.sheikha.top}
+    depends_on:
+      - main-portal
+    healthcheck:
+      test: ["CMD", "wget", "-qO-", "http://localhost:3002/ide/health"]
+      interval: 30s
+      timeout: 5s
+      retries: 5
+      start_period: 15s
+    networks:
+      - back_net
+
   postgres:
     image: postgres:16-alpine
     container_name: sheikha-postgres
@@ -138,6 +194,8 @@ services:
     volumes:
       - grafana_data:/var/lib/grafana
       - ../../../../infra/observability/grafana/provisioning/datasources/datasources.yml:/etc/grafana/provisioning/datasources/datasources.yml:ro
+      - ../../../../infra/observability/grafana/provisioning/dashboards/dashboards.yml:/etc/grafana/provisioning/dashboards/dashboards.yml:ro
+      - ../../../../infra/observability/grafana/dashboards:/var/lib/grafana/dashboards:ro
     depends_on:
       - prometheus
       - loki
@@ -202,4 +260,3 @@ volumes:
   redis_data:
   grafana_data:
   loki_data:
-
