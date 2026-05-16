@@ -2754,6 +2754,40 @@ app.get('/api/live', (req, res) => {
     });
 });
 
+app.get('/api/health', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            status: 'ok',
+            pid: process.pid,
+            uptimeSeconds: Math.floor(process.uptime())
+        },
+        message: 'الخدمة تعمل بشكل طبيعي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/enterprise/status', (req, res) => {
+    const enginesReady = {
+        runtimeBootstrap: Boolean(runtimeBootstrap),
+        communicationsRuntime: Boolean(communicationsRuntime),
+        rootNeuralCells: Boolean(rootNeuralCells)
+    };
+
+    return res.json({
+        success: true,
+        data: {
+            mode: 'enterprise',
+            runtimeRing: SHEIKHA_RUNTIME_RING,
+            charterEnforced: Boolean(SHEIKHA_CHARTER_ENFORCED),
+            startupL0Only: Boolean(STARTUP_L0_ONLY),
+            enginesReady
+        },
+        message: 'حالة المنظومة المؤسسية متاحة',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
