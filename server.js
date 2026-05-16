@@ -21,31 +21,18 @@ const WebSocket = require('ws');
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-let SHEIKHA_CHARTER_ENFORCED = false;
-let STARTUP_L0_ONLY = true;
-let SHEIKHA_RUNTIME_RING = 'L0';
-let SHEIKHA_RUNTIME_STRICT_FINGERPRINT = false;
-let SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = false;
-let GIT_METADATA = {};
-let RUNTIME_FINGERPRINT_STATUS = { status: 'optional-bootstrap-disabled' };
-let runtimeCore = {};
-let observability = null;
-
-try {
-    const runtimeBootstrap = require('./lib/runtime/bootstrap');
-    const runtimeBootstrapResult = runtimeBootstrap({ rootDir: __dirname });
-    SHEIKHA_CHARTER_ENFORCED = runtimeBootstrapResult.SHEIKHA_CHARTER_ENFORCED;
-    STARTUP_L0_ONLY = runtimeBootstrapResult.STARTUP_L0_ONLY;
-    SHEIKHA_RUNTIME_RING = runtimeBootstrapResult.SHEIKHA_RUNTIME_RING;
-    SHEIKHA_RUNTIME_STRICT_FINGERPRINT = runtimeBootstrapResult.SHEIKHA_RUNTIME_STRICT_FINGERPRINT;
-    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = runtimeBootstrapResult.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS;
-    GIT_METADATA = runtimeBootstrapResult.GIT_METADATA;
-    RUNTIME_FINGERPRINT_STATUS = runtimeBootstrapResult.RUNTIME_FINGERPRINT_STATUS;
-    runtimeCore = runtimeBootstrapResult.runtimeCore;
-    observability = runtimeBootstrapResult.observability;
-} catch (err) {
-    console.warn('[SHEIKHA] Optional runtime bootstrap disabled:', err.message);
-}
+const runtimeBootstrap = require('./lib/runtime/bootstrap');
+const {
+    SHEIKHA_CHARTER_ENFORCED,
+    STARTUP_L0_ONLY,
+    SHEIKHA_RUNTIME_RING,
+    SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+    GIT_METADATA,
+    RUNTIME_FINGERPRINT_STATUS,
+    runtimeCore,
+    observability
+} = runtimeBootstrap({ rootDir: __dirname });
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -110,19 +97,7 @@ function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
 
-let safeLoadEngine = null;
-try {
-    safeLoadEngine = require('./lib/runtime/core/engine-loader');
-} catch (err) {
-    console.warn('[SHEIKHA] Optional engine-loader disabled:', err.message);
-    safeLoadEngine = (engineFile) => {
-        try {
-            return require(`./lib/${engineFile}`);
-        } catch (_) {
-            return null;
-        }
-    };
-}
+const safeLoadEngine = require('./lib/runtime/core/engine-loader');
 
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
@@ -2037,71 +2012,46 @@ function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
 
-app.get('/api/health', (req, res) => {
-    res.json({ status: 'ok' });
-});
-
-function optionalRequire(modulePath, fallbackValue) {
-    try {
-        return require(modulePath);
-    } catch (err) {
-        console.warn('[SHEIKHA] Optional module disabled:', modulePath, '|', err.message);
-        return fallbackValue;
-    }
-}
-
-function createOptionalInstance(Ctor) {
-    if (typeof Ctor !== 'function') return {};
-    try {
-        return new Ctor();
-    } catch (_) {
-        return {};
-    }
-}
-
-const ObservabilityService = optionalRequire('./lib/runtime/services/observability-service', class {
-    record() {}
-});
-const createRuntimeRouter = optionalRequire('./lib/runtime/routes/runtime-routes', () => express.Router());
-const MetalsMarketEngine = optionalRequire('./lib/runtime/engines/metals-market-engine', class {});
-const SmartCitiesEngine = optionalRequire('./lib/runtime/engines/smart-cities-engine', class {});
-const SupplyChainEngine = optionalRequire('./lib/runtime/engines/supply-chain-engine', class {});
-const RecyclingEngine = optionalRequire('./lib/runtime/engines/recycling-engine', class {});
-const TraceabilityEngine = optionalRequire('./lib/runtime/engines/traceability-engine', class {});
-const SpaceEngine = optionalRequire('./lib/runtime/engines/space-engine', class {});
-const CommunicationsEngine = optionalRequire('./lib/runtime/engines/communications-engine', class {});
-const LegislativeEngine = optionalRequire('./lib/runtime/engines/legislative-engine', class {});
-const ArbitrationEngine = optionalRequire('./lib/runtime/engines/arbitration-engine', class {});
-const EducationEngine = optionalRequire('./lib/runtime/engines/education-engine', class {});
-const InnovationEngine = optionalRequire('./lib/runtime/engines/innovation-engine', class {});
-const KnowledgeGraphEngine = optionalRequire('./lib/runtime/engines/knowledge-graph-engine', class {});
-const InternationalConsultingEngine = optionalRequire('./lib/runtime/engines/international-consulting-engine', class {});
-const RootNeuralCellsNetwork = optionalRequire('./lib/runtime/engines/root-neural-cells-network', class {});
-const runtimeRegistry = optionalRequire('./lib/runtime/core/runtime-registry', { organizations: {} });
-const hsRuntimeRegistry = optionalRequire('./lib/runtime/core/hs-runtime-registry', {});
-const rootSystemRegistry = optionalRequire('./lib/runtime/core/root-system-registry', {});
-const rootNeuralCellsRegistry = optionalRequire('./lib/runtime/core/root-neural-cells-registry', { getNeuralCellsStatus: () => ({ status: 'disabled' }) });
-const getNeuralCellsStatus = rootNeuralCellsRegistry.getNeuralCellsStatus || (() => ({ status: 'disabled' }));
-const consultingRegistry = optionalRequire('./lib/runtime/organizations/consulting/consulting-registry', {});
-const consultingGovernance = optionalRequire('./lib/runtime/organizations/consulting/consulting-governance', {});
-const consultingKpi = optionalRequire('./lib/runtime/organizations/consulting/consulting-kpi', {});
-const consultingKnowledgeBase = optionalRequire('./lib/runtime/organizations/consulting/consulting-knowledge-base', {});
-const createConsultingRouter = optionalRequire('./lib/runtime/organizations/consulting/consulting-routes', () => express.Router());
-const runtimeObservability = createOptionalInstance(ObservabilityService);
-const metalsMarket = createOptionalInstance(MetalsMarketEngine);
-const smartCities = createOptionalInstance(SmartCitiesEngine);
-const supplyChain = createOptionalInstance(SupplyChainEngine);
-const recycling = createOptionalInstance(RecyclingEngine);
-const traceability = createOptionalInstance(TraceabilityEngine);
-const space = createOptionalInstance(SpaceEngine);
-const communicationsRuntime = createOptionalInstance(CommunicationsEngine);
-const legislative = createOptionalInstance(LegislativeEngine);
-const arbitration = createOptionalInstance(ArbitrationEngine);
-const education = createOptionalInstance(EducationEngine);
-const innovation = createOptionalInstance(InnovationEngine);
-const knowledgeGraph = createOptionalInstance(KnowledgeGraphEngine);
-const consulting = createOptionalInstance(InternationalConsultingEngine);
-const rootNeuralCells = createOptionalInstance(RootNeuralCellsNetwork);
+const ObservabilityService = require('./lib/runtime/services/observability-service');
+const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
+const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
+const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
+const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
+const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
+const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
+const SpaceEngine = require('./lib/runtime/engines/space-engine');
+const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
+const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
+const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
+const EducationEngine = require('./lib/runtime/engines/education-engine');
+const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
+const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
+const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
+const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
+const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
+const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
+const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
+const { getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry');
+const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
+const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
+const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
+const consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
+const createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
+const runtimeObservability = new ObservabilityService();
+const metalsMarket = new MetalsMarketEngine();
+const smartCities = new SmartCitiesEngine();
+const supplyChain = new SupplyChainEngine();
+const recycling = new RecyclingEngine();
+const traceability = new TraceabilityEngine();
+const space = new SpaceEngine();
+const communicationsRuntime = new CommunicationsEngine();
+const legislative = new LegislativeEngine();
+const arbitration = new ArbitrationEngine();
+const education = new EducationEngine();
+const innovation = new InnovationEngine();
+const knowledgeGraph = new KnowledgeGraphEngine();
+const consulting = new InternationalConsultingEngine();
+const rootNeuralCells = new RootNeuralCellsNetwork();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -6325,31 +6275,8 @@ function validateEmail(email) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم
 // ═══════════════════════════════════════════════════════════════════════════════
-function normalizeRequestedAccountRole(accountTypeOrRole) {
-    const raw = String(accountTypeOrRole || '').trim().toLowerCase();
-    const map = {
-        user: 'user',
-        personal: 'user',
-        individual: 'user',
-        person: 'user',
-        'شخصي': 'user',
-        company: 'company',
-        merchant: 'company',
-        trader: 'company',
-        organization: 'organization',
-        org: 'organization',
-        'منظمة': 'organization',
-        institutional: 'institutional',
-        enterprise: 'enterprise',
-        founder: 'enterprise',
-        'مؤسسي': 'enterprise'
-    };
-
-    return map[raw] || 'user';
-}
-
 app.post('/api/auth/register', (req, res) => {
-    const { phone, password, name, email, storeName, region, specialty: specialtyId, accountType, role: requestedRole } = req.body || {};
+    const { phone, password, name, email, storeName, region, specialty: specialtyId } = req.body || {};
     if (!phone || !password || !name) return res.status(400).json({ success: false, message: 'الجوال وكلمة المرور والاسم مطلوبان.' });
     const nameCheck = validateName(name);
     if (!nameCheck.valid) return res.status(400).json({ success: false, message: nameCheck.message });
@@ -6359,8 +6286,7 @@ app.post('/api/auth/register', (req, res) => {
     const id = uuidv4();
     const specialtyKey = (specialtyId || '').trim() || 'metals_trader';
     const spec = getSpecialty(specialtyKey);
-    const normalizedRole = normalizeRequestedAccountRole(requestedRole || accountType);
-    const user = { id, phone: String(phone).trim(), passwordHash: hashPassword(password), name: nameCheck.value, email: emailCheck.value, storeName: (storeName || spec.storeLabel || nameCheck.value).trim(), region: (region || '').trim(), marketingEnabled: false, specialty: spec.id, role: normalizedRole, verified: false, authMethods: ['phone'], securityLog: [{ action: 'registered', at: new Date().toISOString(), method: 'phone' }], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    const user = { id, phone: String(phone).trim(), passwordHash: hashPassword(password), name: nameCheck.value, email: emailCheck.value, storeName: (storeName || spec.storeLabel || nameCheck.value).trim(), region: (region || '').trim(), marketingEnabled: false, specialty: spec.id, role: 'user', verified: false, authMethods: ['phone'], securityLog: [{ action: 'registered', at: new Date().toISOString(), method: 'phone' }], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     USERS.push(user);
     saveJSON(USERS_FILE, USERS);
     const trader = { id, name: user.name, email: user.email, phone: user.phone, region: user.region, company: user.storeName, specialty: spec.id, specialtyLabel: spec.nameAr, createdAt: user.createdAt };
@@ -6420,55 +6346,6 @@ app.post('/api/auth/login', (req, res) => {
     const out = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, specialty: user.specialty, role };
     onUserLoggedIn(out);
     res.json({ success: true, user: out, token, role, message: 'تم تسجيل الدخول.' });
-});
-
-app.get('/api/accounts/summary', (req, res) => {
-    const usersByRole = (USERS || []).reduce((acc, user) => {
-        const role = String(user.role || 'user').toLowerCase();
-        acc[role] = (acc[role] || 0) + 1;
-        return acc;
-    }, {});
-
-    const companies = (COMPANIES_REGISTRY && Array.isArray(COMPANIES_REGISTRY.registeredCompanies))
-        ? COMPANIES_REGISTRY.registeredCompanies
-        : [];
-
-    const companiesByCategory = companies.reduce((acc, company) => {
-        const category = String(company.category || company.type || 'unknown').toLowerCase();
-        acc[category] = (acc[category] || 0) + 1;
-        return acc;
-    }, {});
-
-    const governmentTotal = (GOV_REGISTRY?.entities?.length || 0) + (GOV_REGISTRY?.employees?.length || 0);
-    const institutionalUsers = (usersByRole.institutional || 0) + (usersByRole.enterprise || 0);
-
-    res.json({
-        success: true,
-        data: {
-            supportedAccountTypes: ['personal', 'organization', 'institutional'],
-            users: {
-                total: USERS.length,
-                personal: usersByRole.user || 0,
-                organization: usersByRole.organization || 0,
-                institutional: institutionalUsers,
-                company: usersByRole.company || 0,
-                admin: usersByRole.admin || 0,
-                government: usersByRole.gov || 0,
-                byRole: usersByRole
-            },
-            companies: {
-                total: companies.length,
-                byCategory: companiesByCategory
-            },
-            government: {
-                total: governmentTotal,
-                entities: GOV_REGISTRY?.entities?.length || 0,
-                employees: GOV_REGISTRY?.employees?.length || 0
-            }
-        },
-        message: 'تم جلب ملخص الحسابات بنجاح',
-        timestamp: new Date().toISOString()
-    });
 });
 
 // ═══════════════════════════════════════════════════════════════
@@ -10610,37 +10487,29 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-let registerRuntimeContracts = null;
-try {
-    ({ registerRuntimeContracts } = require('./lib/runtime/contracts'));
-} catch (err) {
-    console.warn('[SHEIKHA] Optional runtime contracts disabled:', err.message);
-}
-
-if (typeof registerRuntimeContracts === 'function') {
-    registerRuntimeContracts(app, {
-        fs,
-        path,
-        processVersion: process.version,
-        runtimeCore,
-        observability,
-        ring: SHEIKHA_RUNTIME_RING,
-        gitMetadata: GIT_METADATA,
-        fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-        env: {
-            helmet,
-            compression,
-            rateLimit,
-            PORT,
-            NODE_VERSION: process.env.NODE_VERSION,
-            PM2_RUNTIME: process.env.PM2_RUNTIME,
-            SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-            SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-            serverStartTime: SERVER_START_TIME
-        },
-        port: PORT
-    });
-}
+const { registerRuntimeContracts } = require('./lib/runtime/contracts');
+registerRuntimeContracts(app, {
+    fs,
+    path,
+    processVersion: process.version,
+    runtimeCore,
+    observability,
+    ring: SHEIKHA_RUNTIME_RING,
+    gitMetadata: GIT_METADATA,
+    fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+    env: {
+        helmet,
+        compression,
+        rateLimit,
+        PORT,
+        NODE_VERSION: process.env.NODE_VERSION,
+        PM2_RUNTIME: process.env.PM2_RUNTIME,
+        SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+        SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+        serverStartTime: SERVER_START_TIME
+    },
+    port: PORT
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎓 نظام المنتدى العلمي ومركز الأبحاث
@@ -17951,9 +17820,6 @@ const ROLE_PERMISSIONS = {
     admin:   { canBuy: true, canSell: true, canApprove: true, canCreateTender: true, canManageAll: true, label: 'مدير المنظومة' },
     gov:     { canBuy: true, canSell: true, canApprove: true, canCreateTender: true, canManageAll: false, label: 'جهة حكومية' },
     company: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'شركة' },
-    organization: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'منظمة' },
-    institutional: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'مؤسسي' },
-    enterprise: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'مؤسسي' },
     user:    { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'تاجر' },
     visitor: { canBuy: false, canSell: false, canApprove: false, canCreateTender: false, canManageAll: false, label: 'زائر' }
 };
@@ -18188,15 +18054,13 @@ app.get('/api/circular-economy/stats', (req, res) => {
 app.get('/api/dashboard/:role', authRequired, (req, res) => {
     const user = req.user;
     const role = req.params.role;
-    const roleAlias = { organization: 'company', institutional: 'company', enterprise: 'company' };
-    const normalizedRole = roleAlias[role] || role;
-    const perms = ROLE_PERMISSIONS[normalizedRole] || ROLE_PERMISSIONS.visitor;
+    const perms = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.visitor;
 
     const myContracts = CONTRACTS.filter(c => c.creatorId === user.id || c.counterpartyId === user.id);
     const myOrders = ORDERS.filter(o => o.userId === user.id);
 
     const dashboard = {
-        role: normalizedRole,
+        role,
         permissions: perms,
         label: perms.label,
         sections: [],
@@ -18207,7 +18071,7 @@ app.get('/api/dashboard/:role', authRequired, (req, res) => {
     };
 
     // أقسام حسب الدور
-    if (normalizedRole === 'admin') {
+    if (role === 'admin') {
         dashboard.sections = [
             { id: 'overview', nameAr: 'نظرة عامة', icon: '📊', desc: 'إحصائيات المنظومة' },
             { id: 'users', nameAr: 'المستخدمون', icon: '👥', desc: 'إدارة جميع المستخدمين' },
@@ -18221,7 +18085,7 @@ app.get('/api/dashboard/:role', authRequired, (req, res) => {
             { id: 'ai', nameAr: 'الذكاء', icon: '🤖', desc: 'الذكاء الاصطناعي' },
             { id: 'settings', nameAr: 'الإعدادات', icon: '⚙️', desc: 'إعدادات المنظومة' }
         ];
-    } else if (normalizedRole === 'gov') {
+    } else if (role === 'gov') {
         dashboard.sections = [
             { id: 'overview', nameAr: 'نظرة عامة', icon: '📊', desc: 'إحصائيات الجهة' },
             { id: 'tenders', nameAr: 'المناقصات', icon: '🏛', desc: 'إدارة المناقصات والمشتريات' },
@@ -18233,7 +18097,7 @@ app.get('/api/dashboard/:role', authRequired, (req, res) => {
             { id: 'reports', nameAr: 'التقارير', icon: '📈', desc: 'تقارير وإحصائيات' },
             { id: 'compliance', nameAr: 'الامتثال', icon: '✅', desc: 'الامتثال التنظيمي' }
         ];
-    } else if (normalizedRole === 'company') {
+    } else if (role === 'company') {
         dashboard.sections = [
             { id: 'overview', nameAr: 'نظرة عامة', icon: '📊', desc: 'إحصائيات الشركة' },
             { id: 'sell', nameAr: 'المبيعات', icon: '💰', desc: 'عرض وبيع المنتجات' },
