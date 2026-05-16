@@ -24,18 +24,22 @@ DISK_CRITICAL="${DISK_CRITICAL:-90}"  # %
 ISSUES=0
 WARNINGS=0
 
+# فحص دقيق لحالة الخدمة بدون الاعتماد على مخرجات الجدول المختصرة
+isPm2Online() {
+    pm2 describe "$PM2_NAME" 2>/dev/null | grep -qE 'status\s+online'
+}
+
 echo -e "${BLUE}🏥 شيخة — Health Monitoring${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # 1️⃣ فحص PM2 Process
 echo -e "${YELLOW}✓ فحص PM2 Process...${NC}"
-if pm2 status | grep -q "$PM2_NAME.*online"; then
+if isPm2Online; then
     echo -e "${GREEN}✅ Process قيد التشغيل${NC}"
 else
     echo -e "${RED}❌ Process توقف!${NC}"
-    if pm2 restart "$PM2_NAME" >/dev/null 2>&1 && pm2 status | grep -q "$PM2_NAME.*online"; then
-        echo -e "${YELLOW}⚠️ تم إصلاح الحالة تلقائيًا عبر إعادة التشغيل${NC}"
-        WARNINGS=$((WARNINGS + 1))
+    if pm2 restart "$PM2_NAME" --update-env >/dev/null 2>&1 && isPm2Online; then
+        echo -e "${GREEN}✅ تم إصلاح الحالة تلقائيًا عبر إعادة التشغيل${NC}"
     else
         echo -e "${RED}❌ فشل إصلاح العملية تلقائيًا${NC}"
         ISSUES=$((ISSUES + 1))
