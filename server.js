@@ -497,14 +497,23 @@ try {
 // ═══ NETWORKS ENGINE — منظومة الشبكات والاتصالات والطاقة ═══
 let networksEngine = null;
 try {
-    // P0-1: LAZY (L1) - sheikha-networks-engine.js
-    /*     const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-networks-engine.js — سيُحمّل عند الطلب');
+    const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js');
     networksEngine = new SheikhaNetworksEngine();
     const nd = networksEngine.getDashboard();
     console.log(`✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`);
 } catch (e) {
     console.log('⚠️ Networks Engine غير متوفر:', e.message);
+}
+
+// ═══ SMART DIGITAL ROOT ENGINE — الجذر الرقمي الذكي ═══
+let smartDigitalRootEngine = null;
+try {
+    const SheikhaSmartDigitalRootEngine = require('./lib/sheikha-smart-digital-root-engine.js');
+    smartDigitalRootEngine = new SheikhaSmartDigitalRootEngine();
+    const rootStatus = smartDigitalRootEngine.getStatus();
+    console.log(`🌳 Smart Digital Root — ${rootStatus.status} | ${rootStatus.activeRoots} جذر نشط | systems: ${rootStatus.systemsDigitized}`);
+} catch (e) {
+    console.log('⚠️ Smart Digital Root Engine غير متوفر:', e.message);
 }
 
 // ═══ PETROLEUM ENGINE — منظومة شيخة للبترول والنفط والغاز ═══
@@ -2036,46 +2045,82 @@ function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
 
-const ObservabilityService = require('./lib/runtime/services/observability-service');
-const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
-const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
-const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
-const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
-const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
-const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
-const SpaceEngine = require('./lib/runtime/engines/space-engine');
-const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
-const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
-const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
-const EducationEngine = require('./lib/runtime/engines/education-engine');
-const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
-const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
-const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
-const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
-const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
-const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
-const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
-const { getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry');
-const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
-const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
-const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
-const consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
-const createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
-const runtimeObservability = new ObservabilityService();
-const metalsMarket = new MetalsMarketEngine();
-const smartCities = new SmartCitiesEngine();
-const supplyChain = new SupplyChainEngine();
-const recycling = new RecyclingEngine();
-const traceability = new TraceabilityEngine();
-const space = new SpaceEngine();
-const communicationsRuntime = new CommunicationsEngine();
-const legislative = new LegislativeEngine();
-const arbitration = new ArbitrationEngine();
-const education = new EducationEngine();
-const innovation = new InnovationEngine();
-const knowledgeGraph = new KnowledgeGraphEngine();
-const consulting = new InternationalConsultingEngine();
-const rootNeuralCells = new RootNeuralCellsNetwork();
+const makeInactiveEngine = (name) => ({
+    getStatus: () => ({ status: 'inactive', name })
+});
+
+let createRuntimeRouter = () => express.Router();
+let createConsultingRouter = () => express.Router();
+let runtimeObservability = {};
+let metalsMarket = makeInactiveEngine('metals-market');
+let smartCities = makeInactiveEngine('smart-cities');
+let supplyChain = makeInactiveEngine('supply-chain');
+let recycling = makeInactiveEngine('recycling');
+let traceability = makeInactiveEngine('traceability');
+let space = makeInactiveEngine('space');
+let communicationsRuntime = makeInactiveEngine('communications');
+let legislative = makeInactiveEngine('legislative');
+let arbitration = makeInactiveEngine('arbitration');
+let education = makeInactiveEngine('education');
+let innovation = makeInactiveEngine('innovation');
+let knowledgeGraph = makeInactiveEngine('knowledge-graph');
+let consulting = makeInactiveEngine('international-consulting');
+let rootNeuralCells = makeInactiveEngine('root-neural-cells-network');
+let runtimeRegistry = { organizations: [] };
+let hsRuntimeRegistry = { meta: {}, chapters: [], layers: [], strategicSources: [] };
+let rootSystemRegistry = { root: {}, systems: [], globalCouncil: {}, layers: [] };
+let getNeuralCellsStatus = () => ({ status: 'inactive', cells: [] });
+let consultingRegistry = {};
+let consultingGovernance = {};
+let consultingKpi = {};
+let consultingKnowledgeBase = {};
+
+try {
+    const ObservabilityService = require('./lib/runtime/services/observability-service');
+    createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
+    const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
+    const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
+    const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
+    const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
+    const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
+    const SpaceEngine = require('./lib/runtime/engines/space-engine');
+    const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
+    const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
+    const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
+    const EducationEngine = require('./lib/runtime/engines/education-engine');
+    const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
+    const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
+    const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
+    const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
+    runtimeRegistry = require('./lib/runtime/core/runtime-registry');
+    hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
+    rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
+    ({ getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry'));
+    consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
+    consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
+    consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
+    consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
+    createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
+
+    runtimeObservability = new ObservabilityService();
+    metalsMarket = new MetalsMarketEngine();
+    smartCities = new SmartCitiesEngine();
+    supplyChain = new SupplyChainEngine();
+    recycling = new RecyclingEngine();
+    traceability = new TraceabilityEngine();
+    space = new SpaceEngine();
+    communicationsRuntime = new CommunicationsEngine();
+    legislative = new LegislativeEngine();
+    arbitration = new ArbitrationEngine();
+    education = new EducationEngine();
+    innovation = new InnovationEngine();
+    knowledgeGraph = new KnowledgeGraphEngine();
+    consulting = new InternationalConsultingEngine();
+    rootNeuralCells = new RootNeuralCellsNetwork();
+    console.log('✅ Runtime engines bundle — تم التحميل الكامل');
+} catch (e) {
+    console.log('⚠️ Runtime engines bundle غير متوفر — fallback mode:', e.message);
+}
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -10584,29 +10629,33 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-const { registerRuntimeContracts } = require('./lib/runtime/contracts');
-registerRuntimeContracts(app, {
-    fs,
-    path,
-    processVersion: process.version,
-    runtimeCore,
-    observability,
-    ring: SHEIKHA_RUNTIME_RING,
-    gitMetadata: GIT_METADATA,
-    fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-    env: {
-        helmet,
-        compression,
-        rateLimit,
-        PORT,
-        NODE_VERSION: process.env.NODE_VERSION,
-        PM2_RUNTIME: process.env.PM2_RUNTIME,
-        SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-        SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-        serverStartTime: SERVER_START_TIME
-    },
-    port: PORT
-});
+try {
+    const { registerRuntimeContracts } = require('./lib/runtime/contracts');
+    registerRuntimeContracts(app, {
+        fs,
+        path,
+        processVersion: process.version,
+        runtimeCore,
+        observability,
+        ring: SHEIKHA_RUNTIME_RING,
+        gitMetadata: GIT_METADATA,
+        fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+        env: {
+            helmet,
+            compression,
+            rateLimit,
+            PORT,
+            NODE_VERSION: process.env.NODE_VERSION,
+            PM2_RUNTIME: process.env.PM2_RUNTIME,
+            SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+            SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+            serverStartTime: SERVER_START_TIME
+        },
+        port: PORT
+    });
+} catch (e) {
+    console.log('⚠️ Runtime contracts غير متوفرة — تم تخطي التسجيل:', e.message);
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎓 نظام المنتدى العلمي ومركز الأبحاث
