@@ -22,6 +22,8 @@ stable/runtime-baseline
 
 ## التحقق
 
+tools/runtime/sheikha-runtime-doctor.sh
+
 tools/runtime/sheikha-runtime-check.sh
 
 ## تنفيذ موحد غير تفاعلي (VPS)
