@@ -10556,29 +10556,33 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-const { registerRuntimeContracts } = require('./lib/runtime/contracts');
-registerRuntimeContracts(app, {
-    fs,
-    path,
-    processVersion: process.version,
-    runtimeCore,
-    observability,
-    ring: SHEIKHA_RUNTIME_RING,
-    gitMetadata: GIT_METADATA,
-    fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-    env: {
-        helmet,
-        compression,
-        rateLimit,
-        PORT,
-        NODE_VERSION: process.env.NODE_VERSION,
-        PM2_RUNTIME: process.env.PM2_RUNTIME,
-        SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-        SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-        serverStartTime: SERVER_START_TIME
-    },
-    port: PORT
-});
+const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
+if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
+    runtimeContractsModule.registerRuntimeContracts(app, {
+        fs,
+        path,
+        processVersion: process.version,
+        runtimeCore,
+        observability,
+        ring: SHEIKHA_RUNTIME_RING,
+        gitMetadata: GIT_METADATA,
+        fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+        env: {
+            helmet,
+            compression,
+            rateLimit,
+            PORT,
+            NODE_VERSION: process.env.NODE_VERSION,
+            PM2_RUNTIME: process.env.PM2_RUNTIME,
+            SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+            SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+            serverStartTime: SERVER_START_TIME
+        },
+        port: PORT
+    });
+} else {
+    console.log('⚠️ Runtime contracts غير متوفرة — تم تخطي التسجيل');
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎓 نظام المنتدى العلمي ومركز الأبحاث
