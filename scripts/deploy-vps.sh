@@ -18,6 +18,40 @@ VPS_KEY="${VPS_KEY:-$HOME/.ssh/sheikha_vps}"
 DEPLOY_PATH="/opt/sheikha/current"
 BRANCH="${BRANCH:-main}"
 
+# إذا تم التشغيل من داخل الـ VPS نفسه، ننفذ النشر محليًا بدون SSH خارجي.
+if [ -d "$DEPLOY_PATH/.git" ] && [ "$(id -u)" -eq 0 ]; then
+    echo -e "${BLUE}🖥️ تم اكتشاف بيئة VPS محلية — Local Deploy Mode${NC}"
+    cd "$DEPLOY_PATH"
+
+    echo -e "${YELLOW}✓ سحب أحدث الكود من الفرع: $BRANCH${NC}"
+    git fetch origin "$BRANCH"
+    git reset --hard "origin/$BRANCH"
+
+    echo -e "${YELLOW}✓ تثبيت الاعتماديات...${NC}"
+    npm ci --omit=dev
+
+    echo -e "${YELLOW}✓ إعادة تشغيل PM2...${NC}"
+    if pm2 describe sheikha-main-portal >/dev/null 2>&1; then
+        pm2 reload sheikha-main-portal --update-env
+    else
+        pm2 start server.js --name sheikha-main-portal
+        pm2 save
+    fi
+
+    echo -e "${YELLOW}✓ فحص الصحة...${NC}"
+    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
+    if [ "$HTTP_CODE" = "000" ]; then
+        echo -e "${RED}❌ الخادم لا يستجيب بعد النشر${NC}"
+        pm2 logs sheikha-main-portal --lines 20 --nostream
+        exit 1
+    fi
+
+    echo ""
+    echo -e "${GREEN}✅ النشر المحلي على VPS نجح!${NC}"
+    echo -e "${BLUE}Commit: $(git rev-parse --short HEAD) | HTTP: $HTTP_CODE${NC}"
+    exit 0
+fi
+
 echo -e "${BLUE}🚀 شيخة — Deploy Script${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -27,7 +61,7 @@ echo -e "${YELLOW}✓ التحقق من الإعدادات...${NC}"
 if [ ! -f "$VPS_KEY" ]; then
     echo -e "${RED}❌ خطأ: مفتاح SSH غير موجود${NC}"
     echo "   المسار المتوقع: $VPS_KEY"
-    echo "   الحل: تأكد من إعداد المفتاح على الـ VPS أولاً"
+    echo "   الحل: شغّل السكربت من جهازك المحلي أو حدّد VPS_KEY لمسار المفتاح الصحيح"
     exit 1
 fi
 

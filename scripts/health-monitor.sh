@@ -33,8 +33,12 @@ if pm2 status | grep -q "$PM2_NAME.*online"; then
     echo -e "${GREEN}✅ Process قيد التشغيل${NC}"
 else
     echo -e "${RED}❌ Process توقف!${NC}"
-    pm2 restart "$PM2_NAME"
-    ISSUES=$((ISSUES + 1))
+    if pm2 restart "$PM2_NAME" >/dev/null 2>&1; then
+        echo -e "${YELLOW}⚠️ تم إصلاح العملية تلقائيًا عبر PM2 restart${NC}"
+        WARNINGS=$((WARNINGS + 1))
+    else
+        ISSUES=$((ISSUES + 1))
+    fi
 fi
 
 # 2️⃣ فحص HTTP Health Check
