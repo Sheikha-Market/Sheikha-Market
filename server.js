@@ -2106,6 +2106,7 @@ const consultingGovernance = optionalRequire('./lib/runtime/organizations/consul
 const consultingKpi = optionalRequire('./lib/runtime/organizations/consulting/consulting-kpi') || {};
 const consultingKnowledgeBase = optionalRequire('./lib/runtime/organizations/consulting/consulting-knowledge-base') || {};
 const createConsultingRouter = optionalRequire('./lib/runtime/organizations/consulting/consulting-routes') || (() => express.Router());
+const applySecurityMiddleware = optionalRequire('./lib/runtime/middleware/security-middleware');
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
 const smartCities = new SmartCitiesEngine();
@@ -2166,142 +2167,19 @@ if (observability && typeof observability.createLatencyMiddleware === 'function'
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
 // ═══════════════════════════════════════════════════════════════════════════════
-
-// 1. Helmet — ترويسات الحماية (XSS, clickjacking, MIME sniffing)
-// ⚠️ HSTS معطّل لأن السيرفر يعمل على HTTP محلياً — يُفعّل عند النشر على HTTPS
-if (helmet) {
-    app.use(helmet({
-        contentSecurityPolicy: {
-            directives: {
-                defaultSrc: ["'self'"],
-                scriptSrc: ["'self'", "'unsafe-inline'", "'unsafe-eval'", "https://fonts.googleapis.com", "https://cdn.jsdelivr.net", "https://cdnjs.cloudflare.com"],
-                styleSrc: ["'self'", "'unsafe-inline'", "https://fonts.googleapis.com", "https://cdnjs.cloudflare.com"],
-                fontSrc: ["'self'", "https://fonts.gstatic.com", "https://cdnjs.cloudflare.com"],
-                imgSrc: ["'self'", "data:", "https:", "blob:"],
-                connectSrc: ["'self'", "ws:", "wss:", "http://localhost:*", "https://api.openai.com"],
-                frameSrc: ["'none'"],
-                objectSrc: ["'none'"],
-                upgradeInsecureRequests: null  // ⛔ تعطيل التحويل التلقائي لـ HTTPS
-            }
-        },
-        hsts: false,  // ⛔ تعطيل HSTS — السيرفر يعمل على HTTP محلياً
-        crossOriginEmbedderPolicy: false,
-        crossOriginResourcePolicy: { policy: 'cross-origin' }
-    }));
-    console.log('✅ helmet مفعّل — ترويسات الحماية (بدون HSTS للبيئة المحلية)');
-}
-
-// 2. Compression — ضغط الاستجابات (تقليل 60-80% من الحجم)
-if (compression) {
-    app.use(compression({
-        level: 6,
-        threshold: 1024,
-        filter: (req, res) => {
-            if (req.headers['x-no-compression']) return false;
-            return compression.filter(req, res);
-        }
-    }));
-    console.log('✅ compression مفعّل — ضغط الاستجابات');
-}
-
-// 3. CORS — تقييد النطاقات المسموحة
-const corsOptions = {
-    origin: [
-        'https://sheikha.top',
-        'https://www.sheikha.top',
-        'http://localhost:23000',
-        'http://localhost:8080'
-    ],
-    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
-    allowedHeaders: ['Content-Type', 'Authorization'],
-    credentials: true,
-    maxAge: 86400
-};
-
-// 4. Input Sanitization — تنظيف المدخلات من XSS و Injection
-const sanitizeInput = (obj) => {
-    if (typeof obj === 'string') {
-        return obj
-            .replace(/&/g, '&amp;')
-            .replace(/</g, '&lt;')
-            .replace(/>/g, '&gt;')
-            .replace(/"/g, '&quot;')
-            .replace(/'/g, '&#x27;')
-            .replace(/\//g, '&#x2F;')
-            .trim();
-    }
-    if (Array.isArray(obj)) return obj.map(sanitizeInput);
-    if (obj && typeof obj === 'object') {
-        const clean = {};
-        for (const key of Object.keys(obj)) clean[key] = sanitizeInput(obj[key]);
-        return clean;
-    }
-    return obj;
-};
-
-// 5. Rate Limiters — حماية من الإغراق (DDoS)
-let generalLimiter, authLimiter, aiLimiter;
-if (rateLimit) {
-    const runtimeLimiterBypassPaths = new Set([
-        '/api/live',
-        '/api/health',
-        '/api/ready',
-        '/api/version',
-        '/api/runtime',
-        '/api/sheikha-node/status',
-        '/api/observability/summary'
-    ]);
-
-    const shouldBypassGeneralLimiter = (req) => {
-        const requestPath = (req.originalUrl || req.url || '').split('?')[0];
-        return runtimeLimiterBypassPaths.has(requestPath);
-    };
-
-    // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
-    generalLimiter = rateLimit({
-        windowMs: 15 * 60 * 1000,
-        max: 500,
-        message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
-        skip: shouldBypassGeneralLimiter,
-        standardHeaders: true,
-        legacyHeaders: false
+if (typeof applySecurityMiddleware === 'function') {
+    applySecurityMiddleware({
+        app,
+        helmet,
+        compression,
+        rateLimit,
+        cors,
+        express
     });
-    // حد صارم لتسجيل الدخول — 5 محاولات كل 15 دقيقة
-    authLimiter = rateLimit({
-        windowMs: 15 * 60 * 1000,
-        max: 5,
-        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' }
-    });
-    // حد لـ AI — 20 طلب كل 15 دقيقة
-    aiLimiter = rateLimit({
-        windowMs: 15 * 60 * 1000,
-        max: 20,
-        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' }
-    });
-    console.log('✅ rate-limit مفعّل — حماية من الإغراق');
-}
-
-// === تطبيق الـ middleware بالترتيب الصحيح ===
-app.use(cors(corsOptions));
-app.use(express.json({ limit: '10mb' }));
-
-// تنظيف المدخلات
-app.use((req, res, next) => {
-    if (req.body) req.body = sanitizeInput(req.body);
-    if (req.query) req.query = sanitizeInput(req.query);
-    if (req.params) req.params = sanitizeInput(req.params);
-    next();
-});
-
-// Rate limiters على المسارات المحددة
-if (generalLimiter) app.use('/api/', generalLimiter);
-if (authLimiter) {
-    app.use('/api/auth/login', authLimiter);
-    app.use('/api/auth/register', authLimiter);
-}
-if (aiLimiter) {
-    app.use('/api/ai/', aiLimiter);
-    app.use('/api/sheikha-ai/', aiLimiter);
+} else {
+    console.log('⚠️ security middleware module غير متوفر — fallback للتشغيل الأساسي');
+    app.use(cors());
+    app.use(express.json({ limit: '10mb' }));
 }
 
 // سجل أمني — تسجيل محاولات مشبوهة
@@ -2763,6 +2641,19 @@ app.get('/api/health', (req, res) => {
             uptimeSeconds: Math.floor(process.uptime())
         },
         message: 'الخدمة تعمل بشكل طبيعي',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/status', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            status: 'ok',
+            pid: process.pid,
+            uptimeSeconds: Math.floor(process.uptime())
+        },
+        message: 'حالة الخدمة متاحة',
         timestamp: new Date().toISOString()
     });
 });
@@ -10615,7 +10506,73 @@ if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContr
         port: PORT
     });
 } else {
-    console.log('⚠️ Runtime contracts غير متوفرة — تم تخطي التسجيل');
+    console.log('⚠️ Runtime contracts غير متوفرة — سيتم تسجيل fallback محلي');
+
+    app.get('/api/runtime', (req, res) => {
+        return res.status(200).json({
+            success: true,
+            data: {
+                mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
+                contractsVersion: 'fallback-v1',
+                ring: SHEIKHA_RUNTIME_RING || 'fallback',
+                loaded: false,
+                startedAt: SERVER_START_TIME,
+                uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000),
+                fingerprint: {
+                    status: RUNTIME_FINGERPRINT_STATUS || 'unknown'
+                }
+            },
+            message: 'تم جلب حالة التشغيل بنجاح',
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/sheikha-node/status', (req, res) => {
+        return res.status(200).json({
+            success: true,
+            data: {
+                status: 'online',
+                mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
+                ring: SHEIKHA_RUNTIME_RING || 'fallback',
+                startedAt: SERVER_START_TIME,
+                uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000)
+            },
+            message: 'حالة العقدة تعمل',
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/observability/summary', (req, res) => {
+        const metricsDir = path.join(__dirname, 'data', 'runtime-metrics');
+        const safeStat = (filePath) => {
+            try {
+                return fs.existsSync(filePath) ? fs.statSync(filePath).size : 0;
+            } catch (_) {
+                return 0;
+            }
+        };
+
+        let files = [];
+        try {
+            files = fs.existsSync(metricsDir)
+                ? fs.readdirSync(metricsDir).filter((name) => name.endsWith('.ndjson'))
+                : [];
+        } catch (_) {
+            files = [];
+        }
+
+        return res.status(200).json({
+            success: true,
+            data: {
+                files,
+                latencyBytes: safeStat(path.join(metricsDir, 'latency.ndjson')),
+                errorsBytes: safeStat(path.join(metricsDir, 'errors.ndjson')),
+                throughputBytes: safeStat(path.join(metricsDir, 'throughput.ndjson'))
+            },
+            message: 'ملخص المراقبة متاح',
+            timestamp: new Date().toISOString()
+        });
+    });
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -20785,7 +20742,36 @@ app.get('/api/taqwa/system', (req, res) => {
 console.log('   🛡️ Taqwa APIs: /api/taqwa/dashboard, /api/taqwa/system');
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
+// � LIVE CHAT APIs — التحدث المباشر مع شيخة
+// ═══════════════════════════════════════════════════════════════════════════════
+app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
+  const message = String(req.body?.message || '').trim();
+
+  if (!message) {
+    return res.status(400).json({
+      success: false,
+      message: 'اكتب رسالة لشيخة أولًا.'
+    });
+  }
+
+  return res.json({
+    success: true,
+    mode: 'guided-operational-assistant',
+    reply: `استلمت طلبك: ${message}\nسأتعامل معه كتحليل وتشغيل وتطوير آمن تحت إدارة الإنسان.`,
+    capabilities: {
+      talk: true,
+      write: true,
+      analyze: true,
+      editByRequest: true,
+      autonomousDeploy: false
+    },
+    nextAction: 'اعرض عليّ الملف أو المسار أو المهمة المطلوبة للتطوير.'
+  });
+});
+console.log('   💬 Live Chat API: /api/sheikha/live-chat');
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
