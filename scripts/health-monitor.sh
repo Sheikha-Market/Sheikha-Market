@@ -24,13 +24,52 @@ DISK_CRITICAL="${DISK_CRITICAL:-90}"  # %
 ISSUES=0
 WARNINGS=0
 
+# قد يختلف اسم العملية بين البيئات، لذا نكتشف الاسم الفعلي قبل الفحص.
+resolvePm2Name() {
+    local detected
+    detected=$(pm2 jlist 2>/dev/null | node -e "
+        const fs = require('fs');
+        const input = fs.readFileSync(0, 'utf8') || '[]';
+        let list = [];
+        try { list = JSON.parse(input); } catch { list = []; }
+        const preferred = process.env.PM2_NAME || 'sheikha-main-portal';
+        const exact = list.find(p => p && p.name === preferred);
+        if (exact) { console.log(exact.name); process.exit(0); }
+        const alias = list.find(p => p && typeof p.name === 'string' && p.name.startsWith('sheikha-main-port'));
+        if (alias) { console.log(alias.name); process.exit(0); }
+        process.exit(1);
+    " 2>/dev/null || true)
+
+    if [ -n "$detected" ]; then
+        PM2_NAME="$detected"
+    fi
+}
+
 # فحص دقيق لحالة الخدمة بدون الاعتماد على مخرجات الجدول المختصرة
 isPm2Online() {
     pm2 describe "$PM2_NAME" 2>/dev/null | grep -qE 'status\s+online'
 }
 
+restartPm2Process() {
+    if pm2 restart "$PM2_NAME" --update-env >/dev/null 2>&1 && isPm2Online; then
+        return 0
+    fi
+
+    # محاولة ثانية في حال كانت العملية غير مسجلة أو تغير تعريفها.
+    if [ -f "ecosystem.config.js" ]; then
+        if pm2 start ecosystem.config.js --only "$PM2_NAME" --update-env >/dev/null 2>&1 && isPm2Online; then
+            return 0
+        fi
+    fi
+
+    return 1
+}
+
 echo -e "${BLUE}🏥 شيخة — Health Monitoring${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
+
+resolvePm2Name
+echo -e "${BLUE}   PM2 Target: ${PM2_NAME}${NC}"
 
 # 1️⃣ فحص PM2 Process
 echo -e "${YELLOW}✓ فحص PM2 Process...${NC}"
@@ -38,7 +77,7 @@ if isPm2Online; then
     echo -e "${GREEN}✅ Process قيد التشغيل${NC}"
 else
     echo -e "${RED}❌ Process توقف!${NC}"
-    if pm2 restart "$PM2_NAME" --update-env >/dev/null 2>&1 && isPm2Online; then
+    if restartPm2Process; then
         echo -e "${GREEN}✅ تم إصلاح الحالة تلقائيًا عبر إعادة التشغيل${NC}"
     else
         echo -e "${RED}❌ فشل إصلاح العملية تلقائيًا${NC}"
@@ -57,7 +96,7 @@ fi
 
 # 3️⃣ فحص الذاكرة
 echo -e "${YELLOW}✓ فحص استهلاك الذاكرة...${NC}"
-PM2_MEM=$(pm2 status | grep "$PM2_NAME" | awk '{gsub(/M/,"",$9); print int($9)}')
+PM2_MEM=$(pm2 status | grep "$PM2_NAME" | awk '{gsub(/M/,"",$9); print int($9)}' | head -1)
 if [ "$PM2_MEM" -gt 0 ]; then
     if [ "$PM2_MEM" -gt "$MAX_MEMORY" ]; then
         echo -e "${RED}❌ استهلاك الذاكرة عالي: ${PM2_MEM}MB (الحد: ${MAX_MEMORY}MB)${NC}"
