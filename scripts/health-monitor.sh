@@ -47,7 +47,32 @@ resolvePm2Name() {
 
 # فحص دقيق لحالة الخدمة بدون الاعتماد على مخرجات الجدول المختصرة
 isPm2Online() {
-    pm2 describe "$PM2_NAME" 2>/dev/null | grep -qE 'status\s+online'
+    pm2 jlist 2>/dev/null | node -e "
+        const fs = require('fs');
+        const input = fs.readFileSync(0, 'utf8') || '[]';
+        let list = [];
+        try { list = JSON.parse(input); } catch { process.exit(1); }
+        const name = process.env.PM2_NAME;
+        const proc = list.find(p => p && p.name === name);
+        if (!proc) process.exit(1);
+        process.exit(proc.pm2_env && proc.pm2_env.status === 'online' ? 0 : 1);
+    "
+}
+
+getPm2MemoryMb() {
+    pm2 jlist 2>/dev/null | node -e "
+        const fs = require('fs');
+        const input = fs.readFileSync(0, 'utf8') || '[]';
+        let list = [];
+        try { list = JSON.parse(input); } catch { console.log(0); process.exit(0); }
+        const name = process.env.PM2_NAME;
+        const proc = list.find(p => p && p.name === name);
+        if (!proc || !proc.monit || typeof proc.monit.memory !== 'number') {
+            console.log(0);
+            process.exit(0);
+        }
+        console.log(Math.round(proc.monit.memory / (1024 * 1024)));
+    "
 }
 
 restartPm2Process() {
@@ -100,7 +125,7 @@ fi
 
 # 3️⃣ فحص الذاكرة
 echo -e "${YELLOW}✓ فحص استهلاك الذاكرة...${NC}"
-PM2_MEM=$(pm2 status 2>/dev/null | grep "$PM2_NAME" | awk '{gsub(/M/,"",$9); print int($9)}' | head -1)
+PM2_MEM=$(getPm2MemoryMb)
 PM2_MEM=${PM2_MEM:-0}
 if [ "$PM2_MEM" -gt 0 ]; then
     if [ "$PM2_MEM" -gt "$MAX_MEMORY" ]; then
