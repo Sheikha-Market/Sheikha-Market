@@ -534,7 +534,16 @@ router.post('/model-integrations/auto-refresh', (req, res) => {
 // ─── محادثة ذكية ──────────────────────────────────────────────────────────────
 
 router.post('/chat', async (req, res) => {
-    const { message, context, model = 'auto', conversationId, enableThinking = false, useRAG = true } = req.body;
+    const {
+        message,
+        context,
+        model = 'auto',
+        conversationId,
+        enableThinking = false,
+        useRAG = true,
+        responseLanguage = 'ar',
+        translateTo = []
+    } = req.body;
     const startMs = Date.now();
 
     if (!message) {
@@ -690,15 +699,22 @@ router.post('/chat', async (req, res) => {
         const latency = Date.now() - startMs;
         if (productionMonitor) productionMonitor.recordRequest(true, latency);
 
+        const normalizedResponseLanguage = normalizeHumanLanguageCode(responseLanguage);
+        const localizedResponse = await translateText(response, normalizedResponseLanguage);
+        const translationTargets = Array.isArray(translateTo) ? translateTo : [];
+        const translations = await buildTranslations(response, translationTargets, normalizedResponseLanguage);
+
         const result = {
             success: true,
-            response,
+            response: localizedResponse,
             provider,
             taskType,
             sensitivity,
             modelPipeline,
             pipeline: ragContext ? 'rag-augmented' : 'direct',
             quality: quality ? { grade: quality.grade, score: Math.round(quality.scores.overall * 100) } : null,
+            responseLanguage: normalizedResponseLanguage,
+            translations,
             timestamp: new Date().toISOString()
         };
 
@@ -776,7 +792,7 @@ router.post('/chat/compact', async (req, res) => {
     try {
         // ضغط السياق باستخدام Claude Opus 4.6
         const compacted = await compactContext(messages);
-        
+
         // تخزين السياق المضغوط
         conversationContexts.set(conversationId, {
             summary: compacted,
@@ -912,7 +928,13 @@ router.post('/development/analyze', async (req, res) => {
 // ─── تطوير - توليد كود ────────────────────────────────────────────────────────
 
 router.post('/development/generate', async (req, res) => {
-    const { description, type = 'function', language = 'javascript' } = req.body;
+    const {
+        description,
+        type = 'function',
+        language = 'javascript',
+        responseLanguage = 'ar',
+        translateTo = []
+    } = req.body;
 
     if (!description) {
         return res.status(400).json({
@@ -933,10 +955,19 @@ router.post('/development/generate', async (req, res) => {
             provider = 'local';
         }
 
+        const normalizedResponseLanguage = normalizeHumanLanguageCode(responseLanguage);
+        const baseMessageAr = 'تم توليد الكود بنجاح';
+        const localizedMessage = await translateText(baseMessageAr, normalizedResponseLanguage);
+        const translations = await buildTranslations(baseMessageAr, Array.isArray(translateTo) ? translateTo : [], normalizedResponseLanguage);
+
         res.json({
             success: true,
             code,
             provider
+            ,
+            responseLanguage: normalizedResponseLanguage,
+            message: localizedMessage,
+            translations
         });
 
     } catch (error) {
@@ -1201,7 +1232,7 @@ async function callClaudeOpus46(message, context, conversationId, enableThinking
 
     // بناء الرسائل مع دعم السياق المضغوط
     const messages = [];
-    
+
     // إضافة السياق المضغوط إذا وُجد
     if (conversationId && conversationContexts.has(conversationId)) {
         const ctx = conversationContexts.get(conversationId);
@@ -1363,7 +1394,7 @@ async function compactContext(messages) {
             console.warn('Context compaction error:', e.message);
         }
     }
-    
+
     // ضغط محلي بسيط
     return messages.map(m => `${m.role}: ${m.content?.substring(0, 100)}`).join('\n');
 }
@@ -1392,7 +1423,7 @@ function detectTaskType(message) {
  */
 function getPreferredModel(taskType) {
     const routing = config.ai.routing;
-    
+
     switch (taskType) {
         case 'development':
         case 'coding':
@@ -1512,21 +1543,120 @@ function basicCodeAnalysis(code, language) {
     };
 }
 
-function generateBasicCode(description, type, language) {
-    if (type === 'function' && language === 'javascript') {
-        return `/**
- * ${description}
- */
-function generatedFunction(input) {
-    const output = {
-        success: true,
-        message: '${description}',
-        input
-    };
-    return output;
-}`;
+const HUMAN_LANGUAGE_LABELS = {
+    ar: 'العربية',
+    en: 'English',
+    fr: 'Français',
+    ur: 'اردو',
+    tr: 'Türkçe',
+    id: 'Bahasa Indonesia'
+};
+
+function normalizeHumanLanguageCode(lang) {
+    const value = String(lang || 'ar').toLowerCase();
+    if (['ar', 'arabic', 'العربية', 'arab'].includes(value)) return 'ar';
+    if (['en', 'english'].includes(value)) return 'en';
+    if (['fr', 'french', 'francais', 'français'].includes(value)) return 'fr';
+    if (['ur', 'urdu'].includes(value)) return 'ur';
+    if (['tr', 'turkish'].includes(value)) return 'tr';
+    if (['id', 'indonesian', 'bahasa'].includes(value)) return 'id';
+    return 'ar';
+}
+
+async function translateText(text, targetLanguage) {
+    const target = normalizeHumanLanguageCode(targetLanguage);
+    if (!text || target === 'ar') return text;
+
+    const languageLabel = HUMAN_LANGUAGE_LABELS[target] || target;
+    const prompt = `ترجم النص التالي من العربية إلى ${languageLabel} مع الحفاظ على المعنى التجاري والتقني:\n\n${text}`;
+
+    try {
+        if (config.ai.openai.apiKey) {
+            const translated = await callOpenAI(prompt);
+            if (translated && typeof translated === 'string') {
+                return translated.trim();
+            }
+        }
+    } catch (e) {
+        console.warn('[Translation] OpenAI fallback:', e.message);
     }
-    return `// ${description}\n// قالب مبدئي قابل للتوسعة\nreturn { success: true, message: '${description}' };`;
+
+    return text;
+}
+
+async function buildTranslations(text, targets, primaryLanguage) {
+    const output = {};
+    const uniqueTargets = [...new Set((targets || []).map(normalizeHumanLanguageCode))]
+        .filter((lang) => lang !== normalizeHumanLanguageCode(primaryLanguage));
+
+    for (const lang of uniqueTargets) {
+        output[lang] = await translateText(text, lang);
+    }
+
+    return output;
+}
+
+function toSafeIdentifier(text, fallback = 'generatedFunction') {
+    const base = String(text || '')
+        .trim()
+        .toLowerCase()
+        .replace(/[^a-z0-9\s_]/g, ' ')
+        .replace(/\s+/g, ' ')
+        .trim();
+
+    if (!base) return fallback;
+
+    const parts = base.split(' ').filter(Boolean);
+    const camel = parts
+        .map((part, index) => (index === 0 ? part : part.charAt(0).toUpperCase() + part.slice(1)))
+        .join('');
+
+    if (!camel) return fallback;
+    if (/^[0-9]/.test(camel)) return fallback;
+    return camel;
+}
+
+function escapeSingleQuotes(text) {
+    return String(text || '').replace(/'/g, "\\'");
+}
+
+function generateBasicCode(description, type, language) {
+    const normalizedType = String(type || 'function').toLowerCase();
+    const normalizedLanguage = String(language || 'javascript').toLowerCase();
+    const safeDescription = escapeSingleQuotes(description);
+    const fnName = toSafeIdentifier(description, 'generatedFunction');
+    const classNameBase = toSafeIdentifier(description, 'generatedService');
+    const className = classNameBase.charAt(0).toUpperCase() + classNameBase.slice(1);
+
+    if (normalizedLanguage === 'javascript') {
+        if (normalizedType === 'class') {
+            return `/**\n * ${safeDescription}\n */\nclass ${className} {\n    constructor() {\n        this.name = '${className}';\n    }\n\n    execute(input = {}) {\n        return {\n            success: true,\n            message: '${safeDescription}',\n            data: input\n        };\n    }\n}\n\nmodule.exports = ${className};`;
+        }
+
+        if (normalizedType === 'route' || normalizedType === 'api') {
+            return `const express = require('express');\nconst router = express.Router();\n\n// ${safeDescription}\nrouter.post('/generated-endpoint', (req, res) => {\n    const payload = req.body || {};\n    return res.json({\n        success: true,\n        message: '${safeDescription}',\n        data: payload,\n        timestamp: new Date().toISOString()\n    });\n});\n\nmodule.exports = router;`;
+        }
+
+        return `/**\n * ${safeDescription}\n */\nfunction ${fnName}(input = {}) {\n    const output = {\n        success: true,\n        message: '${safeDescription}',\n        input\n    };\n    return output;\n}\n\nmodule.exports = ${fnName};`;
+    }
+
+    if (normalizedLanguage === 'typescript') {
+        if (normalizedType === 'interface') {
+            return `export interface GeneratedPayload {\n    id: string;\n    name: string;\n    createdAt: string;\n}`;
+        }
+
+        return `export function ${fnName}(input: Record<string, unknown> = {}): { success: boolean; message: string; input: Record<string, unknown> } {\n    return {\n        success: true,\n        message: '${safeDescription}',\n        input\n    };\n}`;
+    }
+
+    if (normalizedLanguage === 'python') {
+        if (normalizedType === 'class') {
+            return `class ${className}:\n    \"\"\"${safeDescription}\"\"\"\n\n    def execute(self, payload=None):\n        payload = payload or {}\n        return {\n            'success': True,\n            'message': '${safeDescription}',\n            'data': payload\n        }`;
+        }
+
+        return `def ${fnName}(payload=None):\n    \"\"\"${safeDescription}\"\"\"\n    payload = payload or {}\n    return {\n        'success': True,\n        'message': '${safeDescription}',\n        'data': payload\n    }`;
+    }
+
+    return `// ${safeDescription}\n// قالب مبدئي قابل للتوسعة\nfunction ${fnName}(input) {\n    return { success: true, message: '${safeDescription}', input };\n}`;
 }
 
 async function analyzeCodeWithClaude(code, language) {
