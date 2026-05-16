@@ -10229,6 +10229,38 @@ app.get('/api/programming-experience', (req, res) => {
     });
 });
 
+// حالة البوابة المؤسسية (تكامل الحساب المؤسسي + الشبكة العصبية)
+app.get('/api/enterprise/status', (req, res) => {
+    const aiEnabled = !!OPENAI_API_KEY && OPENAI_API_KEY !== 'YOUR_API_KEY_HERE';
+    const uptime = Date.now() - SERVER_START_TIME;
+
+    res.json({
+        success: true,
+        data: {
+            portal: {
+                name: 'Sheikha Enterprise Portal',
+                status: 'active',
+                path: '/portal-enterprise.html'
+            },
+            enterpriseAccount: {
+                status: 'ready',
+                dashboardPath: '/لوحة-الشركة.html?mode=enterprise'
+            },
+            neuralNetwork: {
+                status: 'active',
+                aiEnabled,
+                engine: aiEnabled ? 'connected' : 'local-fallback'
+            },
+            runtime: {
+                serverStatus: 'online',
+                uptimeMs: uptime
+            }
+        },
+        message: 'حالة البوابة المؤسسية متاحة.',
+        timestamp: new Date().toISOString()
+    });
+});
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🖥️ نظام إدارة السيرفرات والبنية التحتية
 // ═══════════════════════════════════════════════════════════════════════════════
