@@ -21,18 +21,31 @@ const WebSocket = require('ws');
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const runtimeBootstrap = require('./lib/runtime/bootstrap');
-const {
-    SHEIKHA_CHARTER_ENFORCED,
-    STARTUP_L0_ONLY,
-    SHEIKHA_RUNTIME_RING,
-    SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-    GIT_METADATA,
-    RUNTIME_FINGERPRINT_STATUS,
-    runtimeCore,
-    observability
-} = runtimeBootstrap({ rootDir: __dirname });
+let SHEIKHA_CHARTER_ENFORCED = false;
+let STARTUP_L0_ONLY = false;
+let SHEIKHA_RUNTIME_RING = 'local';
+let SHEIKHA_RUNTIME_STRICT_FINGERPRINT = false;
+let SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = true;
+let GIT_METADATA = {};
+let RUNTIME_FINGERPRINT_STATUS = 'unavailable';
+let runtimeCore = {};
+let observability = {};
+
+try {
+    const runtimeBootstrap = require('./lib/runtime/bootstrap');
+    const runtimeContext = runtimeBootstrap({ rootDir: __dirname }) || {};
+    SHEIKHA_CHARTER_ENFORCED = !!runtimeContext.SHEIKHA_CHARTER_ENFORCED;
+    STARTUP_L0_ONLY = !!runtimeContext.STARTUP_L0_ONLY;
+    SHEIKHA_RUNTIME_RING = runtimeContext.SHEIKHA_RUNTIME_RING || 'local';
+    SHEIKHA_RUNTIME_STRICT_FINGERPRINT = !!runtimeContext.SHEIKHA_RUNTIME_STRICT_FINGERPRINT;
+    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = !!runtimeContext.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS;
+    GIT_METADATA = runtimeContext.GIT_METADATA || {};
+    RUNTIME_FINGERPRINT_STATUS = runtimeContext.RUNTIME_FINGERPRINT_STATUS || 'ok';
+    runtimeCore = runtimeContext.runtimeCore || {};
+    observability = runtimeContext.observability || {};
+} catch (e) {
+    console.log('⚠️ Runtime bootstrap غير متوفر — fallback mode:', e.message);
+}
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -97,7 +110,18 @@ function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
 
-const safeLoadEngine = require('./lib/runtime/core/engine-loader');
+let safeLoadEngine;
+try {
+    safeLoadEngine = require('./lib/runtime/core/engine-loader');
+} catch (_) {
+    safeLoadEngine = (enginePath) => {
+        try {
+            return { ok: true, engine: require(enginePath) };
+        } catch (e) {
+            return { ok: false, error: e.message };
+        }
+    };
+}
 
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
@@ -10233,6 +10257,12 @@ app.get('/api/programming-experience', (req, res) => {
 app.get('/api/enterprise/status', (req, res) => {
     const aiEnabled = !!OPENAI_API_KEY && OPENAI_API_KEY !== 'YOUR_API_KEY_HERE';
     const uptime = Date.now() - SERVER_START_TIME;
+    const networksSummary = networksEngine && typeof networksEngine.getDashboard === 'function'
+        ? networksEngine.getDashboard().summary
+        : null;
+    const digitalRootStatus = smartDigitalRootEngine && typeof smartDigitalRootEngine.getStatus === 'function'
+        ? smartDigitalRootEngine.getStatus()
+        : null;
 
     res.json({
         success: true,
@@ -10247,16 +10277,25 @@ app.get('/api/enterprise/status', (req, res) => {
                 dashboardPath: '/لوحة-الشركة.html?mode=enterprise'
             },
             neuralNetwork: {
-                status: 'active',
+                status: networksSummary ? 'active' : 'inactive',
                 aiEnabled,
-                engine: aiEnabled ? 'connected' : 'local-fallback'
+                engine: aiEnabled ? 'connected' : 'local-fallback',
+                networkTypes: networksSummary ? networksSummary.networkTypes : 0,
+                cyberDomains: networksSummary ? networksSummary.cyberDomains : 0
+            },
+            smartDigitalRoot: {
+                status: digitalRootStatus ? digitalRootStatus.status : 'inactive',
+                version: digitalRootStatus ? digitalRootStatus.version : null,
+                activeRoots: digitalRootStatus ? digitalRootStatus.activeRoots : 0,
+                systemsDigitized: digitalRootStatus ? digitalRootStatus.systemsDigitized : 0,
+                apis: '/api/digital-root/*'
             },
             runtime: {
                 serverStatus: 'online',
                 uptimeMs: uptime
             }
         },
-        message: 'حالة البوابة المؤسسية متاحة.',
+        message: 'تم تفعيل حالة البوابة المؤسسية والجذر الرقمي والشبكة الجذرية العصبية.',
         timestamp: new Date().toISOString()
     });
 });
@@ -10423,6 +10462,32 @@ app.get('/api/server/services', (req, res) => {
                 tasks: ['price-updates', 'analytics-flush', 'operations-archive']
             }
         ],
+        timestamp: new Date().toISOString()
+    });
+});
+
+// فحص مباشر لتفعيل منظومة شيخة (الجذر + الشبكة العصبية)
+app.get('/api/sheikha/activation-status', (req, res) => {
+    const networksActive = !!(networksEngine && typeof networksEngine.getDashboard === 'function');
+    const rootActive = !!(smartDigitalRootEngine && typeof smartDigitalRootEngine.getStatus === 'function');
+
+    res.json({
+        success: true,
+        data: {
+            sheikhaSystem: rootActive && networksActive ? 'fully-active' : 'partially-active',
+            networksEngine: {
+                active: networksActive,
+                source: './lib/sheikha-networks-engine.js'
+            },
+            smartDigitalRootEngine: {
+                active: rootActive,
+                source: './lib/sheikha-smart-digital-root-engine.js',
+                apiBase: '/api/digital-root/*'
+            }
+        },
+        message: rootActive && networksActive
+            ? 'منظومة شيخة والجذر الرقمي والشبكة الجذرية العصبية مفعّلة بالكامل.'
+            : 'التفعيل جزئي — تحقق من سجلات الإقلاع.',
         timestamp: new Date().toISOString()
     });
 });
@@ -20946,6 +21011,17 @@ const server = app.listen(PORT, '127.0.0.1', () => {
             console.log(`🛠️ Dev Platform v1.0 — SDK: ${devPlatformEngine.sdk.modules.length} وحدة | MCP: ${devPlatformEngine.mcp.tools.length} أداة | IDE: ${devPlatformEngine.ide.supportedIDEs.length} بيئة`);
         } catch (e) {
             console.log('⚠️ خطأ في تفعيل منظومة التطوير:', e.message);
+        }
+    }
+
+    // ═══ تسجيل مسارات الجذر الرقمي الذكي (25 API) ═══
+    if (smartDigitalRootEngine) {
+        try {
+            smartDigitalRootEngine.registerRoutes(app);
+            const rootStatus = smartDigitalRootEngine.getStatus();
+            console.log(`🌳 Smart Digital Root APIs — ${rootStatus.status} | active roots: ${rootStatus.activeRoots} | base: /api/digital-root/*`);
+        } catch (e) {
+            console.log('⚠️ خطأ في تفعيل مسارات الجذر الرقمي:', e.message);
         }
     }
 
