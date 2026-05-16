@@ -20649,6 +20649,26 @@ app.get('/api/sunnah/display-policy', (req, res) => {
 });
 
 // API — ملخص كل شيء يعمل
+app.get('/api/sheikha/activation-status', (req, res) => {
+  res.json({
+    success: true,
+    status: 'active',
+    service: 'sheikha-main-portal',
+    runtime: {
+      mode: 'enterprise',
+      path: '/opt/sheikha/current',
+      branch: 'stable/runtime-baseline'
+    },
+    endpoints: {
+      health: '/api/health',
+      enterprise: '/api/enterprise/status',
+      comms: '/api/comms/providers'
+    },
+    message: 'منظومة شيخة مفعّلة والمسارات الأساسية موحّدة.',
+    timestamp: new Date().toISOString()
+  });
+});
+
 app.get('/api/sheikha/status', (req, res) => {
     res.json({
         بسم_الله: 'بسم الله الرحمن الرحيم',
