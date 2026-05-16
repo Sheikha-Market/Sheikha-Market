@@ -2679,6 +2679,73 @@ app.get('/api/enterprise/status', (req, res) => {
     });
 });
 
+// مسارات runtime الأساسية تُسجَّل مبكراً لتفادي أي تعارض ترتيب مع middlewares عامة لاحقاً
+app.get('/api/runtime', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
+            contractsVersion: 'early-v1',
+            ring: SHEIKHA_RUNTIME_RING || 'fallback',
+            loaded: Boolean(runtimeBootstrap),
+            startedAt: SERVER_START_TIME,
+            uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000),
+            fingerprint: {
+                status: RUNTIME_FINGERPRINT_STATUS || 'unknown'
+            }
+        },
+        message: 'تم جلب حالة التشغيل بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha-node/status', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            status: 'online',
+            mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
+            ring: SHEIKHA_RUNTIME_RING || 'fallback',
+            startedAt: SERVER_START_TIME,
+            uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000)
+        },
+        message: 'حالة العقدة تعمل',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/observability/summary', (req, res) => {
+    const metricsDir = path.join(__dirname, 'data', 'runtime-metrics');
+    const statBytes = (filePath) => {
+        try {
+            return fs.existsSync(filePath) ? fs.statSync(filePath).size : 0;
+        } catch (_) {
+            return 0;
+        }
+    };
+
+    let files = [];
+    try {
+        files = fs.existsSync(metricsDir)
+            ? fs.readdirSync(metricsDir).filter((name) => name.endsWith('.ndjson'))
+            : [];
+    } catch (_) {
+        files = [];
+    }
+
+    return res.json({
+        success: true,
+        data: {
+            files,
+            latencyBytes: statBytes(path.join(metricsDir, 'latency.ndjson')),
+            errorsBytes: statBytes(path.join(metricsDir, 'errors.ndjson')),
+            throughputBytes: statBytes(path.join(metricsDir, 'throughput.ndjson'))
+        },
+        message: 'ملخص المراقبة متاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
