@@ -352,11 +352,11 @@ console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
 
 // ═══ COMMS ENGINE — منظومة شيخة للاتصالات الشاملة ═══
 // SMS | واتساب | بريد | مكالمات آلية | مصادقة | إشعارات — بالكتاب والسنة
-/* LAZY: let commsEngine = null;
+/* LAZY: let communicationsRuntime = null;
 /* LAZY: try {
 /* LAZY:     const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
-/* LAZY:     commsEngine = new SheikhaCommsEngine();
-/* LAZY:     const cd = commsEngine.getDashboard();
+/* LAZY:     communicationsRuntime = new SheikhaCommsEngine();
+/* LAZY:     const cd = communicationsRuntime.getDashboard();
 /* LAZY:     console.log(`\u2705 Comms Engine \u2014 ${cd.summary.totalChannels} \u0642\u0646\u0627\u0629 | ${cd.summary.totalTemplates} \u0642\u0627\u0644\u0628 | ${cd.summary.totalWorkflows} \u0633\u064a\u0631 \u0639\u0645\u0644 | ${cd.summary.totalProviders} \u0645\u0632\u0648\u062f | ${cd.summary.otpMethods} \u0637\u0631\u064a\u0642\u0629 OTP | ${cd.summary.autoReplyKeywords} \u0631\u062f \u0622\u0644\u064a`);
 /* LAZY: } catch (e) {
 /* LAZY:     console.log('\u26a0\ufe0f Comms Engine \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
@@ -376,7 +376,7 @@ try {
     aiCommsBridge = new _AICBridgeClass({
         aiEngine: null,
         localMind: sheikhaLocalMind || null,
-        commsEngine: commsEngine || null
+        communicationsRuntime: communicationsRuntime || null
     });
     const bd = aiCommsBridge.getDashboard();
     console.log(`\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`);
@@ -2750,6 +2750,16 @@ app.get('/api/live', (req, res) => {
         live: true,
         pid: process.pid,
         uptimeSeconds: Math.floor(process.uptime()),
+        timestamp: new Date().toISOString()
+    });
+});
+
+// P0-2: Health Check موحّد للتوافق مع أدوات المراقبة
+app.get('/api/health', (req, res) => {
+    res.json({
+        status: 'ok',
+        success: true,
+        live: true,
         timestamp: new Date().toISOString()
     });
 });
@@ -6702,8 +6712,8 @@ app.post('/api/auth/forgot-password', (req, res) => {
     saveJSON(USERS_FILE, USERS);
 
     // إرسال الرمز عبر منظومة الاتصالات (SMS + Email + واتساب)
-    if (commsEngine) {
-        commsEngine.sendTemplate('password_reset', { code: resetCode, minutes: '15', to: user.email, phone: user.phone }, ['sms', 'email']);
+    if (communicationsRuntime) {
+        communicationsRuntime.sendTemplate('password_reset', { code: resetCode, minutes: '15', to: user.email, phone: user.phone }, ['sms', 'email']);
     }
     console.log('[SECURITY] رمز استعادة كلمة المرور للمستخدم ' + user.name + ': ' + resetCode);
     res.json({ success: true, message: genericMsg, _devCode: IS_LOCAL ? resetCode : undefined });
@@ -6771,9 +6781,9 @@ app.post('/api/auth/sheikha-authenticator/request', (req, res) => {
     SHEIKHA_AUTH_CODES.set(userId, { code, expires, method: authMethod, attempts: 0 });
 
     // إرسال عبر منظومة الاتصالات
-    if (commsEngine) {
+    if (communicationsRuntime) {
         const channels = authMethod === 'sms' ? ['sms'] : authMethod === 'email' ? ['email'] : ['sms', 'email'];
-        commsEngine.sendTemplate('otp', { code, minutes: '5', to: user.email, phone: user.phone }, channels);
+        communicationsRuntime.sendTemplate('otp', { code, minutes: '5', to: user.email, phone: user.phone }, channels);
     }
     console.log('[Sheikha Auth] رمز المصادقة لـ ' + user.name + ': ' + code + ' | طريقة: ' + authMethod);
     res.json({
@@ -12999,54 +13009,54 @@ app.post('/api/communications/settings', (req, res) => {
 // «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ» — المائدة ٢
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/comms/dashboard', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, data: commsEngine.getDashboard(), timestamp: new Date().toISOString() });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, data: communicationsRuntime.getDashboard(), timestamp: new Date().toISOString() });
 });
 app.get('/api/comms/channels', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, channels: commsEngine.channels });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, channels: communicationsRuntime.channels });
 });
 app.get('/api/comms/providers', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, providers: commsEngine.providers });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, providers: communicationsRuntime.providers });
 });
 app.get('/api/comms/templates', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    const templates = Object.entries(commsEngine.templates).map(([id, t]) => ({
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    const templates = Object.entries(communicationsRuntime.templates).map(([id, t]) => ({
         id, category: t.category, nameAr: t.nameAr, channels: t.channels
     }));
     res.json({ success: true, templates });
 });
 app.get('/api/comms/log', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { limit, channel } = req.query;
-    res.json({ success: true, log: commsEngine.getLog(parseInt(limit) || 50, channel || null) });
+    res.json({ success: true, log: communicationsRuntime.getLog(parseInt(limit) || 50, channel || null) });
 });
 
 // OTP عبر منظومة الاتصالات
 app.post('/api/comms/otp/generate', authRequired, (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { method, destination } = req.body || {};
-    const result = commsEngine.generateOTP(req.user.id, method || 'sms', destination);
+    const result = communicationsRuntime.generateOTP(req.user.id, method || 'sms', destination);
     // Don't expose the code to client in production
     const IS_LOCAL_ENV = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
     if (!IS_LOCAL_ENV) delete result.code;
     res.json({ success: result.success, message: result.message, expiresIn: result.expiresIn, method: result.method, _devCode: IS_LOCAL_ENV ? result.code : undefined });
 });
 app.post('/api/comms/otp/verify', authRequired, (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { code } = req.body || {};
     if (!code) return res.status(400).json({ success: false, message: 'الرمز مطلوب.' });
-    const result = commsEngine.verifyOTP(req.user.id, code);
+    const result = communicationsRuntime.verifyOTP(req.user.id, code);
     res.json(result);
 });
 
 // إرسال قالب عبر قنوات متعددة
 app.post('/api/comms/send-template', authRequired, (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { templateId, data, channels } = req.body || {};
     if (!templateId) return res.status(400).json({ success: false, message: 'معرّف القالب مطلوب.' });
-    commsEngine.sendTemplate(templateId, data || {}, channels).then(result => res.json(result)).catch(e => res.status(500).json({ success: false, error: e.message }));
+    communicationsRuntime.sendTemplate(templateId, data || {}, channels).then(result => res.json(result)).catch(e => res.status(500).json({ success: false, error: e.message }));
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -13077,8 +13087,8 @@ app.post('/api/smart-chat/sms-webhook', express.json(), async (req, res) => {
     try {
         const result = await aiCommsBridge.processMessage(req.body, 'sms');
         // TODO: إرسال الرد عبر SMS
-        if (commsEngine && result.success && req.body.From) {
-            commsEngine._logComm('sms_auto_reply', 'sms', req.body.From, 'sent', { reply: result.reply });
+        if (communicationsRuntime && result.success && req.body.From) {
+            communicationsRuntime._logComm('sms_auto_reply', 'sms', req.body.From, 'sent', { reply: result.reply });
         }
         res.json(result);
     } catch (e) { res.status(200).json({ success: false }); }
@@ -13089,8 +13099,8 @@ app.post('/api/smart-chat/whatsapp-webhook', express.json(), async (req, res) =>
     if (!aiCommsBridge) return res.status(200).send('OK');
     try {
         const result = await aiCommsBridge.processMessage(req.body, 'whatsapp');
-        if (commsEngine && result.success && req.body.From) {
-            commsEngine._logComm('whatsapp_auto_reply', 'whatsapp', req.body.From, 'sent', { reply: result.reply });
+        if (communicationsRuntime && result.success && req.body.From) {
+            communicationsRuntime._logComm('whatsapp_auto_reply', 'whatsapp', req.body.From, 'sent', { reply: result.reply });
         }
         res.json(result);
     } catch (e) { res.status(200).json({ success: false }); }
@@ -13170,17 +13180,17 @@ app.post('/api/ai-comms/universal-channel', authRequired, async (req, res) => {
 
 // الرد الآلي
 app.post('/api/comms/auto-reply', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { message } = req.body || {};
     if (!message) return res.status(400).json({ success: false, message: 'الرسالة مطلوبة.' });
-    const result = commsEngine.getAutoReply(message);
+    const result = communicationsRuntime.getAutoReply(message);
     res.json({ success: true, ...result });
 });
 
 // الأساس الشرعي للاتصالات
 app.get('/api/comms/islamic-foundation', (req, res) => {
-    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, foundation: commsEngine.foundation });
+    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, foundation: communicationsRuntime.foundation });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
