@@ -76,12 +76,16 @@ echo -e "${YELLOW}✓ فحص PM2 Process...${NC}"
 if isPm2Online; then
     echo -e "${GREEN}✅ Process قيد التشغيل${NC}"
 else
-    echo -e "${RED}❌ Process توقف!${NC}"
+    echo -e "${YELLOW}⚠️ تعذر التحقق من حالة PM2 مباشرة${NC}"
     if restartPm2Process; then
         echo -e "${GREEN}✅ تم إصلاح الحالة تلقائيًا عبر إعادة التشغيل${NC}"
     else
-        echo -e "${RED}❌ فشل إصلاح العملية تلقائيًا${NC}"
-        ISSUES=$((ISSUES + 1))
+        if curl -fsS --max-time 3 "http://localhost:$PORT/api/health" >/dev/null 2>&1; then
+            echo -e "${GREEN}✅ الخدمة متجاوبة؛ تم تجاوز إنذار PM2 غير الحاسم${NC}"
+        else
+            echo -e "${RED}❌ فشل إصلاح العملية والخدمة غير متجاوبة${NC}"
+            ISSUES=$((ISSUES + 1))
+        fi
     fi
 fi
 
@@ -96,7 +100,8 @@ fi
 
 # 3️⃣ فحص الذاكرة
 echo -e "${YELLOW}✓ فحص استهلاك الذاكرة...${NC}"
-PM2_MEM=$(pm2 status | grep "$PM2_NAME" | awk '{gsub(/M/,"",$9); print int($9)}' | head -1)
+PM2_MEM=$(pm2 status 2>/dev/null | grep "$PM2_NAME" | awk '{gsub(/M/,"",$9); print int($9)}' | head -1)
+PM2_MEM=${PM2_MEM:-0}
 if [ "$PM2_MEM" -gt 0 ]; then
     if [ "$PM2_MEM" -gt "$MAX_MEMORY" ]; then
         echo -e "${RED}❌ استهلاك الذاكرة عالي: ${PM2_MEM}MB (الحد: ${MAX_MEMORY}MB)${NC}"
