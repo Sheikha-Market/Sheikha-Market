@@ -16,110 +16,101 @@ VPS_IP="${VPS_IP:-31.97.190.74}"
 VPS_USER="${VPS_USER:-root}"
 VPS_KEY="${VPS_KEY:-$HOME/.ssh/sheikha_vps}"
 DEPLOY_PATH="/opt/sheikha/current"
-BRANCH="${BRANCH:-stable/runtime-baseline}"
+BRANCH="${BRANCH:-main}"
+LOCAL_VPS_MODE=false
 
-health_check() {
-    local base_url="${1:-http://localhost:8080}"
-    local live_code
-    local server_health_code
-
-    live_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$base_url/api/live" || echo "000")
-    server_health_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$base_url/api/server/health" || echo "000")
-
-    if [ "$live_code" = "200" ] && [ "$server_health_code" = "200" ]; then
-        return 0
-    fi
-
-    return 1
-}
-
-# إذا تم التشغيل من داخل الـ VPS نفسه، ننفذ النشر محليًا بدون SSH خارجي.
-if [ -d "$DEPLOY_PATH/.git" ] && [ "$(id -u)" -eq 0 ]; then
-    echo -e "${BLUE}🖥️ تم اكتشاف بيئة VPS محلية — Local Deploy Mode${NC}"
-    cd "$DEPLOY_PATH"
-
-    echo -e "${YELLOW}✓ سحب أحدث الكود من الفرع: $BRANCH${NC}"
-    git fetch origin "$BRANCH"
-    git reset --hard "origin/$BRANCH"
-
-    echo -e "${YELLOW}✓ تثبيت الاعتماديات...${NC}"
-    npm ci --omit=dev
-
-    echo -e "${YELLOW}✓ إعادة تشغيل PM2...${NC}"
-    if pm2 describe sheikha-main-portal >/dev/null 2>&1; then
-        pm2 reload sheikha-main-portal --update-env
-    else
-        pm2 start server.js --name sheikha-main-portal
-        pm2 save
-    fi
-
-    echo -e "${YELLOW}✓ فحص الصحة...${NC}"
-    if ! health_check "http://localhost:8080"; then
-        echo -e "${RED}❌ الخادم لا يستجيب بعد النشر${NC}"
-        pm2 logs sheikha-main-portal --lines 20 --nostream
-        exit 1
-    fi
-
-    echo ""
-    echo -e "${GREEN}✅ النشر المحلي على VPS نجح!${NC}"
-    echo -e "${BLUE}Commit: $(git rev-parse --short HEAD) | Health: OK${NC}"
-    exit 0
-fi
-
-echo -e "${BLUE}🚀 شيخة — Deploy Script${NC}"
+echo -e "${BLUE} شيخة — Deploy Script${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
 # 1️⃣ التحقق من الإعدادات
 echo -e "${YELLOW}✓ التحقق من الإعدادات...${NC}"
 
 if [ ! -f "$VPS_KEY" ]; then
-    echo -e "${RED}❌ خطأ: مفتاح SSH غير موجود${NC}"
-    echo "   المسار المتوقع: $VPS_KEY"
-    echo "   الحل: شغّل السكربت من جهازك المحلي أو حدّد VPS_KEY لمسار المفتاح الصحيح"
-    exit 1
+    if [ -d "$DEPLOY_PATH/.git" ]; then
+        LOCAL_VPS_MODE=true
+        echo -e "${YELLOW}⚠️ لم يتم العثور على المفتاح المحلي، سيتم التشغيل من داخل الـ VPS مباشرة${NC}"
+    else
+        echo -e "${RED}❌ خطأ: مفتاح SSH غير موجود${NC}"
+        echo "   المسار المتوقع: $VPS_KEY"
+        echo "   الحل: تأكد من إعداد المفتاح على الجهاز المحلي أو شغّل السكربت من داخل الـ VPS"
+        exit 1
+    fi
 fi
 
 # 2️⃣ اختبر الاتصال بـ VPS
-echo -e "${YELLOW}✓ اختبار الاتصال بـ VPS...${NC}"
-if ! ssh -i "$VPS_KEY" -o ConnectTimeout=5 "$VPS_USER@$VPS_IP" "echo 'OK'" &>/dev/null; then
-    echo -e "${RED}❌ خطأ: لا يمكن الاتصال بـ VPS${NC}"
-    echo "   العنوان: $VPS_IP"
-    exit 1
+if [ "$LOCAL_VPS_MODE" = false ]; then
+    echo -e "${YELLOW}✓ اختبار الاتصال بـ VPS...${NC}"
+    if ! ssh -i "$VPS_KEY" -o ConnectTimeout=5 "$VPS_USER@$VPS_IP" "echo 'OK'" &>/dev/null; then
+        echo -e "${RED}❌ خطأ: لا يمكن الاتصال بـ VPS${NC}"
+        echo "   العنوان: $VPS_IP"
+        exit 1
+    fi
+    echo -e "${GREEN}✓ متصل بـ VPS${NC}"
+else
+    echo -e "${GREEN}✓ التشغيل داخل الـ VPS${NC}"
 fi
-echo -e "${GREEN}✓ متصل بـ VPS${NC}"
 
 # 3️⃣ اختبر GitHub access
 echo -e "${YELLOW}✓ اختبار GitHub access...${NC}"
-if ! ssh -i "$VPS_KEY" "$VPS_USER@$VPS_IP" "ssh -T git@github.com 2>&1" | grep -q "successfully authenticated"; then
-    echo -e "${RED}❌ خطأ: GitHub access غير متاح${NC}"
-    exit 1
+if [ "$LOCAL_VPS_MODE" = false ]; then
+    if ! ssh -i "$VPS_KEY" "$VPS_USER@$VPS_IP" "ssh -T git@github.com 2>&1" | grep -Eq "successfully authenticated|You've successfully authenticated"; then
+        echo -e "${RED}❌ خطأ: GitHub access غير متاح${NC}"
+        exit 1
+    fi
+else
+    if ! ssh -T git@github.com 2>&1 | grep -Eq "successfully authenticated|You've successfully authenticated"; then
+        echo -e "${RED}❌ خطأ: GitHub access غير متاح من داخل الـ VPS${NC}"
+        exit 1
+    fi
 fi
 echo -e "${GREEN}✓ GitHub access يعمل${NC}"
 
 # 4️⃣ سحب أحدث الكود
 echo -e "${YELLOW}✓ سحب أحدث الكود من الفرع: $BRANCH${NC}"
-ssh -i "$VPS_KEY" "$VPS_USER@$VPS_IP" << DEPLOY_SCRIPT
-    set -e
-    cd $DEPLOY_PATH
-    
+if [ "$LOCAL_VPS_MODE" = false ]; then
+    ssh -i "$VPS_KEY" "$VPS_USER@$VPS_IP" << DEPLOY_SCRIPT
+        set -e
+        cd $DEPLOY_PATH
+
+        # إظهار الحالة الحالية
+        echo "الفرع الحالي: \$(git branch --show-current)"
+        echo "آخر commit: \$(git log -1 --oneline)"
+
+        # التأكد من فرع صحيح
+        git checkout $BRANCH 2>/dev/null || true
+
+        # سحب الكود
+        git config pull.rebase true
+        git pull origin $BRANCH
+
+        echo ""
+        echo "آخر التحديثات:"
+        git log --oneline -3
+
+        echo ""
+        git status
+DEPLOY_SCRIPT
+else
+    cd "$DEPLOY_PATH"
+
     # إظهار الحالة الحالية
-    echo "الفرع الحالي: \$(git branch --show-current)"
-    echo "آخر commit: \$(git log -1 --oneline)"
-    
+    echo "الفرع الحالي: $(git branch --show-current)"
+    echo "آخر commit: $(git log -1 --oneline)"
+
     # التأكد من فرع صحيح
-    git checkout $BRANCH 2>/dev/null || true
-    
+    git checkout "$BRANCH" 2>/dev/null || true
+
     # سحب الكود
     git config pull.rebase true
-    git pull origin $BRANCH
-    
+    git pull origin "$BRANCH"
+
     echo ""
     echo "آخر التحديثات:"
     git log --oneline -3
-    
+
     echo ""
     git status
-DEPLOY_SCRIPT
+fi
 
 # 5️⃣ التحقق من النجاح
 echo ""
