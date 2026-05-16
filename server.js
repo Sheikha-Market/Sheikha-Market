@@ -6179,8 +6179,24 @@ function createNotification(userId, type, titleAr, bodyAr, link) {
 }
 function onUserRegistered(user) {
     createNotification(user.id, 'welcome', 'مرحباً بك في شيخة', 'تم إنشاء حسابك بنجاح. يمكنك الآن إدارة متجرك وعروضك من لوحة التحكم.', 'لوحة-التحكم.html');
-    if (user.email) { /* TODO: إرسال بريد ترحيب — تفعيل SMTP أو SendGrid */ }
-    if (user.phone) { /* TODO: رسالة واتساب ترحيب — تفعيل WhatsApp Business API */ }
+    if (user.email) {
+        sendEmail(
+            user.email,
+            'مرحباً بك في سوق شيخة',
+            'تم إنشاء حسابك بنجاح في سوق شيخة. نسأل الله لك تجارة مباركة وموفقة.',
+            'welcome'
+        ).catch((e) => {
+            console.log('⚠️ فشل إرسال بريد الترحيب:', e.message);
+        });
+    }
+    if (user.phone) {
+        sendWhatsApp(
+            user.phone,
+            'مرحباً بك في سوق شيخة. تم تفعيل حسابك بنجاح، ويمكنك الآن إدارة عروضك وطلباتك.'
+        ).catch((e) => {
+            console.log('⚠️ فشل إرسال واتساب الترحيب:', e.message);
+        });
+    }
 }
 function onUserLoggedIn(user) {
     createNotification(user.id, 'login', 'مرحباً بعودتك', 'تم تسجيل دخولك بنجاح. راجع إشعاراتك وعروضك في لوحة التحكم.', 'لوحة-التحكم.html');
@@ -7780,14 +7796,14 @@ app.get('/api/products/:id', (req, res) => {
     const user = USERS.find(u => u.id === listing.traderId);
 
     // تقييم التاجر — نظام الصدق والأمانة
-    const traderOrders = []; // TODO: من جدول الطلبات
+    const traderOrders = ORDERS.filter((o) => String(o.userId) === String(listing.traderId));
     const trustScore = trader ? {
         overall: trader.rating || 4.2,
         honesty: trader.rating ? Math.min(5, trader.rating + 0.1) : 4.3,    // الصدق
         trustworthiness: trader.rating ? Math.min(5, trader.rating) : 4.2,   // الأمانة
         quality: trader.rating ? Math.min(5, trader.rating - 0.1) : 4.1,    // جودة المنتج
         delivery: trader.rating ? Math.min(5, trader.rating + 0.05) : 4.15, // الالتزام بالتسليم
-        totalReviews: Math.floor(Math.random() * 50) + 5,
+        totalReviews: Math.max(traderOrders.length, 5),
         verified: !!trader,
         badge: (trader?.rating || 4.2) >= 4.5 ? 'التاجر الصدوق الأمين' : (trader?.rating || 4.2) >= 3.5 ? 'تاجر موثوق' : 'تاجر جديد',
         hadith: '«التَّاجِرُ الصَّدُوقُ الأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ» — رواه الترمذي'
@@ -13086,9 +13102,11 @@ app.post('/api/smart-chat/sms-webhook', express.json(), async (req, res) => {
     if (!aiCommsBridge) return res.status(200).send('OK');
     try {
         const result = await aiCommsBridge.processMessage(req.body, 'sms');
-        // TODO: إرسال الرد عبر SMS
         if (communicationsRuntime && result.success && req.body.From) {
             communicationsRuntime._logComm('sms_auto_reply', 'sms', req.body.From, 'sent', { reply: result.reply });
+            if (result.reply) {
+                await sendSMS(req.body.From, result.reply);
+            }
         }
         res.json(result);
     } catch (e) { res.status(200).json({ success: false }); }

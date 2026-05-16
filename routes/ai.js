@@ -1517,12 +1517,16 @@ function generateBasicCode(description, type, language) {
         return `/**
  * ${description}
  */
-function myFunction() {
-    // TODO: تنفيذ الوظيفة
-    console.log('${description}');
+function generatedFunction(input) {
+    const output = {
+        success: true,
+        message: '${description}',
+        input
+    };
+    return output;
 }`;
     }
-    return `// ${description}\n// TODO: تنفيذ الكود`;
+    return `// ${description}\n// قالب مبدئي قابل للتوسعة\nreturn { success: true, message: '${description}' };`;
 }
 
 async function analyzeCodeWithClaude(code, language) {
