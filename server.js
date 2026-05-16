@@ -371,6 +371,7 @@ console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
 
 // ═══ COMMS ENGINE — منظومة شيخة للاتصالات الشاملة ═══
 // SMS | واتساب | بريد | مكالمات آلية | مصادقة | إشعارات — بالكتاب والسنة
+let commsEngine = null;
 /* LAZY: let commsEngine = null;
 /* LAZY: try {
 /* LAZY:     const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
@@ -2055,31 +2056,56 @@ function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
 
-const ObservabilityService = require('./lib/runtime/services/observability-service');
-const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
-const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
-const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
-const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
-const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
-const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
-const SpaceEngine = require('./lib/runtime/engines/space-engine');
-const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
-const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
-const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
-const EducationEngine = require('./lib/runtime/engines/education-engine');
-const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
-const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
-const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
-const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
-const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
-const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
-const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
-const { getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry');
-const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
-const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
-const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
-const consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
-const createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
+const makeNoopEngine = (engineName) => class NoopEngine {
+    constructor() {
+        this.engineName = engineName;
+    }
+
+    getDashboard() {
+        return {
+            engine: this.engineName,
+            status: 'fallback',
+            summary: {}
+        };
+    }
+
+    getProviders() {
+        return [];
+    }
+};
+
+const ObservabilityService = optionalRequire('./lib/runtime/services/observability-service') || class FallbackObservabilityService {
+    createLatencyMiddleware() {
+        return (req, res, next) => next();
+    }
+};
+const createRuntimeRouter = optionalRequire('./lib/runtime/routes/runtime-routes') || (() => express.Router());
+const MetalsMarketEngine = optionalRequire('./lib/runtime/engines/metals-market-engine') || makeNoopEngine('metals-market');
+const SmartCitiesEngine = optionalRequire('./lib/runtime/engines/smart-cities-engine') || makeNoopEngine('smart-cities');
+const SupplyChainEngine = optionalRequire('./lib/runtime/engines/supply-chain-engine') || makeNoopEngine('supply-chain');
+const RecyclingEngine = optionalRequire('./lib/runtime/engines/recycling-engine') || makeNoopEngine('recycling');
+const TraceabilityEngine = optionalRequire('./lib/runtime/engines/traceability-engine') || makeNoopEngine('traceability');
+const SpaceEngine = optionalRequire('./lib/runtime/engines/space-engine') || makeNoopEngine('space');
+const CommunicationsEngine = optionalRequire('./lib/runtime/engines/communications-engine') || makeNoopEngine('communications');
+const LegislativeEngine = optionalRequire('./lib/runtime/engines/legislative-engine') || makeNoopEngine('legislative');
+const ArbitrationEngine = optionalRequire('./lib/runtime/engines/arbitration-engine') || makeNoopEngine('arbitration');
+const EducationEngine = optionalRequire('./lib/runtime/engines/education-engine') || makeNoopEngine('education');
+const InnovationEngine = optionalRequire('./lib/runtime/engines/innovation-engine') || makeNoopEngine('innovation');
+const KnowledgeGraphEngine = optionalRequire('./lib/runtime/engines/knowledge-graph-engine') || makeNoopEngine('knowledge-graph');
+const InternationalConsultingEngine = optionalRequire('./lib/runtime/engines/international-consulting-engine') || makeNoopEngine('international-consulting');
+const RootNeuralCellsNetwork = optionalRequire('./lib/runtime/engines/root-neural-cells-network') || makeNoopEngine('root-neural-cells');
+const runtimeRegistry = optionalRequire('./lib/runtime/core/runtime-registry') || {};
+const hsRuntimeRegistry = optionalRequire('./lib/runtime/core/hs-runtime-registry') || {};
+const rootSystemRegistry = optionalRequire('./lib/runtime/core/root-system-registry') || {};
+const rootNeuralCellsRegistry = optionalRequire('./lib/runtime/core/root-neural-cells-registry') || {};
+const getNeuralCellsStatus = typeof rootNeuralCellsRegistry.getNeuralCellsStatus === 'function'
+    ? rootNeuralCellsRegistry.getNeuralCellsStatus
+    : () => ({ status: 'fallback', activeCells: 0, message: 'Root neural cells registry unavailable' });
+const consultingRegistry = optionalRequire('./lib/runtime/organizations/consulting/consulting-registry') || {};
+const consultingGovernance = optionalRequire('./lib/runtime/organizations/consulting/consulting-governance') || {};
+const consultingKpi = optionalRequire('./lib/runtime/organizations/consulting/consulting-kpi') || {};
+const consultingKnowledgeBase = optionalRequire('./lib/runtime/organizations/consulting/consulting-knowledge-base') || {};
+const createConsultingRouter = optionalRequire('./lib/runtime/organizations/consulting/consulting-routes') || (() => express.Router());
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
 const smartCities = new SmartCitiesEngine();
