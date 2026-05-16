@@ -1,0 +1,19 @@
+{
+  "cohesion": {
+    "mode": "unified",
+    "principles": [
+      "mutual-support",
+      "shared-runtime",
+      "single-authority",
+      "safe-failover",
+      "runtime-integrity",
+      "operational-coordination"
+    ],
+    "requirements": {
+      "gitClean": true,
+      "pm2Stable": true,
+      "singlePortAuthority": true,
+      "baselineBranchRequired": true
+    }
+  }
+}
