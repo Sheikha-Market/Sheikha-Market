@@ -16,7 +16,22 @@ VPS_IP="${VPS_IP:-31.97.190.74}"
 VPS_USER="${VPS_USER:-root}"
 VPS_KEY="${VPS_KEY:-$HOME/.ssh/sheikha_vps}"
 DEPLOY_PATH="/opt/sheikha/current"
-BRANCH="${BRANCH:-main}"
+BRANCH="${BRANCH:-stable/runtime-baseline}"
+
+health_check() {
+    local base_url="${1:-http://localhost:8080}"
+    local live_code
+    local server_health_code
+
+    live_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$base_url/api/live" || echo "000")
+    server_health_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 "$base_url/api/server/health" || echo "000")
+
+    if [ "$live_code" = "200" ] && [ "$server_health_code" = "200" ]; then
+        return 0
+    fi
+
+    return 1
+}
 
 # إذا تم التشغيل من داخل الـ VPS نفسه، ننفذ النشر محليًا بدون SSH خارجي.
 if [ -d "$DEPLOY_PATH/.git" ] && [ "$(id -u)" -eq 0 ]; then
@@ -39,8 +54,7 @@ if [ -d "$DEPLOY_PATH/.git" ] && [ "$(id -u)" -eq 0 ]; then
     fi
 
     echo -e "${YELLOW}✓ فحص الصحة...${NC}"
-    HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
-    if [ "$HTTP_CODE" = "000" ]; then
+    if ! health_check "http://localhost:8080"; then
         echo -e "${RED}❌ الخادم لا يستجيب بعد النشر${NC}"
         pm2 logs sheikha-main-portal --lines 20 --nostream
         exit 1
@@ -48,7 +62,7 @@ if [ -d "$DEPLOY_PATH/.git" ] && [ "$(id -u)" -eq 0 ]; then
 
     echo ""
     echo -e "${GREEN}✅ النشر المحلي على VPS نجح!${NC}"
-    echo -e "${BLUE}Commit: $(git rev-parse --short HEAD) | HTTP: $HTTP_CODE${NC}"
+    echo -e "${BLUE}Commit: $(git rev-parse --short HEAD) | Health: OK${NC}"
     exit 0
 fi
 

@@ -6,11 +6,9 @@ name: 🛡️ Sheikha Security Scan
 
 on:
   push:
-    branches: [ main ]
-    paths:
-      - 'sheikha-main-portal/**'
+    branches: [ stable/runtime-baseline ]
   pull_request:
-    branches: [ main ]
+    branches: [ stable/runtime-baseline ]
   schedule:
     - cron: '0 0 * * *'   # يومياً منتصف الليل UTC (3 ص بتوقيت الرياض)
   workflow_dispatch:
@@ -30,16 +28,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    defaults:
-      run:
-        working-directory: sheikha-main-portal
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: '20'
           cache: 'npm'
-          cache-dependency-path: sheikha-main-portal/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install (no scripts — أمان ضد الكود الخبيث)
         run: npm ci --ignore-scripts
       - name: 🛡️ npm audit — مستوى moderate أو أعلى
@@ -52,7 +47,7 @@ jobs:
         if: always()
         with:
           name: npm-audit-report
-          path: sheikha-main-portal/audit-report.json
+          path: audit-report.json
           retention-days: 30
 
   # ─────────────────────────────────────────────────────────
@@ -68,10 +63,10 @@ jobs:
       - name: 🔍 Check backup files NOT tracked in git
         run: |
           BACKUPS=$(git ls-files \
-            'sheikha-main-portal/server.js.backup*' \
-            'sheikha-main-portal/server.js.clean' \
-            'sheikha-main-portal/server.js.temp' \
-            'sheikha-main-portal/server.js.broken*' \
+            'server.js.backup*' \
+            'server.js.clean' \
+            'server.js.temp' \
+            'server.js.broken*' \
             '**/*.backup' '**/*.backup-*' 2>/dev/null || true)
           if [[ -n "$BACKUPS" ]]; then
             echo "🔴 CRITICAL: Backup files tracked in git:"

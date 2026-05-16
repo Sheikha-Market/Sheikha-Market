@@ -4,7 +4,7 @@ name: Deploy Sheikha to VPS
 
 on:
   push:
-    branches: [main]
+    branches: [stable/runtime-baseline]
   workflow_dispatch:
 
 concurrency:
@@ -48,15 +48,21 @@ jobs:
           script: |
             APP_PATH="/opt/sheikha/current"
             PM2_NAME="sheikha-main-portal"
+            BRANCH="stable/runtime-baseline"
+            REPORT_DIR="/opt/sheikha/runtime-reports"
+            TS="$(date -u +%Y%m%dT%H%M%SZ)"
 
             echo "==> cd $APP_PATH"
             cd "$APP_PATH" || { echo "FAIL: cannot cd to $APP_PATH"; exit 1; }
 
-            echo "==> git fetch origin main"
-            git fetch origin main
+            PREV_COMMIT=$(git rev-parse --short HEAD 2>/dev/null || echo "unknown")
+            echo "==> PREV HEAD: $PREV_COMMIT"
 
-            echo "==> git reset --hard origin/main"
-            git reset --hard origin/main
+            echo "==> git fetch origin $BRANCH"
+            git fetch origin "$BRANCH"
+
+            echo "==> git reset --hard origin/$BRANCH"
+            git reset --hard "origin/$BRANCH"
 
             COMMIT=$(git rev-parse --short HEAD)
             echo "==> HEAD: $COMMIT"
@@ -72,36 +78,67 @@ jobs:
             npm ci --omit=dev 2>&1 | tail -5
 
             mkdir -p /var/log/sheikha
+            mkdir -p "$REPORT_DIR"
 
             echo "==> PM2 reload/start"
             if pm2 describe "$PM2_NAME" > /dev/null 2>&1; then
-              pm2 reload "$PM2_NAME" --update-env
+              pm2 restart ecosystem.config.js --only "$PM2_NAME" --update-env
             else
-              pm2 start server.js --name "$PM2_NAME" \
-                --max-memory-restart 1500M \
-                --restart-delay 3000 \
-                --max-restarts 10 \
-                --log /var/log/sheikha/app.log \
-                --error /var/log/sheikha/error.log
+              pm2 start ecosystem.config.js --only "$PM2_NAME" --update-env
               pm2 save
             fi
 
             sleep 6
 
-            echo "==> Health check"
-            HTTP_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/health || echo "000")
-            echo "==> HTTP: $HTTP_CODE"
+            echo "==> Health gates"
+            LIVE_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/live || echo "000")
+            SERVER_HEALTH_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/server/health || echo "000")
+            ACCOUNTS_SUMMARY_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/accounts/summary || echo "000")
+            echo "==> live:$LIVE_CODE server_health:$SERVER_HEALTH_CODE accounts_summary:$ACCOUNTS_SUMMARY_CODE"
 
-            if [ "$HTTP_CODE" = "000" ]; then
-              echo "FAIL: server not responding"
-              pm2 logs "$PM2_NAME" --lines 20 --nostream
+            if [ "$LIVE_CODE" != "200" ] || [ "$SERVER_HEALTH_CODE" != "200" ]; then
+              echo "FAIL: health gates failed, rolling back to $PREV_COMMIT"
+              git reset --hard "$PREV_COMMIT"
+              pm2 restart ecosystem.config.js --only "$PM2_NAME" --update-env || true
+              sleep 6
+              ROLLBACK_LIVE_CODE=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/live || echo "000")
+              printf '%s\n' \
+                '{' \
+                '  "status": "failed_rolled_back",' \
+                "  \"branch\": \"$BRANCH\"," \
+                "  \"commit_attempted\": \"$COMMIT\"," \
+                "  \"commit_rolled_back_to\": \"$PREV_COMMIT\"," \
+                '  "checks": {' \
+                "    \"live\": \"$LIVE_CODE\"," \
+                "    \"serverHealth\": \"$SERVER_HEALTH_CODE\"," \
+                "    \"accountsSummary\": \"$ACCOUNTS_SUMMARY_CODE\"," \
+                "    \"rollbackLive\": \"$ROLLBACK_LIVE_CODE\"" \
+                '  },' \
+                "  \"timestamp\": \"$TS\"" \
+                '}' > "$REPORT_DIR/deploy-$TS.json"
+              pm2 logs "$PM2_NAME" --lines 20 --nostream || true
               exit 1
             fi
 
             DISK_USED="$(df -P / | awk 'NR==2 {gsub(/%/,"",$5); print $5}')"
             echo "==> Disk: ${DISK_USED}%"
 
-            echo "==> Deploy OK - commit $COMMIT - HTTP $HTTP_CODE"
+            printf '%s\n' \
+              '{' \
+              '  "status": "ok",' \
+              "  \"branch\": \"$BRANCH\"," \
+              "  \"commit_previous\": \"$PREV_COMMIT\"," \
+              "  \"commit_deployed\": \"$COMMIT\"," \
+              '  "checks": {' \
+              "    \"live\": \"$LIVE_CODE\"," \
+              "    \"serverHealth\": \"$SERVER_HEALTH_CODE\"," \
+              "    \"accountsSummary\": \"$ACCOUNTS_SUMMARY_CODE\"" \
+              '  },' \
+              "  \"diskUsed\": \"$DISK_USED\"," \
+              "  \"timestamp\": \"$TS\"" \
+              '}' > "$REPORT_DIR/deploy-$TS.json"
+
+            echo "==> Deploy OK - commit $COMMIT"
 
       - name: Deployment successful
         if: success()

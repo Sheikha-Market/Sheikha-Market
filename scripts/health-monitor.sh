@@ -24,6 +24,16 @@ DISK_CRITICAL="${DISK_CRITICAL:-90}"  # %
 ISSUES=0
 WARNINGS=0
 
+health_check() {
+    local live_code
+    local server_health_code
+
+    live_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://localhost:$PORT/api/live" || echo "000")
+    server_health_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 5 "http://localhost:$PORT/api/server/health" || echo "000")
+
+    [ "$live_code" = "200" ] && [ "$server_health_code" = "200" ]
+}
+
 echo -e "${BLUE}🏥 شيخة — Health Monitoring${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
 
@@ -43,7 +53,7 @@ fi
 
 # 2️⃣ فحص HTTP Health Check
 echo -e "${YELLOW}✓ فحص HTTP Health Check...${NC}"
-if curl -fsS --max-time 5 "http://localhost:$PORT/api/health" >/dev/null 2>&1; then
+if health_check; then
     echo -e "${GREEN}✅ HTTP متجاوب${NC}"
 else
     echo -e "${RED}❌ HTTP لا يستجيب!${NC}"
@@ -52,8 +62,8 @@ fi
 
 # 3️⃣ فحص الذاكرة
 echo -e "${YELLOW}✓ فحص استهلاك الذاكرة...${NC}"
-PM2_MEM=$(pm2 status | grep "$PM2_NAME" | awk '{gsub(/M/,"",$9); print int($9)}')
-if [ "$PM2_MEM" -gt 0 ]; then
+PM2_MEM=$(pm2 jlist 2>/dev/null | node -e "const fs=require('fs');let d='';process.stdin.on('data',c=>d+=c).on('end',()=>{try{const arr=JSON.parse(d);const p=arr.find(x=>x.name==='${PM2_NAME}' && x.pm2_env && x.pm2_env.status==='online');const mem=p&&p.monit&&p.monit.memory?Math.round(p.monit.memory/1024/1024):0;process.stdout.write(String(mem));}catch(_){process.stdout.write('0');}})")
+if [ "${PM2_MEM:-0}" -gt 0 ]; then
     if [ "$PM2_MEM" -gt "$MAX_MEMORY" ]; then
         echo -e "${RED}❌ استهلاك الذاكرة عالي: ${PM2_MEM}MB (الحد: ${MAX_MEMORY}MB)${NC}"
         ISSUES=$((ISSUES + 1))
