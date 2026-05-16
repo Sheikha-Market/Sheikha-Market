@@ -20233,7 +20233,7 @@ console.log('   📡 Sheikha OS V2 APIs: /api/sheikha-os-v2/dashboard, /competit
 let customsClearanceEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-customs-clearance-automation-engine
-    /*     const CCAE = require('./lib/sheikha-customs-clearance-automation-engine'); */
+        const CCAE = require('./lib/sheikha-customs-clearance-automation-engine');
     customsClearanceEngine = new CCAE();
     const ccd = customsClearanceEngine.getDashboard();
     console.log(`✅ [CustomsClearance] أتمتة التخليص الجمركي — ${Object.keys(ccd.systems).length} أنظمة | ${ccd.transportChannels.length} قنوات نقل | ${ccd.governmentPlatforms.length} منصات حكومية | قاعدة بيانات متكاملة`);
@@ -20367,7 +20367,7 @@ console.log('   📦 Customs Clearance APIs: /api/customs/dashboard, /transport-
 let powerEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-ultimate-power-engine
-    /*     const PE = require('./lib/sheikha-ultimate-power-engine'); */
+        const PE = require('./lib/sheikha-ultimate-power-engine');
     powerEngine = new PE();
     const pd = powerEngine.getDashboard();
     console.log(`✅ [UltimatePower] محرك القوة المطلقة — ${pd.totalPowers} قوة رقمية | ${pd.totalBackgroundOperations} عملية خلفية | بالكتاب والسنة`);
@@ -20418,7 +20418,7 @@ console.log('   ⚡ Ultimate Power Engine APIs: /api/power/dashboard, /islamic-f
 let paymentsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-payments-engine
-    /*     const PME = require('./lib/sheikha-payments-engine'); */
+        const PME = require('./lib/sheikha-payments-engine');
     paymentsEngine = new PME();
     const pd = paymentsEngine.getDashboard();
     console.log(`✅ [Payments] قوة المدفوعات — ${pd.stats.totalPaymentMethods} وسيلة دفع | ${pd.stats.activeNow} مفعّلة | ${pd.stats.shariaChecks} فحص شرعي | بيان أجور شفاف`);
@@ -20873,7 +20873,7 @@ app.get('/api/mind/lexicon/search', (req, res) => {
 let quranAIEngine = null;
 try {
     // P0-1: LAZY (UNKNOWN) - sheikha-quran-ai-foundations
-    /*     const { QuranAIFoundationsEngine } = require('./lib/sheikha-quran-ai-foundations'); */
+        const { QuranAIFoundationsEngine } = require('./lib/sheikha-quran-ai-foundations');
     console.log('⏸️ [LAZY] sheikha-quran-ai-foundations — سيُحمّل عند الطلب');
     quranAIEngine = new QuranAIFoundationsEngine();
     console.log(`   📖 [QuranAI] محرك الأسس القرآنية — ${Object.keys(quranAIEngine.foundations).length} مفهوم | ${quranAIEngine.humanCreation.stages.length} مرحلة خلق | يعمل بالخلفية`);
