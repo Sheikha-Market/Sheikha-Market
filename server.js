@@ -6275,8 +6275,31 @@ function validateEmail(email) {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔐 تسجيل الدخول والتسجيل — داشبورد مستخدم
 // ═══════════════════════════════════════════════════════════════════════════════
+function normalizeRequestedAccountRole(accountTypeOrRole) {
+    const raw = String(accountTypeOrRole || '').trim().toLowerCase();
+    const map = {
+        user: 'user',
+        personal: 'user',
+        individual: 'user',
+        person: 'user',
+        'شخصي': 'user',
+        company: 'company',
+        merchant: 'company',
+        trader: 'company',
+        organization: 'organization',
+        org: 'organization',
+        'منظمة': 'organization',
+        institutional: 'institutional',
+        enterprise: 'enterprise',
+        founder: 'enterprise',
+        'مؤسسي': 'enterprise'
+    };
+
+    return map[raw] || 'user';
+}
+
 app.post('/api/auth/register', (req, res) => {
-    const { phone, password, name, email, storeName, region, specialty: specialtyId } = req.body || {};
+    const { phone, password, name, email, storeName, region, specialty: specialtyId, accountType, role: requestedRole } = req.body || {};
     if (!phone || !password || !name) return res.status(400).json({ success: false, message: 'الجوال وكلمة المرور والاسم مطلوبان.' });
     const nameCheck = validateName(name);
     if (!nameCheck.valid) return res.status(400).json({ success: false, message: nameCheck.message });
@@ -6286,7 +6309,8 @@ app.post('/api/auth/register', (req, res) => {
     const id = uuidv4();
     const specialtyKey = (specialtyId || '').trim() || 'metals_trader';
     const spec = getSpecialty(specialtyKey);
-    const user = { id, phone: String(phone).trim(), passwordHash: hashPassword(password), name: nameCheck.value, email: emailCheck.value, storeName: (storeName || spec.storeLabel || nameCheck.value).trim(), region: (region || '').trim(), marketingEnabled: false, specialty: spec.id, role: 'user', verified: false, authMethods: ['phone'], securityLog: [{ action: 'registered', at: new Date().toISOString(), method: 'phone' }], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
+    const normalizedRole = normalizeRequestedAccountRole(requestedRole || accountType);
+    const user = { id, phone: String(phone).trim(), passwordHash: hashPassword(password), name: nameCheck.value, email: emailCheck.value, storeName: (storeName || spec.storeLabel || nameCheck.value).trim(), region: (region || '').trim(), marketingEnabled: false, specialty: spec.id, role: normalizedRole, verified: false, authMethods: ['phone'], securityLog: [{ action: 'registered', at: new Date().toISOString(), method: 'phone' }], createdAt: new Date().toISOString(), updatedAt: new Date().toISOString() };
     USERS.push(user);
     saveJSON(USERS_FILE, USERS);
     const trader = { id, name: user.name, email: user.email, phone: user.phone, region: user.region, company: user.storeName, specialty: spec.id, specialtyLabel: spec.nameAr, createdAt: user.createdAt };
@@ -6346,6 +6370,55 @@ app.post('/api/auth/login', (req, res) => {
     const out = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, specialty: user.specialty, role };
     onUserLoggedIn(out);
     res.json({ success: true, user: out, token, role, message: 'تم تسجيل الدخول.' });
+});
+
+app.get('/api/accounts/summary', (req, res) => {
+    const usersByRole = (USERS || []).reduce((acc, user) => {
+        const role = String(user.role || 'user').toLowerCase();
+        acc[role] = (acc[role] || 0) + 1;
+        return acc;
+    }, {});
+
+    const companies = (COMPANIES_REGISTRY && Array.isArray(COMPANIES_REGISTRY.registeredCompanies))
+        ? COMPANIES_REGISTRY.registeredCompanies
+        : [];
+
+    const companiesByCategory = companies.reduce((acc, company) => {
+        const category = String(company.category || company.type || 'unknown').toLowerCase();
+        acc[category] = (acc[category] || 0) + 1;
+        return acc;
+    }, {});
+
+    const governmentTotal = (GOV_REGISTRY?.entities?.length || 0) + (GOV_REGISTRY?.employees?.length || 0);
+    const institutionalUsers = (usersByRole.institutional || 0) + (usersByRole.enterprise || 0);
+
+    res.json({
+        success: true,
+        data: {
+            supportedAccountTypes: ['personal', 'organization', 'institutional'],
+            users: {
+                total: USERS.length,
+                personal: usersByRole.user || 0,
+                organization: usersByRole.organization || 0,
+                institutional: institutionalUsers,
+                company: usersByRole.company || 0,
+                admin: usersByRole.admin || 0,
+                government: usersByRole.gov || 0,
+                byRole: usersByRole
+            },
+            companies: {
+                total: companies.length,
+                byCategory: companiesByCategory
+            },
+            government: {
+                total: governmentTotal,
+                entities: GOV_REGISTRY?.entities?.length || 0,
+                employees: GOV_REGISTRY?.employees?.length || 0
+            }
+        },
+        message: 'تم جلب ملخص الحسابات بنجاح',
+        timestamp: new Date().toISOString()
+    });
 });
 
 // ═══════════════════════════════════════════════════════════════
@@ -17820,6 +17893,9 @@ const ROLE_PERMISSIONS = {
     admin:   { canBuy: true, canSell: true, canApprove: true, canCreateTender: true, canManageAll: true, label: 'مدير المنظومة' },
     gov:     { canBuy: true, canSell: true, canApprove: true, canCreateTender: true, canManageAll: false, label: 'جهة حكومية' },
     company: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'شركة' },
+    organization: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'منظمة' },
+    institutional: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'مؤسسي' },
+    enterprise: { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'مؤسسي' },
     user:    { canBuy: true, canSell: true, canApprove: false, canCreateTender: false, canManageAll: false, label: 'تاجر' },
     visitor: { canBuy: false, canSell: false, canApprove: false, canCreateTender: false, canManageAll: false, label: 'زائر' }
 };
@@ -18054,13 +18130,15 @@ app.get('/api/circular-economy/stats', (req, res) => {
 app.get('/api/dashboard/:role', authRequired, (req, res) => {
     const user = req.user;
     const role = req.params.role;
-    const perms = ROLE_PERMISSIONS[role] || ROLE_PERMISSIONS.visitor;
+    const roleAlias = { organization: 'company', institutional: 'company', enterprise: 'company' };
+    const normalizedRole = roleAlias[role] || role;
+    const perms = ROLE_PERMISSIONS[normalizedRole] || ROLE_PERMISSIONS.visitor;
 
     const myContracts = CONTRACTS.filter(c => c.creatorId === user.id || c.counterpartyId === user.id);
     const myOrders = ORDERS.filter(o => o.userId === user.id);
 
     const dashboard = {
-        role,
+        role: normalizedRole,
         permissions: perms,
         label: perms.label,
         sections: [],
@@ -18071,7 +18149,7 @@ app.get('/api/dashboard/:role', authRequired, (req, res) => {
     };
 
     // أقسام حسب الدور
-    if (role === 'admin') {
+    if (normalizedRole === 'admin') {
         dashboard.sections = [
             { id: 'overview', nameAr: 'نظرة عامة', icon: '📊', desc: 'إحصائيات المنظومة' },
             { id: 'users', nameAr: 'المستخدمون', icon: '👥', desc: 'إدارة جميع المستخدمين' },
@@ -18085,7 +18163,7 @@ app.get('/api/dashboard/:role', authRequired, (req, res) => {
             { id: 'ai', nameAr: 'الذكاء', icon: '🤖', desc: 'الذكاء الاصطناعي' },
             { id: 'settings', nameAr: 'الإعدادات', icon: '⚙️', desc: 'إعدادات المنظومة' }
         ];
-    } else if (role === 'gov') {
+    } else if (normalizedRole === 'gov') {
         dashboard.sections = [
             { id: 'overview', nameAr: 'نظرة عامة', icon: '📊', desc: 'إحصائيات الجهة' },
             { id: 'tenders', nameAr: 'المناقصات', icon: '🏛', desc: 'إدارة المناقصات والمشتريات' },
@@ -18097,7 +18175,7 @@ app.get('/api/dashboard/:role', authRequired, (req, res) => {
             { id: 'reports', nameAr: 'التقارير', icon: '📈', desc: 'تقارير وإحصائيات' },
             { id: 'compliance', nameAr: 'الامتثال', icon: '✅', desc: 'الامتثال التنظيمي' }
         ];
-    } else if (role === 'company') {
+    } else if (normalizedRole === 'company') {
         dashboard.sections = [
             { id: 'overview', nameAr: 'نظرة عامة', icon: '📊', desc: 'إحصائيات الشركة' },
             { id: 'sell', nameAr: 'المبيعات', icon: '💰', desc: 'عرض وبيع المنتجات' },
