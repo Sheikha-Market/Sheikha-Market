@@ -222,6 +222,7 @@
     "ops:repo:topology:apply": "node scripts/repo-topology-sync.js apply",
     "ops:repo:topology:sync": "node scripts/repo-topology-sync.js sync",
     "ops:repo:topology:sync:push": "node scripts/repo-topology-sync.js sync --push",
+    "ops:runtime:check": "bash tools/runtime/sheikha-runtime-check.sh",
     "ops:mobile:logs": "bash scripts/mobile-vscode-ctl.sh logs",
     "ops:hyperscale:activate": "node scripts/activate-hyperscale-foundation.js",
     "ops:hyperscale:activate:force": "node scripts/activate-hyperscale-foundation.js --force",
