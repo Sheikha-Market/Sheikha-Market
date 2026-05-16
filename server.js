@@ -21,31 +21,18 @@ const WebSocket = require('ws');
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-let SHEIKHA_CHARTER_ENFORCED = false;
-let STARTUP_L0_ONLY = false;
-let SHEIKHA_RUNTIME_RING = 'local';
-let SHEIKHA_RUNTIME_STRICT_FINGERPRINT = false;
-let SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = true;
-let GIT_METADATA = {};
-let RUNTIME_FINGERPRINT_STATUS = 'unavailable';
-let runtimeCore = {};
-let observability = {};
-
-try {
-    const runtimeBootstrap = require('./lib/runtime/bootstrap');
-    const runtimeContext = runtimeBootstrap({ rootDir: __dirname }) || {};
-    SHEIKHA_CHARTER_ENFORCED = !!runtimeContext.SHEIKHA_CHARTER_ENFORCED;
-    STARTUP_L0_ONLY = !!runtimeContext.STARTUP_L0_ONLY;
-    SHEIKHA_RUNTIME_RING = runtimeContext.SHEIKHA_RUNTIME_RING || 'local';
-    SHEIKHA_RUNTIME_STRICT_FINGERPRINT = !!runtimeContext.SHEIKHA_RUNTIME_STRICT_FINGERPRINT;
-    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = !!runtimeContext.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS;
-    GIT_METADATA = runtimeContext.GIT_METADATA || {};
-    RUNTIME_FINGERPRINT_STATUS = runtimeContext.RUNTIME_FINGERPRINT_STATUS || 'ok';
-    runtimeCore = runtimeContext.runtimeCore || {};
-    observability = runtimeContext.observability || {};
-} catch (e) {
-    console.log('⚠️ Runtime bootstrap غير متوفر — fallback mode:', e.message);
-}
+const runtimeBootstrap = require('./lib/runtime/bootstrap');
+const {
+    SHEIKHA_CHARTER_ENFORCED,
+    STARTUP_L0_ONLY,
+    SHEIKHA_RUNTIME_RING,
+    SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+    GIT_METADATA,
+    RUNTIME_FINGERPRINT_STATUS,
+    runtimeCore,
+    observability
+} = runtimeBootstrap({ rootDir: __dirname });
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -110,18 +97,7 @@ function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
 
-let safeLoadEngine;
-try {
-    safeLoadEngine = require('./lib/runtime/core/engine-loader');
-} catch (_) {
-    safeLoadEngine = (enginePath) => {
-        try {
-            return { ok: true, engine: require(enginePath) };
-        } catch (e) {
-            return { ok: false, error: e.message };
-        }
-    };
-}
+const safeLoadEngine = require('./lib/runtime/core/engine-loader');
 
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
@@ -352,11 +328,11 @@ console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
 
 // ═══ COMMS ENGINE — منظومة شيخة للاتصالات الشاملة ═══
 // SMS | واتساب | بريد | مكالمات آلية | مصادقة | إشعارات — بالكتاب والسنة
-/* LAZY: let communicationsRuntime = null;
+/* LAZY: let commsEngine = null;
 /* LAZY: try {
 /* LAZY:     const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
-/* LAZY:     communicationsRuntime = new SheikhaCommsEngine();
-/* LAZY:     const cd = communicationsRuntime.getDashboard();
+/* LAZY:     commsEngine = new SheikhaCommsEngine();
+/* LAZY:     const cd = commsEngine.getDashboard();
 /* LAZY:     console.log(`\u2705 Comms Engine \u2014 ${cd.summary.totalChannels} \u0642\u0646\u0627\u0629 | ${cd.summary.totalTemplates} \u0642\u0627\u0644\u0628 | ${cd.summary.totalWorkflows} \u0633\u064a\u0631 \u0639\u0645\u0644 | ${cd.summary.totalProviders} \u0645\u0632\u0648\u062f | ${cd.summary.otpMethods} \u0637\u0631\u064a\u0642\u0629 OTP | ${cd.summary.autoReplyKeywords} \u0631\u062f \u0622\u0644\u064a`);
 /* LAZY: } catch (e) {
 /* LAZY:     console.log('\u26a0\ufe0f Comms Engine \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
@@ -376,7 +352,7 @@ try {
     aiCommsBridge = new _AICBridgeClass({
         aiEngine: null,
         localMind: sheikhaLocalMind || null,
-        communicationsRuntime: communicationsRuntime || null
+        commsEngine: commsEngine || null
     });
     const bd = aiCommsBridge.getDashboard();
     console.log(`\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`);
@@ -497,23 +473,14 @@ try {
 // ═══ NETWORKS ENGINE — منظومة الشبكات والاتصالات والطاقة ═══
 let networksEngine = null;
 try {
-    const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js');
+    // P0-1: LAZY (L1) - sheikha-networks-engine.js
+    /*     const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js'); */
+    console.log('⏸️ [LAZY] sheikha-networks-engine.js — سيُحمّل عند الطلب');
     networksEngine = new SheikhaNetworksEngine();
     const nd = networksEngine.getDashboard();
     console.log(`✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`);
 } catch (e) {
     console.log('⚠️ Networks Engine غير متوفر:', e.message);
-}
-
-// ═══ SMART DIGITAL ROOT ENGINE — الجذر الرقمي الذكي ═══
-let smartDigitalRootEngine = null;
-try {
-    const SheikhaSmartDigitalRootEngine = require('./lib/sheikha-smart-digital-root-engine.js');
-    smartDigitalRootEngine = new SheikhaSmartDigitalRootEngine();
-    const rootStatus = smartDigitalRootEngine.getStatus();
-    console.log(`🌳 Smart Digital Root — ${rootStatus.status} | ${rootStatus.activeRoots} جذر نشط | systems: ${rootStatus.systemsDigitized}`);
-} catch (e) {
-    console.log('⚠️ Smart Digital Root Engine غير متوفر:', e.message);
 }
 
 // ═══ PETROLEUM ENGINE — منظومة شيخة للبترول والنفط والغاز ═══
@@ -2045,82 +2012,46 @@ function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
 
-const makeInactiveEngine = (name) => ({
-    getStatus: () => ({ status: 'inactive', name })
-});
-
-let createRuntimeRouter = () => express.Router();
-let createConsultingRouter = () => express.Router();
-let runtimeObservability = {};
-let metalsMarket = makeInactiveEngine('metals-market');
-let smartCities = makeInactiveEngine('smart-cities');
-let supplyChain = makeInactiveEngine('supply-chain');
-let recycling = makeInactiveEngine('recycling');
-let traceability = makeInactiveEngine('traceability');
-let space = makeInactiveEngine('space');
-let communicationsRuntime = makeInactiveEngine('communications');
-let legislative = makeInactiveEngine('legislative');
-let arbitration = makeInactiveEngine('arbitration');
-let education = makeInactiveEngine('education');
-let innovation = makeInactiveEngine('innovation');
-let knowledgeGraph = makeInactiveEngine('knowledge-graph');
-let consulting = makeInactiveEngine('international-consulting');
-let rootNeuralCells = makeInactiveEngine('root-neural-cells-network');
-let runtimeRegistry = { organizations: [] };
-let hsRuntimeRegistry = { meta: {}, chapters: [], layers: [], strategicSources: [] };
-let rootSystemRegistry = { root: {}, systems: [], globalCouncil: {}, layers: [] };
-let getNeuralCellsStatus = () => ({ status: 'inactive', cells: [] });
-let consultingRegistry = {};
-let consultingGovernance = {};
-let consultingKpi = {};
-let consultingKnowledgeBase = {};
-
-try {
-    const ObservabilityService = require('./lib/runtime/services/observability-service');
-    createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
-    const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
-    const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
-    const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
-    const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
-    const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
-    const SpaceEngine = require('./lib/runtime/engines/space-engine');
-    const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
-    const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
-    const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
-    const EducationEngine = require('./lib/runtime/engines/education-engine');
-    const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
-    const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
-    const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
-    const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
-    runtimeRegistry = require('./lib/runtime/core/runtime-registry');
-    hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
-    rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
-    ({ getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry'));
-    consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
-    consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
-    consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
-    consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
-    createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
-
-    runtimeObservability = new ObservabilityService();
-    metalsMarket = new MetalsMarketEngine();
-    smartCities = new SmartCitiesEngine();
-    supplyChain = new SupplyChainEngine();
-    recycling = new RecyclingEngine();
-    traceability = new TraceabilityEngine();
-    space = new SpaceEngine();
-    communicationsRuntime = new CommunicationsEngine();
-    legislative = new LegislativeEngine();
-    arbitration = new ArbitrationEngine();
-    education = new EducationEngine();
-    innovation = new InnovationEngine();
-    knowledgeGraph = new KnowledgeGraphEngine();
-    consulting = new InternationalConsultingEngine();
-    rootNeuralCells = new RootNeuralCellsNetwork();
-    console.log('✅ Runtime engines bundle — تم التحميل الكامل');
-} catch (e) {
-    console.log('⚠️ Runtime engines bundle غير متوفر — fallback mode:', e.message);
-}
+const ObservabilityService = require('./lib/runtime/services/observability-service');
+const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
+const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
+const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
+const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
+const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
+const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
+const SpaceEngine = require('./lib/runtime/engines/space-engine');
+const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
+const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
+const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
+const EducationEngine = require('./lib/runtime/engines/education-engine');
+const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
+const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
+const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
+const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
+const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
+const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
+const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
+const { getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry');
+const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
+const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
+const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
+const consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
+const createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
+const runtimeObservability = new ObservabilityService();
+const metalsMarket = new MetalsMarketEngine();
+const smartCities = new SmartCitiesEngine();
+const supplyChain = new SupplyChainEngine();
+const recycling = new RecyclingEngine();
+const traceability = new TraceabilityEngine();
+const space = new SpaceEngine();
+const communicationsRuntime = new CommunicationsEngine();
+const legislative = new LegislativeEngine();
+const arbitration = new ArbitrationEngine();
+const education = new EducationEngine();
+const innovation = new InnovationEngine();
+const knowledgeGraph = new KnowledgeGraphEngine();
+const consulting = new InternationalConsultingEngine();
+const rootNeuralCells = new RootNeuralCellsNetwork();
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -2750,16 +2681,6 @@ app.get('/api/live', (req, res) => {
         live: true,
         pid: process.pid,
         uptimeSeconds: Math.floor(process.uptime()),
-        timestamp: new Date().toISOString()
-    });
-});
-
-// P0-2: Health Check موحّد للتوافق مع أدوات المراقبة
-app.get('/api/health', (req, res) => {
-    res.json({
-        status: 'ok',
-        success: true,
-        live: true,
         timestamp: new Date().toISOString()
     });
 });
@@ -6179,24 +6100,8 @@ function createNotification(userId, type, titleAr, bodyAr, link) {
 }
 function onUserRegistered(user) {
     createNotification(user.id, 'welcome', 'مرحباً بك في شيخة', 'تم إنشاء حسابك بنجاح. يمكنك الآن إدارة متجرك وعروضك من لوحة التحكم.', 'لوحة-التحكم.html');
-    if (user.email) {
-        sendEmail(
-            user.email,
-            'مرحباً بك في سوق شيخة',
-            'تم إنشاء حسابك بنجاح في سوق شيخة. نسأل الله لك تجارة مباركة وموفقة.',
-            'welcome'
-        ).catch((e) => {
-            console.log('⚠️ فشل إرسال بريد الترحيب:', e.message);
-        });
-    }
-    if (user.phone) {
-        sendWhatsApp(
-            user.phone,
-            'مرحباً بك في سوق شيخة. تم تفعيل حسابك بنجاح، ويمكنك الآن إدارة عروضك وطلباتك.'
-        ).catch((e) => {
-            console.log('⚠️ فشل إرسال واتساب الترحيب:', e.message);
-        });
-    }
+    if (user.email) { /* TODO: إرسال بريد ترحيب — تفعيل SMTP أو SendGrid */ }
+    if (user.phone) { /* TODO: رسالة واتساب ترحيب — تفعيل WhatsApp Business API */ }
 }
 function onUserLoggedIn(user) {
     createNotification(user.id, 'login', 'مرحباً بعودتك', 'تم تسجيل دخولك بنجاح. راجع إشعاراتك وعروضك في لوحة التحكم.', 'لوحة-التحكم.html');
@@ -6728,8 +6633,8 @@ app.post('/api/auth/forgot-password', (req, res) => {
     saveJSON(USERS_FILE, USERS);
 
     // إرسال الرمز عبر منظومة الاتصالات (SMS + Email + واتساب)
-    if (communicationsRuntime) {
-        communicationsRuntime.sendTemplate('password_reset', { code: resetCode, minutes: '15', to: user.email, phone: user.phone }, ['sms', 'email']);
+    if (commsEngine) {
+        commsEngine.sendTemplate('password_reset', { code: resetCode, minutes: '15', to: user.email, phone: user.phone }, ['sms', 'email']);
     }
     console.log('[SECURITY] رمز استعادة كلمة المرور للمستخدم ' + user.name + ': ' + resetCode);
     res.json({ success: true, message: genericMsg, _devCode: IS_LOCAL ? resetCode : undefined });
@@ -6797,9 +6702,9 @@ app.post('/api/auth/sheikha-authenticator/request', (req, res) => {
     SHEIKHA_AUTH_CODES.set(userId, { code, expires, method: authMethod, attempts: 0 });
 
     // إرسال عبر منظومة الاتصالات
-    if (communicationsRuntime) {
+    if (commsEngine) {
         const channels = authMethod === 'sms' ? ['sms'] : authMethod === 'email' ? ['email'] : ['sms', 'email'];
-        communicationsRuntime.sendTemplate('otp', { code, minutes: '5', to: user.email, phone: user.phone }, channels);
+        commsEngine.sendTemplate('otp', { code, minutes: '5', to: user.email, phone: user.phone }, channels);
     }
     console.log('[Sheikha Auth] رمز المصادقة لـ ' + user.name + ': ' + code + ' | طريقة: ' + authMethod);
     res.json({
@@ -7796,14 +7701,14 @@ app.get('/api/products/:id', (req, res) => {
     const user = USERS.find(u => u.id === listing.traderId);
 
     // تقييم التاجر — نظام الصدق والأمانة
-    const traderOrders = ORDERS.filter((o) => String(o.userId) === String(listing.traderId));
+    const traderOrders = []; // TODO: من جدول الطلبات
     const trustScore = trader ? {
         overall: trader.rating || 4.2,
         honesty: trader.rating ? Math.min(5, trader.rating + 0.1) : 4.3,    // الصدق
         trustworthiness: trader.rating ? Math.min(5, trader.rating) : 4.2,   // الأمانة
         quality: trader.rating ? Math.min(5, trader.rating - 0.1) : 4.1,    // جودة المنتج
         delivery: trader.rating ? Math.min(5, trader.rating + 0.05) : 4.15, // الالتزام بالتسليم
-        totalReviews: Math.max(traderOrders.length, 5),
+        totalReviews: Math.floor(Math.random() * 50) + 5,
         verified: !!trader,
         badge: (trader?.rating || 4.2) >= 4.5 ? 'التاجر الصدوق الأمين' : (trader?.rating || 4.2) >= 3.5 ? 'تاجر موثوق' : 'تاجر جديد',
         hadith: '«التَّاجِرُ الصَّدُوقُ الأَمِينُ مَعَ النَّبِيِّينَ وَالصِّدِّيقِينَ وَالشُّهَدَاءِ» — رواه الترمذي'
@@ -10324,53 +10229,6 @@ app.get('/api/programming-experience', (req, res) => {
     });
 });
 
-// حالة البوابة المؤسسية (تكامل الحساب المؤسسي + الشبكة العصبية)
-app.get('/api/enterprise/status', (req, res) => {
-    const aiEnabled = !!OPENAI_API_KEY && OPENAI_API_KEY !== 'YOUR_API_KEY_HERE';
-    const uptime = Date.now() - SERVER_START_TIME;
-    const networksSummary = networksEngine && typeof networksEngine.getDashboard === 'function'
-        ? networksEngine.getDashboard().summary
-        : null;
-    const digitalRootStatus = smartDigitalRootEngine && typeof smartDigitalRootEngine.getStatus === 'function'
-        ? smartDigitalRootEngine.getStatus()
-        : null;
-
-    res.json({
-        success: true,
-        data: {
-            portal: {
-                name: 'Sheikha Enterprise Portal',
-                status: 'active',
-                path: '/portal-enterprise.html'
-            },
-            enterpriseAccount: {
-                status: 'ready',
-                dashboardPath: '/لوحة-الشركة.html?mode=enterprise'
-            },
-            neuralNetwork: {
-                status: networksSummary ? 'active' : 'inactive',
-                aiEnabled,
-                engine: aiEnabled ? 'connected' : 'local-fallback',
-                networkTypes: networksSummary ? networksSummary.networkTypes : 0,
-                cyberDomains: networksSummary ? networksSummary.cyberDomains : 0
-            },
-            smartDigitalRoot: {
-                status: digitalRootStatus ? digitalRootStatus.status : 'inactive',
-                version: digitalRootStatus ? digitalRootStatus.version : null,
-                activeRoots: digitalRootStatus ? digitalRootStatus.activeRoots : 0,
-                systemsDigitized: digitalRootStatus ? digitalRootStatus.systemsDigitized : 0,
-                apis: '/api/digital-root/*'
-            },
-            runtime: {
-                serverStatus: 'online',
-                uptimeMs: uptime
-            }
-        },
-        message: 'تم تفعيل حالة البوابة المؤسسية والجذر الرقمي والشبكة الجذرية العصبية.',
-        timestamp: new Date().toISOString()
-    });
-});
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🖥️ نظام إدارة السيرفرات والبنية التحتية
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -10537,32 +10395,6 @@ app.get('/api/server/services', (req, res) => {
     });
 });
 
-// فحص مباشر لتفعيل منظومة شيخة (الجذر + الشبكة العصبية)
-app.get('/api/sheikha/activation-status', (req, res) => {
-    const networksActive = !!(networksEngine && typeof networksEngine.getDashboard === 'function');
-    const rootActive = !!(smartDigitalRootEngine && typeof smartDigitalRootEngine.getStatus === 'function');
-
-    res.json({
-        success: true,
-        data: {
-            sheikhaSystem: rootActive && networksActive ? 'fully-active' : 'partially-active',
-            networksEngine: {
-                active: networksActive,
-                source: './lib/sheikha-networks-engine.js'
-            },
-            smartDigitalRootEngine: {
-                active: rootActive,
-                source: './lib/sheikha-smart-digital-root-engine.js',
-                apiBase: '/api/digital-root/*'
-            }
-        },
-        message: rootActive && networksActive
-            ? 'منظومة شيخة والجذر الرقمي والشبكة الجذرية العصبية مفعّلة بالكامل.'
-            : 'التفعيل جزئي — تحقق من سجلات الإقلاع.',
-        timestamp: new Date().toISOString()
-    });
-});
-
 // سجلات النظام
 const SYSTEM_LOGS = [];
 function addSystemLog(level, service, message) {
@@ -10655,33 +10487,29 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-try {
-    const { registerRuntimeContracts } = require('./lib/runtime/contracts');
-    registerRuntimeContracts(app, {
-        fs,
-        path,
-        processVersion: process.version,
-        runtimeCore,
-        observability,
-        ring: SHEIKHA_RUNTIME_RING,
-        gitMetadata: GIT_METADATA,
-        fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-        env: {
-            helmet,
-            compression,
-            rateLimit,
-            PORT,
-            NODE_VERSION: process.env.NODE_VERSION,
-            PM2_RUNTIME: process.env.PM2_RUNTIME,
-            SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-            SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-            serverStartTime: SERVER_START_TIME
-        },
-        port: PORT
-    });
-} catch (e) {
-    console.log('⚠️ Runtime contracts غير متوفرة — تم تخطي التسجيل:', e.message);
-}
+const { registerRuntimeContracts } = require('./lib/runtime/contracts');
+registerRuntimeContracts(app, {
+    fs,
+    path,
+    processVersion: process.version,
+    runtimeCore,
+    observability,
+    ring: SHEIKHA_RUNTIME_RING,
+    gitMetadata: GIT_METADATA,
+    fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+    env: {
+        helmet,
+        compression,
+        rateLimit,
+        PORT,
+        NODE_VERSION: process.env.NODE_VERSION,
+        PM2_RUNTIME: process.env.PM2_RUNTIME,
+        SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+        SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+        serverStartTime: SERVER_START_TIME
+    },
+    port: PORT
+});
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎓 نظام المنتدى العلمي ومركز الأبحاث
@@ -13025,54 +12853,67 @@ app.post('/api/communications/settings', (req, res) => {
 // «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ» — المائدة ٢
 // ═══════════════════════════════════════════════════════════════════════════════
 app.get('/api/comms/dashboard', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, data: communicationsRuntime.getDashboard(), timestamp: new Date().toISOString() });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, data: commsEngine.getDashboard(), timestamp: new Date().toISOString() });
 });
 app.get('/api/comms/channels', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, channels: communicationsRuntime.channels });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, channels: commsEngine.channels });
 });
 app.get('/api/comms/providers', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, providers: communicationsRuntime.providers });
+    if (typeof commsEngine === 'undefined' || !commsEngine) {
+        return res.json({
+            success: true,
+            status: 'fallback',
+            providers: [],
+            message: 'Communications engine is not loaded yet.'
+        });
+    }
+
+    return res.json({
+        success: true,
+        providers: commsEngine.getProviders
+            ? commsEngine.getProviders()
+            : []
+    });
 });
 app.get('/api/comms/templates', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    const templates = Object.entries(communicationsRuntime.templates).map(([id, t]) => ({
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    const templates = Object.entries(commsEngine.templates).map(([id, t]) => ({
         id, category: t.category, nameAr: t.nameAr, channels: t.channels
     }));
     res.json({ success: true, templates });
 });
 app.get('/api/comms/log', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { limit, channel } = req.query;
-    res.json({ success: true, log: communicationsRuntime.getLog(parseInt(limit) || 50, channel || null) });
+    res.json({ success: true, log: commsEngine.getLog(parseInt(limit) || 50, channel || null) });
 });
 
 // OTP عبر منظومة الاتصالات
 app.post('/api/comms/otp/generate', authRequired, (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { method, destination } = req.body || {};
-    const result = communicationsRuntime.generateOTP(req.user.id, method || 'sms', destination);
+    const result = commsEngine.generateOTP(req.user.id, method || 'sms', destination);
     // Don't expose the code to client in production
     const IS_LOCAL_ENV = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
     if (!IS_LOCAL_ENV) delete result.code;
     res.json({ success: result.success, message: result.message, expiresIn: result.expiresIn, method: result.method, _devCode: IS_LOCAL_ENV ? result.code : undefined });
 });
 app.post('/api/comms/otp/verify', authRequired, (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { code } = req.body || {};
     if (!code) return res.status(400).json({ success: false, message: 'الرمز مطلوب.' });
-    const result = communicationsRuntime.verifyOTP(req.user.id, code);
+    const result = commsEngine.verifyOTP(req.user.id, code);
     res.json(result);
 });
 
 // إرسال قالب عبر قنوات متعددة
 app.post('/api/comms/send-template', authRequired, (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { templateId, data, channels } = req.body || {};
     if (!templateId) return res.status(400).json({ success: false, message: 'معرّف القالب مطلوب.' });
-    communicationsRuntime.sendTemplate(templateId, data || {}, channels).then(result => res.json(result)).catch(e => res.status(500).json({ success: false, error: e.message }));
+    commsEngine.sendTemplate(templateId, data || {}, channels).then(result => res.json(result)).catch(e => res.status(500).json({ success: false, error: e.message }));
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -13102,11 +12943,9 @@ app.post('/api/smart-chat/sms-webhook', express.json(), async (req, res) => {
     if (!aiCommsBridge) return res.status(200).send('OK');
     try {
         const result = await aiCommsBridge.processMessage(req.body, 'sms');
-        if (communicationsRuntime && result.success && req.body.From) {
-            communicationsRuntime._logComm('sms_auto_reply', 'sms', req.body.From, 'sent', { reply: result.reply });
-            if (result.reply) {
-                await sendSMS(req.body.From, result.reply);
-            }
+        // TODO: إرسال الرد عبر SMS
+        if (commsEngine && result.success && req.body.From) {
+            commsEngine._logComm('sms_auto_reply', 'sms', req.body.From, 'sent', { reply: result.reply });
         }
         res.json(result);
     } catch (e) { res.status(200).json({ success: false }); }
@@ -13117,8 +12956,8 @@ app.post('/api/smart-chat/whatsapp-webhook', express.json(), async (req, res) =>
     if (!aiCommsBridge) return res.status(200).send('OK');
     try {
         const result = await aiCommsBridge.processMessage(req.body, 'whatsapp');
-        if (communicationsRuntime && result.success && req.body.From) {
-            communicationsRuntime._logComm('whatsapp_auto_reply', 'whatsapp', req.body.From, 'sent', { reply: result.reply });
+        if (commsEngine && result.success && req.body.From) {
+            commsEngine._logComm('whatsapp_auto_reply', 'whatsapp', req.body.From, 'sent', { reply: result.reply });
         }
         res.json(result);
     } catch (e) { res.status(200).json({ success: false }); }
@@ -13198,17 +13037,17 @@ app.post('/api/ai-comms/universal-channel', authRequired, async (req, res) => {
 
 // الرد الآلي
 app.post('/api/comms/auto-reply', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
     const { message } = req.body || {};
     if (!message) return res.status(400).json({ success: false, message: 'الرسالة مطلوبة.' });
-    const result = communicationsRuntime.getAutoReply(message);
+    const result = commsEngine.getAutoReply(message);
     res.json({ success: true, ...result });
 });
 
 // الأساس الشرعي للاتصالات
 app.get('/api/comms/islamic-foundation', (req, res) => {
-    if (!communicationsRuntime) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
-    res.json({ success: true, foundation: communicationsRuntime.foundation });
+    if (!commsEngine) return res.json({ success: false, message: 'منظومة الاتصالات غير مفعّلة' });
+    res.json({ success: true, foundation: commsEngine.foundation });
 });
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -21088,17 +20927,6 @@ const server = app.listen(PORT, '127.0.0.1', () => {
             console.log(`🛠️ Dev Platform v1.0 — SDK: ${devPlatformEngine.sdk.modules.length} وحدة | MCP: ${devPlatformEngine.mcp.tools.length} أداة | IDE: ${devPlatformEngine.ide.supportedIDEs.length} بيئة`);
         } catch (e) {
             console.log('⚠️ خطأ في تفعيل منظومة التطوير:', e.message);
-        }
-    }
-
-    // ═══ تسجيل مسارات الجذر الرقمي الذكي (25 API) ═══
-    if (smartDigitalRootEngine) {
-        try {
-            smartDigitalRootEngine.registerRoutes(app);
-            const rootStatus = smartDigitalRootEngine.getStatus();
-            console.log(`🌳 Smart Digital Root APIs — ${rootStatus.status} | active roots: ${rootStatus.activeRoots} | base: /api/digital-root/*`);
-        } catch (e) {
-            console.log('⚠️ خطأ في تفعيل مسارات الجذر الرقمي:', e.message);
         }
     }
 
