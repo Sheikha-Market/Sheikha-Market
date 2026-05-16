@@ -18,3 +18,18 @@ stable/runtime-baseline
 
 ## التحقق
 tools/runtime/sheikha-runtime-check.sh
+
+## تنفيذ موحد غير تفاعلي (VPS)
+أمر واحد ينفذ:
+- deploy من الفرع stable/runtime-baseline
+- restart عبر PM2
+- topology (apply + audit + sync)
+- runtime check
+
+الأمر:
+npm run ops:vps:unified
+
+ملاحظات:
+- يعمل من الجهاز المحلي عبر SSH أو من داخل VPS مباشرة.
+- مسار topology الصحيح هو:
+scripts/repo-topology-sync.js
