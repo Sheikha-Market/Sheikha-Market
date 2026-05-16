@@ -1,0 +1,17 @@
+{
+  "name": "SHEIKHA AI Editor",
+  "mode": "human-approved",
+  "canRead": true,
+  "canWrite": true,
+  "canRunTests": true,
+  "canCommit": false,
+  "canPush": false,
+  "canDeploy": false,
+  "rules": [
+    "No direct production edits",
+    "All changes must be on feature branches",
+    "No secrets reading or printing",
+    "Run node --check and git diff --check before approval",
+    "Human approval required before commit, push, or deploy"
+  ]
+}
