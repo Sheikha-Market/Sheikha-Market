@@ -37,6 +37,10 @@ tools/runtime/sheikha-runtime-check.sh
 
 npm run ops:vps:unified
 
+للتشغيل مع push لقنوات الكتابة فقط (rw) داخل topology:
+
+npm run ops:vps:unified:push
+
 ملاحظات:
 
 - يعمل من الجهاز المحلي عبر SSH أو من داخل VPS مباشرة.

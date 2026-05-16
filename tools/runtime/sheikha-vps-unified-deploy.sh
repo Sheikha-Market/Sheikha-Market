@@ -7,6 +7,11 @@ VPS_KEY="${VPS_KEY:-$HOME/.ssh/sheikha_vps}"
 DEPLOY_PATH="${DEPLOY_PATH:-/opt/sheikha/current}"
 BRANCH="${BRANCH:-stable/runtime-baseline}"
 PM2_APP="${PM2_APP:-sheikha-main-portal}"
+WITH_PUSH="false"
+
+if [[ "${1:-}" == "--with-push" ]]; then
+    WITH_PUSH="true"
+fi
 
 run_steps() {
     local app_dir
@@ -32,7 +37,11 @@ run_steps() {
     if [ -f "$app_dir/scripts/repo-topology-sync.js" ]; then
         node "$app_dir/scripts/repo-topology-sync.js" apply
         node "$app_dir/scripts/repo-topology-sync.js" audit
-        node "$app_dir/scripts/repo-topology-sync.js" sync
+        if [ "$WITH_PUSH" = "true" ]; then
+            node "$app_dir/scripts/repo-topology-sync.js" sync --push
+        else
+            node "$app_dir/scripts/repo-topology-sync.js" sync
+        fi
     else
         echo "WARN: missing $app_dir/scripts/repo-topology-sync.js"
     fi
@@ -47,7 +56,7 @@ run_steps() {
         bash "$app_dir/scripts/runtime-ops-report.sh" || true
     fi
 
-    echo "UNIFIED_DEPLOY_DONE branch=$BRANCH app_dir=$app_dir"
+    echo "UNIFIED_DEPLOY_DONE branch=$BRANCH app_dir=$app_dir withPush=$WITH_PUSH"
 }
 
 if [ "$(id -u)" -eq 0 ] && [ -d "$DEPLOY_PATH/.git" ]; then
@@ -61,7 +70,7 @@ if [ ! -f "$VPS_KEY" ]; then
 fi
 
 ssh -i "$VPS_KEY" -o StrictHostKeyChecking=accept-new "$VPS_USER@$VPS_IP" \
-"export DEPLOY_PATH='$DEPLOY_PATH' BRANCH='$BRANCH' PM2_APP='$PM2_APP'; bash -s" <<'REMOTE_SCRIPT'
+"export DEPLOY_PATH='$DEPLOY_PATH' BRANCH='$BRANCH' PM2_APP='$PM2_APP' WITH_PUSH='$WITH_PUSH'; bash -s" <<'REMOTE_SCRIPT'
 set -euo pipefail
 
 cd "$DEPLOY_PATH"
@@ -85,7 +94,11 @@ pm2 save --force || true
 if [ -f "$app_dir/scripts/repo-topology-sync.js" ]; then
     node "$app_dir/scripts/repo-topology-sync.js" apply
     node "$app_dir/scripts/repo-topology-sync.js" audit
-    node "$app_dir/scripts/repo-topology-sync.js" sync
+    if [ "$WITH_PUSH" = "true" ]; then
+        node "$app_dir/scripts/repo-topology-sync.js" sync --push
+    else
+        node "$app_dir/scripts/repo-topology-sync.js" sync
+    fi
 else
     echo "WARN: missing $app_dir/scripts/repo-topology-sync.js"
 fi
@@ -100,5 +113,5 @@ if [ -f "$app_dir/scripts/runtime-ops-report.sh" ]; then
     bash "$app_dir/scripts/runtime-ops-report.sh" || true
 fi
 
-echo "UNIFIED_DEPLOY_DONE branch=$BRANCH app_dir=$app_dir"
+echo "UNIFIED_DEPLOY_DONE branch=$BRANCH app_dir=$app_dir withPush=$WITH_PUSH"
 REMOTE_SCRIPT
