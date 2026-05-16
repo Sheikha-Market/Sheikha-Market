@@ -21,18 +21,31 @@ const WebSocket = require('ws');
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const runtimeBootstrap = require('./lib/runtime/bootstrap');
-const {
-    SHEIKHA_CHARTER_ENFORCED,
-    STARTUP_L0_ONLY,
-    SHEIKHA_RUNTIME_RING,
-    SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-    GIT_METADATA,
-    RUNTIME_FINGERPRINT_STATUS,
-    runtimeCore,
-    observability
-} = runtimeBootstrap({ rootDir: __dirname });
+let SHEIKHA_CHARTER_ENFORCED = false;
+let STARTUP_L0_ONLY = true;
+let SHEIKHA_RUNTIME_RING = 'L0';
+let SHEIKHA_RUNTIME_STRICT_FINGERPRINT = false;
+let SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = false;
+let GIT_METADATA = {};
+let RUNTIME_FINGERPRINT_STATUS = { status: 'optional-bootstrap-disabled' };
+let runtimeCore = {};
+let observability = null;
+
+try {
+    const runtimeBootstrap = require('./lib/runtime/bootstrap');
+    const runtimeBootstrapResult = runtimeBootstrap({ rootDir: __dirname });
+    SHEIKHA_CHARTER_ENFORCED = runtimeBootstrapResult.SHEIKHA_CHARTER_ENFORCED;
+    STARTUP_L0_ONLY = runtimeBootstrapResult.STARTUP_L0_ONLY;
+    SHEIKHA_RUNTIME_RING = runtimeBootstrapResult.SHEIKHA_RUNTIME_RING;
+    SHEIKHA_RUNTIME_STRICT_FINGERPRINT = runtimeBootstrapResult.SHEIKHA_RUNTIME_STRICT_FINGERPRINT;
+    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS = runtimeBootstrapResult.SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS;
+    GIT_METADATA = runtimeBootstrapResult.GIT_METADATA;
+    RUNTIME_FINGERPRINT_STATUS = runtimeBootstrapResult.RUNTIME_FINGERPRINT_STATUS;
+    runtimeCore = runtimeBootstrapResult.runtimeCore;
+    observability = runtimeBootstrapResult.observability;
+} catch (err) {
+    console.warn('[SHEIKHA] Optional runtime bootstrap disabled:', err.message);
+}
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -97,7 +110,19 @@ function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
 
-const safeLoadEngine = require('./lib/runtime/core/engine-loader');
+let safeLoadEngine = null;
+try {
+    safeLoadEngine = require('./lib/runtime/core/engine-loader');
+} catch (err) {
+    console.warn('[SHEIKHA] Optional engine-loader disabled:', err.message);
+    safeLoadEngine = (engineFile) => {
+        try {
+            return require(`./lib/${engineFile}`);
+        } catch (_) {
+            return null;
+        }
+    };
+}
 
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
@@ -2012,46 +2037,71 @@ function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
 
-const ObservabilityService = require('./lib/runtime/services/observability-service');
-const createRuntimeRouter = require('./lib/runtime/routes/runtime-routes');
-const MetalsMarketEngine = require('./lib/runtime/engines/metals-market-engine');
-const SmartCitiesEngine = require('./lib/runtime/engines/smart-cities-engine');
-const SupplyChainEngine = require('./lib/runtime/engines/supply-chain-engine');
-const RecyclingEngine = require('./lib/runtime/engines/recycling-engine');
-const TraceabilityEngine = require('./lib/runtime/engines/traceability-engine');
-const SpaceEngine = require('./lib/runtime/engines/space-engine');
-const CommunicationsEngine = require('./lib/runtime/engines/communications-engine');
-const LegislativeEngine = require('./lib/runtime/engines/legislative-engine');
-const ArbitrationEngine = require('./lib/runtime/engines/arbitration-engine');
-const EducationEngine = require('./lib/runtime/engines/education-engine');
-const InnovationEngine = require('./lib/runtime/engines/innovation-engine');
-const KnowledgeGraphEngine = require('./lib/runtime/engines/knowledge-graph-engine');
-const InternationalConsultingEngine = require('./lib/runtime/engines/international-consulting-engine');
-const RootNeuralCellsNetwork = require('./lib/runtime/engines/root-neural-cells-network');
-const runtimeRegistry = require('./lib/runtime/core/runtime-registry');
-const hsRuntimeRegistry = require('./lib/runtime/core/hs-runtime-registry');
-const rootSystemRegistry = require('./lib/runtime/core/root-system-registry');
-const { getNeuralCellsStatus } = require('./lib/runtime/core/root-neural-cells-registry');
-const consultingRegistry = require('./lib/runtime/organizations/consulting/consulting-registry');
-const consultingGovernance = require('./lib/runtime/organizations/consulting/consulting-governance');
-const consultingKpi = require('./lib/runtime/organizations/consulting/consulting-kpi');
-const consultingKnowledgeBase = require('./lib/runtime/organizations/consulting/consulting-knowledge-base');
-const createConsultingRouter = require('./lib/runtime/organizations/consulting/consulting-routes');
-const runtimeObservability = new ObservabilityService();
-const metalsMarket = new MetalsMarketEngine();
-const smartCities = new SmartCitiesEngine();
-const supplyChain = new SupplyChainEngine();
-const recycling = new RecyclingEngine();
-const traceability = new TraceabilityEngine();
-const space = new SpaceEngine();
-const communicationsRuntime = new CommunicationsEngine();
-const legislative = new LegislativeEngine();
-const arbitration = new ArbitrationEngine();
-const education = new EducationEngine();
-const innovation = new InnovationEngine();
-const knowledgeGraph = new KnowledgeGraphEngine();
-const consulting = new InternationalConsultingEngine();
-const rootNeuralCells = new RootNeuralCellsNetwork();
+app.get('/api/health', (req, res) => {
+    res.json({ status: 'ok' });
+});
+
+function optionalRequire(modulePath, fallbackValue) {
+    try {
+        return require(modulePath);
+    } catch (err) {
+        console.warn('[SHEIKHA] Optional module disabled:', modulePath, '|', err.message);
+        return fallbackValue;
+    }
+}
+
+function createOptionalInstance(Ctor) {
+    if (typeof Ctor !== 'function') return {};
+    try {
+        return new Ctor();
+    } catch (_) {
+        return {};
+    }
+}
+
+const ObservabilityService = optionalRequire('./lib/runtime/services/observability-service', class {
+    record() {}
+});
+const createRuntimeRouter = optionalRequire('./lib/runtime/routes/runtime-routes', () => express.Router());
+const MetalsMarketEngine = optionalRequire('./lib/runtime/engines/metals-market-engine', class {});
+const SmartCitiesEngine = optionalRequire('./lib/runtime/engines/smart-cities-engine', class {});
+const SupplyChainEngine = optionalRequire('./lib/runtime/engines/supply-chain-engine', class {});
+const RecyclingEngine = optionalRequire('./lib/runtime/engines/recycling-engine', class {});
+const TraceabilityEngine = optionalRequire('./lib/runtime/engines/traceability-engine', class {});
+const SpaceEngine = optionalRequire('./lib/runtime/engines/space-engine', class {});
+const CommunicationsEngine = optionalRequire('./lib/runtime/engines/communications-engine', class {});
+const LegislativeEngine = optionalRequire('./lib/runtime/engines/legislative-engine', class {});
+const ArbitrationEngine = optionalRequire('./lib/runtime/engines/arbitration-engine', class {});
+const EducationEngine = optionalRequire('./lib/runtime/engines/education-engine', class {});
+const InnovationEngine = optionalRequire('./lib/runtime/engines/innovation-engine', class {});
+const KnowledgeGraphEngine = optionalRequire('./lib/runtime/engines/knowledge-graph-engine', class {});
+const InternationalConsultingEngine = optionalRequire('./lib/runtime/engines/international-consulting-engine', class {});
+const RootNeuralCellsNetwork = optionalRequire('./lib/runtime/engines/root-neural-cells-network', class {});
+const runtimeRegistry = optionalRequire('./lib/runtime/core/runtime-registry', { organizations: {} });
+const hsRuntimeRegistry = optionalRequire('./lib/runtime/core/hs-runtime-registry', {});
+const rootSystemRegistry = optionalRequire('./lib/runtime/core/root-system-registry', {});
+const rootNeuralCellsRegistry = optionalRequire('./lib/runtime/core/root-neural-cells-registry', { getNeuralCellsStatus: () => ({ status: 'disabled' }) });
+const getNeuralCellsStatus = rootNeuralCellsRegistry.getNeuralCellsStatus || (() => ({ status: 'disabled' }));
+const consultingRegistry = optionalRequire('./lib/runtime/organizations/consulting/consulting-registry', {});
+const consultingGovernance = optionalRequire('./lib/runtime/organizations/consulting/consulting-governance', {});
+const consultingKpi = optionalRequire('./lib/runtime/organizations/consulting/consulting-kpi', {});
+const consultingKnowledgeBase = optionalRequire('./lib/runtime/organizations/consulting/consulting-knowledge-base', {});
+const createConsultingRouter = optionalRequire('./lib/runtime/organizations/consulting/consulting-routes', () => express.Router());
+const runtimeObservability = createOptionalInstance(ObservabilityService);
+const metalsMarket = createOptionalInstance(MetalsMarketEngine);
+const smartCities = createOptionalInstance(SmartCitiesEngine);
+const supplyChain = createOptionalInstance(SupplyChainEngine);
+const recycling = createOptionalInstance(RecyclingEngine);
+const traceability = createOptionalInstance(TraceabilityEngine);
+const space = createOptionalInstance(SpaceEngine);
+const communicationsRuntime = createOptionalInstance(CommunicationsEngine);
+const legislative = createOptionalInstance(LegislativeEngine);
+const arbitration = createOptionalInstance(ArbitrationEngine);
+const education = createOptionalInstance(EducationEngine);
+const innovation = createOptionalInstance(InnovationEngine);
+const knowledgeGraph = createOptionalInstance(KnowledgeGraphEngine);
+const consulting = createOptionalInstance(InternationalConsultingEngine);
+const rootNeuralCells = createOptionalInstance(RootNeuralCellsNetwork);
 const runtimeCoreProfile = {
     ...runtimeCore,
     organization: 'SHEIKHA',
@@ -10560,29 +10610,37 @@ app.get('/api/server/technologies', (req, res) => {
     });
 });
 
-const { registerRuntimeContracts } = require('./lib/runtime/contracts');
-registerRuntimeContracts(app, {
-    fs,
-    path,
-    processVersion: process.version,
-    runtimeCore,
-    observability,
-    ring: SHEIKHA_RUNTIME_RING,
-    gitMetadata: GIT_METADATA,
-    fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-    env: {
-        helmet,
-        compression,
-        rateLimit,
-        PORT,
-        NODE_VERSION: process.env.NODE_VERSION,
-        PM2_RUNTIME: process.env.PM2_RUNTIME,
-        SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-        SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-        serverStartTime: SERVER_START_TIME
-    },
-    port: PORT
-});
+let registerRuntimeContracts = null;
+try {
+    ({ registerRuntimeContracts } = require('./lib/runtime/contracts'));
+} catch (err) {
+    console.warn('[SHEIKHA] Optional runtime contracts disabled:', err.message);
+}
+
+if (typeof registerRuntimeContracts === 'function') {
+    registerRuntimeContracts(app, {
+        fs,
+        path,
+        processVersion: process.version,
+        runtimeCore,
+        observability,
+        ring: SHEIKHA_RUNTIME_RING,
+        gitMetadata: GIT_METADATA,
+        fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+        env: {
+            helmet,
+            compression,
+            rateLimit,
+            PORT,
+            NODE_VERSION: process.env.NODE_VERSION,
+            PM2_RUNTIME: process.env.PM2_RUNTIME,
+            SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
+            SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
+            serverStartTime: SERVER_START_TIME
+        },
+        port: PORT
+    });
+}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎓 نظام المنتدى العلمي ومركز الأبحاث

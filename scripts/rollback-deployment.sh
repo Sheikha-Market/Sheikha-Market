@@ -15,7 +15,18 @@ NC='\033[0m'
 BACKUP_DIR="${BACKUP_DIR:-/opt/sheikha/backups}"
 DEPLOY_PATH="/opt/sheikha/current"
 PM2_NAME="sheikha-main-portal"
-GIT_BRANCH="${GIT_BRANCH:-main}"
+GIT_BRANCH="${GIT_BRANCH:-stable/runtime-baseline}"
+ROLLBACK_CONFIRM="${ROLLBACK_CONFIRM:-prompt}"
+
+health_check() {
+    local live_code
+    local server_health_code
+
+    live_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/live || echo "000")
+    server_health_code=$(curl -s -o /dev/null -w "%{http_code}" --max-time 10 http://localhost:8080/api/server/health || echo "000")
+
+    [ "$live_code" = "200" ] && [ "$server_health_code" = "200" ]
+}
 
 echo -e "${RED}⚠️ شيخة — Rollback Script${NC}"
 echo "━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━"
@@ -30,8 +41,13 @@ if [ -z "$LATEST_BACKUP" ]; then
 fi
 
 echo -e "${YELLOW}آخر backup: $LATEST_BACKUP${NC}"
-read -p "تأكد من الاسترجاع من هذه النسخة؟ (yes/no): " confirm
-[ "$confirm" != "yes" ] && exit 0
+if [ "$ROLLBACK_CONFIRM" = "prompt" ]; then
+    read -p "تأكد من الاسترجاع من هذه النسخة؟ (yes/no): " confirm
+    [ "$confirm" != "yes" ] && exit 0
+elif [ "$ROLLBACK_CONFIRM" != "yes" ]; then
+    echo -e "${RED}❌ ROLLBACK_CONFIRM يجب أن يكون yes للتشغيل غير التفاعلي${NC}"
+    exit 1
+fi
 
 # 2️⃣ إيقاف الخادم
 echo -e "${YELLOW}✓ إيقاف الخادم...${NC}"
@@ -51,7 +67,7 @@ sleep 5
 
 # 5️⃣ التحقق من الصحة
 echo -e "${YELLOW}✓ فحص الصحة...${NC}"
-if curl -fsS --max-time 10 http://localhost:8080/api/health >/dev/null; then
+if health_check; then
     echo -e "${GREEN}✅ Rollback نجح! الخادم يعمل${NC}"
 else
     echo -e "${RED}❌ الخادم لا يستجيب بعد الاسترجاع${NC}"
