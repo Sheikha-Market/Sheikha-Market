@@ -14,6 +14,18 @@ const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
 const WebSocket = require('ws');
 
+function optionalRequire(modulePath) {
+    try {
+        return require(modulePath);
+    } catch (error) {
+        const missingModule = error && error.code === 'MODULE_NOT_FOUND' && String(error.message || '').includes(modulePath);
+        if (!missingModule) {
+            console.log(`⚠️ تعذر تحميل ${modulePath}:`, error.message);
+        }
+        return null;
+    }
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📜 SHEIKHA CHARTER — Runtime Governance Switches
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -21,7 +33,29 @@ const WebSocket = require('ws');
 // القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const runtimeBootstrap = require('./lib/runtime/bootstrap');
+const runtimeBootstrap = optionalRequire('./lib/runtime/bootstrap');
+const runtimeBootstrapState = {
+    SHEIKHA_CHARTER_ENFORCED: false,
+    STARTUP_L0_ONLY: true,
+    SHEIKHA_RUNTIME_RING: 'fallback',
+    SHEIKHA_RUNTIME_STRICT_FINGERPRINT: false,
+    SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS: true,
+    GIT_METADATA: null,
+    RUNTIME_FINGERPRINT_STATUS: 'fallback',
+    runtimeCore: {},
+    observability: null
+};
+
+if (typeof runtimeBootstrap === 'function') {
+    try {
+        Object.assign(runtimeBootstrapState, runtimeBootstrap({ rootDir: __dirname }) || {});
+    } catch (error) {
+        console.log('⚠️ Runtime bootstrap fallback:', error.message);
+    }
+} else {
+    console.log('⚠️ Runtime bootstrap غير متوفر — سيتم تشغيل الوضع الاحتياطي');
+}
+
 const {
     SHEIKHA_CHARTER_ENFORCED,
     STARTUP_L0_ONLY,
@@ -32,7 +66,7 @@ const {
     RUNTIME_FINGERPRINT_STATUS,
     runtimeCore,
     observability
-} = runtimeBootstrap({ rootDir: __dirname });
+} = runtimeBootstrapState;
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -97,7 +131,16 @@ function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
 
-const safeLoadEngine = require('./lib/runtime/core/engine-loader');
+const runtimeEngineLoader = optionalRequire('./lib/runtime/core/engine-loader');
+const safeLoadEngine = typeof runtimeEngineLoader === 'function'
+    ? runtimeEngineLoader
+    : function fallbackSafeLoadEngine(enginePath) {
+        try {
+            return { ok: true, engine: require(enginePath) };
+        } catch (error) {
+            return { ok: false, engine: null, error: error.message };
+        }
+    };
 
 console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
 
