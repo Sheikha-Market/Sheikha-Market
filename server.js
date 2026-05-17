@@ -2679,6 +2679,73 @@ app.get('/api/enterprise/status', (req, res) => {
     });
 });
 
+// مسارات runtime الأساسية تُسجَّل مبكراً لتفادي أي تعارض ترتيب مع middlewares عامة لاحقاً
+app.get('/api/runtime', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
+            contractsVersion: 'early-v1',
+            ring: SHEIKHA_RUNTIME_RING || 'fallback',
+            loaded: Boolean(runtimeBootstrap),
+            startedAt: SERVER_START_TIME,
+            uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000),
+            fingerprint: {
+                status: RUNTIME_FINGERPRINT_STATUS || 'unknown'
+            }
+        },
+        message: 'تم جلب حالة التشغيل بنجاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha-node/status', (req, res) => {
+    return res.json({
+        success: true,
+        data: {
+            status: 'online',
+            mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
+            ring: SHEIKHA_RUNTIME_RING || 'fallback',
+            startedAt: SERVER_START_TIME,
+            uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000)
+        },
+        message: 'حالة العقدة تعمل',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/observability/summary', (req, res) => {
+    const metricsDir = path.join(__dirname, 'data', 'runtime-metrics');
+    const statBytes = (filePath) => {
+        try {
+            return fs.existsSync(filePath) ? fs.statSync(filePath).size : 0;
+        } catch (_) {
+            return 0;
+        }
+    };
+
+    let files = [];
+    try {
+        files = fs.existsSync(metricsDir)
+            ? fs.readdirSync(metricsDir).filter((name) => name.endsWith('.ndjson'))
+            : [];
+    } catch (_) {
+        files = [];
+    }
+
+    return res.json({
+        success: true,
+        data: {
+            files,
+            latencyBytes: statBytes(path.join(metricsDir, 'latency.ndjson')),
+            errorsBytes: statBytes(path.join(metricsDir, 'errors.ndjson')),
+            throughputBytes: statBytes(path.join(metricsDir, 'throughput.ndjson'))
+        },
+        message: 'ملخص المراقبة متاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
@@ -10480,100 +10547,6 @@ app.get('/api/server/technologies', (req, res) => {
         timestamp: new Date().toISOString()
     });
 });
-
-const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
-if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
-    runtimeContractsModule.registerRuntimeContracts(app, {
-        fs,
-        path,
-        processVersion: process.version,
-        runtimeCore,
-        observability,
-        ring: SHEIKHA_RUNTIME_RING,
-        gitMetadata: GIT_METADATA,
-        fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
-        env: {
-            helmet,
-            compression,
-            rateLimit,
-            PORT,
-            NODE_VERSION: process.env.NODE_VERSION,
-            PM2_RUNTIME: process.env.PM2_RUNTIME,
-            SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS,
-            SHEIKHA_RUNTIME_STRICT_FINGERPRINT,
-            serverStartTime: SERVER_START_TIME
-        },
-        port: PORT
-    });
-} else {
-    console.log('⚠️ Runtime contracts غير متوفرة — سيتم تسجيل fallback محلي');
-
-    app.get('/api/runtime', (req, res) => {
-        return res.status(200).json({
-            success: true,
-            data: {
-                mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
-                contractsVersion: 'fallback-v1',
-                ring: SHEIKHA_RUNTIME_RING || 'fallback',
-                loaded: false,
-                startedAt: SERVER_START_TIME,
-                uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000),
-                fingerprint: {
-                    status: RUNTIME_FINGERPRINT_STATUS || 'unknown'
-                }
-            },
-            message: 'تم جلب حالة التشغيل بنجاح',
-            timestamp: new Date().toISOString()
-        });
-    });
-
-    app.get('/api/sheikha-node/status', (req, res) => {
-        return res.status(200).json({
-            success: true,
-            data: {
-                status: 'online',
-                mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
-                ring: SHEIKHA_RUNTIME_RING || 'fallback',
-                startedAt: SERVER_START_TIME,
-                uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000)
-            },
-            message: 'حالة العقدة تعمل',
-            timestamp: new Date().toISOString()
-        });
-    });
-
-    app.get('/api/observability/summary', (req, res) => {
-        const metricsDir = path.join(__dirname, 'data', 'runtime-metrics');
-        const safeStat = (filePath) => {
-            try {
-                return fs.existsSync(filePath) ? fs.statSync(filePath).size : 0;
-            } catch (_) {
-                return 0;
-            }
-        };
-
-        let files = [];
-        try {
-            files = fs.existsSync(metricsDir)
-                ? fs.readdirSync(metricsDir).filter((name) => name.endsWith('.ndjson'))
-                : [];
-        } catch (_) {
-            files = [];
-        }
-
-        return res.status(200).json({
-            success: true,
-            data: {
-                files,
-                latencyBytes: safeStat(path.join(metricsDir, 'latency.ndjson')),
-                errorsBytes: safeStat(path.join(metricsDir, 'errors.ndjson')),
-                throughputBytes: safeStat(path.join(metricsDir, 'throughput.ndjson'))
-            },
-            message: 'ملخص المراقبة متاح',
-            timestamp: new Date().toISOString()
-        });
-    });
-}
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎓 نظام المنتدى العلمي ومركز الأبحاث
@@ -20771,6 +20744,32 @@ console.log('   💬 Live Chat API: /api/sheikha/live-chat');
 // ═══════════════════════════════════════════════════════════════════════════════
 // �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
+
+// --- Runtime & Observability (inserted before 404 handler) ---
+const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
+if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
+    runtimeContractsModule.registerRuntimeContracts(app, {
+        fs, path, processVersion: process.version, runtimeCore, observability,
+        ring: SHEIKHA_RUNTIME_RING, gitMetadata: GIT_METADATA, fingerprintStatus: RUNTIME_FINGERPRINT_STATUS,
+        env: { helmet, compression, rateLimit, PORT, NODE_VERSION: process.env.NODE_VERSION, PM2_RUNTIME: process.env.PM2_RUNTIME, SHEIKHA_SUPPRESS_OPTIONAL_WARNINGS, SHEIKHA_RUNTIME_STRICT_FINGERPRINT, serverStartTime: SERVER_START_TIME }, port: PORT
+    });
+} else {
+    console.log('⚠️ Runtime contracts غير متوفرة — سيتم تسجيل fallback محلي');
+    app.get('/api/runtime', (req, res) => {
+        return res.status(200).json({
+            success: true,
+            data: { mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback', contractsVersion: 'fallback-v1', ring: SHEIKHA_RUNTIME_RING || 'fallback', loaded: false, startedAt: SERVER_START_TIME, uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000), fingerprint: { status: RUNTIME_FINGERPRINT_STATUS || 'unknown' } },
+            message: 'تم جلب حالة التشغيل بنجاح', timestamp: new Date().toISOString()
+        });
+    });
+    app.get('/api/sheikha-node/status', (req, res) => {
+        return res.status(200).json({ success: true, data: { status: 'online', mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback', ring: SHEIKHA_RUNTIME_RING || 'fallback', startedAt: SERVER_START_TIME, uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000) }, message: 'حالة العقدة تعمل', timestamp: new Date().toISOString() });
+    });
+    app.get('/api/observability/summary', (req, res) => {
+        return res.status(200).json({ success: true, data: { status: 'active', type: 'observability-summary', timestamp: new Date().toISOString() }, message: 'ملخص المراقبة', timestamp: new Date().toISOString() });
+    });
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
