@@ -20745,28 +20745,26 @@ console.log('   🛡️ Taqwa APIs: /api/taqwa/dashboard, /api/taqwa/system');
 // � LIVE CHAT APIs — التحدث المباشر مع شيخة
 // ═══════════════════════════════════════════════════════════════════════════════
 app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
-  const message = String(req.body?.message || '').trim();
+    const message = String(req.body?.message || '').trim();
 
-  if (!message) {
-    return res.status(400).json({
-      success: false,
-      message: 'اكتب رسالة لشيخة أولًا.'
+    res.json({
+        success: true,
+        status: 'interactive',
+        reply: message
+            ? `استلمت طلبك: ${message}\nسأحلله وأقترح الإجراء الآمن.`
+            : 'اكتب طلبك لأتفاعل معه.',
+        capabilities: {
+            talk: true,
+            write: true,
+            edit: true,
+            test: true,
+            createPullRequest: true,
+            autonomousCommit: false,
+            autonomousPush: false,
+            autonomousDeploy: false
+        },
+        governance: 'human-approved'
     });
-  }
-
-  return res.json({
-    success: true,
-    mode: 'guided-operational-assistant',
-    reply: `استلمت طلبك: ${message}\nسأتعامل معه كتحليل وتشغيل وتطوير آمن تحت إدارة الإنسان.`,
-    capabilities: {
-      talk: true,
-      write: true,
-      analyze: true,
-      editByRequest: true,
-      autonomousDeploy: false
-    },
-    nextAction: 'اعرض عليّ الملف أو المسار أو المهمة المطلوبة للتطوير.'
-  });
 });
 console.log('   💬 Live Chat API: /api/sheikha/live-chat');
 
