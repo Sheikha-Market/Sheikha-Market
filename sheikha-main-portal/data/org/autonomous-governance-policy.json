@@ -1,0 +1,90 @@
+{
+  "_meta": {
+    "title": "سياسة شيخة للحوكمة الذاتية والنشر الآمن",
+    "version": "1.0.0",
+    "createdAt": "2026-05-17",
+    "policyId": "SHK-AUTO-GOV-001",
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "autonomousScope": {
+    "operationalAutonomy": [
+      "monitoring",
+      "analysis",
+      "proposal",
+      "safe-fix",
+      "testing"
+    ],
+    "criticalAutonomy": [
+      "commit",
+      "push",
+      "deploy-staging",
+      "deploy-production"
+    ]
+  },
+  "permissionModel": {
+    "alwaysEnabled": ["canRead", "canWrite", "canRunTests"],
+    "gated": ["canCommit", "canPush", "canDeployStaging", "canDeployProduction"],
+    "thresholds": {
+      "canCommit": 75,
+      "canPush": 85,
+      "canDeployStaging": 88,
+      "canDeployProduction": 95
+    }
+  },
+  "safeContinuousDelivery": {
+    "pipeline": [
+      "monitor",
+      "analyze",
+      "propose",
+      "limited-execute",
+      "test",
+      "impact-evaluate"
+    ],
+    "releaseStages": ["staging", "canary", "production"],
+    "requiredGuards": [
+      "security-gate",
+      "performance-gate",
+      "compliance-gate",
+      "data-safety-gate",
+      "rollback-readiness"
+    ]
+  },
+  "rootNeuralDecisionMesh": {
+    "layers": [
+      { "id": "RNM-L1", "name": "telemetry-perception" },
+      { "id": "RNM-L2", "name": "decision-inference" },
+      { "id": "RNM-L3", "name": "action-orchestration" },
+      { "id": "RNM-L4", "name": "policy-governance" }
+    ]
+  },
+  "shariaPolicyEngine": {
+    "requiredRules": [
+      "no-riba",
+      "no-gharar-excessive",
+      "no-haram-products",
+      "fair-pricing-transparency",
+      "consumer-protection"
+    ],
+    "enforcementMode": "block-on-violation",
+    "auditLogRequired": true
+  },
+  "integrationHub": {
+    "strategy": "unified-connectors-first",
+    "priorityOrder": ["critical-systems", "financial-systems", "analytics", "external-partners"]
+  },
+  "productionGovernance": {
+    "maturityLevels": {
+      "L1": "analysis-proposals-only",
+      "L2": "safe-fix-and-tests",
+      "L3": "gated-commit-push",
+      "L4": "gated-self-deploy-with-auto-rollback"
+    },
+    "minimumForProductionDeploy": "L4"
+  },
+  "phasedRoadmap": [
+    { "phase": 1, "focus": "analysis-and-proposal-autonomy" },
+    { "phase": 2, "focus": "safe-fix-testing-and-gated-commit-push" },
+    { "phase": 3, "focus": "staging-canary-and-auto-rollback" },
+    { "phase": 4, "focus": "full-governed-autonomous-operations" }
+  ]
+}

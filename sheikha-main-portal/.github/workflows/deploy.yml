@@ -19,6 +19,14 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+
+      - name: Autonomous deploy gate (production)
+        run: node sheikha-main-portal/scripts/autonomous-governance-cycle.js --mode=deploy-gate --target=production
+
       - name: Deploy on VPS with Docker Compose
         uses: appleboy/ssh-action@v1.0.3
         with:
