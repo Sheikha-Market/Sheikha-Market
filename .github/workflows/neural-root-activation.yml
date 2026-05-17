@@ -13,13 +13,17 @@ on:
       - "sheikha-main-portal/lib/sheikha-root-neural-runtime.js"
       - "sheikha-main-portal/lib/sheikha-master-neural-cell-network.js"
       - "sheikha-main-portal/core/neural/**"
+      - "sheikha-main-portal/core/neural-root-network/**"
       - "sheikha-main-portal/core/sheikha-ubuntu-upper-layer.js"
+      - "sheikha-main-portal/intelligence/sheikha-neural-root-activator.js"
       - ".github/workflows/neural-root-activation.yml"
   pull_request:
     branches: [main]
     paths:
       - "sheikha-main-portal/lib/sheikha-root-neural-*.js"
       - "sheikha-main-portal/core/neural/**"
+      - "sheikha-main-portal/core/neural-root-network/**"
+      - "sheikha-main-portal/intelligence/sheikha-neural-root-activator.js"
   schedule:
     # فحص يومي الساعة 04:00 UTC — للتأكد من سلامة الشبكة
     - cron: "0 4 * * *"
@@ -256,11 +260,66 @@ jobs:
             console.log('﴿أَلَمْ تَرَ كَيْفَ ضَرَبَ اللَّهُ مَثَلًا كَلِمَةً طَيِّبَةً كَشَجَرَةٍ طَيِّبَةٍ أَصْلُهَا ثَابِتٌ وَفَرْعُهَا فِي السَّمَاءِ﴾');
           "
 
+  # ─── طبقة جذر 3: المُفعِّل المركزي الكامل — Full Root Activator ─────────────
+  root-layer-3:
+    name: 🧠 Layer-3 — Full Neural Root Activator (128 cells)
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    needs: root-layer-2
+    permissions:
+      contents: read
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v6
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+          cache: npm
+          cache-dependency-path: sheikha-main-portal/package-lock.json
+
+      - name: 📦 Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then
+            npm ci --prefer-offline
+          else
+            npm install --prefer-offline
+          fi
+
+      - name: 🧠 Activate Full Neural Root (SNRN + NCN + 12 + Hierarchy)
+        run: |
+          node -e "
+            const activator = require('./intelligence/sheikha-neural-root-activator');
+            console.log('╔══════════════════════════════════════════════════╗');
+            console.log('║  🧠 المُفعِّل المركزي — Full Neural Root Activator ║');
+            console.log('╚══════════════════════════════════════════════════╝');
+            const s = activator.status();
+            console.log('الجاهزية:', s.ready);
+            console.log('إجمالي الخلايا:', s.totalCells);
+            console.log('الشبكات المُفعَّلة:', s.networksCount);
+            console.log('بدأت في:', s.startedAt);
+            Object.entries(s.activation || {}).forEach(([k, v]) =>
+              console.log(' ', k + ':', v ? '✅' : '⚠️')
+            );
+            if (!s.ready) {
+              console.error('❌ المُفعِّل المركزي غير جاهز');
+              process.exit(1);
+            }
+            if (s.networksCount < 1) {
+              console.error('❌ لا توجد شبكة واحدة مُفعَّلة');
+              process.exit(1);
+            }
+            console.log('✅ المُفعِّل المركزي نشط —', s.totalCells, 'خلية جذرية مُفعَّلة');
+            console.log('﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨');
+          "
+
   # ─── التقرير النهائي ────────────────────────────────────────────────────────
   neural-report:
     name: 📊 Neural Activation Report
     runs-on: ubuntu-latest
-    needs: [root-layer-0, root-layer-1, root-layer-2]
+    needs: [root-layer-0, root-layer-1, root-layer-2, root-layer-3]
     if: always()
     permissions:
       contents: read
@@ -271,20 +330,23 @@ jobs:
           L0="${{ needs.root-layer-0.result }}"
           L1="${{ needs.root-layer-1.result }}"
           L2="${{ needs.root-layer-2.result }}"
+          L3="${{ needs.root-layer-3.result }}"
           EVENT_NAME="${{ github.event_name }}"
           [ "$EVENT_NAME" = "workflow_dispatch" ] && DISPATCH_MODE="manual-dispatch" || DISPATCH_MODE="automated"
 
           [ "$L0" = "success" ] && S0="✅ مُفعَّل" || S0="❌ فشل"
           [ "$L1" = "success" ] && S1="✅ مُفعَّل" || S1="❌ فشل"
           [ "$L2" = "success" ] && S2="✅ مُفعَّل" || S2="❌ فشل"
+          [ "$L3" = "success" ] && S3="✅ مُفعَّل" || S3="❌ فشل"
 
           echo "╔═══════════════════════════════════════════════════════╗"
           echo "║        🌳 تقرير تفعيل الشبكة العصبية الجذرية         ║"
           echo "║         Root Neural Cell Network — Activation Report ║"
           echo "╠═══════════════════════════════════════════════════════╣"
-          echo "║  Layer-0 (خلايا شيخة 12):    $S0"
-          echo "║  Layer-1 (Runtime الجذري 19): $S1"
-          echo "║  Layer-2 (NCN الكاملة 92):    $S2"
+          echo "║  Layer-0 (خلايا شيخة 12):          $S0"
+          echo "║  Layer-1 (Runtime الجذري 19):       $S1"
+          echo "║  Layer-2 (NCN الكاملة 92):          $S2"
+          echo "║  Layer-3 (المُفعِّل المركزي 128):    $S3"
           echo "╠═══════════════════════════════════════════════════════╣"
           echo "║  Scope: platform-internal only                       ║"
           echo "║  Mode : $DISPATCH_MODE                               ║"
@@ -298,7 +360,7 @@ jobs:
           - Scope: \`platform-internal\`
           - Trigger: \`$EVENT_NAME\`
           - Dispatch mode: \`$DISPATCH_MODE\`
-          - Measurable criteria: \`12 → 19 → 92\`
+          - Measurable criteria: \`12 → 19 → 92 → 128\`
           - Operational controls: \`verification\`, \`governance\`, \`manual-dispatch-report\`
           - Shariah controls: \`no-riba\`, \`no-gharar\`, \`transparency\`
 
@@ -307,9 +369,10 @@ jobs:
           | Core Neural Cells | 12 | $S0 |
           | Root Runtime | 19 | $S1 |
           | Root NCN | 92 | $S2 |
+          | Full Root Activator | 128 | $S3 |
           EOF
 
-          if [ "$L0" = "success" ] && [ "$L1" = "success" ] && [ "$L2" = "success" ]; then
+          if [ "$L0" = "success" ] && [ "$L1" = "success" ] && [ "$L2" = "success" ] && [ "$L3" = "success" ]; then
             echo "✅ شبكة الخلايا الجذرية مُفعَّلة بالكامل — الحمد لله"
           else
             echo "⚠️ بعض طبقات الشبكة تحتاج مراجعة"
