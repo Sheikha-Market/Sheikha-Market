@@ -22,7 +22,7 @@ jobs:
     steps:
       - name: 👋 First-time issue greeting
         if: github.event_name == 'issues'
-        uses: actions/first-interaction@v1
+        uses: actions/first-interaction@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           issue-message: |
@@ -43,7 +43,7 @@ jobs:
 
       - name: 👋 First-time PR greeting
         if: github.event_name == 'pull_request_target'
-        uses: actions/first-interaction@v1
+        uses: actions/first-interaction@v3
         with:
           repo-token: ${{ secrets.GITHUB_TOKEN }}
           pr-message: |

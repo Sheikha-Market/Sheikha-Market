@@ -34,7 +34,7 @@ jobs:
 
     steps:
       - name: 🎯 Ensure milestones exist
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -117,7 +117,7 @@ jobs:
 
     steps:
       - name: 📊 Print milestone progress
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
@@ -157,7 +157,7 @@ jobs:
 
     steps:
       - name: ⚠️ Check for overdue issues in milestones
-        uses: actions/github-script@v7
+        uses: actions/github-script@v9
         with:
           github-token: ${{ secrets.GITHUB_TOKEN }}
           script: |
