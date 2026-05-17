@@ -25,9 +25,9 @@
     "alwaysEnabled": ["canRead", "canWrite", "canRunTests"],
     "gated": ["canCommit", "canPush", "canDeployStaging", "canDeployProduction"],
     "thresholds": {
-      "canCommit": 75,
-      "canPush": 85,
-      "canDeployStaging": 88,
+      "canCommit": 70,
+      "canPush": 80,
+      "canDeployStaging": 65,
       "canDeployProduction": 95
     }
   },

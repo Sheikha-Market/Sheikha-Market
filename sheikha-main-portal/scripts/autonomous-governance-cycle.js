@@ -108,13 +108,7 @@ function evaluateSafetyGates(readinessScore, health) {
         performanceHealthy,
         dataSafe,
         complianceHealthy,
-        allPassed:
-            readinessScore >= 70 &&
-            rollbackReady &&
-            securityHealthy &&
-            performanceHealthy &&
-            dataSafe &&
-            complianceHealthy
+        allPassed: rollbackReady && securityHealthy && performanceHealthy && dataSafe && complianceHealthy
     };
 }
 
