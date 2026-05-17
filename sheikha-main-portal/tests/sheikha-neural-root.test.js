@@ -161,6 +161,16 @@ assert(rootInfer.tawheed !== undefined, 'Root NCN response has tawheed');
 assert(rootInfer.bismillah !== undefined, 'Root NCN response has bismillah');
 assert(rootInfer.layers !== undefined, 'Root NCN response has layers (7 طبقات)');
 
+// ─── 7.1 Root Runtime Governance ────────────────────────────────────────────────
+console.log('\n[7.1] Root Runtime Governance');
+const rootRuntime = require('../lib/sheikha-root-neural-runtime');
+const runtimeStatus = rootRuntime.status();
+assert(runtimeStatus.scope.boundary === 'sheikha-platform', 'root runtime scope is limited to platform');
+assert(runtimeStatus.readiness.checks.coreCells12 === true, 'root runtime verifies core 12 cells');
+assert(runtimeStatus.readiness.checks.runtimeCells19 === true, 'root runtime verifies 19 runtime cells');
+assert(runtimeStatus.integrationIndicators.internalLayers.rootCellNetwork92 >= 92, 'root runtime tracks 92-cell layer');
+assert(runtimeStatus.compliance.operations.governanceRequired === true, 'root runtime requires governance');
+
 // ─── 8. Neural Cells 12 ───────────────────────────────────────────────────────
 console.log('\n[8] Neural Cells (12 خلية بالكتاب والسنة)');
 const cells12 = require('../core/neural/neural-cells');
@@ -168,10 +178,21 @@ cells12.init();
 const cellsStatus = cells12.status();
 assert(cellsStatus.totalCells === 12, 'Neural Cells count is 12');
 assert(typeof cellsStatus.principle === 'string', 'Neural Cells have principle');
+assert(cellsStatus.scope.applied === 'platform-internal', 'Neural Cells scope is platform-internal');
+assert(cellsStatus.readiness.success === true, 'Neural Cells readiness is measurable and ready');
+assert(cellsStatus.successCriteria.exactCellCount === 12, 'Neural Cells success criteria locks 12 cells');
 
 // process
-const processed = cells12.process('اختبار معالجة النص');
+const processed = cells12.process({
+    type: 'trade',
+    scope: 'cosmic',
+    context: 'اختبار تفعيل داخلي مضبوط',
+    data: { interestRate: 0, amount: 100 },
+});
 assert(typeof processed === 'object', 'cells12 process returns object');
+assert(processed.scope.applied === 'platform-internal', 'process normalizes scope to platform boundary');
+assert(processed.scope.restricted === true, 'process restricts unverifiable external scope');
+assert(processed.compliance.shariah.noRiba === true, 'process enforces no-riba control');
 
 // getCell
 const cell1 = cells12.getCell(1);

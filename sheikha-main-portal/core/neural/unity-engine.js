@@ -23,6 +23,7 @@
 'use strict';
 
 const path    = require('path');
+const activationGovernance = require('./activation-governance');
 let express;
 try {
     express = require('express');
@@ -92,13 +93,27 @@ function pulse(input = {}) {
     if (!_ready) init();
     pulseCount++;
 
-    const { type = 'general', data = {}, context = '', task = null } = input;
+    const normalizedInput = activationGovernance.normalizeActivationInput(input);
+    const {
+        type = 'general',
+        data = {},
+        context = '',
+        task = null,
+        requestedScope = activationGovernance.PLATFORM_SCOPE.applied,
+    } = normalizedInput;
+    const compliance = activationGovernance.buildComplianceReport({
+        requestedScope,
+        data,
+        context,
+    });
     const result = {
         id:         `pulse_${Date.now()}_${pulseCount}`,
         timestamp:  new Date().toISOString(),
         type,
         neural:     null,
         agent:      null,
+        scope:      compliance.scope,
+        compliance,
     };
 
     // تشغيل الخلايا العصبية
@@ -255,14 +270,38 @@ function createRouter() {
 // ═══════════════════════════════════════════════════════════════════════════════
 
 function status() {
+    const neuralStatus = neuralCells ? neuralCells.status() : { available: false, ready: false, totalCells: 0 };
+    const cloudStatus = cloudAgent ? cloudAgent.status() : { available: false, ready: false };
+    const compliance = activationGovernance.buildComplianceReport();
+
     return {
         module:       'unity-engine',
         nameAr:       'محرك التوحيد — قُلْ هُوَ اللَّهُ أَحَدٌ',
         ready:        _ready,
         initAt:       _initAt,
         pulseCount:   pulseCount,
-        neuralCells:  neuralCells ? neuralCells.status() : { available: false },
-        cloudAgent:   cloudAgent  ? cloudAgent.status()  : { available: false },
+        neuralCells:  neuralStatus,
+        cloudAgent:   cloudStatus,
+        scope:        compliance.scope,
+        compliance,
+        successCriteria: {
+            coreCells: 12,
+            platformBoundaryOnly: true,
+            manualDispatchEndpoint: '/api/agent/pulse',
+        },
+        readiness: {
+            state: _ready ? 'ready' : 'not-ready',
+            checks: {
+                coreCells12: neuralStatus.ready === true && Number(neuralStatus.totalCells || 0) === 12,
+                cloudAgentAvailable: cloudStatus.available !== false,
+            },
+            success: _ready && neuralStatus.ready === true && Number(neuralStatus.totalCells || 0) === 12,
+        },
+        integrationIndicators: {
+            manualDispatchEndpoint: '/api/agent/pulse',
+            neuralProcessEndpoint: '/api/agent/neural/process',
+            workflow: '.github/workflows/neural-root-activation.yml',
+        },
     };
 }
 

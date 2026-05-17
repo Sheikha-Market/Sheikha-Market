@@ -51,6 +51,7 @@
 'use strict';
 
 const path = require('path');
+const activationGovernance = require('../core/neural/activation-governance');
 
 // ══════════════════════════════════════════════════════════════════════════════
 // ── نواة التوحيد — الجذر الذي يقوم عليه كل شيء ──────────────────────────────
@@ -61,6 +62,11 @@ const BISMILLAH      = 'بسم الله الرحمن الرحيم';
 const ROOT_VERSION   = '1.0.0';
 const ROOT_NAME_AR   = 'الشبكة العصبية الجذرية — Runtime التشغيل';
 const ROOT_NAME_EN   = 'Sheikha Root Neural Runtime';
+const REQUIRED_LAYER_COUNTS = Object.freeze({
+    coreCells: 12,
+    runtimeCells: 19,
+    rootNetworkCells: 92,
+});
 
 // ══════════════════════════════════════════════════════════════════════════════
 // ── خلايا الجذر — 19 خلية مرقّمة بالكتاب والسنة ─────────────────────────────
@@ -215,6 +221,7 @@ const _networks = {
     universal:  null,
     neuralCells: null,
     unityEngine: null,
+    rootNCN:     null,
     mubayaa:    null,
     logicNN:    null,
 };
@@ -239,6 +246,11 @@ function _loadNetworks() {
             key: 'unityEngine',
             path: path.join(__dirname, '../core/neural/unity-engine'),
             nameAr: 'محرك التوحيد',
+        },
+        {
+            key: 'rootNCN',
+            path: path.join(__dirname, 'sheikha-root-neural-cell-network'),
+            nameAr: 'شبكة الخلايا الجذرية الكاملة (92 خلية)',
         },
         {
             key: 'mubayaa',
@@ -289,6 +301,7 @@ function init() {
     if (_networks.universal  && typeof _networks.universal.init  === 'function') _networks.universal.init();
     if (_networks.neuralCells && typeof _networks.neuralCells.init === 'function') _networks.neuralCells.init();
     if (_networks.unityEngine && typeof _networks.unityEngine.init === 'function') _networks.unityEngine.init();
+    if (_networks.rootNCN && typeof _networks.rootNCN.init === 'function') _networks.rootNCN.init();
 
     // ── خطوة ٣: تفعيل خلايا الجذر الـ 19 ────────────────────────────────────
     console.log('[ROOT-NEURAL-RUNTIME] ③ تفعيل ١٩ خلية جذرية مرقّمة بالكتاب والسنة...');
@@ -327,7 +340,18 @@ function pulse(input = {}) {
     if (!_ready) init();
     _pulseCount++;
 
-    const { type = 'general', context = '', data = {} } = input;
+    const normalizedInput = activationGovernance.normalizeActivationInput(input);
+    const {
+        type = 'general',
+        context = '',
+        data = {},
+        requestedScope = activationGovernance.PLATFORM_SCOPE.applied,
+    } = normalizedInput;
+    const compliance = activationGovernance.buildComplianceReport({
+        requestedScope,
+        data,
+        context,
+    });
     const ts = new Date().toISOString();
 
     const result = {
@@ -337,6 +361,8 @@ function pulse(input = {}) {
         type,
         rootCells:   _activeCells.size,
         networks:    {},
+        scope:       compliance.scope,
+        compliance,
     };
 
     // تشغيل الشبكة الشاملة
@@ -374,6 +400,21 @@ function pulse(input = {}) {
 
 function status() {
     const cells = Array.from(_activeCells.values());
+    const compliance = activationGovernance.buildComplianceReport();
+    const neuralCellsStatus = _networks.neuralCells && typeof _networks.neuralCells.status === 'function'
+        ? _networks.neuralCells.status()
+        : { ready: false, totalCells: 0 };
+    const unityStatus = _networks.unityEngine && typeof _networks.unityEngine.status === 'function'
+        ? _networks.unityEngine.status()
+        : { ready: false };
+    const rootNCNStatus = _networks.rootNCN && typeof _networks.rootNCN.status === 'function'
+        ? _networks.rootNCN.status()
+        : { ready: false, totalCells: 0 };
+    const exactRuntimeCells = cells.length === REQUIRED_LAYER_COUNTS.runtimeCells;
+    const coreCellsReady = neuralCellsStatus.ready === true &&
+        Number(neuralCellsStatus.totalCells || 0) === REQUIRED_LAYER_COUNTS.coreCells;
+    const rootNetworkReady = Number(rootNCNStatus.totalCells || 0) >= REQUIRED_LAYER_COUNTS.rootNetworkCells;
+
     return {
         module:       'sheikha-root-neural-runtime',
         nameAr:       ROOT_NAME_AR,
@@ -390,6 +431,7 @@ function status() {
             universal:   !!_networks.universal,
             neuralCells: !!_networks.neuralCells,
             unityEngine: !!_networks.unityEngine,
+            rootNCN:     !!_networks.rootNCN,
             mubayaa:     !!_networks.mubayaa,
             logicNN:     !!_networks.logicNN,
         },
@@ -403,6 +445,32 @@ function status() {
             activated: c.activated,
         })),
         principle: '﴿صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ﴾ — النمل: ٨٨',
+        scope: compliance.scope,
+        compliance,
+        successCriteria: {
+            coreCells: REQUIRED_LAYER_COUNTS.coreCells,
+            runtimeCells: REQUIRED_LAYER_COUNTS.runtimeCells,
+            rootNetworkCells: REQUIRED_LAYER_COUNTS.rootNetworkCells,
+            platformBoundaryOnly: true,
+        },
+        readiness: {
+            state: _ready ? 'ready' : 'not-ready',
+            checks: {
+                coreCells12: coreCellsReady,
+                runtimeCells19: exactRuntimeCells,
+                unityEngineReady: unityStatus.ready === true,
+                rootCellNetwork92: rootNetworkReady,
+            },
+            success: _ready && coreCellsReady && exactRuntimeCells && unityStatus.ready === true,
+        },
+        integrationIndicators: {
+            manualDispatchWorkflow: '.github/workflows/neural-root-activation.yml',
+            internalLayers: {
+                coreCells12: Number(neuralCellsStatus.totalCells || 0),
+                runtimeCells19: cells.length,
+                rootCellNetwork92: Number(rootNCNStatus.totalCells || 0),
+            },
+        },
     };
 }
 
