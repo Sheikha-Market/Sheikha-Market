@@ -1,0 +1,37 @@
+{
+    "compilerOptions": {
+        "target": "ES2022",
+        "module": "commonjs",
+        "moduleResolution": "node",
+        "lib": ["ES2022"],
+        "allowJs": true,
+        "checkJs": false,
+        "resolveJsonModule": true,
+        "esModuleInterop": true,
+        "allowSyntheticDefaultImports": true,
+        "skipLibCheck": true,
+        "strict": true,
+        "ignoreDeprecations": "6.0",
+        "forceConsistentCasingInFileNames": true,
+        "noEmit": true,
+        "types": ["node"]
+    },
+    "include": [
+        "server.js",
+        "scripts/**/*.js",
+        "lib/**/*.js",
+        "routes/**/*.js",
+        "middleware/**/*.js",
+        "config/**/*.js"
+    ],
+    "exclude": [
+        "node_modules",
+        "public",
+        "data",
+        "logs",
+        "tmp",
+        "backups",
+        "archives",
+        "lib/sheikha-ihsan-itqan-quran-engine.js"
+    ]
+}
