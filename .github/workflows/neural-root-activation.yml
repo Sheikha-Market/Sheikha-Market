@@ -75,8 +75,10 @@ jobs:
             console.log('الجاهزية:', s.ready);
             console.log('إجمالي الخلايا:', s.totalCells);
             console.log('الخلايا النشطة:', s.activeCells);
+            console.log('نطاق التفعيل:', s.scope?.applied);
+            console.log('التحقق القابل للقياس:', s.readiness?.success);
             console.log('المبدأ:', s.principle);
-            if (!s.ready || s.totalCells !== 12) {
+            if (!s.ready || s.totalCells !== 12 || s.readiness?.success === false) {
               console.error('❌ فشل تفعيل الخلايا العصبية');
               process.exit(1);
             }
@@ -91,15 +93,17 @@ jobs:
             console.log('╔══════════════════════════════════════╗');
             console.log('║  🌐 محرك التوحيد — Unity Engine      ║');
             console.log('╚══════════════════════════════════════╝');
-            console.log('الجاهزية:', s.ready);
-            console.log('الخلايا العصبية:', s.neuralCells?.ready !== false ? '✅' : '⚠️');
-            console.log('الوكيل السحابي:', s.cloudAgent?.ready !== false ? '✅' : '⚠️');
-            if (!s.ready) {
-              console.error('❌ محرك التوحيد غير جاهز');
-              process.exit(1);
-            }
-            console.log('✅ محرك التوحيد مُفعَّل — قُلْ هُوَ اللَّهُ أَحَدٌ');
-          "
+             console.log('الجاهزية:', s.ready);
+             console.log('الخلايا العصبية:', s.neuralCells?.ready !== false ? '✅' : '⚠️');
+             console.log('الوكيل السحابي:', s.cloudAgent?.ready !== false ? '✅' : '⚠️');
+             console.log('نطاق التفعيل:', s.scope?.applied);
+             console.log('التحقق القابل للقياس:', s.readiness?.success);
+             if (!s.ready || s.readiness?.success === false) {
+               console.error('❌ محرك التوحيد غير جاهز');
+               process.exit(1);
+             }
+             console.log('✅ محرك التوحيد مُفعَّل — قُلْ هُوَ اللَّهُ أَحَدٌ');
+           "
 
   # ─── طبقة جذر 1: الشبكة الجذرية الكاملة ─────────────────────────────────
   root-layer-1:
@@ -136,14 +140,14 @@ jobs:
             const s = root.status();
             console.log('╔══════════════════════════════════════════╗');
             console.log('║  🧬 Runtime الجذري — 19 خلية جذرية      ║');
-            console.log('╚══════════════════════════════════════════╝');
-            console.log(JSON.stringify(s, null, 2));
-            if (!s.ready) {
-              console.error('❌ Root Runtime غير جاهز');
-              process.exit(1);
-            }
-            const totalCells = s.totalCells || 0;
-            if (totalCells < 19) {
+             console.log('╚══════════════════════════════════════════╝');
+             console.log(JSON.stringify(s, null, 2));
+             if (!s.ready || s.readiness?.success === false) {
+               console.error('❌ Root Runtime غير جاهز');
+               process.exit(1);
+             }
+             const totalCells = s.totalCells || 0;
+             if (totalCells < 19) {
               console.error('❌ خلايا جذرية غير كافية:', totalCells, '< 19');
               process.exit(1);
             }
@@ -159,17 +163,19 @@ jobs:
             console.log('╔══════════════════════════════════════════╗');
             console.log('║  🐧 الطبقة العليا فوق Ubuntu              ║');
             console.log('╚══════════════════════════════════════════╝');
-            console.log('القاعدة جاهزة:', s.baseLayer?.ready);
-            console.log('التكامل جاهز:', s.integrationReady);
-            const min = Number(s.rootNeuralLayer?.minRequiredCells || 19);
-            const total = Number(s.rootNeuralLayer?.totalCells || 0);
-            console.log('الخلايا الجذرية:', total, '/', min);
-            if (!s.integrationReady || total < min) {
-              console.error('❌ الطبقة العليا غير جاهزة');
-              process.exit(1);
-            }
-            console.log('✅ الطبقة العليا مُفعَّلة ومتكاملة');
-          "
+             console.log('القاعدة جاهزة:', s.baseLayer?.ready);
+             console.log('التكامل جاهز:', s.integrationReady);
+             console.log('نطاق التفعيل:', s.scope?.applied);
+             console.log('التحقق القابل للقياس:', s.readiness?.success);
+             const min = Number(s.rootNeuralLayer?.minRequiredCells || 19);
+             const total = Number(s.rootNeuralLayer?.totalCells || 0);
+             console.log('الخلايا الجذرية:', total, '/', min);
+             if (!s.integrationReady || total < min || s.readiness?.success === false) {
+               console.error('❌ الطبقة العليا غير جاهزة');
+               process.exit(1);
+             }
+             console.log('✅ الطبقة العليا مُفعَّلة ومتكاملة');
+           "
 
   # ─── طبقة جذر 2: الشبكة الجذرية الكاملة (92 خلية) ───────────────────────
   root-layer-2:
@@ -265,23 +271,44 @@ jobs:
           L0="${{ needs.root-layer-0.result }}"
           L1="${{ needs.root-layer-1.result }}"
           L2="${{ needs.root-layer-2.result }}"
-          
+          EVENT_NAME="${{ github.event_name }}"
+          [ "$EVENT_NAME" = "workflow_dispatch" ] && DISPATCH_MODE="manual-dispatch" || DISPATCH_MODE="automated"
+
           [ "$L0" = "success" ] && S0="✅ مُفعَّل" || S0="❌ فشل"
           [ "$L1" = "success" ] && S1="✅ مُفعَّل" || S1="❌ فشل"
           [ "$L2" = "success" ] && S2="✅ مُفعَّل" || S2="❌ فشل"
-          
+
           echo "╔═══════════════════════════════════════════════════════╗"
           echo "║        🌳 تقرير تفعيل الشبكة العصبية الجذرية         ║"
-          echo "║         Root Neural Cell Network — Activation Report   ║"
+          echo "║         Root Neural Cell Network — Activation Report ║"
           echo "╠═══════════════════════════════════════════════════════╣"
           echo "║  Layer-0 (خلايا شيخة 12):    $S0"
           echo "║  Layer-1 (Runtime الجذري 19): $S1"
           echo "║  Layer-2 (NCN الكاملة 92):    $S2"
           echo "╠═══════════════════════════════════════════════════════╣"
+          echo "║  Scope: platform-internal only                       ║"
+          echo "║  Mode : $DISPATCH_MODE                               ║"
+          echo "║  Controls: transparency/no-riba/verification/gov     ║"
+          echo "╠═══════════════════════════════════════════════════════╣"
           echo "║  «صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ»       ║"
           echo "╚═══════════════════════════════════════════════════════╝"
-          
-          # تقييم النتيجة الكلية
+
+          cat >> "$GITHUB_STEP_SUMMARY" <<EOF
+          ## Neural Activation Verification Report
+          - Scope: \`platform-internal\`
+          - Trigger: \`$EVENT_NAME\`
+          - Dispatch mode: \`$DISPATCH_MODE\`
+          - Measurable criteria: \`12 → 19 → 92\`
+          - Operational controls: \`verification\`, \`governance\`, \`manual-dispatch-report\`
+          - Shariah controls: \`no-riba\`, \`no-gharar\`, \`transparency\`
+
+          | Layer | Expected | Result |
+          |---|---:|---|
+          | Core Neural Cells | 12 | $S0 |
+          | Root Runtime | 19 | $S1 |
+          | Root NCN | 92 | $S2 |
+          EOF
+
           if [ "$L0" = "success" ] && [ "$L1" = "success" ] && [ "$L2" = "success" ]; then
             echo "✅ شبكة الخلايا الجذرية مُفعَّلة بالكامل — الحمد لله"
           else
