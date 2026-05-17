@@ -37270,10 +37270,11 @@ try {
     console.log('   ├─ POST /api/neural/root/activate      — تفعيل شبكة جذرية كاملة');
     console.log('   ├─ GET  /api/neural/root/unity-score   — درجة التوحيد الحالية');
     console.log('   ├─ POST /api/neural/root/digitize      — رقمنة مفهوم بالكتاب والسنة');
-    console.log('   ├─ GET  /api/neural/root/cells         — عرض كل الخلايا وحالتها');
-    console.log('   ├─ POST /api/neural/root/forward       — الانتشار الأمامي');
-    console.log('   ├─ GET  /api/neural/root/quran-db      — قاعدة بيانات الآيات');
-    console.log('   └─ POST /api/neural/root/verify        — التحقق الشرعي من إجراء');
+    console.log('   ├─ GET  /api/neural/root/cells              — عرض كل الخلايا وحالتها');
+    console.log('   ├─ POST /api/neural/root/forward            — الانتشار الأمامي');
+    console.log('   ├─ GET  /api/neural/root/quran-db           — قاعدة بيانات الآيات');
+    console.log('   ├─ POST /api/neural/root/verify             — التحقق الشرعي من إجراء');
+    console.log('   └─ POST /api/neural/root/cosmic-integration — التكامل الرقمي الكوني الموحَّد');
 } catch (e) {
     console.log('⚠️ [NEURAL-ROOT] فشل تحميل مسارات الشبكة الجذرية:', e.message);
 }

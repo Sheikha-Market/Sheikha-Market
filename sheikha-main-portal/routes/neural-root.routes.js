@@ -24,7 +24,7 @@ const express = require('express');
 const router = express.Router();
 
 // ─── تحميل الوحدات ───────────────────────────────────────────────────────────
-let rootRuntime, rootNCN, unifiedNN, digitizer;
+let rootRuntime, rootNCN, unifiedNN, digitizer, snrnEngine, neuralRootActivator;
 
 try {
     rootRuntime = require('../lib/sheikha-root-neural-runtime.js');
@@ -56,6 +56,23 @@ try {
 } catch (e) {
     console.log('⚠️ [NEURAL-ROOT-ROUTES] فشل تحميل المُرقمِّن:', e.message);
     digitizer = null;
+}
+
+try {
+    snrnEngine = require('../core/neural-root-network/snrn-engine');
+    snrnEngine.init();
+    console.log('✅ [NEURAL-ROOT-ROUTES] محرك SNRN محمّل ومُفعَّل (شبكة الخلايا الجذرية العصبية)');
+} catch (e) {
+    console.log('⚠️ [NEURAL-ROOT-ROUTES] فشل تحميل SNRN:', e.message);
+    snrnEngine = null;
+}
+
+try {
+    neuralRootActivator = require('../intelligence/sheikha-neural-root-activator');
+    console.log('✅ [NEURAL-ROOT-ROUTES] المُفعِّل المركزي للشبكة الجذرية محمّل');
+} catch (e) {
+    console.log('⚠️ [NEURAL-ROOT-ROUTES] فشل تحميل المُفعِّل المركزي:', e.message);
+    neuralRootActivator = null;
 }
 
 const GEO_ACTIVATION_PROFILES = {
@@ -701,6 +718,149 @@ router.post('/verify', (req, res) => {
             bismillah: 'بسم الله الرحمن الرحيم',
             data: result,
             timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── POST /cosmic-integration ─────────────────────────────────────────────────
+/**
+ * التكامل الرقمي الكوني — يوحِّد كل أنظمة المنظومة عبر شبكة الخلايا الجذرية العصبية
+ * مرقَّم بالكتاب والسنة — موحَّد لله
+ *
+ * ﴿ وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ فِي إِمَامٍ مُبِينٍ ﴾ — يس: ١٢
+ * ﴿ إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ ﴾ — القمر: ٤٩
+ * «إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ» — البيهقي
+ *
+ * Body (اختياري): { scope?: 'cosmic'|'global'|'oic'|'saudi', systems?: string[] }
+ */
+router.post('/cosmic-integration', (req, res) => {
+    try {
+        const body = (req.body && typeof req.body === 'object' && !Array.isArray(req.body))
+            ? req.body : {};
+
+        // ① تفعيل المُفعِّل المركزي إن أمكن
+        let activatorResult = null;
+        if (neuralRootActivator && typeof neuralRootActivator.activate === 'function') {
+            try {
+                activatorResult = neuralRootActivator.activate();
+            } catch (_) {}
+        }
+
+        // ② تحديد النطاق وملف المنطقة
+        const scopeKey = (typeof body.scope === 'string' && body.scope.trim())
+            ? body.scope.trim().toLowerCase() : 'cosmic';
+        const geoProfile = resolveGeoProfile(scopeKey);
+
+        // ③ الأنظمة المطلوب توحيدها (أو الافتراضية الكاملة)
+        const ALL_SYSTEMS = [
+            { id: 'tawheed',   nameAr: 'التوحيد',         domain: 'vision',      ref: '﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾ — الإخلاص: ١' },
+            { id: 'sharia',    nameAr: 'الشريعة',         domain: 'justice',     ref: '﴿ إِنَّ اللَّهَ يَأْمُرُ بِالْعَدْلِ ﴾ — النحل: ٩٠' },
+            { id: 'market',    nameAr: 'السوق والتجارة',  domain: 'commerce',    ref: '﴿ وَأَحَلَّ اللَّهُ الْبَيْعَ ﴾ — البقرة: ٢٧٥' },
+            { id: 'finance',   nameAr: 'المالية والبنوك', domain: 'commerce',    ref: '﴿ وَحَرَّمَ الرِّبَا ﴾ — البقرة: ٢٧٥' },
+            { id: 'supply',    nameAr: 'سلاسل الإمداد',  domain: 'development', ref: '«لا ضرر ولا ضرار»' },
+            { id: 'security',  nameAr: 'الأمن والحماية',  domain: 'security',    ref: '﴿ يَا أَيُّهَا الَّذِينَ آمَنُوا خُذُوا حِذْرَكُمْ ﴾ — النساء: ٧١' },
+            { id: 'knowledge', nameAr: 'العلم والمعرفة',  domain: 'knowledge',   ref: '﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: ٣١' },
+            { id: 'governance',nameAr: 'الحوكمة',         domain: 'justice',     ref: '﴿ إِنَّ اللَّهَ يَأْمُرُكُمْ أَنْ تُؤَدُّوا الْأَمَانَاتِ ﴾ — النساء: ٥٨' },
+            { id: 'health',    nameAr: 'الصحة والرعاية', domain: 'development', ref: '«لا ضرر ولا ضرار» — ابن ماجه' },
+            { id: 'education', nameAr: 'التعليم والتدريب',domain: 'knowledge',   ref: '«طَلَبُ الْعِلْمِ فَرِيضَةٌ» — ابن ماجه: ٢٢٤' },
+            { id: 'neural',    nameAr: 'الشبكة العصبية',  domain: 'neural',      ref: '﴿ صُنْعَ اللَّهِ الَّذِي أَتْقَنَ كُلَّ شَيْءٍ ﴾ — النمل: ٨٨' },
+            { id: 'cosmos',    nameAr: 'الكون والبيئة',   domain: 'vision',      ref: '﴿ إِنَّا كُلَّ شَيْءٍ خَلَقْنَاهُ بِقَدَرٍ ﴾ — القمر: ٤٩' },
+        ];
+
+        const requestedIds = Array.isArray(body.systems) && body.systems.length > 0
+            ? body.systems.map(s => String(s).trim().toLowerCase())
+            : null;
+        const systems = requestedIds
+            ? ALL_SYSTEMS.filter(s => requestedIds.includes(s.id))
+            : ALL_SYSTEMS;
+        if (systems.length === 0) {
+            return res.status(400).json({
+                success: false,
+                message: 'لم يُعثر على أنظمة صالحة، المتاح: ' + ALL_SYSTEMS.map(s => s.id).join(', '),
+                timestamp: new Date().toISOString()
+            });
+        }
+
+        // ④ تشغيل شبكة الخلايا الجذرية لكل نظام
+        const systemResults = systems.map(sys => {
+            const entry = { id: sys.id, nameAr: sys.nameAr, domain: sys.domain, ref: sys.ref };
+
+            // تشغيل SNRN
+            if (snrnEngine) {
+                try {
+                    entry.snrn = snrnEngine.infer({ type: sys.domain, text: sys.nameAr });
+                } catch (e) {
+                    entry.snrn = { error: e.message };
+                }
+            }
+
+            // رقمنة بالكتاب والسنة
+            if (digitizer) {
+                try {
+                    entry.digitized = digitizer.tag(sys.domain);
+                } catch (e) {
+                    entry.digitized = { error: e.message };
+                }
+            }
+
+            // تقييم المقاصد
+            if (neuralRootActivator && typeof neuralRootActivator.assessMaqasid === 'function') {
+                try {
+                    entry.maqasid = neuralRootActivator.assessMaqasid({ type: sys.domain, text: sys.nameAr });
+                } catch (_) {}
+            }
+
+            return entry;
+        });
+
+        // ⑤ حساب درجة التكامل الكوني الكلية
+        const snrnVerdicts = systemResults
+            .filter(r => r.snrn && r.snrn.verdict)
+            .map(r => r.snrn.verdict);
+        const halalCount = snrnVerdicts.filter(v => v === 'HALAL').length;
+        const totalVerdict = snrnVerdicts.length;
+        const integrationScore = totalVerdict > 0
+            ? parseFloat((halalCount / totalVerdict).toFixed(4)) : 1.0;
+
+        // ⑥ استدلال موحَّد من المُفعِّل المركزي
+        let unifiedInference = null;
+        if (neuralRootActivator && typeof neuralRootActivator.infer === 'function') {
+            try {
+                unifiedInference = neuralRootActivator.infer('التكامل الرقمي الكوني الموحَّد لله');
+            } catch (_) {}
+        }
+
+        // ⑦ درجة التوحيد
+        const unityScore = buildUnityScore();
+
+        res.json({
+            success: true,
+            bismillah: 'بسم الله الرحمن الرحيم',
+            tawheed: 'لا إله إلا الله محمد رسول الله — كل شيء لله',
+            quranRef: '﴿ وَكُلَّ شَيْءٍ أَحْصَيْنَاهُ فِي إِمَامٍ مُبِينٍ ﴾ — يس: ١٢',
+            hadithRef: '«إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ»',
+            integration: {
+                scope: scopeKey,
+                geoProfile: {
+                    id: geoProfile.id,
+                    labelAr: geoProfile.labelAr,
+                    governance: geoProfile.governance,
+                    iso: geoProfile.iso,
+                },
+                systemsIntegrated: systemResults.length,
+                integrationScore,
+                unityScore,
+                activatorSummary: activatorResult
+                    ? { networksActivated: activatorResult.networksActivated, totalCells: activatorResult.totalCells }
+                    : null,
+                unifiedInference,
+                systems: systemResults,
+            },
+            noHarm: 'لا ضرر ولا ضرار',
+            activatedAt: new Date().toISOString(),
+            timestamp: new Date().toISOString(),
         });
     } catch (e) {
         res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
