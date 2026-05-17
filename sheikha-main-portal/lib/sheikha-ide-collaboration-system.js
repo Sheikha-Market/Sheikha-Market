@@ -254,6 +254,10 @@ class SheikhaIDECollaborationSystem {
             permissions: {
                 canRead: permissions.canRead !== false,
                 canWrite: permissions.canWrite || false,
+                canRunTests: permissions.canRunTests !== false,
+                canCommit: permissions.canCommit || false,
+                canPush: permissions.canPush || false,
+                canDeploy: permissions.canDeploy || false,
                 canDelete: permissions.canDelete || false,
                 canInvite: permissions.canInvite || false,
                 canManage: permissions.canManage || false

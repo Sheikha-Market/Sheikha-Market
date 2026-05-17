@@ -20,7 +20,7 @@ on:
       environment:
         description: "بيئة النشر (production / staging)"
         required: true
-        default: production
+        default: staging
         type: choice
         options:
           - production
@@ -99,11 +99,22 @@ jobs:
     permissions:
       contents: read
     environment:
-      name: ${{ github.event.inputs.environment || 'production' }}
+      name: ${{ github.event.inputs.environment || 'staging' }}
 
     steps:
       - name: 📥 Checkout
         uses: actions/checkout@v6
+
+      - name: 🟩 Setup Node.js
+        uses: actions/setup-node@v6
+        with:
+          node-version-file: sheikha-main-portal/.nvmrc
+
+      - name: 🛡️ Autonomous deploy gate
+        run: |
+          node sheikha-main-portal/scripts/autonomous-governance-cycle.js \
+            --mode=deploy-gate \
+            --target=${{ github.event.inputs.environment || 'staging' }}
 
       - name: 🔑 Azure Login
         uses: azure/login@v3
