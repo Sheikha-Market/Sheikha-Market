@@ -1,21 +1,3 @@
-// ═══ محادثة شيخة الحية — Live Chat Endpoint
-app.post('/api/sheikha/live-chat', express.json(), async (req, res) => {
-    const userMsg = (req.body && req.body.message || '').trim();
-    if (!userMsg) {
-        return res.status(400).json({ success: false, message: 'الرسالة مطلوبة.' });
-    }
-    let response = '';
-    try {
-        if (typeof rootNeuralCells !== 'undefined' && rootNeuralCells && typeof rootNeuralCells.reply === 'function') {
-            response = await rootNeuralCells.reply(userMsg, { user: req.user || null });
-        } else {
-            response = 'شيخة: النظام يعمل، لكن الذكاء العصبي غير مفعل حاليًا.';
-        }
-    } catch (e) {
-        response = 'حدث خطأ أثناء توليد الرد.';
-    }
-    res.json({ success: true, response });
-});
 try {
     const dotenv = require('dotenv');
     dotenv.config({ path: '.env.runtime' });
@@ -3445,9 +3427,58 @@ const LOGISTICS_PRICES = {
 try {
     const unifiedOperationalFabricRouter = require('./routes/unified-operational-fabric');
     app.use('/api/operational-fabric', unifiedOperationalFabricRouter);
+    app.use('/api/unified-operational-fabric', unifiedOperationalFabricRouter);
     console.log('   🧩 Unified Operational Fabric API: /api/operational-fabric/*');
+    console.log('   🧩 Unified Operational Fabric Alias: /api/unified-operational-fabric/*');
 } catch (error) {
     console.error('⚠️ تعذّر تحميل Unified Operational Fabric Router:', error.message);
+}
+
+try {
+    const neuralRouter = require('./routes/neural');
+    app.use('/api/neural', neuralRouter);
+    console.log('   🧠 Neural API: /api/neural/*');
+} catch (error) {
+    console.error('⚠️ تعذّر تحميل Neural Router:', error.message);
+}
+
+try {
+    const rootNeuralNetworkRouter = require('./routes/root-neural-network.routes');
+    app.use('/api/root-neural-network', rootNeuralNetworkRouter);
+    app.use('/api/neural-root', rootNeuralNetworkRouter);
+    console.log('   🧬 Root Neural Network API: /api/root-neural-network/*');
+    console.log('   🧬 Root Neural Network Alias: /api/neural-root/*');
+} catch (error) {
+    console.error('⚠️ تعذّر تحميل Root Neural Network Router:', error.message);
+}
+
+try {
+    const rootNeuralNetwork = require('./lib/sheikha-root-neural-network');
+    if (rootNeuralNetwork && typeof rootNeuralNetwork.ensureBooted === 'function') {
+        rootNeuralNetwork.ensureBooted()
+            .then(() => {
+                console.log('   ✅ Root Neural Network warm activation completed at startup');
+            })
+            .catch((error) => {
+                console.warn('   ⚠️ Root Neural Network warm activation failed:', error.message);
+            });
+    }
+} catch (error) {
+    console.warn('⚠️ تعذّر التحميل المبكر للشبكة العصبية الجذرية:', error.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🎯 فهرس وتفعيل الأنظمة — Systems Activation & Registry
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const systemsActivationRouter = require('./routes/systems-activation');
+    app.use('/api/systems', systemsActivationRouter);
+    console.log('   🎯 Systems Activation API: /api/systems/*');
+    console.log('   📚 فهرس الأنظمة: /api/systems/list');
+    console.log('   ⚡ تفعيل الأنظمة: /api/systems/activate-all');
+    console.log('   📊 التقرير الشامل: /api/systems/report');
+} catch (error) {
+    console.error('⚠️ تعذّر تحميل Systems Activation Router:', error.message);
 }
 
 const SHEIKHA_FAIR_PRICES = {
@@ -18736,6 +18767,96 @@ app.get('/api/root-neural-cells/status', (req, res) => {
     res.json({
         success: true,
         data: rootNeuralCells.getStatus(),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/maturity/layers', (req, res) => {
+    const readJsonSafe = (filePath, fallback = null) => {
+        try {
+            if (!fs.existsSync(filePath)) {
+                return fallback;
+            }
+            return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        } catch (_) {
+            return fallback;
+        }
+    };
+
+    const rootPath = __dirname;
+    const autonomyLatestPath = path.join(rootPath, 'reports', 'operations', 'autonomy-governance', 'latest.json');
+    const fabricTimelinePath = path.join(rootPath, 'runtime', 'timeline', 'latest.json');
+    const fabricRecoveryPath = path.join(rootPath, 'runtime', 'recovery', 'latest.json');
+    const fabricAuditsPath = path.join(rootPath, 'runtime', 'audits');
+
+    const autonomyLatest = readJsonSafe(autonomyLatestPath, {});
+    const fabricTimeline = readJsonSafe(fabricTimelinePath, {});
+    const fabricRecovery = readJsonSafe(fabricRecoveryPath, {});
+
+    let latestAudit = null;
+    try {
+        const auditFile = fs.existsSync(fabricAuditsPath)
+            ? fs.readdirSync(fabricAuditsPath)
+                .filter((name) => name.endsWith('.json'))
+                .sort((a, b) => (a < b ? 1 : -1))[0]
+            : null;
+        latestAudit = auditFile ? readJsonSafe(path.join(fabricAuditsPath, auditFile), null) : null;
+    } catch (_) {
+        latestAudit = null;
+    }
+
+    const neuralStatus = (() => {
+        try {
+            const status = rootNeuralCells.getStatus();
+            return {
+                ready: status && status.status === 'active',
+                totalCells: status && status.architecture ? status.architecture.totalCells : null,
+                status: status && status.status ? status.status : 'unknown'
+            };
+        } catch (_) {
+            return { ready: false, totalCells: null, status: 'unavailable' };
+        }
+    })();
+
+    const governanceLayer = {
+        maturityLevel: autonomyLatest && autonomyLatest.maturity ? autonomyLatest.maturity.level : null,
+        score: autonomyLatest && autonomyLatest.maturity ? autonomyLatest.maturity.score : null,
+        gate: autonomyLatest && autonomyLatest.gate ? autonomyLatest.gate : null
+    };
+
+    const fabricLayer = {
+        event: fabricTimeline && fabricTimeline.event ? fabricTimeline.event : null,
+        summary: fabricTimeline && fabricTimeline.summary ? fabricTimeline.summary : null,
+        recovery: fabricRecovery && fabricRecovery.lastKnownGood ? fabricRecovery.lastKnownGood : null
+    };
+
+    const safetyLayer = {
+        passed: latestAudit && latestAudit.checks && latestAudit.checks.safetyGuard
+            ? Boolean(latestAudit.checks.safetyGuard.passed)
+            : null,
+        shariaGate: latestAudit && latestAudit.checks && latestAudit.checks.shariaContractGate
+            ? latestAudit.checks.shariaContractGate
+            : null
+    };
+
+    const runtimeLayer = {
+        nodeVersion: process.version,
+        uptimeSeconds: Math.floor(process.uptime()),
+        pm2ProcessCount: latestAudit && latestAudit.checks && typeof latestAudit.checks.pm2Available === 'boolean'
+            ? (latestAudit.checks.pm2Available ? 'available' : 'unavailable')
+            : 'unknown'
+    };
+
+    return res.json({
+        success: true,
+        data: {
+            governance: governanceLayer,
+            fabric: fabricLayer,
+            neural: neuralStatus,
+            safety: safetyLayer,
+            runtime: runtimeLayer
+        },
+        message: 'تم توليد تقرير النضج الطبقي بنجاح',
         timestamp: new Date().toISOString()
     });
 });
