@@ -535,6 +535,7 @@ router.post('/model-integrations/auto-refresh', (req, res) => {
 
 router.post('/chat', async (req, res) => {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     const {
         message,
         context,
@@ -545,6 +546,9 @@ router.post('/chat', async (req, res) => {
         responseLanguage = 'ar',
         translateTo = []
     } = req.body;
+=======
+    const { message, context, model = 'auto', conversationId, enableThinking = false, useRAG = true } = req.body;
+>>>>>>> Stashed changes
 =======
     const { message, context, model = 'auto', conversationId, enableThinking = false, useRAG = true } = req.body;
 >>>>>>> Stashed changes
@@ -704,6 +708,7 @@ router.post('/chat', async (req, res) => {
         if (productionMonitor) productionMonitor.recordRequest(true, latency);
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         const normalizedResponseLanguage = normalizeHumanLanguageCode(responseLanguage);
         const localizedResponse = await translateText(response, normalizedResponseLanguage);
         const translationTargets = Array.isArray(translateTo) ? translateTo : [];
@@ -717,6 +722,11 @@ router.post('/chat', async (req, res) => {
             success: true,
             response,
 >>>>>>> Stashed changes
+=======
+        const result = {
+            success: true,
+            response,
+>>>>>>> Stashed changes
             provider,
             taskType,
             sensitivity,
@@ -724,8 +734,11 @@ router.post('/chat', async (req, res) => {
             pipeline: ragContext ? 'rag-augmented' : 'direct',
             quality: quality ? { grade: quality.grade, score: Math.round(quality.scores.overall * 100) } : null,
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             responseLanguage: normalizedResponseLanguage,
             translations,
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
             timestamp: new Date().toISOString()
@@ -806,7 +819,11 @@ router.post('/chat/compact', async (req, res) => {
         // ضغط السياق باستخدام Claude Opus 4.6
         const compacted = await compactContext(messages);
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+        
+>>>>>>> Stashed changes
 =======
         
 >>>>>>> Stashed changes
@@ -946,6 +963,7 @@ router.post('/development/analyze', async (req, res) => {
 
 router.post('/development/generate', async (req, res) => {
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
     const {
         description,
         type = 'function',
@@ -953,6 +971,9 @@ router.post('/development/generate', async (req, res) => {
         responseLanguage = 'ar',
         translateTo = []
     } = req.body;
+=======
+    const { description, type = 'function', language = 'javascript' } = req.body;
+>>>>>>> Stashed changes
 =======
     const { description, type = 'function', language = 'javascript' } = req.body;
 >>>>>>> Stashed changes
@@ -977,6 +998,7 @@ router.post('/development/generate', async (req, res) => {
         }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
         const normalizedResponseLanguage = normalizeHumanLanguageCode(responseLanguage);
         const baseMessageAr = 'تم توليد الكود بنجاح';
         const localizedMessage = await translateText(baseMessageAr, normalizedResponseLanguage);
@@ -984,15 +1006,20 @@ router.post('/development/generate', async (req, res) => {
 
 =======
 >>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
         res.json({
             success: true,
             code,
             provider
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
             ,
             responseLanguage: normalizedResponseLanguage,
             message: localizedMessage,
             translations
+=======
+>>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
         });
@@ -1260,7 +1287,11 @@ async function callClaudeOpus46(message, context, conversationId, enableThinking
     // بناء الرسائل مع دعم السياق المضغوط
     const messages = [];
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 =======
     
 >>>>>>> Stashed changes
@@ -1426,7 +1457,11 @@ async function compactContext(messages) {
         }
     }
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 =======
     
 >>>>>>> Stashed changes
@@ -1459,7 +1494,11 @@ function detectTaskType(message) {
 function getPreferredModel(taskType) {
     const routing = config.ai.routing;
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 
+=======
+    
+>>>>>>> Stashed changes
 =======
     
 >>>>>>> Stashed changes
@@ -1583,6 +1622,7 @@ function basicCodeAnalysis(code, language) {
 }
 
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
 const HUMAN_LANGUAGE_LABELS = {
     ar: 'العربية',
     en: 'English',
@@ -1698,6 +1738,8 @@ function generateBasicCode(description, type, language) {
 
     return `// ${safeDescription}\n// قالب مبدئي قابل للتوسعة\nfunction ${fnName}(input) {\n    return { success: true, message: '${safeDescription}', input };\n}`;
 =======
+=======
+>>>>>>> Stashed changes
 function generateBasicCode(description, type, language) {
     if (type === 'function' && language === 'javascript') {
         return `/**
@@ -1709,6 +1751,9 @@ function myFunction() {
 }`;
     }
     return `// ${description}\n// TODO: تنفيذ الكود`;
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 }
 
