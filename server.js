@@ -1,3 +1,21 @@
+// ═══ محادثة شيخة الحية — Live Chat Endpoint
+app.post('/api/sheikha/live-chat', express.json(), async (req, res) => {
+    const userMsg = (req.body && req.body.message || '').trim();
+    if (!userMsg) {
+        return res.status(400).json({ success: false, message: 'الرسالة مطلوبة.' });
+    }
+    let response = '';
+    try {
+        if (typeof rootNeuralCells !== 'undefined' && rootNeuralCells && typeof rootNeuralCells.reply === 'function') {
+            response = await rootNeuralCells.reply(userMsg, { user: req.user || null });
+        } else {
+            response = 'شيخة: النظام يعمل، لكن الذكاء العصبي غير مفعل حاليًا.';
+        }
+    } catch (e) {
+        response = 'حدث خطأ أثناء توليد الرد.';
+    }
+    res.json({ success: true, response });
+});
 try {
     const dotenv = require('dotenv');
     dotenv.config({ path: '.env.runtime' });
@@ -67,6 +85,59 @@ const {
     runtimeCore,
     observability
 } = runtimeBootstrapState;
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 👁️ Self-Monitoring Watchdog — مراقب ذاتي وتحليل مستمر
+// ═══════════════════════════════════════════════════════════════════════════════
+const selfImprovementLog = [];
+function analyzeAndImprove() {
+    const mem = process.memoryUsage();
+    const uptime = process.uptime();
+    const now = new Date().toISOString();
+    let issues = [];
+    if (mem.heapUsed / mem.heapTotal > 0.85) {
+        issues.push('تحذير: استهلاك الذاكرة مرتفع');
+    }
+    if (uptime > 86400) {
+        issues.push('تنبيه: مدة التشغيل تجاوزت 24 ساعة — يفضل إعادة التشغيل الدورية');
+    }
+    // تحليل حالة شبكة الخلايا العصبية الجذرية
+    let neuralStatus = { status: 'not-initialized' };
+    try {
+        if (typeof rootNeuralCells !== 'undefined' && rootNeuralCells && typeof rootNeuralCells.getStatus === 'function') {
+            neuralStatus = rootNeuralCells.getStatus();
+            if (neuralStatus.status !== 'active') {
+                issues.push('تنبيه: شبكة الخلايا العصبية الجذرية غير نشطة');
+            }
+        } else {
+            issues.push('تنبيه: rootNeuralCells غير مفعّلة');
+        }
+    } catch (e) {
+        issues.push('خطأ في تحليل شبكة الخلايا العصبية: ' + e.message);
+    }
+    // يمكن إضافة تحليلات أعمق لاحقًا (مراقبة الأخطاء، البطء، إلخ)
+    const report = {
+        timestamp: now,
+        heapUsedMB: Math.round(mem.heapUsed / 1024 / 1024),
+        heapTotalMB: Math.round(mem.heapTotal / 1024 / 1024),
+        uptime: Math.floor(uptime),
+        neuralStatus,
+        issues,
+        action: issues.length ? 'اقتراح تحسين أو إعادة تشغيل' : 'النظام مستقر'
+    };
+    selfImprovementLog.push(report);
+    // تنفيذ تحسين تلقائي بسيط (مثلاً: حفظ تقرير، إرسال تنبيه، إلخ)
+    if (issues.length) {
+        try {
+            fs.writeFileSync('self-improvement-latest.json', JSON.stringify(report, null, 2));
+        } catch (e) {}
+    }
+}
+
+// مراقبة دورية كل 5 دقائق
+setInterval(analyzeAndImprove, 5 * 60 * 1000);
+// تحليل أولي عند التشغيل
+analyzeAndImprove();
 
 console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
 console.log('═══════════════════════════════════════════════════════════════════════════════');
@@ -2754,6 +2825,30 @@ app.get('/admin', (req, res) => res.redirect('/لوحة-الادمن.html'));
 app.get('/dashboard', (req, res) => res.redirect('/لوحة-تحكم-المستخدم.html'));
 app.get('/login', (req, res) => res.redirect('/تسجيل-الدخول.html'));
 
+// ═══ Live Chat Endpoint — محادثة شيخة الحية ═══
+app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
+    const message = String(req.body?.message || '').trim();
+
+    res.json({
+        success: true,
+        status: 'interactive',
+        reply: message
+            ? `استلمت طلبك: ${message}\nسأحلله وأقترح الإجراء الآمن.`
+            : 'اكتب طلبك لأتفاعل معه.',
+        capabilities: {
+            talk: true,
+            write: true,
+            edit: true,
+            test: true,
+            createPullRequest: true,
+            autonomousCommit: false,
+            autonomousPush: false,
+            autonomousDeploy: false
+        },
+        governance: 'human-approved'
+    });
+});
+
 const PORT = process.env.PORT || 8080;
 const DATA_DIR = path.join(__dirname, 'data');
 if (!fs.existsSync(DATA_DIR)) fs.mkdirSync(DATA_DIR, { recursive: true });
@@ -3345,6 +3440,16 @@ const LOGISTICS_PRICES = {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 💰 أسعار شيخة العادلة — Sheikha Fair Prices (بالريال السعودي)
 // ═══════════════════════════════════════════════════════════════════════════════
+
+// تفعيل Unified Operational Fabric Router بعد تعريف جميع الكائنات
+try {
+    const unifiedOperationalFabricRouter = require('./routes/unified-operational-fabric');
+    app.use('/api/operational-fabric', unifiedOperationalFabricRouter);
+    console.log('   🧩 Unified Operational Fabric API: /api/operational-fabric/*');
+} catch (error) {
+    console.error('⚠️ تعذّر تحميل Unified Operational Fabric Router:', error.message);
+}
+
 const SHEIKHA_FAIR_PRICES = {
     // المعادن الأساسية (ريال/طن)
     baseMetals: {
@@ -20718,26 +20823,28 @@ console.log('   🛡️ Taqwa APIs: /api/taqwa/dashboard, /api/taqwa/system');
 // � LIVE CHAT APIs — التحدث المباشر مع شيخة
 // ═══════════════════════════════════════════════════════════════════════════════
 app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
-    const message = String(req.body?.message || '').trim();
+  const message = String(req.body?.message || '').trim();
 
-    res.json({
-        success: true,
-        status: 'interactive',
-        reply: message
-            ? `استلمت طلبك: ${message}\nسأحلله وأقترح الإجراء الآمن.`
-            : 'اكتب طلبك لأتفاعل معه.',
-        capabilities: {
-            talk: true,
-            write: true,
-            edit: true,
-            test: true,
-            createPullRequest: true,
-            autonomousCommit: false,
-            autonomousPush: false,
-            autonomousDeploy: false
-        },
-        governance: 'human-approved'
+  if (!message) {
+    return res.status(400).json({
+      success: false,
+      message: 'اكتب رسالة لشيخة أولًا.'
     });
+  }
+
+  return res.json({
+    success: true,
+    mode: 'guided-operational-assistant',
+    reply: `استلمت طلبك: ${message}\nسأتعامل معه كتحليل وتشغيل وتطوير آمن تحت إدارة الإنسان.`,
+    capabilities: {
+      talk: true,
+      write: true,
+      analyze: true,
+      editByRequest: true,
+      autonomousDeploy: false
+    },
+    nextAction: 'اعرض عليّ الملف أو المسار أو المهمة المطلوبة للتطوير.'
+  });
 });
 console.log('   💬 Live Chat API: /api/sheikha/live-chat');
 
