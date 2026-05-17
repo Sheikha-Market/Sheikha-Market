@@ -38,12 +38,27 @@ function now() {
 }
 
 function parseArgs() {
-    const out = { mode: 'report', target: 'staging' };
+    const out = {
+        mode: 'report',
+        target: 'staging',
+        changeType: 'standard',
+        touchSecrets: false,
+        destructiveOps: false,
+        humanReview: false,
+    };
     for (const arg of process.argv.slice(2)) {
         if (arg.startsWith('--mode=')) {
             out.mode = String(arg.split('=')[1] || '').trim() || 'report';
         } else if (arg.startsWith('--target=')) {
             out.target = String(arg.split('=')[1] || '').trim() || 'staging';
+        } else if (arg.startsWith('--change-type=')) {
+            out.changeType = String(arg.split('=')[1] || '').trim() || 'standard';
+        } else if (arg === '--touch-secrets') {
+            out.touchSecrets = true;
+        } else if (arg === '--destructive-ops') {
+            out.destructiveOps = true;
+        } else if (arg === '--human-review') {
+            out.humanReview = true;
         }
     }
     return out;
@@ -136,6 +151,33 @@ function buildPermissions(policy, readinessScore, maturityLevel, sharia, safety)
     };
 }
 
+function computeRiskAssessment(args, readinessScore, safetyGates) {
+    let score = 20;
+    if (args.target === 'production') score += 35;
+    if (args.changeType === 'infrastructure') score += 15;
+    if (args.changeType === 'security') score += 10;
+    if (args.touchSecrets) score += 25;
+    if (args.destructiveOps) score += 30;
+    if (!safetyGates.allPassed) score += 20;
+    if (readinessScore < 80) score += 10;
+    score = clamp(score, 0, 100);
+
+    const blockedReasons = [];
+    if (args.target === 'production' && !args.humanReview) {
+        blockedReasons.push('production requires human review');
+    }
+    if (args.touchSecrets) blockedReasons.push('secret modification is blocked');
+    if (args.destructiveOps) blockedReasons.push('destructive operations are blocked');
+    if (!safetyGates.allPassed) blockedReasons.push('safety gates are not fully passed');
+    if (score >= 85) blockedReasons.push('risk score is above accepted threshold');
+
+    return {
+        score,
+        level: score >= 85 ? 'critical' : score >= 65 ? 'high' : score >= 40 ? 'medium' : 'low',
+        blockedReasons,
+    };
+}
+
 function buildDecisionMeshStatus(policy, readinessScore, sharia, safety) {
     const layers = policy?.rootNeuralDecisionMesh?.layers || [];
     return layers.map(layer => ({
@@ -197,7 +239,11 @@ function main() {
     const maturityLevel = deriveMaturityLevel(readinessScore);
     const sharia = evaluateShariaCompliance(policy);
     const safetyGates = evaluateSafetyGates(readinessScore, health || {});
+    const riskAssessment = computeRiskAssessment(args, readinessScore, safetyGates);
     const permissions = buildPermissions(policy, readinessScore, maturityLevel, sharia, safetyGates);
+    if (args.target === 'production' && (!args.humanReview || riskAssessment.blockedReasons.length > 0)) {
+        permissions.canDeployProduction = false;
+    }
     const rootDecisionMesh = buildDecisionMeshStatus(policy, readinessScore, sharia, safetyGates);
     const roadmap = buildRoadmapStatus(policy, maturityLevel);
 
@@ -213,6 +259,7 @@ function main() {
         scope: policy.autonomousScope,
         permissions,
         safetyGates,
+        riskAssessment,
         shariaPolicyEvaluation: sharia,
         safeContinuousDelivery: policy.safeContinuousDelivery,
         rootDecisionMesh,
@@ -237,7 +284,10 @@ function main() {
         const allowed =
             args.target === 'production' ? permissions.canDeployProduction : permissions.canDeployStaging;
         if (!allowed) {
-            console.error(`❌ Deploy blocked by autonomous governance gate for target=${args.target}.`);
+            const reason = riskAssessment.blockedReasons.length
+                ? ` reasons=${riskAssessment.blockedReasons.join('; ')}`
+                : '';
+            console.error(`❌ Deploy blocked by autonomous governance gate for target=${args.target}.${reason}`);
             process.exit(1);
         }
     }
