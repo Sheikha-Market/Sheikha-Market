@@ -1,0 +1,39 @@
+{
+    "owner": "SHEIKHA",
+    "governance": {
+        "principle": "لا ضرر ولا ضرار",
+        "basis": "الكتاب والسنة",
+        "competitionGoal": "السبق إلى الخير والمنفعة والابتكار الآمن"
+    },
+    "timing": {
+        "monthlyIntervalDays": 30,
+        "preferredReleaseDay": 1,
+        "timezone": "Asia/Riyadh"
+    },
+    "criteria": {
+        "monthlyRenewal": {
+            "enabled": true,
+            "bump": "patch",
+            "reason": "تجديد زمني شهري"
+        },
+        "newTechnologyDetected": {
+            "enabled": true,
+            "bump": "minor",
+            "reason": "تقنية جديدة"
+        },
+        "newExtensionDetected": {
+            "enabled": true,
+            "bump": "patch",
+            "reason": "إضافة جديدة"
+        },
+        "innovationGoalActivated": {
+            "enabled": true,
+            "bump": "minor",
+            "reason": "هدف ابتكار جديد"
+        }
+    },
+    "identity": {
+        "publisher": "sheikha",
+        "product": "Sheikha Copilot"
+    }
+}

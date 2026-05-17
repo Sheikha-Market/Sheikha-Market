@@ -1,0 +1,42 @@
+groups:
+  - name: sheikha-vps-alerts
+    rules:
+      - alert: DiskUsageWarning
+        expr: (100 - (node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"} * 100 / node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"})) > 80
+        for: 5m
+        labels:
+          severity: warning
+          service: vps
+        annotations:
+          summary: "Disk usage above 80%"
+          description: "Root disk usage is above 80%. Consider storage cleanup or plan upgrade."
+
+      - alert: DiskUsageCritical
+        expr: (100 - (node_filesystem_avail_bytes{mountpoint="/",fstype!~"tmpfs|overlay"} * 100 / node_filesystem_size_bytes{mountpoint="/",fstype!~"tmpfs|overlay"})) > 90
+        for: 2m
+        labels:
+          severity: critical
+          service: vps
+        annotations:
+          summary: "Disk usage above 90%"
+          description: "Root disk usage is critical. Upgrade plan or expand disk immediately."
+
+      - alert: MainPortalHealthDown
+        expr: up{job="main-portal-health"} == 0
+        for: 2m
+        labels:
+          severity: critical
+          service: main-portal
+        annotations:
+          summary: "Main portal health endpoint down"
+          description: "main-portal /api/health is not reachable."
+
+      - alert: MCPServerDown
+        expr: up{job="mcp-health"} == 0
+        for: 2m
+        labels:
+          severity: warning
+          service: mcp-server
+        annotations:
+          summary: "MCP server health endpoint down"
+          description: "MCP server /health is not reachable."
