@@ -88,6 +88,34 @@ Sheikha Agent will:
 
 ## Features
 
+### IDE Neural Capability Router (جديد)
+
+- طبقة موحدة لتوجيه قدرات IDE عبر تصنيفات دلالية: Editor / IntelliSense / Navigation / Diagnostics / Refactoring / Laravel / Tooling.
+- ربط كل تصنيف بخلايا الشبكة العصبية الـ12 داخل المنظومة عند توفرها محلياً.
+- عرض حالة القدرات داخل لوحة التكاملات بحالات: `planned` / `indexed` / `available` / `degraded`.
+
+### PHP/Laravel Intelligence Foundation (جديد)
+
+- فهرسة Workspace لملفات PHP وBlade و`composer.json`.
+- دعم أولي لـ:
+  - Document Symbols
+  - Go to Definition
+  - Find References
+  - Workspace Symbol Search
+  - Hover معلومات PHPDoc/الرموز المفهرسة
+  - Completion hints (PHP + Laravel + Composer packages)
+  - Folding Ranges
+  - Code Lenses (TODO/FIXME)
+  - Inlay Hints بسيطة للأنواع
+- Diagnostics + Quick Fixes أساسية:
+  - TODO/FIXME markers
+  - Unused imports
+  - Unused variables
+  - Deprecated PHP APIs (عينات شائعة)
+  - Regex validation (تحقق مبدئي)
+  - Reachability heuristic بعد `return`
+  - Organize Uses (ترتيب imports)
+
 ### Code Completions
 
 - **Pattern-based completions** for common code structures
