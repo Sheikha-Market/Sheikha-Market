@@ -51,6 +51,15 @@ const envExample = fs.readFileSync(path.join(root, 'infra/docker/compose/prod/.e
 assert(envExample.includes('SHEIKHA_SDK_TOKEN='), '.env example includes SDK token');
 assert(envExample.includes('SHEIKHA_IDE_TOKEN='), '.env example includes IDE token');
 assert(envExample.includes('BACKUP_PASSPHRASE='), '.env example includes backup passphrase');
+assert(envExample.includes('GOOGLE_CLIENT_ID='), '.env example includes Google OAuth client ID');
+assert(envExample.includes('GOOGLE_CLIENT_SECRET='), '.env example includes Google OAuth client secret');
+assert(envExample.includes('GOOGLE_AI_API_KEY='), '.env example includes Google AI API key');
+assert(envExample.includes('GOOGLE_PROJECT_ID='), '.env example includes Google project ID');
+assert(envExample.includes('GOOGLE_CLOUD_PROJECT='), '.env example includes Google Cloud project');
+assert(envExample.includes('GOOGLE_MAPS_API_KEY='), '.env example includes Google Maps API key');
+assert(envExample.includes('GA4_MEASUREMENT_ID='), '.env example includes GA4 measurement ID');
+assert(envExample.includes('GA4_API_SECRET='), '.env example includes GA4 API secret');
+assert(envExample.includes('GOOGLE_PAY_MERCHANT_ID='), '.env example includes Google Pay merchant ID');
 
 const prometheus = fs.readFileSync(path.join(root, 'infra/observability/prometheus/prometheus.yml'), 'utf8');
 assert(prometheus.includes('neural-root-health'), 'prometheus scrapes neural root health');
