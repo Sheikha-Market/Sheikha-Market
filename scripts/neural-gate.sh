@@ -14,7 +14,7 @@ required=(
 fail=0
 
 for ep in "${required[@]}"; do
-  code="$(curl -s -o /tmp/sheikha_gate_out -w "%{http_code}" "$BASE_URL$ep" || true)"
+  code="$(curl -s -o /tmp/sheikha_gate_body.txt -w "%{http_code}" "$BASE_URL$ep" || true)"
   if [ "$code" != "200" ]; then
     echo "FAIL $ep HTTP=$code"
     cat /tmp/sheikha_gate_out || true
