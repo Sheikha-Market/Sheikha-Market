@@ -36,6 +36,8 @@ infrastructure/sheikha-cloud/
 │   └── otel-collector.yaml           # OpenTelemetry → Prometheus + Jaeger + Loki
 ├── roadmap/
 │   └── roadmap.json                  # 4 مراحل تنفيذ (2026–2031+)
+├── checkpoint/
+│   └── activation-checkpoint.json    # نموذج التفعيل المقاس + الحوكمة المرحلية
 └── sheikha-cloud-orchestrator.js     # وحدة Node.js المركزية + Express router
 ```
 
@@ -104,6 +106,12 @@ console.log(phase.name); // "التأسيس — Foundation"
 | GET | `/api/cloud/commerce` | إعدادات محرك التجارة |
 | GET | `/api/cloud/security` | إعدادات الأمن السيبراني |
 | GET | `/api/cloud/oic-members` | قائمة الدول الأعضاء في OIC |
+| GET | `/api/cloud/checkpoint` | نموذج checkpoint الرسمي للتفعيل |
+| GET | `/api/cloud/scope-metrics` | أهداف النطاق + baseline حي |
+| GET | `/api/cloud/data-fabric` | إعدادات نسيج البيانات + مصفوفة الإقامة |
+| GET | `/api/cloud/neural-root` | ضوابط runtime للشبكة العصبية الجذرية |
+| GET | `/api/cloud/activation/gaps` | تحليل الفجوات التشغيلية |
+| GET | `/api/cloud/activation/backlog` | backlog مُرتّب حسب الأولوية |
 
 ---
 

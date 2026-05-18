@@ -21048,6 +21048,22 @@ try {
   console.warn("⚠️ SHEIKHA runtime routers mount failed:", e.message);
 }
 
+// SHEIKHA: Cloud routers (mounted independently to avoid coupling failures)
+try {
+    app.use("/api/cloud", require("./infrastructure/sheikha-cloud/sheikha-cloud-orchestrator").createRouter());
+    console.log("✅ SHEIKHA cloud routers mounted");
+} catch (e) {
+    console.warn("⚠️ SHEIKHA cloud routers mount failed:", e.message);
+}
+
+// SHEIKHA: Cloud Fabric router
+try {
+    app.use('/api/cloud-fabric', require('./routes/cloud-fabric.routes'));
+    console.log('✅ SHEIKHA Cloud Fabric API: /api/cloud-fabric/*');
+} catch (e) {
+    console.warn('⚠️ Cloud Fabric router mount failed:', e.message);
+}
+
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
