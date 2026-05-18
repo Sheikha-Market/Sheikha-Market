@@ -20996,6 +20996,15 @@ try {
     console.error('⚠️ [HOTFIX] تعذّر تحميل Sheikha Network Router:', error.message);
 }
 
+// Sheikha Governance Fabric — ربط مسارات الحوكمة قبل 404
+try {
+    const governanceRouter = require('./routes/governance.routes');
+    app.use('/api/governance', governanceRouter);
+    console.log('   🏛️ [HOTFIX] Governance API: /api/governance/* (injected before 404 handler)');
+} catch (error) {
+    console.error('⚠️ [HOTFIX] تعذّر تحميل Governance Router:', error.message);
+}
+
 const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
 if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
     runtimeContractsModule.registerRuntimeContracts(app, {
