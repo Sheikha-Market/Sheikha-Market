@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<phpunit xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="https://schema.phpunit.de/11/phpunit.xsd"
+         bootstrap="vendor/autoload.php"
+         colors="true"
+         testdox="true"
+         failOnWarning="false"
+         failOnRisky="false">
+
+    <testsuites>
+        <testsuite name="Unit">
+            <directory>tests/Unit</directory>
+        </testsuite>
+        <testsuite name="Integration">
+            <directory>tests/Integration</directory>
+        </testsuite>
+    </testsuites>
+
+    <source>
+        <include>
+            <directory suffix=".php">src</directory>
+        </include>
+    </source>
+
+    <coverage>
+        <report>
+            <text outputFile="php://stdout" showUncoveredFiles="false"/>
+        </report>
+    </coverage>
+
+    <php>
+        <env name="APP_ENV"     value="testing"/>
+        <env name="JWT_SECRET"  value="sheikha-test-secret-key-for-unit-tests-only-32chars"/>
+        <env name="NODE_API_URL" value="http://localhost:8080"/>
+        <env name="LOG_LEVEL"   value="ERROR"/>
+    </php>
+
+</phpunit>

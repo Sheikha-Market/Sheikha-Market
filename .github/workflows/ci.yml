@@ -9,11 +9,13 @@ on:
     branches: [main]
     paths:
       - "sheikha-main-portal/**"
+      - "php-neural-gateway/**"
       - ".github/workflows/ci.yml"
   pull_request:
     branches: [main]
     paths:
       - "sheikha-main-portal/**"
+      - "php-neural-gateway/**"
       - ".github/workflows/ci.yml"
 
 defaults:
@@ -200,6 +202,81 @@ jobs:
         env:
           NODE_ENV: test
 
+  php-neural-gateway:
+    name: 🐘 PHP Neural Gateway — Lint & Test
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    permissions:
+      contents: read
+    defaults:
+      run:
+        working-directory: php-neural-gateway
+
+    steps:
+      - name: 📥 Checkout
+        uses: actions/checkout@v6
+
+      - name: 🐘 Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: "8.2"
+          extensions: mbstring, curl, zip, sockets
+          coverage: none
+          tools: composer:v2
+
+      - name: 📦 Install PHP dependencies
+        run: |
+          if [ -f composer.lock ]; then
+            composer install --prefer-dist --no-progress --no-interaction
+          else
+            composer update --prefer-dist --no-progress --no-interaction
+          fi
+
+      - name: 🔍 PHP Syntax Check
+        run: |
+          echo "Checking PHP syntax..."
+          find src public -name "*.php" | while read f; do
+            php -l "$f" && echo "✅ $f"
+          done
+
+      - name: 🔒 PHP Security Audit (composer audit)
+        run: composer audit --no-interaction
+        continue-on-error: false
+
+      - name: 🧪 PHP Unit Tests
+        run: |
+          vendor/bin/phpunit \
+            --testsuite Unit \
+            --testdox \
+            --no-coverage
+        env:
+          APP_ENV: testing
+          JWT_SECRET: sheikha-test-secret-key-for-unit-tests-only-32chars
+          LOG_LEVEL: ERROR
+
+      - name: 🧪 PHP Integration Tests (no Node.js required)
+        run: |
+          vendor/bin/phpunit \
+            --testsuite Integration \
+            --testdox \
+            --no-coverage
+        env:
+          APP_ENV: testing
+          JWT_SECRET: sheikha-test-secret-key-for-unit-tests-only-32chars
+          NODE_API_URL: http://localhost:8080
+          LOG_LEVEL: ERROR
+
+      - name: ✅ PHP Neural Gateway verified
+        run: |
+          echo "✅ بوابة شيخة PHP محققة — 19 خلية عصبية جذرية"
+          php -r "
+            require 'vendor/autoload.php';
+            \$e = Sheikha\NeuralGateway\Network\SNRNEngine::getInstance();
+            \$s = \$e->init();
+            echo '✅ SNRN Engine ready: ' . \$s['totalCells'] . ' cells' . PHP_EOL;
+            if (\$s['totalCells'] !== 19) exit(1);
+          "
+
   docker-build:
     name: 🐳 Docker Build Validation
     runs-on: ubuntu-latest
@@ -214,12 +291,22 @@ jobs:
       - name: 🐳 Set up Docker Buildx
         uses: docker/setup-buildx-action@v4
 
-      - name: 🔨 Build image (no push)
+      - name: 🔨 Build Node.js image (no push)
         uses: docker/build-push-action@v7
         with:
           context: sheikha-main-portal
           file: sheikha-main-portal/Dockerfile
           push: false
           tags: sheikha-main-portal:ci-test
+          cache-from: type=gha
+          cache-to: type=gha,mode=max
+
+      - name: 🔨 Build PHP Gateway image (no push)
+        uses: docker/build-push-action@v7
+        with:
+          context: php-neural-gateway
+          file: php-neural-gateway/Dockerfile
+          push: false
+          tags: sheikha-php-neural-gateway:ci-test
           cache-from: type=gha
           cache-to: type=gha,mode=max

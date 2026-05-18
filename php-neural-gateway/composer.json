@@ -1,0 +1,39 @@
+{
+    "name": "sheikha-market/php-neural-gateway",
+    "description": "بوابة PHP للشبكة العصبية الجذرية — Sheikha PHP Neural Root Cell Network Gateway",
+    "type": "project",
+    "license": "proprietary",
+    "authors": [
+        {
+            "name": "Sheikha Market",
+            "email": "dev@sheikha-market.com"
+        }
+    ],
+    "require": {
+        "php": ">=8.1",
+        "vlucas/phpdotenv": "^5.6"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^11.5",
+        "squizlabs/php_codesniffer": "^3.10"
+    },
+    "autoload": {
+        "psr-4": {
+            "Sheikha\\NeuralGateway\\": "src/"
+        }
+    },
+    "autoload-dev": {
+        "psr-4": {
+            "Sheikha\\NeuralGateway\\Tests\\": "tests/"
+        }
+    },
+    "scripts": {
+        "test": "phpunit --testdox",
+        "lint": "phpcs --standard=PSR12 src/ public/ --ignore=vendor",
+        "start": "php -S 0.0.0.0:8090 public/index.php"
+    },
+    "config": {
+        "optimize-autoloader": true,
+        "sort-packages": true
+    }
+}
