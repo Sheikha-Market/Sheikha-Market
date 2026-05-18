@@ -3467,6 +3467,18 @@ try {
     console.warn('⚠️ تعذّر التحميل المبكر للشبكة العصبية الجذرية:', error.message);
 }
 
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌐 ربط مسارات الشبكة — Sheikha Network Routes (neural/dns/dbus)
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const sheikhaNetworkRouter = require('./routes/sheikha-network');
+    app.use('/api/network', sheikhaNetworkRouter);
+    console.log('   🌐 Sheikha Network API: /api/network/*');
+} catch (error) {
+    console.error('⚠️ تعذّر تحميل Sheikha Network Router:', error.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🎯 فهرس وتفعيل الأنظمة — Systems Activation & Registry
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -20974,6 +20986,16 @@ console.log('   💬 Live Chat API: /api/sheikha/live-chat');
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // --- Runtime & Observability (inserted before 404 handler) ---
+
+// Sheikha Network Fabric — ربط فعلي لمسارات الشبكة قبل 404
+try {
+    const sheikhaNetworkRouter = require('./routes/sheikha-network');
+    app.use('/api/network', sheikhaNetworkRouter);
+    console.log('   🌐 [HOTFIX] Sheikha Network API: /api/network/* (injected before 404 handler)');
+} catch (error) {
+    console.error('⚠️ [HOTFIX] تعذّر تحميل Sheikha Network Router:', error.message);
+}
+
 const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
 if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
     runtimeContractsModule.registerRuntimeContracts(app, {
