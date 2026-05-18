@@ -39,7 +39,7 @@ code_collection = chroma_client.get_or_create_collection(name="global_production
 
 API_KEY_NAME = "X-AI-Engine-Key"
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
-VALID_API_KEYS = {"sk_live_php_hyper_engine_secret_key_2026_prod"}
+VALID_API_KEYS = {os.getenv("AI_ENGINE_API_KEY", "replace_with_secure_api_key")}
 
 async def get_api_key(api_key_header: str = Depends(api_key_header)):
     if api_key_header in VALID_API_KEYS: return api_key_header
@@ -174,7 +174,7 @@ services:
     ports:
       - "3000:3000"
     environment:
-      - GF_SECURITY_ADMIN_PASSWORD=admin_super_secret_pass_2026
+      - GF_SECURITY_ADMIN_PASSWORD=${GF_SECURITY_ADMIN_PASSWORD:-replace_with_secure_grafana_password}
 EOF_DC
 
 # 5. بناء وتشغيل الحاويات السحابية فوراً في الخلفية
@@ -238,7 +238,7 @@ function activate(context) {
                         try {
                             const res = await fetch('http://localhost:8000/v1/chat', {
                                 method: 'POST',
-                                headers: { 'Content-Type': 'application/json', 'X-AI-Engine-Key': 'sk_live_php_hyper_engine_secret_key_2026_prod' },
+                                headers: { 'Content-Type': 'application/json', 'X-AI-Engine-Key': process.env.AI_ENGINE_API_KEY || 'replace_with_secure_api_key' },
                                 body: JSON.stringify({ question: data.text })
                             });
                             const result = await res.json();
