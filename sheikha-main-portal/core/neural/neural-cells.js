@@ -34,6 +34,7 @@
 
 const path = require('path');
 const fs   = require('fs');
+const activationGovernance = require('./activation-governance');
 
 // ─── تحميل البيان ─────────────────────────────────────────────────────────────
 
@@ -53,6 +54,21 @@ let _initAt   = null;
 let _callCount = 0;
 
 const ACTIVATION_INCREMENT = 0.1; // مقدار الزيادة في تفعيل الخلية عند كل إطلاق
+const EXPECTED_CELL_COUNT = 12;
+const SUPPORTED_ACTIVATION_TYPES = Object.freeze([
+    'startup',
+    'auth',
+    'security',
+    'trade',
+    'compliance',
+    'learning',
+    'analysis',
+    'monitoring',
+    'transaction',
+    'quality',
+    'load',
+    'general',
+]);
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // ① تهيئة الخلايا
@@ -129,7 +145,18 @@ function process(input = {}) {
     if (!_ready) init();
     _callCount++;
 
-    const { type = 'general', data = {}, context = '' } = input;
+    const normalizedInput = activationGovernance.normalizeActivationInput(input);
+    const {
+        type = 'general',
+        data = {},
+        context = '',
+        requestedScope = activationGovernance.PLATFORM_SCOPE.applied,
+    } = normalizedInput;
+    const compliance = activationGovernance.buildComplianceReport({
+        requestedScope,
+        data,
+        context,
+    });
 
     // تحديد الخلايا المُفعَّلة بناءً على نوع الإدخال
     const activationMap = {
@@ -156,6 +183,14 @@ function process(input = {}) {
         timestamp:   new Date().toISOString(),
         cellsFired:  cellsToFire,
         results,
+        scope:       compliance.scope,
+        compliance,
+        readiness: {
+            ready: _ready,
+            expectedCells: EXPECTED_CELL_COUNT,
+            actualCells: _cells.size,
+            measurableSuccess: _ready && _cells.size === EXPECTED_CELL_COUNT,
+        },
         summary: `فُعِّلت ${cellsToFire.length} خلايا عصبية لمعالجة "${type}"`,
     };
 }
@@ -183,10 +218,12 @@ function status() {
 
     const cells  = listCells();
     const active = cells.filter(c => c.active).length;
+    const compliance = activationGovernance.buildComplianceReport();
     const topActivated = cells
         .sort((a, b) => b.activation - a.activation)
         .slice(0, 3)
         .map(c => ({ number: c.number, nameAr: c.nameAr, activation: c.activation, fireCount: c.fireCount }));
+    const exactCellCount = cells.length === EXPECTED_CELL_COUNT;
 
     return {
         module:       'neural-cells',
@@ -198,6 +235,28 @@ function status() {
         callCount:    _callCount,
         topActivated,
         principle:    _manifest.meta.principle || '',
+        scope:        compliance.scope,
+        compliance,
+        successCriteria: {
+            exactCellCount: EXPECTED_CELL_COUNT,
+            supportedActivationTypes: SUPPORTED_ACTIVATION_TYPES,
+            platformBoundaryOnly: true,
+            manualDispatchSupported: true,
+        },
+        readiness: {
+            state: _ready ? 'ready' : 'not-ready',
+            checks: {
+                manifestLoaded: Array.isArray(_manifest.cells),
+                exactCellCount,
+                activationApiAvailable: true,
+            },
+            success: _ready && exactCellCount,
+        },
+        integrationIndicators: {
+            workflow: '.github/workflows/neural-root-activation.yml',
+            rootRuntimeLayer: 'sheikha-main-portal/lib/sheikha-root-neural-runtime.js',
+            unityEngineLayer: 'sheikha-main-portal/core/neural/unity-engine.js',
+        },
     };
 }
 

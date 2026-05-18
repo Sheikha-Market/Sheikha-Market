@@ -1,6 +1,7 @@
 'use strict';
 
 const os = require('os');
+const activationGovernance = require('./neural/activation-governance');
 
 let nodeLayer = null;
 let rootRuntime = null;
@@ -87,6 +88,9 @@ function status() {
     const rootStatus = _safeStatus(rootRuntime, { ready: false, totalCells: 0 });
     const platform = os.platform();
     const baseLayerReady = platform === 'linux';
+    const compliance = activationGovernance.buildComplianceReport();
+    const rootCellsReady = rootStatus.ready === true &&
+        Number(rootStatus.totalCells || 0) >= MIN_REQUIRED_ROOT_CELLS;
 
     return {
         ...MODULE_ID,
@@ -109,6 +113,30 @@ function status() {
             minRequiredCells: MIN_REQUIRED_ROOT_CELLS,
         },
         integrationReady: _isIntegrationReady(baseLayerReady, nodeStatus, rootStatus),
+        scope: compliance.scope,
+        compliance,
+        successCriteria: {
+            linuxBase: true,
+            rootRuntimeCells: MIN_REQUIRED_ROOT_CELLS,
+            platformBoundaryOnly: true,
+        },
+        readiness: {
+            state: _ready ? 'ready' : 'not-ready',
+            checks: {
+                linuxBase: baseLayerReady,
+                nodeLayerReady: nodeStatus.ready === true,
+                rootRuntimeCells: rootCellsReady,
+            },
+            success: _isIntegrationReady(baseLayerReady, nodeStatus, rootStatus),
+        },
+        integrationIndicators: {
+            workflow: '.github/workflows/neural-root-activation.yml',
+            internalLayers: {
+                linuxBase: platform,
+                nodeLayer: nodeStatus.module || 'sheikha-node-layer',
+                rootRuntime: Number(rootStatus.totalCells || 0),
+            },
+        },
     };
 }
 

@@ -10,6 +10,7 @@ const express = require('express');
 const router  = express.Router();
 const fs      = require('fs');
 const path    = require('path');
+const controlPlane = require('../lib/sheikha-unified-control-plane');
 
 function safeRead(file) {
     try { return JSON.parse(fs.readFileSync(path.join(__dirname, '../data', file), 'utf8')); }
@@ -24,6 +25,7 @@ router.get('/', (req, res) => {
     const govLog    = safeRead('governance-log.json');
     const gitState  = safeRead('git-state.json');
 
+    const unifiedOps = controlPlane.status();
     res.json({
         success: true,
         overview: {
@@ -32,6 +34,12 @@ router.get('/', (req, res) => {
             supply:     { in_transit: supply?.meta?.in_transit || 0, pending: supply?.meta?.pending || 0 },
             governance: { compliance_rate: govLog?.meta?.compliance_rate || 1, violations: govLog?.meta?.failed || 0 },
             git:        { github: gitState?.github?.status || 'unknown', gitlab: gitState?.gitlab?.status || 'unknown' }
+        },
+        unified_operations: {
+            governance_decision: unifiedOps.currentDecision,
+            runtime: unifiedOps.runtime,
+            temporal_memory: unifiedOps.temporalMemory,
+            contracts: unifiedOps.contracts,
         },
         recent_activity: activity?.activity?.slice(0, 5) || [],
         alerts: [],
@@ -125,6 +133,16 @@ router.get('/alerts', (req, res) => {
             { id: 'alt_002', level: 'warning', message: 'عقد cnt_2026_y8b2c في انتظار الموافقة منذ 24 ساعة', at: new Date().toISOString() }
         ],
         count: 2,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─── GET /api/dashboard/operations — لوحة التشغيل الموحدة ─────────────────────
+router.get('/operations', (req, res) => {
+    const limit = Math.min(parseInt(req.query.limit, 10) || 25, 100);
+    res.json({
+        success: true,
+        data: controlPlane.operationalSnapshot(limit),
         timestamp: new Date().toISOString()
     });
 });

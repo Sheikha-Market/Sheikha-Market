@@ -4815,7 +4815,24 @@ app.post('/api/infra/vision', express.json(), (req, res) => {
 let _neuralRoot = null;
 try {
     _neuralRoot = require('./intelligence/sheikha-neural-root-activator');
+    // التفعيل التلقائي عند بدء الخادم — auto-activate on server startup
+    if (_neuralRoot && typeof _neuralRoot.activate === 'function' && !_neuralRoot.status().ready) {
+        _neuralRoot.activate();
+    }
 } catch (_) {}
+
+// POST /api/neural-root/activate — تفعيل شبكة الخلايا الجذرية يدوياً
+app.post('/api/neural-root/activate', (req, res) => {
+    try {
+        if (!_neuralRoot) {
+            return res.status(503).json({ success: false, message: 'Neural Root غير متاح' });
+        }
+        const result = _neuralRoot.activate();
+        res.json({ success: true, data: result, timestamp: new Date().toISOString() });
+    } catch (e) {
+        res.status(500).json({ success: false, message: e.message });
+    }
+});
 
 // GET /api/neural-root/status — حالة الشبكة الجذرية الكاملة
 app.get('/api/neural-root/status', (req, res) => {
@@ -37270,10 +37287,11 @@ try {
     console.log('   ├─ POST /api/neural/root/activate      — تفعيل شبكة جذرية كاملة');
     console.log('   ├─ GET  /api/neural/root/unity-score   — درجة التوحيد الحالية');
     console.log('   ├─ POST /api/neural/root/digitize      — رقمنة مفهوم بالكتاب والسنة');
-    console.log('   ├─ GET  /api/neural/root/cells         — عرض كل الخلايا وحالتها');
-    console.log('   ├─ POST /api/neural/root/forward       — الانتشار الأمامي');
-    console.log('   ├─ GET  /api/neural/root/quran-db      — قاعدة بيانات الآيات');
-    console.log('   └─ POST /api/neural/root/verify        — التحقق الشرعي من إجراء');
+    console.log('   ├─ GET  /api/neural/root/cells              — عرض كل الخلايا وحالتها');
+    console.log('   ├─ POST /api/neural/root/forward            — الانتشار الأمامي');
+    console.log('   ├─ GET  /api/neural/root/quran-db           — قاعدة بيانات الآيات');
+    console.log('   ├─ POST /api/neural/root/verify             — التحقق الشرعي من إجراء');
+    console.log('   └─ POST /api/neural/root/cosmic-integration — التكامل الرقمي الكوني الموحَّد');
 } catch (e) {
     console.log('⚠️ [NEURAL-ROOT] فشل تحميل مسارات الشبكة الجذرية:', e.message);
 }
