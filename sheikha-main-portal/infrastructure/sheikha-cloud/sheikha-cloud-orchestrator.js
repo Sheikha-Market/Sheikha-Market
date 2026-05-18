@@ -50,6 +50,7 @@ const SPECS = {
     L7_communications:    loadSpec('communications/communications.json'),
     L8_financeScience:    loadSpec('finance/finance-science.json'),
     L9_roadmap:           loadSpec('roadmap/roadmap.json'),
+    L10_checkpoint:       loadSpec('checkpoint/activation-checkpoint.json'),
 };
 
 // ── Platform identity ─────────────────────────────────────────────────────────
@@ -135,6 +136,163 @@ function getRoadmap() {
     return SPECS.L9_roadmap ? SPECS.L9_roadmap.phases : [];
 }
 
+/** Returns activation checkpoint restore spec */
+function getActivationCheckpoint() {
+    return SPECS.L10_checkpoint || null;
+}
+
+/** Returns measurable scope metrics and live baseline values */
+function getScopeMetrics() {
+    const checkpoint = getActivationCheckpoint();
+    const regions = getSovereignRegions();
+    const totalBandwidthTbps = regions.reduce((sum, region) => {
+        const bandwidth = region && region.connectivity ? Number(region.connectivity.bandwidthTbps) : 0;
+        return sum + (Number.isFinite(bandwidth) ? bandwidth : 0);
+    }, 0);
+
+    return {
+        indicators: checkpoint && checkpoint.officialScope ? checkpoint.officialScope.indicators : null,
+        baseline: {
+            totalRegions: regions.length,
+            primaryRegions: getRegionsByTier('PRIMARY').length,
+            edgeNodes: SPECS.L0_physicalRegions && SPECS.L0_physicalRegions.edgeNodes
+                ? SPECS.L0_physicalRegions.edgeNodes.count
+                : 0,
+            aggregateBackboneBandwidthTbps: totalBandwidthTbps,
+            standards: PLATFORM.standards,
+        },
+    };
+}
+
+/** Returns unified data-fabric definition */
+function getDataFabricConfig() {
+    const checkpoint = getActivationCheckpoint();
+    const dataFabric = checkpoint && checkpoint.dataFabric ? checkpoint.dataFabric : null;
+    const sovereigntyMatrix = SPECS.L2_sovereignty && SPECS.L2_sovereignty.dataResidencyMatrix
+        ? SPECS.L2_sovereignty.dataResidencyMatrix
+        : null;
+
+    return {
+        dataFabric,
+        residencyMatrix: sovereigntyMatrix,
+    };
+}
+
+/** Returns root neural runtime controls */
+function getRootNeuralRuntimeConfig() {
+    const checkpoint = getActivationCheckpoint();
+    return checkpoint && checkpoint.rootNeuralRuntime ? checkpoint.rootNeuralRuntime : null;
+}
+
+function evaluateCapability(id, layer, status, gap, priority, owner) {
+    return { id, layer, status, gap, priority, owner };
+}
+
+/** Performs basic gap audit against core control files */
+function getGapAnalysis() {
+    const checkpoint = getActivationCheckpoint();
+    const roadmap = SPECS.L9_roadmap || {};
+    const sovereignty = SPECS.L2_sovereignty || {};
+    const security = SPECS.L6_security || {};
+    const communications = SPECS.L7_communications || {};
+
+    const checks = [
+        evaluateCapability(
+            'activation-checkpoints',
+            'roadmap',
+            Array.isArray(roadmap.activationCheckpoints),
+            'Missing activation checkpoints block with stage gates in roadmap.json',
+            'P0',
+            'cloud-architecture'
+        ),
+        evaluateCapability(
+            'operational-charter-reference',
+            'sovereignty',
+            Boolean(sovereignty.operationalCharterReference),
+            'Missing explicit operational charter reference in scsf-framework.json',
+            'P1',
+            'governance'
+        ),
+        evaluateCapability(
+            'central-key-management-runbook',
+            'security',
+            Boolean(security.keyManagementRunbook),
+            'Missing centralized key-management runbook in cybersecurity.json',
+            'P0',
+            'security'
+        ),
+        evaluateCapability(
+            'communications-sla-catalog',
+            'communications',
+            Boolean(communications.slaCatalog),
+            'Missing communications SLA/SLO catalog with incident routing in communications.json',
+            'P1',
+            'communications'
+        ),
+        evaluateCapability(
+            'roadmap-phases',
+            'roadmap',
+            Array.isArray(roadmap.phases) && roadmap.phases.length >= 4,
+            'Roadmap should contain 4 or more phases',
+            'P0',
+            'program-management'
+        ),
+        evaluateCapability(
+            'zero-trust-foundation',
+            'security',
+            Boolean(security.zeroTrustArchitecture),
+            'Zero-trust foundation is missing from cybersecurity.json',
+            'P0',
+            'security'
+        ),
+    ];
+
+    const completed = checks.filter(item => item.status).map(item => item.id);
+    const gaps = checks.filter(item => !item.status).map(({ id, layer, gap, priority, owner }) => ({
+        id, layer, gap, priority, owner,
+    }));
+
+    return {
+        targetFiles: checkpoint && checkpoint.gapAudit ? checkpoint.gapAudit.targetFiles : [],
+        requiredCapabilities: checkpoint && checkpoint.gapAudit ? checkpoint.gapAudit.requiredCapabilities : [],
+        completedCapabilities: completed,
+        gaps,
+    };
+}
+
+/** Returns prioritized execution backlog from gap analysis */
+function getPrioritizedBacklog() {
+    const checkpoint = getActivationCheckpoint();
+    const templates = checkpoint && Array.isArray(checkpoint.backlogTemplates)
+        ? checkpoint.backlogTemplates
+        : [];
+    const gaps = getGapAnalysis().gaps;
+
+    const templateById = templates.reduce((acc, item) => {
+        if (item && item.id) acc[item.id] = item;
+        return acc;
+    }, {});
+
+    return gaps.map((gap, index) => {
+        const preferredTemplate = templates.find(item =>
+            typeof item.title === 'string' &&
+            item.title.toLowerCase().includes(gap.id.replace(/-/g, ' '))
+        );
+        const fallbackTemplate = templateById[`BL-0${index + 1}`] || null;
+        const template = preferredTemplate || fallbackTemplate;
+
+        return {
+            id: template ? template.id : `BL-AUTO-${index + 1}`,
+            title: template ? template.title : `Resolve gap: ${gap.id}`,
+            priority: template ? template.priority : gap.priority,
+            owner: template ? template.owner : gap.owner,
+            layer: gap.layer,
+            gap: gap.gap,
+            status: 'pending',
+        };
+    });
+}
+
 /** Returns current active roadmap phase based on current date */
 function getCurrentPhase() {
     const now    = new Date();
@@ -187,6 +345,30 @@ function createRouter() {
         res.json({ success: true, phases: getRoadmap(), currentPhase: getCurrentPhase() });
     });
 
+    router.get('/checkpoint', (req, res) => {
+        res.json({ success: true, checkpoint: getActivationCheckpoint() });
+    });
+
+    router.get('/scope-metrics', (req, res) => {
+        res.json({ success: true, metrics: getScopeMetrics() });
+    });
+
+    router.get('/data-fabric', (req, res) => {
+        res.json({ success: true, config: getDataFabricConfig() });
+    });
+
+    router.get('/neural-root', (req, res) => {
+        res.json({ success: true, runtime: getRootNeuralRuntimeConfig() });
+    });
+
+    router.get('/activation/gaps', (req, res) => {
+        res.json({ success: true, audit: getGapAnalysis() });
+    });
+
+    router.get('/activation/backlog', (req, res) => {
+        res.json({ success: true, backlog: getPrioritizedBacklog() });
+    });
+
     router.get('/ai', (req, res) => {
         res.json({ success: true, config: getAIConfig() });
     });
@@ -225,5 +407,11 @@ module.exports = {
     getSecurityConfig,
     getRoadmap,
     getCurrentPhase,
+    getActivationCheckpoint,
+    getScopeMetrics,
+    getDataFabricConfig,
+    getRootNeuralRuntimeConfig,
+    getGapAnalysis,
+    getPrioritizedBacklog,
     createRouter,
 };
