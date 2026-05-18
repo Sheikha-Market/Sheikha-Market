@@ -1,0 +1,28 @@
+[Unit]
+Description=SHEIKHA HAProxy Health-Aware Routing
+Documentation=https://sheikha.top/docs/infrastructure
+After=network-online.target haproxy.service
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+User=root
+Group=root
+
+# مسار السكربت
+ExecStart=__SHEIKHA_PROJECT_ROOT__/scripts/sheikha-haproxy-health.sh
+
+# المتغيرات البيئية
+Environment="DEBUG=0"
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+
+# سياسة إعادة المحاولة
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sheikha-haproxy-health
+
+# الخروج من الخدمة حتى لو فشلت
+RemainAfterExit=yes
+
+[Install]
+WantedBy=multi-user.target

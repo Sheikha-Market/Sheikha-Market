@@ -1,0 +1,33 @@
+[Unit]
+Description=SHEIKHA Auto Scaling Engine
+Documentation=https://sheikha.top/docs/infrastructure
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+# شغّل السكربت في وضع المراقبة المستمرة
+ExecStart=/usr/bin/bash __SHEIKHA_PROJECT_ROOT__/scripts/sheikha-autoscale.sh
+
+# المتغيرات البيئية
+Environment="CONTINUOUS=1"
+Environment="DEBUG=0"
+Environment="SECONDARY_SERVER="
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+
+# إعادة التشغيل إذا حدث خطأ
+Restart=always
+RestartSec=10
+
+# السجلات
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sheikha-autoscale
+
+# الحد من الموارد (اختياري)
+# MemoryLimit=256M
+
+[Install]
+WantedBy=multi-user.target
