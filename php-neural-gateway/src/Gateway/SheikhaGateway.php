@@ -10,6 +10,7 @@ use Sheikha\NeuralGateway\Security\RateLimit;
 use Sheikha\NeuralGateway\Security\JwtAuth;
 use Sheikha\NeuralGateway\Client\NodeJsClient;
 use Sheikha\NeuralGateway\Logging\SheikhaLogger;
+use Sheikha\NeuralGateway\Language\SHLEngine;
 
 /**
  * ╔══════════════════════════════════════════════════════════════════════════════╗
@@ -27,6 +28,10 @@ use Sheikha\NeuralGateway\Logging\SheikhaLogger;
  *   POST /neural/activate                ← تفعيل الشبكة
  *   POST /neural/halal-check             ← فحص الحلال السريع
  *   POST /neural/maqasid                 ← تقييم المقاصد الشرعية
+ *   GET  /shl/status                     ← حالة لغة شيخة SHL
+ *   POST /shl/run                        ← تشغيل برنامج SHL
+ *   POST /shl/lint                       ← تحليل/فحص كود SHL
+ *   POST /shl/tokenize                   ← تحليل معجمي لكود SHL
  *   GET  /api/v2/*                       ← بروكسي لـ Node.js /api/v2/*
  *   GET  /api/*                          ← بروكسي لـ Node.js /api/*
  */
@@ -76,6 +81,12 @@ class SheikhaGateway
         $this->router->post('/neural/activate',      [$this, 'handleNeuralActivate']);
         $this->router->post('/neural/halal-check',   [$this, 'handleHalalCheck']);
         $this->router->post('/neural/maqasid',       [$this, 'handleMaqasid']);
+
+        // ── لغة شيخة SHL ──────────────────────────────────────────────
+        $this->router->get('/shl/status',            [$this, 'handleSHLStatus']);
+        $this->router->post('/shl/run',              [$this, 'handleSHLRun']);
+        $this->router->post('/shl/lint',             [$this, 'handleSHLLint']);
+        $this->router->post('/shl/tokenize',         [$this, 'handleSHLTokenize']);
 
         // بروكسي شامل لـ Node.js — Full proxy to Node.js
         $this->router->any('/api/v2/*',              [$this, 'handleProxyV2']);
@@ -140,7 +151,7 @@ class SheikhaGateway
         return ['body' => [
             'system'      => 'شبكة شيخة العصبية الجذرية — Sheikha Neural Root Network (PHP)',
             'version'     => '1.0.0',
-            'language'    => 'PHP 8.1+',
+            'language'    => 'PHP 8.1+ | SHL لغة شيخة',
             'cells'       => SNRNEngine::TOTAL_CELLS,
             'principle'   => 'بسم الله الرحمن الرحيم — لا إله إلا الله',
             'endpoints'   => [
@@ -151,6 +162,10 @@ class SheikhaGateway
                 'POST /neural/activate',
                 'POST /neural/halal-check',
                 'POST /neural/maqasid',
+                'GET /shl/status              ← لغة شيخة البرمجية',
+                'POST /shl/run                ← تشغيل برنامج SHL',
+                'POST /shl/lint               ← فحص كود SHL',
+                'POST /shl/tokenize           ← تحليل معجمي',
                 'GET|POST /api/v2/*  (proxy → Node.js)',
                 'GET|POST /api/*     (proxy → Node.js)',
             ],
@@ -323,7 +338,88 @@ class SheikhaGateway
         return $this->proxyToNode('api/' . ($params['wildcard'] ?? ''));
     }
 
-    // ─── Helpers ──────────────────────────────────────────────────────────────
+    // ─── SHL Language Handlers ────────────────────────────────────────────────
+
+    /**
+     * @param array<string,string> $_params
+     * @return array<string,mixed>
+     */
+    public function handleSHLStatus(array $_params): array
+    {
+        return ['body' => SHLEngine::getInstance()->status()];
+    }
+
+    /**
+     * تشغيل برنامج SHL — Run SHL program
+     *
+     * @param array<string,string> $_params
+     * @return array<string,mixed>
+     */
+    public function handleSHLRun(array $_params): array
+    {
+        $body = $_SERVER['__PARSED_BODY__'] ?? null;
+
+        if (!is_array($body) || !isset($body['code'])) {
+            return ['status' => 400, 'body' => [
+                'error' => 'حقل "code" مطلوب — Field "code" is required',
+                'example' => ['code' => 'اطبع("مرحباً")'],
+            ]];
+        }
+
+        $code     = (string)$body['code'];
+        $filename = isset($body['filename']) ? (string)$body['filename'] : '<shl>';
+
+        if (strlen($code) > 65536) {
+            return ['status' => 413, 'body' => ['error' => 'الكود طويل جداً — Code too large (max 64KB)']];
+        }
+
+        $result = SHLEngine::getInstance()->run($code, $filename);
+
+        $this->logger->info('SHL تشغيل', [
+            'success'   => $result['success'],
+            'latencyMs' => $result['latencyMs'],
+        ]);
+
+        return ['status' => $result['success'] ? 200 : 422, 'body' => $result];
+    }
+
+    /**
+     * فحص كود SHL — Lint SHL code
+     *
+     * @param array<string,string> $_params
+     * @return array<string,mixed>
+     */
+    public function handleSHLLint(array $_params): array
+    {
+        $body = $_SERVER['__PARSED_BODY__'] ?? null;
+
+        if (!is_array($body) || !isset($body['code'])) {
+            return ['status' => 400, 'body' => ['error' => 'حقل "code" مطلوب']];
+        }
+
+        $result = SHLEngine::getInstance()->lint((string)$body['code']);
+        return ['body' => $result, 'status' => $result['valid'] ? 200 : 422];
+    }
+
+    /**
+     * تحليل معجمي لكود SHL — Tokenize SHL code
+     *
+     * @param array<string,string> $_params
+     * @return array<string,mixed>
+     */
+    public function handleSHLTokenize(array $_params): array
+    {
+        $body = $_SERVER['__PARSED_BODY__'] ?? null;
+
+        if (!is_array($body) || !isset($body['code'])) {
+            return ['status' => 400, 'body' => ['error' => 'حقل "code" مطلوب']];
+        }
+
+        $tokens = SHLEngine::getInstance()->tokenize((string)$body['code']);
+        return ['body' => ['tokens' => $tokens, 'count' => count($tokens)]];
+    }
+
+    // ─── Root Handler (updated with SHL) ──────────────────────────────────────
 
     /**
      * توجيه إلى Node.js — Proxy to Node.js

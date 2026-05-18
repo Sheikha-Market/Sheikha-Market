@@ -36,12 +36,6 @@ class RateLimit
     public static function check(string $key, int $limit = self::LIMIT_PUBLIC): array
     {
         $now = time();
-
-        // محاولة استخدام APCu إذا كان متاحاً
-        if (function_exists('apcu_fetch') && ini_get('apc.enabled')) {
-            return self::checkApcu($key, $limit, $now);
-        }
-
         return self::checkMemory($key, $limit, $now);
     }
 

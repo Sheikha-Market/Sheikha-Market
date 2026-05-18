@@ -20,7 +20,11 @@
     "autoload": {
         "psr-4": {
             "Sheikha\\NeuralGateway\\": "src/"
-        }
+        },
+        "files": [
+            "src/Language/AST/Node.php",
+            "src/Language/SHLError.php"
+        ]
     },
     "autoload-dev": {
         "psr-4": {
