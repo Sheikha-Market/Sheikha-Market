@@ -3,6 +3,13 @@ set -euo pipefail
 
 BASE_URL="${1:-${SHEIKHA_BASE_URL:-http://127.0.0.1:8080}}"
 
+echo "Waiting for Sheikha runtime: $BASE_URL"
+for i in {1..30}; do
+  code="$(curl -s -o /tmp/sheikha_ready -w "%{http_code}" "$BASE_URL/api/health" || true)"
+  [ "$code" = "200" ] && break
+  sleep 1
+done
+
 required=(
   "/api/health"
   "/api/network/dns/status"
