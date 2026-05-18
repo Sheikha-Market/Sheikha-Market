@@ -1,0 +1,105 @@
+{
+    "version": "1.0.0",
+    "updatedAt": "2026-05-18T00:00:00.000Z",
+    "governance": {
+        "model": "scoped-rollout",
+        "owner": "Sheikha Governance Office",
+        "approvalMode": "gate-required"
+    },
+    "measurableScope": {
+        "regions": {
+            "primary": 3,
+            "secondary": 5,
+            "targetTotal": 8
+        },
+        "serviceLevel": {
+            "availabilitySLO": "99.9%",
+            "availabilitySLA": "99.5%",
+            "rtoMinutes": 30,
+            "rpoMinutes": 15
+        },
+        "users": {
+            "targetActiveUsers": 500000,
+            "targetEnterpriseTenants": 5000
+        },
+        "securityCoverage": {
+            "zeroTrust": true,
+            "soc24x7": true,
+            "pqcReady": true,
+            "targetCoveragePercent": 100
+        }
+    },
+    "architectureBlueprint": {
+        "controlPlane": "central-governed-control-plane",
+        "runtimeContract": "policy-first-execution",
+        "deploymentModel": "phased-multi-cloud"
+    },
+    "dataFabric": {
+        "classification": [
+            "public",
+            "internal",
+            "confidential",
+            "restricted"
+        ],
+        "residencyPolicy": "country-and-oic-aware",
+        "backup": {
+            "mode": "geo-redundant",
+            "frequency": "hourly"
+        },
+        "disasterRecovery": {
+            "strategy": "active-passive",
+            "drillCadence": "quarterly"
+        }
+    },
+    "rootNeuralRuntime": {
+        "enabled": true,
+        "mode": "governed",
+        "guardrails": [
+            "policy-gate",
+            "audit-trace",
+            "risk-threshold",
+            "human-override"
+        ]
+    },
+    "feasibility": {
+        "technical": "high",
+        "operational": "medium-high",
+        "economic": "medium",
+        "security": "medium-high"
+    },
+    "strategies": {
+        "methodology": "phase-gate",
+        "roadmapWindowDays": 180,
+        "auditCadence": "weekly"
+    },
+    "gapAuditTargets": {
+        "domains": [
+            "roadmap",
+            "sovereignty",
+            "security",
+            "communications",
+            "checkpoint"
+        ],
+        "minPassRatePercent": 90
+    },
+    "backlogTemplates": [
+        {
+            "id": "BL-SEC-001",
+            "title": "رفع تغطية الحوكمة الأمنية",
+            "priority": "high",
+            "owner": "Security"
+        },
+        {
+            "id": "BL-OPS-001",
+            "title": "تقوية الجاهزية التشغيلية متعددة المناطق",
+            "priority": "medium",
+            "owner": "SRE"
+        },
+        {
+            "id": "BL-CLOUD-001",
+            "title": "تحسين ربط موفري السحابة والبيانات",
+            "priority": "medium",
+            "owner": "Platform"
+        }
+    ]
+}
