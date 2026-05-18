@@ -36,6 +36,8 @@ infrastructure/sheikha-cloud/
 │   └── otel-collector.yaml           # OpenTelemetry → Prometheus + Jaeger + Loki
 ├── roadmap/
 │   └── roadmap.json                  # 4 مراحل تنفيذ (2026–2031+)
+├── checkpoint/
+│   └── activation-checkpoint.json    # استعادة نقطة التفعيل: هيكل/معمارية/جدوى/منهجيات/استراتيجيات
 └── sheikha-cloud-orchestrator.js     # وحدة Node.js المركزية + Express router
 ```
 
@@ -100,6 +102,12 @@ console.log(phase.name); // "التأسيس — Foundation"
 | GET | `/api/cloud/sovereignty` | مبادئ SCSF |
 | GET | `/api/cloud/data-residency/:countryCode` | مناطق البيانات المسموحة لدولة |
 | GET | `/api/cloud/roadmap` | خارطة التنفيذ + المرحلة الحالية |
+| GET | `/api/cloud/checkpoint` | نقطة استعادة التفعيل الشاملة |
+| GET | `/api/cloud/scope-metrics` | مؤشرات النطاق الرسمي القابلة للقياس |
+| GET | `/api/cloud/data-fabric` | تعريف طبقة البيانات الموحدة والسيادة |
+| GET | `/api/cloud/neural-root` | ضوابط Runtime الخلايا العصبية الجذرية |
+| GET | `/api/cloud/activation/gaps` | تدقيق الفجوات في roadmap/sovereignty/security/communications |
+| GET | `/api/cloud/activation/backlog` | Backlog تنفيذي مُرتّب حسب الأولوية |
 | GET | `/api/cloud/ai` | إعدادات طبقة الذكاء الاصطناعي |
 | GET | `/api/cloud/commerce` | إعدادات محرك التجارة |
 | GET | `/api/cloud/security` | إعدادات الأمن السيبراني |
