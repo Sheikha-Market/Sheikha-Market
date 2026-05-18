@@ -4,6 +4,10 @@
 const vscode = require('vscode');
 const fetch = require('node-fetch');
 const os = require('os');
+const { createCapabilityRouter } = require('./lib/ide-capability-router');
+const { PhpWorkspaceIndexer } = require('./lib/php-workspace-indexer');
+const { registerPhpLanguageServices } = require('./lib/php-language-services');
+const { registerPhpDiagnostics } = require('./lib/php-diagnostics');
 
 let extensionContext;
 let copilotPanel;
@@ -355,6 +359,10 @@ async function activate(context) {
     extensionContext = context;
     const provider = new SheikhaCopilotProvider(context);
     await provider.initializeAuth();
+    const capabilityRouter = createCapabilityRouter();
+    const phpIndexer = await new PhpWorkspaceIndexer(capabilityRouter).initialize();
+    registerPhpLanguageServices(context, phpIndexer, capabilityRouter);
+    const diagnosticsEngine = registerPhpDiagnostics(context, phpIndexer, capabilityRouter);
     let pendingNesSuggestion = null;
 
     const accountStatusItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
@@ -375,7 +383,9 @@ async function activate(context) {
             principle: 'لا حدود إلا حدود الله',
             basis: 'الكتاب والسنة',
             controls: ['no-harm', 'privacy-by-default', 'human-governed-automation']
-        }
+        },
+        capabilities: capabilityRouter.getHealth(),
+        phpWorkspace: phpIndexer.getStats(),
     };
 
     const dashboardProvider = new SheikhaIntegrationsDashboardProvider(
@@ -419,6 +429,8 @@ async function activate(context) {
             status: isStartingBackend ? 'starting' : (String(lastBackendSummary).includes('active') ? 'active' : 'unknown'),
             detail: lastBackendSummary
         };
+        dashboardState.capabilities = capabilityRouter.getHealth();
+        dashboardState.phpWorkspace = phpIndexer.getStats();
         dashboardProvider.refresh();
     };
 
@@ -759,7 +771,10 @@ async function activate(context) {
             const languageCount = Array.isArray(status.supportedLanguages)
                 ? status.supportedLanguages.length
                 : (Array.isArray(status.languages) ? status.languages.length : 'غير محدد');
-            vscode.window.showInformationMessage(`Sheikha Copilot v${status.version} — ${status.status} | ${languageCount} لغة | شريعة: ✅`);
+            const indexStats = phpIndexer.getStats();
+            vscode.window.showInformationMessage(
+                `Sheikha Copilot v${status.version} — ${status.status} | ${languageCount} لغة | PHP index: ${indexStats.filesIndexed} ملف | شريعة: ✅`
+            );
         } else {
             vscode.window.showErrorMessage('Sheikha: لم يتمكن من الاتصال بالخادم');
         }
@@ -1058,6 +1073,7 @@ async function activate(context) {
 
     await ensureBackendReady('startup');
     await syncExtensionsIntegrations('startup');
+    diagnosticsEngine.refreshAll();
 
     const autoRefreshInterval = setInterval(async () => {
         try {
@@ -1074,6 +1090,13 @@ async function activate(context) {
     }
 
     context.subscriptions.push(
+        vscode.workspace.onDidOpenTextDocument(document => phpIndexer.indexDocument(document)),
+        vscode.workspace.onDidSaveTextDocument(document => phpIndexer.indexDocument(document)),
+        vscode.workspace.onDidChangeTextDocument(event => phpIndexer.indexDocument(event.document)),
+        vscode.workspace.onDidDeleteFiles(async () => {
+            await phpIndexer.rebuild();
+            diagnosticsEngine.refreshAll();
+        }),
         vscode.window.onDidChangeActiveTextEditor(async () => {
             await clearPendingNesSuggestion();
         })
@@ -1282,6 +1305,15 @@ function getIntegrationsDashboardHtml() {
         <strong>تكاملات الإنتاج</strong>
         <div id="ecosystemList" class="muted">جاري التحميل...</div>
     </div>
+    <div class="card" style="margin-bottom: 12px;">
+        <strong>حالة قدرات IDE</strong>
+        <div id="capabilitiesState" class="muted">planned:0 | indexed:0 | available:0 | degraded:0</div>
+        <div id="capabilitiesNeural" class="muted">Neural: unknown</div>
+    </div>
+    <div class="card" style="margin-bottom: 12px;">
+        <strong>فهرس PHP/Laravel</strong>
+        <div id="phpIndexState" class="muted">files: 0 | symbols: 0 | refs: 0 | composer: 0</div>
+    </div>
     <div class="list" id="extensionsList"></div>
 
     <script>
@@ -1299,6 +1331,22 @@ function getIntegrationsDashboardHtml() {
             document.getElementById('syncSummary').textContent = (state.sync && state.sync.summary) || 'غير متزامن';
             document.getElementById('backendBadge').textContent = 'الخادم: ' + ((state.backend && state.backend.detail) || 'غير معروف');
             document.getElementById('governanceText').textContent = ((state.governance && state.governance.basis) || 'الكتاب والسنة') + ' | ' + ((state.governance && state.governance.principle) || 'لا حدود إلا حدود الله');
+            const capabilities = state.capabilities || {};
+            const capabilityStates = capabilities.states || {};
+            document.getElementById('capabilitiesState').textContent =
+                'planned:' + (capabilityStates.planned || 0)
+                + ' | indexed:' + (capabilityStates.indexed || 0)
+                + ' | available:' + (capabilityStates.available || 0)
+                + ' | degraded:' + (capabilityStates.degraded || 0);
+            document.getElementById('capabilitiesNeural').textContent =
+                'Neural: ' + (capabilities.neuralConnected ? 'connected' : 'offline')
+                + ' | routes: ' + (((capabilities.stats || {}).totalRoutes) || 0);
+            const phpWorkspace = state.phpWorkspace || {};
+            document.getElementById('phpIndexState').textContent =
+                'files: ' + (phpWorkspace.filesIndexed || 0)
+                + ' | symbols: ' + (phpWorkspace.symbolsIndexed || 0)
+                + ' | refs: ' + (phpWorkspace.referencesIndexed || 0)
+                + ' | composer: ' + (phpWorkspace.composerPackages || 0);
 
             const ecosystem = state.ecosystem || [];
             const ecosystemList = document.getElementById('ecosystemList');
