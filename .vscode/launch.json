@@ -1,6 +1,8 @@
 {
     "version": "0.2.0",
     "configurations": [
+        
+
         {
             "type": "node",
             "request": "launch",
@@ -93,6 +95,18 @@
             "program": "${file}",
             "console": "integratedTerminal",
             "justMyCode": true
+        },
+        {
+            "name": "🐘 PHP: Listen for Xdebug",
+            "type": "php",
+            "request": "launch",
+            "port": 9003,
+            "log": false,
+            "xdebugSettings": {
+                "max_children": 256,
+                "max_data": 1024,
+                "max_depth": 5
+            }
         }
     ],
     "compounds": [
