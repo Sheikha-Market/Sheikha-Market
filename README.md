@@ -55,6 +55,40 @@
 | Security Policy (SECURITY.md) | ✅ موجود |
 | Private vulnerability reporting | ✅ مُفعَّل |
 
+## 🧠 الشبكة العصبية الجذرية الموحّدة / Unified Root Neural Network
+
+تم توثيق وتفعيل نقطة الدخول الموحّدة للشبكة العصبية الجذرية عبر `sheikha-main-portal`.
+
+### المسارات الأساسية
+| المسار | الوظيفة |
+|--------|---------|
+| `GET /api/v2/status` | لوحة حالة التكامل الشامل |
+| `GET /api/v2/health` | فحص صحة الأنظمة الموحّدة |
+| `POST /api/v2/pulse` | تشغيل نبضة موحّدة عبر الطبقات |
+| `GET /api/v2/root/status` | حالة Runtime الجذري وشبكة الخلايا |
+| `POST /api/v2/root/activate` | تفعيل الشبكة الجذرية حسب المجال |
+| `POST /api/v2/root/activate/geo` | تفعيل تكيفي حسب النطاق الجغرافي |
+| `POST /api/v2/root/cosmic-integration` | تفعيل التكامل الكامل لكل الأنظمة والقدرات |
+
+### أمثلة تشغيل سريعة
+```bash
+curl http://localhost:8080/api/v2/status
+
+curl -X POST http://localhost:8080/api/v2/root/activate \
+  -H 'Content-Type: application/json' \
+  -d '{"domain":"commerce","action":"تفعيل السوق الذكي"}'
+
+curl -X POST http://localhost:8080/api/v2/root/cosmic-integration \
+  -H 'Content-Type: application/json' \
+  -d '{"scope":"global"}'
+```
+
+### القدرات المفعّلة
+- ربط الشبكة العصبية الجذرية مع المُوحِّد الشامل `Sheikha Unified Integrator`
+- كشف الحالة الصحية والجاهزية من نقطة موحّدة
+- دعم التفعيل حسب المجال، المنطقة، أو التكامل الكامل
+- إبقاء حدود التفعيل داخل نطاق المنصة مع الحوكمة والامتثال
+
 ---
 
 ## النشر على Azure Container Apps

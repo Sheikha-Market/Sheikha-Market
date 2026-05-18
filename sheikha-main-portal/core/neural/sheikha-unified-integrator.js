@@ -64,6 +64,8 @@ const erpNeural    = _safeRequire('./sheikha-erp-neural',              'ERP Neur
 const hierarchyNN  = _safeRequire('./sheikha-roots-hierarchy-neural',  'Hierarchy Neural');
 const unityEngine  = _safeRequire('../neural/unity-engine',            'Unity Engine');
 const neuralCells  = _safeRequire('../neural/neural-cells',    'Neural Cells (core 12)');
+const rootRuntime  = _safeRequire(path.join(__dirname, '..', '..', 'lib', 'sheikha-root-neural-runtime.js'), 'Root Runtime');
+const rootRoutes   = _safeRequire(path.join(__dirname, '..', '..', 'routes', 'neural-root.routes.js'), 'Neural Root Routes');
 
 // المحركات
 const enginesDir = path.join(__dirname, '..', 'engines');
@@ -101,6 +103,7 @@ function init() {
         { id: 'hierarchy-nn',  name: 'الشبكة العصبية الهرمية (55 عقدة — أعماق 0-3)', mod: hierarchyNN, initFn: null },
         { id: 'unity-engine',  name: 'محرك التوحيد',                 mod: unityEngine,  initFn: 'init'  },
         { id: 'neural-cells',  name: 'الخلايا العصبية الأساسية (12)',  mod: neuralCells, initFn: 'init'  },
+        { id: 'root-runtime',  name: 'الشبكة العصبية الجذرية (19+92)', mod: rootRuntime, initFn: 'init'  },
         { id: 'ai-network',    name: 'شبكة الذكاء الاصطناعي',        mod: aiNetwork,   initFn: null    },
         { id: 'home-network',  name: 'شبكة المنزل الذكي',             mod: homeNetwork, initFn: null    },
     ];
@@ -309,10 +312,24 @@ function status() {
         systems:     _systemRegistry.size,
         health:      healthCheck(),
         neural:      debugNeural  ? debugNeural.status()   : null,
+        rootRuntime: rootRuntime  ? rootRuntime.status()   : null,
         hierarchy:   hierarchyNN  ? hierarchyNN.status()   : null,
         erp:         erpNeural    ? erpNeural.status()     : null,
         transport:   transport    ? transport.status()     : null,
         unity:       unityEngine  ? unityEngine.status()   : null,
+        capabilities: {
+            unifiedApiBase: '/api/v2',
+            rootApiBase: '/api/v2/root',
+            activationEndpoints: [
+                'GET /api/v2/status',
+                'GET /api/v2/health',
+                'POST /api/v2/pulse',
+                'GET /api/v2/root/status',
+                'POST /api/v2/root/activate',
+                'POST /api/v2/root/activate/geo',
+                'POST /api/v2/root/cosmic-integration',
+            ],
+        },
         principle: {
             tawheed:   '﴿ قُلْ هُوَ اللَّهُ أَحَدٌ ﴾ — الإخلاص: 1',
             unity:     '﴿ وَاعْتَصِمُوا بِحَبْلِ اللَّهِ جَمِيعًا ﴾ — آل عمران: 103',
@@ -356,6 +373,11 @@ function createRouter() {
     if (debugNeural && typeof debugNeural.createRouter === 'function') {
         const neuralRouter = debugNeural.createRouter();
         if (neuralRouter) router.use('/neural', neuralRouter);
+    }
+
+    // ─── الشبكة العصبية الجذرية ────────────────────────────────────────────────
+    if (rootRoutes) {
+        router.use('/root', rootRoutes);
     }
 
     // ─── الناقل الشامل ────────────────────────────────────────────────────────
@@ -443,6 +465,7 @@ module.exports = {
     // وصول مباشر للوحدات
     systems: {
         neural:    () => debugNeural,
+        root:      () => rootRuntime,
         transport: () => transport,
         erp:       () => erpNeural,
         hierarchy: () => hierarchyNN,
