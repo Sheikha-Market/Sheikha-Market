@@ -45,6 +45,15 @@ chmod 600 infra/docker/compose/prod/.env
 - `SHEIKHA_SDK_TOKEN`
 - `SHEIKHA_IDE_TOKEN`
 - `BACKUP_PASSPHRASE`
+- `GOOGLE_CLIENT_ID`
+- `GOOGLE_CLIENT_SECRET`
+- `GOOGLE_AI_API_KEY`
+- `GOOGLE_PROJECT_ID`
+- `GOOGLE_CLOUD_PROJECT`
+- `GOOGLE_MAPS_API_KEY`
+- `GA4_MEASUREMENT_ID`
+- `GA4_API_SECRET`
+- `GOOGLE_PAY_MERCHANT_ID`
 
 ## 3) تشغيل البنية الإنتاجية
 
@@ -68,6 +77,17 @@ COMPOSE_PROFILES=mcp docker compose up -d nginx postgres redis main-portal mcp-s
 
 ```bash
 npm run server:smoke -- http://127.0.0.1:8080
+```
+
+تحقق Google endpoint-by-endpoint بعد ضبط `.env` الحقيقي:
+
+```bash
+curl -fsS http://127.0.0.1:8080/api/ai/gemini | jq
+curl -fsS http://127.0.0.1:8080/api/cloud | jq
+curl -fsS http://127.0.0.1:8080/api/maps | jq
+curl -fsS http://127.0.0.1:8080/api/analytics | jq
+curl -fsS http://127.0.0.1:8080/api/email | jq
+curl -fsS http://127.0.0.1:8080/api/payment/googlepay | jq
 ```
 
 ## 5) MCP / SDK / IDE

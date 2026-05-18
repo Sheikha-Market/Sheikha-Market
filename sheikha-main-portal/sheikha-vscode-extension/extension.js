@@ -184,6 +184,32 @@ class SheikhaCopilotProvider {
         }
     }
 
+    async getNextEditSuggestions(code, language, lastEdit, cursorLine) {
+        try {
+            const authHeaders = await this.authManager.getAuthHeaders();
+            const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/nes`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', ...authHeaders },
+                body: JSON.stringify({
+                    code,
+                    language,
+                    lastEdit,
+                    cursorLine
+                })
+            });
+            const data = await response.json();
+            if (!response.ok || !data.success) {
+                throw new Error(data.message || 'تعذر جلب اقتراحات NES');
+            }
+            return Array.isArray(data.data && data.data.nextEditSuggestions)
+                ? data.data.nextEditSuggestions
+                : [];
+        } catch (err) {
+            vscode.window.showErrorMessage(`Sheikha NES Error: ${err.message}`);
+            return [];
+        }
+    }
+
     async chat(message, codeContext, language, history) {
         try {
             const authHeaders = await this.authManager.getAuthHeaders();
@@ -337,6 +363,7 @@ async function activate(context) {
     const phpIndexer = await new PhpWorkspaceIndexer(capabilityRouter).initialize();
     registerPhpLanguageServices(context, phpIndexer, capabilityRouter);
     const diagnosticsEngine = registerPhpDiagnostics(context, phpIndexer, capabilityRouter);
+    let pendingNesSuggestion = null;
 
     const accountStatusItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
     accountStatusItem.command = 'sheikha.manageAccount';
@@ -543,6 +570,78 @@ async function activate(context) {
         }
     };
 
+    const clearPendingNesSuggestion = async () => {
+        pendingNesSuggestion = null;
+        await vscode.commands.executeCommand('setContext', 'sheikha.nesActive', false);
+    };
+
+    const stagePendingNesSuggestion = async (editor, suggestion) => {
+        const suggestionText = String(suggestion && suggestion.text ? suggestion.text : '').trim();
+        if (!editor || !suggestionText) {
+            await clearPendingNesSuggestion();
+            return false;
+        }
+
+        pendingNesSuggestion = {
+            editorUri: editor.document.uri.toString(),
+            suggestion: {
+                ...suggestion,
+                text: suggestionText
+            }
+        };
+        await vscode.commands.executeCommand('setContext', 'sheikha.nesActive', true);
+        return true;
+    };
+
+    const resolveNesInsertPosition = (document, rawLine) => {
+        const parsedLine = Number.isFinite(rawLine) ? rawLine : Number.parseInt(rawLine, 10);
+        const safeLine = Number.isFinite(parsedLine)
+            ? Math.max(0, Math.min(parsedLine, document.lineCount))
+            : document.lineCount;
+
+        if (document.lineCount === 0) {
+            return new vscode.Position(0, 0);
+        }
+
+        if (safeLine >= document.lineCount) {
+            return document.lineAt(document.lineCount - 1).range.end;
+        }
+
+        return new vscode.Position(safeLine, 0);
+    };
+
+    const applyPendingNesSuggestion = async () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor || !pendingNesSuggestion || pendingNesSuggestion.editorUri !== editor.document.uri.toString()) {
+            await clearPendingNesSuggestion();
+            vscode.window.showWarningMessage('Sheikha NES: لا يوجد اقتراح معلّق لتطبيقه');
+            return false;
+        }
+
+        const suggestion = pendingNesSuggestion.suggestion || {};
+        const suggestionText = String(suggestion.text || '').trim();
+        if (!suggestionText) {
+            await clearPendingNesSuggestion();
+            vscode.window.showInformationMessage(`Sheikha NES: ${suggestion.reason || 'لا توجد تعديلات مقترحة'}`);
+            return false;
+        }
+
+        const insertPosition = resolveNesInsertPosition(editor.document, suggestion.line);
+        const needsLeadingBreak = insertPosition.character !== 0;
+        const insertion = `${needsLeadingBreak ? '\n' : ''}${suggestionText}${suggestionText.endsWith('\n') ? '' : '\n'}`;
+        const applied = await editor.edit(edit => {
+            edit.insert(insertPosition, insertion);
+        });
+
+        await clearPendingNesSuggestion();
+        if (applied) {
+            vscode.window.showInformationMessage(`Sheikha NES: تم تطبيق الاقتراح — ${suggestion.reason || 'اقتراح جاهز'}`);
+        } else {
+            vscode.window.showErrorMessage('Sheikha NES: تعذر تطبيق الاقتراح');
+        }
+        return applied;
+    };
+
     updateAccountStatus();
 
     // ── أمر: فتح المحادثة ──
@@ -683,7 +782,77 @@ async function activate(context) {
 
     // ── أمر: اقتراح التعديل التالي ──
     const nesCommand = vscode.commands.registerCommand('sheikha.nextEditSuggestion', async () => {
-        vscode.window.showInformationMessage('Sheikha NES: سيتم تفعيل اقتراحات التعديل التالي قريباً');
+        if (!provider.config.enableNES) {
+            await clearPendingNesSuggestion();
+            vscode.window.showWarningMessage('Sheikha NES: الخاصية معطلة من الإعدادات');
+            return;
+        }
+
+        if (pendingNesSuggestion) {
+            await applyPendingNesSuggestion();
+            return;
+        }
+
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            vscode.window.showWarningMessage('Sheikha NES: يرجى فتح ملف أولاً');
+            return;
+        }
+
+        const cursorLine = editor.selection.active.line;
+        const lastEdit = editor.document.lineAt(cursorLine).text;
+        const suggestions = await provider.getNextEditSuggestions(
+            editor.document.getText(),
+            editor.document.languageId,
+            lastEdit,
+            cursorLine
+        );
+
+        const actionableSuggestions = suggestions.filter(item => item && (item.text || item.reason));
+        const suggestionsWithText = actionableSuggestions.filter(item => String(item.text || '').trim().length > 0);
+
+        if (suggestionsWithText.length === 0) {
+            await clearPendingNesSuggestion();
+            const fallback = actionableSuggestions[0];
+            vscode.window.showInformationMessage(`Sheikha NES: ${(fallback && fallback.reason) || 'لا توجد تعديلات مقترحة حالياً'}`);
+            return;
+        }
+
+        const items = suggestionsWithText.map((suggestion, index) => ({
+            label: suggestion.text,
+            description: suggestion.priority ? `الأولوية: ${suggestion.priority}` : 'اقتراح NES',
+            detail: suggestion.reason || `اقتراح #${index + 1}`,
+            suggestion
+        }));
+
+        const selected = await vscode.window.showQuickPick(items, {
+            placeHolder: 'اختر اقتراح التعديل التالي من Sheikha NES'
+        });
+
+        if (!selected) {
+            await clearPendingNesSuggestion();
+            return;
+        }
+
+        const staged = await stagePendingNesSuggestion(editor, selected.suggestion);
+        if (!staged) {
+            return;
+        }
+
+        const action = await vscode.window.showInformationMessage(
+            `Sheikha NES: ${selected.suggestion.reason || 'اقتراح جاهز'} — اضغط Tab أو اختر "تطبيق الآن"`,
+            'تطبيق الآن',
+            'إلغاء'
+        );
+
+        if (action === 'تطبيق الآن') {
+            await applyPendingNesSuggestion();
+            return;
+        }
+
+        if (action === 'إلغاء') {
+            await clearPendingNesSuggestion();
+        }
     });
 
     const signInCommand = vscode.commands.registerCommand('sheikha.signIn', async () => {
@@ -927,6 +1096,9 @@ async function activate(context) {
         vscode.workspace.onDidDeleteFiles(async () => {
             await phpIndexer.rebuild();
             diagnosticsEngine.refreshAll();
+        }),
+        vscode.window.onDidChangeActiveTextEditor(async () => {
+            await clearPendingNesSuggestion();
         })
     );
 
