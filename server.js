@@ -20998,6 +20998,26 @@ if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContr
     });
 }
 
+
+// SHEIKHA: Unified runtime routers
+try {
+  // Support routers that define paths with and without /api prefix.
+  app.use("/", require("./routes/sheikha-network"));
+  app.use("/api/network", require("./routes/sheikha-network"));
+
+  app.use("/api/operational-fabric", require("./routes/unified-operational-fabric"));
+
+  app.use("/api/runtime-root", require("./routes/runtime-root.routes"));
+
+  app.use("/", require("./routes/governance.routes"));
+  app.use("/api/governance", require("./routes/governance.routes"));
+
+  console.log("✅ SHEIKHA runtime routers mounted");
+} catch (e) {
+  console.warn("⚠️ SHEIKHA runtime routers mount failed:", e.message);
+}
+
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
