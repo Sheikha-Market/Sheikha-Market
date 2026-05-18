@@ -17,14 +17,14 @@ for ep in "${required[@]}"; do
   code="$(curl -s -o /tmp/sheikha_gate_body.txt -w "%{http_code}" "$BASE_URL$ep" || true)"
   if [ "$code" != "200" ]; then
     echo "FAIL $ep HTTP=$code"
-    cat /tmp/sheikha_gate_out || true
+    cat /tmp/sheikha_gate_body.txt || true
     fail=1
   else
-    if grep -q '"success":true' /tmp/sheikha_gate_out; then
+    if grep -q '"success":true' /tmp/sheikha_gate_body.txt; then
       echo "PASS $ep"
     else
       echo "FAIL $ep success=false"
-      cat /tmp/sheikha_gate_out
+      cat /tmp/sheikha_gate_body.txt
       fail=1
     fi
   fi
