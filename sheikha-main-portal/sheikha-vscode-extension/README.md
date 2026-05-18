@@ -164,6 +164,7 @@ Open VS Code Settings (`Ctrl+,`) and search for `sheikha.copilot`:
 | Shortcut | Command | Platform |
 |----------|---------|----------|
 | `Ctrl+Shift+I` | Open Chat | Windows/Linux/Mac |
+| `Ctrl+Shift+A` | Start Agent | Windows/Linux/Mac |
 | `Ctrl+I` | Inline Chat | Windows/Linux |
 | `Cmd+I` | Inline Chat | Mac |
 | `Tab` | Accept NES suggestion | Windows/Linux/Mac |
