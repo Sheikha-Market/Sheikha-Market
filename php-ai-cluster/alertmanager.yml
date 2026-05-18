@@ -1,0 +1,10 @@
+global:
+  resolve_timeout: 1m
+route:
+  receiver: 'slack-channel'
+receivers:
+  - name: 'slack-channel'
+    slack_configs:
+      - api_url: 'https://slack.com'
+        channel: '#ai-server-alerts'
+        send_resolved: true

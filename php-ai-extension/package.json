@@ -1,0 +1,17 @@
+{
+    "name": "php-ultimate-hyper-ai-engine",
+    "displayName": "PHP Ultimate Hyper AI Engine",
+    "description": "المنظومة العصبية الأضخم لتطوير لغة PHP و Laravel",
+    "version": "1.0.0",
+    "publisher": "Hyper-AI-Dev",
+    "author": { "name": "UltimateDev" },
+    "license": "MIT",
+    "engines": { "vscode": "^1.75.0" },
+    "categories": [ "Programming Languages", "Snippets" ],
+    "activationEvents": [ "onLanguage:php", "onLanguage:blade", "onView:phpAiChatSidebar" ],
+    "main": "./extension.js",
+    "contributes": {
+        "viewsContainers": { "activitybar": [ { "id": "php-hyper-sidebar", "title": "Hyper PHP Core", "icon": "$(rocket)" } ] },
+        "views": { "php-hyper-sidebar": [ { "type": "webview", "id": "phpAiChatSidebar", "name": "الذكاء الاصطناعي التوليدي والـ RAG" } ] }
+    }
+}
