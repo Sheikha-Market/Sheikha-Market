@@ -7,7 +7,7 @@ set -e
 VPS_IP="31.97.190.74"
 LOCAL_API="http://localhost:8000"
 VPS_API="http://$VPS_IP:8000"
-API_KEY="sk_live_php_hyper_engine_secret_key_2026_prod"
+API_KEY="${AI_ENGINE_API_KEY}"
 
 echo "════════════════════════════════════════════════════════════════"
 echo "🧪 اختبارات المحرك العصبي الذاتي التكيف"
@@ -17,7 +17,7 @@ echo ""
 # Test 1: FastAPI Server Health
 echo "✓ Test 1: FastAPI Server Health"
 echo "─────────────────────────────────────────────────────────────────"
-if curl -sf "$LOCAL_API/" > /dev/null 2>&1; then
+if curl -sf "$LOCAL_API/openapi.json" > /dev/null 2>&1; then
     echo "✅ الخادم المحلي يرد (localhost:8000)"
 else
     echo "❌ الخادم المحلي لا يرد. تأكد من تشغيله: ~/.local/bin/uvicorn app:app --port 8000"
@@ -67,7 +67,7 @@ echo "────────────────────────�
 if curl -sf "http://localhost:3000" > /dev/null 2>&1; then
     echo "✅ Grafana متاح على: http://localhost:3000"
     echo "   اسم المستخدم: admin"
-    echo "   كلمة المرور: sheikha_secure_pass_2026"
+    echo "   كلمة المرور: مضبوطة عبر متغير GF_SECURITY_ADMIN_PASSWORD"
 else
     echo "⚠️  Grafana قد لا يكون متاحاً (اختياري للتشغيل المحلي)"
 fi
@@ -88,9 +88,12 @@ echo ""
 # Test 7: Backup System
 echo "✓ Test 7: Backup System & Retention"
 echo "─────────────────────────────────────────────────────────────────"
-BACKUP_COUNT=$(find php-ai-cluster/data/backups -name "*.tar.gz" 2>/dev/null | wc -l)
+BACKUP_COUNT_RAW=$(find php-ai-cluster/data/backups -name "*.tar.gz" 2>/dev/null | wc -l)
+# تطبيع أي ناتج غير نظيف إلى رقم صالح للمقارنة
+BACKUP_COUNT=$(printf '%s' "$BACKUP_COUNT_RAW" | tr -cd '0-9')
+BACKUP_COUNT=${BACKUP_COUNT:-0}
 echo "✅ عدد النسخ الاحتياطية المحفوظة: $BACKUP_COUNT/7"
-if [ $BACKUP_COUNT -gt 0 ]; then
+if [ "$BACKUP_COUNT" -gt 0 ]; then
     LATEST_BACKUP=$(ls -t php-ai-cluster/data/backups/*.tar.gz 2>/dev/null | head -1)
     BACKUP_DATE=$(stat -c %y "$LATEST_BACKUP" 2>/dev/null | cut -d' ' -f1 || stat -f "%Sm" -t "%Y-%m-%d" "$LATEST_BACKUP")
     echo "   آخر نسخة احتياطية: $BACKUP_DATE"
@@ -127,8 +130,7 @@ echo "✓ Test 10: GitHub Copilot Instructions"
 echo "─────────────────────────────────────────────────────────────────"
 if [ -f ".github/copilot-instructions.md" ]; then
     echo "✅ Copilot instructions موجود"
-    GREP_RESULT=$(grep -c "31.97.190.74" .github/copilot-instructions.md 2>/dev/null || echo "0")
-    if [ "$GREP_RESULT" -gt 0 ]; then
+    if grep -q "31.97.190.74" .github/copilot-instructions.md 2>/dev/null; then
         echo "   مرتبط بـ VPS: 31.97.190.74 ✓"
     fi
 else
