@@ -361,7 +361,11 @@
     "ops:control:stable": "bash scripts/sheikha-control.sh stable",
     "ops:control:power": "bash scripts/sheikha-control.sh power",
     "ops:control:status": "bash scripts/sheikha-control.sh status",
-    "ops:control:report": "bash scripts/sheikha-control.sh report"
+    "ops:control:report": "bash scripts/sheikha-control.sh report",
+    "ops:neural:gate": "bash scripts/neural-gate.sh",
+    "ops:neural:gate:local": "SHEIKHA_BASE_URL=http://127.0.0.1:8080 bash scripts/neural-gate.sh",
+    "ops:vps:deploy": "bash scripts/vps-deploy.sh",
+    "ops:vps:deploy:dry": "bash scripts/vps-deploy.sh --dry-run"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.96.0",
