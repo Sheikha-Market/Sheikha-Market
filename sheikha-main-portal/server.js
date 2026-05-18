@@ -36466,6 +36466,27 @@ try {
     console.log('⚠️ [NEURAL] فشل تحميل مسارات الشبكة العصبية:', e.message);
 }
 
+try {
+    const unifiedIntegrator = require('./core/neural/sheikha-unified-integrator.js');
+    const unifiedRouter = typeof unifiedIntegrator.createRouter === 'function'
+        ? unifiedIntegrator.createRouter()
+        : null;
+
+    if (unifiedRouter) {
+        app.use('/api/v2', unifiedRouter);
+        console.log('✅ [UNIFIED-V2] المُوحِّد الشامل — مُفعَّل على /api/v2');
+        console.log('   ├─ GET  /api/v2/status              — حالة التكامل الشامل');
+        console.log('   ├─ GET  /api/v2/health              — صحة الأنظمة الموحّدة');
+        console.log('   ├─ POST /api/v2/pulse               — نبضة تشغيل موحّدة');
+        console.log('   ├─ GET  /api/v2/root/status         — حالة الشبكة العصبية الجذرية');
+        console.log('   ├─ POST /api/v2/root/activate       — تفعيل الشبكة الجذرية');
+        console.log('   ├─ POST /api/v2/root/activate/geo   — تفعيل جغرافي تكيفي');
+        console.log('   └─ POST /api/v2/root/cosmic-integration — تفعيل التكامل الكامل');
+    }
+} catch (e) {
+    console.log('⚠️ [UNIFIED-V2] فشل تحميل المُوحِّد الشامل:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🌍 CULTURAL IDENTITY ENGINE — منظومة الهوية الثقافية والاجتماعية
 // "وَجَعَلْنَاكُمْ شُعُوبًا وَقَبَائِلَ لِتَعَارَفُوا" — الحجرات ١٣
