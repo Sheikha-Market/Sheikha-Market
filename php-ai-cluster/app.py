@@ -13,8 +13,12 @@ from apscheduler.schedulers.background import BackgroundScheduler
 app = FastAPI(title="PHP Enterprise Cloud AI Engine", version="10.0.0")
 Instrumentator().instrument(app).expose(app, endpoint="/metrics")
 
-SOURCE_DIR = "/app/data/php_ai_vector_db"
-BACKUP_DIR = "/app/data/backups"
+# مسارات تعمل محلياً وداخل Docker على حدٍّ سواء
+_BASE_DIR = os.path.dirname(os.path.abspath(__file__))
+SOURCE_DIR = os.environ.get("CHROMA_DATA_DIR", os.path.join(_BASE_DIR, "data", "php_ai_vector_db"))
+BACKUP_DIR = os.environ.get("BACKUP_DIR", os.path.join(_BASE_DIR, "data", "backups"))
+os.makedirs(SOURCE_DIR, exist_ok=True)
+os.makedirs(BACKUP_DIR, exist_ok=True)
 MAX_BACKUPS = 7
 
 chroma_client = chromadb.PersistentClient(path=SOURCE_DIR)
@@ -52,8 +56,9 @@ class QueryRequest(BaseModel):
 async def chat_with_codebase(data: QueryRequest, api_key: str = Depends(get_api_key)):
     try:
         results = code_collection.query(query_texts=[data.question], n_results=1)
-        if results and results['documents'] and results['documents']:
-            return {"answer": "وجد النظام تطابقاً برمجياً:", "raw_code": results['documents'][0][0]}
+        docs = results.get('documents', [[]])
+        if docs and docs[0]:
+            return {"answer": "وجد النظام تطابقاً برمجياً:", "raw_code": docs[0][0]}
         return {
             "answer": "لم أجد تطابقاً مباشراً، إليك الكود المعياري الآمن المولد:",
             "raw_code": "public function store(Request $request)\n{\n    $validated = $request->validate(['status' => 'required']);\n    return response()->json($validated, 201);\n}"
