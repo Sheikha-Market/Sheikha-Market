@@ -7,14 +7,15 @@
  * ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: 31
  *
  * المسارات:
- *   GET  /api/neural/root/status       — حالة شبكة الخلايا الجذرية
- *   POST /api/neural/root/activate     — تفعيل شبكة جذرية كاملة
- *   GET  /api/neural/root/unity-score  — درجة التوحيد الحالية
- *   POST /api/neural/root/digitize     — رقمنة مفهوم بالكتاب والسنة
- *   GET  /api/neural/root/cells        — عرض كل الخلايا وحالتها
- *   POST /api/neural/root/forward      — الانتشار الأمامي بمدخلات مخصصة
- *   GET  /api/neural/root/quran-db     — قاعدة بيانات الآيات
- *   POST /api/neural/root/verify       — التحقق من توافق إجراء مع المبادئ الإسلامية
+ *   GET  /api/neural/root/status                  — حالة شبكة الخلايا الجذرية
+ *   POST /api/neural/root/activate                — تفعيل شبكة جذرية كاملة
+ *   POST /api/neural/root/activate/fundamentals   — تفعيل أساسيات الحاسب والذكاء والعلوم
+ *   GET  /api/neural/root/unity-score             — درجة التوحيد الحالية
+ *   POST /api/neural/root/digitize                — رقمنة مفهوم بالكتاب والسنة
+ *   GET  /api/neural/root/cells                   — عرض كل الخلايا وحالتها
+ *   POST /api/neural/root/forward                 — الانتشار الأمامي بمدخلات مخصصة
+ *   GET  /api/neural/root/quran-db                — قاعدة بيانات الآيات
+ *   POST /api/neural/root/verify                  — التحقق من توافق إجراء مع المبادئ الإسلامية
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -208,6 +209,87 @@ function validateGeoBody(rawBody) {
     return { ok: true, body };
 }
 
+function validateActivateBody(rawBody) {
+    if (rawBody && (typeof rawBody !== 'object' || Array.isArray(rawBody))) {
+        return { ok: false, status: 400, message: 'صيغة body غير صالحة' };
+    }
+
+    const body = rawBody || {};
+    if (body.domain !== undefined && typeof body.domain !== 'string') {
+        return { ok: false, status: 400, message: 'domain يجب أن يكون نصاً' };
+    }
+    if (body.scope !== undefined && typeof body.scope !== 'string') {
+        return { ok: false, status: 400, message: 'scope يجب أن يكون نصاً' };
+    }
+    if (body.region !== undefined && typeof body.region !== 'string') {
+        return { ok: false, status: 400, message: 'region يجب أن يكون نصاً' };
+    }
+    if (body.action !== undefined && typeof body.action !== 'string') {
+        return { ok: false, status: 400, message: 'action يجب أن يكون نصاً' };
+    }
+    if (body.mode !== undefined && typeof body.mode !== 'string') {
+        return { ok: false, status: 400, message: 'mode يجب أن يكون نصاً' };
+    }
+    if (body.full !== undefined && typeof body.full !== 'boolean') {
+        return { ok: false, status: 400, message: 'full يجب أن يكون true/false' };
+    }
+
+    return { ok: true, body };
+}
+
+function resolveActivationMode(body) {
+    const domain = String(body.domain || '').trim().toLowerCase();
+    const scope = String(body.scope || '').trim().toLowerCase();
+    const region = String(body.region || '').trim().toLowerCase();
+    const mode = String(body.mode || '').trim().toLowerCase();
+    const action = String(body.action || '').trim();
+    const inputText = normalizeInputText(body).toLowerCase();
+
+    const fundamentalsSignals = [
+        domain, scope, region, mode, action.toLowerCase(), inputText
+    ].join(' ');
+
+    const hasComputerBasics = /computer|computing|حاسب|الحاسب|الحساب|compute|foundation/.test(fundamentalsSignals);
+    const hasAIBasics = /ai|artificial intelligence|machine learning|ذكاء|الذكاء/.test(fundamentalsSignals);
+    const hasScienceBasics = /science|sciences|علم|علوم|knowledge/.test(fundamentalsSignals);
+    const hasMathBasics = /math|mathematics|رياض|حساب/.test(fundamentalsSignals);
+    const fundamentalsRequested = hasComputerBasics || hasAIBasics || hasScienceBasics || hasMathBasics;
+    const fundamentals = fundamentalsRequested ? {
+        computerBasics: hasComputerBasics,
+        aiBasics: hasAIBasics,
+        scienceBasics: hasScienceBasics,
+        mathBasics: hasMathBasics,
+        completeness: 'full'
+    } : null;
+
+    const fullAliases = new Set(['full', 'global', 'world', 'cosmic', 'universal']);
+    const fullRequested = Boolean(body.full) || fundamentalsRequested || fullAliases.has(mode) || fullAliases.has(domain) || fullAliases.has(scope) || fullAliases.has(region);
+
+    if (!fullRequested) {
+        return {
+            fullRequested: false,
+            domain: domain || 'general',
+            scope: null,
+            region: null,
+            profile: null,
+            fundamentals: null,
+            action
+        };
+    }
+
+    const profileKey = scope || region || mode || (fundamentalsRequested ? 'global' : domain) || 'global';
+    const profile = resolveGeoProfile(profileKey);
+    return {
+        fullRequested: true,
+        domain: fundamentalsRequested ? 'knowledge' : profile.domain,
+        scope: profile.id,
+        region: profile.id,
+        profile,
+        fundamentals,
+        action
+    };
+}
+
 function hasRootRuntime() {
     return !!(rootRuntime && typeof rootRuntime.status === 'function');
 }
@@ -336,6 +418,59 @@ router.get('/status', (req, res) => {
     }
 });
 
+// ─── POST /activate/fundamentals ─────────────────────────────────────────────
+/**
+ * تفعيل أساسيات الحاسب والذكاء الاصطناعي والرياضيات والعلوم الكاملة
+ *
+ * ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+ *
+ * Body (اختياري): { computer?, ai?, math?, science? }
+ *   - كل حقل: true (افتراضي — فعِّل) أو false (أوقف)
+ *   - بدون body: تُفعَّل جميع مجالات الأساسيات الأربعة
+ */
+router.post('/activate/fundamentals', (req, res) => {
+    if (!nnCheck(res)) return;
+    try {
+        if (!rootNCN || typeof rootNCN.activateFundamentals !== 'function') {
+            return res.status(503).json({
+                success: false,
+                message: 'شبكة الخلايا الجذرية لا تدعم تفعيل الأساسيات',
+                timestamp: new Date().toISOString(),
+            });
+        }
+
+        const body = req.body || {};
+        // بناء مرشّح المجالات (true يعني "فعِّل"، false يعني "تجاهل")
+        const domainsFilter = {};
+        if (body.computer === false) domainsFilter.computer = false;
+        if (body.ai       === false) domainsFilter.ai       = false;
+        if (body.math     === false) domainsFilter.math     = false;
+        if (body.science  === false) domainsFilter.science  = false;
+
+        const result = rootNCN.activateFundamentals(domainsFilter);
+
+        // أضف معلومات الشبكة الجذرية الكاملة
+        const rootStatus = getRootNetworkStatus();
+        const unityScore = buildUnityScore();
+
+        res.json({
+            success:    true,
+            bismillah:  'بسم الله الرحمن الرحيم',
+            quranRef:   '﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١',
+            data: {
+                ...result,
+                rootNetwork: rootStatus
+                    ? { totalCells: rootStatus.totalCells, layersCount: rootStatus.layersCount }
+                    : null,
+                unityScore,
+            },
+            timestamp: new Date().toISOString(),
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
 // ─── POST /activate ──────────────────────────────────────────────────────────
 /**
  * تفعيل شبكة جذرية كاملة بمجال محدد
@@ -344,27 +479,58 @@ router.get('/status', (req, res) => {
 router.post('/activate', (req, res) => {
     if (!nnCheck(res)) return;
     try {
-        const { domain = 'general' } = req.body || {};
-        const inputText = normalizeInputText(req.body || {});
+        const validation = validateActivateBody(req.body);
+        if (!validation.ok) {
+            return res.status(validation.status).json({ success: false, message: validation.message, timestamp: new Date().toISOString() });
+        }
+        const body = validation.body;
+        const activationMode = resolveActivationMode(body);
+        const domain = activationMode.domain;
+        const inputText = normalizeInputText(body);
+        const activationText = activationMode.fullRequested
+            ? (activationMode.action || `تفعيل كامل للشبكة العصبية الجذرية بنطاق ${activationMode.profile.labelAr}`)
+            : inputText;
+
         if (!hasRootRuntime() || !hasRootNetwork()) {
             const legacyActivation = unifiedNN.activate(domain);
+            const legacyForward = activationMode.fullRequested && typeof unifiedNN.forward === 'function'
+                ? unifiedNN.forward(activationMode.profile.neuralInputs)
+                : null;
             return res.json({
                 success: true,
                 bismillah: 'بسم الله الرحمن الرحيم',
                 data: {
                     legacyUnifiedNetwork: legacyActivation,
-                    mode: 'legacy-fallback'
+                    legacyForward,
+                    fullActivation: activationMode.fullRequested ? {
+                        scope: activationMode.scope,
+                        profile: activationMode.profile,
+                        fundamentals: activationMode.fundamentals
+                    } : null,
+                    mode: activationMode.fullRequested ? 'legacy-full-fallback' : 'legacy-fallback'
                 },
                 timestamp: new Date().toISOString()
             });
         }
+
+        let activatorResult = null;
+        if (activationMode.fullRequested && neuralRootActivator && typeof neuralRootActivator.activate === 'function') {
+            activatorResult = neuralRootActivator.activate();
+        }
+
         const runtimeActivation = rootRuntime.init();
         const pulse = rootRuntime.pulse({
             type: domain,
-            context: inputText,
-            data: { domain, source: 'api/neural/root/activate' }
+            context: activationText,
+            data: {
+                domain,
+                scope: activationMode.scope,
+                source: 'api/neural/root/activate',
+                profile: activationMode.profile || undefined,
+                fundamentals: activationMode.fundamentals || undefined
+            }
         });
-        const inference = rootNCN.infer(inputText);
+        const inference = rootNCN.infer(activationText);
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
@@ -372,6 +538,14 @@ router.post('/activate', (req, res) => {
                 runtime: runtimeActivation,
                 pulse,
                 inference,
+                fullActivation: activationMode.fullRequested ? {
+                    scope: activationMode.scope,
+                    profile: activationMode.profile,
+                    fundamentals: activationMode.fundamentals,
+                    activatorSummary: activatorResult
+                        ? { networksActivated: activatorResult.networksActivated, totalCells: activatorResult.totalCells }
+                        : null
+                } : null,
                 rootNeuralCellNetwork: rootNCN.status(),
                 unityScore: buildUnityScore()
             },

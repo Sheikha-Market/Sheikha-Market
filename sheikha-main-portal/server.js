@@ -38221,6 +38221,68 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🌱 AGRICULTURAL NEURAL CELL NETWORK — شبكة الخلايا الجذرية العصبية الزراعية
+// دورة الحياة الرقمية: من البذرة → الجذور → النمو → الثمار → الحصاد → التجارة
+// "أَفَرَأَيْتُم مَّا تَحْرُثُونَ — أَأَنتُمْ تَزْرَعُونَهُ أَمْ نَحْنُ الزَّارِعُونَ" — الواقعة:63-64
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const agricultureRoutes = require('./routes/agriculture.js');
+    app.use('/api/agriculture', agricultureRoutes);
+    console.log('✅ [AgNCN] شبكة الخلايا الزراعية العصبية — مُفعَّلة');
+    console.log('   ├─ GET  /api/agriculture/status      — حالة شبكة الخلايا الزراعية');
+    console.log('   ├─ GET  /api/agriculture/lifecycle   — دورة الحياة من البذرة للثمرة');
+    console.log('   ├─ GET  /api/agriculture/meadows     — المروج والأنهار الرقمية');
+    console.log('   ├─ GET  /api/agriculture/cells       — الخلايا الزراعية الاثنتا عشرة');
+    console.log('   ├─ GET  /api/agriculture/land-report — تقرير صحة الأرض وأولويات الإحياء 🌍');
+    console.log('   ├─ POST /api/agriculture/assess      — تقدير مرحلة المنتج');
+    console.log('   ├─ POST /api/agriculture/harvest     — إتمام صفقة الحصاد 🌾');
+    console.log('   ├─ POST /api/agriculture/revive      — إحياء الأرض الميتة 🌊');
+    console.log('   └─ POST /api/agriculture/cultivate   — إعمار الأرض وتطوير المنطقة التجارية 🏗️');
+} catch (e) {
+    console.warn('⚠️ [AgNCN] فشل تحميل شبكة الخلايا الزراعية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌟 DUAL-ANALOGY ENGINE — محرك التكامل بين تشبيه الإنسان وتشبيه النبات
+// تحويل التشبيهين إلى أصل هندسي وعلم متكامل وحساب دقيق
+// "وَمِنَ الْأَرْضِ مِثْلَهُنَّ" — الطلاق:12
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const dualAnalogyRoutes = require('./routes/dual-analogy.js');
+    app.use('/api/dual-analogy', dualAnalogyRoutes);
+    console.log('✅ [DAIE] محرك التكامل بين التشبيهين — إنسان↔نبات — مُفعَّل');
+    console.log('   ├─ GET  /api/dual-analogy/status    — حالة المحرك');
+    console.log('   ├─ GET  /api/dual-analogy/map       — خريطة الاثنا عشر أزواج');
+    console.log('   ├─ GET  /api/dual-analogy/pulse     — نبضة حية للمنظومة المزدوجة 💓');
+    console.log('   ├─ GET  /api/dual-analogy/calculus  — الأساس الهندسي والصيغ الرياضية 📐');
+    console.log('   ├─ POST /api/dual-analogy/integrate — تكامل لحظة مخصصة');
+    console.log('   └─ POST /api/dual-analogy/resonate  — رنين بُعد واحد ⚡');
+} catch (e) {
+    console.warn('⚠️ [DAIE] فشل تحميل محرك التكامل بين التشبيهين:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🔤 SHL — SHEIKHA LANGUAGE — لغة شيخة البرمجية + المُحسِّن + بيئة التشغيل
+// لغة برمجية عربية/إنجليزية مع حساب الأفضل والتكامل مع جميع المحركات
+// "اقْرَأْ بِاسْمِ رَبِّكَ الَّذِي خَلَقَ" — العلق:1
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const langRoutes = require('./routes/lang.js');
+    app.use('/api/lang', langRoutes);
+    console.log('✅ [SHL] لغة شيخة البرمجية + المُحسِّن + بيئة التشغيل — مُفعَّلة');
+    console.log('   ├─ GET    /api/lang/status    — حالة بيئة التشغيل');
+    console.log('   ├─ GET    /api/lang/builtins  — قائمة الدوال المدمجة');
+    console.log('   ├─ GET    /api/lang/stdlib    — مكتبة النصوص المدمجة');
+    console.log('   ├─ GET    /api/lang/history   — سجل التنفيذ');
+    console.log('   ├─ POST   /api/lang/run       — تشغيل كود SHL 🔤');
+    console.log('   ├─ POST   /api/lang/optimize  — حساب الأفضل 🎯');
+    console.log('   ├─ POST   /api/lang/validate  — التحقق من صحة الكود ✔️');
+    console.log('   └─ DELETE /api/lang/reset     — إعادة تهيئة الجلسة 🔄');
+} catch (e) {
+    console.warn('⚠️ [SHL] فشل تحميل لغة شيخة البرمجية:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🎨 PIXEL SYSTEM — نظام بكسل الذكاء الاصطناعي الشيخي
 // تتبع وتحليل الأحداث مع الفلتر الشرعي الآلي
 // ═══════════════════════════════════════════════════════════════════════════════
