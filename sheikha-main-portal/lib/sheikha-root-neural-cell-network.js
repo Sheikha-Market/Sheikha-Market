@@ -385,6 +385,36 @@ class RootEmbeddingLayer {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// ── ربط مجالات الأساسيات بخلايا الشبكة الجذرية ──────────────────────────────
+// ═══════════════════════════════════════════════════════════════════════════════
+
+/**
+ * FUNDAMENTALS_DOMAINS — خريطة مجالات الأساسيات إلى معرّفات الخلايا الجذرية
+ * يربط كل مجال (حاسب، ذكاء، رياضيات، علوم) بالخلايا الجذرية المعنية
+ */
+const FUNDAMENTALS_DOMAINS = Object.freeze({
+    // أساسيات الحاسب والحوسبة
+    computer: ['RS05', 'RO09', 'RO10', 'RO16', 'RK21'],
+    // أساسيات الذكاء الاصطناعي
+    ai:       ['RS05', 'RK10', 'RK17', 'RK21', 'RO10'],
+    // أساسيات الرياضيات والحساب
+    math:     ['RS02', 'RK15', 'RK16', 'RK20'],
+    // أساسيات العلوم الكاملة
+    science:  ['RS02', 'RS03', 'RS04', 'RS05', 'RK15', 'RK16', 'RK17', 'RK18', 'RK19', 'RK20', 'RK21'],
+});
+
+/**
+ * FUNDAMENTALS_TEXTS — نصوص تمثيلية لكل مجال أساسي
+ * تُستخدم كمدخل للتمرير الأمامي عند تفعيل كل مجال
+ */
+const FUNDAMENTALS_TEXTS = Object.freeze({
+    computer: 'حاسب حوسبة معالج ذاكرة برمجة تقنية بنية تحتية رقمي',
+    ai:       'ذكاء اصطناعي تعلم الآلة تعلم عميق خوارزمية تكيف نموذج',
+    math:     'رياضيات حساب جبر هندسة إحصاء منطق قياس معادلة',
+    science:  'علم علوم فيزياء كيمياء أحياء بحث تجربة اكتشاف منهج علمي',
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // ── القسم الخامس: بناء الطبقات الجذرية ──────────────────────────────────────
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -886,6 +916,63 @@ function reset() {
     return getInstance().reset();
 }
 
+/**
+ * activateFundamentals — تفعيل أساسيات الحاسب والذكاء الاصطناعي والرياضيات والعلوم
+ *
+ * ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+ *
+ * @param {object} [domainsFilter] — كائن اختياري { computer?, ai?, math?, science? }
+ *                                   تحديد المجالات المطلوبة (false لإلغاء مجال)
+ *                                   إذا لم يُحدَّد تُفعَّل كل المجالات
+ * @returns {{ success, fundamentals, totalFundamentalsCells, domainsActivated, timestamp }}
+ */
+function activateFundamentals(domainsFilter) {
+    const net = getInstance();
+    const filter = domainsFilter || {};
+    const results = {};
+    let totalCells = 0;
+
+    for (const [domain, cellIds] of Object.entries(FUNDAMENTALS_DOMAINS)) {
+        if (filter[domain] === false) continue;
+
+        const text = FUNDAMENTALS_TEXTS[domain];
+        const fwd = net.forward(text);
+
+        const cells = cellIds.map(id => {
+            const cell = net._cellMap.get(id);
+            if (!cell) return null;
+            return {
+                id:         cell.id,
+                nameAr:     cell.nameAr,
+                activation: cell.lastOutput,
+                domain,
+                rootDepth:  cell.rootDepth,
+            };
+        }).filter(Boolean);
+
+        results[domain] = {
+            cells,
+            rootConfidence: fwd.rootConfidence,
+            activeDomain:   fwd.activeDomain,
+            cellsCount:     cells.length,
+        };
+        totalCells += cells.length;
+    }
+
+    const timestamp = new Date().toISOString();
+    net.emit('fundamentals:activated', { domains: Object.keys(results), totalCells, timestamp });
+
+    return {
+        success:                true,
+        bismillah:              'بسم الله الرحمن الرحيم',
+        quranRef:               '﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١',
+        fundamentals:           results,
+        totalFundamentalsCells: totalCells,
+        domainsActivated:       Object.keys(results),
+        timestamp,
+    };
+}
+
 // ─── Export ───────────────────────────────────────────────────────────────────
 
 module.exports = {
@@ -898,10 +985,13 @@ module.exports = {
     getCells,
     getRootSynapticMap,
     reset,
+    activateFundamentals,
     // ثوابت
     TAWHEED,
     BISMILLAH,
     VERSION,
     ROOT_DIM,
     ROOT_VOCAB,
+    FUNDAMENTALS_DOMAINS,
+    FUNDAMENTALS_TEXTS,
 };

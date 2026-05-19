@@ -7,14 +7,15 @@
  * ﴿ وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا ﴾ — البقرة: 31
  *
  * المسارات:
- *   GET  /api/neural/root/status       — حالة شبكة الخلايا الجذرية
- *   POST /api/neural/root/activate     — تفعيل شبكة جذرية كاملة
- *   GET  /api/neural/root/unity-score  — درجة التوحيد الحالية
- *   POST /api/neural/root/digitize     — رقمنة مفهوم بالكتاب والسنة
- *   GET  /api/neural/root/cells        — عرض كل الخلايا وحالتها
- *   POST /api/neural/root/forward      — الانتشار الأمامي بمدخلات مخصصة
- *   GET  /api/neural/root/quran-db     — قاعدة بيانات الآيات
- *   POST /api/neural/root/verify       — التحقق من توافق إجراء مع المبادئ الإسلامية
+ *   GET  /api/neural/root/status                  — حالة شبكة الخلايا الجذرية
+ *   POST /api/neural/root/activate                — تفعيل شبكة جذرية كاملة
+ *   POST /api/neural/root/activate/fundamentals   — تفعيل أساسيات الحاسب والذكاء والعلوم
+ *   GET  /api/neural/root/unity-score             — درجة التوحيد الحالية
+ *   POST /api/neural/root/digitize                — رقمنة مفهوم بالكتاب والسنة
+ *   GET  /api/neural/root/cells                   — عرض كل الخلايا وحالتها
+ *   POST /api/neural/root/forward                 — الانتشار الأمامي بمدخلات مخصصة
+ *   GET  /api/neural/root/quran-db                — قاعدة بيانات الآيات
+ *   POST /api/neural/root/verify                  — التحقق من توافق إجراء مع المبادئ الإسلامية
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -411,6 +412,59 @@ router.get('/status', (req, res) => {
                 unityScore: buildUnityScore()
             },
             timestamp: new Date().toISOString()
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
+    }
+});
+
+// ─── POST /activate/fundamentals ─────────────────────────────────────────────
+/**
+ * تفعيل أساسيات الحاسب والذكاء الاصطناعي والرياضيات والعلوم الكاملة
+ *
+ * ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+ *
+ * Body (اختياري): { computer?, ai?, math?, science? }
+ *   - كل حقل: true (افتراضي — فعِّل) أو false (أوقف)
+ *   - بدون body: تُفعَّل جميع مجالات الأساسيات الأربعة
+ */
+router.post('/activate/fundamentals', (req, res) => {
+    if (!nnCheck(res)) return;
+    try {
+        if (!rootNCN || typeof rootNCN.activateFundamentals !== 'function') {
+            return res.status(503).json({
+                success: false,
+                message: 'شبكة الخلايا الجذرية لا تدعم تفعيل الأساسيات',
+                timestamp: new Date().toISOString(),
+            });
+        }
+
+        const body = req.body || {};
+        // بناء مرشّح المجالات (true يعني "فعِّل"، false يعني "تجاهل")
+        const domainsFilter = {};
+        if (body.computer === false) domainsFilter.computer = false;
+        if (body.ai       === false) domainsFilter.ai       = false;
+        if (body.math     === false) domainsFilter.math     = false;
+        if (body.science  === false) domainsFilter.science  = false;
+
+        const result = rootNCN.activateFundamentals(domainsFilter);
+
+        // أضف معلومات الشبكة الجذرية الكاملة
+        const rootStatus = getRootNetworkStatus();
+        const unityScore = buildUnityScore();
+
+        res.json({
+            success:    true,
+            bismillah:  'بسم الله الرحمن الرحيم',
+            quranRef:   '﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١',
+            data: {
+                ...result,
+                rootNetwork: rootStatus
+                    ? { totalCells: rootStatus.totalCells, layersCount: rootStatus.layersCount }
+                    : null,
+                unityScore,
+            },
+            timestamp: new Date().toISOString(),
         });
     } catch (e) {
         res.status(500).json({ success: false, error: e.message, timestamp: new Date().toISOString() });
