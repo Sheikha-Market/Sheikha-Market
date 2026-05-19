@@ -242,9 +242,27 @@ function resolveActivationMode(body) {
     const region = String(body.region || '').trim().toLowerCase();
     const mode = String(body.mode || '').trim().toLowerCase();
     const action = String(body.action || '').trim();
+    const inputText = normalizeInputText(body).toLowerCase();
+
+    const fundamentalsSignals = [
+        domain, scope, region, mode, action.toLowerCase(), inputText
+    ].join(' ');
+
+    const hasComputerBasics = /computer|computing|حاسب|الحاسب|الحساب|compute|foundation/.test(fundamentalsSignals);
+    const hasAIBasics = /ai|artificial intelligence|machine learning|ذكاء|الذكاء/.test(fundamentalsSignals);
+    const hasScienceBasics = /science|sciences|علم|علوم|knowledge/.test(fundamentalsSignals);
+    const hasMathBasics = /math|mathematics|رياض|حساب/.test(fundamentalsSignals);
+    const fundamentalsRequested = hasComputerBasics || hasAIBasics || hasScienceBasics || hasMathBasics;
+    const fundamentals = fundamentalsRequested ? {
+        computerBasics: hasComputerBasics,
+        aiBasics: hasAIBasics,
+        scienceBasics: hasScienceBasics,
+        mathBasics: hasMathBasics,
+        completeness: 'full'
+    } : null;
 
     const fullAliases = new Set(['full', 'global', 'world', 'cosmic', 'universal']);
-    const fullRequested = Boolean(body.full) || fullAliases.has(mode) || fullAliases.has(domain) || fullAliases.has(scope) || fullAliases.has(region);
+    const fullRequested = Boolean(body.full) || fundamentalsRequested || fullAliases.has(mode) || fullAliases.has(domain) || fullAliases.has(scope) || fullAliases.has(region);
 
     if (!fullRequested) {
         return {
@@ -253,18 +271,20 @@ function resolveActivationMode(body) {
             scope: null,
             region: null,
             profile: null,
+            fundamentals: null,
             action
         };
     }
 
-    const profileKey = scope || region || domain || mode || 'global';
+    const profileKey = scope || region || mode || (fundamentalsRequested ? 'global' : domain) || 'global';
     const profile = resolveGeoProfile(profileKey);
     return {
         fullRequested: true,
-        domain: profile.domain,
+        domain: fundamentalsRequested ? 'knowledge' : profile.domain,
         scope: profile.id,
         region: profile.id,
         profile,
+        fundamentals,
         action
     };
 }
@@ -430,7 +450,8 @@ router.post('/activate', (req, res) => {
                     legacyForward,
                     fullActivation: activationMode.fullRequested ? {
                         scope: activationMode.scope,
-                        profile: activationMode.profile
+                        profile: activationMode.profile,
+                        fundamentals: activationMode.fundamentals
                     } : null,
                     mode: activationMode.fullRequested ? 'legacy-full-fallback' : 'legacy-fallback'
                 },
@@ -451,7 +472,8 @@ router.post('/activate', (req, res) => {
                 domain,
                 scope: activationMode.scope,
                 source: 'api/neural/root/activate',
-                profile: activationMode.profile || undefined
+                profile: activationMode.profile || undefined,
+                fundamentals: activationMode.fundamentals || undefined
             }
         });
         const inference = rootNCN.infer(activationText);
@@ -465,6 +487,7 @@ router.post('/activate', (req, res) => {
                 fullActivation: activationMode.fullRequested ? {
                     scope: activationMode.scope,
                     profile: activationMode.profile,
+                    fundamentals: activationMode.fundamentals,
                     activatorSummary: activatorResult
                         ? { networksActivated: activatorResult.networksActivated, totalCells: activatorResult.totalCells }
                         : null
