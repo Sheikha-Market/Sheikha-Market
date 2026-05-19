@@ -12,6 +12,7 @@ const express = require('express');
 const router  = express.Router();
 const fs      = require('fs');
 const path    = require('path');
+const SheikhaCodingLanguageEngine = require('../lib/sheikha-coding-language-engine');
 
 // ─── تحميل الشبكة العصبية للتنفيذ ────────────────────────────────────────────
 let neuralNetwork = null;
@@ -34,6 +35,9 @@ try {
 const DATA_DIR    = path.join(__dirname, '../data');
 const ORDERS_FILE = path.join(DATA_DIR, 'orders.json');
 const SUPPLY_FILE = path.join(DATA_DIR, 'supply.json');
+const languageEngine = new SheikhaCodingLanguageEngine({
+    packageStorePath: path.join(DATA_DIR, 'shk-package-lock.json')
+});
 
 function readJson(filePath, fallback) {
     try {
@@ -310,7 +314,16 @@ router.get('/commands', (req, res) => {
 
 // ─── POST /api/sheikha-code/parse — تحليل أمر فقط بدون تنفيذ ────────────────
 router.post('/parse', (req, res) => {
-    const { command } = req.body || {};
+    const { command, source, mode } = req.body || {};
+    const input = source || command;
+    if (mode === 'ast' && input) {
+        try {
+            const parsedAst = languageEngine.parseShk(input);
+            return res.json({ ok: true, mode: 'ast', data: parsedAst, timestamp: new Date().toISOString() });
+        } catch (err) {
+            return res.status(422).json({ ok: false, error: 'ast_parse_failed', message: err.message });
+        }
+    }
     if (!command) {
         return res.status(400).json({ ok: false, error: 'الحقل المطلوب: command' });
     }
@@ -318,5 +331,97 @@ router.post('/parse', (req, res) => {
     res.json({ ok: true, command, parsed, timestamp: new Date().toISOString() });
 });
 
-module.exports = router;
+// ─── POST /api/sheikha-code/compile — AST + Type + Governance + Bytecode ───────
+router.post('/compile', (req, res) => {
+    const { source, command } = req.body || {};
+    const input = source || command;
+    if (!input || typeof input !== 'string') {
+        return res.status(400).json({ ok: false, error: 'الحقل المطلوب: source أو command' });
+    }
+    try {
+        const compiled = languageEngine.compileScript(input);
+        return res.json({ ok: true, data: compiled, timestamp: new Date().toISOString() });
+    } catch (err) {
+        return res.status(422).json({ ok: false, error: 'compile_failed', message: err.message });
+    }
+});
 
+// ─── POST /api/sheikha-code/sandbox/execute — تشغيل مع عزل ─────────────────────
+router.post('/sandbox/execute', (req, res) => {
+    const { source, command, options } = req.body || {};
+    const input = source || command;
+    if (!input || typeof input !== 'string') {
+        return res.status(400).json({ ok: false, error: 'الحقل المطلوب: source أو command' });
+    }
+    try {
+        const result = languageEngine.executeInSandbox(input, options || {});
+        return res.json({ ok: result.ok, data: result, timestamp: new Date().toISOString() });
+    } catch (err) {
+        return res.status(422).json({ ok: false, error: 'sandbox_execution_failed', message: err.message });
+    }
+});
+
+// ─── Native .shk daemon lifecycle ───────────────────────────────────────────────
+router.get('/daemon/health', (req, res) => {
+    res.json({ ok: true, data: languageEngine.daemonHealth(), timestamp: new Date().toISOString() });
+});
+
+router.post('/daemon/start', (req, res) => {
+    res.json({ ok: true, data: languageEngine.daemonStart(), timestamp: new Date().toISOString() });
+});
+
+router.post('/daemon/stop', (req, res) => {
+    res.json({ ok: true, data: languageEngine.daemonStop(), timestamp: new Date().toISOString() });
+});
+
+router.post('/daemon/reload', (req, res) => {
+    res.json({ ok: true, data: languageEngine.daemonReload(), timestamp: new Date().toISOString() });
+});
+
+router.post('/daemon/submit', (req, res) => {
+    const { source, command, options } = req.body || {};
+    const input = source || command;
+    if (!input || typeof input !== 'string') {
+        return res.status(400).json({ ok: false, error: 'الحقل المطلوب: source أو command' });
+    }
+    const result = languageEngine.daemonSubmit(input, options || {});
+    res.status(result.ok ? 200 : 422).json({ ok: result.ok, data: result, timestamp: new Date().toISOString() });
+});
+
+// ─── Package manager ────────────────────────────────────────────────────────────
+router.post('/packages/install', (req, res) => {
+    try {
+        const result = languageEngine.installPackage(req.body || {});
+        return res.json({ ok: true, data: result, timestamp: new Date().toISOString() });
+    } catch (err) {
+        return res.status(422).json({ ok: false, error: 'package_install_failed', message: err.message });
+    }
+});
+
+router.get('/packages/lock', (req, res) => {
+    res.json({ ok: true, data: languageEngine.getPackageLock(), timestamp: new Date().toISOString() });
+});
+
+// ─── LSP bootstrap endpoints ────────────────────────────────────────────────────
+router.post('/lsp/diagnostics', (req, res) => {
+    const { source = '' } = req.body || {};
+    if (typeof source !== 'string') {
+        return res.status(400).json({ ok: false, error: 'الحقل المطلوب: source كنص' });
+    }
+    res.json({ ok: true, data: languageEngine.lspDiagnostics(source), timestamp: new Date().toISOString() });
+});
+
+router.post('/lsp/completions', (req, res) => {
+    const { prefix = '' } = req.body || {};
+    res.json({ ok: true, data: languageEngine.lspCompletions(String(prefix || '')), timestamp: new Date().toISOString() });
+});
+
+router.post('/lsp/hover', (req, res) => {
+    const { source = '', line = 1, column = 1 } = req.body || {};
+    if (typeof source !== 'string') {
+        return res.status(400).json({ ok: false, error: 'الحقل المطلوب: source كنص' });
+    }
+    res.json({ ok: true, data: languageEngine.lspHover(source, Number(line || 1), Number(column || 1)), timestamp: new Date().toISOString() });
+});
+
+module.exports = router;
