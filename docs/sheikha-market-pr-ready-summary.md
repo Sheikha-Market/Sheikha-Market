@@ -17,13 +17,12 @@
 
 ## نتيجة Resilience (Port Conflict)
 - سيناريو الاختبار: تشغيل جديد على 8080 أثناء إشغال المنفذ.
-- النتيجة: FAIL (EADDRINUSE).
-- الملاحظة: لا يوجد fallback تشغيلي فعال لتدوير المنفذ في مسار bind الحالي.
+- النتيجة: PASS (تم اكتشاف تضارب 8080 ثم تدوير تلقائي إلى 8081).
+- الملاحظة: أُضيفت معالجة `server.on('error')` مع fallback تلقائي حتى 10 محاولات متتالية.
 
 ## قرار الاعتماد
-- القرار المقترح: APPROVE WITH CONDITIONAL PATCH.
-- الشرط الإلزامي قبل إغلاق Sprint 1:
-  - إضافة معالجة صريحة لأخطاء bind (`server.on('error')`) مع fallback تلقائي للمنفذ التالي المتاح.
+- القرار المقترح: APPROVE.
+- الحالة: لا توجد شروط حرجة مفتوحة لإغلاق Sprint 1 ضمن مسار resilience.
 
 ## أوامر التحقق المستخدمة
 1. `node -e "JSON.parse(require('fs').readFileSync('package.json','utf8')); console.log('package.json valid')"`
@@ -33,4 +32,4 @@
 5. `timeout 20s env PORT=8080 node server.js`
 
 ## توصية تنفيذية مباشرة
-الانتقال الفوري إلى Patch صغير في `server.js` لمعالجة تعارض المنافذ، ثم إعادة تشغيل فحص resilience لنقل الحالة إلى PASS.
+الاستمرار على baseline الحالي مع إبقاء اختبار تضارب المنافذ ضمن فحوص التشغيل اليومية.
