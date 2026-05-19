@@ -374,6 +374,8 @@
     "sheikha:generic-root": "node scripts/sheikha-generic-root.js",
     "ops:sheikha:vm:run": "node sheikha-language/vm/sheikha-vm.js sheikha-language/examples/market.ir.json",
     "ops:sheikha:vm:full": "npm run -s ops:sheikha:lang:sprint2:compile && npm run -s ops:sheikha:vm:run",
+    "ops:hybrid:score": "node scripts/hybrid-evaluation-score.js",
+    "ops:hybrid:score:example": "node scripts/hybrid-evaluation-score.js docs/guides/hybrid-evaluation-example.json",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest"
   },
@@ -406,6 +408,7 @@
     "retry-request": ">=8.0.2"
   },
   "devDependencies": {
-    "eslint": "^10.2.1"
+    "eslint": "^10.2.1",
+    "jest": "^30.4.2"
   }
 }
