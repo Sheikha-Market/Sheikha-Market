@@ -420,10 +420,12 @@ const ANALYTICS = {
 
     // تحليل العرض والطلب لكل تصنيف
     analyzeMarket(listings, orders) {
+        const safeListings = Array.isArray(listings) ? listings : Array.isArray(listings?.listings) ? listings.listings : [];
+        const safeOrders = Array.isArray(orders) ? orders : Array.isArray(orders?.orders) ? orders.orders : [];
         const analysis = {};
 
         // تجميع حسب الفئة
-        (listings || []).forEach(l => {
+        safeListings.forEach(l => {
             const cat = l.categoryName || l.category || 'غير مصنف';
             if (!analysis[cat]) {
                 analysis[cat] = {
@@ -445,7 +447,7 @@ const ANALYTICS = {
         });
 
         // تجميع الطلبات
-        (orders || []).forEach(o => {
+        safeOrders.forEach(o => {
             const cat = o.categoryName || o.category || 'غير مصنف';
             if (analysis[cat]) {
                 analysis[cat].demand.totalOrders++;

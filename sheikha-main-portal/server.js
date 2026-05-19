@@ -32179,7 +32179,12 @@ try {
     CONTRACTS = JSON.parse(fs.readFileSync(CONTRACTS_FILE, 'utf8'));
 } catch (_) {}
 try {
-    ORDERS = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+    const parsedOrders = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+    ORDERS = Array.isArray(parsedOrders)
+        ? parsedOrders
+        : Array.isArray(parsedOrders?.orders)
+            ? parsedOrders.orders
+            : [];
 } catch (_) {}
 
 // ═══ منظومة السوق الرقمي المتكامل ═══
