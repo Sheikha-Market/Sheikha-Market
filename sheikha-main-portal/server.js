@@ -101,6 +101,32 @@ function loadEngineOnDemand(engineFile) {
     return lazyEngines[engineFile];
 }
 
+function resolveEngineConstructor(engineModule, engineName) {
+    const resolvedModule =
+        engineModule && typeof engineModule === 'object' && typeof engineModule.default === 'function'
+            ? engineModule.default
+            : engineModule;
+
+    if (typeof resolvedModule !== 'function') {
+        throw new TypeError(`${engineName} export must be a constructor`);
+    }
+
+    return resolvedModule;
+}
+
+function resolveEngineRegistrar(engineModule, engineName) {
+    const resolvedModule =
+        engineModule && typeof engineModule === 'object' && engineModule.default
+            ? engineModule.default
+            : engineModule;
+
+    if (!resolvedModule || typeof resolvedModule.registerAPIs !== 'function') {
+        throw new TypeError(`${engineName} registerAPIs is unavailable`);
+    }
+
+    return resolvedModule.registerAPIs.bind(resolvedModule);
+}
+
 function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
@@ -32153,7 +32179,12 @@ try {
     CONTRACTS = JSON.parse(fs.readFileSync(CONTRACTS_FILE, 'utf8'));
 } catch (_) {}
 try {
-    ORDERS = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+    const parsedOrders = JSON.parse(fs.readFileSync(ORDERS_FILE, 'utf8'));
+    ORDERS = Array.isArray(parsedOrders)
+        ? parsedOrders
+        : Array.isArray(parsedOrders?.orders)
+            ? parsedOrders.orders
+            : [];
 } catch (_) {}
 
 // ═══ منظومة السوق الرقمي المتكامل ═══
@@ -34568,8 +34599,11 @@ console.log(
 // ═══════════════════════════════════════════════════════════════════════════════
 let qurayshEngine = null;
 try {
-    const QJE = require('./lib/sheikha-quraysh-journey-engine');
-    qurayshEngine = new QJE();
+    const QurayshJourneyEngine = resolveEngineConstructor(
+        require('./lib/sheikha-quraysh-journey-engine'),
+        'SheikhaQurayshJourneyEngine'
+    );
+    qurayshEngine = new QurayshJourneyEngine();
     const qjd = qurayshEngine.getDashboard();
     console.log(
         `✅ [Quraysh] ${qjd.stats.divineBlessing} نِعَم إلهية | ${qjd.stats.tradeRoutes} مسار تجاري | ${qjd.stats.partnerCountries} دولة شريكة | ${qjd.stats.securityLayers} طبقة أمان | ${qjd.stats.gratitudePractices} ممارسة شكر | ${qjd.stats.backgroundProcesses} عملية خلفية`
@@ -34616,8 +34650,11 @@ console.log(
 // ═══════════════════════════════════════════════════════════════════════════════
 let learningEngine = null;
 try {
-    const SLE = require('./lib/sheikha-learning-engine');
-    learningEngine = new SLE();
+    const LearningEngine = resolveEngineConstructor(
+        require('./lib/sheikha-learning-engine'),
+        'SheikhaLearningEngine'
+    );
+    learningEngine = new LearningEngine();
     const sld = learningEngine.getDashboard();
     console.log(
         `✅ [Learning] ${sld.stats.learningDomains} مجال تعلم | ${sld.stats.quranicKnowledgeVerses} آية علم | ${sld.stats.machineLearningModels} نموذج ML | ${sld.stats.wisdomLessons} درس حكمة | ${sld.stats.continuousProcesses} عملية مستمرة | ${sld.stats.knowledgeSources} مصدر معرفة`
@@ -34660,8 +34697,11 @@ console.log(
 // ═══════════════════════════════════════════════════════════════════════════════
 let walaaBaraaEngine = null;
 try {
-    const WBE = require('./lib/sheikha-walaa-baraa-engine');
-    walaaBaraaEngine = new WBE();
+    const WalaaBaraaEngine = resolveEngineConstructor(
+        require('./lib/sheikha-walaa-baraa-engine'),
+        'SheikhaWalaaBaraaEngine'
+    );
+    walaaBaraaEngine = new WalaaBaraaEngine();
     const wbd = walaaBaraaEngine.getDashboard();
     console.log(
         `✅ [WalaaBaraa] ${wbd.stats.walaaFoundations} أساس ولاء | ${wbd.stats.baraaShields} درع براء | ${wbd.stats.protectionLayers} طبقة حماية | ${wbd.stats.rejectionRules} قاعدة رفض | ${wbd.stats.victoryPrinciples} مبدأ نصر | ${wbd.stats.backgroundProcesses} عملية خلفية | ${wbd.stats.islamicReferences} مرجع شرعي`
@@ -34701,9 +34741,11 @@ console.log(
 let tradeLegacyEngine = null;
 try {
     // P0-1: ACTIVATED - sheikha-trade-legacy-engine
-    const TLE = require('./lib/sheikha-trade-legacy-engine');
-    console.log('⏸️ [LAZY] sheikha-trade-legacy-engine — سيُحمّل عند الطلب');
-    tradeLegacyEngine = new TLE();
+    const TradeLegacyEngine = resolveEngineConstructor(
+        loadEngineOnDemand('sheikha-trade-legacy-engine.js'),
+        'SheikhaTradeLegacyEngine'
+    );
+    tradeLegacyEngine = new TradeLegacyEngine();
     const tld = tradeLegacyEngine.getDashboard();
     console.log(
         `✅ [TradeLegacy] ${tld.stats.historicalNetworks} شبكة تاريخية | ${tld.stats.tradersAnalyzed} تاجر | ${tld.stats.goodsCategories} بضاعة | ${tld.stats.sheikhGoals} هدف شيخة | ${tld.stats.backgroundGoals} هدف خلفي | ${tld.stats.islamicReferences} مرجع شرعي | إن شاء الله`
@@ -34742,8 +34784,11 @@ console.log(
 // ═══════════════════════════════════════════════════════════════════════════════
 let adabAnbiyaEngine = null;
 try {
-    const AAE = require('./lib/sheikha-adab-anbiya-engine');
-    adabAnbiyaEngine = new AAE();
+    const AdabAnbiyaEngine = resolveEngineConstructor(
+        require('./lib/sheikha-adab-anbiya-engine'),
+        'SheikhaAdabAnbiyaEngine'
+    );
+    adabAnbiyaEngine = new AdabAnbiyaEngine();
     console.log('✅ [🔒 Private] أدب الأنبياء والمقام المباح — مُفعّل — سري وخاص للمالك فقط');
 } catch (e) {
     console.warn('⚠️ [Private] خطأ:', e.message);
@@ -34792,9 +34837,11 @@ app.get('/api/private/adab/background', ownerAuth, (req, res) => {
 let trustAuthEngine = null;
 try {
     // P0-1: ACTIVATED - sheikha-trust-auth-engine
-    const TAE = require('./lib/sheikha-trust-auth-engine');
-    console.log('⏸️ [LAZY] sheikha-trust-auth-engine — سيُحمّل عند الطلب');
-    trustAuthEngine = new TAE();
+    const TrustAuthEngine = resolveEngineConstructor(
+        loadEngineOnDemand('sheikha-trust-auth-engine.js'),
+        'SheikhaTrustAuthEngine'
+    );
+    trustAuthEngine = new TrustAuthEngine();
     const tad = trustAuthEngine.getDashboard();
     console.log(
         `✅ [TrustAuth] ${tad.stats.trustPillars} ركائز أمانة | ${tad.stats.authLayers} طبقة مصادقة | ${tad.stats.reliabilityMetrics} مقياس موثوقية | ${tad.stats.authMethods} طريقة auth | ${tad.stats.rbacRoles} دور صلاحية | ${tad.stats.securityProtocols} بروتوكول أمان | ${tad.stats.islamicTrustPrinciples} مبدأ أمانة إسلامي | ${tad.stats.backgroundProcesses} عملية خلفية | الأمين ﷺ`
@@ -34835,9 +34882,11 @@ console.log(
 let architectureEngine = null;
 try {
     // P0-1: ACTIVATED - sheikha-master-architecture-engine.js
-    const SheikhaArchitectureEngine = require('./lib/sheikha-master-architecture-engine.js');
-    console.log('⏸️ [LAZY] sheikha-master-architecture-engine.js — سيُحمّل عند الطلب');
-    architectureEngine = new SheikhaArchitectureEngine();
+    const ArchitectureEngine = resolveEngineConstructor(
+        loadEngineOnDemand('sheikha-master-architecture-engine.js'),
+        'SheikhaArchitectureEngine'
+    );
+    architectureEngine = new ArchitectureEngine();
     console.log(
         '✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل'
     );
@@ -34888,9 +34937,11 @@ console.log(
 let agenticOSEngine = null;
 try {
     // P0-1: ACTIVATED - sheikha-os-v2-agentic-engine.js
-    const SheikhaAgenticOSEngine = require('./lib/sheikha-os-v2-agentic-engine.js');
-    console.log('⏸️ [LAZY] sheikha-os-v2-agentic-engine.js — سيُحمّل عند الطلب');
-    agenticOSEngine = new SheikhaAgenticOSEngine();
+    const AgenticOSEngine = resolveEngineConstructor(
+        loadEngineOnDemand('sheikha-os-v2-agentic-engine.js'),
+        'SheikhaAgenticOSEngine'
+    );
+    agenticOSEngine = new AgenticOSEngine();
     console.log(
         '✅ 🖥️ Sheikha OS V2 (Agentic AI) — نظام التشغيل الوكيلي الذكي — أفضل من HUMAIN ONE — مُفعّل'
     );
@@ -38099,9 +38150,9 @@ app.get('/api/quran-ai/islamic-logic', (req, res) => {
 let smartMarketEngine = null;
 try {
     // P0-1: ACTIVATED - sheikha-smart-market-engine
-    smartMarketEngine = require('./lib/sheikha-smart-market-engine');
-    console.log('⏸️ [LAZY] sheikha-smart-market-engine — سيُحمّل عند الطلب');
-    smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
+    smartMarketEngine = loadEngineOnDemand('sheikha-smart-market-engine.js');
+    const registerSmartMarketAPIs = resolveEngineRegistrar(smartMarketEngine, 'sheikha-smart-market-engine');
+    registerSmartMarketAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
     console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
 } catch (e) {
     console.warn('⚠️ SmartMarket:', e.message);
@@ -38563,10 +38614,32 @@ async function _startServer() {
         }
     }
 
-    // ② تشغيل الخادم على المنفذ الفعلي
-    const server = app.listen(actualPort, HOST, () => {
-        PORT = actualPort;   // تحديث المتغير العالمي بالمنفذ الفعلي
-        addSystemLog('success', 'Server', `Server started on port ${actualPort}`);
+    const listenOnAvailablePort = (preferredPort, maxAttempts = 10) => new Promise((resolve, reject) => {
+        const tryListen = (port, attemptsLeft) => {
+            const candidate = app.listen(port, HOST);
+
+            candidate.once('listening', () => resolve({ server: candidate, port }));
+            candidate.once('error', (err) => {
+                if (err.code === 'EADDRINUSE' && attemptsLeft > 1) {
+                    console.warn(`⚠️ المنفذ ${port} مشغول — الانتقال تلقائياً إلى ${port + 1}`);
+                    tryListen(port + 1, attemptsLeft - 1);
+                    return;
+                }
+
+                reject(err);
+            });
+        };
+
+        tryListen(preferredPort, maxAttempts);
+    });
+
+    // ② تشغيل الخادم على أول منفذ متاح
+    const listening = await listenOnAvailablePort(actualPort);
+    actualPort = listening.port;
+
+    const server = listening.server;
+    PORT = actualPort;   // تحديث المتغير العالمي بالمنفذ الفعلي
+    addSystemLog('success', 'Server', `Server started on port ${actualPort}`);
 
         // ═══ تفعيل محرك الأتمتة v2.0 — تسجيل APIs + بدء الجدولة ═══
         if (automationEngine) {
@@ -38597,7 +38670,7 @@ async function _startServer() {
         _startMarketplaceGateway(actualPort);
 
         const relocated = actualPort !== _PORT_ENV ? `🔄 انتقل من ${_PORT_ENV} إلى ${actualPort}` : '✅ المنفذ المفضّل';
-        console.log(`
+    console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
 ║                           Sheikha Metals & Scrap Market - Main Portal                                              ║
@@ -38609,35 +38682,11 @@ async function _startServer() {
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
-    });
 
-    // ═══ معالج أخطاء الخادم مع إعادة المحاولة التلقائية ═══
+    // ═══ معالج أخطاء الخادم بعد الإقلاع ═══
     server.on('error', (err) => {
-        if (err.code === 'EADDRINUSE') {
-            console.error(`
-╔══════════════════════════════════════════════════════════════╗
-║  ⛔ المنفذ ${actualPort} مشغول                                   ║
-║  🔄 محاولة إعادة التشغيل تلقائياً خلال 3 ثوانٍ...            ║
-╠══════════════════════════════════════════════════════════════╣
-║  الحل السريع:   fuser -k ${actualPort}/tcp                        ║
-║  أو pm2:        pm2 restart sheikha                          ║
-╚══════════════════════════════════════════════════════════════╝`);
-            // محاولة إعادة واحدة بعد 3 ثوانٍ
-            setTimeout(() => {
-                try { server.close(); } catch (_) {}
-                const retryServer = app.listen(actualPort, HOST, () => {
-                    PORT = actualPort;
-                    console.log(`✅ [AUTO-RETRY] الخادم يعمل الآن على المنفذ ${actualPort}`);
-                });
-                retryServer.on('error', (retryErr) => {
-                    console.error('🔴 فشل إعادة التشغيل التلقائية:', retryErr.message);
-                    process.exit(1);
-                });
-            }, 3000);
-        } else {
-            console.error('🔴 خطأ في الخادم:', err.message);
-            process.exit(1);
-        }
+        console.error('🔴 خطأ في الخادم:', err.message);
+        process.exit(1);
     });
 
     return server;
