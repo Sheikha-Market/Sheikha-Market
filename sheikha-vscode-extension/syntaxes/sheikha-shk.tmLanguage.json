@@ -1,0 +1,43 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Sheikha SHK",
+    "scopeName": "source.shk",
+    "patterns": [
+        {
+            "name": "comment.line.number-sign.shk",
+            "match": "#.*$"
+        },
+        {
+            "name": "keyword.control.shk",
+            "match": "\\b(كيان|entity|إجراء|procedure|إذا|if|وإلا|else|بسم_الله|PROFILE|SET|INCLUDE|RUN|RETRY_RUN|CHECK_HTTP|WAIT_HTTP|ASSERT_HTTP_BODY|REQUIRE_ENV|ASSERT_PM2|SAVE_REPORT|TITLE|PRINT)\\b"
+        },
+        {
+            "name": "keyword.operator.shk",
+            "match": "\\b(اعرض|ارفض|أجز|allow|deny|display)\\b"
+        },
+        {
+            "name": "constant.numeric.shk",
+            "match": "\\b(?:[0-9\\u0660-\\u0669]+)(?:[\\.\\u066B][0-9\\u0660-\\u0669]+)?\\b"
+        },
+        {
+            "name": "string.quoted.double.shk",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.shk",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        {
+            "name": "entity.name.type.shk",
+            "match": "^(\\s*)(كيان|إجراء)\\s+([^:]+)(:)"
+        },
+        {
+            "name": "variable.other.property.shk",
+            "match": "^(\\s*)([^:#\"]+)(:)"
+        }
+    ],
+    "repository": {}
+}

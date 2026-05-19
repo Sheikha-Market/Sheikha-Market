@@ -373,7 +373,9 @@
     "sheikha:govern": "node scripts/sheikha-self-governance.js",
     "sheikha:generic-root": "node scripts/sheikha-generic-root.js",
     "ops:sheikha:vm:run": "node sheikha-language/vm/sheikha-vm.js sheikha-language/examples/market.ir.json",
-    "ops:sheikha:vm:full": "npm run -s ops:sheikha:lang:sprint2:compile && npm run -s ops:sheikha:vm:run"
+    "ops:sheikha:vm:full": "npm run -s ops:sheikha:lang:sprint2:compile && npm run -s ops:sheikha:vm:run",
+    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "test": "jest"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
