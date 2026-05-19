@@ -305,6 +305,90 @@ const config = {
         }
     },
 
+    // ─── إعدادات blueprint متعددة البيئات والتشغيل الآمن ─────────────────────────
+    platform: {
+        version: '1.0.0',
+        defaultEnvironment: process.env.SHEIKHA_DEFAULT_ENVIRONMENT || (isProductionEnv ? 'production' : 'development'),
+        defaultSector: process.env.SHEIKHA_DEFAULT_SECTOR || 'data-centers',
+        supportedSectors: [
+            'healthcare',
+            'aviation-civil',
+            'energy',
+            'manufacturing',
+            'data-centers',
+            'petrochemicals'
+        ],
+        criticalityLevels: {
+            standard: {
+                level: 'standard',
+                approvalsRequired: false,
+                humanApproval: 'optional'
+            },
+            business: {
+                level: 'business',
+                approvalsRequired: true,
+                humanApproval: 'recommended'
+            },
+            mission: {
+                level: 'mission',
+                approvalsRequired: true,
+                humanApproval: 'required'
+            }
+        },
+        environments: {
+            development: {
+                enabled: true,
+                runtime: 'local-node',
+                region: process.env.SHEIKHA_DEV_REGION || 'local',
+                criticality: 'standard',
+                adapters: ['github', 'openai', 'webhook'],
+                healthTargets: ['/api/health', '/api/gateway/health'],
+                deploymentTargets: ['developer-workstations', 'integration-labs']
+            },
+            staging: {
+                enabled: String(process.env.SHEIKHA_ENABLE_STAGING || 'true') === 'true',
+                runtime: 'container-kubernetes',
+                region: process.env.SHEIKHA_STAGING_REGION || 'me-central-1',
+                criticality: 'business',
+                adapters: ['github', 'google', 'azure', 'webhook'],
+                healthTargets: ['/api/health', '/api/gateway/health', '/api/neural-ops/status'],
+                deploymentTargets: ['edge-clusters', 'regional-datacenters']
+            },
+            production: {
+                enabled: true,
+                runtime: 'container-kubernetes',
+                region: process.env.SHEIKHA_PROD_REGION || 'me-central-1',
+                criticality: 'mission',
+                adapters: ['github', 'google', 'azure', 'stripe', 'pm2', 'erp', 'scm'],
+                healthTargets: ['/api/health', '/api/gateway/health', '/api/scm/status'],
+                deploymentTargets: ['primary-datacenter', 'disaster-recovery-site', 'edge-runtime']
+            }
+        },
+        operationsBot: {
+            enabled: true,
+            mode: process.env.SHEIKHA_OPS_BOT_MODE || 'assistive',
+            humanApprovalRequiredForCriticalOps: true,
+            runbooks: [
+                'health-check',
+                'incident-triage',
+                'failover-readiness',
+                'adapter-diagnostics',
+                'compliance-review'
+            ]
+        },
+        supplyChain: {
+            sbomRequired: true,
+            signedArtifactsRequired: true,
+            vulnerabilityScanning: true,
+            deploymentGates: ['security', 'compliance', 'health']
+        },
+        compliance: {
+            frameworks: ['ISO 27001', 'IEC 62443', 'SOC 2', 'NIST CSF'],
+            shariaAligned: true,
+            prohibitedUseCases: ['weapons-control', 'offensive-military', 'nuclear-enrichment']
+        }
+    },
+
     // ─── معلومات النظام ───────────────────────────────────────────────────────
     system: {
         name: 'منظومة شيخة للمعادن والسكراب',

@@ -12,9 +12,11 @@ const router  = express.Router();
 
 let _gateway = null;
 let _db      = null;
+let _blueprint = null;
 
 function gw()  { if (!_gateway) { _gateway = require('../lib/sheikha-api-gateway.js'); } return _gateway; }
 function db()  { if (!_db)      { _db      = require('../lib/sheikha-db-engine.js');   } return _db; }
+function blueprint() { if (!_blueprint) { _blueprint = require('../lib/sheikha-multi-env-blueprint.js'); } return _blueprint; }
 
 /* ── حالة البوابة ──────────────────────────────────────────────── */
 router.get('/status', (req, res) => {
@@ -59,6 +61,7 @@ router.get('/endpoints', (req, res) => {
         version: '2.0.0',
         groups: [
             { prefix:'/api/gateway',      desc:'بوابة API الموحدة — مقاييس + صحة + إحصاءات' },
+            { prefix:'/api/multi-env',    desc:'Blueprint عملي متعدد البيئات + التشغيل + الامتثال' },
             { prefix:'/api/malahem',      desc:'منظومة الملاحم وأحداث آخر الزمان (تثقيف شرعي)' },
             { prefix:'/api/alliance',     desc:'محرك التحالف العالمي الشامل' },
             { prefix:'/api/alliance/network', desc:'منظومة الشبكة الاقتصادية المتكاملة' },
@@ -85,6 +88,11 @@ router.get('/health', (req, res) => {
         status:   healthy ? 'healthy' : 'degraded',
         gateway:  { ok: true, version: gwStatus.version },
         database: { ok: true, mode: dbStatus.mode, connected: dbStatus.connected },
+        platformBlueprint: {
+            ok: true,
+            version: blueprint().BLUEPRINT_IDENTITY.version,
+            environments: blueprint().listEnvironmentStatuses().length
+        },
         uptime:   gwStatus.uptime,
         timestamp: new Date().toISOString()
     });
