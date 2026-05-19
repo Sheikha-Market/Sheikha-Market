@@ -10,15 +10,15 @@ final class SheikhaGeneratedRule
             'بسم_الله' => 'بسم الله الرحمن الرحيم',
             'language' => 'Sheikha Language',
             'compiler' => 'sheikha-language/compiler/sheikha-compiler.js',
-            'source_file' => "market.shk",
-            'source' => "بسم_الله\n\nكيان صفقة_معادن:\n  النوع: نحاس\n  الوزن: 300000 طن\n  الشرط: صدق_وبيان\n  منع: احتكار، غش، ضرر\n\nإجراء تحقق_شرعي:\n  إذا الصفقة فيها غش:\n    ارفض \"الغش ممنوع\"\n  وإلا:\n    أجز \"الصفقة قابلة للمتابعة\"\n\nإجراء توصية:\n  اعرض \"تم التحليل بذكاء وإتقان، والله ولي التوفيق\"\n",
+            'source_file' => "orchestration.shk",
+            'source' => "بسم_الله\n\nكيان بوابة_تشغيل:\n  النوع: تكامل_تنفيذي\n  منع: احتكار، غش، ضرر\n\nإجراء فحص_الخدمات:\n  API \"GET\" \"http://127.0.0.1:8080/api/health\"\n  PM2 \"status\" \"sheikha-api\"\n  DOCKER \"ps\"\n  اعرض \"تم تنفيذ فحص adapters بنجاح\"\n",
             'ast_summary' => [
-                'nodes' => 4,
-                'procedures' => json_decode("[\n  {\n    \"name\": \"تحقق_شرعي\",\n    \"statements\": 1\n  },\n  {\n    \"name\": \"توصية\",\n    \"statements\": 1\n  }\n]", true),
+                'nodes' => 3,
+                'procedures' => json_decode("[\n  {\n    \"name\": \"فحص_الخدمات\",\n    \"statements\": 4\n  }\n]", true),
             ],
             'ir_summary' => [
                 'version' => "0.2.0",
-                'steps' => 13
+                'steps' => 11
             ],
             'type_summary' => [
                 'ok' => true,
@@ -26,7 +26,7 @@ final class SheikhaGeneratedRule
             ],
             'bytecode_summary' => [
                 'version' => "0.1.0",
-                'instructions' => 13,
+                'instructions' => 11,
                 'neural_cells' => 57
             ],
             'rules' => [
