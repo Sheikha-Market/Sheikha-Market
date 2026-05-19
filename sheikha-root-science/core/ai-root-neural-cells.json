@@ -1,0 +1,139 @@
+{
+  "domain": "أساسيات الذكاء الاصطناعي — AI & Machine Learning Fundamentals",
+  "version": "1.0.0",
+  "foundation": "العقل هبة الله — الذكاء الاصطناعي أداة لخدمة الإنسان",
+  "islamicAlignment": {
+    "principle": "لا ضرر ولا ضرار — العدل — الشفافية — الرقابة الإنسانية",
+    "sheikhaPledge": "كل نموذج يُدرَّب على ضمير — كل قرار يخضع للحوكمة الإسلامية"
+  },
+  "status": "ACTIVE",
+  "activatedAt": "2026-05-19T00:00:00.000Z",
+  "totalCells": 72,
+
+  "layers": {
+    "seed": {
+      "name": "البذرة — Machine Learning Foundations",
+      "cells": [
+        { "id": "a001", "name": "التعلم الآلي — ما هو؟", "concept": "النماذج تتعلم من البيانات دون برمجة صريحة", "analog": "التجربة تُعلّم أكثر من التعليمات" },
+        { "id": "a002", "name": "التعلم بالإشراف", "concept": "Supervised: Input→Output مع بيانات مُعلَّمة", "analog": "التعلم من المثال الصحيح" },
+        { "id": "a003", "name": "التعلم دون إشراف", "concept": "Unsupervised: K-Means, PCA, Autoencoders", "analog": "استخلاص النظام من الفوضى" },
+        { "id": "a004", "name": "التعلم المعزّز", "concept": "Reinforcement: Agent + Environment + Reward", "analog": "التكيّف مع العواقب" },
+        { "id": "a005", "name": "الانحدار — Regression", "concept": "Linear, Polynomial, Logistic", "analog": "التنبؤ من الأنماط" },
+        { "id": "a006", "name": "التصنيف — Classification", "concept": "Decision Trees, SVM, KNN, Naive Bayes", "analog": "التصنيف أصل التنظيم" },
+        { "id": "a007", "name": "التجميع — Clustering", "concept": "K-Means, DBSCAN, Hierarchical", "analog": "الأشباه تتجمع" },
+        { "id": "a008", "name": "مقاييس التقييم", "concept": "Accuracy, Precision, Recall, F1, AUC-ROC", "analog": "الحساب الدقيق للأداء" }
+      ]
+    },
+    "root": {
+      "name": "الجذر — Neural Networks",
+      "cells": [
+        { "id": "a009", "name": "الخلية العصبية الاصطناعية — Neuron", "concept": "أوزان + تحيّز + دالة تفعيل", "analog": "الخلية الحية في شكل رقمي" },
+        { "id": "a010", "name": "الشبكة الأمامية — Feedforward NN", "concept": "Layers: Input → Hidden → Output", "analog": "التدفق الخطي للمعلومة" },
+        { "id": "a011", "name": "الانتشار الخلفي — Backpropagation", "concept": "حساب التدرج لتحديث الأوزان", "analog": "التصحيح بعد الخطأ" },
+        { "id": "a012", "name": "دوال التفعيل", "concept": "ReLU, Sigmoid, Tanh, GELU, Softmax", "analog": "البوابات العصبية" },
+        { "id": "a013", "name": "الإفراط في التعلم — Overfitting", "concept": "Dropout, Regularization (L1/L2), Early Stopping", "analog": "الحفظ دون الفهم لا ينفع" },
+        { "id": "a014", "name": "دالة الخسارة — Loss Function", "concept": "MSE, Cross-Entropy, Huber Loss", "analog": "قياس بُعد الإجابة عن الصواب" },
+        { "id": "a015", "name": "المُحسِّنات — Optimizers", "concept": "SGD, Adam, RMSProp, AdaGrad", "analog": "الطريق لأقل الأخطاء" },
+        { "id": "a016", "name": "تهيئة الأوزان — Initialization", "concept": "Xavier/Glorot, He Init, Zero vs Random", "analog": "النية في البداية تُحدد المسار" }
+      ]
+    },
+    "soil": {
+      "name": "التربة — Deep Learning Architectures",
+      "cells": [
+        { "id": "a017", "name": "الشبكات التلافيفية — CNN", "concept": "Convolution, Pooling, Feature Maps, ResNet, VGG", "analog": "الرؤية الطبقية" },
+        { "id": "a018", "name": "الشبكات المتكررة — RNN", "concept": "Hidden State, BPTT, Vanishing Gradient", "analog": "الذاكرة التسلسلية" },
+        { "id": "a019", "name": "LSTM & GRU", "concept": "Long Short-Term Memory, Forget Gate, Cell State", "analog": "الحفظ الانتقائي" },
+        { "id": "a020", "name": "المحوّلات — Transformers", "concept": "Attention, Multi-Head, Positional Encoding, BERT, GPT", "analog": "الانتباه لكل جزء من السياق" },
+        { "id": "a021", "name": "الانتباه الذاتي — Self-Attention", "concept": "Q, K, V Matrices, Scaled Dot-Product Attention", "analog": "كل كلمة تنظر لكل كلمة" },
+        { "id": "a022", "name": "الترميز والفك — Encoder-Decoder", "concept": "Seq2Seq, Machine Translation, Summarization", "analog": "التحويل مع الحفاظ على المعنى" },
+        { "id": "a023", "name": "الشبكات التوليدية — GANs", "concept": "Generator + Discriminator, Adversarial Training", "analog": "المنافسة تنتج الإتقان" },
+        { "id": "a024", "name": "نماذج الانتشار — Diffusion Models", "concept": "Denoising Score Matching, Stable Diffusion", "analog": "الخلق من الضجيج" },
+        { "id": "a025", "name": "التعلم الموجّه بالتمثيل", "concept": "Autoencoders, VAE, Latent Space", "analog": "الجوهر خلف المظهر" },
+        { "id": "a026", "name": "التعلم بالمقارنة — Contrastive", "concept": "Siamese Networks, Triplet Loss, SimCLR", "analog": "التمييز بالمقارنة" }
+      ]
+    },
+    "water": {
+      "name": "الماء — Natural Language Processing",
+      "cells": [
+        { "id": "a027", "name": "تجزئة النص — Tokenization", "concept": "Word, Subword (BPE), Character-level", "analog": "الكلام يُحلَّل لأصوات ثم كلمات" },
+        { "id": "a028", "name": "التضمين — Word Embeddings", "concept": "Word2Vec, GloVe, FastText, Contextual Embeddings", "analog": "المعنى في الفضاء الرياضي" },
+        { "id": "a029", "name": "BERT & GPT Family", "concept": "Bidirectional vs Autoregressive, Fine-tuning", "analog": "الفهم من كل الجهات" },
+        { "id": "a030", "name": "التوليد النصي — Text Generation", "concept": "Language Modeling, Temperature, Top-P, Top-K", "analog": "التوليد يحاكي الإبداع البشري" },
+        { "id": "a031", "name": "الاسترجاع المعزّز — RAG", "concept": "Retrieval + Generation: Vector DB + LLM", "analog": "المعرفة المُستدعاة في وقتها" },
+        { "id": "a032", "name": "نماذج اللغة الكبيرة — LLM", "concept": "GPT-4, Claude, Llama, Gemini — Architecture & Scaling Laws", "analog": "العلم المُكثَّف في نموذج" },
+        { "id": "a033", "name": "ضبط الدقة — Fine-Tuning", "concept": "Full Fine-tune, LoRA, PEFT, RLHF", "analog": "التخصص بعد التعميم" },
+        { "id": "a034", "name": "السياق والذاكرة", "concept": "Context Window, Long-Context, Memory Banks", "analog": "الذاكرة تُغذّي الحوار" },
+        { "id": "a035", "name": "هندسة الأوامر — Prompt Engineering", "concept": "Zero-shot, Few-shot, CoT, System Prompt", "analog": "حُسن السؤال نصف المعرفة" },
+        { "id": "a036", "name": "تحليل المشاعر والنية", "concept": "Sentiment Analysis, NER, Classification", "analog": "قراءة المقصود خلف الكلام" }
+      ]
+    },
+    "growth": {
+      "name": "النمو — Computer Vision",
+      "cells": [
+        { "id": "a037", "name": "تصنيف الصور", "concept": "CNN-based: ResNet, EfficientNet, ViT", "analog": "التعرف يبدأ بالتمييز" },
+        { "id": "a038", "name": "كشف الأجسام — Object Detection", "concept": "YOLO, Faster R-CNN, SSD, bounding boxes", "analog": "تحديد الموضع والنوع" },
+        { "id": "a039", "name": "التجزئة الدلالية", "concept": "Semantic & Instance Segmentation, Mask R-CNN", "analog": "فهم كل بكسل في سياقه" },
+        { "id": "a040", "name": "معالجة الصور", "concept": "Filters, Edges, Augmentation, Normalization", "analog": "التحضير قبل الفهم" },
+        { "id": "a041", "name": "الرؤية المجسّمة — 3D Vision", "concept": "Depth Estimation, PointClouds, NeRF", "analog": "العمق يكشف بُعدًا جديدًا" },
+        { "id": "a042", "name": "التعرف على الوجه والتحقق", "concept": "FaceNet, ArcFace — أخلاقيات التطبيق", "analog": "الهوية أمانة" }
+      ]
+    },
+    "branch": {
+      "name": "الفروع — Knowledge Representation & Reasoning",
+      "cells": [
+        { "id": "a043", "name": "الأونتولوجيا — Ontology", "concept": "Classes, Properties, Relationships, OWL, RDF", "analog": "تصنيف الكون بمنطق" },
+        { "id": "a044", "name": "الرسم المعرفي — Knowledge Graph", "concept": "Entities + Relations, Wikidata, Schema.org", "analog": "شبكة الحقائق المترابطة" },
+        { "id": "a045", "name": "الاستنتاج المنطقي", "concept": "Forward/Backward Chaining, Description Logic", "analog": "القياس والاستنتاج" },
+        { "id": "a046", "name": "البحث والتحسين", "concept": "A*, Genetic Algorithms, Simulated Annealing, MCTS", "analog": "الطريق لأفضل الحلول" },
+        { "id": "a047", "name": "الوكلاء الذكيون — AI Agents", "concept": "Perception → Reasoning → Action Loop, Multi-Agent", "analog": "الوكالة مع الحوكمة" },
+        { "id": "a048", "name": "التخطيط والجدولة", "concept": "STRIPS, HTN Planning, Constraint Satisfaction", "analog": "الترتيب قبل التنفيذ" },
+        { "id": "a049", "name": "الاستدلال الاحتمالي", "concept": "Bayesian Networks, Hidden Markov Models", "analog": "الأخذ بالأسباب مع التوكل" },
+        { "id": "a050", "name": "تمثيل المعرفة الإسلامية", "concept": "فقه → أونتولوجيا، حديث → استدلال، مقاصد → قيم", "analog": "ترقيم التراث الإسلامي" }
+      ]
+    },
+    "harvest": {
+      "name": "الحصاد — Sheikha AI Stack",
+      "cells": [
+        { "id": "a051", "name": "منظومة Ollama", "concept": "Local LLM Inference: llama3.1, mistral, phi3", "analog": "الذكاء المحلي — السيادة الرقمية" },
+        { "id": "a052", "name": "RAG — شيخة", "concept": "Vector Embeddings + ChromaDB + LLM + حوكمة", "analog": "المعرفة المصدرها موثوق" },
+        { "id": "a053", "name": "نظام الحوكمة", "concept": "Policy Engine + Signing + Governance Checks", "analog": "الرقابة قبل الإطلاق" },
+        { "id": "a054", "name": "محرك الوكلاء", "concept": "Multi-Agent Orchestration, PM2, API Gateway", "analog": "التنسيق بين الوكلاء" },
+        { "id": "a055", "name": "خط أنابيب البيانات", "concept": "ETL: Extract → Transform → Load → Index", "analog": "تنقية البيانات كتنقية العلم" },
+        { "id": "a056", "name": "المراقبة والتقييم", "concept": "Model Drift, A/B Testing, Metrics Dashboards", "analog": "المتابعة شرط الأمانة" },
+        { "id": "a057", "name": "تحسين الاستنتاج", "concept": "Quantization, Pruning, Distillation, vLLM", "analog": "الكفاءة دون تضحية بالجودة" },
+        { "id": "a058", "name": "قاعدة بيانات المتجهات", "concept": "Vector DB: ChromaDB, Qdrant, Pinecone, FAISS", "analog": "مكتبة المعاني" }
+      ]
+    },
+    "rollback": {
+      "name": "الرجوع — AI Ethics & Islamic Alignment",
+      "cells": [
+        { "id": "a059", "name": "مبادئ الذكاء الاصطناعي المسؤول", "concept": "Fairness, Accountability, Transparency, Privacy", "analog": "العدل أساس كل نظام" },
+        { "id": "a060", "name": "التحيّز في النماذج — Bias", "concept": "Data Bias, Algorithmic Bias, Mitigation Strategies", "analog": "الظلم في الخوارزمية ظلم للإنسان" },
+        { "id": "a061", "name": "قابلية التفسير — XAI", "concept": "SHAP, LIME, Attention Visualization", "analog": "الشفافية فريضة" },
+        { "id": "a062", "name": "حماية الخصوصية", "concept": "Differential Privacy, Federated Learning, Encryption", "analog": "لا تجسسوا — الخصوصية حق" },
+        { "id": "a063", "name": "الامتثال الشرعي للذكاء الاصطناعي", "concept": "حلال/حرام، مقاصد الشريعة، مجلس الإشراف", "analog": "العلم يخدم المقاصد الشرعية" },
+        { "id": "a064", "name": "سيادة البيانات", "concept": "On-Premise, Sovereign AI, Self-hosted LLM", "analog": "الاستقلال الرقمي مكمّل للسيادة" },
+        { "id": "a065", "name": "الذكاء الاصطناعي العام — AGI", "concept": "Current Limitations, Alignment Problem, Risks & Opportunities", "analog": "التواضع أمام ما لم نعلم" },
+        { "id": "a066", "name": "أخلاقيات الوكلاء الذكيين", "concept": "Autonomous Agents: Oversight, Control, Kill Switch", "analog": "الوكيل لا يخرج عن إذن مُوكِّله" },
+        { "id": "a067", "name": "الاستدامة والطاقة", "concept": "Carbon Footprint of AI, Green ML", "analog": "لا تُسرف في الأرض فسادًا" },
+        { "id": "a068", "name": "الهوية الإسلامية في الذكاء الاصطناعي", "concept": "شيخة: ذكاء يعرف حدوده ويُعزز الكرامة الإنسانية", "analog": "الذكاء الاصطناعي في خدمة الإنسان لا سيّده" },
+        { "id": "a069", "name": "قياس تأثير الذكاء الاصطناعي", "concept": "Social Impact Assessment, Human-in-the-Loop", "analog": "المصلحة العامة أولًا" },
+        { "id": "a070", "name": "حوكمة النماذج اللغوية الكبيرة", "concept": "LLM Red Teaming, Jailbreak Defense, RLHF Safety", "analog": "الحراسة على باب الكلمة" },
+        { "id": "a071", "name": "التوافق القيمي — Value Alignment", "concept": "Constitutional AI, RLHF, Reward Modeling", "analog": "النموذج يحمل قيم صانعيه" },
+        { "id": "a072", "name": "مستقبل الذكاء الاصطناعي الإسلامي", "concept": "AI for Quran, Fatwa, Halal Economy, Islamic Finance", "analog": "الذكاء الاصطناعي في خدمة الحضارة الإسلامية" }
+      ]
+    }
+  },
+
+  "summary": {
+    "seed_cells": 8,
+    "root_cells": 8,
+    "soil_cells": 10,
+    "water_cells": 10,
+    "growth_cells": 6,
+    "branch_cells": 8,
+    "harvest_cells": 8,
+    "rollback_cells": 14,
+    "total": 72
+  }
+}
