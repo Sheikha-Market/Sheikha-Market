@@ -29,6 +29,8 @@
 - FAIL: 0
 - من: 2026-05-20T00:55:46+03:00
 - إلى: 2026-05-20T01:05:46+03:00
+- فحص Resilience بعد PR #123 (تضارب 8080): FAIL (ظهور EADDRINUSE دون port rotation فعلي).
+- الإجراء التالي: تنفيذ patch صريح لمعالجة server.on('error') مع fallback إلى منفذ متاح.
 
 ### Done
 - [x] إنشاء Blueprint التنفيذ.
