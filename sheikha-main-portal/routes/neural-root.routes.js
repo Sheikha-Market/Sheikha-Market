@@ -208,6 +208,67 @@ function validateGeoBody(rawBody) {
     return { ok: true, body };
 }
 
+function validateActivateBody(rawBody) {
+    if (rawBody && (typeof rawBody !== 'object' || Array.isArray(rawBody))) {
+        return { ok: false, status: 400, message: 'صيغة body غير صالحة' };
+    }
+
+    const body = rawBody || {};
+    if (body.domain !== undefined && typeof body.domain !== 'string') {
+        return { ok: false, status: 400, message: 'domain يجب أن يكون نصاً' };
+    }
+    if (body.scope !== undefined && typeof body.scope !== 'string') {
+        return { ok: false, status: 400, message: 'scope يجب أن يكون نصاً' };
+    }
+    if (body.region !== undefined && typeof body.region !== 'string') {
+        return { ok: false, status: 400, message: 'region يجب أن يكون نصاً' };
+    }
+    if (body.action !== undefined && typeof body.action !== 'string') {
+        return { ok: false, status: 400, message: 'action يجب أن يكون نصاً' };
+    }
+    if (body.mode !== undefined && typeof body.mode !== 'string') {
+        return { ok: false, status: 400, message: 'mode يجب أن يكون نصاً' };
+    }
+    if (body.full !== undefined && typeof body.full !== 'boolean') {
+        return { ok: false, status: 400, message: 'full يجب أن يكون true/false' };
+    }
+
+    return { ok: true, body };
+}
+
+function resolveActivationMode(body) {
+    const domain = String(body.domain || '').trim().toLowerCase();
+    const scope = String(body.scope || '').trim().toLowerCase();
+    const region = String(body.region || '').trim().toLowerCase();
+    const mode = String(body.mode || '').trim().toLowerCase();
+    const action = String(body.action || '').trim();
+
+    const fullAliases = new Set(['full', 'global', 'world', 'cosmic', 'universal']);
+    const fullRequested = Boolean(body.full) || fullAliases.has(mode) || fullAliases.has(domain) || fullAliases.has(scope) || fullAliases.has(region);
+
+    if (!fullRequested) {
+        return {
+            fullRequested: false,
+            domain: domain || 'general',
+            scope: null,
+            region: null,
+            profile: null,
+            action
+        };
+    }
+
+    const profileKey = scope || region || domain || mode || 'global';
+    const profile = resolveGeoProfile(profileKey);
+    return {
+        fullRequested: true,
+        domain: profile.domain,
+        scope: profile.id,
+        region: profile.id,
+        profile,
+        action
+    };
+}
+
 function hasRootRuntime() {
     return !!(rootRuntime && typeof rootRuntime.status === 'function');
 }
@@ -344,27 +405,56 @@ router.get('/status', (req, res) => {
 router.post('/activate', (req, res) => {
     if (!nnCheck(res)) return;
     try {
-        const { domain = 'general' } = req.body || {};
-        const inputText = normalizeInputText(req.body || {});
+        const validation = validateActivateBody(req.body);
+        if (!validation.ok) {
+            return res.status(validation.status).json({ success: false, message: validation.message, timestamp: new Date().toISOString() });
+        }
+        const body = validation.body;
+        const activationMode = resolveActivationMode(body);
+        const domain = activationMode.domain;
+        const inputText = normalizeInputText(body);
+        const activationText = activationMode.fullRequested
+            ? (activationMode.action || `تفعيل كامل للشبكة العصبية الجذرية بنطاق ${activationMode.profile.labelAr}`)
+            : inputText;
+
         if (!hasRootRuntime() || !hasRootNetwork()) {
             const legacyActivation = unifiedNN.activate(domain);
+            const legacyForward = activationMode.fullRequested && typeof unifiedNN.forward === 'function'
+                ? unifiedNN.forward(activationMode.profile.neuralInputs)
+                : null;
             return res.json({
                 success: true,
                 bismillah: 'بسم الله الرحمن الرحيم',
                 data: {
                     legacyUnifiedNetwork: legacyActivation,
-                    mode: 'legacy-fallback'
+                    legacyForward,
+                    fullActivation: activationMode.fullRequested ? {
+                        scope: activationMode.scope,
+                        profile: activationMode.profile
+                    } : null,
+                    mode: activationMode.fullRequested ? 'legacy-full-fallback' : 'legacy-fallback'
                 },
                 timestamp: new Date().toISOString()
             });
         }
+
+        let activatorResult = null;
+        if (activationMode.fullRequested && neuralRootActivator && typeof neuralRootActivator.activate === 'function') {
+            activatorResult = neuralRootActivator.activate();
+        }
+
         const runtimeActivation = rootRuntime.init();
         const pulse = rootRuntime.pulse({
             type: domain,
-            context: inputText,
-            data: { domain, source: 'api/neural/root/activate' }
+            context: activationText,
+            data: {
+                domain,
+                scope: activationMode.scope,
+                source: 'api/neural/root/activate',
+                profile: activationMode.profile || undefined
+            }
         });
-        const inference = rootNCN.infer(inputText);
+        const inference = rootNCN.infer(activationText);
         res.json({
             success: true,
             bismillah: 'بسم الله الرحمن الرحيم',
@@ -372,6 +462,13 @@ router.post('/activate', (req, res) => {
                 runtime: runtimeActivation,
                 pulse,
                 inference,
+                fullActivation: activationMode.fullRequested ? {
+                    scope: activationMode.scope,
+                    profile: activationMode.profile,
+                    activatorSummary: activatorResult
+                        ? { networksActivated: activatorResult.networksActivated, totalCells: activatorResult.totalCells }
+                        : null
+                } : null,
                 rootNeuralCellNetwork: rootNCN.status(),
                 unityScore: buildUnityScore()
             },
