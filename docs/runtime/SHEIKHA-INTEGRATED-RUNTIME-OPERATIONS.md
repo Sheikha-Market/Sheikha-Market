@@ -13,6 +13,12 @@ Local Development → GitHub stable/runtime-baseline → VPS → PM2 → Health 
 لا تشغيل إنتاجي إلا من:
 stable/runtime-baseline
 
+## مرجع الإحياء الرقمي
+
+لمنظومة الأساسيات والفلاح والزراعة وإحياء الأرض الرقمية وشبكة الخلايا الجذرية العصبية:
+
+docs/SHEIKHA-DIGITAL-LAND-REVIVAL-ROOT-NEURAL-NETWORK.md
+
 ## ممنوع
 
 - تشغيل production من فروع مؤقتة
