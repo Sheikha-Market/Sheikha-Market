@@ -36656,6 +36656,14 @@ try {
     console.log('⚠️ [API-GATEWAY] فشل تحميل بوابة API:', e.message);
 }
 
+try {
+    const multiEnvRoutes = require('./routes/multi-env-operations.js');
+    app.use('/api/multi-env', multiEnvRoutes);
+    console.log('✅ [MULTI-ENV] Blueprint متعدد البيئات — مُفعَّل | Status + Compliance + Operations Bot');
+} catch (e) {
+    console.log('⚠️ [MULTI-ENV] فشل تحميل مسارات blueprint متعددة البيئات:', e.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ DB ENGINE — طبقة قاعدة البيانات (MongoDB-ready + JSON fallback)
 // أضف MONGODB_URI في .env لتفعيل MongoDB تلقائياً
