@@ -1,0 +1,68 @@
+openapi: 3.0.3
+info:
+  title: Sheikha Universal API
+  description: |
+    واجهة برمجية موحدة لتشغيل وإدارة جميع الأنظمة (حواسيب، مصانع، طيران، طاقة، عسكرية، صحية، جوالات، مراكز بيانات...)
+    جميع الحقوق محفوظة © 2026 سلمان أحمد بن سلمان الراجح
+  version: 1.0.0
+servers:
+  - url: http://localhost:9191
+paths:
+  /api/health:
+    get:
+      summary: اختبار جاهزية الواجهة
+      responses:
+        '200':
+          description: الحالة
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  status:
+                    type: string
+                  timestamp:
+                    type: integer
+  /api/v2/health:
+    get:
+      summary: اختبار جاهزية الواجهة (v2)
+      responses:
+        '200':
+          description: الحالة
+  /api/neural/root/activate/fundamentals:
+    post:
+      summary: تفعيل أساسيات الحاسب/الذكاء/النواة
+      responses:
+        '200':
+          description: نتيجة التفعيل
+  /api/neural/root/cosmic-integration:
+    post:
+      summary: تفعيل التكامل الكوني الكامل
+      responses:
+        '200':
+          description: نتيجة التفعيل
+  /api/activate:
+    post:
+      summary: تفعيل نظام أو خدمة
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                system:
+                  type: string
+                  description: اسم النظام أو الخدمة المطلوب تفعيلها
+      responses:
+        '200':
+          description: نتيجة التفعيل
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  success:
+                    type: boolean
+                  message:
+                    type: string

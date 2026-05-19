@@ -2,12 +2,50 @@
   "success": true,
   "status": "passed",
   "input": "market.shk",
+  "engine": "tree",
+  "profile": "local",
+  "policyVerification": {
+    "ok": true,
+    "errors": []
+  },
   "summary": {
     "astNodes": 4,
     "irSteps": 13,
+    "bytecodeInstructions": 13,
     "outputs": 2,
     "governanceViolations": 0,
-    "neuralCells": 19
+    "typeErrors": 0,
+    "neuralCells": 19,
+    "adapterCalls": 0,
+    "adapterDryRun": true,
+    "strictIsolation": false,
+    "policyErrors": 0
+  },
+  "typeCheck": {
+    "ok": true,
+    "diagnostics": [],
+    "symbols": {
+      "entities": {
+        "صفقة_معادن": {
+          "properties": {
+            "النوع": "string",
+            "الوزن": "number",
+            "الشرط": "string",
+            "منع": "list"
+          }
+        }
+      },
+      "procedures": {
+        "تحقق_شرعي": {
+          "commands": []
+        },
+        "توصية": {
+          "commands": [
+            "اعرض"
+          ]
+        }
+      }
+    }
   },
   "output": [
     "رفض: \"الغش ممنوع\"",
@@ -35,7 +73,7 @@
             }
           }
         },
-        "ts": "2026-05-18T23:53:15.796Z"
+        "ts": "2026-05-19T21:54:12.825Z"
       },
       {
         "rule": "prohibited-financial-patterns",
@@ -57,7 +95,7 @@
             }
           }
         },
-        "ts": "2026-05-18T23:53:15.796Z"
+        "ts": "2026-05-19T21:54:12.825Z"
       },
       {
         "rule": "prohibited-financial-patterns",
@@ -79,7 +117,7 @@
             }
           }
         },
-        "ts": "2026-05-18T23:53:15.796Z"
+        "ts": "2026-05-19T21:54:12.825Z"
       }
     ],
     "violations": []
@@ -206,5 +244,31 @@
         }
       ]
     }
+  },
+  "adapters": {
+    "dryRun": true,
+    "calls": []
+  },
+  "sandbox": {
+    "profile": "local",
+    "strict": false,
+    "networkHosts": [
+      "127.0.0.1",
+      "localhost"
+    ],
+    "pm2Targets": [
+      "sheikha-api",
+      "sheikha-meta-background",
+      "sheikha-copilot"
+    ],
+    "dockerTargets": [
+      "sheikha-api",
+      "sheikha-php-gateway",
+      "sheikha-neural-gateway"
+    ],
+    "dockerAllowNoTargetActions": [
+      "ps",
+      "images"
+    ]
   }
 }
