@@ -1,0 +1,32 @@
+[Unit]
+Description=SHEIKHA DNS Failover Manager
+Documentation=https://sheikha.top/docs/infrastructure
+After=network-online.target
+
+[Service]
+Type=simple
+User=root
+Group=root
+
+# شغّل السكربت في وضع المراقبة المستمرة
+ExecStart=/usr/bin/bash __SHEIKHA_PROJECT_ROOT__/scripts/sheikha-dns-failover.sh
+
+# المتغيرات البيئية
+Environment="CONTINUOUS=1"
+Environment="DEBUG=0"
+Environment="PRIMARY_IP=31.97.190.74"
+Environment="SECONDARY_IP="
+EnvironmentFile=-/etc/sheikha/cloudflare.env
+Environment="PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin"
+
+# إعادة التشغيل
+Restart=always
+RestartSec=15
+
+# السجلات
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sheikha-dns-failover
+
+[Install]
+WantedBy=multi-user.target

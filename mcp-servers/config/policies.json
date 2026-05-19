@@ -1,0 +1,24 @@
+{
+  "timeouts_ms": {
+    "default": 15000,
+    "max": 20000
+  },
+  "rate_limit": {
+    "window_ms": 60000,
+    "max_requests": 120
+  },
+  "payload_limits": {
+    "max_request_bytes": 262144,
+    "max_response_bytes": 1048576
+  },
+  "audit": {
+    "enabled": true,
+    "redact_keys": ["token", "password", "secret", "apiKey", "authorization"],
+    "write_target": "jsonl"
+  },
+  "mode": {
+    "deny_by_default": true,
+    "allowlist_required": true
+  }
+}
+

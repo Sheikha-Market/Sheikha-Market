@@ -1,0 +1,65 @@
+Sheikha Copilot Extension - Installation Summary
+================================================
+
+Extension: sheikha-copilot
+Publisher: sheikha
+Version: 1.0.1
+Built: Sat Mar 21 10:37:52 PM UTC 2026
+
+Installation Methods:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. FROM FILE (Offline Installation)
+   ────────────────────────────────
+   $ code --install-extension "/workspaces/sheikha/sheikha-main-portal/sheikha-vscode-extension/dist/sheikha.sheikha-copilot-1.0.1.vsix"
+   
+   Or via VS Code UI:
+   • Open Extensions (Ctrl+Shift+X)
+   • Click ⋯ menu → Install from VSIX
+   • Select the .vsix file
+
+2. FROM COMMAND LINE
+   ──────────────────
+   $ cd "/workspaces/sheikha/sheikha-main-portal/sheikha-vscode-extension"
+   $ vsce publish --pat <Azure DevOps PAT>
+   
+   Note: Requires publisher token
+
+3. FROM VS CODE MARKETPLACE (Future)
+   ─────────────────────────────────
+   Search for "Sheikha Copilot" in Extensions
+
+Troubleshooting:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Issue: "Cannot find module" errors
+→ Run: npm install in the extension directory
+
+Issue: Extension doesn't activate
+→ Check: VS Code version >= 1.85.0
+→ Open: outputPanel "Sheikha Copilot" for logs
+
+Issue: Commands not appearing
+→ Reload VS Code (Ctrl+R)
+→ Check: activationEvents in package.json
+
+First Steps After Installation:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+1. Reload VS Code (Ctrl+R)
+2. Verify in Extensions view (should show version 1.0.1)
+3. Open Command Palette (Ctrl+Shift+P)
+4. Run: "Sheikha Copilot: Show Status"
+5. Check if API is reachable (http://localhost:8080)
+6. Open chat with: Ctrl+Shift+I
+
+Configuration:
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+VS Code Settings (Ctrl+,):
+• sheikha-copilot.serverUrl → API endpoint
+• sheikha-copilot.defaultModel → AI model to use
+• sheikha-copilot.enableInlineCompletions → Toggle suggestions
+• sheikha-copilot.completionDelay → Delay before showing suggestions (ms)
+
+Created: 2026-03-21 22:37:52

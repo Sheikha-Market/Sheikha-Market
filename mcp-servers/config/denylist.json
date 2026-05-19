@@ -1,0 +1,12 @@
+{
+  "filesystem_write": true,
+  "process_exec": true,
+  "destructive_git": true,
+  "network_side_effects_without_approval": true,
+  "blocked_tools": [
+    "delete_file",
+    "exec_shell",
+    "write_file_unapproved"
+  ]
+}
+

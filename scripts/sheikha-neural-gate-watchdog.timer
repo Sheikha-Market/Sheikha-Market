@@ -1,0 +1,12 @@
+[Unit]
+Description=Run Sheikha neural gate watchdog every minute
+
+[Timer]
+OnBootSec=45s
+OnUnitActiveSec=60s
+Unit=sheikha-neural-gate-watchdog.service
+AccuracySec=10s
+Persistent=true
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,40 @@
+version: '3.8'
+services:
+  ai_server:
+    image: python:3.10-slim
+    container_name: ai_server
+    working_dir: /app
+    ports:
+      - "8000:8000"
+    volumes:
+      - .:/app
+      - ./php_ai_vector_db:/app/data/php_ai_vector_db
+      - ./data/backups:/app/data/backups
+    command: >
+      sh -c "pip install --no-cache-dir fastapi uvicorn chromadb pydantic torch prometheus-fastapi-instrumentator apscheduler --extra-index-url https://pytorch.org &&
+             uvicorn app:app --host 0.0.0.0 --port 8000 --workers 4"
+
+  prometheus:
+    image: prom/prometheus:latest
+    container_name: prometheus
+    volumes:
+      - ./prometheus.yml:/etc/prometheus/prometheus.yml
+      - ./alert.rules.yml:/etc/prometheus/alert.rules.yml
+    ports:
+      - "9090:9090"
+
+  alertmanager:
+    image: prom/alertmanager:latest
+    container_name: alertmanager
+    volumes:
+      - ./alertmanager.yml:/etc/alertmanager/alertmanager.yml
+    ports:
+      - "9093:9093"
+
+  grafana:
+    image: grafana/grafana:latest
+    container_name: grafana
+    ports:
+      - "3000:3000"
+    environment:
+      - GF_SECURITY_ADMIN_PASSWORD=admin_super_secret_pass_2026

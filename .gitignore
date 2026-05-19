@@ -22,6 +22,12 @@ repos/
 
 # Local runtime helper scripts (not part of production source baseline)
 scripts/
+!scripts/neural-gate.sh
+!scripts/vps-deploy.sh
+!scripts/install-neural-watchdog.sh
+!scripts/sheikha-neural-gate-watchdog.sh
+!scripts/sheikha-neural-gate-watchdog.service
+!scripts/sheikha-neural-gate-watchdog.timer
 sync-neural-cells.sh
 !sync-neural-cells.sh
 

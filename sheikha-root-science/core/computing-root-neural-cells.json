@@ -1,0 +1,127 @@
+{
+  "domain": "أساسيات الحاسب — Computing Fundamentals",
+  "version": "1.0.0",
+  "foundation": "الكتاب والسنة — العقل أمانة والعلم نور",
+  "status": "ACTIVE",
+  "activatedAt": "2026-05-19T00:00:00.000Z",
+  "totalCells": 64,
+
+  "layers": {
+    "seed": {
+      "name": "البذرة — Binary Foundation",
+      "cells": [
+        { "id": "c001", "name": "البت — Bit", "concept": "الوحدة الأصغر: 0 أو 1", "analog": "الثنائية أصل كل رقم" },
+        { "id": "c002", "name": "البايت — Byte", "concept": "8 bits = وحدة الخزن الأساسية", "analog": "الحرف يبدأ بحرف" },
+        { "id": "c003", "name": "الجمع الثنائي", "concept": "AND, OR, XOR, NOT", "analog": "لا وسط بين الحق والباطل" },
+        { "id": "c004", "name": "الأنظمة العددية", "concept": "ثنائي، ثماني، عشري، ست عشري", "analog": "اللغات المختلفة لنفس المعنى" },
+        { "id": "c005", "name": "الترميز — Encoding", "concept": "ASCII, Unicode, UTF-8", "analog": "الكتابة تحفظ المعنى" },
+        { "id": "c006", "name": "الدوائر المنطقية", "concept": "Logic Gates: AND, OR, NOT, NAND, NOR, XOR", "analog": "الأسباب تُفضي لنتائج" },
+        { "id": "c007", "name": "العد والحساب", "concept": "Carry, Overflow, Two's Complement", "analog": "الحساب يومًا لا ريب فيه" },
+        { "id": "c008", "name": "تمثيل الفاصلة العائمة", "concept": "IEEE 754 Float", "analog": "الدقة أمانة" }
+      ]
+    },
+    "root": {
+      "name": "الجذر — Data Structures",
+      "cells": [
+        { "id": "c009", "name": "المصفوفة — Array", "concept": "خزن عناصر في ترتيب خطي، O(1) وصول", "analog": "الصفوف المنظمة" },
+        { "id": "c010", "name": "القائمة المرتبطة — Linked List", "concept": "عُقد مترابطة، مرونة الإدراج والحذف", "analog": "سلسلة الإسناد" },
+        { "id": "c011", "name": "المكدس — Stack", "concept": "LIFO — آخر داخل أول خارج", "analog": "طبقات المسؤولية" },
+        { "id": "c012", "name": "الطابور — Queue", "concept": "FIFO — أول داخل أول خارج", "analog": "العدل في الأدوار" },
+        { "id": "c013", "name": "الشجرة الثنائية — Binary Tree", "concept": "عقدة جذر، فرعان، عمق لوغاريتمي", "analog": "شجر الأنساب" },
+        { "id": "c014", "name": "شجرة البحث الثنائية — BST", "concept": "ترتيب مبني: يسار أصغر، يمين أكبر", "analog": "التصنيف يسهّل الوصول" },
+        { "id": "c015", "name": "الجدول الهاشي — Hash Table", "concept": "مفتاح ← قيمة، O(1) متوسط", "analog": "المكتبة المفهرسة" },
+        { "id": "c016", "name": "الرسم البياني — Graph", "concept": "عُقد وحواف، موجّه وغير موجّه", "analog": "شبكة العلاقات" },
+        { "id": "c017", "name": "الكومة — Heap", "concept": "Min-Heap / Max-Heap، أولوية", "analog": "ترتيب الأولويات" },
+        { "id": "c018", "name": "الشجرة المتوازنة — Balanced Tree", "concept": "AVL, Red-Black, B-Tree", "analog": "العدل يحفظ التوازن" }
+      ]
+    },
+    "soil": {
+      "name": "التربة — Algorithms",
+      "cells": [
+        { "id": "c019", "name": "تعقيد الزمن — Time Complexity", "concept": "O(1) O(log n) O(n) O(n log n) O(n²)", "analog": "قياس الجهد قبل العمل" },
+        { "id": "c020", "name": "الفرز بالدمج — Merge Sort", "concept": "فرّق ثم ادمج، O(n log n)", "analog": "التعاون يرفع الكفاءة" },
+        { "id": "c021", "name": "الفرز السريع — Quick Sort", "concept": "محور ومقارنة، O(n log n) متوسط", "analog": "القرار الحاسم يُنظّم" },
+        { "id": "c022", "name": "البحث الثنائي — Binary Search", "concept": "مصفوفة مرتبة، O(log n)", "analog": "التنقية تقلّص المساحة" },
+        { "id": "c023", "name": "البرمجة الديناميكية — DP", "concept": "حفظ النتائج المتكررة، Memoization", "analog": "الخبرة لا تُعاد من الصفر" },
+        { "id": "c024", "name": "الخوارزميات الجشعة — Greedy", "concept": "الاختيار المحلي الأمثل في كل خطوة", "analog": "حُسن الحكم اللحظي" },
+        { "id": "c025", "name": "العودية — Recursion", "concept": "دالة تستدعي نفسها مع حالة أساسية", "analog": "التكرار مع التقليل" },
+        { "id": "c026", "name": "BFS & DFS", "concept": "Breadth/Depth First Search للرسوم البيانية", "analog": "التفتيش المنهجي" },
+        { "id": "c027", "name": "خوارزمية Dijkstra", "concept": "أقصر مسار مرجّح، O(E log V)", "analog": "أقصر طريق للهدف" },
+        { "id": "c028", "name": "Divide & Conquer", "concept": "تقسيم إلى مشاكل أصغر وحلّها", "analog": "التدرّج في العلم" }
+      ]
+    },
+    "water": {
+      "name": "الماء — Computer Architecture",
+      "cells": [
+        { "id": "c029", "name": "وحدة المعالجة — CPU", "concept": "ALU + CU + Registers + Cache", "analog": "العقل المدبّر" },
+        { "id": "c030", "name": "دورة التعليمات", "concept": "Fetch → Decode → Execute → Store", "analog": "العلم ثم العمل ثم الأثر" },
+        { "id": "c031", "name": "هرمية الذاكرة", "concept": "Register → L1→L2→L3 Cache → RAM → Disk", "analog": "طبقات الحفظ والنسيان" },
+        { "id": "c032", "name": "ناقل البيانات — Bus", "concept": "Data Bus, Address Bus, Control Bus", "analog": "طرق التواصل" },
+        { "id": "c033", "name": "الإدخال والإخراج — I/O", "concept": "Ports, Interrupts, DMA", "analog": "الحواس والأعضاء" },
+        { "id": "c034", "name": "المعالجة الخطية — Pipelining", "concept": "تداخل مراحل التنفيذ لزيادة الإنتاج", "analog": "الإنتاج المتدفق" },
+        { "id": "c035", "name": "المعالجة المتوازية", "concept": "Multicore, SIMD, GPU", "analog": "تعاون الأيدي" },
+        { "id": "c036", "name": "RISC vs CISC", "concept": "بساطة التعليمات مقابل تعقيدها", "analog": "البساطة أصل الإتقان" }
+      ]
+    },
+    "growth": {
+      "name": "النمو — Operating Systems",
+      "cells": [
+        { "id": "c037", "name": "العملية — Process", "concept": "برنامج قيد التشغيل، PCB، حالات", "analog": "المهمة ذات الحياة" },
+        { "id": "c038", "name": "الخيط — Thread", "concept": "وحدة تنفيذ داخل العملية، مشاركة الذاكرة", "analog": "الشركاء في المهمة" },
+        { "id": "c039", "name": "جدولة CPU", "concept": "FCFS, SJF, Round Robin, Priority", "analog": "العدل في توزيع الوقت" },
+        { "id": "c040", "name": "إدارة الذاكرة", "concept": "Paging, Segmentation, Virtual Memory", "analog": "تنظيم المخازن" },
+        { "id": "c041", "name": "نظام الملفات", "concept": "FAT, NTFS, ext4، inodes، directories", "analog": "حفظ السجلات" },
+        { "id": "c042", "name": "التزامن — Synchronization", "concept": "Mutex, Semaphore, Monitor", "analog": "الانضباط يمنع الفوضى" },
+        { "id": "c043", "name": "الجمود — Deadlock", "concept": "كشفه، منعه، تجاوزه", "analog": "التعطّل يُحل بالتنازل" },
+        { "id": "c044", "name": "أمن النظام", "concept": "Permissions, Users, Capabilities, SELinux", "analog": "الحدود حماية للجميع" }
+      ]
+    },
+    "branch": {
+      "name": "الفروع — Networking",
+      "cells": [
+        { "id": "c045", "name": "نموذج OSI السبعي", "concept": "Physical → Data Link → Network → Transport → Session → Presentation → Application", "analog": "طبقات التواصل البشري" },
+        { "id": "c046", "name": "بروتوكول TCP/IP", "concept": "IP Addressing, Routing, TCP Handshake", "analog": "العقد الموثوق" },
+        { "id": "c047", "name": "DNS — نظام الأسماء", "concept": "اسم → IP، Recursive + Authoritative", "analog": "دليل العناوين" },
+        { "id": "c048", "name": "HTTP/HTTPS", "concept": "Request/Response, Headers, TLS/SSL", "analog": "لغة الطلب والرد" },
+        { "id": "c049", "name": "المنافذ — Ports", "concept": "80/443/22/3306 — تصنيف الخدمات", "analog": "أبواب متخصصة" },
+        { "id": "c050", "name": "جدار الحماية — Firewall", "concept": "Packet Filtering, Stateful, WAF", "analog": "الحارس على الأبواب" },
+        { "id": "c051", "name": "REST & WebSocket", "concept": "HTTP APIs, Persistent Connections", "analog": "قنوات الحوار" },
+        { "id": "c052", "name": "التشفير — Cryptography", "concept": "Symmetric, Asymmetric, Hashing, TLS", "analog": "الأمانة تُصان بالحماية" }
+      ]
+    },
+    "harvest": {
+      "name": "الحصاد — Databases & Programming",
+      "cells": [
+        { "id": "c053", "name": "قواعد البيانات العلائقية", "concept": "Tables, SQL, Joins, Indexes, ACID", "analog": "العقد المنظّم بين الجداول" },
+        { "id": "c054", "name": "NoSQL", "concept": "Document, Key-Value, Graph, Column", "analog": "التنوع في الأساليب" },
+        { "id": "c055", "name": "ACID Properties", "concept": "Atomicity, Consistency, Isolation, Durability", "analog": "الصدق والثبات في العقود" },
+        { "id": "c056", "name": "البرمجة الكائنية — OOP", "concept": "Encapsulation, Inheritance, Polymorphism, Abstraction", "analog": "تنظيم المسؤوليات" },
+        { "id": "c057", "name": "البرمجة الوظيفية", "concept": "Pure Functions, Immutability, Composition", "analog": "الدقة والتوقع" },
+        { "id": "c058", "name": "أنماط التصميم — Design Patterns", "concept": "Singleton, Factory, Observer, Strategy", "analog": "الحكمة المستخلصة من التجربة" },
+        { "id": "c059", "name": "المكتبات والأطر", "concept": "Abstraction Layers: Libraries vs Frameworks", "analog": "الوقوف على أكتاف العلماء" },
+        { "id": "c060", "name": "التحكم في الإصدار — Git", "concept": "Commits, Branches, Merge, Rebase, PR", "analog": "توثيق التاريخ والتغيير" }
+      ]
+    },
+    "rollback": {
+      "name": "الرجوع الآمن — Software Engineering Principles",
+      "cells": [
+        { "id": "c061", "name": "SOLID Principles", "concept": "Single Resp, Open/Closed, Liskov, Interface Seg, Dependency Inv", "analog": "قواعد بناء لا تنهار" },
+        { "id": "c062", "name": "الاختبار — Testing", "concept": "Unit, Integration, E2E, TDD, BDD", "analog": "الفحص قبل الإطلاق" },
+        { "id": "c063", "name": "CI/CD", "concept": "Continuous Integration, Delivery, Deployment", "analog": "التحسين المستمر" },
+        { "id": "c064", "name": "الأمن أولًا — Security by Design", "concept": "OWASP Top 10, Least Privilege, Defense in Depth", "analog": "لا ضرر ولا ضرار" }
+      ]
+    }
+  },
+
+  "summary": {
+    "seed_cells": 8,
+    "root_cells": 10,
+    "soil_cells": 10,
+    "water_cells": 8,
+    "growth_cells": 8,
+    "branch_cells": 8,
+    "harvest_cells": 8,
+    "rollback_cells": 4,
+    "total": 64
+  }
+}
