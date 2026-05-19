@@ -197,11 +197,28 @@
 
 ## أصول التنفيذ المباشر
 - قالب تقييم كل خدمة/موديول:
-	docs/guides/SHEIKHA-HYBRID-ENGINEERING-EVALUATION-TEMPLATE.md
+  docs/guides/SHEIKHA-HYBRID-ENGINEERING-EVALUATION-TEMPLATE.md
 - مواصفة اللغة البرمجية الهجينة:
-	sheikha-language/docs/hybrid-growth-dsl-spec.md
+  sheikha-language/docs/hybrid-growth-dsl-spec.md
 - مخطط البيئات والتكامل بين الأنظمة:
-	docs/integrations/SHEIKHA-INTEGRATED-ENVIRONMENTS-AND-SYSTEMS-BLUEPRINT.md
+  docs/integrations/SHEIKHA-INTEGRATED-ENVIRONMENTS-AND-SYSTEMS-BLUEPRINT.md
+- الإطار العلمي المتكامل وحساب الأفضلية الشاملة:
+  docs/guides/SHEIKHA-UNIVERSAL-INTEGRATED-SCIENCE-FRAMEWORK.md
+- منظومة المختبرات المتخصصة والمتكاملة:
+  docs/guides/SHEIKHA-INTEGRATED-LABORATORY-ECOSYSTEM.md
+
+## المختبرات المتخصصة للتحسين المستمر
+تشمل المنظومة 10 مختبرات متخصصة تحاكي المختبرات الطبيعية:
+1. 🌱 **مختبر النبات**: النمو والاستدامة والتطور
+2. 🧬 **مختبر الأحياء**: التفاعلات الحيوية والعمليات الخلوية
+3. 🌍 **مختبر التربة**: جودة الأساس والاستقرار الهيكلي
+4. 💧 **مختبر الماء**: تدفقات البيانات والطاقة
+5. 🧪 **مختبر الكيمياء**: التفاعلات والعمليات المعقدة
+6. 🔬 **مختبر الفيزياء**: الطاقة والقوى والأداء
+7. 📊 **مختبر الإحصاء**: الأنماط والتوزيعات والقياسات
+8. 🧠 **مختبر الذكاء**: التعلم والاستنتاج والتنبؤ
+9. 🛡️ **مختبر الأمان**: التشفير والحماية والامتثال
+10. ⚖️ **مختبر الحوكمة**: العدل والشفافية والامتثال الشرعي
 
 ## حساب الأفضل (Hybrid Score)
 لحساب النتيجة النهائية لأي خدمة بصيغة JSON:
@@ -214,6 +231,43 @@ npm run -s ops:hybrid:score -- path/to/input.json
 
 ```bash
 npm run -s ops:hybrid:score:example
+```
+
+## حساب الأفضلية الشاملة (Universal Integrated Score)
+لحساب الأفضلية الشاملة للنظام:
+
+```bash
+npm run -s ops:universal:score -- path/to/input.json
+```
+
+تشغيل المثال الجاهز:
+
+```bash
+npm run -s ops:universal:score:example
+```
+
+## تشغيل المختبرات المتخصصة
+```bash
+# تشغيل جميع المختبرات
+npm run -s ops:labs:all
+
+# تشغيل مختبر محدد
+npm run -s ops:labs:botanical
+npm run -s ops:labs:biology
+npm run -s ops:labs:soil
+npm run -s ops:labs:water
+npm run -s ops:labs:chemistry
+npm run -s ops:labs:physics
+npm run -s ops:labs:statistics
+npm run -s ops:labs:intelligence
+npm run -s ops:labs:security
+npm run -s ops:labs:governance
+
+# عرض قائمة المختبرات
+npm run -s ops:labs:list
+
+# تقرير المختبرات
+npm run -s ops:labs:report
 ```
 
 ## صيغة تشغيل قياسية
