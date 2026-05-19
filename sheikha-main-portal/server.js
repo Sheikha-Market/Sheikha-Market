@@ -37318,6 +37318,33 @@ try {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🏛️ SHEIKHA SUPREME ACTIVATION — التفعيل الأعلى الشامل الكوني
+// تفعيل منظومة الحاسب + الذكاء الصناعي + الوكلاء + الشبكة العصبية بالكامل
+// ﴿وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا﴾ — البقرة: ٣١
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const supremeRoutes = require('./routes/supreme-activation.routes.js');
+    app.use('/api/supreme', supremeRoutes);
+    console.log('✅ [SUPREME] التفعيل الأعلى الشامل — مُفعَّل على /api/supreme');
+    console.log('   ├─ POST /api/supreme/activate           — التفعيل الأعلى الشامل الكوني');
+    console.log('   ├─ GET  /api/supreme/status             — حالة التفعيل الأعلى');
+    console.log('   ├─ GET  /api/supreme/agents/board       — لوحة جاهزية الوكلاء');
+    console.log('   ├─ GET  /api/supreme/agents/registry    — سجل الوكلاء الرسمي');
+    console.log('   ├─ GET  /api/supreme/foundation/summary — منظومة الحاسب والعلوم');
+    console.log('   ├─ GET  /api/supreme/foundation/pillars — أركان المنظومة الكاملة');
+    console.log('   ├─ GET  /api/supreme/neural/laws        — قوانين الشبكة العصبية');
+    console.log('   ├─ GET  /api/supreme/neural/specs       — مواصفات الشبكة العصبية');
+    console.log('   ├─ GET  /api/supreme/environments       — جميع البيئات التشغيلية');
+    console.log('   ├─ GET  /api/supreme/environments/:id   — بيئة واحدة مع تقرير الامتثال');
+    console.log('   ├─ POST /api/supreme/watchdog/start     — بدء وكيل المراقبة');
+    console.log('   ├─ GET  /api/supreme/watchdog/status    — حالة وكيل المراقبة');
+    console.log('   ├─ GET  /api/supreme/watchdog/logs      — سجل المراقبة');
+    console.log('   └─ GET  /api/supreme/health             — فحص صحة المنظومة الشاملة');
+} catch (e) {
+    console.log('⚠️ [SUPREME] فشل تحميل مسارات التفعيل الأعلى:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ SHEIKHA UNIFIED STATUS — لوحة القيادة الموحّدة
 // تجمع حالة: التقارير + الرؤية الحاسوبية + الشبكة العصبية الجذرية
 // ═══════════════════════════════════════════════════════════════════════════════
