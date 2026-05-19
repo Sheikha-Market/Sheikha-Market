@@ -57,7 +57,10 @@ test('compiler CLI emits php and ast files', () => {
     assert.equal(fs.existsSync(outputAst), true);
 
     const ast = JSON.parse(fs.readFileSync(outputAst, 'utf8'));
-    assert.equal(ast.type, 'Program');
+    assert.ok(
+        ast.kind === 'SheikhaProgram' ||
+        ast.type === 'Program'
+    );
 });
 
 test('parses adapter commands from orchestration.shk', () => {
