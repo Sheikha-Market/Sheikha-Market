@@ -27,14 +27,15 @@ function assert(condition, label) {
 console.log('\n[1] Neural Root Activator (intelligence/sheikha-neural-root-activator.js)');
 const activator = require('../intelligence/sheikha-neural-root-activator');
 
-// قبل التفعيل
+// المُفعِّل يُشغَّل تلقائياً عند التحميل (activate() مُستدعَى في نهاية الملف)
+// لذلك تكون ready === true فور require()
 const preStatus = activator.status();
-assert(preStatus.ready === false, 'activator not ready before activate()');
+assert(preStatus.ready === true, 'activator is ready on load (auto-activated)');
 assert(typeof preStatus.activation === 'object', 'status has activation object');
 
-// محاولة infer قبل التفعيل
+// التحقق من أن infer يعمل بعد التفعيل التلقائي
 const preInfer = activator.infer('test');
-assert(preInfer.error !== undefined, 'infer before activate returns error');
+assert(preInfer.finalVerdict !== undefined, 'infer works after auto-activation');
 
 // تفعيل الشبكة
 const result = activator.activate();
