@@ -1,1 +1,100 @@
-[]
+[
+  {
+    "id": "d224eed7-24d3-443e-be77-dc665c7c39ca",
+    "orderNumber": "ORD-MPD52CLC-3LJO",
+    "buyerId": "b06d7fb9-6b77-43e8-a9c8-b53756bde209",
+    "buyerName": "buyer-mpd52chy@test.sheikha.local",
+    "supplierId": "2efd2a3d-76b4-46e9-a823-0b8e4c892fbf",
+    "supplierName": null,
+    "items": [
+      {
+        "productId": "5b481ac9-6c53-485e-8283-f399952b1e79",
+        "productName": "حديد مقاطع اختبار mpd52chy",
+        "quantity": 100,
+        "unit": "kg",
+        "unitPrice": 3.5,
+        "currency": "SAR",
+        "supplierId": "2efd2a3d-76b4-46e9-a823-0b8e4c892fbf",
+        "supplierName": "supplier-mpd52chy@test.sheikha.local"
+      }
+    ],
+    "totalAmount": 350,
+    "currency": "SAR",
+    "status": "confirmed",
+    "paymentStatus": "pending",
+    "paymentMethod": null,
+    "shippingAddress": null,
+    "notes": "طلب اختبار — يُرجى التجاهل",
+    "sharia": {
+      "compliant": true,
+      "noRiba": true
+    },
+    "tracking": {
+      "history": [
+        {
+          "status": "pending",
+          "timestamp": "2026-05-19T21:22:16.512Z",
+          "note": "تم إنشاء الطلب"
+        },
+        {
+          "status": "confirmed",
+          "timestamp": "2026-05-19T21:22:16.520Z",
+          "note": "تم التأكيد",
+          "by": "2efd2a3d-76b4-46e9-a823-0b8e4c892fbf"
+        }
+      ],
+      "estimatedDelivery": null
+    },
+    "createdAt": "2026-05-19T21:22:16.512Z",
+    "updatedAt": "2026-05-19T21:22:16.520Z"
+  },
+  {
+    "id": "0160bf44-4b36-4cbe-8923-d8f1b26db50b",
+    "orderNumber": "ORD-MPD52CM6-IC7F",
+    "buyerId": "b06d7fb9-6b77-43e8-a9c8-b53756bde209",
+    "buyerName": "buyer-mpd52chy@test.sheikha.local",
+    "supplierId": "2efd2a3d-76b4-46e9-a823-0b8e4c892fbf",
+    "supplierName": null,
+    "items": [
+      {
+        "productId": "5b481ac9-6c53-485e-8283-f399952b1e79",
+        "productName": "حديد مقاطع اختبار mpd52chy",
+        "quantity": 50,
+        "unit": "kg",
+        "unitPrice": 3.8,
+        "currency": "SAR",
+        "supplierId": "2efd2a3d-76b4-46e9-a823-0b8e4c892fbf",
+        "supplierName": "supplier-mpd52chy@test.sheikha.local"
+      }
+    ],
+    "totalAmount": 190,
+    "currency": "SAR",
+    "status": "cancelled",
+    "paymentStatus": "pending",
+    "paymentMethod": null,
+    "shippingAddress": null,
+    "notes": null,
+    "sharia": {
+      "compliant": true,
+      "noRiba": true
+    },
+    "tracking": {
+      "history": [
+        {
+          "status": "pending",
+          "timestamp": "2026-05-19T21:22:16.542Z",
+          "note": "تم إنشاء الطلب"
+        },
+        {
+          "status": "cancelled",
+          "timestamp": "2026-05-19T21:22:16.544Z",
+          "note": "اختبار الإلغاء",
+          "by": "b06d7fb9-6b77-43e8-a9c8-b53756bde209"
+        }
+      ],
+      "estimatedDelivery": null
+    },
+    "createdAt": "2026-05-19T21:22:16.542Z",
+    "updatedAt": "2026-05-19T21:22:16.544Z"
+  }
+]
