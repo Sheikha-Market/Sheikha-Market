@@ -376,6 +376,8 @@
     "ops:sheikha:vm:full": "npm run -s ops:sheikha:lang:sprint2:compile && npm run -s ops:sheikha:vm:run",
     "ops:hybrid:score": "node scripts/hybrid-evaluation-score.js",
     "ops:hybrid:score:example": "node scripts/hybrid-evaluation-score.js docs/guides/hybrid-evaluation-example.json",
+    "ops:hybrid:registry:generate": "node scripts/hybrid-evaluation-registry.js generate",
+    "ops:hybrid:registry:check": "node scripts/hybrid-evaluation-registry.js check",
     "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
     "test": "jest"
   },
