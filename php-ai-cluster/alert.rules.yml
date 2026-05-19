@@ -1,0 +1,10 @@
+groups:
+  - name: php_ai_server_alerts
+    rules:
+      - alert: AIResponseTooSlow
+        expr: (http_request_duration_seconds_sum{handler="/v1/chat"} / http_request_duration_seconds_count{handler="/v1/chat"}) > 2
+        for: 10s
+        labels:
+          severity: critical
+        annotations:
+          summary: "🚨 بطء شديد في محرك الذكاء الاصطناعي السحابي"

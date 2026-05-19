@@ -1,0 +1,28 @@
+Program         = { TopLevel } ;
+
+TopLevel        = Directive
+                | EntityDecl
+                | ProcedureDecl ;
+
+Directive       = "بسم_الله" NewLine ;
+
+EntityDecl      = "كيان" Name ":" NewLine Indent { Property } Dedent ;
+
+ProcedureDecl   = "إجراء" Name ":" NewLine Indent { Statement } Dedent ;
+
+Statement       = IfStatement
+                | CommandStatement
+                | Property ;
+
+IfStatement     = "إذا" Condition ":" NewLine Indent { Statement } Dedent
+                  [ "وإلا" ":" NewLine Indent { Statement } Dedent ] ;
+
+CommandStatement= ("اعرض" | "ارفض" | "أجز") Value NewLine ;
+
+Property        = Key ":" Value NewLine ;
+
+Name            = Text ;
+Key             = Text ;
+Value           = Text ;
+Condition       = Text ;
+Text            = { Token } ;

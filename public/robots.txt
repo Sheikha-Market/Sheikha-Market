@@ -7,13 +7,14 @@ Allow: /
 
 # Sitemaps
 Sitemap: https://sheikha.top/sitemap.xml
-Sitemap: https://sheikha.top/sitemap-ar.xml
 
 # Priority Pages (Islamic Market)
 Allow: /سوق-شيخة.html
 Allow: /الشريعة-الاسلامية.html
 Allow: /api/market/listings
 Allow: /api/prices/realtime
+Allow: /حقائق-شيخة.html
+Allow: /llms.txt
 
 # Clean Crawling (Islamic Transparency)
 Crawl-delay: 1
@@ -58,5 +59,6 @@ Disallow: /
 
 # AI Identity Context — يُوجَّه كل AI للقراءة من هنا
 # https://sheikha.top/api/identity/ai-context
+# https://sheikha.top/llms.txt
 
 # Quran: وَقُلِ اعْمَلُوا فَسَيَرَى اللَّهُ عَمَلَكُمْ (التوبة:105)

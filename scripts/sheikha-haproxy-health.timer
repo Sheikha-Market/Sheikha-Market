@@ -1,0 +1,19 @@
+[Unit]
+Description=Run SHEIKHA HAProxy Health Check every 30 seconds
+Documentation=https://sheikha.top/docs/infrastructure
+
+[Timer]
+# ابدأ بعد 10 ثواني من التمهيد
+OnBootSec=10
+
+# شغّل السكربت كل 30 ثانية
+OnUnitActiveSec=30
+
+# تأكد من التشغيل حتى لو تأخر
+Persistent=yes
+
+# بدء الـ service مباشرة عند تفعيل الـ timer
+Unit=sheikha-haproxy-health.service
+
+[Install]
+WantedBy=timers.target

@@ -1,0 +1,123 @@
+{
+  "domain": "أساسيات العلوم — Science Fundamentals",
+  "version": "1.0.0",
+  "foundation": "اقرأ باسم ربك الذي خلق — العلم عبادة والتفكر قربة",
+  "status": "ACTIVE",
+  "activatedAt": "2026-05-19T00:00:00.000Z",
+  "totalCells": 60,
+
+  "layers": {
+    "seed": {
+      "name": "البذرة — Mathematics Core",
+      "cells": [
+        { "id": "s001", "name": "المنطق الرياضي", "concept": "القضايا، الاستنتاج، البرهان", "analog": "العقل ميزان الحق" },
+        { "id": "s002", "name": "نظرية المجموعات", "concept": "Sets, Subsets, Union, Intersection", "analog": "التصنيف أصل المعرفة" },
+        { "id": "s003", "name": "الأعداد وأنواعها", "concept": "Natural, Integer, Rational, Real, Complex", "analog": "تدرّج الخلق في الكمال" },
+        { "id": "s004", "name": "الاحتمال والإحصاء", "concept": "Probability, Distributions, Mean/Variance, Bayes", "analog": "التقدير في غيب المستقبل" },
+        { "id": "s005", "name": "الجبر الخطي", "concept": "Vectors, Matrices, Eigenvalues, SVD", "analog": "الأبعاد المتداخلة" },
+        { "id": "s006", "name": "التفاضل والتكامل", "concept": "Derivatives, Integrals, Chain Rule, Gradient", "analog": "التغيير اللحظي والتراكم" },
+        { "id": "s007", "name": "الرياضيات المتقطعة", "concept": "Graphs, Trees, Combinatorics, Logic", "analog": "الحصر والعدّ" },
+        { "id": "s008", "name": "نظرية الأعداد", "concept": "Primes, GCD, Modular Arithmetic, Fermat", "analog": "الأسرار في الأعداد البسيطة" }
+      ]
+    },
+    "root": {
+      "name": "الجذر — Physics",
+      "cells": [
+        { "id": "s009", "name": "الميكانيكا الكلاسيكية", "concept": "قوانين نيوتن الثلاثة، الزخم، الطاقة", "analog": "كل فعل له ردّ فعل" },
+        { "id": "s010", "name": "الحركة والكينيماتيكا", "concept": "المسافة، السرعة، التسارع، المسارات", "analog": "كل رحلة لها ابتداء ونهاية" },
+        { "id": "s011", "name": "الديناميكا الحرارية", "concept": "الحرارة، العمل، الإنتروبيا، القوانين الأربعة", "analog": "الطاقة تتحوّل ولا تفنى" },
+        { "id": "s012", "name": "الكهرومغناطيسية", "concept": "Coulomb, Faraday, Maxwell's Equations", "analog": "القوى الخفية تربط العالم" },
+        { "id": "s013", "name": "الموجات والصوت والضوء", "concept": "Wavelength, Frequency, Interference, Diffraction", "analog": "الكون يتكلم بالموجات" },
+        { "id": "s014", "name": "ميكانيكا الكم", "concept": "Wave-Particle Duality, Schrödinger, Heisenberg", "analog": "الغيب أصل وليس استثناء" },
+        { "id": "s015", "name": "النسبية الخاصة والعامة", "concept": "E=mc², Spacetime, Gravity as curvature", "analog": "الزمن خلق لا ثابت" },
+        { "id": "s016", "name": "الفيزياء النووية", "concept": "Fission, Fusion, Radioactivity, Binding Energy", "analog": "القوة في الصغير" }
+      ]
+    },
+    "soil": {
+      "name": "التربة — Chemistry",
+      "cells": [
+        { "id": "s017", "name": "البنية الذرية", "concept": "Protons, Neutrons, Electrons, Orbitals, Quantum Numbers", "analog": "من الصغير ينبثق الكبير" },
+        { "id": "s018", "name": "الروابط الكيميائية", "concept": "Ionic, Covalent, Metallic, Hydrogen Bonds", "analog": "التواصل يُنشئ المادة" },
+        { "id": "s019", "name": "الجدول الدوري", "concept": "Groups, Periods, Electronegativity, Trends", "analog": "النظام في الخلق" },
+        { "id": "s020", "name": "التفاعلات الكيميائية", "concept": "Stoichiometry, Limiting Reagents, Yield", "analog": "السببية في التحوّل" },
+        { "id": "s021", "name": "الأحماض والقواعد", "concept": "pH, pOH, Brønsted-Lowry, Lewis Acids", "analog": "التوازن بين الأضداد" },
+        { "id": "s022", "name": "الكيمياء العضوية", "concept": "Functional Groups, Hydrocarbons, Polymers", "analog": "الكربون أساس الحياة" },
+        { "id": "s023", "name": "الحرارية الكيميائية", "concept": "Enthalpy, Gibbs Free Energy, Equilibrium", "analog": "الطاقة في التحوّل" },
+        { "id": "s024", "name": "الكيمياء الحيوية", "concept": "Amino Acids, Proteins, Enzymes, Metabolism", "analog": "الجسم مختبر دقيق" }
+      ]
+    },
+    "water": {
+      "name": "الماء — Biology",
+      "cells": [
+        { "id": "s025", "name": "بيولوجيا الخلية", "concept": "Cell Structure, Organelles, Cell Division", "analog": "الخلية الواحدة تحمل كل السرّ" },
+        { "id": "s026", "name": "علم الوراثة", "concept": "DNA, RNA, Genes, Chromosomes, Mendelian Genetics", "analog": "الأصل مكتوب في الجينات" },
+        { "id": "s027", "name": "البيولوجيا الجزيئية", "concept": "Transcription, Translation, CRISPR, Epigenetics", "analog": "الشيفرة تُترجم لفعل" },
+        { "id": "s028", "name": "نظرية التطور", "concept": "Natural Selection, Mutation, Speciation", "analog": "التكيّف مع البيئة سُنّة" },
+        { "id": "s029", "name": "علم البيئة", "concept": "Ecosystems, Food Chains, Biodiversity, Cycles", "analog": "التوازن في الأرض ميثاق" },
+        { "id": "s030", "name": "علم وظائف الأعضاء", "concept": "Nervous, Circulatory, Immune, Endocrine Systems", "analog": "الجسم نظام متكامل" },
+        { "id": "s031", "name": "علم الميكروبات", "concept": "Bacteria, Viruses, Fungi, Immune Response", "analog": "الصغار يُغيّرون العالم" },
+        { "id": "s032", "name": "التكنولوجيا الحيوية", "concept": "PCR, Sequencing, Stem Cells, Vaccines", "analog": "العلم في خدمة الحياة" }
+      ]
+    },
+    "growth": {
+      "name": "النمو — Earth & Space Sciences",
+      "cells": [
+        { "id": "s033", "name": "علم الجيولوجيا", "concept": "Plate Tectonics, Rock Cycle, Earthquakes, Volcanoes", "analog": "الأرض في حركة دائمة" },
+        { "id": "s034", "name": "الهيدرولوجيا", "concept": "Water Cycle, Rivers, Groundwater, Glaciers", "analog": "الماء مصدر كل حياة" },
+        { "id": "s035", "name": "علم الأرصاد", "concept": "Atmosphere, Weather, Climate, Pressure Systems", "analog": "الغيث بإذن الله" },
+        { "id": "s036", "name": "علم المحيطات", "concept": "Ocean Currents, Salinity, Marine Ecosystems", "analog": "البحر كتاب مفتوح" },
+        { "id": "s037", "name": "علم الفلك", "concept": "Solar System, Stars, Galaxies, Cosmology, Big Bang", "analog": "وما أوتيتم من العلم إلا قليلًا" },
+        { "id": "s038", "name": "تغيّر المناخ", "concept": "Greenhouse Effect, Carbon Cycle, Climate Models", "analog": "لا تُفسد في الأرض" },
+        { "id": "s039", "name": "الموارد الطبيعية", "concept": "Energy Sources, Mining, Sustainability", "analog": "الاستخلاف يعني الأمانة" },
+        { "id": "s040", "name": "حماية البيئة", "concept": "Pollution, Conservation, Renewable Energy", "analog": "أحسنوا كما أحسن الله إليكم" }
+      ]
+    },
+    "branch": {
+      "name": "الفروع — Scientific Method & Epistemology",
+      "cells": [
+        { "id": "s041", "name": "المنهج العلمي", "concept": "Observation → Hypothesis → Experiment → Analysis → Conclusion", "analog": "سير المتفكر في آيات الله" },
+        { "id": "s042", "name": "قابلية الدحض", "concept": "Popper's Falsifiability — العلم لا يقول لا يُكذَّب", "analog": "التواضع المعرفي" },
+        { "id": "s043", "name": "التحيزات البحثية", "concept": "Confirmation Bias, Publication Bias, Replication Crisis", "analog": "تزكية النفس في العلم" },
+        { "id": "s044", "name": "الإحصاء التطبيقي", "concept": "Hypothesis Testing, p-value, Confidence Intervals", "analog": "الدليل قبل الحكم" },
+        { "id": "s045", "name": "القياس والوحدات", "concept": "SI Units, Precision, Accuracy, Significant Figures", "analog": "الدقة أمانة في التوثيق" },
+        { "id": "s046", "name": "نماذج المحاكاة", "concept": "Mathematical Models, Simulations, Validation", "analog": "ضرب الأمثال لاستيعاب الغيب" },
+        { "id": "s047", "name": "المراجعة العلمية", "concept": "Peer Review, Citations, Research Ethics", "analog": "الشهادة العادلة في العلم" },
+        { "id": "s048", "name": "تاريخ العلم الإسلامي", "concept": "الخوارزمي، ابن الهيثم، ابن سينا، الإدريسي، ابن خلدون", "analog": "العلم إرث الأمة" }
+      ]
+    },
+    "harvest": {
+      "name": "الحصاد — Applied Sciences",
+      "cells": [
+        { "id": "s049", "name": "الهندسة الميكانيكية", "concept": "Statics, Dynamics, Thermodynamics, Fluid Mechanics", "analog": "العلم يصنع" },
+        { "id": "s050", "name": "الهندسة الكيميائية", "concept": "Reaction Engineering, Separation, Process Design", "analog": "تحويل المواد لمنفعة" },
+        { "id": "s051", "name": "الهندسة الكهربائية", "concept": "Circuits, Signals, Electromagnetics, Power Systems", "analog": "السيطرة على الطاقة" },
+        { "id": "s052", "name": "الهندسة الحيوية", "concept": "Biomechanics, Medical Devices, Drug Delivery", "analog": "العلم في خدمة الصحة" },
+        { "id": "s053", "name": "علم المواد", "concept": "Metals, Polymers, Ceramics, Semiconductors, Nanomaterials", "analog": "فضل المواد في خدمة الإنسان" },
+        { "id": "s054", "name": "الأنظمة الديناميكية", "concept": "Chaos Theory, Attractors, Complex Systems", "analog": "الفوضى وراءها نظام خفي" },
+        { "id": "s055", "name": "الفيزياء الطبية", "concept": "Medical Imaging, Radiation Therapy, Ultrasound", "analog": "الطب علم ونور" },
+        { "id": "s056", "name": "الطاقة المتجددة", "concept": "Solar, Wind, Hydro, Geothermal, Storage", "analog": "آيات الله في الطبيعة تُسخَّر للخير" }
+      ]
+    },
+    "rollback": {
+      "name": "الرجوع — Foundations & Limits of Science",
+      "cells": [
+        { "id": "s057", "name": "حدود العلم", "concept": "Gödel, Halting Problem, Heisenberg — ما لا يُعلم", "analog": "ما أوتيتم من العلم إلا قليلًا" },
+        { "id": "s058", "name": "فلسفة العلوم", "concept": "Paradigm Shifts, Scientific Revolutions — Kuhn", "analog": "اليقين مراتب" },
+        { "id": "s059", "name": "أخلاق العلم", "concept": "Research Integrity, Dual Use, Open Science", "analog": "العلم في سبيل الخير لا الفساد" },
+        { "id": "s060", "name": "التكامل المعرفي الإسلامي", "concept": "العلم الشرعي + الكوني — لا تعارض بل تكامل", "analog": "كلٌّ من عند الله" }
+      ]
+    }
+  },
+
+  "summary": {
+    "seed_cells": 8,
+    "root_cells": 8,
+    "soil_cells": 8,
+    "water_cells": 8,
+    "growth_cells": 8,
+    "branch_cells": 8,
+    "harvest_cells": 8,
+    "rollback_cells": 4,
+    "total": 60
+  }
+}

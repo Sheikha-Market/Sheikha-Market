@@ -1,0 +1,4000 @@
+try {
+    require('dotenv').config();
+} catch (_) {}
+const express = require('express');
+const cors = require('cors');
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☁️ تكاملات Google الأساسية — Gemini | Cloud | Maps | Analytics | Gmail | Pay
+// ═══════════════════════════════════════════════════════════════════════════════
+// المسارات المطلوبة للتفعيل الكامل:
+// /api/ai/gemini | /api/cloud | /api/maps | /api/analytics | /api/email | /api/payment/googlepay
+// ═══════════════════════════════════════════════════════════════════════════════
+try {
+    const {
+        geminiRouter,
+        cloudRouter,
+        mapsRouter,
+        analyticsRouter,
+        emailRouter,
+        googlePayRouter
+    } = require('./routes/google-integrations');
+
+    app.use('/api/ai/gemini', geminiRouter);
+    app.use('/api/cloud', cloudRouter);
+    app.use('/api/maps', mapsRouter);
+    app.use('/api/analytics', analyticsRouter);
+    app.use('/api/email', emailRouter);
+    app.use('/api/payment/googlepay', googlePayRouter);
+
+    console.log('✅ [Google Integration] تكاملات Google الأساسية — مُفعّلة');
+    console.log('   📡 /api/ai/gemini');
+    console.log('   📡 /api/cloud');
+    console.log('   📡 /api/maps');
+    console.log('   📡 /api/analytics');
+    console.log('   📡 /api/email');
+    console.log('   📡 /api/payment/googlepay');
+} catch (e) {
+    console.warn('⚠️ [Google Integration] فشل تحميل تكاملات Google الأساسية:', e.message);
+}
+const { v4: uuidv4 } = require('uuid');
+const path = require('path');
+const fs = require('fs');
+const crypto = require('crypto');
+const { spawnSync } = require('child_process');
+const jwt = require('jsonwebtoken');
+const cron = require('node-cron');
+const WebSocket = require('ws');
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📜 SHEIKHA CHARTER — Runtime Governance Switches
+// ═══════════════════════════════════════════════════════════════════════════════
+// المرجع: SHEIKHA-CHARTER-TAWHEED-GOVERNANCE.md
+// القاعدة: كل ما يخالف الميثاق → يُوقف → يُراجع → يُصحّح
+// ═══════════════════════════════════════════════════════════════════════════════
+
+
+const SHEIKHA_CHARTER_ENFORCED = true; // ✅ الميثاق حاكم
+
+// المرحلة الثالثة: الرقمنة المنضبطة — L0-only startup
+const STARTUP_L0_ONLY = true; // ✅ الهدف: تحميل L0 (21 محرك) فقط عند البداية
+
+// جامع الأمان والأمن: Deny-by-default للأدوات الخطرة
+const MCP_DENY_BY_DEFAULT = true; // ✅ P0-4: لا أداة إلا بـ allowlist
+
+console.log('📜 [CHARTER] الميثاق مُفعّل | L0-only:', STARTUP_L0_ONLY);
+console.log('═══════════════════════════════════════════════════════════════════════════════');
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛡️ مكتبات الحماية — Security Libraries
+// ═══════════════════════════════════════════════════════════════════════════════
+let helmet, compression, rateLimit;
+try {
+    helmet = require('helmet');
+    console.log('✅ helmet — ترويسات الحماية');
+} catch (_) {
+    console.log('⚠️ helmet غير متوفر');
+}
+try {
+    compression = require('compression');
+    console.log('✅ compression — ضغط الاستجابات');
+} catch (_) {
+    console.log('⚠️ compression غير متوفر');
+}
+try {
+    rateLimit = require('express-rate-limit');
+    console.log('✅ express-rate-limit — حماية من الإغراق');
+} catch (_) {
+    console.log('⚠️ express-rate-limit غير متوفر');
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚡ P0-1: نظام التحميل الذكي Lazy Loading — بسم الله الرحمن الرحيم
+// ═══════════════════════════════════════════════════════════════════════════════
+// الهدف: تقليل زمن Startup من 40-60s إلى 3-5s
+// الطريقة: تحميل 21 محرك حرج فقط عند البدء، والباقي (113) عند الطلب
+// القاعدة: لا ضرر ولا ضرار — الأمان والشريعة والسوق أولاً
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const CRITICAL_ENGINES_L0 = [
+    'sheikha-security-engine.js',
+    'sheikha-sharia-engine.js',
+    'sheikha-admin-blueprint-engine.js',
+    'sheikha-hadith-standards-engine.js',
+    'sheikha-quran-trade-engine.js',
+    'sheikha-taqwa-engine.js',
+    'sheikha-musharri-engine.js',
+    'sheikha-legal-engine.js',
+    'sheikha-souq-madinah-engine.js',
+    'sheikha-market-structure-engine.js',
+    'sheikha-metals-market-engine.js',
+    'sheikha-banking-engine.js',
+    'sheikha-trade-engine.js',
+    'sheikha-supply-logistics-engine.js',
+    'sheikha-dashboard-engine.js',
+    'sheikha-experience-engine.js',
+    'sheikha-pilot-engine.js',
+    'sheikha-segments-engine.js',
+    'sheikha-historical-engine.js',
+    'sheikha-quran-sunnah-engine.js',
+    'sheikha-brand-engine.js'
+];
+
+const lazyEngines = {}; // مخزن المحركات المؤجلة
+
+function loadEngineOnDemand(engineFile) {
+    if (!lazyEngines[engineFile]) {
+        console.log(`⚡ [LAZY LOAD] تحميل ${engineFile}...`);
+        try {
+            lazyEngines[engineFile] = require(`./lib/${engineFile}`);
+            console.log(`✅ [LAZY] ${engineFile} — محمّل بنجاح`);
+        } catch (e) {
+            console.log(`⚠️ [LAZY] ${engineFile} — فشل التحميل:`, e.message);
+            lazyEngines[engineFile] = null;
+        }
+    }
+    return lazyEngines[engineFile];
+}
+
+function isEngineCritical(engineFile) {
+    return CRITICAL_ENGINES_L0.includes(engineFile);
+}
+
+console.log('✅ P0-1: نظام Lazy Loading مُفعّل — 21 محرك حرج، 113 مؤجل');
+
+// 🤖 محرك ذكاء شيخة المتقدم
+// ═══ P0-1: LAZY LOAD — محرك AI ثقيل جداً (تدريب عصبي) ═══
+/* LAZY: شيخة AI Engine
+let SheikaAIEngine = null;
+try {
+    SheikaAIEngine = require('./lib/sheikha-ai-engine.js');
+    console.log('✅ محرك ذكاء شيخة المتقدم - تم التحميل');
+} catch (e) {
+    console.log('⚠️ محرك ذكاء شيخة غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] محرك ذكاء شيخة — سيُحمّل عند الطلب');
+
+// 🧠 العقل المحلي المستقل — شبكة عصبية + قاموس + نموذج لغوي
+// P0-1: معطّل مؤقتاً — التدريب العصبي يأخذ 20-30s
+/*
+let sheikhaLocalMind = null;
+try {
+    const { SheikhaLocalMind } = require('./lib/sheikha-local-mind.js');
+    sheikhaLocalMind = new SheikhaLocalMind();
+    console.log('✅ 🧠 العقل المحلي المستقل (Neural + Lexicon + Mind) — مُفعّل بدون APIs خارجية');
+} catch (e) {
+    console.log('⚠️ العقل المحلي غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ العقل المحلي — معطّل مؤقتاً (P0-1 تسريع)');
+
+// 🛠️ محرك التطوير المتكامل (Cursor + Claude)
+// ═══ P0-1: LAZY — محرك L2 ═══
+let DevelopmentEngine = null;
+/* LAZY-DISABLED:
+try {
+    DevelopmentEngine = require('./lib/development-engine.js');
+    console.log('✅ محرك التطوير المتكامل (Cursor + Claude) - تم التحميل');
+} catch (e) {
+    console.log('⚠️ محرك التطوير غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Development Engine — سيُحمّل عند الطلب');
+
+// 🧭 محرك الناقل الذكي Navigator
+// ═══ P0-1: LAZY — محرك L2 ═══
+let sheikaNav = null;
+/* LAZY-DISABLED:
+try {
+    const SheikaNavigator = require('./lib/sheikha-navigator.js');
+    sheikaNav = new SheikaNavigator(path.join(__dirname, 'data'));
+    console.log('✅ Navigator — محرك الناقل الذكي مفعّل');
+} catch (e) {
+    console.log('⚠️ Navigator غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Navigator — سيُحمّل عند الطلب');
+
+// ═══ MARKETING ENGINE ═══
+// ═══ P0-1: LAZY — محرك تسويق (L2) ═══
+let marketingEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikaMarketingEngine = require('./lib/sheikha-marketing-engine.js');
+    marketingEngine = new SheikaMarketingEngine(__dirname);
+    console.log('✅ Marketing Engine — محرك التسويق الرقمي مفعّل');
+} catch (e) {
+    console.log('⚠️ Marketing Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب');
+
+// ═══ PILOT MODE ENGINE — نظام التشغيل التجريبي ═══
+// ✅ L0 CRITICAL — يُحمّل فوراً
+let pilotEngine = null;
+try {
+    const SheikaPilotEngine = require('./lib/sheikha-pilot-engine.js');
+    pilotEngine = new SheikaPilotEngine(__dirname);
+    console.log(`✅ Pilot Engine — وضع التشغيل: ${pilotEngine.mode}`);
+} catch (e) {
+    console.log('⚠️ Pilot Engine غير متوفر:', e.message);
+}
+
+// ═══ EXCELLENCE ENGINE — محرك الإتقان والتقدم العلمي والتجاري والتقني ═══
+// ═══ P0-1: LAZY — محرك L1 ═══
+let excellenceEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikaExcellenceEngine = require('./lib/sheikha-excellence-engine.js');
+    excellenceEngine = new SheikaExcellenceEngine(__dirname);
+    console.log('✅ Excellence Engine — محرك الإتقان والتقدم مفعّل');
+} catch (e) {
+    console.log('⚠️ Excellence Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Excellence Engine — سيُحمّل عند الطلب');
+
+// ═══ FOUR-PHASE ENGINE — محرك الخطوات الأربع للنضج والاستقلال ═══
+// ═══ P0-1: LAZY — محرك L1 ═══
+let fourPhaseEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikaFourPhaseEngine = require('./lib/sheikha-four-phase-engine.js');
+    fourPhaseEngine = new SheikaFourPhaseEngine(__dirname);
+    console.log(`✅ Four-Phase Engine — المرحلة الحالية: ${fourPhaseEngine.getCurrentPhase()}`);
+} catch (e) {
+    console.log('⚠️ Four-Phase Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Four-Phase Engine — سيُحمّل عند الطلب');
+
+// ═══ AI ADVANCEMENT ENGINE — محرك الذكاء الصناعي والتقدم الشامل ═══
+// ═══ P0-1: LAZY — محرك L1 ═══
+let aiAdvancementEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikaAIAdvancementEngine = require('./lib/sheikha-ai-advancement-engine.js');
+    aiAdvancementEngine = new SheikaAIAdvancementEngine(__dirname);
+    console.log(`✅ AI Advancement Engine — المستوى: ${aiAdvancementEngine.getCurrentLevel().name}`);
+} catch (e) {
+    console.log('⚠️ AI Advancement Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] AI Advancement Engine — سيُحمّل عند الطلب');
+
+// ═══ PRODUCTION ENGINE — مصنع الإنتاج المنهجي ═══
+// ═══ P0-1: LAZY LOAD — ثقيل جداً (تدريب عصبي) ═══
+/* LAZY: Production Engine
+let productionEngine = null;
+try {
+    const SheikaProductionEngine = require('./lib/sheikha-production-engine.js');
+    productionEngine = new SheikaProductionEngine(__dirname);
+    // P0-1: تشغيل تلقائي معطّل للتسريع — يُفعّل يدوياً عند الحاجة
+    // productionEngine.startAutoProduction();
+    console.log('✅ Production Engine — مُحمّل (Auto-start: معطّل مؤقتاً)');
+} catch (e) {
+    console.log('⚠️ Production Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Production Engine — سيُحمّل عند الطلب');
+
+// ═══ MONITOR & INDEX ENGINE — محرك المراقبة والفهرسة الشامل ═══
+// ═══ P0-1: LAZY LOAD — ثقيل جداً (مراقبة لحظية + فهرسة) ═══
+/* LAZY: Monitor Engine
+let monitorEngine = null;
+try {
+    const SheikaMonitorEngine = require('./lib/sheikha-monitor-engine.js');
+    monitorEngine = new SheikaMonitorEngine(__dirname, 8080);
+    // P0-1: مراقبة تلقائية معطّلة للتسريع — تُفعّل يدوياً عند الحاجة
+    // monitorEngine.startAutoMonitor(30000);
+    console.log('✅ Monitor & Index Engine — مُحمّل (Auto-monitor: معطّل مؤقتاً)');
+} catch (e) {
+    console.log('⚠️ Monitor Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Monitor Engine — سيُحمّل عند الطلب');
+
+// ═══ DIM ENGINE — محرك منهج الإتقان الرقمي ═══
+// ═══ P0-1: LAZY — محرك L1 ═══
+let dimEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikaDIMEngine = require('./lib/sheikha-dim-engine.js');
+    dimEngine = new SheikaDIMEngine(__dirname);
+    dimEngine.initializeDefaults();
+    console.log(`✅ DIM Engine — منهج الإتقان الرقمي (${dimEngine.workItems.length} عنصر عمل، ${dimEngine.decisions.length} قرار)`);
+} catch (e) {
+    console.log('⚠️ DIM Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] DIM Engine — سيُحمّل عند الطلب');
+
+// ═══ AUTOMATION ENGINE v2.0 — محرك أتمتة شيخة المتقدم (أقوى من n8n) ═══
+// ═══ P0-1: LAZY — محرك L2 ═══
+let automationEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikhaAutomationEngine = require('./lib/sheikha-automation-engine.js');
+    automationEngine = new SheikhaAutomationEngine({ dataDir: path.join(__dirname, 'data') });
+    console.log(`✅ Automation Engine v2.0 — ${automationEngine.functions.size} وظيفة حقيقية | ${automationEngine.workflows.size} سير عمل | ${automationEngine.actions.size} إجراء | تغطية ${automationEngine.kpis.automationCoverage}% | n8n bridge: ${automationEngine.n8nBridge.enabled ? 'مُفعَّل' : 'معطّل'}`);
+} catch (e) {
+    console.log('⚠️ Automation Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Automation Engine — سيُحمّل عند الطلب');
+
+// ═══ SURVEY & FEEDBACK ENGINE — محرك الاستبيانات والتغذية الراجعة ═══
+// ═══ P0-1: LAZY — محرك L2 ═══
+let surveyEngine = null;
+/* LAZY-DISABLED:
+try {
+    const SheikhaStandardsSurveyEngine = require('./lib/sheikha-survey-feedback-engine.js');
+    surveyEngine = new SheikhaStandardsSurveyEngine(__dirname);
+    const sd = surveyEngine.getDashboard();
+    console.log(`✅ Survey & Feedback Engine — ${sd.sum.tpls} استبيان | ${sd.sum.qs} سؤال | ${sd.sum.ch} قناة جمع | ${sd.principles} مبدأ شرعي | إتقان ${sd.itq.score}%`);
+} catch (e) {
+    console.log('⚠️ Survey Engine غير متوفر:', e.message);
+}
+*/
+console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
+
+// ═══ COMMS ENGINE — منظومة شيخة للاتصالات الشاملة ═══
+// SMS | واتساب | بريد | مكالمات آلية | مصادقة | إشعارات — بالكتاب والسنة
+/* LAZY: let commsEngine = null;
+/* LAZY: try {
+/* LAZY:     const SheikhaCommsEngine = require('./lib/sheikha-comms-engine.js');
+/* LAZY:     commsEngine = new SheikhaCommsEngine();
+/* LAZY:     const cd = commsEngine.getDashboard();
+/* LAZY:     console.log(`\u2705 Comms Engine \u2014 ${cd.summary.totalChannels} \u0642\u0646\u0627\u0629 | ${cd.summary.totalTemplates} \u0642\u0627\u0644\u0628 | ${cd.summary.totalWorkflows} \u0633\u064a\u0631 \u0639\u0645\u0644 | ${cd.summary.totalProviders} \u0645\u0632\u0648\u062f | ${cd.summary.otpMethods} \u0637\u0631\u064a\u0642\u0629 OTP | ${cd.summary.autoReplyKeywords} \u0631\u062f \u0622\u0644\u064a`);
+/* LAZY: } catch (e) {
+/* LAZY:     console.log('\u26a0\ufe0f Comms Engine \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
+/* LAZY: }
+*/
+console.log('⏸️ [LAZY] Comms Engine — سيُحمّل عند الطلب');
+
+// ═══ AI-COMMS BRIDGE — جسر التكامل بين الذكاء والاتصالات ═══
+// يُهيّأ لاحقاً بعد تحميل sheikhaAI (سطر ~1460) — هنا نحمّل الكلاس فقط
+let aiCommsBridge = null;
+let _AICBridgeClass = null;
+try {
+    _AICBridgeClass = require('./lib/sheikha-ai-comms-bridge.js');
+    // التهيئة المؤجلة — تتم بعد تحميل sheikhaAI
+    aiCommsBridge = new _AICBridgeClass({
+        aiEngine: null,
+        localMind: sheikhaLocalMind || null,
+        commsEngine: commsEngine || null
+    });
+    const bd = aiCommsBridge.getDashboard();
+    console.log(
+        `\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`
+    );
+} catch (e) {
+    console.log(
+        '\u26a0\ufe0f AI-Comms Bridge \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:',
+        e.message
+    );
+}
+
+// ═══ IHSAN ENGINE — منظومة شيخة للإحسان الرقمي والأساسي ═══
+let ihsanEngine = null;
+try {
+    const SheikhaIhsanEngine = require('./lib/sheikha-ihsan-engine.js');
+    ihsanEngine = new SheikhaIhsanEngine(__dirname);
+    const d = ihsanEngine.getDashboard();
+    console.log(
+        `✅ Ihsan Engine — ${d.ihsanLevels} مستوى إحسان | ${d.digitalApplications} تطبيق رقمي | ${d.principles} مبدأ شرعي | إحسان ${d.ihsanScore}%`
+    );
+} catch (e) {
+    console.log('⚠️ Ihsan Engine غير متوفر:', e.message);
+}
+
+// ═══ ITQAN SYSTEM ENGINE — منظومة شيخة للإتقان الأساسي والرقمي ═══
+let itqanSystemEngine = null;
+try {
+    const SheikhaItqanSystemEngine = require('./lib/sheikha-itqan-system-engine.js');
+    itqanSystemEngine = new SheikhaItqanSystemEngine();
+    const d = itqanSystemEngine.getDashboard();
+    console.log(
+        `✅ Itqan System Engine — ${d.domains} مجال إتقان | ${d.levels} مستوى | ${d.zeroDefectsRules} قاعدة صفر أخطاء | ${d.principles} أساس شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Itqan System Engine غير متوفر:', e.message);
+}
+
+// ═══ QURAN & DHIKR ENGINE — منظومة القرآن والذكر والباقيات الصالحات ═══
+let quranDhikrEngine = null;
+try {
+    const SheikhaQuranDhikrEngine = require('./lib/sheikha-quran-dhikr-engine.js');
+    quranDhikrEngine = new SheikhaQuranDhikrEngine();
+    const d = quranDhikrEngine.getDashboard();
+    console.log(
+        `✅ Quran & Dhikr Engine — ${d.surahs} سورة | ${d.ayat} آية | ${d.adhkarCount} ذكر | ${d.baqiyatCount} باقية صالحة | ${d.features} ميزة رقمية`
+    );
+} catch (e) {
+    console.log('⚠️ Quran & Dhikr Engine غير متوفر:', e.message);
+}
+
+// ═══ TAQWA ENGINE — منظومة تقوى الله — إن أكرمكم عند الله أتقاكم ═══
+let taqwaEngine = null;
+try {
+    const SheikhaTaqwaEngine = require('./lib/sheikha-taqwa-engine.js');
+    taqwaEngine = new SheikhaTaqwaEngine();
+    const d = taqwaEngine.getDashboard();
+    console.log(
+        `✅ Taqwa Engine — ${d.pillars} ركيزة تقوى | ${d.businessRules} ضابط تجاري | ${d.rewards} ثمرة | تقوى ${d.taqwaScore}%`
+    );
+} catch (e) {
+    console.log('⚠️ Taqwa Engine غير متوفر:', e.message);
+}
+
+// ═══ EXPERIENCE ENGINE — محرك التجربة المتكاملة على نهج الرسول ﷺ ═══
+let experienceEngine = null;
+try {
+    const SheikhaExperienceEngine = require('./lib/sheikha-experience-engine.js');
+    experienceEngine = new SheikhaExperienceEngine();
+    const d = experienceEngine.getDashboard();
+    console.log(
+        `✅ Experience Engine — ${d.summary.totalJourneys} رحلة | ${d.summary.totalSteps} خطوة | ${d.propheticPrinciples.total} مبدأ نبوي | إتقان ${d.metrics.itqanScore}%`
+    );
+} catch (e) {
+    console.log('⚠️ Experience Engine غير متوفر:', e.message);
+}
+
+// ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
+let govEngine = null;
+try {
+    const SheikhaGovEngine = require('./lib/sheikha-gov-engine.js');
+    govEngine = new SheikhaGovEngine();
+    console.log(
+        `✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`
+    );
+} catch (e) {
+    console.log('⚠️ Gov Engine غير متوفر:', e.message);
+}
+
+// ═══ BARAKAH ENGINE — منظومة البركة للاقتصاد الإسلامي ═══
+let barakahEngine = null;
+try {
+    const SheikhaBarakahEngine = require('./lib/sheikha-barakah-engine.js');
+    barakahEngine = new SheikhaBarakahEngine();
+    const bd = barakahEngine.getDashboard();
+    console.log(
+        `✅ Barakah Engine — مؤشر البركة: ${bd.barakahIndex.currentScore}/100 | ${bd.summary.pillarsCount} ركن | ${bd.summary.financingModesCount} نمط تمويل | تكامل منتدى البركة ✓`
+    );
+} catch (e) {
+    console.log('⚠️ Barakah Engine غير متوفر:', e.message);
+}
+
+// ═══ MUSHARRI' ENGINE — مُشرِّع شيخة الذكي ═══
+let musharriEngine = null;
+try {
+    const SheikhaMusharriEngine = require('./lib/sheikha-musharri-engine.js');
+    musharriEngine = new SheikhaMusharriEngine();
+    const md = musharriEngine.getDashboard();
+    console.log(
+        `✅ Musharri' Engine — ${md.summary.totalSources} مصدر | ${md.summary.totalEvidence} دليل | ${md.summary.totalMuamalat} عقد | ${md.summary.totalProhibitions} محرّم | ${md.summary.totalEcommerceRulings} حكم إلكتروني`
+    );
+} catch (e) {
+    console.log("⚠️ Musharri' Engine غير متوفر:", e.message);
+}
+
+// ═══ COSMOS ENGINE — منظومة الأرض والسماء ═══
+let cosmosEngine = null;
+try {
+    const SheikhaCosmosEngine = require('./lib/sheikha-cosmos-engine.js');
+    cosmosEngine = new SheikhaCosmosEngine();
+    const cd = cosmosEngine.getDashboard();
+    console.log(
+        `✅ Cosmos Engine — ${cd.summary.earthSectors} قطاع أرضي | ${cd.summary.spaceDomains} مجال فضائي | ${cd.summary.celestialBodies} جرم | ${cd.summary.tradeRoutes} ممر تجاري | ${cd.summary.quranVerses} آية`
+    );
+} catch (e) {
+    console.log('⚠️ Cosmos Engine غير متوفر:', e.message);
+}
+
+// ═══ NETWORKS ENGINE — منظومة الشبكات والاتصالات والطاقة ═══
+let networksEngine = null;
+try {
+    const SheikhaNetworksEngine = require('./lib/sheikha-networks-engine.js');
+    networksEngine = new SheikhaNetworksEngine();
+    const nd = networksEngine.getDashboard();
+    console.log(
+        `✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`
+    );
+} catch (e) {
+    console.log('⚠️ Networks Engine غير متوفر:', e.message);
+}
+
+// ═══ PETROLEUM ENGINE — منظومة شيخة للبترول والنفط والغاز ═══
+let petroleumEngine = null;
+try {
+    const SheikhaP‌etroleumEngine = require('./lib/sheikha-petroleum-engine.js');
+    petroleumEngine = new SheikhaP‌etroleumEngine();
+    const pd = petroleumEngine.getDashboard();
+    console.log(
+        `✅ Petroleum Engine — ${pd.summary.valueChainStages} مرحلة | ${pd.summary.crudeBenchmarks} معيار خام | ${pd.summary.refiningProducts} منتج تكرير | ${pd.summary.tradingMarkets} سوق | ${pd.summary.organizations} منظمة`
+    );
+} catch (e) {
+    console.log('⚠️ Petroleum Engine غير متوفر:', e.message);
+}
+
+// ═══ EARTH RESOURCES ENGINE — منظومة الزراعة والجغرافيا والمعادن والجيولوجيا ═══
+let earthResourcesEngine = null;
+try {
+    const SheikhaEarthResourcesEngine = require('./lib/sheikha-earth-resources-engine.js');
+    earthResourcesEngine = new SheikhaEarthResourcesEngine();
+    const ed = earthResourcesEngine.getDashboard();
+    console.log(
+        `✅ Earth Resources — ${ed.summary.agriSectors} زراعة | ${ed.summary.waterSources} مصدر مياه | ${ed.summary.mineralCategories} تصنيف معادن | ${ed.summary.ecosystems} نظام بيئي | ${ed.summary.continents} قارة | ${ed.summary.quranVerses} آية`
+    );
+} catch (e) {
+    console.log('⚠️ Earth Resources Engine غير متوفر:', e.message);
+}
+
+// ═══ METALS MARKET ENGINE — سوق شيخة للمعادن والسكراب والتشليح ═══
+let metalsMarketEngine = null;
+try {
+    const SheikhaMetalsMarketEngine = require('./lib/sheikha-metals-market-engine.js');
+    metalsMarketEngine = new SheikhaMetalsMarketEngine();
+    const mm = metalsMarketEngine.getDashboard();
+    console.log(
+        `✅ Metals Market — ${mm.summary.preciousMetals} معدن ثمين | ${mm.summary.baseMetals} معدن أساسي | ${mm.summary.scrapCategories} سكراب | ${mm.summary.tashleehSteps} تشليح | ${mm.summary.shariaRules} ضابط شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Metals Market Engine غير متوفر:', e.message);
+}
+
+// ═══ SUPPLY & LOGISTICS ENGINE — سلاسل الإمداد واللوجستيات ═══
+let supplyLogisticsEngine = null;
+try {
+    const SheikhaSupplyLogisticsEngine = require('./lib/sheikha-supply-logistics-engine.js');
+    supplyLogisticsEngine = new SheikhaSupplyLogisticsEngine();
+    const sl = supplyLogisticsEngine.getDashboard();
+    console.log(
+        `✅ Supply & Logistics — ${sl.summary.scmStages} مرحلة إمداد | ${sl.summary.logisticsModes} وسيلة نقل | ${sl.summary.incoterms} إنكوترم | ${sl.summary.saudiPorts} ميناء | ${sl.summary.tradeDocuments} مستند`
+    );
+} catch (e) {
+    console.log('⚠️ Supply & Logistics Engine غير متوفر:', e.message);
+}
+
+// ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
+let economicsEngine = null;
+try {
+    const SheikhaEconomicsEngine = require('./lib/sheikha-economics-engine.js');
+    economicsEngine = new SheikhaEconomicsEngine();
+    const ec = economicsEngine.getDashboard();
+    console.log(
+        `✅ Economics Engine — ${ec.summary.macroIndicators} مؤشر كلي | ${ec.summary.saudiSectors} قطاع سعودي | ${ec.summary.saudiBanks} بنك | ${ec.summary.globalExchanges} بورصة | ${ec.summary.investmentTypes} نوع استثمار | ${ec.summary.islamicFinancingModes} صيغة إسلامية`
+    );
+} catch (e) {
+    console.log('⚠️ Economics Engine غير متوفر:', e.message);
+}
+
+// ═══ UNIVERSAL ENGINE — النظام الكوني بالكتاب والسنة ═══
+let universalEngine = null;
+try {
+    const SheikhaUniversalEngine = require('./lib/sheikha-universal-engine.js');
+    universalEngine = new SheikhaUniversalEngine();
+    const ue = universalEngine.getDashboard();
+    console.log(
+        `✅ Universal Engine — ${ue.summary.heavens} سماء | ${ue.summary.cosmicLaws} سنة كونية | ${ue.summary.scienceBranches} علم | ${ue.summary.techFundamentals} تقنية | ${ue.summary.mathBranches} رياضيات | ${ue.summary.wisdomPrinciples} حكمة`
+    );
+} catch (e) {
+    console.log('⚠️ Universal Engine غير متوفر:', e.message);
+}
+
+// ═══ TRADE ENGINE — التجارة المحلية السعودية والدولية ═══
+let tradeEngine = null;
+try {
+    const SheikhaTradeEngine = require('./lib/sheikha-trade-engine.js');
+    tradeEngine = new SheikhaTradeEngine();
+    const td = tradeEngine.getDashboard();
+    console.log(
+        `✅ Trade Engine — ${td.summary.saudiRegulators} منظم | ${td.summary.incoterms} إنكوترم | ${td.summary.ecomModels} نموذج إلكتروني | ${td.summary.tradeRoutes} ممر تجاري | ${td.summary.shariaContracts} عقد شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Trade Engine غير متوفر:', e.message);
+}
+
+// ═══ AI & COMPUTING ENGINE — الذكاء الاصطناعي والحاسب ═══
+let aiComputingEngine = null;
+try {
+    const SheikhaAIComputingEngine = require('./lib/sheikha-ai-computing-engine.js');
+    aiComputingEngine = new SheikhaAIComputingEngine();
+    const ac = aiComputingEngine.getDashboard();
+    console.log(
+        `✅ AI & Computing — ${ac.summary.aiBranches} فرع AI | ${ac.summary.programmingLanguages} لغة | ${ac.summary.cyberDomains} أمن | ${ac.summary.emergingTech} تقنية ناشئة | ${ac.summary.saudiAIEntities} جهة سعودية`
+    );
+} catch (e) {
+    console.log('⚠️ AI & Computing Engine غير متوفر:', e.message);
+}
+
+// ═══ BANK & FUND ENGINE — بنك شيخة الإسلامي + صندوق شيخة الاستثماري ═══
+let bankFundEngine = null;
+try {
+    const SheikhaBank_FundEngine = require('./lib/sheikha-bank-fund-engine.js');
+    bankFundEngine = new SheikhaBank_FundEngine();
+    const bf = bankFundEngine.getDashboard();
+    console.log(
+        `✅ Bank & Fund — ${bf.summary.bankAccounts} حساب | ${bf.summary.bankFinancing} تمويل | ${bf.summary.investmentFunds} صندوق | ${bf.summary.riskTypes} مخاطر | ${bf.summary.complianceRegulations} امتثال`
+    );
+} catch (e) {
+    console.log('⚠️ Bank & Fund Engine غير متوفر:', e.message);
+}
+
+// ═══ SECURITY ENGINE — الأمن الشامل والملكية الفكرية ═══
+let securityEngine = null;
+try {
+    const SheikhaSecurityEngine = require('./lib/sheikha-security-engine.js');
+    securityEngine = new SheikhaSecurityEngine();
+    const se = securityEngine.getDashboard();
+    console.log(
+        `✅ Security Engine — ${se.summary.securityDomains} مجال أمن | ${se.summary.cyberDomains} سيبراني | ${se.summary.ipTypes} ملكية فكرية | ${se.summary.saudiEntities} جهة | ${se.summary.shariaRules} ضابط شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Security Engine غير متوفر:', e.message);
+}
+
+// 🏭 محرك الصناعة والتصنيع والصناعة الرقمية
+let industryEngine = null;
+try {
+    const SheikhaIndustryEngine = require('./lib/sheikha-industry-engine.js');
+    industryEngine = new SheikhaIndustryEngine();
+    const ie = industryEngine.getDashboard();
+    console.log(
+        `✅ Industry Engine — ${ie.summary.industrialSectors} قطاع صناعي | ${ie.summary.digitalIndustryDomains} مجال رقمي | ${ie.summary.qualityMethodologies} منهجية جودة | ${ie.summary.robotTypes} نوع روبوت | ${ie.summary.saudiIndustrialCities} مدينة صناعية | ${ie.summary.shariaRules} ضابط شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Industry Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك الشريعة الإسلامية الشامل
+let shariaEngine = null;
+try {
+    const SheikhaShareEngine = require('./lib/sheikha-sharia-engine.js');
+    shariaEngine = new SheikhaShareEngine();
+    const sh = shariaEngine.getDashboard();
+    console.log(
+        `✅ Sharia Engine — ${sh.summary.quranSurahs} سورة | ${sh.summary.quranAyahs} آية | ${sh.summary.sunnahCollections} مصنف حديث | ${sh.summary.fiqhMadhahib} مذاهب | ${sh.summary.maqasidDaruriyyat} ضروريات | ${sh.summary.islamicFinanceContracts} عقد مالي | ${sh.summary.digitalShariaSystems} نظام رقمي`
+    );
+} catch (e) {
+    console.log('⚠️ Sharia Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك تصنيف المستخدمين والفئات المستهدفة والتسويق
+let segmentsEngine = null;
+try {
+    const SheikhaSegmentsEngine = require('./lib/sheikha-segments-engine.js');
+    segmentsEngine = new SheikhaSegmentsEngine();
+    const seg = segmentsEngine.getDashboard();
+    console.log(
+        `✅ Segments Engine — ${seg.summary.userSegments} فئة مستخدم | ${seg.summary.totalSubTypes} نوع فرعي | ${seg.summary.digitalChannelCategories} قناة رقمية | ${seg.summary.nonDigitalChannelCategories} قناة تقليدية | ${seg.summary.socialPlatforms} منصة تواصل | ${seg.summary.marketingMatrixEntries} مصفوفة تسويق | ${seg.summary.shariaRules} ضابط شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Segments Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك العلوم والابتكار والبحث والمختبرات والتقنية
+let sciencesEngine = null;
+try {
+    const ShekhaSciencesEngine = require('./lib/sheikha-sciences-engine.js');
+    sciencesEngine = new ShekhaSciencesEngine();
+    const sci = sciencesEngine.getDashboard();
+    console.log(
+        `✅ Sciences Engine — ${sci.summary.naturalScienceBranches} علوم طبيعية | ${sci.summary.appliedScienceBranches} علوم تطبيقية | ${sci.summary.medicalScienceBranches} علوم طبية | ${sci.summary.humanScienceBranches} علوم إنسانية | ${sci.summary.techDomains} مجال تقني | ${sci.summary.labTypes} نوع مختبر | ${sci.summary.explorationDomains} مجال استكشاف | ${sci.summary.islamicScholars} عالم إسلامي | ${sci.summary.digitalSystems} نظام رقمي`
+    );
+} catch (e) {
+    console.log('⚠️ Sciences Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك المجتمعات والمجموعات
+let communityEngine = null;
+try {
+    const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js');
+    communityEngine = new SheikhaCommunityEngine();
+    const com = communityEngine.getDashboard();
+    console.log(
+        `✅ Community Engine — ${com.summary.communityTypes} نوع مجتمع | ${com.summary.totalSubGroups} مجموعة فرعية | ${com.summary.digitalTools} أداة رقمية | ${com.summary.islamicGoals + com.summary.economicGoals + com.summary.socialGoals + com.summary.digitalGoals} هدف`
+    );
+} catch (e) {
+    console.log('⚠️ Community Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك القوانين والأنظمة والمعاهدات
+let legalEngine = null;
+try {
+    const SheikhaLegalEngine = require('./lib/sheikha-legal-engine.js');
+    legalEngine = new SheikhaLegalEngine();
+    const leg = legalEngine.getDashboard();
+    console.log(
+        `✅ Legal Engine — ${leg.summary.saudiLawCategories} فئة نظام سعودي | ${leg.summary.saudiLawsTotal} نظام | ${leg.summary.internationalLawBranches} فرع قانون دولي | ${leg.summary.internationalOrgs} منظمة | ${leg.summary.treatiesTotal} معاهدة`
+    );
+} catch (e) {
+    console.log('⚠️ Legal Engine غير متوفر:', e.message);
+}
+
+// ☪️ فهرس المحركات الشامل
+let masterCatalog = null;
+try {
+    const SheikhaMasterCatalog = require('./lib/sheikha-master-catalog.js');
+    masterCatalog = new SheikhaMasterCatalog();
+    const cat = masterCatalog.getDashboard();
+    console.log(
+        `✅ Master Catalog — ${cat.summary.totalEngines} محرك | ${cat.summary.totalLayers} طبقة | ${cat.summary.totalAPIs} API | ${cat.summary.activeEngines} نشط`
+    );
+} catch (e) {
+    console.log('⚠️ Master Catalog غير متوفر:', e.message);
+}
+
+// ☪️ محرك التقنية والحاسب الشامل
+let techEngine = null;
+try {
+    const SheikhaTechComputingEngine = require('./lib/sheikha-tech-computing-engine.js');
+    techEngine = new SheikhaTechComputingEngine();
+    const t = techEngine.getDashboard();
+    console.log(
+        `✅ Tech Computing Engine — ${t.summary.osCategories} فئة أنظمة تشغيل | ${t.summary.totalOSSystems} نظام | ${t.summary.programmingLanguages} لغة برمجة | ${t.summary.databaseCategories} فئة قواعد بيانات | ${t.summary.automotiveDomains} مجال سيارات | ${t.summary.emergingTechnologies} تقنية ناشئة`
+    );
+} catch (e) {
+    console.log('⚠️ Tech Computing Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
+let calendarEngine = null;
+try {
+    const SheikhaCalendarEngine = require('./lib/sheikha-calendar-engine.js');
+    calendarEngine = new SheikhaCalendarEngine();
+    const cal = calendarEngine.getDashboard();
+    console.log(
+        `✅ Calendar Engine — ${cal.currentTime.hijri} | ${cal.summary.hijriMonths} شهر هجري | ${cal.summary.worldCalendars} تقويم عالمي | ${cal.summary.islamicEvents} مناسبة إسلامية | ${cal.summary.saudiEvents} مناسبة سعودية | ${cal.summary.realTimeEventTypes} نوع حدث لحظي | ${cal.summary.integrations} تكامل | ${cal.summary.digitalSystems} نظام رقمي`
+    );
+} catch (e) {
+    console.log('⚠️ Calendar Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك نظام تشغيل شيخة — SheikhaOS
+let sheikhaOSEngine = null;
+try {
+    const SheikhaOSEngine = require('./lib/sheikha-os-engine.js');
+    sheikhaOSEngine = new SheikhaOSEngine();
+    const os = sheikhaOSEngine.getDashboard();
+    console.log(
+        `✅ نظام شيخة — ${os.brandName} (${os.brandNameEn}) | ${os.summary.editions} إصدار | ${os.summary.builtInApps} تطبيق مدمج | ${os.summary.developerAPIs} API | ${os.summary.securityLayers} طبقة أمان | ${os.summary.sdkLanguages} لغة تطوير | ${os.summary.supremeLaws} قانون شرعي | ${os.summary.domainSpecs} مجال مواصفات | ${os.summary.totalConditions} شرط`
+    );
+} catch (e) {
+    console.log('⚠️ SheikhaOS Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك سوق المدينة المنورة — Souq Al-Madinah Engine
+let souqMadinahEngine = null;
+try {
+    const SheikhaSouqMadinahEngine = require('./lib/sheikha-souq-madinah-engine.js');
+    souqMadinahEngine = new SheikhaSouqMadinahEngine();
+    const sm = souqMadinahEngine.getDashboard();
+    console.log(
+        `✅ محرك سوق المدينة — ${sm.summary.pillars} ركن | ${sm.summary.tradeLaws} حكم بيوع | ${sm.summary.designSpecs} مواصفة | ${sm.summary.totalRules} قاعدة`
+    );
+} catch (e) {
+    console.log('⚠️ Souq Madinah Engine غير متوفر:', e.message);
+}
+
+// 📜 محرك التوثيق التاريخي الشامل — Historical Documentation Engine
+let historicalEngine = null;
+try {
+    const SheikhaHistoricalEngine = require('./lib/sheikha-historical-engine.js');
+    historicalEngine = new SheikhaHistoricalEngine();
+    const hd = historicalEngine.getDashboard();
+    console.log(
+        `✅ محرك التوثيق التاريخي — ${hd.summary.totalEras} عصور | ${hd.summary.totalEvents} حدث | ${hd.summary.totalLaws} قانون | ${hd.summary.specifications} مواصفة`
+    );
+} catch (e) {
+    console.log('⚠️ Historical Engine غير متوفر:', e.message);
+}
+
+// 🏛️ محرك الهيكل الإداري والمخطط الهندسي — Admin Blueprint Engine
+let adminBlueprintEngine = null;
+try {
+    const SheikhaAdminBlueprintEngine = require('./lib/sheikha-admin-blueprint-engine.js');
+    adminBlueprintEngine = new SheikhaAdminBlueprintEngine();
+    const ab = adminBlueprintEngine.getDashboard();
+    console.log(
+        `✅ الهيكل الإداري — ${ab.summary.sectors} قطاع | ${ab.summary.totalDepartments} إدارة | ${ab.summary.estimatedStaff} موظف | ${ab.summary.engines} محرك | ${ab.summary.totalComponents} مكون`
+    );
+} catch (e) {
+    console.log('⚠️ Admin Blueprint Engine غير متوفر:', e.message);
+}
+
+// 📖 محرك الآيات القرآنية للتجارة والأسواق — Quran Trade Engine
+let quranTradeEngine = null;
+try {
+    const SheikhaQuranTradeEngine = require('./lib/sheikha-quran-trade-engine.js');
+    quranTradeEngine = new SheikhaQuranTradeEngine();
+    const qt = quranTradeEngine.getDashboard();
+    console.log(
+        `✅ آيات التجارة — ${qt.summary.totalVerses} آية | ${qt.summary.totalAbwab} أبواب | ربا + بيع + موازين + دَين + ذهب + زكاة + قوة + أنبياء + عدل`
+    );
+} catch (e) {
+    console.log('⚠️ Quran Trade Engine غير متوفر:', e.message);
+}
+
+// ⚖️ محرك الأحاديث الصحيحة ومعايير السوق — Hadith Standards Engine
+let hadithStandardsEngine = null;
+try {
+    const SheikhaHadithStandardsEngine = require('./lib/sheikha-hadith-standards-engine.js');
+    hadithStandardsEngine = new SheikhaHadithStandardsEngine();
+    const hs = hadithStandardsEngine.getDashboard();
+    console.log(
+        `✅ معايير الأحاديث — ${hs.summary.totalHadiths} حديث | ${hs.summary.measureUnits} وحدة قياس | ${hs.summary.totalActiveRules} قاعدة مفعّلة | ٨ أبواب`
+    );
+} catch (e) {
+    console.log('⚠️ Hadith Standards Engine غير متوفر:', e.message);
+}
+
+// 🏦 محرك شيخة للصرافة والبنك المركزي — Banking & Exchange Engine
+let bankingEngine = null;
+try {
+    const SheikhaBankingEngine = require('./lib/sheikha-banking-engine.js');
+    bankingEngine = new SheikhaBankingEngine();
+    const bk = bankingEngine.getDashboard();
+    console.log(
+        `✅ بنك شيخة المركزي — ${bk.summary.bankDepartments} قسم | ${bk.summary.bankProducts} منتج | ${bk.summary.islamicContracts} عقد | ${bk.summary.totalComponents} مكون`
+    );
+} catch (e) {
+    console.log('⚠️ Banking Engine غير متوفر:', e.message);
+}
+
+// 🌍 محرك العاصمة الاقتصادية العالمية — Global Economic Capital Engine
+let capitalEngine = null;
+try {
+    const SheikhaCapitalEngine = require('./lib/sheikha-capital-engine.js');
+    capitalEngine = new SheikhaCapitalEngine();
+    const ce = capitalEngine.getDashboard();
+    console.log(
+        `✅ العاصمة الاقتصادية — ${ce.summary.pillars} ركن | ${ce.summary.tradeCorridors} ممر | ${ce.summary.phases} مرحلة | ${ce.summary.totalComponents} مكون`
+    );
+} catch (e) {
+    console.log('⚠️ Capital Engine غير متوفر:', e.message);
+}
+
+// 🏗️ محرك هيكل السوق الكامل — Market Structure Engine
+let marketStructureEngine = null;
+try {
+    const SheikhaMarketStructureEngine = require('./lib/sheikha-market-structure-engine.js');
+    marketStructureEngine = new SheikhaMarketStructureEngine();
+    const ms = marketStructureEngine.getDashboard();
+    console.log(
+        `✅ هيكل السوق — ${ms.summary.divisions} قطاع | ${ms.summary.marketSections} قسم | ${ms.summary.regulatoryRules} قاعدة | ${ms.summary.totalComponents} مكون`
+    );
+} catch (e) {
+    console.log('⚠️ Market Structure Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك الحكمة والمنطق والبصيرة — SheikhaHikmah
+let hikmahEngine = null;
+try {
+    const SheikhaHikmahEngine = require('./lib/sheikha-hikmah-engine.js');
+    hikmahEngine = new SheikhaHikmahEngine();
+    const h = hikmahEngine.getDashboard();
+    console.log(
+        `✅ محرك الحكمة — ${h.summary.foundations} أساس | ${h.summary.logicLayers} طبقة منطق | ${h.summary.wisdomRules} قاعدة حكمة | ${h.summary.computationTypes} نوع حساب`
+    );
+} catch (e) {
+    console.log('⚠️ Hikmah Engine غير متوفر:', e.message);
+}
+
+// ☪️ منظومة شيخة التشغيلية الشاملة — ١٥ قطاع و ٧٤ نظام
+let opsSystemsEngine = null;
+try {
+    const SheikhaOpsSystemsEngine = require('./lib/sheikha-ops-systems-engine.js');
+    opsSystemsEngine = new SheikhaOpsSystemsEngine();
+    const ops = opsSystemsEngine.getDashboard();
+    console.log(
+        `✅ Ops Systems Engine — ${ops.summary.sectors} قطاع | ${ops.summary.totalSystems} نظام تشغيلي | ${ops.summary.shariaPrinciples} ضابط شرعي`
+    );
+} catch (e) {
+    console.log('⚠️ Ops Systems Engine غير متوفر:', e.message);
+}
+
+// ☪️ متصفح شيخة — Sheikha Browser
+let browserEngine = null;
+try {
+    const SheikhaBrowserEngine = require('./lib/sheikha-browser-engine.js');
+    browserEngine = new SheikhaBrowserEngine();
+    const br = browserEngine.getDashboard();
+    console.log(
+        `✅ Sheikha Browser — ${br.summary.coreFeatures} ميزة | ${br.summary.securityLayers} طبقة أمان | ${br.summary.platforms} منصة`
+    );
+} catch (e) {
+    console.log('⚠️ Browser Engine غير متوفر:', e.message);
+}
+
+// ☪️ محرك التطوير المستمر والإتقان — DevOps
+let devopsEngine = null;
+try {
+    const SheikhaDevOpsEngine = require('./lib/sheikha-devops-engine.js');
+    devopsEngine = new SheikhaDevOpsEngine();
+    const dv = devopsEngine.getDashboard();
+    console.log(
+        `✅ DevOps Engine — ${dv.summary.cicdStages} مرحلة CI/CD | ${dv.summary.improvementKPIs} مؤشر | ${dv.summary.teamRoles} دور`
+    );
+} catch (e) {
+    console.log('⚠️ DevOps Engine غير متوفر:', e.message);
+}
+
+// ☪️ لوحة تحكم شيخة الشاملة — Dashboard
+let dashboardEngine = null;
+try {
+    const SheikhaDashboardEngine = require('./lib/sheikha-dashboard-engine.js');
+    dashboardEngine = new SheikhaDashboardEngine();
+    const db = dashboardEngine.getDashboard();
+    console.log(
+        `✅ Dashboard Engine — ${db.summary.totalPanels} لوحة | ${db.summary.totalWidgets} ويدجت | ${db.summary.totalViews} عرض | ${db.summary.roles} دور`
+    );
+} catch (e) {
+    console.log('⚠️ Dashboard Engine غير متوفر:', e.message);
+}
+
+// ☪️ المنظومة الطبية والمعالجة — Medical
+let medicalEngine = null;
+try {
+    const SheikhaMedicalEngine = require('./lib/sheikha-medical-engine.js');
+    medicalEngine = new SheikhaMedicalEngine();
+    const med = medicalEngine.getDashboard();
+    console.log(
+        `✅ Medical Engine — ${med.summary.propheticRemedies} علاج نبوي | ${med.summary.medicalSpecialties} تخصص | ${med.summary.digitalSystems} نظام رقمي`
+    );
+} catch (e) {
+    console.log('⚠️ Medical Engine غير متوفر:', e.message);
+}
+
+// ☪️ التعليمات والإجراءات والتعريفات ورحلة المستخدم — Instructions
+let instructionsEngine = null;
+try {
+    const SheikhaInstructionsEngine = require('./lib/sheikha-instructions-engine.js');
+    instructionsEngine = new SheikhaInstructionsEngine();
+    const ins = instructionsEngine.getDashboard();
+    console.log(
+        `✅ Instructions Engine — ${ins.summary.totalTerms} تعريف | ${ins.summary.journeyStages} مرحلة رحلة | ${ins.summary.procedureCategories} فئة إجراء`
+    );
+} catch (e) {
+    console.log('⚠️ Instructions Engine غير متوفر:', e.message);
+}
+
+// ☪️ منظومة الكتاب والسنة — Quran & Sunnah
+let quranSunnahEngine = null;
+try {
+    const SheikhaQuranSunnahEngine = require('./lib/sheikha-quran-sunnah-engine.js');
+    quranSunnahEngine = new SheikhaQuranSunnahEngine();
+    const qs = quranSunnahEngine.getDashboard();
+    console.log(
+        `✅ Quran & Sunnah Engine — ${qs.summary.quranSurahs} سورة | ${qs.summary.quranAyahs} آية | ${qs.summary.hadithBooks} كتاب حديث | ${qs.summary.fiqhSchools} مذاهب`
+    );
+} catch (e) {
+    console.log('⚠️ Quran & Sunnah Engine غير متوفر:', e.message);
+}
+
+// ☪️ منظومة هوية شيخة والعلامة التجارية — Brand
+let brandEngine = null;
+try {
+    const SheikhaBrandEngine = require('./lib/sheikha-brand-engine.js');
+    brandEngine = new SheikhaBrandEngine();
+    const brd = brandEngine.getDashboard();
+    console.log(
+        `✅ Brand Engine — ${brd.summary.brandValues} قيمة | ${brd.summary.reachChannels} قناة وصول | ${brd.summary.brandColors} لون`
+    );
+} catch (e) {
+    console.log('⚠️ Brand Engine غير متوفر:', e.message);
+}
+
+// ☪️ المعالجة الذاتية والإصلاح التلقائي — Self-Heal
+let selfHealEngine = null;
+try {
+    const SheikhaSelfHealEngine = require('./lib/sheikha-selfheal-engine.js');
+    selfHealEngine = new SheikhaSelfHealEngine();
+    const sh = selfHealEngine.getDashboard();
+    console.log(
+        `✅ Self-Heal Engine — ${sh.summary.monitoringChecks} فحص | ${sh.summary.repairStrategies} استراتيجية إصلاح | ${sh.summary.escalationLevels} مستوى تصعيد`
+    );
+} catch (e) {
+    console.log('⚠️ Self-Heal Engine غير متوفر:', e.message);
+}
+
+// ☪️ التكامل الذكي بين كل المنظومات — Integration
+let integrationEngine = null;
+try {
+    const SheikhaIntegrationEngine = require('./lib/sheikha-integration-engine.js');
+    integrationEngine = new SheikhaIntegrationEngine();
+    const ig = integrationEngine.getDashboard();
+    console.log(
+        `✅ Integration Engine — ${ig.summary.integrationLayers} طبقة تكامل | ${ig.summary.totalEngines} محرك | ${ig.summary.dataFlowPatterns} نمط تدفق`
+    );
+} catch (e) {
+    console.log('⚠️ Integration Engine غير متوفر:', e.message);
+}
+
+// ═══ منظومة شيخة للتطوير — SDK + MCP + IDE ═══
+let devPlatformEngine;
+try {
+    const SheikhaDevPlatformEngine = require('./lib/sheikha-dev-platform-engine.js');
+    devPlatformEngine = new SheikhaDevPlatformEngine();
+} catch (e) {
+    console.log('⚠️ Dev Platform Engine غير متوفر:', e.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ☪️ بسم الله الرحمن الرحيم
+// نظام سوق شيخة - قائم على الكتاب والسنة
+// "وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا" - البقرة 275
+// "إِيَّاكُمْ وَمُحْدَثَاتِ الأُمُورِ فَإِنَّ كُلَّ مُحْدَثَةٍ بِدْعَةٌ وَكُلَّ بِدْعَةٍ ضَلالَةٌ"
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📅 نظام التاريخ الهجري - Hijri Date System (الأساس)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const HIJRI_MONTHS = [
+    { name: 'محرم', nameEn: 'Muharram', days: 30 },
+    { name: 'صفر', nameEn: 'Safar', days: 29 },
+    { name: 'ربيع الأول', nameEn: 'Rabi al-Awwal', days: 30 },
+    { name: 'ربيع الثاني', nameEn: 'Rabi al-Thani', days: 29 },
+    { name: 'جمادى الأولى', nameEn: 'Jumada al-Awwal', days: 30 },
+    { name: 'جمادى الآخرة', nameEn: 'Jumada al-Thani', days: 29 },
+    { name: 'رجب', nameEn: 'Rajab', days: 30 },
+    { name: 'شعبان', nameEn: 'Shaban', days: 29 },
+    { name: 'رمضان', nameEn: 'Ramadan', days: 30 },
+    { name: 'شوال', nameEn: 'Shawwal', days: 29 },
+    { name: 'ذو القعدة', nameEn: 'Dhu al-Qadah', days: 30 },
+    { name: 'ذو الحجة', nameEn: 'Dhu al-Hijjah', days: 29 } // 30 في السنة الكبيسة
+];
+
+const HIJRI_DAYS = [
+    { name: 'الأحد', nameEn: 'Sunday', shortName: 'أحد' },
+    { name: 'الاثنين', nameEn: 'Monday', shortName: 'اثنين' },
+    { name: 'الثلاثاء', nameEn: 'Tuesday', shortName: 'ثلاثاء' },
+    { name: 'الأربعاء', nameEn: 'Wednesday', shortName: 'أربعاء' },
+    { name: 'الخميس', nameEn: 'Thursday', shortName: 'خميس' },
+    { name: 'الجمعة', nameEn: 'Friday', shortName: 'جمعة', blessed: true },
+    { name: 'السبت', nameEn: 'Saturday', shortName: 'سبت' }
+];
+
+// تحويل من ميلادي إلى هجري (خوارزمية أم القرى)
+function gregorianToHijri(gYear, gMonth, gDay) {
+    const jd = gregorianToJulian(gYear, gMonth, gDay);
+    return julianToHijri(jd);
+}
+
+function gregorianToJulian(year, month, day) {
+    if (month <= 2) {
+        year -= 1;
+        month += 12;
+    }
+    const A = Math.floor(year / 100);
+    const B = 2 - A + Math.floor(A / 4);
+    return (
+        Math.floor(365.25 * (year + 4716)) + Math.floor(30.6001 * (month + 1)) + day + B - 1524.5
+    );
+}
+
+function julianToHijri(jd) {
+    const l = Math.floor(jd) - 1948440 + 10632;
+    const n = Math.floor((l - 1) / 10631);
+    const l2 = l - 10631 * n + 354;
+    const j =
+        Math.floor((10985 - l2) / 5316) * Math.floor((50 * l2) / 17719) +
+        Math.floor(l2 / 5670) * Math.floor((43 * l2) / 15238);
+    const l3 =
+        l2 -
+        Math.floor((30 - j) / 15) * Math.floor((17719 * j) / 50) -
+        Math.floor(j / 16) * Math.floor((15238 * j) / 43) +
+        29;
+    const month = Math.floor((24 * l3) / 709);
+    const day = l3 - Math.floor((709 * month) / 24);
+    const year = 30 * n + j - 30;
+
+    return { year, month, day };
+}
+
+// تحويل من هجري إلى ميلادي
+function hijriToGregorian(hYear, hMonth, hDay) {
+    const jd = hijriToJulian(hYear, hMonth, hDay);
+    return julianToGregorian(jd);
+}
+
+function hijriToJulian(year, month, day) {
+    return (
+        Math.floor((11 * year + 3) / 30) +
+        354 * year +
+        30 * month -
+        Math.floor((month - 1) / 2) +
+        day +
+        1948440 -
+        385
+    );
+}
+
+function julianToGregorian(jd) {
+    const z = Math.floor(jd + 0.5);
+    const a = Math.floor((z - 1867216.25) / 36524.25);
+    const aa = z + 1 + a - Math.floor(a / 4);
+    const b = aa + 1524;
+    const c = Math.floor((b - 122.1) / 365.25);
+    const d = Math.floor(365.25 * c);
+    const e = Math.floor((b - d) / 30.6001);
+    const day = b - d - Math.floor(30.6001 * e);
+    const month = e < 14 ? e - 1 : e - 13;
+    const year = month > 2 ? c - 4716 : c - 4715;
+
+    return { year, month, day };
+}
+
+// الحصول على التاريخ الهجري الحالي
+function getCurrentHijriDate() {
+    const now = new Date();
+    const hijri = gregorianToHijri(now.getFullYear(), now.getMonth() + 1, now.getDate());
+    const dayOfWeek = now.getDay();
+
+    return {
+        year: hijri.year,
+        month: hijri.month,
+        day: hijri.day,
+        monthName: HIJRI_MONTHS[hijri.month - 1].name,
+        monthNameEn: HIJRI_MONTHS[hijri.month - 1].nameEn,
+        dayName: HIJRI_DAYS[dayOfWeek].name,
+        dayNameEn: HIJRI_DAYS[dayOfWeek].nameEn,
+        dayShort: HIJRI_DAYS[dayOfWeek].shortName,
+        isBlessed: HIJRI_DAYS[dayOfWeek].blessed || false,
+        formatted: `${hijri.day} ${HIJRI_MONTHS[hijri.month - 1].name} ${hijri.year} هـ`,
+        formattedEn: `${hijri.day} ${HIJRI_MONTHS[hijri.month - 1].nameEn} ${hijri.year} AH`,
+        gregorian: {
+            year: now.getFullYear(),
+            month: now.getMonth() + 1,
+            day: now.getDate(),
+            formatted: now.toLocaleDateString('ar-SA-u-ca-gregory')
+        }
+    };
+}
+
+// تنسيق التاريخ الهجري
+function formatHijriDate(hijriYear, hijriMonth, hijriDay, format = 'full') {
+    const monthInfo = HIJRI_MONTHS[hijriMonth - 1];
+
+    switch (format) {
+        case 'full':
+            return `${hijriDay} ${monthInfo.name} ${hijriYear} هـ`;
+        case 'short':
+            return `${hijriDay}/${hijriMonth}/${hijriYear} هـ`;
+        case 'numeric':
+            return `${hijriYear}-${String(hijriMonth).padStart(2, '0')}-${String(hijriDay).padStart(2, '0')}`;
+        case 'withDay':
+            const greg = hijriToGregorian(hijriYear, hijriMonth, hijriDay);
+            const date = new Date(greg.year, greg.month - 1, greg.day);
+            const dayOfWeek = date.getDay();
+            return `${HIJRI_DAYS[dayOfWeek].name} ${hijriDay} ${monthInfo.name} ${hijriYear} هـ`;
+        default:
+            return `${hijriDay} ${monthInfo.name} ${hijriYear} هـ`;
+    }
+}
+
+// التحقق من الأيام المباركة والمناسبات الإسلامية
+function getIslamicOccasions(hijriMonth, hijriDay) {
+    const occasions = [];
+
+    // محرم
+    if (hijriMonth === 1) {
+        if (hijriDay === 1) occasions.push({ name: 'رأس السنة الهجرية', type: 'new_year' });
+        if (hijriDay === 10)
+            occasions.push({ name: 'يوم عاشوراء', type: 'blessed', fasting: true });
+    }
+
+    // ربيع الأول
+    if (hijriMonth === 3 && hijriDay === 12) {
+        occasions.push({ name: 'المولد النبوي الشريف', type: 'blessed' });
+    }
+
+    // رجب
+    if (hijriMonth === 7 && hijriDay === 27) {
+        occasions.push({ name: 'ليلة الإسراء والمعراج', type: 'blessed' });
+    }
+
+    // شعبان
+    if (hijriMonth === 8 && hijriDay === 15) {
+        occasions.push({ name: 'ليلة النصف من شعبان', type: 'blessed' });
+    }
+
+    // رمضان
+    if (hijriMonth === 9) {
+        occasions.push({ name: 'شهر رمضان المبارك', type: 'ramadan', fasting: true });
+        if (hijriDay >= 21 && hijriDay <= 29 && hijriDay % 2 === 1) {
+            occasions.push({ name: 'ليالي القدر المحتملة', type: 'laylat_qadr' });
+        }
+    }
+
+    // شوال
+    if (hijriMonth === 10 && hijriDay === 1) {
+        occasions.push({ name: 'عيد الفطر المبارك', type: 'eid', holiday: true });
+    }
+
+    // ذو الحجة
+    if (hijriMonth === 12) {
+        if (hijriDay >= 1 && hijriDay <= 9)
+            occasions.push({ name: 'أيام العشر المباركة', type: 'blessed' });
+        if (hijriDay === 9) occasions.push({ name: 'يوم عرفة', type: 'arafah', fasting: true });
+        if (hijriDay === 10)
+            occasions.push({ name: 'عيد الأضحى المبارك', type: 'eid', holiday: true });
+        if (hijriDay >= 11 && hijriDay <= 13)
+            occasions.push({ name: 'أيام التشريق', type: 'tashreeq' });
+    }
+
+    return occasions;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// ⚖️ الأحكام الشرعية للمعاملات - Islamic Rulings for Transactions
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const ISLAMIC_PRINCIPLES = {
+    // أساس التعامل
+    foundation: {
+        quran: [
+            { ayah: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا', surah: 'البقرة', verse: 275 },
+            {
+                ayah: 'يَا أَيُّهَا الَّذِينَ آمَنُوا لَا تَأْكُلُوا أَمْوَالَكُمْ بَيْنَكُمْ بِالْبَاطِلِ إِلَّا أَنْ تَكُونَ تِجَارَةً عَنْ تَرَاضٍ مِنْكُمْ',
+                surah: 'النساء',
+                verse: 29
+            },
+            {
+                ayah: 'وَأَوْفُوا بِالْعَهْدِ إِنَّ الْعَهْدَ كَانَ مَسْئُولًا',
+                surah: 'الإسراء',
+                verse: 34
+            },
+            { ayah: 'وَأَوْفُوا الْكَيْلَ وَالْمِيزَانَ بِالْقِسْطِ', surah: 'الأنعام', verse: 152 }
+        ],
+        hadith: [
+            { text: 'لا ضرر ولا ضرار', narrator: 'ابن ماجه', grade: 'صحيح' },
+            { text: 'البيعان بالخيار ما لم يتفرقا', narrator: 'البخاري ومسلم', grade: 'متفق عليه' },
+            { text: 'من غشنا فليس منا', narrator: 'مسلم', grade: 'صحيح' },
+            {
+                text: 'التاجر الصدوق الأمين مع النبيين والصديقين والشهداء',
+                narrator: 'الترمذي',
+                grade: 'حسن'
+            },
+            {
+                text: 'إياكم ومحدثات الأمور فإن كل محدثة بدعة وكل بدعة ضلالة',
+                narrator: 'أبو داود',
+                grade: 'صحيح'
+            }
+        ]
+    },
+
+    // المحرمات في المعاملات
+    prohibited: {
+        riba: {
+            name: 'الربا',
+            nameEn: 'Usury/Interest',
+            description: 'كل زيادة مشروطة على رأس المال بدون عوض',
+            evidence: 'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا'
+        },
+        gharar: {
+            name: 'الغرر',
+            nameEn: 'Uncertainty/Deception',
+            description: 'بيع المجهول أو ما فيه جهالة فاحشة',
+            evidence: 'نهى النبي ﷺ عن بيع الغرر'
+        },
+        ghish: {
+            name: 'الغش',
+            nameEn: 'Fraud/Cheating',
+            description: 'إخفاء عيوب السلعة أو الكذب في وصفها',
+            evidence: 'من غشنا فليس منا'
+        },
+        najash: {
+            name: 'النجش',
+            nameEn: 'Bid Manipulation',
+            description: 'الزيادة في الثمن لا للشراء بل لخداع المشتري',
+            evidence: 'نهى النبي ﷺ عن النجش'
+        },
+        ihtikar: {
+            name: 'الاحتكار',
+            nameEn: 'Monopoly/Hoarding',
+            description: 'حبس السلع انتظاراً لغلاء السعر',
+            evidence: 'لا يحتكر إلا خاطئ'
+        },
+        bayAlInah: {
+            name: 'بيع العينة',
+            nameEn: 'Inah Sale',
+            description: 'بيع السلعة ثم شراؤها بثمن أقل حالاً',
+            evidence: 'حيلة ربوية محرمة'
+        }
+    },
+
+    // شروط البيع الصحيح
+    validSaleConditions: [
+        { condition: 'رضا المتعاقدين', description: 'التراضي بين البائع والمشتري' },
+        { condition: 'ملكية البائع للسلعة', description: 'لا تبع ما ليس عندك' },
+        { condition: 'معلومية السلعة', description: 'العلم بالمبيع صفة وقدراً' },
+        { condition: 'معلومية الثمن', description: 'تحديد الثمن بلا جهالة' },
+        { condition: 'القدرة على التسليم', description: 'إمكان تسليم المبيع' },
+        { condition: 'خلو العقد من الشروط الفاسدة', description: 'عدم وجود شروط تخالف الشرع' }
+    ],
+
+    // آداب التجارة
+    etiquette: [
+        { adab: 'الصدق والأمانة', description: 'قول الحق في وصف السلعة' },
+        { adab: 'السماحة في البيع والشراء', description: 'اللين وحسن المعاملة' },
+        { adab: 'التبكير في طلب الرزق', description: 'بورك لأمتي في بكورها' },
+        { adab: 'ذكر الله في التجارة', description: 'لا تلهيهم تجارة ولا بيع عن ذكر الله' },
+        { adab: 'إنظار المعسر', description: 'من أنظر معسراً أظله الله' },
+        { adab: 'الإحسان في الوزن والكيل', description: 'وأقيموا الوزن بالقسط' }
+    ]
+};
+
+// التحقق من شرعية المعاملة
+function validateIslamicTransaction(transaction) {
+    const violations = [];
+    const warnings = [];
+
+    // التحقق من الربا
+    if (transaction.interest && transaction.interest > 0) {
+        violations.push({
+            type: 'riba',
+            message: 'المعاملة تحتوي على فائدة ربوية محرمة',
+            evidence: ISLAMIC_PRINCIPLES.prohibited.riba.evidence
+        });
+    }
+
+    // التحقق من الغرر
+    if (!transaction.productDescription || transaction.productDescription.length < 10) {
+        warnings.push({
+            type: 'gharar',
+            message: 'يجب توضيح وصف المنتج بشكل كافٍ لتجنب الغرر',
+            evidence: ISLAMIC_PRINCIPLES.prohibited.gharar.evidence
+        });
+    }
+
+    // التحقق من معلومية الثمن
+    if (!transaction.price || transaction.price <= 0) {
+        violations.push({
+            type: 'unknown_price',
+            message: 'يجب تحديد الثمن بوضوح',
+            evidence: 'من شروط البيع الصحيح معلومية الثمن'
+        });
+    }
+
+    // التحقق من ملكية السلعة
+    if (transaction.sellerOwnership === false) {
+        violations.push({
+            type: 'no_ownership',
+            message: 'لا تبع ما ليس عندك',
+            evidence: 'نهى النبي ﷺ عن بيع ما لا يملك'
+        });
+    }
+
+    return {
+        isValid: violations.length === 0,
+        violations,
+        warnings,
+        blessing: violations.length === 0 ? 'بارك الله في هذه المعاملة' : null
+    };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🕌 أوقات الصلاة والتوقف عن المعاملات - Prayer Times & Trading Pause
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const PRAYER_TIMES_SETTINGS = {
+    enabled: true,
+    pauseDuringJumuah: true,
+    jumuahPauseStart: '12:00', // قبل صلاة الجمعة
+    jumuahPauseEnd: '14:00', // بعد صلاة الجمعة
+    reminderBeforePrayer: 15, // تذكير قبل الصلاة بـ 15 دقيقة
+    location: {
+        city: 'الخبر',
+        country: 'المملكة العربية السعودية',
+        timezone: 'Asia/Riyadh',
+        latitude: 26.2172,
+        longitude: 50.1971
+    }
+};
+
+// تقريب أوقات الصلاة (سيتم استخدام API حقيقي في الإنتاج)
+function getApproximatePrayerTimes() {
+    const now = new Date();
+    const month = now.getMonth() + 1;
+
+    // أوقات تقريبية للخبر (تختلف حسب الموسم)
+    const times = {
+        fajr: month >= 4 && month <= 9 ? '03:45' : '05:00',
+        sunrise: month >= 4 && month <= 9 ? '05:15' : '06:30',
+        dhuhr: '12:00',
+        asr: month >= 4 && month <= 9 ? '15:30' : '15:00',
+        maghrib: month >= 4 && month <= 9 ? '18:30' : '17:30',
+        isha: month >= 4 && month <= 9 ? '20:00' : '19:00'
+    };
+
+    return {
+        ...times,
+        date: getCurrentHijriDate(),
+        location: PRAYER_TIMES_SETTINGS.location.city
+    };
+}
+
+// التحقق من وقت صلاة الجمعة
+function isJumuahTime() {
+    const now = new Date();
+    if (now.getDay() !== 5) return false; // ليس يوم الجمعة
+
+    const hours = now.getHours();
+    const minutes = now.getMinutes();
+    const currentTime = hours * 60 + minutes;
+
+    const [startH, startM] = PRAYER_TIMES_SETTINGS.jumuahPauseStart.split(':').map(Number);
+    const [endH, endM] = PRAYER_TIMES_SETTINGS.jumuahPauseEnd.split(':').map(Number);
+
+    const startTime = startH * 60 + startM;
+    const endTime = endH * 60 + endM;
+
+    return currentTime >= startTime && currentTime <= endTime;
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 💰 نظام الزكاة - Zakat System
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const ZAKAT_CONFIG = {
+    nisab: {
+        gold: { grams: 85, description: 'نصاب الذهب: 85 جرام من الذهب الخالص' },
+        silver: { grams: 595, description: 'نصاب الفضة: 595 جرام من الفضة الخالصة' }
+    },
+    rate: 0.025, // 2.5%
+    hawl: 354, // سنة هجرية بالأيام
+    categories: [
+        'الفقراء',
+        'المساكين',
+        'العاملون عليها',
+        'المؤلفة قلوبهم',
+        'في الرقاب',
+        'الغارمون',
+        'في سبيل الله',
+        'ابن السبيل'
+    ]
+};
+
+function calculateZakat(amount, goldPricePerGram = 250) {
+    const nisabValue = ZAKAT_CONFIG.nisab.gold.grams * goldPricePerGram;
+
+    if (amount < nisabValue) {
+        return {
+            required: false,
+            reason: 'المبلغ أقل من النصاب',
+            nisabValue,
+            amount
+        };
+    }
+
+    const zakatAmount = amount * ZAKAT_CONFIG.rate;
+
+    return {
+        required: true,
+        amount,
+        nisabValue,
+        zakatAmount,
+        rate: '2.5%',
+        categories: ZAKAT_CONFIG.categories,
+        reminder: 'قال تعالى: وَأَقِيمُوا الصَّلَاةَ وَآتُوا الزَّكَاةَ'
+    };
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 نظام الترجمة الآلية الشامل - Multi-Language Auto Translation System
+// ═══════════════════════════════════════════════════════════════════════════════
+
+const SUPPORTED_LANGUAGES = {
+    ar: { name: 'العربية', nameEn: 'Arabic', dir: 'rtl', flag: '🇸🇦', primary: true },
+    en: { name: 'English', nameEn: 'English', dir: 'ltr', flag: '🇺🇸' },
+    zh: { name: '中文', nameEn: 'Chinese', dir: 'ltr', flag: '🇨🇳' },
+    hi: { name: 'हिन्दी', nameEn: 'Hindi', dir: 'ltr', flag: '🇮🇳' },
+    es: { name: 'Español', nameEn: 'Spanish', dir: 'ltr', flag: '🇪🇸' },
+    fr: { name: 'Français', nameEn: 'French', dir: 'ltr', flag: '🇫🇷' },
+    ru: { name: 'Русский', nameEn: 'Russian', dir: 'ltr', flag: '🇷🇺' },
+    pt: { name: 'Português', nameEn: 'Portuguese', dir: 'ltr', flag: '🇧🇷' },
+    de: { name: 'Deutsch', nameEn: 'German', dir: 'ltr', flag: '🇩🇪' },
+    ja: { name: '日本語', nameEn: 'Japanese', dir: 'ltr', flag: '🇯🇵' },
+    ko: { name: '한국어', nameEn: 'Korean', dir: 'ltr', flag: '🇰🇷' },
+    tr: { name: 'Türkçe', nameEn: 'Turkish', dir: 'ltr', flag: '🇹🇷' },
+    ur: { name: 'اردو', nameEn: 'Urdu', dir: 'rtl', flag: '🇵🇰' },
+    fa: { name: 'فارسی', nameEn: 'Persian', dir: 'rtl', flag: '🇮🇷' },
+    id: { name: 'Bahasa Indonesia', nameEn: 'Indonesian', dir: 'ltr', flag: '🇮🇩' },
+    ms: { name: 'Bahasa Melayu', nameEn: 'Malay', dir: 'ltr', flag: '🇲🇾' },
+    th: { name: 'ไทย', nameEn: 'Thai', dir: 'ltr', flag: '🇹🇭' },
+    vi: { name: 'Tiếng Việt', nameEn: 'Vietnamese', dir: 'ltr', flag: '🇻🇳' },
+    it: { name: 'Italiano', nameEn: 'Italian', dir: 'ltr', flag: '🇮🇹' },
+    nl: { name: 'Nederlands', nameEn: 'Dutch', dir: 'ltr', flag: '🇳🇱' },
+    pl: { name: 'Polski', nameEn: 'Polish', dir: 'ltr', flag: '🇵🇱' },
+    uk: { name: 'Українська', nameEn: 'Ukrainian', dir: 'ltr', flag: '🇺🇦' },
+    bn: { name: 'বাংলা', nameEn: 'Bengali', dir: 'ltr', flag: '🇧🇩' },
+    tl: { name: 'Tagalog', nameEn: 'Tagalog', dir: 'ltr', flag: '🇵🇭' },
+    sw: { name: 'Kiswahili', nameEn: 'Swahili', dir: 'ltr', flag: '🇰🇪' }
+};
+
+// القاموس الأساسي للترجمة (العربية هي المصدر)
+const TRANSLATIONS = {
+    // === واجهة المستخدم الأساسية ===
+    'سوق شيخة': {
+        en: 'Sheikha Market',
+        zh: '谢赫市场',
+        hi: 'शेखा मार्केट',
+        es: 'Mercado Sheikha',
+        fr: 'Marché Sheikha',
+        ru: 'Рынок Шейха',
+        pt: 'Mercado Sheikha',
+        de: 'Sheikha Markt',
+        ja: 'シェイカマーケット',
+        ko: '쉐이카 마켓',
+        tr: 'Sheikha Pazarı',
+        ur: 'شیخہ مارکیٹ',
+        fa: 'بازار شیخه',
+        id: 'Pasar Sheikha',
+        ms: 'Pasaran Sheikha',
+        th: 'ตลาดเชคา',
+        vi: 'Chợ Sheikha',
+        it: 'Mercato Sheikha',
+        nl: 'Sheikha Markt',
+        pl: 'Rynek Sheikha'
+    },
+    'تسجيل الدخول': {
+        en: 'Login',
+        zh: '登录',
+        hi: 'लॉग इन',
+        es: 'Iniciar sesión',
+        fr: 'Connexion',
+        ru: 'Войти',
+        pt: 'Entrar',
+        de: 'Anmelden',
+        ja: 'ログイン',
+        ko: '로그인',
+        tr: 'Giriş',
+        ur: 'لاگ ان',
+        fa: 'ورود',
+        id: 'Masuk',
+        ms: 'Log Masuk',
+        th: 'เข้าสู่ระบบ',
+        vi: 'Đăng nhập',
+        it: 'Accedi',
+        nl: 'Inloggen',
+        pl: 'Zaloguj'
+    },
+    'تسجيل جديد': {
+        en: 'Register',
+        zh: '注册',
+        hi: 'रजिस्टर',
+        es: 'Registrarse',
+        fr: "S'inscrire",
+        ru: 'Регистрация',
+        pt: 'Registrar',
+        de: 'Registrieren',
+        ja: '登録',
+        ko: '가입',
+        tr: 'Kayıt Ol',
+        ur: 'رجسٹر',
+        fa: 'ثبت نام',
+        id: 'Daftar',
+        ms: 'Daftar',
+        th: 'ลงทะเบียน',
+        vi: 'Đăng ký',
+        it: 'Registrati',
+        nl: 'Registreren',
+        pl: 'Zarejestruj'
+    },
+    السوق: {
+        en: 'Market',
+        zh: '市场',
+        hi: 'बाज़ार',
+        es: 'Mercado',
+        fr: 'Marché',
+        ru: 'Рынок',
+        pt: 'Mercado',
+        de: 'Markt',
+        ja: 'マーケット',
+        ko: '마켓',
+        tr: 'Pazar',
+        ur: 'مارکیٹ',
+        fa: 'بازار',
+        id: 'Pasar',
+        ms: 'Pasaran',
+        th: 'ตลาด',
+        vi: 'Chợ',
+        it: 'Mercato',
+        nl: 'Markt',
+        pl: 'Rynek'
+    },
+    المنتجات: {
+        en: 'Products',
+        zh: '产品',
+        hi: 'उत्पाद',
+        es: 'Productos',
+        fr: 'Produits',
+        ru: 'Продукты',
+        pt: 'Produtos',
+        de: 'Produkte',
+        ja: '製品',
+        ko: '제품',
+        tr: 'Ürünler',
+        ur: 'مصنوعات',
+        fa: 'محصولات',
+        id: 'Produk',
+        ms: 'Produk',
+        th: 'ผลิตภัณฑ์',
+        vi: 'Sản phẩm',
+        it: 'Prodotti',
+        nl: 'Producten',
+        pl: 'Produkty'
+    },
+    'أضف إلى السلة': {
+        en: 'Add to Cart',
+        zh: '加入购物车',
+        hi: 'कार्ट में जोड़ें',
+        es: 'Añadir al carrito',
+        fr: 'Ajouter au panier',
+        ru: 'Добавить в корзину',
+        pt: 'Adicionar ao carrinho',
+        de: 'In den Warenkorb',
+        ja: 'カートに追加',
+        ko: '장바구니에 추가',
+        tr: 'Sepete Ekle',
+        ur: 'کارٹ میں شامل کریں',
+        fa: 'افزودن به سبد',
+        id: 'Tambah ke Keranjang',
+        ms: 'Tambah ke Troli',
+        th: 'เพิ่มลงตะกร้า',
+        vi: 'Thêm vào giỏ',
+        it: 'Aggiungi al carrello',
+        nl: 'Toevoegen aan winkelwagen',
+        pl: 'Dodaj do koszyka'
+    },
+    'اشترِ الآن': {
+        en: 'Buy Now',
+        zh: '立即购买',
+        hi: 'अभी खरीदें',
+        es: 'Comprar ahora',
+        fr: 'Acheter maintenant',
+        ru: 'Купить сейчас',
+        pt: 'Comprar agora',
+        de: 'Jetzt kaufen',
+        ja: '今すぐ購入',
+        ko: '지금 구매',
+        tr: 'Şimdi Satın Al',
+        ur: 'ابھی خریدیں',
+        fa: 'خرید فوری',
+        id: 'Beli Sekarang',
+        ms: 'Beli Sekarang',
+        th: 'ซื้อเลย',
+        vi: 'Mua ngay',
+        it: 'Acquista ora',
+        nl: 'Nu kopen',
+        pl: 'Kup teraz'
+    },
+    الدفع: {
+        en: 'Payment',
+        zh: '付款',
+        hi: 'भुगतान',
+        es: 'Pago',
+        fr: 'Paiement',
+        ru: 'Оплата',
+        pt: 'Pagamento',
+        de: 'Zahlung',
+        ja: '支払い',
+        ko: '결제',
+        tr: 'Ödeme',
+        ur: 'ادائیگی',
+        fa: 'پرداخت',
+        id: 'Pembayaran',
+        ms: 'Pembayaran',
+        th: 'การชำระเงิน',
+        vi: 'Thanh toán',
+        it: 'Pagamento',
+        nl: 'Betaling',
+        pl: 'Płatność'
+    },
+    الشحن: {
+        en: 'Shipping',
+        zh: '配送',
+        hi: 'शिपिंग',
+        es: 'Envío',
+        fr: 'Livraison',
+        ru: 'Доставка',
+        pt: 'Envio',
+        de: 'Versand',
+        ja: '配送',
+        ko: '배송',
+        tr: 'Kargo',
+        ur: 'شپنگ',
+        fa: 'ارسال',
+        id: 'Pengiriman',
+        ms: 'Penghantaran',
+        th: 'การจัดส่ง',
+        vi: 'Vận chuyển',
+        it: 'Spedizione',
+        nl: 'Verzending',
+        pl: 'Wysyłka'
+    },
+    'تتبع الطلب': {
+        en: 'Track Order',
+        zh: '追踪订单',
+        hi: 'ऑर्डर ट्रैक करें',
+        es: 'Rastrear pedido',
+        fr: 'Suivre la commande',
+        ru: 'Отследить заказ',
+        pt: 'Rastrear pedido',
+        de: 'Bestellung verfolgen',
+        ja: '注文を追跡',
+        ko: '주문 추적',
+        tr: 'Siparişi Takip Et',
+        ur: 'آرڈر ٹریک کریں',
+        fa: 'پیگیری سفارش',
+        id: 'Lacak Pesanan',
+        ms: 'Jejak Pesanan',
+        th: 'ติดตามคำสั่งซื้อ',
+        vi: 'Theo dõi đơn hàng',
+        it: 'Traccia ordine',
+        nl: 'Bestelling volgen',
+        pl: 'Śledź zamówienie'
+    },
+    البحث: {
+        en: 'Search',
+        zh: '搜索',
+        hi: 'खोज',
+        es: 'Buscar',
+        fr: 'Rechercher',
+        ru: 'Поиск',
+        pt: 'Pesquisar',
+        de: 'Suchen',
+        ja: '検索',
+        ko: '검색',
+        tr: 'Ara',
+        ur: 'تلاش',
+        fa: 'جستجو',
+        id: 'Cari',
+        ms: 'Cari',
+        th: 'ค้นหา',
+        vi: 'Tìm kiếm',
+        it: 'Cerca',
+        nl: 'Zoeken',
+        pl: 'Szukaj'
+    },
+    السعر: {
+        en: 'Price',
+        zh: '价格',
+        hi: 'कीमत',
+        es: 'Precio',
+        fr: 'Prix',
+        ru: 'Цена',
+        pt: 'Preço',
+        de: 'Preis',
+        ja: '価格',
+        ko: '가격',
+        tr: 'Fiyat',
+        ur: 'قیمت',
+        fa: 'قیمت',
+        id: 'Harga',
+        ms: 'Harga',
+        th: 'ราคา',
+        vi: 'Giá',
+        it: 'Prezzo',
+        nl: 'Prijs',
+        pl: 'Cena'
+    },
+    'ريال سعودي': {
+        en: 'Saudi Riyal',
+        zh: '沙特里亚尔',
+        hi: 'सऊदी रियाल',
+        es: 'Riyal saudí',
+        fr: 'Riyal saoudien',
+        ru: 'Саудовский риал',
+        pt: 'Rial saudita',
+        de: 'Saudi-Rial',
+        ja: 'サウジリヤル',
+        ko: '사우디 리얄',
+        tr: 'Suudi Riyali',
+        ur: 'سعودی ریال',
+        fa: 'ریال سعودی',
+        id: 'Riyal Saudi',
+        ms: 'Riyal Saudi',
+        th: 'ริยัลซาอุดีอาระเบีย',
+        vi: 'Riyal Ả Rập',
+        it: 'Riyal saudita',
+        nl: 'Saoedische riyal',
+        pl: 'Rial saudyjski'
+    },
+    كيلوجرام: {
+        en: 'Kilogram',
+        zh: '公斤',
+        hi: 'किलोग्राम',
+        es: 'Kilogramo',
+        fr: 'Kilogramme',
+        ru: 'Килограмм',
+        pt: 'Quilograma',
+        de: 'Kilogramm',
+        ja: 'キログラム',
+        ko: '킬로그램',
+        tr: 'Kilogram',
+        ur: 'کلوگرام',
+        fa: 'کیلوگرم',
+        id: 'Kilogram',
+        ms: 'Kilogram',
+        th: 'กิโลกรัม',
+        vi: 'Kilogram',
+        it: 'Chilogrammo',
+        nl: 'Kilogram',
+        pl: 'Kilogram'
+    },
+    طن: {
+        en: 'Ton',
+        zh: '吨',
+        hi: 'टन',
+        es: 'Tonelada',
+        fr: 'Tonne',
+        ru: 'Тонна',
+        pt: 'Tonelada',
+        de: 'Tonne',
+        ja: 'トン',
+        ko: '톤',
+        tr: 'Ton',
+        ur: 'ٹن',
+        fa: 'تن',
+        id: 'Ton',
+        ms: 'Tan',
+        th: 'ตัน',
+        vi: 'Tấn',
+        it: 'Tonnellata',
+        nl: 'Ton',
+        pl: 'Tona'
+    },
+    // === المعادن والسكراب ===
+    نحاس: {
+        en: 'Copper',
+        zh: '铜',
+        hi: 'तांबा',
+        es: 'Cobre',
+        fr: 'Cuivre',
+        ru: 'Медь',
+        pt: 'Cobre',
+        de: 'Kupfer',
+        ja: '銅',
+        ko: '구리',
+        tr: 'Bakır',
+        ur: 'تانبا',
+        fa: 'مس',
+        id: 'Tembaga',
+        ms: 'Tembaga',
+        th: 'ทองแดง',
+        vi: 'Đồng',
+        it: 'Rame',
+        nl: 'Koper',
+        pl: 'Miedź'
+    },
+    ألمنيوم: {
+        en: 'Aluminum',
+        zh: '铝',
+        hi: 'एल्युमिनियम',
+        es: 'Aluminio',
+        fr: 'Aluminium',
+        ru: 'Алюминий',
+        pt: 'Alumínio',
+        de: 'Aluminium',
+        ja: 'アルミニウム',
+        ko: '알루미늄',
+        tr: 'Alüminyum',
+        ur: 'ایلومینیم',
+        fa: 'آلومینیوم',
+        id: 'Aluminium',
+        ms: 'Aluminium',
+        th: 'อลูมิเนียม',
+        vi: 'Nhôm',
+        it: 'Alluminio',
+        nl: 'Aluminium',
+        pl: 'Aluminium'
+    },
+    حديد: {
+        en: 'Iron',
+        zh: '铁',
+        hi: 'लोहा',
+        es: 'Hierro',
+        fr: 'Fer',
+        ru: 'Железо',
+        pt: 'Ferro',
+        de: 'Eisen',
+        ja: '鉄',
+        ko: '철',
+        tr: 'Demir',
+        ur: 'لوہا',
+        fa: 'آهن',
+        id: 'Besi',
+        ms: 'Besi',
+        th: 'เหล็ก',
+        vi: 'Sắt',
+        it: 'Ferro',
+        nl: 'IJzer',
+        pl: 'Żelazo'
+    },
+    ذهب: {
+        en: 'Gold',
+        zh: '黄金',
+        hi: 'सोना',
+        es: 'Oro',
+        fr: 'Or',
+        ru: 'Золото',
+        pt: 'Ouro',
+        de: 'Gold',
+        ja: '金',
+        ko: '금',
+        tr: 'Altın',
+        ur: 'سونا',
+        fa: 'طلا',
+        id: 'Emas',
+        ms: 'Emas',
+        th: 'ทอง',
+        vi: 'Vàng',
+        it: 'Oro',
+        nl: 'Goud',
+        pl: 'Złoto'
+    },
+    فضة: {
+        en: 'Silver',
+        zh: '白银',
+        hi: 'चांदी',
+        es: 'Plata',
+        fr: 'Argent',
+        ru: 'Серебро',
+        pt: 'Prata',
+        de: 'Silber',
+        ja: '銀',
+        ko: '은',
+        tr: 'Gümüş',
+        ur: 'چاندی',
+        fa: 'نقره',
+        id: 'Perak',
+        ms: 'Perak',
+        th: 'เงิน',
+        vi: 'Bạc',
+        it: 'Argento',
+        nl: 'Zilver',
+        pl: 'Srebro'
+    },
+    سكراب: {
+        en: 'Scrap',
+        zh: '废料',
+        hi: 'स्क्रैप',
+        es: 'Chatarra',
+        fr: 'Ferraille',
+        ru: 'Лом',
+        pt: 'Sucata',
+        de: 'Schrott',
+        ja: 'スクラップ',
+        ko: '스크랩',
+        tr: 'Hurda',
+        ur: 'سکریپ',
+        fa: 'ضایعات',
+        id: 'Skrap',
+        ms: 'Skrap',
+        th: 'เศษโลหะ',
+        vi: 'Phế liệu',
+        it: 'Rottame',
+        nl: 'Schroot',
+        pl: 'Złom'
+    },
+    // === رسائل النظام ===
+    'مرحباً بك': {
+        en: 'Welcome',
+        zh: '欢迎',
+        hi: 'स्वागत है',
+        es: 'Bienvenido',
+        fr: 'Bienvenue',
+        ru: 'Добро пожаловать',
+        pt: 'Bem-vindo',
+        de: 'Willkommen',
+        ja: 'ようこそ',
+        ko: '환영합니다',
+        tr: 'Hoş geldiniz',
+        ur: 'خوش آمدید',
+        fa: 'خوش آمدید',
+        id: 'Selamat datang',
+        ms: 'Selamat datang',
+        th: 'ยินดีต้อนรับ',
+        vi: 'Chào mừng',
+        it: 'Benvenuto',
+        nl: 'Welkom',
+        pl: 'Witamy'
+    },
+    'تم بنجاح': {
+        en: 'Success',
+        zh: '成功',
+        hi: 'सफलता',
+        es: 'Éxito',
+        fr: 'Succès',
+        ru: 'Успех',
+        pt: 'Sucesso',
+        de: 'Erfolg',
+        ja: '成功',
+        ko: '성공',
+        tr: 'Başarılı',
+        ur: 'کامیابی',
+        fa: 'موفقیت',
+        id: 'Berhasil',
+        ms: 'Berjaya',
+        th: 'สำเร็จ',
+        vi: 'Thành công',
+        it: 'Successo',
+        nl: 'Succes',
+        pl: 'Sukces'
+    },
+    خطأ: {
+        en: 'Error',
+        zh: '错误',
+        hi: 'त्रुटि',
+        es: 'Error',
+        fr: 'Erreur',
+        ru: 'Ошибка',
+        pt: 'Erro',
+        de: 'Fehler',
+        ja: 'エラー',
+        ko: '오류',
+        tr: 'Hata',
+        ur: 'خرابی',
+        fa: 'خطا',
+        id: 'Kesalahan',
+        ms: 'Ralat',
+        th: 'ข้อผิดพลาด',
+        vi: 'Lỗi',
+        it: 'Errore',
+        nl: 'Fout',
+        pl: 'Błąd'
+    },
+    'لا ضرر ولا ضرار': {
+        en: 'No harm, no foul',
+        zh: '不伤害，不受害',
+        hi: 'न नुकसान, न हानि',
+        es: 'Sin daño, sin perjuicio',
+        fr: 'Sans préjudice',
+        ru: 'Без вреда',
+        pt: 'Sem dano',
+        de: 'Ohne Schaden',
+        ja: '害なし',
+        ko: '해 없음',
+        tr: 'Zarar yok',
+        ur: 'نقصان نہیں',
+        fa: 'بدون ضرر',
+        id: 'Tanpa kerugian',
+        ms: 'Tiada kemudaratan',
+        th: 'ไม่มีอันตราย',
+        vi: 'Không hại',
+        it: 'Senza danno',
+        nl: 'Geen schade',
+        pl: 'Bez szkody'
+    },
+    'شريكك الموثوق في عالم المعادن': {
+        en: 'Your trusted partner in the world of metals',
+        fr: 'Votre partenaire de confiance dans le monde des métaux',
+        tr: 'Metal dünyasında güvenilir ortağınız',
+        ur: 'دھاتوں کی دنیا میں آپ کا قابل اعتماد ساتھی',
+        id: 'Mitra terpercaya Anda di dunia logam',
+        de: 'Ihr vertrauenswürdiger Partner in der Welt der Metalle'
+    },
+    // === واجهة الصفحة الرئيسية ===
+    الرئيسية: {
+        en: 'Home',
+        fr: 'Accueil',
+        tr: 'Ana Sayfa',
+        ur: 'ہوم',
+        id: 'Beranda',
+        de: 'Startseite'
+    },
+    ادخل: { en: 'Login', fr: 'Connexion', tr: 'Giriş', ur: 'لاگ ان', id: 'Masuk', de: 'Anmelden' },
+    حسابي: {
+        en: 'My Account',
+        fr: 'Mon compte',
+        tr: 'Hesabım',
+        ur: 'میرا اکاؤنٹ',
+        id: 'Akun Saya',
+        de: 'Mein Konto'
+    },
+    'لوحة التحكم': {
+        en: 'Dashboard',
+        fr: 'Tableau de bord',
+        tr: 'Kontrol Paneli',
+        ur: 'ڈیش بورڈ',
+        id: 'Dasbor',
+        de: 'Dashboard'
+    },
+    'تسجيل الخروج': {
+        en: 'Logout',
+        fr: 'Déconnexion',
+        tr: 'Çıkış',
+        ur: 'لاگ آؤٹ',
+        id: 'Keluar',
+        de: 'Abmelden'
+    },
+    'لوحة المتابعة': {
+        en: 'Dashboard',
+        fr: 'Tableau de bord',
+        tr: 'Takip Paneli',
+        ur: 'ڈیش بورڈ',
+        id: 'Panel Monitoring',
+        de: 'Übersicht'
+    },
+    الشريعة: {
+        en: 'Sharia',
+        fr: 'Charia',
+        tr: 'Şeriat',
+        ur: 'شریعت',
+        id: 'Syariah',
+        de: 'Scharia'
+    },
+    'الشريعة الإسلامية': {
+        en: 'Islamic Sharia',
+        fr: 'Charia islamique',
+        tr: 'İslam Şeriatı',
+        ur: 'اسلامی شریعت',
+        id: 'Syariah Islam',
+        de: 'Islamisches Recht'
+    },
+    المجتمع: {
+        en: 'Community',
+        fr: 'Communauté',
+        tr: 'Topluluk',
+        ur: 'کمیونٹی',
+        id: 'Komunitas',
+        de: 'Gemeinschaft'
+    },
+    'هوية السوق': {
+        en: 'Market Identity',
+        fr: 'Identité du marché',
+        tr: 'Pazar Kimliği',
+        ur: 'مارکیٹ شناخت',
+        id: 'Identitas Pasar',
+        de: 'Marktidentität'
+    },
+    الخريطة: { en: 'Map', fr: 'Carte', tr: 'Harita', ur: 'نقشہ', id: 'Peta', de: 'Karte' },
+    'سجّل كتاجر': {
+        en: 'Register as Trader',
+        fr: "S'inscrire comme commerçant",
+        tr: 'Tüccar Olarak Kaydol',
+        ur: 'تاجر کے طور پر رجسٹر کریں',
+        id: 'Daftar sebagai Pedagang',
+        de: 'Als Händler registrieren'
+    },
+    // === صفحة تسجيل الدخول ===
+    'مرحباً بك في شيخة': {
+        en: 'Welcome to Sheikha',
+        fr: 'Bienvenue chez Sheikha',
+        tr: "Sheikha'ya Hoş Geldiniz",
+        ur: 'شیخہ میں خوش آمدید',
+        id: 'Selamat datang di Sheikha',
+        de: 'Willkommen bei Sheikha'
+    },
+    'منصة تجارة المعادن الإسلامية': {
+        en: 'Islamic Metals Trading Platform',
+        fr: 'Plateforme de commerce islamique des métaux',
+        tr: 'İslami Metal Ticaret Platformu',
+        ur: 'اسلامی دھاتوں کی تجارت کا پلیٹ فارم',
+        id: 'Platform Perdagangan Logam Islam',
+        de: 'Islamische Metallhandelsplattform'
+    },
+    'تسجيل مجاني': {
+        en: 'Free Registration',
+        fr: 'Inscription gratuite',
+        tr: 'Ücretsiz Kayıt',
+        ur: 'مفت رجسٹریشن',
+        id: 'Pendaftaran Gratis',
+        de: 'Kostenlose Registrierung'
+    },
+    'بدون عمولة': {
+        en: 'No Commission',
+        fr: 'Sans commission',
+        tr: 'Komisyonsuz',
+        ur: 'بغیر کمیشن',
+        id: 'Tanpa Komisi',
+        de: 'Ohne Provision'
+    },
+    'حماية شرعية': {
+        en: 'Sharia Protection',
+        fr: 'Protection islamique',
+        tr: "Şer'i Koruma",
+        ur: 'شرعی تحفظ',
+        id: 'Perlindungan Syariah',
+        de: 'Scharia-Schutz'
+    },
+    'الدخول السريع': {
+        en: 'Quick Login',
+        fr: 'Connexion rapide',
+        tr: 'Hızlı Giriş',
+        ur: 'فوری لاگ ان',
+        id: 'Login Cepat',
+        de: 'Schnell-Login'
+    },
+    'الدخول عبر النفاذ الوطني': {
+        en: 'Login via National Access (Nafath)',
+        fr: 'Connexion via Nafath',
+        tr: 'Nafath ile Giriş',
+        ur: 'نفاذ کے ذریعے لاگ ان',
+        id: 'Login via Nafath',
+        de: 'Anmeldung über Nafath'
+    },
+    'حساب شيخة': {
+        en: 'Sheikha Account',
+        fr: 'Compte Sheikha',
+        tr: 'Sheikha Hesabı',
+        ur: 'شیخہ اکاؤنٹ',
+        id: 'Akun Sheikha',
+        de: 'Sheikha-Konto'
+    },
+    واتساب: {
+        en: 'WhatsApp',
+        fr: 'WhatsApp',
+        tr: 'WhatsApp',
+        ur: 'واٹس ایپ',
+        id: 'WhatsApp',
+        de: 'WhatsApp'
+    },
+    'أو بالبريد / الجوال': {
+        en: 'Or by email / phone',
+        fr: 'Ou par email / téléphone',
+        tr: 'Veya e-posta / telefon ile',
+        ur: 'یا ای میل / فون سے',
+        id: 'Atau via email / telepon',
+        de: 'Oder per E-Mail / Telefon'
+    },
+    'رقم الجوال أو البريد الإلكتروني': {
+        en: 'Phone number or email',
+        fr: 'Numéro de téléphone ou email',
+        tr: 'Telefon numarası veya e-posta',
+        ur: 'فون نمبر یا ای میل',
+        id: 'Nomor telepon atau email',
+        de: 'Telefonnummer oder E-Mail'
+    },
+    'كلمة المرور': {
+        en: 'Password',
+        fr: 'Mot de passe',
+        tr: 'Şifre',
+        ur: 'پاسورڈ',
+        id: 'Kata Sandi',
+        de: 'Passwort'
+    },
+    'حساب جديد': {
+        en: 'New Account',
+        fr: 'Nouveau compte',
+        tr: 'Yeni Hesap',
+        ur: 'نیا اکاؤنٹ',
+        id: 'Akun Baru',
+        de: 'Neues Konto'
+    },
+    'الاسم الكامل': {
+        en: 'Full Name',
+        fr: 'Nom complet',
+        tr: 'Tam Ad',
+        ur: 'پورا نام',
+        id: 'Nama Lengkap',
+        de: 'Vollständiger Name'
+    },
+    'رقم الجوال': {
+        en: 'Phone Number',
+        fr: 'Numéro de téléphone',
+        tr: 'Telefon Numarası',
+        ur: 'فون نمبر',
+        id: 'Nomor Telepon',
+        de: 'Telefonnummer'
+    },
+    'البريد الإلكتروني': {
+        en: 'Email',
+        fr: 'Email',
+        tr: 'E-posta',
+        ur: 'ای میل',
+        id: 'Email',
+        de: 'E-Mail'
+    },
+    'اسم المتجر': {
+        en: 'Store Name',
+        fr: 'Nom du magasin',
+        tr: 'Mağaza Adı',
+        ur: 'اسٹور کا نام',
+        id: 'Nama Toko',
+        de: 'Shopname'
+    },
+    المنطقة: { en: 'Region', fr: 'Région', tr: 'Bölge', ur: 'علاقہ', id: 'Wilayah', de: 'Region' },
+    'اختر المنطقة': {
+        en: 'Select Region',
+        fr: 'Sélectionner la région',
+        tr: 'Bölge Seçin',
+        ur: 'علاقہ منتخب کریں',
+        id: 'Pilih Wilayah',
+        de: 'Region wählen'
+    },
+    'إنشاء حساب مجاني': {
+        en: 'Create Free Account',
+        fr: 'Créer un compte gratuit',
+        tr: 'Ücretsiz Hesap Oluştur',
+        ur: 'مفت اکاؤنٹ بنائیں',
+        id: 'Buat Akun Gratis',
+        de: 'Kostenloses Konto erstellen'
+    },
+    'ليس لديك حساب؟': {
+        en: "Don't have an account?",
+        fr: 'Pas de compte ?',
+        tr: 'Hesabınız yok mu?',
+        ur: 'اکاؤنٹ نہیں ہے؟',
+        id: 'Belum punya akun?',
+        de: 'Kein Konto?'
+    },
+    'سجّل الآن مجاناً': {
+        en: 'Register now for free',
+        fr: 'Inscrivez-vous gratuitement',
+        tr: 'Şimdi ücretsiz kaydolun',
+        ur: 'ابھی مفت رجسٹر کریں',
+        id: 'Daftar gratis sekarang',
+        de: 'Jetzt kostenlos registrieren'
+    },
+    'لديك حساب؟': {
+        en: 'Already have an account?',
+        fr: 'Déjà un compte ?',
+        tr: 'Zaten hesabınız var mı?',
+        ur: 'پہلے سے اکاؤنٹ ہے؟',
+        id: 'Sudah punya akun?',
+        de: 'Bereits ein Konto?'
+    },
+    // === الصفحة الرئيسية - أقسام ===
+    'أول سوق إسلامي رقمي للمعادن': {
+        en: 'The First Islamic Digital Metals Market',
+        fr: 'Le premier marché numérique islamique des métaux',
+        tr: 'İlk İslami Dijital Metal Pazarı',
+        ur: 'پہلا اسلامی ڈیجیٹل دھاتوں کا بازار',
+        id: 'Pasar Logam Digital Islam Pertama',
+        de: 'Der erste islamische digitale Metallmarkt'
+    },
+    'مبني على مبادئ سوق المدينة المنورة': {
+        en: 'Built on the principles of the Madinah Market',
+        fr: 'Basé sur les principes du marché de Médine',
+        tr: 'Medine Pazarı ilkeleri üzerine kurulmuştur',
+        ur: 'مدینہ منورہ کے بازار کے اصولوں پر مبنی',
+        id: 'Dibangun di atas prinsip Pasar Madinah',
+        de: 'Auf den Grundsätzen des Medina-Marktes aufgebaut'
+    },
+    'الذي أسسه النبي': {
+        en: 'Founded by the Prophet',
+        fr: 'Fondé par le Prophète',
+        tr: 'Hz. Peygamber tarafından kurulan',
+        ur: 'نبی کریم ﷺ نے قائم کیا',
+        id: 'Didirikan oleh Nabi',
+        de: 'Vom Propheten gegründet'
+    },
+    'تجارة حلال': {
+        en: 'Halal Trade',
+        fr: 'Commerce Halal',
+        tr: 'Helal Ticaret',
+        ur: 'حلال تجارت',
+        id: 'Perdagangan Halal',
+        de: 'Halal-Handel'
+    },
+    'الحديد والصلب': {
+        en: 'Iron & Steel',
+        fr: 'Fer et Acier',
+        tr: 'Demir ve Çelik',
+        ur: 'لوہا اور اسٹیل',
+        id: 'Besi dan Baja',
+        de: 'Eisen und Stahl'
+    },
+    'المعادن الثمينة': {
+        en: 'Precious Metals',
+        fr: 'Métaux Précieux',
+        tr: 'Değerli Metaller',
+        ur: 'قیمتی دھاتیں',
+        id: 'Logam Mulia',
+        de: 'Edelmetalle'
+    },
+    'المعادن النادرة': {
+        en: 'Rare Metals',
+        fr: 'Métaux Rares',
+        tr: 'Nadir Metaller',
+        ur: 'نایاب دھاتیں',
+        id: 'Logam Langka',
+        de: 'Seltene Metalle'
+    },
+    التشليح: {
+        en: 'Salvage',
+        fr: 'Récupération',
+        tr: 'Hurda',
+        ur: 'سالویج',
+        id: 'Salvasi',
+        de: 'Bergung'
+    },
+    'أسعار المعادن': {
+        en: 'Metal Prices',
+        fr: 'Prix des métaux',
+        tr: 'Metal Fiyatları',
+        ur: 'دھاتوں کی قیمتیں',
+        id: 'Harga Logam',
+        de: 'Metallpreise'
+    },
+    المالك: {
+        en: 'Owner',
+        fr: 'Propriétaire',
+        tr: 'Sahip',
+        ur: 'مالک',
+        id: 'Pemilik',
+        de: 'Eigentümer'
+    },
+    'جميع الحقوق محفوظة': {
+        en: 'All Rights Reserved',
+        fr: 'Tous droits réservés',
+        tr: 'Tüm Hakları Saklıdır',
+        ur: 'جملہ حقوق محفوظ ہیں',
+        id: 'Hak Cipta Dilindungi',
+        de: 'Alle Rechte vorbehalten'
+    },
+    'تواصل معنا': {
+        en: 'Contact Us',
+        fr: 'Contactez-nous',
+        tr: 'Bize Ulaşın',
+        ur: 'ہم سے رابطہ کریں',
+        id: 'Hubungi Kami',
+        de: 'Kontaktieren Sie uns'
+    },
+    'حمّل التطبيق': {
+        en: 'Download App',
+        fr: "Télécharger l'app",
+        tr: 'Uygulamayı İndir',
+        ur: 'ایپ ڈاؤن لوڈ کریں',
+        id: 'Unduh Aplikasi',
+        de: 'App herunterladen'
+    },
+    'اكتشف المزيد': {
+        en: 'Discover More',
+        fr: 'Découvrir plus',
+        tr: 'Daha Fazlasını Keşfet',
+        ur: 'مزید دریافت کریں',
+        id: 'Jelajahi Lebih Lanjut',
+        de: 'Mehr entdecken'
+    },
+    القانونية: {
+        en: 'Legal',
+        fr: 'Juridique',
+        tr: 'Yasal',
+        ur: 'قانونی',
+        id: 'Hukum',
+        de: 'Rechtliches'
+    },
+    'الشروط والأحكام': {
+        en: 'Terms & Conditions',
+        fr: 'Conditions générales',
+        tr: 'Şartlar ve Koşullar',
+        ur: 'شرائط و ضوابط',
+        id: 'Syarat dan Ketentuan',
+        de: 'Geschäftsbedingungen'
+    },
+    'سياسة الخصوصية': {
+        en: 'Privacy Policy',
+        fr: 'Politique de confidentialité',
+        tr: 'Gizlilik Politikası',
+        ur: 'رازداری کی پالیسی',
+        id: 'Kebijakan Privasi',
+        de: 'Datenschutzrichtlinie'
+    },
+    // === التنقل والروابط الإضافية ===
+    دعم: {
+        en: 'Support',
+        fr: 'Assistance',
+        tr: 'Destek',
+        ur: 'سپورٹ',
+        id: 'Dukungan',
+        de: 'Unterstützung'
+    },
+    المنتدى: {
+        en: 'Forum',
+        fr: 'Forum',
+        tr: 'Forum',
+        ur: 'فورم',
+        id: 'Forum',
+        de: 'Forum'
+    },
+    // === عناوين الصفحات الإضافية ===
+    'شريكك الموثوق في عالم المعادن والسكراب': {
+        en: 'Your trusted partner in the world of metals and scrap',
+        fr: 'Votre partenaire de confiance dans le monde des métaux et de la ferraille',
+        tr: 'Metal ve hurda dünyasında güvenilir ortağınız',
+        ur: 'دھاتوں اور سکریپ کی دنیا میں آپ کا قابل اعتماد ساتھی',
+        id: 'Mitra terpercaya Anda di dunia logam dan skrap',
+        de: 'Ihr vertrauenswürdiger Partner in der Welt der Metalle und des Schrotts'
+    },
+    'سوق المدينة المنورة': {
+        en: 'Madinah Market',
+        fr: 'Marché de Médine',
+        tr: 'Medine Pazarı',
+        ur: 'مدینہ منورہ کا بازار',
+        id: 'Pasar Madinah',
+        de: 'Medina-Markt'
+    },
+    // === تسجيل التاجر ===
+    'تسجيل التاجر': {
+        en: 'Trader Registration',
+        fr: 'Inscription du commerçant',
+        tr: 'Tüccar Kaydı',
+        ur: 'تاجر رجسٹریشن',
+        id: 'Pendaftaran Pedagang',
+        de: 'Händlerregistrierung'
+    },
+    // === أقسام السوق الإضافية ===
+    'أركان السوق النبوي': {
+        en: 'Pillars of the Prophetic Market',
+        fr: 'Piliers du marché prophétique',
+        tr: 'Peygamber Pazarının Temelleri',
+        ur: 'نبوی بازار کے ارکان',
+        id: 'Pilar Pasar Nabawi',
+        de: 'Säulen des prophetischen Marktes'
+    },
+    'أحكام البيوع': {
+        en: 'Trade Rulings',
+        fr: 'Règles du commerce',
+        tr: 'Ticaret Hükümleri',
+        ur: 'تجارت کے احکام',
+        id: 'Hukum Jual Beli',
+        de: 'Handelsvorschriften'
+    },
+    'المواصفات الهندسية': {
+        en: 'Engineering Specifications',
+        fr: 'Spécifications techniques',
+        tr: 'Mühendislik Spesifikasyonları',
+        ur: 'انجینئرنگ تفصیلات',
+        id: 'Spesifikasi Teknik',
+        de: 'Technische Spezifikationen'
+    },
+    الذهب: {
+        en: 'Gold',
+        fr: 'Or',
+        tr: 'Altın',
+        ur: 'سونا',
+        id: 'Emas',
+        de: 'Gold'
+    },
+    الفضة: {
+        en: 'Silver',
+        fr: 'Argent',
+        tr: 'Gümüş',
+        ur: 'چاندی',
+        id: 'Perak',
+        de: 'Silber'
+    },
+    النحاس: {
+        en: 'Copper',
+        fr: 'Cuivre',
+        tr: 'Bakır',
+        ur: 'تانبا',
+        id: 'Tembaga',
+        de: 'Kupfer'
+    },
+    الحديد: {
+        en: 'Iron',
+        fr: 'Fer',
+        tr: 'Demir',
+        ur: 'لوہا',
+        id: 'Besi',
+        de: 'Eisen'
+    },
+    'السكراب والتشليح': {
+        en: 'Scrap and Salvage',
+        fr: 'Ferraille et récupération',
+        tr: 'Hurda ve Kurtarma',
+        ur: 'سکریپ اور سالویج',
+        id: 'Skrap dan Salvasi',
+        de: 'Schrott und Bergung'
+    },
+    // === العبارات الإسلامية والقيم ===
+    'بسم الله الرحمن الرحيم': {
+        en: 'In the name of Allah, the Most Gracious, the Most Merciful',
+        fr: "Au nom d'Allah, le Tout Miséricordieux, le Très Miséricordieux",
+        tr: "Rahman ve Rahim olan Allah'ın adıyla",
+        ur: 'اللہ کے نام سے جو بڑا مہربان نہایت رحم والا ہے',
+        id: 'Dengan nama Allah Yang Maha Pengasih lagi Maha Penyayang',
+        de: 'Im Namen Allahs, des Allerbarmers, des Barmherzigen'
+    },
+    'الكتاب والسنة': {
+        en: 'The Book and the Sunnah',
+        fr: 'Le Livre et la Sunna',
+        tr: 'Kitap ve Sünnet',
+        ur: 'کتاب اور سنت',
+        id: 'Al-Quran dan Sunnah',
+        de: 'Das Buch und die Sunna'
+    },
+    'القرآن الكريم': {
+        en: 'The Holy Quran',
+        fr: 'Le Saint Coran',
+        tr: "Kur'an-ı Kerim",
+        ur: 'قرآن کریم',
+        id: 'Al-Quran Al-Karim',
+        de: 'Der Heilige Koran'
+    },
+    'السنة النبوية': {
+        en: 'The Prophetic Sunnah',
+        fr: 'La Sunna prophétique',
+        tr: 'Peygamber Sünneti',
+        ur: 'سنت نبوی',
+        id: 'Sunnah Nabawiyah',
+        de: 'Die prophetische Sunna'
+    },
+    رقمنة: {
+        en: 'Digitization',
+        fr: 'Numérisation',
+        tr: 'Dijitalleşme',
+        ur: 'ڈیجیٹائزیشن',
+        id: 'Digitalisasi',
+        de: 'Digitalisierung'
+    },
+    إتقان: {
+        en: 'Excellence',
+        fr: 'Excellence',
+        tr: 'Mükemmellik',
+        ur: 'مہارت',
+        id: 'Keunggulan',
+        de: 'Exzellenz'
+    },
+    أمانة: {
+        en: 'Trustworthiness',
+        fr: 'Fiabilité',
+        tr: 'Güvenilirlik',
+        ur: 'امانت',
+        id: 'Amanah',
+        de: 'Vertrauenswürdigkeit'
+    },
+    صدق: {
+        en: 'Honesty',
+        fr: 'Honnêteté',
+        tr: 'Dürüstlük',
+        ur: 'سچائی',
+        id: 'Kejujuran',
+        de: 'Ehrlichkeit'
+    },
+    عدل: {
+        en: 'Justice',
+        fr: 'Justice',
+        tr: 'Adalet',
+        ur: 'عدل',
+        id: 'Keadilan',
+        de: 'Gerechtigkeit'
+    },
+    شفافية: {
+        en: 'Transparency',
+        fr: 'Transparence',
+        tr: 'Şeffaflık',
+        ur: 'شفافیت',
+        id: 'Transparansi',
+        de: 'Transparenz'
+    },
+
+    // ═══════════════════════════════════════════════════════════════
+    // ═══ الصفحة الرئيسية — Hero & Navigation ═══
+    // ═══════════════════════════════════════════════════════════════
+    شيخة: {
+        en: 'Sheikha',
+        fr: 'Sheikha',
+        tr: 'Sheikha',
+        ur: 'شیخہ',
+        id: 'Sheikha',
+        de: 'Sheikha',
+        zh: '谢赫',
+        ja: 'シェイカ',
+        ko: '쉐이카',
+        es: 'Sheikha',
+        ru: 'Шейха',
+        pt: 'Sheikha'
+    },
+    'أول سوق إسلامي رقمي للمعادن': {
+        en: 'The First Islamic Digital Market for Metals',
+        fr: 'Le premier marché numérique islamique des métaux',
+        tr: 'İlk İslami Dijital Metal Pazarı',
+        ur: 'دھاتوں کی پہلی اسلامی ڈیجیٹل مارکیٹ',
+        id: 'Pasar Digital Logam Islam Pertama',
+        de: 'Der erste islamische digitale Metallmarkt',
+        es: 'El primer mercado digital islámico de metales',
+        zh: '首个伊斯兰数字金属市场'
+    },
+    'هوية شيخة': {
+        en: 'Sheikha Identity',
+        fr: 'Identité de Sheikha',
+        tr: 'Sheikha Kimliği',
+        ur: 'شیخہ کی شناخت',
+        id: 'Identitas Sheikha',
+        de: 'Sheikha Identität',
+        es: 'Identidad de Sheikha'
+    },
+    'قصة سوق المدينة': {
+        en: 'Story of the Medina Market',
+        fr: 'Histoire du marché de Médine',
+        tr: 'Medine Pazarı Hikayesi',
+        ur: 'مدینہ مارکیٹ کی کہانی',
+        id: 'Kisah Pasar Madinah',
+        de: 'Geschichte des Medina-Marktes',
+        es: 'Historia del Mercado de Medina'
+    },
+    'تصفّح السوق': {
+        en: 'Browse Market',
+        fr: 'Parcourir le marché',
+        tr: 'Pazarı Gezin',
+        ur: 'مارکیٹ براؤز کریں',
+        id: 'Jelajahi Pasar',
+        de: 'Markt durchsuchen',
+        es: 'Explorar el mercado',
+        zh: '浏览市场'
+    },
+    'على نهج سوق المدينة المنورة الذي أسسه النبي ﷺ': {
+        en: 'Following the path of the Medina Market established by the Prophet ﷺ',
+        fr: 'Suivant le modèle du marché de Médine fondé par le Prophète ﷺ',
+        tr: "Hz. Peygamber'in ﷺ kurduğu Medine Pazarı yolunda",
+        ur: 'نبی ﷺ کے قائم کردہ مدینہ بازار کی روش پر',
+        id: 'Mengikuti jalur Pasar Madinah yang didirikan Nabi ﷺ',
+        de: 'Nach dem Vorbild des vom Propheten ﷺ gegründeten Medina-Marktes'
+    },
+    'منظومة وسوق عالمي مبني على مبادئ سوق المدينة المنورة الذي أسسه النبي ﷺ': {
+        en: 'A global marketplace built on the principles of the Medina Market established by the Prophet ﷺ',
+        fr: 'Un marché mondial construit sur les principes du marché de Médine fondé par le Prophète ﷺ',
+        tr: "Hz. Peygamber'in ﷺ kurduğu Medine Pazarı ilkelerine dayanan küresel bir pazar",
+        de: 'Ein globaler Marktplatz basierend auf den Prinzipien des Medina-Marktes'
+    },
+
+    // ═══ أقسام السوق ═══
+    'المعادن الأساسية': {
+        en: 'Base Metals',
+        fr: 'Métaux de base',
+        tr: 'Temel Metaller',
+        ur: 'بنیادی دھاتیں',
+        id: 'Logam Dasar',
+        de: 'Grundmetalle',
+        es: 'Metales base',
+        zh: '基本金属'
+    },
+    'المعادن الثمينة': {
+        en: 'Precious Metals',
+        fr: 'Métaux précieux',
+        tr: 'Değerli Metaller',
+        ur: 'قیمتی دھاتیں',
+        id: 'Logam Mulia',
+        de: 'Edelmetalle',
+        es: 'Metales preciosos',
+        zh: '贵金属'
+    },
+    'المعادن النادرة': {
+        en: 'Rare Metals',
+        fr: 'Métaux rares',
+        tr: 'Nadir Metaller',
+        ur: 'نادر دھاتیں',
+        id: 'Logam Langka',
+        de: 'Seltene Metalle',
+        es: 'Metales raros',
+        zh: '稀有金属'
+    },
+    'السكراب والتشليح': {
+        en: 'Scrap & Salvage',
+        fr: 'Ferraille & Récupération',
+        tr: 'Hurda & Kurtarma',
+        ur: 'سکریپ اور نجات',
+        id: 'Skrap & Salvage',
+        de: 'Schrott & Bergung',
+        es: 'Chatarra & Salvamento',
+        zh: '废料与回收'
+    },
+    تشليح: {
+        en: 'Salvage',
+        fr: 'Récupération',
+        tr: 'Kurtarma',
+        ur: 'نجات',
+        id: 'Salvage',
+        de: 'Bergung',
+        es: 'Salvamento',
+        zh: '回收'
+    },
+    الأسعار: {
+        en: 'Prices',
+        fr: 'Prix',
+        tr: 'Fiyatlar',
+        ur: 'قیمتیں',
+        id: 'Harga',
+        de: 'Preise',
+        es: 'Precios',
+        zh: '价格'
+    },
+    'أسعار اليوم': {
+        en: "Today's Prices",
+        fr: 'Prix du jour',
+        tr: 'Bugünkü Fiyatlar',
+        ur: 'آج کی قیمتیں',
+        id: 'Harga Hari Ini',
+        de: 'Heutige Preise',
+        es: 'Precios de hoy',
+        zh: '今日价格'
+    },
+    عروض: {
+        en: 'Offers',
+        fr: 'Offres',
+        tr: 'Teklifler',
+        ur: 'پیشکشیں',
+        id: 'Penawaran',
+        de: 'Angebote',
+        es: 'Ofertas',
+        zh: '报价'
+    },
+    طلبات: {
+        en: 'Orders',
+        fr: 'Commandes',
+        tr: 'Siparişler',
+        ur: 'آرڈرز',
+        id: 'Pesanan',
+        de: 'Bestellungen',
+        es: 'Pedidos',
+        zh: '订单'
+    },
+
+    // ═══ تسجيل وحسابات ═══
+    'نوع الحساب': {
+        en: 'Account Type',
+        fr: 'Type de compte',
+        tr: 'Hesap Türü',
+        ur: 'اکاؤنٹ کی قسم',
+        id: 'Tipe Akun',
+        de: 'Kontotyp',
+        es: 'Tipo de cuenta',
+        zh: '账户类型'
+    },
+    فرد: {
+        en: 'Individual',
+        fr: 'Individuel',
+        tr: 'Bireysel',
+        ur: 'فرد',
+        id: 'Individu',
+        de: 'Einzelperson',
+        es: 'Individual',
+        zh: '个人'
+    },
+    تاجر: {
+        en: 'Trader',
+        fr: 'Commerçant',
+        tr: 'Tüccar',
+        ur: 'تاجر',
+        id: 'Pedagang',
+        de: 'Händler',
+        es: 'Comerciante',
+        zh: '商人'
+    },
+    شركة: {
+        en: 'Company',
+        fr: 'Entreprise',
+        tr: 'Şirket',
+        ur: 'کمپنی',
+        id: 'Perusahaan',
+        de: 'Unternehmen',
+        es: 'Empresa',
+        zh: '公司'
+    },
+    'التسجيل عبر النفاذ الوطني': {
+        en: 'Register via National Access (Nafath)',
+        fr: "S'inscrire via Nafath",
+        tr: 'Nafath ile Kayıt',
+        ur: 'نفاذ کے ذریعے رجسٹریشن',
+        id: 'Daftar via Nafath',
+        de: 'Registrierung über Nafath',
+        es: 'Registrarse vía Nafath'
+    },
+    'أو سجّل يدوياً': {
+        en: 'Or register manually',
+        fr: 'Ou inscrivez-vous manuellement',
+        tr: 'Veya elle kayıt olun',
+        ur: 'یا دستی طور پر رجسٹر کریں',
+        id: 'Atau daftar manual',
+        de: 'Oder manuell registrieren',
+        es: 'O regístrese manualmente'
+    },
+    'البريد الإلكتروني': {
+        en: 'Email',
+        fr: 'E-mail',
+        tr: 'E-posta',
+        ur: 'ای میل',
+        id: 'Email',
+        de: 'E-Mail',
+        es: 'Correo electrónico',
+        zh: '电子邮件'
+    },
+    'اسم المتجر': {
+        en: 'Store Name',
+        fr: 'Nom du magasin',
+        tr: 'Mağaza Adı',
+        ur: 'دکان کا نام',
+        id: 'Nama Toko',
+        de: 'Geschäftsname',
+        es: 'Nombre de la tienda',
+        zh: '商店名称'
+    },
+    المنطقة: {
+        en: 'Region',
+        fr: 'Région',
+        tr: 'Bölge',
+        ur: 'علاقہ',
+        id: 'Wilayah',
+        de: 'Region',
+        es: 'Región',
+        zh: '地区'
+    },
+    'اختر المنطقة': {
+        en: 'Select Region',
+        fr: 'Choisir la région',
+        tr: 'Bölge Seçin',
+        ur: 'علاقہ منتخب کریں',
+        id: 'Pilih Wilayah',
+        de: 'Region wählen',
+        es: 'Seleccionar región'
+    },
+    'إنشاء حساب مجاني': {
+        en: 'Create Free Account',
+        fr: 'Créer un compte gratuit',
+        tr: 'Ücretsiz Hesap Oluştur',
+        ur: 'مفت اکاؤنٹ بنائیں',
+        id: 'Buat Akun Gratis',
+        de: 'Kostenloses Konto erstellen',
+        es: 'Crear cuenta gratis',
+        zh: '创建免费账户'
+    },
+    'ليس لديك حساب؟': {
+        en: "Don't have an account?",
+        fr: 'Pas de compte ?',
+        tr: 'Hesabınız yok mu?',
+        ur: 'اکاؤنٹ نہیں ہے؟',
+        id: 'Belum punya akun?',
+        de: 'Kein Konto?',
+        es: '¿No tienes cuenta?'
+    },
+    'سجّل الآن مجاناً': {
+        en: 'Register now for free',
+        fr: 'Inscrivez-vous gratuitement',
+        tr: 'Şimdi ücretsiz kaydolun',
+        ur: 'ابھی مفت رجسٹر کریں',
+        id: 'Daftar gratis sekarang',
+        de: 'Jetzt kostenlos registrieren',
+        es: 'Regístrate gratis ahora'
+    },
+    'لديك حساب؟': {
+        en: 'Have an account?',
+        fr: 'Vous avez un compte ?',
+        tr: 'Hesabınız var mı?',
+        ur: 'اکاؤنٹ ہے؟',
+        id: 'Punya akun?',
+        de: 'Haben Sie ein Konto?',
+        es: '¿Tienes cuenta?'
+    },
+    'لديك شركة أو مؤسسة؟': {
+        en: 'Have a company or organization?',
+        fr: 'Vous avez une entreprise ?',
+        tr: 'Bir şirketiniz var mı?',
+        ur: 'کمپنی یا ادارہ ہے؟',
+        id: 'Punya perusahaan?',
+        de: 'Haben Sie ein Unternehmen?',
+        es: '¿Tienes una empresa?'
+    },
+    'سجّل كتاجر معتمد': {
+        en: 'Register as certified trader',
+        fr: 'Inscrivez-vous comme commerçant certifié',
+        tr: 'Sertifikalı tüccar olarak kaydolun',
+        ur: 'تصدیق شدہ تاجر کے طور پر رجسٹر کریں',
+        id: 'Daftar sebagai pedagang bersertifikat',
+        de: 'Als zertifizierter Händler registrieren',
+        es: 'Regístrate como comerciante certificado'
+    },
+    'تم تسجيل الدخول بنجاح': {
+        en: 'Logged in successfully',
+        fr: 'Connexion réussie',
+        tr: 'Başarıyla giriş yapıldı',
+        ur: 'کامیابی سے لاگ ان ہو گیا',
+        id: 'Berhasil masuk',
+        de: 'Erfolgreich angemeldet',
+        es: 'Inicio de sesión exitoso'
+    },
+    'تم إنشاء الحساب بنجاح': {
+        en: 'Account created successfully',
+        fr: 'Compte créé avec succès',
+        tr: 'Hesap başarıyla oluşturuldu',
+        ur: 'اکاؤنٹ کامیابی سے بنایا گیا',
+        id: 'Akun berhasil dibuat',
+        de: 'Konto erfolgreich erstellt',
+        es: 'Cuenta creada exitosamente'
+    },
+    'فشل تسجيل الدخول': {
+        en: 'Login failed',
+        fr: 'Échec de la connexion',
+        tr: 'Giriş başarısız',
+        ur: 'لاگ ان ناکام',
+        id: 'Login gagal',
+        de: 'Anmeldung fehlgeschlagen',
+        es: 'Inicio de sesión fallido'
+    },
+    'خطأ في الاتصال بالخادم': {
+        en: 'Server connection error',
+        fr: 'Erreur de connexion au serveur',
+        tr: 'Sunucu bağlantı hatası',
+        ur: 'سرور سے رابطے میں خرابی',
+        id: 'Kesalahan koneksi server',
+        de: 'Serververbindungsfehler',
+        es: 'Error de conexión al servidor'
+    },
+
+    // ═══ عناصر الشعار ═══
+    'تفسير شعار شيخة': {
+        en: 'Sheikha Emblem Meaning',
+        fr: "Signification de l'emblème Sheikha",
+        tr: 'Sheikha Amblemi Anlamı',
+        ur: 'شیخہ نشان کی تفسیر',
+        id: 'Makna Lambang Sheikha',
+        de: 'Bedeutung des Sheikha-Emblems',
+        es: 'Significado del emblema Sheikha'
+    },
+    'النجمة الثمانية': {
+        en: 'The Eight-Pointed Star',
+        fr: "L'étoile à huit branches",
+        tr: 'Sekiz Köşeli Yıldız',
+        ur: 'آٹھ نوکوں والا ستارہ',
+        id: 'Bintang Delapan Sudut',
+        de: 'Der achteckige Stern',
+        es: 'La estrella de ocho puntas'
+    },
+    الميزان: {
+        en: 'The Balance',
+        fr: 'La Balance',
+        tr: 'Terazi',
+        ur: 'میزان',
+        id: 'Timbangan',
+        de: 'Die Waage',
+        es: 'La Balanza'
+    },
+    الجوهرة: {
+        en: 'The Gem',
+        fr: 'Le Joyau',
+        tr: 'Mücevher',
+        ur: 'جوہر',
+        id: 'Permata',
+        de: 'Das Juwel',
+        es: 'La Joya'
+    },
+    'خلاصة الشعار': {
+        en: 'Emblem Summary',
+        fr: "Résumé de l'emblème",
+        tr: 'Amblem Özeti',
+        ur: 'نشان کا خلاصہ',
+        id: 'Ringkasan Lambang',
+        de: 'Emblem-Zusammenfassung',
+        es: 'Resumen del emblema'
+    },
+    'معنى الشعار': {
+        en: 'Emblem Meaning',
+        fr: "Signification de l'emblème",
+        tr: 'Amblem Anlamı',
+        ur: 'نشان کا مطلب',
+        id: 'Makna Lambang',
+        de: 'Emblembedeutung',
+        es: 'Significado del emblema'
+    },
+
+    // ═══ أقسام الصفحة الرئيسية ═══
+    'لماذا شيخة؟': {
+        en: 'Why Sheikha?',
+        fr: 'Pourquoi Sheikha ?',
+        tr: 'Neden Sheikha?',
+        ur: 'شیخہ کیوں؟',
+        id: 'Mengapa Sheikha?',
+        de: 'Warum Sheikha?',
+        es: '¿Por qué Sheikha?',
+        zh: '为什么选择谢赫？'
+    },
+    'تسعير نبوي': {
+        en: 'Prophetic Pricing',
+        fr: 'Tarification prophétique',
+        tr: 'Nebevi Fiyatlandırma',
+        ur: 'نبوی قیمت',
+        id: 'Harga Nabawi',
+        de: 'Prophetische Preisgestaltung',
+        es: 'Precio profético'
+    },
+    'تجارة حلال': {
+        en: 'Halal Trade',
+        fr: 'Commerce Halal',
+        tr: 'Helal Ticaret',
+        ur: 'حلال تجارت',
+        id: 'Perdagangan Halal',
+        de: 'Halal-Handel',
+        es: 'Comercio Halal',
+        zh: '清真贸易'
+    },
+    'عقود ذكية': {
+        en: 'Smart Contracts',
+        fr: 'Contrats intelligents',
+        tr: 'Akıllı Sözleşmeler',
+        ur: 'سمارٹ معاہدے',
+        id: 'Kontrak Cerdas',
+        de: 'Intelligente Verträge',
+        es: 'Contratos inteligentes',
+        zh: '智能合约'
+    },
+    'شحن عالمي': {
+        en: 'Global Shipping',
+        fr: 'Livraison mondiale',
+        tr: 'Küresel Kargo',
+        ur: 'عالمی شپنگ',
+        id: 'Pengiriman Global',
+        de: 'Weltweiter Versand',
+        es: 'Envío mundial',
+        zh: '全球运输'
+    },
+    'إشعارات فورية': {
+        en: 'Instant Notifications',
+        fr: 'Notifications instantanées',
+        tr: 'Anlık Bildirimler',
+        ur: 'فوری اطلاعات',
+        id: 'Notifikasi Instan',
+        de: 'Sofortige Benachrichtigungen',
+        es: 'Notificaciones instantáneas'
+    },
+    'تنبيهات الأسعار والطلبات': {
+        en: 'Price & order alerts',
+        fr: 'Alertes prix et commandes',
+        tr: 'Fiyat ve sipariş uyarıları',
+        ur: 'قیمت اور آرڈر الرٹس',
+        id: 'Peringatan harga & pesanan',
+        de: 'Preis- & Bestellbenachrichtigungen',
+        es: 'Alertas de precios y pedidos'
+    },
+    'ذكاء اصطناعي': {
+        en: 'Artificial Intelligence',
+        fr: 'Intelligence artificielle',
+        tr: 'Yapay Zeka',
+        ur: 'مصنوعی ذہانت',
+        id: 'Kecerdasan Buatan',
+        de: 'Künstliche Intelligenz',
+        es: 'Inteligencia artificial',
+        zh: '人工智能'
+    },
+    'تحليل ذكي للأسعار': {
+        en: 'Smart price analysis',
+        fr: 'Analyse intelligente des prix',
+        tr: 'Akıllı fiyat analizi',
+        ur: 'ذہین قیمت تجزیہ',
+        id: 'Analisis harga cerdas',
+        de: 'Intelligente Preisanalyse',
+        es: 'Análisis inteligente de precios'
+    },
+    'سلاسل التوريد': {
+        en: 'Supply Chains',
+        fr: "Chaînes d'approvisionnement",
+        tr: 'Tedarik Zincirleri',
+        ur: 'سپلائی چین',
+        id: 'Rantai Pasokan',
+        de: 'Lieferketten',
+        es: 'Cadenas de suministro',
+        zh: '供应链'
+    },
+
+    // ═══ الفوتر والقانوني ═══
+    'جميع الحقوق محفوظة': {
+        en: 'All rights reserved',
+        fr: 'Tous droits réservés',
+        tr: 'Tüm hakları saklıdır',
+        ur: 'جملہ حقوق محفوظ ہیں',
+        id: 'Semua hak dilindungi',
+        de: 'Alle Rechte vorbehalten',
+        es: 'Todos los derechos reservados',
+        zh: '版权所有'
+    },
+    'الشروط والأحكام': {
+        en: 'Terms & Conditions',
+        fr: 'Termes et conditions',
+        tr: 'Şartlar ve Koşullar',
+        ur: 'شرائط و ضوابط',
+        id: 'Syarat & Ketentuan',
+        de: 'Geschäftsbedingungen',
+        es: 'Términos y condiciones'
+    },
+    'سياسة الخصوصية': {
+        en: 'Privacy Policy',
+        fr: 'Politique de confidentialité',
+        tr: 'Gizlilik Politikası',
+        ur: 'رازداری کی پالیسی',
+        id: 'Kebijakan Privasi',
+        de: 'Datenschutzrichtlinie',
+        es: 'Política de privacidad'
+    },
+    'اتصل بنا': {
+        en: 'Contact Us',
+        fr: 'Contactez-nous',
+        tr: 'Bize Ulaşın',
+        ur: 'ہم سے رابطہ کریں',
+        id: 'Hubungi Kami',
+        de: 'Kontaktieren Sie uns',
+        es: 'Contáctenos',
+        zh: '联系我们'
+    },
+    'عن شيخة': {
+        en: 'About Sheikha',
+        fr: 'À propos de Sheikha',
+        tr: 'Sheikha Hakkında',
+        ur: 'شیخہ کے بارے میں',
+        id: 'Tentang Sheikha',
+        de: 'Über Sheikha',
+        es: 'Sobre Sheikha'
+    },
+
+    // ═══ رسائل عامة ═══
+    تحميل: {
+        en: 'Loading',
+        fr: 'Chargement',
+        tr: 'Yükleniyor',
+        ur: 'لوڈ ہو رہا ہے',
+        id: 'Memuat',
+        de: 'Laden',
+        es: 'Cargando',
+        zh: '加载中'
+    },
+    حفظ: {
+        en: 'Save',
+        fr: 'Enregistrer',
+        tr: 'Kaydet',
+        ur: 'محفوظ',
+        id: 'Simpan',
+        de: 'Speichern',
+        es: 'Guardar',
+        zh: '保存'
+    },
+    إلغاء: {
+        en: 'Cancel',
+        fr: 'Annuler',
+        tr: 'İptal',
+        ur: 'منسوخ',
+        id: 'Batal',
+        de: 'Abbrechen',
+        es: 'Cancelar',
+        zh: '取消'
+    },
+    تأكيد: {
+        en: 'Confirm',
+        fr: 'Confirmer',
+        tr: 'Onayla',
+        ur: 'تصدیق',
+        id: 'Konfirmasi',
+        de: 'Bestätigen',
+        es: 'Confirmar',
+        zh: '确认'
+    },
+    إرسال: {
+        en: 'Send',
+        fr: 'Envoyer',
+        tr: 'Gönder',
+        ur: 'بھیجیں',
+        id: 'Kirim',
+        de: 'Senden',
+        es: 'Enviar',
+        zh: '发送'
+    },
+    حذف: {
+        en: 'Delete',
+        fr: 'Supprimer',
+        tr: 'Sil',
+        ur: 'حذف',
+        id: 'Hapus',
+        de: 'Löschen',
+        es: 'Eliminar',
+        zh: '删除'
+    },
+    تعديل: {
+        en: 'Edit',
+        fr: 'Modifier',
+        tr: 'Düzenle',
+        ur: 'ترمیم',
+        id: 'Edit',
+        de: 'Bearbeiten',
+        es: 'Editar',
+        zh: '编辑'
+    },
+    إغلاق: {
+        en: 'Close',
+        fr: 'Fermer',
+        tr: 'Kapat',
+        ur: 'بند',
+        id: 'Tutup',
+        de: 'Schließen',
+        es: 'Cerrar',
+        zh: '关闭'
+    },
+    التالي: {
+        en: 'Next',
+        fr: 'Suivant',
+        tr: 'İleri',
+        ur: 'اگلا',
+        id: 'Selanjutnya',
+        de: 'Weiter',
+        es: 'Siguiente',
+        zh: '下一步'
+    },
+    السابق: {
+        en: 'Previous',
+        fr: 'Précédent',
+        tr: 'Geri',
+        ur: 'پچھلا',
+        id: 'Sebelumnya',
+        de: 'Zurück',
+        es: 'Anterior',
+        zh: '上一步'
+    },
+    المزيد: {
+        en: 'More',
+        fr: 'Plus',
+        tr: 'Daha fazla',
+        ur: 'مزید',
+        id: 'Lebih',
+        de: 'Mehr',
+        es: 'Más',
+        zh: '更多'
+    },
+    'عرض الكل': {
+        en: 'View All',
+        fr: 'Voir tout',
+        tr: 'Tümünü Gör',
+        ur: 'سب دیکھیں',
+        id: 'Lihat Semua',
+        de: 'Alle anzeigen',
+        es: 'Ver todo',
+        zh: '查看全部'
+    },
+    'لا توجد نتائج': {
+        en: 'No results found',
+        fr: 'Aucun résultat',
+        tr: 'Sonuç bulunamadı',
+        ur: 'کوئی نتیجہ نہیں',
+        id: 'Tidak ada hasil',
+        de: 'Keine Ergebnisse',
+        es: 'Sin resultados',
+        zh: '没有结果'
+    },
+    'يرجى الانتظار': {
+        en: 'Please wait',
+        fr: 'Veuillez patienter',
+        tr: 'Lütfen bekleyin',
+        ur: 'براہ کرم انتظار کریں',
+        id: 'Harap tunggu',
+        de: 'Bitte warten',
+        es: 'Por favor espere',
+        zh: '请稍候'
+    },
+    'في انتظار التحقق': {
+        en: 'Awaiting verification',
+        fr: 'En attente de vérification',
+        tr: 'Doğrulama bekleniyor',
+        ur: 'تصدیق کا انتظار',
+        id: 'Menunggu verifikasi',
+        de: 'Warte auf Verifizierung',
+        es: 'Esperando verificación'
+    },
+    'تم التحقق بنجاح': {
+        en: 'Verified successfully',
+        fr: 'Vérifié avec succès',
+        tr: 'Başarıyla doğrulandı',
+        ur: 'کامیابی سے تصدیق ہو گئی',
+        id: 'Berhasil diverifikasi',
+        de: 'Erfolgreich verifiziert',
+        es: 'Verificado exitosamente'
+    },
+
+    // ═══ أرقام وعملات ═══
+    'ر.س': {
+        en: 'SAR',
+        fr: 'SAR',
+        tr: 'SAR',
+        ur: 'SAR',
+        id: 'SAR',
+        de: 'SAR',
+        es: 'SAR',
+        zh: 'SAR'
+    },
+    دولار: {
+        en: 'Dollar',
+        fr: 'Dollar',
+        tr: 'Dolar',
+        ur: 'ڈالر',
+        id: 'Dolar',
+        de: 'Dollar',
+        es: 'Dólar',
+        zh: '美元'
+    },
+
+    // ═══ معادن إضافية ═══
+    بلاتين: {
+        en: 'Platinum',
+        fr: 'Platine',
+        tr: 'Platin',
+        ur: 'پلاٹینم',
+        id: 'Platinum',
+        de: 'Platin',
+        es: 'Platino',
+        zh: '铂金'
+    },
+    بلاديوم: {
+        en: 'Palladium',
+        fr: 'Palladium',
+        tr: 'Paladyum',
+        ur: 'پیلیڈیم',
+        id: 'Paladium',
+        de: 'Palladium',
+        es: 'Paladio',
+        zh: '钯'
+    },
+    رصاص: {
+        en: 'Lead',
+        fr: 'Plomb',
+        tr: 'Kurşun',
+        ur: 'سیسہ',
+        id: 'Timbal',
+        de: 'Blei',
+        es: 'Plomo',
+        zh: '铅'
+    },
+    زنك: {
+        en: 'Zinc',
+        fr: 'Zinc',
+        tr: 'Çinko',
+        ur: 'جست',
+        id: 'Seng',
+        de: 'Zink',
+        es: 'Zinc',
+        zh: '锌'
+    },
+    نيكل: {
+        en: 'Nickel',
+        fr: 'Nickel',
+        tr: 'Nikel',
+        ur: 'نکل',
+        id: 'Nikel',
+        de: 'Nickel',
+        es: 'Níquel',
+        zh: '镍'
+    },
+    قصدير: {
+        en: 'Tin',
+        fr: 'Étain',
+        tr: 'Kalay',
+        ur: 'ٹن',
+        id: 'Timah',
+        de: 'Zinn',
+        es: 'Estaño',
+        zh: '锡'
+    },
+    فولاذ: {
+        en: 'Steel',
+        fr: 'Acier',
+        tr: 'Çelik',
+        ur: 'اسٹیل',
+        id: 'Baja',
+        de: 'Stahl',
+        es: 'Acero',
+        zh: '钢'
+    },
+    'ستانلس ستيل': {
+        en: 'Stainless Steel',
+        fr: 'Acier inoxydable',
+        tr: 'Paslanmaz Çelik',
+        ur: 'سٹینلیس سٹیل',
+        id: 'Baja Tahan Karat',
+        de: 'Edelstahl',
+        es: 'Acero inoxidable',
+        zh: '不锈钢'
+    },
+    'حديد خردة': {
+        en: 'Scrap Iron',
+        fr: 'Ferraille',
+        tr: 'Hurda Demir',
+        ur: 'لوہا سکریپ',
+        id: 'Besi Tua',
+        de: 'Eisenschrott',
+        es: 'Chatarra de hierro',
+        zh: '废铁'
+    },
+    'نحاس أحمر': {
+        en: 'Red Copper',
+        fr: 'Cuivre rouge',
+        tr: 'Kırmızı Bakır',
+        ur: 'سرخ تانبا',
+        id: 'Tembaga Merah',
+        de: 'Rotkupfer',
+        es: 'Cobre rojo',
+        zh: '红铜'
+    },
+    'ألمنيوم خردة': {
+        en: 'Scrap Aluminum',
+        fr: 'Aluminium de récupération',
+        tr: 'Hurda Alüminyum',
+        ur: 'ایلومینیم سکریپ',
+        id: 'Aluminium Bekas',
+        de: 'Aluminiumschrott',
+        es: 'Chatarra de aluminio',
+        zh: '废铝'
+    },
+
+    // ═══ الآيات والأحاديث ═══
+    'وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا': {
+        en: 'Allah has permitted trade and forbidden usury',
+        fr: "Allah a permis le commerce et interdit l'usure",
+        tr: 'Allah alışverişi helal, faizi haram kıldı',
+        ur: 'اللہ نے تجارت کو حلال اور سود کو حرام کیا',
+        id: 'Allah menghalalkan jual beli dan mengharamkan riba',
+        de: 'Allah hat den Handel erlaubt und den Zins verboten',
+        es: 'Alá permitió el comercio y prohibió la usura'
+    },
+    'وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ': {
+        en: 'And establish weight in justice and do not make deficient the balance',
+        fr: 'Établissez la pesée avec justice et ne faussez pas la balance',
+        tr: 'Tartıyı adaletle yapın ve teraziyi eksik tutmayın',
+        ur: 'اور انصاف سے تولو اور ترازو میں کمی نہ کرو',
+        id: 'Dan tegakkanlah timbangan itu dengan adil dan janganlah kamu mengurangi neraca itu',
+        de: 'Und richtet das Gewicht in Gerechtigkeit ein und beeinträchtigt nicht die Waage'
+    }
+};
+
+// ذاكرة التخزين المؤقت للترجمات
+const TRANSLATION_CACHE = new Map();
+const CACHE_EXPIRY = 24 * 60 * 60 * 1000; // 24 ساعة
+
+// دالة الترجمة الرئيسية
+function translate(text, targetLang, sourceLang = 'ar') {
+    if (!text || targetLang === sourceLang) return text;
+    if (targetLang === 'ar') return text; // العربية هي اللغة الأصلية
+
+    // البحث في القاموس أولاً
+    if (TRANSLATIONS[text] && TRANSLATIONS[text][targetLang]) {
+        return TRANSLATIONS[text][targetLang];
+    }
+
+    // البحث في الذاكرة المؤقتة
+    const cacheKey = `${text}:${sourceLang}:${targetLang}`;
+    const cached = TRANSLATION_CACHE.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
+        return cached.translation;
+    }
+
+    return text; // إرجاع النص الأصلي إذا لم توجد ترجمة
+}
+
+// دالة الترجمة الآلية (للمحتوى الديناميكي)
+async function autoTranslate(text, targetLang, sourceLang = 'ar') {
+    if (!text || targetLang === sourceLang || targetLang === 'ar') return text;
+
+    // البحث في القاموس
+    const directTranslation = translate(text, targetLang, sourceLang);
+    if (directTranslation !== text) return directTranslation;
+
+    // البحث في الذاكرة المؤقتة
+    const cacheKey = `auto:${text}:${sourceLang}:${targetLang}`;
+    const cached = TRANSLATION_CACHE.get(cacheKey);
+    if (cached && Date.now() - cached.timestamp < CACHE_EXPIRY) {
+        return cached.translation;
+    }
+
+    // محاولة الترجمة عبر API خارجي (محاكاة)
+    // في الإنتاج سيتم استخدام Google Translate API أو DeepL
+    try {
+        // ترجمة بسيطة للكلمات المفردة من القاموس
+        let translatedText = text;
+        for (const [arWord, translations] of Object.entries(TRANSLATIONS)) {
+            if (text.includes(arWord) && translations[targetLang]) {
+                translatedText = translatedText.replace(
+                    new RegExp(arWord, 'g'),
+                    translations[targetLang]
+                );
+            }
+        }
+
+        // حفظ في الذاكرة المؤقتة
+        TRANSLATION_CACHE.set(cacheKey, {
+            translation: translatedText,
+            timestamp: Date.now()
+        });
+
+        return translatedText;
+    } catch (error) {
+        console.error('Translation error:', error);
+        return text;
+    }
+}
+
+// ترجمة كائن كامل
+async function translateObject(obj, targetLang, fieldsToTranslate = []) {
+    if (!obj || typeof obj !== 'object' || targetLang === 'ar') return obj;
+
+    const translated = Array.isArray(obj) ? [] : {};
+
+    for (const [key, value] of Object.entries(obj)) {
+        if (typeof value === 'string') {
+            if (fieldsToTranslate.length === 0 || fieldsToTranslate.includes(key)) {
+                translated[key] = await autoTranslate(value, targetLang);
+            } else {
+                translated[key] = value;
+            }
+        } else if (typeof value === 'object' && value !== null) {
+            translated[key] = await translateObject(value, targetLang, fieldsToTranslate);
+        } else {
+            translated[key] = value;
+        }
+    }
+
+    return translated;
+}
+
+// نظام الذكاء الاصطناعي المستقل لشيخة
+const { SheikhaAI, KNOWLEDGE_BASE } = require('./lib/sheikha-ai');
+const sheikhaAI = new SheikhaAI();
+
+// ═══ تهيئة مؤجلة: ربط AI-Comms Bridge بـ sheikhaAI ═══
+if (aiCommsBridge && sheikhaAI) {
+    try {
+        aiCommsBridge.aiEngine = sheikhaAI;
+        const bd = aiCommsBridge.getDashboard ? aiCommsBridge.getDashboard() : {};
+        console.log(
+            `✅ AI-Comms Bridge — ربط sheikhaAI بنجاح | ${bd.summary?.totalUniversalChannels || '?'} قناة | AI:✅ Comms:${bd.commsConnected ? '✅' : '❌'}`
+        );
+    } catch (e) {
+        console.log('⚠️ AI-Comms Bridge — خطأ في الربط المؤجل:', e.message);
+    }
+}
+
+// ─── مفاتيح الأمان — يجب تعيينها في .env ───
+const JWT_SECRET = process.env.JWT_SECRET;
+const PASSWORD_SALT = process.env.PASSWORD_SALT;
+if (!JWT_SECRET || JWT_SECRET.length < 32) {
+    console.error('🔴 خطأ حرج: JWT_SECRET غير معيّن أو قصير جدًا في .env');
+    console.error('   يجب أن يكون 32 حرفًا على الأقل. أنشئ واحدًا بـ: openssl rand -base64 48');
+    process.exit(1);
+}
+if (!PASSWORD_SALT || PASSWORD_SALT.length < 10) {
+    console.error('🔴 خطأ حرج: PASSWORD_SALT غير معيّن في .env');
+    process.exit(1);
+}
+function hashPassword(pwd) {
+    return crypto
+        .createHash('sha256')
+        .update(PASSWORD_SALT + (pwd || ''))
+        .digest('hex');
+}
+function verifyPassword(pwd, hash) {
+    return hashPassword(pwd) === hash;
+}
+
+const app = express();
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// 1. Helmet — ترويسات الحماية (XSS, clickjacking, MIME sniffing)
+// ⚠️ HSTS معطّل لأن السيرفر يعمل على HTTP محلياً — يُفعّل عند النشر على HTTPS
+if (helmet) {
+    app.use(
+        helmet({
+            contentSecurityPolicy: {
+                directives: {
+                    defaultSrc: ["'self'"],
+                    scriptSrc: [
+                        "'self'",
+                        "'unsafe-inline'",
+                        "'unsafe-eval'",
+                        'https://fonts.googleapis.com',
+                        'https://cdn.jsdelivr.net',
+                        'https://cdnjs.cloudflare.com'
+                    ],
+                    styleSrc: [
+                        "'self'",
+                        "'unsafe-inline'",
+                        'https://fonts.googleapis.com',
+                        'https://cdnjs.cloudflare.com'
+                    ],
+                    fontSrc: [
+                        "'self'",
+                        'https://fonts.gstatic.com',
+                        'https://cdnjs.cloudflare.com'
+                    ],
+                    imgSrc: ["'self'", 'data:', 'https:', 'blob:'],
+                    connectSrc: [
+                        "'self'",
+                        'ws:',
+                        'wss:',
+                        'http://localhost:*',
+                        'https://api.openai.com'
+                    ],
+                    frameSrc: ["'none'"],
+                    objectSrc: ["'none'"],
+                    upgradeInsecureRequests: null // ⛔ تعطيل التحويل التلقائي لـ HTTPS
+                }
+            },
+            hsts: false, // ⛔ تعطيل HSTS — السيرفر يعمل على HTTP محلياً
+            crossOriginEmbedderPolicy: false,
+            crossOriginResourcePolicy: { policy: 'cross-origin' }
+        })
+    );
+    console.log('✅ helmet مفعّل — ترويسات الحماية (بدون HSTS للبيئة المحلية)');
+}
+
+// 2. Compression — ضغط الاستجابات (تقليل 60-80% من الحجم)
+if (compression) {
+    app.use(
+        compression({
+            level: 6,
+            threshold: 1024,
+            filter: (req, res) => {
+                if (req.headers['x-no-compression']) return false;
+                return compression.filter(req, res);
+            }
+        })
+    );
+    console.log('✅ compression مفعّل — ضغط الاستجابات');
+}
+
+// 3. CORS — تقييد النطاقات المسموحة
+const corsOptions = {
+    origin: [
+        'https://sheikha.top',
+        'https://www.sheikha.top',
+        'http://localhost:23000',
+        'http://localhost:8080'
+    ],
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'PATCH'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+    credentials: true,
+    maxAge: 86400
+};
+
+// 4. Input Sanitization — تنظيف المدخلات من XSS و Injection
+const sanitizeInput = obj => {
+    if (typeof obj === 'string') {
+        return obj
+            .replace(/&/g, '&amp;')
+            .replace(/</g, '&lt;')
+            .replace(/>/g, '&gt;')
+            .replace(/"/g, '&quot;')
+            .replace(/'/g, '&#x27;')
+            .replace(/\//g, '&#x2F;')
+            .trim();
+    }
+    if (Array.isArray(obj)) return obj.map(sanitizeInput);
+    if (obj && typeof obj === 'object') {
+        const clean = {};
+        for (const key of Object.keys(obj)) clean[key] = sanitizeInput(obj[key]);
+        return clean;
+    }
+    return obj;
+};
+
+// 5. Rate Limiters — حماية من الإغراق (DDoS)
+let generalLimiter, authLimiter, aiLimiter;
+if (rateLimit) {
+    // حد عام — 500 طلب لكل IP كل 15 دقيقة (مناسب للتصفح + APIs)
+    generalLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 500,
+        message: { success: false, message: 'تم تجاوز الحد المسموح من الطلبات. حاول بعد قليل.' },
+        standardHeaders: true,
+        legacyHeaders: false
+    });
+    // حد صارم لتسجيل الدخول — 5 محاولات كل 15 دقيقة
+    authLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 5,
+        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' }
+    });
+    // حد لـ AI — 20 طلب كل 15 دقيقة
+    aiLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 20,
+        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' }
+    });
+    console.log('✅ rate-limit مفعّل — حماية من الإغراق');
+}
+
+// === تطبيق الـ middleware بالترتيب الصحيح ===
+app.use(cors(corsOptions));
+app.use(express.json());
+
+// تنظيف المدخلات
+app.use((req, res, next) => {
+    if (req.body) req.body = sanitizeInput(req.body);
+    if (req.query) req.query = sanitizeInput(req.query);
+    if (req.params) req.params = sanitizeInput(req.params);
+    next();
+});
+
+// Rate limiters على المسارات المحددة
+if (generalLimiter) app.use('/api/', generalLimiter);
+if (authLimiter) {
+    app.use('/api/auth/login', authLimiter);
+    app.use('/api/auth/register', authLimiter);
+}
+if (aiLimiter) {
+    app.use('/api/ai/', aiLimiter);
+    app.use('/api/sheikha-ai/', aiLimiter);
+}
+
+// سجل أمني — تسجيل محاولات مشبوهة
+const securityLog = (event, details) => {
+    console.warn(
+        '🔐 أمان:',
+        JSON.stringify({ timestamp: new Date().toISOString(), event, ...details })
+    );
+};
+
+// ═══ حماية المسارات الإدارية — Admin Route Protection ═══
+// الصفحات التي تتطلب صلاحية admin فقط
+const ADMIN_ONLY_PAGES = [
+    '/لوحة-الادمن.html',
+    '/_admin/sheikha-command-center.html',
+    '/التسويق-الرقمي.html',
+    '/المواد-التسويقية.html',
+    '/marketing.html',
+    '/المخطط-الهيكلي.html',
+    '/فهرس-المنظومة.html',
+    '/خريطة-شيخة.html',
+    '/منظومة-الذكاء-والتقدم.html',
+    '/الإنتاج-المنهجي.html',
+    '/الإتقان-والتقدم.html',
+    '/التجربة-التشغيلية.html',
+    '/تجربة-المنظومة.html',
+    '/منظومة-الشبكات-والطاقة.html',
+    '/منظومة-الأرض-والسماء.html',
+    '/منظومة-الحكمة-والمنطق.html',
+    '/الهيكل-الإداري.html',
+    '/خريطة-الأهداف.html',
+    '/لوحة-المؤشرات.html'
+];
+const ADMIN_PREFIXES = ['/_admin/', '/marketing/', '/_engines/'];
+const LOGIN_REQUIRED_PAGES = ['/لوحة-تحكم-المستخدم.html', '/لوحة-الشركة.html'];
+const GOV_PAGES = [
+    '/لوحة-الحكومة-السعودية.html',
+    '/لوحة-الحكومات-الدولية.html',
+    '/gov-dashboard.html',
+    '/الشركات-الحكومية.html'
+];
+
+function verifyTokenRole(req) {
+    try {
+        const authHeader = req.headers.authorization;
+        const token = authHeader ? authHeader.replace('Bearer ', '') : null;
+        // أيضاً من الكوكيز
+        const cookieToken = req.cookies ? req.cookies.sheikha_token : null;
+        const activeToken = token || cookieToken;
+        if (!activeToken) return null;
+        const decoded = jwt.verify(activeToken, process.env.JWT_SECRET || 'sheikha-secret-2026');
+        return decoded;
+    } catch (e) {
+        return null;
+    }
+}
+
+// Middleware لحماية الصفحات (HTML)
+const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+app.use((req, res, next) => {
+    const path = decodeURIComponent(req.path);
+
+    // فحص إن كانت صفحة إدارية
+    const isAdminPage =
+        ADMIN_ONLY_PAGES.includes(path) || ADMIN_PREFIXES.some(p => path.startsWith(p));
+
+    if (isAdminPage) {
+        // في وضع PILOT / التطوير المحلي — السماح بالوصول للمالك
+        if (IS_LOCAL) {
+            return next();
+        }
+        const user = verifyTokenRole(req);
+        if (!user || user.role !== 'admin') {
+            return res.redirect('/');
+        }
+    }
+
+    next();
+});
+
+console.log(
+    '🔐 نظام حماية المسارات — مفعّل | ' +
+        ADMIN_ONLY_PAGES.length +
+        ' صفحة محمية | ' +
+        ADMIN_PREFIXES.length +
+        ' مسار إداري'
+);
+
+// === نهاية middleware الأمان ===
+// تم استبدال Rate Limiting القديم بـ express-rate-limit أعلاه
+const rateLimitMap = new Map(); // يبقى للتوافقية مع أي كود يستخدمه
+
+// تنظيف rate limit map كل 5 دقائق
+setInterval(() => {
+    const now = Date.now();
+    for (const [ip, timestamps] of rateLimitMap.entries()) {
+        const valid = timestamps.filter(t => now - t < 60000);
+        if (valid.length === 0) rateLimitMap.delete(ip);
+        else rateLimitMap.set(ip, valid);
+    }
+}, 300000);
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🧪 PILOT MODE MIDDLEWARE — حاجز الوضع التجريبي
+// ═══════════════════════════════════════════════════════════════════════════════
+if (pilotEngine) {
+    app.use(pilotEngine.middleware());
+    console.log('🧪 Pilot Middleware — مفعّل | الوضع:', pilotEngine.mode);
+}
+
+app.use(cors());
+app.use(express.json({ limit: '10mb' }));
+app.use(express.urlencoded({ extended: true, limit: '10mb' }));
+
+// Cache Control for HTML pages
+app.use((req, res, next) => {
+    if (req.path.endsWith('.html') || req.path === '/' || req.path === '') {
+        res.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
+        res.set('Pragma', 'no-cache');
+        res.set('Expires', '0');
+    }
+    next();
+});
+// مسار الصفحة الرئيسية — قراءة من القرص وإرسال مع منع كاش + علامة تحديث
+// الصفحة الرئيسية — يتم التعامل معها عبر middleware الحقن التلقائي (سطر ~1344)
+// ============================================================
+// HEALTH CHECK — moved to advanced version below (line ~7840)
+// ============================================================
+
+app.get('/health', (req, res) => {
+    res.status(200).send('OK');
+});
+
+// ============================================================
+// PROJECT IDENTITY — للتعريف بالمشروع من أي بيئة
+// ============================================================
+app.get('/api/project/identity', (req, res) => {
+    res.json({
+        success: true,
+        project: {
+            name: 'منظومة وسوق شيخة',
+            nameEn: 'SHEIKHA — Metals & Scrap Ecosystem',
+            owner: 'سلمان أحمد بن سلمان الراجح',
+            domain: 'sheikha.top',
+            email: 'market@sheikha.top',
+            version: '1.0.0',
+            type: 'Islamic Digital Economy Platform — Metals & Scrap',
+            stack: {
+                backend: 'Node.js + Express.js',
+                frontend: 'HTML5 + CSS3 + Vanilla JS (RTL Arabic)',
+                storage: 'JSON file-based',
+                auth: 'JWT + OAuth (Google, Microsoft, Apple, Nafath)',
+                realtime: 'WebSocket',
+                pwa: true,
+                deployment: 'Vercel'
+            },
+            pages: 14,
+            apiEndpoints: '200+',
+            engines: ['sheikha-ai', 'sharia-compliance', 'arabic-parser', 'development-engine'],
+            principles: ['لا ربا', 'لا غرر', 'لا غش', 'لا احتكار', 'البيع عن تراضٍ'],
+            status: 'active'
+        },
+        integrations: {
+            cursor: { configured: true, mcp: true, rules: true, prompts: true },
+            claude: { configured: true, claudeMd: true, config: true },
+            chatgpt: { contextFile: 'SHEIKHA-AI-CONTEXT.md' },
+            vercel: { configured: true },
+            github: { configured: false, recommended: true }
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📊 حالة المشروع المركزية — يُقرأ من أي بيئة AI تلقائياً
+// ═══════════════════════════════════════════════════════════════════════════════
+app.get('/api/project/status', (req, res) => {
+    try {
+        const statusPath = path.join(__dirname, 'data', 'SHEIKHA-STATUS.json');
+        if (fs.existsSync(statusPath)) {
+            const status = JSON.parse(fs.readFileSync(statusPath, 'utf8'));
+            res.json({ success: true, ...status });
+        } else {
+            res.json({ success: true, messa

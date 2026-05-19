@@ -1,0 +1,261 @@
+{
+  "type": "SheikhaBytecode",
+  "version": "0.1.0",
+  "neuralProfile": {
+    "mesh": "SHEIKHA_RADICAL_NEURAL_MESH_V2",
+    "cells": 57,
+    "layers": {
+      "quranic": 19,
+      "sunnah": 11,
+      "maqasid": 11,
+      "fiqh": 8,
+      "tawheed": 1,
+      "governance": 7
+    }
+  },
+  "instructions": [
+    {
+      "code": "PUSH_DIRECTIVE",
+      "op": "DIRECTIVE",
+      "name": "بسم_الله",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "صفقة_معادن",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "صفقة_معادن",
+      "key": "النوع",
+      "value": "نحاس",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 3
+        },
+        "end": {
+          "line": 4,
+          "column": 14
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "صفقة_معادن",
+      "key": "الوزن",
+      "value": "300000 طن",
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 3
+        },
+        "end": {
+          "line": 5,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "صفقة_معادن",
+      "key": "الشرط",
+      "value": "صدق_وبيان",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "line": 6,
+          "column": 19
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "صفقة_معادن",
+      "key": "منع",
+      "value": "احتكار، غش، ضرر",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 3
+        },
+        "end": {
+          "line": 7,
+          "column": 23
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "صفقة_معادن",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_PROCEDURE",
+      "op": "PROCEDURE_BEGIN",
+      "name": "تحقق_شرعي",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "IF_INLINE",
+      "condition": "الصفقة فيها غش",
+      "thenInstructions": [
+        {
+          "code": "CALL_COMMAND",
+          "op": "COMMAND",
+          "procedure": "تحقق_شرعي",
+          "command": "ارفض",
+          "argument": "\"الغش ممنوع\"",
+          "loc": {
+            "start": {
+              "line": 11,
+              "column": 5
+            },
+            "end": {
+              "line": 11,
+              "column": 22
+            }
+          }
+        }
+      ],
+      "elseInstructions": [
+        {
+          "code": "CALL_COMMAND",
+          "op": "COMMAND",
+          "procedure": "تحقق_شرعي",
+          "command": "أجز",
+          "argument": "\"الصفقة قابلة للمتابعة\"",
+          "loc": {
+            "start": {
+              "line": 13,
+              "column": 5
+            },
+            "end": {
+              "line": 13,
+              "column": 32
+            }
+          }
+        }
+      ],
+      "procedure": "تحقق_شرعي",
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "CLOSE_PROCEDURE",
+      "op": "PROCEDURE_END",
+      "name": "تحقق_شرعي",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_PROCEDURE",
+      "op": "PROCEDURE_BEGIN",
+      "name": "توصية",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 17,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "CALL_COMMAND",
+      "op": "COMMAND",
+      "procedure": "توصية",
+      "command": "اعرض",
+      "argument": "\"تم التحليل بذكاء وإتقان، والله ولي التوفيق\"",
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 3
+        },
+        "end": {
+          "line": 16,
+          "column": 52
+        }
+      }
+    },
+    {
+      "code": "CLOSE_PROCEDURE",
+      "op": "PROCEDURE_END",
+      "name": "توصية",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 17,
+          "column": 1
+        }
+      }
+    }
+  ]
+}

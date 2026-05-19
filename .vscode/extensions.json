@@ -1,23 +1,111 @@
 {
-  "//": "إضافات VSCode المعتمدة — منظمة شيخة",
+  "//": "إضافات VSCode المعتمدة — منظمة شيخة — مع تغطية كاملة لشبكة الخلايا العصبية",
+
   "recommendations": [
+
+    // ═══ PHP Core — IntelliSense • Semantic • Diagnostics • Refactoring ═══
+    // Syntax Highlighting + Semantic highlighting + Inlay Hints + Code Lenses
+    // + Highlight Occurrences + Type Hierarchy + IntelliSense + Generics
+    // + Diagnostics + Quick Fix + Rename Refactoring + Implement Abstracts
+    // + PHPDoc + Multi-language PHP Manual + Profiling
+    "devsense.phptools-vscode",
+
+    // Workspace-Wide Analysis + Auto-Import + Navigation + Symbol Search
+    // + Unused Variables/Imports + Real-Time Diagnostics + Signature Help
+    "bmewburn.vscode-intelephense-client",
+
+    // ═══ PHP Debug — Xdebug Integration ═══
+    // Xdebug Integration + Debug Inline Adornments + Variable Watch
+    // + Debug Expression Evaluation + Tests Debugging
+    "xdebug.php-debug",
+
+    // ═══ PHP Formatting ═══
+    // Predefined Code Styles + Fully Customizable Rules + Format On Save
+    "junstyle.php-cs-fixer",
+
+    // ═══ PHPDoc — Generate + Syntax ═══
+    // Generate PHPDoc + Extended PHPDoc Syntax + PHPDoc Support
+    "neilbrayfield.php-docblocker",
+
+    // ═══ PHP Namespace / PSR / Organize Uses ═══
+    // Fix PSR Names + Organize Uses + Auto-Import namespace resolver
+    "mehedidracula.php-namespace-resolver",
+
+    // ═══ RegEx Editor — Highlighting & Validation ═══
+    // RegEx Editor + RegEx Validation + Highlighting
+    "chrmarti.regex",
+
+    // ═══ PHPUnit Tests ═══
+    // PHPUnit Tests Explorer + Run Selected Tests + Tests Results View
+    "recca0120.vscode-phpunit",
+
+    // PHPStan — Static Analysis + Global Type Alias Support
+    "swordev.phpstan",
+
+    // ═══ Laravel & Blade ═══
+    // Laravel Magic + Blade Completion + Blade Folding + PHP-in-Blade
+    // + Components & Livewire Completions
+    "onecentlin.laravel-blade",
+
+    // Laravel Services & Facades & Routes + Eloquent Magic
+    "onecentlin.laravel5-snippets",
+
+    // Blade Formatter
+    "shufo.vscode-blade-formatter",
+
+    // ═══ Composer ═══
+    // Composer Manager + IntelliSense + Project From Composer Wizard
+    "ikappas.composer",
+
+    // ═══ EditorConfig ═══
+    // EditorConfig Rules Definition + Format On Save via .editorconfig
+    "editorconfig.editorconfig",
+
+    // ═══ TODO Highlight ═══
+    // Highlight ToDo + custom patterns
+    "wayou.vscode-todo-highlight",
+
+    // ═══ Smarty / Twig Templating ═══
+    // Smarty and Twig Editor
+    "mblode.twig-language-2",
+
+    // ═══ PHAR / Dependency Tools ═══
+    // PHAR Files Indexing — handled via Intelephense above
+
+    // ═══ AI Inline Completion ═══
+    // AI Inline Code Completion + AI Snippets Completion (IntelliPHP)
     "github.copilot",
     "github.copilot-chat",
+
+    // ═══ Node.js / JS Ecosystem ═══
+    "dbaeumer.vscode-eslint",
+    "esbenp.prettier-vscode",
+    "christian-kohler.npm-intellisense",
+
+    // ═══ Git & DevOps ═══
+    "eamodio.gitlens",
     "github.vscode-github-actions",
     "github.vscode-pull-request-github",
     "gitlab.gitlab-workflow",
-    "dbaeumer.vscode-eslint",
-    "esbenp.prettier-vscode",
-    "mikestead.dotenv",
-    "eamodio.gitlens",
+
+    // ═══ Docker & Remote ═══
     "ms-vscode-remote.remote-containers",
+    "ms-vscode-remote.vscode-remote-extensionpack",
     "ms-azuretools.vscode-docker",
-    "ms-azuretools.vscode-azurevirtualmachines",
+
+    // ═══ REST / API Testing ═══
     "humao.rest-client",
-    "christian-kohler.npm-intellisense",
+
+    // ═══ Env / Secrets ═══
+    "mikestead.dotenv",
+
+    // ═══ Spell Check (Arabic + English) ═══
     "streetsidesoftware.code-spell-checker",
     "streetsidesoftware.code-spell-checker-arabic",
+
+    // ═══ AI Continue ═══
     "continue.continue"
   ],
+
   "unwantedRecommendations": []
 }
