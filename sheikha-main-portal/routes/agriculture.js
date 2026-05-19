@@ -7,13 +7,15 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  *
  * Endpoints:
- *   GET  /api/agriculture/status     — حالة شبكة الخلايا الزراعية
- *   GET  /api/agriculture/lifecycle  — مراحل دورة الحياة الزراعية الرقمية
- *   GET  /api/agriculture/meadows    — المروج والأنهار الرقمية
- *   POST /api/agriculture/assess     — تقدير مرحلة المنتج في دورة الحياة
- *   POST /api/agriculture/harvest    — إتمام صفقة الحصاد
- *   POST /api/agriculture/revive     — إحياء قائمة أو منتج خامل
- *   GET  /api/agriculture/cells      — قائمة جميع الخلايا الزراعية
+ *   GET  /api/agriculture/status      — حالة شبكة الخلايا الزراعية
+ *   GET  /api/agriculture/lifecycle   — مراحل دورة الحياة الزراعية الرقمية
+ *   GET  /api/agriculture/meadows     — المروج والأنهار الرقمية
+ *   GET  /api/agriculture/cells       — قائمة جميع الخلايا الزراعية
+ *   GET  /api/agriculture/land-report — تقرير صحة الأرض وأولويات الإحياء والإعمار
+ *   POST /api/agriculture/assess      — تقدير مرحلة المنتج في دورة الحياة
+ *   POST /api/agriculture/harvest     — إتمام صفقة الحصاد
+ *   POST /api/agriculture/revive      — إحياء الأرض الميتة (خطة متكاملة)
+ *   POST /api/agriculture/cultivate   — إعمار الأرض وتطوير المنطقة التجارية
  */
 
 'use strict';
@@ -238,9 +240,11 @@ router.post('/harvest', (req, res) => {
 
 // ─── POST /api/agriculture/revive ────────────────────────────────────────────
 /**
- * إحياء الأرض الميتة — تفعيل قائمة خاملة أو منتج مهجور
+ * إحياء الأرض الميتة — خطة متكاملة من التشخيص إلى الإثمار
  * "وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا كَذَٰلِكَ الْخُرُوجُ" — ق:11
- * Body: { listingId?, productId?, reason? }
+ * "اعْلَمُوا أَنَّ اللَّهَ يُحْيِي الْأَرْضَ بَعْدَ مَوْتِهَا" — الحديد:17
+ * Body: { listingId?, productId?, reason?, daysIdle?, causes? }
+ *   causes: مصفوفة من [price_mismatch, outdated_images, incomplete_data, low_visibility, no_reviews, market_shift, supplier_inactive]
  */
 router.post('/revive', (req, res) => {
     if (!requireNetwork(res)) return;
@@ -260,7 +264,65 @@ router.post('/revive', (req, res) => {
         res.json({
             success: true,
             data: result,
-            message: `🌊 تم إحياء الأرض — القائمة نشطة من جديد — وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا — ق:11`,
+            message: `🌊 بدأت خطة الإحياء — الحِدّة: ${result.idleSeverity} | ${result.revivalPlan.length} مراحل | وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا — ق:11`,
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+// ─── POST /api/agriculture/cultivate ─────────────────────────────────────────
+/**
+ * إعمار الأرض — بناء وتطوير المنطقة أو القطاع التجاري
+ * "هُوَ أَنشَأَكُم مِّنَ الْأَرْضِ وَاسْتَعْمَرَكُمْ فِيهَا" — هود:61
+ * Body: { zone?, region?, category?, metrics?: { supplierCount, productCount, orderCount, reviewCount, activeListings, monthlyRevenue, networkNodes } }
+ */
+router.post('/cultivate', (req, res) => {
+    if (!requireNetwork(res)) return;
+
+    try {
+        const landData = req.body || {};
+
+        if (!landData.zone && !landData.region && !landData.category) {
+            return res.status(400).json({
+                success: false,
+                error: 'المنطقة (zone) أو الإقليم (region) أو الفئة (category) مطلوب لتحديد أرض الإعمار',
+            });
+        }
+
+        const result = agncn.cultivate(landData);
+
+        if (!result.success) {
+            return res.status(400).json({ success: false, errors: result.errors });
+        }
+
+        res.json({
+            success: true,
+            data: result,
+            message: result.isFullyDeveloped
+                ? `🌳 أرض عامِرة! "${result.zone}" وصلت لأعلى مستوى إعمار — ${result.currentScore}/100`
+                : `🏗️ إعمار "${result.zone}" — المستوى: ${result.currentLevel.nameAr} | النقاط: ${result.currentScore}/100 | هُوَ أَنشَأَكُم مِّنَ الْأَرْضِ وَاسْتَعْمَرَكُمْ فِيهَا — هود:61`,
+        });
+    } catch (e) {
+        res.status(500).json({ success: false, error: e.message });
+    }
+});
+
+// ─── GET /api/agriculture/land-report ────────────────────────────────────────
+/**
+ * تقرير صحة الأرض الرقمية — تشخيص المناطق الميتة وأولويات الإحياء والإعمار
+ * "أَوَلَمْ يَرَوْا أَنَّا نَسُوقُ الْمَاءَ إِلَى الْأَرْضِ الْجُرُزِ فَنُخْرِجُ بِهِ زَرْعًا" — السجدة:27
+ */
+router.get('/land-report', (req, res) => {
+    if (!requireNetwork(res)) return;
+
+    try {
+        const report = agncn.getLandReport();
+
+        res.json({
+            success: true,
+            data: report,
+            message: `🌍 تقرير صحة الأرض — ${report.healthLabel} | مؤشر الصحة: ${report.healthScore}/100`,
         });
     } catch (e) {
         res.status(500).json({ success: false, error: e.message });

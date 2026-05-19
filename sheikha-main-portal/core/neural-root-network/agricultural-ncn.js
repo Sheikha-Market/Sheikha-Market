@@ -417,9 +417,31 @@ function harvest(harvestData = {}) {
 
 // ─── إحياء الأرض الميتة ──────────────────────────────────────────────────────
 
+// مراحل خطة الإحياء المتكاملة
+const REVIVAL_STAGES = [
+    { order: 1, name: 'التشخيص',   nameEn: 'diagnosis',    icon: '🔍', description: 'تحديد أسباب الخمول وتقييم الأرض الميتة' },
+    { order: 2, name: 'السقي',     nameEn: 'irrigation',   icon: '💧', description: 'ضخ البيانات الجديدة وتحديث التسعير' },
+    { order: 3, name: 'الحرث',     nameEn: 'ploughing',    icon: '🌾', description: 'تهيئة القائمة وإعادة هيكلة المعلومات' },
+    { order: 4, name: 'البذر',     nameEn: 'reseeding',    icon: '🌱', description: 'بث محتوى جديد وإعادة النشر' },
+    { order: 5, name: 'الرعاية',   nameEn: 'nurturing',    icon: '🪴', description: 'متابعة مستمرة وتحسين دوري' },
+    { order: 6, name: 'الإثمار',   nameEn: 'fruiting',     icon: '🍊', description: 'استعادة التفاعل والطلب' },
+];
+
+// أسباب الخمول وحلولها
+const DORMANCY_CAUSES = {
+    'price_mismatch':    { nameAr: 'فجوة السعر',       solution: 'أعد تسعير المنتج وفق أسعار السوق الحالية', urgency: 'high' },
+    'outdated_images':   { nameAr: 'صور قديمة',         solution: 'أضف صوراً حديثة وواضحة للمنتج',             urgency: 'medium' },
+    'incomplete_data':   { nameAr: 'بيانات ناقصة',      solution: 'أكمل جميع حقول وصف المنتج والمواصفات',     urgency: 'high' },
+    'low_visibility':    { nameAr: 'ظهور ضعيف',         solution: 'فعّل الإبراز وحسّن كلمات البحث',            urgency: 'medium' },
+    'no_reviews':        { nameAr: 'لا تقييمات',         solution: 'اطلب من عملائك السابقين تقييم المنتج',      urgency: 'low' },
+    'market_shift':      { nameAr: 'تغيّر السوق',       solution: 'راجع الفئة المستهدفة وأعد توجيه المنتج',    urgency: 'high' },
+    'supplier_inactive': { nameAr: 'مورد غير نشط',      solution: 'فعّل حساب المورد وحدّث ملفه التجاري',       urgency: 'critical' },
+};
+
 /**
- * إحياء قائمة خاملة أو أرض تجارية ميتة
- * "وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا" — ق:11
+ * إحياء الأرض الميتة — خطة متكاملة من التشخيص إلى الإثمار
+ * "وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا كَذَٰلِكَ الْخُرُوجُ" — ق:11
+ * "اعْلَمُوا أَنَّ اللَّهَ يُحْيِي الْأَرْضَ بَعْدَ مَوْتِهَا" — الحديد:17
  * @param {object} revivalData — بيانات الإحياء
  */
 function revive(revivalData = {}) {
@@ -437,22 +459,291 @@ function revive(revivalData = {}) {
         };
     }
 
-    // تفعيل خلية الإحياء ثم خلية السقي (إعادة التغذية)
-    const revivalCell     = activateCell('ag-revival',    { action: 'revive', ...data });
-    const irrigationCell  = activateCell('ag-irrigation', { action: 'refeed', ...data });
-    const growthCell      = activateCell('ag-growth',     { action: 'regrow', ...data });
+    const targetId  = data.listingId || data.productId;
+    const causes    = Array.isArray(data.causes) ? data.causes : ['incomplete_data'];
+    const daysIdle  = typeof data.daysIdle === 'number' ? data.daysIdle : 30;
+
+    // تقييم حِدّة الخمول
+    const idleSeverity = daysIdle < 30  ? 'خفيف'
+                       : daysIdle < 90  ? 'متوسط'
+                       : daysIdle < 180 ? 'شديد'
+                       : 'حرج';
+
+    // تحليل أسباب الخمول وحلولها
+    const diagnosedCauses = causes.map(c => ({
+        cause: c,
+        ...(DORMANCY_CAUSES[c] || { nameAr: c, solution: 'راجع المنتج وحدّث بياناته', urgency: 'medium' }),
+    }));
+
+    // خطة الإحياء المتدرجة
+    const revivalPlan = REVIVAL_STAGES.map((stage, i) => ({
+        ...stage,
+        daysFromNow: (i + 1) * 3,
+        priority: i === 0 ? 'فوري' : i < 3 ? 'عاجل' : 'عادي',
+        completed: false,
+    }));
+
+    // تفعيل الخلايا: الإحياء → السقي → النمو → (البذر إذا كان حرجاً)
+    const cellsToFire = ['ag-revival', 'ag-irrigation', 'ag-growth'];
+    if (idleSeverity === 'حرج') cellsToFire.push('ag-seed'); // أعد البذر من الصفر
+    const firedCells = cellsToFire.map(id => activateCell(id, { action: 'revive', targetId, daysIdle }));
 
     return {
         success: true,
-        revivalId:  `revival_${Date.now()}`,
-        listingId:  data.listingId || data.productId,
-        reason:     data.reason || 'إحياء دوري',
-        newStatus:  'active',
-        stage: 'إحياء',
-        icon: '🌊',
-        ayah: 'وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا كَذَٰلِكَ الْخُرُوجُ — ق:11',
-        cellsActivated: [revivalCell, irrigationCell, growthCell].filter(Boolean).map(c => c.cellId),
-        revivedAt: new Date().toISOString(),
+        revivalId:     `revival_${Date.now()}`,
+        targetId,
+        daysIdle,
+        idleSeverity,
+        reason:        data.reason || 'إحياء دوري',
+        newStatus:     'reviving',
+        stage:         'إحياء',
+        icon:          '🌊',
+        ayah:          'وَأَحْيَيْنَا بِهِ بَلْدَةً مَّيْتًا كَذَٰلِكَ الْخُرُوجُ — ق:11',
+        principle:     'اعْلَمُوا أَنَّ اللَّهَ يُحْيِي الْأَرْضَ بَعْدَ مَوْتِهَا — الحديد:17',
+        diagnosis:     diagnosedCauses,
+        revivalPlan,
+        estimatedDaysToRecovery: REVIVAL_STAGES.length * 3,
+        cellsActivated: firedCells.filter(Boolean).map(c => c.cellId),
+        revivedAt:     new Date().toISOString(),
+    };
+}
+
+// ─── إعمار الأرض — بناء وتطوير المنطقة التجارية ─────────────────────────────
+
+// مستويات إعمار الأرض
+const CULTIVATION_LEVELS = [
+    { level: 1, nameAr: 'أرض بِكر',    nameEn: 'virgin-land',   minScore: 0,   description: 'لم تُمسّ بعد — فرصة إعمار صفرية' },
+    { level: 2, nameAr: 'أرض مُحرَثة', nameEn: 'ploughed',      minScore: 20,  description: 'جاهزة للبذر — البنية التحتية موجودة' },
+    { level: 3, nameAr: 'أرض مُسقاة',  nameEn: 'irrigated',     minScore: 40,  description: 'نشطة — يحتاج تطويراً ورعاية' },
+    { level: 4, nameAr: 'أرض مُزهِرة', nameEn: 'flourishing',   minScore: 60,  description: 'تتوسع — يحتاج تكثيفاً وتنويعاً' },
+    { level: 5, nameAr: 'أرض عامِرة',  nameEn: 'cultivated',    minScore: 80,  description: 'مُعمَّرة بالكامل — نموذج إعمار يُحتذى به' },
+];
+
+/**
+ * إعمار الأرض — تطوير المنطقة أو القطاع التجاري
+ * "هُوَ أَنشَأَكُم مِّنَ الْأَرْضِ وَاسْتَعْمَرَكُمْ فِيهَا" — هود:61
+ * @param {object} landData — بيانات أرض الإعمار
+ */
+function cultivate(landData = {}) {
+    if (!_ready) init();
+    _callCount++;
+
+    const data = landData;
+    const errors = [];
+
+    if (!data.zone && !data.region && !data.category) {
+        errors.push('المنطقة (zone) أو الإقليم (region) أو الفئة (category) مطلوب لتحديد أرض الإعمار');
+    }
+    if (errors.length > 0) {
+        return { success: false, errors, stage: 'إعمار', timestamp: new Date().toISOString() };
+    }
+
+    const zone    = data.zone || data.region || data.category;
+    const metrics = data.metrics || {};
+
+    // احتساب درجة الإعمار الحالية (0-100)
+    let score = 0;
+    if (metrics.supplierCount   > 0)   score += 15;
+    if (metrics.productCount    > 5)   score += 15;
+    if (metrics.orderCount      > 0)   score += 20;
+    if (metrics.reviewCount     > 0)   score += 10;
+    if (metrics.activeListings  > 3)   score += 15;
+    if (metrics.monthlyRevenue  > 0)   score += 15;
+    if (metrics.networkNodes    > 0)   score += 10;
+
+    score = Math.min(100, score);
+
+    // تحديد مستوى الإعمار الحالي
+    const currentLevel = [...CULTIVATION_LEVELS]
+        .reverse()
+        .find(l => score >= l.minScore) || CULTIVATION_LEVELS[0];
+
+    // المستوى التالي
+    const nextLevelIdx  = CULTIVATION_LEVELS.findIndex(l => l.level === currentLevel.level);
+    const nextLevel     = CULTIVATION_LEVELS[nextLevelIdx + 1] || null;
+    const pointsNeeded  = nextLevel ? nextLevel.minScore - score : 0;
+
+    // خطة الإعمار — الأعمال المطلوبة
+    const cultivationActions = _buildCultivationActions(score, metrics, zone);
+
+    // تفعيل خلايا الإعمار
+    const cellsToFire = ['ag-root', 'ag-irrigation', 'ag-growth', 'ag-branch'];
+    if (score < 20) cellsToFire.unshift('ag-seed');         // أرض بِكر — ابدأ من البذر
+    if (score >= 60) cellsToFire.push('ag-fruit');          // مُزهِرة — ابدأ تجني الثمار
+    const firedCells = cellsToFire.map(id => activateCell(id, { action: 'cultivate', zone, score }));
+
+    return {
+        success: true,
+        cultivationId: `cultivation_${Date.now()}`,
+        zone,
+        currentScore:   score,
+        currentLevel: {
+            level:       currentLevel.level,
+            nameAr:      currentLevel.nameAr,
+            description: currentLevel.description,
+        },
+        nextLevel: nextLevel ? {
+            level:       nextLevel.level,
+            nameAr:      nextLevel.nameAr,
+            pointsNeeded,
+        } : null,
+        cultivationActions,
+        isFullyDeveloped: score >= 80,
+        stage: 'إعمار',
+        icon: '🏗️',
+        ayah:      'هُوَ أَنشَأَكُم مِّنَ الْأَرْضِ وَاسْتَعْمَرَكُمْ فِيهَا — هود:61',
+        principle: 'إعمار الأرض واجب على كل قادر — الخلافة في الأرض فريضة',
+        cellsActivated: firedCells.filter(Boolean).map(c => c.cellId),
+        cultivatedAt: new Date().toISOString(),
+    };
+}
+
+/**
+ * بناء خطة أعمال الإعمار بناءً على درجة التطوير الحالية
+ */
+function _buildCultivationActions(score, metrics, zone) {
+    const actions = [];
+    if (!metrics.supplierCount || metrics.supplierCount < 3) {
+        actions.push({ priority: 'عاجل', action: `استقطب موردين جدد في منطقة "${zone}"`, impact: '+15 نقطة' });
+    }
+    if (!metrics.productCount || metrics.productCount < 10) {
+        actions.push({ priority: 'عاجل', action: 'أضف منتجات متنوعة لتغطية الطلب المحلي', impact: '+15 نقطة' });
+    }
+    if (!metrics.orderCount || metrics.orderCount === 0) {
+        actions.push({ priority: 'فوري', action: 'فعّل أول صفقة تجارية لإحياء الأرض', impact: '+20 نقطة' });
+    }
+    if (!metrics.reviewCount || metrics.reviewCount < 5) {
+        actions.push({ priority: 'متوسط', action: 'اجمع تقييمات لبناء الثقة في المنطقة', impact: '+10 نقطة' });
+    }
+    if (!metrics.monthlyRevenue || metrics.monthlyRevenue === 0) {
+        actions.push({ priority: 'عاجل', action: 'احتسب وحقق أول إيراد شهري من المنطقة', impact: '+15 نقطة' });
+    }
+    if (score >= 60) {
+        actions.push({ priority: 'توسعي', action: 'وسّع الشبكة لمناطق مجاورة (تفرّع)', impact: 'توسع' });
+        actions.push({ priority: 'توسعي', action: 'ابدأ تصدير منتجات المنطقة خارجياً',  impact: 'نمو' });
+    }
+    if (actions.length === 0) {
+        actions.push({ priority: 'صيانة', action: 'حافظ على مستوى الإعمار وأتمت العمليات', impact: 'استدامة' });
+    }
+    return actions;
+}
+
+// ─── تقرير صحة الأرض الرقمية ─────────────────────────────────────────────────
+
+/**
+ * تقرير صحة الأرض — تشخيص المناطق الميتة والفرص والإعمار المطلوب
+ * "أَوَلَمْ يَرَوْا أَنَّا نَسُوقُ الْمَاءَ إِلَى الْأَرْضِ الْجُرُزِ فَنُخْرِجُ بِهِ زَرْعًا" — السجدة:27
+ * @param {object} filters — { zones?, categories?, minScore?, maxScore? }
+ */
+function getLandReport(filters = {}) {
+    if (!_ready) init();
+
+    const cells = Array.from(_cellMap.values());
+    const totalFireCount = cells.reduce((s, c) => s + c.fireCount, 0);
+    const activeCells    = cells.filter(c => c.active);
+
+    // تصنيف صحة الأرض بناءً على نشاط الخلايا
+    const healthBands = [
+        {
+            band:     'أرض ميتة',
+            bandEn:   'dead-land',
+            icon:     '🏜️',
+            minPct:   0,
+            maxPct:   20,
+            cells:    cells.filter(c => c.activation < 0.2),
+            action:   'إحياء فوري مطلوب — revive()',
+            ayah:     'أَوَلَمْ يَرَوْا أَنَّا نَسُوقُ الْمَاءَ إِلَى الْأَرْضِ الْجُرُزِ — السجدة:27',
+        },
+        {
+            band:     'أرض ضعيفة',
+            bandEn:   'weak-land',
+            icon:     '🌵',
+            minPct:   20,
+            maxPct:   40,
+            cells:    cells.filter(c => c.activation >= 0.2 && c.activation < 0.4),
+            action:   'إعمار مكثّف مطلوب — cultivate()',
+            ayah:     'وَاللَّهُ أَنبَتَكُم مِّنَ الْأَرْضِ نَبَاتًا — نوح:17',
+        },
+        {
+            band:     'أرض نامية',
+            bandEn:   'growing-land',
+            icon:     '🌿',
+            minPct:   40,
+            maxPct:   70,
+            cells:    cells.filter(c => c.activation >= 0.4 && c.activation < 0.7),
+            action:   'رعاية وتغذية مستمرة',
+            ayah:     'يُنبِتُ لَكُم بِهِ الزَّرْعَ وَالزَّيْتُونَ — النحل:11',
+        },
+        {
+            band:     'أرض مُزهِرة',
+            bandEn:   'flourishing-land',
+            icon:     '🌸',
+            minPct:   70,
+            maxPct:   90,
+            cells:    cells.filter(c => c.activation >= 0.7 && c.activation < 0.9),
+            action:   'توسيع وتفريع النشاط',
+            ayah:     'تُؤْتِي أُكُلَهَا كُلَّ حِينٍ بِإِذْنِ رَبِّهَا — إبراهيم:25',
+        },
+        {
+            band:     'أرض عامِرة',
+            bandEn:   'cultivated-land',
+            icon:     '🌳',
+            minPct:   90,
+            maxPct:   100,
+            cells:    cells.filter(c => c.activation >= 0.9),
+            action:   'صون وتجديد للاستدامة',
+            ayah:     'وَهُوَ الَّذِي أَنشَأَ جَنَّاتٍ مَّعْرُوشَاتٍ — الأنعام:141',
+        },
+    ];
+
+    // الأولويات الفورية
+    const deadCells      = cells.filter(c => !c.active);
+    const urgentRevival  = deadCells.map(c => ({
+        cellId:  c.id,
+        nameAr:  c.nameAr,
+        stage:   c.stage,
+        action:  `أحيِ خلية "${c.nameAr}" — ${c.stage}`,
+    }));
+
+    // مؤشر صحة الأرض الكلي (0-100)
+    const totalActivation = cells.reduce((s, c) => s + c.activation, 0);
+    const healthScore     = cells.length > 0
+        ? parseFloat(((totalActivation / cells.length) * 100).toFixed(1))
+        : 0;
+
+    const healthLabel = healthScore < 20 ? 'أرض ميتة — تحتاج إحياءً عاجلاً'
+                      : healthScore < 40 ? 'أرض ضعيفة — تحتاج إعماراً مكثّفاً'
+                      : healthScore < 70 ? 'أرض نامية — استمر في الرعاية'
+                      : healthScore < 90 ? 'أرض مُزهِرة — وسّع النشاط'
+                      : 'أرض عامِرة — نموذج يُحتذى به';
+
+    return {
+        report: 'تقرير صحة الأرض الرقمية',
+        nameEn: 'Digital Land Health Report',
+        healthScore,
+        healthLabel,
+        totalCells:  cells.length,
+        activeCells: activeCells.length,
+        totalActivity: totalFireCount,
+        bands: healthBands.map(b => ({
+            band:     b.band,
+            bandEn:   b.bandEn,
+            icon:     b.icon,
+            cellCount: b.cells.length,
+            action:   b.action,
+            ayah:     b.ayah,
+        })),
+        urgentRevival:    urgentRevival.slice(0, 5),
+        needsRevival:     deadCells.length,
+        revivalPriority:  deadCells.length > 6 ? 'حرج' : deadCells.length > 3 ? 'عالي' : 'عادي',
+        recommendations: [
+            deadCells.length > 0 ? `أحيِ ${deadCells.length} خلية ميتة باستخدام POST /api/agriculture/revive` : null,
+            healthScore < 40     ? 'شغّل خطة إعمار شاملة — POST /api/agriculture/cultivate' : null,
+            healthScore >= 70    ? 'وسّع النشاط لمناطق جديدة واستقطب موردين إضافيين' : null,
+        ].filter(Boolean),
+        ayah:        'أَوَلَمْ يَرَوْا أَنَّا نَسُوقُ الْمَاءَ إِلَى الْأَرْضِ الْجُرُزِ فَنُخْرِجُ بِهِ زَرْعًا — السجدة:27',
+        principle:   'إحياء الأرض وإعمارها من أعظم فرائض الخلافة في الأرض',
+        generatedAt: new Date().toISOString(),
     };
 }
 
@@ -509,7 +800,7 @@ function status() {
     return {
         network: 'AgNCN — Agricultural Neural Cell Network',
         nameAr: 'شبكة الخلايا الجذرية العصبية الزراعية',
-        version: '1.0.0',
+        version: '1.1.0',
         ready: _ready,
         startedAt: _startedAt,
         totalCells: cells.length,
@@ -537,7 +828,12 @@ module.exports = {
     assessProductStage,
     harvest,
     revive,
+    cultivate,
+    getLandReport,
     getMeadows,
     AGRICULTURAL_CELLS,
     LIFECYCLE_STAGES,
+    REVIVAL_STAGES,
+    CULTIVATION_LEVELS,
+    DORMANCY_CAUSES,
 };

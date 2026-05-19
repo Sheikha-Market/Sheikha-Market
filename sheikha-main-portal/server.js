@@ -38229,13 +38229,15 @@ try {
     const agricultureRoutes = require('./routes/agriculture.js');
     app.use('/api/agriculture', agricultureRoutes);
     console.log('✅ [AgNCN] شبكة الخلايا الزراعية العصبية — مُفعَّلة');
-    console.log('   ├─ GET  /api/agriculture/status    — حالة شبكة الخلايا الزراعية');
-    console.log('   ├─ GET  /api/agriculture/lifecycle — دورة الحياة من البذرة للثمرة');
-    console.log('   ├─ GET  /api/agriculture/meadows   — المروج والأنهار الرقمية');
-    console.log('   ├─ GET  /api/agriculture/cells     — الخلايا الزراعية الاثنتا عشرة');
-    console.log('   ├─ POST /api/agriculture/assess    — تقدير مرحلة المنتج');
-    console.log('   ├─ POST /api/agriculture/harvest   — إتمام صفقة الحصاد 🌾');
-    console.log('   └─ POST /api/agriculture/revive    — إحياء الأرض الميتة 🌊');
+    console.log('   ├─ GET  /api/agriculture/status      — حالة شبكة الخلايا الزراعية');
+    console.log('   ├─ GET  /api/agriculture/lifecycle   — دورة الحياة من البذرة للثمرة');
+    console.log('   ├─ GET  /api/agriculture/meadows     — المروج والأنهار الرقمية');
+    console.log('   ├─ GET  /api/agriculture/cells       — الخلايا الزراعية الاثنتا عشرة');
+    console.log('   ├─ GET  /api/agriculture/land-report — تقرير صحة الأرض وأولويات الإحياء 🌍');
+    console.log('   ├─ POST /api/agriculture/assess      — تقدير مرحلة المنتج');
+    console.log('   ├─ POST /api/agriculture/harvest     — إتمام صفقة الحصاد 🌾');
+    console.log('   ├─ POST /api/agriculture/revive      — إحياء الأرض الميتة 🌊');
+    console.log('   └─ POST /api/agriculture/cultivate   — إعمار الأرض وتطوير المنطقة التجارية 🏗️');
 } catch (e) {
     console.warn('⚠️ [AgNCN] فشل تحميل شبكة الخلايا الزراعية:', e.message);
 }
