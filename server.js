@@ -2109,6 +2109,25 @@ function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
 const app = express();
 
+// ═══ محادثة شيخة الحية — Live Chat Endpoint
+app.post("/api/sheikha/live-chat", express.json(), async (req, res) => {
+    const userMsg = (req.body && req.body.message || "").trim();
+    if (!userMsg) {
+        return res.status(400).json({ success: false, message: "الرسالة مطلوبة." });
+    }
+    let response = "";
+    try {
+        if (typeof rootNeuralCells !== "undefined" && rootNeuralCells && typeof rootNeuralCells.reply === "function") {
+            response = await rootNeuralCells.reply(userMsg, { user: req.user || null });
+        } else {
+            response = "شيخة: النظام يعمل، لكن الذكاء العصبي غير مفعل حاليًا.";
+        }
+    } catch (e) {
+        response = "حدث خطأ أثناء توليد الرد.";
+    }
+    res.json({ success: true, response });
+});
+
 const makeNoopEngine = (engineName) => class NoopEngine {
     constructor() {
         this.engineName = engineName;
@@ -3422,77 +3441,6 @@ const LOGISTICS_PRICES = {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 💰 أسعار شيخة العادلة — Sheikha Fair Prices (بالريال السعودي)
 // ═══════════════════════════════════════════════════════════════════════════════
-
-// تفعيل Unified Operational Fabric Router بعد تعريف جميع الكائنات
-try {
-    const unifiedOperationalFabricRouter = require('./routes/unified-operational-fabric');
-    app.use('/api/operational-fabric', unifiedOperationalFabricRouter);
-    app.use('/api/unified-operational-fabric', unifiedOperationalFabricRouter);
-    console.log('   🧩 Unified Operational Fabric API: /api/operational-fabric/*');
-    console.log('   🧩 Unified Operational Fabric Alias: /api/unified-operational-fabric/*');
-} catch (error) {
-    console.error('⚠️ تعذّر تحميل Unified Operational Fabric Router:', error.message);
-}
-
-try {
-    const neuralRouter = require('./routes/neural');
-    app.use('/api/neural', neuralRouter);
-    console.log('   🧠 Neural API: /api/neural/*');
-} catch (error) {
-    console.error('⚠️ تعذّر تحميل Neural Router:', error.message);
-}
-
-try {
-    const rootNeuralNetworkRouter = require('./routes/root-neural-network.routes');
-    app.use('/api/root-neural-network', rootNeuralNetworkRouter);
-    app.use('/api/neural-root', rootNeuralNetworkRouter);
-    console.log('   🧬 Root Neural Network API: /api/root-neural-network/*');
-    console.log('   🧬 Root Neural Network Alias: /api/neural-root/*');
-} catch (error) {
-    console.error('⚠️ تعذّر تحميل Root Neural Network Router:', error.message);
-}
-
-try {
-    const rootNeuralNetwork = require('./lib/sheikha-root-neural-network');
-    if (rootNeuralNetwork && typeof rootNeuralNetwork.ensureBooted === 'function') {
-        rootNeuralNetwork.ensureBooted()
-            .then(() => {
-                console.log('   ✅ Root Neural Network warm activation completed at startup');
-            })
-            .catch((error) => {
-                console.warn('   ⚠️ Root Neural Network warm activation failed:', error.message);
-            });
-    }
-} catch (error) {
-    console.warn('⚠️ تعذّر التحميل المبكر للشبكة العصبية الجذرية:', error.message);
-}
-
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🌐 ربط مسارات الشبكة — Sheikha Network Routes (neural/dns/dbus)
-// ═══════════════════════════════════════════════════════════════════════════════
-try {
-    const sheikhaNetworkRouter = require('./routes/sheikha-network');
-    app.use('/api/network', sheikhaNetworkRouter);
-    console.log('   🌐 Sheikha Network API: /api/network/*');
-} catch (error) {
-    console.error('⚠️ تعذّر تحميل Sheikha Network Router:', error.message);
-}
-
-// ═══════════════════════════════════════════════════════════════════════════════
-// 🎯 فهرس وتفعيل الأنظمة — Systems Activation & Registry
-// ═══════════════════════════════════════════════════════════════════════════════
-try {
-    const systemsActivationRouter = require('./routes/systems-activation');
-    app.use('/api/systems', systemsActivationRouter);
-    console.log('   🎯 Systems Activation API: /api/systems/*');
-    console.log('   📚 فهرس الأنظمة: /api/systems/list');
-    console.log('   ⚡ تفعيل الأنظمة: /api/systems/activate-all');
-    console.log('   📊 التقرير الشامل: /api/systems/report');
-} catch (error) {
-    console.error('⚠️ تعذّر تحميل Systems Activation Router:', error.message);
-}
-
 const SHEIKHA_FAIR_PRICES = {
     // المعادن الأساسية (ريال/طن)
     baseMetals: {
@@ -18783,96 +18731,6 @@ app.get('/api/root-neural-cells/status', (req, res) => {
     });
 });
 
-app.get('/api/maturity/layers', (req, res) => {
-    const readJsonSafe = (filePath, fallback = null) => {
-        try {
-            if (!fs.existsSync(filePath)) {
-                return fallback;
-            }
-            return JSON.parse(fs.readFileSync(filePath, 'utf8'));
-        } catch (_) {
-            return fallback;
-        }
-    };
-
-    const rootPath = __dirname;
-    const autonomyLatestPath = path.join(rootPath, 'reports', 'operations', 'autonomy-governance', 'latest.json');
-    const fabricTimelinePath = path.join(rootPath, 'runtime', 'timeline', 'latest.json');
-    const fabricRecoveryPath = path.join(rootPath, 'runtime', 'recovery', 'latest.json');
-    const fabricAuditsPath = path.join(rootPath, 'runtime', 'audits');
-
-    const autonomyLatest = readJsonSafe(autonomyLatestPath, {});
-    const fabricTimeline = readJsonSafe(fabricTimelinePath, {});
-    const fabricRecovery = readJsonSafe(fabricRecoveryPath, {});
-
-    let latestAudit = null;
-    try {
-        const auditFile = fs.existsSync(fabricAuditsPath)
-            ? fs.readdirSync(fabricAuditsPath)
-                .filter((name) => name.endsWith('.json'))
-                .sort((a, b) => (a < b ? 1 : -1))[0]
-            : null;
-        latestAudit = auditFile ? readJsonSafe(path.join(fabricAuditsPath, auditFile), null) : null;
-    } catch (_) {
-        latestAudit = null;
-    }
-
-    const neuralStatus = (() => {
-        try {
-            const status = rootNeuralCells.getStatus();
-            return {
-                ready: status && status.status === 'active',
-                totalCells: status && status.architecture ? status.architecture.totalCells : null,
-                status: status && status.status ? status.status : 'unknown'
-            };
-        } catch (_) {
-            return { ready: false, totalCells: null, status: 'unavailable' };
-        }
-    })();
-
-    const governanceLayer = {
-        maturityLevel: autonomyLatest && autonomyLatest.maturity ? autonomyLatest.maturity.level : null,
-        score: autonomyLatest && autonomyLatest.maturity ? autonomyLatest.maturity.score : null,
-        gate: autonomyLatest && autonomyLatest.gate ? autonomyLatest.gate : null
-    };
-
-    const fabricLayer = {
-        event: fabricTimeline && fabricTimeline.event ? fabricTimeline.event : null,
-        summary: fabricTimeline && fabricTimeline.summary ? fabricTimeline.summary : null,
-        recovery: fabricRecovery && fabricRecovery.lastKnownGood ? fabricRecovery.lastKnownGood : null
-    };
-
-    const safetyLayer = {
-        passed: latestAudit && latestAudit.checks && latestAudit.checks.safetyGuard
-            ? Boolean(latestAudit.checks.safetyGuard.passed)
-            : null,
-        shariaGate: latestAudit && latestAudit.checks && latestAudit.checks.shariaContractGate
-            ? latestAudit.checks.shariaContractGate
-            : null
-    };
-
-    const runtimeLayer = {
-        nodeVersion: process.version,
-        uptimeSeconds: Math.floor(process.uptime()),
-        pm2ProcessCount: latestAudit && latestAudit.checks && typeof latestAudit.checks.pm2Available === 'boolean'
-            ? (latestAudit.checks.pm2Available ? 'available' : 'unavailable')
-            : 'unknown'
-    };
-
-    return res.json({
-        success: true,
-        data: {
-            governance: governanceLayer,
-            fabric: fabricLayer,
-            neural: neuralStatus,
-            safety: safetyLayer,
-            runtime: runtimeLayer
-        },
-        message: 'تم توليد تقرير النضج الطبقي بنجاح',
-        timestamp: new Date().toISOString()
-    });
-});
-
 app.get('/api/root-system/status', (req, res) => {
     res.json({
         success: true,
@@ -20986,25 +20844,6 @@ console.log('   💬 Live Chat API: /api/sheikha/live-chat');
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // --- Runtime & Observability (inserted before 404 handler) ---
-
-// Sheikha Network Fabric — ربط فعلي لمسارات الشبكة قبل 404
-try {
-    const sheikhaNetworkRouter = require('./routes/sheikha-network');
-    app.use('/api/network', sheikhaNetworkRouter);
-    console.log('   🌐 [HOTFIX] Sheikha Network API: /api/network/* (injected before 404 handler)');
-} catch (error) {
-    console.error('⚠️ [HOTFIX] تعذّر تحميل Sheikha Network Router:', error.message);
-}
-
-// Sheikha Governance Fabric — ربط مسارات الحوكمة قبل 404
-try {
-    const governanceRouter = require('./routes/governance.routes');
-    app.use('/api/governance', governanceRouter);
-    console.log('   🏛️ [HOTFIX] Governance API: /api/governance/* (injected before 404 handler)');
-} catch (error) {
-    console.error('⚠️ [HOTFIX] تعذّر تحميل Governance Router:', error.message);
-}
-
 const runtimeContractsModule = optionalRequire('./lib/runtime/contracts');
 if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContracts === 'function') {
     runtimeContractsModule.registerRuntimeContracts(app, {
@@ -21028,42 +20867,6 @@ if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContr
         return res.status(200).json({ success: true, data: { status: 'active', type: 'observability-summary', timestamp: new Date().toISOString() }, message: 'ملخص المراقبة', timestamp: new Date().toISOString() });
     });
 }
-
-
-// SHEIKHA: Unified runtime routers
-try {
-  // Support routers that define paths with and without /api prefix.
-  app.use("/", require("./routes/sheikha-network"));
-  app.use("/api/network", require("./routes/sheikha-network"));
-
-  app.use("/api/operational-fabric", require("./routes/unified-operational-fabric"));
-
-  app.use("/api/runtime-root", require("./routes/runtime-root.routes"));
-
-  app.use("/", require("./routes/governance.routes"));
-  app.use("/api/governance", require("./routes/governance.routes"));
-
-  console.log("✅ SHEIKHA runtime routers mounted");
-} catch (e) {
-  console.warn("⚠️ SHEIKHA runtime routers mount failed:", e.message);
-}
-
-// SHEIKHA: Cloud routers (mounted independently to avoid coupling failures)
-try {
-    app.use("/api/cloud", require("./infrastructure/sheikha-cloud/sheikha-cloud-orchestrator").createRouter());
-    console.log("✅ SHEIKHA cloud routers mounted");
-} catch (e) {
-    console.warn("⚠️ SHEIKHA cloud routers mount failed:", e.message);
-}
-
-// SHEIKHA: Cloud Fabric router
-try {
-    app.use('/api/cloud-fabric', require('./routes/cloud-fabric.routes'));
-    console.log('✅ SHEIKHA Cloud Fabric API: /api/cloud-fabric/*');
-} catch (e) {
-    console.warn('⚠️ Cloud Fabric router mount failed:', e.message);
-}
-
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
@@ -21311,8 +21114,12 @@ try {
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const server = app.listen(PORT, '127.0.0.1', () => {
-    addSystemLog('success', 'Server', `Server started on port ${PORT}`);
+const HOST = '127.0.0.1';
+const MAX_PORT_FALLBACK_ATTEMPTS = 10;
+const REQUESTED_PORT = Number(PORT) || 8080;
+
+function onServerStarted(activePort) {
+    addSystemLog('success', 'Server', `Server started on port ${activePort}`);
 
     // ═══ تفعيل محرك الأتمتة v2.0 — تسجيل APIs + بدء الجدولة ═══
     if (automationEngine) {
@@ -21340,13 +21147,33 @@ const server = app.listen(PORT, '127.0.0.1', () => {
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
 ║                           Sheikha Metals & Scrap Market - Main Portal                                              ║
 ╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║   🌐 http://localhost:${PORT}                                                                                          ║
+║   🌐 http://localhost:${activePort}                                                                                     ║
 ║   ⚙️  محرك الأتمتة v2.0 — أقوى من n8n — مُفعَّل                                                                    ║
 ║   🔗 جسر n8n: /api/automation/n8n/webhook                                                                         ║
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
-});
+}
+
+let server;
+function startServerWithFallback(port, attempt = 0) {
+    server = app.listen(port, HOST, () => {
+        onServerStarted(port);
+    });
+
+    server.on('error', (err) => {
+        if (err && err.code === 'EADDRINUSE' && attempt < MAX_PORT_FALLBACK_ATTEMPTS) {
+            const nextPort = port + 1;
+            console.warn(`⚠️ المنفذ ${port} مستخدم — جارٍ المحاولة على ${nextPort}`);
+            return startServerWithFallback(nextPort, attempt + 1);
+        }
+
+        console.error('❌ تعذّر تشغيل الخادم:', err && err.message ? err.message : err);
+        process.exit(1);
+    });
+}
+
+startServerWithFallback(REQUESTED_PORT);
 
 // WebSocket
 const wss = new WebSocket.Server({ server });
