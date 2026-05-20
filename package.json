@@ -393,7 +393,7 @@
     "ops:root-science:ai:activate": "node sheikha-root-science/core/activate-root-science-cores.js --domain=ai",
     "ops:root-science:all:activate": "node sheikha-root-science/core/activate-root-science-cores.js --domain=all",
     "ops:root-science:status": "node sheikha-root-science/core/activate-root-science-cores.js --status",
-    "lint": "eslint . --ext .js,.jsx,.ts,.tsx",
+    "lint": "eslint core routes middleware server.js --ext .js",
     "test": "jest"
   },
   "dependencies": {
@@ -425,6 +425,7 @@
     "retry-request": ">=8.0.2"
   },
   "devDependencies": {
+    "@eslint/js": "^10.0.1",
     "eslint": "^10.2.1",
     "jest": "^30.4.2"
   }

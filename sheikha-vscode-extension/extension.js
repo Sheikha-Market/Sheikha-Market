@@ -48,9 +48,9 @@ class SheikhaAuthManager {
         } catch (error) {
             const message = String(error && error.message ? error.message : error);
             if (message.includes('ECONNREFUSED')) {
-                throw new Error('الخادم المحلي لشيخة غير شغال على المنفذ 8080. شغّل السيرفر ثم أعد المحاولة.');
+                throw new Error('الخادم المحلي لشيخة غير شغال على المنفذ 8080. شغّل السيرفر ثم أعد المحاولة.', { cause: error });
             }
-            throw new Error(`تعذر الاتصال بخادم شيخة: ${message}`);
+            throw new Error(`تعذر الاتصال بخادم شيخة: ${message}`, { cause: error });
         }
 
         const data = await response.json();

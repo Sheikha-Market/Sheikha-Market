@@ -147,7 +147,7 @@ const MARKETPLACE_ROUTING_MAP = {
 
     // ─ API العامة ─────────────────────────────────────────────
     '/marketplace/api':           { target: 'http://127.0.0.1:8080/api',                     nameAr: 'واجهة API العامة للسوق',      maqsad: 'MAL' },
-    '/marketplace/health':        { target: null,                                             nameAr: 'فحص صحة السوق',              internal: true },
+    '/marketplace/health-check':  { target: null,                                             nameAr: 'فحص صحة السوق',              internal: true },
 };
 
 // ═══════════════════════════════════════════════════════════════
