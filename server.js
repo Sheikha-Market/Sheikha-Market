@@ -21246,4 +21246,3 @@ function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
     clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
 }
-}
