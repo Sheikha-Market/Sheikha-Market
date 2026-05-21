@@ -93,7 +93,9 @@ function ipOwnershipHeaders(req, res, next) {
 
     const asciiNotice = String(notice.en || notice.ar || 'SHEIKHA IP Notice')
         .replace(/©/g, '(c)')
-        .replace(/[\x00-\x1F\x7F-\xFF]/g, '')
+        .split('')
+        .filter(ch => ch.charCodeAt(0) <= 0x7F)
+        .join('')
         .trim() || 'SHEIKHA IP Notice';
 
     res.setHeader('X-Sheikha-IP-Notice', asciiNotice);
