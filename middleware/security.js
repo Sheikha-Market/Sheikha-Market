@@ -91,7 +91,12 @@ function ipOwnershipHeaders(req, res, next) {
     const notice = ipSecurityEngine.getIPNotice();
     const noticeHash = ipSecurityEngine.hashDocument(`${notice.ar}|${notice.en}|${notice.quranRef}`);
 
-    res.setHeader('X-Sheikha-IP-Notice', notice.ar);
+    const asciiNotice = String(notice.en || notice.ar || 'SHEIKHA IP Notice')
+        .replace(/©/g, '(c)')
+        .replace(/[\x00-\x1F\x7F-\xFF]/g, '')
+        .trim() || 'SHEIKHA IP Notice';
+
+    res.setHeader('X-Sheikha-IP-Notice', asciiNotice);
     res.setHeader('X-Sheikha-IP-Hash', noticeHash);
     res.setHeader('X-Sheikha-IP-Licensing', 'No-copy-no-modification-without-explicit-owner-permission');
 
