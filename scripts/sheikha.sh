@@ -15,7 +15,7 @@
 #   bash scripts/sheikha.sh list        ← قائمة كل العمليات الحية
 # ══════════════════════════════════════════════════════════════════
 # ⚙️  أسماء العمليات في ecosystem.config.js:
-#   sheikha-api           ← الخادم الرئيسي (المنفذ 8080)
+#   sheikha-main-portal   ← الخادم الرئيسي (المنفذ 8080)
 #   sheikha-copilot       ← خادم MCP (المنفذ 3091)
 #   sheikha-meta-background
 #   sheikha-health-monitor
@@ -28,7 +28,7 @@ set -euo pipefail
 RED='\033[0;31m'; GREEN='\033[0;32m'; YELLOW='\033[1;33m'
 CYAN='\033[0;36m'; BOLD='\033[1m'; RESET='\033[0m'
 
-MAIN="sheikha-api"      # الاسم الرسمي في ecosystem.config.js
+MAIN="${SHEIKHA_MAIN_NAME:-sheikha-main-portal}"      # الاسم الرسمي في ecosystem.config.js
 DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 
 log()  { echo -e "${CYAN}[sheikha]${RESET} $*"; }
@@ -108,7 +108,7 @@ case "$CMD" in
     echo -e "${BOLD}بسم الله الرحمن الرحيم${RESET}"
     echo -e "${BOLD}sheikha.sh — نقطة تحكم موحدة${RESET}"
     echo ""
-    echo -e "  ${CYAN}start${RESET}          تشغيل الخادم الرئيسي (sheikha-api)"
+    echo -e "  ${CYAN}start${RESET}          تشغيل الخادم الرئيسي (${MAIN})"
     echo -e "  ${CYAN}stop${RESET}           إيقاف الخادم الرئيسي"
     echo -e "  ${CYAN}restart${RESET}        إعادة التشغيل (يبدأ تلقائياً إن لم يكن مشغلاً)"
     echo -e "  ${CYAN}status${RESET}         عرض حالة كل العمليات"
@@ -119,7 +119,7 @@ case "$CMD" in
     echo -e "  ${CYAN}list${RESET}           قائمة كل عمليات pm2"
     echo ""
     echo -e "  أسماء العمليات الرسمية:"
-    echo -e "    ${YELLOW}sheikha-api${RESET}           الخادم الرئيسي :8080"
+    echo -e "    ${YELLOW}sheikha-main-portal${RESET}   الخادم الرئيسي :8080"
     echo -e "    ${YELLOW}sheikha-copilot${RESET}       خادم MCP :3091"
     echo -e "    ${YELLOW}sheikha-meta-background${RESET}"
     echo -e "    ${YELLOW}sheikha-health-monitor${RESET}"

@@ -2,7 +2,7 @@ name: 🌟 Sheikha CI — Quality & Excellence
 
 on:
   push:
-    branches: [main]
+    branches: [stable/runtime-baseline]
   pull_request:
   workflow_dispatch:
 
@@ -23,16 +23,13 @@ jobs:
     permissions:
       contents: read
       checks: write
-    defaults:
-      run:
-        working-directory: sheikha-main-portal
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: sheikha-main-portal/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install (no scripts)
         run: npm ci --ignore-scripts
       - name: 🔍 Lint
@@ -41,6 +38,8 @@ jobs:
         run: npm test --if-present
       - name: 🏗️ Build
         run: npm run build --if-present
+      - name: 🌱 Hybrid Evaluation Gate
+        run: npm run -s ops:hybrid:registry:check
 
   # ─────────────────────────────────────────────────────────
   # 2️⃣  الأمان — Security Audit
@@ -50,16 +49,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    defaults:
-      run:
-        working-directory: sheikha-main-portal
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: sheikha-main-portal/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install (no scripts)
         run: npm ci --ignore-scripts
       - name: 🛡️ Security Audit (moderate+)
@@ -79,16 +75,13 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    defaults:
-      run:
-        working-directory: sheikha-main-portal
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-node@v4
         with:
           node-version: "20"
           cache: "npm"
-          cache-dependency-path: sheikha-main-portal/package-lock.json
+          cache-dependency-path: package-lock.json
       - name: Install (no scripts)
         run: npm ci --ignore-scripts
       - name: 📦 Generate SBOM (CycloneDX)
@@ -98,7 +91,7 @@ jobs:
         if: always()
         with:
           name: sheikha-sbom
-          path: sheikha-main-portal/sbom.cdx.json
+          path: sbom.cdx.json
           retention-days: 90
 
   # ─────────────────────────────────────────────────────────
@@ -109,9 +102,6 @@ jobs:
     runs-on: ubuntu-latest
     permissions:
       contents: read
-    defaults:
-      run:
-        working-directory: sheikha-main-portal
     steps:
       - uses: actions/checkout@v4
       - name: 🐳 Docker Build

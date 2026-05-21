@@ -1,144 +1,55 @@
-# Dependencies
-node_modules/
-
-# OS
-.DS_Store
-Thumbs.db
-~$*
-*.tmp
-
-# Logs
-*.log
-logs/
-
-# Environment
+# Secrets
 .env
 .env.*
 !.env.example
-credentials/
-*.pem
-*.key
-*.p12
-*.pfx
-*.p8
-*.jks
-*.keystore
-*service-account*.json
-*service_account*.json
-credentials.json
-.npmrc
+!.env.runtime.example
 
-# Data
-data/*.bak
-data/*.tmp
-data/monitor-state.json
+# Node
+node_modules/
+npm-debug.log*
 
-# Build
-dist/
-build/
-.cache/
-
-# IDE
-.cursor/
-.vscode/*
-!.vscode/settings.json
-!.vscode/extensions.json
-!.vscode/tasks.json
-!.vscode/continue-config.example.json
-*.swp
-
-# ═══ Sheikha Security — Backup Files ═══
-server.js.backup*
-server.js.clean
-server.js.temp
-server.js.broken*
-*.backup-*
-*.backup
-
-# ═══ Secrets & Credentials ═══
-.config/sheikha_*
-sheikha_token
-*.token
-*.secret
-.git-credentials
-secrets/
-vault/
-
-# ═══ Python venv ═══
-.venv/
-venv/
-__pycache__/
-*.pyc
-*.pyo
-
-# ═══ Runtime ═══
-*.pid
-pids/
-
-# ═══ Reports & Audits (generated) ═══
-audit-report.json
-coverage/
-.nyc_output/
-
-# ═══ Generated Reports (auto-generated, not source) ═══
-reports/
-
-# ═══ Data — Runtime Files ═══
-data/audit/
-data/backups/
-data/execution-orchestrator-log.json
-data/healing-logs.ndjson
-data/image-jobs.json
-data/job-queue.json
-data/operations/
-data/ports/
-data/sheikha-aws/
-data/kpi-dashboard.json
-data/finance-ledger.json
-data/business-coach-plan.json
-
-# ═══ Archive / Binary Files ═══
-*.zip
-*.tar.gz
-*.tar
-*.gz
-
-# ═══ Misc Generated / Deployment ═══
-.checkpoints/
-.vercel/
-infra/
-deploy/
-repos/
-runtime/
-mcp-servers/
-sheikha-vscode-extension/
-Sheikha-Market/
-ecosystem.config.js.save*
-
-# ═══ PR Clones (sibling folders) ═══
-../sheikha-main-portal-pr*/
-
-# ═══ Runtime/Generated State (NEVER IN GIT) ═══
-data/reports/*.ndjson
-data/operations/*.ndjson
-data/ports/*.port
-data/ports/
-data/decision-log.json
-*.port
-
-# Secrets / local AI tools
-.env
-.codex
-*.key
-*secret*
-*token*
-*credential*
-
-# Runtime data
+# Temp/log/backups
+logs/
+tmp/
+*/.backup*
+*/.temp
 data/
-data/**/*.ndjson
-data/**/ledger*.json
-data/**/audit*.json
-infrastructure/**/legal-security-audit-checklist.json
+!data/.gitkeep
+data/runtime-metrics/
+
+# Local nested repositories/worktrees
+repos/
+
+# Local runtime helper scripts (not part of production source baseline)
+scripts/
+!scripts/neural-gate.sh
+!scripts/vps-deploy.sh
+!scripts/install-neural-watchdog.sh
+!scripts/sheikha-neural-gate-watchdog.sh
+!scripts/sheikha-neural-gate-watchdog.service
+!scripts/sheikha-neural-gate-watchdog.timer
+sync-neural-cells.sh
+!sync-neural-cells.sh
+
+# Editor/runtime local artifacts
+.checkpoints/
+.cursor/
+.codex/
+.vercel/
 runtime/
+!runtime/core/
+!runtime/core/runtime.identity.json
+!runtime/contracts/
+!runtime/contracts/process-authority.json
+!runtime/topology/
+!runtime/topology/runtime-topology.json
+!runtime/state/
+!runtime/state/.gitkeep
+!lib/runtime/
+!lib/runtime/**
 reports/
+docs/reports/
+*.backup
+*.save
+*.temp
+archive/

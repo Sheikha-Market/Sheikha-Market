@@ -1,71 +1,57 @@
 {
-  "//": "سياسات أمان VSCode — منظمة شيخة — «لا ضرر ولا ضرار»",
-
-  "security.workspace.trust.enabled": true,
-  "security.workspace.trust.startupPrompt": "always",
-  "security.workspace.trust.emptyWindow": false,
-  "security.workspace.trust.banner": "always",
-
-  "git.confirmSync": true,
-  "git.confirmForcePush": true,
-  "git.enableSmartCommit": false,
-  "git.allowForcePush": false,
-  "git.autofetch": false,
-  "git.requireGitUserConfig": true,
-
-  "task.autoDetect": "off",
-  "npm.autoDetect": "off",
-
-  "files.watcherExclude": {
-    "**/.git/objects/**": true,
-    "**/node_modules/**": true,
-    "**/.venv/**": true,
-    "**/logs/**": true,
-    "**/*.backup*": true,
-    "**/*.log": true
-  },
-
-  "search.exclude": {
-    "**/node_modules": true,
-    "**/.venv": true,
-    "**/logs": true,
-    "**/*.backup*": true,
-    "**/*.log": true,
-    "**/.env": true
-  },
-
-  "terminal.integrated.confirmOnExit": "hasChildProcesses",
-  "terminal.integrated.scrollback": 1000,
-
-  "extensions.autoCheckUpdates": true,
-  "extensions.autoUpdate": "onlyEnabledExtensions",
-
   "editor.formatOnSave": true,
-  "editor.bracketPairColorization.enabled": true,
-  "files.autoSave": "afterDelay",
-  "files.autoSaveDelay": 3000,
+  "editor.formatOnType": true,
   "files.trimTrailingWhitespace": true,
   "files.insertFinalNewline": true,
-
-  "github.copilot.enable": {
-    "*": true,
-    "plaintext": false,
-    "markdown": true,
-    "scminput": false,
-    "dotenv": false
-  },
-
-  "githubPullRequests.pullBranch": "never",
-  "githubPullRequests.defaultMergeMethod": "squash",
-  "gitlab.showStatusBarLinks": true,
-  "gitlab.aiAssistantEnabled": false,
-
+  "editor.semanticHighlighting.enabled": true,
+  "editor.codeLens": true,
+  "editor.inlayHints.enabled": "on",
+  "editor.occurrencesHighlight": "singleFile",
+  "editor.foldingStrategy": "auto",
+  "breadcrumbs.enabled": true,
+  "breadcrumbs.symbolPath": "on",
+  "problems.showCurrentInStatus": true,
+  "todo-highlight.isEnable": true,
+  "todo-highlight.keywords": [
+    "TODO",
+    "FIXME",
+    "BUG",
+    "HACK",
+    "NOTE",
+    "OPTIMIZE"
+  ],
+  "php.validate.enable": true,
+  "php.suggest.basic": false,
+  "intelephense.files.maxSize": 5000000,
+  "intelephense.format.enable": true,
+  "intelephense.diagnostics.enable": true,
+  "intelephense.diagnostics.undefinedFunctions": true,
+  "intelephense.diagnostics.undefinedConstants": true,
+  "intelephense.diagnostics.undefinedTypes": true,
+  "intelephense.diagnostics.unusedSymbols": true,
+  "intelephense.environment.phpVersion": "8.3.0",
+  "intelephense.completion.insertUseDeclaration": true,
+  "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": false,
+  "intelephense.rename.exclude": [
+    "**/vendor/**",
+    "**/node_modules/**"
+  ],
   "files.associations": {
-    "*.env": "dotenv",
-    "*.env.*": "dotenv"
+    "*.blade.php": "blade"
   },
-
-  "//continue": "Continue — مساعد الكود الذكي المرتبط بـ Ollama على Azure",
-  "continue.enableTabAutocomplete": true,
-  "continue.telemetryEnabled": false
+  "[php]": {
+    "editor.defaultFormatter": "devsense.phptools-vscode",
+    "editor.tabSize": 4,
+    "editor.insertSpaces": true,
+    "editor.quickSuggestions": {
+      "comments": "on",
+      "strings": "on",
+      "other": "on"
+    }
+  },
+  "terminal.integrated.defaultProfile.linux": "bash",
+  "github.copilot.enable": {
+    "*": true
+  },
+  "chat.agent.enabled": true
 }

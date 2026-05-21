@@ -1,0 +1,13 @@
+global:
+  scrape_interval: 5s
+rule_files:
+  - "alert.rules.yml"
+alerting:
+  alertmanagers:
+    - static_configs:
+        - targets: ['alertmanager:9093']
+scrape_configs:
+  - job_name: 'php_ai_cloud_server'
+    metrics_path: '/metrics'
+    static_configs:
+      - targets: ['ai_server:8000']

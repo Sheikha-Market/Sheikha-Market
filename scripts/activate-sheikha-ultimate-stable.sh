@@ -39,8 +39,10 @@ err()  { echo -e "${RED}❌${RESET} $*"; }
 PORT="${PORT:-8080}"
 HEALTH_URL="${HEALTH_URL:-http://127.0.0.1:${PORT}/api/sheikha/status}"
 HEALTH_WAIT="${HEALTH_WAIT:-45}"
+BODY_UNITY_MESSAGE='المؤمن للمؤمن كالبنيان يشد بعضه بعضا، ومثل المؤمنين في توادهم وتراحمهم وتعاطفهم كمثل الجسد الواحد'
 
 echo -e "${BOLD}بسم الله — التفعيل المستقر النهائي${RESET}"
+echo -e "${CYAN}${BODY_UNITY_MESSAGE}${RESET}"
 
 # ── [0] Node toolchain ─────────────────────────────────────────────
 source "$HOME/.nvm/nvm.sh" >/dev/null 2>&1 || true
@@ -105,6 +107,7 @@ bash "$SCRIPT_DIR/sheikha.sh" restart
 log "[4/4] التحقق الصحي على ${HEALTH_URL}"
 if wait_for_health; then
 	ok "التفعيل المستقر النهائي ناجح"
+	log "مبدأ التشغيل: الجسد الواحد — سلامة الحوكمة والخدمة والذاكرة معًا"
 	curl -sS -m 8 "$HEALTH_URL" | head -c 300 && echo
 	bash "$SCRIPT_DIR/sheikha.sh" status
 	exit 0

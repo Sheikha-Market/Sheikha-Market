@@ -1495,7 +1495,14 @@
                 dest = '/لوحة-الادمن.html' + (tk ? ('?token=' + encodeURIComponent(tk)) : '');
             } else if (role === 'gov') {
                 dest = '/gov-dashboard.html';
-            } else if (role === 'merchant' || role === 'company') {
+            } else if (
+                role === 'merchant' ||
+                role === 'company' ||
+                role === 'organization' ||
+                role === 'institutional' ||
+                role === 'enterprise' ||
+                role === 'founder'
+            ) {
                 dest = '/\u0644\u0648\u062d\u0629-\u0627\u0644\u0634\u0631\u0643\u0629.html';
             } else if (requestedRedirect && requestedRedirect.indexOf('/لوحة-تحكم-المستخدم.html') === 0) {
                 // للمستخدم العادي نسمح فقط بإعادة توجيه لوحة المستخدم

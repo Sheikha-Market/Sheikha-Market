@@ -1,0 +1,19 @@
+{
+    "files.watcherExclude": {
+        "**/node_modules/**": true,
+        "**/.git/objects/**": true,
+        "**/.git/subtree-cache/**": true,
+        "**/reports/**": true
+    },
+    "search.exclude": {
+        "**/node_modules": true,
+        "**/reports": true,
+        "**/server.js.backup*": true
+    },
+    "typescript.tsserver.maxTsServerMemory": 4096,
+    "editor.minimap.enabled": false,
+    "extensions.autoUpdate": true,
+    "github.copilot.enable": {
+        "*": true
+    }
+}

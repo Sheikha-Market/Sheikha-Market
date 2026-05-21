@@ -20,8 +20,8 @@
  *   L9 — Observability (OpenTelemetry, Prometheus, Grafana, Jaeger)
  */
 
-const path = require('path');
-const fs   = require('fs');
+const path = require('node:path');
+const fs   = require('node:fs');
 
 const CLOUD_BASE = path.join(__dirname);
 
@@ -50,6 +50,7 @@ const SPECS = {
     L7_communications:    loadSpec('communications/communications.json'),
     L8_financeScience:    loadSpec('finance/finance-science.json'),
     L9_roadmap:           loadSpec('roadmap/roadmap.json'),
+    L10_checkpoint:       loadSpec('checkpoint/activation-checkpoint.json'),
 };
 
 // ── Platform identity ─────────────────────────────────────────────────────────
@@ -104,7 +105,7 @@ function getSovereigntyPrinciples() {
 
 /** Returns the data residency matrix (country → approved regions) */
 function getDataResidency(countryCode) {
-    const matrix = SPECS.L2_sovereignty && SPECS.L2_sovereignty.dataResidencyMatrix
+    const matrix = SPECS.L2_sovereignty?.dataResidencyMatrix
         ? SPECS.L2_sovereignty.dataResidencyMatrix.entries
         : {};
     return matrix[countryCode] || matrix['DEFAULT_OIC'] || [];
@@ -148,6 +149,123 @@ function getCurrentPhase() {
     if (monthsElapsed < 36) return phases[1] || null;
     if (monthsElapsed < 60) return phases[2] || null;
     return phases[3] || null;
+}
+
+function getActivationCheckpoint() {
+    return SPECS.L10_checkpoint || null;
+}
+
+function getScopeMetrics() {
+    const checkpoint = getActivationCheckpoint();
+    const targets = checkpoint?.measurableScope || {};
+    const live = {
+        regions: {
+            total: getSovereignRegions().length,
+            primary: getRegionsByTier('PRIMARY').length,
+            secondary: getRegionsByTier('SECONDARY').length,
+        },
+        providers: {
+            total: SPECS.L1_cloudProviders && Array.isArray(SPECS.L1_cloudProviders.providers)
+                ? SPECS.L1_cloudProviders.providers.length
+                : 0,
+        },
+        roadmapPhases: getRoadmap().length,
+    };
+
+    return {
+        targets,
+        live,
+        timestamp: new Date().toISOString(),
+    };
+}
+
+function getDataFabricConfig() {
+    const checkpoint = getActivationCheckpoint();
+    const dataFabric = checkpoint?.dataFabric || null;
+    const residencyMatrix = SPECS.L2_sovereignty?.dataResidencyMatrix
+        ? SPECS.L2_sovereignty.dataResidencyMatrix
+        : null;
+
+    return {
+        dataFabric,
+        residencyMatrix,
+        timestamp: new Date().toISOString(),
+    };
+}
+
+function getRootNeuralRuntimeConfig() {
+    const checkpoint = getActivationCheckpoint();
+    return {
+        rootNeuralRuntime: checkpoint?.rootNeuralRuntime || null,
+        aiLayer: getAIConfig(),
+        timestamp: new Date().toISOString(),
+    };
+}
+
+function ok(res, data, message) {
+    return res.json({ success: true, data, message, timestamp: new Date().toISOString() });
+}
+
+function getGapAnalysis() {
+    const checks = [
+        { key: 'roadmap', passed: getRoadmap().length > 0, severity: 'high', message: 'خارطة الطريق متوفرة' },
+        { key: 'sovereignty', passed: getSovereigntyPrinciples().length > 0, severity: 'high', message: 'طبقة السيادة متوفرة' },
+        { key: 'security', passed: !!getSecurityConfig(), severity: 'high', message: 'طبقة الأمن متوفرة' },
+        { key: 'communications', passed: !!SPECS.L7_communications, severity: 'medium', message: 'طبقة الاتصالات متوفرة' },
+        { key: 'checkpoint', passed: !!getActivationCheckpoint(), severity: 'high', message: 'نموذج checkpoint متوفر' },
+    ];
+
+    const gaps = checks
+        .filter(c => !c.passed)
+        .map((c, index) => ({
+            id: `GAP-${String(index + 1).padStart(3, '0')}`,
+            domain: c.key,
+            severity: c.severity,
+            title: `فجوة في ${c.key}`,
+            action: `استكمال المتطلبات الخاصة بـ ${c.key} قبل التوسع المرحلي`,
+        }));
+
+    const passedCount = checks.filter(c => c.passed).length;
+    const passRate = checks.length === 0 ? 0 : Math.round((passedCount / checks.length) * 100);
+
+    return {
+        summary: {
+            totalChecks: checks.length,
+            passedChecks: passedCount,
+            failedChecks: checks.length - passedCount,
+            passRate,
+        },
+        checks,
+        gaps,
+        timestamp: new Date().toISOString(),
+    };
+}
+
+function getPrioritizedBacklog() {
+    const checkpoint = getActivationCheckpoint();
+    const templates = checkpoint && Array.isArray(checkpoint.backlogTemplates)
+        ? checkpoint.backlogTemplates
+        : [];
+    const gapAnalysis = getGapAnalysis();
+
+    const generatedItems = gapAnalysis.gaps.map((gap, index) => ({
+        id: `AUTO-${String(index + 1).padStart(3, '0')}`,
+        title: gap.title,
+        priority: gap.severity === 'high' ? 'high' : 'medium',
+        owner: gap.domain === 'security' ? 'Security' : 'Platform',
+        source: 'gap-analysis',
+    }));
+
+    const items = [...templates, ...generatedItems].sort((a, b) => {
+        const rank = { high: 0, medium: 1, low: 2 };
+        return (rank[a.priority] ?? 99) - (rank[b.priority] ?? 99);
+    });
+
+    return {
+        items,
+        total: items.length,
+        timestamp: new Date().toISOString(),
+    };
 }
 
 // ── Express router (optional — attach to existing Sheikha server) ─────────────
@@ -207,6 +325,30 @@ function createRouter() {
         res.json({ success: true, platform: PLATFORM, specs: Object.keys(SPECS) });
     });
 
+    router.get('/checkpoint', (req, res) => {
+        return ok(res, getActivationCheckpoint(), 'تم جلب نموذج checkpoint بنجاح');
+    });
+
+    router.get('/scope-metrics', (req, res) => {
+        return ok(res, getScopeMetrics(), 'تم جلب مؤشرات النطاق المقاسة');
+    });
+
+    router.get('/data-fabric', (req, res) => {
+        return ok(res, getDataFabricConfig(), 'تم جلب إعدادات نسيج البيانات');
+    });
+
+    router.get('/neural-root', (req, res) => {
+        return ok(res, getRootNeuralRuntimeConfig(), 'تم جلب إعدادات الشبكة الجذرية');
+    });
+
+    router.get('/activation/gaps', (req, res) => {
+        return ok(res, getGapAnalysis(), 'تم جلب تحليل الفجوات');
+    });
+
+    router.get('/activation/backlog', (req, res) => {
+        return ok(res, getPrioritizedBacklog(), 'تم جلب قائمة الأعمال ذات الأولوية');
+    });
+
     return router;
 }
 
@@ -225,5 +367,11 @@ module.exports = {
     getSecurityConfig,
     getRoadmap,
     getCurrentPhase,
+    getActivationCheckpoint,
+    getScopeMetrics,
+    getDataFabricConfig,
+    getRootNeuralRuntimeConfig,
+    getGapAnalysis,
+    getPrioritizedBacklog,
     createRouter,
 };

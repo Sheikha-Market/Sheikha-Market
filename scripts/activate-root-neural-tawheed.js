@@ -12,6 +12,7 @@ const MODE = process.argv.includes('--status') ? 'status' : 'activate';
 
 const TAWHEED = 'لا إله إلا الله وحده لا شريك له';
 const COVENANT = 'وما توفيقي إلا بالله';
+const BODY_UNITY_HADITH = 'المؤمن للمؤمن كالبنيان يشد بعضه بعضا، ومثل المؤمنين في توادهم وتراحمهم وتعاطفهم كمثل الجسد الواحد';
 const CORE_FILES = [
   'infrastructure/sheikha-neural-production-engine/neural-production-engine-spec.json',
   'infrastructure/sheikha-neural-production-engine/layers/neural-architecture.json',
@@ -116,17 +117,51 @@ function loadMasterNcn() {
   }
 }
 
-function loadRootNeural() {
+async function loadRootNeural() {
   try {
     const root = require('../lib/sheikha-root-neural-network');
-    return {
-      loaded: true,
-      result: root.process({
+
+    if (typeof root.ensureBooted === 'function') {
+      await root.ensureBooted();
+    }
+
+    let result = null;
+
+    if (typeof root.iflGovernanceCheck === 'function') {
+      result = root.iflGovernanceCheck({
+        intent: 'root-neural-tawheed-activation',
+        targetCountry: 'Saudi-Arabia',
+        sidq: true,
+        taradi: true,
+        wazn: true,
+        riba: false,
+        gharar: false,
+        ghish: false,
+        ihtikar: false,
+        najash: false
+      });
+    } else if (typeof root.orchestrate === 'function') {
+      result = root.orchestrate({
+        shariaFeatures: [0, 0, 0, 0, 0, 1, 1, 1],
+        riskFeatures: [0.3, 0.2, 0.1, 0.9, 0.95, 0.8, 0.9, 0.9],
+        marketFeatures: [1.0, 0.8, 0.7, 0.6, 0.5, 0.4],
+        govFeatures: [1.0, 0.1, 0.9, 0.9, 0.9, 1.0, 0.9, 0.9]
+      });
+    } else if (typeof root.process === 'function') {
+      result = root.process({
         intent: 'root-neural-tawheed-activation',
         tawheed: TAWHEED,
         governance: 'quran-and-sunnah',
         safety: 'no-harm'
-      })
+      });
+    } else {
+      throw new Error('root neural interface is not supported');
+    }
+
+    return {
+      loaded: true,
+      result,
+      status: typeof root.getStatus === 'function' ? root.getStatus() : null
     };
   } catch (error) {
     return { loaded: false, error: error.message };
@@ -167,14 +202,37 @@ function loadGovernanceAdapters() {
   }
 }
 
-function buildActivation() {
+function buildBodyUnityPrinciple() {
+  return {
+    hadith: BODY_UNITY_HADITH,
+    operatingModel: 'collective-neural-body',
+    principles: [
+      'تماسك الطبقات وعدم تعارضها',
+      'حماية الجزء الضعيف حتى لا ينهار الكل',
+      'مشاركة الإشارات الحرجة بين الحوكمة والمحرك والتشغيل',
+      'تقديم سلامة المنظومة على التفعيل الشكلي'
+    ],
+    runtimeMapping: {
+      foundation: 'L0-Tawheed',
+      governance: 'L1-Sharia-Governance',
+      cognition: 'L2-Master-NCN',
+      production: 'L3-Production-Neural-Engine',
+      memory: 'L4-Runtime-Root',
+      orchestration: 'L5-Global-Governance',
+      guard: 'L6-Runtime-Guard'
+    }
+  };
+}
+
+async function buildActivation() {
   const timestamp = new Date().toISOString();
   const production = buildProductionStatus();
   const masterNcn = loadMasterNcn();
-  const rootNeural = loadRootNeural();
+  const rootNeural = await loadRootNeural();
   const runtimeRoot = loadRuntimeRoot(MODE === 'activate');
   const globalGovernance = loadGovernanceAdapters();
   const runtimeGuard = buildRuntimeGuard();
+  const bodyUnity = buildBodyUnityPrinciple();
 
   const cells = [
     { id: 'L0-Tawheed', role: 'foundation', status: 'active', declaration: TAWHEED },
@@ -196,6 +254,7 @@ function buildActivation() {
       : 'تم التفعيل مع ملاحظات تحتاج مراجعة.',
     tawheed: TAWHEED,
     covenant: COVENANT,
+    bodyUnity,
     safety: {
       scope: 'local-runtime-and-artifacts',
       noExternalDeploy: true,
@@ -232,7 +291,11 @@ function writeReports(report) {
     `- Mode: ${report.mode}`,
     `- Tawheed: ${report.tawheed}`,
     `- Covenant: ${report.covenant}`,
+    `- Body Unity Hadith: ${report.bodyUnity.hadith}`,
     `- Timestamp: ${report.timestamp}`,
+    '',
+    '## Body Unity Principle',
+    ...report.bodyUnity.principles.map((principle) => `- ${principle}`),
     '',
     '## Cells',
     ...report.cells.map((cell) => `- ${cell.id}: ${cell.status} (${cell.role})`),
@@ -250,14 +313,15 @@ function writeReports(report) {
   };
 }
 
-function main() {
-  const report = buildActivation();
+async function main() {
+  const report = await buildActivation();
   const artifacts = writeReports(report);
   console.log(JSON.stringify({
     success: report.success,
     message: report.message,
     mode: report.mode,
     tawheed: report.tawheed,
+    bodyUnity: report.bodyUnity,
     cells: report.cells,
     artifacts,
     timestamp: report.timestamp
@@ -265,4 +329,12 @@ function main() {
   process.exit(report.success ? 0 : 1);
 }
 
-main();
+main().catch((error) => {
+  console.error(JSON.stringify({
+    success: false,
+    message: error.message,
+    mode: MODE,
+    timestamp: new Date().toISOString()
+  }, null, 2));
+  process.exit(1);
+});

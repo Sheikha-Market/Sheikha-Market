@@ -6,6 +6,48 @@
 
 ---
 
+## [2026-05-16] — إعداد النشر الآمن والتوثيق الشامل
+
+### ✅ التحسينات الجديدة
+
+#### SSH & VPS Deployment
+- ✅ إعداد مفتاح SSH آمن بدون passphrase على VPS
+- ✅ حذف 6 مفاتيح SSH قديمة غير مستخدمة
+- ✅ توحيد SSH config للمفتاح الواحد النظيف
+- ✅ Git pull/push يعمل بدون تفاعل إنساني
+
+#### CI/CD Improvements
+- ✅ إضافة `pre-deploy` job لفحص الكود قبل النشر
+- ✅ Node.js syntax validation
+- ✅ package.json verification
+- ✅ Deployment notifications (success/failure)
+- ✅ Disk و memory checks قبل الإقلاع
+
+#### Documentation & Scripts
+- ✅ `DEPLOYMENT.md` — دليل شامل للنشر على VPS
+- ✅ `scripts/deploy-vps.sh` — deploy script آمن مع error checking
+- ✅ `CHANGELOG.md` — توثيق شامل للتغييرات
+
+### 📁 الملفات المُضافة
+- `.github/workflows/deploy.yml` — محدّث مع pre-checks
+- `DEPLOYMENT.md` — جديد: دليل النشر
+- `scripts/deploy-vps.sh` — جديد: deploy script
+- `CHANGELOG.md` — محدّث: هذا الملف
+
+### 🧪 الاختبارات
+```bash
+# من المحلي:
+bash scripts/deploy-vps.sh
+# النتيجة: ✅ النشر نجح!
+
+# على VPS:
+ssh root@31.97.190.74
+git pull origin main  # بدون password
+pm2 status           # sheikha-main-portal: online
+```
+
+---
+
 ## [2026-04-27] — إصلاح مسارات الشبكة العصبية وتوحيد PM2
 
 ### 🔴 المشكلة

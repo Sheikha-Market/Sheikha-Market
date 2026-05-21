@@ -1,0 +1,25 @@
+{
+    "Sheikha API Success": {
+        "prefix": "sheikha-success",
+        "body": [
+            "res.json({",
+            "    success: true,",
+            "    data: ${1:data},",
+            "    message: '${2:تم بنجاح}',",
+            "    timestamp: new Date().toISOString()",
+            "});"
+        ],
+        "description": "Sheikha standard success response"
+    },
+    "Sheikha API Error": {
+        "prefix": "sheikha-error",
+        "body": [
+            "res.status(${1:500}).json({",
+            "    success: false,",
+            "    message: '${2:حدث خطأ أثناء التنفيذ}',",
+            "    timestamp: new Date().toISOString()",
+            "});"
+        ],
+        "description": "Sheikha standard error response"
+    }
+}
