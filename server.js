@@ -5182,7 +5182,7 @@ app.get('/api/intelligence', (req, res) => {
 // قدرات الذكاء الاصطناعي
 app.get('/api/ai/capabilities', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
-    const claudeEnabled = !!ANTHROPIC_API_KEY;
+    const claudeEnabled = false;
     const capabilities = [
         { id: 'chat', nameAr: 'المستشار الذكي (GPT-5.2)', api: 'POST /api/ai/chat', status: openaiEnabled ? '🟢 مفعّل' : '⚪ جاهز — ضع OPENAI_API_KEY في .env', model: OPENAI_MODEL },
         { id: 'development', nameAr: 'التطوير والبرمجة (Claude Opus 4.6)', api: 'POST /api/ai/chat', status: claudeEnabled ? '🟢 مفعّل' : '⚪ جاهز — ضع ANTHROPIC_API_KEY في .env', model: ANTHROPIC_MODEL },
@@ -14805,6 +14805,7 @@ function findCompanyInSupplyChain(companyId) {
         }
     }
     return null;
+}
 
 function suggestBlocksForCompany(company) {
     const blocks = ((SAUDI_MARKET_DATA.blockDesignSystem || {}).blocks || []);
@@ -14858,13 +14859,13 @@ function findPotentialPartners(company) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🛠️ APIs التطوير المتكامل (Development Engine - Cursor + Claude)
+// 🛠️ APIs التطوير المتكامل (Development Engine - Sheikha + OpenAI/Ollama)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // حالة محرك التطوير
 app.get('/api/development/status', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
-    const claudeEnabled = !!ANTHROPIC_API_KEY;
+    const claudeEnabled = false;
     const devEngineEnabled = !!DevelopmentEngine;
 
     res.json({
@@ -14885,9 +14886,9 @@ app.get('/api/development/status', (req, res) => {
                     description: 'GPT-5.2 - للمساعدة العامة'
                 },
                 cursor: {
-                    enabled: true,
-                    status: '🟢 جاهز للتكامل',
-                    description: 'Cursor IDE - بيئة تطوير متقدمة'
+                    enabled: false,
+                    status: '⚪ غير مستخدم حالياً',
+                    description: 'IDE integration disabled currently'
                 }
             },
             templates: devEngineEnabled ? DevelopmentEngine.listTemplates() : [],
@@ -21244,4 +21245,5 @@ wss.on('connection', (ws) => {
 function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
     clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
+}
 }
