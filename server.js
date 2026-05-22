@@ -21302,6 +21302,8 @@ app.post('/api/sheikha/neural-mcp/tools/:name', express.json(), async (req, res)
 try {
     const {
         getEnterpriseVsCodeGitIntegrationStatus,
+        getEnterpriseGitServiceStatus,
+        buildPullMergeRequestPlan,
         buildEnterpriseWorkPlan
     } = require('./lib/sheikha-enterprise-vscode-git-integration');
 
@@ -21319,8 +21321,93 @@ try {
     app.post('/api/sheikha/enterprise-vscode-git/work-plan', express.json(), (req, res) => {
         return res.json(buildEnterpriseWorkPlan(req.body || {}));
     });
+
+    app.get('/api/sheikha/enterprise-git-service/status', (_req, res) => {
+        return res.json(getEnterpriseGitServiceStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/enterprise-git-service/status', express.json(), (req, res) => {
+        return res.json(getEnterpriseGitServiceStatus({
+            cwd: process.cwd(),
+            vscodeExtensions: req.body && req.body.extensions,
+            provider: req.body && req.body.provider
+        }));
+    });
+
+    app.post('/api/sheikha/enterprise-git-service/pr-mr-plan', express.json(), (req, res) => {
+        return res.json(buildPullMergeRequestPlan(req.body || {}));
+    });
 } catch (err) {
     console.warn('⚠️ Sheikha Enterprise VS Code/Git integration inactive:', err.message);
+}
+
+try {
+    const {
+        getGoverningOsLayerStatus,
+        buildPackagePlan,
+        buildUniversalIntegrationPlan
+    } = require('./lib/sheikha-governing-os-layer');
+
+    app.get('/api/sheikha/governing-os/status', (_req, res) => {
+        return res.json(getGoverningOsLayerStatus());
+    });
+
+    app.post('/api/sheikha/governing-os/status', express.json(), (req, res) => {
+        return res.json(getGoverningOsLayerStatus({
+            extensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.post('/api/sheikha/governing-os/package-plan', express.json(), (req, res) => {
+        return res.json(buildPackagePlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/governing-os/universal-integration-plan', express.json(), (req, res) => {
+        return res.json(buildUniversalIntegrationPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Governing OS layer inactive:', err.message);
+}
+
+try {
+    const {
+        getAiServiceProviderStatus,
+        getCertifiedAiProviderCertificate,
+        buildAiServicePublishPlan,
+        buildSystemIntegrationProviderPlan
+    } = require('./lib/sheikha-ai-service-provider-runtime');
+
+    app.get('/api/sheikha/ai-service-provider/status', (_req, res) => {
+        return res.json(getAiServiceProviderStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/status', express.json(), (req, res) => {
+        return res.json(getAiServiceProviderStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.get('/api/sheikha/ai-service-provider/certification', (_req, res) => {
+        return res.json(getCertifiedAiProviderCertificate({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/certification', express.json(), (req, res) => {
+        return res.json(getCertifiedAiProviderCertificate({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/publish-plan', express.json(), (req, res) => {
+        return res.json(buildAiServicePublishPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/integration-plan', express.json(), (req, res) => {
+        return res.json(buildSystemIntegrationProviderPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha AI service provider runtime inactive:', err.message);
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -21512,6 +21599,32 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI Neural Cell Network route inactive:', err.message);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha AI Gateway API
+// ─────────────────────────────────────────────────────────────
+try {
+    const { askSheikhaCore, DEFAULT_MODEL, OLLAMA_URL } = require('./core/ai-gateway/sheikha-ai-gateway');
+
+    app.get('/api/sheikha/ai-gateway/status', (_req, res) => {
+        res.json({
+            success: true,
+            status: 'active',
+            gateway: 'Sheikha AI Gateway',
+            defaultModel: DEFAULT_MODEL,
+            localProvider: OLLAMA_URL,
+            mode: 'local-first-governed-enterprise-ai'
+        });
+    });
+
+    app.post('/api/sheikha/ai-gateway/ask', express.json(), async (req, res) => {
+        const result = await askSheikhaCore(req.body || {});
+        res.json(result);
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
 }
 
 app.use((req, res) => {
