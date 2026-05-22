@@ -21305,6 +21305,34 @@ if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContr
     });
 }
 
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha AI Neural Cell Network API
+// ─────────────────────────────────────────────────────────────
+try {
+    const {
+        evaluateSheikhaAINetwork,
+        SHEIKHA_AI_NEURAL_CELLS
+    } = require('./core/neural/sheikha-ai-neural-cell-network');
+
+    app.get('/api/sheikha/ai-neural-cell-network/status', (_req, res) => {
+        res.json({
+            success: true,
+            status: 'active',
+            network: 'sheikha-ai-neural-cell-network',
+            cellsCount: Object.keys(SHEIKHA_AI_NEURAL_CELLS).length,
+            mode: 'deterministic-governed-analysis',
+            message: 'شبكة خلايا شيخة العصبية التحليلية مفعلة'
+        });
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/evaluate', express.json(), (req, res) => {
+        res.json(evaluateSheikhaAINetwork(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha AI Neural Cell Network route inactive:', err.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
