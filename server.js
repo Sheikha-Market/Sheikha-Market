@@ -20958,12 +20958,35 @@ function getSheikhaVsixStatus() {
         version: '1.0.1',
         backend: 'sheikha-main-portal',
         model: process.env.AI_LLM_MODEL || process.env.OPENAI_MODEL || process.env.ANTHROPIC_MODEL || 'sheikha-local',
-        supportedLanguages: ['javascript', 'typescript', 'python', 'html', 'css', 'json', 'markdown', 'bash', 'sql'],
+        supportedLanguages: [
+            'sheikha-sabil',
+            'php',
+            'javascript',
+            'typescript',
+            'python',
+            'go',
+            'rust',
+            'csharp',
+            'java',
+            'html',
+            'css',
+            'json',
+            'markdown',
+            'bash',
+            'sql'
+        ],
         capabilities: [
             'chat',
             'inline-completions',
             'agent-mode',
             'programming',
+            'sheikha-sabil-language',
+            'php-runtime',
+            'polyglot-interpreter',
+            'ide-runtime',
+            'git-runtime',
+            'github-integration',
+            'gitlab-integration',
             'debugging',
             'editing',
             'api',
@@ -21276,6 +21299,30 @@ app.post('/api/sheikha/neural-mcp/tools/:name', express.json(), async (req, res)
     return res.json({ success: !result.error, data: result, timestamp: new Date().toISOString() });
 });
 
+try {
+    const {
+        getEnterpriseVsCodeGitIntegrationStatus,
+        buildEnterpriseWorkPlan
+    } = require('./lib/sheikha-enterprise-vscode-git-integration');
+
+    app.get('/api/sheikha/enterprise-vscode-git/status', (_req, res) => {
+        return res.json(getEnterpriseVsCodeGitIntegrationStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/enterprise-vscode-git/status', express.json(), (req, res) => {
+        return res.json(getEnterpriseVsCodeGitIntegrationStatus({
+            cwd: process.cwd(),
+            vscodeExtensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.post('/api/sheikha/enterprise-vscode-git/work-plan', express.json(), (req, res) => {
+        return res.json(buildEnterpriseWorkPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Enterprise VS Code/Git integration inactive:', err.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -21312,22 +21359,156 @@ if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContr
 try {
     const {
         evaluateSheikhaAINetwork,
-        SHEIKHA_AI_NEURAL_CELLS
+        SHEIKHA_AI_NEURAL_CELLS,
+        getNeuralNetworkStatus,
+        buildProductionPlan,
+        buildUniversalHalalRuntimePlan,
+        getTawheedFoundations,
+        getProgrammingRuntimeStatus,
+        getMarkupRuntimeStatus,
+        getNeuralRuntimeRegistry,
+        getSupremeRootNeuralFabricStatus,
+        activateSupremeRootNeuralFabric,
+        orchestrateSupremeRootNeuralFabric,
+        getRuntimeCell,
+        hotLoadRuntimeCell,
+        injectRuntimeCell,
+        interpretProgrammingRequest,
+        buildGitEditingPlan,
+        setNeuralNetworkActiveState,
+        retrainNeuralNetwork
     } = require('./core/neural/sheikha-ai-neural-cell-network');
 
     app.get('/api/sheikha/ai-neural-cell-network/status', (_req, res) => {
         res.json({
-            success: true,
-            status: 'active',
-            network: 'sheikha-ai-neural-cell-network',
+            ...getNeuralNetworkStatus(),
             cellsCount: Object.keys(SHEIKHA_AI_NEURAL_CELLS).length,
             mode: 'deterministic-governed-analysis',
-            message: 'شبكة خلايا شيخة العصبية التحليلية مفعلة'
+            message: 'شبكة خلايا Sheikha العصبية الجذرية مفعلة'
         });
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/activate', express.json(), (req, res) => {
+        const active = req.body && Object.prototype.hasOwnProperty.call(req.body, 'activate')
+            ? Boolean(req.body.activate)
+            : true;
+        const status = setNeuralNetworkActiveState(active);
+        res.json({
+            success: true,
+            status: active ? 'active' : 'inactive',
+            data: status,
+            message: active
+                ? 'تم تفعيل شبكة خلايا Sheikha العصبية الجذرية'
+                : 'تم إيقاف شبكة خلايا Sheikha العصبية الجذرية مؤقتًا'
+        });
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/retrain', express.json(), (req, res) => {
+        res.json(retrainNeuralNetwork(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/production-plan', express.json(), (req, res) => {
+        res.json(buildProductionPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/universal-halal-runtime', express.json(), (req, res) => {
+        res.json(buildUniversalHalalRuntimePlan(req.body || {}));
     });
 
     app.post('/api/sheikha/ai-neural-cell-network/evaluate', express.json(), (req, res) => {
         res.json(evaluateSheikhaAINetwork(req.body || {}));
+    });
+
+    app.get('/api/sheikha/tawheed-foundations', (_req, res) => {
+        res.json(getTawheedFoundations());
+    });
+
+    app.get('/api/sheikha/languages', (_req, res) => {
+        const runtime = getProgrammingRuntimeStatus();
+        const markup = getMarkupRuntimeStatus();
+        res.json({
+            success: true,
+            data: {
+                primaryLanguage: runtime.language,
+                primaryMarkupLanguage: markup.language,
+                languages: runtime.supportedLanguages,
+                markupLanguages: markup.supportedMarkupLanguages,
+                languageFamilies: runtime.languageFamilies,
+                php: 'active',
+                ide: runtime.ide,
+                interpreter: runtime.interpreter
+            },
+            message: 'لغات Sheikha البرمجية والترميزية والمفسر متعدد اللغات مفعلة'
+        });
+    });
+
+    app.get('/api/sheikha/language/status', (_req, res) => {
+        res.json(getProgrammingRuntimeStatus());
+    });
+
+    app.get('/api/sheikha/markup/status', (_req, res) => {
+        res.json(getMarkupRuntimeStatus());
+    });
+
+    app.get('/api/sheikha/neural-runtime-registry/status', (_req, res) => {
+        res.json(getNeuralRuntimeRegistry());
+    });
+
+    app.get('/api/sheikha/neural-runtime-registry/cells', (_req, res) => {
+        res.json(getNeuralRuntimeRegistry());
+    });
+
+    app.get('/api/sheikha/supreme-root-neural-fabric/status', (_req, res) => {
+        res.json(getSupremeRootNeuralFabricStatus());
+    });
+
+    app.post('/api/sheikha/supreme-root-neural-fabric/activate', express.json(), (req, res) => {
+        res.json(activateSupremeRootNeuralFabric(req.body || {}));
+    });
+
+    app.post('/api/sheikha/supreme-root-neural-fabric/orchestrate', express.json(), (req, res) => {
+        res.json(orchestrateSupremeRootNeuralFabric(req.body || {}));
+    });
+
+    app.get('/api/sheikha/neural-runtime-registry/cells/:id', (req, res) => {
+        res.json(getRuntimeCell(req.params.id));
+    });
+
+    app.post('/api/sheikha/neural-runtime-registry/cells/:id/hot-load', express.json(), (req, res) => {
+        res.json(hotLoadRuntimeCell(req.params.id, req.body || {}));
+    });
+
+    app.post('/api/sheikha/neural-runtime-registry/cells/:id/inject', express.json(), (req, res) => {
+        res.json(injectRuntimeCell(req.params.id, req.body || {}));
+    });
+
+    app.post('/api/sheikha/language/interpret', express.json(), (req, res) => {
+        res.json(interpretProgrammingRequest(req.body || {}));
+    });
+
+    app.get('/api/sheikha/ide/status', (_req, res) => {
+        const runtime = getProgrammingRuntimeStatus();
+        res.json({
+            success: true,
+            status: 'active',
+            ide: runtime.ide,
+            capabilities: ['edit', 'debug', 'run', 'interpret', 'php', 'git', 'github', 'gitlab', 'mcp-sdk', 'neural-cells'],
+            language: runtime.language,
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/sheikha/git/status', (_req, res) => {
+        res.json({
+            success: true,
+            status: 'active',
+            data: buildGitEditingPlan({ target: 'working-tree' }).runtime,
+            message: 'Sheikha Git Runtime مفعّل للتحرير الآمن في Git/GitHub/GitLab'
+        });
+    });
+
+    app.post('/api/sheikha/git/edit-plan', express.json(), (req, res) => {
+        res.json(buildGitEditingPlan(req.body || {}));
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI Neural Cell Network route inactive:', err.message);
@@ -21618,7 +21799,7 @@ function onServerStarted(activePort) {
 ╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║   🌐 http://localhost:${activePort}                                                                                     ║
 ║   ⚙️  محرك الأتمتة v2.0 — أقوى من n8n — مُفعَّل                                                                    ║
-║   🔗 جسر n8n: /api/automation/n8n/webhook                                                                         ║
+║   🔗 تكامل n8n المؤسسي: /api/automation/n8n/webhook                                                               ║
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
