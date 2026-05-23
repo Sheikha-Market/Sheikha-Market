@@ -2366,6 +2366,7 @@ function verifyTokenRole(req) {
 
 // Middleware لحماية الصفحات (HTML)
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+app.use('/api/sheikha', require('./routes/sheikha-system-status'));
 app.use((req, res, next) => {
     const path = decodeURIComponent(req.path);
 
@@ -21410,6 +21411,136 @@ try {
     console.warn('⚠️ Sheikha AI service provider runtime inactive:', err.message);
 }
 
+try {
+    const {
+        getEnterpriseIdeRuntimeStatus,
+        buildEnterpriseDevelopmentEnvironment,
+        buildIdeSubscriptionModel,
+        buildIndustryAndTechnologyServicesPlan
+    } = require('./lib/sheikha-enterprise-ide-runtime');
+
+    app.get('/api/sheikha/enterprise-ide/status', (_req, res) => {
+        return res.json(getEnterpriseIdeRuntimeStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/status', express.json(), (req, res) => {
+        return res.json(getEnterpriseIdeRuntimeStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions,
+            modelMode: req.body && req.body.modelMode
+        }));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/development-environment', express.json(), (req, res) => {
+        return res.json(buildEnterpriseDevelopmentEnvironment(req.body || {}));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/subscription-model', express.json(), (req, res) => {
+        return res.json(buildIdeSubscriptionModel(req.body || {}));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/industry-services-plan', express.json(), (req, res) => {
+        return res.json(buildIndustryAndTechnologyServicesPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Enterprise IDE runtime inactive:', err.message);
+}
+
+try {
+    const {
+        getUniversalToolsFabricStatus,
+        activateUniversalToolsFabric,
+        buildUniversalToolsIntegrationPlan,
+        buildToolActivationPlan
+    } = require('./lib/sheikha-universal-tools-fabric');
+
+    app.get('/api/sheikha/universal-tools-fabric/status', (_req, res) => {
+        return res.json(getUniversalToolsFabricStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/status', express.json(), (req, res) => {
+        return res.json(getUniversalToolsFabricStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions,
+            modelMode: req.body && req.body.modelMode
+        }));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/activate', express.json(), (req, res) => {
+        return res.json(activateUniversalToolsFabric({
+            cwd: process.cwd(),
+            ...(req.body || {})
+        }));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/integration-plan', express.json(), (req, res) => {
+        return res.json(buildUniversalToolsIntegrationPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/tool-plan', express.json(), (req, res) => {
+        return res.json(buildToolActivationPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Universal Tools Fabric inactive:', err.message);
+}
+
+try {
+    const {
+        getSheikhaCoreStatus,
+        activateSheikhaCore,
+        buildSheikhaCoreArchitecture,
+        getSheikhaEditorStatus,
+        getUsageMeteringStatus,
+        recordUsageEvent,
+        buildProviderKeysPolicy
+    } = require('./lib/sheikha-core-runtime');
+
+    app.get('/api/sheikha/core/status', (_req, res) => {
+        return res.json(getSheikhaCoreStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/core/status', express.json(), (req, res) => {
+        return res.json(getSheikhaCoreStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions,
+            modelMode: req.body && req.body.modelMode
+        }));
+    });
+
+    app.post('/api/sheikha/core/activate', express.json(), (req, res) => {
+        return res.json(activateSheikhaCore({
+            cwd: process.cwd(),
+            ...(req.body || {})
+        }));
+    });
+
+    app.post('/api/sheikha/core/architecture', express.json(), (req, res) => {
+        return res.json(buildSheikhaCoreArchitecture(req.body || {}));
+    });
+
+    app.get('/api/sheikha/editor/status', (_req, res) => {
+        return res.json(getSheikhaEditorStatus());
+    });
+
+    app.post('/api/sheikha/editor/status', express.json(), (req, res) => {
+        return res.json(getSheikhaEditorStatus(req.body || {}));
+    });
+
+    app.get('/api/sheikha/provider-keys/policy', (_req, res) => {
+        return res.json(buildProviderKeysPolicy());
+    });
+
+    app.get('/api/sheikha/usage-metering/status', (_req, res) => {
+        return res.json(getUsageMeteringStatus());
+    });
+
+    app.post('/api/sheikha/usage-metering/event', express.json(), (req, res) => {
+        return res.json(recordUsageEvent(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha-Core runtime inactive:', err.message);
+}
+
 // ═══════════════════════════════════════════════════════════════════════════════
 // �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -21606,17 +21737,13 @@ try {
 // Sheikha AI Gateway API
 // ─────────────────────────────────────────────────────────────
 try {
-    const { askSheikhaCore, DEFAULT_MODEL, OLLAMA_URL } = require('./core/ai-gateway/sheikha-ai-gateway');
+    const {
+        askSheikhaCore,
+        getSheikhaGatewayStatus
+    } = require('./core/ai-gateway/sheikha-ai-gateway');
 
-    app.get('/api/sheikha/ai-gateway/status', (_req, res) => {
-        res.json({
-            success: true,
-            status: 'active',
-            gateway: 'Sheikha AI Gateway',
-            defaultModel: DEFAULT_MODEL,
-            localProvider: OLLAMA_URL,
-            mode: 'local-first-governed-enterprise-ai'
-        });
+    app.get('/api/sheikha/ai-gateway/status', async (_req, res) => {
+        res.json(await getSheikhaGatewayStatus());
     });
 
     app.post('/api/sheikha/ai-gateway/ask', express.json(), async (req, res) => {
@@ -21626,6 +21753,50 @@ try {
 } catch (err) {
     console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
 }
+
+app.use('/api/runtime-root', require('./routes/runtime-root/health'));
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha Runtime Root Health API
+// ─────────────────────────────────────────────────────────────
+app.get('/api/runtime-root/health', (_req, res) => {
+    res.json({
+        success: true,
+        name: 'Sheikha Runtime Root',
+        status: 'active',
+        mode: 'root-governed-runtime',
+        layers: {
+            editor: true,
+            ide: true,
+            runtime: true,
+            aiGateway: true,
+            ollama: true,
+            enterprise: true,
+            osLayer: true,
+            unifiedApi: true,
+            rootNeuralControlPlane: true
+        },
+        ports: {
+            root: 8080,
+            companion: 8082,
+            universalApi: 9191,
+            localAI: 11434
+        },
+        governance: {
+            tawheed: true,
+            quranAndSunnahGoverned: true,
+            noRiba: true,
+            noFraud: true,
+            noHarm: true,
+            noGhaybPrediction: true,
+            noConsciousnessClaim: true,
+            humanAuthority: true,
+            auditRequired: true
+        },
+        message: 'نواة Runtime Root مفعلة ومحكومة بالكتاب والسنة',
+        timestamp: new Date().toISOString()
+    });
+});
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
@@ -21951,4 +22122,31 @@ wss.on('connection', (ws) => {
 function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
     clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
+}
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha Unified System Status API
+// ─────────────────────────────────────────────────────────────
+try {
+  const runtime = require('./core/runtime/sheikha-runtime');
+  const ai = require('./core/ai/sheikha-ai');
+  const enterprise = require('./core/enterprise/sheikha-enterprise');
+  const ide = require('./core/ide/sheikha-ide');
+  const os = require('./core/os/sheikha-os');
+
+  app.get('/api/sheikha/system/status', (_req, res) => {
+    res.json({
+      success: true,
+      name: 'Sheikha Unified System',
+      status: 'active',
+      runtime,
+      ai,
+      enterprise,
+      ide,
+      os,
+      timestamp: new Date().toISOString()
+    });
+  });
+} catch (error) {
+  console.error('Sheikha system status API failed:', error.message);
 }
