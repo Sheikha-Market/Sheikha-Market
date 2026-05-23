@@ -1,8 +1,8 @@
 #!/bin/bash
-# Verify Sheikha Copilot Extension Installation
+# Verify Sheikha Extension Installation
 
 echo "════════════════════════════════════════════════"
-echo "Sheikha Copilot - Extension Verification"
+echo "Sheikha - Extension Verification"
 echo "════════════════════════════════════════════════"
 
 # Check if VS Code is installed
@@ -17,8 +17,8 @@ echo "✅ VS Code version: $VS_CODE_VERSION"
 # Check extension installation
 EXTENSIONS=$(code --list-extensions 2>/dev/null | grep -i sheikha || true)
 if [ -z "$EXTENSIONS" ]; then
-    echo "⚠️  Sheikha Copilot extension not currently installed"
-    echo "   Run: code --install-extension <dist/sheikha.sheikha-copilot-*.vsix>"
+    echo "⚠️  Sheikha extension not currently installed"
+    echo "   Run: code --install-extension <dist/sheikha.sheikha-*.vsix>"
 else
     echo "✅ Installed extensions:"
     echo "$EXTENSIONS" | sed 's/^/   /'
@@ -27,8 +27,8 @@ fi
 # Check API availability
 echo ""
 echo "Testing API connectivity..."
-API_STATUS=$(curl -s -m 3 http://localhost:8080/api/sheikha/copilot/status || echo "UNREACHABLE")
-if echo "$API_STATUS" | grep -q "Sheikha Copilot"; then
+API_STATUS=$(curl -s -m 3 http://localhost:8080/api/sheikha/extension/status || echo "UNREACHABLE")
+if echo "$API_STATUS" | grep -q "Sheikha"; then
     echo "✅ API is reachable"
     echo "   Status: $(echo $API_STATUS | jq -r '.data.status' 2>/dev/null || echo 'OK')"
 else

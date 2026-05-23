@@ -7,7 +7,7 @@
             "  الشرط: ${3:صدق_وبيان}",
             "  منع: احتكار، غش، ضرر"
         ],
-        "description": "تعريف كيان في لغة شيخة"
+        "description": "تعريف كيان في لغة Sheikha Sabil"
     },
     "SHK: Procedure": {
         "prefix": "إجراء",
@@ -15,7 +15,7 @@
             "إجراء ${1:اسم_الإجراء}:",
             "  اعرض \"${2:رسالة}\""
         ],
-        "description": "تعريف إجراء في لغة شيخة"
+        "description": "تعريف إجراء في لغة Sheikha Sabil"
     },
     "SHK: If Else": {
         "prefix": "إذا",
@@ -33,5 +33,19 @@
             "بسم_الله"
         ],
         "description": "إدراج التوجيه الافتتاحي"
+    },
+    "Sheikha PHP Guarded Runtime": {
+        "prefix": "sheikha-php",
+        "body": [
+            "<?php",
+            "// Sheikha Sabil guarded PHP runtime",
+            "return [",
+            "    'بسم_الله' => 'بسم الله الرحمن الرحيم',",
+            "    'runtime' => 'php',",
+            "    'governance' => 'quran-and-sunnah',",
+            "    'status' => 'human-reviewed',",
+            "];"
+        ],
+        "description": "قالب PHP محكوم لحوكمة Sheikha Sabil"
     }
 }

@@ -5,7 +5,8 @@
   "main": "server.js",
   "engines": {
     "node": "^20.0.0 || ^22.0.0 || ^25.0.0",
-    "pm2": ">=6.0.0"
+    "pm2": ">=6.0.0",
+    "vscode": "^1.85.0"
   },
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
@@ -120,6 +121,14 @@
     "ops:ai-guard:pm2:stop": "pm2 delete sheikha-ai-guard",
     "ops:ollama:plan": "node scripts/ollama-models-sync.js --plan",
     "ops:ollama:apply": "OLLAMA_ALLOW_PULL=true node scripts/ollama-models-sync.js --apply",
+    "sheikha:core:model": "bash tools/sheikha-core-model.sh",
+    "sheikha:core:gateway": "bash tools/sheikha-server.sh gateway",
+    "sheikha:server": "bash tools/sheikha-server.sh status",
+    "sheikha:server:restart": "bash tools/sheikha-server.sh restart",
+    "sheikha:enterprise:runtime": "bash tools/sheikha-enterprise-runtime.sh run",
+    "sheikha:enterprise:health": "bash tools/sheikha-enterprise-runtime.sh health",
+    "sheikha:enterprise:test": "bash tools/sheikha-enterprise-runtime.sh test",
+    "sheikha:enterprise:ai-test": "bash tools/sheikha-enterprise-runtime.sh ai-test",
     "ollama:copilot:start": "pm2 start ecosystem.config.js --only sheikha-ollama-copilot && pm2 save",
     "ollama:copilot:stop": "pm2 stop sheikha-ollama-copilot && pm2 save",
     "ollama:copilot:restart": "pm2 restart sheikha-ollama-copilot",
@@ -428,5 +437,7 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.2.1",
     "jest": "^30.4.2"
-  }
+  },
+  "publisher": "sheikha",
+  "displayName": "Sheikha"
 }

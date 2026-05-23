@@ -16,7 +16,7 @@
 # ══════════════════════════════════════════════════════════════════
 # ⚙️  أسماء العمليات في ecosystem.config.js:
 #   sheikha-main-portal   ← الخادم الرئيسي (المنفذ 8080)
-#   sheikha-copilot       ← خادم MCP (المنفذ 3091)
+#   sheikha-mcp       ← خادم MCP (المنفذ 3091)
 #   sheikha-meta-background
 #   sheikha-health-monitor
 #   sheikha-ollama-copilot
@@ -120,7 +120,7 @@ case "$CMD" in
     echo ""
     echo -e "  أسماء العمليات الرسمية:"
     echo -e "    ${YELLOW}sheikha-main-portal${RESET}   الخادم الرئيسي :8080"
-    echo -e "    ${YELLOW}sheikha-copilot${RESET}       خادم MCP :3091"
+    echo -e "    ${YELLOW}sheikha-mcp${RESET}       خادم MCP :3091"
     echo -e "    ${YELLOW}sheikha-meta-background${RESET}"
     echo -e "    ${YELLOW}sheikha-health-monitor${RESET}"
     echo -e "    ${YELLOW}sheikha-ollama-copilot${RESET}  :3092"

@@ -5,6 +5,7 @@ const fs = require('fs');
 const path = require('path');
 
 const ROOT = process.cwd();
+
 const reportDir = path.join(ROOT, 'reports/registry');
 fs.mkdirSync(reportDir, { recursive: true });
 
@@ -17,30 +18,71 @@ const forbidden = [
 
 const canonical = [
   'docs/registry/ROOT-SOURCE-OF-TRUTH.md',
-  'docs/architecture/SHEIKHA-CANONICAL-PATHS-AND-BLUEPRINTS.md'
+  'core/orchestration',
+  'core/neural',
+  'core/runtime'
 ];
 
 function exists(p) {
   return fs.existsSync(path.join(ROOT, p));
 }
 
+function safeStat(full) {
+  try {
+    return fs.lstatSync(full);
+  } catch {
+    return null;
+  }
+}
+
 function walk(dir, out = []) {
   if (!fs.existsSync(dir)) return out;
-  for (const item of fs.readdirSync(dir)) {
+
+  let items = [];
+
+  try {
+    items = fs.readdirSync(dir);
+  } catch {
+    return out;
+  }
+
+  for (const item of items) {
     const full = path.join(dir, item);
     const rel = path.relative(ROOT, full);
-    if (rel.includes('node_modules') || rel.includes('.git')) continue;
-    const stat = fs.statSync(full);
-    if (stat.isDirectory()) walk(full, out);
-    else out.push(rel);
+
+    if (
+      rel.includes('node_modules') ||
+      rel.includes('.git') ||
+      rel.includes('.venv') ||
+      rel.includes('venv') ||
+      rel.includes('dist') ||
+      rel.includes('build')
+    ) {
+      continue;
+    }
+
+    const stat = safeStat(full);
+
+    if (!stat) continue;
+
+    if (stat.isSymbolicLink()) {
+      continue;
+    }
+
+    if (stat.isDirectory()) {
+      walk(full, out);
+    } else {
+      out.push(rel);
+    }
   }
+
   return out;
 }
 
 const files = walk(ROOT);
+
 const blueprintFiles = files.filter(f =>
-  /(^|\/)SHEIKHA.*\.(md|txt)$/i.test(f) ||
-  /blueprint|architecture|dashboard|governance/i.test(path.basename(f))
+  /blueprint|architecture|governance|runtime|neural/i.test(f)
 );
 
 const forbiddenHits = blueprintFiles.filter(f =>
@@ -50,29 +92,53 @@ const forbiddenHits = blueprintFiles.filter(f =>
 const missingCanonical = canonical.filter(p => !exists(p));
 
 const result = {
-  success: forbiddenHits.length === 0 && missingCanonical.length === 0,
-  name: 'Sheikha Blueprint Guard',
-  status: forbiddenHits.length === 0 && missingCanonical.length === 0 ? 'passed' : 'blocked',
+  success:
+    forbiddenHits.length === 0 &&
+    missingCanonical.length === 0,
+
+  status:
+    forbiddenHits.length === 0 &&
+    missingCanonical.length === 0
+      ? 'passed'
+      : 'blocked',
+
   canonical,
   missingCanonical,
   forbiddenHits,
-  blueprintFilesCount: blueprintFiles.length,
+
+  stats: {
+    scannedFiles: files.length,
+    blueprintFiles: blueprintFiles.length
+  },
+
   governance: {
     tawheed: true,
     quranAndSunnahGoverned: true,
     humanAuthority: true,
-    noDuplication: true,
-    noUnsafeArchitectureDrift: true
+    orchestration: true,
+    neuralFabric: true,
+    runtimeBus: true,
+    recoveryEngine: true,
+    distributedRootRuntime: true
   },
+
   timestamp: new Date().toISOString()
 };
 
-const report = path.join(reportDir, `blueprint-guard-${Date.now()}.json`);
-fs.writeFileSync(report, JSON.stringify(result, null, 2) + '\n');
+const reportPath = path.join(
+  reportDir,
+  `blueprint-guard-${Date.now()}.json`
+);
+
+fs.writeFileSync(
+  reportPath,
+  JSON.stringify(result, null, 2) + '\n'
+);
 
 console.log(JSON.stringify(result, null, 2));
 
 if (!result.success) {
-  console.error(`\nBLOCKED: review report ${report}`);
+  console.error('\nBLOCKED');
+  console.error(`Report: ${reportPath}`);
   process.exit(1);
 }

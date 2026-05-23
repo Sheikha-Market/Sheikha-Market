@@ -1,4 +1,4 @@
-# Sheikha Copilot Extension for VS Code
+# Sheikha Extension for VS Code
 
 **نظام مساعد البرمجة الذكي — Sheikha AI-powered Coding Assistant**
 
@@ -9,7 +9,7 @@
 
 ## Overview
 
-**Sheikha Copilot** is an intelligent AI-powered coding assistant for Visual Studio Code, inspired by GitHub Copilot but uniquely tailored for The Quran, Sunnah, and Halal principles.
+**Sheikha** is an intelligent AI-powered coding assistant for Visual Studio Code, tailored for The Quran, Sunnah, and Halal principles.
 
 - 🤖 **Inline Code Completions** — Real-time suggestions as you type
 - 💬 **Sheikha Chat** — Conversational AI for coding questions
@@ -24,19 +24,19 @@
 ### From VS Code Marketplace
 
 ```
-sheikha.sheikha-copilot
+sheikha.sheikha
 ```
 
 Or install directly:
 
 ```bash
-code --install-extension sheikha.sheikha-copilot
+code --install-extension sheikha.sheikha
 ```
 
 ### Manual Installation
 
 1. Download the `.vsix` file from [sheikha.top/extensions](https://sheikha.top/extensions)
-2. Run `code --install-extension sheikha-copilot-1.0.0.vsix`
+2. Run `code --install-extension sheikha.sheikha-1.0.6.vsix`
 
 ## Quick Start
 
@@ -143,21 +143,21 @@ const fraudCode = "...";
 
 ## Settings
 
-Open VS Code Settings (`Ctrl+,`) and search for `sheikha.copilot`:
+Open VS Code Settings (`Ctrl+,`) and search for `sheikha`:
 
 | Setting | Default | Description |
 |---------|---------|-------------|
-| `sheikha.copilot.enable` | `true` | Master enable/disable |
-| `sheikha.copilot.serverUrl` | `http://localhost:8080` | Sheikha backend server |
-| `sheikha.copilot.enableInlineCompletions` | `true` | Real-time code suggestions |
-| `sheikha.copilot.enableChat` | `true` | Chat panel |
-| `sheikha.copilot.enableAgentMode` | `true` | Agent mode (multi-step tasks) |
-| `sheikha.copilot.enableNES` | `true` | Next Edit Suggestions |
-| `sheikha.copilot.shariaGuardrails` | `true` | Enable Islamic compliance checks |
-| `sheikha.copilot.defaultModel` | `sheikha-copilot-base` | Default AI model |
-| `sheikha.copilot.completionDelay` | `150` | Delay for completions (ms) |
-| `sheikha.copilot.maxCompletions` | `3` | Max suggestions to show |
-| `sheikha.copilot.arabicComments` | `true` | Prefer Arabic in suggestions |
+| `sheikha.enable` | `true` | Master enable/disable |
+| `sheikha.serverUrl` | `http://localhost:8080` | Sheikha backend server |
+| `sheikha.enableInlineCompletions` | `true` | Real-time code suggestions |
+| `sheikha.enableChat` | `true` | Chat panel |
+| `sheikha.enableAgentMode` | `true` | Agent mode (multi-step tasks) |
+| `sheikha.enableNES` | `true` | Next Edit Suggestions |
+| `sheikha.shariaGuardrails` | `true` | Enable Islamic compliance checks |
+| `sheikha.defaultModel` | `sheikha-base` | Default AI model |
+| `sheikha.completionDelay` | `150` | Delay for completions (ms) |
+| `sheikha.maxCompletions` | `3` | Max suggestions to show |
+| `sheikha.arabicComments` | `true` | Prefer Arabic in suggestions |
 
 ## Keyboard Shortcuts
 
@@ -170,7 +170,7 @@ Open VS Code Settings (`Ctrl+,`) and search for `sheikha.copilot`:
 
 ## Supported Languages
 
-Sheikha Copilot works with:
+Sheikha works with:
 
 - **Web**: JavaScript, TypeScript, HTML, CSS
 - **Server**: Node.js, Python, Java, PHP, Go, Rust, C#
@@ -186,7 +186,7 @@ Sheikha Copilot works with:
 - *Read our [Privacy Policy](https://sheikha.top/privacy)*
 
 ```
-شيخة كوبايلوت: كودك ملكك.
+Sheikha: كودك ملكك.
 لا نشارك مقتطفاتك مع أي مستخدم آخر.
 نلتزم بمبادئ الخصوصية وحماية البيانات.
 ```
@@ -201,7 +201,7 @@ Sheikha Copilot works with:
 
 ```
 ┌─────────────────────────────────────────┐
-│  VS Code + Sheikha Copilot Extension   │
+│  VS Code + Sheikha Extension   │
 │  ├─ Completions                        │
 │  ├─ Chat Panel                         │
 │  ├─ Agent Mode                         │
@@ -211,12 +211,12 @@ Sheikha Copilot works with:
                ▼
 ┌─────────────────────────────────────────┐
 │  Sheikha Backend Server (port 8080)    │
-│  ├─ /api/sheikha/copilot/completions  │
-│  ├─ /api/sheikha/copilot/chat         │
-│  ├─ /api/sheikha/copilot/agent        │
-│  ├─ /api/sheikha/copilot/nes          │
-│  ├─ /api/sheikha/copilot/inline-chat  │
-│  └─ /api/sheikha/copilot/settings     │
+│  ├─ /api/sheikha/completions  │
+│  ├─ /api/sheikha/chat         │
+│  ├─ /api/sheikha/agent        │
+│  ├─ /api/sheikha/nes          │
+│  ├─ /api/sheikha/inline-chat  │
+│  └─ /api/sheikha/settings     │
 └─────────────────────────────────────────┘
 ```
 
@@ -227,21 +227,21 @@ All endpoints are available on the Sheikha backend:
 ### Status & Config
 
 ```
-GET /api/sheikha/copilot/status            ← System status
-GET /api/sheikha/copilot/models            ← Available AI models
-GET /api/sheikha/copilot/languages         ← Supported programming languages
-GET /api/sheikha/copilot/settings          ← User settings
-GET /api/sheikha/copilot/vscode-bridge     ← VS Code bridge status
+GET /api/sheikha/extension/status            ← System status
+GET /api/sheikha/models            ← Available AI models
+GET /api/sheikha/languages         ← Supported programming languages
+GET /api/sheikha/settings          ← User settings
+GET /api/sheikha/vscode-bridge     ← VS Code bridge status
 ```
 
 ### Coding Assistance
 
 ```
-POST /api/sheikha/copilot/completions      ← Inline completions
-POST /api/sheikha/copilot/chat             ← Chat interface
-POST /api/sheikha/copilot/agent            ← Agent mode (multi-step)
-POST /api/sheikha/copilot/nes              ← Next Edit Suggestions
-POST /api/sheikha/copilot/inline-chat      ← Inline chat/refactoring
+POST /api/sheikha/completions      ← Inline completions
+POST /api/sheikha/chat             ← Chat interface
+POST /api/sheikha/agent            ← Agent mode (multi-step)
+POST /api/sheikha/nes              ← Next Edit Suggestions
+POST /api/sheikha/inline-chat      ← Inline chat/refactoring
 ```
 
 ## Example Workflows
@@ -288,7 +288,7 @@ const data = JSON.parse(input);  // ← Error: input might be invalid
 ### "Could not connect to server"
 
 - Ensure Sheikha backend is running: `npm start`
-- Check `sheikha.copilot.serverUrl` setting (default: `http://localhost:8080`)
+- Check `sheikha.serverUrl` setting (default: `http://localhost:8080`)
 - Verify firewall allows localhost:8080
 
 ### "Sharia guardrails blocked my request"
@@ -315,7 +315,7 @@ This is by design. Choose an alternative approach that aligns with Islamic princ
 git clone https://github.com/sheikha/sheikha-vscode-extension.git
 cd sheikha-vscode-extension
 npm install
-code --install-extension ./sheikha-copilot-1.0.0.vsix
+code --install-extension ./dist/sheikha.sheikha-1.0.6.vsix
 ```
 
 ### Debugging

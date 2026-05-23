@@ -1,5 +1,5 @@
 #!/bin/bash
-# Sheikha Copilot VS Code Extension - Build .vsix Package
+# Sheikha VS Code Extension - Build .vsix Package
 # ===========================================================
 # This script packages the VS Code extension into an installable .vsix file
 
@@ -18,7 +18,7 @@ BLUE='\033[0;34m'
 NC='\033[0m' # No Color
 
 echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
-echo -e "${BLUE}Sheikha Copilot VS Code Extension - Build .vsix Package${NC}"
+echo -e "${BLUE}Sheikha VS Code Extension - Build .vsix Package${NC}"
 echo -e "${BLUE}════════════════════════════════════════════════════════════${NC}"
 
 # Check prerequisites
@@ -34,9 +34,14 @@ if ! command -v node &> /dev/null; then
     exit 1
 fi
 
-if ! npm list -g vsce &> /dev/null; then
-    echo -e "${YELLOW}📦 Installing vsce (VS Code Extension packaging tool)...${NC}"
-    npm install -g vsce
+if command -v vsce &> /dev/null; then
+    VSCE_CMD=(vsce)
+elif npx --no-install vsce --version &> /dev/null; then
+    VSCE_CMD=(npx --no-install vsce)
+else
+    echo -e "${YELLOW}📦 Installing @vscode/vsce (VS Code Extension packaging tool)...${NC}"
+    npm install -g @vscode/vsce
+    VSCE_CMD=(vsce)
 fi
 
 echo -e "${GREEN}✅ Prerequisites satisfied${NC}"
@@ -74,7 +79,7 @@ cd "$EXTENSION_DIR"
 
 VSIX_FILE="$OUTPUT_DIR/${PUBLISHER}.${NAME}-${VERSION}.vsix"
 
-if vsce package --out "$VSIX_FILE" 2>&1; then
+if "${VSCE_CMD[@]}" package --no-dependencies --out "$VSIX_FILE" 2>&1; then
     echo -e "${GREEN}✅ Successfully created: $VSIX_FILE${NC}"
 else
     echo -e "${RED}❌ Failed to create .vsix package${NC}"
@@ -88,7 +93,7 @@ echo -e "${BLUE}📦 Package size: ${GREEN}$FILE_SIZE${NC}"
 # Create installation summary
 INSTALL_SUMMARY="$OUTPUT_DIR/INSTALL.txt"
 cat > "$INSTALL_SUMMARY" << EOF
-Sheikha Copilot Extension - Installation Summary
+Sheikha Extension - Installation Summary
 ================================================
 
 Extension: $NAME
@@ -117,7 +122,7 @@ Installation Methods:
 
 3. FROM VS CODE MARKETPLACE (Future)
    ─────────────────────────────────
-   Search for "Sheikha Copilot" in Extensions
+   Search for "Sheikha" in Extensions
 
 Troubleshooting:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
@@ -127,7 +132,7 @@ Issue: "Cannot find module" errors
 
 Issue: Extension doesn't activate
 → Check: VS Code version >= 1.85.0
-→ Open: outputPanel "Sheikha Copilot" for logs
+→ Open: outputPanel "Sheikha" for logs
 
 Issue: Commands not appearing
 → Reload VS Code (Ctrl+R)
@@ -139,7 +144,7 @@ First Steps After Installation:
 1. Reload VS Code (Ctrl+R)
 2. Verify in Extensions view (should show version $VERSION)
 3. Open Command Palette (Ctrl+Shift+P)
-4. Run: "Sheikha Copilot: Show Status"
+4. Run: "Sheikha: حالة النظام"
 5. Check if API is reachable (http://localhost:8080)
 6. Open chat with: Ctrl+Shift+I
 
@@ -147,10 +152,10 @@ Configuration:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 VS Code Settings (Ctrl+,):
-• sheikha-copilot.serverUrl → API endpoint
-• sheikha-copilot.defaultModel → AI model to use
-• sheikha-copilot.enableInlineCompletions → Toggle suggestions
-• sheikha-copilot.completionDelay → Delay before showing suggestions (ms)
+• sheikha.serverUrl → API endpoint
+• sheikha.defaultModel → AI model to use
+• sheikha.enableInlineCompletions → Toggle suggestions
+• sheikha.completionDelay → Delay before showing suggestions (ms)
 
 Created: $(date '+%Y-%m-%d %H:%M:%S')
 EOF
@@ -161,10 +166,10 @@ echo -e "\n${GREEN}✅ Installation guide created: $INSTALL_SUMMARY${NC}"
 TEST_SCRIPT="$OUTPUT_DIR/verify-extension.sh"
 cat > "$TEST_SCRIPT" << 'EOF'
 #!/bin/bash
-# Verify Sheikha Copilot Extension Installation
+# Verify Sheikha Extension Installation
 
 echo "════════════════════════════════════════════════"
-echo "Sheikha Copilot - Extension Verification"
+echo "Sheikha - Extension Verification"
 echo "════════════════════════════════════════════════"
 
 # Check if VS Code is installed
@@ -179,8 +184,8 @@ echo "✅ VS Code version: $VS_CODE_VERSION"
 # Check extension installation
 EXTENSIONS=$(code --list-extensions 2>/dev/null | grep -i sheikha || true)
 if [ -z "$EXTENSIONS" ]; then
-    echo "⚠️  Sheikha Copilot extension not currently installed"
-    echo "   Run: code --install-extension <dist/sheikha.sheikha-copilot-*.vsix>"
+    echo "⚠️  Sheikha extension not currently installed"
+    echo "   Run: code --install-extension <dist/sheikha.sheikha-*.vsix>"
 else
     echo "✅ Installed extensions:"
     echo "$EXTENSIONS" | sed 's/^/   /'
@@ -189,8 +194,8 @@ fi
 # Check API availability
 echo ""
 echo "Testing API connectivity..."
-API_STATUS=$(curl -s -m 3 http://localhost:8080/api/sheikha/copilot/status || echo "UNREACHABLE")
-if echo "$API_STATUS" | grep -q "Sheikha Copilot"; then
+API_STATUS=$(curl -s -m 3 http://localhost:8080/api/sheikha/extension/status || echo "UNREACHABLE")
+if echo "$API_STATUS" | grep -q "Sheikha"; then
     echo "✅ API is reachable"
     echo "   Status: $(echo $API_STATUS | jq -r '.data.status' 2>/dev/null || echo 'OK')"
 else
@@ -219,7 +224,7 @@ echo ""
 echo -e "Next steps:"
 echo -e "  1. ${GREEN}code --install-extension \"$VSIX_FILE\"${NC}"
 echo -e "  2. Reload VS Code (Ctrl+R)"
-echo -e "  3. Open Command Palette and run 'Sheikha Copilot: Show Status'"
+echo -e "  3. Open Command Palette and run 'Sheikha: حالة النظام'"
 echo ""
 echo -e "For details, see: ${YELLOW}$INSTALL_SUMMARY${NC}"
 echo ""
