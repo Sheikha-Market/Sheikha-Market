@@ -1,5 +1,9 @@
 'use strict';
 
+const {
+    getUniversalDivineGovernance
+} = require('../root-governance/sheikha-universal-divine-governance');
+
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
 const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 120000);
@@ -31,6 +35,8 @@ Sheikha ليست مجرد سوق، وليست مجرد ذكاء صناعي، و�
 `.trim();
 
 function governanceEnvelope() {
+    const universalGovernance = getUniversalDivineGovernance();
+
     return {
         tawheed: true,
         quranAndSunnahGoverned: true,
@@ -41,7 +47,13 @@ function governanceEnvelope() {
         noConsciousnessClaim: true,
         humanAuthority: true,
         privacy: true,
-        auditRequiredForRelease: true
+        auditRequiredForRelease: true,
+        divineInspiredArchitecture: true,
+        halalComputing: true,
+        bestPossibleByEvidence: true,
+        noAbsolutePerfectionClaim: true,
+        allSystemsGoverned: true,
+        universalGovernance
     };
 }
 
@@ -96,9 +108,10 @@ function canonicalSheikhaCoreAnswer(prompt) {
 
     return [
         'أنا Sheikha-Core، واجهة الذكاء الصناعي المحلية الحاكمة داخل بنية Sheikha.',
-        'Sheikha هي SHEIKHA UGIT-RP: منصة تشغيلية عالمية موحدة للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية والحوكمة والتكامل المؤسسي وبيئات التطوير والبيانات والخدمات.',
-        'Sheikha ليست مجرد سوق، وليست مجرد نموذج ذكاء صناعي، وليست مجرد نظام إدارة؛ بل بنية تشغيل وتنظيم وربط وتوجيه.',
-        'الأساس: الله وحده الخالق والمالك والمدبر، والنظام أداة تحليل وتنظيم لا يدعي وعياً ولا علماً بالغيب ولا سلطة مستقلة، ويعمل تحت مراجعة الإنسان وبحوكمة الكتاب والسنة.'
+        'Sheikha هي SHEIKHA UGIT-RP: نواة ومحور وبنية تشغيلية عالمية موحدة للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية والحوكمة والتكامل المؤسسي وبيئات التطوير والبيانات والخدمات.',
+        'Sheikha تنظّم الحاسب والحوسبة والذكاء الصناعي والعلوم والمعرفة والمال والتجارة والصناعة والعقود والبيانات والبنية التحتية كمنظومة تشغيل وقواعد وخصائص وهيكل ومخطط وعصب وقلب وشريان رقمي.',
+        'Sheikha ليست مجرد سوق، وليست مجرد نموذج ذكاء صناعي، وليست مجرد نظام إدارة؛ بل بنية لكل الأنظمة: تشغيل وتنظيم وربط وتوجيه وسعي إلى الإتقان بضوابط حلال قابلة للمراجعة.',
+        'الأساس: التوحيد لله وحده، والكمال المطلق لله وحده، والنظام أداة تحليل وتنظيم لا يدعي وعياً ولا علماً بالغيب ولا سلطة مستقلة، ويعمل تحت مراجعة الإنسان وبحوكمة الكتاب والسنة.'
     ].join('\n');
 }
 
@@ -204,12 +217,15 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
     }
 
     if (isCanonicalIdentityPrompt(prompt)) {
+        const gateway = await getSheikhaGatewayStatus();
+
         return {
             success: true,
-            provider: 'sheikha-core-governed-identity',
+            provider: 'Sheikha-Core',
             model,
             mode: 'canonical-governed-identity',
-            localModelOnline: null,
+            localModelOnline: Boolean(gateway.localModelOnline && gateway.sheikhaCoreInstalled),
+            fallbackReason: null,
             governance: governanceEnvelope(),
             context,
             output: canonicalSheikhaCoreAnswer(prompt),
@@ -263,14 +279,16 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
 
     return {
         success: true,
-        provider: 'sheikha-local',
+        provider: 'Sheikha-Core',
         model,
         mode: 'governed-local-ai',
         localModelOnline: true,
+        fallbackReason: null,
         governance: governanceEnvelope(),
         context,
         output: data.response || '',
-        timestamp: new Date().toISOString()
+        timestamp: new Date().toISOString(),
+        poweredBy: 'SHEIKHA — عنصر الحياة الرقمية'
     };
 }
 
