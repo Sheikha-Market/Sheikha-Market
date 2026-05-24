@@ -2,9 +2,9 @@
 
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
-const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 60000);
-const DEFAULT_NUM_CTX = Number(process.env.SHEIKHA_CORE_NUM_CTX || 4096);
-const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 128);
+const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 120000);
+const DEFAULT_NUM_CTX = Number(process.env.SHEIKHA_CORE_NUM_CTX || 2048);
+const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 64);
 const DEFAULT_KEEP_ALIVE = process.env.SHEIKHA_CORE_KEEP_ALIVE || '10m';
 const SHEIKHA_CORE_RUNTIME_PROMPT = process.env.SHEIKHA_CORE_RUNTIME_PROMPT ||
     'أنت Sheikha-Core. أجب مباشرة بالعربية عند الطلب، وباختصار وصدق.';
@@ -63,6 +63,12 @@ function isCanonicalIdentityPrompt(prompt) {
     return [
         'عرّف نفسك',
         'عرف نفسك',
+        'عرّف بنفسك',
+        'عرف بنفسك',
+        'قدّم نفسك',
+        'قدم نفسك',
+        'من أنت',
+        'من انت',
         'ما هي شيخة',
         'ما هي sheikha',
         'من هي شيخة',
