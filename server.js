@@ -22048,6 +22048,18 @@ try {
   console.error('⚠️ Sheikha Chat Fabric API mount failed:', err.message);
 }
 
+
+// SHEIKHA_CANONICAL_RUNTIME_ROUTE
+try {
+  app.use(
+    '/api/runtime-root/canonical-runtime-status',
+    require('./routes/runtime-root/canonical-runtime-status')
+  );
+  console.log('✅ Canonical Runtime Status API mounted');
+} catch (e) {
+  console.error('❌ Canonical Runtime Status mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
@@ -22401,26 +22413,4 @@ try {
   console.error('Sheikha system status API failed:', error.message);
 }
 
-// SHEIKHA_CANONICAL_RUNTIME_ROUTE
-try {
-  app.use(
-    '/api/runtime-root/canonical-runtime-status',
-    require('./routes/runtime-root/canonical-runtime-status')
-  );
 
-  console.log('✅ Canonical Runtime Status API mounted');
-} catch (e) {
-  console.error('❌ Canonical Runtime Status mount failed:', e.message);
-}
-
-// SHEIKHA_CANONICAL_RUNTIME_ROUTE
-try {
-  app.use(
-    '/api/runtime-root/canonical-runtime-status',
-    require('./routes/runtime-root/canonical-runtime-status')
-  );
-
-  console.log('✅ Canonical Runtime Status API mounted');
-} catch (e) {
-  console.error('❌ Canonical Runtime Status mount failed:', e.message);
-}
