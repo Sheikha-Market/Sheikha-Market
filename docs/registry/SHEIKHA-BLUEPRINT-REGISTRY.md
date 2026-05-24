@@ -43,3 +43,15 @@ Runtime loaders must ignore:
 - mirrors
 - nested repositories
 - archived dashboards
+
+## Canonical Runtime Loader
+- Module: `core/runtime/governance/sheikha-canonical-runtime-loader.js`
+- API: `GET /api/runtime-root/canonical-runtime/status`
+- API: `POST /api/runtime-root/canonical-runtime/evaluate-path`
+
+## Runtime Guarantees
+- duplicateRuntimeLoading: false
+- autoBlueprintRuntimeLoading: false
+- nestedRepoExecution: false
+- recursiveScannerRuntimeLoading: false
+- human review before any new runtime authority

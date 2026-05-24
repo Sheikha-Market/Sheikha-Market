@@ -1,49 +1,45 @@
 'use strict';
 
-const state = {
-  name: 'Sheikha Runtime Bus',
-  status: 'active',
-  mode: 'governed-runtime-message-bus',
-  channels: [
-    'runtime',
-    'ai',
-    'git',
-    'mcp',
-    'security',
-    'events',
-    'recovery',
-    'federation',
-    'synchronization',
-    'toolsets',
-    'read-write-publish',
-    'chat',
-    'dashboard',
-    'extension',
-    'canonical-runtime',
-    'continuous-learning',
-    'jdk'
-  ],
-  routing: {
-    runtimeBus: true,
-    neuralFabric: true,
-    eventFabric: true,
-    orchestrationEngine: true,
-    recoveryEngine: true,
-    federation: true,
-    synchronization: true,
-    canonicalRuntimeLoader: true,
-    unifiedControlSurface: true
-  },
-  governance: {
-    tawheed: true,
-    quranAndSunnahGoverned: true,
-    humanAuthority: true,
-    noFraud: true,
-    noRiba: true,
-    noHarm: true
+const EventEmitter = require('events');
+
+class SheikhaRuntimeBus extends EventEmitter {
+  constructor() {
+    super();
+
+    this.identity = {
+      runtime: 'Sheikha Canonical Runtime Bus',
+      mode: 'governed-deterministic-runtime',
+      canonical: true,
+      orchestration: true,
+      neuralFabric: true,
+      duplicateProtection: true
+    };
+
+    this.services = new Map();
   }
-};
 
-function status() { return state; }
+  register(name, config = {}) {
+    this.services.set(name, {
+      active: true,
+      timestamp: new Date().toISOString(),
+      ...config
+    });
 
-module.exports = { status };
+    this.emit('service:registered', {
+      name,
+      config
+    });
+
+    return true;
+  }
+
+  status() {
+    return {
+      success: true,
+      runtime: this.identity,
+      services: [...this.services.entries()]
+    };
+  }
+}
+
+module.exports = new SheikhaRuntimeBus();
