@@ -3,8 +3,21 @@
 
 const fs = require('fs');
 const path = require('path');
+const { execFileSync } = require('child_process');
 
-const root = process.cwd();
+function findRepoRoot() {
+  try {
+    return execFileSync('git', ['rev-parse', '--show-toplevel'], {
+      cwd: process.cwd(),
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).trim();
+  } catch {
+    return path.resolve(__dirname, '../..');
+  }
+}
+
+const root = findRepoRoot();
 
 const blocked = [
   'Sheikha-Market',
@@ -26,6 +39,14 @@ const allowed = [
   'server.js'
 ];
 
+const existingAllowed = allowed
+  .filter((p) => fs.existsSync(path.join(root, p)))
+  .map((p) => ({
+    type: 'canonical-runtime-path',
+    path: p,
+    action: 'allow-runtime-load'
+  }));
+
 const violations = blocked
   .filter((p) => fs.existsSync(path.join(root, p)))
   .map((p) => ({
@@ -41,6 +62,7 @@ const result = {
   canonicalRoot: root,
   allowedRuntimePaths: allowed,
   blockedRuntimePaths: blocked,
+  existingAllowedRuntimePaths: existingAllowed,
   violations,
   decision: violations.length
     ? 'runtime_allowed_only_from_canonical_paths'
@@ -48,8 +70,9 @@ const result = {
   timestamp: new Date().toISOString()
 };
 
-fs.mkdirSync('reports/registry', { recursive: true });
-const report = `reports/registry/blueprint-runtime-validation-${Date.now()}.json`;
-fs.writeFileSync(report, JSON.stringify(result, null, 2) + '\n');
+const reportDir = path.join(root, 'reports/registry');
+fs.mkdirSync(reportDir, { recursive: true });
+const report = path.join('reports/registry', `blueprint-runtime-validation-${Date.now()}.json`);
+fs.writeFileSync(path.join(root, report), JSON.stringify(result, null, 2) + '\n');
 
 console.log(JSON.stringify({ ...result, report }, null, 2));
