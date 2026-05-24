@@ -1,4 +1,4 @@
-# Sheikha Copilot — Usage Guide & Examples
+# Sheikha — Usage Guide & Examples
 
 **العربية** | [English](#english-version)
 
@@ -8,11 +8,11 @@
 
 ### البدء السريع
 
-بعد التثبيت، لديك 6 طرق لاستخدام Sheikha Copilot:
+بعد التثبيت، لديك 6 طرق لاستخدام Sheikha:
 
 | الميزة | الاختصار | الوصف |
 |--------|----------|-------|
-| **فتح المحادثة** | Ctrl+Shift+I | محادثة مباشرة مع Copilot |
+| **فتح المحادثة** | Ctrl+Shift+I | محادثة مباشرة مع Sheikha |
 | **إكمال سطري** | Ctrl+I | اقتراحات للكود أثناء الكتابة |
 | **Next Edit Suggestions** | Ctrl+Space | توقع التعديل التالي |
 | **Inline Chat** | Ctrl+Alt+I | تعديل الكود المختار |
@@ -30,7 +30,7 @@
    مع التعليقات بالعربية
    ```
 3. اضغط Enter
-4. Copilot سيرد مع الكود:
+4. Sheikha سيرد مع الكود:
    ```javascript
    /**
    * حساب مضروب العدد
@@ -52,7 +52,7 @@
 #### ميزات المحادثة:
 
 - **معالجة متعددة اللغات:** أسأل بالعربية، أجب بالعربية
-- **السياق:** Copilot يتذكر الأسئلة السابقة في نفس المحادثة
+- **السياق:** Sheikha يتذكر الأسئلة السابقة في نفس المحادثة
 - **Copy to Editor:** انقر على "نسخ" لإدراج الكود في الملف
 
 ---
@@ -100,7 +100,7 @@ function getData(id) {
    ```
    حول إلى async/await وأضف معالجة الأخطاء
    ```
-4. Copilot سيعيد الكود:
+4. Sheikha سيعيد الكود:
    ```javascript
    async function getData(id) {
      try {
@@ -130,12 +130,12 @@ class User {
     this.email = email;
   }
   
-  // الآن ستقترح Copilot ما تحتاجه بعده
+  // الآن ستقترح Sheikha ما تحتاجه بعده
 ```
 
 #### اضغط **Ctrl+Space** :
 
-Copilot يقترح:
+Sheikha يقترح:
 ```javascript
   validate() {
     if (!this.name || this.name.trim() === '') {
@@ -157,7 +157,7 @@ Copilot يقترح:
 
 #### الخطوات:
 
-1. اضغط **Ctrl+Shift+P** → "Sheikha Copilot: Start Agent"
+1. اضغط **Ctrl+Shift+P** → "Sheikha: Start Agent"
 2. صف المهمة:
    ```
    أريد إنشاء ملف database.js مع نموذج User:
@@ -209,7 +209,7 @@ Advanced: النماذج المدعومة: 4 | المدة المتوقعة: 45 �
 ```json
 // Settings.json
 {
-  "sheikha-copilot.defaultModel": "sheikha-copilot-agent"
+  "sheikha.defaultModel": "sheikha-agent"
 }
 ```
 
@@ -217,7 +217,7 @@ Advanced: النماذج المدعومة: 4 | المدة المتوقعة: 45 �
 
 ### مثال 7: استكشاف لغات مدعومة
 
-Sheikha Copilot يدعم 23 لغة برمجة:
+Sheikha يدعم 23 لغة برمجة:
 
 ```javascript
 // 1. JavaScript/TypeScript
@@ -249,7 +249,7 @@ SELECT SUM(amount) FROM transactions WHERE user_id = 1;
 
 #### تحرير اللغة:
 
-Copilot يكتشف اللغة تلقائيًا من امتداد الملف:
+Sheikha يكتشف اللغة تلقائيًا من امتداد الملف:
 - `.js` / `.ts` → JavaScript/TypeScript
 - `.py` → Python
 - `.java` → Java
@@ -355,12 +355,12 @@ function getUserById(id) {
 من **Ctrl+Shift+P**:
 
 ```
-> Sheikha Copilot: Open Chat
-> Sheikha Copilot: Trigger Completion
-> Sheikha Copilot: Start Agent
-> Sheikha Copilot: Show Status
-> Sheikha Copilot: Next Edit Suggestions
-> Sheikha Copilot: Inline Chat
+> Sheikha: Open Chat
+> Sheikha: Trigger Completion
+> Sheikha: Start Agent
+> Sheikha: Show Status
+> Sheikha: Next Edit Suggestions
+> Sheikha: Inline Chat
 ```
 
 ---
@@ -371,10 +371,10 @@ function getUserById(id) {
 
 ```json
 {
-  "sheikha-copilot.completionDelay": 500,      // زد التأخير
-  "sheikha-copilot.maxCompletions": 1,         // قلل عدد الاقتراحات
-  "sheikha-copilot.enableNES": false,          // عطّل التنبؤ
-  "sheikha-copilot.apiTimeout": 60000          // زد المهلة
+  "sheikha.completionDelay": 500,      // زد التأخير
+  "sheikha.maxCompletions": 1,         // قلل عدد الاقتراحات
+  "sheikha.enableNES": false,          // عطّل التنبؤ
+  "sheikha.apiTimeout": 60000          // زد المهلة
 }
 ```
 
@@ -384,11 +384,11 @@ function getUserById(id) {
 
 ### Quick Start
 
-After installation, you have 6 ways to use Sheikha Copilot:
+After installation, you have 6 ways to use Sheikha:
 
 | Feature | Shortcut | Description |
 |---------|----------|-------------|
-| **Open Chat** | Ctrl+Shift+I | Direct conversation with Copilot |
+| **Open Chat** | Ctrl+Shift+I | Direct conversation with Sheikha |
 | **Inline Completions** | Ctrl+I | Code suggestions while typing |
 | **Next Edit Suggestions** | Ctrl+Space | Predict next code edit |
 | **Inline Chat** | Ctrl+Alt+I | Edit selected code |
@@ -406,7 +406,7 @@ After installation, you have 6 ways to use Sheikha Copilot:
    with comments
    ```
 3. Press Enter
-4. Copilot responds with code:
+4. Sheikha responds with code:
    ```javascript
    /**
    * Calculate factorial of a number
@@ -499,7 +499,7 @@ class User {
     this.name = name;
     this.email = email;
   }
-  // Copilot predicts what comes next
+  // Sheikha predicts what comes next
 ```
 
 #### Press **Ctrl+Space** :
@@ -522,7 +522,7 @@ Get suggestion:
 
 #### Steps:
 
-1. Press **Ctrl+Shift+P** → "Sheikha Copilot: Start Agent"
+1. Press **Ctrl+Shift+P** → "Sheikha: Start Agent"
 2. Describe task:
    ```
    Create a database.js with User model:
@@ -570,7 +570,7 @@ Models: 4 | Estimated: 45s
 
 ```json
 {
-  "sheikha-copilot.defaultModel": "sheikha-copilot-agent"
+  "sheikha.defaultModel": "sheikha-agent"
 }
 ```
 
@@ -578,7 +578,7 @@ Models: 4 | Estimated: 45s
 
 ### Example 7: Supported Languages
 
-Sheikha Copilot supports 23 programming languages:
+Sheikha supports 23 programming languages:
 
 - JavaScript/TypeScript
 - Python
@@ -665,12 +665,12 @@ Write function → Select → **Ctrl+Alt+I** → "Add JSDoc comments"
 From **Ctrl+Shift+P**:
 
 ```
-> Sheikha Copilot: Open Chat
-> Sheikha Copilot: Trigger Completion
-> Sheikha Copilot: Start Agent
-> Sheikha Copilot: Show Status
-> Sheikha Copilot: Next Edit Suggestions
-> Sheikha Copilot: Inline Chat
+> Sheikha: Open Chat
+> Sheikha: Trigger Completion
+> Sheikha: Start Agent
+> Sheikha: Show Status
+> Sheikha: Next Edit Suggestions
+> Sheikha: Inline Chat
 ```
 
 ---
@@ -681,10 +681,10 @@ For slow connections:
 
 ```json
 {
-  "sheikha-copilot.completionDelay": 500,
-  "sheikha-copilot.maxCompletions": 1,
-  "sheikha-copilot.enableNES": false,
-  "sheikha-copilot.apiTimeout": 60000
+  "sheikha.completionDelay": 500,
+  "sheikha.maxCompletions": 1,
+  "sheikha.enableNES": false,
+  "sheikha.apiTimeout": 60000
 }
 ```
 

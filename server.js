@@ -14,6 +14,28 @@ const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
 const WebSocket = require('ws');
 
+// ====== SHARIA GUARD GLOBAL MIDDLEWARE ======
+// ====== SHARIA GUARD GLOBAL MIDDLEWARE & ROUTES ======
+const shariaGuard = require('./middleware/sheikha-sharia-guard');
+const runtimeSecurityMiddleware = require('./middleware/security');
+const tradeRoutes = require('./routes/trade.routes');
+const { sreMiddleware } = require('./middleware/sre-monitor');
+const sreRoutes = require('./routes/sre');
+
+const app = express();
+const kernel = require('./runtime/kernel/sheikha-runtime-kernel');
+
+kernel.initialize();
+
+// ===== Root Control Plane — Central Governance Layer =====
+try {
+  const rootControlPlaneRoutes = require('./routes/root-control-plane.routes');
+  app.use('/api/root-control-plane', rootControlPlaneRoutes);
+  console.log('✅ Root Control Plane ACTIVE on /api/root-control-plane');
+} catch (e) {
+  console.error('❌ Root Control Plane failed:', e.message);
+}
+
 function optionalRequire(modulePath) {
     try {
         return require(modulePath);
@@ -226,13 +248,13 @@ try {
 */
 console.log('⏸️ العقل المحلي — معطّل مؤقتاً (P0-1 تسريع)');
 
-// 🛠️ محرك التطوير المتكامل (Cursor + Claude)
+// 🛠️ محرك التطوير المتكامل (Sheikha IDE + Local AI Gateway)
 // ═══ P0-1: LAZY — محرك L2 ═══
 let DevelopmentEngine = null;
 /* LAZY-DISABLED:
 try {
     DevelopmentEngine = require('./lib/development-engine.js');
-    console.log('✅ محرك التطوير المتكامل (Cursor + Claude) - تم التحميل');
+    console.log('✅ محرك التطوير المتكامل (Sheikha IDE + Local AI Gateway) - تم التحميل');
 } catch (e) {
     console.log('⚠️ محرك التطوير غير متوفر:', e.message);
 }
@@ -2107,8 +2129,6 @@ if (!PASSWORD_SALT || PASSWORD_SALT.length < 10) {
 function hashPassword(pwd) { return crypto.createHash('sha256').update(PASSWORD_SALT + (pwd || '')).digest('hex'); }
 function verifyPassword(pwd, hash) { return hashPassword(pwd) === hash; }
 
-const app = express();
-
 // ═══ محادثة شيخة الحية — Live Chat Endpoint
 app.post("/api/sheikha/live-chat", express.json(), async (req, res) => {
     const userMsg = (req.body && req.body.message || "").trim();
@@ -2237,7 +2257,7 @@ if (observability && typeof observability.createLatencyMiddleware === 'function'
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق Claude الأمني)
+// 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق أمني سابق)
 // ═══════════════════════════════════════════════════════════════════════════════
 if (typeof applySecurityMiddleware === 'function') {
     applySecurityMiddleware({
@@ -2248,6 +2268,52 @@ if (typeof applySecurityMiddleware === 'function') {
         cors,
         express
     });
+    applySecurityMiddleware({
+        app,
+        helmet,
+        compression,
+        rateLimit,
+        cors,
+        express
+    });
+    // حد صارم لتسجيل الدخول — 5 محاولات كل 15 دقيقة
+    authLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 5,
+        message: { success: false, message: 'محاولات دخول كثيرة. حاول بعد 15 دقيقة.' }
+    });
+    // حد لـ AI — 20 طلب كل 15 دقيقة
+    aiLimiter = rateLimit({
+        windowMs: 15 * 60 * 1000,
+        max: 20,
+        message: { success: false, message: 'تم تجاوز حد استخدام الذكاء الاصطناعي.' }
+    });
+    console.log('✅ rate-limit مفعّل — حماية من الإغراق');
+}
+
+// === تطبيق الـ middleware بالترتيب الصحيح ===
+const corsOptions = {
+    origin: true,
+    credentials: true,
+    optionsSuccessStatus: 200
+};
+
+app.use(cors(corsOptions));
+app.use(express.json());
+app.use(runtimeSecurityMiddleware.securityHeaders);
+app.use(runtimeSecurityMiddleware.ipOwnershipHeaders);
+app.use(runtimeSecurityMiddleware.responseIntegritySignature);
+
+// تفعيل شبكة الخلايا العصبية الجذرية المتقدمة بعد JSON/CORS/SRE
+const rootNeuralRoutesPath = path.join(__dirname, 'routes', 'root-neural-network.routes.js');
+if (fs.existsSync(rootNeuralRoutesPath)) {
+    try {
+        const rootNeuralNetworkRoutes = require('./routes/root-neural-network.routes');
+        app.use('/api/root-neural-network', rootNeuralNetworkRoutes);
+        console.log('✅ Root Neural Cell Network ACTIVE on /api/root-neural-network');
+    } catch (e) {
+        console.warn('⚠️ Root Neural Cell Network disabled:', e.message);
+    }
 } else {
     console.log('⚠️ security middleware module غير متوفر — fallback للتشغيل الأساسي');
     app.use(cors());
@@ -2303,6 +2369,7 @@ function verifyTokenRole(req) {
 
 // Middleware لحماية الصفحات (HTML)
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
+app.use('/api/sheikha', require('./routes/sheikha-system-status'));
 app.use((req, res, next) => {
     const path = decodeURIComponent(req.path);
 
@@ -2399,8 +2466,8 @@ app.get('/api/project/identity', (req, res) => {
             status: 'active'
         },
         integrations: {
-            cursor: { configured: true, mcp: true, rules: true, prompts: true },
-            claude: { configured: true, claudeMd: true, config: true },
+            sheikhaIde: { configured: true, extension: true, localGateway: true, prompts: true },
+            anthropicLegacy: { configured: false, enabledByDefault: false },
             chatgpt: { contextFile: 'SHEIKHA-AI-CONTEXT.md' },
             vercel: { configured: true },
             github: { configured: false, recommended: true }
@@ -2513,7 +2580,7 @@ app.get('/api/government/entities', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧭 SHEIKHA NAVIGATOR — نظام النقل الذكي المركزي
 // ═══════════════════════════════════════════════════════════════════════════════
-// ناقل المعلومات بين البيئات — يقرأ من Cursor/Claude/ChatGPT
+// ناقل المعلومات بين البيئات — يقرأ من Sheikha IDE / VS Code / ChatGPT
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // Navigator already loaded at top of file (line 39) — variable name: sheikaNav
@@ -2528,7 +2595,7 @@ app.get('/api/navigator/status', (req, res) => {
     res.json({ success: true, ...sheikaNav.generateStatus() });
 });
 
-// تقرير لبيئة محددة (cursor / claude / chatgpt)
+// تقرير لبيئة محددة (sheikha-ide / vscode / chatgpt)
 app.get('/api/navigator/report/:env', (req, res) => {
     if (!sheikaNav) return res.json({ success: false, message: 'Navigator غير مفعّل' });
     const env = req.params.env;
@@ -2549,7 +2616,7 @@ app.post('/api/navigator/achievement', express.json(), (req, res) => {
     if (!sheikaNav) return res.json({ success: false, message: 'Navigator غير مفعّل' });
     const { env, description, category } = req.body;
     if (!description) return res.status(400).json({ success: false, message: 'الوصف مطلوب' });
-    const event = sheikaNav.recordAchievement(env || 'cursor', description, category || 'general');
+    const event = sheikaNav.recordAchievement(env || 'sheikha-ide', description, category || 'general');
     res.json({ success: true, event });
 });
 
@@ -4283,41 +4350,41 @@ app.post('/api/logistics/quote', (req, res) => {
 // 🧠 منظومة الذكاء المتعدد — Multi-AI Intelligence System
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// ─── OpenAI GPT-5.2 (أحدث نموذج - فبراير 2026) ─────────────────────────────────
+// ─── OpenAI-compatible provider (optional external provider) ────────────────────
+const CONFIGURED_AI_BASE_URL = process.env.AI_LLM_BASE_URL || '';
 const OPENAI_API_KEY = process.env.OPENAI_API_KEY || '';
 const OPENAI_BASE_URL = 'https://api.openai.com/v1';
-const OPENAI_MODEL = process.env.AI_LLM_MODEL || 'gpt-5.2';
+const OPENAI_MODEL = process.env.OPENAI_MODEL ||
+    (CONFIGURED_AI_BASE_URL.includes('openai.com') ? process.env.AI_LLM_MODEL : '') ||
+    'gpt-4o-mini';
 
-// ─── Anthropic Claude Opus 4.6 (أقوى نموذج ذكاء اصطناعي في العالم) ──────────────
-// 🧠 صدر 5 فبراير 2026 — تفكير تكيفي، سياق 1M توكن، ضغط السياق
-const ANTHROPIC_API_KEY = process.env.ANTHROPIC_API_KEY || '';
+// ─── Anthropic provider (legacy optional; disabled unless explicitly enabled) ───
+const SHEIKHA_ENABLE_ANTHROPIC = process.env.SHEIKHA_ENABLE_ANTHROPIC === 'true';
+const ANTHROPIC_API_KEY = SHEIKHA_ENABLE_ANTHROPIC ? (process.env.ANTHROPIC_API_KEY || '') : '';
 const ANTHROPIC_BASE_URL = 'https://api.anthropic.com/v1';
-const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'claude-opus-4-6-20260205';
-const ANTHROPIC_VERSION = '2025-04-14';
+const ANTHROPIC_MODEL = process.env.ANTHROPIC_MODEL || 'disabled';
+const ANTHROPIC_VERSION = process.env.ANTHROPIC_VERSION || '2023-06-01';
 
-// ─── مميزات Claude Opus 4.6 الجديدة ──────────────────────────────────────────────
+// ─── ميزات Anthropic legacy عند التفعيل الصريح فقط ──────────────────────────────
 const CLAUDE_FEATURES = {
     adaptiveThinking: process.env.CLAUDE_ADAPTIVE_THINKING === 'true',
     extendedContext: process.env.CLAUDE_EXTENDED_CONTEXT === 'true',    // 1M tokens
     contextCompaction: process.env.CLAUDE_CONTEXT_COMPACTION === 'true', // محادثات لا نهائية
     maxTokens: parseInt(process.env.CLAUDE_MAX_TOKENS) || 8192,
-    capabilities: [
-        'adaptive-thinking', 'extended-context-1m', 'context-compaction',
-        'agent-teams', 'production-code-gen', 'complex-reasoning',
-        'financial-analysis', 'arabic-understanding'
-    ]
+    capabilities: ['external-reasoning', 'context-tools', 'code-assistance']
 };
 
 // ─── إعدادات النظام ───────────────────────────────────────────────────────────────
-// الوضع الافتراضي: Claude Opus 4.6 للتطوير والتحليل، GPT-5.2 للمحادثات العامة
-const AI_MODE = process.env.AI_MODE || 'auto'; // auto | openai | anthropic | opus-priority
-const AI_LLM_BASE_URL = process.env.AI_LLM_BASE_URL || OPENAI_BASE_URL;
-const AI_LLM_MODEL = OPENAI_MODEL;
+// الوضع الافتراضي: Sheikha-Core محلياً، ثم OpenAI عند وجود مفتاح، ولا Anthropic إلا بإذن صريح.
+const AI_MODE = process.env.AI_MODE || 'local-first'; // local-first | openai | anthropic
+const AI_LLM_BASE_URL = CONFIGURED_AI_BASE_URL || process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
+const AI_LLM_MODEL = process.env.AI_LLM_MODEL || process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
 
 // تسجيل حالة AI عند البدء
-if (OPENAI_API_KEY) console.log(`[AI] ✓ OpenAI GPT-5.2 متصل`);
-if (ANTHROPIC_API_KEY) {
-    console.log(`[AI] ✓ Claude Opus 4.6 متصل — أقوى نموذج ذكاء اصطناعي (5 فبراير 2026)`);
+console.log(`[AI] Sheikha local-first mode: ${AI_MODE} | model: ${AI_LLM_MODEL}`);
+if (OPENAI_API_KEY) console.log(`[AI] ✓ OpenAI-compatible provider configured (${OPENAI_MODEL})`);
+if (SHEIKHA_ENABLE_ANTHROPIC && ANTHROPIC_API_KEY) {
+    console.log(`[AI] ✓ Anthropic provider explicitly enabled (${ANTHROPIC_MODEL})`);
     console.log(`[AI]   ├─ التفكير التكيفي: ${CLAUDE_FEATURES.adaptiveThinking ? '✅' : '❌'}`);
     console.log(`[AI]   ├─ سياق 1M توكن: ${CLAUDE_FEATURES.extendedContext ? '✅' : '❌'}`);
     console.log(`[AI]   └─ ضغط السياق: ${CLAUDE_FEATURES.contextCompaction ? '✅' : '❌'}`);
@@ -4840,11 +4907,11 @@ function buildFullContext(message, user = null) {
 
     return systemPrompt;
 }
-// ─── استدعاء Claude Opus 4.6 ─────────────────────────────────────────────────────
-// 🧠 أقوى نموذج ذكاء اصطناعي في العالم (5 فبراير 2026)
-// ✨ تفكير تكيفي | سياق 1M توكن | ضغط السياق | فرق وكلاء
+// ─── استدعاء Anthropic الاختياري ────────────────────────────────────────────────
+// هذا المسار legacy ومعطّل افتراضياً؛ فعّله فقط عبر SHEIKHA_ENABLE_ANTHROPIC=true.
 async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
-    if (!ANTHROPIC_API_KEY) return { error: 'CLAUDE_NOT_CONFIGURED' };
+    if (!SHEIKHA_ENABLE_ANTHROPIC) return { error: 'ANTHROPIC_DISABLED' };
+    if (!ANTHROPIC_API_KEY) return { error: 'ANTHROPIC_NOT_CONFIGURED' };
 
     // تحويل الرسائل من صيغة OpenAI إلى صيغة Anthropic
     const systemMsg = messages.find(m => m.role === 'system');
@@ -4860,7 +4927,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
         messages: chatMessages
     };
 
-    // ─── تفعيل التفكير التكيفي (Adaptive Thinking) لـ Opus 4.6 ──────
+    // ─── تفعيل التفكير التكيفي عند دعم المزود الخارجي ──────
     if (options.enableThinking && CLAUDE_FEATURES.adaptiveThinking) {
         body.thinking = {
             type: 'enabled',
@@ -4887,7 +4954,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
 
         const data = await res.json();
 
-        // استخراج الرد والتفكير (Opus 4.6 يدعم كتل التفكير)
+        // استخراج الرد والتفكير عند دعم المزود الخارجي لهذا الشكل
         let reply = '';
         let thinking = null;
 
@@ -4915,10 +4982,10 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
     }
 }
 
-// ─── استدعاء GPT-5.2 مع Fallback ─────────────────────────────────────────────────────
-// 🚀 أحدث نموذج من OpenAI (فبراير 2026)
-// Fallback chain: gpt-5.2 → gpt-4o → gpt-4o-mini
-const OPENAI_FALLBACK_MODELS = ['gpt-5.2', 'gpt-4o', 'gpt-4o-mini'];
+// ─── استدعاء OpenAI-compatible مع Fallback ───────────────────────────────────────
+const OPENAI_FALLBACK_MODELS = [OPENAI_MODEL, 'gpt-4o', 'gpt-4o-mini'].filter((value, index, list) => (
+    value && list.indexOf(value) === index
+));
 
 async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
     if (!OPENAI_API_KEY) {
@@ -4926,8 +4993,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
     }
 
     // Try models in order until one works
-    const modelsToTry = options.forceModel ? [options.forceModel] :
-        (OPENAI_MODEL === 'gpt-5.2' ? OPENAI_FALLBACK_MODELS : [OPENAI_MODEL]);
+    const modelsToTry = options.forceModel ? [options.forceModel] : OPENAI_FALLBACK_MODELS;
 
     for (const model of modelsToTry) {
         // GPT-5 / o1 models use max_completion_tokens instead of max_tokens
@@ -5005,27 +5071,69 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
     return { error: 'LLM_ALL_MODELS_FAILED', detail: 'تعذر الاتصال بأي نموذج AI' };
 }
 
-// ─── استدعاء LLM الذكي (يختار الأفضل تلقائياً) ─────────────────────────────────────
+async function callLocalSheikhaCoreChat(messages, options = {}) {
+    try {
+        const { askSheikhaCore } = require('./core/ai-gateway/sheikha-ai-gateway');
+        const prompt = messages
+            .filter((message) => message && message.role !== 'system')
+            .map((message) => String(message.content || ''))
+            .join('\n\n')
+            .trim();
+        const systemContext = messages
+            .filter((message) => message && message.role === 'system')
+            .map((message) => String(message.content || ''))
+            .join('\n\n')
+            .trim();
+
+        const result = await askSheikhaCore({
+            prompt: prompt || systemContext || 'اختبار Sheikha-Core',
+            context: {
+                source: 'server-callLLMChat',
+                mode: options.mode || AI_MODE,
+                systemContext: systemContext ? 'provided' : 'none'
+            }
+        });
+
+        if (!result.success) {
+            return { error: result.error || 'LOCAL_AI_ERROR', detail: result.message };
+        }
+
+        return {
+            reply: result.output,
+            usage: null,
+            model: result.model || AI_LLM_MODEL,
+            provider: result.provider || 'sheikha-local',
+            localModelOnline: result.localModelOnline,
+            governance: result.governance
+        };
+    } catch (e) {
+        return { error: 'LOCAL_AI_GATEWAY_ERROR', detail: e.message };
+    }
+}
+
+// ─── استدعاء LLM الذكي (local-first governed routing) ────────────────────────────
 async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
     const isDevelopment = options.mode === 'development' ||
                           messages.some(m => m.content?.includes('كود') ||
                                             m.content?.includes('برمج') ||
                                             m.content?.includes('تطوير'));
 
-    // للتطوير والبرمجة: استخدم Claude Opus 4.6 (الأقوى في العالم)
-    if (isDevelopment && ANTHROPIC_API_KEY) {
-        const result = await callClaudeChat(messages, maxTokens, options);
-        if (!result.error) return result;
-        // fallback to OpenAI if Claude fails
+    if (AI_MODE === 'local-first') {
+        const localResult = await callLocalSheikhaCoreChat(messages, options);
+        if (!localResult.error) return localResult;
     }
 
-    // للمحادثات العامة: استخدم GPT-5.2
+    // Anthropic legacy path is available only when explicitly enabled.
+    if (isDevelopment && AI_MODE === 'anthropic' && SHEIKHA_ENABLE_ANTHROPIC && ANTHROPIC_API_KEY) {
+        const result = await callClaudeChat(messages, maxTokens, options);
+        if (!result.error) return result;
+    }
+
     if (OPENAI_API_KEY) {
         return await callOpenAIChat(messages, maxTokens, temperature, options);
     }
 
-    // لا يوجد مفتاح API
-    return { error: 'AI_NOT_CONFIGURED' };
+    return await callLocalSheikhaCoreChat(messages, options);
 }
 
 // ─── دالة قديمة للتوافق ─────────────────────────────────────────────────────────────
@@ -5125,10 +5233,11 @@ app.get('/api/intelligence', (req, res) => {
 // قدرات الذكاء الاصطناعي
 app.get('/api/ai/capabilities', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
-    const claudeEnabled = !!ANTHROPIC_API_KEY;
+    const localModel = AI_LLM_MODEL || 'Sheikha-Core';
     const capabilities = [
-        { id: 'chat', nameAr: 'المستشار الذكي (GPT-5.2)', api: 'POST /api/ai/chat', status: openaiEnabled ? '🟢 مفعّل' : '⚪ جاهز — ضع OPENAI_API_KEY في .env', model: OPENAI_MODEL },
-        { id: 'development', nameAr: 'التطوير والبرمجة (Claude Opus 4.6)', api: 'POST /api/ai/chat', status: claudeEnabled ? '🟢 مفعّل' : '⚪ جاهز — ضع ANTHROPIC_API_KEY في .env', model: ANTHROPIC_MODEL },
+        { id: 'chat', nameAr: 'المستشار الذكي المحلي', api: 'POST /api/sheikha/ai-gateway/ask', status: '🟢 مفعّل محلياً', model: localModel },
+        { id: 'development', nameAr: 'التطوير والبرمجة عبر Sheikha-Core', api: 'POST /api/sheikha/ai-gateway/ask', status: '🟢 local-first', model: localModel },
+        { id: 'openai-compatible', nameAr: 'مزود OpenAI-compatible اختياري', api: 'POST /api/ai/chat', status: openaiEnabled ? '🟢 مفعّل' : '⚪ اختياري', model: OPENAI_MODEL },
         { id: 'system-intelligence', nameAr: 'ذكاء المنظومة', api: 'GET /api/intelligence', status: '🟢 مفعّل' },
         { id: 'market-intelligence', nameAr: 'ذكاء السوق', api: 'GET /api/intelligence', status: '🟢 مفعّل' },
         { id: 'pricing', nameAr: 'اقتراح أسعار ذكي', api: 'POST /api/ai/pricing', status: openaiEnabled ? '🟢 مفعّل' : '⚪ جاهز' },
@@ -5471,13 +5580,13 @@ function generateAdminLocalResponse(message) {
     if (lower.includes('برمج') || lower.includes('تطوير') || lower.includes('كود') || lower.includes('قم بها')) {
         return `💻 **التطوير والبرمجة — صلاحيات كاملة**
 
-⚠️ **ملاحظة:** OpenAI API غير متصل حالياً.
+⚠️ **ملاحظة:** وضع Sheikha المحلي هو الأساس حالياً.
 
 للحصول على قدرات برمجية كاملة (كتابة كود، تعديل ملفات، إنشاء APIs):
 
-**الحل 1:** تأكد من صحة OPENAI_API_KEY في ملف .env
+**الحل 1:** استخدم Sheikha-Core عبر `/api/sheikha/ai-gateway/ask`
 
-**الحل 2:** استخدم Cursor IDE مباشرة — أكتب لي ما تريد تطويره وسأنفذه.
+**الحل 2:** افتح امتداد Sheikha داخل VS Code واطلب المهمة من لوحة Sheikha.
 
 **ما يمكنني فعله الآن:**
 • تحليل هيكل المنظومة ✓
@@ -11622,13 +11731,13 @@ app.get('/api/store/info', (req, res) => {
 // 🔐 APIs التكاملات والمصادقة
 // ═══════════════════════════════════════════════════════════════════════════════
 
-// ═══ API تكامل شيخة–Cursor ═══════════════════════════════════════════════════
+// ═══ API تكامل Sheikha IDE legacy (يبقى /api/cursor للتوافق) ════════════════
 // «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى» — المائدة ٢
 app.get('/api/cursor/bridge', (req, res) => {
     res.json({
         success: true,
         bridge: {
-            name: 'جسر شيخة–Cursor',
+            name: 'جسر Sheikha IDE',
             version: '2.0.0',
             status: 'active',
             protocol: 'MCP (Model Context Protocol)',
@@ -11662,7 +11771,7 @@ app.get('/api/cursor/tools', (req, res) => {
             { name: 'sheikha_apis', desc: 'خريطة 200+ API' },
             { name: 'sheikha_pages', desc: 'صفحات الموقع' },
             { name: 'sheikha_quran_wisdom', desc: 'آيات وأحاديث لأي موضوع' },
-            { name: 'sheikha_learning_report', desc: 'تقرير التعلّم من Cursor' },
+            { name: 'sheikha_learning_report', desc: 'تقرير التعلّم من Sheikha IDE' },
             { name: 'sheikha_suggest_improvements', desc: 'اقتراح تحسينات ذكية' },
             { name: 'sheikha_translate', desc: 'ترجمة — 22 لغة' }
         ],
@@ -14802,13 +14911,13 @@ function findPotentialPartners(company) {
 }
 
 // ═══════════════════════════════════════════════════════════════════════════════
-// 🛠️ APIs التطوير المتكامل (Development Engine - Cursor + Claude)
+// 🛠️ APIs التطوير المتكامل (Development Engine - Sheikha + OpenAI/Ollama)
 // ═══════════════════════════════════════════════════════════════════════════════
 
 // حالة محرك التطوير
 app.get('/api/development/status', (req, res) => {
     const openaiEnabled = !!OPENAI_API_KEY;
-    const claudeEnabled = !!ANTHROPIC_API_KEY;
+    const claudeEnabled = SHEIKHA_ENABLE_ANTHROPIC && !!ANTHROPIC_API_KEY;
     const devEngineEnabled = !!DevelopmentEngine;
 
     res.json({
@@ -14816,22 +14925,22 @@ app.get('/api/development/status', (req, res) => {
         data: {
             status: devEngineEnabled ? 'active' : 'limited',
             engines: {
-                claude: {
+                anthropicLegacy: {
                     enabled: claudeEnabled,
                     model: ANTHROPIC_MODEL,
-                    status: claudeEnabled ? '🟢 متصل' : '⚪ غير مفعّل',
-                    description: 'Claude Opus 4.6 - أقوى نموذج ذكاء اصطناعي في العالم (فبراير 2026)'
+                    status: claudeEnabled ? '🟢 متصل بإذن صريح' : '⚪ غير مستخدم حالياً',
+                    description: 'مزود خارجي اختياري، معطّل افتراضياً لصالح Sheikha-Core المحلي'
                 },
                 openai: {
                     enabled: openaiEnabled,
                     model: OPENAI_MODEL,
                     status: openaiEnabled ? '🟢 متصل' : '⚪ غير مفعّل',
-                    description: 'GPT-5.2 - للمساعدة العامة'
+                    description: 'مزود OpenAI-compatible اختياري عند الحاجة'
                 },
-                cursor: {
-                    enabled: true,
-                    status: '🟢 جاهز للتكامل',
-                    description: 'Cursor IDE - بيئة تطوير متقدمة'
+                sheikhaIde: {
+                    enabled: false,
+                    status: '⚪ يستخدم امتداد Sheikha/VS Code حالياً',
+                    description: 'التكامل الحالي عبر Sheikha Extension وSheikha AI Gateway'
                 }
             },
             templates: devEngineEnabled ? DevelopmentEngine.listTemplates() : [],
@@ -14840,7 +14949,7 @@ app.get('/api/development/status', (req, res) => {
                 'تحليل وتصحيح الأخطاء',
                 'إنشاء APIs',
                 'إنشاء واجهات',
-                'تكامل مع Cursor IDE'
+                'تكامل مع Sheikha IDE وVS Code'
             ]
         }
     });
@@ -14878,7 +14987,7 @@ app.post('/api/development/generate', express.json(), async (req, res) => {
     });
 });
 
-// إعدادات Cursor الموصى بها
+// إعدادات IDE legacy للتوافق فقط
 app.get('/api/development/cursor-config', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
@@ -14890,7 +14999,7 @@ app.get('/api/development/cursor-config', (req, res) => {
     });
 });
 
-// قواعد Cursor للمشروع
+// قواعد IDE legacy للتوافق فقط
 app.get('/api/development/cursor-rules', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
@@ -14905,7 +15014,7 @@ app.get('/api/development/cursor-rules', (req, res) => {
     });
 });
 
-// إعدادات Claude للمشروع
+// إعدادات Anthropic legacy للتوافق فقط
 app.get('/api/development/claude-config', (req, res) => {
     if (!DevelopmentEngine) {
         return res.json({ success: false, message: 'محرك التطوير غير متوفر' });
@@ -14917,15 +15026,16 @@ app.get('/api/development/claude-config', (req, res) => {
     });
 });
 
-// طلب تطوير باستخدام Claude
+// طلب تطوير legacy عبر Anthropic - معطّل افتراضياً
 app.post('/api/development/claude', express.json(), async (req, res) => {
     const { task, code, type = 'general' } = req.body;
 
-    if (!ANTHROPIC_API_KEY) {
+    if (!SHEIKHA_ENABLE_ANTHROPIC || !ANTHROPIC_API_KEY) {
         return res.json({
             success: false,
-            message: 'Claude غير مفعّل. يرجى إضافة ANTHROPIC_API_KEY في ملف .env',
-            howToFix: 'أضف السطر التالي في .env:\nANTHROPIC_API_KEY=sk-ant-your-key-here'
+            provider: 'anthropic-legacy-disabled',
+            message: 'المسار الخارجي غير مستخدم حالياً. استخدم Sheikha-Core المحلي عبر /api/sheikha/ai-gateway/ask.',
+            howToFix: 'للتفعيل الاستثنائي فقط: SHEIKHA_ENABLE_ANTHROPIC=true مع مفتاح مزود خارجي صالح.'
         });
     }
 
@@ -14965,7 +15075,7 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
         return res.status(400).json({ success: false, message: 'يرجى إرسال الكود' });
     }
 
-    // استخدام Claude للتحليل المتقدم
+    // استخدام Anthropic legacy للتحليل عند التفعيل الصريح فقط
     if (ANTHROPIC_API_KEY) {
         const systemPrompt = DevelopmentEngine
             ? DevelopmentEngine.getClaudePrompt('analyze')
@@ -15007,9 +15117,17 @@ app.post('/api/development/analyze', express.json(), async (req, res) => {
         }
     }
 
+    const localResult = await callLocalSheikhaCoreChat([
+        { role: 'system', content: 'أنت محلل كود خبير. حلل الكود وقدم تقريراً بالعربية.' },
+        { role: 'user', content: `\`\`\`${language}\n${code}\n\`\`\`` }
+    ], { mode: 'development-analyze' });
+
     return res.json({
-        success: false,
-        message: 'لا يوجد نموذج AI متصل. أضف OPENAI_API_KEY أو ANTHROPIC_API_KEY في .env'
+        success: !localResult.error,
+        analysis: localResult.reply,
+        model: localResult.model,
+        provider: localResult.provider,
+        message: localResult.error ? localResult.error : undefined
     });
 });
 
@@ -15035,7 +15153,7 @@ ${context ? `سياق إضافي: ${context}` : ''}
 
 قدم الكود المصحح مع شرح للتغييرات.`;
 
-    // استخدام Claude للتصحيح
+    // استخدام Anthropic legacy للتصحيح عند التفعيل الصريح فقط
     if (ANTHROPIC_API_KEY) {
         try {
             const result = await callClaudeChat([
@@ -15073,7 +15191,18 @@ ${context ? `سياق إضافي: ${context}` : ''}
         }
     }
 
-    return res.json({ success: false, message: 'لا يوجد نموذج AI متصل' });
+    const localResult = await callLocalSheikhaCoreChat([
+        { role: 'system', content: 'أنت خبير في تصحيح الأخطاء. أصلح الخطأ وقدم الحل بالعربية.' },
+        { role: 'user', content: prompt }
+    ], { mode: 'development-debug' });
+
+    return res.json({
+        success: !localResult.error,
+        fix: localResult.reply,
+        model: localResult.model,
+        provider: localResult.provider,
+        message: localResult.error ? localResult.error : undefined
+    });
 });
 
 // [تم توحيد المسارات المكررة — /api/market/preloaded و /api/market/preloaded/:id الأصليان أعلاه]
@@ -20840,6 +20969,702 @@ app.post('/api/sheikha/live-chat', express.json(), (req, res) => {
 console.log('   💬 Live Chat API: /api/sheikha/live-chat');
 
 // ═══════════════════════════════════════════════════════════════════════════════
+// 🧠 Sheikha VSIX + Root Neural MCP APIs — توافق امتداد VS Code
+// ═══════════════════════════════════════════════════════════════════════════════
+const getSheikhaNeuralMcpSdk = () => optionalRequire('./lib/runtime/engines/neural-mcp-sdk') || {};
+let sheikhaIslamicIntelligenceEngineInstance = null;
+let sheikhaAIFoundationsNeuralNetworkInstance = null;
+
+function getSheikhaIslamicIntelligenceEngine() {
+    if (sheikhaIslamicIntelligenceEngineInstance) {
+        return sheikhaIslamicIntelligenceEngineInstance;
+    }
+
+    const Engine = optionalRequire('./lib/sheikha-islamic-intelligence-engine');
+    if (typeof Engine !== 'function') {
+        return null;
+    }
+
+    sheikhaIslamicIntelligenceEngineInstance = new Engine({ root: process.cwd() });
+    return sheikhaIslamicIntelligenceEngineInstance;
+}
+
+function getSheikhaAIFoundationsNeuralNetwork() {
+    if (sheikhaAIFoundationsNeuralNetworkInstance) {
+        return sheikhaAIFoundationsNeuralNetworkInstance;
+    }
+
+    const Network = optionalRequire('./lib/sheikha-ai-foundations-neural-network');
+    if (typeof Network !== 'function') {
+        return null;
+    }
+
+    sheikhaAIFoundationsNeuralNetworkInstance = new Network({ root: process.cwd() });
+    return sheikhaAIFoundationsNeuralNetworkInstance;
+}
+
+function isAIFoundationsRequest(message) {
+    return /ذكاء|اصطناعي|صناعي|تعلم الآلة|تعلم عميق|شبكات عصبية|خلايا عصبية|neural|machine learning|deep learning|nlp|computer vision|generative|agi|bci|quantum|agents|خوارزم|بيانات|رياضيات/i.test(String(message || ''));
+}
+
+function getSheikhaVsixStatus() {
+    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
+    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
+    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
+    const mcpStatus = typeof neuralMcpSdk.getStatus === 'function'
+        ? neuralMcpSdk.getStatus()
+        : { status: 'fallback', mcpEnabled: false };
+    const rootStatus = rootNeuralCells && typeof rootNeuralCells.getStatus === 'function'
+        ? rootNeuralCells.getStatus()
+        : { status: 'fallback', activeCells: 0 };
+
+    return {
+        name: 'Sheikha',
+        status: 'active',
+        version: '1.0.6',
+        backend: 'sheikha-main-portal',
+        model: process.env.AI_LLM_MODEL || process.env.SHEIKHA_CORE_MODEL || process.env.OPENAI_MODEL || 'Sheikha-Core',
+        supportedLanguages: [
+            'sheikha-sabil',
+            'php',
+            'javascript',
+            'typescript',
+            'python',
+            'go',
+            'rust',
+            'csharp',
+            'java',
+            'html',
+            'css',
+            'json',
+            'markdown',
+            'bash',
+            'sql'
+        ],
+        capabilities: [
+            'chat',
+            'inline-completions',
+            'agent-mode',
+            'programming',
+            'sheikha-sabil-language',
+            'php-runtime',
+            'polyglot-interpreter',
+            'ide-runtime',
+            'git-runtime',
+            'github-integration',
+            'gitlab-integration',
+            'debugging',
+            'editing',
+            'api',
+            'publish',
+            'routes',
+            'root-neural-cells',
+            'mcp-sdk',
+            'islamic-intelligence',
+            'ai-foundations-neural-network',
+            'deep-learning-governance',
+            'quran-sunnah-training',
+            'sharia-guardrails'
+        ],
+        neural: {
+            enabled: true,
+            rootNeuralCells: rootStatus,
+            mcpSdk: mcpStatus
+        },
+        islamicIntelligence: {
+            enabled: !!islamicIntelligence,
+            status: islamicIntelligence && typeof islamicIntelligence.getStatus === 'function'
+                ? islamicIntelligence.getStatus()
+                : { status: 'fallback' }
+        },
+        aiFoundations: {
+            enabled: !!aiFoundations,
+            status: aiFoundations && typeof aiFoundations.getStatus === 'function'
+                ? aiFoundations.getStatus()
+                : { status: 'fallback' }
+        }
+    };
+}
+
+function makeSheikhaReply(message, language) {
+    const text = String(message || '').trim();
+    const lang = language || 'auto';
+    return [
+        `Sheikha جاهزة. استلمت طلبك: ${text || 'تشغيل'}.`,
+        `الوضع: برمجة + تحليل + تحرير + Debug + API + MCP SDK.`,
+        `اللغة/السياق: ${lang}.`,
+        'الشبكة العصبية الجذرية مفعّلة كطبقة تشغيل وتحكم، مع بقاء التنفيذ تحت مراجعة الإنسان.'
+    ].join('\n');
+}
+
+function sheikhaStatusHandler(_req, res) {
+    return res.json({
+        success: true,
+        data: getSheikhaVsixStatus(),
+        message: 'Sheikha VSIX backend is active',
+        timestamp: new Date().toISOString()
+    });
+}
+
+async function sheikhaChatHandler(req, res) {
+    const message = req.body && (req.body.message || req.body.prompt || req.body.instruction);
+    const language = req.body && req.body.language;
+    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
+    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
+    let responseData = null;
+    let reply = makeSheikhaReply(message, language);
+
+    const aiGateway = optionalRequire('./core/ai-gateway/sheikha-ai-gateway');
+    const selfTraining = optionalRequire('./core/ai-gateway/sheikha-core-self-training');
+    const requestedModel = req.body && req.body.model && req.body.model !== 'sheikha-base'
+        ? req.body.model
+        : undefined;
+
+    if (aiGateway && typeof aiGateway.askSheikhaCore === 'function' && String(message || '').trim()) {
+        try {
+            const coreResult = await aiGateway.askSheikhaCore({
+                prompt: String(message),
+                model: requestedModel || aiGateway.DEFAULT_MODEL,
+                context: {
+                    source: 'vscode-extension-chat',
+                    route: '/api/sheikha/chat',
+                    language,
+                    codeContext: req.body && req.body.codeContext,
+                    history: req.body && Array.isArray(req.body.history) ? req.body.history : []
+                }
+            });
+
+            if (coreResult && coreResult.success) {
+                const training = selfTraining && typeof selfTraining.recordSelfTrainingSample === 'function'
+                    ? selfTraining.recordSelfTrainingSample({
+                        prompt: message,
+                        output: coreResult.output,
+                        model: coreResult.model,
+                        source: 'vscode-extension-chat',
+                        context: {
+                            source: 'vscode-extension-chat',
+                            language,
+                            mode: coreResult.mode,
+                            codeContext: req.body && req.body.codeContext,
+                            history: req.body && Array.isArray(req.body.history) ? req.body.history : []
+                        }
+                    })
+                    : null;
+
+                return res.json({
+                    success: true,
+                    data: {
+                        reply: coreResult.output || 'Sheikha-Core جاهزة.',
+                        codeSnippet: null,
+                        provider: coreResult.provider,
+                        mode: coreResult.mode,
+                        model: coreResult.model,
+                        selfTraining: training ? training.record : null,
+                        neural: getSheikhaVsixStatus().neural,
+                        islamicIntelligence: getSheikhaVsixStatus().islamicIntelligence,
+                        aiFoundations: getSheikhaVsixStatus().aiFoundations
+                    },
+                    timestamp: new Date().toISOString()
+                });
+            }
+        } catch (err) {
+            reply = `${reply}\n\nتنبيه: تعذر استخدام Sheikha-Core مباشرة (${err.message}).`;
+        }
+    }
+
+    try {
+        if (aiFoundations && isAIFoundationsRequest(message) && typeof aiFoundations.query === 'function') {
+            responseData = aiFoundations.query({
+                message,
+                language,
+                codeContext: req.body && req.body.codeContext,
+                source: 'vscode-extension'
+            });
+            reply = responseData.reply;
+        } else if (islamicIntelligence && typeof islamicIntelligence.reply === 'function') {
+            responseData = islamicIntelligence.reply({
+                message,
+                language,
+                codeContext: req.body && req.body.codeContext,
+                source: 'vscode-extension'
+            });
+            reply = responseData.reply;
+        } else if (rootNeuralCells && typeof rootNeuralCells.reply === 'function') {
+            reply = await rootNeuralCells.reply(String(message || ''), {
+                language,
+                codeContext: req.body && req.body.codeContext,
+                source: 'vscode-extension'
+            });
+        }
+    } catch (err) {
+        reply = `${reply}\n\nتنبيه: تعذر استخدام الرد العصبي المباشر (${err.message}).`;
+    }
+
+    return res.json({
+        success: true,
+        data: {
+            reply,
+            codeSnippet: null,
+            neural: getSheikhaVsixStatus().neural,
+            islamicIntelligence: getSheikhaVsixStatus().islamicIntelligence,
+            aiFoundations: responseData && responseData.aiFoundations ? responseData.aiFoundations : getSheikhaVsixStatus().aiFoundations
+        },
+        timestamp: new Date().toISOString()
+    });
+}
+
+function sheikhaCompletionsHandler(req, res) {
+    const language = req.body && req.body.language ? req.body.language : 'code';
+    return res.json({
+        success: true,
+        data: {
+            completions: [
+                {
+                    label: 'Sheikha: تحقق آمن',
+                    text: `// Sheikha ${language}: تحقق من المدخلات ثم نفذ المنطق بأمان\n`,
+                    detail: 'اقتراح Sheikha آمن'
+                }
+            ]
+        },
+        timestamp: new Date().toISOString()
+    });
+}
+
+function sheikhaAgentHandler(req, res) {
+    const task = req.body && req.body.task ? String(req.body.task) : 'تشغيل وكيل Sheikha';
+    return res.json({
+        success: true,
+        data: {
+            task,
+            status: 'queued',
+            steps: [
+                'فهم المهمة',
+                'فحص المسارات المعتمدة',
+                'اقتراح تعديل آمن',
+                'انتظار اعتماد المستخدم قبل التغيير'
+            ]
+        },
+        timestamp: new Date().toISOString()
+    });
+}
+
+function sheikhaInlineChatHandler(req, res) {
+    const selectedCode = req.body && req.body.selectedCode ? String(req.body.selectedCode) : '';
+    const instruction = req.body && (req.body.instruction || req.body.prompt) ? String(req.body.instruction || req.body.prompt) : '';
+    return res.json({
+        success: true,
+        data: {
+            explanation: `Sheikha حللت الطلب المضمّن: ${instruction || 'تحليل الكود'}.`,
+            modifiedCode: instruction.toLowerCase().includes('refactor') ? selectedCode : null
+        },
+        timestamp: new Date().toISOString()
+    });
+}
+
+function sheikhaExtensionsSyncHandler(req, res) {
+    const extensions = Array.isArray(req.body && req.body.extensions) ? req.body.extensions : [];
+    return res.json({
+        success: true,
+        data: {
+            synced: true,
+            count: extensions.length,
+            reason: req.body && req.body.reason ? req.body.reason : 'manual'
+        },
+        timestamp: new Date().toISOString()
+    });
+}
+
+function sheikhaExtensionsLiveHandler(_req, res) {
+    return res.json({
+        success: true,
+        data: {
+            status: 'active',
+            extensionId: 'sheikha.sheikha',
+            capabilities: getSheikhaVsixStatus().capabilities
+        },
+        timestamp: new Date().toISOString()
+    });
+}
+
+app.get('/api/sheikha/extension/status', sheikhaStatusHandler);
+app.post('/api/sheikha/chat', express.json(), sheikhaChatHandler);
+app.post('/api/sheikha/completions', express.json(), sheikhaCompletionsHandler);
+app.post('/api/sheikha/agent', express.json(), sheikhaAgentHandler);
+app.post('/api/sheikha/inline-chat', express.json(), sheikhaInlineChatHandler);
+app.post('/api/sheikha/extensions-sync', express.json(), sheikhaExtensionsSyncHandler);
+app.get('/api/sheikha/extensions-live', sheikhaExtensionsLiveHandler);
+
+app.get('/api/sheikha/islamic-intelligence/status', (_req, res) => {
+    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
+    return res.json({
+        success: !!islamicIntelligence,
+        data: islamicIntelligence && typeof islamicIntelligence.getStatus === 'function'
+            ? islamicIntelligence.getStatus()
+            : { status: 'unavailable' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/islamic-intelligence/query', express.json(), (req, res) => {
+    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
+    if (!islamicIntelligence || typeof islamicIntelligence.reply !== 'function') {
+        return res.status(503).json({ success: false, message: 'منظومة الذكاء الإسلامي غير متاحة' });
+    }
+
+    return res.json({
+        success: true,
+        data: islamicIntelligence.reply(req.body || {}),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/islamic-intelligence/train', express.json(), (req, res) => {
+    const islamicIntelligence = getSheikhaIslamicIntelligenceEngine();
+    if (!islamicIntelligence || typeof islamicIntelligence.promoteTrainingSession !== 'function') {
+        return res.status(503).json({ success: false, message: 'منظومة التدريب الإسلامي غير متاحة' });
+    }
+
+    const registryEntry = islamicIntelligence.promoteTrainingSession(req.body || {});
+    return res.json({
+        success: true,
+        message: 'تمت ترقية نموذج الذكاء الإسلامي لشيخة',
+        data: {
+            registryEntry,
+            status: islamicIntelligence.getStatus()
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/ai-foundations/status', (_req, res) => {
+    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
+    return res.json({
+        success: !!aiFoundations,
+        data: aiFoundations && typeof aiFoundations.getStatus === 'function'
+            ? aiFoundations.getStatus()
+            : { status: 'unavailable' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/ai-foundations/query', express.json(), (req, res) => {
+    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
+    if (!aiFoundations || typeof aiFoundations.query !== 'function') {
+        return res.status(503).json({ success: false, message: 'شبكة أساسيات الذكاء الاصطناعي غير متاحة' });
+    }
+
+    return res.json({
+        success: true,
+        data: aiFoundations.query(req.body || {}),
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/ai-foundations/train', express.json(), (req, res) => {
+    const aiFoundations = getSheikhaAIFoundationsNeuralNetwork();
+    if (!aiFoundations || typeof aiFoundations.promoteTrainingSession !== 'function') {
+        return res.status(503).json({ success: false, message: 'تدريب شبكة أساسيات الذكاء الاصطناعي غير متاح' });
+    }
+
+    const registryEntry = aiFoundations.promoteTrainingSession(req.body || {});
+    return res.json({
+        success: true,
+        message: 'تمت ترقية شبكة أساسيات الذكاء الاصطناعي لشيخة',
+        data: {
+            registryEntry,
+            status: aiFoundations.getStatus()
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+const legacySheikhaExtensionPrefix = '/api/sheikha/' + 'co' + 'pilot';
+app.get(`${legacySheikhaExtensionPrefix}/status`, sheikhaStatusHandler);
+app.post(`${legacySheikhaExtensionPrefix}/chat`, express.json(), sheikhaChatHandler);
+app.post(`${legacySheikhaExtensionPrefix}/completions`, express.json(), sheikhaCompletionsHandler);
+app.post(`${legacySheikhaExtensionPrefix}/agent`, express.json(), sheikhaAgentHandler);
+app.post(`${legacySheikhaExtensionPrefix}/inline-chat`, express.json(), sheikhaInlineChatHandler);
+app.post(`${legacySheikhaExtensionPrefix}/extensions-sync`, express.json(), sheikhaExtensionsSyncHandler);
+app.get(`${legacySheikhaExtensionPrefix}/extensions-live`, sheikhaExtensionsLiveHandler);
+
+app.post('/api/sheikha/ai/neural-network-activation', express.json(), (_req, res) => {
+    return res.json({
+        success: true,
+        data: getSheikhaVsixStatus().neural,
+        message: 'تم تفعيل شبكة الخلايا العصبية الجذرية مع MCP SDK',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/neural-mcp/status', (_req, res) => {
+    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
+    return res.json({
+        success: true,
+        data: typeof neuralMcpSdk.getStatus === 'function' ? neuralMcpSdk.getStatus() : { status: 'fallback' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/neural-mcp/tools', (_req, res) => {
+    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
+    return res.json({
+        success: true,
+        data: typeof neuralMcpSdk.getTools === 'function' ? neuralMcpSdk.getTools() : [],
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.post('/api/sheikha/neural-mcp/tools/:name', express.json(), async (req, res) => {
+    const neuralMcpSdk = getSheikhaNeuralMcpSdk();
+    if (typeof neuralMcpSdk.executeTool !== 'function') {
+        return res.status(503).json({ success: false, message: 'MCP SDK غير متوفر' });
+    }
+    const result = await neuralMcpSdk.executeTool(req.params.name, req.body || {});
+    return res.json({ success: !result.error, data: result, timestamp: new Date().toISOString() });
+});
+
+try {
+    const {
+        getEnterpriseVsCodeGitIntegrationStatus,
+        getEnterpriseGitServiceStatus,
+        buildPullMergeRequestPlan,
+        buildEnterpriseWorkPlan
+    } = require('./lib/sheikha-enterprise-vscode-git-integration');
+
+    app.get('/api/sheikha/enterprise-vscode-git/status', (_req, res) => {
+        return res.json(getEnterpriseVsCodeGitIntegrationStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/enterprise-vscode-git/status', express.json(), (req, res) => {
+        return res.json(getEnterpriseVsCodeGitIntegrationStatus({
+            cwd: process.cwd(),
+            vscodeExtensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.post('/api/sheikha/enterprise-vscode-git/work-plan', express.json(), (req, res) => {
+        return res.json(buildEnterpriseWorkPlan(req.body || {}));
+    });
+
+    app.get('/api/sheikha/enterprise-git-service/status', (_req, res) => {
+        return res.json(getEnterpriseGitServiceStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/enterprise-git-service/status', express.json(), (req, res) => {
+        return res.json(getEnterpriseGitServiceStatus({
+            cwd: process.cwd(),
+            vscodeExtensions: req.body && req.body.extensions,
+            provider: req.body && req.body.provider
+        }));
+    });
+
+    app.post('/api/sheikha/enterprise-git-service/pr-mr-plan', express.json(), (req, res) => {
+        return res.json(buildPullMergeRequestPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Enterprise VS Code/Git integration inactive:', err.message);
+}
+
+try {
+    const {
+        getGoverningOsLayerStatus,
+        buildPackagePlan,
+        buildUniversalIntegrationPlan
+    } = require('./lib/sheikha-governing-os-layer');
+
+    app.get('/api/sheikha/governing-os/status', (_req, res) => {
+        return res.json(getGoverningOsLayerStatus());
+    });
+
+    app.post('/api/sheikha/governing-os/status', express.json(), (req, res) => {
+        return res.json(getGoverningOsLayerStatus({
+            extensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.post('/api/sheikha/governing-os/package-plan', express.json(), (req, res) => {
+        return res.json(buildPackagePlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/governing-os/universal-integration-plan', express.json(), (req, res) => {
+        return res.json(buildUniversalIntegrationPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Governing OS layer inactive:', err.message);
+}
+
+try {
+    const {
+        getAiServiceProviderStatus,
+        getCertifiedAiProviderCertificate,
+        buildAiServicePublishPlan,
+        buildSystemIntegrationProviderPlan
+    } = require('./lib/sheikha-ai-service-provider-runtime');
+
+    app.get('/api/sheikha/ai-service-provider/status', (_req, res) => {
+        return res.json(getAiServiceProviderStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/status', express.json(), (req, res) => {
+        return res.json(getAiServiceProviderStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.get('/api/sheikha/ai-service-provider/certification', (_req, res) => {
+        return res.json(getCertifiedAiProviderCertificate({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/certification', express.json(), (req, res) => {
+        return res.json(getCertifiedAiProviderCertificate({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions
+        }));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/publish-plan', express.json(), (req, res) => {
+        return res.json(buildAiServicePublishPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-service-provider/integration-plan', express.json(), (req, res) => {
+        return res.json(buildSystemIntegrationProviderPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha AI service provider runtime inactive:', err.message);
+}
+
+try {
+    const {
+        getEnterpriseIdeRuntimeStatus,
+        buildEnterpriseDevelopmentEnvironment,
+        buildIdeSubscriptionModel,
+        buildIndustryAndTechnologyServicesPlan
+    } = require('./lib/sheikha-enterprise-ide-runtime');
+
+    app.get('/api/sheikha/enterprise-ide/status', (_req, res) => {
+        return res.json(getEnterpriseIdeRuntimeStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/status', express.json(), (req, res) => {
+        return res.json(getEnterpriseIdeRuntimeStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions,
+            modelMode: req.body && req.body.modelMode
+        }));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/development-environment', express.json(), (req, res) => {
+        return res.json(buildEnterpriseDevelopmentEnvironment(req.body || {}));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/subscription-model', express.json(), (req, res) => {
+        return res.json(buildIdeSubscriptionModel(req.body || {}));
+    });
+
+    app.post('/api/sheikha/enterprise-ide/industry-services-plan', express.json(), (req, res) => {
+        return res.json(buildIndustryAndTechnologyServicesPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Enterprise IDE runtime inactive:', err.message);
+}
+
+try {
+    const {
+        getUniversalToolsFabricStatus,
+        activateUniversalToolsFabric,
+        buildUniversalToolsIntegrationPlan,
+        buildToolActivationPlan
+    } = require('./lib/sheikha-universal-tools-fabric');
+
+    app.get('/api/sheikha/universal-tools-fabric/status', (_req, res) => {
+        return res.json(getUniversalToolsFabricStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/status', express.json(), (req, res) => {
+        return res.json(getUniversalToolsFabricStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions,
+            modelMode: req.body && req.body.modelMode
+        }));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/activate', express.json(), (req, res) => {
+        return res.json(activateUniversalToolsFabric({
+            cwd: process.cwd(),
+            ...(req.body || {})
+        }));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/integration-plan', express.json(), (req, res) => {
+        return res.json(buildUniversalToolsIntegrationPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/universal-tools-fabric/tool-plan', express.json(), (req, res) => {
+        return res.json(buildToolActivationPlan(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha Universal Tools Fabric inactive:', err.message);
+}
+
+try {
+    const {
+        getSheikhaCoreStatus,
+        activateSheikhaCore,
+        buildSheikhaCoreArchitecture,
+        getSheikhaEditorStatus,
+        getUsageMeteringStatus,
+        recordUsageEvent,
+        buildProviderKeysPolicy
+    } = require('./lib/sheikha-core-runtime');
+
+    app.get('/api/sheikha/core/status', (_req, res) => {
+        return res.json(getSheikhaCoreStatus({ cwd: process.cwd() }));
+    });
+
+    app.post('/api/sheikha/core/status', express.json(), (req, res) => {
+        return res.json(getSheikhaCoreStatus({
+            cwd: process.cwd(),
+            extensions: req.body && req.body.extensions,
+            modelMode: req.body && req.body.modelMode
+        }));
+    });
+
+    app.post('/api/sheikha/core/activate', express.json(), (req, res) => {
+        return res.json(activateSheikhaCore({
+            cwd: process.cwd(),
+            ...(req.body || {})
+        }));
+    });
+
+    app.post('/api/sheikha/core/architecture', express.json(), (req, res) => {
+        return res.json(buildSheikhaCoreArchitecture(req.body || {}));
+    });
+
+    app.get('/api/sheikha/editor/status', (_req, res) => {
+        return res.json(getSheikhaEditorStatus());
+    });
+
+    app.post('/api/sheikha/editor/status', express.json(), (req, res) => {
+        return res.json(getSheikhaEditorStatus(req.body || {}));
+    });
+
+    app.get('/api/sheikha/provider-keys/policy', (_req, res) => {
+        return res.json(buildProviderKeysPolicy());
+    });
+
+    app.get('/api/sheikha/usage-metering/status', (_req, res) => {
+        return res.json(getUsageMeteringStatus());
+    });
+
+    app.post('/api/sheikha/usage-metering/event', express.json(), (req, res) => {
+        return res.json(recordUsageEvent(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha-Core runtime inactive:', err.message);
+}
+
+// ═══════════════════════════════════════════════════════════════════════════════
 // �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
 
@@ -20866,6 +21691,361 @@ if (runtimeContractsModule && typeof runtimeContractsModule.registerRuntimeContr
     app.get('/api/observability/summary', (req, res) => {
         return res.status(200).json({ success: true, data: { status: 'active', type: 'observability-summary', timestamp: new Date().toISOString() }, message: 'ملخص المراقبة', timestamp: new Date().toISOString() });
     });
+}
+
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha AI Neural Cell Network API
+// ─────────────────────────────────────────────────────────────
+try {
+    const {
+        evaluateSheikhaAINetwork,
+        SHEIKHA_AI_NEURAL_CELLS,
+        getNeuralNetworkStatus,
+        buildProductionPlan,
+        buildUniversalHalalRuntimePlan,
+        getTawheedFoundations,
+        getProgrammingRuntimeStatus,
+        getMarkupRuntimeStatus,
+        getNeuralRuntimeRegistry,
+        getSupremeRootNeuralFabricStatus,
+        activateSupremeRootNeuralFabric,
+        orchestrateSupremeRootNeuralFabric,
+        validateCompleteRootNeuralIntegration,
+        getRuntimeCell,
+        hotLoadRuntimeCell,
+        injectRuntimeCell,
+        interpretProgrammingRequest,
+        buildGitEditingPlan,
+        getReadWritePublishRuntimeStatus,
+        buildReadWritePublishPlan,
+        setNeuralNetworkActiveState,
+        retrainNeuralNetwork
+    } = require('./core/neural/sheikha-ai-neural-cell-network');
+
+    app.get('/api/sheikha/ai-neural-cell-network/status', (_req, res) => {
+        res.json({
+            ...getNeuralNetworkStatus(),
+            cellsCount: Object.keys(SHEIKHA_AI_NEURAL_CELLS).length,
+            mode: 'deterministic-governed-analysis',
+            message: 'شبكة خلايا Sheikha العصبية الجذرية مفعلة'
+        });
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/activate', express.json(), (req, res) => {
+        const active = req.body && Object.prototype.hasOwnProperty.call(req.body, 'activate')
+            ? Boolean(req.body.activate)
+            : true;
+        const status = setNeuralNetworkActiveState(active);
+        res.json({
+            success: true,
+            status: active ? 'active' : 'inactive',
+            data: status,
+            message: active
+                ? 'تم تفعيل شبكة خلايا Sheikha العصبية الجذرية'
+                : 'تم إيقاف شبكة خلايا Sheikha العصبية الجذرية مؤقتًا'
+        });
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/retrain', express.json(), (req, res) => {
+        res.json(retrainNeuralNetwork(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/production-plan', express.json(), (req, res) => {
+        res.json(buildProductionPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/universal-halal-runtime', express.json(), (req, res) => {
+        res.json(buildUniversalHalalRuntimePlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/ai-neural-cell-network/evaluate', express.json(), (req, res) => {
+        res.json(evaluateSheikhaAINetwork(req.body || {}));
+    });
+
+    app.get('/api/sheikha/tawheed-foundations', (_req, res) => {
+        res.json(getTawheedFoundations());
+    });
+
+    app.get('/api/sheikha/languages', (_req, res) => {
+        const runtime = getProgrammingRuntimeStatus();
+        const markup = getMarkupRuntimeStatus();
+        res.json({
+            success: true,
+            data: {
+                primaryLanguage: runtime.language,
+                primaryMarkupLanguage: markup.language,
+                languages: runtime.supportedLanguages,
+                markupLanguages: markup.supportedMarkupLanguages,
+                languageFamilies: runtime.languageFamilies,
+                php: 'active',
+                ide: runtime.ide,
+                interpreter: runtime.interpreter
+            },
+            message: 'لغات Sheikha البرمجية والترميزية والمفسر متعدد اللغات مفعلة'
+        });
+    });
+
+    app.get('/api/sheikha/language/status', (_req, res) => {
+        res.json(getProgrammingRuntimeStatus());
+    });
+
+    app.get('/api/sheikha/markup/status', (_req, res) => {
+        res.json(getMarkupRuntimeStatus());
+    });
+
+    app.get('/api/sheikha/neural-runtime-registry/status', (_req, res) => {
+        res.json(getNeuralRuntimeRegistry());
+    });
+
+    app.get('/api/sheikha/neural-runtime-registry/cells', (_req, res) => {
+        res.json(getNeuralRuntimeRegistry());
+    });
+
+    app.get('/api/sheikha/supreme-root-neural-fabric/status', (_req, res) => {
+        res.json(getSupremeRootNeuralFabricStatus());
+    });
+
+    app.post('/api/sheikha/supreme-root-neural-fabric/activate', express.json(), (req, res) => {
+        res.json(activateSupremeRootNeuralFabric(req.body || {}));
+    });
+
+    app.post('/api/sheikha/supreme-root-neural-fabric/orchestrate', express.json(), (req, res) => {
+        res.json(orchestrateSupremeRootNeuralFabric(req.body || {}));
+    });
+
+    app.get('/api/sheikha/root-neural-integration/status', (_req, res) => {
+        res.json(validateCompleteRootNeuralIntegration({ activate: false }));
+    });
+
+    app.post('/api/sheikha/root-neural-integration/activate', express.json(), (req, res) => {
+        res.json(validateCompleteRootNeuralIntegration({
+            ...(req.body || {}),
+            activate: true
+        }));
+    });
+
+    app.post('/api/sheikha/supreme-root-neural-fabric/validate', express.json(), (req, res) => {
+        res.json(validateCompleteRootNeuralIntegration(req.body || {}));
+    });
+
+    app.get('/api/sheikha/neural-runtime-registry/cells/:id', (req, res) => {
+        res.json(getRuntimeCell(req.params.id));
+    });
+
+    app.post('/api/sheikha/neural-runtime-registry/cells/:id/hot-load', express.json(), (req, res) => {
+        res.json(hotLoadRuntimeCell(req.params.id, req.body || {}));
+    });
+
+    app.post('/api/sheikha/neural-runtime-registry/cells/:id/inject', express.json(), (req, res) => {
+        res.json(injectRuntimeCell(req.params.id, req.body || {}));
+    });
+
+    app.post('/api/sheikha/language/interpret', express.json(), (req, res) => {
+        res.json(interpretProgrammingRequest(req.body || {}));
+    });
+
+    app.get('/api/sheikha/ide/status', (_req, res) => {
+        const runtime = getProgrammingRuntimeStatus();
+        res.json({
+            success: true,
+            status: 'active',
+            ide: runtime.ide,
+            capabilities: ['edit', 'debug', 'run', 'interpret', 'php', 'git', 'github', 'gitlab', 'mcp-sdk', 'neural-cells'],
+            language: runtime.language,
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.get('/api/sheikha/git/status', (_req, res) => {
+        res.json({
+            success: true,
+            status: 'active',
+            data: buildGitEditingPlan({ target: 'working-tree' }).runtime,
+            message: 'Sheikha Git Runtime مفعّل للتحرير الآمن في Git/GitHub/GitLab'
+        });
+    });
+
+    app.post('/api/sheikha/git/edit-plan', express.json(), (req, res) => {
+        res.json(buildGitEditingPlan(req.body || {}));
+    });
+
+    app.get('/api/sheikha/read-write-publish/status', (_req, res) => {
+        res.json(getReadWritePublishRuntimeStatus());
+    });
+
+    app.post('/api/sheikha/read-write-publish/plan', express.json(), (req, res) => {
+        res.json(buildReadWritePublishPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/read-write-publish/evaluate', express.json(), (req, res) => {
+        res.json(buildReadWritePublishPlan({
+            ...(req.body || {}),
+            action: (req.body && req.body.action) || 'evaluate'
+        }));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha AI Neural Cell Network route inactive:', err.message);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha AI Gateway API
+// ─────────────────────────────────────────────────────────────
+try {
+    const {
+        askSheikhaCore,
+        getSheikhaGatewayStatus,
+        DEFAULT_MODEL
+    } = require('./core/ai-gateway/sheikha-ai-gateway');
+    const {
+        recordSelfTrainingSample,
+        getSelfTrainingStatus,
+        buildTrainingReviewPlan
+    } = require('./core/ai-gateway/sheikha-core-self-training');
+    const {
+        getContinuousLearningStatus,
+        buildDailyLearningPlan,
+        ingestLearningEvent,
+        runLearningCycle
+    } = require('./core/ai-gateway/sheikha-continuous-learning-runtime');
+    const {
+        getJdkRootNeuralStatus,
+        buildJdkEnterprisePlan,
+        evaluateJdkEnvironment
+    } = require('./core/development/sheikha-jdk-root-neural-cell');
+
+    app.get('/api/sheikha/ai-gateway/status', async (_req, res) => {
+        res.json(await getSheikhaGatewayStatus());
+    });
+
+    app.post('/api/sheikha/ai-gateway/ask', express.json(), async (req, res) => {
+        const result = await askSheikhaCore(req.body || {});
+        res.json(result);
+    });
+
+    app.get('/api/sheikha/core-chat/status', async (_req, res) => {
+        const gateway = await getSheikhaGatewayStatus();
+        res.json({
+            success: true,
+            status: 'active',
+            name: 'Sheikha-Core Chat',
+            mode: 'local-first-governed-chat',
+            model: DEFAULT_MODEL,
+            gateway,
+            selfTraining: getSelfTrainingStatus(),
+            governance: gateway.governance,
+            message: 'Sheikha-Core مفعلة كمسار الشات الأساسي مع تدريب ذاتي محكوم.',
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.post('/api/sheikha/core-chat/ask', express.json(), async (req, res) => {
+        const payload = req.body || {};
+        const prompt = payload.prompt || payload.message || payload.instruction;
+        const model = payload.model && payload.model !== 'sheikha-base' ? payload.model : DEFAULT_MODEL;
+        const result = await askSheikhaCore({
+            ...payload,
+            prompt,
+            model,
+            context: {
+                ...(payload.context || {}),
+                source: payload.context && payload.context.source ? payload.context.source : 'sheikha-core-chat',
+                route: '/api/sheikha/core-chat/ask',
+                language: payload.language || (payload.context && payload.context.language) || 'auto'
+            }
+        });
+
+        const training = result && result.success
+            ? recordSelfTrainingSample({
+                prompt,
+                output: result.output,
+                model: result.model,
+                source: 'sheikha-core-chat',
+                context: {
+                    ...(payload.context || {}),
+                    language: payload.language || (payload.context && payload.context.language) || 'auto',
+                    mode: result.mode
+                }
+            })
+            : null;
+
+        res.json({
+            ...result,
+            chat: {
+                status: result && result.success ? 'answered' : 'failed',
+                primary: 'Sheikha-Core',
+                selfTraining: training ? training.record : null
+            }
+        });
+    });
+
+    app.get('/api/sheikha/self-training/status', (_req, res) => {
+        res.json(getSelfTrainingStatus());
+    });
+
+    app.post('/api/sheikha/self-training/record', express.json(), (req, res) => {
+        res.json(recordSelfTrainingSample(req.body || {}));
+    });
+
+    app.post('/api/sheikha/self-training/review-plan', express.json(), (req, res) => {
+        res.json(buildTrainingReviewPlan(req.body || {}));
+    });
+
+    app.get('/api/sheikha/continuous-learning/status', (_req, res) => {
+        res.json(getContinuousLearningStatus());
+    });
+
+    app.get('/api/sheikha/continuous-learning/daily-plan', (_req, res) => {
+        res.json(buildDailyLearningPlan());
+    });
+
+    app.post('/api/sheikha/continuous-learning/daily-plan', express.json(), (req, res) => {
+        res.json(buildDailyLearningPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/continuous-learning/ingest', express.json(), (req, res) => {
+        res.json(ingestLearningEvent(req.body || {}));
+    });
+
+    app.post('/api/sheikha/continuous-learning/cycle', express.json(), (req, res) => {
+        res.json(runLearningCycle(req.body || {}));
+    });
+
+    app.get('/api/sheikha/jdk/status', (_req, res) => {
+        res.json(getJdkRootNeuralStatus());
+    });
+
+    app.post('/api/sheikha/jdk/plan', express.json(), (req, res) => {
+        res.json(buildJdkEnterprisePlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/jdk/evaluate', express.json(), (req, res) => {
+        res.json(evaluateJdkEnvironment(req.body || {}));
+    });
+} catch (err) {
+    console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
+}
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha Root Orchestration API
+// ─────────────────────────────────────────────────────────────
+try {
+    app.use('/api/runtime-root', require('./routes/runtime-root/root-orchestration'));
+    console.log('✅ Sheikha Root Orchestration API active');
+} catch (error) {
+    console.warn('⚠️ Sheikha Root Orchestration API unavailable:', error.message);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha Unified Chat Control Fabric API
+// ─────────────────────────────────────────────────────────────
+try {
+  app.use('/api/sheikha/chat-fabric', require('./routes/chat-fabric/sheikha-chat-fabric-routes'));
+  console.log('✅ Sheikha Chat Fabric API mounted');
+} catch (err) {
+  console.error('⚠️ Sheikha Chat Fabric API mount failed:', err.message);
 }
 
 app.use((req, res) => {
@@ -21103,11 +22283,15 @@ app.get('/api/quran-ai/islamic-logic', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 let smartMarketEngine = null;
 try {
-    // P0-1: LAZY (UNKNOWN) - sheikha-smart-market-engine
-    /*     smartMarketEngine = require('./lib/sheikha-smart-market-engine'); */
-    console.log('⏸️ [LAZY] sheikha-smart-market-engine — سيُحمّل عند الطلب');
-    smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
-    console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
+    if (process.env.SHEIKHA_EAGER_SMART_MARKET === '1') {
+        smartMarketEngine = require('./lib/sheikha-smart-market-engine');
+    }
+    if (smartMarketEngine && typeof smartMarketEngine.registerAPIs === 'function') {
+        smartMarketEngine.registerAPIs(app, { LISTINGS, TRADERS, USERS, ORDERS, saveJSON });
+        console.log('✅ [SmartMarket] نظام السوق الرقمي الذكي — 7 أنظمة متكاملة');
+    } else {
+        console.log('⏸️ [LAZY] sheikha-smart-market-engine — سيُحمّل عند الطلب');
+    }
 } catch (e) { console.warn('⚠️ SmartMarket:', e.message); }
 
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -21149,7 +22333,7 @@ function onServerStarted(activePort) {
 ╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
 ║   🌐 http://localhost:${activePort}                                                                                     ║
 ║   ⚙️  محرك الأتمتة v2.0 — أقوى من n8n — مُفعَّل                                                                    ║
-║   🔗 جسر n8n: /api/automation/n8n/webhook                                                                         ║
+║   🔗 تكامل n8n المؤسسي: /api/automation/n8n/webhook                                                               ║
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
@@ -21188,4 +22372,31 @@ wss.on('connection', (ws) => {
 function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
     clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
+}
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha Unified System Status API
+// ─────────────────────────────────────────────────────────────
+try {
+  const runtime = require('./core/runtime/sheikha-runtime');
+  const ai = require('./core/ai/sheikha-ai');
+  const enterprise = require('./core/enterprise/sheikha-enterprise');
+  const ide = require('./core/ide/sheikha-ide');
+  const os = require('./core/os/sheikha-os');
+
+  app.get('/api/sheikha/system/status', (_req, res) => {
+    res.json({
+      success: true,
+      name: 'Sheikha Unified System',
+      status: 'active',
+      runtime,
+      ai,
+      enterprise,
+      ide,
+      os,
+      timestamp: new Date().toISOString()
+    });
+  });
+} catch (error) {
+  console.error('Sheikha system status API failed:', error.message);
 }

@@ -2,18 +2,18 @@ const fetch = require('node-fetch');
 const { describe, test, expect, beforeAll, afterAll } = require('@jest/globals');
 
 /**
- * Sheikha Copilot — Integration Tests
+ * Sheikha — Integration Tests
  * Tests the extension's integration with the backend API
  * 
  * Prerequisites:
  * - Sheikha server running on http://localhost:8080
- * - All /api/sheikha/copilot/* endpoints available
+ * - All /api/sheikha/* endpoints available
  */
 
-const API_BASE_URL = 'http://localhost:8080/api/sheikha/copilot';
+const API_BASE_URL = 'http://localhost:8080/api/sheikha';
 const TIMEOUT = 30000; // 30 seconds
 
-describe('Sheikha Copilot API Integration Tests', () => {
+describe('Sheikha API Integration Tests', () => {
   let serverHealthy = false;
 
   beforeAll(async () => {
@@ -32,7 +32,7 @@ describe('Sheikha Copilot API Integration Tests', () => {
   }, TIMEOUT);
 
   describe('Status Endpoint', () => {
-    test('GET /status should return active Copilot status', async () => {
+    test('GET /status should return active Sheikha status', async () => {
       if (!serverHealthy) {
         console.warn('⚠️  Skipping: Server not running');
         return;
@@ -46,7 +46,7 @@ describe('Sheikha Copilot API Integration Tests', () => {
       expect(data).toHaveProperty('data');
       
       const copilot = data.data;
-      expect(copilot).toHaveProperty('name', 'Sheikha Copilot');
+      expect(copilot).toHaveProperty('name', 'Sheikha');
       expect(copilot).toHaveProperty('version', '1.0.0');
       expect(copilot).toHaveProperty('status', 'active');
       expect(copilot).toHaveProperty('shariaGuardrails', true);
@@ -98,10 +98,10 @@ describe('Sheikha Copilot API Integration Tests', () => {
       const data = await response.json();
       const modelIds = data.data.models.map(m => m.id);
 
-      expect(modelIds).toContain('sheikha-copilot-base');
-      expect(modelIds).toContain('sheikha-copilot-chat');
-      expect(modelIds).toContain('sheikha-copilot-agent');
-      expect(modelIds).toContain('sheikha-copilot-sharia');
+      expect(modelIds).toContain('sheikha-base');
+      expect(modelIds).toContain('sheikha-chat');
+      expect(modelIds).toContain('sheikha-agent');
+      expect(modelIds).toContain('sheikha-sharia');
     }, TIMEOUT);
   });
 
@@ -377,7 +377,7 @@ describe('Sheikha Copilot API Integration Tests', () => {
   });
 
   describe('Unified Integrations', () => {
-    test('Copilot should be registered in unified integrations', async () => {
+    test('Sheikha should be registered in unified integrations', async () => {
       if (!serverHealthy) return;
 
       const response = await fetch('http://localhost:8080/api/sheikha/unified-integrations');
@@ -386,7 +386,7 @@ describe('Sheikha Copilot API Integration Tests', () => {
       const data = await response.json();
       expect(Array.isArray(data.data.modules)).toBe(true);
 
-      const copilotModule = data.data.modules.find(m => m.key === 'sheikha-copilot');
+      const copilotModule = data.data.modules.find(m => m.key === 'sheikha');
       expect(copilotModule).toBeDefined();
       expect(copilotModule.status).toBe('active');
       expect(copilotModule.version).toBe('1.0.0');

@@ -2,18 +2,18 @@
 /**
  * بسم الله الرحمن الرحيم
  * ╔══════════════════════════════════════════════════════════════════════════════╗
- * ║  SHEIKHA COPILOT SERVER — خادم GitHub Copilot الخلفي المستقل                ║
- * ║  يعمل دائماً في الخلفية عبر PM2 كجسر MCP بين Copilot والسيرفرات            ║
+ * ║  SHEIKHA MCP SERVER — خادم Sheikha MCP الخلفي المستقل                ║
+ * ║  يعمل دائماً في الخلفية عبر PM2 كجسر MCP بين Sheikha والأنظمة            ║
  * ║                                                                              ║
  * ║  المنفذ الافتراضي: 3091                                                      ║
  * ║  البروتوكول: MCP (Model Context Protocol) + HTTP REST                       ║
  * ║  «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى» — المائدة ٢                   ║
  * ╚══════════════════════════════════════════════════════════════════════════════╝
  *
- * التشغيل المباشر: node scripts/sheikha-copilot-server.js
- * عبر PM2:         pm2 start ecosystem.config.js --only sheikha-copilot
- * إيقاف:           pm2 stop sheikha-copilot
- * السجلات:         pm2 logs sheikha-copilot
+ * التشغيل المباشر: node scripts/sheikha-mcp-server.js
+ * عبر PM2:         pm2 start ecosystem.config.js --only sheikha-mcp
+ * إيقاف:           pm2 stop sheikha-mcp
+ * السجلات:         pm2 logs sheikha-mcp
  */
 
 'use strict';
@@ -27,16 +27,16 @@ const HOST        = process.env.COPILOT_SERVER_HOST || '0.0.0.0';
 const MAIN_SERVER = process.env.SHEIKHA_SERVER_URL  || 'http://127.0.0.1:8080';
 const MAIN_PORT   = parseInt(process.env.PORT        || '8080', 10);
 const NODE_ENV    = process.env.NODE_ENV             || 'development';
-const SCHEMA      = 'sheikha-copilot/v1';
+const SCHEMA      = 'sheikha-mcp/v1';
 const TAWHEED     = 'لا إله إلا الله';
 const NO_HARM     = 'لا ضرر ولا ضرار';
 const START_TIME  = Date.now();
 
 // ─── هوية الخدمة — تحت شيخة ──────────────────────────────────────────────────
 const SERVICE_IDENTITY = {
-    serviceKey: 'sheikha-copilot',
-    name:       'Sheikha Copilot Server',
-    nameAr:     'خادم شيخة كوبايلوت',
+    serviceKey: 'sheikha-mcp',
+    name:       'Sheikha MCP Server',
+    nameAr:     'خادم شيخة',
     version:    '1.0.0',
     port:       PORT,
     baseUrl:    `http://localhost:${PORT}`,
@@ -63,9 +63,9 @@ function logRequest(entry) {
 const CORS_HEADERS = {
     'Access-Control-Allow-Origin':  '*',
     'Access-Control-Allow-Methods': 'GET, POST, PUT, DELETE, OPTIONS',
-    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Sheikha-Copilot, X-MCP-Version',
+    'Access-Control-Allow-Headers': 'Content-Type, Authorization, X-Sheikha-Sheikha, X-MCP-Version',
     'Access-Control-Max-Age':       '86400',
-    'X-Powered-By':                 'Sheikha Copilot Server',
+    'X-Powered-By':                 'Sheikha MCP Server',
     'X-Schema':                     SCHEMA,
 };
 
@@ -116,7 +116,7 @@ function proxyToMain(targetPath, method, body, callback) {
         method:   method || 'GET',
         headers: {
             'Content-Type': 'application/json',
-            'X-Copilot-Bridge': 'sheikha-copilot-server',
+            'X-Sheikha-Bridge': 'sheikha-mcp-server',
             ...(bodyStr ? { 'Content-Length': Buffer.byteLength(bodyStr) } : {}),
         },
         timeout: 8000,
@@ -191,7 +191,7 @@ const ROUTES = {
         const uptime = Math.floor((Date.now() - START_TIME) / 1000);
         send(res, 200, {
             success:        true,
-            service:        'sheikha-copilot-server',
+            service:        'sheikha-mcp-server',
             authority:      'sheikha-api',
             parent:         'Sheikha',
             registeredWithSheikha: _registrationOk,
@@ -200,7 +200,7 @@ const ROUTES = {
             nodeEnv:        NODE_ENV,
             mainServer:     MAIN_SERVER,
             requests:       requestLog.length,
-            message:        'Sheikha Copilot Server — يعمل تحت شيخة',
+            message:        'Sheikha MCP Server — يعمل تحت شيخة',
         });
     },
 
@@ -210,24 +210,24 @@ const ROUTES = {
             success:   true,
             identity:  SERVICE_IDENTITY,
             governor:  'Sheikha',
-            hierarchy: 'sheikha-api → sheikha-copilot',
+            hierarchy: 'sheikha-api → sheikha-mcp',
             registeredWithSheikha: _registrationOk,
             registryUrl: `${MAIN_SERVER}/api/sheikha/services`,
-            message:   'شيخة كوبايلوت — خادم فرعي تحت حوكمة شيخة',
+            message:   'شيخة — خادم فرعي تحت حوكمة شيخة',
         });
     },
 
-    // ── حالة الـ Copilot (يستعلم الخادم الرئيسي) ─────────────────────────────
+    // ── حالة Sheikha (يستعلم الخادم الرئيسي) ─────────────────────────────
     'GET /copilot/status': (req, res) => {
-        proxyToMain('/api/sheikha/copilot/status', 'GET', null, (err, data, status) => {
-            if (err) return send(res, 502, { success: false, error: err.message, service: 'sheikha-copilot-server' });
-            send(res, status || 200, { ...data, bridgedBy: 'sheikha-copilot-server', port: PORT });
+        proxyToMain('/api/sheikha/extension/status', 'GET', null, (err, data, status) => {
+            if (err) return send(res, 502, { success: false, error: err.message, service: 'sheikha-mcp-server' });
+            send(res, status || 200, { ...data, bridgedBy: 'sheikha-mcp-server', port: PORT });
         });
     },
 
     // ── النماذج المتاحة ───────────────────────────────────────────────────────
     'GET /copilot/models': (req, res) => {
-        proxyToMain('/api/sheikha/copilot/models', 'GET', null, (err, data, status) => {
+        proxyToMain('/api/sheikha/extension/status', 'GET', null, (err, data, status) => {
             if (err) return send(res, 502, { success: false, error: err.message });
             send(res, status || 200, data);
         });
@@ -235,7 +235,7 @@ const ROUTES = {
 
     // ── اللغات المدعومة ───────────────────────────────────────────────────────
     'GET /copilot/languages': (req, res) => {
-        proxyToMain('/api/sheikha/copilot/languages', 'GET', null, (err, data, status) => {
+        proxyToMain('/api/sheikha/languages', 'GET', null, (err, data, status) => {
             if (err) return send(res, 502, { success: false, error: err.message });
             send(res, status || 200, data);
         });
@@ -244,16 +244,16 @@ const ROUTES = {
     // ── اقتراحات الكود ────────────────────────────────────────────────────────
     'POST /copilot/completions': async (req, res) => {
         const body = await parseBody(req);
-        proxyToMain('/api/sheikha/copilot/completions', 'POST', body, (err, data, status) => {
+        proxyToMain('/api/sheikha/completions', 'POST', body, (err, data, status) => {
             if (err) return send(res, 502, { success: false, error: err.message });
             send(res, status || 200, data);
         });
     },
 
-    // ── محادثة Copilot Chat ───────────────────────────────────────────────────
+    // ── محادثة Sheikha ───────────────────────────────────────────────────
     'POST /copilot/chat': async (req, res) => {
         const body = await parseBody(req);
-        proxyToMain('/api/sheikha/copilot/chat', 'POST', body, (err, data, status) => {
+        proxyToMain('/api/sheikha/chat', 'POST', body, (err, data, status) => {
             if (err) return send(res, 502, { success: false, error: err.message });
             send(res, status || 200, data);
         });
@@ -261,25 +261,25 @@ const ROUTES = {
 
     // ── جسر VS Code ──────────────────────────────────────────────────────────
     'GET /copilot/vscode-bridge': (req, res) => {
-        proxyToMain('/api/sheikha/copilot/vscode-bridge', 'GET', null, (err, data, status) => {
+        proxyToMain('/api/sheikha/extension/status', 'GET', null, (err, data, status) => {
             if (err) return send(res, 502, { success: false, error: err.message });
             send(res, status || 200, { ...data, bridgePort: PORT });
         });
     },
 
-    // ── MCP: manifest (يقرؤه GitHub Copilot لاكتشاف قدرات الخادم) ───────────
+    // ── MCP: manifest (يقرؤه Sheikha لاكتشاف قدرات الخادم) ───────────
     'GET /.well-known/mcp.json': (req, res) => {
         send(res, 200, {
             success: true,
             mcp: {
                 version: '1.0',
-                name: 'sheikha-copilot',
-                displayName: 'Sheikha Copilot',
-                description: 'خادم MCP لسوق شيخة — تكامل GitHub Copilot مع المنظومة الاقتصادية الإسلامية',
+                name: 'sheikha-mcp',
+                displayName: 'Sheikha',
+                description: 'خادم MCP لسوق شيخة — تكامل Sheikha مع المنظومة الاقتصادية الإسلامية',
                 baseUrl: `http://localhost:${PORT}`,
                 tools: [
                     { name: 'completions',   path: '/copilot/completions',   method: 'POST', description: 'اقتراحات الكود الذكية' },
-                    { name: 'chat',          path: '/copilot/chat',          method: 'POST', description: 'محادثة Copilot Chat' },
+                    { name: 'chat',          path: '/copilot/chat',          method: 'POST', description: 'محادثة Sheikha' },
                     { name: 'vscode-bridge', path: '/copilot/vscode-bridge', method: 'GET',  description: 'جسر VS Code' },
                     { name: 'status',        path: '/copilot/status',        method: 'GET',  description: 'حالة النظام' },
                     { name: 'models',        path: '/copilot/models',        method: 'GET',  description: 'النماذج المتاحة' },
@@ -297,7 +297,7 @@ const ROUTES = {
             success: true,
             tools: [
                 { name: 'sheikha_completions', description: 'توليد اقتراحات كود شرعية-آمنة',    inputSchema: { type: 'object', properties: { code: { type: 'string' }, language: { type: 'string' } }, required: ['code'] } },
-                { name: 'sheikha_chat',        description: 'محادثة ذكية مع Sheikha Copilot',    inputSchema: { type: 'object', properties: { message: { type: 'string' } }, required: ['message'] } },
+                { name: 'sheikha_chat',        description: 'محادثة ذكية مع Sheikha',    inputSchema: { type: 'object', properties: { message: { type: 'string' } }, required: ['message'] } },
                 { name: 'sheikha_status',      description: 'حالة سيرفرات المنظومة',              inputSchema: { type: 'object', properties: {} } },
                 { name: 'sheikha_market_data', description: 'بيانات سوق المعادن والسكراب',        inputSchema: { type: 'object', properties: { metal: { type: 'string' } } } },
             ],
@@ -310,8 +310,8 @@ const ROUTES = {
         const toolName = body.name || '';
 
         const toolMap = {
-            sheikha_completions:  '/api/sheikha/copilot/completions',
-            sheikha_chat:         '/api/sheikha/copilot/chat',
+            sheikha_completions:  '/api/sheikha/completions',
+            sheikha_chat:         '/api/sheikha/chat',
             sheikha_status:       '/api/sheikha/status',
             sheikha_market_data:  '/api/sheikha/metals/prices',
         };
@@ -367,13 +367,13 @@ const server = http.createServer(async (req, res) => {
         } else if (path === '/' || path === '') {
             send(res, 200, {
                 success: true,
-                service: 'Sheikha Copilot Server',
+                service: 'Sheikha MCP Server',
                 version: '1.0.0',
                 port:    PORT,
                 routes:  Object.keys(ROUTES),
                 docs:    `http://localhost:${PORT}/copilot/status`,
                 mcp:     `http://localhost:${PORT}/.well-known/mcp.json`,
-                message: 'شيخة كوبايلوت — خادم MCP الخلفي يعمل',
+                message: 'شيخة — خادم MCP الخلفي يعمل',
             });
         } else {
             send(res, 404, { success: false, error: `المسار غير موجود: ${path}` });
@@ -391,9 +391,9 @@ const server = http.createServer(async (req, res) => {
 // ─── معالجة أخطاء الخادم ─────────────────────────────────────────────────────
 server.on('error', (err) => {
     if (err.code === 'EADDRINUSE') {
-        console.error(`\n❌ المنفذ ${PORT} مشغول. جرّب: COPILOT_SERVER_PORT=3092 node scripts/sheikha-copilot-server.js`);
+        console.error(`\n❌ المنفذ ${PORT} مشغول. جرّب: COPILOT_SERVER_PORT=3092 node scripts/sheikha-mcp-server.js`);
     } else {
-        console.error('❌ خطأ في خادم Copilot:', err.message);
+        console.error('❌ خطأ في خادم Sheikha:', err.message);
     }
     process.exit(1);
 });
@@ -403,12 +403,12 @@ server.listen(PORT, HOST, () => {
     console.log(`
 ╔══════════════════════════════════════════════════════════════════════════════╗
 ║                بسم الله الرحمن الرحيم                                        ║
-║  🤖  Sheikha Copilot Server — خادم MCP الخلفي                                ║
+║  🤖  Sheikha MCP Server — خادم MCP الخلفي                                ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  🌐 MCP Server:    http://localhost:${PORT}                                  ║
 ║  📋 Manifest:      http://localhost:${PORT}/.well-known/mcp.json              ║
 ║  🔗 VS Code Bridge:http://localhost:${PORT}/copilot/vscode-bridge             ║
-║  💬 Copilot Chat:  http://localhost:${PORT}/copilot/chat                      ║
+║  💬 Sheikha Chat:  http://localhost:${PORT}/copilot/chat                      ║
 ║  ✅ الاقتراحات:     http://localhost:${PORT}/copilot/completions              ║
 ║  🔄 Main Server:   ${MAIN_SERVER}                                             ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
@@ -422,7 +422,7 @@ server.listen(PORT, HOST, () => {
 ║       "url": "http://localhost:${PORT}/.well-known/mcp.json" } } } }         ║
 ╠══════════════════════════════════════════════════════════════════════════════╣
 ║  👑 الحاكم: Sheikha API (${MAIN_SERVER})                                     ║
-║  🔗 الهرمية: sheikha-api → sheikha-copilot                                   ║
+║  🔗 الهرمية: sheikha-api → sheikha-mcp                                   ║
 ║  📡 سجل الخدمات: ${MAIN_SERVER}/api/sheikha/services                        ║
 ╚══════════════════════════════════════════════════════════════════════════════╝
   ${TAWHEED} · ${NO_HARM}

@@ -342,6 +342,22 @@ if (isProductionEnv && !process.env.DATA_ENCRYPTION_KEY) {
     console.warn('⚠️ [SECURITY] DATA_ENCRYPTION_KEY غير مضبوط في بيئة الإنتاج.');
 }
 
+const strictSecretsEnabled = config.security.strictSecrets === true;
+const jwtSecretRaw = String(process.env.JWT_SECRET || '');
+const encKeyRaw = String(process.env.DATA_ENCRYPTION_KEY || process.env.DATA_ENCRYPTION_KEY_HEX || '');
+const encHex64 = /^[a-fA-F0-9]{64}$/;
+const isWeakJwtSecret = jwtSecretRaw.length > 0 && jwtSecretRaw.length < config.security.jwt.minSecretLength;
+const isWeakEncKey = encKeyRaw.length > 0 && !(encHex64.test(encKeyRaw) || encKeyRaw.length >= 32);
+
+if (strictSecretsEnabled && isProductionEnv) {
+    if (!jwtSecretRaw || isWeakJwtSecret) {
+        throw new Error('🔴 [SECURITY] رفض الإقلاع: JWT_SECRET مفقود أو ضعيف في الإنتاج.');
+    }
+    if (!encKeyRaw || isWeakEncKey) {
+        throw new Error('🔴 [SECURITY] رفض الإقلاع: DATA_ENCRYPTION_KEY مفقود أو ضعيف في الإنتاج.');
+    }
+}
+
 /**
  * طباعة الإعدادات (للتطوير)
  */

@@ -1,0 +1,39 @@
+{
+    "$schema": "https://raw.githubusercontent.com/martinring/tmlanguage/master/tmlanguage.json",
+    "name": "Sheikha Bayan",
+    "scopeName": "source.sheikha-bayan",
+    "patterns": [
+        {
+            "name": "keyword.control.sheikha-bayan",
+            "match": "\\b(tawheed|quran|sunnah|halal|guard|route|api|data|schema|view|cell|runtime|git|factory|industry|root|growth|farm|production)\\b"
+        },
+        {
+            "name": "entity.name.tag.sheikha-bayan",
+            "match": "</?[A-Za-z][A-Za-z0-9_:-]*"
+        },
+        {
+            "name": "entity.other.attribute-name.sheikha-bayan",
+            "match": "\\b[A-Za-z_][A-Za-z0-9_:-]*(?=\\=)"
+        },
+        {
+            "name": "string.quoted.double.sheikha-bayan",
+            "begin": "\"",
+            "end": "\"",
+            "patterns": [
+                {
+                    "name": "constant.character.escape.sheikha-bayan",
+                    "match": "\\\\."
+                }
+            ]
+        },
+        {
+            "name": "comment.block.sheikha-bayan",
+            "begin": "<!--",
+            "end": "-->"
+        },
+        {
+            "name": "constant.numeric.sheikha-bayan",
+            "match": "\\b\\d+(\\.\\d+)?\\b"
+        }
+    ]
+}

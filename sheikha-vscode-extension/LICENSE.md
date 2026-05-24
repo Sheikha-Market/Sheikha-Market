@@ -1,4 +1,4 @@
-Sheikha Copilot Extension License
+Sheikha Extension License
 
 Copyright (c) Sheikha Platform.
 All rights reserved.

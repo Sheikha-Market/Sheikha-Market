@@ -20,11 +20,13 @@ module.exports = {
       node_args: '--max-old-space-size=512',
       env: {
         NODE_ENV: 'development',
-        PORT: 8080
+        PORT: 8082,
+        SHEIKHA_RUNTIME_ROLE: 'api-runtime-companion'
       },
       env_production: {
         NODE_ENV: 'production',
-        PORT: 8080
+        PORT: 8082,
+        SHEIKHA_RUNTIME_ROLE: 'api-runtime-companion'
       }
     }
   ]

@@ -1,0 +1,113 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>SHEIKHA — AI Command Center</title>
+  <style>
+    :root{
+      --bg:#050810;--card:#0b1220;--gold:#D4AF37;--muted:#9aa4b2;--accent:#1E90FF;--emerald:#2ecc71
+    }
+    html,body{height:100%;margin:0;font-family:Tajawal,system-ui,Segoe UI,Arial}
+    body{background:linear-gradient(180deg,#03040a 0%,#071029 100%);color:#e6eef6;padding:20px}
+    .wrap{max-width:1100px;margin:0 auto}
+    header{display:flex;align-items:center;gap:18px}
+    header h1{font-size:20px;margin:0;color:var(--gold)}
+    .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:18px}
+    .card{background:var(--card);padding:14px;border-radius:10px;box-shadow:0 6px 18px rgba(2,6,23,0.6)}
+    .muted{color:var(--muted);font-size:13px}
+    .big{font-size:28px;font-weight:700}
+    footer{margin-top:18px;color:var(--muted);font-size:12px}
+    @media(max-width:900px){.grid{grid-template-columns:repeat(2,1fr)}}
+    @media(max-width:520px){.grid{grid-template-columns:1fr}}
+  </style>
+</head>
+<body>
+  <div class="wrap">
+    <header>
+      <svg width="42" height="42" viewBox="0 0 24 24" fill="none" aria-hidden><rect width="24" height="24" rx="4" fill="#000"/><path d="M12 3v18" stroke="#D4AF37" stroke-width="1.5" stroke-linecap="round"/></svg>
+      <div>
+        <h1>SHEIKHA — AI Command Center</h1>
+        <div class="muted">SHEIKHA Enterprise AI Market Infrastructure — قيادة النظام والمراقبة</div>
+      </div>
+    </header>
+
+    <div class="grid" id="tiles">
+      <div class="card">
+        <div class="muted">حالة الخادم</div>
+        <div id="node-status" class="big">جارٍ التحميل…</div>
+        <div class="muted" id="node-uptime"></div>
+      </div>
+
+      <div class="card">
+        <div class="muted">وضع التشغيل</div>
+        <div id="runtime-mode" class="big">-</div>
+        <div class="muted" id="runtime-ring"></div>
+      </div>
+
+      <div class="card">
+        <div class="muted">الخدمات العالمية</div>
+        <div id="universal-status" class="big">غير متصل</div>
+        <div class="muted" id="universal-info"></div>
+      </div>
+
+      <div class="card">
+        <div class="muted">وحدات الذكاء (Agents)</div>
+        <div id="agents-count" class="big">—</div>
+        <div class="muted" id="agents-info"></div>
+      </div>
+
+      <div class="card">
+        <div class="muted">مراقبة النظام</div>
+        <div id="observability" class="big">-</div>
+        <div class="muted" id="observability-info"></div>
+      </div>
+
+      <div class="card">
+        <div class="muted">التكاملات</div>
+        <div id="integrations" class="big">—</div>
+        <div class="muted" id="integrations-info"></div>
+      </div>
+    </div>
+
+    <footer>
+      تحديث: <span id="last-updated">--</span> · عنوان الواجهة: <a href="/ai-command">/ai-command</a>
+    </footer>
+  </div>
+
+  <script>
+    const $ = id => document.getElementById(id);
+    function fmtUptime(s){ if(!s && s!==0) return '-'; const d=Math.floor(s/86400); const h=Math.floor((s%86400)/3600); const m=Math.floor((s%3600)/60); return `${d}d ${h}h ${m}m`; }
+
+    async function fetchJson(url,opts){ try{ const r=await fetch(url,opts); if(!r.ok) throw new Error(r.status+' '+r.statusText); return await r.json(); }catch(e){ return { error: e.toString() }; } }
+
+    async function refresh(){
+      document.getElementById('last-updated').textContent = new Date().toLocaleString('ar-EG');
+
+      const node = await fetchJson('/api/sheikha-node/status');
+      if(node && node.error){ $('node-status').textContent='غير متاح'; $('node-uptime').textContent=node.error; } else if(node && node.data){ $('node-status').textContent = node.data.status || 'online'; $('node-uptime').textContent = 'بدأ منذ: '+ (node.data.startedAt||'-'); }
+
+      const runtime = await fetchJson('/api/runtime');
+      if(runtime && runtime.error){ $('runtime-mode').textContent='غير متاح'; } else if(runtime && runtime.data){ $('runtime-mode').textContent = runtime.data.mode || 'fallback'; $('runtime-ring').textContent = 'حلقة: '+(runtime.data.ring||'-'); }
+
+      const obs = await fetchJson('/api/observability/summary');
+      if(obs && obs.error){ $('observability').textContent='غير متصل'; $('observability-info').textContent=obs.error; } else if(obs && obs.data){ $('observability').textContent = obs.data.status || 'active'; $('observability-info').textContent = JSON.stringify(obs.data); }
+
+      // Try universal local service at 9191
+      const uni = await fetchJson('http://127.0.0.1:9191/api/health');
+      if(uni && uni.error){ $('universal-status').textContent='غير متصل'; $('universal-info').textContent = uni.error; } else if(uni && uni.data){ $('universal-status').textContent = uni.data.status||'ok'; $('universal-info').textContent = uni.data.message || JSON.stringify(uni.data); }
+
+      // Agents/Integrations: best-effort to /api/agents or observability
+      const agents = await fetchJson('/api/agents/list');
+      if(agents && agents.error){ $('agents-count').textContent='—'; $('agents-info').textContent=agents.error; }
+      else if(agents && agents.data){ $('agents-count').textContent = Array.isArray(agents.data)?agents.data.length: (agents.data.count||'-'); $('agents-info').textContent = agents.message||''; }
+
+      const integrations = await fetchJson('/api/integrations');
+      if(integrations && integrations.error){ $('integrations').textContent='—'; $('integrations-info').textContent=integrations.error; }
+      else if(integrations && integrations.data){ $('integrations').textContent = integrations.data.length||'-'; $('integrations-info').textContent = integrations.message||''; }
+    }
+
+    refresh(); setInterval(refresh,15000);
+  </script>
+</body>
+</html>

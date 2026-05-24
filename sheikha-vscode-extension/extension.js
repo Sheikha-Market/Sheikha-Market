@@ -1,13 +1,29 @@
-// Sheikha Copilot Extension for VS Code
+// Sheikha Extension for VS Code
 // نظام مساعد البرمجة الذكي — قائم على مبادئ الكتاب والسنة
 
 const vscode = require('vscode');
-const fetch = require('node-fetch');
 const os = require('os');
+const NeuralNetworkProvider = require('./providers/neural-network-provider');
+let fetch = globalThis.fetch ? globalThis.fetch.bind(globalThis) : null;
+if (!fetch) {
+    try {
+        fetch = require('node-fetch');
+    } catch (_) {
+        fetch = async () => {
+            throw new Error('fetch غير متوفر في بيئة VS Code الحالية');
+        };
+    }
+}
 
 let extensionContext;
 let copilotPanel;
 const SERVER_URL = 'http://localhost:8080';
+const SERVER_CANDIDATES = [
+    'http://localhost:8080',
+    'http://localhost:8081',
+    'http://127.0.0.1:8080',
+    'http://127.0.0.1:8081'
+];
 const TOKEN_SECRET_KEY = 'sheikha.auth.token';
 const USER_SECRET_KEY = 'sheikha.auth.user';
 const EXTENSIONS_SYNC_KEY = 'sheikha.integrations.extensions.snapshot';
@@ -48,9 +64,9 @@ class SheikhaAuthManager {
         } catch (error) {
             const message = String(error && error.message ? error.message : error);
             if (message.includes('ECONNREFUSED')) {
-                throw new Error('الخادم المحلي لشيخة غير شغال على المنفذ 8080. شغّل السيرفر ثم أعد المحاولة.', { cause: error });
+                throw new Error('الخادم المحلي لـ Sheikha غير شغال على المنفذ 8080. شغّل السيرفر ثم أعد المحاولة.', { cause: error });
             }
-            throw new Error(`تعذر الاتصال بخادم شيخة: ${message}`, { cause: error });
+            throw new Error(`تعذر الاتصال بخادم Sheikha: ${message}`, { cause: error });
         }
 
         const data = await response.json();
@@ -112,7 +128,7 @@ class SheikhaAuthManager {
             // تجاهل فشل الشبكة واستخدم fallback المحلي
         }
 
-        // fallback: بعض بيئات شيخة لا توفر /api/auth/me
+        // fallback: بعض بيئات Sheikha لا توفر /api/auth/me
         const tokenUser = decodeUserFromToken(this.token);
         if (!tokenUser) {
             return null;
@@ -124,7 +140,7 @@ class SheikhaAuthManager {
     }
 }
 
-class SheikhaCopilotProvider {
+class SheikhaProvider {
     constructor(context) {
         this.config = {};
         this.shariaGuardrails = true;
@@ -134,15 +150,17 @@ class SheikhaCopilotProvider {
     }
 
     loadConfig() {
-        const wsConfig = vscode.workspace.getConfiguration('sheikha.copilot');
+        const wsConfig = vscode.workspace.getConfiguration('sheikha');
+        const configuredServerUrl = wsConfig.get('serverUrl');
         this.config = {
-            serverUrl: wsConfig.get('serverUrl') || SERVER_URL,
+            serverUrl: configuredServerUrl || SERVER_URL,
+            serverUrlConfigured: Boolean(configuredServerUrl),
             enableInlineCompletions: wsConfig.get('enableInlineCompletions', true),
             enableChat: wsConfig.get('enableChat', true),
             enableAgentMode: wsConfig.get('enableAgentMode', true),
             enableNES: wsConfig.get('enableNES', true),
             shariaGuardrails: wsConfig.get('shariaGuardrails', true),
-            defaultModel: wsConfig.get('defaultModel', 'sheikha-copilot-base'),
+            defaultModel: wsConfig.get('defaultModel', 'sheikha-base'),
             completionDelay: wsConfig.get('completionDelay', 150),
             maxCompletions: wsConfig.get('maxCompletions', 3),
             arabicComments: wsConfig.get('arabicComments', true),
@@ -156,10 +174,39 @@ class SheikhaCopilotProvider {
         await this.authManager.initialize();
     }
 
+    async resolveServerUrl() {
+        const configured = this.config.serverUrlConfigured ? this.config.serverUrl : null;
+        const candidates = Array.from(new Set([configured, ...SERVER_CANDIDATES].filter(Boolean)));
+
+        for (const candidate of candidates) {
+            try {
+                const response = await fetchWithTimeout(`${candidate}/api/health`, { method: 'GET' }, 1500);
+                if (response.ok) {
+                    this.config.serverUrl = candidate;
+                    return candidate;
+                }
+            } catch (_) {
+                // try the next candidate
+            }
+
+            try {
+                const response = await fetchWithTimeout(`${candidate}/api/sheikha/ai-gateway/status`, { method: 'GET' }, 1500);
+                if (response.ok) {
+                    this.config.serverUrl = candidate;
+                    return candidate;
+                }
+            } catch (_) {
+                // try the next candidate
+            }
+        }
+
+        return this.config.serverUrl;
+    }
+
     async getCompletions(code, language, cursorPos, context) {
         try {
             const authHeaders = await this.authManager.getAuthHeaders();
-            const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/completions`, {
+            const response = await fetch(`${this.config.serverUrl}/api/sheikha/completions`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
                 body: JSON.stringify({
@@ -175,15 +222,15 @@ class SheikhaCopilotProvider {
             if (!response.ok) throw new Error(data.message);
             return data.data.completions || [];
         } catch (err) {
-            console.error('[Sheikha Copilot] خطأ في الحصول على الاقتراحات:', err.message);
+            console.error('[Sheikha] خطأ في الحصول على الاقتراحات:', err.message);
             return [];
         }
     }
 
     async chat(message, codeContext, language, history) {
+        const authHeaders = await this.authManager.getAuthHeaders();
         try {
-            const authHeaders = await this.authManager.getAuthHeaders();
-            const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/chat`, {
+            const response = await fetch(`${this.config.serverUrl}/api/sheikha/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
                 body: JSON.stringify({
@@ -198,14 +245,43 @@ class SheikhaCopilotProvider {
             if (!response.ok) throw new Error(data.message);
             return data.data;
         } catch (err) {
-            return { reply: `خطأ: ${err.message}`, codeSnippet: null };
+            try {
+                const fallbackResponse = await fetch(`${this.config.serverUrl}/api/sheikha/ai-gateway/ask`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json', ...authHeaders },
+                    body: JSON.stringify({
+                        prompt: message,
+                        context: {
+                            source: 'vscode-extension',
+                            language,
+                            codeContext: codeContext ? codeContext.slice(0, 12000) : '',
+                            history: history || []
+                        }
+                    })
+                });
+                const fallbackData = await fallbackResponse.json();
+                if (!fallbackResponse.ok || !fallbackData.success) {
+                    throw new Error(fallbackData.message || fallbackData.error || 'ai-gateway unavailable');
+                }
+                return {
+                    reply: fallbackData.output || fallbackData.message || 'Sheikha جاهزة.',
+                    codeSnippet: fallbackData.codeSnippet || null,
+                    provider: fallbackData.provider,
+                    mode: fallbackData.mode
+                };
+            } catch (fallbackErr) {
+                return {
+                    reply: `خطأ: ${fallbackErr.message || err.message}`,
+                    codeSnippet: null
+                };
+            }
         }
     }
 
     async startAgent(task, files, language) {
         try {
             const authHeaders = await this.authManager.getAuthHeaders();
-            const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/agent`, {
+            const response = await fetch(`${this.config.serverUrl}/api/sheikha/agent`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
                 body: JSON.stringify({
@@ -228,7 +304,7 @@ class SheikhaCopilotProvider {
     async getStatus() {
         try {
             const authHeaders = await this.authManager.getAuthHeaders();
-            const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/status`, {
+            const response = await fetch(`${this.config.serverUrl}/api/sheikha/extension/status`, {
                 headers: authHeaders
             });
             const data = await response.json();
@@ -240,7 +316,7 @@ class SheikhaCopilotProvider {
 
     async syncExtensionsState(extensions, reason) {
         const authHeaders = await this.authManager.getAuthHeaders();
-        const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/extensions-sync`, {
+        const response = await fetch(`${this.config.serverUrl}/api/sheikha/extensions-sync`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json', ...authHeaders },
             body: JSON.stringify({
@@ -260,7 +336,7 @@ class SheikhaCopilotProvider {
 
     async getExtensionsLiveData() {
         const authHeaders = await this.authManager.getAuthHeaders();
-        const response = await fetch(`${this.config.serverUrl}/api/sheikha/copilot/extensions-live`, {
+        const response = await fetch(`${this.config.serverUrl}/api/sheikha/extensions-live`, {
             headers: authHeaders
         });
         const data = await response.json();
@@ -299,6 +375,19 @@ class SheikhaIntegrationsDashboardProvider {
     }
 }
 
+class SheikhaFeatureViewProvider {
+    constructor(htmlGenerator) {
+        this.htmlGenerator = htmlGenerator;
+        this.view = null;
+    }
+
+    resolveWebviewView(webviewView) {
+        this.view = webviewView;
+        webviewView.webview.options = { enableScripts: true };
+        webviewView.webview.html = this.htmlGenerator();
+    }
+}
+
 class SheikhaChatSidebarProvider {
     constructor(provider) {
         this.provider = provider;
@@ -327,8 +416,9 @@ class SheikhaChatSidebarProvider {
 
 async function activate(context) {
     extensionContext = context;
-    const provider = new SheikhaCopilotProvider(context);
+    const provider = new SheikhaProvider(context);
     await provider.initializeAuth();
+    const resolveServerUrlPromise = provider.resolveServerUrl().catch(() => provider.config.serverUrl);
 
     const accountStatusItem = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
     accountStatusItem.command = 'sheikha.manageAccount';
@@ -360,10 +450,36 @@ async function activate(context) {
     );
 
     const chatSidebarProvider = new SheikhaChatSidebarProvider(provider);
+    const apiViewProvider = new SheikhaFeatureViewProvider(() => getApiViewHtml(provider.config.serverUrl));
+    const publishViewProvider = new SheikhaFeatureViewProvider(() => getPublishViewHtml(provider.config.serverUrl));
+    const pathsViewProvider = new SheikhaFeatureViewProvider(getPathsViewHtml);
+    const programmingViewProvider = new SheikhaFeatureViewProvider(getProgrammingViewHtml);
+    const debugViewProvider = new SheikhaFeatureViewProvider(getDebugViewHtml);
+    const editingViewProvider = new SheikhaFeatureViewProvider(getEditingViewHtml);
+    const neuralViewProvider = new SheikhaFeatureViewProvider(() => getNeuralViewHtml(provider.config.serverUrl));
+    const enterpriseViewProvider = new SheikhaFeatureViewProvider(() => getEnterpriseIntegrationViewHtml(provider.config.serverUrl));
+    const osViewProvider = new SheikhaFeatureViewProvider(() => getGoverningOsViewHtml(provider.config.serverUrl));
+    const serviceProviderViewProvider = new SheikhaFeatureViewProvider(() => getServiceProviderViewHtml(provider.config.serverUrl));
+    const ideViewProvider = new SheikhaFeatureViewProvider(() => getEnterpriseIdeViewHtml(provider.config.serverUrl));
+    const toolsViewProvider = new SheikhaFeatureViewProvider(() => getUniversalToolsViewHtml(provider.config.serverUrl));
+    const neuralTreeProvider = new NeuralNetworkProvider();
 
     context.subscriptions.push(
         vscode.window.registerWebviewViewProvider('sheikha.statusView', dashboardProvider),
-        vscode.window.registerWebviewViewProvider('sheikha.chatView', chatSidebarProvider)
+        vscode.window.registerWebviewViewProvider('sheikha.chatView', chatSidebarProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.apiView', apiViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.publishView', publishViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.pathsView', pathsViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.programmingView', programmingViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.debugView', debugViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.editingView', editingViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.neuralView', neuralViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.enterpriseView', enterpriseViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.osView', osViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.serviceProviderView', serviceProviderViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.ideView', ideViewProvider),
+        vscode.window.registerWebviewViewProvider('sheikha.toolsView', toolsViewProvider),
+        vscode.window.registerTreeDataProvider('sheikhaNeuralNetwork', neuralTreeProvider)
     );
 
     const updateAccountStatus = () => {
@@ -372,15 +488,15 @@ async function activate(context) {
         const backendIcon = isStartingBackend ? ' $(loading~spin)' : ' $(server-process)';
         if (provider.authManager.isSignedIn() && user) {
             const name = user.name || user.email || 'Sheikha User';
-            accountStatusItem.text = `$(account) شيخة: ${name}${syncIcon}${backendIcon}`;
+            accountStatusItem.text = `$(account) Sheikha: ${name}${syncIcon}${backendIcon}`;
             accountStatusItem.tooltip = lastSyncSummary
-                ? `إدارة حساب شيخة\nتزامن الإضافات: ${lastSyncSummary}\nالخادم: ${lastBackendSummary}`
-                : `إدارة حساب شيخة\nالخادم: ${lastBackendSummary}`;
+                ? `إدارة حساب Sheikha\nتزامن الإضافات: ${lastSyncSummary}\nالخادم: ${lastBackendSummary}`
+                : `إدارة حساب Sheikha\nالخادم: ${lastBackendSummary}`;
         } else {
-            accountStatusItem.text = `$(account) شيخة: تسجيل الدخول${syncIcon}${backendIcon}`;
+            accountStatusItem.text = `$(account) Sheikha: تسجيل الدخول${syncIcon}${backendIcon}`;
             accountStatusItem.tooltip = lastSyncSummary
-                ? `تسجيل الدخول إلى حساب شيخة\nتزامن الإضافات: ${lastSyncSummary}\nالخادم: ${lastBackendSummary}`
-                : `تسجيل الدخول إلى حساب شيخة\nالخادم: ${lastBackendSummary}`;
+                ? `تسجيل الدخول إلى حساب Sheikha\nتزامن الإضافات: ${lastSyncSummary}\nالخادم: ${lastBackendSummary}`
+                : `تسجيل الدخول إلى حساب Sheikha\nالخادم: ${lastBackendSummary}`;
         }
         accountStatusItem.show();
         dashboardState.account = {
@@ -404,23 +520,35 @@ async function activate(context) {
         }
     };
 
+    const startBackendTerminal = async () => {
+        const terminalName = 'Sheikha Backend';
+        let terminal = vscode.window.terminals.find(t => t.name === terminalName);
+        if (!terminal) {
+            terminal = vscode.window.createTerminal({ name: terminalName });
+        }
+        terminal.show(false);
+        terminal.sendText('npm run dev');
+        return true;
+    };
+
     const tryStartBackendTask = async () => {
         const tasks = await vscode.tasks.fetchTasks();
         const knownStartTaskNames = new Set([
             'Sheikha: Start Dev (No Cursor)',
             'Sheikha: Full Dev Power (No Cursor)',
             '🟢 Start Dev (No Cursor)',
+            '🚀 Sheikha — تشغيل الخادم (dev)',
             '🚀 شيخة — تشغيل الخادم (dev)',
             '🚀 Start Development Server'
         ]);
         const target = tasks.find(task => knownStartTaskNames.has(task.name));
 
-        if (!target) {
-            return false;
+        if (target) {
+            await vscode.tasks.executeTask(target);
+            return true;
         }
 
-        await vscode.tasks.executeTask(target);
-        return true;
+        return await startBackendTerminal();
     };
 
     const ensureBackendReady = async reason => {
@@ -532,19 +660,63 @@ async function activate(context) {
     };
 
     updateAccountStatus();
+    resolveServerUrlPromise.then(async url => {
+        if (url) {
+            lastBackendSummary = `server-url:${url}`;
+            updateAccountStatus();
+            if (neuralTreeProvider && typeof neuralTreeProvider.refresh === 'function') {
+                await neuralTreeProvider.refresh();
+            }
+        }
+    });
+
+    const getEditorContext = () => {
+        const editor = vscode.window.activeTextEditor;
+        if (!editor) {
+            return { editor: null, codeContext: '', selectedText: '', language: 'workspace', files: [] };
+        }
+
+        return {
+            editor,
+            codeContext: editor.document.getText(),
+            selectedText: editor.document.getText(editor.selection),
+            language: editor.document.languageId,
+            files: [editor.document.uri.fsPath]
+        };
+    };
+
+    const showSheikhaResponse = async (title, prompt, preferredContext = null) => {
+        const ctx = preferredContext || getEditorContext();
+        await vscode.window.withProgress(
+            { location: vscode.ProgressLocation.Notification, title },
+            async () => {
+                const response = await provider.chat(
+                    prompt,
+                    ctx.selectedText || ctx.codeContext || '',
+                    ctx.language || 'workspace',
+                    []
+                );
+                const reply = response && response.reply ? response.reply : 'Sheikha جاهزة.';
+                const output = vscode.window.createOutputChannel('Sheikha');
+                output.appendLine(`## ${title}`);
+                output.appendLine(reply);
+                if (response && response.codeSnippet) {
+                    output.appendLine('');
+                    output.appendLine(response.codeSnippet);
+                }
+                output.show(true);
+                vscode.window.showInformationMessage(`Sheikha: ${reply.slice(0, 180)}`);
+            }
+        );
+    };
 
     // ── أمر: فتح المحادثة ──
     const chatCommand = vscode.commands.registerCommand('sheikha.openChat', async () => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            vscode.window.showWarningMessage('Sheikha: يرجى فتح ملف أولاً');
-            return;
-        }
-
+        vscode.window.showInformationMessage('Sheikha AI Activated');
         if (!copilotPanel) {
             copilotPanel = vscode.window.createWebviewPanel(
                 'sheikha-chat',
-                'Sheikha Copilot Chat',
+                'Sheikha Chat',
                 vscode.ViewColumn.Beside,
                 { enableScripts: true }
             );
@@ -553,8 +725,13 @@ async function activate(context) {
 
             copilotPanel.webview.onDidReceiveMessage(async (msg) => {
                 if (msg.command === 'chat') {
-                    const langId = editor.document.languageId;
-                    const responseData = await provider.chat(msg.message, editor.document.getText(), langId, []);
+                    const editor = vscode.window.activeTextEditor;
+                    const responseData = await provider.chat(
+                        msg.message,
+                        editor ? editor.document.getText() : '',
+                        editor ? editor.document.languageId : 'auto',
+                        []
+                    );
                     copilotPanel.webview.postMessage({ command: 'response', data: responseData });
                 }
             });
@@ -591,35 +768,28 @@ async function activate(context) {
 
     // ── أمر: وضع الوكيل ──
     const agentCommand = vscode.commands.registerCommand('sheikha.startAgent', async () => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor) {
-            vscode.window.showWarningMessage('Sheikha: يرجى فتح ملف أولاً');
-            return;
-        }
-
+        const ctx = getEditorContext();
         const task = await vscode.window.showInputBox({ prompt: 'صف المهمة التي تريد من Sheikha Agent تنفيذها:' });
         if (!task) return;
 
         vscode.window.withProgress(
             { location: vscode.ProgressLocation.Notification, title: 'Sheikha Agent يعمل...' },
             async () => {
-                const result = await provider.startAgent(task, [editor.document.uri.fsPath], editor.document.languageId);
+                const result = await provider.startAgent(task, ctx.files, ctx.language);
                 if (result) {
-                    vscode.window.showInformationMessage(`Sheikha Agent: المهمة في معالجة — ${result.steps.length} خطوة`);
+                    const stepsCount = Array.isArray(result.steps) ? result.steps.length : 1;
+                    vscode.window.showInformationMessage(`Sheikha Agent: المهمة في معالجة — ${stepsCount} خطوة`);
+                    return;
                 }
+                await showSheikhaResponse('Sheikha Agent', `نفّذ كوكيل مؤسسي داخل Sheikha: ${task}`, ctx);
             }
         );
     });
 
     // ── أمر: محادثة مضمّنة ──
     const inlineChatCommand = vscode.commands.registerCommand('sheikha.inlineChat', async () => {
-        const editor = vscode.window.activeTextEditor;
-        if (!editor || !editor.selection) {
-            vscode.window.showWarningMessage('Sheikha: يرجى تحديد نص أولاً');
-            return;
-        }
-
-        const selectedCode = editor.document.getText(editor.selection);
+        const ctx = getEditorContext();
+        const selectedCode = ctx.selectedText || ctx.codeContext || '';
         const instruction = await vscode.window.showInputBox({
             prompt: 'أرسل تعليمات للمحادثة المضمّنة (مثل: refactor, explain, add error handling)',
             value: ''
@@ -627,29 +797,34 @@ async function activate(context) {
 
         if (!instruction) return;
 
+        if (!ctx.editor) {
+            await showSheikhaResponse('Sheikha Inline Chat', instruction, ctx);
+            return;
+        }
+
         try {
             const authHeaders = await provider.authManager.getAuthHeaders();
-            const response = await fetch(`${provider.config.serverUrl}/api/sheikha/copilot/inline-chat`, {
+            const response = await fetch(`${provider.config.serverUrl}/api/sheikha/inline-chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
                 body: JSON.stringify({
                     prompt: instruction,
                     selectedCode,
-                    language: editor.document.languageId,
+                    language: ctx.language,
                     instruction
                 })
             });
             const data = await response.json();
-            if (data.data.modifiedCode && instruction.toLowerCase().includes('refactor')) {
-                editor.edit(edit => {
-                    edit.replace(editor.selection, data.data.modifiedCode);
+            if (data.data && data.data.modifiedCode && instruction.toLowerCase().includes('refactor')) {
+                ctx.editor.edit(edit => {
+                    edit.replace(ctx.editor.selection, data.data.modifiedCode);
                 });
                 vscode.window.showInformationMessage('Sheikha: تم تطبيق التعديل');
             } else {
-                vscode.window.showInformationMessage(`Sheikha: ${data.data.explanation}`);
+                await showSheikhaResponse('Sheikha Inline Chat', `${instruction}\n\n${selectedCode}`, ctx);
             }
         } catch (err) {
-            vscode.window.showErrorMessage(`خطأ Sheikha: ${err.message}`);
+            await showSheikhaResponse('Sheikha Inline Chat', `${instruction}\n\n${selectedCode}`, ctx);
         }
     });
 
@@ -660,7 +835,7 @@ async function activate(context) {
             const languageCount = Array.isArray(status.supportedLanguages)
                 ? status.supportedLanguages.length
                 : (Array.isArray(status.languages) ? status.languages.length : 'غير محدد');
-            vscode.window.showInformationMessage(`Sheikha Copilot v${status.version} — ${status.status} | ${languageCount} لغة | شريعة: ✅`);
+            vscode.window.showInformationMessage(`Sheikha v${status.version} — ${status.status} | ${languageCount} لغة | شريعة: ✅`);
         } else {
             vscode.window.showErrorMessage('Sheikha: لم يتمكن من الاتصال بالخادم');
         }
@@ -671,15 +846,28 @@ async function activate(context) {
         vscode.window.showInformationMessage('Sheikha NES: سيتم تفعيل اقتراحات التعديل التالي قريباً');
     });
 
+    const enableNESCommand = vscode.commands.registerCommand('sheikha.enableNES', async () => {
+        try {
+            const cfg = vscode.workspace.getConfiguration('sheikha');
+            const current = cfg.get('enableNES', true);
+            await cfg.update('enableNES', !current, vscode.ConfigurationTarget.Global);
+            // reload provider config
+            provider.loadConfig();
+            vscode.window.showInformationMessage(`Sheikha NES الآن ${!current ? 'مفعّل' : 'معطّل'}`);
+        } catch (err) {
+            vscode.window.showErrorMessage('تعذّر تبديل حالة NES: ' + (err.message || err));
+        }
+    });
+
     const signInCommand = vscode.commands.registerCommand('sheikha.signIn', async () => {
         const backendReady = await ensureBackendReady('signin');
         if (!backendReady) {
-            vscode.window.showErrorMessage('الخادم المحلي لشيخة لم يجهز بعد. حاول بعد لحظات أو شغّل السيرفر يدويًا.');
+            vscode.window.showErrorMessage('الخادم المحلي لـ Sheikha لم يجهز بعد. حاول بعد لحظات أو شغّل السيرفر يدويًا.');
             return;
         }
 
         const email = await vscode.window.showInputBox({
-            prompt: 'أدخل البريد الإلكتروني لحساب شيخة',
+            prompt: 'أدخل البريد الإلكتروني لحساب Sheikha',
             placeHolder: 'name@sheikha.top'
         });
         if (!email) return;
@@ -694,7 +882,7 @@ async function activate(context) {
         try {
             await provider.authManager.signIn(email, password);
             updateAccountStatus();
-            vscode.window.showInformationMessage('تم تسجيل الدخول إلى حساب شيخة بنجاح');
+            vscode.window.showInformationMessage('تم تسجيل الدخول إلى حساب Sheikha بنجاح');
         } catch (err) {
             vscode.window.showErrorMessage(`فشل تسجيل الدخول: ${err.message}`);
         }
@@ -703,7 +891,7 @@ async function activate(context) {
     const signOutCommand = vscode.commands.registerCommand('sheikha.signOut', async () => {
         await provider.authManager.signOut();
         updateAccountStatus();
-        vscode.window.showInformationMessage('تم تسجيل الخروج من حساب شيخة');
+        vscode.window.showInformationMessage('تم تسجيل الخروج من حساب Sheikha');
     });
 
     const manageAccountCommand = vscode.commands.registerCommand('sheikha.manageAccount', async () => {
@@ -711,7 +899,7 @@ async function activate(context) {
         if (!isSignedIn) {
             const choice = await vscode.window.showQuickPick(
                 [{ label: 'تسجيل الدخول', action: 'signin' }],
-                { placeHolder: 'حساب شيخة غير مسجل حاليًا' }
+                { placeHolder: 'حساب Sheikha غير مسجل حاليًا' }
             );
             if (choice && choice.action === 'signin') {
                 await vscode.commands.executeCommand('sheikha.signIn');
@@ -733,7 +921,7 @@ async function activate(context) {
                 { label: 'عرض الصلاحيات', action: 'permissions' },
                 { label: 'تسجيل الخروج', action: 'signout' }
             ],
-            { placeHolder: 'إدارة حساب شيخة' }
+            { placeHolder: 'إدارة حساب Sheikha' }
         );
 
         if (!choice) return;
@@ -759,7 +947,137 @@ async function activate(context) {
     });
 
     const openIntegrationsDashboardCommand = vscode.commands.registerCommand('sheikha.openIntegrationsDashboard', async () => {
-        await vscode.commands.executeCommand('workbench.view.extension.sheikha-copilot');
+        await vscode.commands.executeCommand('workbench.view.extension.sheikha');
+    });
+
+    // ── أوامر متقدمة: الشبكة العصبية الجذرية ──
+    const activateNeuralEngineCommand = vscode.commands.registerCommand('sheikha.activateNeuralEngine', async () => {
+        try {
+            const backendReady = await ensureBackendReady('neural-engine');
+            if (backendReady) {
+                const response = await fetch(`${provider.config.serverUrl}/api/sheikha/ai-neural-cell-network/activate`, {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ activate: true })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    vscode.window.showInformationMessage('✅ محرك الشبكة العصبية الجذرية فعّال الآن');
+                } else {
+                    vscode.window.showWarningMessage('⚠️ ' + (data.message || 'لم يتم تفعيل المحرك'));
+                }
+            }
+        } catch (err) {
+            vscode.window.showErrorMessage('خطأ في تفعيل محرك الشبكة العصبية: ' + err.message);
+        }
+    });
+
+    const refactorCodeCommand = vscode.commands.registerCommand('sheikha.refactorCode', async () => {
+        await showSheikhaResponse('Sheikha Refactor', 'أعد هيكلة السياق الحالي أو اقترح خطة إعادة هيكلة مؤسسية آمنة.');
+    });
+
+    const explainCodeCommand = vscode.commands.registerCommand('sheikha.explainCode', async () => {
+        await showSheikhaResponse('Sheikha Explain', 'اشرح السياق الحالي أو أعط شرحاً مؤسسياً عاماً إذا لا يوجد ملف مفتوح.');
+    });
+
+    const generateTestsCommand = vscode.commands.registerCommand('sheikha.generateTests', async () => {
+        await showSheikhaResponse('Sheikha Tests', 'ولّد خطة اختبارات أو اختبارات وحدة مناسبة للسياق الحالي مع ضوابط السلامة.');
+    });
+
+    const reviewCodeCommand = vscode.commands.registerCommand('sheikha.reviewCode', async () => {
+        await showSheikhaResponse('Sheikha Review', 'راجع السياق الحالي كمراجعة كود: أخطاء، مخاطر، اختبارات ناقصة، وتحسينات.');
+    });
+
+    const optimizePerformanceCommand = vscode.commands.registerCommand('sheikha.optimizePerformance', async () => {
+        await showSheikhaResponse('Sheikha Performance', 'اقترح تحسين أداء آمن وقابل للقياس للسياق الحالي أو للمنظومة عامة.');
+    });
+
+    const checkShariaCommand = vscode.commands.registerCommand('sheikha.checkSharia', async () => {
+        await showSheikhaResponse('Sheikha Sharia Check', 'افحص السياق الحالي وفق الكتاب والسنة: منع الربا، الغش، الظلم، الضرر، التزييف، وانتهاك الخصوصية.');
+    });
+
+    const neuralNetworkCommand = vscode.commands.registerCommand('sheikha.neuralNetwork', async () => {
+        const choice = await vscode.window.showQuickPick([
+            { label: '🧠 تفعيل محرك الشبكة العصبية الجذرية', action: 'activate' },
+            { label: '📊 عرض حالة الشبكة العصبية', action: 'status' },
+            { label: '✅ تحقق التكامل الجذري الكامل', action: 'validate' },
+            { label: '⚙️ إعدادات الشبكة العصبية', action: 'settings' },
+            { label: '🔄 إعادة تدريب النموذج', action: 'retrain' }
+        ], { placeHolder: 'اختر إجراء للشبكة العصبية' });
+
+        if (!choice) return;
+
+        try {
+            switch (choice.action) {
+                case 'activate':
+                    await vscode.commands.executeCommand('sheikha.activateNeuralEngine');
+                    break;
+                case 'status': {
+                    const response = await fetch(`${provider.config.serverUrl}/api/sheikha/ai-neural-cell-network/status`);
+                    const data = await response.json();
+                    if (data.success) {
+                        const message = `شبكة الخلايا العصبية: ${data.status.toUpperCase()} — الإصدار ${data.version} — آخر تحديث ${data.lastRetrainedAt || 'لم يتم إعادة تدريب'}.`;
+                        vscode.window.showInformationMessage(message);
+                    } else {
+                        vscode.window.showWarningMessage('⚠️ فشل جلب حالة الشبكة العصبية');
+                    }
+                    break;
+                }
+                case 'validate':
+                    await vscode.commands.executeCommand('sheikha.validateRootNeuralIntegration');
+                    break;
+                case 'settings':
+                    vscode.window.showInformationMessage('🔧 إعدادات الشبكة العصبية متاحة في إعدادات Sheikha');
+                    break;
+                case 'retrain': {
+                    const response = await fetch(`${provider.config.serverUrl}/api/sheikha/ai-neural-cell-network/retrain`, {
+                        method: 'POST',
+                        headers: { 'Content-Type': 'application/json' },
+                        body: JSON.stringify({ dataset: 'sheikha-governed-corpus' })
+                    });
+                    const data = await response.json();
+                    if (data.success) {
+                        vscode.window.showInformationMessage(`✅ ${data.message}`);
+                    } else {
+                        vscode.window.showWarningMessage('⚠️ فشل إعادة تدريب الشبكة العصبية');
+                    }
+                    break;
+                }
+            }
+        } catch (err) {
+            vscode.window.showErrorMessage('خطأ في أمر الشبكة العصبية: ' + err.message);
+        }
+    });
+
+    const validateRootNeuralIntegrationCommand = vscode.commands.registerCommand('sheikha.validateRootNeuralIntegration', async () => {
+        try {
+            const backendReady = await ensureBackendReady('root-neural-integration');
+            if (!backendReady) {
+                vscode.window.showWarningMessage('Sheikha: الخادم غير جاهز لفحص التكامل الجذري.');
+                return;
+            }
+
+            const response = await fetch(`${provider.config.serverUrl}/api/sheikha/root-neural-integration/activate`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify({
+                    objective: 'complete-root-neural-integration',
+                    mode: 'itqan',
+                    source: 'vscode-command'
+                })
+            });
+            const data = await response.json();
+            if (data.success) {
+                vscode.window.showInformationMessage(`Sheikha: التكامل الجذري الكامل مفعل — الدرجة ${data.score}%`);
+            } else {
+                vscode.window.showWarningMessage(`Sheikha: التكامل يحتاج مراجعة — الدرجة ${data.score || 0}%`);
+            }
+            if (neuralTreeProvider && typeof neuralTreeProvider.refresh === 'function') {
+                await neuralTreeProvider.refresh();
+            }
+        } catch (err) {
+            vscode.window.showErrorMessage('خطأ في تحقق التكامل الجذري: ' + err.message);
+        }
     });
 
     await ensureBackendReady('startup');
@@ -786,17 +1104,27 @@ async function activate(context) {
         inlineChatCommand,
         statusCommand,
         nesCommand,
+        enableNESCommand,
         signInCommand,
         signOutCommand,
         manageAccountCommand,
         syncIntegrationsCommand,
         openIntegrationsDashboardCommand,
+        activateNeuralEngineCommand,
+        refactorCodeCommand,
+        explainCodeCommand,
+        generateTestsCommand,
+        reviewCodeCommand,
+        optimizePerformanceCommand,
+        checkShariaCommand,
+        neuralNetworkCommand,
+        validateRootNeuralIntegrationCommand,
         { dispose: () => clearInterval(autoRefreshInterval) },
         accountStatusItem
     );
 
-    console.log('✅ [Sheikha Copilot Extension] مفعّل — جاهز للبرمجة الذكية');
-    vscode.window.showInformationMessage('Sheikha Copilot مفعّل! استخدم Ctrl+Shift+I لفتح المحادثة');
+    console.log('✅ [Sheikha Extension] مفعّل — جاهز للبرمجة الذكية');
+    vscode.window.showInformationMessage('Sheikha مفعّل! استخدم Ctrl+Shift+I لفتح المحادثة');
 }
 
 function getChatHtml() {
@@ -805,7 +1133,7 @@ function getChatHtml() {
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheikha Copilot Chat</title>
+    <title>Sheikha Chat</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: #1e1e1e; color: #fff; padding: 12px; }
@@ -822,7 +1150,7 @@ function getChatHtml() {
 </head>
 <body>
     <div class="chat-container">
-        <div class="header">🤖 Sheikha Copilot Chat — مساعد البرمجة الذكي</div>
+        <div class="header">🤖 Sheikha Chat — مساعد البرمجة الذكي</div>
         <div class="messages" id="messages"></div>
         <div style="display: flex; gap: 8px;">
             <input type="text" id="input" placeholder="اكتب رسالتك...">
@@ -849,8 +1177,8 @@ function getChatHtml() {
             if (event.data.command === 'response') {
                 const messagesDiv = document.getElementById('messages');
                 const { reply, codeSnippet } = event.data.data;
-                messagesDiv.innerHTML += '<div class="message assistant">' + escapeHtml(reply) + 
-                    (codeSnippet ? '<pre style="background:#1e1e1e; padding: 8px; margin-top: 8px; border-radius: 4px; overflow-x: auto;">' + escapeHtml(codeSnippet) + '</pre>' : '') + 
+                messagesDiv.innerHTML += '<div class="message assistant">' + escapeHtml(reply) +
+                    (codeSnippet ? '<pre style="background:#1e1e1e; padding: 8px; margin-top: 8px; border-radius: 4px; overflow-x: auto;">' + escapeHtml(codeSnippet) + '</pre>' : '') +
                     '</div>';
                 messagesDiv.scrollTop = messagesDiv.scrollHeight;
             }
@@ -863,7 +1191,7 @@ function getChatHtml() {
 }
 
 function deactivate() {
-    console.log('Sheikha Copilot Extension deactivated');
+    console.log('Sheikha Extension deactivated');
 }
 
 module.exports = { activate, deactivate };
@@ -927,13 +1255,23 @@ function sleep(ms) {
     return new Promise(resolve => setTimeout(resolve, ms));
 }
 
+async function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
+    const controller = new AbortController();
+    const timeout = setTimeout(() => controller.abort(), timeoutMs);
+    try {
+        return await fetch(url, { ...options, signal: controller.signal });
+    } finally {
+        clearTimeout(timeout);
+    }
+}
+
 function getIntegrationsDashboardHtml() {
     return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>لوحة تكاملات شيخة</title>
+    <title>لوحة تكاملات Sheikha</title>
     <style>
         body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 12px; }
         .header { display: flex; align-items: center; justify-content: space-between; margin-bottom: 12px; }
@@ -958,7 +1296,7 @@ function getIntegrationsDashboardHtml() {
 </head>
 <body>
     <div class="header">
-        <div class="title">لوحة تكاملات شيخة</div>
+        <div class="title">لوحة تكاملات Sheikha</div>
         <span id="backendBadge" class="badge">الخادم: ...</span>
     </div>
     <div class="controls">
@@ -1041,6 +1379,1132 @@ function getIntegrationsDashboardHtml() {
 </html>`;
 }
 
+function getApiViewHtml(serverUrl = SERVER_URL) {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha API</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+        .label { color: #c7d2fe; font-size: 13px; margin-bottom: 4px; }
+        .value { color: #fff; font-size: 14px; white-space: pre-wrap; }
+        button { background: #fbbf24; color: #111827; border: none; border-radius: 8px; padding: 8px 12px; cursor: pointer; font-weight: 700; }
+    </style>
+</head>
+<body>
+    <h1>واجهة برمجة تطبيقات Sheikha</h1>
+    <div class="card">
+        <div class="label">Base URL</div>
+        <div class="value">${safeServerUrl}/api/sheikha</div>
+    </div>
+    <div class="card">
+        <div class="label">Endpoints متاحة</div>
+        <div class="value">extension/status | chat | completions | agent | inline-chat | languages | language/status | language/interpret | ide/status | git/status | git/edit-plan | enterprise-vscode-git/status | enterprise-vscode-git/work-plan | enterprise-git-service/status | enterprise-git-service/pr-mr-plan | enterprise-ide/status | enterprise-ide/development-environment | enterprise-ide/subscription-model | enterprise-ide/industry-services-plan | governing-os/status | governing-os/package-plan | governing-os/universal-integration-plan | ai-service-provider/status | ai-service-provider/certification | ai-service-provider/publish-plan | ai-service-provider/integration-plan | tawheed-foundations | extensions-sync | extensions-live | ai-foundations/status | islamic-intelligence/status | neural-mcp/status | neural-mcp/tools | ai-neural-cell-network/status | ai-neural-cell-network/activate | ai-neural-cell-network/retrain | ai-neural-cell-network/production-plan | ai-neural-cell-network/universal-halal-runtime</div>
+    </div>
+    <button onclick="pingStatus()">اختبار المسار /extension/status</button>
+    <div id="output" class="card" style="margin-top:12px;"></div>
+    <script>
+        const vscode = acquireVsCodeApi();
+        const serverUrl = "${safeServerUrl}";
+        async function pingStatus() {
+            const output = document.getElementById('output');
+            try {
+                const res = await fetch(serverUrl + '/api/sheikha/extension/status');
+                const body = await res.json();
+                output.textContent = JSON.stringify(body, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاتصال: ' + err.message;
+            }
+        }
+    </script>
+</body>
+</html>`;
+}
+
+function getPublishViewHtml(serverUrl = 'http://localhost:8080') {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha النشر ومزود الخدمة</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .tile { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px; }
+        .label { color: #c7d2fe; font-size: 12px; }
+        .value { color: #f9fafb; margin-top: 4px; word-break: break-word; }
+        button { background: #fbbf24; color: #111827; border: none; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-weight: 700; margin: 4px 0; }
+        .secondary { background: #10b981; }
+        pre { background: #0f172a; border: 1px solid #334155; padding: 10px; border-radius: 8px; white-space: pre-wrap; direction: ltr; text-align: left; max-height: 300px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha النشر ومزود خدمة الذكاء الصناعي</h1>
+    <div class="card">
+        <p>تشغيل Sheikha كمزود خدمة ذكاء صناعي: VS Code، Git، GitHub، GitHub Copilot، MCP SDK، API، الحزم متعددة الأنظمة، والنشر التجاري تحت حوكمة Sheikha.</p>
+        <button onclick="refreshProvider()">حالة المزود</button>
+        <button onclick="certification()">شهادة الاعتماد</button>
+        <button class="secondary" onclick="publishPlan()">خطة نشر تجاري</button>
+        <button onclick="integrationPlan()">خطة تكامل كل الأنظمة</button>
+    </div>
+    <div class="card grid">
+        <div class="tile"><div class="label">المزود</div><div id="providerName" class="value">---</div></div>
+        <div class="tile"><div class="label">الحالة</div><div id="providerStatus" class="value">---</div></div>
+        <div class="tile"><div class="label">القنوات</div><div id="channelsCount" class="value">---</div></div>
+        <div class="tile"><div class="label">النموذج التجاري</div><div id="commercialReady" class="value">---</div></div>
+    </div>
+    <div class="card">
+        <div class="label">المخرجات</div>
+        <pre id="publishOutput">لم يتم الفحص بعد.</pre>
+    </div>
+    <script>
+        const serverUrl = '${safeServerUrl}';
+
+        async function refreshProvider() {
+            const output = document.getElementById('publishOutput');
+            output.textContent = 'جارٍ فحص مزود خدمة Sheikha...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/ai-service-provider/status');
+                const data = await response.json();
+                document.getElementById('providerName').textContent = data.productShortName || data.productName || 'Sheikha';
+                document.getElementById('providerStatus').textContent = data.status || 'unknown';
+                document.getElementById('channelsCount').textContent = String((data.serviceChannels || []).length);
+                document.getElementById('commercialReady').textContent = data.commercial && data.commercial.readyForServiceProviderModel ? 'جاهز' : 'قيد التجهيز';
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاتصال: ' + err.message;
+            }
+        }
+
+        async function publishPlan() {
+            const output = document.getElementById('publishOutput');
+            output.textContent = 'جارٍ بناء خطة النشر التجاري...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/ai-service-provider/publish-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target: 'sheikha-global-runtime-ai-provider',
+                        channel: 'vsix-api-mcp-cli',
+                        tier: 'enterprise',
+                        provider: 'github',
+                        systems: ['vscode', 'git', 'github', 'github-copilot', 'mcp-sdk', 'api', 'linux', 'windows', 'macos', 'commerce']
+                    })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة النشر: ' + err.message;
+            }
+        }
+
+        async function certification() {
+            const output = document.getElementById('publishOutput');
+            output.textContent = 'جارٍ فحص شهادة اعتماد Sheikha AI Provider...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/ai-service-provider/certification');
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في شهادة الاعتماد: ' + err.message;
+            }
+        }
+
+        async function integrationPlan() {
+            const output = document.getElementById('publishOutput');
+            output.textContent = 'جارٍ بناء خطة التكامل الشامل...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/ai-service-provider/integration-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        target: 'SHEIKHA UGIT-RP',
+                        systems: ['vscode', 'git', 'github', 'github-copilot', 'gitlab', 'mcp-sdk', 'api', 'linux', 'windows', 'macos', 'data', 'commerce']
+                    })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة التكامل: ' + err.message;
+            }
+        }
+
+        refreshProvider();
+    </script>
+</body>
+</html>`;
+}
+
+function getServiceProviderViewHtml(serverUrl = 'http://localhost:8080') {
+    return getPublishViewHtml(serverUrl);
+}
+
+function getEnterpriseIdeViewHtml(serverUrl = 'http://localhost:8080') {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    const extensionsJson = safeJsonForHtml(getInstalledExtensionSnapshot());
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha Enterprise IDE</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .tile { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px; }
+        .label { color: #c7d2fe; font-size: 12px; }
+        .value { color: #f9fafb; margin-top: 4px; word-break: break-word; }
+        button { background: #fbbf24; color: #111827; border: none; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-weight: 700; margin: 4px 0; }
+        .secondary { background: #10b981; }
+        pre { background: #0f172a; border: 1px solid #334155; padding: 10px; border-radius: 8px; white-space: pre-wrap; direction: ltr; text-align: left; max-height: 300px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha Enterprise IDE</h1>
+    <div class="card">
+        <p>بيئة Sheikha المؤسسية للتطوير بالذكاء الصناعي: نموذج يعمل داخل أدوات التطوير، اشتراك مؤسسي، خدمات استشارية وتطويرية، وتكامل للأنظمة والأعمال والمصانع والروبوتات تحت حوكمة Sheikha.</p>
+        <button onclick="refreshIde()">حالة IDE</button>
+        <button class="secondary" onclick="developmentEnvironment()">بيئة التطوير</button>
+        <button onclick="subscriptionModel()">نموذج الاشتراك</button>
+        <button onclick="industryPlan()">خدمات التقنية والصناعة</button>
+    </div>
+    <div class="card grid">
+        <div class="tile"><div class="label">IDE</div><div id="ideName" class="value">---</div></div>
+        <div class="tile"><div class="label">الحالة</div><div id="ideStatus" class="value">---</div></div>
+        <div class="tile"><div class="label">النموذج</div><div id="modelMode" class="value">---</div></div>
+        <div class="tile"><div class="label">الاشتراكات</div><div id="tiers" class="value">---</div></div>
+    </div>
+    <div class="card">
+        <pre id="ideOutput">لم يتم الفحص بعد.</pre>
+    </div>
+    <script>
+        const serverUrl = '${safeServerUrl}';
+        const extensions = ${extensionsJson};
+
+        async function refreshIde() {
+            const output = document.getElementById('ideOutput');
+            output.textContent = 'جارٍ فحص Sheikha Enterprise IDE...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-ide/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ extensions, modelMode: 'hybrid' })
+                });
+                const data = await response.json();
+                document.getElementById('ideName').textContent = data.name || 'Sheikha Enterprise IDE';
+                document.getElementById('ideStatus').textContent = data.status || 'unknown';
+                document.getElementById('modelMode').textContent = data.modelRuntime && data.modelRuntime.defaultMode || 'hybrid';
+                document.getElementById('tiers').textContent = String((data.subscriptionTiers || []).length);
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاتصال: ' + err.message;
+            }
+        }
+
+        async function developmentEnvironment() {
+            const output = document.getElementById('ideOutput');
+            output.textContent = 'جارٍ بناء بيئة التطوير المؤسسية...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-ide/development-environment', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target: 'SHEIKHA UGIT-RP', tier: 'enterprise', modelMode: 'hybrid' })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في بيئة التطوير: ' + err.message;
+            }
+        }
+
+        async function subscriptionModel() {
+            const output = document.getElementById('ideOutput');
+            output.textContent = 'جارٍ بناء نموذج الاشتراك...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-ide/subscription-model', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ tier: 'enterprise' })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاشتراك: ' + err.message;
+            }
+        }
+
+        async function industryPlan() {
+            const output = document.getElementById('ideOutput');
+            output.textContent = 'جارٍ بناء خطة الخدمات التقنية والصناعية...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-ide/industry-services-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        domain: 'enterprise-industry-ai-services',
+                        services: ['software', 'ai', 'business', 'cloud', 'robotics', 'factories', 'production-lines', 'supply-chain', 'data']
+                    })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة الخدمات: ' + err.message;
+            }
+        }
+
+        refreshIde();
+    </script>
+</body>
+</html>`;
+}
+
+function getUniversalToolsViewHtml(serverUrl = 'http://localhost:8080') {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    const extensionsJson = safeJsonForHtml(getInstalledExtensionSnapshot());
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha Tools Fabric</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); gap: 10px; }
+        .tile { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px; }
+        .label { color: #c7d2fe; font-size: 12px; }
+        .value { color: #f9fafb; margin-top: 4px; word-break: break-word; }
+        button { background: #fbbf24; color: #111827; border: none; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-weight: 700; margin: 4px 0; }
+        .secondary { background: #10b981; }
+        pre { background: #0f172a; border: 1px solid #334155; padding: 10px; border-radius: 8px; white-space: pre-wrap; direction: ltr; text-align: left; max-height: 320px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha الأدوات والتقنيات</h1>
+    <div class="card">
+        <p>تفعيل كل الأدوات والإمكانات والتقنيات عبر محولات حاكمة، مع Sheikha-Core وشبكة الخلايا العصبية الجذرية، ووحدة الكتاب والسنة.</p>
+        <button onclick="refreshFabric()">حالة النسيج</button>
+        <button class="secondary" onclick="activateFabric()">تفعيل النسيج</button>
+        <button onclick="integrationPlan()">خطة التكامل</button>
+        <button onclick="coreStatus()">Sheikha-Core</button>
+        <button onclick="coreArchitecture()">معمارية النواة</button>
+        <button onclick="editorStatus()">Sheikha Editor</button>
+        <button onclick="keysPolicy()">مفاتيح المزود</button>
+        <button onclick="meteringStatus()">قياس الاستخدام</button>
+    </div>
+    <div class="card grid">
+        <div class="tile"><div class="label">النسيج</div><div id="fabricStatus" class="value">---</div></div>
+        <div class="tile"><div class="label">الأدوات</div><div id="toolsCount" class="value">---</div></div>
+        <div class="tile"><div class="label">Sheikha-Core</div><div id="coreState" class="value">---</div></div>
+        <div class="tile"><div class="label">الاعتماد</div><div id="certState" class="value">---</div></div>
+    </div>
+    <div class="card">
+        <pre id="toolsOutput">لم يتم الفحص بعد.</pre>
+    </div>
+    <script>
+        const serverUrl = '${safeServerUrl}';
+        const extensions = ${extensionsJson};
+
+        async function requestJson(path, options = {}) {
+            const response = await fetch(serverUrl + path, options);
+            return response.json();
+        }
+
+        async function refreshFabric() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ فحص نسيج الأدوات والتقنيات...';
+            try {
+                const data = await requestJson('/api/sheikha/universal-tools-fabric/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ extensions, modelMode: 'hybrid' })
+                });
+                document.getElementById('fabricStatus').textContent = data.status || 'unknown';
+                document.getElementById('toolsCount').textContent = String(data.toolsCount || 0);
+                document.getElementById('certState').textContent = data.integrations && data.integrations.provider && data.integrations.provider.certification || '---';
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاتصال: ' + err.message;
+            }
+        }
+
+        async function activateFabric() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ تفعيل النسيج الشامل...';
+            try {
+                const data = await requestJson('/api/sheikha/universal-tools-fabric/activate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ active: true, extensions })
+                });
+                output.textContent = JSON.stringify(data, null, 2);
+                await refreshFabric();
+            } catch (err) {
+                output.textContent = 'خطأ في التفعيل: ' + err.message;
+            }
+        }
+
+        async function integrationPlan() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ بناء خطة التكامل الأفضل...';
+            try {
+                const data = await requestJson('/api/sheikha/universal-tools-fabric/integration-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target: 'SHEIKHA UGIT-RP', tier: 'enterprise', modelMode: 'hybrid' })
+                });
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة التكامل: ' + err.message;
+            }
+        }
+
+        async function coreStatus() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ فحص Sheikha-Core...';
+            try {
+                const data = await requestJson('/api/sheikha/core/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ extensions, modelMode: 'hybrid' })
+                });
+                document.getElementById('coreState').textContent = data.status || 'unknown';
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في Sheikha-Core: ' + err.message;
+            }
+        }
+
+        async function coreArchitecture() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ بناء معمارية Sheikha-Core...';
+            try {
+                const data = await requestJson('/api/sheikha/core/architecture', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target: 'SHEIKHA UGIT-RP' })
+                });
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في المعمارية: ' + err.message;
+            }
+        }
+
+        async function editorStatus() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ فحص Sheikha Editor...';
+            try {
+                output.textContent = JSON.stringify(await requestJson('/api/sheikha/editor/status'), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في Sheikha Editor: ' + err.message;
+            }
+        }
+
+        async function keysPolicy() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ فحص سياسة مفاتيح المزود...';
+            try {
+                output.textContent = JSON.stringify(await requestJson('/api/sheikha/provider-keys/policy'), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في سياسة المفاتيح: ' + err.message;
+            }
+        }
+
+        async function meteringStatus() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ فحص قياس الاستخدام...';
+            try {
+                output.textContent = JSON.stringify(await requestJson('/api/sheikha/usage-metering/status'), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في قياس الاستخدام: ' + err.message;
+            }
+        }
+
+        refreshFabric();
+    </script>
+</body>
+</html>`;
+}
+
+function getPathsViewHtml() {
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha المسارات</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .list { list-style: none; padding: 0; }
+        .item { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 10px; margin-bottom: 8px; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha المسارات</h1>
+    <ul class="list">
+        <li class="item">/api/sheikha/extension/status</li>
+        <li class="item">/api/sheikha/chat</li>
+        <li class="item">/api/sheikha/completions</li>
+        <li class="item">/api/sheikha/agent</li>
+        <li class="item">/api/sheikha/inline-chat</li>
+        <li class="item">/api/sheikha/languages</li>
+        <li class="item">/api/sheikha/language/status</li>
+        <li class="item">/api/sheikha/markup/status</li>
+        <li class="item">/api/sheikha/language/interpret</li>
+        <li class="item">/api/sheikha/ide/status</li>
+        <li class="item">/api/sheikha/git/status</li>
+        <li class="item">/api/sheikha/git/edit-plan</li>
+        <li class="item">/api/sheikha/read-write-publish/status</li>
+        <li class="item">/api/sheikha/read-write-publish/plan</li>
+        <li class="item">/api/sheikha/read-write-publish/evaluate</li>
+        <li class="item">/api/sheikha/enterprise-vscode-git/status</li>
+        <li class="item">/api/sheikha/enterprise-vscode-git/work-plan</li>
+        <li class="item">/api/sheikha/enterprise-git-service/status</li>
+        <li class="item">/api/sheikha/enterprise-git-service/pr-mr-plan</li>
+        <li class="item">/api/sheikha/enterprise-ide/status</li>
+        <li class="item">/api/sheikha/enterprise-ide/development-environment</li>
+        <li class="item">/api/sheikha/enterprise-ide/subscription-model</li>
+        <li class="item">/api/sheikha/enterprise-ide/industry-services-plan</li>
+        <li class="item">/api/sheikha/universal-tools-fabric/status</li>
+        <li class="item">/api/sheikha/universal-tools-fabric/activate</li>
+        <li class="item">/api/sheikha/universal-tools-fabric/integration-plan</li>
+        <li class="item">/api/sheikha/universal-tools-fabric/tool-plan</li>
+        <li class="item">/api/sheikha/core/status</li>
+        <li class="item">/api/sheikha/core/activate</li>
+        <li class="item">/api/sheikha/core/architecture</li>
+        <li class="item">/api/sheikha/editor/status</li>
+        <li class="item">/api/sheikha/provider-keys/policy</li>
+        <li class="item">/api/sheikha/usage-metering/status</li>
+        <li class="item">/api/sheikha/usage-metering/event</li>
+        <li class="item">/api/sheikha/governing-os/status</li>
+        <li class="item">/api/sheikha/governing-os/package-plan</li>
+        <li class="item">/api/sheikha/governing-os/universal-integration-plan</li>
+        <li class="item">/api/sheikha/ai-service-provider/status</li>
+        <li class="item">/api/sheikha/ai-service-provider/certification</li>
+        <li class="item">/api/sheikha/ai-service-provider/publish-plan</li>
+        <li class="item">/api/sheikha/ai-service-provider/integration-plan</li>
+        <li class="item">/api/sheikha/tawheed-foundations</li>
+        <li class="item">/api/sheikha/ai-foundations/status</li>
+        <li class="item">/api/sheikha/ai-foundations/query</li>
+        <li class="item">/api/sheikha/islamic-intelligence/status</li>
+        <li class="item">/api/sheikha/islamic-intelligence/query</li>
+        <li class="item">/api/sheikha/neural-mcp/status</li>
+        <li class="item">/api/sheikha/neural-mcp/tools</li>
+        <li class="item">/api/sheikha/ai-neural-cell-network/status</li>
+        <li class="item">/api/sheikha/ai-neural-cell-network/activate</li>
+        <li class="item">/api/sheikha/ai-neural-cell-network/retrain</li>
+        <li class="item">/api/sheikha/ai-neural-cell-network/evaluate</li>
+        <li class="item">/api/sheikha/ai-neural-cell-network/production-plan</li>
+        <li class="item">/api/sheikha/ai-neural-cell-network/universal-halal-runtime</li>
+        <li class="item">/api/sheikha/neural-runtime-registry/status</li>
+        <li class="item">/api/sheikha/neural-runtime-registry/cells</li>
+        <li class="item">/api/sheikha/neural-runtime-registry/cells/:id/hot-load</li>
+        <li class="item">/api/sheikha/neural-runtime-registry/cells/:id/inject</li>
+        <li class="item">/api/sheikha/supreme-root-neural-fabric/status</li>
+        <li class="item">/api/sheikha/supreme-root-neural-fabric/activate</li>
+        <li class="item">/api/sheikha/supreme-root-neural-fabric/orchestrate</li>
+        <li class="item">/api/sheikha/supreme-root-neural-fabric/validate</li>
+        <li class="item">/api/sheikha/root-neural-integration/status</li>
+        <li class="item">/api/sheikha/root-neural-integration/activate</li>
+    </ul>
+</body>
+</html>`;
+}
+
+function getProgrammingViewHtml() {
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha البرمجة</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha البرمجة</h1>
+    <div class="card">
+        <p>تم تفعيل قدرات البرمجة الذكية: Sheikha Sabil، PHP، اقتراح الكود، التفسير، إصلاح الأخطاء، وإعادة الهيكلة.</p>
+    </div>
+    <div class="card">
+        <p>المفسر متعدد اللغات يعمل عبر شبكة الخلايا العصبية: JavaScript، TypeScript، Python، PHP، Go، Rust، C#، Java، SQL، Bash، HTML، CSS، وغيرها مع مراجعة بشرية.</p>
+    </div>
+    <div class="card">
+        <p>Git/GitHub/GitLab مفعلة كخطة تحرير آمنة: status، diff، review، branch، ثم PR/MR عند الحاجة.</p>
+    </div>
+</body>
+</html>`;
+}
+
+function getDebugViewHtml() {
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha Debug</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha Debug</h1>
+    <div class="card">
+        <p>أدوات مراقبة الأخطاء، سجلات التشغيل، وتحليل المسارات البرمجية متاحة في هذه الواجهة.</p>
+    </div>
+    <div class="card">
+        <p>يمكنك استخدام console.error، debugger، و stack trace لتفكيك أي خطأ بسرعة.</p>
+    </div>
+</body>
+</html>`;
+}
+
+function getEditingViewHtml() {
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha التحرير</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 12px; margin-bottom: 12px; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha التحرير</h1>
+    <div class="card">
+        <p>تم تفعيل التحرير الذكي: تحسين الحقول، إعادة الهيكلة، الترجمة، وتعليقات الشرح بالعربية.</p>
+    </div>
+</body>
+</html>`;
+}
+
+function getNeuralViewHtml(serverUrl = 'http://localhost:8080') {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha شبكة الخلايا العصبية</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 16px; margin-bottom: 14px; }
+        .highlight { color: #34d399; }
+        .button-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 12px; }
+        button { padding: 10px 14px; border: none; border-radius: 8px; font-weight: 700; cursor: pointer; color: #111827; background: #fbbf24; }
+        textarea { width: 100%; min-height: 120px; border-radius: 10px; border: 1px solid #374151; background: #0f172a; color: #f9fafb; padding: 12px; resize: vertical; }
+        .meta { margin-top: 10px; color: #d1d5db; }
+        .meta strong { color: #f8fafc; }
+        .status-ok { color: #34d399; }
+        .status-warn { color: #fbbf24; }
+        .status-error { color: #f87171; }
+    </style>
+</head>
+<body>
+    <h1>شبكة الخلايا العصبية الجذرية</h1>
+    <div class="card">
+        <p class="highlight">شبكة Sheikha العصبية تعمل بحوكمة الكتاب والسنة، وتوفر تحليلًا آمنًا ومفسرًا.</p>
+        <div class="meta">قاعدة التشغيل: تحليل بيانات برمجية، منع الادعاءات بالوعي، وحماية الخصوصية.</div>
+        <div class="button-row">
+            <button onclick="activateNetwork(true)">تفعيل الشبكة</button>
+            <button onclick="activateNetwork(false)">إيقاف الشبكة</button>
+            <button onclick="retrainNetwork()">إعادة تدريب</button>
+            <button onclick="refreshStatus()">تحديث الحالة</button>
+        </div>
+    </div>
+    <div class="card">
+        <strong>نسيج Sheikha الجذري الأعلى:</strong>
+        <p class="highlight">طبقة تنظيم أعلى من الشبكة الجذرية: تنسق الخلايا، MCP، Git، اللغات، الترميز، البيانات، وخطوط الإنتاج تحت حوكمة الكتاب والسنة.</p>
+        <div class="button-row">
+            <button onclick="activateSupremeFabric()">تفعيل النسيج الأعلى</button>
+            <button onclick="orchestrateSupremeFabric()">تنسيق كامل</button>
+            <button onclick="validateCompleteIntegration()">تحقق التكامل التام</button>
+            <button onclick="refreshSupremeFabric()">تحديث النسيج</button>
+        </div>
+        <div id="fabricMessage" class="meta">لم يتم فحص النسيج الأعلى بعد.</div>
+    </div>
+    <div class="card">
+        <strong>حالة الشبكة الآن:</strong>
+        <div id="statusMessage" class="meta">جارٍ التحقق...</div>
+        <div class="meta"><strong>الحالة:</strong> <span id="networkStatus">---</span></div>
+        <div class="meta"><strong>الإصدار:</strong> <span id="networkVersion">---</span></div>
+        <div class="meta"><strong>آخر إعادة تدريب:</strong> <span id="networkRetrain">---</span></div>
+    </div>
+    <div class="card">
+        <strong>تقييم عينة نصية:</strong>
+        <textarea id="evaluationInput" placeholder="أدخل نص أو وصف مهمة لتقييمه بواسطة شبكة الخلايا العصبية"></textarea>
+        <div class="button-row"><button onclick="evaluateInput()">تقييم</button></div>
+    </div>
+    <div class="card" id="evaluationResult">
+        <strong>نتيجة التقييم:</strong>
+        <div id="resultMessage" class="meta">لا توجد نتيجة بعد.</div>
+    </div>
+    <script>
+        const serverUrl = '${safeServerUrl}';
+        const basePath = serverUrl + '/api/sheikha/ai-neural-cell-network';
+        const fabricPath = serverUrl + '/api/sheikha/supreme-root-neural-fabric';
+        const integrationPath = serverUrl + '/api/sheikha/root-neural-integration';
+
+        async function refreshStatus() {
+            const statusMessage = document.getElementById('statusMessage');
+            const networkStatus = document.getElementById('networkStatus');
+            const networkVersion = document.getElementById('networkVersion');
+            const networkRetrain = document.getElementById('networkRetrain');
+            statusMessage.textContent = 'جارٍ جلب الحالة من الخادم...';
+            try {
+                const response = await fetch(basePath + '/status');
+                const data = await response.json();
+                if (data.success) {
+                    statusMessage.textContent = data.message;
+                    networkStatus.textContent = data.status;
+                    networkVersion.textContent = data.version || 'غير معروف';
+                    networkRetrain.textContent = data.lastRetrainedAt || 'لم يتم إعادة تدريب';
+                    networkStatus.className = data.status === 'active' ? 'status-ok' : 'status-warn';
+                } else {
+                    statusMessage.textContent = 'فشل جلب حالة الشبكة';
+                    networkStatus.textContent = 'خطأ';
+                    networkStatus.className = 'status-error';
+                }
+            } catch (err) {
+                statusMessage.textContent = 'خطأ في الاتصال بالخادم: ' + err.message;
+                networkStatus.textContent = 'غير متاح';
+                networkStatus.className = 'status-error';
+            }
+        }
+
+        async function refreshSupremeFabric() {
+            const fabricMessage = document.getElementById('fabricMessage');
+            fabricMessage.textContent = 'جارٍ فحص النسيج الأعلى...';
+            try {
+                const response = await fetch(fabricPath + '/status');
+                const data = await response.json();
+                if (data.success) {
+                    const orchestration = data.orchestration || {};
+                    fabricMessage.textContent = '✅ ' + data.status + ' | الخلايا: ' + (orchestration.cellsCount || 0) +
+                        ' | اللغات: ' + (orchestration.languagesCount || 0) +
+                        ' | الترميز: ' + (orchestration.markupLanguagesCount || 0) +
+                        ' | المصانع: ' + (orchestration.factoriesCount || 0);
+                } else {
+                    fabricMessage.textContent = '⚠️ النسيج الأعلى غير متاح.';
+                }
+            } catch (err) {
+                fabricMessage.textContent = 'خطأ في الاتصال بالنسيج الأعلى: ' + err.message;
+            }
+        }
+
+        async function activateSupremeFabric() {
+            const fabricMessage = document.getElementById('fabricMessage');
+            fabricMessage.textContent = 'جارٍ تفعيل النسيج الأعلى...';
+            try {
+                const response = await fetch(fabricPath + '/activate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ active: true })
+                });
+                const data = await response.json();
+                fabricMessage.textContent = data.message || 'تم التفعيل.';
+                await refreshSupremeFabric();
+                await refreshStatus();
+            } catch (err) {
+                fabricMessage.textContent = 'خطأ في تفعيل النسيج الأعلى: ' + err.message;
+            }
+        }
+
+        async function orchestrateSupremeFabric() {
+            const fabricMessage = document.getElementById('fabricMessage');
+            fabricMessage.textContent = 'جارٍ التنسيق الكامل للنسيج الأعلى...';
+            try {
+                const response = await fetch(fabricPath + '/orchestrate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        domain: 'sheikha-global-runtime-platform',
+                        objective: 'complete-halal-root-runtime',
+                        priority: 'itqan'
+                    })
+                });
+                const data = await response.json();
+                fabricMessage.textContent = data.success
+                    ? '✅ تم التنسيق: ' + data.decision + ' | المنتج: ' + data.production.productType
+                    : '⚠️ تعذر التنسيق الكامل.';
+                await refreshSupremeFabric();
+            } catch (err) {
+                fabricMessage.textContent = 'خطأ في التنسيق الكامل: ' + err.message;
+            }
+        }
+
+        async function validateCompleteIntegration() {
+            const fabricMessage = document.getElementById('fabricMessage');
+            fabricMessage.textContent = 'جارٍ تفعيل وفحص التكامل الجذري الكامل...';
+            try {
+                const response = await fetch(integrationPath + '/activate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        objective: 'complete-root-neural-integration',
+                        mode: 'itqan',
+                        source: 'vscode-extension'
+                    })
+                });
+                const data = await response.json();
+                const failed = Array.isArray(data.checks)
+                    ? data.checks.filter(check => !check.ok).map(check => check.label)
+                    : [];
+                fabricMessage.textContent = data.success
+                    ? '✅ التكامل الجذري الكامل مفعل | الدرجة: ' + data.score + '% | القرار: ' + data.decision
+                    : '⚠️ يحتاج مراجعة | الدرجة: ' + (data.score || 0) + '% | ' + failed.join('، ');
+                await refreshSupremeFabric();
+                await refreshStatus();
+            } catch (err) {
+                fabricMessage.textContent = 'خطأ في تحقق التكامل الجذري الكامل: ' + err.message;
+            }
+        }
+
+        async function activateNetwork(active) {
+            const actionText = active ? 'تفعيل' : 'إيقاف';
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = actionText + ' الشبكة...';
+            try {
+                const response = await fetch(basePath + '/activate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ activate: active })
+                });
+                const data = await response.json();
+                statusMessage.textContent = data.message || (actionText + ' اكتمل.');
+                await refreshStatus();
+            } catch (err) {
+                statusMessage.textContent = 'خطأ في الاتصال بالخادم: ' + err.message;
+            }
+        }
+
+        async function retrainNetwork() {
+            const statusMessage = document.getElementById('statusMessage');
+            statusMessage.textContent = 'جارٍ إعادة تدريب الشبكة...';
+            try {
+                const response = await fetch(basePath + '/retrain', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ dataset: 'sheikha-governed-corpus' })
+                });
+                const data = await response.json();
+                statusMessage.textContent = data.message || 'تمت إعادة التدريب';
+                await refreshStatus();
+            } catch (err) {
+                statusMessage.textContent = 'خطأ في الاتصال بالخادم: ' + err.message;
+            }
+        }
+
+        async function evaluateInput() {
+            const input = document.getElementById('evaluationInput').value.trim();
+            const resultMessage = document.getElementById('resultMessage');
+            if (!input) {
+                resultMessage.textContent = 'أدخل نصًا أو مهمة لتقييمها.';
+                return;
+            }
+            resultMessage.textContent = 'جارٍ التقييم...';
+            try {
+                const response = await fetch(basePath + '/evaluate', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ input, source: 'sheikha-vscode' })
+                });
+                const data = await response.json();
+                if (data.success) {
+                    resultMessage.textContent = '✅ القرار: ' + data.decision + '. وُجدت انتهاكات: ' + (data.violations.length ? data.violations.join(', ') : 'لا شيء');
+                } else {
+                    resultMessage.textContent = '⚠️ فشل التقييم. تحقق من حالة الشبكة.';
+                }
+            } catch (err) {
+                resultMessage.textContent = 'خطأ في التقييم: ' + err.message;
+            }
+        }
+
+        refreshStatus();
+        refreshSupremeFabric();
+    </script>
+</body>
+</html>`;
+}
+
+function getInstalledExtensionSnapshot() {
+    try {
+        return vscode.extensions.all.map(ext => ({
+            id: ext.id,
+            displayName: ext.packageJSON && (ext.packageJSON.displayName || ext.packageJSON.name),
+            version: ext.packageJSON && ext.packageJSON.version,
+            publisher: ext.packageJSON && ext.packageJSON.publisher
+        }));
+    } catch (_) {
+        return [];
+    }
+}
+
+function safeJsonForHtml(value) {
+    return JSON.stringify(value).replace(/</g, '\\u003c');
+}
+
+function getEnterpriseIntegrationViewHtml(serverUrl = 'http://localhost:8080') {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    const extensionsJson = safeJsonForHtml(getInstalledExtensionSnapshot());
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha التكامل المؤسسي</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        .row { display: grid; grid-template-columns: 1fr 1fr; gap: 10px; }
+        .label { color: #c7d2fe; font-size: 12px; margin-bottom: 4px; }
+        .value { color: #f9fafb; font-size: 14px; word-break: break-word; }
+        button { background: #fbbf24; color: #111827; border: none; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-weight: 700; margin: 4px 0; }
+        pre { background: #0f172a; border: 1px solid #334155; padding: 10px; border-radius: 8px; white-space: pre-wrap; direction: ltr; text-align: left; max-height: 260px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha التكامل المؤسسي</h1>
+    <div class="card">
+        <p>طبقة تنظيمية وتجارية تربط VS Code وGit وGitHub وGitHub Copilot داخل Sheikha، مع بقاء Sheikha هي طبقة الحوكمة والاعتماد.</p>
+        <button onclick="refreshEnterprise()">تحديث الحالة</button>
+        <button onclick="buildWorkPlan()">خطة العمل المؤسسية</button>
+        <button onclick="refreshGitService()">خدمة Git المؤسسية</button>
+        <button onclick="buildPrPlan()">خطة PR</button>
+        <button onclick="buildMrPlan()">خطة MR</button>
+    </div>
+    <div class="card row">
+        <div><div class="label">Git</div><div id="gitStatus" class="value">---</div></div>
+        <div><div class="label">GitHub</div><div id="githubStatus" class="value">---</div></div>
+        <div><div class="label">GitHub Copilot</div><div id="copilotStatus" class="value">---</div></div>
+        <div><div class="label">الإضافات</div><div id="extensionsStatus" class="value">---</div></div>
+    </div>
+    <div class="card">
+        <div class="label">المخرجات</div>
+        <pre id="enterpriseOutput">لم يتم الفحص بعد.</pre>
+    </div>
+    <script>
+        const serverUrl = '${safeServerUrl}';
+        const extensions = ${extensionsJson};
+
+        async function refreshEnterprise() {
+            const output = document.getElementById('enterpriseOutput');
+            output.textContent = 'جارٍ فحص التكامل المؤسسي...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-vscode-git/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ extensions })
+                });
+                const data = await response.json();
+                const stack = data.stack || {};
+                document.getElementById('gitStatus').textContent = (stack.git && (stack.git.branch + ' | ' + stack.git.provider)) || 'غير معروف';
+                document.getElementById('githubStatus').textContent = stack.github && stack.github.providerDetected ? 'متصل عبر remote' : 'جاهز للتكوين';
+                document.getElementById('copilotStatus').textContent = stack.githubCopilot && stack.githubCopilot.detectedInVsCode ? 'مكتشف في VS Code' : 'غير مكتشف';
+                document.getElementById('extensionsStatus').textContent = extensions.length + ' إضافة';
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاتصال: ' + err.message;
+            }
+        }
+
+        async function buildWorkPlan() {
+            const output = document.getElementById('enterpriseOutput');
+            output.textContent = 'جارٍ بناء خطة العمل...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-vscode-git/work-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target: 'sheikha-main-portal', provider: 'github' })
+                });
+                const data = await response.json();
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الخطة: ' + err.message;
+            }
+        }
+
+        async function refreshGitService() {
+            const output = document.getElementById('enterpriseOutput');
+            output.textContent = 'جارٍ فحص خدمة Git المؤسسية...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-git-service/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ extensions, provider: 'github' })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خدمة Git المؤسسية: ' + err.message;
+            }
+        }
+
+        async function buildPrPlan() {
+            const output = document.getElementById('enterpriseOutput');
+            output.textContent = 'جارٍ بناء خطة PR...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-git-service/pr-mr-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        provider: 'github',
+                        kind: 'PR',
+                        title: 'Sheikha AI Provider enterprise activation',
+                        sourceBranch: 'current-branch',
+                        targetBranch: 'main'
+                    })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة PR: ' + err.message;
+            }
+        }
+
+        async function buildMrPlan() {
+            const output = document.getElementById('enterpriseOutput');
+            output.textContent = 'جارٍ بناء خطة MR...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/enterprise-git-service/pr-mr-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({
+                        provider: 'gitlab',
+                        kind: 'MR',
+                        title: 'Sheikha AI Provider enterprise activation',
+                        sourceBranch: 'current-branch',
+                        targetBranch: 'main'
+                    })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة MR: ' + err.message;
+            }
+        }
+
+        refreshEnterprise();
+    </script>
+</body>
+</html>`;
+}
+
+function getGoverningOsViewHtml(serverUrl = 'http://localhost:8080') {
+    const safeServerUrl = serverUrl.replace(/"/g, '\\"');
+    const extensionsJson = safeJsonForHtml(getInstalledExtensionSnapshot());
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha AI AL OS</title>
+    <style>
+        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 14px; }
+        h1 { color: #fbbf24; margin-bottom: 10px; }
+        .card { background: #1f2937; border: 1px solid #374151; border-radius: 10px; padding: 14px; margin-bottom: 12px; }
+        .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(160px, 1fr)); gap: 10px; }
+        .tile { background: #0f172a; border: 1px solid #334155; border-radius: 8px; padding: 10px; }
+        .label { color: #c7d2fe; font-size: 12px; }
+        .value { color: #f9fafb; font-size: 14px; margin-top: 4px; }
+        button { background: #fbbf24; color: #111827; border: none; border-radius: 8px; padding: 9px 12px; cursor: pointer; font-weight: 700; margin: 4px 0; }
+        pre { background: #0f172a; border: 1px solid #334155; padding: 10px; border-radius: 8px; white-space: pre-wrap; direction: ltr; text-align: left; max-height: 260px; overflow: auto; }
+    </style>
+</head>
+<body>
+    <h1>Sheikha AI AL OS</h1>
+    <div class="card">
+        <p>طبقة Sheikha الحاكمة لأنظمة التشغيل والحزم والإضافات: Linux، Pop!_OS، Debian، Ubuntu، Red Hat، Fedora، SUSE، Windows، macOS، مع deb/rpm/tar.gz/snap/zip/dmg/cli.</p>
+        <button onclick="refreshOs()">تحديث الطبقة</button>
+        <button onclick="planPackage('linux','deb','x64')">خطة .deb</button>
+        <button onclick="planPackage('linux','rpm','x64')">خطة .rpm</button>
+        <button onclick="planPackage('windows','user-installer','x64')">خطة Windows</button>
+        <button onclick="planPackage('macos','dmg','universal')">خطة Mac</button>
+        <button onclick="universalPlan()">خطة تكامل شامل</button>
+    </div>
+    <div class="card grid">
+        <div class="tile"><div class="label">المنصات</div><div id="platforms" class="value">---</div></div>
+        <div class="tile"><div class="label">أنواع الحزم</div><div id="packages" class="value">---</div></div>
+        <div class="tile"><div class="label">الإضافات</div><div id="extensions" class="value">---</div></div>
+        <div class="tile"><div class="label">الحالة</div><div id="osStatus" class="value">---</div></div>
+    </div>
+    <div class="card">
+        <pre id="osOutput">لم يتم الفحص بعد.</pre>
+    </div>
+    <script>
+        const serverUrl = '${safeServerUrl}';
+        const extensions = ${extensionsJson};
+
+        async function refreshOs() {
+            const output = document.getElementById('osOutput');
+            output.textContent = 'جارٍ فحص Sheikha AI AL OS...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/governing-os/status', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ extensions })
+                });
+                const data = await response.json();
+                document.getElementById('platforms').textContent = (data.platforms || []).join(', ');
+                document.getElementById('packages').textContent = String(data.packageCount || 0);
+                document.getElementById('extensions').textContent = String(data.extensions && data.extensions.count || 0);
+                document.getElementById('osStatus').textContent = data.status || 'unknown';
+                output.textContent = JSON.stringify(data, null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في الاتصال: ' + err.message;
+            }
+        }
+
+        async function planPackage(platform, packageType, arch) {
+            const output = document.getElementById('osOutput');
+            output.textContent = 'جارٍ إعداد خطة الحزمة...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/governing-os/package-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ platform, packageType, arch })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة الحزمة: ' + err.message;
+            }
+        }
+
+        async function universalPlan() {
+            const output = document.getElementById('osOutput');
+            output.textContent = 'جارٍ بناء خطة التكامل الشامل...';
+            try {
+                const response = await fetch(serverUrl + '/api/sheikha/governing-os/universal-integration-plan', {
+                    method: 'POST',
+                    headers: { 'Content-Type': 'application/json' },
+                    body: JSON.stringify({ target: 'sheikha-ai-al-os' })
+                });
+                output.textContent = JSON.stringify(await response.json(), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في خطة التكامل: ' + err.message;
+            }
+        }
+
+        refreshOs();
+    </script>
+</body>
+</html>`;
+}
+
 function getSidebarChatHtml() {
     return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
@@ -1061,7 +2525,7 @@ function getSidebarChatHtml() {
     </style>
 </head>
 <body>
-    <div class="header">🤖 شات شيخة</div>
+    <div class="header">🤖 شات Sheikha</div>
     <div id="messages" class="messages"></div>
     <div class="row">
         <input id="input" type="text" placeholder="اكتب سؤالك البرمجي..." />
@@ -1100,7 +2564,7 @@ function getSidebarChatHtml() {
 async function loadEcosystemSignals(serverUrl, authHeaders) {
     // فحص endpoints الخادم
     const checks = [
-        { name: 'Sheikha Copilot', path: '/api/sheikha/copilot/status', mapper: data => (data && data.data && data.data.status) || 'unknown' },
+        { name: 'Sheikha', path: '/api/sheikha/extension/status', mapper: data => (data && data.data && data.data.status) || 'unknown' },
         { name: 'Sheikha Unified Integrations', path: '/api/sheikha/unified-integrations', mapper: data => (data && data.success ? 'active' : 'unknown') },
         { name: 'Google Integration', path: '/api/sheikha/integrations/google-safe-status', mapper: data => (data && data.success ? 'active' : 'unknown') },
         { name: 'CNTXT Integration', path: '/api/sheikha/integrations/cntxt-safe-status', mapper: data => (data && data.success ? 'active' : 'unknown') }

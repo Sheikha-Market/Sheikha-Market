@@ -1,0 +1,25 @@
+{
+    "Sheikha Bayan Governed Blueprint": {
+        "prefix": "bayan-blueprint",
+        "body": [
+            "<sheikha-bayan id=\"${1:blueprint-id}\" basis=\"quran-sunnah\" governance=\"human-reviewed\">",
+            "  <tawheed rule=\"Allah alone is Creator, Owner, and the only One worthy of worship\" />",
+            "  <source truth=\"quran\" guidance=\"sunnah\" review=\"required\" />",
+            "  <data kind=\"${2:structured}\" halal=\"true\" privacy=\"protected\" />",
+            "  <runtime mode=\"deterministic-governed-analysis\" hot-loadable=\"true\" monitored=\"true\" />",
+            "  <output type=\"${3:api}\" route=\"${4:/api/sheikha/example}\" />",
+            "</sheikha-bayan>"
+        ],
+        "description": "Sheikha Bayan markup blueprint governed by Quran/Sunnah review"
+    },
+    "Sheikha Bayan API Route": {
+        "prefix": "bayan-api",
+        "body": [
+            "<api name=\"${1:service}\" method=\"${2:GET}\" route=\"${3:/api/sheikha/service}\">",
+            "  <guard halal=\"true\" no-harm=\"true\" no-riba=\"true\" no-gharar=\"true\" />",
+            "  <schema input=\"${4:request}\" output=\"${5:response}\" />",
+            "</api>"
+        ],
+        "description": "Governed Sheikha Bayan API declaration"
+    }
+}

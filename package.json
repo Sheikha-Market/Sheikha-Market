@@ -5,7 +5,8 @@
   "main": "server.js",
   "engines": {
     "node": "^20.0.0 || ^22.0.0 || ^25.0.0",
-    "pm2": ">=6.0.0"
+    "pm2": ">=6.0.0",
+    "vscode": "^1.85.0"
   },
   "scripts": {
     "start": "node --max-old-space-size=2048 server.js",
@@ -34,6 +35,25 @@
     "sovereign:dashboards": "node scripts/activate-integrated-dashboards.js",
     "sovereign:dashboards:full": "node scripts/activate-integrated-dashboards.js --full-report",
     "status": "node scripts/sheikha-startup-display.js",
+    "sheikha:registry": "node tools/sheikha-blueprint-guard.js --stage audit --summary",
+    "sheikha:registry:precommit": "node tools/sheikha-blueprint-guard.js --stage precommit --summary",
+    "sheikha:registry:preflight": "node tools/sheikha-blueprint-guard.js --stage preflight --summary",
+    "sheikha:registry:strict": "node tools/sheikha-blueprint-guard.js --stage strict --summary",
+    "sheikha:blueprints": "node tools/runtime/validate-blueprints.js",
+    "sheikha:blueprints:runtime": "node tools/runtime/validate-blueprints.js",
+    "precommit": "node tools/sheikha-blueprint-guard.js --stage precommit --summary",
+    "preserver:restart": "node tools/sheikha-blueprint-guard.js --stage preflight --summary",
+    "preserver:deploy": "node tools/sheikha-blueprint-guard.js --stage preflight --summary",
+    "presheikha:server:restart": "node tools/sheikha-blueprint-guard.js --stage preflight --summary",
+    "sheikha:core-chat": "node scripts/sheikha-cli.js core-chat",
+    "sheikha:self-training": "node scripts/sheikha-cli.js self-training",
+    "sheikha:learning": "node scripts/sheikha-cli.js learning",
+    "sheikha:learning:plan": "node scripts/sheikha-cli.js learning-plan",
+    "sheikha:learning:cycle": "node scripts/sheikha-cli.js learning-cycle",
+    "sheikha:jdk": "node scripts/sheikha-cli.js jdk",
+    "sheikha:jdk:plan": "node scripts/sheikha-cli.js jdk-plan",
+    "sheikha:jdk:evaluate": "node scripts/sheikha-cli.js jdk-evaluate",
+    "sheikha:ask": "node scripts/sheikha-cli.js ask",
     "copilot:start": "pm2 start ecosystem.config.js --only sheikha-copilot && pm2 save",
     "copilot:stop": "pm2 stop sheikha-copilot && pm2 save",
     "copilot:restart": "pm2 restart sheikha-copilot",
@@ -68,6 +88,7 @@
     "ops:extension:release:cycle:pm2:start": "pm2 delete sheikha-extension-release-cycle 2>/dev/null; pm2 start bash --name sheikha-extension-release-cycle -- -lc 'while true; do npm run -s ops:extension:release:cycle:daily; sleep 86400; done' && pm2 save",
     "ops:extension:release:cycle:pm2:stop": "pm2 delete sheikha-extension-release-cycle && pm2 save",
     "ops:extension:release:cycle:pm2:logs": "pm2 logs sheikha-extension-release-cycle --lines 80 --nostream",
+    "package": "npm --prefix sheikha-vscode-extension run package",
     "ops:extension:package:best": "npm --prefix sheikha-vscode-extension run -s package:best",
     "ops:khair:max:plan": "node scripts/activate-sheikha-khair-max-production.js",
     "ops:khair:max:apply": "node scripts/activate-sheikha-khair-max-production.js --apply",
@@ -120,6 +141,14 @@
     "ops:ai-guard:pm2:stop": "pm2 delete sheikha-ai-guard",
     "ops:ollama:plan": "node scripts/ollama-models-sync.js --plan",
     "ops:ollama:apply": "OLLAMA_ALLOW_PULL=true node scripts/ollama-models-sync.js --apply",
+    "sheikha:core:model": "bash tools/sheikha-core-model.sh",
+    "sheikha:core:gateway": "bash tools/sheikha-server.sh gateway",
+    "sheikha:server": "bash tools/sheikha-server.sh status",
+    "sheikha:server:restart": "bash tools/sheikha-server.sh restart",
+    "sheikha:enterprise:runtime": "bash tools/sheikha-enterprise-runtime.sh run",
+    "sheikha:enterprise:health": "bash tools/sheikha-enterprise-runtime.sh health",
+    "sheikha:enterprise:test": "bash tools/sheikha-enterprise-runtime.sh test",
+    "sheikha:enterprise:ai-test": "bash tools/sheikha-enterprise-runtime.sh ai-test",
     "ollama:copilot:start": "pm2 start ecosystem.config.js --only sheikha-ollama-copilot && pm2 save",
     "ollama:copilot:stop": "pm2 stop sheikha-ollama-copilot && pm2 save",
     "ollama:copilot:restart": "pm2 restart sheikha-ollama-copilot",
@@ -428,5 +457,7 @@
     "@eslint/js": "^10.0.1",
     "eslint": "^10.2.1",
     "jest": "^30.4.2"
-  }
+  },
+  "publisher": "sheikha",
+  "displayName": "Sheikha"
 }

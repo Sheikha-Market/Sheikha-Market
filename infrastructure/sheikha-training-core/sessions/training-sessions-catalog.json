@@ -1,5 +1,5 @@
 {
-    "generatedAt": "2026-03-13T23:54:18.663Z",
+    "generatedAt": "2026-05-21T15:45:05.340Z",
     "sessions": [
         {
             "id": "session-rag-v1",
@@ -24,6 +24,178 @@
             "status": "pending",
             "epochs": 10,
             "batchSize": 32
+        },
+        {
+            "id": "session-1779378368244",
+            "modelTarget": "sheikha-rag-reasoner-v1",
+            "domain": "metals-scrap-market",
+            "requestedEpochs": 10,
+            "status": "completed",
+            "startedAt": "2026-05-21T15:46:08.244Z",
+            "completedAt": "2026-05-21T15:46:08.244Z",
+            "metrics": {
+                "finalLoss": 0.0199,
+                "bestEpoch": 9,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.939,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779378375762",
+            "modelTarget": "sheikha-rag-reasoner-v1",
+            "domain": "metals-scrap-market",
+            "requestedEpochs": 10,
+            "status": "completed",
+            "startedAt": "2026-05-21T15:46:15.762Z",
+            "completedAt": "2026-05-21T15:46:15.762Z",
+            "metrics": {
+                "finalLoss": 0.0327,
+                "bestEpoch": 9,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.978,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779378387048",
+            "modelTarget": "sharia-compliance-classifier",
+            "domain": "sharia-sciences",
+            "requestedEpochs": 15,
+            "status": "completed",
+            "startedAt": "2026-05-21T15:46:27.048Z",
+            "completedAt": "2026-05-21T15:46:27.048Z",
+            "metrics": {
+                "finalLoss": 0.0239,
+                "bestEpoch": 13,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.954,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779378392262",
+            "modelTarget": "sharia-compliance-classifier",
+            "domain": "sharia-sciences",
+            "requestedEpochs": 15,
+            "status": "completed",
+            "startedAt": "2026-05-21T15:46:32.261Z",
+            "completedAt": "2026-05-21T15:46:32.262Z",
+            "metrics": {
+                "finalLoss": 0.0242,
+                "bestEpoch": 13,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.915,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779378497564",
+            "modelTarget": "sheikha-rag-reasoner-v1",
+            "domain": "metals-scrap-market",
+            "requestedEpochs": 10,
+            "status": "completed",
+            "startedAt": "2026-05-21T15:48:17.564Z",
+            "completedAt": "2026-05-21T15:48:17.565Z",
+            "metrics": {
+                "finalLoss": 0.0274,
+                "bestEpoch": 9,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.914,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779378504509",
+            "modelTarget": "sheikha-rag-reasoner-v1",
+            "domain": "metals-scrap-market",
+            "requestedEpochs": 10,
+            "status": "completed",
+            "startedAt": "2026-05-21T15:48:24.509Z",
+            "completedAt": "2026-05-21T15:48:24.509Z",
+            "metrics": {
+                "finalLoss": 0.0399,
+                "bestEpoch": 9,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.971,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779396509771",
+            "modelTarget": "sheikha-rag-reasoner-v1",
+            "domain": "quran-sunnah-islamic-ai",
+            "requestedEpochs": 18,
+            "status": "completed",
+            "startedAt": "2026-05-21T20:48:29.771Z",
+            "completedAt": "2026-05-21T20:48:29.771Z",
+            "metrics": {
+                "finalLoss": 0.0566,
+                "bestEpoch": 15,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.953,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779396509781",
+            "modelTarget": "sharia-compliance-classifier",
+            "domain": "sharia-sciences",
+            "requestedEpochs": 21,
+            "status": "completed",
+            "startedAt": "2026-05-21T20:48:29.781Z",
+            "completedAt": "2026-05-21T20:48:29.782Z",
+            "metrics": {
+                "finalLoss": 0.0149,
+                "bestEpoch": 17,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.912,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
+        },
+        {
+            "id": "session-1779396852178",
+            "modelTarget": "sheikha-ai-foundations-neural-network-v1",
+            "domain": "ai-foundations-deep-learning",
+            "requestedEpochs": 20,
+            "status": "completed",
+            "startedAt": "2026-05-21T20:54:12.177Z",
+            "completedAt": "2026-05-21T20:54:12.178Z",
+            "metrics": {
+                "finalLoss": 0.032,
+                "bestEpoch": 17,
+                "shariaComplianceRate": 1,
+                "ragAccuracy": 0.976,
+                "hallucinationRate": 0
+            },
+            "promotionGatePassed": true,
+            "shariaReviewPassed": true,
+            "notes": "جلسة التدريب اكتملت — المعايير الشرعية: صفر انتهاكات"
         }
-    ]
+    ],
+    "lastRunAt": "2026-05-21T20:54:12.177Z"
 }

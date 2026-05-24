@@ -4,7 +4,7 @@
   "tasks": [
 
     {
-      "label": "💾 شيخة — نسخ احتياطي لـ data/ (محلي)",
+      "label": "💾 Sheikha — نسخ احتياطي لـ data/ (محلي)",
       "type": "shell",
       "command": "bash scripts/sovereign-backup.sh",
       "group": "build",
@@ -50,7 +50,7 @@
     },
 
     {
-      "label": "🚀 شيخة — تشغيل الخادم (dev)",
+      "label": "🚀 Sheikha — تشغيل الخادم (dev)",
       "type": "shell",
       "command": "npm run dev",
       "group": { "kind": "build", "isDefault": true },
@@ -59,7 +59,7 @@
     },
 
     {
-      "label": "🔍 شيخة — lint",
+      "label": "🔍 Sheikha — lint",
       "type": "shell",
       "command": "npm run lint 2>/dev/null || echo '⚠️ لا يوجد سكربت lint مُعرَّف'",
       "group": "test",
