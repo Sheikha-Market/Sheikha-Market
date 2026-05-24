@@ -21914,6 +21914,11 @@ try {
         ingestLearningEvent,
         runLearningCycle
     } = require('./core/ai-gateway/sheikha-continuous-learning-runtime');
+    const {
+        getJdkRootNeuralStatus,
+        buildJdkEnterprisePlan,
+        evaluateJdkEnvironment
+    } = require('./core/development/sheikha-jdk-root-neural-cell');
 
     app.get('/api/sheikha/ai-gateway/status', async (_req, res) => {
         res.json(await getSheikhaGatewayStatus());
@@ -22010,6 +22015,18 @@ try {
 
     app.post('/api/sheikha/continuous-learning/cycle', express.json(), (req, res) => {
         res.json(runLearningCycle(req.body || {}));
+    });
+
+    app.get('/api/sheikha/jdk/status', (_req, res) => {
+        res.json(getJdkRootNeuralStatus());
+    });
+
+    app.post('/api/sheikha/jdk/plan', express.json(), (req, res) => {
+        res.json(buildJdkEnterprisePlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/jdk/evaluate', express.json(), (req, res) => {
+        res.json(evaluateJdkEnvironment(req.body || {}));
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
