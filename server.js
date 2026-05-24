@@ -22412,3 +22412,15 @@ try {
 } catch (e) {
   console.error('❌ Canonical Runtime Status mount failed:', e.message);
 }
+
+// SHEIKHA_CANONICAL_RUNTIME_ROUTE
+try {
+  app.use(
+    '/api/runtime-root/canonical-runtime-status',
+    require('./routes/runtime-root/canonical-runtime-status')
+  );
+
+  console.log('✅ Canonical Runtime Status API mounted');
+} catch (e) {
+  console.error('❌ Canonical Runtime Status mount failed:', e.message);
+}
