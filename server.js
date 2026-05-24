@@ -21119,6 +21119,64 @@ async function sheikhaChatHandler(req, res) {
     let responseData = null;
     let reply = makeSheikhaReply(message, language);
 
+    const aiGateway = optionalRequire('./core/ai-gateway/sheikha-ai-gateway');
+    const selfTraining = optionalRequire('./core/ai-gateway/sheikha-core-self-training');
+    const requestedModel = req.body && req.body.model && req.body.model !== 'sheikha-base'
+        ? req.body.model
+        : undefined;
+
+    if (aiGateway && typeof aiGateway.askSheikhaCore === 'function' && String(message || '').trim()) {
+        try {
+            const coreResult = await aiGateway.askSheikhaCore({
+                prompt: String(message),
+                model: requestedModel || aiGateway.DEFAULT_MODEL,
+                context: {
+                    source: 'vscode-extension-chat',
+                    route: '/api/sheikha/chat',
+                    language,
+                    codeContext: req.body && req.body.codeContext,
+                    history: req.body && Array.isArray(req.body.history) ? req.body.history : []
+                }
+            });
+
+            if (coreResult && coreResult.success) {
+                const training = selfTraining && typeof selfTraining.recordSelfTrainingSample === 'function'
+                    ? selfTraining.recordSelfTrainingSample({
+                        prompt: message,
+                        output: coreResult.output,
+                        model: coreResult.model,
+                        source: 'vscode-extension-chat',
+                        context: {
+                            source: 'vscode-extension-chat',
+                            language,
+                            mode: coreResult.mode,
+                            codeContext: req.body && req.body.codeContext,
+                            history: req.body && Array.isArray(req.body.history) ? req.body.history : []
+                        }
+                    })
+                    : null;
+
+                return res.json({
+                    success: true,
+                    data: {
+                        reply: coreResult.output || 'Sheikha-Core جاهزة.',
+                        codeSnippet: null,
+                        provider: coreResult.provider,
+                        mode: coreResult.mode,
+                        model: coreResult.model,
+                        selfTraining: training ? training.record : null,
+                        neural: getSheikhaVsixStatus().neural,
+                        islamicIntelligence: getSheikhaVsixStatus().islamicIntelligence,
+                        aiFoundations: getSheikhaVsixStatus().aiFoundations
+                    },
+                    timestamp: new Date().toISOString()
+                });
+            }
+        } catch (err) {
+            reply = `${reply}\n\nتنبيه: تعذر استخدام Sheikha-Core مباشرة (${err.message}).`;
+        }
+    }
+
     try {
         if (aiFoundations && isAIFoundationsRequest(message) && typeof aiFoundations.query === 'function') {
             responseData = aiFoundations.query({
@@ -21842,8 +21900,20 @@ try {
 try {
     const {
         askSheikhaCore,
-        getSheikhaGatewayStatus
+        getSheikhaGatewayStatus,
+        DEFAULT_MODEL
     } = require('./core/ai-gateway/sheikha-ai-gateway');
+    const {
+        recordSelfTrainingSample,
+        getSelfTrainingStatus,
+        buildTrainingReviewPlan
+    } = require('./core/ai-gateway/sheikha-core-self-training');
+    const {
+        getContinuousLearningStatus,
+        buildDailyLearningPlan,
+        ingestLearningEvent,
+        runLearningCycle
+    } = require('./core/ai-gateway/sheikha-continuous-learning-runtime');
 
     app.get('/api/sheikha/ai-gateway/status', async (_req, res) => {
         res.json(await getSheikhaGatewayStatus());
@@ -21852,6 +21922,94 @@ try {
     app.post('/api/sheikha/ai-gateway/ask', express.json(), async (req, res) => {
         const result = await askSheikhaCore(req.body || {});
         res.json(result);
+    });
+
+    app.get('/api/sheikha/core-chat/status', async (_req, res) => {
+        const gateway = await getSheikhaGatewayStatus();
+        res.json({
+            success: true,
+            status: 'active',
+            name: 'Sheikha-Core Chat',
+            mode: 'local-first-governed-chat',
+            model: DEFAULT_MODEL,
+            gateway,
+            selfTraining: getSelfTrainingStatus(),
+            governance: gateway.governance,
+            message: 'Sheikha-Core مفعلة كمسار الشات الأساسي مع تدريب ذاتي محكوم.',
+            timestamp: new Date().toISOString()
+        });
+    });
+
+    app.post('/api/sheikha/core-chat/ask', express.json(), async (req, res) => {
+        const payload = req.body || {};
+        const prompt = payload.prompt || payload.message || payload.instruction;
+        const model = payload.model && payload.model !== 'sheikha-base' ? payload.model : DEFAULT_MODEL;
+        const result = await askSheikhaCore({
+            ...payload,
+            prompt,
+            model,
+            context: {
+                ...(payload.context || {}),
+                source: payload.context && payload.context.source ? payload.context.source : 'sheikha-core-chat',
+                route: '/api/sheikha/core-chat/ask',
+                language: payload.language || (payload.context && payload.context.language) || 'auto'
+            }
+        });
+
+        const training = result && result.success
+            ? recordSelfTrainingSample({
+                prompt,
+                output: result.output,
+                model: result.model,
+                source: 'sheikha-core-chat',
+                context: {
+                    ...(payload.context || {}),
+                    language: payload.language || (payload.context && payload.context.language) || 'auto',
+                    mode: result.mode
+                }
+            })
+            : null;
+
+        res.json({
+            ...result,
+            chat: {
+                status: result && result.success ? 'answered' : 'failed',
+                primary: 'Sheikha-Core',
+                selfTraining: training ? training.record : null
+            }
+        });
+    });
+
+    app.get('/api/sheikha/self-training/status', (_req, res) => {
+        res.json(getSelfTrainingStatus());
+    });
+
+    app.post('/api/sheikha/self-training/record', express.json(), (req, res) => {
+        res.json(recordSelfTrainingSample(req.body || {}));
+    });
+
+    app.post('/api/sheikha/self-training/review-plan', express.json(), (req, res) => {
+        res.json(buildTrainingReviewPlan(req.body || {}));
+    });
+
+    app.get('/api/sheikha/continuous-learning/status', (_req, res) => {
+        res.json(getContinuousLearningStatus());
+    });
+
+    app.get('/api/sheikha/continuous-learning/daily-plan', (_req, res) => {
+        res.json(buildDailyLearningPlan());
+    });
+
+    app.post('/api/sheikha/continuous-learning/daily-plan', express.json(), (req, res) => {
+        res.json(buildDailyLearningPlan(req.body || {}));
+    });
+
+    app.post('/api/sheikha/continuous-learning/ingest', express.json(), (req, res) => {
+        res.json(ingestLearningEvent(req.body || {}));
+    });
+
+    app.post('/api/sheikha/continuous-learning/cycle', express.json(), (req, res) => {
+        res.json(runLearningCycle(req.body || {}));
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
@@ -21910,6 +22068,17 @@ try {
     console.log('✅ Sheikha Root Orchestration API active');
 } catch (error) {
     console.warn('⚠️ Sheikha Root Orchestration API unavailable:', error.message);
+}
+
+
+// ─────────────────────────────────────────────────────────────
+// Sheikha Unified Chat Control Fabric API
+// ─────────────────────────────────────────────────────────────
+try {
+  app.use('/api/sheikha/chat-fabric', require('./routes/chat-fabric/sheikha-chat-fabric-routes'));
+  console.log('✅ Sheikha Chat Fabric API mounted');
+} catch (err) {
+  console.error('⚠️ Sheikha Chat Fabric API mount failed:', err.message);
 }
 
 app.use((req, res) => {
