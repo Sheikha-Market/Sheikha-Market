@@ -22031,7 +22031,8 @@ try {
 // Sheikha Root Orchestration API
 // ─────────────────────────────────────────────────────────────
 try {
-    app.use('/api/runtime-root', require('./routes/runtime-root/root-orchestration'));
+    
+
     console.log('✅ Sheikha Root Orchestration API active');
 } catch (error) {
     console.warn('⚠️ Sheikha Root Orchestration API unavailable:', error.message);
@@ -22052,11 +22053,15 @@ try {
 
 // SHEIKHA_CANONICAL_RUNTIME_ROUTE
 try {
-  app.use('/api/runtime-root', require('./routes/runtime-root/canonical-runtime-status'));
+  
   console.log('✅ Canonical Runtime Status API mounted');
 } catch (e) {
   console.error('❌ Canonical Runtime Status mount failed:', e.message);
 }
+
+
+// SHEIKHA_CANONICAL_RUNTIME_GATEWAY
+app.use('/api/runtime-root', require('./routes/runtime-root'));
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
