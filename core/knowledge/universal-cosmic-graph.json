@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "name": "الشبكة الكونية الجذرية الموحدة",
+    "description": "تمثيل رقمي لكل الأنظمة والقيم الكونية وفق الكتاب والسنة، توحيد كل شيء لله.",
+    "source": "القرآن والسنة، علوم الكون، الأنظمة البشرية والطبيعية"
+  },
+  "nodes": [
+    {"id": "Allah", "label": "الله وحده", "type": "root", "attributes": {"absolute_unity": true}},
+    {"id": "Universe", "label": "الكون", "type": "system", "attributes": {"created_by": "Allah"}},
+    {"id": "Human", "label": "الإنسان", "type": "system", "attributes": {"purpose": "عبادة الله وإعمار الكون"}},
+    {"id": "Nature", "label": "الطبيعة", "type": "system", "attributes": {"balance": true}},
+    {"id": "Knowledge", "label": "المعرفة", "type": "value", "attributes": {"source": "الوحي والعقل"}},
+    {"id": "Justice", "label": "العدل", "type": "value", "attributes": {"quranic_principle": true}},
+    {"id": "Mercy", "label": "الرحمة", "type": "value", "attributes": {"quranic_principle": true}},
+    {"id": "Shura", "label": "الشورى", "type": "value", "attributes": {"quranic_principle": true}},
+    {"id": "Organizations", "label": "المنظمات", "type": "system", "attributes": {"purpose": "خدمة الإنسان والكون"}},
+    {"id": "Systems", "label": "الأنظمة", "type": "system", "attributes": {"integration": true}},
+    {"id": "Technology", "label": "التقنية", "type": "tool", "attributes": {"goal": "إعمار الكون"}},
+    {"id": "Governance", "label": "الحوكمة", "type": "value", "attributes": {"quranic_principle": true}},
+    {"id": "Optimum", "label": "الأفضلية الكونية", "type": "value", "attributes": {"definition": "تحقيق أقصى نفع للخلق وفق مراد الله"}}
+  ],
+  "edges": [
+    {"from": "Allah", "to": "Universe", "relation": "خلق"},
+    {"from": "Allah", "to": "Human", "relation": "خلق"},
+    {"from": "Allah", "to": "Nature", "relation": "خلق"},
+    {"from": "Human", "to": "Knowledge", "relation": "يطلب"},
+    {"from": "Human", "to": "Justice", "relation": "يطبق"},
+    {"from": "Human", "to": "Mercy", "relation": "يطبق"},
+    {"from": "Human", "to": "Shura", "relation": "يطبق"},
+    {"from": "Human", "to": "Organizations", "relation": "ينشئ"},
+    {"from": "Organizations", "to": "Systems", "relation": "تدير"},
+    {"from": "Systems", "to": "Technology", "relation": "تستخدم"},
+    {"from": "Systems", "to": "Optimum", "relation": "تسعى لتحقيق"},
+    {"from": "Governance", "to": "Organizations", "relation": "تنظم"},
+    {"from": "Nature", "to": "Justice", "relation": "تتجلى فيها"},
+    {"from": "Optimum", "to": "Allah", "relation": "غاية"}
+  ]
+}
