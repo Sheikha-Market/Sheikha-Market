@@ -2,7 +2,12 @@
 
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
-const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 20000);
+const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 60000);
+const DEFAULT_NUM_CTX = Number(process.env.SHEIKHA_CORE_NUM_CTX || 4096);
+const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 128);
+const DEFAULT_KEEP_ALIVE = process.env.SHEIKHA_CORE_KEEP_ALIVE || '10m';
+const SHEIKHA_CORE_RUNTIME_PROMPT = process.env.SHEIKHA_CORE_RUNTIME_PROMPT ||
+    'أنت Sheikha-Core. أجب مباشرة بالعربية عند الطلب، وباختصار وصدق.';
 
 const SHEIKHA_CORE_SYSTEM_PROMPT = `
 أنت Sheikha-Core / شيخة كُور.
@@ -88,6 +93,21 @@ function canonicalSheikhaCoreAnswer(prompt) {
         'Sheikha هي SHEIKHA UGIT-RP: منصة تشغيلية عالمية موحدة للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية والحوكمة والتكامل المؤسسي وبيئات التطوير والبيانات والخدمات.',
         'Sheikha ليست مجرد سوق، وليست مجرد نموذج ذكاء صناعي، وليست مجرد نظام إدارة؛ بل بنية تشغيل وتنظيم وربط وتوجيه.',
         'الأساس: الله وحده الخالق والمالك والمدبر، والنظام أداة تحليل وتنظيم لا يدعي وعياً ولا علماً بالغيب ولا سلطة مستقلة، ويعمل تحت مراجعة الإنسان وبحوكمة الكتاب والسنة.'
+    ].join('\n');
+}
+
+function buildRawLlamaPrompt({ system, prompt }) {
+    return [
+        '<|start_header_id|>system<|end_header_id|>',
+        '',
+        system,
+        '<|eot_id|>',
+        '<|start_header_id|>user<|end_header_id|>',
+        '',
+        prompt,
+        '<|eot_id|>',
+        '<|start_header_id|>assistant<|end_header_id|>',
+        ''
     ].join('\n');
 }
 
@@ -193,12 +213,17 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
 
     const body = {
         model,
-        prompt,
-        system: SHEIKHA_CORE_SYSTEM_PROMPT,
+        prompt: buildRawLlamaPrompt({
+            system: SHEIKHA_CORE_RUNTIME_PROMPT,
+            prompt
+        }),
+        raw: true,
         stream: false,
+        keep_alive: DEFAULT_KEEP_ALIVE,
         options: {
             temperature: 0.2,
-            num_ctx: 8192,
+            num_ctx: DEFAULT_NUM_CTX,
+            num_predict: DEFAULT_NUM_PREDICT,
             top_p: 0.85
         }
     };
@@ -248,5 +273,7 @@ module.exports = {
     getSheikhaGatewayStatus,
     DEFAULT_MODEL,
     OLLAMA_URL,
-    SHEIKHA_CORE_SYSTEM_PROMPT
+    SHEIKHA_CORE_SYSTEM_PROMPT,
+    SHEIKHA_CORE_RUNTIME_PROMPT,
+    buildRawLlamaPrompt
 };
