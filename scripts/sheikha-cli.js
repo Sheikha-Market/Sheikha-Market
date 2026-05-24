@@ -50,32 +50,41 @@ function requestFromBase(base, path, method = 'GET', body = null) {
   });
 }
 
+function printJson(value) {
+  if (typeof value === 'string') {
+    console.log(value);
+    return;
+  }
+
+  console.log(JSON.stringify(value, null, 2));
+}
+
 async function main() {
   const cmd = process.argv[2] || 'status';
   const arg = process.argv[3] || '';
 
   if (cmd === 'status') {
-    console.log(await request('/api/root-control-plane/health'));
+    printJson(await request('/api/root-control-plane/health'));
     return;
   }
 
   if (cmd === 'classify') {
-    console.log(await request('/api/root-control-plane/classify', 'POST', { system: arg || 'unknown' }));
+    printJson(await request('/api/root-control-plane/classify', 'POST', { system: arg || 'unknown' }));
     return;
   }
 
   if (cmd === 'analyze') {
-    console.log(await request('/api/root-control-plane/layers'));
+    printJson(await request('/api/root-control-plane/layers'));
     return;
   }
 
   if (cmd === 'ports' || cmd === 'unity') {
-    console.log(await request('/api/root-control-plane/ports'));
+    printJson(await request('/api/root-control-plane/ports'));
     return;
   }
 
   if (cmd === 'expand') {
-    console.log(await request('/api/root-control-plane/classify', 'POST', {
+    printJson(await request('/api/root-control-plane/classify', 'POST', {
       system: arg || 'unknown',
       mode: 'expansion'
     }));
@@ -83,12 +92,28 @@ async function main() {
   }
 
   if (cmd === 'decision') {
-    console.log(await request('/api/decision-flow/decide', 'POST', { system: arg || 'general', type: 'cli-check' }));
+    printJson(await request('/api/decision-flow/decide', 'POST', { system: arg || 'general', type: 'cli-check' }));
     return;
   }
 
   if (cmd === 'runtime') {
-    console.log(await request('/api/runtime-root/health'));
+    printJson(await request('/api/runtime-root/health'));
+    return;
+  }
+
+  if (cmd === 'rwp' || cmd === 'read-write-publish') {
+    printJson(await request('/api/sheikha/read-write-publish/status'));
+    return;
+  }
+
+  if (cmd === 'publish-plan') {
+    printJson(await request('/api/sheikha/read-write-publish/plan', 'POST', {
+      action: 'publish',
+      target: arg || 'working-tree',
+      platform: 'local-git',
+      testsPassed: false,
+      humanApproved: false
+    }));
     return;
   }
 
@@ -107,10 +132,12 @@ async function main() {
   }
 
   if (cmd === 'smoke') {
-    console.log(await request('/api/health'));
-    console.log(await request('/api/root-control-plane/health'));
-    console.log(await request('/api/runtime-root/health'));
-    console.log(await request('/api/decision-flow/health'));
+    printJson({
+      health: await request('/api/health'),
+      rootControlPlane: await request('/api/root-control-plane/health'),
+      runtimeRoot: await request('/api/runtime-root/health'),
+      decisionFlow: await request('/api/decision-flow/health')
+    });
     return;
   }
 
@@ -125,6 +152,8 @@ Sheikha CLI — شبكة شيخة الجذرية
   sheikha expand ai-engine
   sheikha decision market
   sheikha runtime
+  sheikha rwp
+  sheikha publish-plan docs/architecture/file.md
   sheikha smoke
   sheikha self-govern
 `);

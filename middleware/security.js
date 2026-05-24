@@ -6,6 +6,8 @@
  */
 
 const config = require('../config/config');
+const crypto = require('crypto');
+const ipSecurityEngine = require('../lib/sheikha-ip-security-engine');
 
 // تخزين الطلبات للحد من المعدل
 const requestCounts = new Map();
@@ -78,6 +80,55 @@ function securityHeaders(req, res, next) {
     if (config.isProduction()) {
         res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');
     }
+
+    next();
+}
+
+/**
+ * حماية الملكية الفكرية عبر رؤوس تعريفية ثابتة
+ */
+function ipOwnershipHeaders(req, res, next) {
+    const notice = ipSecurityEngine.getIPNotice();
+    const noticeHash = ipSecurityEngine.hashDocument(`${notice.ar}|${notice.en}|${notice.quranRef}`);
+
+    const asciiNotice = String(notice.en || notice.ar || 'SHEIKHA IP Notice')
+        .replace(/©/g, '(c)')
+        .split('')
+        .filter(ch => ch.charCodeAt(0) <= 0x7F)
+        .join('')
+        .trim() || 'SHEIKHA IP Notice';
+
+    res.setHeader('X-Sheikha-IP-Notice', asciiNotice);
+    res.setHeader('X-Sheikha-IP-Hash', noticeHash);
+    res.setHeader('X-Sheikha-IP-Licensing', 'No-copy-no-modification-without-explicit-owner-permission');
+
+    next();
+}
+
+/**
+ * توقيع سلامة الاستجابة — HMAC-SHA256
+ */
+function responseIntegritySignature(req, res, next) {
+    const signatureSecret = process.env.IP_SIGNATURE_SECRET || process.env.JWT_SECRET;
+    const timestamp = new Date().toISOString();
+
+    if (!signatureSecret || signatureSecret.length < 32) {
+        res.setHeader('X-Sheikha-Signature', 'disabled');
+        res.setHeader('X-Sheikha-Signature-Reason', 'missing_or_weak_secret');
+        res.setHeader('X-Sheikha-Encryption-Ready', String(ipSecurityEngine.isEncryptionReady()));
+        return next();
+    }
+
+    const payload = [req.method, req.originalUrl || req.url, timestamp].join('|');
+    const signature = crypto
+        .createHmac('sha256', signatureSecret)
+        .update(payload)
+        .digest('hex');
+
+    res.setHeader('X-Sheikha-Signature', signature);
+    res.setHeader('X-Sheikha-Signature-Timestamp', timestamp);
+    res.setHeader('X-Sheikha-Signature-Alg', 'HMAC-SHA256');
+    res.setHeader('X-Sheikha-Encryption-Ready', String(ipSecurityEngine.isEncryptionReady()));
 
     next();
 }
@@ -206,6 +257,8 @@ function securityLogger(req, res, next) {
 module.exports = {
     rateLimit,
     securityHeaders,
+    ipOwnershipHeaders,
+    responseIntegritySignature,
     sanitizeInput,
     corsHandler,
     preventInjection,

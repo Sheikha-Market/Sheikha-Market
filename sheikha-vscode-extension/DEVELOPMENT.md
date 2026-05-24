@@ -1,6 +1,6 @@
-# Development Guide — Sheikha Copilot Extension
+# Development Guide — Sheikha Extension
 
-This guide helps developers extend and customize Sheikha Copilot for local development and contribution.
+This guide helps developers extend and customize Sheikha for local development and contribution.
 
 ## Prerequisites
 
@@ -29,7 +29,7 @@ sheikha-vscode-extension/
 │   └── fixtures/                   # Test data
 ├── src/                            # Source code (optional)
 │   ├── providers/
-│   │   ├── SheikhaCopilotProvider.js
+│   │   ├── SheikhaProvider.js
 │   │   └── SheikhaChatProvider.js
 │   ├── commands/
 │   │   └── commands.js
@@ -158,7 +158,7 @@ Changes go in `extension.js` or `src/` directory:
 // extension.js
 const vscode = require('vscode');
 
-class SheikhaCopilotProvider {
+class SheikhaProvider {
   constructor() {
     this.config = {};
     this.apiUrl = 'http://localhost:8080';
@@ -170,7 +170,7 @@ class SheikhaCopilotProvider {
   }
 }
 
-module.exports = { SheikhaCopilotProvider };
+module.exports = { SheikhaProvider };
 ```
 
 ### 2. Running in Development Mode
@@ -220,11 +220,11 @@ npm run build
 Test individual functions in isolation:
 
 ```javascript
-describe('SheikhaCopilotProvider', () => {
+describe('SheikhaProvider', () => {
   let provider;
 
   beforeEach(() => {
-    provider = new SheikhaCopilotProvider();
+    provider = new SheikhaProvider();
   });
 
   test('should initialize with default config', () => {
@@ -243,8 +243,8 @@ describe('SheikhaCopilotProvider', () => {
 Test API endpoints with the server:
 
 ```javascript
-describe('Sheikha Copilot API Integration', () => {
-  const API_BASE = 'http://localhost:8080/api/sheikha/copilot';
+describe('Sheikha API Integration', () => {
+  const API_BASE = 'http://localhost:8080/api/sheikha';
 
   test('GET /status should return active status', async () => {
     const response = await fetch(`${API_BASE}/status`);
@@ -286,12 +286,12 @@ describe('Sheikha Copilot API Integration', () => {
 
 ```javascript
 // In extension.js
-console.log('Debug: Copilot initialized');  // Shows in Extension Host output
+console.log('Debug: Sheikha initialized');  // Shows in Extension Host output
 console.error('Error:', error);              // Shows in Extension Host output
 ```
 
 View logs in VS Code:
-- Output Panel → Select "Sheikha Copilot" from dropdown
+- Output Panel → Select "Sheikha" from dropdown
 
 ### Inspect API Calls
 
@@ -316,7 +316,7 @@ async function debugApiCall(endpoint, options) {
 ```bash
 npm run package
 
-# Creates: dist/sheikha.sheikha-copilot-1.0.0.vsix
+# Creates: dist/sheikha.sheikha-1.0.0.vsix
 ```
 
 ### For Production
@@ -342,7 +342,7 @@ vsce publish --pat <Azure_DevOps_PAT>
 "commands": [
   {
     "command": "sheikha.myNewCommand",
-    "title": "Sheikha Copilot: My New Command"
+    "title": "Sheikha: My New Command"
   }
 ]
 ```
@@ -364,7 +364,7 @@ context.subscriptions.push(disposable);
 ```json
 "configuration": {
   "properties": {
-    "sheikha-copilot.newSetting": {
+    "sheikha.newSetting": {
       "type": "boolean",
       "default": true,
       "description": "Description of new setting"
@@ -375,7 +375,7 @@ context.subscriptions.push(disposable);
 
 2. Access in extension:
 ```javascript
-const config = vscode.workspace.getConfiguration('sheikha-copilot');
+const config = vscode.workspace.getConfiguration('sheikha');
 const value = config.get('newSetting');
 ```
 
@@ -383,8 +383,8 @@ const value = config.get('newSetting');
 
 ```javascript
 const panel = vscode.window.createWebviewPanel(
-  'sheikhaCopilot',
-  'Sheikha Copilot',
+  'sheikha',
+  'Sheikha',
   vscode.ViewColumn.One,
   { enableScripts: true }
 );
@@ -393,7 +393,7 @@ panel.webview.html = `
   <!DOCTYPE html>
   <html>
     <body>
-      <h1>Hello from Sheikha Copilot!</h1>
+      <h1>Hello from Sheikha!</h1>
       <script>
         const vscode = acquireVsCodeApi();
         // Your code here

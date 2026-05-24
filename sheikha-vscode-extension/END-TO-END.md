@@ -1,4 +1,4 @@
-# 🚀 Sheikha Copilot — Complete End-to-End Documentation
+# 🚀 Sheikha — Complete End-to-End Documentation
 
 **بسم الله الرحمن الرحيم** (In the name of Allah, the Most Gracious, the Most Merciful)
 
@@ -6,11 +6,11 @@
 
 ## Project Summary
 
-**Sheikha Copilot v1.0.0** is a fully functional AI-powered code assistant for VS Code, seamlessly integrated with the Sheikha platform. This documentation describes the complete system, installation, usage, and development guide.
+**Sheikha v1.0.0** is a fully functional AI-powered code assistant for VS Code, seamlessly integrated with the Sheikha platform. This documentation describes the complete system, installation, usage, and development guide.
 
-### What is Sheikha Copilot?
+### What is Sheikha?
 
-Sheikha Copilot is GitHub Copilot for the Islamic ecosystem — providing intelligent code completion, conversational AI assistance, agent-based automation, and next-edit suggestions — all with **Sharia compliance gates** ensuring no haram content is generated.
+Sheikha is an Islamic AI coding runtime for the Sheikha ecosystem — providing intelligent code completion, conversational AI assistance, agent-based automation, and next-edit suggestions — all with **Sharia compliance gates** ensuring no haram content is generated.
 
 ### Key Features
 
@@ -51,20 +51,20 @@ sheikha-vscode-extension/
 ├── Backend Integration
 │   └── ../server.js             # Main server (lines 34478-34682)
 │       └── 10 API Endpoints
-│           ├── GET /api/sheikha/copilot/status
-│           ├── GET /api/sheikha/copilot/models
-│           ├── GET /api/sheikha/copilot/languages
-│           ├── POST /api/sheikha/copilot/completions
-│           ├── POST /api/sheikha/copilot/chat
-│           ├── POST /api/sheikha/copilot/agent
-│           ├── POST /api/sheikha/copilot/nes
-│           ├── POST /api/sheikha/copilot/inline-chat
-│           ├── GET /api/sheikha/copilot/settings
-│           └── GET /api/sheikha/copilot/vscode-bridge
+│           ├── GET /api/sheikha/extension/status
+│           ├── GET /api/sheikha/models
+│           ├── GET /api/sheikha/languages
+│           ├── POST /api/sheikha/completions
+│           ├── POST /api/sheikha/chat
+│           ├── POST /api/sheikha/agent
+│           ├── POST /api/sheikha/nes
+│           ├── POST /api/sheikha/inline-chat
+│           ├── GET /api/sheikha/settings
+│           └── GET /api/sheikha/vscode-bridge
 │
 └── Output
     └── dist/
-        ├── sheikha.sheikha-copilot-1.0.0.vsix    # Packaged extension
+        ├── sheikha.sheikha-1.0.0.vsix    # Packaged extension
         ├── INSTALL.txt                            # Installation summary
         └── verify-extension.sh                     # Verification script
 ```
@@ -81,7 +81,7 @@ cd sheikha-vscode-extension
 bash build-vsix.sh
 
 # 2. Install in VS Code
-code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
+code --install-extension dist/sheikha.sheikha-1.0.0.vsix
 
 # 3. Reload VS Code (Ctrl+R)
 
@@ -120,7 +120,7 @@ cd sheikha-vscode-extension
 bash build-vsix.sh
 
 # 2. Install
-code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
+code --install-extension dist/sheikha.sheikha-1.0.0.vsix
 ```
 
 ### Option B: From VS Code UI
@@ -152,9 +152,9 @@ npm run dev  # Opens new VS Code window with extension
 ┌─────────────────────────────────────────────────────────────┐
 │                    VS Code Editor                           │
 │  ┌──────────────────────────────────────────────────────┐   │
-│  │   Sheikha Copilot Extension (v1.0.0)               │   │
+│  │   Sheikha Extension (v1.0.0)               │   │
 │  │  ┌────────────────────────────────────────────────┐ │   │
-│  │  │ SheikhaCopilotProvider                         │ │   │
+│  │  │ SheikhaProvider                         │ │   │
 │  │  │  • getCompletions()                            │ │   │
 │  │  │  • chat()                                      │ │   │
 │  │  │  • startAgent()                                │ │   │
@@ -202,7 +202,7 @@ npm run dev  # Opens new VS Code window with extension
 │  │ Core Functions                                      │   │
 │  │  • sheikhaGenerateCompletions()                    │   │
 │  │  • sheikhaNextEditSuggestion()                     │   │
-│  │  • sheikhaCopilotShariaCheck() ← Gatekeeper      │   │
+│  │  • sheikhaShariaCheck() ← Gatekeeper      │   │
 │  └─────────────────────────────────────────────────────┘   │
 │                                                             │
 └─────────────────────────────────────────────────────────────┘
@@ -214,7 +214,7 @@ npm run dev  # Opens new VS Code window with extension
 
 ### Sharia Guardrails
 
-All requests are filtered through `sheikhaCopilotShariaCheck()` which blocks:
+All requests are filtered through `sheikhaShariaCheck()` which blocks:
 
 ```
 ❌ Forbidden Terms (Blocked at HTTP 403):
@@ -293,7 +293,7 @@ npm test -- --coverage
 ### Expected Results
 
 ```
-✅ Sheikha Copilot API Integration Tests
+✅ Sheikha API Integration Tests
   ✓ Status Endpoint (returns v1.0.0, active)
   ✓ Models Endpoint (4 models available)
   ✓ Languages Endpoint (23 languages)
@@ -319,7 +319,7 @@ Result: 12/12 TESTS PASSED ✅
 1. **Install the extension** (5 min)
    ```bash
    bash build-vsix.sh
-   code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
+   code --install-extension dist/sheikha.sheikha-1.0.0.vsix
    ```
 
 2. **Configure settings** (2 min)

@@ -1,4 +1,4 @@
-# Sheikha Copilot — Installation & Setup Guide
+# Sheikha — Installation & Setup Guide
 
 **العربية** | [English](#english-version)
 
@@ -8,7 +8,7 @@
 
 ### المتطلبات الأساسية
 
-قبل تثبيت Sheikha Copilot، تأكد من توفر:
+قبل تثبيت Sheikha، تأكد من توفر:
 
 - **VS Code** الإصدار 1.85.0 أو أحدث
 - **Node.js** الإصدار 18.0.0 أو أحدث (لتشغيل الخادم)
@@ -26,7 +26,7 @@ cd sheikha-vscode-extension
 bash build-vsix.sh
 
 # 2. تثبيت الملف
-code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
+code --install-extension dist/sheikha.sheikha-1.0.0.vsix
 
 # 3. إعادة تحميل VS Code
 # (Ctrl+R أو من قائمة Developer > Reload Window)
@@ -37,17 +37,17 @@ code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
 1. افتح **مدير الإضافات** (Ctrl+Shift+X)
 2. انقر على قائمة ⋯ (المزيد)
 3. اختر **تثبيت من VSIX** (Install from VSIX)
-4. حدد ملف `sheikha.sheikha-copilot-*.vsix`
+4. حدد ملف `sheikha.sheikha-*.vsix`
 5. أعد تحميل VS Code
 
 #### الطريقة 3: من سطر الأوامر (للمطورين)
 
 ```bash
 # نسخ ملف .vsix إلى موقع يسهل الوصول إليه
-cp dist/sheikha.sheikha-copilot-*.vsix ~/Downloads/
+cp dist/sheikha.sheikha-*.vsix ~/Downloads/
 
 # تثبيت المحمول (Portable Installation)
-code --extensions-dir ./extensions --install-extension ~/Downloads/sheikha.sheikha-copilot-*.vsix
+code --extensions-dir ./extensions --install-extension ~/Downloads/sheikha.sheikha-*.vsix
 ```
 
 ### التحقق من التثبيت
@@ -59,7 +59,7 @@ code --extensions-dir ./extensions --install-extension ~/Downloads/sheikha.sheik
 code --list-extensions | grep sheikha
 
 # أو من VS Code:
-# Ctrl+Shift+X → ابحث عن "Sheikha Copilot"
+# Ctrl+Shift+X → ابحث عن "Sheikha"
 
 # 2. تشغيل الخادم (في نافذة منفصلة)
 cd /path/to/sheikha-main-portal
@@ -67,13 +67,13 @@ npm start
 # أو: npm run dev
 
 # 3. اختبار الاتصال
-curl -s http://localhost:8080/api/sheikha/copilot/status | jq
+curl -s http://localhost:8080/api/sheikha/extension/status | jq
 
 # المتوقع:
 # {
 #   "success": true,
 #   "data": {
-#     "name": "Sheikha Copilot",
+#     "name": "Sheikha",
 #     "version": "1.0.0",
 #     "status": "active",
 #     "shariaGuardrails": true
@@ -89,9 +89,9 @@ curl -s http://localhost:8080/api/sheikha/copilot/status | jq
 
 ```json
 {
-  "sheikha-copilot.serverUrl": "http://localhost:8080",
-  "sheikha-copilot.apiTimeout": 30000,
-  "sheikha-copilot.retryAttempts": 3
+  "sheikha.serverUrl": "http://localhost:8080",
+  "sheikha.apiTimeout": 30000,
+  "sheikha.retryAttempts": 3
 }
 ```
 
@@ -99,12 +99,12 @@ curl -s http://localhost:8080/api/sheikha/copilot/status | jq
 
 ```json
 {
-  "sheikha-copilot.defaultModel": "sheikha-copilot-base"
+  "sheikha.defaultModel": "sheikha-base"
   // الخيارات:
-  // - sheikha-copilot-base (سرعة + جودة)
-  // - sheikha-copilot-chat (محادثات طويلة)
-  // - sheikha-copilot-agent (مهام أتمتة)
-  // - sheikha-copilot-sharia-safe (التحقق الشرعي الصارم)
+  // - sheikha-base (سرعة + جودة)
+  // - sheikha-chat (محادثات طويلة)
+  // - sheikha-agent (مهام أتمتة)
+  // - sheikha-sharia-safe (التحقق الشرعي الصارم)
 }
 ```
 
@@ -112,11 +112,11 @@ curl -s http://localhost:8080/api/sheikha/copilot/status | jq
 
 ```json
 {
-  "sheikha-copilot.enableInlineCompletions": true,
-  "sheikha-copilot.enableChat": true,
-  "sheikha-copilot.enableAgent": true,
-  "sheikha-copilot.enableNES": true,
-  "sheikha-copilot.completionDelay": 200
+  "sheikha.enableInlineCompletions": true,
+  "sheikha.enableChat": true,
+  "sheikha.enableAgent": true,
+  "sheikha.enableNES": true,
+  "sheikha.completionDelay": 200
 }
 ```
 
@@ -127,7 +127,7 @@ curl -s http://localhost:8080/api/sheikha/copilot/status | jq
 #### 1. افتح لوحة المحادثة
 
 اضغط **Ctrl+Shift+I** أو:
-- Ctrl+Shift+P → "Sheikha Copilot: Open Chat"
+- Ctrl+Shift+P → "Sheikha: Open Chat"
 
 #### 2. اطلب منها شيء بسيط
 
@@ -146,10 +146,10 @@ curl -s http://localhost:8080/api/sheikha/copilot/status | jq
 
 #### 4. تحقق من حالة النظام
 
-Ctrl+Shift+P → "Sheikha Copilot: Show Status"
+Ctrl+Shift+P → "Sheikha: Show Status"
 
 يجب أن تعرض:
-- إصدار Copilot: 1.0.0
+- إصدار Sheikha: 1.0.0
 - حالة الخادم: متصل
 - عدد النماذج: 4
 - عدد اللغات المدعومة: 23
@@ -167,7 +167,7 @@ code --version
 # Ctrl+R
 
 # 3. حاول التثبيت اليدوي
-code --install-extension ~/Downloads/sheikha.sheikha-copilot-1.0.0.vsix --force
+code --install-extension ~/Downloads/sheikha.sheikha-1.0.0.vsix --force
 ```
 
 #### المشكلة: لا توجد اتصلاحية بالخادم
@@ -177,14 +177,14 @@ code --install-extension ~/Downloads/sheikha.sheikha-copilot-1.0.0.vsix --force
 **الحل:**
 ```bash
 # 1. اختبر الخادم
-curl http://localhost:8080/api/sheikha/copilot/status
+curl http://localhost:8080/api/sheikha/extension/status
 
 # 2. إذا فشل، شغل الخادم
 cd /path/to/sheikha-main-portal
 npm start
 
 # 3. تحقق من الإعدادات
-# VS Code Settings → sheikha-copilot.serverUrl
+# VS Code Settings → sheikha.serverUrl
 # يجب أن يكون: http://localhost:8080
 ```
 
@@ -194,8 +194,8 @@ npm start
 ```json
 // في إعدادات VS Code:
 {
-  "sheikha-copilot.enableInlineCompletions": true,
-  "sheikha-copilot.completionDelay": 200,
+  "sheikha.enableInlineCompletions": true,
+  "sheikha.completionDelay": 200,
   "[javascript]": {
     "editor.inlineSuggestionsInsertMode": "replace"
   }
@@ -206,7 +206,7 @@ npm start
 
 **الأعراض:** رسالة "محتويات محجوبة بسبب معايير شيخة الشرعية"
 
-هذا طبيعي! Sheikha Copilot يحظر:
+هذا طبيعي! Sheikha يحظر:
 - ربا (رiba) و استثمارات ربوية
 - غش وعمليات احتيالية
 - القمار و الرهان
@@ -219,22 +219,22 @@ npm start
 **الحل:**
 ```json
 {
-  "sheikha-copilot.completionDelay": 500,  // زيادة التأخير
-  "sheikha-copilot.apiTimeout": 60000,     // زيادة المهلة الزمنية
-  "sheikha-copilot.enableOfflineMode": false
+  "sheikha.completionDelay": 500,  // زيادة التأخير
+  "sheikha.apiTimeout": 60000,     // زيادة المهلة الزمنية
+  "sheikha.enableOfflineMode": false
 }
 ```
 
 ### الإزالة
 
-إذا رغبت في إزالة Sheikha Copilot:
+إذا رغبت في إزالة Sheikha:
 
 ```bash
 # من سطر الأوامر:
-code --uninstall-extension sheikha.sheikha-copilot
+code --uninstall-extension sheikha.sheikha
 
 # أو من VS Code:
-# Ctrl+Shift+X → ابحث عن "Sheikha Copilot" → اضغط "Uninstall"
+# Ctrl+Shift+X → ابحث عن "Sheikha" → اضغط "Uninstall"
 ```
 
 ### الدعم
@@ -251,7 +251,7 @@ code --uninstall-extension sheikha.sheikha-copilot
 
 ### System Requirements
 
-Before installing Sheikha Copilot, ensure you have:
+Before installing Sheikha, ensure you have:
 
 - **VS Code** v1.85.0 or later
 - **Node.js** v18.0.0 or later (to run the backend server)
@@ -269,7 +269,7 @@ cd sheikha-vscode-extension
 bash build-vsix.sh
 
 # 2. Install the extension
-code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
+code --install-extension dist/sheikha.sheikha-1.0.0.vsix
 
 # 3. Reload VS Code
 # (Ctrl+R or Developer > Reload Window)
@@ -280,17 +280,17 @@ code --install-extension dist/sheikha.sheikha-copilot-1.0.0.vsix
 1. Open **Extensions** (Ctrl+Shift+X)
 2. Click the **⋯** menu (More)
 3. Select **Install from VSIX**
-4. Choose `sheikha.sheikha-copilot-*.vsix`
+4. Choose `sheikha.sheikha-*.vsix`
 5. Reload VS Code
 
 #### Method 3: From Command Line
 
 ```bash
 # Copy the .vsix file to an accessible location
-cp dist/sheikha.sheikha-copilot-*.vsix ~/Downloads/
+cp dist/sheikha.sheikha-*.vsix ~/Downloads/
 
 # Install it
-code --install-extension ~/Downloads/sheikha.sheikha-copilot-*.vsix
+code --install-extension ~/Downloads/sheikha.sheikha-*.vsix
 ```
 
 ### Verify Installation
@@ -306,13 +306,13 @@ cd /path/to/sheikha-main-portal
 npm start
 
 # 3. Test API connection
-curl -s http://localhost:8080/api/sheikha/copilot/status | jq
+curl -s http://localhost:8080/api/sheikha/extension/status | jq
 
 # Expected output:
 # {
 #   "success": true,
 #   "data": {
-#     "name": "Sheikha Copilot",
+#     "name": "Sheikha",
 #     "version": "1.0.0",
 #     "status": "active"
 #   }
@@ -327,9 +327,9 @@ Open VS Code Settings (Ctrl+,):
 
 ```json
 {
-  "sheikha-copilot.serverUrl": "http://localhost:8080",
-  "sheikha-copilot.apiTimeout": 30000,
-  "sheikha-copilot.retryAttempts": 3
+  "sheikha.serverUrl": "http://localhost:8080",
+  "sheikha.apiTimeout": 30000,
+  "sheikha.retryAttempts": 3
 }
 ```
 
@@ -337,12 +337,12 @@ Open VS Code Settings (Ctrl+,):
 
 ```json
 {
-  "sheikha-copilot.defaultModel": "sheikha-copilot-base",
+  "sheikha.defaultModel": "sheikha-base",
   // Options:
-  // - sheikha-copilot-base (balanced)
-  // - sheikha-copilot-chat (conversations)
-  // - sheikha-copilot-agent (automation)
-  // - sheikha-copilot-sharia-safe (strict Sharia checks)
+  // - sheikha-base (balanced)
+  // - sheikha-chat (conversations)
+  // - sheikha-agent (automation)
+  // - sheikha-sharia-safe (strict Sharia checks)
 }
 ```
 
@@ -350,11 +350,11 @@ Open VS Code Settings (Ctrl+,):
 
 ```json
 {
-  "sheikha-copilot.enableInlineCompletions": true,
-  "sheikha-copilot.enableChat": true,
-  "sheikha-copilot.enableAgent": true,
-  "sheikha-copilot.enableNES": true,
-  "sheikha-copilot.completionDelay": 200
+  "sheikha.enableInlineCompletions": true,
+  "sheikha.enableChat": true,
+  "sheikha.enableAgent": true,
+  "sheikha.enableNES": true,
+  "sheikha.completionDelay": 200
 }
 ```
 
@@ -363,7 +363,7 @@ Open VS Code Settings (Ctrl+,):
 #### 1. Open the Chat Panel
 
 Press **Ctrl+Shift+I** or run:
-- Ctrl+Shift+P → "Sheikha Copilot: Open Chat"
+- Ctrl+Shift+P → "Sheikha: Open Chat"
 
 #### 2. Ask a Simple Question
 
@@ -382,10 +382,10 @@ Expected: Response with code and explanation.
 
 #### 4. Check System Status
 
-Ctrl+Shift+P → "Sheikha Copilot: Show Status"
+Ctrl+Shift+P → "Sheikha: Show Status"
 
 Should display:
-- Copilot Version: 1.0.0
+- Sheikha Version: 1.0.0
 - Server Status: Connected
 - Models Available: 4
 - Languages Supported: 23
@@ -403,7 +403,7 @@ code --version
 # Ctrl+R
 
 # 3. Force reinstall
-code --install-extension ~/Downloads/sheikha.sheikha-copilot-1.0.0.vsix --force
+code --install-extension ~/Downloads/sheikha.sheikha-1.0.0.vsix --force
 ```
 
 #### Issue: Cannot Connect to Server
@@ -413,14 +413,14 @@ code --install-extension ~/Downloads/sheikha.sheikha-copilot-1.0.0.vsix --force
 **Solution:**
 ```bash
 # 1. Test the server
-curl http://localhost:8080/api/sheikha/copilot/status
+curl http://localhost:8080/api/sheikha/extension/status
 
 # 2. If failed, start the server
 cd /path/to/sheikha-main-portal
 npm start
 
 # 3. Verify settings
-# VS Code Settings → sheikha-copilot.serverUrl
+# VS Code Settings → sheikha.serverUrl
 # Must be: http://localhost:8080
 ```
 
@@ -429,8 +429,8 @@ npm start
 **Solution:**
 ```json
 {
-  "sheikha-copilot.enableInlineCompletions": true,
-  "sheikha-copilot.completionDelay": 200,
+  "sheikha.enableInlineCompletions": true,
+  "sheikha.completionDelay": 200,
   "[javascript]": {
     "editor.inlineSuggestionsInsertMode": "replace"
   }
@@ -441,7 +441,7 @@ npm start
 
 **Symptoms:** "Content blocked by Sheikha compliance standards"
 
-This is normal! Sheikha Copilot blocks:
+This is normal! Sheikha blocks:
 - riba (usury) and interest-based systems
 - fraud and deceptive practices
 - gambling and betting
@@ -454,22 +454,22 @@ Try a halal-compliant request instead.
 **Solution:**
 ```json
 {
-  "sheikha-copilot.completionDelay": 500,
-  "sheikha-copilot.apiTimeout": 60000,
-  "sheikha-copilot.enableOfflineMode": false
+  "sheikha.completionDelay": 500,
+  "sheikha.apiTimeout": 60000,
+  "sheikha.enableOfflineMode": false
 }
 ```
 
 ### Uninstall
 
-To remove Sheikha Copilot:
+To remove Sheikha:
 
 ```bash
 # From command line:
-code --uninstall-extension sheikha.sheikha-copilot
+code --uninstall-extension sheikha.sheikha
 
 # Or from VS Code:
-# Ctrl+Shift+X → Search "Sheikha Copilot" → Click Uninstall
+# Ctrl+Shift+X → Search "Sheikha" → Click Uninstall
 ```
 
 ### Support
