@@ -22063,6 +22063,13 @@ try {
 // SHEIKHA_CANONICAL_RUNTIME_GATEWAY
 app.use('/api/runtime-root', require('./routes/runtime-root'));
 
+
+// SHEIKHA_RUNTIME_ROOT_SINGLETON
+app.use(
+  '/api/runtime-root',
+  require('./routes/runtime-root')
+);
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
@@ -22415,5 +22422,4 @@ try {
 } catch (error) {
   console.error('Sheikha system status API failed:', error.message);
 }
-
 

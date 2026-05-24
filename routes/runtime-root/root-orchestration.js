@@ -6,10 +6,7 @@ const orchestrator = require('../../core/orchestration/sheikha-root-orchestrator
 const federation = require('../../core/runtime/federation/sheikha-runtime-federation');
 const synchronizer = require('../../core/runtime/synchronization/sheikha-runtime-synchronizer');
 const canonicalRuntime = require('../../core/runtime/governance/sheikha-canonical-runtime-loader');
-const canonicalRuntimeRoutes = require('./canonical-runtime-status');
 const { getToolsetsStatus } = require('../../core/runtime/bus/sheikha-mcp-toolsets-registry');
-
-canonicalRuntimeRoutes.attachCanonicalRuntimeRoutes(router);
 
 router.get('/orchestration', (_req, res) => {
   res.json(orchestrator.status());
