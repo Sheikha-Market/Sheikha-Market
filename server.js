@@ -27,11 +27,6 @@ const kernel = require('./runtime/kernel/sheikha-runtime-kernel');
 
 kernel.initialize();
 
-app.use(
-    '/api/runtime-root',
-    require('./routes/runtime-root/runtime-root-health')
-);
-
 // ===== Root Control Plane — Central Governance Layer =====
 try {
   const rootControlPlaneRoutes = require('./routes/root-control-plane.routes');
@@ -22031,51 +22026,6 @@ try {
 } catch (err) {
     console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
 }
-
-app.use('/api/runtime-root', require('./routes/runtime-root/health'));
-
-// ─────────────────────────────────────────────────────────────
-// Sheikha Runtime Root Health API
-// ─────────────────────────────────────────────────────────────
-app.get('/api/runtime-root/health', (_req, res) => {
-    res.json({
-        success: true,
-        name: 'Sheikha Runtime Root',
-        status: 'active',
-        mode: 'root-governed-runtime',
-        layers: {
-            editor: true,
-            ide: true,
-            runtime: true,
-            aiGateway: true,
-            ollama: true,
-            enterprise: true,
-            osLayer: true,
-            unifiedApi: true,
-            rootNeuralControlPlane: true
-        },
-        ports: {
-            root: 8080,
-            companion: 8082,
-            universalApi: 9191,
-            localAI: 11434
-        },
-        governance: {
-            tawheed: true,
-            quranAndSunnahGoverned: true,
-            noRiba: true,
-            noFraud: true,
-            noHarm: true,
-            noGhaybPrediction: true,
-            noConsciousnessClaim: true,
-            humanAuthority: true,
-            auditRequired: true
-        },
-        message: 'نواة Runtime Root مفعلة ومحكومة بالكتاب والسنة',
-        timestamp: new Date().toISOString()
-    });
-});
-
 
 // ─────────────────────────────────────────────────────────────
 // Sheikha Root Orchestration API
