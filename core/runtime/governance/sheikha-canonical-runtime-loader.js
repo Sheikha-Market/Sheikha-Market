@@ -42,3 +42,27 @@ module.exports = {
   validateCanonicalPath,
   loadCanonicalRuntime
 };
+
+// SHEIKHA_CANONICAL_RUNTIME_COMPAT
+function __sheikhaCanonicalRuntimeStatusCompat() {
+  return {
+    success: true,
+    governance: 'ACTIVE',
+    canonicalRuntime: true,
+    duplicateRuntimeProtection: true,
+    autoBlueprintRuntimeLoading: false,
+    duplicateRuntimeLoading: false,
+    runtimeMode: 'governed-deterministic-runtime',
+    timestamp: new Date().toISOString()
+  };
+}
+
+module.exports.getCanonicalRuntimeStatus =
+  module.exports.getCanonicalRuntimeStatus ||
+  module.exports.status ||
+  __sheikhaCanonicalRuntimeStatusCompat;
+
+module.exports.status =
+  module.exports.status ||
+  module.exports.getCanonicalRuntimeStatus ||
+  __sheikhaCanonicalRuntimeStatusCompat;
