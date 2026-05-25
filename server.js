@@ -42,6 +42,10 @@ app.get('/.well-known/sheikha.json', (_req, res) => {
 // SHEIKHA_AI_MANIFEST
 
 // SHEIKHA_OPENAPI_RUNTIME
+
+// SHEIKHA_ENTERPRISE_IDENTITY
+app.use('/runtime', express.static('runtime'));
+
 app.use('/openapi', express.static('openapi'));
 
 app.use('/.well-known', express.static('.well-known'));
