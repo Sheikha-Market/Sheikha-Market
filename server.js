@@ -40,6 +40,10 @@ app.get('/.well-known/sheikha.json', (_req, res) => {
 
 
 // SHEIKHA_AI_MANIFEST
+
+// SHEIKHA_OPENAPI_RUNTIME
+app.use('/openapi', express.static('openapi'));
+
 app.use('/.well-known', express.static('.well-known'));
 app.use('/governance', express.static('governance'));
 
