@@ -30,7 +30,15 @@ kernel.initialize();
 // ===== Root Control Plane — Central Governance Layer =====
 try {
   const rootControlPlaneRoutes = require('./routes/root-control-plane.routes');
-  app.use('/api/root-control-plane', rootControlPlaneRoutes);
+  
+// SHEIKHA_WELLKNOWN_IDENTITY
+app.get('/.well-known/sheikha.json', (_req, res) => {
+  return res.sendFile(
+    require('path').join(__dirname, '.well-known', 'sheikha.json')
+  );
+});
+
+app.use('/api/root-control-plane', rootControlPlaneRoutes);
   console.log('✅ Root Control Plane ACTIVE on /api/root-control-plane');
 } catch (e) {
   console.error('❌ Root Control Plane failed:', e.message);
