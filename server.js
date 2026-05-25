@@ -38,6 +38,11 @@ app.get('/.well-known/sheikha.json', (_req, res) => {
   );
 });
 
+
+// SHEIKHA_AI_MANIFEST
+app.use('/.well-known', express.static('.well-known'));
+app.use('/governance', express.static('governance'));
+
 app.use('/api/root-control-plane', rootControlPlaneRoutes);
   console.log('✅ Root Control Plane ACTIVE on /api/root-control-plane');
 } catch (e) {
