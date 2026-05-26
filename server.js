@@ -22094,7 +22094,25 @@ app.use(
 try {
   const { getKernelStatus } = require('./core/kernel');
 
-  app.get('/api/kernel/status', (_req, res) => {
+  
+// SHEIKHA_KERNEL_CONTROL_PLANE
+try {
+  const kernelControlPlane = require('./core/kernel/control-plane/sheikha-kernel-control-plane');
+
+  app.get('/api/kernel/control-plane/status', (_req, res) => {
+    return res.json(kernelControlPlane.status());
+  });
+
+  app.post('/api/kernel/control-plane/boot', (_req, res) => {
+    return res.json(kernelControlPlane.boot());
+  });
+
+  console.log('✅ SHEIKHA Kernel Control Plane mounted');
+} catch (e) {
+  console.error('⚠️ SHEIKHA Kernel Control Plane mount failed:', e.message);
+}
+
+app.get('/api/kernel/status', (_req, res) => {
     return res.json(getKernelStatus());
   });
 
