@@ -22175,6 +22175,27 @@ a:hover{transform:translateY(-2px)}
 app.use('/.well-known', express.static('.well-known'));
 app.use('/governance', express.static('governance'));
 
+
+// SHEIKHA_RUNTIME_AUTHORITY
+try {
+  const runtimeGuard =
+    require('./core/kernel/security/runtime-guard');
+
+  app.get('/api/runtime/authority', (_req, res) => {
+    return res.json(runtimeGuard.verify());
+  });
+
+  console.log(
+    '✅ SHEIKHA Runtime Authority mounted'
+  );
+} catch (e) {
+  console.error(
+    '⚠️ Runtime Authority failed:',
+    e.message
+  );
+}
+
+
 app.use((err, req, res, _next) => {
     console.error('🔴 خطأ:', { message: err.message, url: req.originalUrl, method: req.method, ip: req.ip, timestamp: new Date().toISOString() });
     if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
