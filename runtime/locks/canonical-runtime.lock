@@ -1,0 +1,9 @@
+# Canonical Runtime Lock
+
+This file prevents duplicate boot, orchestration, federation, or provider initialization.
+
+- Only one canonical runtime instance is allowed.
+- All orchestration and federation must check for this lock.
+- Remove this file only with explicit governance approval.
+
+created: "
