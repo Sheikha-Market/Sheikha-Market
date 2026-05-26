@@ -22091,6 +22091,22 @@ app.use(
   require('./routes/runtime-root')
 );
 
+try {
+  const { getKernelStatus } = require('./core/kernel');
+
+  app.get('/api/kernel/status', (_req, res) => {
+    return res.json(getKernelStatus());
+  });
+
+  app.get('/api/sheikha/kernel/status', (_req, res) => {
+    return res.json(getKernelStatus());
+  });
+
+  console.log('✅ Sheikha Sovereign Kernel API mounted');
+} catch (err) {
+  console.warn('⚠️ Sheikha Sovereign Kernel API unavailable:', err.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
@@ -22448,4 +22464,3 @@ try {
 } catch (error) {
   console.error('Sheikha system status API failed:', error.message);
 }
-
