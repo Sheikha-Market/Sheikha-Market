@@ -22125,6 +22125,10 @@ app.get('/api/kernel/status', (_req, res) => {
   console.warn('⚠️ Sheikha Sovereign Kernel API unavailable:', err.message);
 }
 
+
+// SHEIKHA_PROVIDER_GATEWAY_ROUTE
+app.use('/api/kernel/provider-gateway', require('./routes/kernel/provider-gateway'));
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
