@@ -22143,6 +22143,15 @@ try {
   console.error('⚠️ Runtime Authority failed:', e.message);
 }
 
+
+// SHEIKHA_STORAGE_GOVERNOR_ROUTE
+try {
+  app.use('/api/storage', require('./routes/storage/governor'));
+  console.log('✅ SHEIKHA Storage Governor mounted');
+} catch (e) {
+  console.error('⚠️ Storage Governor mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
