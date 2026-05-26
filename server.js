@@ -22129,6 +22129,20 @@ app.get('/api/kernel/status', (_req, res) => {
 // SHEIKHA_PROVIDER_GATEWAY_ROUTE
 app.use('/api/kernel/provider-gateway', require('./routes/kernel/provider-gateway'));
 
+
+// SHEIKHA_RUNTIME_AUTHORITY
+try {
+  const runtimeGuard = require('./core/kernel/security/runtime-guard');
+
+  app.get('/api/runtime/authority', (_req, res) => {
+    return res.json(runtimeGuard.verify());
+  });
+
+  console.log('✅ SHEIKHA Runtime Authority mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Authority failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
