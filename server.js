@@ -22202,6 +22202,15 @@ try {
   console.error('⚠️ Runtime Intelligence mount failed:', e.message);
 }
 
+
+// SHEIKHA_HARDWARE_INSPIRED_AI_ROUTE
+try {
+  app.use('/api/architecture/ai-computer', require('./routes/hardware-inspired/architecture'));
+  console.log('✅ SHEIKHA Hardware-Inspired AI Architecture mounted');
+} catch (e) {
+  console.error('⚠️ Hardware-Inspired AI mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
