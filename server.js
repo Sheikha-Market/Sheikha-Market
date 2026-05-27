@@ -22265,6 +22265,15 @@ try {
   console.error('⚠️ Runtime Bus V2 mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_MEMORY_FABRIC_ROUTE
+try {
+  app.use('/api/memory', require('./routes/memory/runtime-memory'));
+  console.log('✅ SHEIKHA Runtime Memory Fabric mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Memory Fabric mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
