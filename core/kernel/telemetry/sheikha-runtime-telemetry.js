@@ -1,48 +1,80 @@
 'use strict';
 
 const fs = require('fs');
-const os = require('os');
 const path = require('path');
+const os = require('os');
 
 const ROOT = process.cwd();
 
-function metrics() {
+function ensure() {
+  [
+    'runtime/telemetry/health',
+    'runtime/telemetry/resources',
+    'runtime/telemetry/signals',
+    'runtime/telemetry/scheduler',
+    'runtime/telemetry/providers',
+    'runtime/telemetry/reports'
+  ].forEach((dir) => {
+    fs.mkdirSync(path.join(ROOT, dir), {
+      recursive: true
+    });
+  });
+}
+
+function snapshot() {
+  ensure();
+
+  const totalMem = os.totalmem();
+  const freeMem = os.freemem();
+
   return {
     success: true,
-    telemetry: 'SHEIKHA_RUNTIME_TELEMETRY',
-    runtime: {
-      uptime: process.uptime(),
-      memory: process.memoryUsage(),
-      cpuLoad: os.loadavg(),
-      platform: os.platform(),
-      arch: os.arch(),
-      hostname: os.hostname()
-    },
+    telemetry: 'SHEIKHA_RUNTIME_TELEMETRY_FABRIC',
+    canonical: true,
+    deterministic: true,
     governance: {
       quranAndSunnah: true,
       noHarm: true,
       halalOnly: true,
       humanAuthority: true
     },
-    deterministic: true,
-    canonical: true,
+    runtime: {
+      uptime: os.uptime(),
+      hostname: os.hostname(),
+      platform: os.platform(),
+      cpuCount: os.cpus().length,
+      loadAverage: os.loadavg(),
+      memory: {
+        total: totalMem,
+        free: freeMem,
+        used: totalMem - freeMem,
+        usagePercent:
+          Number((((totalMem - freeMem) / totalMem) * 100).toFixed(2))
+      }
+    },
+    layers: {
+      kernel: true,
+      scheduler: true,
+      signals: true,
+      storage: true,
+      resources: true,
+      intelligence: true,
+      governance: true
+    },
     timestamp: new Date().toISOString()
   };
 }
 
 function report() {
-  const data = metrics();
+  ensure();
 
-  const file =
-    path.join(
-      ROOT,
-      'runtime/telemetry/reports',
-      `${Date.now()}-telemetry-report.json`
-    );
+  const data = snapshot();
 
-  fs.mkdirSync(path.dirname(file), {
-    recursive: true
-  });
+  const file = path.join(
+    ROOT,
+    'runtime/telemetry/reports',
+    `${Date.now()}-telemetry-report.json`
+  );
 
   fs.writeFileSync(
     file,
@@ -51,12 +83,12 @@ function report() {
 
   return {
     success: true,
-    file,
+    report: file,
     data
   };
 }
 
 module.exports = {
-  metrics,
+  snapshot,
   report
 };
