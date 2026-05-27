@@ -22301,6 +22301,15 @@ try {
   console.error('⚠️ Runtime Bus mount failed:', e.message);
 }
 
+
+// SHEIKHA_EXECUTION_SCHEDULER_ROUTE
+try {
+  app.use('/api/scheduler/execution', require('./routes/scheduler/execution-scheduler'));
+  console.log('✅ SHEIKHA Execution Scheduler mounted');
+} catch (e) {
+  console.error('⚠️ Execution Scheduler mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
