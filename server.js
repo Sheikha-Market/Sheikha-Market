@@ -22283,6 +22283,15 @@ try {
   console.error('⚠️ System Readiness mount failed:', e.message);
 }
 
+
+// SHEIKHA_HEALTH_RESOURCE_ROUTE
+try {
+  app.use('/api/health-governor', require('./routes/health/system-health'));
+  console.log('✅ SHEIKHA Health & Resource Governor mounted');
+} catch (e) {
+  console.error('⚠️ Health & Resource Governor mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
