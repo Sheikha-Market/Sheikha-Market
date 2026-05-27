@@ -22292,6 +22292,15 @@ try {
   console.error('⚠️ Health & Resource Governor mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_BUS_ROUTE
+try {
+  app.use('/api/runtime-bus', require('./routes/bus/runtime-bus'));
+  console.log('✅ SHEIKHA Runtime Bus mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Bus mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
