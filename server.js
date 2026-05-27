@@ -22220,6 +22220,15 @@ try {
   console.error('⚠️ Integrated Fabric mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_FABRIC_ROUTE
+try {
+  app.use('/api/runtime/fabric', require('./routes/runtime/fabric'));
+  console.log('✅ SHEIKHA Runtime Fabric mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Fabric mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
