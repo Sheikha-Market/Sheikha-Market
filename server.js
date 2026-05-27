@@ -22274,6 +22274,15 @@ try {
   console.error('⚠️ Runtime Memory Fabric mount failed:', e.message);
 }
 
+
+// SHEIKHA_SYSTEM_READINESS_ROUTE
+try {
+  app.use('/api/readiness/system', require('./routes/readiness/system-readiness'));
+  console.log('✅ SHEIKHA System Readiness mounted');
+} catch (e) {
+  console.error('⚠️ System Readiness mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
