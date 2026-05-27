@@ -22211,6 +22211,15 @@ try {
   console.error('⚠️ Hardware-Inspired AI mount failed:', e.message);
 }
 
+
+// SHEIKHA_INTEGRATED_SYSTEM_FABRIC_ROUTE
+try {
+  app.use('/api/fabric/integrated-system', require('./routes/integration-fabric/fabric'));
+  console.log('✅ SHEIKHA Integrated Hardware/Software Fabric mounted');
+} catch (e) {
+  console.error('⚠️ Integrated Fabric mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
