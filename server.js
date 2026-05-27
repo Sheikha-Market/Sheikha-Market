@@ -22310,6 +22310,15 @@ try {
   console.error('⚠️ Execution Scheduler mount failed:', e.message);
 }
 
+
+// SHEIKHA_RESOURCE_GOVERNOR_ROUTE
+try {
+  app.use('/api/resources', require('./routes/resources/resource-governor'));
+  console.log('✅ SHEIKHA Resource Governor mounted');
+} catch (e) {
+  console.error('⚠️ Resource Governor mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
