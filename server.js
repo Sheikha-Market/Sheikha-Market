@@ -22239,15 +22239,6 @@ try {
 }
 
 
-// SHEIKHA_RUNTIME_TELEMETRY_ROUTE
-try {
-  app.use('/api/telemetry', require('./routes/telemetry/runtime-telemetry'));
-  console.log('✅ SHEIKHA Runtime Telemetry mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Telemetry mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_SYNCHRONIZATION_ROUTE
 try {
   app.use('/api/synchronization', require('./routes/synchronization/runtime-synchronization'));
@@ -22326,6 +22317,15 @@ try {
   console.log('✅ SHEIKHA Runtime Signal Fabric mounted');
 } catch (e) {
   console.error('⚠️ Runtime Signal Fabric mount failed:', e.message);
+}
+
+
+// SHEIKHA_RUNTIME_TELEMETRY_ROUTE
+try {
+  app.use('/api/telemetry/runtime', require('./routes/telemetry/runtime-telemetry'));
+  console.log('✅ SHEIKHA Runtime Telemetry mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Telemetry mount failed:', e.message);
 }
 
 app.use((req, res) => {
