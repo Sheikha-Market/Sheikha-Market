@@ -22,17 +22,57 @@ const BOARD = {
     cpu: 'Deterministic Decision Processor',
     memory: 'Operational Memory Controller',
     storage: 'Sovereign Storage Controller',
-EOFule.exports = { status, activate };)({rsive: true });
-(venv) sheikha@pop-os:~/Projects/sheikha/sheikha-main-portal$ cat > routes/motherboard/runtime-motherboard.js <<'EOF'
-'use strict';
+    power: 'Runtime Energy Governor',
+    io: 'Internal External IO Controller',
+    network: 'Federation Network Controller',
+    gpu: 'Parallel Intelligence Accelerator',
+    security: 'Governance Security Module',
+    bus: 'Unified Runtime Bus',
+    scheduler: 'Runtime Scheduler',
+    execution: 'Execution Plane'
+  },
+  policy: {
+    singleKernelAuthority: true,
+    canonicalOnly: true,
+    localFirst: true,
+    externalSystemsAreClients: true,
+    providersAreReplaceable: true,
+    noDuplicateRuntime: true
+  }
+};
 
-const express = require('express');
-const router = express.Router();
+function status() {
+  return {
+    success: true,
+    motherboard: BOARD,
+    timestamp: new Date().toISOString()
+  };
+}
 
-const motherboard =
-require('../../core/kernel/motherboard/sheikha-runtime-motherboard');
+function activate() {
+  const file = path.join(
+    ROOT,
+    'runtime/motherboard',
+    'runtime-motherboard-state.json'
+  );
 
-router.get('/status', (_req, res) => res.json(motherboard.status()));
-router.post('/activate', (_req, res) => res.json(motherboard.activate()));
+  fs.mkdirSync(path.dirname(file), { recursive: true });
 
-module.exports = router;
+  fs.writeFileSync(
+    file,
+    JSON.stringify({
+      status: 'ACTIVE',
+      motherboard: BOARD,
+      timestamp: new Date().toISOString()
+    }, null, 2) + '\n'
+  );
+
+  return {
+    success: true,
+    status: 'ACTIVE',
+    file,
+    motherboard: BOARD
+  };
+}
+
+module.exports = { status, activate };
