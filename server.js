@@ -22256,6 +22256,15 @@ try {
   console.error('⚠️ Runtime Synchronization mount failed:', e.message);
 }
 
+
+// SHEIKHA_UNIFIED_RUNTIME_BUS_V2_ROUTE
+try {
+  app.use('/api/bus/runtime', require('./routes/bus/runtime-bus'));
+  console.log('✅ SHEIKHA Unified Runtime Bus V2 mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Bus V2 mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
