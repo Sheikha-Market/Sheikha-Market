@@ -22161,6 +22161,20 @@ try {
   console.error('⚠️ Storage Health mount failed:', e.message);
 }
 
+
+// SHEIKHA_CANONICAL_ENFORCEMENT_ROUTES
+try {
+  const enforcer = require('./core/kernel/enforcement/canonical-runtime-enforcer');
+  const divergence = require('./core/kernel/divergence/divergence-detector');
+
+  app.get('/api/runtime/enforcement', (_req, res) => res.json(enforcer.status()));
+  app.get('/api/runtime/divergence', (_req, res) => res.json(divergence.scan()));
+
+  console.log('✅ SHEIKHA Canonical Enforcement mounted');
+} catch (e) {
+  console.error('⚠️ Canonical Enforcement mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
