@@ -22193,6 +22193,15 @@ try {
   console.error('⚠️ Memory Governor mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_INTELLIGENCE_ROUTE
+try {
+  app.use('/api/intelligence', require('./routes/intelligence/orchestrator'));
+  console.log('✅ SHEIKHA Runtime Intelligence mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Intelligence mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
