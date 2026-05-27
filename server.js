@@ -22319,6 +22319,15 @@ try {
   console.error('⚠️ Resource Governor mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_SIGNAL_ROUTE
+try {
+  app.use('/api/signals/runtime', require('./routes/signals/runtime-signals'));
+  console.log('✅ SHEIKHA Runtime Signal Fabric mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Signal Fabric mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
