@@ -22247,6 +22247,15 @@ try {
   console.error('⚠️ Runtime Telemetry mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_SYNCHRONIZATION_ROUTE
+try {
+  app.use('/api/synchronization', require('./routes/synchronization/runtime-synchronization'));
+  console.log('✅ SHEIKHA Runtime Synchronization mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Synchronization mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
