@@ -22238,6 +22238,15 @@ try {
   console.error('⚠️ Runtime Motherboard mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_TELEMETRY_ROUTE
+try {
+  app.use('/api/telemetry', require('./routes/telemetry/runtime-telemetry'));
+  console.log('✅ SHEIKHA Runtime Telemetry mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Telemetry mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
