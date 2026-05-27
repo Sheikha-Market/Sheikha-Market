@@ -15,7 +15,7 @@ router.post('/emit', (req, res) => {
 
   return res.json(
     bus.emit(
-      body.channel || 'runtime',
+      body.channel || 'kernel',
       body.payload || {}
     )
   );
