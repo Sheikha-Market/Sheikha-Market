@@ -22175,6 +22175,15 @@ try {
   console.error('⚠️ Canonical Enforcement mount failed:', e.message);
 }
 
+
+// SHEIKHA_DATA_PIPELINE_ROUTE
+try {
+  app.use('/api/data/pipeline', require('./routes/data/pipeline'));
+  console.log('✅ SHEIKHA Data Intelligence Pipeline mounted');
+} catch (e) {
+  console.error('⚠️ Data Pipeline mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
