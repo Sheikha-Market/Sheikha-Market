@@ -22229,6 +22229,15 @@ try {
   console.error('⚠️ Runtime Fabric mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_MOTHERBOARD_ROUTE
+try {
+  app.use('/api/motherboard/runtime', require('./routes/motherboard/runtime-motherboard'));
+  console.log('✅ SHEIKHA Runtime Motherboard mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Motherboard mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
