@@ -17,9 +17,10 @@ const DIRS = [
 
 function ensure() {
   DIRS.forEach((dir) => {
-    fs.mkdirSync(path.join(ROOT, dir), {
-      recursive: true
-    });
+    fs.mkdirSync(
+      path.join(ROOT, dir),
+      { recursive: true }
+    );
   });
 }
 
@@ -32,7 +33,10 @@ function snapshot() {
 
   return {
     success: true,
-    telemetry: 'SHEIKHA_RUNTIME_TELEMETRY_FABRIC',
+
+    telemetry:
+      'SHEIKHA_RUNTIME_TELEMETRY_FABRIC',
+
     canonical: true,
     deterministic: true,
     sovereign: true,
@@ -50,15 +54,24 @@ function snapshot() {
       hostname: os.hostname(),
       platform: os.platform(),
       arch: os.arch(),
-      cpuCount: os.cpus().length,
-      loadAverage: os.loadavg(),
+
+      cpuCount:
+        os.cpus().length,
+
+      loadAverage:
+        os.loadavg(),
 
       memory: {
         total: totalMem,
         free: freeMem,
         used: usedMem,
+
         usagePercent:
-          Number(((usedMem / totalMem) * 100).toFixed(2))
+          Number(
+            (
+              (usedMem / totalMem) * 100
+            ).toFixed(2)
+          )
       }
     },
 
@@ -73,7 +86,8 @@ function snapshot() {
       intelligence: true
     },
 
-    timestamp: new Date().toISOString()
+    timestamp:
+      new Date().toISOString()
   };
 }
 
