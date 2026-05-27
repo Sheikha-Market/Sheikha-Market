@@ -22152,6 +22152,15 @@ try {
   console.error('⚠️ Storage Governor mount failed:', e.message);
 }
 
+
+// SHEIKHA_STORAGE_HEALTH_ROUTE
+try {
+  app.use('/api/storage/reports', require('./routes/storage/reports/health'));
+  console.log('✅ SHEIKHA Storage Health mounted');
+} catch (e) {
+  console.error('⚠️ Storage Health mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
