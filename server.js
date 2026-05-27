@@ -22184,6 +22184,15 @@ try {
   console.error('⚠️ Data Pipeline mount failed:', e.message);
 }
 
+
+// SHEIKHA_MEMORY_GOVERNOR_ROUTE
+try {
+  app.use('/api/memory', require('./routes/memory/governor'));
+  console.log('✅ SHEIKHA Memory Governor mounted');
+} catch (e) {
+  console.error('⚠️ Memory Governor mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
