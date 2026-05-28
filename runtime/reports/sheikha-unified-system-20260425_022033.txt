@@ -1,0 +1,285 @@
+============================================================
+SHEIKHA UNIFIED SYSTEM ACTIVATION
+============================================================
+timestamp=20260425_022033
+language_base=ar
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/sheikha-unified-system-20260425_022033.txt
+
+==> Global production stable activation
+============================================================
+SHEIKHA GLOBAL PRODUCTION BEST ACTIVATION
+============================================================
+timestamp=20260425_022033
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/global-production-best-20260425_022033.txt
+
+==> Ultimate stable core activation
+[OK] Ultimate stable core activation
+
+==> Safe local backup snapshot
+[OK] Safe local backup snapshot
+
+==> Alert channels self-test
+[OK] Alert channels self-test
+
+==> Nginx split install
+[WARN] Requires root on production host.
+[WARN] Run: sudo bash scripts/install-sheikha-nginx-split.sh
+
+==> GPU readiness gate
+[WARN] GPU readiness gate
+
+==> Final API health check
+[WARN] Final API health check
+[WARN] Global production stable activation
+
+==> UTF-8 background server start
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                   │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard       │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api            │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard       │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof       │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030    │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 22.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+UTF-8 server started with PM2 on http://127.0.0.1:48483
+[OK] UTF-8 background server start
+
+==> Unicode stack background start
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                           │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard               │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                    │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard               │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof               │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030            │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 10.9mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server            │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 23.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 8.1mb    │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 9.0mb    │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 10.0mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 4.0mb    │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m53[39m[22m │ sheikha-multi-byte-characters-bg      │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304779   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 4.0mb    │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m54[39m[22m │ sheikha-data-representation-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304826   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 10.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m53[39m[22m │ sheikha-multi-byte-characters-bg      │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304779   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m54[39m[22m │ sheikha-data-representation-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304826   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m55[39m[22m │ sheikha-encoding-systems-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304860   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 12.9mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m53[39m[22m │ sheikha-multi-byte-characters-bg      │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304779   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m54[39m[22m │ sheikha-data-representation-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304826   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m56[39m[22m │ sheikha-data-storage-bg               │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304888   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 8.8mb    │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m55[39m[22m │ sheikha-encoding-systems-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304860   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m53[39m[22m │ sheikha-multi-byte-characters-bg      │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304779   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m54[39m[22m │ sheikha-data-representation-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304826   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m56[39m[22m │ sheikha-data-storage-bg               │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304888   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m55[39m[22m │ sheikha-encoding-systems-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304860   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m53[39m[22m │ sheikha-multi-byte-characters-bg      │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304779   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m57[39m[22m │ sheikha-utf-8-core-bg                 │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304916   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 15.6mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m58[39m[22m │ sheikha-ascii-core-bg                 │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304944   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 15.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304666   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m54[39m[22m │ sheikha-data-representation-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304826   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m56[39m[22m │ sheikha-data-storage-bg               │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304888   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m55[39m[22m │ sheikha-encoding-systems-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304860   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-ip-proof                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283273   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m45[39m[22m │ sheikha-market-3030                   │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m53[39m[22m │ sheikha-multi-byte-characters-bg      │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304779   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m52[39m[22m │ sheikha-self-synchronization-bg       │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304751   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.9mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m47[39m[22m │ sheikha-unicode-standard-bg           │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304596   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.4mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m57[39m[22m │ sheikha-utf-8-core-bg                 │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304916   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m46[39m[22m │ sheikha-utf8-server                   │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304539   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m48[39m[22m │ sheikha-variable-width-encoding-bg    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304624   │ 2s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.2mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+└────┴───────────────────────────────────────┴─────────────┴─────────┴─────────┴──────────┴────────┴──────┴───────────┴──────────┴──────────┴──────────┴──────────┘
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬───────────────────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                                  │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼───────────────────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m21[39m[22m │ sheikha-ai-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283473   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.7mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m44[39m[22m │ sheikha-api                           │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 16   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m51[39m[22m │ sheikha-ascii-compatibility-bg        │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304723   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m58[39m[22m │ sheikha-ascii-core-bg                 │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304944   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 60.9mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-bg-guard                      │ default     │ 0.39.7  │ [7m[1mfork[22m[27m    │ 283362   │ 11m    │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.3mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m50[39m[22m │ sheikha-byte-sequence-bg              │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 304695   │ 1s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 61.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m49[39m[22m │ sheikha-code-points-bg                │ default     │ 1.0.1  
