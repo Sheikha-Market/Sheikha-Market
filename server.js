@@ -22424,6 +22424,15 @@ try {
   );
 }
 
+
+// SHEIKHA_ISLAMIC_ROOT_GOVERNANCE_ROUTE
+try {
+  app.use('/api/root/islamic-governance', require('./routes/root/islamic-governance'));
+  console.log('✅ SHEIKHA Islamic Root Governance mounted');
+} catch (e) {
+  console.error('⚠️ Islamic Root Governance mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
