@@ -1,0 +1,16 @@
+{
+  "nonAuthoritativeDomains": {
+    "dist": "build artifacts only",
+    "exports": "export bundles only",
+    "bundles": "packaged bundles only",
+    "neural": "research and experiments only",
+    "extensions": "tooling and IDE extension only",
+    "topology": "non-canonical unless registered"
+  },
+  "policy": {
+    "doNotDeleteAutomatically": true,
+    "isolateBeforeCommit": true,
+    "reviewBeforePromotion": true,
+    "canonicalPromotionRequiresVerification": true
+  }
+}
