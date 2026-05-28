@@ -3,12 +3,22 @@
 const express = require('express');
 const router = express.Router();
 
-const signals = require('../../core/kernel/signals/sheikha-runtime-signals');
+const fabric =
+require('../../core/kernel/signals/sheikha-runtime-signal-fabric');
 
-router.get('/status', (_req, res) => res.json(signals.status()));
+router.get('/status', (_req, res) => {
+  return res.json(fabric.status());
+});
 
 router.post('/emit', (req, res) => {
-  return res.json(signals.emit(req.body || {}));
+  const body = req.body || {};
+
+  return res.json(
+    fabric.emit(
+      body.signal || 'runtime',
+      body.payload || {}
+    )
+  );
 });
 
 module.exports = router;
