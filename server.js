@@ -22379,6 +22379,21 @@ try {
   console.error('⚠️ Datacenter Supercompute mount failed:', e.message);
 }
 
+
+// SHEIKHA_DISTRIBUTED_CLUSTER_ROUTE
+try {
+  app.use('/api/distributed/runtime', require('./routes/distributed/runtime-distributed-cluster'));
+
+  console.log(
+    '✅ SHEIKHA Distributed Cluster Fabric mounted'
+  );
+} catch (e) {
+  console.error(
+    '⚠️ Distributed Cluster mount failed:',
+    e.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
