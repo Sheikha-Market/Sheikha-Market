@@ -22355,6 +22355,21 @@ try {
   console.error('⚠️ Unified Runtime Fabric mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_RESOURCE_ROUTE
+try {
+  app.use('/api/resources/runtime', require('./routes/resources/runtime-resources'));
+
+  console.log(
+    '✅ SHEIKHA Runtime Resources mounted'
+  );
+} catch (e) {
+  console.error(
+    '⚠️ Runtime Resources mount failed:',
+    e.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
