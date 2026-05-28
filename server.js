@@ -22451,6 +22451,15 @@ try {
   console.error('⚠️ Root Systems Fabric mount failed:', e.message);
 }
 
+
+// SHEIKHA_ROOT_CIVILIZATION_GRAPH_ROUTE
+try {
+  app.use('/api/root/civilization-graph', require('./routes/root/civilization/root-civilization-graph'));
+  console.log('✅ SHEIKHA Root Civilization Graph mounted');
+} catch (e) {
+  console.error('⚠️ Root Civilization Graph mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
