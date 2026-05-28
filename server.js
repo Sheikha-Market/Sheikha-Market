@@ -22442,6 +22442,15 @@ try {
   console.error('⚠️ Supreme Islamic Governance mount failed:', e.message);
 }
 
+
+// SHEIKHA_ROOT_SYSTEMS_ROUTE
+try {
+  app.use('/api/root/systems', require('./routes/root/systems/root-systems'));
+  console.log('✅ SHEIKHA Root Systems Fabric mounted');
+} catch (e) {
+  console.error('⚠️ Root Systems Fabric mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
