@@ -22394,6 +22394,21 @@ try {
   );
 }
 
+
+// SHEIKHA_RUNTIME_CONTROL_PLANE_ROUTE
+try {
+  app.use('/api/control-plane/runtime', require('./routes/control-plane/runtime-control-plane'));
+
+  console.log(
+    '✅ SHEIKHA Runtime Control Plane mounted'
+  );
+} catch (e) {
+  console.error(
+    '⚠️ Runtime Control Plane mount failed:',
+    e.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
