@@ -22409,6 +22409,21 @@ try {
   );
 }
 
+
+// SHEIKHA_RUNTIME_HEALTH_ROUTE
+try {
+  app.use('/api/health/runtime', require('./routes/health/runtime-health'));
+
+  console.log(
+    '✅ SHEIKHA Runtime Health Fabric mounted'
+  );
+} catch (e) {
+  console.error(
+    '⚠️ Runtime Health mount failed:',
+    e.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
