@@ -22370,6 +22370,15 @@ try {
   );
 }
 
+
+// SHEIKHA_DATACENTER_SUPERCOMPUTE_ROUTE
+try {
+  app.use('/api/supercompute/datacenter', require('./routes/supercompute/datacenter-supercompute'));
+  console.log('✅ SHEIKHA Datacenter Supercompute Fabric mounted');
+} catch (e) {
+  console.error('⚠️ Datacenter Supercompute mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
