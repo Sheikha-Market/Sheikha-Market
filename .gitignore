@@ -39,3 +39,10 @@ __pycache__/
 !.env.example
 !.env.*.example
 infra/**/.env
+
+# Sensitive archive backups
+archive/backups/server/*.env*
+archive/backups/server/*.gpg
+archive/backups/server/*production*
+archive/backups/server/*secret*
+archive/backups/server/*credential*
