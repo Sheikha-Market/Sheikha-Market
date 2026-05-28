@@ -22337,6 +22337,15 @@ try {
   console.error('⚠️ Runtime Orchestration mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_SCHEDULER_ROUTE
+try {
+  app.use('/api/scheduler/runtime', require('./routes/scheduler/runtime-scheduler'));
+  console.log('✅ SHEIKHA Runtime Scheduler mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Scheduler mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
