@@ -1,55 +1,34 @@
-# Secrets
-.env
-.env.*
-!.env.example
-!.env.runtime.example
+# Build / export artifacts
+dist/
+exports/
+bundles/
+
+# Runtime temp
+tmp/
+temp/
+*.log
+logs/
+.cache/
+
+# VSCode extension packages
+*.vsix
+
+# Large archives
+*.tar.gz
+*.zip
+
+# Research / experimental
+experimental/
+research/
+neural/
 
 # Node
 node_modules/
-npm-debug.log*
 
-# Temp/log/backups
-logs/
-tmp/
-*/.backup*
-*/.temp
-data/
-!data/.gitkeep
-data/runtime-metrics/
+# PM2
+.pm2/
 
-# Local nested repositories/worktrees
-repos/
-
-# Local runtime helper scripts (not part of production source baseline)
-scripts/
-!scripts/neural-gate.sh
-!scripts/vps-deploy.sh
-!scripts/install-neural-watchdog.sh
-!scripts/sheikha-neural-gate-watchdog.sh
-!scripts/sheikha-neural-gate-watchdog.service
-!scripts/sheikha-neural-gate-watchdog.timer
-sync-neural-cells.sh
-!sync-neural-cells.sh
-
-# Editor/runtime local artifacts
-.checkpoints/
-.cursor/
-.codex/
-.vercel/
-runtime/
-!runtime/core/
-!runtime/core/runtime.identity.json
-!runtime/contracts/
-!runtime/contracts/process-authority.json
-!runtime/topology/
-!runtime/topology/runtime-topology.json
-!runtime/state/
-!runtime/state/.gitkeep
-!lib/runtime/
-!lib/runtime/**
-reports/
-docs/reports/
-*.backup
-*.save
-*.temp
-archive/
+# Python
+venv/
+__pycache__/
+*.pyc
