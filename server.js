@@ -22433,6 +22433,15 @@ try {
   console.error('⚠️ Islamic Root Governance mount failed:', e.message);
 }
 
+
+// SHEIKHA_SUPREME_ISLAMIC_GOVERNANCE_ROUTE
+try {
+  app.use('/api/root/supreme-islamic-governance', require('./routes/root/supreme-islamic-governance'));
+  console.log('✅ SHEIKHA Supreme Islamic Governance mounted');
+} catch (e) {
+  console.error('⚠️ Supreme Islamic Governance mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
