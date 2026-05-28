@@ -22328,6 +22328,15 @@ try {
   console.error('⚠️ Runtime Telemetry mount failed:', e.message);
 }
 
+
+// SHEIKHA_RUNTIME_ORCHESTRATION_ROUTE
+try {
+  app.use('/api/orchestration/runtime', require('./routes/orchestration/runtime-orchestrator'));
+  console.log('✅ SHEIKHA Runtime Orchestration mounted');
+} catch (e) {
+  console.error('⚠️ Runtime Orchestration mount failed:', e.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
