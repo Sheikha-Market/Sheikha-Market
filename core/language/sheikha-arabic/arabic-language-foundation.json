@@ -1,0 +1,47 @@
+{
+  "name": "Sheikha Arabic Language Foundation",
+  "status": "ACTIVE",
+  "scope": [
+    "النحو",
+    "الصرف",
+    "الإملاء",
+    "المحاسبة اللغوية",
+    "البرمجة العربية الحتمية"
+  ],
+  "grammar": {
+    "أقسام_الكلام": {
+      "اسم": ["يقبل ال", "يقبل التنوين", "يقبل الجر", "يقبل النداء"],
+      "فعل": ["ماض", "مضارع", "أمر"],
+      "حرف": ["جر", "عطف", "ربط"]
+    },
+    "الجملة": {
+      "اسمية": ["مبتدأ", "خبر"],
+      "فعلية": ["فعل", "فاعل", "مفعول"]
+    },
+    "الإعراب": {
+      "رفع": "صلاحية/فاعل/مالك ظاهر",
+      "نصب": "محل تنفيذ/مفعول/قيمة واقعة عليها العملية",
+      "جر": "ربط/مصدر/وجهة/مرجع",
+      "جزم": "إيقاف/شرط/حسم تنفيذي"
+    }
+  },
+  "programmingMapping": {
+    "الفعل": "operation",
+    "الفاعل": "executor",
+    "المفعول": "target",
+    "حرف_الجر": "relation_operator",
+    "المضاف_إليه": "owner_reference",
+    "النعت": "validation_filter",
+    "الحال": "execution_state",
+    "التمييز": "numeric_or_accounting_clarifier"
+  },
+  "accountingMapping": {
+    "من": "credit/source",
+    "إلى": "debit/destination",
+    "على": "liability/obligation",
+    "في": "account/container",
+    "عن": "settlement/reference",
+    "ب": "instrument/method"
+  },
+  "principle": "Arabic grammar is used as deterministic, explainable programming logic."
+}
