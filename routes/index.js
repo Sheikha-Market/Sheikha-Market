@@ -64,7 +64,7 @@ router.use('/api/logics', logicsRoutes);
 
 // ─── مسار الحالة ──────────────────────────────────────────────────────────────
 
-router.get('/api/health', (req, res) => {
+router.get('/api/health-disabled', (req, res) => {
     res.json({
         success: true,
         status: 'healthy',
