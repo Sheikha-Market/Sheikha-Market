@@ -22838,3 +22838,8 @@ try {
 } catch (error) {
   console.error('Sheikha system status API failed:', error.message);
 }
+
+const sheikhaRuntimeRoutes =
+require('./routes/runtime/sheikha-runtime-routes');
+
+app.use('/api/runtime', sheikhaRuntimeRoutes);
