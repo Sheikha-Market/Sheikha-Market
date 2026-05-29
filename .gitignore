@@ -46,3 +46,59 @@ archive/backups/server/*.gpg
 archive/backups/server/*production*
 archive/backups/server/*secret*
 archive/backups/server/*credential*
+
+# =========================================
+# SHEIKHA CURATED GOVERNANCE BASELINE
+# =========================================
+
+# Runtime noise
+runtime/audits/*.json
+runtime/audits/**/*.json
+
+# Dist / exports artifacts
+dist/
+exports/
+
+# Generated manifests
+*.generated.json
+*.runtime.json
+*.manifest.tmp
+*.cache.json
+
+# Temporary runtime files
+*.tmp
+*.temp
+*.bak
+*.backup
+*.swp
+
+# PM2 logs
+logs/
+*.log
+
+# Experimental outputs
+experimental/
+experiments/
+tmp/
+temp/
+
+# Tooling generated artifacts
+sheikha-vscode-extension/node_modules/
+sheikha-vscode-extension/dist/*.vsix
+
+# Data temporary layers
+data/tmp/
+data/temp/
+data/cache/
+
+# Runtime snapshots
+snapshot/
+snapshots/
+
+# Local IDE noise
+.vscode/
+.idea/
+
+# OS noise
+.DS_Store
+Thumbs.db
