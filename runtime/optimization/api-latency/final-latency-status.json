@@ -1,0 +1,32 @@
+{
+  "stage": "single_node_lab_candidate",
+  "status": "CANDIDATE_READY",
+  "verification": {
+    "tool": "autocannon",
+    "runs": 3,
+    "averageLatencyMs": [0.18, 0.28, 0.31],
+    "p99LatencyMs": [10, 10, 10],
+    "maxLatencyMs": [25, 79, 102]
+  },
+  "coreLatency": {
+    "status": "PASSED",
+    "averageUnder1ms": true,
+    "p95Under2ms": true,
+    "p99BoundaryReached": true
+  },
+  "promotion": {
+    "candidate": true,
+    "stable": false
+  },
+  "stableBlockers": [
+    "long-tail max latency spikes",
+    "sporadic outlier pauses above 10ms"
+  ],
+  "nextFocus": [
+    "GC tuning",
+    "runtime pause tracing",
+    "heap allocation reduction",
+    "route stack consolidation",
+    "duplicate route cleanup"
+  ]
+}
