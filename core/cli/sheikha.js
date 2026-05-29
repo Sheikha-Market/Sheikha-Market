@@ -44,6 +44,10 @@ const rawCommand = process.argv[2] || 'help';
 const command = rawCommand.replace(/-([a-z])/g, (_, c) => c.toUpperCase());
 
 const commands = {
+  supreme() {
+    console.log(JSON.stringify(require('../../runtime/supreme-foundation/registry/supreme-comprehensive-foundation.json'), null, 2));
+  },
+
   apiHealth() {
     apiGet('/api/runtime/health');
   },
@@ -99,6 +103,7 @@ Commands:
   sheikha registry
   sheikha policy
   sheikha control
+  sheikha supreme
   sheikha api-health
   sheikha api-registry
   sheikha api-policy
