@@ -1,0 +1,55 @@
+{
+  "architecture": "SHEIKHA_FEDERATED_YOTTASCALE_COMPUTE_FABRIC",
+  "status": "ACTIVE_ROADMAP",
+  "currentMeasuredBaseline": {
+    "apiAverageMs": 2.446,
+    "cliAverageMs": 30.4,
+    "cpuLoopAverageMs": 47.6,
+    "pm2MemoryMB": 152
+  },
+  "whyThisDesign": {
+    "notSingleComputerOnly": true,
+    "reason": "The target exceeds current public exascale systems by orders of magnitude, so Sheikha must be a federated compute fabric, not a single machine.",
+    "corePrinciple": "Measure, verify, optimize, then expand."
+  },
+  "hardwarePath": [
+    "GPU/accelerator clusters",
+    "APU/chiplet-based nodes",
+    "HBM-class memory",
+    "CXL memory pooling",
+    "optical or ultra-low-latency interconnect",
+    "near-node NVMe/local storage",
+    "parallel file system",
+    "direct liquid or immersion cooling",
+    "energy-aware power orchestration"
+  ],
+  "softwarePath": [
+    "Linux/HPC operating base",
+    "scheduler: Flux or Slurm class",
+    "MPI/SHMEM/distributed runtime",
+    "CUDA/ROCm/SYCL accelerator stack",
+    "Spack package governance",
+    "containerized workloads",
+    "Sheikha Unified Runtime API",
+    "Experiment-to-Core promotion",
+    "continuous benchmark automation"
+  ],
+  "benchmarkPath": [
+    "local runtime latency",
+    "HPL",
+    "HPCG",
+    "Graph500",
+    "AI throughput",
+    "energy efficiency",
+    "cost per FLOP",
+    "availability and fault tolerance"
+  ],
+  "namingPurpose": {
+    "supremeFoundation": "governing source and ethics",
+    "calculationComputingFabric": "separates measurement and execution",
+    "experimentToCoreFabric": "turns successful experiments into governed core",
+    "yottascaleRoadmap": "long-term verified performance target",
+    "federatedComputeFabric": "hardware plus software plus network plus storage plus governance"
+  },
+  "rule": "No performance claim is accepted without benchmark evidence."
+}
