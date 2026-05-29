@@ -1,47 +1,33 @@
 {
-  "name": "Sheikha Arabic Language Foundation",
+  "name": "Sheikha Arabic Language Complete Foundation",
   "status": "ACTIVE",
-  "scope": [
-    "النحو",
-    "الصرف",
-    "الإملاء",
-    "المحاسبة اللغوية",
-    "البرمجة العربية الحتمية"
-  ],
-  "grammar": {
-    "أقسام_الكلام": {
-      "اسم": ["يقبل ال", "يقبل التنوين", "يقبل الجر", "يقبل النداء"],
-      "فعل": ["ماض", "مضارع", "أمر"],
-      "حرف": ["جر", "عطف", "ربط"]
-    },
-    "الجملة": {
-      "اسمية": ["مبتدأ", "خبر"],
-      "فعلية": ["فعل", "فاعل", "مفعول"]
-    },
-    "الإعراب": {
-      "رفع": "صلاحية/فاعل/مالك ظاهر",
-      "نصب": "محل تنفيذ/مفعول/قيمة واقعة عليها العملية",
-      "جر": "ربط/مصدر/وجهة/مرجع",
-      "جزم": "إيقاف/شرط/حسم تنفيذي"
-    }
+  "principle": "قواعد العربية تُحوَّل إلى قواعد برمجية حتمية قابلة للتفسير.",
+  "sciences": {
+    "النحو": ["أقسام الكلام", "الجملة الاسمية", "الجملة الفعلية", "الإعراب", "العوامل", "التوابع", "النواسخ", "المجرورات", "المنصوبات"],
+    "الصرف": ["الجذر", "الميزان الصرفي", "المجرد", "المزيد", "المشتقات", "اسم الفاعل", "اسم المفعول", "المصدر", "اسم الزمان", "اسم المكان", "اسم الآلة"],
+    "الإملاء": ["همزة الوصل", "همزة القطع", "الهمزة المتوسطة", "الهمزة المتطرفة", "التاء المربوطة", "التاء المفتوحة", "الهاء", "الألف اللينة"],
+    "البلاغة": ["المعاني", "البيان", "البديع"],
+    "الدلالة": ["المعنى الظاهر", "السياق", "العلاقة", "القيد", "الشرط"],
+    "المحاسبة_اللغوية": ["فاعل", "مفعول", "مصدر", "وجهة", "التزام", "ملكية", "قيد"]
   },
   "programmingMapping": {
-    "الفعل": "operation",
-    "الفاعل": "executor",
-    "المفعول": "target",
-    "حرف_الجر": "relation_operator",
-    "المضاف_إليه": "owner_reference",
-    "النعت": "validation_filter",
-    "الحال": "execution_state",
-    "التمييز": "numeric_or_accounting_clarifier"
+    "فعل": "operation",
+    "فاعل": "executor",
+    "مفعول": "target",
+    "مبتدأ": "subject",
+    "خبر": "state",
+    "حرف_جر": "relation_operator",
+    "مضاف_إليه": "owner_reference",
+    "نعت": "validation_filter",
+    "حال": "execution_state",
+    "تمييز": "numeric_accounting_clarifier"
   },
-  "accountingMapping": {
-    "من": "credit/source",
-    "إلى": "debit/destination",
-    "على": "liability/obligation",
-    "في": "account/container",
-    "عن": "settlement/reference",
-    "ب": "instrument/method"
-  },
-  "principle": "Arabic grammar is used as deterministic, explainable programming logic."
+  "accountingOperators": {
+    "من": "credit_source",
+    "إلى": "debit_destination",
+    "على": "liability",
+    "في": "account_container",
+    "عن": "settlement_reference",
+    "ب": "payment_method"
+  }
 }
