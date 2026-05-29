@@ -1,0 +1,25 @@
+{
+  "baseCommit": "af7fcf00",
+  "lastMeasurement": {
+    "averageApiMs": 3.052,
+    "minApiMs": 1.911,
+    "maxApiMs": 7.705,
+    "spikesAbove10ms": 0,
+    "decision": "SPIKES_REQUIRE_OPTIMIZATION"
+  },
+  "nextTarget": {
+    "requiredAverageApiMs": 2.5,
+    "promotionAverageApiMs": 1.5,
+    "maxAllowedMs": 10,
+    "spikesAllowed": 0
+  },
+  "optimizationRules": [
+    "health route must return cached in-memory response",
+    "no filesystem reads in hot API path",
+    "no heavy dynamic imports in hot API path",
+    "preload registry during startup",
+    "measure before any promotion",
+    "do not promote to single_node_lab unless average < 2.5ms and spikes = 0"
+  ],
+  "promotion": "BLOCKED_UNTIL_AVERAGE_BELOW_2_5MS"
+}
