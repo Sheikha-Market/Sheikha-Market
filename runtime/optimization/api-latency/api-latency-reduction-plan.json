@@ -1,0 +1,23 @@
+{
+  "plan": "SHEIKHA_API_LATENCY_REDUCTION",
+  "status": "ACTIVE",
+  "current": {
+    "averageApiMs": 3.135,
+    "minApiMs": 1.751,
+    "maxApiMs": 6.605,
+    "spikesAbove10ms": 0
+  },
+  "target": {
+    "averageApiMs": 2.5,
+    "promotionApiMs": 1.5
+  },
+  "actions": [
+    "keep health route minimal",
+    "avoid filesystem reads in hot path",
+    "avoid heavy require in request path",
+    "preload runtime registry",
+    "return cached lightweight health response",
+    "measure again before promotion"
+  ],
+  "rule": "Optimize API average latency before any compute stage promotion."
+}
