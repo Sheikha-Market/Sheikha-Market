@@ -1,0 +1,18 @@
+{
+  "commit": "01b6c76c",
+  "verifier": "autocannon",
+  "durationSeconds": 20,
+  "connections": 1,
+  "requests": 50000,
+  "latency": {
+    "averageMs": 0.19,
+    "p99Ms": 10,
+    "maxMs": 65
+  },
+  "throughput": {
+    "averageReqPerSec": 2524.06
+  },
+  "decision": "PROMOTE_CANDIDATE_SINGLE_NODE_LAB_WITH_P99_WATCH",
+  "promotionLevel": "candidate",
+  "restriction": "Do not promote to stable until max latency is controlled below 10ms across repeated runs."
+}

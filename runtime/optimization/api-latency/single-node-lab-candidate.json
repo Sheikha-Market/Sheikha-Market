@@ -1,0 +1,12 @@
+{
+  "stage": "single_node_lab",
+  "status": "CANDIDATE_READY",
+  "reason": "Average API latency is far below 1.5ms and autocannon p99 reached the 10ms boundary.",
+  "guards": [
+    "repeat autocannon benchmark 3 times",
+    "keep average latency below 1.5ms",
+    "keep p99 latency at or below 10ms",
+    "block stable promotion if max latency remains above 10ms"
+  ],
+  "nextAction": "run 3x autocannon verification before stable single_node_lab"
+}
