@@ -1,0 +1,12 @@
+{
+  "latestCommit": "7fa18efa",
+  "stage": "P99_SPIKE_VERIFICATION",
+  "coreStatus": "PASSED",
+  "averageApiMs": 0.850,
+  "p95ApiMs": 1.101,
+  "p99ApiMs": 16.805,
+  "spikesAbove10ms": 11,
+  "promotion": "BLOCKED",
+  "reason": "p99/max spikes remain above 10ms in curl verification",
+  "nextVerifier": "autocannon keep-alive benchmark"
+}
