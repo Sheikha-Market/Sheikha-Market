@@ -22460,6 +22460,12 @@ try {
   console.error('⚠️ Root Civilization Graph mount failed:', e.message);
 }
 
+
+const sheikhaRuntimeRoutes =
+require('./routes/runtime/sheikha-runtime-routes');
+
+app.use('/api/runtime', sheikhaRuntimeRoutes);
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
@@ -22838,8 +22844,3 @@ try {
 } catch (error) {
   console.error('Sheikha system status API failed:', error.message);
 }
-
-const sheikhaRuntimeRoutes =
-require('./routes/runtime/sheikha-runtime-routes');
-
-app.use('/api/runtime', sheikhaRuntimeRoutes);
