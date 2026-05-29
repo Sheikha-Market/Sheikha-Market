@@ -22,6 +22,18 @@ const commands = {
     }, null, 2));
   },
 
+  registry() {
+    console.log(JSON.stringify(require('../../runtime/unified-runtime/registry/unified-runtime-registry.json'), null, 2));
+  },
+
+  policy() {
+    console.log(JSON.stringify(require('../../runtime/unified-runtime/policy/unified-runtime-policy.json'), null, 2));
+  },
+
+  control() {
+    console.log(JSON.stringify(require('../../runtime/control-plane/registry/sheikha-unified-control-plane.json'), null, 2));
+  },
+
   help() {
     console.log(`
 SHEIKHA UNIFIED COMMAND LAYER
@@ -30,6 +42,9 @@ Commands:
   sheikha health
   sheikha interfaces
   sheikha runtime
+  sheikha registry
+  sheikha policy
+  sheikha control
 `);
   }
 };
