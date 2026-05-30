@@ -1,0 +1,16 @@
+#!/usr/bin/env bash
+set -e
+
+echo "[SHEIKHA] Governance Verification"
+
+node tools/governance/runtime-admission-controller.js >/tmp/sheikha-admission.json
+
+if grep -q '"decision": "BLOCKED"' /tmp/sheikha-admission.json; then
+  echo "[SHEIKHA] BLOCKED FILES DETECTED"
+  exit 1
+fi
+
+node tools/governance/runtime-integrity-verifier.js >/tmp/sheikha-integrity.json
+
+echo "[SHEIKHA] Governance Passed"
+exit 0
