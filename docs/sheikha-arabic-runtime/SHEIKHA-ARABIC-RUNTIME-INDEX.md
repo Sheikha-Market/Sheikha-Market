@@ -1,7 +1,3 @@
-```bash
-cd ~/Projects/sheikha/sheikha-main-portal
-
-cat > docs/sheikha-arabic-runtime/SHEIKHA-ARABIC-RUNTIME-INDEX.md <<'EOF_SHEIKHA'
 # فهرس الحالة الشاملة لمنظومة شيخة العربية الحتمية
 
 ---
