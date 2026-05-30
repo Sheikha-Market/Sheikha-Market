@@ -3,15 +3,25 @@
 const { execSync } = require('child_process');
 
 const CLASSIFICATION_RULES = [
-  { prefix: 'core/', classification: 'PROTECTED' },
-  { prefix: 'runtime/', classification: 'PROTECTED' },
-  { prefix: 'routes/', classification: 'ACTIVE' },
-  { prefix: 'scripts/', classification: 'REVIEW_REQUIRED' },
-  { prefix: 'docs/', classification: 'ACTIVE' },
-  { prefix: 'topology/', classification: 'EXPERIMENTAL' },
-  { prefix: 'governance/', classification: 'PROTECTED' },
-  { prefix: 'lib/runtime/', classification: 'STAGING' },
-  { prefix: 'sheikha-vscode-extension/', classification: 'STAGING' }
+  { prefix: '.env', classification: 'REVIEW_REQUIRED', owner: 'Security Governance' },
+  { prefix: '.githooks/', classification: 'REVIEW_REQUIRED', owner: 'Governance Automation' },
+  { prefix: 'ACTIVATION-', classification: 'ACTIVE', owner: 'Activation Governance' },
+  { prefix: 'GLOBAL_MANIFEST.md', classification: 'ACTIVE', owner: 'System Manifest Governance' },
+  { prefix: 'PR_', classification: 'REVIEW_REQUIRED', owner: 'Pull Request Governance' },
+  { prefix: 'README_', classification: 'ACTIVE', owner: 'Documentation Governance' },
+  { prefix: 'ecosystem.config.js.save', classification: 'REVIEW_REQUIRED', owner: 'Runtime Operations Governance' },
+  { prefix: 'eslint', classification: 'REVIEW_REQUIRED', owner: 'Tooling Governance' },
+  { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
+  { prefix: 'runtime/', classification: 'PROTECTED', owner: 'Runtime Governance Organization' },
+  { prefix: 'routes/', classification: 'ACTIVE', owner: 'API Federation Organization' },
+  { prefix: 'scripts/', classification: 'REVIEW_REQUIRED', owner: 'Automation Organization' },
+  { prefix: 'docs/', classification: 'ACTIVE', owner: 'Documentation Governance' },
+  { prefix: 'topology/', classification: 'EXPERIMENTAL', owner: 'Architecture Organization' },
+  { prefix: 'governance/', classification: 'PROTECTED', owner: 'Governance Organization' },
+  { prefix: 'lib/runtime/', classification: 'STAGING', owner: 'Runtime Kernel Organization' },
+  { prefix: 'sheikha-vscode-extension/', classification: 'STAGING', owner: 'IDE Organization' },
+  { prefix: 'tools/governance/', classification: 'PROTECTED', owner: 'Governance Tooling Organization' },
+  { prefix: 'tools/runtime/', classification: 'REVIEW_REQUIRED', owner: 'Runtime Tooling Governance' }
 ];
 
 const BLOCKED_PATTERNS = [
