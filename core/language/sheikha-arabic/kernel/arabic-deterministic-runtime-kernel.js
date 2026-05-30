@@ -54,11 +54,14 @@ function executeArabicDeterministicRuntime(input) {
 
     ast,
 
-    dependencies:
-      optimizedDependencies,
+    dependencies: optimizedDependencies,
 
-    bytecode:
-      optimizedBytecode,
+    memoryGraph: buildArabicRuntimeMemoryGraph({
+      tokens,
+      dependencies: optimizedDependencies
+    }),
+
+    bytecode: optimizedBytecode,
 
     executionState: {
       ready: true,
@@ -67,6 +70,8 @@ function executeArabicDeterministicRuntime(input) {
     }
   };
 }
+
+const { buildArabicRuntimeMemoryGraph } = require('../memory/arabic-runtime-memory-graph');
 
 module.exports = {
   executeArabicDeterministicRuntime
