@@ -50,8 +50,7 @@ function getUntrackedFiles() {
     .split('\n')
     .map(line => line.trim())
     .filter(Boolean)
-    .filter(line => line.startsWith('?? '))
-    .map(line => line.slice(3));
+    .map(line => line.slice(3).trim());
 }
 
 function classify(file) {
