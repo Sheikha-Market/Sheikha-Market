@@ -52,7 +52,11 @@ function getUntrackedFiles() {
     .split('\n')
     .map(line => line.trim())
     .filter(Boolean)
-    .map(line => line.slice(3).trim());
+    .map(line => {
+      const status = line.slice(0, 2);
+      const file = line.slice(3).trim();
+      return file || line.trim();
+    });
 }
 
 function classify(file) {
