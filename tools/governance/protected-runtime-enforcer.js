@@ -36,7 +36,16 @@ function isProtected(file) {
   return PROTECTED_PREFIXES.some(prefix => file.startsWith(prefix));
 }
 
+function isEnvTemplate(file) {
+  const lower = file.toLowerCase();
+  return lower.startsWith('.env') && lower.endsWith('.example');
+}
+
 function isForbidden(file) {
+  if (isEnvTemplate(file)) {
+    return false;
+  }
+
   const lower = file.toLowerCase();
   return FORBIDDEN_PATTERNS.some(pattern => lower.includes(pattern));
 }
