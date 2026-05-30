@@ -1,0 +1,89 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Sheikha Root Neural Runtime Document",
+  "type": "object",
+  "additionalProperties": true,
+  "properties": {
+    "success": {
+      "type": "boolean"
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "active",
+        "inactive",
+        "requires_review",
+        "approved_for_execution",
+        "needs-review",
+        "degraded"
+      ]
+    },
+    "network": {
+      "type": "string"
+    },
+    "mode": {
+      "type": "string"
+    },
+    "governance": {
+      "type": "object",
+      "additionalProperties": true,
+      "properties": {
+        "tawheed": {
+          "type": "boolean"
+        },
+        "quranAndSunnahGoverned": {
+          "type": "boolean"
+        },
+        "humanAuthority": {
+          "type": "boolean"
+        },
+        "privacy": {
+          "type": "boolean"
+        }
+      }
+    },
+    "cells": {
+      "oneOf": [
+        {
+          "type": "array"
+        },
+        {
+          "type": "object"
+        }
+      ]
+    },
+    "pipeline": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "safeguards": {
+      "type": "array",
+      "items": {
+        "type": "string"
+      }
+    },
+    "gates": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": [
+          "id",
+          "ok"
+        ],
+        "properties": {
+          "id": {
+            "type": "string"
+          },
+          "label": {
+            "type": "string"
+          },
+          "ok": {
+            "type": "boolean"
+          }
+        }
+      }
+    }
+  }
+}
