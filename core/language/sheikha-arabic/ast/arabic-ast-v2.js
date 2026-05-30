@@ -1,5 +1,7 @@
 'use strict';
 
+const { resolveArabicOntology } = require('../ontology/arabic-semantic-ontology');
+
 const { tokenizeArabic } = require('../tokenizer/arabic-tokenizer');
 const { getArabicPrecedence } = require('../precedence/arabic-precedence');
 const { semanticTypeOf } = require('../types/semantic-type-system');
@@ -17,7 +19,8 @@ function buildArabicAstV2(input) {
       normalized: t.normalized,
       precedence: getArabicPrecedence(t.original) || getArabicPrecedence(t.normalized),
       semanticType: semanticTypeOf(t.original),
-      grammaticalState: require('../runtime/state-machine/arabic-grammatical-state-machine').resolveGrammaticalState({ semanticType: semanticTypeOf(t.original) })
+      ontology: resolveArabicOntology(token),
+        grammaticalState: require('../runtime/state-machine/arabic-grammatical-state-machine').resolveGrammaticalState({ semanticType: semanticTypeOf(t.original) })
     }))
   };
 }

@@ -5,7 +5,8 @@ const { tokenizeArabic } = require('../tokenizer/arabic-tokenizer');
 const { ARABIC_MATH_OPERATORS } = require('./arabic-math-operators');
 const {
   isArabicNumeric,
-  parseArabicNumber
+  parseArabicNumber,
+  classifyNumberScript
 } = require('./arabic-number-system');
 
 function compileArabicMath(input) {
@@ -24,10 +25,12 @@ function compileArabicMath(input) {
     }
 
 
+
     if (isArabicNumeric(t.original)) {
       return {
         type: 'NUMBER',
-        value: parseArabicNumber(t.original)
+        value: parseArabicNumber(t.original),
+        script: classifyNumberScript(t.original)
       };
     }
 

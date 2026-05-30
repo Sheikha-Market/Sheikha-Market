@@ -1,3 +1,12 @@
+/*
+نظام الأرقام العربية: تطبيع وتحويل جميع الأنظمة (عربي، فارسي/أعجمي، غربي) إلى أرقام عربية هندية (٠١٢٣٤٥٦٧٨٩)
+يدعم: التطبيع، التحقق، التحويل العددي، وتصنيف أصل الرقم (عربي/أعجمي/غربي)
+
+normalizeArabicNumbers(str): يطبع أي سلسلة أرقام إلى النظام العربي الهندي (٠١٢٣٤٥٦٧٨٩)
+classifyNumberScript(str): يصنف أصل الرقم (ARABIC, AJAMI, WESTERN, MIXED_OR_UNKNOWN)
+isArabicNumeric(str): يتحقق هل السلسلة رقمية بأي نظام
+parseArabicNumber(str): يحول السلسلة إلى رقم جافاسكريبت
+*/
 'use strict';
 
 
@@ -38,8 +47,21 @@ function parseArabicNumber(value = '') {
   return Number(normalized);
 }
 
+
+function classifyNumberScript(input = '') {
+  // أرقام عربية هندية
+  if (/^[٠-٩]+$/.test(input)) return 'ARABIC';
+  // أرقام فارسية/أردية
+  if (/^[۰-۹]+$/.test(input)) return 'AJAMI';
+  // أرقام غربية
+  if (/^[0-9]+$/.test(input)) return 'WESTERN';
+  // مختلط أو غير معروف
+  return 'MIXED_OR_UNKNOWN';
+}
+
 module.exports = {
   normalizeArabicNumbers,
   isArabicNumeric,
-  parseArabicNumber
+  parseArabicNumber,
+  classifyNumberScript
 };
