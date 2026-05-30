@@ -1,0 +1,45 @@
+{
+  "success": true,
+  "registry": "Sheikha Unified Blueprint Registry",
+
+  "canonicalRoot": {
+    "development": "~/Projects/sheikha/sheikha-main-portal",
+    "server": "/opt/sheikha/current"
+  },
+
+  "zones": {
+    "canonical": [
+      "docs/architecture",
+      "core/canonical",
+      "core/runtime",
+      "core/orchestration",
+      "core/neural"
+    ],
+
+    "generated": [
+      "docs/architecture/blueprints/auto"
+    ],
+
+    "archive": [
+      "exports",
+      "public/_archive"
+    ],
+
+    "mirrors": [
+      "Sheikha-Market",
+      "infra/docker/compose/prod/Sheikha-Market"
+    ],
+
+    "experimental": [
+      "repos/git-sheikha"
+    ]
+  },
+
+  "policy": {
+    "singleSourceOfTruth": true,
+    "noDuplicateAuthority": true,
+    "humanReviewRequired": true,
+    "runtimeIsolation": true,
+    "canonicalOnlyExecution": true
+  }
+}
