@@ -11,7 +11,7 @@ function runSheikhaArabicRuntimeV2(input) {
   const execution = executeArabicLogic(base.parsed);
 
   const semanticMap = base.tokens.map(t => ({
-    token: t.token,
+    token: t.original,
     semantic: detectSemanticIdentity(t.token)
   }));
 

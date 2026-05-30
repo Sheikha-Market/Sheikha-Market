@@ -10,13 +10,34 @@ function normalizeArabic(input) {
 }
 
 function tokenizeArabic(input) {
-  const original = String(input || '').trim();
-  const normalized = normalizeArabic(original);
-  return normalized.split(/\s+/).filter(Boolean).map((token, index) => ({
-    index,
-    token,
-    original: original.split(/\s+/).filter(Boolean)[index] || token
-  }));
+
+  const originalTokens =
+    String(input || '')
+      .trim()
+      .split(/\s+/)
+      .filter(Boolean);
+
+  return originalTokens.map((original, index) => {
+
+    const normalized = normalizeArabic(original);
+
+    return {
+      index,
+
+      original,
+
+      normalized,
+
+      canonical:
+        original,
+
+      semantic:
+        normalized
+    };
+  });
 }
 
-module.exports = { normalizeArabic, tokenizeArabic };
+module.exports = {
+  normalizeArabic,
+  tokenizeArabic
+};
