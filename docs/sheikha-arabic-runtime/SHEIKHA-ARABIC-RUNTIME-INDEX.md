@@ -471,6 +471,3 @@ Sheikha Deterministic Runtime Architecture — ACTIVE
 - لا ضرر ولا ضرار
 
 كمعيار رسمي حاكم لمنظومة شيخة العربية الحتمية.
-EOF_SHEIKHA
-```
-
