@@ -9,7 +9,6 @@ const STORAGE_FILE = path.join(
 );
 
 function loadArabicRuntimeState() {
-
   if (!fs.existsSync(STORAGE_FILE)) {
     return {
       accounts: {},
@@ -20,15 +19,11 @@ function loadArabicRuntimeState() {
   }
 
   return JSON.parse(
-    fs.readFileSync(
-      STORAGE_FILE,
-      'utf8'
-    )
+    fs.readFileSync(STORAGE_FILE, 'utf8')
   );
 }
 
 function saveArabicRuntimeState(state = {}) {
-
   fs.writeFileSync(
     STORAGE_FILE,
     JSON.stringify(state, null, 2)
@@ -43,7 +38,5 @@ function saveArabicRuntimeState(state = {}) {
 module.exports = {
   STORAGE_FILE,
   loadArabicRuntimeState,
-  saveArabicRuntimeState
-};
   saveArabicRuntimeState
 };
