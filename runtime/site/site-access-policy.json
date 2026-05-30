@@ -1,0 +1,36 @@
+{
+  "policy": "SHEIKHA_SITE_ACCESS_POLICY",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "public": [
+    "/",
+    "/market",
+    "/register",
+    "/government",
+    "/company",
+    "/identity",
+    "/ide"
+  ],
+  "protected": [
+    "/admin",
+    "/runtime",
+    "/governance",
+    "/monitor",
+    "/dashboard",
+    "/control-tower",
+    "/mcp",
+    "/sdk",
+    "/cli"
+  ],
+  "archiveBlocked": [
+    "/_archive",
+    "/generated-images",
+    "/_engines"
+  ],
+  "brandReview": [
+    "/marketing",
+    "/SHEIKHA-DIGITAL-IDENTITY.html",
+    "/SHEIKHA-COMMUNICATIONS.html"
+  ],
+  "rule": "Only public canonical routes are intended for open access. Internal, generated, archive, and experimental routes require protection or migration."
+}
