@@ -52,7 +52,19 @@ function classify(file) {
   return matched;
 }
 
+function isEnvTemplate(file) {
+  const lower = file.toLowerCase();
+  return (
+    lower.startsWith('.env') &&
+    lower.endsWith('.example')
+  );
+}
+
 function isBlocked(file) {
+  if (isEnvTemplate(file)) {
+    return false;
+  }
+
   return BLOCKED_PATTERNS.some(pattern =>
     file.toLowerCase().includes(pattern)
   );
