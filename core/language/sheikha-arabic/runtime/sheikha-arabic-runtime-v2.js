@@ -12,7 +12,7 @@ function runSheikhaArabicRuntimeV2(input) {
 
   const semanticMap = base.tokens.map(t => ({
     token: t.original,
-    semantic: detectSemanticIdentity(t.token)
+    semantic: detectSemanticIdentity(t.canonical)
   }));
 
   return {
