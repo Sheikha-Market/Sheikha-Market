@@ -1,0 +1,38 @@
+{
+  "meta": {
+    "description": "Sheikha Universal Knowledge Graph — قواعد كونية وشرعية وهندسية وتقنية مترابطة.",
+    "version": "0.1",
+    "created": "2026-05-24",
+    "owner": "Sheikha AI"
+  },
+  "nodes": [
+    {
+      "id": "kaaba",
+      "type": "structure",
+      "name": "الكعبة المشرفة",
+      "principles": ["التوحيد", "الاستدامة", "التجديد", "القبلة"],
+      "sources": ["القرآن", "السنة"],
+      "features": ["مركز الكون الروحي", "بناء متجدد", "ثبات عبر العصور"]
+    },
+    {
+      "id": "noah_ark",
+      "type": "structure",
+      "name": "سفينة نوح",
+      "principles": ["النجاة", "الطاعة", "التصميم الإلهي"],
+      "sources": ["القرآن", "التوراة"],
+      "features": ["نجاة البشرية", "تصميم هندسي فريد"]
+    },
+    {
+      "id": "aqsa",
+      "type": "structure",
+      "name": "المسجد الأقصى",
+      "principles": ["الربط بين الرسالات", "المباركة", "الاستمرارية"],
+      "sources": ["القرآن", "السنة"],
+      "features": ["قبلة أولى", "مركز البركة"]
+    }
+  ],
+  "edges": [
+    { "from": "kaaba", "to": "aqsa", "relation": "قبلة/مركزية" },
+    { "from": "noah_ark", "to": "kaaba", "relation": "نجاة/تجديد" }
+  ]
+}
