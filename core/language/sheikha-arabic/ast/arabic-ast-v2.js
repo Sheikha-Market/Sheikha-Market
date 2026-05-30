@@ -16,7 +16,8 @@ function buildArabicAstV2(input) {
       original: t.original,
       normalized: t.normalized,
       precedence: getArabicPrecedence(t.original) || getArabicPrecedence(t.normalized),
-      semanticType: semanticTypeOf(t.original)
+      semanticType: semanticTypeOf(t.original),
+      grammaticalState: require('../runtime/state-machine/arabic-grammatical-state-machine').resolveGrammaticalState({ semanticType: semanticTypeOf(t.original) })
     }))
   };
 }
