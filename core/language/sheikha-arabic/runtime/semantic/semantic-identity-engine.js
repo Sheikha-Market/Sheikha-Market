@@ -1,12 +1,29 @@
 'use strict';
 
+const OPERATORS =
+require('../registry/grammar-operator-registry.json');
+
+function normalizeArabic(input) {
+  return String(input || '')
+    .replace(/[إأآ]/g, 'ا')
+    .replace(/ى/g, 'ي')
+    .replace(/ة/g, 'ه');
+}
+
 function detectSemanticIdentity(token) {
 
-  const t =
-    String(token || '')
-      .replace(/[إأآ]/g, 'ا')
-      .replace(/ى/g, 'ي')
-      .replace(/ة/g, 'ه');
+  const t = normalizeArabic(token);
+
+  if (OPERATORS[token] || OPERATORS[t]) {
+    return {
+      type: 'GRAMMAR_OPERATOR',
+      domain: 'EXECUTION',
+      runtimeRole: 'FLOW_CONTROL',
+      operator:
+        OPERATORS[token] ||
+        OPERATORS[t]
+    };
+  }
 
   if (t.includes('حساب')) {
     return {
@@ -41,19 +58,6 @@ function detectSemanticIdentity(token) {
     };
   }
 
-  if (
-    t === 'من' ||
-    t === 'الى' ||
-    t === 'إلى' ||
-    t === 'على'
-  ) {
-    return {
-      type: 'GRAMMAR_OPERATOR',
-      domain: 'EXECUTION',
-      runtimeRole: 'FLOW_CONTROL'
-    };
-  }
-
   return {
     type: 'GENERIC',
     domain: 'GENERAL',
@@ -61,4 +65,6 @@ function detectSemanticIdentity(token) {
   };
 }
 
-module.exports = { detectSemanticIdentity };
+module.exports = {
+  detectSemanticIdentity
+};
