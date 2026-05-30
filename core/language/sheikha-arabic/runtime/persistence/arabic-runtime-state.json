@@ -1,0 +1,23 @@
+{
+  "accounts": {
+    "حساب_المشتري": -1,
+    "حساب_سوق_شيخة": 1
+  },
+  "operations": [
+    {
+      "opcode": "TRANSFER",
+      "source": "حساب_المشتري",
+      "destination": "حساب_سوق_شيخة",
+      "value": "مبلغًا"
+    }
+  ],
+  "states": [
+    {
+      "type": "TRANSFER_APPLIED",
+      "source": "حساب_المشتري",
+      "destination": "حساب_سوق_شيخة",
+      "value": "مبلغًا"
+    }
+  ],
+  "deterministic": true
+}
