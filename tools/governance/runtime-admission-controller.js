@@ -1,6 +1,8 @@
 'use strict';
 
 const { execSync } = require('child_process');
+const os = require('os');
+const path = require('path');
 
 const CLASSIFICATION_RULES = [
   { prefix: '.env', classification: 'REVIEW_REQUIRED', owner: 'Security Governance' },
@@ -145,6 +147,23 @@ function runAdmissionController() {
       item => item.decision === 'ALLOWED'
     );
 
+  // سجل تدقيق محلي (audit log)
+  try {
+    const auditLogPath = path.join(__dirname, 'audit-log.jsonl');
+    const auditEntry = {
+      timestamp: new Date().toISOString(),
+      user: os.userInfo().username,
+      cwd: process.cwd(),
+      files,
+      status: blocked.length > 0 ? 'BLOCKED' : 'ACTIVE',
+      blocked: blocked.map(b => b.file),
+      review: review.map(r => r.file),
+      allowed: allowed.map(a => a.file)
+    };
+    require('fs').appendFileSync(auditLogPath, JSON.stringify(auditEntry) + '\n');
+  } catch (e) {
+    // تجاهل أي خطأ في التدقيق
+  }
   return {
     runtime:
       'SHEIKHA_RUNTIME_ADMISSION_CONTROLLER',
