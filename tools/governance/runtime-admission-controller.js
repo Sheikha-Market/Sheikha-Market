@@ -14,6 +14,12 @@ const CLASSIFICATION_RULES = [
   { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
   { prefix: 'runtime/', classification: 'PROTECTED', owner: 'Runtime Governance Organization' },
   { prefix: 'routes/', classification: 'ACTIVE', owner: 'API Federation Organization' },
+  { prefix: 'scripts/activate-', classification: 'REVIEW_REQUIRED', owner: 'Activation Governance' },
+  { prefix: 'scripts/sheikha-', classification: 'REVIEW_REQUIRED', owner: 'Sheikha Operations Governance' },
+  { prefix: 'scripts/universal-', classification: 'REVIEW_REQUIRED', owner: 'Universal Runtime Governance' },
+  { prefix: 'scripts/neural-', classification: 'REVIEW_REQUIRED', owner: 'Neural Runtime Governance' },
+  { prefix: 'scripts/auto-', classification: 'REVIEW_REQUIRED', owner: 'Runtime Automation Governance' },
+  { prefix: 'scripts/patch-', classification: 'REVIEW_REQUIRED', owner: 'Runtime Patch Governance' },
   { prefix: 'scripts/', classification: 'REVIEW_REQUIRED', owner: 'Automation Organization' },
   { prefix: 'docs/', classification: 'ACTIVE', owner: 'Documentation Governance' },
   { prefix: 'topology/', classification: 'EXPERIMENTAL', owner: 'Architecture Organization' },
@@ -21,7 +27,8 @@ const CLASSIFICATION_RULES = [
   { prefix: 'lib/runtime/', classification: 'STAGING', owner: 'Runtime Kernel Organization' },
   { prefix: 'sheikha-vscode-extension/', classification: 'STAGING', owner: 'IDE Organization' },
   { prefix: 'tools/governance/', classification: 'PROTECTED', owner: 'Governance Tooling Organization' },
-  { prefix: 'tools/runtime/', classification: 'REVIEW_REQUIRED', owner: 'Runtime Tooling Governance' }
+  { prefix: 'tools/runtime/', classification: 'REVIEW_REQUIRED', owner: 'Runtime Tooling Governance' },
+  { prefix: 'sheikha-enterprise-al-portal@', classification: 'REVIEW_REQUIRED', owner: 'Enterprise Portal Governance' }
 ];
 
 const BLOCKED_PATTERNS = [
@@ -99,7 +106,10 @@ function evaluateFile(file) {
     return {
       file,
       decision: 'REVIEW_REQUIRED',
-      reason: 'No governance ownership'
+      reason: result.owner
+        ? 'Governance review required'
+        : 'No governance ownership',
+      owner: result.owner || 'Unassigned Governance Review'
     };
   }
 
