@@ -1,0 +1,56 @@
+{
+  "platform": "SHEIKHA_PLATFORM_FABRIC",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+
+  "layers": {
+    "cloud": {
+      "status": "FOUNDATION_ACTIVE",
+      "runtime": "governed"
+    },
+
+    "saas": {
+      "status": "FOUNDATION_ACTIVE",
+      "multiTenant": true,
+      "requires": [
+        "organizations",
+        "roles",
+        "subscriptions",
+        "billing"
+      ]
+    },
+
+    "erp": {
+      "status": "FOUNDATION_ACTIVE",
+      "modules": [
+        "finance",
+        "inventory",
+        "sales",
+        "operations"
+      ]
+    },
+
+    "scm": {
+      "status": "FOUNDATION_ACTIVE",
+      "modules": [
+        "suppliers",
+        "buyers",
+        "contracts",
+        "logistics",
+        "warehouses"
+      ]
+    },
+
+    "auth": {
+      "status": "ACTIVE",
+      "centralizedIdentity": true
+    },
+
+    "organizations": {
+      "status": "ACTIVE",
+      "tenantIsolation": true
+    }
+  },
+
+  "rule": "All platform layers must operate under governed runtime and isolated production fabric."
+}
