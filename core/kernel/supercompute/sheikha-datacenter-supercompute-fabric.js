@@ -69,7 +69,12 @@ function status() {
       noGhaybPrediction: true,
       noConsciousnessClaim: true,
       halalOnly: true,
-      noHarm: true
+      noHarm: true,
+      noDarar: true,
+      noIntoxicants: true,
+      noMufattir: true,
+      noHaramWorkloads: true,
+      noHaramStorage: true
     },
 
     governance: {
@@ -79,6 +84,10 @@ function status() {
       noFraud: true,
       noHarm: true,
       halalOnly: true,
+      noDarar: true,
+      noIntoxicants: true,
+      noMufattir: true,
+      noHaramStorage: true,
       humanAuthority: true
     },
 

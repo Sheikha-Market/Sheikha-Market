@@ -50,7 +50,8 @@ function getUntrackedFiles() {
 
   return output
     .split('\n')
-    .map(line => line.trim())
+    .filter(line => line.trim())
+    .map(line => line.trimEnd())
     .filter(Boolean)
     .map(line => {
       const status = line.slice(0, 2);

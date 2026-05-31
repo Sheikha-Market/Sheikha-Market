@@ -17,7 +17,12 @@ const FABRIC = {
     quranAndSunnah: true,
     tawheed: true,
     noHarm: true,
+    noDarar: true,
     halalOnly: true,
+    noIntoxicants: true,
+    noMufattir: true,
+    noHaramStorage: true,
+    noHaramWorkloads: true,
     humanAuthority: true,
     noGhaybPrediction: true,
     noConsciousnessClaim: true

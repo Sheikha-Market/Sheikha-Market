@@ -135,6 +135,27 @@ function status() {
     sovereign: true,
     localFirst: true,
     deterministic: true,
+    governance: {
+      quranAndSunnah: true,
+      halalOnly: true,
+      noHarm: true,
+      noDarar: true,
+      noRiba: true,
+      noFraud: true,
+      noIntoxicants: true,
+      noMufattir: true,
+      noHaramStorage: true,
+      humanAuthority: true
+    },
+    policy: [
+      'quran-sunnah-governed-storage',
+      'halal-only-persistence',
+      'no-harm-no-darar',
+      'no-riba-no-fraud',
+      'no-intoxicants',
+      'no-mufattir-content',
+      'no-haram-storage'
+    ],
     tiers: STORAGE,
     timestamp: new Date().toISOString()
   };

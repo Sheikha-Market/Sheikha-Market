@@ -21,9 +21,9 @@ function getFiles() {
 
   return output
     .split('\n')
-    .map(v => v.trim())
-    .filter(Boolean)
-    .map(v => v.slice(3));
+    .filter(v => v.trim())
+    .map(v => v.trimEnd())
+    .map(v => v.slice(3).trim());
 }
 
 function isProtected(file) {
