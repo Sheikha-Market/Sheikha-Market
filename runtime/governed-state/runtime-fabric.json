@@ -1,0 +1,24 @@
+{
+  "fabric": "SHEIKHA_RUNTIME_FABRIC",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "layers": {
+    "production": {
+      "isolated": true,
+      "governed": true
+    },
+    "staging": {
+      "isolated": true,
+      "nonPublic": true
+    },
+    "sandbox": {
+      "isolated": true,
+      "experimental": true
+    },
+    "liveState": {
+      "gitTracked": false,
+      "runtimeOnly": true
+    }
+  },
+  "rule": "Runtime live state must remain isolated from governed production assets."
+}
