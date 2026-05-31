@@ -161,7 +161,7 @@ class SheikhaProvider {
             enableAgentMode: wsConfig.get('enableAgentMode', true),
             enableNES: wsConfig.get('enableNES', true),
             shariaGuardrails: wsConfig.get('shariaGuardrails', true),
-            defaultModel: wsConfig.get('defaultModel', 'sheikha-base'),
+            defaultModel: normalizeModelName(wsConfig.get('defaultModel', 'Sheikha-Core')),
             completionDelay: wsConfig.get('completionDelay', 150),
             maxCompletions: wsConfig.get('maxCompletions', 3),
             arabicComments: wsConfig.get('arabicComments', true),
@@ -231,15 +231,20 @@ class SheikhaProvider {
     async chat(message, codeContext, language, history) {
         const authHeaders = await this.authManager.getAuthHeaders();
         const payload = {
-            message,
-            codeContext,
-            language,
-            history: Array.isArray(history) ? history.slice(-CHAT_HISTORY_LIMIT) : [],
+            prompt: message,
+            mode: 'chat',
+            context: {
+                source: 'vscode-extension',
+                panel: 'sheikha-chat',
+                language,
+                codeContext: codeContext ? codeContext.slice(0, 12000) : '',
+                history: Array.isArray(history) ? history.slice(-CHAT_HISTORY_LIMIT) : []
+            },
             model: this.config.defaultModel
         };
 
         try {
-            const response = await fetch(`${this.config.serverUrl}/api/sheikha/chat`, {
+            const response = await fetch(`${this.config.serverUrl}/api/sheikha/ai-gateway/ask`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
                 body: JSON.stringify(payload)
@@ -251,18 +256,16 @@ class SheikhaProvider {
             return normalizeChatPayload(data);
         } catch (err) {
             try {
-                const fallbackResponse = await fetch(`${this.config.serverUrl}/api/sheikha/ai-gateway/ask`, {
+                const fallbackResponse = await fetch(`${this.config.serverUrl}/api/sheikha/chat`, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json', ...authHeaders },
                     body: JSON.stringify({
                         prompt: message,
+                        message,
                         mode: 'chat',
-                        context: {
-                            source: 'vscode-extension',
-                            language,
-                            codeContext: codeContext ? codeContext.slice(0, 12000) : '',
-                            history: history || []
-                        }
+                        language,
+                        codeContext: codeContext ? codeContext.slice(0, 12000) : '',
+                        history: Array.isArray(history) ? history.slice(-CHAT_HISTORY_LIMIT) : []
                     })
                 });
                 const fallbackData = await readResponseJson(fallbackResponse);
@@ -1390,11 +1393,23 @@ function normalizeChatPayload(payload) {
         provider: data.provider || payload.provider || 'Sheikha',
         mode: data.mode || payload.mode || null,
         model: data.model || payload.model || null,
+        inferenceModel: data.inferenceModel || payload.inferenceModel || null,
         localModelOnline: typeof data.localModelOnline === 'boolean'
             ? data.localModelOnline
             : (typeof payload.localModelOnline === 'boolean' ? payload.localModelOnline : null),
+        localGenerationOnline: typeof data.localGenerationOnline === 'boolean'
+            ? data.localGenerationOnline
+            : (typeof payload.localGenerationOnline === 'boolean' ? payload.localGenerationOnline : null),
         fallbackReason: data.fallbackReason || payload.fallbackReason || null
     };
+}
+
+function normalizeModelName(value) {
+    const model = String(value || '').trim();
+    if (!model || model === 'sheikha-base') {
+        return 'Sheikha-Core';
+    }
+    return model;
 }
 
 function getRootNeuralFeatureConfig(featureId) {
@@ -1407,8 +1422,8 @@ function getRootNeuralFeatureConfig(featureId) {
             actions: [
                 { label: 'Status', method: 'GET', path: '/api/sheikha/extension/status' },
                 { label: 'Core', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
-                { label: 'Ask Core', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'شغل', mode: 'chat', context: { source: 'vscode-feature-view' } } },
-                { label: 'Chat', method: 'POST', path: '/api/sheikha/chat', body: { message: 'شغل', language: 'ar', history: [] } }
+                { label: 'Ask Core', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'شغل', mode: 'chat', context: { source: 'vscode-feature-view', panel: 'api' } } },
+                { label: 'Chat', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'شغل', mode: 'chat', context: { source: 'vscode-feature-view', panel: 'api' } } }
             ]
         },
         publish: {
@@ -1441,7 +1456,7 @@ function getRootNeuralFeatureConfig(featureId) {
             actions: [
                 { label: 'Languages', method: 'GET', path: '/api/sheikha/languages' },
                 { label: 'Completion', method: 'POST', path: '/api/sheikha/completions', body: { code: 'function ', language: 'javascript', cursor: 9 } },
-                { label: 'Chat', method: 'POST', path: '/api/sheikha/chat', body: { message: 'افحص البرمجة والتكامل', language: 'javascript', history: [] } }
+                { label: 'Chat', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'افحص البرمجة والتكامل', mode: 'chat', context: { source: 'vscode-feature-view', panel: 'programming', language: 'javascript' } } }
             ]
         },
         debug: {
@@ -1452,7 +1467,7 @@ function getRootNeuralFeatureConfig(featureId) {
             actions: [
                 { label: 'Health', method: 'GET', path: '/api/health' },
                 { label: 'Gateway', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
-                { label: 'Debug Chat', method: 'POST', path: '/api/sheikha/chat', body: { message: 'حلل وضع DEBUG في الإكستنشن', language: 'auto', history: [] } }
+                { label: 'Debug Chat', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'حلل وضع DEBUG في الإكستنشن', mode: 'chat', context: { source: 'vscode-feature-view', panel: 'debug', language: 'auto' } } }
             ]
         },
         editing: {
@@ -1461,7 +1476,7 @@ function getRootNeuralFeatureConfig(featureId) {
             primary: '/api/sheikha/extension/status',
             cells: ['review', 'refactor', 'tests', 'sharia-check'],
             actions: [
-                { label: 'Review', method: 'POST', path: '/api/sheikha/chat', body: { message: 'راجع الملف المفتوح واقترح تعديلا آمنا', language: 'auto', history: [] } },
+                { label: 'Review', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'راجع الملف المفتوح واقترح تعديلا آمنا', mode: 'chat', context: { source: 'vscode-feature-view', panel: 'editing', language: 'auto' } } },
                 { label: 'Core', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
                 { label: 'Status', method: 'GET', path: '/api/sheikha/extension/status' }
             ]
@@ -3107,7 +3122,15 @@ function getSidebarChatHtml() {
             if (event.data.command !== 'response') return;
             const data = event.data.data || {};
             const reply = data.reply || 'لا توجد استجابة';
-            const meta = [data.provider, data.mode, data.model, data.localModelOnline === false ? 'local-offline' : '']
+            const meta = [
+                data.provider,
+                data.mode,
+                data.model,
+                data.inferenceModel && data.inferenceModel !== data.model ? 'via ' + data.inferenceModel : '',
+                data.localModelOnline === false ? 'local-offline' : '',
+                data.localGenerationOnline === false ? 'generation-paused' : '',
+                data.fallbackReason || ''
+            ]
                 .filter(Boolean)
                 .join(' · ');
             appendMessage('assistant', reply, meta, data.codeSnippet || '');
