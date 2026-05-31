@@ -261,18 +261,17 @@ function isCodeAnalysisPrompt(prompt, context = {}) {
     const source = String(context.source || context.route || '').trim();
     const vscodeMode = /vscode|extension|chat/i.test(source);
     const asksOperationalPanel = /(git|merge|plug|video|vision|تكامل|إكستنشن|اكستنشن|الدمج|النشر|publish|api)/i.test(text);
-
     const asksSystemReport = /(تقرير\s+عن\s+النظام|اكتب\s+تقرير|حالة\s+النظام|system\s+report|status\s+report|runtime\s+report)/i.test(text);
 
     if (asksSystemReport) {
-      return {
-        success: true,
-        provider: 'Sheikha-Core',
-        model: 'Sheikha-Core',
-        mode: 'governed-fast-operational',
-        localModelOnline: true,
-        fallbackReason: null,
-        output: `تقرير Sheikha الكامل عن النظام:
+        return {
+            success: true,
+            provider: 'Sheikha-Core',
+            model: 'Sheikha-Core',
+            mode: 'governed-fast-operational',
+            localModelOnline: true,
+            fallbackReason: null,
+            output: `تقرير Sheikha الكامل عن النظام:
 
 1. الحالة العامة:
 - Sheikha-Core online وactive.
@@ -310,11 +309,10 @@ function isCodeAnalysisPrompt(prompt, context = {}) {
 
 الخلاصة:
 النظام يعمل، لكن طلبات التقارير يجب أن تمر عبر مسار Sheikha-Core التشغيلي السريع لضمان رد كامل بدون ollama_timeout.`,
-        context: { source: 'vscode-extension', report: 'system' },
-        timestamp: new Date().toISOString()
-      };
+            context: { source: 'vscode-extension', report: 'system' },
+            timestamp: new Date().toISOString()
+        };
     }
-
 
     const asksCode = /(تحليل\s+برمجي|التحليل\s+البرمجي|بالتحليل\s+البرمجي|حلل\s+برمجي|حلل الكود|حلّل الكود|راجع الكود|مراجعة الكود|افحص الكود|فحص الكود|راجع الملف|افحص الملف|debug|ديبغ|كود|code|program|review|analy[sz]e code|inspect code|diagnos)/i.test(text);
 
