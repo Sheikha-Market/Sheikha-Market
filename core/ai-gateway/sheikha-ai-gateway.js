@@ -6,9 +6,9 @@ const {
 
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
-const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 120000);
+const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 30000);
 const DEFAULT_NUM_CTX = Number(process.env.SHEIKHA_CORE_NUM_CTX || 2048);
-const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 64);
+const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 192);
 const DEFAULT_KEEP_ALIVE = process.env.SHEIKHA_CORE_KEEP_ALIVE || '10m';
 const SHEIKHA_CORE_RUNTIME_PROMPT = process.env.SHEIKHA_CORE_RUNTIME_PROMPT ||
     'أنت Sheikha-Core. أجب مباشرة بالعربية عند الطلب، وباختصار وصدق.';
@@ -55,6 +55,22 @@ function governanceEnvelope() {
         allSystemsGoverned: true,
         universalGovernance
     };
+}
+
+function describeUniversalGovernance() {
+    const governance = getUniversalDivineGovernance();
+    const archetypes = governance && governance.archetypes ? governance.archetypes : {};
+    const names = Object.entries(archetypes).map(([key, value]) => {
+        const principle = value && value.principle ? value.principle : 'governed-principle';
+        return `${key}: ${principle}`;
+    });
+
+    return [
+        `الهوية المعمارية: ${governance.name || 'Sheikha Universal Divine-Inspired Governance'}.`,
+        `نمط التشغيل: ${governance.mode || 'all-systems-halal-governance'}.`,
+        names.length ? `المبادئ المعمارية النشطة: ${names.join(' | ')}.` : '',
+        'التموضع المعتمد: الأفضل الممكن بالدليل والاختبار والحلال، لا ادعاء كمال مطلق.'
+    ].filter(Boolean).join('\n');
 }
 
 function isArabic(text) {
@@ -115,6 +131,57 @@ function canonicalSheikhaCoreAnswer(prompt) {
     ].join('\n');
 }
 
+function buildGovernedFallbackAnswer({ prompt, reason }) {
+    const requestText = String(prompt || '').trim() || 'تشغيل';
+    const operationalRequest = /شغ[لّ]|اصلح|إصلاح|fix|run|start|activate|chat|شات|extension|اكستنشن|تكامل|integration|git|merge/i
+        .test(requestText);
+
+    if (!operationalRequest) {
+        return [
+            'Sheikha-Core تعمل الآن عبر طبقة الحوكمة المحلية الآمنة.',
+            `تعذر الوصول إلى نموذج Ollama المحلي: ${reason || 'غير معروف'}.`,
+            'سأجيب بالتحليل المحلي المحكوم بدل تعليق الطلب، مع بقاء النموذج المحلي هو المسار الأساسي عند عودته.',
+            '',
+            'تحليل الطلب:',
+            requestText,
+            '',
+            'خطوات تنفيذية:',
+            '1. حدّد المطلوب بدقة والسياق أو الملف المتأثر.',
+            '2. نفّذ التعديل في نطاق صغير قابل للمراجعة.',
+            '3. شغّل فحصًا مناسبًا: syntax check، اختبار وحدة، أو smoke test حسب المسار.',
+            '4. لا يتم دمج أو نشر أي تغيير مؤثر قبل مراجعة Git والاختبارات.',
+            '',
+            'مخاطر:',
+            '- الرد الحالي ليس استدلال نموذج Ollama كاملاً، بل fallback حوكمي.',
+            '- القرارات المؤثرة تحتاج مراجعة بشرية وفحص ملفات فعلي.'
+        ].join('\n');
+    }
+
+    return [
+        'تحليل Sheikha:',
+        `وصل الطلب إلى طبقة الشات: "${requestText}". الخادم لم يعلّق الطلب، لكن Ollama المحلي غير متاح الآن: ${reason || 'غير معروف'}.`,
+        '',
+        'خطوات التنفيذ:',
+        '1. تشغيل Ollama محلياً: ollama serve.',
+        '2. التأكد من وجود النموذج: ollama list ويجب أن يظهر Sheikha-Core:latest أو Sheikha-Core.',
+        '3. عند الحاجة لإعادة البناء: ollama create Sheikha-Core -f models/sheikha-core/Modelfile.',
+        '4. اختبار البوابة: GET /api/sheikha/ai-gateway/status ثم POST /api/sheikha/chat.',
+        '5. في VS Code: نفّذ Sheikha: Sync Integrations ثم أعد فتح Sheikha Chat إذا كانت الواجهة قديمة.',
+        '',
+        'مخاطر:',
+        '- إذا توقف Ollama سيظهر provider=fallback، لكن الشات يجب أن يبقى مستجيباً.',
+        '- أي تعديل أو دمج يحتاج مراجعة Git حتى لا نخلط تغييرات غير مرتبطة.',
+        '- تشغيل نموذج 8B على CPU قد يكون أبطأ؛ راقب زمن الاستجابة والذاكرة.',
+        '',
+        'فحص قبل الدمج أو النشر:',
+        '1. node --check sheikha-vscode-extension/extension.js',
+        '2. node --check core/ai-gateway/sheikha-ai-gateway.js',
+        '3. node --check routes/ai.js',
+        '4. curl /api/sheikha/ai-gateway/status وتحقق من localModelOnline=true عند تشغيل Ollama.',
+        '5. جرّب رسالة قصيرة من Sheikha Chat وتأكد أن meta يعرض provider/mode بوضوح.'
+    ].join('\n');
+}
+
 function buildRawLlamaPrompt({ system, prompt }) {
     return [
         '<|start_header_id|>system<|end_header_id|>',
@@ -130,6 +197,89 @@ function buildRawLlamaPrompt({ system, prompt }) {
     ].join('\n');
 }
 
+function buildSheikhaCoreSystemPrompt(context = {}) {
+    const source = String(context.source || context.route || '').trim();
+    const vscodeMode = /vscode|extension|chat/i.test(source);
+
+    return [
+        SHEIKHA_CORE_SYSTEM_PROMPT,
+        describeUniversalGovernance(),
+        SHEIKHA_CORE_RUNTIME_PROMPT,
+        vscodeMode
+            ? [
+                'سياق VS Code / Extension:',
+                '- إذا كان الطلب قصيراً مثل "شغل" أو "اصلح"، فافهمه كأمر تشغيل وفحص للشات والتكامل في الإكستنشن.',
+                '- أجب كمنظومة Sheikha مؤسسية: تشخيص واضح، خطوات تنفيذ، مخاطر، وفحص قبل الدمج أو النشر عند وجود Git أو ملفات.',
+                '- لا تقل إن الطلب فارغ أو غير واضح إذا كان السياق التشغيلي متاحاً؛ ابدأ بأفضل إجراء آمن قابل للاختبار.'
+            ].join('\n')
+            : '',
+        'اكتب إجابة عملية مختصرة، ولا تدّع أنك نفذت تعديل ملفات إلا إذا كان ذلك مذكوراً صراحة في السياق.'
+    ].filter(Boolean).join('\n\n');
+}
+
+function enrichOperationalPrompt(prompt, context = {}) {
+    const text = String(prompt || '').trim();
+    const source = String(context.source || context.route || '').trim();
+    const vscodeMode = /vscode|extension|chat/i.test(source);
+
+    if (vscodeMode && /^(شغل|شغّل|شغلها|run|start|go|activate)$/i.test(text)) {
+        return [
+            `الطلب المختصر من المستخدم: "${text}".`,
+            'المقصود في سياق VS Code هو تشغيل/فحص Sheikha Chat وتكامل الإكستنشن مع Git وAPI وSheikha-Core.',
+            'أجب بتحليل واضح، خطوات تنفيذ، مخاطر، وفحص قبل الدمج أو النشر.'
+        ].join('\n');
+    }
+
+    return text;
+}
+
+function isVscodeOperationalPrompt(prompt, context = {}) {
+    const text = String(prompt || '').trim();
+    const source = String(context.source || context.route || '').trim();
+    const vscodeMode = /vscode|extension|chat/i.test(source);
+
+    return vscodeMode && /^(شغل|شغّل|شغلها|اصلح|أصلح|fix|run|start|go|activate|merge|git|plug|video|vision|file\+?)$/i.test(text);
+}
+
+function buildFastOperationalAnswer({ prompt, context, gateway }) {
+    const requestText = String(prompt || '').trim() || 'تشغيل';
+    const modelOnline = Boolean(gateway && gateway.localModelOnline && gateway.sheikhaCoreInstalled);
+
+    return {
+        success: true,
+        provider: 'Sheikha-Core',
+        model: DEFAULT_MODEL,
+        mode: 'governed-fast-operational',
+        localModelOnline: modelOnline,
+        fallbackReason: null,
+        governance: governanceEnvelope(),
+        context,
+        output: [
+            'تحليل Sheikha:',
+            `تم استلام أمر التشغيل "${requestText}" من VS Code. السيرفر مفعل، وبوابة Sheikha-Core حالتها: ${modelOnline ? 'online' : 'local model not ready'}.`,
+            'الهوية والمعمارية الجديدة مفعلة داخل حوكمة Sheikha Universal Divine-Inspired Governance وتُعرض كجزء من شبكة الخلايا الجذرية.',
+            '',
+            'خطوات التنفيذ:',
+            '1. الشات يستخدم /api/sheikha/chat كمسار أساسي ويعود إلى /api/sheikha/ai-gateway/ask عند الحاجة.',
+            '2. التكاملات تعرض حالة Sheikha-Core وGit والـ API داخل واجهة الإكستنشن.',
+            '3. Ollama يجب أن يبقى شغالاً عبر PM2 باسم sheikha-ollama، والنموذج المطلوب هو Sheikha-Core:latest.',
+            '4. عند الضغط على Merge أو Git أو Plug أو Vision أو File+ يتم إرسال Prompt تشغيلي واضح بدل أمر مبهم.',
+            '',
+            'المخاطر:',
+            '- نموذج 8B على CPU قد يتأخر؛ لذلك هذا المسار التشغيلي السريع يمنع تعليق واجهة VS Code.',
+            '- لا يتم تنفيذ commit أو merge أو نشر تلقائي من الشات بدون مراجعة بشرية.',
+            '- أي توقف في Ollama يجب أن يظهر في status بدلاً من إخفائه.',
+            '',
+            'فحص قبل الدمج أو النشر:',
+            '1. تحقق من /api/sheikha/ai-gateway/status وأن localModelOnline=true.',
+            '2. جرّب /api/sheikha/chat برسالة قصيرة وتأكد أن provider=Sheikha-Core.',
+            '3. شغّل node --check على ملفات الإكستنشن والبوابة والراوتر.',
+            '4. راجع git status قبل أي commit أو push.'
+        ].join('\n'),
+        timestamp: new Date().toISOString()
+    };
+}
+
 function buildFallbackResponse({ prompt, model, context, reason }) {
     return {
         success: true,
@@ -142,12 +292,7 @@ function buildFallbackResponse({ prompt, model, context, reason }) {
         context,
         output: isCanonicalIdentityPrompt(prompt)
             ? canonicalSheikhaCoreAnswer(prompt)
-            : [
-                'Sheikha-Core جاهزة كطبقة حوكمة وتحليل محلية.',
-                'تعذر الوصول إلى نموذج Ollama المحلي الآن، لذلك تم إرجاع رد حاكم آمن بدلاً من تعليق الطلب.',
-                'شغّل النموذج عبر: ollama create Sheikha-Core -f models/sheikha-core/Modelfile ثم ollama run Sheikha-Core.',
-                'الطلب المستلم: ' + prompt
-            ].join('\n'),
+            : buildGovernedFallbackAnswer({ prompt, reason }),
         timestamp: new Date().toISOString()
     };
 }
@@ -207,18 +352,34 @@ async function getSheikhaGatewayStatus() {
     }
 }
 
-async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
+async function askSheikhaCore({ prompt, message, instruction, input, mode, model = DEFAULT_MODEL, context = {} }) {
+    prompt = prompt || message || instruction || input;
+
     if (!prompt || typeof prompt !== 'string') {
         return {
             success: false,
             error: 'invalid_prompt',
-            message: 'prompt مطلوب'
+            message: 'prompt أو message مطلوب'
         };
     }
 
-    if (isCanonicalIdentityPrompt(prompt)) {
-        const gateway = await getSheikhaGatewayStatus();
+    const effectiveContext = {
+        ...context,
+        mode: context.mode || mode || 'chat'
+    };
 
+    if (mode === 'chat' && !effectiveContext.source) {
+        effectiveContext.source = 'api-ai-gateway-chat';
+    }
+
+    const effectivePrompt = enrichOperationalPrompt(prompt, effectiveContext);
+    const gateway = await getSheikhaGatewayStatus();
+
+    if (isVscodeOperationalPrompt(prompt, effectiveContext)) {
+        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway });
+    }
+
+    if (isCanonicalIdentityPrompt(effectivePrompt)) {
         return {
             success: true,
             provider: 'Sheikha-Core',
@@ -227,8 +388,8 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
             localModelOnline: Boolean(gateway.localModelOnline && gateway.sheikhaCoreInstalled),
             fallbackReason: null,
             governance: governanceEnvelope(),
-            context,
-            output: canonicalSheikhaCoreAnswer(prompt),
+            context: effectiveContext,
+            output: canonicalSheikhaCoreAnswer(effectivePrompt),
             timestamp: new Date().toISOString()
         };
     }
@@ -236,8 +397,8 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
     const body = {
         model,
         prompt: buildRawLlamaPrompt({
-            system: SHEIKHA_CORE_RUNTIME_PROMPT,
-            prompt
+            system: buildSheikhaCoreSystemPrompt(effectiveContext),
+            prompt: effectivePrompt
         }),
         raw: true,
         stream: false,
@@ -259,9 +420,9 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
         }, DEFAULT_TIMEOUT_MS);
     } catch (err) {
         return buildFallbackResponse({
-            prompt,
+            prompt: effectivePrompt,
             model,
-            context,
+            context: effectiveContext,
             reason: err.name === 'AbortError' ? 'ollama_timeout' : err.message
         });
     }
@@ -270,9 +431,9 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
 
     if (!response.ok) {
         return buildFallbackResponse({
-            prompt,
+            prompt: effectivePrompt,
             model,
-            context,
+            context: effectiveContext,
             reason: `ollama_http_${response.status}`
         });
     }
@@ -285,7 +446,7 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
         localModelOnline: true,
         fallbackReason: null,
         governance: governanceEnvelope(),
-        context,
+        context: effectiveContext,
         output: data.response || '',
         timestamp: new Date().toISOString(),
         poweredBy: 'SHEIKHA — عنصر الحياة الرقمية'

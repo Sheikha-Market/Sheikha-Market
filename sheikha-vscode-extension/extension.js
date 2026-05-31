@@ -27,6 +27,7 @@ const SERVER_CANDIDATES = [
 const TOKEN_SECRET_KEY = 'sheikha.auth.token';
 const USER_SECRET_KEY = 'sheikha.auth.user';
 const EXTENSIONS_SYNC_KEY = 'sheikha.integrations.extensions.snapshot';
+const CHAT_HISTORY_LIMIT = 18;
 
 class SheikhaAuthManager {
     constructor(context, provider) {
@@ -229,21 +230,25 @@ class SheikhaProvider {
 
     async chat(message, codeContext, language, history) {
         const authHeaders = await this.authManager.getAuthHeaders();
+        const payload = {
+            message,
+            codeContext,
+            language,
+            history: Array.isArray(history) ? history.slice(-CHAT_HISTORY_LIMIT) : [],
+            model: this.config.defaultModel
+        };
+
         try {
             const response = await fetch(`${this.config.serverUrl}/api/sheikha/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
-                body: JSON.stringify({
-                    message,
-                    codeContext,
-                    language,
-                    history: history || [],
-                    model: this.config.defaultModel
-                })
+                body: JSON.stringify(payload)
             });
-            const data = await response.json();
-            if (!response.ok) throw new Error(data.message);
-            return data.data;
+            const data = await readResponseJson(response);
+            if (!response.ok || data.success === false) {
+                throw new Error(data.message || data.error || `chat_http_${response.status}`);
+            }
+            return normalizeChatPayload(data);
         } catch (err) {
             try {
                 const fallbackResponse = await fetch(`${this.config.serverUrl}/api/sheikha/ai-gateway/ask`, {
@@ -251,6 +256,7 @@ class SheikhaProvider {
                     headers: { 'Content-Type': 'application/json', ...authHeaders },
                     body: JSON.stringify({
                         prompt: message,
+                        mode: 'chat',
                         context: {
                             source: 'vscode-extension',
                             language,
@@ -259,20 +265,17 @@ class SheikhaProvider {
                         }
                     })
                 });
-                const fallbackData = await fallbackResponse.json();
+                const fallbackData = await readResponseJson(fallbackResponse);
                 if (!fallbackResponse.ok || !fallbackData.success) {
                     throw new Error(fallbackData.message || fallbackData.error || 'ai-gateway unavailable');
                 }
-                return {
-                    reply: fallbackData.output || fallbackData.message || 'Sheikha جاهزة.',
-                    codeSnippet: fallbackData.codeSnippet || null,
-                    provider: fallbackData.provider,
-                    mode: fallbackData.mode
-                };
+                return normalizeChatPayload(fallbackData);
             } catch (fallbackErr) {
                 return {
                     reply: `خطأ: ${fallbackErr.message || err.message}`,
-                    codeSnippet: null
+                    codeSnippet: null,
+                    provider: 'extension-offline',
+                    mode: 'chat-error'
                 };
             }
         }
@@ -311,6 +314,19 @@ class SheikhaProvider {
             return data.data;
         } catch (err) {
             return null;
+        }
+    }
+
+    async getAiGatewayStatus() {
+        try {
+            const authHeaders = await this.authManager.getAuthHeaders();
+            const response = await fetchWithTimeout(`${this.config.serverUrl}/api/sheikha/ai-gateway/status`, {
+                headers: authHeaders
+            }, 3500);
+            const data = await readResponseJson(response);
+            return data && data.success ? data : { success: false, status: 'unavailable', warning: data.message || data.error || 'unknown' };
+        } catch (err) {
+            return { success: false, status: 'offline', warning: err.message };
         }
     }
 
@@ -392,15 +408,35 @@ class SheikhaChatSidebarProvider {
     constructor(provider) {
         this.provider = provider;
         this.view = null;
+        this.history = [];
+        this.pending = false;
     }
 
     resolveWebviewView(webviewView) {
         this.view = webviewView;
         webviewView.webview.options = { enableScripts: true };
         webviewView.webview.html = getSidebarChatHtml();
+        this.postRuntimeStatus();
 
         webviewView.webview.onDidReceiveMessage(async message => {
+            if (message.command === 'ready') {
+                await this.postRuntimeStatus();
+                return;
+            }
+
+            if (message.command === 'clear') {
+                this.history = [];
+                webviewView.webview.postMessage({ command: 'cleared' });
+                await this.postRuntimeStatus();
+                return;
+            }
+
             if (message.command !== 'chat') {
+                return;
+            }
+
+            const userMessage = String(message.message || '').trim();
+            if (!userMessage || this.pending) {
                 return;
             }
 
@@ -408,8 +444,57 @@ class SheikhaChatSidebarProvider {
             const codeContext = editor ? editor.document.getText() : '';
             const language = editor ? editor.document.languageId : 'auto';
 
-            const responseData = await this.provider.chat(message.message, codeContext, language, []);
-            webviewView.webview.postMessage({ command: 'response', data: responseData });
+            this.pending = true;
+            webviewView.webview.postMessage({ command: 'pending', value: true });
+
+            try {
+                const responseData = await this.provider.chat(userMessage, codeContext, language, this.history);
+                this.history.push(
+                    { role: 'user', content: userMessage },
+                    {
+                        role: 'assistant',
+                        content: responseData.reply || '',
+                        provider: responseData.provider || null,
+                        mode: responseData.mode || null
+                    }
+                );
+                this.history = this.history.slice(-CHAT_HISTORY_LIMIT);
+                webviewView.webview.postMessage({ command: 'response', data: responseData });
+                await this.postRuntimeStatus();
+            } catch (error) {
+                webviewView.webview.postMessage({
+                    command: 'response',
+                    data: {
+                        reply: `خطأ في الشات: ${error.message}`,
+                        provider: 'extension-error',
+                        mode: 'chat-error'
+                    }
+                });
+            } finally {
+                this.pending = false;
+                webviewView.webview.postMessage({ command: 'pending', value: false });
+            }
+        });
+    }
+
+    async postRuntimeStatus() {
+        if (!this.view) {
+            return;
+        }
+
+        const [extensionStatus, gatewayStatus] = await Promise.all([
+            this.provider.getStatus(),
+            this.provider.getAiGatewayStatus()
+        ]);
+
+        this.view.webview.postMessage({
+            command: 'runtimeStatus',
+            data: {
+                serverUrl: this.provider.config.serverUrl,
+                extensionStatus: extensionStatus || { status: 'offline' },
+                gatewayStatus,
+                historyCount: this.history.length
+            }
         });
     }
 }
@@ -450,18 +535,18 @@ async function activate(context) {
     );
 
     const chatSidebarProvider = new SheikhaChatSidebarProvider(provider);
-    const apiViewProvider = new SheikhaFeatureViewProvider(() => getApiViewHtml(provider.config.serverUrl));
-    const publishViewProvider = new SheikhaFeatureViewProvider(() => getPublishViewHtml(provider.config.serverUrl));
-    const pathsViewProvider = new SheikhaFeatureViewProvider(getPathsViewHtml);
-    const programmingViewProvider = new SheikhaFeatureViewProvider(getProgrammingViewHtml);
-    const debugViewProvider = new SheikhaFeatureViewProvider(getDebugViewHtml);
-    const editingViewProvider = new SheikhaFeatureViewProvider(getEditingViewHtml);
-    const neuralViewProvider = new SheikhaFeatureViewProvider(() => getNeuralViewHtml(provider.config.serverUrl));
-    const enterpriseViewProvider = new SheikhaFeatureViewProvider(() => getEnterpriseIntegrationViewHtml(provider.config.serverUrl));
-    const osViewProvider = new SheikhaFeatureViewProvider(() => getGoverningOsViewHtml(provider.config.serverUrl));
-    const serviceProviderViewProvider = new SheikhaFeatureViewProvider(() => getServiceProviderViewHtml(provider.config.serverUrl));
-    const ideViewProvider = new SheikhaFeatureViewProvider(() => getEnterpriseIdeViewHtml(provider.config.serverUrl));
-    const toolsViewProvider = new SheikhaFeatureViewProvider(() => getUniversalToolsViewHtml(provider.config.serverUrl));
+    const apiViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('api', provider.config.serverUrl));
+    const publishViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('publish', provider.config.serverUrl));
+    const pathsViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('paths', provider.config.serverUrl));
+    const programmingViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('programming', provider.config.serverUrl));
+    const debugViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('debug', provider.config.serverUrl));
+    const editingViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('editing', provider.config.serverUrl));
+    const neuralViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('neural', provider.config.serverUrl));
+    const enterpriseViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('enterprise', provider.config.serverUrl));
+    const osViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('os', provider.config.serverUrl));
+    const serviceProviderViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('serviceProvider', provider.config.serverUrl));
+    const ideViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('ide', provider.config.serverUrl));
+    const toolsViewProvider = new SheikhaFeatureViewProvider(() => getRootNeuralFeatureViewHtml('tools', provider.config.serverUrl));
     const neuralTreeProvider = new NeuralNetworkProvider();
 
     context.subscriptions.push(
@@ -723,16 +808,86 @@ async function activate(context) {
             copilotPanel.webview.html = getChatHtml();
             copilotPanel.onDidDispose(() => { copilotPanel = null; });
 
+            let panelHistory = [];
+            let panelPending = false;
+            const postPanelRuntimeStatus = async () => {
+                if (!copilotPanel) {
+                    return;
+                }
+
+                const [extensionStatus, gatewayStatus] = await Promise.all([
+                    provider.getStatus(),
+                    provider.getAiGatewayStatus()
+                ]);
+
+                copilotPanel.webview.postMessage({
+                    command: 'runtimeStatus',
+                    data: {
+                        serverUrl: provider.config.serverUrl,
+                        extensionStatus: extensionStatus || { status: 'offline' },
+                        gatewayStatus,
+                        historyCount: panelHistory.length
+                    }
+                });
+            };
+
+            await postPanelRuntimeStatus();
+
             copilotPanel.webview.onDidReceiveMessage(async (msg) => {
+                if (msg.command === 'ready') {
+                    await postPanelRuntimeStatus();
+                    return;
+                }
+
+                if (msg.command === 'clear') {
+                    panelHistory = [];
+                    copilotPanel.webview.postMessage({ command: 'cleared' });
+                    await postPanelRuntimeStatus();
+                    return;
+                }
+
                 if (msg.command === 'chat') {
+                    const userMessage = String(msg.message || '').trim();
+                    if (!userMessage || panelPending) {
+                        return;
+                    }
+
+                    panelPending = true;
+                    copilotPanel.webview.postMessage({ command: 'pending', value: true });
+
                     const editor = vscode.window.activeTextEditor;
-                    const responseData = await provider.chat(
-                        msg.message,
-                        editor ? editor.document.getText() : '',
-                        editor ? editor.document.languageId : 'auto',
-                        []
-                    );
-                    copilotPanel.webview.postMessage({ command: 'response', data: responseData });
+                    try {
+                        const responseData = await provider.chat(
+                            userMessage,
+                            editor ? editor.document.getText() : '',
+                            editor ? editor.document.languageId : 'auto',
+                            panelHistory
+                        );
+                        panelHistory.push(
+                            { role: 'user', content: userMessage },
+                            {
+                                role: 'assistant',
+                                content: responseData.reply || '',
+                                provider: responseData.provider || null,
+                                mode: responseData.mode || null
+                            }
+                        );
+                        panelHistory = panelHistory.slice(-CHAT_HISTORY_LIMIT);
+                        copilotPanel.webview.postMessage({ command: 'response', data: responseData });
+                        await postPanelRuntimeStatus();
+                    } catch (error) {
+                        copilotPanel.webview.postMessage({
+                            command: 'response',
+                            data: {
+                                reply: `خطأ في الشات: ${error.message}`,
+                                provider: 'extension-error',
+                                mode: 'chat-error'
+                            }
+                        });
+                    } finally {
+                        panelPending = false;
+                        copilotPanel.webview.postMessage({ command: 'pending', value: false });
+                    }
                 }
             });
         } else {
@@ -1128,66 +1283,7 @@ async function activate(context) {
 }
 
 function getChatHtml() {
-    return `<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sheikha Chat</title>
-    <style>
-        * { margin: 0; padding: 0; box-sizing: border-box; }
-        body { font-family: 'Tajawal', sans-serif; background: #1e1e1e; color: #fff; padding: 12px; }
-        .chat-container { display: flex; flex-direction: column; height: 100vh; }
-        .messages { flex: 1; overflow-y: auto; margin-bottom: 12px; padding: 8px; background: #252526; border-radius: 4px; }
-        .message { margin: 8px 0; padding: 8px; border-radius: 4px; line-height: 1.5; }
-        .assistant { background: #2d2d30; border-left: 3px solid #d4af37; }
-        .user { background: #1e3a1a; border-left: 3px solid #4ec9b0; text-align: left; }
-        input[type="text"] { width: 100%; padding: 8px; background: #3e3e42; color: #fff; border: 1px solid #555; border-radius: 4px; font-family: inherit; }
-        button { padding: 8px 16px; background: #d4af37; color: #1e1e1e; border: none; border-radius: 4px; cursor: pointer; margin-right: 8px; font-weight: bold; }
-        button:hover { background: #b87333; }
-        .header { color: #d4af37; font-weight: bold; margin-bottom: 8px; }
-    </style>
-</head>
-<body>
-    <div class="chat-container">
-        <div class="header">🤖 Sheikha Chat — مساعد البرمجة الذكي</div>
-        <div class="messages" id="messages"></div>
-        <div style="display: flex; gap: 8px;">
-            <input type="text" id="input" placeholder="اكتب رسالتك...">
-            <button onclick="sendMessage()">إرسال</button>
-        </div>
-    </div>
-    <script>
-        const vscode = acquireVsCodeApi();
-        document.getElementById('input').addEventListener('keydown', e => e.key === 'Enter' && sendMessage());
-
-        function sendMessage() {
-            const input = document.getElementById('input');
-            const msg = input.value.trim();
-            if (!msg) return;
-
-            const messagesDiv = document.getElementById('messages');
-            messagesDiv.innerHTML += '<div class="message user">' + escapeHtml(msg) + '</div>';
-            input.value = '';
-
-            vscode.postMessage({ command: 'chat', message: msg });
-        }
-
-        window.addEventListener('message', event => {
-            if (event.data.command === 'response') {
-                const messagesDiv = document.getElementById('messages');
-                const { reply, codeSnippet } = event.data.data;
-                messagesDiv.innerHTML += '<div class="message assistant">' + escapeHtml(reply) +
-                    (codeSnippet ? '<pre style="background:#1e1e1e; padding: 8px; margin-top: 8px; border-radius: 4px; overflow-x: auto;">' + escapeHtml(codeSnippet) + '</pre>' : '') +
-                    '</div>';
-                messagesDiv.scrollTop = messagesDiv.scrollHeight;
-            }
-        });
-
-        function escapeHtml(text) { return text.replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';'); }
-    </script>
-</body>
-</html>`;
+    return getSidebarChatHtml();
 }
 
 function deactivate() {
@@ -1263,6 +1359,409 @@ async function fetchWithTimeout(url, options = {}, timeoutMs = 2500) {
     } finally {
         clearTimeout(timeout);
     }
+}
+
+async function readResponseJson(response) {
+    const text = await response.text();
+    if (!text) {
+        return {};
+    }
+
+    try {
+        return JSON.parse(text);
+    } catch (_) {
+        return {
+            success: false,
+            message: text
+        };
+    }
+}
+
+function normalizeChatPayload(payload) {
+    const data = payload && typeof payload.data === 'object' && payload.data
+        ? payload.data
+        : (payload || {});
+    const reply = data.reply || data.output || data.response || payload.output || payload.message || 'Sheikha جاهزة.';
+
+    return {
+        ...data,
+        reply: String(reply),
+        codeSnippet: data.codeSnippet || data.code || payload.codeSnippet || null,
+        provider: data.provider || payload.provider || 'Sheikha',
+        mode: data.mode || payload.mode || null,
+        model: data.model || payload.model || null,
+        localModelOnline: typeof data.localModelOnline === 'boolean'
+            ? data.localModelOnline
+            : (typeof payload.localModelOnline === 'boolean' ? payload.localModelOnline : null),
+        fallbackReason: data.fallbackReason || payload.fallbackReason || null
+    };
+}
+
+function getRootNeuralFeatureConfig(featureId) {
+    const configs = {
+        api: {
+            title: 'API',
+            subtitle: 'بوابة Sheikha API مربوطة بالشات، Sheikha-Core، وسجل الشبكة الجذرية.',
+            primary: '/api/sheikha/extension/status',
+            cells: ['extension/status', 'chat', 'completions', 'agent', 'inline-chat'],
+            actions: [
+                { label: 'Status', method: 'GET', path: '/api/sheikha/extension/status' },
+                { label: 'Core', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
+                { label: 'Ask Core', method: 'POST', path: '/api/sheikha/ai-gateway/ask', body: { prompt: 'شغل', mode: 'chat', context: { source: 'vscode-feature-view' } } },
+                { label: 'Chat', method: 'POST', path: '/api/sheikha/chat', body: { message: 'شغل', language: 'ar', history: [] } }
+            ]
+        },
+        publish: {
+            title: 'النشر',
+            subtitle: 'نشر Sheikha كمنظومة خدمة ذكاء صناعي مع حوكمة وفحص قبل الإطلاق.',
+            primary: '/api/sheikha/ai-service-provider/status',
+            cells: ['provider/status', 'certification', 'publish-plan', 'integration-plan'],
+            actions: [
+                { label: 'Provider', method: 'GET', path: '/api/sheikha/ai-service-provider/status' },
+                { label: 'Certification', method: 'GET', path: '/api/sheikha/ai-service-provider/certification' },
+                { label: 'Publish Plan', method: 'POST', path: '/api/sheikha/ai-service-provider/publish-plan', body: { target: 'sheikha-global-runtime-ai-provider', tier: 'enterprise' } }
+            ]
+        },
+        paths: {
+            title: 'المسارات',
+            subtitle: 'خريطة مسارات تشغيلية تربط Git وAPI وMCP وخلايا الجذر.',
+            primary: '/api/sheikha/extension/status',
+            cells: ['api/sheikha/chat', 'api/sheikha/ai-gateway/status', 'api/sheikha/root-neural-integration/activate', 'api/sheikha/extensions-live'],
+            actions: [
+                { label: 'Routes', method: 'GET', path: '/api/sheikha/extension/status' },
+                { label: 'Gateway', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
+                { label: 'Integrations', method: 'GET', path: '/api/sheikha/extensions-live' }
+            ]
+        },
+        programming: {
+            title: 'البرمجة',
+            subtitle: 'طبقة برمجة حاكمة: تحليل، توليد، فحص، ومراجعة قبل الدمج.',
+            primary: '/api/sheikha/extension/status',
+            cells: ['language/status', 'completions', 'inline-chat', 'agent'],
+            actions: [
+                { label: 'Languages', method: 'GET', path: '/api/sheikha/languages' },
+                { label: 'Completion', method: 'POST', path: '/api/sheikha/completions', body: { code: 'function ', language: 'javascript', cursor: 9 } },
+                { label: 'Chat', method: 'POST', path: '/api/sheikha/chat', body: { message: 'افحص البرمجة والتكامل', language: 'javascript', history: [] } }
+            ]
+        },
+        debug: {
+            title: 'DEBUG',
+            subtitle: 'تشخيص الأخطاء عبر Sheikha-Core مع حفظ السبب والأثر وخطة الرجوع.',
+            primary: '/api/sheikha/extension/status',
+            cells: ['health', 'ai-gateway', 'root-neural-cells', 'logs'],
+            actions: [
+                { label: 'Health', method: 'GET', path: '/api/health' },
+                { label: 'Gateway', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
+                { label: 'Debug Chat', method: 'POST', path: '/api/sheikha/chat', body: { message: 'حلل وضع DEBUG في الإكستنشن', language: 'auto', history: [] } }
+            ]
+        },
+        editing: {
+            title: 'التحرير',
+            subtitle: 'تحرير آمن للملفات: اقتراح، مراجعة، فحص، ثم اعتماد بشري.',
+            primary: '/api/sheikha/extension/status',
+            cells: ['review', 'refactor', 'tests', 'sharia-check'],
+            actions: [
+                { label: 'Review', method: 'POST', path: '/api/sheikha/chat', body: { message: 'راجع الملف المفتوح واقترح تعديلا آمنا', language: 'auto', history: [] } },
+                { label: 'Core', method: 'GET', path: '/api/sheikha/ai-gateway/status' },
+                { label: 'Status', method: 'GET', path: '/api/sheikha/extension/status' }
+            ]
+        },
+        neural: {
+            title: 'شبكة الخلايا العصبية',
+            subtitle: 'Root Neural Cell Network: حوكمة، MCP، خلايا نشطة، وربط مباشر بالشات.',
+            primary: '/api/sheikha/extension/status',
+            cells: ['root-neural-cells', 'neural-mcp', 'ai-foundations', 'islamic-intelligence'],
+            actions: [
+                { label: 'Neural Status', method: 'GET', path: '/api/sheikha/extension/status' },
+                { label: 'MCP', method: 'GET', path: '/api/sheikha/neural-mcp/status' },
+                { label: 'Activate', method: 'POST', path: '/api/sheikha/root-neural-integration/activate', body: { objective: 'complete-root-neural-integration', mode: 'itqan', source: 'vscode-feature-view' } }
+            ]
+        },
+        enterprise: {
+            title: 'التكامل المؤسسي',
+            subtitle: 'تكامل Git وGitHub وVS Code وAPI داخل طبقة حوكمة واحدة.',
+            primary: '/api/sheikha/enterprise-vscode-git/status',
+            cells: ['git/status', 'enterprise-vscode-git', 'enterprise-git-service', 'pr-mr-plan'],
+            actions: [
+                { label: 'Git', method: 'GET', path: '/api/sheikha/git/status' },
+                { label: 'Enterprise Git', method: 'GET', path: '/api/sheikha/enterprise-vscode-git/status' },
+                { label: 'Work Plan', method: 'POST', path: '/api/sheikha/enterprise-vscode-git/work-plan', body: { target: 'sheikha-main-portal', provider: 'github' } }
+            ]
+        },
+        os: {
+            title: 'SHEIKHA AI AL OS',
+            subtitle: 'نواة تشغيل حاكمة تجمع الحاسب، الذكاء الصناعي، أدوات التطوير، والتكاملات.',
+            primary: '/api/sheikha/governing-os/status',
+            cells: ['governing-os', 'package-plan', 'universal-integration', 'core-chat'],
+            actions: [
+                { label: 'OS Status', method: 'GET', path: '/api/sheikha/governing-os/status' },
+                { label: 'Package Plan', method: 'POST', path: '/api/sheikha/governing-os/package-plan', body: { target: 'sheikha-ai-al-os' } },
+                { label: 'Universal', method: 'POST', path: '/api/sheikha/governing-os/universal-integration-plan', body: { target: 'sheikha-ai-al-os' } }
+            ]
+        },
+        serviceProvider: {
+            title: 'AI مزود خدمة',
+            subtitle: 'Sheikha كمزود خدمة ذكاء صناعي مؤسسي قابل للنشر والاعتماد.',
+            primary: '/api/sheikha/ai-service-provider/status',
+            cells: ['service-provider', 'certification', 'publish-plan', 'provider-keys'],
+            actions: [
+                { label: 'Provider', method: 'GET', path: '/api/sheikha/ai-service-provider/status' },
+                { label: 'Keys Policy', method: 'GET', path: '/api/sheikha/provider-keys/policy' },
+                { label: 'Metering', method: 'GET', path: '/api/sheikha/provider-metering/status' }
+            ]
+        },
+        ide: {
+            title: 'SHEIKHA IDE',
+            subtitle: 'بيئة تطوير مؤسسية تدمج الشات، الملفات، Git، والذكاء الصناعي تحت شبكة الجذر.',
+            primary: '/api/sheikha/enterprise-ide/status',
+            cells: ['enterprise-ide', 'development-environment', 'subscription-model', 'industry-services'],
+            actions: [
+                { label: 'IDE Status', method: 'POST', path: '/api/sheikha/enterprise-ide/status', body: { modelMode: 'hybrid' } },
+                { label: 'Environment', method: 'POST', path: '/api/sheikha/enterprise-ide/development-environment', body: { target: 'SHEIKHA UGIT-RP', tier: 'enterprise' } },
+                { label: 'Subscriptions', method: 'POST', path: '/api/sheikha/enterprise-ide/subscription-model', body: { tier: 'enterprise' } }
+            ]
+        },
+        tools: {
+            title: 'الأدوات والتقنيات',
+            subtitle: 'نسيج أدوات موحد: Sheikha-Core، MCP، VS Code، Git، API، ومزودات قابلة للاستبدال.',
+            primary: '/api/sheikha/universal-tools-fabric/status',
+            cells: ['tools-fabric', 'mcp-tools', 'provider-gateway', 'extensions-sync'],
+            actions: [
+                { label: 'Fabric', method: 'GET', path: '/api/sheikha/universal-tools-fabric/status' },
+                { label: 'MCP Tools', method: 'GET', path: '/api/sheikha/neural-mcp/tools' },
+                { label: 'Core', method: 'GET', path: '/api/sheikha/ai-gateway/status' }
+            ]
+        }
+    };
+
+    return configs[featureId] || configs.api;
+}
+
+function getRootNeuralFeatureViewHtml(featureId, serverUrl = SERVER_URL) {
+    const safeServerUrl = String(serverUrl || SERVER_URL).replace(/"/g, '\\"');
+    const feature = getRootNeuralFeatureConfig(featureId);
+    const featureJson = safeJsonForHtml(feature);
+
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sheikha ${feature.title}</title>
+    <style>
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body { margin: 0; padding: 10px; background: #0b1020; color: #f8fafc; font-family: var(--vscode-font-family, 'Tajawal', sans-serif); }
+        .shell { display: flex; flex-direction: column; gap: 10px; min-height: calc(100vh - 20px); }
+        .hero { border: 1px solid #2f3b52; border-radius: 8px; padding: 12px; background: #121a2b; }
+        .eyebrow { display: inline-flex; color: #34d399; border: 1px solid #0f766e; border-radius: 999px; padding: 3px 8px; font-size: 11px; font-weight: 800; margin-bottom: 8px; }
+        h1 { color: #fbbf24; margin: 0 0 6px; font-size: 20px; line-height: 1.25; }
+        p { margin: 0; color: #d7dee9; line-height: 1.55; }
+        .grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 8px; }
+        .tile { min-height: 74px; border: 1px solid #334155; border-radius: 8px; padding: 10px; background: #111827; }
+        .label { color: #93c5fd; font-size: 11px; margin-bottom: 6px; }
+        .value { color: #f8fafc; font-weight: 800; overflow-wrap: anywhere; }
+        .architecture { display: grid; gap: 7px; }
+        .arch-card { border: 1px solid #30405a; border-radius: 8px; padding: 9px 10px; background: #101827; }
+        .arch-card strong { display: block; color: #fbbf24; font-size: 12px; margin-bottom: 4px; }
+        .arch-card span { display: block; color: #cbd5e1; font-size: 12px; line-height: 1.45; overflow-wrap: anywhere; }
+        .cells { display: grid; gap: 7px; }
+        .cell { display: flex; align-items: center; justify-content: space-between; gap: 8px; border: 1px solid #293548; border-radius: 7px; padding: 8px 9px; background: #0f172a; }
+        .cell span:first-child { min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .pulse { width: 10px; height: 10px; flex: 0 0 10px; border-radius: 999px; background: #34d399; box-shadow: 0 0 0 3px rgba(52, 211, 153, .14); }
+        .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+        button { min-height: 34px; border: 1px solid #465772; border-radius: 7px; padding: 7px 8px; background: #172033; color: #f8fafc; cursor: pointer; font-weight: 800; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        button.primary { background: #fbbf24; color: #111827; border-color: #fbbf24; }
+        button:hover { border-color: #fbbf24; }
+        .output { min-height: 160px; max-height: 360px; overflow: auto; direction: ltr; text-align: left; white-space: pre-wrap; border: 1px solid #334155; border-radius: 8px; padding: 10px; background: #060b16; color: #dbeafe; font-family: var(--vscode-editor-font-family, monospace); font-size: 12px; }
+        .note { border-inline-start: 3px solid #fbbf24; padding: 8px 10px; background: #111827; border-radius: 6px; color: #cbd5e1; line-height: 1.5; }
+        @media (max-width: 280px) { .grid, .actions { grid-template-columns: 1fr; } h1 { font-size: 17px; } }
+    </style>
+</head>
+<body>
+    <div class="shell">
+        <section class="hero">
+            <div class="eyebrow">Root Neural Fabric</div>
+            <h1>Sheikha ${escapeHtmlForTemplate(feature.title)}</h1>
+            <p>${escapeHtmlForTemplate(feature.subtitle)}</p>
+        </section>
+
+        <section class="grid">
+            <div class="tile"><div class="label">Sheikha-Core</div><div id="coreState" class="value">...</div></div>
+            <div class="tile"><div class="label">الخلايا الجذرية</div><div id="cellsState" class="value">...</div></div>
+            <div class="tile"><div class="label">MCP</div><div id="mcpState" class="value">...</div></div>
+            <div class="tile"><div class="label">السيرفر</div><div id="serverState" class="value">...</div></div>
+            <div class="tile"><div class="label">الهوية والمعمارية</div><div id="identityState" class="value">...</div></div>
+        </section>
+
+        <section class="note">الهدف: أفضل منظومة حاسب وذكاء صناعي ممكنة بأمر الله، بالدليل والاختبار، مع مراجعة بشرية وحوكمة تمنع الضرر.</section>
+
+        <section class="architecture" id="architecture"></section>
+
+        <section class="cells" id="cells"></section>
+
+        <section class="actions" id="actions"></section>
+
+        <pre id="output" class="output">جار فحص شبكة Sheikha الجذرية...</pre>
+    </div>
+
+    <script>
+        const serverUrl = "${safeServerUrl}";
+        const feature = ${featureJson};
+
+        function setText(id, value) {
+            document.getElementById(id).textContent = value == null ? '---' : String(value);
+        }
+
+        function renderCells() {
+            const root = document.getElementById('cells');
+            root.innerHTML = '';
+            (feature.cells || []).forEach(name => {
+                const row = document.createElement('div');
+                row.className = 'cell';
+                row.innerHTML = '<span>' + escapeHtml(name) + '</span><span class="pulse"></span>';
+                root.appendChild(row);
+            });
+        }
+
+        function renderActions() {
+            const root = document.getElementById('actions');
+            root.innerHTML = '';
+            const refresh = document.createElement('button');
+            refresh.className = 'primary';
+            refresh.textContent = 'تحديث';
+            refresh.addEventListener('click', refreshAll);
+            root.appendChild(refresh);
+
+            (feature.actions || []).forEach((action, index) => {
+                const button = document.createElement('button');
+                button.textContent = action.label;
+                button.addEventListener('click', () => runAction(index));
+                root.appendChild(button);
+            });
+        }
+
+        function renderArchitecture(governance) {
+            const root = document.getElementById('architecture');
+            root.innerHTML = '';
+            const universal = governance && governance.universalGovernance ? governance.universalGovernance : {};
+            const archetypes = universal.archetypes || {};
+            const cards = Object.keys(archetypes).map(key => {
+                const item = archetypes[key] || {};
+                return {
+                    title: key,
+                    text: item.principle || 'governed-principle',
+                    rules: Array.isArray(item.rules) ? item.rules.join(' / ') : ''
+                };
+            });
+
+            const identity = document.createElement('div');
+            identity.className = 'arch-card';
+            identity.innerHTML = '<strong>' + escapeHtml(universal.name || 'Sheikha Universal Governance') + '</strong><span>' + escapeHtml(universal.mode || 'all-systems-halal-governance') + '</span>';
+            root.appendChild(identity);
+
+            cards.forEach(card => {
+                const node = document.createElement('div');
+                node.className = 'arch-card';
+                node.innerHTML = '<strong>' + escapeHtml(card.title) + '</strong><span>' + escapeHtml(card.text + (card.rules ? ' — ' + card.rules : '')) + '</span>';
+                root.appendChild(node);
+            });
+        }
+
+        async function fetchJson(path, options = {}) {
+            const response = await fetch(serverUrl + path, options);
+            const text = await response.text();
+            try {
+                return text ? JSON.parse(text) : {};
+            } catch (_) {
+                return { success: false, raw: text };
+            }
+        }
+
+        async function refreshAll() {
+            const output = document.getElementById('output');
+            output.textContent = 'جار فحص Sheikha-Core والشبكة الجذرية...';
+            try {
+                const [extensionStatus, gatewayStatus, primaryStatus] = await Promise.all([
+                    fetchJson('/api/sheikha/extension/status').catch(error => ({ success: false, error: error.message })),
+                    fetchJson('/api/sheikha/ai-gateway/status').catch(error => ({ success: false, error: error.message })),
+                    fetchJson(feature.primary || '/api/sheikha/extension/status').catch(error => ({ success: false, error: error.message }))
+                ]);
+
+                const ext = extensionStatus.data || {};
+                const neural = ext.neural || {};
+                const rootCells = neural.rootNeuralCells || {};
+                const mcp = neural.mcpSdk || {};
+                const universal = gatewayStatus.governance && gatewayStatus.governance.universalGovernance
+                    ? gatewayStatus.governance.universalGovernance
+                    : {};
+                setText('coreState', gatewayStatus.localModelOnline ? 'online' : (gatewayStatus.status || 'fallback'));
+                setText('cellsState', rootCells.activeCells != null ? rootCells.activeCells + ' active' : rootCells.status || 'unknown');
+                setText('mcpState', mcp.status ? mcp.status + ' / ' + (mcp.registeredTools || 0) + ' tools' : 'unknown');
+                setText('serverState', ext.status || gatewayStatus.status || 'unknown');
+                setText('identityState', universal.status ? universal.status + ' / ' + (universal.mode || 'governed') : 'governed');
+                renderArchitecture(gatewayStatus.governance || {});
+                output.textContent = JSON.stringify({
+                    feature: feature.title,
+                    gateway: {
+                        status: gatewayStatus.status,
+                        localModelOnline: gatewayStatus.localModelOnline,
+                        sheikhaCoreInstalled: gatewayStatus.sheikhaCoreInstalled,
+                        models: gatewayStatus.models,
+                        universalGovernance: universal
+                    },
+                    neural: {
+                        rootNeuralCells: rootCells,
+                        mcpSdk: mcp
+                    },
+                    primary: primaryStatus
+                }, null, 2);
+            } catch (error) {
+                output.textContent = 'خطأ في الفحص: ' + error.message;
+            }
+        }
+
+        async function runAction(index) {
+            const action = (feature.actions || [])[index];
+            if (!action) return;
+            const output = document.getElementById('output');
+            output.textContent = 'جار تنفيذ ' + action.label + '...';
+            try {
+                const options = {
+                    method: action.method || 'GET',
+                    headers: { 'Content-Type': 'application/json' }
+                };
+                if (options.method !== 'GET') {
+                    options.body = JSON.stringify(action.body || {});
+                }
+                const data = await fetchJson(action.path, options);
+                output.textContent = JSON.stringify(data, null, 2);
+                await refreshAll();
+            } catch (error) {
+                output.textContent = 'خطأ في ' + action.label + ': ' + error.message;
+            }
+        }
+
+        function escapeHtml(text) {
+            return String(text).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';');
+        }
+
+        renderCells();
+        renderActions();
+        refreshAll();
+    </script>
+</body>
+</html>`;
+}
+
+function escapeHtmlForTemplate(value) {
+    return String(value || '').replace(/[&<>"']/g, (char) => ({
+        '&': '&amp;',
+        '<': '&lt;',
+        '>': '&gt;',
+        '"': '&quot;',
+        "'": '&#39;'
+    }[char]));
 }
 
 function getIntegrationsDashboardHtml() {
@@ -2513,49 +3012,145 @@ function getSidebarChatHtml() {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Sheikha Sidebar Chat</title>
     <style>
-        body { font-family: 'Tajawal', sans-serif; background: #111827; color: #f9fafb; margin: 0; padding: 10px; }
-        .header { color: #fbbf24; font-weight: 700; margin-bottom: 8px; }
-        .messages { height: calc(100vh - 120px); overflow-y: auto; background: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 8px; }
-        .message { margin: 6px 0; padding: 8px; border-radius: 6px; line-height: 1.5; }
-        .assistant { background: #0f172a; border-left: 3px solid #fbbf24; }
-        .user { background: #1e3a1a; border-left: 3px solid #34d399; text-align: left; }
-        .row { display: flex; gap: 8px; margin-top: 8px; }
-        input { flex: 1; padding: 8px; background: #0f172a; color: #fff; border: 1px solid #374151; border-radius: 6px; }
-        button { padding: 8px 12px; background: #fbbf24; color: #111827; border: none; border-radius: 6px; font-weight: 700; cursor: pointer; }
+        :root { color-scheme: dark; }
+        * { box-sizing: border-box; }
+        body { font-family: var(--vscode-font-family, 'Tajawal', sans-serif); background: #0f172a; color: #f8fafc; margin: 0; padding: 8px; }
+        .shell { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 8px; height: calc(100vh - 16px); min-height: 260px; }
+        .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; }
+        .header { color: #fbbf24; font-weight: 800; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+        .status { color: #cbd5e1; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
+        .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+        .actions button, .footer button { min-height: 32px; border: 1px solid #334155; border-radius: 6px; background: #111c31; color: #f8fafc; font-weight: 700; cursor: pointer; }
+        .actions button:hover, .footer button:hover { border-color: #fbbf24; }
+        .messages { min-height: 0; overflow-y: auto; background: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 8px; }
+        .message { margin: 0 0 8px; padding: 9px; border-radius: 6px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
+        .assistant { background: #0b1220; border-inline-start: 3px solid #fbbf24; }
+        .user { background: #123120; border-inline-start: 3px solid #34d399; direction: auto; }
+        .meta { margin-top: 8px; color: #94a3b8; font-size: 11px; direction: ltr; text-align: left; white-space: normal; }
+        pre { margin: 8px 0 0; padding: 8px; border-radius: 6px; background: #020617; color: #e2e8f0; overflow-x: auto; direction: ltr; text-align: left; white-space: pre-wrap; }
+        .footer { display: grid; grid-template-columns: minmax(0, 1fr) 64px; gap: 6px; align-items: end; }
+        textarea { width: 100%; min-width: 0; height: 46px; max-height: 120px; resize: vertical; padding: 8px; background: #0b1220; color: #fff; border: 1px solid #475569; border-radius: 6px; font-family: inherit; line-height: 1.4; }
+        textarea:focus { outline: 1px solid #fbbf24; border-color: #fbbf24; }
+        button.primary { background: #fbbf24; color: #111827; border-color: #fbbf24; }
+        button:disabled, textarea:disabled { opacity: .58; cursor: wait; }
     </style>
 </head>
 <body>
-    <div class="header">🤖 شات Sheikha</div>
-    <div id="messages" class="messages"></div>
-    <div class="row">
-        <input id="input" type="text" placeholder="اكتب سؤالك البرمجي..." />
-        <button onclick="sendMessage()">إرسال</button>
+    <div class="shell">
+        <div class="top">
+            <div class="header">Sheikha Chat</div>
+            <div id="status" class="status">جار الفحص...</div>
+        </div>
+        <div class="actions">
+            <button data-prompt="افحص حالة الدمج وGit والتكامل، ثم أعطني خطة تنفيذ وفحص قبل الدمج.">Merge</button>
+            <button data-prompt="افحص حالة Git الحالية واقترح خطوات آمنة قبل أي commit أو push.">Git</button>
+            <button data-prompt="افحص تكاملات الإكستنشن والـ API واذكر الناقص والمخاطر.">Plug</button>
+            <button data-prompt="جهز خطة تكامل الفيديو داخل Sheikha مع فحص الخصوصية والأداء.">Video</button>
+            <button data-prompt="حلل مسار Vision داخل Sheikha واربطه بالشات والتكاملات.">Vision</button>
+            <button data-prompt="افحص الملف المفتوح وسياقه، ثم اقترح تعديلًا آمنًا قابلًا للمراجعة.">File+</button>
+        </div>
+        <div id="messages" class="messages"></div>
+        <div class="footer">
+            <textarea id="input" placeholder="اكتب طلبك أو ارفع سياقك هنا..."></textarea>
+            <button id="send" class="primary">إرسال</button>
+        </div>
     </div>
     <script>
         const vscode = acquireVsCodeApi();
         const input = document.getElementById('input');
-        input.addEventListener('keydown', e => e.key === 'Enter' && sendMessage());
+        const send = document.getElementById('send');
+        const statusEl = document.getElementById('status');
+        const messages = document.getElementById('messages');
+        let lastStatusText = 'جاهز';
+        let pending = false;
+
+        vscode.postMessage({ command: 'ready' });
+        input.addEventListener('keydown', event => {
+            if (event.key === 'Enter' && !event.shiftKey) {
+                event.preventDefault();
+                sendMessage();
+            }
+        });
+        send.addEventListener('click', sendMessage);
+        document.querySelectorAll('[data-prompt]').forEach(button => {
+            button.addEventListener('click', () => sendPrompt(button.getAttribute('data-prompt')));
+        });
 
         function sendMessage() {
-            const msg = input.value.trim();
+            sendPrompt(input.value);
+        }
+
+        function sendPrompt(raw) {
+            const msg = String(raw || '').trim();
             if (!msg) return;
-            const messages = document.getElementById('messages');
-            messages.innerHTML += '<div class="message user">' + escapeHtml(msg) + '</div>';
+            if (pending) return;
+            appendMessage('user', msg);
             input.value = '';
+            setPending(true);
             vscode.postMessage({ command: 'chat', message: msg });
         }
 
         window.addEventListener('message', event => {
+            if (!event.data) return;
+            if (event.data.command === 'pending') {
+                setPending(Boolean(event.data.value));
+                return;
+            }
+            if (event.data.command === 'runtimeStatus') {
+                applyRuntimeStatus(event.data.data || {});
+                return;
+            }
+            if (event.data.command === 'cleared') {
+                messages.textContent = '';
+                return;
+            }
             if (event.data.command !== 'response') return;
             const data = event.data.data || {};
             const reply = data.reply || 'لا توجد استجابة';
-            const code = data.codeSnippet ? '<pre style="margin-top:6px;white-space:pre-wrap;">' + escapeHtml(data.codeSnippet) + '</pre>' : '';
-            const messages = document.getElementById('messages');
-            messages.innerHTML += '<div class="message assistant">' + escapeHtml(reply) + code + '</div>';
-            messages.scrollTop = messages.scrollHeight;
+            const meta = [data.provider, data.mode, data.model, data.localModelOnline === false ? 'local-offline' : '']
+                .filter(Boolean)
+                .join(' · ');
+            appendMessage('assistant', reply, meta, data.codeSnippet || '');
+            setPending(false);
         });
 
-        function escapeHtml(text) { return String(text).replace(/[&<>"']/g, c => '&#' + c.charCodeAt(0) + ';'); }
+        function appendMessage(role, text, meta, code) {
+            const item = document.createElement('div');
+            item.className = 'message ' + (role === 'user' ? 'user' : 'assistant');
+            item.textContent = text;
+            if (code) {
+                const pre = document.createElement('pre');
+                pre.textContent = code;
+                item.appendChild(pre);
+            }
+            if (meta) {
+                const metaEl = document.createElement('div');
+                metaEl.className = 'meta';
+                metaEl.textContent = meta;
+                item.appendChild(metaEl);
+            }
+            messages.appendChild(item);
+            messages.scrollTop = messages.scrollHeight;
+        }
+
+        function setPending(value) {
+            pending = value;
+            input.disabled = value;
+            send.disabled = value;
+            statusEl.textContent = value ? 'يعالج الطلب...' : lastStatusText;
+        }
+
+        function applyRuntimeStatus(data) {
+            const gateway = data.gatewayStatus || {};
+            const ext = data.extensionStatus || {};
+            const online = gateway.localModelOnline === true || gateway.sheikhaCoreInstalled === true;
+            const backend = ext.status || 'unknown';
+            const model = gateway.defaultModel || ext.model || 'Sheikha-Core';
+            lastStatusText = online
+                ? model + ' online · ' + backend
+                : model + ' fallback · ' + backend;
+            if (!pending) statusEl.textContent = lastStatusText;
+        }
     </script>
 </body>
 </html>`;
