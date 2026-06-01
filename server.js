@@ -22074,6 +22074,13 @@ try {
     console.warn('⚠️ Sheikha Root Orchestration API unavailable:', error.message);
 }
 
+try {
+    app.use('/api/architecture', require('./routes/architecture.routes'));
+    console.log('✅ Sheikha Architecture API active');
+} catch (error) {
+    console.warn('⚠️ Sheikha Architecture API unavailable:', error.message);
+}
+
 
 // ─────────────────────────────────────────────────────────────
 // Sheikha Unified Chat Control Fabric API
