@@ -97,6 +97,36 @@
             "justMyCode": true
         },
         {
+            "type": "python",
+            "name": "🧠 Python: Neural Network — AI Cluster",
+            "request": "launch",
+            "program": "${workspaceFolder}/php-ai-cluster/app.py",
+            "module": "uvicorn",
+            "args": ["php-ai-cluster.app:app", "--host", "0.0.0.0", "--port", "8000", "--reload"],
+            "console": "integratedTerminal",
+            "justMyCode": true,
+            "env": {
+                "PYTHONPATH": "${workspaceFolder}"
+            }
+        },
+        {
+            "type": "python",
+            "name": "🔬 Python: CUDA / GPU Verify",
+            "request": "launch",
+            "program": "${workspaceFolder}/scripts/cuda-verify.py",
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
+            "type": "python",
+            "name": "🧪 Python: pytest",
+            "request": "launch",
+            "module": "pytest",
+            "args": ["-v", "${workspaceFolder}/tests"],
+            "console": "integratedTerminal",
+            "justMyCode": true
+        },
+        {
             "name": "🐘 PHP: Listen for Xdebug",
             "type": "php",
             "request": "launch",

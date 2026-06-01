@@ -293,9 +293,7 @@ function isVsCodeOperationalPrompt(prompt, context = {}) {
     const likelyLongAnalysis = analyticalIntent && tokens.length > 10;
 
     return Boolean(
-        !asksSystemReport &&
-        !asksIdentity &&
-        (operationalIntent && !likelyLongAnalysis) &&
+        (asksSystemReport || asksIdentity || (operationalIntent && !likelyLongAnalysis)) &&
         (fromVsCode || tokens.length <= 8)
     );
 }
@@ -305,7 +303,7 @@ function isCodeAnalysisPrompt(prompt, context = {}) {
     const source = String(context.source || context.route || '').trim();
     const vscodeMode = /vscode|extension|chat/i.test(source);
     const asksOperationalPanel = /(git|merge|plug|video|vision|تكامل|إكستنشن|اكستنشن|الدمج|النشر|publish|api)/i.test(text);
-    const asksCode = /(تحليل\s+برمجي|التحليل\s+البرمجي|بالتحليل\s+البرمجي|حلل\s+برمجي|حلل الكود|حلّل الكود|راجع الكود|مراجعة الكود|افحص الكود|فحص الكود|راجع الملف|افحص الملف|debug|ديبغ|كود|code|program|review|analy[sz]e code|inspect code|diagnos|اكتب\s+تقرير|اكتبي\s+تقرير|تقرير\s+كامل|system\s+report|status\s+report|runtime\s+report)/i.test(text);
+    const asksCode = /(تحليل\s+برمجي|التحليل\s+البرمجي|بالتحليل\s+البرمجي|حلل\s+برمجي|حلل الكود|حلّل الكود|راجع الكود|مراجعة الكود|افحص الكود|فحص الكود|راجع الملف|افحص الملف|debug|ديبغ|كود|code|program|review|analy[sz]e code|inspect code|diagnos)/i.test(text);
 
     return vscodeMode && asksCode && !asksOperationalPanel;
 }
@@ -429,17 +427,26 @@ function buildCodeAnalysisAnswer({ prompt, context, gateway }) {
 function buildFastOperationalAnswer({ prompt, context = {}, gateway = {} }) {
     const requestText = String(prompt || '').trim() || 'تشغيل';
     const modelOnline = Boolean(gateway.localModelOnline);
+    const runProjectIntent = /(?:شغل|شغّل|شغلي|شغِّلي|run|start)\s*(?:لي|لنا)?\s*(?:المشروع|project|الخادم|server)?/i.test(requestText);
 
-    return {
-        success: true,
-        provider: 'Sheikha-Core',
-        model: 'Sheikha-Core',
-        mode: 'governed-fast-operational',
-        localModelOnline: modelOnline,
-        fallbackReason: null,
-        governance: governanceEnvelope(),
-        context,
-        output: [
+    const output = runProjectIntent
+        ? [
+            'تم استلام أمر تشغيل المشروع داخل Sheikha IDE.',
+            '',
+            'تنفيذ عملي مباشر:',
+            '- إذا كان التشغيل عبر PM2: نفّذ pm2 status ثم pm2 restart ecosystem.config.js --update-env.',
+            '- إذا كان التشغيل التطويري المحلي: نفّذ npm run dev.',
+            '- فحص الاستجابة: curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status | jq .status',
+            '',
+            'حالة المسار:',
+            '- Runtime Mode: governed-fast-operational',
+            `- Local Model: ${modelOnline ? 'ONLINE' : 'CHECK_REQUIRED'}`,
+            '- Fallback: DISABLED_FOR_OPERATIONAL_PATH',
+            '',
+            'ملاحظة حوكمة:',
+            '- لا يتم commit أو push تلقائيًا قبل فحص git status و git diff.'
+        ].join('\n')
+        : [
             'تم استلام أمر التشغيل داخل Sheikha IDE.',
             '',
             'حالة التنفيذ:',
@@ -456,8 +463,6 @@ function buildFastOperationalAnswer({ prompt, context = {}, gateway = {} }) {
             '- هذا طلب IDE/برمجة، لذلك تم التعامل معه عبر المسار التشغيلي السريع بدل انتظار توليد Ollama.',
             '- لا يتم تنفيذ تغيير فعلي قبل مراجعة الملف المتأثر وتشغيل node --check أو اختبار مناسب.',
             '- عند وجود Git: يجب فحص git status و git diff قبل commit أو push.',
-            '- ترتيب الطبقات معتمد: (1) Orchestration -> (2) MLOps Platform -> (3) Governance & Mesh.',
-            '- تنظيم الكلستر معتمد: أولاً في منظومة الذكاء الصناعي، ثم في VS Code Chat.',
             '',
             'الخطوات التالية:',
             '1. حدّد الملف أو المسار المطلوب تعديله.',
@@ -465,7 +470,18 @@ function buildFastOperationalAnswer({ prompt, context = {}, gateway = {} }) {
             '3. شغّل فحص syntax أو smoke test.',
             '4. شغّل pre-commit governance.',
             '5. لا تدفع التغيير إلا بعد نجاح الفحص.'
-        ].join('\n'),
+        ].join('\n');
+
+    return {
+        success: true,
+        provider: 'Sheikha-Core',
+        model: 'Sheikha-Core',
+        mode: 'governed-fast-operational',
+        localModelOnline: modelOnline,
+        fallbackReason: null,
+        governance: governanceEnvelope(),
+        context,
+        output,
         timestamp: new Date().toISOString()
     };
 }
