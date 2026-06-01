@@ -35,3 +35,10 @@ bash tools/setup-hooks.sh
 - قبل التنفيذ: الفرضية، الثوابت، المتغيرات، معايير النجاح، خطة التراجع.
 - أثناء التنفيذ: كل المتغيرات البيئية والنتائج المرحلية.
 - بعد التنفيذ: النتائج، السبب الجذري لأي فشل، الإجراء الوقائي، القرار النهائي.
+
+## تفعيل PHP العصبي ولغة شيخة
+- التفعيل الموحد: `npm run ops:neural:php:activate`
+- التفعيل القسري: `npm run ops:neural:php:activate:force`
+- التشغيل المتوافق للـ runtime: `php sheikha-lang/runtime.php run sheikha-lang/examples/full-activation.shk`
+- الترجمة المتوافقة: `php sheikha-lang/runtime.php compile sheikha-lang/examples/full-activation.shk build/sheikha.generated.php`
+- مخرجات التفعيل والتشخيص تُحفظ في: `build/sheikha-php-neural/`

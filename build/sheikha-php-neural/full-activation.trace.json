@@ -1,0 +1,110 @@
+{
+  "nodes": [
+    {
+      "id": "n1",
+      "label": "DIRECTIVE",
+      "procedure": null
+    },
+    {
+      "id": "n2",
+      "label": "ENTITY_BEGIN",
+      "procedure": null
+    },
+    {
+      "id": "n3",
+      "label": "ENTITY_PROPERTY",
+      "procedure": null
+    },
+    {
+      "id": "n4",
+      "label": "ENTITY_PROPERTY",
+      "procedure": null
+    },
+    {
+      "id": "n5",
+      "label": "ENTITY_PROPERTY",
+      "procedure": null
+    },
+    {
+      "id": "n6",
+      "label": "ENTITY_PROPERTY",
+      "procedure": null
+    },
+    {
+      "id": "n7",
+      "label": "ENTITY_END",
+      "procedure": null
+    },
+    {
+      "id": "n8",
+      "label": "PROCEDURE_BEGIN",
+      "procedure": null
+    },
+    {
+      "id": "n9",
+      "label": "COMMAND",
+      "procedure": "تفعيل_البيئة"
+    },
+    {
+      "id": "n10",
+      "label": "COMMAND",
+      "procedure": "تفعيل_البيئة"
+    },
+    {
+      "id": "n11",
+      "label": "COMMAND",
+      "procedure": "تفعيل_البيئة"
+    },
+    {
+      "id": "n12",
+      "label": "PROCEDURE_END",
+      "procedure": null
+    }
+  ],
+  "edges": [
+    {
+      "from": "n1",
+      "to": "n2"
+    },
+    {
+      "from": "n2",
+      "to": "n3"
+    },
+    {
+      "from": "n3",
+      "to": "n4"
+    },
+    {
+      "from": "n4",
+      "to": "n5"
+    },
+    {
+      "from": "n5",
+      "to": "n6"
+    },
+    {
+      "from": "n6",
+      "to": "n7"
+    },
+    {
+      "from": "n7",
+      "to": "n8"
+    },
+    {
+      "from": "n8",
+      "to": "n9"
+    },
+    {
+      "from": "n9",
+      "to": "n10"
+    },
+    {
+      "from": "n10",
+      "to": "n11"
+    },
+    {
+      "from": "n11",
+      "to": "n12"
+    }
+  ]
+}

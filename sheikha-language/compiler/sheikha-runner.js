@@ -3,18 +3,17 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { lex } = require('./lexer');
-const { parse } = require('./parser');
 const { lowerToIR } = require('./ir');
 const { typeCheckAst } = require('./type-checker');
 const { compileIRToBytecode } = require('./bytecode');
 const { runIR } = require('./vm');
 const { runBytecode } = require('./bytecode-vm');
 const { verifyPolicies } = require('./policy-signatures');
+const { loadSourceProgram } = require('./source-loader');
 
 const input = process.argv[2];
 if (!input) {
-    console.error('Usage: node sheikha-runner.js file.shk [--engine compiled|tree] [--profile local|staging|production] [--strict-isolation true|false] [--json output.json] [--trace output.trace.json] [--types output.types.json] [--live]');
+    console.error('Usage: node sheikha-runner.js <file.shk|program.json> [--source-language name] [--engine compiled|tree] [--profile local|staging|production] [--strict-isolation true|false] [--json output.json] [--trace output.trace.json] [--types output.types.json] [--live]');
     process.exit(1);
 }
 
@@ -26,6 +25,7 @@ let engine = 'compiled';
 let profile = 'local';
 let strictIsolation;
 let policyManifestPath = 'sheikha-language/policies/policy-signatures.json';
+let sourceLanguage = '';
 
 for (let i = 3; i < process.argv.length; i++) {
     if (process.argv[i] === '--json' && process.argv[i + 1]) {
@@ -63,16 +63,20 @@ for (let i = 3; i < process.argv.length; i++) {
         i++;
         continue;
     }
+    if (process.argv[i] === '--source-language' && process.argv[i + 1]) {
+        sourceLanguage = process.argv[i + 1];
+        i++;
+        continue;
+    }
     if (process.argv[i] === '--live') {
         live = true;
     }
 }
 
-const source = fs.readFileSync(input, 'utf8');
-const tokens = lex(source);
-const ast = parse(tokens);
+const sourceProgram = loadSourceProgram(input, { sourceLanguage });
+const ast = sourceProgram.ast;
 const typeCheck = typeCheckAst(ast);
-const ir = lowerToIR(ast);
+const ir = lowerToIR(ast, sourceProgram);
 const bytecode = compileIRToBytecode(ir);
 
 let policyVerification = { ok: true, errors: [] };
@@ -121,6 +125,11 @@ const result = {
     success: vmResult.ok,
     status: vmResult.status,
     input: path.basename(input),
+    source: {
+        language: sourceProgram.sourceLanguage,
+        family: sourceProgram.sourceFamily,
+        kind: sourceProgram.sourceKind,
+    },
     engine,
     profile,
     policyVerification,
@@ -154,6 +163,7 @@ if (tracePath) {
 }
 
 console.log('SHEIKHA_VM_ENGINE=' + engine.toUpperCase());
+console.log('SHEIKHA_SOURCE_LANGUAGE=' + sourceProgram.sourceLanguage.toUpperCase());
 console.log('SHEIKHA_SANDBOX_PROFILE=' + profile.toUpperCase());
 console.log('SHEIKHA_POLICY_VERIFIED=' + (policyVerification.ok ? 'YES' : 'NO'));
 console.log('SHEIKHA_VM_STATUS=' + result.status.toUpperCase());
