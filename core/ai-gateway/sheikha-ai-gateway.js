@@ -286,12 +286,17 @@ function isVsCodeOperationalPrompt(prompt, context = {}) {
     const text = String(prompt || '').trim();
     const tokens = text.split(/\s+/).filter(Boolean);
     const fromVsCode = context && context.source === 'vscode-extension';
+    const asksSystemReport = /(?:اكتب(?:ي)?\s+تقرير|اكتبي\s+تقرير|تقرير\s+كامل|تقرير\s+عن\s+النظام|حالة\s+النظام|system\s+report|status\s+report|runtime\s+report)/i.test(text);
+    const asksIdentity = /(?:عرف(?:ي)?\s+بنفسك|عر[ّ]?في\s+نفسك|من\s+أنت|مين\s+انتي|who\s+are\s+you|identify\s+yourself)/i.test(text);
     const operationalIntent = /(?:ide|vscode|vs code|اكستنشن|الإكستنشن|الشات|شات|برمجة|البرمجة|تنفيذ البرمجيات|نفذ|شغل|شغّل|اصلح|أصلح|اكمل|أكمل|ملف|مسار|git|merge|commit|pipeline|cluster|runtime|gateway|api)/i.test(text);
     const analyticalIntent = /(?:تحليل|حلل|حلّل|اشرح|فسر|قارن|مقارنة|معمار|architecture|design|debugging strategy|review|analy[sz]e|diagnos)/i.test(text);
     const likelyLongAnalysis = analyticalIntent && tokens.length > 10;
 
     return Boolean(
-        operationalIntent && !likelyLongAnalysis && (fromVsCode || tokens.length <= 8)
+        !asksSystemReport &&
+        !asksIdentity &&
+        (operationalIntent && !likelyLongAnalysis) &&
+        (fromVsCode || tokens.length <= 8)
     );
 }
 
@@ -300,60 +305,7 @@ function isCodeAnalysisPrompt(prompt, context = {}) {
     const source = String(context.source || context.route || '').trim();
     const vscodeMode = /vscode|extension|chat/i.test(source);
     const asksOperationalPanel = /(git|merge|plug|video|vision|تكامل|إكستنشن|اكستنشن|الدمج|النشر|publish|api)/i.test(text);
-    const asksSystemReport = /(تقرير\s+عن\s+النظام|اكتب\s+تقرير|حالة\s+النظام|system\s+report|status\s+report|runtime\s+report)/i.test(text);
-
-    if (asksSystemReport) {
-        return {
-            success: true,
-            provider: 'Sheikha-Core',
-            model: 'Sheikha-Core',
-            mode: 'governed-fast-operational',
-            localModelOnline: true,
-            fallbackReason: null,
-            output: `تقرير Sheikha الكامل عن النظام:
-
-1. الحالة العامة:
-- Sheikha-Core online وactive.
-- بوابة الذكاء تعمل عبر المسار المحكوم.
-- الإكستنشن متصل بطبقة Sheikha Chat.
-- المسار السريع مفعّل لمنع تعليق الواجهة عند بطء Ollama.
-
-2. طبقة التشغيل:
-- Runtime محكوم.
-- PM2 مسؤول عن تشغيل الخدمات.
-- Ollama يعمل كخدمة محلية.
-- Git يجب أن يبقى NO_DRIFT قبل أي دمج أو نشر.
-
-3. طبقة الذكاء:
-- Sheikha-Core هو الاسم الحاكم للواجهة.
-- عند بطء نموذج Ollama يتم استخدام مسار تشغيلي سريع محكوم، وليس تعليق الطلب.
-- لا يتم تنفيذ أوامر مؤثرة بدون مراجعة بشرية.
-
-4. طبقة الإكستنشن:
-- الشات يرسل prompt واضح.
-- الأزرار مثل Git وMerge وPlug وFile وVision يجب أن ترسل أوامر تشغيلية مفسرة.
-- الردود يجب أن تكون كاملة، منظمة، وتحتوي على: تحليل، خطوات تنفيذ، مخاطر، وفحص.
-
-5. المخاطر:
-- نموذج 8B على CPU قد يتأخر.
-- الاعتماد الكامل على التوليد المباشر قد يعلّق واجهة VS Code.
-- أي تعديل Git يحتاج فحص قبل commit وpush.
-
-6. الفحص قبل الدمج:
-- node --check للملفات المعدلة.
-- git diff --check.
-- git status --short.
-- اختبار /api/sheikha/ai-gateway/ask.
-- التأكد من NO_DRIFT قبل النشر.
-
-الخلاصة:
-النظام يعمل، لكن طلبات التقارير يجب أن تمر عبر مسار Sheikha-Core التشغيلي السريع لضمان رد كامل بدون ollama_timeout.`,
-            context: { source: 'vscode-extension', report: 'system' },
-            timestamp: new Date().toISOString()
-        };
-    }
-
-    const asksCode = /(تحليل\s+برمجي|التحليل\s+البرمجي|بالتحليل\s+البرمجي|حلل\s+برمجي|حلل الكود|حلّل الكود|راجع الكود|مراجعة الكود|افحص الكود|فحص الكود|راجع الملف|افحص الملف|debug|ديبغ|كود|code|program|review|analy[sz]e code|inspect code|diagnos)/i.test(text);
+    const asksCode = /(تحليل\s+برمجي|التحليل\s+البرمجي|بالتحليل\s+البرمجي|حلل\s+برمجي|حلل الكود|حلّل الكود|راجع الكود|مراجعة الكود|افحص الكود|فحص الكود|راجع الملف|افحص الملف|debug|ديبغ|كود|code|program|review|analy[sz]e code|inspect code|diagnos|اكتب\s+تقرير|اكتبي\s+تقرير|تقرير\s+كامل|system\s+report|status\s+report|runtime\s+report)/i.test(text);
 
     return vscodeMode && asksCode && !asksOperationalPanel;
 }
@@ -632,11 +584,12 @@ async function askSheikhaCore({ prompt, message, instruction, input, mode, model
     }
 
     const effectivePrompt = enrichOperationalPrompt(prompt, effectiveContext);
-    const gateway = await getSheikhaGatewayStatus();
 
     if (isVsCodeOperationalPrompt(prompt, effectiveContext)) {
-        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway });
+        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway: {} });
     }
+
+    const gateway = await getSheikhaGatewayStatus();
 
     if (isCodeAnalysisPrompt(prompt, effectiveContext)) {
         return buildCodeAnalysisAnswer({ prompt, context: effectiveContext, gateway });
