@@ -210,6 +210,42 @@ function buildRawLlamaPrompt({ system, prompt }) {
     ].join('\n');
 }
 
+function buildLayerHierarchy(context = {}) {
+    const source = String(context.source || '').trim();
+
+    return {
+        validated: true,
+        order: [
+            {
+                level: 1,
+                id: 'orchestration-layer',
+                name: 'Orchestration Layer',
+                responsibilities: ['pipeline scheduling', 'event and time routing', 'cluster job flow'],
+                tools: ['airflow-compatible', 'prefect-compatible', 'kubeflow-compatible']
+            },
+            {
+                level: 2,
+                id: 'mlops-platform-layer',
+                name: 'MLOps Platform Layer',
+                responsibilities: ['experiment tracking', 'model registry', 'production monitoring'],
+                tools: ['mlflow-compatible', 'wandb-compatible', 'sagemaker-compatible']
+            },
+            {
+                level: 3,
+                id: 'governance-mesh-layer',
+                name: 'Governance & Mesh Layer',
+                responsibilities: ['access control', 'compliance and privacy', 'enterprise ai control plane'],
+                tools: ['data-mesh', 'enterprise-control-plane', 'policy-audit']
+            }
+        ],
+        clusterFlow: {
+            primary: 'ai-intelligence-system',
+            secondary: 'vscode-chat-surface',
+            activeSource: source || 'ai-gateway-api'
+        }
+    };
+}
+
 function buildSheikhaCoreSystemPrompt(context = {}) {
     const source = String(context.source || context.route || '').trim();
     const vscodeMode = /vscode|extension|chat/i.test(source);
@@ -468,6 +504,8 @@ function buildFastOperationalAnswer({ prompt, context = {}, gateway = {} }) {
             '- هذا طلب IDE/برمجة، لذلك تم التعامل معه عبر المسار التشغيلي السريع بدل انتظار توليد Ollama.',
             '- لا يتم تنفيذ تغيير فعلي قبل مراجعة الملف المتأثر وتشغيل node --check أو اختبار مناسب.',
             '- عند وجود Git: يجب فحص git status و git diff قبل commit أو push.',
+            '- ترتيب الطبقات معتمد: (1) Orchestration -> (2) MLOps Platform -> (3) Governance & Mesh.',
+            '- تنظيم الكلستر معتمد: أولاً في منظومة الذكاء الصناعي، ثم في VS Code Chat.',
             '',
             'الخطوات التالية:',
             '1. حدّد الملف أو المسار المطلوب تعديله.',
@@ -543,6 +581,7 @@ async function getSheikhaGatewayStatus() {
             },
             models,
             mode: 'local-first-governed-enterprise-ai',
+            hierarchy: buildLayerHierarchy({ source: 'ai-intelligence-system' }),
             governance: governanceEnvelope(),
             timestamp: new Date().toISOString()
         };
@@ -563,6 +602,7 @@ async function getSheikhaGatewayStatus() {
                 numBatch: DEFAULT_NUM_BATCH
             },
             mode: 'local-first-governed-enterprise-ai',
+            hierarchy: buildLayerHierarchy({ source: 'ai-intelligence-system' }),
             governance: governanceEnvelope(),
             warning: err.name === 'AbortError' ? 'ollama_timeout' : err.message,
             timestamp: new Date().toISOString()

@@ -4,6 +4,33 @@ const CHAT_FABRIC = {
   name: 'Sheikha Unified Chat Control Fabric',
   status: 'active',
   mode: 'local-first-governed-enterprise-ai',
+  hierarchy: {
+    validated: true,
+    order: [
+      {
+        level: 1,
+        id: 'orchestration-layer',
+        name: 'Orchestration Layer',
+        role: 'Pipeline orchestration and event routing'
+      },
+      {
+        level: 2,
+        id: 'mlops-platform-layer',
+        name: 'MLOps Platform Layer',
+        role: 'Model lifecycle, registry, and production monitoring'
+      },
+      {
+        level: 3,
+        id: 'governance-mesh-layer',
+        name: 'Governance & Mesh Layer',
+        role: 'Policy, compliance, privacy, and enterprise control plane'
+      }
+    ],
+    clusterFlow: {
+      primary: 'ai-intelligence-system',
+      secondary: 'vscode-chat-surface'
+    }
+  },
   governance: {
     tawheed: true,
     quranAndSunnahGoverned: true,
@@ -59,6 +86,7 @@ function evaluateChatRequest(input = {}) {
     fabric: CHAT_FABRIC.name,
     status: CHAT_FABRIC.status,
     mode: CHAT_FABRIC.mode,
+    hierarchy: CHAT_FABRIC.hierarchy,
     governance: CHAT_FABRIC.governance,
     routing: {
       primary: 'Sheikha-Core',
