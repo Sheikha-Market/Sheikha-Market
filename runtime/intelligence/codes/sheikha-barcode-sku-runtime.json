@@ -1,0 +1,23 @@
+{
+  "system": "sheikha-barcode-sku-runtime",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "Barcode / SKU Runtime — نظام الترميز والتتبع الكامل",
+  "formats": {
+    "barcode": ["EAN-13","EAN-8","UPC-A","UPC-E","Code-128","Code-39","QR"],
+    "sku": "SHEIKHA-{categoryCode}-{materialCode}-{grade}-{serial}",
+    "serial": "SN-{year}-{orgId}-{sequence}",
+    "batch": "BT-{year}-{month}-{orgId}-{sequence}",
+    "lot": "LT-{year}-{quarter}-{orgId}-{sequence}"
+  },
+  "capabilities": {
+    "generate": "auto-generate SKU on item creation",
+    "scan": "barcode scan → item lookup",
+    "track": "full lifecycle tracking per barcode/SKU",
+    "inventory": "real-time inventory linked to SKU",
+    "movement": "track every movement with barcode scan"
+  },
+  "governed": true
+}
