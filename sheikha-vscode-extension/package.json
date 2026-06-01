@@ -406,6 +406,24 @@
           "default": 60,
           "minimum": 30,
           "description": "فاصل تحديث لوحة التكاملات بالثواني (الحد الأدنى 30 ثانية)"
+        },
+        "sheikha.chatRetries": {
+          "type": "number",
+          "default": 2,
+          "minimum": 0,
+          "description": "عدد محاولات إعادة طلب المحادثة قبل الانتقال إلى fallback"
+        },
+        "sheikha.chatRequestTimeoutMs": {
+          "type": "number",
+          "default": 4000,
+          "minimum": 800,
+          "description": "مهلة طلب المحادثة بالمللي ثانية"
+        },
+        "sheikha.chatSloLatencyMs": {
+          "type": "number",
+          "default": 2500,
+          "minimum": 500,
+          "description": "هدف SLO لزمن استجابة المحادثة بالمللي ثانية"
         }
       }
     },
