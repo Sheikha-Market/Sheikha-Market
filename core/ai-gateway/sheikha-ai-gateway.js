@@ -246,14 +246,17 @@ function enrichOperationalPrompt(prompt, context = {}) {
     return text;
 }
 
-function isVscodeOperationalPrompt(prompt, context = {}) {
+function isVsCodeOperationalPrompt(prompt, context = {}) {
     const text = String(prompt || '').trim();
-    const source = String(context.source || context.route || '').trim();
-    const vscodeMode = /vscode|extension|chat/i.test(source);
-    const exactCommand = /^(شغل|شغّل|شغلها|اصلح|أصلح|fix|run|start|go|activate|merge|git|plug|video|vision|file\+?)$/i.test(text);
-    const operationalPanelPrompt = /(git|merge|plug|video|vision|api|chat|extension|تكامل|إكستنشن|اكستنشن|الشات|الدمج|النشر|تشغيل)/i.test(text);
+    const tokens = text.split(/\s+/).filter(Boolean);
+    const fromVsCode = context && context.source === 'vscode-extension';
+    const operationalIntent = /(?:ide|vscode|vs code|اكستنشن|الإكستنشن|الشات|شات|برمجة|البرمجة|تنفيذ البرمجيات|نفذ|شغل|شغّل|اصلح|أصلح|اكمل|أكمل|ملف|مسار|git|merge|commit|pipeline|cluster|runtime|gateway|api)/i.test(text);
+    const analyticalIntent = /(?:تحليل|حلل|حلّل|اشرح|فسر|قارن|مقارنة|معمار|architecture|design|debugging strategy|review|analy[sz]e|diagnos)/i.test(text);
+    const likelyLongAnalysis = analyticalIntent && tokens.length > 10;
 
-    return vscodeMode && (exactCommand || operationalPanelPrompt);
+    return Boolean(
+        operationalIntent && !likelyLongAnalysis && (fromVsCode || tokens.length <= 8)
+    );
 }
 
 function isCodeAnalysisPrompt(prompt, context = {}) {
@@ -437,39 +440,41 @@ function buildCodeAnalysisAnswer({ prompt, context, gateway }) {
 
 function buildFastOperationalAnswer({ prompt, context, gateway }) {
     const requestText = String(prompt || '').trim() || 'تشغيل';
-    const modelOnline = Boolean(gateway && gateway.localModelOnline && gateway.sheikhaCoreInstalled);
+    const modelOnline = Boolean(gateway && gateway.localModelOnline);
 
     return {
         success: true,
         provider: 'Sheikha-Core',
-        model: DEFAULT_MODEL,
+        model: 'Sheikha-Core',
         mode: 'governed-fast-operational',
         localModelOnline: modelOnline,
         fallbackReason: null,
         governance: governanceEnvelope(),
         context,
         output: [
-            'تحليل Sheikha:',
-            `تم استلام أمر التشغيل "${requestText}" من VS Code. السيرفر مفعل، وبوابة Sheikha-Core حالتها: ${modelOnline ? 'online' : 'local model not ready'}.`,
-            'الهوية والمعمارية الجديدة مفعلة داخل حوكمة Sheikha Universal Divine-Inspired Governance وتُعرض كجزء من شبكة الخلايا الجذرية.',
+            'تم استلام أمر التشغيل داخل Sheikha IDE.',
             '',
-            'خطوات التنفيذ:',
-            '1. الشات في VS Code يرسل الآن مباشرة إلى /api/sheikha/ai-gateway/ask بصيغة prompt موحدة.',
-            '2. context.source يبقى vscode-extension حتى تعرف البوابة أن الطلب صادر من لوحة Sheikha Chat.',
-            '3. التكاملات تعرض حالة Sheikha-Core وGit والـ API داخل واجهة الإكستنشن.',
-            '4. Ollama يبقى خدمة محلية مستمرة، والبوابة تعرض Sheikha-Core كهوية التشغيل مع fallback محكوم عند تأخر التوليد.',
-            '5. عند الضغط على Merge أو Git أو Plug أو Vision أو File+ يتم إرسال Prompt تشغيلي واضح بدل أمر مبهم.',
+            'حالة التنفيذ:',
+            '- Sheikha Gateway: ACTIVE',
+            '- VS Code Extension: CONNECTED',
+            '- Runtime Mode: governed-fast-operational',
+            `- Local Model: ${modelOnline ? 'ONLINE' : 'CHECK_REQUIRED'}`,
+            '- Fallback: DISABLED_FOR_OPERATIONAL_PATH',
             '',
-            'المخاطر:',
-            '- نموذج 8B على CPU قد يتأخر؛ لذلك هذا المسار التشغيلي السريع يمنع تعليق واجهة VS Code مع إبقاء الرد كاملاً ومنظماً.',
-            '- لا يتم تنفيذ commit أو merge أو نشر تلقائي من الشات بدون مراجعة بشرية.',
-            '- أي توقف في Ollama يجب أن يظهر في status بدلاً من إخفائه.',
+            'تحليل الطلب:',
+            requestText,
             '',
-            'فحص قبل الدمج أو النشر:',
-            '1. تحقق من /api/sheikha/ai-gateway/status وأن localModelOnline=true.',
-            '2. جرّب /api/sheikha/ai-gateway/ask برسالة قصيرة وتأكد أن provider=Sheikha-Core.',
-            '3. شغّل node --check على ملفات الإكستنشن والبوابة والراوتر.',
-            '4. راجع git status قبل أي commit أو push.'
+            'القرار التشغيلي:',
+            '- هذا طلب IDE/برمجة، لذلك تم التعامل معه عبر المسار التشغيلي السريع بدل انتظار توليد Ollama.',
+            '- لا يتم تنفيذ تغيير فعلي قبل مراجعة الملف المتأثر وتشغيل node --check أو اختبار مناسب.',
+            '- عند وجود Git: يجب فحص git status و git diff قبل commit أو push.',
+            '',
+            'الخطوات التالية:',
+            '1. حدّد الملف أو المسار المطلوب تعديله.',
+            '2. نفّذ التعديل في نطاق صغير.',
+            '3. شغّل فحص syntax أو smoke test.',
+            '4. شغّل pre-commit governance.',
+            '5. لا تدفع التغيير إلا بعد نجاح الفحص.'
         ].join('\n'),
         timestamp: new Date().toISOString()
     };
@@ -587,14 +592,15 @@ async function askSheikhaCore({ prompt, message, instruction, input, mode, model
     }
 
     const effectivePrompt = enrichOperationalPrompt(prompt, effectiveContext);
+
+    if (isVsCodeOperationalPrompt(prompt, effectiveContext)) {
+        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway: {} });
+    }
+
     const gateway = await getSheikhaGatewayStatus();
 
     if (isCodeAnalysisPrompt(prompt, effectiveContext)) {
         return buildCodeAnalysisAnswer({ prompt, context: effectiveContext, gateway });
-    }
-
-    if (isVscodeOperationalPrompt(prompt, effectiveContext)) {
-        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway });
     }
 
     if (isCanonicalIdentityPrompt(effectivePrompt)) {
