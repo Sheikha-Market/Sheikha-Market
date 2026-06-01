@@ -1,45 +1,77 @@
 'use strict';
 
-// Unified AI Gateway for all providers
+// بوابة الذكاء الصناعي الموحدة — توجيه كامل عبر Provider Abstraction Layer
 
-const providers = require('../providers/provider-registry');
+const { askSheikhaCore, getSheikhaGatewayStatus } = require('./sheikha-ai-gateway');
+const { askWithFallback, getProviderRegistryStatus } = require('../providers/provider-registry');
 
-function generate(input, opts) {
-  // Route to selected provider
-  const provider = providers.resolveProvider();
-  return provider.generate ? provider.generate(input, opts) : { error: 'Not implemented' };
+// نقطة الدخول الرئيسية — تستخدم Sheikha-Core الحاكمة
+async function ask(input, opts = {}) {
+  const prompt = typeof input === 'string' ? input : input?.prompt || '';
+  return askSheikhaCore({ prompt, model: opts.model, context: opts.context || {} });
 }
 
-function chat(messages, opts) {
-  const provider = providers.resolveProvider();
-  return provider.chat ? provider.chat(messages, opts) : { error: 'Not implemented' };
+// توليد نص خام عبر سلسلة المزودات
+async function generate(input, opts = {}) {
+  const prompt = typeof input === 'string' ? input : String(input || '');
+  return askWithFallback({ prompt, system: opts.system, model: opts.model, options: opts });
 }
 
-function vision(image, opts) {
-  const provider = providers.resolveProvider();
-  return provider.vision ? provider.vision(image, opts) : { error: 'Not implemented' };
+// محادثة دردشة (messages array)
+async function chat(messages = [], opts = {}) {
+  const lastUser = [...messages].reverse().find((m) => m.role === 'user');
+  const prompt = lastUser?.content || '';
+  const system = messages.find((m) => m.role === 'system')?.content || '';
+  return askWithFallback({ prompt, system, model: opts.model, options: opts });
 }
 
-function embedding(text, opts) {
-  const provider = providers.resolveProvider();
-  return provider.embedding ? provider.embedding(text, opts) : { error: 'Not implemented' };
+// تحليل صورة — يحتاج مزود يدعم multimodal
+async function vision(image, opts = {}) {
+  const provider = require('../providers/provider-registry').resolveProvider('gemini');
+  return provider && typeof provider.vision === 'function'
+    ? provider.vision(image, opts)
+    : { success: false, error: 'vision_not_available', output: null };
 }
 
-function reason(context, opts) {
-  const provider = providers.resolveProvider();
-  return provider.reason ? provider.reason(context, opts) : { error: 'Not implemented' };
+// embedding — للمستقبل
+async function embedding(text, opts = {}) {
+  const provider = require('../providers/provider-registry').resolveProvider('openai');
+  return provider && typeof provider.embedding === 'function'
+    ? provider.embedding(text, opts)
+    : { success: false, error: 'embedding_not_available', output: null };
 }
 
-function tools(toolName, args) {
-  const provider = providers.resolveProvider();
-  return provider.tools ? provider.tools(toolName, args) : { error: 'Not implemented' };
+async function reason(context, opts = {}) {
+  return generate(context, opts);
+}
+
+async function tools(toolName, args) {
+  return { success: false, error: 'tools_not_implemented', toolName, args };
+}
+
+// حالة البوابة الكاملة
+async function getGatewayStatus() {
+  const [ollamaStatus, registryStatus] = await Promise.allSettled([
+    getSheikhaGatewayStatus(),
+    Promise.resolve(getProviderRegistryStatus())
+  ]);
+
+  return {
+    success: true,
+    gateway: 'SHEIKHA_AI_GATEWAY',
+    ollama: ollamaStatus.status === 'fulfilled' ? ollamaStatus.value : { error: ollamaStatus.reason?.message },
+    registry: registryStatus.status === 'fulfilled' ? registryStatus.value : { error: registryStatus.reason?.message },
+    timestamp: new Date().toISOString()
+  };
 }
 
 module.exports = {
+  ask,
   generate,
   chat,
   vision,
   embedding,
   reason,
-  tools
+  tools,
+  getGatewayStatus
 };

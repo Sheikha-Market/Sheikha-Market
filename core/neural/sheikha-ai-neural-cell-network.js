@@ -20,12 +20,12 @@ const SHEIKHA_AI_NEURAL_CELLS = {
       {
         source: 'القرآن',
         ref: 'سورة الإخلاص 112',
-        text: 'قُلْ هُوَ اللَّهُ أَحَدٌ • اللَّهُ الصَّمَدُ • لَمْ يَلِدْ وَلَمْ يُولَدْ • وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ'
+        text: 'قُلْ هُوَ اللَّهُ أَحَدٌ • اللَّهُ الصَّمَدُ • لَمْ يَلِدْ وَلَمْ يُولَدْ • وَلَمْ يَكُن لَّهُ كُفُوًا أَحَدٌ'
       },
       {
         source: 'القرآن',
         ref: 'سورة الفاتحة 1',
-        text: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
+        text: 'الْحَمْدُ لِلَّهِ رَبِّ الْعَالَمِينَ',
       },
       {
         source: 'السنة',
@@ -153,11 +153,6 @@ const SHEIKHA_AI_NEURAL_CELLS = {
   gitRuntime: {
     name: 'خلية Git وGitHub وGitLab',
     function: 'تنظيم التحرير في Git، إعداد خطط commit/branch/review، والتكامل الآمن مع GitHub وGitLab دون دفع عشوائي'
-  },
-
-  readWritePublish: {
-    name: 'خلية القراءة والكتابة والنشر',
-    function: 'ربط القراءة والكتابة والنشر في مسار واحد: قراءة موثقة، كتابة مراجعة، نشر بإذن بشري وسجل تدقيق'
   },
 
   machineLearning: {
@@ -666,7 +661,7 @@ function interpretProgrammingRequest(options = {}) {
 }
 
 function buildGitEditingPlan(options = {}) {
-  const target = normalizePathLikeValue(options.target || 'working-tree');
+  const target = options.target || 'working-tree';
   const platform = options.platform || 'local-git';
   return {
     success: true,
@@ -684,125 +679,6 @@ function buildGitEditingPlan(options = {}) {
       platform === 'gitlab' ? 'فتح Merge Request عند الحاجة' : 'فتح Pull Request عند الحاجة'
     ],
     warning: 'الخطة لا تنفذ push أو reset أو حذف تلقائيًا.',
-    timestamp: new Date().toISOString()
-  };
-}
-
-function normalizePathLikeValue(value) {
-  return String(value)
-    .replace(/&amp;#x2F;|&#x2F;|&#47;/gi, '/')
-    .replace(/&amp;#47;/gi, '/');
-}
-
-function getReadWritePublishRuntimeStatus() {
-  return {
-    success: true,
-    status: 'active',
-    name: 'Sheikha Read-Write-Publish Runtime',
-    nameAr: 'تشغيل Sheikha الآمن للقراءة والكتابة والنشر',
-    mode: 'governed-root-neural-rwp',
-    cells: ['creed', 'data', 'shariaGate', 'programming', 'gitRuntime', 'readWritePublish', 'ethics'],
-    pipeline: [
-      'read.source.verify',
-      'read.classify.data',
-      'write.scope.lock',
-      'write.diff.plan',
-      'write.test.required',
-      'publish.human.approval',
-      'publish.git.review',
-      'publish.audit.log'
-    ],
-    safeguards: [
-      'no-secret-publish',
-      'no-destructive-write-without-explicit-approval',
-      'no-push-without-human-review',
-      'quran-sunnah-governance',
-      'privacy-by-default',
-      'git-diff-before-publish'
-    ],
-    endpoints: {
-      status: '/api/sheikha/read-write-publish/status',
-      plan: '/api/sheikha/read-write-publish/plan',
-      evaluate: '/api/sheikha/read-write-publish/evaluate'
-    },
-    timestamp: new Date().toISOString()
-  };
-}
-
-function detectSensitivePublishRisk(input = {}) {
-  const text = JSON.stringify(input).toLowerCase();
-  const riskyPatterns = [
-    'api_key',
-    'apikey',
-    'secret',
-    'private_key',
-    'password',
-    'token=',
-    'bearer ',
-    '.env',
-    'ssh-rsa',
-    'BEGIN PRIVATE KEY'.toLowerCase()
-  ];
-  return riskyPatterns.filter(pattern => text.includes(pattern));
-}
-
-function buildReadWritePublishPlan(options = {}) {
-  const action = String(options.action || 'plan').toLowerCase();
-  const target = normalizePathLikeValue(options.target || options.path || 'working-tree');
-  const platform = options.platform || 'local-git';
-  const dataCategory = inferDataCategory(options.payload || options.content || options);
-  const neuralEvaluation = evaluateSheikhaAINetwork({
-    domain: 'read-write-publish',
-    action,
-    target,
-    platform,
-    payload: options.payload || options.content || null
-  });
-  const sensitiveRisks = detectSensitivePublishRisk(options);
-  const testsPassed = Boolean(options.testsPassed || options.tested || action === 'read');
-  const humanApproved = Boolean(options.humanApproved || options.approvedByOwner);
-  const publishRequested = action === 'publish' || Boolean(options.publish);
-  const writeRequested = action === 'write' || publishRequested || Boolean(options.write);
-  const destructiveRequested = Boolean(options.destructive || options.delete || options.reset);
-
-  const gates = [
-    { id: 'source', label: 'مصدر القراءة محدد', ok: Boolean(target) },
-    { id: 'classification', label: 'تصنيف البيانات مكتمل', ok: Boolean(dataCategory) },
-    { id: 'sharia', label: 'بوابة الكتاب والسنة لا ترى مخالفة', ok: neuralEvaluation.success },
-    { id: 'sensitive', label: 'لا توجد أسرار أو مفاتيح قابلة للنشر', ok: sensitiveRisks.length === 0 },
-    { id: 'human-review', label: 'المراجعة البشرية مطلوبة قبل الأثر', ok: !writeRequested || humanApproved },
-    { id: 'tests', label: 'الفحص مطلوب قبل النشر', ok: !publishRequested || testsPassed },
-    { id: 'destructive', label: 'لا يوجد حذف أو reset غير مصرح', ok: !destructiveRequested || humanApproved }
-  ];
-  const approved = gates.every(gate => gate.ok);
-
-  return {
-    success: approved,
-    status: approved ? 'approved_for_execution' : 'requires_review',
-    action,
-    target,
-    platform,
-    dataCategory,
-    runtime: getReadWritePublishRuntimeStatus(),
-    neuralEvaluation,
-    sensitiveRisks,
-    gates,
-    plan: [
-      'قراءة المصدر وتثبيت المسار',
-      'تصنيف البيانات: مهيكلة / شبه مهيكلة / غير مهيكلة',
-      'فحص الحلال والخصوصية ومنع الضرر',
-      'توليد خطة كتابة محددة النطاق',
-      'عرض diff قبل أي اعتماد',
-      'تشغيل الفحوص المناسبة',
-      'اعتماد بشري صريح قبل النشر',
-      platform === 'gitlab' ? 'فتح Merge Request عند الحاجة' : 'فتح Pull Request عند الحاجة',
-      'تسجيل audit trail بعد النشر'
-    ],
-    git: buildGitEditingPlan({ target, platform }),
-    decision: approved ? 'allow_governed_read_write_publish' : 'hold_for_human_review',
-    message: approved
-      ? 'مسار القراءة والكتابة والنشر آمن ومجاز للتنفيذ الحاكم.'
-      : 'المسار يحتاج مراجعة قبل الكتابة أو النشر.',
     timestamp: new Date().toISOString()
   };
 }
@@ -1145,6 +1021,44 @@ function evaluateSheikhaAINetwork(input = {}) {
   };
 }
 
+// تكامل مع قاعدة المعرفة الكونية العليا
+const fs = require('fs');
+const path = require('path');
+
+function loadUniversalKnowledgeGraph() {
+    try {
+        const filePath = path.join(__dirname, '../knowledge/sheikha-universal-knowledge-graph.json');
+        if (fs.existsSync(filePath)) {
+            return JSON.parse(fs.readFileSync(filePath, 'utf8'));
+        }
+    } catch (e) {
+        return { error: e.message };
+    }
+    return null;
+}
+
+function analyzeWithUniversalKnowledge(input = {}) {
+    const graph = loadUniversalKnowledgeGraph();
+    if (!graph || graph.error) {
+        return { success: false, message: 'تعذر تحميل قاعدة المعرفة الكونية', error: graph && graph.error };
+    }
+    // مثال: تحليل نوع البنية أو المبادئ المطلوبة
+    const matches = graph.nodes.filter(node => {
+        if (input.principle && node.principles.includes(input.principle)) return true;
+        if (input.type && node.type === input.type) return true;
+        if (input.name && node.name.includes(input.name)) return true;
+        return false;
+    });
+    return {
+        success: true,
+        matches,
+        input,
+        graphMeta: graph.meta
+    };
+}
+
+module.exports.analyzeWithUniversalKnowledge = analyzeWithUniversalKnowledge;
+
 module.exports = {
   SHEIKHA_AI_NEURAL_CELLS,
   evaluateSheikhaAINetwork,
@@ -1158,8 +1072,6 @@ module.exports = {
   getMarkupRuntimeStatus,
   interpretProgrammingRequest,
   buildGitEditingPlan,
-  getReadWritePublishRuntimeStatus,
-  buildReadWritePublishPlan,
   getNeuralRuntimeRegistry,
   getSupremeRootNeuralFabricStatus,
   activateSupremeRootNeuralFabric,
