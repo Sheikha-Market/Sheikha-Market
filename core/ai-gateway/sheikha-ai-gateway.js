@@ -63,6 +63,44 @@ function isArabic(text) {
     return /[\u0600-\u06FF]/.test(text || '');
 }
 
+function isVsCodeOperationalPrompt(prompt, context = {}) {
+    const normalized = String(prompt || '').toLowerCase().trim();
+    if (!normalized) {
+        return false;
+    }
+
+    const source = String(context?.source || '').toLowerCase();
+    const fromEditor = /(vscode|vs code|editor|terminal|copilot)/.test(source);
+
+    const operationalEnglish = /(run|start|build|test|lint|deploy|debug|serve|terminal|command|task|npm|pnpm|yarn|node|python|pip|git|docker|kubectl|terraform|az|vscode|project|server)/.test(normalized);
+    const operationalArabic = /(شغل|شغّل|تشغيل|ابدأ|ابدا|نفذ|نفّذ|افتح|الأوامر|اوامر|امر|أمر|برمجة|كود|الكود|مشروع|الخادم|السيرفر|اختبار|فحص|بناء|نشر|تصحيح|لينت|بيئة|طرفية)/.test(normalized);
+
+    return fromEditor || operationalEnglish || operationalArabic;
+}
+
+function buildFastOperationalAnswer(prompt) {
+    const lower = String(prompt || '').toLowerCase();
+
+    if (/(شغل المشروع|شغّل المشروع|run project|start project|شغل الخادم|شغّل الخادم|run server|start server)/.test(lower)) {
+        return [
+            'لتشغيل المشروع بسرعة داخل بيئة شيخة:',
+            '1) فعّل البيئة الافتراضية: source .venv/bin/activate',
+            '2) شغّل الخادم التطويري: npm run dev',
+            '3) تحقق من الحالة: curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
+            'إذا رغبت أستطيع تنفيذ هذه الخطوات تلقائياً الآن.'
+        ].join('\n');
+    }
+
+    return [
+        'تم تحويل طلبك إلى Fast Operational Path قبل النماذج الذكية.',
+        'أرسل الأمر المطلوب بصيغة مباشرة مثل:',
+        '- شغل المشروع',
+        '- نفّذ lint',
+        '- شغّل الاختبارات',
+        '- اعرض حالة البوابة'
+    ].join('\n');
+}
+
 function isCanonicalIdentityPrompt(prompt) {
     const normalized = String(prompt || '').toLowerCase();
     const compact = normalized.replace(/\s+/g, ' ');
@@ -238,6 +276,24 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
             context,
             output: canonicalSheikhaCoreAnswer(prompt),
             timestamp: new Date().toISOString()
+        };
+    }
+
+    if (isVsCodeOperationalPrompt(prompt, context)) {
+        const gateway = await getSheikhaGatewayStatus();
+
+        return {
+            success: true,
+            provider: 'Sheikha-Core',
+            model,
+            mode: 'governed-fast-operational',
+            localModelOnline: Boolean(gateway.localModelOnline && gateway.sheikhaCoreInstalled),
+            fallbackReason: null,
+            governance: governanceEnvelope(),
+            context,
+            output: buildFastOperationalAnswer(prompt),
+            timestamp: new Date().toISOString(),
+            poweredBy: 'SHEIKHA — عنصر الحياة الرقمية'
         };
     }
 
