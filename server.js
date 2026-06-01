@@ -2199,6 +2199,7 @@ const consultingKpi = optionalRequire('./lib/runtime/organizations/consulting/co
 const consultingKnowledgeBase = optionalRequire('./lib/runtime/organizations/consulting/consulting-knowledge-base') || {};
 const createConsultingRouter = optionalRequire('./lib/runtime/organizations/consulting/consulting-routes') || (() => express.Router());
 const applySecurityMiddleware = optionalRequire('./lib/runtime/middleware/security-middleware');
+const runtimeIsolationPolicyModule = optionalRequire('./lib/runtime/middleware/runtime-isolation-policy');
 const runtimeObservability = new ObservabilityService();
 const metalsMarket = new MetalsMarketEngine();
 const smartCities = new SmartCitiesEngine();
@@ -2319,6 +2320,22 @@ if (fs.existsSync(rootNeuralRoutesPath)) {
     console.log('⚠️ security middleware module غير متوفر — fallback للتشغيل الأساسي');
     app.use(cors());
     app.use(express.json({ limit: '10mb' }));
+}
+
+let runtimeIsolationPolicy = null;
+if (runtimeIsolationPolicyModule && typeof runtimeIsolationPolicyModule.createRuntimeIsolationPolicy === 'function') {
+    runtimeIsolationPolicy = runtimeIsolationPolicyModule.createRuntimeIsolationPolicy({
+        strictMode: process.env.SHEIKHA_RUNTIME_STRICT_ISOLATION,
+        policySignatureRequired: process.env.SHEIKHA_POLICY_SIGNATURE_REQUIRED,
+        policySignatureSecret: process.env.SHEIKHA_POLICY_SIGNATURE_SECRET
+    });
+    app.use(runtimeIsolationPolicy);
+    const isolationStatus = runtimeIsolationPolicy.getStatus ? runtimeIsolationPolicy.getStatus() : {};
+    console.log(
+        `✅ runtime isolation policy مفعّل — strict=${Boolean(isolationStatus.strictMode)} signature=${Boolean(isolationStatus.policySignatureRequired)}`
+    );
+} else {
+    console.log('⚠️ runtime isolation policy module غير متوفر — تم تخطي عزل التشغيل الصارم');
 }
 
 // سجل أمني — تسجيل محاولات مشبوهة
@@ -2879,9 +2896,30 @@ app.get('/api/observability/summary', (req, res) => {
             files,
             latencyBytes: statBytes(path.join(metricsDir, 'latency.ndjson')),
             errorsBytes: statBytes(path.join(metricsDir, 'errors.ndjson')),
-            throughputBytes: statBytes(path.join(metricsDir, 'throughput.ndjson'))
+            throughputBytes: statBytes(path.join(metricsDir, 'throughput.ndjson')),
+            policyEnforcement: runtimeIsolationPolicy && typeof runtimeIsolationPolicy.getStatus === 'function'
+                ? runtimeIsolationPolicy.getStatus()
+                : null
         },
         message: 'ملخص المراقبة متاح',
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/observability/policy-enforcement', (req, res) => {
+    return res.json({
+        success: true,
+        data: runtimeIsolationPolicy && typeof runtimeIsolationPolicy.getStatus === 'function'
+            ? runtimeIsolationPolicy.getStatus()
+            : {
+                strictMode: false,
+                policySignatureRequired: false,
+                privilegedPrefixes: [],
+                maxSkewMs: 0,
+                totals: { allowed: 0, denied: 0 },
+                denialsByReason: {}
+            },
+        message: 'ملخص تطبيق سياسة العزل متاح',
         timestamp: new Date().toISOString()
     });
 });
