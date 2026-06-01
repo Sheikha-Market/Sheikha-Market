@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
+const OLLAMA_BASE_URL = 'http://127.0.0.1:11434';
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -55,7 +56,7 @@ let agentOrchestrator = null;
 let productionMonitor = null;
 let islamicGuardrails = null;
 const ollamaOrchestrator = new SheikhaOllamaOrchestrator({
-    ollamaHost: config.ai?.ollama?.host
+    ollamaHost: OLLAMA_BASE_URL
 });
 if (config.ai?.ollama?.enabled && config.ai?.ollama?.autoUpdate) {
     ollamaOrchestrator.startAutoSync();
@@ -134,7 +135,7 @@ router.get('/status', (req, res) => {
         engines: {
             ollama: {
                 enabled: !!config.ai?.ollama?.enabled,
-                host: config.ai?.ollama?.host,
+                host: OLLAMA_BASE_URL,
                 profile: config.ai?.ollama?.profile,
                 autoUpdate: !!config.ai?.ollama?.autoUpdate,
                 bestModel: ollamaRec.bestModel
@@ -364,7 +365,7 @@ function defaultModelRegistry() {
                 model: config.ai?.ollama?.defaultModel || 'qwen2.5-coder:14b',
                 llmLanguage: 'ar',
                 devLanguage: 'javascript',
-                baseUrl: config.ai?.ollama?.host || 'http://127.0.0.1:11434',
+                baseUrl: OLLAMA_BASE_URL,
                 apiKeyEnv: '',
                 active: !!config.ai?.ollama?.enabled,
                 autoUpgrade: false,
@@ -1193,7 +1194,7 @@ async function callOllama(message, context, taskType, sensitivity) {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
-        const response = await fetch(`${config.ai?.ollama?.host || 'http://127.0.0.1:11434'}/api/chat`, {
+        const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({

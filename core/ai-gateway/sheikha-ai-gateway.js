@@ -11,12 +11,12 @@ function defaultCpuThreads() {
     return Math.max(4, Math.min(20, cores > 4 ? cores - 2 : cores));
 }
 
-const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
+const OLLAMA_URL = 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
-const DEFAULT_INFERENCE_MODEL = process.env.SHEIKHA_CORE_INFERENCE_MODEL || process.env.SHEIKHA_CORE_BASE_MODEL || 'llama3.1:8b';
-const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 90000);
+const DEFAULT_INFERENCE_MODEL = process.env.SHEIKHA_CORE_INFERENCE_MODEL || 'Sheikha-Core';
+const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 120000);
 const DEFAULT_NUM_CTX = Number(process.env.SHEIKHA_CORE_NUM_CTX || 2048);
-const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 256);
+const DEFAULT_NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 48);
 const DEFAULT_NUM_THREAD = Number(process.env.SHEIKHA_CORE_NUM_THREAD || defaultCpuThreads());
 const DEFAULT_NUM_BATCH = Number(process.env.SHEIKHA_CORE_NUM_BATCH || 512);
 const DEFAULT_KEEP_ALIVE = process.env.SHEIKHA_CORE_KEEP_ALIVE || '10m';
@@ -518,7 +518,7 @@ async function getSheikhaGatewayStatus() {
     try {
         const { response, data } = await fetchJsonWithTimeout(`${OLLAMA_URL}/api/tags`, {
             method: 'GET'
-        }, Math.min(DEFAULT_TIMEOUT_MS, 5000));
+        }, Math.min(DEFAULT_TIMEOUT_MS, 120000));
 
         const models = Array.isArray(data.models) ? data.models.map((m) => m.name).filter(Boolean) : [];
         return {
@@ -638,7 +638,7 @@ async function askSheikhaCore({ prompt, message, instruction, input, mode, model
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify(body)
-        }, DEFAULT_TIMEOUT_MS);
+        }, 120000);
     } catch (err) {
         return buildFallbackResponse({
             prompt: effectivePrompt,

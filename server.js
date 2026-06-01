@@ -4398,7 +4398,7 @@ const CLAUDE_FEATURES = {
 // ─── إعدادات النظام ───────────────────────────────────────────────────────────────
 // الوضع الافتراضي: Sheikha-Core محلياً، ثم OpenAI عند وجود مفتاح، ولا Anthropic إلا بإذن صريح.
 const AI_MODE = process.env.AI_MODE || 'local-first'; // local-first | openai | anthropic
-const AI_LLM_BASE_URL = CONFIGURED_AI_BASE_URL || process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
+const AI_LLM_BASE_URL = 'http://127.0.0.1:11434';
 const AI_LLM_MODEL = process.env.AI_LLM_MODEL || process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
 
 // تسجيل حالة AI عند البدء
