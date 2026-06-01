@@ -2310,6 +2310,7 @@ if (fs.existsSync(rootNeuralRoutesPath)) {
     try {
         const rootNeuralNetworkRoutes = require('./routes/root-neural-network.routes');
         app.use('/api/root-neural-network', rootNeuralNetworkRoutes);
+        app.use('/api/neural-root', rootNeuralNetworkRoutes);
         console.log('✅ Root Neural Cell Network ACTIVE on /api/root-neural-network');
     } catch (e) {
         console.warn('⚠️ Root Neural Cell Network disabled:', e.message);
