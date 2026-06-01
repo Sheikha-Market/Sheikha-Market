@@ -438,9 +438,9 @@ function buildCodeAnalysisAnswer({ prompt, context, gateway }) {
     };
 }
 
-function buildFastOperationalAnswer({ prompt, context, gateway }) {
+function buildFastOperationalAnswer({ prompt, context = {}, gateway = {} }) {
     const requestText = String(prompt || '').trim() || 'تشغيل';
-    const modelOnline = Boolean(gateway && gateway.localModelOnline);
+    const modelOnline = Boolean(gateway.localModelOnline);
 
     return {
         success: true,
@@ -592,12 +592,11 @@ async function askSheikhaCore({ prompt, message, instruction, input, mode, model
     }
 
     const effectivePrompt = enrichOperationalPrompt(prompt, effectiveContext);
+    const gateway = await getSheikhaGatewayStatus();
 
     if (isVsCodeOperationalPrompt(prompt, effectiveContext)) {
-        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway: {} });
+        return buildFastOperationalAnswer({ prompt, context: effectiveContext, gateway });
     }
-
-    const gateway = await getSheikhaGatewayStatus();
 
     if (isCodeAnalysisPrompt(prompt, effectiveContext)) {
         return buildCodeAnalysisAnswer({ prompt, context: effectiveContext, gateway });
