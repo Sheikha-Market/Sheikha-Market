@@ -86,29 +86,7 @@
     "arabic programming"
   ],
   "activationEvents": [
-    "onStartupFinished",
-    "onCommand:sheikha.openChat",
-    "onCommand:sheikha.signIn",
-    "onCommand:sheikha.signOut",
-    "onCommand:sheikha.enableNES",
-    "onView:sheikha.chatView",
-    "onView:sheikha.statusView",
-    "onView:sheikha.apiView",
-    "onView:sheikha.publishView",
-    "onView:sheikha.pathsView",
-    "onView:sheikha.programmingView",
-    "onView:sheikha.debugView",
-    "onView:sheikha.editingView",
-        "onView:sheikha.neuralView",
-        "onView:sheikha.enterpriseView",
-        "onView:sheikha.osView",
-        "onView:sheikha.serviceProviderView",
-        "onView:sheikha.ideView",
-    "onView:sheikha.toolsView",
-    "onView:sheikhaNeuralNetwork",
-    "onCommand:sheikha.activateNeuralEngine",
-    "onCommand:sheikha.neuralNetwork",
-    "onCommand:sheikha.validateRootNeuralIntegration"
+    "onStartupFinished"
   ],
   "main": "./extension.js",
   "files": [
