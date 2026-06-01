@@ -1,9 +1,11 @@
+const APP_ROOT = __dirname;
+
 module.exports = {
   apps: [
     {
       name: "sheikha-main-portal",
       script: "./server.js",
-      cwd: "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+      cwd: APP_ROOT,
       instances: 4,
       exec_mode: "cluster",
       autorestart: true,
@@ -28,7 +30,7 @@ module.exports = {
     {
       name: "sheikha-universal-api",
       script: "./server.js",
-      cwd: "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+      cwd: APP_ROOT,
       instances: 1,
       exec_mode: "fork",
       autorestart: true,
