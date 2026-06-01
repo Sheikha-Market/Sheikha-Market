@@ -1,0 +1,273 @@
+{
+  "success": true,
+  "status": "passed",
+  "input": "market.shk",
+  "engine": "tree",
+  "profile": "staging",
+  "policyVerification": {
+    "ok": true,
+    "errors": []
+  },
+  "summary": {
+    "astNodes": 4,
+    "irSteps": 13,
+    "bytecodeInstructions": 13,
+    "outputs": 2,
+    "governanceViolations": 0,
+    "typeErrors": 0,
+    "neuralCells": 19,
+    "adapterCalls": 0,
+    "adapterDryRun": true,
+    "strictIsolation": false,
+    "policyErrors": 0
+  },
+  "typeCheck": {
+    "ok": true,
+    "diagnostics": [],
+    "symbols": {
+      "entities": {
+        "صفقة_معادن": {
+          "properties": {
+            "النوع": "string",
+            "الوزن": "number",
+            "الشرط": "string",
+            "منع": "list"
+          }
+        }
+      },
+      "procedures": {
+        "تحقق_شرعي": {
+          "commands": []
+        },
+        "توصية": {
+          "commands": [
+            "اعرض"
+          ]
+        }
+      }
+    }
+  },
+  "output": [
+    "رفض: \"الغش ممنوع\"",
+    "\"تم التحليل بذكاء وإتقان، والله ولي التوفيق\""
+  ],
+  "governance": {
+    "checks": [
+      {
+        "rule": "market-controls-required",
+        "status": "pass",
+        "detail": "ضوابط السوق مكتملة",
+        "step": {
+          "op": "ENTITY_PROPERTY",
+          "entity": "صفقة_معادن",
+          "key": "منع",
+          "value": "احتكار، غش، ضرر",
+          "loc": {
+            "start": {
+              "line": 7,
+              "column": 3
+            },
+            "end": {
+              "line": 7,
+              "column": 23
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.348Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "تحقق_شرعي",
+          "command": "ارفض",
+          "argument": "\"الغش ممنوع\"",
+          "loc": {
+            "start": {
+              "line": 11,
+              "column": 5
+            },
+            "end": {
+              "line": 11,
+              "column": 22
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.349Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "توصية",
+          "command": "اعرض",
+          "argument": "\"تم التحليل بذكاء وإتقان، والله ولي التوفيق\"",
+          "loc": {
+            "start": {
+              "line": 16,
+              "column": 3
+            },
+            "end": {
+              "line": 16,
+              "column": 52
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.349Z"
+      }
+    ],
+    "violations": []
+  },
+  "neural": {
+    "cells": 19,
+    "status": "online",
+    "executionGraph": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "DIRECTIVE",
+          "procedure": null
+        },
+        {
+          "id": "n2",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n3",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n4",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n5",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n6",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n7",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n8",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n9",
+          "label": "IF",
+          "procedure": "تحقق_شرعي"
+        },
+        {
+          "id": "n10",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        },
+        {
+          "id": "n11",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n12",
+          "label": "COMMAND",
+          "procedure": "توصية"
+        },
+        {
+          "id": "n13",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        }
+      ],
+      "edges": [
+        {
+          "from": "n1",
+          "to": "n2"
+        },
+        {
+          "from": "n2",
+          "to": "n3"
+        },
+        {
+          "from": "n3",
+          "to": "n4"
+        },
+        {
+          "from": "n4",
+          "to": "n5"
+        },
+        {
+          "from": "n5",
+          "to": "n6"
+        },
+        {
+          "from": "n6",
+          "to": "n7"
+        },
+        {
+          "from": "n7",
+          "to": "n8"
+        },
+        {
+          "from": "n8",
+          "to": "n9"
+        },
+        {
+          "from": "n9",
+          "to": "n10"
+        },
+        {
+          "from": "n10",
+          "to": "n11"
+        },
+        {
+          "from": "n11",
+          "to": "n12"
+        },
+        {
+          "from": "n12",
+          "to": "n13"
+        }
+      ]
+    }
+  },
+  "adapters": {
+    "dryRun": true,
+    "calls": []
+  },
+  "sandbox": {
+    "profile": "staging",
+    "strict": false,
+    "networkHosts": [
+      "127.0.0.1",
+      "localhost",
+      "staging.sheikha.top"
+    ],
+    "pm2Targets": [
+      "sheikha-api",
+      "sheikha-meta-background"
+    ],
+    "dockerTargets": [
+      "sheikha-api",
+      "sheikha-php-gateway"
+    ],
+    "dockerAllowNoTargetActions": [
+      "ps",
+      "images"
+    ]
+  }
+}

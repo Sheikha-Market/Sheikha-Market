@@ -3,6 +3,7 @@
 const fs = require('fs');
 const path = require('path');
 const crypto = require('crypto');
+const runtimeRegistry = require('../config/runtime-registry');
 
 const ROOT = process.cwd();
 const ENV_PATH = path.join(ROOT, '.env');
@@ -116,14 +117,26 @@ async function run() {
     env = parseEnv(envText);
   }
 
+  const mergedEnv = { ...process.env, ...env };
+
+  section('Runtime Profile');
+  const runtimeProfile = runtimeRegistry.getRuntimeProfile(mergedEnv.APP_ENV || mergedEnv.NODE_ENV, mergedEnv);
+  console.log(`APP_ENV: ${runtimeProfile.id}`);
+  console.log(`NODE_ENV(target): ${runtimeProfile.nodeEnv}`);
+  console.log(`Human languages: ${runtimeRegistry.getHumanLanguageCodes().length}`);
+  console.log(`Programming languages: ${runtimeRegistry.getSupportedProgrammingLanguages(mergedEnv).length}`);
+  console.log(`Markup languages: ${runtimeRegistry.getSupportedMarkupLanguages(mergedEnv).length}`);
+
   section('Integration Readiness');
-  const integrationKeys = ['OPENAI_API_KEY', 'ANTHROPIC_API_KEY', 'ALERT_WEBHOOK_URL', 'VPS_HOST'];
-  for (const key of integrationKeys) {
-    if (env[key] && String(env[key]).trim().length > 0) {
-      console.log(`OK: ${key} configured`);
-    } else {
+  const integrations = runtimeRegistry.getIntegrationStatus(mergedEnv);
+  for (const [id, integration] of Object.entries(integrations)) {
+    if (integration.ready) {
+      console.log(`OK: ${id} ready`);
+    } else if (integration.enabled) {
       warnings++;
-      console.log(`WARN: ${key} not configured`);
+      console.log(`WARN: ${id} enabled but missing ${integration.requiredKeys.join(', ')}`);
+    } else {
+      console.log(`INFO: ${id} disabled`);
     }
   }
 
@@ -160,4 +173,3 @@ run().catch((err) => {
   console.error('Unhandled error:', err);
   process.exit(1);
 });
-

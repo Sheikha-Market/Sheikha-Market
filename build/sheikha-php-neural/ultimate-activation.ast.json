@@ -1,0 +1,13 @@
+{
+  "kind": "SheikhaProgram",
+  "sourceFile": "/tmp/workspace/Sheikha-Market/sheikha-main-portal/sheikha-lang/examples/ultimate-activation.shk",
+  "generatedAt": "2026-06-01T21:30:37.305Z",
+  "governance": [
+    "لا ضرر ولا ضرار",
+    "الصدق والبيان",
+    "منع الاحتكار",
+    "منع الغش",
+    "التوثيق قبل التوسع"
+  ],
+  "body": "بسم_الله\n\nكيان بيئة_عليا:\n  النوع: تشغيل_موحد\n  الوزن: 2 طن\n  الشرط: صدق_وبيان\n  منع: احتكار، غش، ضرر\n\nإجراء تفعيل_نهائي:\n  API \"GET\" \"http://127.0.0.1:8080/api/health\"\n  PM2 \"status\" \"sheikha-api\"\n  DOCKER \"ps\"\n  اعرض \"تم تفعيل البيئة الكاملة وربط شبكة الخلايا العصبية الجذرية\"\n"
+}

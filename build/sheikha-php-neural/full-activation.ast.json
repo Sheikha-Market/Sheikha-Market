@@ -1,0 +1,13 @@
+{
+  "kind": "SheikhaProgram",
+  "sourceFile": "/tmp/workspace/Sheikha-Market/sheikha-main-portal/sheikha-lang/examples/full-activation.shk",
+  "generatedAt": "2026-06-01T21:30:37.273Z",
+  "governance": [
+    "لا ضرر ولا ضرار",
+    "الصدق والبيان",
+    "منع الاحتكار",
+    "منع الغش",
+    "التوثيق قبل التوسع"
+  ],
+  "body": "بسم_الله\n\nكيان بيئة_تفعيل:\n  النوع: تكامل_عصبي\n  الوزن: 1 طن\n  الشرط: صدق_وبيان\n  منع: احتكار، غش، ضرر\n\nإجراء تفعيل_البيئة:\n  API \"GET\" \"http://127.0.0.1:8080/api/health\"\n  PM2 \"status\" \"sheikha-api\"\n  اعرض \"تم تفعيل مسار PHP واللغة العصبية بنجاح\"\n"
+}

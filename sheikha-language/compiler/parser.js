@@ -51,6 +51,7 @@ const COMMAND_KEYWORDS = new Set([
     'API',
     'PM2',
     'DOCKER',
+    'PYTHON',
     'نداء_api',
     'تحكم_pm2',
     'تحكم_docker',

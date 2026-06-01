@@ -13,6 +13,8 @@ const { execSync } = require('child_process');
 const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
 const WebSocket = require('ws');
+const appConfig = require('./config/config');
+const unifiedRuntimeRegistry = require('./config/runtime-registry');
 
 // ====== SHARIA GUARD GLOBAL MIDDLEWARE ======
 // ====== SHARIA GUARD GLOBAL MIDDLEWARE & ROUTES ======
@@ -1516,33 +1518,7 @@ function calculateZakat(amount, goldPricePerGram = 250) {
 // 🌍 نظام الترجمة الآلية الشامل - Multi-Language Auto Translation System
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const SUPPORTED_LANGUAGES = {
-    ar: { name: 'العربية', nameEn: 'Arabic', dir: 'rtl', flag: '🇸🇦', primary: true },
-    en: { name: 'English', nameEn: 'English', dir: 'ltr', flag: '🇺🇸' },
-    zh: { name: '中文', nameEn: 'Chinese', dir: 'ltr', flag: '🇨🇳' },
-    hi: { name: 'हिन्दी', nameEn: 'Hindi', dir: 'ltr', flag: '🇮🇳' },
-    es: { name: 'Español', nameEn: 'Spanish', dir: 'ltr', flag: '🇪🇸' },
-    fr: { name: 'Français', nameEn: 'French', dir: 'ltr', flag: '🇫🇷' },
-    ru: { name: 'Русский', nameEn: 'Russian', dir: 'ltr', flag: '🇷🇺' },
-    pt: { name: 'Português', nameEn: 'Portuguese', dir: 'ltr', flag: '🇧🇷' },
-    de: { name: 'Deutsch', nameEn: 'German', dir: 'ltr', flag: '🇩🇪' },
-    ja: { name: '日本語', nameEn: 'Japanese', dir: 'ltr', flag: '🇯🇵' },
-    ko: { name: '한국어', nameEn: 'Korean', dir: 'ltr', flag: '🇰🇷' },
-    tr: { name: 'Türkçe', nameEn: 'Turkish', dir: 'ltr', flag: '🇹🇷' },
-    ur: { name: 'اردو', nameEn: 'Urdu', dir: 'rtl', flag: '🇵🇰' },
-    fa: { name: 'فارسی', nameEn: 'Persian', dir: 'rtl', flag: '🇮🇷' },
-    id: { name: 'Bahasa Indonesia', nameEn: 'Indonesian', dir: 'ltr', flag: '🇮🇩' },
-    ms: { name: 'Bahasa Melayu', nameEn: 'Malay', dir: 'ltr', flag: '🇲🇾' },
-    th: { name: 'ไทย', nameEn: 'Thai', dir: 'ltr', flag: '🇹🇭' },
-    vi: { name: 'Tiếng Việt', nameEn: 'Vietnamese', dir: 'ltr', flag: '🇻🇳' },
-    it: { name: 'Italiano', nameEn: 'Italian', dir: 'ltr', flag: '🇮🇹' },
-    nl: { name: 'Nederlands', nameEn: 'Dutch', dir: 'ltr', flag: '🇳🇱' },
-    pl: { name: 'Polski', nameEn: 'Polish', dir: 'ltr', flag: '🇵🇱' },
-    uk: { name: 'Українська', nameEn: 'Ukrainian', dir: 'ltr', flag: '🇺🇦' },
-    bn: { name: 'বাংলা', nameEn: 'Bengali', dir: 'ltr', flag: '🇧🇩' },
-    tl: { name: 'Tagalog', nameEn: 'Tagalog', dir: 'ltr', flag: '🇵🇭' },
-    sw: { name: 'Kiswahili', nameEn: 'Swahili', dir: 'ltr', flag: '🇰🇪' }
-};
+const SUPPORTED_LANGUAGES = unifiedRuntimeRegistry.getHumanLanguageCatalog();
 
 // القاموس الأساسي للترجمة (العربية هي المصدر)
 const TRANSLATIONS = {
@@ -2790,12 +2766,24 @@ app.get('/api/live', (req, res) => {
 });
 
 app.get('/api/health', (req, res) => {
+    const integrations = Object.values(appConfig.runtime.integrations || {});
     return res.json({
         success: true,
         data: {
             status: 'ok',
             pid: process.pid,
-            uptimeSeconds: Math.floor(process.uptime())
+            uptimeSeconds: Math.floor(process.uptime()),
+            environment: appConfig.server.appEnv,
+            defaultLocale: appConfig.languages.defaultLocale,
+            languageCounts: {
+                human: appConfig.languages.supportedCodes.length,
+                programming: appConfig.languages.programming.length,
+                markup: appConfig.languages.markup.length
+            },
+            integrationSummary: {
+                enabled: integrations.filter((item) => item.enabled).length,
+                ready: integrations.filter((item) => item.ready).length
+            }
         },
         message: 'الخدمة تعمل بشكل طبيعي',
         timestamp: new Date().toISOString()
@@ -2849,7 +2837,17 @@ app.get('/api/runtime', (req, res) => {
             uptimeSeconds: Math.floor((Date.now() - new Date(SERVER_START_TIME).getTime()) / 1000),
             fingerprint: {
                 status: RUNTIME_FINGERPRINT_STATUS || 'unknown'
-            }
+            },
+            environment: appConfig.runtime.currentProfile,
+            languages: {
+                defaultLocale: appConfig.languages.defaultLocale,
+                primary: appConfig.languages.primary,
+                human: appConfig.languages.supportedCodes.length,
+                programming: appConfig.languages.programming.length,
+                markup: appConfig.languages.markup.length,
+                acceptsUnknownProgrammingLanguages: appConfig.runtime.acceptsUnknownProgrammingLanguages
+            },
+            integrations: appConfig.runtime.integrations
         },
         message: 'تم جلب حالة التشغيل بنجاح',
         timestamp: new Date().toISOString()

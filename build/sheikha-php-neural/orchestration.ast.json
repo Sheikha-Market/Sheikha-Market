@@ -1,0 +1,13 @@
+{
+  "kind": "SheikhaProgram",
+  "sourceFile": "/tmp/workspace/Sheikha-Market/sheikha-main-portal/sheikha-language/examples/orchestration.shk",
+  "generatedAt": "2026-06-01T21:30:37.241Z",
+  "governance": [
+    "لا ضرر ولا ضرار",
+    "الصدق والبيان",
+    "منع الاحتكار",
+    "منع الغش",
+    "التوثيق قبل التوسع"
+  ],
+  "body": "بسم_الله\n\nكيان بوابة_تشغيل:\n  النوع: تكامل_تنفيذي\n  منع: احتكار، غش، ضرر\n\nإجراء فحص_الخدمات:\n  API \"GET\" \"http://127.0.0.1:8080/api/health\"\n  PM2 \"status\" \"sheikha-api\"\n  DOCKER \"ps\"\n  اعرض \"تم تنفيذ فحص adapters بنجاح\"\n"
+}

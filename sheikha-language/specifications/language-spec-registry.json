@@ -1,0 +1,158 @@
+{
+  "version": "1.0.0",
+  "defaultSourceLanguage": "sheikha",
+  "languages": [
+    {
+      "name": "sheikha",
+      "family": "sheikha-dsl",
+      "extensions": [".shk"],
+      "inputKinds": ["shk", "semantic-manifest"],
+      "runtime": "native",
+      "governance": "native"
+    },
+    {
+      "name": "javascript",
+      "family": "javascript-typescript",
+      "extensions": [".js", ".mjs", ".cjs"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "typescript",
+      "family": "javascript-typescript",
+      "extensions": [".ts", ".tsx"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "python",
+      "family": "python-ruby-php",
+      "extensions": [".py"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "ruby",
+      "family": "python-ruby-php",
+      "extensions": [".rb"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "php",
+      "family": "python-ruby-php",
+      "extensions": [".php"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "go",
+      "family": "go-rust-c",
+      "extensions": [".go"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "rust",
+      "family": "go-rust-c",
+      "extensions": [".rs"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "c",
+      "family": "go-rust-c",
+      "extensions": [".c", ".h"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "cpp",
+      "family": "go-rust-c",
+      "extensions": [".cc", ".cpp", ".cxx", ".hpp"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "java",
+      "family": "jvm-dotnet",
+      "extensions": [".java"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "csharp",
+      "family": "jvm-dotnet",
+      "extensions": [".cs"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "kotlin",
+      "family": "jvm-dotnet",
+      "extensions": [".kt", ".kts"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "swift",
+      "family": "native-managed",
+      "extensions": [".swift"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "scala",
+      "family": "functional",
+      "extensions": [".scala"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "haskell",
+      "family": "functional",
+      "extensions": [".hs"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "clojure",
+      "family": "functional",
+      "extensions": [".clj", ".cljs"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "elixir",
+      "family": "functional",
+      "extensions": [".ex", ".exs"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    },
+    {
+      "name": "lua",
+      "family": "scripting",
+      "extensions": [".lua"],
+      "inputKinds": ["semantic-manifest"],
+      "runtime": "manifest-adapter",
+      "governance": "normalized"
+    }
+  ]
+}

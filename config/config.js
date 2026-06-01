@@ -7,22 +7,27 @@
 
 require('dotenv').config();
 const crypto = require('crypto');
+const runtimeRegistry = require('./runtime-registry');
 
-const isProductionEnv = String(process.env.NODE_ENV || 'development') === 'production';
+const resolvedRuntimeProfile = runtimeRegistry.getRuntimeProfile(process.env.APP_ENV || process.env.NODE_ENV || 'development');
+const nodeEnvironment = String(process.env.NODE_ENV || resolvedRuntimeProfile.nodeEnv || 'development');
+const isProductionEnv = nodeEnvironment === 'production';
 const runtimeDevJwtSecret = crypto.createHash('sha256')
     .update('sheikha-dev:' + String(process.pid) + ':' + String(Date.now()))
     .digest('hex');
 const generatedFallbackEncryptionKey = crypto.createHash('sha256')
     .update(String(process.env.HOSTNAME || 'sheikha') + String(process.pid))
     .digest('hex');
+const integrationStatus = runtimeRegistry.getIntegrationStatus(process.env);
 
 const config = {
     // ─── إعدادات الخادم ───────────────────────────────────────────────────────
     server: {
         port: process.env.PORT || 8080,
         // 🛡️ الإنتاج → 0.0.0.0 (داخل الحاوية) | التطوير → 127.0.0.1 (محلي فقط)
-        host: process.env.HOST || (isProductionEnv ? '0.0.0.0' : '127.0.0.1'),
-        env: process.env.NODE_ENV || 'development'
+        host: process.env.HOST || resolvedRuntimeProfile.host || (isProductionEnv ? '0.0.0.0' : '127.0.0.1'),
+        env: nodeEnvironment,
+        appEnv: resolvedRuntimeProfile.id
     },
 
     // ─── إعدادات قاعدة البيانات ───────────────────────────────────────────────
@@ -178,6 +183,16 @@ const config = {
         }
     },
 
+    languages: {
+        defaultLocale: 'ar-SA',
+        primary: runtimeRegistry.getDefaultHumanLanguage(),
+        supported: runtimeRegistry.getHumanLanguageCatalog(),
+        supportedCodes: runtimeRegistry.getHumanLanguageCodes(),
+        rtlCodes: runtimeRegistry.getHumanLanguageCodes().filter((code) => runtimeRegistry.getHumanLanguageDirection(code) === 'rtl'),
+        programming: runtimeRegistry.getSupportedProgrammingLanguages(process.env),
+        markup: runtimeRegistry.getSupportedMarkupLanguages(process.env)
+    },
+
     // ─── إعدادات الإشعارات ────────────────────────────────────────────────────
     notifications: {
         email: {
@@ -276,6 +291,14 @@ const config = {
             enabled: !!(process.env.OPENAI_API_KEY && process.env.OPENAI_API_KEY.length > 10),
             purpose: 'المحادثة والتحليل الذكي'
         }
+    },
+
+    runtime: {
+        currentProfile: resolvedRuntimeProfile,
+        profiles: runtimeRegistry.getRuntimeProfiles(),
+        languageFamilies: runtimeRegistry.getLanguageFamilies(process.env),
+        integrations: integrationStatus,
+        acceptsUnknownProgrammingLanguages: runtimeRegistry.isUnknownProgrammingLanguageSupportEnabled(process.env)
     },
 
     // ─── إعدادات التخزين ──────────────────────────────────────────────────────

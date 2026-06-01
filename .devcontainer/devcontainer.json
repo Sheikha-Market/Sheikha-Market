@@ -15,15 +15,29 @@
                 "github.copilot-chat",
                 "github.vscode-pull-request-github",
                 "gitlab.gitlab-workflow",
-                "ms-vscode-remote.remote-containers"
+                "ms-vscode-remote.remote-containers",
+                "ms-python.python",
+                "ms-python.vscode-pylance",
+                "ms-python.debugpy",
+                "ms-toolsai.jupyter",
+                "ms-toolsai.vscode-jupyter-cell-tags",
+                "ms-toolsai.jupyter-keymap",
+                "ms-python.black-formatter",
+                "charliermarsh.ruff",
+                "ms-python.pylint",
+                "ms-python.isort",
+                "donjayamanne.python-environment-manager"
             ],
             "settings": {
                 "editor.tabSize": 4,
-                "editor.insertSpaces": true
+                "editor.insertSpaces": true,
+                "python.defaultInterpreterPath": "/workspace/.venv/bin/python",
+                "python.terminal.activateEnvironment": true,
+                "jupyter.notebookFileRoot": "${workspaceFolder}"
             }
         }
     },
-    "forwardPorts": [8080, 8081, 9229],
-    "postCreateCommand": "npm install",
+    "forwardPorts": [8080, 8000, 8888, 9229],
+    "postCreateCommand": "npm install && pip install --upgrade pip && pip install -r requirements.txt",
     "remoteUser": "node"
 }

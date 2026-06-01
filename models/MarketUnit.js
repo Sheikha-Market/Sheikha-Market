@@ -21,6 +21,7 @@
 
 const { v4: uuid } = require('uuid');
 const database = require('../config/database');
+const runtimeRegistry = require('../config/runtime-registry');
 
 // ─── أنواع الأسواق ─────────────────────────────────────────────────────────────
 const MARKET_TYPES = {
@@ -95,7 +96,7 @@ class MarketUnit {
             workingHours:       null,  // ساعات العمل
             currency:           'SAR', // العملة الأساسية
             supportedCurrencies: ['SAR', 'USD', 'EUR'],
-            languagesSupported:  ['ar', 'en'],
+            languagesSupported:  runtimeRegistry.getHumanLanguageCodes(),
             paymentMethods:      []    // طرق الدفع المتاحة
         };
 
