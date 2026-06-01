@@ -5,8 +5,13 @@ set -euo pipefail
 # - Nginx hardening ضد 502/504
 # - تفعيل PM2 إعدادات الثبات والمراقبة
 # - تثبيت earlyoom لمنع الانهيار عند ضغط الذاكرة
-# - تحديث مؤقت health-check ليعمل كل دقيقة
+# - تثبيت sheikha-health-check timer (Neural Monitoring Mesh)
+# - تثبيت neural-monitor كخدمة منفصلة
 
+# ── PATH: يدعم NVM + مسارات النظام القياسية ─────────────────────────────
+export PATH="/root/.nvm/versions/node/v25.6.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH:-}"
+
+# ROOT_DIR يُكتشف تلقائيًّا بناءً على موقع السكربت
 ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
 NGINX_SITE_FILE="${NGINX_SITE_FILE:-/etc/nginx/sites-available/default}"
 APP_PROXY_PORT="${APP_PROXY_PORT:-8080}"
@@ -95,6 +100,16 @@ apply_earlyoom() {
     log "⚠️ apt not available; skip earlyoom"
 }
 
+init_log_files() {
+    local logs=(/var/log/sheikha-health.log /var/log/sheikha-neural.log /var/log/sheikha-guardian.log)
+    for lf in "${logs[@]}"; do
+        if [[ ! -f "$lf" ]]; then
+            touch "$lf" 2>/dev/null && chmod 640 "$lf" 2>/dev/null || true
+            log "📝 أُنشئ ملف اللوق: $lf"
+        fi
+    done
+}
+
 install_health_guard_units() {
     local src_script="$ROOT_DIR/scripts/sheikha-health-check.sh"
     local src_service="$ROOT_DIR/scripts/sheikha-health-check.service"
@@ -114,23 +129,78 @@ install_health_guard_units() {
     log "✅ sheikha-health-check timer enabled"
 }
 
-install_neural_monitor_units() {
-    local src_script="$ROOT_DIR/scripts/sheikha-neural-monitor.sh"
+install_neural_monitor() {
+    local src_script="$ROOT_DIR/scripts/neural-monitor.sh"
     local src_service="$ROOT_DIR/scripts/sheikha-neural-monitor.service"
 
-    [[ -f "$src_script" ]] || { log "❌ missing: $src_script"; exit 1; }
-    [[ -f "$src_service" ]] || { log "❌ missing: $src_service"; exit 1; }
+    if [[ ! -f "$src_script" ]]; then
+        log "⚠️ neural-monitor.sh غير موجود (skip)"
+        return 0
+    fi
 
     install -m 0755 "$src_script" /usr/local/bin/sheikha-neural-monitor.sh
-    install -m 0644 "$src_service" /etc/systemd/system/sheikha-neural-monitor.service
+
+    if [[ -f "$src_service" ]]; then
+        install -m 0644 "$src_service" /etc/systemd/system/sheikha-neural-monitor.service
+    else
+        log "⚠️ sheikha-neural-monitor.service غير موجود في المستودع — توليد inline"
+        cat > /etc/systemd/system/sheikha-neural-monitor.service <<'SERVICE'
+[Unit]
+Description=Sheikha Neural Monitoring Mesh — شبكة الخلايا العصبية الجذرية
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=simple
+ExecStart=/usr/local/bin/sheikha-neural-monitor.sh --interval=60
+Restart=on-failure
+RestartSec=30
+StandardOutput=append:/var/log/sheikha-neural.log
+StandardError=append:/var/log/sheikha-neural.log
+
+[Install]
+WantedBy=multi-user.target
+SERVICE
+    fi
 
     systemctl daemon-reload
-    systemctl enable sheikha-neural-monitor.service
-    systemctl restart sheikha-neural-monitor.service
-    log "✅ sheikha-neural-monitor service enabled"
+    systemctl enable sheikha-neural-monitor 2>/dev/null || true
+    systemctl start sheikha-neural-monitor 2>/dev/null || true
+    log "✅ sheikha-neural-monitor service installed + started"
+}
+
+install_guardian_units() {
+    local src_script="$ROOT_DIR/scripts/sheikha-guardian.sh"
+    local src_service="$ROOT_DIR/scripts/sheikha-guardian.service"
+    local src_timer="$ROOT_DIR/scripts/sheikha-guardian.timer"
+
+    if [[ ! -f "$src_script" ]]; then
+        log "⚠️ sheikha-guardian.sh غير موجود (skip)"
+        return 0
+    fi
+
+    # أوقف الـ guardian القديم قبل التحديث لمنع استمرار حلقة sheikha-main
+    systemctl stop sheikha-guardian.timer 2>/dev/null || true
+    systemctl stop sheikha-guardian.service 2>/dev/null || true
+
+    install -m 0755 "$src_script" /usr/local/bin/sheikha-guardian.sh
+
+    if [[ -f "$src_service" ]]; then
+        install -m 0644 "$src_service" /etc/systemd/system/sheikha-guardian.service
+    fi
+
+    if [[ -f "$src_timer" ]]; then
+        install -m 0644 "$src_timer" /etc/systemd/system/sheikha-guardian.timer
+    fi
+
+    systemctl daemon-reload
+    systemctl enable --now sheikha-guardian.timer 2>/dev/null || true
+    log "✅ sheikha-guardian units updated + restarted (PM2-aware)"
 }
 
 main() {
+    log "🚀 بدء تفعيل الدرع النهائي من: $ROOT_DIR"
+
     require_cmd sed
     require_cmd systemctl
 
@@ -138,11 +208,22 @@ main() {
     apply_nginx_hardening
     apply_pm2_guard
     apply_earlyoom
+    init_log_files
     install_health_guard_units
-    install_neural_monitor_units
+    install_guardian_units
+    install_neural_monitor
 
     log "🎯 FINAL SHIELD ACTIVE"
-    log "Next: run 'pm2 monit' for live telemetry"
+    log "══════════════════════════════════════════"
+    log "الأوامر المتاحة بعد التفعيل:"
+    log "  tail -f /var/log/sheikha-health.log   ← سجل health-check"
+    log "  tail -f /var/log/sheikha-neural.log   ← سجل Neural Monitor"
+    log "  tail -f /var/log/sheikha-guardian.log ← سجل Guardian"
+    log "  systemctl status sheikha-health-check.timer"
+    log "  systemctl status sheikha-guardian.timer    ← حالة Guardian"
+    log "  systemctl status sheikha-neural-monitor    ← حالة Neural Monitor"
+    log "  pm2 monit                              ← مراقبة PM2 مباشرة"
+    log "══════════════════════════════════════════"
 }
 
 main "$@"

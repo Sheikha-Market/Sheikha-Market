@@ -108,6 +108,8 @@
     "dev:scaffold:app:help": "node scripts/scaffold-electronic-app.js --help",
     "start:safe": "node server.js",
     "ops:readiness": "node scripts/integration-readiness.js",
+    "ops:enterprise:hierarchy": "node scripts/activate-enterprise-hierarchy.js",
+    "ops:enterprise:hierarchy:apply": "node scripts/activate-enterprise-hierarchy.js --apply",
     "ops:gov:readiness": "node scripts/gov-integrations-readiness.js",
     "ops:gov:auto": "node scripts/gov-auto-activation.js",
     "ops:gov:auto:fix": "SHEIKHA_AUTOFIX=1 node scripts/gov-auto-activation.js",

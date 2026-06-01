@@ -3,6 +3,10 @@ set -euo pipefail
 
 # بسم الله الرحمن الرحيم
 # فحص صحة الخدمات + إعادة تشغيل ذاتي + تنبيه Telegram
+# متوافق مع السيرفر: /opt/sheikha/current | Node.js عبر NVM
+
+# ── PATH: يدعم NVM + مسارات النظام القياسية ─────────────────────────────
+export PATH="/root/.nvm/versions/node/v25.6.1/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:${PATH:-}"
 
 # ضروري عند التشغيل من systemd (بيئة محدودة)
 export PM2_HOME='/root/.pm2'
@@ -16,6 +20,9 @@ PRIMARY_HEALTH_URL='http://127.0.0.1:8080/api/health'
 FALLBACK_HEALTH_URL='http://127.0.0.1:8090/api/health'
 NGINX_SITE_FILE='/etc/nginx/sites-available/default'
 LOG_FILE='/var/log/sheikha-health.log'
+
+# تأكد من وجود ملف اللوق
+touch "$LOG_FILE" 2>/dev/null || LOG_FILE='/tmp/sheikha-health.log'
 
 # اختياري: ضع bot token و chat id لتفعيل تنبيه Telegram
 TELEGRAM_BOT_TOKEN="${SHEIKHA_TG_BOT_TOKEN:-}"
@@ -125,15 +132,41 @@ perform_health_failover() {
     return 1
 }
 
-restart_if_down 'sheikha-main'
-restart_if_down 'ollama'
+# استبدال PM2 بدلاً من systemctl لـ sheikha-api على هذا السيرفر
+restart_if_down_pm2() {
+    local app="$1"
+    if command -v pm2 &>/dev/null; then
+        local status
+        status=$(pm2 jlist 2>/dev/null \
+            | node -e "try{const d=JSON.parse(require('fs').readFileSync('/dev/stdin','utf8'));
+                const p=d.find(x=>x.name==='${app}');
+                console.log(p?p.pm2_env.status:'missing');}catch(e){console.log('error');}" \
+            2>/dev/null || echo 'error')
+        if [[ "$status" != 'online' ]]; then
+            send_alert "pm2_app_down app=$app status=$status action=restart"
+            pm2 restart "$app" 2>/dev/null || true
+            sleep 3
+        fi
+    elif command -v systemctl &>/dev/null; then
+        restart_if_down "$app"
+    fi
+}
 
-restart_if_unhealthy 'sheikha-main' "$APP_URL"
-restart_if_unhealthy 'ollama' "$OLLAMA_URL"
+restart_if_down 'nginx'
+restart_if_down 'ssh'
+restart_if_down_pm2 'sheikha-api'
+
+# ollama: اختياري — لا يُوقف السكربت إذا لم يكن مثبّتًا
+if systemctl list-units --type=service 2>/dev/null | grep -q 'ollama'; then
+    restart_if_unhealthy 'ollama' "$OLLAMA_URL"
+fi
+
 perform_health_failover || true
 
-# فحص قنوات الاتصال الأساسية (اختياري): واتساب + بريد + SMS
-if ! curl -fsS --max-time 8 "$COMMS_URL" | rg -q '"success"\s*:\s*true'; then
+# فحص قنوات الاتصال الأساسية (اختياري)
+if curl -fsS --max-time 8 "$COMMS_URL" 2>/dev/null | grep -q '"success".*true'; then
+    true
+else
     send_alert "comms_providers_unreachable url=$COMMS_URL"
 fi
 

@@ -1,13 +1,17 @@
 [Unit]
-Description=Sheikha neural monitor telemetry loop
+Description=Sheikha Neural Monitoring Mesh — شبكة الخلايا العصبية الجذرية
+Documentation=https://github.com/Sheikha-Market/sheikha-main-portal
 After=network-online.target
 Wants=network-online.target
 
 [Service]
 Type=simple
-ExecStart=/usr/local/bin/sheikha-neural-monitor.sh
-Restart=always
-RestartSec=5
+ExecStart=/usr/local/bin/sheikha-neural-monitor.sh --interval=60
+Restart=on-failure
+RestartSec=30
+# سجلات منفصلة عن sheikha-guardian
+StandardOutput=append:/var/log/sheikha-neural.log
+StandardError=append:/var/log/sheikha-neural.log
 
 [Install]
 WantedBy=multi-user.target

@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "updatedAt": "2026-06-01T00:00:00Z",
+  "description": "Optimum rules used by scripts/optimum-rules.py",
+  "rules": [
+    {
+      "id": "price-competitiveness",
+      "label": "Price competitiveness",
+      "field": "priceGapPercent",
+      "operator": "between",
+      "min": -5,
+      "max": 5,
+      "weight": 30,
+      "enabled": true
+    },
+    {
+      "id": "stock-coverage",
+      "label": "Stock coverage days",
+      "field": "stockDays",
+      "operator": "between",
+      "min": 15,
+      "max": 45,
+      "weight": 35,
+      "enabled": true
+    },
+    {
+      "id": "fulfillment-rate",
+      "label": "Fulfillment rate",
+      "field": "fulfillmentRate",
+      "operator": "gte",
+      "value": 0.95,
+      "weight": 35,
+      "enabled": true
+    }
+  ]
+}
