@@ -1,6 +1,7 @@
 [Unit]
-Description=Sheikha guardian — PM2 watchdog + HTTP health
-After=network-online.target
+Description=Sheikha Guardian — حارس الإنتاج الذكي
+Documentation=https://github.com/Sheikha-Market/sheikha-main-portal
+After=network-online.target pm2-root.service
 Wants=network-online.target
 
 [Service]
@@ -8,6 +9,8 @@ Type=oneshot
 Environment=PM2_HOME=/root/.pm2
 Environment=HOME=/root
 ExecStart=/usr/local/bin/sheikha-guardian.sh
+StandardOutput=append:/var/log/sheikha-guardian.log
+StandardError=append:/var/log/sheikha-guardian.log
 
 [Install]
 WantedBy=multi-user.target

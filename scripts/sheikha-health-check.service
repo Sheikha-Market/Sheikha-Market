@@ -5,5 +5,10 @@ Wants=network-online.target
 
 [Service]
 Type=oneshot
-EnvironmentFile=-/home/sheikha/Projects/sheikha/sheikha-main-portal/.env
+# Production server: /opt/sheikha/shared/.env
+# Dev fallback:      /opt/sheikha/current/.env
+EnvironmentFile=-/opt/sheikha/shared/.env
+EnvironmentFile=-/opt/sheikha/current/.env
 ExecStart=/usr/local/bin/sheikha-health-check.sh
+StandardOutput=append:/var/log/sheikha-health.log
+StandardError=append:/var/log/sheikha-health.log
