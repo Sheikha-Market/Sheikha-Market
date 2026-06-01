@@ -13,10 +13,16 @@ module.exports = {
       env: {
         NODE_ENV: "production",
         PORT: 8080,
-        OLLAMA_HOST: "127.0.0.1:11434",
+        OLLAMA_HOST: "http://127.0.0.1:11434",
         SHEIKHA_CORE_MODEL: "Sheikha-Core",
         AI_LLM_MODEL: "Sheikha-Core",
-        SHEIKHA_RUNTIME_MODE: "governed-fast-operational"
+        SHEIKHA_RUNTIME_MODE: "governed-fast-operational",
+        SHEIKHA_ENABLE_PIPELINE_LAYER: "true",
+        SHEIKHA_ENABLE_MLOPS_LAYER: "true",
+        SHEIKHA_ENABLE_GOVERNANCE_LAYER: "true",
+        SHEIKHA_ENABLE_ENTERPRISE_CONTROL_PLANE: "true",
+        SHEIKHA_CLUSTER_SCOPE_AI_SYSTEM: "true",
+        SHEIKHA_CLUSTER_SCOPE_VSCODE_CHAT: "true"
       }
     },
     {
@@ -31,7 +37,11 @@ module.exports = {
         NODE_ENV: "production",
         PORT: 9191,
         SHEIKHA_UNIVERSAL_API: "true",
-        OLLAMA_HOST: "127.0.0.1:11434"
+        OLLAMA_HOST: "http://127.0.0.1:11434",
+        SHEIKHA_ENABLE_PIPELINE_LAYER: "true",
+        SHEIKHA_ENABLE_MLOPS_LAYER: "true",
+        SHEIKHA_ENABLE_GOVERNANCE_LAYER: "true",
+        SHEIKHA_ENABLE_ENTERPRISE_CONTROL_PLANE: "true"
       }
     }
   ]
