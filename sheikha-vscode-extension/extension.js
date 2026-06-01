@@ -166,7 +166,10 @@ class SheikhaProvider {
             arabicComments: wsConfig.get('arabicComments', true),
             autoStartBackend: wsConfig.get('autoStartBackend', true),
             backendStartupRetries: wsConfig.get('backendStartupRetries', 8),
-            dashboardRefreshSeconds: wsConfig.get('dashboardRefreshSeconds', 60)
+            dashboardRefreshSeconds: wsConfig.get('dashboardRefreshSeconds', 60),
+            chatRetries: Math.max(0, wsConfig.get('chatRetries', 2)),
+            chatRequestTimeoutMs: Math.max(800, wsConfig.get('chatRequestTimeoutMs', 4000)),
+            chatSloLatencyMs: Math.max(500, wsConfig.get('chatSloLatencyMs', 2500))
         };
     }
 
@@ -229,8 +232,11 @@ class SheikhaProvider {
 
     async chat(message, codeContext, language, history) {
         const authHeaders = await this.authManager.getAuthHeaders();
-        try {
-            const response = await fetch(`${this.config.serverUrl}/api/sheikha/chat`, {
+        const startedAt = Date.now();
+        const totalAttempts = this.config.chatRetries + 1;
+
+        const requestChatEndpoint = async () => {
+            const response = await fetchWithTimeout(`${this.config.serverUrl}/api/sheikha/chat`, {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json', ...authHeaders },
                 body: JSON.stringify({
@@ -240,41 +246,89 @@ class SheikhaProvider {
                     history: history || [],
                     model: this.config.defaultModel
                 })
-            });
+            }, this.config.chatRequestTimeoutMs);
+
             const data = await response.json();
-            if (!response.ok) throw new Error(data.message);
-            return data.data;
-        } catch (err) {
-            try {
-                const fallbackResponse = await fetch(`${this.config.serverUrl}/api/sheikha/ai-gateway/ask`, {
-                    method: 'POST',
-                    headers: { 'Content-Type': 'application/json', ...authHeaders },
-                    body: JSON.stringify({
-                        prompt: message,
-                        context: {
-                            source: 'vscode-extension',
-                            language,
-                            codeContext: codeContext ? codeContext.slice(0, 12000) : '',
-                            history: history || []
-                        }
-                    })
-                });
-                const fallbackData = await fallbackResponse.json();
-                if (!fallbackResponse.ok || !fallbackData.success) {
-                    throw new Error(fallbackData.message || fallbackData.error || 'ai-gateway unavailable');
-                }
-                return {
-                    reply: fallbackData.output || fallbackData.message || 'Sheikha جاهزة.',
-                    codeSnippet: fallbackData.codeSnippet || null,
-                    provider: fallbackData.provider,
-                    mode: fallbackData.mode
-                };
-            } catch (fallbackErr) {
-                return {
-                    reply: `خطأ: ${fallbackErr.message || err.message}`,
-                    codeSnippet: null
-                };
+            if (!response.ok) {
+                throw new Error(data.message || `chat endpoint ${response.status}`);
             }
+            return data.data;
+        };
+
+        const requestFallbackEndpoint = async () => {
+            const fallbackResponse = await fetchWithTimeout(`${this.config.serverUrl}/api/sheikha/ai-gateway/ask`, {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json', ...authHeaders },
+                body: JSON.stringify({
+                    prompt: message,
+                    context: {
+                        source: 'vscode-extension',
+                        language,
+                        codeContext: codeContext ? codeContext.slice(0, 12000) : '',
+                        history: history || []
+                    }
+                })
+            }, this.config.chatRequestTimeoutMs);
+
+            const fallbackData = await fallbackResponse.json();
+            if (!fallbackResponse.ok || !fallbackData.success) {
+                throw new Error(fallbackData.message || fallbackData.error || 'ai-gateway unavailable');
+            }
+            return {
+                reply: fallbackData.output || fallbackData.message || 'Sheikha جاهزة.',
+                codeSnippet: fallbackData.codeSnippet || null,
+                provider: fallbackData.provider,
+                mode: fallbackData.mode
+            };
+        };
+
+        let lastError = null;
+        for (let attempt = 1; attempt <= totalAttempts; attempt += 1) {
+            try {
+                const data = await requestChatEndpoint();
+                const latencyMs = Date.now() - startedAt;
+                return {
+                    ...data,
+                    meta: {
+                        ...(data && data.meta ? data.meta : {}),
+                        attempts: attempt,
+                        latencyMs,
+                        meetsSLO: latencyMs <= this.config.chatSloLatencyMs,
+                        source: 'chat-endpoint'
+                    }
+                };
+            } catch (error) {
+                lastError = error;
+                if (attempt >= totalAttempts) {
+                    break;
+                }
+            }
+        }
+
+        try {
+            const fallbackResult = await requestFallbackEndpoint();
+            const latencyMs = Date.now() - startedAt;
+            return {
+                ...fallbackResult,
+                meta: {
+                    attempts: totalAttempts + 1,
+                    latencyMs,
+                    meetsSLO: latencyMs <= this.config.chatSloLatencyMs,
+                    source: 'ai-gateway-fallback'
+                }
+            };
+        } catch (fallbackErr) {
+            const latencyMs = Date.now() - startedAt;
+            return {
+                reply: `خطأ: ${fallbackErr.message || (lastError && lastError.message) || 'تعذر تنفيذ المحادثة'}`,
+                codeSnippet: null,
+                meta: {
+                    attempts: totalAttempts + 1,
+                    latencyMs,
+                    meetsSLO: false,
+                    source: 'failed'
+                }
+            };
         }
     }
 
