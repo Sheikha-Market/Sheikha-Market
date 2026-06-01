@@ -10,10 +10,18 @@ function createArabicRuntimeMemory() {
   };
 }
 
+function cloneMemoryState(memory) {
+  if (typeof globalThis.structuredClone === 'function') {
+    return globalThis.structuredClone(memory);
+  }
+
+  return JSON.parse(JSON.stringify(memory));
+}
+
 function applyArabicOperation(memory, operation = {}) {
 
   const next =
-    structuredClone(memory);
+    cloneMemoryState(memory);
 
   next.operations.push(operation);
 
@@ -26,7 +34,7 @@ function applyArabicOperation(memory, operation = {}) {
       operation.destination;
 
     const value =
-      operation.value;
+      Number(operation.value) || 0;
 
     next.accounts[source] =
       next.accounts[source] || 0;
@@ -34,8 +42,8 @@ function applyArabicOperation(memory, operation = {}) {
     next.accounts[destination] =
       next.accounts[destination] || 0;
 
-    next.accounts[source] -= 1;
-    next.accounts[destination] += 1;
+    next.accounts[source] -= value;
+    next.accounts[destination] += value;
 
     next.states.push({
       type: 'TRANSFER_APPLIED',

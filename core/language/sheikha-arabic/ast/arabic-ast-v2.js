@@ -19,7 +19,7 @@ function buildArabicAstV2(input) {
       normalized: t.normalized,
       precedence: getArabicPrecedence(t.original) || getArabicPrecedence(t.normalized),
       semanticType: semanticTypeOf(t.original),
-      ontology: resolveArabicOntology(token),
+      ontology: resolveArabicOntology(t.normalized || t.original),
         grammaticalState: require('../runtime/state-machine/arabic-grammatical-state-machine').resolveGrammaticalState({ semanticType: semanticTypeOf(t.original) })
     }))
   };

@@ -1043,7 +1043,8 @@ function analyzeWithUniversalKnowledge(input = {}) {
         return { success: false, message: 'تعذر تحميل قاعدة المعرفة الكونية', error: graph && graph.error };
     }
     // مثال: تحليل نوع البنية أو المبادئ المطلوبة
-    const matches = graph.nodes.filter(node => {
+  const nodes = Array.isArray(graph.nodes) ? graph.nodes : [];
+  const matches = nodes.filter(node => {
         if (input.principle && node.principles.includes(input.principle)) return true;
         if (input.type && node.type === input.type) return true;
         if (input.name && node.name.includes(input.name)) return true;
@@ -1057,7 +1058,24 @@ function analyzeWithUniversalKnowledge(input = {}) {
     };
 }
 
-module.exports.analyzeWithUniversalKnowledge = analyzeWithUniversalKnowledge;
+function activateRootNeuralCellNetwork(options = {}) {
+  const activate = Object.prototype.hasOwnProperty.call(options, 'activate')
+    ? Boolean(options.activate)
+    : true;
+
+  setNeuralNetworkActiveState(activate);
+  activateSupremeRootNeuralFabric({ active: activate });
+
+  return {
+    success: true,
+    status: activate ? 'active' : 'inactive',
+    network: getNeuralNetworkStatus(),
+    fabric: getSupremeRootNeuralFabricStatus(),
+    message: activate
+      ? 'تم تفعيل شبكة الخلايا العصبية الجذرية بالكامل.'
+      : 'تم إيقاف شبكة الخلايا العصبية الجذرية.'
+  };
+}
 
 module.exports = {
   SHEIKHA_AI_NEURAL_CELLS,
@@ -1080,6 +1098,8 @@ module.exports = {
   getRuntimeCell,
   hotLoadRuntimeCell,
   injectRuntimeCell,
+  analyzeWithUniversalKnowledge,
+  activateRootNeuralCellNetwork,
   setNeuralNetworkActiveState,
   retrainNeuralNetwork
 };
