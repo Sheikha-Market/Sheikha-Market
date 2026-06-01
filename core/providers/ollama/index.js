@@ -2,7 +2,7 @@
 
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
-const TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 30000);
+const TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 120000);
 const NUM_CTX = Number(process.env.SHEIKHA_CORE_NUM_CTX || 2048);
 const NUM_PREDICT = Number(process.env.SHEIKHA_CORE_NUM_PREDICT || 256);
 const KEEP_ALIVE = process.env.SHEIKHA_CORE_KEEP_ALIVE || '10m';
