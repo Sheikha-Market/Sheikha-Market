@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "self-development-governance-kernel",
+      "mount": "/api/self-development",
+      "module": "./routes/self-development/status.routes",
+      "priority": 110
+    },
+    {
       "name": "vector-semantic-layer",
       "mount": "/api/neural-fabric/vector",
       "module": "routes/neural-fabric/vector/status.routes.js",
