@@ -1,11 +1,12 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const { health: sqlserverHealth } = require('../../lib/database/sqlserver/sqlserver-connection-manager');
 const { health: postgresqlHealth } = require('../../lib/database/postgresql/postgresql-connection-manager');
 const { health: redisHealth } = require('../../lib/database/redis/redis-connection-manager');
+const { health: mongodbHealth } = require('../../lib/database/mongodb/mongodb-connection-manager');
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(path.join(process.cwd(), file), 'utf8'));
@@ -21,8 +22,9 @@ router.get('/health', async (_req, res) => {
     const sqlserver = await sqlserverHealth();
     const postgresql = await postgresqlHealth();
     const redis = await redisHealth();
+    const mongodb = await mongodbHealth();
 
-    const healthy = sqlserver.success && postgresql.success && redis.success;
+    const healthy = sqlserver.success && postgresql.success && redis.success && mongodb.success;
 
     return res.json({
       success: true,
@@ -33,7 +35,8 @@ router.get('/health', async (_req, res) => {
       engines: {
         sqlserver,
         postgresql,
-        redis
+        redis,
+        mongodb
       },
       governance: {
         audit_required: true,

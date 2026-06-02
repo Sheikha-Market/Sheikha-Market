@@ -22606,6 +22606,14 @@ try {
   );
 }
 
+// SHEIKHA_MONGODB_DOCUMENT_FABRIC
+try {
+  app.use('/api/data-fabric/mongodb', require('./routes/data-fabric/mongodb/status.routes'));
+  console.log('✅ SHEIKHA MongoDB Document Fabric mounted');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA MongoDB Document Fabric failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
