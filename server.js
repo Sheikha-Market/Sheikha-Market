@@ -22917,3 +22917,12 @@ try {
 } catch (error) {
   console.error('Sheikha system status API failed:', error.message);
 }
+
+
+try {
+  app.use('/api/database/sqlserver', require('./routes/database/sqlserver-query.routes'));
+  console.log('[SHEIKHA] SQL Query Gateway mounted');
+} catch (error) {
+  console.warn('[SHEIKHA] SQL Query Gateway failed:', error.message);
+}
+
