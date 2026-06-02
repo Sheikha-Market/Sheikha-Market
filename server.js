@@ -22583,6 +22583,14 @@ try {
   console.warn('⚠️ SHEIKHA Unified Data Health failed:', error.message);
 }
 
+// SHEIKHA_POSTGRESQL_RUNTIME_CORE
+try {
+  app.use('/api/data-fabric/postgresql', require('./routes/data-fabric/postgresql/status.routes'));
+  console.log('✅ SHEIKHA PostgreSQL Runtime Core mounted');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA PostgreSQL Runtime Core failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
