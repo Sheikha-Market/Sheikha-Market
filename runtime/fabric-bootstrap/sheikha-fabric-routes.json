@@ -14,6 +14,12 @@
        0d97681c (Activate Sheikha self-development governance kernel)
     },
     {
+      "name": "advisory-intelligence-provider",
+      "mount": "/api/advisory-provider",
+      "module": "./routes/advisory-provider/status.routes",
+      "priority": 119
+    },
+    {
       "name": "vector-semantic-layer",
       "mount": "/api/neural-fabric/vector",
       "module": "routes/neural-fabric/vector/status.routes.js",

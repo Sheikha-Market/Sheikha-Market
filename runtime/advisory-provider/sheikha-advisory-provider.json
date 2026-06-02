@@ -1,0 +1,39 @@
+{
+  "provider": "SHEIKHA_ADVISORY_INTELLIGENCE_PROVIDER",
+  "status": "ACTIVE",
+  "positioning": "governing advisory and intelligence layer above tools, platforms, markets, and institutions",
+  "channels": ["B2B", "B2G", "B2C", "D2C"],
+  "domains": [
+    "ai_governance",
+    "technology_strategy",
+    "market_regulation",
+    "trade_organization",
+    "economy",
+    "resources",
+    "minerals",
+    "gold",
+    "silver",
+    "finance",
+    "supply_chain",
+    "enterprise_runtime",
+    "government_digital_transformation",
+    "research_and_development",
+    "knowledge_systems",
+    "science_and_computing"
+  ],
+  "relationships": {
+    "vscode": "client_interface_only",
+    "copilot": "external_tool_optional",
+    "github": "source_control_channel_only",
+    "openai_google_amazon_nvidia_intel_microsoft": "future_institutional_clients_or_partners",
+    "sheikha": "governing_runtime_and_advisory_layer"
+  },
+  "governance": {
+    "truth_required": true,
+    "no_false_claim": true,
+    "human_approval_required": true,
+    "audit_required": true,
+    "quran_and_sunnah_governed": true,
+    "no_harm": true
+  }
+}
