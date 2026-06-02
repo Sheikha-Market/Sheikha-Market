@@ -4,82 +4,88 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "runtime-verification-engine",
+      "mount": "/api/runtime/verification",
+      "module": "./routes/runtime/verification/status.routes.js",
+      "priority": 140
+    },
+    {
       "name": "sovereign-governance-layer",
       "mount": "/api/governance/sovereign-layer",
-      "module": "routes/governance/sovereign-layer/status.routes.js",
+      "module": "./routes/governance/sovereign-layer/status.routes.js",
       "priority": 130
-    },
-    {
-      "name": "self-development-governance-kernel",
-      "mount": "/api/self-development",
-      "module": "./routes/self-development/status.routes",
-      "priority": 120
-    },
-    {
-      "name": "advisory-intelligence-provider",
-      "mount": "/api/advisory-provider",
-      "module": "./routes/advisory-provider/status.routes",
-      "priority": 119
-    },
-    {
-      "name": "vector-semantic-layer",
-      "mount": "/api/neural-fabric/vector",
-      "module": "routes/neural-fabric/vector/status.routes.js",
-      "priority": 100
-    },
-    {
-      "name": "neural-routing-topology",
-      "mount": "/api/neural-fabric/routing",
-      "module": "routes/neural-fabric/routing/topology.routes.js",
-      "priority": 95
-    },
-    {
-      "name": "runtime-engine-discovery",
-      "mount": "/api/runtime/discovery",
-      "module": "routes/runtime/discovery/discovery.routes.js",
-      "priority": 92
-    },
-    {
-      "name": "neural-routing-decisions",
-      "mount": "/api/neural-fabric/routing",
-      "module": "routes/neural-fabric/routing/decision.routes.js",
-      "priority": 91
-    },
-    {
-      "name": "runtime-orchestration",
-      "mount": "/api/runtime/orchestration",
-      "module": "routes/runtime/orchestration/status.routes.js",
-      "priority": 90
     },
     {
       "name": "cross-engine-governance",
       "mount": "/api/governance/policies",
-      "module": "routes/governance/policies/cross-engine.routes.js",
-      "priority": 85
+      "module": "./routes/governance/policies/cross-engine.routes.js",
+      "priority": 125
     },
     {
-      "name": "runtime-telemetry",
-      "mount": "/api/observability/telemetry",
-      "module": "routes/observability/telemetry/metrics.routes.js",
-      "priority": 80
+      "name": "self-development-governance-kernel",
+      "mount": "/api/self-development",
+      "module": "./routes/self-development/status.routes.js",
+      "priority": 122
     },
     {
-      "name": "neural-memory-layer",
-      "mount": "/api/neural-fabric/memory",
-      "module": "routes/neural-fabric/memory/status.routes.js",
-      "priority": 75
-    },
-    {
-      "name": "query-federation",
-      "mount": "/api/runtime/federation",
-      "module": "routes/runtime/federation/status.routes.js",
-      "priority": 70
+      "name": "runtime-orchestration",
+      "mount": "/api/runtime/orchestration",
+      "module": "./routes/runtime/orchestration/status.routes.js",
+      "priority": 118
     },
     {
       "name": "runtime-registry",
       "mount": "/api/runtime/registry",
-      "module": "routes/runtime/registry/runtime-registry.routes.js",
-      "priority": 65
+      "module": "./routes/runtime/registry/runtime-registry.routes.js",
+      "priority": 115
+    },
+    {
+      "name": "neural-routing-topology",
+      "mount": "/api/neural-fabric/routing",
+      "module": "./routes/neural-fabric/routing/topology.routes.js",
+      "priority": 110
+    },
+    {
+      "name": "neural-routing-decisions",
+      "mount": "/api/neural-fabric/routing",
+      "module": "./routes/neural-fabric/routing/decision.routes.js",
+      "priority": 109
+    },
+    {
+      "name": "query-federation",
+      "mount": "/api/runtime/federation",
+      "module": "./routes/runtime/federation/status.routes.js",
+      "priority": 100
+    },
+    {
+      "name": "runtime-engine-discovery",
+      "mount": "/api/runtime/discovery",
+      "module": "./routes/runtime/discovery/discovery.routes.js",
+      "priority": 95
+    },
+    {
+      "name": "vector-semantic-layer",
+      "mount": "/api/neural-fabric/vector",
+      "module": "./routes/neural-fabric/vector/status.routes.js",
+      "priority": 94
+    },
+    {
+      "name": "neural-memory-layer",
+      "mount": "/api/neural-fabric/memory",
+      "module": "./routes/neural-fabric/memory/status.routes.js",
+      "priority": 93
+    },
+    {
+      "name": "runtime-telemetry",
+      "mount": "/api/observability/telemetry",
+      "module": "./routes/observability/telemetry/metrics.routes.js",
+      "priority": 80
+    },
+    {
+      "name": "advisory-intelligence-provider",
+      "mount": "/api/advisory-provider",
+      "module": "./routes/advisory-provider/status.routes.js",
+      "priority": 70
     }
   ],
   "governance": {
