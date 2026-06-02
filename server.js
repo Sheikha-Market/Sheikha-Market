@@ -22543,14 +22543,6 @@ app.use('/api/runtime', sheikhaRuntimeRoutes);
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
-try {
-  app.use('/api/database/sqlserver', require('./routes/database/sqlserver-query.routes'));
-  console.log('[SHEIKHA] SQL Query Gateway mounted');
-} catch (error) {
-  console.warn('[SHEIKHA] SQL Query Gateway failed:', error.message);
-}
-
-
             success: false,
             error: 'not_found',
             message: 'المسار غير موجود — The requested API endpoint does not exist.',
@@ -22928,4 +22920,10 @@ try {
 }
 
 
+try {
+  app.use('/api/database/sqlserver', require('./routes/database/sqlserver-query.routes'));
+  console.log('[SHEIKHA] SQL Query Gateway mounted');
+} catch (error) {
+  console.warn('[SHEIKHA] SQL Query Gateway failed:', error.message);
+}
 
