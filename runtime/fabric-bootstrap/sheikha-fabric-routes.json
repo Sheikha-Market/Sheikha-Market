@@ -46,6 +46,18 @@
       "priority": 70
     },
     {
+      "name": "neural-routing-decisions",
+      "mount": "/api/neural-fabric/routing",
+      "module": "./routes/neural-fabric/routing/decision.routes",
+      "priority": 92
+    },
+    {
+      "name": "runtime-engine-discovery",
+      "mount": "/api/runtime/discovery",
+      "module": "./routes/runtime/discovery/discovery.routes",
+      "priority": 88
+    },
+    {
       "name": "runtime-registry",
       "mount": "/api/runtime/registry",
       "module": "./routes/runtime/registry/runtime-registry.routes",
