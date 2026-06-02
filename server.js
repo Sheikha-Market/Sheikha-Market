@@ -22549,6 +22549,14 @@ try {
   console.warn('⚠️ SHEIKHA SQL Query Gateway failed:', error.message);
 }
 
+// SHEIKHA_DATA_FABRIC_STATUS
+try {
+  app.use('/api/data-fabric', require('./routes/data-fabric/status.routes'));
+  console.log('✅ SHEIKHA Data Fabric Status mounted');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA Data Fabric Status failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
