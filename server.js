@@ -22575,6 +22575,14 @@ try {
   );
 }
 
+// SHEIKHA_UNIFIED_DATA_HEALTH
+try {
+  app.use('/api/data-fabric', require('./routes/data-fabric/unified-health.routes'));
+  console.log('✅ SHEIKHA Unified Data Health mounted');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA Unified Data Health failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
