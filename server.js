@@ -22686,6 +22686,15 @@ try {
   );
 }
 
+// SHEIKHA_FABRIC_BOOTSTRAP_LOADER
+try {
+  const { loadFabricRoutes } = require('./lib/fabric-bootstrap/fabric-bootstrap-loader');
+  const fabricBootstrap = loadFabricRoutes(app);
+  console.log('✅ SHEIKHA Fabric Bootstrap completed:', JSON.stringify(fabricBootstrap));
+} catch (error) {
+  console.warn('⚠️ SHEIKHA Fabric Bootstrap failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
