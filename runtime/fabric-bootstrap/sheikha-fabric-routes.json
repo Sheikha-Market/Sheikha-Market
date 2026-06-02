@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "sovereign-governance-layer",
+      "mount": "/api/governance/sovereign-layer",
+      "module": "routes/governance/sovereign-layer/status.routes.js",
+      "priority": 130
+    },
+    {
       "name": "self-development-governance-kernel",
       "mount": "/api/self-development",
       "module": "./routes/self-development/status.routes",
