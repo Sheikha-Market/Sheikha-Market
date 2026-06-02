@@ -5,6 +5,7 @@ const path = require('path');
 
 const { health: sqlserverHealth } = require('../../lib/database/sqlserver/sqlserver-connection-manager');
 const { health: postgresqlHealth } = require('../../lib/database/postgresql/postgresql-connection-manager');
+const { health: redisHealth } = require('../../lib/database/redis/redis-connection-manager');
 
 function readJson(file) {
   return JSON.parse(fs.readFileSync(path.join(process.cwd(), file), 'utf8'));
@@ -19,8 +20,9 @@ router.get('/health', async (_req, res) => {
 
     const sqlserver = await sqlserverHealth();
     const postgresql = await postgresqlHealth();
+    const redis = await redisHealth();
 
-    const healthy = sqlserver.success && postgresql.success;
+    const healthy = sqlserver.success && postgresql.success && redis.success;
 
     return res.json({
       success: true,
@@ -30,7 +32,8 @@ router.get('/health', async (_req, res) => {
       neuralCluster,
       engines: {
         sqlserver,
-        postgresql
+        postgresql,
+        redis
       },
       governance: {
         audit_required: true,
