@@ -22686,16 +22686,6 @@ try {
   );
 }
 
-// SHEIKHA_FABRIC_BOOTSTRAP_LOADER
-try {
-  const { loadFabricRoutes } = require('./lib/fabric-bootstrap/fabric-bootstrap-loader');
-  const fabricBootstrap = loadFabricRoutes(app);
-  console.log('✅ SHEIKHA Fabric Bootstrap completed:', JSON.stringify(fabricBootstrap));
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Fabric Bootstrap failed:', error.message);
-}
-
-
 // SHEIKHA_UNIFIED_HEALTH_PLATFORM
 try {
   app.use(
@@ -22709,6 +22699,30 @@ try {
     '⚠️ SHEIKHA Unified Health Platform failed:',
     error.message
   );
+}
+
+// SHEIKHA_DYNAMIC_FABRIC_BOOTSTRAP
+try {
+
+  const {
+    loadFabricRoutes
+  } = require('./lib/fabric-bootstrap/fabric-bootstrap-loader');
+
+  const mountedRoutes =
+    loadFabricRoutes(app);
+
+  console.log(
+    '✅ SHEIKHA Dynamic Fabric Bootstrap ACTIVE',
+    mountedRoutes.length
+  );
+
+} catch (error) {
+
+  console.warn(
+    '⚠️ SHEIKHA Dynamic Fabric Bootstrap failed:',
+    error.message
+  );
+
 }
 
 app.use((req, res) => {
@@ -23094,4 +23108,3 @@ try {
 try {
 } catch (error) {
 }
-

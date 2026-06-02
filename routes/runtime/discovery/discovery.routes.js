@@ -6,20 +6,31 @@ const path = require('path');
 
 router.get('/status', async (_req, res) => {
 
-  const discoveryPath = path.join(
-    process.cwd(),
-    'runtime/runtime-discovery/engine-discovery.json'
-  );
+  try {
 
-  const discovery = JSON.parse(
-    fs.readFileSync(discoveryPath, 'utf8')
-  );
+    const discoveryPath = path.join(
+      process.cwd(),
+      'runtime/runtime-discovery/engine-discovery.json'
+    );
 
-  return res.json({
-    success: true,
-    ...discovery,
-    timestamp: new Date().toISOString()
-  });
+    const discovery = JSON.parse(
+      fs.readFileSync(discoveryPath, 'utf8')
+    );
+
+    return res.json({
+      success: true,
+      ...discovery,
+      timestamp: new Date().toISOString()
+    });
+
+  } catch (error) {
+
+    return res.status(500).json({
+      success: false,
+      error: error.message
+    });
+
+  }
 
 });
 
