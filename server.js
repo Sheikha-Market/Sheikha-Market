@@ -22734,6 +22734,46 @@ try {
   console.warn('⚠️ SHEIKHA Core Governance Direct Mounts failed:', error.message);
 }
 
+// SHEIKHA_CORE_GOVERNANCE_DIRECT_ENDPOINTS
+try {
+  const fs = require('fs');
+  const path = require('path');
+
+  app.get('/api/self-development/status', (_req, res) => {
+    const policy = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), 'runtime/self-development/sheikha-self-development-policy.json'),
+        'utf8'
+      )
+    );
+
+    return res.json({
+      success: true,
+      ...policy,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  app.get('/api/advisory-provider/status', (_req, res) => {
+    const provider = JSON.parse(
+      fs.readFileSync(
+        path.join(process.cwd(), 'runtime/advisory-provider/sheikha-advisory-provider.json'),
+        'utf8'
+      )
+    );
+
+    return res.json({
+      success: true,
+      ...provider,
+      timestamp: new Date().toISOString()
+    });
+  });
+
+  console.log('✅ SHEIKHA Core Governance Direct Endpoints active');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA Core Governance Direct Endpoints failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
