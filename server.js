@@ -22120,7 +22120,8 @@ try {
 
 try {
   app.use('/api/database/sqlserver', require('./routes/database/sqlserver.routes'));
-  console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
+  
+console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
 } catch (error) {
   console.warn('[SHEIKHA] SQL Server routes not mounted:', error.message);
 }
