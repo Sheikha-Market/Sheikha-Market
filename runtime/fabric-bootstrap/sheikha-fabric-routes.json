@@ -16,6 +16,12 @@
       "priority": 145
     },
     {
+      "name": "advisory-compliance-methodology-licensing",
+      "mount": "/api/advisory-compliance",
+      "module": "routes/advisory-compliance/status.routes.js",
+      "priority": 144
+    },
+    {
       "name": "runtime-verification-engine",
       "mount": "/api/runtime/verification",
       "module": "./routes/runtime/verification/status.routes.js",
