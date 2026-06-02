@@ -1,39 +1,53 @@
 {
   "provider": "SHEIKHA_ADVISORY_INTELLIGENCE_PROVIDER",
   "status": "ACTIVE",
-  "positioning": "governing advisory and intelligence layer above tools, platforms, markets, and institutions",
+  "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
+  "purpose": "Advisory, governance, science, computing, markets, trade, economy, resources, and technology under truthful and accountable governance",
   "channels": ["B2B", "B2G", "B2C", "D2C"],
   "domains": [
+    "sharia_sciences",
+    "computing",
+    "calculation",
+    "mathematics",
+    "natural_sciences",
+    "experimental_sciences",
     "ai_governance",
     "technology_strategy",
-    "market_regulation",
-    "trade_organization",
-    "economy",
+    "supercomputing",
+    "data_centers",
+    "information_centers",
+    "supply_chain",
+    "procurement",
     "resources",
+    "materials",
     "minerals",
     "gold",
     "silver",
     "finance",
-    "supply_chain",
-    "enterprise_runtime",
-    "government_digital_transformation",
+    "markets",
+    "trade",
+    "economy",
     "research_and_development",
-    "knowledge_systems",
-    "science_and_computing"
+    "discovery",
+    "legislation_advisory",
+    "market_organization"
   ],
   "relationships": {
     "vscode": "client_interface_only",
-    "copilot": "external_tool_optional",
+    "copilot": "optional_external_advisor",
     "github": "source_control_channel_only",
-    "openai_google_amazon_nvidia_intel_microsoft": "future_institutional_clients_or_partners",
-    "sheikha": "governing_runtime_and_advisory_layer"
+    "sheikha": "governing_runtime_advisory_layer"
   },
   "governance": {
+    "quran_required": true,
+    "sunnah_required": true,
+    "rightly_guided_caliphs_sunnah_required": true,
     "truth_required": true,
     "no_false_claim": true,
+    "no_harm": true,
+    "no_riba": true,
+    "no_fraud": true,
     "human_approval_required": true,
-    "audit_required": true,
-    "quran_and_sunnah_governed": true,
-    "no_harm": true
+    "audit_required": true
   }
 }

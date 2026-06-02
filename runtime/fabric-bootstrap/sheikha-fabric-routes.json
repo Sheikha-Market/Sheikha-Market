@@ -7,11 +7,7 @@
       "name": "self-development-governance-kernel",
       "mount": "/api/self-development",
       "module": "./routes/self-development/status.routes",
-        HEAD
-      "priority": 110
-
       "priority": 120
-       0d97681c (Activate Sheikha self-development governance kernel)
     },
     {
       "name": "advisory-intelligence-provider",
@@ -81,6 +77,7 @@
     }
   ],
   "governance": {
+    "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
     "mount_before_404": true,
     "fail_safe": true,
     "audit_required": true,
