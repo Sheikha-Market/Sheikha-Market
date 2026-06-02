@@ -1,0 +1,447 @@
+{
+  "success": true,
+  "status": "passed",
+  "input": "orchestration.shk",
+  "engine": "compiled",
+  "profile": "staging",
+  "policyVerification": {
+    "ok": true,
+    "errors": []
+  },
+  "summary": {
+    "astNodes": 3,
+    "irSteps": 11,
+    "bytecodeInstructions": 11,
+    "outputs": 4,
+    "governanceViolations": 0,
+    "typeErrors": 0,
+    "neuralCells": 57,
+    "adapterCalls": 3,
+    "adapterDryRun": true,
+    "strictIsolation": false,
+    "policyErrors": 0
+  },
+  "typeCheck": {
+    "ok": true,
+    "diagnostics": [],
+    "symbols": {
+      "entities": {
+        "بوابة_تشغيل": {
+          "properties": {
+            "النوع": "string",
+            "منع": "list"
+          }
+        }
+      },
+      "procedures": {
+        "فحص_الخدمات": {
+          "commands": [
+            "API",
+            "PM2",
+            "DOCKER",
+            "اعرض"
+          ]
+        }
+      }
+    }
+  },
+  "output": [
+    "[API:DRY] GET http://127.0.0.1:8080/api/health",
+    "[PM2:DRY] status sheikha-api",
+    "[DOCKER:DRY] ps",
+    "\"تم تنفيذ فحص adapters بنجاح\""
+  ],
+  "governance": {
+    "checks": [
+      {
+        "rule": "market-controls-required",
+        "status": "pass",
+        "detail": "ضوابط السوق مكتملة",
+        "step": {
+          "op": "ENTITY_PROPERTY",
+          "entity": "بوابة_تشغيل",
+          "key": "منع",
+          "value": "احتكار، غش، ضرر",
+          "loc": {
+            "start": {
+              "line": 5,
+              "column": 3
+            },
+            "end": {
+              "line": 5,
+              "column": 23
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.392Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "API",
+          "argument": "\"GET\" \"http://127.0.0.1:8080/api/health\"",
+          "loc": {
+            "start": {
+              "line": 8,
+              "column": 3
+            },
+            "end": {
+              "line": 8,
+              "column": 47
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.392Z"
+      },
+      {
+        "rule": "adapter-execution-status",
+        "status": "pass",
+        "detail": "[API:DRY] GET http://127.0.0.1:8080/api/health",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "API",
+          "argument": "\"GET\" \"http://127.0.0.1:8080/api/health\"",
+          "loc": {
+            "start": {
+              "line": 8,
+              "column": 3
+            },
+            "end": {
+              "line": 8,
+              "column": 47
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.392Z"
+      },
+      {
+        "rule": "adapter-action-allowlist",
+        "status": "pass",
+        "detail": "إجراء adapter ضمن القائمة المسموحة",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "PM2",
+          "argument": "\"status\" \"sheikha-api\"",
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 3
+            },
+            "end": {
+              "line": 9,
+              "column": 29
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.392Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "PM2",
+          "argument": "\"status\" \"sheikha-api\"",
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 3
+            },
+            "end": {
+              "line": 9,
+              "column": 29
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.393Z"
+      },
+      {
+        "rule": "adapter-execution-status",
+        "status": "pass",
+        "detail": "[PM2:DRY] status sheikha-api",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "PM2",
+          "argument": "\"status\" \"sheikha-api\"",
+          "loc": {
+            "start": {
+              "line": 9,
+              "column": 3
+            },
+            "end": {
+              "line": 9,
+              "column": 29
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.393Z"
+      },
+      {
+        "rule": "adapter-action-allowlist",
+        "status": "pass",
+        "detail": "إجراء adapter ضمن القائمة المسموحة",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "DOCKER",
+          "argument": "\"ps\"",
+          "loc": {
+            "start": {
+              "line": 10,
+              "column": 3
+            },
+            "end": {
+              "line": 10,
+              "column": 14
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.393Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "DOCKER",
+          "argument": "\"ps\"",
+          "loc": {
+            "start": {
+              "line": 10,
+              "column": 3
+            },
+            "end": {
+              "line": 10,
+              "column": 14
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.393Z"
+      },
+      {
+        "rule": "adapter-execution-status",
+        "status": "pass",
+        "detail": "[DOCKER:DRY] ps",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "DOCKER",
+          "argument": "\"ps\"",
+          "loc": {
+            "start": {
+              "line": 10,
+              "column": 3
+            },
+            "end": {
+              "line": 10,
+              "column": 14
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.393Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "فحص_الخدمات",
+          "command": "اعرض",
+          "argument": "\"تم تنفيذ فحص adapters بنجاح\"",
+          "loc": {
+            "start": {
+              "line": 11,
+              "column": 3
+            },
+            "end": {
+              "line": 11,
+              "column": 37
+            }
+          }
+        },
+        "ts": "2026-06-01T21:30:37.393Z"
+      }
+    ],
+    "violations": []
+  },
+  "neural": {
+    "cells": 57,
+    "status": "hyper-online",
+    "executionGraph": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "DIRECTIVE",
+          "procedure": null
+        },
+        {
+          "id": "n2",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n3",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n4",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n5",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n6",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n7",
+          "label": "COMMAND",
+          "procedure": "فحص_الخدمات"
+        },
+        {
+          "id": "n8",
+          "label": "COMMAND",
+          "procedure": "فحص_الخدمات"
+        },
+        {
+          "id": "n9",
+          "label": "COMMAND",
+          "procedure": "فحص_الخدمات"
+        },
+        {
+          "id": "n10",
+          "label": "COMMAND",
+          "procedure": "فحص_الخدمات"
+        },
+        {
+          "id": "n11",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        }
+      ],
+      "edges": [
+        {
+          "from": "n1",
+          "to": "n2"
+        },
+        {
+          "from": "n2",
+          "to": "n3"
+        },
+        {
+          "from": "n3",
+          "to": "n4"
+        },
+        {
+          "from": "n4",
+          "to": "n5"
+        },
+        {
+          "from": "n5",
+          "to": "n6"
+        },
+        {
+          "from": "n6",
+          "to": "n7"
+        },
+        {
+          "from": "n7",
+          "to": "n8"
+        },
+        {
+          "from": "n8",
+          "to": "n9"
+        },
+        {
+          "from": "n9",
+          "to": "n10"
+        },
+        {
+          "from": "n10",
+          "to": "n11"
+        }
+      ]
+    },
+    "mesh": "SHEIKHA_RADICAL_NEURAL_MESH_V2",
+    "layers": {
+      "quranic": 19,
+      "sunnah": 11,
+      "maqasid": 11,
+      "fiqh": 8,
+      "tawheed": 1,
+      "governance": 7
+    },
+    "mode": "compiled-bytecode-runtime"
+  },
+  "adapters": {
+    "dryRun": true,
+    "calls": [
+      {
+        "kind": "adapter",
+        "adapter": "api",
+        "action": "GET",
+        "ok": true,
+        "message": "[API:DRY] GET http://127.0.0.1:8080/api/health",
+        "live": false,
+        "url": "http://127.0.0.1:8080/api/health"
+      },
+      {
+        "kind": "adapter",
+        "adapter": "pm2",
+        "action": "status",
+        "ok": true,
+        "message": "[PM2:DRY] status sheikha-api",
+        "live": false,
+        "processName": "sheikha-api"
+      },
+      {
+        "kind": "adapter",
+        "adapter": "docker",
+        "action": "ps",
+        "ok": true,
+        "message": "[DOCKER:DRY] ps",
+        "live": false,
+        "target": ""
+      }
+    ]
+  },
+  "sandbox": {
+    "profile": "staging",
+    "strict": false,
+    "networkHosts": [
+      "127.0.0.1",
+      "localhost",
+      "staging.sheikha.top"
+    ],
+    "pm2Targets": [
+      "sheikha-api",
+      "sheikha-meta-background"
+    ],
+    "dockerTargets": [
+      "sheikha-api",
+      "sheikha-php-gateway"
+    ],
+    "dockerAllowNoTargetActions": [
+      "ps",
+      "images"
+    ]
+  }
+}

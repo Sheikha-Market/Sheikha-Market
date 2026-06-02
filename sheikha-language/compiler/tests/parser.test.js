@@ -72,3 +72,15 @@ test('parses adapter commands from orchestration.shk', () => {
     assert.ok(commands.includes('PM2'));
     assert.ok(commands.includes('DOCKER'));
 });
+
+test('parses python bridge command from mvp example', () => {
+    const inputPath = path.resolve(__dirname, '../../examples/python-bridge.shk');
+    const source = fs.readFileSync(inputPath, 'utf8');
+    const ast = parse(lex(source));
+
+    const procedure = ast.body.find((n) => n.type === 'ProcedureDeclaration' && n.name === 'تقييم_بايثون');
+    assert.ok(procedure);
+    const pythonCommand = procedure.body.find((n) => n.type === 'CommandStatement' && n.command === 'PYTHON');
+    assert.ok(pythonCommand);
+    assert.ok(pythonCommand.argument.includes('python-score-bridge.py'));
+});

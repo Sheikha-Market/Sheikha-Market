@@ -1,5 +1,7 @@
 'use strict';
 
+const runtimeRegistry = require('../../config/runtime-registry');
+
 /**
  * Sheikha AI Neural Cell Network
  * شبكة خلايا تحليلية حتمية مستلهمة من التنظيم، لا تحاكي عقل الإنسان ولا تدّعي وعيًا، وتعمل تحت حوكمة الكتاب والسنة.
@@ -259,71 +261,11 @@ const SHEIKHA_MARKUP_LANGUAGE = {
   basis: SHEIKHA_TAWHEED_FOUNDATIONS
 };
 
-const SHEIKHA_SUPPORTED_PROGRAMMING_LANGUAGES = [
-  'sheikha-sabil',
-  'php',
-  'javascript',
-  'typescript',
-  'python',
-  'go',
-  'rust',
-  'csharp',
-  'java',
-  'kotlin',
-  'swift',
-  'dart',
-  'c',
-  'cpp',
-  'bash',
-  'powershell',
-  'sql',
-  'html',
-  'css',
-  'json',
-  'yaml',
-  'markdown',
-  'ruby',
-  'lua',
-  'r',
-  'scala',
-  'elixir',
-  'erlang',
-  'haskell',
-  'perl',
-  'solidity',
-  'dockerfile',
-  'makefile'
-];
+const SHEIKHA_SUPPORTED_PROGRAMMING_LANGUAGES = runtimeRegistry.getSupportedProgrammingLanguages(process.env);
 
-const SHEIKHA_SUPPORTED_MARKUP_LANGUAGES = [
-  'sheikha-bayan',
-  'html',
-  'xml',
-  'markdown',
-  'yaml',
-  'json',
-  'toml',
-  'ini',
-  'csv',
-  'svg',
-  'rss',
-  'atom',
-  'graphql',
-  'protobuf',
-  'openapi',
-  'mermaid',
-  'plantuml',
-  'latex',
-  'asciidoc',
-  'restructuredtext'
-];
+const SHEIKHA_SUPPORTED_MARKUP_LANGUAGES = runtimeRegistry.getSupportedMarkupLanguages(process.env);
 
-const SHEIKHA_LANGUAGE_FAMILIES = {
-  programming: SHEIKHA_SUPPORTED_PROGRAMMING_LANGUAGES,
-  markup: SHEIKHA_SUPPORTED_MARKUP_LANGUAGES,
-  data: ['structured', 'semi-structured', 'unstructured'],
-  policy: 'أي لغة جديدة تدخل عبر التصنيف، التثبت، بوابة الحلال، ثم مراجعة الإنسان قبل الاعتماد'
-};
+const SHEIKHA_LANGUAGE_FAMILIES = runtimeRegistry.getLanguageFamilies(process.env);
 
 const SHEIKHA_GIT_RUNTIME = {
   name: 'Sheikha Git Runtime',
@@ -607,7 +549,7 @@ function getProgrammingRuntimeStatus() {
       primary: 'Sheikha Sabil',
       markupPrimary: 'Sheikha Bayan',
       php: 'active',
-      allLanguagesPolicy: 'supported by routing, syntax awareness, and human-reviewed execution'
+      allLanguagesPolicy: SHEIKHA_LANGUAGE_FAMILIES.policy
     },
     git: SHEIKHA_GIT_RUNTIME,
     tawheed: SHEIKHA_TAWHEED_FOUNDATIONS,
@@ -634,7 +576,7 @@ function interpretProgrammingRequest(options = {}) {
   const language = options.language || 'auto';
   const code = options.code || options.text || '';
   const normalizedLanguage = String(language).toLowerCase();
-  const supported = normalizedLanguage === 'auto' || SHEIKHA_SUPPORTED_PROGRAMMING_LANGUAGES.includes(normalizedLanguage);
+  const supported = normalizedLanguage === 'auto' || runtimeRegistry.isProgrammingLanguageSupported(normalizedLanguage, process.env);
   const dataCategory = inferDataCategory(code || options);
 
   return {

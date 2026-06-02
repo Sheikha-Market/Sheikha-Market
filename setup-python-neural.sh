@@ -36,7 +36,47 @@ python -m ipykernel install --user --name sheikha-venv --display-name "🕌 Shei
 
 # ─── 6. Download NLTK data ───────────────────────────────────────
 echo "▶ تحميل بيانات NLTK الأساسية ..."
-python -c "import nltk; nltk.download('punkt', quiet=True); nltk.download('stopwords', quiet=True); nltk.download('averaged_perceptron_tagger', quiet=True)" || true
+export SHEIKHA_NLTK_DATA_DIR="${WORKSPACE_DIR}/.nltk_data"
+mkdir -p "${SHEIKHA_NLTK_DATA_DIR}"
+export NLTK_DATA="${SHEIKHA_NLTK_DATA_DIR}${NLTK_DATA:+:${NLTK_DATA}}"
+python - <<'PY'
+import os
+import nltk
+
+resources = [
+    ("punkt", "tokenizers/punkt"),
+    ("stopwords", "corpora/stopwords"),
+    ("averaged_perceptron_tagger", "taggers/averaged_perceptron_tagger"),
+]
+
+missing = []
+
+for package, resource_path in resources:
+    try:
+        nltk.data.find(resource_path)
+        print(f"  ✔ NLTK resource available: {package}")
+        continue
+    except LookupError:
+        pass
+
+    try:
+        downloaded = nltk.download(package, quiet=True, raise_on_error=False)
+    except Exception as exc:
+        print(f"  ⚠ تعذر تنزيل مورد NLTK '{package}': {exc}")
+        downloaded = False
+
+    try:
+        nltk.data.find(resource_path)
+        print(f"  ✔ NLTK resource ready: {package}")
+    except LookupError:
+        status = "download unavailable" if not downloaded else "verification failed"
+        print(f"  ⚠ مورد NLTK غير متوفر حالياً: {package} ({status})")
+        missing.append(package)
+
+if missing:
+    print("  ⚠ سيتم إكمال الإعداد بدون موارد NLTK التالية:", ", ".join(missing))
+    print("    يمكنك إعادة المحاولة لاحقاً بعد توفر الاتصال بالشبكة.")
+PY
 
 # ─── 7. Verify PyTorch ───────────────────────────────────────────
 echo "▶ التحقق من PyTorch ..."

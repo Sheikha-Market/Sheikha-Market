@@ -290,6 +290,41 @@ bash scripts/health-monitor.sh
 
 ---
 
+## إعداد NLTK بدون اتصال (Offline)
+
+إذا كان `import nltk` يعمل لكن تنزيل الحزم من الإنترنت غير متاح، استخدم مجلد بيانات محلي وثبّت الموارد المطلوبة فيه مرة واحدة ثم أعد استخدامه داخل الـ venv نفسه.
+
+```bash
+# داخل المشروع
+source .venv/bin/activate
+
+# اختر مسارًا محليًا ثابتًا لبيانات NLTK
+export NLTK_DATA="$PWD/.nltk_data"
+mkdir -p "$NLTK_DATA"
+
+# إن كانت الملفات متوفرة لديك مسبقًا، انسخها إلى:
+#   $NLTK_DATA/tokenizers
+#   $NLTK_DATA/corpora
+# ثم اختبر:
+python -c "import nltk; print('nltk ok')"
+python -c "import nltk; print(nltk.data.path)"
+```
+
+للتحقق السريع من البيئة الحالية:
+
+```bash
+python -V
+python -c "import torch; print('torch ok', torch.__version__, torch.cuda.is_available())"
+python -c "import tensorflow as tf; print('tf ok', tf.__version__)"
+python -c "import transformers; print('transformers ok', transformers.__version__)"
+python -c "import nltk; print('nltk ok')"
+jupyter kernelspec list
+```
+
+تم التحقق محليًا من عمل `nltk` داخل `.venv` مع ظهور kernelين هما `python3` و `sheikha-venv`.
+
+---
+
 ## المراجع
 
 - **PM2 Docs**: https://pm2.keymetrics.io/docs/usage/pm2-doc-single-page/
@@ -299,5 +334,5 @@ bash scripts/health-monitor.sh
 
 ---
 
-**آخر تحديث**: 16 مايو 2026  
+**آخر تحديث**: 1 يونيو 2026  
 **النسخة**: 2.1.0

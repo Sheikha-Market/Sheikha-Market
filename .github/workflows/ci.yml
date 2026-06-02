@@ -64,11 +64,12 @@ jobs:
       - name: 🛡️ Security Audit (moderate+)
         run: npm audit --audit-level=moderate
         continue-on-error: true
-      - name: 🔑 Secret Scanning (Gitleaks)
-        uses: gitleaks/gitleaks-action@v2
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-          GITLEAKS_LICENSE: ${{ secrets.GITLEAKS_LICENSE }}
+      - name: 🔑 Secret Scanning (Gitleaks Local)
+        run: |
+          docker run --rm \
+            -v "$PWD:/repo" \
+            zricethezav/gitleaks:latest \
+            detect --source=/repo --no-git --redact --exit-code 1
 
   # ─────────────────────────────────────────────────────────
   # 3️⃣  SBOM — Software Bill of Materials
