@@ -22591,6 +22591,21 @@ try {
   console.warn('⚠️ SHEIKHA PostgreSQL Runtime Core failed:', error.message);
 }
 
+// SHEIKHA_REDIS_NEURAL_CACHE
+try {
+  app.use(
+    '/api/data-fabric/redis',
+    require('./routes/data-fabric/redis/status.routes')
+  );
+
+  console.log('✅ SHEIKHA Redis Neural Cache mounted');
+} catch (error) {
+  console.warn(
+    '⚠️ SHEIKHA Redis Neural Cache failed:',
+    error.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
