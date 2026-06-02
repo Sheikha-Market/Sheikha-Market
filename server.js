@@ -22540,6 +22540,15 @@ require('./routes/runtime/sheikha-runtime-routes');
 
 app.use('/api/runtime', sheikhaRuntimeRoutes);
 
+
+// SHEIKHA_SQLSERVER_QUERY_GATEWAY
+try {
+  app.use('/api/database/sqlserver', require('./routes/database/sqlserver-query.routes'));
+  console.log('✅ SHEIKHA SQL Query Gateway mounted');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA SQL Query Gateway failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
@@ -22921,9 +22930,6 @@ try {
 
 
 try {
-  app.use('/api/database/sqlserver', require('./routes/database/sqlserver-query.routes'));
-  console.log('[SHEIKHA] SQL Query Gateway mounted');
 } catch (error) {
-  console.warn('[SHEIKHA] SQL Query Gateway failed:', error.message);
 }
 
