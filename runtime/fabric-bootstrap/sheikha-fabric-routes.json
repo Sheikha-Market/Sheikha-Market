@@ -10,6 +10,12 @@
       "priority": 150
     },
     {
+      "name": "advisory-commercial-layer",
+      "mount": "/api/advisory-commercial",
+      "module": "routes/advisory-commercial/status.routes.js",
+      "priority": 145
+    },
+    {
       "name": "runtime-verification-engine",
       "mount": "/api/runtime/verification",
       "module": "./routes/runtime/verification/status.routes.js",
