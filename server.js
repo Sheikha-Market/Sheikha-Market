@@ -22695,6 +22695,22 @@ try {
   console.warn('⚠️ SHEIKHA Fabric Bootstrap failed:', error.message);
 }
 
+
+// SHEIKHA_UNIFIED_HEALTH_PLATFORM
+try {
+  app.use(
+    '/api/data-fabric',
+    require('./routes/data-fabric/unified-health.routes')
+  );
+
+  console.log('✅ SHEIKHA Unified Health Platform mounted');
+} catch (error) {
+  console.warn(
+    '⚠️ SHEIKHA Unified Health Platform failed:',
+    error.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({

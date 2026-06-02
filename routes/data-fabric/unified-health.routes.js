@@ -1,57 +1,59 @@
 const express = require('express');
 const router = express.Router();
-const fs = require('node:fs');
-const path = require('node:path');
 
-const { health: sqlserverHealth } = require('../../lib/database/sqlserver/sqlserver-connection-manager');
-const { health: postgresqlHealth } = require('../../lib/database/postgresql/postgresql-connection-manager');
-const { health: redisHealth } = require('../../lib/database/redis/redis-connection-manager');
-const { health: mongodbHealth } = require('../../lib/database/mongodb/mongodb-connection-manager');
-
-function readJson(file) {
-  return JSON.parse(fs.readFileSync(path.join(process.cwd(), file), 'utf8'));
-}
+const fs = require('fs');
+const path = require('path');
 
 router.get('/health', async (_req, res) => {
-  const startedAt = Date.now();
-
   try {
-    const dataFabric = readJson('runtime/data-fabric/sheikha-neural-data-fabric.json');
-    const neuralCluster = readJson('runtime/neural-cluster/sheikha-neural-cluster.json');
 
-    const sqlserver = await sqlserverHealth();
-    const postgresql = await postgresqlHealth();
-    const redis = await redisHealth();
-    const mongodb = await mongodbHealth();
+    const registryPath = path.join(
+      process.cwd(),
+      'runtime/runtime-registry/sheikha-runtime-registry.json'
+    );
 
-    const healthy = sqlserver.success && postgresql.success && redis.success && mongodb.success;
+    const fabricPath = path.join(
+      process.cwd(),
+      'runtime/data-fabric/sheikha-neural-data-fabric.json'
+    );
+
+    const bootstrapPath = path.join(
+      process.cwd(),
+      'runtime/fabric-bootstrap/sheikha-fabric-routes.json'
+    );
+
+    const runtimeRegistry = JSON.parse(
+      fs.readFileSync(registryPath, 'utf8')
+    );
+
+    const dataFabric = JSON.parse(
+      fs.readFileSync(fabricPath, 'utf8')
+    );
+
+    const bootstrap = JSON.parse(
+      fs.readFileSync(bootstrapPath, 'utf8')
+    );
 
     return res.json({
       success: true,
-      fabric: 'SHEIKHA_UNIFIED_DATA_HEALTH',
-      status: healthy ? 'healthy' : 'degraded',
+      platform: 'SHEIKHA_UNIFIED_NEURAL_PLATFORM',
+      status: 'ACTIVE',
+      runtimeRegistry,
       dataFabric,
-      neuralCluster,
-      engines: {
-        sqlserver,
-        postgresql,
-        redis,
-        mongodb
+      bootstrap,
+      runtime: {
+        node: process.version,
+        uptimeSeconds: process.uptime(),
+        memory: process.memoryUsage(),
+        pid: process.pid
       },
-      governance: {
-        audit_required: true,
-        rollback_required: true,
-        human_approval_required: true,
-        no_plaintext_secrets: true
-      },
-      latencyMs: Date.now() - startedAt,
       timestamp: new Date().toISOString()
     });
+
   } catch (error) {
     return res.status(500).json({
       success: false,
-      error: error.message,
-      timestamp: new Date().toISOString()
+      error: error.message
     });
   }
 });

@@ -1,0 +1,62 @@
+{
+  "bootstrap": "SHEIKHA_FABRIC_BOOTSTRAP_ROUTES",
+  "status": "ACTIVE",
+  "mode": "governed-neural-bootstrap",
+  "routes": [
+    {
+      "name": "vector-semantic-layer",
+      "mount": "/api/neural-fabric/vector",
+      "module": "./routes/neural-fabric/vector/status.routes",
+      "priority": 100
+    },
+    {
+      "name": "neural-routing-topology",
+      "mount": "/api/neural-fabric/routing",
+      "module": "./routes/neural-fabric/routing/topology.routes",
+      "priority": 95
+    },
+    {
+      "name": "runtime-orchestration",
+      "mount": "/api/runtime/orchestration",
+      "module": "./routes/runtime/orchestration/status.routes",
+      "priority": 90
+    },
+    {
+      "name": "cross-engine-governance",
+      "mount": "/api/governance/policies",
+      "module": "./routes/governance/policies/cross-engine.routes",
+      "priority": 85
+    },
+    {
+      "name": "runtime-telemetry",
+      "mount": "/api/observability/telemetry",
+      "module": "./routes/observability/telemetry/metrics.routes",
+      "priority": 80
+    },
+    {
+      "name": "neural-memory-layer",
+      "mount": "/api/neural-fabric/memory",
+      "module": "./routes/neural-fabric/memory/status.routes",
+      "priority": 75
+    },
+    {
+      "name": "query-federation",
+      "mount": "/api/runtime/federation",
+      "module": "./routes/runtime/federation/status.routes",
+      "priority": 70
+    },
+    {
+      "name": "runtime-registry",
+      "mount": "/api/runtime/registry",
+      "module": "./routes/runtime/registry/runtime-registry.routes",
+      "priority": 65
+    }
+  ],
+  "governance": {
+    "mount_before_404": true,
+    "fail_safe": true,
+    "audit_required": true,
+    "rollback_required": true,
+    "no_duplicate_mount": true
+  }
+}
