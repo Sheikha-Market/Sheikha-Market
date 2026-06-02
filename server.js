@@ -22725,6 +22725,15 @@ try {
 
 }
 
+// SHEIKHA_CORE_GOVERNANCE_DIRECT_MOUNTS
+try {
+  app.use('/api/self-development', require('./routes/self-development/status.routes'));
+  app.use('/api/advisory-provider', require('./routes/advisory-provider/status.routes'));
+  console.log('✅ SHEIKHA Core Governance Direct Mounts active');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA Core Governance Direct Mounts failed:', error.message);
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
