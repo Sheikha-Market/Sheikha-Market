@@ -22117,6 +22117,15 @@ try {
 }
 
 try {
+
+try {
+  app.use('/api/database/sqlserver', require('./routes/database/sqlserver.routes'));
+  console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
+} catch (error) {
+  console.warn('[SHEIKHA] SQL Server routes not mounted:', error.message);
+}
+
+
     app.use('/api/architecture', require('./routes/architecture.routes'));
     console.log('✅ Sheikha Architecture API active');
 } catch (error) {
