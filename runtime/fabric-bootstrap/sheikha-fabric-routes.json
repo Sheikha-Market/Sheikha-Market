@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "supreme-governance-control-layer",
+      "mount": "/api/governance/supreme-control",
+      "module": "routes/governance/supreme-control/status.routes.js",
+      "priority": 150
+    },
+    {
       "name": "runtime-verification-engine",
       "mount": "/api/runtime/verification",
       "module": "./routes/runtime/verification/status.routes.js",
