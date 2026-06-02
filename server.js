@@ -22557,6 +22557,24 @@ try {
   console.warn('⚠️ SHEIKHA Data Fabric Status failed:', error.message);
 }
 
+
+// SHEIKHA_NEURAL_CLUSTER_STATUS
+try {
+  app.use(
+    '/api/neural-cluster',
+    require('./routes/neural-cluster/status.routes')
+  );
+
+  console.log('✅ SHEIKHA Neural Cluster mounted');
+
+} catch (error) {
+
+  console.warn(
+    '⚠️ SHEIKHA Neural Cluster failed:',
+    error.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
