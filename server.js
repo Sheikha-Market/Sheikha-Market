@@ -22614,6 +22614,22 @@ try {
   console.warn('⚠️ SHEIKHA MongoDB Document Fabric failed:', error.message);
 }
 
+
+// SHEIKHA_UNIFIED_RUNTIME_REGISTRY
+try {
+  app.use(
+    '/api/runtime/registry',
+    require('./routes/runtime/registry/runtime-registry.routes')
+  );
+
+  console.log('✅ SHEIKHA Unified Runtime Registry mounted');
+} catch (error) {
+  console.warn(
+    '⚠️ SHEIKHA Unified Runtime Registry failed:',
+    error.message
+  );
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
