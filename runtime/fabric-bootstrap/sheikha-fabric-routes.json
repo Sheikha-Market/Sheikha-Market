@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "capability-token-engine",
+      "mount": "/api/governance/capability-tokens",
+      "module": "routes/governance/capability-tokens/status.routes.js",
+      "priority": 240
+    },
+    {
       "name": "policy-decision-point",
       "mount": "/api/governance/pdp",
       "module": "routes/governance/policy-decision-point/status.routes.js",
