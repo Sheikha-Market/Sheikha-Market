@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "openapi-registry",
+      "mount": "/api/openapi-registry",
+      "module": "./routes/openapi-registry/status.routes.js",
+      "priority": 390
+    },
+    {
       "name": "sheikha-mcp-unified-bridge",
       "mount": "/api/sheikha/mcp",
       "module": "./routes/mcp-unified-bridge/status.routes.js",
