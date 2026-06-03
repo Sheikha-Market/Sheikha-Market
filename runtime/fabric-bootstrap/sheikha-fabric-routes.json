@@ -4,6 +4,18 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "sheikha-mcp-unified-bridge",
+      "mount": "/api/sheikha/mcp",
+      "module": "./routes/mcp-unified-bridge/status.routes.js",
+      "priority": 381
+    },
+    {
+      "name": "mcp-unified-bridge",
+      "mount": "/api/mcp",
+      "module": "./routes/mcp-unified-bridge/status.routes.js",
+      "priority": 380
+    },
+    {
       "name": "federated-knowledge-fabric",
       "mount": "/api/federated-knowledge-fabric",
       "module": "routes/federated-knowledge-fabric/status.routes.js",
