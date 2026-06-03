@@ -1,0 +1,51 @@
+{
+  "engine": "SHEIKHA_GOVERNANCE_GRAPH_ENGINE",
+  "status": "ACTIVE",
+  "mode": "federated-governance-graph",
+
+  "purpose": "Create a governed relationship graph connecting policies, capabilities, runtimes, domains, organizations, approvals, audits, contracts, and execution flows.",
+
+  "nodes": [
+    "policies",
+    "capabilities",
+    "domains",
+    "organizations",
+    "contracts",
+    "licenses",
+    "certifications",
+    "runtime",
+    "federation",
+    "audit",
+    "telemetry",
+    "execution",
+    "markets",
+    "advisory",
+    "ai",
+    "datacenter"
+  ],
+
+  "edges": [
+    "governs",
+    "approves",
+    "binds",
+    "audits",
+    "executes",
+    "restricts",
+    "allows",
+    "federates",
+    "inherits",
+    "delegates",
+    "depends_on",
+    "verified_by"
+  ],
+
+  "rules": {
+    "no_orphan_execution": true,
+    "policy_link_required": true,
+    "audit_link_required": true,
+    "capability_link_required": true,
+    "runtime_link_required": true,
+    "human_approval_when_required": true,
+    "graph_consistency_required": true
+  }
+}
