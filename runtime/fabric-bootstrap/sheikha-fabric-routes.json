@@ -4,6 +4,18 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "policy-compiler",
+      "mount": "/api/governance/policy-compiler",
+      "module": "routes/governance/policy-compiler/status.routes.js",
+      "priority": 210
+    },
+    {
+      "name": "capability-execution-registry",
+      "mount": "/api/governance/capability-execution-registry",
+      "module": "routes/governance/capability-execution-registry/status.routes.js",
+      "priority": 205
+    },
+    {
       "name": "sheikha-organization-system-of-systems",
       "mount": "/api/organization/sheikha",
       "module": "routes/organization/sheikha-organization/status.routes.js",

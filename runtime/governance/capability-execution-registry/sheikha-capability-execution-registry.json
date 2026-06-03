@@ -1,0 +1,31 @@
+{
+  "registry": "SHEIKHA_CAPABILITY_EXECUTION_REGISTRY",
+  "status": "ACTIVE",
+
+  "capabilities": {
+    "governance": {
+      "execution": "controlled"
+    },
+    "federation": {
+      "execution": "planned"
+    },
+    "telemetry": {
+      "execution": "audited"
+    },
+    "markets": {
+      "execution": "restricted_until_licensed"
+    },
+    "advisory": {
+      "execution": "governed"
+    },
+    "ai": {
+      "execution": "bounded"
+    }
+  },
+
+  "rules": {
+    "capability_registration_required": true,
+    "execution_policy_required": true,
+    "audit_required": true
+  }
+}

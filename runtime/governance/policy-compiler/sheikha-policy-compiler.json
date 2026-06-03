@@ -1,0 +1,22 @@
+{
+  "compiler": "SHEIKHA_POLICY_COMPILER",
+  "status": "ACTIVE",
+  "mode": "governance-first-policy-compilation",
+
+  "pipeline": [
+    "policy_load",
+    "policy_validation",
+    "capability_mapping",
+    "execution_constraints",
+    "audit_binding",
+    "runtime_compilation"
+  ],
+
+  "rules": {
+    "no_unverified_policy": true,
+    "governance_required": true,
+    "audit_required": true,
+    "rollback_required": true,
+    "signed_execution_required": true
+  }
+}
