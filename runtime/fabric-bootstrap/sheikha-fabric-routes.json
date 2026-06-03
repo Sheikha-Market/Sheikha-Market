@@ -10,6 +10,12 @@
       "priority": 170
     },
     {
+      "name": "sheikha-exchange-trading-readiness",
+      "mount": "/api/exchange/sheikha",
+      "module": "routes/exchange/sheikha-exchange/status.routes.js",
+      "priority": 169
+    },
+    {
       "name": "constitutional-governance-fabric",
       "mount": "/api/governance/constitutional-fabric",
       "module": "routes/governance/constitutional-fabric/status.routes.js",
