@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "sovereign-control-plane",
+      "mount": "/api/control-plane",
+      "module": "routes/control-plane/status.routes.js",
+      "priority": 300
+    },
+    {
       "name": "organizational-federation-kernel",
       "mount": "/api/federation/organizational-kernel",
       "module": "routes/federation/organizational-kernel/status.routes.js",
