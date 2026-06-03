@@ -36,12 +36,20 @@ authorities issue the required approvals.
 
 The current runtime baseline is anchored by these commits:
 
+- `8c0285d9` Activate Sheikha capability token fabric
+- `5d95e08f` Activate Sheikha execution orchestration grid
+- `e1a30b16` Activate Sheikha distributed telemetry fabric
+- `69c57f23` Activate Sheikha autonomous runtime coordination layer
+- `409362c4` Activate Sheikha federated knowledge and reasoning fabric
+- `57fb1f84` Activate Sheikha unified source control and route alignment
 - `46495378` Activate Sheikha capability token engine
 - `5b51d3dc` Activate Sheikha unified governance bus
 - `9e9e9058` Activate Sheikha organizational federation kernel
 
 Together, these commits move SHEIKHA from isolated APIs into a federated
-organizational operating environment.
+organizational operating environment with source control alignment, route
+registry discipline, governed reasoning, distributed telemetry, autonomous
+coordination, orchestration, and capability-scoped execution tokens.
 
 ## Runtime Control Order
 
@@ -55,22 +63,30 @@ earlier governance binding.
 
 Current high-order runtime stack:
 
-1. Organizational Federation Kernel
-2. Domain Contract Fabric
-3. Governance Graph Engine
-4. Policy Enforcement Point
-5. Policy Decision Point
-6. Unified Governance Bus
-7. Capability Token Engine
-8. Risk Classification Engine
-9. Audit Ledger
-10. Policy Compiler
-11. Capability Execution Registry
-12. Execution Governance Kernel
-13. Governance Enforcement Engine
-14. Organization System of Systems
-15. Capability Registry
-16. Authority, exchange, market, advisory, runtime, federation, AI, telemetry,
+1. Federated Knowledge and Reasoning Fabric
+2. Autonomous Runtime Coordination Layer
+3. Distributed Telemetry Fabric
+4. Execution Orchestration Grid
+5. Capability Token Fabric
+6. Global Domain Registry
+7. Runtime Federation Mesh
+8. Sovereign Control Plane
+9. Organizational Federation Kernel
+10. Domain Contract Fabric
+11. Governance Graph Engine
+12. Policy Enforcement Point
+13. Policy Decision Point
+14. Unified Governance Bus
+15. Capability Token Engine
+16. Risk Classification Engine
+17. Audit Ledger
+18. Policy Compiler
+19. Capability Execution Registry
+20. Execution Governance Kernel
+21. Governance Enforcement Engine
+22. Organization System of Systems
+23. Capability Registry
+24. Authority, exchange, market, advisory, runtime, federation, AI, telemetry,
     and client layers
 
 ## Governance Execution Pipeline
@@ -84,9 +100,13 @@ All governed execution intents should move through this path:
 5. Policy Enforcement Point
 6. Risk Engine
 7. Audit Ledger
-8. Capability Token
-9. Execution Governance Kernel
-10. Runtime Dispatch
+8. Capability Token Fabric
+9. Capability Token Engine
+10. Execution Governance Kernel
+11. Execution Orchestration Grid
+12. Distributed Telemetry Fabric
+13. Autonomous Runtime Coordination Layer
+14. Runtime Dispatch
 
 No direct execution is considered valid when the action requires governance,
 policy, risk, audit, token, or human approval.
@@ -95,6 +115,14 @@ policy, risk, audit, token, or human approval.
 
 | Layer | Mount | Priority |
 | --- | --- | --- |
+| Federated Knowledge and Reasoning Fabric | `/api/federated-knowledge-fabric` | 370 |
+| Autonomous Runtime Coordination Layer | `/api/autonomous-runtime-coordination` | 360 |
+| Distributed Telemetry Fabric | `/api/distributed-telemetry-fabric` | 350 |
+| Execution Orchestration Grid | `/api/execution-orchestration-grid` | 340 |
+| Capability Token Fabric | `/api/capability-token-fabric` | 330 |
+| Global Domain Registry | `/api/global-domain-registry` | 320 |
+| Runtime Federation Mesh | `/api/runtime-federation-mesh` | 310 |
+| Sovereign Control Plane | `/api/control-plane` | 300 |
 | Organizational Federation Kernel | `/api/federation/organizational-kernel` | 290 |
 | Domain Contract Fabric | `/api/governance/domain-contract-fabric` | 285 |
 | Governance Graph Engine | `/api/governance/graph-engine` | 280 |
@@ -147,6 +175,86 @@ Supported token scopes include runtime execution, federation, advisory
 execution, market infrastructure, governance execution, AI execution,
 datacenter control, cluster orchestration, and policy management.
 
+## Execution Orchestration Grid
+
+The execution orchestration grid coordinates governed distributed execution
+across runtimes, nodes, clusters, domains, federation links, and
+capability-scoped workloads.
+
+The grid must validate:
+
+- Governance bus
+- PDP decision
+- PEP enforcement
+- Capability token
+- Runtime node selection
+- Workload distribution
+- Federated dispatch
+- Execution telemetry
+- Rollback chain
+
+## Distributed Telemetry Fabric
+
+Distributed telemetry provides operational intelligence for runtime health,
+governance telemetry, execution tracing, federation monitoring, audit
+visibility, orchestration visibility, diagnostics, and cross-domain
+observability.
+
+The invariant is:
+
+`telemetry_required = true`
+
+## Federated Knowledge and Reasoning Fabric
+
+The knowledge fabric coordinates governed knowledge federation, contextual
+reasoning, cross-domain context, policy-aware reasoning, advisory intelligence,
+runtime context binding, and governed reasoning chains.
+
+Reasoning is bounded by:
+
+- Governance-first execution
+- Policy-scoped reasoning
+- Runtime context validation
+- Knowledge traceability
+- Human approval when required
+- No unbounded reasoning
+
+## Unified Source Control and Route Alignment
+
+SHEIKHA source control is aligned as:
+
+- Local Git is the primary local source
+- GitHub is the primary remote source
+- GitLab remains an optional mirror until explicitly promoted
+- Fabric Bootstrap is the primary route mount source
+- `server.js` remains app boot and fallback only
+- The canonical route registry guides quality and discovery
+- VS Code and Codex are client tools, not governing layers
+
+The source control invariant is:
+
+`git_clean_required_before_activation = true`
+
+After verified commits:
+
+`push_required_after_verified_commit = true`
+
+## Architecture Freeze V1 and SDK Layer
+
+Architecture Freeze V1 records the current governed baseline and prevents
+uncontrolled drift from changing the runtime shape without review.
+
+The SDK layer is an interface layer. It may expose governed capabilities to
+clients and integrations, but it must not bypass Fabric Bootstrap, governance
+bus, PDP, PEP, capability tokens, audit, or execution policy.
+
+The freeze and SDK invariants are:
+
+- Architecture changes require review
+- SDK is an interface layer, not an authority layer
+- Canonical route registry remains the route quality reference
+- Route source discovery supports audit and alignment
+
 ## Unified Governance Bus
 
 The governance bus is the single path before execution. Its role is to route
@@ -170,6 +278,11 @@ pm2 save
 curl -s http://127.0.0.1:8080/api/federation/organizational-kernel/status | jq
 curl -s http://127.0.0.1:8080/api/governance/bus/status | jq
 curl -s http://127.0.0.1:8080/api/governance/capability-tokens/status | jq
+curl -s http://127.0.0.1:8080/api/capability-token-fabric/status | jq
+curl -s http://127.0.0.1:8080/api/execution-orchestration-grid/status | jq
+curl -s http://127.0.0.1:8080/api/distributed-telemetry-fabric/status | jq
+curl -s http://127.0.0.1:8080/api/autonomous-runtime-coordination/status | jq
+curl -s http://127.0.0.1:8080/api/federated-knowledge-fabric/status | jq
 curl -s http://127.0.0.1:8080/api/runtime/introspection/routes | jq '.success,.total'
 ```
 
