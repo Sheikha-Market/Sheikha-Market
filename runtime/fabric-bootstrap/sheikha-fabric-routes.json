@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "runtime-federation-mesh",
+      "mount": "/api/runtime-federation-mesh",
+      "module": "routes/runtime-federation-mesh/status.routes.js",
+      "priority": 310
+    },
+    {
       "name": "sovereign-control-plane",
       "mount": "/api/control-plane",
       "module": "routes/control-plane/status.routes.js",
