@@ -1,0 +1,28 @@
+{
+  "system": "SHEIKHA_UNIFIED_SOURCE_CONTROL_AND_ROUTE_ALIGNMENT",
+  "status": "ACTIVE",
+  "purpose": "Unify Git, GitHub, GitLab readiness, VS Code/Codex, Fabric Bootstrap, Runtime Routes, Canonical Route Registry, and Governance layers so they complement each other without conflict.",
+  "sources": {
+    "local_git": "PRIMARY_LOCAL_SOURCE",
+    "github": "PRIMARY_REMOTE_SOURCE",
+    "gitlab": "OPTIONAL_MIRROR_SOURCE",
+    "vscode": "CLIENT_IDE_ONLY",
+    "codex": "ASSISTED_DEVELOPMENT_CLIENT_ONLY",
+    "fabric_bootstrap": "PRIMARY_ROUTE_MOUNT_SOURCE",
+    "server_js": "APP_BOOT_AND_FALLBACK_ONLY",
+    "canonical_route_registry": "ROUTE_QUALITY_REFERENCE",
+    "governance": "EXECUTION_AUTHORITY_LAYER"
+  },
+  "rules": {
+    "no_direct_route_mount_if_fabric_manages_it": true,
+    "no_conflicting_remote_source": true,
+    "github_is_current_primary_remote": true,
+    "gitlab_must_be_mirror_until_explicitly_promoted": true,
+    "vscode_must_not_be_governing_layer": true,
+    "codex_must_not_be_governing_layer": true,
+    "fabric_loader_is_route_mount_authority": true,
+    "canonical_registry_guides_quality_not_deletion": true,
+    "git_clean_required_before_activation": true,
+    "push_required_after_verified_commit": true
+  }
+}
