@@ -1,0 +1,12 @@
+{
+  "engine": "SHEIKHA_POLICY_DECISION_POINT",
+  "status": "ACTIVE",
+  "mode": "decision-before-execution",
+  "decisions": ["allow", "deny", "require_human_approval", "require_specialist_review"],
+  "rules": {
+    "policy_required": true,
+    "capability_required": true,
+    "risk_classification_required": true,
+    "audit_required": true
+  }
+}

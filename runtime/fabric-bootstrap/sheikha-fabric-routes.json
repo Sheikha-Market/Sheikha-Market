@@ -4,6 +4,30 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "policy-decision-point",
+      "mount": "/api/governance/pdp",
+      "module": "routes/governance/policy-decision-point/status.routes.js",
+      "priority": 220
+    },
+    {
+      "name": "policy-enforcement-point",
+      "mount": "/api/governance/pep",
+      "module": "routes/governance/policy-enforcement-point/status.routes.js",
+      "priority": 219
+    },
+    {
+      "name": "risk-classification-engine",
+      "mount": "/api/governance/risk-engine",
+      "module": "routes/governance/risk-engine/status.routes.js",
+      "priority": 218
+    },
+    {
+      "name": "audit-ledger",
+      "mount": "/api/governance/audit-ledger",
+      "module": "routes/governance/audit-ledger/status.routes.js",
+      "priority": 217
+    },
+    {
       "name": "governance-enforcement-engine",
       "mount": "/api/governance/enforcement-engine",
       "module": "routes/governance/enforcement-engine/status.routes.js",
