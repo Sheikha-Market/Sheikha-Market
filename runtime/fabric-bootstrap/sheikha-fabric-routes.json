@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "policy-decision-point",
+      "mount": "/api/governance/pdp",
+      "module": "routes/governance/pdp/status.routes.js",
+      "priority": 260
+    },
+    {
       "name": "unified-governance-bus",
       "mount": "/api/governance/bus",
       "module": "routes/governance/unified-governance-bus/status.routes.js",
@@ -14,12 +20,6 @@
       "mount": "/api/governance/capability-tokens",
       "module": "routes/governance/capability-tokens/status.routes.js",
       "priority": 240
-    },
-    {
-      "name": "policy-decision-point",
-      "mount": "/api/governance/pdp",
-      "module": "routes/governance/policy-decision-point/status.routes.js",
-      "priority": 220
     },
     {
       "name": "policy-enforcement-point",
