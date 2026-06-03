@@ -30,6 +30,12 @@ SHEIKHA Kernel controls:
 - Registry
 - IDE integrations
 
+The federated organizational runtime model is documented in
+`docs/architecture/SHEIKHA-FEDERATED-ORGANIZATIONAL-RUNTIME-ARCHITECTURE.md`.
+That document is the active reference for the organizational federation kernel,
+unified governance bus, capability token engine, PDP, PEP, domain contracts,
+governance graph, and execution governance path.
+
 ## Provider Model
 
 The provider registry resolves providers in this order:
