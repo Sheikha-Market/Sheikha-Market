@@ -1,0 +1,49 @@
+{
+  "fabric": "SHEIKHA_CAPABILITY_TOKEN_FABRIC",
+  "status": "ACTIVE",
+  "mode": "governed-capability-token-execution",
+
+  "purpose": "Govern execution, runtime access, federation permissions, delegated authority, and operational scopes through capability-bound execution tokens.",
+
+  "tokenLayers": [
+    "capability_identity",
+    "scope_binding",
+    "runtime_binding",
+    "policy_binding",
+    "risk_binding",
+    "audit_binding",
+    "delegation_control",
+    "federation_permissions",
+    "execution_isolation",
+    "token_lifecycle"
+  ],
+
+  "capabilityScopes": [
+    "governance",
+    "markets",
+    "metals",
+    "supply_chain",
+    "ai",
+    "datacenter",
+    "research",
+    "licensing",
+    "standards",
+    "certification",
+    "advisory",
+    "runtime",
+    "federation",
+    "organization"
+  ],
+
+  "rules": {
+    "no_execution_without_token": true,
+    "scope_validation_required": true,
+    "runtime_validation_required": true,
+    "policy_validation_required": true,
+    "audit_validation_required": true,
+    "delegation_validation_required": true,
+    "token_expiration_required": true,
+    "rollback_required": true,
+    "human_approval_when_required": true
+  }
+}

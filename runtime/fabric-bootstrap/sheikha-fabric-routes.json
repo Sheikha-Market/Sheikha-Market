@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "capability-token-fabric",
+      "mount": "/api/capability-token-fabric",
+      "module": "routes/capability-token-fabric/status.routes.js",
+      "priority": 330
+    },
+    {
       "name": "global-domain-registry",
       "mount": "/api/global-domain-registry",
       "module": "routes/global-domain-registry/status.routes.js",
