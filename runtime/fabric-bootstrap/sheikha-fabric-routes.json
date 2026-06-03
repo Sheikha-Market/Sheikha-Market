@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "highest-authority-readiness",
+      "mount": "/api/governance/authority-readiness",
+      "module": "routes/governance/authority-readiness/status.routes.js",
+      "priority": 170
+    },
+    {
       "name": "constitutional-governance-fabric",
       "mount": "/api/governance/constitutional-fabric",
       "module": "routes/governance/constitutional-fabric/status.routes.js",
