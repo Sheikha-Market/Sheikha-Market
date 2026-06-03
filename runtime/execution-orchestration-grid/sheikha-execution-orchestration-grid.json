@@ -1,0 +1,40 @@
+{
+  "grid": "SHEIKHA_EXECUTION_ORCHESTRATION_GRID",
+  "status": "ACTIVE",
+  "mode": "governed-distributed-execution-orchestration",
+  "purpose": "Coordinate governed distributed execution across runtimes, nodes, clusters, domains, federation links, and capability-scoped workloads.",
+  "orchestrationLayers": [
+    "execution_intent",
+    "governance_bus",
+    "pdp_decision",
+    "pep_enforcement",
+    "capability_token_validation",
+    "runtime_node_selection",
+    "workload_distribution",
+    "federated_dispatch",
+    "execution_telemetry",
+    "rollback_chain"
+  ],
+  "executionTargets": [
+    "main_runtime",
+    "governance_runtime",
+    "ai_runtime",
+    "advisory_runtime",
+    "market_runtime",
+    "datacenter_runtime",
+    "federation_runtime",
+    "telemetry_runtime",
+    "orchestration_runtime"
+  ],
+  "rules": {
+    "no_execution_without_governance_bus": true,
+    "pdp_required": true,
+    "pep_required": true,
+    "capability_token_required": true,
+    "runtime_node_verification_required": true,
+    "telemetry_required": true,
+    "rollback_required": true,
+    "audit_required": true,
+    "human_approval_when_required": true
+  }
+}

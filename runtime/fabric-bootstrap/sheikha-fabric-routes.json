@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "execution-orchestration-grid",
+      "mount": "/api/execution-orchestration-grid",
+      "module": "routes/execution-orchestration-grid/status.routes.js",
+      "priority": 340
+    },
+    {
       "name": "capability-token-fabric",
       "mount": "/api/capability-token-fabric",
       "module": "routes/capability-token-fabric/status.routes.js",
