@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "organizational-federation-kernel",
+      "mount": "/api/federation/organizational-kernel",
+      "module": "routes/federation/organizational-kernel/status.routes.js",
+      "priority": 290
+    },
+    {
       "name": "domain-contract-fabric",
       "mount": "/api/governance/domain-contract-fabric",
       "module": "routes/governance/domain-contract-fabric/status.routes.js",
