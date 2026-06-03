@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "federated-knowledge-fabric",
+      "mount": "/api/federated-knowledge-fabric",
+      "module": "routes/federated-knowledge-fabric/status.routes.js",
+      "priority": 370
+    },
+    {
       "name": "autonomous-runtime-coordination",
       "mount": "/api/autonomous-runtime-coordination",
       "module": "routes/autonomous-runtime-coordination/status.routes.js",
