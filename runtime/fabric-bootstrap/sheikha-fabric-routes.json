@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "unified-governance-bus",
+      "mount": "/api/governance/bus",
+      "module": "routes/governance/unified-governance-bus/status.routes.js",
+      "priority": 250
+    },
+    {
       "name": "capability-token-engine",
       "mount": "/api/governance/capability-tokens",
       "module": "routes/governance/capability-tokens/status.routes.js",

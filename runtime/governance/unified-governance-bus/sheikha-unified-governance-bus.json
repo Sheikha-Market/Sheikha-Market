@@ -1,0 +1,44 @@
+{
+  "bus": "SHEIKHA_UNIFIED_GOVERNANCE_BUS",
+  "status": "ACTIVE",
+  "mode": "single-governance-path-before-execution",
+  "purpose": "Route all Sheikha execution intents through governance, PDP, PEP, risk, audit, capability token, and runtime dispatch controls.",
+  "pipeline": [
+    "intent",
+    "policy_compiler",
+    "capability_registry",
+    "pdp",
+    "pep",
+    "risk_engine",
+    "audit_ledger",
+    "capability_token",
+    "execution_governance_kernel",
+    "runtime_dispatch"
+  ],
+  "domains": [
+    "governance",
+    "runtime",
+    "federation",
+    "ai",
+    "advisory",
+    "markets",
+    "metals",
+    "supply_chain",
+    "datacenter",
+    "licensing",
+    "standards",
+    "certification",
+    "organization"
+  ],
+  "rules": {
+    "no_direct_execution": true,
+    "governance_bus_required": true,
+    "pdp_required": true,
+    "pep_required": true,
+    "risk_required": true,
+    "audit_required": true,
+    "capability_token_required": true,
+    "rollback_required": true,
+    "human_approval_when_required": true
+  }
+}
