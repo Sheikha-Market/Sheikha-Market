@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "domain-contract-fabric",
+      "mount": "/api/governance/domain-contract-fabric",
+      "module": "routes/governance/domain-contract-fabric/status.routes.js",
+      "priority": 285
+    },
+    {
       "name": "governance-graph-engine",
       "mount": "/api/governance/graph-engine",
       "module": "routes/governance/graph-engine/status.routes.js",
