@@ -10,6 +10,18 @@
       "priority": 180
     },
     {
+      "name": "unified-capability-registry",
+      "mount": "/api/governance/capability-registry",
+      "module": "routes/governance/capability-registry/status.routes.js",
+      "priority": 179
+    },
+    {
+      "name": "execution-governance-kernel",
+      "mount": "/api/governance/execution-kernel",
+      "module": "routes/governance/execution-kernel/status.routes.js",
+      "priority": 178
+    },
+    {
       "name": "highest-authority-readiness",
       "mount": "/api/governance/authority-readiness",
       "module": "routes/governance/authority-readiness/status.routes.js",
