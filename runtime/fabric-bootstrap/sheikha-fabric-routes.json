@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "constitutional-governance-fabric",
+      "mount": "/api/governance/constitutional-fabric",
+      "module": "routes/governance/constitutional-fabric/status.routes.js",
+      "priority": 160
+    },
+    {
       "name": "sheikha-legislative-authority",
       "mount": "/api/governance/sheikha-authority",
       "module": "routes/governance/sheikha-authority/status.routes.js",
