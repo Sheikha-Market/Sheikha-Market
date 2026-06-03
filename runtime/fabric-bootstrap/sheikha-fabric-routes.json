@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "distributed-telemetry-fabric",
+      "mount": "/api/distributed-telemetry-fabric",
+      "module": "routes/distributed-telemetry-fabric/status.routes.js",
+      "priority": 350
+    },
+    {
       "name": "execution-orchestration-grid",
       "mount": "/api/execution-orchestration-grid",
       "module": "routes/execution-orchestration-grid/status.routes.js",
