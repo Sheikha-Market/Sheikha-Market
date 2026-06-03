@@ -1,0 +1,29 @@
+{
+  "freeze": "SHEIKHA_ARCHITECTURE_FREEZE_V1",
+  "status": "ACTIVE",
+  "purpose": "Freeze the verified Sheikha baseline after governance, routes, source control, fabric, canonical registry, telemetry, orchestration, knowledge, and runtime alignment.",
+  "lockedBaseline": [
+    "unified_source_control",
+    "fabric_bootstrap",
+    "canonical_route_registry",
+    "route_source_discovery",
+    "governance_bus",
+    "pdp",
+    "pep",
+    "execution_kernel",
+    "control_plane",
+    "runtime_federation_mesh",
+    "telemetry_fabric",
+    "knowledge_fabric",
+    "capability_token_fabric",
+    "execution_orchestration_grid"
+  ],
+  "rules": {
+    "no_new_layer_without_validation": true,
+    "no_route_deletion_without_canonical_review": true,
+    "no_direct_mount_conflict_with_fabric": true,
+    "git_clean_required_before_change": true,
+    "tests_required_before_commit": true,
+    "push_required_after_verified_commit": true
+  }
+}

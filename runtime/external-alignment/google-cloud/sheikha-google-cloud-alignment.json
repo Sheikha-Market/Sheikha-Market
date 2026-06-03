@@ -1,0 +1,26 @@
+{
+  "alignment": "SHEIKHA_GOOGLE_CLOUD_ALIGNMENT",
+  "status": "ACTIVE",
+  "currentProject": {
+    "name": "Sheikha Marketplace",
+    "projectId": "sheikha-marketplace",
+    "projectNumber": "952025946298"
+  },
+  "organization": {
+    "name": "sheikha.top",
+    "organizationId": "224557279528"
+  },
+  "relatedProjects": [
+    "sheikha-market-ops",
+    "sheikha-empire",
+    "sheikha-core"
+  ],
+  "rules": {
+    "sheikha_marketplace_is_current_primary": true,
+    "related_projects_must_be_mapped_not_conflicting": true,
+    "no_secret_commit": true,
+    "gcloud_auth_required_before_runtime_binding": true,
+    "service_accounts_must_be_audited": true,
+    "apis_enabled_only_when_needed": true
+  }
+}

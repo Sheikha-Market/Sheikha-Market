@@ -1,0 +1,25 @@
+{
+  "layer": "SHEIKHA_SDK_LAYER",
+  "status": "ACTIVE",
+  "purpose": "Prepare Sheikha SDK access for internal clients, external partners, advisory APIs, B2B, B2G, B2C, D2C, and governed integrations without exposing the internal kernel.",
+  "sdkTargets": [
+    "javascript",
+    "typescript",
+    "python",
+    "rest_api",
+    "openapi",
+    "vscode_client",
+    "github_client",
+    "google_cloud_client",
+    "future_gitlab_mirror"
+  ],
+  "rules": {
+    "no_direct_kernel_exposure": true,
+    "capability_token_required": true,
+    "pdp_required": true,
+    "pep_required": true,
+    "audit_required": true,
+    "versioning_required": true,
+    "external_clients_are_not_governing_layers": true
+  }
+}
