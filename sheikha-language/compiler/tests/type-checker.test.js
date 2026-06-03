@@ -36,24 +36,3 @@ test('type checker validates API adapter command signatures', () => {
     assert.ok(result.diagnostics.some((d) => d.code === 'SHK-TYPE-101'));
     assert.ok(result.diagnostics.some((d) => d.code === 'SHK-TYPE-102'));
 });
-
-test('type checker validates python bridge contract', () => {
-    const valid = 'إجراء تقييم:\n  PYTHON "sheikha-language/examples/python-score-bridge.py" "sheikha-language/examples/python-score-contract.json"\n';
-    const validAst = parse(lex(valid));
-    const validResult = typeCheckAst(validAst);
-    assert.equal(validResult.ok, true);
-
-    const invalid = 'إجراء تقييم:\n  PYTHON "bad.txt" "sheikha-language/examples/python-score-contract.json"\n';
-    const invalidAst = parse(lex(invalid));
-    const invalidResult = typeCheckAst(invalidAst);
-    assert.equal(invalidResult.ok, false);
-    assert.ok(invalidResult.diagnostics.some((d) => d.code === 'SHK-TYPE-106'));
-});
-
-test('type checker rejects unsupported python permission in contract', () => {
-    const source = 'إجراء تقييم:\n  PYTHON "sheikha-language/examples/python-score-bridge.py" "sheikha-language/examples/python-score-contract.invalid.json"\n';
-    const ast = parse(lex(source));
-    const result = typeCheckAst(ast);
-    assert.equal(result.ok, false);
-    assert.ok(result.diagnostics.some((d) => d.code === 'SHK-TYPE-113'));
-});

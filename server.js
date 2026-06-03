@@ -22616,76 +22616,6 @@ try {
 
 
 
-// SHEIKHA_VECTOR_SEMANTIC_LAYER
-try {
-  app.use('/api/neural-fabric/vector', require('./routes/neural-fabric/vector/status.routes'));
-  console.log('✅ SHEIKHA Vector Semantic Layer mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Vector Semantic Layer failed:', error.message);
-}
-
-// SHEIKHA_UNIFIED_NEURAL_ROUTING
-try {
-  app.use('/api/neural-fabric/routing', require('./routes/neural-fabric/routing/topology.routes'));
-  console.log('✅ SHEIKHA Unified Neural Routing mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Unified Neural Routing failed:', error.message);
-}
-
-// SHEIKHA_DISTRIBUTED_RUNTIME_ORCHESTRATION
-try {
-  app.use('/api/runtime/orchestration', require('./routes/runtime/orchestration/status.routes'));
-  console.log('✅ SHEIKHA Distributed Runtime Orchestration mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Distributed Runtime Orchestration failed:', error.message);
-}
-
-// SHEIKHA_CROSS_ENGINE_GOVERNANCE_POLICIES
-try {
-  app.use('/api/governance/policies', require('./routes/governance/policies/cross-engine.routes'));
-  console.log('✅ SHEIKHA Cross-engine Governance Policies mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Cross-engine Governance Policies failed:', error.message);
-}
-
-// SHEIKHA_RUNTIME_TELEMETRY_METRICS_FABRIC
-try {
-  app.use('/api/observability/telemetry', require('./routes/observability/telemetry/metrics.routes'));
-  console.log('✅ SHEIKHA Runtime Telemetry & Metrics Fabric mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Runtime Telemetry & Metrics Fabric failed:', error.message);
-}
-
-// SHEIKHA_NEURAL_MEMORY_LAYER
-try {
-  app.use('/api/neural-fabric/memory', require('./routes/neural-fabric/memory/status.routes'));
-  console.log('✅ SHEIKHA Neural Memory Layer mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Neural Memory Layer failed:', error.message);
-}
-
-// SHEIKHA_UNIFIED_QUERY_FEDERATION_ENGINE
-try {
-  app.use('/api/runtime/federation', require('./routes/runtime/federation/status.routes'));
-  console.log('✅ SHEIKHA Unified Query Federation Engine mounted');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Unified Query Federation Engine failed:', error.message);
-}
-// SHEIKHA_UNIFIED_RUNTIME_REGISTRY
-try {
-  app.use(
-    '/api/runtime/registry',
-    require('./routes/runtime/registry/runtime-registry.routes')
-  );
-
-  console.log('✅ SHEIKHA Unified Runtime Registry mounted');
-} catch (error) {
-  console.warn(
-    '⚠️ SHEIKHA Unified Runtime Registry failed:',
-    error.message
-  );
-}
-
 // SHEIKHA_UNIFIED_HEALTH_PLATFORM
 try {
   app.use(
@@ -22725,14 +22655,10 @@ try {
 
 }
 
-// SHEIKHA_CORE_GOVERNANCE_DIRECT_MOUNTS
-try {
-  app.use('/api/self-development', require('./routes/self-development/status.routes'));
-  app.use('/api/advisory-provider', require('./routes/advisory-provider/status.routes'));
-  console.log('✅ SHEIKHA Core Governance Direct Mounts active');
-} catch (error) {
-  console.warn('⚠️ SHEIKHA Core Governance Direct Mounts failed:', error.message);
-}
+app.use(
+  '/api/runtime/introspection',
+  require('./routes/runtime/introspection/routes.routes')
+);
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {

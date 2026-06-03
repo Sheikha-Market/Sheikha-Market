@@ -47,16 +47,3 @@ test('compiled VM allows local sandbox profile override', () => {
     assert.equal(result.state.sandbox.profile, 'local');
     assert.equal(result.state.sandbox.strict, false);
 });
-
-test('compiled VM executes python bridge under local override', () => {
-    const inputPath = path.resolve(__dirname, '../../examples/python-bridge.shk');
-    const source = fs.readFileSync(inputPath, 'utf8');
-
-    const ast = parse(lex(source));
-    const bytecode = compileIRToBytecode(lowerToIR(ast));
-    const result = runBytecode(bytecode, { live: true, profile: 'local', strictIsolation: false });
-
-    assert.equal(result.ok, true);
-    assert.ok(result.state.adapters.calls.some((c) => c.adapter === 'python' && c.ok === true));
-    assert.ok(result.state.output.some((line) => line.includes('[PYTHON:OK] scored')));
-});

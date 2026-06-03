@@ -1,6 +1,5 @@
 'use strict';
 
-const path = require('node:path');
 const { URL } = require('node:url');
 
 const PROFILES = {
@@ -11,9 +10,6 @@ const PROFILES = {
         pm2Targets: ['sheikha-api', 'sheikha-meta-background', 'sheikha-copilot'],
         dockerTargets: ['sheikha-api', 'sheikha-php-gateway', 'sheikha-neural-gateway'],
         dockerAllowNoTargetActions: ['ps', 'images'],
-        pythonRoots: ['sheikha-language/examples', 'scripts'],
-        pythonPermissions: ['score', 'analyze', 'summarize'],
-        contractRoots: ['sheikha-language/examples'],
     },
     staging: {
         profile: 'staging',
@@ -22,9 +18,6 @@ const PROFILES = {
         pm2Targets: ['sheikha-api', 'sheikha-meta-background'],
         dockerTargets: ['sheikha-api', 'sheikha-php-gateway'],
         dockerAllowNoTargetActions: ['ps', 'images'],
-        pythonRoots: ['sheikha-language/examples'],
-        pythonPermissions: ['score', 'analyze', 'summarize'],
-        contractRoots: ['sheikha-language/examples'],
     },
     production: {
         profile: 'production',
@@ -33,9 +26,6 @@ const PROFILES = {
         pm2Targets: ['sheikha-api'],
         dockerTargets: ['sheikha-api', 'sheikha-php-gateway'],
         dockerAllowNoTargetActions: ['ps'],
-        pythonRoots: ['sheikha-language/examples'],
-        pythonPermissions: ['score'],
-        contractRoots: ['sheikha-language/examples'],
     },
 };
 
@@ -109,53 +99,6 @@ function checkDockerTarget(policy, action, target) {
     return { allowed: true };
 }
 
-function checkPythonTarget(policy, scriptPath, contractPath, contract = {}, baseDir = process.cwd()) {
-    const input = String(scriptPath || '');
-    if (!input.endsWith('.py')) {
-        return { allowed: false, reason: 'ملف Python يجب أن ينتهي بـ ‎.py' };
-    }
-
-    const resolved = path.resolve(baseDir, input);
-    const insideAllowedRoot = (policy.pythonRoots || []).some((root) => {
-        const rootPath = path.resolve(baseDir, root);
-        return resolved === rootPath || resolved.startsWith(rootPath + path.sep);
-    });
-
-    if (!insideAllowedRoot) {
-        return {
-            allowed: false,
-            reason: `ملف Python خارج المسارات المسموحة في سياسة ${policy.profile}`,
-        };
-    }
-
-    const resolvedContractPath = path.resolve(baseDir, String(contractPath || ''));
-    const insideAllowedContractRoot = (policy.contractRoots || []).some((root) => {
-        const rootPath = path.resolve(baseDir, root);
-        return resolvedContractPath === rootPath || resolvedContractPath.startsWith(rootPath + path.sep);
-    });
-    if (!insideAllowedContractRoot) {
-        return {
-            allowed: false,
-            reason: `ملف العقد خارج المسارات المسموحة في سياسة ${policy.profile}`,
-        };
-    }
-
-    if (!policy.strict) {
-        return { allowed: true, resolvedPath: resolved, resolvedContractPath };
-    }
-
-    const requested = Array.isArray(contract.permissions) ? contract.permissions.map((v) => String(v)) : [];
-    const unauthorized = requested.filter((permission) => !(policy.pythonPermissions || []).includes(permission));
-    if (unauthorized.length > 0) {
-        return {
-            allowed: false,
-            reason: `صلاحيات Python غير مسموحة: ${unauthorized.join('، ')}`,
-        };
-    }
-
-    return { allowed: true, resolvedPath: resolved, resolvedContractPath };
-}
-
 function safeParseUrl(urlText) {
     try {
         return new URL(String(urlText));
@@ -169,5 +112,4 @@ module.exports = {
     checkApiTarget,
     checkPm2Target,
     checkDockerTarget,
-    checkPythonTarget,
 };

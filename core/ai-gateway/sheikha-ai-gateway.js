@@ -73,60 +73,17 @@ function isVsCodeOperationalPrompt(prompt, context = {}) {
     const fromEditor = /(vscode|vs code|editor|terminal|copilot)/.test(source);
 
     const operationalEnglish = /(run|start|build|test|lint|deploy|debug|serve|terminal|command|task|npm|pnpm|yarn|node|python|pip|git|docker|kubectl|terraform|az|vscode|project|server)/.test(normalized);
-    const operationalArabic = /(شغل|شغّل|تشغيل|ابدأ|ابدا|نفذ|نفّذ|افتح|الأوامر|اوامر|امر|أمر|برمجة|كود|الكود|مشروع|الخادم|السيرفر|اختبار|فحص|بناء|نشر|تصحيح|لينت|بيئة|طرفية|مسار|خطا|خطأ|لا ضرر)/.test(normalized);
+    const operationalArabic = /(شغل|شغّل|تشغيل|ابدأ|ابدا|نفذ|نفّذ|افتح|الأوامر|اوامر|امر|أمر|برمجة|كود|الكود|مشروع|الخادم|السيرفر|اختبار|فحص|بناء|نشر|تصحيح|لينت|بيئة|طرفية)/.test(normalized);
 
-    const operationalIntent = operationalEnglish || operationalArabic;
-
-    // لا نحول كل رسائل الشات تلقائياً للمسار التشغيلي؛ يلزم وجود نية تشغيل واضحة.
-    return operationalIntent && (fromEditor || !context?.source);
+    return fromEditor || operationalEnglish || operationalArabic;
 }
 
 function buildFastOperationalAnswer(prompt) {
     const lower = String(prompt || '').toLowerCase();
 
-    if (/(اكتبي مسار الصحيح|اكتب المسار الصحيح|المسار الصحيح|correct path|right path|project path|مسار المشروع)/.test(lower)) {
-        return [
-            'المسار الصحيح للمشروع:',
-            '/home/sheikha/Projects/sheikha/sheikha-main-portal',
-            '',
-            'تنفيذ آمن بدون أخطاء مسار:',
-            '1) cd /home/sheikha/Projects/sheikha/sheikha-main-portal',
-            '2) source .venv/bin/activate',
-            '3) npm run dev',
-            '4) curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
-            '',
-            'تحقق سريع من المسار الحالي: pwd'
-        ].join('\n');
-    }
-
-    if (/(لا اريد اي خطا|لا أريد أي خطأ|بدون خطا|بدون خطأ|no error|no errors)/.test(lower)) {
-        return [
-            'وضع التنفيذ الآمن (بدون أخطاء متوقعة):',
-            '1) cd /home/sheikha/Projects/sheikha/sheikha-main-portal',
-            '2) source .venv/bin/activate',
-            '3) npm ci || npm install',
-            '4) npm run lint',
-            '5) npm run dev',
-            '6) curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
-            '',
-            'قاعدة الأمان: لا reset/delete/push تلقائي إلا بأمر صريح.'
-        ].join('\n');
-    }
-
-    if (/(لا ضرر ولا ضرار|no harm)/.test(lower)) {
-        return [
-            'مبدأ لا ضرر ولا ضرار مفعّل في المسار التشغيلي:',
-            '- تنفيذ قراءة/تشغيل فقط افتراضيًا',
-            '- منع الأوامر المدمرة تلقائيًا',
-            '- مراجعة بشرية قبل أي تغيير مؤثر',
-            '- فحص lint/status قبل أي خطوة نشر'
-        ].join('\n');
-    }
-
-    if (/(شغل المشروع|شغّل المشروع|شغلي المشروع|شغل النظام|شغّل النظام|شغلي النظام|run project|start project|run system|start system|شغل الخادم|شغّل الخادم|run server|start server)/.test(lower)) {
+    if (/(شغل المشروع|شغّل المشروع|run project|start project|شغل الخادم|شغّل الخادم|run server|start server)/.test(lower)) {
         return [
             'لتشغيل المشروع بسرعة داخل بيئة شيخة:',
-            '0) ادخل مسار المشروع: cd /home/sheikha/Projects/sheikha/sheikha-main-portal',
             '1) فعّل البيئة الافتراضية: source .venv/bin/activate',
             '2) شغّل الخادم التطويري: npm run dev',
             '3) تحقق من الحالة: curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
