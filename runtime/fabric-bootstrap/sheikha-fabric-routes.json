@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "autonomous-runtime-coordination",
+      "mount": "/api/autonomous-runtime-coordination",
+      "module": "routes/autonomous-runtime-coordination/status.routes.js",
+      "priority": 360
+    },
+    {
       "name": "distributed-telemetry-fabric",
       "mount": "/api/distributed-telemetry-fabric",
       "module": "routes/distributed-telemetry-fabric/status.routes.js",
