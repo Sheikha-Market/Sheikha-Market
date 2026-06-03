@@ -4,6 +4,24 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "pr-governance",
+      "mount": "/api/pr-governance",
+      "module": "./routes/pr-governance/status.routes.js",
+      "priority": 402
+    },
+    {
+      "name": "project-governance",
+      "mount": "/api/project-governance",
+      "module": "./routes/project-governance/status.routes.js",
+      "priority": 401
+    },
+    {
+      "name": "sheikha-data",
+      "mount": "/api/sheikha-data",
+      "module": "./routes/sheikha-data/status.routes.js",
+      "priority": 400
+    },
+    {
       "name": "openapi-registry",
       "mount": "/api/openapi-registry",
       "module": "./routes/openapi-registry/status.routes.js",

@@ -1,0 +1,29 @@
+{
+  "governance": "SHEIKHA_PROJECT_GOVERNANCE",
+  "status": "ACTIVE",
+  "purpose": "Govern projects from advisory request to delivery, deployment, operations, handover, and continuous improvement.",
+  "lifecycle": [
+    "intake",
+    "discovery",
+    "requirements",
+    "architecture",
+    "security",
+    "governance",
+    "proposal",
+    "implementation",
+    "testing",
+    "acceptance",
+    "deployment",
+    "operations_handover",
+    "continuous_improvement"
+  ],
+  "rules": {
+    "scope_required": true,
+    "requirements_required": true,
+    "architecture_review_required": true,
+    "security_review_required": true,
+    "data_governance_required": true,
+    "acceptance_required_before_delivery": true,
+    "operations_handover_required": true
+  }
+}
