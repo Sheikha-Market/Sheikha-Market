@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "global-domain-registry",
+      "mount": "/api/global-domain-registry",
+      "module": "routes/global-domain-registry/status.routes.js",
+      "priority": 320
+    },
+    {
       "name": "runtime-federation-mesh",
       "mount": "/api/runtime-federation-mesh",
       "module": "routes/runtime-federation-mesh/status.routes.js",
