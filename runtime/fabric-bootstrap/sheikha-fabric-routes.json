@@ -16,6 +16,18 @@
       "priority": 169
     },
     {
+      "name": "market-infrastructure-fabric",
+      "mount": "/api/market-infrastructure",
+      "module": "routes/market-infrastructure/status.routes.js",
+      "priority": 168
+    },
+    {
+      "name": "system-of-systems",
+      "mount": "/api/system-of-systems",
+      "module": "routes/system-of-systems/status.routes.js",
+      "priority": 167
+    },
+    {
       "name": "constitutional-governance-fabric",
       "mount": "/api/governance/constitutional-fabric",
       "module": "routes/governance/constitutional-fabric/status.routes.js",
