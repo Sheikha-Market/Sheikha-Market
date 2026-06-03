@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "sheikha-legislative-authority",
+      "mount": "/api/governance/sheikha-authority",
+      "module": "routes/governance/sheikha-authority/status.routes.js",
+      "priority": 151
+    },
+    {
       "name": "supreme-governance-control-layer",
       "mount": "/api/governance/supreme-control",
       "module": "routes/governance/supreme-control/status.routes.js",
