@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "policy-enforcement-point",
+      "mount": "/api/governance/pep",
+      "module": "routes/governance/pep/status.routes.js",
+      "priority": 270
+    },
+    {
       "name": "policy-decision-point",
       "mount": "/api/governance/pdp",
       "module": "routes/governance/pdp/status.routes.js",
@@ -20,12 +26,6 @@
       "mount": "/api/governance/capability-tokens",
       "module": "routes/governance/capability-tokens/status.routes.js",
       "priority": 240
-    },
-    {
-      "name": "policy-enforcement-point",
-      "mount": "/api/governance/pep",
-      "module": "routes/governance/policy-enforcement-point/status.routes.js",
-      "priority": 219
     },
     {
       "name": "risk-classification-engine",
