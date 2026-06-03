@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "governance-enforcement-engine",
+      "mount": "/api/governance/enforcement-engine",
+      "module": "routes/governance/enforcement-engine/status.routes.js",
+      "priority": 190
+    },
+    {
       "name": "policy-compiler",
       "mount": "/api/governance/policy-compiler",
       "module": "routes/governance/policy-compiler/status.routes.js",
