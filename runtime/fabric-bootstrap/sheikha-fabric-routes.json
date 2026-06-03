@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "sheikha-organization-system-of-systems",
+      "mount": "/api/organization/sheikha",
+      "module": "routes/organization/sheikha-organization/status.routes.js",
+      "priority": 180
+    },
+    {
       "name": "highest-authority-readiness",
       "mount": "/api/governance/authority-readiness",
       "module": "routes/governance/authority-readiness/status.routes.js",
