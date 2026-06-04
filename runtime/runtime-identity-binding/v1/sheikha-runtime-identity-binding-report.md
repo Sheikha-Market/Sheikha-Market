@@ -14,16 +14,28 @@
 6. Portal Compatibility Layer
 
 ## الفحوص
-- ✅ wellKnownIdentity
-- ✅ sheikhaIdentity
-- ✅ enterpriseIdentity
-- ✅ runtimeManifest
-- ✅ operatingSystem
-- ✅ rootIdentity
-- ✅ rootArchitectureTools
-- ✅ runtimeIdentityLib
-- ✅ runtimeIdentityRoutes
-- ✅ server
+- OK wellKnownIdentity
+- OK sheikhaIdentity
+- OK enterpriseIdentity
+- OK runtimeManifest
+- OK operatingSystem
+- OK rootIdentity
+- OK rootArchitectureTools
+- OK runtimeIdentityLib
+- OK runtimeIdentityRoutes
+- OK server
+- OK packageNameRaised
+- OK wellKnownRootIdentityRaised
+- OK serverRoutesBound
+- OK fabricRoutesBound
+
+## الربط الفعلي
+- package: sheikha-operating-system
+- root identity: /api/root-identity/status
+- operating system: /api/operating-system/status
+- runtime identity: /api/runtime/identity/status
+- root fabric: /api/root-identity
+- operating system fabric: /api/operating-system
 
 ## الإجراءات التالية
 1. Commit runtime identity binding as one governed layer.

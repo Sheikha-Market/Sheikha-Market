@@ -79,6 +79,21 @@ describe('Sheikha operating system naming contracts', () => {
     }));
   });
 
+  test('runtime identity binding report is active and fully bound', () => {
+    const report = readJson('runtime/runtime-identity-binding/v1/sheikha-runtime-identity-binding-report.json');
+
+    expect(report.status).toBe('ACTIVE');
+    expect(report.decision).toBe('RUNTIME_IDENTITY_BINDING_ACTIVE');
+    expect(report.missing).toEqual([]);
+    expect(report.actualBinding).toEqual(expect.objectContaining({
+      packageName: 'sheikha-operating-system',
+      rootIdentityEndpoint: '/api/root-identity/status',
+      operatingSystemEndpoint: '/api/operating-system/status',
+      runtimeIdentityEndpoint: '/api/runtime/identity/status'
+    }));
+    expect(Object.values(report.checks).every(Boolean)).toBe(true);
+  });
+
   test('operating system activation report is governed and complete', () => {
     const report = readJson('runtime/operating-system/v1/sheikha-operating-system-report.json');
 
