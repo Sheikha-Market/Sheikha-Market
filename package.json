@@ -433,7 +433,8 @@
     "ops:stability-layer:v1": "node tools/stability-layer/sheikha-stability-layer-v1.js",
     "ops:continuous-improvement:v1": "node tools/continuous-improvement/sheikha-continuous-improvement-v1.js",
     "ops:development-psychology:v1": "node tools/development-psychology/sheikha-development-psychology-v1.js",
-    "ops:gitleaks:governed": "docker run --rm -v \"$PWD:/repo\" zricethezav/gitleaks:latest detect --source=/repo --no-git --redact --exit-code 1 --config=/repo/.gitleaks.toml"
+    "ops:gitleaks:governed": "docker run --rm -v \"$PWD:/repo\" zricethezav/gitleaks:latest detect --source=/repo --no-git --redact --exit-code 1 --config=/repo/.gitleaks.toml",
+    "ops:unified-governance-fabric:v1": "node tools/unified-governance-fabric/sheikha-unified-governance-fabric-v1.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
