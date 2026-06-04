@@ -1,10 +1,9 @@
 {
   "system": "SHEIKHA_UNIFIED_GOVERNANCE_FABRIC_V1",
   "status": "ACTIVE",
-  "timestamp": "2026-06-04T19:24:11.122Z",
+  "timestamp": "2026-06-04T19:40:47.581Z",
   "branch": "optimization/long-tail-latency-elimination",
-  "head": "57961152",
-  "gitStatus": "M package.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.md\n M tools/stability-layer/sheikha-stability-layer-v1.js\n?? runtime/unified-governance-fabric/\n?? tools/unified-governance-fabric/",
+  "head": "9a6e329d",
   "checks": {
     "quranSunnahGovernance": true,
     "chatCodeGovernance": true,
@@ -14,7 +13,13 @@
     "governanceActivation": true,
     "continuousImprovement": true,
     "stabilityLayer": true,
-    "developmentPsychology": true
+    "stabilityReportStable": true,
+    "apiContractRegistry": true,
+    "testGovernance": true,
+    "extensionCompatibility": true,
+    "developmentPsychology": true,
+    "excellenceScore": true,
+    "executionFabric": true
   },
   "missing": [],
   "decision": "READY_FOR_GOVERNED_OPERATION",
@@ -23,12 +28,19 @@
     "Apply Quran Sunnah governance boundary",
     "Classify chat/code/PR/deployment risk",
     "Check architecture freeze",
-    "Check capability registry",
+    "Check stability layer and API contracts",
     "Run tests and drift checks",
     "Generate governance report",
     "Allow only curated merge",
     "Capture lessons learned",
     "Update roadmap and policies"
   ],
+  "mergePolicy": {
+    "rawMergeAllowed": false,
+    "curatedMergeRequired": true,
+    "greenChecksRequired": true,
+    "driftCheckRequired": true,
+    "humanReviewForHighRisk": true
+  },
   "principle": "ولا حول ولا قوة إلا بالله"
 }

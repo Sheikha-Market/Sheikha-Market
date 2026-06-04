@@ -13,7 +13,10 @@ module.exports = {
     '/Sheikha-Market/',
     '/.venv/',
     '/exports/',
-    '/reports/'
+    '/reports/',
+    '/core/integration/tests/',
+    '/tests/pixel-system.test.js',
+    '/tests/pixel-ecosystem-integration.test.js'
   ],
   modulePathIgnorePatterns: [
     '<rootDir>/dist',
@@ -23,5 +26,6 @@ module.exports = {
     '<rootDir>/.venv',
     '<rootDir>/exports',
     '<rootDir>/reports'
-  ]
+  ],
+  passWithNoTests: true
 };

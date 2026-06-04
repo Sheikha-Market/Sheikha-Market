@@ -1,24 +1,154 @@
 {
-  "system": "SHEIKHA_STABILITY_LAYER_V1",
-  "status": "ACTIVE",
-  "timestamp": "2026-06-04T18:16:38.764Z",
+  "system": "SHEIKHA_STABILITY_LAYER_V1_REPORT",
+  "status": "STABLE",
+  "timestamp": "2026-06-04T19:40:42.596Z",
   "branch": "optimization/long-tail-latency-elimination",
-  "head": "c01eff93",
-  "gitStatus": "M jest.config.js\n M package-lock.json\n M package.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.md\n M runtime/stability-layer/v1/sheikha-stability-layer-v1.json\n M tools/stability-layer/sheikha-stability-layer-v1.js",
+  "head": "9a6e329d",
   "checks": {
-    "jestConfig": true,
-    "gitleaksConfig": true,
-    "continuousImprovement": true,
-    "governanceActivation": true,
-    "developmentPsychology": true
+    "foundations": {
+      "gitleaksConfig": true,
+      "continuousImprovement": true,
+      "governanceActivation": true,
+      "developmentPsychology": true,
+      "excellenceScore": true,
+      "executionFabric": true
+    },
+    "jest": {
+      "testEnvironment": "node",
+      "testMatch": [
+        "<rootDir>/tests/**/*.test.js",
+        "<rootDir>/core/**/*.test.js",
+        "<rootDir>/sheikha-vscode-extension/tests/**/*.test.js"
+      ],
+      "testPathIgnorePatterns": [
+        "/node_modules/",
+        "/dist/",
+        "/archive/",
+        "/infra/docker/compose/prod/",
+        "/Sheikha-Market/",
+        "/.venv/",
+        "/exports/",
+        "/reports/",
+        "/core/integration/tests/",
+        "/tests/pixel-system.test.js",
+        "/tests/pixel-ecosystem-integration.test.js"
+      ],
+      "modulePathIgnorePatterns": [
+        "<rootDir>/dist",
+        "<rootDir>/archive",
+        "<rootDir>/infra/docker/compose/prod",
+        "<rootDir>/Sheikha-Market",
+        "<rootDir>/.venv",
+        "<rootDir>/exports",
+        "<rootDir>/reports"
+      ],
+      "testIgnoresComplete": true,
+      "moduleIgnoresComplete": true,
+      "nodeTestSuitesSeparated": true,
+      "legacyPixelRunnersSeparated": true,
+      "extensionTestsVisible": true
+    },
+    "dependency": {
+      "uuidDependency": "^8.3.2",
+      "uuidPinnedToCommonJsSafeMajor": true,
+      "marketUnitUsesCryptoRandomUUID": true,
+      "marketUnitRequiresUuid": false
+    },
+    "apiContracts": {
+      "registry": "SHEIKHA_API_CONTRACT_REGISTRY_V1",
+      "status": "ACTIVE",
+      "envelope": "SHEIKHA_API_ENVELOPE_V1",
+      "requiredTopLevel": [
+        "success",
+        "data",
+        "timestamp"
+      ],
+      "totalContracts": 10,
+      "lockedContracts": 10,
+      "extensionContracts": 10,
+      "statusValidation": {
+        "ok": true,
+        "errors": []
+      }
+    },
+    "extension": {
+      "system": "SHEIKHA_EXTENSION_COMPATIBILITY_V1",
+      "status": "ACTIVE",
+      "coveredEndpoints": 10,
+      "expectedEnvelope": "SHEIKHA_API_ENVELOPE_V1",
+      "expectedDataEnvelopeReferences": 34,
+      "dataEnvelopeExpectedByExtension": true
+    },
+    "repositoryDuplication": {
+      "scannedRiskRoots": [
+        "dist",
+        "archive",
+        "infra/docker/compose/prod",
+        "Sheikha-Market",
+        ".venv",
+        "exports",
+        "reports"
+      ],
+      "riskyPackageFiles": [
+        ".venv/lib/python3.10/site-packages/jupyterlab/galata/@jupyterlab/galata-extension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/staging/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/static/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/extension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/incompat/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/interop/consumer/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/interop/provider/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/interop/token/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/mimeextension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/package/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/service-manager-extension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/test-hyphens-underscore/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/test-hyphens/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/test_no_hyphens/package.json",
+        ".venv/lib/python3.10/site-packages/plotly/labextension/package.json",
+        ".venv/share/jupyter/lab/static/package.json",
+        ".venv/share/jupyter/labextensions/@jupyter-notebook/lab-extension/package.json",
+        ".venv/share/jupyter/labextensions/@jupyter-widgets/jupyterlab-manager/package.json",
+        ".venv/share/jupyter/labextensions/jupyterlab-plotly/package.json",
+        ".venv/share/jupyter/labextensions/jupyterlab_pygments/package.json",
+        "Sheikha-Market/sheikha-main-portal/data/peace-unity/activation-package.json",
+        "Sheikha-Market/sheikha-main-portal/lib/sheikha/package.json",
+        "Sheikha-Market/sheikha-main-portal/mcp-servers/package.json",
+        "Sheikha-Market/sheikha-main-portal/package.json",
+        "Sheikha-Market/sheikha-main-portal/sheikha-vscode-extension/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/@anthropic-ai/sdk/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/@babel/runtime/helpers/esm/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/@babel/runtime/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/json-schema-to-ts/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/openai/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/ts-algebra/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/package.json",
+        "dist/sheikha-app/opt/sheikha/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/data/peace-unity/activation-package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/lib/sheikha/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/mcp-servers/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/sheikha-vscode-extension/package.json"
+      ],
+      "riskyPackageFilesCount": 38
+    }
   },
-  "decision": "STABILITY_PATCH_READY_FOR_LOCAL_TEST",
+  "score": 100,
+  "gaps": [],
+  "decision": "STABILITY_BASELINE_READY",
   "requiredBeforeMerge": [
-    "npm test --if-present",
-    "governed gitleaks",
+    "npm test -- --config jest.config.js",
+    "node --test core/integration/tests/*.test.js",
+    "npm run lint",
+    "npm run ops:stability-layer:v1",
     "runtime drift detector",
-    "pre-commit governance",
-    "PR checks green"
+    "PR checks green",
+    "curated human review"
   ],
-  "principle": "ولا حول ولا قوة إلا بالله"
+  "nextActions": [
+    "Keep extension-facing APIs locked to SHEIKHA_API_ENVELOPE_V1.",
+    "Update the API contract registry before changing extension tests.",
+    "Promote extension integration tests to required CI only when the API server is started in workflow.",
+    "Convert every future CI failure into a contract, test, and prevention rule."
+  ],
+  "principle": "la darar wa la dirar"
 }
