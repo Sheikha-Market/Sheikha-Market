@@ -4,6 +4,12 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "technical-advisory",
+      "mount": "/api/technical-advisory",
+      "module": "./routes/technical-advisory/status.routes.js",
+      "priority": 410
+    },
+    {
       "name": "pr-governance",
       "mount": "/api/pr-governance",
       "module": "./routes/pr-governance/status.routes.js",

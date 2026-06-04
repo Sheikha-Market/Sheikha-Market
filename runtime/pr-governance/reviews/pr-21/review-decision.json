@@ -1,0 +1,23 @@
+{
+  "pr": 21,
+  "title": "منظومة قواعد الأفضل — 20 قاعدة كونية من الكتاب والسنة + تفعيل الكل",
+  "initialDecision": "REVIEW_BEFORE_MERGE",
+  "priority": "HIGH_FOR_RULES",
+  "reason": "This PR contains important rules and foundation logic, but it changes server.js, package files, and core libraries, so it must be reviewed before merge.",
+  "requiredChecks": [
+    "server_js_impact",
+    "package_dependency_impact",
+    "rules_engine_review",
+    "llm_layer_review",
+    "security_review",
+    "lint",
+    "tests",
+    "human_approval"
+  ],
+  "rules": {
+    "no_auto_merge": true,
+    "preserve_architecture_freeze_v1_1": true,
+    "preserve_federal_organization_v1_2": true,
+    "human_approval_required": true
+  }
+}

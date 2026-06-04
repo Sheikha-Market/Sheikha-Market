@@ -1,0 +1,28 @@
+{
+  "governance": "SHEIKHA_TECHNICAL_ADVISORY_AND_MERGE_GOVERNANCE",
+  "status": "ACTIVE",
+  "purpose": "Govern technical consulting, code writing, code analysis, improvement, merging, evaluation, gap analysis, and root cause analysis under Sheikha Federal Organization V1.2.",
+  "capabilities": [
+    "technical_consulting",
+    "software_architecture_review",
+    "code_generation",
+    "code_analysis",
+    "code_improvement",
+    "merge_governance",
+    "quality_assessment",
+    "gap_analysis",
+    "root_cause_analysis",
+    "security_review",
+    "operational_handover"
+  ],
+  "rules": {
+    "no_raw_merge_for_large_pr": true,
+    "curated_merge_required": true,
+    "architecture_review_required": true,
+    "security_review_required": true,
+    "root_cause_analysis_required_for_defects": true,
+    "gap_analysis_required_before_merge": true,
+    "tests_required": true,
+    "human_approval_required": true
+  }
+}
