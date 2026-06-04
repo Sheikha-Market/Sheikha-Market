@@ -471,5 +471,16 @@
     "jest": "^30.4.2"
   },
   "publisher": "sheikha",
-  "displayName": "Sheikha"
+  "displayName": "Sheikha",
+  "jest": {
+    "modulePathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/dist/sheikha-app/",
+      "<rootDir>/dist/sheikha-app/opt/sheikha/"
+    ],
+    "testPathIgnorePatterns": [
+      "<rootDir>/dist/",
+      "<rootDir>/node_modules/"
+    ]
+  }
 }

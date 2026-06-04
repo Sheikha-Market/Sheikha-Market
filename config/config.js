@@ -119,7 +119,7 @@ const config = {
     security: {
         strictSecrets: process.env.SECURITY_STRICT_SECRETS === 'true',
         jwt: {
-            secret: process.env.JWT_SECRET || wz8DykRVwLjGYAOvfGU70MpVJg+bQjOn04PUvyc1M1BjOA8GGr2KqGclsheikhaG,
+            secret: process.env.JWT_SECRET || 'sheikha-dev-jwt-secret-change-in-production-min-32',
             minSecretLength: 32,
             expiresIn: '24h',
             refreshExpiresIn: '7d'
