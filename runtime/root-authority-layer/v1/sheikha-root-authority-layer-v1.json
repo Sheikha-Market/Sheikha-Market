@@ -1,0 +1,29 @@
+{
+  "system": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+  "status": "ACTIVE",
+  "arabic_name": "طبقة سلطة الجذر الحاكمة",
+  "purpose": "Unify Heart Core, Root Identity, Root Operating Core, Operating System, Governance Fabric, Runtime Contract Enforcer, Stability Layer, and PR Governance into one top-level governed authority layer.",
+  "position": "ABOVE_ROOT_OPERATING_CORE_BELOW_HEART_CORE",
+  "authority_chain": [
+    "SHEIKHA_HEART_CORE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_ROOT_IDENTITY_V1",
+    "SHEIKHA_ROOT_OPERATING_CORE_V1",
+    "SHEIKHA_OPERATING_SYSTEM_V1",
+    "SHEIKHA_UNIFIED_GOVERNANCE_FABRIC_V1",
+    "SHEIKHA_RUNTIME_CONTRACT_ENFORCER_V1",
+    "SHEIKHA_STABILITY_LAYER_V1",
+    "SHEIKHA_PR_GOVERNANCE"
+  ],
+  "enforcement": {
+    "heart_core_required": true,
+    "architecture_freeze_required": true,
+    "runtime_contract_required": true,
+    "stability_score_required": 100,
+    "no_drift_required": true,
+    "pr_checks_required": true,
+    "human_review_for_high_risk": true,
+    "raw_merge_allowed": false
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
