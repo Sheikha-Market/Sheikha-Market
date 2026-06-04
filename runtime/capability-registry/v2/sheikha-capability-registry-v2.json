@@ -18,6 +18,10 @@
     "capability_activation_only": true,
     "model_pull_requested": false,
     "provider_model_download_requested": false,
+    "external_model_activation_claim": false,
+    "model_name_is_not_asserted": true,
+    "provider_availability_must_be_verified": true,
+    "actual_activation_scope": "local_repo_capabilities_policies_routes_reports_and_tests",
     "uses_available_account_capabilities": true,
     "respects_plan_limits_and_guardrails": true,
     "provider_neutral": true
@@ -32,7 +36,10 @@
     "tests_required": true,
     "audit_required": true,
     "human_review_for_high_risk": true,
-    "execution_fabric_gated_until_registry_clean": true
+    "execution_fabric_gated_until_registry_clean": true,
+    "no_model_pull_without_explicit_user_command": true,
+    "no_capability_claim_without_registry": true,
+    "plan_limits_must_be_respected": true
   },
   "rules": {
     "no_model_pull": true,
