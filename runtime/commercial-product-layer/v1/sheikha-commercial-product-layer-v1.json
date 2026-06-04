@@ -1,0 +1,24 @@
+{
+  "system": "SHEIKHA_COMMERCIAL_PRODUCT_LAYER_V1",
+  "status": "ACTIVE",
+  "arabic_name": "طبقة منتجات شيخة التجارية",
+  "purpose": "Package Sheikha governed AI capabilities into licensable commercial products, services, APIs, SDKs, SaaS offerings, and enterprise technology components.",
+  "position": "UNDER_CAPABILITY_REGISTRY_BEFORE_PROVIDER_REGISTRY",
+  "governed_by": [
+    "SHEIKHA_HEART_CORE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+    "SHEIKHA_DECISION_REGISTRY_V2",
+    "SHEIKHA_CAPABILITY_REGISTRY_V2"
+  ],
+  "rules": {
+    "no_unverified_partner_claims": true,
+    "no_claim_of_openai_partnership_without_contract": true,
+    "ip_ownership_required": true,
+    "legal_review_required_before_external_sale": true,
+    "human_approval_required_for_commercial_terms": true,
+    "tests_required": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
