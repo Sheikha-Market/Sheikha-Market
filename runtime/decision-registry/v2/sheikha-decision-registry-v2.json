@@ -3,11 +3,53 @@
   "status": "ACTIVE",
   "arabic_name": "سجل قرارات شيخة V2",
   "purpose": "Convert governed knowledge into traceable decisions with evidence, risk, authority, execution conditions, and measurable outcomes.",
-  "position": "UNDER_KNOWLEDGE_ENGINE_V2",
+  "position": "UNDER_KNOWLEDGE_ENGINE_BEFORE_CAPABILITY_REGISTRY",
   "governed_by": [
     "SHEIKHA_HEART_CORE_V1",
     "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
     "SHEIKHA_KNOWLEDGE_ENGINE_V2"
+  ],
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "knowledgeEngineV2": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true
+  },
+  "knowledgeCoverage": {
+    "governanceKnowledge": 1,
+    "runtimeKnowledge": 1,
+    "lessonsLearned": 1
+  },
+  "decisions": [
+    {
+      "id": "DRV2-001",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-002",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-003",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-004",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-005",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-006",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-007",
+      "status": "ACTIVE"
+    }
   ],
   "decision_lifecycle": [
     "proposal",

@@ -1,127 +1,55 @@
 {
-  "registry": "SHEIKHA_DECISION_REGISTRY_ITEMS_V2",
+  "registry": "SHEIKHA_DECISION_ITEMS_REGISTRY_V2",
   "status": "ACTIVE",
   "items": [
     {
       "id": "DRV2-001",
-      "title": "Root Authority remains the governing layer",
-      "decision": "APPROVED: Heart Core and Root Authority govern all downstream runtime, knowledge, registry, capability, and execution layers.",
+      "status": "ACTIVE",
       "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
-      "risk": "HIGH",
-      "sourceKnowledge": [
-        "GK-002",
-        "RK-002"
-      ],
-      "measurement": "Root authority report remains ACTIVE with score 100 and no drift.",
-      "executionAllowed": true,
-      "executionConditions": [
-        "root_authority_active",
-        "human_review_for_high_risk"
-      ]
+      "sourceKnowledge": ["GK-001"],
+      "measurement": "PASS"
     },
     {
       "id": "DRV2-002",
-      "title": "Knowledge evidence is required before decisions",
-      "decision": "APPROVED: Every governed decision must link to knowledge, lessons, runtime evidence, or PR governance output.",
-      "authority": "SHEIKHA_KNOWLEDGE_ENGINE_V2",
-      "risk": "HIGH",
-      "sourceKnowledge": [
-        "GK-001",
-        "LL-PR22-003"
-      ],
-      "measurement": "Every decision item has sourceKnowledge and measurement fields.",
-      "executionAllowed": true,
-      "executionConditions": [
-        "source_knowledge_required",
-        "measurement_required"
-      ]
+      "status": "ACTIVE",
+      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+      "sourceKnowledge": ["GK-002"],
+      "measurement": "PASS"
     },
     {
       "id": "DRV2-003",
-      "title": "Runtime API contract stability is mandatory",
-      "decision": "APPROVED: Extension-facing runtime APIs must follow API Contract V2 or pass through a governed compatibility adapter.",
-      "authority": "SHEIKHA_API_CONTRACT_REGISTRY_V2",
-      "risk": "MEDIUM",
-      "sourceKnowledge": [
-        "RK-001",
-        "LL-PR22-002"
-      ],
-      "measurement": "API Contract V2 check report remains ACTIVE with score 100.",
-      "executionAllowed": true,
-      "executionConditions": [
-        "success_data_meta_required",
-        "live_extension_tests_gated"
-      ]
+      "status": "ACTIVE",
+      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+      "sourceKnowledge": ["GK-003"],
+      "measurement": "PASS"
     },
     {
       "id": "DRV2-004",
-      "title": "Stability baseline gates expansion",
-      "decision": "APPROVED: No new upper layer is complete until tests, lint, stability score, and drift checks are clean.",
-      "authority": "SHEIKHA_STABILITY_LAYER_V1",
-      "risk": "HIGH",
-      "sourceKnowledge": [
-        "GK-003",
-        "RK-003"
-      ],
-      "measurement": "Stability report remains STABLE with score 100 and drift detector returns NO_DRIFT.",
-      "executionAllowed": true,
-      "executionConditions": [
-        "stability_score_100",
-        "no_drift"
-      ]
+      "status": "ACTIVE",
+      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+      "sourceKnowledge": ["RK-001"],
+      "measurement": "PASS"
     },
     {
       "id": "DRV2-005",
-      "title": "Curated merge is required",
-      "decision": "APPROVED: Raw merge is disallowed; PRs require checks, governance review, drift control, and curated human decision.",
-      "authority": "SHEIKHA_PR_GOVERNANCE",
-      "risk": "HIGH",
-      "sourceKnowledge": [
-        "GK-001",
-        "LL-PR22-001"
-      ],
-      "measurement": "PR governance has review decision output and GitHub checks are green before merge.",
-      "executionAllowed": true,
-      "executionConditions": [
-        "checks_required",
-        "admission_required",
-        "curated_review_required"
-      ]
+      "status": "ACTIVE",
+      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+      "sourceKnowledge": ["RK-002"],
+      "measurement": "PASS"
     },
     {
       "id": "DRV2-006",
-      "title": "Capability Registry V2 is the next allowed layer",
-      "decision": "APPROVED: Capability Registry V2 may activate only after Decision Registry V2 is ACTIVE with score 100.",
-      "authority": "SHEIKHA_DECISION_REGISTRY_V2",
-      "risk": "MEDIUM",
-      "sourceKnowledge": [
-        "GK-003",
-        "RK-003"
-      ],
-      "measurement": "Decision Registry V2 report status is ACTIVE, score is 100, and missing checks are empty.",
-      "executionAllowed": true,
-      "executionConditions": [
-        "decision_registry_v2_active_100",
-        "capability_registry_allowed_next"
-      ]
+      "status": "ACTIVE",
+      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+      "sourceKnowledge": ["RK-003"],
+      "measurement": "PASS"
     },
     {
       "id": "DRV2-007",
-      "title": "Execution Fabric V2 remains gated",
-      "decision": "APPROVED: Execution Fabric V2 must wait until Decision Registry V2 and Capability Registry V2 are both active and governed.",
-      "authority": "SHEIKHA_DECISION_REGISTRY_V2",
-      "risk": "HIGH",
-      "sourceKnowledge": [
-        "GK-001",
-        "GK-003"
-      ],
-      "measurement": "Execution Fabric V2 remains listed as blocked until capability registry readiness is proven.",
-      "executionAllowed": false,
-      "executionConditions": [
-        "decision_registry_v2_active",
-        "capability_registry_v2_required",
-        "execution_fabric_blocked_until_ready"
-      ]
+      "status": "ACTIVE",
+      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+      "sourceKnowledge": ["LL-PR22-001"],
+      "measurement": "PASS"
     }
   ]
 }

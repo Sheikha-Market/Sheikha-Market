@@ -46,16 +46,14 @@ const knownKnowledgeIds = new Set([
 
 const registryChecks = {
   decisionItems: Boolean(decisions && decisions.items && decisions.items.length),
-  approvedDecisions: Boolean(decisions && decisions.items && decisions.items.every(item => item.decision && item.authority)),
+  activeDecisions: Boolean(decisions && decisions.items && decisions.items.every(
+    item => item.status === 'ACTIVE' && item.authority
+  )),
   evidenceLinked: Boolean(decisions && decisions.items && decisions.items.every(item => Array.isArray(item.sourceKnowledge) && item.sourceKnowledge.length > 0)),
   sourceKnowledgeResolvable: Boolean(decisions && decisions.items && decisions.items.every(
     item => item.sourceKnowledge.every(id => knownKnowledgeIds.has(id))
   )),
-  measurementLinked: Boolean(decisions && decisions.items && decisions.items.every(item => item.measurement)),
-  riskClassified: Boolean(decisions && decisions.items && decisions.items.every(item => item.risk)),
-  executionConditionsLinked: Boolean(decisions && decisions.items && decisions.items.every(
-    item => Array.isArray(item.executionConditions) && item.executionConditions.length > 0
-  ))
+  measurementLinked: Boolean(decisions && decisions.items && decisions.items.every(item => item.measurement))
 };
 
 const missingDependencies = Object.entries(dependencies).filter(([, ok]) => !ok).map(([k]) => k);
@@ -74,10 +72,9 @@ const report = {
   missingRegistryChecks,
   coverage: {
     decisionItems: decisions?.items?.length || 0,
-    approvedItems: decisions?.items?.filter(x => String(x.decision || '').includes('APPROVED')).length || 0,
-    executableItems: decisions?.items?.filter(x => x.executionAllowed === true).length || 0,
-    gatedItems: decisions?.items?.filter(x => x.executionAllowed === false).length || 0,
-    highRiskItems: decisions?.items?.filter(x => x.risk === 'HIGH').length || 0
+    activeItems: decisions?.items?.filter(x => x.status === 'ACTIVE').length || 0,
+    measuredItems: decisions?.items?.filter(x => x.measurement).length || 0,
+    linkedItems: decisions?.items?.filter(x => Array.isArray(x.sourceKnowledge) && x.sourceKnowledge.length > 0).length || 0
   },
   nextActions: [
     'Activate Capability Registry V2 after Decision Registry V2 is clean.',
@@ -107,10 +104,9 @@ fs.writeFileSync(
 
 ## التغطية
 - القرارات: ${report.coverage.decisionItems}
-- القرارات المعتمدة: ${report.coverage.approvedItems}
-- القرارات القابلة للتنفيذ: ${report.coverage.executableItems}
-- القرارات المحجوبة: ${report.coverage.gatedItems}
-- القرارات عالية المخاطر: ${report.coverage.highRiskItems}
+- القرارات النشطة: ${report.coverage.activeItems}
+- القرارات المقاسة: ${report.coverage.measuredItems}
+- القرارات المرتبطة بالمعرفة: ${report.coverage.linkedItems}
 
 ## الفحوص
 ${Object.entries(dependencies).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n')}

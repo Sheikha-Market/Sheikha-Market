@@ -8,10 +8,9 @@
 
 ## التغطية
 - القرارات: 7
-- القرارات المعتمدة: 7
-- القرارات القابلة للتنفيذ: 6
-- القرارات المحجوبة: 1
-- القرارات عالية المخاطر: 5
+- القرارات النشطة: 7
+- القرارات المقاسة: 7
+- القرارات المرتبطة بالمعرفة: 7
 
 ## الفحوص
 - ✅ heartCore
@@ -26,12 +25,10 @@
 
 ## فحوص السجل
 - ✅ decisionItems
-- ✅ approvedDecisions
+- ✅ activeDecisions
 - ✅ evidenceLinked
 - ✅ sourceKnowledgeResolvable
 - ✅ measurementLinked
-- ✅ riskClassified
-- ✅ executionConditionsLinked
 
 ## المدخلات التالية
 1. Activate Capability Registry V2 after Decision Registry V2 is clean.

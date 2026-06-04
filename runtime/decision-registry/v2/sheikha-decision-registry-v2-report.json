@@ -17,21 +17,18 @@
   },
   "registryChecks": {
     "decisionItems": true,
-    "approvedDecisions": true,
+    "activeDecisions": true,
     "evidenceLinked": true,
     "sourceKnowledgeResolvable": true,
-    "measurementLinked": true,
-    "riskClassified": true,
-    "executionConditionsLinked": true
+    "measurementLinked": true
   },
   "missingDependencies": [],
   "missingRegistryChecks": [],
   "coverage": {
     "decisionItems": 7,
-    "approvedItems": 7,
-    "executableItems": 6,
-    "gatedItems": 1,
-    "highRiskItems": 5
+    "activeItems": 7,
+    "measuredItems": 7,
+    "linkedItems": 7
   },
   "nextActions": [
     "Activate Capability Registry V2 after Decision Registry V2 is clean.",

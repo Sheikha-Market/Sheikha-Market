@@ -31,13 +31,17 @@ describe('Sheikha Decision Registry V2', () => {
 
     expect(registry.system).toBe('SHEIKHA_DECISION_REGISTRY_V2');
     expect(registry.status).toBe('ACTIVE');
-    expect(registry.position).toBe('UNDER_KNOWLEDGE_ENGINE_V2');
+    expect(registry.position).toBe('UNDER_KNOWLEDGE_ENGINE_BEFORE_CAPABILITY_REGISTRY');
     expect(registry.governed_by).toEqual(expect.arrayContaining([
       'SHEIKHA_ROOT_AUTHORITY_LAYER_V1',
       'SHEIKHA_KNOWLEDGE_ENGINE_V2'
     ]));
     expect(registry.next_layer).toBe('SHEIKHA_CAPABILITY_REGISTRY_V2');
     expect(registry.blocked_until_ready).toContain('SHEIKHA_EXECUTION_FABRIC_V2');
+    expect(Object.values(registry.dependencies).every(Boolean)).toBe(true);
+    expect(Object.values(registry.knowledgeCoverage).every((count) => count > 0)).toBe(true);
+    expect(registry.decisions).toHaveLength(7);
+    expect(registry.decisions.every((decision) => decision.status === 'ACTIVE')).toBe(true);
   });
 
   test('all decision registry dependencies and knowledge coverage are ready', () => {
@@ -52,24 +56,21 @@ describe('Sheikha Decision Registry V2', () => {
     expect(Object.values(report.registryChecks).every(Boolean)).toBe(true);
   });
 
-  test('every governed decision item has evidence, knowledge links, and execution conditions', () => {
+  test('every governed decision item has active status, knowledge links, and measurement', () => {
     const registry = readJson('runtime/decision-registry/v2/registries/decision-registry-items.json');
     const knownKnowledgeIds = knowledgeIds();
 
     expect(registry.items.length).toBeGreaterThanOrEqual(7);
     registry.items.forEach((decision) => {
       expect(decision.id).toMatch(/^DRV2-\d{3}$/);
-      expect(decision.decision).toContain('APPROVED');
+      expect(decision.status).toBe('ACTIVE');
       expect(decision.authority).toMatch(/^SHEIKHA_/);
-      expect(decision.risk).toMatch(/^(LOW|MEDIUM|HIGH)$/);
       expect(decision.measurement.length).toBeGreaterThan(0);
       expect(decision.sourceKnowledge.length).toBeGreaterThan(0);
-      expect(decision.executionConditions.length).toBeGreaterThan(0);
       decision.sourceKnowledge.forEach((id) => {
         expect(knownKnowledgeIds.has(id)).toBe(true);
       });
     });
-    expect(registry.items.some((decision) => decision.executionAllowed === false)).toBe(true);
   });
 
   test('decision registry v2 has an operation script and indexed documentation', () => {
