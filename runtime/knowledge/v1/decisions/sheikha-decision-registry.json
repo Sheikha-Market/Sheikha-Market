@@ -1,0 +1,26 @@
+{
+  "registry": "SHEIKHA_DECISION_REGISTRY_V1",
+  "status": "ACTIVE",
+  "generatedBy": "SHEIKHA_EXECUTION_FABRIC_V1",
+  "generatedAt": "2026-06-04T12:06:51.636Z",
+  "decisions": [
+    {
+      "id": "SEF-DEC-001",
+      "decision": "Activate SHEIKHA_EXECUTION_FABRIC_V1 as a report-generating execution layer.",
+      "status": "ACTIVE",
+      "evidence": "runtime/execution-fabric/v1/sheikha-execution-fabric-v1.json"
+    },
+    {
+      "id": "SEF-DEC-002",
+      "decision": "Knowledge Capture, Knowledge Indexing, Lessons Learned, Decision Tracking, and Improvement Tracking are approved; self-modifying runtime behavior is not approved.",
+      "status": "ACTIVE",
+      "evidence": "runtime/knowledge/v1/reports/sheikha-execution-fabric-report.json"
+    },
+    {
+      "id": "SEF-DEC-003",
+      "decision": "Generated reports must update Knowledge V1 targets for human review.",
+      "status": "ACTIVE",
+      "evidence": "runtime/knowledge/v1/registry/sheikha-knowledge-registry.json"
+    }
+  ]
+}

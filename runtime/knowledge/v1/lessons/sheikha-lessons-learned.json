@@ -1,0 +1,37 @@
+{
+  "registry": "SHEIKHA_LESSONS_LEARNED_V1",
+  "status": "ACTIVE",
+  "generatedBy": "SHEIKHA_EXECUTION_FABRIC_V1",
+  "generatedAt": "2026-06-04T12:06:51.636Z",
+  "lessons": [
+    {
+      "id": "SEF-LL-001",
+      "lesson": "Knowledge should be captured as reports, indexes, decisions, and lessons, not as self-modifying runtime behavior.",
+      "source": "SHEIKHA_EXECUTION_FABRIC_V1",
+      "appliesTo": [
+        "knowledge",
+        "operation_loop",
+        "architecture_intelligence"
+      ]
+    },
+    {
+      "id": "SEF-LL-002",
+      "lesson": "High-risk PRs must stay blocked from raw merge until curated source patches and human approval are complete.",
+      "source": "PR governance reports",
+      "appliesTo": [
+        "PR-21",
+        "PR-22"
+      ]
+    },
+    {
+      "id": "SEF-LL-003",
+      "lesson": "Fabric Bootstrap remains the primary route mount source; route growth should be observed through generated reports.",
+      "source": "Fabric route scan",
+      "appliesTo": [
+        "fabric",
+        "routes",
+        "runtime"
+      ]
+    }
+  ]
+}

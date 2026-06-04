@@ -215,6 +215,7 @@
     "ops:autonomy:gate:production": "node scripts/autonomous-governance-cycle.js --target=production --enforce",
     "ops:safety:env": "node scripts/production-safety-guard.js",
     "ops:fabric:cycle": "node scripts/unified-operational-fabric-cycle.js",
+    "ops:execution-fabric:v1": "node tools/execution-fabric/sheikha-execution-fabric-v1.js",
     "ops:neural:compare": "node scripts/analyze-neural-flow-quality.js",
     "ops:bot:cards": "node scripts/generate-bot-job-cards.js",
     "ops:bot:governance": "node scripts/run-bot-governance-cycle.js",

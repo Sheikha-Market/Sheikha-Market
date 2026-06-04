@@ -1,0 +1,38 @@
+{
+  "registry": "SHEIKHA_KNOWLEDGE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "generatedBy": "SHEIKHA_EXECUTION_FABRIC_V1",
+  "generatedAt": "2026-06-04T12:06:51.636Z",
+  "entries": [
+    {
+      "id": "SKV1-REPORT-001",
+      "type": "execution_report",
+      "path": "runtime/knowledge/v1/reports/sheikha-execution-fabric-report.json"
+    },
+    {
+      "id": "SKV1-REPORT-002",
+      "type": "execution_report_markdown",
+      "path": "runtime/knowledge/v1/reports/sheikha-execution-fabric-report.md"
+    },
+    {
+      "id": "SKV1-DEC-001",
+      "type": "decision_registry",
+      "path": "runtime/knowledge/v1/decisions/sheikha-decision-registry.json"
+    },
+    {
+      "id": "SKV1-LESSON-001",
+      "type": "lessons_learned",
+      "path": "runtime/knowledge/v1/lessons/sheikha-lessons-learned.json"
+    },
+    {
+      "id": "SKV1-ROADMAP-001",
+      "type": "roadmap",
+      "path": "runtime/knowledge/v1/roadmaps/sheikha-roadmap-v1.json"
+    }
+  ],
+  "rules": {
+    "stable_ids_required": true,
+    "evidence_path_required": true,
+    "human_review_required_for_high_risk": true
+  }
+}
