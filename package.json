@@ -435,7 +435,8 @@
     "ops:development-psychology:v1": "node tools/development-psychology/sheikha-development-psychology-v1.js",
     "ops:gitleaks:governed": "docker run --rm -v \"$PWD:/repo\" zricethezav/gitleaks:latest detect --source=/repo --no-git --redact --exit-code 1 --config=/repo/.gitleaks.toml",
     "ops:unified-governance-fabric:v1": "node tools/unified-governance-fabric/sheikha-unified-governance-fabric-v1.js",
-    "ops:root-operating-core:v1": "node tools/root-operating-core/sheikha-root-operating-core-v1.js"
+    "ops:root-operating-core:v1": "node tools/root-operating-core/sheikha-root-operating-core-v1.js",
+    "ops:operating-system:v1": "node tools/operating-system/sheikha-operating-system-v1.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",

@@ -6,6 +6,12 @@
 
 **Sheikha Root Operating Core**
 
+ثم تم رفع الاسم المنهجي الأعلى إلى:
+
+**Sheikha Operating System**
+
+ليكون `Root Operating Core` هو الجذر التشغيلي الأعلى داخل نظام تشغيل شيخة.
+
 ويكون أعلى من مسمى:
 
 - portal
@@ -19,19 +25,21 @@
 
 ## الترتيب الأعلى
 
-1. Sheikha Root Operating Core
-2. Unified Governance Fabric
-3. Architecture Freeze
-4. Federal Organization
-5. Knowledge Engine
-6. Decision Registry
-7. Capability Registry
-8. Roadmap Engine
-9. Execution Fabric
-10. AI Gateway
-11. Portal Compatibility Layer
+1. Sheikha Operating System
+2. Sheikha Root Operating Core
+3. Unified Governance Fabric
+4. Architecture Freeze
+5. Federal Organization
+6. Knowledge Engine
+7. Decision Registry
+8. Capability Registry
+9. Roadmap Engine
+10. Execution Fabric
+11. AI Gateway
+12. Portal Compatibility Layer
 
 ## السياسة
+- الاسم المنهجي الأعلى: Sheikha Operating System
 - الاسم الرسمي: Sheikha Root Operating Core
 - الاسم العربي: جذر تشغيل شيخة الأعلى
 - portal: طبقة توافق فقط
