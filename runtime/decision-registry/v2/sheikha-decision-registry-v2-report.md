@@ -2,14 +2,16 @@
 
 ## الحالة
 - النظام: SHEIKHA_DECISION_REGISTRY_V2
-- الحالة: ACTIVE_WITH_REVIEW
-- الدرجة: 68
-- القرار: REVIEW_DECISION_REGISTRY_GAPS
+- الحالة: ACTIVE
+- الدرجة: 100
+- القرار: DECISION_REGISTRY_V2_ACTIVE_100
 
 ## التغطية
-- القرارات: 0
-- القرارات المعتمدة: 0
-- القرارات القابلة للتنفيذ: 0
+- القرارات: 7
+- القرارات المعتمدة: 7
+- القرارات القابلة للتنفيذ: 6
+- القرارات المحجوبة: 1
+- القرارات عالية المخاطر: 5
 
 ## الفحوص
 - ✅ heartCore
@@ -21,6 +23,15 @@
 - ✅ stabilityLayer
 - ✅ runtimeContractEnforcer
 - ✅ driftDetector
+
+## فحوص السجل
+- ✅ decisionItems
+- ✅ approvedDecisions
+- ✅ evidenceLinked
+- ✅ sourceKnowledgeResolvable
+- ✅ measurementLinked
+- ✅ riskClassified
+- ✅ executionConditionsLinked
 
 ## المدخلات التالية
 1. Activate Capability Registry V2 after Decision Registry V2 is clean.

@@ -22,4 +22,12 @@
 لا تنفيذ مع Drift.
 لا دمج خام.
 
+## التالي
+
+الطبقة التالية المسموحة بعد Decision Registry V2 هي:
+
+SHEIKHA_CAPABILITY_REGISTRY_V2
+
+وتبقى SHEIKHA_EXECUTION_FABRIC_V2 محجوبة حتى اكتمال سجل القرارات وسجل القدرات معًا.
+
 ولا حول ولا قوة إلا بالله.

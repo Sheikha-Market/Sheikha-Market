@@ -30,12 +30,32 @@ const dependencies = {
 };
 
 const decisions = readJson('runtime/decision-registry/v2/registries/decision-registry-items.json');
+const lessons = readJson('runtime/knowledge-engine/v2/registries/lessons-learned-registry.json');
+const governance = readJson('runtime/knowledge-engine/v2/registries/governance-knowledge-registry.json');
+const runtime = readJson('runtime/knowledge-engine/v2/registries/runtime-knowledge-registry.json');
+
+function registryItems(registry) {
+  return Array.isArray(registry?.items) ? registry.items : [];
+}
+
+const knownKnowledgeIds = new Set([
+  ...registryItems(lessons).map((item) => item.id),
+  ...registryItems(governance).map((item) => item.id),
+  ...registryItems(runtime).map((item) => item.id)
+]);
 
 const registryChecks = {
   decisionItems: Boolean(decisions && decisions.items && decisions.items.length),
   approvedDecisions: Boolean(decisions && decisions.items && decisions.items.every(item => item.decision && item.authority)),
   evidenceLinked: Boolean(decisions && decisions.items && decisions.items.every(item => Array.isArray(item.sourceKnowledge) && item.sourceKnowledge.length > 0)),
-  measurementLinked: Boolean(decisions && decisions.items && decisions.items.every(item => item.measurement))
+  sourceKnowledgeResolvable: Boolean(decisions && decisions.items && decisions.items.every(
+    item => item.sourceKnowledge.every(id => knownKnowledgeIds.has(id))
+  )),
+  measurementLinked: Boolean(decisions && decisions.items && decisions.items.every(item => item.measurement)),
+  riskClassified: Boolean(decisions && decisions.items && decisions.items.every(item => item.risk)),
+  executionConditionsLinked: Boolean(decisions && decisions.items && decisions.items.every(
+    item => Array.isArray(item.executionConditions) && item.executionConditions.length > 0
+  ))
 };
 
 const missingDependencies = Object.entries(dependencies).filter(([, ok]) => !ok).map(([k]) => k);
@@ -55,7 +75,9 @@ const report = {
   coverage: {
     decisionItems: decisions?.items?.length || 0,
     approvedItems: decisions?.items?.filter(x => String(x.decision || '').includes('APPROVED')).length || 0,
-    executableItems: decisions?.items?.filter(x => x.executionAllowed === true).length || 0
+    executableItems: decisions?.items?.filter(x => x.executionAllowed === true).length || 0,
+    gatedItems: decisions?.items?.filter(x => x.executionAllowed === false).length || 0,
+    highRiskItems: decisions?.items?.filter(x => x.risk === 'HIGH').length || 0
   },
   nextActions: [
     'Activate Capability Registry V2 after Decision Registry V2 is clean.',
@@ -87,9 +109,14 @@ fs.writeFileSync(
 - القرارات: ${report.coverage.decisionItems}
 - القرارات المعتمدة: ${report.coverage.approvedItems}
 - القرارات القابلة للتنفيذ: ${report.coverage.executableItems}
+- القرارات المحجوبة: ${report.coverage.gatedItems}
+- القرارات عالية المخاطر: ${report.coverage.highRiskItems}
 
 ## الفحوص
 ${Object.entries(dependencies).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n')}
+
+## فحوص السجل
+${Object.entries(registryChecks).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n')}
 
 ## المدخلات التالية
 ${report.nextActions.map((x, i) => `${i + 1}. ${x}`).join('\n')}
