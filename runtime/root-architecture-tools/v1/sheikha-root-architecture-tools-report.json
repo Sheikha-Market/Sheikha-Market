@@ -2,8 +2,7 @@
   "system": "SHEIKHA_ROOT_ARCHITECTURE_TOOLS_V1",
   "status": "ACTIVE",
   "branch": "optimization/long-tail-latency-elimination",
-  "head": "323d9c4c",
-  "gitStatus": "M .well-known/sheikha.json\n M docs/operating-system/SHEIKHA-OPERATING-SYSTEM-V1.md\n M governance/identity/sheikha-enterprise-identity.json\n M governance/identity/sheikha-identity.json\n M governance/runtime/sheikha-runtime-manifest.json\n M package-lock.json\n M package.json\n M runtime/fabric-bootstrap/sheikha-fabric-routes.json\n M runtime/operating-system/v1/sheikha-operating-system-report.json\n M runtime/operating-system/v1/sheikha-operating-system-report.md\n M runtime/operating-system/v1/sheikha-operating-system-v1.json\n M runtime/root-identity/v1/sheikha-root-identity-v1.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.md\n M runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.json\n M runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.md\n M server.js\n M tests/operating-system-contracts.test.js\n M tools/operating-system/sheikha-operating-system-v1.js\n M tools/root-identity/sheikha-root-identity-v1.js\n?? lib/runtime-identity/\n?? routes/runtime/identity/\n?? runtime/root-architecture-tools/\n?? tools/root-architecture/",
+  "head": "9ed3454d",
   "namingHierarchy": [
     "Sheikha Root",
     "Sheikha Root Operating Core",
@@ -13,6 +12,11 @@
     "Portal Compatibility Layer"
   ],
   "checks": {
+    "packageIdentityRaised": true,
+    "wellKnownRootRaised": true,
+    "expressRootIdentityBound": true,
+    "fabricRootIdentityBound": true,
+    "fabricOperatingSystemBound": true,
     "rootIdentity": true,
     "rootOperatingCore": true,
     "operatingSystem": true,
@@ -26,6 +30,14 @@
   },
   "missing": [],
   "decision": "ROOT_ARCHITECTURE_TOOLS_ACTIVE",
+  "actualBinding": {
+    "packageName": "sheikha-operating-system",
+    "rootIdentityEndpoint": "/api/root-identity/status",
+    "operatingSystemEndpoint": "/api/operating-system/status",
+    "runtimeIdentityEndpoint": "/api/runtime/identity/status",
+    "rootFabricMount": "/api/root-identity",
+    "operatingSystemFabricMount": "/api/operating-system"
+  },
   "nextActions": [
     "Keep current repository path stable.",
     "Treat portal as compatibility only.",

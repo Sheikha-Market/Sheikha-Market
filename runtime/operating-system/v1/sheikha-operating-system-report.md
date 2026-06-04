@@ -9,7 +9,7 @@
 - القرار: SHEIKHA_OPERATING_SYSTEM_V1_READY
 - الموضع: ABOVE_ROOT_OPERATING_CORE
 - الفرع: optimization/long-tail-latency-elimination
-- HEAD: cc677857
+- HEAD: 9ed3454d
 
 ## الترتيب المنهجي الأعلى
 1. operating_system
@@ -32,6 +32,10 @@
 - OK operatingSystemDefinition
 - OK operatingSystemActive
 - OK aboveRootOperatingCore
+- OK packageNameRaised
+- OK packageDisplayNameRaised
+- OK expressRuntimeIdentityBound
+- OK fabricOperatingSystemRoute
 - OK rootOperatingCore
 - OK rootOperatingCoreReportActive
 - OK unifiedGovernanceFabric
@@ -51,6 +55,15 @@
 - الجذر التشغيلي الأعلى: Sheikha Root Operating Core
 - اسم المستودع القديم: sheikha-main-portal
 - portal يبقى طبقة توافق ولا يكسر المسارات الحالية.
+
+## الربط الفعلي
+- اسم الحزمة: sheikha-operating-system
+- اسم العرض: Sheikha Operating System
+- Express app local: sheikhaRuntimeIdentity
+- Root endpoint: /api/root-identity/status
+- Runtime endpoint: /api/runtime/identity/status
+- Operating endpoint: /api/operating-system/status
+- Fabric mount: /api/operating-system
 
 ## سياسة الحوكمة
 - لا دمج خام.

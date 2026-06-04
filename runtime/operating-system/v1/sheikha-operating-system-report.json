@@ -3,14 +3,18 @@
   "status": "ACTIVE",
   "officialName": "Sheikha Operating System",
   "arabicName": "نظام تشغيل شيخة",
-  "timestamp": "2026-06-04T19:54:29.198Z",
+  "timestamp": "2026-06-04T20:10:46.862Z",
   "branch": "optimization/long-tail-latency-elimination",
-  "head": "cc677857",
+  "head": "9ed3454d",
   "position": "ABOVE_ROOT_OPERATING_CORE",
   "checks": {
     "operatingSystemDefinition": true,
     "operatingSystemActive": true,
     "aboveRootOperatingCore": true,
+    "packageNameRaised": true,
+    "packageDisplayNameRaised": true,
+    "expressRuntimeIdentityBound": true,
+    "fabricOperatingSystemRoute": true,
     "rootOperatingCore": true,
     "rootOperatingCoreReportActive": true,
     "unifiedGovernanceFabric": true,
@@ -51,6 +55,16 @@
     "portal_is_compatibility_layer": true,
     "do_not_break_existing_paths": true,
     "rename_by_alias_first": true
+  },
+  "actualBinding": {
+    "package_name": "sheikha-operating-system",
+    "package_display_name": "Sheikha Operating System",
+    "express_app_local": "sheikhaRuntimeIdentity",
+    "direct_root_identity_endpoint": "/api/root-identity/status",
+    "direct_runtime_endpoint": "/api/runtime/identity/status",
+    "direct_operating_system_endpoint": "/api/operating-system/status",
+    "fabric_mount": "/api/operating-system",
+    "legacy_portal_is_compatibility_only": true
   },
   "governancePolicy": {
     "raw_merge_allowed": false,

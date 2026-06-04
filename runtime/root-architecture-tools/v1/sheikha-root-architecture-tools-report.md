@@ -14,16 +14,29 @@
 6. Portal Compatibility Layer
 
 ## الفحوص
-- ✅ rootIdentity
-- ✅ rootOperatingCore
-- ✅ operatingSystem
-- ✅ unifiedGovernanceFabric
-- ✅ architectureFreeze
-- ✅ stabilityLayer
-- ✅ runtimeIdentityLib
-- ✅ runtimeIdentityRoutes
-- ✅ operatingSystemDocs
-- ✅ portalCompatibilityKept
+- OK packageIdentityRaised
+- OK wellKnownRootRaised
+- OK expressRootIdentityBound
+- OK fabricRootIdentityBound
+- OK fabricOperatingSystemBound
+- OK rootIdentity
+- OK rootOperatingCore
+- OK operatingSystem
+- OK unifiedGovernanceFabric
+- OK architectureFreeze
+- OK stabilityLayer
+- OK runtimeIdentityLib
+- OK runtimeIdentityRoutes
+- OK operatingSystemDocs
+- OK portalCompatibilityKept
+
+## الربط الفعلي
+- package: sheikha-operating-system
+- root identity: /api/root-identity/status
+- operating system: /api/operating-system/status
+- runtime identity: /api/runtime/identity/status
+- root fabric: /api/root-identity
+- operating system fabric: /api/operating-system
 
 ## الإجراءات التالية
 1. Keep current repository path stable.

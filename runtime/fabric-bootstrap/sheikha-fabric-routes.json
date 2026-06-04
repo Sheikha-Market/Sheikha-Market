@@ -4,6 +4,18 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "sheikha-root-identity",
+      "mount": "/api/root-identity",
+      "module": "./routes/runtime/identity/status.routes.js",
+      "priority": 1000
+    },
+    {
+      "name": "sheikha-operating-system-identity",
+      "mount": "/api/operating-system",
+      "module": "./routes/runtime/identity/status.routes.js",
+      "priority": 900
+    },
+    {
       "name": "chat-code-governance",
       "mount": "/api/chat-code-governance",
       "module": "./routes/chat-code-governance/status.routes.js",

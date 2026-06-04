@@ -1,0 +1,36 @@
+{
+  "system": "SHEIKHA_RUNTIME_IDENTITY_BINDING_V1",
+  "status": "ACTIVE",
+  "branch": "optimization/long-tail-latency-elimination",
+  "head": "9ed3454d",
+  "gitStatus": "M .well-known/sheikha.json\n M docs/operating-system/SHEIKHA-OPERATING-SYSTEM-V1.md\n M docs/root/SHEIKHA-ROOT-IDENTITY.md\n M governance/identity/sheikha-enterprise-identity.json\n M governance/identity/sheikha-identity.json\n M governance/runtime/sheikha-runtime-manifest.json\n M package-lock.json\n M package.json\n M runtime/fabric-bootstrap/sheikha-fabric-routes.json\n M runtime/operating-system/v1/sheikha-operating-system-report.json\n M runtime/operating-system/v1/sheikha-operating-system-report.md\n M runtime/operating-system/v1/sheikha-operating-system-v1.json\n M runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json\n M runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md\n M runtime/root-identity/v1/sheikha-root-identity-report.json\n M runtime/root-identity/v1/sheikha-root-identity-report.md\n M runtime/root-identity/v1/sheikha-root-identity-v1.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.md\n M runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.json\n M runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.md\n M server.js\n M tests/operating-system-contracts.test.js\n M tools/operating-system/sheikha-operating-system-v1.js\n M tools/root-architecture/sheikha-root-architecture-tools-v1.js\n M tools/root-identity/sheikha-root-identity-v1.js\n?? lib/runtime-identity/\n?? routes/runtime/identity/\n?? runtime/runtime-identity-binding/\n?? tools/runtime-identity-binding/",
+  "checks": {
+    "wellKnownIdentity": true,
+    "sheikhaIdentity": true,
+    "enterpriseIdentity": true,
+    "runtimeManifest": true,
+    "operatingSystem": true,
+    "rootIdentity": true,
+    "rootArchitectureTools": true,
+    "runtimeIdentityLib": true,
+    "runtimeIdentityRoutes": true,
+    "server": true
+  },
+  "missing": [],
+  "decision": "RUNTIME_IDENTITY_BINDING_ACTIVE",
+  "hierarchy": [
+    "Sheikha Root",
+    "Sheikha Root Operating Core",
+    "Sheikha Operating System",
+    "Unified Governance Fabric",
+    "Runtime Identity",
+    "Portal Compatibility Layer"
+  ],
+  "nextActions": [
+    "Commit runtime identity binding as one governed layer.",
+    "Run tests and PR checks.",
+    "Keep portal path as compatibility only.",
+    "Do not rename filesystem paths until a migration plan is approved."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

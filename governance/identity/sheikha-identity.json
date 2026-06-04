@@ -1,6 +1,9 @@
 {
-  "name": "SHEIKHA",
-  "type": "Sovereign Enterprise Runtime",
+  "name": "Sheikha Root",
+  "arabicName": "جذر شيخة",
+  "type": "Sheikha Operating System",
+  "runtimeCore": "Sheikha Root Operating Core",
+  "packageName": "sheikha-operating-system",
   "mission": "Governed enterprise orchestration and intelligent infrastructure",
   "foundation": {
     "language": "Arabic-first",
@@ -32,6 +35,8 @@
   "runtime": {
     "canonical": true,
     "singleton": true,
-    "governed": true
+    "governed": true,
+    "rootIdentity": "/api/root-identity/status",
+    "operatingSystemIdentity": "/api/operating-system/status"
   }
 }

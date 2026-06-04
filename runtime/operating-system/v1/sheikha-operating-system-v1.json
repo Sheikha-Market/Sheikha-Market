@@ -40,6 +40,16 @@
     "do_not_break_existing_paths": true,
     "rename_by_alias_first": true
   },
+  "actual_binding": {
+    "package_name": "sheikha-operating-system",
+    "package_display_name": "Sheikha Operating System",
+    "express_app_local": "sheikhaRuntimeIdentity",
+    "direct_root_identity_endpoint": "/api/root-identity/status",
+    "direct_runtime_endpoint": "/api/runtime/identity/status",
+    "direct_operating_system_endpoint": "/api/operating-system/status",
+    "fabric_mount": "/api/operating-system",
+    "legacy_portal_is_compatibility_only": true
+  },
   "governance_policy": {
     "raw_merge_allowed": false,
     "curated_merge_required": true,

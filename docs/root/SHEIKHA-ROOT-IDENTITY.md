@@ -20,7 +20,11 @@
 - `portal` ليس الاسم الأعلى.
 - `portal` يبقى للتوافق فقط.
 - الاسم الأعلى الرسمي: **Sheikha Root**
+- الاسم النظامي الفعلي للحزمة: **Sheikha Operating System**
 - الاسم المعماري الأعلى: **Sheikha Root Operating Core**
+- endpoint الهوية الجذرية: `/api/root-identity/status`
+- endpoint نظام التشغيل: `/api/operating-system/status`
+- endpoint هوية runtime: `/api/runtime/identity/status`
 - لا يتم كسر مسارات VPS أو PM2 أو Git الحالية الآن.
 - أي نقل فعلي للمجلد أو المستودع يتم لاحقًا بخطة انتقال محكومة.
 

@@ -5,23 +5,41 @@
     "official": "Sheikha Root",
     "arabic": "جذر شيخة",
     "runtime": "Sheikha Root Operating Core",
+    "operatingSystem": "Sheikha Operating System",
     "legacy": "sheikha-main-portal"
   },
   "branch": "optimization/long-tail-latency-elimination",
-  "head": "6ab76269",
-  "gitStatus": "M docs/operating-system/SHEIKHA-OPERATING-SYSTEM-V1.md\n M package-lock.json\n M package.json\n M runtime/fabric-bootstrap/sheikha-fabric-routes.json\n M runtime/operating-system/v1/sheikha-operating-system-report.json\n M runtime/operating-system/v1/sheikha-operating-system-report.md\n M runtime/operating-system/v1/sheikha-operating-system-v1.json\n M server.js\n M tests/operating-system-contracts.test.js\n M tools/operating-system/sheikha-operating-system-v1.js\n?? docs/root/SHEIKHA-ROOT-IDENTITY.md\n?? lib/runtime-identity/\n?? routes/runtime/identity/\n?? runtime/root-identity/\n?? tools/root-identity/",
+  "head": "9ed3454d",
   "elevation": {
     "from": "PORTAL_LAYER",
     "to": "ROOT_LAYER",
     "repositoryPathKept": true,
     "breakingRenameNow": false
   },
+  "actualBinding": {
+    "package_name": "sheikha-operating-system",
+    "package_display_name": "Sheikha Operating System",
+    "express_app_local": "sheikhaRuntimeIdentity",
+    "direct_root_identity_endpoint": "/api/root-identity/status",
+    "direct_operating_system_endpoint": "/api/operating-system/status",
+    "direct_runtime_identity_endpoint": "/api/runtime/identity/status",
+    "fabric_root_mount": "/api/root-identity",
+    "fabric_operating_system_mount": "/api/operating-system",
+    "well_known_identity": "/.well-known/sheikha.json",
+    "legacy_portal_is_compatibility_only": true
+  },
   "checks": {
+    "packageNameRaised": true,
+    "packageDisplayNameRaised": true,
+    "expressRootIdentityBound": true,
+    "fabricRootIdentityBound": true,
+    "wellKnownRaised": true,
+    "operatingSystem": true,
     "rootOperatingCore": true,
     "unifiedGovernanceFabric": true,
     "architectureFreeze": true,
     "stabilityLayer": true
   },
-  "decision": "SHEIKHA_ROOT_IDENTITY_ACTIVATED",
+  "decision": "SHEIKHA_ROOT_IDENTITY_ACTIVATED_ACTUALLY_AND_NOMINALLY",
   "principle": "ولا حول ولا قوة إلا بالله"
 }

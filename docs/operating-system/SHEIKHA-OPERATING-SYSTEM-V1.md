@@ -43,6 +43,16 @@
 - أي انتقال اسمي مستقبلي يتم بالـ alias أولًا ثم خطة انتقال محكومة
 - لا دمج بلا فحوص خضراء وحوكمة PR
 
+## الرفع الفعلي والاسمي
+- اسم الحزمة الفعلي في Node: `sheikha-operating-system`
+- اسم العرض الفعلي: `Sheikha Operating System`
+- هوية Express الفعلية: `app.locals.sheikhaRuntimeIdentity`
+- endpoint الهوية الجذرية: `/api/root-identity/status`
+- endpoint التشغيل المباشر: `/api/runtime/identity/status`
+- endpoint الاسم الأعلى: `/api/operating-system/status`
+- Fabric mount الأعلى: `/api/operating-system`
+- `sheikha-main-portal` لا يزال مسار توافق فقط ولا يمثل الاسم الحاكم.
+
 ## القاعدة
 هذه الطبقة لا تدعي أنها نظام تشغيل عام للأجهزة أو جهة تنظيمية رسمية. هي طبقة منهجية تشغيلية داخل منظومة شيخة لحوكمة التطوير، التشغيل، الدمج، الأدلة، الاستقرار، والتوافق.
 

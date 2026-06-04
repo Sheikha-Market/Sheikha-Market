@@ -24,5 +24,17 @@
     "do_not_break_existing_vps_or_pm2_paths": true,
     "future_repository_name_target": "sheikha-root"
   },
+  "actual_binding": {
+    "package_name": "sheikha-operating-system",
+    "package_display_name": "Sheikha Operating System",
+    "express_app_local": "sheikhaRuntimeIdentity",
+    "direct_root_identity_endpoint": "/api/root-identity/status",
+    "direct_operating_system_endpoint": "/api/operating-system/status",
+    "direct_runtime_identity_endpoint": "/api/runtime/identity/status",
+    "fabric_root_mount": "/api/root-identity",
+    "fabric_operating_system_mount": "/api/operating-system",
+    "well_known_identity": "/.well-known/sheikha.json",
+    "legacy_portal_is_compatibility_only": true
+  },
   "principle": "ولا حول ولا قوة إلا بالله"
 }

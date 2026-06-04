@@ -15,6 +15,9 @@ const cron = require('node-cron');
 const WebSocket = require('ws');
 const appConfig = require('./config/config');
 const unifiedRuntimeRegistry = require('./config/runtime-registry');
+const {
+    getRuntimeIdentity
+} = require('./lib/runtime-identity/sheikha-runtime-identity');
 
 // ====== SHARIA GUARD GLOBAL MIDDLEWARE ======
 // ====== SHARIA GUARD GLOBAL MIDDLEWARE & ROUTES ======
@@ -25,9 +28,21 @@ const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
 
 const app = express();
+const SHEIKHA_RUNTIME_IDENTITY = getRuntimeIdentity({ rootDir: __dirname });
+app.locals.sheikhaRuntimeIdentity = SHEIKHA_RUNTIME_IDENTITY;
 const kernel = require('./runtime/kernel/sheikha-runtime-kernel');
 
 kernel.initialize();
+
+try {
+  const runtimeIdentityRoutes = require('./routes/runtime/identity/status.routes');
+  app.use('/api/runtime/identity', runtimeIdentityRoutes);
+  app.use('/api/operating-system', runtimeIdentityRoutes);
+  app.use('/api/root-identity', runtimeIdentityRoutes);
+  console.log('✅ Sheikha Operating System identity ACTIVE', SHEIKHA_RUNTIME_IDENTITY.officialName);
+} catch (e) {
+  console.error('❌ Sheikha Operating System identity failed:', e.message);
+}
 
 // ===== Root Control Plane — Central Governance Layer =====
 try {
@@ -2439,9 +2454,12 @@ app.get('/health', (req, res) => {
 app.get('/api/project/identity', (req, res) => {
     res.json({
         success: true,
+        identity: SHEIKHA_RUNTIME_IDENTITY,
         project: {
-            name: 'منظومة وسوق شيخة',
-            nameEn: 'SHEIKHA — Metals & Scrap Ecosystem',
+            name: SHEIKHA_RUNTIME_IDENTITY.arabicName,
+            nameEn: SHEIKHA_RUNTIME_IDENTITY.highestIdentityName,
+            methodologicalNameEn: SHEIKHA_RUNTIME_IDENTITY.officialName,
+            rootOperatingCore: SHEIKHA_RUNTIME_IDENTITY.rootOperatingCore,
             owner: 'سلمان أحمد بن سلمان الراجح',
             domain: 'sheikha.top',
             email: 'market@sheikha.top',
@@ -2773,6 +2791,12 @@ app.get('/api/health', (req, res) => {
     return res.json({
         success: true,
         data: {
+            identity: {
+                system: SHEIKHA_RUNTIME_IDENTITY.system,
+                officialName: SHEIKHA_RUNTIME_IDENTITY.officialName,
+                arabicName: SHEIKHA_RUNTIME_IDENTITY.arabicName,
+                packageName: SHEIKHA_RUNTIME_IDENTITY.packageName
+            },
             status: 'ok',
             pid: process.pid,
             uptimeSeconds: Math.floor(process.uptime()),
@@ -2797,6 +2821,12 @@ app.get('/api/status', (req, res) => {
     return res.json({
         success: true,
         data: {
+            identity: {
+                system: SHEIKHA_RUNTIME_IDENTITY.system,
+                officialName: SHEIKHA_RUNTIME_IDENTITY.officialName,
+                arabicName: SHEIKHA_RUNTIME_IDENTITY.arabicName,
+                packageName: SHEIKHA_RUNTIME_IDENTITY.packageName
+            },
             status: 'ok',
             pid: process.pid,
             uptimeSeconds: Math.floor(process.uptime())
@@ -2832,6 +2862,7 @@ app.get('/api/runtime', (req, res) => {
     return res.json({
         success: true,
         data: {
+            identity: SHEIKHA_RUNTIME_IDENTITY,
             mode: runtimeCore && runtimeCore.mode ? runtimeCore.mode : 'fallback',
             contractsVersion: 'early-v1',
             ring: SHEIKHA_RUNTIME_RING || 'fallback',

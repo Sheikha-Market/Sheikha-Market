@@ -8,6 +8,16 @@ function readJson(relativePath) {
 }
 
 describe('Sheikha operating system naming contracts', () => {
+  test('package identity is raised from portal to operating system', () => {
+    const packageJson = readJson('package.json');
+    const lockfile = readJson('package-lock.json');
+
+    expect(packageJson.name).toBe('sheikha-operating-system');
+    expect(packageJson.displayName).toBe('Sheikha Operating System');
+    expect(lockfile.name).toBe('sheikha-operating-system');
+    expect(lockfile.packages[''].name).toBe('sheikha-operating-system');
+  });
+
   test('operating system is the highest methodological layer above root operating core', () => {
     const operatingSystem = readJson('runtime/operating-system/v1/sheikha-operating-system-v1.json');
 
@@ -29,6 +39,44 @@ describe('Sheikha operating system naming contracts', () => {
     expect(operatingSystem.naming_policy.legacy_repository_name).toBe('sheikha-main-portal');
     expect(operatingSystem.naming_policy.portal_is_compatibility_layer).toBe(true);
     expect(operatingSystem.naming_policy.do_not_break_existing_paths).toBe(true);
+  });
+
+  test('operating system is bound to express and fabric runtime surfaces', () => {
+    const operatingSystem = readJson('runtime/operating-system/v1/sheikha-operating-system-v1.json');
+    const fabricRoutes = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
+    const serverJs = fs.readFileSync(path.join(root, 'server.js'), 'utf8');
+    const fabricRoute = fabricRoutes.routes.find((route) => route.name === 'sheikha-operating-system-identity');
+
+    expect(operatingSystem.actual_binding.package_name).toBe('sheikha-operating-system');
+    expect(serverJs).toContain('app.locals.sheikhaRuntimeIdentity');
+    expect(serverJs).toContain("app.use('/api/root-identity'");
+    expect(serverJs).toContain("app.use('/api/runtime/identity'");
+    expect(serverJs).toContain("app.use('/api/operating-system'");
+    expect(fabricRoute).toEqual(expect.objectContaining({
+      mount: '/api/operating-system',
+      module: './routes/runtime/identity/status.routes.js'
+    }));
+  });
+
+  test('root identity is raised across well-known and governance manifests', () => {
+    const rootIdentity = readJson('runtime/root-identity/v1/sheikha-root-identity-v1.json');
+    const wellKnown = readJson('.well-known/sheikha.json');
+    const governanceIdentity = readJson('governance/identity/sheikha-identity.json');
+    const runtimeManifest = readJson('governance/runtime/sheikha-runtime-manifest.json');
+    const fabricRoutes = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
+    const rootRoute = fabricRoutes.routes.find((route) => route.name === 'sheikha-root-identity');
+
+    expect(rootIdentity.status).toBe('ACTIVE');
+    expect(rootIdentity.official_identity.english).toBe('Sheikha Root');
+    expect(rootIdentity.actual_binding.direct_root_identity_endpoint).toBe('/api/root-identity/status');
+    expect(wellKnown.highestIdentity).toBe('Sheikha Root');
+    expect(wellKnown.operatingSystem).toBe('Sheikha Operating System');
+    expect(governanceIdentity.name).toBe('Sheikha Root');
+    expect(runtimeManifest.operatingSystem).toBe('Sheikha Operating System');
+    expect(rootRoute).toEqual(expect.objectContaining({
+      mount: '/api/root-identity',
+      module: './routes/runtime/identity/status.routes.js'
+    }));
   });
 
   test('operating system activation report is governed and complete', () => {
