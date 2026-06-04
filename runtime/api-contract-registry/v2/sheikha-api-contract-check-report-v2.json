@@ -1,0 +1,55 @@
+{
+  "system": "SHEIKHA_API_CONTRACT_CHECK_V2",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "API_CONTRACT_V2_READY",
+  "checks": {
+    "responseLibrary": true,
+    "registryV2": true,
+    "extensionCompatibilityV2": true,
+    "successShape": {
+      "contract": "SHEIKHA_API_CONTRACT_V2",
+      "timestamp": "2026-06-04T20:38:10.929Z"
+    },
+    "failureShape": {
+      "contract": "SHEIKHA_API_CONTRACT_V2",
+      "timestamp": "2026-06-04T20:38:10.929Z"
+    },
+    "serverExists": true,
+    "vscodeExtensionTestsExist": true
+  },
+  "missing": [],
+  "samples": {
+    "successSample": {
+      "success": true,
+      "data": {
+        "name": "Sheikha Root",
+        "status": "active"
+      },
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "timestamp": "2026-06-04T20:38:10.929Z"
+      }
+    },
+    "failureSample": {
+      "success": false,
+      "error": {
+        "code": "MISSING_FIELD",
+        "message": "Missing required field",
+        "status": 400
+      },
+      "data": null,
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "timestamp": "2026-06-04T20:38:10.929Z"
+      }
+    }
+  },
+  "nextActions": [
+    "Use ok(data, meta) for all new success responses.",
+    "Use fail(message, code, status, meta) for validation failures.",
+    "Keep legacy flat responses only behind compatibility adapters.",
+    "Patch VS Code routes to return { success, data, meta }."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

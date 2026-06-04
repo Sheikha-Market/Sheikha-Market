@@ -1,0 +1,20 @@
+{
+  "system": "SHEIKHA_EXTENSION_COMPATIBILITY_V2",
+  "status": "ACTIVE",
+  "purpose": "Align VS Code Extension expectations with Sheikha Root Runtime API contract without weakening root architecture.",
+  "compatibility_targets": [
+    "status",
+    "models",
+    "languages",
+    "completion_validation",
+    "chat_sharia_compliance",
+    "nes",
+    "inline_chat",
+    "settings",
+    "vscode_bridge",
+    "unified_integrations"
+  ],
+  "response_contract": "SHEIKHA_API_CONTRACT_REGISTRY_V2",
+  "required_shape": "{ success, data, meta }",
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
