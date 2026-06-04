@@ -1,0 +1,17 @@
+title = "Sheikha Governed Gitleaks Config"
+
+[allowlist]
+description = "Ignore generated, archived, local, and duplicated runtime artifacts; scan source truth only."
+paths = [
+  '''^dist/''',
+  '''^archive/''',
+  '''^data/backups/''',
+  '''^data/operations/''',
+  '''^infra/docker/compose/prod/''',
+  '''^exports/''',
+  '''^reports/''',
+  '''^\.venv/''',
+  '''^Sheikha-Market/''',
+  '''^sheikha-main-portal/''',
+  '''^gitleaks-report\.json$'''
+]
