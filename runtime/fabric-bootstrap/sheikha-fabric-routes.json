@@ -4,6 +4,18 @@
   "mode": "governed-neural-bootstrap",
   "routes": [
     {
+      "name": "chat-code-governance",
+      "mount": "/api/chat-code-governance",
+      "module": "./routes/chat-code-governance/status.routes.js",
+      "priority": 421
+    },
+    {
+      "name": "quran-sunnah-governance",
+      "mount": "/api/quran-sunnah-governance",
+      "module": "./routes/quran-sunnah-governance/status.routes.js",
+      "priority": 420
+    },
+    {
       "name": "technical-advisory",
       "mount": "/api/technical-advisory",
       "module": "./routes/technical-advisory/status.routes.js",
