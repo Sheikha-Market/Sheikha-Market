@@ -2,8 +2,12 @@
   "pr": 21,
   "title": "منظومة قواعد الأفضل — 20 قاعدة كونية من الكتاب والسنة + تفعيل الكل",
   "initialDecision": "REVIEW_BEFORE_MERGE",
+  "finalDecision": "HOLD_FOR_CURATED_SOURCE_PATCH",
   "priority": "HIGH_FOR_RULES",
   "reason": "This PR contains important rules and foundation logic, but it changes server.js, package files, and core libraries, so it must be reviewed before merge.",
+  "evidenceReport": "runtime/pr-governance/reviews/pr-21/analysis/pr21-diff-risk-summary.json",
+  "mergeAllowedRaw": false,
+  "curatedMergeRequired": true,
   "requiredChecks": [
     "server_js_impact",
     "package_dependency_impact",
@@ -12,11 +16,23 @@
     "security_review",
     "lint",
     "tests",
+    "freeze_v1_3_compatibility",
+    "quran_sunnah_chat_code_governance",
     "human_approval"
+  ],
+  "blockedRawMergeReasons": [
+    "large_server_js_change",
+    "package_dependency_version_shift",
+    "generated_dist_outputs",
+    "llm_layer_conflict_marker_cleanup",
+    "large_new_rules_engine_requires_source_review"
   ],
   "rules": {
     "no_auto_merge": true,
+    "no_raw_pr_merge": true,
+    "curated_source_patch_only": true,
     "preserve_architecture_freeze_v1_1": true,
+    "preserve_architecture_freeze_v1_3": true,
     "preserve_federal_organization_v1_2": true,
     "human_approval_required": true
   }

@@ -1,0 +1,84 @@
+{
+  "report": "SHEIKHA_PR21_DIFF_RISK_SUMMARY",
+  "status": "ACTIVE",
+  "pr": 21,
+  "source": "runtime/pr-governance/reviews/pr-21/analysis plus attached command-output review",
+  "reviewedAt": "2026-06-04",
+  "diffFiles": [
+    "dist/sheikha-app/opt/sheikha/lib/sheikha-ide-collaboration-system.js",
+    "dist/sheikha-app/opt/sheikha/lib/sheikha-llm-neural-layer.js",
+    "lib/optimum-rules-engine.js",
+    "lib/sheikha-ide-collaboration-system.js",
+    "lib/sheikha-llm-neural-layer.js",
+    "package-lock.json",
+    "package.json",
+    "server.js"
+  ],
+  "observedDiffCounts": {
+    "optimumRulesEngine": {
+      "addedLineCountIncludingDiffHeaders": 688,
+      "removedLineCountIncludingDiffHeaders": 20,
+      "classification": "large_new_source_candidate"
+    },
+    "llmNeuralLayerExtract": {
+      "addedLineCountIncludingDiffHeaders": 399,
+      "removedLineCountIncludingDiffHeaders": 194,
+      "classification": "mixed_llm_and_dependency_extract"
+    }
+  },
+  "riskSignals": [
+    {
+      "id": "large_rules_engine",
+      "severity": "HIGH",
+      "finding": "PR adds a large optimum rules engine and must be reviewed as source logic before any merge."
+    },
+    {
+      "id": "llm_merge_conflict_cleanup",
+      "severity": "MEDIUM_HIGH",
+      "finding": "The LLM neural layer extract shows conflict marker cleanup around model selection; only the resolved source intent may be carried forward."
+    },
+    {
+      "id": "dependency_downgrade_or_major_shift",
+      "severity": "HIGH",
+      "finding": "Package changes include @google-cloud/storage 7.19.0 to 5.20.4, node-cron 3.0.3 to 4.2.1, and uuid 9.0.0 to 14.0.0. These require separate dependency review and must not enter through raw PR merge."
+    },
+    {
+      "id": "server_js_large_change",
+      "severity": "HIGH",
+      "finding": "PR metadata reports a very large server.js change. server.js must not be merged raw and requires a separate focused patch review."
+    },
+    {
+      "id": "generated_dist_outputs",
+      "severity": "MEDIUM",
+      "finding": "dist outputs are generated artifacts and are excluded from the authoritative merge surface."
+    }
+  ],
+  "curatedMergeDecision": {
+    "rawMergeAllowed": false,
+    "decision": "HOLD_FOR_CURATED_SOURCE_PATCH",
+    "sourceCandidatesForReview": [
+      "lib/optimum-rules-engine.js",
+      "lib/sheikha-ide-collaboration-system.js",
+      "lib/sheikha-llm-neural-layer.js"
+    ],
+    "excludedFromRawMerge": [
+      "dist/",
+      "server.js",
+      "package.json",
+      "package-lock.json"
+    ],
+    "requiredBeforeAnyMerge": [
+      "human_approval",
+      "review_optimum_rules_engine",
+      "review_llm_layer_resolution",
+      "separate_dependency_review",
+      "separate_server_js_patch_review",
+      "secret_scan",
+      "lint",
+      "tests",
+      "freeze_v1_3_compatibility_check",
+      "quran_sunnah_chat_code_governance_check"
+    ]
+  },
+  "finalRule": "PR21 must not be merged raw. Only a curated source patch may proceed after human approval and governance checks."
+}
