@@ -2,9 +2,9 @@
 
 ## الحالة
 - النظام: SHEIKHA_CAPABILITY_REGISTRY_V2
-- الحالة: ACTIVE
-- الدرجة: 100
-- القرار: CAPABILITY_REGISTRY_V2_ACTIVE_100
+- الحالة: ACTIVE_WITH_REVIEW
+- الدرجة: 95
+- القرار: REVIEW_CAPABILITY_REGISTRY_GAPS
 - نوع التفعيل: CAPABILITY_ONLY
 - سحب نموذج خارجي: لا
 
@@ -31,7 +31,7 @@
 - PASS scoped
 - PASS noModelPull
 - PASS capabilityActivationOnly
-- PASS noUnverifiedModelClaim
+- FAIL noUnverifiedModelClaim
 - PASS executionFabricGated
 
 ## الاعتماديات
