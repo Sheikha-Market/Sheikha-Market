@@ -1,0 +1,46 @@
+{
+  "system": "SHEIKHA_DECISION_REGISTRY_V2",
+  "status": "ACTIVE",
+  "arabicName": "سجل قرارات شيخة V2",
+  "score": 100,
+  "decision": "DECISION_REGISTRY_V2_ACTIVE_100",
+  "checks": {
+    "dependenciesReady": true,
+    "knowledgeRegistriesReady": true,
+    "decisionCountReady": true,
+    "everyDecisionComplete": true,
+    "everyDecisionProtected": true,
+    "everyDecisionHasEvidence": true,
+    "everyDecisionEvidenceExists": true,
+    "everyDecisionHasKnowledgeLinks": true,
+    "everyDecisionKnowledgeLinksResolvable": true,
+    "capabilityRegistryGated": true,
+    "executionFabricGated": true
+  },
+  "missing": [],
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "knowledgeEngineV2": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true,
+    "apiContractRegistryV2": true,
+    "prGovernance": true
+  },
+  "knowledgeCoverage": {
+    "lessonsLearnedItems": 3,
+    "governanceKnowledgeItems": 3,
+    "runtimeKnowledgeItems": 3
+  },
+  "decisionCount": 7,
+  "nextLayer": "SHEIKHA_CAPABILITY_REGISTRY_V2",
+  "blockedUntilReady": [
+    "SHEIKHA_EXECUTION_FABRIC_V2"
+  ],
+  "nextActions": [
+    "Activate Capability Registry V2 only after Decision Registry V2 is clean.",
+    "Map each capability to one or more governed decisions.",
+    "Keep Execution Fabric V2 gated until capability registry and decision registry are both active."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
