@@ -428,7 +428,8 @@
     "ops:root-science:all:activate": "node sheikha-root-science/core/activate-root-science-cores.js --domain=all",
     "ops:root-science:status": "node sheikha-root-science/core/activate-root-science-cores.js --status",
     "lint": "eslint core routes middleware server.js --ext .js",
-    "test": "jest"
+    "test": "jest",
+    "ops:governance-activation:v1": "node tools/governance-activation/sheikha-governance-activation-v1.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
