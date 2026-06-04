@@ -28,7 +28,7 @@ describe('Sheikha Capability Registry V2', () => {
   });
 
   test('capabilities are linked to decision refs, policies, guardrails, and measurements', () => {
-    const capabilityItems = readJson('runtime/capability-registry/v2/registries/capability-items.json');
+    const capabilityItems = readJson('runtime/capability-registry/v2/registries/capability-registry-items.json');
     const decisionItems = readJson('runtime/decision-registry/v2/registries/decision-registry-items.json');
     const knownDecisionIds = new Set(decisionItems.items.map((item) => item.id));
 
@@ -36,16 +36,21 @@ describe('Sheikha Capability Registry V2', () => {
     expect(capabilityItems.items.length).toBeGreaterThanOrEqual(10);
 
     capabilityItems.items.forEach((capability) => {
-      expect(capability.id).toMatch(/^CAP-CODEX-\d{3}$/);
+      expect(capability.id).toMatch(/^CAPV2-\d{3}$/);
       expect(['ACTIVE', 'GATED']).toContain(capability.status);
+      expect(capability.decision).toMatch(/^DRV2-\d{3}$/);
       expect(capability.decisionRefs.length).toBeGreaterThan(0);
       expect(capability.policyRefs.length).toBeGreaterThan(0);
       expect(capability.guardrails.length).toBeGreaterThan(0);
       expect(capability.measurement.length).toBeGreaterThan(0);
+      expect(capability.scope.length).toBeGreaterThan(0);
+      expect(typeof capability.requiresHumanReview).toBe('boolean');
       capability.decisionRefs.forEach((decisionId) => {
         expect(knownDecisionIds.has(decisionId)).toBe(true);
       });
     });
+
+    expect(capabilityItems.items.some((capability) => capability.status === 'GATED')).toBe(true);
   });
 
   test('codex and ai activation is truthful and provider neutral', () => {
@@ -70,6 +75,8 @@ describe('Sheikha Capability Registry V2', () => {
     expect(report.missing).toEqual([]);
     expect(Object.values(report.checks).every(Boolean)).toBe(true);
     expect(report.coverage.gatedCapabilities).toBe(1);
+    expect(report.activation.noModelPull).toBe(true);
+    expect(report.activation.externalModelClaim).toBe(false);
   });
 
   test('capability registry v2 has script, docs, and fabric route', () => {

@@ -31,7 +31,7 @@ router.get('/status', (_req, res) => {
 
 router.get('/capabilities', (_req, res) => {
   const capabilities = readJson(
-    'runtime/capability-registry/v2/registries/capability-items.json'
+    'runtime/capability-registry/v2/registries/capability-registry-items.json'
   );
 
   return res.json({

@@ -1,21 +1,55 @@
 {
   "system": "SHEIKHA_CAPABILITY_REGISTRY_V2",
   "status": "ACTIVE",
-  "purpose": "Register all governed Sheikha capabilities without pulling models: coding, review, PR, tests, API contracts, governance, knowledge, decisions, runtime, CLI, IDE, and automation.",
-  "position": "UNDER_DECISION_REGISTRY_V2_BEFORE_EXECUTION_FABRIC_V2",
+  "arabicName": "سجل قدرات شيخة V2",
+  "purpose": "Activate and govern the full local Sheikha Codex capability surface without pulling, downloading, or claiming any external provider model: coding, review, PR, tests, API contracts, governance, knowledge, decisions, runtime, CLI, IDE, and automation.",
+  "requested_activation_label": "SHEIKHA_CODEX_AI_FULL_CAPABILITIES_REQUEST",
+  "activation_scope": "governed_capability_registry_and_codex_runtime_policies",
+  "position": "UNDER_DECISION_REGISTRY_BEFORE_EXECUTION_FABRIC",
+  "next_layer": "SHEIKHA_EXECUTION_FABRIC_V2",
+  "next_layer_status": "GATED_UNTIL_CAPABILITY_REGISTRY_V2_ACTIVE_100",
   "governed_by": [
     "SHEIKHA_HEART_CORE_V1",
     "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
     "SHEIKHA_KNOWLEDGE_ENGINE_V2",
     "SHEIKHA_DECISION_REGISTRY_V2"
   ],
+  "truthfulness_policy": {
+    "capability_activation_only": true,
+    "model_pull_requested": false,
+    "provider_model_download_requested": false,
+    "external_model_activation_claim": false,
+    "model_name_is_not_asserted": true,
+    "provider_availability_must_be_verified": true,
+    "actual_activation_scope": "local_repo_capabilities_policies_routes_reports_and_tests"
+  },
+  "policies": {
+    "no_unverified_model_claims": true,
+    "no_execution_without_capability": true,
+    "no_execution_without_decision": true,
+    "no_execution_without_policy": true,
+    "no_raw_merge": true,
+    "no_drift_required": true,
+    "tests_required": true,
+    "audit_required": true,
+    "human_review_for_high_risk": true,
+    "execution_fabric_gated_until_registry_clean": true
+  },
   "rules": {
     "no_model_pull": true,
     "no_unregistered_capability_execution": true,
     "decision_required": true,
+    "policy_required": true,
+    "guardrails_required": true,
+    "measurement_required": true,
     "tests_required": true,
     "no_drift_required": true,
     "human_review_for_high_risk": true
+  },
+  "registries": {
+    "canonical_items": "runtime/capability-registry/v2/registries/capability-registry-items.json",
+    "compatibility_alias": "runtime/capability-registry/v2/registries/capability-items.json",
+    "report": "runtime/capability-registry/v2/sheikha-capability-registry-v2-report.json"
   },
   "principle": "ولا حول ولا قوة إلا بالله"
 }
