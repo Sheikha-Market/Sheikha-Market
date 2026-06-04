@@ -13,6 +13,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'README_', classification: 'ACTIVE', owner: 'Documentation Governance' },
   { prefix: 'ecosystem.config.js.save', classification: 'REVIEW_REQUIRED', owner: 'Runtime Operations Governance' },
   { prefix: 'eslint', classification: 'REVIEW_REQUIRED', owner: 'Tooling Governance' },
+  { prefix: 'package.json', classification: 'REVIEW_REQUIRED', owner: 'Runtime Package Governance' },
   { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
   { prefix: 'runtime/', classification: 'PROTECTED', owner: 'Runtime Governance Organization' },
   { prefix: 'routes/', classification: 'ACTIVE', owner: 'API Federation Organization' },
@@ -28,6 +29,8 @@ const CLASSIFICATION_RULES = [
   { prefix: 'governance/', classification: 'PROTECTED', owner: 'Governance Organization' },
   { prefix: 'lib/runtime/', classification: 'STAGING', owner: 'Runtime Kernel Organization' },
   { prefix: 'sheikha-vscode-extension/', classification: 'STAGING', owner: 'IDE Organization' },
+  { prefix: 'tests/', classification: 'STAGING', owner: 'Test Governance Organization' },
+  { prefix: 'tools/api-contracts/', classification: 'PROTECTED', owner: 'API Contract Governance Organization' },
   { prefix: 'tools/governance/', classification: 'PROTECTED', owner: 'Governance Tooling Organization' },
   { prefix: 'tools/runtime/', classification: 'REVIEW_REQUIRED', owner: 'Runtime Tooling Governance' },
   { prefix: 'sheikha-enterprise-al-portal@', classification: 'REVIEW_REQUIRED', owner: 'Enterprise Portal Governance' }

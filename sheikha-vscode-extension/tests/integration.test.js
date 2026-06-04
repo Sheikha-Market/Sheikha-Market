@@ -12,8 +12,10 @@ const { describe, test, expect, beforeAll, afterAll } = require('@jest/globals')
 
 const API_BASE_URL = 'http://localhost:8080/api/sheikha';
 const TIMEOUT = 30000; // 30 seconds
+const RUN_LIVE_EXTENSION_TESTS = process.env.SHEIKHA_RUN_LIVE_EXTENSION_TESTS === 'true';
+const liveDescribe = RUN_LIVE_EXTENSION_TESTS ? describe : describe.skip;
 
-describe('Sheikha API Integration Tests', () => {
+liveDescribe('Sheikha API Integration Tests', () => {
   let serverHealthy = false;
 
   beforeAll(async () => {

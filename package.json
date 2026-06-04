@@ -441,6 +441,7 @@
     "ops:root-architecture-tools:v1": "node tools/root-architecture/sheikha-root-architecture-tools-v1.js",
     "ops:runtime-identity-binding:v1": "node tools/runtime-identity-binding/sheikha-runtime-identity-binding-v1.js",
     "ops:heart-core:v1": "node tools/heart-core/sheikha-heart-core-v1.js",
+    "test:extension:integration": "SHEIKHA_RUN_LIVE_EXTENSION_TESTS=true jest sheikha-vscode-extension/tests/integration.test.js --config jest.config.js --runInBand",
     "ops:api-contracts:v2": "node tools/api-contracts/sheikha-api-contract-check-v2.js"
   },
   "dependencies": {

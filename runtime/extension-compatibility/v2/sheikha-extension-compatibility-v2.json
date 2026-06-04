@@ -16,5 +16,11 @@
   ],
   "response_contract": "SHEIKHA_API_CONTRACT_REGISTRY_V2",
   "required_shape": "{ success, data, meta }",
+  "test_governance": {
+    "default_jest_behavior": "SKIP_LIVE_SERVER_EXTENSION_TESTS",
+    "live_test_gate": "SHEIKHA_RUN_LIVE_EXTENSION_TESTS=true",
+    "live_test_script": "npm run test:extension:integration",
+    "principle": "Default tests validate code contracts; live extension tests validate runtime binding explicitly."
+  },
   "principle": "ولا حول ولا قوة إلا بالله"
 }
