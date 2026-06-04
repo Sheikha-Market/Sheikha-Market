@@ -1,0 +1,38 @@
+{
+  "system": "SHEIKHA_TEST_GOVERNANCE_V1",
+  "status": "ACTIVE",
+  "purpose": "Govern unit, integration, extension, CI, and contract tests so failures become traceable stability work rather than ad hoc fixes.",
+  "testClasses": [
+    {
+      "id": "TG-UNIT",
+      "name": "unit_tests",
+      "command": "npm test -- --config jest.config.js",
+      "mergeRequired": true
+    },
+    {
+      "id": "TG-LINT",
+      "name": "lint",
+      "command": "npm run lint",
+      "mergeRequired": true
+    },
+    {
+      "id": "TG-CONTRACT",
+      "name": "api_contract_tests",
+      "command": "npx jest tests/stability-layer-contracts.test.js --config jest.config.js",
+      "mergeRequired": true
+    },
+    {
+      "id": "TG-EXTENSION",
+      "name": "vscode_extension_integration",
+      "command": "npm test --prefix sheikha-vscode-extension -- --runInBand",
+      "mergeRequired": false,
+      "reason": "Requires running Sheikha API server on localhost:8080."
+    }
+  ],
+  "failurePolicy": {
+    "mustCaptureRootCause": true,
+    "mustAddPreventionRule": true,
+    "mustRunLocalVerification": true,
+    "mustUpdateContractWhenApiChanges": true
+  }
+}

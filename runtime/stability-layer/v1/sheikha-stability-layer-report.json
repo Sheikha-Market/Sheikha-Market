@@ -1,0 +1,124 @@
+{
+  "system": "SHEIKHA_STABILITY_LAYER_V1_REPORT",
+  "status": "STABLE",
+  "timestamp": "2026-06-04T18:09:44.415Z",
+  "branch": "optimization/long-tail-latency-elimination",
+  "head": "127245f4",
+  "gitStatus": "## optimization/long-tail-latency-elimination...origin/optimization/long-tail-latency-elimination\n M package.json",
+  "checks": {
+    "jest": {
+      "requiredTestIgnores": [
+        "/node_modules/",
+        "/dist/",
+        "/archive/",
+        "/infra/docker/compose/prod/",
+        "/Sheikha-Market/",
+        "/.venv/"
+      ],
+      "requiredModuleIgnores": [
+        "<rootDir>/dist",
+        "<rootDir>/archive",
+        "<rootDir>/infra/docker/compose/prod",
+        "<rootDir>/Sheikha-Market",
+        "<rootDir>/.venv"
+      ],
+      "testPathIgnorePatterns": [
+        "/node_modules/",
+        "/dist/",
+        "/archive/",
+        "/infra/docker/compose/prod/",
+        "/Sheikha-Market/",
+        "/.venv/",
+        "/sheikha-language/compiler/tests/",
+        "/core/integration/tests/",
+        "/tests/pixel-system.test.js",
+        "/tests/pixel-ecosystem-integration.test.js"
+      ],
+      "modulePathIgnorePatterns": [
+        "<rootDir>/dist",
+        "<rootDir>/archive",
+        "<rootDir>/infra/docker/compose/prod",
+        "<rootDir>/Sheikha-Market",
+        "<rootDir>/.venv"
+      ],
+      "testIgnoresComplete": true,
+      "moduleIgnoresComplete": true
+    },
+    "dependency": {
+      "marketUnitUsesCryptoRandomUUID": true,
+      "marketUnitRequiresUuid": false
+    },
+    "apiContracts": {
+      "registry": "SHEIKHA_API_CONTRACT_REGISTRY_V1",
+      "status": "ACTIVE",
+      "envelope": "SHEIKHA_API_ENVELOPE_V1",
+      "totalContracts": 10,
+      "lockedContracts": 10,
+      "extensionContracts": 10,
+      "statusValidation": {
+        "ok": true,
+        "errors": []
+      }
+    },
+    "extension": {
+      "system": "SHEIKHA_EXTENSION_COMPATIBILITY_V1",
+      "status": "ACTIVE",
+      "coveredEndpoints": 10,
+      "expectedDataEnvelopeReferences": 34,
+      "dataEnvelopeExpectedByExtension": true
+    },
+    "repositoryDuplication": {
+      "scannedRiskRoots": 5,
+      "riskyPackageFiles": [
+        ".venv/lib/python3.10/site-packages/jupyterlab/galata/@jupyterlab/galata-extension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/staging/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/static/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/extension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/incompat/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/interop/consumer/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/interop/provider/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/interop/token/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/mimeextension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/package/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/service-manager-extension/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/test-hyphens-underscore/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/test-hyphens/package.json",
+        ".venv/lib/python3.10/site-packages/jupyterlab/tests/mock_packages/test_no_hyphens/package.json",
+        ".venv/lib/python3.10/site-packages/plotly/labextension/package.json",
+        ".venv/share/jupyter/lab/static/package.json",
+        ".venv/share/jupyter/labextensions/@jupyter-notebook/lab-extension/package.json",
+        ".venv/share/jupyter/labextensions/@jupyter-widgets/jupyterlab-manager/package.json",
+        ".venv/share/jupyter/labextensions/jupyterlab-plotly/package.json",
+        ".venv/share/jupyter/labextensions/jupyterlab_pygments/package.json",
+        "Sheikha-Market/sheikha-main-portal/data/peace-unity/activation-package.json",
+        "Sheikha-Market/sheikha-main-portal/lib/sheikha/package.json",
+        "Sheikha-Market/sheikha-main-portal/mcp-servers/package.json",
+        "Sheikha-Market/sheikha-main-portal/package.json",
+        "Sheikha-Market/sheikha-main-portal/sheikha-vscode-extension/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/@anthropic-ai/sdk/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/@babel/runtime/helpers/esm/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/@babel/runtime/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/json-schema-to-ts/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/openai/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/node_modules/ts-algebra/package.json",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha/package.json",
+        "dist/sheikha-app/opt/sheikha/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/data/peace-unity/activation-package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/lib/sheikha/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/mcp-servers/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/package.json",
+        "infra/docker/compose/prod/Sheikha-Market/sheikha-main-portal/sheikha-vscode-extension/package.json"
+      ],
+      "riskyPackageFilesCount": 38
+    }
+  },
+  "score": 100,
+  "gaps": [],
+  "nextActions": [
+    "Keep API response envelope locked for extension-facing endpoints.",
+    "Run stability layer before adding development engines or changing extension API contracts.",
+    "Promote extension integration tests to required CI only when the API server is part of the workflow.",
+    "Convert each future CI failure into a contract, test, and prevention rule."
+  ],
+  "principle": "la darar wa la dirar"
+}
