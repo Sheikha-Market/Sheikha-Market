@@ -1,0 +1,37 @@
+{
+  "system": "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+  "status": "ACTIVE",
+  "arabicName": "محرك معرفة شيخة V2",
+  "score": 100,
+  "decision": "KNOWLEDGE_ENGINE_V2_ACTIVE_100",
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "rootIdentity": true,
+    "rootOperatingCore": true,
+    "operatingSystem": true,
+    "architectureFreeze": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true,
+    "apiContractRegistryV2": true,
+    "continuousImprovement": true
+  },
+  "registries": {
+    "lessonsLearned": true,
+    "governanceKnowledge": true,
+    "runtimeKnowledge": true
+  },
+  "missingDependencies": [],
+  "missingRegistries": [],
+  "coverage": {
+    "lessonsLearnedItems": 3,
+    "governanceKnowledgeItems": 3,
+    "runtimeKnowledgeItems": 3
+  },
+  "nextDecisionInputs": [
+    "Activate Decision Registry V2 after Knowledge Engine V2 is clean.",
+    "Link decisions to lessons, governance rules, runtime events, and PR outcomes.",
+    "Do not activate Execution Fabric V2 until Decision Registry V2 exists."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

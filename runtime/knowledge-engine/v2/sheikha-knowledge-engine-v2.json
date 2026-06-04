@@ -1,0 +1,36 @@
+{
+  "system": "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+  "status": "ACTIVE",
+  "arabic_name": "محرك معرفة شيخة V2",
+  "purpose": "Convert PR outcomes, runtime events, governance decisions, stability reports, architecture decisions, and lessons learned into governed reusable knowledge under Root Authority Layer.",
+  "position": "UNDER_ROOT_AUTHORITY_LAYER",
+  "governed_by": [
+    "SHEIKHA_HEART_CORE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_ARCHITECTURE_FREEZE_V1_3"
+  ],
+  "knowledge_domains": [
+    "lessons_learned",
+    "governance_knowledge",
+    "runtime_knowledge",
+    "architecture_knowledge",
+    "stability_knowledge",
+    "api_contract_knowledge",
+    "continuous_improvement_knowledge"
+  ],
+  "outputs": [
+    "knowledge_score",
+    "lessons_registry",
+    "governance_registry",
+    "runtime_registry",
+    "next_decision_inputs"
+  ],
+  "rules": {
+    "no_unverified_knowledge": true,
+    "evidence_required": true,
+    "decision_trace_required": true,
+    "root_authority_required": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
