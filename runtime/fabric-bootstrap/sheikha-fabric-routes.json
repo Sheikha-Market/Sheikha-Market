@@ -202,6 +202,12 @@
       "priority": 179
     },
     {
+      "name": "capability-registry-v2",
+      "mount": "/api/governance/capability-registry-v2",
+      "module": "routes/governance/capability-registry-v2/status.routes.js",
+      "priority": 178
+    },
+    {
       "name": "execution-governance-kernel",
       "mount": "/api/governance/execution-kernel",
       "module": "routes/governance/execution-kernel/status.routes.js",
