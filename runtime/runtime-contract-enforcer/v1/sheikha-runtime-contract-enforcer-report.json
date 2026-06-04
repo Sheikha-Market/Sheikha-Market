@@ -1,0 +1,85 @@
+{
+  "system": "SHEIKHA_RUNTIME_CONTRACT_ENFORCER_V1",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "RUNTIME_CONTRACT_ENFORCER_ACTIVE_100",
+  "checks": {
+    "enforcerLibrary": true,
+    "enforcerRegistry": true,
+    "apiContractV2": true,
+    "extensionCompatibilityV2": true,
+    "heartCore": true,
+    "successWraps": {
+      "contract": "SHEIKHA_API_CONTRACT_V2",
+      "enforced": true,
+      "timestamp": "2026-06-04T20:53:11.904Z"
+    },
+    "validPreserved": {
+      "contract": "SHEIKHA_API_CONTRACT_V2"
+    },
+    "failureWraps": {
+      "contract": "SHEIKHA_API_CONTRACT_V2",
+      "enforced": true,
+      "timestamp": "2026-06-04T20:53:11.904Z"
+    },
+    "stringWraps": {
+      "contract": "SHEIKHA_API_CONTRACT_V2",
+      "enforced": true,
+      "timestamp": "2026-06-04T20:53:11.904Z"
+    }
+  },
+  "missing": [],
+  "samples": {
+    "legacyStatusWrapped": {
+      "success": true,
+      "data": {
+        "name": "Sheikha",
+        "status": "active"
+      },
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "enforced": true,
+        "timestamp": "2026-06-04T20:53:11.904Z"
+      }
+    },
+    "alreadyValidPreserved": {
+      "success": true,
+      "data": {
+        "name": "Sheikha Root"
+      },
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2"
+      }
+    },
+    "legacyFailureWrapped": {
+      "success": false,
+      "error": {
+        "code": "MISSING_PROMPT",
+        "message": "Missing prompt",
+        "status": 400
+      },
+      "data": null,
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "enforced": true,
+        "timestamp": "2026-06-04T20:53:11.904Z"
+      }
+    },
+    "rawStringWrapped": {
+      "success": true,
+      "data": "ok",
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "enforced": true,
+        "timestamp": "2026-06-04T20:53:11.904Z"
+      }
+    }
+  },
+  "nextActions": [
+    "Use sendOk/sendFail in routes that currently return flat legacy responses.",
+    "Patch /api/sheikha/status to return enforced { success, data, meta }.",
+    "Patch VS Code extension routes gradually behind compatibility adapters.",
+    "Keep legacy route semantics stable while enforcing response shape."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
