@@ -19,7 +19,7 @@
 
 'use strict';
 
-const { v4: uuid } = require('uuid');
+const { randomUUID } = require('crypto');
 const database = require('../config/database');
 const runtimeRegistry = require('../config/runtime-registry');
 
@@ -46,7 +46,7 @@ const MARKET_SECTORS = {
 
 class MarketUnit {
     constructor(data = {}) {
-        this.id          = data.id          || uuid();
+        this.id          = data.id          || randomUUID();
         this.name        = data.name        || '';
         this.nameAr      = data.nameAr      || data.name || '';
         this.nameEn      = data.nameEn      || '';

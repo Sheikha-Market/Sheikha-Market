@@ -7,6 +7,7 @@
 
 require('dotenv').config();
 const crypto = require('crypto');
+const runtimeRegistry = require('./runtime-registry');
 
 const isProductionEnv = String(process.env.NODE_ENV || 'development') === 'production';
 const runtimeDevJwtSecret = crypto.createHash('sha256')
@@ -308,6 +309,20 @@ const config = {
         // حماية شاملة — استقلالية وملكية فكرية (لا انتماء لمعادن/هيوماين/أرامكو/PIF)
         independenceDoc: 'docs/حماية-شاملة-واستثمارات-الدولة.md'
     }
+};
+
+config.languages = {
+    supportedCodes: runtimeRegistry.getHumanLanguageCodes(),
+    defaultCode: runtimeRegistry.getDefaultHumanLanguage(),
+    programming: runtimeRegistry.getSupportedProgrammingLanguages(),
+    markup: runtimeRegistry.getSupportedMarkupLanguages()
+};
+
+config.runtime = {
+    currentProfile: runtimeRegistry.getRuntimeProfile(),
+    profiles: runtimeRegistry.getRuntimeProfiles(),
+    integrations: runtimeRegistry.getIntegrationStatus(),
+    languageFamilies: runtimeRegistry.getLanguageFamilies()
 };
 
 // ─── دوال مساعدة ──────────────────────────────────────────────────────────────
