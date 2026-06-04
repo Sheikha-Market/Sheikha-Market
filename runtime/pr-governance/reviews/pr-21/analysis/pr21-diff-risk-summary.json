@@ -38,6 +38,11 @@
       "finding": "The LLM neural layer extract shows conflict marker cleanup around model selection; only the resolved source intent may be carried forward."
     },
     {
+      "id": "ide_collaboration_conflict_cleanup",
+      "severity": "MEDIUM_HIGH",
+      "finding": "The IDE collaboration extract shows conflict marker cleanup around autonomy capabilities; only the reviewed resolved source intent may be carried forward."
+    },
+    {
       "id": "dependency_downgrade_or_major_shift",
       "severity": "HIGH",
       "finding": "Package changes include @google-cloud/storage 7.19.0 to 5.20.4, node-cron 3.0.3 to 4.2.1, and uuid 9.0.0 to 14.0.0. These require separate dependency review and must not enter through raw PR merge."
@@ -71,6 +76,7 @@
       "human_approval",
       "review_optimum_rules_engine",
       "review_llm_layer_resolution",
+      "review_ide_collaboration_resolution",
       "separate_dependency_review",
       "separate_server_js_patch_review",
       "secret_scan",
