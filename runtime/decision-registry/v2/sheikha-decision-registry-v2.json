@@ -1,201 +1,31 @@
 {
   "system": "SHEIKHA_DECISION_REGISTRY_V2",
-  "registry": "SHEIKHA_DECISION_REGISTRY_V2",
   "status": "ACTIVE",
   "arabic_name": "سجل قرارات شيخة V2",
-  "purpose": "Convert governed knowledge into traceable decisions before capability registration and execution fabric activation.",
-  "position": "UNDER_KNOWLEDGE_ENGINE_BEFORE_CAPABILITY_REGISTRY",
+  "purpose": "Convert governed knowledge into traceable decisions with evidence, risk, authority, execution conditions, and measurable outcomes.",
+  "position": "UNDER_KNOWLEDGE_ENGINE_V2",
   "governed_by": [
     "SHEIKHA_HEART_CORE_V1",
     "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
-    "SHEIKHA_KNOWLEDGE_ENGINE_V2",
-    "SHEIKHA_STABILITY_LAYER_V1"
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2"
   ],
-  "decision_model": {
-    "idRequired": true,
-    "titleRequired": true,
-    "authorityRequired": true,
-    "evidenceRequired": true,
-    "knowledgeLinksRequired": true,
-    "enforcementRequired": true,
-    "protectedDefault": true
-  },
-  "dependencies": {
-    "heartCore": true,
-    "rootAuthorityLayer": true,
-    "knowledgeEngineV2": true,
-    "stabilityLayer": true,
-    "runtimeContractEnforcer": true,
-    "apiContractRegistryV2": true,
-    "prGovernance": true
-  },
-  "knowledgeCoverage": {
-    "lessonsLearnedItems": 3,
-    "governanceKnowledgeItems": 3,
-    "runtimeKnowledgeItems": 3
-  },
-  "decisions": [
-    {
-      "id": "DRV2-001",
-      "title": "Root Authority remains the governing layer",
-      "decision": "Heart Core and Root Authority govern all downstream runtime, knowledge, registry, and execution layers.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
-      "risk": "HIGH",
-      "protected": true,
-      "knowledgeLinks": [
-        "GK-002",
-        "RK-002"
-      ],
-      "evidence": [
-        "runtime/root-authority-layer/v1/sheikha-root-authority-layer-report.json",
-        "runtime/heart-core/v1/sheikha-heart-core-report.json"
-      ],
-      "enforcement": {
-        "rootAuthorityRequired": true,
-        "humanReviewForHighRisk": true
-      }
-    },
-    {
-      "id": "DRV2-002",
-      "title": "Knowledge evidence is required before decisions",
-      "decision": "Every governed decision must link to knowledge, lessons, runtime evidence, or PR governance output.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_KNOWLEDGE_ENGINE_V2",
-      "risk": "HIGH",
-      "protected": true,
-      "knowledgeLinks": [
-        "GK-001",
-        "LL-PR22-003"
-      ],
-      "evidence": [
-        "runtime/knowledge-engine/v2/sheikha-knowledge-engine-v2-report.json",
-        "runtime/knowledge-engine/v2/registries/lessons-learned-registry.json"
-      ],
-      "enforcement": {
-        "evidenceRequired": true,
-        "knowledgeLinkRequired": true
-      }
-    },
-    {
-      "id": "DRV2-003",
-      "title": "Runtime API contract stability is mandatory",
-      "decision": "Extension-facing runtime APIs must follow API Contract V2 or pass through a governed compatibility adapter.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_API_CONTRACT_REGISTRY_V2",
-      "risk": "MEDIUM",
-      "protected": true,
-      "knowledgeLinks": [
-        "RK-001",
-        "LL-PR22-002"
-      ],
-      "evidence": [
-        "runtime/api-contract-registry/v2/sheikha-api-contract-check-report-v2.json",
-        "runtime/extension-compatibility/v2/sheikha-extension-compatibility-v2.json"
-      ],
-      "enforcement": {
-        "successDataMetaRequired": true,
-        "liveIntegrationTestsGated": true
-      }
-    },
-    {
-      "id": "DRV2-004",
-      "title": "Stability baseline gates expansion",
-      "decision": "No new upper layer is considered active until tests, lint, stability score, and drift checks are clean.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_STABILITY_LAYER_V1",
-      "risk": "HIGH",
-      "protected": true,
-      "knowledgeLinks": [
-        "GK-003",
-        "RK-003"
-      ],
-      "evidence": [
-        "runtime/stability-layer/v1/sheikha-stability-layer-report.json",
-        "tools/drift/sheikha-runtime-drift-detector.js"
-      ],
-      "enforcement": {
-        "stabilityScoreRequired": 100,
-        "noDriftRequired": true
-      }
-    },
-    {
-      "id": "DRV2-005",
-      "title": "Curated merge is required",
-      "decision": "Raw merge is disallowed; PRs require checks, governance review, drift control, and curated human decision.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_PR_GOVERNANCE",
-      "risk": "HIGH",
-      "protected": true,
-      "knowledgeLinks": [
-        "GK-001",
-        "LL-PR22-001"
-      ],
-      "evidence": [
-        "runtime/pr-governance/reviews/pr-22/review-decision.json",
-        "tools/governance/runtime-admission-controller.js"
-      ],
-      "enforcement": {
-        "rawMergeAllowed": false,
-        "checksRequired": true,
-        "admissionRequired": true
-      }
-    },
-    {
-      "id": "DRV2-006",
-      "title": "Capability Registry V2 is the next allowed layer",
-      "decision": "Capability Registry V2 may activate only after Decision Registry V2 is ACTIVE with score 100.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_DECISION_REGISTRY_V2",
-      "risk": "MEDIUM",
-      "protected": true,
-      "knowledgeLinks": [
-        "GK-003",
-        "RK-003"
-      ],
-      "evidence": [
-        "tools/decision-registry/sheikha-decision-registry-v2.js",
-        "docs/decision-registry/SHEIKHA-DECISION-REGISTRY-V2.md"
-      ],
-      "enforcement": {
-        "decisionRegistryScoreRequired": 100,
-        "capabilityRegistryBlockedUntilReady": true
-      }
-    },
-    {
-      "id": "DRV2-007",
-      "title": "Execution Fabric V2 remains gated",
-      "decision": "Execution Fabric V2 must wait until Decision Registry V2 and Capability Registry V2 are both active and governed.",
-      "status": "ACTIVE",
-      "authority": "SHEIKHA_DECISION_REGISTRY_V2",
-      "risk": "HIGH",
-      "protected": true,
-      "knowledgeLinks": [
-        "GK-001",
-        "GK-003"
-      ],
-      "evidence": [
-        "docs/knowledge/SHEIKHA-KNOWLEDGE-ENGINE-V2.md",
-        "runtime/knowledge-engine/v2/sheikha-knowledge-engine-v2-report.json"
-      ],
-      "enforcement": {
-        "noExecutionWithoutDecisionRegistry": true,
-        "noExecutionWithoutCapabilityRegistry": true
-      }
-    }
+  "decision_lifecycle": [
+    "proposal",
+    "knowledge_evidence_review",
+    "risk_classification",
+    "authority_review",
+    "approval",
+    "execution_gate",
+    "measurement",
+    "lessons_learned"
   ],
   "rules": {
-    "no_decision_without_evidence": true,
-    "no_execution_without_decision_registry": true,
-    "no_capability_registry_without_decision_registry": true,
-    "no_raw_merge": true,
+    "knowledge_evidence_required": true,
+    "human_review_for_high_risk": true,
+    "no_raw_execution": true,
     "no_drift_required": true,
-    "stability_score_required": 100,
-    "human_review_for_high_risk": true
+    "tests_required": true,
+    "decision_trace_required": true
   },
-  "next_layer": "SHEIKHA_CAPABILITY_REGISTRY_V2",
-  "blocked_until_ready": [
-    "SHEIKHA_EXECUTION_FABRIC_V2"
-  ],
   "principle": "ولا حول ولا قوة إلا بالله"
 }
