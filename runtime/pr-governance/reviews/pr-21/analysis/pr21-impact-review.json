@@ -1,0 +1,29 @@
+{
+  "pr": 21,
+  "title": "منظومة قواعد الأفضل — 20 قاعدة كونية من الكتاب والسنة + تفعيل الكل",
+  "status": "UNDER_REVIEW",
+  "risk": "MEDIUM_HIGH",
+  "criticalFilesDetected": [
+    "server.js",
+    "package.json",
+    "package-lock.json",
+    "lib/optimum-rules-engine.js",
+    "lib/sheikha-llm-neural-layer.js",
+    "lib/sheikha-ide-collaboration-system.js"
+  ],
+  "requiredReviews": {
+    "server_js_impact": "REQUIRED",
+    "package_dependency_impact": "REQUIRED",
+    "rules_engine_review": "REQUIRED",
+    "llm_layer_review": "REQUIRED",
+    "security_review": "REQUIRED",
+    "freeze_v1_1_compatibility": "REQUIRED",
+    "federal_organization_v1_2_compatibility": "REQUIRED"
+  },
+  "mergeDecision": "NOT_READY_FOR_MERGE",
+  "rules": {
+    "no_auto_merge": true,
+    "curated_merge_only": true,
+    "human_approval_required": true
+  }
+}
