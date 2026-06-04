@@ -7,32 +7,22 @@
 - القرار: CAPABILITY_REGISTRY_V2_ACTIVE_100
 
 ## التغطية
-- القدرات: 10
-- القدرات النشطة: 9
-- القدرات المحجوبة: 1
-- قدرات Codex: 2
-- مراجع السياسات: 23
-- مراجع القرارات: 7
+- القدرات: 7
+- القدرات النشطة: 7
+- قدرات تحتاج مراجعة بشرية: 2
 
 ## الفحوص
-- ✅ dependenciesReady
-- ✅ decisionRegistryReady
-- ✅ capabilityCountReady
-- ✅ everyCapabilityHasDecisionRefs
-- ✅ everyDecisionRefResolvable
-- ✅ everyCapabilityHasPolicyRefs
-- ✅ everyCapabilityHasGuardrails
-- ✅ everyCapabilityMeasured
-- ✅ codexCapabilitiesActive
-- ✅ aiGatewayGoverned
-- ✅ executionFabricGated
-- ✅ noUnverifiedModelClaim
-- ✅ noModelPullRequested
-- ✅ capabilityActivationOnly
+- ✅ heartCore
+- ✅ rootAuthorityLayer
+- ✅ knowledgeEngineV2
+- ✅ decisionRegistryV2
+- ✅ stabilityLayer
+- ✅ runtimeContractEnforcer
+- ✅ driftDetector
 
 ## التالي
-1. Keep Execution Fabric V2 gated until this registry remains ACTIVE with score 100.
-2. Route every new AI or Codex operation through capability id, policy refs, and decision refs.
-3. Verify provider/model availability before making any external model claim.
+1. Activate Execution Fabric V2 after Capability Registry V2 is clean.
+2. Allow execution only for registered active capabilities.
+3. Connect capability execution to tests, drift detector, and PR governance.
 
 ولا حول ولا قوة إلا بالله.

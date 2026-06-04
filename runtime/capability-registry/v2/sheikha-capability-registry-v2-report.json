@@ -1,38 +1,34 @@
 {
   "system": "SHEIKHA_CAPABILITY_REGISTRY_V2",
   "status": "ACTIVE",
-  "arabicName": "سجل قدرات شيخة V2",
   "score": 100,
   "decision": "CAPABILITY_REGISTRY_V2_ACTIVE_100",
-  "checks": {
-    "dependenciesReady": true,
-    "decisionRegistryReady": true,
-    "capabilityCountReady": true,
-    "everyCapabilityHasDecisionRefs": true,
-    "everyDecisionRefResolvable": true,
-    "everyCapabilityHasPolicyRefs": true,
-    "everyCapabilityHasGuardrails": true,
-    "everyCapabilityMeasured": true,
-    "codexCapabilitiesActive": true,
-    "aiGatewayGoverned": true,
-    "executionFabricGated": true,
-    "noUnverifiedModelClaim": true,
-    "noModelPullRequested": true,
-    "capabilityActivationOnly": true
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "knowledgeEngineV2": true,
+    "decisionRegistryV2": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true,
+    "driftDetector": true
   },
-  "missing": [],
+  "registryChecks": {
+    "capabilityItems": true,
+    "allActive": true,
+    "decisionLinked": true,
+    "scoped": true
+  },
+  "missingDependencies": [],
+  "missingRegistryChecks": [],
   "coverage": {
-    "capabilities": 10,
-    "activeCapabilities": 9,
-    "gatedCapabilities": 1,
-    "codexCapabilities": 2,
-    "policyRefs": 23,
-    "decisionRefs": 7
+    "capabilityItems": 7,
+    "activeItems": 7,
+    "humanReviewItems": 2
   },
   "nextActions": [
-    "Keep Execution Fabric V2 gated until this registry remains ACTIVE with score 100.",
-    "Route every new AI or Codex operation through capability id, policy refs, and decision refs.",
-    "Verify provider/model availability before making any external model claim."
+    "Activate Execution Fabric V2 after Capability Registry V2 is clean.",
+    "Allow execution only for registered active capabilities.",
+    "Connect capability execution to tests, drift detector, and PR governance."
   ],
   "principle": "ولا حول ولا قوة إلا بالله"
 }

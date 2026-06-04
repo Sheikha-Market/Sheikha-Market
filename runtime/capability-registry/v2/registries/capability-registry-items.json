@@ -1,0 +1,69 @@
+{
+  "registry": "SHEIKHA_CAPABILITY_ITEMS_REGISTRY_V2",
+  "status": "ACTIVE",
+  "items": [
+    {
+      "id": "CAPV2-001",
+      "name": "Codex Coding Assistance",
+      "status": "ACTIVE",
+      "type": "coding",
+      "decision": "DRV2-001",
+      "scope": ["read_code", "write_code", "refactor", "patch"],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-002",
+      "name": "PR Governance Review",
+      "status": "ACTIVE",
+      "type": "governance",
+      "decision": "DRV2-002",
+      "scope": ["review_pr", "risk_classification", "curated_merge"],
+      "requiresHumanReview": true
+    },
+    {
+      "id": "CAPV2-003",
+      "name": "Runtime Contract Enforcement",
+      "status": "ACTIVE",
+      "type": "api_contract",
+      "decision": "DRV2-003",
+      "scope": ["success_data_meta", "failure_error_data_meta", "legacy_wrapping"],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-004",
+      "name": "Test and Lint Validation",
+      "status": "ACTIVE",
+      "type": "quality",
+      "decision": "DRV2-004",
+      "scope": ["npm_test", "lint", "jest", "node_test"],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-005",
+      "name": "Runtime Drift Protection",
+      "status": "ACTIVE",
+      "type": "stability",
+      "decision": "DRV2-005",
+      "scope": ["no_drift", "git_clean", "protected_runtime"],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-006",
+      "name": "Knowledge to Decision Flow",
+      "status": "ACTIVE",
+      "type": "knowledge",
+      "decision": "DRV2-006",
+      "scope": ["lessons", "governance_knowledge", "runtime_knowledge"],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-007",
+      "name": "IDE and CLI Integration Readiness",
+      "status": "ACTIVE",
+      "type": "developer_workflow",
+      "decision": "DRV2-007",
+      "scope": ["vscode", "cli", "local_runtime", "project_context"],
+      "requiresHumanReview": true
+    }
+  ]
+}
