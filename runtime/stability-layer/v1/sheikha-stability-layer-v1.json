@@ -1,51 +1,24 @@
 {
   "system": "SHEIKHA_STABILITY_LAYER_V1",
   "status": "ACTIVE",
-  "mode": "runtime-contract-test-extension-stability",
-  "purpose": "Stabilize Sheikha before further development by governing repository duplication, Jest discovery, CommonJS and ESM compatibility, API response contracts, VS Code extension compatibility, and CI readiness.",
-  "basedOn": [
-    "SHEIKHA_GOVERNANCE_ACTIVATION_FABRIC_V1",
-    "SHEIKHA_CONTINUOUS_IMPROVEMENT_V1",
-    "SHEIKHA_DEVELOPMENT_PSYCHOLOGY_ENGINE_V1",
-    "SHEIKHA_EXCELLENCE_SCORE_V1",
-    "SHEIKHA_EXECUTION_FABRIC_V1"
+  "purpose": "Stabilize Jest, API contracts, duplicated repository paths, VS Code extension expectations, and PR readiness before merge.",
+  "governance": {
+    "no_raw_merge": true,
+    "curated_merge_required": true,
+    "tests_before_merge": true,
+    "api_contract_required": true,
+    "human_review_for_high_risk": true
+  },
+  "protected": [
+    "Architecture Freeze V1.3",
+    "PR Governance",
+    "Continuous Improvement V1",
+    "Governance Activation V1"
   ],
-  "controls": [
-    {
-      "id": "SL-001",
-      "name": "repository_duplication_guard",
-      "status": "ACTIVE",
-      "rule": "Jest must ignore generated, archived, vendored, Docker production, duplicated repository, and virtual environment paths."
-    },
-    {
-      "id": "SL-002",
-      "name": "esm_commonjs_guard",
-      "status": "ACTIVE",
-      "rule": "Runtime models should avoid fragile CommonJS imports of ESM-only dependencies when Node core provides a stable equivalent."
-    },
-    {
-      "id": "SL-003",
-      "name": "api_contract_registry",
-      "status": "ACTIVE",
-      "rule": "Extension-facing APIs must return a canonical envelope containing success, data, and timestamp while allowing documented legacy mirrors."
-    },
-    {
-      "id": "SL-004",
-      "name": "test_governance",
-      "status": "ACTIVE",
-      "rule": "CI failures must be converted into a lesson, contract update, and verification command before merge."
-    },
-    {
-      "id": "SL-005",
-      "name": "extension_compatibility",
-      "status": "ACTIVE",
-      "rule": "VS Code extension endpoints remain governed by explicit contracts before extension tests are made mandatory in CI."
-    }
-  ],
-  "mergePolicy": {
-    "rawMergeAllowed": false,
-    "curatedMergeRequired": true,
-    "humanReviewRequired": true,
-    "noMergeWithFailingChecks": true
-  }
+  "fix_targets": [
+    "jest_path_duplication",
+    "uuid_commonjs_compatibility",
+    "api_contract_data_wrapper",
+    "vscode_extension_contract_alignment"
+  ]
 }
