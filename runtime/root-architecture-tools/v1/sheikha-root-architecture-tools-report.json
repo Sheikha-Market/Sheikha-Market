@@ -1,0 +1,37 @@
+{
+  "system": "SHEIKHA_ROOT_ARCHITECTURE_TOOLS_V1",
+  "status": "ACTIVE",
+  "branch": "optimization/long-tail-latency-elimination",
+  "head": "323d9c4c",
+  "gitStatus": "M .well-known/sheikha.json\n M docs/operating-system/SHEIKHA-OPERATING-SYSTEM-V1.md\n M governance/identity/sheikha-enterprise-identity.json\n M governance/identity/sheikha-identity.json\n M governance/runtime/sheikha-runtime-manifest.json\n M package-lock.json\n M package.json\n M runtime/fabric-bootstrap/sheikha-fabric-routes.json\n M runtime/operating-system/v1/sheikha-operating-system-report.json\n M runtime/operating-system/v1/sheikha-operating-system-report.md\n M runtime/operating-system/v1/sheikha-operating-system-v1.json\n M runtime/root-identity/v1/sheikha-root-identity-v1.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.json\n M runtime/stability-layer/v1/sheikha-stability-layer-report.md\n M runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.json\n M runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.md\n M server.js\n M tests/operating-system-contracts.test.js\n M tools/operating-system/sheikha-operating-system-v1.js\n M tools/root-identity/sheikha-root-identity-v1.js\n?? lib/runtime-identity/\n?? routes/runtime/identity/\n?? runtime/root-architecture-tools/\n?? tools/root-architecture/",
+  "namingHierarchy": [
+    "Sheikha Root",
+    "Sheikha Root Operating Core",
+    "Sheikha Operating System",
+    "Unified Governance Fabric",
+    "Architecture Freeze V1.3",
+    "Portal Compatibility Layer"
+  ],
+  "checks": {
+    "rootIdentity": true,
+    "rootOperatingCore": true,
+    "operatingSystem": true,
+    "unifiedGovernanceFabric": true,
+    "architectureFreeze": true,
+    "stabilityLayer": true,
+    "runtimeIdentityLib": true,
+    "runtimeIdentityRoutes": true,
+    "operatingSystemDocs": true,
+    "portalCompatibilityKept": true
+  },
+  "missing": [],
+  "decision": "ROOT_ARCHITECTURE_TOOLS_ACTIVE",
+  "nextActions": [
+    "Keep current repository path stable.",
+    "Treat portal as compatibility only.",
+    "Use Sheikha Root in architecture and reports.",
+    "Bind operating system routes under root identity.",
+    "Do not rename filesystem paths until migration plan is approved."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
