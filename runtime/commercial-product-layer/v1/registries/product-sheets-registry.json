@@ -56,6 +56,17 @@
       "kpis": ["review cycle time", "merge error reduction", "contract compliance"],
       "licenseModels": ["SaaS", "CLI", "SDK"],
       "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
+    },
+    {
+      "productId": "PROD-AICL-001",
+      "name": "Sheikha AI Cluster Pipeline Fabric",
+      "category": "ai_infrastructure_fabric",
+      "buyerProfile": ["AI platform teams", "data platform teams", "enterprise architecture teams"],
+      "technicalDocumentation": true,
+      "tests": ["cluster pipeline fabric contract", "tool registry coverage", "truthfulness policy"],
+      "kpis": ["pipeline stages governed", "tools registered", "public infrastructure claims blocked"],
+      "licenseModels": ["Technology License", "SaaS", "API", "SDK", "Enterprise Component"],
+      "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
     }
   ]
 }

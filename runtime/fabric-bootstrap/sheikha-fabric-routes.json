@@ -214,6 +214,18 @@
       "priority": 177
     },
     {
+      "name": "ai-cluster-pipeline-fabric-v1",
+      "mount": "/api/ai/cluster-pipeline-fabric",
+      "module": "routes/ai-cluster-pipeline-fabric/status.routes.js",
+      "priority": 176
+    },
+    {
+      "name": "sovereign-commercial-ai-supercluster-v1",
+      "mount": "/api/ai/sovereign-commercial-supercluster",
+      "module": "routes/sovereign-commercial-ai-supercluster/status.routes.js",
+      "priority": 175
+    },
+    {
       "name": "execution-governance-kernel",
       "mount": "/api/governance/execution-kernel",
       "module": "routes/governance/execution-kernel/status.routes.js",
