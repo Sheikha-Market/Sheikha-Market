@@ -5,7 +5,12 @@
 تفعيل قسم كامل للبرمجة وGit والدمج والـ Pipeline والكلسترة وواجهات API، بحيث تتحول القضايا المجتمعية والتخصصية إلى تجارب، ثم كود، ثم أدوات، ثم معرفة، ثم منتجات، ثم أثر قابل للقياس.
 
 ## الدورة
-Issue → Git Branch → Experiment → API Integration → AI Analysis → Prototype → Test → Merge → Product → Knowledge → Education → Impact
+Issue → Experiment → API → AI → Code → Test → Merge → Product → Knowledge → Education → Impact
+
+## المسارات
+- `/api/devops/ai-lab/status`
+- `/api/devops/ai-lab/loop`
+- `/api/devops/ai-lab/registries`
 
 ## القاعدة
 لا دمج بلا مراجعة.

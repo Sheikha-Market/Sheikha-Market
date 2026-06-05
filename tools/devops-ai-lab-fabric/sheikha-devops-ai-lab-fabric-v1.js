@@ -11,12 +11,28 @@ const checks = {
   pipelineRegistry: exists('runtime/devops-ai-lab-fabric/v1/registries/pipeline-registry.json'),
   apiIntegrationLab: exists('runtime/devops-ai-lab-fabric/v1/registries/api-integration-lab-registry.json'),
   experimentToProduct: exists('runtime/devops-ai-lab-fabric/v1/registries/experiment-to-product-registry.json'),
+  issueToImpactLoop: exists('runtime/devops-ai-lab-fabric/v1/registries/issue-to-impact-loop-registry.json'),
   platformEngines: exists('runtime/platform-operating-engines/v1/sheikha-platform-operating-engines-v1-report.json'),
+  platformFactories: exists('runtime/platform-factories/v1/sheikha-platform-factories-v1-report.json'),
+  customerRevenueExperience: exists('runtime/customer-revenue-experience/v1/sheikha-customer-revenue-experience-v1-report.json'),
   socialInnovation: exists('runtime/specialized-social-innovation/v1/sheikha-specialized-social-innovation-v1-report.json'),
   aiFabric: exists('runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.json'),
   html: exists('public/sheikha-devops-lab/index.html'),
   css: exists('public/sheikha-devops-lab/devops-lab.css'),
-  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
+  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js'),
+  fabricRouteMounted: (() => {
+    try {
+      const fabric = JSON.parse(fs.readFileSync(path.join(ROOT, 'runtime/fabric-bootstrap/sheikha-fabric-routes.json'), 'utf8'));
+      const route = fabric.routes.find((item) => item.name === 'devops-ai-lab-fabric-v1');
+      return Boolean(
+        route &&
+        route.mount === '/api/devops/ai-lab' &&
+        route.module === 'routes/devops-ai-lab-fabric/status.routes.js'
+      );
+    } catch {
+      return false;
+    }
+  })()
 };
 
 const missing = Object.entries(checks).filter(([,v])=>!v).map(([k])=>k);
@@ -30,11 +46,10 @@ const report = {
   missing,
   cycle: [
     'ISSUE',
-    'GIT_BRANCH',
     'EXPERIMENT',
-    'API_INTEGRATION',
-    'AI_ANALYSIS',
-    'PROTOTYPE',
+    'API',
+    'AI',
+    'CODE',
     'TEST',
     'MERGE',
     'PRODUCT',

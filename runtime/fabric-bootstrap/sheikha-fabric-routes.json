@@ -208,6 +208,12 @@
       "priority": 229
     },
     {
+      "name": "devops-ai-lab-fabric-v1",
+      "mount": "/api/devops/ai-lab",
+      "module": "routes/devops-ai-lab-fabric/status.routes.js",
+      "priority": 228
+    },
+    {
       "name": "risk-classification-engine",
       "mount": "/api/governance/risk-engine",
       "module": "routes/governance/risk-engine/status.routes.js",

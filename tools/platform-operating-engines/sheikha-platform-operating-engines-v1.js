@@ -16,6 +16,8 @@ const checks = {
   customerClassification: exists('runtime/customer-classification/v1/sheikha-customer-classification-v1-report.json'),
   providerAgreementRoadmap: exists('runtime/provider-agreement-roadmap/v1/sheikha-provider-agreement-roadmap-v1-report.json'),
   computeIntegrationActivation: exists('tools/activate-sheikha-compute-integration-readiness.sh'),
+  devopsAiLabFabric: exists('runtime/devops-ai-lab-fabric/v1/sheikha-devops-ai-lab-fabric-v1-report.json'),
+  issueToImpactLoop: exists('runtime/devops-ai-lab-fabric/v1/registries/issue-to-impact-loop-registry.json'),
   platformFactories: exists('runtime/platform-factories/v1/sheikha-platform-factories-v1-report.json'),
   socialInnovation: exists('runtime/specialized-social-innovation/v1/sheikha-specialized-social-innovation-v1-report.json'),
   databaseKnowledge: exists('runtime/database-knowledge-engine/v1/sheikha-database-knowledge-engine-v1-report.json'),
