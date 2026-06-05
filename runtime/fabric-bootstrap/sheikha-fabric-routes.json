@@ -178,6 +178,12 @@
       "priority": 233
     },
     {
+      "name": "multi-supercomputer-cloud-fabric-v1",
+      "mount": "/api/ai/multi-supercomputer-cloud-fabric",
+      "module": "routes/multi-supercomputer-cloud-fabric/status.routes.js",
+      "priority": 232
+    },
+    {
       "name": "risk-classification-engine",
       "mount": "/api/governance/risk-engine",
       "module": "routes/governance/risk-engine/status.routes.js",

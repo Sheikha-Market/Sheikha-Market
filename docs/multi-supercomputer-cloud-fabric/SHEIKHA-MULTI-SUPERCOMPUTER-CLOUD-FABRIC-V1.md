@@ -1,4 +1,8 @@
 # SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1
+
+## المسارات
+- `/api/ai/multi-supercomputer-cloud-fabric/status`
+- `/api/ai/multi-supercomputer-cloud-fabric/architecture`
 # نسيج شيخة السحابي متعدد الحواسيب الضخمة
 
 ## الهدف

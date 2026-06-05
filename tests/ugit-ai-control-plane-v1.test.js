@@ -65,7 +65,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_GPU_FARM_READINESS_V1',
       'SHEIKHA_MULTICLOUD_FABRIC_V1',
       'SHEIKHA_PROVIDER_COMPUTE_FABRIC_V1',
-      'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1'
+      'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
+      'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1'
     ].forEach((system) => expect(systems.has(system)).toBe(true));
 
     [
@@ -133,6 +134,7 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
     const ugitRoute = fabric.routes.find((item) => item.name === 'ugit-ai-control-plane-v1');
     const providerComputeRoute = fabric.routes.find((item) => item.name === 'provider-compute-fabric-v1');
     const commercialRealRoute = fabric.routes.find((item) => item.name === 'commercial-real-activation-v1');
+    const multiSupercomputerRoute = fabric.routes.find((item) => item.name === 'multi-supercomputer-cloud-fabric-v1');
     const cloudRoute = fabric.routes.find((item) => item.name === 'cloud-supercomputer-fabric-v1');
 
     expect(packageJson.scripts['ops:ugit-ai-control-plane:v1']).toBe(
@@ -161,6 +163,11 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       mount: '/api/commercial/real-activation',
       module: 'routes/commercial-real-activation/status.routes.js',
       priority: 233
+    }));
+    expect(multiSupercomputerRoute).toEqual(expect.objectContaining({
+      mount: '/api/ai/multi-supercomputer-cloud-fabric',
+      module: 'routes/multi-supercomputer-cloud-fabric/status.routes.js',
+      priority: 232
     }));
   });
 });

@@ -39,6 +39,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/licensing-engine/', classification: 'PROTECTED', owner: 'Licensing Governance Organization' },
   { prefix: 'tools/commercial-governance-engine/', classification: 'PROTECTED', owner: 'Commercial Governance Organization' },
   { prefix: 'tools/commercial-execution-layer/', classification: 'PROTECTED', owner: 'Commercial Execution Governance Organization' },
+  { prefix: 'tools/multi-supercomputer-cloud-fabric/', classification: 'PROTECTED', owner: 'Multi Supercomputer Cloud Fabric Governance Organization' },
   { prefix: 'tools/provider-compute-fabric/', classification: 'PROTECTED', owner: 'Provider Compute Fabric Governance Organization' },
   { prefix: 'tools/sovereign-commercial-ai-supercluster/', classification: 'PROTECTED', owner: 'Sovereign Commercial AI Supercluster Governance Organization' },
   { prefix: 'tools/ugit-ai-control-plane/', classification: 'PROTECTED', owner: 'UGIT AI Control Plane Governance Organization' },
