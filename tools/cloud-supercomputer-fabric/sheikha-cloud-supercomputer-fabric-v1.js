@@ -14,6 +14,17 @@ function write(p, content) {
   fs.writeFileSync(path.join(ROOT, p), content);
 }
 
+function readJson(p) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
+const route = fabric?.routes?.find((item) => item.name === 'cloud-supercomputer-fabric-v1');
+
 const checks = {
   governanceOrchestrator: exists('runtime/governance-orchestrator/v1/sheikha-governance-orchestrator-v1-report.json'),
   sovereignCommercialAiSupercluster: exists('runtime/sovereign-commercial-ai-supercluster/v1/sheikha-sovereign-commercial-ai-supercluster-v1-report.json'),
@@ -22,7 +33,12 @@ const checks = {
   capabilityRegistry: exists('runtime/capability-registry/v2/sheikha-capability-registry-v2-report.json'),
   decisionRegistry: exists('runtime/decision-registry/v2/sheikha-decision-registry-v2-report.json'),
   stabilityLayer: exists('runtime/stability-layer/v1/sheikha-stability-layer-report.json'),
-  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
+  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js'),
+  fabricRouteMounted: Boolean(
+    route &&
+    route.mount === '/api/ai/cloud-supercomputer-fabric' &&
+    route.module === 'routes/cloud-supercomputer-fabric/status.routes.js'
+  )
 };
 
 const missing = Object.entries(checks).filter(([, ok]) => !ok).map(([k]) => k);
@@ -73,6 +89,10 @@ ${Object.entries(checks).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n
 - لا ادعاء ملكية حاسب خارق فعلي بلا دليل.
 - لا GPU Cluster فعلي بلا عقد مزود.
 - لا تدريب نماذج بلا سجل تشغيل.
+
+## المسارات
+- /api/ai/cloud-supercomputer-fabric/status
+- /api/ai/cloud-supercomputer-fabric/layers
 
 ولا حول ولا قوة إلا بالله.
 `

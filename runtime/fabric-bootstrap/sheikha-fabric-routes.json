@@ -160,6 +160,18 @@
       "priority": 240
     },
     {
+      "name": "ugit-ai-control-plane-v1",
+      "mount": "/api/ai/ugit-control-plane",
+      "module": "routes/ugit-ai-control-plane/status.routes.js",
+      "priority": 235
+    },
+    {
+      "name": "provider-compute-fabric-v1",
+      "mount": "/api/ai/provider-compute-fabric",
+      "module": "routes/provider-compute-fabric/status.routes.js",
+      "priority": 234
+    },
+    {
       "name": "risk-classification-engine",
       "mount": "/api/governance/risk-engine",
       "module": "routes/governance/risk-engine/status.routes.js",
@@ -224,6 +236,12 @@
       "mount": "/api/ai/sovereign-commercial-supercluster",
       "module": "routes/sovereign-commercial-ai-supercluster/status.routes.js",
       "priority": 175
+    },
+    {
+      "name": "cloud-supercomputer-fabric-v1",
+      "mount": "/api/ai/cloud-supercomputer-fabric",
+      "module": "routes/cloud-supercomputer-fabric/status.routes.js",
+      "priority": 174
     },
     {
       "name": "execution-governance-kernel",

@@ -17,6 +17,7 @@
 - ✅ gpuFarmReadiness
 - ✅ budgetGuard
 - ✅ driftDetector
+- ✅ fabricRouteMounted
 
 ## خريطة الاتفاقيات
 - 1. Select provider candidate
@@ -29,6 +30,11 @@
 - 8. Run small proof-of-capability workload
 - 9. Monitor cost and performance
 - 10. Promote to production only after review
+
+## المسارات
+- /api/ai/provider-compute-fabric/status
+- /api/ai/provider-compute-fabric/agreements
+- /api/ai/provider-compute-fabric/readiness
 
 ## ضبط الصدق
 لا مزود بلا سجل. لا عقد بلا اتفاقية. لا GPU Farm بلا عتاد أو عقد استئجار. لا إنفاق بلا ميزانية.

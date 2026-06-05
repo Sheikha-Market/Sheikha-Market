@@ -1,0 +1,18 @@
+{
+  "registry": "SHEIKHA_UGIT_AI_GOVERNANCE_POLICY_REGISTRY_V1",
+  "status": "ACTIVE",
+  "policies": [
+    { "id": "UGIT-POL-001", "name": "evidence_first_truthfulness", "enforced": true, "gate": "NO_UNSUPPORTED_CLAIMS" },
+    { "id": "UGIT-POL-002", "name": "no_unapproved_compute_spend", "enforced": true, "gate": "BUDGET_APPROVAL_REQUIRED" },
+    { "id": "UGIT-POL-003", "name": "data_rights_before_ingestion", "enforced": true, "gate": "DATA_RIGHTS_REQUIRED" },
+    { "id": "UGIT-POL-004", "name": "evaluation_before_deployment", "enforced": true, "gate": "EVALUATION_REPORT_REQUIRED" },
+    { "id": "UGIT-POL-005", "name": "drift_monitoring_required", "enforced": true, "gate": "MONITORING_PLAN_REQUIRED" },
+    { "id": "UGIT-POL-006", "name": "human_approval_for_high_risk", "enforced": true, "gate": "HUMAN_APPROVAL_REQUIRED" },
+    { "id": "UGIT-POL-007", "name": "commercial_claim_contract_gate", "enforced": true, "gate": "SIGNED_CONTRACT_REQUIRED" },
+    { "id": "UGIT-POL-008", "name": "model_training_run_evidence_required", "enforced": true, "gate": "TRAINING_RUN_EVIDENCE_REQUIRED" },
+    { "id": "UGIT-POL-009", "name": "geo_distributed_contract_gate", "enforced": true, "gate": "PROVIDER_CONTRACT_REQUIRED" },
+    { "id": "UGIT-POL-010", "name": "agent_permission_least_privilege", "enforced": true, "gate": "AGENT_SCOPE_REQUIRED" },
+    { "id": "UGIT-POL-011", "name": "route_binding_integrity", "enforced": true, "gate": "FABRIC_ROUTE_REQUIRED" },
+    { "id": "UGIT-POL-012", "name": "domain_pipeline_traceability", "enforced": true, "gate": "DOMAIN_PIPELINE_REGISTRY_REQUIRED" }
+  ]
+}

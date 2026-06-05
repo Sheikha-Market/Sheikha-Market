@@ -15,11 +15,16 @@
 - ✅ decisionRegistry
 - ✅ stabilityLayer
 - ✅ driftDetector
+- ✅ fabricRouteMounted
 
 ## ضبط الصدق
 - تفعيل معماري سحابي.
 - لا ادعاء ملكية حاسب خارق فعلي بلا دليل.
 - لا GPU Cluster فعلي بلا عقد مزود.
 - لا تدريب نماذج بلا سجل تشغيل.
+
+## المسارات
+- /api/ai/cloud-supercomputer-fabric/status
+- /api/ai/cloud-supercomputer-fabric/layers
 
 ولا حول ولا قوة إلا بالله.

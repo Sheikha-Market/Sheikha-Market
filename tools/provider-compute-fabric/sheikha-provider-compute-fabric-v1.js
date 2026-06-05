@@ -14,6 +14,17 @@ function write(p, content) {
   fs.writeFileSync(path.join(ROOT, p), content);
 }
 
+function readJson(p) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
+const route = fabric?.routes?.find((item) => item.name === 'provider-compute-fabric-v1');
+
 const checks = {
   governanceOrchestrator: exists('runtime/governance-orchestrator/v1/sheikha-governance-orchestrator-v1-report.json'),
   cloudSupercomputerFabric: exists('runtime/cloud-supercomputer-fabric/v1/sheikha-cloud-supercomputer-fabric-v1-report.json'),
@@ -24,7 +35,12 @@ const checks = {
   multicloudFabric: exists('runtime/multicloud-fabric/v1/sheikha-multicloud-fabric-v1.json'),
   gpuFarmReadiness: exists('runtime/gpu-farm-readiness/v1/sheikha-gpu-farm-readiness-v1.json'),
   budgetGuard: exists('runtime/budget-guard/v1/sheikha-budget-guard-v1.json'),
-  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
+  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js'),
+  fabricRouteMounted: Boolean(
+    route &&
+    route.mount === '/api/ai/provider-compute-fabric' &&
+    route.module === 'routes/provider-compute-fabric/status.routes.js'
+  )
 };
 
 const missing = Object.entries(checks).filter(([, ok]) => !ok).map(([k]) => k);
@@ -77,6 +93,11 @@ ${Object.entries(checks).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n
 
 ## خريطة الاتفاقيات
 ${report.agreementRoadmap.map(x => `- ${x}`).join('\n')}
+
+## المسارات
+- /api/ai/provider-compute-fabric/status
+- /api/ai/provider-compute-fabric/agreements
+- /api/ai/provider-compute-fabric/readiness
 
 ## ضبط الصدق
 لا مزود بلا سجل. لا عقد بلا اتفاقية. لا GPU Farm بلا عتاد أو عقد استئجار. لا إنفاق بلا ميزانية.

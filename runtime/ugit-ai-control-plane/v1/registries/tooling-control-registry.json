@@ -1,0 +1,24 @@
+{
+  "registry": "SHEIKHA_UGIT_AI_TOOLING_CONTROL_REGISTRY_V1",
+  "status": "ACTIVE",
+  "tools": [
+    { "name": "Scikit-learn Pipeline", "category": "ml_pipeline", "registered": true, "installationClaim": false, "executionGate": "LOCAL_EVIDENCE_REQUIRED" },
+    { "name": "Apache Airflow", "category": "workflow_orchestration", "registered": true, "installationClaim": false, "executionGate": "RUNTIME_ADAPTER_REQUIRED" },
+    { "name": "Apache Spark", "category": "big_data_processing", "registered": true, "installationClaim": false, "executionGate": "CLUSTER_EVIDENCE_REQUIRED" },
+    { "name": "Hadoop", "category": "big_data_storage", "registered": true, "installationClaim": false, "executionGate": "CLUSTER_EVIDENCE_REQUIRED" },
+    { "name": "Kubernetes", "category": "container_cluster", "registered": true, "installationClaim": false, "executionGate": "CLUSTER_EVIDENCE_REQUIRED" },
+    { "name": "Kubeflow", "category": "mlops", "registered": true, "installationClaim": false, "executionGate": "KUBERNETES_EVIDENCE_REQUIRED" },
+    { "name": "MLflow", "category": "model_lifecycle", "registered": true, "installationClaim": false, "executionGate": "EXPERIMENT_TRACKING_EVIDENCE_REQUIRED" },
+    { "name": "Hugging Face Pipelines", "category": "model_pipeline_library", "registered": true, "installationClaim": false, "executionGate": "MODEL_LICENSE_AND_RUNTIME_EVIDENCE_REQUIRED" },
+    { "name": "Service Mesh", "category": "multi_cluster_network_policy", "registered": true, "installationClaim": false, "executionGate": "NETWORK_POLICY_REQUIRED" },
+    { "name": "Vector Store", "category": "retrieval", "registered": true, "installationClaim": false, "executionGate": "DATA_RIGHTS_REQUIRED" },
+    { "name": "MoE Router", "category": "expert_routing", "registered": true, "installationClaim": false, "executionGate": "MODEL_ARCHITECTURE_EVIDENCE_REQUIRED" },
+    { "name": "Multi-Agent Orchestrator", "category": "agent_governance", "registered": true, "installationClaim": false, "executionGate": "AGENT_POLICY_REQUIRED" },
+    { "name": "PM2 Cluster Runtime", "category": "runtime_process_cluster", "registered": true, "installationClaim": false, "executionGate": "PROCESS_EVIDENCE_REQUIRED" },
+    { "name": "Jest", "category": "test_governance", "registered": true, "installationClaim": false, "executionGate": "TEST_RESULTS_REQUIRED" },
+    { "name": "ESLint", "category": "quality_governance", "registered": true, "installationClaim": false, "executionGate": "LINT_RESULTS_REQUIRED" },
+    { "name": "Runtime Drift Detector", "category": "stability_governance", "registered": true, "installationClaim": false, "executionGate": "NO_DRIFT_REQUIRED" },
+    { "name": "Runtime Admission Controller", "category": "admission_governance", "registered": true, "installationClaim": false, "executionGate": "ADMISSION_PASS_REQUIRED" },
+    { "name": "Fabric Bootstrap Loader", "category": "runtime_route_binding", "registered": true, "installationClaim": false, "executionGate": "FABRIC_ROUTE_EVIDENCE_REQUIRED" }
+  ]
+}

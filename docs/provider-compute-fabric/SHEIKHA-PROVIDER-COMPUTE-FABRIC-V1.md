@@ -7,6 +7,11 @@
 ## خريطة الاتفاقيات
 Provider Registry → Compute Need → Governance Review → Budget Approval → Provider Selection → Contract Verification → Capacity Confirmation → Workload Approval → Monitoring → Billing Review
 
+## المسارات
+- `/api/ai/provider-compute-fabric/status`
+- `/api/ai/provider-compute-fabric/agreements`
+- `/api/ai/provider-compute-fabric/readiness`
+
 ## البدائل
 1. API Subscription: أقل تكلفة وأسرع بداية.
 2. GPU Cloud Rental: مناسب للتجارب.
