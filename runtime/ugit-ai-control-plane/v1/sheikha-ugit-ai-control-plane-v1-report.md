@@ -20,7 +20,7 @@
 - ادعاء مزود أو عميل: لا
 
 ## التغطية
-- طبقات التشغيل: 24
+- طبقات التشغيل: 25
 - النطاقات: 12
 - الأدوات: 18
 - السياسات: 12
@@ -48,6 +48,7 @@
 - PASS providerComputeFabricRouteMounted
 - PASS commercialRealActivationRouteMounted
 - PASS multiSupercomputerCloudFabricRouteMounted
+- PASS aiSupercomputerCloudClusterPipelineFabricRouteMounted
 - PASS fabricRouteMounted
 
 ## الاعتماديات
@@ -69,6 +70,7 @@
 - PASS providerComputeFabric
 - PASS commercialRealActivation
 - PASS multiSupercomputerCloudFabric
+- PASS aiSupercomputerCloudClusterPipelineFabric
 - PASS commercialProductLayer
 - PASS runtimeAdmissionController
 - PASS driftDetector

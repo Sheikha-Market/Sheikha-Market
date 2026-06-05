@@ -25,6 +25,7 @@
 - Provider Compute Fabric
 - Commercial Real Activation
 - Multi Supercomputer Cloud Fabric
+- AI Supercomputer Cloud Cluster Pipeline Fabric
 - Commercial Product Layer
 - Runtime Admission and Drift Governance
 

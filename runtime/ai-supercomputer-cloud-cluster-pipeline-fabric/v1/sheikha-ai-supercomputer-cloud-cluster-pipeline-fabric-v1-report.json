@@ -4,9 +4,12 @@
   "score": 100,
   "decision": "AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_ACTIVE_100",
   "checks": {
+    "registryActive": true,
+    "positionedAboveMultiSupercomputer": true,
+    "componentsComplete": true,
     "governanceOrchestrator": true,
-    "cloudSupercomputerFabric": true,
     "multiSupercomputerCloudFabric": true,
+    "cloudSupercomputerFabric": true,
     "providerComputeFabric": true,
     "workloadOrchestrator": true,
     "aiClusterPipelineFabric": true,
@@ -14,8 +17,32 @@
     "slaEngine": true,
     "revenueEngine": true,
     "commercialRealActivation": true,
-    "driftDetector": true
+    "truthfulnessPolicy": true,
+    "driftDetector": true,
+    "fabricRouteMounted": true
   },
   "missing": [],
+  "coverage": {
+    "components": 10,
+    "requiredComponents": 10,
+    "physicalSupercomputerClaims": 0,
+    "gpuFarmClaims": 0,
+    "modelTrainingClaims": 0,
+    "providerClaims": 0
+  },
+  "truthfulness": {
+    "architectureAndReadinessOnly": true,
+    "noPhysicalSupercomputerClaimWithoutContract": true,
+    "noGpuFarmClaimWithoutHardwareOrLease": true,
+    "noModelTrainingClaimWithoutRunLog": true,
+    "noCloudProviderClaimWithoutServiceOffering": true,
+    "noPartnerClaimWithoutSignedAgreement": true
+  },
+  "nextActions": [
+    "Create workload profile before any real GPU/API execution.",
+    "Approve provider, contract, and budget before paid cloud compute.",
+    "Record run logs before any model training claim.",
+    "Keep the layer as architecture and readiness until real contracts and evidence exist."
+  ],
   "principle": "ولا حول ولا قوة إلا بالله"
 }

@@ -32,6 +32,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tests/', classification: 'STAGING', owner: 'Test Governance Organization' },
   { prefix: 'tools/api-contracts/', classification: 'PROTECTED', owner: 'API Contract Governance Organization' },
   { prefix: 'tools/ai-cluster-pipeline-fabric/', classification: 'PROTECTED', owner: 'AI Cluster Pipeline Fabric Governance Organization' },
+  { prefix: 'tools/ai-supercomputer-cloud-cluster-pipeline-fabric/', classification: 'PROTECTED', owner: 'AI Supercomputer Cloud Cluster Pipeline Fabric Governance Organization' },
   { prefix: 'tools/capability-registry/', classification: 'PROTECTED', owner: 'Capability Registry Governance Organization' },
   { prefix: 'tools/cloud-supercomputer-fabric/', classification: 'PROTECTED', owner: 'Cloud Supercomputer Fabric Governance Organization' },
   { prefix: 'tools/commercial-real-activation/', classification: 'PROTECTED', owner: 'Commercial Real Activation Governance Organization' },
