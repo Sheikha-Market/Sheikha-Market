@@ -1,0 +1,24 @@
+{
+  "registry": "SHEIKHA_SUBSCRIPTION_PLANS_V1",
+  "status": "ACTIVE",
+  "plans": [
+    {
+      "id": "STARTER",
+      "name": "Starter",
+      "target": "SME and individual professionals",
+      "features": ["Basic dashboard", "Community access", "Limited reports"]
+    },
+    {
+      "id": "PROFESSIONAL",
+      "name": "Professional",
+      "target": "Companies, suppliers, buyers, experts",
+      "features": ["Advanced dashboard", "Reports", "Contracts workflow", "Expert access"]
+    },
+    {
+      "id": "ENTERPRISE",
+      "name": "Enterprise",
+      "target": "Large companies, ministries, ports, industrial zones",
+      "features": ["Custom dashboard", "SLA", "API integration", "Governance", "Dedicated onboarding"]
+    }
+  ]
+}

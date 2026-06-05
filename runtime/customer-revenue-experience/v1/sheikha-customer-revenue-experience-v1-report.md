@@ -1,0 +1,7 @@
+# SHEIKHA_CUSTOMER_REVENUE_EXPERIENCE_V1
+
+- الحالة: ACTIVE
+- الدرجة: 100
+- القرار: CUSTOMER_REVENUE_EXPERIENCE_ACTIVE_100
+
+ولا حول ولا قوة إلا بالله.
