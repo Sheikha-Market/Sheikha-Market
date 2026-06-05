@@ -1,0 +1,18 @@
+{
+  "system": "SHEIKHA_SLA_ENGINE_V1",
+  "status": "ACTIVE",
+  "slaTypes": [
+    "API_UPTIME",
+    "SUPPORT_RESPONSE",
+    "DATA_PROTECTION",
+    "SECURITY_REVIEW",
+    "SERVICE_CONTINUITY",
+    "BILLING_ACCURACY"
+  ],
+  "rules": {
+    "sla_requires_contract": true,
+    "no_uptime_claim_without_monitoring": true,
+    "no_enterprise_sla_without_human_approval": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
