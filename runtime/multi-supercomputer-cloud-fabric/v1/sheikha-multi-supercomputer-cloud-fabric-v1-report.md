@@ -19,6 +19,11 @@
 - ✅ slaEngine
 - ✅ revenueEngine
 - ✅ driftDetector
+- ✅ fabricRouteMounted
+
+## المسارات
+- /api/ai/multi-supercomputer-cloud-fabric/status
+- /api/ai/multi-supercomputer-cloud-fabric/architecture
 
 ## الضبط
 - طبقة معمارية واستعداد.
