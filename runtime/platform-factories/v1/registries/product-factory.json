@@ -1,0 +1,36 @@
+{
+  "factory": "PRODUCT_FACTORY",
+  "status": "ACTIVE",
+  "arabicName": "مصنع المنتجات",
+  "mission": "Convert validated needs, capabilities, factories, and customer revenue workflows into governed product packages and release candidates.",
+  "inputs": [
+    "customer_revenue_experience",
+    "commercial_product_layer",
+    "capability_registry",
+    "provider_agreement_roadmap",
+    "customer_segments",
+    "marketplace_needs"
+  ],
+  "outputs": [
+    "product_concept",
+    "product_sheet",
+    "service_package",
+    "pricing_draft",
+    "release_candidate",
+    "support_plan"
+  ],
+  "qualityGates": [
+    "customer_segment_defined",
+    "value_proof_defined",
+    "contract_gate_defined",
+    "test_plan_defined",
+    "support_plan_defined",
+    "no_market_claim_without_launch_evidence"
+  ],
+  "metrics": [
+    "product_concepts",
+    "release_candidates",
+    "validated_value_proofs",
+    "support_ready_products"
+  ]
+}

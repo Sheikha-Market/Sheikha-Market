@@ -42,6 +42,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/commercial-execution-layer/', classification: 'PROTECTED', owner: 'Commercial Execution Governance Organization' },
   { prefix: 'tools/customer-classification/', classification: 'PROTECTED', owner: 'Customer Classification Governance Organization' },
   { prefix: 'tools/multi-supercomputer-cloud-fabric/', classification: 'PROTECTED', owner: 'Multi Supercomputer Cloud Fabric Governance Organization' },
+  { prefix: 'tools/platform-factories/', classification: 'PROTECTED', owner: 'Platform Factories Governance Organization' },
   { prefix: 'tools/platform-operating-engines/', classification: 'PROTECTED', owner: 'Platform Operating Engines Governance Organization' },
   { prefix: 'tools/provider-agreement-roadmap/', classification: 'PROTECTED', owner: 'Provider Agreement Roadmap Governance Organization' },
   { prefix: 'tools/provider-compute-fabric/', classification: 'PROTECTED', owner: 'Provider Compute Fabric Governance Organization' },

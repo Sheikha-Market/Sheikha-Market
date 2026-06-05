@@ -202,6 +202,12 @@
       "priority": 230
     },
     {
+      "name": "platform-factories-v1",
+      "mount": "/api/platform/factories",
+      "module": "routes/platform-factories/status.routes.js",
+      "priority": 229
+    },
+    {
       "name": "risk-classification-engine",
       "mount": "/api/governance/risk-engine",
       "module": "routes/governance/risk-engine/status.routes.js",

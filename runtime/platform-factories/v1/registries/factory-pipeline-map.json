@@ -1,0 +1,41 @@
+{
+  "registry": "SHEIKHA_FACTORY_PIPELINE_MAP_V1",
+  "status": "ACTIVE",
+  "pipeline": [
+    {
+      "stage": "DISCOVER",
+      "factory": "SCIENCE_FACTORY",
+      "output": "research_brief"
+    },
+    {
+      "stage": "TEACH",
+      "factory": "EDUCATION_FACTORY",
+      "output": "learning_path"
+    },
+    {
+      "stage": "BUILD",
+      "factory": "PRODUCT_FACTORY",
+      "output": "release_candidate"
+    },
+    {
+      "stage": "MEASURE",
+      "factory": "IMPACT_FACTORY",
+      "output": "impact_scorecard"
+    },
+    {
+      "stage": "IMPROVE",
+      "factory": "ALL_FACTORIES",
+      "output": "improvement_actions"
+    }
+  ],
+  "governanceFlow": [
+    "knowledge_capture",
+    "evidence_review",
+    "factory_assignment",
+    "output_generation",
+    "quality_gate",
+    "customer_or_internal_review",
+    "impact_measurement",
+    "decision_registry_update"
+  ]
+}
