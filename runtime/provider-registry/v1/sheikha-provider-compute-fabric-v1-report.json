@@ -8,6 +8,11 @@
     "cloudSupercomputerFabric": true,
     "providerRegistry": true,
     "providersMap": true,
+    "providerCatalogComplete": true,
+    "providerControlFieldsComplete": true,
+    "noSignedProviderContractClaims": true,
+    "noApprovedPaidBudgets": true,
+    "noActiveProviderUsageClaims": true,
     "computeContractEngine": true,
     "computeAgreementMap": true,
     "multicloudFabric": true,
@@ -22,6 +27,13 @@
     "noGpuFarmClaimWithoutHardwareOrLease": true,
     "noSupercomputerClaimWithoutEvidence": true,
     "noPaidComputeWithoutBudgetApproval": true
+  },
+  "coverage": {
+    "providers": 13,
+    "requiredProviders": 11,
+    "signedContracts": 0,
+    "approvedBudgets": 0,
+    "activeUsageClaims": 0
   },
   "agreementRoadmap": [
     "1. Select provider candidate",

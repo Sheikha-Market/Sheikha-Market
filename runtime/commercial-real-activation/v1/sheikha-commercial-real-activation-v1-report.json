@@ -12,7 +12,9 @@
     "revenueEngine": true,
     "partnerRegistry": true,
     "marketplaceEngine": true,
-    "driftDetector": true
+    "driftDetector": true,
+    "zeroUnverifiedCommercialClaims": true,
+    "fabricRouteMounted": true
   },
   "missing": [],
   "realWorldGuardrails": {
@@ -20,6 +22,14 @@
     "noCloudProviderClaimWithoutContract": true,
     "noSupercomputerOwnerClaimWithoutAssetOrLease": true,
     "noRevenueClaimWithoutPayment": true
+  },
+  "realWorldMetrics": {
+    "customers": 0,
+    "contracts": 0,
+    "licenses": 0,
+    "invoices": 0,
+    "paidRevenueSAR": 0,
+    "partners": 0
   },
   "nextActions": [
     "Prepare first customer proposal.",

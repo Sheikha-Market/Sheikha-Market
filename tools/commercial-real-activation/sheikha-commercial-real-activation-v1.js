@@ -14,6 +14,19 @@ function write(p, content) {
   fs.writeFileSync(path.join(ROOT, p), content);
 }
 
+function readJson(p) {
+  try {
+    return JSON.parse(fs.readFileSync(path.join(ROOT, p), 'utf8'));
+  } catch {
+    return null;
+  }
+}
+
+const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
+const revenue = readJson('runtime/revenue-engine/v1/sheikha-revenue-engine-v1.json');
+const partners = readJson('runtime/partner-registry/v1/sheikha-partner-registry-v1.json');
+const route = fabric?.routes?.find((item) => item.name === 'commercial-real-activation-v1');
+
 const checks = {
   governanceOrchestrator: exists('runtime/governance-orchestrator/v1/sheikha-governance-orchestrator-v1-report.json'),
   providerComputeFabric: exists('runtime/provider-registry/v1/sheikha-provider-compute-fabric-v1-report.json'),
@@ -23,7 +36,21 @@ const checks = {
   revenueEngine: exists('runtime/revenue-engine/v1/sheikha-revenue-engine-v1.json'),
   partnerRegistry: exists('runtime/partner-registry/v1/sheikha-partner-registry-v1.json'),
   marketplaceEngine: exists('runtime/marketplace-engine/v1/sheikha-marketplace-engine-v1.json'),
-  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
+  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js'),
+  zeroUnverifiedCommercialClaims: Boolean(
+    revenue?.metrics?.customers === 0 &&
+    revenue?.metrics?.contracts === 0 &&
+    revenue?.metrics?.licenses === 0 &&
+    revenue?.metrics?.invoices === 0 &&
+    revenue?.metrics?.paidRevenueSAR === 0 &&
+    Array.isArray(partners?.partners) &&
+    partners.partners.length === 0
+  ),
+  fabricRouteMounted: Boolean(
+    route &&
+    route.mount === '/api/commercial/real-activation' &&
+    route.module === 'routes/commercial-real-activation/status.routes.js'
+  )
 };
 
 const missing = Object.entries(checks).filter(([, ok]) => !ok).map(([k]) => k);
@@ -40,6 +67,14 @@ const report = {
     noCloudProviderClaimWithoutContract: true,
     noSupercomputerOwnerClaimWithoutAssetOrLease: true,
     noRevenueClaimWithoutPayment: true
+  },
+  realWorldMetrics: {
+    customers: revenue?.metrics?.customers ?? 0,
+    contracts: revenue?.metrics?.contracts ?? 0,
+    licenses: revenue?.metrics?.licenses ?? 0,
+    invoices: revenue?.metrics?.invoices ?? 0,
+    paidRevenueSAR: revenue?.metrics?.paidRevenueSAR ?? 0,
+    partners: Array.isArray(partners?.partners) ? partners.partners.length : 0
   },
   nextActions: [
     'Prepare first customer proposal.',
@@ -68,6 +103,18 @@ write(
 
 ## الفحوص
 ${Object.entries(checks).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n')}
+
+## المقاييس الواقعية
+- العملاء: ${report.realWorldMetrics.customers}
+- العقود: ${report.realWorldMetrics.contracts}
+- التراخيص: ${report.realWorldMetrics.licenses}
+- الفواتير: ${report.realWorldMetrics.invoices}
+- الإيراد المدفوع SAR: ${report.realWorldMetrics.paidRevenueSAR}
+- الشركاء: ${report.realWorldMetrics.partners}
+
+## المسارات
+- /api/commercial/real-activation/status
+- /api/commercial/real-activation/guardrails
 
 ## حواجز الصدق
 - لا شراكة OpenAI بلا اتفاقية.

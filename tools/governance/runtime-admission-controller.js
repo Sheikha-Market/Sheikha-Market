@@ -34,6 +34,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/ai-cluster-pipeline-fabric/', classification: 'PROTECTED', owner: 'AI Cluster Pipeline Fabric Governance Organization' },
   { prefix: 'tools/capability-registry/', classification: 'PROTECTED', owner: 'Capability Registry Governance Organization' },
   { prefix: 'tools/cloud-supercomputer-fabric/', classification: 'PROTECTED', owner: 'Cloud Supercomputer Fabric Governance Organization' },
+  { prefix: 'tools/commercial-real-activation/', classification: 'PROTECTED', owner: 'Commercial Real Activation Governance Organization' },
   { prefix: 'tools/commercial-product-layer/', classification: 'PROTECTED', owner: 'Commercial Product Governance Organization' },
   { prefix: 'tools/licensing-engine/', classification: 'PROTECTED', owner: 'Licensing Governance Organization' },
   { prefix: 'tools/commercial-governance-engine/', classification: 'PROTECTED', owner: 'Commercial Governance Organization' },

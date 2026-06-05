@@ -24,12 +24,62 @@ function readJson(p) {
 
 const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
 const route = fabric?.routes?.find((item) => item.name === 'provider-compute-fabric-v1');
+const providerMap = readJson('runtime/provider-registry/v1/registries/providers.json');
+const providerItems = providerMap?.providers || [];
+
+const requiredProviderIds = [
+  'PROV-AWS',
+  'PROV-AZURE',
+  'PROV-GCP',
+  'PROV-OCI',
+  'PROV-ALIBABA',
+  'PROV-HOSTINGER',
+  'PROV-LOCAL',
+  'PROV-OLLAMA',
+  'PROV-OPENAI',
+  'PROV-ANTHROPIC',
+  'PROV-GITHUB-MODELS'
+];
+
+function providerHasControlFields(provider) {
+  return Boolean(
+    provider.id &&
+    provider.provider &&
+    provider.name &&
+    provider.type &&
+    provider.contractStatus &&
+    provider.budget &&
+    typeof provider.budget.monthlyLimitSAR === 'number' &&
+    provider.budget.humanApprovalRequired === true &&
+    Array.isArray(provider.capabilities) &&
+    provider.capabilities.length > 0 &&
+    Array.isArray(provider.regions) &&
+    provider.regions.length > 0 &&
+    provider.approvalState &&
+    provider.usageStatus
+  );
+}
 
 const checks = {
   governanceOrchestrator: exists('runtime/governance-orchestrator/v1/sheikha-governance-orchestrator-v1-report.json'),
   cloudSupercomputerFabric: exists('runtime/cloud-supercomputer-fabric/v1/sheikha-cloud-supercomputer-fabric-v1-report.json'),
   providerRegistry: exists('runtime/provider-registry/v1/sheikha-provider-registry-v1.json'),
   providersMap: exists('runtime/provider-registry/v1/registries/providers.json'),
+  providerCatalogComplete: requiredProviderIds.every((id) =>
+    providerItems.some((provider) => provider.id === id)
+  ),
+  providerControlFieldsComplete: providerItems.length > 0 && providerItems.every(providerHasControlFields),
+  noSignedProviderContractClaims: providerItems.every((provider) =>
+    provider.contractStatus === 'NOT_SIGNED' ||
+    provider.contractStatus === 'INTERNAL_ONLY'
+  ),
+  noApprovedPaidBudgets: providerItems.every((provider) =>
+    provider.budget.status === 'NOT_APPROVED' ||
+    provider.budget.status === 'INTERNAL_ONLY'
+  ),
+  noActiveProviderUsageClaims: providerItems.every((provider) =>
+    provider.usageStatus !== 'ACTIVE'
+  ),
   computeContractEngine: exists('runtime/compute-contract-engine/v1/sheikha-compute-contract-engine-v1.json'),
   computeAgreementMap: exists('runtime/compute-contract-engine/v1/registries/compute-agreement-map.json'),
   multicloudFabric: exists('runtime/multicloud-fabric/v1/sheikha-multicloud-fabric-v1.json'),
@@ -57,6 +107,13 @@ const report = {
     noGpuFarmClaimWithoutHardwareOrLease: true,
     noSupercomputerClaimWithoutEvidence: true,
     noPaidComputeWithoutBudgetApproval: true
+  },
+  coverage: {
+    providers: providerItems.length,
+    requiredProviders: requiredProviderIds.length,
+    signedContracts: providerItems.filter((provider) => provider.contractStatus === 'SIGNED').length,
+    approvedBudgets: providerItems.filter((provider) => provider.budget?.status === 'APPROVED').length,
+    activeUsageClaims: providerItems.filter((provider) => provider.usageStatus === 'ACTIVE').length
   },
   agreementRoadmap: [
     '1. Select provider candidate',
@@ -90,6 +147,13 @@ write(
 
 ## الفحوص
 ${Object.entries(checks).map(([k, v]) => `- ${v ? '✅' : '❌'} ${k}`).join('\n')}
+
+## التغطية
+- المزودون: ${report.coverage.providers}
+- المزودون المطلوبون: ${report.coverage.requiredProviders}
+- العقود الموقعة: ${report.coverage.signedContracts}
+- الميزانيات المعتمدة: ${report.coverage.approvedBudgets}
+- ادعاءات استخدام نشط: ${report.coverage.activeUsageClaims}
 
 ## خريطة الاتفاقيات
 ${report.agreementRoadmap.map(x => `- ${x}`).join('\n')}

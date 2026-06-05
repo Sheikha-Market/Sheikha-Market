@@ -30,12 +30,38 @@ describe('Sheikha Provider Compute Fabric V1', () => {
 
   test('provider map does not claim signed provider contracts', () => {
     const providers = readJson('runtime/provider-registry/v1/registries/providers.json');
+    const providerIds = new Set(providers.providers.map((provider) => provider.id));
 
-    expect(providers.providers.length).toBeGreaterThanOrEqual(8);
+    [
+      'PROV-AWS',
+      'PROV-AZURE',
+      'PROV-GCP',
+      'PROV-OCI',
+      'PROV-ALIBABA',
+      'PROV-HOSTINGER',
+      'PROV-LOCAL',
+      'PROV-OLLAMA',
+      'PROV-OPENAI',
+      'PROV-ANTHROPIC',
+      'PROV-GITHUB-MODELS'
+    ].forEach((providerId) => expect(providerIds.has(providerId)).toBe(true));
+
+    expect(providers.providers.length).toBeGreaterThanOrEqual(11);
     expect(providers.providers.every((provider) => (
       provider.contractStatus === 'NOT_SIGNED' ||
       provider.contractStatus === 'INTERNAL_ONLY'
     ))).toBe(true);
+    expect(providers.providers.every((provider) => (
+      provider.provider &&
+      provider.budget &&
+      typeof provider.budget.monthlyLimitSAR === 'number' &&
+      provider.budget.humanApprovalRequired === true &&
+      provider.capabilities.length > 0 &&
+      provider.regions.length > 0 &&
+      provider.approvalState &&
+      provider.usageStatus !== 'ACTIVE'
+    ))).toBe(true);
+    expect(providers.providers.filter((provider) => provider.budget.status === 'APPROVED')).toEqual([]);
   });
 
   test('provider compute report is active and route-aware', () => {
@@ -47,6 +73,10 @@ describe('Sheikha Provider Compute Fabric V1', () => {
     expect(report.missing).toEqual([]);
     expect(Object.values(report.checks).every(Boolean)).toBe(true);
     expect(report.checks.fabricRouteMounted).toBe(true);
+    expect(report.coverage.providers).toBeGreaterThanOrEqual(11);
+    expect(report.coverage.signedContracts).toBe(0);
+    expect(report.coverage.approvedBudgets).toBe(0);
+    expect(report.coverage.activeUsageClaims).toBe(0);
   });
 
   test('provider compute fabric has script docs and fabric route', () => {

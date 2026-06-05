@@ -16,6 +16,20 @@
 - ✅ partnerRegistry
 - ✅ marketplaceEngine
 - ✅ driftDetector
+- ✅ zeroUnverifiedCommercialClaims
+- ✅ fabricRouteMounted
+
+## المقاييس الواقعية
+- العملاء: 0
+- العقود: 0
+- التراخيص: 0
+- الفواتير: 0
+- الإيراد المدفوع SAR: 0
+- الشركاء: 0
+
+## المسارات
+- /api/commercial/real-activation/status
+- /api/commercial/real-activation/guardrails
 
 ## حواجز الصدق
 - لا شراكة OpenAI بلا اتفاقية.

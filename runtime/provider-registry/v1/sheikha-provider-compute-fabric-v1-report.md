@@ -11,6 +11,11 @@
 - ✅ cloudSupercomputerFabric
 - ✅ providerRegistry
 - ✅ providersMap
+- ✅ providerCatalogComplete
+- ✅ providerControlFieldsComplete
+- ✅ noSignedProviderContractClaims
+- ✅ noApprovedPaidBudgets
+- ✅ noActiveProviderUsageClaims
 - ✅ computeContractEngine
 - ✅ computeAgreementMap
 - ✅ multicloudFabric
@@ -18,6 +23,13 @@
 - ✅ budgetGuard
 - ✅ driftDetector
 - ✅ fabricRouteMounted
+
+## التغطية
+- المزودون: 13
+- المزودون المطلوبون: 11
+- العقود الموقعة: 0
+- الميزانيات المعتمدة: 0
+- ادعاءات استخدام نشط: 0
 
 ## خريطة الاتفاقيات
 - 1. Select provider candidate

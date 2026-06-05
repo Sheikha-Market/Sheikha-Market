@@ -1,18 +1,27 @@
 # SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1
-# التفعيل التجاري الواقعي لشيخة
+# طبقة التفعيل التجاري الواقعي في شيخة
 
 ## الهدف
-تحويل شيخة من جاهزية معمارية إلى مسار تجاري واقعي: مزود، عقد، SLA، ترخيص، فاتورة، دفع، تفعيل.
+تفصل هذه الطبقة بين اكتمال المعمارية وبين التشغيل التجاري الواقعي. المعمارية قد تكون `ACTIVE_100`، لكن التشغيل التجاري الحقيقي يبقى مقيدًا حتى توجد عقود، عملاء، مزودون، ميزانيات، فواتير، ومدفوعات موثقة.
 
-## خريطة التفعيل
-Provider Approval → Workload Orchestrator → SLA Engine → Revenue Engine → Partner Registry → Marketplace Engine
+## المسارات
+- `/api/commercial/real-activation/status`
+- `/api/commercial/real-activation/guardrails`
 
-## القاعدة
-لا شراكة بلا اتفاقية.
-لا مزود بلا عقد.
-لا إنفاق بلا ميزانية.
-لا عميل بلا سجل وعقد.
-لا إيراد بلا دفع مؤكد.
-الإنسان صاحب القرار النهائي في المخاطر العالية.
+## الطبقات
+- Provider Approval Engine
+- Workload Orchestrator
+- SLA Engine
+- Revenue Engine
+- Partner Registry
+- Marketplace Engine
+- Provider Compute Fabric
+
+## حواجز الصدق
+- لا ادعاء شراكة بلا اتفاقية موقعة.
+- لا ادعاء عميل بلا سجل وعقد.
+- لا ادعاء إيراد بلا دفع مؤكد.
+- لا ادعاء مزود سحابي بلا عقد أو اشتراك موثق.
+- لا ادعاء GPU Farm أو Supercomputer فعلي بلا أصل أو عقد استئجار.
 
 ولا حول ولا قوة إلا بالله.

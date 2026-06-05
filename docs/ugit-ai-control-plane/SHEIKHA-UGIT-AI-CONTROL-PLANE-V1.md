@@ -23,6 +23,7 @@
 - GPU Farm Readiness
 - Multicloud Fabric
 - Provider Compute Fabric
+- Commercial Real Activation
 - Commercial Product Layer
 - Runtime Admission and Drift Governance
 
@@ -45,6 +46,7 @@
 - لا بيع خارجي بلا مراجعة قانونية وعقد موقع.
 - لا اختيار مزود أو GPU بلا سجل مزود وعقد وميزانية.
 - لا routing متعدد السحب بلا بيانات اعتماد وموافقة تشغيلية.
+- لا اعتبار التشغيل التجاري الحقيقي مكتملًا قبل وجود عميل وعقد ودفع ومزود موثق.
 
 ## المنتج التجاري
 - المنتج: `PROD-UGITAI-001`

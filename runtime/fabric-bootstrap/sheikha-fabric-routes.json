@@ -172,6 +172,12 @@
       "priority": 234
     },
     {
+      "name": "commercial-real-activation-v1",
+      "mount": "/api/commercial/real-activation",
+      "module": "routes/commercial-real-activation/status.routes.js",
+      "priority": 233
+    },
+    {
       "name": "risk-classification-engine",
       "mount": "/api/governance/risk-engine",
       "module": "routes/governance/risk-engine/status.routes.js",

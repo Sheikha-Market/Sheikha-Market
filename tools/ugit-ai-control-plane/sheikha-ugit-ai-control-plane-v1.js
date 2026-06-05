@@ -64,6 +64,7 @@ const requiredSystems = [
   'SHEIKHA_GPU_FARM_READINESS_V1',
   'SHEIKHA_MULTICLOUD_FABRIC_V1',
   'SHEIKHA_PROVIDER_COMPUTE_FABRIC_V1',
+  'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
   'SERVICE_MESH_POLICY_LAYER',
   'DATA_MESH_LAKEHOUSE_READINESS',
   'GEO_DISTRIBUTED_AI_READINESS',
@@ -123,6 +124,7 @@ const requiredPolicies = [
 
 const ugitRoute = fabric?.routes?.find((route) => route.name === 'ugit-ai-control-plane-v1');
 const providerComputeRoute = fabric?.routes?.find((route) => route.name === 'provider-compute-fabric-v1');
+const commercialRealRoute = fabric?.routes?.find((route) => route.name === 'commercial-real-activation-v1');
 const cloudRoute = fabric?.routes?.find((route) => route.name === 'cloud-supercomputer-fabric-v1');
 
 const dependencies = {
@@ -142,6 +144,7 @@ const dependencies = {
   gpuFarmReadiness: exists('runtime/gpu-farm-readiness/v1/sheikha-gpu-farm-readiness-v1.json'),
   multicloudFabric: exists('runtime/multicloud-fabric/v1/sheikha-multicloud-fabric-v1.json'),
   providerComputeFabric: exists('runtime/provider-registry/v1/sheikha-provider-compute-fabric-v1-report.json'),
+  commercialRealActivation: exists('runtime/commercial-real-activation/v1/sheikha-commercial-real-activation-v1-report.json'),
   commercialProductLayer: exists('runtime/commercial-product-layer/v1/sheikha-commercial-product-layer-v1-report.json'),
   runtimeAdmissionController: exists('tools/governance/runtime-admission-controller.js'),
   driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
@@ -196,6 +199,11 @@ const checks = {
     providerComputeRoute &&
     providerComputeRoute.mount === '/api/ai/provider-compute-fabric' &&
     providerComputeRoute.module === 'routes/provider-compute-fabric/status.routes.js'
+  ),
+  commercialRealActivationRouteMounted: Boolean(
+    commercialRealRoute &&
+    commercialRealRoute.mount === '/api/commercial/real-activation' &&
+    commercialRealRoute.module === 'routes/commercial-real-activation/status.routes.js'
   ),
   fabricRouteMounted: Boolean(
     ugitRoute &&
