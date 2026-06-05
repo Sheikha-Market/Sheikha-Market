@@ -1,0 +1,14 @@
+{
+  "registry": "SHEIKHA_PROVIDER_MAP_V1",
+  "status": "ACTIVE",
+  "providers": [
+    {"id":"PROV-OPENAI","name":"OpenAI API","type":"AI_API","contractStatus":"NOT_SIGNED","usageStatus":"PLAN_OR_API_REQUIRED"},
+    {"id":"PROV-AWS","name":"AWS","type":"CLOUD_GPU","contractStatus":"NOT_SIGNED","usageStatus":"READY_FOR_REVIEW"},
+    {"id":"PROV-AZURE","name":"Microsoft Azure","type":"CLOUD_GPU","contractStatus":"NOT_SIGNED","usageStatus":"READY_FOR_REVIEW"},
+    {"id":"PROV-GCP","name":"Google Cloud","type":"CLOUD_GPU","contractStatus":"NOT_SIGNED","usageStatus":"READY_FOR_REVIEW"},
+    {"id":"PROV-OCI","name":"Oracle Cloud","type":"CLOUD_GPU","contractStatus":"NOT_SIGNED","usageStatus":"READY_FOR_REVIEW"},
+    {"id":"PROV-COREWEAVE","name":"CoreWeave","type":"GPU_CLOUD","contractStatus":"NOT_SIGNED","usageStatus":"READY_FOR_REVIEW"},
+    {"id":"PROV-LAMBDA","name":"Lambda Labs","type":"GPU_CLOUD","contractStatus":"NOT_SIGNED","usageStatus":"READY_FOR_REVIEW"},
+    {"id":"PROV-LOCAL","name":"Local/Private GPU Nodes","type":"PRIVATE_INFRA","contractStatus":"INTERNAL_ONLY","usageStatus":"AVAILABLE_WHEN_HARDWARE_EXISTS"}
+  ]
+}

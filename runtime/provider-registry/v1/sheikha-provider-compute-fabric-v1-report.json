@@ -1,0 +1,38 @@
+{
+  "system": "SHEIKHA_PROVIDER_COMPUTE_FABRIC_V1",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "PROVIDER_COMPUTE_FABRIC_ACTIVE_100",
+  "checks": {
+    "governanceOrchestrator": true,
+    "cloudSupercomputerFabric": true,
+    "providerRegistry": true,
+    "providersMap": true,
+    "computeContractEngine": true,
+    "computeAgreementMap": true,
+    "multicloudFabric": true,
+    "gpuFarmReadiness": true,
+    "budgetGuard": true,
+    "driftDetector": true
+  },
+  "missing": [],
+  "truthfulness": {
+    "noProviderContractClaimWithoutAgreement": true,
+    "noGpuFarmClaimWithoutHardwareOrLease": true,
+    "noSupercomputerClaimWithoutEvidence": true,
+    "noPaidComputeWithoutBudgetApproval": true
+  },
+  "agreementRoadmap": [
+    "1. Select provider candidate",
+    "2. Review service terms and pricing",
+    "3. Define budget ceiling",
+    "4. Request contract or subscription",
+    "5. Verify region/security/data rules",
+    "6. Approve compute allocation",
+    "7. Enable credentials",
+    "8. Run small proof-of-capability workload",
+    "9. Monitor cost and performance",
+    "10. Promote to production only after review"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
