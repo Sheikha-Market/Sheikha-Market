@@ -43,7 +43,10 @@ describe('Sheikha Provider Compute Fabric V1', () => {
       'PROV-OLLAMA',
       'PROV-OPENAI',
       'PROV-ANTHROPIC',
-      'PROV-GITHUB-MODELS'
+      'PROV-GITHUB-MODELS',
+      'PROV-COREWEAVE',
+      'PROV-LAMBDA',
+      'PROV-CRUSOE'
     ].forEach((providerId) => expect(providerIds.has(providerId)).toBe(true));
 
     expect(providers.providers.length).toBeGreaterThanOrEqual(11);

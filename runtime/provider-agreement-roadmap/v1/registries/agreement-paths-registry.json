@@ -1,0 +1,78 @@
+{
+  "registry": "SHEIKHA_PROVIDER_AGREEMENT_PATHS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "paths": [
+    {
+      "id": "AGR-API-001",
+      "type": "API_SUBSCRIPTION",
+      "description": "Use provider-hosted AI APIs through an account, subscription, billing cap, and API key vaulting.",
+      "contractRequired": false,
+      "subscriptionRequired": true,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["provider_account", "accepted_terms", "billing_limit", "secret_vault_reference"]
+    },
+    {
+      "id": "AGR-GPU-002",
+      "type": "GPU_RENTAL",
+      "description": "Rent on-demand GPU instances or GPU cloud nodes for proof-of-capability workloads.",
+      "contractRequired": false,
+      "subscriptionRequired": true,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["provider_account", "pricing_snapshot", "budget_ceiling", "runtime_logs"]
+    },
+    {
+      "id": "AGR-RESERVED-003",
+      "type": "RESERVED_GPU_CAPACITY",
+      "description": "Reserve GPU capacity through a provider plan, purchase order, or signed commercial terms.",
+      "contractRequired": true,
+      "subscriptionRequired": true,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["signed_terms_or_order", "capacity_confirmation", "billing_record"]
+    },
+    {
+      "id": "AGR-CLOUD-004",
+      "type": "ENTERPRISE_CLOUD_CONTRACT",
+      "description": "Enterprise cloud agreement for AWS, Azure, Google Cloud, Oracle Cloud, Alibaba Cloud, or equivalent.",
+      "contractRequired": true,
+      "subscriptionRequired": true,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["signed_contract", "account_id", "region_policy", "security_review"]
+    },
+    {
+      "id": "AGR-RESELLER-005",
+      "type": "RESELLER_AGREEMENT",
+      "description": "Obtain compute, cloud, AI API, or marketplace services through an authorized reseller or partner.",
+      "contractRequired": true,
+      "subscriptionRequired": false,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["reseller_agreement", "scope_of_service", "billing_terms"]
+    },
+    {
+      "id": "AGR-PRIVATE-006",
+      "type": "PRIVATE_GPU_FARM_PURCHASE_OR_LEASE",
+      "description": "Purchase, lease, or co-locate private GPU servers or a private GPU farm.",
+      "contractRequired": true,
+      "subscriptionRequired": false,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["purchase_order_or_lease", "hardware_inventory", "datacenter_or_hosting_terms"]
+    },
+    {
+      "id": "AGR-HYBRID-007",
+      "type": "HYBRID_CLOUD_OPERATING_AGREEMENT",
+      "description": "Operate workloads across local infrastructure, VPS control plane, and provider GPU/cloud backends.",
+      "contractRequired": true,
+      "subscriptionRequired": true,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["routing_policy", "provider_terms", "security_review", "monitoring_evidence"]
+    },
+    {
+      "id": "AGR-VPS-008",
+      "type": "VPS_CONTROL_PLANE",
+      "description": "Run low-cost control plane services on VPS while GPU workloads remain gated by provider readiness.",
+      "contractRequired": false,
+      "subscriptionRequired": true,
+      "budgetApprovalRequired": true,
+      "evidenceRequired": ["vps_subscription", "billing_limit", "runtime_monitoring"]
+    }
+  ]
+}

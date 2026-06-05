@@ -23,7 +23,9 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
     expect(registry.based_on).toEqual(expect.arrayContaining([
       'SHEIKHA_CLOUD_SUPERCOMPUTER_FABRIC_V1',
       'SHEIKHA_SOVEREIGN_COMMERCIAL_AI_SUPERCLUSTER_V1',
-      'SHEIKHA_AI_CLUSTER_PIPELINE_FABRIC_V1'
+      'SHEIKHA_AI_CLUSTER_PIPELINE_FABRIC_V1',
+      'SHEIKHA_PROVIDER_AGREEMENT_ROADMAP_V1',
+      'SHEIKHA_CUSTOMER_CLASSIFICATION_V1'
     ]));
   });
 
@@ -65,6 +67,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_GPU_FARM_READINESS_V1',
       'SHEIKHA_MULTICLOUD_FABRIC_V1',
       'SHEIKHA_PROVIDER_COMPUTE_FABRIC_V1',
+      'SHEIKHA_PROVIDER_AGREEMENT_ROADMAP_V1',
+      'SHEIKHA_CUSTOMER_CLASSIFICATION_V1',
       'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
       'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
       'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1'
@@ -133,7 +137,9 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
     const valueProof = readJson('runtime/commercial-product-layer/v1/registries/commercial-value-proof-registry.json');
     const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
     const ugitRoute = fabric.routes.find((item) => item.name === 'ugit-ai-control-plane-v1');
+    const providerAgreementRoute = fabric.routes.find((item) => item.name === 'provider-agreement-roadmap-v1');
     const providerComputeRoute = fabric.routes.find((item) => item.name === 'provider-compute-fabric-v1');
+    const customerClassificationRoute = fabric.routes.find((item) => item.name === 'customer-classification-v1');
     const commercialRealRoute = fabric.routes.find((item) => item.name === 'commercial-real-activation-v1');
     const multiSupercomputerRoute = fabric.routes.find((item) => item.name === 'multi-supercomputer-cloud-fabric-v1');
     const aiSupercomputerPipelineRoute =
@@ -161,6 +167,16 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       mount: '/api/ai/provider-compute-fabric',
       module: 'routes/provider-compute-fabric/status.routes.js',
       priority: 234
+    }));
+    expect(providerAgreementRoute).toEqual(expect.objectContaining({
+      mount: '/api/provider/agreement-roadmap',
+      module: 'routes/provider-agreement-roadmap/status.routes.js',
+      priority: 236
+    }));
+    expect(customerClassificationRoute).toEqual(expect.objectContaining({
+      mount: '/api/customers/classification',
+      module: 'routes/customer-classification/status.routes.js',
+      priority: 230
     }));
     expect(commercialRealRoute).toEqual(expect.objectContaining({
       mount: '/api/commercial/real-activation',

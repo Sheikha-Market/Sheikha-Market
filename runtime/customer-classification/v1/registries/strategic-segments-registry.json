@@ -1,0 +1,114 @@
+{
+  "registry": "SHEIKHA_STRATEGIC_CUSTOMER_SEGMENTS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "segments": [
+    {
+      "code": "S1",
+      "name": "Supreme Leadership",
+      "arabicName": "القيادات العليا",
+      "examples": [
+        "heads_of_state",
+        "governments",
+        "councils_of_ministers",
+        "supreme_economic_councils",
+        "sovereign_entities"
+      ],
+      "accessChannel": "official_meetings_and_governed_partnerships",
+      "dashboard": "EXECUTIVE_GOVERNANCE_DASHBOARD",
+      "contractGateRequired": true
+    },
+    {
+      "code": "S2",
+      "name": "Government Entities",
+      "arabicName": "الجهات الحكومية",
+      "examples": [
+        "ministries",
+        "authorities",
+        "regulators",
+        "supervisory_entities",
+        "municipalities",
+        "special_economic_zones"
+      ],
+      "accessChannel": "tenders_transformation_offices_and_formal_proposals",
+      "dashboard": "GOVERNMENT_ENTITY_DASHBOARD",
+      "contractGateRequired": true
+    },
+    {
+      "code": "S3",
+      "name": "International Organizations",
+      "arabicName": "المنظمات الدولية",
+      "examples": [
+        "economic_organizations",
+        "logistics_organizations",
+        "trade_organizations",
+        "industrial_organizations",
+        "transport_and_communication_organizations"
+      ],
+      "accessChannel": "institutional_partnership_and_program_agreements",
+      "dashboard": "INSTITUTIONAL_PARTNERSHIP_DASHBOARD",
+      "contractGateRequired": true
+    },
+    {
+      "code": "S4",
+      "name": "National Infrastructure",
+      "arabicName": "البنية التحتية الوطنية",
+      "examples": [
+        "ports",
+        "airports",
+        "railways",
+        "logistics_zones",
+        "industrial_cities",
+        "free_zones"
+      ],
+      "accessChannel": "operating_agreements_and_supply_chain_programs",
+      "dashboard": "INFRASTRUCTURE_OPERATIONS_DASHBOARD",
+      "contractGateRequired": true
+    },
+    {
+      "code": "S5",
+      "name": "Large Enterprises",
+      "arabicName": "المؤسسات والشركات الكبرى",
+      "examples": [
+        "national_companies",
+        "global_companies",
+        "industrial_companies",
+        "energy_companies",
+        "mining_companies",
+        "telecom_companies"
+      ],
+      "accessChannel": "enterprise_sales_and_key_account_management",
+      "dashboard": "ENTERPRISE_ACCOUNT_DASHBOARD",
+      "contractGateRequired": true
+    },
+    {
+      "code": "S6",
+      "name": "Small and Medium Businesses",
+      "arabicName": "الشركات المتوسطة والصغيرة",
+      "examples": [
+        "establishments",
+        "factories",
+        "suppliers",
+        "traders",
+        "contractors"
+      ],
+      "accessChannel": "marketplace_registration_and_field_sales",
+      "dashboard": "SMB_MARKETPLACE_DASHBOARD",
+      "contractGateRequired": false
+    },
+    {
+      "code": "S7",
+      "name": "Individuals",
+      "arabicName": "الأفراد",
+      "examples": [
+        "investor",
+        "individual_trader",
+        "consumer",
+        "consultant",
+        "expert"
+      ],
+      "accessChannel": "website_app_and_verified_profile",
+      "dashboard": "INDIVIDUAL_PROFILE_DASHBOARD",
+      "contractGateRequired": false
+    }
+  ]
+}

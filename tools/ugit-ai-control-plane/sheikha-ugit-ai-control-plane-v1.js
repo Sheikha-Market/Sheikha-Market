@@ -64,6 +64,8 @@ const requiredSystems = [
   'SHEIKHA_GPU_FARM_READINESS_V1',
   'SHEIKHA_MULTICLOUD_FABRIC_V1',
   'SHEIKHA_PROVIDER_COMPUTE_FABRIC_V1',
+  'SHEIKHA_PROVIDER_AGREEMENT_ROADMAP_V1',
+  'SHEIKHA_CUSTOMER_CLASSIFICATION_V1',
   'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
   'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
   'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1',
@@ -125,7 +127,9 @@ const requiredPolicies = [
 ];
 
 const ugitRoute = fabric?.routes?.find((route) => route.name === 'ugit-ai-control-plane-v1');
+const providerAgreementRoute = fabric?.routes?.find((route) => route.name === 'provider-agreement-roadmap-v1');
 const providerComputeRoute = fabric?.routes?.find((route) => route.name === 'provider-compute-fabric-v1');
+const customerClassificationRoute = fabric?.routes?.find((route) => route.name === 'customer-classification-v1');
 const commercialRealRoute = fabric?.routes?.find((route) => route.name === 'commercial-real-activation-v1');
 const multiSupercomputerRoute = fabric?.routes?.find((route) => route.name === 'multi-supercomputer-cloud-fabric-v1');
 const aiSupercomputerPipelineRoute =
@@ -149,6 +153,8 @@ const dependencies = {
   gpuFarmReadiness: exists('runtime/gpu-farm-readiness/v1/sheikha-gpu-farm-readiness-v1.json'),
   multicloudFabric: exists('runtime/multicloud-fabric/v1/sheikha-multicloud-fabric-v1.json'),
   providerComputeFabric: exists('runtime/provider-registry/v1/sheikha-provider-compute-fabric-v1-report.json'),
+  providerAgreementRoadmap: exists('runtime/provider-agreement-roadmap/v1/sheikha-provider-agreement-roadmap-v1-report.json'),
+  customerClassification: exists('runtime/customer-classification/v1/sheikha-customer-classification-v1-report.json'),
   commercialRealActivation: exists('runtime/commercial-real-activation/v1/sheikha-commercial-real-activation-v1-report.json'),
   multiSupercomputerCloudFabric: exists('runtime/multi-supercomputer-cloud-fabric/v1/sheikha-multi-supercomputer-cloud-fabric-v1-report.json'),
   aiSupercomputerCloudClusterPipelineFabric: exists('runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.json'),
@@ -206,6 +212,16 @@ const checks = {
     providerComputeRoute &&
     providerComputeRoute.mount === '/api/ai/provider-compute-fabric' &&
     providerComputeRoute.module === 'routes/provider-compute-fabric/status.routes.js'
+  ),
+  providerAgreementRoadmapRouteMounted: Boolean(
+    providerAgreementRoute &&
+    providerAgreementRoute.mount === '/api/provider/agreement-roadmap' &&
+    providerAgreementRoute.module === 'routes/provider-agreement-roadmap/status.routes.js'
+  ),
+  customerClassificationRouteMounted: Boolean(
+    customerClassificationRoute &&
+    customerClassificationRoute.mount === '/api/customers/classification' &&
+    customerClassificationRoute.module === 'routes/customer-classification/status.routes.js'
   ),
   commercialRealActivationRouteMounted: Boolean(
     commercialRealRoute &&

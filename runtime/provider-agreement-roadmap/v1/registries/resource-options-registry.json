@@ -1,0 +1,87 @@
+{
+  "registry": "SHEIKHA_COMPUTE_RESOURCE_OPTIONS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "options": [
+    {
+      "id": "RES-LOCAL-001",
+      "name": "Local Development Runtime",
+      "kind": "LOW_COST_LOCAL",
+      "bestFor": ["development", "testing", "small_inference"],
+      "requiresExternalContract": false,
+      "requiresBudgetApproval": false,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-API-FIRST-002",
+      "name": "API-first AI Service",
+      "kind": "AI_API",
+      "bestFor": ["fast_product_validation", "chat", "classification", "summarization"],
+      "requiresExternalContract": false,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-VPS-003",
+      "name": "VPS Control Plane",
+      "kind": "CONTROL_PLANE",
+      "bestFor": ["dashboards", "api_gateway", "pm2_runtime", "lightweight_services"],
+      "requiresExternalContract": false,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-SPOT-004",
+      "name": "Spot or Preemptible GPU",
+      "kind": "LOWER_COST_GPU",
+      "bestFor": ["experiments", "batch_jobs", "non_critical_training"],
+      "requiresExternalContract": false,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-ONDEMAND-005",
+      "name": "On-demand GPU Cloud",
+      "kind": "GPU_CLOUD",
+      "bestFor": ["proof_of_capability", "bursty_inference", "short_training_runs"],
+      "requiresExternalContract": false,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-RESERVED-006",
+      "name": "Reserved GPU Capacity",
+      "kind": "RESERVED_CAPACITY",
+      "bestFor": ["predictable_workloads", "enterprise_sla", "cost_control"],
+      "requiresExternalContract": true,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-PRIVATE-007",
+      "name": "Private GPU Lease or Purchase",
+      "kind": "PRIVATE_GPU_FARM",
+      "bestFor": ["data_control", "long_running_training", "custom_operations"],
+      "requiresExternalContract": true,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-HYBRID-008",
+      "name": "Hybrid Multi-Provider Routing",
+      "kind": "MULTICLOUD_HYBRID",
+      "bestFor": ["resilience", "cost_optimization", "regional_governance"],
+      "requiresExternalContract": true,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    },
+    {
+      "id": "RES-CREDITS-009",
+      "name": "Cloud Credits or Startup Program",
+      "kind": "APPLICATION_BASED_CREDIT",
+      "bestFor": ["early_stage_validation", "cost_deferral", "pilot_programs"],
+      "requiresExternalContract": false,
+      "requiresBudgetApproval": true,
+      "productionReadyWithoutEvidence": false
+    }
+  ]
+}

@@ -170,6 +170,18 @@
       "regions": ["TO_BE_SELECTED_BY_COMPLIANCE_AND_CAPACITY"],
       "approvalState": "READY_FOR_REVIEW",
       "usageStatus": "NOT_ACTIVE"
+    },
+    {
+      "id": "PROV-CRUSOE",
+      "provider": "Crusoe",
+      "name": "Crusoe",
+      "type": "GPU_CLOUD",
+      "contractStatus": "NOT_SIGNED",
+      "budget": { "status": "NOT_APPROVED", "monthlyLimitSAR": 0, "humanApprovalRequired": true },
+      "capabilities": ["GPU_Cloud", "AI_Infrastructure", "High_Performance_AI_Workloads"],
+      "regions": ["TO_BE_SELECTED_BY_COMPLIANCE_AND_CAPACITY"],
+      "approvalState": "READY_FOR_REVIEW",
+      "usageStatus": "NOT_ACTIVE"
     }
   ]
 }

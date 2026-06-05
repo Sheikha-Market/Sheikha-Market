@@ -11,7 +11,10 @@
     "INNOVATION_ENGINE",
     "MARKETPLACE_ENGINE",
     "ORGANIZATION_NETWORK",
-    "RIYADH_ALJANNAH_INTEGRATION"
+    "RIYADH_ALJANNAH_INTEGRATION",
+    "CUSTOMER_CLASSIFICATION_ENGINE",
+    "PROVIDER_AGREEMENT_ROADMAP_ENGINE",
+    "COMPUTE_INTEGRATION_READINESS_ACTIVATION"
   ],
   "rules": {
     "arabic_first": true,
@@ -20,7 +23,9 @@
     "publication_review_required": true,
     "no_false_credentials": true,
     "privacy_required": true,
-    "no_revenue_claim_without_payment": true
+    "no_revenue_claim_without_payment": true,
+    "no_provider_contract_claim_without_signed_agreement": true,
+    "no_gpu_or_supercomputer_claim_without_evidence": true
   },
   "principle": "ولا حول ولا قوة إلا بالله"
 }

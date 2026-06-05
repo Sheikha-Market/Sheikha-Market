@@ -160,6 +160,12 @@
       "priority": 240
     },
     {
+      "name": "provider-agreement-roadmap-v1",
+      "mount": "/api/provider/agreement-roadmap",
+      "module": "routes/provider-agreement-roadmap/status.routes.js",
+      "priority": 236
+    },
+    {
       "name": "ugit-ai-control-plane-v1",
       "mount": "/api/ai/ugit-control-plane",
       "module": "routes/ugit-ai-control-plane/status.routes.js",
@@ -188,6 +194,12 @@
       "mount": "/api/ai/supercomputer-cloud-cluster-pipeline-fabric",
       "module": "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js",
       "priority": 231
+    },
+    {
+      "name": "customer-classification-v1",
+      "mount": "/api/customers/classification",
+      "module": "routes/customer-classification/status.routes.js",
+      "priority": 230
     },
     {
       "name": "risk-classification-engine",

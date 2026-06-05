@@ -38,7 +38,10 @@ const requiredProviderIds = [
   'PROV-OLLAMA',
   'PROV-OPENAI',
   'PROV-ANTHROPIC',
-  'PROV-GITHUB-MODELS'
+  'PROV-GITHUB-MODELS',
+  'PROV-COREWEAVE',
+  'PROV-LAMBDA',
+  'PROV-CRUSOE'
 ];
 
 function providerHasControlFields(provider) {

@@ -1,0 +1,43 @@
+{
+  "system": "SHEIKHA_CUSTOMER_CLASSIFICATION_V1",
+  "status": "ACTIVE",
+  "arabic_name": "تصنيف عملاء وسوق شيخة V1",
+  "purpose": "Classify Sheikha customers, merchants, companies, governments, providers, partners, investors, and individuals into governed commercial segments that drive registration, dashboards, contracts, licensing, billing, permissions, and sales priority.",
+  "position": "UNDER_PLATFORM_OPERATING_ENGINES_ABOVE_CUSTOMER_REGISTRATION",
+  "based_on": [
+    "SHEIKHA_ROOT_OPERATING_CORE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_COMMERCIAL_PRODUCT_LAYER_V1",
+    "SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1",
+    "SHEIKHA_PLATFORM_OPERATING_ENGINES_V1"
+  ],
+  "classification_flow": [
+    "customer_segment",
+    "customer_type",
+    "business_model",
+    "role",
+    "verification_level",
+    "commercial_priority",
+    "sector",
+    "dashboard_route",
+    "contract_gate",
+    "billing_gate"
+  ],
+  "truthfulness": {
+    "classification_is_not_contract_claim": true,
+    "classification_is_not_customer_acquisition_claim": true,
+    "classification_is_not_revenue_claim": true,
+    "approval_required_before_strategic_account_claim": true,
+    "legal_review_required_before_government_or_regulatory_offer": true
+  },
+  "rules": {
+    "no_active_customer_without_contract_or_verified_account": true,
+    "no_government_status_without_entity_evidence": true,
+    "no_supplier_approval_without_commercial_and_tax_verification": true,
+    "no_revenue_customer_without_paid_invoice": true,
+    "role_based_dashboard_required": true,
+    "verification_level_must_drive_permissions": true,
+    "commercial_priority_must_drive_sales_workflow": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
