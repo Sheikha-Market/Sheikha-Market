@@ -208,6 +208,12 @@
       "priority": 178
     },
     {
+      "name": "commercial-product-layer-v1",
+      "mount": "/api/commercial/product-layer",
+      "module": "routes/commercial-product-layer/status.routes.js",
+      "priority": 177
+    },
+    {
       "name": "execution-governance-kernel",
       "mount": "/api/governance/execution-kernel",
       "module": "routes/governance/execution-kernel/status.routes.js",

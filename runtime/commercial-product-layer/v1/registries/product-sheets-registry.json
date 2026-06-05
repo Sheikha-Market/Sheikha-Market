@@ -1,0 +1,61 @@
+{
+  "registry": "SHEIKHA_PRODUCT_SHEETS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "products": [
+    {
+      "productId": "PROD-GOV-001",
+      "name": "Sheikha Governance Engine",
+      "category": "governance_platform",
+      "buyerProfile": ["AI companies", "enterprise engineering teams", "regulated technology teams"],
+      "technicalDocumentation": true,
+      "tests": ["governance admission", "PR checks", "policy traceability"],
+      "kpis": ["decision traceability", "merge governance coverage", "policy enforcement coverage"],
+      "licenseModels": ["Technology License", "SaaS", "API", "SDK"],
+      "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
+    },
+    {
+      "productId": "PROD-STAB-001",
+      "name": "Sheikha Stability Engine",
+      "category": "stability_platform",
+      "buyerProfile": ["platform teams", "CI/CD teams", "runtime reliability teams"],
+      "technicalDocumentation": true,
+      "tests": ["NO_DRIFT", "stability score", "runtime admission"],
+      "kpis": ["drift incidents", "check pass rate", "protected runtime changes"],
+      "licenseModels": ["Technology License", "SaaS", "API"],
+      "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
+    },
+    {
+      "productId": "PROD-DEC-001",
+      "name": "Sheikha Decision Registry",
+      "category": "decision_platform",
+      "buyerProfile": ["AI governance teams", "architecture review boards", "enterprise PMO"],
+      "technicalDocumentation": true,
+      "tests": ["decision registry contract", "knowledge link resolution", "measurement link checks"],
+      "kpis": ["decisions with evidence", "decisions with measurement", "knowledge coverage"],
+      "licenseModels": ["Technology License", "SDK", "Enterprise Component"],
+      "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
+    },
+    {
+      "productId": "PROD-CAP-001",
+      "name": "Sheikha Capability Registry",
+      "category": "capability_platform",
+      "buyerProfile": ["AI platform teams", "agent governance teams", "developer tooling teams"],
+      "technicalDocumentation": true,
+      "tests": ["capability registry contract", "truthfulness policy", "execution gate coverage"],
+      "kpis": ["capabilities registered", "capabilities linked to decisions", "gated unsafe execution"],
+      "licenseModels": ["Technology License", "SDK", "API"],
+      "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
+    },
+    {
+      "productId": "PROD-ENG-001",
+      "name": "Sheikha Engineering Automation Review Tools",
+      "category": "engineering_automation",
+      "buyerProfile": ["software engineering teams", "DevOps teams", "quality teams"],
+      "technicalDocumentation": true,
+      "tests": ["node check", "jest", "lint", "GitHub checks"],
+      "kpis": ["review cycle time", "merge error reduction", "contract compliance"],
+      "licenseModels": ["SaaS", "CLI", "SDK"],
+      "externalSaleGate": "LEGAL_REVIEW_AND_SIGNED_CONTRACT_REQUIRED"
+    }
+  ]
+}

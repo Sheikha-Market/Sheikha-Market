@@ -9,7 +9,12 @@
     "ipOwnershipClaimedInternally": true,
     "externalLegalReviewRequired": true,
     "customerEvidenceRequiredBeforeEnterpriseClaim": true,
-    "noFalsePartnershipClaim": true
+    "noFalsePartnershipClaim": true,
+    "noFalseCustomerClaim": true,
+    "signedContractRequiredBeforeActivation": true,
+    "licenseTermsRequired": true,
+    "productSheetsRequired": true,
+    "valueProofRegistryRequired": true
   },
   "commercialProofTargets": [
     "reduce development review time",
@@ -25,5 +30,11 @@
     "SDK",
     "Enterprise Component",
     "Consulting and Implementation"
-  ]
+  ],
+  "claimPolicy": {
+    "customerClaimAllowedWithoutContract": false,
+    "partnerClaimAllowedWithoutContract": false,
+    "publicKpiClaimAllowedWithoutMeasuredEvidence": false,
+    "readinessIsNotLegalAuthorization": true
+  }
 }

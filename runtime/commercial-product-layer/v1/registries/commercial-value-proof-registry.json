@@ -1,0 +1,47 @@
+{
+  "registry": "SHEIKHA_COMMERCIAL_VALUE_PROOF_REGISTRY_V1",
+  "status": "ACTIVE",
+  "measurementPolicy": {
+    "internalEvidenceAllowed": true,
+    "customerClaimRequiresSignedCustomerEvidence": true,
+    "publicPerformanceClaimRequiresMeasuredEvidence": true,
+    "targetIsNotCustomerClaim": true
+  },
+  "proofTargets": [
+    {
+      "id": "VP-001",
+      "metric": "development_review_time_reduction",
+      "target": "30_percent_reduction_target",
+      "claimStatus": "TARGET_NOT_PUBLIC_CLAIM",
+      "externalClaimAllowed": false
+    },
+    {
+      "id": "VP-002",
+      "metric": "merge_error_reduction",
+      "target": "measured_reduction_required",
+      "claimStatus": "MEASUREMENT_REQUIRED",
+      "externalClaimAllowed": false
+    },
+    {
+      "id": "VP-003",
+      "metric": "runtime_stability",
+      "target": "stability_score_100_internal_baseline",
+      "claimStatus": "INTERNAL_EVIDENCE_ONLY",
+      "externalClaimAllowed": false
+    },
+    {
+      "id": "VP-004",
+      "metric": "api_contract_compliance",
+      "target": "contract_tests_pass",
+      "claimStatus": "INTERNAL_EVIDENCE_ONLY",
+      "externalClaimAllowed": false
+    },
+    {
+      "id": "VP-005",
+      "metric": "governance_traceability",
+      "target": "decision_policy_capability_trace_present",
+      "claimStatus": "INTERNAL_EVIDENCE_ONLY",
+      "externalClaimAllowed": false
+    }
+  ]
+}

@@ -3,6 +3,13 @@
   "status": "ACTIVE",
   "score": 100,
   "decision": "COMMERCIAL_PRODUCT_LAYER_ACTIVE_100",
+  "commercialTruthfulness": {
+    "productPackagingOnly": true,
+    "partnerClaim": false,
+    "customerClaim": false,
+    "externalSaleRequiresLegalReview": true,
+    "externalLicenseRequiresSignedContract": true
+  },
   "dependencies": {
     "heartCore": true,
     "rootAuthorityLayer": true,
@@ -11,28 +18,63 @@
     "capabilityRegistryV2": true,
     "stabilityLayer": true,
     "runtimeContractEnforcer": true,
+    "licensingEngineV1": true,
     "driftDetector": true
   },
-  "registryChecks": {
+  "checks": {
+    "mainRegistryActive": true,
     "productsRegistry": true,
     "allProductsSellable": true,
     "allProductsHaveValue": true,
     "readinessRegistry": true,
+    "productSheetsRegistry": true,
+    "productSheetsCoverProducts": true,
+    "allProductSheetsHaveDocsTestsKpis": true,
+    "valueProofRegistry": true,
+    "externalClaimsBlockedWithoutEvidence": true,
     "noFalsePartnershipClaim": true,
-    "legalReviewRequired": true
+    "noFalseCustomerClaim": true,
+    "legalReviewRequired": true,
+    "signedContractRequired": true,
+    "truthfulnessPolicy": true,
+    "licensingEngineGated": true,
+    "fabricRouteMounted": true
+  },
+  "registryChecks": {
+    "mainRegistryActive": true,
+    "productsRegistry": true,
+    "allProductsSellable": true,
+    "allProductsHaveValue": true,
+    "readinessRegistry": true,
+    "productSheetsRegistry": true,
+    "productSheetsCoverProducts": true,
+    "allProductSheetsHaveDocsTestsKpis": true,
+    "valueProofRegistry": true,
+    "externalClaimsBlockedWithoutEvidence": true,
+    "noFalsePartnershipClaim": true,
+    "noFalseCustomerClaim": true,
+    "legalReviewRequired": true,
+    "signedContractRequired": true,
+    "truthfulnessPolicy": true,
+    "licensingEngineGated": true,
+    "fabricRouteMounted": true
   },
   "missing": [],
+  "missingDependencies": [],
+  "missingRegistryChecks": [],
   "coverage": {
     "products": 5,
     "sellableProducts": 5,
+    "productSheets": 5,
     "commercialModels": 6,
-    "proofTargets": 5
+    "proofTargets": 5,
+    "publicClaimsAllowed": 0
   },
   "nextActions": [
-    "Activate Provider Registry V1 after Commercial Product Layer is clean.",
-    "Create product sheets for Governance Engine, Stability Engine, Decision Registry, and Capability Registry.",
-    "Prepare legal/IP review before external licensing or enterprise sales.",
-    "Do not claim OpenAI or any company is a customer without a signed agreement."
+    "Activate Licensing Engine V1 only through legal review and signed contract workflow.",
+    "Create customer-facing product sheets after legal and IP review.",
+    "Measure product KPIs before making public performance claims.",
+    "Do not claim OpenAI, any AI company, or any enterprise as a customer or partner without a signed agreement."
   ],
   "principle": "ولا حول ولا قوة إلا بالله"
 }
