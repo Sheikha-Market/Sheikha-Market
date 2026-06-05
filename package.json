@@ -459,6 +459,9 @@
     "ops:cloud-supercomputer-fabric:v1": "node tools/cloud-supercomputer-fabric/sheikha-cloud-supercomputer-fabric-v1.js",
     "ops:ugit-ai-control-plane:v1": "node tools/ugit-ai-control-plane/sheikha-ugit-ai-control-plane-v1.js",
     "ops:provider-compute-fabric:v1": "node tools/provider-compute-fabric/sheikha-provider-compute-fabric-v1.js",
+    "ops:customer-classification:v1": "node tools/customer-classification/sheikha-customer-classification-v1.js",
+    "ops:provider-agreement-roadmap:v1": "node tools/provider-agreement-roadmap/sheikha-provider-agreement-roadmap-v1.js",
+    "ops:compute-integration-readiness:v1": "bash tools/activate-sheikha-compute-integration-readiness.sh",
     "ops:commercial-real-activation:v1": "node tools/commercial-real-activation/sheikha-commercial-real-activation-v1.js",
     "ops:multi-supercomputer-cloud-fabric:v1": "node tools/multi-supercomputer-cloud-fabric/sheikha-multi-supercomputer-cloud-fabric-v1.js",
     "ops:ai-supercomputer-cloud-cluster-pipeline-fabric:v1": "node tools/ai-supercomputer-cloud-cluster-pipeline-fabric/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1.js",
@@ -467,7 +470,8 @@
     "ops:role-based-dashboard-ui:v1": "node tools/role-based-dashboard-ui/sheikha-role-based-dashboard-ui-v1.js",
     "ops:database-knowledge-engine:v1": "node tools/database-knowledge-engine/sheikha-database-knowledge-engine-v1.js",
     "ops:specialized-social-innovation:v1": "node tools/specialized-social-innovation/sheikha-specialized-social-innovation-v1.js",
-    "ops:platform-operating-engines:v1": "node tools/platform-operating-engines/sheikha-platform-operating-engines-v1.js"
+    "ops:platform-operating-engines:v1": "node tools/platform-operating-engines/sheikha-platform-operating-engines-v1.js",
+    "ops:devops-ai-lab-fabric:v1": "node tools/devops-ai-lab-fabric/sheikha-devops-ai-lab-fabric-v1.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",

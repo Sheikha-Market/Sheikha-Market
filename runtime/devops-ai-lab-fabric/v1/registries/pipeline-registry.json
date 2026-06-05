@@ -1,0 +1,21 @@
+{
+  "registry": "SHEIKHA_PIPELINE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "pipelines": [
+    "CODE_PIPELINE",
+    "RESEARCH_PIPELINE",
+    "LAB_EXPERIMENT_PIPELINE",
+    "AI_API_PIPELINE",
+    "CLUSTER_DEPLOYMENT_PIPELINE",
+    "KNOWLEDGE_PUBLICATION_PIPELINE",
+    "PRODUCTIZATION_PIPELINE"
+  ],
+  "requiredChecks": [
+    "node_check",
+    "npm_test",
+    "npm_lint",
+    "json_validation",
+    "drift_detector",
+    "governance_verification"
+  ]
+}
