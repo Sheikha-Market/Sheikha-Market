@@ -1,12 +1,12 @@
 {
   "system": "SHEIKHA_LOGISTICS_MARKET_NETWORK_PLATFORM_V1",
-  "status": "ACTIVE_WITH_REVIEW",
-  "score": 94,
-  "decision": "REVIEW_LOGISTICS_MARKET_NETWORK_PLATFORM_GAPS",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "LOGISTICS_MARKET_NETWORK_PLATFORM_ACTIVE_100",
   "checks": {
     "engine": true,
     "catalog": true,
-    "networkProducts": false,
+    "networkProducts": true,
     "providerTypes": true,
     "controlTower": true,
     "incotermsMap": true,
@@ -20,9 +20,7 @@
     "css": true,
     "driftDetector": true
   },
-  "missing": [
-    "networkProducts"
-  ],
+  "missing": [],
   "cycle": [
     "CUSTOMER",
     "CLASSIFICATION",
