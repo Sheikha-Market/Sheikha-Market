@@ -1,0 +1,31 @@
+{
+  "registry": "SHEIKHA_RESOURCE_PRODUCT_SECTOR_MAP_V1",
+  "status": "ACTIVE",
+  "chains": [
+    {
+      "resource": "IRON_ORE",
+      "products": ["PELLETS", "DRI", "STEEL", "PIPES", "STRUCTURAL_STEEL"],
+      "sectors": ["MINING", "METALS", "CONSTRUCTION", "ENERGY", "INFRASTRUCTURE"]
+    },
+    {
+      "resource": "COPPER",
+      "products": ["CABLES", "WIRES", "BUS_BARS", "ELECTRICAL_COMPONENTS"],
+      "sectors": ["ENERGY", "TELECOM", "SMART_CITIES", "INDUSTRY"]
+    },
+    {
+      "resource": "ALUMINUM",
+      "products": ["INGOTS", "SHEETS", "PROFILES", "CANS", "TRANSPORT_PARTS"],
+      "sectors": ["PACKAGING", "TRANSPORT", "CONSTRUCTION", "ENERGY"]
+    },
+    {
+      "resource": "SCRAP",
+      "products": ["RECYCLED_METALS", "REUSED_EQUIPMENT", "PARTS", "RAW_FEEDSTOCK"],
+      "sectors": ["RECYCLING", "METALS", "INDUSTRY", "CIRCULAR_ECONOMY"]
+    },
+    {
+      "resource": "ENERGY",
+      "products": ["ELECTRICITY", "FUEL", "HEAT", "STORAGE"],
+      "sectors": ["ALL_SECTORS", "LOGISTICS", "MANUFACTURING", "SMART_CITIES"]
+    }
+  ]
+}
