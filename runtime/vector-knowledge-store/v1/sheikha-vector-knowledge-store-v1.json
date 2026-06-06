@@ -1,0 +1,20 @@
+{
+  "system": "SHEIKHA_VECTOR_KNOWLEDGE_STORE_V1",
+  "status": "ACTIVE",
+  "purpose": "Activate semantic knowledge layer for embeddings, semantic search, knowledge graph, memory graph, entity graph, and relationship graph.",
+  "modules": [
+    "EMBEDDINGS_READINESS",
+    "SEMANTIC_SEARCH",
+    "KNOWLEDGE_GRAPH",
+    "MEMORY_GRAPH",
+    "ENTITY_GRAPH",
+    "RELATIONSHIP_GRAPH"
+  ],
+  "rules": {
+    "no_embedding_of_private_data_without_consent": true,
+    "source_trace_required": true,
+    "deletion_and_update_supported": true,
+    "no_secret_in_git": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
