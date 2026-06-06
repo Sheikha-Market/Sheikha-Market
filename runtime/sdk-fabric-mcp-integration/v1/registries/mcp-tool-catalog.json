@@ -10,6 +10,11 @@
     "generate_smart_city_dashboard",
     "analyze_space_iot_signal",
     "analyze_supply_chain_risk",
+    "connect_government_system_readiness",
+    "map_science_database",
+    "prepare_education_platform_link",
+    "map_supercomputer_datacenter_readiness",
+    "map_maritime_shipping_network",
     "generate_advisory_report",
     "list_marketplace_products",
     "prepare_crm_opportunity",
@@ -20,5 +25,12 @@
     "permission_required": true,
     "audit_required": true,
     "no_secret_exposure": true
+  },
+  "toolContract": {
+    "input_schema_required": true,
+    "output_schema_required": true,
+    "permission_scope_required": true,
+    "evidence_reference_required": true,
+    "human_review_for_regulated_outputs": true
   }
 }

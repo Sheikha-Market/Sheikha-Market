@@ -24,6 +24,7 @@
 - Multicloud Fabric
 - Provider Compute Fabric
 - Resource Intelligence Simulation Fabric
+- SDK Fabric MCP Integration
 - Commercial Real Activation
 - Multi Supercomputer Cloud Fabric
 - AI Supercomputer Cloud Cluster Pipeline Fabric

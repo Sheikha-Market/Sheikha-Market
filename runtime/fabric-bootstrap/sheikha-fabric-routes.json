@@ -160,6 +160,12 @@
       "priority": 240
     },
     {
+      "name": "sdk-fabric-mcp-integration-v1",
+      "mount": "/api/sdk-fabric-mcp/integration",
+      "module": "routes/sdk-fabric-mcp-integration/status.routes.js",
+      "priority": 237
+    },
+    {
       "name": "provider-agreement-roadmap-v1",
       "mount": "/api/provider/agreement-roadmap",
       "module": "routes/provider-agreement-roadmap/status.routes.js",

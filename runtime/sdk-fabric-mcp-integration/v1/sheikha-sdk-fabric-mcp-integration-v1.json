@@ -3,6 +3,18 @@
   "status": "ACTIVE",
   "arabic_name": "نسيج شيخة لتكامل SDK وFabric وMCP",
   "purpose": "Unify governed integrations across SDK, Fabric, MCP, government systems, open data, space, IoT, ML, AI, supply chain, education, databases, supercomputing, data centers, science platforms, maritime, logistics, and customer environments.",
+  "position": "ABOVE_RESOURCE_INTELLIGENCE_AND_BELOW_UGIT_CONTROL_PLANE",
+  "based_on": [
+    "SHEIKHA_SDK_REGISTRY",
+    "SHEIKHA_MCP_UNIFIED_BRIDGE",
+    "SHEIKHA_FABRIC_BOOTSTRAP_ROUTES",
+    "SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1",
+    "SHEIKHA_SPACE_IOT_ML_AI_FABRIC_V1",
+    "SHEIKHA_GLOBAL_RESOURCE_GRAPH_ENGINE_V2",
+    "SHEIKHA_SUPPLY_CHAIN_SIMULATION_ENGINE_V1",
+    "SHEIKHA_SMART_CITIES_ENGINE_V1",
+    "SHEIKHA_UGIT_AI_CONTROL_PLANE_V1"
+  ],
   "modules": [
     "SDK_FABRIC",
     "MCP_GATEWAY",
@@ -17,6 +29,27 @@
     "MARITIME_AND_TRANSPORT_CONNECTORS",
     "CUSTOMER_ENVIRONMENT_CONNECTORS"
   ],
+  "integration_flow": [
+    "SDK",
+    "FABRIC_ROUTE",
+    "MCP_TOOL_CONTRACT",
+    "CONNECTOR_PROFILE",
+    "AUTHORIZATION_GATE",
+    "DATA_RIGHTS_GATE",
+    "CUSTOMER_ENVIRONMENT_TWIN",
+    "GOVERNED_DASHBOARD",
+    "REPORT",
+    "COMMERCIAL_PRODUCT"
+  ],
+  "truthfulness": {
+    "architecture_and_readiness_only": true,
+    "no_government_system_claim_without_authorization": true,
+    "no_private_api_claim_without_contract": true,
+    "no_customer_environment_claim_without_customer_consent": true,
+    "no_supercomputer_or_datacenter_claim_without_provider_evidence": true,
+    "no_education_science_platform_claim_without_terms_review": true,
+    "no_maritime_transport_tracking_claim_without_data_source": true
+  },
   "rules": {
     "no_external_api_without_authorization": true,
     "no_secret_in_git": true,

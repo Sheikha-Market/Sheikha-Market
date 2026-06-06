@@ -3,13 +3,12 @@
   "status": "ACTIVE",
   "score": 100,
   "decision": "SDK_FABRIC_MCP_INTEGRATION_ACTIVE_100",
-  "checks": {
-    "engine": true,
-    "integrationCatalog": true,
-    "customerEnvironmentMap": true,
-    "mcpToolCatalog": true,
-    "sdkFabricMap": true,
+  "dependencies": {
     "docs": true,
+    "sdkRegistry": true,
+    "generatedSdkRegistry": true,
+    "mcpUnifiedBridge": true,
+    "fabricBootstrap": true,
     "productionLanguage": true,
     "executiveCommercialOS": true,
     "spaceIotMlAi": true,
@@ -17,9 +16,45 @@
     "resourceGraph": true,
     "simulation": true,
     "smartCities": true,
+    "resourceIntelligenceSimulation": true,
+    "customerIntelligenceOnboarding": true,
+    "providerComputeFabric": true,
     "driftDetector": true
   },
+  "checks": {
+    "registryActive": true,
+    "modulesComplete": true,
+    "integrationFlowComplete": true,
+    "truthfulnessPolicy": true,
+    "integrationCatalogActive": true,
+    "categoriesComplete": true,
+    "systemProfilesComplete": true,
+    "mcpToolCatalogActive": true,
+    "mcpToolsComplete": true,
+    "mcpSecurityComplete": true,
+    "customerEnvironmentMapActive": true,
+    "customerEnvironmentsComplete": true,
+    "integrationObjectsComplete": true,
+    "sdkFabricMapActive": true,
+    "sdkLayersComplete": true,
+    "fabricTargetsComplete": true,
+    "sdkOutputsComplete": true,
+    "fabricRouteMounted": true
+  },
   "missing": [],
+  "missingDependencies": [],
+  "missingChecks": [],
+  "coverage": {
+    "modules": 12,
+    "categories": 14,
+    "systemProfiles": 7,
+    "mcpTools": 17,
+    "customerEnvironments": 24,
+    "integrationObjects": 23,
+    "sdkLayers": 6,
+    "fabricTargets": 18,
+    "sdkOutputs": 7
+  },
   "cycle": [
     "SDK",
     "FABRIC",
@@ -31,6 +66,12 @@
     "DASHBOARD",
     "PRODUCT",
     "IMPACT"
+  ],
+  "nextActions": [
+    "Create OpenAPI schemas for each external connector before live API binding.",
+    "Add credential vault integration outside Git before any private system integration.",
+    "Create customer environment onboarding forms for mines, smelters, warehouses, factories, scrap sources, ports, stores, fleets, and data centers.",
+    "Keep government, customer, provider, science, education, maritime, and compute integrations in readiness mode until authorization and data rights are documented."
   ],
   "principle": "ولا حول ولا قوة إلا بالله"
 }
