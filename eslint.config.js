@@ -69,6 +69,18 @@ const serviceWorkerGlobals = {
     AbortController: 'readonly'
 };
 
+const jestGlobals = {
+    describe: 'readonly',
+    test: 'readonly',
+    it: 'readonly',
+    expect: 'readonly',
+    jest: 'readonly',
+    beforeAll: 'readonly',
+    afterAll: 'readonly',
+    beforeEach: 'readonly',
+    afterEach: 'readonly'
+};
+
 module.exports = [
     {
         ignores: [
@@ -137,6 +149,15 @@ module.exports = [
         files: ['**/*.mjs'],
         languageOptions: {
             sourceType: 'module'
+        }
+    },
+    {
+        files: ['**/*.test.js', '**/*.spec.js'],
+        languageOptions: {
+            globals: {
+                ...nodeGlobals,
+                ...jestGlobals
+            }
         }
     },
     {
