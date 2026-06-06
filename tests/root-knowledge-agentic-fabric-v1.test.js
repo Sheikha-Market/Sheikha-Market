@@ -38,7 +38,11 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     const levels = readJson(
       'runtime/root-knowledge-agentic-fabric/v1/registries/intelligence-levels-registry.json'
     );
+    const taxonomy = readJson(
+      'runtime/root-knowledge-agentic-fabric/v1/registries/agentic-taxonomy.json'
+    );
     const names = new Set(levels.levels.map((level) => level.name));
+    const taxonomyIds = new Set(taxonomy.levels.map((level) => level.id));
 
     expect(levels.status).toBe('ACTIVE');
     [
@@ -51,6 +55,15 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     expect(levels.levels.find((level) => level.name === 'AGI').claimStatus).toBe('NO_ACTUAL_AGI_CLAIM');
     expect(levels.levels.find((level) => level.name === 'ASI').claimStatus).toBe('NO_ACTUAL_ASI_CLAIM');
     expect(levels.globalRules.no_consciousness_claim).toBe(true);
+    [
+      'GENERATIVE_AI',
+      'AGENTIC_AI',
+      'MULTI_AGENT',
+      'AGI',
+      'ASI'
+    ].forEach((id) => expect(taxonomyIds.has(id)).toBe(true));
+    expect(taxonomy.levels.find((level) => level.id === 'AGI').allowed).toBe(false);
+    expect(taxonomy.levels.find((level) => level.id === 'ASI').allowed).toBe(false);
   });
 
   test('agentic workflow has governed agents boundaries and evidence chain', () => {
@@ -107,6 +120,7 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     expect(report.decision).toBe('ROOT_KNOWLEDGE_AGENTIC_FABRIC_ACTIVE_100');
     expect(report.missing).toEqual([]);
     expect(report.coverage.intelligenceLevels).toBe(5);
+    expect(report.coverage.taxonomyLevels).toBe(5);
     expect(report.coverage.agentRoles).toBeGreaterThanOrEqual(5);
     expect(packageJson.scripts['ops:root-knowledge-agentic-fabric:v1']).toBe(
       'node tools/root-knowledge-agentic-fabric/sheikha-root-knowledge-agentic-fabric-v1.js'
