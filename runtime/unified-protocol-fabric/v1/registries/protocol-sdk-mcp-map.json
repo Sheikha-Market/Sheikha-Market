@@ -1,0 +1,26 @@
+{
+  "registry": "SHEIKHA_PROTOCOL_SDK_MCP_MAP_V1",
+  "status": "ACTIVE",
+  "bindings": [
+    "http_request",
+    "websocket_stream",
+    "rest_connector",
+    "graphql_connector",
+    "grpc_connector",
+    "json_rpc_connector",
+    "lsp_language_server",
+    "mcp_tool_gateway",
+    "sftp_file_connector",
+    "smtp_mail_connector",
+    "mqtt_iot_connector",
+    "opcua_industrial_connector"
+  ],
+  "fabricTargets": [
+    "SHEIKHA_DEVELOPER_PLATFORM",
+    "SDK_FABRIC_MCP_INTEGRATION",
+    "UNIFIED_RAG_ENGINE",
+    "VECTOR_KNOWLEDGE_STORE",
+    "DIGITAL_TWIN_ENGINE_V2",
+    "OPERATIONAL_PLATFORM"
+  ]
+}

@@ -1,0 +1,14 @@
+{
+  "registry": "SHEIKHA_PROTOCOL_SECURITY_POLICY_V1",
+  "status": "ACTIVE",
+  "policies": [
+    "Prefer HTTPS over HTTP for external traffic.",
+    "Prefer SFTP or FTPS over FTP for file transfer.",
+    "Use SMTP/IMAP/POP3 only with TLS where possible.",
+    "Use API keys, OAuth, mTLS, or signed tokens where applicable.",
+    "No private system connection without authorization.",
+    "No credentials or tokens in Git.",
+    "Log protocol access through audit trail.",
+    "Human approval required for high-impact integrations."
+  ]
+}
