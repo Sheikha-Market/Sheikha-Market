@@ -1,0 +1,31 @@
+{
+  "registry": "SHEIKHA_ENVIRONMENT_INTELLIGENCE_MAP_V1",
+  "status": "ACTIVE",
+  "environments": [
+    {
+      "id": "EARTH",
+      "signals": ["temperature", "humidity", "solar_radiation", "rainfall", "dust", "air_quality"],
+      "uses": ["materials", "roads", "warehouses", "farms", "smart_cities"]
+    },
+    {
+      "id": "SEA",
+      "signals": ["wind", "waves", "rain", "port_congestion", "route_conditions"],
+      "uses": ["shipping", "ports", "containers", "maritime_supply_chain"]
+    },
+    {
+      "id": "SKY",
+      "signals": ["weather", "solar", "aviation_route_conditions"],
+      "uses": ["air_cargo", "telecom", "weather_risk"]
+    },
+    {
+      "id": "SPACE",
+      "signals": ["satellite_observation", "solar_activity", "remote_sensing"],
+      "uses": ["earth_observation", "telecom", "supply_chain_risk", "environmental_monitoring"]
+    },
+    {
+      "id": "NETWORKS",
+      "signals": ["iot_events", "asset_tracking", "connectivity", "latency", "coverage"],
+      "uses": ["fleet", "containers", "remote_assets", "smart_city_operations"]
+    }
+  ]
+}

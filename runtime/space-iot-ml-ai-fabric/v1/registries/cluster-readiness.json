@@ -1,0 +1,21 @@
+{
+  "registry": "SHEIKHA_SPACE_IOT_ML_AI_CLUSTER_READINESS_V1",
+  "status": "ACTIVE",
+  "readiness": [
+    "LOCAL_WORKER_READY",
+    "JOB_QUEUE_READY",
+    "BATCH_PIPELINE_READY",
+    "STREAM_PIPELINE_READY",
+    "IOT_EVENT_PIPELINE_READY",
+    "GPU_READY_WHEN_AVAILABLE",
+    "KUBERNETES_READY_WHEN_AVAILABLE",
+    "OBSERVABILITY_READY",
+    "MODEL_REGISTRY_READY",
+    "DATA_GOVERNANCE_READY"
+  ],
+  "truthfulness": {
+    "actual_gpu_requires_nvidia_smi_or_provider_contract": true,
+    "actual_cluster_requires_running_orchestrator": true,
+    "actual_satellite_feed_requires_source_contract_or_open_data_endpoint": true
+  }
+}
