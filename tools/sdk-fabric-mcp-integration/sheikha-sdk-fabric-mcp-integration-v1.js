@@ -42,6 +42,7 @@ const integrationCatalog = readJson(`${RUNTIME_DIR}/registries/integration-catal
 const customerEnvironmentMap = readJson(`${RUNTIME_DIR}/registries/customer-environment-map.json`);
 const mcpToolCatalog = readJson(`${RUNTIME_DIR}/registries/mcp-tool-catalog.json`);
 const sdkFabricMap = readJson(`${RUNTIME_DIR}/registries/sdk-fabric-map.json`);
+const connectorProfileRegistry = readJson(`${RUNTIME_DIR}/registries/connector-profile-registry.json`);
 const rootNeuralGovernanceCellMap =
   readJson(`${RUNTIME_DIR}/registries/root-neural-governance-cell-map.json`);
 const fabricRoutes = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
@@ -83,6 +84,22 @@ const requiredCategories = [
   'CUSTOMER_ENVIRONMENTS'
 ];
 
+const requiredConnectorCategories = [
+  'OPEN_DATA_PORTALS',
+  'RESEARCH_DATABASES',
+  'SCIENTIFIC_PUBLICATIONS',
+  'EDUCATIONAL_PLATFORMS',
+  'ERP_SYSTEMS',
+  'CRM_SYSTEMS',
+  'WMS',
+  'TMS',
+  'IOT_PLATFORMS',
+  'SATELLITE_OPEN_OBSERVATION_DATA',
+  'CLOUD_PROVIDERS',
+  'DATA_CENTERS',
+  'SUPERCOMPUTING_RESOURCES'
+];
+
 const requiredMcpTools = [
   'inspect_customer_environment',
   'map_resource_sources',
@@ -97,6 +114,18 @@ const requiredMcpTools = [
   'prepare_education_platform_link',
   'map_supercomputer_datacenter_readiness',
   'map_maritime_shipping_network',
+  'map_open_data_portal_connector',
+  'map_research_database_connector',
+  'map_scientific_publication_connector',
+  'map_erp_connector',
+  'map_crm_connector',
+  'map_wms_connector',
+  'map_tms_connector',
+  'map_iot_platform_connector',
+  'map_satellite_observation_connector',
+  'map_cloud_provider_connector',
+  'map_datacenter_connector',
+  'map_supercomputing_resource_connector',
   'generate_advisory_report',
   'list_marketplace_products',
   'prepare_crm_opportunity',
@@ -194,6 +223,12 @@ function cellNames(cells) {
     : [];
 }
 
+function profileCategories(profiles) {
+  return Array.isArray(profiles)
+    ? profiles.map((profile) => profile.category).filter(Boolean)
+    : [];
+}
+
 const dependencies = {
   docs: exists('docs/sdk-fabric-mcp-integration/SHEIKHA-SDK-FABRIC-MCP-INTEGRATION-V1.md'),
   sdkRegistry: exists('runtime/sdk-registry/sheikha-sdk-registry.json'),
@@ -213,6 +248,7 @@ const dependencies = {
   resourceIntelligenceSimulation: exists('runtime/resource-intelligence-simulation-fabric/v1/sheikha-resource-intelligence-simulation-fabric-v1-report.json'),
   customerIntelligenceOnboarding: exists('runtime/customer-intelligence-onboarding/v1/sheikha-customer-intelligence-onboarding-v1-report.json'),
   providerComputeFabric: exists('runtime/provider-registry/v1/sheikha-provider-compute-fabric-v1-report.json'),
+  connectorProfileRegistry: exists(`${RUNTIME_DIR}/registries/connector-profile-registry.json`),
   driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
 };
 
@@ -256,6 +292,10 @@ const checks = {
   ),
   integrationCatalogActive: integrationCatalog?.status === 'ACTIVE',
   categoriesComplete: includesAll(integrationCatalog?.categories, requiredCategories),
+  connectorProfileCategoriesComplete: includesAll(
+    integrationCatalog?.connectorProfileCategories,
+    requiredConnectorCategories
+  ),
   systemProfilesComplete: Array.isArray(integrationCatalog?.systemProfiles) &&
     integrationCatalog.systemProfiles.length >= 7 &&
     integrationCatalog.systemProfiles.every((profile) => profile.integrationMode),
@@ -286,6 +326,43 @@ const checks = {
     'customer_environment_blueprint',
     'evidence_report'
   ]),
+  connectorProfileRegistryActive: connectorProfileRegistry?.status === 'ACTIVE',
+  connectorProfilesComplete: includesAll(
+    profileCategories(connectorProfileRegistry?.profiles),
+    requiredConnectorCategories
+  ),
+  connectorProfilesGoverned: Array.isArray(connectorProfileRegistry?.profiles) &&
+    connectorProfileRegistry.profiles.length >= requiredConnectorCategories.length &&
+    connectorProfileRegistry.profiles.every((profile) =>
+      profile.id &&
+      profile.integrationMode &&
+      profile.accessGate &&
+      Array.isArray(profile.rootNeuralCells) &&
+      profile.rootNeuralCells.length >= 4
+    ),
+  connectorProfilesNoLiveClaims: Array.isArray(connectorProfileRegistry?.profiles) &&
+    connectorProfileRegistry.profiles.every((profile) => profile.liveConnectionClaim === false),
+  connectorTruthfulnessPolicy: Boolean(
+    connectorProfileRegistry?.truthfulness?.readiness_only &&
+    connectorProfileRegistry?.truthfulness?.no_live_connection_claim_without_credentials &&
+    connectorProfileRegistry?.truthfulness?.no_private_system_claim_without_contract &&
+    connectorProfileRegistry?.truthfulness?.no_open_data_claim_without_terms_review &&
+    connectorProfileRegistry?.truthfulness?.no_compute_resource_claim_without_provider_evidence
+  ),
+  connectorMeshActive: Boolean(
+    connectorProfileRegistry?.mesh?.status === 'ACTIVE' &&
+    connectorProfileRegistry?.mesh?.name === 'SHEIKHA_ROOT_NEURAL_CONNECTOR_MESH' &&
+    includesAll(connectorProfileRegistry?.mesh?.architecture, [
+      'connector_profile',
+      'sdk_output',
+      'fabric_route',
+      'mcp_tool_contract',
+      'authorization_gate',
+      'data_rights_gate',
+      'root_neural_cell_gate',
+      'evidence_report'
+    ])
+  ),
   rootNeuralGovernanceCellMapActive: rootNeuralGovernanceCellMap?.status === 'ACTIVE',
   rootNeuralCellsComplete: includesAll(
     cellNames(rootNeuralGovernanceCellMap?.cells),
@@ -296,10 +373,16 @@ const checks = {
     rootNeuralGovernanceCellMap?.numbering?.range === 'NGC-001..NGC-010'
   ),
   rootNeuralModuleBindingsComplete: Array.isArray(rootNeuralGovernanceCellMap?.moduleBindings) &&
-    rootNeuralGovernanceCellMap.moduleBindings.length >= 7 &&
+    rootNeuralGovernanceCellMap.moduleBindings.length >= 8 &&
     rootNeuralGovernanceCellMap.moduleBindings.every((binding) =>
       Array.isArray(binding.cells) && binding.cells.length >= 4
     ),
+  rootNeuralConnectorMeshActive: Boolean(
+    rootNeuralGovernanceCellMap?.connectorMesh?.status === 'ACTIVE' &&
+    rootNeuralGovernanceCellMap?.connectorMesh?.profileRegistry === 'SHEIKHA_CONNECTOR_PROFILE_REGISTRY_V1' &&
+    rootNeuralGovernanceCellMap?.connectorMesh?.claimPolicy?.readinessAllowed === true &&
+    rootNeuralGovernanceCellMap?.connectorMesh?.claimPolicy?.liveConnectionRequiresCredentials === true
+  ),
   rootNeuralGovernanceReferenceSafe: Boolean(
     rootNeuralGovernanceCellMap?.governanceReference?.foundation === 'QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS' &&
     rootNeuralGovernanceCellMap?.governanceReference?.system_is_tool_not_religious_authority === true &&
@@ -343,6 +426,8 @@ const report = {
     sdkLayers: sdkFabricMap?.sdkLayers?.length || 0,
     fabricTargets: sdkFabricMap?.fabricTargets?.length || 0,
     sdkOutputs: sdkFabricMap?.sdkOutputs?.length || 0,
+    connectorProfiles: connectorProfileRegistry?.profiles?.length || 0,
+    connectorProfileCategories: integrationCatalog?.connectorProfileCategories?.length || 0,
     rootNeuralCells: rootNeuralGovernanceCellMap?.cells?.length || 0,
     rootNeuralModuleBindings: rootNeuralGovernanceCellMap?.moduleBindings?.length || 0
   },
@@ -392,6 +477,8 @@ writeText(
 - كائنات التكامل: ${report.coverage.integrationObjects}
 - طبقات SDK: ${report.coverage.sdkLayers}
 - أهداف Fabric: ${report.coverage.fabricTargets}
+- موصلات التكامل: ${report.coverage.connectorProfiles}
+- فئات موصلات التكامل: ${report.coverage.connectorProfileCategories}
 - خلايا الجذر العصبية: ${report.coverage.rootNeuralCells}
 - ارتباطات الخلايا بالوحدات: ${report.coverage.rootNeuralModuleBindings}
 

@@ -22,6 +22,7 @@
     "resourceIntelligenceSimulation": true,
     "customerIntelligenceOnboarding": true,
     "providerComputeFabric": true,
+    "connectorProfileRegistry": true,
     "driftDetector": true
   },
   "checks": {
@@ -33,6 +34,7 @@
     "truthfulnessPolicy": true,
     "integrationCatalogActive": true,
     "categoriesComplete": true,
+    "connectorProfileCategoriesComplete": true,
     "systemProfilesComplete": true,
     "mcpToolCatalogActive": true,
     "mcpToolsComplete": true,
@@ -44,10 +46,17 @@
     "sdkLayersComplete": true,
     "fabricTargetsComplete": true,
     "sdkOutputsComplete": true,
+    "connectorProfileRegistryActive": true,
+    "connectorProfilesComplete": true,
+    "connectorProfilesGoverned": true,
+    "connectorProfilesNoLiveClaims": true,
+    "connectorTruthfulnessPolicy": true,
+    "connectorMeshActive": true,
     "rootNeuralGovernanceCellMapActive": true,
     "rootNeuralCellsComplete": true,
     "rootNeuralCellNumberingComplete": true,
     "rootNeuralModuleBindingsComplete": true,
+    "rootNeuralConnectorMeshActive": true,
     "rootNeuralGovernanceReferenceSafe": true,
     "fabricRouteMounted": true
   },
@@ -58,14 +67,16 @@
     "modules": 13,
     "categories": 14,
     "systemProfiles": 7,
-    "mcpTools": 17,
+    "mcpTools": 29,
     "customerEnvironments": 24,
     "integrationObjects": 23,
     "sdkLayers": 6,
     "fabricTargets": 18,
     "sdkOutputs": 7,
+    "connectorProfiles": 13,
+    "connectorProfileCategories": 13,
     "rootNeuralCells": 10,
-    "rootNeuralModuleBindings": 7
+    "rootNeuralModuleBindings": 8
   },
   "cycle": [
     "SDK",

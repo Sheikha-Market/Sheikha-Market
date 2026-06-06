@@ -29,6 +29,7 @@ Commercial Product
 ## واجهات API
 - `GET /api/sdk-fabric-mcp/integration/status`
 - `GET /api/sdk-fabric-mcp/integration/catalog`
+- `GET /api/sdk-fabric-mcp/integration/connector-profiles`
 - `GET /api/sdk-fabric-mcp/integration/customer-environments`
 - `GET /api/sdk-fabric-mcp/integration/root-neural-governance`
 - `GET /api/sdk-fabric-mcp/integration/coverage`
@@ -37,6 +38,10 @@ Commercial Product
 يرتبط التكامل بسجل:
 
 `SHEIKHA_ROOT_NEURAL_GOVERNANCE_CELL_MAP_V1`
+
+وسجل الموصلات:
+
+`SHEIKHA_CONNECTOR_PROFILE_REGISTRY_V1`
 
 وتحكمه خلايا مرقمة:
 
@@ -51,9 +56,26 @@ Commercial Product
 - `NGC-009` خلية مخطط MCP والصلاحيات.
 - `NGC-010` خلية التدقيق والدليل.
 
+كل موصل يمر عبر:
+
+`connector profile -> SDK output -> Fabric route -> MCP tool contract -> authorization gate -> data rights gate -> root neural cell gate -> evidence report`
+
 المرجع الحاكم: الكتاب والسنة وسنة الخلفاء الراشدين المهديين، مع تثبيت أن النظام أداة حوكمة وتشغيل وتحليل، وليس جهة فتوى أو سلطة دينية، وأي مسألة تحتاج مختصًا أو عالمًا تُحال للمراجعة البشرية.
 
 ## نطاقات التكامل
+- Open Data Portals.
+- Research Databases.
+- Scientific Publications.
+- Educational Platforms.
+- ERP Systems.
+- CRM Systems.
+- WMS.
+- TMS.
+- IoT Platforms.
+- Satellite/Open Observation Data.
+- Cloud Providers.
+- Data Centers.
+- Supercomputing Resources.
 - أنظمة حكومية وتنظيمية بعد التفويض.
 - جمارك وموانئ ومناطق اقتصادية.
 - فضاء وأقمار وطقس وإشعاع شمسي وطبقات جيومكانية.

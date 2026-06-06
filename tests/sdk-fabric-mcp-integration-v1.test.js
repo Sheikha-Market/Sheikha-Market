@@ -61,6 +61,22 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
       'runtime/sdk-fabric-mcp-integration/v1/registries/integration-catalog.json'
     );
 
+    const requiredConnectorCategories = [
+      'OPEN_DATA_PORTALS',
+      'RESEARCH_DATABASES',
+      'SCIENTIFIC_PUBLICATIONS',
+      'EDUCATIONAL_PLATFORMS',
+      'ERP_SYSTEMS',
+      'CRM_SYSTEMS',
+      'WMS',
+      'TMS',
+      'IOT_PLATFORMS',
+      'SATELLITE_OPEN_OBSERVATION_DATA',
+      'CLOUD_PROVIDERS',
+      'DATA_CENTERS',
+      'SUPERCOMPUTING_RESOURCES'
+    ];
+
     expect(catalog.status).toBe('ACTIVE');
     expect(catalog.categories).toEqual(expect.arrayContaining([
       'GOVERNMENT_SYSTEMS',
@@ -78,6 +94,9 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
       'TRANSPORT_AND_LOGISTICS',
       'CUSTOMER_ENVIRONMENTS'
     ]));
+    expect(catalog.connectorProfileCategories).toEqual(
+      expect.arrayContaining(requiredConnectorCategories)
+    );
     expect(catalog.systemProfiles.length).toBeGreaterThanOrEqual(7);
     expect(catalog.systemProfiles.every((profile) => profile.integrationMode)).toBe(true);
   });
@@ -103,7 +122,19 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
       'map_science_database',
       'prepare_education_platform_link',
       'map_supercomputer_datacenter_readiness',
-      'map_maritime_shipping_network'
+      'map_maritime_shipping_network',
+      'map_open_data_portal_connector',
+      'map_research_database_connector',
+      'map_scientific_publication_connector',
+      'map_erp_connector',
+      'map_crm_connector',
+      'map_wms_connector',
+      'map_tms_connector',
+      'map_iot_platform_connector',
+      'map_satellite_observation_connector',
+      'map_cloud_provider_connector',
+      'map_datacenter_connector',
+      'map_supercomputing_resource_connector'
     ]));
     expect(mcp.security.schema_required).toBe(true);
     expect(mcp.toolContract.evidence_reference_required).toBe(true);
@@ -158,6 +189,49 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
     ]));
   });
 
+  test('connector profile registry covers requested enterprise scientific compute and observation connectors', () => {
+    const connectorProfiles = readJson(
+      'runtime/sdk-fabric-mcp-integration/v1/registries/connector-profile-registry.json'
+    );
+    const categories = new Set(connectorProfiles.profiles.map((profile) => profile.category));
+
+    expect(connectorProfiles.status).toBe('ACTIVE');
+    expect(connectorProfiles.truthfulness.readiness_only).toBe(true);
+    expect(connectorProfiles.truthfulness.no_live_connection_claim_without_credentials).toBe(true);
+    expect(connectorProfiles.mesh.name).toBe('SHEIKHA_ROOT_NEURAL_CONNECTOR_MESH');
+    expect(connectorProfiles.mesh.architecture).toEqual(expect.arrayContaining([
+      'connector_profile',
+      'sdk_output',
+      'fabric_route',
+      'mcp_tool_contract',
+      'authorization_gate',
+      'data_rights_gate',
+      'root_neural_cell_gate',
+      'evidence_report'
+    ]));
+
+    [
+      'OPEN_DATA_PORTALS',
+      'RESEARCH_DATABASES',
+      'SCIENTIFIC_PUBLICATIONS',
+      'EDUCATIONAL_PLATFORMS',
+      'ERP_SYSTEMS',
+      'CRM_SYSTEMS',
+      'WMS',
+      'TMS',
+      'IOT_PLATFORMS',
+      'SATELLITE_OPEN_OBSERVATION_DATA',
+      'CLOUD_PROVIDERS',
+      'DATA_CENTERS',
+      'SUPERCOMPUTING_RESOURCES'
+    ].forEach((category) => expect(categories.has(category)).toBe(true));
+
+    expect(connectorProfiles.profiles.length).toBeGreaterThanOrEqual(13);
+    expect(connectorProfiles.profiles.every((profile) => profile.liveConnectionClaim === false)).toBe(true);
+    expect(connectorProfiles.profiles.every((profile) => profile.accessGate)).toBe(true);
+    expect(connectorProfiles.profiles.every((profile) => profile.rootNeuralCells.length >= 4)).toBe(true);
+  });
+
   test('root neural governance cells are numbered and bound to sdk fabric mcp modules', () => {
     const quranSunnahGovernance = readJson(
       'runtime/quran-sunnah-governance/sheikha-quran-sunnah-governance.json'
@@ -188,6 +262,9 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
       'AUDIT_AND_EVIDENCE_CELL'
     ]));
     expect(rootNeural.moduleBindings.length).toBeGreaterThanOrEqual(7);
+    expect(rootNeural.connectorMesh.status).toBe('ACTIVE');
+    expect(rootNeural.connectorMesh.profileRegistry).toBe('SHEIKHA_CONNECTOR_PROFILE_REGISTRY_V1');
+    expect(rootNeural.connectorMesh.claimPolicy.liveConnectionRequiresCredentials).toBe(true);
     expect(rootNeural.moduleBindings.every((binding) => binding.cells.length >= 4)).toBe(true);
   });
 
@@ -207,15 +284,18 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
     expect(report.decision).toBe('SDK_FABRIC_MCP_INTEGRATION_ACTIVE_100');
     expect(report.missing).toEqual([]);
     expect(report.coverage.categories).toBeGreaterThanOrEqual(14);
-    expect(report.coverage.mcpTools).toBeGreaterThanOrEqual(17);
+    expect(report.coverage.mcpTools).toBeGreaterThanOrEqual(29);
     expect(report.coverage.customerEnvironments).toBeGreaterThanOrEqual(20);
+    expect(report.coverage.connectorProfiles).toBeGreaterThanOrEqual(13);
+    expect(report.coverage.connectorProfileCategories).toBeGreaterThanOrEqual(13);
     expect(report.coverage.rootNeuralCells).toBe(10);
-    expect(report.coverage.rootNeuralModuleBindings).toBeGreaterThanOrEqual(7);
+    expect(report.coverage.rootNeuralModuleBindings).toBeGreaterThanOrEqual(8);
     expect(packageJson.scripts['ops:sdk-fabric-mcp-integration:v1']).toBe(
       'node tools/sdk-fabric-mcp-integration/sheikha-sdk-fabric-mcp-integration-v1.js'
     );
     expect(docs).toContain('SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1');
     expect(docs).toContain('/api/sdk-fabric-mcp/integration/status');
+    expect(docs).toContain('/api/sdk-fabric-mcp/integration/connector-profiles');
     expect(docs).toContain('/api/sdk-fabric-mcp/integration/root-neural-governance');
     expect(route).toEqual(expect.objectContaining({
       mount: '/api/sdk-fabric-mcp/integration',

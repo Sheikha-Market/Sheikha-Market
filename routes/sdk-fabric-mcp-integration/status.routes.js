@@ -39,14 +39,30 @@ router.get('/catalog', (_req, res) => {
   const mcpToolCatalog = readJson(
     'runtime/sdk-fabric-mcp-integration/v1/registries/mcp-tool-catalog.json'
   );
+  const connectorProfileRegistry = readJson(
+    'runtime/sdk-fabric-mcp-integration/v1/registries/connector-profile-registry.json'
+  );
 
   return res.json({
     success: true,
     catalog: {
       integrationCatalog,
       sdkFabricMap,
-      mcpToolCatalog
+      mcpToolCatalog,
+      connectorProfileRegistry
     },
+    timestamp: new Date().toISOString()
+  });
+});
+
+router.get('/connector-profiles', (_req, res) => {
+  const connectorProfileRegistry = readJson(
+    'runtime/sdk-fabric-mcp-integration/v1/registries/connector-profile-registry.json'
+  );
+
+  return res.json({
+    success: true,
+    connectorProfileRegistry,
     timestamp: new Date().toISOString()
   });
 });

@@ -99,8 +99,24 @@
     {
       "module": "CUSTOMER_ENVIRONMENT_CONNECTORS",
       "cells": ["NGC-002", "NGC-003", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "module": "CONNECTOR_PROFILE_REGISTRY",
+      "cells": ["NGC-001", "NGC-006", "NGC-007", "NGC-008", "NGC-009", "NGC-010"]
     }
   ],
+  "connectorMesh": {
+    "name": "SHEIKHA_ROOT_NEURAL_CONNECTOR_MESH",
+    "status": "ACTIVE",
+    "profileRegistry": "SHEIKHA_CONNECTOR_PROFILE_REGISTRY_V1",
+    "governanceMode": "root-neural-cells-before-connector-activation",
+    "claimPolicy": {
+      "readinessAllowed": true,
+      "liveConnectionRequiresCredentials": true,
+      "privateSystemRequiresContract": true,
+      "computeResourceRequiresProviderEvidence": true
+    }
+  },
   "numbering": {
     "prefix": "NGC",
     "range": "NGC-001..NGC-010",

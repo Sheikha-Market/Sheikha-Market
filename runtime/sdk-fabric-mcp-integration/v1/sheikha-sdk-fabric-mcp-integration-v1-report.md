@@ -10,13 +10,15 @@
 - الوحدات: 13
 - فئات التكامل: 14
 - ملفات الأنظمة: 7
-- أدوات MCP: 17
+- أدوات MCP: 29
 - بيئات العميل: 24
 - كائنات التكامل: 23
 - طبقات SDK: 6
 - أهداف Fabric: 18
+- موصلات التكامل: 13
+- فئات موصلات التكامل: 13
 - خلايا الجذر العصبية: 10
-- ارتباطات الخلايا بالوحدات: 7
+- ارتباطات الخلايا بالوحدات: 8
 
 ## الفحوص
 - PASS registryActive
@@ -27,6 +29,7 @@
 - PASS truthfulnessPolicy
 - PASS integrationCatalogActive
 - PASS categoriesComplete
+- PASS connectorProfileCategoriesComplete
 - PASS systemProfilesComplete
 - PASS mcpToolCatalogActive
 - PASS mcpToolsComplete
@@ -38,10 +41,17 @@
 - PASS sdkLayersComplete
 - PASS fabricTargetsComplete
 - PASS sdkOutputsComplete
+- PASS connectorProfileRegistryActive
+- PASS connectorProfilesComplete
+- PASS connectorProfilesGoverned
+- PASS connectorProfilesNoLiveClaims
+- PASS connectorTruthfulnessPolicy
+- PASS connectorMeshActive
 - PASS rootNeuralGovernanceCellMapActive
 - PASS rootNeuralCellsComplete
 - PASS rootNeuralCellNumberingComplete
 - PASS rootNeuralModuleBindingsComplete
+- PASS rootNeuralConnectorMeshActive
 - PASS rootNeuralGovernanceReferenceSafe
 - PASS fabricRouteMounted
 
@@ -64,6 +74,7 @@
 - PASS resourceIntelligenceSimulation
 - PASS customerIntelligenceOnboarding
 - PASS providerComputeFabric
+- PASS connectorProfileRegistry
 - PASS driftDetector
 
 ## التالي
