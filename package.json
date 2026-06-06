@@ -482,7 +482,10 @@
     "ops:advisory-services:v1": "node tools/advisory-services/sheikha-advisory-services-v1.js",
     "ops:logistics-market-network-platform:v1": "node tools/logistics-market-network-platform/sheikha-logistics-market-network-platform-v1.js",
     "ops:sheikha-language-production:v1": "node tools/sheikha-language-production/sheikha-language-production-v1.js",
-    "ops:space-iot-ml-ai-fabric:v1": "node tools/space-iot-ml-ai-fabric/sheikha-space-iot-ml-ai-fabric-v1.js"
+    "ops:space-iot-ml-ai-fabric:v1": "node tools/space-iot-ml-ai-fabric/sheikha-space-iot-ml-ai-fabric-v1.js",
+    "ops:sheikha-production-language:v1": "node tools/sheikha-production-language/sheikha-production-language-v1.js",
+    "sheikha:cli:version": "node cli/sheikha/sheikha-cli.js version",
+    "sheikha:cli:check:hello": "node cli/sheikha/sheikha-cli.js check docs/sheikha-production-language/examples/hello.sheikha"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
