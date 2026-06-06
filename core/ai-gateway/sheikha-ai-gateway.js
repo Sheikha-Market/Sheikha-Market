@@ -69,13 +69,12 @@ function isVsCodeOperationalPrompt(prompt, context = {}) {
         return false;
     }
 
-    const source = String(context?.source || '').toLowerCase();
-    const fromEditor = /(vscode|vs code|editor|terminal|copilot)/.test(source);
-
     const operationalEnglish = /(run|start|build|test|lint|deploy|debug|serve|terminal|command|task|npm|pnpm|yarn|node|python|pip|git|docker|kubectl|terraform|az|vscode|project|server)/.test(normalized);
     const operationalArabic = /(شغل|شغّل|تشغيل|ابدأ|ابدا|نفذ|نفّذ|افتح|الأوامر|اوامر|امر|أمر|برمجة|كود|الكود|مشروع|الخادم|السيرفر|اختبار|فحص|بناء|نشر|تصحيح|لينت|بيئة|طرفية)/.test(normalized);
 
-    return fromEditor || operationalEnglish || operationalArabic;
+    // The editor source alone is not an operational intent. Short chat prompts
+    // such as "شيخة" must continue to the normal identity/chat path.
+    return operationalEnglish || operationalArabic;
 }
 
 function buildFastOperationalAnswer(prompt) {
@@ -92,7 +91,7 @@ function buildFastOperationalAnswer(prompt) {
     }
 
     return [
-        'تم تحويل طلبك إلى Fast Operational Path قبل النماذج الذكية.',
+        'تم تحويل طلبك إلى المسار التشغيلي السريع قبل النماذج الذكية.',
         'أرسل الأمر المطلوب بصيغة مباشرة مثل:',
         '- شغل المشروع',
         '- نفّذ lint',
@@ -107,6 +106,10 @@ function isCanonicalIdentityPrompt(prompt) {
     const mentionsSheikha = /sheikha|شيخة|شيخه/.test(compact);
     const asksIdentity = /(ما هي|ماهي|من هي|عرف|عرّف|تعريف|what is|who is|define|identity)/.test(compact);
     const asksNotJustMarket = /(مجرد سوق|مجرد متجر|only a market|just a market|marketplace only)/.test(compact);
+
+    if (/^(شيخة|شيخه|sheikha|sheikha-core|شيخة كور|شيخه كور)$/.test(compact)) {
+        return true;
+    }
 
     if (mentionsSheikha && (asksIdentity || asksNotJustMarket)) {
         return true;
@@ -343,5 +346,8 @@ module.exports = {
     OLLAMA_URL,
     SHEIKHA_CORE_SYSTEM_PROMPT,
     SHEIKHA_CORE_RUNTIME_PROMPT,
-    buildRawLlamaPrompt
+    buildRawLlamaPrompt,
+    isVsCodeOperationalPrompt,
+    buildFastOperationalAnswer,
+    isCanonicalIdentityPrompt
 };
