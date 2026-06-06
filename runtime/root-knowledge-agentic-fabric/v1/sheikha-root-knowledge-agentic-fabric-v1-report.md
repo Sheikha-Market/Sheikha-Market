@@ -1,0 +1,7 @@
+# SHEIKHA_ROOT_KNOWLEDGE_AGENTIC_FABRIC_V1
+
+- الحالة: ACTIVE
+- الدرجة: 100
+- القرار: ROOT_KNOWLEDGE_AGENTIC_FABRIC_ACTIVE_100
+
+ولا حول ولا قوة إلا بالله.

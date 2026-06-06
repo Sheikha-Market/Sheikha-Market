@@ -160,6 +160,12 @@
       "priority": 240
     },
     {
+      "name": "root-knowledge-agentic-fabric-v1",
+      "mount": "/api/knowledge/agentic-fabric",
+      "module": "routes/root-knowledge-agentic-fabric/status.routes.js",
+      "priority": 238
+    },
+    {
       "name": "sdk-fabric-mcp-integration-v1",
       "mount": "/api/sdk-fabric-mcp/integration",
       "module": "routes/sdk-fabric-mcp-integration/status.routes.js",

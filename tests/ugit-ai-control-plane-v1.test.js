@@ -29,7 +29,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_PLATFORM_FACTORIES_V1',
       'SHEIKHA_DEVOPS_AI_LAB_FABRIC_V1',
       'SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1',
-      'SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1'
+      'SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1',
+      'SHEIKHA_ROOT_KNOWLEDGE_AGENTIC_FABRIC_V1'
     ]));
   });
 
@@ -77,6 +78,7 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_DEVOPS_AI_LAB_FABRIC_V1',
       'SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1',
       'SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1',
+      'SHEIKHA_ROOT_KNOWLEDGE_AGENTIC_FABRIC_V1',
       'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
       'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
       'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1'
@@ -154,6 +156,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       fabric.routes.find((item) => item.name === 'resource-intelligence-simulation-fabric-v1');
     const sdkFabricMcpIntegrationRoute =
       fabric.routes.find((item) => item.name === 'sdk-fabric-mcp-integration-v1');
+    const rootKnowledgeAgenticRoute =
+      fabric.routes.find((item) => item.name === 'root-knowledge-agentic-fabric-v1');
     const commercialRealRoute = fabric.routes.find((item) => item.name === 'commercial-real-activation-v1');
     const multiSupercomputerRoute = fabric.routes.find((item) => item.name === 'multi-supercomputer-cloud-fabric-v1');
     const aiSupercomputerPipelineRoute =
@@ -211,6 +215,11 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       mount: '/api/sdk-fabric-mcp/integration',
       module: 'routes/sdk-fabric-mcp-integration/status.routes.js',
       priority: 237
+    }));
+    expect(rootKnowledgeAgenticRoute).toEqual(expect.objectContaining({
+      mount: '/api/knowledge/agentic-fabric',
+      module: 'routes/root-knowledge-agentic-fabric/status.routes.js',
+      priority: 238
     }));
     expect(commercialRealRoute).toEqual(expect.objectContaining({
       mount: '/api/commercial/real-activation',
