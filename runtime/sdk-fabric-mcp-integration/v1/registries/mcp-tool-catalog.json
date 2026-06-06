@@ -1,0 +1,24 @@
+{
+  "registry": "SHEIKHA_MCP_TOOL_CATALOG_V1",
+  "status": "ACTIVE",
+  "tools": [
+    "inspect_customer_environment",
+    "map_resource_sources",
+    "classify_hs_code",
+    "generate_supply_chain_twin",
+    "generate_logistics_dashboard",
+    "generate_smart_city_dashboard",
+    "analyze_space_iot_signal",
+    "analyze_supply_chain_risk",
+    "generate_advisory_report",
+    "list_marketplace_products",
+    "prepare_crm_opportunity",
+    "prepare_sales_pipeline_stage"
+  ],
+  "security": {
+    "schema_required": true,
+    "permission_required": true,
+    "audit_required": true,
+    "no_secret_exposure": true
+  }
+}

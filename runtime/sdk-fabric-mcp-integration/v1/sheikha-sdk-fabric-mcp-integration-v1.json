@@ -1,0 +1,30 @@
+{
+  "system": "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+  "status": "ACTIVE",
+  "arabic_name": "نسيج شيخة لتكامل SDK وFabric وMCP",
+  "purpose": "Unify governed integrations across SDK, Fabric, MCP, government systems, open data, space, IoT, ML, AI, supply chain, education, databases, supercomputing, data centers, science platforms, maritime, logistics, and customer environments.",
+  "modules": [
+    "SDK_FABRIC",
+    "MCP_GATEWAY",
+    "INTEGRATION_CATALOG",
+    "GOVERNMENT_INTEGRATION_READINESS",
+    "OPEN_DATA_CONNECTORS",
+    "SPACE_IOT_ML_AI_CONNECTORS",
+    "SUPPLY_CHAIN_CONNECTORS",
+    "SCIENCE_AND_EDUCATION_CONNECTORS",
+    "DATABASE_CONNECTORS",
+    "SUPERCOMPUTING_AND_DATACENTER_CONNECTORS",
+    "MARITIME_AND_TRANSPORT_CONNECTORS",
+    "CUSTOMER_ENVIRONMENT_CONNECTORS"
+  ],
+  "rules": {
+    "no_external_api_without_authorization": true,
+    "no_secret_in_git": true,
+    "official_contract_required_for_private_systems": true,
+    "open_data_allowed_with_terms": true,
+    "customer_consent_required": true,
+    "human_approval_for_high_impact": true,
+    "audit_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
