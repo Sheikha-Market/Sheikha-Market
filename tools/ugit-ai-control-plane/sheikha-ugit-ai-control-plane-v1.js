@@ -71,6 +71,7 @@ const requiredSystems = [
   'SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1',
   'SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1',
   'SHEIKHA_ROOT_KNOWLEDGE_AGENTIC_FABRIC_V1',
+  'SHEIKHA_INTELLIGENCE_INTEGRATION_FABRIC_V1',
   'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
   'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
   'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1',
@@ -143,6 +144,8 @@ const sdkFabricMcpIntegrationRoute =
   fabric?.routes?.find((route) => route.name === 'sdk-fabric-mcp-integration-v1');
 const rootKnowledgeAgenticRoute =
   fabric?.routes?.find((route) => route.name === 'root-knowledge-agentic-fabric-v1');
+const intelligenceIntegrationRoute =
+  fabric?.routes?.find((route) => route.name === 'intelligence-integration-fabric-v1');
 const commercialRealRoute = fabric?.routes?.find((route) => route.name === 'commercial-real-activation-v1');
 const multiSupercomputerRoute = fabric?.routes?.find((route) => route.name === 'multi-supercomputer-cloud-fabric-v1');
 const aiSupercomputerPipelineRoute =
@@ -173,6 +176,7 @@ const dependencies = {
   resourceIntelligenceSimulationFabric: exists('runtime/resource-intelligence-simulation-fabric/v1/sheikha-resource-intelligence-simulation-fabric-v1-report.json'),
   sdkFabricMcpIntegration: exists('runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.json'),
   rootKnowledgeAgenticFabric: exists('runtime/root-knowledge-agentic-fabric/v1/sheikha-root-knowledge-agentic-fabric-v1-report.json'),
+  intelligenceIntegrationFabric: exists('runtime/intelligence-integration-fabric/v1/sheikha-intelligence-integration-fabric-v1-report.json'),
   commercialRealActivation: exists('runtime/commercial-real-activation/v1/sheikha-commercial-real-activation-v1-report.json'),
   multiSupercomputerCloudFabric: exists('runtime/multi-supercomputer-cloud-fabric/v1/sheikha-multi-supercomputer-cloud-fabric-v1-report.json'),
   aiSupercomputerCloudClusterPipelineFabric: exists('runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.json'),
@@ -265,6 +269,11 @@ const checks = {
     rootKnowledgeAgenticRoute &&
     rootKnowledgeAgenticRoute.mount === '/api/knowledge/agentic-fabric' &&
     rootKnowledgeAgenticRoute.module === 'routes/root-knowledge-agentic-fabric/status.routes.js'
+  ),
+  intelligenceIntegrationFabricRouteMounted: Boolean(
+    intelligenceIntegrationRoute &&
+    intelligenceIntegrationRoute.mount === '/api/intelligence/integration-fabric' &&
+    intelligenceIntegrationRoute.module === 'routes/intelligence-integration-fabric/status.routes.js'
   ),
   commercialRealActivationRouteMounted: Boolean(
     commercialRealRoute &&

@@ -46,6 +46,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/platform-factories/', classification: 'PROTECTED', owner: 'Platform Factories Governance Organization' },
   { prefix: 'tools/platform-operating-engines/', classification: 'PROTECTED', owner: 'Platform Operating Engines Governance Organization' },
   { prefix: 'tools/resource-intelligence-simulation-fabric/', classification: 'PROTECTED', owner: 'Resource Intelligence Simulation Fabric Governance Organization' },
+  { prefix: 'tools/intelligence-integration-fabric/', classification: 'PROTECTED', owner: 'Intelligence Integration Fabric Governance Organization' },
   { prefix: 'tools/root-knowledge-agentic-fabric/', classification: 'PROTECTED', owner: 'Root Knowledge Agentic Fabric Governance Organization' },
   { prefix: 'tools/sdk-fabric-mcp-integration/', classification: 'PROTECTED', owner: 'SDK Fabric MCP Integration Governance Organization' },
   { prefix: 'tools/provider-agreement-roadmap/', classification: 'PROTECTED', owner: 'Provider Agreement Roadmap Governance Organization' },
