@@ -74,6 +74,7 @@ const requiredSystems = [
   'SHEIKHA_INTELLIGENCE_INTEGRATION_FABRIC_V1',
   'SHEIKHA_AGI_ASI_RESEARCH_SCIENCE_FABRIC_V1',
   'SHEIKHA_GOVERNANCE_GENERATOR_V1',
+  'SHEIKHA_DEVELOPMENT_FUNCTIONS_FABRIC_V1',
   'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
   'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
   'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1',
@@ -152,6 +153,8 @@ const agiAsiResearchScienceRoute =
   fabric?.routes?.find((route) => route.name === 'agi-asi-research-science-fabric-v1');
 const governanceGeneratorRoute =
   fabric?.routes?.find((route) => route.name === 'governance-generator-v1');
+const developmentFunctionsFabricRoute =
+  fabric?.routes?.find((route) => route.name === 'development-functions-fabric-v1');
 const commercialRealRoute = fabric?.routes?.find((route) => route.name === 'commercial-real-activation-v1');
 const multiSupercomputerRoute = fabric?.routes?.find((route) => route.name === 'multi-supercomputer-cloud-fabric-v1');
 const aiSupercomputerPipelineRoute =
@@ -185,6 +188,7 @@ const dependencies = {
   intelligenceIntegrationFabric: exists('runtime/intelligence-integration-fabric/v1/sheikha-intelligence-integration-fabric-v1-report.json'),
   agiAsiResearchScienceFabric: exists('runtime/agi-asi-research-science-fabric/v1/sheikha-agi-asi-research-science-fabric-v1-report.json'),
   governanceGenerator: exists('runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json'),
+  developmentFunctionsFabric: exists('runtime/development-functions-fabric/v1/sheikha-development-functions-fabric-v1-report.json'),
   commercialRealActivation: exists('runtime/commercial-real-activation/v1/sheikha-commercial-real-activation-v1-report.json'),
   multiSupercomputerCloudFabric: exists('runtime/multi-supercomputer-cloud-fabric/v1/sheikha-multi-supercomputer-cloud-fabric-v1-report.json'),
   aiSupercomputerCloudClusterPipelineFabric: exists('runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.json'),
@@ -292,6 +296,11 @@ const checks = {
     governanceGeneratorRoute &&
     governanceGeneratorRoute.mount === '/api/governance/generator' &&
     governanceGeneratorRoute.module === 'routes/governance-generator/status.routes.js'
+  ),
+  developmentFunctionsFabricRouteMounted: Boolean(
+    developmentFunctionsFabricRoute &&
+    developmentFunctionsFabricRoute.mount === '/api/development/functions-fabric' &&
+    developmentFunctionsFabricRoute.module === 'routes/development-functions-fabric/status.routes.js'
   ),
   commercialRealActivationRouteMounted: Boolean(
     commercialRealRoute &&

@@ -160,6 +160,12 @@
       "priority": 244
     },
     {
+      "name": "development-functions-fabric-v1",
+      "mount": "/api/development/functions-fabric",
+      "module": "routes/development-functions-fabric/status.routes.js",
+      "priority": 245
+    },
+    {
       "name": "agi-asi-research-science-fabric-v1",
       "mount": "/api/research/agi-asi-science-fabric",
       "module": "routes/agi-asi-research-science-fabric/status.routes.js",

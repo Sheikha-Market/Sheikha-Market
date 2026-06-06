@@ -1,0 +1,142 @@
+{
+  "registry": "SHEIKHA_DEVELOPMENT_WORKFLOW_REGISTRY_V1",
+  "status": "ACTIVE",
+  "workflow": "SHEIKHA_DEVELOPMENT_FUNCTIONS_FABRIC_V1",
+  "steps": [
+    {
+      "id": "DEVFUNC-001",
+      "name": "CREATE_RUNTIME",
+      "arabicName": "إنشاء Runtime",
+      "category": "ENVIRONMENT",
+      "purpose": "Define and prepare the runtime environment and activation contract for the new capability.",
+      "artifactType": "RUNTIME",
+      "defaultPathPattern": "runtime/<domain>/<version>/<name>.json",
+      "mcpTool": "create_runtime_contract",
+      "extensionButton": "Runtime",
+      "requiresHumanReview": true
+    },
+    {
+      "id": "DEVFUNC-002",
+      "name": "CREATE_REGISTRY",
+      "arabicName": "إنشاء Registry",
+      "category": "REGISTRY",
+      "purpose": "Create a governed registry that makes tools, routes, contracts, data sources, and decisions discoverable.",
+      "artifactType": "REGISTRY",
+      "defaultPathPattern": "runtime/<domain>/<version>/registries/<registry>.json",
+      "mcpTool": "create_registry_contract",
+      "extensionButton": "Registry",
+      "requiresHumanReview": true
+    },
+    {
+      "id": "DEVFUNC-003",
+      "name": "CREATE_TOOL",
+      "arabicName": "إنشاء Tool",
+      "category": "IMPLEMENTATION",
+      "purpose": "Create the executable Node.js tool that validates the capability and generates reports.",
+      "artifactType": "TOOL",
+      "defaultPathPattern": "tools/<domain>/<tool>.js",
+      "mcpTool": "create_tool_contract",
+      "extensionButton": "Tool",
+      "requiresHumanReview": true
+    },
+    {
+      "id": "DEVFUNC-004",
+      "name": "CREATE_ROUTE",
+      "arabicName": "إنشاء Route",
+      "category": "API",
+      "purpose": "Expose the capability through a safe Express route and Fabric Bootstrap mount.",
+      "artifactType": "ROUTE",
+      "defaultPathPattern": "routes/<domain>/status.routes.js",
+      "mcpTool": "create_route_contract",
+      "extensionButton": "Route",
+      "requiresHumanReview": true
+    },
+    {
+      "id": "DEVFUNC-005",
+      "name": "CREATE_TESTS",
+      "arabicName": "إنشاء Tests",
+      "category": "QUALITY",
+      "purpose": "Create automated tests that verify runtime, registry, tool, route, SDK, Fabric, MCP, and extension integration contracts.",
+      "artifactType": "TEST",
+      "defaultPathPattern": "tests/<domain>.test.js",
+      "mcpTool": "create_tests_contract",
+      "extensionButton": "Tests",
+      "requiresHumanReview": true
+    },
+    {
+      "id": "DEVFUNC-006",
+      "name": "RUN_NPM_TEST",
+      "arabicName": "تشغيل npm test",
+      "category": "QUALITY",
+      "purpose": "Run automated tests before commit or push.",
+      "artifactType": "COMMAND",
+      "command": "npm test",
+      "mcpTool": "run_npm_test_gate",
+      "extensionButton": "Test",
+      "requiresHumanReview": false
+    },
+    {
+      "id": "DEVFUNC-007",
+      "name": "RUN_LINT",
+      "arabicName": "تشغيل lint",
+      "category": "QUALITY",
+      "purpose": "Run lint checks to preserve clean code and route quality.",
+      "artifactType": "COMMAND",
+      "command": "npm run lint",
+      "mcpTool": "run_lint_gate",
+      "extensionButton": "Lint",
+      "requiresHumanReview": false
+    },
+    {
+      "id": "DEVFUNC-008",
+      "name": "VERIFY_NO_DRIFT",
+      "arabicName": "التأكد من NO_DRIFT",
+      "category": "GOVERNANCE",
+      "purpose": "Run the runtime drift detector and confirm the repository is clean after commit.",
+      "artifactType": "COMMAND",
+      "command": "node tools/drift/sheikha-runtime-drift-detector.js",
+      "mcpTool": "verify_no_drift_gate",
+      "extensionButton": "Drift",
+      "requiresHumanReview": false
+    },
+    {
+      "id": "DEVFUNC-009",
+      "name": "GIT_COMMIT",
+      "arabicName": "Commit",
+      "category": "VERSION_CONTROL",
+      "purpose": "Create an intentional local Git commit after tests, lint, and admission checks pass.",
+      "artifactType": "GIT",
+      "command": "git commit -m \"<message>\"",
+      "mcpTool": "prepare_git_commit_gate",
+      "extensionButton": "Commit",
+      "requiresHumanReview": true
+    },
+    {
+      "id": "DEVFUNC-010",
+      "name": "GIT_PUSH",
+      "arabicName": "Push",
+      "category": "VERSION_CONTROL",
+      "purpose": "Push the committed branch to the shared repository after governance, tests, lint, and NO_DRIFT are satisfied.",
+      "artifactType": "GIT",
+      "command": "git push origin <branch>",
+      "mcpTool": "prepare_git_push_gate",
+      "extensionButton": "Push",
+      "requiresHumanReview": true
+    }
+  ],
+  "qualityGates": [
+    "purpose_defined",
+    "runtime_created",
+    "registry_created",
+    "tool_created",
+    "route_created",
+    "tests_created",
+    "npm_test_passed",
+    "lint_passed",
+    "admission_allowed",
+    "no_drift",
+    "commit_created",
+    "push_passed"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

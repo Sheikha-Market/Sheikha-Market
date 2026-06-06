@@ -42,6 +42,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/commercial-governance-engine/', classification: 'PROTECTED', owner: 'Commercial Governance Organization' },
   { prefix: 'tools/commercial-execution-layer/', classification: 'PROTECTED', owner: 'Commercial Execution Governance Organization' },
   { prefix: 'tools/customer-classification/', classification: 'PROTECTED', owner: 'Customer Classification Governance Organization' },
+  { prefix: 'tools/development-functions-fabric/', classification: 'PROTECTED', owner: 'Development Functions Fabric Governance Organization' },
   { prefix: 'tools/devops-ai-lab-fabric/', classification: 'PROTECTED', owner: 'DevOps AI Lab Fabric Governance Organization' },
   { prefix: 'tools/governance-generator/', classification: 'PROTECTED', owner: 'Governance Generator Organization' },
   { prefix: 'tools/multi-supercomputer-cloud-fabric/', classification: 'PROTECTED', owner: 'Multi Supercomputer Cloud Fabric Governance Organization' },

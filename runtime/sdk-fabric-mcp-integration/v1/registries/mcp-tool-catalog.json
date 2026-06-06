@@ -30,7 +30,17 @@
     "generate_advisory_report",
     "list_marketplace_products",
     "prepare_crm_opportunity",
-    "prepare_sales_pipeline_stage"
+    "prepare_sales_pipeline_stage",
+    "create_runtime_contract",
+    "create_registry_contract",
+    "create_tool_contract",
+    "create_route_contract",
+    "create_tests_contract",
+    "run_npm_test_gate",
+    "run_lint_gate",
+    "verify_no_drift_gate",
+    "prepare_git_commit_gate",
+    "prepare_git_push_gate"
   ],
   "security": {
     "schema_required": true,

@@ -1544,6 +1544,7 @@ function getRootNeuralFeatureConfig(featureId) {
             actions: [
                 { label: 'Fabric', method: 'GET', path: '/api/sheikha/universal-tools-fabric/status' },
                 { label: 'MCP Tools', method: 'GET', path: '/api/sheikha/neural-mcp/tools' },
+                { label: 'Dev Fabric', method: 'GET', path: '/api/development/functions-fabric/status' },
                 { label: 'Core', method: 'GET', path: '/api/sheikha/ai-gateway/status' }
             ]
         }
@@ -2208,6 +2209,7 @@ function getUniversalToolsViewHtml(serverUrl = 'http://localhost:8080') {
         <button onclick="integrationPlan()">خطة التكامل</button>
         <button onclick="coreStatus()">Sheikha-Core</button>
         <button onclick="coreArchitecture()">معمارية النواة</button>
+        <button onclick="developmentFabric()">SDK/Fabric/MCP Dev</button>
         <button onclick="editorStatus()">Sheikha Editor</button>
         <button onclick="keysPolicy()">مفاتيح المزود</button>
         <button onclick="meteringStatus()">قياس الاستخدام</button>
@@ -2307,6 +2309,16 @@ function getUniversalToolsViewHtml(serverUrl = 'http://localhost:8080') {
                 output.textContent = JSON.stringify(data, null, 2);
             } catch (err) {
                 output.textContent = 'خطأ في المعمارية: ' + err.message;
+            }
+        }
+
+        async function developmentFabric() {
+            const output = document.getElementById('toolsOutput');
+            output.textContent = 'جارٍ فحص SDK/Fabric/MCP Development Functions...';
+            try {
+                output.textContent = JSON.stringify(await requestJson('/api/development/functions-fabric/status'), null, 2);
+            } catch (err) {
+                output.textContent = 'خطأ في Development Functions Fabric: ' + err.message;
             }
         }
 
@@ -3030,13 +3042,15 @@ function getSidebarChatHtml() {
         :root { color-scheme: dark; }
         * { box-sizing: border-box; }
         body { font-family: var(--vscode-font-family, 'Tajawal', sans-serif); background: #0f172a; color: #f8fafc; margin: 0; padding: 8px; }
-        .shell { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto; gap: 8px; height: calc(100vh - 16px); min-height: 260px; }
+        .shell { display: grid; grid-template-rows: auto auto minmax(0, 1fr) auto auto; gap: 8px; height: calc(100vh - 16px); min-height: 260px; }
         .top { display: flex; align-items: center; justify-content: space-between; gap: 8px; min-width: 0; }
         .header { color: #fbbf24; font-weight: 800; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
         .status { color: #cbd5e1; font-size: 11px; white-space: nowrap; overflow: hidden; text-overflow: ellipsis; }
-        .actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
-        .actions button, .footer button { min-height: 32px; border: 1px solid #334155; border-radius: 6px; background: #111c31; color: #f8fafc; font-weight: 700; cursor: pointer; }
-        .actions button:hover, .footer button:hover { border-color: #fbbf24; }
+        .actions, .dev-actions { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+        .dev-actions { grid-template-columns: repeat(5, minmax(0, 1fr)); }
+        .actions button, .dev-actions button, .footer button { min-height: 32px; border: 1px solid #334155; border-radius: 6px; background: #111c31; color: #f8fafc; font-weight: 700; cursor: pointer; }
+        .dev-actions button { min-height: 30px; font-size: 11px; background: #152238; border-color: #3b4a63; }
+        .actions button:hover, .dev-actions button:hover, .footer button:hover { border-color: #fbbf24; }
         .messages { min-height: 0; overflow-y: auto; background: #1f2937; border: 1px solid #374151; border-radius: 8px; padding: 8px; }
         .message { margin: 0 0 8px; padding: 9px; border-radius: 6px; line-height: 1.55; white-space: pre-wrap; overflow-wrap: anywhere; }
         .assistant { background: #0b1220; border-inline-start: 3px solid #fbbf24; }
@@ -3065,6 +3079,18 @@ function getSidebarChatHtml() {
             <button data-prompt="افحص الملف المفتوح وسياقه، ثم اقترح تعديلًا آمنًا قابلًا للمراجعة.">File+</button>
         </div>
         <div id="messages" class="messages"></div>
+        <div class="dev-actions" aria-label="SDK Fabric MCP Development Tools">
+            <button data-prompt="أنشئ Runtime محكوم داخل شيخة مع ربط SDK/Fabric/MCP واكتب مسار الملفات والفحوص المطلوبة.">Runtime</button>
+            <button data-prompt="أنشئ Registry محكوم داخل شيخة للميزة الحالية مع الترقيم والحوكمة وسجل الأدوات.">Registry</button>
+            <button data-prompt="أنشئ Tool محكوم داخل شيخة للميزة الحالية مع تقرير تشغيل وفحص واضح.">Tool</button>
+            <button data-prompt="أنشئ Route محكوم داخل شيخة واربطه داخل Fabric Bootstrap مع endpoint واضح.">Route</button>
+            <button data-prompt="أنشئ Tests للميزة الحالية وتحقق من Runtime وRegistry وTool وRoute وSDK/Fabric/MCP.">Tests</button>
+            <button data-prompt="شغّل npm test أو جهّز أمر تشغيل الاختبارات وفسّر النتيجة والخطوة التالية.">Test</button>
+            <button data-prompt="شغّل lint أو جهّز أمر lint وافحص جودة الكود والمخاطر.">Lint</button>
+            <button data-prompt="تحقق من NO_DRIFT عبر كاشف الانحراف واشرح حالة gitClean والملفات المتأثرة.">Drift</button>
+            <button data-prompt="جهّز Commit محكوم بعد فحص الاختبارات واللينت والقبول، واقترح رسالة commit دقيقة.">Commit</button>
+            <button data-prompt="جهّز Push محكوم للفرع الحالي بعد التأكد من Governance Passed وNO_DRIFT.">Push</button>
+        </div>
         <div class="footer">
             <textarea id="input" placeholder="اكتب طلبك أو ارفع سياقك هنا..."></textarea>
             <button id="send" class="primary">إرسال</button>

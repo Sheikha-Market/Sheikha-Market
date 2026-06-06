@@ -33,7 +33,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_ROOT_KNOWLEDGE_AGENTIC_FABRIC_V1',
       'SHEIKHA_INTELLIGENCE_INTEGRATION_FABRIC_V1',
       'SHEIKHA_AGI_ASI_RESEARCH_SCIENCE_FABRIC_V1',
-      'SHEIKHA_GOVERNANCE_GENERATOR_V1'
+      'SHEIKHA_GOVERNANCE_GENERATOR_V1',
+      'SHEIKHA_DEVELOPMENT_FUNCTIONS_FABRIC_V1'
     ]));
   });
 
@@ -85,6 +86,7 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_INTELLIGENCE_INTEGRATION_FABRIC_V1',
       'SHEIKHA_AGI_ASI_RESEARCH_SCIENCE_FABRIC_V1',
       'SHEIKHA_GOVERNANCE_GENERATOR_V1',
+      'SHEIKHA_DEVELOPMENT_FUNCTIONS_FABRIC_V1',
       'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
       'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
       'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1'
@@ -170,6 +172,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       fabric.routes.find((item) => item.name === 'agi-asi-research-science-fabric-v1');
     const governanceGeneratorRoute =
       fabric.routes.find((item) => item.name === 'governance-generator-v1');
+    const developmentFunctionsFabricRoute =
+      fabric.routes.find((item) => item.name === 'development-functions-fabric-v1');
     const commercialRealRoute = fabric.routes.find((item) => item.name === 'commercial-real-activation-v1');
     const multiSupercomputerRoute = fabric.routes.find((item) => item.name === 'multi-supercomputer-cloud-fabric-v1');
     const aiSupercomputerPipelineRoute =
@@ -247,6 +251,11 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       mount: '/api/governance/generator',
       module: 'routes/governance-generator/status.routes.js',
       priority: 244
+    }));
+    expect(developmentFunctionsFabricRoute).toEqual(expect.objectContaining({
+      mount: '/api/development/functions-fabric',
+      module: 'routes/development-functions-fabric/status.routes.js',
+      priority: 245
     }));
     expect(commercialRealRoute).toEqual(expect.objectContaining({
       mount: '/api/commercial/real-activation',
