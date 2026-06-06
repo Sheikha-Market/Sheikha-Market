@@ -27,7 +27,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_PROVIDER_AGREEMENT_ROADMAP_V1',
       'SHEIKHA_CUSTOMER_CLASSIFICATION_V1',
       'SHEIKHA_PLATFORM_FACTORIES_V1',
-      'SHEIKHA_DEVOPS_AI_LAB_FABRIC_V1'
+      'SHEIKHA_DEVOPS_AI_LAB_FABRIC_V1',
+      'SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1'
     ]));
   });
 
@@ -73,6 +74,7 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       'SHEIKHA_CUSTOMER_CLASSIFICATION_V1',
       'SHEIKHA_PLATFORM_FACTORIES_V1',
       'SHEIKHA_DEVOPS_AI_LAB_FABRIC_V1',
+      'SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1',
       'SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1',
       'SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1',
       'SHEIKHA_AI_SUPERCOMPUTER_CLOUD_CLUSTER_PIPELINE_FABRIC_V1'
@@ -146,6 +148,8 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
     const customerClassificationRoute = fabric.routes.find((item) => item.name === 'customer-classification-v1');
     const platformFactoriesRoute = fabric.routes.find((item) => item.name === 'platform-factories-v1');
     const devopsAiLabRoute = fabric.routes.find((item) => item.name === 'devops-ai-lab-fabric-v1');
+    const resourceIntelligenceSimulationRoute =
+      fabric.routes.find((item) => item.name === 'resource-intelligence-simulation-fabric-v1');
     const commercialRealRoute = fabric.routes.find((item) => item.name === 'commercial-real-activation-v1');
     const multiSupercomputerRoute = fabric.routes.find((item) => item.name === 'multi-supercomputer-cloud-fabric-v1');
     const aiSupercomputerPipelineRoute =
@@ -193,6 +197,11 @@ describe('Sheikha UGIT AI Control Plane V1', () => {
       mount: '/api/devops/ai-lab',
       module: 'routes/devops-ai-lab-fabric/status.routes.js',
       priority: 228
+    }));
+    expect(resourceIntelligenceSimulationRoute).toEqual(expect.objectContaining({
+      mount: '/api/resource-intelligence/simulation-fabric',
+      module: 'routes/resource-intelligence-simulation-fabric/status.routes.js',
+      priority: 227
     }));
     expect(commercialRealRoute).toEqual(expect.objectContaining({
       mount: '/api/commercial/real-activation',

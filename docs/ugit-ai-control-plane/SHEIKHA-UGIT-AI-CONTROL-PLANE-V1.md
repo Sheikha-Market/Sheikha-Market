@@ -23,6 +23,7 @@
 - GPU Farm Readiness
 - Multicloud Fabric
 - Provider Compute Fabric
+- Resource Intelligence Simulation Fabric
 - Commercial Real Activation
 - Multi Supercomputer Cloud Fabric
 - AI Supercomputer Cloud Cluster Pipeline Fabric
