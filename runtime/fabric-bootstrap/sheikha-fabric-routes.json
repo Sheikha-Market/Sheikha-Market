@@ -154,6 +154,12 @@
       "priority": 250
     },
     {
+      "name": "governance-generator-v1",
+      "mount": "/api/governance/generator",
+      "module": "routes/governance-generator/status.routes.js",
+      "priority": 244
+    },
+    {
       "name": "agi-asi-research-science-fabric-v1",
       "mount": "/api/research/agi-asi-science-fabric",
       "module": "routes/agi-asi-research-science-fabric/status.routes.js",

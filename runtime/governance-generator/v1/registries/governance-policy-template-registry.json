@@ -1,0 +1,62 @@
+{
+  "registry": "SHEIKHA_GOVERNANCE_POLICY_TEMPLATE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "templates": [
+    {
+      "id": "GPT-001",
+      "name": "purpose_transparency_and_consent",
+      "scope": "all_user_facing_questions_and_data_capture",
+      "required": true
+    },
+    {
+      "id": "GPT-002",
+      "name": "role_based_access_and_board_executive_operations_separation",
+      "scope": "companies_employees_suppliers_third_parties",
+      "required": true
+    },
+    {
+      "id": "GPT-003",
+      "name": "daily_kickoff_and_end_of_day_operational_learning",
+      "scope": "daily_work_results_tasks_and_improvement_loop",
+      "required": true
+    },
+    {
+      "id": "GPT-004",
+      "name": "research_result_source_trace_and_tool_binding",
+      "scope": "research_outputs_reports_and_impact_claims",
+      "required": true
+    },
+    {
+      "id": "GPT-005",
+      "name": "earth_development_no_harm_and_impact_measurement",
+      "scope": "societal_global_local_and_operational_issue_resolution",
+      "required": true
+    },
+    {
+      "id": "GPT-006",
+      "name": "no_hidden_persuasion_or_deception",
+      "scope": "visible_and_internal_goals",
+      "required": true
+    },
+    {
+      "id": "GPT-007",
+      "name": "sdk_fabric_mcp_least_privilege_tool_use",
+      "scope": "all_generated_tools_and_external_connectors",
+      "required": true
+    },
+    {
+      "id": "GPT-008",
+      "name": "quran_sunnah_truthfulness_itqan_shura",
+      "scope": "governance_generation_and_review",
+      "required": true
+    }
+  ],
+  "forbiddenPatterns": [
+    "private_data_without_consent",
+    "hidden_objectives_to_manipulate_users",
+    "unreviewed_high_impact_recommendations",
+    "external_connector_without_authorization",
+    "claim_without_source_trace"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}
