@@ -160,6 +160,12 @@
       "priority": 240
     },
     {
+      "name": "intelligence-integration-fabric-v1",
+      "mount": "/api/intelligence/integration-fabric",
+      "module": "routes/intelligence-integration-fabric/status.routes.js",
+      "priority": 239
+    },
+    {
       "name": "root-knowledge-agentic-fabric-v1",
       "mount": "/api/knowledge/agentic-fabric",
       "module": "routes/root-knowledge-agentic-fabric/status.routes.js",
