@@ -9,6 +9,7 @@
 
 ## Integration
 - Root Knowledge Fabric: ACTIVE
+- RAG: governed retrieval, evidence ranking, grounding, and citation pack
 - Generative AI: governed grounded generation
 - Agentic AI: governed planning and approved tool use
 - Multi-Agent: role-bounded institutional coordination
@@ -17,8 +18,9 @@
 
 ## Runtime Route
 - `/api/knowledge/agentic-fabric/status`
+- `/api/knowledge/agentic-fabric/rag`
 
 ## Truthfulness
-No actual AGI, ASI, consciousness, or unrestricted autonomous high-risk execution is claimed.
+No actual AGI, ASI, consciousness, unsupported RAG claims, or unrestricted autonomous high-risk execution is claimed.
 
 ولا حول ولا قوة إلا بالله.

@@ -10,20 +10,29 @@
     "SHEIKHA_CAPABILITY_REGISTRY_V2",
     "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1"
   ],
+  "ragRetrieval": {
+    "registry": "SHEIKHA_RAG_RETRIEVAL_REGISTRY_V1",
+    "mode": "governed_retrieval_augmented_generation",
+    "minimumEvidenceItems": 2,
+    "sourceTraceRequired": true,
+    "citationMetadataRequired": true,
+    "unsupportedClaimsBlocked": true,
+    "humanReviewForHighImpactDomains": true
+  },
   "agenticBindings": [
     {
       "level": "GENERATIVE_AI",
-      "knowledgeRequirement": "evidence_grounded_context",
+      "knowledgeRequirement": "evidence_grounded_context_with_rag_when_needed",
       "output": "content_code_report"
     },
     {
       "level": "AGENTIC_AI",
-      "knowledgeRequirement": "goal_context_policy_and_tools",
-      "output": "plan_execute_report"
+      "knowledgeRequirement": "goal_context_policy_tools_and_rag_retrieval_plan",
+      "output": "plan_retrieve_execute_report"
     },
     {
       "level": "MULTI_AGENT_SYSTEMS",
-      "knowledgeRequirement": "role_boundaries_shared_context_and_audit",
+      "knowledgeRequirement": "role_boundaries_shared_context_rag_evidence_and_audit",
       "output": "coordinated_institutional_workflow"
     },
     {
@@ -38,12 +47,17 @@
     }
   ],
   "evidenceChain": [
+    "query",
     "source",
+    "retrieval",
+    "ranking",
     "policy",
     "decision",
     "capability",
     "plan",
     "tool_use",
+    "grounding",
+    "citation",
     "result",
     "audit",
     "lesson"

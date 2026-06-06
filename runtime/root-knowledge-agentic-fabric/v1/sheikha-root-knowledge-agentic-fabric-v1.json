@@ -3,17 +3,22 @@
   "alias": "SHEIKHA_ROOT_KNOWLEDGE_FABRIC",
   "status": "ACTIVE",
   "arabic_name": "نسيج شيخة للمعرفة الجذرية والذكاء الوكيلي",
-  "purpose": "Integrate root knowledge, federated knowledge fabric, generative AI, agentic AI, multi-agent governance, and AGI/ASI research-readiness classifications under evidence-first runtime governance.",
+  "purpose": "Integrate root knowledge, federated knowledge fabric, RAG, generative AI, agentic AI, multi-agent governance, and AGI/ASI research-readiness classifications under evidence-first runtime governance.",
   "position": "ABOVE_KNOWLEDGE_ENGINE_BELOW_UGIT_CONTROL_PLANE",
   "based_on": [
     "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
     "SHEIKHA_KNOWLEDGE_ENGINE_V2",
     "SHEIKHA_FEDERATED_KNOWLEDGE_AND_REASONING_FABRIC",
+    "SHEIKHA_DATABASE_KNOWLEDGE_ENGINE_V1",
     "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
     "SHEIKHA_UGIT_AI_CONTROL_PLANE_V1"
   ],
   "capabilities": [
     "root_knowledge_fabric",
+    "retrieval_augmented_generation",
+    "governed_rag_retrieval",
+    "source_grounded_generation",
+    "citation_and_evidence_pack",
     "generative_ai_grounded_output",
     "agentic_planning",
     "tool_use_governance",
@@ -35,6 +40,9 @@
   "rules": {
     "root_authority_required": true,
     "knowledge_trace_required": true,
+    "rag_retrieval_required_for_external_or_complex_claims": true,
+    "source_citation_required_for_rag_outputs": true,
+    "unsupported_claims_must_be_blocked": true,
     "agent_plan_required": true,
     "tool_permission_required": true,
     "multi_agent_role_boundary_required": true,

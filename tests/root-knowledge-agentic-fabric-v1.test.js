@@ -22,6 +22,10 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     expect(registry.status).toBe('ACTIVE');
     expect(registry.capabilities).toEqual(expect.arrayContaining([
       'root_knowledge_fabric',
+      'retrieval_augmented_generation',
+      'governed_rag_retrieval',
+      'source_grounded_generation',
+      'citation_and_evidence_pack',
       'generative_ai_grounded_output',
       'agentic_planning',
       'tool_use_governance',
@@ -32,6 +36,43 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     expect(registry.truthfulness.no_agi_claim).toBe(true);
     expect(registry.truthfulness.no_asi_claim).toBe(true);
     expect(registry.truthfulness.no_consciousness_claim).toBe(true);
+  });
+
+  test('rag registry governs retrieval grounding citations and source trace', () => {
+    const rag = readJson(
+      'runtime/root-knowledge-agentic-fabric/v1/registries/rag-retrieval-registry.json'
+    );
+
+    expect(rag.registry).toBe('SHEIKHA_RAG_RETRIEVAL_REGISTRY_V1');
+    expect(rag.status).toBe('ACTIVE');
+    expect(rag.pipeline).toEqual(expect.arrayContaining([
+      'knowledge_source_selection',
+      'indexed_context_retrieval',
+      'evidence_ranking',
+      'source_trace_validation',
+      'grounded_generation',
+      'citation_and_evidence_pack',
+      'hallucination_risk_review'
+    ]));
+    expect(rag.retrievalSources.map((source) => source.source)).toEqual(expect.arrayContaining([
+      'SHEIKHA_KNOWLEDGE_ENGINE_V2',
+      'SHEIKHA_FEDERATED_KNOWLEDGE_AND_REASONING_FABRIC',
+      'SHEIKHA_DATABASE_KNOWLEDGE_ENGINE_V1',
+      'SHEIKHA_DECISION_REGISTRY_V2',
+      'SHEIKHA_CAPABILITY_REGISTRY_V2',
+      'SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1'
+    ]));
+    expect(rag.retrievalPolicies.source_required_before_generation).toBe(true);
+    expect(rag.retrievalPolicies.minimum_evidence_items).toBeGreaterThanOrEqual(2);
+    expect(rag.retrievalPolicies.citation_metadata_required).toBe(true);
+    expect(rag.retrievalPolicies.source_trace_required).toBe(true);
+    expect(rag.groundingChecks).toEqual(expect.arrayContaining([
+      'unsupported_claims_blocked',
+      'agi_asi_claims_blocked',
+      'human_gate_applied_when_required'
+    ]));
+    expect(rag.truthfulness.no_agi_claim).toBe(true);
+    expect(rag.truthfulness.no_asi_claim).toBe(true);
   });
 
   test('intelligence levels cover generative agentic multi agent AGI and ASI safely', () => {
@@ -77,11 +118,15 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     expect(workflow.status).toBe('ACTIVE');
     expect(workflow.workflow).toEqual(expect.arrayContaining([
       'root_knowledge_lookup',
+      'rag_query_decomposition',
+      'rag_source_selection',
       'evidence_retrieval',
+      'source_trace_validation',
       'agent_plan',
       'tool_permission_check',
       'approved_tool_execution',
       'human_review_when_required',
+      'grounded_generation',
       'audit_and_lessons_update'
     ]));
     expect(workflow.agentRoles.length).toBeGreaterThanOrEqual(5);
@@ -91,13 +136,21 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
       'SHEIKHA_FEDERATED_KNOWLEDGE_AND_REASONING_FABRIC',
       'SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1'
     ]));
+    expect(knowledgeMap.ragRetrieval.registry).toBe('SHEIKHA_RAG_RETRIEVAL_REGISTRY_V1');
+    expect(knowledgeMap.ragRetrieval.sourceTraceRequired).toBe(true);
+    expect(knowledgeMap.ragRetrieval.citationMetadataRequired).toBe(true);
     expect(knowledgeMap.evidenceChain).toEqual(expect.arrayContaining([
+      'query',
       'source',
+      'retrieval',
+      'ranking',
       'policy',
       'decision',
       'capability',
       'plan',
       'tool_use',
+      'grounding',
+      'citation',
       'result',
       'audit',
       'lesson'
@@ -121,12 +174,16 @@ describe('Sheikha Root Knowledge Agentic Fabric V1', () => {
     expect(report.missing).toEqual([]);
     expect(report.coverage.intelligenceLevels).toBe(5);
     expect(report.coverage.taxonomyLevels).toBe(5);
+    expect(report.coverage.ragPipelineSteps).toBeGreaterThanOrEqual(12);
+    expect(report.coverage.ragRetrievalSources).toBeGreaterThanOrEqual(6);
+    expect(report.coverage.ragGroundingChecks).toBeGreaterThanOrEqual(7);
     expect(report.coverage.agentRoles).toBeGreaterThanOrEqual(5);
     expect(packageJson.scripts['ops:root-knowledge-agentic-fabric:v1']).toBe(
       'node tools/root-knowledge-agentic-fabric/sheikha-root-knowledge-agentic-fabric-v1.js'
     );
     expect(docs).toContain('SHEIKHA_ROOT_KNOWLEDGE_AGENTIC_FABRIC_V1');
     expect(docs).toContain('/api/knowledge/agentic-fabric/status');
+    expect(docs).toContain('/api/knowledge/agentic-fabric/rag');
     expect(route).toEqual(expect.objectContaining({
       mount: '/api/knowledge/agentic-fabric',
       module: 'routes/root-knowledge-agentic-fabric/status.routes.js',

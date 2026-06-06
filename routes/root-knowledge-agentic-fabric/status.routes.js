@@ -53,6 +53,18 @@ router.get('/workflow', (_req, res) => {
   });
 });
 
+router.get('/rag', (_req, res) => {
+  const rag = readJson(
+    'runtime/root-knowledge-agentic-fabric/v1/registries/rag-retrieval-registry.json'
+  );
+
+  return res.json({
+    success: true,
+    rag,
+    timestamp: new Date().toISOString()
+  });
+});
+
 router.get('/knowledge-map', (_req, res) => {
   const knowledgeMap = readJson(
     'runtime/root-knowledge-agentic-fabric/v1/registries/root-knowledge-fabric-map.json'
