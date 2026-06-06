@@ -31,6 +31,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'sheikha-vscode-extension/', classification: 'STAGING', owner: 'IDE Organization' },
   { prefix: 'tests/', classification: 'STAGING', owner: 'Test Governance Organization' },
   { prefix: 'tools/api-contracts/', classification: 'PROTECTED', owner: 'API Contract Governance Organization' },
+  { prefix: 'tools/agi-asi-research-science-fabric/', classification: 'PROTECTED', owner: 'AGI ASI Research Science Fabric Governance Organization' },
   { prefix: 'tools/ai-cluster-pipeline-fabric/', classification: 'PROTECTED', owner: 'AI Cluster Pipeline Fabric Governance Organization' },
   { prefix: 'tools/ai-supercomputer-cloud-cluster-pipeline-fabric/', classification: 'PROTECTED', owner: 'AI Supercomputer Cloud Cluster Pipeline Fabric Governance Organization' },
   { prefix: 'tools/capability-registry/', classification: 'PROTECTED', owner: 'Capability Registry Governance Organization' },

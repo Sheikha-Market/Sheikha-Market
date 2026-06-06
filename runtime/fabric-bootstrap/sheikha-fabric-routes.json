@@ -154,6 +154,12 @@
       "priority": 250
     },
     {
+      "name": "agi-asi-research-science-fabric-v1",
+      "mount": "/api/research/agi-asi-science-fabric",
+      "module": "routes/agi-asi-research-science-fabric/status.routes.js",
+      "priority": 242
+    },
+    {
       "name": "capability-token-engine",
       "mount": "/api/governance/capability-tokens",
       "module": "routes/governance/capability-tokens/status.routes.js",

@@ -20,7 +20,7 @@
 - ادعاء مزود أو عميل: لا
 
 ## التغطية
-- طبقات التشغيل: 33
+- طبقات التشغيل: 34
 - النطاقات: 12
 - الأدوات: 18
 - السياسات: 12
@@ -54,6 +54,7 @@
 - PASS sdkFabricMcpIntegrationRouteMounted
 - PASS rootKnowledgeAgenticFabricRouteMounted
 - PASS intelligenceIntegrationFabricRouteMounted
+- PASS agiAsiResearchScienceFabricRouteMounted
 - PASS commercialRealActivationRouteMounted
 - PASS multiSupercomputerCloudFabricRouteMounted
 - PASS aiSupercomputerCloudClusterPipelineFabricRouteMounted
@@ -84,6 +85,7 @@
 - PASS sdkFabricMcpIntegration
 - PASS rootKnowledgeAgenticFabric
 - PASS intelligenceIntegrationFabric
+- PASS agiAsiResearchScienceFabric
 - PASS commercialRealActivation
 - PASS multiSupercomputerCloudFabric
 - PASS aiSupercomputerCloudClusterPipelineFabric
