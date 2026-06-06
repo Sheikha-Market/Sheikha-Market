@@ -28,7 +28,8 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
       'SCIENCE_AND_EDUCATION_CONNECTORS',
       'SUPERCOMPUTING_AND_DATACENTER_CONNECTORS',
       'MARITIME_AND_TRANSPORT_CONNECTORS',
-      'CUSTOMER_ENVIRONMENT_CONNECTORS'
+      'CUSTOMER_ENVIRONMENT_CONNECTORS',
+      'ROOT_NEURAL_GOVERNANCE_CELL_BINDING'
     ]));
     expect(registry.integration_flow).toEqual(expect.arrayContaining([
       'SDK',
@@ -43,6 +44,16 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
     expect(registry.truthfulness.no_customer_environment_claim_without_customer_consent).toBe(true);
     expect(registry.truthfulness.no_supercomputer_or_datacenter_claim_without_provider_evidence).toBe(true);
     expect(registry.truthfulness.no_maritime_transport_tracking_claim_without_data_source).toBe(true);
+    expect(registry.governance_reference.foundation).toBe('QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS');
+    expect(registry.governance_reference.system_is_tool_not_religious_authority).toBe(true);
+    expect(registry.root_neural_binding.network).toBe('SHEIKHA_DISTRIBUTED_NEURAL_CLUSTER');
+    expect(registry.root_neural_binding.appliesTo).toEqual(expect.arrayContaining([
+      'SDK',
+      'FABRIC',
+      'MCP',
+      'EXTERNAL_SYSTEMS',
+      'CUSTOMER_ENVIRONMENTS'
+    ]));
   });
 
   test('integration catalog covers public private scientific compute maritime and customer systems', () => {
@@ -147,6 +158,39 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
     ]));
   });
 
+  test('root neural governance cells are numbered and bound to sdk fabric mcp modules', () => {
+    const quranSunnahGovernance = readJson(
+      'runtime/quran-sunnah-governance/sheikha-quran-sunnah-governance.json'
+    );
+    const rootNeural = readJson(
+      'runtime/sdk-fabric-mcp-integration/v1/registries/root-neural-governance-cell-map.json'
+    );
+    const cellNames = new Set(rootNeural.cells.map((cell) => cell.name));
+
+    expect(quranSunnahGovernance.status).toBe('ACTIVE');
+    expect(quranSunnahGovernance.rules.system_is_tool_not_religious_authority).toBe(true);
+    expect(rootNeural.status).toBe('ACTIVE');
+    expect(rootNeural.governanceReference.foundation).toBe('QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS');
+    expect(rootNeural.governanceReference.system_is_tool_not_religious_authority).toBe(true);
+    expect(rootNeural.numbering.prefix).toBe('NGC');
+    expect(rootNeural.numbering.range).toBe('NGC-001..NGC-010');
+    expect(rootNeural.cells.length).toBe(10);
+    expect(Array.from(cellNames)).toEqual(expect.arrayContaining([
+      'ROOT_TRUTHFULNESS_CELL',
+      'NO_HARM_CELL',
+      'AMANAH_TRUST_CELL',
+      'JUSTICE_AND_NO_DECEPTION_CELL',
+      'ITQAN_ENGINEERING_CELL',
+      'SHURA_AND_HUMAN_REVIEW_CELL',
+      'AUTHORIZATION_GATE_CELL',
+      'DATA_RIGHTS_CELL',
+      'MCP_SCHEMA_PERMISSION_CELL',
+      'AUDIT_AND_EVIDENCE_CELL'
+    ]));
+    expect(rootNeural.moduleBindings.length).toBeGreaterThanOrEqual(7);
+    expect(rootNeural.moduleBindings.every((binding) => binding.cells.length >= 4)).toBe(true);
+  });
+
   test('sdk fabric mcp report has script docs and fabric route', () => {
     const report = readJson(
       'runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.json'
@@ -165,11 +209,14 @@ describe('Sheikha SDK Fabric MCP Integration V1', () => {
     expect(report.coverage.categories).toBeGreaterThanOrEqual(14);
     expect(report.coverage.mcpTools).toBeGreaterThanOrEqual(17);
     expect(report.coverage.customerEnvironments).toBeGreaterThanOrEqual(20);
+    expect(report.coverage.rootNeuralCells).toBe(10);
+    expect(report.coverage.rootNeuralModuleBindings).toBeGreaterThanOrEqual(7);
     expect(packageJson.scripts['ops:sdk-fabric-mcp-integration:v1']).toBe(
       'node tools/sdk-fabric-mcp-integration/sheikha-sdk-fabric-mcp-integration-v1.js'
     );
     expect(docs).toContain('SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1');
     expect(docs).toContain('/api/sdk-fabric-mcp/integration/status');
+    expect(docs).toContain('/api/sdk-fabric-mcp/integration/root-neural-governance');
     expect(route).toEqual(expect.objectContaining({
       mount: '/api/sdk-fabric-mcp/integration',
       module: 'routes/sdk-fabric-mcp-integration/status.routes.js',

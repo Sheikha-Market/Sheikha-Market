@@ -9,6 +9,9 @@
     "generatedSdkRegistry": true,
     "mcpUnifiedBridge": true,
     "fabricBootstrap": true,
+    "quranSunnahGovernance": true,
+    "rootAuthorityLayer": true,
+    "neuralCluster": true,
     "productionLanguage": true,
     "executiveCommercialOS": true,
     "spaceIotMlAi": true,
@@ -24,6 +27,8 @@
   "checks": {
     "registryActive": true,
     "modulesComplete": true,
+    "governanceReferenceComplete": true,
+    "rootNeuralBindingComplete": true,
     "integrationFlowComplete": true,
     "truthfulnessPolicy": true,
     "integrationCatalogActive": true,
@@ -39,13 +44,18 @@
     "sdkLayersComplete": true,
     "fabricTargetsComplete": true,
     "sdkOutputsComplete": true,
+    "rootNeuralGovernanceCellMapActive": true,
+    "rootNeuralCellsComplete": true,
+    "rootNeuralCellNumberingComplete": true,
+    "rootNeuralModuleBindingsComplete": true,
+    "rootNeuralGovernanceReferenceSafe": true,
     "fabricRouteMounted": true
   },
   "missing": [],
   "missingDependencies": [],
   "missingChecks": [],
   "coverage": {
-    "modules": 12,
+    "modules": 13,
     "categories": 14,
     "systemProfiles": 7,
     "mcpTools": 17,
@@ -53,7 +63,9 @@
     "integrationObjects": 23,
     "sdkLayers": 6,
     "fabricTargets": 18,
-    "sdkOutputs": 7
+    "sdkOutputs": 7,
+    "rootNeuralCells": 10,
+    "rootNeuralModuleBindings": 7
   },
   "cycle": [
     "SDK",
@@ -71,6 +83,7 @@
     "Create OpenAPI schemas for each external connector before live API binding.",
     "Add credential vault integration outside Git before any private system integration.",
     "Create customer environment onboarding forms for mines, smelters, warehouses, factories, scrap sources, ports, stores, fleets, and data centers.",
+    "Keep Quran, Sunnah, and rightly guided caliphs governance as a moral and operational gate, not as automatic religious ruling authority.",
     "Keep government, customer, provider, science, education, maritime, and compute integrations in readiness mode until authorization and data rights are documented."
   ],
   "principle": "ولا حول ولا قوة إلا بالله"

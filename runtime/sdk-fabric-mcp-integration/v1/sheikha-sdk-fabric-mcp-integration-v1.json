@@ -8,6 +8,9 @@
     "SHEIKHA_SDK_REGISTRY",
     "SHEIKHA_MCP_UNIFIED_BRIDGE",
     "SHEIKHA_FABRIC_BOOTSTRAP_ROUTES",
+    "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_DISTRIBUTED_NEURAL_CLUSTER",
     "SHEIKHA_RESOURCE_INTELLIGENCE_SIMULATION_FABRIC_V1",
     "SHEIKHA_SPACE_IOT_ML_AI_FABRIC_V1",
     "SHEIKHA_GLOBAL_RESOURCE_GRAPH_ENGINE_V2",
@@ -27,8 +30,28 @@
     "DATABASE_CONNECTORS",
     "SUPERCOMPUTING_AND_DATACENTER_CONNECTORS",
     "MARITIME_AND_TRANSPORT_CONNECTORS",
-    "CUSTOMER_ENVIRONMENT_CONNECTORS"
+    "CUSTOMER_ENVIRONMENT_CONNECTORS",
+    "ROOT_NEURAL_GOVERNANCE_CELL_BINDING"
   ],
+  "governance_reference": {
+    "code": "QSRGC-001",
+    "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
+    "sourceLayer": "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER",
+    "system_is_tool_not_religious_authority": true,
+    "human_scholar_or_specialist_review_when_required": true
+  },
+  "root_neural_binding": {
+    "code": "SDK-MCP-NGC-001",
+    "network": "SHEIKHA_DISTRIBUTED_NEURAL_CLUSTER",
+    "mode": "governed-root-neural-cell-binding",
+    "appliesTo": [
+      "SDK",
+      "FABRIC",
+      "MCP",
+      "EXTERNAL_SYSTEMS",
+      "CUSTOMER_ENVIRONMENTS"
+    ]
+  },
   "integration_flow": [
     "SDK",
     "FABRIC_ROUTE",
@@ -51,6 +74,8 @@
     "no_maritime_transport_tracking_claim_without_data_source": true
   },
   "rules": {
+    "quran_sunnah_governance_required": true,
+    "root_neural_cell_gate_required": true,
     "no_external_api_without_authorization": true,
     "no_secret_in_git": true,
     "official_contract_required_for_private_systems": true,

@@ -7,7 +7,7 @@
 - القرار: SDK_FABRIC_MCP_INTEGRATION_ACTIVE_100
 
 ## التغطية
-- الوحدات: 12
+- الوحدات: 13
 - فئات التكامل: 14
 - ملفات الأنظمة: 7
 - أدوات MCP: 17
@@ -15,10 +15,14 @@
 - كائنات التكامل: 23
 - طبقات SDK: 6
 - أهداف Fabric: 18
+- خلايا الجذر العصبية: 10
+- ارتباطات الخلايا بالوحدات: 7
 
 ## الفحوص
 - PASS registryActive
 - PASS modulesComplete
+- PASS governanceReferenceComplete
+- PASS rootNeuralBindingComplete
 - PASS integrationFlowComplete
 - PASS truthfulnessPolicy
 - PASS integrationCatalogActive
@@ -34,6 +38,11 @@
 - PASS sdkLayersComplete
 - PASS fabricTargetsComplete
 - PASS sdkOutputsComplete
+- PASS rootNeuralGovernanceCellMapActive
+- PASS rootNeuralCellsComplete
+- PASS rootNeuralCellNumberingComplete
+- PASS rootNeuralModuleBindingsComplete
+- PASS rootNeuralGovernanceReferenceSafe
 - PASS fabricRouteMounted
 
 ## الاعتماديات
@@ -42,6 +51,9 @@
 - PASS generatedSdkRegistry
 - PASS mcpUnifiedBridge
 - PASS fabricBootstrap
+- PASS quranSunnahGovernance
+- PASS rootAuthorityLayer
+- PASS neuralCluster
 - PASS productionLanguage
 - PASS executiveCommercialOS
 - PASS spaceIotMlAi
@@ -58,6 +70,7 @@
 1. Create OpenAPI schemas for each external connector before live API binding.
 2. Add credential vault integration outside Git before any private system integration.
 3. Create customer environment onboarding forms for mines, smelters, warehouses, factories, scrap sources, ports, stores, fleets, and data centers.
-4. Keep government, customer, provider, science, education, maritime, and compute integrations in readiness mode until authorization and data rights are documented.
+4. Keep Quran, Sunnah, and rightly guided caliphs governance as a moral and operational gate, not as automatic religious ruling authority.
+5. Keep government, customer, provider, science, education, maritime, and compute integrations in readiness mode until authorization and data rights are documented.
 
 ولا حول ولا قوة إلا بالله.

@@ -42,6 +42,8 @@ const integrationCatalog = readJson(`${RUNTIME_DIR}/registries/integration-catal
 const customerEnvironmentMap = readJson(`${RUNTIME_DIR}/registries/customer-environment-map.json`);
 const mcpToolCatalog = readJson(`${RUNTIME_DIR}/registries/mcp-tool-catalog.json`);
 const sdkFabricMap = readJson(`${RUNTIME_DIR}/registries/sdk-fabric-map.json`);
+const rootNeuralGovernanceCellMap =
+  readJson(`${RUNTIME_DIR}/registries/root-neural-governance-cell-map.json`);
 const fabricRoutes = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
 
 const route = fabricRoutes?.routes?.find(
@@ -60,7 +62,8 @@ const requiredModules = [
   'DATABASE_CONNECTORS',
   'SUPERCOMPUTING_AND_DATACENTER_CONNECTORS',
   'MARITIME_AND_TRANSPORT_CONNECTORS',
-  'CUSTOMER_ENVIRONMENT_CONNECTORS'
+  'CUSTOMER_ENVIRONMENT_CONNECTORS',
+  'ROOT_NEURAL_GOVERNANCE_CELL_BINDING'
 ];
 
 const requiredCategories = [
@@ -172,12 +175,34 @@ const requiredFabricTargets = [
   'multi_supercomputer_cloud_fabric'
 ];
 
+const requiredRootNeuralCells = [
+  'ROOT_TRUTHFULNESS_CELL',
+  'NO_HARM_CELL',
+  'AMANAH_TRUST_CELL',
+  'JUSTICE_AND_NO_DECEPTION_CELL',
+  'ITQAN_ENGINEERING_CELL',
+  'SHURA_AND_HUMAN_REVIEW_CELL',
+  'AUTHORIZATION_GATE_CELL',
+  'DATA_RIGHTS_CELL',
+  'MCP_SCHEMA_PERMISSION_CELL',
+  'AUDIT_AND_EVIDENCE_CELL'
+];
+
+function cellNames(cells) {
+  return Array.isArray(cells)
+    ? cells.map((cell) => cell.name).filter(Boolean)
+    : [];
+}
+
 const dependencies = {
   docs: exists('docs/sdk-fabric-mcp-integration/SHEIKHA-SDK-FABRIC-MCP-INTEGRATION-V1.md'),
   sdkRegistry: exists('runtime/sdk-registry/sheikha-sdk-registry.json'),
   generatedSdkRegistry: exists('runtime/sdk-registry/generated/sheikha-sdk-generated-registry.json'),
   mcpUnifiedBridge: exists('runtime/mcp-unified-bridge/sheikha-mcp-unified-bridge.json'),
   fabricBootstrap: exists('runtime/fabric-bootstrap/sheikha-fabric-routes.json'),
+  quranSunnahGovernance: exists('runtime/quran-sunnah-governance/sheikha-quran-sunnah-governance.json'),
+  rootAuthorityLayer: exists('runtime/root-authority-layer/v1/sheikha-root-authority-layer-report.json'),
+  neuralCluster: exists('runtime/neural-cluster/sheikha-neural-cluster.json'),
   productionLanguage: exists('runtime/sheikha-production-language/v1/sheikha-production-language-v1-report.json'),
   executiveCommercialOS: exists('runtime/executive-commercial-os/v1/sheikha-executive-commercial-os-v1-report.json'),
   spaceIotMlAi: exists('runtime/space-iot-ml-ai-fabric/v1/sheikha-space-iot-ml-ai-fabric-v1-report.json'),
@@ -194,6 +219,23 @@ const dependencies = {
 const checks = {
   registryActive: registry?.status === 'ACTIVE',
   modulesComplete: includesAll(registry?.modules, requiredModules),
+  governanceReferenceComplete: Boolean(
+    registry?.governance_reference?.foundation === 'QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS' &&
+    registry?.governance_reference?.sourceLayer === 'SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER' &&
+    registry?.governance_reference?.system_is_tool_not_religious_authority === true &&
+    registry?.governance_reference?.human_scholar_or_specialist_review_when_required === true
+  ),
+  rootNeuralBindingComplete: Boolean(
+    registry?.root_neural_binding?.network === 'SHEIKHA_DISTRIBUTED_NEURAL_CLUSTER' &&
+    registry?.root_neural_binding?.mode === 'governed-root-neural-cell-binding' &&
+    includesAll(registry?.root_neural_binding?.appliesTo, [
+      'SDK',
+      'FABRIC',
+      'MCP',
+      'EXTERNAL_SYSTEMS',
+      'CUSTOMER_ENVIRONMENTS'
+    ])
+  ),
   integrationFlowComplete: includesAll(registry?.integration_flow, [
     'SDK',
     'FABRIC_ROUTE',
@@ -244,6 +286,25 @@ const checks = {
     'customer_environment_blueprint',
     'evidence_report'
   ]),
+  rootNeuralGovernanceCellMapActive: rootNeuralGovernanceCellMap?.status === 'ACTIVE',
+  rootNeuralCellsComplete: includesAll(
+    cellNames(rootNeuralGovernanceCellMap?.cells),
+    requiredRootNeuralCells
+  ),
+  rootNeuralCellNumberingComplete: Boolean(
+    rootNeuralGovernanceCellMap?.numbering?.prefix === 'NGC' &&
+    rootNeuralGovernanceCellMap?.numbering?.range === 'NGC-001..NGC-010'
+  ),
+  rootNeuralModuleBindingsComplete: Array.isArray(rootNeuralGovernanceCellMap?.moduleBindings) &&
+    rootNeuralGovernanceCellMap.moduleBindings.length >= 7 &&
+    rootNeuralGovernanceCellMap.moduleBindings.every((binding) =>
+      Array.isArray(binding.cells) && binding.cells.length >= 4
+    ),
+  rootNeuralGovernanceReferenceSafe: Boolean(
+    rootNeuralGovernanceCellMap?.governanceReference?.foundation === 'QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS' &&
+    rootNeuralGovernanceCellMap?.governanceReference?.system_is_tool_not_religious_authority === true &&
+    rootNeuralGovernanceCellMap?.governanceReference?.human_scholar_or_specialist_review_when_required === true
+  ),
   fabricRouteMounted: Boolean(
     route &&
     route.mount === '/api/sdk-fabric-mcp/integration' &&
@@ -281,7 +342,9 @@ const report = {
     integrationObjects: customerEnvironmentMap?.integrationObjects?.length || 0,
     sdkLayers: sdkFabricMap?.sdkLayers?.length || 0,
     fabricTargets: sdkFabricMap?.fabricTargets?.length || 0,
-    sdkOutputs: sdkFabricMap?.sdkOutputs?.length || 0
+    sdkOutputs: sdkFabricMap?.sdkOutputs?.length || 0,
+    rootNeuralCells: rootNeuralGovernanceCellMap?.cells?.length || 0,
+    rootNeuralModuleBindings: rootNeuralGovernanceCellMap?.moduleBindings?.length || 0
   },
   cycle: [
     'SDK',
@@ -299,6 +362,7 @@ const report = {
     'Create OpenAPI schemas for each external connector before live API binding.',
     'Add credential vault integration outside Git before any private system integration.',
     'Create customer environment onboarding forms for mines, smelters, warehouses, factories, scrap sources, ports, stores, fleets, and data centers.',
+    'Keep Quran, Sunnah, and rightly guided caliphs governance as a moral and operational gate, not as automatic religious ruling authority.',
     'Keep government, customer, provider, science, education, maritime, and compute integrations in readiness mode until authorization and data rights are documented.'
   ],
   principle: 'ولا حول ولا قوة إلا بالله'
@@ -328,6 +392,8 @@ writeText(
 - كائنات التكامل: ${report.coverage.integrationObjects}
 - طبقات SDK: ${report.coverage.sdkLayers}
 - أهداف Fabric: ${report.coverage.fabricTargets}
+- خلايا الجذر العصبية: ${report.coverage.rootNeuralCells}
+- ارتباطات الخلايا بالوحدات: ${report.coverage.rootNeuralModuleBindings}
 
 ## الفحوص
 ${Object.entries(checks).map(([key, value]) => `- ${value ? 'PASS' : 'FAIL'} ${key}`).join('\n')}

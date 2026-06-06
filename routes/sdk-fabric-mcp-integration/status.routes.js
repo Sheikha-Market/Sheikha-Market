@@ -63,6 +63,18 @@ router.get('/customer-environments', (_req, res) => {
   });
 });
 
+router.get('/root-neural-governance', (_req, res) => {
+  const rootNeuralGovernanceCellMap = readJson(
+    'runtime/sdk-fabric-mcp-integration/v1/registries/root-neural-governance-cell-map.json'
+  );
+
+  return res.json({
+    success: true,
+    rootNeuralGovernanceCellMap,
+    timestamp: new Date().toISOString()
+  });
+});
+
 router.get('/coverage', (_req, res) => {
   const report = readJson(
     'runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.json'
