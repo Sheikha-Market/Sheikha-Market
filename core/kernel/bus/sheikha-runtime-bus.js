@@ -1,9 +1,11 @@
 'use strict';
 
-const fs = require('fs');
-const path = require('path');
+const fs = require('node:fs');
+const path = require('node:path');
 
 const ROOT = process.cwd();
+const EVENTS_DIR = path.join(ROOT, 'runtime/bus/events');
+const MAX_EVENT_FILES = Number(process.env.SHEIKHA_RUNTIME_BUS_MAX_EVENTS || 5000);
 
 const BUS = {
   name: 'SHEIKHA_RUNTIME_BUS_FABRIC',
@@ -45,6 +47,29 @@ function ensure() {
   });
 }
 
+async function pruneOldEvents() {
+  try {
+    const entries = await fs.promises.readdir(EVENTS_DIR, { withFileTypes: true });
+    const files = entries
+      .filter((entry) => entry.isFile() && entry.name.endsWith('.json'))
+      .map((entry) => entry.name)
+      .sort();
+
+    const overflow = files.length - MAX_EVENT_FILES;
+    if (overflow <= 0) {
+      return;
+    }
+
+    await Promise.all(
+      files.slice(0, overflow).map((name) =>
+        fs.promises.unlink(path.join(EVENTS_DIR, name)).catch(() => undefined)
+      )
+    );
+  } catch {
+    // Best-effort pruning to keep emit path non-blocking.
+  }
+}
+
 function status() {
   ensure();
 
@@ -78,16 +103,12 @@ function emit(channel, payload = {}) {
     timestamp: new Date().toISOString()
   };
 
-  const file = path.join(
-    ROOT,
-    'runtime/bus/events',
-    `${Date.now()}-${channel}.json`
-  );
+  const file = path.join(EVENTS_DIR, `${Date.now()}-${channel}.json`);
 
-  fs.writeFileSync(
-    file,
-    JSON.stringify(event, null, 2) + '\n'
-  );
+  fs.promises
+    .writeFile(file, JSON.stringify(event, null, 2) + '\n')
+    .then(() => pruneOldEvents())
+    .catch(() => undefined);
 
   return {
     success: true,

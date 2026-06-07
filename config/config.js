@@ -94,7 +94,7 @@ const config = {
             releaseDate: '2026-02-05',
             capabilities: [
                 'adaptive-thinking',      // تفكير تكيفي متقدم للمهام المعقدة
-                'extended-context-1m',     // نافذة سياق 1 مليون توكe
+                'extended-context-1m',     // نافذة سياق 1 مليون توكن
                 'context-compaction',      // ضغط السياق لمحادثات لا نهائية
                 'agent-teams',             // فرق وكلاء ذكية للعمل الجماعي
                 'production-code-gen',     // توليد كود جاهز للإنتاج
@@ -120,7 +120,7 @@ const config = {
     security: {
         strictSecrets: process.env.SECURITY_STRICT_SECRETS === 'true',
         jwt: {
-            secret: process.env.JWT_SECRET || 'sheikha-dev-jwt-secret-change-in-production-min-32',
+            secret: process.env.JWT_SECRET || runtimeDevJwtSecret,
             minSecretLength: 32,
             expiresIn: '24h',
             refreshExpiresIn: '7d'
@@ -138,10 +138,10 @@ const config = {
         bcrypt: {
             saltRounds: 12
         },
-            rateLimit: {
-                windowMs: 1, // تعطيل القفل المؤقت مؤقتًا للاختبار
-                max: 1000000 // السماح بعدد محاولات كبير جدًا
-            },
+        rateLimit: {
+            windowMs: Number.parseInt(process.env.RATE_LIMIT_WINDOW_MS || String(15 * 60 * 1000), 10),
+            max: Number.parseInt(process.env.RATE_LIMIT_MAX || '100', 10)
+        },
         cors: {
             origin: process.env.CORS_ORIGIN || (isProductionEnv ? 'https://www.sheikha.top' : '*'),
             credentials: true
