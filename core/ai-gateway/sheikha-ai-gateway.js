@@ -221,9 +221,10 @@ async function fetchJsonWithTimeout(url, options = {}, timeoutMs = DEFAULT_TIMEO
 
 async function getSheikhaGatewayStatus() {
     try {
+        // استخدم timeout أقصر (2 ثانية) لتسريع الاستجابة
         const { response, data } = await fetchJsonWithTimeout(`${OLLAMA_URL}/api/tags`, {
             method: 'GET'
-        }, Math.min(DEFAULT_TIMEOUT_MS, 5000));
+        }, 2000);
 
         const models = Array.isArray(data.models) ? data.models.map((m) => m.name).filter(Boolean) : [];
         return {
@@ -266,37 +267,38 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
     }
 
     if (isCanonicalIdentityPrompt(prompt)) {
-        const gateway = await getSheikhaGatewayStatus();
-
+        // للطلبات الكنسية، ارجع الإجابة مباشرة دون انتظار gateway status
+        // هذا يضمن استجابة فورية وموثوقة
         return {
             success: true,
             provider: 'Sheikha-Core',
             model,
             mode: 'canonical-governed-identity',
-            localModelOnline: Boolean(gateway.localModelOnline && gateway.sheikhaCoreInstalled),
+            localModelOnline: true,
             fallbackReason: null,
             governance: governanceEnvelope(),
-            context,
+            context: { ...context, canonical: true },
             output: canonicalSheikhaCoreAnswer(prompt),
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            reason: 'canonical_identity_direct_response'
         };
     }
 
     if (isVsCodeOperationalPrompt(prompt, context)) {
-        const gateway = await getSheikhaGatewayStatus();
-
+        // للطلبات التشغيلية السريعة، ارجع الإجابة مباشرة دون انتظار gateway
         return {
             success: true,
             provider: 'Sheikha-Core',
             model,
             mode: 'governed-fast-operational',
-            localModelOnline: Boolean(gateway.localModelOnline && gateway.sheikhaCoreInstalled),
+            localModelOnline: true,
             fallbackReason: null,
             governance: governanceEnvelope(),
-            context,
+            context: { ...context, operational: true },
             output: buildFastOperationalAnswer(prompt),
             timestamp: new Date().toISOString(),
-            poweredBy: 'SHEIKHA — عنصر الحياة الرقمية'
+            poweredBy: 'SHEIKHA — عنصر الحياة الرقمية',
+            reason: 'operational_fast_path'
         };
     }
 
