@@ -86,7 +86,8 @@
     "arabic programming"
   ],
   "activationEvents": [
-    "onStartupFinished"
+    "onStartupFinished",
+    "onCommand:sheikha.ask"
   ],
   "main": "./extension.js",
   "files": [
@@ -305,6 +306,10 @@
           "light": "images/sheikha-icon.svg",
           "dark": "images/sheikha-icon.svg"
         }
+      },
+      {
+        "command": "sheikha.ask",
+        "title": "Sheikha: Ask Local Runtime"
       }
     ],
     "keybindings": [
@@ -586,38 +591,38 @@
           "name": "شبكة الخلايا العصبية",
           "icon": "images/sheikha-icon.svg"
         },
-                {
-                    "type": "webview",
-                    "id": "sheikha.enterpriseView",
-                    "name": "التكامل المؤسسي",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.osView",
-                    "name": "Sheikha AI AL OS",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.serviceProviderView",
-                    "name": "مزود خدمة AI",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.ideView",
-                    "name": "Sheikha IDE",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.toolsView",
-                    "name": "الأدوات والتقنيات",
-                    "icon": "images/sheikha-icon.svg"
-                }
-            ]
+        {
+          "type": "webview",
+          "id": "sheikha.enterpriseView",
+          "name": "التكامل المؤسسي",
+          "icon": "images/sheikha-icon.svg"
+        },
+        {
+          "type": "webview",
+          "id": "sheikha.osView",
+          "name": "Sheikha AI AL OS",
+          "icon": "images/sheikha-icon.svg"
+        },
+        {
+          "type": "webview",
+          "id": "sheikha.serviceProviderView",
+          "name": "مزود خدمة AI",
+          "icon": "images/sheikha-icon.svg"
+        },
+        {
+          "type": "webview",
+          "id": "sheikha.ideView",
+          "name": "Sheikha IDE",
+          "icon": "images/sheikha-icon.svg"
+        },
+        {
+          "type": "webview",
+          "id": "sheikha.toolsView",
+          "name": "الأدوات والتقنيات",
+          "icon": "images/sheikha-icon.svg"
         }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "echo 'Sheikha ready'",
