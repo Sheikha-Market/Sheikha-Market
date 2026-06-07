@@ -521,7 +521,8 @@
     "ops:workflow-automation-engine:v1": "node tools/workflow-automation-engine-v1/sheikha-workflow-automation-engine-v1.js",
     "ops:admin-methodology-information-impact-os:v1": "node tools/admin-methodology-information-impact-os-v1/sheikha-admin-methodology-information-impact-os-v1.js",
     "ops:saas-platform-layer:v1": "node tools/saas-platform-layer-v1/sheikha-saas-platform-layer-v1.js",
-    "ops:production-runtime-fabric:v1": "node tools/production-runtime-fabric-v1/sheikha-production-runtime-fabric-v1.js"
+    "ops:production-runtime-fabric:v1": "node tools/production-runtime-fabric-v1/sheikha-production-runtime-fabric-v1.js",
+    "ops:sheikha-cli:v1": "node -e \"console.log(require(\\\"./runtime/sheikha-cli-v1/v1/sheikha-cli-v1-report.json\\\"))\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
@@ -562,5 +563,8 @@
     "jest": "^30.4.2"
   },
   "publisher": "sheikha",
-  "displayName": "Sheikha Operating System"
+  "displayName": "Sheikha Operating System",
+  "bin": {
+    "sheikha": "./bin/sheikha"
+  }
 }

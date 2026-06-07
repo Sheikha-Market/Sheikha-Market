@@ -2,7 +2,7 @@
 
 // بوابة الذكاء الصناعي الموحدة — توجيه كامل عبر Provider Abstraction Layer
 
-const { askSheikhaCore, getSheikhaGatewayStatus } = require('./sheikha-ai-gateway');
+const { askSheikhaCore, getSheikhaGatewayStatus, isOllamaRecognitionPrompt } = require('./sheikha-ai-gateway');
 const { askWithFallback, getProviderRegistryStatus } = require('../providers/provider-registry');
 
 // نقطة الدخول الرئيسية — تستخدم Sheikha-Core الحاكمة
@@ -22,6 +22,16 @@ async function chat(messages = [], opts = {}) {
   const lastUser = [...messages].reverse().find((m) => m.role === 'user');
   const prompt = lastUser?.content || '';
   const system = messages.find((m) => m.role === 'system')?.content || '';
+
+  if (isOllamaRecognitionPrompt(prompt)) {
+    const context = opts.context ? { ...opts.context, source: 'gateway-chat', channel: 'chat' } : { source: 'gateway-chat', channel: 'chat' };
+    return askSheikhaCore({
+      prompt,
+      model: opts.model,
+      context
+    });
+  }
+
   return askWithFallback({ prompt, system, model: opts.model, options: opts });
 }
 

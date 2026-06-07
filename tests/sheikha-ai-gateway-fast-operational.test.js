@@ -2,7 +2,9 @@
 
 const {
     buildFastOperationalAnswer,
+    buildOllamaRecognitionAnswer,
     isCanonicalIdentityPrompt,
+    isOllamaRecognitionPrompt,
     isVsCodeOperationalPrompt
 } = require('../core/ai-gateway/sheikha-ai-gateway');
 
@@ -55,5 +57,31 @@ describe('Sheikha AI Gateway Fast Operational Path', () => {
 
         expect(answer).toContain('لتشغيل المشروع بسرعة داخل بيئة شيخة');
         expect(answer).toContain('npm run dev');
+    });
+
+    test('routes short imperative prompt to operational mode and direct run steps', () => {
+        expect(isVsCodeOperationalPrompt('شغل', { source: 'vscode-chat' })).toBe(true);
+
+        const answer = buildFastOperationalAnswer('شغل');
+        expect(answer).toContain('لتشغيل المشروع بسرعة داخل بيئة شيخة');
+        expect(answer).toContain('npm run dev');
+    });
+
+    test('recognizes ollama recognition prompts explicitly', () => {
+        expect(isOllamaRecognitionPrompt('تعرّف على ollama')).toBe(true);
+        expect(isOllamaRecognitionPrompt('ما هي حالة Ollama؟')).toBe(true);
+        expect(isOllamaRecognitionPrompt('شغلي المشروع')).toBe(false);
+    });
+
+    test('builds a governed ollama recognition answer from gateway status', () => {
+        const answer = buildOllamaRecognitionAnswer('تعرّف على ollama', {
+            localModelOnline: true,
+            localProvider: 'http://127.0.0.1:11434',
+            models: ['Sheikha-Core:latest', 'llama3.1:8b']
+        });
+
+        expect(answer).toContain('Ollama');
+        expect(answer).toContain('127.0.0.1:11434');
+        expect(answer).toContain('Sheikha-Core:latest');
     });
 });

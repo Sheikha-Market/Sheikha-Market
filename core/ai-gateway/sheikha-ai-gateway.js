@@ -85,13 +85,25 @@ function isVsCodeOperationalPrompt(prompt, context = {}) {
     const explicitArabicCommand = /^(شغل|شغّل|شغلي|نفذ|نفّذ|ابدأ|ابدا|افتح|اعرض|اظهر|شغّل\s+|نفّذ\s+)/.test(normalized) &&
         /(المشروع|الخادم|السيرفر|الاختبارات|الاختبار|lint|build|test|npm|الأوامر|الاوامر|الحالة|البوابة|الطرفية)/.test(normalized);
 
+    const shortImperativeOperational = /^(شغل|شغّل|شغلي|نفذ|نفّذ|ابدأ|ابدا)$/.test(normalized);
+
     // The editor source alone is not an operational intent. Short chat prompts
     // such as "شيخة" must continue to the normal identity/chat path.
-    return (explicitEnglishCommand || explicitArabicCommand) && !questionLike;
+    return (explicitEnglishCommand || explicitArabicCommand || shortImperativeOperational) && !questionLike;
 }
 
 function buildFastOperationalAnswer(prompt) {
     const lower = String(prompt || '').toLowerCase();
+
+    if (/^(شغل|شغّل|شغلي|run|start)$/.test(lower.trim())) {
+        return [
+            'لتشغيل المشروع بسرعة داخل بيئة شيخة:',
+            '1) فعّل البيئة الافتراضية: source .venv/bin/activate',
+            '2) شغّل الخادم التطويري: npm run dev',
+            '3) تحقق من الحالة: curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
+            'إذا رغبت أستطيع تنفيذ هذه الخطوات تلقائياً الآن.'
+        ].join('\n');
+    }
 
     if (/(شغل المشروع|شغّل المشروع|شغلي المشروع|شغّلي المشروع|شغلّي المشروع|run project|start project|شغل الخادم|شغّل الخادم|شغلي الخادم|شغّلي الخادم|run server|start server)/.test(lower)) {
         return [
@@ -162,6 +174,37 @@ function isCanonicalIdentityPrompt(prompt) {
         'who are you',
         'is sheikha just a market'
     ].some((needle) => normalized.includes(needle));
+}
+
+function isOllamaRecognitionPrompt(prompt) {
+    const normalized = String(prompt || '').toLowerCase();
+    return /ollama|أولاما|اولاما/.test(normalized) && /(تعرف|تعرّف|اعرف|اعرفي|ما هو|ماهي|ما هي|من هو|من هي|الحالة|status|متصل|اتصال|يشغل|يشغّل|discover|recognize)/.test(normalized);
+}
+
+function buildOllamaRecognitionAnswer(prompt, gatewayStatus) {
+    const online = Boolean(gatewayStatus?.localModelOnline || gatewayStatus?.status === 'active');
+    const models = Array.isArray(gatewayStatus?.models) && gatewayStatus.models.length > 0
+        ? gatewayStatus.models.join('، ')
+        : 'غير متاح حالياً';
+    const endpoint = gatewayStatus?.localProvider || OLLAMA_URL;
+
+    if (isArabic(prompt)) {
+        return [
+            'أجريت حوارًا داخليًا للتعرّف على Ollama.',
+            'النتيجة: ' + (online ? 'مكتشف ومتاح محليًا.' : 'غير متاح حالياً.'),
+            'المسار المحلي: ' + endpoint,
+            'النماذج المكتشفة: ' + models,
+            'الدور في شيخة: مزود ذكاء محلي أولي للحوسبة السيادية والخصوصية.'
+        ].join('\n');
+    }
+
+    return [
+        'Internal Ollama recognition complete.',
+        'Status: ' + (online ? 'detected and available locally.' : 'currently unavailable.'),
+        'Local endpoint: ' + endpoint,
+        'Detected models: ' + models,
+        'Role in Sheikha: local sovereign AI provider for private and governed inference.'
+    ].join('\n');
 }
 
 function canonicalSheikhaCoreAnswer(prompt) {
@@ -309,6 +352,23 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
         };
     }
 
+    if (isOllamaRecognitionPrompt(prompt)) {
+        const gatewayStatus = await getSheikhaGatewayStatus();
+        return {
+            success: true,
+            provider: gatewayStatus.localModelOnline ? 'ollama' : 'Sheikha-Core',
+            model,
+            mode: gatewayStatus.localModelOnline ? 'ollama-recognition-local' : 'ollama-recognition-fallback',
+            localModelOnline: Boolean(gatewayStatus.localModelOnline),
+            fallbackReason: gatewayStatus.localModelOnline ? null : 'ollama_unavailable',
+            governance: governanceEnvelope(),
+            context: { ...context, ollamaRecognition: true },
+            output: buildOllamaRecognitionAnswer(prompt, gatewayStatus),
+            timestamp: new Date().toISOString(),
+            reason: 'ollama_recognition_direct_response'
+        };
+    }
+
     if (isVsCodeOperationalPrompt(prompt, context)) {
         // للطلبات التشغيلية السريعة، ارجع الإجابة مباشرة دون انتظار gateway
         return {
@@ -376,5 +436,7 @@ module.exports = {
     buildRawLlamaPrompt,
     isVsCodeOperationalPrompt,
     buildFastOperationalAnswer,
-    isCanonicalIdentityPrompt
+    isCanonicalIdentityPrompt,
+    isOllamaRecognitionPrompt,
+    buildOllamaRecognitionAnswer
 };

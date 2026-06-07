@@ -1,4 +1,53 @@
-#!/usr/bin/env bash
-set -euo pipefail
-ROOT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
-node "$ROOT_DIR/core/cli/sheikha.js" "$@"
+#!/usr/bin/env node
+'use strict';
+
+const { execFileSync } = require('child_process');
+
+const cmd = process.argv[2] || 'help';
+
+function run(command, args = []) {
+  execFileSync(command, args, { stdio: 'inherit' });
+}
+
+function call(path, method = 'GET', body = null) {
+  const args = ['-s'];
+  if (method !== 'GET') args.push('-X', method);
+  if (body) args.push('-H', 'Content-Type: application/json', '-d', JSON.stringify(body));
+  args.push(`http://127.0.0.1:8080${path}`);
+  run('curl', args);
+  console.log();
+}
+
+const commands = {
+  help() {
+    console.log('Sheikha CLI V1');
+    console.log('Commands: status, protocol, decision, runtime, saas, mcp, sdk, service-tiers, test, lint, drift, verify');
+  },
+  status() { run('git', ['status', '--short']); },
+  protocol() { call('/api/sheikha/protocol/status'); },
+  decision() { call('/api/sheikha/protocol/decision', 'POST', { actor: 'runtime', action: 'health_check' }); },
+  runtime() { run('npm', ['run', 'ops:production-runtime-fabric:v1']); },
+  saas() { run('npm', ['run', 'ops:saas-platform-layer:v1']); },
+  mcp() { run('npm', ['test', '--', 'tests/sdk-fabric-mcp-integration-v1.test.js']); },
+  sdk() { run('npm', ['test', '--', 'tests/sdk-fabric-mcp-integration-v1.test.js']); },
+  'service-tiers'() { run('bash', ['test-service-tiers.sh']); },
+  test() { run('npm', ['test']); },
+  lint() { run('npm', ['run', 'lint']); },
+  drift() { run('node', ['tools/drift/sheikha-runtime-drift-detector.js']); },
+  verify() {
+    commands.protocol();
+    commands.decision();
+    commands.runtime();
+    commands.test();
+    commands.lint();
+    commands.drift();
+  }
+};
+
+if (!commands[cmd]) {
+  console.error(`Unknown command: ${cmd}`);
+  commands.help();
+  process.exit(1);
+}
+
+commands[cmd]();
