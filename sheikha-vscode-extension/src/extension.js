@@ -2,43 +2,33 @@
 
 const vscode = require('vscode');
 const { askSheikha } = require('./sheikhaApiClient');
+const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
 
 function activate(context) {
-  const disposable = vscode.commands.registerCommand('sheikha.ask', async () => {
-    const prompt = await vscode.window.showInputBox({
-      prompt: 'اسأل شيخة',
-      placeHolder: 'اكتب طلبك هنا...'
-    });
+  const chatProvider = new SheikhaChatProvider(context);
 
-    if (!prompt) return;
+  context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider('sheikha.advancedChatView', chatProvider)
+  );
 
-    const editor = vscode.window.activeTextEditor;
-    const selectedText = editor ? editor.document.getText(editor.selection) : '';
+  context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.ask', async () => {
+      await vscode.commands.executeCommand('workbench.view.extension.sheikha-ai');
+    })
+  );
 
-    vscode.window.withProgress({
-      location: vscode.ProgressLocation.Notification,
-      title: 'Sheikha is working...',
-      cancellable: false
-    }, async () => {
-      const result = await askSheikha(prompt, {
-        fileName: editor?.document?.fileName || null,
-        selectedText
-      });
-
-      const text = typeof result === 'string'
-        ? result
-        : JSON.stringify(result, null, 2);
-
+  context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.agent.run', async () => {
+      const prompt = await vscode.window.showInputBox({ prompt: 'أمر Agentic لشيخة' });
+      if (!prompt) return;
+      const result = await askSheikha(prompt, { mode: 'agentic-full' });
       const doc = await vscode.workspace.openTextDocument({
-        content: text,
+        content: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
         language: 'markdown'
       });
-
-      await vscode.window.showTextDocument(doc);
-    });
-  });
-
-  context.subscriptions.push(disposable);
+      vscode.window.showTextDocument(doc);
+    })
+  );
 }
 
 function deactivate() {}

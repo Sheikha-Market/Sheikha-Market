@@ -87,7 +87,9 @@
   ],
   "activationEvents": [
     "onStartupFinished",
-    "onCommand:sheikha.ask"
+    "onCommand:sheikha.ask",
+    "onView:sheikha.advancedChatView",
+    "onCommand:sheikha.agent.run"
   ],
   "main": "./src/extension.js",
   "files": [
@@ -310,6 +312,10 @@
       {
         "command": "sheikha.ask",
         "title": "Sheikha: Ask Local Runtime"
+      },
+      {
+        "command": "sheikha.agent.run",
+        "title": "Sheikha: Run Agentic Task"
       }
     ],
     "keybindings": [
@@ -526,6 +532,11 @@
           "id": "sheikha",
           "title": "Sheikha",
           "icon": "images/sheikha-icon.svg"
+        },
+        {
+          "id": "sheikha-ai",
+          "title": "Sheikha AI",
+          "icon": "resources/sheikha.svg"
         }
       ]
     },
@@ -620,6 +631,12 @@
           "id": "sheikha.toolsView",
           "name": "الأدوات والتقنيات",
           "icon": "images/sheikha-icon.svg"
+        }
+      ],
+      "sheikha-ai": [
+        {
+          "id": "sheikha.advancedChatView",
+          "name": "Sheikha Advanced Chat"
         }
       ]
     }
