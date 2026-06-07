@@ -1,3 +1,4 @@
+const { runSheikhaProtocol } = require('./runtime/protocols/sheikha-protocol/sheikha-protocol');
 try {
     const dotenv = require('dotenv');
     dotenv.config({ path: '.env.runtime' });
@@ -23010,7 +23011,29 @@ function onServerStarted(activePort) {
 
 let server;
 function startServerWithFallback(port, attempt = 0) {
-    server = app.listen(port, HOST, () => {
+    server = 
+/**
+ * Sheikha Protocol v1 Runtime + Universal API Integration
+ */
+app.get('/api/sheikha/protocol/status', (req, res) => {
+  const result = runSheikhaProtocol({
+    actor: 'api',
+    action: 'protocol_status',
+    target: 'runtime'
+  });
+  res.json({ success: true, data: result, message: 'Sheikha Protocol active' });
+});
+
+app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
+  const result = runSheikhaProtocol(req.body || {});
+  res.status(result.decision.executable ? 200 : 403).json({
+    success: result.decision.executable,
+    data: result,
+    message: result.decision.reason
+  });
+});
+
+app.listen(port, HOST, () => {
         onServerStarted(port);
     });
 
