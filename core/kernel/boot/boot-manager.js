@@ -3,16 +3,15 @@
 // SHEIKHA Kernel Boot Manager
 // Unified entrypoint for all runtime layers
 
-const path = require('path');
 const registry = require('../registry/kernel-registry');
+const runtime = require('../../runtime');
+const governance = require('../governance');
+const providers = require('../../providers/provider-registry');
+const federation = require('../federation');
+const orchestration = require('../orchestration');
 
 function bootKernel() {
   // Boot sequence: runtime, governance, providers, federation, orchestration
-  const runtime = require('../../runtime');
-  const governance = require('../governance');
-  const providers = require('../../providers/provider-registry');
-  const federation = require('../federation');
-  const orchestration = require('../orchestration');
 
   return {
     success: true,
