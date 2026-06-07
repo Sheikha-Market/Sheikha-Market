@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.8",
+  "version": "1.0.9",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -91,7 +91,7 @@
     "onView:sheikha.advancedChatView",
     "onCommand:sheikha.agent.run"
   ],
-  "main": "./src/extension.js",
+  "main": "./extension.js",
   "files": [
     "extension.js",
     "package.json",
@@ -108,7 +108,9 @@
     "providers/**",
     "syntaxes/**",
     "snippets/**",
-    "language-configuration.json"
+    "language-configuration.json",
+    "src/**",
+    "resources/**"
   ],
   "contributes": {
     "languages": [
@@ -658,9 +660,9 @@
     "node-fetch": "^2.7.0"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
-    "@vscode/vsce": "^2.22.0",
     "@jest/globals": "^29.7.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.32.0",
     "jest": "^29.7.0"
   },
   "repository": {
