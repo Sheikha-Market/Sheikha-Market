@@ -1,6 +1,6 @@
 'use strict';
 
-function lowerToIR(ast) {
+function lowerToIR(ast, sourceProgram) {
     const steps = [];
 
     for (const node of ast.body || []) {
@@ -37,6 +37,7 @@ function lowerToIR(ast) {
         meta: {
             nodes: ast.body?.length || 0,
             generatedAt: new Date().toISOString(),
+            sourceLanguage: sourceProgram?.sourceLanguage || ast.meta?.sourceLanguage || null,
         },
         steps,
     };

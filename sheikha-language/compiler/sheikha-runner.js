@@ -3,14 +3,13 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
-const { lex } = require('./lexer');
-const { parse } = require('./parser');
 const { lowerToIR } = require('./ir');
 const { typeCheckAst } = require('./type-checker');
 const { compileIRToBytecode } = require('./bytecode');
 const { runIR } = require('./vm');
 const { runBytecode } = require('./bytecode-vm');
 const { verifyPolicies } = require('./policy-signatures');
+const { loadSourceProgram } = require('./source-loader');
 
 const input = process.argv[2];
 if (!input) {
@@ -68,11 +67,10 @@ for (let i = 3; i < process.argv.length; i++) {
     }
 }
 
-const source = fs.readFileSync(input, 'utf8');
-const tokens = lex(source);
-const ast = parse(tokens);
+const sourceProgram = loadSourceProgram(input);
+const { ast } = sourceProgram;
 const typeCheck = typeCheckAst(ast);
-const ir = lowerToIR(ast);
+const ir = lowerToIR(ast, sourceProgram);
 const bytecode = compileIRToBytecode(ir);
 
 let policyVerification = { ok: true, errors: [] };
@@ -123,6 +121,12 @@ const result = {
     input: path.basename(input),
     engine,
     profile,
+    source: {
+        language: sourceProgram.sourceLanguage,
+        family: sourceProgram.sourceFamily,
+        kind: sourceProgram.sourceKind,
+        file: sourceProgram.sourceFile,
+    },
     policyVerification,
     summary: {
         astNodes: ast.body.length,
@@ -153,6 +157,7 @@ if (tracePath) {
     fs.writeFileSync(tracePath, JSON.stringify(vmResult.state.neural.executionGraph, null, 2));
 }
 
+console.log('SHEIKHA_SOURCE_LANGUAGE=' + sourceProgram.sourceLanguage.toUpperCase());
 console.log('SHEIKHA_VM_ENGINE=' + engine.toUpperCase());
 console.log('SHEIKHA_SANDBOX_PROFILE=' + profile.toUpperCase());
 console.log('SHEIKHA_POLICY_VERIFIED=' + (policyVerification.ok ? 'YES' : 'NO'));
