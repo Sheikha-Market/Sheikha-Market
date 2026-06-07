@@ -22692,6 +22692,27 @@ app.use(
   require('./routes/runtime/introspection/routes.routes')
 );
 
+/**
+ * Sheikha Protocol v1 Runtime + Universal API Integration
+ */
+app.get('/api/sheikha/protocol/status', (req, res) => {
+  const result = runSheikhaProtocol({
+    actor: 'api',
+    action: 'protocol_status',
+    target: 'runtime'
+  });
+  res.json({ success: true, data: result, message: 'Sheikha Protocol active' });
+});
+
+app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
+  const result = runSheikhaProtocol(req.body || {});
+  res.status(result.decision.executable ? 200 : 403).json({
+    success: result.decision.executable,
+    data: result,
+    message: result.decision.reason
+  });
+});
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
@@ -23011,29 +23032,7 @@ function onServerStarted(activePort) {
 
 let server;
 function startServerWithFallback(port, attempt = 0) {
-    server = 
-/**
- * Sheikha Protocol v1 Runtime + Universal API Integration
- */
-app.get('/api/sheikha/protocol/status', (req, res) => {
-  const result = runSheikhaProtocol({
-    actor: 'api',
-    action: 'protocol_status',
-    target: 'runtime'
-  });
-  res.json({ success: true, data: result, message: 'Sheikha Protocol active' });
-});
-
-app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
-  const result = runSheikhaProtocol(req.body || {});
-  res.status(result.decision.executable ? 200 : 403).json({
-    success: result.decision.executable,
-    data: result,
-    message: result.decision.reason
-  });
-});
-
-app.listen(port, HOST, () => {
+    server = app.listen(port, HOST, () => {
         onServerStarted(port);
     });
 
