@@ -69,18 +69,31 @@ function isVsCodeOperationalPrompt(prompt, context = {}) {
         return false;
     }
 
-    const operationalEnglish = /(run|start|build|test|lint|deploy|debug|serve|terminal|command|task|npm|pnpm|yarn|node|python|pip|git|docker|kubectl|terraform|az|vscode|project|server)/.test(normalized);
-    const operationalArabic = /(شغل|شغّل|تشغيل|ابدأ|ابدا|نفذ|نفّذ|افتح|الأوامر|اوامر|امر|أمر|برمجة|كود|الكود|مشروع|الخادم|السيرفر|اختبار|فحص|بناء|نشر|تصحيح|لينت|بيئة|طرفية)/.test(normalized);
+    const arabicQuestionPrefixes = ['ما ', 'ماذا', 'متى', 'أين', 'اين', 'كيف', 'لماذا', 'ليش', 'من ', 'هل '];
+    const englishQuestionPrefixes = ['what ', 'why ', 'how ', 'where ', 'when ', 'who '];
+    const hasQuestionPrefix =
+        arabicQuestionPrefixes.some((prefix) => normalized.startsWith(prefix)) ||
+        englishQuestionPrefixes.some((prefix) => normalized.startsWith(prefix));
+    const questionLike = hasQuestionPrefix || normalized.includes('?') || normalized.includes('؟');
+
+    const explicitEnglishCommand = /^(run|start|execute|open|show|build|test|lint|deploy|debug|serve|restart|stop)\b/.test(normalized) ||
+        /^\/(run|start|build|test|lint|deploy|debug|serve|status)\b/.test(normalized) ||
+        /\bnpm\s+(run\s+)?(dev|start|test|lint|build)\b/.test(normalized) ||
+        /\byarn\s+(dev|start|test|lint|build)\b/.test(normalized) ||
+        /\bpnpm\s+(dev|start|test|lint|build)\b/.test(normalized);
+
+    const explicitArabicCommand = /^(شغل|شغّل|شغلي|نفذ|نفّذ|ابدأ|ابدا|افتح|اعرض|اظهر|شغّل\s+|نفّذ\s+)/.test(normalized) &&
+        /(المشروع|الخادم|السيرفر|الاختبارات|الاختبار|lint|build|test|npm|الأوامر|الاوامر|الحالة|البوابة|الطرفية)/.test(normalized);
 
     // The editor source alone is not an operational intent. Short chat prompts
     // such as "شيخة" must continue to the normal identity/chat path.
-    return operationalEnglish || operationalArabic;
+    return (explicitEnglishCommand || explicitArabicCommand) && !questionLike;
 }
 
 function buildFastOperationalAnswer(prompt) {
     const lower = String(prompt || '').toLowerCase();
 
-    if (/(شغل المشروع|شغّل المشروع|run project|start project|شغل الخادم|شغّل الخادم|run server|start server)/.test(lower)) {
+    if (/(شغل المشروع|شغّل المشروع|شغلي المشروع|شغّلي المشروع|شغلّي المشروع|run project|start project|شغل الخادم|شغّل الخادم|شغلي الخادم|شغّلي الخادم|run server|start server)/.test(lower)) {
         return [
             'لتشغيل المشروع بسرعة داخل بيئة شيخة:',
             '1) فعّل البيئة الافتراضية: source .venv/bin/activate',
@@ -328,7 +341,7 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
         }
     }, preferredProvider);
 
-    if (result && result.success) {
+    if (result?.success) {
         return {
             success: true,
             provider: result._providerUsed || result.provider || 'sheikha-provider',

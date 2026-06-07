@@ -24,8 +24,22 @@ describe('Sheikha AI Gateway Fast Operational Path', () => {
         ).toBe(true);
 
         expect(
+            isVsCodeOperationalPrompt('شغل المشروع', { source: 'vscode-chat' })
+        ).toBe(true);
+
+        expect(
             isVsCodeOperationalPrompt('run tests', { source: 'web-chat' })
         ).toBe(true);
+    });
+
+    test('does not route roadmap or informational questions to the operational fast path', () => {
+        expect(
+            isVsCodeOperationalPrompt('ما مسار المشروع', { source: 'vscode-chat' })
+        ).toBe(false);
+
+        expect(
+            isVsCodeOperationalPrompt('كيف اشغل المشروع؟', { source: 'vscode-chat' })
+        ).toBe(false);
     });
 
     test('fast operational guidance uses the corrected Arabic gateway wording', () => {
@@ -34,5 +48,12 @@ describe('Sheikha AI Gateway Fast Operational Path', () => {
         expect(answer).toContain('المسار التشغيلي السريع');
         expect(answer).toContain('اعرض حالة البوابة');
         expect(answer).not.toContain('حالة الرواية');
+    });
+
+    test('returns direct run steps for feminine imperative prompt', () => {
+        const answer = buildFastOperationalAnswer('شغلي المشروع');
+
+        expect(answer).toContain('لتشغيل المشروع بسرعة داخل بيئة شيخة');
+        expect(answer).toContain('npm run dev');
     });
 });
