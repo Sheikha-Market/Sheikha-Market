@@ -37,7 +37,15 @@ kernel.initialize();
 
 try {
   const runtimeIdentityRoutes = require('./routes/runtime/identity/status.routes');
-  app.use('/api/runtime/identity', runtimeIdentityRoutes);
+  
+try {
+  app.use(require('./routes/sheikha-runtime-chat'));
+  console.log('[Sheikha] Runtime chat endpoint mounted');
+} catch (e) {
+  console.warn('[Sheikha] Runtime chat endpoint mount failed:', e.message);
+}
+
+app.use('/api/runtime/identity', runtimeIdentityRoutes);
   app.use('/api/operating-system', runtimeIdentityRoutes);
   app.use('/api/root-identity', runtimeIdentityRoutes);
   console.log('✅ Sheikha Operating System identity ACTIVE', SHEIKHA_RUNTIME_IDENTITY.officialName);
