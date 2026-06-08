@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.12",
+  "version": "1.0.13",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -91,7 +91,12 @@
     "onView:sheikha.advancedChatView",
     "onCommand:sheikha.agent.run",
     "onCommand:sheikha.openChat",
-    "onView:sheikha.chatView"
+    "onView:sheikha.chatView",
+    "onCommand:sheikha.cli.status",
+    "onCommand:sheikha.cli.health",
+    "onCommand:sheikha.debugger.run",
+    "onCommand:sheikha.debugger.logs",
+    "onCommand:sheikha.runtime.restart"
   ],
   "main": "./extension.js",
   "files": [
@@ -320,6 +325,26 @@
       {
         "command": "sheikha.agent.run",
         "title": "Sheikha: Run Agentic Task"
+      },
+      {
+        "command": "sheikha.cli.status",
+        "title": "Sheikha CLI: الحالة العامة"
+      },
+      {
+        "command": "sheikha.cli.health",
+        "title": "Sheikha CLI: فحص الصحة"
+      },
+      {
+        "command": "sheikha.debugger.run",
+        "title": "Sheikha Debugger: تشغيل الفحص الكامل"
+      },
+      {
+        "command": "sheikha.debugger.logs",
+        "title": "Sheikha Debugger: عرض السجلات"
+      },
+      {
+        "command": "sheikha.runtime.restart",
+        "title": "Sheikha Runtime: إعادة التشغيل"
       }
     ],
     "keybindings": [
