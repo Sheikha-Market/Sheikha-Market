@@ -15,47 +15,71 @@ function postJson(path, payload) {
       port: url.port || 80,
       path: url.pathname,
       method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(body)
-      },
+      headers: {'Content-Type':'application/json','Content-Length':Buffer.byteLength(body)},
       timeout: TIMEOUT_MS
-    }, (res) => {
+    }, res => {
       let data = '';
       res.on('data', c => data += c);
       res.on('end', () => {
-        try {
-          const parsed = JSON.parse(data);
-          resolve(parsed);
-        } catch {
-          resolve({ success: false, message: data || `HTTP ${res.statusCode}` });
-        }
+        try { resolve(JSON.parse(data)); }
+        catch { resolve({ success:false, message:data || `HTTP ${res.statusCode}` }); }
       });
     });
 
-    req.on('timeout', () => {
-      req.destroy(new Error('Sheikha API timeout'));
-    });
-
+    req.on('timeout', () => req.destroy(new Error('Sheikha API timeout')));
     req.on('error', reject);
     req.write(body);
     req.end();
   });
 }
 
-async function askSheikha(prompt, context = {}) {
-  const payload = {
-    message: prompt,
-    prompt,
-    mode: context.mode || 'agentic',
-    context
+function looksLikeShell(text) {
+  return /(^|\n)\s*(cd |git |npm |node |curl |pm2 |python3? |npx |code |sudo |chmod |cat >|rm -f|mkdir )/.test(text);
+}
+
+function shellReply(prompt) {
+  return {
+    success:true,
+    data:{
+      reply:
+`أفهم أن هذا أمر طرفية/تشغيل، وليس سؤال دردشة.
+
+نفّذه في الطرفية:
+
+\`\`\`bash
+${prompt.trim()}
+\`\`\`
+
+ولحفظ تغييرات إضافة شيخة غالبًا استخدم:
+
+\`\`\`bash
+cd ~/Projects/sheikha/sheikha-main-portal
+git status --short
+git add sheikha-vscode-extension
+git commit -m "Improve Sheikha advanced chat routing"
+git push origin optimization/long-tail-latency-elimination
+\`\`\``,
+      provider:'sheikha-extension-cli-router',
+      model:'Sheikha-Core',
+      mode:'cli',
+      localModelOnline:true
+    }
   };
+}
+
+async function askSheikha(prompt, context = {}) {
+  const mode = context.mode || 'agentic';
+
+  if (mode === 'cli' || looksLikeShell(prompt)) {
+    return shellReply(prompt);
+  }
+
+  const payload = { message: prompt, prompt, mode, context };
 
   const endpoints = [
     '/api/sheikha/ai-gateway/chat',
     '/api/sheikha/chat',
-    '/api/ai/chat',
-    '/api/sheikha/protocol/decision'
+    '/api/ai/chat'
   ];
 
   let lastError = null;
@@ -63,7 +87,12 @@ async function askSheikha(prompt, context = {}) {
   for (const ep of endpoints) {
     try {
       const result = await postJson(ep, payload);
-      if (result && result.success !== false) return result;
+      const text = result?.data?.reply || result?.reply || result?.message || result?.data?.message;
+
+      if (result && result.success !== false && text && text !== 'Governance passed') {
+        return result;
+      }
+
       lastError = result;
     } catch (e) {
       lastError = e;
@@ -71,15 +100,26 @@ async function askSheikha(prompt, context = {}) {
   }
 
   return {
-    success: true,
-    data: {
-      reply: `تم استلام طلبك داخل شيخة، لكن لم أجد مسار دردشة مكتمل في Runtime. الطلب: ${prompt}`,
-      provider: 'sheikha-extension-fallback',
-      model: 'local-runtime',
-      mode: context.mode || 'agentic',
-      localModelOnline: false
-    },
-    error: lastError?.message || lastError
+    success:true,
+    data:{
+      reply:
+`تم استلام طلبك داخل شيخة.
+
+لم أجد مسار دردشة مولّد مكتمل في Runtime الحالي، لذلك أرجع لك ردًا تشغيليًا آمنًا.
+
+الطلب:
+${prompt}
+
+الحالة المطلوبة الآن:
+1) تثبيت endpoint دردشة فعلي في Runtime.
+2) ربط /api/sheikha/ai-gateway/chat بنموذج Sheikha-Core.
+3) منع تحويل أسئلة الشات إلى protocol/decision حتى لا يظهر "Governance passed" كرد نهائي.`,
+      provider:'sheikha-extension-safe-fallback',
+      model:'Sheikha-Core',
+      mode,
+      localModelOnline:false,
+      lastError
+    }
   };
 }
 
