@@ -35,3 +35,17 @@ ${prompt}
 });
 
 module.exports = router;
+
+router.get('/api/sheikha/debug/encryption', (req, res) => {
+  const ipSecurityEngine = require('../lib/sheikha-ip-security-engine');
+  res.json({
+    success: true,
+    env: {
+      DATA_ENCRYPTION_KEY: Boolean(process.env.DATA_ENCRYPTION_KEY),
+      DATA_ENCRYPTION_KEY_HEX: Boolean(process.env.DATA_ENCRYPTION_KEY_HEX),
+      SHEIKHA_ENCRYPTION_KEY: Boolean(process.env.SHEIKHA_ENCRYPTION_KEY),
+      JWT_SECRET: Boolean(process.env.JWT_SECRET)
+    },
+    ready: ipSecurityEngine.isEncryptionReady()
+  });
+});
