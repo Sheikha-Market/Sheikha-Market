@@ -115,7 +115,7 @@ function responseIntegritySignature(req, res, next) {
     if (!signatureSecret || signatureSecret.length < 32) {
         res.setHeader('X-Sheikha-Signature', 'disabled');
         res.setHeader('X-Sheikha-Signature-Reason', 'missing_or_weak_secret');
-        res.setHeader('X-Sheikha-Encryption-Ready', String(ipSecurityEngine.isEncryptionReady()));
+        res.setHeader('X-Sheikha-Encryption-Ready', String(ipSecurityEngine.isEncryptionReady() || Boolean(process.env.DATA_ENCRYPTION_KEY || process.env.DATA_ENCRYPTION_KEY_HEX)));
         return next();
     }
 
@@ -128,7 +128,7 @@ function responseIntegritySignature(req, res, next) {
     res.setHeader('X-Sheikha-Signature', signature);
     res.setHeader('X-Sheikha-Signature-Timestamp', timestamp);
     res.setHeader('X-Sheikha-Signature-Alg', 'HMAC-SHA256');
-    res.setHeader('X-Sheikha-Encryption-Ready', String(ipSecurityEngine.isEncryptionReady()));
+    res.setHeader('X-Sheikha-Encryption-Ready', String(ipSecurityEngine.isEncryptionReady() || Boolean(process.env.DATA_ENCRYPTION_KEY || process.env.DATA_ENCRYPTION_KEY_HEX)));
 
     next();
 }
