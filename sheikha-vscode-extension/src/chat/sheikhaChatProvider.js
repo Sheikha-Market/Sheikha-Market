@@ -32,7 +32,10 @@ class SheikhaChatProvider {
           mode: msg.mode || 'agentic',
           fileName: editor?.document?.fileName || null,
           selectedText,
-          workspaceFolders: vscode.workspace.workspaceFolders?.map(f => f.uri.fsPath) || []
+          workspaceFolders: vscode.workspace.workspaceFolders?.map(f => f.uri.fsPath) || [],
+          projectRoot: '/home/sheikha/Projects/sheikha/sheikha-main-portal',
+          projectName: 'Sheikha Main Portal',
+          projectPurpose: 'منظومة شيخة الكبرى: Runtime + Governance + AI + VS Code Extension + CLI + Debugger + Agentic Fabric'
         });
 
         const answerText =

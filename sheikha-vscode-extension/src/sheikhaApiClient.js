@@ -1,6 +1,7 @@
 'use strict';
 
 const http = require('http');
+const { buildProjectContext } = require('./projectContext');
 
 const BASE_URL = process.env.SHEIKHA_RUNTIME_URL || 'http://127.0.0.1:8080';
 const TIMEOUT_MS = Number(process.env.SHEIKHA_API_TIMEOUT_MS || 30000);
@@ -74,7 +75,19 @@ async function askSheikha(prompt, context = {}) {
     return shellReply(prompt);
   }
 
-  const payload = { message: prompt, prompt, mode, context };
+  const projectContext = buildProjectContext();
+
+  const payload = {
+    message: prompt,
+    prompt,
+    mode,
+    context: {
+      ...context,
+      sheikhaProject: projectContext,
+      systemInstruction:
+        'أنت شيخة داخل مشروع sheikha-main-portal. افهم المشروع من مساره وبنيته وملفاته. لا تجيب كدردشة عامة فقط. اربط كل إجابة بالمسار، Runtime، Governance، Extension، CLI، Debugger، وهدف منظومة شيخة الأكبر من مجرد مشروع.'
+    }
+  };
 
   const endpoints = [
     '/api/sheikha/ai-gateway/chat',
