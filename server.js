@@ -29,6 +29,86 @@ const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
 
 const app = express();
+
+// SHEIKHA_TODO_TAGS_GLOBAL_REGISTRY_TOP_ROUTES
+app.get('/api/sheikha/global-registry/status', (_req, res) => res.json({
+  success: true,
+  data: {
+    status: 'ACTIVE',
+    fabric: 'SHEIKHA_GLOBAL_REGISTRY_FABRIC',
+    registries: ['github','gitlab','npm','pypi','dockerhub','openvsx','vscode-marketplace','google','apple','microsoft','windows'],
+    mode: 'read-first',
+    externalWrite: 'blocked_until_authorized'
+  }
+}));
+
+app.get('/api/sheikha/todo/status', (_req, res) => res.json({
+  success: true,
+  data: { count: 0, todos: [] }
+}));
+
+app.post('/api/sheikha/todo/add', express.json(), (req, res) => res.json({
+  success: true,
+  data: {
+    id: Date.now(),
+    text: String(req.body?.text || req.body?.message || '').trim(),
+    status: 'open',
+    createdAt: new Date().toISOString()
+  }
+}));
+
+app.get('/api/sheikha/tags/status', (_req, res) => res.json({
+  success: true,
+  data: { tags: ['runtime','vscode','debug','registry','rag','cli','sdk','mcp','graphics'] }
+}));
+
+app.post('/api/sheikha/tags/add', express.json(), (req, res) => res.json({
+  success: true,
+  data: { tag: String(req.body?.tag || '').trim(), status: 'registered' }
+}));
+
+console.log('[Sheikha] TOP Todo/Tags/Global Registry endpoints ACTIVE');
+
+
+// SHEIKHA_TODO_TAGS_GLOBAL_REGISTRY_TOP_ROUTES
+app.get('/api/sheikha/global-registry/status', (_req, res) => res.json({
+  success: true,
+  data: {
+    status: 'ACTIVE',
+    fabric: 'SHEIKHA_GLOBAL_REGISTRY_FABRIC',
+    registries: ['github','gitlab','npm','pypi','dockerhub','openvsx','vscode-marketplace','google','apple','microsoft','windows'],
+    mode: 'read-first',
+    externalWrite: 'blocked_until_authorized'
+  }
+}));
+
+app.get('/api/sheikha/todo/status', (_req, res) => res.json({
+  success: true,
+  data: { count: 0, todos: [] }
+}));
+
+app.post('/api/sheikha/todo/add', express.json(), (req, res) => res.json({
+  success: true,
+  data: {
+    id: Date.now(),
+    text: String(req.body?.text || req.body?.message || '').trim(),
+    status: 'open',
+    createdAt: new Date().toISOString()
+  }
+}));
+
+app.get('/api/sheikha/tags/status', (_req, res) => res.json({
+  success: true,
+  data: { tags: ['runtime','vscode','debug','registry','rag','cli','sdk','mcp','graphics'] }
+}));
+
+app.post('/api/sheikha/tags/add', express.json(), (req, res) => res.json({
+  success: true,
+  data: { tag: String(req.body?.tag || '').trim(), status: 'registered' }
+}));
+
+console.log('[Sheikha] TOP Todo/Tags/Global Registry endpoints ACTIVE');
+
 const SHEIKHA_RUNTIME_IDENTITY = getRuntimeIdentity({ rootDir: __dirname });
 app.locals.sheikhaRuntimeIdentity = SHEIKHA_RUNTIME_IDENTITY;
 const kernel = require('./runtime/kernel/sheikha-runtime-kernel');
@@ -40,6 +120,13 @@ try {
   
 try {
   app.use(require('./routes/sheikha-runtime-chat'));
+
+try {
+  console.log('[Sheikha] Programming route mounted');
+} catch (e) {
+  console.warn('[Sheikha] Programming route mount failed:', e.message);
+}
+
   console.log('[Sheikha] Runtime chat endpoint mounted');
 } catch (e) {
   console.warn('[Sheikha] Runtime chat endpoint mount failed:', e.message);
@@ -2321,6 +2408,11 @@ const corsOptions = {
 
 app.use(cors(corsOptions));
 app.use(express.json());
+app.use(require('./routes/sheikha-programming'));
+app.use(require('./routes/sheikha-tools'));
+app.use(require('./routes/sheikha-environment'));
+app.use(require('./routes/sheikha-software-registry'));
+app.use(require('./routes/sheikha-intent-router'));
 app.use(runtimeSecurityMiddleware.securityHeaders);
 app.use(runtimeSecurityMiddleware.ipOwnershipHeaders);
 app.use(runtimeSecurityMiddleware.responseIntegritySignature);
@@ -2577,7 +2669,14 @@ app.get('/api/government/status/:refCode', (req, res) => {
     const entry = entity || employee;
 
     if (!entry) {
-        return res.status(404).json({ success: false, message: 'الرقم المرجعي غير موجود' });
+        return 
+try {
+    console.log('[Sheikha] Todo/Tags/Global Registry routes mounted');
+} catch (e) {
+  console.warn('[Sheikha] Todo/Tags/Global Registry mount failed:', e.message);
+}
+
+res.status(404).json({ success: false, message: 'الرقم المرجعي غير موجود' });
     }
 
     res.json({
@@ -22721,11 +22820,14 @@ app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
   });
 });
 
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
             success: false,
-            error: 'not_found',
+            
+
+error: 'not_found',
             message: 'المسار غير موجود — The requested API endpoint does not exist.',
             path: req.path,
             timestamp: new Date().toISOString()

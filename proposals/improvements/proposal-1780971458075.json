@@ -1,0 +1,15 @@
+{
+  "id": "proposal-1780971458075",
+  "createdAt": "2026-06-09T02:17:38.075Z",
+  "objective": "تقوية شات VS Code وربطه بالبيئة والريجستري",
+  "evidenceCount": 2572,
+  "rule": "اقتراح فقط؛ لا تعديل تلقائي قبل الاختبار والمراجعة",
+  "recommendedFlow": [
+    "search registry",
+    "select relevant files",
+    "generate patch proposal",
+    "run node --check / npm test",
+    "human approval",
+    "git commit"
+  ]
+}
