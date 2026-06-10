@@ -1,26 +1,23 @@
 'use strict';
 
 const vscode = require('vscode');
-const { askSheikha } = require('../sheikhaApiClient');
+const { sheikhaSmartRoute, governMode } = require('../sheikhaApiClient');
 
 class SheikhaChatProvider {
-  constructor(context) {
-    this.context = context;
+  constructor(extensionUri) {
+    this.extensionUri = extensionUri;
   }
 
   resolveWebviewView(webviewView) {
-    webviewView.webview.options = {
-      enableScripts: true,
-      localResourceRoots: [this.context.extensionUri]
-    };
-
+    webviewView.webview.options = { enableScripts: true };
     webviewView.webview.html = this.getHtml();
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
       if (!msg || msg.command !== 'ask') return;
 
-      const editor = vscode.window.activeTextEditor;
-      const selectedText = editor ? editor.document.getText(editor.selection) : '';
+      const text = String(msg.text || '').trim();
+      const selectedMode = msg.mode || 'agentic';
+      const governance = governMode(text, selectedMode);
 
       webviewView.webview.postMessage({
         command: 'thinking',
@@ -28,43 +25,40 @@ class SheikhaChatProvider {
       });
 
       try {
-        const result = await askSheikha(msg.text, {
-          mode: msg.mode || 'agentic',
-          fileName: editor?.document?.fileName || null,
-          selectedText,
-          workspaceFolders: vscode.workspace.workspaceFolders?.map(f => f.uri.fsPath) || [],
-          projectRoot: '/home/sheikha/Projects/sheikha/sheikha-main-portal',
-          projectName: 'Sheikha Main Portal',
-          projectPurpose: 'منظومة شيخة الكبرى: Runtime + Governance + AI + VS Code Extension + CLI + Debugger + Agentic Fabric'
+        const result = await sheikhaSmartRoute(text, {
+          mode: governance.effectiveMode,
+          selectedMode,
+          governance
         });
 
-        const answerText =
-          typeof result === 'string'
-            ? result
-            : (
-                result?.data?.reply ||
-                result?.reply ||
-                result?.message ||
-                result?.data?.message ||
-                JSON.stringify(result, null, 2)
-              );
+        if (result && result.data) {
+          result.data.governance = governance;
+          result.data.mode = governance.effectiveMode;
+        }
 
-        const meta = typeof result === 'object' ? {
-          provider: result?.data?.provider || result?.provider || 'Sheikha',
-          model: result?.data?.model || result?.model || 'Sheikha-Core',
-          mode: result?.data?.mode || msg.mode || 'agentic',
+        const answer =
+          result?.data?.reply ||
+          result?.data?.answer ||
+          result?.data?.message ||
+          JSON.stringify(result, null, 2);
+
+        const meta = {
+          provider: result?.data?.provider || 'Sheikha',
+          model: result?.data?.model || result?.data?.officialModel || 'Sheikha-Core',
+          governance,
           localModelOnline: result?.data?.localModelOnline
-        } : null;
+        };
 
         webviewView.webview.postMessage({
           command: 'answer',
-          text: answerText,
+          text: answer,
           meta
         });
-      } catch (error) {
+      } catch (e) {
         webviewView.webview.postMessage({
-          command: 'error',
-          text: error?.message || String(error)
+          command: 'answer',
+          text: 'خطأ في شات شيخة: ' + e.message,
+          meta: { provider: 'Sheikha', model: 'Sheikha-Core', governance }
         });
       }
     });
@@ -74,153 +68,337 @@ class SheikhaChatProvider {
     return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
-<meta charset="UTF-8" />
-<meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'unsafe-inline'; script-src 'unsafe-inline';">
+<meta charset="UTF-8">
 <style>
-*{box-sizing:border-box}
-body{margin:0;font-family:system-ui,"Segoe UI",sans-serif;background:#0d1117;color:#e6edf3}
-.header{padding:12px;background:#064e3b;color:#fff;font-weight:800;border-bottom:1px solid #14532d}
-.status{display:grid;grid-template-columns:repeat(4,1fr);gap:6px;padding:8px;background:#0f172a;border-bottom:1px solid #30363d;font-size:11px}
-.badge{background:#111827;border:1px solid #374151;border-radius:8px;padding:6px;text-align:center;color:#cbd5e1}
-.toolbar{display:grid;grid-template-columns:repeat(3,1fr);gap:6px;padding:8px;background:#111827;border-bottom:1px solid #30363d}
-.tool{background:#1f2937;color:#e5e7eb;border:1px solid #374151;border-radius:8px;padding:8px;cursor:pointer}
-.tool:hover{border-color:#10b981}
-.chat{height:calc(100vh - 235px);overflow:auto;padding:12px}
-.msg{padding:11px 13px;margin:8px 0;border-radius:12px;white-space:pre-wrap;line-height:1.7}
-.user{background:#1f2937;border:1px solid #374151}
-.ai{background:#052e2b;border:1px solid #10b981}
-.error{background:#3b1111;border:1px solid #ef4444}
-.meta{margin-top:8px;padding-top:8px;border-top:1px solid #14532d;color:#9ca3af;font-size:11px}
-.controls{display:grid;grid-template-columns:1fr 48px;gap:8px;padding:10px;border-top:1px solid #30363d;background:#0d1117}
-select{grid-column:1 / 3;background:#21262d;color:#fff;border:1px solid #30363d;border-radius:8px;padding:8px}
-textarea{width:100%;height:66px;resize:none;background:#161b22;color:#fff;border:1px solid #30363d;border-radius:12px;padding:10px;outline:none}
-textarea:focus{border-color:#10b981}
-.send-btn{width:46px;height:46px;align-self:end;border:none;border-radius:14px;cursor:pointer;display:flex;align-items:center;justify-content:center;background:#16a34a;color:white}
-.send-btn:hover{background:#15803d}
-.send-btn:disabled{opacity:.55;cursor:not-allowed}
-.send-btn svg{width:20px;height:20px}
+body{margin:0;background:#0b0f14;color:#e8f5ee;font-family:system-ui;padding:10px}
+.header{background:#174f38;padding:12px;border-radius:8px;font-weight:700}
+.tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0}
+button{background:#1f2937;color:#fff;border:1px solid #334155;border-radius:8px;padding:10px;cursor:pointer}
+button.active{background:#166534}
+#log{height:calc(100vh - 210px);overflow:auto;border-top:1px solid #1f2937;padding-top:10px}
+.msg{background:#102b24;border:1px solid #22c55e;border-radius:10px;padding:10px;margin:8px 0;white-space:pre-wrap}
+.user{background:#1f2937;border-color:#334155}
+.meta{font-size:11px;color:#9ca3af;border-top:1px solid #14532d;margin-top:8px;padding-top:6px;direction:rtl}
+.input{display:flex;gap:8px;border-top:1px solid #1f2937;padding-top:10px}
+textarea{flex:1;background:#111827;color:#fff;border:1px solid #22c55e;border-radius:10px;padding:10px;resize:none}
+.send{width:54px;background:#22c55e;color:#052e16;font-weight:700}
+
+.sheikha-layout-compact .messages { font-size: 12px; }
+.sheikha-layout-wide .chat-root { max-width: 100%; width: 100%; }
+.sheikha-layout-focus .toolbar,
+.sheikha-layout-focus .status-bar { display: none; }
+.sheikha-layout-focus .messages { min-height: calc(100vh - 120px); }
+
+/* SHEIKHA_LAYOUT_FABRIC_V3 */
+.layout-tools {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 8px 0 12px;
+}
+.layout-tools button {
+  cursor: pointer;
+  border: 1px solid #375a4b;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #14251f;
+  color: #e8fff3;
+}
+.layout-tools button.active {
+  background: #2f6f3e;
+  border-color: #5fe38b;
+}
+body.sheikha-layout-compact { font-size: 12px; }
+body.sheikha-layout-wide .chat-root,
+body.sheikha-layout-wide .container,
+body.sheikha-layout-wide .messages,
+body.sheikha-layout-wide #messages {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+body.sheikha-layout-focus .mode-grid,
+body.sheikha-layout-focus .header {
+  display: none !important;
+}
+body.sheikha-layout-focus .messages,
+body.sheikha-layout-focus #messages {
+  min-height: calc(100vh - 130px) !important;
+}
+
+/* SHEIKHA_TOOLS_DRAWER_V1 */
+.sheikha-tools-toggle-row {
+  display: flex;
+  justify-content: flex-end;
+  margin: 8px 0;
+}
+#sheikha-tools-toggle {
+  border: 1px solid #375a4b;
+  border-radius: 8px;
+  padding: 8px 12px;
+  background: #143323;
+  color: #e8fff3;
+  cursor: pointer;
+}
+.sheikha-tools-drawer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  border: 1px solid #244335;
+  border-radius: 10px;
+  padding: 10px;
+  margin: 8px 0 12px;
+  background: #0c1512;
+}
+.sheikha-tools-drawer.collapsed {
+  display: none;
+}
+.sheikha-tools-drawer button {
+  cursor: pointer;
+  border: 1px solid #375a4b;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #1d2736;
+  color: #e8fff3;
+}
+.sheikha-tools-drawer button.active,
+.sheikha-tools-drawer button[data-layout].active {
+  background: #2f6f3e;
+  border-color: #5fe38b;
+}
+.drawer-section-title {
+  grid-column: 1 / -1;
+  color: #9ad9b0;
+  font-weight: 700;
+  margin-top: 4px;
+}
+body.sheikha-layout-compact { font-size: 12px; }
+body.sheikha-layout-wide .chat-root,
+body.sheikha-layout-wide .container,
+body.sheikha-layout-wide .messages,
+body.sheikha-layout-wide #messages {
+  width: 100% !important;
+  max-width: 100% !important;
+}
+body.sheikha-layout-focus #sheikha-tools-drawer,
+body.sheikha-layout-focus .mode-grid,
+body.sheikha-layout-focus .header {
+  display: none !important;
+}
+
+
+/* SHEIKHA_PRO_CHAT_UI_V1 */
+#sheikha-tools-toggle {
+  width: 100%;
+  border: 1px solid #375a4b;
+  border-radius: 10px;
+  padding: 10px 12px;
+  background: #143323;
+  color: #e8fff3;
+  cursor: pointer;
+}
+.sheikha-tools-drawer.collapsed { display: none; }
+.sheikha-tools-drawer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 8px;
+  margin: 10px 0 12px;
+  padding: 10px;
+  border: 1px solid #244335;
+  border-radius: 10px;
+  background: #0c1512;
+}
+.sheikha-tools-drawer button {
+  border: 1px solid #375a4b;
+  border-radius: 8px;
+  padding: 8px 10px;
+  background: #1d2736;
+  color: #e8fff3;
+  cursor: pointer;
+}
+.sheikha-tools-drawer button.active {
+  background: #2f6f3e;
+  border-color: #5fe38b;
+}
+.drawer-section-title {
+  grid-column: 1 / -1;
+  color: #9ad9b0;
+  font-weight: 700;
+}
+body.sheikha-layout-compact { font-size: 12px; }
+body.sheikha-layout-focus .sheikha-tools-drawer { display: none !important; }
+
 </style>
 </head>
 <body>
 <div class="header">Sheikha Advanced Chat</div>
+<div class="tools">
+<button data-mode="mcp">MCP</button>
+<button data-mode="rag">RAG</button>
+<button data-mode="agentic" class="active">Agent</button>
+<button data-mode="graphics">Graphics</button>
 
-<div class="status">
-  <div class="badge">Runtime: 8080</div>
-  <div class="badge">Model: Sheikha-Core</div>
-  <div class="badge">Governance: ON</div>
-  <div class="badge">Agentic: READY</div>
+
+<button data-mode="cli">CLI</button>
+<button data-mode="sdk">SDK</button>
+
 </div>
-
-<div class="toolbar">
-  <button class="tool" data-mode="agentic">Agent</button>
-  <button class="tool" data-mode="rag">RAG</button>
-  <button class="tool" data-mode="mcp">MCP</button>
-  <button class="tool" data-mode="sdk">SDK</button>
-  <button class="tool" data-mode="cli">CLI</button>
-  <button class="tool" data-mode="graphics">Graphics</button>
+<div id="log"><div class="msg">مرحبًا، أنا شيخة. اكتب طلبك ثم اضغط Enter أو زر الإرسال.</div></div>
+<div class="input">
+<textarea id="input" rows="2" placeholder="اكتب طلبك هنا..."></textarea>
+<button id="sendBtn" class="send">➤</button>
 </div>
-
-<div class="chat" id="chat">
-  <div class="msg ai">مرحبًا، أنا شيخة. اكتب طلبك ثم اضغط Enter أو زر الإرسال. استخدم Shift+Enter لسطر جديد.</div>
-</div>
-
-<div class="controls">
-  <select id="mode">
-    <option value="agentic">Agentic Full</option>
-    <option value="rag">RAG Workspace</option>
-    <option value="mcp">MCP Tools</option>
-    <option value="sdk">SDK Builder</option>
-    <option value="cli">CLI Commands</option>
-    <option value="graphics">Graphics / UI</option>
-    <option value="video">Video / Media</option>
-  </select>
-
-  <textarea id="input" placeholder="اكتب طلبك هنا..."></textarea>
-
-  <button id="sendBtn" class="send-btn" type="button" title="إرسال">
-    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-      <path d="M22 2L11 13"></path>
-      <path d="M22 2L15 22L11 13L2 9L22 2Z"></path>
-    </svg>
-  </button>
-</div>
-
 <script>
-if (!window.__sheikhaInitialized) {
-window.__sheikhaInitialized = true;
-
 const vscode = acquireVsCodeApi();
-const chat = document.getElementById('chat');
+
+function setSheikhaLayout(mode) {
+  document.body.classList.remove('sheikha-layout-compact','sheikha-layout-wide','sheikha-layout-focus');
+  document.body.classList.add('sheikha-layout-' + mode);
+  try { localStorage.setItem('sheikha.layout', mode); } catch (_) {}
+}
+
+setSheikhaLayout(localStorage.getItem('sheikha.layout') || 'wide');
+
+setTimeout(() => {
+  document.getElementById('layout-compact')?.addEventListener('click', () => setSheikhaLayout('compact'));
+  document.getElementById('layout-wide')?.addEventListener('click', () => setSheikhaLayout('wide'));
+  document.getElementById('layout-focus')?.addEventListener('click', () => setSheikhaLayout('focus'));
+}, 0);
+let mode = 'agentic';
+const log = document.getElementById('log');
 const input = document.getElementById('input');
 const sendBtn = document.getElementById('sendBtn');
-const modeSelect = document.getElementById('mode');
-const sendIcon = sendBtn.innerHTML;
-let busy = false;
 
-function add(cls, text, meta) {
-  const d = document.createElement('div');
-  d.className = 'msg ' + cls;
-  d.textContent = text || '';
+document.querySelectorAll('[data-mode]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('[data-mode]').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+  });
+});
+
+function addMessage(text, cls, meta) {
+  const box = document.createElement('div');
+  box.className = 'msg ' + (cls || '');
+  box.textContent = text;
 
   if (meta) {
     const m = document.createElement('div');
     m.className = 'meta';
+    const g = meta.governance || {};
     m.textContent =
-      'المصدر: ' + (meta.provider || '-') +
-      ' | النموذج: ' + (meta.model || '-') +
-      ' | النمط: ' + (meta.mode || '-') +
-      ' | المحلي: ' + (meta.localModelOnline === true ? 'متصل' : 'غير مؤكد');
-    d.appendChild(m);
+      '🧭 المصدر: ' + (meta.provider || 'Sheikha') +
+      '\\n🧠 النموذج: ' + (meta.model || '-') +
+      '\\n🎛️ الاختيار: ' + (g.requestedMode || mode) +
+      '\\n⚖️ قرار الحوكمة: ' + (g.intent || '-') +
+      '\\n🛤️ المسار الفعلي: ' + (g.effectiveMode || mode) +
+      '\\n🔌 المحلي: ' + (meta.localModelOnline ? 'متصل' : 'غير مؤكد');
+    box.appendChild(m);
   }
 
-  chat.appendChild(d);
-  chat.scrollTop = chat.scrollHeight;
-}
-
-function setBusy(v) {
-  busy = v;
-  sendBtn.disabled = v;
-  sendBtn.innerHTML = v ? '…' : sendIcon;
+  log.appendChild(box);
+  log.scrollTop = log.scrollHeight;
 }
 
 function send() {
   const text = input.value.trim();
-  const mode = modeSelect.value;
-  if (!text || busy) return;
-
-  add('user', text);
+  if (!text) return;
+  addMessage(text, 'user');
   input.value = '';
-  input.focus();
-  setBusy(true);
-
-  vscode.postMessage({ command: 'ask', text, mode });
+  vscode.postMessage({ command: 'ask', text: text, mode: mode });
 }
 
 sendBtn.addEventListener('click', send);
-
-input.addEventListener('keydown', (e) => {
+input.addEventListener('keydown', function(e){
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
     send();
   }
 });
 
-document.querySelectorAll('.tool').forEach(btn => {
-  btn.addEventListener('click', () => {
-    modeSelect.value = btn.dataset.mode;
-    input.focus();
-  });
+window.addEventListener('message', function(event){
+  const msg = event.data || {};
+  if (msg.command === 'thinking') addMessage(msg.text || 'شيخة تعمل الآن...');
+  if (msg.command === 'answer') addMessage(msg.text || '', '', msg.meta);
 });
 
-window.addEventListener('message', (e) => {
-  const m = e.data || {};
-  if (m.command === 'thinking') add('ai', m.text || '...');
-  if (m.command === 'answer') { setBusy(false); add('ai', m.text || '', m.meta); }
-  if (m.command === 'error') { setBusy(false); add('error', 'خطأ: ' + (m.text || 'unknown')); }
-});
 
-input.focus();
-}
+
+
+// SHEIKHA_TOOLS_DRAWER_HANDLER_V1
+(function () {
+  function applyLayout(mode) {
+    const allowed = ['compact', 'wide', 'focus'];
+    if (!allowed.includes(mode)) mode = 'wide';
+    document.body.classList.remove('sheikha-layout-compact','sheikha-layout-wide','sheikha-layout-focus');
+    document.body.classList.add('sheikha-layout-' + mode);
+    document.querySelectorAll('[data-layout]').forEach((btn) => {
+      btn.classList.toggle('active', btn.getAttribute('data-layout') === mode);
+    });
+    try { localStorage.setItem('sheikha.layout', mode); } catch (_) {}
+  }
+
+  function bootSheikhaTools() {
+    const drawer = document.getElementById('sheikha-tools-drawer');
+    const toggle = document.getElementById('sheikha-tools-toggle');
+
+    toggle?.addEventListener('click', () => {
+      drawer?.classList.toggle('collapsed');
+    });
+
+    let saved = 'wide';
+    try { saved = localStorage.getItem('sheikha.layout') || 'wide'; } catch (_) {}
+    applyLayout(saved);
+
+    document.addEventListener('click', function (event) {
+      const layoutBtn = event.target.closest('[data-layout]');
+      if (!layoutBtn) return;
+      event.preventDefault();
+      applyLayout(layoutBtn.getAttribute('data-layout'));
+    }, true);
+  }
+
+  if (document.readyState === 'loading') {
+    document.addEventListener('DOMContentLoaded', bootSheikhaTools);
+  } else {
+    bootSheikhaTools();
+  }
+})();
+
+
+// SHEIKHA_PRO_CHAT_UI_HANDLER_V1
+(function () {
+  function applyLayout(mode) {
+    if (!['wide','compact','focus'].includes(mode)) mode = 'wide';
+    document.body.classList.remove('sheikha-layout-wide','sheikha-layout-compact','sheikha-layout-focus');
+    document.body.classList.add('sheikha-layout-' + mode);
+    document.querySelectorAll('[data-layout]').forEach(btn => {
+      btn.classList.toggle('active', btn.getAttribute('data-layout') === mode);
+    });
+    try { localStorage.setItem('sheikha.layout', mode); } catch (_) {}
+  }
+
+  function boot() {
+    document.getElementById('sheikha-tools-toggle')?.addEventListener('click', () => {
+      document.getElementById('sheikha-tools-drawer')?.classList.toggle('collapsed');
+    });
+
+    let saved = 'wide';
+    try { saved = localStorage.getItem('sheikha.layout') || 'wide'; } catch (_) {}
+    applyLayout(saved);
+
+    document.addEventListener('click', (event) => {
+      const layout = event.target.closest('[data-layout]');
+      if (layout) {
+        event.preventDefault();
+        applyLayout(layout.getAttribute('data-layout'));
+      }
+    }, true);
+  }
+
+  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', boot);
+  else boot();
+})();
+
 </script>
 </body>
 </html>`;

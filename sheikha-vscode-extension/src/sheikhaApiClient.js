@@ -1,139 +1,358 @@
 'use strict';
 
+const { detectIntent } = require('./sheikhaIntentRouter');
+const { governMode } = require('./sheikhaModeGovernance');
+
+const https = require('https');
 const http = require('http');
-const { buildProjectContext } = require('./projectContext');
 
-const BASE_URL = process.env.SHEIKHA_RUNTIME_URL || 'http://127.0.0.1:8080';
-const TIMEOUT_MS = Number(process.env.SHEIKHA_API_TIMEOUT_MS || 30000);
+const BASE_URL = process.env.SHEIKHA_RUNTIME_URL || 'https://api.sheikha.top';
+const TIMEOUT_MS = Number(process.env.SHEIKHA_API_TIMEOUT_MS || 180000);
 
-function postJson(path, payload) {
-  return new Promise((resolve, reject) => {
+function requestJson(method, path, payload) {
+  return new Promise((resolve) => {
     const url = new URL(path, BASE_URL);
-    const body = JSON.stringify(payload || {});
+    const body = payload ? JSON.stringify(payload) : '';
+    const client = url.protocol === 'https:' ? https : http;
 
-    const req = http.request({
+    const req = client.request({
       hostname: url.hostname,
-      port: url.port || 80,
-      path: url.pathname,
-      method: 'POST',
-      headers: {'Content-Type':'application/json','Content-Length':Buffer.byteLength(body)},
+      port: url.port || (url.protocol === 'https:' ? 443 : 80),
+      path: url.pathname + url.search,
+      method,
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body)
+      },
       timeout: TIMEOUT_MS
     }, res => {
       let data = '';
       res.on('data', c => data += c);
       res.on('end', () => {
         try { resolve(JSON.parse(data)); }
-        catch { resolve({ success:false, message:data || `HTTP ${res.statusCode}` }); }
+        catch { resolve({ success:false, error:'invalid_json', raw:data }); }
       });
     });
 
-    req.on('timeout', () => req.destroy(new Error('Sheikha API timeout')));
-    req.on('error', reject);
-    req.write(body);
+    req.on('timeout', () => {
+      req.destroy();
+      resolve({ success:false, error:'timeout', message:`Timeout after ${TIMEOUT_MS}ms` });
+    });
+
+    req.on('error', err => resolve({ success:false, error:'connection_error', message:err.message }));
+
+    if (body) req.write(body);
     req.end();
   });
 }
 
-function looksLikeShell(text) {
-  return /(^|\n)\s*(cd |git |npm |node |curl |pm2 |python3? |npx |code |sudo |chmod |cat >|rm -f|mkdir )/.test(text);
+function isProgrammingRequest(message) {
+  const m = String(message || '').toLowerCase();
+  return [
+    'اكتب دالة','اكتب كود','برمج','debugger','debug','كود',
+    'javascript','typescript','python','node','react','api',
+    'function','class','coding','programming'
+  ].some(x => m.includes(x.toLowerCase()));
 }
 
-function shellReply(prompt) {
-  return {
-    success:true,
-    data:{
-      reply:
-`أفهم أن هذا أمر طرفية/تشغيل، وليس سؤال دردشة.
-
-نفّذه في الطرفية:
-
-\`\`\`bash
-${prompt.trim()}
-\`\`\`
-
-ولحفظ تغييرات إضافة شيخة غالبًا استخدم:
-
-\`\`\`bash
-cd ~/Projects/sheikha/sheikha-main-portal
-git status --short
-git add sheikha-vscode-extension
-git commit -m "Improve Sheikha advanced chat routing"
-git push origin optimization/long-tail-latency-elimination
-\`\`\``,
-      provider:'sheikha-extension-cli-router',
-      model:'Sheikha-Core',
-      mode:'cli',
-      localModelOnline:true
-    }
-  };
+async function health() {
+  return requestJson('GET', '/api/health');
 }
 
-async function askSheikha(prompt, context = {}) {
-  const mode = context.mode || 'agentic';
+async function askSheikha(message, options = {}) {
+  const programming = options.task === 'coding' || options.mode === 'coding' || isProgrammingRequest(message);
 
-  if (mode === 'cli' || looksLikeShell(prompt)) {
-    return shellReply(prompt);
+  const path = programming
+    ? '/api/sheikha/programming/ask'
+    : '/api/sheikha/ai-gateway/chat';
+
+  const payload = programming
+    ? { message, task: options.task || 'coding', language: options.language || 'auto' }
+    : { message, mode: options.mode || 'agentic', runtimeTarget: BASE_URL.startsWith('https://') ? 'server-https' : 'local' };
+
+  const result = await requestJson('POST', path, payload);
+
+  if (result?.success && result?.data) {
+    result.data.runtimeUrl = BASE_URL;
+    result.data.runtimeTarget = BASE_URL.startsWith('https://') ? 'server-https' : 'local';
+    result.data.route = path;
+    if (programming && result.data.answer && !result.data.reply) result.data.reply = result.data.answer;
   }
 
-  const projectContext = buildProjectContext();
+  return result;
+}
 
-  const payload = {
-    message: prompt,
-    prompt,
-    mode,
-    context: {
-      ...context,
-      sheikhaProject: projectContext,
-      systemInstruction:
-        'أنت شيخة داخل مشروع sheikha-main-portal. افهم المشروع من مساره وبنيته وملفاته. لا تجيب كدردشة عامة فقط. اربط كل إجابة بالمسار، Runtime، Governance، Extension، CLI، Debugger، وهدف منظومة شيخة الأكبر من مجرد مشروع.'
-    }
-  };
+async function runCli(command) {
+  return requestJson('POST', '/api/sheikha/cli/run', { command });
+}
 
-  const endpoints = [
-    '/api/sheikha/ai-gateway/chat',
-    '/api/sheikha/chat',
-    '/api/ai/chat'
-  ];
+async function searchRag(query) {
+  return requestJson('POST', '/api/sheikha/rag/search', { query });
+}
 
-  let lastError = null;
+async function getMcpTools() {
+  return requestJson('GET', '/api/sheikha/mcp/tools');
+}
 
-  for (const ep of endpoints) {
-    try {
-      const result = await postJson(ep, payload);
-      const text = result?.data?.reply || result?.reply || result?.message || result?.data?.message;
+async function getSdkRegistry() {
+  return requestJson('GET', '/api/sheikha/sdk/registry');
+}
 
-      if (result && result.success !== false && text && text !== 'Governance passed') {
-        return result;
+async function renderGraphics(kind = 'route-map') {
+  return requestJson('POST', '/api/sheikha/graphics/render', { kind });
+}
+
+async function runTool(mode, message) {
+  const m = String(mode || '').toLowerCase();
+  const text = String(message || '').trim();
+
+  if (m === 'cli') {
+    const command = text.includes('pwd') || text.includes('مسار') ? 'pwd'
+      : text.includes('git') ? 'git_status'
+      : text.includes('pm2') ? 'pm2_status'
+      : text.includes('health') || text.includes('صحة') ? 'health'
+      : 'pwd';
+    return runCli(command);
+  }
+
+  if (m === 'rag') return searchRag(text || 'sheikha-runtime-chat');
+  if (m === 'mcp') return getMcpTools();
+  if (m === 'sdk') return getSdkRegistry();
+  if (m === 'graphics') return renderGraphics('route-map');
+
+  return askSheikha(message, { mode });
+}
+
+module.exports = {
+  askSheikha,
+  health,
+  BASE_URL,
+  isProgrammingRequest,
+  runCli,
+  searchRag,
+  getMcpTools,
+  getSdkRegistry,
+  renderGraphics,
+  runTool
+};
+
+async function scanEnvironment() {
+  return requestJson('GET', '/api/sheikha/environment/scan');
+}
+
+module.exports.scanEnvironment = scanEnvironment;
+
+function readLocalVsCodeEnvironment() {
+  const fs = require('fs');
+  const path = require('path');
+  const p = path.resolve(__dirname, '../reports/vscode-environment-report.json');
+  if (!fs.existsSync(p)) return { success:false, error:'vscode_environment_report_missing' };
+  return { success:true, data: JSON.parse(fs.readFileSync(p, 'utf8')) };
+}
+
+module.exports.readLocalVsCodeEnvironment = readLocalVsCodeEnvironment;
+
+async function classifyIntent(message, mode = '') {
+  return requestJson('POST', '/api/sheikha/router/classify', { message, mode });
+}
+
+function readVsCodeAwareness() {
+  const fs = require('fs');
+  const path = require('path');
+  const p = path.resolve(__dirname, '../reports/vscode-awareness-report.json');
+  if (!fs.existsSync(p)) return { success:false, error:'vscode_awareness_report_missing' };
+  return { success:true, data: JSON.parse(fs.readFileSync(p, 'utf8')) };
+}
+
+
+async function sheikhaSmartRoute(message, options = {}) {
+  const mode = typeof options === 'object' && options !== null ? (options.mode || options.task || '') : String(options || '');
+  const raw = String(message || '').trim();
+  const governance = governMode(raw, mode);
+  const intent = governance.intent;
+
+  
+  if (intent === 'GLOBAL_REGISTRY') {
+    return requestJson('GET', '/api/sheikha/global-registry/status');
+  }
+
+  if (intent === 'DEBUG') {
+    return {
+      success: true,
+      data: {
+        provider: 'Sheikha Debugger Fabric',
+        model: 'VS Code Debug API',
+        localModelOnline: true,
+        message: 'تم تحويل طلب debugger إلى مسار Debugger Fabric بدل النموذج.',
+        reply: JSON.stringify({
+          message: 'تم تحليل طلب debugger من VS Code API وليس من النموذج.',
+          nextAction: 'افتح launch.json أو شغّل Start Debugging من VS Code.'
+        }, null, 2)
       }
-
-      lastError = result;
-    } catch (e) {
-      lastError = e;
-    }
+    };
   }
 
-  return {
-    success:true,
-    data:{
-      reply:
-`تم استلام طلبك داخل شيخة.
 
-لم أجد مسار دردشة مولّد مكتمل في Runtime الحالي، لذلك أرجع لك ردًا تشغيليًا آمنًا.
+  if (intent === 'DEBUG') {
+    return {
+      success: true,
+      data: {
+        provider: 'Sheikha Debugger Fabric',
+        model: 'VS Code Debug API',
+        localModelOnline: true,
+        reply: JSON.stringify({
+          message: 'تم تحويل debugger إلى مسار Debugger Fabric، وليس إلى النموذج.',
+          nextAction: 'افتح launch.json أو Start Debugging من VS Code.'
+        }, null, 2)
+      }
+    };
+  }
 
-الطلب:
-${prompt}
+  if (intent === 'GLOBAL_REGISTRY') {
+    return requestJson('GET', '/api/sheikha/global-registry/status');
+  }
 
-الحالة المطلوبة الآن:
-1) تثبيت endpoint دردشة فعلي في Runtime.
-2) ربط /api/sheikha/ai-gateway/chat بنموذج Sheikha-Core.
-3) منع تحويل أسئلة الشات إلى protocol/decision حتى لا يظهر "Governance passed" كرد نهائي.`,
-      provider:'sheikha-extension-safe-fallback',
-      model:'Sheikha-Core',
-      mode,
-      localModelOnline:false,
-      lastError
-    }
-  };
+  if (intent === 'TODO') {
+    return requestJson('POST', '/api/sheikha/todo/add', { text: raw });
+  }
+
+  if (intent === 'TAG') {
+    return requestJson('POST', '/api/sheikha/tags/add', { tag: raw.replace(/^tag[:：]?/i,'').trim() || 'general' });
+  }
+
+
+  if (intent === 'CODE') {
+    return {
+      success: true,
+      data: {
+        provider: 'Sheikha Programming Consultant',
+        model: 'Sheikha-Coding-Fabric',
+        localModelOnline: true,
+        reply:
+`تم تفعيل مسار البرمجة.
+
+سأتعامل مع الطلب كمستشار برمجي:
+1. أحدد الهدف.
+2. أراجع المسار أو الملف.
+3. أعطي كود نظيف قابل للتنفيذ.
+4. أضيف أوامر تحقق.
+5. لا أعتذر عن البرمجة إلا إذا كان الطلب يحتاج صلاحية خارجية.
+
+اكتب الآن الطلب البرمجي أو أرسل اسم الملف/المسار.`
+      }
+    };
+  }
+
+if (intent === 'CLI') {
+    return runTool('cli', raw.replace(/^(cli|terminal):/i, '').trim() || 'pwd');
+  }
+
+  if (intent === 'GIT') {
+    return runTool('cli', raw.includes('status') ? 'git status --short' : 'git branch --show-current');
+  }
+
+  if (intent === 'RAG') {
+    return runTool('rag', raw.replace(/^rag:/i, '').trim());
+  }
+
+  if (intent === 'SOFTWARE_REGISTRY') {
+    return requestJson('POST', '/api/sheikha/software-registry/search', {
+      query: raw.replace(/^registry:/i, '').replace(/^ريجستري:/i, '').trim() || 'chat'
+    });
+  }
+
+  if (intent === 'MCP') return runTool('mcp', raw);
+  if (intent === 'SDK') return runTool('sdk', raw);
+  if (intent === 'GRAPHICS') return runTool('graphics', raw);
+
+  if (intent === 'ENVIRONMENT') {
+    const env = await scanEnvironment();
+    const aware = readVsCodeAwareness();
+    return {
+      success: true,
+      data: {
+        provider: 'Sheikha VS Code Awareness + Environment',
+        governance,
+        intent,
+        environment: env.data || env,
+        vscodeAwareness: aware.data || aware,
+        reply: JSON.stringify({
+          intent,
+          environment: env.data || env,
+          vscodeAwareness: aware.data || aware
+        }, null, 2)
+      }
+    };
+  }
+
+  if (intent === 'CODE' || intent === 'DEBUG') {
+    return askSheikha(raw, { task: 'coding', mode: 'coding' });
+  }
+
+  return askSheikha(raw, { mode: mode || 'agentic' });
 }
 
-module.exports = { askSheikha };
+module.exports.classifyIntent = classifyIntent;
+module.exports.readVsCodeAwareness = readVsCodeAwareness;
+module.exports.sheikhaSmartRoute = sheikhaSmartRoute;
+
+async function classifyIntent(message, mode = '') {
+  return requestJson('POST', '/api/sheikha/router/classify', { message, mode });
+}
+
+function readVsCodeAwareness() {
+  const fs = require('fs');
+  const path = require('path');
+  const p = path.resolve(__dirname, '../reports/vscode-awareness-report.json');
+  if (!fs.existsSync(p)) return { success:false, error:'vscode_awareness_report_missing' };
+  return { success:true, data: JSON.parse(fs.readFileSync(p, 'utf8')) };
+}
+
+async function sheikhaSmartRoute(message, mode = '') {
+  if (typeof mode === 'object' && mode !== null) {
+    mode = mode.mode || mode.task || '';
+  }
+
+  const raw = String(message || '').trim();
+  const lower = raw.toLowerCase();
+
+  if (/^(pwd|ls|whoami|date|uptime|df|free|pm2|git status|git branch)$/.test(lower)) {
+    return runTool('cli', raw);
+  }
+
+  if (/^(cli|terminal):/i.test(raw)) {
+    return runTool('cli', raw.replace(/^(cli|terminal):/i, '').trim() || 'pwd');
+  }
+
+  if (/^rag:/i.test(raw)) {
+    return runTool('rag', raw.replace(/^rag:/i, '').trim());
+  }
+
+  if (/^registry:/i.test(raw) || /^ريجستري:/i.test(raw)) {
+    return requestJson('POST', '/api/sheikha/software-registry/search', {
+      query: raw.replace(/^registry:/i, '').replace(/^ريجستري:/i, '').trim() || 'chat'
+    });
+  }
+
+  const c = await classifyIntent(message, mode);
+  const intent = c?.data?.intent || 'CHAT';
+
+  if (intent === 'CLI') return runTool('cli', message);
+  if (intent === 'GIT') return runTool('cli', 'git');
+  if (intent === 'RAG') return runTool('rag', message.replace(/^rag:/i, '').trim());
+  if (intent === 'MCP') return runTool('mcp', message);
+  if (intent === 'SDK') return runTool('sdk', message);
+  if (intent === 'GRAPHICS') return runTool('graphics', message);
+  if (intent === 'ENVIRONMENT') return scanEnvironment();
+  if (intent === 'SOFTWARE_REGISTRY') {
+    return requestJson('POST', '/api/sheikha/software-registry/search', { query: message.replace(/registry:|ريجستري/gi, '').trim() || 'chat' });
+  }
+
+  return askSheikha(message, { mode: intent === 'CODE' || intent === 'DEBUG' ? 'coding' : 'agentic' });
+}
+
+module.exports.classifyIntent = classifyIntent;
+module.exports.readVsCodeAwareness = readVsCodeAwareness;
+module.exports.sheikhaSmartRoute = sheikhaSmartRoute;
+
+module.exports.governMode = governMode;

@@ -1,32 +1,88 @@
 'use strict';
 
 const vscode = require('vscode');
-const { askSheikha } = require('./sheikhaApiClient');
+const { SheikhaInspectorProvider } = require('./sheikhaInspectorProvider');
+const { collectVsCodeAwareness } = require('./vscodeAwareness');
+const { collectUnifiedRegistry } = require('./sheikhaUnifiedRegistry');
+const { collectRegistryBroker } = require('./sheikhaRegistryBroker');
+const { collectGlobalRegistryFabric } = require('./sheikhaGlobalRegistryFabric');
 const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
 
 function activate(context) {
-  const chatProvider = new SheikhaChatProvider(context);
-
   context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider('sheikha.advancedChatView', chatProvider)
+    vscode.window.registerWebviewViewProvider(
+      'sheikha.inspectorView',
+      new SheikhaInspectorProvider(),
+      { webviewOptions: { retainContextWhenHidden: true } }
+    )
   );
 
+  console.log('Sheikha extension activated');
+
+  const chatProvider = new SheikhaChatProvider(context.extensionUri);
+
+  const chatViewIds = [
+    'sheikha.chatView',
+    'sheikha.advancedChatView',
+    'sheikha.ai.advancedChat'
+  ];
+
+  for (const viewId of chatViewIds) {
+    context.subscriptions.push(
+      vscode.window.registerWebviewViewProvider(viewId, chatProvider)
+    );
+  }
+
   context.subscriptions.push(
-    vscode.commands.registerCommand('sheikha.ask', async () => {
-      await vscode.commands.executeCommand('workbench.view.extension.sheikha-ai');
+    vscode.commands.registerCommand('sheikha.awareness.scan', async () => {
+      const data = await collectVsCodeAwareness();
+      const doc = await vscode.workspace.openTextDocument({
+        content: JSON.stringify(data, null, 2),
+        language: 'json'
+      });
+      await vscode.window.showTextDocument(doc);
     })
   );
 
+  
+  
+  
   context.subscriptions.push(
-    vscode.commands.registerCommand('sheikha.agent.run', async () => {
-      const prompt = await vscode.window.showInputBox({ prompt: 'أمر Agentic لشيخة' });
-      if (!prompt) return;
-      const result = await askSheikha(prompt, { mode: 'agentic-full' });
+    vscode.commands.registerCommand('sheikha.registry.global', async () => {
+      const data = await collectGlobalRegistryFabric();
       const doc = await vscode.workspace.openTextDocument({
-        content: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
-        language: 'markdown'
+        content: JSON.stringify(data, null, 2),
+        language: 'json'
       });
-      vscode.window.showTextDocument(doc);
+      await vscode.window.showTextDocument(doc);
+    })
+  );
+
+context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.registry.broker', async () => {
+      const data = await collectRegistryBroker();
+      const doc = await vscode.workspace.openTextDocument({
+        content: JSON.stringify(data, null, 2),
+        language: 'json'
+      });
+      await vscode.window.showTextDocument(doc);
+    })
+  );
+
+context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.registry.unified', async () => {
+      const data = await collectUnifiedRegistry();
+      const doc = await vscode.workspace.openTextDocument({
+        content: JSON.stringify(data, null, 2),
+        language: 'json'
+      });
+      await vscode.window.showTextDocument(doc);
+    })
+  );
+
+context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.chat.open', async () => {
+      await vscode.commands.executeCommand('workbench.view.extension.sheikha');
     })
   );
 }
