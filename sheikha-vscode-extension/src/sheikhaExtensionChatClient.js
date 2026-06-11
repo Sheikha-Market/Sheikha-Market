@@ -3,6 +3,7 @@
 const http = require('http');
 const https = require('https');
 const { collectWorkspaceContext } = require('./sheikhaWorkspaceIntelligence');
+const { collectVSCodeToolContext } = require('./sheikhaVSCodeToolRegistry');
 const { normalizeSheikhaReply } = require('./sheikhaReplyNormalizer');
 const { decideSmartRoute } = require('./sheikhaSmartRouteGovernance');
 
@@ -49,10 +50,14 @@ async function sendExtensionChat(message, options = {}) {
     actor: 'vscode-extension',
     source: 'sheikha-vscode-extension',
     workspace: collectWorkspaceContext(),
-    workspace: collectWorkspaceContext()
+    vscodeTools: collectVSCodeToolContext(),
+    vscodeTools: collectVSCodeToolContext(),
+    workspace: collectWorkspaceContext(),
+    vscodeTools: collectVSCodeToolContext(),
+    vscodeTools: collectVSCodeToolContext()
   };
 
-  const data = await postJson('/api/sheikha/extension/chat', payload, options.baseUrl);
+  const data = await postJson('/api/sheikha/unified-chat', payload, options.baseUrl);
 
   if (!data || data.success !== true) {
     return {
