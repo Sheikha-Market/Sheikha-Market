@@ -46,7 +46,18 @@ function collectVSCodeToolContext() {
     languageId: doc?.languageId || '',
     selectedText: editor && !editor.selection.isEmpty ? doc.getText(editor.selection).slice(0, 8000) : '',
     openEditors: vscode?.workspace?.textDocuments
-      ?.filter(d => !/(^|\\/|\\\\)\.env($|\.)|secret|token|credential|key/i.test(d.fileName))
+      ?.filter(d => {
+        const f = String(d.fileName || '').toLowerCase();
+        return !(
+          f.endsWith('/.env') ||
+          f.includes('/.env.') ||
+          f.includes('secret') ||
+          f.includes('token') ||
+          f.includes('credential') ||
+          f.includes('/key') ||
+          f.endsWith('.key')
+        );
+      })
       ?.map(d => ({
         file: d.fileName,
         languageId: d.languageId,
