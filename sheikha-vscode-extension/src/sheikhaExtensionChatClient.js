@@ -9,6 +9,39 @@ const { decideSmartRoute } = require('./sheikhaSmartRouteGovernance');
 
 const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top';
 
+function safeJsonParse(rawInput) {
+  const raw = String(rawInput || '').trim();
+
+  if (!raw) {
+    return {
+      success: false,
+      error: 'empty_response',
+      answer: 'تعذر الاتصال بشات شيخة: الرد فارغ من الخادم.',
+      raw: ''
+    };
+  }
+
+  try {
+    return JSON.parse(raw);
+  } catch {}
+
+  const start = raw.indexOf('{');
+  const end = raw.lastIndexOf('}');
+
+  if (start >= 0 && end > start) {
+    try {
+      return JSON.parse(raw.slice(start, end + 1));
+    } catch {}
+  }
+
+  return {
+    success: false,
+    error: 'invalid_json',
+    answer: 'تعذر قراءة رد شات شيخة كـ JSON. تحقق من حالة السيرفر أو أعد المحاولة بعد انتهاء الاختبارات.',
+    raw: raw.slice(0, 1000)
+  };
+}
+
 function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
   return new Promise((resolve, reject) => {
     const url = new URL(path, baseUrl);
@@ -27,16 +60,22 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
       timeout: 60000
     }, (res) => {
       let data = '';
-      res.on('data', c => data += c);
+
+      res.on('data', chunk => {
+        data += chunk;
+      });
+
       res.on('end', () => {
-        try { resolve(JSON.parse(data)); }
-        catch { resolve({ success: false, error: 'invalid_json', raw: data }); }
+        const parsed = safeJsonParse(data);
+        parsed.statusCode = res.statusCode;
+        resolve(parsed);
       });
     });
 
     req.on('timeout', () => {
       req.destroy(new Error('Sheikha extension chat timeout after 60s'));
     });
+
     req.on('error', reject);
     req.write(body);
     req.end();
@@ -44,33 +83,58 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
 }
 
 async function sendExtensionChat(message, options = {}) {
+  const text = String(message || '');
+  const smartRoute = decideSmartRoute(text);
+  const workspace = collectWorkspaceContext();
+  const vscodeTools = collectVSCodeToolContext();
+
   const payload = {
-    message,
-    mode: options.mode || (/كود|برمج|اصلح|fix|code|test|error|patch|دبق|debug/i.test(String(message)) ? 'code' : 'chat'),
+    message: text,
+    mode: options.mode || smartRoute.mode || (/كود|برمج|اصلح|fix|code|test|error|patch|دبق|debug/i.test(text) ? 'code' : 'chat'),
     actor: 'vscode-extension',
+    channel: 'extension-chat',
     source: 'sheikha-vscode-extension',
-    workspace: collectWorkspaceContext(),
-    vscodeTools: collectVSCodeToolContext(),
-    workspace: collectWorkspaceContext(),
+    route: smartRoute,
+    workspace,
+    vscodeTools
   };
 
-  const data = await postJson('/api/sheikha/unified-chat', payload, options.baseUrl);
+  try {
+    const data = await postJson('/api/sheikha/unified-chat', payload, options.baseUrl);
 
-  if (!data || data.success !== true) {
+    if (!data || data.success !== true) {
+      return {
+        success: false,
+        answer: normalizeSheikhaReply(
+          data?.answer ||
+          data?.message ||
+          `تعذر الاتصال بشات الإكستنشن: ${data?.error || 'unknown_error'}`,
+          text
+        ),
+        raw: data
+      };
+    }
+
+    return {
+      success: true,
+      answer: normalizeSheikhaReply(data.answer || data.reply || data.message || '', text),
+      raw: data
+    };
+  } catch (err) {
     return {
       success: false,
-      answer: `تعذر الاتصال بشات الإكستنشن: ${data?.error || 'unknown_error'}`
+      answer: normalizeSheikhaReply(`تعذر الاتصال بشات الإكستنشن: ${err.message}`, text),
+      raw: {
+        success: false,
+        error: err.message
+      }
     };
   }
-
-  return {
-    success: true,
-    answer: normalizeSheikhaReply(data.answer || data.reply || data.message || ''),
-    raw: data
-  };
 }
 
 module.exports = {
   DEFAULT_BASE_URL,
-  sendExtensionChat
+  sendExtensionChat,
+  postJson,
+  safeJsonParse
 };
