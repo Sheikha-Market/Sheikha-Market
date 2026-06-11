@@ -24,7 +24,7 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
         'Content-Type': 'application/json',
         'Content-Length': Buffer.byteLength(body)
       },
-      timeout: 15000
+      timeout: 60000
     }, (res) => {
       let data = '';
       res.on('data', c => data += c);
@@ -35,7 +35,7 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
     });
 
     req.on('timeout', () => {
-      req.destroy(new Error('Sheikha extension chat timeout'));
+      req.destroy(new Error('Sheikha extension chat timeout after 60s'));
     });
     req.on('error', reject);
     req.write(body);
