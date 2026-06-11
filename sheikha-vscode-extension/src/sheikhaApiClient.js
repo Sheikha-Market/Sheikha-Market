@@ -356,3 +356,8 @@ module.exports.readVsCodeAwareness = readVsCodeAwareness;
 module.exports.sheikhaSmartRoute = sheikhaSmartRoute;
 
 module.exports.governMode = governMode;
+
+
+// Sheikha Extension Chat endpoint policy
+module.exports.EXTENSION_CHAT_ENDPOINT = '/api/sheikha/extension/chat';
+module.exports.EXTENSION_CHAT_STATUS_ENDPOINT = '/api/sheikha/extension/chat/status';
