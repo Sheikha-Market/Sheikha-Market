@@ -124,3 +124,9 @@ gitleaks-report.json
 
 # Runtime bus event logs
 runtime/bus/events/*.json
+
+# Sheikha generated runtime indexes
+runtime/rag/index/*.json
+runtime/audit/*.jsonl
+runtime/backups/
+*.bak-*
