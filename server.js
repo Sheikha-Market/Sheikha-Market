@@ -2669,14 +2669,7 @@ app.get('/api/government/status/:refCode', (req, res) => {
     const entry = entity || employee;
 
     if (!entry) {
-        return 
-try {
-    console.log('[Sheikha] Todo/Tags/Global Registry routes mounted');
-} catch (e) {
-  console.warn('[Sheikha] Todo/Tags/Global Registry mount failed:', e.message);
-}
-
-res.status(404).json({ success: false, message: 'الرقم المرجعي غير موجود' });
+        return res.status(404).json({ success: false, message: 'الرقم المرجعي غير موجود' });
     }
 
     res.json({
