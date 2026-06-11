@@ -1,0 +1,53 @@
+'use strict';
+
+const express = require('express');
+const router = express.Router();
+const { handleUnifiedChat } = require('../runtime/chat-fabric/sheikha-unified-chat-fabric-v1');
+const { governGovernance } = require('../runtime/governance/sheikha-governance-of-governance-v1');
+
+router.use(express.json({ limit: '5mb' }));
+
+router.get('/api/sheikha/governance/of-governance/status', (req, res) => {
+  res.json({
+    success: true,
+    status: 'ACTIVE',
+    engine: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
+    policy: governGovernance({ actor: 'status', channel: 'api', action: 'status', message: 'status' })
+  });
+});
+
+router.get('/api/sheikha/unified-chat/status', (req, res) => {
+  res.json({
+    success: true,
+    status: 'ACTIVE',
+    fabric: 'SHEIKHA_UNIFIED_CHAT_FABRIC_V1',
+    protocol: 'SHEIKHA_PROTOCOL_V1',
+    orchestrator: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
+    requiredPath: [
+      'Protocol',
+      'GovernanceOfGovernance',
+      'UnifiedChatFabric',
+      'SmartOrchestrator',
+      'ExecutionPipeline',
+      'ModelCluster'
+    ]
+  });
+});
+
+router.post('/api/sheikha/unified-chat', (req, res) => {
+  const result = handleUnifiedChat(req.body || {});
+  res.status(result.blocked ? 403 : 200).json(result);
+});
+
+/* اجعل الشات العام وشات الإكستنشن يمران من نفس القماش الموحد */
+router.post('/api/sheikha/chat', (req, res) => {
+  const result = handleUnifiedChat({ ...(req.body || {}), channel: 'general-web-chat' });
+  res.status(result.blocked ? 403 : 200).json(result);
+});
+
+router.post('/api/sheikha/extension/chat', (req, res) => {
+  const result = handleUnifiedChat({ ...(req.body || {}), channel: 'extension-chat' });
+  res.status(result.blocked ? 403 : 200).json(result);
+});
+
+module.exports = router;
