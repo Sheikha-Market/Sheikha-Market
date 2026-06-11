@@ -45,11 +45,13 @@ function collectVSCodeToolContext() {
     activeFile: doc?.fileName || '',
     languageId: doc?.languageId || '',
     selectedText: editor && !editor.selection.isEmpty ? doc.getText(editor.selection).slice(0, 8000) : '',
-    openEditors: vscode?.workspace?.textDocuments?.map(d => ({
-      file: d.fileName,
-      languageId: d.languageId,
-      isDirty: d.isDirty
-    })).slice(0, 50) || [],
+    openEditors: vscode?.workspace?.textDocuments
+      ?.filter(d => !/(^|\\/|\\\\)\.env($|\.)|secret|token|credential|key/i.test(d.fileName))
+      ?.map(d => ({
+        file: d.fileName,
+        languageId: d.languageId,
+        isDirty: d.isDirty
+      })).slice(0, 50) || [],
     diagnostics,
     safeCommands: [
       'git status --short',

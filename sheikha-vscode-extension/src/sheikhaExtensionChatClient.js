@@ -51,10 +51,7 @@ async function sendExtensionChat(message, options = {}) {
     source: 'sheikha-vscode-extension',
     workspace: collectWorkspaceContext(),
     vscodeTools: collectVSCodeToolContext(),
-    vscodeTools: collectVSCodeToolContext(),
     workspace: collectWorkspaceContext(),
-    vscodeTools: collectVSCodeToolContext(),
-    vscodeTools: collectVSCodeToolContext()
   };
 
   const data = await postJson('/api/sheikha/unified-chat', payload, options.baseUrl);
