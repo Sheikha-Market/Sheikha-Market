@@ -8,14 +8,42 @@ const { status: getExecutivePlatformStatus } = require('../executive-platform/sh
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
 
+const INSPECTOR_RUNTIME_STATE = {
+  extension: {
+    source: 'SHEIKHA_VSCODE_TOOL_REGISTRY_V1',
+    status: 'NOT_CONNECTED',
+    workspace: {
+      name: '',
+      branch: '',
+      changedFiles: [],
+      activeFile: '',
+      languageId: '',
+      openEditors: []
+    },
+    diagnostics: [],
+    lastHeartbeat: null
+  }
+};
+
 function basename(value) {
   const text = String(value || '');
   return text ? path.basename(text) : '';
 }
 
+function normalizeExtensionStatus(inputStatus, toolStatus) {
+  const raw = String(inputStatus || toolStatus || '').toUpperCase();
+
+  if (raw === 'CONNECTED' || raw === 'ACTIVE') {
+    return 'CONNECTED';
+  }
+
+  return 'NOT_CONNECTED';
+}
+
 function sanitizeExtensionContext(input = {}) {
   const tools = input.vscodeTools || input.tools || {};
   const workspace = input.workspace || {};
+
   const diagnostics = Array.isArray(tools.diagnostics)
     ? tools.diagnostics.slice(0, MAX_DIAGNOSTIC_GROUPS).map((group) => ({
         file: basename(group.file),
@@ -31,8 +59,8 @@ function sanitizeExtensionContext(input = {}) {
     : [];
 
   return {
-    source: tools.registry || 'SHEIKHA_VSCODE_TOOL_REGISTRY_V1',
-    status: tools.status === 'ACTIVE' ? 'ACTIVE' : 'NOT_CONNECTED',
+    source: input.source || tools.registry || 'SHEIKHA_VSCODE_TOOL_REGISTRY_V1',
+    status: normalizeExtensionStatus(input.status, tools.status),
     workspace: {
       name: basename(tools.workspaceRoot || workspace.workspaceRoot),
       branch: String(tools.gitBranch || workspace.gitBranch || '').slice(0, 200),
@@ -55,6 +83,17 @@ function sanitizeExtensionContext(input = {}) {
   };
 }
 
+function updateExtensionHeartbeat(payload = {}) {
+  const extension = sanitizeExtensionContext(payload);
+
+  INSPECTOR_RUNTIME_STATE.extension = {
+    ...extension,
+    lastHeartbeat: new Date().toISOString()
+  };
+
+  return INSPECTOR_RUNTIME_STATE.extension;
+}
+
 function summarizeDiagnostics(groups = []) {
   const summary = { errors: 0, warnings: 0, information: 0, total: 0 };
 
@@ -70,12 +109,21 @@ function summarizeDiagnostics(groups = []) {
   return summary;
 }
 
+function getCurrentExtensionContext(input = {}) {
+  if (INSPECTOR_RUNTIME_STATE.extension.lastHeartbeat) {
+    return INSPECTOR_RUNTIME_STATE.extension;
+  }
+
+  return sanitizeExtensionContext(input);
+}
+
 function collectEnterpriseInspector(input = {}) {
   const controlTower = collectControlTowerStatus();
   const orchestrator = getEnterpriseState(controlTower);
   const executive = getExecutivePlatformStatus(controlTower);
-  const extension = sanitizeExtensionContext(input);
+  const extension = getCurrentExtensionContext(input);
   const diagnostics = summarizeDiagnostics(extension.diagnostics);
+
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
     .map((item) => item.trim())
@@ -114,6 +162,7 @@ function collectEnterpriseInspector(input = {}) {
     extension: {
       source: extension.source,
       status: extension.status,
+      lastHeartbeat: extension.lastHeartbeat,
       diagnostics: extension.diagnostics
     },
     intelligence: {
@@ -178,6 +227,7 @@ function compactInspectorContext(snapshot = {}) {
     runtime: snapshot.runtime || {},
     git: snapshot.git || {},
     workspace: snapshot.workspace || {},
+    extension: snapshot.extension || {},
     governance: snapshot.governance || {},
     architecture: snapshot.architecture || {},
     surfaces: snapshot.surfaces || {}
@@ -188,5 +238,7 @@ module.exports = {
   collectEnterpriseInspector,
   compactInspectorContext,
   sanitizeExtensionContext,
-  summarizeDiagnostics
+  summarizeDiagnostics,
+  updateExtensionHeartbeat,
+  INSPECTOR_RUNTIME_STATE
 };
