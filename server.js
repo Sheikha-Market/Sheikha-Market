@@ -127,6 +127,7 @@ app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
 app.use(require('./routes/sheikha-extension-chat-compat-routes'));
 app.use(require('./routes/sheikha-foundry-routes'));
+app.use(require('./routes/sheikha-foundry-v2-routes'));
 
 try {
   console.log('[Sheikha] Programming route mounted');
