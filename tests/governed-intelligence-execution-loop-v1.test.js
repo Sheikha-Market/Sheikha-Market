@@ -4,11 +4,14 @@ const fs = require('fs');
 const path = require('path');
 const {
   executePipeline,
+  classifyIntent,
   normalizeIntelligenceMode,
-  intentForMode
+  intentForMode,
+  buildFoundryReport
 } = require('../runtime/execution/sheikha-execution-pipeline-v1');
 const {
-  buildExecutionMetadata
+  buildExecutionMetadata,
+  formatChatAnswer
 } = require('../runtime/chat-fabric/sheikha-unified-chat-fabric-v1');
 
 const ROOT = path.join(__dirname, '..');
@@ -131,5 +134,34 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
       packageVersion: '1.0.51'
     });
     expect(metadata.scripts).toBeUndefined();
+  });
+
+  test('content report requests do not become repository npm reports', () => {
+    const request = 'قمي بكتابية تقرير عن الفنودري';
+    const result = executePipeline({ message: request, mode: 'smart', workspaceRoot: ROOT });
+
+    expect(classifyIntent(request)).toBe('CONTENT_REPORT');
+    expect(result.intent).toBe('CONTENT_REPORT');
+    expect(result.answer).toContain('تقرير عن Sheikha Foundry V1');
+    expect(result.answer).toContain('SHEIKHA_FOUNDRY_V1');
+    expect(result.answer).not.toContain('أوامر npm المتاحة');
+    expect(buildFoundryReport()).toContain('capabilityFactory');
+  });
+
+  test('chat answer keeps one identity header and hides protocol narration', () => {
+    const formatted = formatChatAnswer('## تقرير\n\nمحتوى التقرير');
+
+    expect(formatted.match(/بسم الله الرحمن الرحيم/g)).toHaveLength(1);
+    expect(formatted).toContain('أنا شيخة.');
+    expect(formatted).not.toContain('تم المرور عبر بروتوكول شيخة الكامل');
+  });
+
+  test('extension replaces typing indicator instead of leaving it in chat history', () => {
+    const extension = readText('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
+
+    expect(extension).toContain('let typingMessage = null;');
+    expect(extension).toContain('typingMessage.remove()');
+    expect(extension).toContain("if (msg.command === 'reply') {");
+    expect(extension).toContain('send.disabled = false;');
   });
 });

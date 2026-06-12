@@ -73,6 +73,8 @@ body { font-family: system-ui, sans-serif; padding: 12px; background:#0b1410; co
 .controls { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
 button { border:1px solid #4f7f63; background:#12351f; color:white; padding:6px 9px; border-radius:8px; cursor:pointer; }
 button.active { background:#1f7a43; }
+button:disabled { cursor:wait; opacity:.6; }
+.typing { opacity:.72; border-style:dashed; }
 textarea { width:100%; box-sizing:border-box; border-radius:10px; padding:10px; background:#0f1d16; color:white; border:1px solid #2f5f46; }
 #send { width:100%; margin-top:8px; }
 </style>
@@ -109,6 +111,7 @@ const log = document.getElementById('log');
 const input = document.getElementById('input');
 const send = document.getElementById('send');
 let mode = 'smart';
+let typingMessage = null;
 
 document.querySelectorAll('[data-mode]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -124,13 +127,21 @@ function add(text, cls='') {
   div.textContent = text;
   log.appendChild(div);
   div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  return div;
+}
+
+function clearTyping() {
+  if (typingMessage) typingMessage.remove();
+  typingMessage = null;
 }
 
 function ask() {
+  if (send.disabled) return;
   const text = input.value.trim();
   if (!text) return;
   add(text, 'user');
   input.value = '';
+  send.disabled = true;
   vscode.postMessage({ command: 'ask', text, mode });
 }
 
@@ -144,8 +155,15 @@ input.addEventListener('keydown', e => {
 
 window.addEventListener('message', event => {
   const msg = event.data || {};
-  if (msg.command === 'typing') add(msg.text || 'شيخة تعمل الآن...');
-  if (msg.command === 'reply') add(msg.text || '');
+  if (msg.command === 'typing') {
+    clearTyping();
+    typingMessage = add(msg.text || 'شيخة تعمل الآن...', 'typing');
+  }
+  if (msg.command === 'reply') {
+    clearTyping();
+    send.disabled = false;
+    add(msg.text || '');
+  }
 });
 </script>
 </body>

@@ -34,6 +34,14 @@ function buildExecutionMetadata(cli) {
   };
 }
 
+function formatChatAnswer(answer) {
+  const text = String(answer || '').trim();
+  if (!text) return 'بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\nتعذر تكوين الإجابة.';
+  if (text.startsWith('بسم الله الرحمن الرحيم')) return text;
+
+  return `بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\n${text}`;
+}
+
 function handleUnifiedChat(payload = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const channel = normalizeChannel(payload.channel || payload.source || payload.actor);
@@ -73,23 +81,7 @@ function handleUnifiedChat(payload = {}) {
     intelligenceMode: result.intelligenceMode,
     claimStatus: result.claimStatus,
     channel,
-    answer: [
-      'بسم الله الرحمن الرحيم',
-      '',
-      'أنا شيخة.',
-      '',
-      'تم المرور عبر بروتوكول شيخة الكامل.',
-      '',
-      '📜 البروتوكول: SHEIKHA_PROTOCOL_V1',
-      '⚖️ حوكمة الحوكمة: SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
-      '🧵 القماش الموحد: SHEIKHA_UNIFIED_CHAT_FABRIC_V1',
-      '🧭 الأوركستريتور: SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
-      `⚙️ البيبلاين: ${result.pipeline}`,
-      `🧩 النية: ${result.intent}`,
-      `🧠 نمط الذكاء: ${result.intelligenceMode}`,
-      '',
-      result.answer
-    ].join('\n'),
+    answer: formatChatAnswer(result.answer),
     execution: result.cli ? { cli: buildExecutionMetadata(result.cli) } : undefined
   };
 
@@ -106,4 +98,4 @@ function handleUnifiedChat(payload = {}) {
   return response;
 }
 
-module.exports = { handleUnifiedChat, buildExecutionMetadata };
+module.exports = { handleUnifiedChat, buildExecutionMetadata, formatChatAnswer };

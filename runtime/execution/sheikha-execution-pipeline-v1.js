@@ -28,13 +28,65 @@ function classifyIntent(message) {
 
   if (/شعار|logo|هوية|brand|علامة/i.test(text)) return 'GRAPHICS_LOGO_PLAN';
   if (/دبق|ديبق|ديبنق|debug|fix|اصلح|اختبار|test|error/i.test(text)) return 'DEBUG_PIPELINE';
-  if (/تقرير|report|حلل|تحليل|افحص/i.test(text)) return 'REPORT_PIPELINE';
+  if (/تقرير|report/i.test(text)) {
+    return /المشروع|المستودع|repo|repository|git|runtime|التشغيل|الفرع|ملفات معدلة/i.test(text)
+      ? 'REPORT_PIPELINE'
+      : 'CONTENT_REPORT';
+  }
+  if (/حلل|تحليل|افحص/i.test(text)) {
+    return /المشروع|المستودع|repo|repository|git|runtime|التشغيل|الكود/i.test(text)
+      ? 'REPORT_PIPELINE'
+      : 'GENERAL_AGENT';
+  }
   if (/فرع|branch|git status|ملفات معدلة|changed files/i.test(text)) return 'CLI_READ_ONLY';
   if (/وثائق|معمارية|حوكمة|docs|architecture|governance/i.test(text)) return 'RAG_LOOKUP';
   if (/مخطط|رسم|graph|diagram/i.test(text)) return 'GRAPHICS_PLAN';
   if (/sdk|api|client|تكامل/i.test(text)) return 'SDK_PLAN';
 
   return 'GENERAL_AGENT';
+}
+
+function isFoundryTopic(message) {
+  return /foundry|فوندري|فوندرى|الفنودري|الفاوندري|فاوندري|فاندر/i.test(String(message || ''));
+}
+
+function buildFoundryReport() {
+  const { status } = require('../../core/foundry/sheikha-foundry-v1');
+  const foundry = status();
+  const activeLayers = Object.entries(foundry.layers || {})
+    .filter(([, state]) => state === 'ACTIVE')
+    .map(([name]) => name);
+
+  return [
+    '## تقرير عن Sheikha Foundry V1',
+    '',
+    `- الحالة: ${foundry.status}`,
+    `- النظام: ${foundry.foundry}`,
+    `- الغرض: ${foundry.purpose}`,
+    '',
+    '### الطبقات الفعالة',
+    ...activeLayers.map((layer) => `- ${layer}`),
+    '',
+    '### المخرجات',
+    ...(foundry.outputs || []).map((output) => `- ${output}`),
+    '',
+    '### دورة العمل',
+    '1. استقبال الفكرة أو الطلب وتحديد المقصود.',
+    '2. تطبيق الحوكمة وتقييم المخاطر قبل التنفيذ.',
+    '3. تصميم Capability وعقد Route وسياسة واضحة.',
+    '4. إعداد خطة التنفيذ والاختبارات.',
+    '5. ربط Inspector وExtension عند الحاجة.',
+    '6. إصدار خطة النشر والمراقبة والأدلة.',
+    '',
+    '### الحوكمة',
+    `- الحوكمة قبل التنفيذ: ${foundry.governance.beforeExecution ? 'نعم' : 'لا'}`,
+    `- الوضع الآمن افتراضيًا: ${foundry.governance.safeByDefault ? 'نعم' : 'لا'}`,
+    `- منع الإجراء المدمر بلا مراجعة: ${foundry.governance.noDestructiveActionWithoutReview ? 'نعم' : 'لا'}`,
+    `- المبدأ: ${foundry.governance.principle}`,
+    '',
+    '### التقييم',
+    'Sheikha Foundry V1 مفعّل كمصنع قدرات برمجية محكوم. وهو ينظم الانتقال من الفكرة إلى التصميم والاختبار والإصدار، ولا يعني وحده أن كل قدرة مقترحة نُشرت إنتاجيًا.'
+  ].join('\n');
 }
 
 const MODE_ALIASES = {
@@ -338,6 +390,8 @@ function executePipeline(payload = {}) {
     answer = buildReport(message, workspace, cli);
   } else if (intent === 'REPORT_PIPELINE') {
     answer = buildReport(message, workspace, cli);
+  } else if (intent === 'CONTENT_REPORT' && isFoundryTopic(message)) {
+    answer = buildFoundryReport();
   } else {
     {
     const executed = modelExecutor.execute(message);
@@ -395,6 +449,8 @@ function executePipeline(payload = {}) {
 module.exports = {
   executePipeline,
   classifyIntent,
+  isFoundryTopic,
+  buildFoundryReport,
   normalizeIntelligenceMode,
   intentForMode,
   buildRagContract,
