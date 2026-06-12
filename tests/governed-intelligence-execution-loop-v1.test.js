@@ -98,4 +98,15 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
       .forEach((mode) => expect(extension).toContain(`data-mode="${mode}"`));
     expect(report.decision).toBe('GOVERNED_INTELLIGENCE_EXECUTION_LOOP_ACTIVE_100');
   });
+
+  test('unified chat fabric is mounted once on the final Express app', () => {
+    const server = readText('server.js');
+    const mount = "app.use(require('./routes/sheikha-unified-chat-fabric'));";
+    const occurrences = server.split(mount).length - 1;
+
+    expect(occurrences).toBe(1);
+    expect(server.indexOf(mount)).toBeLessThan(
+      server.indexOf("app.use(require('./routes/sheikha-extension-chat-compat-routes'));")
+    );
+  });
 });
