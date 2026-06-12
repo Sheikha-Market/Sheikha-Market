@@ -37,6 +37,132 @@ function classifyIntent(message) {
   return 'GENERAL_AGENT';
 }
 
+const MODE_ALIASES = {
+  agent: 'agentic',
+  multi_agent: 'multi-agent',
+  agi: 'agi-research',
+  asi: 'asi-research'
+};
+
+function normalizeIntelligenceMode(mode) {
+  const normalized = String(mode || 'smart').trim().toLowerCase();
+  return MODE_ALIASES[normalized] || normalized || 'smart';
+}
+
+function intentForMode(message, mode) {
+  const modeIntents = {
+    generative: 'GENERATIVE_AI',
+    rag: 'RAG_LOOKUP',
+    agentic: 'AGENTIC_PLAN',
+    'multi-agent': 'MULTI_AGENT_COORDINATION',
+    'agi-research': 'AGI_RESEARCH_EVALUATION',
+    'asi-research': 'ASI_RESEARCH_EVALUATION',
+    mcp: 'MCP_TOOL_PLAN',
+    sdk: 'SDK_PLAN',
+    cli: 'CLI_READ_ONLY',
+    graphics: 'GRAPHICS_PLAN'
+  };
+
+  return modeIntents[mode] || classifyIntent(message);
+}
+
+function buildRagContract(message) {
+  return [
+    '## RAG محكوم بالمصادر',
+    '',
+    `- السؤال: ${message || 'غير محدد'}`,
+    '- الحالة: طلب استرجاع جاهز، ولا توجد إجابة مصدرية ملفقة.',
+    '- المطلوب: تحديد المصادر المصرح بها، الاسترجاع، ترتيب الأدلة، ثم فحص التأصيل.',
+    '- المخرج المقبول: إجابة مع أثر مصدر وحدود ثقة واضحة.',
+    '',
+    '### بوابات التنفيذ',
+    '1. حقوق الوصول إلى المصدر.',
+    '2. تتبع الاقتباس والمرجع.',
+    '3. فحص توافق الإجابة مع الأدلة.',
+    '4. إظهار النقص أو التعارض بدل التخمين.'
+  ].join('\n');
+}
+
+function buildAgenticPlan(message) {
+  return [
+    '## خطة Agentic محكومة',
+    '',
+    `- الهدف: ${message || 'غير محدد'}`,
+    '- الاستقلالية: محدودة بالسياسة والصلاحية والأدوات المعتمدة.',
+    '',
+    '### دورة العمل',
+    '1. تحليل الهدف وحدود النجاح.',
+    '2. جمع الأدلة والسياق.',
+    '3. تقسيم العمل إلى خطوات قابلة للتحقق.',
+    '4. طلب أقل صلاحية لازمة لكل أداة.',
+    '5. تنفيذ الخطوات المأذونة فقط.',
+    '6. اختبار النتيجة وتسجيل الدليل.',
+    '7. إحالة القرارات عالية الأثر للمراجعة البشرية.'
+  ].join('\n');
+}
+
+function buildMultiAgentPlan(message) {
+  return [
+    '## تنسيق Multi-Agent محكوم',
+    '',
+    `- المهمة: ${message || 'غير محددة'}`,
+    '- النمط: أدوار منفصلة وسياق مشترك محكوم، بلا صلاحية مطلقة.',
+    '',
+    '### الأدوار',
+    '- وكيل المعرفة: يجمع المصادر والسياق.',
+    '- وكيل الأدلة: يتحقق من التتبع والتعارض.',
+    '- وكيل التخطيط: يبني خطوات التنفيذ.',
+    '- وكيل المخاطر: يصنف الأثر والصلاحيات.',
+    '- وكيل التنفيذ: ينفذ الخطوات الموافق عليها فقط.',
+    '- وكيل المراجعة: يختبر النتيجة ويسجل الدروس.',
+    '',
+    'أي تعارض أو قرار عالي الأثر ينتقل إلى المراجعة البشرية.'
+  ].join('\n');
+}
+
+function buildResearchProgram(kind, message) {
+  const status = kind === 'AGI' ? 'AGI غير متحقق' : 'ASI غير متحقق';
+  return [
+    `## برنامج بحث ${kind} في شيخة`,
+    '',
+    `- موضوع البحث: ${message || 'غير محدد'}`,
+    `- حالة التحقق الفعلي: ${status}.`,
+    '- التصنيف: بحث وتقييم وحوكمة مخاطر فقط.',
+    '- لا يوجد ادعاء وعي أو تكافؤ بشري أو تفوق فائق.',
+    '',
+    '### المنهج',
+    '1. تعريف فرضية قابلة للدحض.',
+    '2. تحديد مقاييس واختبارات مستقلة.',
+    '3. بناء تجربة قابلة للتكرار.',
+    '4. تسجيل النتائج السلبية والإيجابية.',
+    '5. مراجعة السلامة والقيود.',
+    '6. نشر الحدود قبل أي ادعاء قدرة.'
+  ].join('\n');
+}
+
+function buildMcpPlan(message) {
+  return [
+    '## خطة MCP محكومة',
+    '',
+    `- الهدف: ${message || 'غير محدد'}`,
+    '- العقد المطلوب: schema للمدخل والمخرج، نطاق صلاحية، مرجع دليل، وسجل تدقيق.',
+    '- التنفيذ الخارجي: لا يتم بلا تفويض أو عقد أو موافقة مناسبة.',
+    '- الأسرار: لا تحفظ في Git ولا تظهر في المخرجات.'
+  ].join('\n');
+}
+
+function buildSdkPlan(message) {
+  return [
+    '## خطة SDK / Fabric / MCP',
+    '',
+    `- التكامل: ${message || 'غير محدد'}`,
+    '- SDK: عميل typed وعقد أخطاء وإصدارات.',
+    '- Fabric: مسار مسجل وأولوية وترابط تشغيلي.',
+    '- MCP: أداة محددة الصلاحية مع schema ودليل وتدقيق.',
+    '- التحقق: tests ثم lint ثم governance ثم NO_DRIFT.'
+  ].join('\n');
+}
+
 function runReadOnlyCli(workspaceRoot) {
   const cwd = workspaceRoot && fs.existsSync(workspaceRoot) ? workspaceRoot : process.cwd();
   const pkg = readJsonSafe(path.join(cwd, 'package.json'));
@@ -163,12 +289,13 @@ function executePipeline(payload = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const workspace = payload.workspace || {};
   const workspaceRoot = workspace.workspaceRoot || payload.workspaceRoot || process.cwd();
-  const intent = classifyIntent(message);
+  const intelligenceMode = normalizeIntelligenceMode(payload.mode);
+  const intent = intentForMode(message, intelligenceMode);
   const cli = runReadOnlyCli(workspaceRoot);
 
   let answer;
 
-  if (/^\s*شيخة\s*$/i.test(message)) {
+  if (/^\s*شيخة\s*$/i.test(message) && intelligenceMode === 'smart') {
     answer = 'بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\nما الذي تحتاج إليه من مساعدة أو عون؟';
   } else if (intent === 'GRAPHICS_LOGO_PLAN') {
     answer = [
@@ -191,6 +318,20 @@ function executePipeline(payload = {}) {
       '### مبدأ الهوية',
       'موحدة لله، ومنضبطة بالكتاب والسنة، بلا صور أرواح.'
     ].join('\n');
+  } else if (intelligenceMode === 'rag') {
+    answer = buildRagContract(message);
+  } else if (intelligenceMode === 'agentic') {
+    answer = buildAgenticPlan(message);
+  } else if (intelligenceMode === 'multi-agent') {
+    answer = buildMultiAgentPlan(message);
+  } else if (intelligenceMode === 'agi-research') {
+    answer = buildResearchProgram('AGI', message);
+  } else if (intelligenceMode === 'asi-research') {
+    answer = buildResearchProgram('ASI', message);
+  } else if (intelligenceMode === 'mcp') {
+    answer = buildMcpPlan(message);
+  } else if (intelligenceMode === 'sdk') {
+    answer = buildSdkPlan(message);
   } else if (intent === 'DEBUG_PIPELINE') {
     answer = buildDebugPlan(message, cli);
   } else if (intent === 'CLI_READ_ONLY') {
@@ -232,6 +373,13 @@ function executePipeline(payload = {}) {
     success: true,
     pipeline: 'SHEIKHA_EXECUTION_PIPELINE_V1',
     intent,
+    intelligenceMode,
+    claimStatus: {
+      actualAgiReached: false,
+      actualAsiReached: false,
+      consciousnessClaimed: false,
+      superhumanCapabilityClaimed: false
+    },
     cli,
     vscodeTools: payload.vscodeTools || null,
     answer,
@@ -244,4 +392,13 @@ function executePipeline(payload = {}) {
   };
 }
 
-module.exports = { executePipeline, classifyIntent };
+module.exports = {
+  executePipeline,
+  classifyIntent,
+  normalizeIntelligenceMode,
+  intentForMode,
+  buildRagContract,
+  buildAgenticPlan,
+  buildMultiAgentPlan,
+  buildResearchProgram
+};

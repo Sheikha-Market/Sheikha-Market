@@ -160,6 +160,12 @@
       "priority": 244
     },
     {
+      "name": "governed-intelligence-execution-loop-v1",
+      "mount": "/api/intelligence/execution-loop",
+      "module": "routes/governed-intelligence-execution-loop/status.routes.js",
+      "priority": 243
+    },
+    {
       "name": "development-functions-fabric-v1",
       "mount": "/api/development/functions-fabric",
       "module": "routes/development-functions-fabric/status.routes.js",

@@ -58,6 +58,8 @@ function handleUnifiedChat(payload = {}) {
     orchestrator: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
     pipeline: result.pipeline,
     intent: result.intent,
+    intelligenceMode: result.intelligenceMode,
+    claimStatus: result.claimStatus,
     channel,
     answer: [
       'بسم الله الرحمن الرحيم',
@@ -72,6 +74,7 @@ function handleUnifiedChat(payload = {}) {
       '🧭 الأوركستريتور: SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
       `⚙️ البيبلاين: ${result.pipeline}`,
       `🧩 النية: ${result.intent}`,
+      `🧠 نمط الذكاء: ${result.intelligenceMode}`,
       '',
       result.answer
     ].join('\n'),
@@ -81,6 +84,7 @@ function handleUnifiedChat(payload = {}) {
   audit({
     channel,
     intent: result.intent,
+    intelligenceMode: result.intelligenceMode,
     pipeline: result.pipeline,
     success: true,
     messageBytes: Buffer.byteLength(message),

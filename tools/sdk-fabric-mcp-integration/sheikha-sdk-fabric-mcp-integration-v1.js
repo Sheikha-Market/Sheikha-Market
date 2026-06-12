@@ -129,7 +129,14 @@ const requiredMcpTools = [
   'generate_advisory_report',
   'list_marketplace_products',
   'prepare_crm_opportunity',
-  'prepare_sales_pipeline_stage'
+  'prepare_sales_pipeline_stage',
+  'generate_governed_content',
+  'build_grounded_rag_request',
+  'build_agentic_execution_plan',
+  'coordinate_multi_agent_roles',
+  'evaluate_agi_research_readiness',
+  'evaluate_asi_research_risk',
+  'run_intelligence_execution_impact_loop'
 ];
 
 const requiredEnvironments = [
@@ -201,7 +208,8 @@ const requiredFabricTargets = [
   'ugit_ai_control_plane',
   'customer_intelligence_onboarding',
   'provider_compute_fabric',
-  'multi_supercomputer_cloud_fabric'
+  'multi_supercomputer_cloud_fabric',
+  'governed_intelligence_execution_loop'
 ];
 
 const requiredRootNeuralCells = [

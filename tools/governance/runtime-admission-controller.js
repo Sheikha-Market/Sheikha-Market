@@ -45,6 +45,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/development-functions-fabric/', classification: 'PROTECTED', owner: 'Development Functions Fabric Governance Organization' },
   { prefix: 'tools/devops-ai-lab-fabric/', classification: 'PROTECTED', owner: 'DevOps AI Lab Fabric Governance Organization' },
   { prefix: 'tools/governance-generator/', classification: 'PROTECTED', owner: 'Governance Generator Organization' },
+  { prefix: 'tools/governed-intelligence-execution-loop/', classification: 'PROTECTED', owner: 'Governed Intelligence Execution Loop Organization' },
   { prefix: 'tools/multi-supercomputer-cloud-fabric/', classification: 'PROTECTED', owner: 'Multi Supercomputer Cloud Fabric Governance Organization' },
   { prefix: 'tools/platform-factories/', classification: 'PROTECTED', owner: 'Platform Factories Governance Organization' },
   { prefix: 'tools/platform-operating-engines/', classification: 'PROTECTED', owner: 'Platform Operating Engines Governance Organization' },

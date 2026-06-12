@@ -46,7 +46,8 @@ class SheikhaChatProvider {
           meta: {
             provider: 'Sheikha',
             model: 'شيخة',
-            governance: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR'
+            governance: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR',
+            mode: msg.mode || 'smart'
           }
         });
       } catch (e) {
@@ -78,13 +79,17 @@ textarea { width:100%; box-sizing:border-box; border-radius:10px; padding:10px; 
 </head>
 <body>
 <div class="controls">
-  <button data-mode="smart" class="active">Smart</button>
-  <button data-mode="mcp">MCP</button>
-  <button data-mode="rag">RAG</button>
-  <button data-mode="agent">Agent</button>
-  <button data-mode="graphics">Graphics</button>
-  <button data-mode="cli">CLI</button>
-  <button data-mode="sdk">SDK</button>
+  <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
+  <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>
+  <button data-mode="rag" title="استرجاع مؤسس على مصادر">RAG</button>
+  <button data-mode="agentic" title="تخطيط وتنفيذ محدود الصلاحية">Agentic</button>
+  <button data-mode="multi-agent" title="تنسيق وكلاء بأدوار محددة">Multi-Agent</button>
+  <button data-mode="agi-research" title="بحث وتقييم فقط، وليس AGI فعليًا">AGI Research</button>
+  <button data-mode="asi-research" title="بحث مخاطر فقط، وليس ASI فعليًا">ASI Research</button>
+  <button data-mode="mcp" title="عقود أدوات MCP محكومة">MCP</button>
+  <button data-mode="sdk" title="تخطيط تكامل SDK">SDK</button>
+  <button data-mode="graphics" title="خطة رسوم وهوية">Graphics</button>
+  <button data-mode="cli" title="فحص CLI للقراءة فقط">CLI</button>
 </div>
 
 <div id="log">

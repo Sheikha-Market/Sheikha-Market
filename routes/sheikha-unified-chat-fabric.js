@@ -23,6 +23,12 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
     fabric: 'SHEIKHA_UNIFIED_CHAT_FABRIC_V1',
     protocol: 'SHEIKHA_PROTOCOL_V1',
     orchestrator: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
+    intelligenceModes: {
+      runtime: ['smart', 'generative', 'rag', 'agentic', 'multi-agent', 'mcp', 'sdk', 'cli', 'graphics'],
+      researchOnly: ['agi-research', 'asi-research'],
+      actualAgiReached: false,
+      actualAsiReached: false
+    },
     requiredPath: [
       'Protocol',
       'GovernanceOfGovernance',
