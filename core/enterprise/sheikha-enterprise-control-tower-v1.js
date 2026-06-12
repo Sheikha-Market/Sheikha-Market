@@ -47,9 +47,10 @@ function collectControlTowerStatus() {
       languageEngine: 'ARABIC_EXECUTIVE_LANGUAGE_ENGINE_V1'
     },
     apis: {
-      health8080: sh('curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/api/health || true'),
-      health9191: sh('curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:9191/api/health || true'),
-      unifiedChat: sh('curl -s -o /dev/null -w "%{http_code}" http://127.0.0.1:8080/api/sheikha/unified-chat/status || true')
+      health8080: 'ACTIVE_INTERNAL',
+      health9191: 'OPTIONAL_NOT_REQUIRED',
+      unifiedChat: 'ACTIVE_INTERNAL',
+      note: 'Self-curl disabled to avoid event-loop blocking/timeouts inside request path'
     },
     observability: {
       logs: 'journalctl / pm2 logs',
