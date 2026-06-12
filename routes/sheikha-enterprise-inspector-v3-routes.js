@@ -2,35 +2,35 @@
 
 const express = require('express');
 const router = express.Router();
+
 const {
   collectEnterpriseInspector,
-  compactInspectorContext
+  compactInspectorContext,
+  updateExtensionHeartbeat
 } = require('../core/enterprise/sheikha-enterprise-inspector-v3');
-
-router.use(express.json({ limit: '256kb' }));
 
 router.get('/api/sheikha/enterprise-inspector/v3/status', (_req, res) => {
   res.json(collectEnterpriseInspector());
 });
 
-router.post('/api/sheikha/enterprise-inspector/v3/context', (req, res) => {
-  res.json(collectEnterpriseInspector(req.body || {}));
+router.post('/api/sheikha/enterprise-inspector/v3/context', express.json(), (req, res) => {
+  updateExtensionHeartbeat(req.body || {});
+  res.json(collectEnterpriseInspector());
+});
+
+router.get('/api/sheikha/enterprise-inspector/v3/context', (_req, res) => {
+  res.json(compactInspectorContext(collectEnterpriseInspector()));
 });
 
 router.get('/api/sheikha/enterprise-inspector/v3/architecture', (_req, res) => {
   const snapshot = collectEnterpriseInspector();
   res.json({
     success: true,
-    status: snapshot.status,
     inspector: snapshot.inspector,
     architecture: snapshot.architecture,
     surfaces: snapshot.surfaces,
-    governance: snapshot.governance
+    orchestration: snapshot.orchestration
   });
-});
-
-router.get('/api/sheikha/enterprise-inspector/v2/status', (_req, res) => {
-  res.json(compactInspectorContext(collectEnterpriseInspector()));
 });
 
 module.exports = router;
