@@ -4,13 +4,25 @@ const fs = require('fs');
 const path = require('path');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
 const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
+const {
+  collectEnterpriseInspector,
+  compactInspectorContext
+} = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
 
-const ROOT = '/opt/sheikha/current';
+const ROOT = process.env.SHEIKHA_ROOT || (
+  fs.existsSync('/opt/sheikha/current') ? '/opt/sheikha/current' : process.cwd()
+);
 const AUDIT = path.join(ROOT, 'runtime/audit/sheikha-unified-chat-fabric-audit.jsonl');
 
 function audit(entry) {
-  fs.mkdirSync(path.dirname(AUDIT), { recursive: true });
-  fs.appendFileSync(AUDIT, JSON.stringify({ ...entry, at: new Date().toISOString() }) + '\n');
+  try {
+    fs.mkdirSync(path.dirname(AUDIT), { recursive: true });
+    fs.appendFileSync(AUDIT, JSON.stringify({ ...entry, at: new Date().toISOString() }) + '\n');
+    return true;
+  } catch (error) {
+    console.warn('[SHEIKHA CHAT AUDIT]', error.message);
+    return false;
+  }
 }
 
 function normalizeChannel(channel) {
@@ -64,10 +76,16 @@ function handleUnifiedChat(payload = {}) {
     };
   }
 
+  const enterpriseInspector = collectEnterpriseInspector({
+    workspace: payload.workspace,
+    vscodeTools: payload.vscodeTools
+  });
+
   const result = executePipeline({
     ...payload,
     message,
-    source: channel
+    source: channel,
+    enterpriseInspector
   });
 
   const response = {
@@ -82,6 +100,7 @@ function handleUnifiedChat(payload = {}) {
     claimStatus: result.claimStatus,
     channel,
     answer: formatChatAnswer(result.answer),
+    inspector: compactInspectorContext(enterpriseInspector),
     execution: result.cli ? { cli: buildExecutionMetadata(result.cli) } : undefined
   };
 
@@ -90,6 +109,7 @@ function handleUnifiedChat(payload = {}) {
     intent: result.intent,
     intelligenceMode: result.intelligenceMode,
     pipeline: result.pipeline,
+    inspectorStatus: enterpriseInspector.status,
     success: true,
     messageBytes: Buffer.byteLength(message),
     answerBytes: Buffer.byteLength(result.answer || '')

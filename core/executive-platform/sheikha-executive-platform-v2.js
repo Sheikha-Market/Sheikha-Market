@@ -11,8 +11,10 @@ function sh(cmd) {
   }
 }
 
-function status() {
+function status(base = {}) {
   const mem = process.memoryUsage();
+  const baseRuntime = base.runtime || {};
+  const baseGit = base.git || {};
 
   return {
     success: true,
@@ -28,16 +30,16 @@ function status() {
       enterpriseKnowledgeFabric: 'ACTIVE'
     },
     runtime: {
-      cpuLoad: os.loadavg()[0],
-      ramUsedPercent: Math.round((1 - os.freemem() / os.totalmem()) * 100),
-      heapUsedMb: Math.round(mem.heapUsed / 1024 / 1024),
-      heapTotalMb: Math.round(mem.heapTotal / 1024 / 1024),
-      uptimeSeconds: Math.round(process.uptime())
+      cpuLoad: baseRuntime.cpuLoad1m ?? os.loadavg()[0],
+      ramUsedPercent: baseRuntime.ramUsedPercent ?? Math.round((1 - os.freemem() / os.totalmem()) * 100),
+      heapUsedMb: baseRuntime.heapUsedMb ?? Math.round(mem.heapUsed / 1024 / 1024),
+      heapTotalMb: baseRuntime.heapTotalMb ?? Math.round(mem.heapTotal / 1024 / 1024),
+      uptimeSeconds: baseRuntime.uptimeSeconds ?? Math.round(process.uptime())
     },
     git: {
-      branch: sh('git rev-parse --abbrev-ref HEAD'),
-      status: sh('git status --short'),
-      aheadBehind: sh('git rev-list --left-right --count @{u}...HEAD 2>/dev/null || echo "غير متاح"')
+      branch: baseGit.branch ?? sh('git rev-parse --abbrev-ref HEAD'),
+      status: baseGit.status ?? sh('git status --short'),
+      aheadBehind: baseGit.aheadBehind ?? sh('git rev-list --left-right --count @{u}...HEAD 2>/dev/null || echo "غير متاح"')
     },
     governance: {
       policies: 'ACTIVE',

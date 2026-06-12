@@ -4,12 +4,20 @@ const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');
 
-const ROOT = '/opt/sheikha/current';
+const ROOT = process.env.SHEIKHA_ROOT || (
+  fs.existsSync('/opt/sheikha/current') ? '/opt/sheikha/current' : process.cwd()
+);
 const AUDIT = path.join(ROOT, 'runtime/audit/sheikha-model-executor-audit.jsonl');
 
 function audit(entry) {
-  fs.mkdirSync(path.dirname(AUDIT), { recursive: true });
-  fs.appendFileSync(AUDIT, JSON.stringify({ ...entry, at: new Date().toISOString() }) + '\n');
+  try {
+    fs.mkdirSync(path.dirname(AUDIT), { recursive: true });
+    fs.appendFileSync(AUDIT, JSON.stringify({ ...entry, at: new Date().toISOString() }) + '\n');
+    return true;
+  } catch (error) {
+    console.warn('[SHEIKHA MODEL AUDIT]', error.message);
+    return false;
+  }
 }
 
 function sh(cmd, input = '') {
@@ -92,10 +100,13 @@ function execute(message, options = {}) {
     'أنت شيخة ضمن نظام حوكمة آمن.',
     'لا تنفذ حذفاً أو ماليات أو IoT أو أسرار.',
     'أجب بنتيجة عملية مختصرة مع خطوات تحقق.',
-    'إذا احتجت تعديلاً على ملفات فاقترح patch أو استخدم مسار الكتابة الآمنة فقط.'
+    'إذا احتجت تعديلاً على ملفات فاقترح patch أو استخدم مسار الكتابة الآمنة فقط.',
+    'سياق المفتش المؤسسي للقراءة فقط، ولا تعتبر حالة غير مقاسة حقيقة تشغيلية.'
   ].join('\n');
 
-  const prompt = `${system}\n\nالطلب:\n${message}`;
+  const context = String(options.context || '').slice(0, 8000);
+  const contextBlock = context ? `\n\nسياق Enterprise Inspector:\n${context}` : '';
+  const prompt = `${system}${contextBlock}\n\nالطلب:\n${message}`;
   const output = sh(`ollama run ${JSON.stringify(model)}`, prompt);
 
   audit({ action: 'model_execute', task, model, messageBytes: Buffer.byteLength(message), outputBytes: Buffer.byteLength(output) });

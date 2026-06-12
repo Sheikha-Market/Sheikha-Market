@@ -11,8 +11,10 @@ function sh(cmd) {
   }
 }
 
-function getEnterpriseState() {
+function getEnterpriseState(base = {}) {
   const mem = process.memoryUsage();
+  const baseRuntime = base.runtime || {};
+  const baseGit = base.git || {};
 
   return {
     success: true,
@@ -30,16 +32,16 @@ function getEnterpriseState() {
       unifiedChat: 'ACTIVE'
     },
     runtime: {
-      cpu: os.loadavg()[0],
-      ram: Math.round((1 - os.freemem() / os.totalmem()) * 100),
-      heapUsedMb: Math.round(mem.heapUsed / 1024 / 1024),
-      heapTotalMb: Math.round(mem.heapTotal / 1024 / 1024),
-      uptime: Math.round(process.uptime())
+      cpu: baseRuntime.cpuLoad1m ?? os.loadavg()[0],
+      ram: baseRuntime.ramUsedPercent ?? Math.round((1 - os.freemem() / os.totalmem()) * 100),
+      heapUsedMb: baseRuntime.heapUsedMb ?? Math.round(mem.heapUsed / 1024 / 1024),
+      heapTotalMb: baseRuntime.heapTotalMb ?? Math.round(mem.heapTotal / 1024 / 1024),
+      uptime: baseRuntime.uptimeSeconds ?? Math.round(process.uptime())
     },
     git: {
-      branch: sh('git rev-parse --abbrev-ref HEAD'),
-      status: sh('git status --short'),
-      aheadBehind: sh('git rev-list --left-right --count @{u}...HEAD 2>/dev/null || echo "غير متاح"')
+      branch: baseGit.branch ?? sh('git rev-parse --abbrev-ref HEAD'),
+      status: baseGit.status ?? sh('git status --short'),
+      aheadBehind: baseGit.aheadBehind ?? sh('git rev-list --left-right --count @{u}...HEAD 2>/dev/null || echo "غير متاح"')
     },
     governance: {
       policies: 'ACTIVE',

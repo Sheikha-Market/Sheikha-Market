@@ -9,17 +9,24 @@ const { collectGlobalRegistryFabric } = require('./sheikhaGlobalRegistryFabric')
 const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
 
 function activate(context) {
+  const chatProvider = new SheikhaChatProvider(context);
+  const inspectorProvider = new SheikhaInspectorProvider(context, {
+    onAsk: async (prompt) => {
+      await vscode.commands.executeCommand('workbench.view.extension.sheikha');
+      await new Promise((resolve) => setTimeout(resolve, 150));
+      chatProvider.prefill(prompt, true);
+    }
+  });
+
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       'sheikha.inspectorView',
-      new SheikhaInspectorProvider(context),
+      inspectorProvider,
       { webviewOptions: { retainContextWhenHidden: true } }
     )
   );
 
   console.log('Sheikha extension activated');
-
-  const chatProvider = new SheikhaChatProvider(context.extensionUri);
 
   const chatViewIds = [
     'sheikha.chatView',

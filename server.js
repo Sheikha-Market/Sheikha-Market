@@ -123,6 +123,7 @@ try {
 app.use(require('./routes/sheikha-enterprise-control-tower-routes'));
 app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
 app.use(require('./routes/sheikha-executive-platform-v2-routes'));
+app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
 app.use(require('./routes/sheikha-extension-chat-compat-routes'));
 app.use(require('./routes/sheikha-foundry-routes'));

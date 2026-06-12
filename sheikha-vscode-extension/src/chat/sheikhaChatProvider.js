@@ -6,12 +6,15 @@ const { sendExtensionChat } = require('../sheikhaExtensionChatClient');
 class SheikhaChatProvider {
   constructor(context) {
     this.context = context;
+    this.views = new Set();
   }
 
   resolveWebviewView(webviewView) {
+    this.views.add(webviewView);
     webviewView.webview.options = {
       enableScripts: true
     };
+    webviewView.onDidDispose(() => this.views.delete(webviewView));
 
     webviewView.webview.html = this.getHtml();
 
@@ -60,26 +63,41 @@ class SheikhaChatProvider {
     });
   }
 
+  prefill(text, autoSend = true) {
+    for (const view of this.views) {
+      view.webview.postMessage({
+        command: 'prefill',
+        text: String(text || ''),
+        autoSend
+      });
+    }
+  }
+
   getHtml() {
     return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
 <meta charset="UTF-8">
 <style>
-body { font-family: system-ui, sans-serif; padding: 12px; background:#0b1410; color:#f4f4f4; }
-#log { display:flex; flex-direction:column; gap:10px; margin-bottom:12px; }
-.msg { background:#14251c; border:1px solid #2f5f46; padding:10px; border-radius:10px; white-space:pre-wrap; }
-.user { background:#1f2f45; border-color:#43699b; }
-.controls { display:flex; gap:6px; flex-wrap:wrap; margin-bottom:8px; }
-button { border:1px solid #4f7f63; background:#12351f; color:white; padding:6px 9px; border-radius:8px; cursor:pointer; }
-button.active { background:#1f7a43; }
+body { font-family: system-ui, sans-serif; margin:0; padding:12px; background:#0b0f14; color:#f4f4f4; letter-spacing:0; }
+.header { border-bottom:1px solid #2d3947; padding:2px 0 10px; margin-bottom:10px; }
+.header strong { display:block; font-size:14px; }
+.header span { color:#9eabb9; font-size:11px; }
+#log { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
+.msg { background:#111821; border:1px solid #2d3947; padding:10px; border-radius:6px; white-space:pre-wrap; overflow-wrap:anywhere; }
+.user { background:#142236; border-color:#365b82; }
+.controls,.quick { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
+button { border:1px solid #3a4857; background:#161f2a; color:white; padding:6px 8px; border-radius:6px; cursor:pointer; }
+button:hover { border-color:#62a6df; }
+button.active { background:#19452d; border-color:#50b878; }
 button:disabled { cursor:wait; opacity:.6; }
 .typing { opacity:.72; border-style:dashed; }
-textarea { width:100%; box-sizing:border-box; border-radius:10px; padding:10px; background:#0f1d16; color:white; border:1px solid #2f5f46; }
+textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; background:#0f151d; color:white; border:1px solid #3a4857; resize:vertical; }
 #send { width:100%; margin-top:8px; }
 </style>
 </head>
 <body>
+<div class="header"><strong>شات شيخة المؤسسي</strong><span>Unified Chat · Governance · Enterprise Inspector</span></div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>
@@ -92,6 +110,12 @@ textarea { width:100%; box-sizing:border-box; border-radius:10px; padding:10px; 
   <button data-mode="sdk" title="تخطيط تكامل SDK">SDK</button>
   <button data-mode="graphics" title="خطة رسوم وهوية">Graphics</button>
   <button data-mode="cli" title="فحص CLI للقراءة فقط">CLI</button>
+</div>
+
+<div class="quick">
+  <button data-prompt="حلل حالة منظومة شيخة الحالية من Enterprise Inspector وحدد أفضل إجراء تالٍ.">حالة المنظومة</button>
+  <button data-prompt="راجع أخطاء وتحذيرات VS Code الحالية واقترح خطة إصلاح مرتبة.">Diagnostics</button>
+  <button data-prompt="حلل Workspace وGit الحاليين وحدد مخاطر الاختبار والدمج.">مراجعة المشروع</button>
 </div>
 
 <div id="log">
@@ -118,6 +142,13 @@ document.querySelectorAll('[data-mode]').forEach(btn => {
     document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     mode = btn.dataset.mode;
+  });
+});
+
+document.querySelectorAll('[data-prompt]').forEach(btn => {
+  btn.addEventListener('click', () => {
+    input.value = btn.dataset.prompt || '';
+    input.focus();
   });
 });
 
@@ -163,6 +194,11 @@ window.addEventListener('message', event => {
     clearTyping();
     send.disabled = false;
     add(msg.text || '');
+  }
+  if (msg.command === 'prefill') {
+    input.value = msg.text || '';
+    input.focus();
+    if (msg.autoSend) ask();
   }
 });
 </script>

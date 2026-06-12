@@ -82,6 +82,56 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
   });
 }
 
+function getJson(path, baseUrl = DEFAULT_BASE_URL, timeout = 15000) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(path, baseUrl);
+    const lib = url.protocol === 'https:' ? https : http;
+    const req = lib.request({
+      method: 'GET',
+      hostname: url.hostname,
+      port: url.port || (url.protocol === 'https:' ? 443 : 80),
+      path: url.pathname + url.search,
+      headers: { Accept: 'application/json' },
+      timeout
+    }, (res) => {
+      let data = '';
+      res.on('data', (chunk) => { data += chunk; });
+      res.on('end', () => {
+        const parsed = safeJsonParse(data);
+        parsed.statusCode = res.statusCode;
+        resolve(parsed);
+      });
+    });
+
+    req.on('timeout', () => req.destroy(new Error(`Sheikha request timeout after ${timeout}ms`)));
+    req.on('error', reject);
+    req.end();
+  });
+}
+
+async function getEnterpriseInspectorStatus(options = {}) {
+  try {
+    const data = await getJson(
+      '/api/sheikha/enterprise-inspector/v3/status',
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+
+    if (data?.success === true) return data;
+    return {
+      success: false,
+      status: 'DEGRADED',
+      error: data?.error || `HTTP_${data?.statusCode || 'UNKNOWN'}`
+    };
+  } catch (error) {
+    return {
+      success: false,
+      status: 'OFFLINE',
+      error: error.message
+    };
+  }
+}
+
 async function sendExtensionChat(message, options = {}) {
   const text = String(message || '');
   const smartRoute = decideSmartRoute(text);
@@ -94,6 +144,7 @@ async function sendExtensionChat(message, options = {}) {
     actor: 'vscode-extension',
     channel: 'extension-chat',
     source: 'sheikha-vscode-extension',
+    governanceProfile: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
     route: smartRoute,
     workspace,
     vscodeTools
@@ -136,5 +187,7 @@ module.exports = {
   DEFAULT_BASE_URL,
   sendExtensionChat,
   postJson,
+  getJson,
+  getEnterpriseInspectorStatus,
   safeJsonParse
 };

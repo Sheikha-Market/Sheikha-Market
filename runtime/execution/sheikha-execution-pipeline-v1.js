@@ -26,6 +26,9 @@ function readJsonSafe(file) {
 function classifyIntent(message) {
   const text = String(message || '');
 
+  if (/مفتش|inspector|حالة المنظومة|حالة شيخة|صحة المنظومة|enterprise status|system health|diagnostics/i.test(text)) {
+    return 'ENTERPRISE_INSPECTOR';
+  }
   if (/شعار|logo|هوية|brand|علامة/i.test(text)) return 'GRAPHICS_LOGO_PLAN';
   if (/دبق|ديبق|ديبنق|debug|fix|اصلح|اختبار|test|error/i.test(text)) return 'DEBUG_PIPELINE';
   if (/تقرير|report/i.test(text)) {
@@ -215,6 +218,68 @@ function buildSdkPlan(message) {
   ].join('\n');
 }
 
+function buildEnterpriseInspectorReport(snapshot = {}) {
+  const health = snapshot.health || {};
+  const diagnostics = health.diagnostics || {};
+  const runtime = snapshot.runtime || {};
+  const git = snapshot.git || {};
+  const workspace = snapshot.workspace || {};
+  const surfaces = snapshot.surfaces || {};
+
+  return [
+    '## Sheikha Enterprise Inspector',
+    '',
+    `- الحالة: ${snapshot.status || 'UNKNOWN'}`,
+    `- الصحة العامة: ${health.overall || 'UNKNOWN'}`,
+    `- Runtime: ${health.runtime || 'UNKNOWN'}`,
+    `- الحوكمة: ${health.governance || 'UNKNOWN'}`,
+    `- الشات الموحد: ${health.unifiedChat || 'UNKNOWN'}`,
+    `- إكستنشن VS Code: ${health.extension || 'NOT_CONNECTED'}`,
+    '',
+    '### Runtime',
+    `- CPU Load: ${runtime.cpuLoad1m ?? 'غير متاح'}`,
+    `- RAM: ${runtime.ramUsedPercent ?? 'غير متاح'}%`,
+    `- Heap: ${runtime.heapUsedMb ?? 'غير متاح'}MB / ${runtime.heapTotalMb ?? 'غير متاح'}MB`,
+    `- Uptime: ${runtime.uptimeSeconds ?? 'غير متاح'}s`,
+    '',
+    '### Git وWorkspace',
+    `- الفرع: ${workspace.branch || git.branch || 'غير متاح'}`,
+    `- Git clean: ${git.clean === true ? 'نعم' : git.clean === false ? 'لا' : 'غير متاح'}`,
+    `- الملفات المعدلة: ${git.changedFileCount ?? workspace.changedFiles?.length ?? 0}`,
+    `- الملف النشط: ${workspace.activeFile || 'لا يوجد'}`,
+    '',
+    '### Diagnostics',
+    `- Errors: ${diagnostics.errors || 0}`,
+    `- Warnings: ${diagnostics.warnings || 0}`,
+    `- Information: ${diagnostics.information || 0}`,
+    '',
+    '### المسارات الموحّدة',
+    `- الشات العام: ${surfaces.generalChat || '/api/sheikha/chat'}`,
+    `- شات الإكستنشن: ${surfaces.extensionChat || '/api/sheikha/extension/chat'}`,
+    `- المفتش: ${surfaces.inspectorStatus || '/api/sheikha/enterprise-inspector/v3/status'}`,
+    '',
+    '### قرار المفتش',
+    diagnostics.errors > 0
+      ? '- توجد أخطاء محلية في VS Code تحتاج مراجعة قبل التنفيذ أو الدمج.'
+      : '- لا توجد أخطاء VS Code مرسلة إلى المفتش. القرارات عالية الأثر تبقى خاضعة للمراجعة البشرية.'
+  ].join('\n');
+}
+
+function buildInspectorModelContext(snapshot = {}) {
+  if (!snapshot || !snapshot.inspector) return '';
+
+  return JSON.stringify({
+    inspector: snapshot.inspector,
+    status: snapshot.status,
+    health: snapshot.health,
+    runtime: snapshot.runtime,
+    git: snapshot.git,
+    workspace: snapshot.workspace,
+    governance: snapshot.governance,
+    architecture: snapshot.architecture
+  }).slice(0, 8000);
+}
+
 function runReadOnlyCli(workspaceRoot) {
   const cwd = workspaceRoot && fs.existsSync(workspaceRoot) ? workspaceRoot : process.cwd();
   const pkg = readJsonSafe(path.join(cwd, 'package.json'));
@@ -384,6 +449,8 @@ function executePipeline(payload = {}) {
     answer = buildMcpPlan(message);
   } else if (intelligenceMode === 'sdk') {
     answer = buildSdkPlan(message);
+  } else if (intent === 'ENTERPRISE_INSPECTOR') {
+    answer = buildEnterpriseInspectorReport(payload.enterpriseInspector);
   } else if (intent === 'DEBUG_PIPELINE') {
     answer = buildDebugPlan(message, cli);
   } else if (intent === 'CLI_READ_ONLY') {
@@ -394,7 +461,9 @@ function executePipeline(payload = {}) {
     answer = buildFoundryReport();
   } else {
     {
-    const executed = modelExecutor.execute(message);
+    const executed = modelExecutor.execute(message, {
+      context: buildInspectorModelContext(payload.enterpriseInspector)
+    });
     answer = executed.success
       ? [
           'بسم الله الرحمن الرحيم',
@@ -435,6 +504,7 @@ function executePipeline(payload = {}) {
       superhumanCapabilityClaimed: false
     },
     cli,
+    enterpriseInspector: payload.enterpriseInspector || null,
     vscodeTools: payload.vscodeTools || null,
     answer,
     governance: {
@@ -456,5 +526,7 @@ module.exports = {
   buildRagContract,
   buildAgenticPlan,
   buildMultiAgentPlan,
-  buildResearchProgram
+  buildResearchProgram,
+  buildEnterpriseInspectorReport,
+  buildInspectorModelContext
 };
