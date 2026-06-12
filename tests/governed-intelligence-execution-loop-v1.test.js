@@ -7,6 +7,9 @@ const {
   normalizeIntelligenceMode,
   intentForMode
 } = require('../runtime/execution/sheikha-execution-pipeline-v1');
+const {
+  buildExecutionMetadata
+} = require('../runtime/chat-fabric/sheikha-unified-chat-fabric-v1');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -108,5 +111,25 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
     expect(server.indexOf(mount)).toBeLessThan(
       server.indexOf("app.use(require('./routes/sheikha-extension-chat-compat-routes'));")
     );
+  });
+
+  test('chat response exposes compact execution metadata without package scripts', () => {
+    const metadata = buildExecutionMetadata({
+      cwd: ROOT,
+      branch: 'optimization/long-tail-latency-elimination',
+      status: '',
+      scripts: { test: 'jest' },
+      packageName: 'sheikha-operating-system',
+      packageVersion: '1.0.51'
+    });
+
+    expect(metadata).toEqual({
+      cwd: ROOT,
+      branch: 'optimization/long-tail-latency-elimination',
+      status: '',
+      packageName: 'sheikha-operating-system',
+      packageVersion: '1.0.51'
+    });
+    expect(metadata.scripts).toBeUndefined();
   });
 });

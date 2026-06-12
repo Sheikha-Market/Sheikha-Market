@@ -22,6 +22,18 @@ function normalizeChannel(channel) {
   return 'api';
 }
 
+function buildExecutionMetadata(cli) {
+  if (!cli) return undefined;
+
+  return {
+    cwd: cli.cwd || null,
+    branch: cli.branch || null,
+    status: cli.status || '',
+    packageName: cli.packageName || null,
+    packageVersion: cli.packageVersion || null
+  };
+}
+
 function handleUnifiedChat(payload = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const channel = normalizeChannel(payload.channel || payload.source || payload.actor);
@@ -78,7 +90,7 @@ function handleUnifiedChat(payload = {}) {
       '',
       result.answer
     ].join('\n'),
-    execution: result.cli ? { cli: result.cli } : undefined
+    execution: result.cli ? { cli: buildExecutionMetadata(result.cli) } : undefined
   };
 
   audit({
@@ -94,4 +106,4 @@ function handleUnifiedChat(payload = {}) {
   return response;
 }
 
-module.exports = { handleUnifiedChat };
+module.exports = { handleUnifiedChat, buildExecutionMetadata };
