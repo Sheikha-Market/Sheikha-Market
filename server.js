@@ -122,6 +122,7 @@ try {
   app.use(require('./routes/sheikha-runtime-chat'));
 app.use(require('./routes/sheikha-enterprise-control-tower-routes'));
 app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
+app.use(require('./routes/sheikha-executive-platform-v2-routes'));
 
 try {
   console.log('[Sheikha] Programming route mounted');
