@@ -1,6 +1,7 @@
 'use strict';
 
 const vscode = require('vscode');
+const { sendInspectorHeartbeat } = require('./sheikhaEnterpriseInspectorBridge');
 const { SheikhaInspectorProvider } = require('./sheikhaInspectorProvider');
 const { collectVsCodeAwareness } = require('./vscodeAwareness');
 const { collectUnifiedRegistry } = require('./sheikhaUnifiedRegistry');
@@ -9,6 +10,12 @@ const { collectGlobalRegistryFabric } = require('./sheikhaGlobalRegistryFabric')
 const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
 
 function activate(context) {
+  const sheikhaInspectorHeartbeat = setInterval(() => {
+    sendInspectorHeartbeat().catch(() => {});
+  }, 15000);
+  context.subscriptions.push({ dispose: () => clearInterval(sheikhaInspectorHeartbeat) });
+  sendInspectorHeartbeat().catch(() => {});
+
   const chatProvider = new SheikhaChatProvider(context);
   const inspectorProvider = new SheikhaInspectorProvider(context, {
     onAsk: async (prompt) => {
