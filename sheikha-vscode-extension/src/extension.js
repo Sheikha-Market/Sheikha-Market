@@ -12,7 +12,7 @@ function activate(context) {
   context.subscriptions.push(
     vscode.window.registerWebviewViewProvider(
       'sheikha.inspectorView',
-      new SheikhaInspectorProvider(),
+      new SheikhaInspectorProvider(context),
       { webviewOptions: { retainContextWhenHidden: true } }
     )
   );

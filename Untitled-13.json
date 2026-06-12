@@ -1,0 +1,5612 @@
+{
+  "type": "SHEIKHA_GLOBAL_REGISTRY_FABRIC_V1",
+  "generatedAt": "2026-06-09T19:18:39.923Z",
+  "accessPolicy": {
+    "mode": "read-first",
+    "externalWrite": "blocked_until_authorized",
+    "credentialsRequired": true,
+    "governance": "Sheikha approval required before mutation"
+  },
+  "local": {
+    "vscodeVersion": "1.123.1",
+    "extensions": [
+      {
+        "id": "TypeScriptTeam.jsts-chat-features",
+        "active": false,
+        "version": "0.0.2",
+        "publisher": "TypeScriptTeam",
+        "displayName": "JS/TS Chat Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/TypeScriptTeam.jsts-chat-features",
+        "contributes": [
+          "chatSkills",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscode.bat",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Windows Bat Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/bat",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.clojure",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Clojure Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/clojure",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.coffeescript",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "CoffeeScript Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/coffeescript",
+        "contributes": [
+          "languages",
+          "grammars",
+          "breakpoints",
+          "snippets",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.configuration-editing",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Configuration Editing",
+        "extensionPath": "/usr/share/code/resources/app/extensions/configuration-editing",
+        "contributes": [
+          "languages",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "GitHub.copilot-chat",
+        "active": false,
+        "version": "0.51.1",
+        "publisher": "GitHub",
+        "displayName": "GitHub Copilot Chat",
+        "extensionPath": "/usr/share/code/resources/app/extensions/copilot",
+        "contributes": [
+          "languageModelTools",
+          "languageModelToolSets",
+          "chatParticipants",
+          "languageModelChatProviders",
+          "interactiveSession",
+          "mcpServerDefinitionProviders",
+          "viewsWelcome",
+          "chatViewsWelcome",
+          "commands",
+          "configuration",
+          "submenus",
+          "menus",
+          "icons",
+          "iconFonts",
+          "terminalQuickFixes",
+          "languages",
+          "views",
+          "viewsContainers",
+          "configurationDefaults",
+          "keybindings",
+          "walkthroughs",
+          "jsonValidation",
+          "typescriptServerPlugins",
+          "chatSessions",
+          "chatAgents",
+          "chatPromptFiles",
+          "chatSkills",
+          "terminal"
+        ]
+      },
+      {
+        "id": "vscode.cpp",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "C/C++ Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/cpp",
+        "contributes": [
+          "languages",
+          "grammars",
+          "problemPatterns",
+          "problemMatchers",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.csharp",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "C# Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/csharp",
+        "contributes": [
+          "configurationDefaults",
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.css",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "CSS Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/css",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.css-language-features",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "CSS Language Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/css-language-features",
+        "contributes": [
+          "configuration",
+          "configurationDefaults",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "vscode.dart",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Dart Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/dart",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.debug-auto-launch",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Node Debug Auto-attach",
+        "extensionPath": "/usr/share/code/resources/app/extensions/debug-auto-launch",
+        "contributes": [
+          "commands"
+        ]
+      },
+      {
+        "id": "vscode.debug-server-ready",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Server Ready Action",
+        "extensionPath": "/usr/share/code/resources/app/extensions/debug-server-ready",
+        "contributes": [
+          "debuggers"
+        ]
+      },
+      {
+        "id": "vscode.diff",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Diff Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/diff",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.docker",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Docker Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/docker",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.dotenv",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Dotenv Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/dotenv",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.emmet",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Emmet",
+        "extensionPath": "/usr/share/code/resources/app/extensions/emmet",
+        "contributes": [
+          "configuration",
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "vscode.extension-editing",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Extension Authoring",
+        "extensionPath": "/usr/share/code/resources/app/extensions/extension-editing",
+        "contributes": [
+          "jsonValidation",
+          "languages"
+        ]
+      },
+      {
+        "id": "vscode.fsharp",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "F# Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/fsharp",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.git",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Git",
+        "extensionPath": "/usr/share/code/resources/app/extensions/git",
+        "contributes": [
+          "commands",
+          "continueEditSession",
+          "keybindings",
+          "menus",
+          "submenus",
+          "configuration",
+          "colors",
+          "configurationDefaults",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "vscode.git-base",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Git Base",
+        "extensionPath": "/usr/share/code/resources/app/extensions/git-base",
+        "contributes": [
+          "commands",
+          "menus",
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.github",
+        "active": true,
+        "version": "0.0.1",
+        "publisher": "vscode",
+        "displayName": "GitHub",
+        "extensionPath": "/usr/share/code/resources/app/extensions/github",
+        "contributes": [
+          "commands",
+          "continueEditSession",
+          "menus",
+          "configuration",
+          "viewsWelcome",
+          "markdown.previewStyles"
+        ]
+      },
+      {
+        "id": "vscode.github-authentication",
+        "active": true,
+        "version": "0.0.2",
+        "publisher": "vscode",
+        "displayName": "GitHub Authentication",
+        "extensionPath": "/usr/share/code/resources/app/extensions/github-authentication",
+        "contributes": [
+          "authentication",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscode.go",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Go Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/go",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.groovy",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Groovy Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/groovy",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.grunt",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Grunt support for VS Code",
+        "extensionPath": "/usr/share/code/resources/app/extensions/grunt",
+        "contributes": [
+          "configuration",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "vscode.gulp",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Gulp support for VSCode",
+        "extensionPath": "/usr/share/code/resources/app/extensions/gulp",
+        "contributes": [
+          "configuration",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "vscode.handlebars",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Handlebars Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/handlebars",
+        "contributes": [
+          "languages",
+          "grammars",
+          "htmlLanguageParticipants"
+        ]
+      },
+      {
+        "id": "vscode.hlsl",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "HLSL Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/hlsl",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.html",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "HTML Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/html",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.html-language-features",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "HTML Language Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/html-language-features",
+        "contributes": [
+          "configuration",
+          "configurationDefaults",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "vscode.ini",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Ini Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/ini",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.ipynb",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": ".ipynb Support",
+        "extensionPath": "/usr/share/code/resources/app/extensions/ipynb",
+        "contributes": [
+          "configuration",
+          "commands",
+          "notebooks",
+          "notebookRenderer",
+          "menus"
+        ]
+      },
+      {
+        "id": "vscode.jake",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Jake support for VS Code",
+        "extensionPath": "/usr/share/code/resources/app/extensions/jake",
+        "contributes": [
+          "configuration",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "vscode.java",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Java Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/java",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.javascript",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "JavaScript Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/javascript",
+        "contributes": [
+          "configurationDefaults",
+          "languages",
+          "grammars",
+          "semanticTokenScopes",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.json",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "JSON Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/json",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.json-language-features",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "JSON Language Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/json-language-features",
+        "contributes": [
+          "configuration",
+          "configurationDefaults",
+          "jsonValidation",
+          "commands"
+        ]
+      },
+      {
+        "id": "vscode.julia",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Julia Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/julia",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.latex",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "LaTeX Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/latex",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.less",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Less Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/less",
+        "contributes": [
+          "languages",
+          "grammars",
+          "problemMatchers"
+        ]
+      },
+      {
+        "id": "vscode.log",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Log",
+        "extensionPath": "/usr/share/code/resources/app/extensions/log",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.lua",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Lua Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/lua",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.make",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Make Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/make",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.markdown",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Markdown Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/markdown-basics",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.markdown-language-features",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Markdown Language Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/markdown-language-features",
+        "contributes": [
+          "notebookRenderer",
+          "commands",
+          "menus",
+          "keybindings",
+          "configuration",
+          "configurationDefaults",
+          "jsonValidation",
+          "markdown.previewStyles",
+          "markdown.previewScripts",
+          "customEditors"
+        ]
+      },
+      {
+        "id": "vscode.markdown-math",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Markdown Math",
+        "extensionPath": "/usr/share/code/resources/app/extensions/markdown-math",
+        "contributes": [
+          "languages",
+          "grammars",
+          "notebookRenderer",
+          "markdown.markdownItPlugins",
+          "markdown.previewStyles",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscode.media-preview",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Media Preview",
+        "extensionPath": "/usr/share/code/resources/app/extensions/media-preview",
+        "contributes": [
+          "configuration",
+          "customEditors",
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "vscode.merge-conflict",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Merge Conflict",
+        "extensionPath": "/usr/share/code/resources/app/extensions/merge-conflict",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscode.mermaid-markdown-features",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Mermaid Markdown Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/mermaid-markdown-features",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration",
+          "markdown.previewScripts",
+          "notebookRenderer",
+          "markdown.markdownItPlugins",
+          "chatOutputRenderers",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "vscode.microsoft-authentication",
+        "active": true,
+        "version": "0.0.1",
+        "publisher": "vscode",
+        "displayName": "Microsoft Account",
+        "extensionPath": "/usr/share/code/resources/app/extensions/microsoft-authentication",
+        "contributes": [
+          "authentication",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-vscode.js-debug",
+        "active": false,
+        "version": "1.117.0",
+        "publisher": "ms-vscode",
+        "displayName": "JavaScript Debugger",
+        "extensionPath": "/usr/share/code/resources/app/extensions/ms-vscode.js-debug",
+        "contributes": [
+          "menus",
+          "breakpoints",
+          "debuggers",
+          "commands",
+          "keybindings",
+          "configuration",
+          "grammars",
+          "languages",
+          "terminal",
+          "views",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "ms-vscode.js-debug-companion",
+        "active": false,
+        "version": "1.1.3",
+        "publisher": "ms-vscode",
+        "displayName": "JavaScript Debugger Companion Extension",
+        "extensionPath": "/usr/share/code/resources/app/extensions/ms-vscode.js-debug-companion",
+        "contributes": []
+      },
+      {
+        "id": "ms-vscode.vscode-js-profile-table",
+        "active": false,
+        "version": "1.0.10",
+        "publisher": "ms-vscode",
+        "displayName": "Table Visualizer for JavaScript Profiles",
+        "extensionPath": "/usr/share/code/resources/app/extensions/ms-vscode.vscode-js-profile-table",
+        "contributes": [
+          "customEditors",
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "vscode.builtin-notebook-renderers",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Builtin Notebook Output Renderers",
+        "extensionPath": "/usr/share/code/resources/app/extensions/notebook-renderers",
+        "contributes": [
+          "notebookRenderer"
+        ]
+      },
+      {
+        "id": "vscode.npm",
+        "active": true,
+        "version": "1.0.1",
+        "publisher": "vscode",
+        "displayName": "NPM support for VS Code",
+        "extensionPath": "/usr/share/code/resources/app/extensions/npm",
+        "contributes": [
+          "languages",
+          "views",
+          "commands",
+          "menus",
+          "configuration",
+          "jsonValidation",
+          "taskDefinitions",
+          "terminalQuickFixes"
+        ]
+      },
+      {
+        "id": "vscode.objective-c",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Objective-C Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/objective-c",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.perl",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Perl Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/perl",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.php",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "PHP Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/php",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.php-language-features",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "PHP Language Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/php-language-features",
+        "contributes": [
+          "configuration",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "vscode.powershell",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Powershell Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/powershell",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.prompt",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Prompt Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/prompt-basics",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.pug",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Pug Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/pug",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.python",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Python Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/python",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.r",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "R Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/r",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.razor",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Razor Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/razor",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.references-view",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Reference Search View",
+        "extensionPath": "/usr/share/code/resources/app/extensions/references-view",
+        "contributes": [
+          "configuration",
+          "viewsContainers",
+          "views",
+          "commands",
+          "menus",
+          "keybindings"
+        ]
+      },
+      {
+        "id": "vscode.restructuredtext",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "reStructuredText Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/restructuredtext",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.ruby",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Ruby Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/ruby",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.rust",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Rust Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/rust",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.scss",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "SCSS Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/scss",
+        "contributes": [
+          "languages",
+          "grammars",
+          "problemMatchers"
+        ]
+      },
+      {
+        "id": "vscode.search-result",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Search Result",
+        "extensionPath": "/usr/share/code/resources/app/extensions/search-result",
+        "contributes": [
+          "configurationDefaults",
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.shaderlab",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Shaderlab Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/shaderlab",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.shellscript",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Shell Script Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/shellscript",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscode.simple-browser",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Simple Browser",
+        "extensionPath": "/usr/share/code/resources/app/extensions/simple-browser",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscode.sql",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "SQL Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/sql",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.swift",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Swift Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/swift",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.terminal-suggest",
+        "active": true,
+        "version": "1.0.1",
+        "publisher": "vscode",
+        "displayName": "Terminal Suggest for VS Code",
+        "extensionPath": "/usr/share/code/resources/app/extensions/terminal-suggest",
+        "contributes": [
+          "commands",
+          "terminal"
+        ]
+      },
+      {
+        "id": "vscode.theme-abyss",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Abyss Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-abyss",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-defaults",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Default Themes",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-defaults",
+        "contributes": [
+          "themes",
+          "iconThemes"
+        ]
+      },
+      {
+        "id": "vscode.theme-kimbie-dark",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Kimbie Dark Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-kimbie-dark",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-monokai",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Monokai Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-monokai",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-monokai-dimmed",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Monokai Dimmed Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-monokai-dimmed",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-quietlight",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Quiet Light Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-quietlight",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-red",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Red Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-red",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.vscode-theme-seti",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Seti File Icon Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-seti",
+        "contributes": [
+          "iconThemes"
+        ]
+      },
+      {
+        "id": "vscode.theme-solarized-dark",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Solarized Dark Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-solarized-dark",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-solarized-light",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Solarized Light Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-solarized-light",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.theme-tomorrow-night-blue",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Tomorrow Night Blue Theme",
+        "extensionPath": "/usr/share/code/resources/app/extensions/theme-tomorrow-night-blue",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "vscode.tunnel-forwarding",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Local Tunnel Port Forwarding",
+        "extensionPath": "/usr/share/code/resources/app/extensions/tunnel-forwarding",
+        "contributes": [
+          "commands"
+        ]
+      },
+      {
+        "id": "vscode.typescript",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "TypeScript Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/typescript-basics",
+        "contributes": [
+          "languages",
+          "grammars",
+          "semanticTokenScopes",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.typescript-language-features",
+        "active": true,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "JavaScript and TypeScript Language Features",
+        "extensionPath": "/usr/share/code/resources/app/extensions/typescript-language-features",
+        "contributes": [
+          "jsonValidation",
+          "configuration",
+          "commands",
+          "menus",
+          "breakpoints",
+          "taskDefinitions",
+          "problemPatterns",
+          "problemMatchers"
+        ]
+      },
+      {
+        "id": "vscode.vb",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "Visual Basic Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/vb",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets"
+        ]
+      },
+      {
+        "id": "vscode.xml",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "XML Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/xml",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vscode.yaml",
+        "active": false,
+        "version": "10.0.0",
+        "publisher": "vscode",
+        "displayName": "YAML Language Basics",
+        "extensionPath": "/usr/share/code/resources/app/extensions/yaml",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "aaron-bond.better-comments",
+        "active": true,
+        "version": "3.0.2",
+        "publisher": "aaron-bond",
+        "displayName": "Better Comments",
+        "extensionPath": "/home/sheikha/.vscode/extensions/aaron-bond.better-comments-3.0.2",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "ahmedkk.vscode-cuda-ids",
+        "active": false,
+        "version": "0.0.8",
+        "publisher": "ahmedkk",
+        "displayName": "CUDA Device IDs Extension",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ahmedkk.vscode-cuda-ids-0.0.8",
+        "contributes": [
+          "commands",
+          "views",
+          "configuration"
+        ]
+      },
+      {
+        "id": "aidan-gibson.river",
+        "active": false,
+        "version": "0.0.3",
+        "publisher": "aidan-gibson",
+        "displayName": "River",
+        "extensionPath": "/home/sheikha/.vscode/extensions/aidan-gibson.river-0.0.3",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "akamud.vscode-theme-onedark",
+        "active": false,
+        "version": "2.3.0",
+        "publisher": "akamud",
+        "displayName": "Atom One Dark Theme",
+        "extensionPath": "/home/sheikha/.vscode/extensions/akamud.vscode-theme-onedark-2.3.0",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "alefragnani.project-manager",
+        "active": true,
+        "version": "13.1.0",
+        "publisher": "alefragnani",
+        "displayName": "Project Manager",
+        "extensionPath": "/home/sheikha/.vscode/extensions/alefragnani.project-manager-13.1.0",
+        "contributes": [
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "commands",
+          "menus",
+          "submenus",
+          "configuration",
+          "colors",
+          "keybindings",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "alphabotsec.vscode-eclipse-keybindings",
+        "active": false,
+        "version": "0.16.1",
+        "publisher": "alphabotsec",
+        "displayName": "Eclipse Keymap",
+        "extensionPath": "/home/sheikha/.vscode/extensions/alphabotsec.vscode-eclipse-keybindings-0.16.1",
+        "contributes": [
+          "keybindings"
+        ]
+      },
+      {
+        "id": "amirmarmul.laravel-blade-vscode",
+        "active": false,
+        "version": "2.0.4",
+        "publisher": "amirmarmul",
+        "displayName": "Laravel Blade",
+        "extensionPath": "/home/sheikha/.vscode/extensions/amirmarmul.laravel-blade-vscode-2.0.4",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Angular.ng-template",
+        "active": false,
+        "version": "22.0.0",
+        "publisher": "Angular",
+        "displayName": "Angular Language Service",
+        "extensionPath": "/home/sheikha/.vscode/extensions/angular.ng-template-22.0.0",
+        "contributes": [
+          "commands",
+          "submenus",
+          "menus",
+          "configuration",
+          "grammars",
+          "jsonValidation",
+          "languages"
+        ]
+      },
+      {
+        "id": "Anthropic.claude-code",
+        "active": true,
+        "version": "2.1.169",
+        "publisher": "Anthropic",
+        "displayName": "Claude Code for VS Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/anthropic.claude-code-2.1.169-linux-x64",
+        "contributes": [
+          "configuration",
+          "jsonValidation",
+          "commands",
+          "keybindings",
+          "viewsContainers",
+          "views",
+          "walkthroughs",
+          "menus"
+        ]
+      },
+      {
+        "id": "batisteo.vscode-django",
+        "active": false,
+        "version": "1.15.0",
+        "publisher": "batisteo",
+        "displayName": "Django",
+        "extensionPath": "/home/sheikha/.vscode/extensions/batisteo.vscode-django-1.15.0",
+        "contributes": [
+          "commands",
+          "languages",
+          "grammars",
+          "snippets",
+          "configurationDefaults",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Blackboxapp.blackbox",
+        "active": true,
+        "version": "2.8.53",
+        "publisher": "Blackboxapp",
+        "displayName": "BLACKBOXAI #1 AI Coding Agent and Coding Copilot",
+        "extensionPath": "/home/sheikha/.vscode/extensions/blackboxapp.blackbox-2.8.53",
+        "contributes": [
+          "viewsContainers",
+          "views",
+          "configuration",
+          "commands",
+          "keybindings",
+          "menus"
+        ]
+      },
+      {
+        "id": "Blackboxapp.blackboxagent",
+        "active": true,
+        "version": "3.7.0",
+        "publisher": "Blackboxapp",
+        "displayName": "Blackbox Agent - Coding Copilot",
+        "extensionPath": "/home/sheikha/.vscode/extensions/blackboxapp.blackboxagent-3.7.0",
+        "contributes": [
+          "viewsContainers",
+          "views",
+          "commands",
+          "menus",
+          "configuration",
+          "keybindings",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "bmewburn.vscode-intelephense-client",
+        "active": false,
+        "version": "1.18.4",
+        "publisher": "bmewburn",
+        "displayName": "PHP Intelephense",
+        "extensionPath": "/home/sheikha/.vscode/extensions/bmewburn.vscode-intelephense-client-1.18.4",
+        "contributes": [
+          "languages",
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "bradlc.vscode-tailwindcss",
+        "active": true,
+        "version": "0.14.29",
+        "publisher": "bradlc",
+        "displayName": "Tailwind CSS IntelliSense",
+        "extensionPath": "/home/sheikha/.vscode/extensions/bradlc.vscode-tailwindcss-0.14.29",
+        "contributes": [
+          "languages",
+          "commands",
+          "grammars",
+          "configuration"
+        ]
+      },
+      {
+        "id": "charles123.alloy-formatter",
+        "active": false,
+        "version": "0.0.1",
+        "publisher": "charles123",
+        "displayName": "Grafana Alloy Formatter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/charles123.alloy-formatter-0.0.1",
+        "contributes": [
+          "languages",
+          "formatters"
+        ]
+      },
+      {
+        "id": "charliermarsh.ruff",
+        "active": true,
+        "version": "2026.48.0",
+        "publisher": "charliermarsh",
+        "displayName": "Ruff",
+        "extensionPath": "/home/sheikha/.vscode/extensions/charliermarsh.ruff-2026.48.0-linux-x64",
+        "contributes": [
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "christian-kohler.npm-intellisense",
+        "active": true,
+        "version": "1.4.5",
+        "publisher": "christian-kohler",
+        "displayName": "npm Intellisense",
+        "extensionPath": "/home/sheikha/.vscode/extensions/christian-kohler.npm-intellisense-1.4.5",
+        "contributes": [
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "christian-kohler.path-intellisense",
+        "active": true,
+        "version": "2.10.0",
+        "publisher": "christian-kohler",
+        "displayName": "Path Intellisense",
+        "extensionPath": "/home/sheikha/.vscode/extensions/christian-kohler.path-intellisense-2.10.0",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "chrmarti.regex",
+        "active": true,
+        "version": "0.6.0",
+        "publisher": "chrmarti",
+        "displayName": "Regex Previewer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/chrmarti.regex-0.6.0",
+        "contributes": [
+          "configuration",
+          "commands",
+          "keybindings",
+          "chatParticipants"
+        ]
+      },
+      {
+        "id": "Continue.continue",
+        "active": true,
+        "version": "1.2.22",
+        "publisher": "Continue",
+        "displayName": "Continue - open-source AI code agent",
+        "extensionPath": "/home/sheikha/.vscode/extensions/continue.continue-1.2.22-linux-x64",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configuration",
+          "commands",
+          "keybindings",
+          "submenus",
+          "menus",
+          "viewsContainers",
+          "views",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "cschlosser.doxdocgen",
+        "active": false,
+        "version": "1.4.0",
+        "publisher": "cschlosser",
+        "displayName": "Doxygen Documentation Generator",
+        "extensionPath": "/home/sheikha/.vscode/extensions/cschlosser.doxdocgen-1.4.0",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "Dart-Code.dart-code",
+        "active": false,
+        "version": "3.136.0",
+        "publisher": "Dart-Code",
+        "displayName": "Dart",
+        "extensionPath": "/home/sheikha/.vscode/extensions/dart-code.dart-code-3.136.0",
+        "contributes": [
+          "languages",
+          "grammars",
+          "colors",
+          "commands",
+          "keybindings",
+          "mcpServerDefinitionProviders",
+          "languageModelTools",
+          "menus",
+          "semanticTokenScopes",
+          "viewsContainers",
+          "views",
+          "configurationDefaults",
+          "configuration",
+          "breakpoints",
+          "debuggers",
+          "taskDefinitions",
+          "problemMatchers"
+        ]
+      },
+      {
+        "id": "Dart-Code.flutter",
+        "active": false,
+        "version": "3.136.0",
+        "publisher": "Dart-Code",
+        "displayName": "Flutter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/dart-code.flutter-3.136.0",
+        "contributes": [
+          "commands"
+        ]
+      },
+      {
+        "id": "DavidAnson.vscode-markdownlint",
+        "active": false,
+        "version": "0.61.2",
+        "publisher": "DavidAnson",
+        "displayName": "markdownlint",
+        "extensionPath": "/home/sheikha/.vscode/extensions/davidanson.vscode-markdownlint-0.61.2",
+        "contributes": [
+          "commands",
+          "menus",
+          "jsonValidation",
+          "yamlValidation",
+          "taskDefinitions",
+          "problemMatchers",
+          "snippets",
+          "configuration"
+        ]
+      },
+      {
+        "id": "dbaeumer.vscode-eslint",
+        "active": true,
+        "version": "3.0.24",
+        "publisher": "dbaeumer",
+        "displayName": "ESLint",
+        "extensionPath": "/home/sheikha/.vscode/extensions/dbaeumer.vscode-eslint-3.0.24",
+        "contributes": [
+          "configuration",
+          "commands",
+          "taskDefinitions",
+          "jsonValidation",
+          "languages"
+        ]
+      },
+      {
+        "id": "denoland.vscode-deno",
+        "active": true,
+        "version": "3.52.0",
+        "publisher": "denoland",
+        "displayName": "Deno",
+        "extensionPath": "/home/sheikha/.vscode/extensions/denoland.vscode-deno-3.52.0",
+        "contributes": [
+          "breakpoints",
+          "debuggers",
+          "commands",
+          "configuration",
+          "jsonValidation",
+          "languages",
+          "problemPatterns",
+          "problemMatchers",
+          "taskDefinitions",
+          "typescriptServerPlugins",
+          "views",
+          "menus"
+        ]
+      },
+      {
+        "id": "DEVSENSE.composer-php-vscode",
+        "active": false,
+        "version": "1.70.18915",
+        "publisher": "DEVSENSE",
+        "displayName": "Composer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/devsense.composer-php-vscode-1.70.18915",
+        "contributes": [
+          "languages",
+          "configuration",
+          "jsonValidation",
+          "commands",
+          "taskDefinitions",
+          "keybindings",
+          "debuggers",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "DEVSENSE.intelli-php-vscode",
+        "active": false,
+        "version": "0.12.17700",
+        "publisher": "DEVSENSE",
+        "displayName": "IntelliPHP - AI Autocomplete for PHP",
+        "extensionPath": "/home/sheikha/.vscode/extensions/devsense.intelli-php-vscode-0.12.17700-linux-x64",
+        "contributes": [
+          "languages",
+          "configuration",
+          "configurationDefaults",
+          "commands",
+          "keybindings",
+          "debuggers",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "DEVSENSE.phptools-vscode",
+        "active": false,
+        "version": "1.70.18915",
+        "publisher": "DEVSENSE",
+        "displayName": "PHP",
+        "extensionPath": "/home/sheikha/.vscode/extensions/devsense.phptools-vscode-1.70.18915-linux-x64",
+        "contributes": [
+          "languages",
+          "grammars",
+          "semanticTokenScopes",
+          "breakpoints",
+          "configuration",
+          "configurationDefaults",
+          "menus",
+          "commands",
+          "keybindings",
+          "debuggers",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "DEVSENSE.profiler-php-vscode",
+        "active": false,
+        "version": "1.70.18966",
+        "publisher": "DEVSENSE",
+        "displayName": "PHP Profiler",
+        "extensionPath": "/home/sheikha/.vscode/extensions/devsense.profiler-php-vscode-1.70.18966",
+        "contributes": [
+          "languages",
+          "configuration",
+          "commands",
+          "taskDefinitions",
+          "keybindings",
+          "debuggers",
+          "walkthroughs",
+          "customEditors"
+        ]
+      },
+      {
+        "id": "docker.docker",
+        "active": false,
+        "version": "0.18.0",
+        "publisher": "docker",
+        "displayName": "Docker DX",
+        "extensionPath": "/home/sheikha/.vscode/extensions/docker.docker-0.18.0-linux-x64",
+        "contributes": [
+          "commands",
+          "languages",
+          "grammars",
+          "menus",
+          "breakpoints",
+          "debuggers",
+          "configuration"
+        ]
+      },
+      {
+        "id": "donjayamanne.githistory",
+        "active": false,
+        "version": "0.6.20",
+        "publisher": "donjayamanne",
+        "displayName": "Git History",
+        "extensionPath": "/home/sheikha/.vscode/extensions/donjayamanne.githistory-0.6.20",
+        "contributes": [
+          "views",
+          "commands",
+          "keybindings",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "donjayamanne.python-environment-manager",
+        "active": false,
+        "version": "1.2.7",
+        "publisher": "donjayamanne",
+        "displayName": "Python Environment Manager (deprecated)",
+        "extensionPath": "/home/sheikha/.vscode/extensions/donjayamanne.python-environment-manager-1.2.7",
+        "contributes": [
+          "commands",
+          "menus",
+          "viewsWelcome",
+          "viewsContainers",
+          "views"
+        ]
+      },
+      {
+        "id": "donjayamanne.python-extension-pack",
+        "active": false,
+        "version": "1.7.0",
+        "publisher": "donjayamanne",
+        "displayName": "Python Extension Pack",
+        "extensionPath": "/home/sheikha/.vscode/extensions/donjayamanne.python-extension-pack-1.7.0",
+        "contributes": []
+      },
+      {
+        "id": "DotJoshJohnson.xml",
+        "active": false,
+        "version": "2.5.1",
+        "publisher": "DotJoshJohnson",
+        "displayName": "XML Tools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/dotjoshjohnson.xml-2.5.1",
+        "contributes": [
+          "commands",
+          "configuration",
+          "grammars",
+          "keybindings",
+          "languages",
+          "menus",
+          "views"
+        ]
+      },
+      {
+        "id": "dracula-theme.theme-dracula",
+        "active": false,
+        "version": "2.25.1",
+        "publisher": "dracula-theme",
+        "displayName": "Dracula Theme Official",
+        "extensionPath": "/home/sheikha/.vscode/extensions/dracula-theme.theme-dracula-2.25.1",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "dsznajder.es7-react-js-snippets",
+        "active": true,
+        "version": "4.4.3",
+        "publisher": "dsznajder",
+        "displayName": "ES7+ React/Redux/React-Native snippets",
+        "extensionPath": "/home/sheikha/.vscode/extensions/dsznajder.es7-react-js-snippets-4.4.3",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "configuration",
+          "snippets"
+        ]
+      },
+      {
+        "id": "eamodio.gitlens",
+        "active": true,
+        "version": "18.0.0",
+        "publisher": "eamodio",
+        "displayName": "GitLens — Git supercharged",
+        "extensionPath": "/home/sheikha/.vscode/extensions/eamodio.gitlens-18.0.0",
+        "contributes": [
+          "mcpServerDefinitionProviders",
+          "configuration",
+          "configurationDefaults",
+          "colors",
+          "commands",
+          "icons",
+          "menus",
+          "submenus",
+          "keybindings",
+          "customEditors",
+          "resourceLabelFormatters",
+          "viewsContainers",
+          "viewsWelcome",
+          "views",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "ecmel.vscode-html-css",
+        "active": true,
+        "version": "2.0.14",
+        "publisher": "ecmel",
+        "displayName": "HTML CSS Support",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ecmel.vscode-html-css-2.0.14",
+        "contributes": [
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "EditorConfig.EditorConfig",
+        "active": true,
+        "version": "0.18.2",
+        "publisher": "EditorConfig",
+        "displayName": "EditorConfig",
+        "extensionPath": "/home/sheikha/.vscode/extensions/editorconfig.editorconfig-0.18.2",
+        "contributes": [
+          "commands",
+          "configuration",
+          "menus",
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "emallin.phpunit",
+        "active": false,
+        "version": "4.16.1",
+        "publisher": "emallin",
+        "displayName": "PHPUnit",
+        "extensionPath": "/home/sheikha/.vscode/extensions/emallin.phpunit-4.16.1",
+        "contributes": [
+          "commands",
+          "configuration",
+          "problemMatchers",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "esbenp.prettier-vscode",
+        "active": true,
+        "version": "12.4.0",
+        "publisher": "esbenp",
+        "displayName": "Prettier - Code formatter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/esbenp.prettier-vscode-12.4.0",
+        "contributes": [
+          "configuration",
+          "jsonValidation",
+          "languages",
+          "commands"
+        ]
+      },
+      {
+        "id": "firefox-devtools.vscode-firefox-debug",
+        "active": false,
+        "version": "2.15.0",
+        "publisher": "firefox-devtools",
+        "displayName": "Debugger for Firefox",
+        "extensionPath": "/home/sheikha/.vscode/extensions/firefox-devtools.vscode-firefox-debug-2.15.0",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration",
+          "views",
+          "debuggers"
+        ]
+      },
+      {
+        "id": "formulahendry.auto-close-tag",
+        "active": true,
+        "version": "0.5.15",
+        "publisher": "formulahendry",
+        "displayName": "Auto Close Tag",
+        "extensionPath": "/home/sheikha/.vscode/extensions/formulahendry.auto-close-tag-0.5.15",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "configuration"
+        ]
+      },
+      {
+        "id": "formulahendry.auto-rename-tag",
+        "active": true,
+        "version": "0.1.10",
+        "publisher": "formulahendry",
+        "displayName": "Auto Rename Tag",
+        "extensionPath": "/home/sheikha/.vscode/extensions/formulahendry.auto-rename-tag-0.1.10",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "formulahendry.code-runner",
+        "active": true,
+        "version": "0.12.2",
+        "publisher": "formulahendry",
+        "displayName": "Code Runner",
+        "extensionPath": "/home/sheikha/.vscode/extensions/formulahendry.code-runner-0.12.2",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "menus",
+          "configuration",
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "formulahendry.docker-explorer",
+        "active": false,
+        "version": "0.1.7",
+        "publisher": "formulahendry",
+        "displayName": "Docker Explorer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/formulahendry.docker-explorer-0.1.7",
+        "contributes": [
+          "views",
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "GitHub.codespaces",
+        "active": false,
+        "version": "1.18.13",
+        "publisher": "GitHub",
+        "displayName": "GitHub Codespaces",
+        "extensionPath": "/home/sheikha/.vscode/extensions/github.codespaces-1.18.13",
+        "contributes": [
+          "languages",
+          "jsonValidation",
+          "viewsWelcome",
+          "views",
+          "resourceLabelFormatters",
+          "configuration",
+          "commands",
+          "menus",
+          "remoteHelp",
+          "continueEditSession"
+        ]
+      },
+      {
+        "id": "GitHub.github-vscode-theme",
+        "active": false,
+        "version": "6.3.5",
+        "publisher": "GitHub",
+        "displayName": "GitHub Theme",
+        "extensionPath": "/home/sheikha/.vscode/extensions/github.github-vscode-theme-6.3.5",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "GitHub.remotehub",
+        "active": false,
+        "version": "0.64.0",
+        "publisher": "GitHub",
+        "displayName": "GitHub Repositories",
+        "extensionPath": "/home/sheikha/.vscode/extensions/github.remotehub-0.64.0",
+        "contributes": [
+          "virtualWorkspaces",
+          "resourceLabelFormatters",
+          "configuration"
+        ]
+      },
+      {
+        "id": "github.vscode-github-actions",
+        "active": true,
+        "version": "0.31.5",
+        "publisher": "github",
+        "displayName": "GitHub Actions",
+        "extensionPath": "/home/sheikha/.vscode/extensions/github.vscode-github-actions-0.31.5",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configuration",
+          "commands",
+          "views",
+          "viewsWelcome",
+          "viewsContainers",
+          "menus"
+        ]
+      },
+      {
+        "id": "GitHub.vscode-pull-request-github",
+        "active": true,
+        "version": "0.146.0",
+        "publisher": "GitHub",
+        "displayName": "GitHub Pull Requests",
+        "extensionPath": "/home/sheikha/.vscode/extensions/github.vscode-pull-request-github-0.146.0",
+        "contributes": [
+          "chatContext",
+          "configuration",
+          "viewsContainers",
+          "views",
+          "commands",
+          "viewsWelcome",
+          "keybindings",
+          "menus",
+          "colors",
+          "resourceLabelFormatters",
+          "chatSkills",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "GitLab.gitlab-workflow",
+        "active": true,
+        "version": "6.83.0",
+        "publisher": "GitLab",
+        "displayName": "GitLab",
+        "extensionPath": "/home/sheikha/.vscode/extensions/gitlab.gitlab-workflow-6.83.0",
+        "contributes": [
+          "viewsContainers",
+          "commands",
+          "submenus",
+          "menus",
+          "keybindings",
+          "configuration",
+          "icons",
+          "views",
+          "viewsWelcome",
+          "walkthroughs",
+          "resourceLabelFormatters"
+        ]
+      },
+      {
+        "id": "golang.go",
+        "active": false,
+        "version": "0.52.2",
+        "publisher": "golang",
+        "displayName": "Go",
+        "extensionPath": "/home/sheikha/.vscode/extensions/golang.go-0.52.2",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "configurationDefaults",
+          "commands",
+          "breakpoints",
+          "debuggers",
+          "configuration",
+          "menus",
+          "views",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "Grafana.grafana-alloy",
+        "active": false,
+        "version": "0.2.0",
+        "publisher": "Grafana",
+        "displayName": "Grafana Alloy",
+        "extensionPath": "/home/sheikha/.vscode/extensions/grafana.grafana-alloy-0.2.0",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "Grafana.grafana-vscode",
+        "active": true,
+        "version": "0.0.19",
+        "publisher": "Grafana",
+        "displayName": "Grafana",
+        "extensionPath": "/home/sheikha/.vscode/extensions/grafana.grafana-vscode-0.0.19",
+        "contributes": [
+          "customEditors",
+          "commands",
+          "menus",
+          "snippets",
+          "iconThemes",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Grafana.vscode-jsonnet",
+        "active": false,
+        "version": "0.7.4",
+        "publisher": "Grafana",
+        "displayName": "Jsonnet Language Server",
+        "extensionPath": "/home/sheikha/.vscode/extensions/grafana.vscode-jsonnet-0.7.4",
+        "contributes": [
+          "menus",
+          "commands",
+          "languages",
+          "grammars",
+          "breakpoints",
+          "debuggers",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Gruntfuggly.todo-tree",
+        "active": true,
+        "version": "0.0.226",
+        "publisher": "Gruntfuggly",
+        "displayName": "Todo Tree",
+        "extensionPath": "/home/sheikha/.vscode/extensions/gruntfuggly.todo-tree-0.0.226",
+        "contributes": [
+          "viewsContainers",
+          "views",
+          "menus",
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "hbenl.vscode-test-explorer",
+        "active": true,
+        "version": "2.22.1",
+        "publisher": "hbenl",
+        "displayName": "Test Explorer UI",
+        "extensionPath": "/home/sheikha/.vscode/extensions/hbenl.vscode-test-explorer-2.22.1",
+        "contributes": [
+          "colors",
+          "configuration",
+          "views",
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "humao.rest-client",
+        "active": false,
+        "version": "0.25.1",
+        "publisher": "humao",
+        "displayName": "REST Client",
+        "extensionPath": "/home/sheikha/.vscode/extensions/humao.rest-client-0.25.1",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "commands",
+          "menus",
+          "keybindings",
+          "configuration",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "Hyper-AI-Dev.php-ultimate-hyper-ai-engine",
+        "active": false,
+        "version": "1.0.0",
+        "publisher": "Hyper-AI-Dev",
+        "displayName": "PHP Ultimate Hyper AI Engine",
+        "extensionPath": "/home/sheikha/.vscode/extensions/hyper-ai-dev.php-ultimate-hyper-ai-engine-1.0.0",
+        "contributes": [
+          "viewsContainers",
+          "views"
+        ]
+      },
+      {
+        "id": "ikappas.composer",
+        "active": false,
+        "version": "0.8.0",
+        "publisher": "ikappas",
+        "displayName": "Composer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ikappas.composer-0.8.0",
+        "contributes": [
+          "configuration",
+          "jsonValidation",
+          "commands"
+        ]
+      },
+      {
+        "id": "jeff-hykin.better-cpp-syntax",
+        "active": false,
+        "version": "1.27.1",
+        "publisher": "jeff-hykin",
+        "displayName": "Better C++ Syntax",
+        "extensionPath": "/home/sheikha/.vscode/extensions/jeff-hykin.better-cpp-syntax-1.27.1",
+        "contributes": [
+          "grammars"
+        ]
+      },
+      {
+        "id": "jeff-hykin.better-shellscript-syntax",
+        "active": false,
+        "version": "1.10.0",
+        "publisher": "jeff-hykin",
+        "displayName": "Better Shell Syntax",
+        "extensionPath": "/home/sheikha/.vscode/extensions/jeff-hykin.better-shellscript-syntax-1.10.0",
+        "contributes": [
+          "grammars"
+        ]
+      },
+      {
+        "id": "junstyle.php-cs-fixer",
+        "active": false,
+        "version": "0.3.21",
+        "publisher": "junstyle",
+        "displayName": "php cs fixer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/junstyle.php-cs-fixer-0.3.21",
+        "contributes": [
+          "commands",
+          "configuration",
+          "menus"
+        ]
+      },
+      {
+        "id": "k--kato.intellij-idea-keybindings",
+        "active": false,
+        "version": "1.7.7",
+        "publisher": "k--kato",
+        "displayName": "IntelliJ IDEA Keybindings",
+        "extensionPath": "/home/sheikha/.vscode/extensions/k--kato.intellij-idea-keybindings-1.7.7",
+        "contributes": [
+          "configuration",
+          "commands",
+          "keybindings"
+        ]
+      },
+      {
+        "id": "KevinRose.vsc-python-indent",
+        "active": false,
+        "version": "1.21.0",
+        "publisher": "KevinRose",
+        "displayName": "Python Indent",
+        "extensionPath": "/home/sheikha/.vscode/extensions/kevinrose.vsc-python-indent-1.21.0",
+        "contributes": [
+          "keybindings",
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "littlefoxteam.vscode-python-test-adapter",
+        "active": true,
+        "version": "0.8.2",
+        "publisher": "littlefoxteam",
+        "displayName": "Python Test Explorer for Visual Studio Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/littlefoxteam.vscode-python-test-adapter-0.8.2",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "mblode.twig-language-2",
+        "active": false,
+        "version": "0.9.4",
+        "publisher": "mblode",
+        "displayName": "Twig Language 2",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mblode.twig-language-2-0.9.4",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "configuration"
+        ]
+      },
+      {
+        "id": "mechatroner.rainbow-csv",
+        "active": true,
+        "version": "3.24.1",
+        "publisher": "mechatroner",
+        "displayName": "Rainbow CSV",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mechatroner.rainbow-csv-3.24.1",
+        "contributes": [
+          "colors",
+          "configuration",
+          "submenus",
+          "menus",
+          "languages",
+          "commands",
+          "semanticTokenScopes",
+          "configurationDefaults",
+          "grammars"
+        ]
+      },
+      {
+        "id": "MehediDracula.php-namespace-resolver",
+        "active": false,
+        "version": "2.1.3",
+        "publisher": "MehediDracula",
+        "displayName": "PHP Namespace Resolver",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mehedidracula.php-namespace-resolver-2.1.3",
+        "contributes": [
+          "menus",
+          "configuration",
+          "commands",
+          "keybindings"
+        ]
+      },
+      {
+        "id": "mgmcdermott.vscode-language-babel",
+        "active": true,
+        "version": "0.0.40",
+        "publisher": "mgmcdermott",
+        "displayName": "Babel JavaScript",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mgmcdermott.vscode-language-babel-0.0.40",
+        "contributes": [
+          "languages",
+          "grammars",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "mhutchie.git-graph",
+        "active": true,
+        "version": "1.30.0",
+        "publisher": "mhutchie",
+        "displayName": "Git Graph",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mhutchie.git-graph-1.30.0",
+        "contributes": [
+          "commands",
+          "configuration",
+          "menus"
+        ]
+      },
+      {
+        "id": "MicroProfile-Community.mp-rest-client-generator-vscode-ext",
+        "active": false,
+        "version": "0.2.0",
+        "publisher": "MicroProfile-Community",
+        "displayName": "Generator for MicroProfile Rest Client",
+        "extensionPath": "/home/sheikha/.vscode/extensions/microprofile-community.mp-rest-client-generator-vscode-ext-0.2.0",
+        "contributes": [
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "MicroProfile-Community.mp-starter-vscode-ext",
+        "active": false,
+        "version": "0.2.9",
+        "publisher": "MicroProfile-Community",
+        "displayName": "MicroProfile Starter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/microprofile-community.mp-starter-vscode-ext-0.2.9",
+        "contributes": [
+          "commands"
+        ]
+      },
+      {
+        "id": "MicroProfile-Community.vscode-microprofile-pack",
+        "active": false,
+        "version": "0.1.3",
+        "publisher": "MicroProfile-Community",
+        "displayName": "Extension Pack for MicroProfile",
+        "extensionPath": "/home/sheikha/.vscode/extensions/microprofile-community.vscode-microprofile-pack-0.1.3",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "mikestead.dotenv",
+        "active": false,
+        "version": "1.0.1",
+        "publisher": "mikestead",
+        "displayName": "DotENV",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mikestead.dotenv-1.0.1",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "moonolgerd.k6-test-explorer",
+        "active": true,
+        "version": "0.0.7",
+        "publisher": "moonolgerd",
+        "displayName": "Grafana K6 Test Explorer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/moonolgerd.k6-test-explorer-0.0.7",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azure-load-testing.microsoft-testing",
+        "active": false,
+        "version": "0.2.0",
+        "publisher": "ms-azure-load-testing",
+        "displayName": "Azure Load Testing",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azure-load-testing.microsoft-testing-0.2.0",
+        "contributes": [
+          "commands",
+          "chatParticipants",
+          "configuration",
+          "walkthroughs",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ms-azuretools.azure-dev",
+        "active": false,
+        "version": "0.10.0",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Developer CLI",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.azure-dev-0.10.0",
+        "contributes": [
+          "commands",
+          "configuration",
+          "menus",
+          "submenus",
+          "taskDefinitions",
+          "x-azResources",
+          "walkthroughs",
+          "yamlValidation"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azure-github-copilot",
+        "active": false,
+        "version": "1.0.209",
+        "publisher": "ms-azuretools",
+        "displayName": "GitHub Copilot for Azure",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azure-github-copilot-1.0.209-linux-x64",
+        "contributes": [
+          "chatAgents",
+          "chatPromptFiles",
+          "chatParticipants",
+          "commands",
+          "menus",
+          "configuration",
+          "configurationDefaults",
+          "walkthroughs",
+          "languageModelTools",
+          "mcpServerDefinitionProviders"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azure-mcp-server",
+        "active": true,
+        "version": "2.0.44",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure MCP Server",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azure-mcp-server-2.0.44-linux-x64",
+        "contributes": [
+          "mcpServerDefinitionProviders",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azureappservice",
+        "active": false,
+        "version": "0.27.0",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure App Service",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azureappservice-0.27.0",
+        "contributes": [
+          "x-azResources",
+          "commands",
+          "submenus",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azurecontainerapps",
+        "active": false,
+        "version": "0.11.1",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Container Apps",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azurecontainerapps-0.11.1",
+        "contributes": [
+          "x-azResources",
+          "commands",
+          "submenus",
+          "menus",
+          "configuration",
+          "walkthroughs",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azurefunctions",
+        "active": false,
+        "version": "1.22.0",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Functions",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azurefunctions-1.22.0",
+        "contributes": [
+          "x-azResources",
+          "views",
+          "commands",
+          "submenus",
+          "menus",
+          "jsonValidation",
+          "taskDefinitions",
+          "problemPatterns",
+          "problemMatchers",
+          "configuration",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azureresourcegroups",
+        "active": true,
+        "version": "0.12.6",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Resources",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azureresourcegroups-0.12.6",
+        "contributes": [
+          "chatParticipants",
+          "languageModelTools",
+          "terminal",
+          "x-azResources",
+          "commands",
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "menus",
+          "submenus",
+          "keybindings",
+          "configuration",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azurestaticwebapps",
+        "active": false,
+        "version": "0.13.3",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Static Web Apps",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azurestaticwebapps-0.13.3",
+        "contributes": [
+          "x-azResources",
+          "debuggers",
+          "commands",
+          "submenus",
+          "menus",
+          "jsonValidation",
+          "problemMatchers",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azurestorage",
+        "active": false,
+        "version": "0.17.2",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Storage",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azurestorage-0.17.2",
+        "contributes": [
+          "x-azResources",
+          "commands",
+          "submenus",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-azurevirtualmachines",
+        "active": false,
+        "version": "0.6.11",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Virtual Machines",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-azurevirtualmachines-0.6.11",
+        "contributes": [
+          "x-azResources",
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-bicep",
+        "active": false,
+        "version": "0.43.8",
+        "publisher": "ms-azuretools",
+        "displayName": "Bicep",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-bicep-0.43.8",
+        "contributes": [
+          "configurationDefaults",
+          "configuration",
+          "jsonValidation",
+          "languages",
+          "grammars",
+          "commands",
+          "keybindings",
+          "menus",
+          "snippets",
+          "walkthroughs.$comments",
+          "walkthroughs",
+          "mcpServerDefinitionProviders"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-containers",
+        "active": false,
+        "version": "2.4.5",
+        "publisher": "ms-azuretools",
+        "displayName": "Container Tools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-containers-2.4.5",
+        "contributes": [
+          "menus",
+          "debuggers",
+          "taskDefinitions",
+          "languages",
+          "configurationDefaults",
+          "configuration",
+          "commands",
+          "views",
+          "viewsContainers",
+          "walkthroughs",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-cosmosdb",
+        "active": false,
+        "version": "0.32.2",
+        "publisher": "ms-azuretools",
+        "displayName": "Azure Cosmos DB",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-cosmosdb-0.32.2",
+        "contributes": [
+          "chatSkills",
+          "x-azResources",
+          "languages",
+          "commands",
+          "submenus",
+          "menus",
+          "keybindings",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-azuretools.vscode-docker",
+        "active": false,
+        "version": "2.0.0",
+        "publisher": "ms-azuretools",
+        "displayName": "Docker",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-azuretools.vscode-docker-2.0.0",
+        "contributes": []
+      },
+      {
+        "id": "MS-CEINTL.vscode-language-pack-es",
+        "active": false,
+        "version": "1.123.2026060618",
+        "publisher": "MS-CEINTL",
+        "displayName": "Spanish Language Pack for Visual Studio Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-ceintl.vscode-language-pack-es-1.123.2026060618",
+        "contributes": [
+          "localizations"
+        ]
+      },
+      {
+        "id": "MS-CEINTL.vscode-language-pack-ja",
+        "active": false,
+        "version": "1.123.2026060618",
+        "publisher": "MS-CEINTL",
+        "displayName": "Japanese Language Pack for Visual Studio Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-ceintl.vscode-language-pack-ja-1.123.2026060618",
+        "contributes": [
+          "localizations"
+        ]
+      },
+      {
+        "id": "MS-CEINTL.vscode-language-pack-pt-BR",
+        "active": false,
+        "version": "1.123.2026060618",
+        "publisher": "MS-CEINTL",
+        "displayName": "Portuguese (Brazil) Language Pack for Visual Studio Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-ceintl.vscode-language-pack-pt-br-1.123.2026060618",
+        "contributes": [
+          "localizations"
+        ]
+      },
+      {
+        "id": "MS-CEINTL.vscode-language-pack-ru",
+        "active": false,
+        "version": "1.123.2026060618",
+        "publisher": "MS-CEINTL",
+        "displayName": "Russian Language Pack for Visual Studio Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-ceintl.vscode-language-pack-ru-1.123.2026060618",
+        "contributes": [
+          "localizations"
+        ]
+      },
+      {
+        "id": "MS-CEINTL.vscode-language-pack-zh-hans",
+        "active": false,
+        "version": "1.123.2026060618",
+        "publisher": "MS-CEINTL",
+        "displayName": "Chinese (Simplified) (简体中文) Language Pack for Visual Studio Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-ceintl.vscode-language-pack-zh-hans-1.123.2026060618",
+        "contributes": [
+          "localizations"
+        ]
+      },
+      {
+        "id": "ms-dotnettools.csdevkit",
+        "active": false,
+        "version": "3.20.199",
+        "publisher": "ms-dotnettools",
+        "displayName": "C# Dev Kit",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-dotnettools.csdevkit-3.20.199-linux-x64",
+        "contributes": [
+          "keybindings",
+          "configuration",
+          "commands",
+          "walkthroughs",
+          "menus",
+          "submenus",
+          "views",
+          "viewsWelcome",
+          "taskDefinitions",
+          "jsonValidation",
+          "icons"
+        ]
+      },
+      {
+        "id": "ms-dotnettools.csharp",
+        "active": false,
+        "version": "2.140.8",
+        "publisher": "ms-dotnettools",
+        "displayName": "C#",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-dotnettools.csharp-2.140.8-linux-x64",
+        "contributes": [
+          "themes",
+          "configuration",
+          "jsonValidation",
+          "commands",
+          "keybindings",
+          "snippets",
+          "breakpoints",
+          "debuggers",
+          "semanticTokenTypes",
+          "semanticTokenModifiers",
+          "semanticTokenScopes",
+          "languages",
+          "grammars",
+          "menus",
+          "viewsWelcome",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "ms-dotnettools.vscode-dotnet-runtime",
+        "active": true,
+        "version": "3.0.2",
+        "publisher": "ms-dotnettools",
+        "displayName": ".NET Install Tool",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-dotnettools.vscode-dotnet-runtime-3.0.2",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-edgedevtools.vscode-edge-devtools",
+        "active": true,
+        "version": "2.1.10",
+        "publisher": "ms-edgedevtools",
+        "displayName": "Microsoft Edge Tools for VS Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-edgedevtools.vscode-edge-devtools-2.1.10",
+        "contributes": [
+          "commands",
+          "configuration",
+          "debuggers",
+          "menus",
+          "submenus",
+          "viewsContainers",
+          "views",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "ms-kubernetes-tools.vscode-kubernetes-tools",
+        "active": false,
+        "version": "1.4.0",
+        "publisher": "ms-kubernetes-tools",
+        "displayName": "Kubernetes",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-kubernetes-tools.vscode-kubernetes-tools-1.4.0",
+        "contributes": [
+          "configuration",
+          "views",
+          "viewsContainers",
+          "menus",
+          "commands",
+          "keybindings",
+          "languages",
+          "grammars",
+          "snippets",
+          "debuggers"
+        ]
+      },
+      {
+        "id": "ms-mssql.data-workspace-vscode",
+        "active": false,
+        "version": "0.6.3",
+        "publisher": "ms-mssql",
+        "displayName": "Data Workspace",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-mssql.data-workspace-vscode-0.6.3",
+        "contributes": [
+          "configuration",
+          "commands",
+          "menus",
+          "viewsContainers",
+          "views",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "ms-mssql.mssql",
+        "active": false,
+        "version": "1.43.0",
+        "publisher": "ms-mssql",
+        "displayName": "SQL Server (mssql)",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-mssql.mssql-1.43.0",
+        "contributes": [
+          "vscode-sql-common-features",
+          "viewsContainers",
+          "views",
+          "chatParticipants",
+          "customEditors",
+          "notebookRenderer",
+          "languages",
+          "grammars",
+          "snippets",
+          "configurationDefaults",
+          "submenus",
+          "menus",
+          "commands",
+          "keybindings",
+          "configuration",
+          "walkthroughs",
+          "languageModelTools",
+          "colors"
+        ]
+      },
+      {
+        "id": "ms-mssql.sql-bindings-vscode",
+        "active": false,
+        "version": "0.4.1",
+        "publisher": "ms-mssql",
+        "displayName": "SQL Bindings",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-mssql.sql-bindings-vscode-0.4.1",
+        "contributes": [
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-mssql.sql-database-projects-vscode",
+        "active": false,
+        "version": "1.6.1",
+        "publisher": "ms-mssql",
+        "displayName": "SQL Database Projects",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-mssql.sql-database-projects-vscode-1.6.1",
+        "contributes": [
+          "projects",
+          "configuration",
+          "commands",
+          "submenus",
+          "menus",
+          "problemMatchers",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "ms-python.autopep8",
+        "active": false,
+        "version": "2026.4.0",
+        "publisher": "ms-python",
+        "displayName": "autopep8",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.autopep8-2026.4.0",
+        "contributes": [
+          "languages",
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "ms-python.black-formatter",
+        "active": true,
+        "version": "2026.6.0",
+        "publisher": "ms-python",
+        "displayName": "Black Formatter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.black-formatter-2026.6.0",
+        "contributes": [
+          "languages",
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "ms-python.debugpy",
+        "active": false,
+        "version": "2026.6.0",
+        "publisher": "ms-python",
+        "displayName": "Python Debugger",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.debugpy-2026.6.0-linux-x64",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration",
+          "debuggers",
+          "debugVisualizers",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "ms-python.isort",
+        "active": false,
+        "version": "2026.6.0",
+        "publisher": "ms-python",
+        "displayName": "isort",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.isort-2026.6.0",
+        "contributes": [
+          "languages",
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "ms-python.pylint",
+        "active": true,
+        "version": "2026.5.11331020",
+        "publisher": "ms-python",
+        "displayName": "Pylint",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.pylint-2026.5.11331020",
+        "contributes": [
+          "languages",
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "ms-python.python",
+        "active": true,
+        "version": "2026.4.0",
+        "publisher": "ms-python",
+        "displayName": "Python",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.python-2026.4.0-linux-x64",
+        "contributes": [
+          "problemMatchers",
+          "walkthroughs",
+          "breakpoints",
+          "commands",
+          "configuration",
+          "debuggers",
+          "grammars",
+          "jsonValidation",
+          "keybindings",
+          "languages",
+          "menus",
+          "submenus",
+          "viewsWelcome",
+          "yamlValidation",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ms-python.vscode-pylance",
+        "active": true,
+        "version": "2026.2.1",
+        "publisher": "ms-python",
+        "displayName": "Pylance",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.vscode-pylance-2026.2.1",
+        "contributes": [
+          "mcpServerDefinitionProviders",
+          "grammars",
+          "commands",
+          "menus",
+          "configurationDefaults",
+          "configuration",
+          "jsonValidation",
+          "semanticTokenTypes",
+          "semanticTokenModifiers",
+          "semanticTokenScopes"
+        ]
+      },
+      {
+        "id": "ms-python.vscode-python-envs",
+        "active": true,
+        "version": "1.30.0",
+        "publisher": "ms-python",
+        "displayName": "Python Environments",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-python.vscode-python-envs-1.30.0-linux-x64",
+        "contributes": [
+          "configuration",
+          "commands",
+          "menus",
+          "viewsContainers",
+          "views",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "ms-toolsai.jupyter",
+        "active": false,
+        "version": "2025.9.1",
+        "publisher": "ms-toolsai",
+        "displayName": "Jupyter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.jupyter-2025.9.1-linux-x64",
+        "contributes": [
+          "walkthroughs",
+          "keybindings",
+          "commands",
+          "submenus",
+          "menus",
+          "configuration",
+          "languages",
+          "notebookPreload",
+          "notebookRenderer",
+          "viewsContainers",
+          "views",
+          "debuggers",
+          "jupyterVariableViewers",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ms-toolsai.jupyter-keymap",
+        "active": false,
+        "version": "1.1.2",
+        "publisher": "ms-toolsai",
+        "displayName": "Jupyter Keymap",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.jupyter-keymap-1.1.2",
+        "contributes": [
+          "keybindings"
+        ]
+      },
+      {
+        "id": "ms-toolsai.jupyter-renderers",
+        "active": false,
+        "version": "1.3.0",
+        "publisher": "ms-toolsai",
+        "displayName": "Jupyter Notebook Renderers",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.jupyter-renderers-1.3.0",
+        "contributes": [
+          "notebookPreload",
+          "notebookRenderer"
+        ]
+      },
+      {
+        "id": "ms-toolsai.vscode-ai",
+        "active": false,
+        "version": "1.4.1",
+        "publisher": "ms-toolsai",
+        "displayName": "Azure Machine Learning",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.vscode-ai-1.4.1",
+        "contributes": [
+          "colors",
+          "configuration",
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "keybindings",
+          "commands",
+          "menus",
+          "languages",
+          "grammars",
+          "configurationDefaults",
+          "pythonRemoteServerProvider"
+        ]
+      },
+      {
+        "id": "ms-toolsai.vscode-ai-remote",
+        "active": false,
+        "version": "1.4.8",
+        "publisher": "ms-toolsai",
+        "displayName": "Azure Machine Learning - Remote",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.vscode-ai-remote-1.4.8",
+        "contributes": [
+          "webOpener",
+          "resourceLabelFormatters",
+          "commands",
+          "configuration",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-toolsai.vscode-jupyter-cell-tags",
+        "active": false,
+        "version": "0.1.9",
+        "publisher": "ms-toolsai",
+        "displayName": "Jupyter Cell Tags",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.vscode-jupyter-cell-tags-0.1.9",
+        "contributes": [
+          "commands",
+          "menus",
+          "views",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "ms-toolsai.vscode-jupyter-slideshow",
+        "active": false,
+        "version": "0.1.6",
+        "publisher": "ms-toolsai",
+        "displayName": "Jupyter Slide Show",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-toolsai.vscode-jupyter-slideshow-0.1.6",
+        "contributes": [
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-vscode-remote.remote-containers",
+        "active": true,
+        "version": "0.459.1",
+        "publisher": "ms-vscode-remote",
+        "displayName": "Dev Containers",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode-remote.remote-containers-0.459.1",
+        "contributes": [
+          "continueEditSession",
+          "languages",
+          "jsonValidation",
+          "configuration",
+          "commands",
+          "menus",
+          "resourceLabelFormatters",
+          "views",
+          "viewsWelcome",
+          "remoteHelp"
+        ]
+      },
+      {
+        "id": "ms-vscode-remote.remote-ssh",
+        "active": false,
+        "version": "0.124.0",
+        "publisher": "ms-vscode-remote",
+        "displayName": "Remote - SSH",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode-remote.remote-ssh-0.124.0",
+        "contributes": [
+          "chatParticipants",
+          "remoteHelp",
+          "configuration",
+          "commands",
+          "resourceLabelFormatters",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-vscode-remote.remote-ssh-edit",
+        "active": false,
+        "version": "0.87.0",
+        "publisher": "ms-vscode-remote",
+        "displayName": "Remote - SSH: Editing Configuration Files",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode-remote.remote-ssh-edit-0.87.0",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "ms-vscode-remote.remote-wsl",
+        "active": true,
+        "version": "0.104.3",
+        "publisher": "ms-vscode-remote",
+        "displayName": "WSL",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode-remote.remote-wsl-0.104.3",
+        "contributes": [
+          "walkthroughs",
+          "configuration",
+          "resourceLabelFormatters",
+          "commands",
+          "menus",
+          "views",
+          "keybindings",
+          "viewsWelcome",
+          "remoteHelp"
+        ]
+      },
+      {
+        "id": "ms-vscode-remote.vscode-remote-extensionpack",
+        "active": false,
+        "version": "0.26.0",
+        "publisher": "ms-vscode-remote",
+        "displayName": "Remote Development",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode-remote.vscode-remote-extensionpack-0.26.0",
+        "contributes": []
+      },
+      {
+        "id": "ms-vscode.azure-repos",
+        "active": false,
+        "version": "0.40.0",
+        "publisher": "ms-vscode",
+        "displayName": "Azure Repos",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.azure-repos-0.40.0",
+        "contributes": [
+          "resourceLabelFormatters",
+          "virtualWorkspaces",
+          "configuration"
+        ]
+      },
+      {
+        "id": "ms-vscode.cmake-tools",
+        "active": false,
+        "version": "1.23.52",
+        "publisher": "ms-vscode",
+        "displayName": "CMake Tools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.cmake-tools-1.23.52",
+        "contributes": [
+          "icons",
+          "languages",
+          "grammars",
+          "commands",
+          "taskDefinitions",
+          "breakpoints",
+          "debuggers",
+          "menus",
+          "configuration",
+          "keybindings",
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "yamlValidation",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "ms-vscode.cpp-devtools",
+        "active": false,
+        "version": "0.5.13",
+        "publisher": "ms-vscode",
+        "displayName": "C/C++ DevTools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.cpp-devtools-0.5.13",
+        "contributes": [
+          "configuration",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ms-vscode.cpptools",
+        "active": false,
+        "version": "1.32.2",
+        "publisher": "ms-vscode",
+        "displayName": "C/C++",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.cpptools-1.32.2-linux-x64",
+        "contributes": [
+          "languages",
+          "walkthroughs",
+          "taskDefinitions",
+          "views",
+          "viewsWelcome",
+          "problemMatchers",
+          "configuration",
+          "commands",
+          "keybindings",
+          "debuggers",
+          "breakpoints",
+          "jsonValidation",
+          "menus",
+          "configurationDefaults",
+          "semanticTokenTypes",
+          "semanticTokenModifiers",
+          "semanticTokenScopes",
+          "codeActions",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ms-vscode.cpptools-extension-pack",
+        "active": false,
+        "version": "1.5.1",
+        "publisher": "ms-vscode",
+        "displayName": "C/C++ Extension Pack",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.cpptools-extension-pack-1.5.1",
+        "contributes": []
+      },
+      {
+        "id": "ms-vscode.cpptools-themes",
+        "active": false,
+        "version": "2.0.0",
+        "publisher": "ms-vscode",
+        "displayName": "C/C++ Themes",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.cpptools-themes-2.0.0",
+        "contributes": [
+          "themes"
+        ]
+      },
+      {
+        "id": "ms-vscode.hexeditor",
+        "active": false,
+        "version": "1.11.1",
+        "publisher": "ms-vscode",
+        "displayName": "Hex Editor",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.hexeditor-1.11.1",
+        "contributes": [
+          "configuration",
+          "configurationDefaults",
+          "customEditors",
+          "commands",
+          "viewsContainers",
+          "views",
+          "menus",
+          "keybindings"
+        ]
+      },
+      {
+        "id": "ms-vscode.live-server",
+        "active": false,
+        "version": "0.4.19",
+        "publisher": "ms-vscode",
+        "displayName": "Live Preview",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.live-server-0.4.19",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "ms-vscode.makefile-tools",
+        "active": false,
+        "version": "0.12.17",
+        "publisher": "ms-vscode",
+        "displayName": "Makefile Tools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.makefile-tools-0.12.17",
+        "contributes": [
+          "commands",
+          "problemMatchers",
+          "configuration",
+          "viewsContainers",
+          "views",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-vscode.powershell",
+        "active": false,
+        "version": "2025.4.0",
+        "publisher": "ms-vscode",
+        "displayName": "PowerShell",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.powershell-2025.4.0",
+        "contributes": [
+          "breakpoints",
+          "viewsContainers",
+          "views",
+          "keybindings",
+          "commands",
+          "menus",
+          "problemMatchers",
+          "snippets",
+          "debuggers",
+          "configuration",
+          "capabilities",
+          "configurationDefaults",
+          "themes",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "ms-vscode.remote-explorer",
+        "active": false,
+        "version": "0.5.0",
+        "publisher": "ms-vscode",
+        "displayName": "Remote Explorer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.remote-explorer-0.5.0",
+        "contributes": [
+          "configuration",
+          "commands",
+          "views",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-vscode.remote-repositories",
+        "active": false,
+        "version": "0.42.0",
+        "publisher": "ms-vscode",
+        "displayName": "Remote Repositories",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.remote-repositories-0.42.0",
+        "contributes": [
+          "continueEditSession",
+          "configuration",
+          "commands",
+          "menus",
+          "submenus",
+          "fileSystemProviders",
+          "resourceLabelFormatters",
+          "views",
+          "viewsWelcome",
+          "remoteHelp",
+          "colors",
+          "jsonValidation",
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "ms-vscode.remote-server",
+        "active": false,
+        "version": "1.5.3",
+        "publisher": "ms-vscode",
+        "displayName": "Remote - Tunnels",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.remote-server-1.5.3",
+        "contributes": [
+          "configuration",
+          "commands",
+          "menus",
+          "viewsWelcome",
+          "webOpener"
+        ]
+      },
+      {
+        "id": "ms-vscode.test-adapter-converter",
+        "active": true,
+        "version": "0.2.1",
+        "publisher": "ms-vscode",
+        "displayName": "Test Adapter Converter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.test-adapter-converter-0.2.1",
+        "contributes": [
+          "commands",
+          "menus"
+        ]
+      },
+      {
+        "id": "ms-vscode.vscode-chat-customizations-evaluations",
+        "active": true,
+        "version": "1.0.6",
+        "publisher": "ms-vscode",
+        "displayName": "Chat Customizations Evaluations",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.vscode-chat-customizations-evaluations-1.0.6",
+        "contributes": [
+          "configuration",
+          "commands",
+          "menus",
+          "chatSkills",
+          "yamlValidation"
+        ]
+      },
+      {
+        "id": "ms-vscode.vscode-node-azure-pack",
+        "active": false,
+        "version": "1.8.2",
+        "publisher": "ms-vscode",
+        "displayName": "Azure Tools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-vscode.vscode-node-azure-pack-1.8.2",
+        "contributes": []
+      },
+      {
+        "id": "ms-windows-ai-studio.windows-ai-studio",
+        "active": true,
+        "version": "1.4.2",
+        "publisher": "ms-windows-ai-studio",
+        "displayName": "Foundry Toolkit for VS Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ms-windows-ai-studio.windows-ai-studio-1.4.2-linux-x64",
+        "contributes": [
+          "configuration",
+          "x-azResources",
+          "taskDefinitions",
+          "viewsContainers",
+          "views",
+          "submenus",
+          "menus",
+          "customEditors",
+          "commands",
+          "walkthroughs",
+          "languageModelTools",
+          "languageModelChatProviders",
+          "mcpServerDefinitionProviders",
+          "chatAgents",
+          "chatSkills"
+        ]
+      },
+      {
+        "id": "mtxr.sqltools",
+        "active": true,
+        "version": "0.28.5",
+        "publisher": "mtxr",
+        "displayName": "SQLTools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/mtxr.sqltools-0.28.5",
+        "contributes": [
+          "authentication",
+          "colors",
+          "languages",
+          "grammars",
+          "commands",
+          "keybindings",
+          "configuration",
+          "views",
+          "viewsContainers",
+          "viewsWelcome",
+          "menus"
+        ]
+      },
+      {
+        "id": "namdang.ollama-copilot-vscode",
+        "active": true,
+        "version": "1.0.1",
+        "publisher": "namdang",
+        "displayName": "Ollama Copilot VS Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/namdang.ollama-copilot-vscode-1.0.1",
+        "contributes": [
+          "commands",
+          "submenus",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "naumovs.color-highlight",
+        "active": true,
+        "version": "2.8.0",
+        "publisher": "naumovs",
+        "displayName": "Color Highlight",
+        "extensionPath": "/home/sheikha/.vscode/extensions/naumovs.color-highlight-2.8.0",
+        "contributes": [
+          "configuration",
+          "commands"
+        ]
+      },
+      {
+        "id": "neilbrayfield.php-docblocker",
+        "active": false,
+        "version": "2.7.0",
+        "publisher": "neilbrayfield",
+        "displayName": "PHP DocBlocker",
+        "extensionPath": "/home/sheikha/.vscode/extensions/neilbrayfield.php-docblocker-2.7.0",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Nishikanta12.regex",
+        "active": false,
+        "version": "1.0.2",
+        "publisher": "Nishikanta12",
+        "extensionPath": "/home/sheikha/.vscode/extensions/nishikanta12.regex-1.0.2",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration",
+          "snippets"
+        ]
+      },
+      {
+        "id": "njpwerner.autodocstring",
+        "active": false,
+        "version": "0.6.1",
+        "publisher": "njpwerner",
+        "displayName": "autoDocstring - Python Docstring Generator",
+        "extensionPath": "/home/sheikha/.vscode/extensions/njpwerner.autodocstring-0.6.1",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "nvidia.nsight-vscode-edition",
+        "active": false,
+        "version": "2025.1.36067579",
+        "publisher": "nvidia",
+        "displayName": "Nsight Visual Studio Code Edition",
+        "extensionPath": "/home/sheikha/.vscode/extensions/nvidia.nsight-vscode-edition-2025.1.36067579",
+        "contributes": [
+          "taskDefinitions",
+          "commands",
+          "variables",
+          "breakpoints",
+          "debuggers"
+        ]
+      },
+      {
+        "id": "octref.vetur",
+        "active": false,
+        "version": "0.37.3",
+        "publisher": "octref",
+        "displayName": "Vetur",
+        "extensionPath": "/home/sheikha/.vscode/extensions/octref.vetur-0.37.3",
+        "contributes": [
+          "commands",
+          "breakpoints",
+          "languages",
+          "grammars",
+          "configuration",
+          "semanticTokenScopes"
+        ]
+      },
+      {
+        "id": "oderwat.indent-rainbow",
+        "active": true,
+        "version": "8.3.1",
+        "publisher": "oderwat",
+        "extensionPath": "/home/sheikha/.vscode/extensions/oderwat.indent-rainbow-8.3.1",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "onecentlin.laravel-blade",
+        "active": false,
+        "version": "1.38.0",
+        "publisher": "onecentlin",
+        "displayName": "Laravel Blade Snippets",
+        "extensionPath": "/home/sheikha/.vscode/extensions/onecentlin.laravel-blade-1.38.0",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "configuration"
+        ]
+      },
+      {
+        "id": "onecentlin.laravel5-snippets",
+        "active": false,
+        "version": "1.19.1",
+        "publisher": "onecentlin",
+        "displayName": "Laravel Snippets",
+        "extensionPath": "/home/sheikha/.vscode/extensions/onecentlin.laravel5-snippets-1.19.1",
+        "contributes": [
+          "snippets"
+        ]
+      },
+      {
+        "id": "openai.chatgpt",
+        "active": true,
+        "version": "26.602.71036",
+        "publisher": "openai",
+        "displayName": "Codex – OpenAI’s coding agent",
+        "extensionPath": "/home/sheikha/.vscode/extensions/openai.chatgpt-26.602.71036-linux-x64",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "configuration",
+          "viewsContainers",
+          "views",
+          "customEditors",
+          "menus",
+          "chatSessions",
+          "grammars",
+          "languages"
+        ]
+      },
+      {
+        "id": "PKief.material-icon-theme",
+        "active": true,
+        "version": "5.35.0",
+        "publisher": "PKief",
+        "displayName": "Material Icon Theme",
+        "extensionPath": "/home/sheikha/.vscode/extensions/pkief.material-icon-theme-5.35.0",
+        "contributes": [
+          "iconThemes",
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "pranaygp.vscode-css-peek",
+        "active": true,
+        "version": "4.4.3",
+        "publisher": "pranaygp",
+        "displayName": "CSS Peek",
+        "extensionPath": "/home/sheikha/.vscode/extensions/pranaygp.vscode-css-peek-4.4.3",
+        "contributes": [
+          "configuration"
+        ]
+      },
+      {
+        "id": "recca0120.vscode-phpunit",
+        "active": true,
+        "version": "3.9.38",
+        "publisher": "recca0120",
+        "displayName": "PHPUnit & Pest Test Explorer",
+        "extensionPath": "/home/sheikha/.vscode/extensions/recca0120.vscode-phpunit-3.9.38",
+        "contributes": [
+          "languages",
+          "commands",
+          "keybindings",
+          "configuration"
+        ]
+      },
+      {
+        "id": "redhat.java",
+        "active": false,
+        "version": "1.54.0",
+        "publisher": "redhat",
+        "displayName": "Language Support for Java(TM) by Red Hat",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.java-1.54.0-linux-x64",
+        "contributes": [
+          "customEditors",
+          "javaBuildFilePatterns",
+          "javaBuildTools",
+          "javaShortcuts",
+          "semanticTokenTypes",
+          "semanticTokenModifiers",
+          "semanticTokenScopes",
+          "languages",
+          "grammars",
+          "jsonValidation",
+          "configuration",
+          "configurationDefaults",
+          "commands",
+          "keybindings",
+          "menus"
+        ]
+      },
+      {
+        "id": "redhat.vscode-community-server-connector",
+        "active": false,
+        "version": "0.26.21",
+        "publisher": "redhat",
+        "displayName": "Community Server Connectors",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.vscode-community-server-connector-0.26.21",
+        "contributes": []
+      },
+      {
+        "id": "redhat.vscode-microprofile",
+        "active": false,
+        "version": "0.17.0",
+        "publisher": "redhat",
+        "displayName": "Tools for MicroProfile",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.vscode-microprofile-0.17.0",
+        "contributes": [
+          "javaExtensions",
+          "jsonValidation",
+          "languages",
+          "commands",
+          "configuration",
+          "grammars"
+        ]
+      },
+      {
+        "id": "redhat.vscode-quarkus",
+        "active": false,
+        "version": "1.23.0",
+        "publisher": "redhat",
+        "displayName": "Quarkus",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.vscode-quarkus-1.23.0",
+        "contributes": [
+          "javaExtensions",
+          "microprofile",
+          "languages",
+          "htmlLanguageParticipants",
+          "commands",
+          "breakpoints",
+          "debuggers",
+          "configuration",
+          "menus",
+          "grammars"
+        ]
+      },
+      {
+        "id": "redhat.vscode-rsp-ui",
+        "active": true,
+        "version": "0.24.12",
+        "publisher": "redhat",
+        "displayName": "Runtime Server Protocol UI",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.vscode-rsp-ui-0.24.12",
+        "contributes": [
+          "commands",
+          "views",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "redhat.vscode-xml",
+        "active": false,
+        "version": "0.29.3",
+        "publisher": "redhat",
+        "displayName": "XML",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.vscode-xml-0.29.3-linux-x64",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configuration",
+          "configurationDefaults",
+          "commands",
+          "menus",
+          "jsonValidation"
+        ]
+      },
+      {
+        "id": "redhat.vscode-yaml",
+        "active": false,
+        "version": "1.23.0",
+        "publisher": "redhat",
+        "displayName": "YAML",
+        "extensionPath": "/home/sheikha/.vscode/extensions/redhat.vscode-yaml-1.23.0",
+        "contributes": [
+          "languages",
+          "grammars",
+          "configuration",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "ritwickdey.LiveServer",
+        "active": true,
+        "version": "5.7.10",
+        "publisher": "ritwickdey",
+        "displayName": "Live Server",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ritwickdey.liveserver-5.7.10",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "shd101wyy.markdown-preview-enhanced",
+        "active": true,
+        "version": "0.8.30",
+        "publisher": "shd101wyy",
+        "displayName": "Markdown Preview Enhanced",
+        "extensionPath": "/home/sheikha/.vscode/extensions/shd101wyy.markdown-preview-enhanced-0.8.30",
+        "contributes": [
+          "commands",
+          "configuration",
+          "customEditors",
+          "keybindings",
+          "menus"
+        ]
+      },
+      {
+        "id": "sheikha.sheikha",
+        "active": true,
+        "version": "1.0.40",
+        "publisher": "sheikha",
+        "displayName": "Sheikha",
+        "extensionPath": "/home/sheikha/.vscode/extensions/sheikha.sheikha-1.0.40",
+        "contributes": [
+          "languages",
+          "grammars",
+          "snippets",
+          "commands",
+          "keybindings",
+          "configuration",
+          "menus",
+          "viewsContainers",
+          "views"
+        ]
+      },
+      {
+        "id": "shufo.vscode-blade-formatter",
+        "active": false,
+        "version": "0.26.3",
+        "publisher": "shufo",
+        "displayName": "Laravel Blade formatter",
+        "extensionPath": "/home/sheikha/.vscode/extensions/shufo.vscode-blade-formatter-0.26.3",
+        "contributes": [
+          "commands",
+          "jsonValidation",
+          "languages",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Sixth.sixth-ai",
+        "active": true,
+        "version": "0.0.97",
+        "publisher": "Sixth",
+        "displayName": "Claude Opus 4.7, GPT-5.5, Gemini-3.1, Cursor AI, Copilot,Cline, Codex, Claude Code, and ChatGPT, AI Agents, AI Copilot,and Debugger, Generative AI, Code Chat, Code Generator,  Code Assistants, Code Completion,Autocomplete , Codestral, and Code Search and Reviewer for Javascript, Python, Typescript, PHP, Java, Go, C#, C, C++, R, Rust, HTML, CSS & more, Tabnine, Cursor, CodeWhisperer Alternative , Github Copilot : Sixth AI intellisense and Debugger",
+        "extensionPath": "/home/sheikha/.vscode/extensions/sixth.sixth-ai-0.0.97",
+        "contributes": [
+          "walkthroughs",
+          "viewsContainers",
+          "views",
+          "commands",
+          "keybindings",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "SonarSource.sonarlint-vscode",
+        "active": true,
+        "version": "5.3.0",
+        "publisher": "SonarSource",
+        "displayName": "SonarQube for IDE",
+        "extensionPath": "/home/sheikha/.vscode/extensions/sonarsource.sonarlint-vscode-5.3.0-linux-x64",
+        "contributes": [
+          "configuration",
+          "commands",
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "walkthroughs",
+          "menus",
+          "colors",
+          "icons",
+          "languageModelTools",
+          "submenus"
+        ]
+      },
+      {
+        "id": "steoates.autoimport",
+        "active": false,
+        "version": "1.5.4",
+        "publisher": "steoates",
+        "displayName": "Auto Import",
+        "extensionPath": "/home/sheikha/.vscode/extensions/steoates.autoimport-1.5.4",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "streetsidesoftware.code-spell-checker",
+        "active": true,
+        "version": "4.5.6",
+        "publisher": "streetsidesoftware",
+        "displayName": "Code Spell Checker",
+        "extensionPath": "/home/sheikha/.vscode/extensions/streetsidesoftware.code-spell-checker-4.5.6",
+        "contributes": [
+          "menus",
+          "submenus",
+          "viewsContainers",
+          "icons",
+          "views",
+          "viewsWelcome",
+          "commands",
+          "languages",
+          "jsonValidation",
+          "configurationDefaults",
+          "configuration",
+          "terminal"
+        ]
+      },
+      {
+        "id": "streetsidesoftware.code-spell-checker-arabic",
+        "active": true,
+        "version": "0.2.5",
+        "publisher": "streetsidesoftware",
+        "displayName": "Arabic - Code Spell Checker",
+        "extensionPath": "/home/sheikha/.vscode/extensions/streetsidesoftware.code-spell-checker-arabic-0.2.5",
+        "contributes": [
+          "commands"
+        ]
+      },
+      {
+        "id": "swordev.phpstan",
+        "active": false,
+        "version": "2.0.3",
+        "publisher": "swordev",
+        "displayName": "PHPStan",
+        "extensionPath": "/home/sheikha/.vscode/extensions/swordev.phpstan-2.0.3",
+        "contributes": [
+          "commands",
+          "configuration",
+          "menus"
+        ]
+      },
+      {
+        "id": "TabNine.tabnine-vscode",
+        "active": true,
+        "version": "3.335.0",
+        "publisher": "TabNine",
+        "displayName": "Tabnine AI",
+        "extensionPath": "/home/sheikha/.vscode/extensions/tabnine.tabnine-vscode-3.335.0",
+        "contributes": [
+          "submenus",
+          "viewsContainers",
+          "viewsWelcome",
+          "views",
+          "commands",
+          "menus",
+          "configuration",
+          "keybindings"
+        ]
+      },
+      {
+        "id": "TeamsDevApp.vscode-ai-foundry",
+        "active": false,
+        "version": "1.2.4",
+        "publisher": "TeamsDevApp",
+        "displayName": "Microsoft Foundry",
+        "extensionPath": "/home/sheikha/.vscode/extensions/teamsdevapp.vscode-ai-foundry-1.2.4",
+        "contributes": [
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "x-azResources",
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "techer.open-in-browser",
+        "active": false,
+        "version": "2.0.0",
+        "publisher": "techer",
+        "displayName": "open in browser",
+        "extensionPath": "/home/sheikha/.vscode/extensions/techer.open-in-browser-2.0.0",
+        "contributes": [
+          "commands",
+          "configuration",
+          "keybindings",
+          "menus"
+        ]
+      },
+      {
+        "id": "tomoki1207.pdf",
+        "active": false,
+        "version": "1.2.2",
+        "publisher": "tomoki1207",
+        "displayName": "vscode-pdf",
+        "extensionPath": "/home/sheikha/.vscode/extensions/tomoki1207.pdf-1.2.2",
+        "contributes": [
+          "capabilities",
+          "customEditors",
+          "configuration"
+        ]
+      },
+      {
+        "id": "tumido.crd-snippets",
+        "active": false,
+        "version": "1.2.1",
+        "publisher": "tumido",
+        "displayName": "Kubernetes CRD snippets",
+        "extensionPath": "/home/sheikha/.vscode/extensions/tumido.crd-snippets-1.2.1",
+        "contributes": [
+          "snippets"
+        ]
+      },
+      {
+        "id": "twxs.cmake",
+        "active": false,
+        "version": "0.0.17",
+        "publisher": "twxs",
+        "displayName": "CMake",
+        "extensionPath": "/home/sheikha/.vscode/extensions/twxs.cmake-0.0.17",
+        "contributes": [
+          "languages",
+          "commands",
+          "grammars",
+          "configuration"
+        ]
+      },
+      {
+        "id": "usernamehw.errorlens",
+        "active": true,
+        "version": "3.28.0",
+        "publisher": "usernamehw",
+        "displayName": "Error Lens",
+        "extensionPath": "/home/sheikha/.vscode/extensions/usernamehw.errorlens-3.28.0",
+        "contributes": [
+          "commands",
+          "configuration",
+          "colors"
+        ]
+      },
+      {
+        "id": "vadimcn.vscode-lldb",
+        "active": true,
+        "version": "1.12.1",
+        "publisher": "vadimcn",
+        "displayName": "CodeLLDB",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vadimcn.vscode-lldb-1.12.1",
+        "contributes": [
+          "commands",
+          "languages",
+          "grammars",
+          "views",
+          "menus",
+          "problemMatchers",
+          "configuration",
+          "breakpoints",
+          "debuggers",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "ventura.prom",
+        "active": false,
+        "version": "1.3.3",
+        "publisher": "ventura",
+        "displayName": "PromQL",
+        "extensionPath": "/home/sheikha/.vscode/extensions/ventura.prom-1.3.3",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "vmware.vscode-boot-dev-pack",
+        "active": false,
+        "version": "0.2.2",
+        "publisher": "vmware",
+        "displayName": "Spring Boot Extension Pack",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vmware.vscode-boot-dev-pack-0.2.2",
+        "contributes": [
+          "walkthroughs"
+        ]
+      },
+      {
+        "id": "vmware.vscode-spring-boot",
+        "active": false,
+        "version": "2.1.2",
+        "publisher": "vmware",
+        "displayName": "Spring Boot Tools",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vmware.vscode-spring-boot-2.1.2",
+        "contributes": [
+          "javaExtensions",
+          "languages",
+          "views",
+          "menus",
+          "commands",
+          "configuration",
+          "grammars",
+          "configurationDefaults"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-gradle",
+        "active": false,
+        "version": "3.17.3",
+        "publisher": "vscjava",
+        "displayName": "Gradle for Java",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-gradle-3.17.3",
+        "contributes": [
+          "javaExtensions",
+          "languages",
+          "grammars",
+          "problemMatchers",
+          "views",
+          "viewsContainers",
+          "commands",
+          "submenus",
+          "menus",
+          "configuration",
+          "jsonValidation",
+          "taskDefinitions"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-java-debug",
+        "active": false,
+        "version": "0.59.0",
+        "publisher": "vscjava",
+        "displayName": "Debugger for Java",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-java-debug-0.59.0",
+        "contributes": [
+          "breakpoints",
+          "javaExtensions",
+          "commands",
+          "menus",
+          "debuggers",
+          "configuration",
+          "languageModelTools"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-java-dependency",
+        "active": false,
+        "version": "0.27.5",
+        "publisher": "vscjava",
+        "displayName": "Project Manager for Java",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-java-dependency-0.27.5",
+        "contributes": [
+          "javaExtensions",
+          "languageModelTools",
+          "commands",
+          "configuration",
+          "keybindings",
+          "menus",
+          "submenus",
+          "views",
+          "viewsWelcome",
+          "taskDefinitions",
+          "chatSkills",
+          "chatInstructions"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-java-pack",
+        "active": false,
+        "version": "0.31.1",
+        "publisher": "vscjava",
+        "displayName": "Extension Pack for Java",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-java-pack-0.31.1",
+        "contributes": [
+          "javaShortcuts",
+          "walkthroughs",
+          "commands",
+          "configuration",
+          "menus",
+          "customEditors",
+          "keybindings"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-java-test",
+        "active": false,
+        "version": "0.45.0",
+        "publisher": "vscjava",
+        "displayName": "Test Runner for Java",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-java-test-0.45.0",
+        "contributes": [
+          "javaExtensions",
+          "viewsWelcome",
+          "menus",
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-maven",
+        "active": false,
+        "version": "0.45.3",
+        "publisher": "vscjava",
+        "displayName": "Maven for Java",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-maven-0.45.3",
+        "contributes": [
+          "javaExtensions",
+          "commands",
+          "views",
+          "viewsWelcome",
+          "submenus",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-spring-boot-dashboard",
+        "active": false,
+        "version": "0.14.0",
+        "publisher": "vscjava",
+        "displayName": "Spring Boot Dashboard",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-spring-boot-dashboard-0.14.0",
+        "contributes": [
+          "icons",
+          "viewsContainers",
+          "views",
+          "viewsWelcome",
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscjava.vscode-spring-initializr",
+        "active": false,
+        "version": "0.12.0",
+        "publisher": "vscjava",
+        "displayName": "Spring Initializr Java Support",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscjava.vscode-spring-initializr-0.12.0",
+        "contributes": [
+          "commands",
+          "menus",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscode-icons-team.vscode-icons",
+        "active": true,
+        "version": "12.18.0",
+        "publisher": "vscode-icons-team",
+        "displayName": "vscode-icons",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscode-icons-team.vscode-icons-12.18.0",
+        "contributes": [
+          "iconThemes",
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "vscodevim.vim",
+        "active": true,
+        "version": "1.32.4",
+        "publisher": "vscodevim",
+        "displayName": "Vim",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vscodevim.vim-1.32.4",
+        "contributes": [
+          "commands",
+          "keybindings",
+          "configuration",
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "Vue.volar",
+        "active": true,
+        "version": "3.3.4",
+        "publisher": "Vue",
+        "displayName": "Vue (Official)",
+        "extensionPath": "/home/sheikha/.vscode/extensions/vue.volar-3.3.4",
+        "contributes": [
+          "jsonValidation",
+          "languages",
+          "grammars",
+          "semanticTokenScopes",
+          "breakpoints",
+          "configuration",
+          "commands",
+          "menus",
+          "typescriptServerPlugins"
+        ]
+      },
+      {
+        "id": "WakaTime.vscode-wakatime",
+        "active": true,
+        "version": "30.2.0",
+        "publisher": "WakaTime",
+        "displayName": "WakaTime",
+        "extensionPath": "/home/sheikha/.vscode/extensions/wakatime.vscode-wakatime-30.2.0",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "wayou.vscode-todo-highlight",
+        "active": true,
+        "version": "1.0.5",
+        "publisher": "wayou",
+        "displayName": "TODO Highlight",
+        "extensionPath": "/home/sheikha/.vscode/extensions/wayou.vscode-todo-highlight-1.0.5",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "wholroyd.jinja",
+        "active": false,
+        "version": "0.0.8",
+        "publisher": "wholroyd",
+        "displayName": "Jinja",
+        "extensionPath": "/home/sheikha/.vscode/extensions/wholroyd.jinja-0.0.8",
+        "contributes": [
+          "languages",
+          "grammars"
+        ]
+      },
+      {
+        "id": "xabikos.JavaScriptSnippets",
+        "active": false,
+        "version": "1.8.0",
+        "publisher": "xabikos",
+        "displayName": "JavaScript (ES6) code snippets",
+        "extensionPath": "/home/sheikha/.vscode/extensions/xabikos.javascriptsnippets-1.8.0",
+        "contributes": [
+          "snippets"
+        ]
+      },
+      {
+        "id": "xdebug.php-debug",
+        "active": false,
+        "version": "1.40.1",
+        "publisher": "xdebug",
+        "displayName": "PHP Debug",
+        "extensionPath": "/home/sheikha/.vscode/extensions/xdebug.php-debug-1.40.1",
+        "contributes": [
+          "breakpoints",
+          "debuggers",
+          "configuration",
+          "menus",
+          "commands",
+          "keybindings",
+          "viewsWelcome"
+        ]
+      },
+      {
+        "id": "xiaoshuai.cuda-code",
+        "active": false,
+        "version": "0.0.1",
+        "publisher": "xiaoshuai",
+        "displayName": "CUDA Code",
+        "extensionPath": "/home/sheikha/.vscode/extensions/xiaoshuai.cuda-code-0.0.1",
+        "contributes": [
+          "commands"
+        ]
+      },
+      {
+        "id": "yesoreyeram.grafana",
+        "active": false,
+        "version": "0.0.3",
+        "publisher": "yesoreyeram",
+        "displayName": "Grafana Utils",
+        "extensionPath": "/home/sheikha/.vscode/extensions/yesoreyeram.grafana-0.0.3",
+        "contributes": [
+          "snippets"
+        ]
+      },
+      {
+        "id": "yzhang.markdown-all-in-one",
+        "active": true,
+        "version": "3.6.3",
+        "publisher": "yzhang",
+        "displayName": "Markdown All in One",
+        "extensionPath": "/home/sheikha/.vscode/extensions/yzhang.markdown-all-in-one-3.6.3",
+        "contributes": [
+          "colors",
+          "commands",
+          "menus",
+          "keybindings",
+          "configuration",
+          "markdown.markdownItPlugins",
+          "markdown.previewStyles",
+          "grammars"
+        ]
+      },
+      {
+        "id": "zhuangtongfa.material-theme",
+        "active": true,
+        "version": "3.19.0",
+        "publisher": "zhuangtongfa",
+        "displayName": "One Dark Pro",
+        "extensionPath": "/home/sheikha/.vscode/extensions/zhuangtongfa.material-theme-3.19.0",
+        "contributes": [
+          "markdown.previewStyles",
+          "commands",
+          "themes",
+          "configuration"
+        ]
+      },
+      {
+        "id": "Zignd.html-css-class-completion",
+        "active": false,
+        "version": "1.20.0",
+        "publisher": "Zignd",
+        "displayName": "IntelliSense for CSS class names in HTML",
+        "extensionPath": "/home/sheikha/.vscode/extensions/zignd.html-css-class-completion-1.20.0",
+        "contributes": [
+          "commands",
+          "configuration"
+        ]
+      },
+      {
+        "id": "zobo.php-intellisense",
+        "active": true,
+        "version": "1.3.3",
+        "publisher": "zobo",
+        "displayName": "PHP IntelliSense",
+        "extensionPath": "/home/sheikha/.vscode/extensions/zobo.php-intellisense-1.3.3",
+        "contributes": [
+          "configuration"
+        ]
+      }
+    ],
+    "commands": {
+      "count": 6543,
+      "sheikha": [
+        "workbench.view.extension.sheikha.resetViewContainerLocation",
+        "workbench.view.extension.sheikha",
+        "workbench.view.extension.sheikha-ai.resetViewContainerLocation",
+        "workbench.view.extension.sheikha-ai",
+        "sheikhaNeuralNetwork.open",
+        "sheikhaNeuralNetwork.focus",
+        "sheikhaNeuralNetwork.resetViewLocation",
+        "workbench.actions.treeView.sheikhaNeuralNetwork.refresh",
+        "workbench.actions.treeView.sheikhaNeuralNetwork.collapseAll",
+        "sheikha.chatView.open",
+        "sheikha.chatView.focus",
+        "sheikha.chatView.resetViewLocation",
+        "sheikha.statusView.open",
+        "sheikha.statusView.focus",
+        "sheikha.statusView.resetViewLocation",
+        "sheikha.apiView.open",
+        "sheikha.apiView.focus",
+        "sheikha.apiView.resetViewLocation",
+        "sheikha.publishView.open",
+        "sheikha.publishView.focus",
+        "sheikha.publishView.resetViewLocation",
+        "sheikha.pathsView.open",
+        "sheikha.pathsView.focus",
+        "sheikha.pathsView.resetViewLocation",
+        "sheikha.programmingView.open",
+        "sheikha.programmingView.focus",
+        "sheikha.programmingView.resetViewLocation",
+        "sheikha.debugView.open",
+        "sheikha.debugView.focus",
+        "sheikha.debugView.resetViewLocation",
+        "sheikha.editingView.open",
+        "sheikha.editingView.focus",
+        "sheikha.editingView.resetViewLocation",
+        "sheikha.neuralView.open",
+        "sheikha.neuralView.focus",
+        "sheikha.neuralView.resetViewLocation",
+        "sheikha.enterpriseView.open",
+        "sheikha.enterpriseView.focus",
+        "sheikha.enterpriseView.resetViewLocation",
+        "sheikha.osView.open",
+        "sheikha.osView.focus",
+        "sheikha.osView.resetViewLocation",
+        "sheikha.serviceProviderView.open",
+        "sheikha.serviceProviderView.focus",
+        "sheikha.serviceProviderView.resetViewLocation",
+        "sheikha.ideView.open",
+        "sheikha.ideView.focus",
+        "sheikha.ideView.resetViewLocation",
+        "sheikha.toolsView.open",
+        "sheikha.toolsView.focus",
+        "sheikha.toolsView.resetViewLocation",
+        "sheikha.advancedChatView.open",
+        "sheikha.advancedChatView.focus",
+        "sheikha.advancedChatView.resetViewLocation",
+        "sheikha.chatView.toggleVisibility",
+        "sheikha.chatView.removeView",
+        "sheikha.apiView.toggleVisibility",
+        "sheikha.apiView.removeView",
+        "sheikha.statusView.toggleVisibility",
+        "sheikha.statusView.removeView",
+        "sheikha.neuralView.toggleVisibility",
+        "sheikha.neuralView.removeView",
+        "sheikha.publishView.toggleVisibility",
+        "sheikha.publishView.removeView",
+        "sheikha.pathsView.toggleVisibility",
+        "sheikha.pathsView.removeView",
+        "sheikha.programmingView.toggleVisibility",
+        "sheikha.programmingView.removeView",
+        "sheikha.debugView.toggleVisibility",
+        "sheikha.debugView.removeView",
+        "sheikha.editingView.toggleVisibility",
+        "sheikha.editingView.removeView",
+        "sheikha.enterpriseView.toggleVisibility",
+        "sheikha.enterpriseView.removeView",
+        "sheikha.osView.toggleVisibility",
+        "sheikha.osView.removeView",
+        "sheikha.serviceProviderView.toggleVisibility",
+        "sheikha.serviceProviderView.removeView",
+        "sheikha.ideView.toggleVisibility",
+        "sheikha.ideView.removeView",
+        "sheikha.toolsView.toggleVisibility",
+        "sheikha.toolsView.removeView",
+        "sheikha.advancedChatView.toggleVisibility",
+        "sheikha.advancedChatView.removeView",
+        "sheikhaNeuralNetwork.toggleVisibility",
+        "sheikhaNeuralNetwork.removeView",
+        "sheikha.awareness.scan",
+        "sheikha.registry.global",
+        "sheikha.registry.broker",
+        "sheikha.registry.unified",
+        "sheikha.chat.open"
+      ],
+      "ai": [
+        "editor.action.trimTrailingWhitespace",
+        "toggleSuggestionDetails",
+        "toggleExplainMode",
+        "workbench.action.restoreEditorsToMainWindow",
+        "workbench.action.moveModalEditorToMain",
+        "notebook.cell.insertCodeCellAboveAndFocusContainer",
+        "notebook.cell.insertCodeCellBelowAndFocusContainer",
+        "notebook.cell.executeAndFocusContainer",
+        "notebook.revealLastFailedCell",
+        "workbench.action.terminal.chat.continueInBackground",
+        "workbench.action.debug.reverseContinue",
+        "workbench.action.debug.continue",
+        "debug.attachToCurrentCodeRenderer",
+        "notebook.cell.openFailureActions",
+        "notebook.cell.chat.explainError",
+        "aiCustomizationManagement.openFile",
+        "aiCustomizationManagement.runPrompt",
+        "aiCustomizationManagement.revealInOS",
+        "aiCustomizationManagement.delete",
+        "aiCustomizationManagement.copyPath",
+        "aiCustomizationManagement.installChatCustomizationExtension",
+        "aiCustomizationManagement.uninstallPlugin",
+        "aiCustomizationManagement.showPlugin",
+        "aiCustomizationManagement.disableItem",
+        "aiCustomizationManagement.enableItem",
+        "search.action.searchWithAI",
+        "workbench.action.openChat.copilotIcon",
+        "workbench.action.chat.showExtensionsUsingCopilot",
+        "workbench.action.chat.newChat.copilotIcon",
+        "workbench.action.chat.openCopilotCliStateFile",
+        "chatEditing.multidiff.explain",
+        "inlineChat2.continueInChat",
+        "testing.debugFailTests",
+        "testing.reRunFailTests",
+        "testing.reRunFailedFromLastRun",
+        "testing.debugFailedFromLastRun",
+        "workbench.action.search.toggleQueryDetails",
+        "workbench.action.manageTrustedDomain",
+        "terminalSuggestToggleExplainMode",
+        "workbench.action.terminal.suggestToggleDetailsFocus",
+        "workbench.action.terminal.suggestToggleDetails",
+        "editor.action.renderWhitespace.trailing",
+        "workbench.action.continueOn.extensions",
+        "workbench.action.switchToMainWindow",
+        "workbench.action.chat.openNewSessionSidebar.agent-host-copilotcli",
+        "workbench.action.chat.openNewSessionEditor.agent-host-copilotcli",
+        "workbench.panel.chat.resetViewContainerLocation",
+        "workbench.view.extensions.resetViewContainerLocation",
+        "workbench.view.extension.test.resetViewContainerLocation",
+        "workbench.view.explorer.resetViewContainerLocation",
+        "workbench.view.search.resetViewContainerLocation",
+        "workbench.view.scm.resetViewContainerLocation",
+        "workbench.view.debug.resetViewContainerLocation",
+        "workbench.view.remote.resetViewContainerLocation",
+        "workbench.panel.testResults.resetViewContainerLocation",
+        "refactorPreview.resetViewContainerLocation",
+        "workbench.panel.repl.resetViewContainerLocation",
+        "workbench.panel.markers.resetViewContainerLocation",
+        "workbench.panel.output.resetViewContainerLocation",
+        "terminal.resetViewContainerLocation",
+        "workbench.panel.chat.view.copilot.focus",
+        "workbench.panel.chat.view.copilot.resetViewLocation",
+        "settings.action.toggleAiSearch",
+        "chat.internal.explain",
+        "chat.internal.codeReview.run",
+        "workbench.action.chat.openSessionWithPrompt.claude-code",
+        "workbench.action.chat.openNewSessionEditor.claude-code",
+        "workbench.action.chat.openNewSessionSidebar.claude-code",
+        "workbench.action.chat.openSessionWithPrompt.copilotcli",
+        "workbench.action.chat.openNewSessionEditor.copilotcli",
+        "workbench.action.chat.openNewSessionSidebar.copilotcli",
+        "workbench.action.chat.openSessionWithPrompt.copilot-cloud-agent",
+        "workbench.action.chat.openNewSessionEditor.copilot-cloud-agent",
+        "workbench.action.chat.openNewSessionSidebar.copilot-cloud-agent",
+        "workbench.action.chat.openNewChatSessionInPlace.claude-code",
+        "workbench.action.chat.openNewChatSessionInPlace.copilotcli",
+        "workbench.action.chat.openNewChatSessionInPlace.copilot-cloud-agent",
+        "workbench.action.chat.openNewChatSessionInPlace.openai-codex",
+        "workbench.view.extension.copilot-chat.resetViewContainerLocation",
+        "workbench.view.extension.copilot-chat",
+        "workbench.view.extension.context-inspector.resetViewContainerLocation",
+        "workbench.view.extension.references-view.resetViewContainerLocation",
+        "workbench.view.extension.project-manager.resetViewContainerLocation",
+        "workbench.view.extension.claude-sidebar.resetViewContainerLocation",
+        "workbench.view.extension.claude-sidebar",
+        "workbench.view.extension.claude-sessions-sidebar.resetViewContainerLocation",
+        "workbench.view.extension.claude-sessions-sidebar",
+        "workbench.view.extension.claude-sidebar-secondary.resetViewContainerLocation",
+        "workbench.view.extension.claude-sidebar-secondary",
+        "workbench.view.extension.blackbox.resetViewContainerLocation",
+        "workbench.view.extension.blackbox",
+        "workbench.view.extension.blackboxai-dev-ActivityBar.resetViewContainerLocation",
+        "workbench.view.extension.blackboxai-dev-ActivityBar",
+        "workbench.view.extension.continue.resetViewContainerLocation",
+        "workbench.view.extension.continue",
+        "workbench.view.extension.continueConsole.resetViewContainerLocation",
+        "workbench.view.extension.continueConsole",
+        "workbench.view.extension.flutter.resetViewContainerLocation",
+        "workbench.view.extension.flutterPropertyEditorContainer.resetViewContainerLocation",
+        "workbench.view.extension.flutterPropertyEditorContainer",
+        "workbench.view.extension.sidebarDevToolsContainer.resetViewContainerLocation",
+        "workbench.view.extension.sidebarDevToolsContainer",
+        "workbench.view.extension.sidebarDevToolsInspectorContainer.resetViewContainerLocation",
+        "workbench.view.extension.sidebarDevToolsInspectorContainer",
+        "workbench.view.extension.sidebarDevToolsDeepLinksContainer.resetViewContainerLocation",
+        "workbench.view.extension.sidebarDevToolsDeepLinksContainer",
+        "workbench.view.extension.sidebarWidgetPreviewContainer.resetViewContainerLocation",
+        "workbench.view.extension.sidebarWidgetPreviewContainer",
+        "workbench.view.extension.package-explorer.resetViewContainerLocation",
+        "workbench.view.extension.gitlens.resetViewContainerLocation",
+        "workbench.view.extension.gitlensInspect.resetViewContainerLocation",
+        "workbench.view.extension.gitlensPatch.resetViewContainerLocation",
+        "workbench.view.extension.gitlensPanel.resetViewContainerLocation",
+        "workbench.view.extension.github-actions.resetViewContainerLocation",
+        "workbench.view.extension.github-pull-requests.resetViewContainerLocation",
+        "workbench.view.extension.github-pull-request.resetViewContainerLocation",
+        "workbench.view.extension.gitlab-duo.resetViewContainerLocation",
+        "workbench.view.extension.gitlab-workflow.resetViewContainerLocation",
+        "workbench.view.extension.gitlab-agent-platform.resetViewContainerLocation",
+        "workbench.view.extension.gitlab-agent-platform-next.resetViewContainerLocation",
+        "workbench.view.extension.todo-tree-container.resetViewContainerLocation",
+        "workbench.view.extension.todo-tree-container",
+        "workbench.view.extension.php-hyper-sidebar.resetViewContainerLocation",
+        "workbench.view.extension.azure.resetViewContainerLocation",
+        "workbench.view.extension.azurePanel.resetViewContainerLocation",
+        "workbench.view.extension.containersView.resetViewContainerLocation",
+        "workbench.view.extension.containersView",
+        "workbench.view.extension.vscode-edge-devtools-view.resetViewContainerLocation",
+        "workbench.view.extension.kubernetesView.resetViewContainerLocation",
+        "workbench.view.extension.dataworkspace.resetViewContainerLocation",
+        "workbench.view.extension.objectExplorer.resetViewContainerLocation",
+        "workbench.view.extension.queryResult.resetViewContainerLocation",
+        "workbench.view.extension.python.resetViewContainerLocation",
+        "workbench.view.extension.jupyter.resetViewContainerLocation",
+        "workbench.view.extension.jupyter-variables.resetViewContainerLocation",
+        "workbench.view.extension.cmake-view.resetViewContainerLocation",
+        "workbench.view.extension.hexExplorer.resetViewContainerLocation",
+        "workbench.view.extension.makefile__viewContainer.resetViewContainerLocation",
+        "workbench.view.extension.makefile__viewContainer",
+        "workbench.view.extension.PowerShell.resetViewContainerLocation",
+        "workbench.view.extension.ai-toolkit-explorer.resetViewContainerLocation",
+        "workbench.view.extension.ai-toolkit-explorer",
+        "workbench.view.extension.sqltoolsActivityBarContainer.resetViewContainerLocation",
+        "workbench.view.extension.sqltoolsActivityBarContainer",
+        "workbench.view.extension.sqltoolsPanelContainer.resetViewContainerLocation",
+        "workbench.view.extension.sqltoolsPanelContainer",
+        "workbench.view.extension.codexViewContainer.resetViewContainerLocation",
+        "workbench.view.extension.codexViewContainer",
+        "workbench.view.extension.codexSecondaryViewContainer.resetViewContainerLocation",
+        "workbench.view.extension.codexSecondaryViewContainer",
+        "workbench.view.extension.sheikha.resetViewContainerLocation",
+        "workbench.view.extension.sheikha-ai.resetViewContainerLocation",
+        "workbench.view.extension.sheikha-ai",
+        "workbench.view.extension.sixth-ActivityBar.resetViewContainerLocation",
+        "workbench.view.extension.SonarLint.resetViewContainerLocation",
+        "workbench.view.extension.SonarQube.resetViewContainerLocation",
+        "workbench.view.extension.cspell-info-explorer.resetViewContainerLocation",
+        "workbench.view.extension.cspell-regexp-explorer.resetViewContainerLocation",
+        "workbench.view.extension.cspellPanel.resetViewContainerLocation",
+        "workbench.view.extension.tabnine.resetViewContainerLocation",
+        "workbench.view.extension.microsoft-foundry.resetViewContainerLocation",
+        "workbench.view.extension.gradleContainerView.resetViewContainerLocation",
+        "workbench.view.extension.gradleContainerView",
+        "workbench.view.extension.spring.resetViewContainerLocation",
+        "copilot-chat.open",
+        "copilot-chat.focus",
+        "copilot-chat.resetViewLocation",
+        "claudeVSCodeSidebar.open",
+        "claudeVSCodeSidebar.focus",
+        "claudeVSCodeSidebar.resetViewLocation",
+        "claudeVSCodeSidebarSecondary.open",
+        "claudeVSCodeSidebarSecondary.focus",
+        "claudeVSCodeSidebarSecondary.resetViewLocation",
+        "claudeVSCodeSessionsList.open",
+        "claudeVSCodeSessionsList.focus",
+        "claudeVSCodeSessionsList.resetViewLocation",
+        "blackbox-onboarding.open",
+        "blackbox-onboarding.focus",
+        "blackbox-onboarding.resetViewLocation",
+        "blackboxai-dev.SidebarProvider.open",
+        "blackboxai-dev.SidebarProvider.focus",
+        "blackboxai-dev.SidebarProvider.resetViewLocation",
+        "continue.continueGUIView.open",
+        "continue.continueGUIView.focus",
+        "continue.continueGUIView.resetViewLocation",
+        "continue.continueConsoleView.open",
+        "continue.continueConsoleView.focus",
+        "continue.continueConsoleView.resetViewLocation",
+        "gitlens.views.commitDetails.open",
+        "gitlens.views.commitDetails.focus",
+        "gitlens.views.commitDetails.resetViewLocation",
+        "gitlens.views.patchDetails.open",
+        "gitlens.views.patchDetails.focus",
+        "gitlens.views.patchDetails.resetViewLocation",
+        "dockerExplorerContainers.open",
+        "dockerExplorerContainers.focus",
+        "dockerExplorerContainers.resetViewLocation",
+        "workbench.actions.treeView.dockerExplorerContainers.refresh",
+        "workbench.actions.treeView.dockerExplorerContainers.collapseAll",
+        "phpAiChatSidebar.open",
+        "phpAiChatSidebar.focus",
+        "phpAiChatSidebar.resetViewLocation",
+        "vscode-containers.views.containers.open",
+        "vscode-containers.views.containers.focus",
+        "vscode-containers.views.containers.resetViewLocation",
+        "vscode-containers.views.images.open",
+        "vscode-containers.views.images.focus",
+        "vscode-containers.views.images.resetViewLocation",
+        "vscode-containers.views.registries.open",
+        "vscode-containers.views.registries.focus",
+        "vscode-containers.views.registries.resetViewLocation",
+        "vscode-containers.views.networks.open",
+        "vscode-containers.views.networks.focus",
+        "vscode-containers.views.networks.resetViewLocation",
+        "vscode-containers.views.volumes.open",
+        "vscode-containers.views.volumes.focus",
+        "vscode-containers.views.volumes.resetViewLocation",
+        "vscode-containers.views.dockerContexts.open",
+        "vscode-containers.views.dockerContexts.focus",
+        "vscode-containers.views.dockerContexts.resetViewLocation",
+        "vscode-containers.views.help.open",
+        "vscode-containers.views.help.focus",
+        "vscode-containers.views.help.resetViewLocation",
+        "dataworkspace.views.main.open",
+        "dataworkspace.views.main.focus",
+        "dataworkspace.views.main.resetViewLocation",
+        "targetsContainers.open",
+        "targetsContainers.focus",
+        "targetsContainers.resetViewLocation",
+        "detailsContainers.open",
+        "detailsContainers.focus",
+        "detailsContainers.resetViewLocation",
+        "hexEditor.dataInspectorView.open",
+        "hexEditor.dataInspectorView.focus",
+        "hexEditor.dataInspectorView.resetViewLocation",
+        "ai-mlstudio.view.evaluation.open",
+        "ai-mlstudio.view.evaluation.focus",
+        "ai-mlstudio.view.evaluation.resetViewLocation",
+        "aiToolkitUserTools.open",
+        "aiToolkitUserTools.focus",
+        "aiToolkitUserTools.resetViewLocation",
+        "aiToolkitHelpAndFeedback.open",
+        "aiToolkitHelpAndFeedback.focus",
+        "aiToolkitHelpAndFeedback.resetViewLocation",
+        "chatgpt.sidebarView.open",
+        "chatgpt.sidebarView.focus",
+        "chatgpt.sidebarView.resetViewLocation",
+        "chatgpt.sidebarSecondaryView.open",
+        "chatgpt.sidebarSecondaryView.focus",
+        "chatgpt.sidebarSecondaryView.resetViewLocation",
+        "SonarLint.AIAgentsConfiguration.open",
+        "SonarLint.AIAgentsConfiguration.focus",
+        "SonarLint.AIAgentsConfiguration.resetViewLocation",
+        "workbench.panel.chat.view.copilot.toggleVisibility",
+        "workbench.panel.chat.view.copilot.removeView",
+        "claudeVSCodeSidebarSecondary.toggleVisibility",
+        "claudeVSCodeSidebarSecondary.removeView",
+        "blackbox-onboarding.toggleVisibility",
+        "blackbox-onboarding.removeView",
+        "blackboxai-dev.SidebarProvider.toggleVisibility",
+        "blackboxai-dev.SidebarProvider.removeView",
+        "continue.continueGUIView.toggleVisibility",
+        "continue.continueGUIView.removeView",
+        "gitlens.views.commitDetails.toggleVisibility",
+        "gitlens.views.commitDetails.removeView",
+        "phpAiChatSidebar.toggleVisibility",
+        "phpAiChatSidebar.removeView",
+        "vscode-containers.views.containers.toggleVisibility",
+        "vscode-containers.views.containers.removeView",
+        "vscode-containers.views.images.toggleVisibility",
+        "vscode-containers.views.images.removeView",
+        "vscode-containers.views.registries.toggleVisibility",
+        "vscode-containers.views.registries.removeView",
+        "vscode-containers.views.networks.toggleVisibility",
+        "vscode-containers.views.networks.removeView",
+        "vscode-containers.views.volumes.toggleVisibility",
+        "vscode-containers.views.volumes.removeView",
+        "vscode-containers.views.dockerContexts.toggleVisibility",
+        "vscode-containers.views.dockerContexts.removeView",
+        "vscode-containers.views.help.toggleVisibility",
+        "vscode-containers.views.help.removeView",
+        "dataworkspace.views.main.toggleVisibility",
+        "dataworkspace.views.main.removeView",
+        "aiToolkitUserTools.toggleVisibility",
+        "aiToolkitUserTools.removeView",
+        "aiToolkitHelpAndFeedback.toggleVisibility",
+        "aiToolkitHelpAndFeedback.removeView",
+        "chatgpt.sidebarSecondaryView.toggleVisibility",
+        "chatgpt.sidebarSecondaryView.removeView",
+        "rainbow-csv.CSVLint",
+        "rainbow-csv.RBQL",
+        "rainbow-csv.SetHeaderLine",
+        "rainbow-csv.SetCommentPrefix",
+        "rainbow-csv.SetVirtualHeader",
+        "rainbow-csv.SetJoinTableName",
+        "rainbow-csv.ColumnEditBefore",
+        "rainbow-csv.ColumnEditAfter",
+        "rainbow-csv.ColumnEditSelect",
+        "rainbow-csv.RainbowSeparator",
+        "rainbow-csv.RainbowSeparatorOff",
+        "rainbow-csv.RainbowSeparatorOn",
+        "rainbow-csv.SampleHead",
+        "rainbow-csv.SampleTail",
+        "rainbow-csv.Align",
+        "rainbow-csv.VirtualAlign",
+        "rainbow-csv.Shrink",
+        "rainbow-csv.VirtualShrink",
+        "rainbow-csv.CopyBack",
+        "rainbow-csv.ToggleRowBackground",
+        "rainbow-csv.ToggleColumnTracking",
+        "rainbow-csv.ExcelCopy",
+        "rainbow-csv.MarkdownCopy",
+        "rainbow-csv.InternalTest",
+        "rainbow-csv.GoToColumn",
+        "blackbox.openCybercoder",
+        "dockerExplorerContainers.toggleVisibility",
+        "dockerExplorerContainers.removeView",
+        "blackbox.genCode",
+        "blackbox.triggerOnCtrlI",
+        "blackbox.acceptCode",
+        "blackbox.rejectCode",
+        "blackbox.hideDiff",
+        "blackbox.editPrompt",
+        "blackbox.editorChat",
+        "extension.blackbox-connect",
+        "extension.explainCodeStatusBar",
+        "blackbox.codelens.code",
+        "blackbox.comment.add.suggestion",
+        "blackbox.askGPT",
+        "blackbox.explainPls",
+        "blackbox.refactor",
+        "blackbox.addTests",
+        "blackbox.openChat",
+        "blackbox.cleanDiff",
+        "extension.enableBlackBoxAutoComplete",
+        "extension.disableBlackBoxAutoComplete",
+        "extension.clearBlackboxAutocomplete",
+        "blackbox.historySearch",
+        "blackbox.showCode",
+        "blackbox.showChat",
+        "blackbox.showDiff",
+        "blackbox.readMe",
+        "blackbox.commitMsg",
+        "blackbox.generateRepo",
+        "blackbox.bugReport",
+        "blackbox.commentFile",
+        "extension.explainCode",
+        "aiCustomization.openManagementEditor",
+        "aiCustomization.openMarketplace",
+        "aiCustomization.generateDebugReport",
+        "extensions.actions.searchByCategory.AI",
+        "git-graph.endAllWorkspaceCodeReviews",
+        "git-graph.endSpecificWorkspaceCodeReview",
+        "git-graph.resumeWorkspaceCodeReview",
+        "workbench.action.output.show.main",
+        "~remote.forwardedPortsContainer.resetViewContainerLocation",
+        "~remote.forwardedPortsContainer",
+        "workbench.view.sync.resetViewContainerLocation",
+        "workbench.view.editSessions.resetViewContainerLocation",
+        "sixth.telegramPairingCode",
+        "sixth.explainCode",
+        "python.copilotSetupTests",
+        "workbench.action.output.show.mechatroner.rainbow-csv.rainbow_csv_debug_channel.log",
+        "workbench.action.output.show.extension-output-Sixth.sixth-ai-#1-Sixth",
+        "git.continueInLocalClone",
+        "ai-mlstudio.view.evaluation.toggleVisibility",
+        "ai-mlstudio.view.evaluation.removeView",
+        "remote-containers.revealLogTerminal",
+        "remote-containers.revealPostCreateTerminal",
+        "remote-containers.openFolder",
+        "remote-containers.openWorkspace",
+        "remote-containers.openRepositoryInVolume",
+        "remote-containers.openRepositoryInUniqueVolume",
+        "remote-containers.openRepositoryFromGitWithEditSession",
+        "remote-containers.openRepositoryFromRemoteHubWithEditSession",
+        "remote-containers.openPullRequestInVolume",
+        "remote-containers.inspectVolume",
+        "remote-containers.inspectVolumeFromViewlet",
+        "remote-containers.cloneRepositoryInVolumeFromViewlet",
+        "remote-containers.reopenInContainer",
+        "remote-containers.rebuildAndReopenInContainer",
+        "remote-containers.rebuildNoCacheAndReopenInContainer",
+        "remote-containers.reopenLocally",
+        "remote-containers.reopenInWSL",
+        "remote-containers.reopenInSSH",
+        "remote-containers.reopenInTunnel",
+        "remote-containers.attachToRunningContainer",
+        "remote-containers.attachToRunningContainerFromViewlet",
+        "remote-containers.attachToK8sContainer",
+        "remote-containers.attachToK8sContainerFromViewlet",
+        "remote-containers.attachToAppleContainer",
+        "remote-containers.checkoutPRInVolume",
+        "remote-containers.switchContainer",
+        "remote-containers.rebuildContainer",
+        "remote-containers.rebuildContainerNoCache",
+        "remote-containers.createDevContainerFile",
+        "remote-containers.createDevContainerFileWithCopilot",
+        "remote-containers.createDevContainer",
+        "remote-containers.openDevContainerFile",
+        "remote-containers.openAttachConfigByNameFile",
+        "remote-containers.openAttachDevContainerFile",
+        "remote-containers.settings",
+        "remote-containers.getHelp",
+        "remote-containers.getStarted",
+        "remote-containers.reportIssue",
+        "remote-containers.provideFeedback",
+        "remote-containers.trySample",
+        "remote-containers.openLogFile",
+        "remote-containers.openLastLogFile",
+        "remote-containers.showReopenInContainerNotificationReset",
+        "remote-containers.showRecoveryContainerNotificationReset",
+        "remote-containers.installDocker",
+        "remote-containers.installDockerInWSL",
+        "remote-containers.cleanUpDevContainers",
+        "remote-containers.explorerTargetsRefresh",
+        "remote-containers.newContainer",
+        "remote-containers.pruneVolumes",
+        "remote-containers.installUserCLI",
+        "remote-containers.testConnection",
+        "remote-containers.addExtensionToConfig",
+        "remote-containers.configureContainerFeatures",
+        "remote-containers.labelPortAndUpdateConfig",
+        "remote-containers.editDevContainerJSON",
+        "chat.installRecommendation.openai.chatgpt.codex",
+        "chat.installRecommendation.github.copilot-chat.cli",
+        "chat.installRecommendation.github.copilot-chat.cloud",
+        "github.copilot.chat.attachFile",
+        "github.copilot.chat.attachSelection",
+        "github.copilot.debug.extensionState",
+        "github.copilot.chat.triggerPermissiveSignIn",
+        "github.copilot.debug.collectDiagnostics",
+        "github.copilot.debug.collectDiagnostics.internal",
+        "github.copilot.debug.showOutputChannel.internal",
+        "github.copilot.debug.togglePowerSaveBlocker",
+        "github.copilot.refreshToken",
+        "github.copilot.debug.showChatLogView",
+        "github.copilot.chat.startCopilotDebugCommand",
+        "github.copilot.debug.generateSTest",
+        "github.copilot.createLaunchJsonFileWithContents",
+        "github.copilot.startDebugging",
+        "github.copilot.open.walkthrough",
+        "github.copilot.mcp.viewContext7",
+        "github.copilot.survey.signalUsage",
+        "github.copilot.report",
+        "github.copilot.debug.showContextInspectorView",
+        "github.copilot.nes.prepareRename",
+        "github.copilot.nes.postRename",
+        "github.copilot.debug.validateNesRename",
+        "github.copilot.search.markHelpful",
+        "github.copilot.search.markUnhelpful",
+        "github.copilot.search.feedback",
+        "github.copilot.chat.notebook.enableFollowCellExecution",
+        "github.copilot.chat.notebook.disableFollowCellExecution",
+        "github.copilot.buildRemoteWorkspaceIndex",
+        "github.copilot.enableExternalIngest",
+        "github.copilot.deleteExternalIngestWorkspaceIndex",
+        "github.copilot.debug.collectWorkspaceIndexDiagnostics",
+        "github.copilot.chat.checkoutPullRequestReroute",
+        "github.copilot.chat.openPullRequestReroute",
+        "github.copilot.chat.cloudSessions.openRepository",
+        "github.copilot.chat.cloudSessions.clearCaches",
+        "github.copilot.cloud.resetWorkspaceConfirmations",
+        "github.copilot.cloud.sessions.openInBrowser",
+        "github.copilot.cloud.sessions.proxy.closeChatSessionPullRequest",
+        "github.copilot.cloud.sessions.installPRExtension",
+        "github.copilot.chat.copilotCLI.addFileReference",
+        "github.copilot.chat.copilotCLI.addSelection",
+        "github.copilot.chat.copilotCLI.acceptDiff",
+        "github.copilot.chat.copilotCLI.rejectDiff",
+        "github.copilot.cli.sessions.delete",
+        "agents.github.copilot.cli.deleteSessions",
+        "github.copilot.cli.sessions.resumeInTerminal",
+        "github.copilot.cli.sessions.rename",
+        "github.copilot.cli.sessions.setTitle",
+        "github.copilot.cli.newSession",
+        "github.copilot.cli.newSessionToSide",
+        "github.copilot.cli.openInCopilotCLI",
+        "github.copilot.cli.sessions.openWorktreeInNewWindow",
+        "github.copilot.cli.sessions.openWorktreeInTerminal",
+        "github.copilot.cli.sessions.copyWorktreeBranchName",
+        "github.copilot.cli.sessions.openRepository",
+        "github.copilot.chat.applyCopilotCLIAgentSessionChanges",
+        "github.copilot.chat.applyCopilotCLIAgentSessionChanges.apply",
+        "github.copilot.chat.mergeCopilotCLIAgentSessionChanges.merge",
+        "github.copilot.chat.mergeCopilotCLIAgentSessionChanges.mergeAndSync",
+        "github.copilot.sessions.refreshChanges",
+        "github.copilot.sessions.initializeRepository",
+        "github.copilot.sessions.commit",
+        "github.copilot.sessions.commitAndSync",
+        "github.copilot.sessions.sync",
+        "github.copilot.sessions.discardChanges",
+        "github.copilot.chat.createPullRequestCopilotCLIAgentSession.createPR",
+        "github.copilot.chat.createDraftPullRequestCopilotCLIAgentSession.createDraftPR",
+        "github.copilot.cli.sessions.commitToWorktree",
+        "github.copilot.cli.sessions.commitToRepository",
+        "copilot.claude.agents",
+        "copilot.claude.hooks",
+        "copilot.claude.memory",
+        "github.copilot.claude.sessions.rename",
+        "github.copilot.claude.sessions.commit",
+        "github.copilot.claude.sessions.commitAndSync",
+        "github.copilot.claude.sessions.sync",
+        "github.copilot.claude.sessions.initializeRepository",
+        "github.copilot.chat.otel.openSettings",
+        "github.copilot.chat.otel.flush",
+        "github.copilot.chat.otel.exportAgentTracesDB",
+        "github.copilot.sessionSync.deleteSessions",
+        "github.copilot.sessionSync.deleteSessionFromCloud",
+        "github.copilot.sessionSync.suggest",
+        "github.copilot.sessionSync.reindex",
+        "github.copilot.chronicle.reindex",
+        "workbench.action.output.show.GitHub.copilot-chat.GitHub Copilot Chat.log",
+        "claude-vscode.acceptProposedDiff",
+        "claude-vscode.rejectProposedDiff",
+        "claude-vscode.insertAtMention",
+        "claude-vscode.blur",
+        "claude-vscode.focus",
+        "claude-code.acceptProposedDiff",
+        "claude-code.rejectProposedDiff",
+        "claude-code.insertAtMentioned",
+        "claude-vscode.terminal.open",
+        "claude-vscode.terminal.open.keyboard",
+        "claudeVSCodeSessionsList.toggleVisibility",
+        "claudeVSCodeSessionsList.removeView",
+        "claude-vscode.editor.open",
+        "claude-vscode.primaryEditor.open",
+        "claude-vscode.editor.openLast",
+        "claude-vscode.newConversation",
+        "claude-vscode.reopenClosedSession",
+        "claude-vscode.toggleDictation",
+        "claude-vscode.sidebar.open",
+        "claude-vscode.window.open",
+        "claude-vscode.logout",
+        "claude-vscode.showLogs",
+        "claude-vscode.openWalkthrough",
+        "blackbox.openFromEditorToolbar",
+        "blackbox.triggerUpgradeFlow",
+        "blackbox.enableChatModeClicked",
+        "blackbox.toggleMcpMode",
+        "blackbox.toggleInlineCompletion",
+        "blackbox.groupChatButtonClicked",
+        "blackbox.showVoiceAssistant",
+        "blackbox.plusButtonClicked",
+        "blackbox.addCredits",
+        "blackbox.moreOptions",
+        "blackbox.openBranchWorktree",
+        "blackbox.multiTaskButtonClicked",
+        "blackbox.contactSupport",
+        "blackbox.inputBoxButtonClicked",
+        "blackbox.openBillingPortal",
+        "blackbox.displayCredits",
+        "blackbox.subtractCredits",
+        "blackbox.logoutUser",
+        "blackbox.setCoupon",
+        "blackbox.checkLLMCapability",
+        "blackbox.handleLLMRequest",
+        "blackbox.abortLLMRequest",
+        "blackbox.openRemoteSSH",
+        "blackbox.addBlackboxRules",
+        "blackbox.mcpButtonClicked",
+        "blackbox.docsButtonClicked",
+        "blackbox.openInNewTab",
+        "blackbox.apiKeyButtonClicked",
+        "blackbox.openCLI",
+        "blackbox.openRemoteAgent",
+        "blackbox.settingsButtonClicked",
+        "blackbox.openDocs",
+        "blackbox.openVoiceModeDocs",
+        "blackbox.historyButtonClicked",
+        "blackbox.copyFileContent",
+        "blackbox.showInputBox",
+        "workbench.action.output.show.extension-output-Blackboxapp.blackboxagent-#1-blackbox",
+        "workbench.action.output.show.extension-output-bradlc.vscode-tailwindcss-#1-Tailwind CSS IntelliSense",
+        "tailwindCSS.showOutput",
+        "gitlens.views.pausedOperation.continue",
+        "gitlens.ai.explainUnpushed:views",
+        "gitlens.ai.generateChangelog:views",
+        "gitlens.ai.generateChangelogFrom:views",
+        "gitlens.showPatchDetailsPage",
+        "gitlens.agents.installClaudeHook",
+        "gitlens.agents.uninstallClaudeHook",
+        "gitlens.ai.mcp.install",
+        "gitlens.ai.mcp.reinstall",
+        "gitlens.ai.mcp.selectAgents",
+        "gitlens.ai.mcp.authCLI",
+        "gitlens.plus.aiAllAccess.optIn",
+        "gitlens.plus.continueFeaturePreview",
+        "gitlens.ai.explainCommit",
+        "gitlens.ai.explainCommit:editor",
+        "gitlens.ai.explainCommit:views",
+        "gitlens.ai.explainWip",
+        "gitlens.ai.explainWip:editor",
+        "gitlens.ai.explainWip:views",
+        "gitlens.showInDetailsView",
+        "gitlens.showQuickCommitFileDetails",
+        "gitlens.showQuickRevisionDetails",
+        "gitlens.showQuickRevisionDetails:editor",
+        "gitlens.showQuickRevisionDetails:editor/title",
+        "gitlens.showQuickCommitDetails",
+        "gitlens.ai.generateChangelog",
+        "gitlens.ai.enable",
+        "gitlens.ai.switchProvider",
+        "gitlens.ai.switchProvider:scm",
+        "gitlens.switchAIModel",
+        "gitlens.ai.feedback.helpful",
+        "gitlens.ai.feedback.helpful.chosen",
+        "gitlens.ai.feedback.unhelpful",
+        "gitlens.ai.feedback.unhelpful.chosen",
+        "gitlens.ai.explainBranch",
+        "gitlens.ai.explainBranch:views",
+        "gitlens.ai.explainStash",
+        "gitlens.ai.explainStash:views",
+        "gitlens.ai.generateCommitMessage",
+        "gitlens.ai.generateCommitMessage:scm",
+        "gitlens.scm.ai.generateCommitMessage",
+        "gitlens.rebase.continue:editor/title",
+        "gitlens.showCommitDetailsView",
+        "gitlens.walkthrough.switchAIProvider",
+        "gitlens.walkthrough.enableAiSetting",
+        "gitlens.walkthrough.openAiCustomInstructionsSettings",
+        "gitlens.walkthrough.openAiSettings",
+        "gitlens.walkthrough.openLearnAboutAiFeatures",
+        "dotnet.availableInstalls",
+        "ollama.openChat",
+        "ollama.refreshModels",
+        "ollama.toggleAutocomplete",
+        "ollama.enableAutocomplete",
+        "ollama.disableAutocomplete",
+        "ollama.showMenu",
+        "chatgpt.implementTodo",
+        "chatgpt.openSidebar",
+        "chatgpt.openCommandMenu",
+        "chatgpt.newCodexPanel",
+        "chatgpt.addToThread",
+        "chatgpt.addFileToThread",
+        "chatgpt.showLspMcpCliArgs",
+        "chatgpt.newChat",
+        "chatgpt.dumpNuxState",
+        "chatgpt.resetNuxState",
+        "tailwindCSS.sortSelection",
+        "pylance.implementAllAbstractClassesWithCopilot",
+        "workbench.action.output.show.openai.chatgpt.Codex.log",
+        "workbench.action.output.show.ms-windows-ai-studio.windows-ai-studio.Foundry Toolkit Tracing.log",
+        "workbench.action.output.show.ms-windows-ai-studio.windows-ai-studio.Foundry Toolkit.log",
+        "workbench.action.output.show.Anthropic.claude-code.Claude VSCode.log",
+        "pr.markAllCopilotNotificationsAsRead",
+        "pr.applySuggestionWithCopilot",
+        "issue.continueWorking",
+        "ai-mlstudio.switchTreeViewMode",
+        "ai-mlstudio.setTreeViewMode",
+        "ai-mlstudio.switchToFunctionalMode",
+        "ai-mlstudio.switchToLifecycleMode",
+        "ai-mlstudio.switchToFunctionalMode.active",
+        "ai-mlstudio.switchToLifecycleMode.active",
+        "ai-mlstudio.openDataViewer",
+        "ai-mlstudio.command.submitEvaluation",
+        "ai-mlstudio.evaluation.generateTestCases",
+        "ai-mlstudio.evaluation.openDataset",
+        "ai-mlstudio.treeView.evaluation.openInDataViewer",
+        "ai-mlstudio.evaluation.downloadRemoteResult",
+        "ai-mlstudio.evaluation.refreshRemoteResults",
+        "ai-mlstudio.evaluation.refreshAgentEvals",
+        "ai-mlstudio.evaluation.analyzeResults",
+        "ai-mlstudio.evaluation.updateCustomEvaluator",
+        "ai-mlstudio.evaluation.addCustomEvaluator",
+        "ai-mlstudio.setGHAccessToken",
+        "ai-mlstudio.setHFAccessToken",
+        "ai-mlstudio.copyGHAccessToken",
+        "ai-mlstudio.resetAllTokens",
+        "ai-mlstudio.treeView.models.addRemoteInferenceEndpoint",
+        "ai-mlstudio.treeView.models.foundry.selectProject",
+        "ai-mlstudio.treeView.models.remoteInferenceInPlaygroundDocs",
+        "ai-mlstudio.commandPalette.addRemoteInferenceEndpoint",
+        "ai-mlstudio.addRemoteInferenceEndpoint",
+        "ai-mlstudio.openFinetuningOverview",
+        "ai-mlstudio.setupAIModel",
+        "ai-mlstudio.openEvaluationOverview",
+        "ai-mlstudio.openToolsOverview",
+        "ai-mlstudio.setupDatasetFlow",
+        "ai-mlstudio.models",
+        "ai-mlstudio.toolCatalog",
+        "ai-mlstudio.tutorials",
+        "ai-mlstudio.openTutorial",
+        "ai-mlstudio.tracingViewer",
+        "ai-mlstudio.openTestTool",
+        "ai-mlstudio.modelPlayground",
+        "ai-mlstudio.modelComparison",
+        "ai-mlstudio.promptBuilder",
+        "ai-mlstudio.agentBuilder",
+        "ai-mlstudio.createNewAgent",
+        "ai-mlstudio.treeView.agents.designWithBuilder",
+        "ai-mlstudio.recentAgents.createInCode",
+        "ai-mlstudio.recentAgents.designWithBuilder",
+        "ai-mlstudio.recentAgents.delete",
+        "ai-mlstudio.deployHostedAgent",
+        "ai-mlstudio.openHostedAgentPlayground",
+        "ai-mlstudio.viewPrompts",
+        "ai-mlstudio.openConversationHistory",
+        "ai-mlstudio.promptConsole",
+        "ai-mlstudio.getProjectSettings",
+        "ai-mlstudio.generateProject",
+        "ai-mlstudio.refreshVSCodeWindow",
+        "ai-mlstudio.generateProjectAndRefreshVSCodeWindow",
+        "ai-mlstudio.openModelCardMarkdown",
+        "ai-mlstudio.openModelLicense",
+        "ai-mlstudio.showWhatsNew",
+        "ai-mlstudio.prepareEnvironment",
+        "ai-mlstudio.downloadInferenceModel",
+        "ai-mlstudio.deleteInferenceModel",
+        "ai-mlstudio.unloadInferenceModel",
+        "ai-mlstudio.shutdownInferenceAgent",
+        "ai-mlstudio.modelLab.openWorkflow",
+        "ai-mlstudio.modelLab.openProfiling",
+        "ai-mlstudio.modelLab.createWorkspace",
+        "ai-mlstudio.modelLab.firstEnterNewProj",
+        "ai-mlstudio.modelLab.openFinetuningOverview",
+        "ai-mlstudio.modelLab.createFinetuningWorkspace",
+        "ai-mlstudio.modelLab.finetuningFirstEnterNewProj",
+        "ai-mlstudio.modelLab.openFinetuningMetricsPage",
+        "ai-mlstudio.modelLab.generationCompleted",
+        "ai-mlstudio.showJobOutputChannel",
+        "ai-mlstudio.streamingLog",
+        "ai-mlstudio.provision",
+        "ai-mlstudio.run",
+        "ai-mlstudio.provisionInference",
+        "ai-mlstudio.deployInference",
+        "ai-mlstudio.editSecret",
+        "ai-mlstudio.showOutputChannel",
+        "ai-mlstudio.internal.GHModelsDoc",
+        "ai-mlstudio.triggerFoundryModelDeployment",
+        "ai-mlstudio.openDataset",
+        "ai-mlstudio.test.happyPath",
+        "ai-mlstudio.walkthrough.tryRemoteModel",
+        "ai-mlstudio.walkthrough.openGetStartedPage",
+        "ai-mlstudio.walkthrough.showAllCommands",
+        "ai-mlstudio.walkthrough.signInFoundry",
+        "ai-mlstudio.walkthrough.installCopilotChat",
+        "ai-mlstudio.reportIssue",
+        "ai-mlstudio.documentation",
+        "ai-mlstudio.joinCommunity",
+        "ai-mlstudio.askCopilot",
+        "ai-mlstudio.encryptCustomModelValue",
+        "ai-mlstudio.mcp.addServer",
+        "ai-mlstudio.mcp.addStdioServer",
+        "ai-mlstudio.mcp.addHttpServer",
+        "ai-mlstudio.mcp.createNewServer",
+        "ai-mlstudio.toolbox.scaffold",
+        "ai-mlstudio.toolbox.viewCodeSnippet",
+        "ai-mlstudio.mcp.startServer",
+        "ai-mlstudio.mcp.stopServer",
+        "ai-mlstudio.mcp.cancelServer",
+        "ai-mlstudio.mcp.refreshServer",
+        "ai-mlstudio.mcp.removeServer",
+        "ai-mlstudio.mcp.configureFoundryServer",
+        "ai-mlstudio.mcp.removeFoundryServer",
+        "ai-mlstudio.mcp.removeAzureAISearchConnection",
+        "ai-mlstudio.mcp.removeBingConnection",
+        "ai-mlstudio.mcp.editFoundryServer",
+        "ai-mlstudio.mcp.editConfiguration",
+        "ai-mlstudio.mcp.openDocumentation",
+        "ai-mlstudio.mcp.connectToAgent",
+        "ai-mlstudio.createMcpToolConnection",
+        "ai-mlstudio.tracing.startCollector",
+        "ai-mlstudio.tracing.stopCollector",
+        "ai-mlstudio.tracing.showStatus",
+        "ai-mlstudio.tracing.open",
+        "ai-mlstudio.tracing.openFoundryTrace",
+        "ai-mlstudio.installCudaWslLinux",
+        "ai-mlstudio.installCondaWslLinux",
+        "ai-mlstudio.treeView.models.click",
+        "ai-mlstudio.treeView.models.refresh",
+        "ai-mlstudio.treeView.models.loadInPlayground",
+        "ai-mlstudio.treeView.models.copyModelName",
+        "ai-mlstudio.treeView.models.createFineTuneProject",
+        "ai-mlstudio.treeView.models.loadInAgentBuilder",
+        "ai-mlstudio.treeView.models.edit",
+        "ai-mlstudio.treeView.models.delete",
+        "ai-mlstudio.treeView.models.cancelDownloading",
+        "ai-mlstudio.treeView.models.about",
+        "ai-mlstudio.treeView.models.startServer",
+        "ai-mlstudio.treeView.models.stopServer",
+        "ai-mlstudio.treeView.models.copyEndpoint",
+        "ai-mlstudio.treeView.agents.renameAgent",
+        "ai-mlstudio.treeView.agents.deleteAgent",
+        "ai-mlstudio.treeView.agents.renameAgentVersion",
+        "ai-mlstudio.treeView.agents.deleteAgentVersion",
+        "ai-mlstudio.treeView.agents.refreshLocalAgents",
+        "ai-mlstudio.treeView.agents.refreshFoundryAgents",
+        "ai-mlstudio.agent-ghcp.create-agent",
+        "ai-mlstudio.agent-ghcp.enable-tracing",
+        "ai-mlstudio.agent-ghcp.add-eval",
+        "ai-mlstudio.agent-ghcp.new-workflow",
+        "ai-mlstudio.agent-ghcp.orchestrate-foundry-agents",
+        "ai-mlstudio.agent-ghcp.toolbox-integration",
+        "ai-mlstudio.installFoundrySkill",
+        "ai-mlstudio.commandPalette.setDefault",
+        "ai-mlstudio.commandPalette.clearDefault",
+        "ai-mlstudio.commandPalette.llmDeploy",
+        "ai-mlstudio.viewContext.llmDeploy",
+        "ai-mlstudio.viewContext.model.copyEndpoint",
+        "ai-mlstudio.viewContext.agent.copyEndpoint",
+        "ai-mlstudio.commandPalette.project.copyEndpoint",
+        "ai-mlstudio.viewContext.agent.copyConnectionString",
+        "ai-mlstudio.viewContext.agent.copyId",
+        "ai-mlstudio.viewContext.model.copyApiKey",
+        "ai-mlstudio.viewContext.project.copyApiKey",
+        "ai-mlstudio.commandPalette.project.copyApiKey",
+        "ai-mlstudio.viewContext.model.delete",
+        "ai-mlstudio.viewContext.model.openInPlayground",
+        "ai-mlstudio.commandPalette.model.copyApiKey",
+        "ai-mlstudio.commandPalette.model.copyEndpoint",
+        "ai-mlstudio.commandPalette.model.delete",
+        "ai-mlstudio.commandPalette.model.edit",
+        "ai-mlstudio.openAIFoundry",
+        "ai-mlstudio.openExternalLink",
+        "ai-mlstudio.viewContext.viewModel",
+        "ai-mlstudio.commandPalette.openModelCodeFile",
+        "ai-mlstudio.commandPalette.openAgentCodeFile",
+        "ai-mlstudio.viewContext.openModelCodeFile",
+        "ai-mlstudio.viewContext.openAgentCodeFile",
+        "ai-mlstudio.viewContext.openPromptAgentCodeFile",
+        "ai-mlstudio.viewContext.openYamlBasedWorkflowCodeFile",
+        "ai-mlstudio.viewContext.openHostedAgentCodeFile",
+        "ai-mlstudio.openFoundryProject",
+        "ai-mlstudio.commandPalette.openCatalog",
+        "ai-mlstudio.commandPalette.runAgent",
+        "ai-mlstudio.viewContext.runRemotePlayground",
+        "ai-mlstudio.explorerContext.openAgentDesigner",
+        "ai-mlstudio.editorTitle.openAgentDesigner",
+        "ai-mlstudio.viewContext.createAgent",
+        "ai-mlstudio.viewContext.createPromptAgent",
+        "ai-mlstudio.viewContext.createMultiAgentWorkflow",
+        "ai-mlstudio.viewContext.createVectorStore",
+        "ai-mlstudio.viewContext.openAgentDesigner",
+        "ai-mlstudio.viewContext.openYamlWorkflowPlayground",
+        "ai-mlstudio.viewContext.openPromptAgentPlayground",
+        "ai-mlstudio.viewContext.viewWorkflowContainer",
+        "ai-mlstudio.viewContext.openContainerPlayground",
+        "ai-mlstudio.viewContext.deleteYamlWorkflow",
+        "ai-mlstudio.viewContext.deleteYamlWorkflowVersion",
+        "ai-mlstudio.viewContext.deletePromptAgent",
+        "ai-mlstudio.viewContext.deletePromptAgentVersion",
+        "ai-mlstudio.viewContext.deleteTool",
+        "ai-mlstudio.viewContext.openInFoundryView",
+        "ai-mlstudio.viewContext.deleteProject",
+        "ai-mlstudio.viewContext.viewThreadDetails",
+        "ai-mlstudio.viewContext.loadMoreThreads",
+        "ai-mlstudio.viewContext.agent.delete",
+        "ai-mlstudio.viewContext.refreshNode",
+        "ai-mlstudio.viewContext.refreshResources",
+        "ai-mlstudio.viewContext.switchDefaultProject",
+        "ai-mlstudio.openInVSCodeAzure",
+        "ai-mlstudio.commandPalette.createProject",
+        "ai-mlstudio.commandPalette.deleteThread",
+        "ai-mlstudio.listModels",
+        "ai-mlstudio.openBingConnectionDetails",
+        "ai-mlstudio.viewContext.createBingConnection",
+        "ai-mlstudio.openVectorStoreDetails",
+        "ai-mlstudio.viewContext.searchProjectResources.explorerView",
+        "ai-mlstudio.viewContext.searchProjectResources.aiToolkitView",
+        "ai-mlstudio.viewContext.openMCPServerToolCatalog",
+        "ai-mlstudio.viewContext.openEvaluationList",
+        "ai-mlstudio.viewContext.createEvaluation",
+        "ai-mlstudio.commandPalette.deployWorkflow",
+        "ai-mlstudio.commandPalette.createMultiAgentWorkflow",
+        "ai-mlstudio.editorTitle.deployYamlWorkflow",
+        "ai-mlstudio.editorTitle.deployPromptAgent",
+        "ai-mlstudio.commandPalette.openConversationHistory",
+        "tabnine.chat.commands.explain-code",
+        "continue.acceptDiff",
+        "continue.rejectDiff",
+        "continue.acceptVerticalDiffBlock",
+        "continue.rejectVerticalDiffBlock",
+        "continue.quickFix",
+        "continue.defaultQuickAction",
+        "continue.customQuickActionSendToChat",
+        "continue.customQuickActionStreamInlineEdit",
+        "continue.codebaseForceReIndex",
+        "continue.rebuildCodebaseIndex",
+        "continue.docsIndex",
+        "continue.docsReIndex",
+        "continue.focusContinueInput",
+        "continue.focusContinueInputWithoutClear",
+        "continue.focusEdit",
+        "continue.exitEditMode",
+        "continue.generateRule",
+        "continue.writeCommentsForCode",
+        "continue.writeDocstringForCode",
+        "continue.fixCode",
+        "continue.optimizeCode",
+        "continue.fixGrammar",
+        "continue.clearConsole",
+        "continue.viewLogs",
+        "continue.debugTerminal",
+        "continue.hideInlineTip",
+        "continue.addModel",
+        "continue.newSession",
+        "continue.shareSession",
+        "continue.viewHistory",
+        "continue.focusContinueSessionId",
+        "continue.applyCodeFromChat",
+        "continue.openConfigPage",
+        "continue.selectFilesAsContext",
+        "continue.logAutocompleteOutcome",
+        "continue.logNextEditOutcomeAccept",
+        "continue.logNextEditOutcomeReject",
+        "continue.toggleTabAutocompleteEnabled",
+        "continue.forceAutocomplete",
+        "continue.openTabAutocompleteConfigMenu",
+        "continue.navigateTo",
+        "continue.startLocalOllama",
+        "continue.startLocalLemonade",
+        "continue.installModel",
+        "continue.convertConfigJsonToConfigYaml",
+        "continue.enterEnterpriseLicenseKey",
+        "continue.toggleNextEditEnabled",
+        "continue.openInNewWindow",
+        "continue.forceNextEdit",
+        "SonarLint.ShowIssueDetailsCodeAction",
+        "SonarLint.BrowseTaintVulnerability",
+        "SonarLint.ShowTaintVulnerabilityFlows",
+        "SonarLint.TriggerBrowseTaintCommand",
+        "SonarQube.TriggerAiCodeFixCommand",
+        "SonarQube.TriggerResolveTaintCommand",
+        "SonarLint.ShowHotspotDetails",
+        "SonarLint.RefreshAIAgentsConfiguration",
+        "SonarLint.OpenAIAgentsConfigurationDoc",
+        "SonarLint.InstallAiAgentHookScript",
+        "SonarLint.UninstallAiAgentHookScript",
+        "SonarLint.OpenAiAgentHookScript",
+        "SonarLint.OpenAiAgentHookConfiguration",
+        "gl.webview.securityVulnDetails",
+        "gl.webview.explainSelectedCode",
+        "gl.webview.explainSelectedTerminalOutput",
+        "gl.webview.securityVulnDetails.show",
+        "gl.cancelFailedComment",
+        "gl.retryFailedComment",
+        "gl.waitForPendingJob",
+        "gl.retryFailedPipelineJobs",
+        "gl.explainSelectedCode"
+      ]
+    },
+    "workspaceFolders": [
+      {
+        "name": "sheikha-main-portal",
+        "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
+      }
+    ],
+    "debug": {
+      "activeSession": null,
+      "breakpoints": 1
+    }
+  },
+  "externalRegistries": [
+    {
+      "id": "github",
+      "name": "GitHub",
+      "type": "source",
+      "api": "https://api.github.com"
+    },
+    {
+      "id": "gitlab",
+      "name": "GitLab",
+      "type": "source",
+      "api": "https://gitlab.com/api/v4"
+    },
+    {
+      "id": "npm",
+      "name": "npm Registry",
+      "type": "package",
+      "api": "https://registry.npmjs.org"
+    },
+    {
+      "id": "pypi",
+      "name": "PyPI",
+      "type": "package",
+      "api": "https://pypi.org/pypi"
+    },
+    {
+      "id": "nuget",
+      "name": "NuGet",
+      "type": "package",
+      "api": "https://api.nuget.org/v3/index.json"
+    },
+    {
+      "id": "maven",
+      "name": "Maven Central",
+      "type": "package",
+      "api": "https://search.maven.org/solrsearch/select"
+    },
+    {
+      "id": "crates",
+      "name": "crates.io",
+      "type": "package",
+      "api": "https://crates.io/api/v1"
+    },
+    {
+      "id": "dockerhub",
+      "name": "Docker Hub",
+      "type": "container",
+      "api": "https://hub.docker.com/v2"
+    },
+    {
+      "id": "openvsx",
+      "name": "Open VSX",
+      "type": "extension",
+      "api": "https://open-vsx.org/api"
+    },
+    {
+      "id": "vscode-marketplace",
+      "name": "VS Code Marketplace",
+      "type": "extension",
+      "api": "marketplace.visualstudio.com"
+    },
+    {
+      "id": "google",
+      "name": "Google APIs",
+      "type": "platform",
+      "api": "requires OAuth/API key"
+    },
+    {
+      "id": "apple",
+      "name": "Apple Developer APIs",
+      "type": "platform",
+      "api": "requires Apple credentials"
+    },
+    {
+      "id": "windows",
+      "name": "Windows Registry",
+      "type": "os",
+      "api": "local Windows only"
+    }
+  ]
+}

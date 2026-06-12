@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.71",
+  "version": "1.0.78",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -86,7 +86,9 @@
     "arabic programming"
   ],
   "activationEvents": [
-    "*"
+    "*",
+    "onView:sheikha.inspectorView",
+    "onView:sheikha.chatView"
   ],
   "main": "./extension.js",
   "files": [
@@ -587,7 +589,8 @@
       "sheikha-inspector": [
         {
           "id": "sheikha.inspectorView",
-          "name": "Inspector"
+          "name": "Inspector",
+          "type": "webview"
         }
       ]
     }
