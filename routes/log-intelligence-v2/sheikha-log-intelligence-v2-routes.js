@@ -1,9 +1,14 @@
 'use strict';
 
 const express = require('express');
+const fs = require('fs');
 const cp = require('child_process');
+const path = require('path');
 const router = express.Router();
 const { aggregate } = require('../../runtime/log-intelligence-v2/sheikha-log-intelligence-v2');
+
+const ROOT = process.env.SHEIKHA_ROOT || process.cwd();
+const CONTINUOUS_REPORT = path.join(ROOT, 'runtime/reports/continuous-inspector/latest.json');
 
 function sh(cmd, timeout = 10000) {
   try {
@@ -13,17 +18,29 @@ function sh(cmd, timeout = 10000) {
   }
 }
 
-function httpCode(url) {
-  return sh(`curl -s -o /dev/null -w "%{http_code}" ${url} || true`, 8000);
+function readCachedHealth() {
+  try {
+    const cached = JSON.parse(fs.readFileSync(CONTINUOUS_REPORT, 'utf8'));
+    return {
+      localHealth: cached.runtime?.localHealth || 'UNKNOWN',
+      publicHealth: cached.runtime?.publicHealth || 'UNKNOWN',
+      unifiedChatStatus: cached.runtime?.unifiedChatStatus || 'UNKNOWN',
+      intelligentInspector: cached.runtime?.intelligentInspector || 'UNKNOWN',
+      source: 'continuous-inspector-cache'
+    };
+  } catch (_) {
+    return {
+      localHealth: 'UNKNOWN',
+      publicHealth: 'UNKNOWN',
+      unifiedChatStatus: 'UNKNOWN',
+      intelligentInspector: 'UNKNOWN',
+      source: 'cache-missing'
+    };
+  }
 }
 
 router.get('/api/sheikha/log-intelligence/v2/status', (_req, res) => {
-  const health = {
-    localHealth: httpCode('http://127.0.0.1:8080/api/health'),
-    publicHealth: httpCode('https://sheikha.top/api/health'),
-    unifiedChatStatus: httpCode('https://sheikha.top/api/sheikha/unified-chat/status'),
-    intelligentInspector: httpCode('https://sheikha.top/api/sheikha/intelligent-inspector/v1/status')
-  };
+  const health = readCachedHealth();
 
   const logs = [
     sh('journalctl -u haproxy -n 120 --no-pager || true'),
