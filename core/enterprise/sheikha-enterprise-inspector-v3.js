@@ -5,6 +5,7 @@ const { collectControlTowerStatus } = require('./sheikha-enterprise-control-towe
 const { getEnterpriseState } = require('./sheikha-enterprise-orchestrator-v1');
 const { status: getExecutivePlatformStatus } = require('../executive-platform/sheikha-executive-platform-v2');
 const { status: getLifeFabricStatus } = require('../life-fabric/sheikha-technical-life-operating-ecosystem-v1');
+const { status: getLifeIntegrationStatus } = require('../life-fabric/integration/sheikha-life-fabric-integration-v2');
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -211,6 +212,7 @@ function collectEnterpriseInspector(input = {}) {
       ]
     },
     lifeFabric: getLifeFabricStatus(),
+    lifeIntegration: getLifeIntegrationStatus(),
     orchestration: {
       engine: orchestrator.orchestrator,
       status: orchestrator.status,
