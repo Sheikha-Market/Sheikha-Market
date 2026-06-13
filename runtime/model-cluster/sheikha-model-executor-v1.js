@@ -21,14 +21,24 @@ function audit(entry) {
 }
 
 function sh(cmd, input = '') {
-  return cp.execSync(cmd, {
-    cwd: ROOT,
-    input,
-    encoding: 'utf8',
-    stdio: ['pipe', 'pipe', 'pipe'],
-    timeout: 60000,
-    maxBuffer: 1024 * 1024 * 3
-  }).trim();
+  try {
+    return cp.execSync(cmd, {
+      cwd: ROOT,
+      input,
+      encoding: 'utf8',
+      stdio: ['pipe', 'pipe', 'pipe'],
+      timeout: Number(process.env.SHEIKHA_MODEL_TIMEOUT_MS || 300000),
+      maxBuffer: 1024 * 1024 * 10
+    }).trim();
+  } catch (error) {
+    audit({
+      action: 'model_timeout_or_error',
+      cmd,
+      error: error.message
+    });
+
+    return '';
+  }
 }
 
 function listModels() {
@@ -108,6 +118,19 @@ function execute(message, options = {}) {
   const contextBlock = context ? `\n\nسياق Enterprise Inspector:\n${context}` : '';
   const prompt = `${system}${contextBlock}\n\nالطلب:\n${message}`;
   const output = sh(`ollama run ${JSON.stringify(model)}`, prompt);
+
+  if (!output) {
+    return {
+      success: true,
+      cluster: 'SHEIKHA_MODEL_CLUSTER_V1',
+      scheduler: 'SHEIKHA_PIPELINE_SCHEDULER_V1',
+      executor: 'SHEIKHA_MODEL_EXECUTOR_V1',
+      task,
+      model,
+      fallback: true,
+      answer: 'الشات يعمل عبر المسار الاحتياطي الآمن. النموذج المحلي تأخر أو لم يرجع رداً ضمن المهلة، ولم يتم كسر مسار الشات.'
+    };
+  }
 
   audit({ action: 'model_execute', task, model, messageBytes: Buffer.byteLength(message), outputBytes: Buffer.byteLength(output) });
 
