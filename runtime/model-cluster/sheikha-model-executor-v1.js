@@ -117,11 +117,32 @@ function execute(message, options = {}) {
   const context = String(options.context || '').slice(0, 8000);
   const contextBlock = context ? `\n\nسياق Enterprise Inspector:\n${context}` : '';
   const prompt = `${system}${contextBlock}\n\nالطلب:\n${message}`;
-  const output = sh(`curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: application/json' --data-binary @-`, JSON.stringify({
+const raw = sh(`curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: application/json' --data-binary @-`, JSON.stringify({
     model,
     prompt,
     stream: false
   }));
+
+  let output = raw;
+  try {
+    output = JSON.parse(raw).response || raw;
+  } catch (_) {
+    output = raw;
+  }
+    model,
+    prompt,
+    stream: false
+  }));
+<<<<<<< HEAD
+=======
+
+  let output = raw;
+  try {
+    output = JSON.parse(raw).response || raw;
+  } catch (_) {
+    output = raw;
+  }
+>>>>>>> 024360b1 (Use Ollama generate API for Sheikha model executor)
 
   if (!output) {
     return {
@@ -145,7 +166,7 @@ function execute(message, options = {}) {
     executor: 'SHEIKHA_MODEL_EXECUTOR_V1',
     task,
     model,
-    answer: (() => { try { return JSON.parse(output).response || output; } catch (_) { return output; } })()
+    answer: output
   };
 }
 
