@@ -4,6 +4,7 @@ const path = require('path');
 const { collectControlTowerStatus } = require('./sheikha-enterprise-control-tower-v1');
 const { getEnterpriseState } = require('./sheikha-enterprise-orchestrator-v1');
 const { status: getExecutivePlatformStatus } = require('../executive-platform/sheikha-executive-platform-v2');
+const { status: getLifeFabricStatus } = require('../life-fabric/sheikha-technical-life-operating-ecosystem-v1');
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -209,6 +210,7 @@ function collectEnterpriseInspector(input = {}) {
         'Audit Evidence'
       ]
     },
+    lifeFabric: getLifeFabricStatus(),
     orchestration: {
       engine: orchestrator.orchestrator,
       status: orchestrator.status,
