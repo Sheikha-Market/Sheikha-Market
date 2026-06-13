@@ -125,6 +125,7 @@ app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
 app.use(require('./routes/sheikha-executive-platform-v2-routes'));
 app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
+app.use(require('./routes/sheikha-technical-life-fabric-routes'));
 app.use(require('./routes/sheikha-extension-chat-compat-routes'));
 app.use(require('./routes/sheikha-foundry-routes'));
 app.use(require('./routes/sheikha-foundry-v2-routes'));
@@ -21452,7 +21453,8 @@ function sheikhaExtensionsLiveHandler(_req, res) {
 }
 
 app.get('/api/sheikha/extension/status', sheikhaStatusHandler);
-app.post('/api/sheikha/chat', express.json(), sheikhaChatHandler);
+// Disabled: legacy chat is governed by routes/sheikha-unified-chat-fabric.js
+// app.post('/api/sheikha/chat', express.json(), sheikhaChatHandler);
 app.post('/api/sheikha/completions', express.json(), sheikhaCompletionsHandler);
 app.post('/api/sheikha/agent', express.json(), sheikhaAgentHandler);
 app.post('/api/sheikha/inline-chat', express.json(), sheikhaInlineChatHandler);
