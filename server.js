@@ -125,6 +125,7 @@ app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
 app.use(require('./routes/sheikha-executive-platform-v2-routes'));
 app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
+app.use(require('./routes/chat-therapy/sheikha-chat-therapy-routes'));
 app.use(require('./routes/inspector-intelligence/sheikha-intelligent-inspector-routes'));
 app.use(require('./routes/log-intelligence-v2/sheikha-log-intelligence-v2-routes'));
 app.use(require('./routes/backend-registry-intelligence/sheikha-backend-registry-intelligence-routes'));
