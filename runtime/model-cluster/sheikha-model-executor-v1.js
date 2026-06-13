@@ -117,7 +117,11 @@ function execute(message, options = {}) {
   const context = String(options.context || '').slice(0, 8000);
   const contextBlock = context ? `\n\nسياق Enterprise Inspector:\n${context}` : '';
   const prompt = `${system}${contextBlock}\n\nالطلب:\n${message}`;
-  const output = sh(`ollama run ${JSON.stringify(model)}`, prompt);
+  const output = sh(`curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: application/json' --data-binary @-`, JSON.stringify({
+    model,
+    prompt,
+    stream: false
+  }));
 
   if (!output) {
     return {
@@ -141,7 +145,7 @@ function execute(message, options = {}) {
     executor: 'SHEIKHA_MODEL_EXECUTOR_V1',
     task,
     model,
-    answer: output
+    answer: (() => { try { return JSON.parse(output).response || output; } catch (_) { return output; } })()
   };
 }
 
