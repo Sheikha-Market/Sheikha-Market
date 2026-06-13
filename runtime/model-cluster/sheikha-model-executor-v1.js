@@ -36,14 +36,13 @@ function sh(cmd, input = '') {
       cmd,
       error: error.message
     });
-
     return '';
   }
 }
 
 function listModels() {
   const out = sh('ollama list || true');
-  return out.split('\n').slice(1).map(l => l.trim().split(/\s+/)[0]).filter(Boolean);
+  return out.split('\n').slice(1).map((l) => l.trim().split(/\s+/)[0]).filter(Boolean);
 }
 
 function chooseModel(task) {
@@ -56,7 +55,7 @@ function chooseModel(task) {
     general: ['Sheikha-Core:latest', 'qwen3:8b', 'llama3.1:8b']
   }[task] || ['Sheikha-Core:latest'];
 
-  return preferred.find(m => models.includes(m)) || models[0] || null;
+  return preferred.find((m) => models.includes(m)) || models[0] || null;
 }
 
 function classify(message) {
@@ -83,7 +82,7 @@ function guard(message) {
     'افتح القفل',
     'iot actuator'
   ];
-  const hit = blocked.find(x => t.includes(x));
+  const hit = blocked.find((x) => t.includes(x));
   if (hit) return { allowed: false, reason: `BLOCKED_DANGEROUS_REQUEST:${hit}` };
   return { allowed: true };
 }
@@ -117,11 +116,15 @@ function execute(message, options = {}) {
   const context = String(options.context || '').slice(0, 8000);
   const contextBlock = context ? `\n\nسياق Enterprise Inspector:\n${context}` : '';
   const prompt = `${system}${contextBlock}\n\nالطلب:\n${message}`;
-const raw = sh(`curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: application/json' --data-binary @-`, JSON.stringify({
-    model,
-    prompt,
-    stream: false
-  }));
+
+  const raw = sh(
+    `curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: application/json' --data-binary @-`,
+    JSON.stringify({
+      model,
+      prompt,
+      stream: false
+    })
+  );
 
   let output = raw;
   try {
@@ -129,20 +132,6 @@ const raw = sh(`curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: 
   } catch (_) {
     output = raw;
   }
-    model,
-    prompt,
-    stream: false
-  }));
-<<<<<<< HEAD
-=======
-
-  let output = raw;
-  try {
-    output = JSON.parse(raw).response || raw;
-  } catch (_) {
-    output = raw;
-  }
->>>>>>> 024360b1 (Use Ollama generate API for Sheikha model executor)
 
   if (!output) {
     return {
@@ -157,7 +146,13 @@ const raw = sh(`curl -fsS http://127.0.0.1:11434/api/generate -H 'Content-Type: 
     };
   }
 
-  audit({ action: 'model_execute', task, model, messageBytes: Buffer.byteLength(message), outputBytes: Buffer.byteLength(output) });
+  audit({
+    action: 'model_execute',
+    task,
+    model,
+    messageBytes: Buffer.byteLength(message),
+    outputBytes: Buffer.byteLength(output)
+  });
 
   return {
     success: true,
