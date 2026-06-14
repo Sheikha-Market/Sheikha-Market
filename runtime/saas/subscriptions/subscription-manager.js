@@ -21,12 +21,6 @@ function status() {
   return {
     system: 'SHEIKHA_SUBSCRIPTION_MANAGER_V2',
     status: 'ACTIVE',
-  governance: {
-    noLicenseWithoutContract: true,
-    noBillingWithoutApproval: true,
-    noFalseCustomerClaim: true,
-    humanApprovalForHighRisk: true
-  },
     model: 'GOVERNED_MULTI_TENANT_SAAS',
     plans: PLANS,
     objects: ['organizations', 'workspaces', 'seats', 'product-entitlements', 'usage', 'billing-preview'],
@@ -41,7 +35,11 @@ function status() {
       noInvoiceWithoutApproval: true,
       noRevenueClaimWithoutConfirmedPayment: true,
       noRegulatoryLicenseClaim: true,
-      humanApprovalForWrites: true
+      humanApprovalForWrites: true,
+      noLicenseWithoutContract: true,
+      noBillingWithoutApproval: true,
+      noFalseCustomerClaim: true,
+      humanApprovalForHighRisk: true
     },
     externalBillingGateway: 'NOT_CONNECTED'
   };

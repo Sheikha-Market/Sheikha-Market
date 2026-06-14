@@ -23,13 +23,6 @@ function status() {
   return {
     system: 'SHEIKHA_API_KEY_MANAGER_V2',
     status: 'ACTIVE',
-  rules: {
-    neverExposeSecrets: true,
-    hashBeforeStore: true,
-    scopedKeysOnly: true,
-    auditEveryAction: true,
-    humanApprovalForProductionKeys: true
-  },
     supportedActions: ['issue', 'authenticate', 'rotate', 'revoke', 'audit'],
     counts: {
       total: keys.length,
@@ -37,6 +30,7 @@ function status() {
       revoked: keys.filter(item => item.status === 'REVOKED').length
     },
     rules: {
+      neverExposeSecrets: true,
       neverExposeStoredSecrets: true,
       secretReturnedOnce: true,
       hashBeforeStore: true,
