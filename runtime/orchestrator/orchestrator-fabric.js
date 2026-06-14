@@ -42,6 +42,11 @@ function status() {
 function orchestrate(payload = {}, governance = {}) {
   const executionEnvelope = createExecutionEnvelope(payload, governance);
   const allowed = governance.allowed !== false && executionEnvelope.status !== 'BLOCKED';
+  const mutationRequested = payload.mutationRequested === true;
+  const policyAuthorized = payload.mutationClass === 'APPEND_ONLY_TELEMETRY' &&
+    governance.preApprovedPolicy === 'USAGE_METER_APPEND_ONLY';
+  const mutationAuthorized = allowed && mutationRequested &&
+    (governance.humanApproved === true || policyAuthorized);
 
   return {
     fabric: FABRIC_NAME,
@@ -63,7 +68,13 @@ function orchestrate(payload = {}, governance = {}) {
       'RUNTIME_STACK_L1_L8',
       'EVIDENCE_AND_AUDIT'
     ],
-    mutationAuthorized: false
+    mutationAuthorized,
+    mutationControl: {
+      requested: mutationRequested,
+      humanApproved: governance.humanApproved === true,
+      policyAuthorized,
+      authorized: mutationAuthorized
+    }
   };
 }
 
