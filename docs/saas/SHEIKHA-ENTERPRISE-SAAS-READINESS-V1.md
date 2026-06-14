@@ -13,7 +13,7 @@ This activation establishes the enterprise SaaS readiness layer for Sheikha.
 - SDK Fabric Bootstrap
 - CLI Fabric Bootstrap
 - Cluster Fabric Bootstrap
-- Orchestrator Fabric Bootstrap
+- Orchestrator Fabric V2 Active at highest operational layer L11
 
 ## Governance
 

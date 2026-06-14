@@ -15,14 +15,14 @@ function read(relativePath) {
 }
 
 describe('Sheikha Foundry Orchestration Apex V1', () => {
-  test('places Foundry V3 and Supreme Orchestrator at the governed operational apex', () => {
+  test('places Foundry V3 and Supreme Orchestrator under Orchestrator Fabric L11', () => {
     const apex = apexStatus();
     const foundry = foundryStatus();
 
     expect(apex).toMatchObject({
       controlPlane: 'SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1',
       status: 'ACTIVE',
-      position: 'HIGHEST_OPERATIONAL_CONTROL_PLANE',
+      position: 'UNDER_SHEIKHA_ORCHESTRATOR_FABRIC_V2',
       apexLevel: 10,
       constitutionalConstraint: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1'
     });
@@ -82,12 +82,15 @@ describe('Sheikha Foundry Orchestration Apex V1', () => {
 
   test('server mounts the apex before orchestrator, conversation, and fallback routes', () => {
     const server = read('server.js');
+    const fabricMount = "app.use(require('./routes/sheikha-orchestrator-fabric-v2-routes'));";
     const apexMount = "app.use(require('./routes/sheikha-apex-control-plane-v1-routes'));";
     const enterpriseMount = "app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));";
     const conversationMount = "app.use(require('./routes/sheikha-conversation-engine-v1-routes'));";
     const fallbackMount = "app.use(require('./routes/sheikha-unified-chat-fabric'));";
 
+    expect(server.split(fabricMount).length - 1).toBe(1);
     expect(server.split(apexMount).length - 1).toBe(1);
+    expect(server.indexOf(fabricMount)).toBeLessThan(server.indexOf(apexMount));
     expect(server.indexOf(apexMount)).toBeLessThan(server.indexOf(enterpriseMount));
     expect(server.indexOf(apexMount)).toBeLessThan(server.indexOf(conversationMount));
     expect(server.indexOf(apexMount)).toBeLessThan(server.indexOf(fallbackMount));
@@ -100,8 +103,9 @@ describe('Sheikha Foundry Orchestration Apex V1', () => {
       git: { branch: 'test', status: '', aheadBehind: '0 0' }
     });
 
-    expect(enterprise.position).toBe('UNDER_SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1');
-    expect(enterprise.parentControlPlane).toBe('SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1');
+    expect(enterprise.position).toBe('UNDER_SHEIKHA_ORCHESTRATOR_FABRIC_V2');
+    expect(enterprise.parentControlPlane).toBe('SHEIKHA_ORCHESTRATOR_FABRIC_V2');
+    expect(enterprise.apis.orchestratorFabric).toBe('/api/sheikha/orchestrator-fabric/v2/status');
     expect(enterprise.apis.apexControlPlane).toBe('/api/sheikha/apex-control-plane/v1/status');
   });
 
@@ -110,6 +114,10 @@ describe('Sheikha Foundry Orchestration Apex V1', () => {
     const packageJson = JSON.parse(read('package.json'));
 
     expect(registry.apexLevel).toBe(10);
+    expect(registry.parentOperationalLayer).toEqual({
+      name: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2',
+      level: 11
+    });
     expect(registry.peerAuthorities.map((item) => item.name)).toEqual([
       'SHEIKHA_FOUNDRY_V3',
       'SHEIKHA_SUPREME_ORCHESTRATOR_V1'
@@ -118,7 +126,7 @@ describe('Sheikha Foundry Orchestration Apex V1', () => {
       '/api/sheikha/apex-control-plane/v1/status'
     );
     expect(read('docs/architecture/SHEIKHA-FOUNDRY-ORCHESTRATION-APEX-V1.md')).toContain(
-      'Governance Admission -> Foundry V3 Review -> Supreme Orchestrator'
+      'Governance Admission -> Orchestrator Fabric L11 -> Foundry V3 Review L10'
     );
     expect(packageJson.scripts['ops:apex-control-plane:v1']).toBe(
       'node tools/apex-control-plane/sheikha-apex-control-plane-v1.js'

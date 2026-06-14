@@ -28,6 +28,10 @@ describe('Sheikha Conversation Layer Stack V1', () => {
     expect(registry.layers[4].truthfulState).toBe('adapter-active-runtime-env-dependent');
     expect(registry.layers[5].engine).toBe('SHEIKHA_HASHED_SPARSE_VECTOR_V1');
     expect(registry.truthfulness.externalEmbeddingsClaimed).toBe(false);
+    expect(registry.highestOperationalLayer).toMatchObject({
+      name: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2',
+      level: 11
+    });
     expect(registry.apexControlPlane.level).toBe(10);
     expect(registry.foundryPlane.name).toBe('SHEIKHA_FOUNDRY_V3');
     expect(registry.orchestratorPlane.name).toBe('SHEIKHA_SUPREME_ORCHESTRATOR_V1');
@@ -56,6 +60,7 @@ describe('Sheikha Conversation Layer Stack V1', () => {
       'EVIDENCE_OBSERVABILITY'
     ]);
     expect(context.requestId).toBe(stack.requestId);
+    expect(stack.highestOperationalLayer.apexLevel).toBe(11);
     expect(context.evidence.layerTrace).toHaveLength(7);
     expect(['READY_NOT_CONFIGURED', 'CONNECTED', 'UNAVAILABLE']).toContain(context.postgresql.status);
   });

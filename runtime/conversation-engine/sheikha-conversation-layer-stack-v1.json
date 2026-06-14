@@ -11,9 +11,14 @@
     { "layer": 7, "name": "ENTERPRISE_GOVERNANCE", "required": true },
     { "layer": 8, "name": "EVIDENCE_OBSERVABILITY", "required": true }
   ],
+  "highestOperationalLayer": {
+    "name": "SHEIKHA_ORCHESTRATOR_FABRIC_V2",
+    "position": "HIGHEST_OPERATIONAL_LAYER",
+    "level": 11
+  },
   "apexControlPlane": {
     "name": "SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1",
-    "position": "HIGHEST_OPERATIONAL_CONTROL_PLANE",
+    "position": "UNDER_ORCHESTRATOR_FABRIC_V2",
     "level": 10,
     "authorities": [
       "SHEIKHA_FOUNDRY_V3",

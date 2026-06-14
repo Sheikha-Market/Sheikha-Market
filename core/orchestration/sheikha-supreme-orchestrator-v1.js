@@ -10,8 +10,12 @@ function status() {
     success: true,
     controlPlane: APEX_NAME,
     status: 'ACTIVE',
-    position: 'HIGHEST_OPERATIONAL_CONTROL_PLANE',
+    position: 'UNDER_SHEIKHA_ORCHESTRATOR_FABRIC_V2',
     apexLevel: 10,
+    parentOperationalLayer: {
+      name: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2',
+      level: 11
+    },
     runtimeBelow: 'SHEIKHA_CONVERSATION_LAYER_STACK_V1_L1_L8',
     authorities: {
       foundry: foundryStatus(),

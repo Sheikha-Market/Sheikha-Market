@@ -1,8 +1,12 @@
 {
   "system": "SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1",
   "status": "ACTIVE",
-  "position": "HIGHEST_OPERATIONAL_CONTROL_PLANE",
+  "position": "UNDER_SHEIKHA_ORCHESTRATOR_FABRIC_V2",
   "apexLevel": 10,
+  "parentOperationalLayer": {
+    "name": "SHEIKHA_ORCHESTRATOR_FABRIC_V2",
+    "level": 11
+  },
   "constitutionalConstraint": "SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1",
   "peerAuthorities": [
     {

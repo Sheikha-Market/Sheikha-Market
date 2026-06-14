@@ -8,9 +8,7 @@ const { collectEnterpriseInspector } = require('../../core/enterprise/sheikha-en
 const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
 const { formatChatAnswer, handleUnifiedChat } = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
-const {
-  createExecutionEnvelope
-} = require('../../core/orchestration/sheikha-supreme-orchestrator-v1');
+const { orchestrate } = require('../orchestrator/orchestrator-fabric');
 const {
   buildConversationLayerStack,
   buildLayerContext,
@@ -70,6 +68,13 @@ function writeConversationAudit(record, options = {}) {
       name: layer.name,
       status: layer.status
     })),
+    orchestratorFabric: record.orchestrationFabric
+      ? {
+          name: record.orchestrationFabric.fabric,
+          status: record.orchestrationFabric.status,
+          level: record.orchestrationFabric.apexLevel
+        }
+      : null,
     apexControlPlane: record.apexControlPlane
       ? {
           name: record.apexControlPlane.controlPlane,
@@ -91,6 +96,7 @@ function writeConversationAudit(record, options = {}) {
     requestId: latest.requestId,
     intent: latest.intent,
     channel: latest.channel,
+    orchestratorFabric: latest.orchestratorFabric,
     apexControlPlane: latest.apexControlPlane,
     request: latest.request,
     response: {
@@ -126,9 +132,11 @@ function status() {
     diagnosticRoute: '/api/sheikha/enterprise-inspector/v3/status',
     fallbackRoute: '/api/sheikha/unified-chat',
     foundry: 'SHEIKHA_FOUNDRY_V3',
-    orchestrator: 'SHEIKHA_SUPREME_ORCHESTRATOR_V1',
+    orchestrator: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2',
+    executionOrchestrator: 'SHEIKHA_SUPREME_ORCHESTRATOR_V1',
+    orchestratorFabric: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2',
     apexControlPlane: 'SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1',
-    highestControlPlane: 10,
+    highestControlPlane: 11,
     governance: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
     inspectorPolicy: 'EXPLICIT_DIAGNOSTIC_REQUESTS_ONLY',
     layerStack: 'SHEIKHA_CONVERSATION_LAYER_STACK_V1',
@@ -187,15 +195,17 @@ async function handleConversation(payload = {}, options = {}) {
   }
 
   try {
-    const apexControlPlane = createExecutionEnvelope({
+    const orchestrationFabric = orchestrate({
       ...payload,
       message,
       channel,
       diagnosticRequested
     }, governance);
+    const apexControlPlane = orchestrationFabric.executionEnvelope;
     const layerStack = await buildConversationLayerStack(message, {
       rootDir: options.rootDir || payload.workspaceRoot,
       governance,
+      orchestrationFabric,
       apexControlPlane
     });
     const conversationContext = buildLayerContext(layerStack);
@@ -212,6 +222,7 @@ async function handleConversation(payload = {}, options = {}) {
       source: channel,
       channel,
       conversationContext,
+      orchestrationFabric,
       apexControlPlane,
       enterpriseInspector
     });
@@ -221,7 +232,9 @@ async function handleConversation(payload = {}, options = {}) {
       route: 'SHEIKHA_CONVERSATION_ENGINE_V1',
       endpoint: '/api/sheikha/conversation-engine/v1/chat',
       foundry: 'SHEIKHA_FOUNDRY_V3',
-      orchestrator: 'SHEIKHA_SUPREME_ORCHESTRATOR_V1',
+      orchestrator: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2',
+      executionOrchestrator: 'SHEIKHA_SUPREME_ORCHESTRATOR_V1',
+      orchestrationFabric,
       apexControlPlane,
       governance,
       pipeline: result.pipeline,

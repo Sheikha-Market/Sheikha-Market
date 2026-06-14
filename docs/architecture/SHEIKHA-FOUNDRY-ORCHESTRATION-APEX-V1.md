@@ -1,6 +1,8 @@
 # Sheikha Foundry Orchestration Apex V1
 
-The highest operational control plane is a governed twin apex:
+The Foundry/Orchestration control plane operates under the highest operational fabric:
+
+`SHEIKHA_ORCHESTRATOR_FABRIC_V2` at L11.
 
 1. `SHEIKHA_FOUNDRY_V3` reviews capability construction, evolution, testing, SDK/MCP integration, and release evidence.
 2. `SHEIKHA_SUPREME_ORCHESTRATOR_V1` creates the routing and execution envelope.
@@ -8,7 +10,7 @@ The highest operational control plane is a governed twin apex:
 
 Execution order:
 
-`Governance Admission -> Foundry V3 Review -> Supreme Orchestrator -> Runtime L1-L8 -> Evidence`
+`Governance Admission -> Orchestrator Fabric L11 -> Foundry V3 Review L10 -> Supreme Orchestrator L10 -> Runtime L1-L8 -> Evidence`
 
 The apex cannot bypass governance, authorize destructive work, claim unavailable capabilities, or perform writes without explicit human approval.
 

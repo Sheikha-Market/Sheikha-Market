@@ -2,8 +2,12 @@
   "success": true,
   "controlPlane": "SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1",
   "status": "ACTIVE",
-  "position": "HIGHEST_OPERATIONAL_CONTROL_PLANE",
+  "position": "UNDER_SHEIKHA_ORCHESTRATOR_FABRIC_V2",
   "apexLevel": 10,
+  "parentOperationalLayer": {
+    "name": "SHEIKHA_ORCHESTRATOR_FABRIC_V2",
+    "level": 11
+  },
   "runtimeBelow": "SHEIKHA_CONVERSATION_LAYER_STACK_V1_L1_L8",
   "authorities": {
     "foundry": {
@@ -66,5 +70,5 @@
   },
   "decision": "FOUNDRY_ORCHESTRATION_APEX_ACTIVE_100",
   "score": 100,
-  "generatedAt": "2026-06-14T20:12:12.654Z"
+  "generatedAt": "2026-06-14T21:00:56.055Z"
 }
