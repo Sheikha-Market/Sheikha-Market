@@ -314,10 +314,18 @@ async function buildConversationLayerStack(message, options = {}) {
     status: governance.status === 'BLOCKED' ? 'BLOCKED' : 'ACTIVE',
     requestId,
     layers: [...layers, evidence],
+    apexControlPlane: options.apexControlPlane || null,
     foundryPlane: {
-      name: 'SHEIKHA_FOUNDRY_V2',
+      name: 'SHEIKHA_FOUNDRY_V3',
       status: 'ACTIVE',
-      role: 'BUILD_EVOLUTION_AND_RELEASE_PLANE'
+      role: 'APEX_BUILD_EVOLUTION_AND_RELEASE_AUTHORITY',
+      apexLevel: 10
+    },
+    orchestratorPlane: {
+      name: 'SHEIKHA_SUPREME_ORCHESTRATOR_V1',
+      status: 'ACTIVE',
+      role: 'APEX_ROUTING_COORDINATION_AND_EXECUTION_ENVELOPE_AUTHORITY',
+      apexLevel: 10
     }
   };
 }
@@ -326,6 +334,7 @@ function buildLayerContext(stack) {
   const byLayer = Object.fromEntries((stack.layers || []).map((layer) => [layer.layer, layer]));
   return {
     requestId: stack.requestId,
+    apexControlPlane: stack.apexControlPlane,
     memory: byLayer[2]?.matches || [],
     knowledge: byLayer[3]?.results || [],
     graph: byLayer[4]?.matches || {},

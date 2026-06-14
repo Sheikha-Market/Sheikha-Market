@@ -104,7 +104,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة المؤسسي</strong><span>Conversation Stack L8 · Enterprise Governance · Foundry V2 · Extension 1.0.79</span></div>
+<div class="header"><strong>شات شيخة المؤسسي</strong><span>Apex L10 · Foundry V3 · Supreme Orchestrator · Runtime L1-L8 · Extension 1.0.80</span></div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>

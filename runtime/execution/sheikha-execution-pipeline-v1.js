@@ -54,24 +54,29 @@ function isFoundryTopic(message) {
 }
 
 function buildFoundryReport() {
-  const { status } = require('../../core/foundry/sheikha-foundry-v1');
+  const { status } = require('../../core/foundry/sheikha-foundry-v3');
   const foundry = status();
-  const activeLayers = Object.entries(foundry.layers || {})
+  const activeLayers = Object.entries(foundry.factories || {})
     .filter(([, state]) => state === 'ACTIVE')
     .map(([name]) => name);
 
   return [
-    '## تقرير عن Sheikha Foundry V1',
+    '## تقرير عن Sheikha Foundry V3',
     '',
     `- الحالة: ${foundry.status}`,
     `- النظام: ${foundry.foundry}`,
-    `- الغرض: ${foundry.purpose}`,
+    `- الموقع: ${foundry.position}`,
+    `- مستوى القمة: ${foundry.apexLevel}`,
     '',
     '### الطبقات الفعالة',
     ...activeLayers.map((layer) => `- ${layer}`),
     '',
     '### المخرجات',
-    ...(foundry.outputs || []).map((output) => `- ${output}`),
+    '- Capability Contract',
+    '- Runtime and Route Plan',
+    '- Test Contract',
+    '- SDK and MCP Integration Plan',
+    '- Release Evidence',
     '',
     '### دورة العمل',
     '1. استقبال الفكرة أو الطلب وتحديد المقصود.',
@@ -83,12 +88,12 @@ function buildFoundryReport() {
     '',
     '### الحوكمة',
     `- الحوكمة قبل التنفيذ: ${foundry.governance.beforeExecution ? 'نعم' : 'لا'}`,
-    `- الوضع الآمن افتراضيًا: ${foundry.governance.safeByDefault ? 'نعم' : 'لا'}`,
+    `- التخطيط فقط افتراضيًا: ${foundry.governance.planOnlyByDefault ? 'نعم' : 'لا'}`,
     `- منع الإجراء المدمر بلا مراجعة: ${foundry.governance.noDestructiveActionWithoutReview ? 'نعم' : 'لا'}`,
     `- المبدأ: ${foundry.governance.principle}`,
     '',
     '### التقييم',
-    'Sheikha Foundry V1 مفعّل كمصنع قدرات برمجية محكوم. وهو ينظم الانتقال من الفكرة إلى التصميم والاختبار والإصدار، ولا يعني وحده أن كل قدرة مقترحة نُشرت إنتاجيًا.'
+    'Sheikha Foundry V3 مفعّل في قمة التحكم التشغيلية مع Supreme Orchestrator. ينظم البناء والتطور والإصدار، ولا يدّعي نشر قدرة أو تنفيذ كتابة دون دليل وموافقة بشرية.'
   ].join('\n');
 }
 

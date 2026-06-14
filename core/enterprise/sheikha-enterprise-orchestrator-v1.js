@@ -20,6 +20,8 @@ function getEnterpriseState(base = {}) {
     success: true,
     orchestrator: 'SHEIKHA_ENTERPRISE_ORCHESTRATOR_V1',
     status: 'ACTIVE',
+    position: 'UNDER_SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1',
+    parentControlPlane: 'SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1',
     layers: {
       strategic: 'ACTIVE',
       governance: 'ACTIVE',
@@ -56,6 +58,7 @@ function getEnterpriseState(base = {}) {
       fallbackRoute: '/api/sheikha/unified-chat'
     },
     apis: {
+      apexControlPlane: '/api/sheikha/apex-control-plane/v1/status',
       controlTower: '/api/sheikha/control-tower/status',
       enterprise: '/api/sheikha/enterprise-orchestrator/status',
       runtime: '/api/sheikha/runtime/status',

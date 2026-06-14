@@ -28,7 +28,9 @@ describe('Sheikha Conversation Layer Stack V1', () => {
     expect(registry.layers[4].truthfulState).toBe('adapter-active-runtime-env-dependent');
     expect(registry.layers[5].engine).toBe('SHEIKHA_HASHED_SPARSE_VECTOR_V1');
     expect(registry.truthfulness.externalEmbeddingsClaimed).toBe(false);
-    expect(registry.foundryPlane.name).toBe('SHEIKHA_FOUNDRY_V2');
+    expect(registry.apexControlPlane.level).toBe(10);
+    expect(registry.foundryPlane.name).toBe('SHEIKHA_FOUNDRY_V3');
+    expect(registry.orchestratorPlane.name).toBe('SHEIKHA_SUPREME_ORCHESTRATOR_V1');
   });
 
   test('builds all layers and exposes evidence trace', async () => {

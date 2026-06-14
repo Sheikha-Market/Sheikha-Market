@@ -11,9 +11,24 @@
     { "layer": 7, "name": "ENTERPRISE_GOVERNANCE", "required": true },
     { "layer": 8, "name": "EVIDENCE_OBSERVABILITY", "required": true }
   ],
+  "apexControlPlane": {
+    "name": "SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1",
+    "position": "HIGHEST_OPERATIONAL_CONTROL_PLANE",
+    "level": 10,
+    "authorities": [
+      "SHEIKHA_FOUNDRY_V3",
+      "SHEIKHA_SUPREME_ORCHESTRATOR_V1"
+    ]
+  },
   "foundryPlane": {
-    "name": "SHEIKHA_FOUNDRY_V2",
-    "role": "BUILD_EVOLUTION_AND_RELEASE_PLANE"
+    "name": "SHEIKHA_FOUNDRY_V3",
+    "role": "APEX_BUILD_EVOLUTION_AND_RELEASE_AUTHORITY",
+    "level": 10
+  },
+  "orchestratorPlane": {
+    "name": "SHEIKHA_SUPREME_ORCHESTRATOR_V1",
+    "role": "APEX_ROUTING_COORDINATION_AND_EXECUTION_ENVELOPE_AUTHORITY",
+    "level": 10
   },
   "truthfulness": {
     "postgresConnectedOnlyWhenHealthPasses": true,

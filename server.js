@@ -121,6 +121,7 @@ try {
 try {
   app.use(require('./routes/sheikha-runtime-chat'));
 app.use(require('./routes/sheikha-enterprise-control-tower-routes'));
+app.use(require('./routes/sheikha-apex-control-plane-v1-routes'));
 app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
 app.use(require('./routes/sheikha-executive-platform-v2-routes'));
 app.use(require('./routes/sheikha-conversation-engine-v1-routes'));

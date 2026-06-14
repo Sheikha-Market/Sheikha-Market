@@ -25,7 +25,9 @@ describe('Sheikha Conversation Engine V1', () => {
       primaryRoute: '/api/sheikha/conversation-engine/v1/chat',
       diagnosticRoute: '/api/sheikha/enterprise-inspector/v3/status',
       fallbackRoute: '/api/sheikha/unified-chat',
-      foundry: 'SHEIKHA_FOUNDRY_V2'
+      foundry: 'SHEIKHA_FOUNDRY_V3',
+      orchestrator: 'SHEIKHA_SUPREME_ORCHESTRATOR_V1',
+      highestControlPlane: 10
     });
   });
 
@@ -50,6 +52,9 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(response.inspector).toBeUndefined();
     expect(response.layerStack.layers).toHaveLength(8);
     expect(response.layerStack.layers[7].name).toBe('EVIDENCE_OBSERVABILITY');
+    expect(response.apexControlPlane.apexLevel).toBe(10);
+    expect(response.apexControlPlane.foundry.foundry).toBe('SHEIKHA_FOUNDRY_V3');
+    expect(response.apexControlPlane.orchestrator.name).toBe('SHEIKHA_SUPREME_ORCHESTRATOR_V1');
     expect(response.memory).toBeUndefined();
     expect(response.answer).toContain('خطة Agentic محكومة');
   });
@@ -136,7 +141,7 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Conversation Stack L8 · Enterprise Governance · Foundry V2 · Extension 1.0.79');
+    expect(provider).toContain('Apex L10 · Foundry V3 · Supreme Orchestrator · Runtime L1-L8 · Extension 1.0.80');
     expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
     expect(inspector).toContain('getEnterpriseInspectorStatus');
   });

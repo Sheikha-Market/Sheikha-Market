@@ -142,8 +142,8 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
 
     expect(classifyIntent(request)).toBe('CONTENT_REPORT');
     expect(result.intent).toBe('CONTENT_REPORT');
-    expect(result.answer).toContain('تقرير عن Sheikha Foundry V1');
-    expect(result.answer).toContain('SHEIKHA_FOUNDRY_V1');
+    expect(result.answer).toContain('تقرير عن Sheikha Foundry V3');
+    expect(result.answer).toContain('SHEIKHA_FOUNDRY_V3');
     expect(result.answer).not.toContain('أوامر npm المتاحة');
     expect(buildFoundryReport()).toContain('capabilityFactory');
   });

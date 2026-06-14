@@ -29,6 +29,6 @@ describe('Sheikha Extension Chat Transport', () => {
   });
 
   test('keeps package transport version aligned with the released extension', () => {
-    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.79');
+    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.80');
   });
 });

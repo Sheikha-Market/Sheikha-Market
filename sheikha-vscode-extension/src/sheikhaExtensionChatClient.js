@@ -11,7 +11,7 @@ const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.to
 const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
 const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
 const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.79';
+const EXTENSION_TRANSPORT_VERSION = '1.0.80';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
