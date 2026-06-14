@@ -148,6 +148,7 @@ app.use(require('./routes/civilization-governance-v2-routes'));
 app.use(require('./routes/executive-mission-control-routes'));
 app.use(require('./routes/master-life-cycle-routes'));
 app.use(require('./routes/master-log-routes'));
+app.use(require('./routes/master-log-inspector-routes'));
 app.use(require('./routes/platform-rc2-routes'));
 app.use(require('./routes/runtime-fabric-v5-routes'));
 app.use(require('./routes/sheikha-direct-repair-governance-routes'));
