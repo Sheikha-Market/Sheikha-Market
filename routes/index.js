@@ -63,6 +63,9 @@ router.use('/api/ip', ipRoutes);
 // ─── المنطق الجامع (21 منطقاً: 7 أصلية + 13 موسّعة + المنطق الأعلى) ──────────
 router.use('/api/logics', logicsRoutes);
 
+// Enterprise SaaS Runtime
+router.use(enterpriseSaasRuntimeRoutes);
+
 // ─── مسار الحالة ──────────────────────────────────────────────────────────────
 
 router.get('/api/health-disabled', (req, res) => {
