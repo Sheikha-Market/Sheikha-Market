@@ -145,6 +145,7 @@ app.use(require('./routes/global-control-plane-routes'));
 app.use(require('./routes/enterprise-platform-routes'));
 app.use(require('./routes/civilization-os-routes'));
 app.use(require('./routes/civilization-governance-v2-routes'));
+app.use(require('./routes/executive-mission-control-routes'));
 app.use(require('./routes/runtime-fabric-v5-routes'));
 app.use(require('./routes/sheikha-direct-repair-governance-routes'));
 
