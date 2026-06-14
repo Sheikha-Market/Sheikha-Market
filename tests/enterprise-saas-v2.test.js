@@ -7,7 +7,7 @@ const apiKeys = require('../runtime/security/api-keys/api-key-manager');
 describe('Sheikha Enterprise SaaS V2', () => {
   test('subscription manager is active and governed', () => {
     const result = subscriptions.status();
-    expect(result.system).toBe('SHEIKHA_SUBSCRIPTION_MANAGER_V1');
+    expect(result.system).toBe('SHEIKHA_SUBSCRIPTION_MANAGER_V2');
     expect(result.status).toBe('ACTIVE');
     expect(result.governance.noLicenseWithoutContract).toBe(true);
     expect(result.governance.noBillingWithoutApproval).toBe(true);
@@ -15,7 +15,7 @@ describe('Sheikha Enterprise SaaS V2', () => {
 
   test('tenant isolation is active', () => {
     const result = tenancy.status();
-    expect(result.system).toBe('SHEIKHA_TENANT_ISOLATION_V1');
+    expect(result.system).toBe('SHEIKHA_TENANT_ISOLATION_V2');
     expect(result.status).toBe('ACTIVE');
     expect(result.boundaries.organizationIsolation).toBe(true);
   });
