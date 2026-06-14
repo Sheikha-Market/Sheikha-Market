@@ -7,10 +7,7 @@ const path = require('path');
 const { collectEnterpriseInspector } = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
 const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
-const {
-  formatChatAnswer,
-  handleUnifiedChat
-} = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
+const { formatChatAnswer, handleUnifiedChat } = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
 
 function resolveRoot() {
   if (process.env.SHEIKHA_ROOT) return process.env.SHEIKHA_ROOT;
@@ -107,7 +104,7 @@ function status() {
   };
 }
 
-function blockedResponse({ governance, message, channel, diagnosticRequested, options }) {
+function handleBlocked({ governance, message, channel, diagnosticRequested, options }) {
   const response = {
     success: false,
     blocked: true,
@@ -131,23 +128,6 @@ function blockedResponse({ governance, message, channel, diagnosticRequested, op
   return response;
 }
 
-function buildPayload(payload, message, channel, diagnosticRequested) {
-  const enterpriseInspector = diagnosticRequested
-    ? payload.inspectorSnapshot || collectEnterpriseInspector({
-        workspace: payload.workspace,
-        vscodeTools: payload.vscodeTools
-      })
-    : undefined;
-
-  return {
-    ...payload,
-    message,
-    source: channel,
-    channel,
-    enterpriseInspector
-  };
-}
-
 function handleConversation(payload = {}, options = {}) {
   const message = String(payload.message || payload.prompt || payload.text || '').trim();
   const channel = String(payload.channel || payload.source || 'api');
@@ -161,12 +141,24 @@ function handleConversation(payload = {}, options = {}) {
   });
 
   if (!governance.allowed) {
-    return blockedResponse({ governance, message, channel, diagnosticRequested, options });
+    return handleBlocked({ governance, message, channel, diagnosticRequested, options });
   }
 
   try {
-    const pipelineInput = buildPayload(payload, message, channel, diagnosticRequested);
-    const result = executePipeline(pipelineInput);
+    const enterpriseInspector = diagnosticRequested
+      ? payload.inspectorSnapshot || collectEnterpriseInspector({
+          workspace: payload.workspace,
+          vscodeTools: payload.vscodeTools
+        })
+      : undefined;
+
+    const result = executePipeline({
+      ...payload,
+      message,
+      source: channel,
+      channel,
+      enterpriseInspector
+    });
 
     const response = {
       success: true,
@@ -178,7 +170,7 @@ function handleConversation(payload = {}, options = {}) {
       intent: result.intent,
       intelligenceMode: result.intelligenceMode,
       diagnosticRequested,
-      inspector: diagnosticRequested ? pipelineInput.enterpriseInspector : undefined,
+      inspector: diagnosticRequested ? enterpriseInspector : undefined,
       answer: formatChatAnswer(result.answer || result.response || result.message || ''),
       fallback: false
     };
