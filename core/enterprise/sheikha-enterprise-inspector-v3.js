@@ -6,6 +6,7 @@ const { getEnterpriseState } = require('./sheikha-enterprise-orchestrator-v1');
 const { status: getExecutivePlatformStatus } = require('../executive-platform/sheikha-executive-platform-v2');
 const { status: getLifeFabricStatus } = require('../life-fabric/sheikha-technical-life-operating-ecosystem-v1');
 const { status: getLifeIntegrationStatus } = require('../life-fabric/integration/sheikha-life-fabric-integration-v2');
+const runtimeFabricV5 = require('../../runtime/runtime-fabric-v5/runtime-fabric-v5');
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -125,6 +126,8 @@ function collectEnterpriseInspector(input = {}) {
   const executive = getExecutivePlatformStatus(controlTower);
   const extension = getCurrentExtensionContext(input);
   const diagnostics = summarizeDiagnostics(extension.diagnostics);
+  const runtimeFabric = runtimeFabricV5.status();
+  const runtimeFabricMetrics = runtimeFabricV5.observability.snapshot();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -151,6 +154,7 @@ function collectEnterpriseInspector(input = {}) {
       runtime: 'ACTIVE',
       governance: 'ACTIVE',
       unifiedChat: 'ACTIVE',
+      runtimeFabricV5: runtimeFabric.status,
       extension: extension.status,
       diagnostics
     },
@@ -185,7 +189,9 @@ function collectEnterpriseInspector(input = {}) {
       extensionChat: '/api/sheikha/extension/chat',
       inspectorStatus: '/api/sheikha/enterprise-inspector/v3/status',
       inspectorContext: '/api/sheikha/enterprise-inspector/v3/context',
-      architecture: '/api/sheikha/enterprise-inspector/v3/architecture'
+      architecture: '/api/sheikha/enterprise-inspector/v3/architecture',
+      runtimeFabric: '/api/sheikha/runtime-fabric/v5/status',
+      runtimeFabricMetrics: '/api/sheikha/runtime-fabric/v5/metrics'
     },
     architecture: {
       root: 'SHEIKHA_ROOT',
@@ -193,6 +199,7 @@ function collectEnterpriseInspector(input = {}) {
         'Root Authority',
         'Governance Center',
         'Enterprise Orchestrator',
+        'Runtime Fabric V5',
         'Runtime Control Tower',
         'Knowledge Fabric',
         'Decision Registry',
@@ -211,6 +218,13 @@ function collectEnterpriseInspector(input = {}) {
         'Arabic Executive Response',
         'Audit Evidence'
       ]
+    },
+    runtimeFabric: {
+      status: runtimeFabric.status,
+      position: runtimeFabric.position,
+      managementPlane: runtimeFabric.managementPlane,
+      cluster: runtimeFabric.cluster,
+      metrics: runtimeFabricMetrics
     },
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),

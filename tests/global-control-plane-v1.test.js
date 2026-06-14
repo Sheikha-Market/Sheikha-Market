@@ -7,7 +7,9 @@ describe('Sheikha Global Control Plane V1', () => {
     const status = gcp.status();
     expect(status.system).toBe('SHEIKHA_GLOBAL_CONTROL_PLANE_V1');
     expect(status.status).toBe('ACTIVE');
-    expect(status.level).toBe('GLOBAL_APEX');
+    expect(status.level).toBe('GLOBAL_MANAGEMENT_AND_FEDERATION_PLANE');
+    expect(status.operationalAuthority).toBe('SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11');
+    expect(status.operationalFabric).toBe('SHEIKHA_RUNTIME_FABRIC_V5');
     expect(status.above).toContain('SHEIKHA_CLOUD_SAAS_APEX_V1');
     expect(status.boundaries.governanceBeforeExecution).toBe(true);
   });

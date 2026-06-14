@@ -78,6 +78,9 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(snapshot.surfaces.unifiedChat).toBe('/api/sheikha/unified-chat');
     expect(snapshot.surfaces.extensionChat).toBe('/api/sheikha/extension/chat');
     expect(snapshot.architecture.flow).toContain('Governance Review');
+    expect(snapshot.architecture.nodes).toContain('Runtime Fabric V5');
+    expect(snapshot.surfaces.runtimeFabric).toBe('/api/sheikha/runtime-fabric/v5/status');
+    expect(snapshot.runtimeFabric.cluster.multiNode.active).toBe(false);
     expect(compact.success).toBe(true);
     expect(compact.intelligence).toBeUndefined();
   });

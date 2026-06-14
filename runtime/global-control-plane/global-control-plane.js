@@ -3,7 +3,9 @@
 const GLOBAL_CONTROL_PLANE = Object.freeze({
   system: 'SHEIKHA_GLOBAL_CONTROL_PLANE_V1',
   status: 'ACTIVE',
-  level: 'GLOBAL_APEX',
+  level: 'GLOBAL_MANAGEMENT_AND_FEDERATION_PLANE',
+  operationalAuthority: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11',
+  operationalFabric: 'SHEIKHA_RUNTIME_FABRIC_V5',
   above: [
     'SHEIKHA_CLOUD_SAAS_APEX_V1',
     'SHEIKHA_ENTERPRISE_SAAS_V2',
@@ -16,7 +18,8 @@ const GLOBAL_CONTROL_PLANE = Object.freeze({
     complianceAsCode: 'ACTIVE',
     deploymentFederation: 'ACTIVE',
     intelligencePlane: 'ACTIVE',
-    sovereignRuntimeFederation: 'ACTIVE'
+    sovereignRuntimeFederation: 'ACTIVE',
+    runtimeFabricV5: 'ACTIVE_SINGLE_NODE_OPERATIONAL'
   },
   boundaries: {
     noFalseProviderOwnershipClaim: true,

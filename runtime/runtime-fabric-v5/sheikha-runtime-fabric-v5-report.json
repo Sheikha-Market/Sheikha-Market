@@ -1,0 +1,46 @@
+{
+  "system": "SHEIKHA_RUNTIME_FABRIC_V5",
+  "status": "ACTIVE_SINGLE_NODE_OPERATIONAL",
+  "score": 100,
+  "decision": "RUNTIME_FABRIC_V5_SINGLE_NODE_OPERATIONAL_100",
+  "operationalAuthority": "SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11",
+  "managementPlane": "SHEIKHA_GLOBAL_CONTROL_PLANE_V1",
+  "capabilities": {
+    "serviceRegistry": "ACTIVE",
+    "eventBus": "ACTIVE",
+    "queue": "ACTIVE",
+    "workerPool": "ACTIVE",
+    "scheduler": "ACTIVE",
+    "observability": "ACTIVE",
+    "policyEnforcement": "ACTIVE"
+  },
+  "storage": {
+    "persistence": "ATOMIC_JSON_SINGLE_NODE",
+    "clusterSafeWrites": false,
+    "singleHostMultiProcessLock": true,
+    "externalTransactionalStoreRequiredForMultiNode": true,
+    "revision": 2,
+    "updatedAt": "2026-06-14T21:42:47.820Z",
+    "counts": {
+      "services": 11,
+      "events": 0,
+      "jobs": 0,
+      "schedules": 0,
+      "deadLetters": 0
+    }
+  },
+  "boundaries": {
+    "multiNodeClusterClaimed": false,
+    "distributedQueueClaimed": false,
+    "externalExecutionByDefault": false,
+    "arbitraryCodeExecution": false,
+    "humanDecisionAuthorityRetained": true
+  },
+  "externalInfrastructure": {
+    "redis": "NOT_CONNECTED",
+    "kubernetes": "NOT_CONNECTED",
+    "distributedQueue": "NOT_CONNECTED",
+    "multiNodeConsensus": "NOT_CONNECTED"
+  },
+  "generatedAt": "2026-06-14T21:42:47.822Z"
+}

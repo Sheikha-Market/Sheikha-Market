@@ -528,7 +528,8 @@
     "ops:production-runtime-fabric:v1": "node tools/production-runtime-fabric-v1/sheikha-production-runtime-fabric-v1.js",
     "ops:sheikha-cli:v1": "node -e \"console.log(require(\\\"./runtime/sheikha-cli-v1/v1/sheikha-cli-v1-report.json\\\"))\"",
     "ops:service-mesh-fabric:v1": "node tools/service-mesh-fabric-v1/sheikha-service-mesh-fabric-v1.js",
-    "ops:identity-fabric:v1": "node tools/identity-fabric-v1/sheikha-identity-fabric-v1.js"
+    "ops:identity-fabric:v1": "node tools/identity-fabric-v1/sheikha-identity-fabric-v1.js",
+    "ops:runtime-fabric:v5": "node tools/runtime-fabric-v5/sheikha-runtime-fabric-v5.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
