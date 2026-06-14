@@ -54,6 +54,24 @@ describe('Sheikha Orchestrator Fabric V2', () => {
     expect(result.dispatch.target).toBeNull();
   });
 
+  test('authorizes only approved writes or named append-only telemetry policy', () => {
+    const approvedWrite = orchestrate({ mutationRequested: true }, {
+      status: 'APPROVED', allowed: true, humanApproved: true
+    });
+    const telemetry = orchestrate({
+      mutationRequested: true, mutationClass: 'APPEND_ONLY_TELEMETRY'
+    }, {
+      status: 'APPROVED', allowed: true, preApprovedPolicy: 'USAGE_METER_APPEND_ONLY'
+    });
+    const unapproved = orchestrate({ mutationRequested: true }, {
+      status: 'APPROVED', allowed: true
+    });
+
+    expect(approvedWrite.mutationAuthorized).toBe(true);
+    expect(telemetry.mutationAuthorized).toBe(true);
+    expect(unapproved.mutationAuthorized).toBe(false);
+  });
+
   test('has route, activation tool, package script, and truthful SaaS state', () => {
     const route = read('routes/sheikha-orchestrator-fabric-v2-routes.js');
     const packageJson = JSON.parse(read('package.json'));

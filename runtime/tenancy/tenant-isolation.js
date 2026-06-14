@@ -42,6 +42,12 @@ function status() {
 
 function createOrganization(input = {}, context = {}) {
   const actor = requireAccess(context, 'tenant:manage', null, { humanApprovalRequired: true });
+  if (actor.role !== 'OWNER' || actor.tenantId) {
+    const error = new Error('Organization bootstrap requires an OWNER without an existing tenant context.');
+    error.code = 'ORGANIZATION_BOOTSTRAP_DENIED';
+    error.statusCode = 403;
+    throw error;
+  }
   const name = required(input.name, 'name');
   const slug = String(input.slug || name)
     .trim()
@@ -156,6 +162,18 @@ function addUser(input = {}, context = {}) {
     const error = new Error('Unsupported SaaS role.');
     error.code = 'INVALID_ROLE';
     error.statusCode = 400;
+    throw error;
+  }
+  if (role === 'OWNER' && actor.role !== 'OWNER') {
+    const error = new Error('Only an OWNER can assign the OWNER role.');
+    error.code = 'ROLE_ESCALATION_DENIED';
+    error.statusCode = 403;
+    throw error;
+  }
+  if (actor.role === 'ADMIN' && ['OWNER', 'ADMIN'].includes(role)) {
+    const error = new Error('ADMIN cannot assign an equal or higher privileged role.');
+    error.code = 'ROLE_ESCALATION_DENIED';
+    error.statusCode = 403;
     throw error;
   }
   return store.transact({

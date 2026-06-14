@@ -7,7 +7,9 @@ const services = Object.freeze({
   INSPECTOR: { status: 'ACTIVE', capability: 'inspector' },
   EXTENSION: { status: 'ACTIVE', capability: 'extension' },
   MCP: { status: 'ACTIVE', capability: 'mcp' },
-  SDK: { status: 'BOOTSTRAPPED', capability: 'sdk' },
+  SDK: { status: 'ACTIVE', capability: 'sdk' },
+  CLI: { status: 'ACTIVE', capability: 'cli' },
+  ENTERPRISE_SAAS_V2: { status: 'ACTIVE', capability: 'enterpriseSaasV2' },
   RUNTIME: { status: 'ACTIVE', capability: 'runtime' }
 });
 

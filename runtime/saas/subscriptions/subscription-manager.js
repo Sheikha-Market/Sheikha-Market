@@ -74,6 +74,7 @@ function createSubscription(input = {}, context = {}) {
       status: wantsActive ? 'ACTIVE' : 'DRAFT',
       contractApproved: wantsActive,
       contractRef: wantsActive ? String(input.contractRef).trim() : null,
+      contractEvidenceStatus: wantsActive ? 'HUMAN_APPROVED_REFERENCE_NOT_EXTERNALLY_VERIFIED' : 'NOT_PROVIDED',
       billingGateway: 'NOT_CONNECTED', paymentStatus: 'NOT_COLLECTED',
       createdAt: new Date().toISOString(), createdBy: actor.actorId
     };
