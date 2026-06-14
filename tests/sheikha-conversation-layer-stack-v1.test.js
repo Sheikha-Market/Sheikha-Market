@@ -7,6 +7,7 @@ const {
   buildLayerContext,
   cosine,
   redact,
+  retrieveKnowledge,
   sparseVector,
   tokenize
 } = require('../runtime/conversation-engine/sheikha-conversation-layer-stack-v1');
@@ -76,6 +77,15 @@ describe('Sheikha Conversation Layer Stack V1', () => {
     expect(answer).toContain('docs/governance.md');
     expect(answer).toContain('vector score: 0.8');
     expect(answer).toContain('لا تُستكمل المعلومات الناقصة بالتخمين');
+  });
+
+  test('knowledge store falls back to committed Knowledge Engine V2 registries', () => {
+    const knowledge = retrieveKnowledge('No drift Stability Layer', ROOT);
+
+    expect(knowledge.status).toBe('ACTIVE');
+    expect(['RAG_INDEX', 'KNOWLEDGE_ENGINE_V2_REGISTRIES']).toContain(knowledge.sourceMode);
+    expect(knowledge.documents).toBeGreaterThan(0);
+    expect(knowledge.results.length).toBeGreaterThan(0);
   });
 
   test('redacts common secret shapes before memory or model context', () => {

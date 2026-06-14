@@ -147,8 +147,31 @@ function retrieveKnowledge(message, rootDir) {
     path.join(rootDir, 'runtime/rag/index/sheikha-rag-index-v1.json'),
     { name: 'SHEIKHA_RAG_INDEX_V1', status: 'MISSING', docs: [] }
   );
+  const registryFiles = [
+    'runtime-knowledge-registry.json',
+    'governance-knowledge-registry.json',
+    'lessons-learned-registry.json'
+  ];
+  const registries = registryFiles.map((name) => ({
+    name,
+    value: readJson(
+      path.join(rootDir, 'runtime/knowledge-engine/v2/registries', name),
+      { status: 'MISSING', items: [] }
+    )
+  }));
+  const registryDocs = registries.flatMap(({ name, value }) =>
+    (value.items || []).map((item) => ({
+      path: `runtime/knowledge-engine/v2/registries/${name}#${item.id || 'item'}`,
+      title: item.topic || item.principle || item.source || item.id || name,
+      text: Object.values(item).filter((entry) => typeof entry === 'string').join(' '),
+      tokens: tokenize(JSON.stringify(item))
+    }))
+  );
+  const indexedDocs = index.status === 'ACTIVE' ? (index.docs || []) : [];
+  const documents = indexedDocs.length ? indexedDocs : registryDocs;
+  const sourceMode = indexedDocs.length ? 'RAG_INDEX' : 'KNOWLEDGE_ENGINE_V2_REGISTRIES';
   const queryTokens = tokenize(message);
-  const results = (index.docs || [])
+  const results = documents
     .map((doc) => ({ doc, score: lexicalScore(queryTokens, doc.tokens || tokenize(doc.text)) }))
     .filter((item) => item.score > 0)
     .sort((a, b) => b.score - a.score)
@@ -163,9 +186,12 @@ function retrieveKnowledge(message, rootDir) {
   return {
     layer: 3,
     name: 'KNOWLEDGE_STORE',
-    status: index.status === 'ACTIVE' ? 'ACTIVE' : 'DEGRADED',
-    index: index.name,
-    documents: Number(index.documentCount || index.docs?.length || 0),
+    status: documents.length ? 'ACTIVE' : 'DEGRADED',
+    index: indexedDocs.length ? index.name : 'SHEIKHA_KNOWLEDGE_ENGINE_V2',
+    sourceMode,
+    documents: indexedDocs.length
+      ? Number(index.documentCount || indexedDocs.length)
+      : registryDocs.length,
     results
   };
 }
@@ -360,5 +386,6 @@ module.exports = {
   persistConversationPostgreSQL,
   redact,
   sparseVector,
+  retrieveKnowledge,
   tokenize
 };
