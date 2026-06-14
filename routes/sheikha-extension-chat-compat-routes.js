@@ -15,8 +15,8 @@ router.get('/api/sheikha/extension/chat/status', (_req, res) => {
   });
 });
 
-router.post('/api/sheikha/extension/chat', express.json({ limit: '5mb' }), (req, res) => {
-  const result = handleConversation({ ...(req.body || {}), channel: 'extension-chat' });
+router.post('/api/sheikha/extension/chat', express.json({ limit: '5mb' }), async (req, res) => {
+  const result = await handleConversation({ ...(req.body || {}), channel: 'extension-chat' });
   res.status(result.blocked ? 403 : 200).json(result);
 });
 

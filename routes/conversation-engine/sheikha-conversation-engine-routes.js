@@ -15,8 +15,20 @@ router.get('/api/sheikha/conversation-engine/v1/status', (_req, res) => {
   });
 });
 
-router.post('/api/sheikha/conversation-engine/v1/chat', (req, res) => {
-  res.json(handleConversation(req.body || {}));
+router.get('/api/sheikha/conversation-engine/v1/chat', (_req, res) => {
+  res.json({
+    success: true,
+    status: 'ACTIVE',
+    engine: 'SHEIKHA_CONVERSATION_ENGINE_V1',
+    endpoint: '/api/sheikha/conversation-engine/v1/chat',
+    method: 'POST',
+    browserStatus: 'READY'
+  });
+});
+
+router.post('/api/sheikha/conversation-engine/v1/chat', async (req, res) => {
+  const result = await handleConversation(req.body || {});
+  res.status(result.blocked ? 403 : 200).json(result);
 });
 
 module.exports = router;

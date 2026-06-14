@@ -1,0 +1,24 @@
+{
+  "stack": "SHEIKHA_CONVERSATION_LAYER_STACK_V1",
+  "status": "ACTIVE",
+  "layers": [
+    { "layer": 1, "name": "CONVERSATION_ENGINE", "required": true },
+    { "layer": 2, "name": "MEMORY_FABRIC", "required": true },
+    { "layer": 3, "name": "KNOWLEDGE_STORE", "required": true },
+    { "layer": 4, "name": "KNOWLEDGE_GRAPH", "required": true },
+    { "layer": 5, "name": "POSTGRESQL", "required": false, "truthfulState": "adapter-active-runtime-env-dependent" },
+    { "layer": 6, "name": "VECTOR_STORE", "required": true, "engine": "SHEIKHA_HASHED_SPARSE_VECTOR_V1" },
+    { "layer": 7, "name": "ENTERPRISE_GOVERNANCE", "required": true },
+    { "layer": 8, "name": "EVIDENCE_OBSERVABILITY", "required": true }
+  ],
+  "foundryPlane": {
+    "name": "SHEIKHA_FOUNDRY_V2",
+    "role": "BUILD_EVOLUTION_AND_RELEASE_PLANE"
+  },
+  "truthfulness": {
+    "postgresConnectedOnlyWhenHealthPasses": true,
+    "externalEmbeddingsClaimed": false,
+    "humanAuthorityRetained": true,
+    "evidenceRequired": true
+  }
+}

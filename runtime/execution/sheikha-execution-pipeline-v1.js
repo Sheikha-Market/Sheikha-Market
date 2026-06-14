@@ -280,6 +280,63 @@ function buildInspectorModelContext(snapshot = {}) {
   }).slice(0, 8000);
 }
 
+function buildConversationModelContext(context = {}) {
+  if (!context || !context.requestId) return '';
+  return JSON.stringify({
+    requestId: context.requestId,
+    memory: (context.memory || []).slice(0, 4),
+    knowledge: (context.knowledge || []).slice(0, 4).map((item) => ({
+      source: item.source,
+      title: item.title,
+      score: item.score,
+      excerpt: String(item.excerpt || '').slice(0, 700)
+    })),
+    graph: context.graph || {},
+    postgresql: context.postgresql || {},
+    vectors: (context.vectors || []).slice(0, 4),
+    governance: context.governance || {},
+    evidence: context.evidence || {}
+  }).slice(0, 12000);
+}
+
+function buildGroundedRagAnswer(message, context = {}) {
+  const knowledge = context.knowledge || [];
+  const vectors = context.vectors || [];
+
+  if (!knowledge.length) return buildRagContract(message);
+
+  const lines = [
+    '## RAG محكوم بالمصادر',
+    '',
+    `- السؤال: ${message || 'غير محدد'}`,
+    `- Request ID: ${context.requestId || 'غير متاح'}`,
+    '- الاسترجاع: Knowledge Store + Vector Store محلي.',
+    '',
+    '### المصادر المسترجعة'
+  ];
+
+  knowledge.slice(0, 4).forEach((item, index) => {
+    const vector = vectors.find((candidate) => candidate.source === item.source);
+    lines.push(
+      `${index + 1}. ${item.title || item.source}`,
+      `   - المصدر: ${item.source}`,
+      `   - lexical score: ${item.score}`,
+      `   - vector score: ${vector?.score ?? 0}`,
+      `   - مقتطف: ${String(item.excerpt || '').replace(/\s+/g, ' ').slice(0, 350)}`
+    );
+  });
+
+  lines.push(
+    '',
+    '### ضوابط الإجابة',
+    '- هذه نتائج استرجاع وليست حكمًا بصحة كل محتوى المصدر.',
+    '- يجب إسناد الاستنتاج النهائي إلى الأدلة ومراجعة التعارضات.',
+    '- لا تُستكمل المعلومات الناقصة بالتخمين.'
+  );
+
+  return lines.join('\n');
+}
+
 function runReadOnlyCli(workspaceRoot) {
   const cwd = workspaceRoot && fs.existsSync(workspaceRoot) ? workspaceRoot : process.cwd();
   const pkg = readJsonSafe(path.join(cwd, 'package.json'));
@@ -436,7 +493,7 @@ function executePipeline(payload = {}) {
       'موحدة لله، ومنضبطة بالكتاب والسنة، بلا صور أرواح.'
     ].join('\n');
   } else if (intelligenceMode === 'rag') {
-    answer = buildRagContract(message);
+    answer = buildGroundedRagAnswer(message, payload.conversationContext);
   } else if (intelligenceMode === 'agentic') {
     answer = buildAgenticPlan(message);
   } else if (intelligenceMode === 'multi-agent') {
@@ -462,7 +519,10 @@ function executePipeline(payload = {}) {
   } else {
     {
     const executed = modelExecutor.execute(message, {
-      context: buildInspectorModelContext(payload.enterpriseInspector)
+      context: [
+        buildConversationModelContext(payload.conversationContext),
+        buildInspectorModelContext(payload.enterpriseInspector)
+      ].filter(Boolean).join('\n\n')
     });
     answer = executed.success
       ? [
@@ -504,6 +564,7 @@ function executePipeline(payload = {}) {
       superhumanCapabilityClaimed: false
     },
     cli,
+    conversationContext: payload.conversationContext || null,
     enterpriseInspector: payload.enterpriseInspector || null,
     vscodeTools: payload.vscodeTools || null,
     answer,
@@ -528,5 +589,7 @@ module.exports = {
   buildMultiAgentPlan,
   buildResearchProgram,
   buildEnterpriseInspectorReport,
-  buildInspectorModelContext
+  buildInspectorModelContext,
+  buildConversationModelContext,
+  buildGroundedRagAnswer
 };

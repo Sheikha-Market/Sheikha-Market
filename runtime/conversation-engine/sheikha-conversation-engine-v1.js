@@ -8,6 +8,12 @@ const { collectEnterpriseInspector } = require('../../core/enterprise/sheikha-en
 const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
 const { formatChatAnswer, handleUnifiedChat } = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
+const {
+  buildConversationLayerStack,
+  buildLayerContext,
+  persistConversationMemory,
+  persistConversationPostgreSQL
+} = require('./sheikha-conversation-layer-stack-v1');
 
 function resolveRoot() {
   if (process.env.SHEIKHA_ROOT) return process.env.SHEIKHA_ROOT;
@@ -44,6 +50,7 @@ function writeConversationAudit(record, options = {}) {
     route: record.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
     fallback: Boolean(record.fallback),
     diagnosticRequested: Boolean(record.diagnosticRequested),
+    requestId: record.layerStack?.requestId || record.requestId || null,
     intent: record.intent || null,
     channel: record.channel || 'api',
     request: {
@@ -54,7 +61,12 @@ function writeConversationAudit(record, options = {}) {
       answer: answer.slice(0, 50000),
       sha256: hash(answer),
       bytes: Buffer.byteLength(answer)
-    }
+    },
+    layerTrace: (record.layerStack?.layers || []).map((layer) => ({
+      layer: layer.layer,
+      name: layer.name,
+      status: layer.status
+    }))
   };
 
   const audit = {
@@ -64,6 +76,7 @@ function writeConversationAudit(record, options = {}) {
     route: latest.route,
     fallback: latest.fallback,
     diagnosticRequested: latest.diagnosticRequested,
+    requestId: latest.requestId,
     intent: latest.intent,
     channel: latest.channel,
     request: latest.request,
@@ -71,7 +84,8 @@ function writeConversationAudit(record, options = {}) {
       sha256: latest.response.sha256,
       bytes: latest.response.bytes,
       preview: answer.slice(0, 500)
-    }
+    },
+    layerTrace: latest.layerTrace
   };
 
   try {
@@ -100,7 +114,19 @@ function status() {
     fallbackRoute: '/api/sheikha/unified-chat',
     foundry: 'SHEIKHA_FOUNDRY_V2',
     governance: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
-    inspectorPolicy: 'EXPLICIT_DIAGNOSTIC_REQUESTS_ONLY'
+    inspectorPolicy: 'EXPLICIT_DIAGNOSTIC_REQUESTS_ONLY',
+    layerStack: 'SHEIKHA_CONVERSATION_LAYER_STACK_V1',
+    highestRuntimeLayer: 8,
+    layers: [
+      'Conversation Engine',
+      'Memory Fabric',
+      'Knowledge Store',
+      'Knowledge Graph',
+      'PostgreSQL',
+      'Vector Store',
+      'Enterprise Governance',
+      'Evidence & Observability'
+    ]
   };
 }
 
@@ -128,7 +154,7 @@ function handleBlocked({ governance, message, channel, diagnosticRequested, opti
   return response;
 }
 
-function handleConversation(payload = {}, options = {}) {
+async function handleConversation(payload = {}, options = {}) {
   const message = String(payload.message || payload.prompt || payload.text || '').trim();
   const channel = String(payload.channel || payload.source || 'api');
   const diagnosticRequested = payload.diagnosticRequested === true || isDiagnosticRequest(message);
@@ -145,6 +171,11 @@ function handleConversation(payload = {}, options = {}) {
   }
 
   try {
+    const layerStack = await buildConversationLayerStack(message, {
+      rootDir: options.rootDir || payload.workspaceRoot,
+      governance
+    });
+    const conversationContext = buildLayerContext(layerStack);
     const enterpriseInspector = diagnosticRequested
       ? payload.inspectorSnapshot || collectEnterpriseInspector({
           workspace: payload.workspace,
@@ -157,6 +188,7 @@ function handleConversation(payload = {}, options = {}) {
       message,
       source: channel,
       channel,
+      conversationContext,
       enterpriseInspector
     });
 
@@ -169,6 +201,7 @@ function handleConversation(payload = {}, options = {}) {
       pipeline: result.pipeline,
       intent: result.intent,
       intelligenceMode: result.intelligenceMode,
+      layerStack,
       diagnosticRequested,
       inspector: diagnosticRequested ? enterpriseInspector : undefined,
       answer: formatChatAnswer(result.answer || result.response || result.message || ''),
@@ -182,6 +215,22 @@ function handleConversation(payload = {}, options = {}) {
         channel,
         timestamp: new Date().toISOString()
       }, options);
+      response.memory = payload.memoryConsent === true
+        ? persistConversationMemory({
+            requestId: layerStack.requestId,
+            channel,
+            message,
+            answer: response.answer,
+            intent: response.intent
+          }, options)
+        : { success: false, skipped: true, reason: 'MEMORY_CONSENT_REQUIRED' };
+      response.postgresql = await persistConversationPostgreSQL({
+        requestId: layerStack.requestId,
+        channel,
+        message,
+        answer: response.answer,
+        intent: response.intent
+      });
     }
 
     return response;
@@ -201,7 +250,8 @@ function handleConversation(payload = {}, options = {}) {
       fallback: true,
       fallbackRoute: '/api/sheikha/unified-chat',
       primaryError: error.message,
-      diagnosticRequested
+      diagnosticRequested,
+      layerStack: null
     };
 
     if (options.persist !== false) {

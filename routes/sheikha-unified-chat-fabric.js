@@ -47,13 +47,13 @@ router.post('/api/sheikha/unified-chat', (req, res) => {
 });
 
 /* Conversation Engine هو الواجهة الأساسية؛ Unified Chat يبقى مساراً داخلياً واحتياطياً. */
-router.post('/api/sheikha/chat', (req, res) => {
-  const result = handleConversation({ ...(req.body || {}), channel: 'general-web-chat' });
+router.post('/api/sheikha/chat', async (req, res) => {
+  const result = await handleConversation({ ...(req.body || {}), channel: 'general-web-chat' });
   res.status(result.blocked ? 403 : 200).json(result);
 });
 
-router.post('/api/sheikha/extension/chat', (req, res) => {
-  const result = handleConversation({ ...(req.body || {}), channel: 'extension-chat' });
+router.post('/api/sheikha/extension/chat', async (req, res) => {
+  const result = await handleConversation({ ...(req.body || {}), channel: 'extension-chat' });
   res.status(result.blocked ? 403 : 200).json(result);
 });
 

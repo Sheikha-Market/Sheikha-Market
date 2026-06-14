@@ -36,8 +36,8 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(isDiagnosticRequest('اشرح هذا الكود')).toBe(false);
   });
 
-  test('normal conversation does not inject Enterprise Inspector', () => {
-    const response = handleConversation({
+  test('normal conversation does not inject Enterprise Inspector', async () => {
+    const response = await handleConversation({
       message: 'ضع خطة Agentic محكومة لهذه المهمة',
       mode: 'agentic',
       channel: 'extension-chat',
@@ -48,10 +48,13 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(response.route).toBe('SHEIKHA_CONVERSATION_ENGINE_V1');
     expect(response.diagnosticRequested).toBe(false);
     expect(response.inspector).toBeUndefined();
+    expect(response.layerStack.layers).toHaveLength(8);
+    expect(response.layerStack.layers[7].name).toBe('EVIDENCE_OBSERVABILITY');
+    expect(response.memory).toBeUndefined();
     expect(response.answer).toContain('خطة Agentic محكومة');
   });
 
-  test('explicit diagnostic conversation uses the supplied inspector snapshot', () => {
+  test('explicit diagnostic conversation uses the supplied inspector snapshot', async () => {
     const inspectorSnapshot = {
       inspector: 'SHEIKHA_ENTERPRISE_INSPECTOR_V3',
       status: 'ATTENTION',
@@ -68,7 +71,7 @@ describe('Sheikha Conversation Engine V1', () => {
       workspace: {},
       surfaces: {}
     };
-    const response = handleConversation({
+    const response = await handleConversation({
       message: 'حلل حالة المنظومة',
       mode: 'smart',
       inspectorSnapshot,
@@ -94,6 +97,10 @@ describe('Sheikha Conversation Engine V1', () => {
       channel: 'extension-chat',
       message: 'اختبار سجل المحادثة',
       answer: 'استجابة محكومة',
+      layerStack: {
+        requestId: 'REQ-AUDIT-1',
+        layers: [{ layer: 1, name: 'CONVERSATION_ENGINE', status: 'ACTIVE' }]
+      },
       timestamp: '2026-06-14T00:00:00.000Z'
     };
 
@@ -104,6 +111,8 @@ describe('Sheikha Conversation Engine V1', () => {
 
     expect(result.success).toBe(true);
     expect(latest.response.answer).toBe('استجابة محكومة');
+    expect(latest.requestId).toBe('REQ-AUDIT-1');
+    expect(latest.layerTrace).toHaveLength(1);
     expect(latest.request).toHaveProperty('sha256');
     expect(audit).toHaveLength(1);
     expect(audit[0].response.preview).toBe('استجابة محكومة');
@@ -111,6 +120,7 @@ describe('Sheikha Conversation Engine V1', () => {
 
   test('server and extension use the required endpoint policy', () => {
     const server = read('server.js');
+    const route = read('routes/sheikha-conversation-engine-v1-routes.js');
     const client = read('sheikha-vscode-extension/src/sheikhaExtensionChatClient.js');
     const apiClient = read('sheikha-vscode-extension/src/sheikhaApiClient.js');
     const provider = read('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
@@ -120,11 +130,14 @@ describe('Sheikha Conversation Engine V1', () => {
 
     expect(server.split(conversationMount).length - 1).toBe(1);
     expect(server.indexOf(conversationMount)).toBeLessThan(server.indexOf(unifiedMount));
+    expect(route).toContain("router.get('/api/sheikha/conversation-engine/v1/chat'");
+    expect(route).toContain("method: 'POST'");
     expect(client).toContain("const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';");
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Conversation Engine · Governance · Foundry V2');
+    expect(provider).toContain('Conversation Stack L8 · Enterprise Governance · Foundry V2');
+    expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
     expect(inspector).toContain('getEnterpriseInspectorStatus');
   });
 });

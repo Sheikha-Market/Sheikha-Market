@@ -51,7 +51,12 @@ class SheikhaChatProvider {
             model: 'شيخة',
             route: result.raw?.endpoint || result.raw?.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
             governance: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
-            mode: msg.mode || 'smart'
+            mode: msg.mode || 'smart',
+            layers: (result.raw?.layerStack?.layers || []).map((layer) => ({
+              layer: layer.layer,
+              name: layer.name,
+              status: layer.status
+            }))
           }
         });
       } catch (e) {
@@ -93,12 +98,13 @@ button:hover { border-color:#62a6df; }
 button.active { background:#19452d; border-color:#50b878; }
 button:disabled { cursor:wait; opacity:.6; }
 .typing { opacity:.72; border-style:dashed; }
+.trace { direction:ltr; text-align:left; color:#9eabb9; font-size:10px; border:0; background:transparent; padding:2px 4px; }
 textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; background:#0f151d; color:white; border:1px solid #3a4857; resize:vertical; }
 #send { width:100%; margin-top:8px; }
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة المؤسسي</strong><span>Conversation Engine · Governance · Foundry V2</span></div>
+<div class="header"><strong>شات شيخة المؤسسي</strong><span>Conversation Stack L8 · Enterprise Governance · Foundry V2</span></div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>
@@ -162,6 +168,11 @@ function add(text, cls='') {
   return div;
 }
 
+function addTrace(layers) {
+  if (!Array.isArray(layers) || !layers.length) return;
+  add(layers.map(layer => 'L' + layer.layer + ' ' + layer.name + ':' + layer.status).join('  ·  '), 'trace');
+}
+
 function clearTyping() {
   if (typingMessage) typingMessage.remove();
   typingMessage = null;
@@ -195,6 +206,7 @@ window.addEventListener('message', event => {
     clearTyping();
     send.disabled = false;
     add(msg.text || '');
+    addTrace(msg.meta && msg.meta.layers);
   }
   if (msg.command === 'prefill') {
     input.value = msg.text || '';
