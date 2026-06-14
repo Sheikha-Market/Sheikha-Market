@@ -20,6 +20,7 @@ const marketsOfMarketsRoutes = require('./markets-of-markets');
 const governanceRoutes       = require('./governance');
 const ipRoutes               = require('./intellectual-property');
 const logicsRoutes           = require('./logics');
+const enterpriseSaasRuntimeRoutes = require('./enterprise-saas-runtime-routes');
 
 // ─── المسارات الرئيسية ────────────────────────────────────────────────────────
 
