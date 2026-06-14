@@ -139,6 +139,7 @@ app.use(require('./routes/sheikha-extension-chat-compat-routes'));
 app.use(require('./routes/sheikha-foundry-routes'));
 app.use(require('./routes/sheikha-foundry-v2-routes'));
 app.use(require('./routes/enterprise-saas-runtime-routes'));
+app.use(require('./routes/enterprise-saas-v2-routes'));
 app.use(require('./routes/sheikha-direct-repair-governance-routes'));
 
 try {
