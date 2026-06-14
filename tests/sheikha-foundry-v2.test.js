@@ -6,6 +6,7 @@ test('Sheikha Foundry V2 is active', () => {
   const s = status();
   expect(s.success).toBe(true);
   expect(s.foundry).toBe('SHEIKHA_FOUNDRY_V2');
+  expect(s.governs).toContain('Conversation Engine');
   expect(s.factories.capabilityFactory).toBe('ACTIVE');
   expect(s.factories.inspectorPanelFactory).toBe('ACTIVE');
 });

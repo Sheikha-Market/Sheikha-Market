@@ -6,6 +6,7 @@ function status() {
     foundry: 'SHEIKHA_FOUNDRY_V2',
     status: 'ACTIVE',
     governs: [
+      'Conversation Engine',
       'Unified Chat',
       'Extension Chat',
       'Enterprise Inspector',

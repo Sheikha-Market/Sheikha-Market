@@ -359,5 +359,7 @@ module.exports.governMode = governMode;
 
 
 // Sheikha Extension Chat endpoint policy
-module.exports.EXTENSION_CHAT_ENDPOINT = '/api/sheikha/unified-chat';
-module.exports.EXTENSION_CHAT_STATUS_ENDPOINT = '/api/sheikha/unified-chat/status';
+module.exports.EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
+module.exports.EXTENSION_CHAT_STATUS_ENDPOINT = '/api/sheikha/conversation-engine/v1/status';
+module.exports.EXTENSION_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
+module.exports.ENTERPRISE_INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';

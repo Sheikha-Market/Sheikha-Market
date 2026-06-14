@@ -8,6 +8,9 @@ const { normalizeSheikhaReply } = require('./sheikhaReplyNormalizer');
 const { decideSmartRoute } = require('./sheikhaSmartRouteGovernance');
 
 const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top';
+const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
+const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
+const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
 
 function safeJsonParse(rawInput) {
   const raw = String(rawInput || '').trim();
@@ -112,7 +115,7 @@ function getJson(path, baseUrl = DEFAULT_BASE_URL, timeout = 15000) {
 async function getEnterpriseInspectorStatus(options = {}) {
   try {
     const data = await getJson(
-      '/api/sheikha/enterprise-inspector/v3/status',
+      INSPECTOR_STATUS_ENDPOINT,
       options.baseUrl || DEFAULT_BASE_URL,
       options.timeout || 15000
     );
@@ -132,11 +135,25 @@ async function getEnterpriseInspectorStatus(options = {}) {
   }
 }
 
+function isInspectorRequest(message) {
+  return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
+    .test(String(message || ''));
+}
+
+function shouldUseUnifiedFallback(data) {
+  const status = Number(data?.statusCode || 0);
+  return !data || status === 404 || status >= 500 || data.error === 'connection_error';
+}
+
 async function sendExtensionChat(message, options = {}) {
   const text = String(message || '');
-  const smartRoute = decideSmartRoute(text);
+  const smartRoute = decideSmartRoute(text, options.mode || 'smart');
   const workspace = collectWorkspaceContext();
   const vscodeTools = collectVSCodeToolContext();
+  const diagnosticRequested = isInspectorRequest(text);
+  const inspectorSnapshot = diagnosticRequested
+    ? await getEnterpriseInspectorStatus({ baseUrl: options.baseUrl })
+    : undefined;
 
   const payload = {
     message: text,
@@ -145,13 +162,23 @@ async function sendExtensionChat(message, options = {}) {
     channel: 'extension-chat',
     source: 'sheikha-vscode-extension',
     governanceProfile: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
+    diagnosticRequested,
+    inspectorSnapshot,
     route: smartRoute,
     workspace,
     vscodeTools
   };
 
   try {
-    const data = await postJson('/api/sheikha/unified-chat', payload, options.baseUrl);
+    let data = await postJson(CONVERSATION_ENDPOINT, payload, options.baseUrl);
+
+    if (shouldUseUnifiedFallback(data)) {
+      data = await postJson(UNIFIED_CHAT_FALLBACK_ENDPOINT, {
+        ...payload,
+        fallbackFrom: CONVERSATION_ENDPOINT
+      }, options.baseUrl);
+      data.extensionFallback = true;
+    }
 
     if (!data || data.success !== true) {
       return {
@@ -172,22 +199,39 @@ async function sendExtensionChat(message, options = {}) {
       raw: data
     };
   } catch (err) {
+    try {
+      const fallback = await postJson(UNIFIED_CHAT_FALLBACK_ENDPOINT, {
+        ...payload,
+        fallbackFrom: CONVERSATION_ENDPOINT,
+        primaryError: err.message
+      }, options.baseUrl);
+
+      if (fallback?.success === true) {
+        return {
+          success: true,
+          answer: normalizeSheikhaReply(fallback.answer || fallback.reply || fallback.message || '', text),
+          raw: { ...fallback, extensionFallback: true }
+        };
+      }
+    } catch {}
+
     return {
       success: false,
       answer: normalizeSheikhaReply(`تعذر الاتصال بشات الإكستنشن: ${err.message}`, text),
-      raw: {
-        success: false,
-        error: err.message
-      }
+      raw: { success: false, error: err.message }
     };
   }
 }
 
 module.exports = {
+  CONVERSATION_ENDPOINT,
   DEFAULT_BASE_URL,
+  INSPECTOR_STATUS_ENDPOINT,
+  UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
   postJson,
   getJson,
   getEnterpriseInspectorStatus,
+  isInspectorRequest,
   safeJsonParse
 };

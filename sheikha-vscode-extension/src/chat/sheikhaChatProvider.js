@@ -49,7 +49,8 @@ class SheikhaChatProvider {
           meta: {
             provider: 'Sheikha',
             model: 'شيخة',
-            governance: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR',
+            route: result.raw?.endpoint || result.raw?.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
+            governance: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
             mode: msg.mode || 'smart'
           }
         });
@@ -97,7 +98,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة المؤسسي</strong><span>Unified Chat · Governance · Enterprise Inspector</span></div>
+<div class="header"><strong>شات شيخة المؤسسي</strong><span>Conversation Engine · Governance · Foundry V2</span></div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>

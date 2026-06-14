@@ -32,7 +32,9 @@ function governGovernance(req = {}) {
     basis: 'التوحيد لله وحده، والرقمنة منضبطة بالكتاب والسنة، ولا ضرر ولا ضرار',
     controls: {
       governanceCannotBypassProtocol: true,
-      allChannelsMustUseUnifiedChatFabric: true,
+      conversationEnginePrimary: true,
+      unifiedChatFallbackOnly: true,
+      inspectorExplicitDiagnosticsOnly: true,
       destructiveActionsBlocked: true,
       financialAndPhysicalActionsBlocked: true,
       auditRequired: true,

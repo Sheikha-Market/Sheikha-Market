@@ -49,9 +49,9 @@ function status(base = {}) {
       riskLevel: 'LOW'
     },
     ai: {
-      provider: 'Sheikha Unified Chat',
+      provider: 'Sheikha Conversation Engine',
       model: 'Model Executor',
-      route: '/api/sheikha/unified-chat',
+      route: '/api/sheikha/conversation-engine/v1/chat',
       timeline: [
         'Intent Classification',
         'Governance Review',

@@ -179,6 +179,7 @@ function collectEnterpriseInspector(input = {}) {
       }
     },
     surfaces: {
+      conversationEngine: '/api/sheikha/conversation-engine/v1/chat',
       generalChat: '/api/sheikha/chat',
       unifiedChat: '/api/sheikha/unified-chat',
       extensionChat: '/api/sheikha/extension/chat',

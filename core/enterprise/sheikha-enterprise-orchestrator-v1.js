@@ -50,9 +50,10 @@ function getEnterpriseState(base = {}) {
       riskLevel: 'LOW'
     },
     ai: {
-      provider: 'Sheikha Unified Chat',
+      provider: 'Sheikha Conversation Engine',
       model: 'Model Executor',
-      route: '/api/sheikha/unified-chat'
+      route: '/api/sheikha/conversation-engine/v1/chat',
+      fallbackRoute: '/api/sheikha/unified-chat'
     },
     apis: {
       controlTower: '/api/sheikha/control-tower/status',

@@ -3,6 +3,7 @@
 const express = require('express');
 const router = express.Router();
 const { handleUnifiedChat } = require('../runtime/chat-fabric/sheikha-unified-chat-fabric-v1');
+const { handleConversation } = require('../runtime/conversation-engine/sheikha-conversation-engine-v1');
 const { governGovernance } = require('../runtime/governance/sheikha-governance-of-governance-v1');
 
 router.use(express.json({ limit: '5mb' }));
@@ -45,14 +46,14 @@ router.post('/api/sheikha/unified-chat', (req, res) => {
   res.status(result.blocked ? 403 : 200).json(result);
 });
 
-/* اجعل الشات العام وشات الإكستنشن يمران من نفس القماش الموحد */
+/* Conversation Engine هو الواجهة الأساسية؛ Unified Chat يبقى مساراً داخلياً واحتياطياً. */
 router.post('/api/sheikha/chat', (req, res) => {
-  const result = handleUnifiedChat({ ...(req.body || {}), channel: 'general-web-chat' });
+  const result = handleConversation({ ...(req.body || {}), channel: 'general-web-chat' });
   res.status(result.blocked ? 403 : 200).json(result);
 });
 
 router.post('/api/sheikha/extension/chat', (req, res) => {
-  const result = handleUnifiedChat({ ...(req.body || {}), channel: 'extension-chat' });
+  const result = handleConversation({ ...(req.body || {}), channel: 'extension-chat' });
   res.status(result.blocked ? 403 : 200).json(result);
 });
 
