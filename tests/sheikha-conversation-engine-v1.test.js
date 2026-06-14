@@ -136,7 +136,7 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Conversation Stack L8 · Enterprise Governance · Foundry V2');
+    expect(provider).toContain('Conversation Stack L8 · Enterprise Governance · Foundry V2 · Extension 1.0.79');
     expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
     expect(inspector).toContain('getEnterpriseInspectorStatus');
   });

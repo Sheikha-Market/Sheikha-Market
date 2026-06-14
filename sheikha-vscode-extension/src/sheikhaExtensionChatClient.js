@@ -11,21 +11,27 @@ const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.to
 const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
 const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
 const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
+const EXTENSION_TRANSPORT_VERSION = '1.0.79';
 
-function safeJsonParse(rawInput) {
+function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
+  const statusCode = Number(metadata.statusCode || 0);
+  const contentType = String(metadata.contentType || '').toLowerCase();
 
   if (!raw) {
     return {
       success: false,
       error: 'empty_response',
       answer: 'تعذر الاتصال بشات شيخة: الرد فارغ من الخادم.',
-      raw: ''
+      rawPreview: '',
+      statusCode,
+      contentType
     };
   }
 
   try {
-    return JSON.parse(raw);
+    const parsed = JSON.parse(raw);
+    if (parsed && typeof parsed === 'object') return parsed;
   } catch {}
 
   const start = raw.indexOf('{');
@@ -33,15 +39,22 @@ function safeJsonParse(rawInput) {
 
   if (start >= 0 && end > start) {
     try {
-      return JSON.parse(raw.slice(start, end + 1));
+      const parsed = JSON.parse(raw.slice(start, end + 1));
+      if (parsed && typeof parsed === 'object') return parsed;
     } catch {}
   }
 
+  const proxyResponse = contentType.includes('text/html') || /^\s*<(?:!doctype|html|head|body)/i.test(raw);
+
   return {
     success: false,
-    error: 'invalid_json',
-    answer: 'تعذر قراءة رد شات شيخة كـ JSON. تحقق من حالة السيرفر أو أعد المحاولة بعد انتهاء الاختبارات.',
-    raw: raw.slice(0, 1000)
+    error: proxyResponse ? 'proxy_non_json_response' : 'invalid_json',
+    answer: proxyResponse
+      ? 'استلم شات شيخة رد بوابة غير صالح، وسيتم الانتقال تلقائيًا إلى المسار الاحتياطي.'
+      : 'استلم شات شيخة ردًا غير صالح، وسيتم الانتقال تلقائيًا إلى المسار الاحتياطي.',
+    rawPreview: raw.replace(/\s+/g, ' ').slice(0, 240),
+    statusCode,
+    contentType
   };
 }
 
@@ -57,8 +70,10 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
       port: url.port || (url.protocol === 'https:' ? 443 : 80),
       path: url.pathname + url.search,
       headers: {
+        Accept: 'application/json',
         'Content-Type': 'application/json',
-        'Content-Length': Buffer.byteLength(body)
+        'Content-Length': Buffer.byteLength(body),
+        'User-Agent': `Sheikha-VSCode-Extension/${EXTENSION_TRANSPORT_VERSION}`
       },
       timeout: 60000
     }, (res) => {
@@ -69,8 +84,12 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
       });
 
       res.on('end', () => {
-        const parsed = safeJsonParse(data);
+        const parsed = safeJsonParse(data, {
+          statusCode: res.statusCode,
+          contentType: res.headers['content-type']
+        });
         parsed.statusCode = res.statusCode;
+        parsed.contentType = String(res.headers['content-type'] || '');
         resolve(parsed);
       });
     });
@@ -94,14 +113,21 @@ function getJson(path, baseUrl = DEFAULT_BASE_URL, timeout = 15000) {
       hostname: url.hostname,
       port: url.port || (url.protocol === 'https:' ? 443 : 80),
       path: url.pathname + url.search,
-      headers: { Accept: 'application/json' },
+      headers: {
+        Accept: 'application/json',
+        'User-Agent': `Sheikha-VSCode-Extension/${EXTENSION_TRANSPORT_VERSION}`
+      },
       timeout
     }, (res) => {
       let data = '';
       res.on('data', (chunk) => { data += chunk; });
       res.on('end', () => {
-        const parsed = safeJsonParse(data);
+        const parsed = safeJsonParse(data, {
+          statusCode: res.statusCode,
+          contentType: res.headers['content-type']
+        });
         parsed.statusCode = res.statusCode;
+        parsed.contentType = String(res.headers['content-type'] || '');
         resolve(parsed);
       });
     });
@@ -142,7 +168,15 @@ function isInspectorRequest(message) {
 
 function shouldUseUnifiedFallback(data) {
   const status = Number(data?.statusCode || 0);
-  return !data || status === 404 || status >= 500 || data.error === 'connection_error';
+  return !data ||
+    status === 404 ||
+    status >= 500 ||
+    [
+      'connection_error',
+      'empty_response',
+      'invalid_json',
+      'proxy_non_json_response'
+    ].includes(data.error);
 }
 
 async function sendExtensionChat(message, options = {}) {
@@ -227,11 +261,13 @@ module.exports = {
   CONVERSATION_ENDPOINT,
   DEFAULT_BASE_URL,
   INSPECTOR_STATUS_ENDPOINT,
+  EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
   postJson,
   getJson,
   getEnterpriseInspectorStatus,
   isInspectorRequest,
-  safeJsonParse
+  safeJsonParse,
+  shouldUseUnifiedFallback
 };
