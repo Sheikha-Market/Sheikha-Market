@@ -1,62 +1,5 @@
 'use strict';
 
-<<<<<<< HEAD
-const { runCognitivePipeline } = require('../cognitive-governance-v3/sheikha-cognitive-pipeline-v3');
-
-function wantsDiagnostics(message = '') {
-  return /inspector|diagnostic|تشخيص|افحص|حالة المنظومة|تقرير|سجل|log/i.test(String(message));
-}
-
-function buildHumanReply(input = {}, cognitive = {}) {
-  const msg = String(input.message || '').trim();
-
-  if (wantsDiagnostics(msg)) {
-    return null; // اتركه للمفتش عند الطلب الصريح فقط
-  }
-
-  const memoryCounts = cognitive.memory?.counts || {};
-
-  return [
-    'فهمت طلبك.',
-    '',
-    'راجعت السياق والذاكرة والحوكمة قبل الرد.',
-    '',
-    `- النية: ${cognitive.intent}`,
-    `- مستوى المخاطر: ${cognitive.risk?.level}`,
-    `- الذاكرة المعتمدة: ${(memoryCounts.enterpriseMemory || 0) + (memoryCounts.projectMemory || 0) + (memoryCounts.sessionMemory || 0) + (memoryCounts.longTermMemory || 0)}`,
-    `- الذاكرة المحجوبة: ${memoryCounts.suppressedMemory || 0}`,
-    '',
-    'الخطوة الصحيحة الآن: أعطيك جواباً عملياً، وأترك المفتش يعمل في الخلفية ولا أعرض تفاصيله إلا إذا طلبت التشخيص.'
-  ].join('\n');
-}
-
-function handleConversation(input = {}) {
-  const cognitive = runCognitivePipeline(input);
-
-  if (cognitive.blocked) {
-    return {
-      success: false,
-      blocked: true,
-      engine: 'SHEIKHA_CONVERSATION_ENGINE_V1',
-      cognitive,
-      answer: 'تم إيقاف الطلب لأنه عالي الأثر أو خطر. يمكنني تحويله إلى فحص آمن أو خطة مراجعة.'
-    };
-  }
-
-  const answer = buildHumanReply(input, cognitive);
-
-  return {
-    success: true,
-    engine: 'SHEIKHA_CONVERSATION_ENGINE_V1',
-    mode: answer ? 'CONVERSATIONAL' : 'DIAGNOSTIC_REQUESTED',
-    cognitive,
-    nextRoute: answer ? null : '/api/sheikha/unified-chat',
-    answer: answer || 'طلبك تشخيصي؛ سأمرره إلى مسار المفتش والتحقق.'
-  };
-}
-
-module.exports = { handleConversation, wantsDiagnostics, buildHumanReply };
-=======
 const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
@@ -88,18 +31,20 @@ function hash(value) {
 }
 
 function isDiagnosticRequest(message) {
-  return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
+  return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة|تشخيص|سجل|log/i
     .test(String(message || ''));
 }
 
 function writeConversationAudit(record, options = {}) {
   const paths = getAuditPaths(options.rootDir);
   const answer = String(record.answer || '');
+  const timestamp = record.timestamp || new Date().toISOString();
+
   const latest = {
     engine: 'SHEIKHA_CONVERSATION_ENGINE_V1',
-    generatedAt: record.timestamp,
-    success: record.success,
-    route: record.route,
+    generatedAt: timestamp,
+    success: record.success !== false,
+    route: record.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
     fallback: Boolean(record.fallback),
     diagnosticRequested: Boolean(record.diagnosticRequested),
     intent: record.intent || null,
@@ -116,7 +61,7 @@ function writeConversationAudit(record, options = {}) {
   };
 
   const audit = {
-    at: record.timestamp,
+    at: timestamp,
     engine: latest.engine,
     success: latest.success,
     route: latest.route,
@@ -135,10 +80,12 @@ function writeConversationAudit(record, options = {}) {
   try {
     fs.mkdirSync(path.dirname(paths.latest), { recursive: true });
     fs.mkdirSync(path.dirname(paths.audit), { recursive: true });
+
     const temporary = `${paths.latest}.${process.pid}.tmp`;
     fs.writeFileSync(temporary, `${JSON.stringify(latest, null, 2)}\n`, 'utf8');
     fs.renameSync(temporary, paths.latest);
     fs.appendFileSync(paths.audit, `${JSON.stringify(audit)}\n`, 'utf8');
+
     return { success: true, paths };
   } catch (error) {
     console.warn('[SHEIKHA CONVERSATION AUDIT]', error.message);
@@ -160,10 +107,52 @@ function status() {
   };
 }
 
+function blockedResponse({ governance, message, channel, diagnosticRequested, options }) {
+  const response = {
+    success: false,
+    blocked: true,
+    route: 'SHEIKHA_CONVERSATION_ENGINE_V1',
+    endpoint: '/api/sheikha/conversation-engine/v1/chat',
+    governance,
+    diagnosticRequested,
+    fallback: false,
+    answer: 'تم حظر الطلب بواسطة حوكمة شيخة لأنه يتضمن صلاحية خطرة أو غير مأذونة.'
+  };
+
+  if (options.persist !== false) {
+    response.audit = writeConversationAudit({
+      ...response,
+      message,
+      channel,
+      timestamp: new Date().toISOString()
+    }, options);
+  }
+
+  return response;
+}
+
+function buildPayload(payload, message, channel, diagnosticRequested) {
+  const enterpriseInspector = diagnosticRequested
+    ? payload.inspectorSnapshot || collectEnterpriseInspector({
+        workspace: payload.workspace,
+        vscodeTools: payload.vscodeTools
+      })
+    : undefined;
+
+  return {
+    ...payload,
+    message,
+    source: channel,
+    channel,
+    enterpriseInspector
+  };
+}
+
 function handleConversation(payload = {}, options = {}) {
-  const message = String(payload.message || payload.prompt || '').trim();
+  const message = String(payload.message || payload.prompt || payload.text || '').trim();
   const channel = String(payload.channel || payload.source || 'api');
   const diagnosticRequested = payload.diagnosticRequested === true || isDiagnosticRequest(message);
+
   const governance = governGovernance({
     actor: payload.actor || channel,
     channel,
@@ -172,38 +161,13 @@ function handleConversation(payload = {}, options = {}) {
   });
 
   if (!governance.allowed) {
-    const blocked = {
-      success: false,
-      blocked: true,
-      route: 'SHEIKHA_CONVERSATION_ENGINE_V1',
-      governance,
-      answer: 'تم حظر الطلب بواسطة حوكمة شيخة لأنه يتضمن صلاحية خطرة أو غير مأذونة.'
-    };
-    if (options.persist !== false) {
-      writeConversationAudit({
-        ...blocked,
-        message,
-        channel,
-        diagnosticRequested,
-        timestamp: new Date().toISOString()
-      }, options);
-    }
-    return blocked;
+    return blockedResponse({ governance, message, channel, diagnosticRequested, options });
   }
 
   try {
-    const enterpriseInspector = diagnosticRequested
-      ? payload.inspectorSnapshot || collectEnterpriseInspector({
-          workspace: payload.workspace,
-          vscodeTools: payload.vscodeTools
-        })
-      : undefined;
-    const result = executePipeline({
-      ...payload,
-      message,
-      source: channel,
-      enterpriseInspector
-    });
+    const pipelineInput = buildPayload(payload, message, channel, diagnosticRequested);
+    const result = executePipeline(pipelineInput);
+
     const response = {
       success: true,
       route: 'SHEIKHA_CONVERSATION_ENGINE_V1',
@@ -214,8 +178,8 @@ function handleConversation(payload = {}, options = {}) {
       intent: result.intent,
       intelligenceMode: result.intelligenceMode,
       diagnosticRequested,
-      inspector: diagnosticRequested ? enterpriseInspector : undefined,
-      answer: formatChatAnswer(result.answer),
+      inspector: diagnosticRequested ? pipelineInput.enterpriseInspector : undefined,
+      answer: formatChatAnswer(result.answer || result.response || result.message || ''),
       fallback: false
     };
 
@@ -227,13 +191,17 @@ function handleConversation(payload = {}, options = {}) {
         timestamp: new Date().toISOString()
       }, options);
     }
+
     return response;
   } catch (error) {
     const fallback = handleUnifiedChat({
       ...payload,
       message,
-      channel
+      channel,
+      source: channel,
+      mode: payload.mode || 'smart'
     });
+
     const response = {
       ...fallback,
       route: 'SHEIKHA_CONVERSATION_ENGINE_V1',
@@ -252,6 +220,7 @@ function handleConversation(payload = {}, options = {}) {
         timestamp: new Date().toISOString()
       }, options);
     }
+
     return response;
   }
 }
@@ -263,4 +232,3 @@ module.exports = {
   status,
   writeConversationAudit
 };
->>>>>>> b403e614 (Route VS Code chat through Sheikha conversation engine)
