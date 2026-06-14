@@ -9,6 +9,8 @@ const temporaryData = fs.mkdtempSync(path.join(os.tmpdir(), 'sheikha-runtime-fab
 process.env.SHEIKHA_RUNTIME_FABRIC_V5_DATA_DIR = temporaryData;
 
 const fabric = require('../runtime/runtime-fabric-v5/runtime-fabric-v5');
+const { createSheikhaApiClient } = require('../sdk/sheikha-api');
+const { ALLOWED_SCOPES } = require('../runtime/security/api-keys/api-key-manager');
 
 const owner = Object.freeze({
   actorId: 'runtime-fabric-test-owner',
@@ -116,9 +118,30 @@ describe('Sheikha Runtime Fabric V5', () => {
     expect(server.split(mount).length - 1).toBe(1);
     expect(routes).toContain("'/api/sheikha/runtime-fabric/v5/issues'");
     expect(routes).toContain('x-sheikha-human-approved');
+    expect(routes).toContain("'runtime:execute'");
     expect(docs).toContain('does not claim Redis');
     expect(packageJson.scripts['ops:runtime-fabric:v5']).toContain('runtime-fabric-v5');
     expect(report.decision).toBe('RUNTIME_FABRIC_V5_SINGLE_NODE_OPERATIONAL_100');
+    expect(ALLOWED_SCOPES).toContain('runtime:audit');
+  });
+
+  test('exposes Runtime Fabric through the JavaScript SDK', async () => {
+    const requests = [];
+    const client = createSheikhaApiClient({
+      baseUrl: 'https://example.test',
+      apiKey: 'skh_v2_test',
+      humanApproved: true,
+      fetchImpl: async (url, options) => {
+        requests.push({ url, options });
+        return { ok: true, status: 200, json: async () => ({ success: true, data: {} }) };
+      }
+    });
+
+    await client.runtimeFabric.submitIssue({ issue: 'SDK governed issue' });
+
+    expect(requests[0].url).toBe('https://example.test/api/sheikha/runtime-fabric/v5/issues');
+    expect(requests[0].options.headers.Authorization).toBe('Sheikha skh_v2_test');
+    expect(requests[0].options.headers['x-sheikha-human-approved']).toBe('true');
   });
 
   test('produces audit and runtime measurements', () => {

@@ -59,7 +59,9 @@ function createSheikhaApiClient({
       '/api/saas/v2/status',
       '/api/tenancy/snapshot',
       '/api/subscriptions/usage',
-      '/api/security/api-keys/status'
+      '/api/security/api-keys/status',
+      '/api/sheikha/runtime-fabric/v5/status',
+      '/api/sheikha/runtime-fabric/v5/issues'
     ],
     requestDescriptor(path, method = 'GET') {
       return {
@@ -90,6 +92,28 @@ function createSheikhaApiClient({
     rotateApiKey: (keyId, input = {}) => request(`/api/security/api-keys/${keyId}/rotate`, 'POST', input),
     revokeApiKey: keyId => request(`/api/security/api-keys/${keyId}/revoke`, 'POST', {}),
     audit: (limit = 100) => request(`/api/saas/v2/audit?limit=${encodeURIComponent(limit)}`)
+  };
+
+  client.runtimeFabric = {
+    status: () => request('/api/sheikha/runtime-fabric/v5/status'),
+    services: () => request('/api/sheikha/runtime-fabric/v5/services'),
+    events: (limit = 100) => request(
+      `/api/sheikha/runtime-fabric/v5/events?limit=${encodeURIComponent(limit)}`
+    ),
+    queue: (status = '', limit = 100) => request(
+      `/api/sheikha/runtime-fabric/v5/queue?status=${encodeURIComponent(status)}` +
+      `&limit=${encodeURIComponent(limit)}`
+    ),
+    schedules: () => request('/api/sheikha/runtime-fabric/v5/schedules'),
+    metrics: () => request('/api/sheikha/runtime-fabric/v5/metrics'),
+    cluster: () => request('/api/sheikha/runtime-fabric/v5/cluster'),
+    audit: (limit = 100) => request(
+      `/api/sheikha/runtime-fabric/v5/audit?limit=${encodeURIComponent(limit)}`
+    ),
+    submitIssue: input => request('/api/sheikha/runtime-fabric/v5/issues', 'POST', input),
+    drain: (input = {}) => request('/api/sheikha/runtime-fabric/v5/workers/drain', 'POST', input),
+    createSchedule: input => request('/api/sheikha/runtime-fabric/v5/schedules', 'POST', input),
+    tick: () => request('/api/sheikha/runtime-fabric/v5/scheduler/tick', 'POST', {})
   };
 
   return client;

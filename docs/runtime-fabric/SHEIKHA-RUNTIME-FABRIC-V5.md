@@ -42,8 +42,10 @@ management and federation plane; it does not bypass the operational orchestrator
 - `POST /api/sheikha/runtime-fabric/v5/schedules`
 - `POST /api/sheikha/runtime-fabric/v5/scheduler/tick`
 
-Detailed reads require a trusted identity. Writes additionally require human approval.
-Worker and scheduler operations require an operational role.
+Detailed reads require a trusted identity or a scoped Sheikha API key. Supported key
+scopes are `runtime:read`, `runtime:execute`, `runtime:schedule`, and `runtime:audit`.
+Writes additionally require human approval. Worker and scheduler operations require an
+operational role.
 
 ## Truthful deployment boundary
 
