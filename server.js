@@ -2453,6 +2453,13 @@ app.use(require('./routes/sheikha-software-registry'));
 app.use(require('./routes/sheikha-intent-router'));
 
 try {
+  app.use(require('./routes/enterprise-management-os-routes'));
+  console.log('✅ Sheikha Enterprise Management OS V1 routes mounted');
+} catch (err) {
+  console.error('⚠️ Sheikha Enterprise Management OS V1 mount failed:', err.message);
+}
+
+try {
   app.use(require('./routes/hub-routes'));
   console.log('✅ Sheikha Hub V1 routes mounted');
 } catch (err) {
