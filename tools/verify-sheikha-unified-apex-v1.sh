@@ -30,10 +30,14 @@ sheikha_run node --check server.js
 sheikha_run node --check runtime/civilization-command-intelligence-plane/civilization-command-intelligence-plane-v1.js
 sheikha_run node --check runtime/civilization-stewardship-apex/v1/civilization-stewardship-apex-v1.js
 sheikha_run node --check runtime/covenant-governance-apex/v1/covenant-governance-apex-v1.js
+sheikha_run node --check runtime/layer-governance-promotion-os/v1/layer-contract-registry.js
+sheikha_run node --check runtime/layer-governance-promotion-os/v1/layer-governance-promotion-os-v1.js
+sheikha_run node --check runtime/layer-governance-promotion-os/v1/store.js
 sheikha_run node --check runtime/runtime-fabric-v5/runtime-fabric-v5.js
 sheikha_run node --check runtime/storage-governance/v1/sheikha-storage-governance-v1.js
 sheikha_run node --check routes/civilization-stewardship-apex-routes.js
 sheikha_run node --check routes/covenant-governance-apex-routes.js
+sheikha_run node --check routes/layer-governance-promotion-os-routes.js
 sheikha_run node --check routes/storage-governance-routes.js
 sheikha_run npm run lint
 sheikha_run npm test -- --runInBand

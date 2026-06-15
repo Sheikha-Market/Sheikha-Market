@@ -63,6 +63,8 @@ if [[ "$RESTART_PM2" == true ]]; then
   sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/civilization-command/v1/status
   sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/civilization-stewardship/v1/status
   sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/covenant-governance/v1/status
+  sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/layer-governance/v1/status
+  sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/layer-governance/v1/catalog
   sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/runtime-fabric/v5/status
   sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/storage-governance/v1/status
 fi

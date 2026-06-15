@@ -87,6 +87,12 @@ describe('Sheikha Layer Governance and Promotion OS V1', () => {
     const activation = fs.readFileSync(
       path.join(root, 'tools/activate-sheikha-layer-governance-promotion-os.sh'), 'utf8'
     );
+    const unifiedActivation = fs.readFileSync(
+      path.join(root, 'tools/activate-sheikha-unified-apex-v1.sh'), 'utf8'
+    );
+    const verification = fs.readFileSync(
+      path.join(root, 'tools/verify-sheikha-unified-apex-v1.sh'), 'utf8'
+    );
     const requests = [];
     const client = createSheikhaApiClient({
       baseUrl: 'https://example.test',
@@ -100,6 +106,8 @@ describe('Sheikha Layer Governance and Promotion OS V1', () => {
     expect(server).toContain("app.use(require('./routes/layer-governance-promotion-os-routes'));");
     expect(inspector).toContain('/api/sheikha/layer-governance/v1/status');
     expect(activation).toContain('activate-sheikha-unified-apex-v1.sh');
+    expect(unifiedActivation).toContain('/api/sheikha/layer-governance/v1/status');
+    expect(verification).toContain('layer-governance-promotion-os-v1.js');
     expect(ALLOWED_SCOPES).toContain('layers:promote');
     expect(requests[0].url).toBe('https://example.test/api/sheikha/layer-governance/v1/catalog');
   });
