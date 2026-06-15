@@ -33,14 +33,19 @@ sheikha_run node --check runtime/covenant-governance-apex/v1/covenant-governance
 sheikha_run node --check runtime/layer-governance-promotion-os/v1/layer-contract-registry.js
 sheikha_run node --check runtime/layer-governance-promotion-os/v1/layer-governance-promotion-os-v1.js
 sheikha_run node --check runtime/layer-governance-promotion-os/v1/store.js
+sheikha_run node --check runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1.js
 sheikha_run node --check runtime/runtime-fabric-v5/runtime-fabric-v5.js
 sheikha_run node --check runtime/storage-governance/v1/sheikha-storage-governance-v1.js
 sheikha_run node --check routes/civilization-stewardship-apex-routes.js
 sheikha_run node --check routes/covenant-governance-apex-routes.js
 sheikha_run node --check routes/layer-governance-promotion-os-routes.js
+sheikha_run node --check routes/sheikha-vscode-extension-experience-apex-routes.js
+sheikha_run node --check sheikha-vscode-extension/src/sheikhaExtensionChatClient.js
+sheikha_run node --check sheikha-vscode-extension/src/chat/sheikhaChatProvider.js
 sheikha_run node --check routes/storage-governance-routes.js
 sheikha_run npm run lint
 sheikha_run npm test -- --runInBand
+sheikha_run npm --prefix sheikha-vscode-extension test -- --runInBand
 sheikha_capture_git_context
 sheikha_run node tools/governance/runtime-integrity-verifier.js
 sheikha_run node tools/governance/runtime-admission-controller.js

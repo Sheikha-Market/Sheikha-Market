@@ -26,11 +26,14 @@ function readJsonSafe(file) {
 function classifyIntent(message) {
   const text = String(message || '');
 
-  if (/مفتش|inspector|حالة المنظومة|حالة شيخة|صحة المنظومة|enterprise status|system health|diagnostics/i.test(text)) {
+  if (/مفتش\s+المنظومة|enterprise\s+inspector|حالة\s+(?:المنظومة|شيخة|النظام)|صحة\s+(?:المنظومة|النظام)|system\s+health|system\s+diagnostics|تشخيص\s+(?:المنظومة|النظام)/i.test(text)) {
     return 'ENTERPRISE_INSPECTOR';
   }
   if (/شعار|logo|هوية|brand|علامة/i.test(text)) return 'GRAPHICS_LOGO_PLAN';
-  if (/دبق|ديبق|ديبنق|debug|fix|اصلح|اختبار|test|error/i.test(text)) return 'DEBUG_PIPELINE';
+  if (/debug\s+pipeline|شغ[ّل]*\s+التشخيص|اعرض\s+(?:git\s+status|سجل\s+التشخيص)|حلل\s+(?:stack\s*trace|سجل\s+الخطأ)/i.test(text)) {
+    return 'DEBUG_PIPELINE';
+  }
+  if (/أصلح|اصلح|إصلاح|fix|patch|خطأ|error|تعطل|فشل|bug/i.test(text)) return 'CODE_ASSIST';
   if (/تقرير|report/i.test(text)) {
     return /المشروع|المستودع|repo|repository|git|runtime|التشغيل|الفرع|ملفات معدلة/i.test(text)
       ? 'REPORT_PIPELINE'
@@ -464,6 +467,39 @@ function buildDebugPlan(message, cli) {
   return lines.join('\n');
 }
 
+function buildKnownToolResolution(message) {
+  const text = String(message || '');
+  if (!/todo-?tree/i.test(text) || !/vscode-ripgrep|ripgrep|\brg\b/i.test(text)) return '';
+
+  return [
+    'المشكلة أن إضافة Todo Tree لا تجد برنامج `rg` التنفيذي.',
+    '',
+    'نفّذ أولًا:',
+    '```bash',
+    'command -v rg',
+    'rg --version',
+    '```',
+    '',
+    'إذا ظهر مسار مثل `/usr/bin/rg`، أضف إلى إعدادات VS Code:',
+    '```json',
+    '{',
+    '  "todo-tree.ripgrep": "/usr/bin/rg"',
+    '}',
+    '```',
+    '',
+    'إذا لم يكن مثبتًا، ثبّت حزمة `ripgrep` من مدير حزم النظام ثم أعد تحميل نافذة VS Code.',
+    'لا يلزم تغيير كود المشروع نفسه.'
+  ].join('\n');
+}
+
+function buildRecentConversationContext(history = []) {
+  if (!Array.isArray(history) || history.length === 0) return '';
+  return history.slice(-8).map((turn) => ({
+    role: turn.role === 'assistant' ? 'assistant' : 'user',
+    content: String(turn.content || turn.text || '').slice(0, 1200)
+  })).filter(turn => turn.content).map(turn => `${turn.role}: ${turn.content}`).join('\n');
+}
+
 function executePipeline(payload = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const workspace = payload.workspace || {};
@@ -523,31 +559,21 @@ function executePipeline(payload = {}) {
     answer = buildFoundryReport();
   } else {
     {
-    const executed = modelExecutor.execute(message, {
-      context: [
-        buildConversationModelContext(payload.conversationContext),
-        buildInspectorModelContext(payload.enterpriseInspector)
-      ].filter(Boolean).join('\n\n')
-    });
-    answer = executed.success
-      ? [
-          'بسم الله الرحمن الرحيم',
-          '',
-          'أنا شيخة.',
-          '',
-          `المسار: ${executed.executor}`,
-          `النموذج: ${executed.model}`,
-          `نوع المهمة: ${executed.task}`,
-          '',
-          executed.answer
-        ].join('\n')
-      : [
-          'بسم الله الرحمن الرحيم',
-          '',
-          'أنا شيخة.',
-          '',
-          executed.answer || executed.error || 'تعذر تنفيذ النموذج.'
-        ].join('\n');
+    const knownResolution = buildKnownToolResolution(message);
+    if (knownResolution) {
+      answer = knownResolution;
+    } else {
+      const executed = modelExecutor.execute(message, {
+        context: [
+          buildRecentConversationContext(payload.history),
+          buildConversationModelContext(payload.conversationContext),
+          buildInspectorModelContext(payload.enterpriseInspector)
+        ].filter(Boolean).join('\n\n')
+      });
+      answer = executed.success
+        ? executed.answer
+        : executed.answer || executed.error || 'تعذر تنفيذ النموذج.';
+    }
   }
   }
 
@@ -567,6 +593,11 @@ function executePipeline(payload = {}) {
       actualAsiReached: false,
       consciousnessClaimed: false,
       superhumanCapabilityClaimed: false
+    },
+    vitality: {
+      mode: 'RESPONSIVE_CONTEXTUAL_CONVERSATION',
+      sessionContextUsed: Array.isArray(payload.history) && payload.history.length > 0,
+      humanLikeConsciousnessClaimed: false
     },
     cli,
     conversationContext: payload.conversationContext || null,
@@ -596,5 +627,7 @@ module.exports = {
   buildEnterpriseInspectorReport,
   buildInspectorModelContext,
   buildConversationModelContext,
-  buildGroundedRagAnswer
+  buildGroundedRagAnswer,
+  buildKnownToolResolution,
+  buildRecentConversationContext
 };

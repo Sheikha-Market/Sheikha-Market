@@ -11,6 +11,10 @@ const {
   status,
   writeConversationAudit
 } = require('../runtime/conversation-engine/sheikha-conversation-engine-v1');
+const {
+  buildKnownToolResolution,
+  classifyIntent
+} = require('../runtime/execution/sheikha-execution-pipeline-v1');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -38,6 +42,18 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(isDiagnosticRequest('افحص المنظومة')).toBe(true);
     expect(isDiagnosticRequest('اكتب تقريراً عن الفوندري')).toBe(false);
     expect(isDiagnosticRequest('اشرح هذا الكود')).toBe(false);
+    expect(isDiagnosticRequest('أصلح هذا الخطأ في Todo Tree')).toBe(false);
+    expect(isDiagnosticRequest('راجع أخطاء الملف الحالي')).toBe(false);
+  });
+
+  test('routes repair requests to direct assistance instead of generic diagnostics', () => {
+    expect(classifyIntent('أصلح خطأ Todo-Tree في VS Code')).toBe('CODE_ASSIST');
+    expect(classifyIntent('شغل التشخيص واعرض Git status')).toBe('DEBUG_PIPELINE');
+    const answer = buildKnownToolResolution(
+      'Todo-Tree: Failed to find vscode-ripgrep please set todo-tree.ripgrep'
+    );
+    expect(answer).toContain('command -v rg');
+    expect(answer).toContain('todo-tree.ripgrep');
   });
 
   test('normal conversation does not inject Enterprise Inspector', async () => {
@@ -145,8 +161,9 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Orchestrator Fabric L11 · Foundry V3 · Supreme Orchestrator L10 · Runtime L1-L8 · Extension 1.0.81');
+    expect(provider).toContain('Layer Governance L18 · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.82');
     expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
+    expect(provider).toContain("command: 'experienceStatus'");
     expect(inspector).toContain('getEnterpriseInspectorStatus');
   });
 });

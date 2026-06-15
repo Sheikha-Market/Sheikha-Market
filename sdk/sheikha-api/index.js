@@ -69,7 +69,9 @@ function createSheikhaApiClient({
       '/api/sheikha/covenant-governance/v1/status',
       '/api/sheikha/covenant-governance/v1/policies',
       '/api/sheikha/layer-governance/v1/status',
-      '/api/sheikha/layer-governance/v1/catalog'
+      '/api/sheikha/layer-governance/v1/catalog',
+      '/api/sheikha/extension-experience/v1/status',
+      '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
       return {
@@ -209,6 +211,11 @@ function createSheikhaApiClient({
       'POST',
       {}
     )
+  };
+
+  client.extensionExperience = {
+    status: () => request('/api/sheikha/extension-experience/v1/status'),
+    enterpriseManagement: () => request('/api/sheikha/enterprise-management-os/status')
   };
 
   return client;

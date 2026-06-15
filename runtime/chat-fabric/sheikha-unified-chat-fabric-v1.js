@@ -76,10 +76,13 @@ function handleUnifiedChat(payload = {}) {
     };
   }
 
-  const enterpriseInspector = collectEnterpriseInspector({
-    workspace: payload.workspace,
-    vscodeTools: payload.vscodeTools
-  });
+  const diagnosticRequested = payload.diagnosticRequested === true;
+  const enterpriseInspector = diagnosticRequested
+    ? collectEnterpriseInspector({
+        workspace: payload.workspace,
+        vscodeTools: payload.vscodeTools
+      })
+    : undefined;
 
   const result = executePipeline({
     ...payload,
@@ -100,7 +103,7 @@ function handleUnifiedChat(payload = {}) {
     claimStatus: result.claimStatus,
     channel,
     answer: formatChatAnswer(result.answer),
-    inspector: compactInspectorContext(enterpriseInspector),
+    inspector: enterpriseInspector ? compactInspectorContext(enterpriseInspector) : undefined,
     execution: result.cli ? { cli: buildExecutionMetadata(result.cli) } : undefined
   };
 
@@ -109,7 +112,7 @@ function handleUnifiedChat(payload = {}) {
     intent: result.intent,
     intelligenceMode: result.intelligenceMode,
     pipeline: result.pipeline,
-    inspectorStatus: enterpriseInspector.status,
+    inspectorStatus: enterpriseInspector?.status || 'NOT_REQUESTED',
     success: true,
     messageBytes: Buffer.byteLength(message),
     answerBytes: Buffer.byteLength(result.answer || '')

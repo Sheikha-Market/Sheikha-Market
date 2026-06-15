@@ -35,7 +35,7 @@ function hash(value) {
 }
 
 function isDiagnosticRequest(message) {
-  return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة|تشخيص|سجل|log/i
+  return /حلل\s+(?:الحالة|حالة)\s+(?:الحالية\s+)?(?:للمنظومة|للنظام|لشيخة)|افحص\s+(?:المنظومة|النظام|حالة\s+المنظومة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|system\s+diagnostics|مفتش\s+المنظومة|تشخيص\s+(?:المنظومة|النظام)/i
     .test(String(message || ''));
 }
 
@@ -139,6 +139,8 @@ function status() {
     highestControlPlane: 11,
     governance: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
     inspectorPolicy: 'EXPLICIT_DIAGNOSTIC_REQUESTS_ONLY',
+    conversationExperience: 'SHEIKHA_VITAL_CONVERSATION_V1',
+    vitality: 'RESPONSIVE_CONTEXTUAL_NON_CONSCIOUS_SYSTEM',
     layerStack: 'SHEIKHA_CONVERSATION_LAYER_STACK_V1',
     highestRuntimeLayer: 8,
     layers: [

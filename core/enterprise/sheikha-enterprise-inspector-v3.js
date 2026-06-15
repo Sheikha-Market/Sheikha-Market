@@ -19,6 +19,12 @@ const covenantGovernance = require(
 const layerGovernance = require(
   '../../runtime/layer-governance-promotion-os/v1/layer-governance-promotion-os-v1'
 );
+const extensionExperience = require(
+  '../../runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1'
+);
+const enterpriseManagement = require(
+  '../../runtime/enterprise-management-os/sheikha-enterprise-management-os-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -144,6 +150,8 @@ function collectEnterpriseInspector(input = {}) {
   const civilizationStewardshipStatus = civilizationStewardship.status();
   const covenantGovernanceStatus = covenantGovernance.status();
   const layerGovernanceStatus = layerGovernance.status();
+  const extensionExperienceStatus = extensionExperience.status();
+  const enterpriseManagementStatus = enterpriseManagement.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -175,6 +183,8 @@ function collectEnterpriseInspector(input = {}) {
       civilizationStewardship: civilizationStewardshipStatus.status,
       covenantGovernance: covenantGovernanceStatus.status,
       layerGovernance: layerGovernanceStatus.status,
+      extensionExperience: extensionExperienceStatus.status,
+      enterpriseManagement: enterpriseManagementStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -219,6 +229,8 @@ function collectEnterpriseInspector(input = {}) {
       covenantGovernancePolicies: '/api/sheikha/covenant-governance/v1/policies',
       layerGovernance: '/api/sheikha/layer-governance/v1/status',
       layerCatalog: '/api/sheikha/layer-governance/v1/catalog',
+      extensionExperience: '/api/sheikha/extension-experience/v1/status',
+      enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
     },
@@ -230,6 +242,8 @@ function collectEnterpriseInspector(input = {}) {
         'Enterprise Orchestrator',
         'Covenant Governance Apex',
         'Layer Governance and Promotion OS',
+        'VS Code Extension Experience Apex',
+        'Enterprise Management OS',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',
         'Runtime Fabric V5',
@@ -294,6 +308,8 @@ function collectEnterpriseInspector(input = {}) {
       boundaries: layerGovernanceStatus.boundaries,
       storage: layerGovernanceStatus.storage
     },
+    extensionExperience: extensionExperienceStatus,
+    enterpriseManagement: enterpriseManagementStatus,
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),
     orchestration: {

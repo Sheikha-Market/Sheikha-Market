@@ -1,12 +1,18 @@
 'use strict';
 
 const vscode = require('vscode');
-const { sendExtensionChat } = require('../sheikhaExtensionChatClient');
+const crypto = require('crypto');
+const {
+  getExtensionExperienceStatus,
+  sendExtensionChat
+} = require('../sheikhaExtensionChatClient');
 
 class SheikhaChatProvider {
   constructor(context) {
     this.context = context;
     this.views = new Set();
+    this.conversationId = crypto.randomUUID();
+    this.history = [];
   }
 
   resolveWebviewView(webviewView) {
@@ -17,6 +23,11 @@ class SheikhaChatProvider {
     webviewView.onDidDispose(() => this.views.delete(webviewView));
 
     webviewView.webview.html = this.getHtml();
+    getExtensionExperienceStatus({
+      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+    }).then((experience) => {
+      webviewView.webview.postMessage({ command: 'experienceStatus', experience });
+    }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
       try {
@@ -40,8 +51,16 @@ class SheikhaChatProvider {
 
         const result = await sendExtensionChat(text, {
           baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top',
-          mode: msg.mode || 'smart'
+          mode: msg.mode || 'smart',
+          conversationId: this.conversationId,
+          history: this.history
         });
+
+        this.history.push(
+          { role: 'user', content: text },
+          { role: 'assistant', content: String(result.answer || '').slice(0, 4000) }
+        );
+        this.history = this.history.slice(-12);
 
         webviewView.webview.postMessage({
           command: 'reply',
@@ -104,7 +123,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة المؤسسي</strong><span>Orchestrator Fabric L11 · Foundry V3 · Supreme Orchestrator L10 · Runtime L1-L8 · Extension 1.0.81</span></div>
+<div class="header"><strong>شات شيخة الحيوي</strong><span id="experience">Layer Governance L18 · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.82</span></div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>
@@ -170,7 +189,15 @@ function add(text, cls='') {
 
 function addTrace(layers) {
   if (!Array.isArray(layers) || !layers.length) return;
-  add(layers.map(layer => 'L' + layer.layer + ' ' + layer.name + ':' + layer.status).join('  ·  '), 'trace');
+  const details = document.createElement('details');
+  details.className = 'trace';
+  const summary = document.createElement('summary');
+  summary.textContent = 'مسار الرد المحكوم · ' + layers.length + ' طبقات';
+  const content = document.createElement('div');
+  content.textContent = layers.map(layer => 'L' + layer.layer + ' ' + layer.name + ':' + layer.status).join('  ·  ');
+  details.appendChild(summary);
+  details.appendChild(content);
+  log.appendChild(details);
 }
 
 function clearTyping() {
@@ -200,7 +227,7 @@ window.addEventListener('message', event => {
   const msg = event.data || {};
   if (msg.command === 'typing') {
     clearTyping();
-    typingMessage = add(msg.text || 'شيخة تعمل الآن...', 'typing');
+    typingMessage = add(msg.text || 'شيخة تقرأ طلبك وتجهز جوابًا عمليًا...', 'typing');
   }
   if (msg.command === 'reply') {
     clearTyping();
@@ -212,6 +239,12 @@ window.addEventListener('message', event => {
     input.value = msg.text || '';
     input.focus();
     if (msg.autoSend) ask();
+  }
+  if (msg.command === 'experienceStatus' && msg.experience && msg.experience.success === true) {
+    const data = msg.experience.data || {};
+    document.getElementById('experience').textContent =
+      'Layer Governance L' + (data.governedByApexLevel || 18) +
+      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.82';
   }
 });
 </script>

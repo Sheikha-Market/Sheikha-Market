@@ -11,7 +11,8 @@ const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.to
 const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
 const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
 const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.81';
+const EXTENSION_EXPERIENCE_STATUS_ENDPOINT = '/api/sheikha/extension-experience/v1/status';
+const EXTENSION_TRANSPORT_VERSION = '1.0.82';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -161,6 +162,18 @@ async function getEnterpriseInspectorStatus(options = {}) {
   }
 }
 
+async function getExtensionExperienceStatus(options = {}) {
+  try {
+    return await getJson(
+      EXTENSION_EXPERIENCE_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
 function isInspectorRequest(message) {
   return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
     .test(String(message || ''));
@@ -201,6 +214,9 @@ async function sendExtensionChat(message, options = {}) {
     route: smartRoute,
     workspace,
     vscodeTools
+    ,
+    conversationId: options.conversationId || null,
+    history: Array.isArray(options.history) ? options.history.slice(-8) : []
   };
 
   try {
@@ -261,12 +277,14 @@ module.exports = {
   CONVERSATION_ENDPOINT,
   DEFAULT_BASE_URL,
   INSPECTOR_STATUS_ENDPOINT,
+  EXTENSION_EXPERIENCE_STATUS_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
   postJson,
   getJson,
   getEnterpriseInspectorStatus,
+  getExtensionExperienceStatus,
   isInspectorRequest,
   safeJsonParse,
   shouldUseUnifiedFallback

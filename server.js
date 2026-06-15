@@ -127,6 +127,7 @@ app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
 app.use(require('./routes/sheikha-executive-platform-v2-routes'));
 app.use(require('./routes/sheikha-conversation-engine-v1-routes'));
 app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
+app.use(require('./routes/sheikha-vscode-extension-experience-apex-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
 app.use(require('./routes/chat-therapy/sheikha-chat-therapy-routes'));
 app.use(require('./routes/cognitive-governance-v3/sheikha-cognitive-pipeline-v3-routes'));

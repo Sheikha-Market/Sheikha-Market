@@ -73,7 +73,8 @@
     "ops:civilization-command-plane:v1",
     "ops:civilization-stewardship-apex:v1",
     "ops:covenant-governance-apex:v1",
-    "ops:layer-governance-promotion-os:v1"
+    "ops:layer-governance-promotion-os:v1",
+    "ops:vscode-extension-experience-apex:v1"
   ],
   "requiredFiles": [
     "runtime/master-life-cycle/sheikha-master-life-cycle-v1.js",
@@ -96,6 +97,9 @@
     "routes/civilization-stewardship-apex-routes.js",
     "routes/covenant-governance-apex-routes.js",
     "routes/layer-governance-promotion-os-routes.js",
+    "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1.js",
+    "routes/sheikha-vscode-extension-experience-apex-routes.js",
+    "sheikha-vscode-extension/src/chat/sheikhaChatProvider.js",
     "core/enterprise/sheikha-enterprise-inspector-v3.js",
     "sdk/sheikha-api/index.js"
   ],
@@ -147,7 +151,9 @@
     "runtime/covenant-governance-apex/v1/sheikha-covenant-governance-apex-v1-report.json",
     "runtime/covenant-governance-apex/v1/sheikha-covenant-governance-apex-v1-report.md",
     "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.json",
-    "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.md"
+    "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.md",
+    "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.json",
+    "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.md"
   ],
   "releasePaths": [
     "tools/activation",
@@ -159,6 +165,8 @@
     "tools/activate-sheikha-covenant-governance-apex.sh",
     "tools/activate-sheikha-layer-governance-promotion-os.sh",
     "tools/layer-governance-promotion-os",
+    "tools/activate-sheikha-vscode-extension-experience-apex.sh",
+    "tools/extension-experience-apex",
     "tools/covenant-governance-apex",
     "tools/civilization-stewardship-apex",
     "tools/storage-governance",
@@ -183,12 +191,15 @@
     "runtime/civilization-stewardship-apex/v1",
     "runtime/covenant-governance-apex/v1",
     "runtime/layer-governance-promotion-os/v1",
+    "runtime/extension-experience-apex/v1",
     "routes/civilization-stewardship-apex-routes.js",
     "routes/covenant-governance-apex-routes.js",
     "routes/layer-governance-promotion-os-routes.js",
+    "routes/sheikha-vscode-extension-experience-apex-routes.js",
     "docs/civilization-stewardship/SHEIKHA-CIVILIZATION-STEWARDSHIP-APEX-V1.md",
     "docs/covenant-governance/SHEIKHA-COVENANT-GOVERNANCE-APEX-V1.md",
     "docs/layer-governance-promotion-os/SHEIKHA-LAYER-GOVERNANCE-PROMOTION-OS-V1.md",
+    "docs/extension-experience-apex/SHEIKHA-VSCODE-EXTENSION-EXPERIENCE-APEX-V1.md",
     "docs/storage-governance/SHEIKHA-STORAGE-GOVERNANCE-V1.md",
     "docs/activation/SHEIKHA-UNIFIED-APEX-ACTIVATION-V1.md",
     "routes/storage-governance-routes.js",
@@ -202,6 +213,8 @@
     "runtime/covenant-governance-apex/v1/sheikha-covenant-governance-apex-v1-report.md",
     "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.json",
     "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.md",
+    "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.json",
+    "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.md",
     "runtime/heart-core/v1/sheikha-heart-core-report.json",
     "runtime/orchestrator/sheikha-orchestrator-fabric-v2-report.json",
     "runtime/root-operating-core/v1/sheikha-root-operating-core-report.json",
@@ -214,6 +227,8 @@
     "tests/civilization-stewardship-apex-v1.test.js",
     "tests/covenant-governance-apex-v1.test.js",
     "tests/layer-governance-promotion-os-v1.test.js",
+    "tests/sheikha-vscode-extension-experience-apex-v1.test.js",
+    "sheikha-vscode-extension",
     "tests/sheikha-enterprise-inspector-v3.test.js",
     "tests/sheikha-unified-apex-activation-v1.test.js",
     "tests/sheikha-master-log-center-v1.test.js",
