@@ -150,6 +150,7 @@ app.use(require('./routes/master-life-cycle-routes'));
 app.use(require('./routes/master-log-routes'));
 app.use(require('./routes/master-log-inspector-routes'));
 app.use(require('./routes/evidence-registry-routes'));
+app.use(require('./routes/civilization-command-intelligence-plane-routes'));
 app.use(require('./routes/platform-rc2-routes'));
 app.use(require('./routes/runtime-fabric-v5-routes'));
 app.use(require('./routes/sheikha-direct-repair-governance-routes'));
@@ -2446,6 +2447,13 @@ app.use(require('./routes/sheikha-tools'));
 app.use(require('./routes/sheikha-environment'));
 app.use(require('./routes/sheikha-software-registry'));
 app.use(require('./routes/sheikha-intent-router'));
+
+try {
+  app.use(require('./routes/master-log-center-routes'));
+  console.log('✅ Sheikha Master Log Center V1 routes mounted');
+} catch (err) {
+  console.error('⚠️ Sheikha Master Log Center V1 mount failed:', err.message);
+}
 app.use(runtimeSecurityMiddleware.securityHeaders);
 app.use(runtimeSecurityMiddleware.ipOwnershipHeaders);
 app.use(runtimeSecurityMiddleware.responseIntegritySignature);
