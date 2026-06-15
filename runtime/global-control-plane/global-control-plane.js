@@ -19,7 +19,8 @@ const GLOBAL_CONTROL_PLANE = Object.freeze({
     deploymentFederation: 'ACTIVE',
     intelligencePlane: 'ACTIVE',
     sovereignRuntimeFederation: 'ACTIVE',
-    runtimeFabricV5: 'ACTIVE_SINGLE_NODE_OPERATIONAL'
+    runtimeFabricV5: 'ACTIVE_SINGLE_NODE_OPERATIONAL',
+    civilizationCommandIntelligence: 'ACTIVE_SINGLE_HOST_OPERATIONAL'
   },
   boundaries: {
     noFalseProviderOwnershipClaim: true,

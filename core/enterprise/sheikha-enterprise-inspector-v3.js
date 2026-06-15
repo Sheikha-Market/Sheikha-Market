@@ -7,6 +7,9 @@ const { status: getExecutivePlatformStatus } = require('../executive-platform/sh
 const { status: getLifeFabricStatus } = require('../life-fabric/sheikha-technical-life-operating-ecosystem-v1');
 const { status: getLifeIntegrationStatus } = require('../life-fabric/integration/sheikha-life-fabric-integration-v2');
 const runtimeFabricV5 = require('../../runtime/runtime-fabric-v5/runtime-fabric-v5');
+const civilizationCommand = require(
+  '../../runtime/civilization-command-intelligence-plane/civilization-command-intelligence-plane-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -128,6 +131,7 @@ function collectEnterpriseInspector(input = {}) {
   const diagnostics = summarizeDiagnostics(extension.diagnostics);
   const runtimeFabric = runtimeFabricV5.status();
   const runtimeFabricMetrics = runtimeFabricV5.observability.snapshot();
+  const civilizationCommandStatus = civilizationCommand.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -155,6 +159,7 @@ function collectEnterpriseInspector(input = {}) {
       governance: 'ACTIVE',
       unifiedChat: 'ACTIVE',
       runtimeFabricV5: runtimeFabric.status,
+      civilizationCommand: civilizationCommandStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -191,7 +196,9 @@ function collectEnterpriseInspector(input = {}) {
       inspectorContext: '/api/sheikha/enterprise-inspector/v3/context',
       architecture: '/api/sheikha/enterprise-inspector/v3/architecture',
       runtimeFabric: '/api/sheikha/runtime-fabric/v5/status',
-      runtimeFabricMetrics: '/api/sheikha/runtime-fabric/v5/metrics'
+      runtimeFabricMetrics: '/api/sheikha/runtime-fabric/v5/metrics',
+      civilizationCommand: '/api/sheikha/civilization-command/v1/status',
+      civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
     },
     architecture: {
       root: 'SHEIKHA_ROOT',
@@ -199,6 +206,7 @@ function collectEnterpriseInspector(input = {}) {
         'Root Authority',
         'Governance Center',
         'Enterprise Orchestrator',
+        'Civilization Command & Intelligence Plane',
         'Runtime Fabric V5',
         'Runtime Control Tower',
         'Knowledge Fabric',
@@ -225,6 +233,13 @@ function collectEnterpriseInspector(input = {}) {
       managementPlane: runtimeFabric.managementPlane,
       cluster: runtimeFabric.cluster,
       metrics: runtimeFabricMetrics
+    },
+    civilizationCommand: {
+      status: civilizationCommandStatus.status,
+      level: civilizationCommandStatus.level,
+      governanceAuthority: civilizationCommandStatus.governanceAuthority,
+      operationalAuthority: civilizationCommandStatus.operationalAuthority,
+      storage: civilizationCommandStatus.storage
     },
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),

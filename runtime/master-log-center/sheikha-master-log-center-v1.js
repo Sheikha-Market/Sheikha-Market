@@ -31,7 +31,7 @@ function status() {
     system: 'SHEIKHA_MASTER_LOG_CENTER_V1',
     status: 'ACTIVE',
     level: 'MASTER_LOG_OPERATIONAL_CENTER',
-    above: 'SHEIKHA_COMMAND_CENTER_V1',
+    above: 'SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1',
     sections: CENTER_SECTIONS,
     connectsTo: [
       'SHEIKHA_MASTER_LOG_V1',

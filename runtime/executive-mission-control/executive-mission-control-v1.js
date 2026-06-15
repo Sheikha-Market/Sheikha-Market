@@ -19,6 +19,7 @@ function status() {
     status: 'ACTIVE',
     level: 'EXECUTIVE_COMMAND_APEX',
     above: 'SHEIKHA_CIVILIZATION_GOVERNANCE_V2',
+    integratedIntelligencePlane: 'SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1',
     panels: PANELS,
     boundaries: {
       governanceBeforeCommand: true,

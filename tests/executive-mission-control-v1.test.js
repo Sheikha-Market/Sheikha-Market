@@ -8,6 +8,8 @@ describe('Sheikha Executive Mission Control V1', () => {
     expect(result.system).toBe('SHEIKHA_EXECUTIVE_MISSION_CONTROL_V1');
     expect(result.status).toBe('ACTIVE');
     expect(result.above).toBe('SHEIKHA_CIVILIZATION_GOVERNANCE_V2');
+    expect(result.integratedIntelligencePlane)
+      .toBe('SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1');
     expect(result.boundaries.governanceBeforeCommand).toBe(true);
   });
 

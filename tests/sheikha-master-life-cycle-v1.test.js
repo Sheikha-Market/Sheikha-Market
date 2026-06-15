@@ -10,6 +10,8 @@ describe('Sheikha Master Life Cycle V1', () => {
     expect(result.lifeCycle).toContain('vision');
     expect(result.lifeCycle).toContain('hilm');
     expect(result.lifeCycle).toContain('database');
+    expect(result.platforms.commandCenter)
+      .toBe('SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1');
   });
 
   test('constitution prevents false authority and unseen claims', () => {

@@ -61,7 +61,9 @@ function createSheikhaApiClient({
       '/api/subscriptions/usage',
       '/api/security/api-keys/status',
       '/api/sheikha/runtime-fabric/v5/status',
-      '/api/sheikha/runtime-fabric/v5/issues'
+      '/api/sheikha/runtime-fabric/v5/issues',
+      '/api/sheikha/civilization-command/v1/status',
+      '/api/sheikha/civilization-command/v1/dashboard'
     ],
     requestDescriptor(path, method = 'GET') {
       return {
@@ -114,6 +116,30 @@ function createSheikhaApiClient({
     drain: (input = {}) => request('/api/sheikha/runtime-fabric/v5/workers/drain', 'POST', input),
     createSchedule: input => request('/api/sheikha/runtime-fabric/v5/schedules', 'POST', input),
     tick: () => request('/api/sheikha/runtime-fabric/v5/scheduler/tick', 'POST', {})
+  };
+
+  client.civilizationCommand = {
+    status: () => request('/api/sheikha/civilization-command/v1/status'),
+    references: () => request('/api/sheikha/civilization-command/v1/references'),
+    dashboard: () => request('/api/sheikha/civilization-command/v1/dashboard'),
+    registry: () => request('/api/sheikha/civilization-command/v1/registry'),
+    audit: (limit = 100) => request(
+      `/api/sheikha/civilization-command/v1/audit?limit=${encodeURIComponent(limit)}`
+    ),
+    createPlan: input => request('/api/sheikha/civilization-command/v1/plans', 'POST', input),
+    registerRisk: input => request('/api/sheikha/civilization-command/v1/risks', 'POST', input),
+    evaluatePlan: planId => request(
+      `/api/sheikha/civilization-command/v1/plans/${encodeURIComponent(planId)}/evaluate`,
+      'POST',
+      {}
+    ),
+    registerTwin: input => request('/api/sheikha/civilization-command/v1/twins', 'POST', input),
+    recordImpact: input => request('/api/sheikha/civilization-command/v1/impacts', 'POST', input),
+    dispatchPlan: planId => request(
+      `/api/sheikha/civilization-command/v1/plans/${encodeURIComponent(planId)}/dispatch`,
+      'POST',
+      {}
+    )
   };
 
   return client;

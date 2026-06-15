@@ -81,6 +81,10 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(snapshot.architecture.nodes).toContain('Runtime Fabric V5');
     expect(snapshot.surfaces.runtimeFabric).toBe('/api/sheikha/runtime-fabric/v5/status');
     expect(snapshot.runtimeFabric.cluster.multiNode.active).toBe(false);
+    expect(snapshot.surfaces.civilizationCommand)
+      .toBe('/api/sheikha/civilization-command/v1/status');
+    expect(snapshot.civilizationCommand.governanceAuthority)
+      .toBe('SHEIKHA_CIVILIZATION_GOVERNANCE_V2');
     expect(compact.success).toBe(true);
     expect(compact.intelligence).toBeUndefined();
   });

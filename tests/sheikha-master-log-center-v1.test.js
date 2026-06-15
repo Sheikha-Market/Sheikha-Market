@@ -7,6 +7,7 @@ describe('Sheikha Master Log Center V1', () => {
     const result = center.status();
     expect(result.system).toBe('SHEIKHA_MASTER_LOG_CENTER_V1');
     expect(result.status).toBe('ACTIVE');
+    expect(result.above).toBe('SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1');
     expect(result.governance.readOnlyLogCenter).toBe(true);
     expect(result.governance.traceabilityRequired).toBe(true);
   });
