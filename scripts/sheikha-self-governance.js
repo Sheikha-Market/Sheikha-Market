@@ -16,7 +16,7 @@ const BASE = process.env.SHEIKHA_API || 'http://127.0.0.1:8080';
 
 const EXPECTED_PORTS = [
   { port: 8080, role: 'MAIN_SYSTEMD', required: true },
-  { port: 8081, role: 'MARKETPLACE_GATEWAY', required: true },
+  { port: 8082, role: 'PROXY_GATEWAY', required: true },
   { port: 8082, role: 'API_PM2_COMPANION', required: false }
 ];
 
@@ -300,7 +300,7 @@ function runtimePolicy() {
   const pm2 = run('pm2', ['jlist']);
   const nodeVersion = run('node', ['--version']);
   const pm2List = pm2.ok ? parsePm2List(pm2.stdout) : [];
-  const sheikhaApi = pm2List.find((item) => item.name === 'sheikha-api');
+  const sheikhaApi = pm2List.find((item) => item.name === 'sheikha-main-portal');
 
   const details = {
     syntax: {
@@ -343,7 +343,7 @@ function runtimePolicy() {
       'medium',
       [
         systemdActive ? null : 'sheikha-main.service ليس active',
-        pm2Online ? null : 'PM2 sheikha-api ليس online'
+        pm2Online ? null : 'PM2 sheikha-main-portal ليس online'
       ].filter(Boolean).join(' | '),
       details,
       'ثبّت systemd وPM2 ثم أعد smoke.'
