@@ -16,6 +16,9 @@ const civilizationStewardship = require(
 const covenantGovernance = require(
   '../../runtime/covenant-governance-apex/v1/covenant-governance-apex-v1'
 );
+const layerGovernance = require(
+  '../../runtime/layer-governance-promotion-os/v1/layer-governance-promotion-os-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -140,6 +143,7 @@ function collectEnterpriseInspector(input = {}) {
   const civilizationCommandStatus = civilizationCommand.status();
   const civilizationStewardshipStatus = civilizationStewardship.status();
   const covenantGovernanceStatus = covenantGovernance.status();
+  const layerGovernanceStatus = layerGovernance.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -170,6 +174,7 @@ function collectEnterpriseInspector(input = {}) {
       civilizationCommand: civilizationCommandStatus.status,
       civilizationStewardship: civilizationStewardshipStatus.status,
       covenantGovernance: covenantGovernanceStatus.status,
+      layerGovernance: layerGovernanceStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -212,6 +217,8 @@ function collectEnterpriseInspector(input = {}) {
         '/api/sheikha/civilization-stewardship/v1/dashboard',
       covenantGovernance: '/api/sheikha/covenant-governance/v1/status',
       covenantGovernancePolicies: '/api/sheikha/covenant-governance/v1/policies',
+      layerGovernance: '/api/sheikha/layer-governance/v1/status',
+      layerCatalog: '/api/sheikha/layer-governance/v1/catalog',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
     },
@@ -222,6 +229,7 @@ function collectEnterpriseInspector(input = {}) {
         'Governance Center',
         'Enterprise Orchestrator',
         'Covenant Governance Apex',
+        'Layer Governance and Promotion OS',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',
         'Runtime Fabric V5',
@@ -274,6 +282,17 @@ function collectEnterpriseInspector(input = {}) {
       governedStewardshipLayer: covenantGovernanceStatus.governedStewardshipLayer,
       policyCount: covenantGovernanceStatus.policyRegistry.policies.length,
       storage: covenantGovernanceStatus.storage
+    },
+    layerGovernance: {
+      status: layerGovernanceStatus.status,
+      level: layerGovernanceStatus.level,
+      apexLevel: layerGovernanceStatus.apexLevel,
+      governanceAuthority: layerGovernanceStatus.governanceAuthority,
+      indexedLayers: layerGovernanceStatus.indexedLayers,
+      indexedFabricRoutes: layerGovernanceStatus.indexedFabricRoutes,
+      automation: layerGovernanceStatus.automation,
+      boundaries: layerGovernanceStatus.boundaries,
+      storage: layerGovernanceStatus.storage
     },
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),

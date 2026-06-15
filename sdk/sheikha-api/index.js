@@ -67,7 +67,9 @@ function createSheikhaApiClient({
       '/api/sheikha/civilization-stewardship/v1/status',
       '/api/sheikha/civilization-stewardship/v1/dashboard',
       '/api/sheikha/covenant-governance/v1/status',
-      '/api/sheikha/covenant-governance/v1/policies'
+      '/api/sheikha/covenant-governance/v1/policies',
+      '/api/sheikha/layer-governance/v1/status',
+      '/api/sheikha/layer-governance/v1/catalog'
     ],
     requestDescriptor(path, method = 'GET') {
       return {
@@ -190,6 +192,22 @@ function createSheikhaApiClient({
       '/api/sheikha/covenant-governance/v1/promotions',
       'POST',
       input
+    )
+  };
+
+  client.layerGovernance = {
+    status: () => request('/api/sheikha/layer-governance/v1/status'),
+    catalog: () => request('/api/sheikha/layer-governance/v1/catalog'),
+    registry: () => request('/api/sheikha/layer-governance/v1/registry'),
+    audit: (limit = 100) => request(
+      `/api/sheikha/layer-governance/v1/audit?limit=${encodeURIComponent(limit)}`
+    ),
+    assess: input => request('/api/sheikha/layer-governance/v1/assess', 'POST', input),
+    propose: input => request('/api/sheikha/layer-governance/v1/proposals', 'POST', input),
+    ratify: proposalId => request(
+      `/api/sheikha/layer-governance/v1/proposals/${encodeURIComponent(proposalId)}/ratify`,
+      'POST',
+      {}
     )
   };
 

@@ -9,7 +9,8 @@ const ALLOWED_SCOPES = Object.freeze([
   'runtime:read', 'runtime:execute', 'runtime:schedule', 'runtime:audit',
   'civilization:read', 'civilization:write', 'civilization:execute', 'civilization:audit',
   'stewardship:read', 'stewardship:write', 'stewardship:ratify', 'stewardship:audit',
-  'covenant:read', 'covenant:evaluate', 'covenant:promote', 'covenant:audit'
+  'covenant:read', 'covenant:evaluate', 'covenant:promote', 'covenant:audit',
+  'layers:read', 'layers:assess', 'layers:propose', 'layers:promote', 'layers:audit'
 ]);
 const ASSIGNABLE_ROLES = Object.freeze(['ADMIN', 'OPERATOR', 'AUDITOR', 'VIEWER']);
 

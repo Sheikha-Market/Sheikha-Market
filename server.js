@@ -153,6 +153,7 @@ app.use(require('./routes/evidence-registry-routes'));
 app.use(require('./routes/civilization-command-intelligence-plane-routes'));
 app.use(require('./routes/civilization-stewardship-apex-routes'));
 app.use(require('./routes/covenant-governance-apex-routes'));
+app.use(require('./routes/layer-governance-promotion-os-routes'));
 app.use(require('./routes/storage-governance-routes'));
 app.use(require('./routes/platform-rc2-routes'));
 app.use(require('./routes/runtime-fabric-v5-routes'));
@@ -2450,6 +2451,13 @@ app.use(require('./routes/sheikha-tools'));
 app.use(require('./routes/sheikha-environment'));
 app.use(require('./routes/sheikha-software-registry'));
 app.use(require('./routes/sheikha-intent-router'));
+
+try {
+  app.use(require('./routes/hub-routes'));
+  console.log('✅ Sheikha Hub V1 routes mounted');
+} catch (err) {
+  console.error('⚠️ Sheikha Hub V1 mount failed:', err.message);
+}
 
 try {
   app.use(require('./routes/master-log-center-routes'));
