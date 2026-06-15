@@ -19,6 +19,8 @@ sheikha_prepare_log verify
 sheikha_require_command node
 sheikha_require_command npm
 sheikha_require_command git
+trap sheikha_cleanup_git_context EXIT
+sheikha_capture_git_context
 
 VALIDATOR_ARGS=()
 [[ "$STRICT_EXTERNAL" == true ]] && VALIDATOR_ARGS+=(--strict-external)
@@ -31,6 +33,7 @@ sheikha_run node --check runtime/storage-governance/v1/sheikha-storage-governanc
 sheikha_run node --check routes/storage-governance-routes.js
 sheikha_run npm run lint
 sheikha_run npm test -- --runInBand
+sheikha_capture_git_context
 sheikha_run node tools/governance/runtime-integrity-verifier.js
 sheikha_run node tools/governance/runtime-admission-controller.js
 
@@ -40,4 +43,6 @@ else
   sheikha_run node tools/drift/sheikha-runtime-drift-detector.js || true
 fi
 
+sheikha_cleanup_git_context
+trap - EXIT
 sheikha_log "Verification completed. Log: $SHEIKHA_LOG_FILE"

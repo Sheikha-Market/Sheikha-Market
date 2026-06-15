@@ -3,12 +3,14 @@
 const fs = require('fs');
 const path = require('path');
 const { spawnSync } = require('child_process');
+const { readTrackedFiles } = require('../governance/git-context-reader');
 const storageGovernance = require(
   '../../runtime/storage-governance/v1/sheikha-storage-governance-v1'
 );
 
 const root = path.join(__dirname, '../..');
 const outputDir = path.join(root, 'runtime/storage-governance/v1');
+let trackedFiles;
 
 function pathSize(relativePath) {
   const absolutePath = path.join(root, relativePath);
@@ -25,12 +27,10 @@ function pathSize(relativePath) {
 }
 
 function isTracked(relativePath) {
-  const result = spawnSync('git', ['ls-files', '--', relativePath], {
-    cwd: root,
-    encoding: 'utf8',
-    timeout: 5000
-  });
-  return result.status === 0 && Boolean(result.stdout.trim());
+  trackedFiles ||= readTrackedFiles();
+  return trackedFiles.has(relativePath) || [...trackedFiles].some(file =>
+    file.startsWith(`${relativePath}/`)
+  );
 }
 
 function inventory() {

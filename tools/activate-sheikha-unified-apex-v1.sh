@@ -22,10 +22,19 @@ sheikha_require_command node
 sheikha_require_command npm
 sheikha_require_command git
 
+sheikha_activation_cleanup() {
+  if [[ "$REQUIRE_CLEAN" == true ]]; then
+    sheikha_restore_snapshot
+  fi
+  sheikha_cleanup_git_context
+}
+trap sheikha_activation_cleanup EXIT
+
+sheikha_capture_git_context
+
 if [[ "$REQUIRE_CLEAN" == true ]]; then
   sheikha_run node tools/drift/sheikha-runtime-drift-detector.js
   sheikha_snapshot_manifest_paths generatedReportPaths
-  trap sheikha_restore_snapshot EXIT
 fi
 
 VALIDATOR_ARGS=()
@@ -42,7 +51,7 @@ sheikha_run "$SHEIKHA_ROOT/tools/verify-sheikha-unified-apex-v1.sh" "${VERIFY_AR
 
 if [[ "$REQUIRE_CLEAN" == true ]]; then
   sheikha_restore_snapshot
-  trap - EXIT
+  sheikha_capture_git_context
   sheikha_run node tools/drift/sheikha-runtime-drift-detector.js
 fi
 
@@ -56,4 +65,6 @@ if [[ "$RESTART_PM2" == true ]]; then
   sheikha_run curl -fsS http://127.0.0.1:8080/api/sheikha/storage-governance/v1/status
 fi
 
+sheikha_cleanup_git_context
+trap - EXIT
 sheikha_log "Activation completed. Log: $SHEIKHA_LOG_FILE"

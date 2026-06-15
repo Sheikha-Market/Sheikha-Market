@@ -41,11 +41,12 @@ describe('Sheikha Unified Apex Activation V1', () => {
     expect(activate).toContain('--restart-pm2');
     expect(activate).toContain('--require-clean');
     expect(activate).toContain('sheikha_snapshot_manifest_paths generatedReportPaths');
-    expect(activate).toContain('trap sheikha_restore_snapshot EXIT');
+    expect(activate).toContain('trap sheikha_activation_cleanup EXIT');
     expect(compatibility).toContain('activate-sheikha-unified-apex-v1.sh');
     expect(common).toContain('mktemp');
     expect(common).not.toContain('"$@" 2>&1 | tee');
     expect(common).toContain('sheikha_restore_snapshot');
+    expect(common).toContain('sheikha_capture_git_context');
   });
 
   test('release script is scoped and rejects destructive git shortcuts', () => {

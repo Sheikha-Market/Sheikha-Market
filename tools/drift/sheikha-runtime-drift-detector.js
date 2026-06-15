@@ -2,13 +2,14 @@
 
 const path = require('path');
 const { execFileSync } = require('child_process');
+const { readStatus } = require('../governance/git-context-reader');
 
 function run(command, args) {
   return execFileSync(command, args, { cwd: root, encoding: 'utf8' }).trim();
 }
 
 const root = path.join(__dirname, '../..');
-const gitStatus = run('git', ['status', '--short']);
+const gitStatus = readStatus({ untracked: true }).join('\n').trim();
 
 const admission = JSON.parse(
   run(process.execPath, [path.join(root, 'tools/governance/runtime-admission-controller.js')])

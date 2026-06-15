@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execFileSync } = require('child_process');
+const { readStatus } = require('./git-context-reader');
 
 const RULES = [
   { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
@@ -24,12 +24,7 @@ function classify(file) {
 }
 
 function listUntrackedFiles() {
-  const output = execFileSync(
-    'git', ['status', '--short', '--untracked-files=all'], { encoding: 'utf8' }
-  );
-
-  return output
-    .split('\n')
+  return readStatus()
     .map(line => line.trim())
     .filter(Boolean)
     .filter(line => line.startsWith('?? '))

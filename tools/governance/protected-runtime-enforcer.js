@@ -1,6 +1,6 @@
 'use strict';
 
-const { execFileSync } = require('child_process');
+const { readStatus } = require('./git-context-reader');
 
 const PROTECTED_PREFIXES = [
   'core/',
@@ -22,8 +22,7 @@ const FORBIDDEN_PATTERNS = [
 ];
 
 function gitStatus() {
-  return execFileSync('git', ['status', '--short', '--untracked-files=all'], { encoding: 'utf8' })
-    .split('\n')
+  return readStatus()
     .map(line => line.trim())
     .filter(Boolean);
 }

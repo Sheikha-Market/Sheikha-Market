@@ -1,8 +1,8 @@
 'use strict';
 
-const { execFileSync } = require('child_process');
 const os = require('os');
 const path = require('path');
+const { readStatus } = require('./git-context-reader');
 
 const CLASSIFICATION_RULES = [
   { prefix: '.env', classification: 'REVIEW_REQUIRED', owner: 'Security Governance' },
@@ -74,13 +74,7 @@ const BLOCKED_PATTERNS = [
 ];
 
 function getUntrackedFiles() {
-  const output = execFileSync(
-    'git', ['status', '--short', '--untracked-files=all'],
-    { encoding: 'utf8' }
-  );
-
-  return output
-    .split('\n')
+  return readStatus()
     .filter(line => line.trim())
     .map(line => line.trimEnd())
     .filter(Boolean)

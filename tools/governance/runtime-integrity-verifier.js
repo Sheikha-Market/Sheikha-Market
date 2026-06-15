@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const crypto = require('crypto');
-const { execFileSync } = require('child_process');
+const { readStatus } = require('./git-context-reader');
 
 const PROTECTED = [
   'core/',
@@ -14,13 +14,7 @@ const PROTECTED = [
 ];
 
 function getFiles() {
-  const output = execFileSync(
-    'git', ['status', '--short', '--untracked-files=all'],
-    { encoding: 'utf8' }
-  );
-
-  return output
-    .split('\n')
+  return readStatus()
     .filter(v => v.trim())
     .map(v => v.trimEnd())
     .map(v => v.slice(3).trim());

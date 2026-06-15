@@ -6,6 +6,8 @@ SHEIKHA_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SHEIKHA_MANIFEST="$SHEIKHA_ROOT/tools/activation/sheikha-unified-apex-manifest-v1.json"
 SHEIKHA_LOG_ROOT="$SHEIKHA_ROOT/data/sheikha-unified-apex-activation"
 SHEIKHA_SNAPSHOT_DIR=""
+SHEIKHA_GIT_STATUS_FILE=""
+SHEIKHA_GIT_TRACKED_FILE=""
 
 sheikha_timestamp() {
   date -u +'%Y%m%dT%H%M%SZ'
@@ -15,6 +17,9 @@ sheikha_prepare_log() {
   mkdir -p "$SHEIKHA_LOG_ROOT"
   SHEIKHA_LOG_FILE="$SHEIKHA_LOG_ROOT/${1}-$(sheikha_timestamp).log"
   export SHEIKHA_LOG_FILE
+  SHEIKHA_GIT_STATUS_FILE="$(mktemp "${TMPDIR:-/tmp}/sheikha-git-status.XXXXXX")"
+  SHEIKHA_GIT_TRACKED_FILE="$(mktemp "${TMPDIR:-/tmp}/sheikha-git-tracked.XXXXXX")"
+  export SHEIKHA_GIT_STATUS_FILE SHEIKHA_GIT_TRACKED_FILE
 }
 
 sheikha_log() {
@@ -41,6 +46,20 @@ sheikha_run() {
   tee -a "$SHEIKHA_LOG_FILE" <"$output_file"
   rm -f "$output_file"
   return "$status"
+}
+
+sheikha_capture_git_context() {
+  git status --short --untracked-files=all >"$SHEIKHA_GIT_STATUS_FILE"
+  git ls-files >"$SHEIKHA_GIT_TRACKED_FILE"
+  sheikha_log 'Captured a consistent Git context for governed tools.'
+}
+
+sheikha_cleanup_git_context() {
+  [[ -z "$SHEIKHA_GIT_STATUS_FILE" ]] || rm -f -- "$SHEIKHA_GIT_STATUS_FILE"
+  [[ -z "$SHEIKHA_GIT_TRACKED_FILE" ]] || rm -f -- "$SHEIKHA_GIT_TRACKED_FILE"
+  SHEIKHA_GIT_STATUS_FILE=""
+  SHEIKHA_GIT_TRACKED_FILE=""
+  export SHEIKHA_GIT_STATUS_FILE SHEIKHA_GIT_TRACKED_FILE
 }
 
 sheikha_manifest_values() {
