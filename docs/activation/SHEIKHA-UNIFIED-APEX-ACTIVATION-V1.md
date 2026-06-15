@@ -5,6 +5,10 @@ highest governed institutional stewardship layer. It remains constrained by the
 Master Life Cycle reference and Civilization Governance authority, and delegates
 approved mandates to the Civilization Command Plane rather than executing directly.
 
+`SHEIKHA_COVENANT_GOVERNANCE_APEX_V1` is the highest internal governance assurance
+and promotion gate. It applies numbered policy references to all layer promotions
+without automating religious interpretation or claiming religious or external authority.
+
 This activation bundle verifies and activates the highest integrated Sheikha stack in
 a deterministic order. It does not grant divine authority, automate religious rulings,
 or claim external infrastructure that has not been connected and verified.

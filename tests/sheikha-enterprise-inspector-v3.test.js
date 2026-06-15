@@ -86,6 +86,9 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(snapshot.surfaces.civilizationStewardship)
       .toBe('/api/sheikha/civilization-stewardship/v1/status');
     expect(snapshot.civilizationStewardship.apexLevel).toBe(16);
+    expect(snapshot.surfaces.covenantGovernance)
+      .toBe('/api/sheikha/covenant-governance/v1/status');
+    expect(snapshot.covenantGovernance.apexLevel).toBe(17);
     expect(snapshot.civilizationCommand.governanceAuthority)
       .toBe('SHEIKHA_CIVILIZATION_GOVERNANCE_V2');
     expect(compact.success).toBe(true);

@@ -17,6 +17,7 @@ function status() {
     status: 'ACTIVE',
     level: 'CIVILIZATION_GOVERNANCE_APEX',
     above: 'SHEIKHA_CIVILIZATION_OPERATING_SYSTEM_V1',
+    enforcementApex: 'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
     stewardshipApex: 'SHEIKHA_CIVILIZATION_STEWARDSHIP_APEX_V1',
     commandIntelligencePlane: 'SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1',
     principles: PRINCIPLES,

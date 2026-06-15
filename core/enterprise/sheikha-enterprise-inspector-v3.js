@@ -13,6 +13,9 @@ const civilizationCommand = require(
 const civilizationStewardship = require(
   '../../runtime/civilization-stewardship-apex/v1/civilization-stewardship-apex-v1'
 );
+const covenantGovernance = require(
+  '../../runtime/covenant-governance-apex/v1/covenant-governance-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -136,6 +139,7 @@ function collectEnterpriseInspector(input = {}) {
   const runtimeFabricMetrics = runtimeFabricV5.observability.snapshot();
   const civilizationCommandStatus = civilizationCommand.status();
   const civilizationStewardshipStatus = civilizationStewardship.status();
+  const covenantGovernanceStatus = covenantGovernance.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -165,6 +169,7 @@ function collectEnterpriseInspector(input = {}) {
       runtimeFabricV5: runtimeFabric.status,
       civilizationCommand: civilizationCommandStatus.status,
       civilizationStewardship: civilizationStewardshipStatus.status,
+      covenantGovernance: covenantGovernanceStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -205,6 +210,8 @@ function collectEnterpriseInspector(input = {}) {
       civilizationStewardship: '/api/sheikha/civilization-stewardship/v1/status',
       civilizationStewardshipDashboard:
         '/api/sheikha/civilization-stewardship/v1/dashboard',
+      covenantGovernance: '/api/sheikha/covenant-governance/v1/status',
+      covenantGovernancePolicies: '/api/sheikha/covenant-governance/v1/policies',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
     },
@@ -214,6 +221,7 @@ function collectEnterpriseInspector(input = {}) {
         'Root Authority',
         'Governance Center',
         'Enterprise Orchestrator',
+        'Covenant Governance Apex',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',
         'Runtime Fabric V5',
@@ -257,6 +265,15 @@ function collectEnterpriseInspector(input = {}) {
       governanceAuthority: civilizationStewardshipStatus.governanceAuthority,
       delegatedCommandPlane: civilizationStewardshipStatus.delegatedCommandPlane,
       storage: civilizationStewardshipStatus.storage
+    },
+    covenantGovernance: {
+      status: covenantGovernanceStatus.status,
+      level: covenantGovernanceStatus.level,
+      apexLevel: covenantGovernanceStatus.apexLevel,
+      governanceAuthority: covenantGovernanceStatus.governanceAuthority,
+      governedStewardshipLayer: covenantGovernanceStatus.governedStewardshipLayer,
+      policyCount: covenantGovernanceStatus.policyRegistry.policies.length,
+      storage: covenantGovernanceStatus.storage
     },
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),

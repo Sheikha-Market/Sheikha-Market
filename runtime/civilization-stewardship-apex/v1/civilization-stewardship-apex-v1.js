@@ -96,6 +96,7 @@ function status() {
     apexLevel: 16,
     constitutionalReference: 'SHEIKHA_MASTER_LIFE_CYCLE_V1',
     governanceAuthority: 'SHEIKHA_CIVILIZATION_GOVERNANCE_V2',
+    covenantGovernanceApex: 'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
     delegatedCommandPlane: 'SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1',
     operationalAuthority: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11',
     capabilities: [
