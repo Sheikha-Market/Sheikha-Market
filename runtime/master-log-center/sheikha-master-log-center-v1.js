@@ -10,7 +10,8 @@ const CENTER_SECTIONS = Object.freeze([
   'decision-links',
   'knowledge-links',
   'experience-links',
-  'impact-links'
+  'impact-links',
+  'storage-governance'
 ]);
 
 const GOVERNANCE = Object.freeze({
@@ -43,7 +44,8 @@ function status() {
       'SHEIKHA_KNOWLEDGE_ENGINE_V2',
       'SHEIKHA_EXPERIENCE_REGISTRY_V1',
       'SHEIKHA_IMPACT_REGISTRY_V1',
-      'SHEIKHA_MASTER_GRAPH_V1'
+      'SHEIKHA_MASTER_GRAPH_V1',
+      'SHEIKHA_STORAGE_GOVERNANCE_V1'
     ],
     governance: GOVERNANCE
   };
@@ -62,7 +64,8 @@ function dashboard() {
       'trace-decision',
       'prepare-audit-package',
       'summarize-sensitive-events',
-      'route-human-review'
+      'route-human-review',
+      'review-storage-pressure'
     ]
   };
 }

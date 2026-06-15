@@ -10,12 +10,14 @@ describe('Sheikha Master Log Center V1', () => {
     expect(result.above).toBe('SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1');
     expect(result.governance.readOnlyLogCenter).toBe(true);
     expect(result.governance.traceabilityRequired).toBe(true);
+    expect(result.connectsTo).toContain('SHEIKHA_STORAGE_GOVERNANCE_V1');
   });
 
   test('dashboard is active', () => {
     const result = center.dashboard();
     expect(result.dashboard).toBe('SHEIKHA_MASTER_LOG_CENTER_DASHBOARD_V1');
     expect(result.capabilities).toContain('prepare-audit-package');
+    expect(result.capabilities).toContain('review-storage-pressure');
   });
 
   test('search engine is active', () => {

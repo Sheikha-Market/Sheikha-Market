@@ -28,8 +28,18 @@ sheikha_require_command() {
 }
 
 sheikha_run() {
+  local output_file
+  local status
+
   sheikha_log "RUN: $*"
-  "$@" 2>&1 | tee -a "$SHEIKHA_LOG_FILE"
+  output_file="$(mktemp "${TMPDIR:-/tmp}/sheikha-run.XXXXXX")"
+  set +e
+  "$@" >"$output_file" 2>&1
+  status=$?
+  set -e
+  tee -a "$SHEIKHA_LOG_FILE" <"$output_file"
+  rm -f "$output_file"
+  return "$status"
 }
 
 sheikha_manifest_values() {

@@ -1,19 +1,21 @@
 'use strict';
 
-const { execSync } = require('child_process');
+const path = require('path');
+const { execFileSync } = require('child_process');
 
-function sh(cmd) {
-  return execSync(cmd, { encoding: 'utf8' }).trim();
+function run(command, args) {
+  return execFileSync(command, args, { cwd: root, encoding: 'utf8' }).trim();
 }
 
-const gitStatus = sh('git status --short');
+const root = path.join(__dirname, '../..');
+const gitStatus = run('git', ['status', '--short']);
 
 const admission = JSON.parse(
-  sh('node tools/governance/runtime-admission-controller.js')
+  run(process.execPath, [path.join(root, 'tools/governance/runtime-admission-controller.js')])
 );
 
 const protectedRuntime = JSON.parse(
-  sh('node tools/governance/protected-runtime-enforcer.js')
+  run(process.execPath, [path.join(root, 'tools/governance/protected-runtime-enforcer.js')])
 );
 
 const drift =

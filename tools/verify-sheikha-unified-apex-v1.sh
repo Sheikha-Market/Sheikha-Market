@@ -27,6 +27,8 @@ sheikha_run node tools/activation/sheikha-unified-apex-validator-v1.js "${VALIDA
 sheikha_run node --check server.js
 sheikha_run node --check runtime/civilization-command-intelligence-plane/civilization-command-intelligence-plane-v1.js
 sheikha_run node --check runtime/runtime-fabric-v5/runtime-fabric-v5.js
+sheikha_run node --check runtime/storage-governance/v1/sheikha-storage-governance-v1.js
+sheikha_run node --check routes/storage-governance-routes.js
 sheikha_run npm run lint
 sheikha_run npm test -- --runInBand
 sheikha_run node tools/governance/runtime-integrity-verifier.js

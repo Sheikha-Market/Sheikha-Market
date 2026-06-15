@@ -18,6 +18,10 @@ Generate governed reports and run the complete verification suite:
 ./tools/activate-sheikha-unified-apex-v1.sh
 ```
 
+The activation now includes `SHEIKHA_STORAGE_GOVERNANCE_V1`. It inventories configured
+high-growth paths, classifies disk pressure, and produces a human-review remediation plan.
+It never deletes or moves files.
+
 Activate and reload the local PM2 service:
 
 ```bash
@@ -47,5 +51,6 @@ scholarly review.
 ## External boundaries
 
 `--strict-external` intentionally fails while PostgreSQL production, Redis distributed
-queues, Kubernetes, or multi-region consensus remain unconfigured. Normal activation
-reports these as readiness gaps rather than falsely marking them active.
+queues, Kubernetes, multi-region consensus, or external archive storage remain
+unconfigured. Normal activation reports these as readiness gaps rather than falsely
+marking them active.

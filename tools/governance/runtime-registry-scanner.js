@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const RULES = [
   { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
@@ -24,7 +24,9 @@ function classify(file) {
 }
 
 function listUntrackedFiles() {
-  const output = execSync('git status --short --untracked-files=all', { encoding: 'utf8' });
+  const output = execFileSync(
+    'git', ['status', '--short', '--untracked-files=all'], { encoding: 'utf8' }
+  );
 
   return output
     .split('\n')

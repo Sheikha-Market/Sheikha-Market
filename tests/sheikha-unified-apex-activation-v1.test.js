@@ -15,8 +15,8 @@ describe('Sheikha Unified Apex Activation V1', () => {
     const result = validate();
 
     expect(result.status).toBe('PASSED');
-    expect(result.checks.canonicalLayers).toBeGreaterThanOrEqual(7);
-    expect(result.checks.activationScripts).toBeGreaterThanOrEqual(10);
+    expect(result.checks.canonicalLayers).toBeGreaterThanOrEqual(8);
+    expect(result.checks.activationScripts).toBeGreaterThanOrEqual(11);
     expect(result.checks.governanceReferences).toBeGreaterThanOrEqual(8);
     expect(result.externalState.autonomousFinalAuthority).toBe(false);
   });
@@ -32,12 +32,15 @@ describe('Sheikha Unified Apex Activation V1', () => {
     const verify = read('tools/verify-sheikha-unified-apex-v1.sh');
     const activate = read('tools/activate-sheikha-unified-apex-v1.sh');
     const compatibility = read('tools/activate-sheikha-civilization-command-plane.sh');
+    const common = read('tools/activation/sheikha-activation-common-v1.sh');
 
     expect(verify).toContain('npm test -- --runInBand');
     expect(verify).toContain('runtime-integrity-verifier.js');
     expect(activate).toContain('activationScripts');
     expect(activate).toContain('--restart-pm2');
     expect(compatibility).toContain('activate-sheikha-unified-apex-v1.sh');
+    expect(common).toContain('mktemp');
+    expect(common).not.toContain('"$@" 2>&1 | tee');
   });
 
   test('release script is scoped and rejects destructive git shortcuts', () => {
@@ -63,5 +66,6 @@ describe('Sheikha Unified Apex Activation V1', () => {
     expect(manifest.releasePaths).toContain(
       'runtime/runtime-fabric-v5/sheikha-runtime-fabric-v5-report.json'
     );
+    expect(manifest.releasePaths).toContain('runtime/storage-governance/v1');
   });
 });

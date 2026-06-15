@@ -1,6 +1,6 @@
 'use strict';
 
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 const os = require('os');
 const path = require('path');
 
@@ -74,8 +74,8 @@ const BLOCKED_PATTERNS = [
 ];
 
 function getUntrackedFiles() {
-  const output = execSync(
-    'git status --short --untracked-files=all',
+  const output = execFileSync(
+    'git', ['status', '--short', '--untracked-files=all'],
     { encoding: 'utf8' }
   );
 

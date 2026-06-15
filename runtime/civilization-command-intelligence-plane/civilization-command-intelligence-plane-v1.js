@@ -9,6 +9,7 @@ const missionControl = require('../executive-mission-control/executive-mission-c
 const evidenceRegistry = require('../evidence-registry/sheikha-evidence-registry-v1');
 const masterLogCenter = require('../master-log-center/sheikha-master-log-center-v1');
 const runtimeFabric = require('../runtime-fabric-v5/runtime-fabric-v5');
+const storageGovernance = require('../storage-governance/v1/sheikha-storage-governance-v1');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
 const { orchestrate } = require('../orchestrator/orchestrator-fabric');
 
@@ -87,6 +88,7 @@ function status() {
       'civilization-digital-twin',
       'risk-and-impact-intelligence',
       'evidence-linked-decisions',
+      'storage-pressure-governance',
       'governed-runtime-dispatch'
     ],
     boundaries: {
@@ -112,6 +114,7 @@ function dashboard() {
     masterLifeCycle: masterLifeCycle.status(),
     missionControl: missionControl.status(),
     masterLogCenter: masterLogCenter.status(),
+    storageGovernance: storageGovernance.status(),
     runtimeFabric: runtimeFabric.status(),
     portfolio: {
       plans: state.plans.length,

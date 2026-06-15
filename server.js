@@ -151,6 +151,7 @@ app.use(require('./routes/master-log-routes'));
 app.use(require('./routes/master-log-inspector-routes'));
 app.use(require('./routes/evidence-registry-routes'));
 app.use(require('./routes/civilization-command-intelligence-plane-routes'));
+app.use(require('./routes/storage-governance-routes'));
 app.use(require('./routes/platform-rc2-routes'));
 app.use(require('./routes/runtime-fabric-v5-routes'));
 app.use(require('./routes/sheikha-direct-repair-governance-routes'));

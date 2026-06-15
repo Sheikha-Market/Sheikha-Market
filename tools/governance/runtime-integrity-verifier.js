@@ -2,7 +2,7 @@
 
 const fs = require('fs');
 const crypto = require('crypto');
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const PROTECTED = [
   'core/',
@@ -14,8 +14,8 @@ const PROTECTED = [
 ];
 
 function getFiles() {
-  const output = execSync(
-    'git status --short --untracked-files=all',
+  const output = execFileSync(
+    'git', ['status', '--short', '--untracked-files=all'],
     { encoding: 'utf8' }
   );
 

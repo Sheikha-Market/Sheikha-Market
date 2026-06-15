@@ -1,6 +1,6 @@
 'use strict';
 
-const { execSync } = require('child_process');
+const { execFileSync } = require('child_process');
 
 const PROTECTED_PREFIXES = [
   'core/',
@@ -22,7 +22,7 @@ const FORBIDDEN_PATTERNS = [
 ];
 
 function gitStatus() {
-  return execSync('git status --short --untracked-files=all', { encoding: 'utf8' })
+  return execFileSync('git', ['status', '--short', '--untracked-files=all'], { encoding: 'utf8' })
     .split('\n')
     .map(line => line.trim())
     .filter(Boolean);

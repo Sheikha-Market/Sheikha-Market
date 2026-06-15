@@ -5,7 +5,7 @@
 - الحالة: ACTIVE
 - القرار: READY_FOR_GOVERNED_OPERATION
 - الفرع: feature/hub-v1
-- HEAD: 38356050
+- HEAD: 6095dc81
 
 ## الفحوص
 - OK quranSunnahGovernance

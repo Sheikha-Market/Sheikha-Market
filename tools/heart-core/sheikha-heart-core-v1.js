@@ -2,16 +2,26 @@
 
 const fs = require('fs');
 const path = require('path');
-const { execSync } = require('child_process');
 
 const ROOT = process.cwd();
 
-function sh(cmd) {
-  try {
-    return execSync(cmd, { cwd: ROOT, encoding: 'utf8' }).trim();
-  } catch (e) {
-    return String(e.stderr || e.message || e).trim();
+function readGitInfo() {
+  const headPath = path.join(ROOT, '.git', 'HEAD');
+  if (!fs.existsSync(headPath)) return { branch: 'unknown', head: 'unknown' };
+
+  const headRaw = fs.readFileSync(headPath, 'utf8').trim();
+  if (!headRaw.startsWith('ref: ')) {
+    return { branch: 'detached', head: headRaw.slice(0, 8) };
   }
+
+  const ref = headRaw.slice(5);
+  const refPath = path.join(ROOT, '.git', ref);
+  return {
+    branch: ref.replace(/^refs\/heads\//, ''),
+    head: fs.existsSync(refPath)
+      ? fs.readFileSync(refPath, 'utf8').trim().slice(0, 8)
+      : 'unknown'
+  };
 }
 
 function exists(p) {
@@ -31,15 +41,16 @@ const checks = {
 };
 
 const missing = Object.entries(checks).filter(([, ok]) => !ok).map(([k]) => k);
+const git = readGitInfo();
 
 const report = {
   system: 'SHEIKHA_HEART_CORE_V1',
   status: missing.length ? 'ACTIVE_WITH_REVIEW' : 'ACTIVE',
   arabicName: 'قلب شيخة الحاكم',
   reference: 'الكتاب والسنة وسنة الخلفاء الراشدين المهديين',
-  branch: sh('git branch --show-current'),
-  head: sh('git rev-parse --short HEAD'),
-  gitStatus: sh('git status --short'),
+  branch: git.branch,
+  head: git.head,
+  gitStatus: 'EVALUATED_BY_RUNTIME_DRIFT_DETECTOR',
   position: 'ABOVE_ROOT_OPERATING_CORE',
   checks,
   missing,
