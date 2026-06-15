@@ -17,6 +17,7 @@ describe('Sheikha Unified Apex Activation V1', () => {
     expect(result.status).toBe('PASSED');
     expect(result.checks.canonicalLayers).toBeGreaterThanOrEqual(8);
     expect(result.checks.activationScripts).toBeGreaterThanOrEqual(11);
+    expect(result.checks.generatedReports).toBeGreaterThanOrEqual(20);
     expect(result.checks.governanceReferences).toBeGreaterThanOrEqual(8);
     expect(result.externalState.autonomousFinalAuthority).toBe(false);
   });
@@ -38,9 +39,13 @@ describe('Sheikha Unified Apex Activation V1', () => {
     expect(verify).toContain('runtime-integrity-verifier.js');
     expect(activate).toContain('activationScripts');
     expect(activate).toContain('--restart-pm2');
+    expect(activate).toContain('--require-clean');
+    expect(activate).toContain('sheikha_snapshot_manifest_paths generatedReportPaths');
+    expect(activate).toContain('trap sheikha_restore_snapshot EXIT');
     expect(compatibility).toContain('activate-sheikha-unified-apex-v1.sh');
     expect(common).toContain('mktemp');
     expect(common).not.toContain('"$@" 2>&1 | tee');
+    expect(common).toContain('sheikha_restore_snapshot');
   });
 
   test('release script is scoped and rejects destructive git shortcuts', () => {
@@ -67,5 +72,8 @@ describe('Sheikha Unified Apex Activation V1', () => {
       'runtime/runtime-fabric-v5/sheikha-runtime-fabric-v5-report.json'
     );
     expect(manifest.releasePaths).toContain('runtime/storage-governance/v1');
+    expect(manifest.generatedReportPaths).toContain(
+      'runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.json'
+    );
   });
 });

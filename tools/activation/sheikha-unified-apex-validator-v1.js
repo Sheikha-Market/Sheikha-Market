@@ -37,6 +37,7 @@ function validate(options = {}) {
   });
 
   const manifestReferences = manifest.governanceReferences;
+  const generatedReportPaths = manifest.generatedReportPaths || [];
   const registryReferences = referenceRegistry.references.map(item => item.id);
   if (new Set(manifestReferences).size !== manifestReferences.length) {
     errors.push('Governance reference identifiers must be unique.');
@@ -44,6 +45,20 @@ function validate(options = {}) {
   manifestReferences.forEach((reference) => {
     if (!registryReferences.includes(reference)) {
       errors.push(`Governance reference is not registered: ${reference}`);
+    }
+  });
+
+  if (!generatedReportPaths.length) {
+    errors.push('Generated report paths must be declared for clean activation.');
+  }
+  if (new Set(generatedReportPaths).size !== generatedReportPaths.length) {
+    errors.push('Generated report paths must be unique.');
+  }
+  generatedReportPaths.forEach((file) => {
+    if (!file || path.isAbsolute(file) || file.includes('..')) {
+      errors.push(`Generated report path is unsafe: ${file}`);
+    } else if (!fs.existsSync(path.join(root, file))) {
+      errors.push(`Generated report file is missing: ${file}`);
     }
   });
 
@@ -70,6 +85,7 @@ function validate(options = {}) {
       canonicalLayers: manifest.canonicalOrder.length,
       activationScripts: manifest.activationScripts.length,
       requiredFiles: manifest.requiredFiles.length,
+      generatedReports: generatedReportPaths.length,
       governanceReferences: manifestReferences.length,
       religiousSafetyBoundaries: true
     },

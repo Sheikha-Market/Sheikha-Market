@@ -5,6 +5,7 @@ set -euo pipefail
 SHEIKHA_ROOT="$(cd "$(dirname "${BASH_SOURCE[0]}")/../.." && pwd)"
 SHEIKHA_MANIFEST="$SHEIKHA_ROOT/tools/activation/sheikha-unified-apex-manifest-v1.json"
 SHEIKHA_LOG_ROOT="$SHEIKHA_ROOT/data/sheikha-unified-apex-activation"
+SHEIKHA_SNAPSHOT_DIR=""
 
 sheikha_timestamp() {
   date -u +'%Y%m%dT%H%M%SZ'
@@ -46,6 +47,79 @@ sheikha_manifest_values() {
   local key="$1"
   node -e "const m=require(process.argv[1]); for (const value of m[process.argv[2]] || []) console.log(value);" \
     "$SHEIKHA_MANIFEST" "$key"
+}
+
+sheikha_assert_safe_relative_path() {
+  local relative_path="$1"
+  [[ -n "$relative_path" && "$relative_path" != /* && "$relative_path" != *".."* ]] || {
+    sheikha_log "Unsafe manifest path rejected: $relative_path"
+    return 1
+  }
+}
+
+sheikha_snapshot_manifest_paths() {
+  local key="$1"
+  local relative_path
+  local source_path
+  local backup_path
+
+  [[ -z "$SHEIKHA_SNAPSHOT_DIR" ]] || {
+    sheikha_log 'A report snapshot is already active.'
+    return 1
+  }
+
+  SHEIKHA_SNAPSHOT_DIR="$(mktemp -d "${TMPDIR:-/tmp}/sheikha-snapshot.XXXXXX")"
+  export SHEIKHA_SNAPSHOT_DIR
+  : >"$SHEIKHA_SNAPSHOT_DIR/index"
+
+  while IFS= read -r relative_path; do
+    [[ -n "$relative_path" ]] || continue
+    sheikha_assert_safe_relative_path "$relative_path"
+    source_path="$SHEIKHA_ROOT/$relative_path"
+    backup_path="$SHEIKHA_SNAPSHOT_DIR/files/$relative_path"
+    if [[ -f "$source_path" ]]; then
+      mkdir -p "$(dirname "$backup_path")"
+      cp -p -- "$source_path" "$backup_path"
+      printf 'present\t%s\n' "$relative_path" >>"$SHEIKHA_SNAPSHOT_DIR/index"
+    elif [[ ! -e "$source_path" ]]; then
+      printf 'absent\t%s\n' "$relative_path" >>"$SHEIKHA_SNAPSHOT_DIR/index"
+    else
+      sheikha_log "Generated report path must be a file: $relative_path"
+      return 1
+    fi
+  done < <(sheikha_manifest_values "$key")
+
+  sheikha_log "Snapshotted governed generated reports: $key"
+}
+
+sheikha_restore_snapshot() {
+  local state
+  local relative_path
+  local target_path
+  local backup_path
+
+  [[ -n "$SHEIKHA_SNAPSHOT_DIR" && -f "$SHEIKHA_SNAPSHOT_DIR/index" ]] || return 0
+
+  while IFS=$'\t' read -r state relative_path; do
+    [[ -n "$relative_path" ]] || continue
+    sheikha_assert_safe_relative_path "$relative_path"
+    target_path="$SHEIKHA_ROOT/$relative_path"
+    backup_path="$SHEIKHA_SNAPSHOT_DIR/files/$relative_path"
+    if [[ "$state" == present ]]; then
+      mkdir -p "$(dirname "$target_path")"
+      cp -p -- "$backup_path" "$target_path"
+    elif [[ "$state" == absent ]]; then
+      rm -f -- "$target_path"
+    else
+      sheikha_log "Unknown snapshot state for $relative_path: $state"
+      return 1
+    fi
+  done <"$SHEIKHA_SNAPSHOT_DIR/index"
+
+  rm -rf -- "$SHEIKHA_SNAPSHOT_DIR"
+  SHEIKHA_SNAPSHOT_DIR=""
+  export SHEIKHA_SNAPSHOT_DIR
+  sheikha_log 'Restored governed generated reports to their pre-activation state.'
 }
 
 sheikha_assert_branch() {

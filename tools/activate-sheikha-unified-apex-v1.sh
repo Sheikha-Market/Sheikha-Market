@@ -6,10 +6,12 @@ source "$ROOT/tools/activation/sheikha-activation-common-v1.sh"
 
 RESTART_PM2=false
 STRICT_EXTERNAL=false
+REQUIRE_CLEAN=false
 for argument in "$@"; do
   case "$argument" in
     --restart-pm2) RESTART_PM2=true ;;
     --strict-external) STRICT_EXTERNAL=true ;;
+    --require-clean) REQUIRE_CLEAN=true ;;
     *) echo "Unknown option: $argument" >&2; exit 2 ;;
   esac
 done
@@ -19,6 +21,12 @@ sheikha_prepare_log activate
 sheikha_require_command node
 sheikha_require_command npm
 sheikha_require_command git
+
+if [[ "$REQUIRE_CLEAN" == true ]]; then
+  sheikha_run node tools/drift/sheikha-runtime-drift-detector.js
+  sheikha_snapshot_manifest_paths generatedReportPaths
+  trap sheikha_restore_snapshot EXIT
+fi
 
 VALIDATOR_ARGS=()
 [[ "$STRICT_EXTERNAL" == true ]] && VALIDATOR_ARGS+=(--strict-external)
@@ -31,6 +39,12 @@ done < <(sheikha_manifest_values activationScripts)
 VERIFY_ARGS=()
 [[ "$STRICT_EXTERNAL" == true ]] && VERIFY_ARGS+=(--strict-external)
 sheikha_run "$SHEIKHA_ROOT/tools/verify-sheikha-unified-apex-v1.sh" "${VERIFY_ARGS[@]}"
+
+if [[ "$REQUIRE_CLEAN" == true ]]; then
+  sheikha_restore_snapshot
+  trap - EXIT
+  sheikha_run node tools/drift/sheikha-runtime-drift-detector.js
+fi
 
 if [[ "$RESTART_PM2" == true ]]; then
   sheikha_require_command pm2

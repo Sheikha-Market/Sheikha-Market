@@ -37,7 +37,7 @@ sheikha_run node tools/governance/runtime-admission-controller.js
 if [[ "$REQUIRE_CLEAN" == true ]]; then
   sheikha_run node tools/drift/sheikha-runtime-drift-detector.js
 else
-  node tools/drift/sheikha-runtime-drift-detector.js 2>&1 | tee -a "$SHEIKHA_LOG_FILE" || true
+  sheikha_run node tools/drift/sheikha-runtime-drift-detector.js || true
 fi
 
 sheikha_log "Verification completed. Log: $SHEIKHA_LOG_FILE"

@@ -18,6 +18,16 @@ Generate governed reports and run the complete verification suite:
 ./tools/activate-sheikha-unified-apex-v1.sh
 ```
 
+Run every activation engine while requiring the repository to remain byte-for-byte clean:
+
+```bash
+./tools/activate-sheikha-unified-apex-v1.sh --require-clean
+```
+
+Clean activation snapshots only the generated report files declared in the manifest. It runs
+the engines and tests against the generated reports, restores the pre-activation report bytes,
+and requires a final `NO_DRIFT`. Any unrelated change causes the command to fail.
+
 The activation now includes `SHEIKHA_STORAGE_GOVERNANCE_V1`. It inventories configured
 high-growth paths, classifies disk pressure, and produces a human-review remediation plan.
 It never deletes or moves files.
