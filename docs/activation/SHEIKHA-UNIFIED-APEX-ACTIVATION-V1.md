@@ -1,5 +1,10 @@
 # SHEIKHA Unified Apex Activation V1
 
+The activation order includes `SHEIKHA_CIVILIZATION_STEWARDSHIP_APEX_V1` as the
+highest governed institutional stewardship layer. It remains constrained by the
+Master Life Cycle reference and Civilization Governance authority, and delegates
+approved mandates to the Civilization Command Plane rather than executing directly.
+
 This activation bundle verifies and activates the highest integrated Sheikha stack in
 a deterministic order. It does not grant divine authority, automate religious rulings,
 or claim external infrastructure that has not been connected and verified.

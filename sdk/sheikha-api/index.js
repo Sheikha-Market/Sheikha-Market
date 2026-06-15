@@ -63,7 +63,9 @@ function createSheikhaApiClient({
       '/api/sheikha/runtime-fabric/v5/status',
       '/api/sheikha/runtime-fabric/v5/issues',
       '/api/sheikha/civilization-command/v1/status',
-      '/api/sheikha/civilization-command/v1/dashboard'
+      '/api/sheikha/civilization-command/v1/dashboard',
+      '/api/sheikha/civilization-stewardship/v1/status',
+      '/api/sheikha/civilization-stewardship/v1/dashboard'
     ],
     requestDescriptor(path, method = 'GET') {
       return {
@@ -139,6 +141,38 @@ function createSheikhaApiClient({
       `/api/sheikha/civilization-command/v1/plans/${encodeURIComponent(planId)}/dispatch`,
       'POST',
       {}
+    )
+  };
+
+  client.civilizationStewardship = {
+    status: () => request('/api/sheikha/civilization-stewardship/v1/status'),
+    dashboard: () => request('/api/sheikha/civilization-stewardship/v1/dashboard'),
+    registry: () => request('/api/sheikha/civilization-stewardship/v1/registry'),
+    audit: (limit = 100) => request(
+      `/api/sheikha/civilization-stewardship/v1/audit?limit=${encodeURIComponent(limit)}`
+    ),
+    registerMandate: input => request(
+      '/api/sheikha/civilization-stewardship/v1/mandates',
+      'POST',
+      input
+    ),
+    attachEvidence: (mandateId, input) => request(
+      `/api/sheikha/civilization-stewardship/v1/mandates/` +
+      `${encodeURIComponent(mandateId)}/evidence`,
+      'POST',
+      input
+    ),
+    reviewMandate: mandateId => request(
+      `/api/sheikha/civilization-stewardship/v1/mandates/` +
+      `${encodeURIComponent(mandateId)}/review`,
+      'POST',
+      {}
+    ),
+    ratifyMandate: (mandateId, input = { decision: 'APPROVE' }) => request(
+      `/api/sheikha/civilization-stewardship/v1/mandates/` +
+      `${encodeURIComponent(mandateId)}/ratify`,
+      'POST',
+      input
     )
   };
 

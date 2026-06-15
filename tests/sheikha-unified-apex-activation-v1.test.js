@@ -15,9 +15,9 @@ describe('Sheikha Unified Apex Activation V1', () => {
     const result = validate();
 
     expect(result.status).toBe('PASSED');
-    expect(result.checks.canonicalLayers).toBeGreaterThanOrEqual(8);
-    expect(result.checks.activationScripts).toBeGreaterThanOrEqual(11);
-    expect(result.checks.generatedReports).toBeGreaterThanOrEqual(20);
+    expect(result.checks.canonicalLayers).toBeGreaterThanOrEqual(9);
+    expect(result.checks.activationScripts).toBeGreaterThanOrEqual(12);
+    expect(result.checks.generatedReports).toBeGreaterThanOrEqual(25);
     expect(result.checks.governanceReferences).toBeGreaterThanOrEqual(8);
     expect(result.externalState.autonomousFinalAuthority).toBe(false);
   });
@@ -75,6 +75,9 @@ describe('Sheikha Unified Apex Activation V1', () => {
     expect(manifest.releasePaths).toContain('runtime/storage-governance/v1');
     expect(manifest.generatedReportPaths).toContain(
       'runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.json'
+    );
+    expect(manifest.generatedReportPaths).toContain(
+      'runtime/civilization-stewardship-apex/v1/sheikha-civilization-stewardship-apex-v1-report.json'
     );
   });
 });

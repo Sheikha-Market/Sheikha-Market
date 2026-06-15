@@ -15,31 +15,36 @@
     },
     {
       "order": 3,
+      "authorityClass": "institutional-stewardship-apex",
+      "system": "SHEIKHA_CIVILIZATION_STEWARDSHIP_APEX_V1"
+    },
+    {
+      "order": 4,
       "authorityClass": "executive-command-intelligence",
       "system": "SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1"
     },
     {
-      "order": 4,
+      "order": 5,
       "authorityClass": "operational-resource-governance",
       "system": "SHEIKHA_STORAGE_GOVERNANCE_V1"
     },
     {
-      "order": 5,
+      "order": 6,
       "authorityClass": "operational-admission",
       "system": "SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11"
     },
     {
-      "order": 6,
+      "order": 7,
       "authorityClass": "bounded-execution",
       "system": "SHEIKHA_RUNTIME_FABRIC_V5"
     },
     {
-      "order": 7,
+      "order": 8,
       "authorityClass": "management-federation",
       "system": "SHEIKHA_GLOBAL_CONTROL_PLANE_V1"
     },
     {
-      "order": 8,
+      "order": 9,
       "authorityClass": "enterprise-product",
       "system": "SHEIKHA_ENTERPRISE_SAAS_V2"
     }
@@ -55,11 +60,14 @@
     "ops:orchestrator-fabric:v2",
     "ops:enterprise-saas:v2",
     "ops:runtime-fabric:v5",
-    "ops:civilization-command-plane:v1"
+    "ops:civilization-command-plane:v1",
+    "ops:civilization-stewardship-apex:v1"
   ],
   "requiredFiles": [
     "runtime/master-life-cycle/sheikha-master-life-cycle-v1.js",
     "runtime/civilization-governance/civilization-governance-v2.js",
+    "runtime/civilization-stewardship-apex/v1/civilization-stewardship-apex-v1.js",
+    "runtime/civilization-stewardship-apex/v1/sheikha-civilization-stewardship-apex-v1.json",
     "runtime/civilization-command-intelligence-plane/civilization-command-intelligence-plane-v1.js",
     "runtime/storage-governance/v1/sheikha-storage-governance-v1.js",
     "runtime/storage-governance/v1/sheikha-storage-governance-v1.json",
@@ -67,6 +75,7 @@
     "runtime/runtime-fabric-v5/runtime-fabric-v5.js",
     "runtime/global-control-plane/global-control-plane.js",
     "routes/civilization-command-intelligence-plane-routes.js",
+    "routes/civilization-stewardship-apex-routes.js",
     "core/enterprise/sheikha-enterprise-inspector-v3.js",
     "sdk/sheikha-api/index.js"
   ],
@@ -112,7 +121,9 @@
     "runtime/runtime-fabric-v5/sheikha-runtime-fabric-v5-report.json",
     "runtime/runtime-fabric-v5/sheikha-runtime-fabric-v5-report.md",
     "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.json",
-    "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.md"
+    "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.md",
+    "runtime/civilization-stewardship-apex/v1/sheikha-civilization-stewardship-apex-v1-report.json",
+    "runtime/civilization-stewardship-apex/v1/sheikha-civilization-stewardship-apex-v1-report.md"
   ],
   "releasePaths": [
     "tools/activation",
@@ -120,6 +131,8 @@
     "tools/activate-sheikha-unified-apex-v1.sh",
     "tools/release-sheikha-unified-apex-v1.sh",
     "tools/activate-sheikha-civilization-command-plane.sh",
+    "tools/activate-sheikha-civilization-stewardship-apex.sh",
+    "tools/civilization-stewardship-apex",
     "tools/storage-governance",
     "tools/governance/runtime-integrity-verifier.js",
     "tools/governance/git-context-reader.js",
@@ -129,8 +142,17 @@
     "tools/drift/sheikha-runtime-drift-detector.js",
     "tools/heart-core/sheikha-heart-core-v1.js",
     "server.js",
+    "core/enterprise/sheikha-enterprise-inspector-v3.js",
+    "sdk/sheikha-api/index.js",
+    "runtime/security/api-keys/api-key-manager.js",
+    "runtime/master-life-cycle/sheikha-master-life-cycle-v1.js",
+    "runtime/civilization-governance/civilization-governance-v2.js",
+    "runtime/executive-mission-control/executive-mission-control-v1.js",
     "runtime/master-log-center/sheikha-master-log-center-v1.js",
     "runtime/civilization-command-intelligence-plane/civilization-command-intelligence-plane-v1.js",
+    "runtime/civilization-stewardship-apex/v1",
+    "routes/civilization-stewardship-apex-routes.js",
+    "docs/civilization-stewardship/SHEIKHA-CIVILIZATION-STEWARDSHIP-APEX-V1.md",
     "docs/storage-governance/SHEIKHA-STORAGE-GOVERNANCE-V1.md",
     "docs/activation/SHEIKHA-UNIFIED-APEX-ACTIVATION-V1.md",
     "routes/storage-governance-routes.js",
@@ -138,6 +160,8 @@
     "docs/activation/SHEIKHA-UNIFIED-APEX-ACTIVATION-V1.md",
     "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.json",
     "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.md",
+    "runtime/civilization-stewardship-apex/v1/sheikha-civilization-stewardship-apex-v1-report.json",
+    "runtime/civilization-stewardship-apex/v1/sheikha-civilization-stewardship-apex-v1-report.md",
     "runtime/heart-core/v1/sheikha-heart-core-report.json",
     "runtime/orchestrator/sheikha-orchestrator-fabric-v2-report.json",
     "runtime/root-operating-core/v1/sheikha-root-operating-core-report.json",
@@ -147,6 +171,9 @@
     "runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.md",
     "package.json",
     "tests/civilization-command-intelligence-plane-v1.test.js",
+    "tests/civilization-stewardship-apex-v1.test.js",
+    "tests/sheikha-enterprise-inspector-v3.test.js",
+    "tests/sheikha-unified-apex-activation-v1.test.js",
     "tests/sheikha-master-log-center-v1.test.js",
     "tests/sheikha-governance-tooling-no-shell.test.js",
     "tests/sheikha-storage-governance-v1.test.js",

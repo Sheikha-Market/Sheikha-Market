@@ -7,7 +7,8 @@ const { normalizeRole, requireAccess } = require('../../saas/enterprise-v2/rbac'
 const ALLOWED_SCOPES = Object.freeze([
   'tenant:read', 'usage:record', 'usage:read', 'subscription:read', 'audit:read',
   'runtime:read', 'runtime:execute', 'runtime:schedule', 'runtime:audit',
-  'civilization:read', 'civilization:write', 'civilization:execute', 'civilization:audit'
+  'civilization:read', 'civilization:write', 'civilization:execute', 'civilization:audit',
+  'stewardship:read', 'stewardship:write', 'stewardship:ratify', 'stewardship:audit'
 ]);
 const ASSIGNABLE_ROLES = Object.freeze(['ADMIN', 'OPERATOR', 'AUDITOR', 'VIEWER']);
 
