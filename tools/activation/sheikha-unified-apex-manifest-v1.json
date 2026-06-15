@@ -1,0 +1,103 @@
+{
+  "system": "SHEIKHA_UNIFIED_APEX_ACTIVATION_V1",
+  "status": "ACTIVE",
+  "purpose": "Governed, repeatable activation and verification of the highest integrated Sheikha operating stack.",
+  "canonicalOrder": [
+    {
+      "order": 1,
+      "authorityClass": "constitutional-reference",
+      "system": "SHEIKHA_MASTER_LIFE_CYCLE_V1"
+    },
+    {
+      "order": 2,
+      "authorityClass": "civilization-governance",
+      "system": "SHEIKHA_CIVILIZATION_GOVERNANCE_V2"
+    },
+    {
+      "order": 3,
+      "authorityClass": "executive-command-intelligence",
+      "system": "SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1"
+    },
+    {
+      "order": 4,
+      "authorityClass": "operational-admission",
+      "system": "SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11"
+    },
+    {
+      "order": 5,
+      "authorityClass": "bounded-execution",
+      "system": "SHEIKHA_RUNTIME_FABRIC_V5"
+    },
+    {
+      "order": 6,
+      "authorityClass": "management-federation",
+      "system": "SHEIKHA_GLOBAL_CONTROL_PLANE_V1"
+    },
+    {
+      "order": 7,
+      "authorityClass": "enterprise-product",
+      "system": "SHEIKHA_ENTERPRISE_SAAS_V2"
+    }
+  ],
+  "activationScripts": [
+    "ops:unified-governance-fabric:v1",
+    "ops:root-operating-core:v1",
+    "ops:heart-core:v1",
+    "ops:knowledge-engine:v2",
+    "ops:decision-registry:v2",
+    "ops:capability-registry:v2",
+    "ops:orchestrator-fabric:v2",
+    "ops:enterprise-saas:v2",
+    "ops:runtime-fabric:v5",
+    "ops:civilization-command-plane:v1"
+  ],
+  "requiredFiles": [
+    "runtime/master-life-cycle/sheikha-master-life-cycle-v1.js",
+    "runtime/civilization-governance/civilization-governance-v2.js",
+    "runtime/civilization-command-intelligence-plane/civilization-command-intelligence-plane-v1.js",
+    "runtime/orchestrator/orchestrator-fabric.js",
+    "runtime/runtime-fabric-v5/runtime-fabric-v5.js",
+    "runtime/global-control-plane/global-control-plane.js",
+    "routes/civilization-command-intelligence-plane-routes.js",
+    "core/enterprise/sheikha-enterprise-inspector-v3.js",
+    "sdk/sheikha-api/index.js"
+  ],
+  "governanceReferences": [
+    "QURAN-16-090",
+    "QURAN-04-058",
+    "QURAN-05-008",
+    "QURAN-17-036",
+    "QURAN-49-006",
+    "SUNNAH-BUKHARI-001",
+    "SUNNAH-NAWAWI-032",
+    "SUNNAH-ABU-DAWUD-4607"
+  ],
+  "truthfulExternalState": {
+    "postgresqlProduction": "READY_NOT_CONFIGURED",
+    "redisDistributedQueue": "NOT_CONNECTED",
+    "kubernetes": "NOT_CONNECTED",
+    "multiRegionConsensus": "NOT_CONNECTED",
+    "autonomousFinalAuthority": false,
+    "religiousAuthorityClaimed": false
+  },
+  "releasePaths": [
+    "tools/activation",
+    "tools/verify-sheikha-unified-apex-v1.sh",
+    "tools/activate-sheikha-unified-apex-v1.sh",
+    "tools/release-sheikha-unified-apex-v1.sh",
+    "tools/activate-sheikha-civilization-command-plane.sh",
+    "docs/activation/SHEIKHA-UNIFIED-APEX-ACTIVATION-V1.md",
+    "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.json",
+    "runtime/civilization-command-intelligence-plane/sheikha-civilization-command-intelligence-plane-v1-report.md",
+    "runtime/heart-core/v1/sheikha-heart-core-report.json",
+    "runtime/orchestrator/sheikha-orchestrator-fabric-v2-report.json",
+    "runtime/root-operating-core/v1/sheikha-root-operating-core-report.json",
+    "runtime/runtime-fabric-v5/sheikha-runtime-fabric-v5-report.json",
+    "runtime/saas/enterprise-v2/sheikha-enterprise-saas-v2-report.json",
+    "runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.json",
+    "runtime/unified-governance-fabric/v1/sheikha-unified-governance-fabric-report.md",
+    "package.json",
+    "tests/civilization-command-intelligence-plane-v1.test.js",
+    "tests/sheikha-unified-apex-activation-v1.test.js"
+  ]
+}

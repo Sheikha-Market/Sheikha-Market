@@ -133,6 +133,10 @@ describe('Sheikha Civilization Command & Intelligence Plane V1', () => {
       path.join(root, 'tools/activate-sheikha-civilization-command-plane.sh'),
       'utf8'
     );
+    const unifiedScript = fs.readFileSync(
+      path.join(root, 'tools/activate-sheikha-unified-apex-v1.sh'),
+      'utf8'
+    );
     const report = JSON.parse(fs.readFileSync(path.join(
       root,
       'runtime/civilization-command-intelligence-plane/',
@@ -153,7 +157,8 @@ describe('Sheikha Civilization Command & Intelligence Plane V1', () => {
 
     expect(server).toContain("app.use(require('./routes/civilization-command-intelligence-plane-routes'));" );
     expect(inspector).toContain('/api/sheikha/civilization-command/v1/dashboard');
-    expect(script).toContain('npm test -- --runInBand');
+    expect(script).toContain('activate-sheikha-unified-apex-v1.sh');
+    expect(unifiedScript).toContain('verify-sheikha-unified-apex-v1.sh');
     expect(ALLOWED_SCOPES).toContain('civilization:execute');
     expect(requests[0].url).toBe('https://example.test/api/sheikha/civilization-command/v1/plans');
     expect(report.decision).toBe('CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1_OPERATIONAL_100');

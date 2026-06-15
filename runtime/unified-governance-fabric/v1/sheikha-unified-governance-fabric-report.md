@@ -4,8 +4,8 @@
 - النظام: SHEIKHA_UNIFIED_GOVERNANCE_FABRIC_V1
 - الحالة: ACTIVE
 - القرار: READY_FOR_GOVERNED_OPERATION
-- الفرع: optimization/long-tail-latency-elimination
-- HEAD: 9ed3454d
+- الفرع: feature/hub-v1
+- HEAD: 38356050
 
 ## الفحوص
 - OK quranSunnahGovernance
