@@ -192,6 +192,63 @@ function shouldUseUnifiedFallback(data) {
     ].includes(data.error);
 }
 
+function buildLocalChatFallbackAnswer(message, reason = '') {
+  const text = String(message || '');
+  const reasonLine = reason ? `\n\nسبب التحويل الاحتياطي: ${reason}` : '';
+
+  if (/todo[-\s_]*tree|vscode[-\s_]*ripgrep|ripgrep|\brg\b/i.test(text)) {
+    return [
+      'بسم الله الرحمن الرحيم',
+      '',
+      'أنا شيخة.',
+      '',
+      'تم تشخيص مشكلة Todo Tree محليًا دون الاعتماد على بوابة الخادم.',
+      '',
+      'الإجراء الصحيح:',
+      '',
+      '1. تأكد أن `rg` موجود:',
+      '```bash',
+      'command -v rg',
+      'rg --version',
+      '```',
+      '',
+      '2. ثبّت إعداد VS Code داخل `.vscode/settings.json`:',
+      '```json',
+      '"todo-tree.ripgrep": "/usr/bin/rg"',
+      '```',
+      '',
+      '3. أعد تحميل VS Code: `Developer: Reload Window`.',
+      '',
+      'إذا بقي الخطأ بعد ذلك، يكون السبب غالبًا أن الإضافة تعمل على بيئة Remote/WSL مختلفة عن بيئة المشروع، وعندها نضبط المسار حسب البيئة الفعلية.',
+      reasonLine
+    ].filter(Boolean).join('\n');
+  }
+
+  if (/تقرير|report|اكتب|اكتبي|write/i.test(text)) {
+    return [
+      'بسم الله الرحمن الرحيم',
+      '',
+      'أنا شيخة.',
+      '',
+      'تعذر وصول رد JSON صالح من البوابة، لذلك انتقلت إلى جواب احتياطي محلي محكوم بدل إظهار خطأ خام.',
+      '',
+      'أستطيع كتابة التقرير، لكن أحتاج تحديد الموضوع بدقة أو سأبنيه من النص الذي أرسلته. أرسل الموضوع أو البيانات المطلوبة، وسأعيده بصيغة: ملخص تنفيذي، تحليل، مخاطر، توصيات، وخطوات تالية.',
+      reasonLine
+    ].filter(Boolean).join('\n');
+  }
+
+  return [
+    'بسم الله الرحمن الرحيم',
+    '',
+    'أنا شيخة.',
+    '',
+    'تعذر وصول رد JSON صالح من البوابة، لكن الشات لم يتوقف. انتقلت إلى المسار الاحتياطي المحلي حتى يبقى الحوار عمليًا.',
+    '',
+    'أعد إرسال المطلوب بصيغة مباشرة، أو اطلب: "حلل الحالة"، "أصلح الخطأ"، "اكتب تقرير"، أو "افحص المنظومة".',
+    reasonLine
+  ].filter(Boolean).join('\n');
+}
+
 async function sendExtensionChat(message, options = {}) {
   const text = String(message || '');
   const smartRoute = decideSmartRoute(text, options.mode || 'smart');
@@ -231,15 +288,15 @@ async function sendExtensionChat(message, options = {}) {
     }
 
     if (!data || data.success !== true) {
+      const reason = data?.error || data?.message || `HTTP_${data?.statusCode || 'UNKNOWN'}`;
       return {
-        success: false,
-        answer: normalizeSheikhaReply(
-          data?.answer ||
-          data?.message ||
-          `تعذر الاتصال بشات الإكستنشن: ${data?.error || 'unknown_error'}`,
-          text
-        ),
-        raw: data
+        success: true,
+        answer: normalizeSheikhaReply(buildLocalChatFallbackAnswer(text, reason), text),
+        raw: {
+          ...(data || {}),
+          localConversationFallback: true,
+          originalSuccess: data?.success === true
+        }
       };
     }
 
@@ -266,9 +323,9 @@ async function sendExtensionChat(message, options = {}) {
     } catch {}
 
     return {
-      success: false,
-      answer: normalizeSheikhaReply(`تعذر الاتصال بشات الإكستنشن: ${err.message}`, text),
-      raw: { success: false, error: err.message }
+      success: true,
+      answer: normalizeSheikhaReply(buildLocalChatFallbackAnswer(text, err.message), text),
+      raw: { success: false, error: err.message, localConversationFallback: true }
     };
   }
 }
@@ -285,6 +342,7 @@ module.exports = {
   getJson,
   getEnterpriseInspectorStatus,
   getExtensionExperienceStatus,
+  buildLocalChatFallbackAnswer,
   isInspectorRequest,
   safeJsonParse,
   shouldUseUnifiedFallback

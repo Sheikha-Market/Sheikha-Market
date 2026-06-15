@@ -2,6 +2,7 @@
 
 const {
   EXTENSION_TRANSPORT_VERSION,
+  buildLocalChatFallbackAnswer,
   safeJsonParse,
   shouldUseUnifiedFallback
 } = require('../src/sheikhaExtensionChatClient');
@@ -30,5 +31,16 @@ describe('Sheikha Extension Chat Transport', () => {
 
   test('keeps package transport version aligned with the released extension', () => {
     expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.82');
+  });
+
+  test('builds a useful local Todo Tree fallback instead of exposing gateway noise', () => {
+    const answer = buildLocalChatFallbackAnswer(
+      'Todo-Tree: Failed to find vscode-ripgrep',
+      'proxy_non_json_response'
+    );
+
+    expect(answer).toContain('todo-tree.ripgrep');
+    expect(answer).toContain('/usr/bin/rg');
+    expect(answer).not.toContain('رد بوابة غير صالح');
   });
 });

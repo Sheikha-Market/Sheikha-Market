@@ -33,7 +33,7 @@ function classifyIntent(message) {
   if (/debug\s+pipeline|شغ[ّل]*\s+التشخيص|اعرض\s+(?:git\s+status|سجل\s+التشخيص)|حلل\s+(?:stack\s*trace|سجل\s+الخطأ)/i.test(text)) {
     return 'DEBUG_PIPELINE';
   }
-  if (/أصلح|اصلح|إصلاح|fix|patch|خطأ|error|تعطل|فشل|bug/i.test(text)) return 'CODE_ASSIST';
+  if (/أصلح|اصلح|إصلاح|fix|patch|خطأ|error|تعطل|فشل|failed|failure|cannot\s+find|not\s+found|bug/i.test(text)) return 'CODE_ASSIST';
   if (/تقرير|report/i.test(text)) {
     return /المشروع|المستودع|repo|repository|git|runtime|التشغيل|الفرع|ملفات معدلة/i.test(text)
       ? 'REPORT_PIPELINE'
