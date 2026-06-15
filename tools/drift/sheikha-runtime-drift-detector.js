@@ -1,23 +1,12 @@
 'use strict';
 
-const path = require('path');
-const { execFileSync } = require('child_process');
 const { readStatus } = require('../governance/git-context-reader');
+const { runAdmissionController } = require('../governance/runtime-admission-controller');
+const { run: runProtectedRuntime } = require('../governance/protected-runtime-enforcer');
 
-function run(command, args) {
-  return execFileSync(command, args, { cwd: root, encoding: 'utf8' }).trim();
-}
-
-const root = path.join(__dirname, '../..');
 const gitStatus = readStatus({ untracked: true }).join('\n').trim();
-
-const admission = JSON.parse(
-  run(process.execPath, [path.join(root, 'tools/governance/runtime-admission-controller.js')])
-);
-
-const protectedRuntime = JSON.parse(
-  run(process.execPath, [path.join(root, 'tools/governance/protected-runtime-enforcer.js')])
-);
+const admission = runAdmissionController();
+const protectedRuntime = runProtectedRuntime();
 
 const drift =
   gitStatus ||

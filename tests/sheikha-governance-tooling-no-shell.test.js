@@ -30,4 +30,14 @@ describe('Sheikha governance tooling command safety', () => {
     expect(reader).toContain('SHEIKHA_GIT_STATUS_FILE');
     expect(reader).toContain('SHEIKHA_GIT_TRACKED_FILE');
   });
+
+  test('drift detector evaluates governance modules in-process', () => {
+    const drift = fs.readFileSync(
+      path.join(root, 'tools/drift/sheikha-runtime-drift-detector.js'), 'utf8'
+    );
+
+    expect(drift).toContain('runAdmissionController()');
+    expect(drift).toContain('runProtectedRuntime()');
+    expect(drift).not.toContain('execFileSync');
+  });
 });

@@ -217,9 +217,8 @@ function runAdmissionController() {
   };
 }
 
-const result =
-  runAdmissionController();
+if (require.main === module) {
+  console.log(JSON.stringify(runAdmissionController(), null, 2));
+}
 
-console.log(
-  JSON.stringify(result, null, 2)
-);
+module.exports = { runAdmissionController };
