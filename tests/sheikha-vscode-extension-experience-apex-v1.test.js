@@ -33,11 +33,16 @@ describe('Sheikha VS Code Extension Experience Apex V1', () => {
     );
 
     expect(server).toContain("require('./routes/sheikha-vscode-extension-experience-apex-routes')");
+    expect(server).toContain("require('./routes/vital-chat-apex/sheikha-vital-chat-apex-routes')");
     expect(client).toContain('/api/sheikha/extension-experience/v1/status');
+    expect(client).toContain('/api/sheikha/vital-chat-apex/v1/status');
     expect(provider).toContain('conversationId');
     expect(provider).toContain('history: this.history');
     expect(provider).toContain('مسار الرد المحكوم');
+    expect(provider).toContain('Vital Chat Apex');
+    expect(provider).toContain('Session Memory');
     expect(sdk).toContain('client.extensionExperience');
+    expect(sdk).toContain('vitalChatApex');
     expect(inspector).toContain('extensionExperienceStatus');
     expect(inspector).toContain('enterpriseManagementStatus');
     const packageJson = require('../package.json');

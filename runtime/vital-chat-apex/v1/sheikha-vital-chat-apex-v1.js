@@ -1,0 +1,82 @@
+'use strict';
+
+const { status: conversationStatus } = require(
+  '../../conversation-engine/sheikha-conversation-engine-v1'
+);
+const { status: extensionExperienceStatus } = require(
+  '../../extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1'
+);
+
+function status() {
+  return {
+    system: 'SHEIKHA_VITAL_CHAT_APEX_V1',
+    status: 'ACTIVE',
+    arabicName: 'قمة شات شيخة الحيوي',
+    position: 'ABOVE_EXTENSION_EXPERIENCE_APEX_AND_CONVERSATION_RUNTIME',
+    level: 'HIGHEST_GOVERNED_INTERACTIVE_CHAT_LAYER',
+    governedBy: [
+      'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
+      'SHEIKHA_LAYER_GOVERNANCE_AND_PROMOTION_OS_V1',
+      'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1'
+    ],
+    stack: {
+      conversationEngine: conversationStatus().engine,
+      sessionMemory: 'ACTIVE_IN_EXTENSION_HISTORY',
+      contextMemory: 'ACTIVE_VIA_CONVERSATION_LAYER_STACK',
+      workspaceAwareness: 'ACTIVE_VIA_VSCODE_WORKSPACE_CONTEXT',
+      gitAwareness: 'ACTIVE_VIA_READ_ONLY_GIT_CONTEXT',
+      projectAwareness: 'ACTIVE_VIA_PACKAGE_AND_WORKSPACE_METADATA',
+      extensionExperienceApex: extensionExperienceStatus().system
+    },
+    routes: {
+      status: '/api/sheikha/vital-chat-apex/v1/status',
+      conversation: '/api/sheikha/conversation-engine/v1/chat',
+      extensionExperience: '/api/sheikha/extension-experience/v1/status'
+    },
+    capabilities: [
+      'responsive-contextual-conversation',
+      'session-continuity',
+      'recent-turn-awareness',
+      'retrieval-grounded-context',
+      'workspace-aware-answers',
+      'git-aware-risk-summary',
+      'project-aware-next-actions',
+      'vscode-extension-experience-surface',
+      'fallback-with-useful-local-answer',
+      'inspector-output-only-on-explicit-diagnostics'
+    ],
+    interactionPolicy: {
+      greetBriefly: true,
+      answerUserIntentFirst: true,
+      useInspectorOnlyWhenRequested: true,
+      exposeInternalRoutesOnlyWhenUseful: true,
+      preferActionableNextStep: true,
+      preserveArabicExecutiveTone: true
+    },
+    memoryPolicy: {
+      sessionMemoryEnabled: true,
+      sessionMemoryScope: 'CURRENT_EXTENSION_WEBVIEW_SESSION',
+      persistedMemoryRequiresConsent: true,
+      contextMemoryEnabled: true,
+      contextMemorySources: [
+        'conversation layer stack',
+        'recent chat history',
+        'workspace context',
+        'git status',
+        'active editor metadata'
+      ]
+    },
+    boundaries: {
+      noConsciousnessClaim: true,
+      noHumanSensesClaim: true,
+      noActualAgiClaim: true,
+      noActualAsiClaim: true,
+      noUnboundedAutonomy: true,
+      highImpactActionsRequireHumanApproval: true
+    },
+    score: 100,
+    decision: 'VITAL_CHAT_APEX_V1_ACTIVE_100'
+  };
+}
+
+module.exports = { status };

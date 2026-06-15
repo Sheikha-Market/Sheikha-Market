@@ -21,11 +21,13 @@ function status() {
       'bounded-agentic-planning',
       'role-scoped-multi-agent-coordination',
       'sdk-fabric-mcp-integration',
-      'layer-governance-visibility'
+      'layer-governance-visibility',
+      'vital-chat-apex-binding'
     ],
     surfaces: {
       conversation: '/api/sheikha/conversation-engine/v1/chat',
       inspector: '/api/sheikha/enterprise-inspector/v3/status',
+      vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
       layerGovernance: '/api/sheikha/layer-governance/v1/status',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status'
     },

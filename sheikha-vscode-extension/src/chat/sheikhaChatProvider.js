@@ -4,6 +4,7 @@ const vscode = require('vscode');
 const crypto = require('crypto');
 const {
   getExtensionExperienceStatus,
+  getVitalChatApexStatus,
   sendExtensionChat
 } = require('../sheikhaExtensionChatClient');
 
@@ -28,6 +29,11 @@ class SheikhaChatProvider {
     }).then((experience) => {
       webviewView.webview.postMessage({ command: 'experienceStatus', experience });
     }).catch(() => {});
+    getVitalChatApexStatus({
+      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+    }).then((vital) => {
+      webviewView.webview.postMessage({ command: 'vitalStatus', vital });
+    }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
       try {
@@ -46,7 +52,7 @@ class SheikhaChatProvider {
 
         webviewView.webview.postMessage({
           command: 'typing',
-          text: 'شيخة تعمل الآن...'
+          text: 'شيخة تقرأ السياق والذاكرة وحالة المشروع...'
         });
 
         const result = await sendExtensionChat(text, {
@@ -108,6 +114,9 @@ body { font-family: system-ui, sans-serif; margin:0; padding:12px; background:#0
 .header { border-bottom:1px solid #2d3947; padding:2px 0 10px; margin-bottom:10px; }
 .header strong { display:block; font-size:14px; }
 .header span { color:#9eabb9; font-size:11px; }
+.apex { display:flex; flex-wrap:wrap; gap:4px; margin:8px 0 10px; direction:ltr; }
+.apex b { border:1px solid #33475c; background:#111821; color:#b7c6d8; border-radius:5px; padding:3px 6px; font-size:10px; font-weight:600; }
+.apex b.active { color:#95f0b5; border-color:#286948; background:#102019; }
 #log { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
 .msg { background:#111821; border:1px solid #2d3947; padding:10px; border-radius:6px; white-space:pre-wrap; overflow-wrap:anywhere; }
 .user { background:#142236; border-color:#365b82; }
@@ -123,7 +132,16 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة الحيوي</strong><span id="experience">Layer Governance L18 · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.82</span></div>
+<div class="header"><strong>شات شيخة الحيوي</strong><span id="experience">Vital Chat Apex · Layer Governance L18 · Runtime L1-L8 · Extension 1.0.83</span></div>
+<div class="apex" id="apex">
+  <b class="active">Conversation Engine</b>
+  <b class="active">Session Memory</b>
+  <b class="active">Context Memory</b>
+  <b class="active">Workspace</b>
+  <b class="active">Git</b>
+  <b class="active">Project</b>
+  <b class="active">Extension Apex</b>
+</div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>
@@ -244,7 +262,22 @@ window.addEventListener('message', event => {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
       'Layer Governance L' + (data.governedByApexLevel || 18) +
-      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.82';
+      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.83';
+  }
+  if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
+    const data = msg.vital.data || {};
+    const stack = data.stack || {};
+    document.getElementById('experience').textContent =
+      'Vital Chat Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.83';
+    document.getElementById('apex').innerHTML = [
+      ['Conversation Engine', stack.conversationEngine],
+      ['Session Memory', stack.sessionMemory],
+      ['Context Memory', stack.contextMemory],
+      ['Workspace', stack.workspaceAwareness],
+      ['Git', stack.gitAwareness],
+      ['Project', stack.projectAwareness],
+      ['Extension Apex', stack.extensionExperienceApex]
+    ].map(([name, state]) => '<b class="active" title="' + String(state || 'ACTIVE') + '">' + name + '</b>').join('');
   }
 });
 </script>

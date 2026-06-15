@@ -12,7 +12,8 @@ const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
 const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
 const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
 const EXTENSION_EXPERIENCE_STATUS_ENDPOINT = '/api/sheikha/extension-experience/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.82';
+const VITAL_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/vital-chat-apex/v1/status';
+const EXTENSION_TRANSPORT_VERSION = '1.0.83';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -166,6 +167,18 @@ async function getExtensionExperienceStatus(options = {}) {
   try {
     return await getJson(
       EXTENSION_EXPERIENCE_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
+async function getVitalChatApexStatus(options = {}) {
+  try {
+    return await getJson(
+      VITAL_CHAT_APEX_STATUS_ENDPOINT,
       options.baseUrl || DEFAULT_BASE_URL,
       options.timeout || 15000
     );
@@ -335,6 +348,7 @@ module.exports = {
   DEFAULT_BASE_URL,
   INSPECTOR_STATUS_ENDPOINT,
   EXTENSION_EXPERIENCE_STATUS_ENDPOINT,
+  VITAL_CHAT_APEX_STATUS_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
@@ -342,6 +356,7 @@ module.exports = {
   getJson,
   getEnterpriseInspectorStatus,
   getExtensionExperienceStatus,
+  getVitalChatApexStatus,
   buildLocalChatFallbackAnswer,
   isInspectorRequest,
   safeJsonParse,

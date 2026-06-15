@@ -161,7 +161,7 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Layer Governance L18 · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.82');
+    expect(provider).toContain('Vital Chat Apex · Layer Governance L18 · Runtime L1-L8 · Extension 1.0.83');
     expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
     expect(provider).toContain("command: 'experienceStatus'");
     expect(inspector).toContain('getEnterpriseInspectorStatus');

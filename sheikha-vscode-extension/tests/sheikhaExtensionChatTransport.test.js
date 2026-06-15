@@ -30,7 +30,7 @@ describe('Sheikha Extension Chat Transport', () => {
   });
 
   test('keeps package transport version aligned with the released extension', () => {
-    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.82');
+    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.83');
   });
 
   test('builds a useful local Todo Tree fallback instead of exposing gateway noise', () => {
