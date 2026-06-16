@@ -1,5 +1,46 @@
 'use strict';
 
+function isExplicitDebugRequest(message = '') {
+  const text = String(message).toLowerCase();
+  return [
+    'debug',
+    'debugging',
+    'diagnose',
+    'diagnostic',
+    'inspector',
+    'trace',
+    'stack',
+    'سجل الخطأ',
+    'شخص',
+    'تشخيص',
+    'افحص',
+    'المفتش'
+  ].some((word) => text.includes(word));
+}
+
+function isIdeProgrammingRequest(message = '') {
+  const text = String(message).toLowerCase();
+  return [
+    'ide',
+    'vs code',
+    'vscode',
+    'coder',
+    'code',
+    'برمجة',
+    'اكستنشن',
+    'الإكستنشن',
+    'الشات',
+    'todo tree',
+    'ripgrep',
+    'rg',
+    'npm',
+    'git',
+    'server.js',
+    'package.json'
+  ].some((word) => text.includes(word));
+}
+
+
 const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');

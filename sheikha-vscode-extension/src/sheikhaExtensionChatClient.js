@@ -52,7 +52,7 @@ function safeJsonParse(rawInput, metadata = {}) {
 
   return {
     success: false,
-    error: proxyResponse ? 'proxy_non_json_response' : 'invalid_json',
+    error: proxyResponse ? 'ide_apex_non_json_fallback' : 'invalid_json',
     answer: proxyResponse
       ? 'استلم شات شيخة رد بوابة غير صالح، وسيتم الانتقال تلقائيًا إلى المسار الاحتياطي.'
       : 'استلم شات شيخة ردًا غير صالح، وسيتم الانتقال تلقائيًا إلى المسار الاحتياطي.',
@@ -227,7 +227,7 @@ function shouldUseUnifiedFallback(data) {
       'connection_error',
       'empty_response',
       'invalid_json',
-      'proxy_non_json_response'
+      'ide_apex_non_json_fallback'
     ].includes(data.error);
 }
 

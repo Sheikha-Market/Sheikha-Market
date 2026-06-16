@@ -180,7 +180,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
   <b class="active">Git</b>
   <b class="active">Project</b>
   <b class="active">Extension Apex</b>
-  <b class="active">Debugging Apex</b>
+  <b class="active">IDE Apex · Debugging عند الطلب</b>
 </div>
 </div>
 <div class="context-rail" id="contextRail">
@@ -205,7 +205,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 
 <div class="quick">
   <button data-prompt="حلل حالة منظومة شيخة الحالية من Enterprise Inspector وحدد أفضل إجراء تالٍ.">حالة المنظومة</button>
-  <button data-prompt="شغّل Debugging Apex واقرأ Diagnostics وGit وRuntime ثم أعطني خطة إصلاح آمنة.">Debugging Apex</button>
+  <button data-prompt="شغّل IDE Apex · Debugging عند الطلب واقرأ Diagnostics وGit وRuntime ثم أعطني خطة إصلاح آمنة.">IDE Apex · Debugging عند الطلب</button>
   <button data-prompt="راجع أخطاء وتحذيرات VS Code الحالية واقترح خطة إصلاح مرتبة.">Diagnostics</button>
   <button data-prompt="حلل Workspace وGit الحاليين وحدد مخاطر الاختبار والدمج.">مراجعة المشروع</button>
 </div>
@@ -330,7 +330,7 @@ window.addEventListener('message', event => {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'Vital Chat Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+      'IDE Apex · Vital Chat · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
     document.getElementById('apex').innerHTML = [
       ['Chat Interface Apex', 'PENDING_STATUS'],
       ['Conversation Engine', stack.conversationEngine],
@@ -340,13 +340,13 @@ window.addEventListener('message', event => {
       ['Git', stack.gitAwareness],
       ['Project', stack.projectAwareness],
       ['Extension Apex', stack.extensionExperienceApex],
-      ['Debugging Apex', 'PENDING_STATUS']
+      ['IDE Apex · Debugging عند الطلب', 'PENDING_STATUS']
     ].map(([name, state]) => '<b class="active" title="' + String(state || 'ACTIVE') + '">' + name + '</b>').join('');
   }
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'Debugging Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+      'IDE Apex · Debugging عند الطلب · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
