@@ -97,6 +97,11 @@ function isFoundryTopic(message) {
   return /foundry|فوندري|فوندرى|الفنودري|الفاوندري|فاوندري|فاندر/i.test(String(message || ''));
 }
 
+function isTechnicalCapabilityTopic(message) {
+  return /technical\s+capability|copilot|open\s*ai|gpt|ide\s+apex|debugging\s+apex|قدرات\s+تقنية|القدرات\s+التقنية|القوالب|الشات\s+المتقدم/i
+    .test(String(message || ''));
+}
+
 function buildFoundryReport() {
   const { status } = require('../../core/foundry/sheikha-foundry-v3');
   const foundry = status();
@@ -138,6 +143,64 @@ function buildFoundryReport() {
     '',
     '### التقييم',
     'Sheikha Foundry V3 مفعّل في قمة التحكم التشغيلية مع Supreme Orchestrator. ينظم البناء والتطور والإصدار، ولا يدّعي نشر قدرة أو تنفيذ كتابة دون دليل وموافقة بشرية.'
+  ].join('\n');
+}
+
+function buildTechnicalCapabilityReport() {
+  const { status } = require('../technical-capability-apex/v1/sheikha-technical-capability-apex-v1');
+  const apex = status();
+  const matrix = Object.entries(apex.capabilityMatrix || {})
+    .map(([name, value]) => `- ${name}: ${value.status} - ${value.purpose}`)
+    .join('\n');
+
+  return [
+    '## تقرير Technical Capability Apex',
+    '',
+    `- النظام: ${apex.system}`,
+    `- الحالة: ${apex.status}`,
+    `- القرار: ${apex.decision}`,
+    `- المستوى: ${apex.level}`,
+    '',
+    '### ترتيب الشات الأعلى',
+    ...apex.chatApexOrder.map((layer, index) => `${index + 1}. ${layer}`),
+    '',
+    '### مصفوفة القدرات',
+    matrix,
+    '',
+    '### الحوكمة',
+    '- هذه قدرات تقنية محلية محكومة داخل شيخة.',
+    '- لا يوجد ادعاء امتلاك نموذج خارجي بلا إعداد.',
+    '- لا يوجد ادعاء AGI أو ASI أو وعي.',
+    '- Debugging يعمل عند الطلب وبقراءة آمنة أولاً.',
+    '- IDE وSDK وMCP وRAG والوكلاء مرتبطة بالشات تحت حوكمة واحدة.'
+  ].join('\n');
+}
+
+function buildContentReport(message, payload = {}) {
+  const topic = String(message || '').trim() || 'موضوع غير محدد';
+  const hasContext = Boolean(payload.conversationContext);
+
+  return [
+    '## تقرير محكوم',
+    '',
+    `- الموضوع: ${topic}`,
+    '- المسار: SHEIKHA_EXECUTION_PIPELINE_V1',
+    '- النمط: CONTENT_REPORT',
+    '- الحوكمة: مفعلة قبل توليد التقرير',
+    `- السياق المستخدم: ${hasContext ? 'نعم' : 'سياق عام محدود'}`,
+    '',
+    '### ملخص تنفيذي',
+    'تم إنشاء هذا التقرير محليًا داخل شات شيخة لتجنب انتظار مزود نموذج خارجي عند طلب تقرير عام.',
+    '',
+    '### التحليل',
+    '- الطلب يحتاج موضوعًا أو بيانات أكثر إذا كان المطلوب تقريرًا تفصيليًا.',
+    '- يمكن للشات توليد تقرير تنفيذي، فني، حوكمي، أو تشغيلي حسب صيغة الطلب.',
+    '- عند توفر مصادر أو ملفات أو سياق Workspace، يتم ربط التقرير بالأدلة المتاحة.',
+    '',
+    '### التوصيات',
+    '- اذكر الموضوع أو المجال أو الملفات المطلوبة.',
+    '- اطلب الصيغة المطلوبة: تنفيذي، فني، مخاطر، خطة عمل، أو تقرير حوكمة.',
+    '- للقرارات عالية الأثر، يبقى التنفيذ خاضعًا للمراجعة البشرية.'
   ].join('\n');
 }
 
@@ -601,6 +664,10 @@ function executePipeline(payload = {}) {
     answer = buildReport(message, workspace, cli);
   } else if (intent === 'CONTENT_REPORT' && isFoundryTopic(message)) {
     answer = buildFoundryReport();
+  } else if (intent === 'CONTENT_REPORT' && isTechnicalCapabilityTopic(message)) {
+    answer = buildTechnicalCapabilityReport();
+  } else if (intent === 'CONTENT_REPORT') {
+    answer = buildContentReport(message, payload);
   } else {
     const executed = modelExecutor.execute(message, {
       context: [
