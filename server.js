@@ -22339,6 +22339,7 @@ console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
 
 try {
   app.use('/api/sheikha/action-first-chat-apex/v1', require('./routes/action-first-chat-apex/sheikha-action-first-chat-apex-routes'));
+app.use('/api/sheikha/local-coding-fastpath/v1', require('./routes/local-coding-fastpath/sheikha-local-coding-fastpath-routes'));
 app.use('/api/sheikha/living-conversation-apex/v1', require('./routes/living-conversation-apex/sheikha-living-conversation-apex-routes'));
 app.use('/api/sheikha/chat-fabric-v2', require('./routes/chat-fabric-v2/sheikha-chat-fabric-v2-routes'));
   console.log('✅ Sheikha Chat Fabric V2 API mounted');
