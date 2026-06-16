@@ -37,6 +37,9 @@ const ideApex = require(
 const technicalCapabilityApex = require(
   '../../runtime/technical-capability-apex/v1/sheikha-technical-capability-apex-v1'
 );
+const streamingChatApex = require(
+  '../../runtime/streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -168,6 +171,7 @@ function collectEnterpriseInspector(input = {}) {
   const chatInterfaceApexStatus = chatInterfaceApex.status();
   const ideApexStatus = ideApex.status();
   const technicalCapabilityApexStatus = technicalCapabilityApex.status();
+  const streamingChatApexStatus = streamingChatApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -205,6 +209,7 @@ function collectEnterpriseInspector(input = {}) {
       chatInterfaceApex: chatInterfaceApexStatus.status,
       ideApex: ideApexStatus.status,
       technicalCapabilityApex: technicalCapabilityApexStatus.status,
+      streamingChatApex: streamingChatApexStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -254,6 +259,8 @@ function collectEnterpriseInspector(input = {}) {
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
       ideApex: '/api/sheikha/ide-apex/v1/status',
       technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
+      streamingChatApex: '/api/sheikha/streaming-chat-apex/v1/status',
+      streamingChatStream: '/api/sheikha/streaming-chat-apex/v1/stream',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -267,6 +274,7 @@ function collectEnterpriseInspector(input = {}) {
         'Covenant Governance Apex',
         'Layer Governance and Promotion OS',
         'VS Code Extension Experience Apex',
+        'Streaming Multilingual Chat Apex',
         'Technical Capability Apex',
         'Debugging Apex',
         'Chat Interface Apex',
@@ -337,6 +345,7 @@ function collectEnterpriseInspector(input = {}) {
       storage: layerGovernanceStatus.storage
     },
     extensionExperience: extensionExperienceStatus,
+    streamingChatApex: streamingChatApexStatus,
     technicalCapabilityApex: technicalCapabilityApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,
     ideApex: ideApexStatus,

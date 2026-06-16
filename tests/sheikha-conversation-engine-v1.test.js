@@ -182,10 +182,10 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('L20 Technical Capability Apex · L19 IDE Apex');
+    expect(provider).toContain('L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex');
     expect(provider).toContain("command: 'debuggingStatus'");
     expect(provider).toContain("command: 'interfaceStatus'");
-    expect(provider).toContain('شات شيخة المتقدم');
+    expect(provider).toContain('شات شيخة المتدفق المتقدم');
     expect(provider).toContain('contextRail');
     expect(provider).toContain('Chat Interface Apex');
     expect(provider).toContain('IDE Apex');

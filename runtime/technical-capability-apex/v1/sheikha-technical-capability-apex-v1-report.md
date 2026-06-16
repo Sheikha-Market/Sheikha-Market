@@ -4,7 +4,7 @@
 - Status: ACTIVE
 - Decision: TECHNICAL_CAPABILITY_APEX_V1_ACTIVE_100
 - Score: 100
-- Level: HIGHEST_GOVERNED_TECHNICAL_CAPABILITY_AND_CHAT_APEX_LAYER
+- Level: GOVERNED_TECHNICAL_CAPABILITY_APEX_UNDER_STREAMING_MULTILINGUAL_CHAT_APEX
 
 ## Capability Matrix
 
@@ -18,20 +18,23 @@
 - ide: ACTIVE - vscode-chat-workspace-git-diagnostics-awareness
 - debugging: ACTIVE_ON_REQUEST - safe-diagnostics-and-repair-planning
 - templates: ACTIVE - advanced-rtl-chat-interface-and-report-templates
+- responseStreaming: ACTIVE - sse-token-chunk-streaming-with-json-fallback
+- multilingualChat: ACTIVE - rtl-ltr-auto-direction-and-same-language-response-policy
 
 ## Chat Apex Order
 
-1. L20 Technical Capability Apex
-2. L19 IDE Apex
-3. L18 Debugging Apex
-4. L17 Chat Interface Apex
-5. L16 Vital Chat Apex
-6. Conversation Engine
-7. Memory Fabric
-8. Knowledge Store
-9. Knowledge Graph
-10. Vector Store
-11. Enterprise Governance
+1. L21 Streaming Multilingual Chat Apex
+2. L20 Technical Capability Apex
+3. L19 IDE Apex
+4. L18 Debugging Apex
+5. L17 Chat Interface Apex
+6. L16 Vital Chat Apex
+7. Conversation Engine
+8. Memory Fabric
+9. Knowledge Store
+10. Knowledge Graph
+11. Vector Store
+12. Enterprise Governance
 
 ## Governance
 

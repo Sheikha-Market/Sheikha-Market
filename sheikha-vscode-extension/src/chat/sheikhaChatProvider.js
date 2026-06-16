@@ -8,6 +8,7 @@ const {
   getDebuggingApexStatus,
   getExtensionExperienceStatus,
   getIdeApexStatus,
+  getStreamingChatApexStatus,
   getTechnicalCapabilityApexStatus,
   getVitalChatApexStatus,
   sendExtensionChat
@@ -60,6 +61,14 @@ class SheikhaChatProvider {
       webviewView.webview.postMessage({
         command: 'technicalCapabilityStatus',
         technicalCapability
+      });
+    }).catch(() => {});
+    getStreamingChatApexStatus({
+      baseUrl: DEFAULT_BASE_URL
+    }).then((streamingApex) => {
+      webviewView.webview.postMessage({
+        command: 'streamingApexStatus',
+        streamingApex
       });
     }).catch(() => {});
 
@@ -184,10 +193,11 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 <div class="shell">
 <div class="header">
   <div class="header-main">
-    <div><strong>شات شيخة المتقدم</strong><small id="experience">L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.87</small></div>
+    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.88</small></div>
     <span class="status-pill" id="modeLabel">SMART</span>
   </div>
 <div class="apex" id="apex">
+  <b class="active">L21 Streaming Multilingual Chat Apex</b>
   <b class="active">L20 Technical Capability Apex</b>
   <b class="active">L19 IDE Apex</b>
   <b class="active">L18 Debugging Apex</b>
@@ -210,6 +220,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 </div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
+  <button data-mode="streaming" title="بث استجابة SSE محكوم عند توفر المسار">Streaming</button>
   <button data-mode="generative" title="توليد محتوى وكود وتحليل">Generative</button>
   <button data-mode="rag" title="استرجاع مؤسس على مصادر">RAG</button>
   <button data-mode="agentic" title="تخطيط وتنفيذ محدود الصلاحية">Agentic</button>
@@ -226,6 +237,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
   <button data-prompt="حلل حالة منظومة شيخة الحالية من Enterprise Inspector وحدد أفضل إجراء تالٍ.">حالة المنظومة</button>
   <button data-prompt="شغّل IDE Apex وDebugging Apex واقرأ Diagnostics وGit وRuntime ثم أعطني خطة إصلاح آمنة.">IDE + Debugging</button>
   <button data-prompt="فعّل Technical Capability Apex في الرد: اربط البرمجة والتوليد وRAG وMCP وSDK والوكلاء والقوالب مع الحوكمة دون تنفيذ إجراء عالي الأثر.">Technical Apex</button>
+  <button data-prompt="فعّل Streaming Multilingual Chat Apex: اكتب الرد بدعم عربي/إنجليزي واتجاه النص المناسب، واذكر كيف يعمل البث الفوري دون إجراء عالي الأثر.">Streaming Apex</button>
   <button data-prompt="راجع أخطاء وتحذيرات VS Code الحالية واقترح خطة إصلاح مرتبة.">Diagnostics</button>
   <button data-prompt="حلل Workspace وGit الحاليين وحدد مخاطر الاختبار والدمج.">مراجعة المشروع</button>
 </div>
@@ -343,17 +355,18 @@ window.addEventListener('message', event => {
   if (msg.command === 'experienceStatus' && msg.experience && msg.experience.success === true) {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
-      'L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
+      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
       (data.governedByApexLevel || 18) +
-      ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.87';
+      ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.88';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
+      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
     document.getElementById('apex').innerHTML = [
+      ['L21 Streaming Multilingual Chat Apex', 'PENDING_STATUS'],
       ['L20 Technical Capability Apex', 'PENDING_STATUS'],
       ['L19 IDE Apex', 'PENDING_STATUS'],
       ['L18 Debugging Apex', 'PENDING_STATUS'],
@@ -371,15 +384,15 @@ window.addEventListener('message', event => {
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
+      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
     const template = data.template || {};
     document.getElementById('experience').textContent =
-      'L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
+      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
     if (Array.isArray(template.regions)) {
       document.getElementById('contextRail').innerHTML = template.regions
         .slice(0, 8)
@@ -390,8 +403,8 @@ window.addEventListener('message', event => {
   if (msg.command === 'ideApexStatus' && msg.ideApex && msg.ideApex.success === true) {
     const data = msg.ideApex.data || {};
     document.getElementById('experience').textContent =
-      'L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
+      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
   }
   if (
     msg.command === 'technicalCapabilityStatus' &&
@@ -401,9 +414,26 @@ window.addEventListener('message', event => {
     const data = msg.technicalCapability.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'L20 Technical Capability Apex · ' +
+      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · Extension 1.0.87';
+      ' · Extension 1.0.88';
+    if (order.length) {
+      document.getElementById('apex').innerHTML = order
+        .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
+        .join('');
+    }
+  }
+  if (
+    msg.command === 'streamingApexStatus' &&
+    msg.streamingApex &&
+    msg.streamingApex.success === true
+  ) {
+    const data = msg.streamingApex.data || {};
+    const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
+    document.getElementById('experience').textContent =
+      'L21 Streaming Multilingual Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') +
+      ' · SSE · RTL/LTR · Extension 1.0.88';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')

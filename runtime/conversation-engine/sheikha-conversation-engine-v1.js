@@ -140,6 +140,7 @@ function status() {
     governance: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
     inspectorPolicy: 'EXPLICIT_DIAGNOSTIC_REQUESTS_ONLY',
     conversationExperience: 'SHEIKHA_VITAL_CONVERSATION_V1',
+    streamingMultilingualChatApex: 'SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1',
     technicalCapabilityApex: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
     ideApex: 'SHEIKHA_IDE_APEX_V1',
     debuggingApex: 'SHEIKHA_DEBUGGING_APEX_V1',
@@ -158,6 +159,7 @@ function status() {
       'Evidence & Observability'
     ],
     apexLayers: [
+      'Streaming Multilingual Chat Apex',
       'Technical Capability Apex',
       'IDE Apex',
       'Debugging Apex',

@@ -25,6 +25,7 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
     protocol: 'SHEIKHA_PROTOCOL_V1',
     orchestrator: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
     apexLayers: [
+      'Streaming Multilingual Chat Apex',
       'Technical Capability Apex',
       'IDE Apex',
       'Debugging Apex',
@@ -35,6 +36,8 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       generalChat: '/api/sheikha/chat',
       extensionChat: '/api/sheikha/extension/chat',
       conversationEngine: '/api/sheikha/conversation-engine/v1/chat',
+      streamingChatApex: '/api/sheikha/streaming-chat-apex/v1/status',
+      streamingChat: '/api/sheikha/streaming-chat-apex/v1/stream',
       technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       ideApex: '/api/sheikha/ide-apex/v1/status',
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
@@ -49,6 +52,7 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       actualAsiReached: false
     },
     requiredPath: [
+      'StreamingMultilingualChatApex',
       'TechnicalCapabilityApex',
       'IDEApex',
       'DebuggingApex',

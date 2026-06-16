@@ -2,14 +2,15 @@
   "system": "SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1",
   "status": "ACTIVE",
   "arabicName": "قمة القدرات التقنية المتكاملة في شيخة",
-  "level": "HIGHEST_GOVERNED_TECHNICAL_CAPABILITY_AND_CHAT_APEX_LAYER",
-  "position": "ABOVE_IDE_APEX_DEBUGGING_APEX_CHAT_INTERFACE_APEX_AND_VITAL_CHAT_APEX",
+  "level": "GOVERNED_TECHNICAL_CAPABILITY_APEX_UNDER_STREAMING_MULTILINGUAL_CHAT_APEX",
+  "position": "UNDER_STREAMING_MULTILINGUAL_CHAT_APEX_ABOVE_IDE_APEX_DEBUGGING_APEX_CHAT_INTERFACE_APEX_AND_VITAL_CHAT_APEX",
   "governedBy": [
     "SHEIKHA_COVENANT_GOVERNANCE_APEX_V1",
     "SHEIKHA_LAYER_GOVERNANCE_AND_PROMOTION_OS_V1",
     "SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1"
   ],
   "stack": {
+    "streamingMultilingualChatApex": "SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1",
     "ideApex": "SHEIKHA_IDE_APEX_V1",
     "debuggingApex": "SHEIKHA_DEBUGGING_APEX_V1",
     "chatInterfaceApex": "SHEIKHA_CHAT_INTERFACE_APEX_V1",
@@ -24,6 +25,7 @@
     "enterpriseInspector": "SHEIKHA_ENTERPRISE_INSPECTOR_V3"
   },
   "layerModel": {
+    "l21": "SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1",
     "l20": "SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1",
     "l19": "SHEIKHA_IDE_APEX_V1",
     "l18": "SHEIKHA_DEBUGGING_APEX_V1",
@@ -75,9 +77,18 @@
     "templates": {
       "status": "ACTIVE",
       "purpose": "advanced-rtl-chat-interface-and-report-templates"
+    },
+    "responseStreaming": {
+      "status": "ACTIVE",
+      "purpose": "sse-token-chunk-streaming-with-json-fallback"
+    },
+    "multilingualChat": {
+      "status": "ACTIVE",
+      "purpose": "rtl-ltr-auto-direction-and-same-language-response-policy"
     }
   },
   "chatApexOrder": [
+    "L21 Streaming Multilingual Chat Apex",
     "L20 Technical Capability Apex",
     "L19 IDE Apex",
     "L18 Debugging Apex",
@@ -92,6 +103,8 @@
   ],
   "routes": {
     "status": "/api/sheikha/technical-capability-apex/v1/status",
+    "streamingChatApex": "/api/sheikha/streaming-chat-apex/v1/status",
+    "streamingChat": "/api/sheikha/streaming-chat-apex/v1/stream",
     "conversation": "/api/sheikha/conversation-engine/v1/chat",
     "extensionChat": "/api/sheikha/extension/chat",
     "ideApex": "/api/sheikha/ide-apex/v1/status",

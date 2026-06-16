@@ -18,7 +18,9 @@ const DEBUGGING_APEX_STATUS_ENDPOINT = '/api/sheikha/debugging-apex/v1/status';
 const CHAT_INTERFACE_APEX_STATUS_ENDPOINT = '/api/sheikha/chat-interface-apex/v1/status';
 const IDE_APEX_STATUS_ENDPOINT = '/api/sheikha/ide-apex/v1/status';
 const TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT = '/api/sheikha/technical-capability-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.87';
+const STREAMING_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/status';
+const STREAMING_CHAT_APEX_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/stream';
+const EXTENSION_TRANSPORT_VERSION = '1.0.88';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -240,6 +242,18 @@ async function getTechnicalCapabilityApexStatus(options = {}) {
   }
 }
 
+async function getStreamingChatApexStatus(options = {}) {
+  try {
+    return await getJson(
+      STREAMING_CHAT_APEX_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
 function isInspectorRequest(message) {
   return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
     .test(String(message || ''));
@@ -435,6 +449,8 @@ module.exports = {
   CHAT_INTERFACE_APEX_STATUS_ENDPOINT,
   IDE_APEX_STATUS_ENDPOINT,
   TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT,
+  STREAMING_CHAT_APEX_STATUS_ENDPOINT,
+  STREAMING_CHAT_APEX_STREAM_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
@@ -447,6 +463,7 @@ module.exports = {
   getChatInterfaceApexStatus,
   getIdeApexStatus,
   getTechnicalCapabilityApexStatus,
+  getStreamingChatApexStatus,
   buildLocalChatFallbackAnswer,
   isLocalBaseUrl,
   isInspectorRequest,

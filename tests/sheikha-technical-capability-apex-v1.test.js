@@ -20,13 +20,17 @@ describe('Sheikha Technical Capability Apex V1', () => {
     expect(result.status).toBe('ACTIVE');
     expect(result.decision).toBe('TECHNICAL_CAPABILITY_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
-    expect(result.position).toContain('ABOVE_IDE_APEX');
+    expect(result.position).toContain('UNDER_STREAMING_MULTILINGUAL_CHAT_APEX');
+    expect(result.layerModel.l21).toBe('SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1');
     expect(result.layerModel.l20).toBe('SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1');
     expect(result.layerModel.l19).toBe('SHEIKHA_IDE_APEX_V1');
     expect(result.layerModel.l18).toBe('SHEIKHA_DEBUGGING_APEX_V1');
     expect(result.layerModel.l17).toBe('SHEIKHA_CHAT_INTERFACE_APEX_V1');
     expect(result.layerModel.l16).toBe('SHEIKHA_VITAL_CHAT_APEX_V1');
-    expect(result.chatApexOrder[0]).toBe('L20 Technical Capability Apex');
+    expect(result.chatApexOrder[0]).toBe('L21 Streaming Multilingual Chat Apex');
+    expect(result.chatApexOrder[1]).toBe('L20 Technical Capability Apex');
+    expect(result.stack.streamingMultilingualChatApex)
+      .toBe('SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1');
     expect(result.stack.ideApex).toBe('SHEIKHA_IDE_APEX_V1');
     expect(result.routes.status).toBe('/api/sheikha/technical-capability-apex/v1/status');
   });
@@ -45,6 +49,8 @@ describe('Sheikha Technical Capability Apex V1', () => {
     expect(matrix.ide.status).toBe('ACTIVE');
     expect(matrix.debugging.status).toBe('ACTIVE_ON_REQUEST');
     expect(matrix.templates.status).toBe('ACTIVE');
+    expect(matrix.responseStreaming.status).toBe('ACTIVE');
+    expect(matrix.multilingualChat.status).toBe('ACTIVE');
     expect(governance.noExternalModelClaimWithoutConfiguration).toBe(true);
     expect(governance.noActualAgiClaim).toBe(true);
     expect(governance.noActualAsiClaim).toBe(true);
@@ -56,12 +62,18 @@ describe('Sheikha Technical Capability Apex V1', () => {
     );
     expect(read('sdk/sheikha-api/index.js'))
       .toContain('/api/sheikha/technical-capability-apex/v1/status');
+    expect(read('sdk/sheikha-api/index.js'))
+      .toContain('/api/sheikha/streaming-chat-apex/v1/status');
     expect(read('sdk/sheikha-api/index.js')).toContain('technicalCapabilityApex');
     expect(read('sheikha-vscode-extension/src/sheikhaExtensionChatClient.js'))
       .toContain('TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT');
     expect(read('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js'))
       .toContain('Technical Capability Apex');
+    expect(read('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js'))
+      .toContain('Streaming Multilingual Chat Apex');
     expect(read('core/enterprise/sheikha-enterprise-inspector-v3.js'))
       .toContain('technicalCapabilityApexStatus');
+    expect(read('core/enterprise/sheikha-enterprise-inspector-v3.js'))
+      .toContain('streamingChatApexStatus');
   });
 });
