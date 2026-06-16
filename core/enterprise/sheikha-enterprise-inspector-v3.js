@@ -28,6 +28,9 @@ const enterpriseManagement = require(
 const debuggingApex = require(
   '../../runtime/debugging-apex/v1/sheikha-debugging-apex-v1'
 );
+const chatInterfaceApex = require(
+  '../../runtime/chat-interface-apex/v1/sheikha-chat-interface-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -156,6 +159,7 @@ function collectEnterpriseInspector(input = {}) {
   const extensionExperienceStatus = extensionExperience.status();
   const enterpriseManagementStatus = enterpriseManagement.status();
   const debuggingApexStatus = debuggingApex.status();
+  const chatInterfaceApexStatus = chatInterfaceApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -190,6 +194,7 @@ function collectEnterpriseInspector(input = {}) {
       extensionExperience: extensionExperienceStatus.status,
       enterpriseManagement: enterpriseManagementStatus.status,
       debuggingApex: debuggingApexStatus.status,
+      chatInterfaceApex: chatInterfaceApexStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -236,6 +241,7 @@ function collectEnterpriseInspector(input = {}) {
       layerCatalog: '/api/sheikha/layer-governance/v1/catalog',
       extensionExperience: '/api/sheikha/extension-experience/v1/status',
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
+      chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -250,6 +256,7 @@ function collectEnterpriseInspector(input = {}) {
         'Layer Governance and Promotion OS',
         'VS Code Extension Experience Apex',
         'Debugging Apex',
+        'Chat Interface Apex',
         'Enterprise Management OS',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',
@@ -316,6 +323,7 @@ function collectEnterpriseInspector(input = {}) {
       storage: layerGovernanceStatus.storage
     },
     extensionExperience: extensionExperienceStatus,
+    chatInterfaceApex: chatInterfaceApexStatus,
     enterpriseManagement: enterpriseManagementStatus,
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),

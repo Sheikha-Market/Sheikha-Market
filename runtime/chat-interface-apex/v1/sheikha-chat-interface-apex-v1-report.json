@@ -1,0 +1,81 @@
+{
+  "system": "SHEIKHA_CHAT_INTERFACE_APEX_V1",
+  "status": "ACTIVE",
+  "arabicName": "قمة قالب الشات والواجهات في شيخة",
+  "level": "HIGHEST_GOVERNED_CHAT_AND_INTERFACE_TEMPLATE_LAYER",
+  "position": "ABOVE_VITAL_CHAT_APEX_DEBUGGING_APEX_AND_EXTENSION_EXPERIENCE",
+  "governedBy": [
+    "SHEIKHA_COVENANT_GOVERNANCE_APEX_V1",
+    "SHEIKHA_LAYER_GOVERNANCE_AND_PROMOTION_OS_V1",
+    "SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1"
+  ],
+  "stack": {
+    "vitalChatApex": "SHEIKHA_VITAL_CHAT_APEX_V1",
+    "debuggingApex": "SHEIKHA_DEBUGGING_APEX_V1",
+    "conversationEngine": "SHEIKHA_CONVERSATION_ENGINE_V1",
+    "memoryFabric": "SHEIKHA_MEMORY_FABRIC_V1",
+    "workspaceAwareness": "SHEIKHA_VSCODE_WORKSPACE_AWARENESS",
+    "gitAwareness": "SHEIKHA_GIT_AWARENESS_READ_ONLY",
+    "projectAwareness": "SHEIKHA_PROJECT_AWARENESS",
+    "evidenceTrace": "SHEIKHA_EVIDENCE_OBSERVABILITY",
+    "extensionExperience": "SHEIKHA_VSCODE_EXTENSION_EXPERIENCE_APEX_V1"
+  },
+  "template": {
+    "shell": "ADVANCED_RTL_ENTERPRISE_CHAT_SHELL",
+    "regions": [
+      "apex_header",
+      "governed_mode_dock",
+      "quick_action_bar",
+      "context_rail",
+      "conversation_stream",
+      "evidence_trace_panel",
+      "composer_command_bar"
+    ],
+    "modes": [
+      "smart",
+      "generative",
+      "rag",
+      "agentic",
+      "multi-agent",
+      "agi-research",
+      "asi-research",
+      "mcp",
+      "sdk",
+      "graphics",
+      "cli"
+    ],
+    "controls": [
+      "send",
+      "clear",
+      "system_status",
+      "debugging_apex",
+      "diagnostics",
+      "project_review"
+    ],
+    "responsive": true,
+    "rtlFirst": true,
+    "keyboardSend": "ENTER",
+    "multilineSend": "SHIFT_ENTER"
+  },
+  "interfaceGovernance": {
+    "inspectorBackgroundOnly": true,
+    "inspectorPrintedOnlyWhenExplicitlyRequested": true,
+    "noSecretExposure": true,
+    "highImpactActionsRequireHumanReview": true,
+    "noConsciousnessClaim": true,
+    "noActualAgiClaim": true,
+    "noActualAsiClaim": true,
+    "accessibleContrastRequired": true,
+    "stableNoLayoutShiftControls": true
+  },
+  "surfaces": {
+    "status": "/api/sheikha/chat-interface-apex/v1/status",
+    "conversation": "/api/sheikha/conversation-engine/v1/chat",
+    "extensionExperience": "/api/sheikha/extension-experience/v1/status",
+    "vitalChatApex": "/api/sheikha/vital-chat-apex/v1/status",
+    "debuggingApex": "/api/sheikha/debugging-apex/v1/status"
+  },
+  "score": 100,
+  "decision": "CHAT_INTERFACE_APEX_V1_ACTIVE_100",
+  "generatedAt": "2026-06-16T00:16:30.211Z"
+}

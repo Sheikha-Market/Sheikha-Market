@@ -3,6 +3,7 @@
 const vscode = require('vscode');
 const crypto = require('crypto');
 const {
+  getChatInterfaceApexStatus,
   getDebuggingApexStatus,
   getExtensionExperienceStatus,
   getVitalChatApexStatus,
@@ -39,6 +40,11 @@ class SheikhaChatProvider {
       baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
     }).then((debugging) => {
       webviewView.webview.postMessage({ command: 'debuggingStatus', debugging });
+    }).catch(() => {});
+    getChatInterfaceApexStatus({
+      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+    }).then((interfaceApex) => {
+      webviewView.webview.postMessage({ command: 'interfaceStatus', interfaceApex });
     }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
@@ -116,30 +122,57 @@ class SheikhaChatProvider {
 <head>
 <meta charset="UTF-8">
 <style>
-body { font-family: system-ui, sans-serif; margin:0; padding:12px; background:#0b0f14; color:#f4f4f4; letter-spacing:0; }
-.header { border-bottom:1px solid #2d3947; padding:2px 0 10px; margin-bottom:10px; }
-.header strong { display:block; font-size:14px; }
-.header span { color:#9eabb9; font-size:11px; }
-.apex { display:flex; flex-wrap:wrap; gap:4px; margin:8px 0 10px; direction:ltr; }
-.apex b { border:1px solid #33475c; background:#111821; color:#b7c6d8; border-radius:5px; padding:3px 6px; font-size:10px; font-weight:600; }
-.apex b.active { color:#95f0b5; border-color:#286948; background:#102019; }
-#log { display:flex; flex-direction:column; gap:8px; margin-bottom:12px; }
-.msg { background:#111821; border:1px solid #2d3947; padding:10px; border-radius:6px; white-space:pre-wrap; overflow-wrap:anywhere; }
-.user { background:#142236; border-color:#365b82; }
-.controls,.quick { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
-button { border:1px solid #3a4857; background:#161f2a; color:white; padding:6px 8px; border-radius:6px; cursor:pointer; }
-button:hover { border-color:#62a6df; }
-button.active { background:#19452d; border-color:#50b878; }
-button:disabled { cursor:wait; opacity:.6; }
-.typing { opacity:.72; border-style:dashed; }
-.trace { direction:ltr; text-align:left; color:#9eabb9; font-size:10px; border:0; background:transparent; padding:2px 4px; }
-textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; background:#0f151d; color:white; border:1px solid #3a4857; resize:vertical; }
-#send { width:100%; margin-top:8px; }
+:root {
+  --bg:#080b0f;
+  --panel:#101720;
+  --panel-strong:#151f2b;
+  --line:#2b3948;
+  --text:#f5f7fa;
+  --muted:#9ba8b6;
+  --green:#87d99d;
+  --gold:#d6b85f;
+  --cyan:#80c7df;
+}
+body { font-family: system-ui, sans-serif; margin:0; padding:12px; background:var(--bg); color:var(--text); letter-spacing:0; }
+.shell { max-width:980px; margin:0 auto; }
+.header { border:1px solid var(--line); background:var(--panel); border-radius:8px; padding:10px; margin-bottom:10px; }
+.header-main { display:flex; align-items:flex-start; justify-content:space-between; gap:10px; }
+.header strong { display:block; font-size:15px; line-height:1.4; }
+.header small { color:var(--muted); font-size:11px; }
+.status-pill { direction:ltr; text-align:left; color:var(--green); border:1px solid #2f6a43; background:#0e2116; border-radius:999px; padding:4px 8px; font-size:10px; white-space:nowrap; }
+.apex { display:flex; flex-wrap:wrap; gap:5px; margin:10px 0 0; direction:ltr; }
+.apex b { border:1px solid #35465a; background:#0f1720; color:#c3ced9; border-radius:5px; padding:4px 7px; font-size:10px; font-weight:600; min-height:18px; }
+.apex b.active { color:var(--green); border-color:#2b6c47; background:#102019; }
+.context-rail { display:grid; grid-template-columns:repeat(2, minmax(0, 1fr)); gap:6px; margin-bottom:8px; }
+.context-rail span { border:1px solid var(--line); background:#0d131b; border-radius:6px; padding:7px 8px; color:#c9d4df; font-size:11px; min-height:18px; overflow-wrap:anywhere; }
+.controls,.quick,.composer-actions { display:flex; gap:5px; flex-wrap:wrap; margin-bottom:8px; }
+button { border:1px solid #3a4857; background:#151e28; color:var(--text); padding:7px 9px; border-radius:6px; cursor:pointer; min-height:32px; }
+button:hover { border-color:var(--cyan); }
+button.active { background:#183321; border-color:#58b878; color:#dff9e6; }
+button:disabled { cursor:wait; opacity:.65; }
+#log { display:flex; flex-direction:column; gap:8px; min-height:260px; margin-bottom:10px; }
+.msg { background:var(--panel); border:1px solid var(--line); padding:11px; border-radius:7px; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.65; }
+.user { background:#142236; border-color:#42678d; }
+.typing { opacity:.78; border-style:dashed; color:#d9e5ef; }
+.trace { direction:ltr; text-align:left; color:var(--muted); font-size:10px; border:1px solid #253240; background:#0a0f15; border-radius:6px; padding:6px 8px; }
+.composer { position:sticky; bottom:0; background:var(--bg); border-top:1px solid #1d2834; padding-top:8px; }
+textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; background:#0e141c; color:var(--text); border:1px solid #3a4857; resize:vertical; min-height:74px; line-height:1.6; }
+#send { flex:1 1 180px; background:#17304b; border-color:#426b95; }
+#clear { flex:0 0 auto; color:#f3df9c; border-color:#6d5c24; background:#241f12; }
+@media (min-width: 720px) {
+  .context-rail { grid-template-columns:repeat(4, minmax(0, 1fr)); }
+}
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة الحيوي</strong><span id="experience">Debugging Apex · Vital Chat Apex · Runtime L1-L8 · Extension 1.0.84</span></div>
+<div class="shell">
+<div class="header">
+  <div class="header-main">
+    <div><strong>شات شيخة المتقدم</strong><small id="experience">Chat Interface Apex · Advanced Template · Runtime L1-L8 · Extension 1.0.85</small></div>
+    <span class="status-pill" id="modeLabel">SMART</span>
+  </div>
 <div class="apex" id="apex">
+  <b class="active">Chat Interface Apex</b>
   <b class="active">Conversation Engine</b>
   <b class="active">Session Memory</b>
   <b class="active">Context Memory</b>
@@ -148,6 +181,13 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
   <b class="active">Project</b>
   <b class="active">Extension Apex</b>
   <b class="active">Debugging Apex</b>
+</div>
+</div>
+<div class="context-rail" id="contextRail">
+  <span>apex_header</span>
+  <span>governed_mode_dock</span>
+  <span>context_rail</span>
+  <span>evidence_trace_panel</span>
 </div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
@@ -179,13 +219,21 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 </div>
 
 <textarea id="input" rows="3" placeholder="اكتب ما تحتاج إليه من مساعدة أو عون..."></textarea>
-<button id="send">إرسال</button>
+<div class="composer">
+  <div class="composer-actions">
+    <button id="send">إرسال</button>
+    <button id="clear" title="مسح سجل الشات المحلي">مسح</button>
+  </div>
+</div>
+</div>
 
 <script>
 const vscode = acquireVsCodeApi();
 const log = document.getElementById('log');
 const input = document.getElementById('input');
 const send = document.getElementById('send');
+const clear = document.getElementById('clear');
+const modeLabel = document.getElementById('modeLabel');
 let mode = 'smart';
 let typingMessage = null;
 
@@ -194,6 +242,7 @@ document.querySelectorAll('[data-mode]').forEach(btn => {
     document.querySelectorAll('[data-mode]').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
     mode = btn.dataset.mode;
+    modeLabel.textContent = String(mode || 'smart').toUpperCase();
   });
 });
 
@@ -242,6 +291,11 @@ function ask() {
 }
 
 send.addEventListener('click', ask);
+clear.addEventListener('click', () => {
+  log.innerHTML = '';
+  add('بسم الله الرحمن الرحيم\\n\\nأنا شيخة.\\n\\nما الذي تحتاج إليه من مساعدة أو عون؟');
+  input.focus();
+});
 input.addEventListener('keydown', e => {
   if (e.key === 'Enter' && !e.shiftKey) {
     e.preventDefault();
@@ -270,14 +324,15 @@ window.addEventListener('message', event => {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
       'Layer Governance L' + (data.governedByApexLevel || 18) +
-      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.84';
+      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.85';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'Vital Chat Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.84';
+      'Vital Chat Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
     document.getElementById('apex').innerHTML = [
+      ['Chat Interface Apex', 'PENDING_STATUS'],
       ['Conversation Engine', stack.conversationEngine],
       ['Session Memory', stack.sessionMemory],
       ['Context Memory', stack.contextMemory],
@@ -291,7 +346,19 @@ window.addEventListener('message', event => {
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'Debugging Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.84';
+      'Debugging Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+  }
+  if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
+    const data = msg.interfaceApex.data || {};
+    const template = data.template || {};
+    document.getElementById('experience').textContent =
+      'Chat Interface Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+    if (Array.isArray(template.regions)) {
+      document.getElementById('contextRail').innerHTML = template.regions
+        .slice(0, 8)
+        .map(region => '<span>' + String(region).replace(/_/g, ' ') + '</span>')
+        .join('');
+    }
   }
 });
 </script>

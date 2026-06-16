@@ -73,6 +73,7 @@ function createSheikhaApiClient({
       '/api/sheikha/extension-experience/v1/status',
       '/api/sheikha/vital-chat-apex/v1/status',
       '/api/sheikha/debugging-apex/v1/status',
+      '/api/sheikha/chat-interface-apex/v1/status',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -219,6 +220,7 @@ function createSheikhaApiClient({
     status: () => request('/api/sheikha/extension-experience/v1/status'),
     vitalChatApex: () => request('/api/sheikha/vital-chat-apex/v1/status'),
     debuggingApex: () => request('/api/sheikha/debugging-apex/v1/status'),
+    chatInterfaceApex: () => request('/api/sheikha/chat-interface-apex/v1/status'),
     enterpriseManagement: () => request('/api/sheikha/enterprise-management-os/status')
   };
 
