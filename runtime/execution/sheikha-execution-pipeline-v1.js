@@ -75,7 +75,7 @@ function classifyIntent(message) {
     return 'DEBUG_PIPELINE';
   }
   if (/أصلح|اصلح|إصلاح|fix|patch|خطأ|error|تعطل|فشل|failed|failure|cannot\s+find|not\s+found|bug/i.test(text)) return 'CODE_ASSIST';
-  if (/تقرير|report/i.test(text)) {
+  if (/تقرير|تثرير|report/i.test(text)) {
     return /المشروع|المستودع|repo|repository|git|runtime|التشغيل|الفرع|ملفات معدلة/i.test(text)
       ? 'REPORT_PIPELINE'
       : 'CONTENT_REPORT';

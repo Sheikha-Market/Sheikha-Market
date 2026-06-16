@@ -31,6 +31,12 @@ const debuggingApex = require(
 const chatInterfaceApex = require(
   '../../runtime/chat-interface-apex/v1/sheikha-chat-interface-apex-v1'
 );
+const ideApex = require(
+  '../../runtime/ide-apex/v1/sheikha-ide-apex-v1'
+);
+const technicalCapabilityApex = require(
+  '../../runtime/technical-capability-apex/v1/sheikha-technical-capability-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -160,6 +166,8 @@ function collectEnterpriseInspector(input = {}) {
   const enterpriseManagementStatus = enterpriseManagement.status();
   const debuggingApexStatus = debuggingApex.status();
   const chatInterfaceApexStatus = chatInterfaceApex.status();
+  const ideApexStatus = ideApex.status();
+  const technicalCapabilityApexStatus = technicalCapabilityApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -195,6 +203,8 @@ function collectEnterpriseInspector(input = {}) {
       enterpriseManagement: enterpriseManagementStatus.status,
       debuggingApex: debuggingApexStatus.status,
       chatInterfaceApex: chatInterfaceApexStatus.status,
+      ideApex: ideApexStatus.status,
+      technicalCapabilityApex: technicalCapabilityApexStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -242,6 +252,8 @@ function collectEnterpriseInspector(input = {}) {
       extensionExperience: '/api/sheikha/extension-experience/v1/status',
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
+      ideApex: '/api/sheikha/ide-apex/v1/status',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -255,8 +267,10 @@ function collectEnterpriseInspector(input = {}) {
         'Covenant Governance Apex',
         'Layer Governance and Promotion OS',
         'VS Code Extension Experience Apex',
+        'Technical Capability Apex',
         'Debugging Apex',
         'Chat Interface Apex',
+        'IDE Apex',
         'Enterprise Management OS',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',
@@ -323,7 +337,9 @@ function collectEnterpriseInspector(input = {}) {
       storage: layerGovernanceStatus.storage
     },
     extensionExperience: extensionExperienceStatus,
+    technicalCapabilityApex: technicalCapabilityApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,
+    ideApex: ideApexStatus,
     enterpriseManagement: enterpriseManagementStatus,
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),

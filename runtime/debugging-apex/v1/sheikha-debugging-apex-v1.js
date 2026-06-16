@@ -9,14 +9,16 @@ function status() {
     system: 'SHEIKHA_DEBUGGING_APEX_V1',
     status: 'ACTIVE',
     arabicName: 'قمة التصحيح والتشخيص في شيخة',
-    level: 'HIGHEST_GOVERNED_DEBUGGING_AND_DIAGNOSTICS_LAYER',
-    position: 'ABOVE_VITAL_CHAT_APEX_ENTERPRISE_INSPECTOR_AND_RUNTIME_GOVERNANCE',
+    level: 'HIGHEST_GOVERNED_DEBUGGING_DIAGNOSTICS_AND_REPAIR_PLANNING_LAYER',
+    position: 'PEER_TOP_WITH_IDE_APEX_ABOVE_VITAL_CHAT_APEX_ENTERPRISE_INSPECTOR_AND_RUNTIME_GOVERNANCE',
     governedBy: [
       'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
       'SHEIKHA_LAYER_GOVERNANCE_AND_PROMOTION_OS_V1',
       'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1'
     ],
     stack: {
+      promotedBy: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
+      ideApex: 'SHEIKHA_IDE_APEX_V1',
       vitalChatApex: vitalChatStatus().system,
       conversationDebugPipeline: 'SHEIKHA_EXECUTION_PIPELINE_V1_DEBUG_PIPELINE',
       enterpriseInspector: 'SHEIKHA_ENTERPRISE_INSPECTOR_V3',
@@ -30,10 +32,12 @@ function status() {
     },
     routes: {
       status: '/api/sheikha/debugging-apex/v1/status',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       inspector: '/api/sheikha/enterprise-inspector/v3/status',
       intelligentInspector: '/api/sheikha/intelligent-inspector/v1/status',
       logIntelligence: '/api/sheikha/log-intelligence/v2/status',
       decisionFlow: '/api/decision-flow/health',
+      ideApex: '/api/sheikha/ide-apex/v1/status',
       conversation: '/api/sheikha/conversation-engine/v1/chat'
     },
     workflow: [

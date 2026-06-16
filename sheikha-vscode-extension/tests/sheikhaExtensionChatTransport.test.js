@@ -1,8 +1,11 @@
 'use strict';
 
 const {
+  DEFAULT_BASE_URL,
   EXTENSION_TRANSPORT_VERSION,
+  LOCAL_BASE_URL,
   buildLocalChatFallbackAnswer,
+  isLocalBaseUrl,
   safeJsonParse,
   shouldUseUnifiedFallback
 } = require('../src/sheikhaExtensionChatClient');
@@ -24,23 +27,36 @@ describe('Sheikha Extension Chat Transport', () => {
       contentType: 'text/html; charset=utf-8'
     });
 
-    expect(response.error).toBe('proxy_non_json_response');
+    expect(response.error).toBe('ide_apex_non_json_fallback');
     expect(response.rawPreview).toContain('Bad Gateway');
     expect(shouldUseUnifiedFallback(response)).toBe(true);
   });
 
+  test('defaults VS Code chat transport to the local governed runtime', () => {
+    expect(LOCAL_BASE_URL).toBe('http://127.0.0.1:8080');
+    expect(DEFAULT_BASE_URL).toBe(LOCAL_BASE_URL);
+    expect(isLocalBaseUrl(DEFAULT_BASE_URL)).toBe(true);
+  });
+
   test('keeps package transport version aligned with the released extension', () => {
-    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.85');
+    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.86');
   });
 
   test('builds a useful local Todo Tree fallback instead of exposing gateway noise', () => {
     const answer = buildLocalChatFallbackAnswer(
       'Todo-Tree: Failed to find vscode-ripgrep',
-      'proxy_non_json_response'
+      'ide_apex_non_json_fallback'
     );
 
     expect(answer).toContain('todo-tree.ripgrep');
     expect(answer).toContain('/usr/bin/rg');
     expect(answer).not.toContain('رد بوابة غير صالح');
+  });
+
+  test('recognizes Arabic report typo in local fallback', () => {
+    const answer = buildLocalChatFallbackAnswer('اكتبي تثرير', 'ide_apex_non_json_fallback');
+
+    expect(answer).toContain('أستطيع كتابة التقرير');
+    expect(answer).toContain('ملخص تنفيذي');
   });
 });

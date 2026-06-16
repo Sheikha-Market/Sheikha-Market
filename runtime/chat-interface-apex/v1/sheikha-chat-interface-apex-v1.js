@@ -13,6 +13,7 @@ function status() {
       'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1'
     ],
     stack: {
+      promotedBy: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
       vitalChatApex: 'SHEIKHA_VITAL_CHAT_APEX_V1',
       debuggingApex: 'SHEIKHA_DEBUGGING_APEX_V1',
       conversationEngine: 'SHEIKHA_CONVERSATION_ENGINE_V1',
@@ -73,6 +74,7 @@ function status() {
     },
     surfaces: {
       status: '/api/sheikha/chat-interface-apex/v1/status',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       conversation: '/api/sheikha/conversation-engine/v1/chat',
       extensionExperience: '/api/sheikha/extension-experience/v1/status',
       vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',

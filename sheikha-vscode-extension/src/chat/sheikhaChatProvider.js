@@ -3,9 +3,12 @@
 const vscode = require('vscode');
 const crypto = require('crypto');
 const {
+  DEFAULT_BASE_URL,
   getChatInterfaceApexStatus,
   getDebuggingApexStatus,
   getExtensionExperienceStatus,
+  getIdeApexStatus,
+  getTechnicalCapabilityApexStatus,
   getVitalChatApexStatus,
   sendExtensionChat
 } = require('../sheikhaExtensionChatClient');
@@ -27,24 +30,37 @@ class SheikhaChatProvider {
 
     webviewView.webview.html = this.getHtml();
     getExtensionExperienceStatus({
-      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+      baseUrl: DEFAULT_BASE_URL
     }).then((experience) => {
       webviewView.webview.postMessage({ command: 'experienceStatus', experience });
     }).catch(() => {});
     getVitalChatApexStatus({
-      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+      baseUrl: DEFAULT_BASE_URL
     }).then((vital) => {
       webviewView.webview.postMessage({ command: 'vitalStatus', vital });
     }).catch(() => {});
     getDebuggingApexStatus({
-      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+      baseUrl: DEFAULT_BASE_URL
     }).then((debugging) => {
       webviewView.webview.postMessage({ command: 'debuggingStatus', debugging });
     }).catch(() => {});
     getChatInterfaceApexStatus({
-      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+      baseUrl: DEFAULT_BASE_URL
     }).then((interfaceApex) => {
       webviewView.webview.postMessage({ command: 'interfaceStatus', interfaceApex });
+    }).catch(() => {});
+    getIdeApexStatus({
+      baseUrl: DEFAULT_BASE_URL
+    }).then((ideApex) => {
+      webviewView.webview.postMessage({ command: 'ideApexStatus', ideApex });
+    }).catch(() => {});
+    getTechnicalCapabilityApexStatus({
+      baseUrl: DEFAULT_BASE_URL
+    }).then((technicalCapability) => {
+      webviewView.webview.postMessage({
+        command: 'technicalCapabilityStatus',
+        technicalCapability
+      });
     }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
@@ -68,7 +84,7 @@ class SheikhaChatProvider {
         });
 
         const result = await sendExtensionChat(text, {
-          baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top',
+          baseUrl: DEFAULT_BASE_URL,
           mode: msg.mode || 'smart',
           conversationId: this.conversationId,
           history: this.history
@@ -168,11 +184,15 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 <div class="shell">
 <div class="header">
   <div class="header-main">
-    <div><strong>شات شيخة المتقدم</strong><small id="experience">Chat Interface Apex · Advanced Template · Runtime L1-L8 · Extension 1.0.85</small></div>
+    <div><strong>شات شيخة المتقدم</strong><small id="experience">Technical Capability Apex · IDE Apex · Debugging Apex · Chat Interface Apex · Vital Chat Apex · Extension 1.0.86</small></div>
     <span class="status-pill" id="modeLabel">SMART</span>
   </div>
 <div class="apex" id="apex">
+  <b class="active">Technical Capability Apex</b>
+  <b class="active">IDE Apex</b>
+  <b class="active">Debugging Apex</b>
   <b class="active">Chat Interface Apex</b>
+  <b class="active">Vital Chat Apex</b>
   <b class="active">Conversation Engine</b>
   <b class="active">Session Memory</b>
   <b class="active">Context Memory</b>
@@ -180,7 +200,6 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
   <b class="active">Git</b>
   <b class="active">Project</b>
   <b class="active">Extension Apex</b>
-  <b class="active">IDE Apex · Debugging عند الطلب</b>
 </div>
 </div>
 <div class="context-rail" id="contextRail">
@@ -205,7 +224,8 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 
 <div class="quick">
   <button data-prompt="حلل حالة منظومة شيخة الحالية من Enterprise Inspector وحدد أفضل إجراء تالٍ.">حالة المنظومة</button>
-  <button data-prompt="شغّل IDE Apex · Debugging عند الطلب واقرأ Diagnostics وGit وRuntime ثم أعطني خطة إصلاح آمنة.">IDE Apex · Debugging عند الطلب</button>
+  <button data-prompt="شغّل IDE Apex وDebugging Apex واقرأ Diagnostics وGit وRuntime ثم أعطني خطة إصلاح آمنة.">IDE + Debugging</button>
+  <button data-prompt="فعّل Technical Capability Apex في الرد: اربط البرمجة والتوليد وRAG وMCP وSDK والوكلاء والقوالب مع الحوكمة دون تنفيذ إجراء عالي الأثر.">Technical Apex</button>
   <button data-prompt="راجع أخطاء وتحذيرات VS Code الحالية واقترح خطة إصلاح مرتبة.">Diagnostics</button>
   <button data-prompt="حلل Workspace وGit الحاليين وحدد مخاطر الاختبار والدمج.">مراجعة المشروع</button>
 </div>
@@ -323,40 +343,69 @@ window.addEventListener('message', event => {
   if (msg.command === 'experienceStatus' && msg.experience && msg.experience.success === true) {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
-      'Layer Governance L' + (data.governedByApexLevel || 18) +
-      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.85';
+      'Technical Capability Apex · IDE Apex · Layer Governance L' + (data.governedByApexLevel || 18) +
+      ' · Debugging Apex · Runtime L1-L8 · Extension 1.0.86';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'IDE Apex · Vital Chat · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+      'Technical Capability Apex · IDE Apex · Debugging Apex · Chat Interface Apex · Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
     document.getElementById('apex').innerHTML = [
+      ['Technical Capability Apex', 'PENDING_STATUS'],
+      ['IDE Apex', 'PENDING_STATUS'],
+      ['Debugging Apex', 'PENDING_STATUS'],
       ['Chat Interface Apex', 'PENDING_STATUS'],
+      ['Vital Chat Apex', data.decision || data.status || 'ACTIVE'],
       ['Conversation Engine', stack.conversationEngine],
       ['Session Memory', stack.sessionMemory],
       ['Context Memory', stack.contextMemory],
       ['Workspace', stack.workspaceAwareness],
       ['Git', stack.gitAwareness],
       ['Project', stack.projectAwareness],
-      ['Extension Apex', stack.extensionExperienceApex],
-      ['IDE Apex · Debugging عند الطلب', 'PENDING_STATUS']
+      ['Extension Apex', stack.extensionExperienceApex]
     ].map(([name, state]) => '<b class="active" title="' + String(state || 'ACTIVE') + '">' + name + '</b>').join('');
   }
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'IDE Apex · Debugging عند الطلب · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+      'Technical Capability Apex · Debugging Apex · IDE Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
     const template = data.template || {};
     document.getElementById('experience').textContent =
-      'Chat Interface Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.85';
+      'Technical Capability Apex · Chat Interface Apex · Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
     if (Array.isArray(template.regions)) {
       document.getElementById('contextRail').innerHTML = template.regions
         .slice(0, 8)
         .map(region => '<span>' + String(region).replace(/_/g, ' ') + '</span>')
+        .join('');
+    }
+  }
+  if (msg.command === 'ideApexStatus' && msg.ideApex && msg.ideApex.success === true) {
+    const data = msg.ideApex.data || {};
+    document.getElementById('experience').textContent =
+      'Technical Capability Apex · IDE Apex · Debugging Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
+  }
+  if (
+    msg.command === 'technicalCapabilityStatus' &&
+    msg.technicalCapability &&
+    msg.technicalCapability.success === true
+  ) {
+    const data = msg.technicalCapability.data || {};
+    const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
+    document.getElementById('experience').textContent =
+      'Technical Capability Apex · ' +
+      (data.decision || data.status || 'ACTIVE') +
+      ' · Extension 1.0.86';
+    if (order.length) {
+      document.getElementById('apex').innerHTML = order
+        .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
         .join('');
     }
   }

@@ -33,6 +33,14 @@ router.get('/api/sheikha/conversation-engine/v1/chat', (_req, res) => {
     methodRequired: 'POST',
     browserStatus: 'READY',
     message: 'هذا المسار جاهز. استخدم POST لإرسال الرسائل.',
+    apexLayers: status().apexLayers,
+    surfaces: {
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
+      ideApex: '/api/sheikha/ide-apex/v1/status',
+      debuggingApex: '/api/sheikha/debugging-apex/v1/status',
+      chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
+      vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status'
+    },
     requestExample: {
       message: 'اكتب رسالتك هنا',
       mode: 'smart',

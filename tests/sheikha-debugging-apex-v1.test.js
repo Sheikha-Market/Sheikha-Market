@@ -18,9 +18,12 @@ describe('Sheikha Debugging Apex V1', () => {
     expect(result.status).toBe('ACTIVE');
     expect(result.decision).toBe('DEBUGGING_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
-    expect(result.position).toContain('ABOVE_VITAL_CHAT_APEX');
+    expect(result.position).toContain('PEER_TOP_WITH_IDE_APEX');
+    expect(result.stack.promotedBy).toBe('SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1');
     expect(result.stack.vitalChatApex).toBe('SHEIKHA_VITAL_CHAT_APEX_V1');
     expect(result.routes.status).toBe('/api/sheikha/debugging-apex/v1/status');
+    expect(result.routes.technicalCapabilityApex)
+      .toBe('/api/sheikha/technical-capability-apex/v1/status');
     expect(result.routes.conversation).toBe('/api/sheikha/conversation-engine/v1/chat');
   });
 

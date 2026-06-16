@@ -20,6 +20,7 @@ function status() {
       'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1'
     ],
     stack: {
+      promotedBy: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
       conversationEngine: conversationStatus().engine,
       sessionMemory: 'ACTIVE_IN_EXTENSION_HISTORY',
       contextMemory: 'ACTIVE_VIA_CONVERSATION_LAYER_STACK',
@@ -30,6 +31,7 @@ function status() {
     },
     routes: {
       status: '/api/sheikha/vital-chat-apex/v1/status',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       conversation: '/api/sheikha/conversation-engine/v1/chat',
       extensionExperience: '/api/sheikha/extension-experience/v1/status'
     },

@@ -24,7 +24,9 @@ function status() {
       'layer-governance-visibility',
       'vital-chat-apex-binding',
       'debugging-apex-binding',
-      'chat-interface-apex-template'
+      'chat-interface-apex-template',
+      'ide-apex-programming-development-routing',
+      'technical-capability-apex-binding'
     ],
     surfaces: {
       conversation: '/api/sheikha/conversation-engine/v1/chat',
@@ -32,6 +34,8 @@ function status() {
       vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
+      ideApex: '/api/sheikha/ide-apex/v1/status',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       layerGovernance: '/api/sheikha/layer-governance/v1/status',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status'
     },

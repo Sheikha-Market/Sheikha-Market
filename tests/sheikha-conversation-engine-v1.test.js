@@ -50,6 +50,7 @@ describe('Sheikha Conversation Engine V1', () => {
   test('routes repair requests to direct assistance instead of generic diagnostics', () => {
     expect(classifyIntent('أصلح خطأ Todo-Tree في VS Code')).toBe('CODE_ASSIST');
     expect(classifyIntent('شغل التشخيص واعرض Git status')).toBe('DEBUG_PIPELINE');
+    expect(classifyIntent('اكتبي تثرير')).toBe('CONTENT_REPORT');
     const answer = buildKnownToolResolution(
       'Todo-Tree: Failed to find vscode-ripgrep please set todo-tree.ripgrep'
     );
@@ -181,13 +182,15 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Chat Interface Apex · Advanced Template · Runtime L1-L8 · Extension 1.0.85');
+    expect(provider).toContain('Technical Capability Apex · IDE Apex');
     expect(provider).toContain("command: 'debuggingStatus'");
     expect(provider).toContain("command: 'interfaceStatus'");
     expect(provider).toContain('شات شيخة المتقدم');
     expect(provider).toContain('contextRail');
     expect(provider).toContain('Chat Interface Apex');
+    expect(provider).toContain('IDE Apex');
     expect(provider).toContain('Debugging Apex');
+    expect(provider).toContain('Vital Chat Apex');
     expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
     expect(provider).toContain("command: 'experienceStatus'");
     expect(inspector).toContain('getEnterpriseInspectorStatus');

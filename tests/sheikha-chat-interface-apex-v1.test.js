@@ -63,7 +63,8 @@ describe('Sheikha Chat Interface Apex V1', () => {
     expect(client).toContain('CHAT_INTERFACE_APEX_STATUS_ENDPOINT');
     expect(client).toContain('getChatInterfaceApexStatus');
     expect(provider).toContain('شات شيخة المتقدم');
-    expect(provider).toContain('Chat Interface Apex · Advanced Template');
+    expect(provider).toContain('Technical Capability Apex');
+    expect(provider).toContain('Chat Interface Apex');
     expect(provider).toContain("command: 'interfaceStatus'");
     expect(provider).toContain('contextRail');
     expect(inspector).toContain('chatInterfaceApexStatus');

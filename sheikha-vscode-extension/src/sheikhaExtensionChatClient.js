@@ -7,7 +7,8 @@ const { collectVSCodeToolContext } = require('./sheikhaVSCodeToolRegistry');
 const { normalizeSheikhaReply } = require('./sheikhaReplyNormalizer');
 const { decideSmartRoute } = require('./sheikhaSmartRouteGovernance');
 
-const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top';
+const LOCAL_BASE_URL = process.env.SHEIKHA_LOCAL_API_BASE_URL || 'http://127.0.0.1:8080';
+const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || LOCAL_BASE_URL;
 const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
 const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
 const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
@@ -15,7 +16,9 @@ const EXTENSION_EXPERIENCE_STATUS_ENDPOINT = '/api/sheikha/extension-experience/
 const VITAL_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/vital-chat-apex/v1/status';
 const DEBUGGING_APEX_STATUS_ENDPOINT = '/api/sheikha/debugging-apex/v1/status';
 const CHAT_INTERFACE_APEX_STATUS_ENDPOINT = '/api/sheikha/chat-interface-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.85';
+const IDE_APEX_STATUS_ENDPOINT = '/api/sheikha/ide-apex/v1/status';
+const TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT = '/api/sheikha/technical-capability-apex/v1/status';
+const EXTENSION_TRANSPORT_VERSION = '1.0.86';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -213,6 +216,30 @@ async function getChatInterfaceApexStatus(options = {}) {
   }
 }
 
+async function getIdeApexStatus(options = {}) {
+  try {
+    return await getJson(
+      IDE_APEX_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
+async function getTechnicalCapabilityApexStatus(options = {}) {
+  try {
+    return await getJson(
+      TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
 function isInspectorRequest(message) {
   return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
     .test(String(message || ''));
@@ -229,6 +256,15 @@ function shouldUseUnifiedFallback(data) {
       'invalid_json',
       'ide_apex_non_json_fallback'
     ].includes(data.error);
+}
+
+function isLocalBaseUrl(baseUrl = '') {
+  try {
+    const hostname = new URL(baseUrl).hostname;
+    return ['127.0.0.1', 'localhost', '::1'].includes(hostname);
+  } catch {
+    return false;
+  }
 }
 
 function buildLocalChatFallbackAnswer(message, reason = '') {
@@ -263,7 +299,7 @@ function buildLocalChatFallbackAnswer(message, reason = '') {
     ].filter(Boolean).join('\n');
   }
 
-  if (/تقرير|report|اكتب|اكتبي|write/i.test(text)) {
+  if (/تقرير|تثرير|تقرير|report|اكتب|اكتبي|write/i.test(text)) {
     return [
       'بسم الله الرحمن الرحيم',
       '',
@@ -290,12 +326,13 @@ function buildLocalChatFallbackAnswer(message, reason = '') {
 
 async function sendExtensionChat(message, options = {}) {
   const text = String(message || '');
+  const primaryBaseUrl = options.baseUrl || DEFAULT_BASE_URL;
   const smartRoute = decideSmartRoute(text, options.mode || 'smart');
   const workspace = collectWorkspaceContext();
   const vscodeTools = collectVSCodeToolContext();
   const diagnosticRequested = isInspectorRequest(text);
   const inspectorSnapshot = diagnosticRequested
-    ? await getEnterpriseInspectorStatus({ baseUrl: options.baseUrl })
+    ? await getEnterpriseInspectorStatus({ baseUrl: primaryBaseUrl })
     : undefined;
 
   const payload = {
@@ -316,13 +353,31 @@ async function sendExtensionChat(message, options = {}) {
   };
 
   try {
-    let data = await postJson(CONVERSATION_ENDPOINT, payload, options.baseUrl);
+    let data = await postJson(CONVERSATION_ENDPOINT, payload, primaryBaseUrl);
+
+    if (shouldUseUnifiedFallback(data) && !isLocalBaseUrl(primaryBaseUrl)) {
+      try {
+        const localData = await postJson(CONVERSATION_ENDPOINT, {
+          ...payload,
+          fallbackFrom: primaryBaseUrl,
+          fallbackReason: data?.error || 'primary_non_json_or_unavailable'
+        }, LOCAL_BASE_URL);
+
+        if (localData?.success === true) {
+          data = {
+            ...localData,
+            extensionFallback: true,
+            localRuntimeFallback: true
+          };
+        }
+      } catch {}
+    }
 
     if (shouldUseUnifiedFallback(data)) {
       data = await postJson(UNIFIED_CHAT_FALLBACK_ENDPOINT, {
         ...payload,
         fallbackFrom: CONVERSATION_ENDPOINT
-      }, options.baseUrl);
+      }, primaryBaseUrl);
       data.extensionFallback = true;
     }
 
@@ -350,7 +405,7 @@ async function sendExtensionChat(message, options = {}) {
         ...payload,
         fallbackFrom: CONVERSATION_ENDPOINT,
         primaryError: err.message
-      }, options.baseUrl);
+      }, primaryBaseUrl);
 
       if (fallback?.success === true) {
         return {
@@ -372,11 +427,14 @@ async function sendExtensionChat(message, options = {}) {
 module.exports = {
   CONVERSATION_ENDPOINT,
   DEFAULT_BASE_URL,
+  LOCAL_BASE_URL,
   INSPECTOR_STATUS_ENDPOINT,
   EXTENSION_EXPERIENCE_STATUS_ENDPOINT,
   VITAL_CHAT_APEX_STATUS_ENDPOINT,
   DEBUGGING_APEX_STATUS_ENDPOINT,
   CHAT_INTERFACE_APEX_STATUS_ENDPOINT,
+  IDE_APEX_STATUS_ENDPOINT,
+  TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
@@ -387,7 +445,10 @@ module.exports = {
   getVitalChatApexStatus,
   getDebuggingApexStatus,
   getChatInterfaceApexStatus,
+  getIdeApexStatus,
+  getTechnicalCapabilityApexStatus,
   buildLocalChatFallbackAnswer,
+  isLocalBaseUrl,
   isInspectorRequest,
   safeJsonParse,
   shouldUseUnifiedFallback

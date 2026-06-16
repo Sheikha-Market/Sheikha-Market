@@ -140,6 +140,10 @@ function status() {
     governance: 'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
     inspectorPolicy: 'EXPLICIT_DIAGNOSTIC_REQUESTS_ONLY',
     conversationExperience: 'SHEIKHA_VITAL_CONVERSATION_V1',
+    technicalCapabilityApex: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
+    ideApex: 'SHEIKHA_IDE_APEX_V1',
+    debuggingApex: 'SHEIKHA_DEBUGGING_APEX_V1',
+    chatInterfaceApex: 'SHEIKHA_CHAT_INTERFACE_APEX_V1',
     vitality: 'RESPONSIVE_CONTEXTUAL_NON_CONSCIOUS_SYSTEM',
     layerStack: 'SHEIKHA_CONVERSATION_LAYER_STACK_V1',
     highestRuntimeLayer: 8,
@@ -152,6 +156,13 @@ function status() {
       'Vector Store',
       'Enterprise Governance',
       'Evidence & Observability'
+    ],
+    apexLayers: [
+      'Technical Capability Apex',
+      'IDE Apex',
+      'Debugging Apex',
+      'Chat Interface Apex',
+      'Vital Chat Apex'
     ]
   };
 }

@@ -24,6 +24,24 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
     fabric: 'SHEIKHA_UNIFIED_CHAT_FABRIC_V1',
     protocol: 'SHEIKHA_PROTOCOL_V1',
     orchestrator: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
+    apexLayers: [
+      'Technical Capability Apex',
+      'IDE Apex',
+      'Debugging Apex',
+      'Chat Interface Apex',
+      'Vital Chat Apex'
+    ],
+    surfaces: {
+      generalChat: '/api/sheikha/chat',
+      extensionChat: '/api/sheikha/extension/chat',
+      conversationEngine: '/api/sheikha/conversation-engine/v1/chat',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
+      ideApex: '/api/sheikha/ide-apex/v1/status',
+      debuggingApex: '/api/sheikha/debugging-apex/v1/status',
+      chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
+      vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
+      enterpriseInspector: '/api/sheikha/enterprise-inspector/v3/status'
+    },
     intelligenceModes: {
       runtime: ['smart', 'generative', 'rag', 'agentic', 'multi-agent', 'mcp', 'sdk', 'cli', 'graphics'],
       researchOnly: ['agi-research', 'asi-research'],
@@ -31,6 +49,11 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       actualAsiReached: false
     },
     requiredPath: [
+      'TechnicalCapabilityApex',
+      'IDEApex',
+      'DebuggingApex',
+      'ChatInterfaceApex',
+      'VitalChatApex',
       'Protocol',
       'GovernanceOfGovernance',
       'UnifiedChatFabric',

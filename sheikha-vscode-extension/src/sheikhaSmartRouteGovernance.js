@@ -19,7 +19,7 @@ function decideSmartRoute(message, selectedMode = 'smart') {
     route.capabilities.push('RAG');
   }
 
-  if (mode === 'agent' || mode === 'smart' || /حلل|خطط|افحص|اصلح|اكتب|تقرير/i.test(text)) {
+  if (mode === 'agent' || mode === 'smart' || /حلل|خطط|افحص|اصلح|اكتب|تقرير|تثرير/i.test(text)) {
     route.capabilities.push('AGENT');
   }
 

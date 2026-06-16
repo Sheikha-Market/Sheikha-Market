@@ -132,6 +132,8 @@ app.use(require('./routes/sheikha-vscode-extension-experience-apex-routes'));
 app.use(require('./routes/vital-chat-apex/sheikha-vital-chat-apex-routes'));
 app.use(require('./routes/debugging-apex/sheikha-debugging-apex-routes'));
 app.use(require('./routes/chat-interface-apex/sheikha-chat-interface-apex-routes'));
+app.use(require('./routes/ide-apex/sheikha-ide-apex-routes'));
+app.use(require('./routes/technical-capability-apex/sheikha-technical-capability-apex-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
 app.use(require('./routes/chat-therapy/sheikha-chat-therapy-routes'));
 app.use(require('./routes/cognitive-governance-v3/sheikha-cognitive-pipeline-v3-routes'));
