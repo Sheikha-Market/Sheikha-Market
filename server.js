@@ -135,6 +135,7 @@ app.use(require('./routes/chat-interface-apex/sheikha-chat-interface-apex-routes
 app.use(require('./routes/ide-apex/sheikha-ide-apex-routes'));
 app.use(require('./routes/technical-capability-apex/sheikha-technical-capability-apex-routes'));
 app.use(require('./routes/streaming-chat-apex/sheikha-streaming-chat-apex-routes'));
+app.use(require('./routes/extension-streaming-artifact-apex/sheikha-extension-streaming-artifact-apex-routes'));
 app.use(require('./routes/sheikha-unified-chat-fabric'));
 app.use(require('./routes/chat-therapy/sheikha-chat-therapy-routes'));
 app.use(require('./routes/cognitive-governance-v3/sheikha-cognitive-pipeline-v3-routes'));
@@ -22337,7 +22338,8 @@ console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
 
 
 try {
-  app.use('/api/sheikha/chat-fabric-v2', require('./routes/chat-fabric-v2/sheikha-chat-fabric-v2-routes'));
+  app.use('/api/sheikha/living-conversation-apex/v1', require('./routes/living-conversation-apex/sheikha-living-conversation-apex-routes'));
+app.use('/api/sheikha/chat-fabric-v2', require('./routes/chat-fabric-v2/sheikha-chat-fabric-v2-routes'));
   console.log('✅ Sheikha Chat Fabric V2 API mounted');
 } catch (error) {
   console.warn('⚠️ Sheikha Chat Fabric V2 API unavailable:', error.message);
