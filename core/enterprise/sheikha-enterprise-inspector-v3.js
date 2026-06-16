@@ -40,6 +40,9 @@ const technicalCapabilityApex = require(
 const streamingChatApex = require(
   '../../runtime/streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1'
 );
+const cloudProductionDeploymentApex = require(
+  '../../runtime/cloud-production-deployment-apex/v1/sheikha-cloud-production-deployment-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -172,6 +175,7 @@ function collectEnterpriseInspector(input = {}) {
   const ideApexStatus = ideApex.status();
   const technicalCapabilityApexStatus = technicalCapabilityApex.status();
   const streamingChatApexStatus = streamingChatApex.status();
+  const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -210,6 +214,7 @@ function collectEnterpriseInspector(input = {}) {
       ideApex: ideApexStatus.status,
       technicalCapabilityApex: technicalCapabilityApexStatus.status,
       streamingChatApex: streamingChatApexStatus.status,
+      cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -261,6 +266,10 @@ function collectEnterpriseInspector(input = {}) {
       technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       streamingChatApex: '/api/sheikha/streaming-chat-apex/v1/status',
       streamingChatStream: '/api/sheikha/streaming-chat-apex/v1/stream',
+      cloudProductionDeploymentApex:
+        '/api/sheikha/cloud-production-deployment-apex/v1/status',
+      cloudProductionDeploymentPlan:
+        '/api/sheikha/cloud-production-deployment-apex/v1/plan',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -275,6 +284,7 @@ function collectEnterpriseInspector(input = {}) {
         'Layer Governance and Promotion OS',
         'VS Code Extension Experience Apex',
         'Streaming Multilingual Chat Apex',
+        'Cloud Production Deployment Apex',
         'Technical Capability Apex',
         'Debugging Apex',
         'Chat Interface Apex',
@@ -346,6 +356,7 @@ function collectEnterpriseInspector(input = {}) {
     },
     extensionExperience: extensionExperienceStatus,
     streamingChatApex: streamingChatApexStatus,
+    cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     technicalCapabilityApex: technicalCapabilityApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,
     ideApex: ideApexStatus,
