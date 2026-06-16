@@ -22333,6 +22333,14 @@ console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
 }
 
 
+
+try {
+  app.use('/api/sheikha/chat-fabric-v2', require('./routes/chat-fabric-v2/sheikha-chat-fabric-v2-routes'));
+  console.log('✅ Sheikha Chat Fabric V2 API mounted');
+} catch (error) {
+  console.warn('⚠️ Sheikha Chat Fabric V2 API unavailable:', error.message);
+}
+
 // ─────────────────────────────────────────────────────────────
 // Sheikha Unified Chat Control Fabric API
 // ─────────────────────────────────────────────────────────────
