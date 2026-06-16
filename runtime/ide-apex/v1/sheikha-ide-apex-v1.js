@@ -26,6 +26,22 @@ function status() {
       mcpFabric: 'SHEIKHA_MCP_FABRIC',
       gitAwareness: 'READ_ONLY_GIT_AWARENESS'
     },
+    intelligencePlanes: {
+      workspaceIntelligence: 'ACTIVE',
+      gitIntelligence: 'ACTIVE_READ_ONLY',
+      testIntelligence: 'ACTIVE_VIA_NPM_TEST',
+      diagnosticsIntelligence: 'ACTIVE_VIA_VSCODE_DIAGNOSTICS',
+      buildIntelligence: 'ACTIVE_VIA_PACKAGE_AND_RUNTIME_SCRIPTS',
+      mcpIntelligence: 'ACTIVE_GOVERNED',
+      sdkIntelligence: 'ACTIVE_GOVERNED'
+    },
+    healthViews: {
+      ideHealth: 'ACTIVE',
+      workspaceHealth: 'ACTIVE',
+      gitHealth: 'ACTIVE_READ_ONLY',
+      testHealth: 'ACTIVE_ON_REQUEST',
+      runtimeHealth: 'ACTIVE'
+    },
     routes: {
       status: '/api/sheikha/ide-apex/v1/status',
       technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',

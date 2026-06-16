@@ -23,6 +23,14 @@
     "sdkFabric": "SHEIKHA_SDK_FABRIC",
     "enterpriseInspector": "SHEIKHA_ENTERPRISE_INSPECTOR_V3"
   },
+  "layerModel": {
+    "l20": "SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1",
+    "l19": "SHEIKHA_IDE_APEX_V1",
+    "l18": "SHEIKHA_DEBUGGING_APEX_V1",
+    "l17": "SHEIKHA_CHAT_INTERFACE_APEX_V1",
+    "l16": "SHEIKHA_VITAL_CHAT_APEX_V1",
+    "l1ToL15": "SHEIKHA_RUNTIME_FABRIC_AND_CONVERSATION_STACK"
+  },
   "capabilityMatrix": {
     "generative": {
       "status": "ACTIVE",
@@ -70,11 +78,11 @@
     }
   },
   "chatApexOrder": [
-    "Technical Capability Apex",
-    "IDE Apex",
-    "Debugging Apex",
-    "Chat Interface Apex",
-    "Vital Chat Apex",
+    "L20 Technical Capability Apex",
+    "L19 IDE Apex",
+    "L18 Debugging Apex",
+    "L17 Chat Interface Apex",
+    "L16 Vital Chat Apex",
     "Conversation Engine",
     "Memory Fabric",
     "Knowledge Store",

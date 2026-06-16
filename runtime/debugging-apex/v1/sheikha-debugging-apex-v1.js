@@ -40,6 +40,31 @@ function status() {
       ideApex: '/api/sheikha/ide-apex/v1/status',
       conversation: '/api/sheikha/conversation-engine/v1/chat'
     },
+    diagnosticPlanes: {
+      runtimeDiagnostics: 'ACTIVE',
+      vscodeDiagnostics: 'ACTIVE',
+      pm2Diagnostics: 'ACTIVE',
+      apiDiagnostics: 'ACTIVE',
+      testDiagnostics: 'ACTIVE_ON_REQUEST',
+      governanceDiagnostics: 'ACTIVE'
+    },
+    activationPolicy: {
+      explicitDiagnosticsOnly: true,
+      triggerWords: [
+        'شخّص',
+        'شخص',
+        'حلل الأخطاء',
+        'Debug',
+        'Diagnostics',
+        'Enterprise Inspector'
+      ],
+      normalConversationBypass: [
+        'اكتب تقرير',
+        'حل المشكلة',
+        'اشرح',
+        'اقترح'
+      ]
+    },
     workflow: [
       'capture-user-debug-intent',
       'collect-read-only-workspace-git-and-diagnostics',

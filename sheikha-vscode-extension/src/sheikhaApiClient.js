@@ -6,8 +6,10 @@ const { governMode } = require('./sheikhaModeGovernance');
 const https = require('https');
 const http = require('http');
 
-const BASE_URL = process.env.SHEIKHA_RUNTIME_URL || 'https://api.sheikha.top';
-const TIMEOUT_MS = Number(process.env.SHEIKHA_API_TIMEOUT_MS || 180000);
+const LOCAL_BASE_URL = process.env.SHEIKHA_LOCAL_API_BASE_URL || 'http://127.0.0.1:8080';
+const BASE_URL = process.env.SHEIKHA_RUNTIME_URL || process.env.SHEIKHA_API_BASE_URL || LOCAL_BASE_URL;
+const EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
+const TIMEOUT_MS = Number(process.env.SHEIKHA_API_TIMEOUT_MS || 60000);
 
 function requestJson(method, path, payload) {
   return new Promise((resolve) => {
@@ -62,15 +64,37 @@ async function health() {
 async function askSheikha(message, options = {}) {
   const programming = options.task === 'coding' || options.mode === 'coding' || isProgrammingRequest(message);
 
-  const path = programming
-    ? '/api/sheikha/programming/ask'
-    : '/api/sheikha/ai-gateway/chat';
+  const path = EXTENSION_CHAT_ENDPOINT;
 
   const payload = programming
-    ? { message, task: options.task || 'coding', language: options.language || 'auto' }
-    : { message, mode: options.mode || 'agentic', runtimeTarget: BASE_URL.startsWith('https://') ? 'server-https' : 'local' };
+    ? {
+        message,
+        task: options.task || 'coding',
+        mode: 'coding',
+        language: options.language || 'auto',
+        actor: 'vscode-extension',
+        channel: 'extension-legacy-api-client',
+        source: 'sheikha-vscode-extension'
+      }
+    : {
+        message,
+        mode: options.mode || 'agentic',
+        actor: 'vscode-extension',
+        channel: 'extension-legacy-api-client',
+        source: 'sheikha-vscode-extension',
+        runtimeTarget: BASE_URL.startsWith('https://') ? 'server-https' : 'local'
+      };
 
   const result = await requestJson('POST', path, payload);
+
+  if (result?.success && !result.data && (result.answer || result.message)) {
+    result.data = {
+      provider: result.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
+      model: 'Sheikha',
+      answer: result.answer || result.message,
+      reply: result.answer || result.message
+    };
+  }
 
   if (result?.success && result?.data) {
     result.data.runtimeUrl = BASE_URL;

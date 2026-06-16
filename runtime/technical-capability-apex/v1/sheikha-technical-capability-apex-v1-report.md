@@ -21,11 +21,11 @@
 
 ## Chat Apex Order
 
-1. Technical Capability Apex
-2. IDE Apex
-3. Debugging Apex
-4. Chat Interface Apex
-5. Vital Chat Apex
+1. L20 Technical Capability Apex
+2. L19 IDE Apex
+3. L18 Debugging Apex
+4. L17 Chat Interface Apex
+5. L16 Vital Chat Apex
 6. Conversation Engine
 7. Memory Fabric
 8. Knowledge Store

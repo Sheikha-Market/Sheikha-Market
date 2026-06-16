@@ -3,7 +3,10 @@
 const vscode = require('vscode');
 const os = require('os');
 const { collectVSCodeToolContext } = require('./sheikhaVSCodeToolRegistry');
-const { getEnterpriseInspectorStatus } = require('./sheikhaExtensionChatClient');
+const {
+  DEFAULT_BASE_URL,
+  getEnterpriseInspectorStatus
+} = require('./sheikhaExtensionChatClient');
 
 class SheikhaInspectorProvider {
   constructor(context, options = {}) {
@@ -48,7 +51,7 @@ class SheikhaInspectorProvider {
     const local = collectVSCodeToolContext();
     const runtime = collectLocalRuntime();
     const remote = await getEnterpriseInspectorStatus({
-      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+      baseUrl: DEFAULT_BASE_URL
     });
 
     if (!this.view || sequence !== this.refreshSequence) return;

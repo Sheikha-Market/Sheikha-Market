@@ -184,15 +184,15 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 <div class="shell">
 <div class="header">
   <div class="header-main">
-    <div><strong>شات شيخة المتقدم</strong><small id="experience">Technical Capability Apex · IDE Apex · Debugging Apex · Chat Interface Apex · Vital Chat Apex · Extension 1.0.86</small></div>
+    <div><strong>شات شيخة المتقدم</strong><small id="experience">L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.87</small></div>
     <span class="status-pill" id="modeLabel">SMART</span>
   </div>
 <div class="apex" id="apex">
-  <b class="active">Technical Capability Apex</b>
-  <b class="active">IDE Apex</b>
-  <b class="active">Debugging Apex</b>
-  <b class="active">Chat Interface Apex</b>
-  <b class="active">Vital Chat Apex</b>
+  <b class="active">L20 Technical Capability Apex</b>
+  <b class="active">L19 IDE Apex</b>
+  <b class="active">L18 Debugging Apex</b>
+  <b class="active">L17 Chat Interface Apex</b>
+  <b class="active">L16 Vital Chat Apex</b>
   <b class="active">Conversation Engine</b>
   <b class="active">Session Memory</b>
   <b class="active">Context Memory</b>
@@ -343,21 +343,22 @@ window.addEventListener('message', event => {
   if (msg.command === 'experienceStatus' && msg.experience && msg.experience.success === true) {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
-      'Technical Capability Apex · IDE Apex · Layer Governance L' + (data.governedByApexLevel || 18) +
-      ' · Debugging Apex · Runtime L1-L8 · Extension 1.0.86';
+      'L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
+      (data.governedByApexLevel || 18) +
+      ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.87';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'Technical Capability Apex · IDE Apex · Debugging Apex · Chat Interface Apex · Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
+      'L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
     document.getElementById('apex').innerHTML = [
-      ['Technical Capability Apex', 'PENDING_STATUS'],
-      ['IDE Apex', 'PENDING_STATUS'],
-      ['Debugging Apex', 'PENDING_STATUS'],
-      ['Chat Interface Apex', 'PENDING_STATUS'],
-      ['Vital Chat Apex', data.decision || data.status || 'ACTIVE'],
+      ['L20 Technical Capability Apex', 'PENDING_STATUS'],
+      ['L19 IDE Apex', 'PENDING_STATUS'],
+      ['L18 Debugging Apex', 'PENDING_STATUS'],
+      ['L17 Chat Interface Apex', 'PENDING_STATUS'],
+      ['L16 Vital Chat Apex', data.decision || data.status || 'ACTIVE'],
       ['Conversation Engine', stack.conversationEngine],
       ['Session Memory', stack.sessionMemory],
       ['Context Memory', stack.contextMemory],
@@ -370,15 +371,15 @@ window.addEventListener('message', event => {
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'Technical Capability Apex · Debugging Apex · IDE Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
+      'L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
     const template = data.template || {};
     document.getElementById('experience').textContent =
-      'Technical Capability Apex · Chat Interface Apex · Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
+      'L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
     if (Array.isArray(template.regions)) {
       document.getElementById('contextRail').innerHTML = template.regions
         .slice(0, 8)
@@ -389,8 +390,8 @@ window.addEventListener('message', event => {
   if (msg.command === 'ideApexStatus' && msg.ideApex && msg.ideApex.success === true) {
     const data = msg.ideApex.data || {};
     document.getElementById('experience').textContent =
-      'Technical Capability Apex · IDE Apex · Debugging Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.86';
+      'L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.87';
   }
   if (
     msg.command === 'technicalCapabilityStatus' &&
@@ -400,9 +401,9 @@ window.addEventListener('message', event => {
     const data = msg.technicalCapability.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'Technical Capability Apex · ' +
+      'L20 Technical Capability Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · Extension 1.0.86';
+      ' · Extension 1.0.87';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')

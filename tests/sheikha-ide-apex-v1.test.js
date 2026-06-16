@@ -21,6 +21,11 @@ describe('Sheikha IDE Apex V1', () => {
     expect(result.stack.chatInterfaceApex).toBe('SHEIKHA_CHAT_INTERFACE_APEX_V1');
     expect(result.stack.codeAssist).toBe('SHEIKHA_IDE_CODE_ASSIST');
     expect(result.stack.promotedBy).toBe('SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1');
+    expect(result.intelligencePlanes.workspaceIntelligence).toBe('ACTIVE');
+    expect(result.intelligencePlanes.gitIntelligence).toBe('ACTIVE_READ_ONLY');
+    expect(result.intelligencePlanes.testIntelligence).toBe('ACTIVE_VIA_NPM_TEST');
+    expect(result.intelligencePlanes.diagnosticsIntelligence).toBe('ACTIVE_VIA_VSCODE_DIAGNOSTICS');
+    expect(result.healthViews.ideHealth).toBe('ACTIVE');
     expect(result.routes.status).toBe('/api/sheikha/ide-apex/v1/status');
     expect(result.routes.technicalCapabilityApex)
       .toBe('/api/sheikha/technical-capability-apex/v1/status');

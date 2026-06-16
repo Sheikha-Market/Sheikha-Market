@@ -18,7 +18,7 @@ const DEBUGGING_APEX_STATUS_ENDPOINT = '/api/sheikha/debugging-apex/v1/status';
 const CHAT_INTERFACE_APEX_STATUS_ENDPOINT = '/api/sheikha/chat-interface-apex/v1/status';
 const IDE_APEX_STATUS_ENDPOINT = '/api/sheikha/ide-apex/v1/status';
 const TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT = '/api/sheikha/technical-capability-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.86';
+const EXTENSION_TRANSPORT_VERSION = '1.0.87';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();

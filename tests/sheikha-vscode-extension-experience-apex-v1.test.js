@@ -27,6 +27,12 @@ describe('Sheikha VS Code Extension Experience Apex V1', () => {
     const client = fs.readFileSync(
       path.join(root, 'sheikha-vscode-extension/src/sheikhaExtensionChatClient.js'), 'utf8'
     );
+    const legacyApiClient = fs.readFileSync(
+      path.join(root, 'sheikha-vscode-extension/src/sheikhaApiClient.js'), 'utf8'
+    );
+    const inspectorProvider = fs.readFileSync(
+      path.join(root, 'sheikha-vscode-extension/src/sheikhaInspectorProvider.js'), 'utf8'
+    );
     const sdk = fs.readFileSync(path.join(root, 'sdk/sheikha-api/index.js'), 'utf8');
     const inspector = fs.readFileSync(
       path.join(root, 'core/enterprise/sheikha-enterprise-inspector-v3.js'), 'utf8'
@@ -57,7 +63,13 @@ describe('Sheikha VS Code Extension Experience Apex V1', () => {
     expect(provider).toContain('id="clear"');
     expect(provider).toContain('DEFAULT_BASE_URL');
     expect(provider).not.toContain("|| 'https://sheikha.top'");
+    expect(provider).not.toContain('Chat Interface Apex · Advanced Template');
     expect(provider).toContain('Session Memory');
+    expect(legacyApiClient).toContain("const LOCAL_BASE_URL = process.env.SHEIKHA_LOCAL_API_BASE_URL || 'http://127.0.0.1:8080';");
+    expect(legacyApiClient).toContain("const EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';");
+    expect(legacyApiClient).not.toContain("|| 'https://api.sheikha.top'");
+    expect(inspectorProvider).toContain('DEFAULT_BASE_URL');
+    expect(inspectorProvider).not.toContain("|| 'https://sheikha.top'");
     expect(sdk).toContain('client.extensionExperience');
     expect(sdk).toContain('vitalChatApex');
     expect(sdk).toContain('debuggingApex');

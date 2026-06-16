@@ -21,7 +21,12 @@ describe('Sheikha Technical Capability Apex V1', () => {
     expect(result.decision).toBe('TECHNICAL_CAPABILITY_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
     expect(result.position).toContain('ABOVE_IDE_APEX');
-    expect(result.chatApexOrder[0]).toBe('Technical Capability Apex');
+    expect(result.layerModel.l20).toBe('SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1');
+    expect(result.layerModel.l19).toBe('SHEIKHA_IDE_APEX_V1');
+    expect(result.layerModel.l18).toBe('SHEIKHA_DEBUGGING_APEX_V1');
+    expect(result.layerModel.l17).toBe('SHEIKHA_CHAT_INTERFACE_APEX_V1');
+    expect(result.layerModel.l16).toBe('SHEIKHA_VITAL_CHAT_APEX_V1');
+    expect(result.chatApexOrder[0]).toBe('L20 Technical Capability Apex');
     expect(result.stack.ideApex).toBe('SHEIKHA_IDE_APEX_V1');
     expect(result.routes.status).toBe('/api/sheikha/technical-capability-apex/v1/status');
   });
