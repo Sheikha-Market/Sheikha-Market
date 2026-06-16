@@ -13,7 +13,8 @@ const {
 } = require('../runtime/conversation-engine/sheikha-conversation-engine-v1');
 const {
   buildKnownToolResolution,
-  classifyIntent
+  classifyIntent,
+  executePipeline
 } = require('../runtime/execution/sheikha-execution-pipeline-v1');
 
 const ROOT = path.join(__dirname, '..');
@@ -54,6 +55,25 @@ describe('Sheikha Conversation Engine V1', () => {
     );
     expect(answer).toContain('command -v rg');
     expect(answer).toContain('todo-tree.ripgrep');
+  });
+
+  test('answers Todo Tree ripgrep failures directly without Debug Pipeline or Inspector dump', () => {
+    const response = executePipeline({
+      message: "اصلحي Todo-Tree: Failed to find vscode-ripgrep - please install ripgrep manually and set 'todo-tree.ripgrep' to point to the executable",
+      mode: 'smart',
+      workspaceRoot: ROOT,
+      vscodeTools: {
+        status: 'ACTIVE',
+        diagnostics: [{ file: 'example.js', diagnostics: [{ line: 1, character: 1, message: 'noise' }] }]
+      }
+    });
+
+    expect(response.success).toBe(true);
+    expect(response.answer).toContain('todo-tree.ripgrep');
+    expect(response.answer).toContain('/usr/bin/rg');
+    expect(response.answer).not.toContain('Debug Pipeline');
+    expect(response.answer).not.toContain('Sheikha Enterprise Inspector');
+    expect(response.answer).not.toContain('تقرير أدوات VS Code');
   });
 
   test('normal conversation does not inject Enterprise Inspector', async () => {
@@ -161,7 +181,9 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
-    expect(provider).toContain('Vital Chat Apex · Layer Governance L18 · Runtime L1-L8 · Extension 1.0.83');
+    expect(provider).toContain('Debugging Apex · Vital Chat Apex · Runtime L1-L8 · Extension 1.0.84');
+    expect(provider).toContain("command: 'debuggingStatus'");
+    expect(provider).toContain('Debugging Apex');
     expect(provider).toContain('addTrace(msg.meta && msg.meta.layers)');
     expect(provider).toContain("command: 'experienceStatus'");
     expect(inspector).toContain('getEnterpriseInspectorStatus');

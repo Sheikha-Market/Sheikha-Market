@@ -507,11 +507,14 @@ function executePipeline(payload = {}) {
   const intelligenceMode = normalizeIntelligenceMode(payload.mode);
   const intent = intentForMode(message, intelligenceMode);
   const cli = runReadOnlyCli(workspaceRoot);
+  const knownResolution = buildKnownToolResolution(message);
 
   let answer;
 
   if (/^\s*شيخة\s*$/i.test(message) && intelligenceMode === 'smart') {
     answer = 'بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\nما الذي تحتاج إليه من مساعدة أو عون؟';
+  } else if (knownResolution) {
+    answer = knownResolution;
   } else if (intent === 'GRAPHICS_LOGO_PLAN') {
     answer = [
       'بسم الله الرحمن الرحيم',
@@ -558,28 +561,21 @@ function executePipeline(payload = {}) {
   } else if (intent === 'CONTENT_REPORT' && isFoundryTopic(message)) {
     answer = buildFoundryReport();
   } else {
-    {
-    const knownResolution = buildKnownToolResolution(message);
-    if (knownResolution) {
-      answer = knownResolution;
-    } else {
-      const executed = modelExecutor.execute(message, {
-        context: [
-          buildRecentConversationContext(payload.history),
-          buildConversationModelContext(payload.conversationContext),
-          buildInspectorModelContext(payload.enterpriseInspector)
-        ].filter(Boolean).join('\n\n')
-      });
-      answer = executed.success
-        ? executed.answer
-        : executed.answer || executed.error || 'تعذر تنفيذ النموذج.';
-    }
-  }
+    const executed = modelExecutor.execute(message, {
+      context: [
+        buildRecentConversationContext(payload.history),
+        buildConversationModelContext(payload.conversationContext),
+        buildInspectorModelContext(payload.enterpriseInspector)
+      ].filter(Boolean).join('\n\n')
+    });
+    answer = executed.success
+      ? executed.answer
+      : executed.answer || executed.error || 'تعذر تنفيذ النموذج.';
   }
 
   const vscodeReport = buildVSCodeToolsReport(payload.vscodeTools);
 
-  if (vscodeReport && /vscode|أدوات|الملف النشط|المشاكل|diagnostics|problems|فرع/i.test(message)) {
+  if (!knownResolution && vscodeReport && /vscode|أدوات|الملف النشط|المشاكل|diagnostics|problems|فرع/i.test(message)) {
     answer = `${answer}\n${vscodeReport}`;
   }
 

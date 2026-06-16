@@ -25,6 +25,9 @@ const extensionExperience = require(
 const enterpriseManagement = require(
   '../../runtime/enterprise-management-os/sheikha-enterprise-management-os-v1'
 );
+const debuggingApex = require(
+  '../../runtime/debugging-apex/v1/sheikha-debugging-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -152,6 +155,7 @@ function collectEnterpriseInspector(input = {}) {
   const layerGovernanceStatus = layerGovernance.status();
   const extensionExperienceStatus = extensionExperience.status();
   const enterpriseManagementStatus = enterpriseManagement.status();
+  const debuggingApexStatus = debuggingApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -185,6 +189,7 @@ function collectEnterpriseInspector(input = {}) {
       layerGovernance: layerGovernanceStatus.status,
       extensionExperience: extensionExperienceStatus.status,
       enterpriseManagement: enterpriseManagementStatus.status,
+      debuggingApex: debuggingApexStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -230,6 +235,7 @@ function collectEnterpriseInspector(input = {}) {
       layerGovernance: '/api/sheikha/layer-governance/v1/status',
       layerCatalog: '/api/sheikha/layer-governance/v1/catalog',
       extensionExperience: '/api/sheikha/extension-experience/v1/status',
+      debuggingApex: '/api/sheikha/debugging-apex/v1/status',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -243,6 +249,7 @@ function collectEnterpriseInspector(input = {}) {
         'Covenant Governance Apex',
         'Layer Governance and Promotion OS',
         'VS Code Extension Experience Apex',
+        'Debugging Apex',
         'Enterprise Management OS',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',

@@ -3,6 +3,7 @@
 const vscode = require('vscode');
 const crypto = require('crypto');
 const {
+  getDebuggingApexStatus,
   getExtensionExperienceStatus,
   getVitalChatApexStatus,
   sendExtensionChat
@@ -33,6 +34,11 @@ class SheikhaChatProvider {
       baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
     }).then((vital) => {
       webviewView.webview.postMessage({ command: 'vitalStatus', vital });
+    }).catch(() => {});
+    getDebuggingApexStatus({
+      baseUrl: process.env.SHEIKHA_API_BASE_URL || 'https://sheikha.top'
+    }).then((debugging) => {
+      webviewView.webview.postMessage({ command: 'debuggingStatus', debugging });
     }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
@@ -132,7 +138,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 </style>
 </head>
 <body>
-<div class="header"><strong>شات شيخة الحيوي</strong><span id="experience">Vital Chat Apex · Layer Governance L18 · Runtime L1-L8 · Extension 1.0.83</span></div>
+<div class="header"><strong>شات شيخة الحيوي</strong><span id="experience">Debugging Apex · Vital Chat Apex · Runtime L1-L8 · Extension 1.0.84</span></div>
 <div class="apex" id="apex">
   <b class="active">Conversation Engine</b>
   <b class="active">Session Memory</b>
@@ -141,6 +147,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
   <b class="active">Git</b>
   <b class="active">Project</b>
   <b class="active">Extension Apex</b>
+  <b class="active">Debugging Apex</b>
 </div>
 <div class="controls">
   <button data-mode="smart" class="active" title="اختيار تلقائي محكوم">Smart</button>
@@ -158,6 +165,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:6px; padding:10px; b
 
 <div class="quick">
   <button data-prompt="حلل حالة منظومة شيخة الحالية من Enterprise Inspector وحدد أفضل إجراء تالٍ.">حالة المنظومة</button>
+  <button data-prompt="شغّل Debugging Apex واقرأ Diagnostics وGit وRuntime ثم أعطني خطة إصلاح آمنة.">Debugging Apex</button>
   <button data-prompt="راجع أخطاء وتحذيرات VS Code الحالية واقترح خطة إصلاح مرتبة.">Diagnostics</button>
   <button data-prompt="حلل Workspace وGit الحاليين وحدد مخاطر الاختبار والدمج.">مراجعة المشروع</button>
 </div>
@@ -262,13 +270,13 @@ window.addEventListener('message', event => {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
       'Layer Governance L' + (data.governedByApexLevel || 18) +
-      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.83';
+      ' · Covenant L17 · Orchestrator L11 · Runtime L1-L8 · Extension 1.0.84';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'Vital Chat Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.83';
+      'Vital Chat Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.84';
     document.getElementById('apex').innerHTML = [
       ['Conversation Engine', stack.conversationEngine],
       ['Session Memory', stack.sessionMemory],
@@ -276,8 +284,14 @@ window.addEventListener('message', event => {
       ['Workspace', stack.workspaceAwareness],
       ['Git', stack.gitAwareness],
       ['Project', stack.projectAwareness],
-      ['Extension Apex', stack.extensionExperienceApex]
+      ['Extension Apex', stack.extensionExperienceApex],
+      ['Debugging Apex', 'PENDING_STATUS']
     ].map(([name, state]) => '<b class="active" title="' + String(state || 'ACTIVE') + '">' + name + '</b>').join('');
+  }
+  if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
+    const data = msg.debugging.data || {};
+    document.getElementById('experience').textContent =
+      'Debugging Apex · ' + (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.84';
   }
 });
 </script>

@@ -13,7 +13,8 @@ const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
 const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
 const EXTENSION_EXPERIENCE_STATUS_ENDPOINT = '/api/sheikha/extension-experience/v1/status';
 const VITAL_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/vital-chat-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.83';
+const DEBUGGING_APEX_STATUS_ENDPOINT = '/api/sheikha/debugging-apex/v1/status';
+const EXTENSION_TRANSPORT_VERSION = '1.0.84';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -187,6 +188,18 @@ async function getVitalChatApexStatus(options = {}) {
   }
 }
 
+async function getDebuggingApexStatus(options = {}) {
+  try {
+    return await getJson(
+      DEBUGGING_APEX_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
 function isInspectorRequest(message) {
   return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
     .test(String(message || ''));
@@ -349,6 +362,7 @@ module.exports = {
   INSPECTOR_STATUS_ENDPOINT,
   EXTENSION_EXPERIENCE_STATUS_ENDPOINT,
   VITAL_CHAT_APEX_STATUS_ENDPOINT,
+  DEBUGGING_APEX_STATUS_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
@@ -357,6 +371,7 @@ module.exports = {
   getEnterpriseInspectorStatus,
   getExtensionExperienceStatus,
   getVitalChatApexStatus,
+  getDebuggingApexStatus,
   buildLocalChatFallbackAnswer,
   isInspectorRequest,
   safeJsonParse,
