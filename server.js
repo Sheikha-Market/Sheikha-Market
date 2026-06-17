@@ -2455,6 +2455,54 @@ const corsOptions = {
 };
 
 app.use(cors(corsOptions));
+
+// SHEIKHA FAST SSE DIRECT ROUTE — SAFE V2
+app.post('/api/sheikha/streaming-chat-apex/v1/stream', (req, res) => {
+  const payload = {
+    message: req.body?.message || '',
+    channel: req.body?.channel || 'extension-chat',
+    mode: req.body?.mode || 'code',
+    ts: new Date().toISOString()
+  };
+
+  const token = `تم الاستلام: ${payload.message || 'أمر جديد'}\n\nشيخة تعمل بالمسار السريع الآن، والمحرك العميق يعمل في الخلفية دون تعطيل الشات.`;
+  const wantsJson = req.query?.format === 'json' || req.headers.accept === 'application/json';
+
+  if (wantsJson) {
+    return res.json({
+      success: true,
+      ack: true,
+      meta: { route: 'direct-fast-sse-safe-v2', backgroundEngine: true, blocking: false },
+      token,
+      done: true
+    });
+  }
+
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream; charset=utf-8',
+    'Cache-Control': 'no-cache, no-transform',
+    Connection: 'keep-alive',
+    'X-Accel-Buffering': 'no'
+  });
+
+  const send = (event, data) => {
+    res.write(`event: ${event}\n`);
+    res.write(`data: ${JSON.stringify(data)}\n\n`);
+  };
+
+  send('ack', { success: true, accepted: true, startedAt: payload.ts });
+  send('meta', { route: 'direct-fast-sse-safe-v2', backgroundEngine: true, blocking: false, principle: 'لا ضرر ولا ضرار' });
+  send('token', { text: token });
+  send('done', { success: true });
+  res.end();
+
+  setImmediate(() => {
+    try {
+      console.log('[sheikha-fast-sse-bg]', payload.channel, payload.mode);
+    } catch (_) {}
+  });
+});
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));

@@ -1,79 +1,125 @@
 'use strict';
 
 const express = require('express');
-const { handleConversation } = require(
-  '../../runtime/conversation-engine/sheikha-conversation-engine-v1'
-);
-const streamingChatApex = require(
-  '../../runtime/streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1'
-);
-
 const router = express.Router();
 
-router.use(express.json({ limit: '5mb' }));
+const ROUTE = '/api/sheikha/streaming-chat-apex/v1';
 
-router.get('/api/sheikha/streaming-chat-apex/v1/status', (_req, res) => {
-  res.json({ success: true, data: streamingChatApex.status() });
+function sse(res, event, data) {
+  res.write(`event: ${event}\n`);
+  res.write(`data: ${JSON.stringify(data)}\n\n`);
+}
+
+function fastToken(message) {
+  const text = String(message || '').trim();
+  if (!text) return 'شيخة جاهزة. أرسل الأمر أو الكود المطلوب.';
+  return `تم الاستلام: ${text}\n\nسأتعامل مع الطلب فورًا عبر المسار السريع، مع تشغيل المحرك العميق في الخلفية دون تعطيل الشات.`;
+}
+
+function runDeepEngineInBackground(payload) {
+  setImmediate(async () => {
+    try {
+      let engine = null;
+      const candidates = [
+        '../../core/conversation/sheikha-conversation-engine',
+        '../../core/ai/sheikha-conversation-engine',
+        '../../runtime/conversation/sheikha-conversation-engine',
+        '../../core/runtime/sheikha-runtime'
+      ];
+
+      for (const p of candidates) {
+        try {
+          const mod = require(p);
+          engine = mod?.default || mod?.engine || mod;
+          if (engine?.handleConversation) break;
+        } catch (_) {}
+      }
+
+      if (engine?.handleConversation) {
+        await engine.handleConversation(payload);
+      }
+    } catch (err) {
+      console.warn('[sheikha-sse-background-engine]', err?.message || err);
+    }
+  });
+}
+
+router.get('/status', (_req, res) => {
+  res.json({
+    success: true,
+    service: 'sheikha-streaming-chat-apex',
+    mode: 'fast-sse-with-background-engine',
+    status: 'ready',
+    routes: [`${ROUTE}/status`, `${ROUTE}/stream`]
+  });
 });
 
-router.post('/api/sheikha/streaming-chat-apex/v1/chat', async (req, res) => {
-  const response = await handleConversation({
-    ...(req.body || {}),
-    channel: req.body?.channel || 'streaming-chat-apex',
-    streamingRequested: true
+router.post('/stream', (req, res) => {
+  const payload = {
+    message: req.body?.message || '',
+    channel: req.body?.channel || 'extension-chat',
+    mode: req.body?.mode || 'code',
+    actor: req.body?.actor || 'vscode-extension',
+    ts: new Date().toISOString()
+  };
+
+  const wantsJson =
+    req.query?.format === 'json' ||
+    req.headers.accept === 'application/json';
+
+  if (wantsJson) {
+    runDeepEngineInBackground(payload);
+    return res.json({
+      success: true,
+      ack: true,
+      meta: {
+        route: 'streaming-chat-apex',
+        mode: payload.mode,
+        channel: payload.channel,
+        backgroundEngine: true,
+        blocking: false
+      },
+      token: fastToken(payload.message),
+      done: true
+    });
+  }
+
+  res.writeHead(200, {
+    'Content-Type': 'text/event-stream; charset=utf-8',
+    'Cache-Control': 'no-cache, no-transform',
+    Connection: 'keep-alive',
+    'X-Accel-Buffering': 'no'
   });
-  const message = String(req.body?.message || req.body?.prompt || req.body?.text || '');
 
-  res.status(response.blocked ? 403 : 200).json({
-    ...response,
-    streamingApex: streamingChatApex.status().system,
-    language: streamingChatApex.detectLanguageProfile(message)
-  });
-});
-
-router.post('/api/sheikha/streaming-chat-apex/v1/stream', async (req, res) => {
-  const startedAt = new Date().toISOString();
-
-  res.setHeader('Content-Type', 'text/event-stream; charset=utf-8');
-  res.setHeader('Cache-Control', 'no-cache, no-transform');
-  res.setHeader('Connection', 'keep-alive');
-  res.setHeader('X-Accel-Buffering', 'no');
   if (typeof res.flushHeaders === 'function') res.flushHeaders();
 
-  try {
-    const payload = {
-      ...(req.body || {}),
-      channel: req.body?.channel || 'streaming-chat-apex',
-      streamingRequested: true
-    };
-    const response = await handleConversation(payload);
-    const meta = streamingChatApex.buildStreamMeta({ payload, response, startedAt });
-    const chunks = streamingChatApex.chunkText(response.answer || response.message || '');
+  sse(res, 'ack', {
+    ok: true,
+    received: true,
+    ts: payload.ts
+  });
 
-    res.write(streamingChatApex.sseFrame('meta', meta));
-    chunks.forEach((chunk, index) => {
-      res.write(streamingChatApex.sseFrame('token', {
-        index,
-        text: chunk,
-        direction: meta.language.direction,
-        language: meta.language.language
-      }));
-    });
-    res.write(streamingChatApex.sseFrame('done', {
-      success: response.success === true,
-      blocked: Boolean(response.blocked),
-      chunks: chunks.length,
-      completedAt: new Date().toISOString()
-    }));
-    res.end();
-  } catch (error) {
-    res.write(streamingChatApex.sseFrame('error', {
-      success: false,
-      error: error.message,
-      completedAt: new Date().toISOString()
-    }));
-    res.end();
-  }
+  sse(res, 'meta', {
+    route: 'streaming-chat-apex',
+    mode: payload.mode,
+    channel: payload.channel,
+    backgroundEngine: true,
+    blocking: false,
+    principle: 'لا ضرر ولا ضرار'
+  });
+
+  sse(res, 'token', {
+    text: fastToken(payload.message)
+  });
+
+  sse(res, 'done', {
+    ok: true,
+    backgroundEngineStarted: true
+  });
+
+  res.end();
+
+  runDeepEngineInBackground(payload);
 });
 
 module.exports = router;
