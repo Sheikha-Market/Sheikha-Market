@@ -2624,6 +2624,13 @@ try {
   console.warn('[sheikha-ai-notes-governance] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/supreme-governance-intelligence-fabric/sheikha-supreme-governance-intelligence-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-supreme-governance-intelligence-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
