@@ -2652,6 +2652,13 @@ try {
   console.warn('[sheikha-ha-ai-production-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/autonomous-enterprise-fabric/sheikha-autonomous-enterprise-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-autonomous-enterprise-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
