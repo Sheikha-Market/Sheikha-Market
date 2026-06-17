@@ -117,7 +117,7 @@ kernel.initialize();
 
 try {
   const runtimeIdentityRoutes = require('./routes/runtime/identity/status.routes');
-  
+
 try {
   app.use(require('./routes/sheikha-runtime-chat'));
 app.use('/api/decision-flow', require('./routes/decision-flow.routes'));
@@ -2615,6 +2615,13 @@ try {
   app.use(require('./routes/developer-tools-apex/sheikha-developer-tools-apex-routes'));
 } catch (error) {
   console.warn('[sheikha-developer-tools-apex] route mount skipped:', error.message);
+}
+
+
+try {
+  app.use(require('./routes/ai-notes-governance/sheikha-ai-notes-governance-routes'));
+} catch (error) {
+  console.warn('[sheikha-ai-notes-governance] route mount skipped:', error.message);
 }
 
 app.use(express.json());
@@ -22484,7 +22491,7 @@ try {
 
 try {
   app.use('/api/database/sqlserver', require('./routes/database/sqlserver.routes'));
-  
+
 console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
 } catch (error) {
   console.warn('[SHEIKHA] SQL Server routes not mounted:', error.message);
@@ -23061,7 +23068,7 @@ app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({
             success: false,
-            
+
 
 error: 'not_found',
             message: 'المسار غير موجود — The requested API endpoint does not exist.',
