@@ -86,7 +86,7 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
         'Content-Length': Buffer.byteLength(body),
         'User-Agent': `Sheikha-VSCode-Extension/${EXTENSION_TRANSPORT_VERSION}`
       },
-      timeout: 60000
+      timeout: Number(payload?.__timeoutMs || 60000)
     }, (res) => {
       let data = '';
 
@@ -106,7 +106,7 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
     });
 
     req.on('timeout', () => {
-      req.destroy(new Error('Sheikha extension chat timeout after 60s'));
+      req.destroy(new Error(`Sheikha extension chat timeout after ${Number(payload?.__timeoutMs || 60000)}ms`));
     });
 
     req.on('error', reject);
@@ -581,11 +581,81 @@ async function sendExtensionChat(message, options = {}) {
   const greetingAllowed = options.greetingAllowed !== false;
 
   try {
+    // Sheikha extension fast transport: use the SSE route in JSON mode first.
+    // This avoids hanging on raw SSE while preserving the server-side fast ack/meta/token/done contract.
+    if (options.streaming !== false) {
+      try {
+        const fastJson = await postJson(
+          `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`,
+          {
+            message: text,
+            mode: payload.mode,
+            actor: 'vscode-extension',
+            channel: 'extension-chat',
+            source: 'sheikha-vscode-extension',
+            transport: 'JSON_FAST_STREAM_LIVE',
+            extensionStreaming: true,
+            __timeoutMs: Number(options.timeout || 3000)
+          },
+          primaryBaseUrl
+        );
+
+        const fastText = String(
+          fastJson?.token?.text ||
+          fastJson?.token ||
+          fastJson?.answer ||
+          fastJson?.reply ||
+          fastJson?.message ||
+          ''
+        );
+
+        if (fastJson?.success === true && fastText) {
+          if (typeof options.onEvent === 'function') {
+            options.onEvent({ event: 'ack', data: { success: true, accepted: true } });
+            options.onEvent({
+              event: 'meta',
+              data: {
+                ...(fastJson.meta || {}),
+                route: fastJson.meta?.route || 'json-fast-stream'
+              }
+            });
+            options.onEvent({ event: 'token', data: { text: fastText } });
+            options.onEvent({ event: 'done', data: { success: true } });
+          }
+
+          if (typeof options.onToken === 'function') {
+            options.onToken({ event: 'token', data: { text: fastText }, text: fastText });
+          }
+
+          return {
+            success: true,
+            answer: normalizeSheikhaReply(fastText, text, { greetingAllowed }),
+            raw: {
+              ...fastJson,
+              route: 'SHEIKHA_STREAMING_CHAT_JSON_FASTPATH_V1',
+              endpoint: `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`
+            }
+          };
+        }
+      } catch (fastJsonError) {
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({
+            event: 'json-fastpath-fallback',
+            data: { error: fastJsonError.message }
+          });
+        }
+      }
+    }
+
     if (options.streaming !== false) {
       try {
         const streamed = await postSse(STREAMING_CHAT_APEX_STREAM_ENDPOINT, {
-          ...payload,
-          transport: 'SSE',
+          message: text,
+          mode: payload.mode,
+          actor: 'vscode-extension',
+          channel: 'extension-chat',
+          source: 'sheikha-vscode-extension',
+          transport: 'SSE_LIVE',
           extensionStreaming: true
         }, primaryBaseUrl, {
           greetingAllowed,
