@@ -20,7 +20,9 @@ const IDE_APEX_STATUS_ENDPOINT = '/api/sheikha/ide-apex/v1/status';
 const TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT = '/api/sheikha/technical-capability-apex/v1/status';
 const STREAMING_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/status';
 const STREAMING_CHAT_APEX_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/stream';
-const EXTENSION_TRANSPORT_VERSION = '1.0.88';
+const EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT =
+  '/api/sheikha/extension-streaming-artifact-apex/v1/status';
+const EXTENSION_TRANSPORT_VERSION = '1.0.89';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -108,6 +110,192 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
     });
 
     req.on('error', reject);
+    req.write(body);
+    req.end();
+  });
+}
+
+function parseSseEvent(frame = '') {
+  const lines = String(frame || '').replace(/\r\n/g, '\n').split('\n');
+  let event = 'message';
+  const dataLines = [];
+
+  lines.forEach((line) => {
+    if (line.startsWith('event:')) {
+      event = line.slice(6).trim() || 'message';
+    } else if (line.startsWith('data:')) {
+      dataLines.push(line.slice(5).trimStart());
+    }
+  });
+
+  if (!dataLines.length && !event) return null;
+
+  const dataRaw = dataLines.join('\n');
+  let data = dataRaw;
+  try {
+    data = dataRaw ? JSON.parse(dataRaw) : {};
+  } catch {}
+
+  return { event, data, dataRaw };
+}
+
+function parseSseBuffer(buffer = '') {
+  const normalized = String(buffer || '').replace(/\r\n/g, '\n');
+  const parts = normalized.split('\n\n');
+  const rest = normalized.endsWith('\n\n') ? '' : parts.pop();
+  const events = parts
+    .map(parseSseEvent)
+    .filter(Boolean);
+
+  return { events, rest };
+}
+
+function stripLeadingGreetingBlock(input = '') {
+  let text = String(input || '');
+  let previous = '';
+
+  while (text && text !== previous) {
+    previous = text;
+    text = text.replace(/^\s*(?:بسم الله الرحمن الرحيم)[\s.،:;-]*/i, '');
+    text = text.replace(/^\s*(?:أنا\s+شيخة\.?)[\s.،:;-]*/i, '');
+    text = text.replace(
+      /^\s*(?:ما الذي تحتاج إليه من مساعدة أو عون\??)[\s.،:;-]*/i,
+      ''
+    );
+  }
+
+  return text.trimStart();
+}
+
+function createStreamingGreetingFilter(greetingAllowed = true) {
+  let buffer = '';
+  let released = Boolean(greetingAllowed);
+
+  return {
+    push(chunk = '') {
+      const text = String(chunk || '');
+      if (!text) return '';
+      if (released) return text;
+
+      buffer += text;
+      const stripped = stripLeadingGreetingBlock(buffer);
+      const ready = stripped.length > 32 ||
+        buffer.length > 220 ||
+        /[#>*`]|(?:تقرير|تحليل|خطة|خطوات|أصلح|اصلح|نتيجة)/i.test(stripped);
+
+      if (!ready) return '';
+
+      released = true;
+      return stripped;
+    },
+    flush() {
+      if (released || !buffer) return '';
+      released = true;
+      return stripLeadingGreetingBlock(buffer);
+    }
+  };
+}
+
+function postSse(path, payload, baseUrl = DEFAULT_BASE_URL, handlers = {}) {
+  return new Promise((resolve, reject) => {
+    const url = new URL(path, baseUrl);
+    const body = JSON.stringify(payload || {});
+    const lib = url.protocol === 'https:' ? https : http;
+    const events = [];
+    const tokens = [];
+    let rest = '';
+    let ended = false;
+    let statusCode = 0;
+    let contentType = '';
+
+    const greetingFilter = createStreamingGreetingFilter(handlers.greetingAllowed !== false);
+
+    function finish(result) {
+      if (ended) return;
+      ended = true;
+      resolve(result);
+    }
+
+    const req = lib.request({
+      method: 'POST',
+      hostname: url.hostname,
+      port: url.port || (url.protocol === 'https:' ? 443 : 80),
+      path: url.pathname + url.search,
+      headers: {
+        Accept: 'text/event-stream, application/json',
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body),
+        'User-Agent': `Sheikha-VSCode-Extension/${EXTENSION_TRANSPORT_VERSION}`
+      },
+      timeout: handlers.timeout || 90000
+    }, (res) => {
+      statusCode = Number(res.statusCode || 0);
+      contentType = String(res.headers['content-type'] || '');
+
+      res.on('data', (chunk) => {
+        const parsed = parseSseBuffer(rest + chunk.toString('utf8'));
+        rest = parsed.rest;
+
+        parsed.events.forEach((item) => {
+          events.push(item);
+          if (typeof handlers.onEvent === 'function') handlers.onEvent(item);
+
+          if (item.event === 'token') {
+            const rawText = String(item.data?.text || '');
+            const filteredText = greetingFilter.push(rawText);
+            if (!filteredText) return;
+            tokens.push(filteredText);
+            if (typeof handlers.onToken === 'function') {
+              handlers.onToken({
+                ...item,
+                data: { ...(item.data || {}), text: filteredText },
+                text: filteredText
+              });
+            }
+          }
+
+          if (item.event === 'error') {
+            const error = new Error(item.data?.error || 'Sheikha SSE stream error');
+            error.payload = item.data;
+            reject(error);
+          }
+        });
+      });
+
+      res.on('end', () => {
+        const parsed = parseSseBuffer(rest.endsWith('\n\n') ? rest : `${rest}\n\n`);
+        parsed.events.forEach((item) => {
+          events.push(item);
+          if (typeof handlers.onEvent === 'function') handlers.onEvent(item);
+        });
+        const flushed = greetingFilter.flush();
+        if (flushed) {
+          tokens.push(flushed);
+          if (typeof handlers.onToken === 'function') {
+            handlers.onToken({ event: 'token', data: { text: flushed }, text: flushed });
+          }
+        }
+
+        const done = events.find((item) => item.event === 'done');
+        finish({
+          success: done ? done.data?.success !== false : tokens.length > 0,
+          answer: tokens.join(''),
+          endpoint: path,
+          statusCode,
+          contentType,
+          streaming: true,
+          events
+        });
+      });
+    });
+
+    req.on('timeout', () => {
+      req.destroy(new Error('Sheikha extension streaming timeout after 90s'));
+    });
+
+    req.on('error', (error) => {
+      if (!ended) reject(error);
+    });
     req.write(body);
     req.end();
   });
@@ -254,6 +442,18 @@ async function getStreamingChatApexStatus(options = {}) {
   }
 }
 
+async function getExtensionStreamingArtifactApexStatus(options = {}) {
+  try {
+    return await getJson(
+      EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
 function isInspectorRequest(message) {
   return /حلل\s+(?:الحالة|حالة)|افحص\s+(?:المنظومة|النظام|الحالة)|حالة\s+(?:المنظومة|شيخة|النظام)|enterprise\s+inspector|system\s+health|diagnostics|مفتش\s+المنظومة/i
     .test(String(message || ''));
@@ -365,8 +565,43 @@ async function sendExtensionChat(message, options = {}) {
     conversationId: options.conversationId || null,
     history: Array.isArray(options.history) ? options.history.slice(-8) : []
   };
+  const greetingAllowed = options.greetingAllowed !== false;
 
   try {
+    if (options.streaming !== false) {
+      try {
+        const streamed = await postSse(STREAMING_CHAT_APEX_STREAM_ENDPOINT, {
+          ...payload,
+          transport: 'SSE',
+          extensionStreaming: true
+        }, primaryBaseUrl, {
+          greetingAllowed,
+          onEvent: options.onEvent,
+          onToken: options.onToken,
+          timeout: options.timeout || 90000
+        });
+
+        if (streamed?.success === true && streamed.answer) {
+          return {
+            success: true,
+            answer: normalizeSheikhaReply(streamed.answer, text, { greetingAllowed }),
+            raw: {
+              ...streamed,
+              route: 'SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1',
+              endpoint: STREAMING_CHAT_APEX_STREAM_ENDPOINT
+            }
+          };
+        }
+      } catch (streamError) {
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({
+            event: 'stream-fallback',
+            data: { error: streamError.message }
+          });
+        }
+      }
+    }
+
     let data = await postJson(CONVERSATION_ENDPOINT, payload, primaryBaseUrl);
 
     if (shouldUseUnifiedFallback(data) && !isLocalBaseUrl(primaryBaseUrl)) {
@@ -399,7 +634,11 @@ async function sendExtensionChat(message, options = {}) {
       const reason = data?.error || data?.message || `HTTP_${data?.statusCode || 'UNKNOWN'}`;
       return {
         success: true,
-        answer: normalizeSheikhaReply(buildLocalChatFallbackAnswer(text, reason), text),
+        answer: normalizeSheikhaReply(
+          buildLocalChatFallbackAnswer(text, reason),
+          text,
+          { greetingAllowed }
+        ),
         raw: {
           ...(data || {}),
           localConversationFallback: true,
@@ -410,7 +649,11 @@ async function sendExtensionChat(message, options = {}) {
 
     return {
       success: true,
-      answer: normalizeSheikhaReply(data.answer || data.reply || data.message || '', text),
+      answer: normalizeSheikhaReply(
+        data.answer || data.reply || data.message || '',
+        text,
+        { greetingAllowed }
+      ),
       raw: data
     };
   } catch (err) {
@@ -424,7 +667,11 @@ async function sendExtensionChat(message, options = {}) {
       if (fallback?.success === true) {
         return {
           success: true,
-          answer: normalizeSheikhaReply(fallback.answer || fallback.reply || fallback.message || '', text),
+          answer: normalizeSheikhaReply(
+            fallback.answer || fallback.reply || fallback.message || '',
+            text,
+            { greetingAllowed }
+          ),
           raw: { ...fallback, extensionFallback: true }
         };
       }
@@ -432,7 +679,11 @@ async function sendExtensionChat(message, options = {}) {
 
     return {
       success: true,
-      answer: normalizeSheikhaReply(buildLocalChatFallbackAnswer(text, err.message), text),
+      answer: normalizeSheikhaReply(
+        buildLocalChatFallbackAnswer(text, err.message),
+        text,
+        { greetingAllowed }
+      ),
       raw: { success: false, error: err.message, localConversationFallback: true }
     };
   }
@@ -451,10 +702,12 @@ module.exports = {
   TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT,
   STREAMING_CHAT_APEX_STATUS_ENDPOINT,
   STREAMING_CHAT_APEX_STREAM_ENDPOINT,
+  EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   UNIFIED_CHAT_FALLBACK_ENDPOINT,
   sendExtensionChat,
   postJson,
+  postSse,
   getJson,
   getEnterpriseInspectorStatus,
   getExtensionExperienceStatus,
@@ -464,7 +717,10 @@ module.exports = {
   getIdeApexStatus,
   getTechnicalCapabilityApexStatus,
   getStreamingChatApexStatus,
+  getExtensionStreamingArtifactApexStatus,
   buildLocalChatFallbackAnswer,
+  parseSseBuffer,
+  parseSseEvent,
   isLocalBaseUrl,
   isInspectorRequest,
   safeJsonParse,
