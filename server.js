@@ -2748,6 +2748,13 @@ try {
   console.warn('[sheikha-sharia-governance-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/knowledge-evidence-fabric/sheikha-knowledge-evidence-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-knowledge-evidence-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
