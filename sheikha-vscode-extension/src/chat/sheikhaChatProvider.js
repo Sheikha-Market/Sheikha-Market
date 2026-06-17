@@ -1,11 +1,20 @@
 'use strict';
 
 const vscode = require('vscode');
+
+function getNonce() {
+  const chars = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+  let nonce = '';
+  for (let i = 0; i < 32; i += 1) nonce += chars.charAt(Math.floor(Math.random() * chars.length));
+  return nonce;
+}
+
 const crypto = require('crypto');
 const {
   DEFAULT_BASE_URL,
   getChatInterfaceApexStatus,
   getDebuggingApexStatus,
+  getExtensionStreamingArtifactApexStatus,
   getExtensionExperienceStatus,
   getIdeApexStatus,
   getStreamingChatApexStatus,
@@ -13,6 +22,10 @@ const {
   getVitalChatApexStatus,
   sendExtensionChat
 } = require('../sheikhaExtensionChatClient');
+const {
+  createSafePreviewHtml,
+  extractHtmlArtifact
+} = require('../sheikhaArtifactPreview');
 
 class SheikhaChatProvider {
   constructor(context) {
@@ -20,6 +33,7 @@ class SheikhaChatProvider {
     this.views = new Set();
     this.conversationId = crypto.randomUUID();
     this.history = [];
+    this.artifactPanel = null;
   }
 
   resolveWebviewView(webviewView) {
@@ -71,6 +85,14 @@ class SheikhaChatProvider {
         streamingApex
       });
     }).catch(() => {});
+    getExtensionStreamingArtifactApexStatus({
+      baseUrl: DEFAULT_BASE_URL
+    }).then((extensionArtifactApex) => {
+      webviewView.webview.postMessage({
+        command: 'extensionArtifactApexStatus',
+        extensionArtifactApex
+      });
+    }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
       try {
@@ -92,11 +114,27 @@ class SheikhaChatProvider {
           text: 'شيخة تقرأ السياق والذاكرة وحالة المشروع...'
         });
 
+        let streamedTokens = 0;
+        const allowGreeting = this.history.length === 0;
+        webviewView.webview.postMessage({
+          command: 'streamStart',
+          text: 'شيخة بدأت البث المحكوم...'
+        });
+
         const result = await sendExtensionChat(text, {
           baseUrl: DEFAULT_BASE_URL,
           mode: msg.mode || 'smart',
           conversationId: this.conversationId,
-          history: this.history
+          history: this.history,
+          greetingAllowed: allowGreeting,
+          streaming: true,
+          onToken: (event) => {
+            streamedTokens += 1;
+            webviewView.webview.postMessage({
+              command: 'streamToken',
+              text: String(event.text || event.data?.text || '')
+            });
+          }
         });
 
         this.history.push(
@@ -105,22 +143,35 @@ class SheikhaChatProvider {
         );
         this.history = this.history.slice(-12);
 
-        webviewView.webview.postMessage({
-          command: 'reply',
-          text: result.answer || 'أنا شيخة.\n\nما الذي تحتاج إليه من مساعدة أو عون؟',
-          meta: {
-            provider: 'Sheikha',
-            model: 'شيخة',
-            route: result.raw?.endpoint || result.raw?.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
-            governance: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
-            mode: msg.mode || 'smart',
-            layers: (result.raw?.layerStack?.layers || []).map((layer) => ({
-              layer: layer.layer,
-              name: layer.name,
-              status: layer.status
-            }))
-          }
-        });
+        const meta = {
+          provider: 'Sheikha',
+          model: 'شيخة',
+          route: result.raw?.endpoint || result.raw?.route || 'SHEIKHA_CONVERSATION_ENGINE_V1',
+          governance: 'SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1',
+          mode: msg.mode || 'smart',
+          streaming: result.raw?.streaming === true,
+          layers: (result.raw?.layerStack?.layers || []).map((layer) => ({
+            layer: layer.layer,
+            name: layer.name,
+            status: layer.status
+          }))
+        };
+
+        if (streamedTokens > 0) {
+          webviewView.webview.postMessage({
+            command: 'streamDone',
+            text: result.answer || '',
+            meta
+          });
+        } else {
+          webviewView.webview.postMessage({
+            command: 'reply',
+            text: result.answer || 'أنا شيخة.\n\nما الذي تحتاج إليه من مساعدة أو عون؟',
+            meta
+          });
+        }
+
+        this.showArtifactPreview(result.answer);
       } catch (e) {
         webviewView.webview.postMessage({
           command: 'reply',
@@ -129,6 +180,29 @@ class SheikhaChatProvider {
         });
       }
     });
+  }
+
+  showArtifactPreview(answer) {
+    const artifact = extractHtmlArtifact(answer);
+    if (!artifact) return;
+
+    if (!this.artifactPanel) {
+      this.artifactPanel = vscode.window.createWebviewPanel(
+        'sheikhaArtifactPreview',
+        'Sheikha Live Preview',
+        vscode.ViewColumn.Beside,
+        {
+          enableScripts: false,
+          retainContextWhenHidden: true
+        }
+      );
+      this.artifactPanel.onDidDispose(() => {
+        this.artifactPanel = null;
+      });
+    }
+
+    this.artifactPanel.webview.html = createSafePreviewHtml(artifact.content);
+    this.artifactPanel.reveal(vscode.ViewColumn.Beside, true);
   }
 
   prefill(text, autoSend = true) {
@@ -142,9 +216,11 @@ class SheikhaChatProvider {
   }
 
   getHtml() {
+    const nonce = getNonce();
     return `<!DOCTYPE html>
 <html lang="ar" dir="rtl">
 <head>
+<meta http-equiv="Content-Security-Policy" content="default-src 'none'; img-src data: https:; style-src 'unsafe-inline'; script-src 'nonce-${nonce}';">
 <meta charset="UTF-8">
 <style>
 :root {
@@ -179,6 +255,7 @@ button:disabled { cursor:wait; opacity:.65; }
 .msg { background:var(--panel); border:1px solid var(--line); padding:11px; border-radius:7px; white-space:pre-wrap; overflow-wrap:anywhere; line-height:1.65; }
 .user { background:#142236; border-color:#42678d; }
 .typing { opacity:.78; border-style:dashed; color:#d9e5ef; }
+.streaming { border-color:#2f6a43; background:#0e2116; }
 .trace { direction:ltr; text-align:left; color:var(--muted); font-size:10px; border:1px solid #253240; background:#0a0f15; border-radius:6px; padding:6px 8px; }
 .composer { position:sticky; bottom:0; background:var(--bg); border-top:1px solid #1d2834; padding-top:8px; }
 textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; background:#0e141c; color:var(--text); border:1px solid #3a4857; resize:vertical; min-height:74px; line-height:1.6; }
@@ -193,10 +270,11 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 <div class="shell">
 <div class="header">
   <div class="header-main">
-    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.88</small></div>
+    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.89</small></div>
     <span class="status-pill" id="modeLabel">SMART</span>
   </div>
 <div class="apex" id="apex">
+  <b class="active">L23 Extension Streaming Artifact Apex</b>
   <b class="active">L21 Streaming Multilingual Chat Apex</b>
   <b class="active">L20 Technical Capability Apex</b>
   <b class="active">L19 IDE Apex</b>
@@ -259,7 +337,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 </div>
 </div>
 
-<script>
+<script nonce="${nonce}">
 const vscode = acquireVsCodeApi();
 const log = document.getElementById('log');
 const input = document.getElementById('input');
@@ -268,6 +346,7 @@ const clear = document.getElementById('clear');
 const modeLabel = document.getElementById('modeLabel');
 let mode = 'smart';
 let typingMessage = null;
+let streamingMessage = null;
 
 document.querySelectorAll('[data-mode]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -312,6 +391,13 @@ function clearTyping() {
   typingMessage = null;
 }
 
+function ensureStreamingMessage() {
+  if (!streamingMessage) {
+    streamingMessage = add('', 'streaming');
+  }
+  return streamingMessage;
+}
+
 function ask() {
   if (send.disabled) return;
   const text = input.value.trim();
@@ -341,8 +427,35 @@ window.addEventListener('message', event => {
     clearTyping();
     typingMessage = add(msg.text || 'شيخة تقرأ طلبك وتجهز جوابًا عمليًا...', 'typing');
   }
+  if (msg.command === 'streamStart') {
+    clearTyping();
+    streamingMessage = add('', 'streaming');
+  }
+  if (msg.command === 'streamToken') {
+    clearTyping();
+    const div = ensureStreamingMessage();
+    div.textContent += msg.text || '';
+    div.scrollIntoView({ behavior: 'smooth', block: 'end' });
+  }
+  if (msg.command === 'streamDone') {
+    clearTyping();
+    send.disabled = false;
+    const finalText = msg.text || '';
+    if (!streamingMessage) {
+      add(finalText);
+    } else if (finalText && streamingMessage.textContent.trim() !== finalText.trim()) {
+      streamingMessage.textContent = finalText;
+    }
+    if (streamingMessage) streamingMessage.classList.remove('streaming');
+    streamingMessage = null;
+    addTrace(msg.meta && msg.meta.layers);
+  }
   if (msg.command === 'reply') {
     clearTyping();
+    if (streamingMessage && !streamingMessage.textContent.trim()) {
+      streamingMessage.remove();
+    }
+    streamingMessage = null;
     send.disabled = false;
     add(msg.text || '');
     addTrace(msg.meta && msg.meta.layers);
@@ -355,17 +468,18 @@ window.addEventListener('message', event => {
   if (msg.command === 'experienceStatus' && msg.experience && msg.experience.success === true) {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
       (data.governedByApexLevel || 18) +
-      ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.88';
+      ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.89';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
     document.getElementById('apex').innerHTML = [
+      ['L23 Extension Streaming Artifact Apex', 'PENDING_STATUS'],
       ['L21 Streaming Multilingual Chat Apex', 'PENDING_STATUS'],
       ['L20 Technical Capability Apex', 'PENDING_STATUS'],
       ['L19 IDE Apex', 'PENDING_STATUS'],
@@ -384,15 +498,15 @@ window.addEventListener('message', event => {
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
     const template = data.template || {};
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
     if (Array.isArray(template.regions)) {
       document.getElementById('contextRail').innerHTML = template.regions
         .slice(0, 8)
@@ -403,8 +517,8 @@ window.addEventListener('message', event => {
   if (msg.command === 'ideApexStatus' && msg.ideApex && msg.ideApex.success === true) {
     const data = msg.ideApex.data || {};
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.88';
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
+      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
   }
   if (
     msg.command === 'technicalCapabilityStatus' &&
@@ -414,9 +528,9 @@ window.addEventListener('message', event => {
     const data = msg.technicalCapability.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · ' +
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · Extension 1.0.88';
+      ' · Extension 1.0.89';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
@@ -431,9 +545,26 @@ window.addEventListener('message', event => {
     const data = msg.streamingApex.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'L21 Streaming Multilingual Chat Apex · ' +
+      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · SSE · RTL/LTR · Extension 1.0.88';
+      ' · SSE · RTL/LTR · Extension 1.0.89';
+    if (order.length) {
+      document.getElementById('apex').innerHTML = order
+        .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
+        .join('');
+    }
+  }
+  if (
+    msg.command === 'extensionArtifactApexStatus' &&
+    msg.extensionArtifactApex &&
+    msg.extensionArtifactApex.success === true
+  ) {
+    const data = msg.extensionArtifactApex.data || {};
+    const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
+    document.getElementById('experience').textContent =
+      'L23 Extension Streaming Artifact Apex · ' +
+      (data.decision || data.status || 'ACTIVE') +
+      ' · SSE Client · Safe Preview · Extension 1.0.89';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
