@@ -555,10 +555,13 @@ async function sendExtensionChat(message, options = {}) {
   const text = String(message || '');
   const primaryBaseUrl = options.baseUrl || DEFAULT_BASE_URL;
   const smartRoute = decideSmartRoute(text, options.mode || 'smart');
-  const workspace = collectWorkspaceContext();
-  const vscodeTools = collectVSCodeToolContext();
+  const liveMode = options.streaming !== false;
   const diagnosticRequested = isInspectorRequest(text);
-  const inspectorSnapshot = diagnosticRequested
+
+  // Live path must not wait for workspace/tool/inspector collection.
+  const workspace = liveMode ? {} : collectWorkspaceContext();
+  const vscodeTools = liveMode ? {} : collectVSCodeToolContext();
+  const inspectorSnapshot = (!liveMode && diagnosticRequested)
     ? await getEnterpriseInspectorStatus({ baseUrl: primaryBaseUrl })
     : undefined;
 
@@ -581,6 +584,92 @@ async function sendExtensionChat(message, options = {}) {
   const greetingAllowed = options.greetingAllowed !== false;
 
   try {
+    if (options.streaming !== false) {
+      try {
+        const fastJson = await postJson(
+          `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`,
+          {
+            message: text,
+            mode: payload.mode,
+            actor: 'vscode-extension',
+            channel: 'extension-chat',
+            source: 'sheikha-vscode-extension',
+            transport: 'JSON_FAST_STREAM_LIVE_V2',
+            extensionStreaming: true,
+            __timeoutMs: Number(options.timeout || 3000)
+          },
+          primaryBaseUrl
+        );
+
+        const fastText = String(
+          fastJson?.token?.text ||
+          fastJson?.token ||
+          fastJson?.answer ||
+          fastJson?.reply ||
+          fastJson?.message ||
+          ''
+        );
+
+        if (fastJson?.success === true && fastText) {
+          if (typeof options.onEvent === 'function') {
+            options.onEvent({ event: 'ack', data: { success: true, accepted: true } });
+            options.onEvent({
+              event: 'meta',
+              data: {
+                ...(fastJson.meta || {}),
+                route: fastJson.meta?.route || 'json-fast-stream-live-v2',
+                live: true
+              }
+            });
+            options.onEvent({ event: 'token', data: { text: fastText } });
+            options.onEvent({ event: 'done', data: { success: true } });
+          }
+
+          if (typeof options.onToken === 'function') {
+            options.onToken({ event: 'token', data: { text: fastText }, text: fastText });
+          }
+
+          return {
+            success: true,
+            answer: normalizeSheikhaReply(fastText, text, { greetingAllowed }),
+            raw: {
+              ...fastJson,
+              route: 'SHEIKHA_STREAMING_CHAT_JSON_FASTPATH_LIVE_V2',
+              endpoint: `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`
+            }
+          };
+        }
+      } catch (fastJsonError) {
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({
+            event: 'json-fastpath-fallback',
+            data: { error: fastJsonError.message }
+          });
+        }
+
+        const liveFallback = buildLocalChatFallbackAnswer(text, fastJsonError.message);
+
+        if (typeof options.onToken === 'function') {
+          options.onToken({ event: 'token', data: { text: liveFallback }, text: liveFallback });
+        }
+
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({ event: 'done', data: { success: true, localLiveFallback: true } });
+        }
+
+        return {
+          success: true,
+          answer: normalizeSheikhaReply(liveFallback, text, { greetingAllowed }),
+          raw: {
+            success: true,
+            localLiveFallback: true,
+            error: fastJsonError.message,
+            route: 'SHEIKHA_EXTENSION_LOCAL_LIVE_FALLBACK_V2'
+          }
+        };
+      }
+    }
+
     // Sheikha extension fast transport: use the SSE route in JSON mode first.
     // This avoids hanging on raw SSE while preserving the server-side fast ack/meta/token/done contract.
     if (options.streaming !== false) {
