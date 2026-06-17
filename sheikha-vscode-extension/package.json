@@ -349,6 +349,21 @@
       {
         "command": "sheikha.registry.global",
         "title": "Sheikha: Open Global Registry Fabric"
+      },
+      {
+        "command": "sheikha.devtools.toggle",
+        "title": "Toggle Developer Tools",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.console.open",
+        "title": "Open Console",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.inspector.devtools",
+        "title": "Open Inspector Developer Tools",
+        "category": "Sheikha"
       }
     ],
     "keybindings": [
@@ -556,6 +571,15 @@
         },
         {
           "command": "sheikha.validateRootNeuralIntegration"
+        },
+        {
+          "command": "sheikha.devtools.toggle"
+        },
+        {
+          "command": "sheikha.console.open"
+        },
+        {
+          "command": "sheikha.inspector.devtools"
         }
       ]
     },
@@ -627,6 +651,7 @@
   },
   "activationEvents": [
     "onCommand:sheikha.openChat",
-    "*"
+    "*",
+    "onView:sheikha.chatview"
   ]
 }

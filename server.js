@@ -2610,6 +2610,13 @@ app.post('/api/sheikha/streaming-chat-apex/v1/stream', (req, res) => {
   });
 })();
 
+
+try {
+  app.use(require('./routes/developer-tools-apex/sheikha-developer-tools-apex-routes'));
+} catch (error) {
+  console.warn('[sheikha-developer-tools-apex] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));

@@ -99,6 +99,35 @@ context.subscriptions.push(
       await vscode.commands.executeCommand('workbench.view.extension.sheikha');
     })
   );
+  context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.openChat', async () => {
+      await vscode.commands.executeCommand('sheikha.chat.open');
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.devtools.toggle', async () => {
+      await vscode.commands.executeCommand('workbench.action.toggleDevTools');
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.console.open', async () => {
+      const terminal = vscode.window.createTerminal({ name: 'Sheikha Console' });
+      terminal.show();
+      terminal.sendText('cd ~/Projects/sheikha/sheikha-main-portal');
+      terminal.sendText('echo "Sheikha Console Ready"');
+      terminal.sendText('curl -s http://127.0.0.1:8080/api/sheikha/developer-tools-apex/v1/status | jq');
+    })
+  );
+
+  context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.inspector.devtools', async () => {
+      await vscode.commands.executeCommand('sheikha.console.open');
+      await vscode.commands.executeCommand('sheikha.devtools.toggle');
+    })
+  );
+
 }
 
 function deactivate() {}
