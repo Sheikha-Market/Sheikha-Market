@@ -140,10 +140,23 @@ function parseSseEvent(frame = '') {
 }
 
 function parseSseBuffer(buffer = '') {
-  const normalized = String(buffer || '').replace(/\r\n/g, '\n');
-  const parts = normalized.split('\n\n');
-  const rest = normalized.endsWith('\n\n') ? '' : parts.pop();
-  const events = parts
+  const normalized = String(buffer || '')
+    .replace(/\\n/g, '\n')
+    .replace(/\r\n/g, '\n')
+    .replace(/\r/g, '\n');
+
+  const delimiter = '\n\n';
+  const completeEnd = normalized.lastIndexOf(delimiter);
+
+  if (completeEnd === -1) {
+    return { events: [], rest: normalized };
+  }
+
+  const complete = normalized.slice(0, completeEnd);
+  const rest = normalized.slice(completeEnd + delimiter.length);
+  const frames = complete.split(delimiter).filter(Boolean);
+
+  const events = frames
     .map(parseSseEvent)
     .filter(Boolean);
 
