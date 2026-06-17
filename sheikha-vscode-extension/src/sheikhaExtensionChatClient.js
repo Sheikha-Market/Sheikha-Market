@@ -644,6 +644,25 @@ async function sendExtensionChat(message, options = {}) {
             data: { error: fastJsonError.message }
           });
         }
+
+        const liveFallback = buildLocalChatFallbackAnswer(text, fastJsonError.message);
+        if (typeof options.onToken === 'function') {
+          options.onToken({ event: 'token', data: { text: liveFallback }, text: liveFallback });
+        }
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({ event: 'done', data: { success: true, localLiveFallback: true } });
+        }
+
+        return {
+          success: true,
+          answer: normalizeSheikhaReply(liveFallback, text, { greetingAllowed }),
+          raw: {
+            success: true,
+            localLiveFallback: true,
+            error: fastJsonError.message,
+            route: 'SHEIKHA_EXTENSION_LOCAL_LIVE_FALLBACK_V1'
+          }
+        };
       }
     }
 
