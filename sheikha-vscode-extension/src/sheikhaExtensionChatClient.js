@@ -20,6 +20,8 @@ const IDE_APEX_STATUS_ENDPOINT = '/api/sheikha/ide-apex/v1/status';
 const TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT = '/api/sheikha/technical-capability-apex/v1/status';
 const STREAMING_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/status';
 const STREAMING_CHAT_APEX_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/stream';
+const AUTONOMOUS_CHAT_ENDPOINT = '/api/sheikha/chat/autonomous/v1';
+const AUTONOMOUS_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/autonomous';
 const EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT =
   '/api/sheikha/extension-streaming-artifact-apex/v1/status';
 const EXTENSION_TRANSPORT_VERSION = '1.0.89';
@@ -584,6 +586,82 @@ async function sendExtensionChat(message, options = {}) {
   const greetingAllowed = options.greetingAllowed !== false;
 
   try {
+    // SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1
+    // Primary deep governed path: Extension -> Autonomous Chat -> L35/L26 -> Model Router.
+    if (options.autonomous !== false) {
+      try {
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({
+            event: 'ack',
+            data: {
+              success: true,
+              route: 'SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1'
+            }
+          });
+        }
+
+        const autonomous = await postJson(
+          AUTONOMOUS_CHAT_ENDPOINT,
+          {
+            message: text,
+            mode: payload.mode || options.mode || 'smart',
+            actor: 'vscode-extension',
+            channel: 'extension-chat',
+            source: 'sheikha-vscode-extension',
+            transport: 'AUTONOMOUS_L35_JSON',
+            __timeoutMs: Number(options.timeout || 180000)
+          },
+          primaryBaseUrl
+        );
+
+        const answerText = String(
+          autonomous?.answer ||
+          autonomous?.result?.answer ||
+          autonomous?.message ||
+          ''
+        );
+
+        if (autonomous?.success === true && answerText) {
+          const meta = {
+            route: 'SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1',
+            backendRoute: autonomous.route,
+            status: autonomous?.result?.status,
+            model: autonomous?.result?.routed?.model,
+            agent: autonomous?.result?.plan?.agent,
+            apexLevel: autonomous?.result?.plan?.apexLevel || 35
+          };
+
+          if (typeof options.onEvent === 'function') {
+            options.onEvent({ event: 'meta', data: meta });
+            options.onEvent({ event: 'token', data: { text: answerText } });
+            options.onEvent({ event: 'done', data: { success: true } });
+          }
+
+          if (typeof options.onToken === 'function') {
+            options.onToken({ event: 'token', data: { text: answerText }, text: answerText });
+          }
+
+          return {
+            success: true,
+            answer: normalizeSheikhaReply(answerText, text, { greetingAllowed }),
+            raw: {
+              ...autonomous,
+              route: 'SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1',
+              endpoint: AUTONOMOUS_CHAT_ENDPOINT,
+              meta
+            }
+          };
+        }
+      } catch (autonomousError) {
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({
+            event: 'autonomous-l35-fallback',
+            data: { error: autonomousError.message }
+          });
+        }
+      }
+    }
+
     if (options.streaming !== false) {
       try {
         const fastJson = await postJson(
