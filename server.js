@@ -2755,6 +2755,13 @@ try {
   console.warn('[sheikha-knowledge-evidence-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/supreme-operating-fabric/sheikha-supreme-operating-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-supreme-operating-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
