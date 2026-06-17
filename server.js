@@ -2741,6 +2741,13 @@ try {
   });
 })();
 
+
+try {
+  app.use(require('./routes/sharia-governance-fabric/sheikha-sharia-governance-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-sharia-governance-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
