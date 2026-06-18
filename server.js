@@ -2943,6 +2943,13 @@ try {
   console.warn('[sheikha-industrial-ecosystem-fabric-v78] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/civilization-intelligence-fabric/sheikha-civilization-intelligence-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-civilization-intelligence-fabric-v79] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
