@@ -150,8 +150,16 @@ describe('Sheikha Enterprise Inspector V3', () => {
     const inspector = read('sheikha-vscode-extension/src/sheikhaInspectorProvider.js');
     const chat = read('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
     const client = read('sheikha-vscode-extension/src/sheikhaExtensionChatClient.js');
+    const extensionPackage = JSON.parse(read('sheikha-vscode-extension/package.json'));
 
     expect(activation).toContain('chatProvider.prefill(prompt, true)');
+    expect(activation).toContain("registerCommandOnce(context, 'sheikha.openChat'");
+    expect(activation).toContain("registerWebviewProviderSafe(\n      context,\n      'sheikha.chatView'");
+    expect(activation).not.toContain("'sheikha.advancedChatView'");
+    expect(activation).not.toContain("'sheikha.ai.advancedChat'");
+    expect(extensionPackage.activationEvents).toContain('onView:sheikha.chatView');
+    expect(extensionPackage.activationEvents).toContain('onView:sheikha.inspectorView');
+    expect(extensionPackage.activationEvents).not.toContain('onView:sheikha.chatview');
     expect(inspector).toContain('getEnterpriseInspectorStatus');
     expect(inspector).toContain('حلل في الشات');
     expect(chat).toContain("command: 'prefill'");

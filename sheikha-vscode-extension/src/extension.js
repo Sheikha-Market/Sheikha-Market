@@ -2,50 +2,77 @@
 
 const vscode = require('vscode');
 const { sendInspectorHeartbeat } = require('./sheikhaEnterpriseInspectorBridge');
-const { SheikhaInspectorProvider } = require('./sheikhaInspectorProvider');
 const { collectVsCodeAwareness } = require('./vscodeAwareness');
 const { collectUnifiedRegistry } = require('./sheikhaUnifiedRegistry');
 const { collectRegistryBroker } = require('./sheikhaRegistryBroker');
 const { collectGlobalRegistryFabric } = require('./sheikhaGlobalRegistryFabric');
-const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
+
+async function openSheikhaChatView() {
+  await vscode.commands.executeCommand('workbench.view.extension.sheikha');
+  try {
+    await vscode.commands.executeCommand('sheikha.chatView.focus');
+  } catch (_) {}
+}
+
+function registerCommandOnce(context, command, handler) {
+  context.subscriptions.push(vscode.commands.registerCommand(command, handler));
+}
+
+function registerWebviewProviderSafe(context, viewId, provider, options = {}) {
+  try {
+    context.subscriptions.push(
+      vscode.window.registerWebviewViewProvider(viewId, provider, options)
+    );
+    return true;
+  } catch (error) {
+    console.warn(`[Sheikha] Failed to register view ${viewId}:`, error.message);
+    return false;
+  }
+}
 
 function activate(context) {
+  registerCommandOnce(context, 'sheikha.chat.open', openSheikhaChatView);
+  registerCommandOnce(context, 'sheikha.openChat', openSheikhaChatView);
+
   const sheikhaInspectorHeartbeat = setInterval(() => {
     sendInspectorHeartbeat().catch(() => {});
   }, 15000);
   context.subscriptions.push({ dispose: () => clearInterval(sheikhaInspectorHeartbeat) });
   sendInspectorHeartbeat().catch(() => {});
 
-  const chatProvider = new SheikhaChatProvider(context);
-  const inspectorProvider = new SheikhaInspectorProvider(context, {
-    onAsk: async (prompt) => {
-      await vscode.commands.executeCommand('workbench.view.extension.sheikha');
-      await new Promise((resolve) => setTimeout(resolve, 150));
-      chatProvider.prefill(prompt, true);
-    }
-  });
+  let chatProvider = null;
+  try {
+    const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
+    const { SheikhaInspectorProvider } = require('./sheikhaInspectorProvider');
 
-  context.subscriptions.push(
-    vscode.window.registerWebviewViewProvider(
+    chatProvider = new SheikhaChatProvider(context);
+    const inspectorProvider = new SheikhaInspectorProvider(context, {
+      onAsk: async (prompt) => {
+        await openSheikhaChatView();
+        await new Promise((resolve) => setTimeout(resolve, 150));
+        chatProvider.prefill(prompt, true);
+      }
+    });
+
+    registerWebviewProviderSafe(
+      context,
       'sheikha.inspectorView',
       inspectorProvider,
       { webviewOptions: { retainContextWhenHidden: true } }
-    )
-  );
+    );
+
+    registerWebviewProviderSafe(
+      context,
+      'sheikha.chatView',
+      chatProvider,
+      { webviewOptions: { retainContextWhenHidden: true } }
+    );
+  } catch (error) {
+    console.error('[Sheikha] Chat/Inspector provider activation failed:', error);
+    vscode.window.showErrorMessage(`Sheikha chat failed to activate: ${error.message}`);
+  }
 
   console.log('Sheikha extension activated');
-
-  const chatViewIds = [
-    'sheikha.chatView',
-    'sheikha.advancedChatView',
-    'sheikha.ai.advancedChat'
-  ];
-
-  for (const viewId of chatViewIds) {
-    context.subscriptions.push(
-      vscode.window.registerWebviewViewProvider(viewId, chatProvider)
-    );
-  }
 
   context.subscriptions.push(
     vscode.commands.registerCommand('sheikha.awareness.scan', async () => {
@@ -91,17 +118,6 @@ context.subscriptions.push(
         language: 'json'
       });
       await vscode.window.showTextDocument(doc);
-    })
-  );
-
-context.subscriptions.push(
-    vscode.commands.registerCommand('sheikha.chat.open', async () => {
-      await vscode.commands.executeCommand('workbench.view.extension.sheikha');
-    })
-  );
-  context.subscriptions.push(
-    vscode.commands.registerCommand('sheikha.openChat', async () => {
-      await vscode.commands.executeCommand('sheikha.chat.open');
     })
   );
 

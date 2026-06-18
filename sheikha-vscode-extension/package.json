@@ -651,7 +651,9 @@
   },
   "activationEvents": [
     "onCommand:sheikha.openChat",
+    "onCommand:sheikha.chat.open",
     "*",
-    "onView:sheikha.chatview"
+    "onView:sheikha.chatView",
+    "onView:sheikha.inspectorView"
   ]
 }
