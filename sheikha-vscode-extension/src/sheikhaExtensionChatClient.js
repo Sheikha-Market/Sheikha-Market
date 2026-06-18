@@ -553,6 +553,34 @@ function buildLocalChatFallbackAnswer(message, reason = '') {
   ].filter(Boolean).join('\n');
 }
 
+
+function dedupeSheikhaAnswer(text) {
+  const raw = String(text || '').replace(/\r\n/g, '\n').trim();
+  if (!raw) return raw;
+
+  const lines = raw.split('\n').map(x => x.trim()).filter(Boolean);
+  const seen = new Set();
+  const out = [];
+
+  for (const line of lines) {
+    const key = line
+      .replace(/[.،,:؛!؟\s]+$/g, '')
+      .replace(/\s+/g, ' ')
+      .toLowerCase();
+
+    if (seen.has(key)) continue;
+    seen.add(key);
+    out.push(line);
+  }
+
+  let finalText = out.join('\n');
+
+  finalText = finalText.replace(/^(أنا شيخة\.\s*){2,}/g, 'أنا شيخة.\n');
+  finalText = finalText.replace(/(بسم الله الرحمن الرحيم\s*){2,}/g, 'بسم الله الرحمن الرحيم\n');
+
+  return finalText.trim();
+}
+
 async function sendExtensionChat(message, options = {}) {
   const text = String(message || '');
   const primaryBaseUrl = options.baseUrl || DEFAULT_BASE_URL;
@@ -633,12 +661,12 @@ async function sendExtensionChat(message, options = {}) {
 
           if (typeof options.onEvent === 'function') {
             options.onEvent({ event: 'meta', data: meta });
-            options.onEvent({ event: 'token', data: { text: answerText } });
+            options.onEvent({ event: 'token', data: { text: dedupeSheikhaAnswer(answerText) } });
             options.onEvent({ event: 'done', data: { success: true } });
           }
 
           if (typeof options.onToken === 'function') {
-            options.onToken({ event: 'token', data: { text: answerText }, text: answerText });
+            options.onToken({ event: 'token', data: { text: dedupeSheikhaAnswer(answerText) }, text: dedupeSheikhaAnswer(answerText) });
           }
 
           const fullAnswerText = String(
@@ -652,7 +680,7 @@ async function sendExtensionChat(message, options = {}) {
 
           return {
             success: true,
-            answer: fullAnswerText,
+            answer: dedupeSheikhaAnswer(fullAnswerText),
             raw: {
               ...autonomous,
               route: 'SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1',
