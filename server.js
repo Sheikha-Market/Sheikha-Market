@@ -2950,6 +2950,13 @@ try {
   console.warn('[sheikha-civilization-intelligence-fabric-v79] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/unified-apex-fabric/sheikha-unified-apex-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-unified-apex-fabric-v80] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
