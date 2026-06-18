@@ -2971,6 +2971,13 @@ try {
   console.warn('[sheikha-universal-runtime-fabric-v82] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/meta-knowledge-fabric/sheikha-meta-knowledge-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-meta-knowledge-fabric-v83] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
