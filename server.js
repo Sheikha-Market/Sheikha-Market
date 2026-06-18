@@ -2985,6 +2985,13 @@ try {
   console.warn('[sheikha-sovereign-intelligence-fabric-v84] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/global-coordination-fabric/sheikha-global-coordination-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-global-coordination-fabric-v85] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
