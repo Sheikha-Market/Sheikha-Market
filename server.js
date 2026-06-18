@@ -2908,6 +2908,13 @@ try {
   console.warn('[sheikha-human-model-fabric-v73] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/self-healing-fabric/sheikha-self-healing-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-self-healing-fabric-v74] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
