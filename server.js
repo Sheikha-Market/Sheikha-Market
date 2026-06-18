@@ -2873,6 +2873,13 @@ try {
   console.warn('[sheikha-unified-scientific-knowledge-graph-v68] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/industrial-cluster-fabric/sheikha-industrial-cluster-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-industrial-cluster-fabric-v69] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
