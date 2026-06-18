@@ -2887,6 +2887,13 @@ try {
   console.warn('[sheikha-civilization-operating-system-v70] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/quality-safety-fabric/sheikha-quality-safety-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-quality-safety-fabric-v71] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
