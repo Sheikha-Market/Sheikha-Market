@@ -2769,6 +2769,13 @@ try {
   console.warn('[sheikha-live-realtime-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/exponential-accounting-engine/sheikha-exponential-accounting-engine-routes'));
+} catch (error) {
+  console.warn('[sheikha-exponential-accounting-engine] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
