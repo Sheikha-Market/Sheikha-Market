@@ -2915,6 +2915,13 @@ try {
   console.warn('[sheikha-self-healing-fabric-v74] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/global-orchestrator-fabric/sheikha-global-orchestrator-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-global-orchestrator-fabric-v75] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
