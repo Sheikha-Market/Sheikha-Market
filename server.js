@@ -2845,6 +2845,13 @@ try {
   console.warn('[sheikha-digital-twin-fabric-v64] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/industrial-cognitive-factory-fabric/sheikha-industrial-cognitive-factory-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-industrial-cognitive-factory-fabric-v65] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
