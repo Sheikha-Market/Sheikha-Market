@@ -2922,6 +2922,13 @@ try {
   console.warn('[sheikha-global-orchestrator-fabric-v75] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/knowledge-universe-graph/sheikha-knowledge-universe-graph-routes'));
+} catch (error) {
+  console.warn('[sheikha-knowledge-universe-graph-v76] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
