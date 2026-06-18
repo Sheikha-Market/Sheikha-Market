@@ -2901,6 +2901,13 @@ try {
   console.warn('[sheikha-research-innovation-fabric-v72] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/human-model-fabric/sheikha-human-model-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-human-model-fabric-v73] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
