@@ -2999,6 +2999,13 @@ try {
   console.warn('[sheikha-strategic-execution-fabric-v86] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/autonomous-improvement-fabric/sheikha-autonomous-improvement-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-autonomous-improvement-fabric-v87] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
