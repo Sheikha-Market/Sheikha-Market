@@ -2818,6 +2818,12 @@ try {
   console.warn('[sheikha-exponential-civilization-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/universal-civilization-fabric/sheikha-universal-civilization-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-universal-civilization-fabric] route mount skipped:', error.message);
+}
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
