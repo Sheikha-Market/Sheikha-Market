@@ -2866,6 +2866,13 @@ try {
   console.warn('[sheikha-earth-digital-twin-fabric-v67] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/unified-scientific-knowledge-graph/sheikha-unified-scientific-knowledge-graph-routes'));
+} catch (error) {
+  console.warn('[sheikha-unified-scientific-knowledge-graph-v68] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
