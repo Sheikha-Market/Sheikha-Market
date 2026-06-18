@@ -2797,6 +2797,13 @@ try {
   console.warn('[sheikha-industrial-material-lifecycle-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/ai-supply-chain-living-production/sheikha-ai-supply-chain-living-production-routes'));
+} catch (error) {
+  console.warn('[sheikha-ai-supply-chain-living-production] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
