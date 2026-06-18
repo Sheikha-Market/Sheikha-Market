@@ -21,11 +21,11 @@ const profiles = profilesData.profiles;
 // إضافة Unknown المُصنّفة
 for (const profile of profiles) {
   const jami = profile.jami_suggested;
-  
+
   if (jami === 'blocked' || jami === 'unknown') {
     continue; // لا نضيفها
   }
-  
+
   if (finalJawami[jami]) {
     // تأكد من عدم التكرار
     if (!finalJawami[jami].includes(profile.file)) {
@@ -46,7 +46,7 @@ const l2Engines = [];
 for (const profile of profiles) {
   if (profile.jami_suggested === 'blocked' || profile.jami_suggested === 'unknown') continue;
   if (l0Engines.includes(profile.file)) continue;
-  
+
   if (profile.risk === 'high' || profile.risk === 'medium') {
     l1Engines.push(profile.file);
   } else {
@@ -65,7 +65,7 @@ const finalClassification = {
     version: "1.0.0",
     finalized: new Date().toISOString()
   },
-  
+
   jawami: {
     tawheed_niyyah: {
       name_ar: "جامع التوحيد والنية",
@@ -103,7 +103,7 @@ const finalClassification = {
       engines: finalJawami.bayan_tawthiq.sort()
     }
   },
-  
+
   tiers: {
     l0_critical: {
       description: "المحركات الحرجة - تُحمّل عند startup فقط",
@@ -126,7 +126,7 @@ const finalClassification = {
       engines: blockedEngines.sort()
     }
   },
-  
+
   summary: {
     total_engines: 117,
     classified: allClassified.length,

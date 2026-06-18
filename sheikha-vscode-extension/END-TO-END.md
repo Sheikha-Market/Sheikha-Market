@@ -385,8 +385,8 @@ See [DEVELOPMENT.md](DEVELOPMENT.md) for detailed guide.
 
 This extension is part of the Sheikha ecosystem — the first Islamic digital economic system for metals and scrap trading, built on principles of the Quran and Sunnah.
 
-**Creator:** Salman Ahmad Bin Salman Al-Rajhi  
-**Version:** 1.0.0  
+**Creator:** Salman Ahmad Bin Salman Al-Rajhi
+**Version:** 1.0.0
 **Released:** March 16, 2026
 
 ---
@@ -472,12 +472,12 @@ This extension is part of the Sheikha ecosystem — the first Islamic digital ec
 
 **Made with ❤️ for the Islamic ecosystem**
 
-**بسم الله الرحمن الرحيم**  
-*"في سبيل نشر العلم وتطوير تقنيات إسلامية آمنة وشرعية"*  
+**بسم الله الرحمن الرحيم**
+*"في سبيل نشر العلم وتطوير تقنيات إسلامية آمنة وشرعية"*
 *(In pursuit of knowledge and developing safe, Sharia-compliant technologies)*
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** March 16, 2026  
+**Version:** 1.0.0
+**Last Updated:** March 16, 2026
 **Status:** ✅ Production Ready

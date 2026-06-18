@@ -5,22 +5,22 @@ function activate(context) {
         vscode.window.registerWebviewViewProvider('phpAiChatSidebar', {
             resolveWebviewView(webviewView) {
                 webviewView.webview.options = { enableScripts: true };
-                
+
                 webviewView.webview.html = `
                     <!DOCTYPE html>
                     <html>
                     <head>
                         <style>
                             * { margin: 0; padding: 0; box-sizing: border-box; }
-                            body { 
-                                padding: 10px; 
+                            body {
+                                padding: 10px;
                                 color: var(--vscode-foreground);
                                 font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
                             }
                             h3 { margin-bottom: 10px; color: #4af; }
-                            #chat-box { 
-                                height: 300px; 
-                                overflow-y: auto; 
+                            #chat-box {
+                                height: 300px;
+                                overflow-y: auto;
                                 background: #111;
                                 border: 1px solid #333;
                                 padding: 8px;
@@ -66,9 +66,9 @@ function activate(context) {
                             .user-msg { background: #1a3a3a; color: #4af; }
                             .ai-msg { background: #2a2a2a; color: #81c784; }
                             .error-msg { background: #3a1a1a; color: #ff6b6b; }
-                            pre { 
-                                background: #222; 
-                                padding: 6px; 
+                            pre {
+                                background: #222;
+                                padding: 6px;
                                 border-radius: 3px;
                                 overflow-x: auto;
                                 font-size: 11px;
@@ -92,38 +92,38 @@ function activate(context) {
                             const chatBox = document.getElementById('chat-box');
                             const userInput = document.getElementById('user-input');
                             const sendBtn = document.getElementById('send-btn');
-                            
+
                             sendBtn.addEventListener('click', sendMessage);
                             userInput.addEventListener('keypress', (e) => e.key === 'Enter' && sendMessage());
-                            
+
                             async function sendMessage() {
                                 const text = userInput.value.trim();
                                 if (!text) return;
-                                
+
                                 const userMsg = document.createElement('div');
                                 userMsg.className = 'msg user-msg';
                                 userMsg.textContent = '👤 أنت: ' + text;
                                 chatBox.appendChild(userMsg);
                                 userInput.value = '';
                                 chatBox.scrollTop = chatBox.scrollHeight;
-                                
+
                                 const loadingMsg = document.createElement('div');
                                 loadingMsg.className = 'msg loading';
                                 loadingMsg.textContent = '⏳ جاري المعالجة...';
                                 chatBox.appendChild(loadingMsg);
-                                
+
                                 try {
                                     const res = await fetch('http://localhost:8000/v1/chat', {
                                         method: 'POST',
-                                        headers: { 
+                                        headers: {
                                             'Content-Type': 'application/json',
                                             'X-AI-Engine-Key': 'sk_live_php_hyper_engine_secret_key_2026_prod'
                                         },
                                         body: JSON.stringify({ question: text })
                                     });
-                                    
+
                                     chatBox.removeChild(loadingMsg);
-                                    
+
                                     if (!res.ok) {
                                         const errorMsg = document.createElement('div');
                                         errorMsg.className = 'msg error-msg';
@@ -143,13 +143,13 @@ function activate(context) {
                                     errorMsg.innerHTML = '❌ خطأ في الاتصال:<br><pre>' + error.message + '</pre>';
                                     chatBox.appendChild(errorMsg);
                                 }
-                                
+
                                 chatBox.scrollTop = chatBox.scrollHeight;
                             }
                         </script>
                     </body>
                     </html>`;
-                
+
                 webviewView.webview.onDidReceiveMessage(async (data) => {
                     if (data.command === 'ask_ai') {
                         try {

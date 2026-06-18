@@ -1,9 +1,27 @@
 'use strict';
 
-function normalizeSheikhaReply(text, originalMessage = '') {
+function removeRepeatedGreeting(text) {
+  let s = String(text || '').trimStart();
+  let previous = '';
+
+  while (s && s !== previous) {
+    previous = s;
+    s = s.replace(/^\s*(?:بسم الله الرحمن الرحيم)[\s.،:;-]*/i, '');
+    s = s.replace(/^\s*(?:أنا\s+شيخة\.?)[\s.،:;-]*/i, '');
+    s = s.replace(
+      /^\s*(?:ما الذي تحتاج إليه من مساعدة أو عون\??)[\s.،:;-]*/i,
+      ''
+    );
+  }
+
+  return s.trimStart();
+}
+
+function normalizeSheikhaReply(text, originalMessage = '', options = {}) {
   let s = String(text || '');
   const msg = String(originalMessage || '');
   const isCode = /كود|برمج|اصلح|fix|code|test|error|patch|debug|debugging|دبق|ديبق|ديبنق|دبنق/i.test(msg);
+  const greetingAllowed = options.greetingAllowed !== false;
 
   s = s.replace(/أنا Sheikha-Core[^.\n]*(?:\.|\n)?/g, 'أنا شيخة.\n');
   s = s.replace(/Sheikha-Core/g, 'شيخة');
@@ -41,7 +59,41 @@ function normalizeSheikhaReply(text, originalMessage = '') {
     return 'بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\nما الذي تحتاج إليه من مساعدة أو عون؟';
   }
 
+  if (!greetingAllowed) {
+    const withoutGreeting = removeRepeatedGreeting(s);
+    if (withoutGreeting.length >= 8) {
+      return withoutGreeting.trim();
+    }
+  }
+
   return s.trim();
 }
 
-module.exports = { normalizeSheikhaReply };
+module.exports = { normalizeSheikhaReply, removeRepeatedGreeting };
+
+
+function normalizeActionFirstReply(reply = '', options = {}) {
+  const text = String(reply || '').trim();
+  const policy = options.actionFirstPolicy || {};
+  const living = options.livingConversation || {};
+
+  const genericPatterns = [
+    /^بسم الله الرحمن الرحيم\s*/u,
+    /^أنا شيخة[.\s\n]*/u,
+    /ما الذي تحتاج إليه من مساعدة أو عون[؟?]*/u
+  ];
+
+  let cleaned = text;
+  for (const pattern of genericPatterns) {
+    cleaned = cleaned.replace(pattern, '').trim();
+  }
+
+  if (!cleaned && living.reply) cleaned = living.reply;
+  if (policy.opening && cleaned && !cleaned.includes(policy.opening)) {
+    cleaned = `${policy.opening}\n\n${cleaned}`;
+  }
+
+  return cleaned || living.reply || policy.opening || 'تم فهم الطلب. سأبدأ بالعمل مباشرة.';
+}
+
+module.exports.normalizeActionFirstReply = normalizeActionFirstReply;

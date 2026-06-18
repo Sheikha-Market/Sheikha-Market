@@ -11,12 +11,12 @@
 
 ## 📋 معلومات المستند
 
-**المالك الوحيد:** سلمان أحمد بن سلمان الراجح  
-**المنظمة:** منظومة شيخة (SHEIKHA)  
-**البريد:** market@sheikha.top  
-**الدومين:** sheikha.top  
-**التاريخ:** 10 مارس 2026 / 10 رمضان 1447  
-**الإصدار:** 1.0.0  
+**المالك الوحيد:** سلمان أحمد بن سلمان الراجح
+**المنظمة:** منظومة شيخة (SHEIKHA)
+**البريد:** market@sheikha.top
+**الدومين:** sheikha.top
+**التاريخ:** 10 مارس 2026 / 10 رمضان 1447
+**الإصدار:** 1.0.0
 **الحالة:** تصميم أساسي
 
 ---
@@ -50,7 +50,7 @@
   - Infrastructure: Borg/Kubernetes
   - Data: Bigtable, Spanner, MapReduce
   - AI: TensorFlow, TPU, Gemini
-  
+
 المبادئ الأساسية:
   - Distributed Systems
   - Microservices Architecture
@@ -75,7 +75,7 @@
   - AI: Azure AI, Copilot, OpenAI Partnership
   - Enterprise: Active Directory, Office 365
   - Development: .NET, Visual Studio, GitHub
-  
+
 المبادئ الأساسية:
   - Enterprise Integration
   - Hybrid Cloud Model
@@ -100,7 +100,7 @@
   - E-commerce: Amazon Marketplace
   - AI: SageMaker, Bedrock
   - Infrastructure: Global CDN, Route 53
-  
+
 المبادئ الأساسية:
   - Scalability at Massive Scale
   - Pay-as-you-go Model
@@ -125,7 +125,7 @@
   - Infrastructure: TAO, Memcache
   - Messaging: WhatsApp E2E Encryption
   - AI: PyTorch, Llama
-  
+
 المبادئ الأساسية:
   - Social Graph Architecture
   - Real-time Messaging
@@ -150,7 +150,7 @@
   - OS: iOS, macOS, watchOS
   - Services: App Store, iCloud, Apple Pay
   - Privacy: On-device Processing
-  
+
 المبادئ الأساسية:
   - Privacy by Design
   - Hardware-Software Integration
@@ -175,7 +175,7 @@
   - Cloud: IBM Cloud, Red Hat OpenShift
   - AI: Watson, Granite Models
   - Blockchain: Hyperledger Fabric
-  
+
 المبادئ الأساسية:
   - Enterprise Reliability
   - Open Source Leadership
@@ -200,7 +200,7 @@
   - Cloud: Oracle Cloud Infrastructure
   - ERP: Oracle E-Business Suite, NetSuite
   - Java: Java Platform
-  
+
 المبادئ الأساسية:
   - ACID Compliance
   - Enterprise Data Management
@@ -225,7 +225,7 @@
   - Analytics: SAP Analytics Cloud
   - Database: SAP HANA (In-Memory)
   - Integration: SAP BTP
-  
+
 المبادئ الأساسية:
   - Enterprise Resource Planning
   - Real-time Analytics
@@ -250,7 +250,7 @@
   - Platform: Salesforce Platform, Heroku
   - AI: Einstein AI
   - Integration: MuleSoft
-  
+
 المبادئ الأساسية:
   - Customer Relationship Management
   - Multi-tenancy Architecture
@@ -275,7 +275,7 @@
   - Cloud: Aliyun
   - Payment: Alipay
   - Logistics: Cainiao
-  
+
 المبادئ الأساسية:
   - E-commerce at Scale
   - Global Marketplace
@@ -816,7 +816,7 @@ helm install sheikha-app ./charts/sheikha
 // مثال: API شرعي
 app.post('/api/islamic/validate-transaction', async (req, res) => {
   const { transaction } = req.body;
-  
+
   // 1. فحص الربا
   const ribaCheck = await shariahEngine.checkRiba(transaction);
   if (!ribaCheck.compliant) {
@@ -826,7 +826,7 @@ app.post('/api/islamic/validate-transaction', async (req, res) => {
       fatwa: ribaCheck.fatwa_reference
     });
   }
-  
+
   // 2. فحص الغرر
   const ghararCheck = await shariahEngine.checkGharar(transaction);
   if (ghararCheck.level === 'high') {
@@ -835,10 +835,10 @@ app.post('/api/islamic/validate-transaction', async (req, res) => {
       evidence: ghararCheck.evidence
     });
   }
-  
+
   // 3. التحقق من وضوح الشروط
   const clarityCheck = await shariahEngine.checkClarity(transaction);
-  
+
   // 4. توليد العقد الذكي
   const contract = await blockchainService.generateContract({
     ...transaction,
@@ -846,14 +846,14 @@ app.post('/api/islamic/validate-transaction', async (req, res) => {
     timestamp: new Date(),
     hash: crypto.createHash('sha256').update(JSON.stringify(transaction)).digest('hex')
   });
-  
+
   // 5. المراجعة بالذكاء الاصطناعي
   const aiReview = await unifiedAI.reviewContract(contract, {
     platforms: ['chatgpt', 'claude', 'gemini'],
     language: 'ar',
     madhab: 'hanbali' // أو shafi'i, maliki, hanafi
   });
-  
+
   res.json({
     valid: true,
     shariah_compliant: true,
@@ -872,27 +872,27 @@ Testing Strategy:
     - Coverage: >90%
     - Framework: Jest, Mocha, PyTest
     - Focus: Business logic + Shariah rules
-  
+
   Integration Tests:
     - APIs integration
     - Database transactions
     - External services (Google, Azure, AWS)
-  
+
   End-to-End Tests:
     - Cypress for Web
     - Appium for Mobile
     - Full user journeys
-  
+
   Load Tests:
     - k6, JMeter, Gatling
     - Simulate 1M concurrent users
     - Identify bottlenecks
-  
+
   Security Tests:
     - OWASP Top 10
     - Penetration testing
     - Vulnerability scanning (Nessus, Qualys)
-  
+
   Shariah Compliance Tests:
     - Mock transactions
     - Edge cases (شبهات)
@@ -906,18 +906,18 @@ Launch Strategy:
     - 100 مختبر بيتا
     - جمع feedback
     - إصلاح الأخطاء الحرجة
-  
+
   Phase 2 - Limited Launch (Week 3-4):
     - 1,000 مستخدم مبكر
     - 10 شركات رائدة
     - حملة تسويقية محدودة
-  
+
   Phase 3 - Public Launch (Week 5-8):
     - فتح التسجيل للجميع
     - حملة إعلامية كبرى
     - مؤتمر صحفي
     - شراكات استراتيجية
-  
+
   Phase 4 - Scale (Week 9-12):
     - توسع إقليمي (الخليج)
     - إضافة ميزات جديدة
@@ -932,7 +932,7 @@ Launch Strategy:
 1. **عمولة على المعاملات:** 1.5% (أقل من المنافسين)
    - موزعة: 0.7% تشغيل، 0.5% تطوير، 0.3% بركة اجتماعية
 
-2. **اشتراكات الشركات:** 
+2. **اشتراكات الشركات:**
    - Basic: 500 ريال/شهر (50 منتج، دعم أساسي)
    - Professional: 2,000 ريال/شهر (500 منتج، دعم متقدم)
    - Enterprise: 10,000 ريال/شهر (unlimited، API access، مدير حساب)
@@ -1200,7 +1200,7 @@ Launch Strategy:
 
 ### النقاط الرئيسية
 
-1. **الرؤية:** 
+1. **الرؤية:**
    - معمارية تقنية عالمية موحدة مبنية على الكتاب والسنة
    - التكامل مع كل الأنظمة التقنية العالمية
 
@@ -1228,23 +1228,23 @@ Launch Strategy:
 
 ## 📝 التوقيع
 
-**المالك والمؤسس:**  
+**المالك والمؤسس:**
 سلمان أحمد بن سلمان الراجح
 
-**التاريخ:**  
+**التاريخ:**
 10 مارس 2026 / 10 رمضان 1447
 
-**الختم:**  
-منظومة شيخة — SHEIKHA Marketplace  
-أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب  
+**الختم:**
+منظومة شيخة — SHEIKHA Marketplace
+أول منظومة اقتصادية إسلامية رقمية للمعادن والسكراب
 sheikha.top | market@sheikha.top
 
-**الدعاء:**  
+**الدعاء:**
 **"اللهم بارك لنا في هذا العمل، واجعله خالصاً لوجهك الكريم، نافعاً للمسلمين، وحجة لنا لا علينا يوم القيامة. ربنا تقبل منا إنك أنت السميع العليم."**
 
 ---
 
-**والحمد لله رب العالمين**  
+**والحمد لله رب العالمين**
 **وصلى الله على نبينا محمد وعلى آله وصحبه أجمعين**
 
 </div>

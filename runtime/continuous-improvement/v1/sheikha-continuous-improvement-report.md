@@ -13,8 +13,8 @@
 ```
 
 ## الفحوص الفاشلة
-- 🔍 Code Quality	fail	31s	https://github.com/Sheikha-Market/sheikha-main-portal/actions/runs/26955709892/job/79532237628	
-- 🛡️ Security Audit	fail	1m49s	https://github.com/Sheikha-Market/sheikha-main-portal/actions/runs/26955709892/job/79532237662	
+- 🔍 Code Quality	fail	31s	https://github.com/Sheikha-Market/sheikha-main-portal/actions/runs/26955709892/job/79532237628
+- 🛡️ Security Audit	fail	1m49s	https://github.com/Sheikha-Market/sheikha-main-portal/actions/runs/26955709892/job/79532237662
 
 ## السياسات المولدة
 ### POL-CI-001 — No merge while PR is unstable

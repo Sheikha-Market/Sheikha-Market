@@ -134,23 +134,23 @@ const SheikhaCore = (function() {
         set(name, value, days = 365, options = {}) {
             const date = new Date();
             date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
-            
+
             let cookie = `${CONFIG.cookiePrefix}${name}=${encodeURIComponent(JSON.stringify(value))}`;
             cookie += `; expires=${date.toUTCString()}`;
             cookie += `; path=${options.path || '/'}`;
             cookie += `; SameSite=${options.sameSite || 'Lax'}`;
-            
+
             if (options.secure || location.protocol === 'https:') {
                 cookie += '; Secure';
             }
-            
+
             document.cookie = cookie;
         },
 
         get(name) {
             const fullName = CONFIG.cookiePrefix + name;
             const cookies = document.cookie.split(';');
-            
+
             for (let cookie of cookies) {
                 cookie = cookie.trim();
                 if (cookie.startsWith(fullName + '=')) {
@@ -187,9 +187,9 @@ const SheikhaCore = (function() {
         isLoggedIn() {
             const token = localStorage.getItem('sheikha_token');
             const user = localStorage.getItem('sheikha_user');
-            
+
             if (!token || !user) return false;
-            
+
             // التحقق من صلاحية التوكن
             try {
                 const payload = JSON.parse(atob(token.split('.')[1]));
@@ -226,20 +226,20 @@ const SheikhaCore = (function() {
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ email, password })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     localStorage.setItem('sheikha_token', data.token);
                     localStorage.setItem('sheikha_user', JSON.stringify(data.user));
                     Cookies.set('session', { loggedIn: true, userId: data.user.id }, 1);
-                    
+
                     // تسجيل الدخول في التحليلات
                     Analytics.track('login', { method: 'email', userId: data.user.id });
-                    
+
                     return { success: true, user: data.user };
                 }
-                
+
                 return { success: false, error: data.error || 'فشل تسجيل الدخول' };
             } catch (error) {
                 return { success: false, error: 'خطأ في الاتصال' };
@@ -252,24 +252,24 @@ const SheikhaCore = (function() {
             if (!providerConfig || !providerConfig.enabled) {
                 return { success: false, error: 'مزود غير متاح' };
             }
-            
+
             // فتح نافذة OAuth
             const width = 500, height = 600;
             const left = (screen.width - width) / 2;
             const top = (screen.height - height) / 2;
-            
+
             const authWindow = window.open(
                 `${CONFIG.apiBase}/auth/oauth/${provider}`,
                 `${provider}_auth`,
                 `width=${width},height=${height},left=${left},top=${top}`
             );
-            
+
             return new Promise((resolve) => {
                 window.addEventListener('message', function handler(event) {
                     if (event.data.type === 'oauth_callback') {
                         window.removeEventListener('message', handler);
                         authWindow.close();
-                        
+
                         if (event.data.success) {
                             localStorage.setItem('sheikha_token', event.data.token);
                             localStorage.setItem('sheikha_user', JSON.stringify(event.data.user));
@@ -305,14 +305,14 @@ const SheikhaCore = (function() {
                         consentDate: new Date().toISOString()
                     })
                 });
-                
+
                 const data = await response.json();
-                
+
                 if (data.success) {
                     Analytics.track('register', { type: userData.type });
                     return { success: true, message: data.message };
                 }
-                
+
                 return { success: false, error: data.error };
             } catch (error) {
                 return { success: false, error: 'خطأ في الاتصال' };
@@ -327,7 +327,7 @@ const SheikhaCore = (function() {
         init() {
             const currentPath = window.location.pathname;
             const decodedPath = decodeURIComponent(currentPath);
-            
+
             // التحقق من صلاحية الوصول للصفحات المحمية
             if (this.isProtectedPage(decodedPath) && !Auth.isLoggedIn()) {
                 // حفظ الصفحة المطلوبة للعودة إليها بعد تسجيل الدخول
@@ -335,22 +335,22 @@ const SheikhaCore = (function() {
                 this.showLoginRequired();
                 return false;
             }
-            
+
             // التحقق من صفحات التجار
             if (this.isTraderPage(decodedPath) && !Auth.hasRole('trader')) {
                 this.showTraderRequired();
                 return false;
             }
-            
+
             // التحقق من صفحات المشرفين
             if (this.isAdminPage(decodedPath) && !Auth.hasRole('admin')) {
                 window.location.href = '/لوحة-التحكم.html';
                 return false;
             }
-            
+
             // تحديث واجهة المستخدم حسب حالة تسجيل الدخول
             this.updateUI();
-            
+
             return true;
         },
 
@@ -412,21 +412,21 @@ const SheikhaCore = (function() {
         updateUI() {
             const isLoggedIn = Auth.isLoggedIn();
             const user = Auth.getUser();
-            
+
             // تحديث أزرار التنقل
             document.querySelectorAll('[data-auth="logged-in"]').forEach(el => {
                 el.style.display = isLoggedIn ? '' : 'none';
             });
-            
+
             document.querySelectorAll('[data-auth="logged-out"]').forEach(el => {
                 el.style.display = isLoggedIn ? 'none' : '';
             });
-            
+
             // عرض اسم المستخدم
             document.querySelectorAll('[data-user="name"]').forEach(el => {
                 el.textContent = user?.name || '';
             });
-            
+
             document.querySelectorAll('[data-user="email"]').forEach(el => {
                 el.textContent = user?.email || '';
             });
@@ -452,7 +452,7 @@ const SheikhaCore = (function() {
     // ═══════════════════════════════════════════════════════════════════════════
     const Analytics = {
         queue: [],
-        
+
         init() {
             // تتبع زيارة الصفحة
             this.track('pageview', {
@@ -460,10 +460,10 @@ const SheikhaCore = (function() {
                 referrer: document.referrer,
                 userAgent: navigator.userAgent
             });
-            
+
             // إرسال البيانات المجمعة كل 30 ثانية
             setInterval(() => this.flush(), 30000);
-            
+
             // إرسال عند مغادرة الصفحة
             window.addEventListener('beforeunload', () => this.flush());
         },
@@ -489,10 +489,10 @@ const SheikhaCore = (function() {
 
         async flush() {
             if (this.queue.length === 0) return;
-            
+
             const events = [...this.queue];
             this.queue = [];
-            
+
             try {
                 await fetch(`${CONFIG.apiBase}/analytics/events`, {
                     method: 'POST',
@@ -637,7 +637,7 @@ const SheikhaCore = (function() {
                         <div class="consent-icon">🍪</div>
                         <div class="consent-text">
                             <h4>سياسة الخصوصية والكوكيز</h4>
-                            <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك. باستخدامك للموقع، فإنك توافق على 
+                            <p>نستخدم ملفات تعريف الارتباط لتحسين تجربتك. باستخدامك للموقع، فإنك توافق على
                             <a href="/اللوائح-والقوانين-والاجراءات.html">سياسة الخصوصية</a> و
                             <a href="/اللوائح-والقوانين-والاجراءات.html#terms">الشروط والأحكام</a>.</p>
                         </div>
@@ -649,7 +649,7 @@ const SheikhaCore = (function() {
                     </div>
                 </div>
             `;
-            
+
             // إضافة الأنماط
             const style = document.createElement('style');
             style.textContent = `
@@ -731,7 +731,7 @@ const SheikhaCore = (function() {
                     }
                 }
             `;
-            
+
             document.head.appendChild(style);
             document.body.appendChild(banner);
         },
@@ -813,16 +813,16 @@ const SheikhaCore = (function() {
     function onReady() {
         // تهيئة التحكم بالصفحات
         PageController.init();
-        
+
         // تهيئة التحليلات
         Analytics.init();
-        
+
         // عرض بانر الموافقة
         ConsentBanner.show();
-        
+
         // تتبع زيارات الصفحات
         trackPageVisit();
-        
+
         console.log('🏛️ منظومة شيخة الأساسية - تم التهيئة بنجاح');
     }
 

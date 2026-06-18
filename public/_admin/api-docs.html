@@ -31,7 +31,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -356,7 +356,7 @@
             <!-- Server APIs -->
             <section class="section" id="server">
                 <h2 class="section-title">🖥️ Server APIs</h2>
-                
+
                 <div class="endpoint" onclick="toggleEndpoint(this)">
                     <div class="endpoint-header">
                         <span class="endpoint-method method-get">GET</span>
@@ -441,7 +441,7 @@
             <!-- Health APIs -->
             <section class="section" id="health">
                 <h2 class="section-title">❤️ Health Checks</h2>
-                
+
                 <div class="endpoint" onclick="toggleEndpoint(this)">
                     <div class="endpoint-header">
                         <span class="endpoint-method method-get">GET</span>
@@ -492,7 +492,7 @@
             <!-- Auth APIs -->
             <section class="section" id="auth">
                 <h2 class="section-title">🔐 Authentication APIs</h2>
-                
+
                 <div class="endpoint" onclick="toggleEndpoint(this)">
                     <div class="endpoint-header">
                         <span class="endpoint-method method-post">POST</span>
@@ -560,7 +560,7 @@
             <!-- Market APIs -->
             <section class="section" id="market">
                 <h2 class="section-title">🛒 Market APIs</h2>
-                
+
                 <div class="endpoint" onclick="toggleEndpoint(this)">
                     <div class="endpoint-header">
                         <span class="endpoint-method method-get">GET</span>
@@ -591,7 +591,7 @@
             <!-- Prices APIs -->
             <section class="section" id="prices">
                 <h2 class="section-title">💰 Prices APIs</h2>
-                
+
                 <div class="endpoint" onclick="toggleEndpoint(this)">
                     <div class="endpoint-header">
                         <span class="endpoint-method method-get">GET</span>
@@ -609,7 +609,7 @@
             <!-- AI APIs -->
             <section class="section" id="ai">
                 <h2 class="section-title">🤖 AI APIs</h2>
-                
+
                 <div class="endpoint" onclick="toggleEndpoint(this)">
                     <div class="endpoint-header">
                         <span class="endpoint-method method-get">GET</span>
@@ -667,11 +667,11 @@
             const display = btn.nextElementSibling;
             display.classList.add('show');
             display.innerHTML = '<div style="color: var(--text-muted); padding: 12px;">جاري التحميل...</div>';
-            
+
             try {
                 const res = await fetch(API + endpoint);
                 const data = await res.json();
-                
+
                 display.innerHTML = `
                     <div class="response-header">
                         <span class="response-status status-200">${res.status} OK</span>

@@ -23,14 +23,14 @@
             --saudi-green-500: #006c35;
             --logistics-blue: #3b82f6;
         }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
         }
-        
+
         /* Header */
         .header {
             position: fixed;
@@ -43,7 +43,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-secondary);
         }
-        
+
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -51,14 +51,14 @@
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .logo-link {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
-        
+
         .logo-mark {
             width: 44px;
             height: 44px;
@@ -71,20 +71,20 @@
             font-weight: 900;
             color: #000;
         }
-        
+
         .logo-text {
             font-size: 1.25rem;
             font-weight: 800;
             color: var(--sheikha-gold-500);
         }
-        
+
         .nav-links {
             display: flex;
             align-items: center;
             gap: 4px;
             list-style: none;
         }
-        
+
         .nav-link {
             padding: 8px 16px;
             color: var(--text-secondary);
@@ -94,17 +94,17 @@
             border-radius: 8px;
             transition: all 0.2s;
         }
-        
+
         .nav-link:hover, .nav-link.active {
             color: var(--sheikha-gold-500);
             background: rgba(212,175,55,0.1);
         }
-        
+
         .header-actions {
             display: flex;
             gap: 12px;
         }
-        
+
         .btn-header {
             padding: 10px 20px;
             font-size: 0.875rem;
@@ -113,30 +113,30 @@
             text-decoration: none;
             transition: all 0.2s;
         }
-        
+
         .btn-outline {
             color: var(--text-secondary);
             border: 1px solid var(--border-primary);
             background: transparent;
         }
-        
+
         .btn-gold {
             background: linear-gradient(135deg, var(--sheikha-gold-500), #b8942f);
             color: #000;
         }
-        
+
         /* Main */
         .main-content {
             padding-top: 80px;
         }
-        
+
         /* Hero */
         .hero {
             padding: 80px 24px 60px;
             text-align: center;
             position: relative;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -144,24 +144,24 @@
             left: 0;
             right: 0;
             height: 400px;
-            background: 
+            background:
                 radial-gradient(ellipse at 50% 0%, rgba(59,130,246,0.15) 0%, transparent 50%);
             pointer-events: none;
         }
-        
+
         .hero h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 20px;
             position: relative;
         }
-        
+
         .hero h1 span {
             background: linear-gradient(135deg, var(--logistics-blue), var(--sheikha-gold-500));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .hero p {
             font-size: 1.2rem;
             color: var(--text-secondary);
@@ -169,44 +169,44 @@
             margin: 0 auto;
             line-height: 1.9;
         }
-        
+
         /* Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 24px;
         }
-        
+
         /* Services Section */
         .services-section {
             padding: 60px 0;
         }
-        
+
         .section-header {
             text-align: center;
             margin-bottom: 60px;
         }
-        
+
         .section-title {
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 16px;
         }
-        
+
         .section-description {
             font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         /* Services Grid */
         .services-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
-        
+
         .service-card {
             background: var(--bg-elevated);
             border: 1px solid var(--border-secondary);
@@ -216,7 +216,7 @@
             position: relative;
             overflow: hidden;
         }
-        
+
         .service-card::before {
             content: '';
             position: absolute;
@@ -228,17 +228,17 @@
             opacity: 0;
             transition: opacity 0.3s;
         }
-        
+
         .service-card:hover {
             transform: translateY(-8px);
             border-color: var(--logistics-blue);
             box-shadow: 0 30px 60px rgba(0,0,0,0.3);
         }
-        
+
         .service-card:hover::before {
             opacity: 1;
         }
-        
+
         .service-icon {
             width: 72px;
             height: 72px;
@@ -250,24 +250,24 @@
             font-size: 2rem;
             margin-bottom: 24px;
         }
-        
+
         .service-title {
             font-size: 1.35rem;
             font-weight: 700;
             margin-bottom: 12px;
         }
-        
+
         .service-description {
             font-size: 0.95rem;
             color: var(--text-secondary);
             line-height: 1.7;
             margin-bottom: 20px;
         }
-        
+
         .service-features {
             list-style: none;
         }
-        
+
         .service-features li {
             display: flex;
             align-items: center;
@@ -277,11 +277,11 @@
             color: var(--text-secondary);
             border-bottom: 1px solid var(--border-secondary);
         }
-        
+
         .service-features li:last-child {
             border-bottom: none;
         }
-        
+
         .service-features li::before {
             content: '✓';
             width: 20px;
@@ -294,7 +294,7 @@
             font-size: 0.7rem;
             color: #fff;
         }
-        
+
         /* Tracking Section */
         .tracking-section {
             padding: 80px 0;
@@ -302,13 +302,13 @@
             border-radius: 32px;
             margin: 60px 0;
         }
-        
+
         .tracking-container {
             max-width: 800px;
             margin: 0 auto;
             padding: 0 24px;
         }
-        
+
         .tracking-box {
             background: var(--bg-elevated);
             border: 2px solid var(--border-secondary);
@@ -316,7 +316,7 @@
             padding: 40px;
             text-align: center;
         }
-        
+
         .tracking-icon {
             width: 80px;
             height: 80px;
@@ -328,25 +328,25 @@
             justify-content: center;
             font-size: 2.5rem;
         }
-        
+
         .tracking-title {
             font-size: 1.5rem;
             font-weight: 700;
             margin-bottom: 12px;
         }
-        
+
         .tracking-description {
             color: var(--text-secondary);
             margin-bottom: 32px;
         }
-        
+
         .tracking-form {
             display: flex;
             gap: 12px;
             max-width: 500px;
             margin: 0 auto;
         }
-        
+
         .tracking-input {
             flex: 1;
             padding: 16px 20px;
@@ -357,12 +357,12 @@
             font-size: 1rem;
             font-family: inherit;
         }
-        
+
         .tracking-input:focus {
             outline: none;
             border-color: var(--logistics-blue);
         }
-        
+
         .tracking-btn {
             padding: 16px 32px;
             background: var(--logistics-blue);
@@ -374,23 +374,23 @@
             cursor: pointer;
             transition: all 0.2s;
         }
-        
+
         .tracking-btn:hover {
             background: #2563eb;
             transform: scale(1.02);
         }
-        
+
         /* Fleet Section */
         .fleet-section {
             padding: 60px 0;
         }
-        
+
         .fleet-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
             gap: 20px;
         }
-        
+
         .fleet-card {
             background: var(--bg-elevated);
             border: 1px solid var(--border-secondary);
@@ -399,29 +399,29 @@
             text-align: center;
             transition: all 0.3s;
         }
-        
+
         .fleet-card:hover {
             border-color: var(--logistics-blue);
             transform: translateY(-4px);
         }
-        
+
         .fleet-icon {
             font-size: 3rem;
             margin-bottom: 16px;
         }
-        
+
         .fleet-name {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
-        
+
         .fleet-capacity {
             font-size: 0.85rem;
             color: var(--text-muted);
             margin-bottom: 12px;
         }
-        
+
         .fleet-badge {
             display: inline-block;
             padding: 4px 12px;
@@ -430,18 +430,18 @@
             font-size: 0.75rem;
             color: var(--logistics-blue);
         }
-        
+
         /* Coverage Map */
         .coverage-section {
             padding: 60px 0;
         }
-        
+
         .coverage-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
-        
+
         .coverage-card {
             background: var(--bg-elevated);
             border: 1px solid var(--border-secondary);
@@ -449,30 +449,30 @@
             padding: 32px;
             text-align: center;
         }
-        
+
         .coverage-icon {
             font-size: 2.5rem;
             margin-bottom: 16px;
         }
-        
+
         .coverage-title {
             font-size: 1.25rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
-        
+
         .coverage-cities {
             color: var(--text-secondary);
             font-size: 0.9rem;
             line-height: 1.7;
         }
-        
+
         /* CTA */
         .cta-section {
             padding: 80px 0;
             text-align: center;
         }
-        
+
         .cta-box {
             background: linear-gradient(135deg, var(--logistics-blue), #1d4ed8);
             border-radius: 32px;
@@ -480,26 +480,26 @@
             max-width: 800px;
             margin: 0 auto;
         }
-        
+
         .cta-title {
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 16px;
         }
-        
+
         .cta-description {
             font-size: 1.1rem;
             opacity: 0.9;
             margin-bottom: 32px;
         }
-        
+
         .cta-buttons {
             display: flex;
             justify-content: center;
             gap: 16px;
             flex-wrap: wrap;
         }
-        
+
         .cta-btn {
             padding: 16px 32px;
             border-radius: 12px;
@@ -508,22 +508,22 @@
             text-decoration: none;
             transition: all 0.2s;
         }
-        
+
         .cta-btn-primary {
             background: #fff;
             color: var(--logistics-blue);
         }
-        
+
         .cta-btn-secondary {
             background: rgba(255,255,255,0.15);
             color: #fff;
             border: 1px solid rgba(255,255,255,0.3);
         }
-        
+
         .cta-btn:hover {
             transform: scale(1.05);
         }
-        
+
         /* Stats */
         .stats-bar {
             display: flex;
@@ -534,23 +534,23 @@
             border-bottom: 1px solid var(--border-secondary);
             margin: 40px 0;
         }
-        
+
         .stat-item {
             text-align: center;
         }
-        
+
         .stat-value {
             font-size: 2.5rem;
             font-weight: 900;
             color: var(--logistics-blue);
         }
-        
+
         .stat-label {
             font-size: 0.9rem;
             color: var(--text-muted);
             margin-top: 4px;
         }
-        
+
         /* Footer */
         .footer {
             padding: 60px 24px 30px;
@@ -558,19 +558,19 @@
             border-top: 1px solid var(--border-secondary);
             text-align: center;
         }
-        
+
         .footer-text {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         /* Responsive */
         @media (max-width: 1024px) {
             .services-grid { grid-template-columns: repeat(2, 1fr); }
             .fleet-grid { grid-template-columns: repeat(2, 1fr); }
             .coverage-grid { grid-template-columns: repeat(2, 1fr); }
         }
-        
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .services-grid { grid-template-columns: 1fr; }
@@ -590,7 +590,7 @@
                 <div class="logo-mark">ش</div>
                 <span class="logo-text">شيخة</span>
             </a>
-            
+
             <ul class="nav-links">
                 <li><a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a></li>
                 <li><a href="سوق-شيخة.html" class="nav-link">السوق</a></li>
@@ -598,14 +598,14 @@
                 <li><a href="نظام-اللوجستيات-الذكي.html" class="nav-link active">اللوجستيات</a></li>
                 <li><a href="لوحة-التحكم-الذكية.html" class="nav-link">لوحة التحكم</a></li>
             </ul>
-            
+
             <div class="header-actions">
                 <a href="تسجيل-الدخول.html" class="btn-header btn-outline">دخول</a>
                 <a href="تسجيل-ناقل.html" class="btn-header btn-gold">سجل كناقل</a>
             </div>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="main-content">
         <!-- Hero -->
@@ -616,7 +616,7 @@
                 تتبع فوري، تخزين آمن، وتوصيل موثوق في جميع أنحاء المملكة.
             </p>
         </section>
-        
+
         <div class="container">
             <!-- Stats -->
             <div class="stats-bar">
@@ -637,7 +637,7 @@
                     <div class="stat-label">معدل التسليم</div>
                 </div>
             </div>
-            
+
             <!-- Services -->
             <section class="services-section">
                 <div class="section-header">
@@ -646,7 +646,7 @@
                         حلول شاملة للنقل والتخزين والتوصيل بأعلى معايير الجودة والأمان
                     </p>
                 </div>
-                
+
                 <div class="services-grid">
                     <!-- Shipping -->
                     <div class="service-card">
@@ -662,7 +662,7 @@
                             <li>تتبع GPS على مدار الساعة</li>
                         </ul>
                     </div>
-                    
+
                     <!-- Storage -->
                     <div class="service-card">
                         <div class="service-icon">🏭</div>
@@ -677,7 +677,7 @@
                             <li>كاميرات مراقبة متقدمة</li>
                         </ul>
                     </div>
-                    
+
                     <!-- Customs -->
                     <div class="service-card">
                         <div class="service-icon">📋</div>
@@ -692,7 +692,7 @@
                             <li>متابعة الشحنات</li>
                         </ul>
                     </div>
-                    
+
                     <!-- Risk Management (حماية وتوثيق) -->
                     <div class="service-card">
                         <div class="service-icon">🛡️</div>
@@ -707,7 +707,7 @@
                             <li>إجراءات حماية ضد العبث والسرقة</li>
                         </ul>
                     </div>
-                    
+
                     <!-- Express -->
                     <div class="service-card">
                         <div class="service-icon">⚡</div>
@@ -722,7 +722,7 @@
                             <li>ضمان التوصيل</li>
                         </ul>
                     </div>
-                    
+
                     <!-- International -->
                     <div class="service-card">
                         <div class="service-icon">🌍</div>
@@ -739,7 +739,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Tracking -->
             <section class="tracking-section">
                 <div class="tracking-container">
@@ -756,7 +756,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Fleet -->
             <section class="fleet-section">
                 <div class="section-header">
@@ -765,7 +765,7 @@
                         شاحنات متخصصة لكل نوع من أنواع الحمولات المعدنية
                     </p>
                 </div>
-                
+
                 <div class="fleet-grid">
                     <div class="fleet-card">
                         <div class="fleet-icon">🚛</div>
@@ -773,21 +773,21 @@
                         <p class="fleet-capacity">حمولة: 30 طن</p>
                         <span class="fleet-badge">للمعادن الثقيلة</span>
                     </div>
-                    
+
                     <div class="fleet-card">
                         <div class="fleet-icon">📦</div>
                         <h3 class="fleet-name">شاحنة مغلقة</h3>
                         <p class="fleet-capacity">حمولة: 20 طن</p>
                         <span class="fleet-badge">للحماية من الطقس</span>
                     </div>
-                    
+
                     <div class="fleet-card">
                         <div class="fleet-icon">⬆️</div>
                         <h3 class="fleet-name">شاحنة قلاب</h3>
                         <p class="fleet-capacity">حمولة: 25 طن</p>
                         <span class="fleet-badge">للسكراب</span>
                     </div>
-                    
+
                     <div class="fleet-card">
                         <div class="fleet-icon">🔒</div>
                         <h3 class="fleet-name">شاحنة مصفحة</h3>
@@ -796,7 +796,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Coverage -->
             <section class="coverage-section">
                 <div class="section-header">
@@ -805,20 +805,20 @@
                         تغطية شاملة لجميع مناطق المملكة العربية السعودية
                     </p>
                 </div>
-                
+
                 <div class="coverage-grid">
                     <div class="coverage-card">
                         <div class="coverage-icon">🏙️</div>
                         <h3 class="coverage-title">المنطقة الوسطى</h3>
                         <p class="coverage-cities">الرياض، القصيم، حائل</p>
                     </div>
-                    
+
                     <div class="coverage-card">
                         <div class="coverage-icon">🌊</div>
                         <h3 class="coverage-title">المنطقة الغربية</h3>
                         <p class="coverage-cities">جدة، مكة، المدينة، الطائف</p>
                     </div>
-                    
+
                     <div class="coverage-card">
                         <div class="coverage-icon">🏭</div>
                         <h3 class="coverage-title">المنطقة الشرقية</h3>
@@ -826,7 +826,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- CTA -->
             <section class="cta-section">
                 <div class="cta-box">
@@ -842,7 +842,7 @@
             </section>
         </div>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <p class="footer-text">© 2026 شيخة. جميع الحقوق محفوظة. ☪️ ملتزمون بالشريعة الإسلامية</p>

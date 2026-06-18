@@ -56,11 +56,11 @@ if curl -s http://localhost:8080 > /dev/null; then
     echo "║                                                              ║"
     echo "╚══════════════════════════════════════════════════════════════╝"
     echo ""
-    
+
     # فتح المتصفح
     echo "🌐 فتح المتصفح..."
     open http://localhost:8080
-    
+
     # انتظار إنهاء الخادم
     wait $SERVER_PID
 else

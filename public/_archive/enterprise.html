@@ -22,7 +22,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; }
-        
+
         .header {
             background: linear-gradient(135deg, var(--card), var(--darker));
             padding: 40px 20px;
@@ -32,9 +32,9 @@
         .header h1 { font-size: 2.2rem; margin-bottom: 10px; }
         .header h1 span { color: var(--gold); }
         .header p { color: var(--text-muted); max-width: 700px; margin: 0 auto; }
-        
+
         .container { max-width: 1400px; margin: 0 auto; padding: 30px 20px; }
-        
+
         .project-types {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -57,9 +57,9 @@
         .project-features { list-style: none; }
         .project-features li { padding: 6px 0; font-size: 0.85rem; color: var(--text-muted); display: flex; align-items: center; gap: 8px; }
         .project-features li::before { content: '✓'; color: var(--success); }
-        
+
         .section-title { font-size: 1.5rem; font-weight: 800; margin-bottom: 24px; display: flex; align-items: center; gap: 12px; }
-        
+
         .supply-chain {
             background: var(--card);
             border: 1px solid var(--border);
@@ -92,7 +92,7 @@
         }
         .chain-node.active .chain-icon { box-shadow: 0 0 20px rgba(212,175,55,0.5); }
         .chain-arrow { font-size: 2rem; color: var(--gold); }
-        
+
         .management-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
@@ -115,7 +115,7 @@
         }
         .mgmt-header h3 { font-size: 1.1rem; }
         .mgmt-body { padding: 20px; }
-        
+
         .stat-row {
             display: flex;
             justify-content: space-between;
@@ -125,7 +125,7 @@
         .stat-row:last-child { border-bottom: none; }
         .stat-label { color: var(--text-muted); }
         .stat-value { font-weight: 700; color: var(--gold); }
-        
+
         .btn {
             padding: 12px 24px;
             border: none;
@@ -142,7 +142,7 @@
         .btn-gold:hover { transform: translateY(-2px); }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         .automation-section {
             background: var(--card);
             border: 1px solid var(--border);
@@ -165,7 +165,7 @@
         .auto-icon { font-size: 2.5rem; margin-bottom: 12px; }
         .auto-title { font-weight: 700; margin-bottom: 6px; }
         .auto-desc { font-size: 0.85rem; color: var(--text-muted); }
-        
+
         .tender-section {
             background: linear-gradient(135deg, rgba(212,175,55,0.05), rgba(10,92,54,0.05));
             border: 1px solid var(--gold);
@@ -190,7 +190,7 @@
             gap: 6px;
         }
         .tender-badge.ready { border-color: var(--success); color: var(--success); }
-        
+
         .quick-start {
             text-align: center;
             padding: 40px 20px;
@@ -443,7 +443,7 @@
         function selectProject(type) {
             document.querySelectorAll('.project-card').forEach(c => c.classList.remove('active'));
             event.currentTarget.classList.add('active');
-            
+
             // Update chain based on project type
             const chains = {
                 'mine': ['المنجم', 'التكسير', 'الفرز', 'النقل', 'المصهر', 'المشتري'],
@@ -453,7 +453,7 @@
                 'warehouse': ['الاستلام', 'الفحص', 'التخزين', 'الفرز', 'التجهيز', 'الشحن'],
                 'contractor': ['التخطيط', 'التوريد', 'التنفيذ', 'المراقبة', 'التسليم', 'الصيانة']
             };
-            
+
             console.log('Selected project:', type);
         }
     </script>

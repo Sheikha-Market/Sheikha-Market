@@ -58,9 +58,9 @@ function activate(context) {
     })
   );
 
-  
-  
-  
+
+
+
   context.subscriptions.push(
     vscode.commands.registerCommand('sheikha.registry.global', async () => {
       const data = await collectGlobalRegistryFabric();

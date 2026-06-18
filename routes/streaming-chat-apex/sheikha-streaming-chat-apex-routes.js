@@ -5,7 +5,7 @@ const router = express.Router();
 
 const ROUTE = '/api/sheikha/streaming-chat-apex/v1';
 
-function sse(res, event, data) {
+function sseFrame(res, event, data) {
   res.write(`event: ${event}\n`);
   res.write(`data: ${JSON.stringify(data)}\n\n`);
 }
@@ -93,13 +93,19 @@ router.post('/stream', (req, res) => {
 
   if (typeof res.flushHeaders === 'function') res.flushHeaders();
 
-  sse(res, 'ack', {
+  sseFrame(res, 'ack', {
     ok: true,
     received: true,
     ts: payload.ts
   });
 
-  sse(res, 'meta', {
+  sseFrame(res, 'heartbeat', {
+    ok: true,
+    live: true,
+    ts: new Date().toISOString()
+  });
+
+  sseFrame(res, 'meta', {
     route: 'streaming-chat-apex',
     mode: payload.mode,
     channel: payload.channel,
@@ -108,11 +114,11 @@ router.post('/stream', (req, res) => {
     principle: 'لا ضرر ولا ضرار'
   });
 
-  sse(res, 'token', {
+  sseFrame(res, 'token', {
     text: fastToken(payload.message)
   });
 
-  sse(res, 'done', {
+  sseFrame(res, 'done', {
     ok: true,
     backgroundEngineStarted: true
   });

@@ -22,14 +22,14 @@
             --sheikha-gold-500: #d4af37;
             --saudi-green-500: #006c35;
         }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--bg-primary);
             color: var(--text-primary);
             min-height: 100vh;
         }
-        
+
         /* Header */
         .header {
             position: fixed;
@@ -42,7 +42,7 @@
             backdrop-filter: blur(20px);
             border-bottom: 1px solid var(--border-secondary);
         }
-        
+
         .header-container {
             max-width: 1400px;
             margin: 0 auto;
@@ -50,14 +50,14 @@
             align-items: center;
             justify-content: space-between;
         }
-        
+
         .logo-link {
             display: flex;
             align-items: center;
             gap: 12px;
             text-decoration: none;
         }
-        
+
         .logo-mark {
             width: 44px;
             height: 44px;
@@ -70,20 +70,20 @@
             font-weight: 900;
             color: #000;
         }
-        
+
         .logo-text {
             font-size: 1.25rem;
             font-weight: 800;
             color: var(--sheikha-gold-500);
         }
-        
+
         .nav-links {
             display: flex;
             align-items: center;
             gap: 4px;
             list-style: none;
         }
-        
+
         .nav-link {
             padding: 8px 16px;
             color: var(--text-secondary);
@@ -93,17 +93,17 @@
             border-radius: 8px;
             transition: all 0.2s;
         }
-        
+
         .nav-link:hover, .nav-link.active {
             color: var(--sheikha-gold-500);
             background: rgba(212,175,55,0.1);
         }
-        
+
         .header-actions {
             display: flex;
             gap: 12px;
         }
-        
+
         .btn-header {
             padding: 10px 20px;
             font-size: 0.875rem;
@@ -112,30 +112,30 @@
             text-decoration: none;
             transition: all 0.2s;
         }
-        
+
         .btn-outline {
             color: var(--text-secondary);
             border: 1px solid var(--border-primary);
             background: transparent;
         }
-        
+
         .btn-gold {
             background: linear-gradient(135deg, var(--sheikha-gold-500), #b8942f);
             color: #000;
         }
-        
+
         /* Main */
         .main-content {
             padding-top: 80px;
         }
-        
+
         /* Hero */
         .hero {
             padding: 80px 24px 60px;
             text-align: center;
             position: relative;
         }
-        
+
         .hero::before {
             content: '';
             position: absolute;
@@ -143,25 +143,25 @@
             left: 0;
             right: 0;
             height: 400px;
-            background: 
+            background:
                 radial-gradient(ellipse at 30% 0%, rgba(0,108,53,0.15) 0%, transparent 50%),
                 radial-gradient(ellipse at 70% 0%, rgba(212,175,55,0.1) 0%, transparent 50%);
             pointer-events: none;
         }
-        
+
         .hero h1 {
             font-size: clamp(2rem, 5vw, 3.5rem);
             font-weight: 800;
             margin-bottom: 20px;
             position: relative;
         }
-        
+
         .hero h1 span {
             background: linear-gradient(135deg, var(--sheikha-gold-500), var(--saudi-green-500));
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
         }
-        
+
         .hero p {
             font-size: 1.2rem;
             color: var(--text-secondary);
@@ -169,19 +169,19 @@
             margin: 0 auto;
             line-height: 1.9;
         }
-        
+
         /* Container */
         .container {
             max-width: 1400px;
             margin: 0 auto;
             padding: 0 24px;
         }
-        
+
         /* Supply Chain Flow */
         .chain-section {
             padding: 60px 0;
         }
-        
+
         .chain-flow {
             display: flex;
             align-items: center;
@@ -193,7 +193,7 @@
             background: var(--bg-secondary);
             border-radius: 24px;
         }
-        
+
         .chain-stage {
             display: flex;
             flex-direction: column;
@@ -207,17 +207,17 @@
             cursor: pointer;
             transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
         }
-        
+
         .chain-stage:hover, .chain-stage.active {
             border-color: var(--sheikha-gold-500);
             transform: translateY(-8px);
             box-shadow: 0 20px 40px rgba(0,0,0,0.3), 0 0 30px rgba(212,175,55,0.15);
         }
-        
+
         .chain-stage.active {
             background: linear-gradient(145deg, var(--bg-elevated), rgba(212,175,55,0.05));
         }
-        
+
         .stage-icon {
             width: 60px;
             height: 60px;
@@ -228,11 +228,11 @@
             justify-content: center;
             font-size: 1.75rem;
         }
-        
+
         .chain-stage.active .stage-icon {
             background: var(--sheikha-gold-500);
         }
-        
+
         .stage-number {
             font-size: 0.7rem;
             font-weight: 700;
@@ -240,38 +240,38 @@
             text-transform: uppercase;
             letter-spacing: 0.1em;
         }
-        
+
         .stage-name {
             font-size: 1rem;
             font-weight: 700;
             color: var(--text-primary);
         }
-        
+
         .chain-arrow {
             font-size: 1.5rem;
             color: var(--sheikha-gold-500);
         }
-        
+
         /* Stage Details */
         .stage-details {
             display: none;
             animation: fadeIn 0.4s ease-out;
         }
-        
+
         .stage-details.active {
             display: block;
         }
-        
+
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
-        
+
         .detail-header {
             text-align: center;
             margin-bottom: 48px;
         }
-        
+
         .detail-icon {
             width: 100px;
             height: 100px;
@@ -284,27 +284,27 @@
             font-size: 3rem;
             box-shadow: 0 0 60px rgba(212,175,55,0.3);
         }
-        
+
         .detail-title {
             font-size: 2rem;
             font-weight: 800;
             margin-bottom: 12px;
         }
-        
+
         .detail-description {
             font-size: 1.1rem;
             color: var(--text-secondary);
             max-width: 600px;
             margin: 0 auto;
         }
-        
+
         /* Detail Grid */
         .detail-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
             gap: 24px;
         }
-        
+
         .detail-card {
             background: var(--bg-elevated);
             border: 1px solid var(--border-secondary);
@@ -312,12 +312,12 @@
             padding: 28px;
             transition: all 0.3s;
         }
-        
+
         .detail-card:hover {
             border-color: var(--sheikha-gold-500);
             transform: translateY(-4px);
         }
-        
+
         .card-icon {
             width: 52px;
             height: 52px;
@@ -329,24 +329,24 @@
             font-size: 1.5rem;
             margin-bottom: 16px;
         }
-        
+
         .card-title {
             font-size: 1.1rem;
             font-weight: 700;
             margin-bottom: 8px;
         }
-        
+
         .card-description {
             font-size: 0.9rem;
             color: var(--text-secondary);
             line-height: 1.7;
         }
-        
+
         .card-list {
             list-style: none;
             margin-top: 16px;
         }
-        
+
         .card-list li {
             display: flex;
             align-items: center;
@@ -356,17 +356,17 @@
             color: var(--text-secondary);
             border-bottom: 1px solid var(--border-secondary);
         }
-        
+
         .card-list li:last-child {
             border-bottom: none;
         }
-        
+
         .card-list li::before {
             content: '✓';
             color: var(--sheikha-gold-500);
             font-weight: 700;
         }
-        
+
         /* Integration Banner */
         .integration-banner {
             background: linear-gradient(135deg, var(--saudi-green-500), #004d26);
@@ -378,19 +378,19 @@
             justify-content: space-between;
             gap: 32px;
         }
-        
+
         .banner-content h3 {
             font-size: 1.75rem;
             font-weight: 800;
             margin-bottom: 12px;
         }
-        
+
         .banner-content p {
             font-size: 1rem;
             opacity: 0.9;
             max-width: 500px;
         }
-        
+
         .banner-btn {
             padding: 16px 32px;
             background: #fff;
@@ -402,12 +402,12 @@
             transition: all 0.2s;
             white-space: nowrap;
         }
-        
+
         .banner-btn:hover {
             transform: scale(1.05);
             box-shadow: 0 10px 30px rgba(0,0,0,0.3);
         }
-        
+
         /* Stats */
         .stats-section {
             display: grid;
@@ -415,7 +415,7 @@
             gap: 24px;
             padding: 60px 0;
         }
-        
+
         .stat-card {
             background: var(--bg-elevated);
             border: 1px solid var(--border-secondary);
@@ -423,19 +423,19 @@
             padding: 32px;
             text-align: center;
         }
-        
+
         .stat-value {
             font-size: 2.5rem;
             font-weight: 900;
             color: var(--sheikha-gold-500);
             margin-bottom: 8px;
         }
-        
+
         .stat-label {
             font-size: 0.9rem;
             color: var(--text-muted);
         }
-        
+
         /* Footer */
         .footer {
             padding: 60px 24px 30px;
@@ -443,18 +443,18 @@
             border-top: 1px solid var(--border-secondary);
             text-align: center;
         }
-        
+
         .footer-text {
             color: var(--text-muted);
             font-size: 0.9rem;
         }
-        
+
         /* Responsive */
         @media (max-width: 1024px) {
             .detail-grid { grid-template-columns: repeat(2, 1fr); }
             .stats-section { grid-template-columns: repeat(2, 1fr); }
         }
-        
+
         @media (max-width: 768px) {
             .nav-links { display: none; }
             .chain-flow { flex-direction: column; }
@@ -473,7 +473,7 @@
                 <div class="logo-mark">ش</div>
                 <span class="logo-text">شيخة</span>
             </a>
-            
+
             <ul class="nav-links">
                 <li><a href="منظومة-شيخة.html" class="nav-link">الرئيسية</a></li>
                 <li><a href="سوق-شيخة.html" class="nav-link">السوق</a></li>
@@ -481,14 +481,14 @@
                 <li><a href="نظام-اللوجستيات-الذكي.html" class="nav-link">اللوجستيات</a></li>
                 <li><a href="لوحة-التحكم-الذكية.html" class="nav-link">لوحة التحكم</a></li>
             </ul>
-            
+
             <div class="header-actions">
                 <a href="تسجيل-الدخول.html" class="btn-header btn-outline">دخول</a>
                 <a href="تسجيل-تاجر.html" class="btn-header btn-gold">ابدأ الآن</a>
             </div>
         </div>
     </header>
-    
+
     <!-- Main Content -->
     <main class="main-content">
         <!-- Hero -->
@@ -499,7 +499,7 @@
                 تتبع فوري، شفافية كاملة، وكفاءة عالية.
             </p>
         </section>
-        
+
         <div class="container">
             <!-- Supply Chain Flow -->
             <section class="chain-section">
@@ -510,42 +510,42 @@
                         <span class="stage-name">المصدر</span>
                     </div>
                     <span class="chain-arrow">→</span>
-                    
+
                     <div class="chain-stage" onclick="showStage('collection')" data-stage="collection">
                         <div class="stage-icon">📦</div>
                         <span class="stage-number">المرحلة 2</span>
                         <span class="stage-name">التجميع</span>
                     </div>
                     <span class="chain-arrow">→</span>
-                    
+
                     <div class="chain-stage" onclick="showStage('transport')" data-stage="transport">
                         <div class="stage-icon">🚚</div>
                         <span class="stage-number">المرحلة 3</span>
                         <span class="stage-name">النقل</span>
                     </div>
                     <span class="chain-arrow">→</span>
-                    
+
                     <div class="chain-stage" onclick="showStage('smelter')" data-stage="smelter">
                         <div class="stage-icon">🔥</div>
                         <span class="stage-number">المرحلة 4</span>
                         <span class="stage-name">الصهر</span>
                     </div>
                     <span class="chain-arrow">→</span>
-                    
+
                     <div class="chain-stage" onclick="showStage('manufacturing')" data-stage="manufacturing">
                         <div class="stage-icon">🏭</div>
                         <span class="stage-number">المرحلة 5</span>
                         <span class="stage-name">التصنيع</span>
                     </div>
                     <span class="chain-arrow">→</span>
-                    
+
                     <div class="chain-stage" onclick="showStage('enduser')" data-stage="enduser">
                         <div class="stage-icon">👤</div>
                         <span class="stage-number">المرحلة 6</span>
                         <span class="stage-name">المستخدم</span>
                     </div>
                 </div>
-                
+
                 <!-- Stage Details -->
                 <!-- Source -->
                 <div class="stage-details active" id="stage-source">
@@ -556,7 +556,7 @@
                             نقطة البداية — المناجم، محلات السكراب، الموردين الأوليين
                         </p>
                     </div>
-                    
+
                     <div class="detail-grid">
                         <div class="detail-card">
                             <div class="card-icon">🏔️</div>
@@ -568,7 +568,7 @@
                                 <li>مناجم المعادن النادرة</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">♻️</div>
                             <h3 class="card-title">السكراب</h3>
@@ -579,7 +579,7 @@
                                 <li>مصادر صناعية</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">📋</div>
                             <h3 class="card-title">التوثيق</h3>
@@ -592,7 +592,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Collection -->
                 <div class="stage-details" id="stage-collection">
                     <div class="detail-header">
@@ -602,7 +602,7 @@
                             تجميع وفرز وتصنيف المواد حسب النوع والجودة
                         </p>
                     </div>
-                    
+
                     <div class="detail-grid">
                         <div class="detail-card">
                             <div class="card-icon">🔬</div>
@@ -614,7 +614,7 @@
                                 <li>تصنيف الدرجات</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">📊</div>
                             <h3 class="card-title">الوزن والقياس</h3>
@@ -625,7 +625,7 @@
                                 <li>توثيق الكميات</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">🏷️</div>
                             <h3 class="card-title">التعبئة والتغليف</h3>
@@ -638,7 +638,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Transport -->
                 <div class="stage-details" id="stage-transport">
                     <div class="detail-header">
@@ -648,7 +648,7 @@
                             نقل آمن ومؤمن مع تتبع فوري
                         </p>
                     </div>
-                    
+
                     <div class="detail-grid">
                         <div class="detail-card">
                             <div class="card-icon">🚛</div>
@@ -660,7 +660,7 @@
                                 <li>شاحنات مصفحة للثمين</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">📍</div>
                             <h3 class="card-title">التتبع الحي</h3>
@@ -671,7 +671,7 @@
                                 <li>تقارير المسار</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">🛡️</div>
                             <h3 class="card-title">إدارة المخاطر</h3>
@@ -684,7 +684,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Smelter -->
                 <div class="stage-details" id="stage-smelter">
                     <div class="detail-header">
@@ -694,7 +694,7 @@
                             تنقية وتكرير المعادن لتحقيق أعلى درجات النقاء
                         </p>
                     </div>
-                    
+
                     <div class="detail-grid">
                         <div class="detail-card">
                             <div class="card-icon">🏭</div>
@@ -706,7 +706,7 @@
                                 <li>معايير بيئية</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">⚗️</div>
                             <h3 class="card-title">عمليات التكرير</h3>
@@ -717,7 +717,7 @@
                                 <li>شهادات النقاء</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">🧪</div>
                             <h3 class="card-title">مراقبة الجودة</h3>
@@ -730,7 +730,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- Manufacturing -->
                 <div class="stage-details" id="stage-manufacturing">
                     <div class="detail-header">
@@ -740,7 +740,7 @@
                             تحويل المعادن إلى منتجات نهائية عالية الجودة
                         </p>
                     </div>
-                    
+
                     <div class="detail-grid">
                         <div class="detail-card">
                             <div class="card-icon">⚙️</div>
@@ -752,7 +752,7 @@
                                 <li>مصانع السبائك</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">📐</div>
                             <h3 class="card-title">معايير التصنيع</h3>
@@ -763,7 +763,7 @@
                                 <li>مطابقة SASO</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">✨</div>
                             <h3 class="card-title">المنتجات النهائية</h3>
@@ -776,7 +776,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <!-- End User -->
                 <div class="stage-details" id="stage-enduser">
                     <div class="detail-header">
@@ -786,7 +786,7 @@
                             توصيل المنتجات للمستفيدين النهائيين بأعلى جودة
                         </p>
                     </div>
-                    
+
                     <div class="detail-grid">
                         <div class="detail-card">
                             <div class="card-icon">👨‍💼</div>
@@ -798,7 +798,7 @@
                                 <li>موزعون معتمدون</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">🏢</div>
                             <h3 class="card-title">المؤسسات</h3>
@@ -809,7 +809,7 @@
                                 <li>مؤسسات البنية التحتية</li>
                             </ul>
                         </div>
-                        
+
                         <div class="detail-card">
                             <div class="card-icon">🌍</div>
                             <h3 class="card-title">التصدير</h3>
@@ -823,7 +823,7 @@
                     </div>
                 </div>
             </section>
-            
+
             <!-- Stats -->
             <section class="stats-section">
                 <div class="stat-card">
@@ -843,7 +843,7 @@
                     <div class="stat-label">شريك معتمد</div>
                 </div>
             </section>
-            
+
             <!-- Integration Banner -->
             <div class="integration-banner">
                 <div class="banner-content">
@@ -857,12 +857,12 @@
             </div>
         </div>
     </main>
-    
+
     <!-- Footer -->
     <footer class="footer">
         <p class="footer-text">© 2026 شيخة. جميع الحقوق محفوظة. ☪️ ملتزمون بالشريعة الإسلامية</p>
     </footer>
-    
+
     <script>
         function showStage(stageId) {
             // Update active stage
@@ -870,7 +870,7 @@
                 stage.classList.remove('active');
             });
             document.querySelector(`[data-stage="${stageId}"]`).classList.add('active');
-            
+
             // Update active details
             document.querySelectorAll('.stage-details').forEach(detail => {
                 detail.classList.remove('active');

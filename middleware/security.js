@@ -25,7 +25,7 @@ function rateLimit(options = {}) {
 
         // تنظيف الطلبات القديمة
         const windowStart = now - windowMs;
-        
+
         if (!requestCounts.has(key)) {
             requestCounts.set(key, []);
         }
@@ -58,16 +58,16 @@ function rateLimit(options = {}) {
 function securityHeaders(req, res, next) {
     // منع clickjacking
     res.setHeader('X-Frame-Options', 'SAMEORIGIN');
-    
+
     // منع sniffing لنوع المحتوى
     res.setHeader('X-Content-Type-Options', 'nosniff');
-    
+
     // حماية XSS
     res.setHeader('X-XSS-Protection', '1; mode=block');
-    
+
     // سياسة الإحالة
     res.setHeader('Referrer-Policy', 'strict-origin-when-cross-origin');
-    
+
     // سياسة أمان المحتوى
     res.setHeader('Content-Security-Policy', "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval'; style-src 'self' 'unsafe-inline'; img-src 'self' data: https:; font-src 'self' https:;");
     // تقييد ميزات المتصفح
@@ -75,7 +75,7 @@ function securityHeaders(req, res, next) {
     // عزل أقوى للمصادر
     res.setHeader('Cross-Origin-Opener-Policy', 'same-origin');
     res.setHeader('Cross-Origin-Resource-Policy', 'same-origin');
-    
+
     // HSTS (فقط في الإنتاج)
     if (config.isProduction()) {
         res.setHeader('Strict-Transport-Security', 'max-age=31536000; includeSubDomains');

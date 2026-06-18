@@ -22,7 +22,7 @@ const ImplementationPlan = {
                     // في server.js or Cloud Load Balancer
                     const compression = require('compression');
                     app.use(compression({ threshold: 0 })); // بدء الضغط من 0 bytes
-                    
+
                     // إضافة Cache-Control headers
                     app.use((req, res, next) => {
                         if (req.path.startsWith('/api')) {
@@ -47,7 +47,7 @@ const ImplementationPlan = {
                     //    - SQL Injection
                     //    - XSS attacks
                     //    - Rate limiting (100 req/min per IP)
-                    
+
                     // في application layer:
                     const rateLimit = require('express-rate-limit');
                     const limiter = rateLimit({
@@ -67,14 +67,14 @@ const ImplementationPlan = {
                     // في Google Cloud:
                     // 1. إنشء Cloud KMS key
                     // 2. ربطه مع Firestore
-                    
+
                     // في التطبيق:
                     const { Firestore } = require('@google-cloud/firestore');
                     const firestore = new Firestore({
                         projectId: process.env.GOOGLE_CLOUD_PROJECT,
                         keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS
                     });
-                    
+
                     // استخدام مشفر:
                     const encrypted = await ipProtection.encryptContent(data);
                     await firestore.collection('products').add({
@@ -93,7 +93,7 @@ const ImplementationPlan = {
                     // في server.js:
                     const { Cloud Logging } = require('@google-cloud/logging');
                     const logging = new Logging({ projectId: process.env.GOOGLE_CLOUD_PROJECT });
-                    
+
                     app.use((req, res, next) => {
                         const startTime = Date.now();
                         res.on('finish', () => {
@@ -130,13 +130,13 @@ const ImplementationPlan = {
                 implementation: `
                     // نظام WebSocket للأسعار الحية
                     const WebSocket = require('ws');
-                    const wss = new WebSocket.Server({ 
+                    const wss = new WebSocket.Server({
                         port: 8081,
                         // SSL/TLS للأمان
                         cert: fs.readFileSync('server.crt'),
                         key: fs.readFileSync('server.key')
                     });
-                    
+
                     wss.on('connection', (ws) => {
                         // الاشتراك في الأسعار المحدثة
                         const priceUpdater = setInterval(async () => {
@@ -145,7 +145,7 @@ const ImplementationPlan = {
                             });
                             ws.send(JSON.stringify({ type: 'price_update', data: prices }));
                         }, 500);
-                        
+
                         ws.on('close', () => clearInterval(priceUpdater));
                     });
                 `,
@@ -158,24 +158,24 @@ const ImplementationPlan = {
                 implementation: `
                     // في routes/ai-chat.js
                     const vertexai = require('@google-cloud/aiplatform').v1;
-                    
+
                     router.post('/chat', async (req, res) => {
                         const { message } = req.body;
-                        
+
                         const client = new vertexai.PredictionServiceClient({
                             apiEndpoint: 'us-central1-aiplatform.googleapis.com'
                         });
-                        
+
                         const instance = {
                             messages: [{ author: 'user', content: message }],
                             context: 'أنت مستشار متخصص في تجارة المعادن والذهب والفضة'
                         };
-                        
+
                         const response = await client.predict({
                             endpoint: 'projects/sheikha-empire/locations/us-central1/endpoints/gemini-pro',
                             instances: [{ type: 'struct', struct_value: instance }]
                         });
-                        
+
                         res.json({ reply: response.predictions[0] });
                     });
                 `,
@@ -189,7 +189,7 @@ const ImplementationPlan = {
                     // في lib/price-prediction.js
                     const { BigQuery } = require('@google-cloud/bigquery');
                     const bq = new BigQuery();
-                    
+
                     // 1. إنشاء نموذج التنبؤ
                     const createModelQuery = \`
                         CREATE OR REPLACE MODEL \`sheikha-empire.ml.price_forecast\`
@@ -205,7 +205,7 @@ const ImplementationPlan = {
                         FROM \`sheikha-empire.market_data\`
                         WHERE EXTRACT(YEAR FROM date) > 2024;
                     \`;
-                    
+
                     // 2. استخدام النموذج للتنبؤ
                     const predictQuery = \`
                         SELECT *
@@ -215,7 +215,7 @@ const ImplementationPlan = {
                             )
                         );
                     \`;
-                    
+
                     const result = await bq.query(predictQuery);
                     return result[0]; // يحتوي على التنبؤات
                 `,
@@ -240,7 +240,7 @@ const ImplementationPlan = {
                     resource "google_compute_global_address" "default" {
                         name = "sheikha-global-ip"
                     }
-                    
+
                     resource "google_compute_global_forwarding_rule" "default" {
                         name = "sheikha-forwarding-rule"
                         ip_protocol = "TCP"
@@ -249,7 +249,7 @@ const ImplementationPlan = {
                         target_https_proxy = google_compute_target_https_proxy.default.id
                         ip_address = google_compute_global_address.default.address
                     }
-                    
+
                     # نشر في مناطق متعددة:
                     # - us-central1 (USA)
                     # - europe-west1 (EU)
@@ -270,7 +270,7 @@ const ImplementationPlan = {
                             owner: 'Salman_AlRajih',
                             registry: '2051263653',
                             credential: 'ciscc2250603061',
-                            
+
                             // التحقق من الامتثال
                             checks: {
                                 data_encryption: await verifyEncryption(),
@@ -279,11 +279,11 @@ const ImplementationPlan = {
                                 disaster_recovery: await verifyBackups(),
                                 security_updates: await verifySoftwareUpdates()
                             },
-                            
+
                             // النتيجة النهائية
                             compliance_status: 'PASS' // أو FAIL مع التفاصيل
                         };
-                        
+
                         // إرسال التقرير
                         await sendComplianceEmail(report);
                         return report;
@@ -303,18 +303,18 @@ const ImplementationPlan = {
                             bq.query('SELECT COUNT(*) as users FROM users_analytics'),
                             bq.query('SELECT SUM(volume) as volume FROM trades'),
                             bq.query('SELECT AVG(profit_margin) as margin FROM analytics'),
-                            
+
                             // مؤشرات الأداء الرئيسية
                             analyticsAdmin.getGAReport(),
-                            
+
                             // مؤشرات الامتثال
                             complianceEngine.getStatus(),
-                            
+
                             // البركة والاستدامة
                             getCharityImpactMetrics(),
                             getCO2Footprint()
                         ]);
-                        
+
                         res.json({
                             success: true,
                             metrics: {

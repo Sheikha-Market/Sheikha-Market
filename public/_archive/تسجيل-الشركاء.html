@@ -9,7 +9,7 @@
     <link rel="stylesheet" href="css/elite-design-system.css">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: linear-gradient(180deg, #050810 0%, #0a0f1a 100%);
@@ -670,7 +670,7 @@
 
 <!-- Main Content -->
 <main class="main">
-    
+
     <!-- Steps -->
     <div class="steps">
         <div class="step active" id="step1-indicator">
@@ -689,7 +689,7 @@
 
     <!-- Partner Types Selection -->
     <div class="partner-types" id="partner-selection">
-        
+
         <!-- المناجم -->
         <div class="partner-card" data-type="mine" onclick="selectPartner(this, 'mine')">
             <div class="card-check">✓</div>
@@ -963,7 +963,7 @@
                     <div class="checkbox-group">
                         <input type="checkbox" class="checkbox-input" id="termsCheck" required>
                         <label class="checkbox-label" for="termsCheck">
-                            أقر بصحة جميع البيانات المقدمة، وأوافق على 
+                            أقر بصحة جميع البيانات المقدمة، وأوافق على
                             <a href="الالتزام-الشرعي.html">الشروط والأحكام</a>
                             ومبادئ الشريعة الإسلامية في التعامل التجاري
                         </label>
@@ -1127,7 +1127,7 @@
     function selectPartner(card, type) {
         // Remove selection from all cards
         document.querySelectorAll('.partner-card').forEach(c => c.classList.remove('selected'));
-        
+
         // Select clicked card
         card.classList.add('selected');
         selectedPartnerType = type;
@@ -1156,7 +1156,7 @@
 
         const form = document.getElementById('partnerForm');
         const formData = new FormData(form);
-        
+
         // Validate terms checkbox
         if (!document.getElementById('termsCheck').checked) {
             alert('يرجى الموافقة على الشروط والأحكام');

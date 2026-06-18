@@ -10,42 +10,42 @@ const loaded = fs.readFileSync(loadedPath, 'utf8').trim().split('\n').filter(Boo
 
 function guessJami(engineFile) {
   const n = engineFile.toLowerCase();
-  
+
   // 1️⃣ جامع التوحيد والنية
   if (/taqwa|quran|hadith|sunnah|anbiya|dhikr|ihsan/.test(n)) {
     return 'tawheed_niyyah';
   }
-  
+
   // 2️⃣ جامع الشريعة والضبط
   if (/sharia|musharri|legal|souq-madinah|fiqh/.test(n)) {
     return 'sharia_dhabt';
   }
-  
+
   // 3️⃣ جامع العدل والحقوق
   if (/contract|bank|trade(?!-engine)|accounting|fund|capital/.test(n)) {
     return 'adl_huquq';
   }
-  
+
   // 4️⃣ جامع الأمان والأمن
   if (/security|admin|access|auth|self-heal/.test(n)) {
     return 'aman_amn';
   }
-  
+
   // 5️⃣ جامع السوق والمعاملة
   if (/market|metals|supply|logistics|segment|salvage|customs|circular/.test(n)) {
     return 'souq_muamalah';
   }
-  
+
   // 6️⃣ جامع الإدارة والإتقان
   if (/dashboard|pilot|experience|ops|devops|kaizen|itqan|dim|excellence|quality|improvement|integration/.test(n)) {
     return 'idarah_itqan';
   }
-  
+
   // 7️⃣ جامع البيان والتوثيق
   if (/history|brand|archive|calendar|document|bayan/.test(n)) {
     return 'bayan_tawthiq';
   }
-  
+
   return 'unknown';
 }
 

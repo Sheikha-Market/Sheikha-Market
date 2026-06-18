@@ -3,7 +3,7 @@
 
 /**
  * SHEIKHA Laboratory Data Collection & Classification System
- * 
+ *
  * استخراج البيانات من المصادر المختلفة وتصنيفها للمختبرات المتخصصة
  */
 
@@ -18,7 +18,7 @@ function collectData() {
   // - قاعدة بيانات المقاييس (Prometheus, InfluxDB)
   // - سجلات الخوادم (ELK Stack, Loki)
   // - APIs التطبيقات (APM, Datadog, New Relic)
-  
+
   const now = new Date();
   return {
     timestamp: now.toISOString(),
@@ -150,7 +150,7 @@ function calculateLabAverages(classifiedData) {
     if (labKey.startsWith('timestamp') || labKey.startsWith('date')) {
       continue;
     }
-    
+
     if (typeof metrics === 'object' && metrics !== null) {
       const values = Object.values(metrics).filter(v => typeof v === 'number');
       labs[labKey] = {
@@ -217,9 +217,9 @@ async function main() {
       const collectedData = collectData();
       const classifiedData = classifyToLabs(collectedData);
       const labAverages = calculateLabAverages(classifiedData);
-      
+
       printReport(classifiedData, labAverages);
-      
+
       // حفظ النتائج
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       const outputPath = `./docs/labs/data/classified-${timestamp}.json`;
@@ -227,21 +227,21 @@ async function main() {
       console.log(`💾 تم حفظ النتائج في: ${outputPath}\n`);
     } else if (command === 'daily-run') {
       console.log('📅 تشغيل يومي كامل...\n');
-      
+
       // جمع
       const collectedData = collectData();
-      
+
       // تصنيف
       const classifiedData = classifyToLabs(collectedData);
       const labAverages = calculateLabAverages(classifiedData);
-      
+
       // طباعة التقرير
       printReport(classifiedData, labAverages);
-      
+
       // حفظ
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       saveResults(classifiedData, labAverages, `./docs/labs/data/daily-${timestamp}.json`);
-      
+
       console.log('✅ اكتمل التشغيل اليومي\n');
     } else {
       console.error(`❌ أمر غير معروف: ${command}`);

@@ -168,7 +168,7 @@ node scripts/seed-beta-data.js
 **Real Product Photography Studio — Ethical & Premium**
 
 ### المبدأ الشرعي:
-**«لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا... وَلَا يَبِعْ بَعْضُكُمْ عَلَىٰ بَيْعِ بَعْضٍ»**  
+**«لَا تَحَاسَدُوا وَلَا تَنَاجَشُوا وَلَا تَبَاغَضُوا... وَلَا يَبِعْ بَعْضُكُمْ عَلَىٰ بَيْعِ بَعْضٍ»**
 — صحيح مسلم
 
 الصورة الحقيقية = الصدق في البيع = البركة
@@ -207,7 +207,7 @@ const imageValidation = {
 app.post('/api/products/upload-image', upload.single('image'), async (req, res) => {
   const image = req.file;
   const product = req.body;
-  
+
   try {
     // 1. فحص الدقة
     const metadata = await sharp(image.buffer).metadata();
@@ -219,7 +219,7 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         current: `${metadata.width}×${metadata.height}`
       });
     }
-    
+
     // 2. فحص الوضوح (Sharpness Detection)
     const sharpness = await detectSharpness(image.buffer);
     if (sharpness < 85) {
@@ -229,7 +229,7 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         tip: 'استخدم إضاءة جيدة وكاميرا مستقرة'
       });
     }
-    
+
     // 3. كشف التلاعب (AI-Powered)
     const manipulation = await detectManipulation(image.buffer);
     if (manipulation.detected) {
@@ -241,7 +241,7 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         message: 'نحن نقدّر الصدق — صوّر المنتج كما هو'
       });
     }
-    
+
     // 4. فحص شرعي (كشف الأرواح)
     const shariahCheck = await detectLivingBeings(image.buffer);
     if (shariahCheck.found) {
@@ -252,7 +252,7 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         message: 'يرجى تصوير المنتج فقط بدون أشخاص أو حيوانات'
       });
     }
-    
+
     // 5. تحسين أمين (بدون خداع)
     const optimized = await optimizeImage(image.buffer, {
       resize: { width: 1200, height: 800, fit: 'inside' },
@@ -272,13 +272,13 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         sharpness: 5      // زيادة طفيفة للوضوح
       }
     });
-    
+
     // 6. حفظ في Cloud Storage
     const imageUrl = await uploadToStorage(optimized, {
       folder: 'products',
       filename: `${product.id}_${Date.now()}.webp`
     });
-    
+
     // 7. ربط تلقائي بالمنتج
     await updateProduct(product.id, {
       images: [imageUrl],
@@ -289,14 +289,14 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         shariahCompliant: true
       }
     });
-    
+
     res.json({
       success: true,
       imageUrl: imageUrl,
       message: 'تم رفع الصورة بنجاح ✅',
       quality: 'ممتاز — شكراً على الصدق'
     });
-    
+
   } catch (error) {
     res.status(500).json({ success: false, error: error.message });
   }
@@ -313,16 +313,16 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
     <span class="badge verified">✓ صورة حقيقية</span>
     <span class="badge shariah">✓ متوافق شرعياً</span>
   </div>
-  
+
   <!-- معرض الصور (حقيقية 100%) -->
   <div class="image-gallery">
-    <img src="/uploads/products/iron-ore-62fe-1234.webp" 
-         alt="خام حديد" 
+    <img src="/uploads/products/iron-ore-62fe-1234.webp"
+         alt="خام حديد"
          class="main-image"
          data-verified="true">
     <div class="image-badge">📸 صورة حقيقية — تم التحقق</div>
   </div>
-  
+
   <!-- معلومات المنتج -->
   <div class="product-info">
     <div class="info-item">
@@ -331,68 +331,68 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
       <span>ينبع الصناعية، المستودع رقم 12</span>
       <button class="btn-map" onclick="showMap(24.089, 38.063)">📍 عرض الخريطة</button>
     </div>
-    
+
     <div class="info-item">
       <i class="icon-weight"></i>
       <strong>الكمية:</strong>
       <span>500 طن متري</span>
     </div>
-    
+
     <div class="info-item">
       <i class="icon-quality"></i>
       <strong>المواصفة:</strong>
       <span>نقاء 62% Fe، رطوبة < 8%، كبريت < 0.05%</span>
     </div>
-    
+
     <div class="info-item">
       <i class="icon-barcode"></i>
       <strong>HS Code:</strong>
       <span>2601.11 (خام حديد غير محمّص)</span>
     </div>
   </div>
-  
+
   <!-- تتبع IoT لحظي -->
   <div class="iot-tracking">
     <h4>🛰️ تتبع لحظي (IoT)</h4>
-    
+
     <div class="tracking-status active">
       <i class="icon-signal"></i>
       <span>متصل الآن</span>
     </div>
-    
+
     <div class="tracking-data">
       <div class="data-item">
         <strong>الموقع الحالي:</strong>
         <span class="live-location">24.0890°N, 38.0630°E</span>
         <span class="update-time">تحديث منذ 3 دقائق</span>
       </div>
-      
+
       <div class="data-item">
         <strong>درجة الحرارة:</strong>
         <span class="sensor-temp">28°C</span>
       </div>
-      
+
       <div class="data-item">
         <strong>الرطوبة:</strong>
         <span class="sensor-humidity">7.2%</span>
       </div>
-      
+
       <div class="data-item">
         <strong>تنبيه الحركة:</strong>
         <span class="alert-none">لا يوجد — آمن ✓</span>
       </div>
     </div>
-    
+
     <button class="btn-enable-iot" onclick="enableIoT()">
       <i class="icon-radar"></i>
       تشغيل تتبع IoT المتقدم
     </button>
-    
+
     <p class="iot-note">
       📡 يلزم السماح بالموقع لمطابقة GPS مع إحداثيات المنتج
     </p>
   </div>
-  
+
   <!-- شروط الرفع (للبائع) -->
   <div class="upload-guidelines" style="display:none;">
     <h4>📸 شروط رفع الصور</h4>
@@ -416,25 +416,25 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
 ```html
 <div class="upload-product-image">
   <h3>رفع صور المنتج</h3>
-  
+
   <div class="upload-zone" id="dropZone">
-    <input type="file" 
-           id="productImage" 
+    <input type="file"
+           id="productImage"
            accept="image/jpeg,image/png,image/webp"
            multiple
            capture="environment">
-    
+
     <div class="upload-placeholder">
       <i class="icon-camera"></i>
       <p>اسحب الصور هنا أو انقر للتصوير</p>
       <span class="requirements">دقة 1200×800 كحد أدنى</span>
     </div>
   </div>
-  
+
   <!-- معاينة الصورة بعد الرفع -->
   <div class="image-preview" id="imagePreview" style="display:none;">
     <img id="previewImg" src="" alt="معاينة">
-    
+
     <div class="validation-results">
       <div class="check-item resolution">
         <i class="icon-loading"></i>
@@ -453,7 +453,7 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
         <span>المراجعة الشرعية...</span>
       </div>
     </div>
-    
+
     <button class="btn-upload" id="btnUpload" disabled>
       <i class="icon-upload"></i>
       رفع الصورة
@@ -466,13 +466,13 @@ app.post('/api/products/upload-image', upload.single('image'), async (req, res) 
 document.getElementById('productImage').addEventListener('change', async (e) => {
   const file = e.target.files[0];
   if (!file) return;
-  
+
   // عرض معاينة
   const preview = document.getElementById('imagePreview');
   const previewImg = document.getElementById('previewImg');
   previewImg.src = URL.createObjectURL(file);
   preview.style.display = 'block';
-  
+
   // فحص الدقة
   const img = new Image();
   img.onload = async () => {
@@ -480,35 +480,35 @@ document.getElementById('productImage').addEventListener('change', async (e) => 
       resolution: img.width >= 1200 && img.height >= 800,
       size: file.size <= 5 * 1024 * 1024
     };
-    
-    updateCheck('resolution', checks.resolution, 
+
+    updateCheck('resolution', checks.resolution,
       checks.resolution ? '✓ الدقة ممتازة' : '✗ الدقة منخفضة (يلزم 1200×800)');
-    
+
     // إرسال للسيرفر للفحص المتقدم
     const formData = new FormData();
     formData.append('image', file);
-    
+
     try {
       const response = await fetch('/api/products/validate-image', {
         method: 'POST',
         body: formData
       });
-      
+
       const result = await response.json();
-      
-      updateCheck('quality', result.quality.pass, 
+
+      updateCheck('quality', result.quality.pass,
         result.quality.pass ? '✓ وضوح ممتاز' : '✗ ' + result.quality.message);
-      
-      updateCheck('manipulation', !result.manipulation.detected, 
+
+      updateCheck('manipulation', !result.manipulation.detected,
         !result.manipulation.detected ? '✓ صورة أصلية' : '✗ تم اكتشاف تعديلات');
-      
-      updateCheck('shariah', result.shariah.compliant, 
+
+      updateCheck('shariah', result.shariah.compliant,
         result.shariah.compliant ? '✓ متوافق شرعياً' : '✗ ' + result.shariah.issue);
-      
+
       // تفعيل زر الرفع
       const allPassed = result.quality.pass && !result.manipulation.detected && result.shariah.compliant;
       document.getElementById('btnUpload').disabled = !allPassed;
-      
+
     } catch (error) {
       console.error('خطأ في التحقق:', error);
     }
@@ -531,17 +531,17 @@ function updateCheck(type, passed, message) {
 **Developer Platform — Connect Any Project**
 
 ### 🌐 السياق الموحد للذكاء الاصطناعي
-**ميزة ثورية:** سياق موحد عبر جميع منصات AI!  
+**ميزة ثورية:** سياق موحد عبر جميع منصات AI!
 📄 [اقرأ التفاصيل الكاملة](../ecosystem/UNIFIED-AI-CONTEXT-SYSTEM.md)
 
-**ما هو؟**  
+**ما هو؟**
 عندما تشترك في منظومة شيخة، جميع AIs (ChatGPT، Claude، Gemini، أي chatbot) تفهمك تلقائياً:
 - ✅ أهدافك محفوظة
 - ✅ أسلوبك معروف
 - ✅ سياقك متواصل
 - ✅ ذاكرة موحدة
 
-**مثال:**  
+**مثال:**
 - صباحاً: تسأل ChatGPT عن تحسين API
 - ظهراً: Claude يكتب الكود (ويعرف مناقشتك مع ChatGPT!)
 - مساءً: Gemini يختبر الحل (ويعرف كل ما حصل!)
@@ -577,7 +577,7 @@ window.location.href = authUrl.toString();
 // الخطوة 2: استقبال الرمز في callback
 app.get('/callback', async (req, res) => {
   const { code } = req.query;
-  
+
   // الخطوة 3: استبدال الرمز بـ access_token
   const response = await fetch('https://sheikha.top/oauth/token', {
     method: 'POST',
@@ -590,23 +590,23 @@ app.get('/callback', async (req, res) => {
       redirect_uri: 'https://yourapp.com/callback'
     })
   });
-  
+
   const { access_token, refresh_token } = await response.json();
-  
+
   // الخطوة 4: الحصول على معلومات المستخدم
   const userResponse = await fetch('https://sheikha.top/api/user/profile', {
     headers: { 'Authorization': `Bearer ${access_token}` }
   });
-  
+
   const user = await userResponse.json();
-  
+
   // الآن لديك معلومات المستخدم من شيخة
   console.log(user); // { id, name, email, ... }
-  
+
   // حفظ في session
   req.session.user = user;
   req.session.accessToken = access_token;
-  
+
   res.redirect('/dashboard');
 });
 ```
@@ -993,7 +993,7 @@ vercel inspect sheikha-main-portal
 
 ## 🤲 الختام
 
-**«رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَىٰ وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ»**  
+**«رَبِّ أَوْزِعْنِي أَنْ أَشْكُرَ نِعْمَتَكَ الَّتِي أَنْعَمْتَ عَلَيَّ وَعَلَىٰ وَالِدَيَّ وَأَنْ أَعْمَلَ صَالِحًا تَرْضَاهُ»**
 — النمل:19
 
 هذا الإطلاق **ليس مجرد موقع**، بل هو **بداية رحلة** لتمكين 10,000 شاب، وتحويل قطاع بأكمله.
@@ -1002,7 +1002,7 @@ vercel inspect sheikha-main-portal
 
 ---
 
-**تم بحمد الله**  
-**القائد: سلمان بن أحمد الراجح**  
-**المنظمة: 224557279528**  
+**تم بحمد الله**
+**القائد: سلمان بن أحمد الراجح**
+**المنظمة: 224557279528**
 **10 مارس 2026**

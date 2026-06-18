@@ -10,5 +10,5 @@ node examples/exchange-mvp.js
 ```
 
 ## ملاحظات
-- هذا محرك MVP تعليمي فقط، يحتاج عمل كثير قبل الإستخدام الحقيقي (security, persistence, atomic settlement, concurrency, performance). 
+- هذا محرك MVP تعليمي فقط، يحتاج عمل كثير قبل الإستخدام الحقيقي (security, persistence, atomic settlement, concurrency, performance).
 - يجب ربطه بـ ledger موثوق، custody وKYC قبل التداول الحقيقي.

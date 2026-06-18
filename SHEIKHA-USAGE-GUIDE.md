@@ -334,13 +334,13 @@ describe('Sheikha Unified System', () => {
   it('should learn from feedback', async () => {
     // First execution
     const first = await post('/api/sheikha-pipeline/command', {...});
-    
+
     // Record feedback
     await post('/api/sheikha-pipeline/feedback', {
       score: 5,
       outcome: 'positive'
     });
-    
+
     // Second execution should show learning
     const second = await post('/api/sheikha-pipeline/command', {...});
     assert(second.data.plan.decisionContext.memory.adjustments.confidenceDelta > 0);
@@ -420,6 +420,6 @@ tail -f data/sheikha-learning-memory.json | jq .recentEvents[]
 
 ---
 
-**الإصدار:** 1.0  
-**آخر تحديث:** 26 أبريل 2026  
+**الإصدار:** 1.0
+**آخر تحديث:** 26 أبريل 2026
 **الحالة:** ✅ مُفعّلة وجاهزة للاستخدام

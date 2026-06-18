@@ -79,12 +79,12 @@ run_command() {
     local desc="$1"
     shift
     local cmd="$@"
-    
+
     if [[ "$DRY_RUN" == true ]]; then
         echo "    [DRY] $cmd"
         return 0
     fi
-    
+
     echo -ne "    $desc ... "
     if eval "$cmd" >/dev/null 2>&1; then
         echo -e "${GREEN}done${NC}"
@@ -98,15 +98,15 @@ run_command() {
 # فحص المتطلبات
 check_requirements() {
     print_section "Checking Requirements"
-    
+
     # تحقق من صلاحيات root
     if [[ $EUID -ne 0 ]]; then
         print_error "This script must be run as root"
         exit 1
     fi
-    
+
     print_info "Running as root"
-    
+
     # تحقق من الـ tools الأساسية
     local required_tools=("curl" "sed" "grep" "awk" "jq")
     for tool in "${required_tools[@]}"; do
@@ -126,19 +126,19 @@ check_requirements() {
 # تثبيت HAProxy
 install_haproxy() {
     print_section "Installing HAProxy"
-    
+
     # تحقق إذا كان مثبت
     if command -v haproxy &>/dev/null; then
         local version=$(haproxy -v | head -1)
         print_info "$version is already installed"
         return 0
     fi
-    
+
     print_info "HAProxy not found, installing..."
-    
+
     run_command "Update package lists" "apt-get update -qq"
     run_command "Install HAProxy" "apt-get install -y haproxy bc curl"
-    
+
     # تحقق من النسخة
     if command -v haproxy &>/dev/null; then
         print_info "HAProxy installed successfully: $(haproxy -v | head -1)"
@@ -151,20 +151,20 @@ install_haproxy() {
 # نسخ HAProxy Config
 setup_haproxy_config() {
     print_section "Setting up HAProxy Configuration"
-    
+
     if [[ ! -f "$PROJECT_ROOT/config/haproxy.cfg" ]]; then
         print_error "HAProxy config not found at $PROJECT_ROOT/config/haproxy.cfg"
         return 1
     fi
-    
+
     # النسخ الاحتياطي
     if [[ -f "$HAPROXY_CFG" ]]; then
         run_command "Backup existing config" "cp '$HAPROXY_CFG' '${HAPROXY_CFG}.backup.$(date +%Y%m%d-%H%M%S)'"
     fi
-    
+
     # نسخ الـ Config الجديد
     run_command "Copy HAProxy config" "cp '$PROJECT_ROOT/config/haproxy.cfg' '$HAPROXY_CFG'"
-    
+
     # تحديث الـ Secondary IP إذا تم توفيره
     if [[ -n "$SECONDARY_IP" ]]; then
         print_info "Updating secondary server to $SECONDARY_IP"
@@ -178,7 +178,7 @@ setup_haproxy_config() {
             sed -i "s/^    bind \*:80$/    bind ${HAPROXY_FALLBACK_BIND_HOST}:${HAPROXY_FALLBACK_BIND_PORT}/" "$HAPROXY_CFG"
         fi
     fi
-    
+
     # فحص الـ Config
     if haproxy -c -f "$HAPROXY_CFG" >/dev/null 2>&1; then
         print_info "HAProxy configuration is valid"
@@ -191,12 +191,12 @@ setup_haproxy_config() {
 # تفعيل HAProxy
 enable_haproxy() {
     print_section "Enabling HAProxy"
-    
+
     run_command "Enable HAProxy service" "systemctl enable haproxy"
     run_command "Start HAProxy service" "systemctl restart haproxy"
-    
+
     sleep 2
-    
+
     if systemctl is-active --quiet haproxy; then
         print_info "HAProxy is running"
         # اعرض stats URL
@@ -211,14 +211,14 @@ enable_haproxy() {
 # نسخ الـ Scripts
 setup_scripts() {
     print_section "Setting up Monitoring Scripts"
-    
+
     # اجعل الـ Scripts قابلة للتنفيذ
     local scripts=(
         "sheikha-haproxy-health.sh"
         "sheikha-autoscale.sh"
         "sheikha-dns-failover.sh"
     )
-    
+
     for script in "${scripts[@]}"; do
         local script_path="$SCRIPT_DIR/$script"
         if [[ -f "$script_path" ]]; then
@@ -230,23 +230,23 @@ setup_scripts() {
 # تثبيت systemd Services
 install_systemd_services() {
     print_section "Installing systemd Services"
-    
+
     local services=(
         "sheikha-haproxy-health.service"
         "sheikha-haproxy-health.timer"
         "sheikha-autoscale.service"
         "sheikha-dns-failover.service"
     )
-    
+
     for service in "${services[@]}"; do
         local src="$SCRIPT_DIR/$service"
         local dst="/etc/systemd/system/$service"
-        
+
         if [[ -f "$src" ]]; then
             run_command "Install $service" "cp '$src' '$dst' && sed -i 's|__SHEIKHA_PROJECT_ROOT__|$PROJECT_ROOT|g' '$dst' && chmod 644 '$dst'"
         fi
     done
-    
+
     # Reload systemd
     run_command "Reload systemd" "systemctl daemon-reload"
 }
@@ -254,19 +254,19 @@ install_systemd_services() {
 # تفعيل الخدمات
 enable_services() {
     print_section "Enabling Services"
-    
+
     if [[ "$INSTALL_HAPROXY" == true ]]; then
         run_command "Enable HAProxy health monitor" "systemctl enable sheikha-haproxy-health.timer"
         run_command "Start HAProxy health monitor" "systemctl start sheikha-haproxy-health.timer"
         print_info "HAProxy health check running every 30 seconds"
     fi
-    
+
     if [[ "$INSTALL_AUTOSCALE" == true ]]; then
         run_command "Enable Auto Scaling" "systemctl enable sheikha-autoscale.service"
         run_command "Start Auto Scaling" "systemctl start sheikha-autoscale.service"
         print_info "Auto Scaling engine is active"
     fi
-    
+
     if [[ "$INSTALL_DNS" == true ]]; then
         run_command "Enable DNS Failover" "systemctl enable sheikha-dns-failover.service"
         run_command "Start DNS Failover" "systemctl start sheikha-dns-failover.service"
@@ -277,21 +277,21 @@ enable_services() {
 # عرض الحالة
 show_status() {
     print_section "System Status"
-    
+
     if systemctl is-active --quiet haproxy; then
         print_info "HAProxy: RUNNING"
     else
         print_warn "HAProxy: STOPPED"
     fi
-    
+
     if systemctl is-active --quiet sheikha-haproxy-health.timer; then
         print_info "HAProxy Health Monitor: ACTIVE"
     fi
-    
+
     if systemctl is-active --quiet sheikha-autoscale.service; then
         print_info "Auto Scaling: ACTIVE"
     fi
-    
+
     if systemctl is-active --quiet sheikha-dns-failover.service; then
         print_info "DNS Failover: ACTIVE"
     fi
@@ -362,7 +362,7 @@ parse_arguments() {
                 ;;
         esac
     done
-    
+
     # إذا لم يتم تحديد أي شيء، ثبّت الكل
     if [[ "$INSTALL_HAPROXY" == false && "$INSTALL_AUTOSCALE" == false && "$INSTALL_DNS" == false ]]; then
         INSTALL_HAPROXY=true
@@ -375,13 +375,13 @@ parse_arguments() {
 
 main() {
     parse_arguments "$@"
-    
+
     print_header "🚀 SHEIKHA Distributed Infrastructure Setup"
-    
+
     if [[ "$DRY_RUN" == true ]]; then
         print_warn "DRY RUN MODE — No changes will be made"
     fi
-    
+
     echo ""
     echo "Installation Plan:"
     [[ "$INSTALL_HAPROXY" == true ]] && echo "  ✓ HAProxy Load Balancer"
@@ -389,7 +389,7 @@ main() {
     [[ "$INSTALL_DNS" == true ]] && echo "  ✓ DNS Failover Manager"
     [[ -n "$SECONDARY_IP" ]] && echo "  ✓ Secondary Server: $SECONDARY_IP"
     echo ""
-    
+
     # Confirmación
     if [[ "$DRY_RUN" != true ]]; then
         read -p "Continue with installation? (y/n) " -n 1 -r
@@ -399,24 +399,24 @@ main() {
             exit 0
         fi
     fi
-    
+
     echo ""
-    
+
     # Ejecutar instalación
     check_requirements
-    
+
     if [[ "$INSTALL_HAPROXY" == true ]]; then
         install_haproxy
         setup_haproxy_config
         enable_haproxy
     fi
-    
+
     setup_scripts
     install_systemd_services
     enable_services
     show_status
     show_info
-    
+
     print_header "✅ Setup Complete!"
 }
 

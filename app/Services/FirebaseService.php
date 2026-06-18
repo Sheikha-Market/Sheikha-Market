@@ -9,7 +9,7 @@ use Exception;
 
 /**
  * خدمة Firebase المتكاملة
- * 
+ *
  * توفر جميع خدمات Firebase من Authentication حتى Real-time Database و Cloud Messaging
  */
 class FirebaseService
@@ -98,7 +98,7 @@ class FirebaseService
     {
         try {
             $snapshot = $this->database->getReference($path)->getSnapshot();
-            
+
             $data = $snapshot->exists() ? $snapshot->getValue() : null;
 
             Log::channel('firebase')->info("تم قراءة البيانات من: {$path}");

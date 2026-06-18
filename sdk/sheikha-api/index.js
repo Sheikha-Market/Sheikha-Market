@@ -78,6 +78,7 @@ function createSheikhaApiClient({
       '/api/sheikha/technical-capability-apex/v1/status',
       '/api/sheikha/streaming-chat-apex/v1/status',
       '/api/sheikha/streaming-chat-apex/v1/stream',
+      '/api/sheikha/extension-streaming-artifact-apex/v1/status',
       '/api/sheikha/cloud-production-deployment-apex/v1/status',
       '/api/sheikha/cloud-production-deployment-apex/v1/plan',
       '/api/sheikha/enterprise-management-os/status'
@@ -231,6 +232,9 @@ function createSheikhaApiClient({
     technicalCapabilityApex: () => request('/api/sheikha/technical-capability-apex/v1/status'),
     streamingChatApex: () => request('/api/sheikha/streaming-chat-apex/v1/status'),
     streamingChat: input => request('/api/sheikha/streaming-chat-apex/v1/chat', 'POST', input),
+    extensionStreamingArtifactApex: () => request(
+      '/api/sheikha/extension-streaming-artifact-apex/v1/status'
+    ),
     cloudProductionDeploymentApex: () => request(
       '/api/sheikha/cloud-production-deployment-apex/v1/status'
     ),

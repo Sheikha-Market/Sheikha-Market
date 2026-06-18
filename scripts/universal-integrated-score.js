@@ -2,10 +2,10 @@
 
 /**
  * SHEIKHA Universal Integrated Score Calculator
- * 
+ *
  * يحسب الأفضلية الشاملة لأي خدمة أو مجال:
  * UniversalScore = 0.30H + 0.25P + 0.20X + 0.15V + 0.10I
- * 
+ *
  * حيث:
  * H = Human (البشري) — دقة القرار والاستجابة
  * P = Plant (النباتي) — النمو والاستدامة
@@ -68,7 +68,7 @@ function calculateUniversalScore(input) {
   // تحديد الحالة
   let status = '';
   let statusColor = '';
-  
+
   if (universal_score >= 95) {
     status = '🌟 الأفضل في الكون';
     statusColor = 'green';

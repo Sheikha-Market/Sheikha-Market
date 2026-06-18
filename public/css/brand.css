@@ -15,18 +15,18 @@
     --sheikha-gold-light: #f0d060;
     --sheikha-gold-dark: #b8960c;
     --sheikha-gold-glow: rgba(212, 175, 55, 0.3);
-    
+
     /* الأخضر - يمثل النمو والاستدامة (متوافق مع الأخضر السعودي) */
     --sheikha-green: #0a5c36;
     --sheikha-green-light: #0d7a47;
     --sheikha-green-dark: #063d24;
     --sheikha-green-saudi: #006c35; /* الأخضر السعودي الرسمي */
-    
+
     /* ===== الألوان الوطنية السعودية ===== */
     --saudi-green: #006c35;
     --saudi-white: #ffffff;
     --saudi-gold: #c9a227;
-    
+
     /* ===== ألوان المعادن ===== */
     --metal-iron: #71797E;
     --metal-copper: #b87333;
@@ -34,52 +34,52 @@
     --metal-gold: #ffd700;
     --metal-silver: #e8e8e8;
     --metal-steel: #43464B;
-    
+
     /* ===== ألوان الخلفيات ===== */
     --bg-darker: #050810;
     --bg-dark: #0a0f1a;
     --bg-card: #0d1424;
     --bg-card-hover: #111c30;
     --bg-elevated: #142638;
-    
+
     /* ===== ألوان النصوص ===== */
     --text-primary: #ffffff;
     --text-secondary: #e2e8f0;
     --text-muted: #94a3b8;
     --text-faint: #64748b;
-    
+
     /* ===== ألوان الحدود ===== */
     --border-default: #1e3a5f;
     --border-light: #2d4a6f;
     --border-gold: rgba(212, 175, 55, 0.3);
-    
+
     /* ===== ألوان الحالات ===== */
     --status-success: #10b981;
     --status-warning: #f59e0b;
     --status-danger: #ef4444;
     --status-info: #3b82f6;
-    
+
     /* ===== التدرجات ===== */
     --gradient-gold: linear-gradient(135deg, var(--sheikha-gold-light), var(--sheikha-gold), var(--sheikha-gold-dark));
     --gradient-green: linear-gradient(135deg, var(--sheikha-green-light), var(--sheikha-green), var(--sheikha-green-dark));
     --gradient-saudi: linear-gradient(135deg, var(--saudi-green), #004d26);
     --gradient-royal: linear-gradient(135deg, var(--sheikha-gold), var(--sheikha-green));
     --gradient-metal: linear-gradient(135deg, var(--metal-silver), var(--metal-steel));
-    
+
     /* ===== الظلال ===== */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
     --shadow-md: 0 4px 24px rgba(0, 0, 0, 0.25);
     --shadow-lg: 0 8px 48px rgba(0, 0, 0, 0.35);
     --shadow-gold: 0 4px 32px rgba(212, 175, 55, 0.25);
     --shadow-green: 0 4px 32px rgba(10, 92, 54, 0.25);
-    
+
     /* ===== الأبعاد ===== */
     --radius-sm: 8px;
     --radius-md: 12px;
     --radius-lg: 20px;
     --radius-xl: 28px;
     --radius-full: 9999px;
-    
+
     /* ===== الحركة ===== */
     --transition-fast: 0.15s ease;
     --transition-normal: 0.3s cubic-bezier(0.4, 0, 0.2, 1);
@@ -321,7 +321,7 @@ body {
     left: 0;
     right: 0;
     bottom: 0;
-    background: 
+    background:
         linear-gradient(45deg, transparent 48%, rgba(255,255,255,0.02) 50%, transparent 52%),
         linear-gradient(-45deg, transparent 48%, rgba(255,255,255,0.02) 50%, transparent 52%);
     background-size: 20px 20px;

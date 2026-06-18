@@ -25155,10 +25155,10 @@ app.post('/api/research/ai-query', async (req, res) => {
     if (!query) return res.status(400).json({ success: false, error: 'السؤال مطلوب' });
 
     // Simulate AI response
-    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}": 
-    
+    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}":
+
     يعتبر هذا الموضوع من المواضيع المهمة في قطاع المعادن والسكراب. بناءً على الدراسات المتوفرة، نجد أن هناك عدة عوامل تؤثر على هذا المجال...
-    
+
     للمزيد من التفاصيل، يمكنك الاطلاع على الأبحاث ذات الصلة في مركز الأبحاث.`;
 
     res.json({ success: true, query, response, relatedPapers: RESEARCH_PAPERS.slice(0, 2) });

@@ -23,7 +23,7 @@ const database = require('../config/database');
 
 router.get('/saudi-preloaded', (req, res) => {
     const data = database.read('saudiMarket');
-    
+
     if (!data) {
         return res.status(404).json({
             success: false,
@@ -62,7 +62,7 @@ router.get('/sectors', (req, res) => {
 router.get('/sectors/:sectorId/companies', (req, res) => {
     const { sectorId } = req.params;
     const data = database.read('saudiMarket');
-    
+
     if (!data || !data.sectors || !data.sectors[sectorId]) {
         return res.status(404).json({
             success: false,
@@ -82,9 +82,9 @@ router.get('/sectors/:sectorId/companies', (req, res) => {
 router.get('/company/:id/analysis', (req, res) => {
     const { id } = req.params;
     const data = database.read('saudiMarket');
-    
+
     let company = null;
-    
+
     // البحث في جميع القطاعات
     if (data && data.sectors) {
         for (const sector of Object.values(data.sectors)) {
@@ -154,7 +154,7 @@ router.get('/supply-chain', (req, res) => {
 
 router.get('/marketing-services', (req, res) => {
     const services = database.read('marketingServices');
-    
+
     res.json({
         success: true,
         services: services || {}

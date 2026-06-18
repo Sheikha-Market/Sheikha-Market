@@ -3,15 +3,15 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  * 🏢 SHEIKHA MAIN PORTAL — SERVER.JS
  * ═══════════════════════════════════════════════════════════════════════════════
- * 
+ *
  * منظومة شيخة — أول منصة اقتصادية إسلامية رقمية للمعادن والسكراب
  * Built on: Node.js + Express | Governance: Quran + Sunnah | Design: Dark + Gold
- * 
+ *
  * ✨ المبادئ الأساسية:
  *   • لا ربا — لا غرر — لا غش — لا احتكار
  *   • سوق تراضٍ — صدق القول — دقة الوزن
  *   • بيع مشروع بدون استغلال أو تضليل
- * 
+ *
  * 🏗️ العمارة الرئيسية:
  *   └─ Root Control Plane (حاكمية مركزية)
  *   └─ Root Neural Network (12 خلية عصبية)
@@ -19,28 +19,28 @@
  *   └─ Decision Enforcement (فرض التقيد بالقواعس)
  *   └─ Sharia Guard (حارس الشريعة الإسلامية)
  *   └─ Trade Engine (محرك التجارة الآمن)
- * 
+ *
  * 📋 API الأساسية:
  *   • /api/health — فحص جاهزية الخادم
  *   • /api/sre/* — مراقبة SRE والصحة
  *   • /api/root-governance/* — قرارات الحوكمة
  *   • /api/neural-governance/* — الشبكة العصبية
  *   • /api/sharia/* — الفتاوى والأحكام الشرعية
- * 
+ *
  * 🔒 الأمان والحماية:
  *   ✓ JWT + OAuth (Google, Microsoft, Apple, Nafath)
  *   ✓ Decision Enforcement على المسارات الحساسة
  *   ✓ Sharia Guard على جميع المعاملات
  *   ✓ Rate Limiting + CORS
  *   ✓ Input Sanitization
- * 
+ *
  * 📊 المراقبة:
  *   ✓ SRE Health Checks (5s intervals)
  *   ✓ Request/Response Logging
  *   ✓ Performance Metrics
  *   ✓ Error Tracking
  *   ✓ Uptime Monitoring
- * 
+ *
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
@@ -4544,7 +4544,7 @@ app.get('/api/system/status', (req, res) => {
     try {
         const { getStatus } = require('./middleware/sre-monitor');
         const sre = getStatus();
-        
+
         return res.json({
             success: true,
             service: 'sheikha-main-portal',
@@ -4578,7 +4578,7 @@ app.get('/api/system/metrics', (req, res) => {
     try {
         const { getStatus } = require('./middleware/sre-monitor');
         const sre = getStatus();
-        
+
         const metrics = {
             cpu: process.cpuUsage(),
             memory: process.memoryUsage(),
@@ -4586,7 +4586,7 @@ app.get('/api/system/metrics', (req, res) => {
             alerts: sre.alertsCount,
             timestamp: new Date().toISOString()
         };
-        
+
         return res.json({
             success: true,
             data: metrics
@@ -6142,7 +6142,7 @@ app.use((req, res, next) => {
  * ✓ عدد التنبيهات والتحذيرات
  * ✓ مدة عمل الخادم (uptime)
  * ✓ التوافقية مع SLO (Service Level Objectives)
- * 
+ *
  * @route GET /api/health
  * @returns {Object} حالة الخادم الحالية
  * @example
@@ -6167,11 +6167,11 @@ app.get('/api/health', (req, res) => {
             version: process.env.SHEIKHA_VERSION || '1.0.0',
             environment: process.env.NODE_ENV || 'development'
         };
-        
+
         res.status(200).json(healthStatus);
     } catch (e) {
         console.error('❌ [HEALTH] Error:', e.message);
-        res.status(503).json({ 
+        res.status(503).json({
             status: 'error',
             service: 'sheikha-main-portal',
             error: e.message,
@@ -27454,10 +27454,10 @@ app.post('/api/research/ai-query', async (req, res) => {
     if (!query) return res.status(400).json({ success: false, error: 'السؤال مطلوب' });
 
     // Simulate AI response
-    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}": 
-    
+    const response = `بناءً على قاعدة بيانات الأبحاث لدينا، إليك إجابة سؤالك عن "${query}":
+
     يعتبر هذا الموضوع من المواضيع المهمة في قطاع المعادن والسكراب. بناءً على الدراسات المتوفرة، نجد أن هناك عدة عوامل تؤثر على هذا المجال...
-    
+
     للمزيد من التفاصيل، يمكنك الاطلاع على الأبحاث ذات الصلة في مركز الأبحاث.`;
 
     res.json({ success: true, query, response, relatedPapers: RESEARCH_PAPERS.slice(0, 2) });

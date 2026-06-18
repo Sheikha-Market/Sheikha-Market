@@ -4,7 +4,7 @@ const { describe, test, expect, beforeAll, afterAll } = require('@jest/globals')
 /**
  * Sheikha — Integration Tests
  * Tests the extension's integration with the backend API
- * 
+ *
  * Prerequisites:
  * - Sheikha server running on http://localhost:8080
  * - All /api/sheikha/* endpoints available
@@ -46,7 +46,7 @@ liveDescribe('Sheikha API Integration Tests', () => {
       const data = await response.json();
       expect(data).toHaveProperty('success', true);
       expect(data).toHaveProperty('data');
-      
+
       const copilot = data.data;
       expect(copilot).toHaveProperty('name', 'Sheikha');
       expect(copilot).toHaveProperty('version', '1.0.0');
@@ -249,7 +249,7 @@ liveDescribe('Sheikha API Integration Tests', () => {
       // Should either return 403 or have shariaCompliant: false
       const data = await response.json();
       expect(data).toBeDefined();
-      
+
       if (response.status === 403) {
         expect(data.blockedTerms).toBeDefined();
       }
@@ -473,16 +473,16 @@ liveDescribe('Sheikha API Integration Tests', () => {
 
 /**
  * Running Tests:
- * 
+ *
  * Prerequisites:
  * npm install --save-dev jest node-fetch @jest/globals
- * 
+ *
  * Commands:
  * npm test                    # Run all tests
  * npm test -- --verbose       # Show detailed output
  * npm test -- --coverage      # Generate coverage report
  * npm run test:watch          # Watch mode
- * 
+ *
  * Expected Output:
  * ✓ All endpoints should respond successfully
  * ✓ Responses should have correct structure

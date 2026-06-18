@@ -39,7 +39,7 @@ function formatMessage(level, message, meta = {}) {
  */
 function writeToFile(filename, message) {
     if (!config.logging.enabled) return;
-    
+
     const filePath = path.join(logsDir, filename);
     fs.appendFileSync(filePath, message + '\n', 'utf-8');
 }

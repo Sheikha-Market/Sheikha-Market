@@ -195,7 +195,7 @@ async function sheikhaSmartRoute(message, options = {}) {
   const governance = governMode(raw, mode);
   const intent = governance.intent;
 
-  
+
   if (intent === 'GLOBAL_REGISTRY') {
     return requestJson('GET', '/api/sheikha/global-registry/status');
   }

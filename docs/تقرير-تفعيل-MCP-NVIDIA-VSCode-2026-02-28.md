@@ -1,8 +1,8 @@
 # بسم الله الرحمن الرحيم
 # تقرير تفعيل MCP + NVIDIA/CUDA + VS Code
 
-**التاريخ:** 2026-02-28  
-**المشروع:** `sheikha-main-portal`  
+**التاريخ:** 2026-02-28
+**المشروع:** `sheikha-main-portal`
 **الهدف:** التحقق من التفعيل الفعلي وقياس الجاهزية التشغيلية.
 
 ---
@@ -69,14 +69,14 @@
 
 ## 4) الملاحظات والمخاطر المتبقية
 
-1. **CUDA Runtime Access**  
+1. **CUDA Runtime Access**
    تم الإغلاق بنجاح بعد التحقق المحلي الكامل (Driver + Torch + API).
 
-2. **One-Click API Check**  
+2. **One-Click API Check**
    في تشغيل معيّن، API check واجه `Connection refused` قبل إتاحة الخدمة بالكامل؛
    تم تجاوزه بتشغيل `vscode-nvidia-start.sh` ثم التحقق من API مباشرة.
 
-3. **npm env warning**  
+3. **npm env warning**
    ظهر تحذير:
    - `Unknown env config "devdir"`
    يشير إلى متغير بيئة قديم في shell profile أو بيئة الجلسة.
@@ -111,9 +111,9 @@
 
 ## 7) الحكم النهائي
 
-- **MCP:** مفعّل وقابل للتشغيل.  
-- **VS Code Enterprise Setup:** مفعّل وجاهز.  
-- **NVIDIA-first Routing:** مفعّل.  
+- **MCP:** مفعّل وقابل للتشغيل.
+- **VS Code Enterprise Setup:** مفعّل وجاهز.
+- **NVIDIA-first Routing:** مفعّل.
 - **CUDA Runtime الفعلي:** مفعّل ومتحقق (`cuda_available: true`).
 
 **الحالة التشغيلية:** جاهز إنتاجيًا للتطوير والتشغيل الذكي.

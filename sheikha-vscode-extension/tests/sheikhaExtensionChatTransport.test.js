@@ -2,10 +2,13 @@
 
 const {
   DEFAULT_BASE_URL,
+  EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT,
   EXTENSION_TRANSPORT_VERSION,
   LOCAL_BASE_URL,
+  STREAMING_CHAT_APEX_STREAM_ENDPOINT,
   buildLocalChatFallbackAnswer,
   isLocalBaseUrl,
+  parseSseBuffer,
   safeJsonParse,
   shouldUseUnifiedFallback
 } = require('../src/sheikhaExtensionChatClient');
@@ -39,7 +42,23 @@ describe('Sheikha Extension Chat Transport', () => {
   });
 
   test('keeps package transport version aligned with the released extension', () => {
-    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.88');
+    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.89');
+  });
+
+  test('parses governed SSE frames for the streaming extension path', () => {
+    const { events, rest } = parseSseBuffer(
+      'event: ack\\ndata: {"accepted":true}\\n\\n' +
+      'event: token\\ndata: {"text":"مرحبا"}\\n\\npartial'
+    );
+
+    expect(rest).toBe('partial');
+    expect(events).toHaveLength(2);
+    expect(events[0]).toMatchObject({ event: 'ack', data: { accepted: true } });
+    expect(events[1]).toMatchObject({ event: 'token', data: { text: 'مرحبا' } });
+    expect(STREAMING_CHAT_APEX_STREAM_ENDPOINT)
+      .toBe('/api/sheikha/streaming-chat-apex/v1/stream');
+    expect(EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT)
+      .toBe('/api/sheikha/extension-streaming-artifact-apex/v1/status');
   });
 
   test('builds a useful local Todo Tree fallback instead of exposing gateway noise', () => {

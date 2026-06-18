@@ -834,7 +834,7 @@ const QR_URL = 'https://sheikha.top';
 window.addEventListener('DOMContentLoaded', () => {
   const qrBack = document.getElementById('qr-back');
   const qrNfc = document.getElementById('qr-nfc');
-  
+
   // Generate real scannable QR codes using Google Charts API
   if (qrBack) {
     qrBack.src = 'https://chart.googleapis.com/chart?cht=qr&chs=200x200&chl=' + encodeURIComponent(QR_URL) + '&choe=UTF-8&chld=M|2';
@@ -844,7 +844,7 @@ window.addEventListener('DOMContentLoaded', () => {
     qrNfc.src = 'https://chart.googleapis.com/chart?cht=qr&chs=300x300&chl=' + encodeURIComponent(QR_URL) + '&choe=UTF-8&chld=M|2';
     qrNfc.alt = 'QR Code - sheikha.top';
   }
-  
+
   // Fallback: if Google Charts fails, use QR Server API
   [qrBack, qrNfc].forEach(img => {
     if (img) {

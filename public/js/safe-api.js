@@ -3,7 +3,7 @@
  * ☪️ بسم الله الرحمن الرحيم
  * ═══════════════════════════════════════════════════════════════════════════════
  * SHEIKHA Safe API — نظام الاتصال الآمن والصامت
- * 
+ *
  * ✅ يمنع ظهور أي رسالة خطأ للمستخدم أثناء التنقل
  * ✅ يتعامل مع فشل الاتصال بصمت تام
  * ✅ يعرض إشعارات لطيفة فقط عند الحاجة (Toast)
@@ -22,7 +22,7 @@
         try {
             const controller = new AbortController();
             const timeoutId = setTimeout(() => controller.abort(), options.timeout || 8000);
-            
+
             const res = await fetch(url, {
                 ...options,
                 signal: controller.signal,
@@ -31,7 +31,7 @@
                     ...(options.headers || {})
                 }
             });
-            
+
             clearTimeout(timeoutId);
 
             if (!res.ok) {

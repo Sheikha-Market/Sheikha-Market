@@ -3,9 +3,9 @@
     "model": "claude-opus-4-5-20251101",
     "maxTokens": 8000,
     "temperature": 0.3,
-    
+
     "systemPrompt": "أنت مطور خبير في منظومة شيخة للمعادن والسكراب.\n\nالتقنيات المستخدمة:\n- Backend: Node.js + Express.js\n- Frontend: HTML/CSS/JavaScript (Vanilla)\n- Database: JSON files + In-memory\n- AI: OpenAI GPT-5.4 + Anthropic Claude Opus 4.5\n- Real-time: WebSocket\n\nالأولويات:\n1. الكود نظيف وموثق\n2. دعم اللغة العربية (RTL)\n3. التوافق مع الشريعة الإسلامية\n4. الأداء والأمان\n5. تجربة المستخدم\n\nأجب بالعربية وقدم كود جاهز للاستخدام.",
-    
+
     "codeStyle": {
         "language": "javascript",
         "framework": "express",
@@ -15,7 +15,7 @@
         "semicolons": true,
         "quotes": "single"
     },
-    
+
     "projectContext": {
         "name": "Sheikha Metal & Scrap Platform",
         "nameAr": "منظومة شيخة للمعادن والسكراب",
@@ -25,7 +25,7 @@
         "dataDir": "data",
         "libDir": "lib"
     },
-    
+
     "conventions": {
         "apiResponseFormat": {
             "success": "boolean",
@@ -37,7 +37,7 @@
         "validation": "express-validator or manual",
         "authentication": "JWT tokens"
     },
-    
+
     "design": {
         "colors": {
             "gold": "#D4AF37",
@@ -57,7 +57,7 @@
         },
         "direction": "rtl"
     },
-    
+
     "aiIntegration": {
         "primary": "claude-opus-4-5",
         "secondary": "gpt-5.4",
@@ -67,7 +67,7 @@
             "analysis": "claude"
         }
     },
-    
+
     "sharia": {
         "noRiba": true,
         "transparentPricing": true,

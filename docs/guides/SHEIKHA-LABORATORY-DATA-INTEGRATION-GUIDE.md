@@ -291,7 +291,7 @@ npm run -s ops:report:send --email team@sheikha.top
 - name: 🔬 تشغيل المختبرات المتخصصة
   if: success()
   run: npm run -s ops:labs:all
-  
+
 - name: 📊 التحقق من الأفضلية الشاملة
   if: success()
   run: npm run -s ops:universal:check

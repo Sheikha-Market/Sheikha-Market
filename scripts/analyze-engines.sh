@@ -51,7 +51,7 @@ for engine in $ALL_ENGINES; do
             break
         fi
     done
-    
+
     if [[ $IS_CRITICAL -eq 0 ]]; then
         # ليس حرجاً → علّق
         echo "⏸️ تعليق: $engine"

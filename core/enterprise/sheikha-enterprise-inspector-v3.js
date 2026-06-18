@@ -40,6 +40,9 @@ const technicalCapabilityApex = require(
 const streamingChatApex = require(
   '../../runtime/streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1'
 );
+const extensionStreamingArtifactApex = require(
+  '../../runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1'
+);
 const cloudProductionDeploymentApex = require(
   '../../runtime/cloud-production-deployment-apex/v1/sheikha-cloud-production-deployment-apex-v1'
 );
@@ -175,6 +178,7 @@ function collectEnterpriseInspector(input = {}) {
   const ideApexStatus = ideApex.status();
   const technicalCapabilityApexStatus = technicalCapabilityApex.status();
   const streamingChatApexStatus = streamingChatApex.status();
+  const extensionStreamingArtifactApexStatus = extensionStreamingArtifactApex.status();
   const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
@@ -214,6 +218,7 @@ function collectEnterpriseInspector(input = {}) {
       ideApex: ideApexStatus.status,
       technicalCapabilityApex: technicalCapabilityApexStatus.status,
       streamingChatApex: streamingChatApexStatus.status,
+      extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus.status,
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
       extension: extension.status,
       diagnostics
@@ -266,6 +271,8 @@ function collectEnterpriseInspector(input = {}) {
       technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
       streamingChatApex: '/api/sheikha/streaming-chat-apex/v1/status',
       streamingChatStream: '/api/sheikha/streaming-chat-apex/v1/stream',
+      extensionStreamingArtifactApex:
+        '/api/sheikha/extension-streaming-artifact-apex/v1/status',
       cloudProductionDeploymentApex:
         '/api/sheikha/cloud-production-deployment-apex/v1/status',
       cloudProductionDeploymentPlan:
@@ -283,6 +290,7 @@ function collectEnterpriseInspector(input = {}) {
         'Covenant Governance Apex',
         'Layer Governance and Promotion OS',
         'VS Code Extension Experience Apex',
+        'Extension Streaming Artifact Apex',
         'Streaming Multilingual Chat Apex',
         'Cloud Production Deployment Apex',
         'Technical Capability Apex',
@@ -355,6 +363,7 @@ function collectEnterpriseInspector(input = {}) {
       storage: layerGovernanceStatus.storage
     },
     extensionExperience: extensionExperienceStatus,
+    extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus,
     streamingChatApex: streamingChatApexStatus,
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     technicalCapabilityApex: technicalCapabilityApexStatus,

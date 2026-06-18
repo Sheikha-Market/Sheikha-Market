@@ -4,7 +4,7 @@ const router = express.Router();
 router.get('/metrics', async (_req, res) => {
   const startedAt = Date.now();
   const mem = process.memoryUsage();
-  
+
   try {
     return res.json({
       success: true,

@@ -185,7 +185,7 @@ function renderTimeline(goals) {
         const color = PHASE_COLORS[phase.status] || PHASE_COLORS.planned;
         const badgeClass = 'badge-' + phase.status;
         const statusText = { completed:'مكتمل', active:'جارٍ', planned:'مخطط', vision:'رؤية' }[phase.status] || phase.status;
-        
+
         html += `<div class="phase">
             <div class="phase-marker ${phase.status === 'completed' ? 'done' : phase.status}">${phase.icon}</div>
             <div class="phase-content">
@@ -247,7 +247,7 @@ async function loadAutoStatus() {
         const res = await fetch('/api/production/auto-status');
         const data = await res.json();
         if (!data.success) return;
-        
+
         const badge = document.getElementById('autoStatus');
         if (data.running) {
             badge.className = 'auto-badge running';
@@ -256,10 +256,10 @@ async function loadAutoStatus() {
             badge.className = 'auto-badge stopped';
             badge.innerHTML = '<span>⏹️ متوقف</span>';
         }
-        
+
         const logList = document.getElementById('logList');
         if (data.log && data.log.length > 0) {
-            logList.innerHTML = data.log.slice(-20).reverse().map(l => 
+            logList.innerHTML = data.log.slice(-20).reverse().map(l =>
                 `<div class="log-entry"><span class="log-time">${l.time}</span><span>${l.message}</span></div>`
             ).join('');
         }

@@ -53,7 +53,7 @@ start_tunnel() {
     echo "  • VPS Port: $VPS_OLLAMA_PORT"
     echo "  • Local Port: $LOCAL_TUNNEL_PORT"
     echo ""
-    
+
     # Check if tunnel already running
     if [ -f "$TUNNEL_PID_FILE" ]; then
         OLD_PID=$(cat "$TUNNEL_PID_FILE")
@@ -66,12 +66,12 @@ start_tunnel() {
             rm -f "$TUNNEL_PID_FILE"
         fi
     fi
-    
+
     # Start SSH tunnel
     if ssh -f -N -o StrictHostKeyChecking=no \
         -L "$LOCAL_TUNNEL_PORT:localhost:$VPS_OLLAMA_PORT" \
         "$VPS_SSH_USER@$VPS_HOST" 2>"$LOG_FILE"; then
-        
+
         # Get the PID of the SSH process
         TUNNEL_PID=$(ps aux | grep "ssh -f -N" | grep -v grep | awk '{print $2}' | head -1)
         if [ -n "$TUNNEL_PID" ]; then
@@ -80,10 +80,10 @@ start_tunnel() {
         else
             print_warning "Could not determine tunnel PID, but tunnel should be running"
         fi
-        
+
         # Give tunnel time to establish
         sleep 2
-        
+
         # Test connection
         test_tunnel
     else
@@ -97,7 +97,7 @@ start_tunnel() {
 stop_tunnel() {
     print_header
     echo ""
-    
+
     if [ -f "$TUNNEL_PID_FILE" ]; then
         PID=$(cat "$TUNNEL_PID_FILE")
         if kill -0 "$PID" 2>/dev/null; then
@@ -111,20 +111,20 @@ stop_tunnel() {
     else
         print_warning "No tunnel PID file found"
     fi
-    
+
     echo ""
 }
 
 test_tunnel() {
     echo ""
     print_info "Testing tunnel connection..."
-    
+
     if curl -m 5 -sf "http://localhost:$LOCAL_TUNNEL_PORT/api/tags" > /tmp/ollama_tags.json 2>/dev/null; then
         MODELS=$(jq -r '.models[] | .name' /tmp/ollama_tags.json 2>/dev/null | tr '\n' ',' | sed 's/,$//')
         print_status "SSH tunnel working!"
         echo "  • Endpoint: http://localhost:$LOCAL_TUNNEL_PORT"
         echo "  • Models: $MODELS"
-        
+
         if echo "$MODELS" | grep -q "Sheikha-Core"; then
             print_status "Sheikha-Core model detected on VPS"
         else
@@ -140,7 +140,7 @@ test_tunnel() {
 status_tunnel() {
     print_header
     echo ""
-    
+
     if [ -f "$TUNNEL_PID_FILE" ]; then
         PID=$(cat "$TUNNEL_PID_FILE")
         if kill -0 "$PID" 2>/dev/null; then
@@ -153,7 +153,7 @@ status_tunnel() {
     else
         print_warning "No active SSH tunnel"
     fi
-    
+
     # Also check local Ollama
     echo ""
     print_info "Checking local Ollama (localhost:11434)..."
@@ -164,7 +164,7 @@ status_tunnel() {
     else
         print_error "Local Ollama not responding on localhost:11434"
     fi
-    
+
     echo ""
 }
 
@@ -182,10 +182,10 @@ Commands:
 Examples:
   # Start tunnel for production VPS access
   $(basename "$0") start
-  
+
   # Check if tunnel is running
   $(basename "$0") status
-  
+
   # Stop tunnel when done
   $(basename "$0") stop
 
@@ -198,7 +198,7 @@ Configuration:
 
 SSH Tunnel Details:
   Command: ssh -L $LOCAL_TUNNEL_PORT:localhost:$VPS_OLLAMA_PORT root@$VPS_HOST
-  
+
   Once tunnel is running, access VPS Ollama at:
     http://localhost:$LOCAL_TUNNEL_PORT/api/tags
 

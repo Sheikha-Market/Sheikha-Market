@@ -32,7 +32,7 @@
             color: var(--text);
             min-height: 100vh;
         }
-        
+
         .hero {
             padding: 60px 20px;
             text-align: center;
@@ -55,7 +55,7 @@
         h1 { font-size: 2rem; font-weight: 900; margin-bottom: 12px; }
         h1 span { color: var(--gold); }
         .subtitle { color: var(--text-muted); margin-bottom: 30px; }
-        
+
         .main-install-btn {
             display: inline-flex;
             align-items: center;
@@ -74,9 +74,9 @@
             transition: all 0.3s;
         }
         .main-install-btn:hover { transform: scale(1.05); box-shadow: 0 8px 30px rgba(212,175,55,0.4); }
-        
+
         .container { max-width: 900px; margin: 0 auto; padding: 30px 20px; }
-        
+
         .section-title {
             font-size: 1.4rem;
             font-weight: 800;
@@ -85,7 +85,7 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .platform-tabs {
             display: flex;
             gap: 10px;
@@ -106,7 +106,7 @@
         }
         .platform-tab:hover { border-color: var(--gold); color: var(--gold); }
         .platform-tab.active { background: rgba(212,175,55,0.15); border-color: var(--gold); color: var(--gold); }
-        
+
         .instructions-box {
             background: var(--card);
             border: 1px solid var(--border);
@@ -115,7 +115,7 @@
             display: none;
         }
         .instructions-box.active { display: block; }
-        
+
         .step {
             display: flex;
             gap: 16px;
@@ -138,7 +138,7 @@
         .step-content h4 { margin-bottom: 6px; font-size: 1rem; }
         .step-content p { color: var(--text-muted); font-size: 0.9rem; line-height: 1.6; }
         .step-icon { font-size: 1.5rem; margin-left: 8px; }
-        
+
         .tip-box {
             background: rgba(212,175,55,0.1);
             border: 1px solid rgba(212,175,55,0.3);
@@ -148,7 +148,7 @@
         }
         .tip-box h4 { color: var(--gold); margin-bottom: 8px; }
         .tip-box p { font-size: 0.9rem; color: var(--text-muted); }
-        
+
         .features {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
@@ -165,7 +165,7 @@
         .feature-icon { font-size: 2rem; margin-bottom: 12px; }
         .feature-title { font-weight: 700; margin-bottom: 6px; }
         .feature-desc { font-size: 0.85rem; color: var(--text-muted); }
-        
+
         .quick-links {
             display: flex;
             gap: 12px;
@@ -186,7 +186,7 @@
             transition: all 0.2s;
         }
         .quick-link:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         .success-msg {
             display: none;
             background: rgba(16,185,129,0.15);
@@ -211,11 +211,11 @@
         <div class="app-icon">ش</div>
         <h1>حمّل تطبيق <span>شيخة</span></h1>
         <p class="subtitle">السوق الرائد للمعادن والسكراب في السعودية</p>
-        
+
         <button class="main-install-btn" id="installBtn" onclick="handleInstall()">
             📥 تثبيت التطبيق الآن
         </button>
-        
+
         <div class="success-msg" id="successMsg">
             <h3>✅ تم تثبيت التطبيق!</h3>
             <p>ابحث عن أيقونة شيخة على شاشتك الرئيسية</p>
@@ -224,7 +224,7 @@
 
     <div class="container">
         <h2 class="section-title">📱 اختر جهازك</h2>
-        
+
         <div class="platform-tabs">
             <button class="platform-tab" onclick="showInstructions('iphone')" id="tab-iphone">🍎 iPhone / iPad</button>
             <button class="platform-tab" onclick="showInstructions('android')" id="tab-android">🤖 Android</button>
@@ -407,7 +407,7 @@
         document.addEventListener('DOMContentLoaded', () => {
             const ua = navigator.userAgent;
             let platform = 'windows';
-            
+
             if (/iPhone|iPad|iPod/.test(ua)) {
                 platform = 'iphone';
             } else if (/Android/.test(ua)) {
@@ -415,7 +415,7 @@
             } else if (/Mac/.test(ua)) {
                 platform = 'mac';
             }
-            
+
             showInstructions(platform);
         });
 
@@ -424,7 +424,7 @@
             // Hide all
             document.querySelectorAll('.instructions-box').forEach(box => box.classList.remove('active'));
             document.querySelectorAll('.platform-tab').forEach(tab => tab.classList.remove('active'));
-            
+
             // Show selected
             const box = document.getElementById('instructions-' + platform);
             const tab = document.getElementById('tab-' + platform);
@@ -446,7 +446,7 @@
                 deferredPrompt.prompt();
                 const { outcome } = await deferredPrompt.userChoice;
                 console.log('Install outcome:', outcome);
-                
+
                 if (outcome === 'accepted') {
                     document.getElementById('successMsg').classList.add('show');
                 }
@@ -455,7 +455,7 @@
                 // iOS/Safari or prompt not available - scroll to instructions
                 const ua = navigator.userAgent;
                 let platform = 'windows';
-                
+
                 if (/iPhone|iPad|iPod/.test(ua)) {
                     platform = 'iphone';
                     alert('📱 على iPhone:\n\n1. تأكد أنك في Safari\n2. اضغط على أيقونة المشاركة ⬆️ في الأسفل\n3. اختر "إضافة إلى الشاشة الرئيسية"');
@@ -468,7 +468,7 @@
                 } else {
                     alert('💻 على Windows:\n\n1. استخدم Chrome أو Edge\n2. ابحث عن أيقونة 📥 في شريط العنوان\n3. اضغط "تثبيت"');
                 }
-                
+
                 showInstructions(platform);
                 document.querySelector('.container').scrollIntoView({ behavior: 'smooth' });
             }

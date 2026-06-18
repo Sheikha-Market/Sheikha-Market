@@ -1,7 +1,7 @@
 # 🧠 Sheikha-Core Ollama Verification Report
 # منظومة شيخة — تقرير التحقق من Ollama
 
-**Date:** 2026-06-07  
+**Date:** 2026-06-07
 **Status:** ✅ **VERIFIED** — Both environments confirmed operational
 
 ---
@@ -17,9 +17,9 @@
 
 ## 🔍 LOCAL ENVIRONMENT VERIFICATION
 
-**Host:** Development Machine  
-**OS:** Ubuntu 22.04+ (kernel 6.8.0+)  
-**Ollama Status:** ✅ Running on `http://localhost:11434`  
+**Host:** Development Machine
+**OS:** Ubuntu 22.04+ (kernel 6.8.0+)
+**Ollama Status:** ✅ Running on `http://localhost:11434`
 
 ### Available Models:
 1. ✅ **Sheikha-Core:latest** — Primary model for منظومة شيخة
@@ -46,11 +46,11 @@ curl -X POST http://localhost:11434/api/generate \
 
 ## 🌐 VPS ENVIRONMENT VERIFICATION
 
-**Host:** srv949321 (VPS in Azure subscription "Azure subscription 1")  
-**IP:** 31.97.190.74  
-**OS:** Ubuntu Linux (kernel 6.8.0-117)  
-**Ollama Version:** 0.23.0  
-**Ollama Status:** ✅ Running on `http://localhost:11434` (internal)  
+**Host:** srv949321 (VPS in Azure subscription "Azure subscription 1")
+**IP:** 31.97.190.74
+**OS:** Ubuntu Linux (kernel 6.8.0-117)
+**Ollama Version:** 0.23.0
+**Ollama Status:** ✅ Running on `http://localhost:11434` (internal)
 
 ### Available Models:
 1. ✅ **Sheikha-Core:latest** — Primary model (production)
@@ -252,7 +252,7 @@ export OLLAMA_HOST=http://localhost:11435
 
 ---
 
-**Report Generated:** 2026-06-07  
-**Verification Status:** ✅ **COMPLETE**  
-**Last Updated:** By Sheikha AI Gateway Verification  
+**Report Generated:** 2026-06-07
+**Verification Status:** ✅ **COMPLETE**
+**Last Updated:** By Sheikha AI Gateway Verification
 **Next Audit:** 2026-07-07 (or on model update)

@@ -3,7 +3,7 @@
 
 /**
  * SHEIKHA Integrated Laboratory Management System
- * 
+ *
  * يدير ويشغل جميع المختبرات المتخصصة ويجمع نتائجها
  */
 
@@ -180,11 +180,11 @@ async function main() {
     if (command === 'all') {
       const results = runAllLabs();
       printReport(results);
-      
+
       // حفظ النتائج
       const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
       saveResults(results, `./docs/labs/results/labs-report-${timestamp}.json`);
-      
+
       // إخراج JSON
       console.log(JSON.stringify(results, null, 2));
     } else if (command.startsWith('--lab=')) {
