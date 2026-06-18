@@ -2929,6 +2929,13 @@ try {
   console.warn('[sheikha-knowledge-universe-graph-v76] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/planetary-resource-fabric/sheikha-planetary-resource-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-planetary-resource-fabric-v77] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
