@@ -2831,6 +2831,13 @@ try {
   console.warn('[sheikha-cosmic-production-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/knowledge-graph-engine/sheikha-knowledge-graph-engine-routes'));
+} catch (error) {
+  console.warn('[sheikha-knowledge-graph-engine-v63] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
