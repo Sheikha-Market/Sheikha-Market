@@ -641,14 +641,24 @@ async function sendExtensionChat(message, options = {}) {
             options.onToken({ event: 'token', data: { text: answerText }, text: answerText });
           }
 
+          const fullAnswerText = String(
+            autonomous?.answer ||
+            autonomous?.result?.answer ||
+            autonomous?.result?.answerText ||
+            autonomous?.result?.response ||
+            answerText ||
+            ''
+          );
+
           return {
             success: true,
-            answer: normalizeSheikhaReply(answerText, text, { greetingAllowed }),
+            answer: fullAnswerText,
             raw: {
               ...autonomous,
               route: 'SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1',
               endpoint: AUTONOMOUS_CHAT_ENDPOINT,
-              meta
+              meta,
+              fullAnswerText
             }
           };
         }
