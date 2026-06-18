@@ -615,50 +615,55 @@ async function sendExtensionChat(message, options = {}) {
   const greetingAllowed = options.greetingAllowed !== false;
 
   try {
-    // SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1
-    // Primary live path: fast token first, deep engine in background.
+    // SHEIKHA_EXTENSION_REAL_SSE_BINDING_L51_V1
+    // Real transport path: Extension -> /api/sheikha/live/chat/v1 -> Ollama SSE tokens.
     if (options.live !== false) {
       try {
-        const live = await postJson(
-          `${LIVE_CHAT_ENDPOINT}?format=json`,
+        const streamed = await postSse(
+          LIVE_CHAT_ENDPOINT,
           {
             message: text,
             mode: payload.mode || options.mode || 'smart',
             actor: 'vscode-extension',
             channel: 'extension-chat',
             source: 'sheikha-vscode-extension',
-            transport: 'LIVE_L45_JSON',
-            __timeoutMs: Number(options.timeout || 3000)
+            transport: 'REAL_SSE_L51'
           },
-          primaryBaseUrl
+          primaryBaseUrl,
+          {
+            timeout: Number(options.timeout || 180000),
+            onEvent: options.onEvent,
+            onToken: options.onToken
+          }
         );
 
-        const liveText = String(live?.answer || live?.token || live?.message || '');
-        if (live?.success === true && liveText) {
-          if (typeof options.onEvent === 'function') {
-            options.onEvent({ event: 'ack', data: { success: true, route: 'SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1' } });
-            options.onEvent({ event: 'meta', data: { route: 'SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1', apexLevel: 45, backgroundDeepEngine: true } });
-            options.onEvent({ event: 'token', data: { text: liveText } });
-            options.onEvent({ event: 'done', data: { success: true } });
-          }
-          if (typeof options.onToken === 'function') {
-            options.onToken({ event: 'token', data: { text: liveText }, text: liveText });
-          }
+        const answerText = String(
+          streamed?.answer ||
+          streamed?.text ||
+          streamed?.tokens?.join?.('') ||
+          ''
+        ).trim();
 
+        if (streamed?.success !== false && answerText) {
           return {
             success: true,
-            answer: liveText,
+            answer: dedupeSheikhaAnswer(answerText),
             raw: {
-              ...live,
-              route: 'SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1',
-              endpoint: `${LIVE_CHAT_ENDPOINT}?format=json`
+              ...streamed,
+              route: 'SHEIKHA_EXTENSION_REAL_SSE_BINDING_L51_V1',
+              endpoint: LIVE_CHAT_ENDPOINT,
+              realSse: true
             }
           };
         }
-      } catch (liveError) {
+      } catch (sseError) {
         if (typeof options.onEvent === 'function') {
-          options.onEvent({ event: 'live-l45-fallback', data: { error: liveError.message } });
+          options.onEvent({
+            event: 'real-sse-l51-error',
+            data: { error: sseError.message }
+          });
         }
+        throw sseError;
       }
     }
 
@@ -748,176 +753,9 @@ async function sendExtensionChat(message, options = {}) {
       }
     }
 
-    if (options.streaming !== false) {
-      try {
-        const fastJson = await postJson(
-          `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`,
-          {
-            message: text,
-            mode: payload.mode,
-            actor: 'vscode-extension',
-            channel: 'extension-chat',
-            source: 'sheikha-vscode-extension',
-            transport: 'JSON_FAST_STREAM_LIVE_V2',
-            extensionStreaming: true,
-            __timeoutMs: Number(options.timeout || 3000)
-          },
-          primaryBaseUrl
-        );
+    // Removed obsolete JSON fastpath; real SSE L51 is authoritative.
 
-        const fastText = String(
-          fastJson?.token?.text ||
-          fastJson?.token ||
-          fastJson?.answer ||
-          fastJson?.reply ||
-          fastJson?.message ||
-          ''
-        );
-
-        if (fastJson?.success === true && fastText) {
-          if (typeof options.onEvent === 'function') {
-            options.onEvent({ event: 'ack', data: { success: true, accepted: true } });
-            options.onEvent({
-              event: 'meta',
-              data: {
-                ...(fastJson.meta || {}),
-                route: fastJson.meta?.route || 'json-fast-stream-live-v2',
-                live: true
-              }
-            });
-            options.onEvent({ event: 'token', data: { text: fastText } });
-            options.onEvent({ event: 'done', data: { success: true } });
-          }
-
-          if (typeof options.onToken === 'function') {
-            options.onToken({ event: 'token', data: { text: fastText }, text: fastText });
-          }
-
-          return {
-            success: true,
-            answer: normalizeSheikhaReply(fastText, text, { greetingAllowed }),
-            raw: {
-              ...fastJson,
-              route: 'SHEIKHA_STREAMING_CHAT_JSON_FASTPATH_LIVE_V2',
-              endpoint: `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`
-            }
-          };
-        }
-      } catch (fastJsonError) {
-        if (typeof options.onEvent === 'function') {
-          options.onEvent({
-            event: 'json-fastpath-fallback',
-            data: { error: fastJsonError.message }
-          });
-        }
-
-        const liveFallback = buildLocalChatFallbackAnswer(text, fastJsonError.message);
-
-        if (typeof options.onToken === 'function') {
-          options.onToken({ event: 'token', data: { text: liveFallback }, text: liveFallback });
-        }
-
-        if (typeof options.onEvent === 'function') {
-          options.onEvent({ event: 'done', data: { success: true, localLiveFallback: true } });
-        }
-
-        return {
-          success: true,
-          answer: normalizeSheikhaReply(liveFallback, text, { greetingAllowed }),
-          raw: {
-            success: true,
-            localLiveFallback: true,
-            error: fastJsonError.message,
-            route: 'SHEIKHA_EXTENSION_LOCAL_LIVE_FALLBACK_V2'
-          }
-        };
-      }
-    }
-
-    // Sheikha extension fast transport: use the SSE route in JSON mode first.
-    // This avoids hanging on raw SSE while preserving the server-side fast ack/meta/token/done contract.
-    if (options.streaming !== false) {
-      try {
-        const fastJson = await postJson(
-          `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`,
-          {
-            message: text,
-            mode: payload.mode,
-            actor: 'vscode-extension',
-            channel: 'extension-chat',
-            source: 'sheikha-vscode-extension',
-            transport: 'JSON_FAST_STREAM_LIVE',
-            extensionStreaming: true,
-            __timeoutMs: Number(options.timeout || 3000)
-          },
-          primaryBaseUrl
-        );
-
-        const fastText = String(
-          fastJson?.token?.text ||
-          fastJson?.token ||
-          fastJson?.answer ||
-          fastJson?.reply ||
-          fastJson?.message ||
-          ''
-        );
-
-        if (fastJson?.success === true && fastText) {
-          if (typeof options.onEvent === 'function') {
-            options.onEvent({ event: 'ack', data: { success: true, accepted: true } });
-            options.onEvent({
-              event: 'meta',
-              data: {
-                ...(fastJson.meta || {}),
-                route: fastJson.meta?.route || 'json-fast-stream'
-              }
-            });
-            options.onEvent({ event: 'token', data: { text: fastText } });
-            options.onEvent({ event: 'done', data: { success: true } });
-          }
-
-          if (typeof options.onToken === 'function') {
-            options.onToken({ event: 'token', data: { text: fastText }, text: fastText });
-          }
-
-          return {
-            success: true,
-            answer: normalizeSheikhaReply(fastText, text, { greetingAllowed }),
-            raw: {
-              ...fastJson,
-              route: 'SHEIKHA_STREAMING_CHAT_JSON_FASTPATH_V1',
-              endpoint: `${STREAMING_CHAT_APEX_STREAM_ENDPOINT}?format=json`
-            }
-          };
-        }
-      } catch (fastJsonError) {
-        if (typeof options.onEvent === 'function') {
-          options.onEvent({
-            event: 'json-fastpath-fallback',
-            data: { error: fastJsonError.message }
-          });
-        }
-
-        const liveFallback = buildLocalChatFallbackAnswer(text, fastJsonError.message);
-        if (typeof options.onToken === 'function') {
-          options.onToken({ event: 'token', data: { text: liveFallback }, text: liveFallback });
-        }
-        if (typeof options.onEvent === 'function') {
-          options.onEvent({ event: 'done', data: { success: true, localLiveFallback: true } });
-        }
-
-        return {
-          success: true,
-          answer: normalizeSheikhaReply(liveFallback, text, { greetingAllowed }),
-          raw: {
-            success: true,
-            localLiveFallback: true,
-            error: fastJsonError.message,
-            route: 'SHEIKHA_EXTENSION_LOCAL_LIVE_FALLBACK_V1'
-          }
-        };
-      }
-    }
+    // Removed obsolete JSON fastpath; real SSE L51 is authoritative.
 
     if (options.streaming !== false) {
       try {
