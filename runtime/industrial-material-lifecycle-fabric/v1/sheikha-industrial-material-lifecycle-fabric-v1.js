@@ -209,7 +209,9 @@ function classifyMaterial(material = {}, factory = {}, seq = 1) {
     arabicGrammar: arabicGrammarTags(material),
     properties: material.properties || [],
     laws: material.rules || material.laws || [],
-    conversion: material.target ? conversionPlan(material, material.target) : null
+    conversion: material.target ? conversionPlan(material, material.target) : null,
+    circularLifecycle: circularLifecyclePlan(material, factory),
+    productionTaxonomy: productionNaming(material, factory)
   };
 }
 
@@ -226,6 +228,129 @@ function clusterGoal(factoryType) {
     MANUFACTURING: 'GENERAL_PRODUCTION_AND_QUALITY',
     LOGISTICS: 'STORAGE_TRANSPORT_AND_DISTRIBUTION'
   }[factoryType] || 'GENERAL_INDUSTRIAL_CLUSTER';
+}
+
+
+
+function productionNaming(material = {}, factory = {}) {
+  const state = classifyState(material);
+  const stage = classifyStage(material);
+  const factoryType = classifyFactory(factory);
+  const name = String(material.name || 'مادة');
+
+  const tab =
+    stage === 'RAW_MATERIAL' ? 'تبويب المواد الأولية' :
+    stage === 'SEMI_FINISHED' ? 'تبويب نصف المصنع' :
+    stage === 'FINISHED' ? 'تبويب المنتجات' :
+    stage === 'BYPRODUCT' ? 'تبويب المخرجات الجانبية' :
+    stage === 'WASTE' ? 'تبويب اللقيط/النفايات' :
+    stage === 'RECYCLED' ? 'تبويب المعاد تدويره' :
+    'تبويب عام';
+
+  const productionName =
+    stage === 'RAW_MATERIAL' ? `مدخل إنتاج: ${name}` :
+    stage === 'SEMI_FINISHED' ? `نصف مصنوع: ${name}` :
+    stage === 'FINISHED' ? `منتج: ${name}` :
+    stage === 'BYPRODUCT' ? `مخرج جانبي: ${name}` :
+    stage === 'WASTE' ? `لقيط/مادة مراجعة: ${name}` :
+    stage === 'RECYCLED' ? `مادة معاد تدويرها: ${name}` :
+    `مادة صناعية: ${name}`;
+
+  return {
+    productionName,
+    tab,
+    industryName: factoryType,
+    madeObjectClass: stage,
+    materialState: state,
+    produces: {
+      mainProducts: material.mainProducts || [],
+      byProducts: material.byProducts || [],
+      assets: material.assets || [],
+      materials: material.outputMaterials || [],
+      wasteOrReview: material.wasteOrReview || []
+    },
+    accountingTabs: [
+      'مواد داخلة',
+      'تشغيل وتحويل',
+      'منتجات رئيسية',
+      'مخرجات جانبية',
+      'موجودات',
+      'نفايات/لقيط',
+      'جودة وحوكمة'
+    ],
+    numberingRule: 'SHK-{FACTORY}-{STAGE}-{STATE}-{INPUT}-{SEQ}'
+  };
+}
+
+function circularLifecyclePlan(material = {}, factory = {}) {
+  const inputKind = classifyInputKind(material);
+  const state = classifyState(material);
+  const stage = classifyStage(material);
+  const consistency = classifyConsistency(material);
+  const supplierClass = classifySupplier(material);
+
+  const recyclable =
+    /scrap|recycle|معاد|سكراب|خرده|نفايات|waste/i.test(`${material.name || ''} ${material.description || ''} ${material.stage || ''}`) ||
+    ['SOLID', 'POWDER', 'LIQUID'].includes(state);
+
+  const sameProductAllowed =
+    recyclable &&
+    consistency === 'CONSISTENT' &&
+    ['SOLID', 'POWDER'].includes(state);
+
+  const otherProductAllowed =
+    recyclable &&
+    ['INCONSISTENT', 'UNKNOWN_CONSISTENCY'].includes(consistency);
+
+  const outputClass =
+    sameProductAllowed ? 'RECYCLE_TO_SAME_PRODUCT' :
+    otherProductAllowed ? 'RECYCLE_TO_OTHER_PRODUCT' :
+    recyclable ? 'RECYCLE_TO_BYPRODUCT_OR_FEEDSTOCK' :
+    'DISPOSE_OR_REVIEW';
+
+  return {
+    lifecycle: [
+      'RECEIVE',
+      'IDENTIFY',
+      'CLASSIFY',
+      'SAMPLE_OR_INSPECT',
+      'QUALITY_GATE',
+      'STORAGE_ASSIGNMENT',
+      'TRANSPORT_SELECTION',
+      'PROCESS_ROUTE_SELECTION',
+      'OUTPUT_CLASSIFICATION',
+      'TRACE_AND_AUDIT'
+    ],
+    inputKind,
+    state,
+    stage,
+    consistency,
+    supplierClass,
+    recyclable,
+    outputClass,
+    possibleRoutes: {
+      sameProduct: sameProductAllowed,
+      otherProduct: otherProductAllowed,
+      byproduct: recyclable,
+      wasteReview: !recyclable
+    },
+    requiredControls: [
+      'LOT_NUMBER',
+      'SOURCE_TRACE',
+      'QUALITY_SPEC',
+      'SAFETY_REVIEW',
+      'ENVIRONMENTAL_REVIEW',
+      'GOVERNANCE_APPROVAL'
+    ],
+    blocked: [
+      'NO_HAZARDOUS_RECIPE',
+      'NO_UNVERIFIED_CHEMICAL_PROCESS',
+      'NO_DANGEROUS_OPERATING_PARAMETERS'
+    ],
+    storage: storageMethod(material),
+    transport: transportMethod(material),
+    targetFactoryType: classifyFactory(factory)
+  };
 }
 
 function analyze(input = {}) {
@@ -297,5 +422,7 @@ module.exports = {
   classifyState,
   classifyStage,
   storageMethod,
-  transportMethod
+  transportMethod,
+  circularLifecyclePlan,
+  productionNaming
 };
