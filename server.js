@@ -2762,6 +2762,13 @@ try {
   console.warn('[sheikha-supreme-operating-fabric] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-live-realtime-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));

@@ -22,6 +22,7 @@ const STREAMING_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1
 const STREAMING_CHAT_APEX_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/stream';
 const AUTONOMOUS_CHAT_ENDPOINT = '/api/sheikha/chat/autonomous/v1';
 const AUTONOMOUS_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/autonomous';
+const LIVE_CHAT_ENDPOINT = '/api/sheikha/live/chat/v1';
 const EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT =
   '/api/sheikha/extension-streaming-artifact-apex/v1/status';
 const EXTENSION_TRANSPORT_VERSION = '1.0.89';
@@ -614,6 +615,53 @@ async function sendExtensionChat(message, options = {}) {
   const greetingAllowed = options.greetingAllowed !== false;
 
   try {
+    // SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1
+    // Primary live path: fast token first, deep engine in background.
+    if (options.live !== false) {
+      try {
+        const live = await postJson(
+          `${LIVE_CHAT_ENDPOINT}?format=json`,
+          {
+            message: text,
+            mode: payload.mode || options.mode || 'smart',
+            actor: 'vscode-extension',
+            channel: 'extension-chat',
+            source: 'sheikha-vscode-extension',
+            transport: 'LIVE_L45_JSON',
+            __timeoutMs: Number(options.timeout || 3000)
+          },
+          primaryBaseUrl
+        );
+
+        const liveText = String(live?.answer || live?.token || live?.message || '');
+        if (live?.success === true && liveText) {
+          if (typeof options.onEvent === 'function') {
+            options.onEvent({ event: 'ack', data: { success: true, route: 'SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1' } });
+            options.onEvent({ event: 'meta', data: { route: 'SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1', apexLevel: 45, backgroundDeepEngine: true } });
+            options.onEvent({ event: 'token', data: { text: liveText } });
+            options.onEvent({ event: 'done', data: { success: true } });
+          }
+          if (typeof options.onToken === 'function') {
+            options.onToken({ event: 'token', data: { text: liveText }, text: liveText });
+          }
+
+          return {
+            success: true,
+            answer: liveText,
+            raw: {
+              ...live,
+              route: 'SHEIKHA_EXTENSION_L45_LIVE_BINDING_V1',
+              endpoint: `${LIVE_CHAT_ENDPOINT}?format=json`
+            }
+          };
+        }
+      } catch (liveError) {
+        if (typeof options.onEvent === 'function') {
+          options.onEvent({ event: 'live-l45-fallback', data: { error: liveError.message } });
+        }
+      }
+    }
+
     // SHEIKHA_EXTENSION_L35_ORCHESTRATOR_BINDING_V1
     // Primary deep governed path: Extension -> Autonomous Chat -> L35/L26 -> Model Router.
     if (options.autonomous !== false) {
