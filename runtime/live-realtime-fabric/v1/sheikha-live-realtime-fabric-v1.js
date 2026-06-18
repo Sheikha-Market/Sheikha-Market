@@ -3,21 +3,17 @@
 function status() {
   return {
     success: true,
-    system: 'SHEIKHA_LIVE_REALTIME_FABRIC_L40_L45_V1',
+    system: 'SHEIKHA_REAL_MODEL_LIVE_STREAM_L50_V1',
     status: 'ACTIVE',
-    apexLevel: 45,
-    layers: {
-      L40: 'LIVE_ORCHESTRATOR_ACTIVE',
-      L41: 'TOKEN_STREAM_ENGINE_ACTIVE',
-      L42: 'CONTEXT_CACHE_ACTIVE',
-      L43: 'FAST_MEMORY_GRAPH_ACTIVE',
-      L44: 'AGENT_MESH_RUNTIME_ACTIVE',
-      L45: 'REALTIME_CONVERSATION_FABRIC_ACTIVE'
-    },
-    mode: 'FAST_FIRST_TOKEN_WITH_BACKGROUND_DEEP_ENGINE',
-    target: {
-      firstTokenMs: '100-500ms',
-      blockingDeepEngine: false
+    apexLevel: 50,
+    mode: 'REAL_MODEL_TOKEN_STREAM',
+    placeholderRemoved: true,
+    makeFastAnswerRemoved: true,
+    routing: {
+      general: 'Sheikha-Core:latest',
+      code: 'qwen2.5-coder:7b',
+      reasoning: 'deepseek-r1:8b',
+      fast: 'tinyllama:latest'
     },
     governance: {
       principle: 'لا ضرر ولا ضرار',
@@ -28,10 +24,21 @@ function status() {
   };
 }
 
-function makeFastAnswer(message = '') {
-  const text = String(message || '').trim();
-  if (!text) return 'شيخة جاهزة. اكتب المطلوب بوضوح.';
-  return `تم الاستلام: ${text}\n\nسأبدأ بالمسار الحي الآن، ثم أُكمل التحليل العميق في الخلفية دون تعطيل الشات.`;
+function selectLiveModel(message = '', mode = 'smart') {
+  const text = String(message || '');
+  if (mode === 'code' || /كود|برمج|debug|fix|test|اختبار/i.test(text)) return 'qwen2.5-coder:7b';
+  if (/حلل|استنتج|reason|deep|منطق/i.test(text)) return 'deepseek-r1:8b';
+  if (/سريع|مختصر|fast/i.test(text)) return 'tinyllama:latest';
+  return process.env.SHEIKHA_OLLAMA_MODEL || 'Sheikha-Core:latest';
 }
 
-module.exports = { status, makeFastAnswer };
+function buildPrompt(message = '') {
+  return [
+    'أجب مرة واحدة فقط بدون تكرار.',
+    'لا تستخدم عبارات: تم الاستلام، سأبدأ، سأكمل في الخلفية.',
+    'كن مباشراً ومفيداً.',
+    String(message || '').trim()
+  ].join('\n');
+}
+
+module.exports = { status, selectLiveModel, buildPrompt };
