@@ -53,6 +53,7 @@ describe('Sheikha Streaming Multilingual Chat Apex V1', () => {
     const inspector = read('core/enterprise/sheikha-enterprise-inspector-v3.js');
     const client = read('sheikha-vscode-extension/src/sheikhaExtensionChatClient.js');
     const provider = read('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
+    const route = read('routes/streaming-chat-apex/sheikha-streaming-chat-apex-routes.js');
 
     expect(server).toContain(
       "app.use(require('./routes/streaming-chat-apex/sheikha-streaming-chat-apex-routes'));"
@@ -71,5 +72,7 @@ describe('Sheikha Streaming Multilingual Chat Apex V1', () => {
     expect(provider).toContain('L21 Streaming Multilingual Chat Apex');
     expect(provider).toContain("command: 'streamingApexStatus'");
     expect(provider).toContain('Streaming Apex');
+    expect(route).toContain("sseFrame(res, 'ack'");
+    expect(route).toContain("sseFrame(res, 'heartbeat'");
   });
 });
