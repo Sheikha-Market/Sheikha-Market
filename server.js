@@ -3013,6 +3013,13 @@ try {
   console.warn('[sheikha-multi-agent-federation-fabric-v88] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/capability-registry-federation-fabric/sheikha-capability-registry-federation-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-capability-registry-federation-fabric-v89] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
