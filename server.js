@@ -2824,6 +2824,13 @@ try {
 } catch (error) {
   console.warn('[sheikha-universal-civilization-fabric] route mount skipped:', error.message);
 }
+
+try {
+  app.use(require('./routes/cosmic-production-fabric/sheikha-cosmic-production-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-cosmic-production-fabric] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
