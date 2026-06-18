@@ -13,7 +13,7 @@ function sse(res, event, data) {
 function fastToken(message) {
   const text = String(message || '').trim();
   if (!text) return 'شيخة جاهزة. أرسل الأمر أو الكود المطلوب.';
-  return `تم الاستلام: ${text}\n\nسأتعامل مع الطلب فورًا عبر المسار السريع، مع تشغيل المحرك العميق في الخلفية دون تعطيل الشات.`;
+  return `Sheikha live route is available. Use /api/sheikha/live/chat/v1 for real model streaming.`;
 }
 
 function runDeepEngineInBackground(payload) {

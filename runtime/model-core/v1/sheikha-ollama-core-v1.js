@@ -102,7 +102,7 @@ async function fastLeast(message) {
       success: true,
       system: 'SHEIKHA_LEAST_FALLBACK_V1',
       model: 'Sheikha-Least',
-      answer: `تم الاستلام: ${message || 'أمر جديد'}\n\nتعذر تشغيل النموذج المحلي الآن، وتم استخدام مسار Sheikha Least السريع.`,
+      answer: `تعذر تشغيل النموذج المحلي الآن، وتم استخدام مسار Sheikha Least السريع.`,
       fallbackReason: error.message
     };
   }
