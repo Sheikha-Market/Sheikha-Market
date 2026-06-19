@@ -3040,6 +3040,13 @@ try {
   console.warn('[sheikha-arabic-type-system-fabric-v93] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/arabic-standard-library-fabric/sheikha-arabic-standard-library-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-arabic-standard-library-fabric-v94] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
