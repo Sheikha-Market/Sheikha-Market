@@ -3054,6 +3054,13 @@ try {
   console.warn('[sheikha-arabic-runtime-fabric-v95] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-arabic-package-manager-fabric-v96] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
