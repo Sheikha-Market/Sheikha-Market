@@ -3124,6 +3124,27 @@ try {
   console.warn('[sheikha-intelligence-mesh-fabric-v119] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/self-improvement-mesh-fabric/sheikha-self-improvement-mesh-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-self-improvement-mesh-fabric-v120] route mount skipped:', error.message);
+}
+
+
+try {
+  app.use(require('./routes/observability-mesh-fabric/sheikha-observability-mesh-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-observability-mesh-fabric-v121] route mount skipped:', error.message);
+}
+
+
+try {
+  app.use(require('./routes/policy-enforcement-mesh-fabric/sheikha-policy-enforcement-mesh-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-policy-enforcement-mesh-fabric-v122] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
