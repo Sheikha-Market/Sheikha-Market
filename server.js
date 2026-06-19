@@ -3075,6 +3075,13 @@ try {
   console.warn('[sheikha-inter-system-navigator-fabric-v112] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/global-transport-mesh-fabric/sheikha-global-transport-mesh-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-global-transport-mesh-fabric-v113] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
