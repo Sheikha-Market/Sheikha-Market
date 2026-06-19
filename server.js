@@ -3145,6 +3145,13 @@ try {
   console.warn('[sheikha-policy-enforcement-mesh-fabric-v122] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/capability-registry-mesh-fabric/sheikha-capability-registry-mesh-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-capability-registry-mesh-fabric-v123] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
