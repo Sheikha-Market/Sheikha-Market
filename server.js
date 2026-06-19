@@ -3166,6 +3166,18 @@ try {
   console.warn('[sheikha-bio-inspired-growth-fabric-v126] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(
+    require('./routes/ecosystem-intelligence-fabric/sheikha-ecosystem-intelligence-fabric-routes')
+  );
+} catch (error) {
+  console.warn(
+    '[sheikha-ecosystem-intelligence-fabric-v127] route mount skipped:',
+    error.message
+  );
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
