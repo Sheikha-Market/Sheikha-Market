@@ -3152,6 +3152,13 @@ try {
   console.warn('[sheikha-capability-registry-mesh-fabric-v123] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/living-digital-twin-agriculture-fabric/sheikha-living-digital-twin-agriculture-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-living-digital-twin-agriculture-fabric-v125] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
