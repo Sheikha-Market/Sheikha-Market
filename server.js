@@ -3159,6 +3159,13 @@ try {
   console.warn('[sheikha-living-digital-twin-agriculture-fabric-v125] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/bio-inspired-growth-fabric/sheikha-bio-inspired-growth-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-bio-inspired-growth-fabric-v126] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
