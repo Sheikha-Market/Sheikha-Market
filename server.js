@@ -3027,6 +3027,12 @@ try {
   console.warn('[sheikha-arabic-language-cluster-fabric-v91] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/arabic-compiler-fabric/sheikha-arabic-compiler-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-arabic-compiler-fabric-v92] route mount skipped:', error.message);
+}
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
