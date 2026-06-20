@@ -3178,6 +3178,13 @@ try {
   );
 }
 
+
+try {
+  app.use(require('./routes/regenerative-knowledge-fabric/sheikha-regenerative-knowledge-fabric-routes'));
+} catch (error) {
+  console.warn('[sheikha-regenerative-knowledge-fabric-v128] route mount skipped:', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
