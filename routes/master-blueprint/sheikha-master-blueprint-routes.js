@@ -4,6 +4,7 @@ const express = require('express');
 const router = express.Router();
 
 const { loadRuntime } = require('../../runtime/loader/sheikha-runtime-loader');
+const { discoverModules } = require('../../runtime/discovery/sheikha-module-discovery');
 
 router.get('/api/sheikha/master-blueprint/v1/status', (_req, res) => {
   res.json({
