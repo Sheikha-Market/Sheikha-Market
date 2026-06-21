@@ -45,4 +45,13 @@ router.get('/api/sheikha/master-blueprint/v1/metrics', (_req, res) => {
   });
 });
 
+
+router.get('/api/sheikha/master-blueprint/v1/modules', (_req, res) => {
+  res.json({
+    success: true,
+    system: 'SHEIKHA_MASTER_BLUEPRINT_V1',
+    modules: discoverModules()
+  });
+});
+
 module.exports = router;
