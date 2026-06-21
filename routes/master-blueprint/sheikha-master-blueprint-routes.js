@@ -5,6 +5,7 @@ const router = express.Router();
 
 const { loadRuntime } = require('../../runtime/loader/sheikha-runtime-loader');
 const { discoverModules } = require('../../runtime/discovery/sheikha-module-discovery');
+const { evaluateSystemHealth } = require('../../runtime/self-healing/sheikha-self-healing-engine');
 
 router.get('/api/sheikha/master-blueprint/v1/status', (_req, res) => {
   res.json({
@@ -51,6 +52,15 @@ router.get('/api/sheikha/master-blueprint/v1/modules', (_req, res) => {
     success: true,
     system: 'SHEIKHA_MASTER_BLUEPRINT_V1',
     modules: discoverModules()
+  });
+});
+
+
+router.get('/api/sheikha/master-blueprint/v1/self-healing', (_req, res) => {
+  res.json({
+    success: true,
+    system: 'SHEIKHA_MASTER_BLUEPRINT_V1',
+    selfHealing: evaluateSystemHealth()
   });
 });
 
