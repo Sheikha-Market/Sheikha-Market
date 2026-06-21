@@ -73,4 +73,4 @@ router.get('/api/sheikha/master-blueprint/v1/observability', (_req, res) => {
     observability: collectRuntimeMetrics()
   });
 });
-\nmodule.exports = router;
+module.exports = router;
