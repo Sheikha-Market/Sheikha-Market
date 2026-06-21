@@ -8,6 +8,7 @@ const { discoverModules } = require('../../runtime/discovery/sheikha-module-disc
 const { evaluateSystemHealth } = require('../../runtime/self-healing/sheikha-self-healing-engine');
 const { collectRuntimeMetrics } = require('../../runtime/observability/sheikha-observability-runtime');
 const { autoRegisterModules } = require('../../runtime/auto-registration/sheikha-auto-registration');
+const { productionSummary } = require('../../runtime/production-summary');
 
 router.get('/api/sheikha/master-blueprint/v1/status', (_req, res) => {
   res.json({
@@ -80,6 +81,15 @@ router.get('/api/sheikha/master-blueprint/v1/auto-registration', (_req, res) => 
     success: true,
     system: 'SHEIKHA_MASTER_BLUEPRINT_V1',
     registration: autoRegisterModules()
+  });
+});
+
+
+router.get('/api/sheikha/master-blueprint/v1/production', (_req, res) => {
+  res.json({
+    success: true,
+    system: 'SHEIKHA_MASTER_BLUEPRINT_V1',
+    production: productionSummary()
   });
 });
 
