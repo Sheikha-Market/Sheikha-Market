@@ -22,5 +22,17 @@ result.status
 'CREATED'
 );
 
+expect(
+result.snapshot.status
+).toBe(
+'ACTIVE'
+);
+
+expect(
+result.snapshot.health.status
+).toBe(
+'HEALTHY'
+);
+
 });
 });
