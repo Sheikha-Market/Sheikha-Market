@@ -1,103 +1,24 @@
 {
-  "editor.formatOnSave": true,
-  "editor.formatOnType": true,
-  "files.trimTrailingWhitespace": true,
-  "files.insertFinalNewline": true,
-  "editor.semanticHighlighting.enabled": true,
-  "editor.codeLens": true,
-  "editor.inlayHints.enabled": "on",
-  "editor.occurrencesHighlight": "singleFile",
-  "editor.foldingStrategy": "auto",
-  "breadcrumbs.enabled": true,
-  "breadcrumbs.symbolPath": "on",
-  "problems.showCurrentInStatus": true,
-  "todo-highlight.isEnable": true,
-  "todo-highlight.keywords": [
-    "TODO",
-    "FIXME",
-    "BUG",
-    "HACK",
-    "NOTE",
-    "OPTIMIZE"
-  ],
-  "todo-tree.ripgrep": "/usr/bin/rg",
-  "php.validate.enable": true,
-  "php.suggest.basic": false,
-  "intelephense.files.maxSize": 5000000,
-  "intelephense.format.enable": true,
-  "intelephense.diagnostics.enable": true,
-  "intelephense.diagnostics.undefinedFunctions": true,
-  "intelephense.diagnostics.undefinedConstants": true,
-  "intelephense.diagnostics.undefinedTypes": true,
-  "intelephense.diagnostics.unusedSymbols": true,
-  "intelephense.environment.phpVersion": "8.3.0",
-  "intelephense.completion.insertUseDeclaration": true,
-  "intelephense.completion.fullyQualifyGlobalConstantsAndFunctions": false,
-  "intelephense.rename.exclude": [
-    "**/vendor/**",
-    "**/node_modules/**"
-  ],
-  "files.associations": {
-    "*.blade.php": "blade"
-  },
-  "[php]": {
-    "editor.defaultFormatter": "devsense.phptools-vscode",
-    "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "editor.quickSuggestions": {
-      "comments": "on",
-      "strings": "on",
-      "other": "on"
-    }
-  },
-  "terminal.integrated.defaultProfile.linux": "bash",
-  "github.copilot.enable": {
-    "*": true
-  },
-  "chat.agent.enabled": true,
-
-  // ═══ Python — Core ═══
-  "python.defaultInterpreterPath": "${workspaceFolder}/.venv/bin/python",
-  "python.terminal.activateEnvironment": true,
-  "python.terminal.activateEnvInCurrentTerminal": true,
-  "python.analysis.typeCheckingMode": "basic",
-  "python.analysis.autoImportCompletions": true,
-  "python.analysis.autoSearchPaths": true,
-  "python.analysis.diagnosticMode": "workspace",
-  "python.analysis.indexing": true,
-  "python.analysis.inlayHints.variableTypes": true,
-  "python.analysis.inlayHints.functionReturnTypes": true,
-  "python.analysis.inlayHints.callArgumentNames": "all",
-
-  // ═══ Python — Linting ═══
-  "python.linting.enabled": true,
-  "python.linting.pylintEnabled": true,
-  "python.linting.lintOnSave": true,
-  "ruff.enable": true,
-  "ruff.fixAll": true,
-  "ruff.organizeImports": true,
-  "[python]": {
-    "editor.defaultFormatter": "ms-python.black-formatter",
-    "editor.formatOnSave": true,
-    "editor.codeActionsOnSave": {
-      "source.fixAll.ruff": "explicit",
-      "source.organizeImports.ruff": "explicit"
-    },
-    "editor.tabSize": 4,
-    "editor.insertSpaces": true,
-    "editor.rulers": [88]
-  },
-
-  // ═══ Python — Testing ═══
-  "python.testing.pytestEnabled": true,
-  "python.testing.unittestEnabled": false,
-  "python.testing.pytestArgs": ["tests"],
-
-  // ═══ Jupyter ═══
-  "jupyter.askForKernelRestart": false,
-  "jupyter.interactiveWindow.creationMode": "perFile",
-  "jupyter.notebookFileRoot": "${workspaceFolder}",
-  "jupyter.widgetScriptSources": ["jsdelivr.com", "unpkg.com"],
-  "notebook.formatOnSave.enabled": true,
-  "notebook.output.scrolling": true
+  "cSpell.words": [
+    "Sheikha",
+    "sheikha",
+    "SHEIKHA",
+    "ihsan",
+    "itqan",
+    "quranic",
+    "runtime",
+    "governance",
+    "federation",
+    "atlas",
+    "omega",
+    "cortex",
+    "شيخة",
+    "الإحسان",
+    "الإتقان",
+    "الاحتكار",
+    "الصدق",
+    "الشبكة",
+    "العصبية",
+    "الجذرية"
+  ]
 }
