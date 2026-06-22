@@ -3206,6 +3206,13 @@ try {
   console.warn('[quranic-operating-system]', error.message);
 }
 
+
+try {
+  app.use(require('./routes/federation-omega/sheikha-federation-omega-routes'));
+} catch (error) {
+  console.warn('[federation-omega]', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
