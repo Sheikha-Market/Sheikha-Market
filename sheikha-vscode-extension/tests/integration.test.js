@@ -1,4 +1,4 @@
-const fetch = require('node-fetch');
+const fetch = (...args) => globalThis.fetch(...args);
 const { describe, test, expect, beforeAll, afterAll } = require('@jest/globals');
 
 /**
