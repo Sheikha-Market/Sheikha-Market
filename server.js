@@ -3220,6 +3220,13 @@ try {
   console.warn('[unified-graph]', error.message);
 }
 
+
+try {
+  app.use(require('./routes/execution-cortex/sheikha-execution-cortex-routes'));
+} catch (error) {
+  console.warn('[execution-cortex]', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
