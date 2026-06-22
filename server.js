@@ -3192,6 +3192,13 @@ try {
   console.warn('[sheikha-master-blueprint-v1] route mount skipped:', error.message);
 }
 
+
+try {
+  app.use(require('./routes/quranic-atlas/sheikha-quranic-atlas-routes'));
+} catch (error) {
+  console.warn('[quranic-atlas]', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
