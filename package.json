@@ -552,7 +552,12 @@
     "ops:vscode-extension-experience-apex:activate": "bash tools/activate-sheikha-vscode-extension-experience-apex.sh",
     "ops:unified-apex:verify": "bash tools/verify-sheikha-unified-apex-v1.sh",
     "ops:unified-apex:activate": "bash tools/activate-sheikha-unified-apex-v1.sh",
-    "ops:unified-apex:release": "bash tools/release-sheikha-unified-apex-v1.sh"
+    "ops:unified-apex:release": "bash tools/release-sheikha-unified-apex-v1.sh",
+    "sheikha:contract:validate": "node tools/governance/sheikha-contract-validator.js",
+    "sheikha:settings:validate": "node tools/governance/sheikha-settings-validator.js",
+    "sheikha:dependency:guardian": "node tools/governance/sheikha-dependency-guardian.js",
+    "sheikha:root-cause": "node tools/governance/sheikha-root-cause-engine.js",
+    "sheikha:governance:verify": "npm run sheikha:contract:validate && npm run sheikha:settings:validate && npm run sheikha:dependency:guardian && npm run sheikha:root-cause"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
