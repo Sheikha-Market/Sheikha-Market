@@ -3213,6 +3213,13 @@ try {
   console.warn('[federation-omega]', error.message);
 }
 
+
+try {
+  app.use(require('./routes/unified-graph/sheikha-unified-graph-routes'));
+} catch (error) {
+  console.warn('[unified-graph]', error.message);
+}
+
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
