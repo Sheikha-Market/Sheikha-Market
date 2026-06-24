@@ -27,7 +27,8 @@ const runtimeSecurityMiddleware = require('./middleware/security');
 const tradeRoutes = require('./routes/trade.routes');
 const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
-
+const { registerSheikhaRuntimeHealthRoutes } = require("./routes/runtime-health/sheikha-runtime-health-routes");
+registerSheikhaRuntimeHealthRoutes(app);
 const app = express();
 
 // SHEIKHA_TODO_TAGS_GLOBAL_REGISTRY_TOP_ROUTES
