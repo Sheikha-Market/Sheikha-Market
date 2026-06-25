@@ -22,6 +22,8 @@
     "recovery": "ACTIVE"
   },
   "events": [
+    "WORKFLOW_STEP_STARTED",
+    "WORKFLOW_STEP_FAILED",
     "ENGINE_DISCOVERED",
     "ENGINE_VALIDATED",
     "ENGINE_REGISTERED",
