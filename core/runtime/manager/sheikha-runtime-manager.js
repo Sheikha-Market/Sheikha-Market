@@ -14,6 +14,12 @@
  * ============================================================
  */
 
+const { inspectRuntimeTelemetry } = require("../telemetry-engine/sheikha-runtime-telemetry-engine");
+const { buildUnifiedRuntimeMetrics } = require("../metrics-engine/sheikha-runtime-metrics-engine");
+const { buildRuntimeDashboard } = require("../dashboard-engine/sheikha-runtime-dashboard-engine");
+const { buildExecutionPlan } = require("../execution-engine/sheikha-runtime-execution-engine");
+const { buildRuntimeSchedule } = require("../scheduler-engine/sheikha-runtime-scheduler-engine");
+const { buildLifecyclePlan } = require("../lifecycle-engine/sheikha-runtime-lifecycle-engine");
 const {
   discoverRuntimeDefinitions
 } = require("../discovery-engine/sheikha-runtime-discovery-engine");
@@ -66,6 +72,12 @@ function safe(value, fallback = null) {
 
 function runRuntimeManager(options = {}) {
 
+  const telemetry = inspectRuntimeTelemetry();
+  const metrics = buildUnifiedRuntimeMetrics();
+  const dashboard = buildRuntimeDashboard();
+  const execution = buildExecutionPlan(options);
+  const scheduler = buildRuntimeSchedule(options);
+  const lifecycle = buildLifecyclePlan(options);
   const discovery = discoverRuntimeDefinitions(options);
 
   const registry = buildRuntimeRegistry(options);
@@ -110,7 +122,44 @@ function runRuntimeManager(options = {}) {
     status: ready ? "ACTIVE" : "DEGRADED",
 
     layers: {
+      executionEngine: {
+  status: execution.status,
+  readiness: execution.readiness.overall,
+  queues: execution.queues,
+  health: execution.runtimeHealth
+},
 
+schedulerEngine: {
+  status: scheduler.status,
+  readiness: scheduler.readiness.overall,
+  queues: scheduler.queues,
+  health: scheduler.runtimeHealth
+},
+
+lifecycleEngine: {
+  status: lifecycle.status,
+  readiness: lifecycle.readiness.overall,
+  states: lifecycle.states.length,
+  plannedItems: lifecycle.lifecyclePlan.length,
+  health: lifecycle.runtimeHealth
+},
+
+telemetryEngine: {
+  status: telemetry.status,
+  readiness: telemetry.readiness.overall
+},
+
+metricsEngine: {
+  status: metrics.status,
+  readiness: metrics.readiness.overall,
+  health: metrics.health
+},
+
+dashboardEngine: {
+  status: dashboard.status,
+  readiness: dashboard.readiness.overall,
+  summary: dashboard.summary
+},
       discovery: {
         status: discovery.status,
         totals: discovery.totals
@@ -126,6 +175,12 @@ function runRuntimeManager(options = {}) {
           capabilityRegistry.capabilities || {}
         ).length,
         pluginsReady:
+          execution.status === "ACTIVE" &&
+          scheduler.status === "ACTIVE" &&
+          lifecycle.status === "ACTIVE" &&
+          telemetry.status === "ACTIVE" &&
+          metrics.status === "ACTIVE" &&
+          dashboard.status === "ACTIVE" &&
           capabilityRegistry.plugins.dynamicPluginsReady
       },
 
