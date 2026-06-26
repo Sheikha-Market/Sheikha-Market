@@ -28,10 +28,12 @@ const tradeRoutes = require('./routes/trade.routes');
 const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
 const { registerSheikhaRuntimeHealthRoutes } = require("./routes/runtime-health/sheikha-runtime-health-routes");
+const { registerSheikhaRuntimeBootstrapRoutes } = require("./routes/runtime-bootstrap/sheikha-runtime-bootstrap-routes");
 
 const app = express();
 
 registerSheikhaRuntimeHealthRoutes(app);
+registerSheikhaRuntimeBootstrapRoutes(app);
 
 // SHEIKHA_TODO_TAGS_GLOBAL_REGISTRY_TOP_ROUTES
 app.get('/api/sheikha/global-registry/status', (_req, res) => res.json({
