@@ -20,6 +20,11 @@ const { buildRuntimeDashboard } = require("../dashboard-engine/sheikha-runtime-d
 const { buildExecutionPlan } = require("../execution-engine/sheikha-runtime-execution-engine");
 const { buildRuntimeSchedule } = require("../scheduler-engine/sheikha-runtime-scheduler-engine");
 const { buildLifecyclePlan } = require("../lifecycle-engine/sheikha-runtime-lifecycle-engine");
+
+const {
+  buildRuntimeRecoveryPlan
+} = require("../recovery-engine/sheikha-runtime-recovery-engine");
+
 const {
   discoverRuntimeDefinitions
 } = require("../discovery-engine/sheikha-runtime-discovery-engine");
@@ -80,6 +85,8 @@ function runRuntimeManager(options = {}) {
   const lifecycle = buildLifecyclePlan(options);
   const discovery = discoverRuntimeDefinitions(options);
 
+  const recovery = buildRuntimeRecoveryPlan(options);
+
   const registry = buildRuntimeRegistry(options);
 
   const dependencyGraph = buildDependencyGraph(options);
@@ -97,6 +104,8 @@ function runRuntimeManager(options = {}) {
   const supervisor = superviseRuntime(options);
 
   const ready =
+    recovery.status === "ACTIVE" &&
+    recovery.readiness.overall === "RUNTIME_RECOVERY_ENGINE_READY" &&
     discovery.status === "ACTIVE" &&
     registry.status === "ACTIVE" &&
     dependencyGraph.readiness.overall ===
@@ -122,6 +131,12 @@ function runRuntimeManager(options = {}) {
     status: ready ? "ACTIVE" : "DEGRADED",
 
     layers: {
+   recoveryEngine: {
+  status: recovery.status,
+  readiness: recovery.readiness.overall,
+  summary: recovery.recoverySummary,
+  health: recovery.runtimeHealth
+},
       executionEngine: {
   status: execution.status,
   readiness: execution.readiness.overall,
