@@ -85,6 +85,7 @@ function buildRuntimeEventStore(options = {}) {
     readiness: {
       eventStoreReady: true,
       eventRouterIntegrationReady: true,
+      auditIntegrationReady: true,
       auditEventReady: true,
       evidenceIndexReady: true,
       replayFoundationReady: true,

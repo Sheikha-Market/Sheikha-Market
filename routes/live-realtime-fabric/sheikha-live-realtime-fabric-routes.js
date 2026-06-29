@@ -6,7 +6,9 @@ const router = express.Router();
 
 const {
   status,
-  selectLiveModel,
+  resolveLiveProfile,
+  shouldUseFastArabicDefault,
+  buildFastArabicReply,
   buildPrompt
 } = require('../../runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1');
 
@@ -21,16 +23,17 @@ function sendSse(res, event, data) {
   res.write(`data: ${JSON.stringify(data)}\n\n`);
 }
 
-function streamOllama({ message, mode, res }) {
-  const model = selectLiveModel(message, mode);
+function streamOllama({ message, mode, profile, res }) {
+  const liveProfile = profile || resolveLiveProfile(message, mode);
+  const model = liveProfile.model;
   const body = JSON.stringify({
     model,
-    prompt: buildPrompt(message),
+    prompt: buildPrompt(message, liveProfile),
     stream: true,
     options: {
-      temperature: 0.2,
-      top_p: 0.9,
-      num_predict: 180
+      temperature: liveProfile.temperature,
+      top_p: liveProfile.topP,
+      num_predict: liveProfile.numPredict
     }
   });
 
@@ -45,9 +48,24 @@ function streamOllama({ message, mode, res }) {
       'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(body)
     },
-    timeout: 180000
+    timeout: liveProfile.timeoutMs
   }, (ollamaRes) => {
     let buffer = '';
+    let firstTokenSeen = false;
+    let sameLanguageGateOpen = !liveProfile.sameLanguageModel;
+    let sameLanguagePending = '';
+
+    const firstTokenGuard = setTimeout(() => {
+      if (!firstTokenSeen && !res.writableEnded) {
+        sendSse(res, 'model_wait', {
+          success: true,
+          waitingForFirstToken: true,
+          model,
+          liveProfile: liveProfile.name,
+          firstTokenTargetMs: liveProfile.firstTokenTargetMs
+        });
+      }
+    }, liveProfile.firstTokenTargetMs);
 
     ollamaRes.on('data', (chunk) => {
       buffer += chunk.toString();
@@ -61,9 +79,26 @@ function streamOllama({ message, mode, res }) {
         try {
           const frame = JSON.parse(line);
           if (frame.response) {
-            sendSse(res, 'token', { text: frame.response });
+            let tokenText = frame.response;
+
+            if (!sameLanguageGateOpen) {
+              sameLanguagePending += tokenText;
+              const arabicIndex = sameLanguagePending.search(/[\u0600-\u06FF]/);
+
+              if (arabicIndex === -1) {
+                continue;
+              }
+
+              sameLanguageGateOpen = true;
+              tokenText = sameLanguagePending.slice(arabicIndex);
+              sameLanguagePending = '';
+            }
+
+            firstTokenSeen = true;
+            sendSse(res, 'token', { text: tokenText });
           }
           if (frame.done) {
+            clearTimeout(firstTokenGuard);
             sendSse(res, 'done', {
               success: true,
               model,
@@ -76,6 +111,7 @@ function streamOllama({ message, mode, res }) {
     });
 
     ollamaRes.on('end', () => {
+      clearTimeout(firstTokenGuard);
       if (!res.writableEnded) {
         sendSse(res, 'done', { success: true, model });
         res.end();
@@ -84,7 +120,7 @@ function streamOllama({ message, mode, res }) {
   });
 
   req.on('timeout', () => {
-    req.destroy(new Error('Ollama live stream timeout'));
+    req.destroy(new Error(`Ollama live stream timeout after ${liveProfile.timeoutMs}ms`));
   });
 
   req.on('error', (error) => {
@@ -104,10 +140,123 @@ function streamOllama({ message, mode, res }) {
   return model;
 }
 
+function runDeepSheikhaCoreInBackground(payload = {}, profile = {}) {
+  if (process.env.SHEIKHA_LIVE_BACKGROUND_DEEP === 'false') return;
+
+  setImmediate(() => {
+    const model = profile.deepArabicModel ||
+      process.env.SHEIKHA_OLLAMA_MODEL ||
+      'Sheikha-Core:latest';
+    const body = JSON.stringify({
+      model,
+      prompt: buildPrompt(payload.message || '', {
+        ...profile,
+        name: 'BACKGROUND_DEEP_ARABIC'
+      }),
+      stream: false,
+      options: {
+        temperature: 0.15,
+        top_p: 0.9,
+        num_predict: Number(process.env.SHEIKHA_LIVE_BACKGROUND_NUM_PREDICT || 180)
+      }
+    });
+    const url = new URL('/api/generate', OLLAMA_HOST);
+
+    const req = http.request({
+      hostname: url.hostname,
+      port: url.port || 11434,
+      path: url.pathname,
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'Content-Length': Buffer.byteLength(body)
+      },
+      timeout: Number(process.env.SHEIKHA_LIVE_BACKGROUND_TIMEOUT_MS || 120000)
+    }, (backgroundRes) => {
+      backgroundRes.resume();
+    });
+
+    req.on('timeout', () => {
+      req.destroy(new Error('Sheikha live background model timeout'));
+    });
+    req.on('error', () => {});
+    req.write(body);
+    req.end();
+  });
+}
+
+function writeLivePrelude(res, profile, model, fastArabicDefault = false) {
+  sendSse(res, 'ack', {
+    ok: true,
+    success: true,
+    route: profile.route,
+    compatibilityRoute: profile.compatibilityRoute,
+    liveFirst: true,
+    mode: fastArabicDefault
+      ? 'LIVE_FAST_ARABIC_FIRST'
+      : 'LIVE_MODEL_STREAM'
+  });
+
+  sendSse(res, 'meta', {
+    ok: true,
+    profile: fastArabicDefault ? 'arabic-fast-default' : profile.name,
+    route: profile.route,
+    compatibilityRoute: profile.compatibilityRoute,
+    apexLevel: profile.apexLevel,
+    model,
+    deepModel: profile.deepArabicModel || process.env.SHEIKHA_OLLAMA_MODEL || 'Sheikha-Core:latest',
+    deepModelMode: fastArabicDefault ? 'background' : 'inline-stream',
+    liveProfile: profile.name,
+    profileReason: profile.reason,
+    fastArabicDefault,
+    performanceBudget: {
+      timeoutMs: profile.timeoutMs,
+      numPredict: profile.numPredict,
+      firstTokenTargetMs: profile.firstTokenTargetMs
+    },
+    placeholderRemoved: true,
+    source: fastArabicDefault ? 'fast-arabic-default' : 'ollama-stream',
+    deepLayerEscalationAvailable: profile.deepLayerEscalationAvailable
+  });
+
+  sendSse(res, 'heartbeat', {
+    success: true,
+    live: true,
+    route: profile.route,
+    ts: new Date().toISOString()
+  });
+}
+
+function writeFastArabicCompletion(res, message = '') {
+  sendSse(res, 'token', {
+    ok: true,
+    text: buildFastArabicReply(message),
+    immediate: true,
+    modelWaitBlocked: false
+  });
+
+  sendSse(res, 'done', {
+    ok: true,
+    success: true,
+    route: 'FAST_ARABIC_DEFAULT',
+    deepModelMode: 'background'
+  });
+  res.end();
+}
+
 router.post('/api/sheikha/live/chat/v1', (req, res) => {
   const message = req.body?.message || '';
   const mode = req.body?.mode || 'smart';
-  const model = selectLiveModel(message, mode);
+  const channel = req.body?.channel || 'extension-chat';
+  const language = req.body?.language || req.body?.locale || '';
+  const profile = resolveLiveProfile(message, mode, { channel, language });
+  const model = profile.model;
+  const fastArabicDefault = shouldUseFastArabicDefault(message, mode, {
+    channel,
+    language,
+    fastArabic: req.body?.fastArabic,
+    liveFast: req.body?.liveFast
+  });
 
   res.writeHead(200, {
     'Content-Type': 'text/event-stream; charset=utf-8',
@@ -116,20 +265,25 @@ router.post('/api/sheikha/live/chat/v1', (req, res) => {
     'X-Accel-Buffering': 'no'
   });
 
-  sendSse(res, 'ack', {
-    success: true,
-    route: 'SHEIKHA_REAL_MODEL_LIVE_STREAM_L50_V1'
-  });
+  writeLivePrelude(res, profile, model, fastArabicDefault);
 
-  sendSse(res, 'meta', {
-    route: 'SHEIKHA_REAL_MODEL_LIVE_STREAM_L50_V1',
-    apexLevel: 50,
-    model,
-    placeholderRemoved: true,
-    source: 'ollama-stream'
-  });
+  if (fastArabicDefault) {
+    writeFastArabicCompletion(res, message);
+    runDeepSheikhaCoreInBackground({
+      message,
+      mode,
+      channel,
+      language
+    }, profile);
+    return;
+  }
 
-  streamOllama({ message, mode, res });
+  streamOllama({ message, mode, profile, res });
 });
+
+router.__test = {
+  writeLivePrelude,
+  writeFastArabicCompletion
+};
 
 module.exports = router;
