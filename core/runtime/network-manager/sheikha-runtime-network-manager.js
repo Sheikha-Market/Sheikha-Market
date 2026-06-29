@@ -16,7 +16,7 @@ function safeExec(command, args = []) {
   try {
     return execFileSync(command, args, {
       encoding: "utf8",
-      timeout: 3000,
+      timeout: 500,
       stdio: ["ignore", "pipe", "ignore"]
     });
   } catch {
@@ -25,7 +25,13 @@ function safeExec(command, args = []) {
 }
 
 function inspectInterfaces() {
-  const interfaces = os.networkInterfaces();
+  let interfaces = {};
+
+  try {
+    interfaces = os.networkInterfaces();
+  } catch {
+    interfaces = {};
+  }
 
   return Object.entries(interfaces).map(([name, entries]) => ({
     name,

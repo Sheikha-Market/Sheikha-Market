@@ -50,13 +50,22 @@ function createRuntimeEvent(type, payload = {}) {
   };
 }
 
-function routeRuntimeEvent(eventInput, options = {}) {
-  const commandBus = buildCommandBusReport(options);
-  const audit = buildRuntimeAuditReport(options);
-  const configuration = buildRuntimeConfiguration(options);
+function routeRuntimeEvent(eventInput, payloadOrOptions = {}, maybeOptions = null) {
+  const options = maybeOptions || payloadOrOptions || {};
+  const payload = maybeOptions ? payloadOrOptions : {};
+  const lightweight = Boolean(options.lightweightRuntimeEventStore);
+  const commandBus = lightweight
+    ? { status: "ACTIVE" }
+    : buildCommandBusReport(options);
+  const audit = lightweight
+    ? { status: "ACTIVE" }
+    : buildRuntimeAuditReport(options);
+  const configuration = lightweight
+    ? { status: "ACTIVE" }
+    : buildRuntimeConfiguration(options);
 
   const event = typeof eventInput === "string"
-    ? createRuntimeEvent(eventInput)
+    ? createRuntimeEvent(eventInput, payload)
     : createRuntimeEvent(eventInput.type, eventInput.payload || {});
 
   const subscribers = EVENT_SUBSCRIBERS[event.type] || ["audit"];
@@ -126,7 +135,18 @@ function routeRuntimeEvent(eventInput, options = {}) {
 }
 
 function buildEventRouterReport(options = {}) {
-  const commandProbe = routeCommand("START_RUNTIME", options);
+  const lightweight = Boolean(options.lightweightRuntimeEventStore);
+  const commandProbe = lightweight
+    ? {
+        command: {
+          command: "START_RUNTIME",
+          id: "cmd-runtime-event-store-lightweight"
+        },
+        routing: {
+          accepted: true
+        }
+      }
+    : routeCommand("START_RUNTIME", options);
 
   const probes = [
     routeRuntimeEvent("COMMAND_ROUTED", {

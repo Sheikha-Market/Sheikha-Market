@@ -4,7 +4,7 @@ function safeExec(command, args = []) {
   try {
     return execFileSync(command, args, {
       encoding: "utf8",
-      timeout: 3000,
+      timeout: 500,
       stdio: ["ignore", "pipe", "ignore"]
     });
   } catch (error) {

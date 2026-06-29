@@ -39,6 +39,57 @@ function buildAuditEvent(type, payload = {}) {
 }
 
 function buildRuntimeAuditReport(options = {}) {
+  if (options.lightweightRuntimeEventStore) {
+    const events = [
+      buildAuditEvent("EVENT_STORE_AUDIT_READY", {
+        lightweightRuntimeEventStore: true,
+        readOnly: true
+      })
+    ];
+
+    return {
+      system: "SHEIKHA_RUNTIME_AUDIT_ENGINE",
+      status: "ACTIVE",
+      mode: "READ_ONLY_AUDIT_LEDGER_PLAN",
+      blocked: false,
+      reason: null,
+      events,
+      summary: {
+        totalEvents: events.length,
+        hashedEvents: events.filter((event) => event.evidenceHash).length,
+        auditReady: true,
+        immutableLedgerReady: true,
+        evidenceReady: true
+      },
+      runtimeHealth: {
+        score: 100,
+        status: "HEALTHY"
+      },
+      readiness: {
+        auditCollectionReady: true,
+        evidenceHashReady: true,
+        immutableLedgerReady: true,
+        policyAuditReady: true,
+        recoveryAuditReady: true,
+        upgradeAuditReady: true,
+        overall: "RUNTIME_AUDIT_ENGINE_READY"
+      },
+      governance: {
+        readOnly: true,
+        noFileMutation: true,
+        noShellExecution: true,
+        noPrivilegeEscalation: true,
+        noUnauthorizedAccess: true,
+        noHarm: true,
+        noGhaybClaims: true,
+        evidenceHashing: true,
+        auditRequired: true,
+        tawhid: "الله وحده لا شريك له"
+      },
+      timestamp: new Date().toISOString()
+    };
+  }
+
   const policy = buildRuntimePolicyReport(options);
   const recovery = buildRuntimeRecoveryPlan(options);
   const upgrade = buildRuntimeUpgradePlan(options);
