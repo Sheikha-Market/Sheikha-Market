@@ -6,8 +6,100 @@ const path = require('path');
 const ROOT = process.cwd();
 const DATA_DIR = path.join(ROOT, 'data', 'exponential-cluster-taxonomy-fabric');
 
+const DEFAULT_CLUSTER_ROOTS = [
+  {
+    id: 'SHEIKHA_ROOT_LANGUAGE_CLUSTER_CHAIN',
+    name: 'Sheikha Root Language Cluster Chain',
+    scope: 'ROOT',
+    boundary: 'INTERNAL',
+    type: 'semi_structured',
+    category: 'language',
+    content: 'arabic-first programming and markup clusters governed by Quran and Sunnah values',
+    children: [
+      {
+        id: 'SHEIKHA_ARABIC_PROGRAMMING_LANGUAGE_CLUSTER',
+        name: 'Arabic Programming Language Cluster',
+        scope: 'CLUSTER',
+        boundary: 'INTERNAL',
+        category: 'programming-language',
+        schema: {
+          grammar: 'arabic-first',
+          commands: ['activate', 'classify', 'verify', 'route'],
+          review: 'human_approval_for_critical_actions'
+        },
+        children: [
+          { id: 'parser', name: 'Parser Tab', scope: 'TAB', type: 'structured', fields: ['token', 'syntax', 'intent'] },
+          { id: 'compiler', name: 'Compiler Tab', scope: 'TAB', type: 'structured', fields: ['semantic', 'type', 'artifact'] },
+          { id: 'runtime', name: 'Runtime Tab', scope: 'TAB', type: 'semi_structured', content: 'route=runtime; guard=true' }
+        ]
+      },
+      {
+        id: 'SHEIKHA_ARABIC_MARKUP_LANGUAGE_CLUSTER',
+        name: 'Arabic Markup Language Cluster',
+        scope: 'CLUSTER',
+        boundary: 'INTERNAL',
+        category: 'markup-language',
+        content: '<شيخة><قسم اسم="الحوكمة">توثيق وتشغيل</قسم></شيخة>',
+        children: [
+          { id: 'document', name: 'Document Tab', scope: 'TAB', type: 'semi_structured', content: '<وثيقة/>' },
+          { id: 'schema', name: 'Schema Tab', scope: 'TAB', type: 'structured', schema: { tags: true, attributes: true } },
+          { id: 'rendering', name: 'Rendering Tab', scope: 'TAB', type: 'unstructured', content: 'عرض عربي إنساني قابل للمراجعة' }
+        ]
+      }
+    ]
+  },
+  {
+    id: 'SHEIKHA_UGIT_PRODUCTION_CLUSTER_CHAIN',
+    name: 'UGIT Production Cluster Chain',
+    scope: 'ROOT',
+    boundary: 'INTERNAL',
+    type: 'structured',
+    category: 'production',
+    fields: ['supply_chain', 'logistics', 'industry', 'energy', 'mining', 'petroleum', 'storage'],
+    children: [
+      { id: 'supply-chain', name: 'Supply Chain Factory', scope: 'FACTORY', category: 'supply-chain', type: 'structured', fields: ['supplier', 'inventory', 'shipment'] },
+      { id: 'logistics', name: 'Logistics Factory', scope: 'FACTORY', category: 'logistics', type: 'semi_structured', content: 'shipment:route=multi-modal; status=tracked' },
+      { id: 'manufacturing', name: 'Manufacturing Factory', scope: 'FACTORY', category: 'manufacturing', schema: { productionLine: true, qualityGate: true } },
+      { id: 'energy', name: 'Energy Factory', scope: 'FACTORY', category: 'energy', type: 'structured', fields: ['source', 'storage', 'grid'] },
+      { id: 'mining', name: 'Mining And Minerals Factory', scope: 'FACTORY', category: 'mining-minerals', type: 'semi_structured', content: 'ore=classified; safety=required' },
+      { id: 'petroleum', name: 'Petroleum Factory', scope: 'FACTORY', category: 'petroleum', type: 'structured', fields: ['upstream', 'midstream', 'downstream'] },
+      { id: 'space-production', name: 'Space Production Supply Chain', scope: 'BRANCH', category: 'space-production', type: 'unstructured', content: 'concept registry for space production and logistics integration' }
+    ]
+  },
+  {
+    id: 'SHEIKHA_INTERNAL_EXTERNAL_SYSTEM_CLUSTER_CHAIN',
+    name: 'Internal External System Cluster Chain',
+    scope: 'ROOT',
+    boundary: 'INTERNAL',
+    type: 'structured',
+    category: 'system-of-systems',
+    children: [
+      {
+        id: 'internal-runtime',
+        name: 'Internal Runtime Systems',
+        scope: 'CLUSTER',
+        boundary: 'INTERNAL',
+        category: 'internal-systems',
+        fields: ['runtime', 'governance', 'memory', 'observability']
+      },
+      {
+        id: 'external-connectors',
+        name: 'External Connector Systems',
+        scope: 'CLUSTER',
+        boundary: 'EXTERNAL',
+        category: 'external-systems',
+        content: 'hostinger, github, cloud, ide, logistics connectors; authorization required'
+      }
+    ]
+  }
+];
+
 function ensureData() {
   fs.mkdirSync(DATA_DIR, { recursive: true });
+}
+
+function buildDefaultRoots() {
+  return JSON.parse(JSON.stringify(DEFAULT_CLUSTER_ROOTS));
 }
 
 function status() {
@@ -15,12 +107,28 @@ function status() {
     success: true,
     system: 'SHEIKHA_EXPONENTIAL_CLUSTER_TAXONOMY_FABRIC_V1',
     status: 'ACTIVE',
-    apexLevel: 52,
+    apexLevel: 65,
     role: 'ROOT_CLUSTER_PIPELINE_BRANCH_FACTORY_TAXONOMY_EXPONENTIAL_ENGINE',
     taxonomy: {
       dataTypes: ['STRUCTURED', 'SEMI_STRUCTURED', 'UNSTRUCTURED'],
       scopes: ['ROOT', 'CLUSTER', 'PIPELINE', 'BRANCH', 'FACTORY', 'CATEGORY', 'TAB'],
-      growthMode: 'CALCULATION_ONLY_NOT_PREDICTION'
+      boundaries: ['INTERNAL', 'EXTERNAL'],
+      growthMode: 'CALCULATION_ONLY_NOT_PREDICTION',
+      defaultRoots: DEFAULT_CLUSTER_ROOTS.length
+    },
+    clusterChains: {
+      rootToClusterPipeline: true,
+      branchFactoryCategoryTabs: true,
+      internalExternalSystems: true,
+      arabicProgrammingLanguage: true,
+      arabicMarkupLanguage: true,
+      productionSupplyChainLogisticsIndustry: true
+    },
+    tabIntegrationPolicy: {
+      everyNodeHasPath: true,
+      everyTabClassified: true,
+      integrationKeysRequired: true,
+      testBeforePromotion: true
     },
     governance: {
       principle: 'لا ضرر ولا ضرار',
@@ -28,7 +136,10 @@ function status() {
       calculationOnly: true,
       noRibaAutomation: true,
       secretsProtected: true,
-      envProtected: true
+      envProtected: true,
+      quranSunnahValues: true,
+      tawhid: 'وحدها لله',
+      noUnsupportedExternalAuthorityClaim: true
     }
   };
 }
@@ -37,9 +148,9 @@ function classifyNode(node = {}) {
   const rawType = String(node.type || node.dataType || '').toLowerCase();
   const content = node.content ?? node.schema ?? node.fields ?? null;
 
-  if (rawType.includes('structured') && !rawType.includes('semi')) return 'STRUCTURED';
   if (rawType.includes('semi')) return 'SEMI_STRUCTURED';
   if (rawType.includes('unstructured')) return 'UNSTRUCTURED';
+  if (rawType.includes('structured')) return 'STRUCTURED';
 
   if (Array.isArray(node.fields) || node.schema || (content && typeof content === 'object' && !Array.isArray(content))) {
     return 'STRUCTURED';
@@ -61,13 +172,17 @@ function compoundScore(base, factor, depth) {
 }
 
 function buildTree(input = {}) {
-  const roots = Array.isArray(input.roots) ? input.roots : [];
+  const roots = Array.isArray(input.roots) && input.roots.length
+    ? input.roots
+    : buildDefaultRoots();
   const growthFactor = Number(input.growthFactor || 1.618);
   const maxDepth = Number(input.maxDepth || 5);
 
   function visit(node, depth = 0, pathParts = []) {
     const name = String(node.name || node.id || `node-${depth}`);
     const scope = String(node.scope || (depth === 0 ? 'ROOT' : 'CATEGORY')).toUpperCase();
+    const boundary = String(node.boundary || node.systemBoundary || 'INTERNAL').toUpperCase();
+    const category = String(node.category || scope.toLowerCase());
     const dataType = classifyNode(node);
     const children = Array.isArray(node.children) ? node.children : [];
     const nodePath = [...pathParts, name];
@@ -76,9 +191,12 @@ function buildTree(input = {}) {
       id: node.id || nodePath.join('/'),
       name,
       scope,
+      boundary,
+      category,
       dataType,
       depth,
       path: nodePath.join('/'),
+      tab: `${scope}:${category}:${dataType}`,
       baseWeight: Number(node.weight || 1),
       exponentialScore: compoundScore(node.weight || 1, growthFactor, depth),
       integrationKeys: children.map((x) => String(x.name || x.id || 'child')),
@@ -101,9 +219,12 @@ function flatten(nodes = [], out = []) {
       id: node.id,
       name: node.name,
       scope: node.scope,
+      boundary: node.boundary,
+      category: node.category,
       dataType: node.dataType,
       depth: node.depth,
       path: node.path,
+      tab: node.tab,
       exponentialScore: node.exponentialScore,
       integrationScore: node.integrationScore
     });
@@ -127,6 +248,16 @@ function analyze(input = {}) {
     return acc;
   }, {});
 
+  const byBoundary = flat.reduce((acc, x) => {
+    acc[x.boundary] = (acc[x.boundary] || 0) + 1;
+    return acc;
+  }, {});
+
+  const integrationEdges = flat.reduce((sum, node) => {
+    const match = tree.length ? findNodeById(tree, node.id) : null;
+    return sum + (match?.integrationKeys?.length || 0);
+  }, 0);
+
   const result = {
     success: true,
     system: 'SHEIKHA_EXPONENTIAL_CLUSTER_TAXONOMY_FABRIC_V1',
@@ -136,13 +267,23 @@ function analyze(input = {}) {
     totalNodes: flat.length,
     byType,
     byScope,
+    byBoundary,
     totalExponentialScore: Number(flat.reduce((s, x) => s + x.exponentialScore, 0).toFixed(6)),
     totalIntegrationScore: Number(flat.reduce((s, x) => s + x.integrationScore, 0).toFixed(6)),
+    tabIntegration: {
+      integrationEdges,
+      allTabsHavePath: flat.every((x) => Boolean(x.path)),
+      allTabsClassified: flat.every((x) => Boolean(x.dataType && x.scope && x.boundary)),
+      internalExternalConnected: Boolean(byBoundary.INTERNAL && byBoundary.EXTERNAL),
+      rootsToFactoriesPresent: Boolean(byScope.ROOT && byScope.FACTORY)
+    },
     tabs: flat,
     tree,
     governance: {
       calculationOnly: true,
       noFuturePredictionClaim: true,
+      quranSunnahValues: true,
+      tawhid: 'وحدها لله',
       note: 'هذا اختبار تكاثر أسي وتصنيف وتبويب وتكامل حسابي، وليس تنبؤاً بالغيب ولا توصية مالية.'
     }
   };
@@ -155,4 +296,19 @@ function analyze(input = {}) {
   return result;
 }
 
-module.exports = { status, analyze, classifyNode };
+function findNodeById(nodes = [], id) {
+  for (const node of nodes) {
+    if (node.id === id) return node;
+    const child = findNodeById(node.children || [], id);
+    if (child) return child;
+  }
+  return null;
+}
+
+module.exports = {
+  status,
+  analyze,
+  classifyNode,
+  compoundScore,
+  buildDefaultRoots
+};

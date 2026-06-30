@@ -1,23 +1,27 @@
 'use strict';
 
+const {
+  analyzeWarning
+} = require('../warning-governance/sheikha-warning-governance-fabric');
+
 function analyzeRootCause(input = {}) {
   const message = String(input.message || '');
-
-  const category =
-    message.includes('CommonJS') || message.includes('ES module')
-      ? 'MODULE_SYSTEM_MODERNIZATION'
-      : message.includes('Unknown word')
-        ? 'DICTIONARY_GOVERNANCE'
-        : message.includes('punycode') || message.includes('deprecated')
-          ? 'DEPENDENCY_DRIFT'
-          : 'GENERAL';
+  const warning = analyzeWarning({
+    message,
+    severity: input.severity || 'WARNING'
+  });
 
   return {
     system: 'SHEIKHA_ROOT_CAUSE_INTELLIGENCE_V2',
     status: 'ACTIVE',
-    category,
+    category: warning.category,
     source: input.source || 'unknown',
     message,
+    rootCause: warning.rootCause,
+    consequences: warning.consequences,
+    historicalFailureModes: warning.historicalFailureModes,
+    safeResolution: warning.safeResolution,
+    preventionControls: warning.preventionControls,
     requiresEvidence: true,
     requiresVerification: true,
     suppressWarning: false

@@ -1,0 +1,47 @@
+{
+  "system": "SHEIKHA_HOSTINGER_GITHUB_SECURE_CONNECTION_V1",
+  "status": "CONNECTED_PENDING_PRODUCTION_VERIFICATION",
+  "savedAt": "2026-06-29",
+  "productionRepository": {
+    "owner": "Sheikha-top",
+    "name": "sheikha-enterprise-portal",
+    "fullName": "Sheikha-top/sheikha-enterprise-portal",
+    "hostingerAccessPolicy": "ONLY_SELECT_REPOSITORIES"
+  },
+  "developmentSeparation": {
+    "developmentRepositoriesExcludedFromHostingerProductionAuthority": true,
+    "productionAuthorityRepository": "Sheikha-top/sheikha-enterprise-portal",
+    "noAllRepositoriesAccess": true
+  },
+  "requiredControls": [
+    "github_app_only_selected_repository",
+    "protected_production_branch",
+    "required_ci_checks",
+    "production_environment_approval",
+    "secrets_outside_repository",
+    "hostinger_branch_pinned",
+    "https_tls_verified",
+    "runtime_health_verified",
+    "rollback_documented",
+    "deployment_evidence_saved"
+  ],
+  "riskControls": {
+    "leastPrivilege": true,
+    "noSecretsInGit": true,
+    "humanApprovalForProduction": true,
+    "branchProtectionRequired": true,
+    "rollbackRequired": true,
+    "productionClaimRequiresEvidence": true
+  },
+  "nextSteps": [
+    "confirm_hostinger_save_completed",
+    "enable_branch_protection",
+    "configure_github_actions_checks",
+    "configure_environment_secrets",
+    "pin_hostinger_deployment_branch",
+    "deploy_controlled_build",
+    "verify_domain_tls_health_logs",
+    "save_deployment_sha_and_rollback"
+  ],
+  "continuationDocument": "docs/registry/deployment/SHEIKHA-HOSTINGER-GITHUB-SECURE-CONNECTION-V1.md"
+}

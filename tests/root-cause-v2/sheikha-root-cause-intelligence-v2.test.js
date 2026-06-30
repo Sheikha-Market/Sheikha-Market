@@ -13,5 +13,13 @@ describe('Sheikha Root Cause Intelligence V2', () => {
     expect(result.category).toBe('MODULE_SYSTEM_MODERNIZATION');
     expect(result.suppressWarning).toBe(false);
     expect(result.requiresVerification).toBe(true);
+    expect(result.rootCause).toContain('CommonJS');
+    expect(result.consequences.length).toBeGreaterThan(0);
+    expect(result.safeResolution).toEqual(expect.arrayContaining([
+      'keep current module boundary stable for hot fixes'
+    ]));
+    expect(result.preventionControls).toEqual(expect.arrayContaining([
+      'packaged artifact smoke test'
+    ]));
   });
 });

@@ -89,8 +89,10 @@ describe('Sheikha Live Realtime Fabric V1', () => {
     expect(Date.now() - started).toBeLessThan(1000);
     expect(res.ended).toBe(true);
     expect(data).toContain('event: ack');
+    expect(data).toContain('"ok":true');
     expect(data).toContain('LIVE_FAST_ARABIC_FIRST');
     expect(data).toContain('event: meta');
+    expect(data).toContain('"profile":"arabic-fast-default"');
     expect(data).toContain('fast-arabic-default');
     expect(data).toContain('event: token');
     expect(data).toContain('تم، أعمل على ذلك الآن.');
