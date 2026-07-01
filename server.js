@@ -3898,6 +3898,12 @@ app.get('/', (req, res) => {
 // SHEIKHA ENTERPRISE ARCHITECTURE API
 app.use('/api/enterprise-architecture', require('./routes/enterprise-architecture/status.routes'));
 
+
+// SHEIKHA ARCHITECTURE EXPLORER UI
+app.get('/architecture', (req, res) => {
+  res.sendFile(require('path').join(__dirname, 'public', 'architecture-explorer', 'index.html'));
+});
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 

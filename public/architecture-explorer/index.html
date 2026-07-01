@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width, initial-scale=1"/>
+  <title>شيخة | مستكشف المعمارية</title>
+  <link rel="stylesheet" href="/architecture-explorer/styles.css?v=1"/>
+</head>
+<body>
+  <main class="shell">
+    <header class="hero">
+      <div>
+        <p class="eyebrow">Sheikha Enterprise Architecture Registry V2</p>
+        <h1>مستكشف معمارية شيخة</h1>
+        <p>
+          عرض طبقات الحضارة، المنظومة، المملكة، الاتحاد، إمارات التجارة،
+          الوزارات التشغيلية، البنية الرقمية، ونظام تشغيل القيمة.
+        </p>
+      </div>
+      <aside class="status-card">
+        <span>الحالة</span>
+        <strong id="status">...</strong>
+        <small id="version">...</small>
+      </aside>
+    </header>
+
+    <section class="metrics">
+      <article><small>الطبقات</small><b id="layersCount">0</b></article>
+      <article><small>النشطة</small><b id="activeLayers">0</b></article>
+      <article><small>المبادئ</small><b id="principles">0</b></article>
+      <article><small>التكاملات</small><b id="integrations">0</b></article>
+    </section>
+
+    <section class="panel">
+      <div class="head">
+        <h2>شجرة الطبقات</h2>
+        <p>كل طبقة لها قدرات وتبعيات وحالة تشغيل.</p>
+      </div>
+      <div id="layers" class="layers"></div>
+    </section>
+
+    <section class="panel">
+      <h2>تفاصيل الطبقة</h2>
+      <pre id="details">اختر طبقة من الشجرة...</pre>
+    </section>
+  </main>
+
+  <script src="/architecture-explorer/app.js?v=1"></script>
+</body>
+</html>
