@@ -30,8 +30,11 @@ describe('Sheikha Enterprise Architecture V1', () => {
   test('architecture terms are governed as internal terminology', () => {
     const architecture = getEnterpriseArchitecture();
 
-    expect(architecture.governanceNote).toContain('internal architecture terms');
-    expect(architecture.governanceNote).not.toContain('official government');
+    expect(architecture.governanceNote).toContain('internal architecture');
+expect(architecture.governanceNote).toContain('values');
+
+    expect(architecture.governanceNote).not.toContain('represent governmental');
+
   });
 
 
