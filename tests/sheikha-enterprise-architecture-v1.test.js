@@ -34,6 +34,18 @@ describe('Sheikha Enterprise Architecture V1', () => {
     expect(architecture.governanceNote).not.toContain('official government');
   });
 
+
+  test('contains Ummah value layer as ethical guidance without official representation', () => {
+    const architecture = getEnterpriseArchitecture();
+
+    expect(architecture.layers).toContain('Ummah Value Layer');
+    expect(architecture.ummahValueLayer.arabicName).toBe('طبقة قيم أمة محمد ﷺ');
+    expect(architecture.ummahValueLayer.scope).toContain('Values guidance only');
+    expect(architecture.ummahValueLayer.scope).not.toContain('official authority');
+    expect(architecture.ummahValueLayer.principles).toContain('Service to People');
+    expect(architecture.ummahValueLayer.principles).toContain('Beneficial Trade');
+  });
+
   test('validation passes', () => {
     expect(validateEnterpriseArchitecture().valid).toBe(true);
   });

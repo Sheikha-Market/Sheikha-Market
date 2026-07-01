@@ -14,9 +14,32 @@ const architecture = Object.freeze({
     operatingSystem: 'Sheikha Commerce OS'
   },
   governanceNote:
-    'Commerce Kingdom, Emirates, Ministries, and Authorities are internal architecture terms only; they do not represent governmental or sovereign entities.',
+    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
+  ummahValueLayer: Object.freeze({
+    name: 'Ummah Value Layer',
+    arabicName: 'طبقة قيم أمة محمد ﷺ',
+    purpose:
+      'A values and ethics layer inspired by Islamic principles to guide trust, justice, beneficial commerce, no harm, fulfillment of contracts, and service to people.',
+    scope:
+      'Values guidance only; it does not issue religious rulings, represent the Muslim Ummah, or replace scholars, governments, courts, or official authorities.',
+    principles: [
+      'Justice',
+      'Honesty',
+      'Trust',
+      'Mercy',
+      'No Harm',
+      'Beneficial Trade',
+      'Contract Fulfillment',
+    'Service to People',
+    'Beneficial Commerce',
+      'Charity and Social Good',
+      'Knowledge and Excellence',
+      'Service to People'
+    ]
+  }),
   layers: [
     'Constitution',
+    'Ummah Value Layer',
     'Civilization',
     'Ecosystem',
     'Commerce Kingdom',
@@ -53,7 +76,9 @@ const architecture = Object.freeze({
     'Value',
     'Sustainability',
     'No Harm',
-    'Contract Fulfillment'
+    'Contract Fulfillment',
+    'Service to People',
+    'Beneficial Commerce'
   ],
   integrations: [
     'Local Integration',
@@ -78,6 +103,7 @@ function getArchitectureStatus() {
     layers: architecture.layers.length,
     principles: architecture.principles.length,
     integrations: architecture.integrations.length,
+    ummahValueLayer: architecture.ummahValueLayer.name,
     governanceNote: architecture.governanceNote
   };
 }
@@ -92,6 +118,7 @@ function validateEnterpriseArchitecture() {
 
   return {
     valid: required.every(Boolean) &&
+      architecture.layers.includes('Ummah Value Layer') &&
       architecture.layers.includes('Commerce Kingdom') &&
       architecture.layers.includes('Commerce Emirates') &&
       architecture.layers.includes('Universal Integration Fabric'),
