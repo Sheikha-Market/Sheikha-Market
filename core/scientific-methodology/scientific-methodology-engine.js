@@ -3,11 +3,15 @@
 const methodologyEngine = Object.freeze({
   system: 'SHEIKHA_SCIENTIFIC_METHODOLOGY_ENGINE_V1',
   status: 'ACTIVE',
-  mode: 'READ_ANALYZE_RECORD_IMPROVE',
+  mode: 'READ_ANALYZE_LEARN_MONITOR_MEASURE_TRANSFER_RENEW_IMPROVE',
   note: 'The engine does not possess consciousness or independent knowledge; it processes inputs, records evidence, validates methods, and supports continuous improvement.',
   productionLine: [
     'read',
     'classify',
+    'computational-learn',
+    'monitor',
+    'measure',
+    'transfer-knowledge',
     'analyze',
     'extract-evidence',
     'map-methodology',
@@ -15,7 +19,9 @@ const methodologyEngine = Object.freeze({
     'score',
     'record',
     'improve',
-    'propose-methodology'
+    'propose-methodology',
+    'renew-science',
+    'improve-science'
   ],
   domains: [
     'Islamic values',
@@ -36,6 +42,7 @@ const methodologyEngine = Object.freeze({
     'management'
   ],
   principles: [
+    'quran-and-sunnah-reference',
     'truthfulness',
     'evidence',
     'measurement',
@@ -43,7 +50,10 @@ const methodologyEngine = Object.freeze({
     'validation',
     'no harm',
     'benefit',
-    'continuous improvement'
+    'continuous improvement',
+    'proofs-and-burhan',
+    'knowledge-transfer',
+    'science-renewal'
   ]
 });
 
@@ -56,6 +66,7 @@ function runMethodologyPipeline(input = {}) {
   const domain = input.domain || 'general';
 
   const evidenceScore = text.length > 20 ? 100 : 60;
+  const quranSunnahReference = /quran|sunnah|القرآن|السنة|الكتاب|حديث|آية/i.test(text);
   const completenessScore = text.length > 80 ? 100 : 70;
 
   return {
@@ -68,6 +79,11 @@ function runMethodologyPipeline(input = {}) {
       evidenceScore,
       completenessScore,
       improvementNeeded: completenessScore < 100,
+      quranSunnahReference,
+      monitoringStatus: 'ACTIVE',
+      measurementStatus: 'ACTIVE',
+      knowledgeTransferStatus: 'READY',
+      scienceRenewalStatus: 'CONTROLLED_PROPOSAL_ONLY',
       recommendation:
         completenessScore < 100
           ? 'Add more evidence, definitions, measurements, and validation criteria.'
