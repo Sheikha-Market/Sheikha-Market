@@ -181,6 +181,30 @@ const layers = Object.freeze([
     dependencies: ['commerce-os']
   },
   {
+    id: 'internal-integration-layer',
+    name: 'Internal Integration Layer',
+    arabicName: 'طبقة التكامل الداخلي',
+    status: 'ACTIVE',
+    healthScore: 100,
+    purpose:
+      'Coordinates integration between Sheikha internal engines, registries, APIs, event bus, governance, runtime, data, AI, and architecture layers.',
+    responsibilities: ['internal-systems-integration', 'registry-alignment', 'api-coordination', 'event-bus-coordination'],
+    capabilities: ['internal-api-integration', 'engine-coordination', 'registry-synchronization', 'runtime-alignment'],
+    dependencies: ['global-commerce-infrastructure']
+  },
+  {
+    id: 'external-integration-layer',
+    name: 'External Integration Layer',
+    arabicName: 'طبقة التكامل الخارجي',
+    status: 'ACTIVE',
+    healthScore: 100,
+    purpose:
+      'Coordinates authorized external integrations with partners, markets, customers, suppliers, ERP, CRM, government systems where formally allowed, and international systems through approved APIs and agreements.',
+    responsibilities: ['partner-integration', 'customer-integration', 'supplier-integration', 'approved-external-apis'],
+    capabilities: ['partner-api-integration', 'erp-crm-integration', 'marketplace-integration', 'authorized-government-integration'],
+    dependencies: ['internal-integration-layer']
+  },
+  {
     id: 'universal-integration-fabric',
     name: 'Universal Integration Fabric',
     arabicName: 'نسيج التكامل الشامل',
@@ -189,7 +213,7 @@ const layers = Object.freeze([
     purpose: 'Supports local, national, Gulf, regional, continental, international, and partner integrations.',
     responsibilities: ['integration', 'interoperability', 'partner-connectivity'],
     capabilities: ['local-integration', 'national-integration', 'regional-integration', 'international-integration'],
-    dependencies: ['global-commerce-infrastructure']
+    dependencies: ['external-integration-layer']
   },
   {
     id: 'value-operating-system',
@@ -362,6 +386,8 @@ function validateEnterpriseArchitecture() {
       ids.has('arabian-peninsula-federation-layer') &&
       ids.has('arabian-gulf-cooperation-layer') &&
       ids.has('commerce-emirates') &&
+      ids.has('internal-integration-layer') &&
+      ids.has('external-integration-layer') &&
       ids.has('universal-integration-fabric'),
     checkedAt: new Date().toISOString(),
     dependenciesValid

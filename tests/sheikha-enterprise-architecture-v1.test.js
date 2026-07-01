@@ -17,7 +17,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
     expect(status.status).toBe('ACTIVE');
     expect(status.version).toBe('2.0.0');
-    expect(status.layers).toBeGreaterThanOrEqual(18);
+    expect(status.layers).toBeGreaterThanOrEqual(20);
     expect(status.activeLayers).toBe(status.layers);
   });
 
@@ -97,6 +97,23 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(registry[0]).toHaveProperty('capabilities');
   });
 
+
+
+  test('contains internal and external integration layers', () => {
+    const internal = getArchitectureLayerById('internal-integration-layer');
+    const external = getArchitectureLayerById('external-integration-layer');
+    const universal = getArchitectureLayerById('universal-integration-fabric');
+
+    expect(internal).not.toBeNull();
+    expect(internal.arabicName).toBe('طبقة التكامل الداخلي');
+    expect(internal.dependencies).toContain('global-commerce-infrastructure');
+
+    expect(external).not.toBeNull();
+    expect(external.arabicName).toBe('طبقة التكامل الخارجي');
+    expect(external.dependencies).toContain('internal-integration-layer');
+
+    expect(universal.dependencies).toContain('external-integration-layer');
+  });
 
   test('relationship graph exposes parents children and governance metadata', () => {
     const graph = getArchitectureRelationshipGraph();
