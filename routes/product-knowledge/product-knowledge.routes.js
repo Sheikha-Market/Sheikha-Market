@@ -9,6 +9,9 @@ const {
 
 const router = express.Router();
 
+router.use(express.json({ limit: '2mb' }));
+router.use(express.urlencoded({ extended: true }));
+
 router.get('/status', (req, res) => {
   res.json({
     success: true,
