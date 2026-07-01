@@ -27,29 +27,35 @@ function list(items) {
 }
 
 
-function renderDependencyGraph(registry) {
-  const byId = new Map(registry.map((layer) => [layer.id, layer]));
-  const rows = registry.map((layer) => {
-    const deps = (layer.dependencies || []).map((dep) => {
-      const depLayer = byId.get(dep);
-      return depLayer ? depLayer.arabicName : dep;
-    });
 
+function renderDependencyGraph(registry) {
+  const byDependency = new Map();
+
+  registry.forEach((layer) => {
+    (layer.dependencies || []).forEach((dep) => {
+      if (!byDependency.has(dep)) byDependency.set(dep, []);
+      byDependency.get(dep).push(layer);
+    });
+  });
+
+  const roots = registry.filter((layer) => !layer.dependencies || layer.dependencies.length === 0);
+
+  function renderNode(layer, depth = 0) {
+    const children = byDependency.get(layer.id) || [];
     return `
-      <div class="graph-row">
-        <div class="graph-node">
+      <div class="tree-node" style="--depth:${depth}">
+        <div class="tree-card">
           <b>${layer.arabicName}</b>
           <small>${layer.name}</small>
         </div>
-        <div class="graph-arrow">←</div>
-        <div class="graph-deps">
-          ${deps.length ? deps.map((d) => `<span>${d}</span>`).join('') : '<span>طبقة تأسيسية</span>'}
-        </div>
+        ${children.length ? '<div class="tree-line">↓</div>' : ''}
+        ${children.map((child) => renderNode(child, depth + 1)).join('')}
       </div>
     `;
-  }).join('');
+  }
 
-  document.getElementById('dependencyGraph').innerHTML = rows;
+  document.getElementById('dependencyGraph').innerHTML =
+    roots.map((root) => renderNode(root)).join('');
 }
 
 

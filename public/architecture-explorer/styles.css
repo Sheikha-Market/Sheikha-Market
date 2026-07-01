@@ -271,3 +271,41 @@ pre{
   .graph-row{grid-template-columns:1fr}
   .graph-arrow{transform:rotate(90deg)}
 }
+
+/* Vertical Dependency Tree */
+.dependency-graph{
+  display:block;
+}
+
+.tree-node{
+  margin:10px 0;
+  padding-inline-start:calc(var(--depth) * 24px);
+}
+
+.tree-card{
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:18px;
+  padding:15px 18px;
+  box-shadow:0 12px 30px rgba(5,41,31,.06);
+}
+
+.tree-card b{
+  display:block;
+  color:var(--green);
+  font-size:17px;
+}
+
+.tree-card small{
+  display:block;
+  margin-top:4px;
+  color:var(--muted);
+  direction:ltr;
+}
+
+.tree-line{
+  color:var(--gold);
+  font-size:24px;
+  font-weight:1000;
+  margin:6px 28px;
+}
