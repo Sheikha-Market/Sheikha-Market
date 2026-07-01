@@ -44,7 +44,7 @@ function renderDependencyGraph(registry) {
     const children = byDependency.get(layer.id) || [];
     return `
       <div class="tree-node" style="--depth:${depth}">
-        <div class="tree-card">
+        <div class="tree-card" data-layer-id="${layer.id}">
           <b>${layer.arabicName}</b>
           <small>${layer.name}</small>
         </div>
@@ -54,8 +54,19 @@ function renderDependencyGraph(registry) {
     `;
   }
 
-  document.getElementById('dependencyGraph').innerHTML =
-    roots.map((root) => renderNode(root)).join('');
+  const graph = document.getElementById('dependencyGraph');
+  graph.innerHTML = roots.map((root) => renderNode(root)).join('');
+
+  graph.querySelectorAll('.tree-card').forEach((node) => {
+    node.addEventListener('click', async () => {
+      graph.querySelectorAll('.tree-card').forEach((n) => n.classList.remove('selected-tree'));
+      node.classList.add('selected-tree');
+
+      const id = node.getAttribute('data-layer-id');
+      const payload = await fetchJson(`/api/enterprise-architecture/layers/${id}`);
+      document.getElementById('details').innerHTML = renderLayerDetails(payload.data.layer);
+    });
+  });
 }
 
 
