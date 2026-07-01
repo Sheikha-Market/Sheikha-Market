@@ -11,7 +11,7 @@ function layerCard(layer, index) {
     <article class="layer" data-layer-id="${layer.id}">
       <div class="index">${String(index + 1).padStart(2, '0')}</div>
       <b>${layer.arabicName}</b>
-      <small>${layer.name}</small>
+      <small>${layer.id === 'ummah-benefit-value-layer' ? 'طبقة النفع والقيم' : layer.name}</small>
       <span class="badge">${layer.status}</span>
     </article>
   `;
