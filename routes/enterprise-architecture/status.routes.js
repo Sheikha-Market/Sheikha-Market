@@ -6,6 +6,8 @@ const {
   getArchitectureStatus,
   getArchitectureLayerById,
   getArchitectureRegistry,
+  getArchitectureRelationshipGraph,
+  getArchitectureLayerRelationships,
   validateEnterpriseArchitecture
 } = require('../../core/enterprise-architecture/sheikha-enterprise-architecture');
 
@@ -32,6 +34,37 @@ router.get('/registry', (req, res) => {
     message: 'Sheikha Enterprise Architecture Registry V2'
   });
 });
+
+
+router.get('/relationships', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      relationships: getArchitectureRelationshipGraph(),
+      validation: validateEnterpriseArchitecture()
+    },
+    message: 'Sheikha Enterprise Architecture Relationship Graph'
+  });
+});
+
+router.get('/relationships/:id', (req, res) => {
+  const relationships = getArchitectureLayerRelationships(req.params.id);
+
+  if (!relationships) {
+    return res.status(404).json({
+      success: false,
+      error: 'ARCHITECTURE_RELATIONSHIPS_NOT_FOUND',
+      layerId: req.params.id
+    });
+  }
+
+  return res.json({
+    success: true,
+    data: { relationships },
+    message: 'Sheikha Enterprise Architecture Layer Relationships'
+  });
+});
+
 
 router.get('/layers/:id', (req, res) => {
   const layer = getArchitectureLayerById(req.params.id);

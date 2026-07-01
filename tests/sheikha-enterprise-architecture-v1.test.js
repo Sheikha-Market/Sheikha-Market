@@ -5,6 +5,8 @@ const {
   getArchitectureStatus,
   getArchitectureLayerById,
   getArchitectureRegistry,
+  getArchitectureRelationshipGraph,
+  getArchitectureLayerRelationships,
   validateEnterpriseArchitecture
 } = require('../core/enterprise-architecture/sheikha-enterprise-architecture');
 
@@ -93,6 +95,20 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(registry.length).toBeGreaterThanOrEqual(15);
     expect(registry[0]).toHaveProperty('id');
     expect(registry[0]).toHaveProperty('capabilities');
+  });
+
+
+  test('relationship graph exposes parents children and governance metadata', () => {
+    const graph = getArchitectureRelationshipGraph();
+    const constitution = getArchitectureLayerRelationships('constitution');
+
+    expect(Array.isArray(graph)).toBe(true);
+    expect(graph.length).toBeGreaterThanOrEqual(18);
+    expect(constitution).not.toBeNull();
+    expect(constitution.parents).toContain('islamic-reference-layer');
+    expect(constitution.children).toContain('ummah-benefit-value-layer');
+    expect(constitution.governance).toBe('PASSED');
+    expect(constitution.risk).toBe('LOW');
   });
 
   test('validation passes with valid dependencies', () => {

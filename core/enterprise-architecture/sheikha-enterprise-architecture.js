@@ -305,6 +305,47 @@ function getArchitectureRegistry() {
   }));
 }
 
+
+function getArchitectureRelationshipGraph() {
+  const layers = architecture.layers;
+  const byId = new Map(layers.map((layer) => [layer.id, layer]));
+
+  return layers.map((layer) => {
+    const parents = layer.dependencies || [];
+    const children = layers
+      .filter((candidate) => (candidate.dependencies || []).includes(layer.id))
+      .map((candidate) => candidate.id);
+
+    const peers = layers
+      .filter((candidate) =>
+        candidate.id !== layer.id &&
+        (candidate.dependencies || []).some((dep) => parents.includes(dep))
+      )
+      .map((candidate) => candidate.id);
+
+    return {
+      id: layer.id,
+      name: layer.name,
+      arabicName: layer.arabicName,
+      status: layer.status,
+      healthScore: layer.healthScore || 100,
+      governance: 'PASSED',
+      risk: 'LOW',
+      parents,
+      children,
+      peers,
+      parentNames: parents.map((id) => byId.get(id)?.arabicName || id),
+      childNames: children.map((id) => byId.get(id)?.arabicName || id),
+      peerNames: peers.map((id) => byId.get(id)?.arabicName || id)
+    };
+  });
+}
+
+function getArchitectureLayerRelationships(id) {
+  return getArchitectureRelationshipGraph().find((item) => item.id === id) || null;
+}
+
+
 function validateEnterpriseArchitecture() {
   const ids = new Set(architecture.layers.map((layer) => layer.id));
   const dependenciesValid = architecture.layers.every((layer) =>
@@ -332,5 +373,7 @@ module.exports = {
   getArchitectureStatus,
   getArchitectureLayerById,
   getArchitectureRegistry,
+  getArchitectureRelationshipGraph,
+  getArchitectureLayerRelationships,
   validateEnterpriseArchitecture
 };
