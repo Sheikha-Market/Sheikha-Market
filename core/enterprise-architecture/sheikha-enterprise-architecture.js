@@ -2,6 +2,17 @@
 
 const layers = Object.freeze([
   {
+    id: 'islamic-reference-layer',
+    name: 'Islamic Reference Layer',
+    arabicName: 'الدين الإسلامي',
+    status: 'ACTIVE',
+    purpose:
+      'A values reference layer inspired by the Quran and Sunnah to guide justice, trust, honesty, fulfillment of contracts, no harm, and beneficial commerce.',
+    responsibilities: ['values-reference', 'justice', 'trust', 'contract-fulfillment', 'no-harm'],
+    capabilities: ['ethical-reference', 'value-guidance', 'principle-alignment'],
+    dependencies: []
+  },
+  {
     id: 'constitution',
     name: 'Constitution',
     arabicName: 'الدستور',
@@ -9,7 +20,7 @@ const layers = Object.freeze([
     purpose: 'Defines vision, principles, governance, quality, risk, value, and improvement rules.',
     responsibilities: ['vision', 'principles', 'governance', 'risk', 'value'],
     capabilities: ['policy-reference', 'governance-baseline', 'value-alignment'],
-    dependencies: []
+    dependencies: ['islamic-reference-layer']
   },
   {
     id: 'ummah-benefit-value-layer',
@@ -258,6 +269,7 @@ function validateEnterpriseArchitecture() {
   return {
     valid:
       dependenciesValid &&
+      ids.has('islamic-reference-layer') &&
       ids.has('constitution') &&
       ids.has('ummah-benefit-value-layer') &&
       ids.has('kingdom') &&

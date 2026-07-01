@@ -15,8 +15,19 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
     expect(status.status).toBe('ACTIVE');
     expect(status.version).toBe('2.0.0');
-    expect(status.layers).toBeGreaterThanOrEqual(15);
+    expect(status.layers).toBeGreaterThanOrEqual(16);
     expect(status.activeLayers).toBe(status.layers);
+  });
+
+
+  test('contains Islamic reference layer above constitution', () => {
+    const layer = getArchitectureLayerById('islamic-reference-layer');
+    const constitution = getArchitectureLayerById('constitution');
+
+    expect(layer).not.toBeNull();
+    expect(layer.arabicName).toBe('الدين الإسلامي');
+    expect(layer.capabilities).toContain('ethical-reference');
+    expect(constitution.dependencies).toContain('islamic-reference-layer');
   });
 
   test('contains civilization, ecosystem, kingdom, federation, emirates and integration layers', () => {
