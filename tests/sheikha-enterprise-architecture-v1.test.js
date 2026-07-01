@@ -45,7 +45,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
 
     expect(architecture.ummahValueLayer.arabicName).toBe('أمة محمد ﷺ');
     expect(architecture.ummahValueLayer.scope).toContain('Values guidance only');
-    expect(architecture.ummahValueLayer.scope).toContain('benefiting people');
+    expect(architecture.ummahValueLayer.scope).toContain('benefiting the Ummah of Muhammad ﷺ');
     expect(architecture.ummahValueLayer.principles).toContain('Benefit to People');
     expect(architecture.ummahValueLayer.principles).toContain('Beneficial Trade');
   });
