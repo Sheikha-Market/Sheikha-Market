@@ -15,7 +15,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
     expect(status.status).toBe('ACTIVE');
     expect(status.version).toBe('2.0.0');
-    expect(status.layers).toBeGreaterThanOrEqual(16);
+    expect(status.layers).toBeGreaterThanOrEqual(18);
     expect(status.activeLayers).toBe(status.layers);
   });
 
@@ -28,6 +28,23 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(layer.arabicName).toBe('الدين الإسلامي');
     expect(layer.capabilities).toContain('ethical-reference');
     expect(constitution.dependencies).toContain('islamic-reference-layer');
+  });
+
+
+  test('contains Arabian Peninsula federation and Arabian Gulf regional layers', () => {
+    const peninsula = getArchitectureLayerById('arabian-peninsula-federation-layer');
+    const gulf = getArchitectureLayerById('arabian-gulf-cooperation-layer');
+    const council = getArchitectureLayerById('commerce-supreme-council');
+
+    expect(peninsula).not.toBeNull();
+    expect(peninsula.arabicName).toBe('اتحاد الجزيرة العربية');
+    expect(peninsula.dependencies).toContain('kingdom');
+
+    expect(gulf).not.toBeNull();
+    expect(gulf.arabicName).toBe('طبقة الخليج العربي');
+    expect(gulf.dependencies).toContain('arabian-peninsula-federation-layer');
+
+    expect(council.dependencies).toContain('arabian-gulf-cooperation-layer');
   });
 
   test('contains civilization, ecosystem, kingdom, federation, emirates and integration layers', () => {

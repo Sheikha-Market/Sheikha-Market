@@ -63,6 +63,28 @@ const layers = Object.freeze([
     dependencies: ['ecosystem']
   },
   {
+    id: 'arabian-peninsula-federation-layer',
+    name: 'Arabian Peninsula Federation Layer',
+    arabicName: 'اتحاد الجزيرة العربية',
+    status: 'ACTIVE',
+    purpose:
+      'An internal regional architecture layer for organizing cooperation, interoperability, trade alignment, and economic coordination across the Arabian Peninsula context within Sheikha.',
+    responsibilities: ['regional-cooperation', 'trade-alignment', 'interoperability', 'economic-coordination'],
+    capabilities: ['arabian-peninsula-federation', 'regional-standards-alignment', 'cross-border-commerce-model'],
+    dependencies: ['kingdom']
+  },
+  {
+    id: 'arabian-gulf-cooperation-layer',
+    name: 'Arabian Gulf Cooperation Layer',
+    arabicName: 'طبقة الخليج العربي',
+    status: 'ACTIVE',
+    purpose:
+      'An internal regional architecture layer for Gulf commerce integration, logistics interoperability, shared services, and digital trade coordination within Sheikha.',
+    responsibilities: ['gulf-integration', 'logistics-alignment', 'shared-services', 'digital-interoperability'],
+    capabilities: ['gulf-commerce-integration', 'gulf-logistics-alignment', 'regional-shared-services'],
+    dependencies: ['arabian-peninsula-federation-layer']
+  },
+  {
     id: 'commerce-supreme-council',
     name: 'Commerce Supreme Council',
     arabicName: 'المجلس الأعلى للتجارة والاقتصاد',
@@ -70,7 +92,7 @@ const layers = Object.freeze([
     purpose: 'Coordinates strategy, priorities, governance, risk, and value.',
     responsibilities: ['strategy', 'priorities', 'risk', 'value-governance'],
     capabilities: ['strategic-review', 'priority-setting', 'governance-review'],
-    dependencies: ['kingdom']
+    dependencies: ['arabian-gulf-cooperation-layer']
   },
   {
     id: 'global-commerce-federation',
@@ -273,6 +295,8 @@ function validateEnterpriseArchitecture() {
       ids.has('constitution') &&
       ids.has('ummah-benefit-value-layer') &&
       ids.has('kingdom') &&
+      ids.has('arabian-peninsula-federation-layer') &&
+      ids.has('arabian-gulf-cooperation-layer') &&
       ids.has('commerce-emirates') &&
       ids.has('universal-integration-fabric'),
     checkedAt: new Date().toISOString(),
