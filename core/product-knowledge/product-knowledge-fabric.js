@@ -1,33 +1,23 @@
 'use strict';
 
 const productKnowledgeFabric = Object.freeze({
-  system: 'SHEIKHA_PRODUCT_KNOWLEDGE_FABRIC_V1',
+  system: 'SHEIKHA_PRODUCT_KNOWLEDGE_FABRIC_V2',
   status: 'ACTIVE',
   purpose:
-    'Organize product identity, specifications, quality, price, usage, standards, risks, suppliers, and value for governed commerce.',
+    'Govern product identity, classification, specifications, quality, standards, pricing, usage, suppliers, risks, compliance, lifecycle, and value.',
   domains: [
-    'product-definition',
+    'identity',
     'classification',
     'specifications',
     'quality',
+    'standards',
     'pricing',
     'usage',
-    'standards',
-    'risk',
     'supplier',
+    'risk',
+    'compliance',
+    'lifecycle',
     'value'
-  ],
-  requiredFields: [
-    'name',
-    'category',
-    'description',
-    'usage',
-    'specifications',
-    'quality',
-    'price',
-    'supplier',
-    'risk',
-    'standards'
   ]
 });
 
@@ -41,8 +31,10 @@ function normalizeProduct(product = {}) {
     name: product.name || 'Unnamed Product',
     category: product.category || 'general',
     description: product.description || '',
-    usage: product.usage || [],
+    usage: Array.isArray(product.usage) ? product.usage : [],
     specifications: product.specifications || {},
+    standards: Array.isArray(product.standards) ? product.standards : [],
+    compliance: product.compliance || { status: 'UNVERIFIED', notes: [] },
     quality: {
       grade: product.quality?.grade || 'UNVERIFIED',
       score: Number(product.quality?.score || 0),
@@ -54,8 +46,8 @@ function normalizeProduct(product = {}) {
       pricingStatus: product.price?.amount ? 'DEFINED' : 'MISSING'
     },
     supplier: product.supplier || {},
-    standards: product.standards || [],
     risk: product.risk || { level: 'UNKNOWN', notes: [] },
+    lifecycle: product.lifecycle || { status: 'DRAFT', version: '1.0.0' },
     value: {
       score: Number(product.value?.score || 0),
       notes: product.value?.notes || []
