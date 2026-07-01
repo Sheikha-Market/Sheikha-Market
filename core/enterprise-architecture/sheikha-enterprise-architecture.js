@@ -175,7 +175,7 @@ const architecture = Object.freeze({
     purpose:
       'A values and ethics layer inspired by Islamic principles to guide trust, justice, beneficial commerce, no harm, fulfillment of contracts, and benefit to the Ummah of Muhammad ﷺ and to people.',
     scope:
-      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to benefiting people and seeking beneficial value for the Ummah of Muhammad ﷺ and for all people.',
+      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to benefiting the Ummah of Muhammad ﷺ and benefiting all people.',
     principles: [
       'Justice',
       'Honesty',
