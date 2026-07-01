@@ -299,6 +299,32 @@ const layers = Object.freeze([
     dependencies: ['external-integration-layer']
   },
   {
+    id: 'product-knowledge-fabric',
+    name: 'Product Knowledge Fabric',
+    arabicName: 'نسيج معرفة المنتجات',
+    status: 'ACTIVE',
+    healthScore: 100,
+    purpose:
+      'Governs product definitions, classifications, specifications, quality, standards, pricing, usage, suppliers, risks, compliance, lifecycle, and value.',
+    responsibilities: [
+      'product-definition',
+      'product-specifications',
+      'quality-governance',
+      'pricing-knowledge',
+      'standards-mapping',
+      'product-lifecycle'
+    ],
+    capabilities: [
+      'product-registry',
+      'specification-management',
+      'quality-gate',
+      'pricing-validation',
+      'standards-linking',
+      'product-risk-check'
+    ],
+    dependencies: ['universal-scientific-methodology-layer', 'internal-integration-layer']
+  },
+  {
     id: 'value-operating-system',
     name: 'Value Operating System',
     arabicName: 'نظام تشغيل القيمة',
@@ -471,6 +497,7 @@ function validateEnterpriseArchitecture() {
       ids.has('commerce-emirates') &&
       ids.has('internal-integration-layer') &&
       ids.has('external-integration-layer') &&
+      ids.has('product-knowledge-fabric') &&
       ids.has('universal-integration-fabric'),
     checkedAt: new Date().toISOString(),
     dependenciesValid

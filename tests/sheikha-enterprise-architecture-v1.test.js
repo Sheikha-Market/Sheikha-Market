@@ -17,7 +17,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
     expect(status.status).toBe('ACTIVE');
     expect(status.version).toBe('2.0.0');
-    expect(status.layers).toBeGreaterThanOrEqual(23);
+    expect(status.layers).toBeGreaterThanOrEqual(24);
     expect(status.activeLayers).toBe(status.layers);
   });
 
@@ -135,6 +135,18 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(science.dependencies).toContain('religion-renewal-service-layer');
     expect(science.capabilities).toContain('scientific-method-registry');
     expect(civilization.dependencies).toContain('universal-scientific-methodology-layer');
+  });
+
+
+  test('contains product knowledge fabric layer', () => {
+    const product = getArchitectureLayerById('product-knowledge-fabric');
+
+    expect(product).not.toBeNull();
+    expect(product.arabicName).toBe('نسيج معرفة المنتجات');
+    expect(product.capabilities).toContain('product-registry');
+    expect(product.capabilities).toContain('quality-gate');
+    expect(product.dependencies).toContain('universal-scientific-methodology-layer');
+    expect(product.dependencies).toContain('internal-integration-layer');
   });
 
   test('contains internal and external integration layers', () => {
