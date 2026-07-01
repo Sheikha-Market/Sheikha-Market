@@ -3894,6 +3894,10 @@ app.get('/', (req, res) => {
   res.sendFile(require('path').join(__dirname, 'public', 'product-experience', 'p1', 'index.html'));
 });
 
+
+// SHEIKHA ENTERPRISE ARCHITECTURE API
+app.use('/api/enterprise-architecture', require('./routes/enterprise-architecture/status.routes'));
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
