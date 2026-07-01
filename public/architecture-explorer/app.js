@@ -26,6 +26,33 @@ function list(items) {
   return `<ul>${items.map((item) => `<li>${item}</li>`).join('')}</ul>`;
 }
 
+
+function renderDependencyGraph(registry) {
+  const byId = new Map(registry.map((layer) => [layer.id, layer]));
+  const rows = registry.map((layer) => {
+    const deps = (layer.dependencies || []).map((dep) => {
+      const depLayer = byId.get(dep);
+      return depLayer ? depLayer.arabicName : dep;
+    });
+
+    return `
+      <div class="graph-row">
+        <div class="graph-node">
+          <b>${layer.arabicName}</b>
+          <small>${layer.name}</small>
+        </div>
+        <div class="graph-arrow">←</div>
+        <div class="graph-deps">
+          ${deps.length ? deps.map((d) => `<span>${d}</span>`).join('') : '<span>طبقة تأسيسية</span>'}
+        </div>
+      </div>
+    `;
+  }).join('');
+
+  document.getElementById('dependencyGraph').innerHTML = rows;
+}
+
+
 function renderLayerDetails(layer) {
   return `
     <div class="detail-card">
@@ -76,6 +103,7 @@ async function loadArchitecture() {
 
   const layersRoot = document.getElementById('layers');
   layersRoot.innerHTML = registry.map(layerCard).join('');
+  renderDependencyGraph(registry);
 
   layersRoot.querySelectorAll('.layer').forEach((node) => {
     node.addEventListener('click', async () => {

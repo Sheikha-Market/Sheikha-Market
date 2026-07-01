@@ -208,3 +208,66 @@ pre{
 @media(max-width:900px){
   .detail-grid{grid-template-columns:1fr}
 }
+
+.dependency-graph{
+  display:grid;
+  gap:12px;
+  margin-top:18px;
+}
+
+.graph-row{
+  display:grid;
+  grid-template-columns:1.2fr 40px 1fr;
+  gap:12px;
+  align-items:center;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:14px;
+}
+
+.graph-node{
+  background:#fbfaf5;
+  border:1px solid var(--line);
+  border-radius:16px;
+  padding:14px;
+}
+
+.graph-node b{
+  display:block;
+  color:var(--green);
+  margin-bottom:5px;
+}
+
+.graph-node small{
+  color:var(--muted);
+  direction:ltr;
+  display:block;
+}
+
+.graph-arrow{
+  text-align:center;
+  color:var(--gold);
+  font-size:28px;
+  font-weight:1000;
+}
+
+.graph-deps{
+  display:flex;
+  flex-wrap:wrap;
+  gap:8px;
+}
+
+.graph-deps span{
+  background:#edf7ef;
+  color:#0c5a3e;
+  border-radius:999px;
+  padding:7px 11px;
+  font-weight:800;
+  font-size:12px;
+}
+
+@media(max-width:900px){
+  .graph-row{grid-template-columns:1fr}
+  .graph-arrow{transform:rotate(90deg)}
+}
