@@ -33,7 +33,7 @@ describe('Sheikha Enterprise Architecture V1', () => {
     expect(architecture.governanceNote).toContain('internal architecture');
 expect(architecture.governanceNote).toContain('values');
 
-    expect(architecture.governanceNote).not.toContain('represent governmental');
+    expect(architecture.governanceNote).toContain('do not represent governmental');
 
   });
 
