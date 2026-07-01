@@ -14,14 +14,14 @@ const architecture = Object.freeze({
     operatingSystem: 'Sheikha Commerce OS'
   },
   governanceNote:
-    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
+    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah Service & Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
   ummahValueLayer: Object.freeze({
-    name: 'Ummah Value Layer',
-    arabicName: 'طبقة قيم أمة محمد ﷺ',
+    name: 'Ummah Service & Value Layer',
+    arabicName: 'طبقة خدمة وقيم أمة محمد ﷺ',
     purpose:
       'A values and ethics layer inspired by Islamic principles to guide trust, justice, beneficial commerce, no harm, fulfillment of contracts, and service to people.',
     scope:
-      'Values guidance only; it does not issue religious rulings, represent the Muslim Ummah, or replace scholars, governments, courts, or official authorities.',
+      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to serving people and seeking beneficial value for the Ummah and humanity.',
     principles: [
       'Justice',
       'Honesty',
@@ -39,7 +39,7 @@ const architecture = Object.freeze({
   }),
   layers: [
     'Constitution',
-    'Ummah Value Layer',
+    'Ummah Service & Value Layer',
     'Civilization',
     'Ecosystem',
     'Commerce Kingdom',
@@ -118,7 +118,7 @@ function validateEnterpriseArchitecture() {
 
   return {
     valid: required.every(Boolean) &&
-      architecture.layers.includes('Ummah Value Layer') &&
+      architecture.layers.includes('Ummah Service & Value Layer') &&
       architecture.layers.includes('Commerce Kingdom') &&
       architecture.layers.includes('Commerce Emirates') &&
       architecture.layers.includes('Universal Integration Fabric'),
