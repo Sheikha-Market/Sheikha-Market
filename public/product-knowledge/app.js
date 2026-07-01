@@ -1,15 +1,32 @@
 'use strict';
 
-async function fetchJson(url, options) {
-  const response = await fetch(url, options);
-  const payload = await response.json();
-  return payload;
+async function fetchJson(url, options = {}) {
+  const response = await fetch(url + (url.includes('?') ? '&' : '?') + 't=' + Date.now(), {
+    cache: 'no-store',
+    ...options
+  });
+
+  const text = await response.text();
+
+  try {
+    return {
+      httpStatus: response.status,
+      ok: response.ok,
+      payload: JSON.parse(text)
+    };
+  } catch (error) {
+    return {
+      httpStatus: response.status,
+      ok: response.ok,
+      payload: { success: false, error: 'NON_JSON_RESPONSE', body: text }
+    };
+  }
 }
 
 async function loadStatus() {
-  const payload = await fetchJson('/api/product-knowledge/status');
-  document.getElementById('status').textContent = payload.data.status;
-  document.getElementById('system').textContent = payload.data.system;
+  const result = await fetchJson('/api/product-knowledge/status');
+  document.getElementById('status').textContent = result.payload.data?.status || 'UNKNOWN';
+  document.getElementById('system').textContent = result.payload.data?.system || 'UNKNOWN';
 }
 
 async function validateProduct() {
@@ -23,14 +40,16 @@ async function validateProduct() {
     return;
   }
 
-  const payload = await fetchJson('/api/product-knowledge/validate', {
+  const result = await fetchJson('/api/product-knowledge/validate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product)
   });
 
-  document.getElementById('result').textContent = JSON.stringify(payload, null, 2);
+  document.getElementById('result').textContent = JSON.stringify(result, null, 2);
 }
+
+window.validateProduct = validateProduct;
 
 loadStatus().catch((error) => {
   document.getElementById('result').textContent = 'تعذر التحميل: ' + error.message;
