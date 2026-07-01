@@ -110,7 +110,13 @@ const layers = Object.freeze([
       'measurement-framework',
       'decision-quality-check'
     ],
-    dependencies: ['religion-renewal-service-layer']
+    dependencies: [
+      'islamic-reference-layer',
+      'constitution',
+      'ummah-benefit-value-layer',
+      'planning-analysis-layer',
+      'religion-renewal-service-layer'
+    ]
   },
   {
     id: 'civilization',
