@@ -17,7 +17,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
     expect(status.status).toBe('ACTIVE');
     expect(status.version).toBe('2.0.0');
-    expect(status.layers).toBeGreaterThanOrEqual(21);
+    expect(status.layers).toBeGreaterThanOrEqual(23);
     expect(status.activeLayers).toBe(status.layers);
   });
 
@@ -99,6 +99,24 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
 
 
 
+
+
+  test('contains planning analysis and religion renewal service layers', () => {
+    const planning = getArchitectureLayerById('planning-analysis-layer');
+    const renewal = getArchitectureLayerById('religion-renewal-service-layer');
+    const science = getArchitectureLayerById('universal-scientific-methodology-layer');
+
+    expect(planning).not.toBeNull();
+    expect(planning.arabicName).toBe('طبقة التخطيط والتحليل');
+    expect(planning.capabilities).toContain('planning-engine');
+
+    expect(renewal).not.toBeNull();
+    expect(renewal.arabicName).toBe('طبقة خدمة تجديد فهم الدين');
+    expect(renewal.capabilities).toContain('scholarly-review-gate');
+    expect(renewal.responsibilities).toContain('no-unauthorized-fatwa');
+
+    expect(science.dependencies).toContain('religion-renewal-service-layer');
+  });
 
   test('contains universal scientific methodology layer', () => {
     const science = getArchitectureLayerById('universal-scientific-methodology-layer');

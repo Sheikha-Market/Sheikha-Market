@@ -36,6 +36,57 @@ const layers = Object.freeze([
     dependencies: ['constitution']
   },
   {
+    id: 'planning-analysis-layer',
+    name: 'Planning & Analysis Layer',
+    arabicName: 'طبقة التخطيط والتحليل',
+    status: 'ACTIVE',
+    healthScore: 100,
+    purpose:
+      'Provides strategic planning, evidence analysis, risk analysis, opportunity analysis, measurement, monitoring, and controlled improvement planning.',
+    responsibilities: [
+      'strategic-planning',
+      'evidence-analysis',
+      'risk-analysis',
+      'opportunity-analysis',
+      'performance-measurement',
+      'execution-follow-up'
+    ],
+    capabilities: [
+      'planning-engine',
+      'analysis-engine',
+      'evidence-review',
+      'risk-scoring',
+      'opportunity-mapping',
+      'decision-support'
+    ],
+    dependencies: ['ummah-benefit-value-layer']
+  },
+  {
+    id: 'religion-renewal-service-layer',
+    name: 'Religion Renewal Service Layer',
+    arabicName: 'طبقة خدمة تجديد فهم الدين',
+    status: 'ACTIVE',
+    healthScore: 100,
+    purpose:
+      'Documents the goal of contributing to the renewal of understanding, teaching, and applying Islam through the Quran and Sunnah, under scholarly review, without claiming religious authority, prophecy, infallibility, or changing Islamic rulings.',
+    responsibilities: [
+      'quran-sunnah-reference',
+      'scholarly-review-required',
+      'evidence-preservation',
+      'beneficial-knowledge',
+      'revival-of-correct-practice',
+      'no-unauthorized-fatwa'
+    ],
+    capabilities: [
+      'renewal-goal-registry',
+      'quran-sunnah-evidence-linking',
+      'scholarly-review-gate',
+      'religious-content-governance',
+      'benefit-and-no-harm-check'
+    ],
+    dependencies: ['planning-analysis-layer']
+  },
+  {
     id: 'universal-scientific-methodology-layer',
     name: 'Universal Scientific Methodology Layer',
     arabicName: 'طبقة المناهج العلمية الكونية',
@@ -59,7 +110,7 @@ const layers = Object.freeze([
       'measurement-framework',
       'decision-quality-check'
     ],
-    dependencies: ['ummah-benefit-value-layer']
+    dependencies: ['religion-renewal-service-layer']
   },
   {
     id: 'civilization',
