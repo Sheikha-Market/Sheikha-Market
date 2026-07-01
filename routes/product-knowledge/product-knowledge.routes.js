@@ -7,6 +7,10 @@ const {
   validateProduct
 } = require('../../core/product-knowledge/product-knowledge-fabric');
 
+const { evaluateProductQuality } = require('../../core/product-knowledge/product-quality-engine');
+const { evaluateProductPricing } = require('../../core/product-knowledge/product-pricing-engine');
+const { evaluateProductStandards } = require('../../core/product-knowledge/product-standards-engine');
+
 const router = express.Router();
 
 router.use(express.json({ limit: '2mb' }));
@@ -44,5 +48,31 @@ router.post('/validate', (req, res) => {
     });
   }
 });
+
+
+router.post('/quality', (req, res) => {
+  res.json({
+    success: true,
+    data: evaluateProductQuality(req.body || {}),
+    message: 'Product quality evaluated'
+  });
+});
+
+router.post('/pricing', (req, res) => {
+  res.json({
+    success: true,
+    data: evaluateProductPricing(req.body || {}),
+    message: 'Product pricing evaluated'
+  });
+});
+
+router.post('/standards', (req, res) => {
+  res.json({
+    success: true,
+    data: evaluateProductStandards(req.body || {}),
+    message: 'Product standards evaluated'
+  });
+});
+
 
 module.exports = router;
