@@ -13,10 +13,10 @@ const layers = Object.freeze([
   },
   {
     id: 'ummah-benefit-value-layer',
-    name: 'Ummah Benefit & Value Layer',
-    arabicName: 'طبقة نفع وقيم أمة محمد ﷺ',
+    name: 'Ummah of Muhammad Benefit & Value Layer',
+    arabicName: 'أمة محمد ﷺ',
     status: 'ACTIVE',
-    purpose: 'Guides ethical value, beneficial commerce, no harm, trust, and public benefit.',
+    purpose: 'Guides beneficial value for the Ummah of Muhammad ﷺ and for all people through justice, trust, no harm, beneficial commerce, and public good.',
     responsibilities: ['ethics', 'benefit', 'trust', 'no-harm'],
     capabilities: ['ethical-guidance', 'benefit-orientation', 'no-harm-check'],
     dependencies: ['constitution']
@@ -168,14 +168,14 @@ const architecture = Object.freeze({
     operatingSystem: 'Sheikha Commerce OS'
   },
   governanceNote:
-    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah Benefit & Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
+    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah of Muhammad Benefit & Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
   ummahValueLayer: Object.freeze({
-    name: 'Ummah Benefit & Value Layer',
-    arabicName: 'طبقة نفع وقيم أمة محمد ﷺ',
+    name: 'Ummah of Muhammad Benefit & Value Layer',
+    arabicName: 'أمة محمد ﷺ',
     purpose:
-      'A values and ethics layer inspired by Islamic principles to guide trust, justice, beneficial commerce, no harm, fulfillment of contracts, and benefit to people.',
+      'A values and ethics layer inspired by Islamic principles to guide trust, justice, beneficial commerce, no harm, fulfillment of contracts, and benefit to the Ummah of Muhammad ﷺ and to people.',
     scope:
-      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to benefiting people and seeking beneficial value for the Ummah and humanity.',
+      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to benefiting people and seeking beneficial value for the Ummah of Muhammad ﷺ and for all people.',
     principles: [
       'Justice',
       'Honesty',

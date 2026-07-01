@@ -43,7 +43,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
   test('contains Ummah benefit value layer as ethical guidance', () => {
     const architecture = getEnterpriseArchitecture();
 
-    expect(architecture.ummahValueLayer.arabicName).toBe('طبقة نفع وقيم أمة محمد ﷺ');
+    expect(architecture.ummahValueLayer.arabicName).toBe('أمة محمد ﷺ');
     expect(architecture.ummahValueLayer.scope).toContain('Values guidance only');
     expect(architecture.ummahValueLayer.scope).toContain('benefiting people');
     expect(architecture.ummahValueLayer.principles).toContain('Benefit to People');
