@@ -1,171 +1,138 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="منظومة شيخة — أول منصة اقتصادية إسلامية مؤسسية متكاملة للمعادن والتجارة وسلاسل الإمداد">
-  <title>شيخة | Sheikha Enterprise Platform</title>
-  <link rel="stylesheet" href="/assets/design-system/sheikha-enterprise.css">
-  <style>
-    .status-badge{display:inline-flex;align-items:center;gap:6px;font-size:11px;font-weight:700;padding:4px 10px;border-radius:999px;letter-spacing:.08em}
-    .badge-active{background:rgba(16,185,129,.15);color:#059669}
-    .badge-foundation{background:rgba(200,169,107,.15);color:#92711e}
-    .section-title{font-size:13px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:var(--muted);margin:40px 0 16px}
-    .card-header{display:flex;align-items:center;justify-content:space-between;margin-bottom:10px}
-    .platform-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:20px;margin-top:8px}
-    .layer-tag{font-size:11px;color:var(--muted);margin-top:8px}
-    nav a{display:flex;flex-direction:column;align-items:center;gap:2px}
-    .nav-label{font-size:10px;opacity:.55;letter-spacing:.12em}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
-    .card h3{margin-top:0;color:var(--primary)}
-    .card-link{font-size:13px;color:var(--accent);text-decoration:none;display:inline-block;margin-top:6px}
-  </style>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>شيخة | الحضارة السعودية للتجارة العالمية</title>
+  <link rel="stylesheet" href="/sheikha-brand-v1/styles.css?v=1"/>
 </head>
 <body>
-
-<header class="topbar">
-  <div class="brand">
-    <span class="logo">شيخة</span>
-    <span class="subtitle">SHEIKHA ENTERPRISE PLATFORM</span>
+<header class="nav">
+  <div class="logo">
+    <b>شيخة</b>
+    <span>SHEIKHA VALUE COMMERCE</span>
   </div>
   <nav>
-    <a href="/"><span>الرئيسية</span></a>
-    <a href="/market/"><span>السوق</span><span class="nav-label">MARKET</span></a>
-    <a href="/register/"><span>التسجيل</span><span class="nav-label">REGISTER</span></a>
-    <a href="/government/"><span>الجهات</span><span class="nav-label">GOV</span></a>
-    <a href="/company/"><span>الشركات</span><span class="nav-label">COMPANY</span></a>
-    <a href="/identity/"><span>الهوية</span><span class="nav-label">IDENTITY</span></a>
-    <a href="/ide/"><span>IDE</span></a>
+    <a href="/">الرئيسية</a>
+    <a href="/market/">السوق</a>
+    <a href="/register/">التسجيل</a>
+    <a href="/ide/">IDE</a>
   </nav>
+  <a class="login" href="/register/">ابدأ</a>
 </header>
 
-<main class="content">
-
+<main>
   <section class="hero">
-    <h1>منظومة شيخة</h1>
-    <p>
-      أول منصة اقتصادية إسلامية مؤسسية متكاملة — للمعادن والسكراب والتجارة وسلاسل الإمداد
-      — مبنية على الكتاب والسنة وحوكمة رقمية صارمة.
-    </p>
-    <div class="hero-actions">
-      <a class="button" href="/market/">دخول السوق</a>
-      <a class="button" href="/register/" style="background:rgba(255,255,255,.15);color:#fff">تسجيل شركة</a>
+    <div class="hero-copy">
+      <span class="pill">Sheikha Commerce OS · Federation of Commerce Emirates · Value Commerce</span>
+      <h1>شيخة<br>الحضارة السعودية للتجارة العالمية</h1>
+      <p>
+        منصة مؤسسية تساعد التجار والشركات على تنظيم الأسواق، اكتشاف الفرص،
+        بناء الثقة، تحسين سلاسل الإمداد، ورفع القيمة الاقتصادية والتنموية
+        بما ينفع العميل والمجتمع.
+      </p>
+      <div class="actions">
+        <a class="primary" href="/market/">دخول السوق</a>
+        <a class="secondary" href="/register/">تسجيل شركة</a>
+      </div>
+    </div>
+
+    <div class="hero-card">
+      <small>مؤشر القيمة اليوم</small>
+      <strong>12 فرصة</strong>
+      <p>قابلة للتحقق والمطابقة التجارية</p>
+      <div class="mini">
+        <span>ثقة</span>
+        <span>تجارة</span>
+        <span>قيمة</span>
+        <span>تنمية</span>
+      </div>
     </div>
   </section>
 
-  <!-- Platform Layer -->
-  <p class="section-title">طبقة المنصة — Platform Layer</p>
-  <div class="platform-grid">
-    <div class="card">
-      <div class="card-header"><h3>Sheikha Cloud</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>البنية السحابية المحكومة — Runtime Fabric — Drift Detection</p>
-      <p class="layer-tag">cloud · governed · isolated</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>المنظمات — Organizations</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>نظام المنظمات متعدد المستأجرين — Tenant Isolation — RBAC — Permissions</p>
-      <p class="layer-tag">organizations · tenants · roles · sessions</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Sheikha SaaS</h3><span class="status-badge badge-foundation">FOUNDATION</span></div>
-      <p>منصة SaaS متعددة المستأجرين — Billing — Subscriptions</p>
-      <p class="layer-tag">saas · billing · subscriptions</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Sheikha ERP</h3><span class="status-badge badge-foundation">FOUNDATION</span></div>
-      <p>إدارة الشركات والعمليات — Finance — Inventory — Sales — Operations</p>
-      <a class="card-link" href="/company/">→ لوحة الشركة</a>
-      <p class="layer-tag">erp · finance · inventory · sales</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Sheikha SCM</h3><span class="status-badge badge-foundation">FOUNDATION</span></div>
-      <p>سلاسل الإمداد — Suppliers · Buyers · Logistics · Contracts · Warehouses</p>
-      <p class="layer-tag">scm · suppliers · contracts · logistics</p>
-    </div>
-  </div>
+  <section class="statement">
+    <h2>هوية شيخة العليا</h2>
+    <p>
+      شيخة مشروع أسسه سلمان أحمد سلمان الراجح، مسلم عربي سعودي من مدينة الخبر بالمنطقة الشرقية، يعتز بدينه ووطنه وأصله، ويسعى أن تكون شيخة منصة تجارة وقيمة ومعرفة نافعة، مبنية على الأمانة والعدل والإتقان، لخدمة الناس وتنظيم التجارة ورفع القيمة المضافة بما يرضي الله وينفع المجتمع.
+    </p>
+  </section>
 
-  <!-- Market & Intelligence Layer -->
-  <p class="section-title">طبقة السوق والذكاء — Market & Intelligence Layer</p>
-  <div class="platform-grid">
-    <div class="card">
-      <div class="card-header"><h3>سوق المعادن</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>سوق المعادن والسكراب والمواد الصناعية — تسعير محكوم — عروض ومزايدات</p>
-      <a class="card-link" href="/market/">→ دخول السوق</a>
-      <p class="layer-tag">metals · scrap · trade goods</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>HS Code Engine</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>محرك تصنيف المواد — HS Code · ISRI · LME — تصنيف جمركي دولي محكوم</p>
-      <p class="layer-tag">hs-code · classification · customs</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Barcode / SKU Runtime</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>Barcode · SKU · Serial · Batch · LOT — تتبع المواد وإدارة المخزون</p>
-      <p class="layer-tag">barcode · sku · batch · serial · lot</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Material Intelligence</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>ذكاء المواد — تصنيف وتحليل وتسعير وتتبع لكل مادة صناعية وتجارية</p>
-      <p class="layer-tag">materials · intelligence · pricing · analysis</p>
-    </div>
-  </div>
+  <section class="metrics">
+    <article><b>4</b><span>أسواق أولية</span></article>
+    <article><b>8</b><span>طلبات متابعة</span></article>
+    <article><b>5</b><span>موردون محتملون</span></article>
+    <article><b>12</b><span>فرص تجارية</span></article>
+  </section>
 
-  <!-- Community & Knowledge Layer -->
-  <p class="section-title">طبقة المجتمع والمعرفة — Community & Knowledge Layer</p>
-  <div class="platform-grid">
-    <div class="card">
-      <div class="card-header"><h3>منتدى المجتمع</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>منتدى الموردين والمشترين — مشاركة المعرفة — الأسئلة والأجوبة التجارية</p>
-      <a class="card-link" href="/المجتمع.html">→ المجتمع</a>
-      <p class="layer-tag">forum · knowledge · suppliers · buyers</p>
+  <section class="section">
+    <div class="section-title">
+      <span>MARKET ENGINE</span>
+      <h2>Sheikha Commerce Federation</h2>
+      <p>اتحاد تجاري رقمي يربط إمارات التجارة: المدن، الأسواق، القطاعات، الشركات، الموردين، المشترين، والخدمات، ضمن بنية موحدة تحفظ الاستقلالية وتحقق التكامل.</p>
     </div>
-    <div class="card">
-      <div class="card-header"><h3>التعليم التجاري</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>تعليم الموردين والمشترين — كيفية التصدير والاستيراد — HS Code — الشريعة التجارية</p>
-      <a class="card-link" href="/مركز-التدريب-متعدد-اللغات.html">→ مركز التدريب</a>
-      <p class="layer-tag">education · training · export · import</p>
+    <div class="cards">
+      <article>
+        <i>🏭</i>
+        <h3>المعادن</h3>
+        <p>حديد، نحاس، ألمنيوم، مواد صناعية، عروض وطلبات.</p>
+      </article>
+      <article>
+        <i>♻️</i>
+        <h3>السكراب</h3>
+        <p>إعادة تدوير، مخلفات صناعية، تحويل الهدر إلى قيمة.</p>
+      </article>
+      <article>
+        <i>⚙️</i>
+        <h3>المعدات</h3>
+        <p>معدات وموجودات صناعية وفرص تشغيل واستثمار.</p>
+      </article>
+      <article>
+        <i>🚛</i>
+        <h3>اللوجستيات</h3>
+        <p>نقل، توريد، تسليم، تتبع، وتحسين سلسلة الإمداد.</p>
+      </article>
     </div>
-    <div class="card">
-      <div class="card-header"><h3>رياض الجنة</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>محتوى علمي نافع — آيات التجارة — الأحاديث والفقه التجاري الإسلامي</p>
-      <a class="card-link" href="/رياض-الجنة-الباحثين.html">→ رياض الجنة</a>
-      <p class="layer-tag">knowledge · quran · sunnah · fiqh</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>الشريعة الإسلامية</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>مرجع الشريعة التجارية — حاسبة الزكاة — أحكام البيع والشراء والربا والغرر</p>
-      <a class="card-link" href="/الشريعة-الاسلامية.html">→ الشريعة</a>
-      <p class="layer-tag">sharia · zakat · halal · trading</p>
-    </div>
-  </div>
+  </section>
 
-  <!-- Governance Layer -->
-  <p class="section-title">طبقة الحوكمة — Governance Layer</p>
-  <div class="platform-grid">
-    <div class="card">
-      <div class="card-header"><h3>Runtime Governance</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>Drift Detection · Governance Verification · Branch Governance · Rollback</p>
-      <p class="layer-tag">drift · governance · rollback · protection</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Pixel & Consent</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>طبقة موافقة المستخدم — لا تتبع بدون إذن — Meta Pixel محكوم بالحوكمة</p>
-      <p class="layer-tag">pixel · consent · privacy · governance</p>
-    </div>
-    <div class="card">
-      <div class="card-header"><h3>Identity & Access</h3><span class="status-badge badge-active">ACTIVE</span></div>
-      <p>RBAC · JWT · Organizations · Tenant Isolation · Sessions · Permissions</p>
-      <a class="card-link" href="/identity/">→ الهوية</a>
-      <p class="layer-tag">rbac · jwt · identity · access</p>
-    </div>
-  </div>
+  <section class="grid">
+    <article class="panel green">
+      <span>CLIENT TWIN</span>
+      <h2>Customer Success Civilization Twin</h2>
+      <p>لكل عميل رؤية وأهداف ومؤشرات وفرص وخطة تطوير قابلة للقياس.</p>
+      <ul>
+        <li>تحليل الوضع الحالي</li>
+        <li>خريطة طريق تجارية</li>
+        <li>مؤشرات قيمة وربحية</li>
+        <li>تحسين مستمر</li>
+      </ul>
+    </article>
 
+    <article class="panel">
+      <span>VALUE ENGINE</span>
+      <h2>Value Operating System</h2>
+      <p>كل فرصة تمر بالتحقق، المطابقة، التقييم، ثم التنفيذ التجاري.</p>
+      <div class="opportunity">
+        <b>فرصة توريد معادن موثقة</b>
+        <small>أولوية عالية · تحتاج مطابقة مورد</small>
+      </div>
+      <div class="opportunity">
+        <b>فرصة سكراب صناعي</b>
+        <small>قابلة للتجربة · تحتاج تحقق مواصفات</small>
+      </div>
+    </article>
+  </section>
+
+  <section class="principles">
+    <h2>مبادئ الحضارة التجارية</h2>
+    <div>
+      <article>الأمانة</article>
+      <article>الشفافية</article>
+      <article>التراضي</article>
+      <article>لا ضرر ولا ضرار</article>
+      <article>إتقان العمل</article>
+      <article>قيمة مضافة</article>
+    </div>
+  </section>
 </main>
-
-<footer class="footer">
-  <p>© 2026 سلمان أحمد بن سلمان الراجح — SHEIKHA Enterprise Platform — جميع الحقوق محفوظة</p>
-  <p style="font-size:11px;margin-top:4px;opacity:.6">لا ضرر ولا ضرار · مبني على الكتاب والسنة</p>
-</footer>
-
 </body>
 </html>

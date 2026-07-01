@@ -3882,6 +3882,18 @@ app.get('/api/observability/summary', (req, res) => {
     });
 });
 
+
+
+// SHEIKHA PRODUCT EXPERIENCE P1
+app.get('/product/pilot', (req, res) => {
+  res.sendFile(require('path').join(__dirname, 'public', 'product-experience', 'p1', 'index.html'));
+});
+
+// SHEIKHA PRODUCT EXPERIENCE P1 - HOME OVERRIDE
+app.get('/', (req, res) => {
+  res.sendFile(require('path').join(__dirname, 'public', 'product-experience', 'p1', 'index.html'));
+});
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
