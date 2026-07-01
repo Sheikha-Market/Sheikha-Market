@@ -41,11 +41,11 @@ expect(architecture.governanceNote).toContain('values');
   test('contains Ummah value layer as ethical guidance without official representation', () => {
     const architecture = getEnterpriseArchitecture();
 
-    expect(architecture.layers).toContain('Ummah Service & Value Layer');
+    expect(architecture.layers).toContain('Ummah Benefit & Value Layer');
     expect(architecture.ummahValueLayer.arabicName).toBe('طبقة نفع وقيم أمة محمد ﷺ');
     expect(architecture.ummahValueLayer.scope).toContain('Values guidance only');
-    expect(architecture.ummahValueLayer.scope).toContain('serving people');
-    expect(architecture.ummahValueLayer.principles).toContain('Service to People');
+    expect(architecture.ummahValueLayer.scope).toContain('benefiting people');
+    expect(architecture.ummahValueLayer.principles).toContain('Benefit to People');
     expect(architecture.ummahValueLayer.principles).toContain('Beneficial Trade');
   });
 

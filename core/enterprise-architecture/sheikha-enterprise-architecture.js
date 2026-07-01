@@ -14,14 +14,14 @@ const architecture = Object.freeze({
     operatingSystem: 'Sheikha Commerce OS'
   },
   governanceNote:
-    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah Service & Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
+    'Commerce Kingdom, Emirates, Ministries, Authorities, and Ummah Benefit & Value Layer are internal architecture and values terms only; they do not represent governmental, sovereign, religious, or official entities.',
   ummahValueLayer: Object.freeze({
-    name: 'Ummah Service & Value Layer',
-    arabicName: 'طبقة خدمة وقيم أمة محمد ﷺ',
+    name: 'Ummah Benefit & Value Layer',
+    arabicName: 'طبقة نفع وقيم أمة محمد ﷺ',
     purpose:
       'A values and ethics layer inspired by Islamic principles to guide trust, justice, beneficial commerce, no harm, fulfillment of contracts, and service to people.',
     scope:
-      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to serving people and seeking beneficial value for the Ummah and humanity.',
+      'Values guidance only; it does not issue religious rulings or replace scholars, governments, courts, or official authorities; it is dedicated to benefiting people and seeking beneficial value for the Ummah and humanity.',
     principles: [
       'Justice',
       'Honesty',
@@ -30,16 +30,16 @@ const architecture = Object.freeze({
       'No Harm',
       'Beneficial Trade',
       'Contract Fulfillment',
-    'Service to People',
+    'Benefit to People',
     'Beneficial Commerce',
       'Charity and Social Good',
       'Knowledge and Excellence',
-      'Service to People'
+      'Benefit to People'
     ]
   }),
   layers: [
     'Constitution',
-    'Ummah Service & Value Layer',
+    'Ummah Benefit & Value Layer',
     'Civilization',
     'Ecosystem',
     'Commerce Kingdom',
@@ -77,7 +77,7 @@ const architecture = Object.freeze({
     'Sustainability',
     'No Harm',
     'Contract Fulfillment',
-    'Service to People',
+    'Benefit to People',
     'Beneficial Commerce'
   ],
   integrations: [
@@ -118,7 +118,7 @@ function validateEnterpriseArchitecture() {
 
   return {
     valid: required.every(Boolean) &&
-      architecture.layers.includes('Ummah Service & Value Layer') &&
+      architecture.layers.includes('Ummah Benefit & Value Layer') &&
       architecture.layers.includes('Commerce Kingdom') &&
       architecture.layers.includes('Commerce Emirates') &&
       architecture.layers.includes('Universal Integration Fabric'),
