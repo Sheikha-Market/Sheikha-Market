@@ -1,0 +1,49 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>شيخة | معرفة المنتجات</title>
+  <link rel="stylesheet" href="/architecture-explorer/styles.css?v=15"/>
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Sheikha Product Knowledge Fabric V2</p>
+      <h1>نسيج معرفة المنتجات</h1>
+      <p>تعريف المنتج، مواصفاته، جودته، سعره، استخداماته، مخاطره، ومعاييره في منظومة واحدة.</p>
+    </div>
+    <aside class="status-card">
+      <span>الحالة</span>
+      <strong id="status">...</strong>
+      <small id="system">...</small>
+    </aside>
+  </header>
+
+  <section class="panel">
+    <h2>اختبار منتج</h2>
+    <textarea id="productInput" style="width:100%;min-height:220px;border-radius:18px;padding:18px;border:1px solid var(--line);direction:ltr;text-align:left">{
+  "name": "Copper Cable",
+  "category": "metals",
+  "description": "Industrial copper cable scrap.",
+  "usage": ["recycling", "industrial resale"],
+  "specifications": { "purity": "mixed", "unit": "kg" },
+  "standards": ["internal-inspection-required"],
+  "price": { "amount": 25, "currency": "SAR" },
+  "quality": { "score": 80 },
+  "risk": { "level": "LOW", "notes": [] }
+}</textarea>
+    <br><br>
+    <button onclick="validateProduct()" style="border:0;border-radius:14px;padding:14px 24px;font-weight:900;background:var(--gold);cursor:pointer">تحقق من المنتج</button>
+  </section>
+
+  <section class="panel">
+    <h2>نتيجة التحقق</h2>
+    <pre id="result">...</pre>
+  </section>
+</main>
+
+<script src="/product-knowledge/app.js?v=1"></script>
+</body>
+</html>
