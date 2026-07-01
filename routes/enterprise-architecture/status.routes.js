@@ -4,6 +4,8 @@ const express = require('express');
 const {
   getEnterpriseArchitecture,
   getArchitectureStatus,
+  getArchitectureLayerById,
+  getArchitectureRegistry,
   validateEnterpriseArchitecture
 } = require('../../core/enterprise-architecture/sheikha-enterprise-architecture');
 
@@ -14,10 +16,49 @@ router.get('/status', (req, res) => {
     success: true,
     data: {
       status: getArchitectureStatus(),
-      validation: validateEnterpriseArchitecture(),
-      architecture: getEnterpriseArchitecture()
+      validation: validateEnterpriseArchitecture()
     },
-    message: 'Sheikha Enterprise Architecture is active'
+    message: 'Sheikha Enterprise Architecture Registry V2 is active'
+  });
+});
+
+router.get('/registry', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      registry: getArchitectureRegistry(),
+      validation: validateEnterpriseArchitecture()
+    },
+    message: 'Sheikha Enterprise Architecture Registry V2'
+  });
+});
+
+router.get('/layers/:id', (req, res) => {
+  const layer = getArchitectureLayerById(req.params.id);
+
+  if (!layer) {
+    return res.status(404).json({
+      success: false,
+      error: 'ARCHITECTURE_LAYER_NOT_FOUND',
+      layerId: req.params.id
+    });
+  }
+
+  return res.json({
+    success: true,
+    data: { layer },
+    message: 'Sheikha Enterprise Architecture Layer'
+  });
+});
+
+router.get('/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      architecture: getEnterpriseArchitecture(),
+      validation: validateEnterpriseArchitecture()
+    },
+    message: 'Sheikha Enterprise Architecture Full Registry V2'
   });
 });
 
