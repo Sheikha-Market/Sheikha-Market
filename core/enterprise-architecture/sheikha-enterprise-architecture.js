@@ -36,6 +36,32 @@ const layers = Object.freeze([
     dependencies: ['constitution']
   },
   {
+    id: 'universal-scientific-methodology-layer',
+    name: 'Universal Scientific Methodology Layer',
+    arabicName: 'طبقة المناهج العلمية الكونية',
+    status: 'ACTIVE',
+    healthScore: 100,
+    purpose:
+      'Connects Sheikha architecture with rigorous scientific methodologies across mathematics, logic, economics, commerce, engineering, computing, data, AI, statistics, supply chain, quality, risk, governance, ethics, and continuous improvement.',
+    responsibilities: [
+      'scientific-method-alignment',
+      'evidence-based-reasoning',
+      'measurement',
+      'experimentation',
+      'validation',
+      'continuous-improvement'
+    ],
+    capabilities: [
+      'scientific-method-registry',
+      'cross-discipline-mapping',
+      'evidence-scoring',
+      'hypothesis-validation',
+      'measurement-framework',
+      'decision-quality-check'
+    ],
+    dependencies: ['ummah-benefit-value-layer']
+  },
+  {
     id: 'civilization',
     name: 'Saudi Global Commerce Civilization',
     arabicName: 'الحضارة السعودية للتجارة العالمية',
@@ -44,7 +70,7 @@ const layers = Object.freeze([
     purpose: 'Represents the highest strategic identity of Sheikha.',
     responsibilities: ['identity', 'strategic-direction'],
     capabilities: ['civilization-positioning', 'global-commerce-vision'],
-    dependencies: ['constitution']
+    dependencies: ['universal-scientific-methodology-layer']
   },
   {
     id: 'ecosystem',

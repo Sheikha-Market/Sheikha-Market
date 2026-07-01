@@ -17,7 +17,7 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
     expect(status.status).toBe('ACTIVE');
     expect(status.version).toBe('2.0.0');
-    expect(status.layers).toBeGreaterThanOrEqual(20);
+    expect(status.layers).toBeGreaterThanOrEqual(21);
     expect(status.activeLayers).toBe(status.layers);
   });
 
@@ -98,6 +98,18 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
   });
 
 
+
+
+  test('contains universal scientific methodology layer', () => {
+    const science = getArchitectureLayerById('universal-scientific-methodology-layer');
+    const civilization = getArchitectureLayerById('civilization');
+
+    expect(science).not.toBeNull();
+    expect(science.arabicName).toBe('طبقة المناهج العلمية الكونية');
+    expect(science.dependencies).toContain('ummah-benefit-value-layer');
+    expect(science.capabilities).toContain('scientific-method-registry');
+    expect(civilization.dependencies).toContain('universal-scientific-methodology-layer');
+  });
 
   test('contains internal and external integration layers', () => {
     const internal = getArchitectureLayerById('internal-integration-layer');
