@@ -3904,6 +3904,10 @@ app.get('/architecture', (req, res) => {
   res.sendFile(require('path').join(__dirname, 'public', 'architecture-explorer', 'index.html'));
 });
 
+
+// SHEIKHA PRODUCT KNOWLEDGE API
+app.use('/api/product-knowledge', require('./routes/product-knowledge/product-knowledge.routes'));
+
 app.use(express.static('public'));
 app.use('/docs', express.static(path.join(__dirname, 'docs')));
 
