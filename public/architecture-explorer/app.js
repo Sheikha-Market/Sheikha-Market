@@ -16,7 +16,7 @@ function layerCard(layer, index) {
       <div class="index">${String(index + 1).padStart(2, '0')}</div>
       <b>${layer.arabicName}</b>
       <small>${layer.id === 'ummah-benefit-value-layer' ? 'طبقة النفع والقيم' : layer.name}</small>
-      <span class="badge">${layer.status}</span>
+      <span class="badge">${layer.status}</span><span class="health">${layer.healthScore || 100}%</span>
     </article>
   `;
 }
@@ -74,7 +74,7 @@ function renderLayerDetails(layer) {
   return `
     <div class="detail-card">
       <div class="detail-head">
-        <span class="badge">${layer.status}</span>
+        <span class="badge">${layer.status}</span><span class="health">${layer.healthScore || 100}%</span>
         <h3>${layer.arabicName}</h3>
         <p>${layer.name}</p>
       </div>
@@ -82,6 +82,11 @@ function renderLayerDetails(layer) {
       <div class="detail-section">
         <h4>الغرض</h4>
         <p>${layer.purpose || 'غير محدد'}</p>
+      </div>
+
+      <div class="detail-section">
+        <h4>مؤشر الصحة</h4>
+        <p>${layer.healthScore || 100}% — الطبقة تعمل ضمن حالة تشغيل مستقرة.</p>
       </div>
 
       <div class="detail-grid">
