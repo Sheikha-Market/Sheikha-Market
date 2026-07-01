@@ -115,6 +115,10 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
     expect(renewal.capabilities).toContain('scholarly-review-gate');
     expect(renewal.responsibilities).toContain('no-unauthorized-fatwa');
 
+    expect(science.dependencies).toContain('islamic-reference-layer');
+    expect(science.dependencies).toContain('constitution');
+    expect(science.dependencies).toContain('ummah-benefit-value-layer');
+    expect(science.dependencies).toContain('planning-analysis-layer');
     expect(science.dependencies).toContain('religion-renewal-service-layer');
   });
 
@@ -124,7 +128,11 @@ describe('Sheikha Enterprise Architecture Registry V2', () => {
 
     expect(science).not.toBeNull();
     expect(science.arabicName).toBe('طبقة المناهج العلمية الكونية');
+    expect(science.dependencies).toContain('islamic-reference-layer');
+    expect(science.dependencies).toContain('constitution');
     expect(science.dependencies).toContain('ummah-benefit-value-layer');
+    expect(science.dependencies).toContain('planning-analysis-layer');
+    expect(science.dependencies).toContain('religion-renewal-service-layer');
     expect(science.capabilities).toContain('scientific-method-registry');
     expect(civilization.dependencies).toContain('universal-scientific-methodology-layer');
   });
