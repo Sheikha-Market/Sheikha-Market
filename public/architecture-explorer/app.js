@@ -64,13 +64,21 @@ function renderDependencyGraph(registry) {
 
       const id = node.getAttribute('data-layer-id');
       const payload = await fetchJson(`/api/enterprise-architecture/layers/${id}`);
-      document.getElementById('details').innerHTML = renderLayerDetails(payload.data.layer);
+      document.getElementById('details').innerHTML = await renderLayerDetails(payload.data.layer);
     });
   });
 }
 
 
-function renderLayerDetails(layer) {
+async function renderLayerDetails(layer) {
+  let relationships = null;
+  try {
+    const payload = await fetchJson(`/api/enterprise-architecture/relationships/${layer.id}`);
+    relationships = payload.data.relationships;
+  } catch (error) {
+    relationships = null;
+  }
+
   return `
     <div class="detail-card">
       <div class="detail-head">
@@ -105,6 +113,40 @@ function renderLayerDetails(layer) {
           ${list(layer.dependencies)}
         </section>
       </div>
+
+      <div class="detail-grid relationships-grid">
+        <section>
+          <h4>الطبقات الأعلى</h4>
+          ${list(relationships ? relationships.parentNames : [])}
+        </section>
+
+        <section>
+          <h4>الطبقات التابعة</h4>
+          ${list(relationships ? relationships.childNames : [])}
+        </section>
+
+        <section>
+          <h4>الطبقات النظيرة</h4>
+          ${list(relationships ? relationships.peerNames : [])}
+        </section>
+      </div>
+
+      <div class="detail-grid relationships-grid">
+        <section>
+          <h4>الحوكمة</h4>
+          <p>${relationships ? relationships.governance : 'غير محدد'}</p>
+        </section>
+
+        <section>
+          <h4>المخاطر</h4>
+          <p>${relationships ? relationships.risk : 'غير محدد'}</p>
+        </section>
+
+        <section>
+          <h4>الصحة</h4>
+          <p>${relationships ? relationships.healthScore : layer.healthScore || 100}%</p>
+        </section>
+      </div>
     </div>
   `;
 }
@@ -134,7 +176,7 @@ async function loadArchitecture() {
 
       const id = node.getAttribute('data-layer-id');
       const payload = await fetchJson(`/api/enterprise-architecture/layers/${id}`);
-      document.getElementById('details').innerHTML = renderLayerDetails(payload.data.layer);
+      document.getElementById('details').innerHTML = await renderLayerDetails(payload.data.layer);
     });
   });
 
