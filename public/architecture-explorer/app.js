@@ -7,6 +7,10 @@ async function fetchJson(url) {
 }
 
 function layerCard(layer, index) {
+  const subtitle = layer.id === 'ummah-benefit-value-layer'
+    ? 'طبقة النفع والقيم'
+    : layer.name;
+
   return `
     <article class="layer" data-layer-id="${layer.id}">
       <div class="index">${String(index + 1).padStart(2, '0')}</div>
