@@ -1,0 +1,48 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>شيخة | لوحة معرفة المنتجات المؤسسية</title>
+  <link rel="stylesheet" href="/architecture-explorer/styles.css?v=15"/>
+</head>
+<body>
+<main class="shell">
+  <header class="hero">
+    <div>
+      <p class="eyebrow">Sheikha Enterprise Product Knowledge</p>
+      <h1>لوحة معرفة المنتجات المؤسسية</h1>
+      <p>الهوية، التخطيط، الحوكمة، القرار، الأحداث، والتوأم الرقمي في واجهة واحدة.</p>
+    </div>
+    <aside class="status-card">
+      <span>الحالة</span>
+      <strong id="status">...</strong>
+      <small id="system">...</small>
+    </aside>
+  </header>
+
+  <section class="panel">
+    <h2>المسارات</h2>
+    <ul>
+      <li><a href="/product-knowledge/">نسيج معرفة المنتجات</a></li>
+      <li><a href="/api/product-knowledge/policies">السياسات</a></li>
+      <li><a href="/api/product-knowledge/events">الأحداث</a></li>
+      <li><a href="/api/product-knowledge/status">الحالة</a></li>
+    </ul>
+  </section>
+</main>
+
+<script>
+fetch('/api/product-knowledge/status?t=' + Date.now())
+  .then(r => r.json())
+  .then(j => {
+    document.getElementById('status').textContent = j.data?.status || 'ACTIVE';
+    document.getElementById('system').textContent = j.data?.system || 'PRODUCT_KNOWLEDGE';
+  })
+  .catch(() => {
+    document.getElementById('status').textContent = 'UNKNOWN';
+    document.getElementById('system').textContent = 'CHECK_API';
+  });
+</script>
+</body>
+</html>
