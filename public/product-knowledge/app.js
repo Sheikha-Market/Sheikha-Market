@@ -46,7 +46,31 @@ async function validateProduct() {
     body: JSON.stringify(product)
   });
 
-  document.getElementById('result').textContent = JSON.stringify(decision, null, 2);
+  const classification = await fetchJson('/api/product-knowledge/classify', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product)
+  });
+
+  let registration = null;
+
+  if (decision.payload?.data?.finalDecision === 'APPROVED') {
+    registration = await fetchJson('/api/product-knowledge/products', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        ...product,
+        category: classification.payload?.data?.detectedCategory || product.category,
+        status: 'APPROVED'
+      })
+    });
+  }
+
+  document.getElementById('result').textContent = JSON.stringify({
+    decision,
+    classification,
+    registration
+  }, null, 2);
 }
 
 window.validateProduct = validateProduct;
