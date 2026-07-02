@@ -24,6 +24,7 @@ const { detectProductDuplicates } = require('../../core/product-knowledge/produc
 const { runProductGovernancePipeline } = require('../../core/product-knowledge/product-governance-pipeline');
 const { orchestrateProductGovernance } = require('../../core/product-knowledge/product-governance-orchestrator');
 const { getProductPolicies, getProductPolicyById } = require('../../core/product-knowledge/product-policy-registry');
+const { emitProductEvent, listProductEvents } = require('../../core/product-knowledge/product-event-bus');
 
 const {
   recordProductAuditEvent,
@@ -178,6 +179,19 @@ router.post('/governance/evaluate', (req, res) => {
 });
 
 
+
+
+
+router.get('/events', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      count: listProductEvents(req.query || {}).length,
+      events: listProductEvents(req.query || {})
+    },
+    message: 'Product events listed'
+  });
+});
 
 
 router.get('/policies', (req, res) => {
@@ -336,6 +350,15 @@ router.post('/products', (req, res) => {
       ? 'Product registered with duplicate warning'
       : 'Product registered'
   });
+
+  emitProductEvent(
+    duplicates.duplicateSuspected ? 'PRODUCT_CREATED_WITH_DUPLICATE_WARNING' : 'PRODUCT_CREATED',
+    {
+      productId: record.id,
+      status: record.status,
+      duplicateSuspected: duplicates.duplicateSuspected
+    }
+  );
 
   return res.status(201).json({
     success: true,
