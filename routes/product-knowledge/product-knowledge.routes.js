@@ -26,6 +26,7 @@ const { orchestrateProductGovernance } = require('../../core/product-knowledge/p
 const { getProductPolicies, getProductPolicyById } = require('../../core/product-knowledge/product-policy-registry');
 const { emitProductEvent, listProductEvents } = require('../../core/product-knowledge/product-event-bus');
 const { evaluateProductIntelligence } = require('../../core/product-knowledge/product-intelligence-layer');
+const { buildProductDigitalTwin } = require('../../core/product-knowledge/product-digital-twin');
 
 const {
   recordProductAuditEvent,
