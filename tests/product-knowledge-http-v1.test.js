@@ -1,7 +1,7 @@
 'use strict';
 
 const request = require('supertest');
-const app = require('../server');
+const app = require('./helpers/product-knowledge-test-app');
 
 describe('Sheikha Product Knowledge HTTP V1', () => {
   test('evaluates product governance over HTTP', async () => {
