@@ -32,6 +32,28 @@ describe('Sheikha Product Knowledge HTTP V1', () => {
     expect(response.body.data.allowed).toBe(true);
   });
 
+
+  test('runs unified product decision pipeline over HTTP', async () => {
+    const response = await request(app)
+      .post('/api/product-knowledge/decision')
+      .send({
+        name: 'Copper Cable',
+        category: 'metals',
+        description: 'Industrial copper cable scrap',
+        specifications: { unit: 'kg' },
+        standards: ['internal-inspection-required'],
+        price: { amount: 25, currency: 'SAR' },
+        quality: { score: 80 },
+        risk: { level: 'LOW' },
+        force: true
+      });
+
+    expect(response.status).toBe(200);
+    expect(response.body.success).toBe(true);
+    expect(response.body.data.system).toBe('SHEIKHA_ENTERPRISE_PRODUCT_GOVERNANCE_PIPELINE_V1');
+    expect(response.body.data.finalDecision).toBe('APPROVED');
+  });
+
   test('detects duplicates over HTTP', async () => {
     const response = await request(app)
       .post('/api/product-knowledge/duplicates/detect')

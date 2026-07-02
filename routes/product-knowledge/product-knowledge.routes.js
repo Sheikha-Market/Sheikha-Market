@@ -21,6 +21,7 @@ const { buildProductGraph } = require('../../core/product-knowledge/product-grap
 const { evaluateProductGovernance } = require('../../core/product-knowledge/product-governance-rules');
 const { evaluateLifecycleTransition, applyLifecycleTransition } = require('../../core/product-knowledge/product-lifecycle-engine');
 const { detectProductDuplicates } = require('../../core/product-knowledge/product-duplicate-detection');
+const { runProductGovernancePipeline } = require('../../core/product-knowledge/product-governance-pipeline');
 
 const {
   recordProductAuditEvent,
@@ -177,38 +178,20 @@ router.post('/governance/evaluate', (req, res) => {
 
 router.post('/decision', (req, res) => {
   try {
-    if (typeof validateProduct !== 'function') throw new Error('VALIDATION_ENGINE_NOT_LOADED');
-    if (typeof evaluateProductQuality !== 'function') throw new Error('QUALITY_ENGINE_NOT_LOADED');
-    if (typeof evaluateProductPricing !== 'function') throw new Error('PRICING_ENGINE_NOT_LOADED');
-    if (typeof evaluateProductStandards !== 'function') throw new Error('STANDARDS_ENGINE_NOT_LOADED');
-
     const product = req.body || {};
-    console.log('[PRODUCT_DECISION]', JSON.stringify(product, null, 2));
+    const force = product.force === true || req.query.force === 'true';
 
-    const validation = validateProduct(product);
-    const quality = evaluateProductQuality(product);
-    const pricing = evaluateProductPricing(product);
-    const standards = evaluateProductStandards(product);
+    const pipeline = runProductGovernancePipeline(product, listProducts(), { force });
 
-    const approved =
-      validation.valid === true &&
-      quality.passed === true &&
-      pricing.pricingValid === true &&
-      standards.standardsValid === true;
-
-    return res.json({
-      success: true,
-      data: {
-        finalDecision: approved ? 'APPROVED' : 'REVIEW_REQUIRED',
-        validation,
-        quality,
-        pricing,
-        standards
-      },
-      message: 'Product decision evaluated'
+    return res.status(pipeline.passed ? 200 : 422).json({
+      success: pipeline.passed,
+      data: pipeline,
+      message: pipeline.passed
+        ? 'Product governance pipeline approved'
+        : 'Product governance pipeline requires review'
     });
   } catch (error) {
-    console.error('========== PRODUCT DECISION ==========');
+    console.error('========== PRODUCT GOVERNANCE PIPELINE ==========');
     console.error(error);
     console.error(error.stack);
 
@@ -216,9 +199,7 @@ router.post('/decision', (req, res) => {
       success: false,
       error: error.name,
       message: error.message,
-      stack: process.env.NODE_ENV === 'development'
-        ? error.stack
-        : undefined
+      stack: process.env.NODE_ENV === 'development' ? error.stack : undefined
     });
   }
 });
