@@ -20,6 +20,7 @@ const { classifyProduct } = require('../../core/product-knowledge/product-classi
 const { buildProductGraph } = require('../../core/product-knowledge/product-graph');
 const { evaluateProductGovernance } = require('../../core/product-knowledge/product-governance-rules');
 const { evaluateLifecycleTransition, applyLifecycleTransition } = require('../../core/product-knowledge/product-lifecycle-engine');
+const { detectProductDuplicates } = require('../../core/product-knowledge/product-duplicate-detection');
 
 const {
   recordProductAuditEvent,
@@ -97,6 +98,18 @@ router.post('/standards', (req, res) => {
 
 
 
+
+
+
+router.post('/duplicates/detect', (req, res) => {
+  const result = detectProductDuplicates(req.body || {}, listProducts());
+
+  res.json({
+    success: true,
+    data: result,
+    message: 'Product duplicate detection completed'
+  });
+});
 
 
 router.post('/lifecycle/evaluate', (req, res) => {
