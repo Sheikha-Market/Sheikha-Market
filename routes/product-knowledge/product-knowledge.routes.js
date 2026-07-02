@@ -25,6 +25,7 @@ const { runProductGovernancePipeline } = require('../../core/product-knowledge/p
 const { orchestrateProductGovernance } = require('../../core/product-knowledge/product-governance-orchestrator');
 const { getProductPolicies, getProductPolicyById } = require('../../core/product-knowledge/product-policy-registry');
 const { emitProductEvent, listProductEvents } = require('../../core/product-knowledge/product-event-bus');
+const { evaluateProductIntelligence } = require('../../core/product-knowledge/product-intelligence-layer');
 
 const {
   recordProductAuditEvent,
@@ -180,6 +181,21 @@ router.post('/governance/evaluate', (req, res) => {
 
 
 
+
+
+
+router.post('/intelligence/evaluate', (req, res) => {
+  const product = req.body || {};
+  const intelligence = evaluateProductIntelligence(product, {
+    governancePassed: product.governancePassed !== false
+  });
+
+  res.json({
+    success: true,
+    data: intelligence,
+    message: 'Product intelligence evaluated'
+  });
+});
 
 
 router.get('/events', (req, res) => {
