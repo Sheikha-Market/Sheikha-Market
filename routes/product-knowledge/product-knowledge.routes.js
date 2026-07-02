@@ -75,4 +75,40 @@ router.post('/standards', (req, res) => {
 });
 
 
+
+router.post('/decision', (req, res) => {
+  try {
+    const product = req.body || {};
+    const validation = validateProduct(product);
+    const quality = evaluateProductQuality(product);
+    const pricing = evaluateProductPricing(product);
+    const standards = evaluateProductStandards(product);
+
+    const approved =
+      validation.valid === true &&
+      quality.passed === true &&
+      pricing.pricingValid === true &&
+      standards.standardsValid === true;
+
+    return res.json({
+      success: true,
+      data: {
+        finalDecision: approved ? 'APPROVED' : 'REVIEW_REQUIRED',
+        validation,
+        quality,
+        pricing,
+        standards
+      },
+      message: 'Product decision evaluated'
+    });
+  } catch (error) {
+    return res.status(500).json({
+      success: false,
+      error: 'PRODUCT_DECISION_ERROR',
+      message: error.message
+    });
+  }
+});
+
+
 module.exports = router;
