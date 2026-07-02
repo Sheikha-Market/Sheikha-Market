@@ -18,6 +18,7 @@ const {
 } = require('../../core/product-knowledge/product-registry');
 const { classifyProduct } = require('../../core/product-knowledge/product-classification-engine');
 const { buildProductGraph } = require('../../core/product-knowledge/product-graph');
+const { evaluateProductGovernance } = require('../../core/product-knowledge/product-governance-rules');
 
 const {
   recordProductAuditEvent,
@@ -93,6 +94,16 @@ router.post('/standards', (req, res) => {
   });
 });
 
+
+
+
+router.post('/governance/evaluate', (req, res) => {
+  res.json({
+    success: true,
+    data: evaluateProductGovernance(req.body || {}),
+    message: 'Product governance evaluated'
+  });
+});
 
 
 router.post('/decision', (req, res) => {
