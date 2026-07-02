@@ -14,8 +14,13 @@ function registerProduct(product = {}) {
     id,
     name: product.name || 'Unnamed Product',
     category: product.category || 'general',
+    description: product.description || '',
     status: product.status || 'DRAFT',
     version: product.version || '1.0.0',
+    lifecycle: {
+      ...(product.lifecycle || {}),
+      version: product.version || product.lifecycle?.version || '1.0.0'
+    },
     owner: product.owner || 'Sheikha Product Knowledge',
     createdAt: product.createdAt || new Date().toISOString(),
     updatedAt: new Date().toISOString(),
