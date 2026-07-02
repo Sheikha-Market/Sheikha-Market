@@ -11,6 +11,13 @@ const { evaluateProductQuality } = require('../../core/product-knowledge/product
 const { evaluateProductPricing } = require('../../core/product-knowledge/product-pricing-engine');
 const { evaluateProductStandards } = require('../../core/product-knowledge/product-standards-engine');
 
+const {
+  registerProduct,
+  getProductById,
+  listProducts
+} = require('../../core/product-knowledge/product-registry');
+const { classifyProduct } = require('../../core/product-knowledge/product-classification-engine');
+
 const router = express.Router();
 
 router.use(express.json({ limit: '2mb' }));
@@ -118,6 +125,50 @@ router.post('/decision', (req, res) => {
       stack: error.stack
     });
   }
+});
+
+
+
+router.get('/products', (req, res) => {
+  res.json({
+    success: true,
+    data: listProducts(),
+    message: 'Products listed'
+  });
+});
+
+router.post('/products', (req, res) => {
+  const record = registerProduct(req.body || {});
+  res.status(201).json({
+    success: true,
+    data: record,
+    message: 'Product registered'
+  });
+});
+
+router.get('/products/:id', (req, res) => {
+  const record = getProductById(req.params.id);
+  if (!record) {
+    return res.status(404).json({
+      success: false,
+      error: 'PRODUCT_NOT_FOUND',
+      id: req.params.id
+    });
+  }
+
+  return res.json({
+    success: true,
+    data: record,
+    message: 'Product found'
+  });
+});
+
+router.post('/classify', (req, res) => {
+  res.json({
+    success: true,
+    data: classifyProduct(req.body || {}),
+    message: 'Product classified'
+  });
 });
 
 
