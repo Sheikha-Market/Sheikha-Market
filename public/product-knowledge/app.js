@@ -78,3 +78,17 @@ window.validateProduct = validateProduct;
 loadStatus().catch((error) => {
   document.getElementById('result').textContent = 'تعذر التحميل: ' + error.message;
 });
+
+async function searchProducts() {
+  const q = encodeURIComponent(document.getElementById('searchInput').value || '');
+  const category = encodeURIComponent(document.getElementById('categoryInput').value || '');
+  const result = await fetchJson(`/api/product-knowledge/search?q=${q}&category=${category}`);
+  document.getElementById('catalogResult').textContent = JSON.stringify(result, null, 2);
+}
+
+async function searchProducts() {
+  const q = encodeURIComponent(document.getElementById('searchInput').value || '');
+  const category = encodeURIComponent(document.getElementById('categoryInput').value || '');
+  const result = await fetchJson(`/api/product-knowledge/search?q=${q}&category=${category}`);
+  document.getElementById('catalogResult').textContent = JSON.stringify(result, null, 2);
+}

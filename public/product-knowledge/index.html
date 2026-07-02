@@ -42,8 +42,19 @@
     <h2>نتيجة التحقق</h2>
     <pre id="result">...</pre>
   </section>
+
+  <section class="panel">
+    <h2>كتالوج المنتجات</h2>
+    <div style="display:flex;gap:12px;flex-wrap:wrap;margin-bottom:16px">
+      <input id="searchInput" placeholder="ابحث عن منتج..." style="flex:1;min-width:260px;border:1px solid var(--line);border-radius:14px;padding:14px"/>
+      <input id="categoryInput" placeholder="التصنيف مثل metals" style="width:220px;border:1px solid var(--line);border-radius:14px;padding:14px"/>
+      <button onclick="searchProducts()" style="border:0;border-radius:14px;padding:14px 24px;font-weight:900;background:var(--gold);cursor:pointer">بحث</button>
+    </div>
+    <pre id="catalogResult" style="background:#001f17;color:#eafff7;border-radius:18px;padding:18px;overflow:auto;direction:ltr;text-align:left">...</pre>
+  </section>
+
 </main>
 
-<script src="/product-knowledge/app.js?v=10"></script>
+<script src="/product-knowledge/app.js?v=11"></script>
 </body>
 </html>
