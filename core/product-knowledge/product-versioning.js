@@ -29,22 +29,21 @@ function readProductVersion(record = {}) {
     '1.0.0';
 }
 
-function createProductVersion(currentRecord, patch = {}) {
-  const currentProduct = currentRecord?.product || currentRecord || {};
+function createProductVersion(currentRecord = {}, patch = {}) {
+  const currentProduct = currentRecord.product || currentRecord || {};
   const productPatch = cleanPatch(patch);
-  const currentVersion = readProductVersion(currentRecord);
-  const nextVersion = productPatch.version || patch.version || bumpPatchVersion(currentVersion);
+  const nextVersion = productPatch.version || patch.version || bumpPatchVersion(readProductVersion(currentRecord));
   const now = new Date().toISOString();
 
   return {
     ...currentProduct,
     ...productPatch,
-    id: currentRecord?.id || currentProduct.id,
-    name: productPatch.name || currentRecord?.name || currentProduct.name || 'Unnamed Product',
-    category: productPatch.category || currentRecord?.category || currentProduct.category || 'general',
-    status: productPatch.status || currentRecord?.status || currentProduct.status || 'DRAFT',
+    id: currentRecord.id || currentProduct.id,
+    name: productPatch.name || currentRecord.name || currentProduct.name || 'Unnamed Product',
+    category: productPatch.category || currentRecord.category || currentProduct.category || 'general',
+    status: productPatch.status || currentRecord.status || currentProduct.status || 'DRAFT',
     version: nextVersion,
-    createdAt: currentRecord?.createdAt || currentProduct.createdAt || now,
+    createdAt: currentRecord.createdAt || currentProduct.createdAt || now,
     updatedAt: now,
     lifecycle: {
       ...(currentProduct.lifecycle || {}),

@@ -21,9 +21,14 @@ const { buildProductGraph } = require('../../core/product-knowledge/product-grap
 
 const {
   recordProductAuditEvent,
-  getProductAuditTrail
+  getProductAuditTrail,
+  getProductVersionHistory,
+  getProductVersionSnapshot
 } = require('../../core/product-knowledge/product-audit-trail');
-const { createProductVersion } = require('../../core/product-knowledge/product-versioning');
+const {
+  cleanPatch,
+  createProductVersion
+} = require('../../core/product-knowledge/product-versioning');
 
 const router = express.Router();
 
@@ -192,7 +197,8 @@ router.get('/products', (req, res) => {
 });
 
 router.post('/products', (req, res) => {
-  const record = registerProduct(req.body || {});
+  const productPayload = cleanPatch(req.body || {});
+  const record = registerProduct(productPayload);
   recordProductAuditEvent({
     productId: record.id,
     action: 'CREATED',
@@ -220,8 +226,8 @@ router.patch('/products/:id', (req, res) => {
     });
   }
 
-  const updated = createProductVersion(current, req.body || {});
-  const record = registerProduct(updated);
+  const versionedProduct = createProductVersion(current, req.body || {});
+  const record = registerProduct(versionedProduct);
 
   recordProductAuditEvent({
     productId: record.id,
@@ -244,6 +250,33 @@ router.get('/products/:id/audit', (req, res) => {
     success: true,
     data: getProductAuditTrail(req.params.id),
     message: 'Product audit trail'
+  });
+});
+
+router.get('/products/:id/history', (req, res) => {
+  res.json({
+    success: true,
+    data: getProductVersionHistory(req.params.id),
+    message: 'Product version history'
+  });
+});
+
+router.get('/products/:id/version/:version', (req, res) => {
+  const snapshot = getProductVersionSnapshot(req.params.id, req.params.version);
+
+  if (!snapshot) {
+    return res.status(404).json({
+      success: false,
+      error: 'PRODUCT_VERSION_NOT_FOUND',
+      id: req.params.id,
+      version: req.params.version
+    });
+  }
+
+  return res.json({
+    success: true,
+    data: snapshot,
+    message: 'Product version snapshot'
   });
 });
 
