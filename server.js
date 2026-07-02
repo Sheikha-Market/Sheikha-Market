@@ -3905,6 +3905,23 @@ app.get('/architecture', (req, res) => {
 });
 
 
+
+// SHEIKHA PRODUCT KNOWLEDGE LOCAL CORS BYPASS
+app.use('/api/product-knowledge', (req, res, next) => {
+  const origin = req.headers.origin;
+  if (
+    origin === 'http://127.0.0.1:8080' ||
+    origin === 'http://localhost:8080' ||
+    !origin
+  ) {
+    res.setHeader('Access-Control-Allow-Origin', origin || '*');
+    res.setHeader('Access-Control-Allow-Methods', 'GET,POST,OPTIONS');
+    res.setHeader('Access-Control-Allow-Headers', 'Content-Type,Authorization');
+    if (req.method === 'OPTIONS') return res.sendStatus(204);
+  }
+  return next();
+});
+
 // SHEIKHA PRODUCT KNOWLEDGE API
 app.use('/api/product-knowledge', require('./routes/product-knowledge/product-knowledge.routes'));
 
