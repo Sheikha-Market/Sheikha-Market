@@ -19,6 +19,7 @@ const {
 const { classifyProduct } = require('../../core/product-knowledge/product-classification-engine');
 const { buildProductGraph } = require('../../core/product-knowledge/product-graph');
 const { evaluateProductGovernance } = require('../../core/product-knowledge/product-governance-rules');
+const { evaluateLifecycleTransition, applyLifecycleTransition } = require('../../core/product-knowledge/product-lifecycle-engine');
 
 const {
   recordProductAuditEvent,
@@ -95,6 +96,61 @@ router.post('/standards', (req, res) => {
 });
 
 
+
+
+
+router.post('/lifecycle/evaluate', (req, res) => {
+  const { currentState, nextState } = req.body || {};
+
+  res.json({
+    success: true,
+    data: evaluateLifecycleTransition(currentState, nextState),
+    message: 'Product lifecycle transition evaluated'
+  });
+});
+
+router.post('/products/:id/lifecycle', (req, res) => {
+  const current = getProductById(req.params.id);
+
+  if (!current) {
+    return res.status(404).json({
+      success: false,
+      error: 'PRODUCT_NOT_FOUND',
+      id: req.params.id
+    });
+  }
+
+  const { nextState, actor = 'system', reason = 'Lifecycle transition' } = req.body || {};
+  const transition = applyLifecycleTransition(current, nextState);
+
+  if (!transition.evaluation.allowed) {
+    return res.status(422).json({
+      success: false,
+      data: transition.evaluation,
+      message: 'Lifecycle transition blocked'
+    });
+  }
+
+  const record = registerProduct(transition.record);
+
+  recordProductAuditEvent({
+    productId: record.id,
+    action: `LIFECYCLE_${transition.evaluation.nextState}`,
+    actor,
+    before: current,
+    after: record,
+    reason
+  });
+
+  return res.json({
+    success: true,
+    data: {
+      transition: transition.evaluation,
+      record
+    },
+    message: 'Product lifecycle transitioned'
+  });
+});
 
 
 router.post('/governance/evaluate', (req, res) => {
