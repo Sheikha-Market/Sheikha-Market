@@ -22,6 +22,7 @@ const { evaluateProductGovernance } = require('../../core/product-knowledge/prod
 const { evaluateLifecycleTransition, applyLifecycleTransition } = require('../../core/product-knowledge/product-lifecycle-engine');
 const { detectProductDuplicates } = require('../../core/product-knowledge/product-duplicate-detection');
 const { runProductGovernancePipeline } = require('../../core/product-knowledge/product-governance-pipeline');
+const { orchestrateProductGovernance } = require('../../core/product-knowledge/product-governance-orchestrator');
 
 const {
   recordProductAuditEvent,
@@ -172,6 +173,22 @@ router.post('/governance/evaluate', (req, res) => {
     success: true,
     data: evaluateProductGovernance(req.body || {}),
     message: 'Product governance evaluated'
+  });
+});
+
+
+
+router.post('/governance/orchestrate', (req, res) => {
+  const product = req.body || {};
+  const force = product.force === true || req.query.force === 'true';
+  const result = orchestrateProductGovernance(product, listProducts(), { force });
+
+  res.status(result.passed ? 200 : 422).json({
+    success: result.passed,
+    data: result,
+    message: result.passed
+      ? 'Product governance orchestration approved'
+      : 'Product governance orchestration requires review'
   });
 });
 
