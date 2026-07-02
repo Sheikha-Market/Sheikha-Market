@@ -277,20 +277,45 @@ router.get('/products', (req, res) => {
 });
 
 router.post('/products', (req, res) => {
-  const productPayload = cleanPatch(req.body || {});
-  const record = registerProduct(productPayload);
-  recordProductAuditEvent({
-    productId: record.id,
-    action: 'CREATED',
-    actor: req.body?.actor || 'system',
-    after: record,
-    reason: 'Product registered'
+  const rawProduct = req.body || {};
+  const force = rawProduct.force === true || req.query.force === 'true';
+
+  const productPayload = cleanPatch(rawProduct);
+  const duplicates = detectProductDuplicates(productPayload, listProducts());
+
+  if (duplicates.duplicateSuspected && !force) {
+    return res.status(409).json({
+      success: false,
+      error: 'DUPLICATE_PRODUCT_SUSPECTED',
+      data: duplicates,
+      message: 'Duplicate product suspected. Use force=true to register anyway.'
+    });
+  }
+
+  const record = registerProduct({
+    ...productPayload,
+    duplicateWarning: duplicates.duplicateSuspected ? duplicates : undefined
   });
 
-  res.status(201).json({
+  recordProductAuditEvent({
+    productId: record.id,
+    action: duplicates.duplicateSuspected ? 'CREATED_WITH_DUPLICATE_WARNING' : 'CREATED',
+    actor: rawProduct?.actor || 'system',
+    after: record,
+    reason: duplicates.duplicateSuspected
+      ? 'Product registered with duplicate warning'
+      : 'Product registered'
+  });
+
+  return res.status(201).json({
     success: true,
-    data: record,
-    message: 'Product registered'
+    data: {
+      record,
+      duplicates
+    },
+    message: duplicates.duplicateSuspected
+      ? 'Product registered with duplicate warning'
+      : 'Product registered'
   });
 });
 
