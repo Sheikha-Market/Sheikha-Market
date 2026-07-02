@@ -40,13 +40,43 @@ async function validateProduct() {
     return;
   }
 
-  const result = await fetchJson('/api/product-knowledge/validate', {
+  const validation = await fetchJson('/api/product-knowledge/validate', {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify(product)
   });
 
-  document.getElementById('result').textContent = JSON.stringify(result, null, 2);
+  const quality = await fetchJson('/api/product-knowledge/quality', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product)
+  });
+
+  const pricing = await fetchJson('/api/product-knowledge/pricing', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product)
+  });
+
+  const standards = await fetchJson('/api/product-knowledge/standards', {
+    method: 'POST',
+    headers: { 'Content-Type': 'application/json' },
+    body: JSON.stringify(product)
+  });
+
+  const approved =
+    validation.payload?.success === true &&
+    quality.payload?.data?.passed === true &&
+    pricing.payload?.data?.pricingValid === true &&
+    standards.payload?.data?.standardsValid === true;
+
+  document.getElementById('result').textContent = JSON.stringify({
+    finalDecision: approved ? 'APPROVED' : 'REVIEW_REQUIRED',
+    validation,
+    quality,
+    pricing,
+    standards
+  }, null, 2);
 }
 
 window.validateProduct = validateProduct;
