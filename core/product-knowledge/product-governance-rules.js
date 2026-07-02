@@ -1,60 +1,49 @@
 'use strict';
 
-const defaultRules = Object.freeze([
-  {
-    id: 'quality-minimum-score',
-    severity: 'BLOCKER',
-    description: 'Product quality score must be 70 or higher.',
-    check(product = {}) {
-      return Number(product.quality?.score || 0) >= 70;
-    }
-  },
-  {
-    id: 'high-risk-review',
-    severity: 'BLOCKER',
-    description: 'High risk products cannot be approved without review.',
-    check(product = {}) {
-      return product.risk?.level !== 'HIGH';
-    }
-  },
-  {
-    id: 'standards-required',
-    severity: 'BLOCKER',
-    description: 'Product must include at least one applicable standard.',
-    check(product = {}) {
-      return Array.isArray(product.standards) && product.standards.length > 0;
-    }
-  },
-  {
-    id: 'price-required',
-    severity: 'BLOCKER',
-    description: 'Product must include a valid positive price.',
-    check(product = {}) {
-      return Number(product.price?.amount || 0) > 0;
-    }
-  }
-]);
+const { getProductPolicies } = require('./product-policy-registry');
 
-function evaluateProductGovernance(product = {}, rules = defaultRules) {
-  const results = rules.map((rule) => ({
-    id: rule.id,
-    severity: rule.severity,
-    description: rule.description,
-    passed: Boolean(rule.check(product))
+function evaluatePolicy(product = {}, policy = {}) {
+  switch (policy.id) {
+    case 'policy-quality-minimum':
+      return Number(product.quality?.score || 0) >= 70;
+
+    case 'policy-risk-high-review':
+      return product.risk?.level !== 'HIGH';
+
+    case 'policy-standards-required':
+      return Array.isArray(product.standards) && product.standards.length > 0;
+
+    case 'policy-price-required':
+      return Number(product.price?.amount || 0) > 0;
+
+    default:
+      return false;
+  }
+}
+
+function evaluateProductGovernance(product = {}, policies = getProductPolicies()) {
+  const results = policies.map((policy) => ({
+    id: policy.id,
+    type: policy.type,
+    severity: policy.severity,
+    rule: policy.rule,
+    description: policy.description,
+    passed: Boolean(evaluatePolicy(product, policy))
   }));
 
   const blockers = results.filter((result) => result.severity === 'BLOCKER' && !result.passed);
 
   return {
-    system: 'SHEIKHA_PRODUCT_GOVERNANCE_RULES_ENGINE_V1',
+    system: 'SHEIKHA_PRODUCT_GOVERNANCE_RULES_ENGINE_V2',
     status: blockers.length ? 'BLOCKED' : 'PASSED',
     passed: blockers.length === 0,
+    policiesSource: 'PRODUCT_POLICY_REGISTRY',
     blockers,
     results
   };
 }
 
 module.exports = {
-  defaultRules,
+  evaluatePolicy,
   evaluateProductGovernance
 };

@@ -13,9 +13,10 @@ describe('Sheikha Product Governance Rules V1', () => {
       price: { amount: 25 }
     });
 
-    expect(result.system).toBe('SHEIKHA_PRODUCT_GOVERNANCE_RULES_ENGINE_V1');
+    expect(result.system).toBe('SHEIKHA_PRODUCT_GOVERNANCE_RULES_ENGINE_V2');
     expect(result.status).toBe('PASSED');
     expect(result.passed).toBe(true);
+    expect(result.policiesSource).toBe('PRODUCT_POLICY_REGISTRY');
   });
 
   test('blocks high risk or incomplete product', () => {
