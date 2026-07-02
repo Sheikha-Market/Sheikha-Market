@@ -1,5 +1,10 @@
 'use strict';
 
+const {
+  readProducts,
+  upsertProduct
+} = require('./product-persistent-store');
+
 const products = new Map();
 
 function registerProduct(product = {}) {
@@ -18,15 +23,23 @@ function registerProduct(product = {}) {
   };
 
   products.set(id, record);
+  upsertProduct(record);
   return record;
 }
 
 function getProductById(id) {
-  return products.get(id) || null;
+  return products.get(id) || readProducts().find((record) => record.id === id) || null;
 }
 
 function listProducts() {
-  return Array.from(products.values());
+  const persisted = readProducts();
+  const merged = new Map(persisted.map((record) => [record.id, record]));
+
+  for (const record of products.values()) {
+    merged.set(record.id, record);
+  }
+
+  return Array.from(merged.values());
 }
 
 module.exports = {
