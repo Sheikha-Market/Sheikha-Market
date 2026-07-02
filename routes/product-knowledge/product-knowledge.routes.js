@@ -17,6 +17,7 @@ const {
   listProducts
 } = require('../../core/product-knowledge/product-registry');
 const { classifyProduct } = require('../../core/product-knowledge/product-classification-engine');
+const { buildProductGraph } = require('../../core/product-knowledge/product-graph');
 
 const router = express.Router();
 
@@ -132,6 +133,18 @@ router.post('/decision', (req, res) => {
 });
 
 
+
+
+
+router.get('/graph', (req, res) => {
+  const graph = buildProductGraph(listProducts());
+
+  res.json({
+    success: true,
+    data: graph,
+    message: 'Enterprise product knowledge graph generated'
+  });
+});
 
 
 router.get('/search', (req, res) => {
