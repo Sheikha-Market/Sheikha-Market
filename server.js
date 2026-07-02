@@ -23787,11 +23787,14 @@ try {
 app.use((err, req, res, _next) => {
     console.error('🔴 خطأ:', { message: err.message, url: req.originalUrl, method: req.method, ip: req.ip, timestamp: new Date().toISOString() });
     if (typeof addSystemLog === 'function') addSystemLog('error', 'Server', err.message);
-    const statusCode = err.statusCode || err.status || 500;
+    const corsOriginDenied = err.message === 'CORS_ORIGIN_DENIED';
+    const statusCode = corsOriginDenied ? 403 : err.statusCode || err.status || 500;
     res.status(statusCode).json({
         success: false,
-        error: 'internal_error',
-        message: statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
+        error: corsOriginDenied ? 'cors_origin_denied' : 'internal_error',
+        message: corsOriginDenied
+            ? 'المصدر غير مصرح له بالوصول إلى هذه الواجهة.'
+            : statusCode === 500 ? 'حدث خطأ في الخادم. يرجى المحاولة لاحقاً.' : err.message,
         timestamp: new Date().toISOString()
     });
 });

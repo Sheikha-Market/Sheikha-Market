@@ -116,13 +116,17 @@ router.post('/decision', (req, res) => {
       message: 'Product decision evaluated'
     });
   } catch (error) {
-    console.error('[PRODUCT_DECISION_ERROR]', error.stack || error);
+    console.error('========== PRODUCT DECISION ==========');
+    console.error(error);
+    console.error(error.stack);
 
     return res.status(500).json({
       success: false,
-      error: error.name || 'PRODUCT_DECISION_ERROR',
+      error: error.name,
       message: error.message,
-      stack: error.stack
+      stack: process.env.NODE_ENV === 'development'
+        ? error.stack
+        : undefined
     });
   }
 });
