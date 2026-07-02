@@ -229,6 +229,12 @@ router.post('/governance/orchestrate', (req, res) => {
   const force = product.force === true || req.query.force === 'true';
   const result = orchestrateProductGovernance(product, listProducts(), { force });
 
+  emitProductEvent(result.passed ? 'PRODUCT_APPROVED' : 'PRODUCT_REVIEW_REQUIRED', {
+    productId: product.id || product.name || 'unregistered-product',
+    finalDecision: result.finalDecision,
+    blockers: result.blockers
+  });
+
   res.status(result.passed ? 200 : 422).json({
     success: result.passed,
     data: result,
@@ -245,6 +251,12 @@ router.post('/decision', (req, res) => {
     const force = product.force === true || req.query.force === 'true';
 
     const pipeline = runProductGovernancePipeline(product, listProducts(), { force });
+
+    emitProductEvent(pipeline.passed ? 'PRODUCT_APPROVED' : 'PRODUCT_REVIEW_REQUIRED', {
+      productId: product.id || product.name || 'unregistered-product',
+      finalDecision: pipeline.finalDecision,
+      blockers: pipeline.blockers
+    });
 
     return res.status(pipeline.passed ? 200 : 422).json({
       success: pipeline.passed,
