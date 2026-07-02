@@ -133,6 +133,37 @@ router.post('/decision', (req, res) => {
 
 
 
+
+router.get('/search', (req, res) => {
+  const q = String(req.query.q || '').toLowerCase();
+  const category = String(req.query.category || '').toLowerCase();
+
+  const results = listProducts().filter((record) => {
+    const haystack = [
+      record.id,
+      record.name,
+      record.category,
+      record.status,
+      JSON.stringify(record.product || {})
+    ].join(' ').toLowerCase();
+
+    const matchesQuery = !q || haystack.includes(q);
+    const matchesCategory = !category || String(record.category).toLowerCase() === category;
+
+    return matchesQuery && matchesCategory;
+  });
+
+  res.json({
+    success: true,
+    data: {
+      count: results.length,
+      results
+    },
+    message: 'Product catalog searched'
+  });
+});
+
+
 router.get('/products', (req, res) => {
   res.json({
     success: true,
