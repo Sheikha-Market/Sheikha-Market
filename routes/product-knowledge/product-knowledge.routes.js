@@ -19,6 +19,12 @@ const {
 const { classifyProduct } = require('../../core/product-knowledge/product-classification-engine');
 const { buildProductGraph } = require('../../core/product-knowledge/product-graph');
 
+const {
+  recordProductAuditEvent,
+  getProductAuditTrail
+} = require('../../core/product-knowledge/product-audit-trail');
+const { createProductVersion } = require('../../core/product-knowledge/product-versioning');
+
 const router = express.Router();
 
 router.use(express.json({ limit: '2mb' }));
@@ -187,12 +193,60 @@ router.get('/products', (req, res) => {
 
 router.post('/products', (req, res) => {
   const record = registerProduct(req.body || {});
+  recordProductAuditEvent({
+    productId: record.id,
+    action: 'CREATED',
+    actor: req.body?.actor || 'system',
+    after: record,
+    reason: 'Product registered'
+  });
+
   res.status(201).json({
     success: true,
     data: record,
     message: 'Product registered'
   });
 });
+
+
+router.patch('/products/:id', (req, res) => {
+  const current = getProductById(req.params.id);
+
+  if (!current) {
+    return res.status(404).json({
+      success: false,
+      error: 'PRODUCT_NOT_FOUND',
+      id: req.params.id
+    });
+  }
+
+  const updated = createProductVersion(current, req.body || {});
+  const record = registerProduct(updated);
+
+  recordProductAuditEvent({
+    productId: record.id,
+    action: 'UPDATED',
+    actor: req.body?.actor || 'system',
+    before: current,
+    after: record,
+    reason: req.body?.reason || 'Product updated'
+  });
+
+  return res.json({
+    success: true,
+    data: record,
+    message: 'Product updated with new version'
+  });
+});
+
+router.get('/products/:id/audit', (req, res) => {
+  res.json({
+    success: true,
+    data: getProductAuditTrail(req.params.id),
+    message: 'Product audit trail'
+  });
+});
+
 
 router.get('/products/:id', (req, res) => {
   const record = getProductById(req.params.id);
