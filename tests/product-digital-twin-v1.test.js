@@ -20,11 +20,16 @@ describe('Sheikha Product Digital Twin V1', () => {
 
     const twin = buildProductDigitalTwin('digital-twin-copper-cable');
 
-    expect(twin.system).toBe('SHEIKHA_PRODUCT_DIGITAL_TWIN_V1');
+    expect(twin.system).toBe('SHEIKHA_PRODUCT_DIGITAL_TWIN_V2');
     expect(twin.status).toBe('ACTIVE');
     expect(twin.productId).toBe('digital-twin-copper-cable');
     expect(twin.noHarm).toBe(true);
     expect(twin.intelligence.status).toBe('READY');
     expect(twin.graph.status).toBe('ACTIVE');
+    expect(twin.health.score).toBeGreaterThanOrEqual(75);
+    expect(['EXCELLENT', 'GOOD']).toContain(twin.excellenceRating);
+    expect(twin.capabilityProfile.category).toBe('metals');
+    expect(twin.dependencySummary.graphNodes).toBeGreaterThanOrEqual(1);
+    expect(Array.isArray(twin.timeline)).toBe(true);
   });
 });
