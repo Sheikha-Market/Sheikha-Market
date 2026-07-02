@@ -10,7 +10,16 @@ npm run lint
 
 pm2 restart sheikha-main-portal --update-env
 
-curl -I http://127.0.0.1:8080/product-knowledge/enterprise-dashboard.html || true
+echo "⏳ Waiting for runtime readiness..."
+for i in {1..30}; do
+  if curl -fsS http://127.0.0.1:8080/api/health >/dev/null; then
+    echo "✅ Runtime ready"
+    break
+  fi
+  sleep 1
+done
+
+curl -I http://127.0.0.1:8080/product-knowledge/enterprise-dashboard.html
 curl -s http://127.0.0.1:8080/api/product-knowledge/status >/tmp/sheikha-product-ui-status.json
 
 echo "✅ UI + Identity activation passed"
