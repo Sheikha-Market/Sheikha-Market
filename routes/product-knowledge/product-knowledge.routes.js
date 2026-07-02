@@ -78,7 +78,14 @@ router.post('/standards', (req, res) => {
 
 router.post('/decision', (req, res) => {
   try {
+    if (typeof validateProduct !== 'function') throw new Error('VALIDATION_ENGINE_NOT_LOADED');
+    if (typeof evaluateProductQuality !== 'function') throw new Error('QUALITY_ENGINE_NOT_LOADED');
+    if (typeof evaluateProductPricing !== 'function') throw new Error('PRICING_ENGINE_NOT_LOADED');
+    if (typeof evaluateProductStandards !== 'function') throw new Error('STANDARDS_ENGINE_NOT_LOADED');
+
     const product = req.body || {};
+    console.log('[PRODUCT_DECISION]', JSON.stringify(product, null, 2));
+
     const validation = validateProduct(product);
     const quality = evaluateProductQuality(product);
     const pricing = evaluateProductPricing(product);
@@ -102,10 +109,13 @@ router.post('/decision', (req, res) => {
       message: 'Product decision evaluated'
     });
   } catch (error) {
+    console.error('[PRODUCT_DECISION_ERROR]', error.stack || error);
+
     return res.status(500).json({
       success: false,
-      error: 'PRODUCT_DECISION_ERROR',
-      message: error.message
+      error: error.name || 'PRODUCT_DECISION_ERROR',
+      message: error.message,
+      stack: error.stack
     });
   }
 });
