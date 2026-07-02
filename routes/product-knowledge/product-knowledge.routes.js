@@ -23,6 +23,7 @@ const { evaluateLifecycleTransition, applyLifecycleTransition } = require('../..
 const { detectProductDuplicates } = require('../../core/product-knowledge/product-duplicate-detection');
 const { runProductGovernancePipeline } = require('../../core/product-knowledge/product-governance-pipeline');
 const { orchestrateProductGovernance } = require('../../core/product-knowledge/product-governance-orchestrator');
+const { getProductPolicies, getProductPolicyById } = require('../../core/product-knowledge/product-policy-registry');
 
 const {
   recordProductAuditEvent,
@@ -176,6 +177,37 @@ router.post('/governance/evaluate', (req, res) => {
   });
 });
 
+
+
+
+router.get('/policies', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      count: getProductPolicies().length,
+      policies: getProductPolicies()
+    },
+    message: 'Product policies listed'
+  });
+});
+
+router.get('/policies/:id', (req, res) => {
+  const policy = getProductPolicyById(req.params.id);
+
+  if (!policy) {
+    return res.status(404).json({
+      success: false,
+      error: 'PRODUCT_POLICY_NOT_FOUND',
+      id: req.params.id
+    });
+  }
+
+  return res.json({
+    success: true,
+    data: policy,
+    message: 'Product policy found'
+  });
+});
 
 
 router.post('/governance/orchestrate', (req, res) => {
