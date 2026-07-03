@@ -29,7 +29,7 @@ const domains = Object.freeze([
     id: 'commerce-domain',
     name: 'Commerce Domain',
     arabicName: 'مجال التجارة العالمية',
-    owns: ['product-knowledge-fabric', 'marketplace-operating-system']
+    owns: ['product-knowledge-fabric', 'commerce-os', 'value-operating-system', 'global-commerce-infrastructure']
   },
   {
     id: 'knowledge-domain',
@@ -41,7 +41,7 @@ const domains = Object.freeze([
     id: 'runtime-domain',
     name: 'Runtime Domain',
     arabicName: 'مجال التشغيل',
-    owns: ['runtime-fabric', 'integration-control-plane', 'service-mesh']
+    owns: ['internal-integration-layer', 'external-integration-layer', 'universal-integration-fabric']
   },
   {
     id: 'visualization-domain',
