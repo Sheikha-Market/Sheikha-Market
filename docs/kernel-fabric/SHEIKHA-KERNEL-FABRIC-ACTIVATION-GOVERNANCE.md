@@ -414,6 +414,7 @@ Controlled Action
 6. ترقية Kernel Industrial Fabric إلى V2 بدرجات readiness ومخاطر وأدلة.
 7. ترقية Universal OS Kernel Federation إلى V2 بإثباتات readiness وInspector integration.
 8. ترقية OS Family Industrial Federation إلى V2 بمستويات readiness ومصفوفة قرار حوكمية.
+9. تفعيل Production Integration Connection Fabric كبوابة إنتاج قراءة فقط قبل أي تشغيل عالي الأثر.
 
 ## تقرير الاتحاد
 
@@ -444,6 +445,28 @@ docs/kernel-fabric/SHEIKHA-OS-FAMILY-INDUSTRIAL-FEDERATION-V1-REPORT.md
 - ضوابط السلامة.
 - ما لا تدعيه الطبقة.
 - مسار V2 المقترح.
+
+## بوابة الإنتاج والتكامل
+
+تمت إضافة طبقة:
+
+```text
+SHEIKHA_PRODUCTION_INTEGRATION_CONNECTION_FABRIC_V1
+```
+
+وتقريرها:
+
+```text
+docs/production-integration/SHEIKHA-PRODUCTION-INTEGRATION-CONNECTION-FABRIC-V1.md
+```
+
+وهي تبدأ الإنتاج كـ controlled read-only integration plane:
+
+- لا restart.
+- لا package install.
+- لا external mutation.
+- لا production active claim بلا دليل.
+- أي إجراء عالي الأثر يحتاج موافقة بشرية.
 
 ## تفعيل لاحق مكتمل
 
