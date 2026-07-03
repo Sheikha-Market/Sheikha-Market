@@ -40,8 +40,30 @@ function isEnvTemplate(file) {
   return lower.startsWith('.env') && lower.endsWith('.example');
 }
 
+function isSecurityScanArtifact(file) {
+  const lower = file.toLowerCase();
+  return (
+    (
+      lower.startsWith('runtime/security/') ||
+      lower.startsWith('tools/security/')
+    ) &&
+    (
+      lower.includes('secret-scan') ||
+      lower.includes('sensitive-scan') ||
+      lower.includes('security-scan')
+    ) &&
+    !lower.endsWith('.env') &&
+    !lower.endsWith('.pem') &&
+    !lower.endsWith('.key')
+  );
+}
+
 function isForbidden(file) {
   if (isEnvTemplate(file)) {
+    return false;
+  }
+
+  if (isSecurityScanArtifact(file)) {
     return false;
   }
 
@@ -79,4 +101,8 @@ if (require.main === module) {
   console.log(JSON.stringify(run(), null, 2));
 }
 
-module.exports = { run };
+module.exports = {
+  run,
+  isForbidden,
+  isSecurityScanArtifact
+};

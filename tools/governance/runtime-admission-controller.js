@@ -11,12 +11,19 @@ const CLASSIFICATION_RULES = [
   { prefix: 'GLOBAL_MANIFEST.md', classification: 'ACTIVE', owner: 'System Manifest Governance' },
   { prefix: 'PR_', classification: 'REVIEW_REQUIRED', owner: 'Pull Request Governance' },
   { prefix: 'README_', classification: 'ACTIVE', owner: 'Documentation Governance' },
+  { prefix: '.gitignore', classification: 'REVIEW_REQUIRED', owner: 'Repository Governance' },
+  { prefix: 'deploy_', classification: 'REVIEW_REQUIRED', owner: 'Deployment Governance' },
   { prefix: 'ecosystem.config.js.save', classification: 'REVIEW_REQUIRED', owner: 'Runtime Operations Governance' },
   { prefix: 'eslint', classification: 'REVIEW_REQUIRED', owner: 'Tooling Governance' },
   { prefix: 'package.json', classification: 'REVIEW_REQUIRED', owner: 'Runtime Package Governance' },
+  { prefix: 'php-ai-cluster/', classification: 'STAGING', owner: 'PHP AI Cluster Governance' },
+  { prefix: 'php-ai-extension/', classification: 'STAGING', owner: 'PHP AI Extension Governance' },
+  { prefix: 'release/', classification: 'REVIEW_REQUIRED', owner: 'Release Governance' },
+  { prefix: 'setup_', classification: 'REVIEW_REQUIRED', owner: 'Runtime Setup Governance' },
   { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
   { prefix: 'runtime/', classification: 'PROTECTED', owner: 'Runtime Governance Organization' },
   { prefix: 'routes/', classification: 'ACTIVE', owner: 'API Federation Organization' },
+  { prefix: 'tools/activation/', classification: 'REVIEW_REQUIRED', owner: 'Activation Governance' },
   { prefix: 'scripts/activate-', classification: 'REVIEW_REQUIRED', owner: 'Activation Governance' },
   { prefix: 'scripts/sheikha-', classification: 'REVIEW_REQUIRED', owner: 'Sheikha Operations Governance' },
   { prefix: 'scripts/universal-', classification: 'REVIEW_REQUIRED', owner: 'Universal Runtime Governance' },
@@ -61,6 +68,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'tools/decision-registry/', classification: 'PROTECTED', owner: 'Decision Registry Governance Organization' },
   { prefix: 'tools/governance/', classification: 'PROTECTED', owner: 'Governance Tooling Organization' },
   { prefix: 'tools/runtime/', classification: 'REVIEW_REQUIRED', owner: 'Runtime Tooling Governance' },
+  { prefix: 'tools/security/', classification: 'REVIEW_REQUIRED', owner: 'Security Tooling Governance' },
   { prefix: 'sheikha-enterprise-al-portal@', classification: 'REVIEW_REQUIRED', owner: 'Enterprise Portal Governance' }
 ];
 
@@ -108,8 +116,30 @@ function isEnvTemplate(file) {
   );
 }
 
+function isSecurityScanArtifact(file) {
+  const lower = file.toLowerCase();
+  return (
+    (
+      lower.startsWith('runtime/security/') ||
+      lower.startsWith('tools/security/')
+    ) &&
+    (
+      lower.includes('secret-scan') ||
+      lower.includes('sensitive-scan') ||
+      lower.includes('security-scan')
+    ) &&
+    !lower.endsWith('.env') &&
+    !lower.endsWith('.pem') &&
+    !lower.endsWith('.key')
+  );
+}
+
 function isBlocked(file) {
   if (isEnvTemplate(file)) {
+    return false;
+  }
+
+  if (isSecurityScanArtifact(file)) {
     return false;
   }
 
@@ -221,4 +251,9 @@ if (require.main === module) {
   console.log(JSON.stringify(runAdmissionController(), null, 2));
 }
 
-module.exports = { runAdmissionController };
+module.exports = {
+  runAdmissionController,
+  evaluateFile,
+  isBlocked,
+  isSecurityScanArtifact
+};

@@ -346,3 +346,24 @@ Controlled Action
 4. ربط Kernel Fabric بـ Enterprise Inspector.
 5. إضافة Quality Gate موحد لكل تفعيل جديد.
 6. ترقية Kernel Industrial Fabric إلى V2 بدرجات readiness ومخاطر وأدلة.
+
+## تفعيل لاحق مكتمل
+
+تم تفعيل طبقة:
+
+```text
+SHEIKHA_GOVERNANCE_ADMISSION_OWNERSHIP_V1
+```
+
+وتوثيقها في:
+
+```text
+docs/kernel-fabric/SHEIKHA-GOVERNANCE-ADMISSION-OWNERSHIP-V1.md
+```
+
+وحققت:
+
+- `runtime-admission-controller`: `ACTIVE`, blocked `0`.
+- `protected-runtime-enforcer`: `forbiddenFiles: 0`.
+- إبقاء `REVIEW_REQUIRED` للمسارات عالية الأثر.
+- تقليل false positives لملفات `secret-scan` الأمنية فقط.

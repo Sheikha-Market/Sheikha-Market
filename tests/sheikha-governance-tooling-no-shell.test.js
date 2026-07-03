@@ -40,4 +40,59 @@ describe('Sheikha governance tooling command safety', () => {
     expect(drift).toContain('runProtectedRuntime()');
     expect(drift).not.toContain('execFileSync');
   });
+
+  test('security scan artifacts are governed without being treated as stored secrets', () => {
+    const {
+      evaluateFile,
+      isBlocked,
+      isSecurityScanArtifact
+    } = require('../tools/governance/runtime-admission-controller');
+    const {
+      isForbidden
+    } = require('../tools/governance/protected-runtime-enforcer');
+
+    const report = 'runtime/security/semantic-secret-scan-v1.json';
+    const tool = 'tools/security/semantic-secret-scan-v1.js';
+    const envSecret = '.env.production';
+
+    expect(isSecurityScanArtifact(report)).toBe(true);
+    expect(isBlocked(report)).toBe(false);
+    expect(isForbidden(report)).toBe(false);
+    expect(evaluateFile(report).decision).toBe('ALLOWED');
+
+    expect(isSecurityScanArtifact(tool)).toBe(true);
+    expect(isBlocked(tool)).toBe(false);
+    expect(isForbidden(tool)).toBe(false);
+    expect(evaluateFile(tool)).toMatchObject({
+      decision: 'REVIEW_REQUIRED',
+      owner: 'Security Tooling Governance'
+    });
+
+    expect(isSecurityScanArtifact(envSecret)).toBe(false);
+    expect(isBlocked(envSecret)).toBe(true);
+    expect(isForbidden(envSecret)).toBe(true);
+  });
+
+  test('activation release and deployment paths have explicit governance owners', () => {
+    const {
+      evaluateFile
+    } = require('../tools/governance/runtime-admission-controller');
+
+    expect(evaluateFile('tools/activation/activate-runtime-safe.sh')).toMatchObject({
+      decision: 'REVIEW_REQUIRED',
+      owner: 'Activation Governance'
+    });
+    expect(evaluateFile('release/SHEIKHA-PRODUCTION-LOCK-V1.json')).toMatchObject({
+      decision: 'REVIEW_REQUIRED',
+      owner: 'Release Governance'
+    });
+    expect(evaluateFile('deploy_production.sh')).toMatchObject({
+      decision: 'REVIEW_REQUIRED',
+      owner: 'Deployment Governance'
+    });
+    expect(evaluateFile('setup_ultimate_ai.sh')).toMatchObject({
+      decision: 'REVIEW_REQUIRED',
+      owner: 'Runtime Setup Governance'
+    });
+  });
 });
