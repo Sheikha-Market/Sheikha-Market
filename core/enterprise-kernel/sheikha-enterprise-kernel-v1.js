@@ -35,7 +35,7 @@ const domains = Object.freeze([
     id: 'knowledge-domain',
     name: 'Knowledge Domain',
     arabicName: 'مجال المعرفة والعلوم',
-    owns: ['knowledge-graph', 'research-fabric', 'scientific-methodology']
+    owns: ['universal-scientific-methodology-layer', 'planning-analysis-layer', 'religion-renewal-service-layer']
   },
   {
     id: 'runtime-domain',
@@ -47,7 +47,7 @@ const domains = Object.freeze([
     id: 'visualization-domain',
     name: 'Visualization Domain',
     arabicName: 'مجال الواجهات والاستكشاف',
-    owns: ['architecture-explorer', 'dependency-graph', 'relationship-graph']
+    owns: ['global-commerce-federation', 'federation-of-commerce-ecosystems', 'commerce-emirates', 'commerce-ministries', 'commerce-authorities']
   }
 ]);
 
