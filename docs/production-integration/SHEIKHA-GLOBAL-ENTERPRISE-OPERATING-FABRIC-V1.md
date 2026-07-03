@@ -113,6 +113,37 @@ npm run ops:global-enterprise-operating-fabric:v1
 npm run ops:production-integration-connection:v1
 ```
 
+## الطبقة الأعلى بعد الإغلاق
+
+بعد إغلاق `Global Enterprise Operating Fabric V1` لا يتم إنشاء Fabric جديد لكل مكوّن إلا عند الحاجة. المرجع الأعلى الآن هو:
+
+```text
+SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2
+```
+
+وهو يحوّل الطبقات إلى Directed Graph موحد بعلاقات:
+
+```text
+DEPENDS_ON
+HOSTS
+PROVIDES
+USES
+OBSERVES
+GOVERNS
+REPORTS_TO
+INTEROPERATES_WITH
+FEDERATES_WITH
+ISOLATES
+MEASURES
+SECURES
+```
+
+المرجع:
+
+```text
+docs/production-integration/SHEIKHA-FEDERATED-SYSTEM-GRAPH-V2.md
+```
+
 ## التفعيل التالي الأفضل
 
 1. إضافة Enterprise Inspector read-only card.
