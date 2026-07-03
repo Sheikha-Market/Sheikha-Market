@@ -55,6 +55,20 @@
 | `tests/sheikha-os-kernel-federation-v1.test.js` | اختبار السلامة وتغطية العائلات الأساسية |
 | `tools/activation/activate-sheikha-os-kernel-federation-v1.sh` | توليد تقرير القراءة فقط |
 
+ثم تم تثبيت طبقة صناعية أعلى لعائلات الأنظمة:
+
+```text
+4927a37d0 Activate read only OS family industrial federation fabric
+```
+
+وشملت:
+
+| المسار | التفعيل |
+|---|---|
+| `core/os-family-industrial-federation/sheikha-os-family-industrial-federation-v1.js` | تحويل عائلات OS/kernel إلى تجمعات صناعية |
+| `tests/sheikha-os-family-industrial-federation-v1.test.js` | اختبار السلامة والتغطية الأساسية للعائلات الصناعية |
+| `tools/activation/activate-sheikha-os-family-industrial-federation-v1.sh` | توليد تقرير القراءة فقط |
+
 ## نموذج الحوكمة الجديد
 
 ### 1. حوكمة الحفظ
@@ -337,6 +351,21 @@ SHEIKHA_OS_KERNEL_FEDERATION_V2
 
 ولا ينتقل أي نظام إلى `INTEGRATED` أو `PRODUCTION_ACTIVE` بلا دليل تشغيل حقيقي.
 
+### P8 - OS Family Industrial Federation V2
+
+بعد تفعيل `SHEIKHA_OS_FAMILY_INDUSTRIAL_FEDERATION_FABRIC_V1`، الأفضل أن تكون النسخة التالية:
+
+```text
+SHEIKHA_OS_FAMILY_INDUSTRIAL_FEDERATION_V2
+  ├─ Industrial Family Readiness Levels
+  ├─ Evidence Gates
+  ├─ Inspector Cards
+  ├─ Read-Only Probe Adapters
+  └─ Governance Decision Matrix
+```
+
+مع منع أي انتقال إلى `PRODUCTION_ACTIVE_WITH_APPROVAL` بلا موافقة بشرية ودليل تشغيل واضح.
+
 ## أفضل صيغة للتفعيل القادم
 
 التفعيل الأفضل ليس إضافة أسماء طبقات كثيرة، بل بناء مسار ناضج:
@@ -384,6 +413,7 @@ Controlled Action
 5. إضافة Quality Gate موحد لكل تفعيل جديد.
 6. ترقية Kernel Industrial Fabric إلى V2 بدرجات readiness ومخاطر وأدلة.
 7. ترقية Universal OS Kernel Federation إلى V2 بإثباتات readiness وInspector integration.
+8. ترقية OS Family Industrial Federation إلى V2 بمستويات readiness ومصفوفة قرار حوكمية.
 
 ## تقرير الاتحاد
 
@@ -400,6 +430,20 @@ docs/kernel-fabric/SHEIKHA-UNIVERSAL-OS-KERNEL-FEDERATION-V1-REPORT.md
 - ضوابط السلامة.
 - ما لا تدعيه الطبقة.
 - أفضل مسار V2.
+
+كما تمت إضافة تقرير:
+
+```text
+docs/kernel-fabric/SHEIKHA-OS-FAMILY-INDUSTRIAL-FEDERATION-V1-REPORT.md
+```
+
+وهو يوثق:
+
+- التجمعات الصناعية لعائلات Linux وWindows وApple وBSD والحاويات والافتراضية.
+- العلاقات الحاكمة بين العائلات.
+- ضوابط السلامة.
+- ما لا تدعيه الطبقة.
+- مسار V2 المقترح.
 
 ## تفعيل لاحق مكتمل
 
