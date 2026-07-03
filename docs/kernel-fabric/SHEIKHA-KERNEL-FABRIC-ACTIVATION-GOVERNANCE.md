@@ -41,6 +41,20 @@
 | `tests/sheikha-kernel-industrial-fabric-v1.test.js` | اختبار العلاقة بين below-kernel وkernel وabove-kernel |
 | `tools/activation/activate-sheikha-kernel-industrial-fabric-v1.sh` | توليد تقرير القراءة فقط |
 
+ثم تم تثبيت طبقة اتحاد أعلى:
+
+```text
+7e4b86621 Activate read only universal OS kernel federation fabric
+```
+
+وشملت:
+
+| المسار | التفعيل |
+|---|---|
+| `core/os-kernel-federation/sheikha-os-kernel-federation-v1.js` | خريطة عائلات OS/kernel والحاويات والافتراضية |
+| `tests/sheikha-os-kernel-federation-v1.test.js` | اختبار السلامة وتغطية العائلات الأساسية |
+| `tools/activation/activate-sheikha-os-kernel-federation-v1.sh` | توليد تقرير القراءة فقط |
+
 ## نموذج الحوكمة الجديد
 
 ### 1. حوكمة الحفظ
@@ -300,6 +314,29 @@ SHEIKHA_KERNEL_INDUSTRIAL_FABRIC_V2
 - لا package install.
 - لا علاج عالي الأثر بلا مراجعة.
 
+### P7 - Universal OS Kernel Federation V2
+
+بعد تفعيل `SHEIKHA_UNIVERSAL_OS_KERNEL_FEDERATION_FABRIC_V1`، الأفضل أن تكون النسخة التالية:
+
+```text
+SHEIKHA_OS_KERNEL_FEDERATION_V2
+  ├─ Family Readiness Levels
+  ├─ Evidence Gates
+  ├─ Container Runtime Probe
+  ├─ Hypervisor Probe
+  ├─ Cross-Platform SDK Adapter
+  └─ Enterprise Inspector View
+```
+
+مع التفريق الصارم بين:
+
+- `MODELED_ONLY`
+- `READY_FOR_INTEGRATION`
+- `INTEGRATED`
+- `PRODUCTION_ACTIVE`
+
+ولا ينتقل أي نظام إلى `INTEGRATED` أو `PRODUCTION_ACTIVE` بلا دليل تشغيل حقيقي.
+
 ## أفضل صيغة للتفعيل القادم
 
 التفعيل الأفضل ليس إضافة أسماء طبقات كثيرة، بل بناء مسار ناضج:
@@ -346,6 +383,23 @@ Controlled Action
 4. ربط Kernel Fabric بـ Enterprise Inspector.
 5. إضافة Quality Gate موحد لكل تفعيل جديد.
 6. ترقية Kernel Industrial Fabric إلى V2 بدرجات readiness ومخاطر وأدلة.
+7. ترقية Universal OS Kernel Federation إلى V2 بإثباتات readiness وInspector integration.
+
+## تقرير الاتحاد
+
+تمت إضافة تقرير:
+
+```text
+docs/kernel-fabric/SHEIKHA-UNIVERSAL-OS-KERNEL-FEDERATION-V1-REPORT.md
+```
+
+وهو يوثق:
+
+- العائلات المغطاة: Linux, Windows NT, Apple XNU, BSD, Containers, Hypervisors.
+- العلاقات الحاكمة.
+- ضوابط السلامة.
+- ما لا تدعيه الطبقة.
+- أفضل مسار V2.
 
 ## تفعيل لاحق مكتمل
 
