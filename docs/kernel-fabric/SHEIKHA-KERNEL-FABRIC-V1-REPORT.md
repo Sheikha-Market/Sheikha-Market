@@ -99,3 +99,32 @@ tools/activation/activate-sheikha-kernel-fabric-v1.sh
 ## القرار
 
 Kernel Fabric V1 مناسب كطبقة read-only آمنة. لا يوصى بتوسيعها إلى تعديل kernel أو sysctl الآن. التطوير الأفضل التالي هو `Kernel Fabric V2` بقياس أعمق، adapters أقل اعتمادًا على shell، وارتباط مباشر بـ Enterprise Inspector دون أي إجراء عالي الأثر.
+
+## وثيقة الإكمال
+
+تمت إضافة وثيقة حوكمة الإكمال والتفعيل الأفضل:
+
+```text
+docs/kernel-fabric/SHEIKHA-KERNEL-FABRIC-ACTIVATION-GOVERNANCE.md
+```
+
+وهي توثق:
+
+- فصل pre-commit عن full working tree admission.
+- سبب الحظر السابق.
+- التحقق بعد التفعيل.
+- اقتراحات P0-P5 للترقية الأفضل.
+- مسار Kernel Fabric V2 وEnterprise Inspector Integration.
+
+كما تمت إضافة تقرير الطبقة الصناعية:
+
+```text
+docs/kernel-fabric/SHEIKHA-KERNEL-INDUSTRIAL-FABRIC-V1-REPORT.md
+```
+
+وهو يوثق:
+
+- العلاقة بين Kernel Fabric وKernel Stack Fabric وKernel Industrial Fabric.
+- التجمعات الصناعية below-kernel وkernel وabove-kernel.
+- ضوابط السلامة.
+- أفضل ترقيات Kernel Industrial Fabric V2.
