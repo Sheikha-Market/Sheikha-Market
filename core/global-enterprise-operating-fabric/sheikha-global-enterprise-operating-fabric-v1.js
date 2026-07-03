@@ -4,6 +4,10 @@ const {
   inspectOsFamilyIndustrialFederation
 } = require('../os-family-industrial-federation/sheikha-os-family-industrial-federation-v1');
 
+const {
+  buildProductionIntegrationConnectionFabric
+} = require('../production-integration-connection-fabric/sheikha-production-integration-connection-fabric-v1');
+
 const globalLayers = Object.freeze([
   { id: 'l0-hardware-federation', name: 'Hardware Federation', scope: 'cpu-memory-storage-devices' },
   { id: 'l1-firmware-federation', name: 'Firmware Federation', scope: 'bios-uefi-tpm-secure-boot-read-only' },
@@ -36,10 +40,13 @@ const globalRelations = Object.freeze([
 ]);
 
 function inspectGlobalEnterpriseOperatingFabric() {
+  const osFamilyFederation = inspectOsFamilyIndustrialFederation();
+  const productionIntegration = buildProductionIntegrationConnectionFabric();
+
   return {
     system: 'SHEIKHA_GLOBAL_ENTERPRISE_OPERATING_FABRIC_V1',
     status: 'ACTIVE',
-    mode: 'READ_ONLY_GLOBAL_FEDERATED_LAYER_MAPPING',
+    mode: 'READ_ONLY_GLOBAL_ENTERPRISE_ARCHITECTURAL_CLOSURE',
     safety: {
       noKernelModification: true,
       noBootModification: true,
@@ -54,7 +61,31 @@ function inspectGlobalEnterpriseOperatingFabric() {
     },
     layers: globalLayers,
     relations: globalRelations.map(([from, to, type]) => ({ from, to, type })),
-    osFamilyFederation: inspectOsFamilyIndustrialFederation()
+    closure: {
+      architectureClosed: true,
+      layerCount: globalLayers.length,
+      relationCount: globalRelations.length,
+      extensionModel: 'ADD_NEW_FAMILY_WITHOUT_REDESIGN',
+      productionIntegrationDecision: productionIntegration.decision,
+      productionRuntimeClaim: false,
+      highImpactActionAllowed: false,
+      humanApprovalRequiredForPromotion: true
+    },
+    gates: {
+      readOnlyArchitecture: true,
+      productionIntegrationReady:
+        productionIntegration.decision === 'READY_FOR_CONTROLLED_PRODUCTION_INTEGRATION',
+      noDirectSystemMutation: true,
+      noExternalConnectionOpened:
+        productionIntegration.productionStart.externalConnectionsOpened === false,
+      noServiceRestart:
+        productionIntegration.productionStart.servicesRestarted === false,
+      noPackageInstall:
+        productionIntegration.productionStart.packagesInstalled === false,
+      noHarm: true
+    },
+    osFamilyFederation,
+    productionIntegration
   };
 }
 
