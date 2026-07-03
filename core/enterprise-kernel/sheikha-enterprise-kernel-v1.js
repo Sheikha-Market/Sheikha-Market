@@ -88,7 +88,7 @@ function evaluateEnterpriseKernel() {
     (
       (validation.valid ? 100 : 60) +
       architectureCoverageScore +
-      (relationships.length >= architecture.layers.length ? 100 : 70) +
+      (relationships.length >= layers.length ? 100 : 70) +
       (orphanDomains.length === 0 ? 100 : 70)
     ) / 4
   );
