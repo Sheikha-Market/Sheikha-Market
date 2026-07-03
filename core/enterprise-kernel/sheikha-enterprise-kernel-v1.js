@@ -51,20 +51,34 @@ const domains = Object.freeze([
   }
 ]);
 
+
+function normalizeArchitectureLayers(registry) {
+  if (Array.isArray(registry)) return registry;
+  if (Array.isArray(registry?.layers)) return registry.layers;
+  if (Array.isArray(registry?.registry)) return registry.registry;
+  if (Array.isArray(registry?.data)) return registry.data;
+  if (Array.isArray(registry?.items)) return registry.items;
+  return [];
+}
+
+
 function getEnterpriseDomains() {
   return domains;
 }
 
 function evaluateEnterpriseKernel() {
   const architecture = getArchitectureRegistry();
+  const layers = normalizeArchitectureLayers(architecture);
   const validation = validateEnterpriseArchitecture();
   const relationships = getArchitectureRelationshipGraph();
 
   const covered = new Set(domains.flatMap((domain) => domain.owns));
-  const namedLayers = new Set(architecture.layers.map((layer) => layer.id));
+  const namedLayers = new Set(layers.map((layer) => layer.id));
 
-  const domainCoverage = architecture.layers.filter((layer) => covered.has(layer.id)).length;
-  const architectureCoverageScore = Math.round((domainCoverage / architecture.layers.length) * 100);
+  const domainCoverage = layers.filter((layer) => covered.has(layer.id)).length;
+  const architectureCoverageScore = layers.length
+    ? Math.round((domainCoverage / layers.length) * 100)
+    : 0;
 
   const orphanDomains = domains.filter((domain) =>
     domain.owns.every((layerId) => !namedLayers.has(layerId))
@@ -86,7 +100,7 @@ function evaluateEnterpriseKernel() {
     validation,
     domains,
     metrics: {
-      layers: architecture.layers.length,
+      layers: layers.length,
       domains: domains.length,
       relationships: relationships.length,
       architectureCoverageScore,
@@ -99,5 +113,6 @@ function evaluateEnterpriseKernel() {
 
 module.exports = {
   getEnterpriseDomains,
-  evaluateEnterpriseKernel
+  evaluateEnterpriseKernel,
+  normalizeArchitectureLayers
 };
