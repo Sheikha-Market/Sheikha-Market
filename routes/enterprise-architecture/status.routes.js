@@ -36,6 +36,11 @@ const {
   getGovernedFederationActivationGateStatus
 } = require('../../core/governed-federation-activation-gate/sheikha-governed-federation-activation-gate-v12');
 
+const {
+  buildLivingFederationOperatingSystem,
+  getLivingFederationOperatingSystemStatus
+} = require('../../core/living-federation-operating-system/sheikha-living-federation-operating-system-v13');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -187,6 +192,26 @@ router.get('/governed-federation-activation/full', (req, res) => {
       gate: buildGovernedFederationActivationGateReport()
     },
     message: 'Sheikha Governed Federation Activation Gate V12 Full Report'
+  });
+});
+
+router.get('/living-federation-os/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: getLivingFederationOperatingSystemStatus()
+    },
+    message: 'Sheikha Living Federation Operating System V13'
+  });
+});
+
+router.get('/living-federation-os/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      operatingSystem: buildLivingFederationOperatingSystem()
+    },
+    message: 'Sheikha Living Federation Operating System V13 Full Report'
   });
 });
 
