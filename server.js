@@ -5,7 +5,7 @@ function resolveOptionalEngine(name, label) {
   if (result.status === 'RESOLVED') return result.instance;
 
   console.log(`⏸️ [OPTIONAL] ${label || name}: ${result.status}`);
-  return null;
+  return result.instance;
 }
 
 const { runSheikhaProtocol } = require('./runtime/protocols/sheikha-protocol/sheikha-protocol');

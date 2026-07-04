@@ -36,4 +36,14 @@ describe('Sheikha Engine Registry V1', () => {
     expect(result.status).toBe('ACTIVE');
     expect(result.count).toBe(1);
   });
+
+  test('returns safe optional engine with dashboard interface', () => {
+    const result = resolveEngine('MissingDashboardEngine');
+
+    expect(result.status).toBe('OPTIONAL_NOT_REGISTERED');
+    expect(result.instance).toBeDefined();
+    expect(result.instance.getDashboard().available).toBe(false);
+    expect(result.instance.getStatus().status).toBe('OPTIONAL_NOT_REGISTERED');
+  });
+
 });

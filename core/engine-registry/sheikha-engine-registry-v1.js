@@ -2,6 +2,29 @@
 
 const registry = new Map();
 
+function createSafeOptionalEngine(name, reason = 'OPTIONAL_NOT_REGISTERED') {
+  return {
+    system: 'SHEIKHA_SAFE_OPTIONAL_ENGINE_V1',
+    name,
+    status: reason,
+    available: false,
+    safe: true,
+    initialize() {
+      return { status: reason, available: false, name };
+    },
+    getStatus() {
+      return { status: reason, available: false, name };
+    },
+    getDashboard() {
+      return { status: reason, available: false, name, widgets: [], metrics: [] };
+    },
+    getSummary() {
+      return { status: reason, available: false, name };
+    }
+  };
+}
+
+
 function registerEngine(name, factory, metadata = {}) {
   if (!name || typeof name !== 'string') {
     throw new Error('ENGINE_NAME_REQUIRED');
@@ -35,7 +58,8 @@ function resolveEngine(name, options = {}) {
       name,
       required: options.required === true,
       safe: true,
-      message: `Engine ${name} is not registered`
+      message: `Engine ${name} is not registered`,
+      instance: createSafeOptionalEngine(name, 'OPTIONAL_NOT_REGISTERED')
     };
   }
 
@@ -57,7 +81,8 @@ function resolveEngine(name, options = {}) {
       status: 'OPTIONAL_FAILED',
       name,
       error: error.message,
-      safe: true
+      safe: true,
+      instance: createSafeOptionalEngine(name, 'OPTIONAL_FAILED')
     };
   }
 }
@@ -80,5 +105,6 @@ module.exports = {
   hasEngine,
   resolveEngine,
   listEngines,
-  clearEngines
+  clearEngines,
+  createSafeOptionalEngine
 };
