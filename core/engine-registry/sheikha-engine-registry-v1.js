@@ -1,27 +1,13 @@
 'use strict';
 
+const {
+  buildSafeOptionalEngineContract
+} = require('../optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14');
+
 const registry = new Map();
 
 function createSafeOptionalEngine(name, reason = 'OPTIONAL_NOT_REGISTERED') {
-  return {
-    system: 'SHEIKHA_SAFE_OPTIONAL_ENGINE_V1',
-    name,
-    status: reason,
-    available: false,
-    safe: true,
-    initialize() {
-      return { status: reason, available: false, name };
-    },
-    getStatus() {
-      return { status: reason, available: false, name };
-    },
-    getDashboard() {
-      return { status: reason, available: false, name, widgets: [], metrics: [] };
-    },
-    getSummary() {
-      return { status: reason, available: false, name };
-    }
-  };
+  return buildSafeOptionalEngineContract(name, reason);
 }
 
 

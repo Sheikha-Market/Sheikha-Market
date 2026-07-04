@@ -1,4 +1,9 @@
 const { resolveEngine } = require('./core/engine-registry/sheikha-engine-registry-v1');
+const {
+  registerOptionalEngineContractFabric
+} = require('./core/optional-engine-contract-fabric/sheikha-optional-engine-contract-fabric-v14');
+
+registerOptionalEngineContractFabric();
 
 function resolveOptionalEngine(name, label) {
   const result = resolveEngine(name);

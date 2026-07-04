@@ -41,6 +41,11 @@ const {
   getLivingFederationOperatingSystemStatus
 } = require('../../core/living-federation-operating-system/sheikha-living-federation-operating-system-v13');
 
+const {
+  buildOptionalEngineContractFabricReport,
+  getOptionalEngineContractFabricStatus
+} = require('../../core/optional-engine-contract-fabric/sheikha-optional-engine-contract-fabric-v14');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -212,6 +217,26 @@ router.get('/living-federation-os/full', (req, res) => {
       operatingSystem: buildLivingFederationOperatingSystem()
     },
     message: 'Sheikha Living Federation Operating System V13 Full Report'
+  });
+});
+
+router.get('/optional-engine-contract-fabric/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: getOptionalEngineContractFabricStatus()
+    },
+    message: 'Sheikha Optional Engine Contract Fabric V14'
+  });
+});
+
+router.get('/optional-engine-contract-fabric/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      fabric: buildOptionalEngineContractFabricReport()
+    },
+    message: 'Sheikha Optional Engine Contract Fabric V14 Full Report'
   });
 });
 
