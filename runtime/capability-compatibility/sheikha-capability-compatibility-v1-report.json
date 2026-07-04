@@ -1,0 +1,162 @@
+{
+  "system": "SHEIKHA_CAPABILITY_COMPATIBILITY_ACTIVATION_V1",
+  "status": "ACTIVE",
+  "capabilities": [
+    {
+      "id": "runtime-hosting",
+      "type": "runtime",
+      "reusable": true
+    },
+    {
+      "id": "container-hosting",
+      "type": "container",
+      "reusable": true
+    },
+    {
+      "id": "orchestration",
+      "type": "container",
+      "reusable": true
+    },
+    {
+      "id": "observability",
+      "type": "monitoring",
+      "reusable": true
+    },
+    {
+      "id": "governance",
+      "type": "policy",
+      "reusable": true
+    },
+    {
+      "id": "storage",
+      "type": "data",
+      "reusable": true
+    },
+    {
+      "id": "query",
+      "type": "data",
+      "reusable": true
+    },
+    {
+      "id": "backup",
+      "type": "data",
+      "reusable": true
+    },
+    {
+      "id": "messaging",
+      "type": "integration",
+      "reusable": true
+    },
+    {
+      "id": "ai-inference",
+      "type": "ai",
+      "reusable": true
+    },
+    {
+      "id": "knowledge-retrieval",
+      "type": "knowledge",
+      "reusable": true
+    },
+    {
+      "id": "security-observation",
+      "type": "security",
+      "reusable": true
+    }
+  ],
+  "sampleCapabilityGraph": {
+    "system": "SHEIKHA_CAPABILITY_GRAPH_V1",
+    "status": "ACTIVE",
+    "mode": "GOVERNED_INTERNAL_CAPABILITY_MAPPING",
+    "nodes": [
+      {
+        "id": "postgresql-federation",
+        "type": "FEDERATION",
+        "label": "PostgreSQL Federation"
+      },
+      {
+        "id": "storage",
+        "type": "CAPABILITY",
+        "reusable": true
+      },
+      {
+        "id": "query",
+        "type": "CAPABILITY",
+        "reusable": true
+      },
+      {
+        "id": "backup",
+        "type": "CAPABILITY",
+        "reusable": true
+      }
+    ],
+    "edges": [
+      {
+        "from": "postgresql-federation",
+        "to": "storage",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "postgresql-federation",
+        "to": "query",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "postgresql-federation",
+        "to": "backup",
+        "type": "PROVIDES"
+      }
+    ],
+    "summary": {
+      "capabilities": 3,
+      "reusable": 3
+    }
+  },
+  "linuxCompatibility": [
+    {
+      "from": "linux-family",
+      "to": "docker-federation",
+      "type": "COMPATIBLE_WITH",
+      "confidence": 0.95
+    },
+    {
+      "from": "linux-family",
+      "to": "kubernetes-federation",
+      "type": "COMPATIBLE_WITH",
+      "confidence": 0.95
+    },
+    {
+      "from": "postgresql-federation",
+      "to": "linux-family",
+      "type": "RUNS_ON",
+      "confidence": 0.95
+    },
+    {
+      "from": "nodejs-federation",
+      "to": "linux-family",
+      "type": "RUNS_ON",
+      "confidence": 0.9
+    }
+  ],
+  "postgresqlOnLinux": {
+    "system": "SHEIKHA_COMPATIBILITY_MATRIX_V1",
+    "status": "COMPATIBLE",
+    "compatible": true,
+    "relation": {
+      "from": "postgresql-federation",
+      "to": "linux-family",
+      "type": "RUNS_ON",
+      "confidence": 0.95
+    },
+    "safety": {
+      "advisoryOnly": true,
+      "noExternalMutation": true,
+      "noHarm": true
+    }
+  },
+  "safety": {
+    "governedInternalGraphOnly": true,
+    "advisoryOnly": true,
+    "noExternalMutation": true,
+    "noHarm": true
+  }
+}

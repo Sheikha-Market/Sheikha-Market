@@ -1,0 +1,160 @@
+{
+  "system": "SHEIKHA_GOVERNED_FEDERATION_ACTIVATION_GATE_V12",
+  "status": "ACTIVE",
+  "mode": "SAFE_GOVERNED_ACTIVATION_GATE_ABOVE_TEMPLATE_UNIFICATION",
+  "linkedLayers": {
+    "templateEngineUnificationV11": "ACTIVE",
+    "canonicalTemplates": 11,
+    "compatibilityTemplates": 4,
+    "governedPlatform": "ACTIVE_100"
+  },
+  "writeScopes": {
+    "readOnly": "READ_ONLY_MEASUREMENT",
+    "internalPlan": "GOVERNED_INTERNAL_WRITE_PLAN",
+    "internalWrite": "GOVERNED_INTERNAL_WRITE_ALLOWED_AFTER_APPROVAL",
+    "humanReview": "HUMAN_REVIEW_REQUIRED",
+    "externalBlocked": "EXTERNAL_CHANGE_BLOCKED"
+  },
+  "externalMutationFields": [
+    "externalChange",
+    "systemMutation",
+    "kernelMutation",
+    "bootMutation",
+    "firmwareMutation",
+    "serviceRestart",
+    "packageInstall",
+    "databaseWrite",
+    "shellExecution",
+    "privilegeEscalation"
+  ],
+  "samplePlan": {
+    "system": "SHEIKHA_GOVERNED_FEDERATION_ACTIVATION_GATE_V12",
+    "status": "APPROVED_INTERNAL_PLAN",
+    "mode": "GOVERNED_READ_WRITE_WITH_EXTERNAL_MUTATION_BLOCK",
+    "dna": {
+      "name": "Sheikha Unified Template PostgreSQL Federation",
+      "family": "PostgreSQL Family",
+      "blueprint": "PostgreSQL",
+      "version": "1.0.0",
+      "actor": "template-engine-unification-v11",
+      "reason": "Unify compatibility template engine with canonical federation package engine"
+    },
+    "flow": [
+      "READ",
+      "VALIDATE",
+      "TEMPLATE_UNIFICATION",
+      "POLICY_EVALUATION",
+      "INSPECTOR_REVIEW",
+      "APPROVE_INTERNAL_PLAN",
+      "AUDIT",
+      "PUBLISH_EVENT"
+    ],
+    "risk": {
+      "level": "SAFE_INTERNAL",
+      "writeScope": "GOVERNED_INTERNAL_WRITE_PLAN",
+      "blockedFields": [],
+      "requiresHumanReview": false
+    },
+    "readiness": {
+      "templateEngineUnified": true,
+      "governedPlatformReady": true,
+      "expansionReady": true,
+      "externalMutationBlocked": false,
+      "internalPlanReady": true,
+      "overall": "GOVERNED_FEDERATION_ACTIVATION_READY"
+    },
+    "decision": {
+      "approved": true,
+      "writeScope": "GOVERNED_INTERNAL_WRITE_ALLOWED_AFTER_APPROVAL",
+      "externalChangeAllowed": false,
+      "requiresHumanReview": false,
+      "reason": "SAFE_INTERNAL_REGISTRY_GRAPH_EVENT_PLAN_ONLY"
+    },
+    "artifacts": {
+      "canonicalEngine": "SHEIKHA_FEDERATION_TEMPLATE_ENGINE_V8",
+      "compatibilityEngine": "SHEIKHA_UNIVERSAL_TEMPLATE_ENGINE_V8",
+      "governedPlatform": "SHEIKHA_UNIVERSAL_GOVERNED_FEDERATION_PLATFORM_V10",
+      "mappedTemplates": 4,
+      "canonicalPackageId": "pkg-9d2e7b3ea4ac285e",
+      "openapi": "3.1.0",
+      "sdkTargets": [
+        "javascript",
+        "python",
+        "go",
+        "rust",
+        "java",
+        "php",
+        "csharp"
+      ]
+    },
+    "audit": [
+      {
+        "type": "GOVERNED_ACTIVATION_REQUESTED",
+        "system": "SHEIKHA_GOVERNED_FEDERATION_ACTIVATION_GATE_V12",
+        "payload": {
+          "name": "Sheikha Unified Template PostgreSQL Federation",
+          "blueprint": "PostgreSQL",
+          "risk": "SAFE_INTERNAL"
+        },
+        "governed": true,
+        "noExternalMutation": true,
+        "noHarm": true,
+        "timestamp": "2026-07-04T04:16:48.327Z"
+      },
+      {
+        "type": "GOVERNED_ACTIVATION_DECIDED",
+        "system": "SHEIKHA_GOVERNED_FEDERATION_ACTIVATION_GATE_V12",
+        "payload": {
+          "status": "APPROVED_INTERNAL_PLAN",
+          "writeScope": "GOVERNED_INTERNAL_WRITE_ALLOWED_AFTER_APPROVAL"
+        },
+        "governed": true,
+        "noExternalMutation": true,
+        "noHarm": true,
+        "timestamp": "2026-07-04T04:16:48.327Z"
+      }
+    ],
+    "governance": {
+      "principle": "لا ضرر ولا ضرار",
+      "tawhid": "الله وحده لا شريك له",
+      "readAllowed": true,
+      "governedInternalWriteAllowed": true,
+      "externalSystemWriteAllowed": false,
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noFirmwareModification": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noShellExecution": true,
+      "noPrivilegeEscalation": true,
+      "noUnauthorizedAccess": true,
+      "noHarm": true
+    },
+    "timestamp": "2026-07-04T04:16:48.327Z"
+  },
+  "blockedProbe": {
+    "status": "BLOCKED_REVIEW",
+    "blockedFields": [
+      "serviceRestart"
+    ],
+    "decision": {
+      "approved": false,
+      "writeScope": "EXTERNAL_CHANGE_BLOCKED",
+      "externalChangeAllowed": false,
+      "requiresHumanReview": true,
+      "reason": [
+        "BLOCKED_SERVICERESTART",
+        "EXPANSION_NOT_EXECUTED"
+      ]
+    }
+  },
+  "governance": {
+    "readWriteModel": "READ_VALIDATE_POLICY_APPROVE_AUDIT",
+    "internalWriteOnlyAfterApproval": true,
+    "externalMutationBlockedByDefault": true,
+    "humanReviewForHighImpact": true,
+    "noHarm": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "timestamp": "2026-07-04T04:16:48.329Z"
+}

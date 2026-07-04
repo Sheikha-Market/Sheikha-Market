@@ -1,0 +1,55 @@
+{
+  "system": "SHEIKHA_DYNAMIC_FEDERATION_REGISTRY_GRAPH_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_DYNAMIC_REGISTRY_GRAPH",
+  "nodes": [
+    {
+      "id": "family-1c87bf925ddfa6bd",
+      "label": "Example Future OS Family",
+      "type": "FEDERATION_FAMILY",
+      "family": "operating-system-federation"
+    },
+    {
+      "id": "fed-60e0da5c51ec0f9e",
+      "label": "ExampleFutureOS",
+      "type": "OPERATING_SYSTEM",
+      "family": "family-1c87bf925ddfa6bd"
+    }
+  ],
+  "edges": [
+    {
+      "from": "family-1c87bf925ddfa6bd",
+      "to": "operating-system-federation",
+      "type": "BELONGS_TO_PARENT"
+    },
+    {
+      "from": "fed-60e0da5c51ec0f9e",
+      "to": "family-1c87bf925ddfa6bd",
+      "type": "BELONGS_TO_FAMILY"
+    },
+    {
+      "from": "fed-60e0da5c51ec0f9e",
+      "to": "governance-federation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "fed-60e0da5c51ec0f9e",
+      "to": "capability-fabric",
+      "type": "DECLARES_CAPABILITIES"
+    },
+    {
+      "from": "fed-60e0da5c51ec0f9e",
+      "to": "observability-fabric",
+      "type": "OBSERVED_BY"
+    },
+    {
+      "from": "fed-60e0da5c51ec0f9e",
+      "to": "enterprise-federation",
+      "type": "AVAILABLE_TO_ENTERPRISE"
+    }
+  ],
+  "summary": {
+    "federations": 2,
+    "relations": 6
+  }
+}

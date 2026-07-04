@@ -1,0 +1,4456 @@
+{
+  "system": "SHEIKHA_UNIVERSAL_GOVERNED_FEDERATION_PLATFORM_V10",
+  "status": "ACTIVE_100",
+  "mode": "DATA_DRIVEN_UNIVERSAL_GOVERNED_PLATFORM",
+  "components": [
+    {
+      "name": "Federation Package Manager",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Universal Industrial Fabric",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Universal Registry",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Universal Graph",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Universal Event Bus",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Universal Inspector",
+      "status": "ACTIVE"
+    },
+    {
+      "name": "Universal Governance",
+      "status": "ACTIVE"
+    }
+  ],
+  "flow": [
+    "Federation DNA",
+    "Schema Engine",
+    "Blueprint Library",
+    "Template Engine",
+    "Expansion Engine",
+    "Federation Registry",
+    "Universal Relationship Engine",
+    "Capability Registry",
+    "Service Registry",
+    "API Registry",
+    "SDK Registry",
+    "Language Registry",
+    "Runtime Registry",
+    "Application Registry",
+    "Enterprise Registry",
+    "Knowledge Registry",
+    "AI Registry",
+    "Governance Registry",
+    "Inspector Registry",
+    "Marketplace Registry",
+    "Observability Registry"
+  ],
+  "packageManager": {
+    "system": "SHEIKHA_FEDERATION_PACKAGE_MANAGER_V10",
+    "status": "ACTIVE",
+    "flow": [
+      "Install Federation",
+      "Load Package",
+      "Validate DNA",
+      "Expand",
+      "Register",
+      "Publish",
+      "Ready"
+    ],
+    "package": {
+      "id": "pkg-763206bcabb6a58a",
+      "name": "Sheikha Universal AI Knowledge Federation Package",
+      "version": "1.0.0",
+      "blueprint": "AI",
+      "template": "AI"
+    },
+    "governance": {
+      "internalRegistryWriteOnly": true,
+      "externalChangeAllowed": false,
+      "packageInstallOnHost": false,
+      "noHarm": true
+    }
+  },
+  "industrialFabric": {
+    "system": "SHEIKHA_UNIVERSAL_INDUSTRIAL_FABRIC_V10",
+    "status": "ACTIVE",
+    "mode": "INDUSTRIAL_FABRIC_FOR_EVERY_LAYER",
+    "fabrics": [
+      {
+        "id": "fabric-model-fabric",
+        "name": "model-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "model-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-agent-fabric",
+        "name": "agent-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "agent-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-rag-fabric",
+        "name": "rag-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "rag-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-evaluation-fabric",
+        "name": "evaluation-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "evaluation-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-guardrail-fabric",
+        "name": "guardrail-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "guardrail-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      }
+    ],
+    "summary": {
+      "fabrics": 5,
+      "clusters": 35,
+      "capabilities": 4
+    }
+  },
+  "registry": {
+    "system": "SHEIKHA_UNIVERSAL_REGISTRY_V10",
+    "status": "ACTIVE",
+    "mode": "DATA_DRIVEN_INTERNAL_PERSISTENT_REGISTRY_PLAN",
+    "federations": [
+      {
+        "id": "pkg-763206bcabb6a58a",
+        "name": "Sheikha Universal AI Knowledge Federation Package",
+        "version": "1.0.0",
+        "status": "COMMITTED"
+      }
+    ],
+    "families": [
+      {
+        "id": "ai-family",
+        "name": "AI Family"
+      }
+    ],
+    "blueprints": [
+      {
+        "id": "ai",
+        "name": "AI",
+        "type": "AI",
+        "family": "ai-family",
+        "clusters": [
+          "models",
+          "agents",
+          "tools",
+          "rag",
+          "memory",
+          "evaluation",
+          "guardrails"
+        ],
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ]
+      }
+    ],
+    "templates": [
+      {
+        "id": "template-ai",
+        "name": "AI",
+        "category": "AI Templates",
+        "fabrics": [
+          "model-fabric",
+          "agent-fabric",
+          "rag-fabric",
+          "evaluation-fabric",
+          "guardrail-fabric"
+        ],
+        "clusters": [
+          "models",
+          "agents",
+          "tools",
+          "rag",
+          "memory",
+          "evaluation",
+          "guardrails"
+        ],
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "services": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service"
+        ],
+        "apis": [
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api"
+        ],
+        "sdks": [
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk"
+        ],
+        "runtime": [
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ],
+        "governance": [
+          "safety-policy",
+          "truthfulness-policy",
+          "human-review-policy"
+        ],
+        "inspector": [
+          "model-eval-inspector",
+          "prompt-audit-inspector",
+          "tool-audit-inspector"
+        ],
+        "marketplace": [
+          "ai-federation-package"
+        ]
+      }
+    ],
+    "fabrics": [
+      {
+        "id": "fabric-model-fabric",
+        "name": "model-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "model-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "model-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-agent-fabric",
+        "name": "agent-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "agent-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "agent-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-rag-fabric",
+        "name": "rag-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "rag-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "rag-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-evaluation-fabric",
+        "name": "evaluation-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "evaluation-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "evaluation-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      },
+      {
+        "id": "fabric-guardrail-fabric",
+        "name": "guardrail-fabric",
+        "type": "INDUSTRIAL_FABRIC",
+        "groups": [
+          "federation",
+          "family",
+          "blueprint",
+          "template",
+          "capability",
+          "service",
+          "api",
+          "sdk",
+          "runtime",
+          "governance",
+          "inspector",
+          "marketplace"
+        ],
+        "clusters": [
+          {
+            "id": "guardrail-fabric-models",
+            "name": "models",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-agents",
+            "name": "agents",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-tools",
+            "name": "tools",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-rag",
+            "name": "rag",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-memory",
+            "name": "memory",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-evaluation",
+            "name": "evaluation",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          },
+          {
+            "id": "guardrail-fabric-guardrails",
+            "name": "guardrails",
+            "type": "INDUSTRIAL_CLUSTER",
+            "capabilities": [
+              "ai-inference",
+              "knowledge-retrieval",
+              "agent-orchestration",
+              "human-review"
+            ],
+            "components": [
+              "model-service",
+              "agent-service",
+              "embedding-service",
+              "evaluation-service",
+              "inference-api",
+              "embedding-api",
+              "agent-api",
+              "tool-api",
+              "agent-sdk",
+              "model-sdk",
+              "eval-sdk",
+              "inference-runtime",
+              "agent-runtime",
+              "batch-runtime"
+            ]
+          }
+        ]
+      }
+    ],
+    "clusters": [
+      {
+        "id": "model-fabric-models",
+        "name": "models",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "model-fabric-agents",
+        "name": "agents",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "model-fabric-tools",
+        "name": "tools",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "model-fabric-rag",
+        "name": "rag",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "model-fabric-memory",
+        "name": "memory",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "model-fabric-evaluation",
+        "name": "evaluation",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "model-fabric-guardrails",
+        "name": "guardrails",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-models",
+        "name": "models",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-agents",
+        "name": "agents",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-tools",
+        "name": "tools",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-rag",
+        "name": "rag",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-memory",
+        "name": "memory",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-evaluation",
+        "name": "evaluation",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "agent-fabric-guardrails",
+        "name": "guardrails",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-models",
+        "name": "models",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-agents",
+        "name": "agents",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-tools",
+        "name": "tools",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-rag",
+        "name": "rag",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-memory",
+        "name": "memory",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-evaluation",
+        "name": "evaluation",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "rag-fabric-guardrails",
+        "name": "guardrails",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-models",
+        "name": "models",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-agents",
+        "name": "agents",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-tools",
+        "name": "tools",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-rag",
+        "name": "rag",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-memory",
+        "name": "memory",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-evaluation",
+        "name": "evaluation",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "evaluation-fabric-guardrails",
+        "name": "guardrails",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-models",
+        "name": "models",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-agents",
+        "name": "agents",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-tools",
+        "name": "tools",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-rag",
+        "name": "rag",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-memory",
+        "name": "memory",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-evaluation",
+        "name": "evaluation",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      },
+      {
+        "id": "guardrail-fabric-guardrails",
+        "name": "guardrails",
+        "type": "INDUSTRIAL_CLUSTER",
+        "capabilities": [
+          "ai-inference",
+          "knowledge-retrieval",
+          "agent-orchestration",
+          "human-review"
+        ],
+        "components": [
+          "model-service",
+          "agent-service",
+          "embedding-service",
+          "evaluation-service",
+          "inference-api",
+          "embedding-api",
+          "agent-api",
+          "tool-api",
+          "agent-sdk",
+          "model-sdk",
+          "eval-sdk",
+          "inference-runtime",
+          "agent-runtime",
+          "batch-runtime"
+        ]
+      }
+    ],
+    "capabilities": [
+      "ai-inference",
+      "knowledge-retrieval",
+      "agent-orchestration",
+      "human-review"
+    ],
+    "services": [
+      "model-service",
+      "agent-service",
+      "embedding-service",
+      "evaluation-service"
+    ],
+    "apis": [
+      "inference-api",
+      "embedding-api",
+      "agent-api",
+      "tool-api"
+    ],
+    "sdks": [
+      {
+        "target": "javascript",
+        "packageName": "@sheikha/federation-client",
+        "file": "pkg-763206bcabb6a58a.js",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      },
+      {
+        "target": "python",
+        "packageName": "sheikha_federation_client",
+        "file": "pkg-763206bcabb6a58a.py",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      },
+      {
+        "target": "go",
+        "packageName": "sheikhafederation",
+        "file": "pkg-763206bcabb6a58a.go",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      },
+      {
+        "target": "rust",
+        "packageName": "sheikha_federation",
+        "file": "pkg-763206bcabb6a58a.rs",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      },
+      {
+        "target": "java",
+        "packageName": "com.sheikha.federation",
+        "file": "pkg-763206bcabb6a58a.java",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      },
+      {
+        "target": "php",
+        "packageName": "Sheikha\\Federation",
+        "file": "pkg-763206bcabb6a58a.php",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      },
+      {
+        "target": "csharp",
+        "packageName": "Sheikha.Federation",
+        "file": "pkg-763206bcabb6a58a.cs",
+        "generatedFrom": "Sheikha Universal AI Knowledge Federation Package",
+        "operations": [
+          "getFederationStatus",
+          "listFederationCapabilities",
+          "listFederationRelations"
+        ],
+        "writeScope": "DESCRIPTOR_ONLY_NO_FILE_WRITE"
+      }
+    ],
+    "languages": [
+      "javascript",
+      "python",
+      "go",
+      "rust",
+      "java",
+      "php",
+      "csharp"
+    ],
+    "runtimes": [
+      "inference-runtime",
+      "agent-runtime",
+      "batch-runtime"
+    ],
+    "policies": {
+      "internalRegistryWriteOnly": true,
+      "externalChangeAllowed": false,
+      "humanApprovalForExternalChange": true,
+      "noHarm": true
+    },
+    "relations": [
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai-family",
+        "type": "BELONGS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai",
+        "type": "EXTENDS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai",
+        "type": "IMPLEMENTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "inspector-registry",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "marketplace-registry",
+        "type": "PUBLISHES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "universal-graph",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "external-system-boundary",
+        "type": "ISOLATED_FROM"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai-inference",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "knowledge-retrieval",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-orchestration",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "human-review",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "model-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "embedding-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "evaluation-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "inference-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "embedding-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "tool-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "model-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "eval-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "inference-runtime",
+        "type": "HOSTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-runtime",
+        "type": "HOSTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "batch-runtime",
+        "type": "HOSTS"
+      }
+    ],
+    "versions": [
+      {
+        "packageId": "pkg-763206bcabb6a58a",
+        "version": "1.0.0"
+      }
+    ],
+    "writeScope": "SHEIKHA_INTERNAL_RUNTIME_REGISTRY_ONLY"
+  },
+  "graph": {
+    "system": "SHEIKHA_UNIVERSAL_GRAPH_V10",
+    "status": "ACTIVE",
+    "mode": "ONE_GRAPH_FOR_FEDERATION_REGISTRY",
+    "nodes": [
+      {
+        "id": "pkg-763206bcabb6a58a",
+        "type": "FEDERATION",
+        "label": "Sheikha Universal AI Knowledge Federation Package"
+      },
+      {
+        "id": "ai-family",
+        "type": "FAMILY",
+        "label": "AI Family"
+      },
+      {
+        "id": "ai",
+        "type": "BLUEPRINT",
+        "label": "AI"
+      },
+      {
+        "id": "template-ai",
+        "type": "TEMPLATE",
+        "label": "AI"
+      },
+      {
+        "id": "fabric-model-fabric",
+        "type": "FABRIC",
+        "label": "model-fabric"
+      },
+      {
+        "id": "fabric-agent-fabric",
+        "type": "FABRIC",
+        "label": "agent-fabric"
+      },
+      {
+        "id": "fabric-rag-fabric",
+        "type": "FABRIC",
+        "label": "rag-fabric"
+      },
+      {
+        "id": "fabric-evaluation-fabric",
+        "type": "FABRIC",
+        "label": "evaluation-fabric"
+      },
+      {
+        "id": "fabric-guardrail-fabric",
+        "type": "FABRIC",
+        "label": "guardrail-fabric"
+      },
+      {
+        "id": "model-fabric-models",
+        "type": "CLUSTER",
+        "label": "models"
+      },
+      {
+        "id": "model-fabric-agents",
+        "type": "CLUSTER",
+        "label": "agents"
+      },
+      {
+        "id": "model-fabric-tools",
+        "type": "CLUSTER",
+        "label": "tools"
+      },
+      {
+        "id": "model-fabric-rag",
+        "type": "CLUSTER",
+        "label": "rag"
+      },
+      {
+        "id": "model-fabric-memory",
+        "type": "CLUSTER",
+        "label": "memory"
+      },
+      {
+        "id": "model-fabric-evaluation",
+        "type": "CLUSTER",
+        "label": "evaluation"
+      },
+      {
+        "id": "model-fabric-guardrails",
+        "type": "CLUSTER",
+        "label": "guardrails"
+      },
+      {
+        "id": "agent-fabric-models",
+        "type": "CLUSTER",
+        "label": "models"
+      },
+      {
+        "id": "agent-fabric-agents",
+        "type": "CLUSTER",
+        "label": "agents"
+      },
+      {
+        "id": "agent-fabric-tools",
+        "type": "CLUSTER",
+        "label": "tools"
+      },
+      {
+        "id": "agent-fabric-rag",
+        "type": "CLUSTER",
+        "label": "rag"
+      },
+      {
+        "id": "agent-fabric-memory",
+        "type": "CLUSTER",
+        "label": "memory"
+      },
+      {
+        "id": "agent-fabric-evaluation",
+        "type": "CLUSTER",
+        "label": "evaluation"
+      },
+      {
+        "id": "agent-fabric-guardrails",
+        "type": "CLUSTER",
+        "label": "guardrails"
+      },
+      {
+        "id": "rag-fabric-models",
+        "type": "CLUSTER",
+        "label": "models"
+      },
+      {
+        "id": "rag-fabric-agents",
+        "type": "CLUSTER",
+        "label": "agents"
+      },
+      {
+        "id": "rag-fabric-tools",
+        "type": "CLUSTER",
+        "label": "tools"
+      },
+      {
+        "id": "rag-fabric-rag",
+        "type": "CLUSTER",
+        "label": "rag"
+      },
+      {
+        "id": "rag-fabric-memory",
+        "type": "CLUSTER",
+        "label": "memory"
+      },
+      {
+        "id": "rag-fabric-evaluation",
+        "type": "CLUSTER",
+        "label": "evaluation"
+      },
+      {
+        "id": "rag-fabric-guardrails",
+        "type": "CLUSTER",
+        "label": "guardrails"
+      },
+      {
+        "id": "evaluation-fabric-models",
+        "type": "CLUSTER",
+        "label": "models"
+      },
+      {
+        "id": "evaluation-fabric-agents",
+        "type": "CLUSTER",
+        "label": "agents"
+      },
+      {
+        "id": "evaluation-fabric-tools",
+        "type": "CLUSTER",
+        "label": "tools"
+      },
+      {
+        "id": "evaluation-fabric-rag",
+        "type": "CLUSTER",
+        "label": "rag"
+      },
+      {
+        "id": "evaluation-fabric-memory",
+        "type": "CLUSTER",
+        "label": "memory"
+      },
+      {
+        "id": "evaluation-fabric-evaluation",
+        "type": "CLUSTER",
+        "label": "evaluation"
+      },
+      {
+        "id": "evaluation-fabric-guardrails",
+        "type": "CLUSTER",
+        "label": "guardrails"
+      },
+      {
+        "id": "guardrail-fabric-models",
+        "type": "CLUSTER",
+        "label": "models"
+      },
+      {
+        "id": "guardrail-fabric-agents",
+        "type": "CLUSTER",
+        "label": "agents"
+      },
+      {
+        "id": "guardrail-fabric-tools",
+        "type": "CLUSTER",
+        "label": "tools"
+      },
+      {
+        "id": "guardrail-fabric-rag",
+        "type": "CLUSTER",
+        "label": "rag"
+      },
+      {
+        "id": "guardrail-fabric-memory",
+        "type": "CLUSTER",
+        "label": "memory"
+      },
+      {
+        "id": "guardrail-fabric-evaluation",
+        "type": "CLUSTER",
+        "label": "evaluation"
+      },
+      {
+        "id": "guardrail-fabric-guardrails",
+        "type": "CLUSTER",
+        "label": "guardrails"
+      },
+      {
+        "id": "ai-inference",
+        "type": "CAPABILITY",
+        "label": "ai-inference"
+      },
+      {
+        "id": "knowledge-retrieval",
+        "type": "CAPABILITY",
+        "label": "knowledge-retrieval"
+      },
+      {
+        "id": "agent-orchestration",
+        "type": "CAPABILITY",
+        "label": "agent-orchestration"
+      },
+      {
+        "id": "human-review",
+        "type": "CAPABILITY",
+        "label": "human-review"
+      },
+      {
+        "id": "model-service",
+        "type": "SERVICE",
+        "label": "model-service"
+      },
+      {
+        "id": "agent-service",
+        "type": "SERVICE",
+        "label": "agent-service"
+      },
+      {
+        "id": "embedding-service",
+        "type": "SERVICE",
+        "label": "embedding-service"
+      },
+      {
+        "id": "evaluation-service",
+        "type": "SERVICE",
+        "label": "evaluation-service"
+      },
+      {
+        "id": "inference-api",
+        "type": "API",
+        "label": "inference-api"
+      },
+      {
+        "id": "embedding-api",
+        "type": "API",
+        "label": "embedding-api"
+      },
+      {
+        "id": "agent-api",
+        "type": "API",
+        "label": "agent-api"
+      },
+      {
+        "id": "tool-api",
+        "type": "API",
+        "label": "tool-api"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.js",
+        "type": "SDK_DESCRIPTOR",
+        "label": "javascript"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.py",
+        "type": "SDK_DESCRIPTOR",
+        "label": "python"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.go",
+        "type": "SDK_DESCRIPTOR",
+        "label": "go"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.rs",
+        "type": "SDK_DESCRIPTOR",
+        "label": "rust"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.java",
+        "type": "SDK_DESCRIPTOR",
+        "label": "java"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.php",
+        "type": "SDK_DESCRIPTOR",
+        "label": "php"
+      },
+      {
+        "id": "pkg-763206bcabb6a58a.cs",
+        "type": "SDK_DESCRIPTOR",
+        "label": "csharp"
+      },
+      {
+        "id": "javascript",
+        "type": "LANGUAGE",
+        "label": "javascript"
+      },
+      {
+        "id": "python",
+        "type": "LANGUAGE",
+        "label": "python"
+      },
+      {
+        "id": "go",
+        "type": "LANGUAGE",
+        "label": "go"
+      },
+      {
+        "id": "rust",
+        "type": "LANGUAGE",
+        "label": "rust"
+      },
+      {
+        "id": "java",
+        "type": "LANGUAGE",
+        "label": "java"
+      },
+      {
+        "id": "php",
+        "type": "LANGUAGE",
+        "label": "php"
+      },
+      {
+        "id": "csharp",
+        "type": "LANGUAGE",
+        "label": "csharp"
+      },
+      {
+        "id": "inference-runtime",
+        "type": "RUNTIME",
+        "label": "inference-runtime"
+      },
+      {
+        "id": "agent-runtime",
+        "type": "RUNTIME",
+        "label": "agent-runtime"
+      },
+      {
+        "id": "batch-runtime",
+        "type": "RUNTIME",
+        "label": "batch-runtime"
+      },
+      {
+        "id": "governance-registry",
+        "type": "GOVERNANCE",
+        "label": "Governance Registry"
+      },
+      {
+        "id": "inspector-registry",
+        "type": "INSPECTOR",
+        "label": "Inspector Registry"
+      },
+      {
+        "id": "marketplace-registry",
+        "type": "MARKETPLACE",
+        "label": "Marketplace Registry"
+      }
+    ],
+    "edges": [
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai-family",
+        "type": "BELONGS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai",
+        "type": "EXTENDS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai",
+        "type": "IMPLEMENTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "inspector-registry",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "marketplace-registry",
+        "type": "PUBLISHES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "universal-graph",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "external-system-boundary",
+        "type": "ISOLATED_FROM"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "ai-inference",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "knowledge-retrieval",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-orchestration",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "human-review",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "model-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "embedding-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "evaluation-service",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "inference-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "embedding-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "tool-api",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "model-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "eval-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "inference-runtime",
+        "type": "HOSTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "agent-runtime",
+        "type": "HOSTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "batch-runtime",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-models",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-agents",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-tools",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-rag",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-memory",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-evaluation",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-model-fabric",
+        "to": "model-fabric-guardrails",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-models",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-agents",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-tools",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-rag",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-memory",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-evaluation",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-agent-fabric",
+        "to": "agent-fabric-guardrails",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-models",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-agents",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-tools",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-rag",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-memory",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-evaluation",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-rag-fabric",
+        "to": "rag-fabric-guardrails",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-models",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-agents",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-tools",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-rag",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-memory",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-evaluation",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-evaluation-fabric",
+        "to": "evaluation-fabric-guardrails",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-models",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-agents",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-tools",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-rag",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-memory",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-evaluation",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fabric-guardrail-fabric",
+        "to": "guardrail-fabric-guardrails",
+        "type": "HOSTS"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.js",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.py",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.go",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.rs",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.java",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.php",
+        "type": "GENERATES"
+      },
+      {
+        "from": "pkg-763206bcabb6a58a",
+        "to": "pkg-763206bcabb6a58a.cs",
+        "type": "GENERATES"
+      }
+    ],
+    "summary": {
+      "nodes": 76,
+      "edges": 68,
+      "relationshipTypes": 12
+    }
+  },
+  "eventBus": {
+    "system": "SHEIKHA_UNIVERSAL_EVENT_BUS_V10",
+    "status": "ACTIVE",
+    "mode": "GOVERNED_INTERNAL_EVENT_STREAM_PLAN",
+    "events": [
+      {
+        "id": "federation-package-installed-pkg-763206bcabb6a58a",
+        "type": "FEDERATION_PACKAGE_INSTALLED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "dna-validated-pkg-763206bcabb6a58a",
+        "type": "DNA_VALIDATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "blueprint-resolved-pkg-763206bcabb6a58a",
+        "type": "BLUEPRINT_RESOLVED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "template-generated-pkg-763206bcabb6a58a",
+        "type": "TEMPLATE_GENERATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "industrial-fabric-generated-pkg-763206bcabb6a58a",
+        "type": "INDUSTRIAL_FABRIC_GENERATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "cluster-generated-pkg-763206bcabb6a58a",
+        "type": "CLUSTER_GENERATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "capability-generated-pkg-763206bcabb6a58a",
+        "type": "CAPABILITY_GENERATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "sdk-descriptor-generated-pkg-763206bcabb6a58a",
+        "type": "SDK_DESCRIPTOR_GENERATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "registry-persisted-plan-pkg-763206bcabb6a58a",
+        "type": "REGISTRY_PERSISTED_PLAN",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "graph-updated-pkg-763206bcabb6a58a",
+        "type": "GRAPH_UPDATED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "inspector-completed-pkg-763206bcabb6a58a",
+        "type": "INSPECTOR_COMPLETED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      },
+      {
+        "id": "governance-passed-pkg-763206bcabb6a58a",
+        "type": "GOVERNANCE_PASSED",
+        "federationId": "pkg-763206bcabb6a58a",
+        "governed": true,
+        "noExternalMutation": true,
+        "createdAt": "2026-07-04T03:46:42.519Z"
+      }
+    ],
+    "summary": {
+      "events": 12,
+      "graphNodes": 76,
+      "graphEdges": 68
+    }
+  },
+  "inspector": {
+    "system": "SHEIKHA_UNIVERSAL_INSPECTOR_V10",
+    "status": "PASSED",
+    "checks": {
+      "packageCommitted": true,
+      "registryReady": true,
+      "graphReady": true,
+      "eventBusReady": true,
+      "sdkDescriptorOnly": true,
+      "noExternalMutation": true,
+      "noHarm": true
+    },
+    "inspectors": [
+      "Blueprint Inspector",
+      "Cluster Inspector",
+      "Capability Inspector",
+      "Runtime Inspector",
+      "Security Inspector",
+      "Performance Inspector",
+      "Governance Inspector",
+      "Enterprise Inspector"
+    ]
+  },
+  "governance": {
+    "system": "SHEIKHA_UNIVERSAL_GOVERNANCE_V10",
+    "status": "PASSED",
+    "pipeline": [
+      {
+        "stage": "READ",
+        "status": "PASS"
+      },
+      {
+        "stage": "VALIDATE",
+        "status": "PASS"
+      },
+      {
+        "stage": "RISK",
+        "status": "LOW"
+      },
+      {
+        "stage": "HUMAN_REVIEW",
+        "status": "REQUIRED_FOR_EXTERNAL_CHANGE_ONLY"
+      },
+      {
+        "stage": "APPROVAL",
+        "status": "APPROVED"
+      },
+      {
+        "stage": "REGISTRY_WRITE",
+        "status": "INTERNAL_RUNTIME_REGISTRY_ONLY"
+      },
+      {
+        "stage": "GRAPH_UPDATE",
+        "status": "INTERNAL_GRAPH_ONLY"
+      },
+      {
+        "stage": "AUDIT",
+        "status": "RECORDED"
+      },
+      {
+        "stage": "PUBLISH",
+        "status": "INTERNAL_EVENT_PUBLISHED"
+      }
+    ],
+    "boundaries": {
+      "noExternalMutation": true,
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noFirmwareModification": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noHarm": true,
+      "humanApprovalForExternalChange": true
+    }
+  },
+  "linkedLayers": {
+    "federationTemplateEngineV8": "ACTIVE",
+    "federationOperatingFabricV9": "ACTIVE",
+    "enterpriseArchitectureOperatingIntegrationV3": "ACTIVE_100_INTEGRATED",
+    "sdkTargets": 7
+  },
+  "readiness": {
+    "packageManagerReady": true,
+    "industrialFabricReady": true,
+    "registryReady": true,
+    "graphReady": true,
+    "eventBusReady": true,
+    "inspectorReady": true,
+    "governanceReady": true,
+    "persistentRegistryPlanReady": true,
+    "overall": "UNIVERSAL_GOVERNED_PLATFORM_READY"
+  },
+  "timestamp": "2026-07-04T03:46:42.524Z",
+  "registryPersistence": {
+    "system": "SHEIKHA_UNIVERSAL_REGISTRY_PERSISTENCE_V10",
+    "status": "WRITTEN",
+    "filePath": "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/universal-governed-federation-platform/sheikha-universal-registry-v10.json",
+    "writeScope": "SHEIKHA_INTERNAL_RUNTIME_REGISTRY_ONLY",
+    "noExternalMutation": true
+  }
+}
