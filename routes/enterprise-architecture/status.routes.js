@@ -16,6 +16,11 @@ const {
   buildFederationOperatingFabricStatus
 } = require('../../core/federation-operating-fabric-integration/sheikha-federation-operating-fabric-integration-v9');
 
+const {
+  evaluateOperatingIntegration,
+  getOperatingIntegrationStatus
+} = require('../../core/enterprise-architecture/sheikha-enterprise-architecture-operating-integration-v3');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -87,6 +92,26 @@ router.get('/federation-operating-fabric/full', (req, res) => {
       integration: buildFederationOperatingFabricIntegrationV9()
     },
     message: 'Sheikha Federation Operating Fabric Integration V9 Full Report'
+  });
+});
+
+router.get('/operating-integration/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: getOperatingIntegrationStatus()
+    },
+    message: 'Sheikha Enterprise Architecture Operating Integration V3'
+  });
+});
+
+router.get('/operating-integration/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      integration: evaluateOperatingIntegration()
+    },
+    message: 'Sheikha Enterprise Architecture Operating Integration V3 Full Report'
   });
 });
 
