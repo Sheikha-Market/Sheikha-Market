@@ -3329,6 +3329,12 @@ function verifyTokenRole(req) {
 // Middleware لحماية الصفحات (HTML)
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
 app.use('/api/sheikha', require('./routes/sheikha-system-status'));
+
+// SHEIKHA MARKETPLACE ROUTE ALIAS V1
+app.get('/marketplace', (req, res) => {
+  res.redirect('/#marketplace');
+});
+
 app.use((req, res, next) => {
     const path = decodeURIComponent(req.path);
 
@@ -3377,6 +3383,12 @@ if (pilotEngine) {
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Cache Control for HTML pages
+
+// SHEIKHA MARKETPLACE ROUTE ALIAS V1
+app.get('/marketplace', (req, res) => {
+  res.redirect('/#marketplace');
+});
+
 app.use((req, res, next) => {
     if (req.path.endsWith('.html') || req.path === '/' || req.path === '') {
         res.set('Cache-Control', 'no-store, no-cache, must-revalidate, max-age=0');
@@ -3678,6 +3690,12 @@ setInterval(flushPageViews, 10000);
 // يعمل بقراءة الملف من الذاكرة المؤقتة (لا يعتمد على سرعة القرص/OneDrive)
 const _htmlCache = new Map();
 const INJECT_TAG = '<script src="/js/sheikha-app.js"></script>';
+
+
+// SHEIKHA MARKETPLACE ROUTE ALIAS V1
+app.get('/marketplace', (req, res) => {
+  res.redirect('/#marketplace');
+});
 
 app.use((req, res, next) => {
     if (req.method === 'GET' && (req.path === '/' || req.path.endsWith('.html'))) {
@@ -11546,6 +11564,12 @@ let ERROR_COUNT = 0;
 let TOTAL_RESPONSE_TIME = 0;
 
 // Middleware لقياس الأداء
+
+// SHEIKHA MARKETPLACE ROUTE ALIAS V1
+app.get('/marketplace', (req, res) => {
+  res.redirect('/#marketplace');
+});
+
 app.use((req, res, next) => {
     const start = Date.now();
     REQUEST_COUNT++;
@@ -23714,6 +23738,12 @@ app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
   });
 });
 
+
+
+// SHEIKHA MARKETPLACE ROUTE ALIAS V1
+app.get('/marketplace', (req, res) => {
+  res.redirect('/#marketplace');
+});
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
