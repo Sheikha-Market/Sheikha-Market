@@ -20329,7 +20329,7 @@ let autoSalvage = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-auto-salvage
     /*     const AS = require('./lib/sheikha-auto-salvage'); */
-    autoSalvage = new AS();
+    autoSalvage = resolveOptionalEngine('AS', 'Auto Salvage');
     const asd = autoSalvage.getDashboard();
     console.log(`✅ [Auto Salvage] سوق التشليح: ${asd.saudi.salvageYards} ساحة | ${asd.saudi.elvAnnual} سيارة/سنة | ${asd.saudi.marketValue}/سنة`);
 } catch(e) { console.warn('⚠️ [Auto Salvage] خطأ:', e.message); }
@@ -20413,7 +20413,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-trade-networks-history
     /*     const TNH = require('./lib/sheikha-trade-networks-history'); */
     console.log('⏸️ [LAZY] sheikha-trade-networks-history — سيُحمّل عند الطلب');
-    tradeHistory = new TNH();
+    tradeHistory = resolveOptionalEngine('TNH', 'Trade History');
     const td = tradeHistory.getDashboard();
     console.log(`✅ [Trade History] ${td.stats.historicalEras} حقبة | ${td.stats.tradeRoutes} طريق | ${td.stats.tradeNetworks} شبكة | ${td.stats.modernNetworks} شبكة حديثة | ${td.stats.mapPoints} نقطة خريطة`);
 } catch(e) { console.warn('⚠️ [Trade History] خطأ:', e.message); }
@@ -20456,7 +20456,7 @@ let leadership = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-leadership-governance
     /*     const LG = require('./lib/sheikha-leadership-governance'); */
-    leadership = new LG();
+    leadership = resolveOptionalEngine('LG', 'Leadership');
     const ld = leadership.getDashboard();
     console.log(`✅ [Leadership] ${ld.stats.leadershipPrinciples} مبدأ قيادة | ${ld.stats.organizationalLayers} طبقة تنظيمية | ${ld.stats.organizations} منظمة | ${ld.stats.caravans} قافلة | ${ld.stats.networks} شبكة | ${ld.stats.historicalEras} حقبة`);
 } catch(e) { console.warn('⚠️ [Leadership] خطأ:', e.message); }
@@ -20508,7 +20508,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-bank
     /*     const MB = require('./lib/sheikha-metals-bank'); */
     console.log('⏸️ [LAZY] sheikha-metals-bank — سيُحمّل عند الطلب');
-    metalsBank = new MB();
+    metalsBank = resolveOptionalEngine('MB', 'Metals Bank');
     const md = metalsBank.getDashboard();
     console.log(`✅ [Metals Bank] ${md.stats.preciousMetals} ثمين | ${md.stats.baseMetals} أساسي | ${md.stats.rareMetals} نادر | ${md.stats.scrapTypes} سكراب | ${md.stats.tradingContracts} عقد | ${md.stats.vaultLocations} خزنة | ${md.stats.shariaEvidence} دليل شرعي`);
 } catch(e) { console.warn('⚠️ [Metals Bank] خطأ:', e.message); }
@@ -20559,7 +20559,7 @@ let licensesReg = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-licenses-registry
     /*     const LR = require('./lib/sheikha-licenses-registry'); */
-    licensesReg = new LR();
+    licensesReg = resolveOptionalEngine('LR', 'Licenses');
     const ld = licensesReg.getDashboard();
     console.log(`✅ [Licenses] ${ld.stats.commercialActivities} نشاط تجاري | ${ld.stats.essentialLicenses} ترخيص | ${ld.stats.certificates} شهادة | ${ld.stats.saudiAuthorities} جهة | ${ld.stats.timelinePhases} مرحلة`);
 } catch(e) { console.warn('⚠️ [Licenses] خطأ:', e.message); }
@@ -20610,7 +20610,7 @@ let officialDocs = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-official-documents
     /*     const OD = require('./lib/sheikha-official-documents'); */
-    officialDocs = new OD();
+    officialDocs = resolveOptionalEngine('OD', 'Official Docs');
     const od = officialDocs.getDashboard();
     console.log(`✅ [Official Docs] ${od.stats.officialDocTemplates} قالب | ${od.stats.stampDesigns} ختم | ${od.stats.signatureTypes} توقيع | ${od.stats.autoFillForms} نموذج آلي | ${od.stats.governmentForms} حكومي | ${od.stats.commercialForms} تجاري`);
 } catch(e) { console.warn('⚠️ [Official Docs] خطأ:', e.message); }
@@ -20658,7 +20658,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-archive-engine
     /*     const AE = require('./lib/sheikha-archive-engine'); */
     console.log('⏸️ [LAZY] sheikha-archive-engine — سيُحمّل عند الطلب');
-    archiveEngine = new AE();
+    archiveEngine = resolveOptionalEngine('AE', 'Archive');
     const ad = archiveEngine.getDashboard();
     console.log(`✅ [Archive] ${ad.stats.archiveCategories} فئة أرشفة | ${ad.stats.documentClasses} تصنيف وثائق | ${ad.stats.indexingLevels} مستوى فهرسة | ${ad.stats.retentionPolicies} سياسة حفظ | ${ad.stats.autoWorkflows} سير عمل آلي | ${ad.stats.securityLevels} مستوى أمان | أساس: ${ad.stats.calendarBasis}`);
 } catch(e) { console.warn('⚠️ [Archive] خطأ:', e.message); }
@@ -20753,7 +20753,7 @@ let govPlatformsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-gov-platforms-engine
     /*     const GPE = require('./lib/sheikha-gov-platforms-engine'); */
-    govPlatformsEngine = new GPE();
+    govPlatformsEngine = resolveOptionalEngine('GPE', 'GovPlatforms');
     const gpd = govPlatformsEngine.getDashboard();
     console.log(`✅ [GovPlatforms] ${gpd.stats.govPlatforms} منصة حكومية | ${gpd.stats.autoUploadFlows} سير رفع آلي | ${gpd.stats.carrierIntegrations} ناقل | ${gpd.stats.portSystems} ميناء | ${gpd.stats.sheikhaDocuments} وثيقة شيخة | ${gpd.stats.operationPhases} مرحلة عملية | ${gpd.stats.analyticsKPIs} مؤشر أداء | ${gpd.stats.backgroundProcesses} عملية خلفية | أساس: ${gpd.stats.calendarBasis}`);
 } catch(e) { console.warn('⚠️ [GovPlatforms] خطأ:', e.message); }
@@ -20794,7 +20794,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-logistics-management-engine
     /*     const LME = require('./lib/sheikha-logistics-management-engine'); */
     console.log('⏸️ [LAZY] sheikha-logistics-management-engine — سيُحمّل عند الطلب');
-    logisticsManagementEngine = new LME();
+    logisticsManagementEngine = resolveOptionalEngine('LME', 'LogisticsManagement');
     const lmd = logisticsManagementEngine.getDashboard();
     console.log(`✅ [LogisticsManagement] ${lmd.totalModules} وحدة | ${lmd.registeredCarriers} ناقل مسجل | ${lmd.openSourceDataSources} مصدر مفتوح | ${lmd.integrationPoints} نقطة تكامل | TMS+WMS+OMS+YMS+FMS+CMS+AI`);
 } catch(e) { console.warn('⚠️ [LogisticsManagement] خطأ:', e.message); }
@@ -20849,7 +20849,7 @@ let materialsSpecsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-materials-specs-engine
     /*     const MSE = require('./lib/sheikha-materials-specs-engine'); */
-    materialsSpecsEngine = new MSE();
+    materialsSpecsEngine = resolveOptionalEngine('MSE', 'MaterialsSpecs');
     const msd = materialsSpecsEngine.getDashboard();
     console.log(`✅ [MaterialsSpecs] ${msd.stats.metalCategories} فئات معادن | ${msd.stats.totalProducts} منتج | ${msd.stats.hsCodes} كود HS | ${msd.stats.standards} معيار | ${msd.stats.userIndustries} صناعة | ${msd.stats.geographicSources} مصدر جغرافي | ${msd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [MaterialsSpecs] خطأ:', e.message); }
@@ -20892,7 +20892,7 @@ let readinessEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-readiness-compliance-engine
     /*     const RCE = require('./lib/sheikha-readiness-compliance-engine'); */
-    readinessEngine = new RCE();
+    readinessEngine = resolveOptionalEngine('RCE', 'Readiness');
     const rcd = readinessEngine.getDashboard();
     console.log(`✅ [Readiness] ${rcd.stats.saudiPlatforms} منصة سعودية | ${rcd.stats.saudiLaws} نظام سعودي | ${rcd.stats.internationalRegions} مناطق دولية | ${rcd.stats.countriesSupported} دولة | ${rcd.stats.internationalStandards} معيار دولي | ${rcd.stats.tradeAgreements} اتفاقية تجارية | ${rcd.stats.digitalIntegrationPoints} نقطة تكامل رقمي | ${rcd.stats.shariaRules} قاعدة شرعية`);
 } catch(e) { console.warn('⚠️ [Readiness] خطأ:', e.message); }
@@ -20927,7 +20927,7 @@ let wisdomEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-wisdom-power-engine
     /*     const WPE = require('./lib/sheikha-wisdom-power-engine'); */
-    wisdomEngine = new WPE();
+    wisdomEngine = resolveOptionalEngine('WPE', 'WisdomPower');
     const wpd = wisdomEngine.getDashboard();
     console.log(`✅ [WisdomPower] ${wpd.totalModules} وحدة | AI:${wpd.domains.AI.modules} | Systems:${wpd.domains.Systems.modules} | Computing:${wpd.domains.Computing.modules} | Tech:${wpd.domains.Technology.modules} | Mgmt:${wpd.domains.Management.modules} | Eng:${wpd.domains.Engineering.modules} | Sci:${wpd.domains.Science.modules} | ${wpd.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [WisdomPower] خطأ:', e.message); }
@@ -20971,7 +20971,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-impact-engine
     /*     const MIE = require('./lib/sheikha-metals-impact-engine'); */
     console.log('⏸️ [LAZY] sheikha-metals-impact-engine — سيُحمّل عند الطلب');
-    metalsImpactEngine = new MIE();
+    metalsImpactEngine = resolveOptionalEngine('MIE', 'MetalsImpact');
     const mid = metalsImpactEngine.getDashboard();
     console.log(`✅ [MetalsImpact] ${mid.stats.metalsTracked} معدن | ${mid.stats.impactDimensions} أبعاد أثر | ${mid.stats.hsCodesCovered} كود HS | ${mid.stats.sdgAlignment} هدف SDG | ${mid.stats.kpis} مؤشر | ${mid.stats.islamicReferences} مرجع شرعي | ${mid.stats.backgroundProcesses} عملية خلفية`);
 } catch(e) { console.warn('⚠️ [MetalsImpact] خطأ:', e.message); }
@@ -21011,7 +21011,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-measurement-engine
     /*     const MME = require('./lib/sheikha-metals-measurement-engine'); */
     console.log('⏸️ [LAZY] sheikha-metals-measurement-engine — سيُحمّل عند الطلب');
-    metalsMeasurementEngine = new MME();
+    metalsMeasurementEngine = resolveOptionalEngine('MME', 'MetalsMeasurement');
     const mmd = metalsMeasurementEngine.getDashboard();
     console.log(`✅ [MetalsMeasurement] ${mmd.stats.propheticMeasures} مقياس نبوي | ${mmd.stats.scientificMeasures} مقياس علمي | ${mmd.stats.economicMeasures} مقياس اقتصادي | ${mmd.stats.classificationAxes} محاور تصنيف | ${mmd.stats.metalsClassified} معدن | ${mmd.stats.backgroundProcesses} عملية خلفية | ${mmd.stats.wisdomDisplayRules} قاعدة عرض حكيم | ${mmd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [MetalsMeasurement] خطأ:', e.message); }
@@ -21050,7 +21050,7 @@ let logicEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-logic-engine
     /*     const LE = require('./lib/sheikha-logic-engine'); */
-    logicEngine = new LE();
+    logicEngine = resolveOptionalEngine('LE', 'Logic');
     const ld = logicEngine.getDashboard();
     console.log(`✅ [Logic] ${ld.stats.quranicLogicPrinciples} مبدأ قرآني | ${ld.stats.propheticReasoningMethods} منهج نبوي | ${ld.stats.decisionFrameworks} إطار قرار | ${ld.stats.logicalFallacies} مغالطة منطقية | ${ld.stats.businessLogicRules} قاعدة تجارية | ${ld.stats.aiReasoningModels} نموذج AI`);
 } catch(e) { console.warn('⚠️ [Logic] خطأ:', e.message); }
@@ -21089,7 +21089,7 @@ let quantumStatsEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-quantum-stats-engine
     /*     const QSE = require('./lib/sheikha-quantum-stats-engine'); */
-    quantumStatsEngine = new QSE();
+    quantumStatsEngine = resolveOptionalEngine('QSE', 'QuantumStats');
     const qd = quantumStatsEngine.getDashboard();
     console.log(`✅ [QuantumStats] ${qd.stats.cosmicMeasures} مقياس كوني | ${qd.stats.propheticEraData} بيانات نبوية | ${qd.stats.earthMeasures} مقياس أرضي | ${qd.stats.heavensMeasures} مقياس سماوي | ${qd.stats.metalQuantities} كمية معدنية | ${qd.stats.systemMetrics} مقياس أنظمة | ${qd.stats.backgroundProcesses} عملية خلفية | ${qd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [QuantumStats] خطأ:', e.message); }
@@ -21136,7 +21136,7 @@ let wisdomFusionEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-wisdom-fusion-engine
     /*     const WFE = require('./lib/sheikha-wisdom-fusion-engine'); */
-    wisdomFusionEngine = new WFE();
+    wisdomFusionEngine = resolveOptionalEngine('WFE', 'WisdomFusion');
     const wfd = wisdomFusionEngine.getDashboard();
     console.log(`✅ [WisdomFusion] ${wfd.stats.fusionDomains} مجال مدموج | ${wfd.stats.wisdomPrinciples} مبدأ حكمة | ${wfd.stats.crossDomainRules} قاعدة عابرة | ${wfd.stats.integrationPoints} نقطة تكامل | ${wfd.stats.logicLayers} طبقة منطق | ${wfd.stats.backgroundProcesses} عملية خلفية | ${wfd.stats.islamicFoundations} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [WisdomFusion] خطأ:', e.message); }
@@ -21175,7 +21175,7 @@ let qurayshEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-quraysh-journey-engine
     /*     const QJE = require('./lib/sheikha-quraysh-journey-engine'); */
-    qurayshEngine = new QJE();
+    qurayshEngine = resolveOptionalEngine('QJE', 'Quraysh');
     const qjd = qurayshEngine.getDashboard();
     console.log(`✅ [Quraysh] ${qjd.stats.divineBlessing} نِعَم إلهية | ${qjd.stats.tradeRoutes} مسار تجاري | ${qjd.stats.partnerCountries} دولة شريكة | ${qjd.stats.securityLayers} طبقة أمان | ${qjd.stats.gratitudePractices} ممارسة شكر | ${qjd.stats.backgroundProcesses} عملية خلفية`);
 } catch(e) { console.warn('⚠️ [Quraysh] خطأ:', e.message); }
@@ -21218,7 +21218,7 @@ let learningEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-learning-engine
     /*     const SLE = require('./lib/sheikha-learning-engine'); */
-    learningEngine = new SLE();
+    learningEngine = resolveOptionalEngine('SLE', 'Learning');
     const sld = learningEngine.getDashboard();
     console.log(`✅ [Learning] ${sld.stats.learningDomains} مجال تعلم | ${sld.stats.quranicKnowledgeVerses} آية علم | ${sld.stats.machineLearningModels} نموذج ML | ${sld.stats.wisdomLessons} درس حكمة | ${sld.stats.continuousProcesses} عملية مستمرة | ${sld.stats.knowledgeSources} مصدر معرفة`);
 } catch(e) { console.warn('⚠️ [Learning] خطأ:', e.message); }
@@ -21257,7 +21257,7 @@ let walaaBaraaEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-walaa-baraa-engine
     /*     const WBE = require('./lib/sheikha-walaa-baraa-engine'); */
-    walaaBaraaEngine = new WBE();
+    walaaBaraaEngine = resolveOptionalEngine('WBE', 'WalaaBaraa');
     const wbd = walaaBaraaEngine.getDashboard();
     console.log(`✅ [WalaaBaraa] ${wbd.stats.walaaFoundations} أساس ولاء | ${wbd.stats.baraaShields} درع براء | ${wbd.stats.protectionLayers} طبقة حماية | ${wbd.stats.rejectionRules} قاعدة رفض | ${wbd.stats.victoryPrinciples} مبدأ نصر | ${wbd.stats.backgroundProcesses} عملية خلفية | ${wbd.stats.islamicReferences} مرجع شرعي`);
 } catch(e) { console.warn('⚠️ [WalaaBaraa] خطأ:', e.message); }
@@ -21293,7 +21293,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-trade-legacy-engine
     /*     const TLE = require('./lib/sheikha-trade-legacy-engine'); */
     console.log('⏸️ [LAZY] sheikha-trade-legacy-engine — سيُحمّل عند الطلب');
-    tradeLegacyEngine = new TLE();
+    tradeLegacyEngine = resolveOptionalEngine('TLE', 'TradeLegacy');
     const tld = tradeLegacyEngine.getDashboard();
     console.log(`✅ [TradeLegacy] ${tld.stats.historicalNetworks} شبكة تاريخية | ${tld.stats.tradersAnalyzed} تاجر | ${tld.stats.goodsCategories} بضاعة | ${tld.stats.sheikhGoals} هدف شيخة | ${tld.stats.backgroundGoals} هدف خلفي | ${tld.stats.islamicReferences} مرجع شرعي | إن شاء الله`);
 } catch(e) { console.warn('⚠️ [TradeLegacy] خطأ:', e.message); }
@@ -21328,7 +21328,7 @@ let adabAnbiyaEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-adab-anbiya-engine
     /*     const AAE = require('./lib/sheikha-adab-anbiya-engine'); */
-    adabAnbiyaEngine = new AAE();
+    adabAnbiyaEngine = resolveOptionalEngine('AAE', 'Private');
     console.log('✅ [🔒 Private] أدب الأنبياء والمقام المباح — مُفعّل — سري وخاص للمالك فقط');
 } catch(e) { console.warn('⚠️ [Private] خطأ:', e.message); }
 
