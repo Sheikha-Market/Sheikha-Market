@@ -26,6 +26,11 @@ const {
   buildUniversalGovernedFederationPlatformStatus
 } = require('../../core/universal-governed-federation-platform/sheikha-universal-governed-federation-platform-v10');
 
+const {
+  buildTemplateEngineUnificationReport,
+  getTemplateEngineUnificationStatus
+} = require('../../core/template-engine-unification/sheikha-template-engine-unification-v11');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -137,6 +142,26 @@ router.get('/universal-governed-platform/full', (req, res) => {
       platform: buildUniversalGovernedFederationPlatformV10()
     },
     message: 'Sheikha Universal Governed Federation Platform V10 Full Report'
+  });
+});
+
+router.get('/template-engine-unification/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: getTemplateEngineUnificationStatus()
+    },
+    message: 'Sheikha Template Engine Unification V11'
+  });
+});
+
+router.get('/template-engine-unification/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      unification: buildTemplateEngineUnificationReport()
+    },
+    message: 'Sheikha Template Engine Unification V11 Full Report'
   });
 });
 
