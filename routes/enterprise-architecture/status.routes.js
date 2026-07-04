@@ -21,6 +21,11 @@ const {
   getOperatingIntegrationStatus
 } = require('../../core/enterprise-architecture/sheikha-enterprise-architecture-operating-integration-v3');
 
+const {
+  buildUniversalGovernedFederationPlatformV10,
+  buildUniversalGovernedFederationPlatformStatus
+} = require('../../core/universal-governed-federation-platform/sheikha-universal-governed-federation-platform-v10');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -112,6 +117,26 @@ router.get('/operating-integration/full', (req, res) => {
       integration: evaluateOperatingIntegration()
     },
     message: 'Sheikha Enterprise Architecture Operating Integration V3 Full Report'
+  });
+});
+
+router.get('/universal-governed-platform/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: buildUniversalGovernedFederationPlatformStatus()
+    },
+    message: 'Sheikha Universal Governed Federation Platform V10'
+  });
+});
+
+router.get('/universal-governed-platform/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      platform: buildUniversalGovernedFederationPlatformV10()
+    },
+    message: 'Sheikha Universal Governed Federation Platform V10 Full Report'
   });
 });
 
