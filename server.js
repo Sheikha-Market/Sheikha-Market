@@ -29,6 +29,16 @@ const crypto = require('crypto');
 const { execSync } = require('child_process');
 const jwt = require('jsonwebtoken');
 const cron = require('node-cron');
+
+function governedCronSchedule(expression, task, options) {
+  if (process.env.SHEIKHA_ENABLE_CRON !== 'true') {
+    console.log(`⏸️ [CRON DISABLED] ${expression} — set SHEIKHA_ENABLE_CRON=true in worker only`);
+    return { status: 'DISABLED', expression };
+  }
+
+  return cron.schedule(expression, task, options);
+}
+
 const WebSocket = require('ws');
 const appConfig = require('./config/config');
 const unifiedRuntimeRegistry = require('./config/runtime-registry');
@@ -4421,7 +4431,7 @@ let SHEIKHA_DYNAMIC_VARIABLES = {
 };
 
 // تحديث المتغيرات اللحظية كل 15 دقيقة
-cron.schedule('*/15 * * * *', () => {
+governedCronSchedule('*/15 * * * *', () => {
     // تحديث العرض والطلب (محاكاة)
     Object.keys(SHEIKHA_DYNAMIC_VARIABLES.SDV).forEach(metal => {
         const change = (Math.random() - 0.5) * 0.1;
@@ -4708,7 +4718,7 @@ function calculateSMI() {
 }
 
 // تحديث الأسعار تلقائياً كل 30 ثانية
-cron.schedule('*/30 * * * * *', () => {
+governedCronSchedule('*/30 * * * * *', () => {
     // تحديث تغيرات المعادن
     Object.keys(LIVE_PRICES.metals).forEach(metal => {
         const change = Math.round((Math.random() - 0.5) * 4 * 10) / 10;
