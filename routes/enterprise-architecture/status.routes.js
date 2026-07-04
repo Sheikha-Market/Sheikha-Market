@@ -31,6 +31,11 @@ const {
   getTemplateEngineUnificationStatus
 } = require('../../core/template-engine-unification/sheikha-template-engine-unification-v11');
 
+const {
+  buildGovernedFederationActivationGateReport,
+  getGovernedFederationActivationGateStatus
+} = require('../../core/governed-federation-activation-gate/sheikha-governed-federation-activation-gate-v12');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -162,6 +167,26 @@ router.get('/template-engine-unification/full', (req, res) => {
       unification: buildTemplateEngineUnificationReport()
     },
     message: 'Sheikha Template Engine Unification V11 Full Report'
+  });
+});
+
+router.get('/governed-federation-activation/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: getGovernedFederationActivationGateStatus()
+    },
+    message: 'Sheikha Governed Federation Activation Gate V12'
+  });
+});
+
+router.get('/governed-federation-activation/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      gate: buildGovernedFederationActivationGateReport()
+    },
+    message: 'Sheikha Governed Federation Activation Gate V12 Full Report'
   });
 });
 
