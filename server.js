@@ -1,3 +1,13 @@
+const { resolveEngine } = require('./core/engine-registry/sheikha-engine-registry-v1');
+
+function resolveOptionalEngine(name, label) {
+  const result = resolveEngine(name);
+  if (result.status === 'RESOLVED') return result.instance;
+
+  console.log(`⏸️ [OPTIONAL] ${label || name}: ${result.status}`);
+  return null;
+}
+
 const { runSheikhaProtocol } = require('./runtime/protocols/sheikha-protocol/sheikha-protocol');
 try {
     const dotenv = require('dotenv');
@@ -3330,6 +3340,8 @@ function verifyTokenRole(req) {
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
 app.use('/api/sheikha', require('./routes/sheikha-system-status'));
 
+
+
 // SHEIKHA MARKETPLACE ROUTE ALIAS V1
 app.get('/marketplace', (req, res) => {
   res.redirect('/#marketplace');
@@ -3384,10 +3396,6 @@ app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
 // Cache Control for HTML pages
 
-// SHEIKHA MARKETPLACE ROUTE ALIAS V1
-app.get('/marketplace', (req, res) => {
-  res.redirect('/#marketplace');
-});
 
 app.use((req, res, next) => {
     if (req.path.endsWith('.html') || req.path === '/' || req.path === '') {
@@ -3692,10 +3700,6 @@ const _htmlCache = new Map();
 const INJECT_TAG = '<script src="/js/sheikha-app.js"></script>';
 
 
-// SHEIKHA MARKETPLACE ROUTE ALIAS V1
-app.get('/marketplace', (req, res) => {
-  res.redirect('/#marketplace');
-});
 
 app.use((req, res, next) => {
     if (req.method === 'GET' && (req.path === '/' || req.path.endsWith('.html'))) {
@@ -11565,10 +11569,6 @@ let TOTAL_RESPONSE_TIME = 0;
 
 // Middleware لقياس الأداء
 
-// SHEIKHA MARKETPLACE ROUTE ALIAS V1
-app.get('/marketplace', (req, res) => {
-  res.redirect('/#marketplace');
-});
 
 app.use((req, res, next) => {
     const start = Date.now();
@@ -19477,7 +19477,7 @@ let greenCircularEngine = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-green-circular-engine
     /*     const SheikhaGreenCircularEngine = require('./lib/sheikha-green-circular-engine'); */
-    greenCircularEngine = new SheikhaGreenCircularEngine();
+    greenCircularEngine = resolveOptionalEngine('SheikhaGreenCircularEngine', 'Green+Circular');
     console.log('✅ [Green+Circular] منظومة شيخة الخضراء والاقتصاد الدائري — مُفعّلة');
     const dash = greenCircularEngine.getDashboard();
     console.log(`   📗 الأساس الشرعي: ${dash.summary.quranVerses} آية + ${dash.summary.hadith} حديث`);
@@ -19717,7 +19717,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-scrap-markets-engine
     /*     const MSMEngine = require('./lib/sheikha-metals-scrap-markets-engine'); */
     console.log('⏸️ [LAZY] sheikha-metals-scrap-markets-engine — سيُحمّل عند الطلب');
-    metalsScrapMarketsEngine = new MSMEngine();
+    metalsScrapMarketsEngine = resolveOptionalEngine('MSMEngine', 'Metals+Scrap+Markets');
     const d = metalsScrapMarketsEngine.getDashboard();
     console.log('✅ [Metals+Scrap+Markets] منظومة المعادن والسكراب والأسواق — مُفعّلة');
     console.log(`   ⚙️ المعادن: ${d.metals.total} (${d.metals.precious} ثمين + ${d.metals.base} أساسي + ${d.metals.strategic} استراتيجي)`);
@@ -20026,7 +20026,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-global-data
     /*     const MGD = require('./lib/sheikha-metals-global-data'); */
     console.log('⏸️ [LAZY] sheikha-metals-global-data — سيُحمّل عند الطلب');
-    metalsGlobalData = new MGD();
+    metalsGlobalData = resolveOptionalEngine('MGD', 'Global Metals Data');
     const gd = metalsGlobalData.getDashboard();
     console.log(`✅ [Global Metals Data] بيانات ${gd.metalsCount} معدن عالمية — مصادر + إنتاج + احتياطي + تكاليف`);
     console.log(`   📗 الأساس الشرعي: ${gd.islamicFoundation.verses} آية + ${gd.islamicFoundation.miningRules} حكم تعدين`);
@@ -20090,7 +20090,7 @@ let scrapGlobalData = null;
 try {
     // P0-1: BLOCKED (ملف مفقود) - sheikha-scrap-global-data
     /*     const SGD = require('./lib/sheikha-scrap-global-data'); */
-    scrapGlobalData = new SGD();
+    scrapGlobalData = resolveOptionalEngine('SGD', 'Scrap Global Data');
     const sd = scrapGlobalData.getDashboard();
     console.log(`✅ [Scrap Global Data] ${sd.typesCount} نوع سكراب | ${sd.historicalEras} حقبة تاريخية | ${sd.saudiSmelters} مصهر سعودي`);
     console.log(`   📗 الأساس الشرعي: ${sd.shariaEvidence} دليل | مشاكل البيع بدون عقد: ${sd.contractIssues} | حلول ذكية: ${sd.smartContractFeatures}`);
@@ -20177,7 +20177,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-hs-history
     /*     const MHH = require('./lib/sheikha-metals-hs-history'); */
     console.log('⏸️ [LAZY] sheikha-metals-hs-history — سيُحمّل عند الطلب');
-    metalsHSHistory = new MHH();
+    metalsHSHistory = resolveOptionalEngine('MHH', 'HS+History');
     const hd = metalsHSHistory.getDashboard();
     console.log(`✅ [HS+History] ${hd.hsCodes.total} كود HS | ${hd.history.eras} حقبة تاريخية | ${hd.history.quranMentions} ذكر قرآني للمعادن`);
     console.log(`   📦 أقسام HS: حديد ${hd.hsCodes.iron} | ألمنيوم ${hd.hsCodes.aluminum} | نحاس ${hd.hsCodes.copper} | ثمينة ${hd.hsCodes.precious}`);
@@ -20253,7 +20253,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-metals-networks-map
     /*     const MNM = require('./lib/sheikha-metals-networks-map'); */
     console.log('⏸️ [LAZY] sheikha-metals-networks-map — سيُحمّل عند الطلب');
-    metalsNetworks = new MNM();
+    metalsNetworks = resolveOptionalEngine('MNM', 'Networks+Map');
     const nd = metalsNetworks.getDashboard();
     console.log(`✅ [Networks+Map] ${nd.networks} شبكة | ${nd.totalNodes} نقطة جغرافية | ${nd.metals} معدن (عرض/طلب)`);
     nd.networkList.forEach(n => console.log(`   🔗 ${n.name}: ${n.nodes} نقطة`));
@@ -20364,7 +20364,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-logistics-supply-chain
     /*     const LSC = require('./lib/sheikha-logistics-supply-chain'); */
     console.log('⏸️ [LAZY] sheikha-logistics-supply-chain — سيُحمّل عند الطلب');
-    logistics = new LSC();
+    logistics = resolveOptionalEngine('LSC', 'Logistics');
     const ld = logistics.getDashboard();
     console.log(`✅ [Logistics] ${ld.stats.ports} ميناء | ${ld.stats.airports} مطار | ${ld.stats.pipelines} خط أنابيب | ${ld.stats.railways} سكة حديد | ${ld.stats.gapAnalysis} فجوة`);
 } catch(e) { console.warn('⚠️ [Logistics] خطأ:', e.message); }
@@ -20709,7 +20709,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-accounting-engine
     /*     const ACE = require('./lib/sheikha-accounting-engine'); */
     console.log('⏸️ [LAZY] sheikha-accounting-engine — سيُحمّل عند الطلب');
-    accountingEngine = new ACE();
+    accountingEngine = resolveOptionalEngine('ACE', 'Accounting');
     const acd = accountingEngine.getDashboard();
     console.log(`✅ [Accounting] ${acd.stats.chartOfAccounts} شجرة حسابات | ${acd.stats.accountCategories} حساب | ${acd.stats.financialStatements} قائمة مالية | ${acd.stats.automationWorkflows} سير عمل آلي | ${acd.stats.archiveIntegrations} تكامل أرشفة | ${acd.stats.shariaRules} ضابط شرعي | أساس: ${acd.stats.calendarBasis}`);
 } catch(e) { console.warn('⚠️ [Accounting] خطأ:', e.message); }
@@ -21367,7 +21367,7 @@ try {
     // P0-1: LAZY (UNKNOWN) - sheikha-trust-auth-engine
     /*     const TAE = require('./lib/sheikha-trust-auth-engine'); */
     console.log('⏸️ [LAZY] sheikha-trust-auth-engine — سيُحمّل عند الطلب');
-    trustAuthEngine = new TAE();
+    trustAuthEngine = resolveOptionalEngine('TAE', 'TrustAuth');
     const tad = trustAuthEngine.getDashboard();
     console.log(`✅ [TrustAuth] ${tad.stats.trustPillars} ركائز أمانة | ${tad.stats.authLayers} طبقة مصادقة | ${tad.stats.reliabilityMetrics} مقياس موثوقية | ${tad.stats.authMethods} طريقة auth | ${tad.stats.rbacRoles} دور صلاحية | ${tad.stats.securityProtocols} بروتوكول أمان | ${tad.stats.islamicTrustPrinciples} مبدأ أمانة إسلامي | ${tad.stats.backgroundProcesses} عملية خلفية | الأمين ﷺ`);
 } catch(e) { console.warn('⚠️ [TrustAuth] خطأ:', e.message); }
@@ -23740,10 +23740,6 @@ app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
 
 
 
-// SHEIKHA MARKETPLACE ROUTE ALIAS V1
-app.get('/marketplace', (req, res) => {
-  res.redirect('/#marketplace');
-});
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
