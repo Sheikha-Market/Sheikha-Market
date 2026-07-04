@@ -1,11 +1,20 @@
 'use strict';
 
-const { status: conversationStatus } = require(
-  '../../conversation-engine/sheikha-conversation-engine-v1'
-);
-const { status: extensionExperienceStatus } = require(
-  '../../extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1'
-);
+function getConversationStatus() {
+  const {
+    status: conversationStatus
+  } = require('../../conversation-engine/sheikha-conversation-engine-v1');
+
+  return conversationStatus();
+}
+
+function getExtensionExperienceStatus() {
+  const {
+    status: extensionExperienceStatus
+  } = require('../../extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1');
+
+  return extensionExperienceStatus();
+}
 
 function status() {
   return {
@@ -21,13 +30,13 @@ function status() {
     ],
     stack: {
       promotedBy: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
-      conversationEngine: conversationStatus().engine,
+      conversationEngine: getConversationStatus().engine,
       sessionMemory: 'ACTIVE_IN_EXTENSION_HISTORY',
       contextMemory: 'ACTIVE_VIA_CONVERSATION_LAYER_STACK',
       workspaceAwareness: 'ACTIVE_VIA_VSCODE_WORKSPACE_CONTEXT',
       gitAwareness: 'ACTIVE_VIA_READ_ONLY_GIT_CONTEXT',
       projectAwareness: 'ACTIVE_VIA_PACKAGE_AND_WORKSPACE_METADATA',
-      extensionExperienceApex: extensionExperienceStatus().system
+      extensionExperienceApex: getExtensionExperienceStatus().system
     },
     routes: {
       status: '/api/sheikha/vital-chat-apex/v1/status',

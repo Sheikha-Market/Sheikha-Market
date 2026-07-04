@@ -4,10 +4,6 @@ const fs = require('fs');
 const path = require('path');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
 const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
-const {
-  collectEnterpriseInspector,
-  compactInspectorContext
-} = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
 
 const ROOT = process.env.SHEIKHA_ROOT || (
   fs.existsSync('/opt/sheikha/current') ? '/opt/sheikha/current' : process.cwd()
@@ -54,6 +50,22 @@ function formatChatAnswer(answer) {
   return `بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\n${text}`;
 }
 
+function collectInspectorSnapshot(input = {}) {
+  const {
+    collectEnterpriseInspector
+  } = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
+
+  return collectEnterpriseInspector(input);
+}
+
+function compactInspectorSnapshot(snapshot = {}) {
+  const {
+    compactInspectorContext
+  } = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
+
+  return compactInspectorContext(snapshot);
+}
+
 function handleUnifiedChat(payload = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const channel = normalizeChannel(payload.channel || payload.source || payload.actor);
@@ -78,7 +90,7 @@ function handleUnifiedChat(payload = {}) {
 
   const diagnosticRequested = payload.diagnosticRequested === true;
   const enterpriseInspector = diagnosticRequested
-    ? collectEnterpriseInspector({
+    ? collectInspectorSnapshot({
         workspace: payload.workspace,
         vscodeTools: payload.vscodeTools
       })
@@ -103,7 +115,7 @@ function handleUnifiedChat(payload = {}) {
     claimStatus: result.claimStatus,
     channel,
     answer: formatChatAnswer(result.answer),
-    inspector: enterpriseInspector ? compactInspectorContext(enterpriseInspector) : undefined,
+    inspector: enterpriseInspector ? compactInspectorSnapshot(enterpriseInspector) : undefined,
     execution: result.cli ? { cli: buildExecutionMetadata(result.cli) } : undefined
   };
 

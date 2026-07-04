@@ -4,10 +4,8 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const { collectEnterpriseInspector } = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
 const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
-const { formatChatAnswer, handleUnifiedChat } = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
 const { orchestrate } = require('../orchestrator/orchestrator-fabric');
 const {
   buildConversationLayerStack,
@@ -32,6 +30,30 @@ function getAuditPaths(rootDir = resolveRoot()) {
 
 function hash(value) {
   return crypto.createHash('sha256').update(String(value || '')).digest('hex');
+}
+
+function formatConversationAnswer(answer) {
+  const text = String(answer || '').trim();
+  if (!text) return 'بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\nتعذر تكوين الإجابة.';
+  if (text.startsWith('بسم الله الرحمن الرحيم')) return text;
+
+  return `بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\n${text}`;
+}
+
+function collectEnterpriseInspectorSnapshot(input = {}) {
+  const {
+    collectEnterpriseInspector
+  } = require('../../core/enterprise/sheikha-enterprise-inspector-v3');
+
+  return collectEnterpriseInspector(input);
+}
+
+function handleUnifiedChatFallback(payload = {}) {
+  const {
+    handleUnifiedChat
+  } = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
+
+  return handleUnifiedChat(payload);
 }
 
 function isDiagnosticRequest(message) {
@@ -225,7 +247,7 @@ async function handleConversation(payload = {}, options = {}) {
     });
     const conversationContext = buildLayerContext(layerStack);
     const enterpriseInspector = diagnosticRequested
-      ? payload.inspectorSnapshot || collectEnterpriseInspector({
+      ? payload.inspectorSnapshot || collectEnterpriseInspectorSnapshot({
           workspace: payload.workspace,
           vscodeTools: payload.vscodeTools
         })
@@ -258,7 +280,7 @@ async function handleConversation(payload = {}, options = {}) {
       layerStack,
       diagnosticRequested,
       inspector: diagnosticRequested ? enterpriseInspector : undefined,
-      answer: formatChatAnswer(result.answer || result.response || result.message || ''),
+      answer: formatConversationAnswer(result.answer || result.response || result.message || ''),
       fallback: false
     };
 
@@ -289,7 +311,7 @@ async function handleConversation(payload = {}, options = {}) {
 
     return response;
   } catch (error) {
-    const fallback = handleUnifiedChat({
+    const fallback = handleUnifiedChatFallback({
       ...payload,
       message,
       channel,

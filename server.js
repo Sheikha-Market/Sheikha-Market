@@ -1,3 +1,4 @@
+const { registerOptionalEngineStubs, governedResolveEngine } = require('./core/engine-registry/sheikha-governed-engine-registry-v2');
 const { resolveEngine } = require('./core/engine-registry/sheikha-engine-registry-v1');
 const {
   registerOptionalEngineContractFabric
@@ -6,7 +7,7 @@ const {
 registerOptionalEngineContractFabric();
 
 function resolveOptionalEngine(name, label) {
-  const result = resolveEngine(name);
+  const result = governedResolveEngine(name);
   if (result.status === 'RESOLVED') return result.instance;
 
   console.log(`⏸️ [OPTIONAL] ${label || name}: ${result.status}`);
@@ -44,6 +45,15 @@ const { sreMiddleware } = require('./middleware/sre-monitor');
 const sreRoutes = require('./routes/sre');
 const { registerSheikhaRuntimeHealthRoutes } = require("./routes/runtime-health/sheikha-runtime-health-routes");
 const { registerSheikhaRuntimeBootstrapRoutes } = require("./routes/runtime-bootstrap/sheikha-runtime-bootstrap-routes");
+
+
+// SHEIKHA GOVERNED ENGINE REGISTRY V2 BOOTSTRAP
+try {
+  registerOptionalEngineStubs();
+  console.log('✅ SHEIKHA Governed Engine Registry V2 ACTIVE');
+} catch (error) {
+  console.warn('⚠️ SHEIKHA Governed Engine Registry V2 bootstrap warning:', error.message);
+}
 
 const app = express();
 

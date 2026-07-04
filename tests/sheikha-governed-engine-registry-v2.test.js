@@ -25,5 +25,21 @@ describe('Sheikha Governed Engine Registry V2', () => {
     expect(Array.isArray(dashboard.logistics.ports)).toBe(true);
     expect(Array.isArray(dashboard.accounting.chartOfAccounts)).toBe(true);
     expect(Array.isArray(dashboard.trust.trustPillars)).toBe(true);
+    expect(dashboard.saudi.salvageYards).toBe(0);
+    expect(dashboard.stats.historicalEras).toBe(0);
+    expect(dashboard.stats.preciousMetals).toBe(0);
+    expect(dashboard.stats.quranicLogicPrinciples).toBe(0);
+    expect(dashboard.stats.historicalNetworks).toBe(0);
+  });
+
+  test('keeps unknown optional get methods safe through V14 proxy contracts', () => {
+    registerOptionalEngineStubs();
+
+    const result = governedResolveEngine('GPE');
+    const govPlatforms = result.instance.getGovPlatforms();
+
+    expect(govPlatforms.success).toBe(true);
+    expect(govPlatforms.status).toBe('RESOLVED');
+    expect(govPlatforms.governance.noHarm).toBe(true);
   });
 });
