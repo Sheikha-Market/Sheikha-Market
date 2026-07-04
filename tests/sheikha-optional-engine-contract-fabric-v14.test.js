@@ -70,6 +70,23 @@ describe('Sheikha Optional Engine Contract Fabric V14', () => {
     expect(status.safe).toBe(true);
   });
 
+  test('protects legacy boot dashboards with deep default fields', () => {
+    const markets = buildSafeOptionalEngineContract('MSMEngine').getDashboard();
+    const globalData = buildSafeOptionalEngineContract('MGD').getDashboard();
+    const hsHistory = buildSafeOptionalEngineContract('MHH').getDashboard();
+    const networks = buildSafeOptionalEngineContract('MNM').getDashboard();
+    const directEngine = buildSafeOptionalEngineContract('MNM');
+
+    expect(markets.metals.total).toBe(0);
+    expect(markets.scrap.ferrousGrades).toBe(0);
+    expect(markets.markets.globalExchanges).toBe(0);
+    expect(globalData.islamicFoundation.verses).toBe(0);
+    expect(hsHistory.hsCodes.total).toBe(0);
+    expect(hsHistory.history.eras).toBe(0);
+    expect(networks.networkList).toEqual([]);
+    expect(directEngine.networkList).toEqual([]);
+  });
+
   test('registers optional engines into the engine registry', () => {
     const activation = registerOptionalEngineContractFabric();
     const asResult = resolveEngine('AS');
