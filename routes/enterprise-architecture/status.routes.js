@@ -11,6 +11,11 @@ const {
   validateEnterpriseArchitecture
 } = require('../../core/enterprise-architecture/sheikha-enterprise-architecture');
 
+const {
+  buildFederationOperatingFabricIntegrationV9,
+  buildFederationOperatingFabricStatus
+} = require('../../core/federation-operating-fabric-integration/sheikha-federation-operating-fabric-integration-v9');
+
 const router = express.Router();
 
 router.get('/status', (req, res) => {
@@ -62,6 +67,26 @@ router.get('/relationships/:id', (req, res) => {
     success: true,
     data: { relationships },
     message: 'Sheikha Enterprise Architecture Layer Relationships'
+  });
+});
+
+router.get('/federation-operating-fabric/status', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      status: buildFederationOperatingFabricStatus()
+    },
+    message: 'Sheikha Federation Operating Fabric Integration V9'
+  });
+});
+
+router.get('/federation-operating-fabric/full', (req, res) => {
+  res.json({
+    success: true,
+    data: {
+      integration: buildFederationOperatingFabricIntegrationV9()
+    },
+    message: 'Sheikha Federation Operating Fabric Integration V9 Full Report'
   });
 });
 
