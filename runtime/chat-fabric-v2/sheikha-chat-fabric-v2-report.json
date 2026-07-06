@@ -1,0 +1,39 @@
+{
+  "system": "SHEIKHA_CHAT_FABRIC_V2",
+  "status": "ACTIVE",
+  "decision": "CHAT_FABRIC_V2_ACTIVE_100",
+  "level": "ADVANCED_GOVERNED_CHAT_RUNTIME",
+  "capabilities": [
+    "response-rendering-clean-markdown",
+    "no-json-visible-to-user",
+    "sse-streaming-ready",
+    "session-memory",
+    "context-memory",
+    "workspace-awareness",
+    "git-awareness",
+    "project-awareness",
+    "debugging-on-demand",
+    "ide-apex-routing",
+    "technical-capability-apex",
+    "governance-before-execution"
+  ],
+  "apexStack": [
+    "SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1",
+    "SHEIKHA_IDE_APEX_V1",
+    "SHEIKHA_DEBUGGING_APEX_V1",
+    "SHEIKHA_CHAT_INTERFACE_APEX_V1",
+    "SHEIKHA_VITAL_CHAT_APEX_V1",
+    "SHEIKHA_EXTENSION_EXPERIENCE_APEX_V1",
+    "SHEIKHA_CONVERSATION_ENGINE_V1"
+  ],
+  "governance": {
+    "reference": "QURAN_AND_SUNNAH_GOVERNANCE_REFERENCE",
+    "noHarmNoHarar": true,
+    "noSecretExposure": true,
+    "noVisibleRawJson": true,
+    "noAutonomousHighImpactAction": true,
+    "humanApprovalForHighRisk": true,
+    "debuggingExplicitOnly": true
+  },
+  "generatedAt": "2026-06-16T17:29:11.733Z"
+}

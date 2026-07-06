@@ -1,0 +1,18 @@
+{
+  "system": "sheikha-tenant-isolation",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "Tenant Isolation — عزل حقيقي لكل مستأجر على مستوى البيانات والعمليات",
+  "isolation": {
+    "data": "org-scoped — all queries filtered by orgId",
+    "storage": "prefixed by orgId",
+    "sessions": "org-scoped JWT claims",
+    "api": "orgId header required for tenant-scoped endpoints",
+    "audit": "every action logged with orgId + userId"
+  },
+  "enforcement": "strict",
+  "crossTenantAccess": "BLOCKED",
+  "governed": true
+}

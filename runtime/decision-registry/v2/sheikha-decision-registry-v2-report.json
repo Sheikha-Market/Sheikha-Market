@@ -1,0 +1,39 @@
+{
+  "system": "SHEIKHA_DECISION_REGISTRY_V2",
+  "status": "ACTIVE",
+  "arabicName": "سجل قرارات شيخة V2",
+  "score": 100,
+  "decision": "DECISION_REGISTRY_V2_ACTIVE_100",
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "knowledgeEngineV2": true,
+    "lessonsRegistry": true,
+    "governanceKnowledgeRegistry": true,
+    "runtimeKnowledgeRegistry": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true,
+    "driftDetector": true
+  },
+  "registryChecks": {
+    "decisionItems": true,
+    "activeDecisions": true,
+    "evidenceLinked": true,
+    "sourceKnowledgeResolvable": true,
+    "measurementLinked": true
+  },
+  "missingDependencies": [],
+  "missingRegistryChecks": [],
+  "coverage": {
+    "decisionItems": 7,
+    "activeItems": 7,
+    "measuredItems": 7,
+    "linkedItems": 7
+  },
+  "nextActions": [
+    "Activate Capability Registry V2 after Decision Registry V2 is clean.",
+    "Link each capability to approved decisions only.",
+    "Do not activate Execution Fabric V2 until Capability Registry V2 exists."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_PROVIDER_REGISTRY_V1",
+  "status": "ACTIVE",
+  "purpose": "Register cloud, GPU, API, and infrastructure providers without claiming contracts unless verified.",
+  "mode": "governed-provider-readiness-without-contract-claim",
+  "providerFieldContract": {
+    "provider": true,
+    "contractStatus": true,
+    "budget": true,
+    "capabilities": true,
+    "region": true,
+    "approvalState": true
+  },
+  "rules": {
+    "no_provider_claim_without_record": true,
+    "no_partner_claim_without_signed_agreement": true,
+    "no_real_compute_claim_without_contract": true,
+    "no_paid_usage_without_budget": true,
+    "no_customer_data_without_contract": true,
+    "no_gpu_farm_claim_without_asset_or_lease": true,
+    "human_approval_required": true
+  },
+  "truthfulness": {
+    "provider_catalog_only": true,
+    "no_official_partner_claim": true,
+    "no_signed_contract_claim": true,
+    "no_live_provider_credentials_claim": true,
+    "no_supercomputer_or_gpu_farm_claim": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

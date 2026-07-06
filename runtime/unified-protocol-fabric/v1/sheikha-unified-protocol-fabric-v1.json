@@ -1,0 +1,23 @@
+{
+  "system": "SHEIKHA_UNIFIED_PROTOCOL_FABRIC_V1",
+  "status": "ACTIVE",
+  "purpose": "Unify web, transport, network, file, mail, API, IoT, development, LSP, and MCP protocols under Sheikha governance and SDK Fabric MCP integration.",
+  "modules": [
+    "WEB_PROTOCOLS",
+    "FILE_MAIL_PROTOCOLS",
+    "TRANSPORT_PROTOCOLS",
+    "NETWORK_ROUTING_PROTOCOLS",
+    "API_PROTOCOLS",
+    "IOT_PROTOCOLS",
+    "DEVELOPMENT_PROTOCOLS",
+    "SDK_FABRIC_MCP_INTEGRATION"
+  ],
+  "rules": {
+    "no_insecure_default": true,
+    "tls_required_for_external_data": true,
+    "no_secret_in_git": true,
+    "authorization_required_for_private_protocols": true,
+    "audit_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

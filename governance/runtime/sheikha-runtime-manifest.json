@@ -1,0 +1,28 @@
+{
+  "runtime": "SHEIKHA_ROOT_IDENTITY_V1",
+  "identity": "Sheikha Root",
+  "operatingSystem": "Sheikha Operating System",
+  "runtimeCore": "Sheikha Root Operating Core",
+  "packageName": "sheikha-operating-system",
+  "mode": "canonical-governed-singleton",
+  "integration": {
+    "github": true,
+    "gitlab": true,
+    "vscode": true,
+    "api": true,
+    "enterprise": true
+  },
+  "domains": [
+    "enterprise",
+    "governance",
+    "trade",
+    "supply-chain",
+    "automation",
+    "ai",
+    "runtime"
+  ],
+  "official": {
+    "website": "https://sheikha.top",
+    "email": "market@sheikha.top"
+  }
+}

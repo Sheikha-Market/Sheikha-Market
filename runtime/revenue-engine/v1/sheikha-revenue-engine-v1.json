@@ -1,0 +1,26 @@
+{
+  "system": "SHEIKHA_REVENUE_ENGINE_V1",
+  "status": "ACTIVE",
+  "revenueModels": [
+    "MONTHLY_SUBSCRIPTION",
+    "ANNUAL_ENTERPRISE_LICENSE",
+    "API_USAGE",
+    "SDK_LICENSE",
+    "IMPLEMENTATION_SERVICE",
+    "MANAGED_SERVICE"
+  ],
+  "rules": {
+    "no_revenue_claim_without_payment": true,
+    "invoice_required": true,
+    "customer_record_required": true,
+    "contract_required": true
+  },
+  "metrics": {
+    "customers": 0,
+    "contracts": 0,
+    "licenses": 0,
+    "invoices": 0,
+    "paidRevenueSAR": 0
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

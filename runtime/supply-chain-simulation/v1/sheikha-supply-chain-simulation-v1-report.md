@@ -1,0 +1,7 @@
+# SHEIKHA_SUPPLY_CHAIN_SIMULATION_ENGINE_V1
+
+- الحالة: ACTIVE
+- الدرجة: 100
+- القرار: SUPPLY_CHAIN_SIMULATION_ACTIVE_100
+
+ولا حول ولا قوة إلا بالله.

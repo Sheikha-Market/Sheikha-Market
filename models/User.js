@@ -116,7 +116,7 @@ class User {
     static delete(id) {
         const users = database.read('users') || [];
         const index = users.findIndex(u => u.id === id);
-        
+
         if (index >= 0) {
             users.splice(index, 1);
             database.write('users', users);

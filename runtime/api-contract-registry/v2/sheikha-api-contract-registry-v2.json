@@ -1,0 +1,39 @@
+{
+  "system": "SHEIKHA_API_CONTRACT_REGISTRY_V2",
+  "status": "ACTIVE",
+  "purpose": "Standardize Sheikha runtime API responses for Root, Operating System, VS Code Extension, MCP, SDK, and Portal Compatibility.",
+  "contract": {
+    "success_response": {
+      "success": true,
+      "data": {},
+      "meta": {}
+    },
+    "failure_response": {
+      "success": false,
+      "error": {
+        "code": "string",
+        "message": "string",
+        "status": "number"
+      },
+      "data": null,
+      "meta": {}
+    }
+  },
+  "required_routes": [
+    "/api/sheikha/status",
+    "/api/sheikha/models",
+    "/api/sheikha/languages",
+    "/api/sheikha/settings",
+    "/api/sheikha/vscode-bridge",
+    "/api/sheikha/unified-integrations",
+    "/api/sheikha/nes",
+    "/api/sheikha/inline-chat"
+  ],
+  "rules": {
+    "all_success_responses_must_include_data": true,
+    "all_responses_must_include_success": true,
+    "all_failures_must_include_error": true,
+    "legacy_flat_responses_allowed_only_behind_compatibility_adapter": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

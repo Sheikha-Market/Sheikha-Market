@@ -24,7 +24,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
-        
+
         /* Header */
         .header {
             background: var(--card);
@@ -51,9 +51,9 @@
         }
         .logo-text h1 { font-size: 1.1rem; color: var(--gold); }
         .logo-text p { font-size: 0.7rem; color: var(--text-muted); }
-        
+
         .container { max-width: 1000px; margin: 0 auto; padding: 40px 24px; }
-        
+
         /* Hero */
         .hero {
             text-align: center;
@@ -62,7 +62,7 @@
         .hero h1 { font-size: 2rem; margin-bottom: 12px; }
         .hero h1 span { color: var(--gold); }
         .hero p { font-size: 1rem; color: var(--text-muted); max-width: 500px; margin: 0 auto; }
-        
+
         /* Systems Grid */
         .systems-grid {
             display: grid;
@@ -119,7 +119,7 @@
             font-size: 0.75rem;
             color: var(--gold);
         }
-        
+
         /* Activation Panel */
         .activation-panel {
             background: var(--card);
@@ -129,7 +129,7 @@
             display: none;
         }
         .activation-panel.active { display: block; }
-        
+
         .panel-header {
             display: flex;
             align-items: center;
@@ -154,7 +154,7 @@
             font-size: 1.2rem;
         }
         .close-btn:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         /* Objectives */
         .objectives-section {
             background: rgba(16,185,129,0.1);
@@ -185,7 +185,7 @@
             gap: 8px;
         }
         .objectives-list li::before { content: '✓'; color: var(--success); }
-        
+
         /* Value Proposition */
         .value-section {
             background: rgba(212,175,55,0.1);
@@ -213,7 +213,7 @@
         .value-item .icon { font-size: 1.5rem; margin-bottom: 8px; }
         .value-item h5 { font-size: 0.9rem; margin-bottom: 4px; }
         .value-item p { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         /* Steps */
         .steps-section {
             margin-bottom: 24px;
@@ -247,7 +247,7 @@
         }
         .step-content h5 { font-size: 0.95rem; margin-bottom: 4px; }
         .step-content p { font-size: 0.8rem; color: var(--text-muted); }
-        
+
         /* Requirements */
         .requirements-section {
             background: var(--dark);
@@ -276,7 +276,7 @@
         }
         .req-list li:last-child { border-bottom: none; }
         .req-list li::before { content: '📋'; }
-        
+
         /* Bot Assistant */
         .bot-section {
             background: linear-gradient(135deg, var(--green), var(--dark));
@@ -312,7 +312,7 @@
             gap: 8px;
         }
         .bot-btn:hover { transform: scale(1.02); }
-        
+
         /* Action Buttons */
         .action-buttons {
             display: flex;
@@ -337,7 +337,7 @@
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         /* Chat Bot Modal */
         .chat-modal {
             position: fixed;
@@ -443,7 +443,7 @@
             color: var(--dark);
             cursor: pointer;
         }
-        
+
         /* Floating Bot Button */
         .floating-bot {
             position: fixed;
@@ -464,7 +464,7 @@
             50% { transform: scale(1.05); }
         }
         .floating-bot.hidden { display: none; }
-        
+
         @media (max-width: 768px) {
             .systems-grid { grid-template-columns: 1fr; }
             .objectives-list { grid-template-columns: 1fr; }
@@ -566,7 +566,7 @@
         </div>
 
         <!-- Activation Panels -->
-        
+
         <!-- Trading System Panel -->
         <div class="activation-panel" id="panelTrading">
             <div class="panel-header">
@@ -949,10 +949,10 @@
         function selectSystem(systemId) {
             document.querySelectorAll('.system-card').forEach(c => c.classList.remove('selected'));
             event.currentTarget.classList.add('selected');
-            
+
             document.querySelectorAll('.activation-panel').forEach(p => p.classList.remove('active'));
             document.getElementById('panel' + systemId.charAt(0).toUpperCase() + systemId.slice(1)).classList.add('active');
-            
+
             document.getElementById('systemsGrid').style.display = 'none';
         }
 
@@ -985,10 +985,10 @@
             const input = document.getElementById('chatInput');
             const message = input.value.trim();
             if (!message) return;
-            
+
             addMessage(message, 'user');
             input.value = '';
-            
+
             setTimeout(() => {
                 const response = getBotResponse(message);
                 addMessage(response, 'bot');
@@ -1021,10 +1021,10 @@
 
         function getBotResponse(message) {
             const lower = message.toLowerCase();
-            
+
             if (lower.includes('متجر') || lower.includes('بيع')) {
                 return `ممتاز! لفتح متجر في شيخة تحتاج:
-                
+
 📋 <b>المتطلبات:</b>
 • سجل تجاري ساري
 • هوية وطنية
@@ -1036,7 +1036,7 @@
 
 هل تريد البدء الآن؟ <a href="تسجيل-تاجر.html" style="color: var(--gold);">اضغط هنا للتسجيل</a>`;
             }
-            
+
             if (lower.includes('نقل') || lower.includes('شحن') || lower.includes('لوجستيات')) {
                 return `لتسجيل شركة نقل:
 
@@ -1054,7 +1054,7 @@
 
 هل لديك رخصة نقل؟`;
             }
-            
+
             if (lower.includes('مصنع') || lower.includes('مصهر') || lower.includes('ربط')) {
                 return `لربط مصنعك مع منظومة شيخة:
 
@@ -1073,7 +1073,7 @@
 
 هل تريد حجز زيارة تقييم؟`;
             }
-            
+
             if (lower.includes('مشروع')) {
                 return `لإنشاء مشروع في شيخة:
 
@@ -1092,7 +1092,7 @@
 
 ما نوع مشروعك؟`;
             }
-            
+
             return `شكراً على سؤالك! يمكنني مساعدتك في:
 
 🛒 فتح متجر للمعادن

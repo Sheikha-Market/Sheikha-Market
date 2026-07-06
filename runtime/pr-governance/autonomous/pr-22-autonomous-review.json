@@ -1,0 +1,47 @@
+{
+  "report": "SHEIKHA_AUTONOMOUS_PR_REVIEW",
+  "status": "ACTIVE",
+  "pr": 22,
+  "counts": {
+    "total": 1430,
+    "server": 1,
+    "package": 2,
+    "runtime": 814,
+    "routes": 102,
+    "fabric": 63,
+    "dist": 0,
+    "archive": 48,
+    "public": 9
+  },
+  "risk": "HIGH",
+  "decision": "HOLD_FOR_FIXES",
+  "mergeAllowed": false,
+  "curatedMergeRequired": true,
+  "requiredActions": [
+    "run_lint",
+    "run_tests",
+    "secret_scan",
+    "fabric_conflict_check",
+    "route_conflict_check",
+    "freeze_v1_1_compatibility_check",
+    "federal_organization_v1_2_compatibility_check"
+  ],
+  "fixPlan": {
+    "excludeFromRawMerge": [
+      "archive/",
+      "dist/",
+      "generated backups"
+    ],
+    "reviewSeparately": [
+      "server.js",
+      "package.json",
+      "package-lock.json"
+    ],
+    "sourceFirst": [
+      "lib/",
+      "routes/",
+      "runtime/"
+    ]
+  },
+  "timestamp": "2026-06-04T01:53:04.771Z"
+}

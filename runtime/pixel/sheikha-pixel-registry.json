@@ -1,0 +1,29 @@
+{
+  "registry": "SHEIKHA_PIXEL_REGISTRY",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "pixels": {
+    "meta": {
+      "status": "PLANNED",
+      "idSource": "ENV_ONLY",
+      "envKey": "SHEIKHA_META_PIXEL_ID",
+      "purpose": "lawful marketing conversion measurement",
+      "requiresConsent": true,
+      "publicInjection": "BLOCKED_UNTIL_CONSENT_LAYER"
+    },
+    "capi": {
+      "status": "PLANNED",
+      "tokenSource": "ENV_ONLY",
+      "envKey": "SHEIKHA_META_CAPI_TOKEN",
+      "purpose": "server-side conversion measurement",
+      "requiresConsent": true,
+      "secretInGit": "BLOCKED"
+    },
+    "analytics": {
+      "status": "PLANNED",
+      "purpose": "site quality and experience measurement",
+      "requiresConsent": true
+    }
+  },
+  "rule": "Pixel IDs and tokens must never be committed to Git. They must be loaded from environment variables only."
+}

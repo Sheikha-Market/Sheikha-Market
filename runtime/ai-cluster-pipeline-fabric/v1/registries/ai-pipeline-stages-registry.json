@@ -1,0 +1,48 @@
+{
+  "registry": "SHEIKHA_AI_PIPELINE_STAGES_REGISTRY_V1",
+  "status": "ACTIVE",
+  "pipeline": [
+    {
+      "id": "PIPE-AI-001",
+      "stage": "DATA_INGESTION",
+      "purpose": "Collect files, APIs, databases, sensors, and governed event data.",
+      "gate": "DATA_SOURCE_LICENSE_PRIVACY_AND_SECURITY_REVIEW"
+    },
+    {
+      "id": "PIPE-AI-002",
+      "stage": "PREPROCESSING_CLEANING",
+      "purpose": "Clean duplicates, missing values, schemas, features, and embeddings.",
+      "gate": "QUALITY_LINEAGE_AND_REPRODUCIBILITY_CHECK"
+    },
+    {
+      "id": "PIPE-AI-003",
+      "stage": "FEATURE_ENGINEERING_OR_RETRIEVAL_PREP",
+      "purpose": "Prepare structured features, vector indexes, retrieval stores, or context bundles.",
+      "gate": "FEATURE_CONTRACT_OR_RETRIEVAL_CONTRACT_REQUIRED"
+    },
+    {
+      "id": "PIPE-AI-004",
+      "stage": "MODEL_TRAINING_OR_ADAPTATION",
+      "purpose": "Govern training, fine tuning, prompting, or adaptation plans when authorized.",
+      "gate": "HUMAN_APPROVAL_COMPUTE_COST_AND_DATA_RIGHTS_REQUIRED"
+    },
+    {
+      "id": "PIPE-AI-005",
+      "stage": "EVALUATION_TESTING",
+      "purpose": "Evaluate accuracy, safety, regression, overfitting, bias, and contract compliance.",
+      "gate": "EVALUATION_REPORT_REQUIRED"
+    },
+    {
+      "id": "PIPE-AI-006",
+      "stage": "DEPLOYMENT_INFERENCE",
+      "purpose": "Deploy as governed API, batch job, agent tool, or runtime service.",
+      "gate": "RUNTIME_EVIDENCE_ROLLBACK_AND_MONITORING_REQUIRED"
+    },
+    {
+      "id": "PIPE-AI-007",
+      "stage": "MONITORING_DRIFT_TELEMETRY",
+      "purpose": "Monitor model drift, data drift, latency, cost, incidents, and quality.",
+      "gate": "TELEMETRY_ALERTING_AND_NO_DRIFT_POLICY_REQUIRED"
+    }
+  ]
+}

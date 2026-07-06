@@ -1,0 +1,22 @@
+stages:
+  - governance
+
+governance_admission:
+  stage: governance
+  image: node:20
+  script:
+    - npm ci || npm install
+    - node tools/governance/runtime-admission-controller.js > admission-result.json
+    - |
+      if grep '"status": "BLOCKED"' admission-result.json; then
+        cat admission-result.json
+        exit 1
+      else
+        echo "Governance check passed."
+      fi
+  only:
+    - main
+    - master
+    - /^optimization\/.*$/
+  variables:
+    SHEIKHA_SLACK_WEBHOOK_URL: $SHEIKHA_SLACK_WEBHOOK_URL

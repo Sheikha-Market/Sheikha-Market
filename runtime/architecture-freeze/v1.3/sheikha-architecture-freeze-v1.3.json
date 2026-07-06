@@ -1,0 +1,32 @@
+{
+  "freeze": "SHEIKHA_ARCHITECTURE_FREEZE_V1_3",
+  "status": "ACTIVE",
+  "basedOn": [
+    "SHEIKHA_ARCHITECTURE_FREEZE_V1_1",
+    "SHEIKHA_FEDERAL_ORGANIZATION_V1_2"
+  ],
+  "purpose": "Freeze the Quran, Sunnah, rightly guided caliphs governance layer with chat, code, advisory, autonomous PR review, and merge decision governance.",
+  "lockedBaseline": [
+    "quran_sunnah_governance",
+    "chat_code_behavior_governance",
+    "technical_advisory_governance",
+    "autonomous_pr_review",
+    "pr_governance",
+    "project_governance",
+    "sheikha_data",
+    "mcp_unified_bridge",
+    "openapi_registry",
+    "sdk_registry",
+    "federal_organization_v1_2"
+  ],
+  "rules": {
+    "quran_sunnah_governance_required_before_chat": true,
+    "quran_sunnah_governance_required_before_code": true,
+    "chat_code_governance_required_before_generation": true,
+    "technical_advisory_required_before_merge": true,
+    "autonomous_pr_review_required_before_merge_decision": true,
+    "no_raw_merge_for_high_risk_pr": true,
+    "human_approval_required_for_high_risk_actions": true,
+    "system_is_tool_not_religious_authority": true
+  }
+}

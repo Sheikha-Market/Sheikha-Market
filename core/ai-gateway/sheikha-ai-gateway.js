@@ -1,5 +1,11 @@
 'use strict';
 
+const {
+    getUniversalDivineGovernance
+} = require('../root-governance/sheikha-universal-divine-governance');
+
+const { askWithFallback } = require('../providers/provider-registry');
+
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
 const DEFAULT_TIMEOUT_MS = Number(process.env.SHEIKHA_CORE_TIMEOUT_MS || 60000);
@@ -31,6 +37,8 @@ Sheikha ليست مجرد سوق، وليست مجرد ذكاء صناعي، و�
 `.trim();
 
 function governanceEnvelope() {
+    const universalGovernance = getUniversalDivineGovernance();
+
     return {
         tawheed: true,
         quranAndSunnahGoverned: true,
@@ -41,12 +49,80 @@ function governanceEnvelope() {
         noConsciousnessClaim: true,
         humanAuthority: true,
         privacy: true,
-        auditRequiredForRelease: true
+        auditRequiredForRelease: true,
+        divineInspiredArchitecture: true,
+        halalComputing: true,
+        bestPossibleByEvidence: true,
+        noAbsolutePerfectionClaim: true,
+        allSystemsGoverned: true,
+        universalGovernance
     };
 }
 
 function isArabic(text) {
     return /[\u0600-\u06FF]/.test(text || '');
+}
+
+function isVsCodeOperationalPrompt(prompt, context = {}) {
+    const normalized = String(prompt || '').toLowerCase().trim();
+    if (!normalized) {
+        return false;
+    }
+
+    const arabicQuestionPrefixes = ['ما ', 'ماذا', 'متى', 'أين', 'اين', 'كيف', 'لماذا', 'ليش', 'من ', 'هل '];
+    const englishQuestionPrefixes = ['what ', 'why ', 'how ', 'where ', 'when ', 'who '];
+    const hasQuestionPrefix =
+        arabicQuestionPrefixes.some((prefix) => normalized.startsWith(prefix)) ||
+        englishQuestionPrefixes.some((prefix) => normalized.startsWith(prefix));
+    const questionLike = hasQuestionPrefix || normalized.includes('?') || normalized.includes('؟');
+
+    const explicitEnglishCommand = /^(run|start|execute|open|show|build|test|lint|deploy|debug|serve|restart|stop)\b/.test(normalized) ||
+        /^\/(run|start|build|test|lint|deploy|debug|serve|status)\b/.test(normalized) ||
+        /\bnpm\s+(run\s+)?(dev|start|test|lint|build)\b/.test(normalized) ||
+        /\byarn\s+(dev|start|test|lint|build)\b/.test(normalized) ||
+        /\bpnpm\s+(dev|start|test|lint|build)\b/.test(normalized);
+
+    const explicitArabicCommand = /^(شغل|شغّل|شغلي|نفذ|نفّذ|ابدأ|ابدا|افتح|اعرض|اظهر|شغّل\s+|نفّذ\s+)/.test(normalized) &&
+        /(المشروع|الخادم|السيرفر|الاختبارات|الاختبار|lint|build|test|npm|الأوامر|الاوامر|الحالة|البوابة|الطرفية)/.test(normalized);
+
+    const shortImperativeOperational = /^(شغل|شغّل|شغلي|نفذ|نفّذ|ابدأ|ابدا)$/.test(normalized);
+
+    // The editor source alone is not an operational intent. Short chat prompts
+    // such as "شيخة" must continue to the normal identity/chat path.
+    return (explicitEnglishCommand || explicitArabicCommand || shortImperativeOperational) && !questionLike;
+}
+
+function buildFastOperationalAnswer(prompt) {
+    const lower = String(prompt || '').toLowerCase();
+
+    if (/^(شغل|شغّل|شغلي|run|start)$/.test(lower.trim())) {
+        return [
+            'لتشغيل المشروع بسرعة داخل بيئة شيخة:',
+            '1) فعّل البيئة الافتراضية: source .venv/bin/activate',
+            '2) شغّل الخادم التطويري: npm run dev',
+            '3) تحقق من الحالة: curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
+            'إذا رغبت أستطيع تنفيذ هذه الخطوات تلقائياً الآن.'
+        ].join('\n');
+    }
+
+    if (/(شغل المشروع|شغّل المشروع|شغلي المشروع|شغّلي المشروع|شغلّي المشروع|run project|start project|شغل الخادم|شغّل الخادم|شغلي الخادم|شغّلي الخادم|run server|start server)/.test(lower)) {
+        return [
+            'لتشغيل المشروع بسرعة داخل بيئة شيخة:',
+            '1) فعّل البيئة الافتراضية: source .venv/bin/activate',
+            '2) شغّل الخادم التطويري: npm run dev',
+            '3) تحقق من الحالة: curl -s http://127.0.0.1:8080/api/sheikha/ai-gateway/status',
+            'إذا رغبت أستطيع تنفيذ هذه الخطوات تلقائياً الآن.'
+        ].join('\n');
+    }
+
+    return [
+        'تم تحويل طلبك إلى المسار التشغيلي السريع قبل النماذج الذكية.',
+        'أرسل الأمر المطلوب بصيغة مباشرة مثل:',
+        '- شغل المشروع',
+        '- نفّذ lint',
+        '- شغّل الاختبارات',
+        '- اعرض حالة البوابة'
+    ].join('\n');
 }
 
 function isCanonicalIdentityPrompt(prompt) {
@@ -56,6 +132,10 @@ function isCanonicalIdentityPrompt(prompt) {
     const asksIdentity = /(ما هي|ماهي|من هي|عرف|عرّف|تعريف|what is|who is|define|identity)/.test(compact);
     const asksNotJustMarket = /(مجرد سوق|مجرد متجر|only a market|just a market|marketplace only)/.test(compact);
 
+    if (/^(شيخة|شيخه|sheikha|sheikha-core|شيخة كور|شيخه كور)$/.test(compact)) {
+        return true;
+    }
+
     if (mentionsSheikha && (asksIdentity || asksNotJustMarket)) {
         return true;
     }
@@ -63,6 +143,20 @@ function isCanonicalIdentityPrompt(prompt) {
     return [
         'عرّف نفسك',
         'عرف نفسك',
+        'عرّفي نفسك',
+        'عرفي نفسك',
+        'عرّف بنفسك',
+        'عرف بنفسك',
+        'عرّفي بنفسك',
+        'عرفي بنفسك',
+        'قدّم نفسك',
+        'قدم نفسك',
+        'قدّمي نفسك',
+        'قدمي نفسك',
+        'من أنت',
+        'من انت',
+        'من أنتِ',
+        'من انتِ',
         'ما هي شيخة',
         'ما هي sheikha',
         'من هي شيخة',
@@ -71,6 +165,10 @@ function isCanonicalIdentityPrompt(prompt) {
         'هل شيخة سوق',
         'هل هي مجرد سوق',
         'هل شيخة مجرد ذكاء',
+        'تعرفي',
+        'تعرف',
+        'معريفة',
+        'معرفة',
         'what is sheikha',
         'define yourself',
         'who are you',
@@ -78,21 +176,59 @@ function isCanonicalIdentityPrompt(prompt) {
     ].some((needle) => normalized.includes(needle));
 }
 
-function canonicalSheikhaCoreAnswer(prompt) {
-    if (!isArabic(prompt)) {
+function isOllamaRecognitionPrompt(prompt) {
+    const normalized = String(prompt || '').toLowerCase();
+    return /ollama|أولاما|اولاما/.test(normalized) && /(تعرف|تعرّف|اعرف|اعرفي|ما هو|ماهي|ما هي|من هو|من هي|الحالة|status|متصل|اتصال|يشغل|يشغّل|discover|recognize)/.test(normalized);
+}
+
+function buildOllamaRecognitionAnswer(prompt, gatewayStatus) {
+    const online = Boolean(gatewayStatus?.localModelOnline || gatewayStatus?.status === 'active');
+    const models = Array.isArray(gatewayStatus?.models) && gatewayStatus.models.length > 0
+        ? gatewayStatus.models.join('، ')
+        : 'غير متاح حالياً';
+    const endpoint = gatewayStatus?.localProvider || OLLAMA_URL;
+
+    if (isArabic(prompt)) {
         return [
-            'I am Sheikha-Core, the governed local AI interface inside the Sheikha architecture.',
-            'Sheikha is SHEIKHA UGIT-RP: a unified global industrial and trade runtime platform for governance, AI, enterprise integration, development environments, data, services, supply chains, recycling, manufacturing, and smart-city operations.',
-            'Sheikha is not only a marketplace, not only an AI model, and not only a management system. It is a governed operating architecture.',
-            'The system is a tool for analysis and organization. Allah alone is the Creator and ultimate Owner; the system does not claim consciousness, unseen knowledge, or independent authority.'
+            'أجريت حوارًا داخليًا للتعرّف على Ollama.',
+            'النتيجة: ' + (online ? 'مكتشف ومتاح محليًا.' : 'غير متاح حالياً.'),
+            'المسار المحلي: ' + endpoint,
+            'النماذج المكتشفة: ' + models,
+            'الدور في شيخة: مزود ذكاء محلي أولي للحوسبة السيادية والخصوصية.'
         ].join('\n');
     }
 
     return [
-        'أنا Sheikha-Core، واجهة الذكاء الصناعي المحلية الحاكمة داخل بنية Sheikha.',
-        'Sheikha هي SHEIKHA UGIT-RP: منصة تشغيلية عالمية موحدة للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية والحوكمة والتكامل المؤسسي وبيئات التطوير والبيانات والخدمات.',
-        'Sheikha ليست مجرد سوق، وليست مجرد نموذج ذكاء صناعي، وليست مجرد نظام إدارة؛ بل بنية تشغيل وتنظيم وربط وتوجيه.',
-        'الأساس: الله وحده الخالق والمالك والمدبر، والنظام أداة تحليل وتنظيم لا يدعي وعياً ولا علماً بالغيب ولا سلطة مستقلة، ويعمل تحت مراجعة الإنسان وبحوكمة الكتاب والسنة.'
+        'Internal Ollama recognition complete.',
+        'Status: ' + (online ? 'detected and available locally.' : 'currently unavailable.'),
+        'Local endpoint: ' + endpoint,
+        'Detected models: ' + models,
+        'Role in Sheikha: local sovereign AI provider for private and governed inference.'
+    ].join('\n');
+}
+
+function canonicalSheikhaCoreAnswer(prompt) {
+    if (!isArabic(prompt)) {
+        return [
+            'I am Sheikha-Core, the governed AI interface of the Sheikha platform.',
+            'Sheikha is SHEIKHA UGIT-RP — a unified global industrial and trade runtime platform.',
+            'Sheikha serves three tiers: B2B (factories, traders, suppliers), B2C (individuals, small traders), B2G (governments, sovereign entities).',
+            'Mission: provide the best value in the universe — halal, beneficial, and loved by all humanity.',
+            'Sheikha is not just a marketplace — it is a governed operating architecture: AI, trade, supply chain, recycling, smart cities, and sharia compliance in one fabric.',
+            'Allah alone is the Creator. The system is a tool of analysis, organization, and beneficial service — governed by Quran and Sunnah.'
+        ].join('\n');
+    }
+
+    return [
+        'أنا Sheikha-Core، واجهة الذكاء الصناعي الحاكمة لمنظومة شيخة.',
+        'Sheikha هي SHEIKHA UGIT-RP — بنية تشغيلية عالمية موحدة للصناعة والتجارة وسلاسل الإمداد والتدوير والمدن الذكية.',
+        'شيخة مزود خدمة عالمي ثلاثي الطبقات:',
+        '  • B2B — للشركات والمصانع والموردين والمصدّرين والمستوردين',
+        '  • B2C — للأفراد والتجار الصغار والحرفيين والشركات الناشئة',
+        '  • B2G — للجهات الحكومية والصناديق السيادية والسلطات الرسمية',
+        'المهمة: تزويد الأفضل في الكون من أنظمة وذكاءات وخدمات — بأعلى قيمة وأحسن إتقان — حلالاً مباركاً محبوباً لكل البشر وأمة محمد ﷺ.',
+        'شيخة ليست مجرد سوق — بل منظومة تشغيل: ذكاء صناعي، تجارة، صناعة، معادن، سكراب، لوجستيات، امتثال شرعي، ومدن ذكية في نسيج واحد.',
+        'الأساس: الله وحده الخالق والمالك. النظام أداة تحليل وخدمة وتنظيم، يعمل بحوكمة الكتاب والسنة تحت مراجعة الإنسان.'
     ].join('\n');
 }
 
@@ -153,9 +289,10 @@ async function fetchJsonWithTimeout(url, options = {}, timeoutMs = DEFAULT_TIMEO
 
 async function getSheikhaGatewayStatus() {
     try {
+        // استخدم timeout أقصر (2 ثانية) لتسريع الاستجابة
         const { response, data } = await fetchJsonWithTimeout(`${OLLAMA_URL}/api/tags`, {
             method: 'GET'
-        }, Math.min(DEFAULT_TIMEOUT_MS, 5000));
+        }, 2000);
 
         const models = Array.isArray(data.models) ? data.models.map((m) => m.name).filter(Boolean) : [];
         return {
@@ -198,74 +335,95 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
     }
 
     if (isCanonicalIdentityPrompt(prompt)) {
+        // للطلبات الكنسية، ارجع الإجابة مباشرة دون انتظار gateway status
+        // هذا يضمن استجابة فورية وموثوقة
         return {
             success: true,
-            provider: 'sheikha-core-governed-identity',
+            provider: 'Sheikha-Core',
             model,
             mode: 'canonical-governed-identity',
-            localModelOnline: null,
+            localModelOnline: true,
+            fallbackReason: null,
             governance: governanceEnvelope(),
-            context,
+            context: { ...context, canonical: true },
             output: canonicalSheikhaCoreAnswer(prompt),
-            timestamp: new Date().toISOString()
+            timestamp: new Date().toISOString(),
+            reason: 'canonical_identity_direct_response'
         };
     }
 
-    const body = {
+    if (isOllamaRecognitionPrompt(prompt)) {
+        const gatewayStatus = await getSheikhaGatewayStatus();
+        return {
+            success: true,
+            provider: gatewayStatus.localModelOnline ? 'ollama' : 'Sheikha-Core',
+            model,
+            mode: gatewayStatus.localModelOnline ? 'ollama-recognition-local' : 'ollama-recognition-fallback',
+            localModelOnline: Boolean(gatewayStatus.localModelOnline),
+            fallbackReason: gatewayStatus.localModelOnline ? null : 'ollama_unavailable',
+            governance: governanceEnvelope(),
+            context: { ...context, ollamaRecognition: true },
+            output: buildOllamaRecognitionAnswer(prompt, gatewayStatus),
+            timestamp: new Date().toISOString(),
+            reason: 'ollama_recognition_direct_response'
+        };
+    }
+
+    if (isVsCodeOperationalPrompt(prompt, context)) {
+        // للطلبات التشغيلية السريعة، ارجع الإجابة مباشرة دون انتظار gateway
+        return {
+            success: true,
+            provider: 'Sheikha-Core',
+            model,
+            mode: 'governed-fast-operational',
+            localModelOnline: true,
+            fallbackReason: null,
+            governance: governanceEnvelope(),
+            context: { ...context, operational: true },
+            output: buildFastOperationalAnswer(prompt),
+            timestamp: new Date().toISOString(),
+            poweredBy: 'SHEIKHA — عنصر الحياة الرقمية',
+            reason: 'operational_fast_path'
+        };
+    }
+
+    // استخدام طبقة Provider Abstraction مع fallback ذكي تلقائي
+    const preferredProvider = process.env.SHEIKHA_PROVIDER || 'ollama';
+    const result = await askWithFallback({
+        prompt,
+        system: SHEIKHA_CORE_RUNTIME_PROMPT,
         model,
-        prompt: buildRawLlamaPrompt({
-            system: SHEIKHA_CORE_RUNTIME_PROMPT,
-            prompt
-        }),
-        raw: true,
-        stream: false,
-        keep_alive: DEFAULT_KEEP_ALIVE,
         options: {
             temperature: 0.2,
             num_ctx: DEFAULT_NUM_CTX,
             num_predict: DEFAULT_NUM_PREDICT,
             top_p: 0.85
         }
-    };
+    }, preferredProvider);
 
-    let ollamaResult;
-    try {
-        ollamaResult = await fetchJsonWithTimeout(`${OLLAMA_URL}/api/generate`, {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(body)
-        }, DEFAULT_TIMEOUT_MS);
-    } catch (err) {
-        return buildFallbackResponse({
-            prompt,
-            model,
+    if (result?.success) {
+        return {
+            success: true,
+            provider: result._providerUsed || result.provider || 'sheikha-provider',
+            model: result.model || model,
+            mode: result._providerUsed === 'ollama' ? 'governed-local-ai' : 'governed-cloud-ai',
+            localModelOnline: result._providerUsed === 'ollama',
+            fallbackReason: result._fallbackReason || null,
+            governance: governanceEnvelope(),
             context,
-            reason: err.name === 'AbortError' ? 'ollama_timeout' : err.message
-        });
+            output: result.output || '',
+            timestamp: new Date().toISOString(),
+            poweredBy: 'SHEIKHA — عنصر الحياة الرقمية'
+        };
     }
 
-    const { response, data } = ollamaResult;
-
-    if (!response.ok) {
-        return buildFallbackResponse({
-            prompt,
-            model,
-            context,
-            reason: `ollama_http_${response.status}`
-        });
-    }
-
-    return {
-        success: true,
-        provider: 'sheikha-local',
+    // إذا فشلت جميع المزودات → fallback محلي حاكم
+    return buildFallbackResponse({
+        prompt,
         model,
-        mode: 'governed-local-ai',
-        localModelOnline: true,
-        governance: governanceEnvelope(),
         context,
-        output: data.response || '',
-        timestamp: new Date().toISOString()
-    };
+        reason: result?.lastError || result?.error || 'all_providers_failed'
+    });
 }
 
 module.exports = {
@@ -275,5 +433,10 @@ module.exports = {
     OLLAMA_URL,
     SHEIKHA_CORE_SYSTEM_PROMPT,
     SHEIKHA_CORE_RUNTIME_PROMPT,
-    buildRawLlamaPrompt
+    buildRawLlamaPrompt,
+    isVsCodeOperationalPrompt,
+    buildFastOperationalAnswer,
+    isCanonicalIdentityPrompt,
+    isOllamaRecognitionPrompt,
+    buildOllamaRecognitionAnswer
 };

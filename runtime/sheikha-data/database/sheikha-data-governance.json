@@ -1,0 +1,28 @@
+{
+  "database": "SHEIKHA_DATA",
+  "status": "ACTIVE",
+  "purpose": "Unified governed data layer for Sheikha runtime, projects, capabilities, OpenAPI, SDK, MCP, governance, operations, and delivery lifecycle.",
+  "domains": [
+    "projects",
+    "clients",
+    "requirements",
+    "capabilities",
+    "openapi",
+    "sdk",
+    "mcp",
+    "governance",
+    "security",
+    "operations",
+    "handover",
+    "pr_reviews"
+  ],
+  "rules": {
+    "no_secret_storage_in_git": true,
+    "data_classification_required": true,
+    "access_control_required": true,
+    "audit_required": true,
+    "backup_required": true,
+    "migration_required_before_schema_change": true,
+    "production_data_requires_approval": true
+  }
+}

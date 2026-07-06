@@ -1,0 +1,19 @@
+{
+  "registry": "SHEIKHA_TENANT_MODEL_V1",
+  "status": "ACTIVE",
+  "tenants": [
+    "SOOQ_SHEIKHA_INTERNAL",
+    "CUSTOMER_COMPANY",
+    "SUPPLIER_COMPANY",
+    "BUYER_COMPANY",
+    "PARTNER_COMPANY",
+    "AUDITOR_ENTITY"
+  ],
+  "isolation": [
+    "TENANT_ID_REQUIRED",
+    "DATA_SCOPE_REQUIRED",
+    "ROLE_SCOPE_REQUIRED",
+    "AUDIT_REQUIRED",
+    "NO_CROSS_TENANT_ACCESS"
+  ]
+}

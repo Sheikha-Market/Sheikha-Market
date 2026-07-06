@@ -1,0 +1,25 @@
+{
+  "pr": 22,
+  "title": "Activate live chat routing and root neural fixes",
+  "state": "OPEN",
+  "initialDecision": "DO_NOT_MERGE_YET",
+  "reason": "PR diff exceeds 300 files and must be classified before merge.",
+  "requiredChecks": [
+    "file_classification",
+    "server_js_impact",
+    "fabric_impact",
+    "route_conflict_impact",
+    "runtime_impact",
+    "package_dependency_impact",
+    "secret_scan",
+    "lint",
+    "tests",
+    "human_approval"
+  ],
+  "rules": {
+    "no_auto_merge": true,
+    "freeze_v1_1_compatibility_required": true,
+    "federal_organization_v1_2_compatibility_required": true,
+    "human_approval_required": true
+  }
+}

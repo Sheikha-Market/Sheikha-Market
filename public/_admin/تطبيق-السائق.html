@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: linear-gradient(180deg, #0f172a 0%, #1e293b 100%);
@@ -483,7 +483,7 @@
             <span class="shipment-id">#SHP-2026-001234</span>
             <span class="shipment-status">قيد التنفيذ</span>
         </div>
-        
+
         <div class="shipment-route">
             <div class="route-point">
                 <div class="route-label">من</div>
@@ -677,27 +677,27 @@
             <h3 class="modal-title">✅ تسليم الشحنة</h3>
             <button class="modal-close" onclick="closeModal('deliver')">×</button>
         </div>
-        
+
         <div class="input-group">
             <label class="input-label">اسم المستلم</label>
             <input type="text" class="text-input" placeholder="أدخل اسم المستلم">
         </div>
-        
+
         <div class="input-group">
             <label class="input-label">الوزن النهائي (طن)</label>
             <input type="number" class="text-input" value="25.2">
         </div>
-        
+
         <div class="input-group">
             <label class="input-label">توقيع المستلم</label>
             <div class="signature-pad">اضغط للتوقيع ✍️</div>
         </div>
-        
+
         <div class="input-group">
             <label class="input-label">ملاحظات (اختياري)</label>
             <input type="text" class="text-input" placeholder="أي ملاحظات على التسليم">
         </div>
-        
+
         <button class="capture-btn" style="margin-top: 16px;">✅ تأكيد التسليم</button>
     </div>
 </div>
@@ -706,16 +706,16 @@
     function openModal(type) {
         document.getElementById(type + 'Modal')?.classList.add('show');
     }
-    
+
     function closeModal(type) {
         document.getElementById(type + 'Modal')?.classList.remove('show');
     }
-    
+
     function toggleCheck(item) {
         const circle = item.querySelector('.check-circle');
         circle.classList.toggle('checked');
     }
-    
+
     // إغلاق Modal عند النقر خارجها
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', (e) => {

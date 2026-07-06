@@ -195,7 +195,7 @@ Terminal: Sheikha: API Verify (NVIDIA/CUDA) (🚀 Sheikha: Enterprise AI Portal)
 Output:
  *  Executing task in folder sheikha-main-portal: bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOM
 E/.nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:d
-octor; else npm run dev:vscode:doctor; fi' 
+octor; else npm run dev:vscode:doctor; fi'
 
 
 > sheikha-enterprise-al-portal@1.0.0 dev:vscode:doctor
@@ -222,12 +222,12 @@ Workspace: /workspaces/sheikha/sheikha-main-portal
 
  *  The terminal process "/usr/bin/bash '-c', 'bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOME/.
 nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:doct
-or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1). 
- *  Terminal will be reused by tasks, press any key to close it. 
+or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1).
+ *  Terminal will be reused by tasks, press any key to close it.
 
  *  Executing task in folder sheikha-main-portal: bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOM
 E/.nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:d
-octor; else npm run dev:vscode:doctor; fi' 
+octor; else npm run dev:vscode:doctor; fi'
 
 
 > sheikha-enterprise-al-portal@1.0.0 dev:vscode:doctor
@@ -254,29 +254,29 @@ Workspace: /workspaces/sheikha/sheikha-main-portal
 
  *  The terminal process "/usr/bin/bash '-c', 'bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOME/.
 nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:doct
-or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1). 
- *  Terminal will be reused by tasks, press any key to close it. 
+or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1).
+ *  Terminal will be reused by tasks, press any key to close it.
 
- *  Executing task in folder sheikha-main-portal: bash scripts/vscode-cuda-verify.sh 
+ *  Executing task in folder sheikha-main-portal: bash scripts/vscode-cuda-verify.sh
 
 {"cuda_available": false, "torch_version": null, "cuda_version": null, "device_name": null, "device_count": 0, "error": "torch غير مثبت — pip ins
 tall torch --index-url https://download.pytorch.org/whl/cu121"}
- *  Terminal will be reused by tasks, press any key to close it. 
+ *  Terminal will be reused by tasks, press any key to close it.
 
  *  Executing task in folder sheikha-main-portal: bash -lc 'if command -v lsof >/dev/null 2>&1; then lsof -ti :8080 | xargs -r kill -9; elif comm
 and -v fuser >/dev/null 2>&1; then fuser -k 8080/tcp || true; elif command -v ss >/dev/null 2>&1; then pids=$(ss -ltnp "( sport = :8080 )" 2>/dev
 /null | awk -F"pid=" "NR>1{split(\$2,a,\",\"); if(a[1]!="") print a[1]}" | sort -u); [ -n "$pids" ] && kill -9 $pids || true; else echo "skip: no
- lsof/fuser/ss"; fi' 
+ lsof/fuser/ss"; fi'
 
- *  Terminal will be reused by tasks, press any key to close it. 
+ *  Terminal will be reused by tasks, press any key to close it.
 
- *  Executing task in folder sheikha-main-portal: bash scripts/vscode-nvidia-start.sh 
+ *  Executing task in folder sheikha-main-portal: bash scripts/vscode-nvidia-start.sh
 
 OK: sheikha started on 8080 (NVIDIA-first, API-ready: /api/training-center/stats)
- *  Terminal will be reused by tasks, press any key to close it. 
+ *  Terminal will be reused by tasks, press any key to close it.
 
  *  Executing task in folder sheikha-main-portal: bash -lc 'curl -sS -m 30 http://127.0.0.1:8080/api/cuda/verify && echo && curl -sS -m 30 http:/
-/127.0.0.1:8080/api/nvidia-cuda/capabilities' 
+/127.0.0.1:8080/api/nvidia-cuda/capabilities'
 
 {"success":false,"data":{"cuda_available":false,"error":"spawn python ENOENT"},"timestamp":"2026-03-08T20:52:28.652Z"}
 {"success":true,"data":{"nvidia":{"version":"1.0.0","description":"تكامل NVIDIA مع منظومة شيخة — الأقوى والأفضل، مرقمن بالكتاب والسنة","vision":{
@@ -304,7 +304,7 @@ rinciple":"الإتقان","ref":"إن الله يحب إذا عمل أحدكم 
 },{"principle":"التوثيق","ref":"فاكتبوه — البقرة:282"},{"principle":"التوحيد","ref":"لا حول ولا قوة إلا بالله"},{"principle":"الاستعداد","ref":"و
 أعدوا لهم ما استطعتم من قوة — الأنفال:60"}]},"cuda":{"version":"2.0.0","description":"تكامل CUDA مع شيخة — أفضل من CUDA ومتكامل معه، مرقمن بالكتا
 ب والسنة","vision":{"unifiedFor":"الله وعباده","principle":"ولا حول ولا قوة إلا بالله","betterThan":"أفضل من CUDA — جاهزية وتكامل وتطبيق شرعي وتو
-ثيق نبوي"},"cudaDefinition":{"ar":"بنية الحوسبة الموحدة للأجهزة","en":"Compute Unified Device Architecture","summary":"منصة حوسبة متوازية وواجهة 
+ثيق نبوي"},"cudaDefinition":{"ar":"بنية الحوسبة الموحدة للأجهزة","en":"Compute Unified Device Architecture","summary":"منصة حوسبة متوازية وواجهة
 برمجة تطبيقات (API) تتيح للمطورين استخدام القوة الحسابية الهائلة لوحدات معالجة الرسومات (GPU) لأغراض عامة تتجاوز مجرد عرض الرسوميات","quranRef":"
 العلق:1-5","principle":"اقرأ — العلم والحوسبة في خدمة المعرفة"},"features":[{"id":"parallel-processing","name":"المعالجة المتوازية الضخمة","descr
 iption":"تشغيل آلاف الخيوط البرمجية (Threads) في وقت واحد — سرعة هائلة مقارنة بالمعالجة التسلسلية في CPU","sheikhaUse":"تحليل أسعار LME/COMEX/LBM
@@ -325,7 +325,7 @@ on":"المحرك الأساسي لتدريب النماذج المعقدة (Cha
 بؤ الطلب، تحسين لوجستيات الشحن","quranRef":"الإسراء:36","principle":"ولا تقف ما ليس لك به علم — البحث قبل التنفيذ"},{"id":"design-rendering","nam
 e":"التصميم والمونتاج","description":"تسريع رندرة الفيديو 3D ومعالجة الصور — Adobe Premiere، Blender","sheikhaUse":"تصور منشآت التكرير، عرض تفاعل
 ي للمنتجات، توأم رقمي Omniverse للمستودعات","quranRef":"الإحسان","principle":"أحسنوا — إتقان العرض والتصور"},{"id":"advanced-gaming","name":"الأل
-عاب والتقنيات المتقدمة","description":"تتبع الأشعة (Ray Tracing)، DLSS لتحسين جودة الصورة — عند الحاجة لواجهات تفاعلية","sheikhaUse":"عرض تفاعلي 
+عاب والتقنيات المتقدمة","description":"تتبع الأشعة (Ray Tracing)، DLSS لتحسين جودة الصورة — عند الحاجة لواجهات تفاعلية","sheikhaUse":"عرض تفاعلي
 للمنتجات، تصور المعادن، واجهات غنية عند التوسع","quranRef":"الصف:4","principle":"الصف — تنظيم العرض والتفاعل"},{"id":"analytics","name":"التحليلا
 ت الضخمة","description":"معالجة بيانات ضخمة بسرعة فائقة","sheikhaUse":"تحليل أسعار LME/COMEX/LBMA، مؤشر شيخة، KPIs السوق، تقارير الأداء","quranRe
 f":"البقرة:282","principle":"فاكتبوه — توثيق وتحليل المعاملات"}],"integrationPaths":[{"id":"docker-service","name":"خدمة Docker مع CUDA","descrip
@@ -355,7 +355,7 @@ rder":3,"item":"NVIDIA NIM","status":"قيد التفعيل","quranRef":"الع�
 stall torch --index-url https://download.pytorch.org/whl/cu121","cudaAvailable":false,"cudaDevice":null,"cudaDeviceCount":0},"cudaVerify":null,"a
 pis":{"nvidia":"/api/nvidia/integration-catalog","cuda":"/api/cuda/integration-catalog","cudaVerify":"/api/cuda/verify","plan":"/api/nvidia-cuda/
 integration-plan","architecture":"/api/sheikha/architecture-superior"}},"timestamp":"2026-03-08T20:52:28.667Z"} *  Terminal will be reused by tas
-ks, press any key to close it. 
+ks, press any key to close it.
 ```
 ---
 ## المصدر: /home/node/.vscode-server/data/User/workspaceStorage/45a293ec8a426b6c5a1a8c4e82742c82-1/GitHub.copilot-chat/chat-session-resources
@@ -366,7 +366,7 @@ Terminal: Sheikha: API Verify (NVIDIA/CUDA) (🚀 Sheikha: Enterprise AI Portal)
 Output:
  *  Executing task in folder sheikha-main-portal: bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOM
 E/.nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:d
-octor; else npm run dev:vscode:doctor; fi' 
+octor; else npm run dev:vscode:doctor; fi'
 
 
 > sheikha-enterprise-al-portal@1.0.0 dev:vscode:doctor
@@ -393,12 +393,12 @@ Workspace: /workspaces/sheikha/sheikha-main-portal
 
  *  The terminal process "/usr/bin/bash '-c', 'bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOME/.
 nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:doct
-or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1). 
- *  Terminal will be reused by tasks, press any key to close it. 
+or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1).
+ *  Terminal will be reused by tasks, press any key to close it.
 
  *  Executing task in folder sheikha-main-portal: bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOM
 E/.nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:d
-octor; else npm run dev:vscode:doctor; fi' 
+octor; else npm run dev:vscode:doctor; fi'
 
 
 > sheikha-enterprise-al-portal@1.0.0 dev:vscode:doctor
@@ -425,29 +425,29 @@ Workspace: /workspaces/sheikha/sheikha-main-portal
 
  *  The terminal process "/usr/bin/bash '-c', 'bash -lc 'unset npm_config_devdir NPM_CONFIG_DEVDIR npm_config_tmp NPM_CONFIG_TMP; source "$HOME/.
 nvm/nvm.sh" >/dev/null 2>&1 || true; if command -v nvm >/dev/null 2>&1; then nvm exec 25.6.1 npm run dev:vscode:doctor || npm run dev:vscode:doct
-or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1). 
- *  Terminal will be reused by tasks, press any key to close it. 
+or; else npm run dev:vscode:doctor; fi''" failed to launch (exit code: 1).
+ *  Terminal will be reused by tasks, press any key to close it.
 
- *  Executing task in folder sheikha-main-portal: bash scripts/vscode-cuda-verify.sh 
+ *  Executing task in folder sheikha-main-portal: bash scripts/vscode-cuda-verify.sh
 
 {"cuda_available": false, "torch_version": null, "cuda_version": null, "device_name": null, "device_count": 0, "error": "torch غير مثبت — pip ins
 tall torch --index-url https://download.pytorch.org/whl/cu121"}
- *  Terminal will be reused by tasks, press any key to close it. 
+ *  Terminal will be reused by tasks, press any key to close it.
 
  *  Executing task in folder sheikha-main-portal: bash -lc 'if command -v lsof >/dev/null 2>&1; then lsof -ti :8080 | xargs -r kill -9; elif comm
 and -v fuser >/dev/null 2>&1; then fuser -k 8080/tcp || true; elif command -v ss >/dev/null 2>&1; then pids=$(ss -ltnp "( sport = :8080 )" 2>/dev
 /null | awk -F"pid=" "NR>1{split(\$2,a,\",\"); if(a[1]!="") print a[1]}" | sort -u); [ -n "$pids" ] && kill -9 $pids || true; else echo "skip: no
- lsof/fuser/ss"; fi' 
+ lsof/fuser/ss"; fi'
 
- *  Terminal will be reused by tasks, press any key to close it. 
+ *  Terminal will be reused by tasks, press any key to close it.
 
- *  Executing task in folder sheikha-main-portal: bash scripts/vscode-nvidia-start.sh 
+ *  Executing task in folder sheikha-main-portal: bash scripts/vscode-nvidia-start.sh
 
 OK: sheikha started on 8080 (NVIDIA-first, API-ready: /api/training-center/stats)
- *  Terminal will be reused by tasks, press any key to close it. 
+ *  Terminal will be reused by tasks, press any key to close it.
 
  *  Executing task in folder sheikha-main-portal: bash -lc 'curl -sS -m 30 http://127.0.0.1:8080/api/cuda/verify && echo && curl -sS -m 30 http:/
-/127.0.0.1:8080/api/nvidia-cuda/capabilities' 
+/127.0.0.1:8080/api/nvidia-cuda/capabilities'
 
 {"success":false,"data":{"cuda_available":false,"error":"spawn python ENOENT"},"timestamp":"2026-03-08T20:52:28.652Z"}
 {"success":true,"data":{"nvidia":{"version":"1.0.0","description":"تكامل NVIDIA مع منظومة شيخة — الأقوى والأفضل، مرقمن بالكتاب والسنة","vision":{
@@ -475,7 +475,7 @@ rinciple":"الإتقان","ref":"إن الله يحب إذا عمل أحدكم 
 },{"principle":"التوثيق","ref":"فاكتبوه — البقرة:282"},{"principle":"التوحيد","ref":"لا حول ولا قوة إلا بالله"},{"principle":"الاستعداد","ref":"و
 أعدوا لهم ما استطعتم من قوة — الأنفال:60"}]},"cuda":{"version":"2.0.0","description":"تكامل CUDA مع شيخة — أفضل من CUDA ومتكامل معه، مرقمن بالكتا
 ب والسنة","vision":{"unifiedFor":"الله وعباده","principle":"ولا حول ولا قوة إلا بالله","betterThan":"أفضل من CUDA — جاهزية وتكامل وتطبيق شرعي وتو
-ثيق نبوي"},"cudaDefinition":{"ar":"بنية الحوسبة الموحدة للأجهزة","en":"Compute Unified Device Architecture","summary":"منصة حوسبة متوازية وواجهة 
+ثيق نبوي"},"cudaDefinition":{"ar":"بنية الحوسبة الموحدة للأجهزة","en":"Compute Unified Device Architecture","summary":"منصة حوسبة متوازية وواجهة
 برمجة تطبيقات (API) تتيح للمطورين استخدام القوة الحسابية الهائلة لوحدات معالجة الرسومات (GPU) لأغراض عامة تتجاوز مجرد عرض الرسوميات","quranRef":"
 العلق:1-5","principle":"اقرأ — العلم والحوسبة في خدمة المعرفة"},"features":[{"id":"parallel-processing","name":"المعالجة المتوازية الضخمة","descr
 iption":"تشغيل آلاف الخيوط البرمجية (Threads) في وقت واحد — سرعة هائلة مقارنة بالمعالجة التسلسلية في CPU","sheikhaUse":"تحليل أسعار LME/COMEX/LBM
@@ -496,7 +496,7 @@ on":"المحرك الأساسي لتدريب النماذج المعقدة (Cha
 بؤ الطلب، تحسين لوجستيات الشحن","quranRef":"الإسراء:36","principle":"ولا تقف ما ليس لك به علم — البحث قبل التنفيذ"},{"id":"design-rendering","nam
 e":"التصميم والمونتاج","description":"تسريع رندرة الفيديو 3D ومعالجة الصور — Adobe Premiere، Blender","sheikhaUse":"تصور منشآت التكرير، عرض تفاعل
 ي للمنتجات، توأم رقمي Omniverse للمستودعات","quranRef":"الإحسان","principle":"أحسنوا — إتقان العرض والتصور"},{"id":"advanced-gaming","name":"الأل
-عاب والتقنيات المتقدمة","description":"تتبع الأشعة (Ray Tracing)، DLSS لتحسين جودة الصورة — عند الحاجة لواجهات تفاعلية","sheikhaUse":"عرض تفاعلي 
+عاب والتقنيات المتقدمة","description":"تتبع الأشعة (Ray Tracing)، DLSS لتحسين جودة الصورة — عند الحاجة لواجهات تفاعلية","sheikhaUse":"عرض تفاعلي
 للمنتجات، تصور المعادن، واجهات غنية عند التوسع","quranRef":"الصف:4","principle":"الصف — تنظيم العرض والتفاعل"},{"id":"analytics","name":"التحليلا
 ت الضخمة","description":"معالجة بيانات ضخمة بسرعة فائقة","sheikhaUse":"تحليل أسعار LME/COMEX/LBMA، مؤشر شيخة، KPIs السوق، تقارير الأداء","quranRe
 f":"البقرة:282","principle":"فاكتبوه — توثيق وتحليل المعاملات"}],"integrationPaths":[{"id":"docker-service","name":"خدمة Docker مع CUDA","descrip
@@ -526,7 +526,7 @@ rder":3,"item":"NVIDIA NIM","status":"قيد التفعيل","quranRef":"الع�
 stall torch --index-url https://download.pytorch.org/whl/cu121","cudaAvailable":false,"cudaDevice":null,"cudaDeviceCount":0},"cudaVerify":null,"a
 pis":{"nvidia":"/api/nvidia/integration-catalog","cuda":"/api/cuda/integration-catalog","cudaVerify":"/api/cuda/verify","plan":"/api/nvidia-cuda/
 integration-plan","architecture":"/api/sheikha/architecture-superior"}},"timestamp":"2026-03-08T20:52:28.667Z"} *  Terminal will be reused by tas
-ks, press any key to close it. 
+ks, press any key to close it.
 ```
 
 ### الملف: /home/node/.vscode-server/data/User/workspaceStorage/45a293ec8a426b6c5a1a8c4e82742c82-1/GitHub.copilot-chat/chat-session-resources/cb6ca973-a858-4df7-9dff-b49fd8fd831b/toolu_bdrk_01EzoiBLy4pMCW3QQp29CMUW__vscode-1773001036809/content.txt

@@ -33,7 +33,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -84,7 +84,7 @@
         .logo-title { font-weight: 800; color: var(--gold); font-size: 1.1rem; }
         .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
         .sidebar.collapsed .logo-text { display: none; }
-        
+
         .sidebar-nav {
             flex: 1;
             padding: 16px 12px;
@@ -1057,14 +1057,14 @@
             // Hide all panels
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
-            
+
             // Show selected panel
             const panel = document.getElementById('panel-' + name);
             if (panel) panel.classList.add('active');
-            
+
             // Update nav
             event.target.closest('.nav-item')?.classList.add('active');
-            
+
             // Update title
             const titles = {
                 'dashboard': '📊 لوحة المؤشرات',
@@ -1097,18 +1097,18 @@
                 const tradersCount = tradersData.traders?.length || 0;
                 document.getElementById('statTraders').textContent = tradersCount;
                 document.getElementById('tradersCount').textContent = tradersCount;
-                
+
                 // Load listings
                 const listingsRes = await fetch(API + '/api/market-listings');
                 const listingsData = await listingsRes.json();
                 const listingsCount = listingsData.listingsCount || listingsData.listings?.length || 0;
                 document.getElementById('statListings').textContent = listingsCount;
                 document.getElementById('listingsCount').textContent = listingsCount;
-                
+
                 // Set users (mock)
                 document.getElementById('statUsers').textContent = tradersCount + 5;
                 document.getElementById('usersCount').textContent = tradersCount + 5;
-                
+
                 // Set revenue (mock)
                 document.getElementById('statRevenue').textContent = (listingsCount * 1500).toLocaleString();
 
@@ -1117,7 +1117,7 @@
                 loadRecentTraders(tradersData.traders || []);
                 loadTradersTable(tradersData.traders || []);
                 loadListingsTable(listingsData.listings || []);
-                
+
             } catch (e) {
                 console.error('Error loading dashboard:', e);
             }
@@ -1216,7 +1216,7 @@
                 if (data.success && editor) {
                     editor.setValue(data.content || '// ملف فارغ');
                     currentFile = filename;
-                    
+
                     // Set language
                     const ext = filename.split('.').pop();
                     const lang = { js: 'javascript', html: 'html', css: 'css', json: 'json' }[ext] || 'plaintext';
@@ -1243,7 +1243,7 @@
             if (!editor) return;
             const content = editor.getValue();
             addTerminalLine('جاري الحفظ...', 'output');
-            
+
             try {
                 const res = await fetch(API + '/api/admin/file', {
                     method: 'POST',

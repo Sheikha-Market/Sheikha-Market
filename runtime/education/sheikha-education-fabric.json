@@ -1,0 +1,18 @@
+{
+  "system": "sheikha-education-fabric",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "منصة التعليم والتدريب — Sheikha Education & Training Runtime",
+  "modules": {
+    "training": { "status": "FOUNDATION_ACTIVE", "features": ["courses","modules","quizzes","certificates","progress"] },
+    "exportImport": { "status": "FOUNDATION_ACTIVE", "features": ["incoterms","hsCodes","customs","letters-of-credit","documentation"] },
+    "sharia": { "status": "FOUNDATION_ACTIVE", "features": ["halalTrade","ribaNot","ghararNot","zakat","contracts"] },
+    "materials": { "status": "FOUNDATION_ACTIVE", "features": ["metalTypes","gradingGuide","lme","isri","pricing"] },
+    "compliance": { "status": "FOUNDATION_ACTIVE", "features": ["saudiVat","iso","environmental","safetyDataSheets"] },
+    "languages": { "status": "FOUNDATION_ACTIVE", "languages": ["ar","en","zh","hi","id","ms","tr","fr","es","pt","ru","de"] }
+  },
+  "certifications": { "sheikhaVerified": true, "externalRecognition": "planned" },
+  "governed": true
+}

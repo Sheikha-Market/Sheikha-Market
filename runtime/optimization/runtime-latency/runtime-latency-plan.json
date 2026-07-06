@@ -1,0 +1,19 @@
+{
+  "plan": "SHEIKHA_RUNTIME_LATENCY_OPTIMIZATION",
+  "status": "ACTIVE",
+  "targets": {
+    "apiHealthMs": 1.5,
+    "cliApiHealthMs": 25,
+    "cpuLoopMs": 40
+  },
+  "optimizationAreas": [
+    "node startup reduction",
+    "module lazy loading",
+    "runtime prewarm",
+    "route consolidation",
+    "cache optimization",
+    "pm2 stability",
+    "memory discipline"
+  ],
+  "rule": "Optimize runtime latency before scaling node count."
+}

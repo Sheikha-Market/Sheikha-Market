@@ -1,0 +1,77 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<title>Sheikha Enterprise Control Center</title>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+body{margin:0;font-family:system-ui,Tahoma;background:#f7f7f4;color:#17231d}
+header{background:#0f3d2e;color:white;padding:28px;border-bottom:4px solid #c9a24d}
+main{padding:24px;display:grid;gap:18px}
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(210px,1fr));gap:16px}
+.card{background:white;border:1px solid #e6e6df;border-radius:18px;padding:18px;box-shadow:0 8px 24px rgba(0,0,0,.06)}
+.kpi{font-size:30px;font-weight:800;color:#0f3d2e}
+.flow{display:flex;flex-wrap:wrap;gap:10px}
+.step{padding:10px 14px;border-radius:999px;background:#eef4f1}
+table{width:100%;border-collapse:collapse}
+th,td{padding:12px;border-bottom:1px solid #eee;text-align:right}
+.ok{color:#067647}.warn{color:#b54708}.off{color:#b42318}
+</style>
+</head>
+<body>
+<header>
+<h1>المركز المؤسسي لشيخة</h1>
+<div>تشغيلٌ محكومٌ بالحوكمة والإتقان</div>
+</header>
+<main>
+<section class="grid">
+<div class="card"><div class="kpi">ACTIVE</div><div>بيئة التشغيل</div></div>
+<div class="card"><div class="kpi">L21</div><div>المحادثة المتدفقة</div></div>
+<div class="card"><div class="kpi">READY</div><div>بدء التشغيل</div></div>
+<div class="card"><div class="kpi">GOVERNED</div><div>الوحدات المحكومة</div></div>
+</section>
+<section class="card">
+<h2>رحلة العميل</h2>
+<div class="flow">
+<span class="step">استعلام</span><span class="step">تأهيل</span><span class="step">عرض</span>
+<span class="step">مراجعة العقد</span><span class="step">فاتورة</span><span class="step">تحقق السداد</span>
+<span class="step">تفعيل</span><span class="step">رعاية العميل</span><span class="step">تجديد</span>
+</div>
+</section>
+
+<section class="card">
+<h2>منظومة التكوين الحضاري</h2>
+<div class="grid">
+  <div class="card"><div class="kpi">هوية شيخة</div><div>بيانٌ حضاريٌّ محكوم</div></div>
+  <div class="card"><div class="kpi">الحضارة</div><div>الحضارةٌ ومعرفة</div></div>
+  <div class="card"><div class="kpi">الإرث</div><div>الإرثٌ وقيم</div></div>
+  <div class="card"><div class="kpi">التمكين</div><div>التمكين شيخة التشغيلية</div></div>
+</div>
+<div class="flow" style="margin-top:14px">
+  <span class="step">الهوية المؤسسية</span>
+  <span class="step">البيان البصري</span>
+  <span class="step">الرسوم التجريدية</span>
+  <span class="step">الزخرفة الإسلامية</span>
+  <span class="step">امتثالٌ شرعي</span>
+  <span class="step">بلا تصويرٍ لذوات الأرواح</span>
+</div>
+</section>
+
+
+<section class="card">
+<h2>سجل الوحدات</h2>
+<table><thead><tr><th>المكوّن</th><th>الحالة</th><th>المجال</th></tr></thead><tbody id="plugins"></tbody></table>
+</section>
+
+</main>
+<script>
+fetch('/enterprise-control-center/status.json').then(r=>r.json()).then(data=>{
+ const tbody=document.getElementById('plugins');
+ tbody.innerHTML=data.plugins.map(p=>{
+  const cls=p.status==='ACTIVE'?'ok':p.status==='DISABLED'?'off':'warn';
+  return `<tr><td>${p.id}</td><td class="${cls}">${p.status}</td><td>${p.area||'-'}</td></tr>`;
+ }).join('');
+});
+</script>
+</body>
+</html>

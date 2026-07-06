@@ -5,7 +5,7 @@
 
 ### الميزات:
 - ✅ اتصال **حقيقي** بـ Google Cloud Storage
-- ✅ اتصال **حقيقي** بـ Google Cloud BigQuery  
+- ✅ اتصال **حقيقي** بـ Google Cloud BigQuery
 - ✅ اتصال **حقيقي** بـ Google Cloud Pub/Sub
 - ✅ اختبار شامل لكل الخدمات
 - ✅ تقارير تفصيلية

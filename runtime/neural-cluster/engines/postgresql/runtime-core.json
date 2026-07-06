@@ -1,0 +1,33 @@
+{
+  "engine": "SHEIKHA_POSTGRESQL_RUNTIME_CORE",
+  "phase": "PHASE_2_POSTGRESQL_RUNTIME_CORE",
+  "runtime": {
+    "status": "planned",
+    "activationStrategy": "governance-first",
+    "apiSurface": [
+      "/api/neural-cluster/postgresql/status",
+      "/api/neural-cluster/health/unified"
+    ]
+  },
+  "governance": {
+    "required": true,
+    "policy": "SHEIKHA_RUNTIME_GOVERNANCE_v1",
+    "audit": "mandatory",
+    "rollback": "mandatory",
+    "humanApproval": "required"
+  },
+  "architecture": {
+    "routing": "governance-first",
+    "fabricBinding": "SHEIKHA_NEURAL_DATA_FABRIC",
+    "clusterBinding": "SHEIKHA_DISTRIBUTED_NEURAL_CLUSTER"
+  },
+  "orchestration": {
+    "order": [
+      "governance",
+      "routing",
+      "fabric",
+      "runtime"
+    ],
+    "state": "ready-for-activation"
+  }
+}

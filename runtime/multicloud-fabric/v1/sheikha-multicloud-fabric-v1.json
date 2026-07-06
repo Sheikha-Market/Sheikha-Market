@@ -1,0 +1,19 @@
+{
+  "system": "SHEIKHA_MULTICLOUD_FABRIC_V1",
+  "status": "ACTIVE",
+  "purpose": "Prepare Sheikha for governed routing across multiple providers after contracts and budget approvals.",
+  "routingPolicies": [
+    "LOWEST_APPROVED_COST",
+    "BEST_AVAILABLE_GPU",
+    "DATA_REGION_COMPLIANCE",
+    "HIGH_AVAILABILITY",
+    "NO_VENDOR_LOCK_IN"
+  ],
+  "rules": {
+    "provider_registry_required": true,
+    "compute_contract_required": true,
+    "budget_guard_required": true,
+    "no_live_routing_without_provider_credentials": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

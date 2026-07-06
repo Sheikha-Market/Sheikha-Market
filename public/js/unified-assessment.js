@@ -78,7 +78,7 @@ async function runUnifiedAssessment() {
 
 function displayAssessmentResults(data) {
     const resultsDiv = document.getElementById('assessment-results');
-    
+
     // النتيجة الإجمالية
     const overallScoreHTML = `
         <div class="card" style="background: linear-gradient(135deg, rgba(16, 185, 129, 0.2), rgba(212, 175, 55, 0.2)); border: 2px solid var(--gold); margin-bottom: 2rem;">
@@ -121,7 +121,7 @@ function displayAssessmentResults(data) {
     let domainScoresHTML = '';
     for (const [key, score] of Object.entries(data.scores)) {
         const color = score >= 90 ? '#10b981' : score >= 80 ? '#f59e0b' : score >= 70 ? '#3b82f6' : '#ef4444';
-        
+
         domainScoresHTML += `
             <div style="margin-bottom: 1rem;">
                 <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.5rem;">
@@ -150,7 +150,7 @@ function displayAssessmentResults(data) {
             <h3 style="color: var(--gold); margin-bottom: 1.5rem; font-size: 1.4rem;">
                 <i class="fas fa-calendar-alt"></i> خطة التحسين الزمنية
             </h3>
-            
+
             <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 1.5rem;">
                 <div style="background: rgba(16, 185, 129, 0.1); border: 1px solid var(--success); border-radius: 10px; padding: 1.5rem;">
                     <h4 style="color: var(--success); margin-bottom: 1rem; font-size: 1.2rem;">

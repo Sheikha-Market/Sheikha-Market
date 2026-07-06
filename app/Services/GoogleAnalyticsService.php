@@ -11,7 +11,7 @@ use Exception;
 
 /**
  * خدمة Google Analytics 4
- * 
+ *
  * توفر الوصول الشامل إلى بيانات التحليلات والإحصائيات
  */
 class GoogleAnalyticsService
@@ -45,7 +45,7 @@ class GoogleAnalyticsService
         try {
             $request = new \Google\Analytics\Data\V1beta\RunReportRequest();
             $request->setProperty('properties/' . $this->propertyId);
-            
+
             $dateRange = new DateRange();
             $dateRange->setStartDate(now()->subDays($days)->format('Y-m-d'));
             $dateRange->setEndDate(now()->format('Y-m-d'));
@@ -100,7 +100,7 @@ class GoogleAnalyticsService
         try {
             $request = new \Google\Analytics\Data\V1beta\RunReportRequest();
             $request->setProperty('properties/' . $this->propertyId);
-            
+
             $dateRange = new DateRange();
             $dateRange->setStartDate(now()->subDays(30)->format('Y-m-d'));
             $dateRange->setEndDate(now()->format('Y-m-d'));
@@ -157,7 +157,7 @@ class GoogleAnalyticsService
         try {
             $request = new \Google\Analytics\Data\V1beta\RunReportRequest();
             $request->setProperty('properties/' . $this->propertyId);
-            
+
             $dateRange = new DateRange();
             $dateRange->setStartDate(now()->subDays(30)->format('Y-m-d'));
             $dateRange->setEndDate(now()->format('Y-m-d'));
@@ -236,7 +236,7 @@ class GoogleAnalyticsService
         try {
             $request = new \Google\Analytics\Data\V1beta\RunReportRequest();
             $request->setProperty('properties/' . $this->propertyId);
-            
+
             $dateRange = new DateRange();
             $dateRange->setStartDate(now()->subDays(30)->format('Y-m-d'));
             $dateRange->setEndDate(now()->format('Y-m-d'));
@@ -251,7 +251,7 @@ class GoogleAnalyticsService
             $response = $this->client->runReport($request);
 
             $row = $response->getRows()[0] ?? null;
-            
+
             if (!$row) {
                 return [
                     'success' => true,

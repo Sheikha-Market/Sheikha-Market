@@ -47,7 +47,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -586,7 +586,7 @@
                     <span class="nav-icon">📦</span> الوحدات البرمجية
                 </button>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">💻 التطوير</div>
                 <button class="nav-item" onclick="showSection('api')">
@@ -599,7 +599,7 @@
                     <span class="nav-icon">📝</span> محرر الكود
                 </button>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">⚙️ الإدارة</div>
                 <button class="nav-item" onclick="showSection('users')">
@@ -612,7 +612,7 @@
                     <span class="nav-icon">📋</span> السجلات
                 </button>
             </div>
-            
+
             <div class="sidebar-section">
                 <div class="sidebar-title">🚀 العمليات</div>
                 <button class="nav-item" onclick="showSection('deploy')">
@@ -784,7 +784,7 @@
                                         <span class="arch-item">نظام التصميم السعودي</span>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Layer 2: API Gateway -->
                                 <div class="arch-layer">
                                     <div class="arch-layer-title">🔌 طبقة API Gateway</div>
@@ -797,7 +797,7 @@
                                         <span class="arch-item">API Versioning</span>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Layer 3: Business Logic -->
                                 <div class="arch-layer">
                                     <div class="arch-layer-title">⚙️ طبقة منطق الأعمال</div>
@@ -812,7 +812,7 @@
                                         <span class="arch-item">الترجمة الآلية</span>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Layer 4: Data -->
                                 <div class="arch-layer">
                                     <div class="arch-layer-title">🗄️ طبقة البيانات</div>
@@ -824,7 +824,7 @@
                                         <span class="arch-item">نسخ احتياطي تلقائي</span>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Layer 5: Infrastructure -->
                                 <div class="arch-layer">
                                     <div class="arch-layer-title">🖧 طبقة البنية التحتية</div>
@@ -837,7 +837,7 @@
                                         <span class="arch-item">WAF</span>
                                     </div>
                                 </div>
-                                
+
                                 <!-- Layer 6: Integrations -->
                                 <div class="arch-layer">
                                     <div class="arch-layer-title">🔗 التكاملات الخارجية</div>
@@ -1505,8 +1505,8 @@
                 const { response: r, base } = await fetchWithFallback('/api/ai/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
-                        message: q, 
+                    body: JSON.stringify({
+                        message: q,
                         context: { ...getAdminAiContext(), isAdmin: true }
                         // السيرفر يستخدم برومبت الأدمن الكامل تلقائياً عند isAdmin: true
                     })

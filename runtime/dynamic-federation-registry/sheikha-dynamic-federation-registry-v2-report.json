@@ -1,0 +1,2574 @@
+{
+  "system": "SHEIKHA_DYNAMIC_FEDERATION_REGISTRY_V2",
+  "status": "ACTIVE",
+  "mode": "GOVERNED_READ_WRITE_INTERNAL_REGISTRY_ONLY",
+  "relationshipDictionary": [
+    "BELONGS_TO",
+    "DEPENDS_ON",
+    "IMPLEMENTS",
+    "EXTENDS",
+    "PROVIDES",
+    "CONSUMES",
+    "HOSTS",
+    "EXECUTES",
+    "SUPERVISES",
+    "AUDITS",
+    "GOVERNS",
+    "OBSERVES",
+    "CONNECTS_TO",
+    "DISCOVERS",
+    "GENERATES",
+    "REPORTS_TO",
+    "PUBLISHES",
+    "SUBSCRIBES",
+    "SCALES_WITH",
+    "FEDERATES_WITH",
+    "COMPATIBLE_WITH",
+    "REQUIRES",
+    "OPTIONAL_WITH",
+    "ISOLATED_FROM"
+  ],
+  "blueprintLibrary": [
+    {
+      "id": "blueprint-operating-system",
+      "familyKind": "operating-system-family",
+      "stageCount": 13
+    },
+    {
+      "id": "blueprint-language",
+      "familyKind": "language-family",
+      "stageCount": 13
+    },
+    {
+      "id": "blueprint-sdk",
+      "familyKind": "sdk-family",
+      "stageCount": 13
+    },
+    {
+      "id": "blueprint-database",
+      "familyKind": "database-family",
+      "stageCount": 13
+    },
+    {
+      "id": "blueprint-cloud-platform",
+      "familyKind": "cloud-family",
+      "stageCount": 13
+    },
+    {
+      "id": "blueprint-ai-framework",
+      "familyKind": "ai-family",
+      "stageCount": 13
+    },
+    {
+      "id": "blueprint-custom",
+      "familyKind": "custom-family",
+      "stageCount": 13
+    }
+  ],
+  "expansionStages": [
+    "family",
+    "industrialClusters",
+    "capabilityClusters",
+    "serviceClusters",
+    "apiClusters",
+    "sdkClusters",
+    "languageClusters",
+    "runtimeClusters",
+    "applicationClusters",
+    "enterpriseClusters",
+    "aiClusters",
+    "knowledgeClusters",
+    "governanceClusters",
+    "inspectorClusters"
+  ],
+  "graph": {
+    "system": "SHEIKHA_DYNAMIC_FEDERATION_REGISTRY_GRAPH_V2",
+    "status": "ACTIVE",
+    "mode": "GOVERNED_READ_WRITE_INTERNAL_REGISTRY_GRAPH",
+    "nodes": [
+      {
+        "id": "fedv2-63468287f8378af0",
+        "label": "ExampleFutureOS",
+        "type": "FEDERATION"
+      },
+      {
+        "id": "family-73eb66706b57102c",
+        "label": "Future OS Family",
+        "type": "FEDERATION_FAMILY"
+      },
+      {
+        "id": "family-73eb66706b57102c",
+        "label": "Future OS Family",
+        "type": "family"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-kernel",
+        "label": "kernel",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-filesystem",
+        "label": "filesystem",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-drivers",
+        "label": "drivers",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-security",
+        "label": "security",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-scheduler",
+        "label": "scheduler",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-ipc",
+        "label": "ipc",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-memory",
+        "label": "memory",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-network",
+        "label": "network",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-package",
+        "label": "package",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-service",
+        "label": "service",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-industrialClusters-monitoring",
+        "label": "monitoring",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-capabilityClusters-runtime-hosting",
+        "label": "runtime-hosting",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-capabilityClusters-process-management",
+        "label": "process-management",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-capabilityClusters-container-hosting",
+        "label": "container-hosting",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-capabilityClusters-observability",
+        "label": "observability",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-capabilityClusters-security-policy",
+        "label": "security-policy",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-serviceClusters-identity-service",
+        "label": "identity-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-serviceClusters-update-service",
+        "label": "update-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-serviceClusters-logging-service",
+        "label": "logging-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-serviceClusters-network-service",
+        "label": "network-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-apiClusters-system-api",
+        "label": "system-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-apiClusters-process-api",
+        "label": "process-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-apiClusters-filesystem-api",
+        "label": "filesystem-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-apiClusters-security-api",
+        "label": "security-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-sdkClusters-system-sdk",
+        "label": "system-sdk",
+        "type": "sdkClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-sdkClusters-driver-sdk",
+        "label": "driver-sdk",
+        "type": "sdkClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-sdkClusters-observability-sdk",
+        "label": "observability-sdk",
+        "type": "sdkClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-languageClusters-shell",
+        "label": "shell",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-languageClusters-c",
+        "label": "c",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-languageClusters-cpp",
+        "label": "cpp",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-languageClusters-python",
+        "label": "python",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-languageClusters-javascript",
+        "label": "javascript",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-runtimeClusters-nodejs",
+        "label": "nodejs",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-runtimeClusters-python",
+        "label": "python",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-runtimeClusters-java",
+        "label": "java",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-runtimeClusters-dotnet",
+        "label": "dotnet",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-runtimeClusters-go",
+        "label": "go",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-applicationClusters-agent-host",
+        "label": "agent-host",
+        "type": "applicationClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-applicationClusters-service-host",
+        "label": "service-host",
+        "type": "applicationClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-applicationClusters-inspector-host",
+        "label": "inspector-host",
+        "type": "applicationClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-enterpriseClusters-workspace",
+        "label": "workspace",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-enterpriseClusters-tenant",
+        "label": "tenant",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-enterpriseClusters-rbac",
+        "label": "rbac",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-enterpriseClusters-audit",
+        "label": "audit",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-aiClusters-agentic-ops",
+        "label": "agentic-ops",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-aiClusters-diagnostics-ai",
+        "label": "diagnostics-ai",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-aiClusters-rag-ops",
+        "label": "rag-ops",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-knowledgeClusters-os-ontology",
+        "label": "os-ontology",
+        "type": "knowledgeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-knowledgeClusters-runtime-knowledge",
+        "label": "runtime-knowledge",
+        "type": "knowledgeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-knowledgeClusters-operation-memory",
+        "label": "operation-memory",
+        "type": "knowledgeClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-governanceClusters-admission",
+        "label": "admission",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-governanceClusters-policy",
+        "label": "policy",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-governanceClusters-risk",
+        "label": "risk",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-governanceClusters-human-review",
+        "label": "human-review",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-inspectorClusters-health",
+        "label": "health",
+        "type": "inspectorClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-inspectorClusters-diagnostics",
+        "label": "diagnostics",
+        "type": "inspectorClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-inspectorClusters-evidence",
+        "label": "evidence",
+        "type": "inspectorClusters"
+      },
+      {
+        "id": "fedv2-63468287f8378af0-inspectorClusters-readiness",
+        "label": "readiness",
+        "type": "inspectorClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c",
+        "label": "ExampleAgenticAI",
+        "type": "FEDERATION"
+      },
+      {
+        "id": "family-6d91a5dd7719d28a",
+        "label": "Agentic AI Family",
+        "type": "FEDERATION_FAMILY"
+      },
+      {
+        "id": "family-6d91a5dd7719d28a",
+        "label": "Agentic AI Family",
+        "type": "family"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-industrialClusters-model",
+        "label": "model",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-industrialClusters-dataset",
+        "label": "dataset",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-industrialClusters-training",
+        "label": "training",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-industrialClusters-inference",
+        "label": "inference",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-industrialClusters-evaluation",
+        "label": "evaluation",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-industrialClusters-guardrails",
+        "label": "guardrails",
+        "type": "industrialClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-capabilityClusters-generation",
+        "label": "generation",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-capabilityClusters-retrieval",
+        "label": "retrieval",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-capabilityClusters-planning",
+        "label": "planning",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-capabilityClusters-tool-use",
+        "label": "tool-use",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-capabilityClusters-evaluation",
+        "label": "evaluation",
+        "type": "capabilityClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-serviceClusters-model-service",
+        "label": "model-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-serviceClusters-embedding-service",
+        "label": "embedding-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-serviceClusters-agent-service",
+        "label": "agent-service",
+        "type": "serviceClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-apiClusters-inference-api",
+        "label": "inference-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-apiClusters-embedding-api",
+        "label": "embedding-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-apiClusters-tool-api",
+        "label": "tool-api",
+        "type": "apiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-sdkClusters-agent-sdk",
+        "label": "agent-sdk",
+        "type": "sdkClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-sdkClusters-model-sdk",
+        "label": "model-sdk",
+        "type": "sdkClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-sdkClusters-eval-sdk",
+        "label": "eval-sdk",
+        "type": "sdkClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-languageClusters-python",
+        "label": "python",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-languageClusters-typescript",
+        "label": "typescript",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-languageClusters-prompt-dsl",
+        "label": "prompt-dsl",
+        "type": "languageClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-runtimeClusters-inference-runtime",
+        "label": "inference-runtime",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-runtimeClusters-agent-runtime",
+        "label": "agent-runtime",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-runtimeClusters-batch-runtime",
+        "label": "batch-runtime",
+        "type": "runtimeClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-applicationClusters-chat",
+        "label": "chat",
+        "type": "applicationClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-applicationClusters-inspector",
+        "label": "inspector",
+        "type": "applicationClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-applicationClusters-automation",
+        "label": "automation",
+        "type": "applicationClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-enterpriseClusters-workspace",
+        "label": "workspace",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-enterpriseClusters-policy",
+        "label": "policy",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-enterpriseClusters-usage",
+        "label": "usage",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-enterpriseClusters-cost",
+        "label": "cost",
+        "type": "enterpriseClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-aiClusters-generative-ai",
+        "label": "generative-ai",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-aiClusters-agentic-ai",
+        "label": "agentic-ai",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-aiClusters-multi-agent",
+        "label": "multi-agent",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-aiClusters-rag",
+        "label": "rag",
+        "type": "aiClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-knowledgeClusters-vector-store",
+        "label": "vector-store",
+        "type": "knowledgeClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-knowledgeClusters-knowledge-graph",
+        "label": "knowledge-graph",
+        "type": "knowledgeClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-knowledgeClusters-memory",
+        "label": "memory",
+        "type": "knowledgeClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-governanceClusters-safety-policy",
+        "label": "safety-policy",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-governanceClusters-truthfulness-policy",
+        "label": "truthfulness-policy",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-governanceClusters-human-review",
+        "label": "human-review",
+        "type": "governanceClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-inspectorClusters-model-eval",
+        "label": "model-eval",
+        "type": "inspectorClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-inspectorClusters-prompt-audit",
+        "label": "prompt-audit",
+        "type": "inspectorClusters"
+      },
+      {
+        "id": "fedv2-65b44fee791a1f2c-inspectorClusters-tool-audit",
+        "label": "tool-audit",
+        "type": "inspectorClusters"
+      }
+    ],
+    "edges": [
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "family-73eb66706b57102c",
+        "type": "BELONGS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "inspector-registry",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "capability-registry",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "event-bus",
+        "type": "PUBLISHES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "universal-graph",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "enterprise-registry",
+        "type": "FEDERATES_WITH"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "family-73eb66706b57102c",
+        "type": "GENERATES"
+      },
+      {
+        "from": "family-73eb66706b57102c",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "family-73eb66706b57102c",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-kernel",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-kernel",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-kernel",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-filesystem",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-filesystem",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-filesystem",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-drivers",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-drivers",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-drivers",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-security",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-security",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-security",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-scheduler",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-scheduler",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-scheduler",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-ipc",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-ipc",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-ipc",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-memory",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-memory",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-memory",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-network",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-network",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-network",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-package",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-package",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-package",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-service",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-industrialClusters-monitoring",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-monitoring",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-monitoring",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-capabilityClusters-runtime-hosting",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-runtime-hosting",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-runtime-hosting",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-capabilityClusters-process-management",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-process-management",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-process-management",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-capabilityClusters-container-hosting",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-container-hosting",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-container-hosting",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-capabilityClusters-observability",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-observability",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-observability",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-capabilityClusters-security-policy",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-security-policy",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-capabilityClusters-security-policy",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-serviceClusters-identity-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-identity-service",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-identity-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-serviceClusters-update-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-update-service",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-update-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-serviceClusters-logging-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-logging-service",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-logging-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-serviceClusters-network-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-network-service",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-serviceClusters-network-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-apiClusters-system-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-system-api",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-system-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-apiClusters-process-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-process-api",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-process-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-apiClusters-filesystem-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-filesystem-api",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-filesystem-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-apiClusters-security-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-security-api",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-apiClusters-security-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-sdkClusters-system-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-sdkClusters-system-sdk",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-sdkClusters-system-sdk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-sdkClusters-driver-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-sdkClusters-driver-sdk",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-sdkClusters-driver-sdk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-sdkClusters-observability-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-sdkClusters-observability-sdk",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-sdkClusters-observability-sdk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-languageClusters-shell",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-shell",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-shell",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-languageClusters-c",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-c",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-c",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-languageClusters-cpp",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-cpp",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-cpp",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-languageClusters-python",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-python",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-python",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-languageClusters-javascript",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-javascript",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-languageClusters-javascript",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-runtimeClusters-nodejs",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-nodejs",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-nodejs",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-runtimeClusters-python",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-python",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-python",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-runtimeClusters-java",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-java",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-java",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-runtimeClusters-dotnet",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-dotnet",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-dotnet",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-runtimeClusters-go",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-go",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-runtimeClusters-go",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-applicationClusters-agent-host",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-applicationClusters-agent-host",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-applicationClusters-agent-host",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-applicationClusters-service-host",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-applicationClusters-service-host",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-applicationClusters-service-host",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-applicationClusters-inspector-host",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-applicationClusters-inspector-host",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-applicationClusters-inspector-host",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-enterpriseClusters-workspace",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-workspace",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-workspace",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-enterpriseClusters-tenant",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-tenant",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-tenant",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-enterpriseClusters-rbac",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-rbac",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-rbac",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-enterpriseClusters-audit",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-audit",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-enterpriseClusters-audit",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-aiClusters-agentic-ops",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-aiClusters-agentic-ops",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-aiClusters-agentic-ops",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-aiClusters-diagnostics-ai",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-aiClusters-diagnostics-ai",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-aiClusters-diagnostics-ai",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-aiClusters-rag-ops",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-aiClusters-rag-ops",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-aiClusters-rag-ops",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-knowledgeClusters-os-ontology",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-knowledgeClusters-os-ontology",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-knowledgeClusters-os-ontology",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-knowledgeClusters-runtime-knowledge",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-knowledgeClusters-runtime-knowledge",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-knowledgeClusters-runtime-knowledge",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-knowledgeClusters-operation-memory",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-knowledgeClusters-operation-memory",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-knowledgeClusters-operation-memory",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-governanceClusters-admission",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-admission",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-admission",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-governanceClusters-policy",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-policy",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-policy",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-governanceClusters-risk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-risk",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-risk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-governanceClusters-human-review",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-human-review",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-governanceClusters-human-review",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-inspectorClusters-health",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-health",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-health",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-inspectorClusters-diagnostics",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-diagnostics",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-diagnostics",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-inspectorClusters-evidence",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-evidence",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-evidence",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "fedv2-63468287f8378af0-inspectorClusters-readiness",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-readiness",
+        "to": "fedv2-63468287f8378af0",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-inspectorClusters-readiness",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0-industrialClusters-kernel",
+        "to": "fedv2-63468287f8378af0",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "read-only-runtime-boundary",
+        "type": "ISOLATED_FROM"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "existing-federations",
+        "type": "COMPATIBLE_WITH"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "human-approval-gate",
+        "type": "REQUIRES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "optional-marketplace-publication",
+        "type": "OPTIONAL_WITH"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "observability-fabric",
+        "type": "SUBSCRIBES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "capacity-fabric",
+        "type": "SCALES_WITH"
+      },
+      {
+        "from": "auto-discovery",
+        "to": "fedv2-63468287f8378af0",
+        "type": "DISCOVERS"
+      },
+      {
+        "from": "registry-writer",
+        "to": "fedv2-63468287f8378af0",
+        "type": "IMPLEMENTS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "base-blueprint",
+        "type": "EXTENDS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "service-registry",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "runtime-registry",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "execution-gate",
+        "type": "EXECUTES"
+      },
+      {
+        "from": "governance-registry",
+        "to": "fedv2-63468287f8378af0",
+        "type": "SUPERVISES"
+      },
+      {
+        "from": "audit-registry",
+        "to": "fedv2-63468287f8378af0",
+        "type": "AUDITS"
+      },
+      {
+        "from": "fedv2-63468287f8378af0",
+        "to": "external-connectors",
+        "type": "CONNECTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "family-6d91a5dd7719d28a",
+        "type": "BELONGS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "inspector-registry",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "capability-registry",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "event-bus",
+        "type": "PUBLISHES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "universal-graph",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "enterprise-registry",
+        "type": "FEDERATES_WITH"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "family-6d91a5dd7719d28a",
+        "type": "GENERATES"
+      },
+      {
+        "from": "family-6d91a5dd7719d28a",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "family-6d91a5dd7719d28a",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-industrialClusters-model",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-model",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-model",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-industrialClusters-dataset",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-dataset",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-dataset",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-industrialClusters-training",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-training",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-training",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-industrialClusters-inference",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-inference",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-inference",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-industrialClusters-evaluation",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-evaluation",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-evaluation",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-industrialClusters-guardrails",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-guardrails",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-guardrails",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-capabilityClusters-generation",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-generation",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-generation",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-capabilityClusters-retrieval",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-retrieval",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-retrieval",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-capabilityClusters-planning",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-planning",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-planning",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-capabilityClusters-tool-use",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-tool-use",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-tool-use",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-capabilityClusters-evaluation",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-evaluation",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-capabilityClusters-evaluation",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-serviceClusters-model-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-serviceClusters-model-service",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-serviceClusters-model-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-serviceClusters-embedding-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-serviceClusters-embedding-service",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-serviceClusters-embedding-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-serviceClusters-agent-service",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-serviceClusters-agent-service",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-serviceClusters-agent-service",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-apiClusters-inference-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-apiClusters-inference-api",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-apiClusters-inference-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-apiClusters-embedding-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-apiClusters-embedding-api",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-apiClusters-embedding-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-apiClusters-tool-api",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-apiClusters-tool-api",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-apiClusters-tool-api",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-sdkClusters-agent-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-sdkClusters-agent-sdk",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-sdkClusters-agent-sdk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-sdkClusters-model-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-sdkClusters-model-sdk",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-sdkClusters-model-sdk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-sdkClusters-eval-sdk",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-sdkClusters-eval-sdk",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-sdkClusters-eval-sdk",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-languageClusters-python",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-languageClusters-python",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-languageClusters-python",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-languageClusters-typescript",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-languageClusters-typescript",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-languageClusters-typescript",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-languageClusters-prompt-dsl",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-languageClusters-prompt-dsl",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-languageClusters-prompt-dsl",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-runtimeClusters-inference-runtime",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-runtimeClusters-inference-runtime",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-runtimeClusters-inference-runtime",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-runtimeClusters-agent-runtime",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-runtimeClusters-agent-runtime",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-runtimeClusters-agent-runtime",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-runtimeClusters-batch-runtime",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-runtimeClusters-batch-runtime",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-runtimeClusters-batch-runtime",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-applicationClusters-chat",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-applicationClusters-chat",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-applicationClusters-chat",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-applicationClusters-inspector",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-applicationClusters-inspector",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-applicationClusters-inspector",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-applicationClusters-automation",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-applicationClusters-automation",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-applicationClusters-automation",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-enterpriseClusters-workspace",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-workspace",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-workspace",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-enterpriseClusters-policy",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-policy",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-policy",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-enterpriseClusters-usage",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-usage",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-usage",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-enterpriseClusters-cost",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-cost",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-enterpriseClusters-cost",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-aiClusters-generative-ai",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-generative-ai",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-generative-ai",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-aiClusters-agentic-ai",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-agentic-ai",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-agentic-ai",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-aiClusters-multi-agent",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-multi-agent",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-multi-agent",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-aiClusters-rag",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-rag",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-aiClusters-rag",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-knowledgeClusters-vector-store",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-knowledgeClusters-vector-store",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-knowledgeClusters-vector-store",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-knowledgeClusters-knowledge-graph",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-knowledgeClusters-knowledge-graph",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-knowledgeClusters-knowledge-graph",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-knowledgeClusters-memory",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-knowledgeClusters-memory",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-knowledgeClusters-memory",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-governanceClusters-safety-policy",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-governanceClusters-safety-policy",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-governanceClusters-safety-policy",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-governanceClusters-truthfulness-policy",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-governanceClusters-truthfulness-policy",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-governanceClusters-truthfulness-policy",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-governanceClusters-human-review",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-governanceClusters-human-review",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-governanceClusters-human-review",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-inspectorClusters-model-eval",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-inspectorClusters-model-eval",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-inspectorClusters-model-eval",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-inspectorClusters-prompt-audit",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-inspectorClusters-prompt-audit",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-inspectorClusters-prompt-audit",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "fedv2-65b44fee791a1f2c-inspectorClusters-tool-audit",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-inspectorClusters-tool-audit",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "REPORTS_TO"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-inspectorClusters-tool-audit",
+        "to": "governance-registry",
+        "type": "GOVERNS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c-industrialClusters-model",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "DEPENDS_ON"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "read-only-runtime-boundary",
+        "type": "ISOLATED_FROM"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "existing-federations",
+        "type": "COMPATIBLE_WITH"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "human-approval-gate",
+        "type": "REQUIRES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "optional-marketplace-publication",
+        "type": "OPTIONAL_WITH"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "observability-fabric",
+        "type": "SUBSCRIBES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "capacity-fabric",
+        "type": "SCALES_WITH"
+      },
+      {
+        "from": "auto-discovery",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "DISCOVERS"
+      },
+      {
+        "from": "registry-writer",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "IMPLEMENTS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "base-blueprint",
+        "type": "EXTENDS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "service-registry",
+        "type": "CONSUMES"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "runtime-registry",
+        "type": "HOSTS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "execution-gate",
+        "type": "EXECUTES"
+      },
+      {
+        "from": "governance-registry",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "SUPERVISES"
+      },
+      {
+        "from": "audit-registry",
+        "to": "fedv2-65b44fee791a1f2c",
+        "type": "AUDITS"
+      },
+      {
+        "from": "fedv2-65b44fee791a1f2c",
+        "to": "external-connectors",
+        "type": "CONNECTS_TO"
+      }
+    ],
+    "summary": {
+      "records": 2,
+      "nodes": 110,
+      "relations": 364,
+      "usedRelationTypes": [
+        "AUDITS",
+        "BELONGS_TO",
+        "COMPATIBLE_WITH",
+        "CONNECTS_TO",
+        "CONSUMES",
+        "DEPENDS_ON",
+        "DISCOVERS",
+        "EXECUTES",
+        "EXTENDS",
+        "FEDERATES_WITH",
+        "GENERATES",
+        "GOVERNS",
+        "HOSTS",
+        "IMPLEMENTS",
+        "ISOLATED_FROM",
+        "OBSERVES",
+        "OPTIONAL_WITH",
+        "PROVIDES",
+        "PUBLISHES",
+        "REPORTS_TO",
+        "REQUIRES",
+        "SCALES_WITH",
+        "SUBSCRIBES",
+        "SUPERVISES"
+      ],
+      "missingRelationTypes": []
+    }
+  },
+  "audit": [
+    {
+      "id": "aud-9b7df6299810e7b3",
+      "action": "GOVERNED_FEDERATION_REGISTRATION_EVALUATED",
+      "actor": "activation-script",
+      "payload": {
+        "federationId": "fedv2-63468287f8378af0",
+        "decision": "APPROVED",
+        "validation": {
+          "valid": true,
+          "errors": []
+        }
+      },
+      "at": "2026-07-04T00:05:10.132Z"
+    },
+    {
+      "id": "aud-de6c2f721b2ca103",
+      "action": "GOVERNED_FEDERATION_REGISTRATION_EVALUATED",
+      "actor": "activation-script",
+      "payload": {
+        "federationId": "fedv2-65b44fee791a1f2c",
+        "decision": "APPROVED",
+        "validation": {
+          "valid": true,
+          "errors": []
+        }
+      },
+      "at": "2026-07-04T00:05:10.132Z"
+    },
+    {
+      "id": "aud-1d61d32fcac585f0",
+      "action": "GOVERNED_FEDERATION_REGISTRATION_EVALUATED",
+      "actor": "activation-script",
+      "payload": {
+        "federationId": "fedv2-39a87a61a051cabf",
+        "decision": "BLOCKED",
+        "validation": {
+          "valid": false,
+          "errors": [
+            "DIRECT_SYSTEM_WRITE_FORBIDDEN"
+          ]
+        }
+      },
+      "at": "2026-07-04T00:05:10.132Z"
+    }
+  ],
+  "events": [
+    {
+      "id": "evt-d66c2285adea683c",
+      "action": "FEDERATION_REGISTRATION_APPROVED",
+      "payload": {
+        "federationId": "fedv2-63468287f8378af0",
+        "type": "OPERATING_SYSTEM"
+      },
+      "at": "2026-07-04T00:05:10.132Z"
+    },
+    {
+      "id": "evt-bc80a4f1ab6494b2",
+      "action": "FEDERATION_REGISTRATION_APPROVED",
+      "payload": {
+        "federationId": "fedv2-65b44fee791a1f2c",
+        "type": "AI_FRAMEWORK"
+      },
+      "at": "2026-07-04T00:05:10.132Z"
+    }
+  ],
+  "governance": {
+    "readAllowed": true,
+    "internalRegistryWriteAllowedAfterGovernance": true,
+    "externalSystemWriteAllowed": false,
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noFirmwareModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noHarm": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "timestamp": "2026-07-04T00:05:10.133Z"
+}

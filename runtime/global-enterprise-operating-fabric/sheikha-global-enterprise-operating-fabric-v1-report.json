@@ -1,0 +1,727 @@
+{
+  "system": "SHEIKHA_GLOBAL_ENTERPRISE_OPERATING_FABRIC_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_GLOBAL_FEDERATED_LAYER_MAPPING",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noFirmwareModification": true,
+    "noRegistryModification": true,
+    "noSysctlModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noHarm": true,
+    "measurementOnly": true,
+    "humanReviewRequired": true
+  },
+  "layers": [
+    {
+      "id": "l0-hardware-federation",
+      "name": "Hardware Federation",
+      "scope": "cpu-memory-storage-devices"
+    },
+    {
+      "id": "l1-firmware-federation",
+      "name": "Firmware Federation",
+      "scope": "bios-uefi-tpm-secure-boot-read-only"
+    },
+    {
+      "id": "l2-boot-federation",
+      "name": "Boot Federation",
+      "scope": "bootloaders-read-only"
+    },
+    {
+      "id": "l3-kernel-federation",
+      "name": "Kernel Federation",
+      "scope": "linux-nt-xnu-bsd"
+    },
+    {
+      "id": "l4-os-family-federation",
+      "name": "OS Family Federation",
+      "scope": "linux-windows-apple-bsd"
+    },
+    {
+      "id": "l5-runtime-federation",
+      "name": "Runtime Federation",
+      "scope": "node-python-java-dotnet-php-go-rust"
+    },
+    {
+      "id": "l6-process-federation",
+      "name": "Process Federation",
+      "scope": "pm2-systemd-launchd-windows-services"
+    },
+    {
+      "id": "l7-container-federation",
+      "name": "Container Federation",
+      "scope": "docker-containerd-podman-kubernetes"
+    },
+    {
+      "id": "l8-virtualization-federation",
+      "name": "Virtualization Federation",
+      "scope": "kvm-qemu-vmware-hyperv-virtualbox"
+    },
+    {
+      "id": "l9-application-federation",
+      "name": "Application Federation",
+      "scope": "sheikha-services-products-apis"
+    },
+    {
+      "id": "l10-ai-data-federation",
+      "name": "AI & Data Federation",
+      "scope": "models-data-rag-registries"
+    },
+    {
+      "id": "l11-governance-federation",
+      "name": "Governance Federation",
+      "scope": "no-harm-audit-human-review"
+    },
+    {
+      "id": "l12-enterprise-federation",
+      "name": "Enterprise Federation",
+      "scope": "organizations-platforms-control-plane"
+    }
+  ],
+  "relations": [
+    {
+      "from": "l0-hardware-federation",
+      "to": "l1-firmware-federation",
+      "type": "FEEDS"
+    },
+    {
+      "from": "l1-firmware-federation",
+      "to": "l2-boot-federation",
+      "type": "LOADS"
+    },
+    {
+      "from": "l2-boot-federation",
+      "to": "l3-kernel-federation",
+      "type": "STARTS"
+    },
+    {
+      "from": "l3-kernel-federation",
+      "to": "l4-os-family-federation",
+      "type": "ENABLES"
+    },
+    {
+      "from": "l4-os-family-federation",
+      "to": "l5-runtime-federation",
+      "type": "HOSTS"
+    },
+    {
+      "from": "l5-runtime-federation",
+      "to": "l6-process-federation",
+      "type": "EXECUTES"
+    },
+    {
+      "from": "l6-process-federation",
+      "to": "l7-container-federation",
+      "type": "ORCHESTRATES_OPTIONALLY"
+    },
+    {
+      "from": "l7-container-federation",
+      "to": "l8-virtualization-federation",
+      "type": "INTEROPERATES_WITH"
+    },
+    {
+      "from": "l6-process-federation",
+      "to": "l9-application-federation",
+      "type": "RUNS"
+    },
+    {
+      "from": "l9-application-federation",
+      "to": "l10-ai-data-federation",
+      "type": "USES"
+    },
+    {
+      "from": "l10-ai-data-federation",
+      "to": "l11-governance-federation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "l11-governance-federation",
+      "to": "l12-enterprise-federation",
+      "type": "REPORTS_TO"
+    }
+  ],
+  "osFamilyFederation": {
+    "system": "SHEIKHA_OS_FAMILY_INDUSTRIAL_FEDERATION_FABRIC_V1",
+    "status": "ACTIVE",
+    "mode": "READ_ONLY_OS_FAMILY_CLUSTER_MAPPING",
+    "safety": {
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noSysctlModification": true,
+      "noRegistryModification": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noHarm": true,
+      "measurementOnly": true
+    },
+    "families": [
+      {
+        "id": "linux-industrial-family",
+        "family": "Linux",
+        "arabicName": "التجمع الصناعي لعائلة لينكس",
+        "systems": [
+          "Pop!_OS",
+          "Ubuntu",
+          "Debian",
+          "Fedora",
+          "Arch",
+          "Android"
+        ],
+        "clusters": [
+          "kernel-cluster",
+          "distro-cluster",
+          "package-cluster",
+          "container-cluster",
+          "runtime-cluster"
+        ]
+      },
+      {
+        "id": "windows-industrial-family",
+        "family": "Windows NT",
+        "arabicName": "التجمع الصناعي لعائلة ويندوز",
+        "systems": [
+          "Windows 10",
+          "Windows 11",
+          "Windows Server"
+        ],
+        "clusters": [
+          "nt-kernel-cluster",
+          "registry-observation-cluster",
+          "service-cluster",
+          "powershell-cluster"
+        ]
+      },
+      {
+        "id": "apple-industrial-family",
+        "family": "Apple XNU/Darwin",
+        "arabicName": "التجمع الصناعي لعائلة أبل",
+        "systems": [
+          "macOS",
+          "iOS",
+          "iPadOS",
+          "watchOS",
+          "tvOS"
+        ],
+        "clusters": [
+          "xnu-kernel-cluster",
+          "darwin-cluster",
+          "apple-silicon-cluster",
+          "app-sandbox-cluster"
+        ]
+      },
+      {
+        "id": "bsd-industrial-family",
+        "family": "BSD",
+        "arabicName": "التجمع الصناعي لعائلة BSD",
+        "systems": [
+          "FreeBSD",
+          "OpenBSD",
+          "NetBSD"
+        ],
+        "clusters": [
+          "bsd-kernel-cluster",
+          "userland-cluster",
+          "networking-cluster",
+          "security-cluster"
+        ]
+      },
+      {
+        "id": "container-industrial-family",
+        "family": "Containers",
+        "arabicName": "التجمع الصناعي للحاويات",
+        "systems": [
+          "Docker",
+          "containerd",
+          "Podman",
+          "Kubernetes"
+        ],
+        "clusters": [
+          "namespace-cluster",
+          "cgroups-cluster",
+          "image-cluster",
+          "orchestration-cluster"
+        ]
+      },
+      {
+        "id": "virtualization-industrial-family",
+        "family": "Virtualization",
+        "arabicName": "التجمع الصناعي للافتراضية",
+        "systems": [
+          "KVM",
+          "QEMU",
+          "VirtualBox",
+          "VMware",
+          "Hyper-V"
+        ],
+        "clusters": [
+          "hypervisor-cluster",
+          "guest-kernel-cluster",
+          "virtual-network-cluster",
+          "storage-virtualization-cluster"
+        ]
+      }
+    ],
+    "relations": [
+      {
+        "from": "linux-industrial-family",
+        "to": "container-industrial-family",
+        "type": "HOSTS_CONTAINERS"
+      },
+      {
+        "from": "virtualization-industrial-family",
+        "to": "linux-industrial-family",
+        "type": "CAN_HOST_GUEST"
+      },
+      {
+        "from": "virtualization-industrial-family",
+        "to": "windows-industrial-family",
+        "type": "CAN_HOST_GUEST"
+      },
+      {
+        "from": "virtualization-industrial-family",
+        "to": "bsd-industrial-family",
+        "type": "CAN_HOST_GUEST"
+      },
+      {
+        "from": "apple-industrial-family",
+        "to": "virtualization-industrial-family",
+        "type": "CAN_MODEL_OR_HOST_WITH_POLICY"
+      },
+      {
+        "from": "linux-industrial-family",
+        "to": "bsd-industrial-family",
+        "type": "UNIX_LIKE_CONCEPTUAL_ALIGNMENT"
+      },
+      {
+        "from": "windows-industrial-family",
+        "to": "linux-industrial-family",
+        "type": "INTEROPERATES_WITH_WSL_OR_NETWORK"
+      },
+      {
+        "from": "container-industrial-family",
+        "to": "governance-industrial-family",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "virtualization-industrial-family",
+        "to": "governance-industrial-family",
+        "type": "GOVERNED_BY"
+      }
+    ],
+    "baseFederation": {
+      "system": "SHEIKHA_UNIVERSAL_OS_KERNEL_FEDERATION_FABRIC_V1",
+      "status": "ACTIVE",
+      "mode": "READ_ONLY_OS_KERNEL_FEDERATION_MAPPING",
+      "safety": {
+        "noKernelModification": true,
+        "noBootModification": true,
+        "noSysctlModification": true,
+        "noRegistryModification": true,
+        "noPackageInstall": true,
+        "noServiceRestart": true,
+        "noHarm": true,
+        "measurementOnly": true
+      },
+      "families": [
+        {
+          "id": "linux-family",
+          "name": "Linux Kernel Family",
+          "arabicName": "عائلة كيرنل لينكس",
+          "systems": [
+            "Linux",
+            "Pop!_OS",
+            "Ubuntu",
+            "Debian",
+            "Fedora",
+            "Arch",
+            "Android"
+          ],
+          "kernelType": "monolithic-modular",
+          "relationship": "hardware-firmware-boot-kernel-os-runtime"
+        },
+        {
+          "id": "windows-nt-family",
+          "name": "Windows NT Kernel Family",
+          "arabicName": "عائلة كيرنل ويندوز NT",
+          "systems": [
+            "Windows 10",
+            "Windows 11",
+            "Windows Server"
+          ],
+          "kernelType": "hybrid",
+          "relationship": "hardware-firmware-boot-kernel-services-runtime"
+        },
+        {
+          "id": "apple-xnu-family",
+          "name": "Apple XNU / Darwin Kernel Family",
+          "arabicName": "عائلة كيرنل أبل XNU/Darwin",
+          "systems": [
+            "macOS",
+            "iOS",
+            "iPadOS",
+            "watchOS",
+            "tvOS"
+          ],
+          "kernelType": "hybrid-xnu",
+          "relationship": "apple-silicon-firmware-boot-xnu-darwin-services-apps"
+        },
+        {
+          "id": "bsd-family",
+          "name": "BSD Kernel Family",
+          "arabicName": "عائلة كيرنل BSD",
+          "systems": [
+            "FreeBSD",
+            "OpenBSD",
+            "NetBSD"
+          ],
+          "kernelType": "unix-bsd",
+          "relationship": "hardware-boot-kernel-userland-services"
+        },
+        {
+          "id": "container-runtime-family",
+          "name": "Container Runtime Layer",
+          "arabicName": "طبقة تشغيل الحاويات",
+          "systems": [
+            "Docker",
+            "containerd",
+            "Podman",
+            "Kubernetes"
+          ],
+          "kernelType": "shared-host-kernel-runtime",
+          "relationship": "host-kernel-namespaces-cgroups-containers"
+        },
+        {
+          "id": "hypervisor-vm-family",
+          "name": "Hypervisor / Virtual Machine Layer",
+          "arabicName": "طبقة المشرف الافتراضي والآلات الافتراضية",
+          "systems": [
+            "KVM",
+            "QEMU",
+            "VirtualBox",
+            "VMware",
+            "Hyper-V"
+          ],
+          "kernelType": "virtualization-layer",
+          "relationship": "hardware-hypervisor-guest-kernel-guest-os"
+        }
+      ],
+      "relations": [
+        {
+          "from": "hardware-layer",
+          "to": "firmware-layer",
+          "type": "FEEDS"
+        },
+        {
+          "from": "firmware-layer",
+          "to": "boot-layer",
+          "type": "FEEDS"
+        },
+        {
+          "from": "boot-layer",
+          "to": "kernel-family-layer",
+          "type": "LOADS"
+        },
+        {
+          "from": "kernel-family-layer",
+          "to": "os-services-layer",
+          "type": "ENABLES"
+        },
+        {
+          "from": "os-services-layer",
+          "to": "runtime-layer",
+          "type": "HOSTS"
+        },
+        {
+          "from": "runtime-layer",
+          "to": "application-layer",
+          "type": "RUNS"
+        },
+        {
+          "from": "application-layer",
+          "to": "governance-layer",
+          "type": "GOVERNED_BY"
+        },
+        {
+          "from": "linux-family",
+          "to": "container-runtime-family",
+          "type": "HOSTS"
+        },
+        {
+          "from": "hypervisor-vm-family",
+          "to": "linux-family",
+          "type": "CAN_HOST"
+        },
+        {
+          "from": "hypervisor-vm-family",
+          "to": "windows-nt-family",
+          "type": "CAN_HOST"
+        },
+        {
+          "from": "hypervisor-vm-family",
+          "to": "apple-xnu-family",
+          "type": "CAN_MODEL_ONLY"
+        }
+      ],
+      "activeHost": {
+        "system": "SHEIKHA_KERNEL_INDUSTRIAL_FABRIC_V1",
+        "status": "ACTIVE",
+        "mode": "READ_ONLY_INDUSTRIAL_KERNEL_CLUSTER_MAPPING",
+        "safety": {
+          "noKernelModification": true,
+          "noBootModification": true,
+          "noSysctlModification": true,
+          "noPackageInstall": true,
+          "noServiceRestart": true,
+          "noHarm": true
+        },
+        "industrialKernels": [
+          {
+            "id": "hardware-industrial-kernel",
+            "layer": "below-kernel",
+            "name": "Hardware Industrial Kernel",
+            "arabicName": "كيرنل التجمعات الصناعية للعتاد",
+            "clusters": [
+              "cpu-cluster",
+              "memory-cluster",
+              "disk-cluster",
+              "device-observation-cluster"
+            ]
+          },
+          {
+            "id": "boot-firmware-industrial-kernel",
+            "layer": "below-kernel",
+            "name": "Boot & Firmware Industrial Kernel",
+            "arabicName": "كيرنل تجمعات الإقلاع والبرمجيات الثابتة",
+            "clusters": [
+              "firmware-reporting-cluster",
+              "boot-observation-cluster",
+              "no-boot-change-cluster"
+            ]
+          },
+          {
+            "id": "linux-kernel-industrial-kernel",
+            "layer": "kernel",
+            "name": "Linux Kernel Industrial Kernel",
+            "arabicName": "كيرنل تجمعات نواة لينكس",
+            "clusters": [
+              "kernel-version-cluster",
+              "scheduler-observation-cluster",
+              "process-interface-cluster"
+            ]
+          },
+          {
+            "id": "os-industrial-kernel",
+            "layer": "above-kernel",
+            "name": "OS Industrial Kernel",
+            "arabicName": "كيرنل تجمعات نظام التشغيل",
+            "clusters": [
+              "pop-os-cluster",
+              "linux-distro-cluster",
+              "filesystem-observation-cluster"
+            ]
+          },
+          {
+            "id": "runtime-industrial-kernel",
+            "layer": "above-kernel",
+            "name": "Runtime Industrial Kernel",
+            "arabicName": "كيرنل تجمعات التشغيل",
+            "clusters": [
+              "node-runtime-cluster",
+              "pm2-cluster",
+              "api-health-cluster"
+            ]
+          },
+          {
+            "id": "application-industrial-kernel",
+            "layer": "above-kernel",
+            "name": "Application Industrial Kernel",
+            "arabicName": "كيرنل تجمعات التطبيقات",
+            "clusters": [
+              "sheikha-portal-cluster",
+              "product-knowledge-cluster",
+              "governance-api-cluster"
+            ]
+          },
+          {
+            "id": "governance-industrial-kernel",
+            "layer": "above-kernel",
+            "name": "Governance Industrial Kernel",
+            "arabicName": "كيرنل تجمعات الحوكمة",
+            "clusters": [
+              "no-harm-cluster",
+              "audit-cluster",
+              "human-review-cluster"
+            ]
+          }
+        ],
+        "relations": [
+          {
+            "from": "hardware-industrial-kernel",
+            "to": "boot-firmware-industrial-kernel",
+            "type": "DEPENDS_ON_AND_FEEDS"
+          },
+          {
+            "from": "boot-firmware-industrial-kernel",
+            "to": "linux-kernel-industrial-kernel",
+            "type": "DEPENDS_ON_AND_FEEDS"
+          },
+          {
+            "from": "linux-kernel-industrial-kernel",
+            "to": "os-industrial-kernel",
+            "type": "DEPENDS_ON_AND_FEEDS"
+          },
+          {
+            "from": "os-industrial-kernel",
+            "to": "runtime-industrial-kernel",
+            "type": "DEPENDS_ON_AND_FEEDS"
+          },
+          {
+            "from": "runtime-industrial-kernel",
+            "to": "application-industrial-kernel",
+            "type": "DEPENDS_ON_AND_FEEDS"
+          },
+          {
+            "from": "application-industrial-kernel",
+            "to": "governance-industrial-kernel",
+            "type": "DEPENDS_ON_AND_FEEDS"
+          }
+        ],
+        "stack": {
+          "system": "SHEIKHA_KERNEL_STACK_FABRIC_V1",
+          "status": "ACTIVE",
+          "mode": "READ_ONLY_LAYER_MEASUREMENT",
+          "safety": {
+            "noKernelModification": true,
+            "noBootModification": true,
+            "noSysctlModification": true,
+            "noPackageInstall": true,
+            "noServiceRestart": true,
+            "noHarm": true
+          },
+          "layers": [
+            {
+              "id": "hardware-layer",
+              "name": "Hardware Layer",
+              "scope": "cpu-memory-disk",
+              "position": "below-kernel"
+            },
+            {
+              "id": "firmware-layer",
+              "name": "Firmware Layer",
+              "scope": "reported-only",
+              "position": "below-kernel"
+            },
+            {
+              "id": "boot-layer",
+              "name": "Boot Layer",
+              "scope": "read-only-no-boot-change",
+              "position": "below-kernel"
+            },
+            {
+              "id": "kernel-layer",
+              "name": "Kernel Layer",
+              "scope": "linux-kernel-read-only",
+              "position": "kernel"
+            },
+            {
+              "id": "os-layer",
+              "name": "Operating System Layer",
+              "scope": "pop-os-linux-distro",
+              "position": "above-kernel"
+            },
+            {
+              "id": "process-layer",
+              "name": "Process Layer",
+              "scope": "pm2-process-observation",
+              "position": "above-kernel"
+            },
+            {
+              "id": "runtime-layer",
+              "name": "Runtime Layer",
+              "scope": "node-pm2-runtime-health",
+              "position": "above-kernel"
+            },
+            {
+              "id": "application-layer",
+              "name": "Application Layer",
+              "scope": "sheikha-runtime-services",
+              "position": "above-kernel"
+            },
+            {
+              "id": "governance-layer",
+              "name": "Governance Layer",
+              "scope": "no-harm-human-review",
+              "position": "above-kernel"
+            }
+          ],
+          "kernel": {
+            "system": "SHEIKHA_KERNEL_FABRIC_V1",
+            "status": "ACTIVE",
+            "mode": "READ_ONLY_MEASUREMENT",
+            "safety": {
+              "noKernelModification": true,
+              "noBootModification": true,
+              "noSysctlModification": true,
+              "noServiceRestart": true,
+              "noHarm": true
+            },
+            "os": {
+              "platform": "linux",
+              "release": "7.0.11-76070011-generic",
+              "type": "Linux",
+              "arch": "x64",
+              "hostname": "pop-os",
+              "distroName": "Pop!_OS",
+              "distroVersion": "22.04 LTS",
+              "prettyName": "Pop!_OS 22.04 LTS"
+            },
+            "compute": {
+              "cpus": 22,
+              "model": "Intel(R) Core(TM) Ultra 9 185H",
+              "loadavg": [
+                2.9,
+                3.83,
+                2.74
+              ],
+              "totalMemory": 66875760640,
+              "freeMemory": 50153738240
+            },
+            "disk": {
+              "root": "929G 481G 402G 55%"
+            },
+            "pm2": [
+              {
+                "name": "sheikha-main-portal",
+                "status": "online",
+                "pid": 1541,
+                "memory": 169017344,
+                "cpu": 0.7
+              },
+              {
+                "name": "sheikha-proxy-8082",
+                "status": "online",
+                "pid": 1547,
+                "memory": 60776448,
+                "cpu": 0
+              },
+              {
+                "name": "sheikha-universal-api",
+                "status": "online",
+                "pid": 1549,
+                "memory": 148480000,
+                "cpu": 0
+              }
+            ],
+            "governance": {
+              "humanReviewRequired": true,
+              "productionSafe": true
+            }
+          }
+        }
+      }
+    }
+  }
+}

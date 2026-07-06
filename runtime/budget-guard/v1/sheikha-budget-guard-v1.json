@@ -1,0 +1,18 @@
+{
+  "system": "SHEIKHA_BUDGET_GUARD_V1",
+  "status": "ACTIVE",
+  "purpose": "Prevent paid cloud/GPU usage without explicit budget approval.",
+  "rules": {
+    "monthly_budget_required": true,
+    "hard_spend_limit_required": true,
+    "human_approval_for_gpu": true,
+    "auto_stop_on_budget_breach": true,
+    "no_paid_training_without_approval": true
+  },
+  "limits": {
+    "defaultMonthlyCloudBudgetSAR": 0,
+    "gpuTrainingBudgetSAR": 0,
+    "requiresManualUpdateBeforeUse": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

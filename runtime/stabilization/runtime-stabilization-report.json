@@ -1,0 +1,15 @@
+{
+  "system": "SHEIKHA_RUNTIME_STABILIZATION_GATE_V1",
+  "status": "REVIEW_REQUIRED",
+  "checks": {
+    "undefinedEngines": 89,
+    "cronBlocking": 204,
+    "undefinedValues": 5
+  },
+  "action": {
+    "undefinedEngines": "Create engine manifest and align exports/classes with loader names.",
+    "cronBlocking": "Move heavy cron jobs outside main runtime or disable them during startup.",
+    "undefinedValues": "Fill missing config defaults before production lock."
+  },
+  "generatedAt": "2026-07-03T15:51:52.783Z"
+}

@@ -1,0 +1,13 @@
+{
+  "commit": "01cc6916",
+  "curlVerification": {
+    "runs": 500,
+    "averageApiMs": 0.876,
+    "p95ApiMs": 1.12,
+    "p99ApiMs": 1.58,
+    "maxApiMs": 18.984,
+    "spikesAbove10ms": 5
+  },
+  "decision": "CORE_API_PASSED_BUT_PROMOTION_BLOCKED_BY_SPIKES",
+  "nextAction": "confirm with keepalive or isolate connection overhead before single_node_lab"
+}

@@ -1,0 +1,23 @@
+{
+  "system": "SHEIKHA_COMPUTE_CONTRACT_ENGINE_V1",
+  "status": "ACTIVE",
+  "workflow": [
+    "COMPUTE_NEED",
+    "GOVERNANCE_REVIEW",
+    "BUDGET_APPROVAL",
+    "PROVIDER_SELECTION",
+    "CONTRACT_VERIFICATION",
+    "CAPACITY_CONFIRMATION",
+    "WORKLOAD_APPROVAL",
+    "ALLOCATION",
+    "MONITORING",
+    "BILLING_REVIEW"
+  ],
+  "rules": {
+    "no_gpu_allocation_without_contract": true,
+    "no_paid_compute_without_budget": true,
+    "no_training_claim_without_run_log": true,
+    "no_customer_data_without_contract": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

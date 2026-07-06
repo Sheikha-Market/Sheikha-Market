@@ -1,0 +1,46 @@
+{
+  "system": "SHEIKHA_AI_CLUSTER_PIPELINE_FABRIC_V1",
+  "status": "ACTIVE",
+  "arabic_name": "نسيج شيخة لكلاسترات وخطوط أنابيب الذكاء الصناعي",
+  "purpose": "Govern AI infrastructure from clusters and pipelines up to supercluster readiness, MoE routing, and multi-agent systems without claiming physical supercluster ownership, model training, or external provider capacity unless verified.",
+  "position": "ABOVE_COMMERCIAL_PRODUCT_LAYER_AS_AI_INFRASTRUCTURE_PRODUCT",
+  "commercial_product": "PROD-AICL-001",
+  "governed_by": [
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+    "SHEIKHA_DECISION_REGISTRY_V2",
+    "SHEIKHA_CAPABILITY_REGISTRY_V2",
+    "SHEIKHA_COMMERCIAL_PRODUCT_LAYER_V1",
+    "SHEIKHA_COMMERCIAL_EXECUTION_CLUSTER_V1"
+  ],
+  "truthfulness_policy": {
+    "readiness_fabric_only": true,
+    "physical_supercluster_claim": false,
+    "gpu_ownership_claim": false,
+    "model_training_claim": false,
+    "cloud_capacity_claim": false,
+    "tool_installation_claim": false,
+    "external_provider_claim_requires_verification": true,
+    "production_deployment_requires_runtime_evidence": true
+  },
+  "rules": {
+    "data_license_required": true,
+    "pipeline_stage_required": true,
+    "tool_registry_required": true,
+    "cluster_topology_required": true,
+    "monitoring_required": true,
+    "model_drift_monitoring_required": true,
+    "cost_approval_required_for_external_compute": true,
+    "security_isolation_required": true,
+    "human_approval_for_training_or_deployment": true,
+    "no_physical_infrastructure_claim_without_evidence": true
+  },
+  "registries": {
+    "cluster_topology": "runtime/ai-cluster-pipeline-fabric/v1/registries/cluster-topology-registry.json",
+    "pipeline_stages": "runtime/ai-cluster-pipeline-fabric/v1/registries/ai-pipeline-stages-registry.json",
+    "tooling": "runtime/ai-cluster-pipeline-fabric/v1/registries/ai-pipeline-tooling-registry.json",
+    "governance": "runtime/ai-cluster-pipeline-fabric/v1/registries/cluster-pipeline-governance-registry.json",
+    "report": "runtime/ai-cluster-pipeline-fabric/v1/sheikha-ai-cluster-pipeline-fabric-v1-report.json"
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

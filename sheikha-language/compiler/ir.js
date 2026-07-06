@@ -1,6 +1,6 @@
 'use strict';
 
-function lowerToIR(ast, options = {}) {
+function lowerToIR(ast) {
     const steps = [];
 
     for (const node of ast.body || []) {
@@ -37,10 +37,6 @@ function lowerToIR(ast, options = {}) {
         meta: {
             nodes: ast.body?.length || 0,
             generatedAt: new Date().toISOString(),
-            sourceLanguage: options.sourceLanguage || ast.meta?.sourceLanguage || 'sheikha',
-            sourceFamily: options.sourceFamily || ast.meta?.sourceFamily || 'sheikha-dsl',
-            sourceKind: options.sourceKind || ast.meta?.sourceKind || 'shk',
-            sourceFile: options.sourceFile || ast.meta?.sourceFile || null,
         },
         steps,
     };

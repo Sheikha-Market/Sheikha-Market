@@ -1,0 +1,25 @@
+{
+  "system": "SHEIKHA_EDITOR_CORE_V1",
+  "status": "ACTIVE",
+  "purpose": "Internal governed editor for code, architecture, governance files, OpenAPI, SDK, reports, roadmaps, PR reviews, patch plans, and knowledge records.",
+  "editingScopes": [
+    "code",
+    "architecture",
+    "governance",
+    "openapi",
+    "sdk",
+    "reports",
+    "knowledge",
+    "roadmaps",
+    "patch_plans",
+    "merge_plans"
+  ],
+  "rules": {
+    "no_direct_production_edit": true,
+    "patch_plan_required": true,
+    "rollback_required": true,
+    "lint_required": true,
+    "tests_required": true,
+    "human_approval_required_for_high_risk": true
+  }
+}

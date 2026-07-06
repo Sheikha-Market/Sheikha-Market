@@ -1,0 +1,22 @@
+{
+  "system": "SHEIKHA_RUNTIME_CONTRACT_ENFORCER_V1",
+  "status": "ACTIVE",
+  "purpose": "Enforce Sheikha API Contract V2 at runtime by wrapping legacy flat responses into { success, data, meta } without breaking existing root runtime.",
+  "contract": "SHEIKHA_API_CONTRACT_V2",
+  "position": "ABOVE_API_CONTRACT_REGISTRY_AND_EXTENSION_COMPATIBILITY",
+  "enforces": [
+    "success_data_meta_shape",
+    "failure_error_data_meta_shape",
+    "legacy_flat_response_wrapping",
+    "vscode_extension_contract_compatibility",
+    "portal_compatibility_safe_adapter"
+  ],
+  "rules": {
+    "do_not_break_existing_routes": true,
+    "wrap_legacy_success_responses": true,
+    "wrap_legacy_failure_responses": true,
+    "preserve_human_authority": true,
+    "preserve_heart_core_governance": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

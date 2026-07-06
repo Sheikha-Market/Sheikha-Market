@@ -1,0 +1,36 @@
+{
+  "policy": "SHEIKHA_NPM_AUDIT_POLICY_V1",
+  "status": "ACTIVE",
+  "rules": {
+    "noForceFix": true,
+    "blockHighSeverity": true,
+    "requireAuditJson": true,
+    "requireLint": true,
+    "requireTests": true,
+    "requireRuntimeSmoke": true,
+    "breakingChangesRequireManualApproval": true
+  },
+  "currentFindings": {
+    "@grpc/grpc-js": {
+      "severity": "high",
+      "action": "npm audit fix only",
+      "force": false,
+      "risk": "malformed request may crash service"
+    },
+    "brace-expansion": {
+      "severity": "moderate",
+      "action": "defer or isolate because fix requires force/out-of-range",
+      "force": false
+    },
+    "uuid": {
+      "severity": "moderate",
+      "action": "do not force; breaking upgrade to uuid 14 requires compatibility review",
+      "force": false
+    },
+    "ws": {
+      "severity": "moderate",
+      "action": "review dependency owner before out-of-range upgrade",
+      "force": false
+    }
+  }
+}

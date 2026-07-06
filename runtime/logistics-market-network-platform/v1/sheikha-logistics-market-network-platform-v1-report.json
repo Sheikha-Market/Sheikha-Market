@@ -1,0 +1,39 @@
+{
+  "system": "SHEIKHA_LOGISTICS_MARKET_NETWORK_PLATFORM_V1",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "LOGISTICS_MARKET_NETWORK_PLATFORM_ACTIVE_100",
+  "checks": {
+    "engine": true,
+    "catalog": true,
+    "networkProducts": true,
+    "providerTypes": true,
+    "controlTower": true,
+    "incotermsMap": true,
+    "dashboardRouting": true,
+    "customerClassification": true,
+    "resourceSources": true,
+    "advisoryServices": true,
+    "visualChain": true,
+    "gapClosure": true,
+    "html": true,
+    "css": true,
+    "driftDetector": true
+  },
+  "missing": [],
+  "cycle": [
+    "CUSTOMER",
+    "CLASSIFICATION",
+    "NETWORK_DESIGN",
+    "LOGISTICS_MARKET",
+    "RFQ",
+    "CONTRACT_OR_PO",
+    "SHIPMENT",
+    "CONTROL_TOWER",
+    "SLA",
+    "INVOICE",
+    "PAYMENT",
+    "IMPACT"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

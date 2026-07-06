@@ -1,0 +1,32 @@
+{
+  "policy": "SHEIKHA_PIXEL_POLICY",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "visualPixel": {
+    "purpose": "preserve premium visual identity",
+    "status": "GOVERNED"
+  },
+  "marketingPixel": {
+    "purpose": "measure lawful marketing performance",
+    "requiresConsent": true,
+    "status": "GOVERNED"
+  },
+  "trackingPixel": {
+    "requiresPurpose": true,
+    "requiresConsent": true,
+    "hiddenTracking": "BLOCKED"
+  },
+  "allowedUse": [
+    "conversion measurement",
+    "campaign quality measurement",
+    "user experience improvement",
+    "brand consistency review"
+  ],
+  "blockedUse": [
+    "hidden tracking",
+    "unclassified pixels",
+    "misleading advertising",
+    "unnecessary personal data collection"
+  ],
+  "rule": "No pixel becomes active until classified, consent-aware, privacy-safe, and aligned with Sheikha identity."
+}

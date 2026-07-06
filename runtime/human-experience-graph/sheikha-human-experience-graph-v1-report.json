@@ -1,0 +1,1954 @@
+{
+  "system": "SHEIKHA_HUMAN_EXPERIENCE_GRAPH_V1",
+  "status": "ACTIVE",
+  "mode": "GOVERNED_HUMAN_EXPERIENCE_GRAPH",
+  "decision": "ACTIVE_EXPERIENCE_TO_DOMAIN_GOVERNANCE_IMPACT_GRAPH",
+  "purpose": "Link human experiences to knowledge domains, governance controls, and impact metrics for reusable learning and safe decision support.",
+  "graph": {
+    "directed": true,
+    "readOnlyByDefault": true,
+    "relationTypes": [
+      "CLASSIFIED_AS",
+      "GOVERNED_BY",
+      "MEASURED_BY",
+      "ENRICHES",
+      "REQUIRES_REVIEW",
+      "SUPPORTS_DECISION"
+    ],
+    "experienceTypes": [
+      "human-observation",
+      "field-operation",
+      "project-experience",
+      "decision-record",
+      "lesson-learned",
+      "skill-practice",
+      "customer-feedback",
+      "research-note",
+      "incident-learning",
+      "community-need",
+      "quality-finding",
+      "innovation-hypothesis"
+    ],
+    "governanceControls": [
+      "Consent And Privacy Review",
+      "Evidence Validation",
+      "Source Provenance",
+      "Risk Classification",
+      "Human Approval For High Impact",
+      "Qualified Review For Sensitive Domains",
+      "No Harm Gate",
+      "Audit Trail"
+    ],
+    "impactMetrics": [
+      "Learning Improvement",
+      "Decision Quality",
+      "Operational Benefit",
+      "Risk Reduction",
+      "Community Benefit",
+      "Knowledge Reuse"
+    ]
+  },
+  "nodes": [
+    {
+      "id": "experience-001-human-observation",
+      "type": "EXPERIENCE",
+      "label": "human-observation",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-002-field-operation",
+      "type": "EXPERIENCE",
+      "label": "field-operation",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-003-project-experience",
+      "type": "EXPERIENCE",
+      "label": "project-experience",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-004-decision-record",
+      "type": "EXPERIENCE",
+      "label": "decision-record",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-005-lesson-learned",
+      "type": "EXPERIENCE",
+      "label": "lesson-learned",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-006-skill-practice",
+      "type": "EXPERIENCE",
+      "label": "skill-practice",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-007-customer-feedback",
+      "type": "EXPERIENCE",
+      "label": "customer-feedback",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-008-research-note",
+      "type": "EXPERIENCE",
+      "label": "research-note",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-009-incident-learning",
+      "type": "EXPERIENCE",
+      "label": "incident-learning",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-010-community-need",
+      "type": "EXPERIENCE",
+      "label": "community-need",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-011-quality-finding",
+      "type": "EXPERIENCE",
+      "label": "quality-finding",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "experience-012-innovation-hypothesis",
+      "type": "EXPERIENCE",
+      "label": "innovation-hypothesis",
+      "status": "ACTIVE",
+      "humanProvided": true,
+      "requiresConsentOrAuthority": true
+    },
+    {
+      "id": "domain-001-islamic-governance",
+      "type": "DOMAIN",
+      "label": "islamic-governance",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-002-arabic-language",
+      "type": "DOMAIN",
+      "label": "arabic-language",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-003-medicine",
+      "type": "DOMAIN",
+      "label": "medicine",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-004-psychology",
+      "type": "DOMAIN",
+      "label": "psychology",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-005-education",
+      "type": "DOMAIN",
+      "label": "education",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-006-economics",
+      "type": "DOMAIN",
+      "label": "economics",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-007-commerce",
+      "type": "DOMAIN",
+      "label": "commerce",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-008-engineering",
+      "type": "DOMAIN",
+      "label": "engineering",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-009-technology",
+      "type": "DOMAIN",
+      "label": "technology",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-010-sustainability",
+      "type": "DOMAIN",
+      "label": "sustainability",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-011-society",
+      "type": "DOMAIN",
+      "label": "society",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "domain-012-enterprise",
+      "type": "DOMAIN",
+      "label": "enterprise",
+      "status": "ACTIVE",
+      "humanReviewRequiredForHighImpact": true
+    },
+    {
+      "id": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Consent And Privacy Review",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-002-evidence-validation",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Evidence Validation",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-003-source-provenance",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Source Provenance",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-004-risk-classification",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Risk Classification",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Human Approval For High Impact",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Qualified Review For Sensitive Domains",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-007-no-harm-gate",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "No Harm Gate",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "governance-008-audit-trail",
+      "type": "GOVERNANCE_CONTROL",
+      "label": "Audit Trail",
+      "status": "ACTIVE",
+      "mandatory": true
+    },
+    {
+      "id": "impact-001-learning-improvement",
+      "type": "IMPACT_METRIC",
+      "label": "Learning Improvement",
+      "status": "ACTIVE",
+      "measured": true
+    },
+    {
+      "id": "impact-002-decision-quality",
+      "type": "IMPACT_METRIC",
+      "label": "Decision Quality",
+      "status": "ACTIVE",
+      "measured": true
+    },
+    {
+      "id": "impact-003-operational-benefit",
+      "type": "IMPACT_METRIC",
+      "label": "Operational Benefit",
+      "status": "ACTIVE",
+      "measured": true
+    },
+    {
+      "id": "impact-004-risk-reduction",
+      "type": "IMPACT_METRIC",
+      "label": "Risk Reduction",
+      "status": "ACTIVE",
+      "measured": true
+    },
+    {
+      "id": "impact-005-community-benefit",
+      "type": "IMPACT_METRIC",
+      "label": "Community Benefit",
+      "status": "ACTIVE",
+      "measured": true
+    },
+    {
+      "id": "impact-006-knowledge-reuse",
+      "type": "IMPACT_METRIC",
+      "label": "Knowledge Reuse",
+      "status": "ACTIVE",
+      "measured": true
+    }
+  ],
+  "edges": [
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-001-human-observation",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-002-field-operation",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-003-project-experience",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-004-decision-record",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-005-lesson-learned",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-006-skill-practice",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-007-customer-feedback",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-008-research-note",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-009-incident-learning",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-010-community-need",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-011-quality-finding",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-001-islamic-governance",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-002-arabic-language",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-003-medicine",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-004-psychology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-005-education",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-006-economics",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-007-commerce",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-008-engineering",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-009-technology",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-010-sustainability",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-011-society",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "domain-012-enterprise",
+      "type": "CLASSIFIED_AS"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-001-consent-and-privacy-review",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-002-evidence-validation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-003-source-provenance",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-004-risk-classification",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-005-human-approval-for-high-impact",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-006-qualified-review-for-sensitive-domains",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-007-no-harm-gate",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "governance-008-audit-trail",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "impact-001-learning-improvement",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "impact-002-decision-quality",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "impact-003-operational-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "impact-004-risk-reduction",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "impact-005-community-benefit",
+      "type": "MEASURED_BY"
+    },
+    {
+      "from": "experience-012-innovation-hypothesis",
+      "to": "impact-006-knowledge-reuse",
+      "type": "MEASURED_BY"
+    }
+  ],
+  "linkedLayers": {
+    "humanDevelopmentFramework": {
+      "system": "SHEIKHA_HUMAN_DEVELOPMENT_FRAMEWORK_V1",
+      "status": "ACTIVE",
+      "decision": "READY_FOR_GOVERNED_HUMAN_KNOWLEDGE_INTEGRATION"
+    },
+    "humanCenteredKnowledgeCivilizationPlatform": {
+      "system": "SHEIKHA_HUMAN_CENTERED_KNOWLEDGE_CIVILIZATION_PLATFORM_V1",
+      "status": "ACTIVE",
+      "validation": "PASSED",
+      "readiness": "HUMAN_CENTERED_KNOWLEDGE_CIVILIZATION_PLATFORM_READY"
+    }
+  },
+  "claims": {
+    "machineConsciousnessClaimed": false,
+    "selfAwarenessClaimed": false,
+    "agiClaimed": false,
+    "asiClaimed": false,
+    "unseenKnowledgeClaimed": false
+  },
+  "governance": {
+    "humanProvidedExperience": true,
+    "consentOrAuthorityRequired": true,
+    "noSensitiveDataByDefault": true,
+    "noExternalMutation": true,
+    "humanApprovalRequiredForHighImpact": true,
+    "qualifiedReviewRequiredForSensitiveDomains": true,
+    "noAutomaticReligiousRuling": true,
+    "auditRequired": true,
+    "noMachineConsciousnessClaim": true,
+    "noHarm": true,
+    "principle": "لا ضرر ولا ضرار",
+    "tawhid": "الله وحده لا شريك له"
+  },
+  "readiness": {
+    "experienceCaptureReady": true,
+    "domainLinkingReady": true,
+    "governanceLinkingReady": true,
+    "impactMeasurementReady": true,
+    "knowledgeReuseReady": true,
+    "overall": "HUMAN_EXPERIENCE_GRAPH_READY"
+  },
+  "timestamp": "2026-07-05T21:10:06.153Z",
+  "validation": {
+    "system": "SHEIKHA_HUMAN_EXPERIENCE_GRAPH_VALIDATOR_V1",
+    "status": "PASSED",
+    "nodes": 38,
+    "edges": 312,
+    "experienceNodes": 12,
+    "domainNodes": 12,
+    "governanceNodes": 8,
+    "impactNodes": 6,
+    "relationTypes": [
+      "CLASSIFIED_AS",
+      "GOVERNED_BY",
+      "MEASURED_BY"
+    ],
+    "missingNodeTypes": [],
+    "missingEdgeTypes": [],
+    "blockedChecks": 0
+  }
+}

@@ -1,0 +1,27 @@
+{
+  "engine": "SHEIKHA_CAPABILITY_TOKEN_ENGINE",
+  "status": "ACTIVE",
+  "mode": "tokenized-governed-capabilities",
+
+  "tokenRules": {
+    "signed_token_required": true,
+    "capability_registry_required": true,
+    "policy_validation_required": true,
+    "risk_validation_required": true,
+    "audit_binding_required": true,
+    "expiry_required": true,
+    "revocation_supported": true
+  },
+
+  "tokenScopes": [
+    "runtime.execution",
+    "runtime.federation",
+    "advisory.execution",
+    "market.infrastructure",
+    "governance.execution",
+    "ai.execution",
+    "datacenter.control",
+    "cluster.orchestration",
+    "policy.management"
+  ]
+}

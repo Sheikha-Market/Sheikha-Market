@@ -1,0 +1,44 @@
+#!/usr/bin/env node
+'use strict';
+
+const {
+  getSheikhaGitPlatformIdentity,
+  buildSheikhaGitPlatformPlan
+} = require('../core/integration/sheikha-git-platform-identity');
+
+const args = process.argv.slice(2);
+const command = args[0] || 'identity';
+
+function printJson(value) {
+  process.stdout.write(`${JSON.stringify(value, null, 2)}\n`);
+}
+
+if (command === 'identity' || command === 'status') {
+  printJson(getSheikhaGitPlatformIdentity());
+  process.exit(0);
+}
+
+if (command === 'plan') {
+  const platform = args[1] || 'git';
+  const action = args[2] || 'identity';
+  printJson(buildSheikhaGitPlatformPlan({
+    platform,
+    action,
+    target: args[3] || 'working-tree'
+  }));
+  process.exit(0);
+}
+
+printJson({
+  success: false,
+  error: 'unknown_command',
+  usage: [
+    'git sheikha',
+    'git sheikha identity',
+    'git sheikha status',
+    'git sheikha plan github pull-request',
+    'git sheikha plan gitlab merge-request'
+  ],
+  timestamp: new Date().toISOString()
+});
+process.exit(1);

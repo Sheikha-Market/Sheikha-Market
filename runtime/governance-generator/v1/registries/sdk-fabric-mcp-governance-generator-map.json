@@ -1,0 +1,40 @@
+{
+  "registry": "SHEIKHA_SDK_FABRIC_MCP_GOVERNANCE_GENERATOR_MAP_V1",
+  "status": "ACTIVE",
+  "sdkFabricMcpSystem": "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+  "binding": "SDK_FABRIC_MCP_INTEGRATION_",
+  "mcpToolContracts": [
+    "generate_runtime_blueprint",
+    "generate_registry_contract",
+    "generate_tool_contract",
+    "generate_route_contract",
+    "generate_test_contract",
+    "generate_governance_questions",
+    "generate_research_evidence_pack",
+    "generate_impact_report_blueprint",
+    "bind_fabric_bootstrap_route",
+    "run_admission_and_drift_gate"
+  ],
+  "fabricTargets": [
+    "SHEIKHA_LAB",
+    "SHEIKHA_STUDIO",
+    "SHEIKHA_GIT",
+    "SHEIKHA_HUB",
+    "UNIFIED_RAG_ENGINE",
+    "VECTOR_KNOWLEDGE_STORE",
+    "DIGITAL_TWIN_ENGINE",
+    "SUPPLY_CHAIN_CONTROL_TOWER",
+    "EXECUTIVE_DASHBOARD_GENERATOR",
+    "MARKETPLACE_CATALOG",
+    "CRM_AND_SALES_PIPELINE"
+  ],
+  "authorizationPolicy": {
+    "read_only_by_default": true,
+    "write_requires_explicit_scope": true,
+    "external_connector_requires_contract_or_permission": true,
+    "credentials_must_not_be_stored_in_git": true,
+    "mcp_tools_must_be_least_privilege": true,
+    "human_review_for_high_impact_generation": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

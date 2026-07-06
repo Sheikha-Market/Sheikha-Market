@@ -1,0 +1,7 @@
+{
+  "status": "ACTIVE",
+  "decision": "Use sheikha-runtime as the sovereign unified runtime command because existing sheikha command is already occupied by legacy CLI wrapper.",
+  "newCommand": "sheikha-runtime",
+  "legacyCommand": "sheikha",
+  "rule": "Do not break legacy sheikha command. Use sheikha-runtime for unified runtime API and control plane."
+}

@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * خدمة Google Pay المتكاملة
- * 
+ *
  * توفر معالجة الدفع الآمن عبر Google Pay والمحافظ الرقمية
  */
 class GooglePayService

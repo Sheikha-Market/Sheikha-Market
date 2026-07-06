@@ -1,7 +1,7 @@
 # بسم الله الرحمن الرحيم
 
 # إطار الشراكة الاستراتيجية مع Google
-**Strategic Partnership Framework with Google**  
+**Strategic Partnership Framework with Google**
 **أفضل من Context.ai — نموذج متكامل إسلامي تقني**
 
 ---
@@ -98,7 +98,7 @@ Google ليست مجرد **شركة تقنية** — بل هي **إمبراطو�
 
 **ملاحظات:**
 - **المبلغ مرتفع** لكن الفائدة أكبر: بنية تحتية عالمية قابلة للتوسع لملايين المستخدمين
-- **Google قد تمنح**: 
+- **Google قد تمنح**:
   - ✅ $300 free credits للمشاريع الجديدة
   - ✅ Google for Startups: حتى $200,000 credits على سنتين
   - ✅ خصومات خاصة للمشاريع الاجتماعية
@@ -626,36 +626,36 @@ print(response.text)
 
 ### من طرف سوق شيخة:
 
-**سلمان بن أحمد الراجح**  
-المؤسس والرئيس التنفيذي  
-📧 market@sheikha.top  
-📱 [رقم الجوال]  
-🌐 https://sheikha.top  
+**سلمان بن أحمد الراجح**
+المؤسس والرئيس التنفيذي
+📧 market@sheikha.top
+📱 [رقم الجوال]
+🌐 https://sheikha.top
 🏢 المنظمة: 224557279528
 
 ### من طرف Google (المستهدفون):
 
 #### 1. Google for Startups MENA
-📧 startups-mena@google.com  
+📧 startups-mena@google.com
 🌐 https://startup.google.com/
 
 #### 2. Google Cloud Saudi Arabia
-📧 cloud-saudi@google.com  
+📧 cloud-saudi@google.com
 📞 800-850-0001 (الدعم السعودي)
 
 #### 3. Google Ventures (GV)
-🌐 https://www.gv.com/contact/  
+🌐 https://www.gv.com/contact/
 📧 gv-portfolio@google.com
 
 #### 4. Vertex AI Team
-📧 vertex-ai-support@google.com  
+📧 vertex-ai-support@google.com
 🌐 https://cloud.google.com/vertex-ai
 
 ---
 
 ## 🤲 الخاتمة
 
-**«وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ۖ وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ»**  
+**«وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَىٰ ۖ وَلَا تَعَاوَنُوا عَلَى الْإِثْمِ وَالْعُدْوَانِ»**
 — المائدة:2
 
 هذه ليست مجرد **صفقة تجارية** — بل هي **تعاون حضاري** بين:
@@ -677,8 +677,8 @@ print(response.text)
 
 ---
 
-**تم بحمد الله**  
-**سلمان بن أحمد الراجح**  
+**تم بحمد الله**
+**سلمان بن أحمد الراجح**
 **10 مارس 2026**
 
 ---

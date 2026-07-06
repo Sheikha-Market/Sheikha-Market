@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="التسجيل الحكومي والمؤسسي في منظومة شيخة — القطاع العام، الشركات الحكومية، الجامعات، البحث والتطوير">
+    <meta name="theme-color" content="#050810">
+    <title>التسجيل الحكومي والمؤسسي | SHEIKHA — شيخة</title>
+    <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+    <style>
+        :root{--gold:#D4AF37;--gold-l:#F5E6A3;--copper:#B87333;--bg:#050810;--bg2:#0a0f1a;--bg3:#111827;--t1:#f8fafc;--t2:#94a3b8;--t3:#64748b;--border:#1e293b;--green:#10b981;--green-d:#0a5c36;--red:#ef4444;--blue:#3b82f6;--orange:#f59e0b;--purple:#8b5cf6;--r:12px;--gov:#0ea5e9;--gov-d:#0369a1;--gov-bg:rgba(14,165,233,.06);--teal:#14b8a6;--rose:#f43f5e}
+        *{margin:0;padding:0;box-sizing:border-box}
+        body{font-family:'Tajawal',sans-serif;background:var(--bg);color:var(--t1);min-height:100vh;line-height:1.7}
+        a{color:var(--gold);text-decoration:none}
+        .bg-anim{position:fixed;inset:0;z-index:0;background:radial-gradient(ellipse 120% 60% at 50% -10%,rgba(14,165,233,.06),transparent 60%),radial-gradient(ellipse 80% 50% at 80% 50%,rgba(10,92,54,.04),transparent 50%)}
+        .bg-grid{position:fixed;inset:0;z-index:0;background-image:linear-gradient(rgba(14,165,233,.018) 1px,transparent 1px),linear-gradient(90deg,rgba(14,165,233,.018) 1px,transparent 1px);background-size:60px 60px}
+        .page{position:relative;z-index:1;min-height:100vh;display:flex;flex-direction:column}
+        /* Nav */
+        .nav{background:rgba(5,8,16,.92);backdrop-filter:blur(24px);border-bottom:1px solid rgba(14,165,233,.1);padding:0 24px;position:sticky;top:0;z-index:100}
+        .nav-c{max-width:1200px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;height:64px}
+        .logo{display:flex;align-items:center;gap:12px;text-decoration:none}
+        .logo-m{width:36px;height:36px;background:linear-gradient(135deg,var(--gold),var(--copper));border-radius:10px;display:grid;place-items:center}
+        .logo-m svg{width:20px;height:20px}
+        .logo-t{font-size:1.15rem;font-weight:900;background:linear-gradient(135deg,var(--gold),var(--gold-l));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .nav-badge{padding:4px 12px;border-radius:8px;background:rgba(14,165,233,.12);color:var(--gov);font-size:.75rem;font-weight:700;border:1px solid rgba(14,165,233,.2)}
+        .nav-links{display:flex;gap:4px;list-style:none}
+        .nav-links a{color:var(--t2);padding:8px 16px;border-radius:10px;font-size:.88rem;font-weight:500;transition:all .2s;text-decoration:none}
+        .nav-links a:hover{color:var(--gov);background:rgba(14,165,233,.06)}
+        /* Hero */
+        .hero{padding:40px 24px 24px;text-align:center}
+        .hero-icon{width:76px;height:76px;margin:0 auto 16px;border-radius:20px;background:linear-gradient(135deg,var(--gov),var(--gov-d));display:flex;align-items:center;justify-content:center;box-shadow:0 8px 32px rgba(14,165,233,.25)}
+        .hero-icon svg{width:38px;height:38px;color:#fff}
+        .hero h1{font-size:clamp(1.5rem,3.5vw,2.2rem);font-weight:900;margin-bottom:8px}
+        .hero h1 span{background:linear-gradient(135deg,var(--gov),#38bdf8);-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+        .hero p{color:var(--t2);font-size:.9rem;max-width:700px;margin:0 auto}
+        .hero .verse{color:var(--green);font-size:.82rem;font-style:italic;margin-top:10px}
+        /* Trust */
+        .trust{display:flex;justify-content:center;gap:20px;flex-wrap:wrap;padding:16px 24px;margin-bottom:16px}
+        .trust-item{display:flex;align-items:center;gap:6px;font-size:.76rem;color:var(--t3)}
+        .trust-item svg{width:14px;height:14px;color:var(--gov)}
+        /* Steps */
+        .steps{display:flex;justify-content:center;gap:5px;padding:0 24px;margin-bottom:28px;flex-wrap:wrap}
+        .step{display:flex;align-items:center;gap:6px;padding:8px 14px;border-radius:50px;border:1px solid var(--border);background:var(--bg2);font-size:.76rem;font-weight:600;color:var(--t3);transition:all .35s}
+        .step.active{border-color:var(--gov);background:rgba(14,165,233,.08);color:var(--gov)}
+        .step.done{border-color:var(--green);background:rgba(16,185,129,.06);color:var(--green)}
+        .step-n{width:24px;height:24px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:.7rem;background:var(--border);color:var(--t3);transition:all .35s}
+        .step.active .step-n{background:var(--gov);color:#fff}
+        .step.done .step-n{background:var(--green);color:#fff}
+        /* Form */
+        .form-wrap{max-width:1000px;margin:0 auto 60px;padding:0 24px}
+        .form-box{background:var(--bg2);border:1px solid var(--border);border-radius:20px;padding:36px;position:relative;overflow:hidden}
+        .form-box::before{content:'';position:absolute;top:0;right:0;left:0;height:3px;background:linear-gradient(90deg,var(--gov),var(--gold),var(--gov));opacity:.5}
+        .sec{display:none;animation:fadeUp .4s ease}
+        .sec.active{display:block}
+        @keyframes fadeUp{from{opacity:0;transform:translateY(16px)}to{opacity:1;transform:translateY(0)}}
+        .sec h2{font-size:1.2rem;font-weight:800;color:var(--gov);margin-bottom:6px;display:flex;align-items:center;gap:10px}
+        .sec h2 svg{width:22px;height:22px;flex-shrink:0}
+        .sec>p.desc{color:var(--t2);margin-bottom:24px;font-size:.88rem}
+        /* Entity Grid */
+        .entity-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-bottom:20px}
+        .entity-card{padding:22px 16px;background:var(--bg);border:2px solid var(--border);border-radius:14px;text-align:center;cursor:pointer;transition:all .35s;position:relative}
+        .entity-card:hover{border-color:rgba(14,165,233,.3);transform:translateY(-3px)}
+        .entity-card.selected{border-color:var(--gov);background:rgba(14,165,233,.05);box-shadow:0 0 24px rgba(14,165,233,.1)}
+        .entity-card .ec-icon{width:52px;height:52px;border-radius:14px;margin:0 auto 10px;display:flex;align-items:center;justify-content:center}
+        .entity-card .ec-icon svg{width:26px;height:26px}
+        .entity-card h3{font-size:.92rem;font-weight:700;margin-bottom:4px}
+        .entity-card p{font-size:.72rem;color:var(--t3);line-height:1.5}
+        .entity-card .ec-check{position:absolute;top:10px;left:10px;width:22px;height:22px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;transition:all .3s}
+        .entity-card.selected .ec-check{border-color:var(--gov);background:var(--gov)}
+        /* Sub-entity for employee */
+        .sub-entity-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}
+        .sub-card{padding:16px;background:var(--bg);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .3s;display:flex;align-items:center;gap:12px}
+        .sub-card:hover{border-color:rgba(14,165,233,.3)}
+        .sub-card.selected{border-color:var(--gov);background:rgba(14,165,233,.04)}
+        .sub-card .sc-icon{width:38px;height:38px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .sub-card h4{font-size:.85rem;font-weight:700;margin-bottom:2px}
+        .sub-card p{font-size:.7rem;color:var(--t3)}
+        .sub-card .sc-check{width:18px;height:18px;border-radius:50%;border:2px solid var(--border);margin-right:auto;display:grid;place-items:center;flex-shrink:0;transition:all .3s}
+        .sub-card.selected .sc-check{border-color:var(--gov);background:var(--gov)}
+        /* Goals */
+        .goal-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin:16px 0}
+        .goal-card{padding:16px;background:var(--bg);border:2px solid var(--border);border-radius:12px;cursor:pointer;transition:all .3s}
+        .goal-card:hover{border-color:rgba(14,165,233,.25)}
+        .goal-card.selected{border-color:var(--gov);background:rgba(14,165,233,.04)}
+        .goal-card .gc-head{display:flex;align-items:center;gap:10px;margin-bottom:6px}
+        .goal-card .gc-icon{width:36px;height:36px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .goal-card .gc-icon svg{width:18px;height:18px}
+        .goal-card h4{font-size:.85rem;font-weight:700}
+        .goal-card p{font-size:.72rem;color:var(--t3);line-height:1.5;padding-right:46px}
+        .goal-card .gc-check{position:absolute;top:10px;left:10px}
+        /* Role grid */
+        .role-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:14px;margin:16px 0}
+        .role-card{padding:18px;background:var(--bg);border:2px solid var(--border);border-radius:14px;cursor:pointer;transition:all .3s;position:relative}
+        .role-card:hover{border-color:rgba(14,165,233,.25)}
+        .role-card.selected{border-color:var(--gov);background:rgba(14,165,233,.05)}
+        .role-card .rc-head{display:flex;align-items:center;gap:10px;margin-bottom:8px}
+        .role-card .rc-icon{width:40px;height:40px;border-radius:10px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .role-card h4{font-size:.9rem;font-weight:700}
+        .role-card p{font-size:.72rem;color:var(--t3);line-height:1.5}
+        .role-card .perms{margin-top:10px;display:flex;flex-wrap:wrap;gap:4px}
+        .ptag{padding:3px 8px;border-radius:6px;font-size:.65rem;font-weight:600}
+        .role-card .rc-check{position:absolute;top:12px;left:12px;width:20px;height:20px;border-radius:50%;border:2px solid var(--border);display:grid;place-items:center;transition:all .3s}
+        .role-card.selected .rc-check{border-color:var(--gov);background:var(--gov)}
+        /* Nafath */
+        .nafath-box{background:linear-gradient(135deg,rgba(0,108,53,.1),rgba(0,108,53,.02));border:1px solid rgba(0,108,53,.2);border-radius:14px;padding:20px;margin-bottom:16px;display:flex;align-items:center;gap:16px;cursor:pointer;transition:all .3s}
+        .nafath-box:hover{border-color:rgba(0,108,53,.5)}
+        .nafath-icon{width:48px;height:48px;background:rgba(0,108,53,.15);border-radius:12px;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+        .or-div{display:flex;align-items:center;gap:16px;margin:16px 0;color:var(--t3);font-size:.82rem}
+        .or-div::before,.or-div::after{content:'';flex:1;height:1px;background:var(--border)}
+        /* Form fields */
+        .fg{display:grid;grid-template-columns:repeat(2,1fr);gap:16px;margin-bottom:16px}
+        .fg.f1{grid-template-columns:1fr}
+        .fg.f3{grid-template-columns:repeat(3,1fr)}
+        .ff{display:flex;flex-direction:column;gap:5px}
+        .ff label{font-size:.82rem;color:var(--t2);font-weight:500}
+        .ff label .req{color:var(--red);margin-right:4px}
+        .ff input,.ff select,.ff textarea{padding:11px 14px;border:1px solid var(--border);border-radius:10px;background:var(--bg);color:var(--t1);font-size:.88rem;font-family:inherit;transition:border-color .25s}
+        .ff input:focus,.ff select:focus,.ff textarea:focus{outline:none;border-color:var(--gov);box-shadow:0 0 12px rgba(14,165,233,.08)}
+        .ff textarea{min-height:70px;resize:vertical}
+        .ff .hint{font-size:.7rem;color:var(--t3)}
+        .ff select option{background:var(--bg2);color:var(--t1)}
+        /* Info boxes */
+        .info-box{padding:14px 18px;border-radius:12px;margin-bottom:16px;display:flex;align-items:flex-start;gap:10px;font-size:.82rem;line-height:1.6}
+        .info-box.gov{background:rgba(14,165,233,.06);border:1px solid rgba(14,165,233,.15);color:var(--gov)}
+        .info-box.sharia{background:rgba(16,185,129,.06);border:1px solid rgba(16,185,129,.15);color:var(--green)}
+        .info-box.warn{background:rgba(245,158,11,.06);border:1px solid rgba(245,158,11,.15);color:var(--orange)}
+        .info-box svg{width:18px;height:18px;flex-shrink:0;margin-top:2px}
+        /* Summary */
+        .summary-card{background:var(--bg);border:1px solid var(--border);border-radius:14px;padding:18px;margin-bottom:14px}
+        .summary-card h4{font-size:.9rem;font-weight:700;color:var(--gov);margin-bottom:10px;display:flex;align-items:center;gap:8px}
+        .summary-row{display:flex;justify-content:space-between;padding:7px 0;border-bottom:1px solid rgba(30,41,59,.5);font-size:.82rem}
+        .summary-row:last-child{border:none}
+        .summary-row .label{color:var(--t3)}
+        .summary-row .value{font-weight:600;max-width:60%;text-align:left}
+        /* Buttons */
+        .btn-row{display:flex;justify-content:space-between;align-items:center;margin-top:28px;gap:12px;flex-wrap:wrap}
+        .btn{padding:12px 28px;border-radius:12px;border:none;font-family:inherit;font-size:.88rem;font-weight:700;cursor:pointer;transition:all .25s;display:flex;align-items:center;gap:8px}
+        .btn-gov{background:linear-gradient(135deg,var(--gov),var(--gov-d));color:#fff;box-shadow:0 4px 16px rgba(14,165,233,.25)}
+        .btn-gov:hover{transform:translateY(-2px);box-shadow:0 6px 24px rgba(14,165,233,.35)}
+        .btn-outline{background:transparent;border:1.5px solid var(--border);color:var(--t2)}
+        .btn-outline:hover{border-color:var(--gov);color:var(--gov)}
+        .btn-green{background:linear-gradient(135deg,var(--green),var(--green-d));color:#fff}
+        .btn-green:hover{transform:translateY(-2px)}
+        /* Success */
+        .success-box{text-align:center;padding:36px 20px}
+        .success-icon{width:72px;height:72px;border-radius:50%;background:linear-gradient(135deg,var(--green),var(--green-d));display:flex;align-items:center;justify-content:center;margin:0 auto 16px;animation:scaleIn .5s ease}
+        @keyframes scaleIn{from{transform:scale(0)}to{transform:scale(1)}}
+        .success-box h2{color:var(--green);margin-bottom:6px;font-size:1.2rem}
+        .ref-code{font-family:'Courier New',monospace;font-size:1.3rem;color:var(--gov);background:var(--bg);padding:10px 20px;border-radius:10px;border:1px solid rgba(14,165,233,.2);display:inline-block;margin:14px 0;letter-spacing:3px;font-weight:800}
+        /* Responsive */
+        @media(max-width:768px){.entity-grid{grid-template-columns:repeat(2,1fr)}.role-grid,.goal-grid,.sub-entity-grid,.fg,.fg.f3{grid-template-columns:1fr}.btn-row{flex-direction:column}.btn{width:100%;justify-content:center}}
+        @media(max-width:480px){.entity-grid{grid-template-columns:1fr}.form-box{padding:20px 14px}.steps{gap:3px}.step{padding:6px 10px;font-size:.68rem}}
+        .footer{margin-top:auto;padding:16px;text-align:center;color:var(--t3);font-size:.75rem;border-top:1px solid var(--border)}
+    </style>
+</head>
+<body>
+<div class="bg-anim"></div>
+<div class="bg-grid"></div>
+<div class="page">
+
+<!-- NAV -->
+<nav class="nav"><div class="nav-c">
+    <a href="/" class="logo"><div class="logo-m"><svg viewBox="0 0 24 24" fill="none" stroke="#050810" stroke-width="2.5"><path d="M12 2L2 7l10 5 10-5-10-5z"/><path d="M2 17l10 5 10-5"/><path d="M2 12l10 5 10-5"/></svg></div><span class="logo-t">SHEIKHA</span></a>
+    <span class="nav-badge">بوابة القطاع العام والمؤسسي</span>
+    <ul class="nav-links"><li><a href="/">الرئيسية</a></li><li><a href="/هوية-السوق.html">هوية شيخة</a></li><li><a href="/سوق-المدينة.html">سوق المدينة</a></li><li><a href="/سوق-شيخة.html">السوق</a></li><li><a href="/تسجيل-الشركات.html">تسجيل شركة</a></li><li><a href="/تسجيل-حكومي.html" style="color:var(--gov)">تسجيل حكومي</a></li><li><a href="/تسجيل-الدخول.html">دخول</a></li></ul>
+</div></nav>
+
+<!-- HERO -->
+<section class="hero">
+    <div class="hero-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/><path d="M9 9h.01"/><path d="M15 9h.01"/><path d="M9 13h.01"/><path d="M15 13h.01"/></svg></div>
+    <h1>التسجيل <span>الحكومي والمؤسسي</span></h1>
+    <p>بوابة القطاع العام والشركات الحكومية وشبه الحكومية والجامعات — لتوريد المعادن في مشاريع البناء والبنية التحتية، بيع السكراب، البحث والتطوير الأكاديمي</p>
+    <div class="verse">«إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا وَإِذَا حَكَمْتُم بَيْنَ النَّاسِ أَن تَحْكُمُوا بِالْعَدْلِ» — النساء 58</div>
+</section>
+
+<div class="trust">
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> تشفير AES-256</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> متوافق مع اعتماد ومنصة بلدي</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="3" y="11" width="18" height="11" rx="2"/><path d="M7 11V7a5 5 0 0110 0v4"/></svg> سيادة البيانات</div>
+    <div class="trust-item"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M2 12h20"/></svg> تكامل مع فسح وأرامكو</div>
+</div>
+
+<!-- STEPS -->
+<div class="steps" id="stepsBar">
+    <div class="step active" data-s="1"><span class="step-n">1</span> نوع القطاع</div>
+    <div class="step" data-s="2"><span class="step-n">2</span> الأهداف</div>
+    <div class="step" data-s="3"><span class="step-n">3</span> البيانات</div>
+    <div class="step" data-s="4"><span class="step-n">4</span> الصلاحيات</div>
+    <div class="step" data-s="5"><span class="step-n">5</span> التحقق</div>
+    <div class="step" data-s="6"><span class="step-n">6</span> التأكيد</div>
+</div>
+
+<!-- FORM -->
+<div class="form-wrap"><div class="form-box">
+
+<!-- ════════ STEP 1: Entity Type ════════ -->
+<div class="sec active" id="sec1">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/></svg> حدد نوع القطاع</h2>
+    <p class="desc">اختر القطاع الذي تنتمي إليه — كل قطاع يوفّر أهداف وصلاحيات مختلفة في منظومة شيخة</p>
+
+    <div class="entity-grid" id="entityGrid">
+        <div class="entity-card" onclick="selectEntity(this,'ministry')" data-t="ministry">
+            <div class="ec-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ec-icon" style="background:rgba(14,165,233,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gov)" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/><path d="M9 21v-6h6v6"/></svg></div>
+            <h3>وزارة / جهة حكومية</h3>
+            <p>وزارة الصناعة، التجارة، الإسكان، النقل — توريد معادن لمشاريع البنية التحتية</p>
+        </div>
+        <div class="entity-card" onclick="selectEntity(this,'gov-company')" data-t="gov-company">
+            <div class="ec-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ec-icon" style="background:rgba(212,175,55,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><rect x="2" y="7" width="20" height="15" rx="2"/><path d="M16 21V5a2 2 0 00-2-2h-4a2 2 0 00-2 2v16"/></svg></div>
+            <h3>شركة حكومية / شبه حكومية</h3>
+            <p>أرامكو، سابك، معادن، SEC — شركات القطاع العام وشبه الحكومي</p>
+        </div>
+        <div class="entity-card" onclick="selectEntity(this,'municipality')" data-t="municipality">
+            <div class="ec-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ec-icon" style="background:rgba(20,184,166,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg></div>
+            <h3>بلدية / أمانة / هيئة تطوير</h3>
+            <p>أمانات المناطق، هيئات التطوير، منصة بلدي — بناء المدن وبيع سكراب الهدم</p>
+        </div>
+        <div class="entity-card" onclick="selectEntity(this,'gov-university')" data-t="gov-university">
+            <div class="ec-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ec-icon" style="background:rgba(139,92,246,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M22 10v6M2 10l10-5 10 5-10 5z"/><path d="M6 12v5c0 1.66 2.69 3 6 3s6-1.34 6-3v-5"/></svg></div>
+            <h3>جامعة حكومية</h3>
+            <p>KAUST، KFUPM، جامعة الملك سعود — بحث وتطوير علوم المعادن والتعدين</p>
+        </div>
+        <div class="entity-card" onclick="selectEntity(this,'pvt-university')" data-t="pvt-university">
+            <div class="ec-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ec-icon" style="background:rgba(244,63,94,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div>
+            <h3>جامعة خاصة / أهلية</h3>
+            <p>جامعات خاصة — بحث وتطوير أكاديمي، شراكات تجارية، استشارات معدنية</p>
+        </div>
+        <div class="entity-card" onclick="selectEntity(this,'employee')" data-t="employee">
+            <div class="ec-check"><svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+            <div class="ec-icon" style="background:rgba(16,185,129,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M20 21v-2a4 4 0 00-4-4H8a4 4 0 00-4 4v2"/><circle cx="12" cy="7" r="4"/></svg></div>
+            <h3>موظف قطاع عام</h3>
+            <p>موظف في وزارة أو شركة حكومية أو جامعة — دخول بصفة رسمية وصلاحيات محددة</p>
+        </div>
+    </div>
+
+    <div class="info-box sharia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>جميع التعاملات في منظومة شيخة قائمة على الشريعة الإسلامية — الشفافية والأمانة والعدل. لا ربا، لا غرر، لا غش، لا احتكار.</div>
+    </div>
+
+    <div class="btn-row"><div></div><button class="btn btn-gov" onclick="goNext(2)">التالي <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button></div>
+</div>
+
+<!-- ════════ STEP 2: Goals ════════ -->
+<div class="sec" id="sec2">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> أهداف التسجيل</h2>
+    <p class="desc" id="goalsDesc">حدد أهدافك من التسجيل في منظومة شيخة — يمكنك اختيار أكثر من هدف</p>
+
+    <!-- Dynamic goals based on entity type -->
+    <div id="goalsContainer">
+
+    <!-- Goals for ministry/gov-company/municipality -->
+    <div id="govGoals" style="display:none">
+        <div class="goal-grid">
+            <div class="goal-card" onclick="toggleGoal(this,'procurement')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(14,165,233,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gov)" stroke-width="2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><h4>توريد معادن لمشاريع البناء</h4></div>
+                <p>شراء حديد، نحاس، ألمنيوم، صلب لمشاريع بناء المدن والبنية التحتية — مناقصات وأوامر شراء مباشرة</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'scrap-sell')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(212,175,55,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/><polyline points="3.27 6.96 12 12.01 20.73 6.96"/></svg></div><h4>بيع سكراب ومخلفات معدنية</h4></div>
+                <p>بيع مخلفات الهدم والبناء — حديد تسليح مستعمل، نحاس كهربائي، ألمنيوم هياكل، فولاذ مقاوم</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'tenders')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(20,184,166,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg></div><h4>طرح مناقصات حكومية</h4></div>
+                <p>طرح مناقصات توريد معادن عبر منظومة شيخة — متوافق مع اعتماد ومنصة المشتريات الحكومية</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'pricing')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(245,158,11,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h4>أسعار مرجعية وتقارير</h4></div>
+                <p>الوصول لأسعار المعادن المرجعية LME/COMEX، مؤشر شيخة SMI، تقارير العرض والطلب</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'regulation')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(139,92,246,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>تنظيم ورقابة السوق</h4></div>
+                <p>مراقبة الأسعار، ضبط جودة المعادن، التأكد من الامتثال الشرعي والقانوني</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'community')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(16,185,129,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87"/></svg></div><h4>المجتمع والتواصل</h4></div>
+                <p>التواصل مع الموردين والمصانع، المنتدى الحكومي، شراكات القطاع الخاص</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- Goals for universities -->
+    <div id="uniGoals" style="display:none">
+        <div class="goal-grid">
+            <div class="goal-card" onclick="toggleGoal(this,'research')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(139,92,246,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h4>البحث العلمي والأكاديمي</h4></div>
+                <p>أبحاث علم المعادن (Metallurgy)، هندسة المواد، تحليل السبائك، اختبارات الجودة، أوراق علمية</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'dev')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(14,165,233,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gov)" stroke-width="2"><path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 00-4 12.7V17h8v-2.3A7 7 0 0012 2z"/></svg></div><h4>تطوير تقنيات التعدين</h4></div>
+                <p>تطوير تقنيات استخلاص المعادن، إعادة التدوير المتقدمة، الابتكار في صناعة السبائك</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'labs')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(20,184,166,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M10 2v7.527a2 2 0 01-.586 1.414l-4.828 4.828A2 2 0 004 17.183V19a2 2 0 002 2h12a2 2 0 002-2v-1.817a2 2 0 00-.586-1.414l-4.828-4.828A2 2 0 0114 9.527V2"/><path d="M8.5 2h7"/></svg></div><h4>مختبرات وفحص المواد</h4></div>
+                <p>خدمات فحص وتحليل العينات المعدنية، شهادات الجودة، معايرة المعادن الثمينة</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'consulting')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(212,175,55,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M21 11.5a8.38 8.38 0 01-.9 3.8 8.5 8.5 0 01-7.6 4.7 8.38 8.38 0 01-3.8-.9L3 21l1.9-5.7a8.38 8.38 0 01-.9-3.8 8.5 8.5 0 014.7-7.6 8.38 8.38 0 013.8-.9h.5a8.48 8.48 0 018 8v.5z"/></svg></div><h4>استشارات أكاديمية</h4></div>
+                <p>تقديم استشارات للقطاع الخاص والحكومي في علوم المعادن، تدريب، ورش عمل</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'trade-uni')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(245,158,11,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><line x1="12" y1="1" x2="12" y2="23"/><path d="M17 5H9.5a3.5 3.5 0 000 7h5a3.5 3.5 0 010 7H6"/></svg></div><h4>شراكات تجارية</h4></div>
+                <p>شراكات مع مصانع وموردين — تطوير منتجات مشتركة، نقل تقنية، تسويق أبحاث</p>
+            </div>
+            <div class="goal-card" onclick="toggleGoal(this,'data-access')">
+                <div class="gc-head"><div class="gc-icon" style="background:rgba(16,185,129,.1)"><svg viewBox="0 0 24 24" fill="none" stroke="var(--green)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/><polyline points="17 6 23 6 23 12"/></svg></div><h4>بيانات السوق والإحصاءات</h4></div>
+                <p>الوصول لبيانات أسعار المعادن، إحصاءات العرض والطلب، بيانات الاستيراد والتصدير للأبحاث</p>
+            </div>
+        </div>
+    </div>
+
+    </div>
+
+    <div class="btn-row">
+        <button class="btn btn-outline" onclick="goBack(1)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+        <button class="btn btn-gov" onclick="goNext(3)">التالي <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </div>
+</div>
+
+<!-- ════════ STEP 3: Data Entry ════════ -->
+<div class="sec" id="sec3">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 00-2 2v16a2 2 0 002 2h12a2 2 0 002-2V8z"/><polyline points="14 2 14 8 20 8"/></svg> البيانات الرسمية</h2>
+    <p class="desc" id="dataDesc">أدخل المعلومات الرسمية للجهة</p>
+
+    <!-- Organization fields -->
+    <div id="orgFields" style="display:none">
+        <div class="fg">
+            <div class="ff"><label>الاسم الرسمي بالعربية <span class="req">*</span></label><input type="text" id="orgNameAr" placeholder="مثال: وزارة الصناعة والثروة المعدنية" required></div>
+            <div class="ff"><label>الاسم بالإنجليزية</label><input type="text" id="orgNameEn" placeholder="Ministry of Industry and Mineral Resources"></div>
+        </div>
+        <div class="fg f3">
+            <div class="ff"><label>الدولة <span class="req">*</span></label>
+                <select id="orgCountry" required><option value="">— اختر —</option>
+                <option selected>المملكة العربية السعودية</option><option>الإمارات</option><option>الكويت</option><option>البحرين</option><option>قطر</option><option>عمان</option><option>مصر</option><option>الأردن</option><option>العراق</option><option>المغرب</option><option>تركيا</option><option>دولة أخرى</option>
+                </select></div>
+            <div class="ff"><label>المدينة / المقر</label><input type="text" id="orgCity" placeholder="الرياض"></div>
+            <div class="ff"><label>القطاع الفرعي</label>
+                <select id="orgSector"><option value="">— اختر —</option>
+                <option>الصناعة والتعدين</option><option>التجارة والاستثمار</option><option>الإسكان والتطوير العمراني</option><option>النقل والبنية التحتية</option><option>الطاقة</option><option>البيئة والمياه</option><option>الدفاع والأمن</option><option>البلديات والأمانات</option><option>التعليم والبحث العلمي</option><option>آخر</option>
+                </select></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>رقم السجل / الترخيص</label><input type="text" id="orgLicense" placeholder="رقم التسجيل الرسمي أو الترخيص"></div>
+            <div class="ff"><label>الموقع الرسمي</label><input type="url" id="orgWebsite" placeholder="https://www.example.gov.sa"></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>البريد الإلكتروني الرسمي <span class="req">*</span></label><input type="email" id="orgEmail" placeholder="info@ministry.gov.sa" required></div>
+            <div class="ff"><label>هاتف التواصل</label><input type="tel" id="orgPhone" placeholder="+966 XX XXX XXXX"></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>اسم المسؤول / ممثل الجهة <span class="req">*</span></label><input type="text" id="orgContact" placeholder="الاسم الكامل للمسؤول المفوض" required></div>
+            <div class="ff"><label>المسمى الوظيفي للمسؤول</label><input type="text" id="orgContactTitle" placeholder="مدير إدارة المشتريات"></div>
+        </div>
+        <div class="fg f1">
+            <div class="ff"><label>وصف مختصر عن الجهة واحتياجاتها</label><textarea id="orgDesc" placeholder="وصف موجز عن الجهة ومجال اهتمامها في قطاع المعادن — مثال: نحتاج توريد حديد تسليح لمشاريع الإسكان في منطقة الرياض"></textarea></div>
+        </div>
+    </div>
+
+    <!-- University fields -->
+    <div id="uniFields" style="display:none">
+        <div class="fg">
+            <div class="ff"><label>اسم الجامعة بالعربية <span class="req">*</span></label><input type="text" id="uniNameAr" placeholder="مثال: جامعة الملك فهد للبترول والمعادن" required></div>
+            <div class="ff"><label>اسم الجامعة بالإنجليزية</label><input type="text" id="uniNameEn" placeholder="KFUPM"></div>
+        </div>
+        <div class="fg f3">
+            <div class="ff"><label>الدولة <span class="req">*</span></label>
+                <select id="uniCountry" required><option value="">— اختر —</option><option selected>المملكة العربية السعودية</option><option>الإمارات</option><option>مصر</option><option>الأردن</option><option>دولة أخرى</option></select></div>
+            <div class="ff"><label>المدينة</label><input type="text" id="uniCity" placeholder="الظهران"></div>
+            <div class="ff"><label>نوع الجامعة</label>
+                <select id="uniType"><option>حكومية</option><option>خاصة / أهلية</option><option>دولية</option></select></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>الكلية / القسم الأكاديمي <span class="req">*</span></label><input type="text" id="uniDept" placeholder="كلية الهندسة — قسم هندسة المواد والتعدين" required></div>
+            <div class="ff"><label>التصنيف الأكاديمي</label>
+                <select id="uniRank"><option value="">— اختر —</option><option>Top 100 عالمياً</option><option>Top 500 عالمياً</option><option>جامعة معتمدة محلياً</option><option>معهد بحثي متخصص</option></select></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>البريد الأكاديمي الرسمي <span class="req">*</span></label><input type="email" id="uniEmail" placeholder="professor@kfupm.edu.sa" required></div>
+            <div class="ff"><label>اسم الباحث / المسؤول <span class="req">*</span></label><input type="text" id="uniContact" placeholder="الاسم الكامل" required></div>
+        </div>
+        <div class="fg f1">
+            <div class="ff"><label>مجالات البحث</label><textarea id="uniResearch" placeholder="مثال: علم المعادن الفيزيائي، تحليل السبائك بالأشعة السينية، إعادة تدوير المعادن النادرة، تقنيات اللحام المتقدمة"></textarea></div>
+        </div>
+    </div>
+
+    <!-- Employee fields -->
+    <div id="empFields" style="display:none">
+        <div class="info-box gov">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M12 16v-4"/><path d="M12 8h.01"/></svg>
+            <div>كموظف قطاع عام، ستحصل على صلاحيات مرتبطة بجهتك ومنصبك. يمكنك التوثيق عبر نفاذ للسعوديين أو بالبيانات الرسمية.</div>
+        </div>
+        <div class="nafath-box" onclick="initNafath()">
+            <div class="nafath-icon"><svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="#10b981" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div>
+            <div><h3 style="font-size:.95rem;margin-bottom:2px">التوثيق عبر نفاذ الوطني</h3><p style="font-size:.78rem;color:var(--t2)">هوية رقمية سعودية — موصى به</p></div>
+            <span style="padding:5px 12px;border-radius:8px;background:rgba(16,185,129,.12);color:#10b981;font-size:.72rem;font-weight:700">موصى</span>
+        </div>
+        <div class="or-div">أو التسجيل بالبيانات الرسمية</div>
+        <div class="fg">
+            <div class="ff"><label>الاسم الكامل <span class="req">*</span></label><input type="text" id="empName" placeholder="الاسم الرباعي كما في الهوية" required></div>
+            <div class="ff"><label>رقم الهوية / الإقامة <span class="req">*</span></label><input type="text" id="empId" placeholder="رقم الهوية الوطنية أو الإقامة" required></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>الجهة التابع لها <span class="req">*</span></label>
+                <select id="empAgency" required><option value="">— اختر الجهة —</option>
+                <optgroup label="الوزارات">
+                    <option>وزارة الصناعة والثروة المعدنية</option><option>وزارة التجارة</option><option>وزارة الإسكان</option><option>وزارة النقل والخدمات اللوجستية</option><option>وزارة الطاقة</option><option>وزارة المالية</option><option>وزارة البيئة والمياه والزراعة</option>
+                </optgroup>
+                <optgroup label="الهيئات والمؤسسات">
+                    <option>هيئة الزكاة والضريبة والجمارك</option><option>هيئة المحتوى المحلي والمشتريات الحكومية</option><option>هيئة تنمية الصادرات</option><option>المؤسسة العامة للموانئ</option><option>الهيئة الملكية للجبيل وينبع</option><option>هيئة المدن الصناعية (مدن)</option>
+                </optgroup>
+                <optgroup label="الشركات الحكومية">
+                    <option>أرامكو السعودية</option><option>سابك (SABIC)</option><option>معادن (Ma'aden)</option><option>الشركة السعودية للكهرباء (SEC)</option><option>صندوق الاستثمارات العامة (PIF)</option>
+                </optgroup>
+                <optgroup label="البلديات والأمانات">
+                    <option>أمانة منطقة الرياض</option><option>أمانة جدة</option><option>أمانة المنطقة الشرقية</option><option>أمانة أخرى</option>
+                </optgroup>
+                <optgroup label="الجامعات">
+                    <option>جامعة الملك فهد للبترول والمعادن</option><option>جامعة الملك سعود</option><option>جامعة الملك عبدالعزيز</option><option>KAUST</option><option>جامعة أخرى</option>
+                </optgroup>
+                <option>جهة حكومية أخرى</option>
+                </select></div>
+            <div class="ff"><label>المسمى الوظيفي <span class="req">*</span></label><input type="text" id="empTitle" placeholder="مثال: مدير إدارة المشتريات" required></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>البريد الحكومي <span class="req">*</span></label><input type="email" id="empEmail" placeholder="name@ministry.gov.sa" required></div>
+            <div class="ff"><label>الهاتف الحكومي</label><input type="tel" id="empPhone" placeholder="+966 XX XXX XXXX"></div>
+        </div>
+        <div class="fg">
+            <div class="ff"><label>الإدارة / القسم</label><input type="text" id="empDept" placeholder="إدارة المشتريات — قسم المعادن"></div>
+            <div class="ff"><label>الرقم الوظيفي</label><input type="text" id="empNum" placeholder="الرقم الوظيفي"></div>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn btn-outline" onclick="goBack(2)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+        <button class="btn btn-gov" onclick="goNext(4)">التالي <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </div>
+</div>
+
+<!-- ════════ STEP 4: Permissions ════════ -->
+<div class="sec" id="sec4">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg> الصلاحيات والدور</h2>
+    <p class="desc" id="permDesc">حدد الدور المناسب — كل دور يحقق أهدافاً محددة في المنظومة</p>
+
+    <!-- Employee roles -->
+    <div id="empRoles" style="display:none">
+        <div class="role-grid">
+            <div class="role-card" onclick="selectRole(this,'gov-procure')">
+                <div class="rc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="rc-head"><div class="rc-icon" style="background:rgba(14,165,233,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gov)" stroke-width="2"><line x1="16.5" y1="9.4" x2="7.5" y2="4.21"/><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 003 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0021 16z"/></svg></div><h4>مسؤول مشتريات</h4></div>
+                <p>إنشاء طلبات شراء، مقارنات سعرية، إدارة عقود التوريد، متابعة الشحنات</p>
+                <div class="perms"><span class="ptag" style="background:rgba(14,165,233,.1);color:var(--gov)">شراء</span><span class="ptag" style="background:rgba(212,175,55,.1);color:var(--gold)">أسعار</span><span class="ptag" style="background:rgba(20,184,166,.1);color:var(--teal)">عقود</span><span class="ptag" style="background:rgba(16,185,129,.1);color:var(--green)">شحن</span></div>
+            </div>
+            <div class="role-card" onclick="selectRole(this,'gov-project')">
+                <div class="rc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="rc-head"><div class="rc-icon" style="background:rgba(20,184,166,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--teal)" stroke-width="2"><path d="M2 3h6a4 4 0 014 4v14a3 3 0 00-3-3H2z"/><path d="M22 3h-6a4 4 0 00-4 4v14a3 3 0 013-3h7z"/></svg></div><h4>مدير مشاريع</h4></div>
+                <p>إدارة مشاريع البناء، طرح مناقصات، متابعة التوريد، تقارير التقدم</p>
+                <div class="perms"><span class="ptag" style="background:rgba(20,184,166,.1);color:var(--teal)">مشاريع</span><span class="ptag" style="background:rgba(139,92,246,.1);color:var(--purple)">مناقصات</span><span class="ptag" style="background:rgba(245,158,11,.1);color:var(--orange)">تقارير</span></div>
+            </div>
+            <div class="role-card" onclick="selectRole(this,'gov-analyst')">
+                <div class="rc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="rc-head"><div class="rc-icon" style="background:rgba(139,92,246,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--purple)" stroke-width="2"><polyline points="23 6 13.5 15.5 8.5 10.5 1 18"/></svg></div><h4>محلل بيانات / أسعار</h4></div>
+                <p>تحليل أسعار المعادن، تقارير العرض والطلب، إحصاءات السوق — قراءة فقط</p>
+                <div class="perms"><span class="ptag" style="background:rgba(139,92,246,.1);color:var(--purple)">تحليل</span><span class="ptag" style="background:rgba(212,175,55,.1);color:var(--gold)">أسعار</span><span class="ptag" style="background:rgba(100,116,139,.1);color:var(--t3)">قراءة</span></div>
+            </div>
+            <div class="role-card" onclick="selectRole(this,'gov-regulator')">
+                <div class="rc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="rc-head"><div class="rc-icon" style="background:rgba(245,158,11,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--orange)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/><path d="M9 12l2 2 4-4"/></svg></div><h4>مسؤول تنظيمي / رقابي</h4></div>
+                <p>رقابة على السوق، ضبط الأسعار، مراقبة الامتثال، إصدار تقارير رقابية</p>
+                <div class="perms"><span class="ptag" style="background:rgba(245,158,11,.1);color:var(--orange)">رقابة</span><span class="ptag" style="background:rgba(239,68,68,.1);color:var(--red)">ضبط</span><span class="ptag" style="background:rgba(16,185,129,.1);color:var(--green)">امتثال</span></div>
+            </div>
+            <div class="role-card" onclick="selectRole(this,'gov-researcher')">
+                <div class="rc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="rc-head"><div class="rc-icon" style="background:rgba(244,63,94,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--rose)" stroke-width="2"><circle cx="11" cy="11" r="8"/><line x1="21" y1="21" x2="16.65" y2="16.65"/></svg></div><h4>باحث أكاديمي</h4></div>
+                <p>الوصول للبيانات البحثية، نشر أوراق علمية، طلب عينات، التواصل مع المختبرات</p>
+                <div class="perms"><span class="ptag" style="background:rgba(244,63,94,.1);color:var(--rose)">بحث</span><span class="ptag" style="background:rgba(139,92,246,.1);color:var(--purple)">بيانات</span><span class="ptag" style="background:rgba(14,165,233,.1);color:var(--gov)">مختبر</span></div>
+            </div>
+            <div class="role-card" onclick="selectRole(this,'gov-admin')">
+                <div class="rc-check"><svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg></div>
+                <div class="rc-head"><div class="rc-icon" style="background:rgba(212,175,55,.1)"><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="var(--gold)" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg></div><h4>مسؤول أول / مفوّض</h4></div>
+                <p>صلاحيات كاملة — إدارة حساب الجهة، الموافقات، إضافة موظفين، كل الأهداف</p>
+                <div class="perms"><span class="ptag" style="background:rgba(212,175,55,.1);color:var(--gold)">كامل</span><span class="ptag" style="background:rgba(16,185,129,.1);color:var(--green)">موافقات</span><span class="ptag" style="background:rgba(14,165,233,.1);color:var(--gov)">إدارة</span></div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Org-level permissions (auto for non-employee) -->
+    <div id="orgPerms" style="display:none">
+        <div class="info-box gov">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg>
+            <div>كجهة حكومية / مؤسسية، ستحصل على صلاحيات إدارية كاملة بناءً على الأهداف المختارة. يمكن لاحقاً إضافة موظفين بصلاحيات محددة من لوحة التحكم.</div>
+        </div>
+        <div style="background:var(--bg);border:1px solid var(--border);border-radius:12px;padding:16px">
+            <h4 style="color:var(--gov);font-size:.9rem;margin-bottom:12px">الصلاحيات المُفعّلة تلقائياً:</h4>
+            <div id="autoPerms" style="display:flex;flex-wrap:wrap;gap:6px"></div>
+        </div>
+    </div>
+
+    <div class="btn-row">
+        <button class="btn btn-outline" onclick="goBack(3)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+        <button class="btn btn-gov" onclick="goNext(5)">التالي <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </div>
+</div>
+
+<!-- ════════ STEP 5: Verification ════════ -->
+<div class="sec" id="sec5">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M22 11.08V12a10 10 0 11-5.93-9.14"/><polyline points="22 4 12 14.01 9 11.01"/></svg> التحقق والمصادقة</h2>
+    <p class="desc">التحقق من البيانات عبر البريد الحكومي / الأكاديمي الرسمي</p>
+    <div class="info-box warn">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M10.29 3.86L1.82 18a2 2 0 001.71 3h16.94a2 2 0 001.71-3L13.71 3.86a2 2 0 00-3.42 0z"/><line x1="12" y1="9" x2="12" y2="13"/><line x1="12" y1="17" x2="12.01" y2="17"/></svg>
+        <div>التسجيل الحكومي والمؤسسي يتطلب مصادقة رسمية — سيتم مراجعة الطلب خلال 24-48 ساعة عمل.</div>
+    </div>
+    <div class="fg f1" style="margin-bottom:20px">
+        <div class="ff">
+            <label>رمز التحقق <span class="req">*</span></label>
+            <div style="display:flex;gap:10px"><input type="text" id="verifyCode" placeholder="أدخل الرمز المرسل للبريد الرسمي" style="flex:1"><button class="btn btn-outline" onclick="sendCode()" style="white-space:nowrap;padding:11px 18px;font-size:.82rem">إرسال الرمز</button></div>
+            <span class="hint">سيتم إرسال رمز مكوّن من 6 أرقام للبريد الرسمي المسجّل</span>
+        </div>
+    </div>
+    <div class="fg">
+        <div class="ff"><label>كلمة المرور <span class="req">*</span></label><input type="password" id="pw" placeholder="8 أحرف — حرف كبير + رقم + رمز" required></div>
+        <div class="ff"><label>تأكيد كلمة المرور <span class="req">*</span></label><input type="password" id="pwc" placeholder="أعد كتابة كلمة المرور" required></div>
+    </div>
+    <div style="margin-top:16px">
+        <label style="display:flex;align-items:flex-start;gap:10px;cursor:pointer;font-size:.82rem;color:var(--t2)">
+            <input type="checkbox" id="terms" style="width:18px;height:18px;margin-top:2px;accent-color:var(--gov)">
+            <span>أوافق على <a href="/الشروط-والسياسات.html" style="color:var(--gov)">الشروط</a> و<a href="/سياسة-الخصوصية.html" style="color:var(--gov)">الخصوصية</a> والالتزام بمبادئ <a href="/الشريعة-الاسلامية.html" style="color:var(--green)">الشريعة الإسلامية</a> — لا ربا، لا غرر، لا غش، لا احتكار.</span>
+        </label>
+    </div>
+    <div class="btn-row">
+        <button class="btn btn-outline" onclick="goBack(4)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> السابق</button>
+        <button class="btn btn-gov" onclick="goNext(6)">مراجعة وتأكيد <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="15 18 9 12 15 6"/></svg></button>
+    </div>
+</div>
+
+<!-- ════════ STEP 6: Summary ════════ -->
+<div class="sec" id="sec6">
+    <h2><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M9 12l2 2 4-4"/><circle cx="12" cy="12" r="10"/></svg> مراجعة وتأكيد</h2>
+    <p class="desc">راجع البيانات قبل التأكيد النهائي</p>
+    <div class="summary-card">
+        <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M3 21h18"/><path d="M5 21V7l7-4 7 4v14"/></svg> بيانات الجهة</h4>
+        <div class="summary-row"><span class="label">القطاع</span><span class="value" id="sumType">—</span></div>
+        <div class="summary-row"><span class="label">الاسم</span><span class="value" id="sumName">—</span></div>
+        <div class="summary-row"><span class="label">البريد</span><span class="value" id="sumEmail">—</span></div>
+        <div class="summary-row"><span class="label">الجهة / الدولة</span><span class="value" id="sumRegion">—</span></div>
+    </div>
+    <div class="summary-card">
+        <h4><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg> الأهداف والصلاحيات</h4>
+        <div class="summary-row"><span class="label">الأهداف</span><span class="value" id="sumGoals">—</span></div>
+        <div class="summary-row"><span class="label">الدور</span><span class="value" id="sumRole">—</span></div>
+    </div>
+    <div class="info-box sharia">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+        <div>بتأكيد التسجيل، تلتزم الجهة بمبادئ الشريعة الإسلامية في جميع التعاملات.</div>
+    </div>
+    <div class="btn-row">
+        <button class="btn btn-outline" onclick="goBack(5)"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polyline points="9 18 15 12 9 6"/></svg> تعديل</button>
+        <button class="btn btn-green" onclick="submitReg()">تأكيد التسجيل <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M9 12l2 2 4-4"/></svg></button>
+    </div>
+</div>
+
+<!-- SUCCESS -->
+<div class="sec" id="secOK">
+    <div class="success-box">
+        <div class="success-icon"><svg width="36" height="36" viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2.5"><path d="M9 12l2 2 4-4"/></svg></div>
+        <h2>تم تقديم طلب التسجيل بنجاح</h2>
+        <p style="color:var(--t2);margin-bottom:6px">سيتم مراجعة الطلب والتحقق خلال 24-48 ساعة عمل</p>
+        <div class="ref-code" id="refCode">GOV-2026-XXXXX</div>
+        <p style="color:var(--t3);font-size:.78rem">احتفظ بالرقم المرجعي لمتابعة حالة الطلب</p>
+        <div style="margin-top:20px;display:flex;gap:12px;justify-content:center;flex-wrap:wrap">
+            <a href="/" class="btn btn-outline" style="text-decoration:none">الرئيسية</a>
+            <a href="/تسجيل-الدخول.html" class="btn btn-gov" style="text-decoration:none">تسجيل الدخول</a>
+        </div>
+    </div>
+</div>
+
+</div></div>
+
+<footer class="footer">
+    <div>منظومة شيخة — SHEIKHA &copy; 2026 | المالك: سلمان أحمد بن سلمان الراجح</div>
+    <div style="margin-top:3px">«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة 275</div>
+</footer>
+</div>
+
+<script>
+const S={type:null,goals:[],role:null,step:1};
+const TL={ministry:'وزارة / جهة حكومية','gov-company':'شركة حكومية / شبه حكومية',municipality:'بلدية / أمانة / هيئة تطوير','gov-university':'جامعة حكومية','pvt-university':'جامعة خاصة / أهلية',employee:'موظف قطاع عام'};
+const GL={procurement:'توريد معادن لمشاريع البناء','scrap-sell':'بيع سكراب ومخلفات',tenders:'طرح مناقصات حكومية',pricing:'أسعار مرجعية وتقارير',regulation:'تنظيم ورقابة السوق',community:'المجتمع والتواصل',research:'البحث العلمي',dev:'تطوير تقنيات التعدين',labs:'مختبرات وفحص المواد',consulting:'استشارات أكاديمية','trade-uni':'شراكات تجارية','data-access':'بيانات وإحصاءات'};
+const RL={'gov-procure':'مسؤول مشتريات','gov-project':'مدير مشاريع','gov-analyst':'محلل بيانات','gov-regulator':'مسؤول تنظيمي','gov-researcher':'باحث أكاديمي','gov-admin':'مسؤول أول / مفوّض'};
+
+function selectEntity(el,t){document.querySelectorAll('.entity-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');S.type=t;S.goals=[];document.querySelectorAll('.goal-card').forEach(c=>c.classList.remove('selected'))}
+function toggleGoal(el,g){el.classList.toggle('selected');const i=S.goals.indexOf(g);if(i>-1)S.goals.splice(i,1);else S.goals.push(g)}
+function selectRole(el,r){document.querySelectorAll('.role-card').forEach(c=>c.classList.remove('selected'));el.classList.add('selected');S.role=r}
+function initNafath(){alert('جاري الاتصال بمنصة نفاذ الوطني...\n\nهذه الميزة ستتوفر عند الربط الرسمي مع IAM.')}
+function sendCode(){alert('تم إرسال رمز التحقق للبريد الرسمي.\n(محاكاة — الرمز: 123456)')}
+
+function goNext(n){
+    if(n===2&&!S.type){alert('اختر نوع القطاع');return}
+    if(n===3){
+        if(S.goals.length===0){alert('اختر هدفاً واحداً على الأقل');return}
+        showFields()
+    }
+    if(n===4) showPerms();
+    if(n===6) buildSummary();
+    go(n)
+}
+function goBack(n){go(n)}
+
+function go(n){
+    S.step=n;
+    document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+    document.getElementById('sec'+n).classList.add('active');
+    document.querySelectorAll('.step').forEach((s,i)=>{s.classList.remove('active','done');if(i+1<n)s.classList.add('done');if(i+1===n)s.classList.add('active')});
+    window.scrollTo({top:0,behavior:'smooth'})
+}
+
+// Show correct goals based on entity type
+function showGoalsFor(type){
+    const isUni=type==='gov-university'||type==='pvt-university';
+    document.getElementById('govGoals').style.display=isUni?'none':'block';
+    document.getElementById('uniGoals').style.display=isUni?'block':'none';
+    if(type==='municipality')document.getElementById('goalsDesc').textContent='أهداف البلديات والأمانات — بناء المدن، بيع سكراب الهدم، توريد مواد البناء';
+    else if(type==='gov-company')document.getElementById('goalsDesc').textContent='أهداف الشركات الحكومية — توريد وتصدير المعادن، سلاسل الإمداد، المشاريع';
+    else if(isUni)document.getElementById('goalsDesc').textContent='أهداف الجامعة — البحث العلمي في المعادن والتعدين، المختبرات، الاستشارات';
+    else if(type==='employee')document.getElementById('goalsDesc').textContent='أهداف الموظف الحكومي — بناءً على جهتك ومنصبك';
+    else document.getElementById('goalsDesc').textContent='أهداف الوزارة — توريد معادن للبنية التحتية، المناقصات، الرقابة';
+}
+
+// Show entity-specific form fields
+function showFields(){
+    const isEmp=S.type==='employee';
+    const isUni=S.type==='gov-university'||S.type==='pvt-university';
+    document.getElementById('orgFields').style.display=(!isEmp&&!isUni)?'block':'none';
+    document.getElementById('uniFields').style.display=isUni?'block':'none';
+    document.getElementById('empFields').style.display=isEmp?'block':'none';
+    if(isUni)document.getElementById('dataDesc').textContent='بيانات الجامعة والقسم الأكاديمي';
+    else if(isEmp)document.getElementById('dataDesc').textContent='بياناتك الرسمية كموظف قطاع عام';
+    else document.getElementById('dataDesc').textContent='المعلومات الرسمية للجهة الحكومية';
+}
+
+// Show permissions
+function showPerms(){
+    const isEmp=S.type==='employee';
+    document.getElementById('empRoles').style.display=isEmp?'block':'none';
+    document.getElementById('orgPerms').style.display=isEmp?'none':'block';
+    if(!isEmp){
+        const ap=document.getElementById('autoPerms');
+        const permMap={procurement:'توريد وشراء','scrap-sell':'بيع سكراب',tenders:'مناقصات',pricing:'أسعار مرجعية',regulation:'رقابة وتنظيم',community:'مجتمع وتواصل',research:'بحث علمي',dev:'تطوير تقنيات',labs:'مختبرات وفحص',consulting:'استشارات','trade-uni':'شراكات تجارية','data-access':'بيانات وإحصاءات'};
+        const colors={procurement:'var(--gov)','scrap-sell':'var(--gold)',tenders:'var(--teal)',pricing:'var(--orange)',regulation:'var(--purple)',community:'var(--green)',research:'var(--purple)',dev:'var(--gov)',labs:'var(--teal)',consulting:'var(--gold)','trade-uni':'var(--orange)','data-access':'var(--green)'};
+        ap.innerHTML=S.goals.map(g=>`<span class="ptag" style="background:${colors[g]}22;color:${colors[g]};padding:6px 12px;font-size:.78rem">${permMap[g]||g}</span>`).join('')+`<span class="ptag" style="background:rgba(212,175,55,.1);color:var(--gold);padding:6px 12px;font-size:.78rem">إدارة الحساب</span><span class="ptag" style="background:rgba(16,185,129,.1);color:var(--green);padding:6px 12px;font-size:.78rem">إضافة موظفين</span>`;
+    }
+}
+
+// Build summary
+function buildSummary(){
+    document.getElementById('sumType').textContent=TL[S.type]||'—';
+    const isEmp=S.type==='employee';
+    const isUni=S.type==='gov-university'||S.type==='pvt-university';
+    if(isEmp){
+        document.getElementById('sumName').textContent=document.getElementById('empName').value||'—';
+        document.getElementById('sumEmail').textContent=document.getElementById('empEmail').value||'—';
+        document.getElementById('sumRegion').textContent=document.getElementById('empAgency').value||'—';
+    }else if(isUni){
+        document.getElementById('sumName').textContent=document.getElementById('uniNameAr').value||'—';
+        document.getElementById('sumEmail').textContent=document.getElementById('uniEmail').value||'—';
+        document.getElementById('sumRegion').textContent=(document.getElementById('uniCountry').value||'')+'  — '+(document.getElementById('uniDept').value||'');
+    }else{
+        document.getElementById('sumName').textContent=document.getElementById('orgNameAr').value||'—';
+        document.getElementById('sumEmail').textContent=document.getElementById('orgEmail').value||'—';
+        document.getElementById('sumRegion').textContent=(document.getElementById('orgCountry').value||'')+' — '+(document.getElementById('orgCity').value||'');
+    }
+    document.getElementById('sumGoals').textContent=S.goals.map(g=>GL[g]).join('، ')||'—';
+    document.getElementById('sumRole').textContent=isEmp?(RL[S.role]||'—'):'إدارة كاملة (حسب الأهداف)';
+}
+
+function submitReg(){
+    if(!document.getElementById('terms').checked){alert('الرجاء الموافقة على الشروط');return}
+    const p=document.getElementById('pw').value,pc=document.getElementById('pwc').value;
+    if(p.length<8){alert('كلمة المرور 8 أحرف على الأقل');return}
+    if(p!==pc){alert('كلمتا المرور غير متطابقتين');return}
+    const ref='GOV-2026-'+Math.random().toString(36).substring(2,7).toUpperCase();
+    document.getElementById('refCode').textContent=ref;
+    const payload={type:S.type,goals:S.goals,role:S.role,refCode:ref,timestamp:new Date().toISOString()};
+    fetch('/api/government/register',{method:'POST',headers:{'Content-Type':'application/json'},body:JSON.stringify(payload)}).then(r=>r.json()).then(d=>console.log('OK:',d)).catch(()=>console.log('Saved locally:',payload));
+    document.querySelectorAll('.sec').forEach(s=>s.classList.remove('active'));
+    document.getElementById('secOK').classList.add('active');
+    document.querySelectorAll('.step').forEach(s=>{s.classList.remove('active');s.classList.add('done')});
+}
+
+// Auto-show goals when entity selected (on step transition)
+const origGoNext=goNext;
+const _goNext=function(n){
+    if(n===2&&S.type)showGoalsFor(S.type);
+    origGoNext(n);
+};
+// Override
+window.goNext=function(n){if(n===2&&S.type)showGoalsFor(S.type);if(n===2&&!S.type){alert('اختر نوع القطاع');return}if(n===3){if(S.goals.length===0){alert('اختر هدفاً واحداً على الأقل');return}showFields()}if(n===4)showPerms();if(n===6)buildSummary();go(n)};
+</script>
+<script src="/js/sheikha-itqan.js"></script>
+</body>
+</html>

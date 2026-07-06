@@ -1,0 +1,60 @@
+{
+  "system": "SHEIKHA_PROVIDER_AGREEMENT_ROADMAP_V1",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "PROVIDER_AGREEMENT_ROADMAP_ACTIVE_100",
+  "checks": {
+    "registryActive": true,
+    "lifecycleComplete": true,
+    "truthfulnessPolicy": true,
+    "providerRegistryLinked": true,
+    "providerIdsComplete": true,
+    "agreementPathsComplete": true,
+    "agreementPathsEvidenceGated": true,
+    "subscriptionOptionsComplete": true,
+    "noSignedContractsClaimed": true,
+    "noActiveSubscriptionsClaimed": true,
+    "noApprovedBudgetsClaimed": true,
+    "noPaymentMethodClaimed": true,
+    "noGpuAvailabilityClaimed": true,
+    "resourceOptionsComplete": true,
+    "resourceOptionsEvidenceGated": true,
+    "activationScriptsMapped": true,
+    "activationScriptExists": true,
+    "activationScriptExecutable": true,
+    "packageScriptsMounted": true,
+    "providerComputeFabricLinked": true,
+    "commercialRealActivationLinked": true,
+    "multiSupercomputerLinked": true,
+    "aiSupercomputerPipelineLinked": true,
+    "fabricRouteMounted": true
+  },
+  "missing": [],
+  "coverage": {
+    "providers": 14,
+    "subscriptionOptions": 14,
+    "agreementPaths": 8,
+    "resourceOptions": 9,
+    "activationScripts": 7,
+    "signedContracts": 0,
+    "activeSubscriptions": 0,
+    "approvedBudgets": 0,
+    "configuredPayments": 0,
+    "gpuAvailableClaims": 0
+  },
+  "routes": [
+    "/api/provider/agreement-roadmap/status",
+    "/api/provider/agreement-roadmap/agreements",
+    "/api/provider/agreement-roadmap/subscriptions",
+    "/api/provider/agreement-roadmap/resources",
+    "/api/provider/agreement-roadmap/scripts"
+  ],
+  "activationCommand": "npm run ops:compute-integration-readiness:v1",
+  "nextActions": [
+    "Choose a low-risk first provider path: API-first, VPS control plane, or on-demand GPU proof-of-capability.",
+    "Approve a budget ceiling before any paid provider activation.",
+    "Store provider credentials only in a vault or environment, never in repository files.",
+    "Promote to production only after monitoring, billing evidence, SLA review, and customer contract gates."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

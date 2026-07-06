@@ -173,8 +173,8 @@ class SynergyDialogueEngine {
 
 تحية طيبة من منظومة شيخة إلى ${partnerInfo.name}،
 
-نيابة عن القائد سلمان بن أحمد الراجح والمنظمة ${CONFIG.organization.id}، 
-نرحب بكم في حوار بناء يهدف إلى التكامل المتقن لخدمة أهداف إعمار الأرض 
+نيابة عن القائد سلمان بن أحمد الراجح والمنظمة ${CONFIG.organization.id}،
+نرحب بكم في حوار بناء يهدف إلى التكامل المتقن لخدمة أهداف إعمار الأرض
 ومنع الفقر بالعمل الصادق والأمانة.
 
 نؤمن بأن التعاون البناء بين المنظومات التقنية يجب أن يرتكز على:
@@ -195,7 +195,7 @@ Peace be upon you,
 Greetings from Sheikha Ecosystem to ${partnerInfo.name},
 
 On behalf of Commander Salman bin Ahmed Al-Rajhi and Organization ${CONFIG.organization.id},
-we welcome you to a constructive dialogue aimed at achieving perfect integration 
+we welcome you to a constructive dialogue aimed at achieving perfect integration
 to serve the goals of building the earth and preventing poverty through honest work.
 
 We believe that constructive cooperation between technical ecosystems must be based on:
@@ -470,9 +470,9 @@ function generateMarkdownReport(report, dialogue) {
 
 ## 🌟 بسم الله الرحمن الرحيم
 
-**التاريخ:** ${new Date().toLocaleDateString('ar-SA')}  
-**الوقت:** ${new Date().toLocaleTimeString('ar-SA')}  
-**القائد:** ${CONFIG.organization.leader}  
+**التاريخ:** ${new Date().toLocaleDateString('ar-SA')}
+**الوقت:** ${new Date().toLocaleTimeString('ar-SA')}
+**القائد:** ${CONFIG.organization.leader}
 **المنظمة:** ${CONFIG.organization.id}
 
 ---
@@ -579,15 +579,15 @@ ${(report.recommendations || []).map(r => `- ${r}`).join('\n')}
 ## ✅ الخلاصة
 
 تم بحمد الله إطلاق **الحوار البناء الآلي** بين منظومة شيخة ومنظومة Google بنجاح.
-الحوار يرتكز على مبادئ **الصدق والأمانة** و**لا ضرر ولا ضرار** ويهدف إلى 
+الحوار يرتكز على مبادئ **الصدق والأمانة** و**لا ضرر ولا ضرار** ويهدف إلى
 **إعمار الأرض ومنع الفقر بالعمل**.
 
-> **"إن الله يحب إذا عمل أحدكم عملاً أن يتقنه"**  
+> **"إن الله يحب إذا عمل أحدكم عملاً أن يتقنه"**
 > — صلى الله عليه وسلم
 
 ---
 
-**منظومة شيخة**  
+**منظومة شيخة**
 ${CONFIG.organization.operator}
 `;
 }

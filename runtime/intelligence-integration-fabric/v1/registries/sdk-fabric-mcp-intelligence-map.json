@@ -1,0 +1,83 @@
+{
+  "registry": "SHEIKHA_SDK_FABRIC_MCP_INTELLIGENCE_MAP_V1",
+  "status": "ACTIVE",
+  "binding": "SDK_FABRIC_MCP_INTEGRATION_",
+  "sdkFabricMcpSystem": "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+  "intelligenceBindings": [
+    {
+      "unit": "GENERATIVE_AI",
+      "sdkRole": "structured_output_and_code_generation_interfaces",
+      "fabricRole": "content_report_code_and_api_output_fabric",
+      "mcpRole": "optional_tool_context_readiness",
+      "externalAccess": "NO_EXTERNAL_ACTION_WITHOUT_AUTHORIZATION"
+    },
+    {
+      "unit": "TRADITIONAL_RAG",
+      "sdkRole": "retrieval_query_schema_and_evidence_pack_interfaces",
+      "fabricRole": "knowledge_index_source_trace_and_grounding_fabric",
+      "mcpRole": "read_only_retrieval_tool_readiness",
+      "externalAccess": "AUTHORIZED_OPEN_DATA_OR_CONTRACTED_SOURCE_ONLY"
+    },
+    {
+      "unit": "AGENTIC_AI",
+      "sdkRole": "plan_step_tool_call_and_result_contracts",
+      "fabricRole": "agent_plan_permission_execution_and_audit_fabric",
+      "mcpRole": "approved_tool_invocation_readiness",
+      "externalAccess": "APPROVED_TOOLS_ONLY"
+    },
+    {
+      "unit": "MULTI_AGENT_SYSTEMS",
+      "sdkRole": "agent_role_context_handoff_and_review_contracts",
+      "fabricRole": "multi_agent_coordination_conflict_review_and_escalation_fabric",
+      "mcpRole": "role_scoped_tool_mesh_readiness",
+      "externalAccess": "ROLE_SCOPED_AND_AUDITED_ONLY"
+    },
+    {
+      "unit": "AGI_RESEARCH_GOVERNANCE",
+      "sdkRole": "classification_review_and_truthfulness_contracts",
+      "fabricRole": "agi_language_claim_blocking_and_research_readiness_fabric",
+      "mcpRole": "NO_AGI_TOOL_AUTONOMY",
+      "externalAccess": "NO_ACTUAL_AGI_CLAIM"
+    },
+    {
+      "unit": "ASI_RISK_GOVERNANCE",
+      "sdkRole": "risk_language_review_and_superiority_claim_blocking_contracts",
+      "fabricRole": "asi_risk_governance_and_human_review_fabric",
+      "mcpRole": "NO_ASI_TOOL_AUTONOMY",
+      "externalAccess": "NO_ACTUAL_ASI_CLAIM"
+    }
+  ],
+  "internalBindings": [
+    "root_authority_layer",
+    "root_knowledge_agentic_fabric",
+    "rag_retrieval_registry",
+    "decision_registry_v2",
+    "capability_registry_v2",
+    "runtime_admission_controller",
+    "runtime_drift_detector",
+    "audit_and_lessons"
+  ],
+  "externalReadinessBindings": [
+    "open_data_portals",
+    "research_databases",
+    "educational_platforms",
+    "erp_systems",
+    "crm_systems",
+    "wms_systems",
+    "tms_systems",
+    "iot_platforms",
+    "satellite_observation_data",
+    "cloud_providers",
+    "data_centers",
+    "supercomputing_resources"
+  ],
+  "authorizationPolicy": {
+    "open_data_allowed_when_license_allows": true,
+    "private_system_requires_contract": true,
+    "government_system_requires_formal_authorization": true,
+    "customer_environment_requires_scope": true,
+    "credentials_must_not_be_stored_in_git": true,
+    "mcp_tools_must_be_least_privilege": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

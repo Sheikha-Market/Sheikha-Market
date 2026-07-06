@@ -1,0 +1,105 @@
+{
+  "system": "SHEIKHA_EXECUTION_GRAPH_RUNTIME",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Elevate Sheikha runtime from workflow execution into graph-based governed execution with dependency resolution, scheduling, state management, resource control, tracing, policies, and distributed readiness.",
+  "sources": {
+    "registry": "runtime/universal-engine-registry/sheikha-universal-engine-registry.json",
+    "orchestrator": "runtime/universal-orchestrator/sheikha-universal-orchestrator.json",
+    "runtime_loader": "runtime/universal-runtime-loader/sheikha-universal-runtime-loader.json",
+    "lifecycle": "runtime/engine-lifecycle/sheikha-engine-lifecycle-manager.json",
+    "event_bus": "runtime/universal-event-bus/sheikha-universal-event-bus.json",
+    "workflow_runtime": "runtime/workflow-runtime/sheikha-workflow-runtime.json"
+  },
+  "graph_layers": {
+    "execution_graph": "ACTIVE",
+    "dependency_resolver": "ACTIVE",
+    "scheduler": "ACTIVE",
+    "state_manager": "ACTIVE",
+    "resource_manager": "ACTIVE",
+    "execution_history": "ACTIVE",
+    "runtime_metrics": "ACTIVE",
+    "distributed_execution": "READY",
+    "universal_trace": "ACTIVE",
+    "execution_policies": "ACTIVE"
+  },
+  "execution_states": [
+    "CREATED",
+    "QUEUED",
+    "SCHEDULED",
+    "RUNNING",
+    "WAITING",
+    "RETRYING",
+    "COMPLETED",
+    "FAILED",
+    "CANCELLED",
+    "ROLLED_BACK",
+    "ARCHIVED"
+  ],
+  "execution_policies": {
+    "dependency_resolution_required": true,
+    "dag_required": true,
+    "circular_execution_forbidden": true,
+    "parallel_execution_allowed_when_independent": true,
+    "retry_enabled": true,
+    "rollback_enabled": true,
+    "compensation_enabled": true,
+    "circuit_breaker_enabled": true,
+    "backpressure_enabled": true,
+    "rate_limiting_enabled": true,
+    "graceful_shutdown_required": true,
+    "priority_scheduling_enabled": true,
+    "deadline_scheduling_enabled": true
+  },
+  "metrics": {
+    "workflow_latency": "ACTIVE",
+    "event_latency": "ACTIVE",
+    "critical_path_duration": "ACTIVE",
+    "throughput": "ACTIVE",
+    "success_rate": "ACTIVE",
+    "failure_rate": "ACTIVE",
+    "retry_rate": "ACTIVE",
+    "queue_depth": "ACTIVE",
+    "engine_utilization": "ACTIVE",
+    "resource_usage": "ACTIVE"
+  },
+  "trace": {
+    "workflow_id_required": true,
+    "trace_id_required": true,
+    "correlation_id_required": true,
+    "engine_trace_required": true,
+    "event_trace_required": true,
+    "evidence_trace_required": true,
+    "audit_trace_required": true
+  },
+  "governance": {
+    "registry_required": true,
+    "workflow_runtime_required": true,
+    "event_bus_required": true,
+    "audit_trace_required": true,
+    "source_traceability_required": true,
+    "confidence_score_required": true,
+    "no_unverified_claims": true,
+    "no_harm": true,
+    "human_review_for_high_impact": true
+  },
+  "outputs": [
+    "execution_graph",
+    "dependency_resolution_report",
+    "schedule_plan",
+    "state_report",
+    "resource_report",
+    "execution_trace",
+    "metrics_report",
+    "policy_report",
+    "distributed_readiness_report"
+  ],
+  "maturity": {
+    "execution_graph_readiness": "VERY_HIGH",
+    "scheduling_readiness": "VERY_HIGH",
+    "state_management": "VERY_HIGH",
+    "resource_control": "VERY_HIGH",
+    "governance_alignment": "VERY_HIGH",
+    "overall": "ENTERPRISE_EXECUTION_GRAPH_READY"
+  }
+}

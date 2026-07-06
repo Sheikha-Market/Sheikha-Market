@@ -1,0 +1,102 @@
+============================================================
+SHEIKHA GLOBAL PRODUCTION BEST ACTIVATION
+============================================================
+timestamp=20260424_192613
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/global-production-best-20260424_192613.txt
+
+==> Ultimate stable core activation
+============================================================
+SHEIKHA ULTIMATE STABLE ACTIVATION
+============================================================
+timestamp=20260424_192613
+profile=stable-gpu
+root=/home/sheikha/Projects/sheikha/sheikha-main-portal
+runtime=/var/sheikha/runtime
+
+==> VS Code doctor
+[OK] VS Code doctor
+
+==> Integration readiness
+[WARN] Integration readiness
+
+==> Auth readiness
+[WARN] Auth readiness
+
+==> IP ownership proof strict
+[OK] IP ownership proof strict
+
+==> Health check dry run
+[OK] Health check dry run
+
+==> Port ownership cleanup (8080)
+[OK] Port ownership cleanup (8080)
+
+==> PM2 IP guard strict
+[OK] PM2 IP guard strict
+
+==> PM2 background guard
+[OK] PM2 background guard
+
+==> PM2 AI secrets guard
+[OK] PM2 AI secrets guard
+
+==> PM2 health monitor
+[WARN] PM2 health monitor
+
+==> PM2 server start
+[OK] PM2 server start
+
+==> Global full spectrum data refresh
+[OK] Global full spectrum data refresh
+
+==> Waiting for sheikha-api readiness
+[WARN] sheikha-api readiness wait
+
+==> Runtime guard snapshot
+[OK] Runtime guard snapshot
+
+==> Live endpoint verification
+[WARN] /api/health
+[WARN] /api/sheikha/global/overview
+[WARN] /api/sheikha/status
+
+==> PM2 status snapshot
+
+============================================================
+ULTIMATE STABLE ACTIVATION COMPLETE
+report=/var/sheikha/runtime/reports/ultimate-stable-activation-20260424_192613.txt
+============================================================
+/var/sheikha/runtime/reports/ultimate-stable-activation-20260424_192613.txt
+[OK] Ultimate stable core activation
+
+==> Safe local backup snapshot
+backup=/var/sheikha/runtime/backups/sheikha-backup-2026-04-24-192702.tar.gz
+[OK] Safe local backup snapshot
+
+==> Alert channels self-test
+[2026-04-24T16:59:10.484Z] WARN: telegram alert error attempt=1 fetch failed
+[2026-04-24T16:59:20.838Z] WARN: telegram alert failed attempt=2 status=401 body={"ok":false,"error_code":401,"description":"Unauthorized"}
+[2026-04-24T16:59:24.284Z] WARN: telegram alert failed attempt=3 status=401 body={"ok":false,"error_code":401,"description":"Unauthorized"}
+[2026-04-24T16:59:24.284Z] ✅ تم تنفيذ اختبار التنبيه اليدوي (تحقق من webhook/telegram إذا كانت مفعّلة)
+[OK] Alert channels self-test
+
+==> Nginx split install
+[WARN] Requires root on production host.
+[WARN] Run: sudo bash scripts/install-sheikha-nginx-split.sh
+
+==> GPU readiness gate
+=== SHEIKHA GPU READINESS ===
+[OK] nvidia-smi available
+[WARN] nvcc غير موجود: CUDA toolkit غير مكتمل
+[OK] /dev/nvidia0 exists
+[WARN] cuda-verify.py failed (راجع /tmp/sheikha-gpu-readiness.log)
+--------------------------------
+ok=2 warn=2
+GPU_READY=false
+السبب الجذري: بيئة التشغيل لا توفر طبقة NVIDIA/CUDA كاملة بشكل مستقر (driver + device + toolkit + runtime).
+[WARN] GPU readiness gate
+alert_dispatched level=info
+
+==> Final API health check
+curl: (7) Failed to connect to 127.0.0.1 port 8080 after 0 ms: Connection refused
+[WARN] Final API health check

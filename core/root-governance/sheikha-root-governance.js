@@ -1,5 +1,9 @@
 'use strict';
 
+const {
+    getUniversalDivineGovernance
+} = require('./sheikha-universal-divine-governance');
+
 module.exports = {
     name: 'Sheikha Supreme Governance Layer',
 
@@ -14,6 +18,8 @@ module.exports = {
         explainable: true,
         governed: true
     },
+
+    universalDivineGovernance: getUniversalDivineGovernance(),
 
     platforms: {
         linux: true,

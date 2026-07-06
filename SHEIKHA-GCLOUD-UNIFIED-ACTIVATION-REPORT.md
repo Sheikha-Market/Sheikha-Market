@@ -56,7 +56,7 @@
 - عند غياب gcloud: يتم إصدار تقرير جاهزية فقط بدون تنفيذ
 
 ## أوامر التشغيل
-- معاينة: 
+- معاينة:
   -             bash scripts/google-unified-alliance-activate.sh
 - تنفيذ فعلي:
   -                 BILLING_ACCOUNT=XXXX-XXXX-XXXX OPERATOR_PRINCIPAL=user:market@sheikha.top bash scripts/google-unified-alliance-activate.sh --apply

@@ -1,0 +1,11 @@
+{
+  "engine": "SHEIKHA_RISK_CLASSIFICATION_ENGINE",
+  "status": "ACTIVE",
+  "levels": ["low", "medium", "high", "critical", "restricted"],
+  "rules": {
+    "financial_activity_requires_license": true,
+    "market_activity_requires_authority_review": true,
+    "ai_execution_requires_boundaries": true,
+    "destructive_action_requires_human_approval": true
+  }
+}

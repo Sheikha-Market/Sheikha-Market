@@ -113,13 +113,13 @@
 ```yaml
 Google Cloud Supply Chain Twin:
   الوصف: نسخة رقمية من سلسلة التوريد
-  
+
   القدرات:
     - تصور ثلاثي الأبعاد للسلسلة
     - محاكاة السيناريوهات
     - التنبؤ بالاضطرابات
     - تحسين المسارات
-  
+
   التقنيات:
     - BigQuery للتحليلات الضخمة
     - Vertex AI للذكاء الاصطناعي
@@ -345,7 +345,7 @@ Google Maps Platform:
   النوع: API Integration
   التكلفة: $0.005/request
   الفائدة: تتبع GPS دقيق
-  
+
   التنفيذ:
     - Maps JavaScript API
     - Directions API
@@ -357,7 +357,7 @@ Google Maps Platform:
   - Apple Pay / Google Pay
   - Visa / Mastercard
   - SADAD للمؤسسات
-  
+
   التنفيذ:
     - Payment Gateway API
     - 3D Secure
@@ -375,18 +375,18 @@ Google Maps Platform:
 ```yaml
 ERP Integration Hub:
   الهدف: ربط مصانع العملاء بشيخة
-  
+
   الدعم:
     - SAP S/4HANA
     - Oracle ERP Cloud
     - Microsoft Dynamics
     - Odoo (للشركات الصغيرة)
-  
+
   الطريقة:
     - REST APIs
     - EDI (EDIFACT)
     - Webhook Events
-  
+
   البيانات المتبادلة:
     - أوامر الشراء (PO)
     - الفواتير
@@ -395,12 +395,12 @@ ERP Integration Hub:
 
 Alibaba Integration:
   الهدف: الوصول للسوق الآسيوي
-  
+
   الخدمات:
     - Cross-border Trade
     - Alibaba.com Listing
     - Logistics Integration
-  
+
   الشروط:
     - حساب Gold Supplier
     - Trade Assurance
@@ -413,14 +413,14 @@ Alibaba Integration:
 Blockchain Network:
   النوع: Private/Consortium
   التقنية: Hyperledger Fabric
-  
+
   المشاركون:
     - شيخة (المشغل)
     - المناجم المعتمدة
     - المصاهر المعتمدة
     - شركات الفحص
     - شركات الشحن
-  
+
   الفوائد:
     - شهادة منشأ موثقة
     - تتبع لا يمكن تزويره
@@ -432,7 +432,7 @@ AI/ML Cloud Services:
     - توقع الأسعار
     - تصنيف المعادن بالصور
     - chatbot ذكي
-  
+
   AWS SageMaker:
     - Demand Forecasting
     - Anomaly Detection
@@ -546,7 +546,7 @@ AI/ML Cloud Services:
   ✅ Payment Gateways (مدى، فيزا)
   ✅ SMS/Email Services
   ✅ Government APIs (السجل التجاري)
-  
+
 المرحلة 2 - التوسع (شهر 4-6):
   ⏳ ERP Integration Hub
   ⏳ Alibaba Cross-border
@@ -605,7 +605,7 @@ AI/ML Cloud Services:
 ```yaml
 خطر: الاعتمادية على مورد واحد
   الحل: Multi-vendor Strategy
-  التنفيذ: 
+  التنفيذ:
     - بديل لكل خدمة حرجة
     - تصميم قابل للتبديل
     - عقود مرنة

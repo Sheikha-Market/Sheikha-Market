@@ -1,0 +1,29 @@
+{
+  "fabric": "SHEIKHA_ENTERPRISE_SAAS_V1",
+  "status": "ACTIVE",
+  "stage": "ENTERPRISE_V2_CONTROL_PLANE_READY",
+  "governance": "ENFORCED",
+  "principles": [
+    "truth",
+    "justice",
+    "no_harm",
+    "no_deception",
+    "audit_before_execution"
+  ],
+  "layers": {
+    "capabilityRegistry": "ACTIVE",
+    "serviceCatalog": "ACTIVE",
+    "tierEngine": "ACTIVE",
+    "subscriptionManager": "ACTIVE",
+    "mcpFabric": "ACTIVE",
+    "sdkFabric": "ACTIVE_NODE_AND_PYTHON",
+    "cliFabric": "ACTIVE_GOVERNED_COMMANDS",
+    "clusterFabric": "BOOTSTRAPPED",
+    "orchestratorFabric": "ACTIVE_HIGHEST_LAYER_L11",
+    "tenantIsolation": "ACTIVE_ENFORCED",
+    "rbac": "ACTIVE_ENFORCED",
+    "apiKeyLifecycle": "ACTIVE_HASHED_AND_AUDITED",
+    "usageMetering": "ACTIVE_APPEND_ONLY",
+    "billing": "ESTIMATE_ONLY_GATEWAY_NOT_CONNECTED"
+  }
+}

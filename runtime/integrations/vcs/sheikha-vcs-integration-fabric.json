@@ -1,0 +1,49 @@
+{
+  "fabric": "SHEIKHA_VCS_INTEGRATION_FABRIC",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "scope": {
+    "git": {
+      "status": "ACTIVE",
+      "capabilities": [
+        "status",
+        "diff",
+        "branch",
+        "log",
+        "commit_guard",
+        "push_guard",
+        "rebase_guard"
+      ]
+    },
+    "github": {
+      "status": "FOUNDATION_ACTIVE",
+      "capabilities": [
+        "pull_request_awareness",
+        "branch_sync",
+        "checks_visibility",
+        "review_flow"
+      ]
+    },
+    "gitlab": {
+      "status": "FOUNDATION_ACTIVE",
+      "capabilities": [
+        "merge_request_awareness",
+        "branch_sync",
+        "pipeline_visibility",
+        "review_flow"
+      ]
+    },
+    "vscode_extension": {
+      "status": "CONSUMER_ONLY",
+      "rule": "The extension must call governed runtime/API/CLI integration instead of owning the integration logic."
+    }
+  },
+  "governance": {
+    "no_direct_destructive_action": true,
+    "human_approval_required": true,
+    "diff_required_before_commit": true,
+    "checks_required_before_push": true,
+    "no_secret_logging": true
+  },
+  "rule": "Version-control integrations are platform runtime capabilities first; IDE extensions are only clients."
+}

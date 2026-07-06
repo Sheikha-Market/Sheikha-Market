@@ -1,0 +1,36 @@
+{
+  "registry": "SHEIKHA_CLUSTER_PIPELINE_GOVERNANCE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "policies": [
+    {
+      "id": "AICPF-GOV-001",
+      "name": "No Physical Supercluster Claim Without Evidence",
+      "rule": "Sheikha may register supercluster readiness, but cannot claim physical supercluster ownership, GPU fleet ownership, or cloud capacity without verified evidence and contract."
+    },
+    {
+      "id": "AICPF-GOV-002",
+      "name": "No Model Training Claim Without Run Evidence",
+      "rule": "Training, fine tuning, or deployment claims require reproducible run records, data rights, compute evidence, and evaluation reports."
+    },
+    {
+      "id": "AICPF-GOV-003",
+      "name": "Data Rights Before Pipeline",
+      "rule": "Data ingestion, cleaning, feature engineering, vectorization, and training require source rights, privacy review, and lineage."
+    },
+    {
+      "id": "AICPF-GOV-004",
+      "name": "Cost And Human Approval For External Compute",
+      "rule": "External cluster, GPU, cloud, or managed AI runtime spend requires human approval and cost guardrails before activation."
+    },
+    {
+      "id": "AICPF-GOV-005",
+      "name": "Monitoring And Drift Required",
+      "rule": "Inference deployment requires telemetry, model drift monitoring, data drift monitoring, rollback, and incident response."
+    },
+    {
+      "id": "AICPF-GOV-006",
+      "name": "Agent Authority And Audit",
+      "rule": "Multi-agent execution requires agent identity, permissions, audit trail, safety policy, and human final authority."
+    }
+  ]
+}

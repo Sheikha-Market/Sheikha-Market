@@ -1,0 +1,73 @@
+'use strict';
+
+const vscode = require('vscode');
+const { collectVsCodeAwareness } = require('./vscodeAwareness');
+const { askSheikha } = require('./sheikhaApiClient');
+const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
+
+function activate(context) {
+  const chatProvider = new SheikhaChatProvider(context);
+
+  
+  const awarenessCommand = vscode.commands.registerCommand('sheikha.awareness.scan', async () => {
+    const data = await collectVsCodeAwareness();
+    const doc = await vscode.workspace.openTextDocument({
+      content: JSON.stringify(data, null, 2),
+      language: 'json'
+    });
+    await vscode.window.showTextDocument(doc);
+  });
+
+  context.subscriptions.push(awarenessCommand);
+
+context.subscriptions.push(
+    vscode.window.registerWebviewViewProvider('sheikha.advancedChatView', chatProvider)
+  );
+
+  
+  const awarenessCommand = vscode.commands.registerCommand('sheikha.awareness.scan', async () => {
+    const data = await collectVsCodeAwareness();
+    const doc = await vscode.workspace.openTextDocument({
+      content: JSON.stringify(data, null, 2),
+      language: 'json'
+    });
+    await vscode.window.showTextDocument(doc);
+  });
+
+  context.subscriptions.push(awarenessCommand);
+
+context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.ask', async () => {
+      await vscode.commands.executeCommand('workbench.view.extension.sheikha-ai');
+    })
+  );
+
+  
+  const awarenessCommand = vscode.commands.registerCommand('sheikha.awareness.scan', async () => {
+    const data = await collectVsCodeAwareness();
+    const doc = await vscode.workspace.openTextDocument({
+      content: JSON.stringify(data, null, 2),
+      language: 'json'
+    });
+    await vscode.window.showTextDocument(doc);
+  });
+
+  context.subscriptions.push(awarenessCommand);
+
+context.subscriptions.push(
+    vscode.commands.registerCommand('sheikha.agent.run', async () => {
+      const prompt = await vscode.window.showInputBox({ prompt: 'أمر Agentic لشيخة' });
+      if (!prompt) return;
+      const result = await askSheikha(prompt, { mode: 'agentic-full' });
+      const doc = await vscode.workspace.openTextDocument({
+        content: typeof result === 'string' ? result : JSON.stringify(result, null, 2),
+        language: 'markdown'
+      });
+      vscode.window.showTextDocument(doc);
+    })
+  );
+}
+
+function deactivate() {}
+
+module.exports = { activate, deactivate };

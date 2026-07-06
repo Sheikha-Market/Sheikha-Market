@@ -1,0 +1,72 @@
+============================================================
+SHEIKHA GLOBAL PRODUCTION BEST ACTIVATION
+============================================================
+timestamp=20260426_014500
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/global-production-best-20260426_014500.txt
+
+==> Ultimate stable core activation
+============================================================
+SHEIKHA ULTIMATE STABLE ACTIVATION
+============================================================
+timestamp=20260426_014500
+profile=stable-gpu
+root=/home/sheikha/Projects/sheikha/sheikha-main-portal
+runtime=/var/sheikha/runtime
+
+==> VS Code doctor
+[OK] VS Code doctor
+
+==> Integration readiness
+[OK] Integration readiness
+
+==> Auth readiness
+[OK] Auth readiness
+
+==> IP ownership proof strict
+[OK] IP ownership proof strict
+
+==> Health check dry run
+[OK] Health check dry run
+
+==> Port ownership cleanup (8080)
+[OK] Port ownership cleanup (8080)
+
+==> PM2 IP guard strict
+[OK] PM2 IP guard strict
+
+==> PM2 background guard
+[OK] PM2 background guard
+
+==> PM2 AI secrets guard
+[OK] PM2 AI secrets guard
+
+==> PM2 health monitor
+[WARN] PM2 health monitor
+
+==> PM2 server start
+[OK] PM2 server start
+
+==> Global full spectrum data refresh
+[OK] Global full spectrum data refresh
+
+==> Waiting for sheikha-api readiness
+[OK] sheikha-api readiness wait
+
+==> Runtime guard snapshot
+[OK] Runtime guard snapshot
+
+==> Live endpoint verification
+[OK] /api/health
+[OK] /api/sheikha/global/overview
+[OK] /api/sheikha/status
+
+==> PM2 status snapshot
+
+============================================================
+ULTIMATE STABLE ACTIVATION COMPLETE
+report=/var/sheikha/runtime/reports/ultimate-stable-activation-20260426_014500.txt
+============================================================
+/var/sheikha/runtime/reports/ultimate-stable-activation-20260426_014500.txt
+[OK] Ultimate stable core activation
+
+==> Safe local backup snapshot

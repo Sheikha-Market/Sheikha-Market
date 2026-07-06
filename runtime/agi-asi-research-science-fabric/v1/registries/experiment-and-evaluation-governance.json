@@ -1,0 +1,84 @@
+{
+  "registry": "SHEIKHA_AGI_ASI_EXPERIMENT_EVALUATION_GOVERNANCE_V1",
+  "status": "ACTIVE",
+  "experiment_tracks": [
+    {
+      "id": "EXP-001",
+      "name": "agentic_long_horizon_tasks",
+      "status": "UNDER_TEST",
+      "metric": "task_completion_time_horizon",
+      "requiredEvidence": [
+        "task_definition",
+        "baseline",
+        "success_rate",
+        "failure_modes",
+        "human_review"
+      ]
+    },
+    {
+      "id": "EXP-002",
+      "name": "traditional_rag_grounding",
+      "status": "ACTIVE",
+      "metric": "source_supported_claim_rate",
+      "requiredEvidence": [
+        "retrieval_trace",
+        "citation_pack",
+        "unsupported_claims",
+        "conflict_detection"
+      ]
+    },
+    {
+      "id": "EXP-003",
+      "name": "multi_agent_research_review",
+      "status": "UNDER_TEST",
+      "metric": "review_findings_precision_and_recall",
+      "requiredEvidence": [
+        "agent_roles",
+        "review_protocol",
+        "aggregation_method",
+        "expert_validation"
+      ]
+    },
+    {
+      "id": "EXP-004",
+      "name": "algorithm_discovery_refinement_loop",
+      "status": "UNDER_TEST",
+      "metric": "verified_objective_improvement",
+      "requiredEvidence": [
+        "objective_function",
+        "candidate_programs",
+        "evaluation_harness",
+        "reproducibility_note"
+      ]
+    },
+    {
+      "id": "EXP-005",
+      "name": "abstract_reasoning_generalization",
+      "status": "UNDER_TEST",
+      "metric": "novel_task_generalization_score",
+      "requiredEvidence": [
+        "benchmark_version",
+        "contamination_review",
+        "private_eval_separation",
+        "error_analysis"
+      ]
+    }
+  ],
+  "evaluation_gates": {
+    "no_private_data_without_rights": true,
+    "no_external_execution_without_authorization": true,
+    "no_benchmark_claim_without_version": true,
+    "no_improvement_claim_without_baseline": true,
+    "no_release_without_safety_review": true,
+    "human_review_for_agi_asi_language": true
+  },
+  "result_statuses": [
+    "PROPOSED",
+    "UNDER_TEST",
+    "REPRODUCED_INTERNALLY",
+    "VALIDATED_WITH_EVIDENCE",
+    "REJECTED_OR_FAILED",
+    "NEEDS_EXTERNAL_REVIEW"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

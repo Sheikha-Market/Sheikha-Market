@@ -1,0 +1,48 @@
+{
+  "registry": "SHEIKHA_DASHBOARD_ROUTING_MAP_V1",
+  "status": "ACTIVE",
+  "routes": [
+    {
+      "audience": "minister_or_senior_government_leader",
+      "segments": ["B2G", "G2B"],
+      "customerTypes": ["GOVERNMENT_ENTITY", "MINISTRY"],
+      "dashboard": "GOVERNANCE_AND_REGULATION_COMMAND_DASHBOARD",
+      "primaryMetrics": ["policy_status", "compliance", "economic_impact", "program_readiness"]
+    },
+    {
+      "audience": "port_or_logistics_zone",
+      "segments": ["B2B", "B2G"],
+      "customerTypes": ["PUBLIC_COMPANY", "LOGISTICS_PROVIDER"],
+      "dashboard": "LOGISTICS_AND_SUPPLY_CHAIN_OPERATIONS_DASHBOARD",
+      "primaryMetrics": ["throughput", "supplier_network", "contracts", "risk"]
+    },
+    {
+      "audience": "factory_or_industrial_company",
+      "segments": ["B2B", "D2C"],
+      "customerTypes": ["FACTORY", "PRIVATE_COMPANY"],
+      "dashboard": "INDUSTRIAL_SUPPLY_AND_PROCUREMENT_DASHBOARD",
+      "primaryMetrics": ["suppliers", "purchase_orders", "materials", "quality"]
+    },
+    {
+      "audience": "supplier_trader_or_broker",
+      "segments": ["B2B", "D2C"],
+      "customerTypes": ["SUPPLIER", "TRADER", "BROKER"],
+      "dashboard": "MARKETPLACE_TRADING_DASHBOARD",
+      "primaryMetrics": ["offers", "deals", "pricing", "verification"]
+    },
+    {
+      "audience": "investor",
+      "segments": ["B2B", "B2C"],
+      "customerTypes": ["INDIVIDUAL_CUSTOMER", "PRIVATE_COMPANY"],
+      "dashboard": "INVESTMENT_AND_REVENUE_INSIGHTS_DASHBOARD",
+      "primaryMetrics": ["opportunities", "revenue_signals", "risk", "market_indicators"]
+    },
+    {
+      "audience": "service_provider_or_partner",
+      "segments": ["B2B", "B2B2G", "B2B2C"],
+      "customerTypes": ["LOGISTICS_PROVIDER", "CONTRACTOR", "CONSULTANT"],
+      "dashboard": "PROVIDER_CONTRACT_LICENSE_BILLING_DASHBOARD",
+      "primaryMetrics": ["contracts", "licenses", "sla", "billing"]
+    }
+  ]
+}

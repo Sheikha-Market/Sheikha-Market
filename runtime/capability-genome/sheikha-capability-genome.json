@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_CAPABILITY_GENOME_OMEGA",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Unify runtime capabilities across foundation, governance, knowledge, decision, quality, self-healing, observability, and orchestration layers.",
+  "capability_domains": {
+    "foundation": ["base_runtime", "activation_context", "system_identity"],
+    "governance": ["policy_control", "verification", "ethical_controls"],
+    "knowledge": ["semantic_links", "knowledge_relations", "reasoning_context"],
+    "decision": ["decision_support", "priority_engine", "reasoned_selection"],
+    "quality": ["quality_gates", "verification", "excellence_checks"],
+    "risk": ["early_detection", "risk_prevention", "mitigation"],
+    "audit": ["traceability", "history", "evidence"],
+    "self_healing": ["error_detection", "repair", "recovery"],
+    "observability": ["runtime_health", "module_health", "dependency_visibility", "topology_visibility"],
+    "orchestrator": ["runtime_coordination", "execution_flow", "activation_control"]
+  },
+  "controls": {
+    "capability_registry_required": true,
+    "no_duplicate_capability_without_owner": true,
+    "governance_required_for_capabilities": true,
+    "audit_required_for_capabilities": true,
+    "quality_gate_required_for_capabilities": true
+  },
+  "maturity": {
+    "capability_visibility": "VERY_HIGH",
+    "ownership_clarity": "VERY_HIGH",
+    "reuse_readiness": "VERY_HIGH",
+    "enterprise_alignment": "VERY_HIGH"
+  }
+}

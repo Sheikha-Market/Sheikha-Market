@@ -1,0 +1,47 @@
+{
+  "system": "SHEIKHA_CONTROLLED_COMMERCIAL_START_V1",
+  "status": "ACTIVE",
+  "mode": "CONTROLLED_COMMERCIAL_OPERATIONS",
+  "technicalReadiness": {
+    "productionGate": "PASSED",
+    "sourceBackupRestore": "PASSED",
+    "commercialFlowSimulation": "PASSED",
+    "humanDevelopmentFramework": "ACTIVE"
+  },
+  "allowedOperations": [
+    "lead_capture",
+    "customer_review",
+    "quotation_preparation",
+    "contract_preparation",
+    "manual_invoice_preparation",
+    "manual_payment_tracking",
+    "service_activation_after_human_approval",
+    "customer_support",
+    "renewal_tracking"
+  ],
+  "blockedUntilApproved": [
+    "automatic_real_payment_capture",
+    "automatic_external_write",
+    "automatic_contract_signature",
+    "automatic_service_provisioning_without_human_approval"
+  ],
+  "commercialJourney": [
+    "visitor",
+    "lead",
+    "qualified_lead",
+    "quotation",
+    "contract_review",
+    "invoice",
+    "payment_confirmation",
+    "service_activation",
+    "customer_success",
+    "renewal"
+  ],
+  "governance": {
+    "noHarm": true,
+    "humanApprovalRequiredForRealSale": true,
+    "paymentGatewayPending": true,
+    "externalMutationDisabledByDefault": true
+  },
+  "decision": "READY_FOR_FIRST_CONTROLLED_CUSTOMER"
+}

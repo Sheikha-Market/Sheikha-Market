@@ -1,0 +1,68 @@
+{
+  "registry": "SHEIKHA_SDK_FABRIC_MCP_DEVELOPMENT_MAP_V1",
+  "status": "ACTIVE",
+  "developmentFabric": "SHEIKHA_DEVELOPMENT_FUNCTIONS_FABRIC_V1",
+  "sdkFabricMcpSystem": "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+  "sdkBindings": [
+    {
+      "sdk": "sheikha-js-sdk",
+      "binding": "development_workflow_client",
+      "endpoint": "/api/development/functions-fabric/status"
+    },
+    {
+      "sdk": "sheikha-cli",
+      "binding": "development_workflow_cli",
+      "script": "ops:development-functions-fabric:v1"
+    },
+    {
+      "sdk": "sheikha-mcp",
+      "binding": "development_mcp_tool_contracts",
+      "registry": "SHEIKHA_MCP_TOOL_CATALOG_V1"
+    },
+    {
+      "sdk": "sheikha-ide",
+      "binding": "vscode_chat_tool_buttons",
+      "extension": "sheikha-vscode-extension"
+    }
+  ],
+  "fabricBindings": [
+    {
+      "name": "development-functions-fabric-v1",
+      "mount": "/api/development/functions-fabric",
+      "module": "routes/development-functions-fabric/status.routes.js",
+      "priority": 245
+    }
+  ],
+  "mcpToolContracts": [
+    "create_runtime_contract",
+    "create_registry_contract",
+    "create_tool_contract",
+    "create_route_contract",
+    "create_tests_contract",
+    "run_npm_test_gate",
+    "run_lint_gate",
+    "verify_no_drift_gate",
+    "prepare_git_commit_gate",
+    "prepare_git_push_gate"
+  ],
+  "extensionChatTools": [
+    "Runtime",
+    "Registry",
+    "Tool",
+    "Route",
+    "Tests",
+    "Test",
+    "Lint",
+    "Drift",
+    "Commit",
+    "Push"
+  ],
+  "safety": {
+    "destructive_actions_disabled": true,
+    "commit_and_push_require_human_confirmation": true,
+    "secrets_must_not_be_displayed": true,
+    "private_data_requires_consent": true,
+    "system_is_tool_not_religious_authority": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

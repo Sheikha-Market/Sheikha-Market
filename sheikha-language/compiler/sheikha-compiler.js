@@ -3,97 +3,235 @@
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { lex } = require('./lexer');
+const { parse } = require('./parser');
 const { lowerToIR } = require('./ir');
 const { typeCheckAst } = require('./type-checker');
 const { compileIRToBytecode } = require('./bytecode');
-const { loadSourceProgram } = require('./source-loader');
-const { generateTarget, resolveTarget } = require('./target-generators');
 
-function readOption(args, name) {
-    const index = args.indexOf(name);
-    if (index === -1) {
-        return null;
-    }
-    const value = args[index + 1];
-    if (!value || value.startsWith('--')) {
-        throw new Error(`Missing value for ${name}`);
-    }
-    return value;
-}
-
-function ensureParentDir(filePath) {
-    const dir = path.dirname(filePath);
-    if (dir && dir !== '.') {
-        fs.mkdirSync(dir, { recursive: true });
-    }
-}
-
-function defaultOutputFor(input, target) {
-    if (target === 'javascript') {
-        return input.replace(/\.[^.]+$/, '.generated.js');
-    }
-    if (target === 'python') {
-        return input.replace(/\.[^.]+$/, '.generated.py');
-    }
-    if (target === 'json-ir') {
-        return input.replace(/\.[^.]+$/, '.ir.json');
-    }
-    if (target === 'bytecode') {
-        return input.replace(/\.[^.]+$/, '.bytecode.json');
-    }
-    return input.replace(/\.[^.]+$/, '.generated.php');
-}
-
-const args = process.argv.slice(2);
-const input = args[0];
-
+const input = process.argv[2];
 if (!input) {
-    console.error('Usage: node sheikha-compiler.js <file.shk|program.json> [--source-language name] [--target php|javascript|python|json-ir|bytecode] [--out file] [--ast file.json] [--ir file.json] [--types file.json] [--bytecode file.json]');
+    console.error(
+        'Usage: node sheikha-compiler.js file.shk [--target php|node|python] [--out output.file] [--ast output.ast.json] [--ir output.ir.json] [--types output.types.json] [--bytecode output.bc.json]'
+    );
     process.exit(1);
 }
 
-const requestedTarget = readOption(args, '--target');
-const astOutput = readOption(args, '--ast');
-const irOutput = readOption(args, '--ir');
-const typesOutput = readOption(args, '--types');
-const bytecodeOutput = readOption(args, '--bytecode');
-const sourceLanguage = readOption(args, '--source-language');
-const output = readOption(args, '--out');
-const target = resolveTarget(requestedTarget, output);
-const outputPath = output || defaultOutputFor(input, target);
+const src = fs.readFileSync(input, 'utf8');
+const tokens = lex(src);
+const ast = parse(tokens);
+const typeCheck = typeCheckAst(ast);
 
-const sourceProgram = loadSourceProgram(input, { sourceLanguage });
-const typeCheck = typeCheckAst(sourceProgram.ast);
-const ir = lowerToIR(sourceProgram.ast, sourceProgram);
-const bytecode = compileIRToBytecode(ir);
+let target = 'php';
+let outPath = input.replace(/\.shk$/i, '.php');
+let astPath = '';
+let irPath = '';
+let typesPath = '';
+let bytecodePath = '';
 
-const rendered = generateTarget(target, {
-    ast: sourceProgram.ast,
-    ir,
-    typeCheck,
-    bytecode,
-    sourceProgram,
-    outputPath,
-});
-
-ensureParentDir(outputPath);
-fs.writeFileSync(outputPath, rendered);
-
-const optionalArtifacts = [
-    [astOutput, sourceProgram.ast],
-    [irOutput, ir],
-    [typesOutput, typeCheck],
-    [bytecodeOutput, bytecode],
-];
-
-for (const [filePath, payload] of optionalArtifacts) {
-    if (!filePath) {
+for (let i = 3; i < process.argv.length; i++) {
+    if (process.argv[i] === '--out' && process.argv[i + 1]) {
+        outPath = process.argv[i + 1];
+        i++;
         continue;
     }
-    ensureParentDir(filePath);
-    fs.writeFileSync(filePath, `${JSON.stringify(payload, null, 2)}\n`);
+    if (process.argv[i] === '--target' && process.argv[i + 1]) {
+        target = String(process.argv[i + 1]).toLowerCase();
+        i++;
+        continue;
+    }
+    if (process.argv[i] === '--ast' && process.argv[i + 1]) {
+        astPath = process.argv[i + 1];
+        i++;
+        continue;
+    }
+    if (process.argv[i] === '--ir' && process.argv[i + 1]) {
+        irPath = process.argv[i + 1];
+        i++;
+        continue;
+    }
+    if (process.argv[i] === '--types' && process.argv[i + 1]) {
+        typesPath = process.argv[i + 1];
+        i++;
+        continue;
+    }
+    if (process.argv[i] === '--bytecode' && process.argv[i + 1]) {
+        bytecodePath = process.argv[i + 1];
+        i++;
+    }
 }
 
-console.log('SHEIKHA_LANGUAGE_SOURCE=' + sourceProgram.sourceLanguage.toUpperCase());
-console.log('SHEIKHA_LANGUAGE_TARGET=' + target.toUpperCase().replace('-', '_'));
-console.log('SHEIKHA_LANGUAGE_COMPILED=' + outputPath);
+const ir = lowerToIR(ast);
+const bytecode = compileIRToBytecode(ir);
+
+if (!['php', 'node', 'python'].includes(target)) {
+    console.error('Unsupported target: ' + target + ' (use php|node|python)');
+    process.exit(2);
+}
+
+if (!process.argv.includes('--out')) {
+    if (target === 'php') {
+        outPath = input.replace(/\.shk$/i, '.php');
+    } else if (target === 'node') {
+        outPath = input.replace(/\.shk$/i, '.js');
+    } else if (target === 'python') {
+        outPath = input.replace(/\.shk$/i, '.py');
+    }
+}
+
+const phpArrayForProcedures = JSON.stringify(
+    ast.body
+        .filter(node => node.type === 'ProcedureDeclaration')
+        .map(node => ({
+            name: node.name,
+            statements: node.body.length
+        })),
+    null,
+    2
+);
+
+const php = `<?php
+// Generated by Sheikha Language Compiler
+// لغة شيخة: طبقة حكم وتشغيل فوق PHP
+
+final class SheikhaGeneratedRule
+{
+    public function run(): array
+    {
+        return [
+            'بسم_الله' => 'بسم الله الرحمن الرحيم',
+            'language' => 'Sheikha Language',
+            'compiler' => 'sheikha-language/compiler/sheikha-compiler.js',
+            'source_file' => ${JSON.stringify(path.basename(input))},
+            'source' => ${JSON.stringify(src)},
+            'ast_summary' => [
+                'nodes' => ${ast.body.length},
+                'procedures' => json_decode(${JSON.stringify(phpArrayForProcedures)}, true),
+            ],
+            'ir_summary' => [
+                'version' => ${JSON.stringify(ir.version)},
+                'steps' => ${ir.steps.length}
+            ],
+            'type_summary' => [
+                'ok' => ${typeCheck.ok ? 'true' : 'false'},
+                'diagnostics' => ${typeCheck.diagnostics.length}
+            ],
+            'bytecode_summary' => [
+                'version' => ${JSON.stringify(bytecode.version)},
+                'instructions' => ${bytecode.instructions.length},
+                'neural_cells' => ${bytecode.neuralProfile.cells}
+            ],
+            'rules' => [
+                'لا ضرر ولا ضرار',
+                'الصدق والبيان',
+                'منع الاحتكار',
+                'منع الغش',
+                'التوثيق قبل التوسع'
+            ],
+            'status' => 'compiled_to_php'
+        ];
+    }
+}
+`;
+
+const nodeJs = `'use strict';
+// Generated by Sheikha Language Compiler
+
+const payload = {
+  basmala: 'بسم الله الرحمن الرحيم',
+  language: 'Sheikha Language',
+  compiler: 'sheikha-language/compiler/sheikha-compiler.js',
+  source_file: ${JSON.stringify(path.basename(input))},
+  source: ${JSON.stringify(src)},
+  ast_summary: {
+    nodes: ${ast.body.length},
+    procedures: ${JSON.stringify(
+        ast.body
+            .filter(node => node.type === 'ProcedureDeclaration')
+            .map(node => ({ name: node.name, statements: node.body.length }))
+    )}
+  },
+  ir_summary: { version: ${JSON.stringify(ir.version)}, steps: ${ir.steps.length} },
+  type_summary: { ok: ${typeCheck.ok ? 'true' : 'false'}, diagnostics: ${typeCheck.diagnostics.length} },
+  bytecode_summary: {
+    version: ${JSON.stringify(bytecode.version)},
+    instructions: ${bytecode.instructions.length},
+    neural_cells: ${bytecode.neuralProfile.cells}
+  },
+  status: 'compiled_to_node'
+};
+
+console.log(JSON.stringify(payload, null, 2));
+`;
+
+const python = `#!/usr/bin/env python3
+# Generated by Sheikha Language Compiler
+import json
+
+payload = {
+    'basmala': 'بسم الله الرحمن الرحيم',
+    'language': 'Sheikha Language',
+    'compiler': 'sheikha-language/compiler/sheikha-compiler.js',
+    'source_file': ${JSON.stringify(path.basename(input))},
+    'source': ${JSON.stringify(src)},
+    'ast_summary': {
+        'nodes': ${ast.body.length},
+        'procedures': ${JSON.stringify(
+            ast.body
+                .filter(node => node.type === 'ProcedureDeclaration')
+                .map(node => ({ name: node.name, statements: node.body.length }))
+        )}
+    },
+    'ir_summary': {'version': ${JSON.stringify(ir.version)}, 'steps': ${ir.steps.length}},
+    'type_summary': {'ok': ${typeCheck.ok ? 'True' : 'False'}, 'diagnostics': ${typeCheck.diagnostics.length}},
+    'bytecode_summary': {
+        'version': ${JSON.stringify(bytecode.version)},
+        'instructions': ${bytecode.instructions.length},
+        'neural_cells': ${bytecode.neuralProfile.cells}
+    },
+    'status': 'compiled_to_python'
+}
+
+print(json.dumps(payload, ensure_ascii=False, indent=2))
+`;
+
+if (target === 'php') {
+    fs.writeFileSync(outPath, php);
+} else if (target === 'node') {
+    fs.writeFileSync(outPath, nodeJs);
+} else {
+    fs.writeFileSync(outPath, python);
+    fs.chmodSync(outPath, 0o755);
+}
+
+if (astPath) {
+    fs.writeFileSync(astPath, JSON.stringify(ast, null, 2));
+}
+
+if (irPath) {
+    fs.writeFileSync(irPath, JSON.stringify(ir, null, 2));
+}
+
+if (typesPath) {
+    fs.writeFileSync(typesPath, JSON.stringify(typeCheck, null, 2));
+}
+
+if (bytecodePath) {
+    fs.writeFileSync(bytecodePath, JSON.stringify(bytecode, null, 2));
+}
+
+console.log('SHEIKHA_LANGUAGE_TARGET=' + target.toUpperCase());
+console.log('SHEIKHA_LANGUAGE_COMPILED=' + outPath);
+console.log('SHEIKHA_TYPECHECK=' + (typeCheck.ok ? 'PASSED' : 'FAILED'));
+if (astPath) {
+    console.log('SHEIKHA_LANGUAGE_AST=' + astPath);
+}
+if (irPath) {
+    console.log('SHEIKHA_LANGUAGE_IR=' + irPath);
+}
+if (typesPath) {
+    console.log('SHEIKHA_LANGUAGE_TYPES=' + typesPath);
+}
+if (bytecodePath) {
+    console.log('SHEIKHA_LANGUAGE_BYTECODE=' + bytecodePath);
+}

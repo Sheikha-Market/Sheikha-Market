@@ -1,0 +1,29 @@
+{
+  "freeze": "SHEIKHA_ARCHITECTURE_FREEZE_V1_1",
+  "status": "ACTIVE",
+  "basedOn": "SHEIKHA_ARCHITECTURE_FREEZE_V1",
+  "purpose": "Freeze the verified Sheikha interface layer after MCP bridge, OpenAPI registry, SDK registry, unified source control, canonical routes, and governance runtime alignment.",
+  "lockedBaseline": [
+    "architecture_freeze_v1",
+    "mcp_unified_bridge",
+    "openapi_registry",
+    "sdk_registry",
+    "unified_source_control",
+    "canonical_route_registry",
+    "fabric_bootstrap",
+    "governance_runtime",
+    "execution_orchestration_grid",
+    "distributed_telemetry_fabric",
+    "federated_knowledge_fabric"
+  ],
+  "rules": {
+    "no_public_interface_without_openapi_registry": true,
+    "no_sdk_without_registry": true,
+    "no_mcp_access_without_bridge": true,
+    "no_direct_kernel_exposure": true,
+    "no_route_deletion_without_canonical_review": true,
+    "git_clean_required_before_next_phase": true,
+    "tests_required_before_commit": true,
+    "push_required_after_verified_commit": true
+  }
+}

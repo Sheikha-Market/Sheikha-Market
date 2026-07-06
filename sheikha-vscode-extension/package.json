@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.8",
+  "version": "1.0.89",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -85,9 +85,6 @@
     "islamic",
     "arabic programming"
   ],
-  "activationEvents": [
-    "onStartupFinished"
-  ],
   "main": "./extension.js",
   "files": [
     "extension.js",
@@ -105,7 +102,10 @@
     "providers/**",
     "syntaxes/**",
     "snippets/**",
-    "language-configuration.json"
+    "language-configuration.json",
+    "src/**",
+    "resources/**",
+    "src/projectContext.js"
   ],
   "contributes": {
     "languages": [
@@ -230,6 +230,26 @@
         "category": "Sheikha Account"
       },
       {
+        "command": "sheikha.openWorkspaceControl",
+        "title": "Sheikha: مركز تحكم VS Coder",
+        "category": "Sheikha Workspace"
+      },
+      {
+        "command": "sheikha.gitStatus",
+        "title": "Sheikha: حالة Git",
+        "category": "Sheikha Git"
+      },
+      {
+        "command": "sheikha.openPullRequest",
+        "title": "Sheikha: فتح Pull Request على GitHub",
+        "category": "Sheikha Git"
+      },
+      {
+        "command": "sheikha.openMergeRequest",
+        "title": "Sheikha: فتح Merge Request على GitLab",
+        "category": "Sheikha Git"
+      },
+      {
         "command": "sheikha.activateNeuralEngine",
         "title": "Sheikha: تفعيل محرك الشبكة العصبية الجذرية",
         "category": "Sheikha AI",
@@ -285,6 +305,65 @@
           "light": "images/sheikha-icon.svg",
           "dark": "images/sheikha-icon.svg"
         }
+      },
+      {
+        "command": "sheikha.ask",
+        "title": "Sheikha: Ask Local Runtime"
+      },
+      {
+        "command": "sheikha.agent.run",
+        "title": "Sheikha: Run Agentic Task"
+      },
+      {
+        "command": "sheikha.cli.status",
+        "title": "Sheikha CLI: الحالة العامة"
+      },
+      {
+        "command": "sheikha.cli.health",
+        "title": "Sheikha CLI: فحص الصحة"
+      },
+      {
+        "command": "sheikha.debugger.run",
+        "title": "Sheikha Debugger: تشغيل الفحص الكامل"
+      },
+      {
+        "command": "sheikha.debugger.logs",
+        "title": "Sheikha Debugger: عرض السجلات"
+      },
+      {
+        "command": "sheikha.runtime.restart",
+        "title": "Sheikha Runtime: إعادة التشغيل"
+      },
+      {
+        "command": "sheikha.awareness.scan",
+        "title": "Sheikha: Scan VS Code Awareness"
+      },
+      {
+        "command": "sheikha.registry.unified",
+        "title": "Sheikha: Open Unified Registry"
+      },
+      {
+        "command": "sheikha.registry.broker",
+        "title": "Sheikha: Open Registry Broker"
+      },
+      {
+        "command": "sheikha.registry.global",
+        "title": "Sheikha: Open Global Registry Fabric"
+      },
+      {
+        "command": "sheikha.devtools.toggle",
+        "title": "Toggle Developer Tools",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.console.open",
+        "title": "Open Console",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.inspector.devtools",
+        "title": "Open Inspector Developer Tools",
+        "category": "Sheikha"
       }
     ],
     "keybindings": [
@@ -384,24 +463,6 @@
           "default": 60,
           "minimum": 30,
           "description": "فاصل تحديث لوحة التكاملات بالثواني (الحد الأدنى 30 ثانية)"
-        },
-        "sheikha.chatRetries": {
-          "type": "number",
-          "default": 2,
-          "minimum": 0,
-          "description": "عدد محاولات إعادة طلب المحادثة قبل الانتقال إلى fallback"
-        },
-        "sheikha.chatRequestTimeoutMs": {
-          "type": "number",
-          "default": 4000,
-          "minimum": 800,
-          "description": "مهلة طلب المحادثة بالمللي ثانية"
-        },
-        "sheikha.chatSloLatencyMs": {
-          "type": "number",
-          "default": 2500,
-          "minimum": 500,
-          "description": "هدف SLO لزمن استجابة المحادثة بالمللي ثانية"
         }
       }
     },
@@ -489,6 +550,36 @@
         },
         {
           "command": "sheikha.openIntegrationsDashboard"
+        },
+        {
+          "command": "sheikha.openWorkspaceControl"
+        },
+        {
+          "command": "sheikha.gitStatus"
+        },
+        {
+          "command": "sheikha.openPullRequest"
+        },
+        {
+          "command": "sheikha.openMergeRequest"
+        },
+        {
+          "command": "sheikha.activateNeuralEngine"
+        },
+        {
+          "command": "sheikha.neuralNetwork"
+        },
+        {
+          "command": "sheikha.validateRootNeuralIntegration"
+        },
+        {
+          "command": "sheikha.devtools.toggle"
+        },
+        {
+          "command": "sheikha.console.open"
+        },
+        {
+          "command": "sheikha.inspector.devtools"
         }
       ]
     },
@@ -496,105 +587,32 @@
       "activitybar": [
         {
           "id": "sheikha",
-          "title": "Sheikha",
-          "icon": "images/sheikha-icon.svg"
+          "title": "SHEIKHA",
+          "icon": "resources/sheikha.svg"
+        },
+        {
+          "id": "sheikha-inspector",
+          "title": "Sheikha Enterprise Inspector",
+          "icon": "resources/sheikha.svg"
         }
       ]
     },
     "views": {
-      "explorer": [
-        {
-          "id": "sheikhaNeuralNetwork",
-          "name": "شبكة خلايا Sheikha الجذرية"
-        }
-      ],
       "sheikha": [
         {
-          "type": "webview",
           "id": "sheikha.chatView",
-          "name": "Sheikha Chat",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.statusView",
-          "name": "حالة النظام",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.apiView",
-          "name": "API",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.publishView",
-          "name": "النشر",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.pathsView",
-          "name": "المسارات",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.programmingView",
-          "name": "البرمجة",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.debugView",
-          "name": "Debug",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.editingView",
-          "name": "التحرير",
-          "icon": "images/sheikha-icon.svg"
-        },
-        {
-          "type": "webview",
-          "id": "sheikha.neuralView",
-          "name": "شبكة الخلايا العصبية",
-          "icon": "images/sheikha-icon.svg"
-        },
-                {
-                    "type": "webview",
-                    "id": "sheikha.enterpriseView",
-                    "name": "التكامل المؤسسي",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.osView",
-                    "name": "Sheikha AI AL OS",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.serviceProviderView",
-                    "name": "مزود خدمة AI",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.ideView",
-                    "name": "Sheikha IDE",
-                    "icon": "images/sheikha-icon.svg"
-                },
-                {
-                    "type": "webview",
-                    "id": "sheikha.toolsView",
-                    "name": "الأدوات والتقنيات",
-                    "icon": "images/sheikha-icon.svg"
-                }
-            ]
+          "name": "Sheikha Enterprise Chat",
+          "type": "webview"
         }
+      ],
+      "sheikha-inspector": [
+        {
+          "id": "sheikha.inspectorView",
+          "name": "Enterprise Inspector",
+          "type": "webview"
+        }
+      ]
+    }
   },
   "scripts": {
     "vscode:prepublish": "echo 'Sheikha ready'",
@@ -607,15 +625,16 @@
     "release:apply:new-extension": "node scripts/auto-release-cycle.js --apply --new-extension",
     "release:apply:innovation": "node scripts/auto-release-cycle.js --apply --innovation-goal",
     "package": "bash build-vsix.sh",
-    "package:best": "npm run -s release:plan && bash build-vsix.sh"
-  },
-  "dependencies": {
-    "node-fetch": "^2.7.0"
+    "package:best": "npm run -s release:plan && bash build-vsix.sh",
+    "sheikha:scan:vscode": "node scripts/scan-vscode-environment.js",
+    "sheikha:self-check": "npm run sheikha:scan:vscode && node test-vscode-cli-graphics.js && node test-vscode-chat-full.js",
+    "sheikha:awareness": "node scripts/scan-vscode-awareness.js",
+    "sheikha:router:test": "node test-vscode-router-awareness.js"
   },
   "devDependencies": {
-    "@types/vscode": "^1.85.0",
-    "@vscode/vsce": "^2.22.0",
     "@jest/globals": "^29.7.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.32.0",
     "jest": "^29.7.0"
   },
   "repository": {
@@ -626,5 +645,12 @@
   "homepage": "https://sheikha.top",
   "bugs": {
     "url": "mailto:market@sheikha.top"
-  }
+  },
+  "activationEvents": [
+    "onCommand:sheikha.openChat",
+    "onCommand:sheikha.chat.open",
+    "*",
+    "onView:sheikha.chatView",
+    "onView:sheikha.inspectorView"
+  ]
 }

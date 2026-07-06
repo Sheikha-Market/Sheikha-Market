@@ -1,0 +1,495 @@
+{
+  "bootstrap": "SHEIKHA_FABRIC_BOOTSTRAP_ROUTES",
+  "status": "ACTIVE",
+  "mode": "governed-neural-bootstrap",
+  "routes": [
+    {
+      "name": "sheikha-root-identity",
+      "mount": "/api/root-identity",
+      "module": "./routes/runtime/identity/status.routes.js",
+      "priority": 1000
+    },
+    {
+      "name": "sheikha-operating-system-identity",
+      "mount": "/api/operating-system",
+      "module": "./routes/runtime/identity/status.routes.js",
+      "priority": 900
+    },
+    {
+      "name": "chat-code-governance",
+      "mount": "/api/chat-code-governance",
+      "module": "./routes/chat-code-governance/status.routes.js",
+      "priority": 421
+    },
+    {
+      "name": "quran-sunnah-governance",
+      "mount": "/api/quran-sunnah-governance",
+      "module": "./routes/quran-sunnah-governance/status.routes.js",
+      "priority": 420
+    },
+    {
+      "name": "technical-advisory",
+      "mount": "/api/technical-advisory",
+      "module": "./routes/technical-advisory/status.routes.js",
+      "priority": 410
+    },
+    {
+      "name": "pr-governance",
+      "mount": "/api/pr-governance",
+      "module": "./routes/pr-governance/status.routes.js",
+      "priority": 402
+    },
+    {
+      "name": "project-governance",
+      "mount": "/api/project-governance",
+      "module": "./routes/project-governance/status.routes.js",
+      "priority": 401
+    },
+    {
+      "name": "sheikha-data",
+      "mount": "/api/sheikha-data",
+      "module": "./routes/sheikha-data/status.routes.js",
+      "priority": 400
+    },
+    {
+      "name": "openapi-registry",
+      "mount": "/api/openapi-registry",
+      "module": "./routes/openapi-registry/status.routes.js",
+      "priority": 390
+    },
+    {
+      "name": "sheikha-mcp-unified-bridge",
+      "mount": "/api/sheikha/mcp",
+      "module": "./routes/mcp-unified-bridge/status.routes.js",
+      "priority": 381
+    },
+    {
+      "name": "mcp-unified-bridge",
+      "mount": "/api/mcp",
+      "module": "./routes/mcp-unified-bridge/status.routes.js",
+      "priority": 380
+    },
+    {
+      "name": "federated-knowledge-fabric",
+      "mount": "/api/federated-knowledge-fabric",
+      "module": "routes/federated-knowledge-fabric/status.routes.js",
+      "priority": 370
+    },
+    {
+      "name": "autonomous-runtime-coordination",
+      "mount": "/api/autonomous-runtime-coordination",
+      "module": "routes/autonomous-runtime-coordination/status.routes.js",
+      "priority": 360
+    },
+    {
+      "name": "distributed-telemetry-fabric",
+      "mount": "/api/distributed-telemetry-fabric",
+      "module": "routes/distributed-telemetry-fabric/status.routes.js",
+      "priority": 350
+    },
+    {
+      "name": "execution-orchestration-grid",
+      "mount": "/api/execution-orchestration-grid",
+      "module": "routes/execution-orchestration-grid/status.routes.js",
+      "priority": 340
+    },
+    {
+      "name": "capability-token-fabric",
+      "mount": "/api/capability-token-fabric",
+      "module": "routes/capability-token-fabric/status.routes.js",
+      "priority": 330
+    },
+    {
+      "name": "global-domain-registry",
+      "mount": "/api/global-domain-registry",
+      "module": "routes/global-domain-registry/status.routes.js",
+      "priority": 320
+    },
+    {
+      "name": "runtime-federation-mesh",
+      "mount": "/api/runtime-federation-mesh",
+      "module": "routes/runtime-federation-mesh/status.routes.js",
+      "priority": 310
+    },
+    {
+      "name": "sovereign-control-plane",
+      "mount": "/api/control-plane",
+      "module": "routes/control-plane/status.routes.js",
+      "priority": 300
+    },
+    {
+      "name": "organizational-federation-kernel",
+      "mount": "/api/federation/organizational-kernel",
+      "module": "routes/federation/organizational-kernel/status.routes.js",
+      "priority": 290
+    },
+    {
+      "name": "domain-contract-fabric",
+      "mount": "/api/governance/domain-contract-fabric",
+      "module": "routes/governance/domain-contract-fabric/status.routes.js",
+      "priority": 285
+    },
+    {
+      "name": "governance-graph-engine",
+      "mount": "/api/governance/graph-engine",
+      "module": "routes/governance/graph-engine/status.routes.js",
+      "priority": 280
+    },
+    {
+      "name": "policy-enforcement-point",
+      "mount": "/api/governance/pep",
+      "module": "routes/governance/pep/status.routes.js",
+      "priority": 270
+    },
+    {
+      "name": "policy-decision-point",
+      "mount": "/api/governance/pdp",
+      "module": "routes/governance/pdp/status.routes.js",
+      "priority": 260
+    },
+    {
+      "name": "unified-governance-bus",
+      "mount": "/api/governance/bus",
+      "module": "routes/governance/unified-governance-bus/status.routes.js",
+      "priority": 250
+    },
+    {
+      "name": "governance-generator-v1",
+      "mount": "/api/governance/generator",
+      "module": "routes/governance-generator/status.routes.js",
+      "priority": 244
+    },
+    {
+      "name": "governed-intelligence-execution-loop-v1",
+      "mount": "/api/intelligence/execution-loop",
+      "module": "routes/governed-intelligence-execution-loop/status.routes.js",
+      "priority": 243
+    },
+    {
+      "name": "development-functions-fabric-v1",
+      "mount": "/api/development/functions-fabric",
+      "module": "routes/development-functions-fabric/status.routes.js",
+      "priority": 245
+    },
+    {
+      "name": "agi-asi-research-science-fabric-v1",
+      "mount": "/api/research/agi-asi-science-fabric",
+      "module": "routes/agi-asi-research-science-fabric/status.routes.js",
+      "priority": 242
+    },
+    {
+      "name": "capability-token-engine",
+      "mount": "/api/governance/capability-tokens",
+      "module": "routes/governance/capability-tokens/status.routes.js",
+      "priority": 240
+    },
+    {
+      "name": "intelligence-integration-fabric-v1",
+      "mount": "/api/intelligence/integration-fabric",
+      "module": "routes/intelligence-integration-fabric/status.routes.js",
+      "priority": 239
+    },
+    {
+      "name": "root-knowledge-agentic-fabric-v1",
+      "mount": "/api/knowledge/agentic-fabric",
+      "module": "routes/root-knowledge-agentic-fabric/status.routes.js",
+      "priority": 238
+    },
+    {
+      "name": "sdk-fabric-mcp-integration-v1",
+      "mount": "/api/sdk-fabric-mcp/integration",
+      "module": "routes/sdk-fabric-mcp-integration/status.routes.js",
+      "priority": 237
+    },
+    {
+      "name": "provider-agreement-roadmap-v1",
+      "mount": "/api/provider/agreement-roadmap",
+      "module": "routes/provider-agreement-roadmap/status.routes.js",
+      "priority": 236
+    },
+    {
+      "name": "ugit-ai-control-plane-v1",
+      "mount": "/api/ai/ugit-control-plane",
+      "module": "routes/ugit-ai-control-plane/status.routes.js",
+      "priority": 235
+    },
+    {
+      "name": "provider-compute-fabric-v1",
+      "mount": "/api/ai/provider-compute-fabric",
+      "module": "routes/provider-compute-fabric/status.routes.js",
+      "priority": 234
+    },
+    {
+      "name": "commercial-real-activation-v1",
+      "mount": "/api/commercial/real-activation",
+      "module": "routes/commercial-real-activation/status.routes.js",
+      "priority": 233
+    },
+    {
+      "name": "multi-supercomputer-cloud-fabric-v1",
+      "mount": "/api/ai/multi-supercomputer-cloud-fabric",
+      "module": "routes/multi-supercomputer-cloud-fabric/status.routes.js",
+      "priority": 232
+    },
+    {
+      "name": "ai-supercomputer-cloud-cluster-pipeline-fabric-v1",
+      "mount": "/api/ai/supercomputer-cloud-cluster-pipeline-fabric",
+      "module": "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js",
+      "priority": 231
+    },
+    {
+      "name": "customer-classification-v1",
+      "mount": "/api/customers/classification",
+      "module": "routes/customer-classification/status.routes.js",
+      "priority": 230
+    },
+    {
+      "name": "platform-factories-v1",
+      "mount": "/api/platform/factories",
+      "module": "routes/platform-factories/status.routes.js",
+      "priority": 229
+    },
+    {
+      "name": "devops-ai-lab-fabric-v1",
+      "mount": "/api/devops/ai-lab",
+      "module": "routes/devops-ai-lab-fabric/status.routes.js",
+      "priority": 228
+    },
+    {
+      "name": "resource-intelligence-simulation-fabric-v1",
+      "mount": "/api/resource-intelligence/simulation-fabric",
+      "module": "routes/resource-intelligence-simulation-fabric/status.routes.js",
+      "priority": 227
+    },
+    {
+      "name": "risk-classification-engine",
+      "mount": "/api/governance/risk-engine",
+      "module": "routes/governance/risk-engine/status.routes.js",
+      "priority": 218
+    },
+    {
+      "name": "audit-ledger",
+      "mount": "/api/governance/audit-ledger",
+      "module": "routes/governance/audit-ledger/status.routes.js",
+      "priority": 217
+    },
+    {
+      "name": "governance-enforcement-engine",
+      "mount": "/api/governance/enforcement-engine",
+      "module": "routes/governance/enforcement-engine/status.routes.js",
+      "priority": 190
+    },
+    {
+      "name": "policy-compiler",
+      "mount": "/api/governance/policy-compiler",
+      "module": "routes/governance/policy-compiler/status.routes.js",
+      "priority": 210
+    },
+    {
+      "name": "capability-execution-registry",
+      "mount": "/api/governance/capability-execution-registry",
+      "module": "routes/governance/capability-execution-registry/status.routes.js",
+      "priority": 205
+    },
+    {
+      "name": "sheikha-organization-system-of-systems",
+      "mount": "/api/organization/sheikha",
+      "module": "routes/organization/sheikha-organization/status.routes.js",
+      "priority": 180
+    },
+    {
+      "name": "unified-capability-registry",
+      "mount": "/api/governance/capability-registry",
+      "module": "routes/governance/capability-registry/status.routes.js",
+      "priority": 179
+    },
+    {
+      "name": "capability-registry-v2",
+      "mount": "/api/governance/capability-registry-v2",
+      "module": "routes/governance/capability-registry-v2/status.routes.js",
+      "priority": 178
+    },
+    {
+      "name": "commercial-product-layer-v1",
+      "mount": "/api/commercial/product-layer",
+      "module": "routes/commercial-product-layer/status.routes.js",
+      "priority": 177
+    },
+    {
+      "name": "ai-cluster-pipeline-fabric-v1",
+      "mount": "/api/ai/cluster-pipeline-fabric",
+      "module": "routes/ai-cluster-pipeline-fabric/status.routes.js",
+      "priority": 176
+    },
+    {
+      "name": "sovereign-commercial-ai-supercluster-v1",
+      "mount": "/api/ai/sovereign-commercial-supercluster",
+      "module": "routes/sovereign-commercial-ai-supercluster/status.routes.js",
+      "priority": 175
+    },
+    {
+      "name": "cloud-supercomputer-fabric-v1",
+      "mount": "/api/ai/cloud-supercomputer-fabric",
+      "module": "routes/cloud-supercomputer-fabric/status.routes.js",
+      "priority": 174
+    },
+    {
+      "name": "execution-governance-kernel",
+      "mount": "/api/governance/execution-kernel",
+      "module": "routes/governance/execution-kernel/status.routes.js",
+      "priority": 200
+    },
+    {
+      "name": "highest-authority-readiness",
+      "mount": "/api/governance/authority-readiness",
+      "module": "routes/governance/authority-readiness/status.routes.js",
+      "priority": 170
+    },
+    {
+      "name": "sheikha-exchange-trading-readiness",
+      "mount": "/api/exchange/sheikha",
+      "module": "routes/exchange/sheikha-exchange/status.routes.js",
+      "priority": 169
+    },
+    {
+      "name": "market-infrastructure-fabric",
+      "mount": "/api/market-infrastructure",
+      "module": "routes/market-infrastructure/status.routes.js",
+      "priority": 168
+    },
+    {
+      "name": "system-of-systems",
+      "mount": "/api/system-of-systems",
+      "module": "routes/system-of-systems/status.routes.js",
+      "priority": 167
+    },
+    {
+      "name": "constitutional-governance-fabric",
+      "mount": "/api/governance/constitutional-fabric",
+      "module": "routes/governance/constitutional-fabric/status.routes.js",
+      "priority": 160
+    },
+    {
+      "name": "sheikha-legislative-authority",
+      "mount": "/api/governance/sheikha-authority",
+      "module": "routes/governance/sheikha-authority/status.routes.js",
+      "priority": 151
+    },
+    {
+      "name": "supreme-governance-control-layer",
+      "mount": "/api/governance/supreme-control",
+      "module": "routes/governance/supreme-control/status.routes.js",
+      "priority": 150
+    },
+    {
+      "name": "advisory-commercial-layer",
+      "mount": "/api/advisory-commercial",
+      "module": "routes/advisory-commercial/status.routes.js",
+      "priority": 145
+    },
+    {
+      "name": "advisory-compliance-methodology-licensing",
+      "mount": "/api/advisory-compliance",
+      "module": "routes/advisory-compliance/status.routes.js",
+      "priority": 144
+    },
+    {
+      "name": "legislative-regulatory-licensing-project",
+      "mount": "/api/legislative-regulatory-licensing",
+      "module": "routes/legislative-regulatory-licensing/status.routes.js",
+      "priority": 143
+    },
+    {
+      "name": "runtime-verification-engine",
+      "mount": "/api/runtime/verification",
+      "module": "./routes/runtime/verification/status.routes.js",
+      "priority": 140
+    },
+    {
+      "name": "sovereign-governance-layer",
+      "mount": "/api/governance/sovereign-layer",
+      "module": "./routes/governance/sovereign-layer/status.routes.js",
+      "priority": 130
+    },
+    {
+      "name": "cross-engine-governance",
+      "mount": "/api/governance/policies",
+      "module": "./routes/governance/policies/cross-engine.routes.js",
+      "priority": 125
+    },
+    {
+      "name": "self-development-governance-kernel",
+      "mount": "/api/self-development",
+      "module": "./routes/self-development/status.routes.js",
+      "priority": 122
+    },
+    {
+      "name": "runtime-orchestration",
+      "mount": "/api/runtime/orchestration",
+      "module": "./routes/runtime/orchestration/status.routes.js",
+      "priority": 118
+    },
+    {
+      "name": "runtime-registry",
+      "mount": "/api/runtime/registry",
+      "module": "./routes/runtime/registry/runtime-registry.routes.js",
+      "priority": 115
+    },
+    {
+      "name": "neural-routing-topology",
+      "mount": "/api/neural-fabric/routing",
+      "module": "./routes/neural-fabric/routing/topology.routes.js",
+      "priority": 110
+    },
+    {
+      "name": "neural-routing-decisions",
+      "mount": "/api/neural-fabric/routing",
+      "module": "./routes/neural-fabric/routing/decision.routes.js",
+      "priority": 109
+    },
+    {
+      "name": "query-federation",
+      "mount": "/api/runtime/federation",
+      "module": "./routes/runtime/federation/status.routes.js",
+      "priority": 100
+    },
+    {
+      "name": "runtime-engine-discovery",
+      "mount": "/api/runtime/discovery",
+      "module": "./routes/runtime/discovery/discovery.routes.js",
+      "priority": 95
+    },
+    {
+      "name": "vector-semantic-layer",
+      "mount": "/api/neural-fabric/vector",
+      "module": "./routes/neural-fabric/vector/status.routes.js",
+      "priority": 94
+    },
+    {
+      "name": "neural-memory-layer",
+      "mount": "/api/neural-fabric/memory",
+      "module": "./routes/neural-fabric/memory/status.routes.js",
+      "priority": 93
+    },
+    {
+      "name": "runtime-telemetry",
+      "mount": "/api/observability/telemetry",
+      "module": "./routes/observability/telemetry/metrics.routes.js",
+      "priority": 80
+    },
+    {
+      "name": "advisory-intelligence-provider",
+      "mount": "/api/advisory-provider",
+      "module": "./routes/advisory-provider/status.routes.js",
+      "priority": 70
+    }
+  ],
+  "governance": {
+    "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
+    "mount_before_404": true,
+    "fail_safe": true,
+    "audit_required": true,
+    "rollback_required": true,
+    "no_duplicate_mount": true
+  }
+}

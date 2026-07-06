@@ -174,7 +174,7 @@ GA4_MEASUREMENT_ID=G-XXXXXXXXXX
    ```bash
    # افتح المتصفح:
    http://localhost:8080/تسجيل-الدخول.html
-   
+
    # انقر على "تسجيل الدخول بحساب Google"
    ```
 
@@ -182,7 +182,7 @@ GA4_MEASUREMENT_ID=G-XXXXXXXXXX
    ```bash
    # افتح:
    http://localhost:8080/سوق-شيخة.html
-   
+
    # يجب أن تظهر الخريطة بالمواقع
    ```
 
@@ -191,7 +191,7 @@ GA4_MEASUREMENT_ID=G-XXXXXXXXXX
 ## 🔧 استكشاف الأخطاء
 
 ### 1. Error: "invalid_client"
-**السبب:** Client ID أو Secret خاطئ  
+**السبب:** Client ID أو Secret خاطئ
 **الحل:**
 ```bash
 # تحقق من القيم في .env
@@ -201,14 +201,14 @@ cat .env | grep GOOGLE_CLIENT
 ```
 
 ### 2. Error: "API not enabled"
-**السبب:** API غير مفعل في Google Cloud  
+**السبب:** API غير مفعل في Google Cloud
 **الحل:**
 - اذهب إلى: https://console.cloud.google.com/apis/library
 - ابحث عن الـ API المطلوب
 - انقر "Enable"
 
 ### 3. Error: "Project not found"
-**السبب:** GOOGLE_CLOUD_PROJECT خاطئ  
+**السبب:** GOOGLE_CLOUD_PROJECT خاطئ
 **الحل:**
 ```bash
 # تحقق من Project ID:
@@ -218,7 +218,7 @@ cat .env | grep GOOGLE_CLOUD_PROJECT
 ```
 
 ### 4. Error: "Service account key not found"
-**السبب:** مسار ملف JSON خاطئ  
+**السبب:** مسار ملف JSON خاطئ
 **الحل:**
 ```bash
 # تحقق من المسار:
@@ -300,5 +300,5 @@ ls -la credentials/google-service-account.json
 
 ---
 
-**والحمد لله رب العالمين**  
+**والحمد لله رب العالمين**
 **منظومة شيخة — sheikha.top**

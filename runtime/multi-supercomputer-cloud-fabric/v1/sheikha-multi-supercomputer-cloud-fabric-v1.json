@@ -1,0 +1,34 @@
+{
+  "system": "SHEIKHA_MULTI_SUPERCOMPUTER_CLOUD_FABRIC_V1",
+  "status": "ACTIVE",
+  "arabic_name": "نسيج شيخة السحابي متعدد الحواسيب الضخمة",
+  "purpose": "Govern a multi-supercomputer cloud architecture that can connect multiple cloud providers, GPU farms, HPC clusters, APIs, and local compute under Sheikha Root governance.",
+  "position": "ABOVE_CLOUD_SUPERCOMPUTER_FABRIC",
+  "truthfulness": {
+    "architecture_and_readiness_only": true,
+    "no_physical_supercomputer_claim_without_contract": true,
+    "no_gpu_farm_claim_without_hardware_or_lease": true,
+    "no_cloud_provider_claim_without_service_offering": true,
+    "no_partner_claim_without_signed_agreement": true
+  },
+  "fabric_scope": [
+    "MULTI_CLOUD",
+    "MULTI_GPU_PROVIDER",
+    "MULTI_HPC_CLUSTER",
+    "MULTI_API_PROVIDER",
+    "HYBRID_LOCAL_CLOUD",
+    "WORKLOAD_ORCHESTRATION",
+    "COST_GOVERNANCE",
+    "SECURITY_GOVERNANCE",
+    "SLA_GOVERNANCE"
+  ],
+  "rules": {
+    "governance_required": true,
+    "provider_registry_required": true,
+    "compute_contract_required": true,
+    "budget_guard_required": true,
+    "human_approval_for_high_cost_compute": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

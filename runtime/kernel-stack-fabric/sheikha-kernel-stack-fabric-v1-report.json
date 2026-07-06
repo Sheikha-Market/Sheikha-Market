@@ -1,0 +1,132 @@
+{
+  "system": "SHEIKHA_KERNEL_STACK_FABRIC_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_LAYER_MEASUREMENT",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noSysctlModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noHarm": true
+  },
+  "layers": [
+    {
+      "id": "hardware-layer",
+      "name": "Hardware Layer",
+      "scope": "cpu-memory-disk",
+      "position": "below-kernel"
+    },
+    {
+      "id": "firmware-layer",
+      "name": "Firmware Layer",
+      "scope": "reported-only",
+      "position": "below-kernel"
+    },
+    {
+      "id": "boot-layer",
+      "name": "Boot Layer",
+      "scope": "read-only-no-boot-change",
+      "position": "below-kernel"
+    },
+    {
+      "id": "kernel-layer",
+      "name": "Kernel Layer",
+      "scope": "linux-kernel-read-only",
+      "position": "kernel"
+    },
+    {
+      "id": "os-layer",
+      "name": "Operating System Layer",
+      "scope": "pop-os-linux-distro",
+      "position": "above-kernel"
+    },
+    {
+      "id": "process-layer",
+      "name": "Process Layer",
+      "scope": "pm2-process-observation",
+      "position": "above-kernel"
+    },
+    {
+      "id": "runtime-layer",
+      "name": "Runtime Layer",
+      "scope": "node-pm2-runtime-health",
+      "position": "above-kernel"
+    },
+    {
+      "id": "application-layer",
+      "name": "Application Layer",
+      "scope": "sheikha-runtime-services",
+      "position": "above-kernel"
+    },
+    {
+      "id": "governance-layer",
+      "name": "Governance Layer",
+      "scope": "no-harm-human-review",
+      "position": "above-kernel"
+    }
+  ],
+  "kernel": {
+    "system": "SHEIKHA_KERNEL_FABRIC_V1",
+    "status": "ACTIVE",
+    "mode": "READ_ONLY_MEASUREMENT",
+    "safety": {
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noSysctlModification": true,
+      "noServiceRestart": true,
+      "noHarm": true
+    },
+    "os": {
+      "platform": "linux",
+      "release": "7.0.11-76070011-generic",
+      "type": "Linux",
+      "arch": "x64",
+      "hostname": "pop-os",
+      "distroName": "Pop!_OS",
+      "distroVersion": "22.04 LTS",
+      "prettyName": "Pop!_OS 22.04 LTS"
+    },
+    "compute": {
+      "cpus": 22,
+      "model": "Intel(R) Core(TM) Ultra 9 185H",
+      "loadavg": [
+        5.76,
+        3.13,
+        2.29
+      ],
+      "totalMemory": 66875772928,
+      "freeMemory": 43103682560
+    },
+    "disk": {
+      "root": "929G 481G 402G 55%"
+    },
+    "pm2": [
+      {
+        "name": "sheikha-main-portal",
+        "status": "online",
+        "pid": 1834407,
+        "memory": 189227008,
+        "cpu": 0.9
+      },
+      {
+        "name": "sheikha-proxy-8082",
+        "status": "online",
+        "pid": 1660,
+        "memory": 21594112,
+        "cpu": 0.3
+      },
+      {
+        "name": "sheikha-universal-api",
+        "status": "online",
+        "pid": 1667,
+        "memory": 150466560,
+        "cpu": 0.3
+      }
+    ],
+    "governance": {
+      "humanReviewRequired": true,
+      "productionSafe": true
+    }
+  }
+}

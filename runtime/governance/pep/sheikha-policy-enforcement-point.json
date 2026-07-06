@@ -1,0 +1,31 @@
+{
+  "engine": "SHEIKHA_POLICY_ENFORCEMENT_POINT",
+  "status": "ACTIVE",
+  "mode": "governance-enforcement-before-runtime-dispatch",
+  "purpose": "Enforce governance decisions across runtime, federation, AI, advisory, markets, datacenter, and orchestration layers.",
+  "enforcementFlow": [
+    "receive_pdp_decision",
+    "validate_execution_context",
+    "enforce_policy",
+    "enforce_capability_scope",
+    "enforce_risk_controls",
+    "bind_audit",
+    "dispatch_or_block"
+  ],
+  "actions": [
+    "ALLOW_EXECUTION",
+    "BLOCK_EXECUTION",
+    "ESCALATE",
+    "REQUIRE_APPROVAL",
+    "REQUIRE_SPECIALIST"
+  ],
+  "rules": {
+    "block_if_pdp_missing": true,
+    "block_if_policy_denied": true,
+    "block_if_capability_scope_invalid": true,
+    "block_if_runtime_unverified": true,
+    "block_if_audit_unavailable": true,
+    "audit_binding_required": true,
+    "rollback_ready_required": true
+  }
+}

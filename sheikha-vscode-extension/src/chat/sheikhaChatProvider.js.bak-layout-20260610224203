@@ -1,0 +1,167 @@
+'use strict';
+
+const vscode = require('vscode');
+const { sheikhaSmartRoute, governMode } = require('../sheikhaApiClient');
+
+class SheikhaChatProvider {
+  constructor(extensionUri) {
+    this.extensionUri = extensionUri;
+  }
+
+  resolveWebviewView(webviewView) {
+    webviewView.webview.options = { enableScripts: true };
+    webviewView.webview.html = this.getHtml();
+
+    webviewView.webview.onDidReceiveMessage(async (msg) => {
+      if (!msg || msg.command !== 'ask') return;
+
+      const text = String(msg.text || '').trim();
+      const selectedMode = msg.mode || 'agentic';
+      const governance = governMode(text, selectedMode);
+
+      webviewView.webview.postMessage({
+        command: 'thinking',
+        text: 'شيخة تعمل الآن...'
+      });
+
+      try {
+        const result = await sheikhaSmartRoute(text, {
+          mode: governance.effectiveMode,
+          selectedMode,
+          governance
+        });
+
+        if (result && result.data) {
+          result.data.governance = governance;
+          result.data.mode = governance.effectiveMode;
+        }
+
+        const answer =
+          result?.data?.reply ||
+          result?.data?.answer ||
+          result?.data?.message ||
+          JSON.stringify(result, null, 2);
+
+        const meta = {
+          provider: result?.data?.provider || 'Sheikha',
+          model: result?.data?.model || result?.data?.officialModel || 'Sheikha-Core',
+          governance,
+          localModelOnline: result?.data?.localModelOnline
+        };
+
+        webviewView.webview.postMessage({
+          command: 'answer',
+          text: answer,
+          meta
+        });
+      } catch (e) {
+        webviewView.webview.postMessage({
+          command: 'answer',
+          text: 'خطأ في شات شيخة: ' + e.message,
+          meta: { provider: 'Sheikha', model: 'Sheikha-Core', governance }
+        });
+      }
+    });
+  }
+
+  getHtml() {
+    return `<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<style>
+body{margin:0;background:#0b0f14;color:#e8f5ee;font-family:system-ui;padding:10px}
+.header{background:#174f38;padding:12px;border-radius:8px;font-weight:700}
+.tools{display:grid;grid-template-columns:1fr 1fr 1fr;gap:6px;margin:10px 0}
+button{background:#1f2937;color:#fff;border:1px solid #334155;border-radius:8px;padding:10px;cursor:pointer}
+button.active{background:#166534}
+#log{height:calc(100vh - 210px);overflow:auto;border-top:1px solid #1f2937;padding-top:10px}
+.msg{background:#102b24;border:1px solid #22c55e;border-radius:10px;padding:10px;margin:8px 0;white-space:pre-wrap}
+.user{background:#1f2937;border-color:#334155}
+.meta{font-size:11px;color:#9ca3af;border-top:1px solid #14532d;margin-top:8px;padding-top:6px;direction:rtl}
+.input{display:flex;gap:8px;border-top:1px solid #1f2937;padding-top:10px}
+textarea{flex:1;background:#111827;color:#fff;border:1px solid #22c55e;border-radius:10px;padding:10px;resize:none}
+.send{width:54px;background:#22c55e;color:#052e16;font-weight:700}
+</style>
+</head>
+<body>
+<div class="header">Sheikha Advanced Chat</div>
+<div class="tools">
+<button data-mode="mcp">MCP</button>
+<button data-mode="rag">RAG</button>
+<button data-mode="agentic" class="active">Agent</button>
+<button data-mode="graphics">Graphics</button>
+<button data-mode="cli">CLI</button>
+<button data-mode="sdk">SDK</button>
+</div>
+<div id="log"><div class="msg">مرحبًا، أنا شيخة. اكتب طلبك ثم اضغط Enter أو زر الإرسال.</div></div>
+<div class="input">
+<textarea id="input" rows="2" placeholder="اكتب طلبك هنا..."></textarea>
+<button id="sendBtn" class="send">➤</button>
+</div>
+<script>
+const vscode = acquireVsCodeApi();
+let mode = 'agentic';
+const log = document.getElementById('log');
+const input = document.getElementById('input');
+const sendBtn = document.getElementById('sendBtn');
+
+document.querySelectorAll('[data-mode]').forEach(function(btn){
+  btn.addEventListener('click', function(){
+    document.querySelectorAll('[data-mode]').forEach(function(b){ b.classList.remove('active'); });
+    btn.classList.add('active');
+    mode = btn.dataset.mode;
+  });
+});
+
+function addMessage(text, cls, meta) {
+  const box = document.createElement('div');
+  box.className = 'msg ' + (cls || '');
+  box.textContent = text;
+
+  if (meta) {
+    const m = document.createElement('div');
+    m.className = 'meta';
+    const g = meta.governance || {};
+    m.textContent =
+      '🧭 المصدر: ' + (meta.provider || 'Sheikha') +
+      '\\n🧠 النموذج: ' + (meta.model || '-') +
+      '\\n🎛️ الاختيار: ' + (g.requestedMode || mode) +
+      '\\n⚖️ قرار الحوكمة: ' + (g.intent || '-') +
+      '\\n🛤️ المسار الفعلي: ' + (g.effectiveMode || mode) +
+      '\\n🔌 المحلي: ' + (meta.localModelOnline ? 'متصل' : 'غير مؤكد');
+    box.appendChild(m);
+  }
+
+  log.appendChild(box);
+  log.scrollTop = log.scrollHeight;
+}
+
+function send() {
+  const text = input.value.trim();
+  if (!text) return;
+  addMessage(text, 'user');
+  input.value = '';
+  vscode.postMessage({ command: 'ask', text: text, mode: mode });
+}
+
+sendBtn.addEventListener('click', send);
+input.addEventListener('keydown', function(e){
+  if (e.key === 'Enter' && !e.shiftKey) {
+    e.preventDefault();
+    send();
+  }
+});
+
+window.addEventListener('message', function(event){
+  const msg = event.data || {};
+  if (msg.command === 'thinking') addMessage(msg.text || 'شيخة تعمل الآن...');
+  if (msg.command === 'answer') addMessage(msg.text || '', '', msg.meta);
+});
+</script>
+</body>
+</html>`;
+  }
+}
+
+module.exports = { SheikhaChatProvider };

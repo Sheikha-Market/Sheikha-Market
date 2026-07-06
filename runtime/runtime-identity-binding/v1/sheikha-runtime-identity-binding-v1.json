@@ -1,0 +1,34 @@
+{
+  "system": "SHEIKHA_RUNTIME_IDENTITY_BINDING_V1",
+  "status": "ACTIVE",
+  "purpose": "Bind Sheikha Root, Root Operating Core, Operating System, Runtime Manifest, .well-known identity, server routes, and governance identity into one runtime identity layer.",
+  "binds": [
+    ".well-known/sheikha.json",
+    "governance/identity/sheikha-identity.json",
+    "governance/identity/sheikha-enterprise-identity.json",
+    "governance/runtime/sheikha-runtime-manifest.json",
+    "runtime/operating-system/v1",
+    "runtime/root-identity/v1",
+    "runtime/root-architecture-tools/v1",
+    "lib/runtime-identity",
+    "routes/runtime/identity",
+    "server.js"
+  ],
+  "official_hierarchy": [
+    "Sheikha Root",
+    "Sheikha Root Operating Core",
+    "Sheikha Operating System",
+    "Unified Governance Fabric",
+    "Runtime Identity",
+    "Portal Compatibility Layer"
+  ],
+  "rules": {
+    "portal_is_compatibility_only": true,
+    "root_identity_is_official": true,
+    "runtime_manifest_required": true,
+    "well_known_identity_required": true,
+    "server_route_binding_required": true,
+    "no_breaking_path_rename": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

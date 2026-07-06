@@ -1,0 +1,20 @@
+{
+  "fabric": "SHEIKHA_SQLSERVER_FABRIC",
+  "status": "ACTIVE",
+  "provider": "mssql",
+  "scope": [
+    "vscode_sql_connection",
+    "runtime_database_registry",
+    "secure_query_access",
+    "migration_governance",
+    "audit_required"
+  ],
+  "governance": {
+    "no_plaintext_password_commit": true,
+    "env_required": true,
+    "human_approval_before_schema_change": true,
+    "backup_before_migration": true,
+    "audit_trail_required": true
+  },
+  "rule": "SQL Server access is active only through governed runtime configuration and VS Code is a client interface."
+}

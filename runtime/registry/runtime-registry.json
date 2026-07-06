@@ -1,0 +1,18 @@
+{
+  "runtime": "Sheikha Canonical Runtime",
+  "status": "ACTIVE",
+  "gateway": "ONLINE",
+  "governance": "ACTIVE",
+  "singleton": true,
+  "duplicateRouteRegistry": "runtime/routes/duplicate-routes.txt",
+  "integrations": {
+    "vcs": {
+      "status": "ACTIVE",
+      "fabric": "runtime/integrations/vcs/sheikha-vcs-integration-fabric.json",
+      "cli": "tools/integrations/sheikha-vcs-status.js",
+      "registryDoc": "docs/registry/integrations/SHEIKHA-VCS-INTEGRATION-FABRIC.md",
+      "mode": "runtime-first"
+    }
+  },
+  "timestamp": "2026-06-02T00:00:00+03:00"
+}

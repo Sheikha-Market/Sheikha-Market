@@ -1,0 +1,78 @@
+{
+  "registry": "SHEIKHA_UGIT_DOMAIN_PIPELINE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "domains": [
+    {
+      "id": "UGIT-DOM-001",
+      "domain": "governance",
+      "pipeline": ["capture", "classify", "decide", "enforce", "audit"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-002",
+      "domain": "industry",
+      "pipeline": ["ingest", "normalize", "analyze", "optimize", "report"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-003",
+      "domain": "trade",
+      "pipeline": ["discover", "verify", "match", "contract", "monitor"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-004",
+      "domain": "supply_chain",
+      "pipeline": ["source", "track", "risk_score", "route", "audit"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-005",
+      "domain": "recycling",
+      "pipeline": ["classify_material", "price", "route", "certify", "measure"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-006",
+      "domain": "smart_cities",
+      "pipeline": ["sense", "clean", "simulate", "decide", "monitor"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-007",
+      "domain": "markets",
+      "pipeline": ["collect_signal", "validate", "rank", "advise", "record"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-008",
+      "domain": "advisory",
+      "pipeline": ["question", "evidence", "analysis", "recommendation", "disclaimer"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-009",
+      "domain": "data",
+      "pipeline": ["ingestion", "preprocessing", "feature_or_retrieval_prep", "evaluation", "drift_monitoring"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-010",
+      "domain": "ai",
+      "pipeline": ["training_or_adaptation_readiness", "evaluation", "deployment_readiness", "monitoring", "incident_response"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-011",
+      "domain": "licensing",
+      "pipeline": ["scope", "legal_review", "contract", "activation", "renewal"],
+      "governanceGate": true
+    },
+    {
+      "id": "UGIT-DOM-012",
+      "domain": "certification",
+      "pipeline": ["standard", "evidence", "audit", "issue", "revoke"],
+      "governanceGate": true
+    }
+  ]
+}

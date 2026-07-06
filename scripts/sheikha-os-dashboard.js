@@ -141,7 +141,7 @@ function main() {
     console.log('  npm run -s ops:os:verify            # تحقق العقود الرقمية');
     console.log('  npm run -s ops:os:max-power         # تشغيل كامل: أمن + سحابة + OS');
 
-    console.log('\n' + green('لوحة النظام جاهزة')); 
+    console.log('\n' + green('لوحة النظام جاهزة'));
 }
 
 main();

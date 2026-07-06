@@ -1,0 +1,47 @@
+{
+  "pr": 21,
+  "title": "منظومة قواعد الأفضل — 20 قاعدة كونية من الكتاب والسنة + تفعيل الكل",
+  "decision": "CURATED_MERGE_REQUIRED",
+  "currentStatus": "HOLD_FOR_CURATED_SOURCE_PATCH",
+  "evidenceReport": "runtime/pr-governance/reviews/pr-21/analysis/pr21-diff-risk-summary.json",
+  "reason": "The PR contains important rules and foundation logic, but also touches server.js, package files, and duplicated dist outputs. Only reviewed source changes may be merged.",
+  "mergePriority": [
+    "lib/optimum-rules-engine.js",
+    "lib/sheikha-llm-neural-layer.js",
+    "lib/sheikha-ide-collaboration-system.js"
+  ],
+  "doNotMergeDirectly": [
+    "dist/",
+    "server.js",
+    "package.json",
+    "package-lock.json"
+  ],
+  "doNotMergeReasons": {
+    "dist/": "Generated outputs are not authoritative source.",
+    "server.js": "Large boot/runtime change requires separate focused patch review.",
+    "package.json": "Dependency shifts require explicit dependency governance.",
+    "package-lock.json": "Dependency lock changes include major version shifts and older Google storage stack."
+  },
+  "requiredBeforeMerge": [
+    "review_rules_engine",
+    "review_llm_layer",
+    "review_dependency_changes",
+    "review_server_js_patch",
+    "verify_no_direct_kernel_exposure",
+    "verify_no_fabric_conflict",
+    "verify_no_secret_or_external_key",
+    "verify_freeze_v1_3_compatibility",
+    "verify_quran_sunnah_chat_code_governance",
+    "run_lint",
+    "run_node_check",
+    "human_approval"
+  ],
+  "rules": {
+    "no_raw_pr_merge": true,
+    "source_only_first": true,
+    "dist_is_generated_not_authoritative": true,
+    "server_js_requires_separate_review": true,
+    "package_changes_require_dependency_review": true,
+    "human_approval_required": true
+  }
+}

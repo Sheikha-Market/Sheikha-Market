@@ -156,7 +156,7 @@ router.post('/analyze', (req, res) => {
     }
 
     try {
-        const analysis = ArabicLanguageEngine.حلل_الجملة 
+        const analysis = ArabicLanguageEngine.حلل_الجملة
             ? ArabicLanguageEngine.حلل_الجملة(text)
             : { text, message: 'التحليل غير متوفر' };
 
@@ -306,7 +306,7 @@ function extractRoot(word) {
     // استخراج الجذر (تبسيط)
     const cleaned = word.replace(/[\u064B-\u0652]/g, ''); // إزالة التشكيل
     if (cleaned.length <= 3) return cleaned;
-    
+
     // محاولة استخراج جذر ثلاثي
     const vowels = ['ا', 'و', 'ي', 'ى', 'ة', 'ء'];
     let root = '';
@@ -329,12 +329,12 @@ function detectPattern(word) {
 
 function detectWordType(word) {
     const cleaned = word.replace(/[\u064B-\u0652]/g, '');
-    
+
     // فحص بسيط
     if (['ال'].some(p => cleaned.startsWith(p))) return 'اسم معرفة';
     if (['ي', 'ت', 'ن', 'أ'].includes(cleaned[0]) && cleaned.length > 2) return 'فعل مضارع';
     if (cleaned.endsWith('ة') || cleaned.endsWith('ات')) return 'اسم';
-    
+
     return 'غير محدد';
 }
 

@@ -200,7 +200,7 @@ async function scriptSmartClustering() {
         // إنشاء بكسلات متنوعة
         const pixels = [];
         const categories = ['ذهب', 'فضة', 'نحاس', 'معادن نادرة'];
-        
+
         for (let i = 0; i < 12; i++) {
             pixels.push(pixelSystem.createPixel(`cluster-pixel-${i}`, {
                 name: `${categories[i % 4]} ${i}`,

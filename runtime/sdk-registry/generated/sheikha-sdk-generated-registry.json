@@ -1,0 +1,78 @@
+{
+  "registry": "SHEIKHA_GENERATED_SDK_REGISTRY",
+  "status": "ACTIVE",
+  "basedOn": "SHEIKHA_OPENAPI_REGISTRY",
+  "sdkTargets": [
+    "javascript",
+    "typescript",
+    "python",
+    "rest",
+    "mcp"
+  ],
+  "capabilities": [
+    {
+      "id": "mcp",
+      "name": "MCP Unified Bridge",
+      "routes": [
+        "/api/mcp/status",
+        "/api/mcp/health",
+        "/api/mcp/tools",
+        "/api/sheikha/mcp/status"
+      ],
+      "sdkTargets": [
+        "javascript",
+        "typescript",
+        "python",
+        "rest",
+        "mcp"
+      ]
+    },
+    {
+      "id": "openapi-registry",
+      "name": "OpenAPI Registry",
+      "routes": [
+        "/api/openapi-registry/status"
+      ],
+      "sdkTargets": [
+        "javascript",
+        "typescript",
+        "python",
+        "rest"
+      ]
+    },
+    {
+      "id": "governance",
+      "name": "Governance Runtime",
+      "routes": [
+        "/api/governance/pdp/status",
+        "/api/governance/pep/status"
+      ],
+      "sdkTargets": [
+        "javascript",
+        "typescript",
+        "python",
+        "rest"
+      ]
+    },
+    {
+      "id": "runtime",
+      "name": "Runtime Fabric",
+      "routes": [
+        "/api/runtime/introspection/routes"
+      ],
+      "sdkTargets": [
+        "javascript",
+        "typescript",
+        "python",
+        "rest"
+      ]
+    }
+  ],
+  "rules": {
+    "sdk_must_use_openapi": true,
+    "sdk_must_use_capability_registry": true,
+    "mcp_bridge_required_for_mcp_sdk": true,
+    "versioning_required": true
+  },
+  "timestamp": "2026-06-03T21:50:56.165Z"
+}

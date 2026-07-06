@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * خدمة Google Cloud Storage
- * 
+ *
  * توفر هذه الخدمة واجهة سهلة للتعامل مع Google Cloud Storage
  * لرفع وتحميل والحذف من الملفات السحابية بأمان عالي
  */
@@ -41,7 +41,7 @@ class GoogleCloudStorageService
 
     /**
      * رفع ملف إلى Google Cloud Storage
-     * 
+     *
      * @param string $filePath      مسار الملف المحلي
      * @param string $remotePath    المسار على السحابة
      * @param array $metadata       بيانات إضافية
@@ -55,7 +55,7 @@ class GoogleCloudStorageService
             }
 
             $fileContent = file_get_contents($filePath);
-            
+
             $defaultMetadata = [
                 'uploaded_at' => now()->toIso8601String(),
                 'uploaded_by' => auth()?->user()?->id ?? 'anonymous',
@@ -87,7 +87,7 @@ class GoogleCloudStorageService
 
     /**
      * تحميل ملف من Google Cloud Storage
-     * 
+     *
      * @param string $remotePath    المسار على السحابة
      * @param string $localPath     المسار المحلي للحفظ
      * @return bool                 نجاح العملية
@@ -96,7 +96,7 @@ class GoogleCloudStorageService
     {
         try {
             $object = $this->bucket->object($remotePath);
-            
+
             if (!$object->exists()) {
                 throw new Exception("الملف غير موجود على السحابة: {$remotePath}");
             }
@@ -116,7 +116,7 @@ class GoogleCloudStorageService
 
     /**
      * حذف ملف من Google Cloud Storage
-     * 
+     *
      * @param string $remotePath    المسار على السحابة
      * @return bool                 نجاح العملية
      */
@@ -137,7 +137,7 @@ class GoogleCloudStorageService
 
     /**
      * الحصول على رابط عام للملف
-     * 
+     *
      * @param string $remotePath    المسار على السحابة
      * @return string               رابط الملف العام
      */
@@ -152,7 +152,7 @@ class GoogleCloudStorageService
 
     /**
      * الحصول على رابط موقّت للملف
-     * 
+     *
      * @param string $remotePath    المسار على السحابة
      * @param int $expirationTime   مدة انتهاء الصلاحية بالدقائق
      * @return string               رابط موقّت
@@ -178,7 +178,7 @@ class GoogleCloudStorageService
 
     /**
      * قائمة بجميع الملفات في مجلد معين
-     * 
+     *
      * @param string $prefix        بادئة المسار
      * @return array               قائمة الملفات
      */
@@ -209,7 +209,7 @@ class GoogleCloudStorageService
 
     /**
      * نسخ احتياطي تلقائي للملفات الهامة
-     * 
+     *
      * @param string $sourceDir     المجلد المراد نسخه
      * @param string $destPrefix    بادئة المجلد الهدف
      * @return array               إحصائيات النسخ الاحتياطي

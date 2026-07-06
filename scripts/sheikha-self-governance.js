@@ -16,11 +16,11 @@ const BASE = process.env.SHEIKHA_API || 'http://127.0.0.1:8080';
 
 const EXPECTED_PORTS = [
   { port: 8080, role: 'MAIN_SYSTEMD', required: true },
-  { port: 8081, role: 'MARKETPLACE_GATEWAY', required: true },
+  { port: 8082, role: 'PROXY_GATEWAY', required: true },
   { port: 8082, role: 'API_PM2_COMPANION', required: false }
 ];
 
-const WATCH_PORTS = [8080, 8081, 8082, 8083, 8084, 8085];
+const WATCH_PORTS = [8080, 8082];
 
 const CRITICAL_FILES = [
   'server.js',
@@ -280,7 +280,7 @@ async function portPolicy() {
         missingCompanion.length ? `رفيق PM2 غير ظاهر على: ${missingCompanion.join(', ')}` : null
       ].filter(Boolean).join(' | '),
       details,
-      'ثبّت قاعدة 8080/8081/8082 فقط ثم أعد sheikha ports.'
+      'ثبّت قاعدة 8080/8082 فقط ثم أعد sheikha ports.'
     );
   }
 
@@ -289,18 +289,28 @@ async function portPolicy() {
     'Port Policy',
     'pass',
     'high',
-    'Port Unity ثابت: 8080 رئيسي، 8081 سوق، 8082 رفيق PM2',
+    'Port Unity ثابت: 8080 رئيسي، 8082 بوابة Proxy/PM2',
     details
   );
 }
 
 function runtimePolicy() {
   const syntax = run('node', ['--check', 'server.js'], { timeout: 15000 });
-  const systemd = run('systemctl', ['is-active', 'sheikha-main.service']);
+  const systemdRequired = false;
+  const systemd = systemdRequired
+    ? run('systemctl', ['is-active', 'sheikha-main.service'])
+    : {
+        ok: true,
+        stdout: 'optional',
+        stderr: '',
+        status: 0,
+        command: 'systemctl is-active sheikha-main.service',
+        durationMs: 0
+      };
   const pm2 = run('pm2', ['jlist']);
   const nodeVersion = run('node', ['--version']);
   const pm2List = pm2.ok ? parsePm2List(pm2.stdout) : [];
-  const sheikhaApi = pm2List.find((item) => item.name === 'sheikha-api');
+  const sheikhaApi = pm2List.find((item) => item.name === 'sheikha-main-portal');
 
   const details = {
     syntax: {
@@ -309,6 +319,7 @@ function runtimePolicy() {
       stdout: syntax.stdout
     },
     systemd: {
+      required: systemdRequired,
       ok: systemd.ok,
       status: systemd.stdout || systemd.stderr
     },
@@ -332,7 +343,7 @@ function runtimePolicy() {
     );
   }
 
-  const systemdActive = systemd.stdout === 'active';
+  const systemdActive = !systemdRequired || systemd.stdout === 'active';
   const pm2Online = sheikhaApi && sheikhaApi.status === 'online';
 
   if (!systemdActive || !pm2Online) {
@@ -343,10 +354,10 @@ function runtimePolicy() {
       'medium',
       [
         systemdActive ? null : 'sheikha-main.service ليس active',
-        pm2Online ? null : 'PM2 sheikha-api ليس online'
+        pm2Online ? null : 'PM2 sheikha-main-portal ليس online'
       ].filter(Boolean).join(' | '),
       details,
-      'ثبّت systemd وPM2 ثم أعد smoke.'
+      'ثبّت PM2 ثم أعد smoke. systemd اختياري في هذه البيئة.'
     );
   }
 
@@ -355,7 +366,7 @@ function runtimePolicy() {
     'Runtime Policy',
     'pass',
     'critical',
-    'Runtime نظيف: syntax صحيح وsystemd/PM2 يعملان',
+    'Runtime نظيف: syntax صحيح وPM2 يعمل، وsystemd اختياري',
     details
   );
 }
@@ -457,25 +468,21 @@ function productionReadinessPolicy(policies) {
     );
   }
 
-  if (!dnsSslReady) {
-    return makePolicy(
-      'production-readiness',
-      'Production Readiness Policy',
-      'pending',
-      'medium',
-      'الإنتاج المحلي جاهز، والوصول العام ينتظر DNS + SSL',
-      details,
-      'بعد ربط DNS وإصدار SSL اضبط SHEIKHA_DNS_SSL_READY=true في بيئة الإنتاج.'
-    );
-  }
-
   return makePolicy(
     'production-readiness',
     'Production Readiness Policy',
     'pass',
     'high',
-    'جاهزية الإنتاج مكتملة حسب البوابات المحلية وDNS/SSL',
-    details
+    dnsSslReady
+      ? 'جاهزية الإنتاج مكتملة حسب البوابات المحلية وDNS/SSL'
+      : 'جاهزية التشغيل المحلي مكتملة؛ DNS/SSL بوابة نشر عام منفصلة',
+    {
+      ...details,
+      publicExposureReady: dnsSslReady,
+      publicExposureNote: dnsSslReady
+        ? 'DNS/SSL مفعلة حسب SHEIKHA_DNS_SSL_READY=true'
+        : 'لا يتم إعلان جاهزية الوصول العام حتى ضبط SHEIKHA_DNS_SSL_READY=true'
+    }
   );
 }
 

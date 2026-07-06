@@ -1,0 +1,33 @@
+{
+  "success": true,
+  "fabric": "SHEIKHA_ORCHESTRATOR_FABRIC_V2",
+  "status": "ACTIVE",
+  "position": "HIGHEST_OPERATIONAL_LAYER",
+  "apexLevel": 11,
+  "lowerControlPlane": {
+    "name": "SHEIKHA_FOUNDRY_ORCHESTRATION_APEX_V1",
+    "level": 10
+  },
+  "runtimeBelow": "SHEIKHA_CONVERSATION_LAYER_STACK_V1_L1_L8",
+  "components": {
+    "workflowEngine": "ACTIVE",
+    "pipelineEngine": "ACTIVE",
+    "taskDispatcher": "ACTIVE",
+    "executionCoordinator": "ACTIVE",
+    "foundryBridge": "ACTIVE",
+    "governanceAdmissionBridge": "ACTIVE",
+    "evidenceBridge": "ACTIVE"
+  },
+  "controls": {
+    "governanceAdmissionRequired": true,
+    "fabricEnvelopeRequired": true,
+    "foundryReviewRequired": true,
+    "noRuntimeSelfElevation": true,
+    "humanApprovalRequiredForWrites": true,
+    "evidenceRequired": true,
+    "noDestructiveActionWithoutReview": true
+  },
+  "score": 100,
+  "decision": "ORCHESTRATOR_FABRIC_V2_HIGHEST_LAYER_ACTIVE_100",
+  "generatedAt": "2026-06-15T03:20:57.423Z"
+}

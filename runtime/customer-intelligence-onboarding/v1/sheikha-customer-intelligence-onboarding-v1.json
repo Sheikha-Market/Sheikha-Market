@@ -1,0 +1,37 @@
+{
+  "system": "SHEIKHA_CUSTOMER_INTELLIGENCE_ONBOARDING_V1",
+  "status": "ACTIVE",
+  "arabic_name": "محرك شيخة الذكي لتسجيل وفهم العميل",
+  "purpose": "Build a governed customer intelligence profile during registration, using authorized sources only, then generate customer dashboard, supply chain blueprint, product match, and national development alignment.",
+  "sources": [
+    "CUSTOMER_FORM",
+    "CUSTOMER_WEBSITE",
+    "CUSTOMER_UPLOADED_FILES",
+    "AUTHORIZED_API",
+    "PUBLIC_BUSINESS_PROFILE",
+    "SUPPLY_CHAIN_DATA",
+    "PRODUCT_DATA",
+    "CUSTOMER_DECLARED_GOALS"
+  ],
+  "outputs": [
+    "CUSTOMER_KNOWLEDGE_BASE",
+    "CUSTOMER_GOALS_MAP",
+    "CUSTOMER_SEGMENT",
+    "SUPPLY_CHAIN_BLUEPRINT",
+    "PRODUCT_RECOMMENDATIONS",
+    "DASHBOARD_PROFILE",
+    "NATIONAL_DEVELOPMENT_ALIGNMENT",
+    "GREEN_ECONOMY_SCORE",
+    "CIRCULAR_ECONOMY_SCORE"
+  ],
+  "rules": {
+    "consent_required": true,
+    "source_required": true,
+    "no_secret_in_git": true,
+    "api_tokens_in_env_or_vault_only": true,
+    "ssh_keys_not_stored": true,
+    "customer_approval_required_before_external_use": true,
+    "privacy_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

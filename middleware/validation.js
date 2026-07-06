@@ -63,7 +63,7 @@ function validateSaudiPhone(field = 'phone') {
 
         // تنظيف الرقم
         const cleaned = phone.replace(/[\s\-\(\)]/g, '');
-        
+
         // أنماط الهاتف السعودي
         const patterns = [
             /^05\d{8}$/,           // 05XXXXXXXX

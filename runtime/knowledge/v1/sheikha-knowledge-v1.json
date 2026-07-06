@@ -1,0 +1,22 @@
+{
+  "system": "SHEIKHA_KNOWLEDGE_V1",
+  "status": "ACTIVE",
+  "purpose": "Collect, index, classify, number, govern, and improve Sheikha knowledge, reports, decisions, lessons learned, roadmaps, PR reviews, architecture reviews, and operational findings.",
+  "registries": [
+    "knowledge_registry",
+    "decision_registry",
+    "lessons_learned",
+    "architecture_reports",
+    "pr_reports",
+    "project_reports",
+    "roadmaps",
+    "improvement_recommendations"
+  ],
+  "rules": {
+    "indexing_required": true,
+    "numbering_required": true,
+    "governance_required": true,
+    "human_approval_required_for_high_risk": true,
+    "no_unreviewed_learning": true
+  }
+}

@@ -342,12 +342,12 @@ npm start
 
 ## 📞 الدعم / Support
 
-**Email:** market@sheikha.top  
-**Domain:** sheikha.top  
+**Email:** market@sheikha.top
+**Domain:** sheikha.top
 **Owner:** Salman Ahmad Al-Rajhi
 
 ---
 
-**والحمد لله رب العالمين**  
+**والحمد لله رب العالمين**
 **صُنع بـ ❤️ في المملكة العربية السعودية**
 

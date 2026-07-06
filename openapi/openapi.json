@@ -1,0 +1,25 @@
+{
+  "openapi": "3.1.0",
+  "info": {
+    "title": "SHEIKHA Enterprise Runtime API",
+    "description": "Governed sovereign enterprise runtime and orchestration platform.",
+    "version": "1.0.0"
+  },
+  "servers": [
+    {
+      "url": "https://sheikha.top"
+    }
+  ],
+  "paths": {
+    "/api/health": {
+      "get": {
+        "summary": "Runtime Health"
+      }
+    },
+    "/api/runtime-root/canonical-runtime-status": {
+      "get": {
+        "summary": "Canonical Runtime Status"
+      }
+    }
+  }
+}

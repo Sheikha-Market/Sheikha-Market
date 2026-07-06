@@ -1,0 +1,29 @@
+{
+  "system": "SHEIKHA_RESOURCE_SOURCE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "RESOURCE_SOURCE_REGISTRY_ACTIVE_100",
+  "checks": {
+    "engine": true,
+    "sourceTaxonomy": true,
+    "materialMap": true,
+    "sourceChainFlow": true,
+    "availabilityLevels": true,
+    "gapClosure": true,
+    "visualChain": true,
+    "customerIntelligence": true,
+    "driftDetector": true
+  },
+  "missing": [],
+  "cycle": [
+    "SOURCE_IDENTIFICATION",
+    "SOURCE_VERIFICATION",
+    "HS_CLASSIFICATION",
+    "MATERIAL_INSPECTION",
+    "QUANTITY_CONFIRMATION",
+    "LOGISTICS_PLANNING",
+    "CONTRACT_OR_PO",
+    "GREEN_AND_CIRCULAR_IMPACT"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

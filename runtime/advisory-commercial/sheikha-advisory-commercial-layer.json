@@ -1,0 +1,46 @@
+{
+  "layer": "SHEIKHA_ADVISORY_COMMERCIAL_LAYER",
+  "status": "ACTIVE",
+  "mode": "decoupled-from-runtime-kernel",
+  "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
+  "services": {
+    "licensing": {
+      "status": "ACTIVE",
+      "purpose": "license Sheikha advisory, governance, intelligence, and runtime capabilities without exposing the internal kernel"
+    },
+    "b2b": {
+      "status": "ACTIVE",
+      "purpose": "enterprise consulting, partner enablement, technology advisory, market organization, and operational governance"
+    },
+    "b2g": {
+      "status": "ACTIVE",
+      "purpose": "government advisory, digital transformation, policy support, market organization, and sovereign governance consulting"
+    },
+    "advisory_apis": {
+      "status": "ACTIVE",
+      "purpose": "external advisory APIs exposed through governed interfaces, not through internal kernel access"
+    },
+    "enterprise_partnerships": {
+      "status": "ACTIVE",
+      "purpose": "institutional partnerships with technology companies, enterprises, governments, and strategic partners"
+    }
+  },
+  "separation": {
+    "runtime_kernel": "internal_only",
+    "advisory_layer": "external_service_layer",
+    "commercial_layer": "client_facing_governed_layer",
+    "github": "publishing_channel_only",
+    "vscode": "client_interface_only",
+    "copilot": "optional_external_advisor_only"
+  },
+  "governance": {
+    "no_kernel_exposure": true,
+    "no_secret_exposure": true,
+    "no_false_external_claims": true,
+    "contract_required": true,
+    "scope_required": true,
+    "audit_required": true,
+    "human_approval_required": true,
+    "specialist_review_when_needed": true
+  }
+}

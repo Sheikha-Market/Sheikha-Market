@@ -473,7 +473,7 @@
         <!-- Journey Steps -->
         <main class="journey-section">
             <h2><i class="fas fa-route"></i> رحلة العميل الكاملة</h2>
-            
+
             <div class="journey-steps">
                 <!-- Step 1: Discovery -->
                 <div class="journey-step" id="step1" onclick="runStep(1)">
@@ -739,7 +739,7 @@
             journeyRunning = true;
             sessionStartTime = Date.now();
             updateSessionTimer();
-            
+
             addLog('success', '🚀 بدء رحلة العميل الكاملة');
 
             for (let i = 1; i <= 6; i++) {
@@ -757,13 +757,13 @@
             const stepEl = document.getElementById(`step${stepNum}`);
             stepEl.classList.add('running');
             stepEl.classList.remove('completed');
-            
+
             addLog('info', `▶️ بدء المرحلة ${stepNum}...`);
             actionsCount++;
             document.getElementById('actionsCount').textContent = actionsCount;
 
             const progressBar = document.getElementById(`step${stepNum}-progress`);
-            
+
             // Simulate step execution
             for (let i = 0; i <= 100; i += 10) {
                 progressBar.style.width = i + '%';
@@ -834,11 +834,11 @@
             document.getElementById('kpiCSAT').textContent = Math.floor(Math.random() * 10 + 85) + '%';
             document.getElementById('kpiCES').textContent = (Math.random() * 0.5 + 1.5).toFixed(1);
             document.getElementById('kpiConversion').textContent = (Math.random() * 2 + 3).toFixed(1) + '%';
-            
+
             const totalTime = Math.floor((Date.now() - sessionStartTime) / 1000);
             const minutes = Math.floor(totalTime / 60);
             const seconds = totalTime % 60;
-            document.getElementById('kpiTotalTime').textContent = 
+            document.getElementById('kpiTotalTime').textContent =
                 `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
 
             // Show issues
@@ -854,7 +854,7 @@
 
             const panel = document.getElementById('issuesPanel');
             const list = document.getElementById('issuesList');
-            
+
             list.innerHTML = issues.map(issue => `
                 <div class="issue-item">
                     <i class="fas fa-${issue.icon}"></i>
@@ -939,13 +939,13 @@
         // Update Session Timer
         function updateSessionTimer() {
             if (!sessionStartTime) return;
-            
+
             const elapsed = Math.floor((Date.now() - sessionStartTime) / 1000);
             const minutes = Math.floor(elapsed / 60);
             const seconds = elapsed % 60;
-            document.getElementById('sessionTime').textContent = 
+            document.getElementById('sessionTime').textContent =
                 `${minutes.toString().padStart(2, '0')}:${seconds.toString().padStart(2, '0')}`;
-            
+
             setTimeout(updateSessionTimer, 1000);
         }
 

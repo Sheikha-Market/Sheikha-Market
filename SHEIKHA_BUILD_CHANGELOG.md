@@ -1,8 +1,8 @@
 # 📋 Sheikha Market — Build Changelog (سجل البناء المؤرخ)
 
-> **Branch:** `copilot/fix-neural-network-endpoints`  
-> **Repo:** `Sheikha-Market/Sheikha-Market`  
-> **Generated:** 2026-04-27  
+> **Branch:** `copilot/fix-neural-network-endpoints`
+> **Repo:** `Sheikha-Market/Sheikha-Market`
+> **Generated:** 2026-04-27
 
 ---
 

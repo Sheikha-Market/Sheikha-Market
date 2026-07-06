@@ -19,13 +19,13 @@
             --warning: #F59E0B;
             --info: #3B82F6;
         }
-        
+
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
         }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: linear-gradient(135deg, var(--dark-primary) 0%, var(--dark-secondary) 50%, var(--dark-tertiary) 100%);
@@ -33,12 +33,12 @@
             color: #fff;
             padding: 20px;
         }
-        
+
         .container {
             max-width: 1400px;
             margin: 0 auto;
         }
-        
+
         /* Header */
         .header {
             text-align: center;
@@ -48,7 +48,7 @@
             border-radius: 20px;
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
-        
+
         .header h1 {
             font-size: 2.5rem;
             color: var(--gold-primary);
@@ -58,12 +58,12 @@
             justify-content: center;
             gap: 15px;
         }
-        
+
         .header p {
             color: rgba(255, 255, 255, 0.8);
             font-size: 1.1rem;
         }
-        
+
         .verse {
             margin-top: 20px;
             padding: 15px;
@@ -72,7 +72,7 @@
             font-style: italic;
             color: var(--gold-light);
         }
-        
+
         /* Main Grid */
         .main-grid {
             display: grid;
@@ -80,13 +80,13 @@
             gap: 30px;
             margin-bottom: 30px;
         }
-        
+
         @media (max-width: 1200px) {
             .main-grid {
                 grid-template-columns: 1fr;
             }
         }
-        
+
         /* Input Section */
         .input-section {
             background: rgba(255, 255, 255, 0.05);
@@ -94,7 +94,7 @@
             padding: 30px;
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
-        
+
         .section-title {
             font-size: 1.4rem;
             color: var(--gold-primary);
@@ -103,7 +103,7 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .input-area {
             width: 100%;
             min-height: 150px;
@@ -118,33 +118,33 @@
             line-height: 2;
             direction: rtl;
         }
-        
+
         .input-area:focus {
             outline: none;
             border-color: var(--gold-primary);
             box-shadow: 0 0 20px rgba(212, 175, 55, 0.2);
         }
-        
+
         .input-area::placeholder {
             color: rgba(255, 255, 255, 0.5);
         }
-        
+
         /* Examples */
         .examples {
             margin-top: 20px;
         }
-        
+
         .examples-title {
             color: rgba(255, 255, 255, 0.7);
             margin-bottom: 10px;
         }
-        
+
         .example-chips {
             display: flex;
             flex-wrap: wrap;
             gap: 10px;
         }
-        
+
         .example-chip {
             padding: 10px 15px;
             background: rgba(212, 175, 55, 0.15);
@@ -154,19 +154,19 @@
             transition: all 0.3s;
             font-size: 0.95rem;
         }
-        
+
         .example-chip:hover {
             background: rgba(212, 175, 55, 0.3);
             transform: translateY(-2px);
         }
-        
+
         /* Buttons */
         .buttons {
             display: flex;
             gap: 15px;
             margin-top: 25px;
         }
-        
+
         .btn {
             flex: 1;
             padding: 15px 30px;
@@ -182,32 +182,32 @@
             justify-content: center;
             gap: 10px;
         }
-        
+
         .btn-primary {
             background: linear-gradient(135deg, var(--gold-primary), var(--gold-secondary));
             color: var(--dark-primary);
         }
-        
+
         .btn-primary:hover {
             transform: translateY(-3px);
             box-shadow: 0 10px 30px rgba(212, 175, 55, 0.4);
         }
-        
+
         .btn-secondary {
             background: rgba(255, 255, 255, 0.1);
             color: #fff;
             border: 1px solid rgba(212, 175, 55, 0.3);
         }
-        
+
         .btn-secondary:hover {
             background: rgba(255, 255, 255, 0.2);
         }
-        
+
         .btn:disabled {
             opacity: 0.5;
             cursor: not-allowed;
         }
-        
+
         /* Results Section */
         .results-section {
             background: rgba(255, 255, 255, 0.05);
@@ -215,7 +215,7 @@
             padding: 30px;
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
-        
+
         /* Sentence Type Badge */
         .sentence-type {
             display: inline-flex;
@@ -227,23 +227,23 @@
             border-radius: 30px;
             margin-bottom: 25px;
         }
-        
+
         .sentence-type .type {
             color: var(--gold-primary);
             font-weight: 700;
             font-size: 1.2rem;
         }
-        
+
         .sentence-type .reason {
             color: rgba(255, 255, 255, 0.7);
             font-size: 0.9rem;
         }
-        
+
         /* Word Analysis */
         .word-analysis {
             margin-top: 20px;
         }
-        
+
         .word-card {
             background: rgba(0, 0, 0, 0.3);
             border-radius: 15px;
@@ -252,12 +252,12 @@
             border: 1px solid rgba(212, 175, 55, 0.2);
             transition: all 0.3s;
         }
-        
+
         .word-card:hover {
             border-color: var(--gold-primary);
             transform: translateX(-5px);
         }
-        
+
         .word-header {
             display: flex;
             align-items: center;
@@ -266,7 +266,7 @@
             padding-bottom: 15px;
             border-bottom: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .word-number {
             width: 35px;
             height: 35px;
@@ -279,59 +279,59 @@
             font-weight: 700;
             font-size: 0.9rem;
         }
-        
+
         .word-text {
             font-size: 1.8rem;
             color: var(--gold-primary);
             font-weight: 700;
         }
-        
+
         .word-type-badge {
             padding: 5px 15px;
             border-radius: 20px;
             font-size: 0.85rem;
             font-weight: 500;
         }
-        
+
         .word-type-badge.فعل { background: rgba(59, 130, 246, 0.2); color: #60A5FA; border: 1px solid #3B82F6; }
         .word-type-badge.اسم { background: rgba(16, 185, 129, 0.2); color: #34D399; border: 1px solid #10B981; }
         .word-type-badge.حرف { background: rgba(245, 158, 11, 0.2); color: #FBBF24; border: 1px solid #F59E0B; }
         .word-type-badge.أداة { background: rgba(139, 92, 246, 0.2); color: #A78BFA; border: 1px solid #8B5CF6; }
-        
+
         .word-details {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
             gap: 15px;
         }
-        
+
         .detail-item {
             padding: 12px;
             background: rgba(255, 255, 255, 0.05);
             border-radius: 10px;
         }
-        
+
         .detail-label {
             font-size: 0.85rem;
             color: rgba(255, 255, 255, 0.6);
             margin-bottom: 5px;
         }
-        
+
         .detail-value {
             font-size: 1rem;
             color: #fff;
             font-weight: 500;
         }
-        
+
         .detail-value.الإعراب {
             color: var(--gold-light);
             font-weight: 600;
         }
-        
+
         .detail-value.التعليل {
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
-        
+
         /* Role Badge */
         .role-badge {
             display: inline-block;
@@ -343,7 +343,7 @@
             font-weight: 700;
             margin-top: 10px;
         }
-        
+
         /* Case Marker */
         .case-marker {
             display: inline-flex;
@@ -355,7 +355,7 @@
             border-radius: 10px;
             color: var(--success);
         }
-        
+
         /* Structure Section */
         .structure-section {
             margin-top: 30px;
@@ -364,7 +364,7 @@
             border: 1px solid rgba(212, 175, 55, 0.2);
             border-radius: 15px;
         }
-        
+
         .structure-title {
             color: var(--gold-primary);
             font-size: 1.2rem;
@@ -373,13 +373,13 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .structure-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
             gap: 15px;
         }
-        
+
         .structure-item {
             text-align: center;
             padding: 20px;
@@ -387,28 +387,28 @@
             border-radius: 12px;
             border: 1px solid rgba(255, 255, 255, 0.1);
         }
-        
+
         .structure-item.active {
             border-color: var(--gold-primary);
             background: rgba(212, 175, 55, 0.1);
         }
-        
+
         .structure-item .label {
             font-size: 0.9rem;
             color: rgba(255, 255, 255, 0.6);
             margin-bottom: 10px;
         }
-        
+
         .structure-item .value {
             font-size: 1.3rem;
             color: var(--gold-primary);
             font-weight: 700;
         }
-        
+
         .structure-item .empty {
             color: rgba(255, 255, 255, 0.3);
         }
-        
+
         /* Summary */
         .summary-section {
             margin-top: 30px;
@@ -424,7 +424,7 @@
             max-height: 400px;
             overflow-y: auto;
         }
-        
+
         /* Quick Reference */
         .reference-section {
             margin-top: 30px;
@@ -432,14 +432,14 @@
             grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
             gap: 20px;
         }
-        
+
         .reference-card {
             background: rgba(255, 255, 255, 0.05);
             border-radius: 15px;
             padding: 20px;
             border: 1px solid rgba(212, 175, 55, 0.2);
         }
-        
+
         .reference-card h3 {
             color: var(--gold-primary);
             margin-bottom: 15px;
@@ -448,13 +448,13 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         .reference-list {
             display: flex;
             flex-wrap: wrap;
             gap: 8px;
         }
-        
+
         .reference-item {
             padding: 6px 12px;
             background: rgba(0, 0, 0, 0.3);
@@ -464,12 +464,12 @@
             cursor: pointer;
             transition: all 0.3s;
         }
-        
+
         .reference-item:hover {
             background: rgba(212, 175, 55, 0.2);
             color: var(--gold-primary);
         }
-        
+
         /* Loading */
         .loading {
             display: flex;
@@ -478,35 +478,35 @@
             padding: 60px;
             color: rgba(255, 255, 255, 0.6);
         }
-        
+
         .loading i {
             font-size: 2rem;
             margin-left: 15px;
             animation: spin 1s linear infinite;
         }
-        
+
         @keyframes spin {
             from { transform: rotate(0deg); }
             to { transform: rotate(360deg); }
         }
-        
+
         /* Empty State */
         .empty-state {
             text-align: center;
             padding: 60px 20px;
             color: rgba(255, 255, 255, 0.5);
         }
-        
+
         .empty-state i {
             font-size: 4rem;
             margin-bottom: 20px;
             color: rgba(212, 175, 55, 0.3);
         }
-        
+
         .empty-state p {
             font-size: 1.1rem;
         }
-        
+
         /* Tabs */
         .tabs {
             display: flex;
@@ -515,7 +515,7 @@
             border-bottom: 1px solid rgba(212, 175, 55, 0.2);
             padding-bottom: 15px;
         }
-        
+
         .tab {
             padding: 10px 20px;
             background: transparent;
@@ -527,26 +527,26 @@
             border-radius: 10px;
             transition: all 0.3s;
         }
-        
+
         .tab:hover {
             background: rgba(212, 175, 55, 0.1);
             color: #fff;
         }
-        
+
         .tab.active {
             background: rgba(212, 175, 55, 0.2);
             color: var(--gold-primary);
             font-weight: 600;
         }
-        
+
         .tab-content {
             display: none;
         }
-        
+
         .tab-content.active {
             display: block;
         }
-        
+
         /* Relationship Line */
         .relationship {
             display: flex;
@@ -558,16 +558,16 @@
             border-radius: 8px;
             border: 1px dashed rgba(239, 68, 68, 0.3);
         }
-        
+
         .relationship i {
             color: var(--error);
         }
-        
+
         .relationship span {
             color: rgba(255, 255, 255, 0.8);
             font-size: 0.9rem;
         }
-        
+
         /* Footer */
         .footer {
             text-align: center;
@@ -576,7 +576,7 @@
             color: rgba(255, 255, 255, 0.5);
             border-top: 1px solid rgba(212, 175, 55, 0.1);
         }
-        
+
         .footer a {
             color: var(--gold-primary);
             text-decoration: none;
@@ -596,7 +596,7 @@
                 "وَعَلَّمَ آدَمَ الْأَسْمَاءَ كُلَّهَا" - البقرة: 31
             </div>
         </div>
-        
+
         <!-- Main Grid -->
         <div class="main-grid">
             <!-- Input Section -->
@@ -605,12 +605,12 @@
                     <i class="fas fa-pen"></i>
                     أدخل الجملة للإعراب
                 </h2>
-                
+
                 <textarea id="inputText" class="input-area" placeholder="اكتب جملة عربية هنا للإعراب...
 
 مثال: كتب الطالب الدرس
 أو: العلم نور"></textarea>
-                
+
                 <div class="examples">
                     <p class="examples-title">أمثلة للتجربة:</p>
                     <div class="example-chips">
@@ -624,7 +624,7 @@
                         <span class="example-chip" data-text="المسلمون يصلون في المسجد">المسلمون يصلون في المسجد</span>
                     </div>
                 </div>
-                
+
                 <div class="buttons">
                     <button id="parseBtn" class="btn btn-primary">
                         <i class="fas fa-search"></i>
@@ -636,14 +636,14 @@
                     </button>
                 </div>
             </div>
-            
+
             <!-- Results Section -->
             <div class="results-section">
                 <h2 class="section-title">
                     <i class="fas fa-clipboard-list"></i>
                     نتيجة الإعراب
                 </h2>
-                
+
                 <div id="resultsContainer">
                     <div class="empty-state">
                         <i class="fas fa-feather-pointed"></i>
@@ -652,7 +652,7 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Quick Reference -->
         <div class="reference-section">
             <div class="reference-card">
@@ -661,21 +661,21 @@
                     <!-- سيتم ملؤها -->
                 </div>
             </div>
-            
+
             <div class="reference-card">
                 <h3><i class="fas fa-clock"></i> كان وأخواتها</h3>
                 <div class="reference-list" id="kanaSistersList">
                     <!-- سيتم ملؤها -->
                 </div>
             </div>
-            
+
             <div class="reference-card">
                 <h3><i class="fas fa-exclamation-circle"></i> إن وأخواتها</h3>
                 <div class="reference-list" id="innaSistersList">
                     <!-- سيتم ملؤها -->
                 </div>
             </div>
-            
+
             <div class="reference-card">
                 <h3><i class="fas fa-hand-point-left"></i> أسماء الإشارة والموصولة</h3>
                 <div class="reference-list" id="demonstrativesList">
@@ -691,23 +691,23 @@
                 </div>
             </div>
         </div>
-        
+
         <!-- Footer -->
         <div class="footer">
             <p>محلل الإعراب المتقدم - جزء من <a href="/">منظومة شيخة للمعادن</a></p>
             <p>مبني على قواعد النحو العربي الفصيح</p>
         </div>
     </div>
-    
+
     <script>
         const API_BASE = '/api/arabic/parse';
-        
+
         // Elements
         const inputText = document.getElementById('inputText');
         const parseBtn = document.getElementById('parseBtn');
         const clearBtn = document.getElementById('clearBtn');
         const resultsContainer = document.getElementById('resultsContainer');
-        
+
         // Example chips
         document.querySelectorAll('.example-chip').forEach(chip => {
             chip.addEventListener('click', () => {
@@ -715,7 +715,7 @@
                 parseBtn.click();
             });
         });
-        
+
         // Clear button
         clearBtn.addEventListener('click', () => {
             inputText.value = '';
@@ -726,7 +726,7 @@
                 </div>
             `;
         });
-        
+
         // Parse button
         parseBtn.addEventListener('click', async () => {
             const text = inputText.value.trim();
@@ -734,7 +734,7 @@
                 alert('الرجاء إدخال جملة للإعراب');
                 return;
             }
-            
+
             parseBtn.disabled = true;
             resultsContainer.innerHTML = `
                 <div class="loading">
@@ -742,16 +742,16 @@
                     <span>جارٍ التحليل...</span>
                 </div>
             `;
-            
+
             try {
                 const response = await fetch(API_BASE, {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
                     body: JSON.stringify({ جملة: text })
                 });
-                
+
                 const result = await response.json();
-                
+
                 if (result.success) {
                     displayResults(result.data);
                 } else {
@@ -768,11 +768,11 @@
                 parseBtn.disabled = false;
             }
         });
-        
+
         // Display results
         function displayResults(data) {
             let html = '';
-            
+
             // Sentence type badge
             html += `
                 <div class="sentence-type">
@@ -780,7 +780,7 @@
                     ${data.نوع_الجملة.السبب ? `<span class="reason">(${data.نوع_الجملة.السبب})</span>` : ''}
                 </div>
             `;
-            
+
             // Tabs
             html += `
                 <div class="tabs">
@@ -789,11 +789,11 @@
                     <button class="tab" data-tab="summary">الملخص</button>
                 </div>
             `;
-            
+
             // Detailed Tab
             html += `<div class="tab-content active" id="detailed">`;
             html += `<div class="word-analysis">`;
-            
+
             for (const item of data.التحليل) {
                 html += `
                     <div class="word-card">
@@ -839,16 +839,16 @@
                     </div>
                 `;
             }
-            
+
             html += `</div></div>`;
-            
+
             // Structure Tab
             html += `<div class="tab-content" id="structure">`;
             if (data.البنية) {
                 html += `<div class="structure-section">`;
                 html += `<h3 class="structure-title"><i class="fas fa-sitemap"></i> بنية الجملة</h3>`;
                 html += `<div class="structure-grid">`;
-                
+
                 const displayStructure = (label, value) => {
                     const hasValue = value && value.الكلمة;
                     return `
@@ -858,7 +858,7 @@
                         </div>
                     `;
                 };
-                
+
                 if (data.نوع_الجملة.النوع === 'جملة فعلية') {
                     html += displayStructure('الفعل', data.البنية.الفعل);
                     html += displayStructure('الفاعل', data.البنية.الفاعل);
@@ -875,18 +875,18 @@
                     html += displayStructure('اسم إن', data.البنية.الاسم);
                     html += displayStructure('خبر إن', data.البنية.الخبر);
                 }
-                
+
                 html += `</div></div>`;
             }
             html += `</div>`;
-            
+
             // Summary Tab
             html += `<div class="tab-content" id="summary">`;
             html += `<div class="summary-section">${data.الملخص || 'لا يوجد ملخص'}</div>`;
             html += `</div>`;
-            
+
             resultsContainer.innerHTML = html;
-            
+
             // Tab functionality
             document.querySelectorAll('.tab').forEach(tab => {
                 tab.addEventListener('click', () => {
@@ -897,7 +897,7 @@
                 });
             });
         }
-        
+
         // Load reference data
         async function loadReferenceData() {
             try {
@@ -906,27 +906,27 @@
                 const prepData = await prepRes.json();
                 if (prepData.success) {
                     const list = document.getElementById('prepositionsList');
-                    list.innerHTML = Object.keys(prepData.data).map(p => 
+                    list.innerHTML = Object.keys(prepData.data).map(p =>
                         `<span class="reference-item" title="${prepData.data[p].المعنى}">${p}</span>`
                     ).join('');
                 }
-                
+
                 // Kana sisters
                 const kanaRes = await fetch(`${API_BASE}/kana-sisters`);
                 const kanaData = await kanaRes.json();
                 if (kanaData.success) {
                     const list = document.getElementById('kanaSistersList');
-                    list.innerHTML = Object.keys(kanaData.data).map(k => 
+                    list.innerHTML = Object.keys(kanaData.data).map(k =>
                         `<span class="reference-item" title="${kanaData.data[k].المعنى}">${k}</span>`
                     ).join('');
                 }
-                
+
                 // Inna sisters
                 const innaRes = await fetch(`${API_BASE}/inna-sisters`);
                 const innaData = await innaRes.json();
                 if (innaData.success) {
                     const list = document.getElementById('innaSistersList');
-                    list.innerHTML = Object.keys(innaData.data).map(i => 
+                    list.innerHTML = Object.keys(innaData.data).map(i =>
                         `<span class="reference-item" title="${innaData.data[i].المعنى}">${i}</span>`
                     ).join('');
                 }
@@ -934,10 +934,10 @@
                 console.log('Error loading reference data:', error);
             }
         }
-        
+
         // Initialize
         loadReferenceData();
-        
+
         // Keyboard shortcut
         inputText.addEventListener('keydown', (e) => {
             if (e.key === 'Enter' && e.ctrlKey) {

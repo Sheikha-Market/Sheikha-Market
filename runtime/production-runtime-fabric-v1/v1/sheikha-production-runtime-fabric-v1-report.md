@@ -1,0 +1,7 @@
+# SHEIKHA_PRODUCTION_RUNTIME_FABRIC_V1
+
+- الحالة: ACTIVE
+- الدرجة: 100
+- القرار: PRODUCTION_RUNTIME_FABRIC_V1_ACTIVE_100
+
+ولا حول ولا قوة إلا بالله.

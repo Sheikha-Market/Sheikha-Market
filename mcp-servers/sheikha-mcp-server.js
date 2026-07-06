@@ -4,16 +4,16 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  *  SHEIKHA MCP Server v2.0 — تكامل منظومة شيخة مع Cursor IDE
  * ═══════════════════════════════════════════════════════════════════════════════
- * 
+ *
  *  «وَتَعَاوَنُوا عَلَى الْبِرِّ وَالتَّقْوَى» — المائدة ٢
  *  «إنَّ اللَّهَ يُحبُّ إذا عَمِلَ أحَدُكُم عَمَلًا أن يُتقِنَه» — البيهقي
- * 
+ *
  *  الأهداف:
  *  ١. تقوية ذكاء شيخة عبر التعلّم المستمر من Cursor
  *  ٢. تطوير المنظومة بإتقان — كل تعديل يُسجَّل ويُحلَّل
  *  ٣. نشر الخير — تسهيل البناء والتطوير بحكمة
  *  ٤. حماية الأمانة — مراقبة الكود شرعياً وتقنياً
- * 
+ *
  *  المالك: سلمان أحمد بن سلمان الراجح
  * ═══════════════════════════════════════════════════════════════════════════════
  */
@@ -370,14 +370,14 @@ server.setRequestHandler(ListToolsRequestSchema, async () => {
 
 server.setRequestHandler(CallToolRequestSchema, async (request) => {
     const { name, arguments: args } = request.params;
-    
+
     // تسجيل التفاعل — تقوية الذكاء
     learningMemory.interactions.push({
         tool: name,
         args: args,
         at: new Date().toISOString()
     });
-    
+
     try {
         switch (name) {
             case 'sheikha_status': return await toolStatus();
@@ -427,7 +427,7 @@ async function toolStatus() {
     const status = await callSheikhaAPI('/api/sheikha/status');
     const engines = listEngines();
     const pages = listPages();
-    
+
     let text = `# حالة منظومة شيخة\n\n`;
     text += `## الخادم\n`;
     if (status.error) {
@@ -445,7 +445,7 @@ async function toolStatus() {
     text += `- التفاعلات: ${learningMemory.interactions.length}\n`;
     text += `- المعرفة المكتسبة: ${learningMemory.knowledgeGained.length}\n`;
     text += `- الفحوصات الشرعية: ${learningMemory.shariaChecks.length}\n`;
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -455,13 +455,13 @@ async function toolEngines(filter) {
     if (filter) {
         engines = engines.filter(e => e.name.includes(filter) || e.file.includes(filter));
     }
-    
+
     let text = `# محركات منظومة شيخة (${engines.length})\n\n`;
     text += `| # | المحرك | الملف | الحجم |\n|---|--------|-------|-------|\n`;
     engines.forEach((e, i) => {
         text += `| ${i + 1} | ${e.name} | ${e.file} | ${(e.size / 1024).toFixed(1)} KB |\n`;
     });
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -470,7 +470,7 @@ async function toolShariaCheck(code, context) {
     const violations = [];
     const approvals = [];
     const codeLower = code.toLowerCase();
-    
+
     // فحص الربا
     const ribaTerms = ['interest', 'riba', 'ربا', 'فائدة', 'compound interest', 'usury', 'interest_rate', 'interestRate'];
     for (const term of ribaTerms) {
@@ -478,7 +478,7 @@ async function toolShariaCheck(code, context) {
             violations.push({ type: 'ربا', detail: `وُجد مصطلح "${term}"`, ayah: '«وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة ٢٧٥' });
         }
     }
-    
+
     // فحص الغرر
     const ghararTerms = ['gambling', 'قمار', 'lottery', 'يانصيب', 'random_price', 'unknownPrice'];
     for (const term of ghararTerms) {
@@ -486,7 +486,7 @@ async function toolShariaCheck(code, context) {
             violations.push({ type: 'غرر', detail: `وُجد مصطلح "${term}"`, hadith: '«نهى رسول الله ﷺ عن بيع الغرر» — مسلم' });
         }
     }
-    
+
     // فحص الغش
     const cheatingTerms = ['fake', 'counterfeit', 'مغشوش', 'تزوير', 'misleading', 'hidden_fee'];
     for (const term of cheatingTerms) {
@@ -494,7 +494,7 @@ async function toolShariaCheck(code, context) {
             violations.push({ type: 'غش', detail: `وُجد مصطلح "${term}"`, hadith: '«مَنْ غَشَّنَا فَلَيْسَ مِنَّا» — مسلم' });
         }
     }
-    
+
     // فحص الاحتكار
     const monopolyTerms = ['monopoly', 'احتكار', 'hoard', 'price_fix', 'cartel'];
     for (const term of monopolyTerms) {
@@ -502,7 +502,7 @@ async function toolShariaCheck(code, context) {
             violations.push({ type: 'احتكار', detail: `وُجد مصطلح "${term}"`, hadith: '«لا يحتكر إلا خاطئ» — مسلم' });
         }
     }
-    
+
     // فحوصات إيجابية
     const goodTerms = ['halal', 'حلال', 'charity', 'صدقة', 'zakat', 'زكاة', 'honest', 'trust', 'أمانة', 'عدل', 'justice', 'fair'];
     for (const term of goodTerms) {
@@ -510,13 +510,13 @@ async function toolShariaCheck(code, context) {
             approvals.push({ type: 'خير', detail: `وُجد مصطلح "${term}" — بارك الله فيكم` });
         }
     }
-    
+
     // تسجيل الفحص
     learningMemory.shariaChecks.push({ code: code.substring(0, 200), context, violations: violations.length, at: new Date().toISOString() });
-    
+
     let text = `# الفحص الشرعي\n\n`;
     text += `**السياق:** ${context || 'عام'}\n\n`;
-    
+
     if (violations.length === 0) {
         text += `## النتيجة: ✅ لم تُكتشف مخالفات شرعية\n\n`;
         text += `«إنَّ اللَّهَ يُحبُّ إذا عَمِلَ أحَدُكُم عَمَلًا أن يُتقِنَه» — البيهقي\n\n`;
@@ -526,12 +526,12 @@ async function toolShariaCheck(code, context) {
             text += `### ${i + 1}. ${v.type}\n- ${v.detail}\n- ${v.ayah || v.hadith}\n\n`;
         });
     }
-    
+
     if (approvals.length > 0) {
         text += `## الجوانب الإيجابية\n`;
         approvals.forEach(a => { text += `- ✅ ${a.detail}\n`; });
     }
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -546,15 +546,15 @@ async function toolLearn(topic, knowledge, category) {
         source: 'Cursor IDE'
     };
     learningMemory.knowledgeGained.push(entry);
-    
+
     // حفظ في ملف
     const learnFile = path.join(dataPath, 'sheikha-learning.json');
     let existing = [];
     try { existing = JSON.parse(fs.readFileSync(learnFile, 'utf8')); } catch (e) {}
     existing.push(entry);
     try { fs.writeFileSync(learnFile, JSON.stringify(existing, null, 2), 'utf8'); } catch (e) {}
-    
-    return { content: [{ type: 'text', text: 
+
+    return { content: [{ type: 'text', text:
         `# تم التعلّم بنجاح ✅\n\n` +
         `- **الموضوع:** ${topic}\n` +
         `- **الفئة:** ${category || 'عام'}\n` +
@@ -568,7 +568,7 @@ async function toolLearn(topic, knowledge, category) {
 async function toolSearchCode(query, scope) {
     const results = [];
     const searchIn = [];
-    
+
     if (!scope || scope === 'all' || scope === 'server') {
         searchIn.push({ label: 'server.js', file: path.join(ROOT, 'server.js') });
     }
@@ -580,7 +580,7 @@ async function toolSearchCode(query, scope) {
         const pages = listPages();
         pages.forEach(p => searchIn.push({ label: `public/${p.file}`, file: p.path }));
     }
-    
+
     for (const item of searchIn) {
         try {
             const content = fs.readFileSync(item.file, 'utf8');
@@ -593,10 +593,10 @@ async function toolSearchCode(query, scope) {
             });
         } catch (e) {}
     }
-    
+
     let text = `# نتائج البحث عن "${query}"\n\n`;
     text += `**النطاق:** ${scope || 'all'} | **النتائج:** ${results.length}\n\n`;
-    
+
     if (results.length === 0) {
         text += `لم يُعثر على نتائج.\n`;
     } else {
@@ -614,7 +614,7 @@ async function toolSearchCode(query, scope) {
             text += '\n';
         }
     }
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -623,7 +623,7 @@ async function toolAnalyzeCompany(companyName) {
     const company = (marketData.preloadedCompanies || []).find(
         c => c.nameAr?.includes(companyName) || c.nameEn?.toLowerCase().includes(companyName.toLowerCase())
     );
-    
+
     if (company) {
         let text = `# تحليل شركة ${company.nameAr || company.nameEn}\n\n`;
         text += `- **القطاع:** ${company.sector}\n`;
@@ -633,7 +633,7 @@ async function toolAnalyzeCompany(companyName) {
         if (company.opportunities) text += `\n## الفرص\n${company.opportunities.map(o => `- **${o.title}:** ${o.description}`).join('\n')}\n`;
         return { content: [{ type: 'text', text }] };
     }
-    
+
     const names = (marketData.preloadedCompanies || []).map(c => c.nameAr || c.nameEn).join(', ');
     return { content: [{ type: 'text', text: `لم تُوجد "${companyName}". الشركات المتاحة: ${names}` }] };
 }
@@ -641,11 +641,11 @@ async function toolAnalyzeCompany(companyName) {
 // ─── ٧. أسعار السوق ─────────────────────────────────────────────────────────
 async function toolMarketPrices() {
     const prices = await callSheikhaAPI('/api/metals/prices');
-    
+
     if (prices.error) {
         return { content: [{ type: 'text', text: `# أسعار المعادن\n\n⚠️ ${prices.error}\n\nالرجاء التأكد من تشغيل الخادم.` }] };
     }
-    
+
     let text = `# أسعار المعادن — سوق شيخة\n\n`;
     if (prices.prices) {
         for (const [metal, data] of Object.entries(prices.prices)) {
@@ -655,7 +655,7 @@ async function toolMarketPrices() {
         text += JSON.stringify(prices, null, 2);
     }
     text += `\n\n«الذهبُ بالذهبِ، والفضةُ بالفضةِ، مِثلاً بمِثلٍ، يداً بيدٍ» — مسلم`;
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -663,7 +663,7 @@ async function toolMarketPrices() {
 async function toolGenerate(type, name, description) {
     const desc = description || name;
     let code = '';
-    
+
     if (type === 'api') {
         code = `// بسم الله الرحمن الرحيم\n// ${desc}\napp.get('/api/${name}', async (req, res) => {\n    try {\n        const data = { /* بيانات ${name} */ };\n        res.json({ success: true, data, timestamp: new Date().toISOString() });\n    } catch (error) {\n        res.status(500).json({ success: false, message: error.message });\n    }\n});`;
     } else if (type === 'engine') {
@@ -673,49 +673,49 @@ async function toolGenerate(type, name, description) {
     } else {
         code = `<!-- ${name} Component -->\n<div class="${name}-component" dir="rtl">\n    <h3>${name}</h3>\n    <p>${desc}</p>\n</div>`;
     }
-    
+
     return { content: [{ type: 'text', text: `# كود ${type}: ${name}\n\n\`\`\`javascript\n${code}\n\`\`\`` }] };
 }
 
 // ─── ٩. صحة النظام ──────────────────────────────────────────────────────────
 async function toolHealth() {
     const checks = [];
-    
+
     // فحص الخادم
     const status = await callSheikhaAPI('/api/sheikha/status');
     checks.push({ name: 'خادم شيخة (8080)', status: !status.error ? '✅ يعمل' : '❌ متوقف', details: status.error || 'متصل' });
-    
+
     // فحص الملفات
     const serverExists = fs.existsSync(path.join(ROOT, 'server.js'));
     checks.push({ name: 'server.js', status: serverExists ? '✅ موجود' : '❌ مفقود' });
-    
+
     const engines = listEngines();
     checks.push({ name: 'المحركات (lib/)', status: `✅ ${engines.length} محرك`, details: `${(engines.reduce((s, e) => s + e.size, 0) / 1024).toFixed(0)} KB` });
-    
+
     const pages = listPages();
     checks.push({ name: 'الصفحات (public/)', status: `✅ ${pages.length} صفحة` });
-    
+
     // فحص البيانات
     const dataExists = fs.existsSync(dataPath);
     checks.push({ name: 'مجلد البيانات (data/)', status: dataExists ? '✅ موجود' : '⚠️ مفقود' });
-    
+
     // فحص MCP
     checks.push({ name: 'MCP Server', status: '✅ متصل', details: 'Cursor ↔ شيخة' });
-    
+
     let text = `# فحص صحة المنظومة\n\n`;
     text += `| الفحص | الحالة | تفاصيل |\n|-------|--------|--------|\n`;
     checks.forEach(c => {
         text += `| ${c.name} | ${c.status} | ${c.details || '-'} |\n`;
     });
     text += `\n**وقت الفحص:** ${new Date().toLocaleString('ar-SA')}`;
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
 // ─── ١٠. خريطة APIs ─────────────────────────────────────────────────────────
 async function toolAPIs(category) {
     const apiData = await callSheikhaAPI('/api/architecture/apis');
-    
+
     if (apiData.error || !apiData.success) {
         // استخراج من server.js
         let text = `# واجهات API — منظومة شيخة\n\n`;
@@ -727,7 +727,7 @@ async function toolAPIs(category) {
             while ((match = apiPattern.exec(serverContent)) !== null) {
                 apis.push({ method: match[1].toUpperCase(), path: match[2] });
             }
-            
+
             if (category) {
                 const filtered = apis.filter(a => a.path.includes(category));
                 text += `**الفئة:** ${category} | **العدد:** ${filtered.length}\n\n`;
@@ -752,7 +752,7 @@ async function toolAPIs(category) {
         }
         return { content: [{ type: 'text', text }] };
     }
-    
+
     return { content: [{ type: 'text', text: `# واجهات API\n\n${JSON.stringify(apiData, null, 2)}` }] };
 }
 
@@ -842,17 +842,17 @@ async function toolQuranWisdom(topic) {
             ]
         }
     };
-    
+
     const topicData = wisdom[topic] || wisdom['إتقان'];
     const usedTopic = wisdom[topic] ? topic : 'إتقان';
-    
+
     let text = `# الأساس الشرعي — ${usedTopic}\n\n`;
     text += `## آيات قرآنية\n`;
     (topicData.ayat || []).forEach(a => { text += `- «${a.text}» — ${a.ref}\n`; });
     text += `\n## أحاديث نبوية\n`;
     (topicData.ahadith || []).forEach(h => { text += `- قال ﷺ: «${h.text}» — ${h.ref}\n`; });
     text += `\n**المواضيع المتاحة:** ${Object.keys(wisdom).join('، ')}`;
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -865,7 +865,7 @@ async function toolLearningReport() {
     text += `- **المعرفة المكتسبة:** ${m.knowledgeGained.length}\n`;
     text += `- **الفحوصات الشرعية:** ${m.shariaChecks.length}\n`;
     text += `- **التحسينات المقترحة:** ${m.improvements.length}\n\n`;
-    
+
     // أكثر الأدوات استخداماً
     const toolCounts = {};
     m.interactions.forEach(i => { toolCounts[i.tool] = (toolCounts[i.tool] || 0) + 1; });
@@ -873,14 +873,14 @@ async function toolLearningReport() {
     Object.entries(toolCounts).sort((a, b) => b[1] - a[1]).forEach(([tool, count]) => {
         text += `- ${tool}: ${count} مرة\n`;
     });
-    
+
     if (m.knowledgeGained.length > 0) {
         text += `\n## آخر المعارف المكتسبة\n`;
         m.knowledgeGained.slice(-5).forEach(k => {
             text += `- **${k.topic}** (${k.category}): ${k.knowledge.substring(0, 100)}\n`;
         });
     }
-    
+
     text += `\n«وَقُل رَّبِّ زِدْنِي عِلْمًا» — طه ١١٤`;
     return { content: [{ type: 'text', text }] };
 }
@@ -890,7 +890,7 @@ async function toolSuggestImprovements(area) {
     const suggestions = [];
     const engines = listEngines();
     const pages = listPages();
-    
+
     // تحليل عام
     if (!area || area === 'all' || area === 'performance') {
         const bigEngines = engines.filter(e => e.size > 50000);
@@ -902,31 +902,31 @@ async function toolSuggestImprovements(area) {
             suggestions.push({ area: 'أداء', suggestion: `صفحة ${p.file} طويلة (${p.lines} سطر) — يمكن تحسين التحميل`, priority: 'متوسطة' });
         });
     }
-    
+
     if (!area || area === 'all' || area === 'security') {
         suggestions.push({ area: 'أمان', suggestion: 'التأكد من عدم كشف مفاتيح API في الكود العام', priority: 'عالية' });
         suggestions.push({ area: 'أمان', suggestion: 'إضافة حماية CSRF لجميع نماذج POST', priority: 'عالية' });
     }
-    
+
     if (!area || area === 'all' || area === 'sharia') {
         suggestions.push({ area: 'شرعي', suggestion: 'إضافة تذكير بالبسملة في بداية كل محرك جديد', priority: 'مستحبة' });
         suggestions.push({ area: 'شرعي', suggestion: 'مراجعة دورية للعقود — التأكد من خلوها من الغرر والربا', priority: 'عالية' });
     }
-    
+
     if (!area || area === 'all' || area === 'features') {
         suggestions.push({ area: 'ميزات', suggestion: 'إضافة نظام إشعارات فوري (WebSocket) لتغيرات الأسعار', priority: 'عالية' });
         suggestions.push({ area: 'ميزات', suggestion: 'إضافة تصدير تقارير PDF بالعربية', priority: 'متوسطة' });
     }
-    
+
     learningMemory.improvements = [...learningMemory.improvements, ...suggestions];
-    
+
     let text = `# اقتراحات تحسين المنظومة\n\n`;
     text += `**المجال:** ${area || 'شامل'} | **العدد:** ${suggestions.length}\n\n`;
     suggestions.forEach((s, i) => {
         text += `### ${i + 1}. [${s.priority}] ${s.area}\n${s.suggestion}\n\n`;
     });
     text += `«إنَّ اللَّهَ يُحبُّ إذا عَمِلَ أحَدُكُم عَمَلًا أن يُتقِنَه» — البيهقي`;
-    
+
     return { content: [{ type: 'text', text }] };
 }
 
@@ -1222,23 +1222,23 @@ server.setRequestHandler(ListResourcesRequestSchema, async () => {
 
 server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
     const { uri } = request.params;
-    
+
     switch (uri) {
         case 'sheikha://system/status':
             const status = await callSheikhaAPI('/api/sheikha/status');
             return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(status, null, 2) }] };
-        
+
         case 'sheikha://engines/list':
             return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(listEngines(), null, 2) }] };
-        
+
         case 'sheikha://market/companies':
             return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(marketData.preloadedCompanies || [], null, 2) }] };
-        
+
         case 'sheikha://pages/list':
             return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(listPages(), null, 2) }] };
-        
+
         case 'sheikha://sharia/principles':
-            return { contents: [{ uri, mimeType: 'text/markdown', text: 
+            return { contents: [{ uri, mimeType: 'text/markdown', text:
                 `# المبادئ الشرعية في منظومة شيخة\n\n` +
                 `## المحرمات\n` +
                 `1. **لا ربا** — «وَأَحَلَّ اللَّهُ الْبَيْعَ وَحَرَّمَ الرِّبَا» — البقرة ٢٧٥\n` +
@@ -1253,13 +1253,13 @@ server.setRequestHandler(ReadResourceRequestSchema, async (request) => {
                 `4. الإتقان في كل عمل\n` +
                 `5. التعاون على البر والتقوى`
             }] };
-        
+
         case 'sheikha://docs/api':
             return { contents: [{ uri, mimeType: 'text/markdown', text: getAPIDocumentation() }] };
-        
+
         case 'sheikha://learning/memory':
             return { contents: [{ uri, mimeType: 'application/json', text: JSON.stringify(learningMemory, null, 2) }] };
-        
+
         case 'sheikha://cursorrules':
             try {
                 const rules = fs.readFileSync(path.join(ROOT, '.cursorrules'), 'utf8');

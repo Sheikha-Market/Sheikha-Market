@@ -1,0 +1,73 @@
+{
+  "registry": "SHEIKHA_AGENTIC_WORKFLOW_REGISTRY_V1",
+  "status": "ACTIVE",
+  "workflow": [
+    "goal_intake",
+    "root_knowledge_lookup",
+    "rag_query_decomposition",
+    "rag_source_selection",
+    "evidence_retrieval",
+    "source_trace_validation",
+    "policy_scope_check",
+    "agent_plan",
+    "tool_permission_check",
+    "approved_tool_execution",
+    "multi_agent_review_when_needed",
+    "human_review_when_required",
+    "grounded_generation",
+    "result_generation",
+    "audit_and_lessons_update"
+  ],
+  "agentRoles": [
+    {
+      "id": "AGENT-001",
+      "name": "KNOWLEDGE_CURATOR",
+      "scope": "root_knowledge_lookup_and_evidence_indexing",
+      "toolAccess": "READ_ONLY"
+    },
+    {
+      "id": "AGENT-002",
+      "name": "PLANNER_AGENT",
+      "scope": "goal_decomposition_and_plan_generation",
+      "toolAccess": "PLAN_ONLY"
+    },
+    {
+      "id": "AGENT-003",
+      "name": "TOOL_EXECUTION_AGENT",
+      "scope": "approved_tool_execution_with_permission_checks",
+      "toolAccess": "APPROVED_TOOLS_ONLY"
+    },
+    {
+      "id": "AGENT-004",
+      "name": "GOVERNANCE_REVIEW_AGENT",
+      "scope": "policy_risk_truthfulness_and_escalation_review",
+      "toolAccess": "REVIEW_ONLY"
+    },
+    {
+      "id": "AGENT-005",
+      "name": "REPORTING_AGENT",
+      "scope": "grounded_report_generation_and_audit_summary",
+      "toolAccess": "REPORT_ONLY"
+    },
+    {
+      "id": "AGENT-006",
+      "name": "RAG_RETRIEVAL_AGENT",
+      "scope": "retrieve_rank_and_trace_allowed_knowledge_sources",
+      "toolAccess": "READ_APPROVED_INDEXES_ONLY"
+    },
+    {
+      "id": "AGENT-007",
+      "name": "GROUNDING_VERIFICATION_AGENT",
+      "scope": "verify_claims_against_retrieved_evidence_and_flag_gaps",
+      "toolAccess": "VERIFY_ONLY"
+    }
+  ],
+  "boundaries": {
+    "no_unapproved_external_action": true,
+    "no_secret_access_without_scope": true,
+    "no_high_risk_autonomy": true,
+    "no_rag_generation_without_source_trace": true,
+    "unsupported_claims_blocked": true,
+    "human_review_for_contract_legal_financial_medical_religious_or_safety_outputs": true
+  }
+}

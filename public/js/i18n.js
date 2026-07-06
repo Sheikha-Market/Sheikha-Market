@@ -1,7 +1,7 @@
 /**
  * 🌍 نظام الترجمة الآلية لسوق شيخة
  * Sheikha Market Auto Translation System
- * 
+ *
  * العربية هي اللغة الأساسية
  * Arabic is the primary language
  */
@@ -111,7 +111,7 @@ const SheikhaI18n = (function() {
         document.documentElement.dir = langInfo.dir;
         document.documentElement.lang = currentLang;
         document.body.style.direction = langInfo.dir;
-        
+
         // تحديث CSS للاتجاه
         if (langInfo.dir === 'rtl') {
             document.body.classList.add('rtl');
@@ -251,7 +251,7 @@ const SheikhaI18n = (function() {
             </button>
             <div class="lang-dropdown" id="langDropdown">
                 ${Object.entries(LANGUAGES).map(([code, info]) => `
-                    <div class="lang-option ${code === currentLang ? 'active' : ''}" 
+                    <div class="lang-option ${code === currentLang ? 'active' : ''}"
                          onclick="SheikhaI18n.setLanguage('${code}')">
                         <span class="lang-flag">${info.flag}</span>
                         <span class="lang-name">${info.name}</span>
@@ -260,7 +260,7 @@ const SheikhaI18n = (function() {
                 `).join('')}
             </div>
         `;
-        
+
         container.appendChild(selector);
         addSelectorStyles();
     }
@@ -268,7 +268,7 @@ const SheikhaI18n = (function() {
     // إضافة أنماط المحدد
     function addSelectorStyles() {
         if (document.getElementById('sheikha-i18n-styles')) return;
-        
+
         const styles = document.createElement('style');
         styles.id = 'sheikha-i18n-styles';
         styles.textContent = `
@@ -323,8 +323,8 @@ const SheikhaI18n = (function() {
             .lang-option:hover { background: rgba(212, 175, 55, 0.1); }
             .lang-option.active { background: rgba(212, 175, 55, 0.2); }
             .lang-option .lang-name { flex: 1; }
-            .lang-option .lang-name-en { 
-                font-size: 0.8rem; 
+            .lang-option .lang-name-en {
+                font-size: 0.8rem;
                 opacity: 0.6;
             }
             /* RTL Support */
@@ -354,7 +354,7 @@ const SheikhaI18n = (function() {
     function init() {
         // تحديث الاتجاه
         updatePageDirection();
-        
+
         // الترجمة التلقائية إذا لم تكن العربية
         if (currentLang !== 'ar') {
             translatePage();

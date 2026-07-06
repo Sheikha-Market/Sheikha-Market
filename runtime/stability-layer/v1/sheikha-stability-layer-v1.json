@@ -1,0 +1,24 @@
+{
+  "system": "SHEIKHA_STABILITY_LAYER_V1",
+  "status": "ACTIVE",
+  "purpose": "Stabilize Jest, API contracts, duplicated repository paths, VS Code extension expectations, and PR readiness before merge.",
+  "governance": {
+    "no_raw_merge": true,
+    "curated_merge_required": true,
+    "tests_before_merge": true,
+    "api_contract_required": true,
+    "human_review_for_high_risk": true
+  },
+  "protected": [
+    "Architecture Freeze V1.3",
+    "PR Governance",
+    "Continuous Improvement V1",
+    "Governance Activation V1"
+  ],
+  "fix_targets": [
+    "jest_path_duplication",
+    "uuid_commonjs_compatibility",
+    "api_contract_data_wrapper",
+    "vscode_extension_contract_alignment"
+  ]
+}

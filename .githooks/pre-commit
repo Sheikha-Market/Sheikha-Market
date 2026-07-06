@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+set -e
+
+echo "[SHEIKHA] Governance Verification"
+
+export SHEIKHA_GIT_STATUS_SCOPE=staged
+export SHEIKHA_GIT_STATUS_FILE="/tmp/sheikha-staged-status.$$"
+trap 'rm -f "$SHEIKHA_GIT_STATUS_FILE"' EXIT
+git status --short --untracked-files=no \
+  | awk 'substr($0,1,1) != " " && substr($0,1,1) != "?"' \
+  > "$SHEIKHA_GIT_STATUS_FILE"
+
+node tools/governance/runtime-admission-controller.js >/tmp/sheikha-admission.json
+
+if grep -q '"decision": "BLOCKED"' /tmp/sheikha-admission.json; then
+  echo "[SHEIKHA] BLOCKED FILES DETECTED"
+  exit 1
+fi
+
+node tools/governance/runtime-integrity-verifier.js >/tmp/sheikha-integrity.json
+
+echo "[SHEIKHA] Governance Passed"
+exit 0

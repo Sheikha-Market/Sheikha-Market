@@ -79,14 +79,14 @@ log_debug() { [[ "${DEBUG:-0}" == "1" ]] && log "DEBUG" "$@"; }
 save_state() {
     local key="$1"
     local value="$2"
-    
+
     mkdir -p "$STATE_DIR"
-    
+
     local json='{}'
     if [[ -f "$STATE_FILE" ]]; then
         json=$(cat "$STATE_FILE")
     fi
-    
+
     # استخدم jq أو fallback إلى echo
     if command -v jq &>/dev/null; then
         echo "$json" | jq --arg k "$key" --arg v "$value" '.[$k] = $v' > "$STATE_FILE"
@@ -98,12 +98,12 @@ save_state() {
 
 read_state() {
     local key="$1"
-    
+
     if [[ ! -f "$STATE_FILE" ]]; then
         echo ""
         return 0
     fi
-    
+
     if command -v jq &>/dev/null; then
         cat "$STATE_FILE" | jq -r ".\"$key\" // \"\"" 2>/dev/null || echo ""
     else
@@ -132,9 +132,9 @@ get_memory_usage() {
 check_server_alive() {
     local server="$1"
     local timeout=3
-    
+
     IFS=':' read -r host port <<< "$server"
-    
+
     # محاولة الاتصال عبر TCP
     timeout "$timeout" bash -c "echo > /dev/tcp/${host}/${port}" 2>/dev/null && return 0 || return 1
 }
@@ -145,14 +145,14 @@ start_secondary_server() {
         log_info "SECONDARY_SERVER not configured, staying in single-server mode"
         return 0
     fi
-    
+
     IFS=':' read -r host port <<< "$SECONDARY_SERVER"
-    
+
     log_info "🚀 Starting secondary server at $SECONDARY_SERVER..."
-    
+
     # تنفيذ الأمر عبر SSH
     ssh -q "$SECONDARY_SSH_USER@$host" "pm2 start $SECONDARY_APP_PATH --name sheikha-api-2 || true" 2>/dev/null
-    
+
     if [ $? -eq 0 ]; then
         log_info "✓ Secondary server started successfully"
         # انتظر لحظة حتى يبدأ
@@ -164,7 +164,7 @@ start_secondary_server() {
             return 0
         fi
     fi
-    
+
     log_error "✗ Failed to start secondary server"
     return 1
 }
@@ -175,19 +175,19 @@ stop_secondary_server() {
         log_info "SECONDARY_SERVER not configured, nothing to scale down"
         return 0
     fi
-    
+
     IFS=':' read -r host port <<< "$SECONDARY_SERVER"
-    
+
     log_info "🛑 Stopping secondary server at $SECONDARY_SERVER..."
-    
+
     ssh -q "$SECONDARY_SSH_USER@$host" "pm2 stop sheikha-api-2 || true" 2>/dev/null
-    
+
     if [ $? -eq 0 ]; then
         log_info "✓ Secondary server stopped"
         save_state "last_scale_down" "$(date -Is)"
         return 0
     fi
-    
+
     log_error "✗ Failed to stop secondary server"
     return 1
 }
@@ -198,9 +198,9 @@ save_metrics() {
     local cpu="$2"
     local mem="$3"
     local status="$4"
-    
+
     mkdir -p "$LOG_DIR"
-    
+
     cat > "$METRICS_FILE" <<EOF
 {
   "timestamp": "$(date -Is)",
@@ -224,23 +224,23 @@ should_scale_up() {
     local load="$1"
     local cpu="$2"
     local mem="$3"
-    
+
     # شروط التوسع
     if (( $(echo "$load > $LOAD_THRESHOLD_HIGH" | bc -l) )); then
         log_warn "Load is high: $load > $LOAD_THRESHOLD_HIGH"
         return 0  # Yes, scale up
     fi
-    
+
     if (( $(echo "$cpu > $CPU_THRESHOLD_HIGH" | bc -l) )); then
         log_warn "CPU usage is high: $cpu% > $CPU_THRESHOLD_HIGH%"
         return 0
     fi
-    
+
     if (( $(echo "$mem > $MEMORY_THRESHOLD_HIGH" | bc -l) )); then
         log_warn "Memory usage is high: $mem% > $MEMORY_THRESHOLD_HIGH%"
         return 0
     fi
-    
+
     return 1  # No scale up needed
 }
 
@@ -248,7 +248,7 @@ should_scale_down() {
     local load="$1"
     local cpu="$2"
     local mem="$3"
-    
+
     # شروط الانكماش
     if (( $(echo "$load < $LOAD_THRESHOLD_LOW" | bc -l) )); then
         if (( $(echo "$mem < $MEMORY_THRESHOLD_LOW" | bc -l) )); then
@@ -256,7 +256,7 @@ should_scale_down() {
             return 0  # Yes, scale down
         fi
     fi
-    
+
     return 1  # No scale down needed
 }
 
@@ -276,14 +276,14 @@ perform_scaling_check() {
     local load=$(get_load_average)
     local cpu=$(get_cpu_usage)
     local mem=$(get_memory_usage)
-    
+
     log_debug "Current metrics: load=$load, cpu=$cpu%, mem=$mem%"
-    
+
     # تحقق من Cooldown
     local last_scale_up=$(read_state "last_scale_up")
     local last_scale_down=$(read_state "last_scale_down")
     local now=$(date +%s)
-    
+
     # Scale Up Decision
     if should_scale_up "$load" "$cpu" "$mem"; then
         if [[ -z "$last_scale_up" ]] || (( now - $(date -d "$last_scale_up" +%s) > SCALE_UP_COOLDOWN )); then
@@ -296,7 +296,7 @@ perform_scaling_check() {
             log_info "Scale up on cooldown, skipping"
         fi
     fi
-    
+
     # Scale Down Decision
     if should_scale_down "$load" "$cpu" "$mem"; then
         if [[ -z "$last_scale_down" ]] || (( now - $(date -d "$last_scale_down" +%s) > SCALE_DOWN_COOLDOWN )); then
@@ -318,7 +318,7 @@ perform_scaling_check() {
 
 main() {
     mkdir -p "$LOG_DIR" "$STATE_DIR"
-    
+
     log_info "════════════════════════════════════════════════════════"
     log_info "🤖 Auto Scaling Engine Started"
     log_info "════════════════════════════════════════════════════════"
@@ -328,7 +328,7 @@ main() {
     log_info "Cooldowns: UP=${SCALE_UP_COOLDOWN}s, DOWN=${SCALE_DOWN_COOLDOWN}s"
     log_info "Primary: $PRIMARY_SERVER"
     [[ -n "$SECONDARY_SERVER" ]] && log_info "Secondary: $SECONDARY_SERVER"
-    
+
     # تشغيل loop واحد أم مراقبة دورية؟
     if [[ "${CONTINUOUS:-0}" == "1" ]]; then
         log_info "Running in continuous mode (check every ${CHECK_INTERVAL}s)..."

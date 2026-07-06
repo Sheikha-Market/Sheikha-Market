@@ -1,0 +1,40 @@
+{
+  "system": "SHEIKHA_ROOT_IDENTITY_V1",
+  "status": "ACTIVE",
+  "official_identity": {
+    "english": "Sheikha Root",
+    "arabic": "جذر شيخة",
+    "full_runtime_name": "Sheikha Root Operating Core",
+    "full_arabic_name": "جذر تشغيل شيخة الأعلى"
+  },
+  "legacy_identity": {
+    "old_name": "sheikha-main-portal",
+    "old_layer": "portal",
+    "status": "COMPATIBILITY_ONLY"
+  },
+  "elevation": {
+    "from": "PORTAL_LAYER",
+    "to": "ROOT_LAYER",
+    "breaking_path_rename": false,
+    "reason": "Keep repository and deployment paths stable while elevating the architecture and runtime identity to root."
+  },
+  "naming_rules": {
+    "use_root_in_architecture": true,
+    "use_portal_only_for_legacy_path": true,
+    "do_not_break_existing_vps_or_pm2_paths": true,
+    "future_repository_name_target": "sheikha-root"
+  },
+  "actual_binding": {
+    "package_name": "sheikha-operating-system",
+    "package_display_name": "Sheikha Operating System",
+    "express_app_local": "sheikhaRuntimeIdentity",
+    "direct_root_identity_endpoint": "/api/root-identity/status",
+    "direct_operating_system_endpoint": "/api/operating-system/status",
+    "direct_runtime_identity_endpoint": "/api/runtime/identity/status",
+    "fabric_root_mount": "/api/root-identity",
+    "fabric_operating_system_mount": "/api/operating-system",
+    "well_known_identity": "/.well-known/sheikha.json",
+    "legacy_portal_is_compatibility_only": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

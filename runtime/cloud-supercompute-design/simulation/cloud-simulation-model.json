@@ -1,0 +1,24 @@
+{
+  "simulation": "SHEIKHA_CLOUD_SUPERCOMPUTE_SIMULATION",
+  "status": "READY",
+  "inputs": [
+    "node_count",
+    "gpu_per_node",
+    "memory_per_node",
+    "network_bandwidth",
+    "storage_bandwidth",
+    "power_limit",
+    "cooling_capacity",
+    "cost_limit"
+  ],
+  "outputs": [
+    "estimated_flops",
+    "latency",
+    "throughput",
+    "energy_efficiency",
+    "cost_per_flop",
+    "bottlenecks",
+    "promotion_score"
+  ],
+  "rule": "Simulation results are planning estimates, not achieved performance."
+}

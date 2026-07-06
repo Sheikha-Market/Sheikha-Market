@@ -1,0 +1,36 @@
+{
+  "registry": "SHEIKHA_COMMERCIAL_GOVERNANCE_POLICIES_V1",
+  "status": "ACTIVE",
+  "policies": [
+    {
+      "id": "CGOV-001",
+      "name": "No Sale Without Contract",
+      "rule": "Any external sale, license, SaaS, API, SDK, or enterprise component must have an approved contract before activation."
+    },
+    {
+      "id": "CGOV-002",
+      "name": "No License Without Customer",
+      "rule": "A license cannot be issued unless the customer is registered and commercially approved."
+    },
+    {
+      "id": "CGOV-003",
+      "name": "No Billing Without Approval",
+      "rule": "Invoices must only be generated after contract approval and license activation."
+    },
+    {
+      "id": "CGOV-004",
+      "name": "No False Partner or Customer Claim",
+      "rule": "Sheikha must not claim OpenAI, any AI company, or any enterprise as a customer, partner, or licensee without a signed agreement."
+    },
+    {
+      "id": "CGOV-005",
+      "name": "Legal Review Before External Sale",
+      "rule": "External commercial licensing requires legal review before signing or activation."
+    },
+    {
+      "id": "CGOV-006",
+      "name": "Human Commercial Approval",
+      "rule": "Pricing, license scope, renewal, cancellation, liability, and customer-facing terms require human approval."
+    }
+  ]
+}

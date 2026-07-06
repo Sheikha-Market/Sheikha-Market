@@ -10,7 +10,7 @@ const SheikhaVisuals = {
     // ═══════════════════════════════════════════════════════════════════════════
     // 🚛 الشاحنات والمركبات — Trucks & Vehicles
     // ═══════════════════════════════════════════════════════════════════════════
-    
+
     trucks: {
         // شاحنة مسطحة للمعادن
         flatbed: `<svg viewBox="0 0 400 200" xmlns="http://www.w3.org/2000/svg">
@@ -161,7 +161,7 @@ const SheikhaVisuals = {
     // ═══════════════════════════════════════════════════════════════════════════
     // ⚙️ المعدات — Equipment
     // ═══════════════════════════════════════════════════════════════════════════
-    
+
     equipment: {
         // رافعة شوكية
         forklift: `<svg viewBox="0 0 300 250" xmlns="http://www.w3.org/2000/svg">
@@ -267,7 +267,7 @@ const SheikhaVisuals = {
     // ═══════════════════════════════════════════════════════════════════════════
     // 🔩 المعادن — Metals
     // ═══════════════════════════════════════════════════════════════════════════
-    
+
     metals: {
         // كومة سكراب حديد
         ironScrap: `<svg viewBox="0 0 300 200" xmlns="http://www.w3.org/2000/svg">
@@ -401,7 +401,7 @@ const SheikhaVisuals = {
     // ═══════════════════════════════════════════════════════════════════════════
     // 📦 الحاويات — Containers
     // ═══════════════════════════════════════════════════════════════════════════
-    
+
     containers: {
         shipping20ft: `<svg viewBox="0 0 300 180" xmlns="http://www.w3.org/2000/svg">
             <defs>
@@ -450,7 +450,7 @@ const SheikhaVisuals = {
     // ═══════════════════════════════════════════════════════════════════════════
     // Helper Functions
     // ═══════════════════════════════════════════════════════════════════════════
-    
+
     /**
      * إدراج رسم SVG في عنصر HTML
      * @param {string} category - الفئة (trucks, equipment, metals, containers)
@@ -460,7 +460,7 @@ const SheikhaVisuals = {
     render(category, type, targetId) {
         const target = document.getElementById(targetId);
         if (!target) return;
-        
+
         const svg = this[category]?.[type];
         if (svg) {
             target.innerHTML = svg;

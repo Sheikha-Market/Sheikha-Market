@@ -1,0 +1,55 @@
+{
+  "system": "SHEIKHA_ENTERPRISE_PRODUCT_KNOWLEDGE_PLATFORM_V2",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "scope": "Enterprise product knowledge, decision, registry, persistence, search, graph, versioning, and audit trail.",
+  "activatedLayers": [
+    "product_knowledge_fabric_v2",
+    "product_decision_engine",
+    "product_classification_engine",
+    "product_registry",
+    "product_persistent_store",
+    "product_search_api",
+    "enterprise_product_knowledge_graph",
+    "product_versioning_v1",
+    "product_audit_trail_v1",
+    "product_knowledge_ui"
+  ],
+  "integrationFlow": [
+    "frontend",
+    "decision_engine",
+    "classification_engine",
+    "product_registry",
+    "persistent_store",
+    "audit_trail",
+    "version_history",
+    "knowledge_graph"
+  ],
+  "apiSurface": {
+    "status": "/api/product-knowledge/status",
+    "decision": "/api/product-knowledge/decision",
+    "classify": "/api/product-knowledge/classify",
+    "products": "/api/product-knowledge/products",
+    "search": "/api/product-knowledge/search",
+    "graph": "/api/product-knowledge/graph",
+    "audit": "/api/product-knowledge/products/:id/audit",
+    "history": "/api/product-knowledge/products/:id/history",
+    "versionSnapshot": "/api/product-knowledge/products/:id/version/:version"
+  },
+  "governance": {
+    "noPublishWithoutValidation": true,
+    "auditTrailEnabled": true,
+    "versioningEnabled": true,
+    "corsLocalRuntimeFixed": true,
+    "unknownCorsOriginsReturn403": true
+  },
+  "nextBestImprovements": [
+    "semantic_search",
+    "duplicate_detection",
+    "product_lifecycle_governance",
+    "rules_engine",
+    "enterprise_dashboard",
+    "relationship_expansion",
+    "audit_retention_policy"
+  ]
+}

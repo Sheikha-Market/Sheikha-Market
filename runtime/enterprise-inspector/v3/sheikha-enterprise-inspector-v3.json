@@ -1,0 +1,27 @@
+{
+  "system": "SHEIKHA_ENTERPRISE_INSPECTOR_V3",
+  "status": "ACTIVE",
+  "purpose": "Unify governed runtime, Git, diagnostics, architecture, chat, and VS Code extension context into one inspectable operational truth surface.",
+  "surfaces": [
+    "general_chat",
+    "unified_chat",
+    "extension_chat",
+    "extension_inspector",
+    "runtime_api"
+  ],
+  "governance": {
+    "minimumNecessaryContext": true,
+    "secretsExcluded": true,
+    "externalWritesRequireAuthorization": true,
+    "highImpactHumanReview": true,
+    "truthfulCapabilityClaims": true
+  },
+  "intelligence": {
+    "contextAwareChat": true,
+    "workspaceAwareExtension": true,
+    "diagnosticSummarization": true,
+    "architectureAwareness": true,
+    "agiClaimed": false,
+    "asiClaimed": false
+  }
+}

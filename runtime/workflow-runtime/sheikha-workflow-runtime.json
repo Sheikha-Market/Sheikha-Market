@@ -1,0 +1,75 @@
+{
+  "system": "SHEIKHA_WORKFLOW_RUNTIME",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Run governed multi-engine workflows over the universal event bus for observation, research, statistics, knowledge graph linking, evidence, reporting, decisions, and application discovery.",
+  "sources": {
+    "registry": "runtime/universal-engine-registry/sheikha-universal-engine-registry.json",
+    "orchestrator": "runtime/universal-orchestrator/sheikha-universal-orchestrator.json",
+    "runtime_loader": "runtime/universal-runtime-loader/sheikha-universal-runtime-loader.json",
+    "lifecycle": "runtime/engine-lifecycle/sheikha-engine-lifecycle-manager.json",
+    "event_bus": "runtime/universal-event-bus/sheikha-universal-event-bus.json"
+  },
+  "workflow_stages": [
+    "workflow_received",
+    "input_validation",
+    "domain_classification",
+    "entity_extraction",
+    "constant_variable_detection",
+    "knowledge_graph_linking",
+    "statistics_analysis",
+    "arabic_explanation",
+    "cross_domain_reasoning",
+    "evidence_evaluation",
+    "confidence_scoring",
+    "recommendation_generation",
+    "report_generation",
+    "application_pathway_generation",
+    "workflow_completed"
+  ],
+  "workflow_events": [
+    "WORKFLOW_STARTED",
+    "WORKFLOW_STEP_STARTED",
+    "WORKFLOW_STEP_COMPLETED",
+    "WORKFLOW_STEP_FAILED",
+    "WORKFLOW_RETRY_REQUESTED",
+    "WORKFLOW_HUMAN_REVIEW_REQUIRED",
+    "WORKFLOW_FINISHED"
+  ],
+  "execution_policy": {
+    "event_bus_required": true,
+    "registered_engine_only": true,
+    "validated_engine_only": true,
+    "step_trace_required": true,
+    "retry_enabled": true,
+    "max_step_retries": 3,
+    "dead_letter_on_terminal_failure": true,
+    "parallel_steps_allowed_when_independent": true,
+    "human_review_for_high_impact": true
+  },
+  "governance": {
+    "evidence_required": true,
+    "source_traceability_required": true,
+    "audit_trace_required": true,
+    "confidence_score_required": true,
+    "no_unverified_claims": true,
+    "no_harm": true
+  },
+  "outputs": [
+    "workflow_trace",
+    "stage_execution_report",
+    "engine_invocation_report",
+    "event_stream_report",
+    "evidence_report",
+    "confidence_report",
+    "final_report",
+    "application_pathway"
+  ],
+  "maturity": {
+    "workflow_readiness": "VERY_HIGH",
+    "event_bus_alignment": "VERY_HIGH",
+    "runtime_alignment": "VERY_HIGH",
+    "governance_alignment": "VERY_HIGH",
+    "overall": "WORKFLOW_RUNTIME_READY"
+  }
+}

@@ -1,0 +1,58 @@
+{
+  "system": "SHEIKHA_STAGING_VALIDATION_V1",
+  "status": "READY_FOR_STAGING_TEST",
+  "passed": true,
+  "checks": [
+    {
+      "id": "home",
+      "path": "/",
+      "type": "ui",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "marketplace",
+      "path": "/marketplace",
+      "type": "ui",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "product-knowledge",
+      "path": "/product-knowledge/?v=11",
+      "type": "ui",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "ide",
+      "path": "/ide/",
+      "type": "ui",
+      "status": "PASS",
+      "passed": true
+    },
+    {
+      "id": "health",
+      "path": "/api/health",
+      "type": "api",
+      "status": "PASS",
+      "passed": true
+    }
+  ],
+  "blocked": [],
+  "requiredHumanValidation": [
+    "open_home_ui",
+    "open_marketplace_ui",
+    "open_product_knowledge_ui",
+    "open_ide_ui",
+    "confirm_no_visible_json_for_business_user",
+    "confirm_developer_mode_shows_technical_details",
+    "confirm_rtl_layout",
+    "confirm_navigation_consistency"
+  ],
+  "safety": {
+    "noExternalMutation": true,
+    "noProductionTraffic": true,
+    "noHarm": true
+  }
+}

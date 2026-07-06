@@ -1,0 +1,17 @@
+{
+  "server": "sheikha-mcp",
+  "status": "READINESS_ACTIVE",
+  "tools": [
+    "compile_sheikha_source",
+    "run_sheikha_source",
+    "inspect_runtime",
+    "list_products",
+    "list_resources",
+    "generate_dashboard_blueprint"
+  ],
+  "security": {
+    "no_secret_exposure": true,
+    "audit_required": true,
+    "human_approval_for_high_impact": true
+  }
+}

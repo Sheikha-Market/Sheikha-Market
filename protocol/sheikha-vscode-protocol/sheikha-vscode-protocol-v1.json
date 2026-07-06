@@ -1,0 +1,42 @@
+{
+  "system": "SHEIKHA_VSCODE_PROTOCOL_V1",
+  "status": "ACTIVE",
+  "version": "1.0.0",
+  "scope": [
+    "vscode-extension",
+    "language-protocol",
+    "command-protocol",
+    "chat-protocol",
+    "artifact-protocol",
+    "diagnostics-protocol",
+    "governance-protocol",
+    "runtime-protocol"
+  ],
+  "channels": {
+    "chat": "/api/sheikha/execution-cortex/v1/status",
+    "federation": "/api/sheikha/federation-omega/v1/status",
+    "graph": "/api/sheikha/unified-graph/v1/status",
+    "runtime": "/api/sheikha/master-blueprint/v1/status"
+  },
+  "language": {
+    "name": "Sheikha VSCode Language",
+    "id": "sheikha-vscode",
+    "fileExtensions": [".sheikha", ".shk", ".sdl"],
+    "features": [
+      "syntax",
+      "diagnostics",
+      "commands",
+      "governed-actions",
+      "arabic-first-terms",
+      "execution-contracts",
+      "artifact-preview",
+      "streaming-chat"
+    ]
+  },
+  "governance": {
+    "defaultMode": "READ_ONLY_SAFE_BY_DEFAULT",
+    "externalWritesRequireAuthorization": true,
+    "humanReviewForHighImpactActions": true,
+    "contextPolicy": "MINIMUM_NECESSARY_NO_SECRETS"
+  }
+}

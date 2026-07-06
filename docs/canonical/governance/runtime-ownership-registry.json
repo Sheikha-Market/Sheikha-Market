@@ -1,0 +1,37 @@
+{
+  "runtime": {
+    "owner": "SHEIKHA_KERNEL",
+    "canonicalPath": "core/kernel/runtime",
+    "policy": "kernel-owned-runtime"
+  },
+  "providers": {
+    "owner": "SHEIKHA_PROVIDER_REGISTRY",
+    "canonicalPath": "core/providers",
+    "policy": "external-vendors-are-replaceable-providers"
+  },
+  "governance": {
+    "owner": "SHEIKHA_GOVERNANCE_LAYER",
+    "canonicalPath": "core/kernel/governance",
+    "policy": "quran-sunnah-governed-human-authority"
+  },
+  "routes": {
+    "owner": "SHEIKHA_CANONICAL_ROUTER",
+    "canonicalPath": "server.js",
+    "policy": "registry-reviewed-routes"
+  },
+  "registry": {
+    "owner": "SHEIKHA_CANONICAL_REGISTRY",
+    "canonicalPath": "docs/registry",
+    "policy": "single-source-of-truth"
+  },
+  "ide": {
+    "owner": "SHEIKHA_IDE_FABRIC",
+    "canonicalPath": "sheikha-vscode-extension",
+    "policy": "one-active-extension-surface"
+  },
+  "publishing": {
+    "owner": "SHEIKHA_HUMAN_REVIEW",
+    "canonicalPath": "runtime/ownership",
+    "policy": "no-merge-or-push-without-review"
+  }
+}

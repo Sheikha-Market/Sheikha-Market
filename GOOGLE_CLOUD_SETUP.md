@@ -73,7 +73,7 @@
    ```
    https://console.developers.google.com/apis/library/storage-api.googleapis.com
    ```
-   
+
 2. **BigQuery API**
    ```
    https://console.developers.google.com/apis/library/bigquery.googleapis.com
@@ -164,7 +164,7 @@ app.post('/api/upload', async (req, res) => {
     try {
         const bucket = sheikhaCloud.getStorage().bucket('sheikha-marketplace');
         const file = bucket.file('documents/invoice.pdf');
-        
+
         await file.save(req.body);
         res.json({ success: true, url: file.publicUrl() });
     } catch (error) {
@@ -180,7 +180,7 @@ const sheikhaCloud = require('./lib/google-cloud-connection');
 app.get('/api/market-stats', async (req, res) => {
     try {
         const query = `
-            SELECT 
+            SELECT
                 gold_price,
                 silver_price,
                 copper_price,
@@ -189,10 +189,10 @@ app.get('/api/market-stats', async (req, res) => {
             ORDER BY timestamp DESC
             LIMIT 100
         `;
-        
+
         const [rows] = await sheikhaCloud.getBigQuery()
             .query({ query });
-        
+
         res.json(rows);
     } catch (error) {
         res.status(500).json({ error: error.message });
@@ -208,13 +208,13 @@ app.post('/api/broadcast-price', async (req, res) => {
     try {
         const topic = sheikhaCloud.getPubSub()
             .topic('market-price-updates');
-        
+
         const message = JSON.stringify({
             gold: req.body.gold_price,
             silver: req.body.silver_price,
             timestamp: new Date()
         });
-        
+
         const messageId = await topic.publish(message);
         res.json({ success: true, messageId });
     } catch (error) {
@@ -235,7 +235,7 @@ app.post('/api/broadcast-price', async (req, res) => {
 
 2. **استخدام متغيرات البيئة:**
    ```javascript
-   const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS 
+   const keyPath = process.env.GOOGLE_APPLICATION_CREDENTIALS
        || './service-account-key.json';
    ```
 
@@ -323,9 +323,9 @@ app.use((req, res, next) => {
 
 ## 📞 الدعم والمساعدة
 
-**البريد:** market@sheikha.top  
-**الدومين:** sheikha.top  
-**المشروع:** Sheikha Marketplace  
+**البريد:** market@sheikha.top
+**الدومين:** sheikha.top
+**المشروع:** Sheikha Marketplace
 **بسم الله الرحمن الرحيم** 🕌
 
 ---

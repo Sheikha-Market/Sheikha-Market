@@ -1,0 +1,123 @@
+{
+  "system": "SHEIKHA_STORAGE_GOVERNANCE_V1",
+  "status": "ACTIVE_READ_ONLY_GOVERNANCE",
+  "mode": "READ_ONLY_GOVERNANCE",
+  "filesystem": {
+    "targetPath": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "totalBytes": 997445378048,
+    "usedBytes": 950359683072,
+    "freeBytes": 47085694976,
+    "usedPercent": 95.28,
+    "severity": "CRITICAL"
+  },
+  "decision": "IMMEDIATE_HUMAN_STORAGE_REVIEW_REQUIRED",
+  "integratesWith": [
+    "SHEIKHA_MASTER_LOG_CENTER_V1",
+    "SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1",
+    "SHEIKHA_UNIFIED_APEX_ACTIVATION_V1"
+  ],
+  "governanceReferences": [
+    "QURAN-04-058",
+    "QURAN-05-008",
+    "QURAN-17-036",
+    "SUNNAH-NAWAWI-032"
+  ],
+  "rules": {
+    "inventoryBeforeAction": true,
+    "checksumBeforeTransfer": true,
+    "copyBeforeSourceRemoval": true,
+    "verifyRecoveryBeforeSourceRemoval": true,
+    "humanApprovalRequired": true,
+    "automaticDeletion": false,
+    "automaticMovement": false,
+    "destructiveCommandsGenerated": false,
+    "externalArchiveConnected": false
+  },
+  "inventory": [
+    {
+      "path": "Salman_Alrajeh_Eternal_Legacy.zip",
+      "sizeBytes": 110478717156,
+      "kind": "file",
+      "tracked": false
+    },
+    {
+      "path": "reports",
+      "sizeBytes": 2789076992,
+      "kind": "directory",
+      "tracked": false
+    },
+    {
+      "path": "node_modules",
+      "sizeBytes": 449011712,
+      "kind": "directory",
+      "tracked": false
+    },
+    {
+      "path": "data",
+      "sizeBytes": 212402176,
+      "kind": "directory",
+      "tracked": true
+    },
+    {
+      "path": "logs",
+      "sizeBytes": 211550208,
+      "kind": "directory",
+      "tracked": false
+    },
+    {
+      "path": "backups",
+      "sizeBytes": 133836800,
+      "kind": "directory",
+      "tracked": true
+    },
+    {
+      "path": "runtime",
+      "sizeBytes": 55308288,
+      "kind": "directory",
+      "tracked": true
+    },
+    {
+      "path": "dist",
+      "sizeBytes": 47517696,
+      "kind": "directory",
+      "tracked": true
+    },
+    {
+      "path": "archives",
+      "sizeBytes": 40488960,
+      "kind": "directory",
+      "tracked": false
+    }
+  ],
+  "remediation": {
+    "engine": "SHEIKHA_STORAGE_GOVERNANCE_PLANNER_V1",
+    "status": "PLAN_READY_FOR_HUMAN_REVIEW",
+    "candidates": [
+      {
+        "path": "Salman_Alrajeh_Eternal_Legacy.zip",
+        "sizeBytes": 110478717156,
+        "kind": "file",
+        "tracked": false,
+        "protected": false,
+        "decision": "EXTERNAL_ARCHIVE_REVIEW_REQUIRED"
+      }
+    ],
+    "steps": [
+      "VERIFY_BUSINESS_OWNER",
+      "CALCULATE_AND_RECORD_CHECKSUM",
+      "VERIFY_EXTERNAL_ARCHIVE_DESTINATION",
+      "COPY_WITHOUT_REMOVING_SOURCE",
+      "VERIFY_ARCHIVE_COPY_AND_RECOVERY",
+      "RECORD_EVIDENCE_IN_MASTER_LOG_CENTER",
+      "OBTAIN_EXPLICIT_HUMAN_APPROVAL"
+    ],
+    "prohibitedAutomation": [
+      "AUTOMATIC_DELETE",
+      "AUTOMATIC_MOVE",
+      "UNVERIFIED_SOURCE_REMOVAL",
+      "PROTECTED_RUNTIME_REMOVAL"
+    ],
+    "decision": "STORAGE_REMEDIATION_REVIEW_REQUIRED"
+  },
+  "generatedAt": "2026-06-15T03:20:57.231Z"
+}

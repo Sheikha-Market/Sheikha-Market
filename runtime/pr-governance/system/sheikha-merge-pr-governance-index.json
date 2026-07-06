@@ -1,0 +1,56 @@
+{
+  "index": "SHEIKHA_MERGE_PR_GOVERNANCE_INDEX",
+  "status": "ACTIVE",
+  "version": "1.0",
+  "purpose": "Index merge, PR, development, reporting, and governance artifacts with stable IDs and file paths.",
+  "entries": [
+    {
+      "id": "SHK-MRG-SYS-001",
+      "name": "Merge PR Governance System",
+      "path": "runtime/pr-governance/system/sheikha-merge-pr-governance-system-v1.json",
+      "type": "governance_system"
+    },
+    {
+      "id": "SHK-DEV-SYS-001",
+      "name": "Development Programming Governance",
+      "path": "runtime/development-governance/sheikha-development-programming-governance.json",
+      "type": "development_governance"
+    },
+    {
+      "id": "SHK-MRG-GEN-001",
+      "name": "Merge Governance Report Generator",
+      "path": "tools/pr-governance/sheikha-merge-governance-report.js",
+      "type": "generator"
+    },
+    {
+      "id": "SHK-MRG-RPT-001",
+      "name": "Detailed Merge Governance JSON Report",
+      "path": "runtime/pr-governance/activation/sheikha-merge-governance-detailed-report.json",
+      "type": "generated_report"
+    },
+    {
+      "id": "SHK-MRG-RPT-002",
+      "name": "Detailed Merge Governance Markdown Report",
+      "path": "runtime/pr-governance/activation/sheikha-merge-governance-detailed-report.md",
+      "type": "generated_report"
+    },
+    {
+      "id": "SHK-PR21-EVD-001",
+      "name": "PR21 Diff Risk Summary",
+      "path": "runtime/pr-governance/reviews/pr-21/analysis/pr21-diff-risk-summary.json",
+      "type": "pr_evidence"
+    },
+    {
+      "id": "SHK-PR21-EVD-002",
+      "name": "PR21 IDE Collaboration Conflict Extract",
+      "path": "runtime/pr-governance/reviews/pr-21/analysis/extracts/sheikha-ide-collaboration-system.diff",
+      "type": "pr_evidence"
+    }
+  ],
+  "rules": {
+    "stable_ids_required": true,
+    "file_path_required": true,
+    "reports_must_reference_evidence": true,
+    "new_governance_surfaces_must_be_indexed": true
+  }
+}

@@ -1,0 +1,1004 @@
+============================================================
+SHEIKHA UNIFIED SYSTEM STATUS
+============================================================
+
+==> UTF-8 background status
+UTF-8 server is running in PM2
+[1m[7m Describing process with id 37 - name sheikha-utf8-server [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-utf8-server                                                                                         │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=utf-8 --host=127.0.0.1 --port=48483                                                                  │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-utf8-server-error.log                                                       │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-utf8-server-out.log                                                         │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-utf8-server-37.pid                                                          │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 37                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:39.769Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-utf8-server <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.18 MiB │
+│ Heap Usage             │ 87.24 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.98 ms  │
+│ Event Loop Latency     │ 0.90 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-utf8-bg.sh start                                                                                                                                                                                                            │
+│ npm_lifecycle_event  │ ops:utf8:bg:start                                                                                                                                                                                                                                │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-utf8-server [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 37` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-utf8-server
+[OK] UTF-8 background status
+
+==> Unicode stack background status
+[1m[7m Describing process with id 38 - name sheikha-unicode-standard-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-unicode-standard-bg                                                                                 │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-unicode-standard --host=127.0.0.1 --port=48510 --default-language=ar                         │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-unicode-standard-bg-error.log                                               │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-unicode-standard-bg-out.log                                                 │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-unicode-standard-bg-38.pid                                                  │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 38                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:40.185Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-unicode-standard-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.19 MiB │
+│ Heap Usage             │ 87.35 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.98 ms  │
+│ Event Loop Latency     │ 0.87 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-unicode-standard-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 38` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-unicode-standard-bg
+[1m[7m Describing process with id 39 - name sheikha-variable-width-encoding-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-variable-width-encoding-bg                                                                          │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-variable-width-encoding --host=127.0.0.1 --port=48511 --default-language=ar                  │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-variable-width-encoding-bg-error.log                                        │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-variable-width-encoding-bg-out.log                                          │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-variable-width-encoding-bg-39.pid                                           │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 39                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:40.449Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-variable-width-encoding-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.18 MiB │
+│ Heap Usage             │ 87.26 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.98 ms  │
+│ Event Loop Latency     │ 0.89 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-variable-width-encoding-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 39` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-variable-width-encoding-bg
+[1m[7m Describing process with id 40 - name sheikha-code-points-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-code-points-bg                                                                                      │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-code-points --host=127.0.0.1 --port=48512 --default-language=ar                              │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-code-points-bg-error.log                                                    │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-code-points-bg-out.log                                                      │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-code-points-bg-40.pid                                                       │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 40                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:40.680Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-code-points-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.91 MiB │
+│ Heap Usage             │ 82.19 %  │
+│ Heap Size              │ 9.63 MiB │
+│ Event Loop Latency p95 │ 3.00 ms  │
+│ Event Loop Latency     │ 0.89 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-code-points-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 40` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-code-points-bg
+[1m[7m Describing process with id 41 - name sheikha-byte-sequence-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-byte-sequence-bg                                                                                    │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-byte-sequence --host=127.0.0.1 --port=48513 --default-language=ar                            │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-byte-sequence-bg-error.log                                                  │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-byte-sequence-bg-out.log                                                    │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-byte-sequence-bg-41.pid                                                     │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 41                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:40.928Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-byte-sequence-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.91 MiB │
+│ Heap Usage             │ 84.34 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.97 ms  │
+│ Event Loop Latency     │ 0.89 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-byte-sequence-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 41` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-byte-sequence-bg
+[1m[7m Describing process with id 42 - name sheikha-ascii-compatibility-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-ascii-compatibility-bg                                                                              │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-ascii-compatibility --host=127.0.0.1 --port=48514 --default-language=ar                      │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-ascii-compatibility-bg-error.log                                            │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-ascii-compatibility-bg-out.log                                              │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-ascii-compatibility-bg-42.pid                                               │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 42                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:41.154Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-ascii-compatibility-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.91 MiB │
+│ Heap Usage             │ 86.64 %  │
+│ Heap Size              │ 9.13 MiB │
+│ Event Loop Latency p95 │ 2.98 ms  │
+│ Event Loop Latency     │ 0.86 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-ascii-compatibility-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 42` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-ascii-compatibility-bg
+[1m[7m Describing process with id 43 - name sheikha-self-synchronization-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-self-synchronization-bg                                                                             │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-self-synchronization --host=127.0.0.1 --port=48515 --default-language=ar                     │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-self-synchronization-bg-error.log                                           │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-self-synchronization-bg-out.log                                             │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-self-synchronization-bg-43.pid                                              │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 43                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:41.394Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-self-synchronization-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.92 MiB │
+│ Heap Usage             │ 86.72 %  │
+│ Heap Size              │ 9.13 MiB │
+│ Event Loop Latency p95 │ 3.01 ms  │
+│ Event Loop Latency     │ 0.87 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-self-synchronization-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 43` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-self-synchronization-bg
+[1m[7m Describing process with id 44 - name sheikha-multi-byte-characters-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-multi-byte-characters-bg                                                                            │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-multi-byte-characters --host=127.0.0.1 --port=48516 --default-language=ar                    │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-multi-byte-characters-bg-error.log                                          │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-multi-byte-characters-bg-out.log                                            │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-multi-byte-characters-bg-44.pid                                             │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 44                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:41.633Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-multi-byte-characters-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.64 MiB │
+│ Heap Usage             │ 83.72 %  │
+│ Heap Size              │ 9.13 MiB │
+│ Event Loop Latency p95 │ 2.88 ms  │
+│ Event Loop Latency     │ 0.86 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-multi-byte-characters-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 44` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-multi-byte-characters-bg
+[1m[7m Describing process with id 45 - name sheikha-data-representation-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-data-representation-bg                                                                              │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-data-representation --host=127.0.0.1 --port=48517 --default-language=ar                      │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-data-representation-bg-error.log                                            │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-data-representation-bg-out.log                                              │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-data-representation-bg-45.pid                                               │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 45                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:41.872Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-data-representation-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.91 MiB │
+│ Heap Usage             │ 84.34 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.99 ms  │
+│ Event Loop Latency     │ 0.88 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-data-representation-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 45` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-data-representation-bg
+[1m[7m Describing process with id 46 - name sheikha-encoding-systems-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-encoding-systems-bg                                                                                 │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-encoding-systems --host=127.0.0.1 --port=48518 --default-language=ar                         │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-encoding-systems-bg-error.log                                               │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-encoding-systems-bg-out.log                                                 │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-encoding-systems-bg-46.pid                                                  │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 46                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:42.107Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-encoding-systems-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.92 MiB │
+│ Heap Usage             │ 86.71 %  │
+│ Heap Size              │ 9.13 MiB │
+│ Event Loop Latency p95 │ 3.00 ms  │
+│ Event Loop Latency     │ 0.89 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-encoding-systems-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 46` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-encoding-systems-bg
+[1m[7m Describing process with id 47 - name sheikha-data-storage-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-data-storage-bg                                                                                     │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-data-storage --host=127.0.0.1 --port=48519 --default-language=ar                             │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-data-storage-bg-error.log                                                   │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-data-storage-bg-out.log                                                     │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-data-storage-bg-47.pid                                                      │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 47                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:42.331Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-data-storage-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.91 MiB │
+│ Heap Usage             │ 84.36 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 3.01 ms  │
+│ Event Loop Latency     │ 0.86 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-data-storage-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 47` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-data-storage-bg
+[1m[7m Describing process with id 48 - name sheikha-utf-8-core-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-utf-8-core-bg                                                                                       │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-utf-8-core --host=127.0.0.1 --port=48520 --default-language=ar                               │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-utf-8-core-bg-error.log                                                     │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-utf-8-core-bg-out.log                                                       │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-utf-8-core-bg-48.pid                                                        │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 48                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:42.560Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-utf-8-core-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.18 MiB │
+│ Heap Usage             │ 87.2 %   │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.98 ms  │
+│ Event Loop Latency     │ 0.90 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-utf-8-core-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 48` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-utf-8-core-bg
+[1m[7m Describing process with id 49 - name sheikha-ascii-core-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-ascii-core-bg                                                                                       │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-ascii-core --host=127.0.0.1 --port=48521 --default-language=ar                               │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-ascii-core-bg-error.log                                                     │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-ascii-core-bg-out.log                                                       │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-ascii-core-bg-49.pid                                                        │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 49                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:42.789Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-ascii-core-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.19 MiB │
+│ Heap Usage             │ 87.33 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 2.99 ms  │
+│ Event Loop Latency     │ 0.92 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-ascii-core-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 49` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-ascii-core-bg
+[1m[7m Describing process with id 50 - name sheikha-hardware-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-hardware-bg                                                                                         │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-hardware --host=127.0.0.1 --port=48522 --default-language=ar                                 │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-hardware-bg-error.log                                                       │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-hardware-bg-out.log                                                         │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-hardware-bg-50.pid                                                          │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 50                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:43.024Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-hardware-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.19 MiB │
+│ Heap Usage             │ 85.06 %  │
+│ Heap Size              │ 9.63 MiB │
+│ Event Loop Latency p95 │ 3.00 ms  │
+│ Event Loop Latency     │ 0.92 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-hardware-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 50` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-hardware-bg
+[1m[7m Describing process with id 51 - name sheikha-software-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-software-bg                                                                                         │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-software --host=127.0.0.1 --port=48523 --default-language=ar                                 │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-software-bg-error.log                                                       │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-software-bg-out.log                                                         │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-software-bg-51.pid                                                          │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 51                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:43.287Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-software-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.19 MiB │
+│ Heap Usage             │ 87.28 %  │
+│ Heap Size              │ 9.38 MiB │
+│ Event Loop Latency p95 │ 3.00 ms  │
+│ Event Loop Latency     │ 0.94 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-software-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 51` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-software-bg
+[1m[7m Describing process with id 52 - name sheikha-networking-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-networking-bg                                                                                       │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-networking --host=127.0.0.1 --port=48524 --default-language=ar                               │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-networking-bg-error.log                                                     │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-networking-bg-out.log                                                       │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-networking-bg-52.pid                                                        │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 52                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:43.577Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-networking-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 7.91 MiB │
+│ Heap Usage             │ 89.06 %  │
+│ Heap Size              │ 8.88 MiB │
+│ Event Loop Latency p95 │ 3.00 ms  │
+│ Event Loop Latency     │ 0.96 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-networking-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 52` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-networking-bg
+[1m[7m Describing process with id 53 - name sheikha-protocol-bg [27m[22m
+┌───────────────────┬─────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ status            │ [32m[1monline[22m[39m                                                                                                      │
+│ name              │ sheikha-protocol-bg                                                                                         │
+│ namespace         │ default                                                                                                     │
+│ version           │ 1.0.1                                                                                                       │
+│ restarts          │ 0                                                                                                           │
+│ uptime            │ 11m                                                                                                         │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js │
+│ script args       │ --tier=sheikha-protocol --host=127.0.0.1 --port=48525 --default-language=ar                                 │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-protocol-bg-error.log                                                       │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-protocol-bg-out.log                                                         │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-protocol-bg-53.pid                                                          │
+│ interpreter       │ node                                                                                                        │
+│ interpreter args  │ N/A                                                                                                         │
+│ script id         │ 53                                                                                                          │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal                                                          │
+│ exec mode         │ fork_mode                                                                                                   │
+│ node.js version   │ 25.6.1                                                                                                      │
+│ node env          │ N/A                                                                                                         │
+│ watch & reload    │ ✘                                                                                                           │
+│ unstable restarts │ 0                                                                                                           │
+│ created at        │ 2026-04-25T22:41:43.845Z                                                                                    │
+└───────────────────┴─────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+[7m[1m Actions available [22m[27m
+┌────────────────────────┐
+│ km:heapdump            │
+│ km:cpu:profiling:start │
+│ km:cpu:profiling:stop  │
+│ km:heap:sampling:start │
+│ km:heap:sampling:stop  │
+└────────────────────────┘
+[37m[3m Trigger via: pm2 trigger sheikha-protocol-bg <action_name>[23m[39m
+[37m[3m[23m[39m
+[7m[1m Code metrics value [22m[27m
+┌────────────────────────┬──────────┐
+│ Used Heap Size         │ 8.19 MiB │
+│ Heap Usage             │ 85.07 %  │
+│ Heap Size              │ 9.63 MiB │
+│ Event Loop Latency p95 │ 2.98 ms  │
+│ Event Loop Latency     │ 0.91 ms  │
+│ Active handles         │ 4        │
+│ Active requests        │ 0        │
+└────────────────────────┴──────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌──────────────────────┬──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┐
+│ COLOR                │ 1                                                                                                                                                                                                                                                │
+│ npm_lifecycle_script │ bash scripts/sheikha-unicode-stack-bg.sh start                                                                                                                                                                                                   │
+│ npm_lifecycle_event  │ ops:unicode:bg:start                                                                                                                                                                                                                             │
+│ SHLVL                │ 2                                                                                                                                                                                                                                                │
+│ PATH                 │ /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/.bin:/home/sheikha/Projects/sheikha/node_modules/.bin:/home/sheikha/Projects/node_modules/.bin:/home/sheikha/node_modules/.bin:/home/node_modules/.bin:/node_modules/.bin:/home/ │
+└──────────────────────┴──────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-protocol-bg [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 53` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-protocol-bg
+[OK] Unicode stack background status
+
+==> Neural mesh background status
+[OK] sheikha-neural-sheikha-neural-interpreters
+[OK] sheikha-neural-sheikha-neural-engines
+[OK] sheikha-neural-sheikha-neural-translators
+[OK] sheikha-neural-sheikha-neural-accelerator
+[OK] sheikha-neural-sheikha-arabic-foundation
+[OK] Neural mesh background status
+
+==> Governance UTF-8 compliance check
+Governance UTF-8 check passed.
+Report: /home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/governance-utf8-1777157597989.json
+[OK] Governance UTF-8 compliance check
+
+==> Architecture Mermaid generation
+Mermaid diagram generated successfully.
+Output: /home/sheikha/Projects/sheikha/sheikha-main-portal/docs/sheikha-architecture.generated.mmd
+[OK] Architecture Mermaid generation
+
+==> Unified API health check
+{"status":"ok"}[OK] Unified API health check
+
+==> Architecture map exists
+[OK] Architecture map exists
+[OK] Unified status report generated

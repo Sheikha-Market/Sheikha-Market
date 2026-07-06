@@ -20,7 +20,7 @@ class Company {
         this.activity = data.activity || '';
         this.size = data.size || 'small'; // small, medium, large, enterprise
         this.type = data.type || 'private'; // private, public, government
-        
+
         // بيانات الاتصال
         this.contact = data.contact || {
             email: null,
@@ -99,7 +99,7 @@ class Company {
     static findById(id) {
         let companies = database.read('companies') || [];
         if (!Array.isArray(companies)) companies = Object.values(companies);
-        
+
         const data = companies.find(c => c.id === id);
         return data ? new Company(data) : null;
     }
@@ -108,7 +108,7 @@ class Company {
     static findByCR(crNumber) {
         let companies = database.read('companies') || [];
         if (!Array.isArray(companies)) companies = Object.values(companies);
-        
+
         const data = companies.find(c => c.crNumber === crNumber);
         return data ? new Company(data) : null;
     }
@@ -144,7 +144,7 @@ class Company {
     static delete(id) {
         let companies = database.read('companies') || [];
         if (!Array.isArray(companies)) companies = Object.values(companies);
-        
+
         const index = companies.findIndex(c => c.id === id);
 
         if (index >= 0) {

@@ -1,0 +1,32 @@
+{
+  "segmentation": "SHEIKHA_REPOSITORY_SEGMENTATION",
+  "status": "ACTIVE",
+  "coreRuntime": [
+    "core/",
+    "runtime/",
+    "routes/",
+    "middleware/",
+    "server.js",
+    "bin/"
+  ],
+  "interfaces": [
+    "sheikha-vscode-extension/",
+    "dashboard/",
+    "mcp/"
+  ],
+  "generatedArtifacts": [
+    "dist/",
+    "exports/",
+    "activation-bundle/"
+  ],
+  "runtimeState": [
+    "data/",
+    "logs/",
+    "monitoring/",
+    "runtime-metrics/"
+  ],
+  "isolatedRepositories": [
+    "repos/"
+  ],
+  "rule": "Only governed verified runtime components may enter the operational core."
+}

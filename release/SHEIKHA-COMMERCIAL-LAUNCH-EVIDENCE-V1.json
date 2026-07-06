@@ -1,0 +1,99 @@
+{
+  "system": "SHEIKHA_COMMERCIAL_LAUNCH_EVIDENCE_V1",
+  "status": "EVIDENCE_PENDING",
+  "purpose": "Track non-secret evidence required before public commercial launch. Do not store secrets, tokens, private customer data, or raw payment credentials here.",
+  "baseTag": "sheikha-v1-production-candidate",
+  "backup": {
+    "database": {
+      "verified": false,
+      "artifactReference": "",
+      "verifiedAt": "",
+      "verifiedBy": "",
+      "notes": "Reference an external backup location or internal ticket, not the backup contents."
+    },
+    "environment": {
+      "verified": false,
+      "artifactReference": "",
+      "verifiedAt": "",
+      "verifiedBy": "",
+      "notes": "Confirm env backup exists outside git without exposing secrets."
+    }
+  },
+  "rollback": {
+    "rehearsal": {
+      "successful": false,
+      "tag": "sheikha-v1-production-candidate",
+      "environment": "staging",
+      "testedAt": "",
+      "testedBy": "",
+      "notes": ""
+    }
+  },
+  "monitoring": {
+    "alerts": {
+      "enabled": false,
+      "channels": [],
+      "owner": "",
+      "testedAt": "",
+      "notes": ""
+    },
+    "healthProbe": {
+      "enabled": true,
+      "endpoint": "/api/health"
+    }
+  },
+  "revenue": {
+    "paymentOrRevenuePath": {
+      "verified": false,
+      "mode": "not_configured",
+      "provider": "",
+      "testedAt": "",
+      "notes": ""
+    },
+    "billingFlow": {
+      "verified": false,
+      "testedAt": "",
+      "notes": ""
+    },
+    "contracts": {
+      "humanApproved": false,
+      "templateReference": "",
+      "approvedAt": "",
+      "notes": ""
+    }
+  },
+  "customerLifecycle": {
+    "endToEndTest": {
+      "verified": false,
+      "stages": [
+        "registration",
+        "contract",
+        "invoice",
+        "payment_or_revenue_record",
+        "activation",
+        "support",
+        "renewal"
+      ],
+      "testedAt": "",
+      "testedBy": "",
+      "notes": ""
+    }
+  },
+  "support": {
+    "flow": {
+      "verified": false,
+      "owner": "",
+      "slaReference": "",
+      "testedAt": "",
+      "notes": ""
+    }
+  },
+  "governance": {
+    "noHarm": true,
+    "noExternalMutation": true,
+    "humanApprovalRequiredForCommercialLaunch": true,
+    "noSecretsInThisFile": true,
+    "principle": "لا ضرر ولا ضرار",
+    "tawhid": "الله وحده لا شريك له"
+  }
+}

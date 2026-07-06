@@ -1,0 +1,21 @@
+{
+  "engine": "SHEIKHA_PATCH_ENGINE_V1",
+  "status": "ACTIVE",
+  "purpose": "Generate safe patch plans from PR review outputs without modifying main directly.",
+  "rules": {
+    "no_direct_main_modification": true,
+    "patch_plan_required": true,
+    "lint_required_after_patch": true,
+    "tests_required_after_patch": true,
+    "human_approval_required_for_high_risk": true,
+    "no_secret_leakage": true
+  },
+  "targets": [
+    "merge_conflicts",
+    "code_quality",
+    "security_findings",
+    "package_changes",
+    "server_changes",
+    "runtime_changes"
+  ]
+}

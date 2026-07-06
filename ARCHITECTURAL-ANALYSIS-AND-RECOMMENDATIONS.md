@@ -1,5 +1,5 @@
 # 🔬 تحليل معماري شامل — منظومة شيخة الموحدة
-**التاريخ:** 26 أبريل 2026  
+**التاريخ:** 26 أبريل 2026
 **الحالة:** تحليل + توصيات + خطة تحسين
 
 ---
@@ -68,8 +68,8 @@ POST /api/master-ncn/infer {"text": "احسب زكاة المال 1000"}
 // حتى لو كان الأمر متطابق
 ```
 
-**التأثير:** أداء ضعيفة تحت الحمل (High Load)  
-**الخطورة:** 🔴 عالية  
+**التأثير:** أداء ضعيفة تحت الحمل (High Load)
+**الخطورة:** 🔴 عالية
 **الحل:** إضافة layer تخزين مؤقت ذكي
 
 #### ⚠️ **معالجة أخطاء غير شاملة**
@@ -85,8 +85,8 @@ try {
 }
 ```
 
-**التأثير:** crashes غير متوقعة  
-**الخطورة:** 🔴 عالية  
+**التأثير:** crashes غير متوقعة
+**الخطورة:** 🔴 عالية
 **الحل:** middleware تحقق شامل + معالجة أخطاء دقيقة
 
 #### ⚠️ **عدم وجود Metrics/Monitoring**
@@ -98,8 +98,8 @@ try {
 - أين الاختناقات؟
 ```
 
-**التأثير:** عمى عن الأداء الفعلي  
-**الخطورة:** 🟡 متوسطة  
+**التأثير:** عمى عن الأداء الفعلي
+**الخطورة:** 🟡 متوسطة
 **الحل:** dashboard metrics حقيقي
 
 #### ⚠️ **عدم وجود Rate Limiting**
@@ -110,8 +110,8 @@ try {
 - لا يوجد حماية
 ```
 
-**التأثير:** عرضة للـ DoS attacks  
-**الخطورة:** 🔴 عالية  
+**التأثير:** عرضة للـ DoS attacks
+**الخطورة:** 🔴 عالية
 **الحل:** rate limiting ذكي
 
 #### ⚠️ **عدم وجود Timeout**
@@ -122,8 +122,8 @@ const result = masterNCN.infer(text);
 // سيبقى الـ request معلق
 ```
 
-**التأثير:** memory leaks, hung requests  
-**الخطورة:** 🔴 عالية  
+**التأثير:** memory leaks, hung requests
+**الخطورة:** 🔴 عالية
 **الحل:** timeout ذكي لكل عملية
 
 ---
@@ -177,7 +177,7 @@ const validateRequest = (schema) => (req, res, next) => {
 };
 ```
 
-**الفائدة:** منع الأخطاء مبكراً  
+**الفائدة:** منع الأخطاء مبكراً
 **الأداء:** +15% استقرار
 
 ---
@@ -203,7 +203,7 @@ throw new SheikhError(
 );
 ```
 
-**الفائدة:** معالجة أخطاء موحدة  
+**الفائدة:** معالجة أخطاء موحدة
 **الأداء:** +20% وضوح
 
 ---
@@ -228,7 +228,7 @@ function isCached(key) {
 }
 ```
 
-**الفائدة:** -70% latency للطلبات المكررة  
+**الفائدة:** -70% latency للطلبات المكررة
 **الأداء:** +300% throughput
 
 ---
@@ -240,25 +240,25 @@ const rateLimit = new Map();
 function checkRateLimit(clientId, maxRequests = 100, window = 60000) {
   const now = Date.now();
   const key = clientId;
-  
+
   if (!rateLimit.has(key)) {
     rateLimit.set(key, []);
   }
-  
+
   const timestamps = rateLimit.get(key)
     .filter(t => now - t < window);
-  
+
   if (timestamps.length >= maxRequests) {
     return false; // Rate limit exceeded
   }
-  
+
   timestamps.push(now);
   rateLimit.set(key, timestamps);
   return true;
 }
 ```
 
-**الفائدة:** حماية من DoS  
+**الفائدة:** حماية من DoS
 **الأداء:** +100% أمان
 
 ---
@@ -272,17 +272,17 @@ class Metrics {
     this.totalTime = 0;
     this.domains = {};
   }
-  
+
   recordRequest(domain, time) {
     this.requests++;
     this.totalTime += time;
     this.domains[domain] = (this.domains[domain] || 0) + 1;
   }
-  
+
   recordError() {
     this.errors++;
   }
-  
+
   getStats() {
     return {
       totalRequests: this.requests,
@@ -295,7 +295,7 @@ class Metrics {
 }
 ```
 
-**الفائدة:** رؤية حقيقية للأداء  
+**الفائدة:** رؤية حقيقية للأداء
 **الأداء:** +50% insight
 
 ---
@@ -407,8 +407,8 @@ class Metrics {
 
 ---
 
-**الإصدار:** 2.0.0  
-**التاريخ:** 26 أبريل 2026  
+**الإصدار:** 2.0.0
+**التاريخ:** 26 أبريل 2026
 **الحالة:** ✅ جاهز لمرحلة التحسينات
 
 بسم الله الرحمن الرحيم

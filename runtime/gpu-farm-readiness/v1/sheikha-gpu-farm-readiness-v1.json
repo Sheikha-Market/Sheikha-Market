@@ -1,0 +1,19 @@
+{
+  "system": "SHEIKHA_GPU_FARM_READINESS_V1",
+  "status": "ACTIVE",
+  "truthfulness": {
+    "readiness_only": true,
+    "no_physical_gpu_farm_claim": true,
+    "no_supercomputer_ownership_claim": true
+  },
+  "readinessTargets": [
+    "GPU_NODE_READY",
+    "MULTI_NODE_READY",
+    "KUBERNETES_READY",
+    "HPC_READY",
+    "MONITORING_READY",
+    "COST_GUARD_READY",
+    "SECURITY_GOVERNANCE_READY"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

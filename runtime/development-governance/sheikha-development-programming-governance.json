@@ -1,0 +1,104 @@
+{
+  "governance": "SHEIKHA_DEVELOPMENT_PROGRAMMING_GOVERNANCE",
+  "status": "ACTIVE",
+  "operator": "SHEIKHA_CODEX_DEVELOPMENT_OPERATOR",
+  "mode": "governed-installation-development-programming",
+  "purpose": "Govern how Sheikha performs installation, development, programming, review, verification, reporting, commit, push, PR handling, and merge preparation.",
+  "baseline": [
+    "SHEIKHA_ARCHITECTURE_FREEZE_V1_3",
+    "SHEIKHA_FEDERAL_ORGANIZATION_V1_2",
+    "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER",
+    "SHEIKHA_CHAT_AND_CODE_BEHAVIOR_GOVERNANCE"
+  ],
+  "authorityChain": [
+    "quran_sunnah_governance",
+    "chat_code_behavior_governance",
+    "architecture_freeze_v1_3",
+    "federal_organization_v1_2",
+    "technical_advisory_governance",
+    "pr_governance",
+    "curated_merge_governance",
+    "human_approval_when_required"
+  ],
+  "developmentLifecycle": [
+    {
+      "code": "SDG-100",
+      "name": "workspace_intake",
+      "rule": "Read current branch, git status, active instructions, and relevant files before editing."
+    },
+    {
+      "code": "SDG-110",
+      "name": "context_analysis",
+      "rule": "Analyze existing architecture, ownership, Fabric routes, governance files, and prior decisions."
+    },
+    {
+      "code": "SDG-120",
+      "name": "implementation_plan",
+      "rule": "Use the smallest safe implementation path that preserves the active freeze and governance baseline."
+    },
+    {
+      "code": "SDG-130",
+      "name": "governed_programming",
+      "rule": "Edit only scoped files, avoid unrelated refactors, and preserve user work."
+    },
+    {
+      "code": "SDG-140",
+      "name": "verification",
+      "rule": "Run syntax checks, JSON validation, lint, targeted tests, and endpoint checks when relevant."
+    },
+    {
+      "code": "SDG-150",
+      "name": "documentation_and_indexing",
+      "rule": "Document new governance surfaces with stable IDs, file paths, purpose, and decisions."
+    },
+    {
+      "code": "SDG-160",
+      "name": "commit_governance",
+      "rule": "Commit only scoped, verified changes with a clear governance message."
+    },
+    {
+      "code": "SDG-170",
+      "name": "push_governance",
+      "rule": "Push only after verification and successful governance hooks."
+    },
+    {
+      "code": "SDG-180",
+      "name": "post_activation_report",
+      "rule": "Report what changed, what was verified, what remains blocked, and what requires human approval."
+    }
+  ],
+  "programmingRules": {
+    "read_before_edit": true,
+    "preserve_user_changes": true,
+    "no_secret_commit": true,
+    "no_unreviewed_package_change": true,
+    "no_unreviewed_server_bootstrap_change": true,
+    "fabric_routes_are_primary_mount_source": true,
+    "lint_required": true,
+    "node_check_required": true,
+    "json_validation_required": true,
+    "tests_required_when_behavior_changes": true,
+    "documentation_required_for_governance_surfaces": true,
+    "index_required_for_governance_systems": true,
+    "human_approval_required_for_high_risk_actions": true
+  },
+  "qualityStandard": {
+    "name": "SHEIKHA_BEST_DEVELOPMENT_STANDARD",
+    "principles": [
+      "truthful_scope",
+      "small_safe_change",
+      "governance_before_execution",
+      "verification_before_commit",
+      "documentation_before_expansion",
+      "curated_merge_before_high_risk_merge",
+      "rollback_awareness",
+      "human_approval_when_required"
+    ]
+  },
+  "boundaries": {
+    "system_is_tool_not_religious_authority": true,
+    "no_unapproved_external_authority_claim": true,
+    "no_raw_merge_for_high_risk_pr": true,
+    "no_direct_production_change_without_approval": true
+  }
+}
