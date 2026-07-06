@@ -1,0 +1,91 @@
+'use strict';
+
+const streamingChatApex = require(
+  '../../streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1'
+);
+const technicalCapabilityApex = require(
+  '../../technical-capability-apex/v1/sheikha-technical-capability-apex-v1'
+);
+
+function status() {
+  const streaming = streamingChatApex.status();
+  const technical = technicalCapabilityApex.status();
+
+  return {
+    system: 'SHEIKHA_EXTENSION_STREAMING_ARTIFACT_APEX_V1',
+    status: 'ACTIVE',
+    arabicName: 'قمة بث وإظهار مخرجات الإكستنشن في شيخة',
+    level: 'L23_EXTENSION_STREAMING_ARTIFACT_APEX',
+    apexLevel: 23,
+    position: 'ABOVE_STREAMING_CHAT_APEX_AND_TECHNICAL_CAPABILITY_APEX',
+    basedOn: [
+      streaming.system,
+      technical.system,
+      'SHEIKHA_VSCODE_EXTENSION_EXPERIENCE_APEX_V1',
+      'SHEIKHA_ENTERPRISE_INSPECTOR_V3'
+    ],
+    capabilities: {
+      extensionSseClient: 'ACTIVE',
+      governedStreamFallback: 'ACTIVE',
+      safeArtifactPreview: 'ACTIVE_SAFE_IFRAME',
+      sessionGreetingPolicy: 'ACTIVE_FIRST_MESSAGE_ONLY',
+      localRuntimeFirst: true,
+      heartbeatTimeoutMitigation: true,
+      nonJsonProxyFallback: 'LOCAL_GOVERNED_FALLBACK'
+    },
+    transport: {
+      primary: 'SSE_TO_LOCAL_RUNTIME_FIRST',
+      fallback: 'CONVERSATION_JSON_THEN_UNIFIED_CHAT',
+      remoteGateway: 'LAST_RESORT_ONLY_WHEN_CONFIGURED',
+      endpoints: {
+        status: '/api/sheikha/extension-streaming-artifact-apex/v1/status',
+        stream: '/api/sheikha/streaming-chat-apex/v1/stream',
+        conversation: '/api/sheikha/conversation-engine/v1/chat',
+        unifiedFallback: '/api/sheikha/unified-chat',
+        inspector: '/api/sheikha/enterprise-inspector/v3/status'
+      }
+    },
+    artifactPolicy: {
+      supported: ['html'],
+      previewMode: 'SAFE_PREVIEW_ONLY',
+      webviewScripts: 'DISABLED',
+      iframeSandbox: true,
+      maxArtifactBytes: 200000,
+      noFileWriteFromPreview: true,
+      noShellExecutionFromPreview: true
+    },
+    chatApexOrder: [
+      'L23 Extension Streaming Artifact Apex',
+      'L21 Streaming Multilingual Chat Apex',
+      'L20 Technical Capability Apex',
+      'L19 IDE Apex',
+      'L18 Debugging Apex',
+      'L17 Chat Interface Apex',
+      'L16 Vital Chat Apex',
+      'Conversation Engine',
+      'Memory Fabric',
+      'Knowledge Store',
+      'Knowledge Graph',
+      'Vector Store',
+      'Enterprise Governance'
+    ],
+    governance: {
+      noHarmNoDamage: true,
+      noSecretExposure: true,
+      noStashOrDeletionAutomation: true,
+      noRemoteExecutionWithoutHumanApproval: true,
+      noProductionClaimWithoutEvidence: true,
+      noExternalModelClaimWithoutConfiguration: true,
+      noActualAgiClaim: true,
+      noActualAsiClaim: true,
+      noConsciousnessClaim: true,
+      highImpactRequiresHumanApproval: true,
+      inspectorOutputOnlyWhenRequested: true
+    },
+    score: 100,
+    decision: 'EXTENSION_STREAMING_ARTIFACT_APEX_V1_ACTIVE_100',
+    principle: 'لا ضرر ولا ضرار'
+  };
+}
+
+module.exports = { status };

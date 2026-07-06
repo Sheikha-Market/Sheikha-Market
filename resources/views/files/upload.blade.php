@@ -17,10 +17,10 @@
 
         <div class="form-group">
             <label for="file">اختر الملف</label>
-            <input 
-                type="file" 
-                id="file" 
-                name="file" 
+            <input
+                type="file"
+                id="file"
+                name="file"
                 required
                 accept="*/*"
                 class="form-control"
@@ -42,9 +42,9 @@
 
         <div class="form-group">
             <label for="description">الوصف</label>
-            <textarea 
-                id="description" 
-                name="description" 
+            <textarea
+                id="description"
+                name="description"
                 class="form-control"
                 rows="3"
                 placeholder="أضف وصفاً للملف..."

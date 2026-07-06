@@ -1,0 +1,658 @@
+{
+  "report": "SHEIKHA_ROUTE_NORMALIZATION_AUDIT",
+  "status": "ACTIVE",
+  "total": 1512,
+  "unique": 1303,
+  "duplicateEntries": 209,
+  "duplicatePaths": 85,
+  "duplicates": [
+    {
+      "path": "/health",
+      "count": 12,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/layers",
+      "count": 9,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/sheikha/live-chat",
+      "count": 3,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/status",
+      "count": 82,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/activate",
+      "count": 9,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/government/status/:refCode",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/runtime",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/sheikha-node/status",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/observability/summary",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/logistics/documents/generate",
+      "count": 2,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/logistics/documents",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/me",
+      "count": 2,
+      "methods": [
+        "GET",
+        "PATCH"
+      ]
+    },
+    {
+      "path": "/api/notifications",
+      "count": 3,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/notifications/:id/read",
+      "count": 2,
+      "methods": [
+        "PATCH",
+        "PUT"
+      ]
+    },
+    {
+      "path": "/api/products/:id",
+      "count": 3,
+      "methods": [
+        "PUT",
+        "DELETE",
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/containers",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/containers/:id",
+      "count": 2,
+      "methods": [
+        "PUT",
+        "DELETE"
+      ]
+    },
+    {
+      "path": "/api/fbs/inventory",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/logistics/shipments",
+      "count": 3,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/shipping/companies",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/companies",
+      "count": 3,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/companies/:id",
+      "count": 3,
+      "methods": [
+        "GET",
+        "PUT",
+        "DELETE"
+      ]
+    },
+    {
+      "path": "/api/companies/registered/:id",
+      "count": 2,
+      "methods": [
+        "GET",
+        "PUT"
+      ]
+    },
+    {
+      "path": "/api/company/:id/products",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/marketing/campaigns",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/marketing/leads",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/marketing/content",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/forum/topics",
+      "count": 4,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/forum/topics/:id",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/forum/search",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/research/papers",
+      "count": 3,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/communications/settings",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/admin/file",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/ai/conversations",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/ai/knowledge",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/warehouses",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/shipments",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/production/items",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/pilot/work-items",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/excellence/first-best",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/dim/dashboard",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/dim/pipeline",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/dim/work-items",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/dim/decisions",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/dim/kpis",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/production/dashboard",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/production/work-items",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/networks/dashboard",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/contracts",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/orders",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/model-integrations",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/enterprise-vscode-git/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/enterprise-git-service/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/governing-os/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/ai-service-provider/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/ai-service-provider/certification",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/enterprise-ide/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/universal-tools-fabric/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/core/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/editor/status",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/api/sheikha/continuous-learning/daily-plan",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/runtime",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/routes",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/orchestration",
+      "count": 3,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/toolsets",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/federation",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/synchronization",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/distributed-root",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/canonical-runtime-status",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/api/runtime/authority",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/remember",
+      "count": 2,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/report",
+      "count": 6,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/blueprint",
+      "count": 2,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/emit",
+      "count": 3,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/allocate",
+      "count": 2,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/topology",
+      "count": 2,
+      "methods": [
+        "POST",
+        "GET"
+      ]
+    },
+    {
+      "path": "/node",
+      "count": 2,
+      "methods": [
+        "POST"
+      ]
+    },
+    {
+      "path": "/delivery",
+      "count": 2,
+      "methods": [
+        "GET",
+        "POST"
+      ]
+    },
+    {
+      "path": "/domains",
+      "count": 5,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/boundaries",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/targets",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/nodes",
+      "count": 3,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/rules",
+      "count": 3,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/licensing",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    },
+    {
+      "path": "/regulation",
+      "count": 2,
+      "methods": [
+        "GET"
+      ]
+    }
+  ],
+  "rules": {
+    "no_delete_without_review": true,
+    "normalize_before_remove": true,
+    "preserve_methods": true,
+    "preserve_governance_routes": true
+  },
+  "timestamp": "2026-06-03T18:59:54.135Z"
+}

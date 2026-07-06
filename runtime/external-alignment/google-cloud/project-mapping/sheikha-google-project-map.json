@@ -1,0 +1,50 @@
+{
+  "map": "SHEIKHA_GOOGLE_PROJECT_MAPPING",
+  "status": "ACTIVE",
+  "primaryProject": {
+    "name": "Sheikha Marketplace",
+    "projectId": "sheikha-marketplace",
+    "projectNumber": "952025946298",
+    "role": "PRIMARY_RUNTIME_AND_MARKETPLACE_PROJECT"
+  },
+  "organization": {
+    "name": "sheikha.top",
+    "organizationId": "224557279528"
+  },
+  "relatedProjects": [
+    {
+      "projectId": "sheikha-core",
+      "role": "CORE_SERVICES_AND_FOUNDATION",
+      "status": "RELATED_NOT_MERGED"
+    },
+    {
+      "projectId": "sheikha-market-ops",
+      "role": "OPERATIONS_AND_MARKET_WORKFLOWS",
+      "status": "RELATED_NOT_MERGED"
+    },
+    {
+      "projectId": "sheikha-empire",
+      "role": "EXPANSION_AND_EXPERIMENTAL_SCOPE",
+      "status": "RELATED_NOT_MERGED"
+    }
+  ],
+  "governanceAreas": [
+    "Primary Project",
+    "Shared Services",
+    "IAM",
+    "Billing",
+    "APIs",
+    "Service Accounts",
+    "Secrets"
+  ],
+  "rules": {
+    "no_project_merge_without_audit": true,
+    "primary_project_is_sheikha_marketplace": true,
+    "related_projects_are_mapped_not_merged": true,
+    "iam_audit_required": true,
+    "billing_audit_required": true,
+    "service_account_audit_required": true,
+    "secrets_must_not_be_committed": true,
+    "apis_enabled_only_when_needed": true
+  }
+}

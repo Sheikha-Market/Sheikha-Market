@@ -2,7 +2,7 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  * 🌐 مسارات API لتفعيل الأنظمة - Systems Activation Routes
  * ═══════════════════════════════════════════════════════════════════════════════
- * 
+ *
  * الوظيفة: توفير endpoints API لتفعيل وإدارة الأنظمة
  * الإصدار: 1.0
  * التاريخ: 17 مايو 2026
@@ -51,7 +51,7 @@ router.get('/status', (req, res) => {
  */
 router.get('/info/:systemId', (req, res) => {
   const system = getSystemDetails(req.params.systemId);
-  
+
   if (!system) {
     return res.status(404).json({
       success: false,
@@ -74,7 +74,7 @@ router.get('/info/:systemId', (req, res) => {
  */
 router.get('/properties/:systemId', (req, res) => {
   const system = getSystemDetails(req.params.systemId);
-  
+
   if (!system) {
     return res.status(404).json({
       success: false,
@@ -104,7 +104,7 @@ router.get('/properties/:systemId', (req, res) => {
  */
 router.get('/by-type/:type', (req, res) => {
   const systems = getSystemsByType(req.params.type);
-  
+
   if (systems.length === 0) {
     return res.status(404).json({
       success: false,
@@ -131,7 +131,7 @@ router.get('/by-type/:type', (req, res) => {
  */
 router.post('/activate/:systemId', async (req, res) => {
   const result = await engine.activateSystem(req.params.systemId);
-  
+
   const statusCode = result.success ? 200 : 400;
   res.status(statusCode).json({
     success: result.success,
@@ -147,7 +147,7 @@ router.post('/activate/:systemId', async (req, res) => {
  */
 router.post('/activate-all', async (req, res) => {
   const result = await engine.activateAllSystems();
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),
@@ -161,7 +161,7 @@ router.post('/activate-all', async (req, res) => {
  */
 router.post('/check-readiness/:systemId', (req, res) => {
   const readiness = engine.checkReadiness(req.params.systemId);
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),
@@ -175,7 +175,7 @@ router.post('/check-readiness/:systemId', (req, res) => {
  */
 router.post('/sign-contract/:systemId', (req, res) => {
   const contract = engine.signReadinessContract(req.params.systemId);
-  
+
   const statusCode = contract.success ? 200 : 400;
   res.status(statusCode).json({
     success: contract.success,
@@ -194,7 +194,7 @@ router.post('/sign-contract/:systemId', (req, res) => {
  */
 router.get('/activation-log', (req, res) => {
   const log = engine.getActivationLog();
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),
@@ -208,7 +208,7 @@ router.get('/activation-log', (req, res) => {
  */
 router.get('/timeline', (req, res) => {
   const timeline = engine.getActivationTimeline();
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),
@@ -222,7 +222,7 @@ router.get('/timeline', (req, res) => {
  */
 router.get('/performance', (req, res) => {
   const perf = engine.calculatePerformance();
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),
@@ -236,7 +236,7 @@ router.get('/performance', (req, res) => {
  */
 router.get('/report', (req, res) => {
   const report = engine.generateReport();
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),
@@ -251,7 +251,7 @@ router.get('/report', (req, res) => {
 router.get('/innovation-report', (req, res) => {
   const status = engine.getSystemsStatus();
   const perf = engine.calculatePerformance();
-  
+
   res.json({
     success: true,
     timestamp: new Date().toISOString(),

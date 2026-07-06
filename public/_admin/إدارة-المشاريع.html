@@ -25,7 +25,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
-        
+
         /* Header */
         .header {
             background: var(--card);
@@ -63,9 +63,9 @@
             transition: all 0.2s;
         }
         .nav-link:hover, .nav-link.active { color: var(--gold); background: rgba(212,175,55,0.1); }
-        
+
         .container { max-width: 1200px; margin: 0 auto; padding: 40px 24px; }
-        
+
         /* Hero */
         .hero {
             text-align: center;
@@ -74,7 +74,7 @@
         .hero h1 { font-size: 2.2rem; margin-bottom: 16px; }
         .hero h1 span { color: var(--gold); }
         .hero p { font-size: 1.1rem; color: var(--text-muted); max-width: 600px; margin: 0 auto; }
-        
+
         /* Methodology Section */
         .methodology {
             background: var(--card);
@@ -90,7 +90,7 @@
         .methodology-title h2 { font-size: 1.5rem; margin-bottom: 8px; }
         .methodology-title h2 span { color: var(--gold); }
         .methodology-title p { color: var(--text-muted); font-size: 0.95rem; }
-        
+
         /* POLCC Framework */
         .polcc-grid {
             display: grid;
@@ -122,7 +122,7 @@
         }
         .polcc-item h4 { font-size: 1rem; margin-bottom: 4px; }
         .polcc-item p { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         /* Phase Details */
         .phase-details {
             margin-top: 30px;
@@ -148,7 +148,7 @@
         }
         .phase-header h3 { font-size: 1.3rem; }
         .phase-header p { color: var(--text-muted); font-size: 0.9rem; }
-        
+
         .phase-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -180,7 +180,7 @@
         }
         .phase-card li:last-child { border-bottom: none; }
         .phase-card li::before { content: '→'; color: var(--gold); }
-        
+
         /* Project Wizard */
         .wizard-section {
             background: var(--card);
@@ -195,7 +195,7 @@
         }
         .wizard-title h2 { font-size: 1.5rem; margin-bottom: 8px; }
         .wizard-title h2 span { color: var(--gold); }
-        
+
         /* Wizard Steps */
         .wizard-steps {
             display: flex;
@@ -243,7 +243,7 @@
         }
         .step-label { font-size: 0.8rem; color: var(--text-muted); text-align: center; }
         .wizard-step.active .step-label { color: var(--gold); }
-        
+
         /* Wizard Form */
         .wizard-form {
             max-width: 700px;
@@ -284,7 +284,7 @@
             grid-template-columns: 1fr 1fr;
             gap: 16px;
         }
-        
+
         /* Option Cards */
         .option-cards {
             display: grid;
@@ -310,7 +310,7 @@
         .option-icon { font-size: 2rem; margin-bottom: 8px; }
         .option-card h5 { font-size: 0.95rem; margin-bottom: 4px; }
         .option-card p { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         /* Buttons */
         .btn {
             padding: 14px 28px;
@@ -329,7 +329,7 @@
         .btn-gold:hover { transform: translateY(-2px); box-shadow: 0 8px 24px rgba(212,175,55,0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         .form-actions {
             display: flex;
             justify-content: space-between;
@@ -337,7 +337,7 @@
             padding-top: 20px;
             border-top: 1px solid var(--border);
         }
-        
+
         /* Summary */
         .summary-card {
             background: var(--darker);
@@ -355,7 +355,7 @@
         .summary-row:last-child { border-bottom: none; }
         .summary-label { color: var(--text-muted); }
         .summary-value { font-weight: 600; color: var(--gold); }
-        
+
         /* KPIs */
         .kpi-section {
             background: var(--card);
@@ -381,7 +381,7 @@
         .kpi-change { font-size: 0.8rem; margin-top: 8px; }
         .kpi-change.up { color: var(--success); }
         .kpi-change.down { color: var(--danger); }
-        
+
         /* Footer */
         .footer {
             text-align: center;
@@ -390,7 +390,7 @@
             margin-top: 60px;
         }
         .footer .basmala { color: var(--gold); margin-bottom: 12px; }
-        
+
         @media (max-width: 1024px) {
             .polcc-grid { grid-template-columns: repeat(3, 1fr); }
             .phase-grid { grid-template-columns: repeat(2, 1fr); }
@@ -441,7 +441,7 @@
                 <h2>📐 منهجية <span>POLCC</span> للإدارة</h2>
                 <p>أركان الإدارة الخمسة — اضغط على أي مرحلة لمعرفة التفاصيل</p>
             </div>
-            
+
             <div class="polcc-grid">
                 <div class="polcc-item active" onclick="showPhase('planning')" data-phase="planning">
                     <div class="polcc-number">1</div>
@@ -868,7 +868,7 @@
             // Update items
             document.querySelectorAll('.polcc-item').forEach(item => item.classList.remove('active'));
             document.querySelector(`[data-phase="${phaseId}"]`).classList.add('active');
-            
+
             // Update content
             document.querySelectorAll('.phase-content').forEach(content => content.classList.remove('active'));
             const phaseMap = {
@@ -892,7 +892,7 @@
                 if (stepNum === currentStep) step.classList.add('active');
                 if (stepNum < currentStep) step.classList.add('completed');
             });
-            
+
             document.querySelectorAll('.form-step').forEach((form, index) => {
                 form.classList.remove('active');
                 if (index + 1 === currentStep) form.classList.add('active');

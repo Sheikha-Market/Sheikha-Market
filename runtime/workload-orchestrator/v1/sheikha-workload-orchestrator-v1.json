@@ -1,0 +1,20 @@
+{
+  "system": "SHEIKHA_WORKLOAD_ORCHESTRATOR_V1",
+  "status": "ACTIVE",
+  "workloads": [
+    "GOVERNANCE_API",
+    "DECISION_API",
+    "CAPABILITY_API",
+    "WORKFLOW_API",
+    "LICENSE_API",
+    "REPORTING",
+    "COMMERCIAL_AUTOMATION"
+  ],
+  "rules": {
+    "governance_required": true,
+    "provider_approval_required": true,
+    "budget_guard_required": true,
+    "no_training_claim_without_run_log": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

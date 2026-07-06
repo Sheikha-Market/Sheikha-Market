@@ -1,0 +1,439 @@
+// بسم الله الرحمن الرحيم
+// ══════════════════════════════════════════════════════════════════════════════
+// محرك التكامل الموحد لجميع وكلاء SHEIKHA - UNIFIED AGENTS INTEGRATION ENGINE
+// ══════════════════════════════════════════════════════════════════════════════
+// المالك: سلمان أحمد بن سلمان الراجح
+// التاريخ: 2026-03-03
+// الوصف: واجهة موحدة للوصول إلى جميع وكلاء البناء والتطوير والعمليات والإدارة
+// ══════════════════════════════════════════════════════════════════════════════
+
+const ConstructionEngine = require('./sheikha-construction-development-agents-engine');
+const OperationsEngine = require('./sheikha-operations-management-agents-engine');
+
+// ══════════════════════════════════════════════════════════════════════════════
+// نظام التكامل الموحد
+// ══════════════════════════════════════════════════════════════════════════════
+
+const UnifiedAgentsSystem = {
+    
+    /**
+     * الحصول على جميع الوكلاء في النظام
+     */
+    getAllAgents() {
+        const constructionAgents = ConstructionEngine.getAllConstructionAgents();
+        const operationsAgents = OperationsEngine.getAllOperationsAgents();
+        
+        return {
+            construction: constructionAgents,
+            operations: operationsAgents,
+            all: [...constructionAgents, ...operationsAgents],
+            total: constructionAgents.length + operationsAgents.length
+        };
+    },
+
+    /**
+     * البحث عن وكيل في جميع المحركات
+     */
+    findAgent(agentId) {
+        // البحث في محرك البناء
+        let agent = ConstructionEngine.getAgentById(agentId);
+        if (agent) {
+            return { agent, engine: 'construction' };
+        }
+
+        // البحث في محرك العمليات
+        agent = OperationsEngine.getAgentById(agentId);
+        if (agent) {
+            return { agent, engine: 'operations' };
+        }
+
+        return null;
+    },
+
+    /**
+     * البحث عن وكلاء بالنص
+     */
+    searchAgents(query) {
+        const constructionResults = ConstructionEngine.getAllConstructionAgents().filter(agent =>
+            agent.nameAr?.toLowerCase().includes(query.toLowerCase()) ||
+            agent.nameEn?.toLowerCase().includes(query.toLowerCase()) ||
+            agent.role?.toLowerCase().includes(query.toLowerCase())
+        );
+
+        const operationsResults = OperationsEngine.searchAgents(query);
+
+        return {
+            construction: constructionResults,
+            operations: operationsResults,
+            all: [...constructionResults, ...operationsResults],
+            total: constructionResults.length + operationsResults.length
+        };
+    },
+
+    /**
+     * الحصول على وكلاء حسب الدور
+     */
+    getAgentsByRole(role) {
+        // البحث في محرك البناء
+        const constructionAgents = ConstructionEngine.getAgentsByRole(role);
+        
+        // البحث في محرك العمليات
+        const operationsAgents = OperationsEngine.getAgentsByRole(role);
+
+        return {
+            construction: constructionAgents,
+            operations: operationsAgents,
+            all: [...constructionAgents, ...operationsAgents]
+        };
+    },
+
+    /**
+     * الحصول على إحصائيات شاملة للنظام
+     */
+    getSystemStatistics() {
+        const allAgents = this.getAllAgents();
+        
+        // إحصائيات المحركات
+        const constructionStats = {
+            total: allAgents.construction.length,
+            byRole: {}
+        };
+        
+        const operationsStats = OperationsEngine.getAgentsStatistics();
+
+        // جمع الوكلاء حسب الدور
+        const allByRole = {};
+        const allByPriority = {};
+        
+        allAgents.all.forEach(agent => {
+            // حسب الدور
+            allByRole[agent.role] = (allByRole[agent.role] || 0) + 1;
+            
+            // حسب الأولوية
+            const priority = agent.priority || 'غير محدد';
+            allByPriority[priority] = (allByPriority[priority] || 0) + 1;
+        });
+
+        return {
+            total: allAgents.total,
+            construction: {
+                total: allAgents.construction.length,
+                percentage: ((allAgents.construction.length / allAgents.total) * 100).toFixed(1) + '%'
+            },
+            operations: {
+                total: allAgents.operations.length,
+                percentage: ((allAgents.operations.length / allAgents.total) * 100).toFixed(1) + '%',
+                categories: operationsStats.categories
+            },
+            byRole: allByRole,
+            byPriority: allByPriority,
+            engines: {
+                construction: 'البناء والتطوير',
+                operations: 'العمليات والإدارة'
+            }
+        };
+    },
+
+    /**
+     * الحصول على جميع الأدوار المتاحة
+     */
+    getAllRoles() {
+        const stats = this.getSystemStatistics();
+        return Object.keys(stats.byRole).sort();
+    },
+
+    /**
+     * تفعيل وكيل من أي محرك
+     */
+    activateAgent(agentId, config = {}) {
+        const result = this.findAgent(agentId);
+        if (!result) return null;
+
+        if (result.engine === 'construction') {
+            return ConstructionEngine.activateAgent(agentId, config);
+        } else {
+            return OperationsEngine.activateAgent(agentId, config);
+        }
+    },
+
+    /**
+     * تفعيل مجموعة وكلاء
+     */
+    activateMultipleAgents(agentIds, config = {}) {
+        return agentIds.map(id => this.activateAgent(id, config)).filter(Boolean);
+    },
+
+    /**
+     * تفعيل جميع وكلاء دور معين
+     */
+    activateAllAgentsByRole(role, config = {}) {
+        const agents = this.getAgentsByRole(role);
+        const activated = [];
+
+        // تفعيل من محرك البناء
+        if (agents.construction.length > 0) {
+            const constructionActivated = ConstructionEngine.activateAllAgentsByRole(role, config);
+            activated.push(...constructionActivated);
+        }
+
+        // تفعيل من محرك العمليات
+        if (agents.operations.length > 0) {
+            const operationsActivated = OperationsEngine.activateAllAgentsByRole(role, config);
+            activated.push(...operationsActivated);
+        }
+
+        return activated;
+    },
+
+    /**
+     * الحصول على تقرير شامل للنظام
+     */
+    getSystemReport() {
+        const stats = this.getSystemStatistics();
+        
+        return {
+            summary: {
+                totalAgents: stats.total,
+                constructionAgents: stats.construction.total,
+                operationsAgents: stats.operations.total,
+                totalRoles: Object.keys(stats.byRole).length,
+                totalDepartments: Object.keys(stats.byRole).length
+            },
+            distribution: {
+                byEngine: {
+                    construction: {
+                        count: stats.construction.total,
+                        percentage: stats.construction.percentage
+                    },
+                    operations: {
+                        count: stats.operations.total,
+                        percentage: stats.operations.percentage
+                    }
+                },
+                byRole: stats.byRole,
+                byPriority: stats.byPriority
+            },
+            capabilities: {
+                construction: [
+                    'إدارة المشاريع',
+                    'التخطيط والتصميم',
+                    'التنفيذ والإشراف',
+                    'الجودة والسلامة',
+                    'المعمار والهندسة'
+                ],
+                operations: [
+                    'سلاسل الإمداد',
+                    'إدارة الموارد',
+                    'المالية والمحاسبة',
+                    'الموارد البشرية',
+                    'الأمن والصحة',
+                    'الدفاع الرقمي',
+                    'الالتزام والمخالفات'
+                ]
+            },
+            islamicPrinciples: {
+                active: true,
+                categories: [
+                    'الأمانة والصدق',
+                    'العدل والإنصاف',
+                    'الإتقان في العمل',
+                    'تجنب الربا والغرر',
+                    'حفظ الحقوق',
+                    'الوفاء بالعقود',
+                    'الرحمة والرفق',
+                    'حفظ النفس والأمن'
+                ]
+            },
+            timestamp: new Date().toISOString()
+        };
+    },
+
+    /**
+     * تصدير جميع الوكلاء إلى JSON
+     */
+    exportToJSON(format = 'detailed') {
+        const allAgents = this.getAllAgents();
+        
+        if (format === 'simple') {
+            return {
+                total: allAgents.total,
+                agents: allAgents.all.map(agent => ({
+                    id: agent.id,
+                    nameAr: agent.nameAr,
+                    nameEn: agent.nameEn,
+                    role: agent.role,
+                    department: agent.department
+                }))
+            };
+        }
+        
+        return {
+            total: allAgents.total,
+            constructionAgents: allAgents.construction,
+            operationsAgents: allAgents.operations,
+            statistics: this.getSystemStatistics(),
+            exportedAt: new Date().toISOString()
+        };
+    },
+
+    /**
+     * الحصول على قائمة بجميع أسماء الوكلاء (عربي/إنجليزي)
+     */
+    getAllAgentNames() {
+        const allAgents = this.getAllAgents();
+        
+        return allAgents.all.map(agent => ({
+            id: agent.id,
+            arabic: agent.nameAr,
+            english: agent.nameEn,
+            role: agent.role
+        }));
+    },
+
+    /**
+     * فلترة الوكلاء حسب معايير متعددة
+     */
+    filterAgents(criteria) {
+        const allAgents = this.getAllAgents();
+        
+        let filtered = allAgents.all;
+
+        // حسب الدور
+        if (criteria.role) {
+            filtered = filtered.filter(agent => agent.role === criteria.role);
+        }
+
+        // حسب الأولوية
+        if (criteria.priority) {
+            filtered = filtered.filter(agent => agent.priority === criteria.priority);
+        }
+
+        // حسب القسم
+        if (criteria.department) {
+            filtered = filtered.filter(agent => 
+                agent.department?.includes(criteria.department)
+            );
+        }
+
+        // حسب المؤهلات
+        if (criteria.hasQualifications) {
+            filtered = filtered.filter(agent => 
+                agent.qualifications && agent.qualifications.length > 0
+            );
+        }
+
+        // حسب المبادئ الإسلامية
+        if (criteria.hasIslamicPrinciples) {
+            filtered = filtered.filter(agent => 
+                agent.islamicPrinciples && agent.islamicPrinciples.length > 0
+            );
+        }
+
+        return filtered;
+    },
+
+    /**
+     * التحقق من صحة معرف الوكيل
+     */
+    isValidAgentId(agentId) {
+        return this.findAgent(agentId) !== null;
+    },
+
+    /**
+     * الحصول على الوكلاء حسب مستوى الأولوية
+     */
+    getAgentsByPriority(priority) {
+        const allAgents = this.getAllAgents();
+        return allAgents.all.filter(agent => agent.priority === priority);
+    },
+
+    /**
+     * إنشاء خريطة الوكلاء (Agent Map)
+     */
+    createAgentMap() {
+        const allAgents = this.getAllAgents();
+        const map = {};
+
+        allAgents.all.forEach(agent => {
+            map[agent.id] = {
+                name: agent.nameAr,
+                role: agent.role,
+                department: agent.department,
+                priority: agent.priority,
+                engine: allAgents.construction.includes(agent) ? 'construction' : 'operations'
+            };
+        });
+
+        return map;
+    },
+
+    /**
+     * الحصول على اقتراحات الوكلاء بناءً على الاحتياجات
+     */
+    suggestAgents(needs = {}) {
+        const suggestions = [];
+
+        // إذا كان المشروع يحتاج إدارة مالية
+        if (needs.finance) {
+            suggestions.push(...this.getAgentsByRole('FINANCE_ACCOUNTING').all);
+        }
+
+        // إذا كان المشروع يحتاج أمن
+        if (needs.security) {
+            suggestions.push(...this.getAgentsByRole('SECURITY_POLICE').all);
+            suggestions.push(...this.getAgentsByRole('DIGITAL_DEFENSE').all);
+        }
+
+        // إذا كان المشروع يحتاج صحة
+        if (needs.health) {
+            suggestions.push(...this.getAgentsByRole('HEALTHCARE').all);
+        }
+
+        // إذا كان المشروع يحتاج موارد بشرية
+        if (needs.hr) {
+            suggestions.push(...this.getAgentsByRole('AGENT_HR').all);
+        }
+
+        // إذا كان المشروع يحتاج بناء
+        if (needs.construction) {
+            const constructionAgents = this.getAllAgents().construction;
+            suggestions.push(...constructionAgents);
+        }
+
+        return suggestions;
+    }
+};
+
+// ══════════════════════════════════════════════════════════════════════════════
+// 🎯 تصدير النظام الموحد
+// ══════════════════════════════════════════════════════════════════════════════
+
+module.exports = UnifiedAgentsSystem;
+
+// ══════════════════════════════════════════════════════════════════════════════
+// استخدام سريع (Quick Usage)
+// ══════════════════════════════════════════════════════════════════════════════
+
+if (require.main === module) {
+    console.log('\n══════════════════════════════════════════════════════════════');
+    console.log('🕌 بسم الله الرحمن الرحيم');
+    console.log('══════════════════════════════════════════════════════════════');
+    console.log('📊 نظام SHEIKHA الموحد للوكلاء');
+    console.log('══════════════════════════════════════════════════════════════\n');
+
+    const stats = UnifiedAgentsSystem.getSystemStatistics();
+    
+    console.log(`✅ إجمالي الوكلاء: ${stats.total}`);
+    console.log(`\n🏗️  وكلاء البناء والتطوير: ${stats.construction.total} (${stats.construction.percentage})`);
+    console.log(`⚙️  وكلاء العمليات والإدارة: ${stats.operations.total} (${stats.operations.percentage})`);
+    
+    console.log(`\n📦 عدد الأدوار المختلفة: ${Object.keys(stats.byRole).length}`);
+    console.log(`\n⭐ توزيع الوكلاء حسب الأولوية:`);
+    Object.entries(stats.byPriority).forEach(([priority, count]) => {
+        console.log(`   • أولوية ${priority}: ${count} وكيل`);
+    });
+
+    console.log('\n══════════════════════════════════════════════════════════════');
+    console.log('✨ الحمد لله رب العالمين');
+    console.log('══════════════════════════════════════════════════════════════\n');
+}

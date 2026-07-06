@@ -1,0 +1,19 @@
+{
+  "system": "SHEIKHA_PROVIDER_APPROVAL_ENGINE_V1",
+  "status": "ACTIVE",
+  "workflow": [
+    "PROVIDER_CANDIDATE",
+    "TECHNICAL_REVIEW",
+    "SECURITY_REVIEW",
+    "LEGAL_REVIEW",
+    "BUDGET_APPROVAL",
+    "CONTRACT_APPROVAL",
+    "PROVIDER_ACTIVATION"
+  ],
+  "rules": {
+    "no_provider_activation_without_contract": true,
+    "no_budget_without_human_approval": true,
+    "no_customer_data_without_legal_review": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

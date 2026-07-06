@@ -218,14 +218,14 @@ config: {
     orgID: "224557279528",
     orgEmail: "market@sheikha.top",
     domainName: "sheikha.top",
-    
+
     strategicGoals: [
         "إعمار الأرض بالعدل",
         "منع الفقر والعوز",
         "السيادة التقنية الإسلامية",
         "العدل اللوجستي والتجاري"
     ],
-    
+
     healthThresholds: {
         uptime: 99.5,           // النسبة المطلوبة
         responseTime: 500,      // الحد الأقصى بالميلي ثانية
@@ -258,27 +258,27 @@ const SovereignMaster = require('./lib/sheikha-master-control');
 
 async function runMaintenanceCheck() {
     console.log('🔍 فحص دوري شامل...\n');
-    
+
     // 1. فحص الصحة
     const isHealthy = await SovereignMaster.healthCheck();
-    
+
     if (!isHealthy) {
         console.log('⚠️ النظام يحتاج إلى صيانة');
         return;
     }
-    
+
     // 2. الالتحام بالسحابة
     const connected = await SovereignMaster.connectToCloudServices();
-    
+
     if (!connected) {
         console.log('⚠️ لا يمكن الوصول للسحابة');
         return;
     }
-    
+
     // 3. تنفيذ المهام
     const trade = await SovereignMaster.executeTradeMission();
     const impact = await SovereignMaster.measureBarakah();
-    
+
     // 4. عرض التقرير
     console.log('\n✅ اكتملت جميع الفحوصات');
 }

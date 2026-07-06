@@ -1,0 +1,26 @@
+{
+  "architecture": "SHEIKHA_GOVERNED_COMPUTING_ARCHITECTURE",
+  "status": "ACTIVE",
+  "principles": [
+    "governance_first",
+    "measure_before_trust",
+    "verify_before_promotion",
+    "controlled_runtime_operation",
+    "mandatory_rollback_capability"
+  ],
+  "layers": {
+    "hardware": ["cpu", "gpu", "accelerators", "memory", "motherboard", "network_interfaces", "storage_devices", "power", "cooling"],
+    "system_software": ["operating_system", "drivers", "container_runtime", "scheduler", "observability", "security_controls"],
+    "network": ["local_network", "cluster_network", "high_speed_interconnect", "secure_control_plane", "cloud_federation"],
+    "storage": ["nvme", "node_local_storage", "shared_storage", "object_storage", "backup", "recovery", "immutable_release_storage"],
+    "runtime": ["runtime_services", "api", "cli", "deployment_control", "policy_enforcement"],
+    "governance": ["inventory", "verification", "benchmarking", "approval", "promotion", "rollback", "audit"]
+  },
+  "relationships": {
+    "measurement": "validation, accounting, scoring, compliance",
+    "compute": "execution, processing, storage, networking",
+    "runtime": "controlled operation and service exposure",
+    "governance": "approval, protection, promotion, rollback, audit"
+  },
+  "rule": "No component becomes production-core until it is inventoried, measured, verified, approved, and recoverable through rollback."
+}

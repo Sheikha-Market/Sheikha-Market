@@ -26,7 +26,7 @@ code_collection = chroma_client.get_or_create_collection(name="global_production
 
 API_KEY_NAME = "X-AI-Engine-Key"
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
-VALID_API_KEYS = {"sk_live_php_hyper_engine_secret_key_2026_prod"}
+VALID_API_KEYS = {os.environ.get("SHEIKHA_AI_ENGINE_KEY", "")}
 
 async def get_api_key(api_key_header: str = Depends(api_key_header)):
     if api_key_header in VALID_API_KEYS: return api_key_header

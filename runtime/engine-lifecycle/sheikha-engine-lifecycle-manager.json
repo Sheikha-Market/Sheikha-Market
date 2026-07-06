@@ -1,0 +1,102 @@
+{
+  "system": "SHEIKHA_ENGINE_LIFECYCLE_MANAGER",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Manage the full lifecycle of registered Sheikha engines from discovery to activation, monitoring, recovery, shutdown, and archival with governance, audit, dependency awareness, and runtime safety.",
+  "sources": {
+    "registry": "runtime/universal-engine-registry/sheikha-universal-engine-registry.json",
+    "orchestrator": "runtime/universal-orchestrator/sheikha-universal-orchestrator.json",
+    "runtime_loader": "runtime/universal-runtime-loader/sheikha-universal-runtime-loader.json"
+  },
+  "lifecycle_states": [
+    "DISCOVERED",
+    "VALIDATED",
+    "REGISTERED",
+    "LOADED",
+    "INITIALIZED",
+    "READY",
+    "ACTIVE",
+    "MONITORING",
+    "PAUSED",
+    "UPDATING",
+    "RESTARTING",
+    "DEGRADED",
+    "RECOVERING",
+    "FAILED",
+    "SHUTDOWN",
+    "ARCHIVED"
+  ],
+  "allowed_transitions": {
+    "DISCOVERED": ["VALIDATED", "FAILED"],
+    "VALIDATED": ["REGISTERED", "FAILED"],
+    "REGISTERED": ["LOADED", "FAILED"],
+    "LOADED": ["INITIALIZED", "FAILED"],
+    "INITIALIZED": ["READY", "FAILED"],
+    "READY": ["ACTIVE", "PAUSED"],
+    "ACTIVE": ["MONITORING", "PAUSED", "UPDATING", "DEGRADED", "SHUTDOWN"],
+    "MONITORING": ["ACTIVE", "DEGRADED", "FAILED"],
+    "PAUSED": ["ACTIVE", "SHUTDOWN"],
+    "UPDATING": ["RESTARTING", "FAILED"],
+    "RESTARTING": ["READY", "FAILED"],
+    "DEGRADED": ["RECOVERING", "FAILED", "SHUTDOWN"],
+    "RECOVERING": ["READY", "FAILED"],
+    "FAILED": ["RECOVERING", "SHUTDOWN", "ARCHIVED"],
+    "SHUTDOWN": ["ARCHIVED"],
+    "ARCHIVED": []
+  },
+  "policies": {
+    "unvalidated_engine_must_not_run": true,
+    "registry_alignment_required": true,
+    "orchestrator_alignment_required": true,
+    "runtime_loader_alignment_required": true,
+    "dependency_check_before_activation": true,
+    "circular_dependency_forbidden": true,
+    "parallel_start_allowed_when_no_dependency_conflict": true,
+    "version_compatibility_required": true,
+    "audit_every_transition": true,
+    "rollback_on_failed_update": true
+  },
+  "recovery": {
+    "self_healing": "ACTIVE",
+    "retry_policy": {
+      "enabled": true,
+      "max_attempts": 3,
+      "backoff": "EXPONENTIAL"
+    },
+    "degraded_mode_allowed": true,
+    "failed_engine_isolated": true,
+    "human_review_for_repeated_failure": true
+  },
+  "monitoring": {
+    "health_check": "ACTIVE",
+    "dependency_health": "ACTIVE",
+    "capability_health": "ACTIVE",
+    "execution_trace": "ACTIVE",
+    "state_transition_trace": "ACTIVE",
+    "error_trace": "ACTIVE",
+    "performance_trace": "ACTIVE"
+  },
+  "governance": {
+    "evidence_required": true,
+    "source_traceability_required": true,
+    "audit_trace_required": true,
+    "no_unverified_claims": true,
+    "no_harm": true,
+    "human_review_for_high_impact": true
+  },
+  "outputs": [
+    "engine_lifecycle_report",
+    "state_transition_report",
+    "dependency_health_report",
+    "recovery_report",
+    "audit_trace",
+    "runtime_stability_report"
+  ],
+  "maturity": {
+    "lifecycle_management": "VERY_HIGH",
+    "recovery_readiness": "VERY_HIGH",
+    "runtime_stability": "VERY_HIGH",
+    "governance_alignment": "VERY_HIGH",
+    "overall": "ENGINE_LIFECYCLE_READY"
+  }
+}

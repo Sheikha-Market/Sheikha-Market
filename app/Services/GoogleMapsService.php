@@ -8,7 +8,7 @@ use Exception;
 
 /**
  * خدمة Google Maps المتكاملة
- * 
+ *
  * توفر جميع خدمات الخرائط والموقع الجغرافي والتوجيه
  */
 class GoogleMapsService
@@ -19,7 +19,7 @@ class GoogleMapsService
     public function __construct()
     {
         $this->apiKey = config('services.google.maps_api_key');
-        
+
         if (!$this->apiKey) {
             Log::channel('maps')->warning('مفتاح Google Maps API غير معرّف');
         }
@@ -43,7 +43,7 @@ class GoogleMapsService
 
             if ($data['status'] === 'OK') {
                 $address = $data['results'][0]['formatted_address'];
-                
+
                 Log::channel('maps')->info("تم الحصول على العنوان: {$address}");
 
                 return [
@@ -78,7 +78,7 @@ class GoogleMapsService
 
             if ($data['status'] === 'OK') {
                 $location = $data['results'][0]['geometry']['location'];
-                
+
                 Log::channel('maps')->info("تم الحصول على الإحداثيات للعنوان: {$address}");
 
                 return [

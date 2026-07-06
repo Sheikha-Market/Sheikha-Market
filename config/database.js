@@ -59,14 +59,14 @@ class Database {
      */
     write(collection, data) {
         this.cache.set(collection, data);
-        
+
         // حفظ في الملف
         const filename = config.database.files[collection];
         if (filename) {
             const filePath = path.join(this.dataPath, filename);
             fs.writeFileSync(filePath, JSON.stringify(data, null, 2), 'utf-8');
         }
-        
+
         return true;
     }
 
@@ -77,7 +77,7 @@ class Database {
         let data = this.cache.get(collection);
         if (!data) data = [];
         if (!Array.isArray(data)) data = [data];
-        
+
         data.push(item);
         this.write(collection, data);
         return item;

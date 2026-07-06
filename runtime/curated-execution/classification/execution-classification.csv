@@ -1,0 +1,15 @@
+path,classification,action
+core/,production,keep
+runtime/,production,keep
+routes/,production,keep
+governance/,production,keep
+registry/,production,keep
+verification/,production,keep
+optimization/,production,keep
+data/,operational-data,review-and-partition
+sheikha-vscode-extension/,tooling,isolate-later
+runtime/audits/,audit-history,retain-latest-only
+dist/,artifact,ignore-or-archive
+exports/,artifact,ignore-or-archive
+scripts/,operations,manual-review
+tools/,operations,manual-review

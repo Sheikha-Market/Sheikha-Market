@@ -1,0 +1,30 @@
+{
+  "registry": "SHEIKHA_LOGISTICS_DASHBOARD_ROUTING_V1",
+  "status": "ACTIVE",
+  "dashboards": [
+    {
+      "type": "LOGISTICS_PROVIDER",
+      "widgets": ["Customers", "RFQs", "Contracts", "Shipments", "Invoices", "Revenue", "Assets", "SLA"]
+    },
+    {
+      "type": "PORT",
+      "widgets": ["Vessels", "Containers", "Bulk Cargo", "Gate Operations", "Yard Capacity", "Trade Lanes"]
+    },
+    {
+      "type": "INDUSTRIAL_CITY",
+      "widgets": ["Factories", "Resources", "Utilities", "Logistics", "Employment", "Growth"]
+    },
+    {
+      "type": "SMART_CITY",
+      "widgets": ["Mobility", "Energy", "Waste", "Water", "Urban Logistics", "Economic Impact"]
+    },
+    {
+      "type": "GOVERNMENT_OR_AUTHORITY",
+      "widgets": ["Economic Impact", "Infrastructure", "Trade Flows", "Investment", "National KPIs"]
+    },
+    {
+      "type": "TRADER",
+      "widgets": ["Offers", "Buyers", "Suppliers", "Orders", "Payments", "Margins"]
+    }
+  ]
+}

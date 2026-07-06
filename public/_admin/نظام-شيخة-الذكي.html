@@ -29,7 +29,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
-        
+
         /* Header */
         .main-header {
             background: linear-gradient(135deg, var(--primary-dark), var(--dark));
@@ -56,7 +56,7 @@
         }
         .logo-text h1 { font-size: 1.3rem; color: var(--gold); }
         .logo-text p { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         .nav-menu {
             display: flex;
             gap: 8px;
@@ -78,7 +78,7 @@
             color: var(--gold);
             background: rgba(212,175,55,0.1);
         }
-        
+
         /* View Toggle */
         .view-toggle {
             max-width: 1600px;
@@ -117,10 +117,10 @@
         .toggle-btn:hover:not(.active) {
             background: rgba(255,255,255,0.05);
         }
-        
+
         /* Container */
         .container { max-width: 1600px; margin: 0 auto; padding: 20px; }
-        
+
         /* Section Title */
         .section-title {
             font-size: 1.6rem;
@@ -131,11 +131,11 @@
             gap: 12px;
         }
         .section-title span { color: var(--gold); }
-        
+
         /* ==================== عرض حسب المنتج ==================== */
         .product-view { display: block; }
         .supply-view { display: none; }
-        
+
         .product-categories {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
@@ -172,7 +172,7 @@
         .category-info h3 { font-size: 1.2rem; font-weight: 800; }
         .category-info p { font-size: 0.85rem; color: var(--text-muted); }
         .category-body { padding: 20px; }
-        
+
         /* Product 3D Visualization */
         .product-3d {
             background: linear-gradient(135deg, var(--dark), var(--card));
@@ -191,7 +191,7 @@
             content: '';
             position: absolute;
             top: 0; left: 0; right: 0; bottom: 0;
-            background: 
+            background:
                 linear-gradient(45deg, transparent 49%, rgba(212,175,55,0.1) 50%, transparent 51%),
                 linear-gradient(-45deg, transparent 49%, rgba(10,92,54,0.1) 50%, transparent 51%);
             background-size: 20px 20px;
@@ -205,7 +205,7 @@
             height: 120px;
             filter: drop-shadow(0 10px 20px rgba(0,0,0,0.4));
         }
-        
+
         /* Equipment List */
         .equipment-list {
             display: flex;
@@ -226,7 +226,7 @@
         }
         .equipment-tag.rent { border-color: var(--info); color: var(--info); background: rgba(59,130,246,0.1); }
         .equipment-tag.buy { border-color: var(--success); color: var(--success); background: rgba(16,185,129,0.1); }
-        
+
         /* ==================== عرض حسب مرحلة التوريد ==================== */
         .supply-stages {
             display: flex;
@@ -258,7 +258,7 @@
         .stage-info h3 { font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .stage-info p { font-size: 0.9rem; color: var(--text-muted); }
         .stage-body { padding: 24px; }
-        
+
         /* Equipment Grid */
         .equipment-grid {
             display: grid;
@@ -313,7 +313,7 @@
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
         .btn-sm { padding: 8px 14px; font-size: 0.8rem; }
-        
+
         /* ==================== بوليصة الشحن ==================== */
         .shipping-section {
             background: var(--card);
@@ -343,7 +343,7 @@
             outline: none;
             border-color: var(--gold);
         }
-        
+
         /* BOL Preview */
         .bol-preview {
             background: #fff;
@@ -367,7 +367,7 @@
         .bol-section h4 { font-size: 0.9rem; color: #666; margin-bottom: 8px; text-transform: uppercase; }
         .bol-section p { margin: 4px 0; }
         .bol-footer { margin-top: 20px; text-align: center; border-top: 1px solid #ccc; padding-top: 15px; }
-        
+
         /* ==================== خريطة العمليات المتحركة ==================== */
         .operations-map {
             background: var(--card);
@@ -406,7 +406,7 @@
         }
         .map-node-icon { font-size: 1.8rem; }
         .map-node-label { font-size: 0.7rem; color: var(--text-muted); margin-top: 4px; }
-        
+
         @keyframes flowLine {
             0% { stroke-dashoffset: 20; }
             100% { stroke-dashoffset: 0; }
@@ -418,7 +418,7 @@
             stroke-dasharray: 10, 5;
             animation: flowLine 1s linear infinite;
         }
-        
+
         /* ==================== إدارة العمالة ==================== */
         .workforce-section {
             background: var(--card);
@@ -465,7 +465,7 @@
             border-top: 1px solid var(--border);
         }
         .rate-value { font-size: 1.2rem; font-weight: 800; color: var(--gold); }
-        
+
         /* Services Section */
         .services-grid {
             display: grid;
@@ -484,7 +484,7 @@
         .service-icon { font-size: 2.5rem; margin-bottom: 16px; }
         .service-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
         .service-desc { color: var(--text-muted); font-size: 0.9rem; margin-bottom: 16px; }
-        
+
         /* App Download Banner */
         .app-banner {
             background: linear-gradient(135deg, var(--primary-dark), var(--primary));
@@ -505,7 +505,7 @@
         .app-banner h2 { font-size: 1.8rem; margin-bottom: 12px; position: relative; }
         .app-banner p { color: rgba(255,255,255,0.8); margin-bottom: 24px; position: relative; }
         .app-buttons { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; position: relative; }
-        
+
         /* Footer */
         .footer {
             background: var(--card);
@@ -516,7 +516,7 @@
         }
         .footer p { color: var(--text-muted); }
         .footer .basmala { font-size: 1.1rem; color: var(--gold); margin-bottom: 12px; }
-        
+
         /* Responsive */
         @media (max-width: 768px) {
             .header-content { flex-direction: column; gap: 20px; }
@@ -564,7 +564,7 @@
         <!-- ==================== عرض حسب المنتج ==================== -->
         <div class="product-view" id="productView">
             <h2 class="section-title">📦 المنتجات <span>والأدوات</span></h2>
-            
+
             <div class="product-categories">
                 <!-- سكراب الحديد -->
                 <div class="category-card">
@@ -810,7 +810,7 @@
         <!-- ==================== عرض حسب مرحلة التوريد ==================== -->
         <div class="supply-view" id="supplyView">
             <h2 class="section-title">🔗 مراحل <span>سلسلة التوريد</span></h2>
-            
+
             <div class="supply-stages">
                 <!-- مرحلة التجميع -->
                 <div class="stage-section">
@@ -1074,7 +1074,7 @@
         <div class="shipping-section">
             <h2 class="section-title">📜 إصدار <span>بوليصة الشحن</span></h2>
             <p style="color: var(--text-muted); margin-bottom: 20px;">نظام شيخة لإصدار بوليصات الشحن والنقل والتخليص الجمركي</p>
-            
+
             <div class="bol-form">
                 <div class="form-group">
                     <label>اسم الشاحن</label>
@@ -1120,12 +1120,12 @@
                     <input type="date" id="shipDate">
                 </div>
             </div>
-            
+
             <div style="text-align: center; margin-top: 24px;">
                 <button class="btn btn-gold" onclick="generateBOL()">📄 إصدار البوليصة</button>
                 <button class="btn btn-outline" onclick="printBOL()">🖨️ طباعة</button>
             </div>
-            
+
             <div class="bol-preview" id="bolPreview" style="display: none;">
                 <div class="bol-header">
                     <div class="bol-logo">شيخة SHEIKHA</div>
@@ -1164,7 +1164,7 @@
         <div class="operations-map">
             <h2 class="section-title">🗺️ خريطة <span>العمليات المتحركة</span></h2>
             <p style="color: var(--text-muted); margin-bottom: 20px;">تصور حي لحركة المواد عبر سلسلة التوريد</p>
-            
+
             <div class="map-container" id="operationsMap">
                 <svg width="100%" height="100%" style="position: absolute; top: 0; left: 0;">
                     <line x1="15%" y1="30%" x2="35%" y2="50%" class="flow-line"/>
@@ -1172,7 +1172,7 @@
                     <line x1="50%" y1="30%" x2="65%" y2="50%" class="flow-line"/>
                     <line x1="65%" y1="50%" x2="85%" y2="30%" class="flow-line"/>
                 </svg>
-                
+
                 <div class="map-node active" style="left: 10%; top: 20%;">
                     <span class="map-node-icon">⛏️</span>
                     <span class="map-node-label">المصدر</span>
@@ -1194,7 +1194,7 @@
                     <span class="map-node-label">المصهر</span>
                 </div>
             </div>
-            
+
             <div style="margin-top: 20px; display: flex; gap: 12px; flex-wrap: wrap;">
                 <button class="btn btn-outline btn-sm" onclick="animateFlow()">▶️ تشغيل الحركة</button>
                 <button class="btn btn-outline btn-sm">📊 تقرير العمليات</button>
@@ -1206,7 +1206,7 @@
         <div class="workforce-section">
             <h2 class="section-title">👷 تأجير <span>العمالة المتخصصة</span></h2>
             <p style="color: var(--text-muted);">عمالة مرخصة ومتخصصة بنفس النشاط التجاري — تحميل، فرز، نقل</p>
-            
+
             <div class="workforce-grid">
                 <div class="worker-card">
                     <div class="worker-header">
@@ -1318,9 +1318,9 @@
             const productView = document.getElementById('productView');
             const supplyView = document.getElementById('supplyView');
             const btns = document.querySelectorAll('.toggle-btn');
-            
+
             btns.forEach(btn => btn.classList.remove('active'));
-            
+
             if (view === 'product') {
                 productView.style.display = 'block';
                 supplyView.style.display = 'none';
@@ -1331,12 +1331,12 @@
                 btns[1].classList.add('active');
             }
         }
-        
+
         // Generate Bill of Lading
         function generateBOL() {
             const preview = document.getElementById('bolPreview');
             const bolNum = 'SHK-' + new Date().getFullYear() + '-' + Math.floor(Math.random() * 10000).toString().padStart(4, '0');
-            
+
             document.getElementById('bolNumber').textContent = bolNum;
             document.getElementById('bolShipper').textContent = document.getElementById('shipperName').value || '—';
             document.getElementById('bolConsignee').textContent = document.getElementById('consigneeName').value || '—';
@@ -1345,11 +1345,11 @@
             document.getElementById('bolPorts').textContent = document.getElementById('portOrigin').value + ' → ' + document.getElementById('portDest').value;
             document.getElementById('bolContainer').textContent = 'الحاوية: ' + document.getElementById('containerType').value;
             document.getElementById('bolDate').textContent = 'تاريخ الشحن: ' + (document.getElementById('shipDate').value || new Date().toLocaleDateString('ar-SA'));
-            
+
             preview.style.display = 'block';
             preview.scrollIntoView({ behavior: 'smooth' });
         }
-        
+
         // Print BOL
         function printBOL() {
             const preview = document.getElementById('bolPreview');
@@ -1359,13 +1359,13 @@
             }
             window.print();
         }
-        
+
         // Animate flow
         let animationInterval;
         function animateFlow() {
             const nodes = document.querySelectorAll('.map-node');
             let currentIndex = 0;
-            
+
             if (animationInterval) {
                 clearInterval(animationInterval);
                 animationInterval = null;
@@ -1373,14 +1373,14 @@
                 nodes[0].classList.add('active');
                 return;
             }
-            
+
             animationInterval = setInterval(() => {
                 nodes.forEach(n => n.classList.remove('active'));
                 nodes[currentIndex].classList.add('active');
                 currentIndex = (currentIndex + 1) % nodes.length;
             }, 1000);
         }
-        
+
         // Set today's date as default
         document.addEventListener('DOMContentLoaded', () => {
             const today = new Date().toISOString().split('T')[0];

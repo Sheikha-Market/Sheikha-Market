@@ -1,0 +1,58 @@
+{
+  "registry": "SHEIKHA_INTELLIGENCE_LEVELS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "levels": [
+    {
+      "id": "AIL-001",
+      "name": "GENERATIVE_AI",
+      "arabic": "الذكاء التوليدي",
+      "definition": "Produces grounded text, code, reports, and content from governed knowledge and user instructions.",
+      "allowedRuntimeMode": "GOVERNED_CONTENT_AND_CODE_GENERATION",
+      "claimStatus": "SUPPORTED_READINESS",
+      "humanGate": "REQUIRED_FOR_HIGH_RISK_OUTPUTS"
+    },
+    {
+      "id": "AIL-002",
+      "name": "AGENTIC_AI",
+      "arabic": "الذكاء الوكيلي",
+      "definition": "Plans, decomposes goals, selects approved tools, executes permitted steps, and reports evidence under policy gates.",
+      "allowedRuntimeMode": "GOVERNED_PLANNING_AND_TOOL_USE",
+      "claimStatus": "SUPPORTED_READINESS",
+      "humanGate": "REQUIRED_FOR_HIGH_IMPACT_OR_EXTERNAL_ACTIONS"
+    },
+    {
+      "id": "AIL-003",
+      "name": "MULTI_AGENT_SYSTEMS",
+      "arabic": "الأنظمة متعددة الوكلاء",
+      "definition": "Coordinates specialized agents with roles, boundaries, audit, and escalation for complex institutional workflows.",
+      "allowedRuntimeMode": "GOVERNED_MULTI_AGENT_COORDINATION",
+      "claimStatus": "SUPPORTED_READINESS",
+      "humanGate": "REQUIRED_FOR_ORGANIZATIONAL_DECISIONS"
+    },
+    {
+      "id": "AIL-004",
+      "name": "AGI",
+      "arabic": "الذكاء العام",
+      "definition": "Research classification for broad human-like cognitive flexibility across domains.",
+      "allowedRuntimeMode": "RESEARCH_READINESS_AND_GOVERNANCE_ONLY",
+      "claimStatus": "NO_ACTUAL_AGI_CLAIM",
+      "humanGate": "ALWAYS_REQUIRED_FOR_ANY_AGI_LANGUAGE"
+    },
+    {
+      "id": "AIL-005",
+      "name": "ASI",
+      "arabic": "الذكاء الفائق",
+      "definition": "Risk-governance classification for hypothetical systems exceeding human capability.",
+      "allowedRuntimeMode": "RISK_GOVERNANCE_AND_RESEARCH_CLASSIFICATION_ONLY",
+      "claimStatus": "NO_ACTUAL_ASI_CLAIM",
+      "humanGate": "ALWAYS_REQUIRED_FOR_ANY_ASI_LANGUAGE"
+    }
+  ],
+  "globalRules": {
+    "no_consciousness_claim": true,
+    "no_agi_claim": true,
+    "no_asi_claim": true,
+    "evidence_required": true,
+    "human_review_for_high_risk": true
+  }
+}

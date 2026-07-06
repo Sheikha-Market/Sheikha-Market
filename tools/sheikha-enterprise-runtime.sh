@@ -141,7 +141,13 @@ start_pm2_runtime() {
   export NODE_ENV="${NODE_ENV:-production}"
   export OLLAMA_HOST
   export SHEIKHA_CORE_MODEL
-  export SHEIKHA_CORE_TIMEOUT_MS="${SHEIKHA_CORE_TIMEOUT_MS:-45000}"
+  local cpu_threads
+  cpu_threads="$(node -e "const os=require('os'); const c=os.cpus().length; console.log(Math.max(4, Math.min(20, c > 4 ? c - 2 : c)))" 2>/dev/null || echo 16)"
+  export SHEIKHA_CORE_TIMEOUT_MS="${SHEIKHA_CORE_TIMEOUT_MS:-90000}"
+  export SHEIKHA_CORE_NUM_THREAD="${SHEIKHA_CORE_NUM_THREAD:-${cpu_threads}}"
+  export SHEIKHA_CORE_NUM_BATCH="${SHEIKHA_CORE_NUM_BATCH:-512}"
+  export SHEIKHA_CORE_NUM_CTX="${SHEIKHA_CORE_NUM_CTX:-2048}"
+  export SHEIKHA_CORE_NUM_PREDICT="${SHEIKHA_CORE_NUM_PREDICT:-256}"
   export AI_MODE="${AI_MODE:-local-first}"
   export AI_LLM_BASE_URL="${AI_LLM_BASE_URL:-${OLLAMA_HOST}}"
   export AI_LLM_MODEL="${AI_LLM_MODEL:-${SHEIKHA_CORE_MODEL}}"

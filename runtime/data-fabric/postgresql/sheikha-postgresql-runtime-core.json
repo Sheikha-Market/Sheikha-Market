@@ -1,0 +1,16 @@
+{
+  "engine": "SHEIKHA_POSTGRESQL_RUNTIME_CORE",
+  "status": "PLANNED_ACTIVE_FOUNDATION",
+  "role": "runtime-relational-core",
+  "governance": {
+    "env_required": true,
+    "no_plaintext_secrets": true,
+    "migration_requires_approval": true,
+    "backup_before_migration": true,
+    "audit_required": true
+  },
+  "runtime": {
+    "target_api": "/api/data-fabric/postgresql/status",
+    "integration_mode": "governance-first"
+  }
+}

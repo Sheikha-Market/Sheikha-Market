@@ -16,7 +16,7 @@
 - **خادم (Backend):** `server.js` (Express) + اعتماد تشغيل عبر `npm start` (ولكن بيئة Node سابقاً ظهر فيها خلل على جهازك، وتم تشغيل الواجهات عبر Python static server كحل فوري).
 
 ### 1.2 حقيقة “التفعيل” الآن
-التجربة الحالية تعمل كـ **نموذج تشغيلي (Operational Prototype)**: صفحات تعمل وتعرض تدفقات وتجربة استخدام.  
+التجربة الحالية تعمل كـ **نموذج تشغيلي (Operational Prototype)**: صفحات تعمل وتعرض تدفقات وتجربة استخدام.
 أما **التكاملات الفعلية** (ERP/Gov/Payment/Maps/Blockchain) فهي **مخططة ومُحللة ومصممة كواجهات**، لكنها تحتاج طبقة Backend + مفاتيح API + بيئة تشغيل إنتاجية لتحقيقها واقعياً.
 
 ---
@@ -96,11 +96,11 @@
 ## 6) تدقيق “المنطق والتكامل” (Correct Logic)
 
 ### المنطق الأمثل المقترح (6 محاور تشغيل)
-1) **السوق** (Catalog/Stores/Orders)  
-2) **سلسلة التوريد** (Source → Collect → Transport → Process → Deliver)  
-3) **اللوجستيات** (Carriers/Driver Ops/Tracking/Warehousing)  
-4) **الوثائق** (RFQ/PO/Contract/Invoice/Delivery Proof)  
-5) **الحوكمة والامتثال** (Sharia/Quality/Risk/Disputes)  
+1) **السوق** (Catalog/Stores/Orders)
+2) **سلسلة التوريد** (Source → Collect → Transport → Process → Deliver)
+3) **اللوجستيات** (Carriers/Driver Ops/Tracking/Warehousing)
+4) **الوثائق** (RFQ/PO/Contract/Invoice/Delivery Proof)
+5) **الحوكمة والامتثال** (Sharia/Quality/Risk/Disputes)
 6) **الذكاء والتحليلات** (Forecasting/Anomaly/Recommendations)
 
 > القاعدة: **كل إجراء** يجب أن ينتج **سجلًا** + **وثيقة** + **حالة** + **أثر شرعي** (إن كان له شبهة) + **أثر مالي**.
@@ -208,5 +208,5 @@ Code → Build → Test → Security → Performance → Sharia → Release
 ## 12) خاتمة
 المشروع ممتاز في **الرؤية والتوثيق** ويمتلك واجهات قوية، ويحتاج إلى “هندسة تشغيل إنتاجي” + توحيد تصميم + بوابات جودة/أمن/شرع ليصل إلى مستوى “الأفضل” عالمياً بإذن الله.
 
-**تاريخ التقرير:** 2026-02-04  
+**تاريخ التقرير:** 2026-02-04
 **الإصدار:** 1.0

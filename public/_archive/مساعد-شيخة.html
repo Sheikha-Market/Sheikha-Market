@@ -35,7 +35,7 @@
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
         html, body { height: 100%; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -263,7 +263,7 @@
             flex: 1;
             display: flex;
             flex-direction: column;
-            background: 
+            background:
                 radial-gradient(ellipse 80% 50% at 50% 0%, rgba(212,175,55,0.03) 0%, transparent 50%),
                 linear-gradient(180deg, var(--dark) 0%, var(--darker) 100%);
         }
@@ -726,9 +726,9 @@
             <div class="input-area">
                 <div class="input-wrapper">
                     <div class="input-box">
-                        <textarea 
-                            class="input-field" 
-                            id="messageInput" 
+                        <textarea
+                            class="input-field"
+                            id="messageInput"
                             placeholder="اكتب سؤالك هنا... (مثال: ما هو سعر النحاس اليوم؟)"
                             rows="1"
                             onkeydown="handleKeyDown(event)"
@@ -752,7 +752,7 @@
         const welcomeEl = document.getElementById('welcomeScreen');
         const inputEl = document.getElementById('messageInput');
         const sendBtn = document.getElementById('sendBtn');
-        
+
         let isTyping = false;
         let conversationHistory = [];
         let sessionId = 'session_' + Date.now();
@@ -814,12 +814,12 @@
             const msg = document.createElement('div');
             msg.className = `message ${role}`;
             msg.id = msgId;
-            
+
             const avatar = role === 'user' ? '👤' : '👔';
             const time = new Date().toLocaleTimeString('ar-SA', { hour: '2-digit', minute: '2-digit' });
-            
+
             let footerHtml = `<span class="message-time">${time}</span>`;
-            
+
             if (role === 'assistant') {
                 lastMessageId = msgId;
                 footerHtml += `
@@ -832,14 +832,14 @@
                     footerHtml = `<span class="message-source">${extra.source}</span>` + footerHtml;
                 }
             }
-            
+
             let suggestionsHtml = '';
             if (extra.suggestions && extra.suggestions.length > 0) {
                 suggestionsHtml = `<div class="message-suggestions">
                     ${extra.suggestions.map(s => `<span class="msg-suggestion" onclick="askSuggestion('${s}')">${s}</span>`).join('')}
                 </div>`;
             }
-            
+
             msg.innerHTML = `
                 <div class="message-avatar">${avatar}</div>
                 <div class="message-content">
@@ -848,7 +848,7 @@
                     <div class="message-footer">${footerHtml}</div>
                 </div>
             `;
-            
+
             messagesEl.appendChild(msg);
             messagesEl.scrollTop = messagesEl.scrollHeight;
             return msg;
@@ -894,7 +894,7 @@
             // Add user message
             addMessage('user', text);
             conversationHistory.push({ role: 'user', content: text });
-            
+
             inputEl.value = '';
             inputEl.style.height = 'auto';
 
@@ -907,13 +907,13 @@
                 const res = await fetch(API + '/api/ai/chat', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         message: text,
                         history: conversationHistory.slice(-10),
                         sessionId
                     })
                 });
-                
+
                 const data = await res.json();
                 removeTypingIndicator();
 
@@ -945,13 +945,13 @@
                 await fetch(API + '/api/ai/feedback', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
-                    body: JSON.stringify({ 
+                    body: JSON.stringify({
                         conversationId: msgId,
                         rating,
                         sessionId
                     })
                 });
-                
+
                 // Update UI
                 const msg = document.getElementById(msgId);
                 if (msg) {
@@ -971,7 +971,7 @@
         // Initialize
         checkAIStatus();
         inputEl.focus();
-        
+
         // Refresh status every 30 seconds
         setInterval(checkAIStatus, 30000);
     </script>

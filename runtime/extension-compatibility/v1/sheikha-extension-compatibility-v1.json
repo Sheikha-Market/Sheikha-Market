@@ -1,0 +1,26 @@
+{
+  "system": "SHEIKHA_EXTENSION_COMPATIBILITY_V1",
+  "status": "ACTIVE",
+  "extension": "sheikha-vscode-extension",
+  "purpose": "Keep the VS Code extension compatible with Sheikha API contracts while the runtime evolves.",
+  "apiBase": "http://localhost:8080/api/sheikha",
+  "expectedEnvelope": "SHEIKHA_API_ENVELOPE_V1",
+  "compatibilityRules": [
+    "Every extension-facing success response includes data.",
+    "Legacy top-level mirrors may remain during migration but cannot replace data.",
+    "Endpoint changes require registry update before tests are changed.",
+    "Extension integration tests are skipped only when the local server is unavailable."
+  ],
+  "coveredEndpoints": [
+    "/status",
+    "/models",
+    "/languages",
+    "/completions",
+    "/chat",
+    "/nes",
+    "/inline-chat",
+    "/settings",
+    "/vscode-bridge",
+    "/unified-integrations"
+  ]
+}

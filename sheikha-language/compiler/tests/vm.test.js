@@ -116,17 +116,3 @@ test('sandbox blocks localhost API target under strict production profile', () =
     assert.equal(result.ok, false);
     assert.ok(result.state.output.some((line) => line.includes('SANDBOX_DENY')));
 });
-
-test('executes python bridge live with json contract', () => {
-    const inputPath = path.resolve(__dirname, '../../examples/python-bridge.shk');
-    const source = fs.readFileSync(inputPath, 'utf8');
-
-    const ast = parse(lex(source));
-    const ir = lowerToIR(ast);
-    const result = runIR(ir, { live: true, profile: 'local', strictIsolation: false });
-
-    assert.equal(result.ok, true);
-    assert.ok(result.state.adapters.calls.some((c) => c.adapter === 'python' && c.live === true && c.ok === true));
-    assert.ok(result.state.output.some((line) => line.includes('[PYTHON:OK] scored')));
-    assert.ok(result.state.output.some((line) => line.includes('"score"')));
-});

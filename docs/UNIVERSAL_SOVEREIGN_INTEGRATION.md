@@ -177,12 +177,12 @@ UniversalSovereign {
         organizationEmail: "market@sheikha.top",
         strategicObjectives: { ... }
     },
-    
+
     logisticsGovernanceEngine: { ... },      // 🛡️
     povertyEradicationEngine: { ... },       // 🌿
     technicalSovereigntyEngine: { ... },     // 💻
     halalTradeEngine: { ... },               // 🕌
-    
+
     launch(): async { ... },
     verifySystem(): async { ... },
     generateUnifiedReport(): async { ... }
@@ -318,7 +318,7 @@ universal-sovereign-integration.js
 
 ```
 ═══════════════════════════════════════════════════════════════════
-منظومة شيخة الموحدة = 
+منظومة شيخة الموحدة =
     حوكمة + عدل + مكافحة فقر + سيادة تقنية
 ═══════════════════════════════════════════════════════════════════
 ```

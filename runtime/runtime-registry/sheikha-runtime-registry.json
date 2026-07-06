@@ -1,0 +1,32 @@
+{
+  "registry": "SHEIKHA_UNIFIED_RUNTIME_REGISTRY",
+  "status": "ACTIVE",
+  "mode": "governed-runtime-federation",
+  "engines": {
+    "sqlserver": {
+      "role": "transactions-governance",
+      "status": "connected"
+    },
+    "postgresql": {
+      "role": "runtime-relational-core",
+      "status": "connected"
+    },
+    "redis": {
+      "role": "neural-cache-stream-memory",
+      "status": "connected"
+    },
+    "mongodb": {
+      "role": "document-fabric",
+      "status": "connected"
+    }
+  },
+  "routing": {
+    "mode": "engine-aware-routing",
+    "governance": "required"
+  },
+  "governance": {
+    "audit_required": true,
+    "rollback_required": true,
+    "human_approval_required": true
+  }
+}

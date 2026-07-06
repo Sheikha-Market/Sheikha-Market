@@ -69,7 +69,7 @@ cat logs/haproxy-metrics.json | jq
   (Always)   (Scale Up)
 ```
 
-**الملف:** `config/haproxy.cfg`  
+**الملف:** `config/haproxy.cfg`
 **الميزات:**
 - توزيع الحمل بين السيرفرات
 - فحص صحة تلقائي لكل سيرفر
@@ -86,7 +86,7 @@ uptime > 2.0 → START srv2
 uptime < 0.5 → STOP srv2
 ```
 
-**الملف:** `scripts/sheikha-autoscale.sh`  
+**الملف:** `scripts/sheikha-autoscale.sh`
 **المقاييس:**
 - Load Average (CPU)
 - Memory Usage
@@ -100,7 +100,7 @@ Primary ✓  → DNS: sheikha.top → 31.97.190.74
 Primary ✗  → DNS: sheikha.top → Secondary IP (auto)
 ```
 
-**الملف:** `scripts/sheikha-dns-failover.sh`  
+**الملف:** `scripts/sheikha-dns-failover.sh`
 **الدعم:**
 - Cloudflare API (الأسرع)
 - AWS Route53
@@ -411,18 +411,18 @@ sudo bash scripts/sheikha-distribute-setup.sh --dns-only
 
 ## 📄 الترخيص
 
-**الملكية الحصرية:**  
+**الملكية الحصرية:**
 سلمان أحمد بن سلمان الراجح — المالك الوحيد
 
 ---
 
 ## 🙏 الشكر
 
-> الحمد لله على إتمام هذا النظام  
+> الحمد لله على إتمام هذا النظام
 > والشكر لله على الرزق والحكمة
 
-**تم التطوير:** 5 مايو 2026  
-**الإصدار:** 1.0.0 - Distributed Platform  
+**تم التطوير:** 5 مايو 2026
+**الإصدار:** 1.0.0 - Distributed Platform
 **الحالة:** ✅ جاهز للإنتاج
 
 ---

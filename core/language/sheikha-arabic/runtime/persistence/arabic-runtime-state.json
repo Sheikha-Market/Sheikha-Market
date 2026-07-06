@@ -1,0 +1,41 @@
+{
+  "accounts": {
+    "حساب_المشتري": -1,
+    "حساب_سوق_شيخة": 1
+  },
+  "operations": [
+    {
+      "opcode": "TRANSFER",
+      "source": "حساب_المشتري",
+      "destination": "حساب_سوق_شيخة",
+      "value": "مبلغًا"
+    }
+  ],
+  "states": [
+    {
+      "type": "TRANSFER_APPLIED",
+      "source": "حساب_المشتري",
+      "destination": "حساب_سوق_شيخة",
+      "value": "مبلغًا"
+    }
+  ],
+  "transaction": {
+    "id": "txn_1780109028845",
+    "frame": "arabic_transaction_frame",
+    "operations": [
+      {
+        "type": "FRAME_RESULT",
+        "status": "FRAME_EXECUTED"
+      },
+      {
+        "type": "MEMORY_RESULT",
+        "status": "MEMORY_EXECUTED"
+      }
+    ],
+    "committed": true,
+    "rolledBack": false,
+    "deterministic": true,
+    "committedAt": 1780109028846
+  },
+  "deterministic": true
+}

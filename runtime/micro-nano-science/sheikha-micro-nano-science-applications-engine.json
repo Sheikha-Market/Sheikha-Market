@@ -1,0 +1,96 @@
+{
+  "system": "SHEIKHA_MICRO_NANO_SCIENCE_APPLICATIONS_ENGINE",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Support micro-scale and nano-scale studies, materials, biological systems, devices, measurements, applications, risks, governance, and research-to-application translation.",
+  "domains": {
+    "micro_science": "ACTIVE",
+    "nano_science": "ACTIVE",
+    "nanomaterials": "ACTIVE",
+    "microbiology": "ACTIVE",
+    "microfluidics": "ACTIVE",
+    "nanomedicine": "ACTIVE_REVIEW_REQUIRED",
+    "nanoelectronics": "ACTIVE",
+    "sensors": "ACTIVE",
+    "surface_science": "ACTIVE",
+    "materials_engineering": "ACTIVE",
+    "biomaterials": "ACTIVE",
+    "industrial_applications": "ACTIVE",
+    "environmental_applications": "ACTIVE",
+    "agricultural_applications": "ACTIVE"
+  },
+  "study_layers": {
+    "scale_definition": "ACTIVE",
+    "sample_definition": "ACTIVE",
+    "structure": "ACTIVE",
+    "properties": "ACTIVE",
+    "behavior": "ACTIVE",
+    "interaction": "ACTIVE",
+    "measurement_method": "ACTIVE",
+    "variables": "ACTIVE",
+    "constants": "ACTIVE",
+    "risk_profile": "ACTIVE",
+    "application_pathway": "ACTIVE",
+    "commercialization_pathway": "ACTIVE"
+  },
+  "metrics": {
+    "particle_size": "ACTIVE",
+    "surface_area": "ACTIVE",
+    "reactivity": "ACTIVE",
+    "stability": "ACTIVE",
+    "conductivity": "ACTIVE",
+    "toxicity_risk": "REVIEW_REQUIRED",
+    "efficiency": "ACTIVE",
+    "durability": "ACTIVE",
+    "cost": "ACTIVE",
+    "scalability": "ACTIVE",
+    "manufacturability": "ACTIVE"
+  },
+  "applications": {
+    "medical": "EXPERT_REVIEW_REQUIRED",
+    "industrial": "ACTIVE",
+    "electronics": "ACTIVE",
+    "energy": "ACTIVE",
+    "water_treatment": "ACTIVE",
+    "agriculture": "ACTIVE",
+    "environment": "ACTIVE",
+    "materials_improvement": "ACTIVE",
+    "sensors_and_detection": "ACTIVE",
+    "research_tools": "ACTIVE"
+  },
+  "governance": {
+    "evidence_required": true,
+    "source_traceability_required": true,
+    "statistics_validity_required": true,
+    "safety_review_required": true,
+    "toxicity_review_required": true,
+    "clinical_claims_require_expert_review": true,
+    "environmental_impact_required": true,
+    "no_unverified_claims": true,
+    "no_harm": true
+  },
+  "integration": {
+    "microscopic_clinical_science": "runtime/microscopic-clinical-science/sheikha-microscopic-clinical-science-engine.json",
+    "derivation_bio_systems": "runtime/derivation-bio-systems/sheikha-derivation-bio-systems-engine.json",
+    "variable_statistics_arabic": "runtime/universal-variable-statistics-arabic/sheikha-variable-statistics-arabic-engine.json",
+    "cross_domain_research": "runtime/cross-domain-research/sheikha-cross-domain-research-engine.json"
+  },
+  "outputs": [
+    "micro_nano_study_report",
+    "material_property_report",
+    "variable_constant_map",
+    "risk_and_safety_report",
+    "statistical_summary",
+    "application_opportunity",
+    "prototype_pathway",
+    "commercialization_review",
+    "environmental_impact_review"
+  ],
+  "maturity": {
+    "micro_science_readiness": "VERY_HIGH",
+    "nano_science_readiness": "VERY_HIGH",
+    "application_translation": "VERY_HIGH",
+    "safety_governance": "VERY_HIGH",
+    "overall": "ADVANCED_SCIENTIFIC_APPLICATION_READY"
+  }
+}

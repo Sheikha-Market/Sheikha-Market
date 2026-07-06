@@ -28,10 +28,10 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; }
-        
+
         /* Dashboard Layout */
         .dashboard { display: flex; min-height: 100vh; }
-        
+
         /* Sidebar */
         .sidebar {
             width: 280px;
@@ -61,7 +61,7 @@
         }
         .sidebar-brand h2 { font-size: 1.1rem; color: var(--gold); }
         .sidebar-brand p { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         /* User Type Selector */
         .user-type-selector {
             padding: 16px;
@@ -80,7 +80,7 @@
             cursor: pointer;
         }
         .user-type-select:focus { outline: none; border-color: var(--gold); }
-        
+
         /* Sidebar Nav */
         .sidebar-nav {
             flex: 1;
@@ -123,13 +123,13 @@
             font-weight: 700;
         }
         .nav-item[data-restricted="true"] { opacity: 0.4; pointer-events: none; }
-        
+
         /* Main Content */
         .main-content {
             flex: 1;
             margin-right: 280px;
         }
-        
+
         /* Top Bar */
         .topbar {
             background: var(--card);
@@ -162,10 +162,10 @@
         }
         .user-info h4 { font-size: 0.85rem; }
         .user-info p { font-size: 0.7rem; color: var(--text-muted); }
-        
+
         /* Dashboard Content */
         .dashboard-content { padding: 24px; }
-        
+
         /* Stats Grid */
         .stats-grid {
             display: grid;
@@ -193,7 +193,7 @@
         .stat-change.down { background: rgba(239,68,68,0.15); color: var(--danger); }
         .stat-value { font-size: 2rem; font-weight: 900; margin-bottom: 4px; }
         .stat-label { font-size: 0.85rem; color: var(--text-muted); }
-        
+
         /* Module Grid */
         .section-title {
             font-size: 1.2rem;
@@ -204,7 +204,7 @@
             gap: 10px;
         }
         .section-title span { color: var(--gold); }
-        
+
         .modules-grid {
             display: grid;
             grid-template-columns: repeat(3, 1fr);
@@ -240,7 +240,7 @@
             font-size: 0.75rem;
             color: var(--text-muted);
         }
-        
+
         /* User Type Badges */
         .user-type-badge {
             display: inline-flex;
@@ -256,7 +256,7 @@
         .badge-factory { background: rgba(16,185,129,0.15); color: var(--success); border: 1px solid rgba(16,185,129,0.3); }
         .badge-logistics { background: rgba(59,130,246,0.15); color: var(--info); border: 1px solid rgba(59,130,246,0.3); }
         .badge-buyer { background: rgba(6,182,212,0.15); color: #06b6d4; border: 1px solid rgba(6,182,212,0.3); }
-        
+
         /* Quick Actions */
         .quick-actions {
             display: flex;
@@ -282,7 +282,7 @@
         }
         .quick-action:hover { border-color: var(--gold); color: var(--gold); }
         .quick-action.primary { background: linear-gradient(135deg, var(--gold-light), var(--gold)); color: var(--dark); border: none; }
-        
+
         /* Activity Feed */
         .activity-section {
             background: var(--card);
@@ -308,7 +308,7 @@
         .activity-content h4 { font-size: 0.9rem; margin-bottom: 4px; }
         .activity-content p { font-size: 0.8rem; color: var(--text-muted); }
         .activity-time { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         /* Responsive */
         @media (max-width: 1200px) { .stats-grid { grid-template-columns: repeat(2, 1fr); } .modules-grid { grid-template-columns: repeat(2, 1fr); } }
         @media (max-width: 768px) {
@@ -330,7 +330,7 @@
                     <p>منظومة شيخة</p>
                 </div>
             </div>
-            
+
             <!-- User Type Selector -->
             <div class="user-type-selector">
                 <label>نوع المستخدم</label>
@@ -342,12 +342,12 @@
                     <option value="buyer">🛒 مشتري (Buyer)</option>
                 </select>
             </div>
-            
+
             <!-- Navigation -->
             <nav class="sidebar-nav" id="sidebarNav">
                 <!-- Will be populated by JavaScript -->
             </nav>
-            
+
             <!-- Footer -->
             <div style="padding: 16px; border-top: 1px solid var(--border); text-align: center;">
                 <a href="/" style="color: var(--text-muted); text-decoration: none; font-size: 0.85rem;">← الرئيسية</a>
@@ -402,7 +402,7 @@
         // ═══════════════════════════════════════════════════════════════════════
         // تعريف الوحدات والأدوات حسب نوع المستخدم
         // ═══════════════════════════════════════════════════════════════════════
-        
+
         const USER_TYPES = {
             admin: {
                 name: 'مدير النظام',
@@ -483,7 +483,7 @@
                 users: ['admin'],
                 link: 'admin.html#dev'
             },
-            
+
             // السوق والتجارة (الجميع)
             market: {
                 id: 'market',
@@ -495,7 +495,7 @@
                 users: ['admin', 'trader', 'factory', 'logistics', 'buyer'],
                 link: 'السوق.html'
             },
-            
+
             // إدارة المنتجات (Trader + Admin)
             myProducts: {
                 id: 'myProducts',
@@ -517,7 +517,7 @@
                 users: ['admin', 'trader'],
                 link: 'تسجيل-تاجر.html'
             },
-            
+
             // سلسلة التوريد (Factory + Logistics + Admin)
             supplyChain: {
                 id: 'supplyChain',
@@ -529,7 +529,7 @@
                 users: ['admin', 'factory', 'logistics'],
                 link: 'نظام-شيخة-الذكي.html'
             },
-            
+
             // التكامل الصناعي (Factory + Admin)
             industrialIntegration: {
                 id: 'industrialIntegration',
@@ -551,7 +551,7 @@
                 users: ['admin', 'factory'],
                 link: 'التكامل-الصناعي.html#production'
             },
-            
+
             // اللوجستيات (Logistics + Admin)
             fleetManagement: {
                 id: 'fleetManagement',
@@ -583,7 +583,7 @@
                 users: ['admin', 'logistics', 'factory'],
                 link: 'fbs.html#warehouses'
             },
-            
+
             // المشاريع الكبرى (Admin + Factory)
             enterpriseProjects: {
                 id: 'enterpriseProjects',
@@ -595,7 +595,7 @@
                 users: ['admin', 'factory'],
                 link: 'enterprise.html'
             },
-            
+
             // المساعد الذكي (الجميع)
             aiAssistant: {
                 id: 'aiAssistant',
@@ -607,7 +607,7 @@
                 users: ['admin', 'trader', 'factory', 'logistics', 'buyer'],
                 link: 'مساعد-شيخة.html'
             },
-            
+
             // الطلبات (Buyer + Trader)
             myOrders: {
                 id: 'myOrders',
@@ -619,7 +619,7 @@
                 users: ['admin', 'buyer', 'trader'],
                 link: '#orders'
             },
-            
+
             // المختبرات والشهادات (Factory + Admin)
             labCertificates: {
                 id: 'labCertificates',
@@ -705,16 +705,16 @@
         // ═══════════════════════════════════════════════════════════════════════
         // تبديل نوع المستخدم
         // ═══════════════════════════════════════════════════════════════════════
-        
+
         function switchUserType(type) {
             currentUserType = type;
             const userType = USER_TYPES[type];
-            
+
             // Update badge
             const badge = document.getElementById('userTypeBadge');
             badge.className = 'user-type-badge ' + userType.badgeClass;
             badge.innerHTML = `${userType.icon} ${userType.name}`;
-            
+
             // Render all sections
             renderSidebar();
             renderStats();
@@ -726,7 +726,7 @@
         function renderSidebar() {
             const nav = document.getElementById('sidebarNav');
             const sections = NAV_SECTIONS[currentUserType];
-            
+
             let html = '';
             sections.forEach(section => {
                 html += `<div class="nav-section">
@@ -749,7 +749,7 @@
         function renderStats() {
             const grid = document.getElementById('statsGrid');
             const stats = STATS[currentUserType];
-            
+
             grid.innerHTML = stats.map(stat => `
                 <div class="stat-card">
                     <div class="stat-header">
@@ -791,7 +791,7 @@
                     { icon: '📦', label: 'تتبع الطلبات', link: '#orders' }
                 ]
             };
-            
+
             container.innerHTML = actions[currentUserType].map(action => `
                 <a href="${action.link}" class="quick-action ${action.primary ? 'primary' : ''}">
                     <span>${action.icon}</span>
@@ -805,7 +805,7 @@
             const sections = NAV_SECTIONS[currentUserType];
             const moduleIds = sections.flatMap(s => s.items);
             const uniqueModules = [...new Set(moduleIds)];
-            
+
             grid.innerHTML = uniqueModules.slice(0, 6).map(id => {
                 const m = MODULES[id];
                 if (!m) return '';
@@ -831,7 +831,7 @@
                 { icon: '🚚', iconBg: '#3b82f6', title: 'شحنة في الطريق', desc: 'شحنة #SH-2847 - جدة ← الرياض', time: 'منذ 30 دقيقة' },
                 { icon: '⭐', iconBg: '#f59e0b', title: 'تقييم جديد', desc: '5 نجوم من عميل جديد', time: 'منذ ساعة' }
             ];
-            
+
             section.innerHTML = activities.map(a => `
                 <div class="activity-item">
                     <div class="activity-icon" style="background: ${a.iconBg}20; color: ${a.iconBg};">${a.icon}</div>

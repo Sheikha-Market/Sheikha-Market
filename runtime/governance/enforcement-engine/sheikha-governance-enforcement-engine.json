@@ -1,0 +1,27 @@
+{
+  "engine": "SHEIKHA_GOVERNANCE_ENFORCEMENT_ENGINE",
+  "status": "ACTIVE",
+  "mode": "governance-before-runtime-execution",
+
+  "pipeline": [
+    "intent_classification",
+    "policy_validation",
+    "capability_validation",
+    "risk_classification",
+    "audit_binding",
+    "execution_permission",
+    "runtime_dispatch",
+    "rollback_capability"
+  ],
+
+  "rules": {
+    "no_execution_without_governance": true,
+    "no_unverified_capability": true,
+    "audit_required": true,
+    "rollback_required": true,
+    "human_approval_when_required": true,
+    "specialist_review_when_required": true,
+    "legal_review_when_required": true,
+    "sharia_review_when_required": true
+  }
+}

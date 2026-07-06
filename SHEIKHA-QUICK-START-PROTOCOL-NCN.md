@@ -173,26 +173,26 @@ server.js (معدَّل)
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({text: 'احسب زكاة المال'})
   }).then(r => r.json());
-  
+
   console.log('Protocol:', protocol.data.verdict);
-  
+
   // Test Neural
   const neural = await fetch('http://localhost:8080/api/master-ncn/infer', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({text: 'احسب زكاة المال'})
   }).then(r => r.json());
-  
+
   console.log('Neural Domain:', neural.data.domain);
   console.log('Confidence:', neural.data.confidence);
-  
+
   // Test Full Pipeline
   const pipeline = await fetch('http://localhost:8080/api/sheikha-pipeline/command', {
     method: 'POST',
     headers: {'Content-Type': 'application/json'},
     body: JSON.stringify({command: 'احسب زكاة المال'})
   }).then(r => r.json());
-  
+
   console.log('Pipeline Path:', pipeline.data.pipeline.path);
 })();
 ```
@@ -226,8 +226,8 @@ npm run dev             # وضع التطوير
 
 ---
 
-**الحالة:** ✅ مُفعّلة وجاهزة للعمل  
-**الإصدار:** 2.0.0  
+**الحالة:** ✅ مُفعّلة وجاهزة للعمل
+**الإصدار:** 2.0.0
 **التاريخ:** 26 أبريل 2026
 
 بسم الله الرحمن الرحيم

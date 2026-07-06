@@ -272,31 +272,31 @@ curl -X POST http://127.0.0.1:8080/api/knowledge-systems/assessment \
 
 ## 📞 معلومات المشروع
 
-**Owner / المالك:**  
+**Owner / المالك:**
 Salman Ahmad Al-Rajhi — سلمان أحمد بن سلمان الراجح
 
-**Project / المشروع:**  
-SHEIKHA — أول منظومة اقتصادية إسلامية رقمية  
+**Project / المشروع:**
+SHEIKHA — أول منظومة اقتصادية إسلامية رقمية
 First Islamic Digital Economic Ecosystem for Metals & Scrap
 
-**Domain / النطاق:**  
+**Domain / النطاق:**
 sheikha.top
 
-**Email / البريد:**  
+**Email / البريد:**
 market@sheikha.top
 
-**الترخيص:**  
-Proprietary — All rights reserved  
+**الترخيص:**
+Proprietary — All rights reserved
 ملكية خاصة — جميع الحقوق محفوظة
 
 ---
 
 ## 🙏 الشكر والتقدير
 
-**أشكر الله أولاً وآخراً**  
+**أشكر الله أولاً وآخراً**
 الحمد لله الذي بنعمته تتم الصالحات
 
-**الشكر للمالك:**  
+**الشكر للمالك:**
 سلمان أحمد الراجح — صاحب الرؤية والمشروع
 
 **الشكر للمؤسسات:**
@@ -366,14 +366,14 @@ Proprietary — All rights reserved
 
 ---
 
-**والحمد لله رب العالمين**  
+**والحمد لله رب العالمين**
 **All praise is due to Allah, Lord of all the worlds**
 
-**صُنع بـ ❤️ في المملكة العربية السعودية**  
+**صُنع بـ ❤️ في المملكة العربية السعودية**
 **Made with ❤️ in the Kingdom of Saudi Arabia**
 
 ---
 
-**© 2025 Salman Ahmad Al-Rajhi. All rights reserved.**  
+**© 2025 Salman Ahmad Al-Rajhi. All rights reserved.**
 **جميع الحقوق محفوظة © 2025 سلمان أحمد الراجح**
 

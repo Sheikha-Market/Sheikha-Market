@@ -1,0 +1,69 @@
+{
+  "metricsFabric": "SHEIKHA_INDUSTRIAL_CIVILIZATIONAL_COMPUTE_METRICS",
+  "status": "ACTIVE",
+  "purpose": "Measure transformation from local runtime into federated industrial compute fabric.",
+  "measurementDomains": {
+    "federatedComputeFabric": [
+      "node_count",
+      "cluster_count",
+      "region_count",
+      "edge_cloud_hpc_balance"
+    ],
+    "nodes": [
+      "cpu_cores",
+      "gpu_count",
+      "accelerator_type",
+      "memory_tb",
+      "node_utilization"
+    ],
+    "network": [
+      "latency_us",
+      "bandwidth_gbps",
+      "packet_loss",
+      "topology_efficiency"
+    ],
+    "powerCooling": [
+      "power_mw",
+      "cooling_capacity_kw",
+      "pue",
+      "flops_per_watt"
+    ],
+    "hpcScheduling": [
+      "queue_time",
+      "job_throughput",
+      "scheduler_efficiency",
+      "failure_recovery_time"
+    ],
+    "benchmarks": [
+      "local_api_latency",
+      "hpl",
+      "hpcg",
+      "graph500",
+      "ai_tokens_or_samples_per_second",
+      "cost_per_flop"
+    ],
+    "engineeringCapacity": [
+      "team_count",
+      "factory_partners",
+      "hardware_supply_chain",
+      "maintenance_readiness"
+    ],
+    "governance": [
+      "quran_sunnah_alignment",
+      "no_false_claim",
+      "human_approval",
+      "experiment_to_core_score"
+    ]
+  },
+  "transformationStages": [
+    "local_runtime",
+    "single_node_lab",
+    "multi_node_lab",
+    "gpu_cluster",
+    "cloud_hpc_federation",
+    "industrial_datacenter",
+    "national_compute_fabric",
+    "global_federated_compute_fabric"
+  ],
+  "rule": "No industrial or civilizational performance claim is accepted without measurement evidence."
+}

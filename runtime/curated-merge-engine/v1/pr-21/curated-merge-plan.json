@@ -1,0 +1,37 @@
+{
+  "report": "SHEIKHA_CURATED_MERGE_PLAN",
+  "status": "ACTIVE",
+  "pr": 21,
+  "totalFiles": 8,
+  "decision": "CURATED_MERGE",
+  "mergeAllowedRaw": false,
+  "counts": {
+    "sourceCandidates": 3,
+    "excluded": 2,
+    "separateReview": 3
+  },
+  "sourceCandidates": [
+    "lib/optimum-rules-engine.js",
+    "lib/sheikha-ide-collaboration-system.js",
+    "lib/sheikha-llm-neural-layer.js"
+  ],
+  "excluded": [
+    "dist/sheikha-app/opt/sheikha/lib/sheikha-ide-collaboration-system.js",
+    "dist/sheikha-app/opt/sheikha/lib/sheikha-llm-neural-layer.js"
+  ],
+  "separateReview": [
+    "package-lock.json",
+    "package.json",
+    "server.js"
+  ],
+  "requiredBeforeMerge": [
+    "review_source_candidates",
+    "review_separate_files",
+    "exclude_generated_and_backups",
+    "run_lint",
+    "run_tests",
+    "secret_scan",
+    "human_approval"
+  ],
+  "timestamp": "2026-06-04T09:52:16.275Z"
+}

@@ -1,0 +1,53 @@
+{
+  "registry": "SHEIKHA_EXTENSION_CHAT_TOOL_REGISTRY_V1",
+  "status": "ACTIVE",
+  "target": "sheikha-vscode-extension",
+  "tools": [
+    {
+      "label": "Runtime",
+      "prompt": "أنشئ Runtime محكوم داخل شيخة مع ربط SDK/Fabric/MCP واكتب مسار الملفات والفحوص المطلوبة."
+    },
+    {
+      "label": "Registry",
+      "prompt": "أنشئ Registry محكوم داخل شيخة للميزة الحالية مع الترقيم والحوكمة وسجل الأدوات."
+    },
+    {
+      "label": "Tool",
+      "prompt": "أنشئ Tool محكوم داخل شيخة للميزة الحالية مع تقرير تشغيل وفحص واضح."
+    },
+    {
+      "label": "Route",
+      "prompt": "أنشئ Route محكوم داخل شيخة واربطه داخل Fabric Bootstrap مع endpoint واضح."
+    },
+    {
+      "label": "Tests",
+      "prompt": "أنشئ Tests للميزة الحالية وتحقق من Runtime وRegistry وTool وRoute وSDK/Fabric/MCP."
+    },
+    {
+      "label": "Test",
+      "prompt": "شغّل npm test أو جهّز أمر تشغيل الاختبارات وفسّر النتيجة والخطوة التالية."
+    },
+    {
+      "label": "Lint",
+      "prompt": "شغّل lint أو جهّز أمر lint وافحص جودة الكود والمخاطر."
+    },
+    {
+      "label": "Drift",
+      "prompt": "تحقق من NO_DRIFT عبر كاشف الانحراف واشرح حالة gitClean والملفات المتأثرة."
+    },
+    {
+      "label": "Commit",
+      "prompt": "جهّز Commit محكوم بعد فحص الاختبارات واللينت والقبول، واقترح رسالة commit دقيقة."
+    },
+    {
+      "label": "Push",
+      "prompt": "جهّز Push محكوم للفرع الحالي بعد التأكد من Governance Passed وNO_DRIFT."
+    }
+  ],
+  "uiPlacement": [
+    "sidebar_chat_actions",
+    "main_chat_actions",
+    "root_neural_tools_view"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

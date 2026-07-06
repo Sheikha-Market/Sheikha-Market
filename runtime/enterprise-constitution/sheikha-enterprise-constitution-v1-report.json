@@ -1,0 +1,300 @@
+{
+  "system": "SHEIKHA_ENTERPRISE_CONSTITUTION_V1",
+  "status": "ACTIVE",
+  "mode": "GOVERNED_PLATFORM_CONSTITUTION",
+  "decision": "CONSTITUTION_ACTIVE_COMMERCIAL_EVIDENCE_REQUIRED",
+  "purpose": "Govern every future Sheikha component through fixed enterprise principles, standards, lifecycle, and council review.",
+  "permanentPrinciples": [
+    "Truth First",
+    "Governance Before Execution",
+    "Human Approval For High Impact Actions",
+    "No Harm",
+    "Audit Everything",
+    "Contracts Before Code",
+    "Events Before Integrations",
+    "Security By Default",
+    "Observability By Default",
+    "Documentation By Default"
+  ],
+  "standards": {
+    "moduleStandard": {
+      "name": "Module Standard",
+      "status": "ACTIVE",
+      "required": [
+        "README.md",
+        "contract.js",
+        "service.js",
+        "routes.js",
+        "events.js",
+        "policies.js",
+        "tests/",
+        "docs/",
+        "metrics.js",
+        "health.js"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "capabilityStandard": {
+      "name": "Capability Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Capability Name",
+        "Purpose",
+        "Owner",
+        "Dependencies",
+        "Inputs",
+        "Outputs",
+        "Policies",
+        "Events",
+        "Metrics",
+        "Health",
+        "Version"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "apiStandard": {
+      "name": "API Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Version",
+        "Contract",
+        "Authentication",
+        "Authorization",
+        "Rate Limits",
+        "Audit",
+        "Error Model",
+        "Examples",
+        "Deprecation Policy"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "eventStandard": {
+      "name": "Event Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Event Name",
+        "Schema",
+        "Producer",
+        "Consumers",
+        "Retention",
+        "Audit Hash"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "dataStandard": {
+      "name": "Enterprise Data Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Organization",
+        "Workspace",
+        "Customer",
+        "Supplier",
+        "Product",
+        "Category",
+        "Order",
+        "Contract",
+        "Invoice",
+        "Payment",
+        "Subscription",
+        "Shipment",
+        "Knowledge",
+        "AI Session",
+        "Audit",
+        "Event"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS",
+      "duplicateCanonicalEntityBlocked": true,
+      "forbiddenExamples": [
+        "Customer2",
+        "ProductNew",
+        "InvoiceV2"
+      ]
+    },
+    "governanceStandard": {
+      "name": "Enterprise Governance Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Read",
+        "Validate",
+        "Policy Evaluation",
+        "Risk Assessment",
+        "Approval",
+        "Execution",
+        "Audit",
+        "Event"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "uxStandard": {
+      "name": "Experience Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Clear title",
+        "Short description",
+        "Primary actions",
+        "Status indicators",
+        "Timeline when needed",
+        "Contextual help",
+        "Arabic and English support",
+        "Accessibility"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "qualityStandard": {
+      "name": "Quality Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Unit tests",
+        "Integration tests",
+        "Lint",
+        "Contract review",
+        "Documentation review",
+        "Performance review"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "releaseStandard": {
+      "name": "Release Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Development",
+        "Integration",
+        "QA",
+        "Release Candidate",
+        "Controlled Staging",
+        "Production",
+        "Long Term Support"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "operationsStandard": {
+      "name": "Operations Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Health Endpoint",
+        "Metrics",
+        "Structured Logs",
+        "Tracing",
+        "Alert Rules",
+        "Backup Strategy",
+        "Recovery Procedure"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "businessStandard": {
+      "name": "Business Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Target Customers",
+        "Pricing",
+        "Subscriptions",
+        "Contracts",
+        "Invoices",
+        "Support",
+        "Renewals",
+        "KPIs"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    },
+    "aiStandard": {
+      "name": "AI Standard",
+      "status": "ACTIVE",
+      "required": [
+        "Role",
+        "Capabilities",
+        "Allowed Actions",
+        "Blocked Actions",
+        "Context Sources",
+        "Policies",
+        "Audit Requirements"
+      ],
+      "enforcement": "REQUIRED_FOR_NEW_COMPONENTS"
+    }
+  },
+  "validation": {
+    "system": "SHEIKHA_ENTERPRISE_CONSTITUTION_VALIDATOR_V1",
+    "status": "PASSED",
+    "standards": 12,
+    "requiredItems": 103,
+    "missing": []
+  },
+  "governanceCouncil": {
+    "status": "ACTIVE",
+    "scope": [
+      "Architecture",
+      "Data Models",
+      "Contracts",
+      "Policies",
+      "Releases",
+      "Security",
+      "Compliance",
+      "Commercial Launch",
+      "Roadmap"
+    ],
+    "mandate": "Review major changes in architecture, data models, contracts, policies, releases, security, compliance, and commercial launch."
+  },
+  "executivePrograms": [
+    {
+      "order": 1,
+      "name": "Platform Consolidation",
+      "status": "ACTIVE"
+    },
+    {
+      "order": 2,
+      "name": "Commercial Readiness",
+      "status": "EVIDENCE_PENDING"
+    },
+    {
+      "order": 3,
+      "name": "Operational Excellence",
+      "status": "ACTIVE"
+    },
+    {
+      "order": 4,
+      "name": "Developer Ecosystem",
+      "status": "ACTIVE"
+    },
+    {
+      "order": 5,
+      "name": "Controlled Market Launch",
+      "status": "ACTIVE"
+    }
+  ],
+  "linkedLayers": {
+    "enterpriseOperatingSystemV11": "ACTIVE",
+    "enterpriseOperatingSystemDecision": "ENTERPRISE_OS_ACTIVE_COMMERCIAL_EVIDENCE_REQUIRED",
+    "commercialLaunchReady": false,
+    "currentReleaseStage": "Release Candidate"
+  },
+  "enforcement": {
+    "noUnregisteredModule": true,
+    "noUncontractedCapability": true,
+    "noUnversionedApi": true,
+    "noUnregisteredEvent": true,
+    "noDuplicateCanonicalEntity": true,
+    "noHighImpactActionWithoutHumanApproval": true,
+    "coreMutationRequiresMajorRelease": true,
+    "commercialLaunchRequiresEvidenceGate": true
+  },
+  "roadmap": [
+    "Use the constitution as the review gate for all new modules and capabilities.",
+    "Consolidate registries, contracts, and interfaces before adding new core engines.",
+    "Complete CRM, sales, contracts, invoices, subscriptions, and customer portal evidence.",
+    "Complete backup, rollback, monitoring, and incident management evidence.",
+    "Launch controlled market validation only after evidence passes."
+  ],
+  "governance": {
+    "readOnly": true,
+    "noExternalMutation": true,
+    "noServiceRestart": true,
+    "noKernelModification": true,
+    "noPrivilegeEscalation": true,
+    "noUnsupportedCommercialClaims": true,
+    "humanApprovalRequiredForConstitutionChange": true,
+    "humanApprovalRequiredForCommercialLaunch": true,
+    "noHarm": true,
+    "principle": "لا ضرر ولا ضرار",
+    "tawhid": "الله وحده لا شريك له"
+  },
+  "timestamp": "2026-07-05T04:09:01.293Z"
+}

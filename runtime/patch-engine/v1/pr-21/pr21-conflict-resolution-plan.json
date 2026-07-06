@@ -1,0 +1,36 @@
+{
+  "pr": 21,
+  "status": "PATCH_PLAN_READY",
+  "decision": "FIX_CONFLICTS_BEFORE_CURATED_MERGE",
+  "conflicts": [
+    {
+      "file": "lib/sheikha-llm-neural-layer.js",
+      "rootCause": "Unresolved Git conflict markers in model selection logic.",
+      "chosenResolution": "Use AI_LLM_MODEL first, then OPENAI_MODEL, then default gpt-4o.",
+      "safeLine": "model: process.env.AI_LLM_MODEL || process.env.OPENAI_MODEL || 'gpt-4o',"
+    },
+    {
+      "file": "lib/sheikha-ide-collaboration-system.js",
+      "rootCause": "Unresolved Git conflict markers around autonomy capabilities and status response.",
+      "chosenResolution": "Keep safe autonomyCapabilities with canCommit/canPush/canDeploy false, expose getAutonomyCapabilities(), and preserve governance boundaries."
+    }
+  ],
+  "excludedFromMerge": [
+    "dist/",
+    "package.json",
+    "package-lock.json",
+    "server.js"
+  ],
+  "approvedForCuratedPatch": [
+    "lib/optimum-rules-engine.js",
+    "lib/sheikha-llm-neural-layer.js after conflict cleanup",
+    "lib/sheikha-ide-collaboration-system.js after conflict cleanup"
+  ],
+  "rules": {
+    "no_raw_merge": true,
+    "no_unresolved_conflict_markers": true,
+    "no_package_downgrade_without_review": true,
+    "no_server_merge_without_separate_review": true,
+    "human_approval_required": true
+  }
+}

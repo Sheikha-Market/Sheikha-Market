@@ -1,0 +1,187 @@
+'use strict';
+
+const {
+  getEnterpriseArchitecture,
+  getArchitectureStatus,
+  getArchitectureLayerById,
+  getArchitectureRegistry,
+  getArchitectureRelationshipGraph,
+  getArchitectureLayerRelationships,
+  validateEnterpriseArchitecture
+} = require('../core/enterprise-architecture/sheikha-enterprise-architecture');
+
+describe('Sheikha Enterprise Architecture Registry V2', () => {
+  test('architecture registry is active and versioned', () => {
+    const status = getArchitectureStatus();
+
+    expect(status.system).toBe('SHEIKHA_ENTERPRISE_ARCHITECTURE_V2');
+    expect(status.status).toBe('ACTIVE');
+    expect(status.version).toBe('2.0.0');
+    expect(status.layers).toBeGreaterThanOrEqual(24);
+    expect(status.activeLayers).toBe(status.layers);
+  });
+
+
+  test('contains Islamic reference layer above constitution', () => {
+    const layer = getArchitectureLayerById('islamic-reference-layer');
+    const constitution = getArchitectureLayerById('constitution');
+
+    expect(layer).not.toBeNull();
+    expect(layer.arabicName).toBe('الدين الإسلامي');
+    expect(layer.capabilities).toContain('ethical-reference');
+    expect(constitution.dependencies).toContain('islamic-reference-layer');
+  });
+
+
+  test('contains Arabian Peninsula federation and Arabian Gulf regional layers', () => {
+    const peninsula = getArchitectureLayerById('arabian-peninsula-federation-layer');
+    const gulf = getArchitectureLayerById('arabian-gulf-cooperation-layer');
+    const council = getArchitectureLayerById('commerce-supreme-council');
+
+    expect(peninsula).not.toBeNull();
+    expect(peninsula.arabicName).toBe('اتحاد الجزيرة العربية');
+    expect(peninsula.dependencies).toContain('kingdom');
+
+    expect(gulf).not.toBeNull();
+    expect(gulf.arabicName).toBe('طبقة الخليج العربي');
+    expect(gulf.dependencies).toContain('arabian-peninsula-federation-layer');
+
+    expect(council.dependencies).toContain('arabian-gulf-cooperation-layer');
+  });
+
+  test('contains civilization, ecosystem, kingdom, federation, emirates and integration layers', () => {
+    const architecture = getEnterpriseArchitecture();
+    const ids = architecture.layers.map((layer) => layer.id);
+
+    expect(architecture.identity.civilization).toBe('Saudi Global Commerce Civilization');
+    expect(architecture.identity.ecosystem).toBe('Global Commerce Ecosystem');
+    expect(architecture.identity.kingdom).toBe('Commerce Kingdom');
+    expect(ids).toContain('global-commerce-federation');
+    expect(ids).toContain('federation-of-commerce-ecosystems');
+    expect(ids).toContain('commerce-emirates');
+    expect(ids).toContain('universal-integration-fabric');
+  });
+
+  test('architecture terms are governed as internal terminology', () => {
+    const architecture = getEnterpriseArchitecture();
+
+    expect(architecture.governanceNote).toContain('internal architecture');
+    expect(architecture.governanceNote).toContain('values');
+    expect(architecture.governanceNote).toContain('do not represent governmental');
+  });
+
+  test('contains Ummah benefit value layer as ethical guidance', () => {
+    const architecture = getEnterpriseArchitecture();
+
+    expect(architecture.ummahValueLayer.arabicName).toBe('أمة محمد ﷺ');
+    expect(architecture.ummahValueLayer.scope).toContain('Values guidance only');
+    expect(architecture.ummahValueLayer.scope).toContain('benefiting the Ummah of Muhammad ﷺ');
+    expect(architecture.ummahValueLayer.principles).toContain('Benefit to People');
+    expect(architecture.ummahValueLayer.principles).toContain('Beneficial Trade');
+  });
+
+  test('layer lookup works', () => {
+    const layer = getArchitectureLayerById('commerce-emirates');
+
+    expect(layer).not.toBeNull();
+    expect(layer.arabicName).toBe('إمارات التجارة');
+    expect(layer.dependencies).toContain('federation-of-commerce-ecosystems');
+  });
+
+  test('registry exposes compact layer list', () => {
+    const registry = getArchitectureRegistry();
+
+    expect(Array.isArray(registry)).toBe(true);
+    expect(registry.length).toBeGreaterThanOrEqual(15);
+    expect(registry[0]).toHaveProperty('id');
+    expect(registry[0]).toHaveProperty('capabilities');
+  });
+
+
+
+
+
+  test('contains planning analysis and religion renewal service layers', () => {
+    const planning = getArchitectureLayerById('planning-analysis-layer');
+    const renewal = getArchitectureLayerById('religion-renewal-service-layer');
+    const science = getArchitectureLayerById('universal-scientific-methodology-layer');
+
+    expect(planning).not.toBeNull();
+    expect(planning.arabicName).toBe('طبقة التخطيط والتحليل');
+    expect(planning.capabilities).toContain('planning-engine');
+
+    expect(renewal).not.toBeNull();
+    expect(renewal.arabicName).toBe('طبقة خدمة تجديد فهم الدين');
+    expect(renewal.capabilities).toContain('scholarly-review-gate');
+    expect(renewal.responsibilities).toContain('no-unauthorized-fatwa');
+
+    expect(science.dependencies).toContain('islamic-reference-layer');
+    expect(science.dependencies).toContain('constitution');
+    expect(science.dependencies).toContain('ummah-benefit-value-layer');
+    expect(science.dependencies).toContain('planning-analysis-layer');
+    expect(science.dependencies).toContain('religion-renewal-service-layer');
+  });
+
+  test('contains universal scientific methodology layer', () => {
+    const science = getArchitectureLayerById('universal-scientific-methodology-layer');
+    const civilization = getArchitectureLayerById('civilization');
+
+    expect(science).not.toBeNull();
+    expect(science.arabicName).toBe('طبقة المناهج العلمية الكونية');
+    expect(science.dependencies).toContain('islamic-reference-layer');
+    expect(science.dependencies).toContain('constitution');
+    expect(science.dependencies).toContain('ummah-benefit-value-layer');
+    expect(science.dependencies).toContain('planning-analysis-layer');
+    expect(science.dependencies).toContain('religion-renewal-service-layer');
+    expect(science.capabilities).toContain('scientific-method-registry');
+    expect(civilization.dependencies).toContain('universal-scientific-methodology-layer');
+  });
+
+
+  test('contains product knowledge fabric layer', () => {
+    const product = getArchitectureLayerById('product-knowledge-fabric');
+
+    expect(product).not.toBeNull();
+    expect(product.arabicName).toBe('نسيج معرفة المنتجات');
+    expect(product.capabilities).toContain('product-registry');
+    expect(product.capabilities).toContain('quality-gate');
+    expect(product.dependencies).toContain('universal-scientific-methodology-layer');
+    expect(product.dependencies).toContain('internal-integration-layer');
+  });
+
+  test('contains internal and external integration layers', () => {
+    const internal = getArchitectureLayerById('internal-integration-layer');
+    const external = getArchitectureLayerById('external-integration-layer');
+    const universal = getArchitectureLayerById('universal-integration-fabric');
+
+    expect(internal).not.toBeNull();
+    expect(internal.arabicName).toBe('طبقة التكامل الداخلي');
+    expect(internal.dependencies).toContain('global-commerce-infrastructure');
+
+    expect(external).not.toBeNull();
+    expect(external.arabicName).toBe('طبقة التكامل الخارجي');
+    expect(external.dependencies).toContain('internal-integration-layer');
+
+    expect(universal.dependencies).toContain('external-integration-layer');
+  });
+
+  test('relationship graph exposes parents children and governance metadata', () => {
+    const graph = getArchitectureRelationshipGraph();
+    const constitution = getArchitectureLayerRelationships('constitution');
+
+    expect(Array.isArray(graph)).toBe(true);
+    expect(graph.length).toBeGreaterThanOrEqual(18);
+    expect(constitution).not.toBeNull();
+    expect(constitution.parents).toContain('islamic-reference-layer');
+    expect(constitution.children).toContain('ummah-benefit-value-layer');
+    expect(constitution.governance).toBe('PASSED');
+    expect(constitution.risk).toBe('LOW');
+  });
+
+  test('validation passes with valid dependencies', () => {
+    const validation = validateEnterpriseArchitecture();
+
+    expect(validation.valid).toBe(true);
+    expect(validation.dependenciesValid).toBe(true);
+  });
+});

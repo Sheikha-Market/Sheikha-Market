@@ -1,0 +1,16 @@
+{
+  "registry": "SHEIKHA_CONNECTOR_GOVERNANCE_POLICY_V1",
+  "status": "ACTIVE",
+  "policies": [
+    "No connector activation without authorization.",
+    "No secret storage in Git.",
+    "Use environment variables or secret manager for tokens.",
+    "Every connector must declare data scope.",
+    "Every connector must declare read/write permissions.",
+    "High-impact write actions require human approval.",
+    "All external calls must be auditable.",
+    "Private data must not be indexed without consent.",
+    "Open data must preserve source attribution.",
+    "Connector failure must not break core runtime."
+  ]
+}

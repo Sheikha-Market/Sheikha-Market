@@ -26,7 +26,7 @@
         }
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body { font-family: 'Tajawal', sans-serif; background: var(--darker); color: var(--text); min-height: 100vh; line-height: 1.7; }
-        
+
         /* Header */
         .header {
             background: linear-gradient(180deg, var(--card), var(--darker));
@@ -53,7 +53,7 @@
         }
         .logo-text h1 { font-size: 1.2rem; color: var(--gold); }
         .logo-text p { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         .nav { display: flex; gap: 8px; }
         .nav-link {
             padding: 10px 16px;
@@ -64,7 +64,7 @@
             transition: all 0.3s;
         }
         .nav-link:hover { color: var(--gold); background: rgba(212,175,55,0.1); }
-        
+
         /* Hero */
         .hero {
             padding: 100px 24px;
@@ -95,7 +95,7 @@
         .hero h1 { font-size: 3rem; margin-bottom: 20px; }
         .hero h1 span { color: var(--gold); }
         .hero p { font-size: 1.2rem; color: var(--text-muted); max-width: 700px; margin: 0 auto 30px; }
-        
+
         .hero-stats {
             display: flex;
             gap: 40px;
@@ -105,9 +105,9 @@
         .hero-stat { text-align: center; }
         .hero-stat-value { font-size: 2.5rem; font-weight: 900; color: var(--gold); }
         .hero-stat-label { font-size: 0.9rem; color: var(--text-muted); }
-        
+
         .container { max-width: 1400px; margin: 0 auto; padding: 80px 24px; }
-        
+
         /* Section */
         .section-header { text-align: center; margin-bottom: 60px; }
         .section-badge {
@@ -123,7 +123,7 @@
         .section-title { font-size: 2.2rem; margin-bottom: 16px; }
         .section-title span { color: var(--gold); }
         .section-desc { font-size: 1.1rem; color: var(--text-muted); max-width: 700px; margin: 0 auto; }
-        
+
         /* Integration Cards */
         .integration-grid {
             display: grid;
@@ -184,7 +184,7 @@
         }
         .integration-features li:last-child { border-bottom: none; }
         .integration-features li::before { content: '✓'; color: var(--success); }
-        
+
         /* Data Flow */
         .data-flow-section {
             background: var(--card);
@@ -196,7 +196,7 @@
         .data-flow-title { text-align: center; margin-bottom: 40px; }
         .data-flow-title h3 { font-size: 1.5rem; margin-bottom: 8px; }
         .data-flow-title p { color: var(--text-muted); }
-        
+
         .data-flow {
             display: flex;
             align-items: center;
@@ -237,7 +237,7 @@
             0%, 100% { opacity: 0.5; transform: translateX(0); }
             50% { opacity: 1; transform: translateX(5px); }
         }
-        
+
         /* Live Data Panel */
         .live-data-section {
             background: linear-gradient(135deg, var(--green), var(--dark));
@@ -272,7 +272,7 @@
             0%, 100% { opacity: 1; }
             50% { opacity: 0.4; }
         }
-        
+
         .live-data-grid {
             display: grid;
             grid-template-columns: repeat(4, 1fr);
@@ -291,7 +291,7 @@
         .live-data-change { font-size: 0.8rem; margin-top: 8px; }
         .change-up { color: var(--success); }
         .change-down { color: #ef4444; }
-        
+
         /* Protocols */
         .protocols-grid {
             display: grid;
@@ -320,7 +320,7 @@
         }
         .protocol-card h4 { font-size: 1rem; margin-bottom: 6px; }
         .protocol-card p { font-size: 0.8rem; color: var(--text-muted); }
-        
+
         /* Saudi Vision */
         .saudi-section {
             background: linear-gradient(135deg, rgba(0,108,53,0.1), var(--card));
@@ -355,7 +355,7 @@
             flex-shrink: 0;
         }
         .saudi-visual svg { width: 100px; height: 100px; }
-        
+
         /* CTA */
         .cta-section {
             text-align: center;
@@ -385,7 +385,7 @@
         .btn-gold:hover { transform: translateY(-3px); box-shadow: 0 10px 30px rgba(212,175,55,0.3); }
         .btn-outline { background: transparent; border: 1px solid var(--border); color: var(--text-muted); }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         /* Footer */
         .footer {
             text-align: center;
@@ -395,7 +395,7 @@
         }
         .footer .basmala { color: var(--gold); margin-bottom: 12px; }
         .footer p { color: var(--text-muted); }
-        
+
         @media (max-width: 1024px) {
             .integration-grid { grid-template-columns: repeat(2, 1fr); }
             .live-data-grid { grid-template-columns: repeat(2, 1fr); }
@@ -467,7 +467,7 @@
             <h2 class="section-title">تكامل مع <span>البيئات الصناعية</span></h2>
             <p class="section-desc">ربط سلس مع جميع مراحل الإنتاج — من المصدر إلى المنتج النهائي</p>
         </div>
-        
+
         <div class="integration-grid">
             <!-- المصانع الذكية -->
             <div class="integration-card">
@@ -490,7 +490,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- المصاهر -->
             <div class="integration-card">
                 <div class="integration-header">
@@ -512,7 +512,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- المناجم -->
             <div class="integration-card">
                 <div class="integration-header">
@@ -534,7 +534,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- المستودعات -->
             <div class="integration-card">
                 <div class="integration-header">
@@ -556,7 +556,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- النقل -->
             <div class="integration-card">
                 <div class="integration-header">
@@ -578,7 +578,7 @@
                     </ul>
                 </div>
             </div>
-            
+
             <!-- مختبرات الجودة -->
             <div class="integration-card">
                 <div class="integration-header">
@@ -690,7 +690,7 @@
             <h2 class="section-title">معايير <span>الاتصال المدعومة</span></h2>
             <p class="section-desc">توافق كامل مع جميع البروتوكولات الصناعية العالمية</p>
         </div>
-        
+
         <div class="protocols-grid">
             <div class="protocol-card">
                 <div class="protocol-icon">🔌</div>
@@ -745,7 +745,7 @@
                     متوافق مع رؤية 2030
                 </h3>
                 <p>
-                    منظومة شيخة متوافقة بالكامل مع برنامج تطوير الصناعة الوطنية والخدمات اللوجستية (NIDLP) 
+                    منظومة شيخة متوافقة بالكامل مع برنامج تطوير الصناعة الوطنية والخدمات اللوجستية (NIDLP)
                     وتدعم أهداف قطاع التعدين والمعادن في المملكة العربية السعودية.
                 </p>
                 <div class="saudi-badges">

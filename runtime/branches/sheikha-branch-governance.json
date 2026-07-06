@@ -1,0 +1,19 @@
+{
+  "governance": "SHEIKHA_BRANCH_GOVERNANCE",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "productionBranch": "optimization/long-tail-latency-elimination",
+  "previousProductionBranch": "proposal/global-infra-mainline",
+  "rules": {
+    "productionRequiresCleanTree": true,
+    "productionRequiresNoDrift": true,
+    "productionRequiresPm2Restart": true,
+    "noDirectFeatureBranchProduction": true
+  },
+  "protectedBranches": [
+    "optimization/long-tail-latency-elimination",
+    "proposal/global-infra-mainline",
+    "main"
+  ],
+  "integrationPolicy": "Branches may be reviewed and integrated only through governed promotion, not direct production switching."
+}

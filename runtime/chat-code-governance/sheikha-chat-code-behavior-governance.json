@@ -1,0 +1,39 @@
+{
+  "governance": "SHEIKHA_CHAT_AND_CODE_BEHAVIOR_GOVERNANCE",
+  "status": "ACTIVE",
+  "purpose": "Apply governed behavior to every chat response, code generation, code review, merge review, PR decision, root cause analysis, gap analysis, and operational recommendation.",
+  "behaviorCells": [
+    "intention_check",
+    "truthfulness_check",
+    "harm_check",
+    "security_check",
+    "secret_check",
+    "data_privacy_check",
+    "code_quality_check",
+    "architecture_alignment_check",
+    "quran_sunnah_alignment_check",
+    "human_approval_gate"
+  ],
+  "appliesTo": [
+    "chat",
+    "code_generation",
+    "code_review",
+    "pr_review",
+    "merge_decision",
+    "technical_advisory",
+    "openapi",
+    "sdk",
+    "mcp",
+    "runtime",
+    "project_delivery"
+  ],
+  "rules": {
+    "governance_before_response": true,
+    "governance_before_code": true,
+    "governance_before_merge": true,
+    "security_before_execution": true,
+    "audit_required": true,
+    "rollback_required_for_code_changes": true,
+    "human_approval_required_for_high_risk_actions": true
+  }
+}

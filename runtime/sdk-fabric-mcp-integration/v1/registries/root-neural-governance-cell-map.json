@@ -1,0 +1,126 @@
+{
+  "registry": "SHEIKHA_ROOT_NEURAL_GOVERNANCE_CELL_MAP_V1",
+  "status": "ACTIVE",
+  "arabic_name": "خريطة خلايا الجذر العصبية الحاكمة لتكامل SDK وFabric وMCP",
+  "governanceReference": {
+    "code": "QSRGC-001",
+    "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
+    "sourceLayer": "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER",
+    "system_is_tool_not_religious_authority": true,
+    "human_scholar_or_specialist_review_when_required": true
+  },
+  "cells": [
+    {
+      "id": "NGC-001",
+      "name": "ROOT_TRUTHFULNESS_CELL",
+      "rule": "no_false_claims",
+      "appliesTo": ["SDK", "FABRIC", "MCP", "REPORTS"]
+    },
+    {
+      "id": "NGC-002",
+      "name": "NO_HARM_CELL",
+      "rule": "no_harm",
+      "appliesTo": ["EXTERNAL_SYSTEMS", "CUSTOMER_ENVIRONMENTS", "HIGH_IMPACT_ACTIONS"]
+    },
+    {
+      "id": "NGC-003",
+      "name": "AMANAH_TRUST_CELL",
+      "rule": "trustworthiness",
+      "appliesTo": ["DATA", "SECRETS", "CONTRACTS", "CUSTOMER_CONTEXT"]
+    },
+    {
+      "id": "NGC-004",
+      "name": "JUSTICE_AND_NO_DECEPTION_CELL",
+      "rule": "justice_no_deception",
+      "appliesTo": ["GOVERNMENT_SYSTEMS", "COMMERCIAL_CLAIMS", "CUSTOMER_OUTPUTS"]
+    },
+    {
+      "id": "NGC-005",
+      "name": "ITQAN_ENGINEERING_CELL",
+      "rule": "itqan",
+      "appliesTo": ["SDK", "MCP_TOOL_CONTRACT", "FABRIC_ROUTE", "TESTS"]
+    },
+    {
+      "id": "NGC-006",
+      "name": "SHURA_AND_HUMAN_REVIEW_CELL",
+      "rule": "human_review_when_required",
+      "appliesTo": ["REGULATED_OUTPUTS", "HIGH_RISK_ACTIONS", "HIGH_COST_COMPUTE"]
+    },
+    {
+      "id": "NGC-007",
+      "name": "AUTHORIZATION_GATE_CELL",
+      "rule": "no_external_api_without_authorization",
+      "appliesTo": ["GOVERNMENT_SYSTEMS", "PRIVATE_APIS", "PROVIDER_SYSTEMS"]
+    },
+    {
+      "id": "NGC-008",
+      "name": "DATA_RIGHTS_CELL",
+      "rule": "data_rights_before_ingestion",
+      "appliesTo": ["OPEN_DATA", "LICENSED_DATA", "CUSTOMER_DATA", "SCIENCE_DATABASES"]
+    },
+    {
+      "id": "NGC-009",
+      "name": "MCP_SCHEMA_PERMISSION_CELL",
+      "rule": "schema_permission_audit_required",
+      "appliesTo": ["MCP_TOOLS", "SDK_OUTPUTS", "TOOL_CONTRACTS"]
+    },
+    {
+      "id": "NGC-010",
+      "name": "AUDIT_AND_EVIDENCE_CELL",
+      "rule": "audit_required",
+      "appliesTo": ["INTEGRATIONS", "DASHBOARDS", "REPORTS", "COMMERCIAL_PRODUCTS"]
+    }
+  ],
+  "moduleBindings": [
+    {
+      "module": "SDK_FABRIC",
+      "cells": ["NGC-001", "NGC-005", "NGC-009", "NGC-010"]
+    },
+    {
+      "module": "MCP_GATEWAY",
+      "cells": ["NGC-001", "NGC-005", "NGC-007", "NGC-009", "NGC-010"]
+    },
+    {
+      "module": "GOVERNMENT_INTEGRATION_READINESS",
+      "cells": ["NGC-002", "NGC-004", "NGC-006", "NGC-007", "NGC-010"]
+    },
+    {
+      "module": "SPACE_IOT_ML_AI_CONNECTORS",
+      "cells": ["NGC-001", "NGC-003", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "module": "SCIENCE_AND_EDUCATION_CONNECTORS",
+      "cells": ["NGC-001", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "module": "SUPERCOMPUTING_AND_DATACENTER_CONNECTORS",
+      "cells": ["NGC-001", "NGC-002", "NGC-006", "NGC-007", "NGC-010"]
+    },
+    {
+      "module": "CUSTOMER_ENVIRONMENT_CONNECTORS",
+      "cells": ["NGC-002", "NGC-003", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "module": "CONNECTOR_PROFILE_REGISTRY",
+      "cells": ["NGC-001", "NGC-006", "NGC-007", "NGC-008", "NGC-009", "NGC-010"]
+    }
+  ],
+  "connectorMesh": {
+    "name": "SHEIKHA_ROOT_NEURAL_CONNECTOR_MESH",
+    "status": "ACTIVE",
+    "profileRegistry": "SHEIKHA_CONNECTOR_PROFILE_REGISTRY_V1",
+    "governanceMode": "root-neural-cells-before-connector-activation",
+    "claimPolicy": {
+      "readinessAllowed": true,
+      "liveConnectionRequiresCredentials": true,
+      "privateSystemRequiresContract": true,
+      "computeResourceRequiresProviderEvidence": true
+    }
+  },
+  "numbering": {
+    "prefix": "NGC",
+    "range": "NGC-001..NGC-010",
+    "purpose": "Codify root neural governance cells for SDK, Fabric, MCP, and integration readiness."
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

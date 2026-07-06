@@ -1,0 +1,18 @@
+{
+  "bridge": "SHEIKHA_MCP_UNIFIED_BRIDGE",
+  "status": "ACTIVE",
+  "sourceRuntime": "/api/sheikha/neural-mcp",
+  "canonicalRoutes": [
+    "/api/mcp/status",
+    "/api/mcp/health",
+    "/api/mcp/tools",
+    "/api/sheikha/mcp/status",
+    "/api/sheikha/mcp/tools"
+  ],
+  "rules": {
+    "neural_mcp_is_current_active_runtime": true,
+    "bridge_only_no_kernel_exposure": true,
+    "preserve_existing_neural_mcp": true,
+    "no_conflict_with_fabric": true
+  }
+}

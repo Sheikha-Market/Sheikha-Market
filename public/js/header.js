@@ -62,18 +62,18 @@ function createHeader(activePage = '') {
                     <p>المعادن والسكراب ♻️</p>
                 </div>
             </a>
-            
+
             <nav class="sheikha-nav">
                 <a href="/" class="nav-link ${activePage === 'home' ? 'active' : ''}">🏠 الرئيسية</a>
-                
+
                 ${createNavDropdown('market', 'السوق', activePage)}
                 ${createNavDropdown('supplyChain', 'سلسلة التوريد', activePage)}
                 ${createNavDropdown('systems', 'الأنظمة', activePage)}
                 ${createNavDropdown('support', 'المساعد', activePage)}
             </nav>
-            
+
             <button class="mobile-menu-btn" onclick="toggleMobileNav()">☰</button>
-            
+
             <div class="header-actions">
                 <a href="/app.html" class="btn btn-primary btn-sm">📱 التطبيق</a>
                 <a href="/تسجيل-تاجر.html" class="btn btn-gold">افتح متجرك</a>
@@ -81,7 +81,7 @@ function createHeader(activePage = '') {
             </div>
         </div>
     `;
-    
+
     return header;
 }
 
@@ -89,7 +89,7 @@ function createHeader(activePage = '') {
 function createNavDropdown(sectionKey, label, activePage) {
     const section = SECTIONS[sectionKey];
     const isActive = section.items.some(item => activePage && item.href.includes(activePage));
-    
+
     return `
         <div class="nav-item">
             <a href="${section.items[0].href}" class="nav-link ${isActive ? 'active' : ''}">
@@ -118,7 +118,7 @@ function createMobileNav() {
     const mobileNav = document.createElement('div');
     mobileNav.className = 'mobile-nav';
     mobileNav.id = 'mobileNav';
-    
+
     let sectionsHTML = '';
     for (const [key, section] of Object.entries(SECTIONS)) {
         sectionsHTML += `
@@ -133,7 +133,7 @@ function createMobileNav() {
             </div>
         `;
     }
-    
+
     mobileNav.innerHTML = `
         <div class="mobile-nav-header">
             <div class="sheikha-logo">
@@ -150,12 +150,12 @@ function createMobileNav() {
             <a href="/تسجيل-تاجر.html" class="btn btn-gold" style="width: 100%;">افتح متجرك</a>
         </div>
     `;
-    
+
     const overlay = document.createElement('div');
     overlay.className = 'mobile-overlay';
     overlay.id = 'mobileOverlay';
     overlay.onclick = toggleMobileNav;
-    
+
     document.body.appendChild(overlay);
     document.body.appendChild(mobileNav);
 }
@@ -164,7 +164,7 @@ function createMobileNav() {
 function toggleMobileNav() {
     const nav = document.getElementById('mobileNav');
     const overlay = document.getElementById('mobileOverlay');
-    
+
     if (nav && overlay) {
         nav.classList.toggle('open');
         overlay.classList.toggle('open');
@@ -181,17 +181,17 @@ function initHeader(activePage = '') {
         link.href = '/css/nav.css';
         document.head.appendChild(link);
     }
-    
+
     // إنشاء Header
     const header = createHeader(activePage);
     const existingHeader = document.querySelector('header');
-    
+
     if (existingHeader) {
         existingHeader.replaceWith(header);
     } else {
         document.body.insertBefore(header, document.body.firstChild);
     }
-    
+
     // إنشاء قائمة الجوال
     createMobileNav();
 }

@@ -552,7 +552,7 @@
         <!-- Send Form -->
         <div class="send-section">
             <h2 class="section-title" style="text-align: right; margin-bottom: 24px;">✉️ إرسال إشعار</h2>
-            
+
             <div class="form-tabs">
                 <button class="form-tab active" data-tab="email">📧 بريد إلكتروني</button>
                 <button class="form-tab" data-tab="sms">📱 SMS</button>
@@ -686,7 +686,7 @@
                 const channel = toggle.dataset.channel;
                 const enabled = toggle.classList.contains('on');
                 toggle.previousElementSibling.textContent = enabled ? 'مفعّل' : 'معطّل';
-                
+
                 // Update settings
                 await fetch(API_BASE + '/api/communications/settings', {
                     method: 'POST',
@@ -707,12 +707,12 @@
             const to = document.getElementById('emailTo').value;
             const subject = document.getElementById('emailSubject').value;
             const body = document.getElementById('emailBody').value;
-            
+
             if (!to || !subject || !body) {
                 showAlert('يرجى تعبئة جميع الحقول', 'error');
                 return;
             }
-            
+
             try {
                 const res = await fetch(API_BASE + '/api/communications/send-email', {
                     method: 'POST',
@@ -735,12 +735,12 @@
         async function sendSMS() {
             const phone = document.getElementById('smsPhone').value;
             const message = document.getElementById('smsMessage').value;
-            
+
             if (!phone || !message) {
                 showAlert('يرجى تعبئة جميع الحقول', 'error');
                 return;
             }
-            
+
             try {
                 const res = await fetch(API_BASE + '/api/communications/send-sms', {
                     method: 'POST',
@@ -763,12 +763,12 @@
         async function sendWhatsApp() {
             const phone = document.getElementById('waPhone').value;
             const message = document.getElementById('waMessage').value;
-            
+
             if (!phone || !message) {
                 showAlert('يرجى تعبئة جميع الحقول', 'error');
                 return;
             }
-            
+
             try {
                 const res = await fetch(API_BASE + '/api/communications/send-whatsapp', {
                     method: 'POST',
@@ -792,12 +792,12 @@
             const userId = document.getElementById('pushUserId').value;
             const title = document.getElementById('pushTitle').value;
             const body = document.getElementById('pushBody').value;
-            
+
             if (!userId || !title || !body) {
                 showAlert('يرجى تعبئة جميع الحقول', 'error');
                 return;
             }
-            
+
             try {
                 const res = await fetch(API_BASE + '/api/communications/send-push', {
                     method: 'POST',
@@ -820,12 +820,12 @@
         async function makeCall() {
             const phone = document.getElementById('callPhone').value;
             const messageId = document.getElementById('callMessage').value;
-            
+
             if (!phone) {
                 showAlert('يرجى إدخال رقم الجوال', 'error');
                 return;
             }
-            
+
             try {
                 const res = await fetch(API_BASE + '/api/communications/auto-call', {
                     method: 'POST',
@@ -867,7 +867,7 @@
                 const res = await fetch(API_BASE + '/api/communications/log?limit=20');
                 const data = await res.json();
                 const tbody = document.getElementById('logTableBody');
-                
+
                 if (data.success && data.notifications.length > 0) {
                     tbody.innerHTML = data.notifications.map(n => `
                         <tr>

@@ -37,7 +37,7 @@
 
         /* ===== Reset ===== */
         *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--bg);
@@ -1611,7 +1611,7 @@
             var btn = document.getElementById('loginBtn');
             var identifier = document.getElementById('loginPhone').value.trim();
             var password = document.getElementById('loginPassword').value;
-            
+
             if (!identifier || !password) {
                 showMsg('أدخل الجوال / الإيميل وكلمة المرور', 'error');
                 return;
@@ -1627,7 +1627,7 @@
             } else {
                 payload.phone = identifier;
             }
-            
+
             fetch(API + '/api/auth/login', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },
@@ -1672,7 +1672,7 @@
             var rawAccountType = document.getElementById('regAccountType').value || 'individual';
             var accountType = normalizeAccountTypeForApi(rawAccountType);
             var companyName = document.getElementById('regCompanyName').value.trim();
-            
+
             if (!name || !phone || !storeName || !region || !password) {
                 showMsg('\u064a\u0631\u062c\u0649 \u062a\u0639\u0628\u0626\u0629 \u062c\u0645\u064a\u0639 \u0627\u0644\u062d\u0642\u0648\u0644 \u0627\u0644\u0645\u0637\u0644\u0648\u0628\u0629', 'error');
                 return;
@@ -1684,7 +1684,7 @@
             btn.disabled = true;
             btn.classList.add('btn-loading');
             btn.innerHTML = '<span>\u062c\u0627\u0631\u064a \u0627\u0644\u062a\u0633\u062c\u064a\u0644...</span>';
-            
+
             fetch(API + '/api/auth/register', {
                     method: 'POST',
                     headers: { 'Content-Type': 'application/json' },

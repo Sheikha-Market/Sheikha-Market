@@ -1,0 +1,37 @@
+{
+  "system": "SHEIKHA_VECTOR_KNOWLEDGE_STORE_V2",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "VECTOR_KNOWLEDGE_STORE_V2_ACTIVE_100",
+  "checks": {
+    "engine": true,
+    "entities": true,
+    "relationships": true,
+    "docs": true,
+    "unifiedDataFabric": true,
+    "unifiedRag": true,
+    "vectorStoreV1": true,
+    "mcpGateway": true,
+    "commercialOps": true,
+    "controlTower": true,
+    "driftDetector": true
+  },
+  "missing": [],
+  "coverage": {
+    "entities": 19,
+    "relationships": 13
+  },
+  "cycle": [
+    "DATA_SOURCE",
+    "ENTITY",
+    "RELATIONSHIP",
+    "EMBEDDING",
+    "SEMANTIC_SEARCH",
+    "SOURCE_TRACE",
+    "CITATION",
+    "RAG",
+    "MCP",
+    "DASHBOARD"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

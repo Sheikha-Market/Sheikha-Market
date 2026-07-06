@@ -1,0 +1,18 @@
+{
+  "vscodeExtensionGovernance": {
+    "status": "ACTIVE",
+    "role": "OPTIONAL_TOOLING_INTERFACE",
+    "notCoreRuntime": true,
+    "notRequiredForProduction": true,
+    "keepForEmergencyAndDeveloperUX": true,
+    "preferredCoreInterfaces": [
+      "CLI",
+      "API",
+      "MCP",
+      "GitHub Actions",
+      "PM2",
+      "Runtime Health"
+    ],
+    "futureRecommendation": "isolate as separate repository when stable"
+  }
+}

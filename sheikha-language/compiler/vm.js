@@ -1,8 +1,6 @@
 'use strict';
 
 const childProcess = require('node:child_process');
-const fs = require('node:fs');
-const path = require('node:path');
 const governance = require('./governance');
 const sandboxPolicy = require('./sandbox-policy');
 
@@ -151,7 +149,7 @@ function executeCommand(state, step) {
 }
 
 function isAdapterCommand(command) {
-    return command === 'API' || command === 'PM2' || command === 'DOCKER' || command === 'PYTHON' || command === 'نداء_api' || command === 'تحكم_pm2' || command === 'تحكم_docker';
+    return command === 'API' || command === 'PM2' || command === 'DOCKER' || command === 'نداء_api' || command === 'تحكم_pm2' || command === 'تحكم_docker';
 }
 
 function executeAdapter(state, step) {
@@ -160,9 +158,6 @@ function executeAdapter(state, step) {
     }
     if (step.command === 'PM2' || step.command === 'تحكم_pm2') {
         return runPm2Adapter(state, step);
-    }
-    if (step.command === 'PYTHON') {
-        return runPythonAdapter(state, step);
     }
     return runDockerAdapter(state, step);
 }
@@ -276,73 +271,6 @@ function runDockerAdapter(state, step) {
     }
     state.output.push(message);
     return recordAdapterCall(state, 'docker', action, ok, message, true, { target });
-}
-
-function runPythonAdapter(state, step) {
-    const args = parseArgs(step.argument);
-    const scriptPath = args[0] || '';
-    const contractPath = args[1] || '';
-    let contract;
-
-    try {
-        contract = JSON.parse(fs.readFileSync(path.resolve(process.cwd(), contractPath), 'utf8'));
-    } catch (_) {
-        const message = '[PYTHON:FAIL] invalid JSON contract file';
-        state.output.push(message);
-        return recordAdapterCall(state, 'python', 'run', false, message, false, { scriptPath, contractPath });
-    }
-
-    const policyCheck = sandboxPolicy.checkPythonTarget(state.sandbox, scriptPath, contractPath, contract, process.cwd());
-    if (!policyCheck.allowed) {
-        const message = `[PYTHON:SANDBOX_DENY] ${policyCheck.reason}`;
-        state.output.push(message);
-        return recordAdapterCall(state, 'python', 'run', false, message, false, { scriptPath, contractPath });
-    }
-
-    const resolvedPath = policyCheck.resolvedPath || path.resolve(process.cwd(), scriptPath);
-    if (!fs.existsSync(resolvedPath)) {
-        const message = `[PYTHON:FAIL] script not found: ${scriptPath}`;
-        state.output.push(message);
-        return recordAdapterCall(state, 'python', 'run', false, message, false, { scriptPath, contractPath });
-    }
-
-    if (state.adapters.dryRun) {
-        const message = `[PYTHON:DRY] ${scriptPath} trace=${contract.trace_id || 'none'}`;
-        state.output.push(message);
-        return recordAdapterCall(state, 'python', 'run', true, message, false, {
-            scriptPath,
-            contractPath,
-            traceId: contract.trace_id || null,
-        });
-    }
-
-    try {
-        const stdout = childProcess.execFileSync('python3', [resolvedPath, JSON.stringify(contract)], {
-            cwd: process.cwd(),
-            encoding: 'utf8',
-            stdio: ['ignore', 'pipe', 'pipe'],
-            timeout: 15000,
-        });
-        const payload = JSON.parse(String(stdout || '').trim() || '{}');
-        const ok = payload.ok !== false;
-        const status = payload.status || 'ok';
-        const message = ok
-            ? `[PYTHON:OK] ${status}`
-            : `[PYTHON:FAIL] ${status}`;
-        state.output.push(message);
-        state.output.push(`[PYTHON:RESULT] ${JSON.stringify(payload.output || {})}`);
-        return recordAdapterCall(state, 'python', 'run', ok, message, true, {
-            scriptPath,
-            contractPath,
-            traceId: payload.trace_id || contract.trace_id || null,
-            response: payload,
-        });
-    } catch (error) {
-        const stderr = String(error.stderr || error.message || '').trim();
-        const message = `[PYTHON:FAIL] ${stderr || 'execution error'}`;
-        state.output.push(message);
-        return recordAdapterCall(state, 'python', 'run', false, message, true, { scriptPath, contractPath });
-    }
 }
 
 function buildDockerCommand(action, target) {

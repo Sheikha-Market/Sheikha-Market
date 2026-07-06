@@ -1,0 +1,27 @@
+{
+  "registry": "SHEIKHA_DOMAIN_REGISTRY",
+  "status": "ACTIVE",
+  "mode": "federated-governed-domains",
+  "organization": "SHEIKHA_ORGANIZATION",
+  "domains": {
+    "governance": "supreme, constitutional, authority, regulatory, licensing",
+    "markets": "exchange readiness, market infrastructure, trading readiness",
+    "metals": "gold, silver, industrial metals, scrap, commodities",
+    "supply_chain": "procurement, logistics, materials, resources",
+    "ai": "AI governance, advisory intelligence, bounded execution",
+    "datacenter": "compute, servers, cloud, supercomputing",
+    "research": "R&D, scientific organization, discovery readiness",
+    "licensing": "licenses, permits, readiness, competent authority mapping",
+    "standards": "internal advisory standards and verification",
+    "certification": "internal certification readiness and evidence registry",
+    "advisory": "B2B, B2G, enterprise partnerships, consulting"
+  },
+  "rules": {
+    "each_domain_has_scope": true,
+    "each_domain_has_governance": true,
+    "each_domain_has_evidence": true,
+    "federation_required": true,
+    "audit_required": true,
+    "no_official_claim_before_approval": true
+  }
+}

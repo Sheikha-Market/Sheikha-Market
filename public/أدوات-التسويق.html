@@ -261,19 +261,19 @@ async function init() {
                 <div class="aud-name">${a.ar}</div>
                 <div class="aud-size">${a.size_sa || ''}</div>
                 <div class="aud-desc">${a.description}</div>
-                
+
                 <div class="aud-label">الاحتياجات:</div>
                 <div class="aud-row">${(a.needs || []).map(n => '<span class="aud-chip">'+n+'</span>').join('')}</div>
-                
+
                 <div class="aud-label">نقاط الألم:</div>
                 <div class="aud-row">${(a.pain_points || []).map(p => '<span class="aud-chip" style="background:rgba(239,68,68,.08);border-color:rgba(239,68,68,.15);color:var(--red);">'+p+'</span>').join('')}</div>
-                
+
                 <div class="aud-label">قنوات التواصل:</div>
                 <div class="aud-row">${(a.channels || []).map(c => '<span class="aud-chip ch">'+c+'</span>').join('')}</div>
-                
+
                 <div class="aud-label">قواعد البيانات:</div>
                 <div class="aud-row">${(a.databases || []).map(d => '<span class="aud-chip db">'+d+'</span>').join('')}</div>
-                
+
                 <div style="display:flex;justify-content:space-between;margin-top:12px;padding-top:12px;border-top:1px solid var(--border);font-size:.75rem;color:var(--t3);">
                     <span>الميزانية: <strong style="color:var(--gold)">${a.budget_range}</strong></span>
                     <span>دورة القرار: <strong style="color:var(--green)">${a.decision_cycle}</strong></span>

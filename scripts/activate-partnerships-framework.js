@@ -3,7 +3,7 @@
 /**
  * Sheikha Partnership Management Engine
  * Digitized Partnership Automation & Compliance
- * 
+ *
  * الهدف: إدارة شاملة لكل الشراكات الاستراتيجية مع التوافق الشرعي والقانوني
  * Purpose: Comprehensive partnership management with Islamic & legal compliance
  */
@@ -406,7 +406,7 @@ function main() {
         }
 
         const timestamp = new Date().toISOString().replace(/[:.]/g, '-');
-        
+
         fs.writeFileSync(
             path.join(reportDir, `partnership-analysis-${timestamp}.json`),
             JSON.stringify(analysis, null, 2)

@@ -1,0 +1,31 @@
+{
+  "fabric": "SHEIKHA_MARKET_INFRASTRUCTURE_FABRIC",
+  "status": "ACTIVE",
+  "mode": "governed-market-infrastructure-readiness",
+
+  "layers": {
+    "order_governance": "ACTIVE",
+    "market_surveillance": "ACTIVE",
+    "settlement_readiness": "ACTIVE",
+    "clearing_readiness": "ACTIVE",
+    "treasury_governance": "ACTIVE",
+    "liquidity_intelligence": "ACTIVE",
+    "market_risk_governance": "ACTIVE",
+    "physical_asset_verification": "ACTIVE",
+    "audit_chain": "ACTIVE",
+    "telemetry": "ACTIVE",
+    "regulatory_evidence_registry": "ACTIVE",
+    "sharia_compliance": "ACTIVE"
+  },
+
+  "rules": {
+    "no_exchange_claim_before_license": true,
+    "no_securities_activity_without_license": true,
+    "physical_backing_required_for_precious_metals": true,
+    "audit_required": true,
+    "rollback_required": true,
+    "human_approval_required": true,
+    "specialist_review_required": true,
+    "sharia_review_required": true
+  }
+}

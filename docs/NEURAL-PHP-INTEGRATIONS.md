@@ -51,11 +51,11 @@
 - **Blackfire** — محلل أداء PHP مجاني (إصدار Community)
   - رابط: https://blackfire.io
   - التثبيت: `composer require --dev blackfire/player`
-  
+
 - **PHP Debug Bar** — تصحيح حقيقي للأداء
   - رابط: https://debugbar.com
   - VS Code Extension: `felixbecker.php-debug`
-  
+
 - **XDebug Profiling** (مضمّن بالفعل)
   - تفعيل في `.vscode/launch.json` ✅
   - دعم `cachegrind` و `webgrind` للتحليل
@@ -67,24 +67,24 @@
   composer require --dev phpunit/phpunit
   ```
   VS Code Extension: `emallin.phpunit` ✅ (مثبتة بالفعل)
-  
+
 - **Pest** — اختبارات PHP أنيقة وسريعة
   ```bash
   composer require --dev pestphp/pest
   ```
-  
+
 - **CodeceptPHP** — اختبارات قبول شاملة
   ```bash
   composer require --dev codeception/codeception
   ```
 
 ### 3️⃣ بدلاً من Code Coverage Premium Tools
-**الحل المجاني**: 
+**الحل المجاني**:
 - **PCOV** — محرك تغطية الكود الأسرع (5x أسرع من XDebug)
   ```bash
   pecl install pcov
   ```
-  
+
 - **Coverage Badge** — شارة تغطية للـ README
   ```bash
   vendor/bin/phpunit --coverage-text --coverage-cobertura coverage.xml
@@ -94,7 +94,7 @@
 **الحل المجاني**:
 - **PHP Refactoring Browser** — Refactoring متقدم مجاني
   - VS Code: `ryanfitton.laravel-shift` ✅
-  
+
 - **PHP Mess Detector** (مثبتة بالفعل via PHPStan)
   ```bash
   composer require --dev phpmd/phpmd

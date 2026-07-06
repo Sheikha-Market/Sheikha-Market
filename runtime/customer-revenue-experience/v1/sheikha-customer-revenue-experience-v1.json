@@ -1,0 +1,28 @@
+{
+  "system": "SHEIKHA_CUSTOMER_REVENUE_EXPERIENCE_V1",
+  "status": "ACTIVE",
+  "arabic_name": "تجربة شيخة للعملاء والمنتجات والإيرادات",
+  "purpose": "Activate the customer-facing experience layer: products, onboarding, dashboards, offers, subscriptions, contracts, billing, payment readiness, revenue tracking, and impact measurement.",
+  "layers": [
+    "USER_EXPERIENCE",
+    "PRODUCT_CATALOG",
+    "CUSTOMER_ONBOARDING",
+    "EXPERT_PORTAL",
+    "RIYADH_ALJANNAH_PORTAL",
+    "INNOVATION_LAB_PORTAL",
+    "MARKETPLACE_PORTAL",
+    "SUBSCRIPTION_PLANS",
+    "COMMERCIAL_OFFER",
+    "REVENUE_TRACKING",
+    "IMPACT_MEASUREMENT"
+  ],
+  "rules": {
+    "arabic_first": true,
+    "customer_ready": true,
+    "no_revenue_claim_without_payment": true,
+    "contract_required_before_activation": true,
+    "human_approval_for_commercial_terms": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

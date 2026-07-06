@@ -1,0 +1,33 @@
+[1m[7m Describing process with id 0 - name sheikha-main-portal [27m[22m
+┌───────────────────┬──────────────────────────────────────────────────────────────┐
+│ status            │ [31m[1merrored[22m[39m                                                      │
+│ name              │ sheikha-main-portal                                          │
+│ namespace         │ default                                                      │
+│ version           │ 1.0.51                                                       │
+│ restarts          │ 208                                                          │
+│ uptime            │ 0                                                            │
+│ script path       │ /home/sheikha/Projects/sheikha/sheikha-main-portal/server.js │
+│ script args       │ N/A                                                          │
+│ error log path    │ /home/sheikha/.pm2/logs/sheikha-main-portal-error.log        │
+│ out log path      │ /home/sheikha/.pm2/logs/sheikha-main-portal-out.log          │
+│ pid path          │ /home/sheikha/.pm2/pids/sheikha-main-portal-0.pid            │
+│ interpreter       │ node                                                         │
+│ interpreter args  │ --max-old-space-size=4096                                    │
+│ script id         │ 0                                                            │
+│ exec cwd          │ /home/sheikha/Projects/sheikha/sheikha-main-portal           │
+│ exec mode         │ fork_mode                                                    │
+│ node.js version   │ 22.22.2                                                      │
+│ node env          │ production                                                   │
+│ watch & reload    │ ✘                                                            │
+│ unstable restarts │ 0                                                            │
+│ created at        │ N/A                                                          │
+└───────────────────┴──────────────────────────────────────────────────────────────┘
+[7m[1m Divergent env variables from local env [22m[27m
+┌───────────────────────┬─────────────────────────────────────────────────────────────────┐
+│ GNOME_TERMINAL_SCREEN │ /org/gnome/Terminal/screen/16ef1f78_ffa1_4496_a414_9d940f4c01d2 │
+└───────────────────────┴─────────────────────────────────────────────────────────────────┘
+
+[37m[3m Add your own code metrics: http://bit.ly/code-metrics[23m[39m
+[37m[3m Use `pm2 logs sheikha-main-portal [--lines 1000]` to display logs[23m[39m
+[37m[3m Use `pm2 env 0` to display environment variables[23m[39m
+[37m[3m Use `pm2 monit` to monitor CPU and Memory usage[23m[39m sheikha-main-portal

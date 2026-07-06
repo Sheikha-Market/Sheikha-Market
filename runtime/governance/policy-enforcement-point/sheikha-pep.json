@@ -1,0 +1,12 @@
+{
+  "engine": "SHEIKHA_POLICY_ENFORCEMENT_POINT",
+  "status": "ACTIVE",
+  "mode": "enforce-before-runtime-dispatch",
+  "rules": {
+    "deny_unregistered_capability": true,
+    "deny_unverified_policy": true,
+    "block_unsafe_execution": true,
+    "human_approval_gate": true,
+    "audit_before_dispatch": true
+  }
+}

@@ -1,0 +1,34 @@
+{
+  "system": "SHEIKHA_ROLE_BASED_DASHBOARD_UI_V1",
+  "status": "ACTIVE",
+  "arabic_name": "لوحات تحكم شيخة حسب المستخدم ونموذج العمل",
+  "purpose": "Activate role-based and customer-business-model dashboards for Sheikha: owner, admin, supplier, buyer, customer, provider, finance, contracts, governance, and revenue.",
+  "roles": [
+    "OWNER",
+    "ADMIN",
+    "SUPPLIER",
+    "BUYER",
+    "CUSTOMER",
+    "PROVIDER",
+    "FINANCE",
+    "CONTRACTS",
+    "GOVERNANCE"
+  ],
+  "business_models": [
+    "SCRAP_TRADING",
+    "SUPPLY_CHAIN_CONSULTING",
+    "GOVERNANCE_PLATFORM",
+    "API_LICENSE",
+    "ENTERPRISE_LICENSE",
+    "MARKETPLACE",
+    "PROVIDER_COMPUTE"
+  ],
+  "rules": {
+    "arabic_first": true,
+    "rtl_required": true,
+    "role_based_access": true,
+    "customer_business_model_required": true,
+    "no_false_revenue_claims": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

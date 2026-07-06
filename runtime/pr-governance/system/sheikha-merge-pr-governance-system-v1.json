@@ -1,0 +1,94 @@
+{
+  "system": "SHEIKHA_MERGE_PR_GOVERNANCE_SYSTEM_V1",
+  "status": "ACTIVE",
+  "mode": "strict-indexed-curated-merge-governance",
+  "purpose": "Provide a complete governance system for opening, analyzing, improving, documenting, reviewing, approving, and merging pull requests.",
+  "codePrefix": "SHK-MRG",
+  "authorityChain": [
+    "SHEIKHA_DEVELOPMENT_PROGRAMMING_GOVERNANCE",
+    "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER",
+    "SHEIKHA_CHAT_AND_CODE_BEHAVIOR_GOVERNANCE",
+    "SHEIKHA_ARCHITECTURE_FREEZE_V1_3",
+    "SHEIKHA_FEDERAL_ORGANIZATION_V1_2",
+    "SHEIKHA_PR_ACTIVATION_GOVERNANCE",
+    "SHEIKHA_CURATED_MERGE_ENGINE_V1",
+    "SHEIKHA_PATCH_ENGINE_V1"
+  ],
+  "stages": [
+    {
+      "code": "SHK-MRG-000",
+      "name": "merge_intake",
+      "decision": "DISCOVER_AND_RECORD",
+      "requiredEvidence": ["branch", "git_status", "open_prs", "last_commit"]
+    },
+    {
+      "code": "SHK-MRG-100",
+      "name": "pr_classification",
+      "decision": "CLASSIFY_RISK",
+      "requiredEvidence": ["files_changed", "critical_paths", "package_changes", "server_changes"]
+    },
+    {
+      "code": "SHK-MRG-200",
+      "name": "architecture_compatibility",
+      "decision": "CHECK_FREEZE_AND_FEDERAL_BASELINE",
+      "requiredEvidence": ["freeze_v1_3", "federal_org_v1_2", "fabric_registry"]
+    },
+    {
+      "code": "SHK-MRG-300",
+      "name": "security_and_secret_review",
+      "decision": "BLOCK_ON_SECRET_OR_SECURITY_RISK",
+      "requiredEvidence": ["secret_scan", "dependency_review", "permission_review"]
+    },
+    {
+      "code": "SHK-MRG-400",
+      "name": "curated_merge_plan",
+      "decision": "CURATED_PATCH_OR_HOLD",
+      "requiredEvidence": ["source_candidates", "excluded_generated_files", "separate_review_files"]
+    },
+    {
+      "code": "SHK-MRG-500",
+      "name": "verification",
+      "decision": "VERIFY_BEFORE_APPROVAL",
+      "requiredEvidence": ["node_check", "json_validation", "lint", "tests", "endpoint_checks"]
+    },
+    {
+      "code": "SHK-MRG-600",
+      "name": "human_approval",
+      "decision": "REQUIRE_APPROVAL_FOR_HIGH_RISK",
+      "requiredEvidence": ["review_report", "risk_acceptance", "merge_scope"]
+    },
+    {
+      "code": "SHK-MRG-700",
+      "name": "merge_execution",
+      "decision": "MERGE_ONLY_APPROVED_SCOPE",
+      "requiredEvidence": ["approved_patch", "clean_worktree", "commit", "push"]
+    },
+    {
+      "code": "SHK-MRG-800",
+      "name": "post_merge_governance",
+      "decision": "VERIFY_AND_DOCUMENT",
+      "requiredEvidence": ["post_merge_tests", "pm2_status_when_runtime_changes", "final_report"]
+    }
+  ],
+  "decisionCodes": {
+    "SAFE_MERGE": "Low-risk reviewed change may merge after checks and approval.",
+    "CURATED_MERGE": "Only selected reviewed source patches may merge.",
+    "HOLD_FOR_FIXES": "PR is blocked until issues are fixed.",
+    "HOLD_FOR_CURATED_SOURCE_PATCH": "Raw PR merge is blocked; a curated source patch is required.",
+    "REJECT": "PR must not merge into the governed baseline."
+  },
+  "strictRules": {
+    "no_auto_merge": true,
+    "no_raw_merge_for_high_risk_pr": true,
+    "no_merge_without_human_approval_when_high_risk": true,
+    "no_merge_on_failed_lint": true,
+    "no_merge_on_failed_tests": true,
+    "no_merge_on_secret_risk": true,
+    "no_merge_on_fabric_conflict": true,
+    "no_merge_on_route_conflict": true,
+    "no_unreviewed_package_change": true,
+    "no_unreviewed_server_bootstrap_change": true,
+    "generated_outputs_not_authoritative": true,
+    "documentation_and_index_required": true
+  }
+}

@@ -1,0 +1,65 @@
+{
+  "registry": "SHEIKHA_ROOT_KNOWLEDGE_FABRIC_MAP_V1",
+  "status": "ACTIVE",
+  "rootKnowledgeFabric": "SHEIKHA_ROOT_KNOWLEDGE_FABRIC",
+  "knowledgeSources": [
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+    "SHEIKHA_FEDERATED_KNOWLEDGE_AND_REASONING_FABRIC",
+    "SHEIKHA_DATABASE_KNOWLEDGE_ENGINE_V1",
+    "SHEIKHA_DECISION_REGISTRY_V2",
+    "SHEIKHA_CAPABILITY_REGISTRY_V2",
+    "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1"
+  ],
+  "ragRetrieval": {
+    "registry": "SHEIKHA_RAG_RETRIEVAL_REGISTRY_V1",
+    "mode": "governed_retrieval_augmented_generation",
+    "minimumEvidenceItems": 2,
+    "sourceTraceRequired": true,
+    "citationMetadataRequired": true,
+    "unsupportedClaimsBlocked": true,
+    "humanReviewForHighImpactDomains": true
+  },
+  "agenticBindings": [
+    {
+      "level": "GENERATIVE_AI",
+      "knowledgeRequirement": "evidence_grounded_context_with_rag_when_needed",
+      "output": "content_code_report"
+    },
+    {
+      "level": "AGENTIC_AI",
+      "knowledgeRequirement": "goal_context_policy_tools_and_rag_retrieval_plan",
+      "output": "plan_retrieve_execute_report"
+    },
+    {
+      "level": "MULTI_AGENT_SYSTEMS",
+      "knowledgeRequirement": "role_boundaries_shared_context_rag_evidence_and_audit",
+      "output": "coordinated_institutional_workflow"
+    },
+    {
+      "level": "AGI",
+      "knowledgeRequirement": "research_classification_only",
+      "output": "no_runtime_claim"
+    },
+    {
+      "level": "ASI",
+      "knowledgeRequirement": "risk_governance_classification_only",
+      "output": "no_runtime_claim"
+    }
+  ],
+  "evidenceChain": [
+    "query",
+    "source",
+    "retrieval",
+    "ranking",
+    "policy",
+    "decision",
+    "capability",
+    "plan",
+    "tool_use",
+    "grounding",
+    "citation",
+    "result",
+    "audit",
+    "lesson"
+  ]
+}

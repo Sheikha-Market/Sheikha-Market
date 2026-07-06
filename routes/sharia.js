@@ -21,7 +21,7 @@ try {
 
 router.get('/rules', (req, res) => {
     const rules = database.read('shariaRules');
-    
+
     res.json({
         success: true,
         rules: rules || getDefaultRules()
@@ -185,7 +185,7 @@ router.get('/fatwas', (req, res) => {
         }
     ];
 
-    const filtered = category 
+    const filtered = category
         ? fatwas.filter(f => f.category === category)
         : fatwas;
 
@@ -235,7 +235,7 @@ function validateTransaction(transaction) {
         isValid: issues.length === 0,
         issues,
         warnings,
-        recommendation: issues.length > 0 
+        recommendation: issues.length > 0
             ? 'يجب تعديل المعاملة لتتوافق مع الشريعة'
             : 'المعاملة تبدو متوافقة مع الشريعة'
     };

@@ -1,0 +1,24 @@
+{
+  "governance": "SHEIKHA_PR_GOVERNANCE",
+  "status": "ACTIVE",
+  "purpose": "Govern GitHub pull requests before merge against Architecture Freeze V1.1, Fabric, routes, security, data, OpenAPI, SDK, and MCP alignment.",
+  "workflow": [
+    "discover_open_prs",
+    "classify_pr",
+    "architecture_impact_review",
+    "route_conflict_review",
+    "data_impact_review",
+    "security_review",
+    "test_review",
+    "merge_decision"
+  ],
+  "rules": {
+    "no_merge_without_review": true,
+    "freeze_v1_1_compatibility_required": true,
+    "fabric_conflict_check_required": true,
+    "route_conflict_check_required": true,
+    "secret_scan_required": true,
+    "tests_required": true,
+    "human_approval_required": true
+  }
+}

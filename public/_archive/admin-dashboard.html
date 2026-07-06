@@ -33,7 +33,7 @@
             min-height: 100vh;
             display: flex;
         }
-        
+
         /* Sidebar */
         .sidebar {
             width: 260px;
@@ -65,7 +65,7 @@
         }
         .logo-text { font-weight: 800; font-size: 1.2rem; }
         .logo-sub { font-size: 0.75rem; color: var(--text-muted); }
-        
+
         .nav-section { padding: 16px 12px; }
         .nav-title { font-size: 0.7rem; color: var(--text-muted); text-transform: uppercase; letter-spacing: 1px; padding: 0 12px; margin-bottom: 8px; }
         .nav-item {
@@ -84,7 +84,7 @@
         .nav-item.active { background: linear-gradient(135deg, rgba(212,175,55,0.15), rgba(10,92,54,0.15)); color: var(--gold); border: 1px solid rgba(212,175,55,0.3); }
         .nav-icon { font-size: 1.1rem; width: 24px; text-align: center; }
         .nav-badge { margin-right: auto; padding: 2px 8px; background: var(--danger); color: white; font-size: 0.7rem; border-radius: 10px; }
-        
+
         /* Main */
         .main { flex: 1; margin-right: 260px; }
         .header {
@@ -100,7 +100,7 @@
         }
         .header-title { font-size: 1.3rem; font-weight: 800; display: flex; align-items: center; gap: 10px; }
         .header-actions { display: flex; gap: 10px; }
-        
+
         .btn {
             padding: 10px 20px;
             border: none;
@@ -120,13 +120,13 @@
         .btn-sm { padding: 8px 14px; font-size: 0.85rem; }
         .btn-danger { background: var(--danger); color: white; }
         .btn-success { background: var(--success); color: white; }
-        
+
         .content { padding: 24px; }
-        
+
         /* Panels */
         .panel { display: none; }
         .panel.active { display: block; }
-        
+
         /* Stats */
         .stats-grid {
             display: grid;
@@ -147,7 +147,7 @@
         .stat-label { color: var(--text-muted); font-size: 0.85rem; }
         .stat-change { font-size: 0.75rem; padding: 2px 8px; border-radius: 6px; margin-top: 8px; display: inline-block; }
         .stat-change.up { background: rgba(16,185,129,0.15); color: var(--success); }
-        
+
         /* Cards */
         .card {
             background: var(--card);
@@ -164,12 +164,12 @@
         }
         .card-title { font-weight: 700; display: flex; align-items: center; gap: 8px; }
         .card-body { padding: 20px; }
-        
+
         /* Grid */
         .grid-2 { display: grid; grid-template-columns: repeat(2, 1fr); gap: 20px; }
         .grid-3 { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; }
         .grid-4 { display: grid; grid-template-columns: repeat(4, 1fr); gap: 16px; }
-        
+
         /* Quick Actions */
         .quick-action {
             background: var(--card);
@@ -184,7 +184,7 @@
         .quick-action-icon { font-size: 2rem; margin-bottom: 10px; }
         .quick-action-title { font-weight: 700; margin-bottom: 4px; }
         .quick-action-desc { font-size: 0.8rem; color: var(--text-muted); }
-        
+
         /* Tables */
         table { width: 100%; border-collapse: collapse; }
         th, td { padding: 12px 16px; text-align: right; border-bottom: 1px solid var(--border); }
@@ -195,7 +195,7 @@
         .badge-warning { background: rgba(245,158,11,0.15); color: var(--warning); }
         .badge-danger { background: rgba(239,68,68,0.15); color: var(--danger); }
         .badge-info { background: rgba(59,130,246,0.15); color: var(--info); }
-        
+
         /* Forms */
         .form-group { margin-bottom: 16px; }
         .form-label { display: block; font-weight: 600; margin-bottom: 8px; font-size: 0.9rem; }
@@ -211,7 +211,7 @@
         }
         .form-input:focus, .form-select:focus, .form-textarea:focus { outline: none; border-color: var(--gold); }
         .form-textarea { min-height: 100px; resize: vertical; }
-        
+
         /* IDE */
         .ide-container {
             background: var(--card);
@@ -262,7 +262,7 @@
         .terminal-success { color: var(--success); }
         .terminal-error { color: var(--danger); }
         .terminal-info { color: var(--info); }
-        
+
         /* Marketing Tools */
         .marketing-grid {
             display: grid;
@@ -279,7 +279,7 @@
         .marketing-icon { font-size: 3rem; margin-bottom: 16px; }
         .marketing-title { font-size: 1.2rem; font-weight: 800; margin-bottom: 8px; }
         .marketing-desc { color: var(--text-muted); margin-bottom: 20px; font-size: 0.9rem; }
-        
+
         /* AI Chat */
         .ai-chat {
             background: var(--card);
@@ -337,7 +337,7 @@
             font-family: inherit;
         }
         .ai-input:focus { outline: none; border-color: var(--gold); }
-        
+
         /* Logistics */
         .logistics-flow {
             display: flex;
@@ -369,7 +369,7 @@
             color: var(--gold);
             flex-shrink: 0;
         }
-        
+
         /* Charts placeholder */
         .chart-placeholder {
             height: 250px;
@@ -380,7 +380,7 @@
             justify-content: center;
             color: var(--text-muted);
         }
-        
+
         /* Responsive */
         @media (max-width: 1024px) {
             .sidebar { width: 70px; }
@@ -388,7 +388,7 @@
             .main { margin-right: 70px; }
             .grid-2, .grid-3, .grid-4 { grid-template-columns: 1fr; }
         }
-        
+
         /* Login */
         .login-overlay {
             position: fixed;
@@ -414,7 +414,7 @@
         .login-desc { color: var(--text-muted); margin-bottom: 32px; }
         .login-error { background: rgba(239,68,68,0.1); border: 1px solid var(--danger); border-radius: var(--radius); padding: 12px; color: var(--danger); margin-bottom: 20px; display: none; }
         .login-btn { width: 100%; padding: 14px; background: linear-gradient(135deg, var(--gold-light), var(--gold)); border: none; border-radius: var(--radius); color: var(--dark); font-family: inherit; font-size: 1rem; font-weight: 800; cursor: pointer; }
-        
+
         /* Model Selector */
         .model-selector {
             background: var(--dark);
@@ -1039,7 +1039,7 @@
             document.querySelectorAll('.nav-item').forEach(n => n.classList.remove('active'));
             document.getElementById('panel-' + name)?.classList.add('active');
             event?.target?.closest('.nav-item')?.classList.add('active');
-            
+
             const titles = {
                 'dashboard': '📊 لوحة المؤشرات',
                 'marketing': '📣 أدوات التسويق',
@@ -1051,7 +1051,7 @@
                 'listings': '📦 العروض'
             };
             document.getElementById('pageTitle').textContent = titles[name] || name;
-            
+
             if (name === 'ide' && !editor) initEditor();
         }
 
@@ -1065,12 +1065,12 @@
 
                 const tradersCount = traders.traders?.length || 0;
                 const listingsCount = listings.listings?.length || 0;
-                
+
                 document.getElementById('statTraders').textContent = tradersCount;
                 document.getElementById('tradersCount').textContent = tradersCount;
                 document.getElementById('statListings').textContent = listingsCount;
                 document.getElementById('listingsCount').textContent = listingsCount;
-                
+
                 const totalValue = (listings.listings || []).reduce((sum, l) => sum + (Number(l.price) * Number(l.quantity) || 0), 0);
                 document.getElementById('statRevenue').textContent = totalValue.toLocaleString();
 
@@ -1176,7 +1176,7 @@
                     'أنصح بتفعيل نظام FBS لتوفير تكاليف الشحن وزيادة رضا العملاء.'
                 ];
                 const response = responses[Math.floor(Math.random() * responses.length)];
-                
+
                 messagesDiv.innerHTML += `
                     <div class="ai-message assistant">
                         <div class="ai-avatar">🤖</div>

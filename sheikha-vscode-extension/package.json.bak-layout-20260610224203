@@ -1,0 +1,619 @@
+{
+  "name": "sheikha",
+  "displayName": "Sheikha",
+  "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
+  "version": "1.0.44",
+  "publisher": "sheikha",
+  "engines": {
+    "vscode": "^1.85.0"
+  },
+  "categories": [
+    "AI",
+    "Programming Languages",
+    "Machine Learning",
+    "Data Science",
+    "Education",
+    "Snippets",
+    "Linters",
+    "Notebooks",
+    "Other"
+  ],
+  "keywords": [
+    "sheikha",
+    "ai",
+    "ai toolkit",
+    "sdk",
+    "ide",
+    "php",
+    "sheikha sabil",
+    "sheikha bayan",
+    "sheikha language",
+    "sheikha markup",
+    "markup",
+    "github",
+    "gitlab",
+    "github copilot",
+    "enterprise git",
+    "commercial integration",
+    "machine learning",
+    "deep learning",
+    "neural network",
+    "data science",
+    "code suggestions",
+    "inline completions",
+    "code completion",
+    "chat",
+    "agent mode",
+    "code review",
+    "refactoring",
+    "debugging",
+    "unit testing",
+    "arabic",
+    "RTL",
+    "sharia",
+    "intelligent coding",
+    "javascript",
+    "typescript",
+    "python",
+    "nodejs",
+    "react",
+    "vue",
+    "angular",
+    "css",
+    "html",
+    "backend",
+    "frontend",
+    "fullstack",
+    "devops",
+    "azure",
+    "aws",
+    "docker",
+    "kubernetes",
+    "git",
+    "security",
+    "api",
+    "rest",
+    "graphql",
+    "database",
+    "sql",
+    "nosql",
+    "snippets",
+    "linter",
+    "formatter",
+    "productivity",
+    "developer tools",
+    "islamic",
+    "arabic programming"
+  ],
+  "activationEvents": [
+    "*"
+  ],
+  "main": "./extension.js",
+  "files": [
+    "extension.js",
+    "package.json",
+    "images/**",
+    "scripts/auto-release-cycle.js",
+    "release-policy.json",
+    "README.md",
+    "USAGE.md",
+    "INSTALLATION.md",
+    "DEVELOPMENT.md",
+    "END-TO-END.md",
+    "LICENSE.md",
+    "build-vsix.sh",
+    "providers/**",
+    "syntaxes/**",
+    "snippets/**",
+    "language-configuration.json",
+    "src/**",
+    "resources/**",
+    "src/projectContext.js"
+  ],
+  "contributes": {
+    "languages": [
+      {
+        "id": "sheikha-sabil",
+        "aliases": [
+          "Sheikha Sabil",
+          "Sheikha",
+          "شيخة سبيل"
+        ],
+        "extensions": [
+          ".shk",
+          ".sabil",
+          ".sheikha"
+        ],
+        "configuration": "./language-configuration.json"
+      },
+      {
+        "id": "sheikha-bayan",
+        "aliases": [
+          "Sheikha Bayan",
+          "Sheikha Markup",
+          "شيخة بيان"
+        ],
+        "extensions": [
+          ".shb",
+          ".bayan",
+          ".sheikha.xml"
+        ],
+        "configuration": "./language-configuration.json"
+      }
+    ],
+    "grammars": [
+      {
+        "language": "sheikha-sabil",
+        "scopeName": "source.sheikha-sabil",
+        "path": "./syntaxes/sheikha-shk.tmLanguage.json"
+      },
+      {
+        "language": "sheikha-bayan",
+        "scopeName": "source.sheikha-bayan",
+        "path": "./syntaxes/sheikha-bayan.tmLanguage.json"
+      }
+    ],
+    "snippets": [
+      {
+        "language": "sheikha-sabil",
+        "path": "./snippets/sheikha-shk.code-snippets"
+      },
+      {
+        "language": "sheikha-bayan",
+        "path": "./snippets/sheikha-bayan.code-snippets"
+      },
+      {
+        "language": "php",
+        "path": "./snippets/sheikha-shk.code-snippets"
+      }
+    ],
+    "commands": [
+      {
+        "command": "sheikha.openChat",
+        "title": "فتح المحادثة الذكية",
+        "category": "Sheikha",
+        "icon": {
+          "light": "images/sheikha-icon.svg",
+          "dark": "images/sheikha-icon.svg"
+        }
+      },
+      {
+        "command": "sheikha.triggerCompletion",
+        "title": "Sheikha: اقتراح الكود",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.startAgent",
+        "title": "Sheikha: تشغيل وضع الوكيل",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.inlineChat",
+        "title": "Sheikha: محادثة مضمّنة",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.showStatus",
+        "title": "Sheikha: حالة النظام",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.nextEditSuggestion",
+        "title": "Sheikha NES: اقتراح التعديل التالي",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.enableNES",
+        "title": "Sheikha: تفعيل/تعطيل شبكة الخلايا العصبية الرقمية (NES)",
+        "category": "Sheikha"
+      },
+      {
+        "command": "sheikha.signIn",
+        "title": "Sheikha: تسجيل الدخول",
+        "category": "Sheikha Account"
+      },
+      {
+        "command": "sheikha.signOut",
+        "title": "Sheikha: تسجيل الخروج",
+        "category": "Sheikha Account"
+      },
+      {
+        "command": "sheikha.manageAccount",
+        "title": "Sheikha: إدارة الحساب",
+        "category": "Sheikha Account"
+      },
+      {
+        "command": "sheikha.syncIntegrations",
+        "title": "Sheikha: مزامنة تكامل الإضافات",
+        "category": "Sheikha Account"
+      },
+      {
+        "command": "sheikha.openIntegrationsDashboard",
+        "title": "Sheikha: فتح لوحة التكاملات",
+        "category": "Sheikha Account"
+      },
+      {
+        "command": "sheikha.openWorkspaceControl",
+        "title": "Sheikha: مركز تحكم VS Coder",
+        "category": "Sheikha Workspace"
+      },
+      {
+        "command": "sheikha.gitStatus",
+        "title": "Sheikha: حالة Git",
+        "category": "Sheikha Git"
+      },
+      {
+        "command": "sheikha.openPullRequest",
+        "title": "Sheikha: فتح Pull Request على GitHub",
+        "category": "Sheikha Git"
+      },
+      {
+        "command": "sheikha.openMergeRequest",
+        "title": "Sheikha: فتح Merge Request على GitLab",
+        "category": "Sheikha Git"
+      },
+      {
+        "command": "sheikha.activateNeuralEngine",
+        "title": "Sheikha: تفعيل محرك الشبكة العصبية الجذرية",
+        "category": "Sheikha AI",
+        "icon": {
+          "light": "images/sheikha-icon.svg",
+          "dark": "images/sheikha-icon.svg"
+        }
+      },
+      {
+        "command": "sheikha.refactorCode",
+        "title": "Sheikha: إعادة هيكلة الكود",
+        "category": "Sheikha Code"
+      },
+      {
+        "command": "sheikha.explainCode",
+        "title": "Sheikha: شرح الكود",
+        "category": "Sheikha Code"
+      },
+      {
+        "command": "sheikha.generateTests",
+        "title": "Sheikha: توليد اختبارات الوحدة",
+        "category": "Sheikha Code"
+      },
+      {
+        "command": "sheikha.reviewCode",
+        "title": "Sheikha: مراجعة الكود",
+        "category": "Sheikha Code"
+      },
+      {
+        "command": "sheikha.optimizePerformance",
+        "title": "Sheikha: تحسين الأداء",
+        "category": "Sheikha Code"
+      },
+      {
+        "command": "sheikha.checkSharia",
+        "title": "Sheikha: فحص الشريعة",
+        "category": "Sheikha Sharia"
+      },
+      {
+        "command": "sheikha.neuralNetwork",
+        "title": "Sheikha: شبكة الخلايا العصبية الكاملة",
+        "category": "Sheikha AI",
+        "icon": {
+          "light": "images/sheikha-icon.svg",
+          "dark": "images/sheikha-icon.svg"
+        }
+      },
+      {
+        "command": "sheikha.validateRootNeuralIntegration",
+        "title": "Sheikha: تحقق التكامل الجذري الكامل",
+        "category": "Sheikha AI",
+        "icon": {
+          "light": "images/sheikha-icon.svg",
+          "dark": "images/sheikha-icon.svg"
+        }
+      },
+      {
+        "command": "sheikha.ask",
+        "title": "Sheikha: Ask Local Runtime"
+      },
+      {
+        "command": "sheikha.agent.run",
+        "title": "Sheikha: Run Agentic Task"
+      },
+      {
+        "command": "sheikha.cli.status",
+        "title": "Sheikha CLI: الحالة العامة"
+      },
+      {
+        "command": "sheikha.cli.health",
+        "title": "Sheikha CLI: فحص الصحة"
+      },
+      {
+        "command": "sheikha.debugger.run",
+        "title": "Sheikha Debugger: تشغيل الفحص الكامل"
+      },
+      {
+        "command": "sheikha.debugger.logs",
+        "title": "Sheikha Debugger: عرض السجلات"
+      },
+      {
+        "command": "sheikha.runtime.restart",
+        "title": "Sheikha Runtime: إعادة التشغيل"
+      },
+      {
+        "command": "sheikha.awareness.scan",
+        "title": "Sheikha: Scan VS Code Awareness"
+      },
+      {
+        "command": "sheikha.registry.unified",
+        "title": "Sheikha: Open Unified Registry"
+      },
+      {
+        "command": "sheikha.registry.broker",
+        "title": "Sheikha: Open Registry Broker"
+      },
+      {
+        "command": "sheikha.registry.global",
+        "title": "Sheikha: Open Global Registry Fabric"
+      }
+    ],
+    "keybindings": [
+      {
+        "command": "sheikha.openChat",
+        "key": "ctrl+shift+i",
+        "mac": "cmd+shift+i"
+      },
+      {
+        "command": "sheikha.inlineChat",
+        "key": "ctrl+i",
+        "mac": "cmd+i",
+        "when": "editorTextFocus"
+      },
+      {
+        "command": "sheikha.nextEditSuggestion",
+        "key": "tab",
+        "when": "sheikha.nesActive && editorTextFocus"
+      }
+    ],
+    "configuration": {
+      "title": "Sheikha",
+      "properties": {
+        "sheikha.enable": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل Sheikha"
+        },
+        "sheikha.serverUrl": {
+          "type": "string",
+          "default": "http://localhost:8080",
+          "description": "عنوان خادم Sheikha"
+        },
+        "sheikha.enableInlineCompletions": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل الاقتراحات المضمّنة أثناء الكتابة"
+        },
+        "sheikha.enableChat": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل المحادثة الذكية"
+        },
+        "sheikha.enableAgentMode": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل وضع الوكيل"
+        },
+        "sheikha.enableNES": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل اقتراحات التعديل التالي (NES)"
+        },
+        "sheikha.shariaGuardrails": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل الحارس الشرعي (لا ربا، لا غش، لا قمار)"
+        },
+        "sheikha.defaultModel": {
+          "type": "string",
+          "default": "sheikha-base",
+          "enum": [
+            "sheikha-base",
+            "sheikha-chat",
+            "sheikha-agent",
+            "sheikha-sharia-safe"
+          ],
+          "description": "النموذج الافتراضي لـ Sheikha"
+        },
+        "sheikha.completionDelay": {
+          "type": "number",
+          "default": 150,
+          "description": "تأخير الاقتراحات (مللي ثانية)"
+        },
+        "sheikha.maxCompletions": {
+          "type": "number",
+          "default": 3,
+          "description": "الحد الأقصى لعدد الاقتراحات"
+        },
+        "sheikha.arabicComments": {
+          "type": "boolean",
+          "default": true,
+          "description": "تفعيل التعليقات بالعربية"
+        },
+        "sheikha.autoStartBackend": {
+          "type": "boolean",
+          "default": true,
+          "description": "تشغيل خادم Sheikha تلقائياً عند الحاجة"
+        },
+        "sheikha.backendStartupRetries": {
+          "type": "number",
+          "default": 8,
+          "description": "عدد محاولات انتظار الخادم عند التشغيل التلقائي"
+        },
+        "sheikha.dashboardRefreshSeconds": {
+          "type": "number",
+          "default": 60,
+          "minimum": 30,
+          "description": "فاصل تحديث لوحة التكاملات بالثواني (الحد الأدنى 30 ثانية)"
+        }
+      }
+    },
+    "menus": {
+      "editor/context": [
+        {
+          "command": "sheikha.inlineChat",
+          "group": "sheikha@1",
+          "when": "editorHasSelection"
+        },
+        {
+          "command": "sheikha.openChat",
+          "group": "sheikha@2"
+        }
+      ],
+      "editor/title": [
+        {
+          "command": "sheikha.openChat",
+          "group": "navigation@1",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "sheikha.neuralNetwork",
+          "group": "navigation@2",
+          "when": "editorTextFocus"
+        },
+        {
+          "command": "sheikha.activateNeuralEngine",
+          "group": "navigation@3",
+          "when": "editorTextFocus"
+        }
+      ],
+      "view/title": [
+        {
+          "command": "sheikha.openChat",
+          "when": "view == sheikha.chatView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "sheikha.neuralNetwork",
+          "when": "view == sheikha.neuralView",
+          "group": "navigation@1"
+        },
+        {
+          "command": "sheikha.activateNeuralEngine",
+          "when": "view == sheikha.neuralView",
+          "group": "navigation@2"
+        },
+        {
+          "command": "sheikha.validateRootNeuralIntegration",
+          "when": "view == sheikha.neuralView",
+          "group": "navigation@3"
+        }
+      ],
+      "commandPalette": [
+        {
+          "command": "sheikha.openChat"
+        },
+        {
+          "command": "sheikha.triggerCompletion"
+        },
+        {
+          "command": "sheikha.startAgent"
+        },
+        {
+          "command": "sheikha.inlineChat"
+        },
+        {
+          "command": "sheikha.showStatus"
+        },
+        {
+          "command": "sheikha.nextEditSuggestion"
+        },
+        {
+          "command": "sheikha.signIn"
+        },
+        {
+          "command": "sheikha.signOut"
+        },
+        {
+          "command": "sheikha.manageAccount"
+        },
+        {
+          "command": "sheikha.syncIntegrations"
+        },
+        {
+          "command": "sheikha.openIntegrationsDashboard"
+        },
+        {
+          "command": "sheikha.openWorkspaceControl"
+        },
+        {
+          "command": "sheikha.gitStatus"
+        },
+        {
+          "command": "sheikha.openPullRequest"
+        },
+        {
+          "command": "sheikha.openMergeRequest"
+        },
+        {
+          "command": "sheikha.activateNeuralEngine"
+        },
+        {
+          "command": "sheikha.neuralNetwork"
+        },
+        {
+          "command": "sheikha.validateRootNeuralIntegration"
+        }
+      ]
+    },
+    "viewsContainers": {
+      "activitybar": [
+        {
+          "id": "sheikha",
+          "title": "SHEIKHA",
+          "icon": "resources/sheikha.svg"
+        }
+      ]
+    },
+    "views": {
+      "sheikha": [
+        {
+          "id": "sheikha.chatView",
+          "name": "SHEIKHA CHAT",
+          "type": "webview"
+        }
+      ]
+    }
+  },
+  "scripts": {
+    "vscode:prepublish": "echo 'Sheikha ready'",
+    "compile": "node -e \"console.log('Sheikha compile check OK')\"",
+    "test": "jest --runInBand --verbose",
+    "test:watch": "jest --watch",
+    "release:plan": "node scripts/auto-release-cycle.js",
+    "release:apply": "node scripts/auto-release-cycle.js --apply",
+    "release:apply:new-tech": "node scripts/auto-release-cycle.js --apply --new-tech",
+    "release:apply:new-extension": "node scripts/auto-release-cycle.js --apply --new-extension",
+    "release:apply:innovation": "node scripts/auto-release-cycle.js --apply --innovation-goal",
+    "package": "bash build-vsix.sh",
+    "package:best": "npm run -s release:plan && bash build-vsix.sh",
+    "sheikha:scan:vscode": "node scripts/scan-vscode-environment.js",
+    "sheikha:self-check": "npm run sheikha:scan:vscode && node test-vscode-cli-graphics.js && node test-vscode-chat-full.js",
+    "sheikha:awareness": "node scripts/scan-vscode-awareness.js",
+    "sheikha:router:test": "node test-vscode-router-awareness.js"
+  },
+  "dependencies": {
+    "node-fetch": "^2.7.0"
+  },
+  "devDependencies": {
+    "@jest/globals": "^29.7.0",
+    "@types/vscode": "^1.85.0",
+    "@vscode/vsce": "^2.32.0",
+    "jest": "^29.7.0"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/sheikha/sheikha"
+  },
+  "license": "UNLICENSED",
+  "homepage": "https://sheikha.top",
+  "bugs": {
+    "url": "mailto:market@sheikha.top"
+  }
+}

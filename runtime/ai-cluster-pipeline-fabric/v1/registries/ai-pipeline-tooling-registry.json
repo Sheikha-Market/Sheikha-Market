@@ -1,0 +1,102 @@
+{
+  "registry": "SHEIKHA_AI_PIPELINE_TOOLING_REGISTRY_V1",
+  "status": "ACTIVE",
+  "tools": [
+    {
+      "id": "TOOL-AI-001",
+      "name": "Scikit-learn Pipeline",
+      "category": "ml_pipeline",
+      "use": "Small and medium classical machine learning workflows.",
+      "installationClaim": false,
+      "governanceGate": "PROJECT_DEPENDENCY_AND_TEST_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-002",
+      "name": "Apache Airflow",
+      "category": "workflow_orchestration",
+      "use": "Schedule and coordinate recurring data and AI workflows.",
+      "installationClaim": false,
+      "governanceGate": "DAG_REVIEW_AND_RUNTIME_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-003",
+      "name": "Apache Spark",
+      "category": "big_data_processing",
+      "use": "Distributed data processing and feature preparation.",
+      "installationClaim": false,
+      "governanceGate": "DATA_CLUSTER_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-004",
+      "name": "Hadoop",
+      "category": "big_data_storage_processing",
+      "use": "Distributed storage and batch processing readiness.",
+      "installationClaim": false,
+      "governanceGate": "DATA_RETENTION_AND_SECURITY_REVIEW_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-005",
+      "name": "Kubernetes",
+      "category": "container_cluster",
+      "use": "Container orchestration for inference and services.",
+      "installationClaim": false,
+      "governanceGate": "CLUSTER_CONTEXT_AND_DEPLOYMENT_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-006",
+      "name": "Kubeflow",
+      "category": "ml_lifecycle_on_kubernetes",
+      "use": "ML lifecycle orchestration on Kubernetes.",
+      "installationClaim": false,
+      "governanceGate": "KUBERNETES_AND_PIPELINE_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-007",
+      "name": "MLflow",
+      "category": "experiment_tracking_model_registry",
+      "use": "Track experiments, models, metrics, and deployment readiness.",
+      "installationClaim": false,
+      "governanceGate": "MODEL_REGISTRY_POLICY_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-008",
+      "name": "Hugging Face Pipelines",
+      "category": "model_pipeline_library",
+      "use": "Use model pipelines when model rights and runtime availability are verified.",
+      "installationClaim": false,
+      "governanceGate": "MODEL_LICENSE_AND_PROVIDER_AVAILABILITY_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-009",
+      "name": "Service Mesh",
+      "category": "traffic_security_observability",
+      "use": "Govern traffic, identity, policy, and telemetry across services.",
+      "installationClaim": false,
+      "governanceGate": "IDENTITY_POLICY_AND_TELEMETRY_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-010",
+      "name": "Vector Store",
+      "category": "retrieval_augmented_generation",
+      "use": "Support RAG and semantic search when data rights are verified.",
+      "installationClaim": false,
+      "governanceGate": "DATA_LICENSE_LINEAGE_AND_EMBEDDING_POLICY_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-011",
+      "name": "MoE Router",
+      "category": "expert_routing",
+      "use": "Route tasks to specialized experts, models, services, or agents.",
+      "installationClaim": false,
+      "governanceGate": "EXPERT_REGISTRY_EVALUATION_AND_AUDIT_REQUIRED"
+    },
+    {
+      "id": "TOOL-AI-012",
+      "name": "Multi-Agent Orchestrator",
+      "category": "agentic_system",
+      "use": "Coordinate governed agents with roles, permissions, audit, and human authority.",
+      "installationClaim": false,
+      "governanceGate": "AGENT_IDENTITY_AND_PERMISSION_POLICY_REQUIRED"
+    }
+  ]
+}

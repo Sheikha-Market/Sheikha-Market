@@ -1,0 +1,17 @@
+{
+  "system": "sheikha-scm-fabric",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "Sheikha SCM — سلاسل الإمداد والتوريد والموردين واللوجستيات",
+  "modules": {
+    "suppliers": { "status": "FOUNDATION_ACTIVE", "features": ["register","verify","rate","blacklist","contracts"] },
+    "buyers": { "status": "FOUNDATION_ACTIVE", "features": ["register","verify","rfq","orders","history"] },
+    "logistics": { "status": "FOUNDATION_ACTIVE", "features": ["shipments","tracking","carriers","routes","customs"] },
+    "contracts": { "status": "FOUNDATION_ACTIVE", "features": ["draft","sign","execute","archive","disputes"] },
+    "warehouses": { "status": "FOUNDATION_ACTIVE", "features": ["locations","zones","capacity","movements"] },
+    "trade": { "status": "FOUNDATION_ACTIVE", "features": ["import","export","hsCodes","certificates","inspection"] }
+  },
+  "governed": true
+}

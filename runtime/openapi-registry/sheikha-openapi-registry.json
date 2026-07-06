@@ -1,0 +1,20 @@
+{
+  "registry": "SHEIKHA_OPENAPI_REGISTRY",
+  "status": "ACTIVE",
+  "purpose": "Single authoritative registry for all public APIs, SDKs, MCP endpoints, governance endpoints, and runtime services.",
+  "domains": [
+    "governance",
+    "runtime",
+    "mcp",
+    "sdk",
+    "telemetry",
+    "knowledge",
+    "orchestration"
+  ],
+  "rules": {
+    "single_source_of_truth": true,
+    "openapi_required_for_public_interfaces": true,
+    "versioning_required": true,
+    "audit_required": true
+  }
+}

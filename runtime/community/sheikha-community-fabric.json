@@ -1,0 +1,18 @@
+{
+  "system": "sheikha-community-fabric",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "منتدى مجتمع شيخة — Sheikha Community Forum & Knowledge Hub",
+  "modules": {
+    "forum": { "status": "FOUNDATION_ACTIVE", "features": ["posts","replies","votes","categories","tags","search","moderation"] },
+    "knowledge": { "status": "FOUNDATION_ACTIVE", "features": ["articles","howTo","guides","bestPractices"] },
+    "qa": { "status": "FOUNDATION_ACTIVE", "features": ["questions","answers","accepted","voting"] },
+    "suppliers": { "status": "FOUNDATION_ACTIVE", "features": ["profiles","reviews","verification","showcase"] },
+    "buyers": { "status": "FOUNDATION_ACTIVE", "features": ["rfq","tenders","bidding","awards"] },
+    "events": { "status": "FOUNDATION_ACTIVE", "features": ["webinars","workshops","meetups","announcements"] }
+  },
+  "moderation": { "islamicPrinciples": true, "noBadContent": true, "reportSystem": true },
+  "governed": true
+}

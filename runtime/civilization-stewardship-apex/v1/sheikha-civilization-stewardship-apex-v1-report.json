@@ -1,0 +1,60 @@
+{
+  "system": "SHEIKHA_CIVILIZATION_STEWARDSHIP_APEX_V1",
+  "status": "ACTIVE_SINGLE_HOST_OPERATIONAL",
+  "score": 100,
+  "decision": "CIVILIZATION_STEWARDSHIP_APEX_V1_OPERATIONAL_100",
+  "level": "HIGHEST_GOVERNED_INSTITUTIONAL_STEWARDSHIP_LAYER",
+  "apexLevel": 16,
+  "constitutionalReference": "SHEIKHA_MASTER_LIFE_CYCLE_V1",
+  "governanceAuthority": "SHEIKHA_CIVILIZATION_GOVERNANCE_V2",
+  "delegatedCommandPlane": "SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1",
+  "operationalAuthority": "SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11",
+  "capabilities": [
+    "institutional-mandate-registry",
+    "beneficiary-and-objective-assurance",
+    "evidence-and-risk-readiness-review",
+    "human-ratification-gate",
+    "governed-command-plane-delegation",
+    "append-only-audit-trace",
+    "sdk-api-inspector-integration"
+  ],
+  "boundaries": {
+    "subordinateToConstitutionalReference": true,
+    "cannotOverrideGovernance": true,
+    "noAutonomousRatification": true,
+    "noExecutionWithoutDelegation": true,
+    "noPublicImpactClaimWithoutEvidence": true,
+    "noReligiousAuthorityClaim": true,
+    "noExternalAuthorityClaim": true,
+    "humanApprovalForEveryMutation": true
+  },
+  "storage": {
+    "persistence": "ATOMIC_JSON_SINGLE_HOST",
+    "singleHostMultiProcessLock": true,
+    "distributedTransactionalStore": false,
+    "revision": 0,
+    "updatedAt": null,
+    "counts": {
+      "mandates": 0,
+      "reviews": 0,
+      "delegations": 0,
+      "evidenceLinks": 0
+    }
+  },
+  "portfolio": {
+    "mandates": 0,
+    "drafts": 0,
+    "readyForRatification": 0,
+    "delegated": 0,
+    "reviews": 0,
+    "delegations": 0,
+    "evidenceLinks": 0
+  },
+  "externalInfrastructure": {
+    "distributedTransactionalStore": "NOT_CONNECTED",
+    "multiRegionConsensus": "NOT_CONNECTED",
+    "externalAuthorityMandate": "NOT_CLAIMED",
+    "autonomousFinalAuthority": false
+  },
+  "generatedAt": "2026-06-15T10:06:46.312Z"
+}

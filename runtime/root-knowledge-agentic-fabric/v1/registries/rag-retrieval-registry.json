@@ -1,0 +1,112 @@
+{
+  "registry": "SHEIKHA_RAG_RETRIEVAL_REGISTRY_V1",
+  "status": "ACTIVE",
+  "purpose": "Govern retrieval augmented generation for Sheikha Root Knowledge Fabric by requiring indexed sources, evidence retrieval, citation metadata, grounding checks, and human review for high-impact outputs.",
+  "arabic_name": "سجل شيخة للاسترجاع المعرفي المعزز بالتوليد",
+  "pipeline": [
+    "query_intake",
+    "intent_and_scope_detection",
+    "knowledge_source_selection",
+    "retrieval_policy_check",
+    "indexed_context_retrieval",
+    "evidence_ranking",
+    "source_trace_validation",
+    "grounded_generation",
+    "citation_and_evidence_pack",
+    "hallucination_risk_review",
+    "human_review_when_required",
+    "audit_and_knowledge_feedback"
+  ],
+  "retrievalSources": [
+    {
+      "id": "RAG-SRC-001",
+      "source": "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+      "type": "internal_knowledge_registry",
+      "trustLevel": "ROOT_GOVERNED"
+    },
+    {
+      "id": "RAG-SRC-002",
+      "source": "SHEIKHA_FEDERATED_KNOWLEDGE_AND_REASONING_FABRIC",
+      "type": "federated_reasoning_registry",
+      "trustLevel": "FEDERATED_GOVERNED"
+    },
+    {
+      "id": "RAG-SRC-003",
+      "source": "SHEIKHA_DATABASE_KNOWLEDGE_ENGINE_V1",
+      "type": "database_knowledge_registry",
+      "trustLevel": "DATABASE_GOVERNED"
+    },
+    {
+      "id": "RAG-SRC-004",
+      "source": "SHEIKHA_DECISION_REGISTRY_V2",
+      "type": "decision_evidence_registry",
+      "trustLevel": "DECISION_GOVERNED"
+    },
+    {
+      "id": "RAG-SRC-005",
+      "source": "SHEIKHA_CAPABILITY_REGISTRY_V2",
+      "type": "capability_evidence_registry",
+      "trustLevel": "CAPABILITY_GOVERNED"
+    },
+    {
+      "id": "RAG-SRC-006",
+      "source": "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+      "type": "tool_connector_evidence_registry",
+      "trustLevel": "TOOL_GOVERNED"
+    }
+  ],
+  "retrievalPolicies": {
+    "source_required_before_generation": true,
+    "minimum_evidence_items": 2,
+    "citation_metadata_required": true,
+    "source_trace_required": true,
+    "stale_context_review_required": true,
+    "conflict_detection_required": true,
+    "no_private_data_without_scope": true,
+    "human_review_for_high_impact_domains": true
+  },
+  "groundingChecks": [
+    "source_exists",
+    "source_is_allowed",
+    "source_trace_matches_claim",
+    "conflicting_sources_flagged",
+    "unsupported_claims_blocked",
+    "agi_asi_claims_blocked",
+    "human_gate_applied_when_required"
+  ],
+  "agenticRagRoles": [
+    {
+      "id": "RAG-AGENT-001",
+      "name": "RETRIEVAL_AGENT",
+      "scope": "select_allowed_sources_and_retrieve_context",
+      "toolAccess": "READ_APPROVED_INDEXES_ONLY"
+    },
+    {
+      "id": "RAG-AGENT-002",
+      "name": "EVIDENCE_RANKING_AGENT",
+      "scope": "rank_evidence_by_policy_relevance_freshness_and_authority",
+      "toolAccess": "RANK_ONLY"
+    },
+    {
+      "id": "RAG-AGENT-003",
+      "name": "GROUNDING_AGENT",
+      "scope": "compare_generated_claims_against_retrieved_sources",
+      "toolAccess": "VERIFY_ONLY"
+    },
+    {
+      "id": "RAG-AGENT-004",
+      "name": "CITATION_AUDIT_AGENT",
+      "scope": "attach_source_trace_and_flag_missing_evidence",
+      "toolAccess": "AUDIT_ONLY"
+    }
+  ],
+  "truthfulness": {
+    "retrieval_augments_generation_only": true,
+    "no_claim_without_source": true,
+    "no_agi_claim": true,
+    "no_asi_claim": true,
+    "no_consciousness_claim": true,
+    "classification_only_for_agi_asi": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

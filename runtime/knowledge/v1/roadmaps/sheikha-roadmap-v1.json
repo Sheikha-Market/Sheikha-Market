@@ -1,0 +1,36 @@
+{
+  "roadmap": "SHEIKHA_ROADMAP_V1",
+  "status": "ACTIVE",
+  "generatedBy": "SHEIKHA_EXECUTION_FABRIC_V1",
+  "generatedAt": "2026-06-04T12:08:37.852Z",
+  "items": [
+    {
+      "id": "SEF-RM-001",
+      "priority": "HIGH",
+      "title": "Keep high-risk PRs in curated merge mode",
+      "reason": "PR governance shows raw merge is not allowed for reviewed high-risk PRs.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "SEF-RM-002",
+      "priority": "HIGH",
+      "title": "Promote knowledge capture after every governance run",
+      "reason": "Execution Fabric now writes reports, lessons, decisions, and roadmap entries into Knowledge V1.",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "SEF-RM-003",
+      "priority": "MEDIUM",
+      "title": "Add endpoint or CLI wrapper for Execution Fabric reports",
+      "reason": "The generator is operational; exposing a governed route or npm script can standardize use.",
+      "status": "PLANNED"
+    },
+    {
+      "id": "SEF-RM-004",
+      "priority": "MEDIUM_HIGH",
+      "title": "Review duplicate Fabric mounts",
+      "reason": "Duplicate mounts require explicit governance because precedence may depend on registration order.",
+      "status": "REVIEW_REQUIRED"
+    }
+  ]
+}

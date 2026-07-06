@@ -1,0 +1,25 @@
+{
+  "site": "SHEIKHA_CANONICAL_SITE_MAP",
+  "status": "ACTIVE",
+  "domain": "sheikha.top",
+  "principle": "لا ضرر ولا ضرار",
+  "publicRoutes": {
+    "/": "public/index.html",
+    "/market": "public/سوق-شيخة.html",
+    "/register": "public/تسجيل-الشركات.html",
+    "/government": "public/تسجيل-حكومي.html",
+    "/company": "public/لوحة-الشركة.html",
+    "/identity": "public/هوية-السوق.html",
+    "/ide": "public/sheikha-ide.html"
+  },
+  "protectedRoutes": {
+    "/admin": "public/_admin",
+    "/runtime": "internal/governed-runtime",
+    "/governance": "internal/governance"
+  },
+  "archivePolicy": {
+    "publicArchiveAccess": false,
+    "archiveIsReviewOnly": true
+  },
+  "routingRule": "Every public route must map to one canonical page only."
+}

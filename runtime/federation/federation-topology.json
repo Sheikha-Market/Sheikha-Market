@@ -1,0 +1,16 @@
+{
+  "federation": "SHEIKHA_RUNTIME_FEDERATION_MESH",
+  "status": "ACTIVE",
+  "topology": {
+    "mode": "distributed-governed-mesh",
+    "routing": "engine-aware",
+    "fallback": "enabled",
+    "loadBalancing": "weighted"
+  },
+  "engines": [
+    "sqlserver",
+    "postgresql",
+    "mongodb",
+    "redis"
+  ]
+}

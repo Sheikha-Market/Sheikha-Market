@@ -1,0 +1,22 @@
+{
+  "system": "SHEIKHA_UNIFIED_RAG_ENGINE_V1",
+  "status": "ACTIVE",
+  "purpose": "Unify retrieval, evidence, grounding, citation, and knowledge update across files, GitHub, databases, contracts, policies, reports, research, open data, marketplace, supply chain, CRM, and digital twin sources.",
+  "modules": [
+    "RETRIEVAL",
+    "EVIDENCE_CHAIN",
+    "GROUNDING",
+    "CITATION",
+    "SOURCE_TRUST",
+    "KNOWLEDGE_UPDATE",
+    "SDK_FABRIC_MCP_BINDING"
+  ],
+  "rules": {
+    "source_required": true,
+    "citation_required_for_external_claims": true,
+    "no_private_data_without_authorization": true,
+    "uncertainty_required_when_source_missing": true,
+    "human_approval_for_high_impact": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

@@ -1,0 +1,55 @@
+{
+  "من": {
+    "normalized": "من",
+    "type": "SOURCE",
+    "effect": "extract_from"
+  },
+
+  "إلى": {
+    "normalized": "الى",
+    "type": "DESTINATION",
+    "effect": "transfer_to"
+  },
+
+  "الى": {
+    "normalized": "الى",
+    "type": "DESTINATION",
+    "effect": "transfer_to"
+  },
+
+  "على": {
+    "normalized": "على",
+    "type": "OBLIGATION",
+    "effect": "bind_on"
+  },
+
+  "في": {
+    "normalized": "في",
+    "type": "CONTAINER",
+    "effect": "inside_scope"
+  },
+
+  "عن": {
+    "normalized": "عن",
+    "type": "DELEGATION",
+    "effect": "act_on_behalf"
+  },
+
+  "ثم": {
+    "normalized": "ثم",
+    "type": "SEQUENCE",
+    "effect": "execute_next"
+  },
+
+  "أو": {
+    "normalized": "او",
+    "type": "BRANCH",
+    "effect": "conditional_choice"
+  },
+
+  "إذا": {
+    "normalized": "اذا",
+    "type": "CONDITION",
+    "effect": "conditional_execution"
+  }
+}

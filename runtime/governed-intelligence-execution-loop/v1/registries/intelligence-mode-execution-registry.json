@@ -1,0 +1,63 @@
+{
+  "registry": "SHEIKHA_INTELLIGENCE_MODE_EXECUTION_REGISTRY_V1",
+  "status": "ACTIVE",
+  "modes": [
+    {
+      "id": "MODE-001",
+      "mode": "generative",
+      "name": "GENERATIVE_AI",
+      "status": "ACTIVE",
+      "executionClass": "GOVERNED_MODEL_GENERATION",
+      "allowedActions": ["draft", "summarize", "analyze", "generate_code", "generate_structured_output"],
+      "requiredGates": ["truthfulness", "context", "audit"]
+    },
+    {
+      "id": "MODE-002",
+      "mode": "rag",
+      "name": "TRADITIONAL_RAG",
+      "status": "ACTIVE",
+      "executionClass": "GROUNDED_RETRIEVAL_CONTRACT",
+      "allowedActions": ["select_sources", "retrieve", "rank_evidence", "attach_source_trace", "ground_answer"],
+      "requiredGates": ["source_rights", "citation_trace", "grounding_check"]
+    },
+    {
+      "id": "MODE-003",
+      "mode": "agentic",
+      "name": "AGENTIC_AI",
+      "status": "ACTIVE",
+      "executionClass": "BOUNDED_PLAN_AND_TOOL_USE",
+      "allowedActions": ["decompose_goal", "build_plan", "request_tool", "execute_approved_step", "verify_result"],
+      "requiredGates": ["least_privilege", "tool_permission", "human_review_for_high_impact", "audit"]
+    },
+    {
+      "id": "MODE-004",
+      "mode": "multi-agent",
+      "name": "MULTI_AGENT_SYSTEMS",
+      "status": "ACTIVE",
+      "executionClass": "ROLE_SCOPED_COORDINATION",
+      "allowedActions": ["assign_roles", "share_governed_context", "review_conflicts", "handoff_evidence", "escalate"],
+      "requiredGates": ["role_boundary", "shared_context_policy", "conflict_review", "audit"]
+    },
+    {
+      "id": "MODE-005",
+      "mode": "agi-research",
+      "name": "AGI_RESEARCH",
+      "status": "RESEARCH_ONLY",
+      "executionClass": "EVALUATION_AND_RESEARCH_PROGRAM",
+      "actualReached": false,
+      "allowedActions": ["define_hypothesis", "design_evaluation", "record_evidence", "publish_limitations"],
+      "prohibitedClaims": ["actual_agi", "consciousness", "human_equivalence_without_evidence"]
+    },
+    {
+      "id": "MODE-006",
+      "mode": "asi-research",
+      "name": "ASI_RESEARCH",
+      "status": "RESEARCH_ONLY",
+      "executionClass": "RISK_AND_EVALUATION_PROGRAM",
+      "actualReached": false,
+      "allowedActions": ["define_risk_model", "design_safety_evaluation", "record_evidence", "publish_limitations"],
+      "prohibitedClaims": ["actual_asi", "superhuman_runtime", "unrestricted_autonomy"]
+    }
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

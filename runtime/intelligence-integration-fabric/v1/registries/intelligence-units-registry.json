@@ -1,0 +1,105 @@
+{
+  "registry": "SHEIKHA_INTELLIGENCE_UNITS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "units": [
+    {
+      "id": "INT-001",
+      "name": "GENERATIVE_AI",
+      "arabic": "الذكاء التوليدي",
+      "status": "ACTIVE",
+      "allowed": true,
+      "runtimeMode": "GOVERNED_GENERATION",
+      "role": "Generate grounded content, code, reports, summaries, and structured outputs from governed context.",
+      "autonomy": "USER_OR_AGENT_PROMPT_REQUIRED",
+      "requiredControls": [
+        "knowledge_context",
+        "truthfulness_policy",
+        "audit"
+      ]
+    },
+    {
+      "id": "INT-002",
+      "name": "TRADITIONAL_RAG",
+      "arabic": "RAG التقليدي",
+      "status": "ACTIVE",
+      "allowed": true,
+      "runtimeMode": "GOVERNED_RETRIEVAL_AUGMENTED_GENERATION",
+      "role": "Retrieve indexed knowledge, rank evidence, attach source trace, and support grounded generation.",
+      "autonomy": "READ_AND_RETRIEVE_ONLY_UNTIL_GENERATION_GATE",
+      "requiredControls": [
+        "source_selection",
+        "retrieval_policy",
+        "evidence_ranking",
+        "citation_metadata",
+        "grounding_check"
+      ]
+    },
+    {
+      "id": "INT-003",
+      "name": "AGENTIC_AI",
+      "arabic": "الذكاء الوكيلي",
+      "status": "ACTIVE",
+      "allowed": true,
+      "runtimeMode": "GOVERNED_PLANNING_AND_TOOL_USE",
+      "role": "Plan, decompose goals, request approved tools, execute bounded steps, and report evidence.",
+      "autonomy": "BOUNDED_BY_POLICY_TOOL_SCOPE_AND_HUMAN_GATE",
+      "requiredControls": [
+        "agent_plan",
+        "tool_permission",
+        "least_privilege",
+        "human_review_for_high_impact",
+        "audit"
+      ]
+    },
+    {
+      "id": "INT-004",
+      "name": "MULTI_AGENT_SYSTEMS",
+      "arabic": "وكلاء متعددون متكاملون",
+      "status": "ACTIVE",
+      "allowed": true,
+      "runtimeMode": "GOVERNED_MULTI_AGENT_COORDINATION",
+      "role": "Coordinate role-bounded agents for knowledge, planning, retrieval, tool execution, governance review, and reporting.",
+      "autonomy": "ROLE_BOUNDED_COORDINATION_ONLY",
+      "requiredControls": [
+        "role_boundary",
+        "shared_context",
+        "conflict_review",
+        "escalation_policy",
+        "audit"
+      ]
+    },
+    {
+      "id": "INT-005",
+      "name": "AGI_RESEARCH_GOVERNANCE",
+      "arabic": "حوكمة بحث الذكاء الاصطناعي العام",
+      "status": "ACTIVE",
+      "allowed": false,
+      "runtimeMode": "RESEARCH_CLASSIFICATION_AND_RISK_GOVERNANCE_ONLY",
+      "role": "Classify AGI language, block unsupported AGI claims, and require human review for any AGI-related framing.",
+      "autonomy": "NO_RUNTIME_AGI_AUTONOMY",
+      "requiredControls": [
+        "no_actual_agi_claim",
+        "no_consciousness_claim",
+        "human_review",
+        "truthfulness_policy"
+      ]
+    },
+    {
+      "id": "INT-006",
+      "name": "ASI_RISK_GOVERNANCE",
+      "arabic": "حوكمة مخاطر الذكاء الاصطناعي الفائق",
+      "status": "ACTIVE",
+      "allowed": false,
+      "runtimeMode": "RISK_GOVERNANCE_CLASSIFICATION_ONLY",
+      "role": "Classify ASI risk language, block unsupported superiority claims, and preserve evidence-first truthfulness.",
+      "autonomy": "NO_RUNTIME_ASI_AUTONOMY",
+      "requiredControls": [
+        "no_actual_asi_claim",
+        "no_superhuman_capability_claim",
+        "human_review",
+        "truthfulness_policy"
+      ]
+    }
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

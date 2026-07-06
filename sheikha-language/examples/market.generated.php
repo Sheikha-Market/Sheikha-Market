@@ -13,8 +13,8 @@ final class SheikhaGeneratedRule
       "source_language" => "sheikha",
       "source_family" => "sheikha-dsl",
       "source_kind" => "shk",
-      "source_file" => "sheikha-language/examples/market.shk",
-      "output_file" => "sheikha-language/examples/market.generated.php",
+      "source_file" => "/home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-language/examples/market.shk",
+      "output_file" => "/home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-language/examples/market.generated.php",
       "supported_targets" => [
           "php",
           "javascript",

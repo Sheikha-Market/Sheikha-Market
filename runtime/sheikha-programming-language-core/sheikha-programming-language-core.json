@@ -1,0 +1,52 @@
+{
+  "system": "SHEIKHA_PROGRAMMING_LANGUAGE_CORE",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "arabic_name": "لغة شيخة البرمجية",
+  "purpose": "Provide an Arabic-first governed programming language layer for commands, rules, activation, reporting, execution, and safe automation.",
+  "foundation": {
+    "tawhid": "الله وحده لا شريك له",
+    "reference": ["القرآن الكريم", "السنة النبوية الصحيحة"],
+    "human_role": "الاستخلاف والعمل بالأسباب",
+    "system_role": "أداة تقنية لا تعلم الغيب ولا تملك نفعاً أو ضراً بذاتها"
+  },
+  "core_principles": {
+    "no_shirk_claims": true,
+    "no_ghayb_claims": true,
+    "no_harm": true,
+    "no_riba": true,
+    "no_deception": true,
+    "justice_required": true,
+    "audit_required": true,
+    "human_review_for_high_impact": true
+  },
+  "language_units": {
+    "أمر": "COMMAND",
+    "فعّل": "ACTIVATE",
+    "أوقف": "STOP",
+    "تحقق": "VALIDATE",
+    "ارصد": "OBSERVE",
+    "حلل": "ANALYZE",
+    "قِس": "MEASURE",
+    "اكتب": "WRITE",
+    "استخرج": "EXTRACT",
+    "قرر": "DECIDE_WITH_EVIDENCE",
+    "تقرير": "REPORT"
+  },
+  "execution_pipeline": [
+    "parse_arabic_instruction",
+    "extract_intent",
+    "apply_sharia_governance",
+    "validate_safety",
+    "map_to_runtime_action",
+    "execute_if_allowed",
+    "audit_trace",
+    "return_arabic_explanation"
+  ],
+  "maturity": {
+    "language_core": "ACTIVE",
+    "governance": "ACTIVE",
+    "runtime_mapping": "READY",
+    "overall": "SHEIKHA_ARABIC_PROGRAMMING_READY"
+  }
+}

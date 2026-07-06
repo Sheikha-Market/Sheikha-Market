@@ -1,0 +1,20 @@
+{
+  "registry": "SHEIKHA_MCP_READINESS_V1",
+  "status": "ACTIVE",
+  "capabilities": [
+    "tools_registry",
+    "resource_registry",
+    "prompt_contracts",
+    "safe_execution_boundaries",
+    "no_secret_exposure",
+    "customer_context_guard",
+    "governed_api_access",
+    "audit_log_ready"
+  ],
+  "rules": [
+    "No secrets in Git",
+    "No external tool execution without explicit configuration",
+    "All MCP tools require schema, permission, and audit",
+    "High impact operations require human approval"
+  ]
+}

@@ -1,0 +1,77 @@
+#!/usr/bin/env node
+'use strict';
+
+const { execFileSync } = require('child_process');
+
+const cmd = process.argv[2] || 'help';
+
+function run(command, args = []) {
+  execFileSync(command, args, { stdio: 'inherit' });
+}
+
+function call(path, method = 'GET', body = null) {
+  const args = ['-s'];
+  if (method !== 'GET') args.push('-X', method);
+  if (body) args.push('-H', 'Content-Type: application/json', '-d', JSON.stringify(body));
+  if (process.env.SHEIKHA_API_KEY) {
+    args.push('-H', `Authorization: Sheikha ${process.env.SHEIKHA_API_KEY}`);
+  }
+  if (process.env.SHEIKHA_ACTOR_ID) args.push('-H', `x-sheikha-actor-id: ${process.env.SHEIKHA_ACTOR_ID}`);
+  if (process.env.SHEIKHA_ROLE) args.push('-H', `x-sheikha-role: ${process.env.SHEIKHA_ROLE}`);
+  if (process.env.SHEIKHA_TENANT_ID) args.push('-H', `x-sheikha-tenant-id: ${process.env.SHEIKHA_TENANT_ID}`);
+  if (process.env.SHEIKHA_HUMAN_APPROVED === 'true') {
+    args.push('-H', 'x-sheikha-human-approved: true');
+  }
+  const baseUrl = String(process.env.SHEIKHA_API || 'http://127.0.0.1:8080').replace(/\/$/, '');
+  args.push(`${baseUrl}${path}`);
+  run('curl', args);
+  console.log();
+}
+
+const commands = {
+  help() {
+    console.log('Sheikha CLI V1');
+    console.log('Commands: status, protocol, decision, runtime, saas, saas-v2, tenants, subscriptions, usage, api-keys, governance, deploy, mcp, sdk, service-tiers, test, lint, drift, verify');
+  },
+  status() { run('git', ['status', '--short']); },
+  protocol() { call('/api/sheikha/protocol/status'); },
+  decision() { call('/api/sheikha/protocol/decision', 'POST', { actor: 'runtime', action: 'health_check' }); },
+  runtime() { run('npm', ['run', 'ops:production-runtime-fabric:v1']); },
+  saas() { run('npm', ['run', 'ops:saas-platform-layer:v1']); },
+  'saas-v2'() { call('/api/saas/v2/status'); },
+  tenants() { call('/api/tenancy/snapshot'); },
+  subscriptions() { call('/api/subscriptions/status'); },
+  usage() { call('/api/subscriptions/usage'); },
+  'api-keys'() { call('/api/security/api-keys/status'); },
+  governance() { call('/api/sheikha/protocol/status'); },
+  deploy() {
+    console.log(JSON.stringify({
+      command: 'sheikha deploy',
+      status: 'PLAN_ONLY',
+      destructiveActionExecuted: false,
+      requirements: ['human approval', 'tests passed', 'lint passed', 'NO_DRIFT', 'approved target']
+    }, null, 2));
+  },
+  mcp() { run('npm', ['test', '--', 'tests/sdk-fabric-mcp-integration-v1.test.js']); },
+  sdk() { run('npm', ['test', '--', 'tests/sdk-fabric-mcp-integration-v1.test.js']); },
+  'service-tiers'() { run('bash', ['test-service-tiers.sh']); },
+  test() { run('npm', ['test']); },
+  lint() { run('npm', ['run', 'lint']); },
+  drift() { run('node', ['tools/drift/sheikha-runtime-drift-detector.js']); },
+  verify() {
+    commands.protocol();
+    commands.decision();
+    commands.runtime();
+    commands.test();
+    commands.lint();
+    commands.drift();
+  }
+};
+
+if (!commands[cmd]) {
+  console.error(`Unknown command: ${cmd}`);
+  commands.help();
+  process.exit(1);
+}
+
+commands[cmd]();

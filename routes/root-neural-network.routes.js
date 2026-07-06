@@ -75,6 +75,7 @@ router.post('/activate', async (req, res) => {
         return sendError(res, 503, 'تعذر تفعيل الشبكة العصبية الجذرية', { error: error.message });
     }
 });
+
 router.post('/infer', async (req, res) => {
     try {
         const network = await ensureNetworkReady();
@@ -90,7 +91,7 @@ router.post('/halal', async (req, res) => {
         const network = await ensureNetworkReady();
         const context = req.body && typeof req.body.context === 'object' ? req.body.context : req.body || {};
         const features = toNumericArray(
-            req.body && req.body.features,
+            req.body?.features,
             [0, 0, 0, 0, 0, 1, 1, 1]
         );
 

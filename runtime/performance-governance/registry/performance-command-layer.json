@@ -1,0 +1,31 @@
+{
+  "layer": "SHEIKHA_PERFORMANCE_COMMAND_LAYER",
+  "status": "ACTIVE",
+  "purpose": "Govern performance promotion decisions using measured evidence.",
+  "leadershipRole": "Sheikha governs promotion between compute stages.",
+  "decisionFlow": {
+    "measure": true,
+    "verify": true,
+    "compareAgainstTargets": true,
+    "approveOrRejectPromotion": true
+  },
+  "promotionRules": {
+    "singleNodeLab": {
+      "apiHealthMsMax": 1.5,
+      "cpuLoopMsMax": 40,
+      "memoryMBMax": 180
+    },
+    "governedGpuNode": {
+      "gpuRequired": true,
+      "thermalMonitoringRequired": true,
+      "benchmarkEvidenceRequired": true
+    }
+  },
+  "currentAssessment": {
+    "apiHealthMs": 1.678,
+    "cpuLoopMs": 39,
+    "memoryMB": 154,
+    "result": "NEAR_PROMOTION_READY"
+  },
+  "rule": "No promotion without benchmark evidence and governance approval."
+}

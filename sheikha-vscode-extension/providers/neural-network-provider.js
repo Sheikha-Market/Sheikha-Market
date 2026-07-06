@@ -4,7 +4,7 @@ const vscode = require('vscode');
 let fetch = globalThis.fetch ? globalThis.fetch.bind(globalThis) : null;
 if (!fetch) {
     try {
-        fetch = require('node-fetch');
+        fetch = (...args) => globalThis.fetch(...args);
     } catch (_) {
         fetch = async () => {
             throw new Error('fetch غير متوفر في بيئة VS Code الحالية');

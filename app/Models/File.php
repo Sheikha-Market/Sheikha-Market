@@ -7,7 +7,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
  * نموذج الملفات
- * 
+ *
  * يحتفظ بسجل جميع الملفات المرفوعة إلى Google Cloud Storage
  */
 class File extends Model
@@ -47,11 +47,11 @@ class File extends Model
     {
         $units = ['B', 'KB', 'MB', 'GB'];
         $size = $this->size;
-        
+
         for ($i = 0; $i < count($units) && $size >= 1024; $i++) {
             $size /= 1024;
         }
-        
+
         return round($size, 2) . ' ' . $units[$i];
     }
 

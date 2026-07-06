@@ -1,0 +1,39 @@
+{
+  "system": "sheikha-organizations-fabric",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "نظام المنظمات متعدد المستأجرين — Organizations Multi-Tenant System",
+  "layers": {
+    "organizations": {
+      "status": "FOUNDATION_ACTIVE",
+      "description": "إنشاء وإدارة المنظمات — Create & manage organizations",
+      "features": ["create", "suspend", "activate", "delete", "settings"]
+    },
+    "tenantIsolation": {
+      "status": "FOUNDATION_ACTIVE",
+      "description": "عزل البيانات لكل مستأجر — Tenant data isolation",
+      "strategy": "org-scoped-data",
+      "isolation": "strict"
+    },
+    "roles": {
+      "status": "FOUNDATION_ACTIVE",
+      "description": "RBAC — Role Based Access Control",
+      "defaultRoles": ["owner", "admin", "member", "viewer", "readonly"]
+    },
+    "permissions": {
+      "status": "FOUNDATION_ACTIVE",
+      "description": "Granular permissions per resource",
+      "model": "allow-list"
+    },
+    "sessions": {
+      "status": "FOUNDATION_ACTIVE",
+      "description": "Sessions scoped per org",
+      "jwt": true,
+      "multiOrg": true
+    }
+  },
+  "governed": true,
+  "governanceRef": "runtime/governance"
+}

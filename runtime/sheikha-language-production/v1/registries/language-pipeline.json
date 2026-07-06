@@ -1,0 +1,18 @@
+{
+  "registry": "SHEIKHA_LANGUAGE_PIPELINE_V1",
+  "status": "ACTIVE",
+  "pipeline": [
+    "SOURCE",
+    "LEX_PARSE",
+    "AST",
+    "IR",
+    "TYPE_CHECK",
+    "BYTECODE_OR_TARGET",
+    "RUNTIME_EXECUTION",
+    "TESTS",
+    "LINT",
+    "NO_DRIFT",
+    "PACKAGE",
+    "DOCUMENT"
+  ]
+}

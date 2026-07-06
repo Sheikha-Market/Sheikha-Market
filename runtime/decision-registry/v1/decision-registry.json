@@ -1,0 +1,24 @@
+{
+  "system": "SHEIKHA_DECISION_REGISTRY_V1",
+  "status": "ACTIVE",
+  "decisions": [
+    {
+      "id": "D-001",
+      "title": "Continue from HEAD 9660d453",
+      "decision": "No rework. Continue activation from the long-tail latency branch.",
+      "protected": true
+    },
+    {
+      "id": "D-002",
+      "title": "Preserve excellence score",
+      "decision": "SHEIKHA_EXCELLENCE_SCORE_V1 remains 100% baseline and must not be reduced by new modules.",
+      "protected": true
+    },
+    {
+      "id": "D-003",
+      "title": "Patch-only expansion",
+      "decision": "New engines must be added as patch-based extensions under existing architecture freeze.",
+      "protected": true
+    }
+  ]
+}

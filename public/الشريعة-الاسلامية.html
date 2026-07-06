@@ -498,7 +498,7 @@
             <div class="hijri-date-day" id="hijriDay"></div>
             <div class="gregorian-date" id="gregorianDate"></div>
             <div id="occasionContainer"></div>
-            
+
             <div class="prayer-times" id="prayerTimes">
                 <div class="prayer-time">
                     <div class="name">الفجر</div>
@@ -534,7 +534,7 @@
                     <cite>سورة النساء - الآية 29</cite>
                 </div>
             </div>
-            
+
             <div class="principle-card">
                 <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="m16 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="m2 16 3-8 3 8c-.87.65-1.92 1-3 1s-2.13-.35-3-1Z"/><path d="M7 21h10"/><path d="M12 3v18"/><path d="M3 7h2c2 0 5-1 7-2 2 1 5 2 7 2h2"/></svg> الوفاء بالعهود</h3>
                 <p>الالتزام بالعقود والوفاء بالوعود من أساسيات التجارة الإسلامية</p>
@@ -543,7 +543,7 @@
                     <cite>سورة الإسراء - الآية 34</cite>
                 </div>
             </div>
-            
+
             <div class="principle-card">
                 <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z"/><path d="m14.5 12.5 2-2"/><path d="m11.5 9.5 2-2"/><path d="m8.5 6.5 2-2"/><path d="m17.5 15.5 2-2"/></svg> إقامة الوزن بالقسط</h3>
                 <p>العدل في الكيل والميزان وعدم التطفيف</p>
@@ -552,7 +552,7 @@
                     <cite>سورة الأنعام - الآية 152</cite>
                 </div>
             </div>
-            
+
             <div class="principle-card">
                 <h3><svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><path d="m4.9 4.9 14.2 14.2"/></svg> لا ضرر ولا ضرار</h3>
                 <p>قاعدة ذهبية تحكم جميع المعاملات: لا يجوز إلحاق الضرر بالنفس أو بالغير</p>
@@ -689,7 +689,7 @@
                     <input type="number" id="goldPrice" placeholder="250" value="250">
                 </div>
                 <button class="calc-btn" onclick="calculateZakat()">احسب الزكاة</button>
-                
+
                 <div class="zakat-result" id="zakatResult">
                     <div id="zakatResultContent"></div>
                 </div>
@@ -711,21 +711,21 @@
             try {
                 const res = await fetch(API_BASE + '/api/hijri/today');
                 const data = await res.json();
-                
+
                 if (data.success) {
                     document.getElementById('hijriDate').textContent = data.hijri.formatted;
                     document.getElementById('hijriDay').textContent = data.hijri.dayName;
-                    document.getElementById('gregorianDate').textContent = 
+                    document.getElementById('gregorianDate').textContent =
                         `الموافق: ${data.gregorian.day}/${data.gregorian.month}/${data.gregorian.year} م`;
-                    
+
                     // المناسبات
                     if (data.occasions && data.occasions.length > 0) {
                         const container = document.getElementById('occasionContainer');
-                        container.innerHTML = data.occasions.map(o => 
+                        container.innerHTML = data.occasions.map(o =>
                             `<div class="occasion-badge"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="vertical-align:middle"><path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"/></svg> ${o.name}</div>`
                         ).join('');
                     }
-                    
+
                     // أوقات الصلاة
                     if (data.prayerTimes) {
                         document.getElementById('fajrTime').textContent = data.prayerTimes.fajr;
@@ -743,12 +743,12 @@
         async function calculateZakat() {
             const amount = parseFloat(document.getElementById('zakatAmount').value);
             const goldPrice = parseFloat(document.getElementById('goldPrice').value) || 250;
-            
+
             if (!amount || amount <= 0) {
                 alert('يرجى إدخال مبلغ صحيح');
                 return;
             }
-            
+
             try {
                 const res = await fetch(API_BASE + '/api/islamic/calculate-zakat', {
                     method: 'POST',
@@ -756,10 +756,10 @@
                     body: JSON.stringify({ amount, goldPricePerGram: goldPrice })
                 });
                 const data = await res.json();
-                
+
                 const resultDiv = document.getElementById('zakatResult');
                 const contentDiv = document.getElementById('zakatResultContent');
-                
+
                 if (data.success && data.zakat) {
                     if (data.zakat.required) {
                         contentDiv.innerHTML = `

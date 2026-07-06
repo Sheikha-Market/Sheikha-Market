@@ -1,0 +1,257 @@
+{
+  "system": "SHEIKHA_KERNEL_INDUSTRIAL_FABRIC_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_INDUSTRIAL_KERNEL_CLUSTER_MAPPING",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noSysctlModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noHarm": true
+  },
+  "industrialKernels": [
+    {
+      "id": "hardware-industrial-kernel",
+      "layer": "below-kernel",
+      "name": "Hardware Industrial Kernel",
+      "arabicName": "كيرنل التجمعات الصناعية للعتاد",
+      "clusters": [
+        "cpu-cluster",
+        "memory-cluster",
+        "disk-cluster",
+        "device-observation-cluster"
+      ]
+    },
+    {
+      "id": "boot-firmware-industrial-kernel",
+      "layer": "below-kernel",
+      "name": "Boot & Firmware Industrial Kernel",
+      "arabicName": "كيرنل تجمعات الإقلاع والبرمجيات الثابتة",
+      "clusters": [
+        "firmware-reporting-cluster",
+        "boot-observation-cluster",
+        "no-boot-change-cluster"
+      ]
+    },
+    {
+      "id": "linux-kernel-industrial-kernel",
+      "layer": "kernel",
+      "name": "Linux Kernel Industrial Kernel",
+      "arabicName": "كيرنل تجمعات نواة لينكس",
+      "clusters": [
+        "kernel-version-cluster",
+        "scheduler-observation-cluster",
+        "process-interface-cluster"
+      ]
+    },
+    {
+      "id": "os-industrial-kernel",
+      "layer": "above-kernel",
+      "name": "OS Industrial Kernel",
+      "arabicName": "كيرنل تجمعات نظام التشغيل",
+      "clusters": [
+        "pop-os-cluster",
+        "linux-distro-cluster",
+        "filesystem-observation-cluster"
+      ]
+    },
+    {
+      "id": "runtime-industrial-kernel",
+      "layer": "above-kernel",
+      "name": "Runtime Industrial Kernel",
+      "arabicName": "كيرنل تجمعات التشغيل",
+      "clusters": [
+        "node-runtime-cluster",
+        "pm2-cluster",
+        "api-health-cluster"
+      ]
+    },
+    {
+      "id": "application-industrial-kernel",
+      "layer": "above-kernel",
+      "name": "Application Industrial Kernel",
+      "arabicName": "كيرنل تجمعات التطبيقات",
+      "clusters": [
+        "sheikha-portal-cluster",
+        "product-knowledge-cluster",
+        "governance-api-cluster"
+      ]
+    },
+    {
+      "id": "governance-industrial-kernel",
+      "layer": "above-kernel",
+      "name": "Governance Industrial Kernel",
+      "arabicName": "كيرنل تجمعات الحوكمة",
+      "clusters": [
+        "no-harm-cluster",
+        "audit-cluster",
+        "human-review-cluster"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "hardware-industrial-kernel",
+      "to": "boot-firmware-industrial-kernel",
+      "type": "DEPENDS_ON_AND_FEEDS"
+    },
+    {
+      "from": "boot-firmware-industrial-kernel",
+      "to": "linux-kernel-industrial-kernel",
+      "type": "DEPENDS_ON_AND_FEEDS"
+    },
+    {
+      "from": "linux-kernel-industrial-kernel",
+      "to": "os-industrial-kernel",
+      "type": "DEPENDS_ON_AND_FEEDS"
+    },
+    {
+      "from": "os-industrial-kernel",
+      "to": "runtime-industrial-kernel",
+      "type": "DEPENDS_ON_AND_FEEDS"
+    },
+    {
+      "from": "runtime-industrial-kernel",
+      "to": "application-industrial-kernel",
+      "type": "DEPENDS_ON_AND_FEEDS"
+    },
+    {
+      "from": "application-industrial-kernel",
+      "to": "governance-industrial-kernel",
+      "type": "DEPENDS_ON_AND_FEEDS"
+    }
+  ],
+  "stack": {
+    "system": "SHEIKHA_KERNEL_STACK_FABRIC_V1",
+    "status": "ACTIVE",
+    "mode": "READ_ONLY_LAYER_MEASUREMENT",
+    "safety": {
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noSysctlModification": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noHarm": true
+    },
+    "layers": [
+      {
+        "id": "hardware-layer",
+        "name": "Hardware Layer",
+        "scope": "cpu-memory-disk",
+        "position": "below-kernel"
+      },
+      {
+        "id": "firmware-layer",
+        "name": "Firmware Layer",
+        "scope": "reported-only",
+        "position": "below-kernel"
+      },
+      {
+        "id": "boot-layer",
+        "name": "Boot Layer",
+        "scope": "read-only-no-boot-change",
+        "position": "below-kernel"
+      },
+      {
+        "id": "kernel-layer",
+        "name": "Kernel Layer",
+        "scope": "linux-kernel-read-only",
+        "position": "kernel"
+      },
+      {
+        "id": "os-layer",
+        "name": "Operating System Layer",
+        "scope": "pop-os-linux-distro",
+        "position": "above-kernel"
+      },
+      {
+        "id": "process-layer",
+        "name": "Process Layer",
+        "scope": "pm2-process-observation",
+        "position": "above-kernel"
+      },
+      {
+        "id": "runtime-layer",
+        "name": "Runtime Layer",
+        "scope": "node-pm2-runtime-health",
+        "position": "above-kernel"
+      },
+      {
+        "id": "application-layer",
+        "name": "Application Layer",
+        "scope": "sheikha-runtime-services",
+        "position": "above-kernel"
+      },
+      {
+        "id": "governance-layer",
+        "name": "Governance Layer",
+        "scope": "no-harm-human-review",
+        "position": "above-kernel"
+      }
+    ],
+    "kernel": {
+      "system": "SHEIKHA_KERNEL_FABRIC_V1",
+      "status": "ACTIVE",
+      "mode": "READ_ONLY_MEASUREMENT",
+      "safety": {
+        "noKernelModification": true,
+        "noBootModification": true,
+        "noSysctlModification": true,
+        "noServiceRestart": true,
+        "noHarm": true
+      },
+      "os": {
+        "platform": "linux",
+        "release": "7.0.11-76070011-generic",
+        "type": "Linux",
+        "arch": "x64",
+        "hostname": "pop-os",
+        "distroName": "Pop!_OS",
+        "distroVersion": "22.04 LTS",
+        "prettyName": "Pop!_OS 22.04 LTS"
+      },
+      "compute": {
+        "cpus": 22,
+        "model": "Intel(R) Core(TM) Ultra 9 185H",
+        "loadavg": [
+          2.07,
+          1.98,
+          2.64
+        ],
+        "totalMemory": 66875772928,
+        "freeMemory": 40801320960
+      },
+      "disk": {
+        "root": "929G 481G 402G 55%"
+      },
+      "pm2": [
+        {
+          "name": "sheikha-main-portal",
+          "status": "online",
+          "pid": 1834407,
+          "memory": 192520192,
+          "cpu": 0.9
+        },
+        {
+          "name": "sheikha-proxy-8082",
+          "status": "online",
+          "pid": 1660,
+          "memory": 21594112,
+          "cpu": 0
+        },
+        {
+          "name": "sheikha-universal-api",
+          "status": "online",
+          "pid": 1667,
+          "memory": 150196224,
+          "cpu": 0.2
+        }
+      ],
+      "governance": {
+        "humanReviewRequired": true,
+        "productionSafe": true
+      }
+    }
+  }
+}

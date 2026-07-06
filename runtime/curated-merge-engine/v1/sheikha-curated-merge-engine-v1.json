@@ -1,0 +1,21 @@
+{
+  "engine": "SHEIKHA_CURATED_MERGE_ENGINE_V1",
+  "status": "ACTIVE",
+  "purpose": "Build curated merge packages from approved PR sections while excluding unsafe, generated, archived, backup, or high-risk files.",
+  "rules": {
+    "no_raw_merge_for_large_pr": true,
+    "exclude_archive": true,
+    "exclude_dist": true,
+    "exclude_backups": true,
+    "exclude_generated_unless_reviewed": true,
+    "server_js_requires_separate_review": true,
+    "package_changes_require_dependency_review": true,
+    "human_approval_required": true
+  },
+  "decisions": [
+    "SAFE_MERGE",
+    "CURATED_MERGE",
+    "HOLD_FOR_FIXES",
+    "REJECT"
+  ]
+}

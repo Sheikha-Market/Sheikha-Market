@@ -1,0 +1,17 @@
+#!/usr/bin/env node
+'use strict';
+
+const {
+  status,
+  packagePlan
+} = require('../../runtime/arabic-package-manager-fabric/v96/sheikha-arabic-package-manager-fabric-v96');
+
+const cmd = process.argv[2] || 'status';
+
+if (cmd === 'status') {
+  console.log(JSON.stringify(status(), null, 2));
+} else if (cmd === 'demo') {
+  console.log(JSON.stringify(packagePlan(), null, 2));
+} else {
+  process.exit(1);
+}

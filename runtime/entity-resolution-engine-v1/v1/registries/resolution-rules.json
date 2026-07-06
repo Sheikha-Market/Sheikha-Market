@@ -1,0 +1,16 @@
+{
+  "registry": "SHEIKHA_ENTITY_RESOLUTION_RULES_V1",
+  "status": "ACTIVE",
+  "rules": [
+    "Normalize Arabic and English names.",
+    "Normalize punctuation, spacing, and case.",
+    "Match by official identifiers when available.",
+    "Match by email, phone, tax number, registry number, or domain when authorized.",
+    "Use source confidence scoring.",
+    "Never auto-merge high-impact entities without review.",
+    "Preserve all source references.",
+    "Create canonical entity ID.",
+    "Keep aliases and historical names.",
+    "Audit every merge and split action."
+  ]
+}

@@ -262,7 +262,7 @@ const sheikha_query = Sheikha.io.query({
 ```
 Sheikha Unicode = نظام توحيد جميع رموز وأحرف البشرية
   ├── الأبجدية العربية       ← U+0600 – U+06FF
-  ├── الأبجدية العبرية       ← U+0590 – U+05FF  
+  ├── الأبجدية العبرية       ← U+0590 – U+05FF
   ├── الأبجدية الصينية       ← U+4E00 – U+9FFF
   ├── الخط المسماري (سومري)  ← U+12000 – U+1239F  ← Sheikha Sumerian
   ├── الهيروغليفية المصرية   ← U+13000 – U+1342F  ← Sheikha Hieroglyphics
@@ -477,7 +477,7 @@ Sheikha.Edu.SaintVincentCollege:
 
 ---
 
-_الإصدار: Sheikha Language v1.0_  
-_التاريخ: ١٤٤٦ هـ | ٢٠٢٦ م_  
-_المعيار: sheikha/v2_  
+_الإصدار: Sheikha Language v1.0_
+_التاريخ: ١٤٤٦ هـ | ٢٠٢٦ م_
+_المعيار: sheikha/v2_
 _الأساس: لا إله إلا الله محمد رسول الله_

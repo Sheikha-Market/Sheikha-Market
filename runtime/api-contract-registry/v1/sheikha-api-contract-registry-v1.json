@@ -1,0 +1,131 @@
+{
+  "registry": "SHEIKHA_API_CONTRACT_REGISTRY_V1",
+  "status": "ACTIVE",
+  "envelope": {
+    "version": "SHEIKHA_API_ENVELOPE_V1",
+    "requiredTopLevel": [
+      "success",
+      "data",
+      "timestamp"
+    ],
+    "optionalTopLevel": [
+      "message",
+      "error",
+      "meta"
+    ],
+    "legacyMirrorsAllowed": true,
+    "rule": "Extension-facing endpoints must expose canonical data while preserving documented legacy top-level mirrors during migration."
+  },
+  "contracts": [
+    {
+      "id": "API-SHEIKHA-STATUS",
+      "method": "GET",
+      "path": "/api/sheikha/status",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "name",
+        "version",
+        "status",
+        "shariaGuardrails"
+      ],
+      "legacyMirrorKeys": [
+        "name",
+        "version",
+        "status",
+        "shariaGuardrails"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-MODELS",
+      "method": "GET",
+      "path": "/api/sheikha/models",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "models"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-LANGUAGES",
+      "method": "GET",
+      "path": "/api/sheikha/languages",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "languages"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-COMPLETIONS",
+      "method": "POST",
+      "path": "/api/sheikha/completions",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "completions"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-CHAT",
+      "method": "POST",
+      "path": "/api/sheikha/chat",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "reply",
+        "shariaCompliant"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-NES",
+      "method": "POST",
+      "path": "/api/sheikha/nes",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "nextEditSuggestions"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-INLINE-CHAT",
+      "method": "POST",
+      "path": "/api/sheikha/inline-chat",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "modifiedCode"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-SETTINGS",
+      "method": "GET",
+      "path": "/api/sheikha/settings",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "settings"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-VSCODE-BRIDGE",
+      "method": "GET",
+      "path": "/api/sheikha/vscode-bridge",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "bridge"
+      ],
+      "stability": "LOCKED"
+    },
+    {
+      "id": "API-SHEIKHA-UNIFIED-INTEGRATIONS",
+      "method": "GET",
+      "path": "/api/sheikha/unified-integrations",
+      "owner": "extension-compatibility",
+      "requiredDataKeys": [
+        "modules"
+      ],
+      "stability": "LOCKED"
+    }
+  ]
+}

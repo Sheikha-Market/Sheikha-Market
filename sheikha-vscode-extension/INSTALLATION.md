@@ -482,6 +482,6 @@ For issues or questions:
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** March 16, 2026  
+**Version:** 1.0.0
+**Last Updated:** March 16, 2026
 **License:** Proprietary (Sheikha Platform)

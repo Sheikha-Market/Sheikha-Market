@@ -1,0 +1,31 @@
+{
+  "discovery": "SHEIKHA_RUNTIME_ENGINE_DISCOVERY",
+  "status": "ACTIVE",
+  "scanIntervalSeconds": 30,
+  "engines": [
+    {
+      "name": "sqlserver",
+      "host": "127.0.0.1",
+      "port": 1433,
+      "role": "transactions-governance"
+    },
+    {
+      "name": "redis",
+      "host": "127.0.0.1",
+      "port": 6379,
+      "role": "neural-cache-stream-memory"
+    },
+    {
+      "name": "postgresql",
+      "host": "127.0.0.1",
+      "port": 5432,
+      "role": "runtime-relational-core"
+    },
+    {
+      "name": "mongodb",
+      "host": "127.0.0.1",
+      "port": 27017,
+      "role": "document-fabric"
+    }
+  ]
+}

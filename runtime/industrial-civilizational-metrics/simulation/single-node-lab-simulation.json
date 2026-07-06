@@ -1,0 +1,42 @@
+{
+  "simulation": "SHEIKHA_SINGLE_NODE_LAB_SIMULATION",
+  "status": "ACTIVE",
+  "fromStage": "local_runtime",
+  "toStage": "single_node_lab",
+  "requiredCapabilities": {
+    "hardware": [
+      "dedicated workstation/server",
+      "high-core CPU",
+      "GPU accelerator",
+      "128GB+ RAM",
+      "NVMe storage",
+      "stable power",
+      "thermal monitoring"
+    ],
+    "software": [
+      "Linux baseline",
+      "Sheikha Unified Runtime",
+      "container runtime",
+      "benchmark suite",
+      "GPU driver stack",
+      "monitoring stack"
+    ],
+    "benchmarks": [
+      "API latency",
+      "CLI latency",
+      "CPU loop",
+      "GPU benchmark",
+      "memory bandwidth",
+      "disk IO",
+      "thermal stability"
+    ]
+  },
+  "promotionGate": {
+    "apiHealthMsTarget": 1.5,
+    "cliApiHealthMsTarget": 25,
+    "cpuLoopMsTarget": 40,
+    "pm2MemoryMBMax": 180,
+    "requiresHumanApproval": true
+  },
+  "rule": "Do not promote to multi_node_lab until single_node_lab benchmark is measured and stable."
+}

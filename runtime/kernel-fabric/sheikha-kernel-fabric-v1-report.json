@@ -1,0 +1,63 @@
+{
+  "system": "SHEIKHA_KERNEL_FABRIC_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_MEASUREMENT",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noSysctlModification": true,
+    "noServiceRestart": true,
+    "noHarm": true
+  },
+  "os": {
+    "platform": "linux",
+    "release": "7.0.11-76070011-generic",
+    "type": "Linux",
+    "arch": "x64",
+    "hostname": "pop-os",
+    "distroName": "Pop!_OS",
+    "distroVersion": "22.04 LTS",
+    "prettyName": "Pop!_OS 22.04 LTS"
+  },
+  "compute": {
+    "cpus": 22,
+    "model": "Intel(R) Core(TM) Ultra 9 185H",
+    "loadavg": [
+      1.89,
+      2,
+      2
+    ],
+    "totalMemory": 66875772928,
+    "freeMemory": 54109052928
+  },
+  "disk": {
+    "root": "929G 483G 399G 55%"
+  },
+  "pm2": [
+    {
+      "name": "sheikha-main-portal",
+      "status": "online",
+      "pid": 1834407,
+      "memory": 184422400,
+      "cpu": 0.8
+    },
+    {
+      "name": "sheikha-proxy-8082",
+      "status": "online",
+      "pid": 1660,
+      "memory": 21594112,
+      "cpu": 0.2
+    },
+    {
+      "name": "sheikha-universal-api",
+      "status": "online",
+      "pid": 1667,
+      "memory": 150757376,
+      "cpu": 0
+    }
+  ],
+  "governance": {
+    "humanReviewRequired": true,
+    "productionSafe": true
+  }
+}

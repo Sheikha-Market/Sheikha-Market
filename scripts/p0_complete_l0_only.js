@@ -29,18 +29,18 @@ let blockedCount = 0;
 
 // نستبدل كل require بناءً على التصنيف
 out = server.replace(requireRe, (match, indent, keyword, varName, engineFile) => {
-  
+
   if (blocked.has(engineFile)) {
     blockedCount++;
     changes++;
     return `${indent}// P0-1: BLOCKED (ملف مفقود) - ${engineFile}\n${indent}/* ${match} */`;
   }
-  
+
   if (l0.has(engineFile)) {
     l0Count++;
     return match; // L0 يبقى كما هو
   }
-  
+
   // L1/L2 - تعليق كامل
   const tier = l1.has(engineFile) ? 'L1' : l2.has(engineFile) ? 'L2' : 'UNKNOWN';
   lazyCount++;

@@ -11,7 +11,7 @@ use Exception;
 
 /**
  * تحكم تسجيل الدخول عبر Google OAuth 2.0
- * 
+ *
  * يوفر هذا التحكم إمكانية تسجيل الدخول والتسجيل بسهولة عبر حساب Google
  * مع دعم كامل لـ OAuth 2.0 والأمان العالي
  */
@@ -19,7 +19,7 @@ class GoogleAuthController extends Controller
 {
     /**
      * توجيه المستخدم إلى صفحة تسجيل الدخول الخاصة بجوجل
-     * 
+     *
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function redirectToGoogle()
@@ -35,14 +35,14 @@ class GoogleAuthController extends Controller
 
     /**
      * استقبال بيانات المستخدم من جوجل بعد التحقق الناجح
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function handleGoogleCallback()
     {
         try {
             $googleUser = Socialite::driver('google')->user();
-            
+
             Log::channel('google-auth')->info(
                 'استقبال بيانات من Google',
                 ['email' => $googleUser->getEmail(), 'name' => $googleUser->getName()]
@@ -86,7 +86,7 @@ class GoogleAuthController extends Controller
 
         } catch (Exception $e) {
             Log::channel('google-auth')->error('خطأ في معالجة callback: ' . $e->getMessage());
-            
+
             return redirect()
                 ->route('login')
                 ->with('error', 'فشل تسجيل الدخول عبر جوجل. ' . $e->getMessage());
@@ -95,7 +95,7 @@ class GoogleAuthController extends Controller
 
     /**
      * تسجيل الخروج من النظام
-     * 
+     *
      * @return \Illuminate\Http\RedirectResponse
      */
     public function logout()
@@ -109,7 +109,7 @@ class GoogleAuthController extends Controller
 
     /**
      * الحصول على معلومات المستخدم الحالي
-     * 
+     *
      * @return \Illuminate\Http\JsonResponse
      */
     public function profile()

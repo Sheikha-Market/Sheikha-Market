@@ -32,7 +32,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -644,7 +644,7 @@
                         </div>
                     </div>
                     <div class="arch-arrow">↓</div>
-                    
+
                     <!-- API Layer -->
                     <div class="arch-layer-label">طبقة API</div>
                     <div class="arch-layer">
@@ -665,7 +665,7 @@
                         </div>
                     </div>
                     <div class="arch-arrow">↓</div>
-                    
+
                     <!-- Services Layer -->
                     <div class="arch-layer-label">طبقة الخدمات</div>
                     <div class="arch-layer">
@@ -686,7 +686,7 @@
                         </div>
                     </div>
                     <div class="arch-arrow">↓</div>
-                    
+
                     <!-- Data Layer -->
                     <div class="arch-layer-label">طبقة البيانات</div>
                     <div class="arch-layer">
@@ -924,7 +924,7 @@
             // Update tabs
             document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
             event.target.classList.add('active');
-            
+
             // Update panels
             document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
             document.getElementById('panel-' + id).classList.add('active');
@@ -933,7 +933,7 @@
         function runPipeline() {
             const terminal = document.getElementById('deployTerminal');
             terminal.innerHTML = '<div class="terminal-line"><span class="t-info">🔄 Starting deployment pipeline...</span></div>';
-            
+
             const steps = [
                 { cmd: 'git pull origin main', output: 'Already up to date.', delay: 500 },
                 { cmd: 'npm run lint', output: '✓ No linting errors found', success: true, delay: 1000 },
@@ -941,7 +941,7 @@
                 { cmd: 'npm run build', output: '✓ Build completed', success: true, delay: 1000 },
                 { cmd: 'pm2 restart sheikha-portal', output: '✓ Process restarted successfully', success: true, delay: 800 },
             ];
-            
+
             let totalDelay = 500;
             steps.forEach(step => {
                 setTimeout(() => {
@@ -951,7 +951,7 @@
                 }, totalDelay);
                 totalDelay += step.delay;
             });
-            
+
             setTimeout(() => {
                 terminal.innerHTML += `<div class="terminal-line"><span class="t-info">→ Deployment completed in ${(totalDelay/1000).toFixed(1)}s</span></div>`;
             }, totalDelay + 500);

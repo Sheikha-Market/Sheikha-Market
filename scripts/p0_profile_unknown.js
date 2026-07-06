@@ -23,7 +23,7 @@ function scoreRisk(src) {
     ['auth', /jwt|bcrypt|passport|oauth|token/],
     ['heavy_compute', /python|tensorflow|torch|ml|neural|train/],
   ];
-  
+
   for (const [name, re] of rules) {
     if (re.test(s)) hits.push(name);
   }
@@ -47,7 +47,7 @@ function guessJamiFromSource(engineFile, src) {
   if (/(market|metals|supply|logistics|warehouse|shipping|customs|salvage|scrap|segment)/.test(n + s)) return 'souq_muamalah';
   if (/(dashboard|pilot|experience|ops|devops|kaizen|itqan|quality|improvement|excellence|monitor)/.test(n + s)) return 'idarah_itqan';
   if (/(history|archive|document|calendar|brand|report|log|audit|trace)/.test(n + s)) return 'bayan_tawthiq';
-  
+
   return 'unknown';
 }
 
@@ -65,7 +65,7 @@ let missing = 0;
 
 for (const engineFile of unknown) {
   const filePath = path.join(libDir, engineFile);
-  
+
   if (!fs.existsSync(filePath)) {
     missing++;
     console.log(`⚠️  ${engineFile} - ملف غير موجود`);
@@ -85,7 +85,7 @@ for (const engineFile of unknown) {
     const riskAnalysis = scoreRisk(src);
     const routes = hasRoutes(src);
     const jamiSuggested = guessJamiFromSource(engineFile, src);
-    
+
     profiles.push({
       file: engineFile,
       exists: true,
@@ -97,14 +97,14 @@ for (const engineFile of unknown) {
       jami_suggested: jamiSuggested,
       reason: riskAnalysis.hits.length > 0 ? riskAnalysis.hits.join(', ') : 'basic'
     });
-    
+
     processed++;
-    
+
     // عرض موجز
     const riskIcon = riskAnalysis.risk === 'high' ? '🔴' : riskAnalysis.risk === 'medium' ? '🟡' : '🟢';
     const jamiIcon = jamiSuggested !== 'unknown' ? '✅' : '❓';
     console.log(`${riskIcon} ${jamiIcon} ${engineFile} → ${jamiSuggested} (${Math.round(size/1024)}KB)`);
-    
+
   } catch (e) {
     profiles.push({
       file: engineFile,

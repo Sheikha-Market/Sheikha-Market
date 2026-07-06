@@ -34,11 +34,25 @@ try {
     console.error('❌ [LIVE-AI v2 ROUTES] فشل تحميل الشبكة:', e.message);
 }
 
+
+let networkReady = false;
+
 async function ensureNetwork() {
-    if (!liveAINetwork) throw new Error('شبكة الذكاء الاصطناعي غير متاحة');
-    if (liveAINetwork.status !== 'ALIVE') await liveAINetwork.ignite();
+    if (!liveAINetwork)
+        throw new Error('شبكة الذكاء الاصطناعي غير متاحة');
+
+    if (!networkReady) {
+        if (liveAINetwork.status !== 'ALIVE')
+            await liveAINetwork.ignite();
+        networkReady = true;
+    }
     return liveAINetwork;
 }
+
+// Warmup network at startup (outside request path)
+ensureNetwork().catch(err => {
+    console.error('[LIVE-AI] warmup failed:', err.message);
+});
 
 // ─── GET /api/ai/live — فهرس المسارات ──────────────────────────────────────
 

@@ -529,7 +529,7 @@ tr:hover td{background:rgba(212,175,55,.02)}
     <div class="section-card">
         <h3><span class="icon">☪️</span> مؤشر البركة — Barakah Index</h3>
         <p style="color:var(--t3);font-size:.82rem;margin-bottom:20px">مؤشر فريد يقيس مدى التزام المنظومة بالقيم الإسلامية والتأثير الإيجابي</p>
-        
+
         <div style="text-align:center;margin-bottom:24px">
             <div style="font-size:4rem;font-weight:900;color:var(--gold);font-family:'Cairo'">93<span style="font-size:1.5rem;color:var(--t3)">/100</span></div>
             <div style="color:var(--green);font-weight:700;font-size:.85rem">✅ ممتاز — بارك الله</div>
@@ -583,17 +583,17 @@ function switchTab(id, el) {
     document.querySelectorAll('.section').forEach(s => s.classList.remove('active'));
     document.querySelectorAll('.tab').forEach(t => t.classList.remove('active'));
     document.querySelectorAll('#kpi-nav a').forEach(a => a.classList.remove('active'));
-    
+
     // إظهار المحدد
     var sec = document.getElementById('sec-' + id);
     if (sec) sec.classList.add('active');
-    
+
     // تفعيل التبويب
     if (el) el.classList.add('active');
-    
+
     // مزامنة التبويب العلوي والسفلي
     document.querySelectorAll('#kpi-nav a[href="#' + id + '"]').forEach(a => a.classList.add('active'));
-    
+
     // Scroll to top
     window.scrollTo({ top: 0, behavior: 'smooth' });
 }

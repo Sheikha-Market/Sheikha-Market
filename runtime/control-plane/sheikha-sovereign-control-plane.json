@@ -1,0 +1,47 @@
+{
+  "controlPlane": "SHEIKHA_SOVEREIGN_CONTROL_PLANE",
+  "status": "ACTIVE",
+  "mode": "governed-federated-control-plane",
+  "purpose": "Coordinate governance, federation, policy propagation, organizational synchronization, runtime orchestration, telemetry, domain control, and execution routing across Sheikha.",
+  "controlLayers": [
+    "governance_control",
+    "policy_propagation",
+    "federation_control",
+    "organizational_synchronization",
+    "runtime_orchestration",
+    "domain_coordination",
+    "capability_control",
+    "token_control",
+    "audit_control",
+    "telemetry_control",
+    "execution_routing"
+  ],
+  "managedSystems": [
+    "supreme_governance",
+    "governance_bus",
+    "pdp",
+    "pep",
+    "capability_tokens",
+    "policy_compiler",
+    "execution_governance_kernel",
+    "governance_graph_engine",
+    "domain_contract_fabric",
+    "organizational_federation_kernel",
+    "runtime_federation",
+    "market_infrastructure",
+    "advisory_provider",
+    "system_of_systems",
+    "domain_registry"
+  ],
+  "rules": {
+    "no_uncoordinated_runtime": true,
+    "policy_propagation_required": true,
+    "federation_control_required": true,
+    "audit_control_required": true,
+    "telemetry_required": true,
+    "domain_contract_required": true,
+    "capability_token_required": true,
+    "rollback_required": true,
+    "human_approval_when_required": true
+  }
+}

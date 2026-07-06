@@ -22,15 +22,15 @@ while [ $RESTART_COUNT -lt $MAX_RESTARTS ]; do
     echo ""
     echo "🚀 بدء الخادم (المحاولة $((RESTART_COUNT+1))/$MAX_RESTARTS)..."
     echo "⏰ $(date '+%Y-%m-%d %H:%M:%S')"
-    
+
     /usr/local/bin/node server.js 2>&1
     EXIT_CODE=$?
-    
+
     echo ""
     echo "⚠️ الخادم توقف (كود: $EXIT_CODE) — $(date '+%Y-%m-%d %H:%M:%S')"
-    
+
     RESTART_COUNT=$((RESTART_COUNT+1))
-    
+
     if [ $RESTART_COUNT -lt $MAX_RESTARTS ]; then
         echo "🔄 إعادة التشغيل خلال 3 ثواني..."
         sleep 3

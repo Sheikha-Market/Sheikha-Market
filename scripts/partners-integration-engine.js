@@ -559,9 +559,9 @@ function generateMarkdownReport(report) {
 
 ## 🌟 بسم الله الرحمن الرحيم
 
-**التاريخ:** ${new Date().toLocaleDateString('ar-SA')}  
-**الوقت:** ${new Date().toLocaleTimeString('ar-SA')}  
-**القائد:** سلمان بن أحمد الراجح  
+**التاريخ:** ${new Date().toLocaleDateString('ar-SA')}
+**الوقت:** ${new Date().toLocaleTimeString('ar-SA')}
+**القائد:** سلمان بن أحمد الراجح
 **المنظمة:** 224557279528
 
 ---
@@ -698,12 +698,12 @@ ${report.recommendations
 
 تم بحمد الله مسح وتقييم **${report.summary.totalPartners} شريكاً تقنياً** لتحديد نقاط التكامل والمتطلبات.
 
-> **"وتعاونوا على البر والتقوى ولا تعاونوا على الإثم والعدوان"**  
+> **"وتعاونوا على البر والتقوى ولا تعاونوا على الإثم والعدوان"**
 > — سورة المائدة، الآية 2
 
 ---
 
-**منظومة شيخة**  
+**منظومة شيخة**
 market@sheikha.top
 `;
 }

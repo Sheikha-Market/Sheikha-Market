@@ -1,0 +1,393 @@
+{
+  "registry": "SHEIKHA_CAPABILITY_ITEMS_REGISTRY_V2",
+  "status": "ACTIVE",
+  "canonical": true,
+  "items": [
+    {
+      "id": "CAPV2-001",
+      "legacyId": "CAP-CODEX-001",
+      "name": "Governed Codex Analysis",
+      "arabicName": "تحليل كودكس المحكوم",
+      "status": "ACTIVE",
+      "type": "analysis",
+      "domain": "codex",
+      "decision": "DRV2-001",
+      "decisionRefs": [
+        "DRV2-001",
+        "DRV2-002"
+      ],
+      "policyRefs": [
+        "root_authority_required",
+        "source_knowledge_required",
+        "measurement_required"
+      ],
+      "scope": [
+        "repository_analysis",
+        "architecture_review",
+        "risk_discovery"
+      ],
+      "scopes": [
+        "repository_analysis",
+        "architecture_review",
+        "risk_discovery"
+      ],
+      "executionMode": "assistive_read_write_with_human_review",
+      "measurement": [
+        "analysis_outputs_have_evidence_and_trace"
+      ],
+      "guardrails": [
+        "no_unverified_claims",
+        "no_raw_merge",
+        "no_secret_exposure"
+      ],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-002",
+      "legacyId": "CAP-CODEX-002",
+      "name": "Governed Code Generation And Patching",
+      "arabicName": "توليد وتصحيح الكود المحكوم",
+      "status": "ACTIVE",
+      "type": "coding",
+      "domain": "codex",
+      "decision": "DRV2-002",
+      "decisionRefs": [
+        "DRV2-002",
+        "DRV2-004"
+      ],
+      "policyRefs": [
+        "tests_required",
+        "stability_score_100",
+        "no_drift"
+      ],
+      "scope": [
+        "code_patch",
+        "tooling_patch",
+        "test_patch"
+      ],
+      "scopes": [
+        "code_patch",
+        "tooling_patch",
+        "test_patch"
+      ],
+      "executionMode": "patch_only_with_verification",
+      "measurement": [
+        "node_check",
+        "jest",
+        "lint",
+        "admission",
+        "no_drift"
+      ],
+      "guardrails": [
+        "apply_patch_required",
+        "bounded_scope",
+        "no_destructive_commands"
+      ],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-003",
+      "legacyId": "CAP-CODEX-003",
+      "name": "PR Governance Review",
+      "arabicName": "مراجعة PR المحكومة",
+      "status": "ACTIVE",
+      "type": "governance",
+      "domain": "source_control",
+      "decision": "DRV2-002",
+      "decisionRefs": [
+        "DRV2-002",
+        "DRV2-005"
+      ],
+      "policyRefs": [
+        "checks_required",
+        "admission_required",
+        "curated_review_required"
+      ],
+      "scope": [
+        "review_pr",
+        "risk_classification",
+        "curated_merge"
+      ],
+      "scopes": [
+        "review_pr",
+        "risk_classification",
+        "curated_merge"
+      ],
+      "executionMode": "curated_human_review_required",
+      "measurement": [
+        "github_checks_green",
+        "merge_state_clean",
+        "risk_report_present"
+      ],
+      "guardrails": [
+        "no_raw_merge",
+        "no_failed_checks_merge",
+        "human_final_authority"
+      ],
+      "requiresHumanReview": true
+    },
+    {
+      "id": "CAPV2-004",
+      "legacyId": "CAP-CODEX-004",
+      "name": "Runtime Contract Enforcement",
+      "arabicName": "إنفاذ عقود التشغيل",
+      "status": "ACTIVE",
+      "type": "api_contract",
+      "domain": "api",
+      "decision": "DRV2-003",
+      "decisionRefs": [
+        "DRV2-003"
+      ],
+      "policyRefs": [
+        "success_data_meta_required",
+        "failure_error_data_meta_required",
+        "legacy_wrapping_allowed"
+      ],
+      "scope": [
+        "success_data_meta",
+        "failure_error_data_meta",
+        "legacy_wrapping"
+      ],
+      "scopes": [
+        "success_data_meta",
+        "failure_error_data_meta",
+        "legacy_wrapping"
+      ],
+      "executionMode": "contract_wrapped_compatibility",
+      "measurement": [
+        "api_contract_v2_score_100"
+      ],
+      "guardrails": [
+        "no_flat_contract_drift",
+        "live_tests_explicit_only"
+      ],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-005",
+      "legacyId": "CAP-CODEX-005",
+      "name": "Test and Lint Validation",
+      "arabicName": "تحقق الاختبارات واللينت",
+      "status": "ACTIVE",
+      "type": "quality",
+      "domain": "quality",
+      "decision": "DRV2-004",
+      "decisionRefs": [
+        "DRV2-004"
+      ],
+      "policyRefs": [
+        "tests_required",
+        "lint_required",
+        "node_check_required"
+      ],
+      "scope": [
+        "npm_test",
+        "lint",
+        "jest",
+        "node_test"
+      ],
+      "scopes": [
+        "npm_test",
+        "lint",
+        "jest",
+        "node_test"
+      ],
+      "executionMode": "verification_before_activation",
+      "measurement": [
+        "all_tests_pass",
+        "lint_passes_or_known_warnings_only"
+      ],
+      "guardrails": [
+        "no_commit_without_checks",
+        "no_runtime_change_without_node_check"
+      ],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-006",
+      "legacyId": "CAP-CODEX-006",
+      "name": "Runtime Drift Protection",
+      "arabicName": "حماية التشغيل من الانجراف",
+      "status": "ACTIVE",
+      "type": "stability",
+      "domain": "runtime",
+      "decision": "DRV2-005",
+      "decisionRefs": [
+        "DRV2-005"
+      ],
+      "policyRefs": [
+        "no_drift",
+        "stability_score_100",
+        "protected_runtime_audit"
+      ],
+      "scope": [
+        "no_drift",
+        "git_clean",
+        "protected_runtime"
+      ],
+      "scopes": [
+        "no_drift",
+        "git_clean",
+        "protected_runtime"
+      ],
+      "executionMode": "measure_before_activation",
+      "measurement": [
+        "no_drift_git_clean_true"
+      ],
+      "guardrails": [
+        "no_activation_with_dirty_tree",
+        "protected_runtime_audit"
+      ],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-007",
+      "legacyId": "CAP-CODEX-007",
+      "name": "Knowledge to Decision Flow",
+      "arabicName": "تدفق المعرفة إلى القرار",
+      "status": "ACTIVE",
+      "type": "knowledge",
+      "domain": "knowledge",
+      "decision": "DRV2-006",
+      "decisionRefs": [
+        "DRV2-006"
+      ],
+      "policyRefs": [
+        "knowledge_evidence_required",
+        "decision_trace_required"
+      ],
+      "scope": [
+        "lessons",
+        "governance_knowledge",
+        "runtime_knowledge"
+      ],
+      "scopes": [
+        "lessons",
+        "governance_knowledge",
+        "runtime_knowledge"
+      ],
+      "executionMode": "evidence_backed_knowledge_capture",
+      "measurement": [
+        "knowledge_links_resolvable",
+        "decision_trace_present"
+      ],
+      "guardrails": [
+        "no_decision_without_knowledge",
+        "no_execution_without_decision"
+      ],
+      "requiresHumanReview": false
+    },
+    {
+      "id": "CAPV2-008",
+      "legacyId": "CAP-CODEX-008",
+      "name": "Provider Neutral AI Gateway Readiness",
+      "arabicName": "جاهزية بوابة ذكاء مزود-محايدة",
+      "status": "ACTIVE",
+      "type": "ai_gateway",
+      "domain": "ai",
+      "decision": "DRV2-003",
+      "decisionRefs": [
+        "DRV2-003",
+        "DRV2-004"
+      ],
+      "policyRefs": [
+        "provider_truthfulness_required",
+        "api_contract_required",
+        "fallback_required"
+      ],
+      "scope": [
+        "openai_compatible_gateway",
+        "local_ai_gateway",
+        "multi_provider_routing"
+      ],
+      "scopes": [
+        "openai_compatible_gateway",
+        "local_ai_gateway",
+        "multi_provider_routing"
+      ],
+      "executionMode": "provider_neutral_governed_gateway",
+      "measurement": [
+        "provider_availability_is_checked_not_assumed"
+      ],
+      "guardrails": [
+        "do_not_claim_unverified_model",
+        "quota_errors_reported",
+        "human_final_authority"
+      ],
+      "requiresHumanReview": true
+    },
+    {
+      "id": "CAPV2-009",
+      "legacyId": "CAP-CODEX-009",
+      "name": "IDE and CLI Integration Readiness",
+      "arabicName": "جاهزية تكامل IDE و CLI",
+      "status": "ACTIVE",
+      "type": "developer_workflow",
+      "domain": "developer_workflow",
+      "decision": "DRV2-007",
+      "decisionRefs": [
+        "DRV2-007"
+      ],
+      "policyRefs": [
+        "project_context_required",
+        "local_runtime_required",
+        "human_review_for_high_risk"
+      ],
+      "scope": [
+        "vscode",
+        "cli",
+        "local_runtime",
+        "project_context"
+      ],
+      "scopes": [
+        "vscode",
+        "cli",
+        "local_runtime",
+        "project_context"
+      ],
+      "executionMode": "local_context_governed_workflow",
+      "measurement": [
+        "local_context_available",
+        "tooling_is_registered"
+      ],
+      "guardrails": [
+        "project_root_required",
+        "no_unregistered_tooling",
+        "human_review_for_high_risk"
+      ],
+      "requiresHumanReview": true
+    },
+    {
+      "id": "CAPV2-010",
+      "legacyId": "CAP-CODEX-010",
+      "name": "Execution Fabric V2 Gate",
+      "arabicName": "بوابة منع تنفيذ Execution Fabric V2",
+      "status": "GATED",
+      "type": "execution_gate",
+      "domain": "execution",
+      "decision": "DRV2-007",
+      "decisionRefs": [
+        "DRV2-007"
+      ],
+      "policyRefs": [
+        "capability_registry_v2_required",
+        "execution_fabric_blocked_until_ready"
+      ],
+      "scope": [
+        "execution_fabric_v2"
+      ],
+      "scopes": [
+        "execution_fabric_v2"
+      ],
+      "executionMode": "blocked_until_capability_registry_active_100",
+      "measurement": [
+        "capability_registry_v2_active_100_before_execution_fabric"
+      ],
+      "guardrails": [
+        "no_execution_fabric_until_ready",
+        "no_scope_expansion_without_registry"
+      ],
+      "requiresHumanReview": true
+    }
+  ]
+}

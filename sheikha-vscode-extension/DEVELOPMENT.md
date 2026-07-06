@@ -249,7 +249,7 @@ describe('Sheikha API Integration', () => {
   test('GET /status should return active status', async () => {
     const response = await fetch(`${API_BASE}/status`);
     const data = await response.json();
-    
+
     expect(data.success).toBe(true);
     expect(data.data.status).toBe('active');
     expect(data.data.version).toBe('1.0.0');
@@ -265,7 +265,7 @@ describe('Sheikha API Integration', () => {
       })
     });
     const data = await response.json();
-    
+
     expect(data.success).toBe(true);
     expect(Array.isArray(data.data.suggestions)).toBe(true);
   });
@@ -300,10 +300,10 @@ View logs in VS Code:
 async function debugApiCall(endpoint, options) {
   console.log('[DEBUG] API Call:', endpoint);
   console.log('[DEBUG] Payload:', JSON.stringify(options.body, null, 2));
-  
+
   const response = await fetch(endpoint, options);
   const data = await response.json();
-  
+
   console.log('[DEBUG] Response:', JSON.stringify(data, null, 2));
   return data;
 }
@@ -458,6 +458,6 @@ For development questions or issues:
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** March 16, 2026  
+**Version:** 1.0.0
+**Last Updated:** March 16, 2026
 **License:** Proprietary (Sheikha Platform)

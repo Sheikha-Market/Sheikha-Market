@@ -56,7 +56,7 @@ router.post('/ai/train', async (req, res) => {
 
     try {
         const { trainingData, modelName } = req.body;
-        
+
         if (!trainingData || !Array.isArray(trainingData)) {
             return res.status(400).json({
                 success: false,
@@ -120,10 +120,10 @@ router.post('/llm/generate-prompt', (req, res) => {
 
     try {
         const { pixel, context } = req.body;
-        
+
         const mockPixel = pixel || { id: 'pixel-001', data: {} };
         const prompt = ecosystem.llmBridge.generatePrompt(mockPixel, context);
-        
+
         return res.json({ success: true, data: prompt });
     } catch (err) {
         return res.status(500).json({ success: false, message: err.message });
@@ -137,7 +137,7 @@ router.post('/llm/process-response', (req, res) => {
 
     try {
         const { promptId, aiResponse } = req.body;
-        
+
         const prompt = ecosystem.llmBridge.prompts.get(promptId);
         if (!prompt) {
             return res.status(404).json({
@@ -147,7 +147,7 @@ router.post('/llm/process-response', (req, res) => {
         }
 
         const processed = ecosystem.llmBridge.processLLMResponse(prompt, aiResponse);
-        
+
         return res.json({ success: true, data: processed });
     } catch (err) {
         return res.status(500).json({ success: false, message: err.message });
@@ -163,7 +163,7 @@ router.post('/generation/generate', async (req, res) => {
 
     try {
         const { template, count, options } = req.body;
-        
+
         const generated = await ecosystem.generationEngine.generatePixels(
             template || 'product',
             count || 10,
@@ -200,9 +200,9 @@ router.post('/tools/execute', (req, res) => {
 
     try {
         const { toolName, args } = req.body;
-        
+
         const result = ecosystem.toolsManager.executeTool(toolName, ...args);
-        
+
         return res.json({
             success: true,
             data: result
@@ -230,9 +230,9 @@ router.post('/scripts/execute', async (req, res) => {
 
     try {
         const { scriptName, context } = req.body;
-        
+
         const result = await ecosystem.toolsManager.executeScript(scriptName, context);
-        
+
         return res.json({
             success: true,
             data: result
@@ -277,7 +277,7 @@ router.get('/dashboard', (req, res) => {
     }
 
     const status = ecosystem.getEcosystemStatus();
-    
+
     return res.json({
         success: true,
         dashboard: {

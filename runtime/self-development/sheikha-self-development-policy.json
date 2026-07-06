@@ -1,0 +1,33 @@
+{
+  "system": "SHEIKHA_SELF_DEVELOPMENT_GOVERNANCE_KERNEL",
+  "status": "ACTIVE",
+  "mode": "human-approved-local-first-improvement",
+  "independence": {
+    "vscode": "client_only",
+    "copilot": "optional_external_advisor",
+    "github": "optional_publish_channel",
+    "sheikha": "governing_runtime_layer"
+  },
+  "rules": {
+    "no_unapproved_code_change": true,
+    "no_direct_production_mutation": true,
+    "measure_before_change": true,
+    "test_before_commit": true,
+    "rollback_required": true,
+    "audit_required": true,
+    "human_approval_required": true,
+    "no_secret_exposure": true,
+    "no_false_claim": true
+  },
+  "improvementLoop": [
+    "measure",
+    "detect_gap",
+    "propose_patch",
+    "human_approve",
+    "apply_locally",
+    "test",
+    "audit",
+    "commit_optional",
+    "publish_optional"
+  ]
+}

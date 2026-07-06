@@ -1,0 +1,31 @@
+{
+  "organization": "SHEIKHA_FEDERAL_ORGANIZATION_V1_2",
+  "status": "ACTIVE",
+  "basedOn": "SHEIKHA_ARCHITECTURE_FREEZE_V1_1",
+  "purpose": "Unify Sheikha Data, Project Governance, PR Governance, Capability Registry, OpenAPI, SDK, MCP, Fabric, Runtime, Operations, and Advisory into one governed federal organization baseline.",
+  "federalDomains": [
+    "governance",
+    "data",
+    "projects",
+    "pr_governance",
+    "capabilities",
+    "openapi",
+    "sdk",
+    "mcp",
+    "fabric",
+    "runtime",
+    "operations",
+    "advisory"
+  ],
+  "rules": {
+    "no_domain_operates_outside_governance": true,
+    "freeze_v1_1_is_required_baseline": true,
+    "sheikha_data_is_federal_data_reference": true,
+    "project_governance_required": true,
+    "pr_governance_required_before_merge": true,
+    "openapi_required_for_public_interfaces": true,
+    "sdk_required_for_external_clients": true,
+    "mcp_bridge_required_for_mcp_access": true,
+    "human_approval_required": true
+  }
+}

@@ -1,0 +1,77 @@
+{
+  "fabric": "SHEIKHA_EXECUTION_FABRIC_V1",
+  "status": "ACTIVE",
+  "mode": "governed-knowledge-capture-and-operational-analysis",
+  "purpose": "Turn Sheikha Knowledge, Architecture Intelligence, Editor Core, and Operation Loop from definition layers into a governed execution fabric that scans, analyzes, reports, indexes, and updates knowledge artifacts.",
+  "basedOn": [
+    "SHEIKHA_KNOWLEDGE_V1",
+    "SHEIKHA_EDITOR_CORE_V1",
+    "SHEIKHA_ARCHITECTURE_INTELLIGENCE_V1",
+    "SHEIKHA_OPERATION_LOOP_V1",
+    "SHEIKHA_DEVELOPMENT_PROGRAMMING_GOVERNANCE",
+    "SHEIKHA_ARCHITECTURE_FREEZE_V1_3"
+  ],
+  "engines": [
+    {
+      "code": "SEF-100",
+      "name": "knowledge_scanner",
+      "purpose": "Scan knowledge, governance, reports, decisions, lessons, and roadmap artifacts."
+    },
+    {
+      "code": "SEF-110",
+      "name": "pr_scanner",
+      "purpose": "Scan PR governance records, review decisions, curated merge plans, blockers, and required actions."
+    },
+    {
+      "code": "SEF-120",
+      "name": "architecture_scanner",
+      "purpose": "Scan Fabric routes, runtime definitions, route modules, governance layers, and architecture intelligence artifacts."
+    },
+    {
+      "code": "SEF-130",
+      "name": "runtime_scanner",
+      "purpose": "Scan runtime directories, route surfaces, tools, reports, and generated operational outputs."
+    },
+    {
+      "code": "SEF-140",
+      "name": "roadmap_generator",
+      "purpose": "Generate next-step roadmap items from scan findings and governance blockers."
+    },
+    {
+      "code": "SEF-150",
+      "name": "report_generator",
+      "purpose": "Generate detailed JSON and Markdown reports for human review."
+    },
+    {
+      "code": "SEF-160",
+      "name": "decision_registry",
+      "purpose": "Register decisions with stable IDs and evidence paths."
+    },
+    {
+      "code": "SEF-170",
+      "name": "lessons_learned_generator",
+      "purpose": "Generate lessons learned without self-modifying the runtime."
+    }
+  ],
+  "knowledgeTargets": [
+    "runtime/knowledge/v1/registry/sheikha-knowledge-registry.json",
+    "runtime/knowledge/v1/decisions/sheikha-decision-registry.json",
+    "runtime/knowledge/v1/lessons/sheikha-lessons-learned.json",
+    "runtime/knowledge/v1/roadmaps/sheikha-roadmap-v1.json",
+    "runtime/knowledge/v1/reports/sheikha-execution-fabric-report.json",
+    "runtime/knowledge/v1/reports/sheikha-execution-fabric-report.md"
+  ],
+  "rules": {
+    "knowledge_capture_required": true,
+    "knowledge_indexing_required": true,
+    "decision_tracking_required": true,
+    "lessons_learned_required": true,
+    "roadmap_update_required": true,
+    "report_generation_required": true,
+    "no_self_modifying_runtime": true,
+    "no_self_rewriting_system": true,
+    "human_approval_required_for_high_risk": true,
+    "source_control_status_required": true,
+    "governance_before_execution": true
+  }
+}

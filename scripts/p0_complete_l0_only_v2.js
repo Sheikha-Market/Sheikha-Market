@@ -21,18 +21,18 @@ const l2 = new Set(jawamiFinal.tiers.l2_advanced.engines);
 // دالة للتحقق من أن السطر ليس داخل تعليق
 function isInsideComment(text, index) {
   const beforeText = text.substring(0, index);
-  
+
   // تحقق من /* ... */
   const lastBlockStart = beforeText.lastIndexOf('/*');
   const lastBlockEnd = beforeText.lastIndexOf('*/');
   if (lastBlockStart > lastBlockEnd) return true;
-  
+
   // تحقق من // في نفس السطر
   const lastNewline = beforeText.lastIndexOf('\n');
   const lineStart = lastNewline === -1 ? 0 : lastNewline + 1;
   const lineBeforeMatch = beforeText.substring(lineStart);
   if (lineBeforeMatch.includes('//')) return true;
-  
+
   return false;
 }
 
@@ -54,14 +54,14 @@ while ((match = requireRe.exec(server)) !== null) {
     skipped++;
     continue;
   }
-  
+
   // تجاهل إذا كان داخل دالة loadEngineOnDemand
   const contextBefore = server.substring(Math.max(0, match.index - 200), match.index);
   if (contextBefore.includes('function loadEngineOnDemand')) {
     skipped++;
     continue;
   }
-  
+
   matches.push({
     fullMatch: match[0],
     indent: match[1] || '',
@@ -77,9 +77,9 @@ matches.reverse();
 
 for (const m of matches) {
   const { fullMatch, indent, engineFile, index } = m;
-  
+
   let replacement;
-  
+
   if (blocked.has(engineFile)) {
     blockedCount++;
     changes++;
@@ -94,7 +94,7 @@ for (const m of matches) {
     changes++;
     replacement = `${indent}// P0-1: LAZY (${tier}) - ${engineFile}\n${indent}/* ${fullMatch} */\n${indent}console.log('⏸️ [LAZY] ${engineFile} — سيُحمّل عند الطلب');`;
   }
-  
+
   // استبدال في النص
   out = out.substring(0, index) + replacement + out.substring(index + fullMatch.length);
 }

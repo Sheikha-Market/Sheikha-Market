@@ -1,7 +1,7 @@
 # بسم الله الرحمن الرحيم
 
 # منظومة شيخة الموحدة — Sheikha Unified Identity System
-**أول هوية رقمية إسلامية موحدة في العالم**  
+**أول هوية رقمية إسلامية موحدة في العالم**
 **"Sign in with Sheikha" — دخول واحد لكل شيء**
 
 ---
@@ -21,14 +21,14 @@
 ## 🎯 الرؤية
 
 ### 🌐 السياق الموحد للذكاء الاصطناعي (NEW!)
-**ميزة ثورية:** سياق موحد عبر جميع منصات AI!  
+**ميزة ثورية:** سياق موحد عبر جميع منصات AI!
 📄 **[اقرأ التوثيق الكامل لنظام السياق الموحد](UNIFIED-AI-CONTEXT-SYSTEM.md)**
 
-**باختصار:**  
+**باختصار:**
 عندما تشترك في شيخة، جميع AIs (ChatGPT، Claude، Gemini، أي chatbot) تفهمك تلقائياً:
-- ✅ أهدافك محفوظة  
-- ✅ أسلوبك معروف  
-- ✅ سياقك متواصل  
+- ✅ أهدافك محفوظة
+- ✅ أسلوبك معروف
+- ✅ سياقك متواصل
 - ✅ ذاكرة موحدة عبر جميع المنصات
 
 **لا إعادة شرح أبداً — سياق متواصل 24/7** 🎯
@@ -157,16 +157,16 @@ app.get('/oauth/authorize', (req, res) => {
     scope,          // الصلاحيات المطلوبة
     state           // حماية CSRF
   } = req.query;
-  
+
   // 1. التحقق من client_id
   const client = getOAuthClient(client_id);
   if (!client) return res.status(400).json({ error: 'invalid_client' });
-  
+
   // 2. التحقق من redirect_uri
   if (!client.redirect_uris.includes(redirect_uri)) {
     return res.status(400).json({ error: 'invalid_redirect_uri' });
   }
-  
+
   // 3. عرض شاشة الموافقة للمستخدم
   res.render('oauth-consent', {
     client: client,
@@ -179,7 +179,7 @@ app.get('/oauth/authorize', (req, res) => {
 app.post('/oauth/authorize', authenticateUser, (req, res) => {
   const { client_id, redirect_uri, scope, state } = req.body;
   const user = req.user;
-  
+
   // 1. إنشاء رمز التفويض (Authorization Code)
   const authCode = generateAuthCode({
     user_id: user.id,
@@ -187,7 +187,7 @@ app.post('/oauth/authorize', authenticateUser, (req, res) => {
     scope: scope,
     expiresIn: 600 // 10 دقائق
   });
-  
+
   // 2. إعادة التوجيه مع الرمز
   const redirectUrl = `${redirect_uri}?code=${authCode}&state=${state}`;
   res.redirect(redirectUrl);
@@ -196,34 +196,34 @@ app.post('/oauth/authorize', authenticateUser, (req, res) => {
 // استبدال الرمز بـ Access Token
 app.post('/oauth/token', (req, res) => {
   const { grant_type, code, client_id, client_secret, redirect_uri } = req.body;
-  
+
   // 1. التحقق من نوع التفويض
   if (grant_type !== 'authorization_code') {
     return res.status(400).json({ error: 'unsupported_grant_type' });
   }
-  
+
   // 2. التحقق من البيانات
   const client = authenticateClient(client_id, client_secret);
   if (!client) return res.status(401).json({ error: 'invalid_client' });
-  
+
   const authCodeData = verifyAuthCode(code);
   if (!authCodeData || authCodeData.client_id !== client_id) {
     return res.status(400).json({ error: 'invalid_grant' });
   }
-  
+
   // 3. إنشاء Access Token + Refresh Token
   const accessToken = generateJWT({
     user_id: authCodeData.user_id,
     client_id: client_id,
     scope: authCodeData.scope
   }, '1h');
-  
+
   const refreshToken = generateJWT({
     user_id: authCodeData.user_id,
     client_id: client_id,
     type: 'refresh'
   }, '30d');
-  
+
   // 4. إرجاع التوكنات
   res.json({
     access_token: accessToken,
@@ -237,7 +237,7 @@ app.post('/oauth/token', (req, res) => {
 // معلومات المستخدم (OpenID Connect)
 app.get('/oauth/userinfo', authenticateToken, (req, res) => {
   const user = req.user;
-  
+
   res.json({
     sub: user.id, // Subject (معرّف المستخدم)
     name: user.name,
@@ -274,7 +274,7 @@ const integrations = {
       }
     }
   },
-  
+
   "anthropic": {
     name: "Claude",
     type: "ai",
@@ -286,7 +286,7 @@ const integrations = {
       }
     }
   },
-  
+
   "google-gemini": {
     name: "Google Gemini",
     type: "ai",
@@ -296,7 +296,7 @@ const integrations = {
       scopes: ["https://www.googleapis.com/auth/generative-language"]
     }
   },
-  
+
   // أنظمة ERP
   "sap": {
     name: "SAP",
@@ -310,7 +310,7 @@ const integrations = {
       }
     }
   },
-  
+
   "oracle": {
     name: "Oracle ERP Cloud",
     type: "erp",
@@ -323,7 +323,7 @@ const integrations = {
       }
     }
   },
-  
+
   "odoo": {
     name: "Odoo",
     type: "erp",
@@ -336,7 +336,7 @@ const integrations = {
       }
     }
   },
-  
+
   // بنوك سعودية
   "alrajhi": {
     name: "مصرف الراجحي",
@@ -353,7 +353,7 @@ const integrations = {
     },
     shariahCompliant: true
   },
-  
+
   "snb": {
     name: "البنك الأهلي السعودي",
     type: "bank",
@@ -366,7 +366,7 @@ const integrations = {
       }
     }
   },
-  
+
   // منصات حكومية
   "absher": {
     name: "أبشر",
@@ -380,7 +380,7 @@ const integrations = {
       }
     }
   },
-  
+
   "qiwa": {
     name: "قُوى",
     type: "government",
@@ -393,7 +393,7 @@ const integrations = {
       }
     }
   },
-  
+
   // التجارة الإلكترونية
   "shopify": {
     name: "Shopify",
@@ -404,7 +404,7 @@ const integrations = {
       scopes: ["read_products", "write_orders"]
     }
   },
-  
+
   "salla": {
     name: "سلة",
     type: "ecommerce",
@@ -420,15 +420,15 @@ const integrations = {
 app.post('/api/connect/:platform', authenticateUser, async (req, res) => {
   const { platform } = req.params;
   const user = req.user;
-  
+
   const integration = integrations[platform];
   if (!integration) {
-    return res.status(404).json({ 
-      success: false, 
-      message: 'المنصة غير مدعومة' 
+    return res.status(404).json({
+      success: false,
+      message: 'المنصة غير مدعومة'
     });
   }
-  
+
   // 1. إنشاء رابط OAuth
   if (integration.oauth) {
     const authUrl = new URL(integration.oauth.authUrl);
@@ -437,14 +437,14 @@ app.post('/api/connect/:platform', authenticateUser, async (req, res) => {
     authUrl.searchParams.append('response_type', 'code');
     authUrl.searchParams.append('scope', integration.oauth.scopes.join(' '));
     authUrl.searchParams.append('state', generateState(user.id, platform));
-    
+
     return res.json({
       success: true,
       authUrl: authUrl.toString(),
       message: `سيتم توجيهك لـ ${integration.name} للموافقة`
     });
   }
-  
+
   // 2. أو استخدام API Key
   if (integration.api.authentication === 'api-key') {
     const { apiKey } = req.body;
@@ -454,10 +454,10 @@ app.post('/api/connect/:platform', authenticateUser, async (req, res) => {
         message: 'يرجى إدخال API Key'
       });
     }
-    
+
     // حفظ API Key مُشفّر
     await saveUserIntegration(user.id, platform, { apiKey: encrypt(apiKey) });
-    
+
     return res.json({
       success: true,
       message: `تم ربط ${integration.name} بنجاح`
@@ -469,11 +469,11 @@ app.post('/api/connect/:platform', authenticateUser, async (req, res) => {
 app.get('/oauth/callback/:platform', async (req, res) => {
   const { platform } = req.params;
   const { code, state } = req.query;
-  
+
   // 1. التحقق من state
   const { userId } = verifyState(state);
   if (!userId) return res.status(400).send('Invalid state');
-  
+
   // 2. استبدال code بـ access_token
   const integration = integrations[platform];
   const tokenResponse = await axios.post(integration.oauth.tokenUrl, {
@@ -483,16 +483,16 @@ app.get('/oauth/callback/:platform', async (req, res) => {
     client_secret: process.env[`${platform.toUpperCase()}_CLIENT_SECRET`],
     redirect_uri: `https://sheikha.top/oauth/callback/${platform}`
   });
-  
+
   const { access_token, refresh_token, expires_in } = tokenResponse.data;
-  
+
   // 3. حفظ التوكنات مُشفّرة
   await saveUserIntegration(userId, platform, {
     accessToken: encrypt(access_token),
     refreshToken: encrypt(refresh_token),
     expiresAt: new Date(Date.now() + expires_in * 1000)
   });
-  
+
   // 4. إعادة التوجيه للوحة التحكم
   res.redirect('/dashboard?connected=' + platform);
 });
@@ -564,7 +564,7 @@ app.get('/oauth/callback/:platform', async (req, res) => {
 // محرك التنفيذ
 async function executeAutomation(automation) {
   const user = await getUser(automation.owner);
-  
+
   try {
     // 1. التحقق من الشروط
     for (const condition of automation.conditions) {
@@ -574,20 +574,20 @@ async function executeAutomation(automation) {
         return;
       }
     }
-    
+
     // 2. تنفيذ الأوامر بالتسلسل
     const context = {}; // لحفظ نتائج الخطوة السابقة
-    
+
     for (const action of automation.actions) {
       // أ) الحصول على التكامل
       const integration = await getUserIntegration(user.id, action.platform);
       if (!integration) {
         throw new Error(`لم يتم ربط ${action.platform}`);
       }
-      
+
       // ب) استبدال المتغيرات
       const params = replaceVariables(action.params, { user, previous: context });
-      
+
       // ج) مراجعة شرعية (إن طلبت)
       if (action.shariahCheck) {
         const shariahResult = await checkShariah(action.platform, action.action, params);
@@ -595,14 +595,14 @@ async function executeAutomation(automation) {
           throw new Error(`غير متوافق شرعياً: ${shariahResult.reason}`);
         }
       }
-      
+
       // د) تنفيذ الأمر
       const result = await callPlatformAPI(action.platform, action.action, params, integration);
       context[action.platform] = result;
-      
+
       console.log(`✅ تم تنفيذ: ${action.action} على ${action.platform}`);
     }
-    
+
     // 3. حفظ في Blockchain للشفافية
     await saveToBlockchain({
       automationId: automation.id,
@@ -611,13 +611,13 @@ async function executeAutomation(automation) {
       actions: automation.actions.length,
       success: true
     });
-    
+
     return { success: true, message: 'تم تنفيذ السيناريو بنجاح' };
-    
+
   } catch (error) {
     // معالجة الأخطاء
     console.error(`❌ خطأ في التنفيذ:`, error);
-    
+
     if (automation.errorHandling.onError === 'notify') {
       await sendNotification(user, {
         title: 'فشل تنفيذ السيناريو',
@@ -625,7 +625,7 @@ async function executeAutomation(automation) {
         automation: automation.name
       });
     }
-    
+
     return { success: false, error: error.message };
   }
 }
@@ -646,7 +646,7 @@ async function executeAutomation(automation) {
     <link rel="stylesheet" href="/css/sheikha-ecosystem.css">
 </head>
 <body class="ecosystem-dashboard">
-    
+
     <!-- الترويسة -->
     <header class="ecosystem-header">
         <div class="logo">
@@ -659,7 +659,7 @@ async function executeAutomation(automation) {
             <span class="email">ahmad@sheikha.top</span>
         </div>
     </header>
-    
+
     <!-- القائمة الجانبية -->
     <aside class="sidebar">
         <nav>
@@ -689,14 +689,14 @@ async function executeAutomation(automation) {
             </a>
         </nav>
     </aside>
-    
+
     <!-- المحتوى الرئيسي -->
     <main class="main-content">
-        
+
         <!-- نظرة عامة -->
         <section id="overview" class="section">
             <h2>نظرة عامة — مركز التحكم الموحد</h2>
-            
+
             <div class="stats-grid">
                 <div class="stat-card">
                     <i class="icon-link"></i>
@@ -719,7 +719,7 @@ async function executeAutomation(automation) {
                     <p>وقت موفّر</p>
                 </div>
             </div>
-            
+
             <!-- النشاط الأخير -->
             <div class="activity-feed">
                 <h3>النشاط الأخير</h3>
@@ -746,14 +746,14 @@ async function executeAutomation(automation) {
                 </div>
             </div>
         </section>
-        
+
         <!-- الحسابات المربوطة -->
         <section id="connected-accounts" class="section">
             <h2>الحسابات المربوطة</h2>
             <button class="btn-primary" onclick="showConnectModal()">
                 <i class="icon-plus"></i> ربط حساب جديد
             </button>
-            
+
             <div class="accounts-grid">
                 <!-- الذكاء الاصطناعي -->
                 <div class="account-card connected">
@@ -762,21 +762,21 @@ async function executeAutomation(automation) {
                     <span class="status active">متصل</span>
                     <button class="btn-manage">إدارة</button>
                 </div>
-                
+
                 <div class="account-card connected">
                     <img src="/assets/logos/claude.png" alt="Claude">
                     <h4>Claude</h4>
                     <span class="status active">متصل</span>
                     <button class="btn-manage">إدارة</button>
                 </div>
-                
+
                 <div class="account-card connected">
                     <img src="/assets/logos/gemini.png" alt="Gemini">
                     <h4>Google Gemini</h4>
                     <span class="status active">متصل</span>
                     <button class="btn-manage">إدارة</button>
                 </div>
-                
+
                 <!-- البنوك -->
                 <div class="account-card connected">
                     <img src="/assets/logos/alrajhi.png" alt="الراجحي">
@@ -785,14 +785,14 @@ async function executeAutomation(automation) {
                     <span class="badge shariah">متوافق شرعياً ✓</span>
                     <button class="btn-manage">إدارة</button>
                 </div>
-                
+
                 <div class="account-card">
                     <img src="/assets/logos/snb.png" alt="الأهلي">
                     <h4>البنك الأهلي</h4>
                     <span class="status inactive">غير متصل</span>
                     <button class="btn-connect">ربط الآن</button>
                 </div>
-                
+
                 <!-- ERP -->
                 <div class="account-card connected">
                     <img src="/assets/logos/odoo.png" alt="Odoo">
@@ -800,14 +800,14 @@ async function executeAutomation(automation) {
                     <span class="status active">متصل</span>
                     <button class="btn-manage">إدارة</button>
                 </div>
-                
+
                 <div class="account-card">
                     <img src="/assets/logos/sap.png" alt="SAP">
                     <h4>SAP</h4>
                     <span class="status inactive">غير متصل</span>
                     <button class="btn-connect">ربط الآن</button>
                 </div>
-                
+
                 <!-- الحكومة -->
                 <div class="account-card connected">
                     <img src="/assets/logos/absher.png" alt="أبشر">
@@ -817,14 +817,14 @@ async function executeAutomation(automation) {
                 </div>
             </div>
         </section>
-        
+
         <!-- الأتمتة -->
         <section id="automations" class="section">
             <h2>سيناريوهات الأتمتة</h2>
             <button class="btn-primary" onclick="createAutomation()">
                 <i class="icon-plus"></i> سيناريو جديد
             </button>
-            
+
             <div class="automations-list">
                 <div class="automation-card active">
                     <div class="automation-header">
@@ -850,7 +850,7 @@ async function executeAutomation(automation) {
                         <span>نجاح 100%</span>
                     </div>
                 </div>
-                
+
                 <div class="automation-card active">
                     <div class="automation-header">
                         <h4>تلخيص الإيميلات بالذكاء الاصطناعي</h4>
@@ -868,7 +868,7 @@ async function executeAutomation(automation) {
                         <span class="flow-item">إشعار</span>
                     </div>
                 </div>
-                
+
                 <div class="automation-card">
                     <div class="automation-header">
                         <h4>مزامنة المنتجات بين المنصات</h4>
@@ -889,12 +889,12 @@ async function executeAutomation(automation) {
                 </div>
             </div>
         </section>
-        
+
         <!-- مركز البيانات -->
         <section id="data-hub" class="section">
             <h2>مركز البيانات الموحد</h2>
             <p class="subtitle">كل بياناتك من جميع المنصات في مكان واحد</p>
-            
+
             <div class="data-categories">
                 <div class="data-card">
                     <i class="icon-user"></i>
@@ -918,9 +918,9 @@ async function executeAutomation(automation) {
                 </div>
             </div>
         </section>
-        
+
     </main>
-    
+
 </body>
 </html>
 ```
@@ -939,14 +939,14 @@ const securityMeasures = {
     tokens: 'RSA-4096',  // تشفير التوكنات
     keys: 'HSM'          // مفاتيح في Hardware Security Module
   },
-  
+
   // 2. مصادقة متعددة العوامل
   mfa: {
     required: true,
     methods: ['sms', 'email', 'totp', 'biometric'],
     timeout: 300 // 5 دقائق
   },
-  
+
   // 3. مراقبة مستمرة
   monitoring: {
     loginAttempts: { max: 5, window: 300 }, // 5 محاولات/5 دقائق
@@ -954,7 +954,7 @@ const securityMeasures = {
     suspiciousActivity: true,
     ipWhitelist: false // السماح من أي IP (لكن تسجيل كل شيء)
   },
-  
+
   // 4. سجلات شاملة (Audit Logs)
   auditLogs: {
     enabled: true,
@@ -968,7 +968,7 @@ const securityMeasures = {
     ],
     blockchain: true // حفظ في بلوكتشين للتأكد من عدم التلاعب
   },
-  
+
   // 5. توافق شرعي
   shariahCompliance: {
     enabled: true,
@@ -1085,6 +1085,6 @@ const securityMeasures = {
 
 ---
 
-**تم بحمد الله**  
-**سلمان بن أحمد الراجح**  
+**تم بحمد الله**
+**سلمان بن أحمد الراجح**
 **10 مارس 2026**

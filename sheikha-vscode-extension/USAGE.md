@@ -40,10 +40,10 @@
    function factorial(n) {
      // التحقق من أن العدد موجب
      if (n < 0) return undefined;
-     
+
      // الحالة الأساسية
      if (n === 0 || n === 1) return 1;
-     
+
      // الدالة العودية
      return n * factorial(n - 1);
    }
@@ -129,7 +129,7 @@ class User {
     this.name = name;
     this.email = email;
   }
-  
+
   // الآن ستقترح Sheikha ما تحتاجه بعده
 ```
 
@@ -690,6 +690,6 @@ For slow connections:
 
 ---
 
-**Version:** 1.0.0  
-**Last Updated:** March 16, 2026  
+**Version:** 1.0.0
+**Last Updated:** March 16, 2026
 **License:** Proprietary (Sheikha Platform)

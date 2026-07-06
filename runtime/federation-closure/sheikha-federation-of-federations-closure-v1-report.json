@@ -1,0 +1,4034 @@
+{
+  "system": "SHEIKHA_FEDERATION_OF_FEDERATIONS_CLOSURE_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_FEDERATION_CLOSURE_MAPPING",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noFirmwareModification": true,
+    "noRegistryModification": true,
+    "noSysctlModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noExternalMutation": true,
+    "noHarm": true,
+    "measurementOnly": true,
+    "humanReviewRequired": true
+  },
+  "closureLayers": [
+    {
+      "id": "l16-federation-of-federations",
+      "name": "Federation of Federations",
+      "scope": "all-domain-federations"
+    },
+    {
+      "id": "l17-platform-federation",
+      "name": "Platform Federation",
+      "scope": "sdk-toolchains-package-managers-runtimes"
+    },
+    {
+      "id": "l18-infrastructure-federation",
+      "name": "Infrastructure Federation",
+      "scope": "physical-vm-container-edge-cloud-iot"
+    },
+    {
+      "id": "l19-enterprise-federation",
+      "name": "Enterprise Federation",
+      "scope": "organizations-departments-projects-identity-rbac"
+    },
+    {
+      "id": "l20-knowledge-federation",
+      "name": "Knowledge Federation",
+      "scope": "engineering-business-security-legal-ai-industrial"
+    },
+    {
+      "id": "l21-ai-federation",
+      "name": "AI Federation",
+      "scope": "models-agents-tools-mcp-rag-memory-evaluation"
+    },
+    {
+      "id": "l22-governance-federation",
+      "name": "Governance Federation",
+      "scope": "admission-inspector-policy-risk-audit-human-review"
+    },
+    {
+      "id": "l23-global-integration-federation",
+      "name": "Global Integration Federation",
+      "scope": "control-plane-registry-capability-event-observability"
+    }
+  ],
+  "federationFamilies": [
+    {
+      "id": "linux-federation",
+      "parent": "l16-federation-of-federations",
+      "families": [
+        "debian-family",
+        "ubuntu-family",
+        "redhat-family",
+        "suse-family",
+        "arch-family",
+        "android-family",
+        "embedded-linux-family"
+      ]
+    },
+    {
+      "id": "windows-federation",
+      "parent": "l16-federation-of-federations",
+      "families": [
+        "desktop-family",
+        "server-family",
+        "azure-stack-family",
+        "hyper-v-family",
+        "wsl-family",
+        "iot-family"
+      ]
+    },
+    {
+      "id": "apple-federation",
+      "parent": "l16-federation-of-federations",
+      "families": [
+        "macos-family",
+        "ios-family",
+        "ipados-family",
+        "watchos-family",
+        "tvos-family",
+        "visionos-family"
+      ]
+    },
+    {
+      "id": "platform-federation",
+      "parent": "l17-platform-federation",
+      "families": [
+        "nodejs",
+        "python",
+        "java",
+        "dotnet",
+        "go",
+        "rust",
+        "php",
+        "ruby",
+        "swift",
+        "kotlin"
+      ]
+    },
+    {
+      "id": "infrastructure-federation",
+      "parent": "l18-infrastructure-federation",
+      "families": [
+        "physical-servers",
+        "virtual-machines",
+        "containers",
+        "edge",
+        "cloud",
+        "cluster",
+        "gpu-farms",
+        "storage",
+        "networking",
+        "iot"
+      ]
+    },
+    {
+      "id": "knowledge-domain-federation",
+      "parent": "l20-knowledge-federation",
+      "families": [
+        "engineering",
+        "business",
+        "security",
+        "legal",
+        "ai",
+        "industrial",
+        "education"
+      ]
+    },
+    {
+      "id": "ai-system-federation",
+      "parent": "l21-ai-federation",
+      "families": [
+        "models",
+        "agents",
+        "tools",
+        "mcp",
+        "rag",
+        "memory",
+        "planning",
+        "evaluation",
+        "guardrails"
+      ]
+    },
+    {
+      "id": "governance-system-federation",
+      "parent": "l22-governance-federation",
+      "families": [
+        "admission",
+        "inspector",
+        "policy",
+        "risk",
+        "compliance",
+        "ethics",
+        "audit",
+        "monitoring",
+        "human-review"
+      ]
+    }
+  ],
+  "relations": [
+    {
+      "from": "l15-global-federation",
+      "to": "l16-federation-of-federations",
+      "type": "EXTENDS_TO"
+    },
+    {
+      "from": "l16-federation-of-federations",
+      "to": "l17-platform-federation",
+      "type": "FEDERATES"
+    },
+    {
+      "from": "l17-platform-federation",
+      "to": "l18-infrastructure-federation",
+      "type": "RUNS_ON"
+    },
+    {
+      "from": "l18-infrastructure-federation",
+      "to": "l19-enterprise-federation",
+      "type": "SERVES"
+    },
+    {
+      "from": "l19-enterprise-federation",
+      "to": "l20-knowledge-federation",
+      "type": "USES"
+    },
+    {
+      "from": "l20-knowledge-federation",
+      "to": "l21-ai-federation",
+      "type": "SUPPORTS"
+    },
+    {
+      "from": "l21-ai-federation",
+      "to": "l22-governance-federation",
+      "type": "GOVERNED_BY"
+    },
+    {
+      "from": "l22-governance-federation",
+      "to": "l23-global-integration-federation",
+      "type": "REPORTS_TO"
+    },
+    {
+      "from": "l23-global-integration-federation",
+      "to": "l16-federation-of-federations",
+      "type": "GOVERNS"
+    }
+  ],
+  "baseGraph": {
+    "system": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2",
+    "status": "ACTIVE",
+    "mode": "READ_ONLY_DIRECTED_FEDERATED_SYSTEM_GRAPH",
+    "purpose": "Unify Sheikha federated fabrics into one directed system graph for safe extension, querying, governance, and integration planning.",
+    "relationTypes": [
+      "DEPENDS_ON",
+      "HOSTS",
+      "PROVIDES",
+      "USES",
+      "OBSERVES",
+      "GOVERNS",
+      "REPORTS_TO",
+      "INTEROPERATES_WITH",
+      "FEDERATES_WITH",
+      "ISOLATES",
+      "MEASURES",
+      "SECURES"
+    ],
+    "layers": [
+      {
+        "id": "l00-physical-infrastructure",
+        "order": 0,
+        "name": "Physical Infrastructure",
+        "arabicName": "البنية الفيزيائية",
+        "fabric": "datacenter-racks-power-cooling-network"
+      },
+      {
+        "id": "l01-hardware-federation",
+        "order": 1,
+        "name": "Hardware Federation",
+        "arabicName": "اتحاد العتاد",
+        "fabric": "cpu-memory-storage-pcie-devices"
+      },
+      {
+        "id": "l02-device-federation",
+        "order": 2,
+        "name": "Device Federation",
+        "arabicName": "اتحاد الأجهزة",
+        "fabric": "gpu-nic-disk-sensor-accelerator"
+      },
+      {
+        "id": "l03-firmware-federation",
+        "order": 3,
+        "name": "Firmware Federation",
+        "arabicName": "اتحاد البرمجيات الثابتة",
+        "fabric": "bios-uefi-tpm-secure-boot-read-only"
+      },
+      {
+        "id": "l04-boot-federation",
+        "order": 4,
+        "name": "Boot Federation",
+        "arabicName": "اتحاد الإقلاع",
+        "fabric": "boot-managers-loaders-read-only"
+      },
+      {
+        "id": "l05-kernel-family-federation",
+        "order": 5,
+        "name": "Kernel Family Federation",
+        "arabicName": "اتحاد عائلات النواة",
+        "fabric": "linux-nt-xnu-bsd-rtos"
+      },
+      {
+        "id": "l06-operating-system-family-federation",
+        "order": 6,
+        "name": "Operating System Family Federation",
+        "arabicName": "اتحاد عائلات أنظمة التشغيل",
+        "fabric": "linux-windows-apple-bsd-android-chromeos-unix"
+      },
+      {
+        "id": "l07-virtualization-federation",
+        "order": 7,
+        "name": "Virtualization Federation",
+        "arabicName": "اتحاد الافتراضية",
+        "fabric": "kvm-qemu-vmware-hyperv-xen-firecracker"
+      },
+      {
+        "id": "l08-container-federation",
+        "order": 8,
+        "name": "Container Federation",
+        "arabicName": "اتحاد الحاويات",
+        "fabric": "docker-containerd-crio-podman-lxc-kubernetes"
+      },
+      {
+        "id": "l09-process-federation",
+        "order": 9,
+        "name": "Process Federation",
+        "arabicName": "اتحاد العمليات",
+        "fabric": "pm2-systemd-launchd-windows-service-manager"
+      },
+      {
+        "id": "l10-runtime-federation",
+        "order": 10,
+        "name": "Runtime Federation",
+        "arabicName": "اتحاد بيئات التشغيل",
+        "fabric": "node-python-java-dotnet-php-go-rust-ruby-perl-lua"
+      },
+      {
+        "id": "l11-application-federation",
+        "order": 11,
+        "name": "Application Federation",
+        "arabicName": "اتحاد التطبيقات",
+        "fabric": "sheikha-runtime-marketplace-erp-crm-scm-ai-services"
+      },
+      {
+        "id": "l12-ai-knowledge-federation",
+        "order": 12,
+        "name": "AI & Knowledge Federation Fabric",
+        "arabicName": "اتحاد الذكاء والمعرفة",
+        "fabric": "knowledge-graph-ontology-rag-vector-search-memory"
+      },
+      {
+        "id": "l13-governance-federation",
+        "order": 13,
+        "name": "Governance Federation Fabric",
+        "arabicName": "اتحاد الحوكمة",
+        "fabric": "admission-inspector-policy-audit-compliance-evidence-risk"
+      },
+      {
+        "id": "l14-enterprise-federation",
+        "order": 14,
+        "name": "Enterprise Federation Fabric",
+        "arabicName": "اتحاد المؤسسة",
+        "fabric": "organizations-departments-projects-workspaces-identity-rbac-tenants"
+      },
+      {
+        "id": "l15-global-sovereign-federation",
+        "order": 15,
+        "name": "Global Sovereign Federation Fabric",
+        "arabicName": "الاتحاد العالمي الحاكم",
+        "fabric": "control-plane-registry-capability-event-observability-scheduling-integration"
+      }
+    ],
+    "graph": {
+      "nodes": [
+        {
+          "id": "l00-physical-infrastructure",
+          "label": "Physical Infrastructure",
+          "type": "FEDERATION_LAYER",
+          "layer": "l00-physical-infrastructure",
+          "metadata": {
+            "order": 0,
+            "arabicName": "البنية الفيزيائية",
+            "fabric": "datacenter-racks-power-cooling-network"
+          }
+        },
+        {
+          "id": "l01-hardware-federation",
+          "label": "Hardware Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l01-hardware-federation",
+          "metadata": {
+            "order": 1,
+            "arabicName": "اتحاد العتاد",
+            "fabric": "cpu-memory-storage-pcie-devices"
+          }
+        },
+        {
+          "id": "l02-device-federation",
+          "label": "Device Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l02-device-federation",
+          "metadata": {
+            "order": 2,
+            "arabicName": "اتحاد الأجهزة",
+            "fabric": "gpu-nic-disk-sensor-accelerator"
+          }
+        },
+        {
+          "id": "l03-firmware-federation",
+          "label": "Firmware Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l03-firmware-federation",
+          "metadata": {
+            "order": 3,
+            "arabicName": "اتحاد البرمجيات الثابتة",
+            "fabric": "bios-uefi-tpm-secure-boot-read-only"
+          }
+        },
+        {
+          "id": "l04-boot-federation",
+          "label": "Boot Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l04-boot-federation",
+          "metadata": {
+            "order": 4,
+            "arabicName": "اتحاد الإقلاع",
+            "fabric": "boot-managers-loaders-read-only"
+          }
+        },
+        {
+          "id": "l05-kernel-family-federation",
+          "label": "Kernel Family Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l05-kernel-family-federation",
+          "metadata": {
+            "order": 5,
+            "arabicName": "اتحاد عائلات النواة",
+            "fabric": "linux-nt-xnu-bsd-rtos"
+          }
+        },
+        {
+          "id": "l06-operating-system-family-federation",
+          "label": "Operating System Family Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "order": 6,
+            "arabicName": "اتحاد عائلات أنظمة التشغيل",
+            "fabric": "linux-windows-apple-bsd-android-chromeos-unix"
+          }
+        },
+        {
+          "id": "l07-virtualization-federation",
+          "label": "Virtualization Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "order": 7,
+            "arabicName": "اتحاد الافتراضية",
+            "fabric": "kvm-qemu-vmware-hyperv-xen-firecracker"
+          }
+        },
+        {
+          "id": "l08-container-federation",
+          "label": "Container Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "order": 8,
+            "arabicName": "اتحاد الحاويات",
+            "fabric": "docker-containerd-crio-podman-lxc-kubernetes"
+          }
+        },
+        {
+          "id": "l09-process-federation",
+          "label": "Process Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l09-process-federation",
+          "metadata": {
+            "order": 9,
+            "arabicName": "اتحاد العمليات",
+            "fabric": "pm2-systemd-launchd-windows-service-manager"
+          }
+        },
+        {
+          "id": "l10-runtime-federation",
+          "label": "Runtime Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "order": 10,
+            "arabicName": "اتحاد بيئات التشغيل",
+            "fabric": "node-python-java-dotnet-php-go-rust-ruby-perl-lua"
+          }
+        },
+        {
+          "id": "l11-application-federation",
+          "label": "Application Federation",
+          "type": "FEDERATION_LAYER",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "order": 11,
+            "arabicName": "اتحاد التطبيقات",
+            "fabric": "sheikha-runtime-marketplace-erp-crm-scm-ai-services"
+          }
+        },
+        {
+          "id": "l12-ai-knowledge-federation",
+          "label": "AI & Knowledge Federation Fabric",
+          "type": "FEDERATION_LAYER",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "order": 12,
+            "arabicName": "اتحاد الذكاء والمعرفة",
+            "fabric": "knowledge-graph-ontology-rag-vector-search-memory"
+          }
+        },
+        {
+          "id": "l13-governance-federation",
+          "label": "Governance Federation Fabric",
+          "type": "FEDERATION_LAYER",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "order": 13,
+            "arabicName": "اتحاد الحوكمة",
+            "fabric": "admission-inspector-policy-audit-compliance-evidence-risk"
+          }
+        },
+        {
+          "id": "l14-enterprise-federation",
+          "label": "Enterprise Federation Fabric",
+          "type": "FEDERATION_LAYER",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "order": 14,
+            "arabicName": "اتحاد المؤسسة",
+            "fabric": "organizations-departments-projects-workspaces-identity-rbac-tenants"
+          }
+        },
+        {
+          "id": "l15-global-sovereign-federation",
+          "label": "Global Sovereign Federation Fabric",
+          "type": "FEDERATION_LAYER",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "order": 15,
+            "arabicName": "الاتحاد العالمي الحاكم",
+            "fabric": "control-plane-registry-capability-event-observability-scheduling-integration"
+          }
+        },
+        {
+          "id": "linux-kernel-federation",
+          "label": "Linux Kernel Federation",
+          "type": "KERNEL_FAMILY_FEDERATION",
+          "layer": "l05-kernel-family-federation",
+          "metadata": {
+            "members": [
+              "Ubuntu",
+              "Debian",
+              "Fedora",
+              "Arch",
+              "Android",
+              "Pop!_OS"
+            ],
+            "clusters": [
+              "scheduler",
+              "memory-manager",
+              "filesystem",
+              "network-stack",
+              "security",
+              "drivers",
+              "ipc"
+            ]
+          }
+        },
+        {
+          "id": "windows-nt-federation",
+          "label": "Windows NT Federation",
+          "type": "KERNEL_FAMILY_FEDERATION",
+          "layer": "l05-kernel-family-federation",
+          "metadata": {
+            "members": [
+              "Windows 10",
+              "Windows 11",
+              "Windows Server"
+            ],
+            "clusters": [
+              "nt-kernel",
+              "registry-observation",
+              "service-control",
+              "security",
+              "drivers"
+            ]
+          }
+        },
+        {
+          "id": "apple-xnu-federation",
+          "label": "Apple XNU Federation",
+          "type": "KERNEL_FAMILY_FEDERATION",
+          "layer": "l05-kernel-family-federation",
+          "metadata": {
+            "members": [
+              "macOS",
+              "iOS",
+              "iPadOS",
+              "watchOS",
+              "tvOS"
+            ],
+            "clusters": [
+              "xnu",
+              "darwin",
+              "sandbox",
+              "driverkit",
+              "apple-silicon"
+            ]
+          }
+        },
+        {
+          "id": "bsd-federation",
+          "label": "BSD Federation",
+          "type": "KERNEL_FAMILY_FEDERATION",
+          "layer": "l05-kernel-family-federation",
+          "metadata": {
+            "members": [
+              "FreeBSD",
+              "OpenBSD",
+              "NetBSD"
+            ],
+            "clusters": [
+              "bsd-kernel",
+              "userland",
+              "networking",
+              "security",
+              "filesystem"
+            ]
+          }
+        },
+        {
+          "id": "rtos-federation",
+          "label": "RTOS Federation",
+          "type": "KERNEL_FAMILY_FEDERATION",
+          "layer": "l05-kernel-family-federation",
+          "metadata": {
+            "members": [
+              "Zephyr",
+              "FreeRTOS",
+              "VxWorks",
+              "QNX"
+            ],
+            "clusters": [
+              "real-time-scheduler",
+              "embedded-memory",
+              "deterministic-io",
+              "safety-profile"
+            ]
+          }
+        },
+        {
+          "id": "linux-family",
+          "label": "Linux Family",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "windows-family",
+          "label": "Windows Family",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "apple-family",
+          "label": "Apple Family",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "bsd-family",
+          "label": "Bsd Family",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "chromeos",
+          "label": "Chromeos",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "android",
+          "label": "Android",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "embedded-linux",
+          "label": "Embedded Linux",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "unix",
+          "label": "Unix",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l06-operating-system-family-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "kvm",
+          "label": "Kvm",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "qemu",
+          "label": "Qemu",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "vmware",
+          "label": "Vmware",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "hyper-v",
+          "label": "Hyper V",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "virtualbox",
+          "label": "Virtualbox",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "xen",
+          "label": "Xen",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "firecracker",
+          "label": "Firecracker",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "cloud-hypervisor",
+          "label": "Cloud Hypervisor",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l07-virtualization-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "docker",
+          "label": "Docker",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "containerd",
+          "label": "Containerd",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "cri-o",
+          "label": "Cri O",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "podman",
+          "label": "Podman",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "lxc",
+          "label": "Lxc",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "lxd",
+          "label": "Lxd",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "kubernetes",
+          "label": "Kubernetes",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "openshift",
+          "label": "Openshift",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "nomad",
+          "label": "Nomad",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l08-container-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "nodejs",
+          "label": "Nodejs",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "python",
+          "label": "Python",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "java",
+          "label": "Java",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "dotnet",
+          "label": "Dotnet",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "php",
+          "label": "Php",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "go",
+          "label": "Go",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "rust",
+          "label": "Rust",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "ruby",
+          "label": "Ruby",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "perl",
+          "label": "Perl",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "lua",
+          "label": "Lua",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l10-runtime-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "sheikha-runtime",
+          "label": "Sheikha Runtime",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "marketplace",
+          "label": "Marketplace",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "knowledge",
+          "label": "Knowledge",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "erp",
+          "label": "Erp",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "crm",
+          "label": "Crm",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "scm",
+          "label": "Scm",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "ai-services",
+          "label": "Ai Services",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "analytics",
+          "label": "Analytics",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l11-application-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "knowledge-graph",
+          "label": "Knowledge Graph",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "ontology",
+          "label": "Ontology",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "semantic-engine",
+          "label": "Semantic Engine",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "reasoning-engine",
+          "label": "Reasoning Engine",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "vector-index",
+          "label": "Vector Index",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "rag",
+          "label": "Rag",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "search",
+          "label": "Search",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "memory",
+          "label": "Memory",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l12-ai-knowledge-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "admission",
+          "label": "Admission",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "inspector",
+          "label": "Inspector",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "policy",
+          "label": "Policy",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "audit",
+          "label": "Audit",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "compliance",
+          "label": "Compliance",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "security",
+          "label": "Security",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "evidence",
+          "label": "Evidence",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "risk",
+          "label": "Risk",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "human-review",
+          "label": "Human Review",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l13-governance-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "organizations",
+          "label": "Organizations",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "departments",
+          "label": "Departments",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "business-units",
+          "label": "Business Units",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "projects",
+          "label": "Projects",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "workspaces",
+          "label": "Workspaces",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "users",
+          "label": "Users",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "identity",
+          "label": "Identity",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "rbac",
+          "label": "Rbac",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "tenants",
+          "label": "Tenants",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l14-enterprise-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "control-plane",
+          "label": "Control Plane",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "registry",
+          "label": "Registry",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "capability-fabric",
+          "label": "Capability Fabric",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "event-fabric",
+          "label": "Event Fabric",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "observability-fabric",
+          "label": "Observability Fabric",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "scheduling-fabric",
+          "label": "Scheduling Fabric",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "automation-fabric",
+          "label": "Automation Fabric",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        },
+        {
+          "id": "integration-fabric",
+          "label": "Integration Fabric",
+          "type": "FEDERATED_DOMAIN",
+          "layer": "l15-global-sovereign-federation",
+          "metadata": {
+            "source": "SHEIKHA_FEDERATED_SYSTEM_GRAPH_V2"
+          }
+        }
+      ],
+      "edges": [
+        {
+          "from": "l00-physical-infrastructure",
+          "to": "l01-hardware-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l01-hardware-federation",
+          "to": "l00-physical-infrastructure",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l01-hardware-federation",
+          "to": "l02-device-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l02-device-federation",
+          "to": "l01-hardware-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l02-device-federation",
+          "to": "l03-firmware-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l03-firmware-federation",
+          "to": "l02-device-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l03-firmware-federation",
+          "to": "l04-boot-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l04-boot-federation",
+          "to": "l03-firmware-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l04-boot-federation",
+          "to": "l05-kernel-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "l04-boot-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "l05-kernel-family-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "l07-virtualization-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "l08-container-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "l07-virtualization-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "l09-process-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l09-process-federation",
+          "to": "l08-container-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l09-process-federation",
+          "to": "l10-runtime-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "l09-process-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "l11-application-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "l10-runtime-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "l12-ai-knowledge-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "l11-application-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "l13-governance-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l12-ai-knowledge-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l14-enterprise-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "l13-governance-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "l15-global-sovereign-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "mode": "directed-foundation"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l14-enterprise-federation",
+          "type": "DEPENDS_ON",
+          "metadata": {
+            "mode": "directed-dependency"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "linux-kernel-federation",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "family": "Linux Kernel Federation"
+          }
+        },
+        {
+          "from": "linux-kernel-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "scope": "kernel-to-os-family"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "linux-kernel-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "kernel-family-promotion"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "windows-nt-federation",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "family": "Windows NT Federation"
+          }
+        },
+        {
+          "from": "windows-nt-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "scope": "kernel-to-os-family"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "windows-nt-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "kernel-family-promotion"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "apple-xnu-federation",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "family": "Apple XNU Federation"
+          }
+        },
+        {
+          "from": "apple-xnu-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "scope": "kernel-to-os-family"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "apple-xnu-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "kernel-family-promotion"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "bsd-federation",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "family": "BSD Federation"
+          }
+        },
+        {
+          "from": "bsd-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "scope": "kernel-to-os-family"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "bsd-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "kernel-family-promotion"
+          }
+        },
+        {
+          "from": "l05-kernel-family-federation",
+          "to": "rtos-federation",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "family": "RTOS Federation"
+          }
+        },
+        {
+          "from": "rtos-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "PROVIDES",
+          "metadata": {
+            "scope": "kernel-to-os-family"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "rtos-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "kernel-family-promotion"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "linux-family",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "linux-family"
+          }
+        },
+        {
+          "from": "linux-family",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "linux-family",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "windows-family",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "windows-family"
+          }
+        },
+        {
+          "from": "windows-family",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "windows-family",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "apple-family",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "apple-family"
+          }
+        },
+        {
+          "from": "apple-family",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "apple-family",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "bsd-family",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "bsd-family"
+          }
+        },
+        {
+          "from": "bsd-family",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "bsd-family",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "chromeos",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "chromeos"
+          }
+        },
+        {
+          "from": "chromeos",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "chromeos",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "android",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "android"
+          }
+        },
+        {
+          "from": "android",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "android",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "embedded-linux",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "embedded-linux"
+          }
+        },
+        {
+          "from": "embedded-linux",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "embedded-linux",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "unix",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "unix"
+          }
+        },
+        {
+          "from": "unix",
+          "to": "l06-operating-system-family-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "unix",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "kvm",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "kvm"
+          }
+        },
+        {
+          "from": "kvm",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "kvm",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "qemu",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "qemu"
+          }
+        },
+        {
+          "from": "qemu",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "qemu",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "vmware",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "vmware"
+          }
+        },
+        {
+          "from": "vmware",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "vmware",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "hyper-v",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "hyper-v"
+          }
+        },
+        {
+          "from": "hyper-v",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "hyper-v",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "virtualbox",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "virtualbox"
+          }
+        },
+        {
+          "from": "virtualbox",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "virtualbox",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "xen",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "xen"
+          }
+        },
+        {
+          "from": "xen",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "xen",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "firecracker",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "firecracker"
+          }
+        },
+        {
+          "from": "firecracker",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "firecracker",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l07-virtualization-federation",
+          "to": "cloud-hypervisor",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "cloud-hypervisor"
+          }
+        },
+        {
+          "from": "cloud-hypervisor",
+          "to": "l07-virtualization-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "cloud-hypervisor",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "docker",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "docker"
+          }
+        },
+        {
+          "from": "docker",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "docker",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "containerd",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "containerd"
+          }
+        },
+        {
+          "from": "containerd",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "containerd",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "cri-o",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "cri-o"
+          }
+        },
+        {
+          "from": "cri-o",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "cri-o",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "podman",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "podman"
+          }
+        },
+        {
+          "from": "podman",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "podman",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "lxc",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "lxc"
+          }
+        },
+        {
+          "from": "lxc",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "lxc",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "lxd",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "lxd"
+          }
+        },
+        {
+          "from": "lxd",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "lxd",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "kubernetes",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "kubernetes"
+          }
+        },
+        {
+          "from": "kubernetes",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "kubernetes",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "openshift",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "openshift"
+          }
+        },
+        {
+          "from": "openshift",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "openshift",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "nomad",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "nomad"
+          }
+        },
+        {
+          "from": "nomad",
+          "to": "l08-container-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "nomad",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "nodejs",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "nodejs"
+          }
+        },
+        {
+          "from": "nodejs",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "nodejs",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "python",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "python"
+          }
+        },
+        {
+          "from": "python",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "python",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "java",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "java"
+          }
+        },
+        {
+          "from": "java",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "java",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "dotnet",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "dotnet"
+          }
+        },
+        {
+          "from": "dotnet",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "dotnet",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "php",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "php"
+          }
+        },
+        {
+          "from": "php",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "php",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "go",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "go"
+          }
+        },
+        {
+          "from": "go",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "go",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "rust",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "rust"
+          }
+        },
+        {
+          "from": "rust",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "rust",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "ruby",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "ruby"
+          }
+        },
+        {
+          "from": "ruby",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "ruby",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "perl",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "perl"
+          }
+        },
+        {
+          "from": "perl",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "perl",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l10-runtime-federation",
+          "to": "lua",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "lua"
+          }
+        },
+        {
+          "from": "lua",
+          "to": "l10-runtime-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "lua",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "sheikha-runtime",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "sheikha-runtime"
+          }
+        },
+        {
+          "from": "sheikha-runtime",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "sheikha-runtime",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "marketplace",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "marketplace"
+          }
+        },
+        {
+          "from": "marketplace",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "marketplace",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "knowledge",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "knowledge"
+          }
+        },
+        {
+          "from": "knowledge",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "knowledge",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "erp",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "erp"
+          }
+        },
+        {
+          "from": "erp",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "erp",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "crm",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "crm"
+          }
+        },
+        {
+          "from": "crm",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "crm",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "scm",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "scm"
+          }
+        },
+        {
+          "from": "scm",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "scm",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "ai-services",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "ai-services"
+          }
+        },
+        {
+          "from": "ai-services",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "ai-services",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l11-application-federation",
+          "to": "analytics",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "analytics"
+          }
+        },
+        {
+          "from": "analytics",
+          "to": "l11-application-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "analytics",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "knowledge-graph",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "knowledge-graph"
+          }
+        },
+        {
+          "from": "knowledge-graph",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "knowledge-graph",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "ontology",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "ontology"
+          }
+        },
+        {
+          "from": "ontology",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "ontology",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "semantic-engine",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "semantic-engine"
+          }
+        },
+        {
+          "from": "semantic-engine",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "semantic-engine",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "reasoning-engine",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "reasoning-engine"
+          }
+        },
+        {
+          "from": "reasoning-engine",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "reasoning-engine",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "vector-index",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "vector-index"
+          }
+        },
+        {
+          "from": "vector-index",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "vector-index",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "rag",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "rag"
+          }
+        },
+        {
+          "from": "rag",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "rag",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "search",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "search"
+          }
+        },
+        {
+          "from": "search",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "search",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "memory",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "memory"
+          }
+        },
+        {
+          "from": "memory",
+          "to": "l12-ai-knowledge-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "memory",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "admission",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "admission"
+          }
+        },
+        {
+          "from": "admission",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "admission",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "inspector",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "inspector"
+          }
+        },
+        {
+          "from": "inspector",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "inspector",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "policy",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "policy"
+          }
+        },
+        {
+          "from": "policy",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "policy",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "audit",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "audit"
+          }
+        },
+        {
+          "from": "audit",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "audit",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "compliance",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "compliance"
+          }
+        },
+        {
+          "from": "compliance",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "compliance",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "security",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "security"
+          }
+        },
+        {
+          "from": "security",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "security",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "evidence",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "evidence"
+          }
+        },
+        {
+          "from": "evidence",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "evidence",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "risk",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "risk"
+          }
+        },
+        {
+          "from": "risk",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "risk",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "human-review",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "human-review"
+          }
+        },
+        {
+          "from": "human-review",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "human-review",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "organizations",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "organizations"
+          }
+        },
+        {
+          "from": "organizations",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "organizations",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "departments",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "departments"
+          }
+        },
+        {
+          "from": "departments",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "departments",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "business-units",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "business-units"
+          }
+        },
+        {
+          "from": "business-units",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "business-units",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "projects",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "projects"
+          }
+        },
+        {
+          "from": "projects",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "projects",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "workspaces",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "workspaces"
+          }
+        },
+        {
+          "from": "workspaces",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "workspaces",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "users",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "users"
+          }
+        },
+        {
+          "from": "users",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "users",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "identity",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "identity"
+          }
+        },
+        {
+          "from": "identity",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "identity",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "rbac",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "rbac"
+          }
+        },
+        {
+          "from": "rbac",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "rbac",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "tenants",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "tenants"
+          }
+        },
+        {
+          "from": "tenants",
+          "to": "l14-enterprise-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "tenants",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "control-plane",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "control-plane"
+          }
+        },
+        {
+          "from": "control-plane",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "control-plane",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "registry",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "registry"
+          }
+        },
+        {
+          "from": "registry",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "registry",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "capability-fabric",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "capability-fabric"
+          }
+        },
+        {
+          "from": "capability-fabric",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "capability-fabric",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "event-fabric",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "event-fabric"
+          }
+        },
+        {
+          "from": "event-fabric",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "event-fabric",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "observability-fabric",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "observability-fabric"
+          }
+        },
+        {
+          "from": "observability-fabric",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "observability-fabric",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "scheduling-fabric",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "scheduling-fabric"
+          }
+        },
+        {
+          "from": "scheduling-fabric",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "scheduling-fabric",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "automation-fabric",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "automation-fabric"
+          }
+        },
+        {
+          "from": "automation-fabric",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "automation-fabric",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "integration-fabric",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "domain": "integration-fabric"
+          }
+        },
+        {
+          "from": "integration-fabric",
+          "to": "l15-global-sovereign-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "domain-to-layer"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "integration-fabric",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "domain-governance"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l00-physical-infrastructure",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l01-hardware-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l02-device-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l03-firmware-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l04-boot-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l05-kernel-family-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l07-virtualization-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l08-container-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l09-process-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l10-runtime-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l11-application-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l12-ai-knowledge-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l14-enterprise-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l15-global-sovereign-federation",
+          "type": "GOVERNS",
+          "metadata": {
+            "scope": "global-policy"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l00-physical-infrastructure",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l01-hardware-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l02-device-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l03-firmware-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l04-boot-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l05-kernel-family-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l06-operating-system-family-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l07-virtualization-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l08-container-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l09-process-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l10-runtime-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l11-application-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l12-ai-knowledge-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l13-governance-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l14-enterprise-federation",
+          "type": "OBSERVES",
+          "metadata": {
+            "scope": "global-control-plane-observability"
+          }
+        },
+        {
+          "from": "l13-governance-federation",
+          "to": "l12-ai-knowledge-federation",
+          "type": "SECURES",
+          "metadata": {
+            "scope": "ai-policy"
+          }
+        },
+        {
+          "from": "l12-ai-knowledge-federation",
+          "to": "l11-application-federation",
+          "type": "USES",
+          "metadata": {
+            "scope": "knowledge-augmented-apps"
+          }
+        },
+        {
+          "from": "l06-operating-system-family-federation",
+          "to": "l09-process-federation",
+          "type": "HOSTS",
+          "metadata": {
+            "scope": "os-hosts-processes"
+          }
+        },
+        {
+          "from": "l08-container-federation",
+          "to": "l07-virtualization-federation",
+          "type": "INTEROPERATES_WITH",
+          "metadata": {
+            "scope": "container-vm"
+          }
+        },
+        {
+          "from": "l09-process-federation",
+          "to": "l08-container-federation",
+          "type": "ISOLATES",
+          "metadata": {
+            "scope": "process-container-isolation"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l14-enterprise-federation",
+          "type": "FEDERATES_WITH",
+          "metadata": {
+            "scope": "global-enterprise"
+          }
+        },
+        {
+          "from": "l14-enterprise-federation",
+          "to": "l13-governance-federation",
+          "type": "REPORTS_TO",
+          "metadata": {
+            "scope": "accountability"
+          }
+        },
+        {
+          "from": "l15-global-sovereign-federation",
+          "to": "l13-governance-federation",
+          "type": "MEASURES",
+          "metadata": {
+            "scope": "governance-metrics"
+          }
+        }
+      ]
+    },
+    "validation": {
+      "valid": true,
+      "orphanEdges": [],
+      "usedRelationTypes": [
+        "DEPENDS_ON",
+        "FEDERATES_WITH",
+        "GOVERNS",
+        "HOSTS",
+        "INTEROPERATES_WITH",
+        "ISOLATES",
+        "MEASURES",
+        "OBSERVES",
+        "PROVIDES",
+        "REPORTS_TO",
+        "SECURES",
+        "USES"
+      ],
+      "missingRelationTypes": []
+    },
+    "summary": {
+      "layerCount": 16,
+      "nodeCount": 98,
+      "edgeCount": 314,
+      "kernelFamilyCount": 5,
+      "relationTypeCount": 12,
+      "nodesByLayer": [
+        {
+          "layer": "l00-physical-infrastructure",
+          "name": "Physical Infrastructure",
+          "nodeCount": 1
+        },
+        {
+          "layer": "l01-hardware-federation",
+          "name": "Hardware Federation",
+          "nodeCount": 1
+        },
+        {
+          "layer": "l02-device-federation",
+          "name": "Device Federation",
+          "nodeCount": 1
+        },
+        {
+          "layer": "l03-firmware-federation",
+          "name": "Firmware Federation",
+          "nodeCount": 1
+        },
+        {
+          "layer": "l04-boot-federation",
+          "name": "Boot Federation",
+          "nodeCount": 1
+        },
+        {
+          "layer": "l05-kernel-family-federation",
+          "name": "Kernel Family Federation",
+          "nodeCount": 6
+        },
+        {
+          "layer": "l06-operating-system-family-federation",
+          "name": "Operating System Family Federation",
+          "nodeCount": 9
+        },
+        {
+          "layer": "l07-virtualization-federation",
+          "name": "Virtualization Federation",
+          "nodeCount": 9
+        },
+        {
+          "layer": "l08-container-federation",
+          "name": "Container Federation",
+          "nodeCount": 10
+        },
+        {
+          "layer": "l09-process-federation",
+          "name": "Process Federation",
+          "nodeCount": 1
+        },
+        {
+          "layer": "l10-runtime-federation",
+          "name": "Runtime Federation",
+          "nodeCount": 11
+        },
+        {
+          "layer": "l11-application-federation",
+          "name": "Application Federation",
+          "nodeCount": 9
+        },
+        {
+          "layer": "l12-ai-knowledge-federation",
+          "name": "AI & Knowledge Federation Fabric",
+          "nodeCount": 9
+        },
+        {
+          "layer": "l13-governance-federation",
+          "name": "Governance Federation Fabric",
+          "nodeCount": 10
+        },
+        {
+          "layer": "l14-enterprise-federation",
+          "name": "Enterprise Federation Fabric",
+          "nodeCount": 10
+        },
+        {
+          "layer": "l15-global-sovereign-federation",
+          "name": "Global Sovereign Federation Fabric",
+          "nodeCount": 9
+        }
+      ]
+    },
+    "sourceFabrics": {
+      "globalEnterpriseOperatingFabric": {
+        "system": "SHEIKHA_GLOBAL_ENTERPRISE_OPERATING_FABRIC_V1",
+        "status": "ACTIVE",
+        "mode": "READ_ONLY_GLOBAL_ENTERPRISE_ARCHITECTURAL_CLOSURE",
+        "closure": {
+          "architectureClosed": true,
+          "layerCount": 13,
+          "relationCount": 12,
+          "extensionModel": "ADD_NEW_FAMILY_WITHOUT_REDESIGN",
+          "productionIntegrationDecision": "READY_FOR_CONTROLLED_PRODUCTION_INTEGRATION",
+          "productionRuntimeClaim": false,
+          "highImpactActionAllowed": false,
+          "humanApprovalRequiredForPromotion": true
+        }
+      },
+      "productionIntegration": {
+        "system": "SHEIKHA_PRODUCTION_INTEGRATION_CONNECTION_FABRIC_V1",
+        "status": "ACTIVE",
+        "decision": "READY_FOR_CONTROLLED_PRODUCTION_INTEGRATION",
+        "gates": {
+          "allLayersConnected": true,
+          "hostEvidenceAvailable": true,
+          "readOnlyOnly": true,
+          "noHighImpactMutation": true,
+          "noExternalSystemMutation": true,
+          "noProductionClaimWithoutEvidence": true,
+          "noContractOrProviderClaim": true,
+          "noHarm": true,
+          "humanApprovalRequiredForProductionAction": true
+        }
+      },
+      "osFamilyFederation": {
+        "system": "SHEIKHA_OS_FAMILY_INDUSTRIAL_FEDERATION_FABRIC_V1",
+        "status": "ACTIVE",
+        "familyCount": 6
+      }
+    },
+    "readiness": {
+      "directedGraphReady": true,
+      "allRelationTypesCovered": true,
+      "globalClosureReady": true,
+      "productionIntegrationReady": true,
+      "extensionWithoutRedesignReady": true,
+      "overall": "FEDERATED_SYSTEM_GRAPH_V2_READY"
+    },
+    "governance": {
+      "readOnly": true,
+      "measurementOnly": true,
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noFirmwareModification": true,
+      "noRegistryModification": true,
+      "noSysctlModification": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noExternalConnectionOpened": true,
+      "noRuntimeClaimWithoutEvidence": true,
+      "noHighImpactActionAllowed": true,
+      "humanReviewRequiredForPromotion": true,
+      "noHarm": true,
+      "tawhid": "الله وحده لا شريك له"
+    },
+    "nextActions": [
+      "Expose graph summary to Enterprise Inspector as read-only architecture evidence.",
+      "Use graph nodes as the source of truth before adding any new fabric.",
+      "Require evidence-backed adapters before marking any domain as production active.",
+      "Add query helpers for impact analysis, dependency tracing, and governance coverage."
+    ],
+    "timestamp": "2026-07-03T23:24:52.593Z"
+  },
+  "closure": {
+    "architectureClosed": true,
+    "extensionModel": "ADD_FEDERATION_OR_FAMILY_WITHOUT_REDESIGN",
+    "productionRuntimeClaim": false,
+    "highImpactActionAllowed": false,
+    "humanApprovalRequiredForPromotion": true
+  }
+}

@@ -2,8 +2,8 @@
 
 # 🏆 SHEIKHA Platform Assessment — تقييم المنصة
 
-**التاريخ:** 5 مايو 2026  
-**النسخة:** 1.0.0 - Distributed  
+**التاريخ:** 5 مايو 2026
+**النسخة:** 1.0.0 - Distributed
 **الحالة:** ✅ جاهز للإنتاج
 
 ---
@@ -182,34 +182,34 @@
 ```
 ☐ 1. تثبيت HAProxy
     sudo apt install -y haproxy
-    
+
 ☐ 2. تكوين السيرفر الثاني (اختياري)
     ssh-keygen && ssh-copy-id
-    
+
 ☐ 3. تفعيل DNS (إذا تطلبت)
     export CLOUDFLARE_API_KEY='...'
     export CLOUDFLARE_ZONE_ID='...'
-    
+
 ☐ 4. تشغيل Setup Script
     sudo ./scripts/sheikha-distribute-setup.sh --all
-    
+
 ☐ 5. اختبار الـ Health Checks
     curl http://localhost:8404/stats
-    
+
 ☐ 6. اختبار الـ Failover يدوياً
     sudo systemctl stop sheikha-main
     # تحقق: DNS يوجه للـ secondary
-    
+
 ☐ 7. مراقبة السجلات
     journalctl -u sheikha-haproxy-health -f
-    
+
 ☐ 8. اختبار الـ Load
     ab -n 10000 http://sheikha.top/api/health
-    
+
 ☐ 9. إضافة قنوات التنبيه
     export SHEIKHA_TG_BOT_TOKEN='...'
     export SHEIKHA_TG_CHAT_ID='...'
-    
+
 ☐ 10. Documentation للفريق
     cat DISTRIBUTED-INFRASTRUCTURE.md
 ```
@@ -309,7 +309,7 @@
 ## 🙏 الشكر والحمد
 
 > «الحمد لله الذي أعطانا العقل والحكمة»
-> 
+>
 > هذا النظام ليس مجرد أكواد، بل:
 > - عمل جماعي
 > - دراية عميقة في الهندسة
@@ -348,8 +348,8 @@ uptime && free && df -h
 
 ---
 
-**آخر تحديث:** 5 مايو 2026  
-**الحالة:** ✅ جاهز للإنتاج  
+**آخر تحديث:** 5 مايو 2026
+**الحالة:** ✅ جاهز للإنتاج
 **الملكية:** سلمان أحمد بن سلمان الراجح
 
 ---

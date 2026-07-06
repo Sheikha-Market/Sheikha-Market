@@ -1,0 +1,24 @@
+{
+  "registry": "SHEIKHA_API_INTEGRATION_LAB_REGISTRY_V1",
+  "status": "ACTIVE",
+  "integrationTypes": [
+    "AI_API",
+    "SEARCH_API",
+    "DATABASE_API",
+    "GITHUB_API",
+    "ERP_API",
+    "CRM_API",
+    "LOGISTICS_API",
+    "ENERGY_MARKET_API",
+    "SUPPLY_CHAIN_API",
+    "ACADEMIC_PUBLICATION_API"
+  ],
+  "rules": [
+    "api_contract_required",
+    "credentials_must_not_be_committed",
+    "rate_limit_required",
+    "data_privacy_required",
+    "source_attribution_required",
+    "human_review_for_external_publication"
+  ]
+}

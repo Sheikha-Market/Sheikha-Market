@@ -1,0 +1,33 @@
+{
+  "engine": "SHEIKHA_POLICY_DECISION_POINT",
+  "status": "ACTIVE",
+  "mode": "governance-decision-before-execution",
+  "purpose": "Evaluate execution intents against governance, policies, capability registry, risk, audit, domain contracts, and runtime rules before allowing execution.",
+  "decisionFlow": [
+    "intent_validation",
+    "domain_validation",
+    "policy_validation",
+    "capability_validation",
+    "risk_validation",
+    "audit_validation",
+    "token_validation",
+    "runtime_validation",
+    "decision"
+  ],
+  "decisions": [
+    "ALLOW",
+    "DENY",
+    "ESCALATE",
+    "REVIEW_REQUIRED",
+    "SPECIALIST_REQUIRED"
+  ],
+  "rules": {
+    "deny_if_policy_missing": true,
+    "deny_if_capability_missing": true,
+    "deny_if_risk_unknown": true,
+    "deny_if_audit_missing": true,
+    "escalate_high_risk_operations": true,
+    "human_approval_when_required": true,
+    "specialist_review_when_required": true
+  }
+}

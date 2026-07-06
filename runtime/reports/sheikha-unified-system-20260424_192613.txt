@@ -1,0 +1,83 @@
+============================================================
+SHEIKHA UNIFIED SYSTEM ACTIVATION
+============================================================
+timestamp=20260424_192613
+language_base=ar
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/sheikha-unified-system-20260424_192613.txt
+
+==> Global production stable activation
+============================================================
+SHEIKHA GLOBAL PRODUCTION BEST ACTIVATION
+============================================================
+timestamp=20260424_192613
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/global-production-best-20260424_192613.txt
+
+==> Ultimate stable core activation
+[OK] Ultimate stable core activation
+
+==> Safe local backup snapshot
+[OK] Safe local backup snapshot
+
+==> Alert channels self-test
+[OK] Alert channels self-test
+
+==> Nginx split install
+[WARN] Requires root on production host.
+[WARN] Run: sudo bash scripts/install-sheikha-nginx-split.sh
+
+==> GPU readiness gate
+[WARN] GPU readiness gate
+
+==> Final API health check
+[WARN] Final API health check
+[WARN] Global production stable activation
+
+==> UTF-8 background server start
+[WARN] UTF-8 background server start
+
+==> Unicode stack background start
+[WARN] Unicode stack background start
+
+==> Neural mesh background start
+[WARN] Neural mesh background start
+
+==> Governance UTF-8 compliance check
+node:fs:2397
+    return binding.writeFileUtf8(
+                   ^
+
+Error: ENOSPC: no space left on device, write
+    at Object.writeFileSync (node:fs:2397:20)
+    at main (/home/sheikha/Projects/sheikha/sheikha-main-portal/scripts/sheikha-governance-check.js:86:8)
+    at Object.<anonymous> (/home/sheikha/Projects/sheikha/sheikha-main-portal/scripts/sheikha-governance-check.js:98:1)
+    at Module._compile (node:internal/modules/cjs/loader:1811:14)
+    at Object..js (node:internal/modules/cjs/loader:1942:10)
+    at Module.load (node:internal/modules/cjs/loader:1532:32)
+    at Module._load (node:internal/modules/cjs/loader:1334:12)
+    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)
+    at Module.executeUserEntryPoint [as runMain] (node:internal/modules/run_main:154:5)
+    at node:internal/main/run_main_module:33:47 {
+  errno: -28,
+  code: 'ENOSPC',
+  syscall: 'write'
+}
+
+Node.js v25.6.1
+[WARN] Governance UTF-8 compliance check
+
+==> Architecture Mermaid generation
+Mermaid diagram generated successfully.
+Output: /home/sheikha/Projects/sheikha/sheikha-main-portal/docs/sheikha-architecture.generated.mmd
+[OK] Architecture Mermaid generation
+
+==> Unicode smart architecture map check
+[OK] Unicode smart architecture map check
+
+==> Unified API health check
+curl: (7) Failed to connect to 127.0.0.1 port 8080 after 0 ms: Connection refused
+[WARN] Unified API health check
+
+============================================================
+SHEIKHA UNIFIED SYSTEM ACTIVE
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/sheikha-unified-system-20260424_192613.txt
+============================================================

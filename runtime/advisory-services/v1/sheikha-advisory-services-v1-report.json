@@ -1,0 +1,38 @@
+{
+  "system": "SHEIKHA_ADVISORY_SERVICES_V1",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "ADVISORY_SERVICES_ACTIVE_100",
+  "checks": {
+    "engine": true,
+    "catalog": true,
+    "workflow": true,
+    "outputs": true,
+    "pricing": true,
+    "gapClosure": true,
+    "resourceSources": true,
+    "customerIntelligence": true,
+    "customerRevenue": true,
+    "visualChain": true,
+    "portalV2": true,
+    "html": true,
+    "css": true,
+    "driftDetector": true
+  },
+  "missing": [],
+  "cycle": [
+    "CLIENT_REGISTRATION",
+    "CLASSIFICATION",
+    "ASSESSMENT",
+    "GAP_ANALYSIS",
+    "RESOURCE_ANALYSIS",
+    "RECOMMENDATIONS",
+    "REPORT",
+    "ROADMAP",
+    "KPIS",
+    "CONTRACT",
+    "FOLLOW_UP",
+    "IMPACT"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

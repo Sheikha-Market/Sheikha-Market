@@ -1,0 +1,48 @@
+============================================================
+SHEIKHA UNIFIED SYSTEM ACTIVATION
+============================================================
+timestamp=20260425_135243
+language_base=ar
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/sheikha-unified-system-20260425_135243.txt
+
+==> Global production stable activation
+============================================================
+SHEIKHA GLOBAL PRODUCTION BEST ACTIVATION
+============================================================
+timestamp=20260425_135243
+report=/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/reports/global-production-best-20260425_135243.txt
+
+==> Ultimate stable core activation
+[OK] Ultimate stable core activation
+
+==> Safe local backup snapshot
+[OK] Safe local backup snapshot
+
+==> Alert channels self-test
+[OK] Alert channels self-test
+
+==> Nginx split install
+[WARN] Requires root on production host.
+[WARN] Run: sudo bash scripts/install-sheikha-nginx-split.sh
+
+==> GPU readiness gate
+[WARN] GPU readiness gate
+
+==> Final API health check
+[WARN] Final API health check
+[WARN] Global production stable activation
+
+==> UTF-8 background server start
+nvm is not compatible with the "npm_config_prefix" environment variable: currently set to "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1"
+Run `unset npm_config_prefix` to unset it.
+[32m[PM2] [39mStarting /home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/scripts/vs-background-server.js in fork_mode (1 instance)
+[32m[PM2] [39mDone.
+┌────┬────────────────────────┬─────────────┬─────────┬─────────┬──────────┬────────┬──────┬───────────┬──────────┬──────────┬──────────┬──────────┐
+│ id │ name                   │ namespace   │ version │ mode    │ pid      │ uptime │ ↺    │ status    │ cpu      │ mem      │ user     │ watching │
+├────┼────────────────────────┼─────────────┼─────────┼─────────┼──────────┼────────┼──────┼───────────┼──────────┼──────────┼──────────┼──────────┤
+│ [1m[36m13[39m[22m │ sheikha-ai-guard       │ default     │ 0.39.6  │ [7m[1mfork[22m[27m    │ 80329    │ 2m     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 64.8mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m18[39m[22m │ sheikha-api            │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 15   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m12[39m[22m │ sheikha-bg-guard       │ default     │ 0.39.6  │ [7m[1mfork[22m[27m    │ 77346    │ 2m     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 65.5mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m11[39m[22m │ sheikha-ip-proof       │ default     │ 0.39.6  │ [7m[1mfork[22m[27m    │ 75896    │ 2m     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 66.1mb   │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m19[39m[22m │ sheikha-market-3030    │ default     │ 1.0.0   │ [7m[1mfork[22m[27m    │ 0        │ 0      │ 15   │ [31m[1merrored[22m[39m   │ 0%       │ 0b       │ [1msheikha[22m  │ [90mdisabled[39m │
+│ [1m[36m20[39m[22m │ sheikha-utf8-server    │ default     │ 1.0.1   │ [7m[1mfork[22m[27m    │ 102431   │ 0s     │ 0    │ [32m[1monline[22m[39m    │ 0%       │ 14.9

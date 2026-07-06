@@ -1,0 +1,29 @@
+{
+  "manifest": "SHEIKHA_GLOBAL_MANIFEST",
+  "status": "ACTIVE",
+  "canonicalRuntime": {
+    "authoritative": [
+      "core/",
+      "runtime/",
+      "routes/",
+      "registry/",
+      "governance/",
+      "verification/",
+      "optimization/"
+    ]
+  },
+  "separatedDomains": {
+    "experimental": "experimental/",
+    "research": "research/",
+    "neural": "neural/",
+    "extensions": "extensions/",
+    "bundles": "bundles/"
+  },
+  "policies": {
+    "noDuplicateRuntime": true,
+    "noRuntimeDrift": true,
+    "verifyBeforeMerge": true,
+    "verifyBeforeDeploy": true,
+    "governanceRequired": true
+  }
+}

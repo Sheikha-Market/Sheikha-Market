@@ -1,0 +1,948 @@
+{
+  "system": "SHEIKHA_META_FEDERATION_ORCHESTRATOR_V6",
+  "status": "COMMITTED",
+  "mode": "GOVERNED_META_FEDERATION_ORCHESTRATION",
+  "writeScope": "SHEIKHA_INTERNAL_REGISTRY_GRAPH_EVENTS_ONLY",
+  "engines": [
+    {
+      "id": "federation-core",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "registry-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "expansion-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "relationship-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "capability-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "compatibility-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "marketplace-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "governance-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "inspector-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "observability-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "event-engine",
+      "status": "LINKED",
+      "governed": true
+    },
+    {
+      "id": "lifecycle-engine",
+      "status": "LINKED",
+      "governed": true
+    }
+  ],
+  "result": {
+    "system": "SHEIKHA_UNIVERSAL_FEDERATION_ENGINE_V5",
+    "status": "COMMITTED",
+    "mode": "GOVERNED_UNIVERSAL_FEDERATION_ORCHESTRATION",
+    "writeScope": "SHEIKHA_INTERNAL_REGISTRY_GRAPH_EVENTS_ONLY",
+    "lifecycle": {
+      "system": "SHEIKHA_FEDERATION_LIFECYCLE_V5",
+      "current": "OBSERVED",
+      "states": [
+        "DRAFT",
+        "VALIDATED",
+        "BLUEPRINT_GENERATED",
+        "CAPABILITY_GENERATED",
+        "GOVERNANCE_APPROVED",
+        "PUBLISHED",
+        "INSTALLED",
+        "OBSERVED",
+        "ARCHIVED"
+      ],
+      "allowed": true
+    },
+    "expansion": {
+      "system": "SHEIKHA_FEDERATION_EXPANSION_ENGINE_V4",
+      "status": "COMMITTED",
+      "mode": "GOVERNED_DNA_BLUEPRINT_MARKETPLACE_EXPANSION",
+      "writeScope": "SHEIKHA_INTERNAL_REGISTRY_AND_GRAPH_ONLY",
+      "governance": {
+        "status": "PASSED",
+        "reason": "GOVERNED_INTERNAL_EXPANSION_ALLOWED",
+        "allowed": true
+      },
+      "governanceLevels": {
+        "LEVEL_1_READ_ONLY": "READ_ONLY",
+        "LEVEL_2_INTERNAL_WRITE": "GOVERNED_INTERNAL_WRITE",
+        "LEVEL_3_HUMAN_APPROVED_EXPANSION": "HUMAN_APPROVED_INTERNAL_EXPANSION",
+        "LEVEL_4_EXTERNAL_CHANGE": "EXTERNAL_CHANGE_EXPLICIT_APPROVAL_REQUIRED"
+      },
+      "dna": {
+        "id": null,
+        "name": "POSTGRESQL Federation",
+        "type": "DATABASE",
+        "familyName": "PostgreSQL Family",
+        "blueprint": "DATABASE",
+        "clusters": [
+          "storage",
+          "query-engine",
+          "transactions",
+          "replication",
+          "backup",
+          "security",
+          "drivers"
+        ],
+        "capabilities": [
+          "sql-query",
+          "storage",
+          "backup",
+          "replication",
+          "audit"
+        ],
+        "services": [],
+        "apis": [],
+        "sdks": [],
+        "runtimes": [],
+        "governanceLevel": "GOVERNED_INTERNAL_WRITE",
+        "policies": {},
+        "metadata": {},
+        "version": "1.0.0"
+      },
+      "relationshipRegistry": [
+        "BELONGS_TO",
+        "DEPENDS_ON",
+        "IMPLEMENTS",
+        "EXTENDS",
+        "PROVIDES",
+        "CONSUMES",
+        "HOSTS",
+        "EXECUTES",
+        "SUPERVISES",
+        "AUDITS",
+        "GOVERNS",
+        "OBSERVES",
+        "CONNECTS_TO",
+        "DISCOVERS",
+        "GENERATES",
+        "REPORTS_TO",
+        "PUBLISHES",
+        "SUBSCRIBES",
+        "SCALES_WITH",
+        "FEDERATES_WITH",
+        "COMPATIBLE_WITH",
+        "REQUIRES",
+        "OPTIONAL_WITH",
+        "ISOLATED_FROM",
+        "VALIDATES"
+      ],
+      "expansion": {
+        "system": "SHEIKHA_GOVERNED_WRITE_EXPANSION_FABRIC_V3",
+        "status": "COMMITTED",
+        "mode": "GOVERNED_READ_WRITE_FULL_BLUEPRINT_EXPANSION",
+        "writeScope": "SHEIKHA_INTERNAL_REGISTRY_AND_GRAPH_ONLY",
+        "safety": {
+          "noKernelModification": true,
+          "noBootModification": true,
+          "noFirmwareModification": true,
+          "noRegistryModificationOutsideSheikha": true,
+          "noSysctlModification": true,
+          "noPackageInstall": true,
+          "noServiceRestart": true,
+          "noExternalMutation": true,
+          "noHarm": true,
+          "humanReviewRequiredForHighImpactAction": true
+        },
+        "policy": {
+          "system": "SHEIKHA_GOVERNED_WRITE_POLICY_V2",
+          "status": "PASSED",
+          "passed": true,
+          "risks": [],
+          "noHarm": true,
+          "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY"
+        },
+        "relationshipRegistry": [
+          "BELONGS_TO",
+          "DEPENDS_ON",
+          "IMPLEMENTS",
+          "EXTENDS",
+          "PROVIDES",
+          "CONSUMES",
+          "HOSTS",
+          "EXECUTES",
+          "SUPERVISES",
+          "AUDITS",
+          "GOVERNS",
+          "OBSERVES",
+          "CONNECTS_TO",
+          "DISCOVERS",
+          "GENERATES",
+          "REPORTS_TO",
+          "PUBLISHES",
+          "SUBSCRIBES",
+          "SCALES_WITH",
+          "FEDERATES_WITH",
+          "COMPATIBLE_WITH",
+          "REQUIRES",
+          "OPTIONAL_WITH",
+          "ISOLATED_FROM",
+          "VALIDATES"
+        ],
+        "blueprint": {
+          "type": "DATABASE",
+          "version": "1.0.0",
+          "fabrics": [
+            "storage",
+            "query",
+            "driver",
+            "api",
+            "sdk",
+            "backup",
+            "governance",
+            "inspector",
+            "observability"
+          ],
+          "clusters": [
+            "storage",
+            "replication",
+            "transactions",
+            "query-engine",
+            "optimizer",
+            "backup",
+            "security",
+            "drivers"
+          ]
+        },
+        "baseExpansion": {
+          "system": "SHEIKHA_GOVERNED_WRITE_EXPANSION_FABRIC_V2",
+          "status": "COMMITTED",
+          "mode": "GOVERNED_READ_WRITE",
+          "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY",
+          "safety": {
+            "noKernelModification": true,
+            "noBootModification": true,
+            "noFirmwareModification": true,
+            "noRegistryModificationOutsideSheikha": true,
+            "noSysctlModification": true,
+            "noPackageInstall": true,
+            "noServiceRestart": true,
+            "noExternalMutation": true,
+            "noHarm": true,
+            "humanReviewRequiredForHighImpactAction": true
+          },
+          "stages": [
+            "READ",
+            "VALIDATE",
+            "POLICY_EVALUATION",
+            "RISK_CHECK",
+            "INSPECTOR_REVIEW",
+            "APPROVAL_GATE",
+            "REGISTRY_WRITE",
+            "GRAPH_UPDATE",
+            "AUDIT_RECORD",
+            "EVENT_PUBLISH"
+          ],
+          "policy": {
+            "system": "SHEIKHA_GOVERNED_WRITE_POLICY_V2",
+            "status": "PASSED",
+            "passed": true,
+            "risks": [],
+            "noHarm": true,
+            "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY"
+          },
+          "blueprint": {
+            "familyClusters": [
+              "storage",
+              "replication",
+              "transactions",
+              "query-engine",
+              "optimizer",
+              "backup",
+              "monitoring",
+              "security",
+              "drivers"
+            ],
+            "capabilities": [
+              "data-storage",
+              "query",
+              "backup",
+              "governance-audit"
+            ]
+          },
+          "family": {
+            "id": "family-6ea1c70535837b2b",
+            "type": "FEDERATION_FAMILY",
+            "name": "PostgreSQL Family",
+            "parent": "federation-of-federations",
+            "clusters": [
+              "storage",
+              "replication",
+              "transactions",
+              "query-engine",
+              "optimizer",
+              "backup",
+              "monitoring",
+              "security",
+              "drivers"
+            ],
+            "governance": {
+              "noHarm": true,
+              "humanReviewRequired": true,
+              "productionClaim": false
+            },
+            "createdAt": "2026-07-04T01:41:10.585Z",
+            "updatedAt": "2026-07-04T01:41:10.585Z"
+          },
+          "federation": {
+            "id": "fed-a22b95294569f3e0",
+            "type": "DATABASE",
+            "name": "POSTGRESQL Federation",
+            "family": "family-6ea1c70535837b2b",
+            "status": "REGISTERED",
+            "mode": "READ_ONLY_REGISTRY",
+            "clusters": [
+              "storage",
+              "query-engine",
+              "transactions",
+              "replication",
+              "backup",
+              "security",
+              "drivers"
+            ],
+            "capabilities": [
+              "sql-query",
+              "storage",
+              "backup",
+              "replication",
+              "audit"
+            ],
+            "metadata": {},
+            "governance": {
+              "noHarm": true,
+              "humanReviewRequired": true,
+              "autoLinked": true,
+              "productionClaim": false
+            },
+            "createdAt": "2026-07-04T01:41:10.585Z",
+            "updatedAt": "2026-07-04T01:41:10.585Z",
+            "relations": [
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "family-6ea1c70535837b2b",
+                "type": "BELONGS_TO_FAMILY"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "governance-federation",
+                "type": "GOVERNED_BY"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "capability-fabric",
+                "type": "DECLARES_CAPABILITIES"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "observability-fabric",
+                "type": "OBSERVED_BY"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "enterprise-federation",
+                "type": "AVAILABLE_TO_ENTERPRISE"
+              }
+            ],
+            "audit": [
+              {
+                "action": "FEDERATION_REGISTERED",
+                "at": "2026-07-04T01:41:10.585Z",
+                "actor": "activation-script",
+                "reason": "Install POSTGRESQL federation package"
+              }
+            ]
+          },
+          "graph": {
+            "system": "SHEIKHA_DYNAMIC_FEDERATION_REGISTRY_GRAPH_V1",
+            "status": "ACTIVE",
+            "mode": "READ_ONLY_DYNAMIC_REGISTRY_GRAPH",
+            "nodes": [
+              {
+                "id": "family-6ea1c70535837b2b",
+                "label": "PostgreSQL Family",
+                "type": "FEDERATION_FAMILY",
+                "family": "federation-of-federations"
+              },
+              {
+                "id": "fed-a22b95294569f3e0",
+                "label": "POSTGRESQL Federation",
+                "type": "DATABASE",
+                "family": "family-6ea1c70535837b2b"
+              }
+            ],
+            "edges": [
+              {
+                "from": "family-6ea1c70535837b2b",
+                "to": "federation-of-federations",
+                "type": "BELONGS_TO_PARENT"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "family-6ea1c70535837b2b",
+                "type": "BELONGS_TO_FAMILY"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "governance-federation",
+                "type": "GOVERNED_BY"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "capability-fabric",
+                "type": "DECLARES_CAPABILITIES"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "observability-fabric",
+                "type": "OBSERVED_BY"
+              },
+              {
+                "from": "fed-a22b95294569f3e0",
+                "to": "enterprise-federation",
+                "type": "AVAILABLE_TO_ENTERPRISE"
+              }
+            ],
+            "summary": {
+              "federations": 2,
+              "relations": 6
+            }
+          },
+          "audit": {
+            "action": "GOVERNED_FEDERATION_EXPANSION_COMMITTED",
+            "actor": "activation-script",
+            "at": "2026-07-04T01:41:10.585Z"
+          }
+        },
+        "generated": {
+          "fabrics": [
+            {
+              "id": "fed-a22b95294569f3e0:storage-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "storage",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:query-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "query",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:driver-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "driver",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:api-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "api",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:sdk-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "sdk",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:backup-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "backup",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:governance-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "governance",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:inspector-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "inspector",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:observability-fabric",
+              "type": "GENERATED_FABRIC",
+              "fabric": "observability",
+              "blueprintVersion": "1.0.0"
+            }
+          ],
+          "clusters": [
+            {
+              "id": "fed-a22b95294569f3e0:storage-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "storage",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:replication-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "replication",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:transactions-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "transactions",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:query-engine-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "query-engine",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:optimizer-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "optimizer",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:backup-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "backup",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:security-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "security",
+              "blueprintVersion": "1.0.0"
+            },
+            {
+              "id": "fed-a22b95294569f3e0:drivers-cluster",
+              "type": "GENERATED_CLUSTER",
+              "cluster": "drivers",
+              "blueprintVersion": "1.0.0"
+            }
+          ],
+          "relations": [
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:storage-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:storage-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:query-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:query-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:driver-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:driver-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:api-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:api-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:sdk-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:sdk-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:backup-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:backup-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:governance-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:governance-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:inspector-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:inspector-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:observability-fabric",
+              "type": "GENERATES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:observability-fabric",
+              "to": "governance-federation",
+              "type": "GOVERNED_BY"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:storage-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:storage-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:replication-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:replication-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:transactions-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:transactions-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:query-engine-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:query-engine-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:optimizer-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:optimizer-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:backup-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:backup-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:security-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:security-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0",
+              "to": "fed-a22b95294569f3e0:drivers-cluster",
+              "type": "PROVIDES"
+            },
+            {
+              "from": "fed-a22b95294569f3e0:drivers-cluster",
+              "to": "inspector-federation",
+              "type": "OBSERVES"
+            }
+          ]
+        },
+        "audit": {
+          "action": "GOVERNED_FULL_BLUEPRINT_EXPANSION_COMMITTED",
+          "actor": "activation-script",
+          "at": "2026-07-04T01:41:10.585Z"
+        }
+      },
+      "marketplace": {
+        "installed": false,
+        "packageName": null
+      },
+      "safety": {
+        "noKernelModification": true,
+        "noBootModification": true,
+        "noFirmwareModification": true,
+        "noExternalMutation": true,
+        "noPackageInstall": true,
+        "noServiceRestart": true,
+        "noHarm": true
+      }
+    },
+    "capabilityGraph": {
+      "system": "SHEIKHA_CAPABILITY_GRAPH_V1",
+      "status": "ACTIVE",
+      "mode": "GOVERNED_INTERNAL_CAPABILITY_MAPPING",
+      "nodes": [
+        {
+          "id": "fed-a22b95294569f3e0",
+          "type": "FEDERATION",
+          "label": "POSTGRESQL Federation"
+        },
+        {
+          "id": "sql-query",
+          "type": "CAPABILITY",
+          "reusable": false
+        },
+        {
+          "id": "storage",
+          "type": "CAPABILITY",
+          "reusable": true
+        },
+        {
+          "id": "backup",
+          "type": "CAPABILITY",
+          "reusable": true
+        },
+        {
+          "id": "replication",
+          "type": "CAPABILITY",
+          "reusable": false
+        },
+        {
+          "id": "audit",
+          "type": "CAPABILITY",
+          "reusable": false
+        }
+      ],
+      "edges": [
+        {
+          "from": "fed-a22b95294569f3e0",
+          "to": "sql-query",
+          "type": "PROVIDES"
+        },
+        {
+          "from": "fed-a22b95294569f3e0",
+          "to": "storage",
+          "type": "PROVIDES"
+        },
+        {
+          "from": "fed-a22b95294569f3e0",
+          "to": "backup",
+          "type": "PROVIDES"
+        },
+        {
+          "from": "fed-a22b95294569f3e0",
+          "to": "replication",
+          "type": "PROVIDES"
+        },
+        {
+          "from": "fed-a22b95294569f3e0",
+          "to": "audit",
+          "type": "PROVIDES"
+        }
+      ],
+      "summary": {
+        "capabilities": 5,
+        "reusable": 2
+      }
+    },
+    "compatibility": {
+      "system": "SHEIKHA_COMPATIBILITY_MATRIX_V1",
+      "status": "COMPATIBLE",
+      "compatible": true,
+      "relation": {
+        "from": "postgresql-federation",
+        "to": "linux-family",
+        "type": "RUNS_ON",
+        "confidence": 0.95
+      },
+      "safety": {
+        "advisoryOnly": true,
+        "noExternalMutation": true,
+        "noHarm": true
+      }
+    },
+    "dependencyResolution": {
+      "system": "SHEIKHA_FEDERATION_DEPENDENCY_RESOLVER_V5",
+      "status": "PARTIAL",
+      "dependencies": [
+        {
+          "capability": "sql-query",
+          "required": true,
+          "registered": false
+        },
+        {
+          "capability": "storage",
+          "required": true,
+          "registered": true
+        },
+        {
+          "capability": "backup",
+          "required": true,
+          "registered": true
+        },
+        {
+          "capability": "replication",
+          "required": true,
+          "registered": false
+        },
+        {
+          "capability": "audit",
+          "required": true,
+          "registered": false
+        }
+      ]
+    },
+    "events": [
+      {
+        "type": "FEDERATION_CREATED",
+        "payload": {
+          "name": "POSTGRESQL Federation"
+        },
+        "at": "2026-07-04T01:41:10.585Z",
+        "governed": true,
+        "noHarm": true
+      },
+      {
+        "type": "BLUEPRINT_CREATED",
+        "payload": {
+          "type": "DATABASE"
+        },
+        "at": "2026-07-04T01:41:10.585Z",
+        "governed": true,
+        "noHarm": true
+      },
+      {
+        "type": "CAPABILITY_REGISTERED",
+        "payload": {
+          "count": 5
+        },
+        "at": "2026-07-04T01:41:10.585Z",
+        "governed": true,
+        "noHarm": true
+      },
+      {
+        "type": "GOVERNANCE_APPROVED",
+        "payload": {
+          "level": "GOVERNED_INTERNAL_WRITE"
+        },
+        "at": "2026-07-04T01:41:10.585Z",
+        "governed": true,
+        "noHarm": true
+      },
+      {
+        "type": "FEDERATION_OBSERVED",
+        "payload": {
+          "advisoryOnly": true
+        },
+        "at": "2026-07-04T01:41:10.585Z",
+        "governed": true,
+        "noHarm": true
+      }
+    ],
+    "registries": {
+      "federation": true,
+      "family": true,
+      "blueprint": true,
+      "capability": true,
+      "compatibility": true,
+      "governance": true,
+      "inspector": true,
+      "marketplace": true,
+      "observability": true
+    },
+    "safety": {
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noFirmwareModification": true,
+      "noExternalMutation": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noHarm": true
+    }
+  },
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noFirmwareModification": true,
+    "noExternalMutation": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noHarm": true,
+    "humanReviewForHighImpact": true
+  },
+  "closure": {
+    "unifiedOrchestration": true,
+    "pluginModelReady": true,
+    "blueprintDriven": true,
+    "governedReadWrite": true
+  }
+}

@@ -35,7 +35,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -118,7 +118,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,175,55,0.08) 0%, transparent 50%);
             pointer-events: none;
         }
@@ -794,10 +794,10 @@
         function toggleFaq(btn) {
             const item = btn.closest('.faq-item');
             const wasOpen = item.classList.contains('open');
-            
+
             // Close all
             document.querySelectorAll('.faq-item').forEach(i => i.classList.remove('open'));
-            
+
             // Open clicked if it was closed
             if (!wasOpen) {
                 item.classList.add('open');
@@ -809,7 +809,7 @@
             const qty = parseFloat(document.getElementById('calcQuantity').value) || 0;
             const buyPrice = parseFloat(document.getElementById('calcBuyPrice').value) || 0;
             const sellPrice = parseFloat(document.getElementById('calcSellPrice').value) || 0;
-            
+
             const profit = (sellPrice - buyPrice) * qty;
             document.getElementById('calcProfit').textContent = profit.toLocaleString('ar-SA');
         }

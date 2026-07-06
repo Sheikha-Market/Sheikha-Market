@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
+const OLLAMA_BASE_URL = 'http://127.0.0.1:11434';
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -55,7 +56,7 @@ let agentOrchestrator = null;
 let productionMonitor = null;
 let islamicGuardrails = null;
 const ollamaOrchestrator = new SheikhaOllamaOrchestrator({
-    ollamaHost: config.ai?.ollama?.host
+    ollamaHost: OLLAMA_BASE_URL
 });
 if (config.ai?.ollama?.enabled && config.ai?.ollama?.autoUpdate) {
     ollamaOrchestrator.startAutoSync();
@@ -134,7 +135,7 @@ router.get('/status', (req, res) => {
         engines: {
             ollama: {
                 enabled: !!config.ai?.ollama?.enabled,
-                host: config.ai?.ollama?.host,
+                host: OLLAMA_BASE_URL,
                 profile: config.ai?.ollama?.profile,
                 autoUpdate: !!config.ai?.ollama?.autoUpdate,
                 bestModel: ollamaRec.bestModel
@@ -364,7 +365,7 @@ function defaultModelRegistry() {
                 model: config.ai?.ollama?.defaultModel || 'qwen2.5-coder:14b',
                 llmLanguage: 'ar',
                 devLanguage: 'javascript',
-                baseUrl: config.ai?.ollama?.host || 'http://127.0.0.1:11434',
+                baseUrl: OLLAMA_BASE_URL,
                 apiKeyEnv: '',
                 active: !!config.ai?.ollama?.enabled,
                 autoUpgrade: false,
@@ -534,8 +535,6 @@ router.post('/model-integrations/auto-refresh', (req, res) => {
 // ─── محادثة ذكية ──────────────────────────────────────────────────────────────
 
 router.post('/chat', async (req, res) => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     const {
         message,
         context,
@@ -546,12 +545,6 @@ router.post('/chat', async (req, res) => {
         responseLanguage = 'ar',
         translateTo = []
     } = req.body;
-=======
-    const { message, context, model = 'auto', conversationId, enableThinking = false, useRAG = true } = req.body;
->>>>>>> Stashed changes
-=======
-    const { message, context, model = 'auto', conversationId, enableThinking = false, useRAG = true } = req.body;
->>>>>>> Stashed changes
     const startMs = Date.now();
 
     if (!message) {
@@ -707,8 +700,6 @@ router.post('/chat', async (req, res) => {
         const latency = Date.now() - startMs;
         if (productionMonitor) productionMonitor.recordRequest(true, latency);
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         const normalizedResponseLanguage = normalizeHumanLanguageCode(responseLanguage);
         const localizedResponse = await translateText(response, normalizedResponseLanguage);
         const translationTargets = Array.isArray(translateTo) ? translateTo : [];
@@ -717,30 +708,14 @@ router.post('/chat', async (req, res) => {
         const result = {
             success: true,
             response: localizedResponse,
-=======
-        const result = {
-            success: true,
-            response,
->>>>>>> Stashed changes
-=======
-        const result = {
-            success: true,
-            response,
->>>>>>> Stashed changes
             provider,
             taskType,
             sensitivity,
             modelPipeline,
             pipeline: ragContext ? 'rag-augmented' : 'direct',
             quality: quality ? { grade: quality.grade, score: Math.round(quality.scores.overall * 100) } : null,
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
             responseLanguage: normalizedResponseLanguage,
             translations,
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
             timestamp: new Date().toISOString()
         };
 
@@ -818,15 +793,7 @@ router.post('/chat/compact', async (req, res) => {
     try {
         // ضغط السياق باستخدام Claude Opus 4.6
         const compacted = await compactContext(messages);
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-=======
-        
->>>>>>> Stashed changes
-=======
-        
->>>>>>> Stashed changes
         // تخزين السياق المضغوط
         conversationContexts.set(conversationId, {
             summary: compacted,
@@ -962,8 +929,6 @@ router.post('/development/analyze', async (req, res) => {
 // ─── تطوير - توليد كود ────────────────────────────────────────────────────────
 
 router.post('/development/generate', async (req, res) => {
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
     const {
         description,
         type = 'function',
@@ -971,12 +936,6 @@ router.post('/development/generate', async (req, res) => {
         responseLanguage = 'ar',
         translateTo = []
     } = req.body;
-=======
-    const { description, type = 'function', language = 'javascript' } = req.body;
->>>>>>> Stashed changes
-=======
-    const { description, type = 'function', language = 'javascript' } = req.body;
->>>>>>> Stashed changes
 
     if (!description) {
         return res.status(400).json({
@@ -997,31 +956,18 @@ router.post('/development/generate', async (req, res) => {
             provider = 'local';
         }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
         const normalizedResponseLanguage = normalizeHumanLanguageCode(responseLanguage);
         const baseMessageAr = 'تم توليد الكود بنجاح';
         const localizedMessage = await translateText(baseMessageAr, normalizedResponseLanguage);
         const translations = await buildTranslations(baseMessageAr, Array.isArray(translateTo) ? translateTo : [], normalizedResponseLanguage);
 
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         res.json({
             success: true,
             code,
-            provider
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-            ,
+            provider,
             responseLanguage: normalizedResponseLanguage,
             message: localizedMessage,
             translations
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
         });
 
     } catch (error) {
@@ -1248,7 +1194,7 @@ async function callOllama(message, context, taskType, sensitivity) {
     const ctrl = new AbortController();
     const timer = setTimeout(() => ctrl.abort(), timeoutMs);
     try {
-        const response = await fetch(`${config.ai?.ollama?.host || 'http://127.0.0.1:11434'}/api/chat`, {
+        const response = await fetch(`${OLLAMA_BASE_URL}/api/chat`, {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
             body: JSON.stringify({
@@ -1286,15 +1232,7 @@ async function callClaudeOpus46(message, context, conversationId, enableThinking
 
     // بناء الرسائل مع دعم السياق المضغوط
     const messages = [];
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-=======
-    
->>>>>>> Stashed changes
-=======
-    
->>>>>>> Stashed changes
     // إضافة السياق المضغوط إذا وُجد
     if (conversationId && conversationContexts.has(conversationId)) {
         const ctx = conversationContexts.get(conversationId);
@@ -1456,15 +1394,7 @@ async function compactContext(messages) {
             console.warn('Context compaction error:', e.message);
         }
     }
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-=======
-    
->>>>>>> Stashed changes
-=======
-    
->>>>>>> Stashed changes
     // ضغط محلي بسيط
     return messages.map(m => `${m.role}: ${m.content?.substring(0, 100)}`).join('\n');
 }
@@ -1493,15 +1423,7 @@ function detectTaskType(message) {
  */
 function getPreferredModel(taskType) {
     const routing = config.ai.routing;
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 
-=======
-    
->>>>>>> Stashed changes
-=======
-    
->>>>>>> Stashed changes
     switch (taskType) {
         case 'development':
         case 'coding':
@@ -1621,8 +1543,6 @@ function basicCodeAnalysis(code, language) {
     };
 }
 
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
 const HUMAN_LANGUAGE_LABELS = {
     ar: 'العربية',
     en: 'English',
@@ -1737,24 +1657,6 @@ function generateBasicCode(description, type, language) {
     }
 
     return `// ${safeDescription}\n// قالب مبدئي قابل للتوسعة\nfunction ${fnName}(input) {\n    return { success: true, message: '${safeDescription}', input };\n}`;
-=======
-=======
->>>>>>> Stashed changes
-function generateBasicCode(description, type, language) {
-    if (type === 'function' && language === 'javascript') {
-        return `/**
- * ${description}
- */
-function myFunction() {
-    // TODO: تنفيذ الوظيفة
-    console.log('${description}');
-}`;
-    }
-    return `// ${description}\n// TODO: تنفيذ الكود`;
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 }
 
 async function analyzeCodeWithClaude(code, language) {

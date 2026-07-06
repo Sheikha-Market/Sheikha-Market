@@ -4072,8 +4072,8 @@ ${avgScore >= 90 ? '✓ مستوى الجودة: ممتاز - الحفاظ عل�
             }).length;
 
             // حساب نسبة الدقة بناءً على عدد الأجهزة النشطة
-            const accuracy = iotDevices.length > 0 
-                ? Math.round((activeDevices / iotDevices.length) * 100) 
+            const accuracy = iotDevices.length > 0
+                ? Math.round((activeDevices / iotDevices.length) * 100)
                 : 100;
 
             const activeEl = document.getElementById('iotKpiActive');
@@ -4167,7 +4167,7 @@ ${avgScore >= 90 ? '✓ مستوى الجودة: ممتاز - الحفاظ عل�
 
             iotReadingCounter++;
 
-            const timestamp = timeInput && timeInput.value 
+            const timestamp = timeInput && timeInput.value
                 ? new Date(timeInput.value).toLocaleString('ar-SA')
                 : new Date().toLocaleString('ar-SA');
 
@@ -4579,8 +4579,8 @@ ${activeDevices === totalDevices ? '✓ حالة المنظومة: ممتاز - 
                         <div class="package-id">PKG-${String(pkg.id).padStart(4, '0')}</div>
                     </div>
                     <div style="color: var(--text-secondary); margin-bottom: 0.5rem;">
-                        <i class="fas fa-building"></i> ${pkg.entity} | 
-                        <i class="fas fa-calendar"></i> ${pkg.createdAt} | 
+                        <i class="fas fa-building"></i> ${pkg.entity} |
+                        <i class="fas fa-calendar"></i> ${pkg.createdAt} |
                         <i class="fas fa-file"></i> ${pkg.documents.length} وثيقة
                     </div>
                     <div class="package-docs-grid">
@@ -4796,7 +4796,7 @@ ${activeDevices === totalDevices ? '✓ حالة المنظومة: ممتاز - 
                 option.addEventListener('click', function() {
                     const channel = this.getAttribute('data-channel');
                     this.classList.toggle('selected');
-                    
+
                     if (this.classList.contains('selected')) {
                         if (!selectedChannels.includes(channel)) {
                             selectedChannels.push(channel);
@@ -4959,7 +4959,7 @@ ${activeDevices === totalDevices ? '✓ حالة المنظومة: ممتاز - 
                 supplier.avgScore = supplierEvaluations
                     .filter(e => e.supplierId === supplierId)
                     .reduce((sum, e) => sum + e.avgScore, 0) / supplier.evaluations;
-                
+
                 // Qualified if avg score >= 7
                 supplier.qualified = supplier.avgScore >= 7;
             }

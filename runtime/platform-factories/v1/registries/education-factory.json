@@ -1,0 +1,34 @@
+{
+  "factory": "EDUCATION_FACTORY",
+  "status": "ACTIVE",
+  "arabicName": "مصنع التعليم والتأهيل",
+  "mission": "Turn governed knowledge, products, customer roles, and lessons learned into training paths, learning materials, onboarding, and capability development.",
+  "inputs": [
+    "knowledge_registry",
+    "customer_classification",
+    "product_catalog",
+    "lessons_learned",
+    "operating_playbooks"
+  ],
+  "outputs": [
+    "learning_path",
+    "onboarding_track",
+    "training_module",
+    "operator_playbook",
+    "customer_enablement_guide",
+    "assessment_plan"
+  ],
+  "qualityGates": [
+    "role_alignment",
+    "content_review",
+    "learning_objective_defined",
+    "assessment_defined",
+    "no_accreditation_claim_without_approval"
+  ],
+  "metrics": [
+    "learning_paths",
+    "training_modules",
+    "assessments",
+    "role_coverage"
+  ]
+}

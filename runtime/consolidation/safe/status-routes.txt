@@ -1,0 +1,254 @@
+routes/neural.js:11: *  - GET  /api/neural/status        — حالة الشبكة العصبية
+routes/neural.js:17: *  - GET  /api/neural/fio/status    — حالة محرك FIO والشبكة
+routes/neural.js:76:// ─── GET /api/neural/status ──────────────────────────────────────────────────
+routes/neural.js:77:router.get('/status', (req, res) => {
+routes/neural.js:203:// ─── GET /api/neural/fio/status ──────────────────────────────────────────────
+routes/neural.js:204:router.get('/fio/status', (req, res) => {
+routes/live-ai.js:13: * ║  GET  /api/ai/live/status        — حالة الشبكة الكاملة                      ║
+routes/live-ai.js:15: * ║  GET  /api/ai/live/neural/status — حالة الشبكة العصبية                      ║
+routes/live-ai.js:66:                'GET  /api/ai/live/status        — حالة الشبكة',
+routes/live-ai.js:68:                'GET  /api/ai/live/neural/status — حالة الشبكة العصبية',
+routes/live-ai.js:80:// ─── GET /api/ai/live/status ─────────────────────────────────────────────────
+routes/live-ai.js:82:router.get('/status', async (req, res) => {
+routes/live-ai.js:91:// ─── GET /api/ai/live/neural/status ─────────────────────────────────────────
+routes/live-ai.js:93:router.get('/neural/status', async (req, res) => {
+routes/server-report-mesh.routes.js:7:router.get('/status', (_req, res) => {
+routes/tawheed-activation.js:16:// ─── GET /api/tawheed/status — حالة التفعيل ──────────────────────
+routes/tawheed-activation.js:17:router.get('/status', async (req, res) => {
+routes/storage/governor.js:10:router.get('/status', (_req, res) => {
+routes/kernel/provider-gateway.js:7:router.get('/status', (_req, res) => res.json(gateway.status()));
+routes/readiness/system-readiness.js:8:router.get('/status', (_req, res) => res.json(readiness.status()));
+routes/sre.js:14:// ─── GET /api/sre/status — ملخص شامل لحالة SRE ──────────────────────────────
+routes/sre.js:15:router.get('/status', (req, res) => {
+routes/memory/governor.js:7:router.get('/status', (_req, res) => res.json(memory.status()));
+routes/memory/runtime-memory.js:9:router.get('/status', (_req, res) => {
+routes/sheikha-vitality.js:96:router.get('/status', (req, res) => {
+routes/sheikha-vitality.js:318:router.get('/environment/status', (req, res) => {
+routes/data/pipeline.js:7:router.get('/status', (_req, res) => res.json(pipeline.status()));
+routes/sheikha-network.js:13: *   GET  /api/network/dbus/status          — حالة ناقل الرسائل
+routes/sheikha-network.js:21: *   GET  /api/network/dns/status           — حالة DNS
+routes/sheikha-network.js:30: *   GET  /api/network/waterline/status     — حالة طبقة الأمان
+routes/sheikha-network.js:42: *   GET  /api/network/neural/status        — حالة الشبكة العصبية
+routes/sheikha-network.js:88:/** GET /api/network/dbus/status */
+routes/sheikha-network.js:89:router.get('/dbus/status', (_req, res) => {
+routes/sheikha-network.js:144:/** GET /api/network/dns/status */
+routes/sheikha-network.js:145:router.get('/dns/status', (_req, res) => {
+routes/sheikha-network.js:208:/** GET /api/network/waterline/status */
+routes/sheikha-network.js:209:router.get('/waterline/status', (_req, res) => {
+routes/sheikha-network.js:299:/** GET /api/network/neural/status */
+routes/sheikha-network.js:300:router.get('/neural/status', (_req, res) => {
+routes/sheikha-network.js:415:                { path: '/api/network/dbus/status',          method: 'GET',    descAr: 'حالة ناقل الرسائل' },
+routes/sheikha-network.js:418:                { path: '/api/network/dns/status',           method: 'GET',    descAr: 'حالة DNS' },
+routes/sheikha-network.js:422:                { path: '/api/network/waterline/status',     method: 'GET',    descAr: 'حالة Waterline' },
+routes/sheikha-network.js:427:                { path: '/api/network/neural/status',        method: 'GET',    descAr: 'حالة الشبكة العصبية' },
+routes/ai.js:130:router.get('/status', (req, res) => {
+routes/ai.js:300:router.get('/model-router/status', (req, res) => {
+routes/telemetry/runtime-telemetry.js:9:router.get('/status', (_req, res) => {
+routes/scm.js:26: * GET /api/scm/status
+routes/scm.js:29:router.get('/status', (req, res) => {
+routes/scm.js:557: * PATCH /api/scm/orders/:orderId/status
+routes/scm.js:560:router.patch('/orders/:orderId/status', (req, res) => {
+routes/enterprise.js:27:router.get('/status',          (req, res) => res.json({ success:true, ...ent().getStatus() }));
+routes/enterprise.js:40:router.get('/security/status',           (req, res) => res.json({ success:true, ...sec().getStatus() }));
+routes/malahem.js:30:router.get('/status', (req, res) => {
+routes/sheikha-private-home.js:14: * ║  GET  /api/sheikha/private-home/status        — حالة الشبكة الخاصة          ║
+routes/sheikha-private-home.js:72:// GET /status — حالة الشبكة الخاصة
+routes/sheikha-private-home.js:74:router.get('/status', (req, res) => {
+routes/sheikha-private-home.js:318:            status:        'GET  /api/sheikha/private-home/status',
+routes/cli.js:12:// ─── GET /api/cli/status — حالة المنظومة ─────────────────────────────────────
+routes/cli.js:13:router.get('/status', (req, res) => {
+routes/supercompute/datacenter-supercompute.js:8:router.get('/status', (_req, res) => res.json(fabric.status()));
+routes/runtime/fabric.js:15:router.get('/status', (_req, res) => {
+routes/health/runtime-health.js:9:router.get('/status', (_req, res) => {
+routes/health/system-health.js:9:router.get('/status', (_req, res) => {
+routes/protocol-events.routes.js:8: *  GET  /api/protocol-events/status   — حالة البروتوكول
+routes/protocol-events.routes.js:41:// ─── GET /api/protocol-events/status ─────────────────────────────────────────
+routes/protocol-events.routes.js:42:router.get('/status', (_req, res) => {
+routes/vision-system-routes.js:425: * GET /api/vision/status
+routes/vision-system-routes.js:428:router.get('/status', (req, res) => {
+routes/national-visions-routes.js:35:// ─── GET /api/national-visions/status ──────────────────────────────────────
+routes/national-visions-routes.js:39:router.get('/status', (req, res) => {
+routes/akhira.js:12:router.get('/status', (req, res) => {
+routes/advisory-vision-routes.js:39:// ─── GET /api/advisory-vision/status ───────────────────────────────────────
+routes/advisory-vision-routes.js:43:router.get('/status', (req, res) => {
+routes/healing.js:21: * GET /api/healing/status
+routes/healing.js:24:router.get('/status', (req, res) => {
+routes/pixel-ecosystem.js:256:router.get('/status', (req, res) => {
+routes/root/systems/root-systems.js:9:router.get('/status', (_req, res) => res.json(systems.status()));
+routes/root/civilization/root-civilization-graph.js:9:router.get('/status', (_req, res) => res.json(graph.status()));
+routes/root/islamic-governance.js:9:router.get('/status', (_req, res) => {
+routes/root/supreme-islamic-governance.js:9:router.get('/status', (_req, res) => res.json(supreme.status()));
+routes/computer-vision-routes.js:41:// ─── GET /api/computer-vision/status ───────────────────────────────────────
+routes/computer-vision-routes.js:45:router.get('/status', (req, res) => {
+routes/comprehensive-admin-management-routes.js:404:router.get('/api/compliance/status', requireRole(['admin']), (req, res) => {
+routes/unified-operational-fabric.js:65:                '/api/operational-fabric/status',
+routes/unified-operational-fabric.js:77:router.get('/status', (_req, res) => {
+routes/chat-fabric/sheikha-chat-fabric-routes.js:11:router.get('/status', (_req, res) => {
+routes/geo-adaptive-neural.js:108:router.get('/status', async (req, res) => {
+routes/api-gateway.js:20:router.get('/status', (req, res) => {
+routes/api-gateway.js:41:router.get('/db/status', (req, res) => {
+routes/neural-erp-scm-admin.js:10: *  GET  /api/neural-admin/status             — حالة الشبكة الكاملة
+routes/neural-erp-scm-admin.js:83:// GET /status — حالة الشبكة الكاملة
+routes/neural-erp-scm-admin.js:86:router.get('/status', (req, res) => {
+routes/neural-erp-scm-admin.js:324:            'GET  /api/neural-admin/status':              'حالة الشبكة الكاملة',
+routes/integration-fabric/fabric.js:9:router.get('/status', (_req, res) => res.json(fabric.status()));
+routes/signals/runtime-signals.js:9:router.get('/status', (_req, res) => {
+routes/universal-sovereign.js:33: * GET /api/sovereign/status
+routes/universal-sovereign.js:36:router.get('/status', async (req, res) => {
+routes/sheikha-system-status.js:6:router.get('/system/status', (_req, res) => {
+routes/intelligence/orchestrator.js:9:router.get('/status', (_req, res) => {
+routes/git.js:30:// ─── GET /api/git/status — حالة Git الكاملة ──────────────────────────────────
+routes/git.js:31:router.get('/status', (req, res) => {
+routes/git.js:586:// ─── GET /api/git/integrations/status — طبقة التكامل العصبي فوق Git ─────────
+routes/git.js:587:router.get('/integrations/status', (_req, res) => {
+routes/sheikha-coding-language.routes.js:110:        endpoint: '/api/git/status',
+routes/sheikha-coding-language.routes.js:114:            return { message: 'استدع GET /api/git/status لحالة المستودع' };
+routes/alliance.js:36:router.get('/status',            (req, res) => res.json({ success:true, ...alliance().getStatus() }));
+routes/alliance.js:51:router.get('/network/status',     (req, res) => res.json({ success:true, ...network().getStatus() }));
+routes/systems-activation.js:36: * GET /api/systems/status
+routes/systems-activation.js:39:router.get('/status', (req, res) => {
+routes/systems-activation.js:353:        { method: 'GET', path: '/api/systems/status', description: 'حالة الأنظمة' },
+routes/fabric/unified-runtime-fabric.js:9:router.get('/status', (_req, res) => {
+routes/sdk.js:33:// ─── GET /api/sdk/status — حالة SDK ──────────────────────────────────────────
+routes/sdk.js:34:router.get('/status', (req, res) => {
+routes/offline-sync.js:4:// GET  /api/offline/status        — حالة الاتصال الكاملة
+routes/offline-sync.js:24:// ─── GET /api/offline/status ──────────────────────────────────────────────────
+routes/offline-sync.js:26:router.get('/status', (req, res) => {
+routes/bus/fabric.js:10:router.get('/status', (req, res) => {
+routes/bus/runtime-bus.js:9:router.get('/status', (_req, res) => {
+routes/synchronization/runtime-synchronization.js:9:router.get('/status', (_req, res) => {
+routes/home-network-integration.js:32:        alternative: 'للوصول للشبكة الخاصة: GET /api/sheikha/private-home/status (يتطلب X-Sheikha-Home-Key)',
+routes/scheduler/runtime-scheduler.js:9:router.get('/status', (_req, res) => res.json(scheduler.status()));
+routes/scheduler/execution-scheduler.js:9:router.get('/status', (_req, res) => res.json(scheduler.status()));
+routes/root-neural-network.routes.js:41:router.get('/status', async (req, res) => {
+routes/pixel-system.js:190:router.get('/status', async (req, res) => {
+routes/distributed/runtime-distributed-cluster.js:9:router.get('/status', (_req, res) => {
+routes/neural-blockchain.js:8: *  GET  /api/blockchain/status           — حالة السلسلة والشبكة
+routes/neural-blockchain.js:72:            'GET  /api/blockchain/status':              'حالة السلسلة والشبكة',
+routes/neural-blockchain.js:93:// GET /status — حالة السلسلة الكاملة
+routes/neural-blockchain.js:96:router.get('/status', (req, res) => {
+routes/motherboard/runtime-motherboard.js:8:router.get('/status', (_req, res) => res.json(motherboard.status()));
+routes/master-ncn.routes.js:8: *  GET  /api/master-ncn/status     — حالة الشبكة الكاملة
+routes/master-ncn.routes.js:45:// ─── GET /api/master-ncn/status ──────────────────────────────────────────────
+routes/master-ncn.routes.js:46:router.get('/status', (_req, res) => {
+routes/cloud-fabric.routes.js:5:router.get('/status', (_req, res) => {
+routes/digital-currency.js:16: *  GET  /api/shk/status                  — الحالة الكاملة للنظام
+routes/digital-currency.js:94:                'GET /api/shk/status':               'الحالة الكاملة',
+routes/digital-currency.js:131:// GET /status — الحالة الكاملة
+routes/digital-currency.js:134:router.get('/status', wrap((req, res) => {
+routes/orchestration/runtime-orchestrator.js:9:router.get('/status', (_req, res) => res.json(orchestrator.status()));
+routes/governance.routes.js:9: * GET  /api/governance/status   → حالة النظام الكاملة
+routes/governance.routes.js:37:// ── GET /api/governance/status ────────────────────────────────────────
+routes/governance.routes.js:38:router.get('/status', (req, res) => {
+routes/telecom.js:468:// GET /api/telecom/sheikha/unified/status — حالة الشبكة الموحدة
+routes/telecom.js:469:router.get('/sheikha/unified/status', (req, res) => {
+routes/resources/resource-governor.js:9:router.get('/status', (_req, res) => {
+routes/resources/runtime-resources.js:9:router.get('/status', (_req, res) => {
+routes/network-health.js:7:// GET  /api/network/status   — حالة تفصيلية لكل مكونات الشبكة
+routes/network-health.js:119:// ─── GET /api/network/status ──────────────────────────────────────────────────
+routes/network-health.js:121:router.get('/status', (_req, res) => {
+routes/contracts.js:52:// ─── GET /api/contracts/status — ملخص الحالة ──────────────────────────────────
+routes/contracts.js:53:router.get('/status', (req, res) => {
+routes/control-plane/runtime-control-plane.js:9:router.get('/status', (_req, res) => {
+routes/git.routes.js:9:router.get('/status', (req, res) => {
+routes/hardware-inspired/architecture.js:9:router.get('/status', (_req, res) => res.json(architecture.status()));
+routes/neural-operations.js:11: *  GET  /api/neural-ops/status                — حالة النظام (الوحدات + الإحصاءات)
+routes/neural-operations.js:78:            'GET  /api/neural-ops/status':   'حالة النظام الكاملة',
+routes/neural-operations.js:95:// GET /status — حالة النظام
+routes/neural-operations.js:98:router.get('/status', wrap((req, res) => {
+routes/supply.js:135:// ─── PUT /api/supply/orders/:id/status — تحديث حالة الأمر ───────────────────
+routes/supply.js:136:router.put('/orders/:id/status', (req, res) => {
+server.js:2503:app.get('/api/project/status', (req, res) => {
+server.js:2570:app.get('/api/government/status/:refCode', (req, res) => {
+server.js:2614:app.get('/api/navigator/status', (req, res) => {
+server.js:2808:app.get('/api/status', (req, res) => {
+server.js:2821:app.get('/api/enterprise/status', (req, res) => {
+server.js:2862:app.get('/api/sheikha-node/status', (req, res) => {
+server.js:4077:// [تم حذف مسارات مكررة: /api/erp/status و /api/scm/status — النسخ الأكمل موجودة لاحقاً]
+server.js:6762:app.get('/api/auth/oauth/status', (req, res) => {
+server.js:8208:app.get('/api/fbs/status', (req, res) => {
+server.js:8280:app.get('/api/erp/status', (req, res) => {
+server.js:8293:app.get('/api/scm/status', (req, res) => {
+server.js:9125:app.get('/api/logistics/customs/status', (req, res) => {
+server.js:9847:// GET /api/government/status/:refCode — حالة طلب التسجيل
+server.js:9848:app.get('/api/government/status/:refCode', (req, res) => {
+server.js:10460:            erp: { active: true, label: 'نظام ERP (تخطيط موارد المؤسسة)', running: 'مفعّل', api: '/api/erp/status' },
+server.js:10461:            scm: { active: true, label: 'نظام SCM (إدارة سلسلة التوريد)', running: 'مفعّل', api: '/api/scm/status' },
+server.js:10541:app.get('/api/server/status', (req, res) => {
+server.js:11805:app.get('/api/integrations/status', (req, res) => {
+server.js:12210:app.get('/api/security/status', (req, res) => {
+server.js:13322:app.get('/api/channels/status', (req, res) => {
+server.js:14939:app.get('/api/development/status', (req, res) => {
+server.js:15664:app.get('/api/arabic/status', (req, res) => {
+server.js:15906:app.get('/api/arabic/parse/status', (req, res) => {
+server.js:15962:app.get('/api/pilot/status', (req, res) => {
+server.js:18663:    console.log('      GET  /api/ai-core/status — حالة المحركات');
+server.js:18747:app.get('/api/markets/status', (req, res) => {
+server.js:18758:app.get('/api/smart-cities/status', (req, res) => {
+server.js:18767:app.get('/api/supply-chain/status', (req, res) => {
+server.js:18776:app.get('/api/recycling/status', (req, res) => {
+server.js:18785:app.get('/api/traceability/status', (req, res) => {
+server.js:18794:app.get('/api/space/status', (req, res) => {
+server.js:18803:app.get('/api/communications/runtime/status', (req, res) => {
+server.js:18812:app.get('/api/legislative/status', (req, res) => {
+server.js:18821:app.get('/api/arbitration/status', (req, res) => {
+server.js:18830:app.get('/api/education/status', (req, res) => {
+server.js:18839:app.get('/api/innovation/status', (req, res) => {
+server.js:18848:app.get('/api/knowledge-graph/status', (req, res) => {
+server.js:18857:app.get('/api/hs/runtime/status', (req, res) => {
+server.js:18868:app.get('/api/neural-sync/status', (req, res) => {
+server.js:18876:app.get('/api/root-neural-cells/status', (req, res) => {
+server.js:18884:app.get('/api/root-system/status', (req, res) => {
+server.js:18892:app.get('/api/control-center/status', (req, res) => {
+server.js:18922:app.get('/api/civilizational/status', (req, res) => {
+server.js:18935:app.get('/api/organizations/status', (req, res) => {
+server.js:20840:      enterprise: '/api/enterprise/status',
+server.js:20848:app.get('/api/sheikha/status', (req, res) => {
+server.js:20865:console.log('   ☪️ Sunnah Governance APIs: /api/sunnah/governance, /hadith, /khulafaa, /background, /display-policy, /api/sheikha/status');
+server.js:21310:app.get('/api/sheikha/extension/status', sheikhaStatusHandler);
+server.js:21318:app.get('/api/sheikha/islamic-intelligence/status', (_req, res) => {
+server.js:21360:app.get('/api/sheikha/ai-foundations/status', (_req, res) => {
+server.js:21403:app.get(`${legacySheikhaExtensionPrefix}/status`, sheikhaStatusHandler);
+server.js:21420:app.get('/api/sheikha/neural-mcp/status', (_req, res) => {
+server.js:21455:    app.get('/api/sheikha/enterprise-vscode-git/status', (_req, res) => {
+server.js:21459:    app.post('/api/sheikha/enterprise-vscode-git/status', express.json(), (req, res) => {
+server.js:21470:    app.get('/api/sheikha/enterprise-git-service/status', (_req, res) => {
+server.js:21474:    app.post('/api/sheikha/enterprise-git-service/status', express.json(), (req, res) => {
+server.js:21496:    app.get('/api/sheikha/governing-os/status', (_req, res) => {
+server.js:21500:    app.post('/api/sheikha/governing-os/status', express.json(), (req, res) => {
+server.js:21525:    app.get('/api/sheikha/ai-service-provider/status', (_req, res) => {
+server.js:21529:    app.post('/api/sheikha/ai-service-provider/status', express.json(), (req, res) => {
+server.js:21566:    app.get('/api/sheikha/enterprise-ide/status', (_req, res) => {
+server.js:21570:    app.post('/api/sheikha/enterprise-ide/status', express.json(), (req, res) => {
+server.js:21601:    app.get('/api/sheikha/universal-tools-fabric/status', (_req, res) => {
+server.js:21605:    app.post('/api/sheikha/universal-tools-fabric/status', express.json(), (req, res) => {
+server.js:21642:    app.get('/api/sheikha/core/status', (_req, res) => {
+server.js:21646:    app.post('/api/sheikha/core/status', express.json(), (req, res) => {
+server.js:21665:    app.get('/api/sheikha/editor/status', (_req, res) => {
+server.js:21669:    app.post('/api/sheikha/editor/status', express.json(), (req, res) => {
+server.js:21677:    app.get('/api/sheikha/usage-metering/status', (_req, res) => {
+server.js:21709:    app.get('/api/sheikha-node/status', (req, res) => {
+server.js:21747:    app.get('/api/sheikha/ai-neural-cell-network/status', (_req, res) => {
+server.js:21810:    app.get('/api/sheikha/language/status', (_req, res) => {
+server.js:21814:    app.get('/api/sheikha/markup/status', (_req, res) => {
+server.js:21818:    app.get('/api/sheikha/neural-runtime-registry/status', (_req, res) => {
+server.js:21826:    app.get('/api/sheikha/supreme-root-neural-fabric/status', (_req, res) => {
+server.js:21838:    app.get('/api/sheikha/root-neural-integration/status', (_req, res) => {
+server.js:21869:    app.get('/api/sheikha/ide/status', (_req, res) => {
+server.js:21881:    app.get('/api/sheikha/git/status', (_req, res) => {
+server.js:21894:    app.get('/api/sheikha/read-write-publish/status', (_req, res) => {
+server.js:21939:    app.get('/api/sheikha/ai-gateway/status', async (_req, res) => {
+server.js:21948:    app.get('/api/sheikha/core-chat/status', async (_req, res) => {
+server.js:22004:    app.get('/api/sheikha/self-training/status', (_req, res) => {
+server.js:22016:    app.get('/api/sheikha/continuous-learning/status', (_req, res) => {
+server.js:22036:    app.get('/api/sheikha/jdk/status', (_req, res) => {
+server.js:22102:  app.get('/api/kernel/control-plane/status', (_req, res) => {
+server.js:22115:app.get('/api/kernel/status', (_req, res) => {
+server.js:22119:  app.get('/api/sheikha/kernel/status', (_req, res) => {
+server.js:22831:  app.get('/api/sheikha/system/status', (_req, res) => {
+core/chat-fabric/sheikha-unified-chat-fabric.js:66:      dashboard: '/api/sheikha/chat-fabric/status',
+core/ai-gateway/sheikha-continuous-learning-runtime.js:309:                { type: 'local-api', ref: '/api/sheikha/read-write-publish/status' },
+core/ai-gateway/sheikha-continuous-learning-runtime.js:310:                { type: 'local-api', ref: '/api/sheikha/core-chat/status' }
+core/neural/unity-engine.js:245:    // GET /api/agent/status — حالة المنظومة كاملة
+core/neural/unity-engine.js:246:    router.get('/status', (req, res) => {
+core/neural/sheikha-ai-neural-cell-network.js:724:      status: '/api/sheikha/read-write-publish/status',

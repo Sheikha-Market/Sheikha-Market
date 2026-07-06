@@ -1,0 +1,26 @@
+{
+  "registry": "SHEIKHA_VISUAL_FLOW_TYPES_V1",
+  "status": "ACTIVE",
+  "flows": [
+    {
+      "id": "ONE_TIME_PURCHASE_ORDER",
+      "name": "أمر شراء لمرة واحدة",
+      "stages": ["RFQ", "Quotation", "PO", "Delivery", "Invoice", "Payment", "Impact"]
+    },
+    {
+      "id": "SUPPLY_CONTRACT",
+      "name": "عقد توريد مستمر",
+      "stages": ["Need", "Supplier Approval", "Contract", "Schedule", "Delivery Cycles", "SLA", "Billing", "Renewal"]
+    },
+    {
+      "id": "MARKETPLACE_DEAL",
+      "name": "صفقة سوق",
+      "stages": ["Seller", "Listing", "Buyer", "Negotiation", "Contract", "Logistics", "Payment", "Review"]
+    },
+    {
+      "id": "CONSULTING_PROJECT",
+      "name": "مشروع استشاري",
+      "stages": ["Problem", "Discovery", "Analysis", "Recommendation", "Implementation", "Measurement"]
+    }
+  ]
+}

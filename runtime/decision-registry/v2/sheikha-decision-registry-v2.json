@@ -1,0 +1,77 @@
+{
+  "system": "SHEIKHA_DECISION_REGISTRY_V2",
+  "status": "ACTIVE",
+  "arabic_name": "سجل قرارات شيخة V2",
+  "purpose": "Convert governed knowledge into traceable decisions with evidence, risk, authority, execution conditions, and measurable outcomes.",
+  "position": "UNDER_KNOWLEDGE_ENGINE_BEFORE_CAPABILITY_REGISTRY",
+  "governed_by": [
+    "SHEIKHA_HEART_CORE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2"
+  ],
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "knowledgeEngineV2": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true
+  },
+  "knowledgeCoverage": {
+    "governanceKnowledge": 1,
+    "runtimeKnowledge": 1,
+    "lessonsLearned": 1
+  },
+  "decisions": [
+    {
+      "id": "DRV2-001",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-002",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-003",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-004",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-005",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-006",
+      "status": "ACTIVE"
+    },
+    {
+      "id": "DRV2-007",
+      "status": "ACTIVE"
+    }
+  ],
+  "decision_lifecycle": [
+    "proposal",
+    "knowledge_evidence_review",
+    "risk_classification",
+    "authority_review",
+    "approval",
+    "execution_gate",
+    "measurement",
+    "lessons_learned"
+  ],
+  "rules": {
+    "knowledge_evidence_required": true,
+    "human_review_for_high_risk": true,
+    "no_raw_execution": true,
+    "no_drift_required": true,
+    "tests_required": true,
+    "decision_trace_required": true
+  },
+  "next_layer": "SHEIKHA_CAPABILITY_REGISTRY_V2",
+  "blocked_until_ready": [
+    "SHEIKHA_EXECUTION_FABRIC_V2"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

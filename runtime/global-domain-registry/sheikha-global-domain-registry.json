@@ -1,0 +1,46 @@
+{
+  "registry": "SHEIKHA_GLOBAL_DOMAIN_REGISTRY",
+  "status": "ACTIVE",
+  "mode": "unified-governed-domain-registry",
+  "purpose": "Maintain a unified governed registry for Sheikha domains, organizations, capabilities, contracts, runtime nodes, federation links, policies, audits, and operational identities.",
+  "registries": {
+    "domains": "ACTIVE",
+    "organizations": "ACTIVE",
+    "capabilities": "ACTIVE",
+    "contracts": "ACTIVE",
+    "runtime_nodes": "ACTIVE",
+    "federation_links": "ACTIVE",
+    "policies": "ACTIVE",
+    "audit_references": "ACTIVE",
+    "market_nodes": "ACTIVE",
+    "advisory_nodes": "ACTIVE",
+    "ai_nodes": "ACTIVE",
+    "datacenter_nodes": "ACTIVE"
+  },
+  "domainTypes": [
+    "governance",
+    "markets",
+    "metals",
+    "supply_chain",
+    "ai",
+    "datacenter",
+    "research",
+    "licensing",
+    "standards",
+    "certification",
+    "advisory",
+    "organization",
+    "runtime",
+    "federation"
+  ],
+  "rules": {
+    "no_unregistered_domain": true,
+    "no_unregistered_runtime_node": true,
+    "no_unregistered_capability": true,
+    "contract_required_for_federation": true,
+    "policy_required_for_execution": true,
+    "audit_required": true,
+    "token_required": true,
+    "human_approval_when_required": true
+  }
+}

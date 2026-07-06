@@ -30,7 +30,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -377,7 +377,7 @@
         <!-- Form -->
         <div class="form-card" id="formCard">
             <h2 class="form-title">🚛 بيانات شركة النقل</h2>
-            
+
             <form id="transporterForm">
                 <!-- معلومات الشركة -->
                 <div class="form-section">
@@ -443,7 +443,7 @@
                 <!-- الأسطول والخدمات -->
                 <div class="form-section">
                     <h3 class="form-section-title">الأسطول والخدمات</h3>
-                    
+
                     <div class="form-group">
                         <label class="form-label">أنواع الشاحنات المتوفرة <span class="required">*</span></label>
                         <div class="checkbox-group" id="truckTypes">
@@ -566,7 +566,7 @@
             const checkbox = item.querySelector('input');
             checkbox.checked = !checkbox.checked;
             item.classList.toggle('checked', checkbox.checked);
-            
+
             // Update icon
             const icon = item.querySelector('.checkbox-icon');
             icon.innerHTML = checkbox.checked ? '✓' : '';
@@ -574,7 +574,7 @@
 
         document.getElementById('transporterForm').addEventListener('submit', async function(e) {
             e.preventDefault();
-            
+
             const formData = new FormData(this);
             const data = {
                 type: 'transporter',
@@ -633,11 +633,11 @@
                 });
 
                 const result = await res.json();
-                
+
                 if (result.success) {
                     document.getElementById('formCard').style.display = 'none';
                     document.getElementById('successMessage').style.display = 'block';
-                    
+
                     // Save to localStorage for dashboard
                     localStorage.setItem('transporterData', JSON.stringify(data));
                 } else {

@@ -1,0 +1,224 @@
+{
+  "success": false,
+  "mode": "activate",
+  "message": "تم التفعيل مع ملاحظات تحتاج مراجعة.",
+  "tawheed": "لا إله إلا الله وحده لا شريك له",
+  "covenant": "وما توفيقي إلا بالله",
+  "safety": {
+    "scope": "local-runtime-and-artifacts",
+    "noExternalDeploy": true,
+    "noDeletion": true,
+    "noSecretsPrinted": true
+  },
+  "cells": [
+    {
+      "id": "L0-Tawheed",
+      "role": "foundation",
+      "status": "active",
+      "declaration": "لا إله إلا الله وحده لا شريك له"
+    },
+    {
+      "id": "L1-Sharia-Governance",
+      "role": "guard",
+      "status": "degraded"
+    },
+    {
+      "id": "L2-Master-NCN",
+      "role": "neural-cells",
+      "status": "active"
+    },
+    {
+      "id": "L3-Production-Neural-Engine",
+      "role": "production-fabric",
+      "status": "active"
+    },
+    {
+      "id": "L4-Runtime-Root",
+      "role": "audit-and-memory",
+      "status": "active"
+    },
+    {
+      "id": "L5-Global-Governance",
+      "role": "adapters-and-orchestration",
+      "status": "active"
+    },
+    {
+      "id": "L6-Runtime-Guard",
+      "role": "git-runtime-boundary",
+      "status": "active"
+    }
+  ],
+  "production": {
+    "ready": true,
+    "present": 7,
+    "total": 7,
+    "core": "sheikha-neural-production-engine",
+    "activatedAt": "2026-03-13T23:59:13.756Z",
+    "checks": [
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/neural-production-engine-spec.json",
+        "exists": true,
+        "size": 1552
+      },
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/layers/neural-architecture.json",
+        "exists": true,
+        "size": 4681
+      },
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/training-loop/infinite-training-loop.json",
+        "exists": true,
+        "size": 1746
+      },
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/quantum-bridge/quantum-neural-bridge.json",
+        "exists": true,
+        "size": 870
+      },
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/physical-integration/physical-computing-integration.json",
+        "exists": true,
+        "size": 691
+      },
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/performance/sub-second-engine-status.json",
+        "exists": true,
+        "size": 1396
+      },
+      {
+        "file": "infrastructure/sheikha-neural-production-engine/governance/neural-engine-governance.json",
+        "exists": true,
+        "size": 948
+      }
+    ]
+  },
+  "masterNcn": {
+    "loaded": true,
+    "status": {
+      "engine": "Sheikha Master Neural Cell Network",
+      "nameAr": "شبكة الخلايا العصبية الكبرى — شيخة",
+      "version": "1.0.0",
+      "protocol": "SheikhaProtocol v2.0.0",
+      "totalCells": 100,
+      "totalLayers": 6,
+      "totalParams": 6820,
+      "trained": true,
+      "sessions": 1,
+      "queries": 0,
+      "tawheed": "لا إله إلا الله محمد رسول الله"
+    },
+    "inference": {
+      "domain": "shariah",
+      "topCells": []
+    }
+  },
+  "rootNeural": {
+    "loaded": false,
+    "error": "root.process is not a function"
+  },
+  "runtimeRoot": {
+    "loaded": true,
+    "before": {
+      "success": true,
+      "service": "Sheikha Runtime Root Neural Network",
+      "version": "1.0.0",
+      "cells": [
+        "runtime-health",
+        "decision-flow",
+        "sharia",
+        "root-governance",
+        "network",
+        "audit",
+        "safe-execution"
+      ],
+      "auditCount": 0,
+      "lastDecision": null,
+      "timestamp": "2026-05-16T17:57:11.705Z"
+    },
+    "record": {
+      "id": "DEC-1778954231705-B2VF12",
+      "type": "ROOT_NEURAL_TAWHEED_ACTIVATION",
+      "mode": "activate",
+      "tawheed": "لا إله إلا الله وحده لا شريك له",
+      "covenant": "وما توفيقي إلا بالله",
+      "decision": "ACTIVATE_LOCAL_ROOT_NEURAL_FABRIC",
+      "safety": "LOCAL_ONLY_NO_DEPLOY_NO_DELETE",
+      "cells": [
+        "runtime-health",
+        "decision-flow",
+        "sharia",
+        "root-governance",
+        "network",
+        "audit",
+        "safe-execution"
+      ],
+      "timestamp": "2026-05-16T17:57:11.705Z"
+    },
+    "after": {
+      "success": true,
+      "service": "Sheikha Runtime Root Neural Network",
+      "version": "1.0.0",
+      "cells": [
+        "runtime-health",
+        "decision-flow",
+        "sharia",
+        "root-governance",
+        "network",
+        "audit",
+        "safe-execution"
+      ],
+      "auditCount": 1,
+      "lastDecision": {
+        "id": "DEC-1778954231705-B2VF12",
+        "type": "ROOT_NEURAL_TAWHEED_ACTIVATION",
+        "mode": "activate",
+        "tawheed": "لا إله إلا الله وحده لا شريك له",
+        "covenant": "وما توفيقي إلا بالله",
+        "decision": "ACTIVATE_LOCAL_ROOT_NEURAL_FABRIC",
+        "safety": "LOCAL_ONLY_NO_DEPLOY_NO_DELETE",
+        "cells": [
+          "runtime-health",
+          "decision-flow",
+          "sharia",
+          "root-governance",
+          "network",
+          "audit",
+          "safe-execution"
+        ],
+        "timestamp": "2026-05-16T17:57:11.705Z"
+      },
+      "timestamp": "2026-05-16T17:57:11.705Z"
+    }
+  },
+  "globalGovernance": {
+    "loaded": true,
+    "adapters": [],
+    "adapterCount": 0
+  },
+  "runtimeGuard": {
+    "mode": "non-mutating",
+    "samples": [
+      {
+        "file": "runtime/reports/root-neural-tawheed-activation-latest.json",
+        "ignored": true,
+        "tracked": false
+      },
+      {
+        "file": "data/decision-log.json",
+        "ignored": true,
+        "tracked": false
+      },
+      {
+        "file": "data/ports/main.port",
+        "ignored": true,
+        "tracked": false
+      },
+      {
+        "file": "data/operations/root-neural.ndjson",
+        "ignored": true,
+        "tracked": false
+      }
+    ]
+  },
+  "timestamp": "2026-05-16T17:57:11.582Z"
+}

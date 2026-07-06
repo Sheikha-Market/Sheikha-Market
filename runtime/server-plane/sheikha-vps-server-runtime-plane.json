@@ -1,0 +1,53 @@
+{
+  "system": "SHEIKHA_VPS_SERVER_RUNTIME_PLANE",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Govern VPS, dedicated servers, cloud nodes, edge nodes, and self-hosted Sheikha runtime deployments through safe server discovery, health inspection, resource awareness, service supervision, and deployment readiness.",
+  "supported_targets": {
+    "local_linux_server": "ACTIVE",
+    "vps": "READY",
+    "dedicated_server": "READY",
+    "cloud_vm": "READY",
+    "bare_metal": "READY",
+    "container_host": "READY",
+    "edge_node": "READY",
+    "cluster_node": "READY"
+  },
+  "server_layers": {
+    "identity": "hostname, platform, arch, release",
+    "compute": "cpu, memory, gpu_when_available",
+    "storage": "mounts, disk visibility, external storage readiness",
+    "network": "interfaces, localhost, public/private binding policy",
+    "services": "pm2, systemd, runtime process supervision",
+    "security": "least privilege, no unauthorized access, audit",
+    "deployment": "bootstrap, health, rollback readiness",
+    "observability": "logs, metrics, events, health reports"
+  },
+  "controls": {
+    "read_only_by_default": true,
+    "destructive_actions_blocked_by_default": true,
+    "ssh_actions_require_human_review": true,
+    "no_privilege_escalation": true,
+    "no_unauthorized_access": true,
+    "audit_required": true,
+    "safe_fallback_required": true
+  },
+  "integration": {
+    "runtime_executive": "core/runtime/executive/sheikha-runtime-executive.js",
+    "resource_manager": "core/runtime/resource-manager/sheikha-runtime-resource-manager.js",
+    "linux_inspector": "core/runtime/linux-inspector/sheikha-linux-inspector.js",
+    "universal_os_inspector": "core/runtime/universal-os-inspector/sheikha-universal-os-inspector.js",
+    "boot_sequencer": "core/runtime/boot-sequencer/sheikha-runtime-boot-sequencer.js"
+  },
+  "foundation": {
+    "tawhid": "الله وحده لا شريك له",
+    "reference": ["القرآن الكريم", "السنة النبوية الصحيحة"],
+    "principles": ["الصدق", "الأمانة", "لا ضرر ولا ضرار", "عدم تجاوز الصلاحيات", "عدم ادعاء علم الغيب"]
+  },
+  "maturity": {
+    "server_plane": "READY",
+    "vps_readiness": "READY",
+    "cluster_readiness": "FOUNDATIONAL_READY",
+    "overall": "SHEIKHA_VPS_SERVER_RUNTIME_PLANE_READY"
+  }
+}

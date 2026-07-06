@@ -1,0 +1,24 @@
+{
+  "policy": "SHEIKHA_CONSENT_POLICY",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "consentRequiredFor": [
+    "marketingPixel",
+    "trackingPixel",
+    "analyticsPixel",
+    "capi"
+  ],
+  "defaultState": "DENIED",
+  "allowedAfterConsent": [
+    "conversion measurement",
+    "campaign quality measurement",
+    "site quality measurement"
+  ],
+  "blockedWithoutConsent": [
+    "Meta Pixel public injection",
+    "CAPI event transmission",
+    "cross-page marketing tracking",
+    "non-essential analytics"
+  ],
+  "rule": "All non-essential pixels remain denied until user consent is explicitly granted."
+}

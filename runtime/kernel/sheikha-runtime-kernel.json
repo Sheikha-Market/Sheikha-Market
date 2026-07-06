@@ -1,0 +1,23 @@
+{
+  "kernel": "SHEIKHA_SOVEREIGN_RUNTIME_KERNEL",
+  "status": "ACTIVE",
+  "mode": "governance-first-runtime-kernel",
+  "bootOrder": [
+    "foundation",
+    "governance",
+    "kernel",
+    "fabric-bootstrap",
+    "routing",
+    "federation",
+    "engines",
+    "apis",
+    "ai",
+    "clients"
+  ],
+  "rules": {
+    "governance_before_execution": true,
+    "no_unverified_runtime": true,
+    "audit_required": true,
+    "rollback_required": true
+  }
+}

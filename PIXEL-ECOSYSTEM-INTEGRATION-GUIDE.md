@@ -8,7 +8,7 @@
  * ═══════════════════════════════════════════════════════════════════════════════
  * خطوات التكامل الكاملة — Complete Integration Steps
  * ═══════════════════════════════════════════════════════════════════════════════
- * 
+ *
  * هذا الملف يحتوي على تعليمات خطوة بخطوة لدمج منظومة البكسل الذكية
  * مع server.js الرئيسي
  */
@@ -75,7 +75,7 @@
 // ───────────────────────────────────────────────────────────────────────────────
 
 /**
- * 
+ *
  * ────────────────── server.js النسخة المُحدثة ──────────────────────────
  */
 
@@ -158,16 +158,16 @@ module.exports = app;
 
 /**
  * بعد التحديث، تحقق من:
- * 
+ *
  * 1. اختبر الخادم:
  *    npm run dev
- * 
+ *
  * 2. تحقق من الحالة:
  *    curl http://localhost:8080/api/status
- * 
+ *
  * 3. اختبر منظومة البكسل:
  *    curl http://localhost:8080/api/ecosystem/init
- * 
+ *
  * 4. شغّل الاختبارات:
  *    node tests/pixel-ecosystem-integration.test.js
  */
@@ -178,7 +178,7 @@ module.exports = app;
 
 /**
  * ملف اختبار شامل لجميع المسارات:
- * 
+ *
  * اسم الملف: test-full-integration.sh
  */
 
@@ -266,20 +266,20 @@ SHARIA_HALAL_ENFORCEMENT=true
 
 /**
  * إذا واجهت مشاكل:
- * 
+ *
  * 1️⃣ المنظومة لا تبدأ:
  *    - تحقق من وجود الملفات المطلوبة في lib/
  *    - تأكد من npm install تم تشغيله
  *    - تحقق من logs للأخطاء
- * 
+ *
  * 2️⃣ مسارات API غير موجودة:
  *    - تحقق من استيراد pixelEcosystemRoutes في server.js
  *    - تأكد من app.use('/api', pixelEcosystemRoutes);
- * 
+ *
  * 3️⃣ خطأ في المنظومة:
  *    - شغّل node tests/pixel-ecosystem-integration.test.js
  *    - تحقق من console.log للتفاصيل
- * 
+ *
  * 4️⃣ بطء في المعالجة:
  *    - قلل حجم الدفعة: PIXEL_BATCH_SIZE=50
  *    - فعّل الذاكرة المؤقتة: PIXEL_CACHE_ENABLED=true
@@ -291,7 +291,7 @@ SHARIA_HALAL_ENFORCEMENT=true
 
 /**
  * اختبر كل مكون على حدة:
- * 
+ *
  * في Node.js REPL:
  */
 
@@ -316,20 +316,20 @@ console.log('✅ تحليل:', analysis);
 
 /**
  * قبل النشر، تأكد من:
- * 
+ *
  * ✅ جميع الاختبارات تمر بنجاح
  * ✅ المتغيرات البيئية صحيحة
  * ✅ السجلات تعمل بشكل صحيح
  * ✅ الأمان مُفعّل
  * ✅ الأداء مقبولة
- * 
+ *
  * ثم:
- * 
+ *
  * npm run build
  * npm start
- * 
+ *
  * أو على Vercel/Heroku:
- * 
+ *
  * vercel --prod
  */
 
@@ -339,18 +339,18 @@ console.log('✅ تحليل:', analysis);
 
 /**
  * بعد التشغيل، راقب:
- * 
+ *
  * 📊 الأداء:
  *    GET /api/status — تحقق من الحالة
  *    GET /api/dashboard — عرض المؤشرات
- * 
+ *
  * 🔍 السجلات:
  *    tail -f logs/sheikha.log
- * 
+ *
  * ⚠️ الأخطاء:
  *    مراقبة console.error
  *    مراقبة process.stderr
- * 
+ *
  * 💾 البيانات:
  *    تحقق من data/ للنسخ الاحتياطية
  */
@@ -361,16 +361,16 @@ console.log('✅ تحليل:', analysis);
 
 /**
  * الخطوات الأساسية:
- * 
+ *
  * 1. استيراد المسارات والدوال
  * 2. تسجيل المسارات في app
  * 3. تفعيل المنظومة عند البدء
  * 4. اختبار المسارات
  * 5. مراقبة الأداء
  * 6. النشر والصيانة
- * 
+ *
  * المسارات المتاحة مباشرة بعد التكامل:
- * 
+ *
  * /api/status
  * /api/ecosystem/init
  * /api/ai/train
@@ -393,13 +393,13 @@ console.log('✅ تحليل:', analysis);
 
 /**
  * إذا أردت تكامل سريع، أضف فقط:
- * 
+ *
  * في أعلى server.js:
  * const pixelEcosystemRoutes = require('./routes/pixel-ecosystem');
- * 
+ *
  * قبل app.listen():
  * app.use('/api', pixelEcosystemRoutes);
- * 
+ *
  * اكتملت! جميع المسارات متاحة الآن.
  */
 

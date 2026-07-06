@@ -34,7 +34,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -974,7 +974,7 @@
                     </div>
                     <div class="preview-title" id="previewTitle">اسم المنتج</div>
                     <div class="preview-category" id="previewCategory">نوع المعدن • الحالة</div>
-                    
+
                     <div class="preview-stats">
                         <div class="preview-stat">
                             <div class="preview-stat-label">الكمية</div>
@@ -985,7 +985,7 @@
                             <div class="preview-stat-value" id="previewLocation">—</div>
                         </div>
                     </div>
-                    
+
                     <div class="preview-price">
                         <div class="preview-price-label">السعر</div>
                         <div class="preview-price-value" id="previewPrice">— ريال</div>
@@ -1070,11 +1070,11 @@
             el.closest('.quality-grid').querySelectorAll('.quality-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             el.querySelector('input').checked = true;
-            
+
             const supplyType = el.querySelector('input').value;
             const factoryFields = document.getElementById('factoryFields');
             const qtyLabel = document.getElementById('qtyLabel');
-            
+
             if (supplyType === 'factory' || supplyType === 'continuous') {
                 factoryFields.style.display = 'block';
                 qtyLabel.textContent = 'الحد الأدنى للطلب';
@@ -1088,10 +1088,10 @@
             el.closest('.category-grid').querySelectorAll('.category-card').forEach(c => c.classList.remove('selected'));
             el.classList.add('selected');
             el.querySelector('input').checked = true;
-            
+
             const delivery = el.querySelector('input').value;
             const transportOptions = document.getElementById('transportOptions');
-            
+
             if (delivery === 'local' || delivery === 'international') {
                 transportOptions.style.display = 'block';
             } else {
@@ -1117,11 +1117,11 @@
 
             document.getElementById('previewTitle').textContent = name;
             document.getElementById('previewIcon').textContent = category ? categoryIcons[category] : '📦';
-            document.getElementById('previewCategory').textContent = 
+            document.getElementById('previewCategory').textContent =
                 (category ? categoryNames[category] : 'نوع المعدن') + ' • ' + qualityNames[quality];
             document.getElementById('previewQty').textContent = qty ? `${qty} ${unit}` : '—';
             document.getElementById('previewLocation').textContent = location || '—';
-            
+
             if (price) {
                 document.getElementById('previewPrice').textContent = `${Number(price).toLocaleString()} ${currency}/${unit}`;
                 if (qty) {

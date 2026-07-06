@@ -1,0 +1,27 @@
+{
+  "system": "SHEIKHA_COMMERCIAL_EXECUTION_CLUSTER_V1",
+  "status": "ACTIVE",
+  "arabic_name": "عنقود التنفيذ التجاري لشيخة",
+  "purpose": "Elevate commercial execution from a single pipeline into a governed cluster connecting product, governance, licensing, contracts, customers, billing, KPI, and renewal.",
+  "position": "ABOVE_COMMERCIAL_EXECUTION_LAYER",
+  "cluster_nodes": [
+    "COMMERCIAL_PRODUCT_NODE",
+    "COMMERCIAL_GOVERNANCE_NODE",
+    "LICENSING_NODE",
+    "CONTRACT_NODE",
+    "CUSTOMER_NODE",
+    "BILLING_NODE",
+    "KPI_NODE",
+    "RENEWAL_NODE"
+  ],
+  "rules": {
+    "pipeline_required": true,
+    "kpi_required": true,
+    "contract_before_license": true,
+    "license_before_invoice": true,
+    "payment_before_revenue_claim": true,
+    "customer_activation_after_contract_and_license": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

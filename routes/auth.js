@@ -189,7 +189,7 @@ router.post('/refresh', (req, res) => {
 
 router.get('/me', (req, res) => {
     const authHeader = req.headers.authorization;
-    
+
     if (!authHeader || !authHeader.startsWith('Bearer ')) {
         return res.status(401).json({
             success: false,

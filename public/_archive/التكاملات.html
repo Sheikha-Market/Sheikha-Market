@@ -31,7 +31,7 @@
             min-height: 100vh;
             line-height: 1.7;
         }
-        
+
         .header {
             background: var(--card);
             border-bottom: 1px solid var(--border);
@@ -692,25 +692,25 @@
         <!-- API Documentation -->
         <section class="api-section">
             <h2 class="section-title">📚 واجهات برمجة التطبيقات API</h2>
-            
+
             <div class="api-endpoint">
                 <span class="api-method get">GET</span>
                 <span class="api-path">/api/integrations/status</span>
                 <span class="api-desc">حالة جميع التكاملات</span>
             </div>
-            
+
             <div class="api-endpoint">
                 <span class="api-method post">POST</span>
                 <span class="api-path">/api/auth/oauth/{provider}</span>
                 <span class="api-desc">المصادقة عبر OAuth</span>
             </div>
-            
+
             <div class="api-endpoint">
                 <span class="api-method post">POST</span>
                 <span class="api-path">/api/integrations/connect</span>
                 <span class="api-desc">تفعيل تكامل جديد</span>
             </div>
-            
+
             <div class="api-endpoint">
                 <span class="api-method get">GET</span>
                 <span class="api-path">/api/integrations/webhooks</span>
@@ -745,7 +745,7 @@
 
             // In production, this would open OAuth flow
             alert(`جاري تسجيل الدخول عبر ${p.name}...\n\nسيتم توجيهك لصفحة المصادقة.`);
-            
+
             // Simulate OAuth redirect
             // window.location.href = p.url;
         }

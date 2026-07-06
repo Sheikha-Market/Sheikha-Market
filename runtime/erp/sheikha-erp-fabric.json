@@ -1,0 +1,19 @@
+{
+  "system": "sheikha-erp-fabric",
+  "version": "1.0.0",
+  "status": "FOUNDATION_ACTIVE",
+  "activatedAt": "2026-06-01T00:00:00Z",
+  "principle": "لا ضرر ولا ضرار",
+  "description": "Sheikha ERP — إدارة الشركات والعمليات والموارد المؤسسية",
+  "modules": {
+    "finance": { "status": "FOUNDATION_ACTIVE", "features": ["invoices","payments","ledger","reports","vat"] },
+    "inventory": { "status": "FOUNDATION_ACTIVE", "features": ["stock","warehouses","transfers","adjustments","sku","barcode"] },
+    "sales": { "status": "FOUNDATION_ACTIVE", "features": ["orders","quotes","rfq","contracts","customers"] },
+    "purchasing": { "status": "FOUNDATION_ACTIVE", "features": ["po","vendors","receipts","returns"] },
+    "operations": { "status": "FOUNDATION_ACTIVE", "features": ["tasks","workflows","approvals","audit"] },
+    "reporting": { "status": "FOUNDATION_ACTIVE", "features": ["dashboards","kpis","exports","analytics"] }
+  },
+  "ui": "public/company/",
+  "governed": true,
+  "sharia": { "ribaNot": true, "ghararNot": true, "zakatable": true }
+}

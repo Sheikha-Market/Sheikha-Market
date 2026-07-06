@@ -1,0 +1,36 @@
+{
+  "report": "SHEIKHA_PR_GOVERNANCE_AUDIT",
+  "status": "ACTIVE",
+  "baseline": "SHEIKHA_ARCHITECTURE_FREEZE_V1_1",
+  "git": {
+    "branch": "optimization/long-tail-latency-elimination",
+    "status": "## optimization/long-tail-latency-elimination...origin/optimization/long-tail-latency-elimination\n?? runtime/federal-organization/\n?? runtime/pr-governance/activation/\n?? tools/pr-governance/",
+    "lastCommit": "96766957 Activate Sheikha Data project and PR governance layers",
+    "remotes": "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)\nenterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (push)\ngithub\thttps://github.com/Sheikha-Market/sheikha-main-portal.git (fetch)\ngithub\tno_push://read-only-remote (push)\ngitlab\tgit@gitlab.com:Sheikha-Market/sheikha.git (fetch)\ngitlab\tno_push://read-only-remote (push)\norigin\tgit@github.com:Sheikha-Market/sheikha-main-portal.git (fetch)\norigin\tgit@github.com:Sheikha-Market/sheikha-main-portal.git (push)"
+  },
+  "github": {
+    "openPullRequests": "25\tAdd homepage AI advisor and resilient public chat fallback\tcopilot/task-212781711-1226853532-f130d633-1294-45f3-96b4-5e4c28bfea13\tDRAFT\t2026-06-02T01:00:24Z\n22\tActivate live chat routing and root neural fixes\toptimization/long-tail-latency-elimination\tOPEN\t2026-06-01T22:12:43Z\n21\t⚡ منظومة قواعد الأفضل — 20 قاعدة كونية من الكتاب والسنة + تفعيل الكل\tagents/optimum-rules-system-implementation\tOPEN\t2026-06-01T18:37:40Z",
+    "note": "If GitHub API times out, do not merge manually. Retry after network stabilizes."
+  },
+  "checks": {
+    "fabricJson": "OK",
+    "freezeV11": "OK",
+    "federalOrg": "OK",
+    "prGovernance": "OK",
+    "serverSyntax": "",
+    "lint": "> sheikha-enterprise-al-portal@1.0.0 lint\n> eslint core routes middleware server.js --ext .js"
+  },
+  "mergeDecision": {
+    "autoMergeAllowed": false,
+    "humanApprovalRequired": true,
+    "requiredBeforeMerge": [
+      "GitHub PR list must be readable",
+      "PR must be classified",
+      "Freeze V1.1 compatibility must pass",
+      "Fabric and route conflicts must pass",
+      "Tests and lint must pass",
+      "Secrets must not be committed"
+    ]
+  },
+  "timestamp": "2026-06-03T23:12:57.746Z"
+}

@@ -1,0 +1,39 @@
+{
+  "system": "SHEIKHA_PLATFORM_FACTORIES_V1",
+  "status": "ACTIVE",
+  "arabic_name": "مصانع تشغيل منصة شيخة V1",
+  "purpose": "Activate governed factories for science, education, productization, and measurable impact above the customer revenue experience layer.",
+  "position": "ABOVE_CUSTOMER_REVENUE_EXPERIENCE_BELOW_UGIT_CONTROL_PLANE",
+  "based_on": [
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+    "SHEIKHA_CUSTOMER_CLASSIFICATION_V1",
+    "SHEIKHA_CUSTOMER_REVENUE_EXPERIENCE_V1",
+    "SHEIKHA_COMMERCIAL_PRODUCT_LAYER_V1",
+    "SHEIKHA_PLATFORM_OPERATING_ENGINES_V1"
+  ],
+  "factories": [
+    "SCIENCE_FACTORY",
+    "EDUCATION_FACTORY",
+    "PRODUCT_FACTORY",
+    "IMPACT_FACTORY"
+  ],
+  "truthfulness": {
+    "factory_layer_is_operating_readiness": true,
+    "no_academic_accreditation_claim_without_approval": true,
+    "no_scientific_publication_claim_without_review": true,
+    "no_product_market_claim_without_launch_evidence": true,
+    "no_impact_claim_without_measurement": true,
+    "no_revenue_claim_without_payment": true
+  },
+  "rules": {
+    "evidence_required_for_every_factory_output": true,
+    "human_review_required_for_public_science_outputs": true,
+    "legal_review_required_for_education_certification": true,
+    "product_release_requires_contract_test_and_support_plan": true,
+    "impact_metrics_require_baseline_and_measurement": true,
+    "customer_data_requires_contract_and_data_rights": true,
+    "no_drift_required_before_factory_baseline": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

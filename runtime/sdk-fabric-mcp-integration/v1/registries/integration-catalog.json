@@ -1,0 +1,122 @@
+{
+  "registry": "SHEIKHA_INTEGRATION_CATALOG_V1",
+  "status": "ACTIVE",
+  "categories": [
+    "GOVERNMENT_SYSTEMS",
+    "CUSTOMS_AND_PORTS",
+    "SPACE_AND_SATELLITES",
+    "IOT_AND_EDGE",
+    "ML_AI_PLATFORMS",
+    "SUPPLY_CHAIN_SYSTEMS",
+    "ERP_CRM_WMS_TMS",
+    "SCIENCE_DATABASES",
+    "EDUCATION_PLATFORMS",
+    "SUPERCOMPUTERS",
+    "DATA_CENTERS",
+    "MARITIME_AND_SHIPPING",
+    "TRANSPORT_AND_LOGISTICS",
+    "CUSTOMER_ENVIRONMENTS"
+  ],
+  "connectorProfileCategories": [
+    "OPEN_DATA_PORTALS",
+    "RESEARCH_DATABASES",
+    "SCIENTIFIC_PUBLICATIONS",
+    "EDUCATIONAL_PLATFORMS",
+    "ERP_SYSTEMS",
+    "CRM_SYSTEMS",
+    "WMS",
+    "TMS",
+    "IOT_PLATFORMS",
+    "SATELLITE_OPEN_OBSERVATION_DATA",
+    "CLOUD_PROVIDERS",
+    "DATA_CENTERS",
+    "SUPERCOMPUTING_RESOURCES"
+  ],
+  "systemProfiles": [
+    {
+      "category": "GOVERNMENT_SYSTEMS",
+      "examples": [
+        "ministries",
+        "municipalities",
+        "customs",
+        "ports_authorities",
+        "regulators",
+        "economic_zones"
+      ],
+      "integrationMode": "AUTHORIZED_API_OR_APPROVED_DATA_EXCHANGE",
+      "contractRequired": true
+    },
+    {
+      "category": "SPACE_AND_SATELLITES",
+      "examples": [
+        "earth_observation",
+        "weather",
+        "solar_radiation",
+        "telemetry",
+        "geospatial_layers"
+      ],
+      "integrationMode": "OPEN_DATA_OR_LICENSED_PROVIDER",
+      "contractRequired": false
+    },
+    {
+      "category": "IOT_AND_EDGE",
+      "examples": [
+        "sensors",
+        "gateways",
+        "machines",
+        "meters",
+        "condition_monitoring"
+      ],
+      "integrationMode": "CUSTOMER_AUTHORIZED_DEVICE_GATEWAY",
+      "contractRequired": true
+    },
+    {
+      "category": "ML_AI_PLATFORMS",
+      "examples": [
+        "model_registry",
+        "ml_pipeline",
+        "ai_gateway",
+        "vector_store",
+        "evaluation"
+      ],
+      "integrationMode": "GOVERNED_RUNTIME_ADAPTER",
+      "contractRequired": false
+    },
+    {
+      "category": "SCIENCE_DATABASES",
+      "examples": [
+        "research_indexes",
+        "materials_data",
+        "geology_data",
+        "marine_data",
+        "environmental_data"
+      ],
+      "integrationMode": "OPEN_DATA_OR_LICENSED_DATA",
+      "contractRequired": false
+    },
+    {
+      "category": "SUPERCOMPUTERS",
+      "examples": [
+        "cloud_hpc",
+        "gpu_cluster",
+        "research_hpc",
+        "private_cluster"
+      ],
+      "integrationMode": "PROVIDER_CONTRACT_AND_BUDGET_GATE",
+      "contractRequired": true
+    },
+    {
+      "category": "MARITIME_AND_SHIPPING",
+      "examples": [
+        "vessel",
+        "port",
+        "container",
+        "route",
+        "eta",
+        "marine_weather"
+      ],
+      "integrationMode": "AUTHORIZED_FEED_OR_OPEN_MARITIME_DATA",
+      "contractRequired": false
+    }
+  ]
+}

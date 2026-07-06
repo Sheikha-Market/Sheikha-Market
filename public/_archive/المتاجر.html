@@ -31,7 +31,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -404,7 +404,7 @@
         <div class="hero-content">
             <h1 class="hero-title">🏪 <span>متاجر</span> المعادن والسكراب</h1>
             <p class="hero-desc">تصفح المتاجر المسجلة حسب التخصص ومرحلة سلسلة التوريد</p>
-            
+
             <!-- Specialty Tabs -->
             <div class="specialty-tabs" id="specialtyTabs">
                 <button class="specialty-tab active" onclick="filterBySpecialty('all')" data-specialty="all">
@@ -496,12 +496,12 @@
 
         function filterBySpecialty(specialty) {
             currentSpecialty = specialty;
-            
+
             // Update tabs
             document.querySelectorAll('.specialty-tab').forEach(tab => {
                 tab.classList.toggle('active', tab.dataset.specialty === specialty);
             });
-            
+
             renderStores();
         }
 
@@ -510,28 +510,28 @@
                 // Load traders
                 const tradersRes = await fetch(API + '/api/traders');
                 const tradersData = await tradersRes.json();
-                
+
                 // Load listings for product counts
                 const listingsRes = await fetch(API + '/api/market-listings');
                 const listingsData = await listingsRes.json();
-                
+
                 if (tradersData.success && tradersData.traders) {
                     allStores = tradersData.traders.map(t => {
-                        const productCount = listingsData.listings ? 
+                        const productCount = listingsData.listings ?
                             listingsData.listings.filter(l => l.traderId === t.id).length : 0;
                         return {
                             ...t,
                             productCount
                         };
                     });
-                    
+
                     // Update counts
                     updateCounts();
-                    
+
                     // Update stats
                     document.getElementById('totalStores').textContent = allStores.length;
                     document.getElementById('totalProducts').textContent = listingsData.listingsCount || 0;
-                    
+
                     renderStores();
                 } else {
                     showEmptyState();
@@ -554,17 +554,17 @@
 
         function renderStores() {
             const grid = document.getElementById('storesGrid');
-            
+
             let filtered = allStores;
             if (currentSpecialty !== 'all') {
                 filtered = allStores.filter(s => s.specialty === currentSpecialty);
             }
-            
+
             if (filtered.length === 0) {
                 showEmptyState();
                 return;
             }
-            
+
             grid.innerHTML = filtered.map(store => {
                 const spec = specialtyInfo[store.specialty] || specialtyInfo['default'];
                 return `
@@ -614,7 +614,7 @@
                             </div>
                             <div class="store-actions">
                                 <a href="السوق.html?trader=${store.id}" class="btn btn-outline">عرض المنتجات</a>
-                                <a href="https://wa.me/${store.phone || '966554942904'}?text=السلام عليكم، تواصل من سوق شيخة بخصوص متجر: ${encodeURIComponent(store.company || store.name)}" 
+                                <a href="https://wa.me/${store.phone || '966554942904'}?text=السلام عليكم، تواصل من سوق شيخة بخصوص متجر: ${encodeURIComponent(store.company || store.name)}"
                                    target="_blank" class="btn btn-gold">تواصل</a>
                             </div>
                         </div>

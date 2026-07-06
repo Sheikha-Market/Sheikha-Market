@@ -1,0 +1,70 @@
+{
+  "system": "SHEIKHA_UNIVERSAL_RUNTIME_LOADER",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Load, validate, order, activate, observe, and expose all registered Sheikha engines through a governed runtime loading layer.",
+  "sources": {
+    "registry": "runtime/universal-engine-registry/sheikha-universal-engine-registry.json",
+    "orchestrator": "runtime/universal-orchestrator/sheikha-universal-orchestrator.json",
+    "knowledge_graph": "runtime/universal-knowledge-graph/sheikha-universal-knowledge-graph-engine.json"
+  },
+  "loading_pipeline": [
+    "scan_registry",
+    "read_engine_definitions",
+    "validate_json",
+    "validate_status",
+    "resolve_dependencies",
+    "calculate_load_order",
+    "register_capabilities",
+    "activate_runtime_context",
+    "run_health_check",
+    "emit_runtime_ready"
+  ],
+  "dependency_policy": {
+    "all_required_engines_must_exist": true,
+    "all_required_engines_must_be_active": true,
+    "missing_required_engine_blocks_runtime": true,
+    "optional_engine_warning_only": true,
+    "circular_dependency_forbidden": true
+  },
+  "capability_policy": {
+    "capability_registration_required": true,
+    "duplicate_capability_allowed_with_priority": true,
+    "capability_trace_required": true,
+    "capability_owner_required": true
+  },
+  "runtime_health": {
+    "engine_availability": "ACTIVE",
+    "engine_status": "ACTIVE",
+    "dependency_status": "ACTIVE",
+    "capability_status": "ACTIVE",
+    "governance_status": "ACTIVE",
+    "orchestrator_alignment": "ACTIVE"
+  },
+  "governance": {
+    "registry_required": true,
+    "orchestrator_required": true,
+    "evidence_required": true,
+    "source_traceability_required": true,
+    "no_unverified_claims": true,
+    "no_harm": true,
+    "audit_trace_required": true,
+    "human_review_for_high_impact": true
+  },
+  "outputs": [
+    "runtime_load_order",
+    "engine_status_report",
+    "dependency_report",
+    "capability_report",
+    "runtime_health_report",
+    "governance_report",
+    "activation_trace"
+  ],
+  "maturity": {
+    "loader_readiness": "VERY_HIGH",
+    "dependency_management": "VERY_HIGH",
+    "capability_registration": "VERY_HIGH",
+    "governance_alignment": "VERY_HIGH",
+    "overall": "UNIFIED_RUNTIME_LOADING_READY"
+  }
+}

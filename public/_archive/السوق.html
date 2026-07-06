@@ -36,7 +36,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -262,7 +262,7 @@
             align-items: center;
             gap: 8px;
         }
-        
+
         /* HS Code Tree */
         .hs-tree {
             list-style: none;
@@ -312,7 +312,7 @@
         .hs-chapter-header.expanded .hs-chapter-arrow {
             transform: rotate(90deg);
         }
-        
+
         .hs-headings {
             list-style: none;
             padding-right: 16px;
@@ -779,7 +779,7 @@
         <div class="hero-content">
             <h1 class="hero-title">سوق <span>المعادن والسكراب</span></h1>
             <p class="hero-desc">سوق متكامل مصنف وفق النظام المنسق الدولي (HS Code) — من الفصل 71 إلى 83</p>
-            
+
             <!-- View Mode Tabs -->
             <div style="display: flex; gap: 8px; justify-content: center; margin-bottom: 16px;">
                 <button class="market-tab" style="padding: 8px 16px; font-size: 0.85rem;" onclick="setViewMode('category')" id="viewCategory">
@@ -789,7 +789,7 @@
                     🔗 حسب مرحلة التوريد
                 </button>
             </div>
-            
+
             <!-- Market Tabs (Category View) -->
             <div class="market-tabs" id="categoryTabs">
                 <button class="market-tab active" onclick="switchMarket('metals')" data-market="metals">
@@ -809,7 +809,7 @@
                     <span>المعادن النادرة</span>
                 </button>
             </div>
-            
+
             <!-- Supply Chain Stage Tabs (Stage View) -->
             <div class="market-tabs" id="stageTabs" style="display: none;">
                 <button class="market-tab active" onclick="switchStage('all')" data-stage="all">
@@ -904,7 +904,7 @@
         // ═══════════════════════════════════════════════════════════════════════════════
         // قاعدة بيانات HS Code الكاملة
         // ═══════════════════════════════════════════════════════════════════════════════
-        
+
         const HS_DATABASE = {
             // ═══════════════════════════════════════════════════════════════════════
             // المعادن الأساسية - Base Metals (HS 72-83)
@@ -1070,7 +1070,7 @@
                     }
                 }
             },
-            
+
             // ═══════════════════════════════════════════════════════════════════════
             // إعادة التدوير والسكراب - Recycling & Scrap
             // ═══════════════════════════════════════════════════════════════════════
@@ -1148,7 +1148,7 @@
                     }
                 }
             },
-            
+
             // ═══════════════════════════════════════════════════════════════════════
             // المعادن الثمينة - Precious Metals (HS 71)
             // ═══════════════════════════════════════════════════════════════════════
@@ -1407,14 +1407,14 @@
         // ═══════════════════════════════════════════════════════════════════════════════
         // متغيرات الحالة
         // ═══════════════════════════════════════════════════════════════════════════════
-        
+
         let currentMarket = 'metals';
         let currentChapter = null;
         let currentHeading = null;
         let currentLang = 'ar';
         let currentViewMode = 'category'; // 'category' or 'stage'
         let currentStage = 'all';
-        
+
         // مراحل سلسلة التوريد
         const SUPPLY_CHAIN_STAGES = {
             'source': { icon: '⛏️', name: 'المصدر', nameEn: 'Source', desc: 'مصادر السكراب والمعادن' },
@@ -1424,43 +1424,43 @@
             'manufacturing': { icon: '🏭', name: 'التصنيع', nameEn: 'Manufacturing', desc: 'تصنيع المنتجات' },
             'end': { icon: '🏪', name: 'الطرف النهائي', nameEn: 'End User', desc: 'التجزئة والمستهلك' }
         };
-        
+
         // ═══════════════════════════════════════════════════════════════════════════════
         // تبديل وضع العرض
         // ═══════════════════════════════════════════════════════════════════════════════
-        
+
         function setViewMode(mode) {
             currentViewMode = mode;
-            
+
             // تحديث أزرار الوضع
             document.getElementById('viewCategory').classList.toggle('active', mode === 'category');
             document.getElementById('viewStage').classList.toggle('active', mode === 'stage');
-            
+
             // إظهار/إخفاء التبويبات المناسبة
             document.getElementById('categoryTabs').style.display = mode === 'category' ? 'flex' : 'none';
             document.getElementById('stageTabs').style.display = mode === 'stage' ? 'flex' : 'none';
-            
+
             // تحديث الشريط الجانبي
             if (mode === 'stage') {
                 renderStageSidebar();
             } else {
                 renderSidebar();
             }
-            
+
             renderMainContent();
         }
-        
+
         function switchStage(stage) {
             currentStage = stage;
-            
+
             // Update tabs
             document.querySelectorAll('#stageTabs .market-tab').forEach(t => t.classList.remove('active'));
             document.querySelector(`[data-stage="${stage}"]`).classList.add('active');
-            
+
             renderStageSidebar();
             renderMainContent();
         }
-        
+
         function renderStageSidebar() {
             const sidebar = document.getElementById('sidebar');
             sidebar.innerHTML = `
@@ -1495,11 +1495,11 @@
             currentMarket = market;
             currentChapter = null;
             currentHeading = null;
-            
+
             // Update tabs
             document.querySelectorAll('.market-tab').forEach(t => t.classList.remove('active'));
             document.querySelector(`[data-market="${market}"]`).classList.add('active');
-            
+
             // Render sidebar and content
             renderSidebar();
             renderMainContent();
@@ -1509,7 +1509,7 @@
         function renderSidebar() {
             const data = HS_DATABASE[currentMarket];
             const tree = document.getElementById('hsTree');
-            
+
             let html = '';
             for (const [code, chapter] of Object.entries(data.chapters)) {
                 const isExpanded = currentChapter === code;
@@ -1560,36 +1560,36 @@
             const badgeEl = document.getElementById('sectionBadge');
             const breadcrumbCurrent = document.getElementById('currentSection');
             const grid = document.getElementById('subcategoriesGrid');
-            
+
             // عرض حسب مرحلة سلسلة التوريد
             if (currentViewMode === 'stage') {
                 renderStageContent(titleEl, badgeEl, breadcrumbCurrent, grid);
                 return;
             }
-            
+
             // العرض العادي حسب الفئة
             const data = HS_DATABASE[currentMarket];
-            
+
             if (currentChapter && currentHeading) {
                 // Show specific heading
                 const chapter = data.chapters[currentChapter];
                 const heading = chapter.headings[currentHeading];
-                
+
                 titleEl.innerHTML = `${chapter.icon} <span>${heading.name}</span>`;
                 badgeEl.textContent = `HS ${currentHeading}`;
                 breadcrumbCurrent.textContent = heading.name;
-                
+
                 // Show products for this heading
                 grid.innerHTML = `<p style="color: var(--text-muted);">عرض المنتجات المتاحة في التصنيف: ${heading.name} (${heading.products || 0} منتج)</p>`;
-                
+
             } else if (currentChapter) {
                 // Show chapter headings
                 const chapter = data.chapters[currentChapter];
-                
+
                 titleEl.innerHTML = `${chapter.icon} <span>${chapter.name}</span>`;
                 badgeEl.textContent = `HS ${chapter.code}`;
                 breadcrumbCurrent.textContent = chapter.name;
-                
+
                 grid.innerHTML = Object.entries(chapter.headings).map(([code, heading]) => `
                     <div class="subcat-card" onclick="selectHeading('${currentChapter}', '${code}')">
                         <div class="subcat-icon">${chapter.icon}</div>
@@ -1600,13 +1600,13 @@
                         </div>
                     </div>
                 `).join('');
-                
+
             } else {
                 // Show all chapters
                 titleEl.innerHTML = `${data.icon} <span>${data.name}</span>`;
                 badgeEl.textContent = data.hsRange;
                 breadcrumbCurrent.textContent = data.name;
-                
+
                 grid.innerHTML = Object.entries(data.chapters).map(([code, chapter]) => `
                     <div class="subcat-card" onclick="toggleChapter('${code}')">
                         <div class="subcat-icon">${chapter.icon}</div>
@@ -1618,20 +1618,20 @@
                     </div>
                 `).join('');
             }
-            
+
             renderProducts();
         }
-        
+
         // ═══════════════════════════════════════════════════════════════════════════════
         // عرض المحتوى حسب مرحلة سلسلة التوريد
         // ═══════════════════════════════════════════════════════════════════════════════
-        
+
         function renderStageContent(titleEl, badgeEl, breadcrumbCurrent, grid) {
             if (currentStage === 'all') {
                 titleEl.innerHTML = `🔗 <span>كل مراحل سلسلة التوريد</span>`;
                 badgeEl.textContent = '6 مراحل';
                 breadcrumbCurrent.textContent = 'سلسلة التوريد';
-                
+
                 // عرض كل المراحل كبطاقات
                 grid.innerHTML = Object.entries(SUPPLY_CHAIN_STAGES).map(([id, stage]) => `
                     <div class="subcat-card" onclick="switchStage('${id}')">
@@ -1648,7 +1648,7 @@
                 titleEl.innerHTML = `${stage.icon} <span>${stage.name}</span>`;
                 badgeEl.textContent = stage.nameEn;
                 breadcrumbCurrent.textContent = stage.name;
-                
+
                 grid.innerHTML = `
                     <div style="grid-column: 1/-1; padding: 20px; background: rgba(10,92,54,0.1); border: 1px solid rgba(10,92,54,0.2); border-radius: var(--radius-lg); margin-bottom: 20px;">
                         <h4 style="color: var(--gold); margin-bottom: 8px;">${stage.icon} مرحلة ${stage.name}</h4>
@@ -1656,23 +1656,23 @@
                     </div>
                 `;
             }
-            
+
             renderProductsByStage();
         }
-        
+
         async function renderProductsByStage() {
             const grid = document.getElementById('productsGrid');
-            
+
             try {
-                const url = currentStage === 'all' 
-                    ? '/api/market-listings' 
+                const url = currentStage === 'all'
+                    ? '/api/market-listings'
                     : '/api/market-by-stage?stage=' + currentStage;
-                    
+
                 const response = await fetch(url);
                 const data = await response.json();
-                
+
                 const listings = data.listings || [];
-                
+
                 if (listings.length > 0) {
                     grid.innerHTML = listings.map(l => {
                         const stage = SUPPLY_CHAIN_STAGES[l.supplyChainStage] || { icon: '📦', name: 'عام' };
@@ -1725,12 +1725,12 @@
 
         async function renderProducts() {
             const grid = document.getElementById('productsGrid');
-            
+
             // جلب المنتجات الحقيقية من قاعدة البيانات
             try {
                 const response = await fetch('/api/market/products?market=' + currentMarket + '&chapter=' + (currentChapter || '') + '&heading=' + (currentHeading || ''));
                 const data = await response.json();
-                
+
                 if (data.success && data.products && data.products.length > 0) {
                     grid.innerHTML = data.products.map(p => renderProductCard(p)).join('');
                 } else {
@@ -1776,7 +1776,7 @@
                 `;
             }
         }
-        
+
         function renderProductCard(p) {
             // حساب الإجمالي
             const total = (Number(p.price) || 0) * (Number(p.quantity) || 1);
@@ -1785,7 +1785,7 @@
                 'local': '🚛 توصيل داخلي',
                 'international': '🚢 شحن دولي'
             };
-            
+
             return `
                 <div class="product-card" data-id="${p.id}">
                     <div class="product-image">
@@ -1797,13 +1797,13 @@
                         <div class="product-category">${p.category} • HS ${p.hs}</div>
                         <h3 class="product-title">${p.name}</h3>
                         ${p.description ? `<p style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px; line-height: 1.5;">${p.description.slice(0, 100)}${p.description.length > 100 ? '...' : ''}</p>` : ''}
-                        
+
                         <div class="product-specs">
                             <span class="spec-item">📦 ${p.quantity || '—'} ${p.unit || 'طن'}</span>
                             <span class="spec-item">📍 ${p.location}</span>
                             ${p.quality ? `<span class="spec-item">⭐ ${p.quality}</span>` : ''}
                         </div>
-                        
+
                         <!-- طاقة المصنع -->
                         ${p.storeCapacity && p.storeCapacity.daily !== '—' ? `
                         <div style="margin: 10px 0; padding: 8px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 8px; font-size: 0.75rem;">
@@ -1818,27 +1818,27 @@
                             </div>
                         </div>
                         ` : ''}
-                        
+
                         <!-- خيارات الشحن -->
                         <div style="font-size: 0.75rem; color: var(--text-muted); margin: 8px 0; padding: 6px 10px; background: rgba(0,0,0,0.2); border-radius: 6px;">
                             ${deliveryLabels[p.delivery] || deliveryLabels['pickup']}
                             ${p.transportTypes && p.transportTypes.length > 0 ? ` • ${p.transportTypes.length} وسيلة نقل` : ''}
                         </div>
-                        
+
                         <!-- السعر -->
                         <div class="product-price">
-                            ${p.price ? `${Number(p.price).toLocaleString()}` : 'اتصل للسعر'} 
+                            ${p.price ? `${Number(p.price).toLocaleString()}` : 'اتصل للسعر'}
                             ${p.price ? `<small>${p.currency || 'ريال'}/${p.unit || 'طن'}</small>` : ''}
                         </div>
                         ${p.price && p.quantity ? `<div style="font-size: 0.8rem; color: var(--text-muted); margin-bottom: 8px;">الإجمالي: ${total.toLocaleString()} ${p.currency || 'ريال'}</div>` : ''}
-                        
+
                         <!-- خصم الكميات -->
                         ${p.hasBulkDiscount && p.bulkQty && p.bulkDiscount ? `
                         <div style="font-size: 0.75rem; color: var(--success); background: rgba(16,185,129,0.1); padding: 6px 10px; border-radius: 6px; margin-bottom: 10px;">
                             💰 خصم ${p.bulkDiscount}% عند شراء ${p.bulkQty}+ ${p.unit || 'طن'}
                         </div>
                         ` : ''}
-                        
+
                         <div class="product-footer">
                             <div class="seller-info" onclick="event.stopPropagation(); openStoreProfile('${p.sellerId}')" style="cursor: pointer;">
                                 <div class="seller-avatar">${p.seller ? p.seller.charAt(0) : '؟'}</div>
@@ -1860,11 +1860,11 @@
                 </div>
             `;
         }
-        
+
         // ═══════════════════════════════════════════════════════════════════════════════
         // آلية عرض ذكية للمنتجات - Smart Product Display
         // ═══════════════════════════════════════════════════════════════════════════════
-        
+
         // فتح تفاصيل المنتج
         function openProductDetails(productId) {
             // عرض نافذة تفاصيل المنتج الكاملة
@@ -1879,7 +1879,7 @@
                 </div>
             `);
         }
-        
+
         // فتح صفحة المتجر
         function openStoreProfile(sellerId) {
             showModal(`
@@ -1896,21 +1896,21 @@
                 </div>
             `);
         }
-        
+
         // التواصل المباشر مع التاجر
         function contactSeller(sellerId, productId, productName) {
             const msg = encodeURIComponent('السلام عليكم،\nأرغب بالاستفسار عن: ' + (productName || 'المنتج') + '\nرقم العرض: ' + productId);
             showModal(`
                 <div style="padding: 24px;">
                     <h3 style="color: var(--gold); margin-bottom: 24px; text-align: center;">💬 طرق التواصل</h3>
-                    
+
                     <div style="background: rgba(0,0,0,0.2); padding: 16px; border-radius: 12px; margin-bottom: 20px;">
                         <div style="font-weight: 700; margin-bottom: 8px;">📦 ${productName || 'المنتج'}</div>
                         <div style="font-size: 0.85rem; color: var(--text-muted);">رقم العرض: ${productId.slice(0,8)}...</div>
                     </div>
-                    
+
                     <div style="display: grid; gap: 12px;">
-                        <a href="https://wa.me/966554942904?text=${msg}" 
+                        <a href="https://wa.me/966554942904?text=${msg}"
                            target="_blank" class="btn" style="width: 100%; text-decoration: none; background: #25D366; color: white; padding: 14px;">
                             <span style="font-size: 1.2rem;">📱</span> تواصل واتساب
                         </a>
@@ -1921,7 +1921,7 @@
                             <span style="font-size: 1.2rem;">✉️</span> أرسل استفساراً
                         </button>
                     </div>
-                    
+
                     <div style="margin-top: 24px; padding: 16px; background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 12px;">
                         <div style="font-weight: 700; color: var(--success); margin-bottom: 8px;">🏭 هل تحتاج كميات كبيرة؟</div>
                         <p style="font-size: 0.85rem; color: var(--text-muted); margin-bottom: 12px;">
@@ -1934,7 +1934,7 @@
                 </div>
             `);
         }
-        
+
         // نموذج طلب اتصال
         function showCallbackForm(sellerId, productId) {
             closeModal();
@@ -1965,7 +1965,7 @@
                 closeModal();
             });
         }
-        
+
         // نموذج استفسار
         function showInquiryForm(productId, productName) {
             closeModal();
@@ -1995,18 +1995,18 @@
                 closeModal();
             });
         }
-        
+
         // طلب توريد ضخم من السوق مباشرة
         function requestBulkOrder() {
             closeModal();
             showModal(`
                 <div style="padding: 20px;">
                     <h3 style="color: var(--gold); margin-bottom: 20px; text-align: center;">🏭 طلب توريد ضخم</h3>
-                    
+
                     <p style="color: var(--text-muted); text-align: center; margin-bottom: 20px;">
                         للكميات الكبيرة، يقوم سوق شيخة بالتوريد من عدة تجار لتلبية طلبك
                     </p>
-                    
+
                     <form id="bulkOrderForm" style="display: grid; gap: 16px;">
                         <div>
                             <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">نوع المعدن المطلوب</label>
@@ -2045,20 +2045,20 @@
                             📤 إرسال طلب التوريد
                         </button>
                     </form>
-                    
+
                     <p style="font-size: 0.8rem; color: var(--text-faint); text-align: center; margin-top: 16px;">
                         سيتم الرد خلال 24 ساعة بعرض سعر شامل
                     </p>
                 </div>
             `);
         }
-        
+
         // نافذة الشراء
         function openPurchaseModal(productId, productName, price, unit, currency, availableQty) {
             showModal(`
                 <div style="padding: 24px;">
                     <h3 style="color: var(--gold); margin-bottom: 24px; text-align: center;">🛒 إتمام الشراء</h3>
-                    
+
                     <div style="background: rgba(0,0,0,0.2); border-radius: 12px; padding: 16px; margin-bottom: 20px;">
                         <div style="font-weight: 700; margin-bottom: 8px;">📦 ${productName || 'المنتج'}</div>
                         <div style="display: flex; justify-content: space-between; font-size: 0.9rem; color: var(--text-muted);">
@@ -2066,18 +2066,18 @@
                             <span>المتوفر: ${availableQty || '—'} ${unit}</span>
                         </div>
                     </div>
-                    
+
                     <form id="purchaseForm" style="display: grid; gap: 16px;">
                         <div>
                             <label style="display: block; margin-bottom: 6px; font-size: 0.9rem;">الكمية المطلوبة (${unit})</label>
                             <input type="number" id="purchaseQty" class="search-input" style="width: 100%;" placeholder="أدخل الكمية" min="1" ${availableQty ? 'max="'+availableQty+'"' : ''} oninput="updatePurchaseTotal(${price}, '${currency}')" required>
                         </div>
-                        
+
                         <div id="purchaseTotalBox" style="background: rgba(212,175,55,0.1); border: 1px solid rgba(212,175,55,0.3); border-radius: 12px; padding: 16px; text-align: center; display: none;">
                             <div style="font-size: 0.85rem; color: var(--text-muted);">الإجمالي المقدر</div>
                             <div id="purchaseTotal" style="font-size: 1.5rem; font-weight: 900; color: var(--gold);">—</div>
                         </div>
-                        
+
                         <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 12px;">
                             <div>
                                 <label style="display: block; margin-bottom: 6px; font-size: 0.85rem;">طريقة الاستلام</label>
@@ -2095,22 +2095,22 @@
                                 </select>
                             </div>
                         </div>
-                        
+
                         <div style="background: rgba(16,185,129,0.1); border: 1px solid rgba(16,185,129,0.2); border-radius: 10px; padding: 12px; font-size: 0.8rem; color: var(--success);">
                             🔒 <strong>ضمان شيخة:</strong> يُحفظ المبلغ في حساب آمن حتى تستلم البضاعة وتؤكد
                         </div>
-                        
+
                         <button type="submit" class="btn btn-gold" style="width: 100%; padding: 16px; font-size: 1rem;">
                             ✓ تأكيد الطلب
                         </button>
-                        
+
                         <button type="button" class="btn btn-outline" style="width: 100%;" onclick="contactSeller('', '${productId}', '${productName}')">
                             💬 تواصل مع التاجر أولاً
                         </button>
                     </form>
                 </div>
             `);
-            
+
             document.getElementById('purchaseForm')?.addEventListener('submit', (e) => {
                 e.preventDefault();
                 const qty = document.getElementById('purchaseQty').value;
@@ -2119,7 +2119,7 @@
                 closeModal();
             });
         }
-        
+
         // تحديث إجمالي الشراء
         function updatePurchaseTotal(price, currency) {
             const qty = document.getElementById('purchaseQty')?.value || 0;
@@ -2133,7 +2133,7 @@
                 totalBox.style.display = 'none';
             }
         }
-        
+
         // دوال مساعدة للنوافذ
         function showModal(content) {
             let modal = document.getElementById('smartModal');
@@ -2152,17 +2152,17 @@
             `;
             modal.style.display = 'flex';
         }
-        
+
         function closeModal() {
             const modal = document.getElementById('smartModal');
             if (modal) modal.style.display = 'none';
         }
-        
+
         function requestCallback(sellerId) {
             alert('سيتم الاتصال بك قريباً');
             closeModal();
         }
-        
+
         function sendInquiry(productId) {
             alert('تم إرسال الاستفسار');
             closeModal();
@@ -2176,7 +2176,7 @@
 
         function renderSupplyChain() {
             const section = document.getElementById('supplyChainSection');
-            
+
             const chains = {
                 metals: {
                     title: '🔗 سلسلة إمداد المعادن الأساسية',
@@ -2235,11 +2235,11 @@
                     certifications: ['LBMA للذهب', 'GIA للألماس', 'دمغة الدار السعودية', 'Kimberley للألماس']
                 }
             };
-            
+
             const chainData = chains[currentMarket];
-            
+
             let html = `<h3 class="section-title">${chainData.title}</h3>`;
-            
+
             // Supply chain flow
             html += `<div class="supply-chain-flow">`;
             chainData.stages.forEach((stage, i) => {
@@ -2255,7 +2255,7 @@
                 }
             });
             html += `</div>`;
-            
+
             // Containers for scrap
             if (chainData.containers) {
                 html += `<h4 style="margin: 24px 0 12px; font-size: 1rem;">📦 حاويات السكراب المتخصصة</h4>`;
@@ -2273,7 +2273,7 @@
                 });
                 html += `</div>`;
             }
-            
+
             // Logistics
             html += `<h4 style="margin: 24px 0 12px; font-size: 1rem;">🚛 النقل واللوجستيات</h4>`;
             html += `<div class="logistics-grid">`;
@@ -2288,7 +2288,7 @@
                 `;
             });
             html += `</div>`;
-            
+
             // Certifications for precious
             if (chainData.certifications) {
                 html += `<h4 style="margin: 24px 0 12px; font-size: 1rem;">📜 الشهادات والاعتمادات</h4>`;
@@ -2298,7 +2298,7 @@
                 });
                 html += `</div>`;
             }
-            
+
             section.innerHTML = html;
         }
 

@@ -1,0 +1,47 @@
+{
+  "system": "SHEIKHA_PROVIDER_AGREEMENT_ROADMAP_V1",
+  "status": "ACTIVE",
+  "arabic_name": "خريطة اتفاقيات واشتراكات مزودي حوسبة شيخة V1",
+  "purpose": "Govern the path from compute readiness to real provider subscription, contract, budget approval, GPU allocation, monitoring, billing, and evidence-based commercial activation.",
+  "position": "UNDER_PROVIDER_COMPUTE_FABRIC_ABOVE_REAL_PROVIDER_CONTRACTS",
+  "based_on": [
+    "SHEIKHA_PROVIDER_REGISTRY_V1",
+    "SHEIKHA_COMPUTE_CONTRACT_ENGINE_V1",
+    "SHEIKHA_BUDGET_GUARD_V1",
+    "SHEIKHA_GPU_FARM_READINESS_V1",
+    "SHEIKHA_MULTICLOUD_FABRIC_V1",
+    "SHEIKHA_PROVIDER_COMPUTE_FABRIC_V1",
+    "SHEIKHA_COMMERCIAL_REAL_ACTIVATION_V1"
+  ],
+  "lifecycle": [
+    "compute_need",
+    "governance_review",
+    "budget_ceiling",
+    "provider_shortlist",
+    "terms_and_region_review",
+    "subscription_or_contract_request",
+    "security_and_data_review",
+    "payment_or_purchase_order_gate",
+    "credential_vault_gate",
+    "proof_of_capability_workload",
+    "cost_monitoring",
+    "production_promotion"
+  ],
+  "truthfulness": {
+    "roadmap_is_not_signed_contract": true,
+    "roadmap_is_not_active_subscription": true,
+    "roadmap_is_not_gpu_ownership_claim": true,
+    "roadmap_is_not_supercomputer_ownership_claim": true,
+    "provider_claim_requires_signed_agreement": true,
+    "spend_claim_requires_paid_invoice_or_billing_record": true
+  },
+  "rules": {
+    "no_provider_activation_without_contract_or_subscription": true,
+    "no_gpu_allocation_without_budget_and_terms_review": true,
+    "no_production_workload_without_monitoring": true,
+    "no_high_cost_compute_without_human_approval": true,
+    "no_customer_workload_without_customer_contract": true,
+    "no_external_provider_secret_in_repository": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

@@ -137,7 +137,7 @@ router.get('/companies', (req, res) => {
 
 router.get('/companies/:id', (req, res) => {
     const companies = database.read('companies') || [];
-    const company = Array.isArray(companies) 
+    const company = Array.isArray(companies)
         ? companies.find(c => c.id === req.params.id)
         : companies[req.params.id];
 
@@ -171,8 +171,8 @@ router.get('/search', (req, res) => {
 
     // البحث في العروض
     const listings = database.read('listings') || [];
-    results.listings = listings.filter(item => 
-        item.title?.includes(q) || 
+    results.listings = listings.filter(item =>
+        item.title?.includes(q) ||
         item.description?.includes(q) ||
         item.category?.includes(q)
     );

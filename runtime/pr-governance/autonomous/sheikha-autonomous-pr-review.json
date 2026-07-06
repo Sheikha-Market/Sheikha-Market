@@ -1,0 +1,37 @@
+{
+  "system": "SHEIKHA_AUTONOMOUS_PR_REVIEW_AND_MERGE_GOVERNANCE",
+  "status": "ACTIVE",
+  "purpose": "Autonomously review pull requests, analyze code, assess risk, write reports, recommend fixes, decide merge readiness, and govern safe merge execution.",
+  "capabilities": [
+    "pr_discovery",
+    "diff_analysis",
+    "code_review",
+    "gap_analysis",
+    "root_cause_analysis",
+    "security_review",
+    "fabric_conflict_review",
+    "route_conflict_review",
+    "package_review",
+    "report_generation",
+    "fix_recommendation",
+    "merge_readiness_decision"
+  ],
+  "decisionLevels": [
+    "APPROVED_FOR_SAFE_MERGE",
+    "APPROVED_FOR_CURATED_MERGE",
+    "HOLD_FOR_FIXES",
+    "REJECT_FOR_NOW"
+  ],
+  "rules": {
+    "no_raw_merge_for_large_pr": true,
+    "auto_decision_allowed": true,
+    "auto_report_required": true,
+    "auto_fix_plan_required": true,
+    "human_approval_required_for_high_risk_merge": true,
+    "secret_scan_required": true,
+    "lint_required": true,
+    "tests_required": true,
+    "freeze_v1_1_required": true,
+    "federal_organization_v1_2_required": true
+  }
+}

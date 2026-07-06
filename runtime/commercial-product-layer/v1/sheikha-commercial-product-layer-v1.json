@@ -1,0 +1,46 @@
+{
+  "system": "SHEIKHA_COMMERCIAL_PRODUCT_LAYER_V1",
+  "status": "ACTIVE",
+  "arabic_name": "طبقة منتجات شيخة التجارية",
+  "purpose": "Package Sheikha governed AI capabilities into licensable commercial products, services, APIs, SDKs, SaaS offerings, and enterprise technology components.",
+  "position": "UNDER_CAPABILITY_REGISTRY_BEFORE_LICENSING_ENGINE",
+  "next_layer": "SHEIKHA_LICENSING_ENGINE_V1",
+  "next_layer_status": "GATED_UNTIL_LEGAL_REVIEW_AND_SIGNED_CONTRACT_FOR_EXTERNAL_SALE",
+  "governed_by": [
+    "SHEIKHA_HEART_CORE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_KNOWLEDGE_ENGINE_V2",
+    "SHEIKHA_DECISION_REGISTRY_V2",
+    "SHEIKHA_CAPABILITY_REGISTRY_V2"
+  ],
+  "commercial_truthfulness_policy": {
+    "product_packaging_only": true,
+    "official_partner_claim": false,
+    "official_customer_claim": false,
+    "public_performance_claim_requires_measured_evidence": true,
+    "external_sale_requires_legal_review": true,
+    "external_license_requires_signed_contract": true,
+    "ip_claim_requires_rights_review": true
+  },
+  "rules": {
+    "no_unverified_partner_claims": true,
+    "no_unverified_customer_claims": true,
+    "no_claim_of_openai_partnership_without_contract": true,
+    "ip_ownership_required": true,
+    "license_terms_required": true,
+    "product_sheet_required": true,
+    "kpi_registry_required": true,
+    "legal_review_required_before_external_sale": true,
+    "human_approval_required_for_commercial_terms": true,
+    "tests_required": true,
+    "no_drift_required": true
+  },
+  "registries": {
+    "products": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+    "readiness": "runtime/commercial-product-layer/v1/registries/commercial-readiness-registry.json",
+    "product_sheets": "runtime/commercial-product-layer/v1/registries/product-sheets-registry.json",
+    "value_proof": "runtime/commercial-product-layer/v1/registries/commercial-value-proof-registry.json",
+    "report": "runtime/commercial-product-layer/v1/sheikha-commercial-product-layer-v1-report.json"
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

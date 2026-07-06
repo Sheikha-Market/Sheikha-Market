@@ -1,0 +1,55 @@
+'use strict';
+
+function status() {
+  return {
+    system: 'SHEIKHA_VSCODE_EXTENSION_EXPERIENCE_APEX_V1',
+    status: 'ACTIVE',
+    level: 'HIGHEST_GOVERNED_DEVELOPER_EXPERIENCE_SURFACE',
+    position: 'UNDER_SHEIKHA_LAYER_GOVERNANCE_AND_PROMOTION_OS_V1',
+    governedByApexLevel: 18,
+    governanceAuthority: 'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
+    managementSystem: 'SHEIKHA_ENTERPRISE_MANAGEMENT_OS_V1',
+    runtimeStack: 'SHEIKHA_CONVERSATION_LAYER_STACK_V1_L1_L8',
+    operationalOrchestrator: 'SHEIKHA_ORCHESTRATOR_FABRIC_V2_L11',
+    capabilities: [
+      'vital-contextual-conversation',
+      'workspace-and-editor-awareness',
+      'git-and-project-context',
+      'background-enterprise-inspection',
+      'governed-generative-ai',
+      'grounded-rag',
+      'bounded-agentic-planning',
+      'role-scoped-multi-agent-coordination',
+      'sdk-fabric-mcp-integration',
+      'layer-governance-visibility',
+      'vital-chat-apex-binding',
+      'debugging-apex-binding',
+      'chat-interface-apex-template',
+      'ide-apex-programming-development-routing',
+      'technical-capability-apex-binding'
+    ],
+    surfaces: {
+      conversation: '/api/sheikha/conversation-engine/v1/chat',
+      inspector: '/api/sheikha/enterprise-inspector/v3/status',
+      vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
+      debuggingApex: '/api/sheikha/debugging-apex/v1/status',
+      chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
+      ideApex: '/api/sheikha/ide-apex/v1/status',
+      technicalCapabilityApex: '/api/sheikha/technical-capability-apex/v1/status',
+      layerGovernance: '/api/sheikha/layer-governance/v1/status',
+      enterpriseManagement: '/api/sheikha/enterprise-management-os/status'
+    },
+    boundaries: {
+      inspectorRunsInBackground: true,
+      inspectorPrintedOnlyWhenExplicitlyRequested: true,
+      noSecretExposure: true,
+      noUnboundedAutonomy: true,
+      noConsciousnessClaim: true,
+      noActualAgiClaim: true,
+      noActualAsiClaim: true,
+      humanApprovalForHighImpactActions: true
+    }
+  };
+}
+
+module.exports = { status };

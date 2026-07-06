@@ -1,0 +1,148 @@
+{
+  "registry": "SHEIKHA_CONNECTOR_PROFILE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "arabic_name": "سجل موصلات شيخة للتكامل العلمي والتجاري والتشغيلي",
+  "mode": "governed-readiness-connectors",
+  "truthfulness": {
+    "readiness_only": true,
+    "no_live_connection_claim_without_credentials": true,
+    "no_private_system_claim_without_contract": true,
+    "no_open_data_claim_without_terms_review": true,
+    "no_compute_resource_claim_without_provider_evidence": true
+  },
+  "profiles": [
+    {
+      "id": "CONN-001",
+      "category": "OPEN_DATA_PORTALS",
+      "integrationMode": "OPEN_DATA_TERMS_REVIEW",
+      "accessGate": "TERMS_AND_LICENSE_REVIEW",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-008", "NGC-009", "NGC-010"]
+    },
+    {
+      "id": "CONN-002",
+      "category": "RESEARCH_DATABASES",
+      "integrationMode": "OPEN_OR_LICENSED_RESEARCH_DATA",
+      "accessGate": "DATA_RIGHTS_AND_CITATION_REVIEW",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "id": "CONN-003",
+      "category": "SCIENTIFIC_PUBLICATIONS",
+      "integrationMode": "PUBLICATION_INDEX_OR_LICENSED_ACCESS",
+      "accessGate": "COPYRIGHT_CITATION_AND_REVIEW_GATE",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "id": "CONN-004",
+      "category": "EDUCATIONAL_PLATFORMS",
+      "integrationMode": "AUTHORIZED_LMS_OR_OPEN_COURSE_DATA",
+      "accessGate": "PLATFORM_TERMS_AND_STUDENT_PRIVACY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-002", "NGC-003", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "id": "CONN-005",
+      "category": "ERP_SYSTEMS",
+      "integrationMode": "CUSTOMER_AUTHORIZED_ENTERPRISE_API",
+      "accessGate": "CUSTOMER_CONTRACT_AND_ROLE_SCOPE_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-003", "NGC-006", "NGC-007", "NGC-009", "NGC-010"]
+    },
+    {
+      "id": "CONN-006",
+      "category": "CRM_SYSTEMS",
+      "integrationMode": "CUSTOMER_AUTHORIZED_ENTERPRISE_API",
+      "accessGate": "CUSTOMER_CONSENT_AND_PRIVACY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-003", "NGC-004", "NGC-007", "NGC-009", "NGC-010"]
+    },
+    {
+      "id": "CONN-007",
+      "category": "WMS",
+      "integrationMode": "WAREHOUSE_AUTHORIZED_API_OR_FILE_EXCHANGE",
+      "accessGate": "INVENTORY_SCOPE_AND_OPERATIONAL_SAFETY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-002", "NGC-003", "NGC-007", "NGC-009", "NGC-010"]
+    },
+    {
+      "id": "CONN-008",
+      "category": "TMS",
+      "integrationMode": "TRANSPORT_AUTHORIZED_API_OR_FEED",
+      "accessGate": "ROUTE_DATA_RIGHTS_AND_SAFETY_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-002", "NGC-003", "NGC-007", "NGC-009", "NGC-010"]
+    },
+    {
+      "id": "CONN-009",
+      "category": "IOT_PLATFORMS",
+      "integrationMode": "CUSTOMER_AUTHORIZED_DEVICE_GATEWAY",
+      "accessGate": "DEVICE_SECURITY_AND_SENSOR_DATA_RIGHTS_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-002", "NGC-003", "NGC-006", "NGC-007", "NGC-010"]
+    },
+    {
+      "id": "CONN-010",
+      "category": "SATELLITE_OPEN_OBSERVATION_DATA",
+      "integrationMode": "OPEN_OBSERVATION_OR_LICENSED_PROVIDER",
+      "accessGate": "SOURCE_TERMS_GEOSPATIAL_ACCURACY_GATE",
+      "credentialRequired": false,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-006", "NGC-008", "NGC-010"]
+    },
+    {
+      "id": "CONN-011",
+      "category": "CLOUD_PROVIDERS",
+      "integrationMode": "PROVIDER_ACCOUNT_CONTRACT_AND_BUDGET_GATE",
+      "accessGate": "PROVIDER_CONTRACT_CREDENTIAL_BUDGET_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-006", "NGC-007", "NGC-009", "NGC-010"]
+    },
+    {
+      "id": "CONN-012",
+      "category": "DATA_CENTERS",
+      "integrationMode": "FACILITY_CONTRACT_OR_CUSTOMER_AUTHORIZED_ENDPOINT",
+      "accessGate": "FACILITY_CONTRACT_SECURITY_AND_SLA_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-002", "NGC-006", "NGC-007", "NGC-010"]
+    },
+    {
+      "id": "CONN-013",
+      "category": "SUPERCOMPUTING_RESOURCES",
+      "integrationMode": "HPC_GPU_PROVIDER_CONTRACT_AND_ALLOCATION_GATE",
+      "accessGate": "PROVIDER_EVIDENCE_BUDGET_AND_WORKLOAD_APPROVAL_GATE",
+      "credentialRequired": true,
+      "liveConnectionClaim": false,
+      "rootNeuralCells": ["NGC-001", "NGC-002", "NGC-006", "NGC-007", "NGC-010"]
+    }
+  ],
+  "mesh": {
+    "name": "SHEIKHA_ROOT_NEURAL_CONNECTOR_MESH",
+    "status": "ACTIVE",
+    "qualityTarget": "highest_governed_readiness_without_unsupported_external_claims",
+    "architecture": [
+      "connector_profile",
+      "sdk_output",
+      "fabric_route",
+      "mcp_tool_contract",
+      "authorization_gate",
+      "data_rights_gate",
+      "root_neural_cell_gate",
+      "evidence_report"
+    ]
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

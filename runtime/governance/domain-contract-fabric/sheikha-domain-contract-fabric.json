@@ -1,0 +1,43 @@
+{
+  "fabric": "SHEIKHA_DOMAIN_CONTRACT_FABRIC",
+  "status": "ACTIVE",
+  "mode": "governed-domain-contracts",
+  "purpose": "Bind every Sheikha domain to explicit governance contracts covering policies, capabilities, risks, audit, tokens, runtime boundaries, and federation permissions.",
+  "contractFlow": [
+    "domain_identity",
+    "contract_scope",
+    "policy_binding",
+    "capability_binding",
+    "risk_binding",
+    "audit_binding",
+    "token_binding",
+    "runtime_boundary",
+    "federation_permission",
+    "execution_contract"
+  ],
+  "domains": [
+    "governance",
+    "markets",
+    "metals",
+    "supply_chain",
+    "ai",
+    "datacenter",
+    "research",
+    "licensing",
+    "standards",
+    "certification",
+    "advisory",
+    "organization"
+  ],
+  "rules": {
+    "no_domain_without_contract": true,
+    "no_federation_without_permission": true,
+    "no_execution_without_contract": true,
+    "policy_binding_required": true,
+    "capability_binding_required": true,
+    "risk_binding_required": true,
+    "audit_binding_required": true,
+    "token_binding_required": true,
+    "runtime_boundary_required": true
+  }
+}

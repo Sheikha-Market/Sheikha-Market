@@ -8,7 +8,7 @@ VPS_USER="root"
 TARGET_DIR="/opt/sheikha/current/sheikha-ai-cluster"
 
 # المفاتيح السرية للإنتاج (تم فصلها عن الكود المصدري بناءً على تحديث الـ PR #111)
-PRODUCTION_API_KEY="sk_live_php_hyper_engine_secret_key_2026_prod"
+PRODUCTION_API_KEY="${SHEIKHA_AI_ENGINE_KEY:?missing SHEIKHA_AI_ENGINE_KEY}"
 GRAFANA_PASSWORD="sheikha_secure_pass_2026"
 
 echo "📦 [منظومة شيخة] جاري تجميع الحزمة البرمجية الآمنة لـ Cloud Production..."

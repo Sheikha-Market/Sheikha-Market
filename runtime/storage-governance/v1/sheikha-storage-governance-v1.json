@@ -1,0 +1,48 @@
+{
+  "system": "SHEIKHA_STORAGE_GOVERNANCE_V1",
+  "status": "ACTIVE",
+  "mode": "READ_ONLY_GOVERNANCE",
+  "thresholds": {
+    "warningPercent": 80,
+    "highPercent": 90,
+    "criticalPercent": 95,
+    "largeAssetBytes": 5368709120
+  },
+  "monitoredPaths": [
+    "Salman_Alrajeh_Eternal_Legacy.zip",
+    "reports",
+    "logs",
+    "data",
+    "runtime",
+    "backups",
+    "archives",
+    "dist",
+    "node_modules"
+  ],
+  "protectedPaths": [
+    ".git",
+    "core",
+    "governance",
+    "lib",
+    "routes",
+    "runtime",
+    "server.js"
+  ],
+  "governanceReferences": [
+    "QURAN-04-058",
+    "QURAN-05-008",
+    "QURAN-17-036",
+    "SUNNAH-NAWAWI-032"
+  ],
+  "rules": {
+    "inventoryBeforeAction": true,
+    "checksumBeforeTransfer": true,
+    "copyBeforeSourceRemoval": true,
+    "verifyRecoveryBeforeSourceRemoval": true,
+    "humanApprovalRequired": true,
+    "automaticDeletion": false,
+    "automaticMovement": false,
+    "destructiveCommandsGenerated": false,
+    "externalArchiveConnected": false
+  }
+}

@@ -10,7 +10,7 @@ use Exception;
 
 /**
  * تحكم رفع الملفات إلى Google Cloud Storage
- * 
+ *
  * يوفر إمكانية رفع ملفات المنتجات والصور والمستندات بأمان عالي
  */
 class FileUploadController extends Controller
@@ -97,7 +97,7 @@ class FileUploadController extends Controller
 
         } catch (Exception $e) {
             Log::channel('files')->error("خطأ في رفع الملف: {$e->getMessage()}");
-            
+
             return response()->json([
                 'success' => false,
                 'error' => 'فشل رفع الملف: ' . $e->getMessage(),
@@ -126,7 +126,7 @@ class FileUploadController extends Controller
 
         } catch (Exception $e) {
             Log::channel('files')->error("خطأ في تحميل الملف: {$e->getMessage()}");
-            
+
             return response()->json([
                 'success' => false,
                 'error' => 'فشل تحميل الملف',
@@ -159,7 +159,7 @@ class FileUploadController extends Controller
 
         } catch (Exception $e) {
             Log::channel('files')->error("خطأ في حذف الملف: {$e->getMessage()}");
-            
+
             return response()->json([
                 'success' => false,
                 'error' => 'فشل حذف الملف',
@@ -184,7 +184,7 @@ class FileUploadController extends Controller
 
         } catch (Exception $e) {
             Log::channel('files')->error("خطأ في استرجاع الملفات: {$e->getMessage()}");
-            
+
             return response()->json([
                 'success' => false,
                 'error' => 'فشل استرجاع الملفات',
@@ -216,7 +216,7 @@ class FileUploadController extends Controller
 
         } catch (Exception $e) {
             Log::channel('files')->error("خطأ في النسخ الاحتياطي: {$e->getMessage()}");
-            
+
             return response()->json([
                 'success' => false,
                 'error' => 'فشل النسخ الاحتياطي',

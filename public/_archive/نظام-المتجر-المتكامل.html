@@ -8,7 +8,7 @@
     <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: #0f172a;
@@ -438,7 +438,7 @@
 <body>
 
 <div class="layout">
-    
+
     <aside class="sidebar">
         <div class="sidebar-header">
             <div class="store-logo">
@@ -529,7 +529,7 @@
     </aside>
 
     <main class="main">
-        
+
         <div class="header">
             <h1 class="page-title">لوحة التحكم</h1>
             <div class="header-actions">
@@ -573,7 +573,7 @@
         </div>
 
         <div class="content-grid">
-            
+
             <div class="card">
                 <div class="card-header">
                     <h2 class="card-title">📋 أحدث الطلبات</h2>
@@ -723,7 +723,7 @@
             <h3 class="modal-title">📄 إنشاء عرض سعر</h3>
             <button class="modal-close" onclick="closeModal('quote')">×</button>
         </div>
-        
+
         <div class="form-group">
             <label class="form-label">العميل</label>
             <select class="form-select">
@@ -782,7 +782,7 @@
             <h3 class="modal-title">🧾 إصدار فاتورة ضريبية</h3>
             <button class="modal-close" onclick="closeModal('invoice')">×</button>
         </div>
-        
+
         <div class="form-group">
             <label class="form-label">من طلب</label>
             <select class="form-select">
@@ -829,7 +829,7 @@
             <h3 class="modal-title">📝 إنشاء عقد بيع</h3>
             <button class="modal-close" onclick="closeModal('contract')">×</button>
         </div>
-        
+
         <div class="form-group">
             <label class="form-label">الطرف الثاني (المشتري)</label>
             <select class="form-select">
@@ -888,7 +888,7 @@
             <h3 class="modal-title">🚚 طلب شحن جديد</h3>
             <button class="modal-close" onclick="closeModal('ship')">×</button>
         </div>
-        
+
         <div class="form-group">
             <label class="form-label">للطلب</label>
             <select class="form-select">
@@ -941,11 +941,11 @@
     function openModal(type) {
         document.getElementById(type + 'Modal')?.classList.add('show');
     }
-    
+
     function closeModal(type) {
         document.getElementById(type + 'Modal')?.classList.remove('show');
     }
-    
+
     document.querySelectorAll('.modal').forEach(modal => {
         modal.addEventListener('click', (e) => {
             if (e.target === modal) {

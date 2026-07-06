@@ -102,7 +102,7 @@ router.post('/process-batch', async (req, res) => {
             });
         }
 
-        const pixelUnits = pixels.map(p => 
+        const pixelUnits = pixels.map(p =>
             pixelSystem.createPixel(p.id, p.data, p.metadata)
         );
 

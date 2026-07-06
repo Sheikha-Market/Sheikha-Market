@@ -1,0 +1,34 @@
+{
+  "system": "SHEIKHA_RESOURCE_PRODUCT_MARKET_INTELLIGENCE_V1",
+  "status": "ACTIVE",
+  "purpose": "Unify resource intelligence, product intelligence, sector and market intelligence, dependency and impact graph, and SDK Fabric MCP integration.",
+  "modules": [
+    "RESOURCE_INTELLIGENCE",
+    "PRODUCT_INTELLIGENCE",
+    "SECTOR_MARKET_INTELLIGENCE",
+    "DEPENDENCY_IMPACT_GRAPH",
+    "GLOBAL_GAP_ENGINE",
+    "EARTH_DEVELOPMENT_FABRIC",
+    "SDK_FABRIC_MCP_INTEGRATION"
+  ],
+  "flow": [
+    "SOURCE",
+    "RESOURCE",
+    "MATERIAL",
+    "HS_CODE",
+    "PRODUCT",
+    "SECTOR",
+    "MARKET",
+    "CUSTOMER",
+    "SUPPLY_CHAIN",
+    "IMPACT"
+  ],
+  "rules": {
+    "evidence_required": true,
+    "no_resource_claim_without_source": true,
+    "no_market_claim_without_data": true,
+    "no_external_api_without_authorization": true,
+    "human_approval_for_high_impact": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

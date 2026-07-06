@@ -34,10 +34,10 @@
             color: var(--text);
             min-height: 100vh;
         }
-        
+
         /* Layout */
         .layout { display: flex; min-height: 100vh; }
-        
+
         /* Sidebar */
         .sidebar {
             width: 280px;
@@ -113,14 +113,14 @@
             font-size: 0.7rem;
             font-weight: 700;
         }
-        
+
         /* Main Content */
         .main {
             flex: 1;
             margin-right: 280px;
             padding: 24px;
         }
-        
+
         /* Header */
         .header {
             display: flex;
@@ -164,7 +164,7 @@
             color: var(--text-muted);
         }
         .btn-outline:hover { border-color: var(--gold); color: var(--gold); }
-        
+
         /* Stats Grid */
         .stats-grid {
             display: grid;
@@ -224,7 +224,7 @@
         }
         .stat-change.up { background: rgba(16,185,129,0.15); color: var(--success); }
         .stat-change.down { background: rgba(239,68,68,0.15); color: var(--danger); }
-        
+
         /* Content Sections */
         .content-grid {
             display: grid;
@@ -251,7 +251,7 @@
             align-items: center;
             gap: 10px;
         }
-        
+
         /* Quick Actions */
         .quick-actions {
             display: grid;
@@ -286,7 +286,7 @@
             font-size: 0.75rem;
             color: var(--text-muted);
         }
-        
+
         /* Table */
         .table-container {
             overflow-x: auto;
@@ -321,7 +321,7 @@
         .status.active { background: rgba(16,185,129,0.15); color: var(--success); }
         .status.pending { background: rgba(245,158,11,0.15); color: var(--warning); }
         .status.inactive { background: rgba(239,68,68,0.15); color: var(--danger); }
-        
+
         /* System Panel */
         .system-panel {
             background: linear-gradient(135deg, rgba(10,92,54,0.2), rgba(212,175,55,0.1));
@@ -367,7 +367,7 @@
             font-size: 0.8rem;
             color: var(--text-muted);
         }
-        
+
         /* Dev Tools */
         .dev-section {
             background: var(--card);
@@ -405,7 +405,7 @@
         }
         .dev-tool .icon { font-size: 1.5rem; margin-bottom: 8px; }
         .dev-tool .name { font-weight: 700; font-size: 0.85rem; }
-        
+
         /* Responsive */
         @media (max-width: 1200px) {
             .stats-grid { grid-template-columns: repeat(2, 1fr); }
@@ -431,7 +431,7 @@
                     <div class="logo-sub">لوحة تحكم المدير</div>
                 </div>
             </div>
-            
+
             <nav>
                 <div class="nav-section">
                     <div class="nav-title">الرئيسية</div>
@@ -442,7 +442,7 @@
                         <span class="icon">📈</span> التحليلات
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">إدارة السوق</div>
                     <a href="#" class="nav-item" onclick="showSection('users')">
@@ -459,7 +459,7 @@
                         <span class="icon">🛒</span> الطلبات
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">المالية</div>
                     <a href="#" class="nav-item" onclick="showSection('payments')">
@@ -469,7 +469,7 @@
                         <span class="icon">📋</span> المحاسبة
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">النظام</div>
                     <a href="#" class="nav-item" onclick="showSection('settings')">
@@ -485,7 +485,7 @@
                         <span class="icon">🔒</span> الأمان
                     </a>
                 </div>
-                
+
                 <div class="nav-section">
                     <div class="nav-title">روابط سريعة</div>
                     <a href="index.html" class="nav-item">
@@ -497,7 +497,7 @@
                 </div>
             </nav>
         </aside>
-        
+
         <!-- Main Content -->
         <main class="main">
             <!-- Header -->
@@ -511,7 +511,7 @@
                     <button class="btn btn-gold" onclick="showSection('devtools')">🛠️ أدوات التطوير</button>
                 </div>
             </div>
-            
+
             <!-- System Status Panel -->
             <div class="system-panel">
                 <div class="system-status">
@@ -540,7 +540,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Stats Grid -->
             <div class="stats-grid">
                 <div class="stat-card">
@@ -568,7 +568,7 @@
                     <span class="stat-change up">↑ 0%</span>
                 </div>
             </div>
-            
+
             <!-- Dev Tools Section -->
             <div class="dev-section" id="devtoolsSection">
                 <h3 class="dev-title">🛠️ أدوات التطوير والبرمجة</h3>
@@ -607,7 +607,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- Content Grid -->
             <div class="content-grid">
                 <!-- Recent Activity -->
@@ -637,7 +637,7 @@
                         </table>
                     </div>
                 </div>
-                
+
                 <!-- Quick Actions -->
                 <div class="section">
                     <div class="section-header">
@@ -667,7 +667,7 @@
                     </div>
                 </div>
             </div>
-            
+
             <!-- API Documentation Link -->
             <div class="section" style="text-align: center; padding: 32px;">
                 <h3 style="margin-bottom: 16px;">📚 وثائق النظام والـ API</h3>
@@ -683,21 +683,21 @@
             </div>
         </main>
     </div>
-    
+
     <script>
         const API = window.location.origin;
-        
+
         // تحميل البيانات
         async function loadDashboardData() {
             try {
                 // حالة الخادم
                 const healthRes = await fetch(API + '/api/health');
                 const health = await healthRes.json();
-                
+
                 if (health.success) {
                     document.getElementById('responseTime').textContent = '45ms';
                 }
-                
+
                 // إحصائيات
                 const statsRes = await fetch(API + '/api/admin/stats').catch(() => null);
                 if (statsRes) {
@@ -713,22 +713,22 @@
                 console.log('Loading dashboard data...');
             }
         }
-        
+
         // تحديث البيانات
         function refreshData() {
             loadDashboardData();
             alert('✓ تم تحديث البيانات');
         }
-        
+
         // عرض القسم
         function showSection(section) {
             document.querySelectorAll('.nav-item').forEach(item => item.classList.remove('active'));
             event.target.closest('.nav-item').classList.add('active');
-            
+
             // يمكن إضافة منطق لعرض أقسام مختلفة
             console.log('عرض قسم:', section);
         }
-        
+
         // فتح أداة التطوير
         function openDevTool(tool) {
             const tools = {
@@ -741,17 +741,17 @@
                 'terminal': '#terminal',
                 'ai': 'مساعد-شيخة.html'
             };
-            
+
             if (tools[tool].startsWith('#')) {
                 alert('🛠️ أداة ' + tool + ' - قيد التطوير');
             } else {
                 window.location.href = tools[tool];
             }
         }
-        
+
         // تحميل البيانات عند البدء
         loadDashboardData();
-        
+
         // تحديث كل 30 ثانية
         setInterval(loadDashboardData, 30000);
     </script>

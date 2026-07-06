@@ -1,0 +1,35 @@
+{
+  "system": "SHEIKHA_CONTROLLED_STAGING_LAUNCH_V1",
+  "status": "READY_FOR_STAGING",
+  "baseTag": "sheikha-v1-production-candidate",
+  "requiredBeforeProfitLaunch": [
+    "backup_ready",
+    "rollback_ready",
+    "monitoring_enabled",
+    "payment_or_revenue_path_verified",
+    "staging_health_passed",
+    "manual_ui_review_passed"
+  ],
+  "allowedScope": [
+    "staging deployment",
+    "read-only production review",
+    "manual UI validation",
+    "backup verification",
+    "rollback rehearsal",
+    "monitoring validation"
+  ],
+  "blockedScope": [
+    "automatic external write",
+    "kernel mutation",
+    "boot mutation",
+    "privilege escalation",
+    "unreviewed production traffic"
+  ],
+  "governance": {
+    "noHarm": true,
+    "noExternalMutation": true,
+    "humanApprovalRequired": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "decision": "CONTROLLED_STAGING_ALLOWED"
+}

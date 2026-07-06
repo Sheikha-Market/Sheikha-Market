@@ -1,0 +1,24 @@
+{
+  "registry": "SHEIKHA_CUSTOMER_ONBOARDING_FLOW_V1",
+  "status": "ACTIVE",
+  "flow": [
+    "VISITOR",
+    "REGISTRATION",
+    "CUSTOMER_CLASSIFICATION",
+    "NEEDS_ASSESSMENT",
+    "PRODUCT_MATCHING",
+    "COMMERCIAL_OFFER",
+    "CONTRACT_REVIEW",
+    "LICENSE_OR_SUBSCRIPTION",
+    "INVOICE",
+    "PAYMENT_CONFIRMATION",
+    "ACTIVATION",
+    "SUCCESS_MEASUREMENT"
+  ],
+  "rules": [
+    "classification_required",
+    "contract_required_before_activation",
+    "no_revenue_without_payment",
+    "dashboard_generated_by_customer_type"
+  ]
+}

@@ -1,0 +1,41 @@
+{
+  "registry": "SHEIKHA_DATABASE_SCHEMA_REGISTRY_V1",
+  "status": "ACTIVE",
+  "databases": [
+    {
+      "name": "quran_knowledge",
+      "purpose": "آيات، موضوعات، تفسير، تدبر، ربط معرفي",
+      "tables": ["verses", "topics", "tafsir_refs", "learning_paths"]
+    },
+    {
+      "name": "sunnah_knowledge",
+      "purpose": "أحاديث، أبواب، شروح، أخلاق ومعاملات",
+      "tables": ["hadith", "chapters", "explanations", "applications"]
+    },
+    {
+      "name": "applied_sciences",
+      "purpose": "علوم تخصصية وتطبيقية",
+      "tables": ["domains", "courses", "lessons", "projects"]
+    },
+    {
+      "name": "ai_technology",
+      "purpose": "الحاسب، التقنية، الذكاء الصناعي، الحوكمة",
+      "tables": ["concepts", "tools", "labs", "case_studies"]
+    },
+    {
+      "name": "community_forum",
+      "purpose": "مجتمع تخصصي ومنتديات وقضايا",
+      "tables": ["members", "threads", "questions", "solutions"]
+    },
+    {
+      "name": "innovation_lab",
+      "purpose": "ابتكار، تحديات، نماذج أولية، أثر",
+      "tables": ["ideas", "challenges", "prototypes", "impact"]
+    },
+    {
+      "name": "partners",
+      "purpose": "جامعات، منظمات، خبراء، جهات تخصصية",
+      "tables": ["universities", "organizations", "experts", "agreements"]
+    }
+  ]
+}

@@ -451,9 +451,9 @@ Error: ENOENT: no such file or directory 'data/users.json'
 
 ## 📞 الدعم والتواصل
 
-**المالك**: سلمان أحمد بن سلمان الراجح  
-**البريد**: market@sheikha.top  
-**الدومين**: sheikha.top  
+**المالك**: سلمان أحمد بن سلمان الراجح
+**البريد**: market@sheikha.top
+**الدومين**: sheikha.top
 
 ---
 
@@ -476,7 +476,7 @@ Error: ENOENT: no such file or directory 'data/users.json'
 
 ---
 
-*تم التوثيق: 8 مارس 2026*  
+*تم التوثيق: 8 مارس 2026*
 *© SHEIKHA — أول منظومة اقتصادية إسلامية رقمية*
 
 </div>

@@ -1,0 +1,221 @@
+{
+  "system": "SHEIKHA_FEDERATION_TEMPLATE_ENGINE_V8_ACTIVATION",
+  "status": "ACTIVE",
+  "installed": [
+    {
+      "id": "pkg-0d610fcb6cea58ce",
+      "template": "OperatingSystem",
+      "sdks": 7
+    },
+    {
+      "id": "pkg-661c6a15bd3dd3e8",
+      "template": "Database",
+      "sdks": 7
+    },
+    {
+      "id": "pkg-a39a9f7c3507fd85",
+      "template": "AI",
+      "sdks": 7
+    }
+  ],
+  "blocked": {
+    "status": "BLOCKED",
+    "errors": [
+      "EXTERNAL_CHANGE_FORBIDDEN_IN_TEMPLATE_ENGINE"
+    ]
+  },
+  "report": {
+    "system": "SHEIKHA_FEDERATION_TEMPLATE_ENGINE_V8",
+    "status": "ACTIVE",
+    "mode": "DATA_DRIVEN_TEMPLATE_LIBRARY_PACKAGE_SDK_REGISTRY",
+    "templateLibrary": [
+      {
+        "name": "OperatingSystem",
+        "id": "template-operating-system",
+        "category": "Operating System Templates",
+        "fabrics": 5,
+        "clusters": 7,
+        "capabilities": 5
+      },
+      {
+        "name": "Language",
+        "id": "template-language",
+        "category": "Language Templates",
+        "fabrics": 4,
+        "clusters": 8,
+        "capabilities": 5
+      },
+      {
+        "name": "Database",
+        "id": "template-database",
+        "category": "Database Templates",
+        "fabrics": 5,
+        "clusters": 7,
+        "capabilities": 5
+      },
+      {
+        "name": "Cloud",
+        "id": "template-cloud",
+        "category": "Cloud Templates",
+        "fabrics": 5,
+        "clusters": 6,
+        "capabilities": 5
+      },
+      {
+        "name": "Container",
+        "id": "template-container",
+        "category": "Container Templates",
+        "fabrics": 4,
+        "clusters": 6,
+        "capabilities": 4
+      },
+      {
+        "name": "SDK",
+        "id": "template-sdk",
+        "category": "SDK Templates",
+        "fabrics": 4,
+        "clusters": 7,
+        "capabilities": 4
+      },
+      {
+        "name": "API",
+        "id": "template-api",
+        "category": "API Templates",
+        "fabrics": 4,
+        "clusters": 6,
+        "capabilities": 4
+      },
+      {
+        "name": "AI",
+        "id": "template-ai",
+        "category": "AI Templates",
+        "fabrics": 5,
+        "clusters": 7,
+        "capabilities": 4
+      },
+      {
+        "name": "Knowledge",
+        "id": "template-knowledge",
+        "category": "Knowledge Templates",
+        "fabrics": 4,
+        "clusters": 7,
+        "capabilities": 4
+      },
+      {
+        "name": "Marketplace",
+        "id": "template-marketplace",
+        "category": "Marketplace Templates",
+        "fabrics": 4,
+        "clusters": 6,
+        "capabilities": 4
+      },
+      {
+        "name": "ERP",
+        "id": "template-erp",
+        "category": "ERP Templates",
+        "fabrics": 4,
+        "clusters": 6,
+        "capabilities": 4
+      }
+    ],
+    "sdkTargets": [
+      {
+        "id": "javascript",
+        "packageName": "@sheikha/federation-client",
+        "extension": "js"
+      },
+      {
+        "id": "python",
+        "packageName": "sheikha_federation_client",
+        "extension": "py"
+      },
+      {
+        "id": "go",
+        "packageName": "sheikhafederation",
+        "extension": "go"
+      },
+      {
+        "id": "rust",
+        "packageName": "sheikha_federation",
+        "extension": "rs"
+      },
+      {
+        "id": "java",
+        "packageName": "com.sheikha.federation",
+        "extension": "java"
+      },
+      {
+        "id": "php",
+        "packageName": "Sheikha\\Federation",
+        "extension": "php"
+      },
+      {
+        "id": "csharp",
+        "packageName": "Sheikha.Federation",
+        "extension": "cs"
+      }
+    ],
+    "persistentRegistry": {
+      "system": "SHEIKHA_FEDERATION_TEMPLATE_PERSISTENT_REGISTRY_V8",
+      "status": "ACTIVE",
+      "mode": "INTERNAL_PERSISTENT_REGISTRY_SNAPSHOT",
+      "records": [
+        {
+          "id": "pkg-0d610fcb6cea58ce",
+          "name": "Template Linux Federation Package",
+          "version": "1.0.0",
+          "blueprint": "Linux",
+          "template": "OperatingSystem",
+          "capabilities": 5,
+          "sdks": 7,
+          "openapi": true
+        },
+        {
+          "id": "pkg-661c6a15bd3dd3e8",
+          "name": "Template PostgreSQL Federation Package",
+          "version": "1.0.0",
+          "blueprint": "PostgreSQL",
+          "template": "Database",
+          "capabilities": 5,
+          "sdks": 7,
+          "openapi": true
+        },
+        {
+          "id": "pkg-a39a9f7c3507fd85",
+          "name": "Template AI Federation Package",
+          "version": "1.0.0",
+          "blueprint": "AI",
+          "template": "AI",
+          "capabilities": 4,
+          "sdks": 7,
+          "openapi": true
+        }
+      ],
+      "summary": {
+        "records": 3,
+        "capabilities": 14,
+        "sdkTargets": 7,
+        "openApiSpecs": 3
+      },
+      "safety": {
+        "descriptorOnly": true,
+        "noGeneratedFilesWritten": true,
+        "noExternalMutation": true,
+        "noHarm": true
+      }
+    },
+    "governance": {
+      "internalRegistryWriteAllowed": true,
+      "externalSystemWriteAllowed": false,
+      "descriptorOnlySdkGeneration": true,
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noFirmwareModification": true,
+      "noServiceRestart": true,
+      "noPackageInstall": true,
+      "noHarm": true,
+      "principle": "لا ضرر ولا ضرار"
+    },
+    "timestamp": "2026-07-04T03:07:11.001Z"
+  }
+}

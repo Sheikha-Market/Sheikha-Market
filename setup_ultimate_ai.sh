@@ -39,7 +39,7 @@ code_collection = chroma_client.get_or_create_collection(name="global_production
 
 API_KEY_NAME = "X-AI-Engine-Key"
 api_key_header = APIKeyHeader(name=API_KEY_NAME, auto_error=False)
-VALID_API_KEYS = {"sk_live_php_hyper_engine_secret_key_2026_prod"}
+VALID_API_KEYS = {os.environ.get("SHEIKHA_AI_ENGINE_KEY", "")}
 
 async def get_api_key(api_key_header: str = Depends(api_key_header)):
     if api_key_header in VALID_API_KEYS: return api_key_header
@@ -85,7 +85,7 @@ import os, tarfile, shutil
 SOURCE_DIR = "/app/data/php_ai_vector_db"
 BACKUP_DIR = "/app/data/backups"
 def run_recovery():
-    if not os.path.exists(BACKUP_DIR) or not os.listdir(BACKUP_DIR): 
+    if not os.path.exists(BACKUP_DIR) or not os.listdir(BACKUP_DIR):
         print("❌ No backups found"); return
     backups = [os.path.join(BACKUP_DIR, f) for f in os.listdir(BACKUP_DIR) if f.endswith(".tar.gz")]
     backups.sort(key=os.path.getmtime)
@@ -254,7 +254,7 @@ function activate(context) {
                         try {
                             const res = await fetch('http://localhost:8000/v1/chat', {
                                 method: 'POST',
-                                headers: { 'Content-Type': 'application/json', 'X-AI-Engine-Key': 'sk_live_php_hyper_engine_secret_key_2026_prod' },
+                                headers: { 'Content-Type': 'application/json', 'X-AI-Engine-Key': process.env.SHEIKHA_AI_ENGINE_KEY || '' },
                                 body: JSON.stringify({ question: data.text })
                             });
                             const result = await res.json();
@@ -283,7 +283,7 @@ cat << 'COPILOTEOF' > .github/copilot-instructions.md
 ## الأمان والحماية
 - عند كتابة أي كود لـ PHP، تذكر دائماً مطابقتها لمعايير الأمان المحددة في خادم المنظومة المركزي `http://localhost:8000/docs`.
 - تجنب تماماً كتابة دالة `dd()` في سياق يخص بيئات الإنتاج (Production Context) لتفادي إطلاق إنذارات الحماية الحرجة في Prometheus و Slack.
-- استخدم دائماً مفتاح الـ API `sk_live_php_hyper_engine_secret_key_2026_prod` عند الاتصال بالسيرفر السحابي من الملحقات والأدوات الخارجية.
+- استخدم دائماً متغير البيئة `SHEIKHA_AI_ENGINE_KEY` عند الاتصال بالسيرفر السحابي من الملحقات والأدوات الخارجية.
 
 ## الأسلوب البرمجي
 - يمكنك استخدام الـ Vector DB الخاص بالشركة والمفعل محلياً لاسترجاع الأساليب البرمجية المعتمدة عبر صياغة الأسئلة المفهومية داخل ملفات المشروع.

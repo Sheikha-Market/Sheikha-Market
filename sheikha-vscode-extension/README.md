@@ -158,9 +158,6 @@ Open VS Code Settings (`Ctrl+,`) and search for `sheikha`:
 | `sheikha.completionDelay` | `150` | Delay for completions (ms) |
 | `sheikha.maxCompletions` | `3` | Max suggestions to show |
 | `sheikha.arabicComments` | `true` | Prefer Arabic in suggestions |
-| `sheikha.chatRetries` | `2` | Chat retries before fallback |
-| `sheikha.chatRequestTimeoutMs` | `4000` | Chat request timeout (ms) |
-| `sheikha.chatSloLatencyMs` | `2500` | Chat latency SLO target (ms) |
 
 ## Keyboard Shortcuts
 

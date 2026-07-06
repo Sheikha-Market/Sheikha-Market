@@ -1,0 +1,25 @@
+{
+  "governance": "SHEIKHA_META_ACCOUNT_GOVERNANCE",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "metaAccount": {
+    "facebookDisplayName": "سلمان الراجح",
+    "businessPortfolioName": "Sheikha",
+    "secret": false,
+    "requiresReview": true
+  },
+  "facebookUsername": {
+    "source": "PUBLIC_CONFIG_OR_ENV",
+    "note": "Use exact Facebook handle only when confirmed. Display name is سلمان الراجح.",
+    "secret": false
+  },
+  "pixelId": {
+    "source": "ENV_ONLY",
+    "secretInGit": "BLOCKED"
+  },
+  "capiToken": {
+    "source": "ENV_ONLY",
+    "secretInGit": "BLOCKED"
+  },
+  "rule": "Meta display name and business portfolio may be governed as public metadata, but Pixel ID and CAPI token must remain outside Git."
+}

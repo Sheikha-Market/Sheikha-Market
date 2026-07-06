@@ -1,0 +1,64 @@
+{
+  "system": "SHEIKHA_DEVELOPMENT_FUNCTIONS_FABRIC_V1",
+  "status": "ACTIVE",
+  "arabicName": "نسيج شيخة لوظائف التطوير البرمجي المحكومة",
+  "purpose": "Activate the complete governed development workflow for creating Runtime, Registry, Tool, Route, Tests, running npm test, running lint, verifying NO_DRIFT, committing, and pushing through SDK, Fabric, MCP, chat, and VS Code extension tools.",
+  "position": "ABOVE_SDK_FABRIC_MCP_AND_BELOW_GOVERNANCE_GENERATOR",
+  "basedOn": [
+    "SHEIKHA_GOVERNANCE_GENERATOR_V1",
+    "SHEIKHA_SDK_FABRIC_MCP_INTEGRATION_V1",
+    "SHEIKHA_UGIT_AI_CONTROL_PLANE_V1",
+    "SHEIKHA_ROOT_AUTHORITY_LAYER_V1",
+    "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER"
+  ],
+  "modules": [
+    "RUNTIME_CREATION",
+    "REGISTRY_CREATION",
+    "TOOL_CREATION",
+    "ROUTE_CREATION",
+    "TEST_CREATION",
+    "NPM_TEST_EXECUTION",
+    "LINT_EXECUTION",
+    "NO_DRIFT_VERIFICATION",
+    "GIT_COMMIT",
+    "GIT_PUSH",
+    "SDK_FABRIC_MCP_INTEGRATION",
+    "EXTENSION_CHAT_TOOLS"
+  ],
+  "governanceReference": {
+    "foundation": "QURAN_SUNNAH_RIGHTLY_GUIDED_CALIPHS",
+    "sourceLayer": "SHEIKHA_QURAN_SUNNAH_GOVERNANCE_LAYER",
+    "principles": [
+      "truthfulness",
+      "amanah",
+      "no_harm",
+      "justice",
+      "itqan",
+      "shura",
+      "human_review"
+    ],
+    "system_is_tool_not_religious_authority": true,
+    "human_scholar_or_specialist_review_when_required": true
+  },
+  "truthfulness": {
+    "no_hidden_execution": true,
+    "no_secret_exposure": true,
+    "no_destructive_git_without_explicit_user_request": true,
+    "no_push_without_tests_or_user_override": true,
+    "no_external_integration_without_authorization": true,
+    "no_private_data_without_consent": true
+  },
+  "flow": [
+    "CREATE_RUNTIME",
+    "CREATE_REGISTRY",
+    "CREATE_TOOL",
+    "CREATE_ROUTE",
+    "CREATE_TESTS",
+    "RUN_NPM_TEST",
+    "RUN_LINT",
+    "VERIFY_NO_DRIFT",
+    "GIT_COMMIT",
+    "GIT_PUSH"
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

@@ -1,0 +1,25 @@
+# SHEIKHA QUALITY SAFETY FABRIC V71
+
+Integrated Quality and Safety Layer.
+
+Standards:
+
+ISO9001
+ISO14001
+ISO45001
+ISO55000
+API
+ASME
+ASTM
+IEC
+IEEE
+ISA95
+IEC61511
+IEC62443
+NFPA
+OSHA
+NACE
+
+Principle:
+
+لا ضرر ولا ضرار

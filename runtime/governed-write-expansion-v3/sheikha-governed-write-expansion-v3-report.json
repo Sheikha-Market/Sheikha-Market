@@ -1,0 +1,647 @@
+{
+  "system": "SHEIKHA_GOVERNED_WRITE_EXPANSION_FABRIC_V3",
+  "status": "COMMITTED",
+  "mode": "GOVERNED_READ_WRITE_FULL_BLUEPRINT_EXPANSION",
+  "writeScope": "SHEIKHA_INTERNAL_REGISTRY_AND_GRAPH_ONLY",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noFirmwareModification": true,
+    "noRegistryModificationOutsideSheikha": true,
+    "noSysctlModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noExternalMutation": true,
+    "noHarm": true,
+    "humanReviewRequiredForHighImpactAction": true
+  },
+  "policy": {
+    "system": "SHEIKHA_GOVERNED_WRITE_POLICY_V2",
+    "status": "PASSED",
+    "passed": true,
+    "risks": [],
+    "noHarm": true,
+    "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY"
+  },
+  "relationshipRegistry": [
+    "BELONGS_TO",
+    "DEPENDS_ON",
+    "IMPLEMENTS",
+    "EXTENDS",
+    "PROVIDES",
+    "CONSUMES",
+    "HOSTS",
+    "EXECUTES",
+    "SUPERVISES",
+    "AUDITS",
+    "GOVERNS",
+    "OBSERVES",
+    "CONNECTS_TO",
+    "DISCOVERS",
+    "GENERATES",
+    "REPORTS_TO",
+    "PUBLISHES",
+    "SUBSCRIBES",
+    "SCALES_WITH",
+    "FEDERATES_WITH",
+    "COMPATIBLE_WITH",
+    "REQUIRES",
+    "OPTIONAL_WITH",
+    "ISOLATED_FROM",
+    "VALIDATES"
+  ],
+  "blueprint": {
+    "type": "OPERATING_SYSTEM",
+    "version": "1.0.0",
+    "fabrics": [
+      "industrial",
+      "capability",
+      "service",
+      "api",
+      "sdk",
+      "runtime",
+      "application",
+      "knowledge",
+      "governance",
+      "inspector",
+      "observability"
+    ],
+    "clusters": [
+      "kernel",
+      "filesystem",
+      "drivers",
+      "memory",
+      "scheduler",
+      "ipc",
+      "networking",
+      "security",
+      "services",
+      "monitoring"
+    ]
+  },
+  "baseExpansion": {
+    "system": "SHEIKHA_GOVERNED_WRITE_EXPANSION_FABRIC_V2",
+    "status": "COMMITTED",
+    "mode": "GOVERNED_READ_WRITE",
+    "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY",
+    "safety": {
+      "noKernelModification": true,
+      "noBootModification": true,
+      "noFirmwareModification": true,
+      "noRegistryModificationOutsideSheikha": true,
+      "noSysctlModification": true,
+      "noPackageInstall": true,
+      "noServiceRestart": true,
+      "noExternalMutation": true,
+      "noHarm": true,
+      "humanReviewRequiredForHighImpactAction": true
+    },
+    "stages": [
+      "READ",
+      "VALIDATE",
+      "POLICY_EVALUATION",
+      "RISK_CHECK",
+      "INSPECTOR_REVIEW",
+      "APPROVAL_GATE",
+      "REGISTRY_WRITE",
+      "GRAPH_UPDATE",
+      "AUDIT_RECORD",
+      "EVENT_PUBLISH"
+    ],
+    "policy": {
+      "system": "SHEIKHA_GOVERNED_WRITE_POLICY_V2",
+      "status": "PASSED",
+      "passed": true,
+      "risks": [],
+      "noHarm": true,
+      "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY"
+    },
+    "blueprint": {
+      "familyClusters": [
+        "kernel",
+        "filesystem",
+        "drivers",
+        "security",
+        "scheduler",
+        "ipc",
+        "memory",
+        "network",
+        "package",
+        "service",
+        "monitoring"
+      ],
+      "capabilities": [
+        "runtime-hosting",
+        "process-management",
+        "security-observation",
+        "governance-observation"
+      ]
+    },
+    "family": {
+      "id": "family-9fed1e628a634512",
+      "type": "FEDERATION_FAMILY",
+      "name": "ExampleBlueprintOS Family",
+      "parent": "federation-of-federations",
+      "clusters": [
+        "kernel",
+        "filesystem",
+        "drivers",
+        "security",
+        "scheduler",
+        "ipc",
+        "memory",
+        "network",
+        "package",
+        "service",
+        "monitoring"
+      ],
+      "governance": {
+        "noHarm": true,
+        "humanReviewRequired": true,
+        "productionClaim": false
+      },
+      "createdAt": "2026-07-04T00:23:13.817Z",
+      "updatedAt": "2026-07-04T00:23:13.817Z"
+    },
+    "federation": {
+      "id": "fed-a9531ab16b895b78",
+      "type": "OPERATING_SYSTEM",
+      "name": "ExampleBlueprintOS",
+      "family": "family-9fed1e628a634512",
+      "status": "REGISTERED",
+      "mode": "READ_ONLY_REGISTRY",
+      "clusters": [
+        "kernel",
+        "filesystem",
+        "drivers",
+        "security",
+        "scheduler",
+        "ipc",
+        "memory",
+        "network",
+        "package",
+        "service",
+        "monitoring"
+      ],
+      "capabilities": [
+        "runtime-hosting",
+        "process-management",
+        "security-observation",
+        "governance-observation"
+      ],
+      "metadata": {},
+      "governance": {
+        "noHarm": true,
+        "humanReviewRequired": true,
+        "autoLinked": true,
+        "productionClaim": false
+      },
+      "createdAt": "2026-07-04T00:23:13.817Z",
+      "updatedAt": "2026-07-04T00:23:13.817Z",
+      "relations": [
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "family-9fed1e628a634512",
+          "type": "BELONGS_TO_FAMILY"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "governance-federation",
+          "type": "GOVERNED_BY"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "capability-fabric",
+          "type": "DECLARES_CAPABILITIES"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "observability-fabric",
+          "type": "OBSERVED_BY"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "enterprise-federation",
+          "type": "AVAILABLE_TO_ENTERPRISE"
+        }
+      ],
+      "audit": [
+        {
+          "action": "FEDERATION_REGISTERED",
+          "at": "2026-07-04T00:23:13.818Z",
+          "actor": "activation-script",
+          "reason": "Governed full blueprint expansion demo"
+        }
+      ]
+    },
+    "graph": {
+      "system": "SHEIKHA_DYNAMIC_FEDERATION_REGISTRY_GRAPH_V1",
+      "status": "ACTIVE",
+      "mode": "READ_ONLY_DYNAMIC_REGISTRY_GRAPH",
+      "nodes": [
+        {
+          "id": "family-9fed1e628a634512",
+          "label": "ExampleBlueprintOS Family",
+          "type": "FEDERATION_FAMILY",
+          "family": "federation-of-federations"
+        },
+        {
+          "id": "fed-a9531ab16b895b78",
+          "label": "ExampleBlueprintOS",
+          "type": "OPERATING_SYSTEM",
+          "family": "family-9fed1e628a634512"
+        }
+      ],
+      "edges": [
+        {
+          "from": "family-9fed1e628a634512",
+          "to": "federation-of-federations",
+          "type": "BELONGS_TO_PARENT"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "family-9fed1e628a634512",
+          "type": "BELONGS_TO_FAMILY"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "governance-federation",
+          "type": "GOVERNED_BY"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "capability-fabric",
+          "type": "DECLARES_CAPABILITIES"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "observability-fabric",
+          "type": "OBSERVED_BY"
+        },
+        {
+          "from": "fed-a9531ab16b895b78",
+          "to": "enterprise-federation",
+          "type": "AVAILABLE_TO_ENTERPRISE"
+        }
+      ],
+      "summary": {
+        "federations": 2,
+        "relations": 6
+      }
+    },
+    "audit": {
+      "action": "GOVERNED_FEDERATION_EXPANSION_COMMITTED",
+      "actor": "activation-script",
+      "at": "2026-07-04T00:23:13.818Z"
+    }
+  },
+  "generated": {
+    "fabrics": [
+      {
+        "id": "fed-a9531ab16b895b78:industrial-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "industrial",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:capability-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "capability",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:service-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "service",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:api-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "api",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:sdk-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "sdk",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:runtime-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "runtime",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:application-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "application",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:knowledge-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "knowledge",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:governance-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "governance",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:inspector-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "inspector",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:observability-fabric",
+        "type": "GENERATED_FABRIC",
+        "fabric": "observability",
+        "blueprintVersion": "1.0.0"
+      }
+    ],
+    "clusters": [
+      {
+        "id": "fed-a9531ab16b895b78:kernel-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "kernel",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:filesystem-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "filesystem",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:drivers-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "drivers",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:memory-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "memory",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:scheduler-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "scheduler",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:ipc-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "ipc",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:networking-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "networking",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:security-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "security",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:services-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "services",
+        "blueprintVersion": "1.0.0"
+      },
+      {
+        "id": "fed-a9531ab16b895b78:monitoring-cluster",
+        "type": "GENERATED_CLUSTER",
+        "cluster": "monitoring",
+        "blueprintVersion": "1.0.0"
+      }
+    ],
+    "relations": [
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:industrial-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:industrial-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:capability-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:capability-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:service-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:service-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:api-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:api-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:sdk-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:sdk-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:runtime-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:runtime-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:application-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:application-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:knowledge-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:knowledge-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:governance-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:governance-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:inspector-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:inspector-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:observability-fabric",
+        "type": "GENERATES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:observability-fabric",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:kernel-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:kernel-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:filesystem-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:filesystem-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:drivers-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:drivers-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:memory-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:memory-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:scheduler-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:scheduler-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:ipc-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:ipc-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:networking-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:networking-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:security-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:security-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:services-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:services-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78",
+        "to": "fed-a9531ab16b895b78:monitoring-cluster",
+        "type": "PROVIDES"
+      },
+      {
+        "from": "fed-a9531ab16b895b78:monitoring-cluster",
+        "to": "inspector-federation",
+        "type": "OBSERVES"
+      }
+    ]
+  },
+  "audit": {
+    "action": "GOVERNED_FULL_BLUEPRINT_EXPANSION_COMMITTED",
+    "actor": "activation-script",
+    "at": "2026-07-04T00:23:13.818Z"
+  }
+}

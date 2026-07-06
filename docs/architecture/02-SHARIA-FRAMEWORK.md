@@ -182,7 +182,7 @@ const QURAN_EVIDENCE = {
         الحكم: "إباحة البيع وتحريم الربا",
         التطبيق: "جميع معاملات البيع في المنظومة خالية من الربا"
     },
-    
+
     // الوفاء بالعقود
     العقود: {
         آية: "يَا أَيُّهَا الَّذِينَ آمَنُوا أَوْفُوا بِالْعُقُودِ",
@@ -191,7 +191,7 @@ const QURAN_EVIDENCE = {
         الحكم: "وجوب الوفاء بالعقود",
         التطبيق: "إلزامية تنفيذ الصفقات المتفق عليها"
     },
-    
+
     // التوثيق
     التوثيق: {
         آية: "يَا أَيُّهَا الَّذِينَ آمَنُوا إِذَا تَدَايَنتُم بِدَيْنٍ إِلَىٰ أَجَلٍ مُّسَمًّى فَاكْتُبُوهُ",
@@ -200,7 +200,7 @@ const QURAN_EVIDENCE = {
         الحكم: "استحباب التوثيق في المعاملات",
         التطبيق: "تسجيل جميع المعاملات رقمياً"
     },
-    
+
     // الأمانة
     الأمانة: {
         آية: "إِنَّ اللَّهَ يَأْمُرُكُمْ أَن تُؤَدُّوا الْأَمَانَاتِ إِلَىٰ أَهْلِهَا",
@@ -209,7 +209,7 @@ const QURAN_EVIDENCE = {
         الحكم: "وجوب أداء الأمانات",
         التطبيق: "حماية أموال وبيانات العملاء"
     },
-    
+
     // العدل
     العدل: {
         آية: "وَأَقِيمُوا الْوَزْنَ بِالْقِسْطِ وَلَا تُخْسِرُوا الْمِيزَانَ",
@@ -218,7 +218,7 @@ const QURAN_EVIDENCE = {
         الحكم: "وجوب العدل في القياس",
         التطبيق: "دقة الأوزان والمقاييس في البيع"
     },
-    
+
     // النهي عن الغش
     الغش: {
         آية: "وَلَا تَبْخَسُوا النَّاسَ أَشْيَاءَهُمْ",
@@ -227,7 +227,7 @@ const QURAN_EVIDENCE = {
         الحكم: "تحريم الغش والبخس",
         التطبيق: "نظام ضمان الجودة"
     },
-    
+
     // التراضي
     التراضي: {
         آية: "إِلَّا أَن تَكُونَ تِجَارَةً عَن تَرَاضٍ مِّنكُمْ",
@@ -250,7 +250,7 @@ const HADITH_EVIDENCE = {
         الحكم: "فضل الصدق في التجارة",
         التطبيق: "نظام التحقق من صدق المعلومات"
     },
-    
+
     // البيان والكتمان
     البيان: {
         حديث: "الْبَيِّعَانِ بِالْخِيَارِ مَا لَمْ يَتَفَرَّقَا، فَإِنْ صَدَقَا وَبَيَّنَا بُورِكَ لَهُمَا فِي بَيْعِهِمَا، وَإِنْ كَذَبَا وَكَتَمَا مُحِقَتْ بَرَكَةُ بَيْعِهِمَا",
@@ -258,7 +258,7 @@ const HADITH_EVIDENCE = {
         الحكم: "وجوب البيان وتحريم الكتمان",
         التطبيق: "إلزامية ذكر العيوب"
     },
-    
+
     // النهي عن الغش
     الغش: {
         حديث: "مَنْ غَشَّنَا فَلَيْسَ مِنَّا",
@@ -266,7 +266,7 @@ const HADITH_EVIDENCE = {
         الحكم: "تحريم الغش",
         التطبيق: "سياسة عدم التسامح مع الغش"
     },
-    
+
     // الإتقان
     الإتقان: {
         حديث: "إِنَّ اللَّهَ يُحِبُّ إِذَا عَمِلَ أَحَدُكُمْ عَمَلًا أَنْ يُتْقِنَهُ",
@@ -274,7 +274,7 @@ const HADITH_EVIDENCE = {
         الحكم: "استحباب الإتقان",
         التطبيق: "معايير الجودة العالية"
     },
-    
+
     // النهي عن الاحتكار
     الاحتكار: {
         حديث: "لَا يَحْتَكِرُ إِلَّا خَاطِئٌ",
@@ -282,7 +282,7 @@ const HADITH_EVIDENCE = {
         الحكم: "تحريم الاحتكار",
         التطبيق: "نظام مراقبة السوق"
     },
-    
+
     // أداء الأمانة
     الأمانة: {
         حديث: "أَدِّ الْأَمَانَةَ إِلَى مَنِ ائْتَمَنَكَ، وَلَا تَخُنْ مَنْ خَانَكَ",
@@ -290,7 +290,7 @@ const HADITH_EVIDENCE = {
         الحكم: "وجوب أداء الأمانة",
         التطبيق: "حماية الودائع والضمانات"
     },
-    
+
     // النهي عن النجش
     النجش: {
         حديث: "لَا تَنَاجَشُوا",
@@ -298,7 +298,7 @@ const HADITH_EVIDENCE = {
         الحكم: "تحريم النجش (رفع السعر بدون قصد الشراء)",
         التطبيق: "نظام مراقبة المزادات"
     },
-    
+
     // التسامح
     التسامح: {
         حديث: "رَحِمَ اللَّهُ رَجُلًا سَمْحًا إِذَا بَاعَ، وَإِذَا اشْتَرَى، وَإِذَا اقْتَضَى",
@@ -468,7 +468,7 @@ const SHARIA_RULES = {
             { type: 'NO_RIBA_NASIAH', description: 'لا ربا النسيئة' }
         ]
     },
-    
+
     // قواعد الغرر
     gharar: {
         id: 'GHARAR_001',
@@ -481,7 +481,7 @@ const SHARIA_RULES = {
             { type: 'DELIVERABLE', description: 'قابل للتسليم' }
         ]
     },
-    
+
     // قواعد الغش
     ghish: {
         id: 'GHISH_001',
@@ -494,7 +494,7 @@ const SHARIA_RULES = {
             { type: 'ACCURATE_WEIGHT', description: 'وزن دقيق' }
         ]
     },
-    
+
     // قواعد الاحتكار
     ihtikar: {
         id: 'IHTIKAR_001',
@@ -513,7 +513,7 @@ class ShariaComplianceEngine {
         this.rules = SHARIA_RULES;
         this.auditLog = [];
     }
-    
+
     /**
      * التحقق الشامل من المعاملة
      */
@@ -526,7 +526,7 @@ class ShariaComplianceEngine {
             overallScore: 100,
             fatwa: null
         };
-        
+
         // 1. فحص الربا
         const ribaCheck = this.checkRiba(transaction);
         result.checks.push(ribaCheck);
@@ -535,7 +535,7 @@ class ShariaComplianceEngine {
             result.overallScore = 0;
             return this.finalizeResult(result);
         }
-        
+
         // 2. فحص الغرر
         const ghararCheck = this.checkGharar(transaction);
         result.checks.push(ghararCheck);
@@ -544,7 +544,7 @@ class ShariaComplianceEngine {
             result.overallScore = 0;
             return this.finalizeResult(result);
         }
-        
+
         // 3. فحص الغش
         const ghishCheck = this.checkGhish(transaction);
         result.checks.push(ghishCheck);
@@ -553,19 +553,19 @@ class ShariaComplianceEngine {
             result.overallScore = 0;
             return this.finalizeResult(result);
         }
-        
+
         // 4. فحص الاحتكار
         const ihtikarCheck = this.checkIhtikar(transaction);
         result.checks.push(ihtikarCheck);
-        
+
         // حساب النتيجة النهائية
         result.overallScore = this.calculateScore(result.checks);
-        result.status = result.overallScore >= 80 ? 'APPROVED' : 
+        result.status = result.overallScore >= 80 ? 'APPROVED' :
                        result.overallScore >= 50 ? 'NEEDS_REVIEW' : 'REJECTED';
-        
+
         return this.finalizeResult(result);
     }
-    
+
     /**
      * فحص الربا
      */
@@ -576,7 +576,7 @@ class ShariaComplianceEngine {
             issues: [],
             suggestions: []
         };
-        
+
         // فحص الفوائد
         if (transaction.interest && transaction.interest > 0) {
             check.passed = false;
@@ -587,7 +587,7 @@ class ShariaComplianceEngine {
             });
             check.suggestions.push('إزالة الفائدة واستبدالها برسوم خدمة ثابتة');
         }
-        
+
         // فحص ربا الفضل في المعادن الربوية
         if (this.isRibawiMetal(transaction.product)) {
             if (transaction.product.type === transaction.payment?.type) {
@@ -600,10 +600,10 @@ class ShariaComplianceEngine {
                 }
             }
         }
-        
+
         return check;
     }
-    
+
     /**
      * فحص الغرر
      */
@@ -614,9 +614,9 @@ class ShariaComplianceEngine {
             issues: [],
             suggestions: []
         };
-        
+
         // فحص وصف المنتج
-        if (!transaction.product?.description || 
+        if (!transaction.product?.description ||
             transaction.product.description.length < 50) {
             check.passed = false;
             check.severity = 'HIGH';
@@ -626,7 +626,7 @@ class ShariaComplianceEngine {
             });
             check.suggestions.push('إضافة وصف تفصيلي للمنتج');
         }
-        
+
         // فحص وضوح السعر
         if (!transaction.price || transaction.price <= 0) {
             check.passed = false;
@@ -636,7 +636,7 @@ class ShariaComplianceEngine {
                 message: 'السعر غير محدد'
             });
         }
-        
+
         // فحص القدرة على التسليم
         if (!transaction.deliveryDate) {
             check.issues.push({
@@ -645,10 +645,10 @@ class ShariaComplianceEngine {
             });
             check.suggestions.push('تحديد موعد تسليم واضح');
         }
-        
+
         return check;
     }
-    
+
     /**
      * فحص الغش
      */
@@ -659,11 +659,11 @@ class ShariaComplianceEngine {
             issues: [],
             suggestions: []
         };
-        
+
         // فحص دقة الوزن
         if (transaction.product?.weight) {
             const tolerance = 0.01; // 1% tolerance
-            if (Math.abs(transaction.declaredWeight - transaction.actualWeight) / 
+            if (Math.abs(transaction.declaredWeight - transaction.actualWeight) /
                 transaction.declaredWeight > tolerance) {
                 check.passed = false;
                 check.issues.push({
@@ -672,7 +672,7 @@ class ShariaComplianceEngine {
                 });
             }
         }
-        
+
         // فحص ذكر العيوب
         if (transaction.product?.hasDefects && !transaction.product?.defectsDisclosed) {
             check.passed = false;
@@ -682,10 +682,10 @@ class ShariaComplianceEngine {
             });
             check.suggestions.push('يجب الإفصاح عن جميع العيوب');
         }
-        
+
         return check;
     }
-    
+
     /**
      * فحص الاحتكار
      */
@@ -696,7 +696,7 @@ class ShariaComplianceEngine {
             issues: [],
             suggestions: []
         };
-        
+
         // فحص كمية الشراء
         if (transaction.quantity > transaction.product?.maxPurchaseLimit) {
             check.passed = false;
@@ -706,10 +706,10 @@ class ShariaComplianceEngine {
             });
             check.suggestions.push('تقليل الكمية لمنع الاحتكار');
         }
-        
+
         return check;
     }
-    
+
     /**
      * التحقق إذا كان المعدن من المعادن الربوية
      */
@@ -717,7 +717,7 @@ class ShariaComplianceEngine {
         const ribawiMetals = ['gold', 'silver', 'ذهب', 'فضة'];
         return ribawiMetals.includes(product?.type?.toLowerCase());
     }
-    
+
     /**
      * حساب النتيجة
      */
@@ -736,23 +736,23 @@ class ShariaComplianceEngine {
         }
         return Math.max(0, score);
     }
-    
+
     /**
      * إنهاء النتيجة وتسجيلها
      */
     finalizeResult(result) {
         // إضافة الفتوى
         result.fatwa = this.generateFatwa(result);
-        
+
         // تسجيل في سجل التدقيق
         this.auditLog.push({
             ...result,
             loggedAt: new Date().toISOString()
         });
-        
+
         return result;
     }
-    
+
     /**
      * توليد الفتوى
      */

@@ -1,0 +1,7 @@
+# SHEIKHA_CUSTOMER_INTELLIGENCE_ONBOARDING_V1
+
+- الحالة: ACTIVE
+- الدرجة: 100
+- القرار: CUSTOMER_INTELLIGENCE_ONBOARDING_ACTIVE_100
+
+ولا حول ولا قوة إلا بالله.

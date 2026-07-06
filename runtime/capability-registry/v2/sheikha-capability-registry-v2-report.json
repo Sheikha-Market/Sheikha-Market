@@ -1,0 +1,71 @@
+{
+  "system": "SHEIKHA_CAPABILITY_REGISTRY_V2",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "CAPABILITY_REGISTRY_V2_ACTIVE_100",
+  "activation": {
+    "type": "CAPABILITY_ONLY",
+    "noModelPull": true,
+    "externalModelClaim": false
+  },
+  "dependencies": {
+    "heartCore": true,
+    "rootAuthorityLayer": true,
+    "knowledgeEngineV2": true,
+    "decisionRegistryV2": true,
+    "stabilityLayer": true,
+    "runtimeContractEnforcer": true,
+    "driftDetector": true
+  },
+  "checks": {
+    "mainRegistryActive": true,
+    "capabilityRegistryActive": true,
+    "capabilityItems": true,
+    "activeOrGated": true,
+    "decisionLinked": true,
+    "decisionRefsResolvable": true,
+    "policyRefsLinked": true,
+    "guardrailsLinked": true,
+    "measurementLinked": true,
+    "scoped": true,
+    "noModelPull": true,
+    "capabilityActivationOnly": true,
+    "noUnverifiedModelClaim": true,
+    "executionFabricGated": true
+  },
+  "registryChecks": {
+    "mainRegistryActive": true,
+    "capabilityRegistryActive": true,
+    "capabilityItems": true,
+    "activeOrGated": true,
+    "decisionLinked": true,
+    "decisionRefsResolvable": true,
+    "policyRefsLinked": true,
+    "guardrailsLinked": true,
+    "measurementLinked": true,
+    "scoped": true,
+    "noModelPull": true,
+    "capabilityActivationOnly": true,
+    "noUnverifiedModelClaim": true,
+    "executionFabricGated": true
+  },
+  "missing": [],
+  "missingDependencies": [],
+  "missingRegistryChecks": [],
+  "coverage": {
+    "capabilityItems": 10,
+    "activeItems": 9,
+    "gatedCapabilities": 1,
+    "humanReviewItems": 4,
+    "decisionLinkedItems": 10,
+    "policyLinkedItems": 10,
+    "guardrailedItems": 10,
+    "measuredItems": 10
+  },
+  "nextActions": [
+    "Keep Execution Fabric V2 gated until Capability Registry V2 remains clean.",
+    "Allow execution only for registered capabilities linked to decisions, policies, guardrails, and measurements.",
+    "Connect capability execution to tests, drift detector, PR governance, and runtime admission control."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

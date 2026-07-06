@@ -389,6 +389,6 @@ pm2 restart sheikha-main-portal
 
 ---
 
-**آخر تحديث**: 16 مايو 2026  
-**المسؤول**: Sheikha Operations Team  
+**آخر تحديث**: 16 مايو 2026
+**المسؤول**: Sheikha Operations Team
 **الإصدار**: 2.1.0

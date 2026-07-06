@@ -44,6 +44,14 @@
 - Runtime: runtime services, API, CLI, deployment control, policy enforcement
 - Governance: inventory, verification, benchmarking, approval, promotion, rollback, audit
 
+## الحالة
+
+ACTIVE
+
+## المبدأ الشرعي
+
+لا ضرر ولا ضرار
+
 ## السياسة المرتبطة
 
 الملف التنفيذي المرتبط بهذه المعمارية موجود في:

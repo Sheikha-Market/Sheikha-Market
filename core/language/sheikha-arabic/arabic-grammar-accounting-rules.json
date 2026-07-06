@@ -1,0 +1,36 @@
+{
+  "name": "Sheikha Arabic Programming Grammar",
+  "principle": "Arabic grammar becomes deterministic programming rules.",
+  "rules": [
+    {
+      "arabicRule": "حرف الجر يجر الاسم بعده",
+      "programmingRule": "operator جر applies scope/control to the next token",
+      "accountingExample": "من الحساب إلى الحساب",
+      "effect": "transfer source -> destination"
+    },
+    {
+      "arabicRule": "الفاعل هو من قام بالفعل",
+      "programmingRule": "فاعل = actor/executor",
+      "accountingExample": "المورد باع البضاعة",
+      "effect": "supplier executes sale"
+    },
+    {
+      "arabicRule": "المفعول به وقع عليه الفعل",
+      "programmingRule": "مفعول = target/object",
+      "accountingExample": "باع المورد الحديد",
+      "effect": "item = الحديد"
+    },
+    {
+      "arabicRule": "المضاف والمضاف إليه يحددان الملكية",
+      "programmingRule": "إضافة = ownership/binding",
+      "accountingExample": "رصيد المورد",
+      "effect": "balance.owner = supplier"
+    },
+    {
+      "arabicRule": "النعت يصف المنعوت",
+      "programmingRule": "صفة = validation/filter",
+      "accountingExample": "بضاعة مطابقة",
+      "effect": "item.status = compliant"
+    }
+  ]
+}

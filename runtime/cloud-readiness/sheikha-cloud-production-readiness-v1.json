@@ -1,0 +1,23 @@
+{
+  "system": "SHEIKHA_CLOUD_PRODUCTION_READINESS_V1",
+  "status": "CONTROLLED_REVIEW",
+  "mode": "READ_ONLY_CLOUD_DEPLOYMENT_GOVERNANCE",
+  "allowed": [
+    "readiness_check",
+    "deployment_plan",
+    "dns_review",
+    "ssl_review",
+    "environment_requirements",
+    "rollback_plan"
+  ],
+  "blocked": [
+    "sudo_execution",
+    "gcloud_execution",
+    "certbot_execution",
+    "secret_write",
+    "production_mutation",
+    "service_restart_without_human_approval"
+  ],
+  "principle": "لا ضرر ولا ضرار",
+  "decision": "READY_FOR_HUMAN_APPROVED_CLOUD_DEPLOYMENT_PLAN"
+}

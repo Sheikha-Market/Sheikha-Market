@@ -1,0 +1,36 @@
+{
+  "system": "SHEIKHA_CLOUD_SUPERCOMPUTER_FABRIC_V1",
+  "status": "ACTIVE",
+  "arabic_name": "نسيج حاسب شيخة الخارق السحابي",
+  "purpose": "Activate a governed cloud supercomputer fabric architecture for Sheikha without claiming physical ownership of supercomputer hardware.",
+  "position": "ABOVE_GOVERNANCE_ORCHESTRATOR_AND_SUPERCLUSTER",
+  "truthfulness": {
+    "cloud_architecture_activation": true,
+    "no_physical_supercomputer_ownership_claim": true,
+    "no_gpu_cluster_claim_without_contract": true,
+    "no_model_training_claim_without_run_evidence": true,
+    "provider_contract_required_for_real_compute": true
+  },
+  "fabric_layers": [
+    "ROOT_AUTHORITY",
+    "GOVERNANCE_ORCHESTRATOR",
+    "SOVEREIGN_COMMERCIAL_AI_SUPERCLUSTER",
+    "AI_CLUSTER_PIPELINE_FABRIC",
+    "COMMERCIAL_EXECUTION_CLUSTER",
+    "PROVIDER_REGISTRY_READY",
+    "CLOUD_COMPUTE_READY",
+    "HPC_READY",
+    "KUBERNETES_READY",
+    "DATA_PIPELINE_READY",
+    "MONITORING_READY"
+  ],
+  "rules": {
+    "no_execution_without_governance": true,
+    "no_cloud_spend_without_budget_approval": true,
+    "no_provider_claim_without_contract": true,
+    "no_customer_data_processing_without_contract": true,
+    "human_approval_for_high_cost_compute": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

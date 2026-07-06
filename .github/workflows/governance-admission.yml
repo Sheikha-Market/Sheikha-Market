@@ -1,0 +1,27 @@
+name: Sheikha Governance Admission Controller
+
+on:
+  push:
+    branches: [ main, master, optimization/** ]
+  pull_request:
+    branches: [ main, master, optimization/** ]
+
+jobs:
+  governance-admission:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20.x'
+      - name: Install dependencies
+        run: |
+          if [ -f package-lock.json ]; then npm ci; else npm install; fi
+      - name: Run Sheikha Admission Controller
+        run: |
+          node tools/governance/runtime-admission-controller.js > admission-result.json
+          grep '"status": "BLOCKED"' admission-result.json && cat admission-result.json && exit 1 || echo "Governance check passed."
+        env:
+          SHEIKHA_SLACK_WEBHOOK_URL: ${{ secrets.SHEIKHA_SLACK_WEBHOOK_URL }}

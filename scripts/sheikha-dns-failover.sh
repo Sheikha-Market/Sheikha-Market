@@ -73,11 +73,11 @@ log_debug() { [[ "${DEBUG:-0}" == "1" ]] && log "DEBUG" "$@"; }
 health_check_http() {
     local ip="$1"
     local port="$2"
-    
+
     local http_code=$(curl -s -o /dev/null -w "%{http_code}" \
         --max-time "$FAILOVER_TIMEOUT" \
         "http://${ip}:${port}/api/health" 2>/dev/null || echo "000")
-    
+
     if [[ "$http_code" == "200" ]]; then
         return 0  # صحي
     else
@@ -89,7 +89,7 @@ health_check_http() {
 # فحص صحة السيرفر عبر ICMP (ping)
 health_check_ping() {
     local ip="$1"
-    
+
     ping -c 1 -W "$FAILOVER_TIMEOUT" "$ip" >/dev/null 2>&1 && return 0 || return 1
 }
 
@@ -97,16 +97,16 @@ health_check_ping() {
 check_server_health() {
     local ip="$1"
     local port="$2"
-    
+
     # جرّب HTTP أولاً، ثم ICMP إذا فشل
     if health_check_http "$ip" "$port"; then
         return 0
     fi
-    
+
     if health_check_ping "$ip"; then
         return 0
     fi
-    
+
     return 1
 }
 
@@ -116,14 +116,14 @@ check_server_health() {
 update_cloudflare_dns() {
     local record_name="$1"
     local new_ip="$2"
-    
+
     if [[ -z "$CF_API_KEY" || -z "$CF_ZONE_ID" ]]; then
         log_warn "Cloudflare API key or zone ID not configured"
         return 1
     fi
-    
+
     log_info "Updating Cloudflare DNS: $record_name → $new_ip"
-    
+
     # ابحث عن الـ record ID أولاً (إجبار IPv4 لتجنب حظر IP filtering على IPv6)
     local lookup_response
     lookup_response=$(curl -4 -s -X GET "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/dns_records?name=${record_name}" \
@@ -132,13 +132,13 @@ update_cloudflare_dns() {
 
     local record_id
     record_id=$(echo "$lookup_response" | jq -r '.result[0].id' 2>/dev/null)
-    
+
     if [[ -z "$record_id" || "$record_id" == "null" ]]; then
         log_error "Could not find DNS record ID for $record_name"
         echo "$lookup_response" | jq -c '{success, errors, messages, result_info}' >> "$LOG_FILE" 2>/dev/null || true
         return 1
     fi
-    
+
     # حدّث الـ record
     local response=$(curl -4 -s -X PUT \
         "https://api.cloudflare.com/client/v4/zones/${CF_ZONE_ID}/dns_records/${record_id}" \
@@ -151,7 +151,7 @@ update_cloudflare_dns() {
             \"ttl\": 120,
             \"proxied\": false
         }")
-    
+
     if echo "$response" | jq -e '.success' >/dev/null 2>&1; then
         log_info "✓ Cloudflare DNS updated successfully"
         return 0
@@ -168,20 +168,20 @@ update_hosts_file() {
     local domain="$1"
     local new_ip="$2"
     local hosts_file='/etc/hosts'
-    
+
     if [[ ! -w "$hosts_file" ]]; then
         log_warn "Cannot write to $hosts_file (permission denied)"
         return 1
     fi
-    
+
     log_info "Updating $hosts_file: $domain → $new_ip"
-    
+
     # أزل الـ entry القديم
     sed -i "/[[:space:]]${domain}[[:space:]]*$/d" "$hosts_file"
-    
+
     # أضف الـ entry الجديد
     echo "$new_ip    $domain" >> "$hosts_file"
-    
+
     log_info "✓ Local /etc/hosts updated"
     return 0
 }
@@ -192,15 +192,15 @@ update_hosts_file() {
 update_route53_dns() {
     local domain="$1"
     local new_ip="$2"
-    
+
     # يتطلب: aws cli + credentials
     if ! command -v aws &>/dev/null; then
         log_warn "AWS CLI not installed, skipping Route53 update"
         return 1
     fi
-    
+
     log_info "Updating Route53: $domain → $new_ip"
-    
+
     # هذا مثال مبسط — قد تحتاج تعديل حسب إعدادات Route53
     aws route53 change-resource-record-sets \
         --hosted-zone-id "YOUR_ZONE_ID" \
@@ -218,7 +218,7 @@ update_route53_dns() {
         log_error "Failed to update Route53"
         return 1
     }
-    
+
     log_info "✓ Route53 updated"
     return 0
 }
@@ -229,11 +229,11 @@ perform_failover() {
     log_info "════════════════════════════════════════════"
     log_info "Performing DNS failover check..."
     log_info "════════════════════════════════════════════"
-    
+
     local primary_healthy=false
     local secondary_healthy=false
     local current_ip=""
-    
+
     # فحص السيرفر الرئيسي
     if check_server_health "$PRIMARY_IP" "$PRIMARY_PORT"; then
         log_info "✓ Primary server ($PRIMARY_IP) is HEALTHY"
@@ -242,7 +242,7 @@ perform_failover() {
         log_error "✗ Primary server ($PRIMARY_IP) is DOWN"
         primary_healthy=false
     fi
-    
+
     # فحص السيرفر الثانوي (إذا كان مُعرّف)
     if [[ -n "$SECONDARY_IP" ]]; then
         if check_server_health "$SECONDARY_IP" "$SECONDARY_PORT"; then
@@ -253,7 +253,7 @@ perform_failover() {
             secondary_healthy=false
         fi
     fi
-    
+
     # تحديد الـ IP الذي يجب أن يشير إليه DNS
     if [[ "$primary_healthy" == true ]]; then
         current_ip="$PRIMARY_IP"
@@ -270,24 +270,24 @@ perform_failover() {
         log_warn "All servers down, service will continue monitoring"
         return 0
     fi
-    
+
     # حدّث DNS (جرّب كل الطرق)
     local dns_updated=false
-    
+
     # Cloudflare
     if [[ -n "$CF_API_KEY" && -n "$CF_ZONE_ID" ]]; then
         update_cloudflare_dns "$CF_RECORD_NAME" "$current_ip" && dns_updated=true
     fi
-    
+
     # AWS Route53
     # update_route53_dns "$DOMAIN" "$current_ip" && dns_updated=true
-    
+
     # Local /etc/hosts (للاختبار)
     update_hosts_file "$DOMAIN" "$current_ip" && dns_updated=true
-    
+
     # حفظ المقاييس
     save_metrics "$current_ip" "$primary_healthy" "$secondary_healthy" "$dns_updated"
-    
+
     return 0
 }
 
@@ -297,9 +297,9 @@ save_metrics() {
     local primary_healthy="$2"
     local secondary_healthy="$3"
     local dns_updated="$4"
-    
+
     mkdir -p "$LOG_DIR"
-    
+
     cat > "$METRICS_FILE" <<EOF
 {
   "timestamp": "$(date -Is)",
@@ -322,7 +322,7 @@ EOF
 
 main() {
     mkdir -p "$LOG_DIR"
-    
+
     log_info "════════════════════════════════════════════════════════"
     log_info "🌍 DNS Failover Manager Started"
     log_info "════════════════════════════════════════════════════════"
@@ -330,7 +330,7 @@ main() {
     log_info "Primary: $PRIMARY_IP:$PRIMARY_PORT"
     [[ -n "$SECONDARY_IP" ]] && log_info "Secondary: $SECONDARY_IP:$SECONDARY_PORT"
     log_info "Check Interval: ${HEALTH_CHECK_INTERVAL}s"
-    
+
     if [[ "${CONTINUOUS:-0}" == "1" ]]; then
         log_info "Running in continuous mode..."
         while true; do

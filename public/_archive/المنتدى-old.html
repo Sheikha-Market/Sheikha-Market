@@ -35,7 +35,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -151,7 +151,7 @@
             left: 0;
             right: 0;
             bottom: 0;
-            background: 
+            background:
                 radial-gradient(ellipse 60% 50% at 50% 0%, rgba(212,175,55,0.1) 0%, transparent 50%),
                 radial-gradient(ellipse 40% 30% at 20% 80%, rgba(139,92,246,0.08) 0%, transparent 50%),
                 radial-gradient(ellipse 40% 30% at 80% 80%, rgba(6,182,212,0.08) 0%, transparent 50%);
@@ -925,7 +925,7 @@
 
         // لا توجد بيانات وهمية - المواضيع تأتي من قاعدة البيانات فقط
         let sampleTopics = [];
-        
+
         // جلب المواضيع من API
         async function loadTopics() {
             try {
@@ -941,7 +941,7 @@
                 showEmptyForumState();
             }
         }
-        
+
         function showEmptyForumState() {
             const list = document.getElementById('topicsList');
             if (!list) return;
@@ -959,7 +959,7 @@
                 </div>
             `;
         }
-        
+
         // تحميل المواضيع عند فتح الصفحة
         document.addEventListener('DOMContentLoaded', loadTopics);
 
@@ -1011,12 +1011,12 @@
             const title = document.getElementById('newTopicTitle').value;
             const category = document.getElementById('newTopicCategory').value;
             const content = document.getElementById('newTopicContent').value;
-            
+
             if (!title || !category || !content) {
                 alert('يرجى تعبئة جميع الحقول');
                 return;
             }
-            
+
             alert('تم إنشاء الموضوع: ' + title);
             // TODO: Save to server
         }

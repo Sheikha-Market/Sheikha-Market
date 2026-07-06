@@ -1,0 +1,13 @@
+{
+  "registry": "SHEIKHA_PROTOCOL_REGISTRY_V1",
+  "status": "ACTIVE",
+  "groups": {
+    "web": ["HTTP", "HTTPS", "HTTP2", "HTTP3", "WEBSOCKET", "SSE"],
+    "file_mail": ["FTP", "SFTP", "FTPS", "SMTP", "IMAP", "POP3"],
+    "transport": ["TCP", "UDP", "QUIC"],
+    "network": ["IPV4", "IPV6", "DNS", "DHCP", "ICMP"],
+    "api": ["REST", "GRAPHQL", "GRPC", "JSON_RPC", "OPENAPI", "ASYNCAPI"],
+    "iot": ["MQTT", "AMQP", "COAP", "OPC_UA", "MODBUS"],
+    "development": ["LSP", "MCP"]
+  }
+}

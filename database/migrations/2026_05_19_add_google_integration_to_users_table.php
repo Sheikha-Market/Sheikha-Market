@@ -15,16 +15,16 @@ return new class extends Migration
             // Google OAuth
             $table->string('google_id')->nullable()->unique()->after('id');
             $table->string('avatar_url')->nullable()->after('email');
-            
+
             // Firebase
             $table->string('firebase_uid')->nullable()->unique()->after('google_id');
-            
+
             // مفاتيح الأجهزة
             $table->text('device_tokens')->nullable()->after('firebase_uid');
-            
+
             // آخر تسجيل دخول
             $table->timestamp('last_login_at')->nullable()->after('email_verified_at');
-            
+
             // مفتاح API الشخصي
             $table->string('api_token')->nullable()->unique()->after('last_login_at');
         });

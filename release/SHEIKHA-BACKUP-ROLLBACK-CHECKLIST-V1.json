@@ -1,0 +1,22 @@
+{
+  "system": "SHEIKHA_BACKUP_ROLLBACK_CHECKLIST_V1",
+  "status": "REQUIRED_BEFORE_PROFIT_LAUNCH",
+  "baseTag": "sheikha-v1-production-candidate",
+  "backup": {
+    "databaseBackupReady": false,
+    "envBackupReady": false,
+    "pm2DumpSaved": true,
+    "repositoryTagReady": true
+  },
+  "rollback": {
+    "rollbackTag": "sheikha-v1-production-candidate",
+    "rollbackCommandDocumented": true,
+    "rollbackTested": false
+  },
+  "monitoring": {
+    "pm2Online": true,
+    "healthEndpointOk": true,
+    "alertsEnabled": false
+  },
+  "decision": "STAGING_ALLOWED_PROFIT_LAUNCH_PENDING_BACKUP_ROLLBACK_MONITORING"
+}

@@ -1,0 +1,99 @@
+{
+  "system": "SHEIKHA_MICROSCOPIC_CLINICAL_SCIENCE_ENGINE",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "purpose": "Support microscopic, biological, clinical, laboratory, scientific, and applied studies with variable explanation, constants mapping, evidence governance, statistical analysis, and research-to-application integration.",
+  "science_domains": {
+    "microscopy": "ACTIVE",
+    "microbiology": "ACTIVE",
+    "cell_biology": "ACTIVE",
+    "molecular_biology": "ACTIVE",
+    "genetics": "ACTIVE",
+    "biochemistry": "ACTIVE",
+    "pathology": "ACTIVE",
+    "histology": "ACTIVE",
+    "botany": "ACTIVE",
+    "zoology": "ACTIVE",
+    "ecology": "ACTIVE",
+    "clinical_studies": "ACTIVE",
+    "laboratory_studies": "ACTIVE",
+    "applied_science": "ACTIVE",
+    "industrial_biology": "ACTIVE",
+    "agricultural_science": "ACTIVE",
+    "environmental_science": "ACTIVE"
+  },
+  "study_model": {
+    "study_question": "ACTIVE",
+    "hypothesis": "ACTIVE",
+    "sample_definition": "ACTIVE",
+    "control_group": "ACTIVE",
+    "variables": "ACTIVE",
+    "constants": "ACTIVE",
+    "measurement_protocol": "ACTIVE",
+    "observation_protocol": "ACTIVE",
+    "statistical_plan": "ACTIVE",
+    "evidence_trace": "ACTIVE",
+    "interpretation": "ACTIVE",
+    "application_pathway": "ACTIVE"
+  },
+  "variable_explanation": {
+    "independent_variable": "ACTIVE",
+    "dependent_variable": "ACTIVE",
+    "controlled_variable": "ACTIVE",
+    "confounding_variable": "ACTIVE",
+    "environmental_variable": "ACTIVE",
+    "biological_variable": "ACTIVE",
+    "clinical_variable": "ACTIVE",
+    "measurement_error": "ACTIVE",
+    "uncertainty": "ACTIVE",
+    "confidence_interval": "ACTIVE"
+  },
+  "analysis_methods": {
+    "descriptive_statistics": "ACTIVE",
+    "trend_analysis": "ACTIVE",
+    "correlation_analysis": "ACTIVE_WHEN_DATA_VALID",
+    "regression_analysis": "ACTIVE_WHEN_DATA_VALID",
+    "time_series_analysis": "ACTIVE_WHEN_DATA_VALID",
+    "outlier_detection": "ACTIVE",
+    "sensitivity_analysis": "ACTIVE",
+    "comparative_analysis": "ACTIVE",
+    "benchmarking": "ACTIVE",
+    "clinical_relevance_review": "HUMAN_REVIEW_REQUIRED"
+  },
+  "governance": {
+    "evidence_required": true,
+    "source_traceability_required": true,
+    "statistics_validity_required": true,
+    "clinical_claims_require_expert_review": true,
+    "no_medical_diagnosis_without_clinician": true,
+    "no_unverified_claims": true,
+    "no_harm": true,
+    "privacy_required_for_human_data": true,
+    "ethical_review_for_human_or_animal_studies": true
+  },
+  "integration": {
+    "derivation_bio_systems": "runtime/derivation-bio-systems/sheikha-derivation-bio-systems-engine.json",
+    "variable_statistics_arabic": "runtime/universal-variable-statistics-arabic/sheikha-variable-statistics-arabic-engine.json",
+    "cross_domain_research": "runtime/cross-domain-research/sheikha-cross-domain-research-engine.json",
+    "arabic_logic_analogy": "runtime/arabic-logic-analogy/sheikha-arabic-logic-system-analogy-engine.json"
+  },
+  "outputs": [
+    "microscopic_study_report",
+    "biological_variable_report",
+    "clinical_variable_report",
+    "laboratory_protocol_summary",
+    "constant_variable_map",
+    "statistical_summary",
+    "evidence_trace",
+    "research_interpretation",
+    "application_opportunity",
+    "safety_and_ethics_review"
+  ],
+  "maturity": {
+    "microscopic_science_readiness": "VERY_HIGH",
+    "biological_study_modeling": "VERY_HIGH",
+    "clinical_governance": "VERY_HIGH",
+    "applied_science_integration": "VERY_HIGH",
+    "overall": "SCIENTIFIC_RESEARCH_GRADE"
+  }
+}

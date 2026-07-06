@@ -1,0 +1,26 @@
+{
+  "system": "SHEIKHA_EXTENSION_COMPATIBILITY_V2",
+  "status": "ACTIVE",
+  "purpose": "Align VS Code Extension expectations with Sheikha Root Runtime API contract without weakening root architecture.",
+  "compatibility_targets": [
+    "status",
+    "models",
+    "languages",
+    "completion_validation",
+    "chat_sharia_compliance",
+    "nes",
+    "inline_chat",
+    "settings",
+    "vscode_bridge",
+    "unified_integrations"
+  ],
+  "response_contract": "SHEIKHA_API_CONTRACT_REGISTRY_V2",
+  "required_shape": "{ success, data, meta }",
+  "test_governance": {
+    "default_jest_behavior": "SKIP_LIVE_SERVER_EXTENSION_TESTS",
+    "live_test_gate": "SHEIKHA_RUN_LIVE_EXTENSION_TESTS=true",
+    "live_test_script": "npm run test:extension:integration",
+    "principle": "Default tests validate code contracts; live extension tests validate runtime binding explicitly."
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

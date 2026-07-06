@@ -1,0 +1,216 @@
+{
+  "system": "SHEIKHA_GOVERNED_WRITE_EXPANSION_FABRIC_V2",
+  "status": "COMMITTED",
+  "mode": "GOVERNED_READ_WRITE",
+  "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY",
+  "safety": {
+    "noKernelModification": true,
+    "noBootModification": true,
+    "noFirmwareModification": true,
+    "noRegistryModificationOutsideSheikha": true,
+    "noSysctlModification": true,
+    "noPackageInstall": true,
+    "noServiceRestart": true,
+    "noExternalMutation": true,
+    "noHarm": true,
+    "humanReviewRequiredForHighImpactAction": true
+  },
+  "stages": [
+    "READ",
+    "VALIDATE",
+    "POLICY_EVALUATION",
+    "RISK_CHECK",
+    "INSPECTOR_REVIEW",
+    "APPROVAL_GATE",
+    "REGISTRY_WRITE",
+    "GRAPH_UPDATE",
+    "AUDIT_RECORD",
+    "EVENT_PUBLISH"
+  ],
+  "policy": {
+    "system": "SHEIKHA_GOVERNED_WRITE_POLICY_V2",
+    "status": "PASSED",
+    "passed": true,
+    "risks": [],
+    "noHarm": true,
+    "writeScope": "SHEIKHA_INTERNAL_REGISTRY_ONLY"
+  },
+  "blueprint": {
+    "familyClusters": [
+      "kernel",
+      "filesystem",
+      "drivers",
+      "security",
+      "scheduler",
+      "ipc",
+      "memory",
+      "network",
+      "package",
+      "service",
+      "monitoring"
+    ],
+    "capabilities": [
+      "runtime-hosting",
+      "process-management",
+      "security-observation",
+      "governance-observation"
+    ]
+  },
+  "family": {
+    "id": "family-6aff30d94114d09e",
+    "type": "FEDERATION_FAMILY",
+    "name": "ExampleGovernedOS Family",
+    "parent": "federation-of-federations",
+    "clusters": [
+      "kernel",
+      "filesystem",
+      "drivers",
+      "security",
+      "scheduler",
+      "ipc",
+      "memory",
+      "network",
+      "package",
+      "service",
+      "monitoring"
+    ],
+    "governance": {
+      "noHarm": true,
+      "humanReviewRequired": true,
+      "productionClaim": false
+    },
+    "createdAt": "2026-07-04T00:15:09.035Z",
+    "updatedAt": "2026-07-04T00:15:09.035Z"
+  },
+  "federation": {
+    "id": "fed-7828c2c6bd407d16",
+    "type": "OPERATING_SYSTEM",
+    "name": "ExampleGovernedOS",
+    "family": "family-6aff30d94114d09e",
+    "status": "REGISTERED",
+    "mode": "READ_ONLY_REGISTRY",
+    "clusters": [
+      "kernel",
+      "filesystem",
+      "drivers",
+      "security",
+      "scheduler",
+      "ipc",
+      "memory",
+      "network",
+      "package",
+      "service",
+      "monitoring"
+    ],
+    "capabilities": [
+      "runtime-hosting",
+      "process-management",
+      "security-observation",
+      "governance-observation"
+    ],
+    "metadata": {},
+    "governance": {
+      "noHarm": true,
+      "humanReviewRequired": true,
+      "autoLinked": true,
+      "productionClaim": false
+    },
+    "createdAt": "2026-07-04T00:15:09.035Z",
+    "updatedAt": "2026-07-04T00:15:09.035Z",
+    "relations": [
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "family-6aff30d94114d09e",
+        "type": "BELONGS_TO_FAMILY"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "capability-fabric",
+        "type": "DECLARES_CAPABILITIES"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "observability-fabric",
+        "type": "OBSERVED_BY"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "enterprise-federation",
+        "type": "AVAILABLE_TO_ENTERPRISE"
+      }
+    ],
+    "audit": [
+      {
+        "action": "FEDERATION_REGISTERED",
+        "at": "2026-07-04T00:15:09.035Z",
+        "actor": "activation-script",
+        "reason": "Governed internal registry expansion demo"
+      }
+    ]
+  },
+  "graph": {
+    "system": "SHEIKHA_DYNAMIC_FEDERATION_REGISTRY_GRAPH_V1",
+    "status": "ACTIVE",
+    "mode": "READ_ONLY_DYNAMIC_REGISTRY_GRAPH",
+    "nodes": [
+      {
+        "id": "family-6aff30d94114d09e",
+        "label": "ExampleGovernedOS Family",
+        "type": "FEDERATION_FAMILY",
+        "family": "federation-of-federations"
+      },
+      {
+        "id": "fed-7828c2c6bd407d16",
+        "label": "ExampleGovernedOS",
+        "type": "OPERATING_SYSTEM",
+        "family": "family-6aff30d94114d09e"
+      }
+    ],
+    "edges": [
+      {
+        "from": "family-6aff30d94114d09e",
+        "to": "federation-of-federations",
+        "type": "BELONGS_TO_PARENT"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "family-6aff30d94114d09e",
+        "type": "BELONGS_TO_FAMILY"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "governance-federation",
+        "type": "GOVERNED_BY"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "capability-fabric",
+        "type": "DECLARES_CAPABILITIES"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "observability-fabric",
+        "type": "OBSERVED_BY"
+      },
+      {
+        "from": "fed-7828c2c6bd407d16",
+        "to": "enterprise-federation",
+        "type": "AVAILABLE_TO_ENTERPRISE"
+      }
+    ],
+    "summary": {
+      "federations": 2,
+      "relations": 6
+    }
+  },
+  "audit": {
+    "action": "GOVERNED_FEDERATION_EXPANSION_COMMITTED",
+    "actor": "activation-script",
+    "at": "2026-07-04T00:15:09.035Z"
+  }
+}

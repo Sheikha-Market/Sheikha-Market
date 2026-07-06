@@ -1,0 +1,39 @@
+{
+  "system": "SHEIKHA_COMMERCIAL_EXECUTION_LAYER_V1",
+  "status": "ACTIVE",
+  "arabic_name": "طبقة التنفيذ التجاري لشيخة",
+  "purpose": "Convert commercial governance, licensing, contracts, customers, billing, and products into a governed execution pipeline from lead to revenue.",
+  "position": "UNDER_COMMERCIAL_GOVERNANCE_ENGINE",
+  "governed_by": [
+    "SHEIKHA_COMMERCIAL_PRODUCT_LAYER_V1",
+    "SHEIKHA_COMMERCIAL_GOVERNANCE_ENGINE_V1",
+    "SHEIKHA_LICENSING_ENGINE_V1",
+    "SHEIKHA_CONTRACT_ENGINE_V1",
+    "SHEIKHA_CUSTOMER_REGISTRY_V1",
+    "SHEIKHA_BILLING_ENGINE_V1"
+  ],
+  "execution_flow": [
+    "LEAD",
+    "OPPORTUNITY",
+    "QUOTATION",
+    "COMMERCIAL_REVIEW",
+    "CONTRACT_DRAFT",
+    "LEGAL_REVIEW",
+    "APPROVAL",
+    "CONTRACT_SIGNED",
+    "LICENSE_ISSUED",
+    "INVOICE_ISSUED",
+    "PAYMENT_CONFIRMED",
+    "CUSTOMER_ACTIVATED",
+    "RENEWAL"
+  ],
+  "rules": {
+    "no_customer_activation_without_signed_contract": true,
+    "no_license_without_approved_contract": true,
+    "no_invoice_without_license": true,
+    "no_revenue_claim_without_payment_confirmation": true,
+    "human_approval_required_for_discount_or_liability": true,
+    "no_drift_required": true
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

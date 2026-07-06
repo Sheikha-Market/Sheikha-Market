@@ -1,0 +1,26 @@
+{
+  "activation": "SHEIKHA_PR_ACTIVATION_GOVERNANCE",
+  "status": "ACTIVE",
+  "purpose": "Govern open pull requests before merge with architecture, security, route, data, OpenAPI, SDK, MCP, tests, and Freeze V1.1 compatibility checks.",
+  "workflow": [
+    "discover_open_prs",
+    "record_prs",
+    "classify_prs",
+    "compare_against_freeze_v1_1",
+    "check_route_conflicts",
+    "check_fabric_conflicts",
+    "check_data_impact",
+    "check_openapi_sdk_impact",
+    "check_mcp_impact",
+    "run_tests",
+    "human_merge_decision"
+  ],
+  "rules": {
+    "no_auto_merge": true,
+    "no_merge_on_failed_tests": true,
+    "no_merge_on_secret_risk": true,
+    "no_merge_on_fabric_conflict": true,
+    "no_merge_on_route_conflict": true,
+    "no_merge_without_human_approval": true
+  }
+}

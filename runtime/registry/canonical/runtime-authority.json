@@ -1,0 +1,14 @@
+{
+  "runtimeAuthority": "docs/canonical",
+  "kernelAuthority": "core/kernel",
+  "providerAuthority": "core/providers",
+  "ownershipAuthority": "runtime/ownership",
+  "reportAuthority": "runtime/reports",
+  "freezeAuthority": "runtime/freeze",
+  "policy": {
+    "singleSourceOfTruth": true,
+    "noDuplicateAuthority": true,
+    "registryGoverned": true,
+    "humanReviewed": true
+  }
+}

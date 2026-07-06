@@ -1,0 +1,53 @@
+{
+  "name": "Sheikha Root Source Of Truth Registry",
+  "version": "1.0.0",
+  "canonical": {
+    "architecture": "docs/architecture/",
+    "runtime": "docs/runtime/",
+    "governance": "docs/governance/",
+    "registry": "docs/registry/",
+    "neural": "core/neural/",
+    "runtimeSystems": "core/runtime/",
+    "orchestration": "core/orchestration/",
+    "api": [
+      "routes/",
+      "server.js"
+    ],
+    "dashboard": [
+      "routes/dashboard.js",
+      "public/"
+    ],
+    "deployment": [
+      "ecosystem.config.js",
+      "docs/registry/deployment/"
+    ],
+    "security": "docs/security/",
+    "integrations": "docs/integrations/",
+    "runtimeIntegrations": "docs/registry/integrations/"
+  },
+  "forbiddenDuplicateSources": [
+    "Sheikha-Market/sheikha-main-portal/",
+    "exports/",
+    "public/_archive/",
+    "infra/docker/compose/prod/Sheikha-Market/",
+    "repos/git-sheikha/"
+  ],
+  "guard": {
+    "script": "tools/sheikha-blueprint-guard.js",
+    "stages": [
+      "audit",
+      "precommit",
+      "preflight",
+      "strict"
+    ],
+    "beforeCommit": true,
+    "beforeDeploy": true,
+    "beforeRestart": true
+  },
+  "governance": {
+    "tawheed": true,
+    "quranAndSunnahGoverned": true,
+    "humanAuthority": true,
+    "noDestructiveActionWithoutApproval": true
+  }
+}

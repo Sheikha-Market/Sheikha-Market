@@ -16,7 +16,7 @@
 
 :root {
     /* === COLOR SYSTEM (نظام الألوان) === */
-    
+
     /* Primary Brand Colors - ألوان العلامة التجارية */
     --sheikha-gold-50: #fef9e7;
     --sheikha-gold-100: #fcefc2;
@@ -28,7 +28,7 @@
     --sheikha-gold-700: #9a7a27;
     --sheikha-gold-800: #7c611f;
     --sheikha-gold-900: #5e4817;
-    
+
     /* Saudi Green (الأخضر السعودي) */
     --saudi-green-50: #e6f5ec;
     --saudi-green-100: #c0e5d0;
@@ -40,7 +40,7 @@
     --saudi-green-700: #005328;
     --saudi-green-800: #004621;
     --saudi-green-900: #003318;
-    
+
     /* Neutral Colors (الألوان المحايدة) */
     --neutral-0: #ffffff;
     --neutral-50: #f8fafc;
@@ -54,29 +54,29 @@
     --neutral-800: #1e293b;
     --neutral-900: #0f172a;
     --neutral-950: #020617;
-    
+
     /* Semantic Colors (ألوان دلالية) */
     --success-50: #ecfdf5;
     --success-500: #10b981;
     --success-700: #047857;
-    
+
     --warning-50: #fffbeb;
     --warning-500: #f59e0b;
     --warning-700: #b45309;
-    
+
     --error-50: #fef2f2;
     --error-500: #ef4444;
     --error-700: #b91c1c;
-    
+
     --info-50: #eff6ff;
     --info-500: #3b82f6;
     --info-700: #1d4ed8;
-    
+
     /* === TYPOGRAPHY SYSTEM (نظام الخطوط) === */
     --font-primary: 'Tajawal', 'Segoe UI', sans-serif;
     --font-display: 'Tajawal', 'Segoe UI', sans-serif;
     --font-mono: 'JetBrains Mono', 'Fira Code', monospace;
-    
+
     /* Font Sizes - Based on Major Third Scale (1.25) */
     --text-xs: 0.64rem;      /* 10.24px */
     --text-sm: 0.8rem;       /* 12.8px */
@@ -87,7 +87,7 @@
     --text-3xl: 2.441rem;    /* 39px */
     --text-4xl: 3.052rem;    /* 48.83px */
     --text-5xl: 3.815rem;    /* 61px */
-    
+
     /* Line Heights */
     --leading-none: 1;
     --leading-tight: 1.25;
@@ -95,7 +95,7 @@
     --leading-normal: 1.5;
     --leading-relaxed: 1.625;
     --leading-loose: 2;
-    
+
     /* Font Weights */
     --font-light: 300;
     --font-normal: 400;
@@ -104,7 +104,7 @@
     --font-bold: 700;
     --font-extrabold: 800;
     --font-black: 900;
-    
+
     /* === SPACING SYSTEM (نظام المسافات) === */
     /* Based on 8px Grid System */
     --space-0: 0;
@@ -121,7 +121,7 @@
     --space-20: 5rem;      /* 80px */
     --space-24: 6rem;      /* 96px */
     --space-32: 8rem;      /* 128px */
-    
+
     /* === BORDER RADIUS (الحواف المنحنية) === */
     --radius-none: 0;
     --radius-sm: 0.25rem;    /* 4px */
@@ -131,7 +131,7 @@
     --radius-2xl: 1.5rem;    /* 24px */
     --radius-3xl: 2rem;      /* 32px */
     --radius-full: 9999px;
-    
+
     /* === SHADOWS (الظلال) === */
     --shadow-xs: 0 1px 2px 0 rgba(0,0,0,0.05);
     --shadow-sm: 0 1px 3px 0 rgba(0,0,0,0.1), 0 1px 2px -1px rgba(0,0,0,0.1);
@@ -140,26 +140,26 @@
     --shadow-xl: 0 20px 25px -5px rgba(0,0,0,0.1), 0 8px 10px -6px rgba(0,0,0,0.1);
     --shadow-2xl: 0 25px 50px -12px rgba(0,0,0,0.25);
     --shadow-inner: inset 0 2px 4px 0 rgba(0,0,0,0.05);
-    
+
     /* Premium Glow Effects */
     --glow-gold: 0 0 40px rgba(212,175,55,0.3);
     --glow-green: 0 0 40px rgba(0,108,53,0.3);
     --glow-premium: 0 0 60px rgba(212,175,55,0.2), 0 0 100px rgba(0,108,53,0.1);
-    
+
     /* === TRANSITIONS (التحولات) === */
     --duration-instant: 0ms;
     --duration-fast: 150ms;
     --duration-normal: 300ms;
     --duration-slow: 500ms;
     --duration-slower: 700ms;
-    
+
     --ease-linear: linear;
     --ease-in: cubic-bezier(0.4, 0, 1, 1);
     --ease-out: cubic-bezier(0, 0, 0.2, 1);
     --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
     --ease-bounce: cubic-bezier(0.68, -0.55, 0.265, 1.55);
     --ease-premium: cubic-bezier(0.16, 1, 0.3, 1);
-    
+
     /* === Z-INDEX SCALE (طبقات العمق) === */
     --z-below: -1;
     --z-base: 0;
@@ -173,7 +173,7 @@
     --z-tooltip: 70;
     --z-toast: 80;
     --z-maximum: 9999;
-    
+
     /* === LAYOUT (التخطيط) === */
     --container-xs: 20rem;     /* 320px */
     --container-sm: 24rem;     /* 384px */
@@ -199,16 +199,16 @@
     --bg-tertiary: var(--neutral-800);
     --bg-elevated: #0c1220;
     --bg-surface: rgba(15,23,42,0.8);
-    
+
     --text-primary: var(--neutral-50);
     --text-secondary: var(--neutral-300);
     --text-tertiary: var(--neutral-400);
     --text-muted: var(--neutral-500);
-    
+
     --border-primary: var(--neutral-700);
     --border-secondary: var(--neutral-800);
     --border-focus: var(--sheikha-gold-500);
-    
+
     --accent-primary: var(--sheikha-gold-500);
     --accent-secondary: var(--saudi-green-500);
 }
@@ -807,22 +807,22 @@ body {
 
 @media (max-width: 768px) {
     html { font-size: 15px; }
-    
+
     .grid-4,
     .grid-3,
     .grid-2 { grid-template-columns: 1fr; }
-    
+
     .section { padding: var(--space-12) 0; }
-    
+
     .navbar-nav { display: none; }
-    
+
     .heading-display { font-size: var(--text-3xl); }
     .heading-1 { font-size: var(--text-2xl); }
 }
 
 @media (max-width: 480px) {
     html { font-size: 14px; }
-    
+
     .container { padding: 0 var(--space-4); }
 }
 
@@ -832,7 +832,7 @@ body {
 
 /* Premium Background */
 .bg-premium {
-    background: 
+    background:
         radial-gradient(ellipse at 20% 0%, rgba(212,175,55,0.1) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 100%, rgba(0,108,53,0.08) 0%, transparent 50%),
         var(--bg-primary);

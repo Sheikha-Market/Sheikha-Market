@@ -1,0 +1,41 @@
+{
+  "system": "SHEIKHA_GOVERNANCE_ACTIVATION_FABRIC_V1",
+  "status": "ACTIVE",
+  "purpose": "Govern policies, activation roadmap, execution timing, PR readiness, merge governance, reporting, and improvement without breaking Architecture Freeze V1.3.",
+  "protected_foundations": [
+    "Architecture Freeze V1.3",
+    "Federal Organization V1.2",
+    "Quran Sunnah Governance",
+    "PR Governance",
+    "Patch Engine",
+    "Curated Merge Engine",
+    "OpenAPI Registry",
+    "SDK Registry",
+    "MCP Bridge",
+    "Sheikha Data"
+  ],
+  "activation_cycle": [
+    "scan",
+    "govern",
+    "decide",
+    "execute",
+    "report",
+    "prepare_pr"
+  ],
+  "merge_policy": {
+    "raw_merge_allowed": false,
+    "curated_merge_required": true,
+    "human_approval_required_for_high_risk": true,
+    "governance_check_required": true,
+    "drift_check_required": true,
+    "report_required_before_pr": true
+  },
+  "principles": [
+    "truth_before_speed",
+    "halal_before_profit",
+    "safety_before_automation",
+    "audit_before_release",
+    "human_authority",
+    "no_harm"
+  ]
+}

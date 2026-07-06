@@ -1,0 +1,41 @@
+{
+  "registry": "SHEIKHA_COMPUTE_INTEGRATION_ACTIVATION_SCRIPTS_REGISTRY_V1",
+  "status": "ACTIVE",
+  "scripts": [
+    {
+      "id": "SCRIPT-PROVIDER-COMPUTE-001",
+      "command": "npm run ops:provider-compute-fabric:v1",
+      "purpose": "Refresh provider, contract, budget, GPU readiness, and multicloud fabric report."
+    },
+    {
+      "id": "SCRIPT-COMMERCIAL-REAL-002",
+      "command": "npm run ops:commercial-real-activation:v1",
+      "purpose": "Refresh real commercial activation gates for customers, partners, contracts, billing, and revenue."
+    },
+    {
+      "id": "SCRIPT-MULTI-SUPERCOMPUTER-003",
+      "command": "npm run ops:multi-supercomputer-cloud-fabric:v1",
+      "purpose": "Refresh multi-cloud, multi-provider, GPU and HPC readiness."
+    },
+    {
+      "id": "SCRIPT-AI-SUPERCOMPUTER-PIPELINE-004",
+      "command": "npm run ops:ai-supercomputer-cloud-cluster-pipeline-fabric:v1",
+      "purpose": "Refresh AI workload pipeline readiness across cloud, cluster, and supercomputer layers."
+    },
+    {
+      "id": "SCRIPT-CUSTOMER-CLASSIFICATION-005",
+      "command": "npm run ops:customer-classification:v1",
+      "purpose": "Refresh customer, market, role, verification, dashboard, and revenue classification."
+    },
+    {
+      "id": "SCRIPT-PROVIDER-AGREEMENT-006",
+      "command": "npm run ops:provider-agreement-roadmap:v1",
+      "purpose": "Refresh agreement paths, subscription options, resource alternatives, and activation map."
+    },
+    {
+      "id": "SCRIPT-COMPUTE-INTEGRATION-007",
+      "command": "npm run ops:compute-integration-readiness:v1",
+      "purpose": "Run the governed compute integration readiness activation bundle."
+    }
+  ]
+}

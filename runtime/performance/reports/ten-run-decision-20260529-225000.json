@@ -1,0 +1,27 @@
+{
+  "report": "SHEIKHA_TEN_RUN_PERFORMANCE_DECISION",
+  "status": "COMPLETE",
+  "runs": 10,
+  "averages": {
+    "apiHealthMs": 5.133,
+    "directApiMs": 7.7,
+    "cpuLoopMs": 44.2,
+    "pm2MemoryMB": 154
+  },
+  "min": {
+    "apiHealthMs": 1.812,
+    "directApiMs": 5,
+    "cpuLoopMs": 41
+  },
+  "max": {
+    "apiHealthMs": 28.122,
+    "directApiMs": 10,
+    "cpuLoopMs": 48
+  },
+  "targets": {
+    "apiHealthMsMax": 1.5,
+    "cpuLoopMsMax": 40,
+    "memoryMBMax": 180
+  },
+  "decision": "NEAR_PROMOTION_READY_OPTIMIZE_FIRST"
+}

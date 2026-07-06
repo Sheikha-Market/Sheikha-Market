@@ -4,7 +4,7 @@
 **Unified AI Context System — منظومة شيخة**
 
 ## 🎯 الرؤية
-**«سياق موحد عبر جميع منصات AI»**  
+**«سياق موحد عبر جميع منصات AI»**
 المستخدم يفتح أي chatbot (ChatGPT، Claude، Gemini، أو أي ذكاء صناعي) ويجد:
 - ✅ أهدافه جاهزة
 - ✅ أسلوبه محفوظ
@@ -20,14 +20,14 @@
 ```javascript
 // محرك السياق الموحد
 class UnifiedContextEngine {
-  
+
   /**
    * تخزين سياق المستخدم مركزياً
    */
   async saveUserContext(userId, context) {
     return await db.userContexts.upsert({
       userId: userId,
-      
+
       // 1. الهوية والمعلومات الأساسية
       identity: {
         name: context.name,
@@ -37,7 +37,7 @@ class UnifiedContextEngine {
         location: context.location,   // city, country
         language: context.language    // ar, en, ar+en
       },
-      
+
       // 2. الأهداف الحالية
       goals: context.goals,
       /* مثال:
@@ -48,7 +48,7 @@ class UnifiedContextEngine {
         "تسجيل 100 تاجر في الشهر الأول"
       ]
       */
-      
+
       // 3. الأسلوب المفضل (Personality)
       personality: {
         tone: context.personality.tone,           // professional, friendly, formal
@@ -64,7 +64,7 @@ class UnifiedContextEngine {
         language_mix: "arabic for context, english for code"
       }
       */
-      
+
       // 4. التفضيلات التقنية
       preferences: {
         frameworks: context.preferences.frameworks,
@@ -80,7 +80,7 @@ class UnifiedContextEngine {
         conventions: ["4 spaces", "camelCase", "semicolons"]
       }
       */
-      
+
       // 5. المشاريع النشطة
       projects: context.projects,
       /* مثال:
@@ -94,7 +94,7 @@ class UnifiedContextEngine {
         }
       ]
       */
-      
+
       // 6. التكاملات المتصلة
       integrations: context.integrations,
       /* مثال:
@@ -105,7 +105,7 @@ class UnifiedContextEngine {
         { platform: "alrajhi-bank", connected: true, syncEnabled: false }
       ]
       */
-      
+
       // 7. الخبرة والمجالات
       expertise: {
         technical: context.expertise.technical,
@@ -119,27 +119,27 @@ class UnifiedContextEngine {
         religious: ["Shariah Compliance", "Islamic Finance", "Halal Business"]
       }
       */
-      
+
       // 8. التعليمات المخصصة
       instructions: context.instructions,
       /* مثال نص كامل:
       `
       أنا المالك الوحيد لمنظومة شيخة. أعمل على أول منظومة اقتصادية إسلامية رقمية.
-      
+
       عند الرد:
       - استخدم العربية الفصحى للشرح والسياق
       - استخدم الإنجليزية للكود والمصطلحات التقنية
       - أعطني أمثلة عملية بالكود دائماً
       - كن مباشراً ووفر وقتي
       - راعي المبادئ الشرعية في كل حل تقني
-      
+
       مبادئي:
       - لا ربا، لا غرر، لا غش
       - الصدق في البيع = البركة في المال
       - التقنية في خدمة الشريعة
       `
       */
-      
+
       // 9. الذاكرة قصيرة المدى (Recent Activity)
       recentActivity: context.recentActivity,
       /* مثال:
@@ -154,7 +154,7 @@ class UnifiedContextEngine {
         }
       ]
       */
-      
+
       // 10. Metadata
       metadata: {
         apiToken: context.apiToken,        // للوصول لـ APIs شيخة
@@ -164,7 +164,7 @@ class UnifiedContextEngine {
       }
     });
   }
-  
+
   /**
    * توليد System Prompt موحد
    */
@@ -172,7 +172,7 @@ class UnifiedContextEngine {
     const ic = userContext.identity;
     const goals = userContext.goals.map(g => `- ${g}`).join('\n');
     const projects = userContext.projects.map(p => `- ${p.name}: ${p.description}`).join('\n');
-    
+
     return `
 # سياق المستخدم — منظومة شيخة
 *هذا السياق مُحدّث تلقائياً من منظومة شيخة (sheikha.top)*
@@ -219,20 +219,20 @@ ${userContext.instructions}
 4. استخدام APIs شيخة عند الحاجة
 `.trim();
   }
-  
+
   /**
    * حقن السياق في أي منصة AI
    */
   async injectContextToAI(userId, platform, sessionId) {
     // 1. جلب سياق المستخدم
     const context = await this.getUserContext(userId);
-    
+
     // 2. توليد system prompt موحد
     const systemPrompt = this.generateSystemPrompt(context);
-    
+
     // 3. جلب الذاكرة الأخيرة (من جميع المنصات)
     const recentMemory = await memoryEngine.getRecentMemory(userId, 20);
-    
+
     // 4. حقن حسب المنصة
     switch(platform) {
       case 'chatgpt':
@@ -245,17 +245,17 @@ ${userContext.instructions}
         return await this.injectGeneric(userId, systemPrompt, recentMemory);
     }
   }
-  
+
   /**
    * مزامنة الذاكرة عبر جميع المنصات
    */
   async syncMemoryAcrossPlatforms(userId, newMessage) {
     // 1. حفظ في الذاكرة المركزية
     await memoryEngine.storeMessage(userId, newMessage.platform, newMessage);
-    
+
     // 2. جلب المنصات المتصلة
     const connectedPlatforms = await this.getConnectedAIPlatforms(userId);
-    
+
     // 3. مزامنة مع كل منصة
     for (const platform of connectedPlatforms) {
       if (platform.syncEnabled && platform.name !== newMessage.platform) {
@@ -263,15 +263,15 @@ ${userContext.instructions}
       }
     }
   }
-  
+
   async getUserContext(userId) {
     return await db.userContexts.findOne({ userId: userId });
   }
-  
+
   async getConnectedAIPlatforms(userId) {
     const context = await this.getUserContext(userId);
-    return context.integrations.filter(i => 
-      ['chatgpt', 'claude', 'gemini'].includes(i.platform) && 
+    return context.integrations.filter(i =>
+      ['chatgpt', 'claude', 'gemini'].includes(i.platform) &&
       i.connected === true
     );
   }
@@ -291,7 +291,7 @@ module.exports = contextEngine;
 const chatgptConnector = {
   name: 'ChatGPT',
   platform: 'chatgpt',
-  
+
   /**
    * ربط حساب ChatGPT
    */
@@ -303,14 +303,14 @@ const chatgptConnector = {
       accessToken: encrypt(accessToken),
       connectedAt: new Date()
     });
-    
+
     // حقن السياق الموحد
     const context = await contextEngine.getUserContext(userId);
     await this.setupCustomInstructions(userId, accessToken, context);
-    
+
     console.log(`✅ ChatGPT متصل ل ${context.identity.name}`);
   },
-  
+
   /**
    * إعداد Custom Instructions في ChatGPT
    */
@@ -330,7 +330,7 @@ ${context.goals.map(g => `- ${g}`).join('\n')}
 التقنيات التي أستخدمها:
 ${context.preferences.frameworks.join(', ')}
       `.trim(),
-      
+
       // قسم "How would you like ChatGPT to respond?"
       responseStyle: `
 يرجى الرد بـ:
@@ -347,7 +347,7 @@ ${context.instructions}
 - Token: ${context.metadata.apiToken}
       `.trim()
     };
-    
+
     // إرسال عبر OpenAI API
     const response = await fetch('https://api.openai.com/v1/user/settings/custom_instructions', {
       method: 'PUT',
@@ -357,14 +357,14 @@ ${context.instructions}
       },
       body: JSON.stringify(instructions)
     });
-    
+
     if (!response.ok) {
       throw new Error('فشل إعداد Custom Instructions في ChatGPT');
     }
-    
+
     return await response.json();
   },
-  
+
   /**
    * اعتراض الرسائل للمزامنة
    */
@@ -377,7 +377,7 @@ ${context.instructions}
       model: message.model || 'gpt-4'
     });
   },
-  
+
   async onMessageReceived(userId, message) {
     await contextEngine.syncMemoryAcrossPlatforms(userId, {
       platform: 'chatgpt',
@@ -398,7 +398,7 @@ ${context.instructions}
 const claudeConnector = {
   name: 'Claude',
   platform: 'claude',
-  
+
   /**
    * ربط حساب Claude
    */
@@ -409,14 +409,14 @@ const claudeConnector = {
       credentials: encrypt(apiKey),
       connectedAt: new Date()
     });
-    
+
     // حقن السياق عبر Projects
     const context = await contextEngine.getUserContext(userId);
     await this.setupProjectKnowledge(userId, apiKey, context);
-    
+
     console.log(`✅ Claude متصل ل ${context.identity.name}`);
   },
-  
+
   /**
    * استخدام Claude Projects لتخزين السياق
    */
@@ -424,10 +424,10 @@ const claudeConnector = {
     const projectData = {
       name: `شيخة — ${context.identity.name}`,
       description: 'سياق موحد من منظومة شيخة للمعادن والسكراب',
-      
+
       // Custom Instructions
       customInstructions: contextEngine.generateSystemPrompt(context),
-      
+
       // إضافة ملفات السياق
       knowledgeBase: [
         {
@@ -455,7 +455,7 @@ ${p.description}
 - API Token: ${context.metadata.apiToken}
           `
         },
-        
+
         {
           name: 'SHEIKHA_API.md',
           type: 'text/markdown',
@@ -503,7 +503,7 @@ const ironPrice = await response.json();
         }
       ]
     };
-    
+
     // إنشاء Project في Claude
     const response = await fetch('https://api.anthropic.com/v1/projects', {
       method: 'POST',
@@ -514,14 +514,14 @@ const ironPrice = await response.json();
       },
       body: JSON.stringify(projectData)
     });
-    
+
     if (!response.ok) {
       throw new Error('فشل إعداد Project في Claude');
     }
-    
+
     return await response.json();
   },
-  
+
   /**
    * اعتراض الرسائل
    */
@@ -534,7 +534,7 @@ const ironPrice = await response.json();
       model: message.model || 'claude-3-opus'
     });
   },
-  
+
   async onMessageReceived(userId, message) {
     await contextEngine.syncMemoryAcrossPlatforms(userId, {
       platform: 'claude',
@@ -555,7 +555,7 @@ const ironPrice = await response.json();
 const geminiConnector = {
   name: 'Gemini',
   platform: 'gemini',
-  
+
   /**
    * ربط حساب Gemini
    */
@@ -566,15 +566,15 @@ const geminiConnector = {
       accessToken: encrypt(accessToken),
       connectedAt: new Date()
     });
-    
+
     // حقن السياق عبر System Instruction
     const context = await contextEngine.getUserContext(userId);
     await this.setupSystemInstruction(userId, accessToken, context);
     await this.setupFunctionCalling(userId, accessToken, context);
-    
+
     console.log(`✅ Gemini متصل ل ${context.identity.name}`);
   },
-  
+
   /**
    * إعداد System Instruction
    */
@@ -596,7 +596,7 @@ ${contextEngine.generateSystemPrompt(context)}
         `.trim()
       }]
     };
-    
+
     // حفظ في Gemini Context API
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/users/${userId}/context`, {
       method: 'PUT',
@@ -606,14 +606,14 @@ ${contextEngine.generateSystemPrompt(context)}
       },
       body: JSON.stringify(systemInstruction)
     });
-    
+
     if (!response.ok) {
       throw new Error('فشل إعداد System Instruction في Gemini');
     }
-    
+
     return await response.json();
   },
-  
+
   /**
    * إعداد Function Calling لربط APIs شيخة
    */
@@ -640,7 +640,7 @@ ${contextEngine.generateSystemPrompt(context)}
           return await response.json();
         }
       },
-      
+
       {
         name: 'check_shariah_compliance',
         description: 'التحقق من التوافق الشرعي لمعاملة',
@@ -673,7 +673,7 @@ ${contextEngine.generateSystemPrompt(context)}
           return await response.json();
         }
       },
-      
+
       {
         name: 'get_user_transactions',
         description: 'جلب معاملات المستخدم',
@@ -690,7 +690,7 @@ ${contextEngine.generateSystemPrompt(context)}
           return await response.json();
         }
       },
-      
+
       {
         name: 'search_market_listings',
         description: 'البحث في قوائم السوق',
@@ -709,7 +709,7 @@ ${contextEngine.generateSystemPrompt(context)}
         }
       }
     ];
-    
+
     // تسجيل Functions في Gemini
     const response = await fetch(`https://generativelanguage.googleapis.com/v1beta/models/gemini-pro:registerFunctions`, {
       method: 'POST',
@@ -719,14 +719,14 @@ ${contextEngine.generateSystemPrompt(context)}
       },
       body: JSON.stringify({ functions: functions })
     });
-    
+
     if (!response.ok) {
       throw new Error('فشل تسجيل Functions في Gemini');
     }
-    
+
     return functions;
   },
-  
+
   /**
    * اعتراض الرسائل
    */
@@ -739,7 +739,7 @@ ${contextEngine.generateSystemPrompt(context)}
       model: message.model || 'gemini-pro'
     });
   },
-  
+
   async onMessageReceived(userId, message) {
     await contextEngine.syncMemoryAcrossPlatforms(userId, {
       platform: 'gemini',
@@ -758,7 +758,7 @@ ${contextEngine.generateSystemPrompt(context)}
 
 ```javascript
 class UnifiedMemoryEngine {
-  
+
   /**
    * تخزين رسالة من أي منصة
    */
@@ -776,13 +776,13 @@ class UnifiedMemoryEngine {
         sessionId: message.sessionId
       }
     });
-    
+
     // تحديث الخلاصة
     await this.updateContextSummary(userId);
-    
+
     return entry;
   }
-  
+
   /**
    * جلب آخر N رسالة من جميع المنصات
    */
@@ -793,37 +793,37 @@ class UnifiedMemoryEngine {
     .sort({ timestamp: -1 })
     .limit(limit);
   }
-  
+
   /**
    * توليد خلاصة ذكية للمحادثات
    */
   async updateContextSummary(userId) {
     const recentMessages = await this.getRecentMemory(userId, 100);
-    
+
     // استخدام AI لتلخيص
     const summary = await this.summarizeConversations(recentMessages);
-    
+
     await db.userContexts.updateOne(
       { userId: userId },
-      { 
-        $set: { 
+      {
+        $set: {
           conversationSummary: summary,
           lastActive: new Date()
         }
       }
     );
-    
+
     return summary;
   }
-  
+
   /**
    * تلخيص المحادثات بالذكاء الاصطناعي
    */
   async summarizeConversations(messages) {
-    const conversation = messages.map(m => 
+    const conversation = messages.map(m =>
       `[${m.platform}] ${m.role}: ${m.content.substring(0, 200)}...`
     ).join('\n');
-    
+
     const prompt = `
 خلّص المحادثات التالية في نقاط رئيسية:
 
@@ -835,20 +835,20 @@ ${conversation}
 - المهام المطلوبة
 - النقاط المهمة للتذكر
 `;
-    
+
     // استخدام نموذج خفيف للتلخيص
     const summary = await callAISummarizer(prompt);
-    
+
     return summary;
   }
-  
+
   /**
    * مزامنة الذاكرة مع منصة محددة
    */
   async syncToPlatform(userId, targetPlatform) {
     const memory = await this.getRecentMemory(userId, 20);
     const context = await db.userContexts.findOne({ userId });
-    
+
     const syncData = {
       systemPrompt: contextEngine.generateSystemPrompt(context),
       conversationHistory: memory.map(m => ({
@@ -859,7 +859,7 @@ ${conversation}
       })),
       summary: context.conversationSummary
     };
-    
+
     // إرسال للمنصة المستهدفة
     switch(targetPlatform) {
       case 'chatgpt':
@@ -872,7 +872,7 @@ ${conversation}
         await geminiConnector.injectMemory(userId, syncData);
         break;
     }
-    
+
     console.log(`✅ تمت مزامنة الذاكرة مع ${targetPlatform}`);
   }
 }
@@ -969,7 +969,7 @@ const client = redis.createClient();
 app.get('/api/market/prices/:metal', async (req, res) => {
   const metal = req.params.metal;
   const cacheKey = \`price:\${metal}\`;
-  
+
   // 1. تحقق من Cache
   const cached = await client.get(cacheKey);
   if (cached) {
@@ -978,13 +978,13 @@ app.get('/api/market/prices/:metal', async (req, res) => {
       source: 'cache'
     });
   }
-  
+
   // 2. جلب من Database
   const price = await db.prices.findOne({ metal });
-  
+
   // 3. حفظ في Cache لمدة 60 ثانية
   await client.setex(cacheKey, 60, JSON.stringify(price));
-  
+
   res.json({
     ...price,
     source: 'database'
@@ -1031,11 +1031,11 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
 هل تريد أن أكتب unit tests للـ Redis cache؟`
 ```
 
-**النتيجة:**  
-✅ المستخدم لا يعيد الشرح أبداً  
-✅ كل AI يكمل عمل الآخر  
-✅ ذاكرة موحدة عبر المنصات  
-✅ سياق متواصل 24/7  
+**النتيجة:**
+✅ المستخدم لا يعيد الشرح أبداً
+✅ كل AI يكمل عمل الآخر
+✅ ذاكرة موحدة عبر المنصات
+✅ سياق متواصل 24/7
 ✅ Function Calling لربط APIs شيخة
 
 ---
@@ -1045,7 +1045,7 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
 ```html
 <div class="unified-ai-dashboard">
   <h2>🧠 السياق الموحد للذكاء الاصطناعي</h2>
-  
+
   <!-- المنصات المتصلة -->
   <div class="connected-platforms">
     <div class="platform chatgpt connected">
@@ -1055,7 +1055,7 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
       <span class="sync">🔄 المزامنة: مفعلة</span>
       <button onclick="editContext('chatgpt')">تعديل السياق</button>
     </div>
-    
+
     <div class="platform claude connected">
       <i class="icon-anthropic"></i>
       <h3>Claude</h3>
@@ -1063,7 +1063,7 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
       <span class="sync">🔄 المزامنة: مفعلة</span>
       <button onclick="editContext('claude')">تعديل السياق</button>
     </div>
-    
+
     <div class="platform gemini connected">
       <i class="icon-google"></i>
       <h3>Gemini</h3>
@@ -1071,7 +1071,7 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
       <span class="sync">🔄 المزامنة: مفعلة</span>
       <button onclick="editContext('gemini')">تعديل السياق</button>
     </div>
-    
+
     <div class="platform copilot notconnected">
       <i class="icon-github"></i>
       <h3>GitHub Copilot</h3>
@@ -1079,11 +1079,11 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
       <button onclick="connectAI('copilot')">+ ربط</button>
     </div>
   </div>
-  
+
   <!-- السياق الحالي -->
   <div class="current-context">
     <h3>📝 السياق الموحد</h3>
-    
+
     <div class="context-item">
       <strong>الأهداف:</strong>
       <ul>
@@ -1093,13 +1093,13 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
       </ul>
       <button onclick="editGoals()">✏️ تعديل</button>
     </div>
-    
+
     <div class="context-item">
       <strong>الأسلوب المفضل:</strong>
       <p>مباشر ووواضح، أمثلة عملية بالكود، مزيج عربي/إنجليزي</p>
       <button onclick="editPersonality()">✏️ تعديل</button>
     </div>
-    
+
     <div class="context-item">
       <strong>المشاريع:</strong>
       <ul>
@@ -1109,47 +1109,47 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
       <button onclick="editProjects()">✏️ تعديل</button>
     </div>
   </div>
-  
+
   <!-- الذاكرة الموحدة -->
   <div class="unified-memory">
     <h3>🧠 الذاكرة الموحدة</h3>
-    
+
     <div class="memory-timeline">
       <div class="memory-item">
         <span class="platform">ChatGPT</span>
         <span class="time">09:30</span>
         <p>بحث عن تحسين API الأسعار</p>
       </div>
-      
+
       <div class="memory-item">
         <span class="platform">Claude</span>
         <span class="time">13:15</span>
         <p>كتابة كود Redis Caching</p>
       </div>
-      
+
       <div class="memory-item">
         <span class="platform">Gemini</span>
         <span class="time">19:45</span>
         <p>مراجعة الكود + جلب أسعار حية</p>
       </div>
     </div>
-    
+
     <button onclick="viewFullMemory()">عرض السجل الكامل</button>
     <button onclick="clearMemory()">مسح الذاكرة</button>
   </div>
-  
+
   <!-- الإحصائيات -->
   <div class="stats">
     <div class="stat-card">
       <span class="number">3</span>
       <span class="label">منصات متصلة</span>
     </div>
-    
+
     <div class="stat-card">
       <span class="number">127</span>
       <span class="label">محادثة هذا الشهر</span>
     </div>
-    
+
     <div class="stat-card">
       <span class="number">100%</span>
       <span class="label">نسبة المزامنة</span>
@@ -1207,6 +1207,6 @@ gemini: `الحل ممتاز يا سلمان! Redis + WebSocket سيخفض laten
 
 ---
 
-**الختام:**  
-نظام السياق الموحد = **انتهى عصر إعادة الشرح!**  
+**الختام:**
+نظام السياق الموحد = **انتهى عصر إعادة الشرح!**
 اشترك مرة → جميع AIs تفهمك تلقائياً 🎯

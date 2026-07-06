@@ -33,7 +33,7 @@
         }
 
         * { margin: 0; padding: 0; box-sizing: border-box; }
-        
+
         body {
             font-family: 'Tajawal', sans-serif;
             background: var(--darker);
@@ -846,7 +846,7 @@
         function initChart() {
             const chart = document.getElementById('performanceChart');
             const values = [45, 62, 38, 75, 52, 88, 67, 95, 72, 58, 83, 70];
-            chart.innerHTML = values.map(v => 
+            chart.innerHTML = values.map(v =>
                 `<div class="chart-bar" style="height: ${v}%;" data-value="${v}%"></div>`
             ).join('');
         }
@@ -861,7 +861,7 @@
                 { time: '10:42:05', level: 'warning', service: 'Email', msg: 'SMTP not configured - email disabled' },
                 { time: '10:41:30', level: 'info', service: 'Database', msg: 'Auto-save completed (2.4MB)' },
             ];
-            
+
             document.getElementById('logsTable').innerHTML = logs.map(l => `
                 <tr>
                     <td class="log-time">${l.time}</td>
@@ -960,7 +960,7 @@
         initLogs();
         checkAI();
         checkSystem();
-        
+
         // Update every 30 seconds
         setInterval(updateStats, 30000);
     </script>

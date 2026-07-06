@@ -1,0 +1,27 @@
+{
+  "registry": "SHEIKHA_PRODUCT_REGISTRY",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "products": {
+    "sheikhaCloud": {
+      "status": "FOUNDATION_ACTIVE",
+      "type": "cloud platform"
+    },
+    "sheikhaSaaS": {
+      "status": "PLANNED",
+      "requires": ["tenants", "billing", "roles", "subscriptions"]
+    },
+    "sheikhaERP": {
+      "status": "PLANNED",
+      "requires": ["finance", "inventory", "sales", "operations"]
+    },
+    "sheikhaSCM": {
+      "status": "PLANNED",
+      "requires": ["suppliers", "buyers", "logistics", "contracts"]
+    },
+    "sheikhaDigitalCurrency": {
+      "status": "BLOCKED_REVIEW_REQUIRED",
+      "reason": "Requires Sharia, legal, regulatory, and risk review before any activation"
+    }
+  }
+}

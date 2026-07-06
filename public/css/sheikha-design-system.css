@@ -19,43 +19,43 @@
     --sheikha-green: #0a5c36;
     --sheikha-green-light: #0d7a47;
     --sheikha-green-dark: #063d24;
-    
+
     /* ألوان الهوية السعودية (رؤية 2030) */
     --saudi-green: #006c35;
     --saudi-white: #ffffff;
     --saudi-gold: #c5a572;
-    
+
     /* ألوان النظام الموحد (DGA Platform Code) */
     --dga-primary: #07A869;
     --dga-secondary: #3D7EB9;
     --dga-accent: #0DA9A6;
     --dga-dark: #15445A;
     --dga-gold: #C1B489;
-    
+
     /* ألوان الواجهة */
     --bg-primary: #050810;
     --bg-secondary: #0a0f1a;
     --bg-card: #0d1424;
     --bg-card-hover: #111c30;
     --bg-elevated: #142638;
-    
+
     /* ألوان النصوص */
     --text-primary: #ffffff;
     --text-secondary: #e2e8f0;
     --text-muted: #94a3b8;
     --text-faint: #64748b;
-    
+
     /* ألوان الحدود */
     --border-primary: #1e3a5f;
     --border-light: #2d4a6f;
     --border-gold: rgba(212, 175, 55, 0.3);
-    
+
     /* ألوان الحالات */
     --success: #10b981;
     --warning: #f59e0b;
     --danger: #ef4444;
     --info: #3b82f6;
-    
+
     /* الأحجام المتجاوبة */
     --font-size-xs: clamp(0.7rem, 1.5vw, 0.75rem);
     --font-size-sm: clamp(0.8rem, 1.8vw, 0.875rem);
@@ -66,7 +66,7 @@
     --font-size-3xl: clamp(1.5rem, 3.5vw, 1.875rem);
     --font-size-4xl: clamp(1.8rem, 4vw, 2.25rem);
     --font-size-5xl: clamp(2rem, 5vw, 3rem);
-    
+
     /* المسافات المتجاوبة */
     --space-xs: clamp(0.25rem, 0.5vw, 0.5rem);
     --space-sm: clamp(0.5rem, 1vw, 0.75rem);
@@ -75,7 +75,7 @@
     --space-xl: clamp(1.5rem, 3vw, 2rem);
     --space-2xl: clamp(2rem, 4vw, 3rem);
     --space-3xl: clamp(2.5rem, 5vw, 4rem);
-    
+
     /* الزوايا */
     --radius-sm: 6px;
     --radius-md: 10px;
@@ -83,7 +83,7 @@
     --radius-xl: 20px;
     --radius-2xl: 28px;
     --radius-full: 9999px;
-    
+
     /* الظلال */
     --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.15);
     --shadow-md: 0 4px 16px rgba(0, 0, 0, 0.2);
@@ -91,13 +91,13 @@
     --shadow-xl: 0 12px 48px rgba(0, 0, 0, 0.3);
     --shadow-gold: 0 4px 24px rgba(212, 175, 55, 0.2);
     --shadow-green: 0 4px 24px rgba(10, 92, 54, 0.2);
-    
+
     /* الانتقالات */
     --transition-fast: 150ms ease;
     --transition-base: 250ms ease;
     --transition-slow: 400ms ease;
     --transition-smooth: 300ms cubic-bezier(0.4, 0, 0.2, 1);
-    
+
     /* الخطوط */
     --font-arabic: 'Tajawal', 'IBM Plex Sans Arabic', 'Noto Sans Arabic', sans-serif;
     --font-english: 'Inter', 'Helvetica Neue', sans-serif;
@@ -351,20 +351,20 @@ p {
         --space-lg: 0.875rem;
         --space-xl: 1.25rem;
     }
-    
+
     .container {
         padding: 0 var(--space-md);
     }
-    
+
     .grid-2, .grid-3, .grid-4 {
         grid-template-columns: 1fr;
     }
-    
+
     .btn {
         width: 100%;
         justify-content: center;
     }
-    
+
     h1 { font-size: clamp(1.5rem, 6vw, 2rem); }
     h2 { font-size: clamp(1.3rem, 5vw, 1.75rem); }
     h3 { font-size: clamp(1.1rem, 4vw, 1.5rem); }

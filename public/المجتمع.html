@@ -314,7 +314,7 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
         <h2>لوحة <span>المتابعة التعليمية</span></h2>
         <p>متابعة التقدم الأسبوعي والتقييم المباشر للفرق من داخل النظام — بيانات حية محدّثة</p>
     </div>
-    
+
     <div class="learning-dashboard" id="learningDashboard">
         <!-- رأس اللوحة -->
         <div class="dash-header">
@@ -497,11 +497,11 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
                 method: 'GET',
                 headers: {'Content-Type': 'application/json'}
             });
-            
+
             if (!response.ok) throw new Error('فشل تحميل البيانات');
-            
+
             const data = await response.json();
-            
+
             if (data.success) {
                 renderProgressCards(data.progress);
                 renderTeamsAssessment(data.teams, data.currentWeek);
@@ -539,9 +539,9 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
     function renderTeamsAssessment(teams, currentWeek) {
         const container = document.getElementById('teamsGrid');
         const weekBadge = document.getElementById('weekBadge');
-        
+
         if (weekBadge) weekBadge.textContent = `الأسبوع ${currentWeek || 1}`;
-        
+
         if (!teams || teams.length === 0) {
             container.innerHTML = '<div class="loading-state"><p>لا توجد فرق مسجلة حالياً</p></div>';
             return;
@@ -574,7 +574,7 @@ footer{border-top:1px solid var(--border);padding:32px 24px;text-align:center}
                 <div class="team-members">
                     <span class="tm-count">${team.members.length} أعضاء</span>
                     <div class="tm-avatars">
-                        ${team.members.slice(0, 4).map((m, i) => 
+                        ${team.members.slice(0, 4).map((m, i) =>
                             `<div class="tm-avatar" title="${m.name}">${m.initial || (i+1)}</div>`
                         ).join('')}
                         ${team.members.length > 4 ? `<div class="tm-avatar">+${team.members.length - 4}</div>` : ''}

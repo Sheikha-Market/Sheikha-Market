@@ -1,0 +1,21 @@
+{
+  "kernel": "SHEIKHA_EXECUTION_GOVERNANCE_KERNEL",
+  "status": "ACTIVE",
+  "mode": "governance-before-execution",
+  "pipeline": [
+    "intent",
+    "policy_validation",
+    "capability_validation",
+    "execution_planning",
+    "telemetry",
+    "audit",
+    "execution",
+    "rollback"
+  ],
+  "rules": {
+    "no_execution_without_governance": true,
+    "no_unregistered_capability": true,
+    "no_unsafe_execution": true,
+    "human_approval_when_required": true
+  }
+}

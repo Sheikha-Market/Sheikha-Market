@@ -1,0 +1,90 @@
+{
+  "registry": "SHEIKHA_FRONTIER_RESEARCH_EVIDENCE_REGISTRY_V1",
+  "status": "ACTIVE",
+  "observed_on": "2026-06-06",
+  "purpose": "Track recent frontier AI research evidence relevant to AGI/ASI readiness, separating reported or validated progress from hypotheses and under-test research.",
+  "evidence_items": [
+    {
+      "id": "FR-001",
+      "title": "Reasoning models with tool capabilities",
+      "source": "OpenAI o3 and o4-mini system card",
+      "url": "https://openai.com/index/o3-o4-mini-system-card/",
+      "research_area": "reasoning_tool_use",
+      "status": "REPORTED_AND_EVALUATED",
+      "sheikha_interpretation": "Use as evidence for governed reasoning and tool-use architecture, not as AGI proof.",
+      "agi_asi_claim": false
+    },
+    {
+      "id": "FR-002",
+      "title": "Long-horizon task completion measurement",
+      "source": "METR Measuring AI Ability to Complete Long Tasks / arXiv:2503.14499",
+      "url": "https://arxiv.org/abs/2503.14499",
+      "research_area": "agentic_long_horizon_evaluation",
+      "status": "REPORTED_AND_UNDER_CONTINUED_MEASUREMENT",
+      "sheikha_interpretation": "Use task-completion time horizon as a benchmark for agentic progress and regression tracking.",
+      "agi_asi_claim": false
+    },
+    {
+      "id": "FR-003",
+      "title": "Algorithm discovery and optimization with evolutionary coding agents",
+      "source": "Google DeepMind AlphaEvolve",
+      "url": "https://deepmind.google/blog/alphaevolve-a-gemini-powered-coding-agent-for-designing-advanced-algorithms/",
+      "research_area": "ai_for_science_algorithm_discovery",
+      "status": "REPORTED_DEPLOYED_OR_EXPERIMENTAL_RESULTS",
+      "sheikha_interpretation": "Use as a research pattern for experiment loops, objective functions, evaluation metrics, and verified optimization.",
+      "agi_asi_claim": false
+    },
+    {
+      "id": "FR-004",
+      "title": "ARC-AGI-2 benchmark for frontier reasoning",
+      "source": "ARC-AGI-2: A New Challenge for Frontier AI Reasoning Systems / arXiv:2505.11831",
+      "url": "https://arxiv.org/abs/2505.11831",
+      "research_area": "abstract_reasoning_benchmark",
+      "status": "BENCHMARK_ACTIVE_UNDER_TEST",
+      "sheikha_interpretation": "Use to evaluate abstraction, few-shot generalization, and limits of current systems.",
+      "agi_asi_claim": false
+    },
+    {
+      "id": "FR-005",
+      "title": "ARC Prize 2025 technical report and refinement loops",
+      "source": "ARC Prize 2025 Technical Report / arXiv:2601.10904",
+      "url": "https://arxiv.org/abs/2601.10904",
+      "research_area": "refinement_loops_generalization",
+      "status": "REPORTED_COMPETITION_RESULTS_AND_ANALYSIS",
+      "sheikha_interpretation": "Use refinement loops as an experimental method, while recording that current systems remain constrained and not AGI.",
+      "agi_asi_claim": false
+    },
+    {
+      "id": "FR-006",
+      "title": "Automated alignment auditing agents",
+      "source": "Anthropic Alignment Science: Building and evaluating alignment auditing agents",
+      "url": "https://alignment.anthropic.com/2025/automated-auditing/",
+      "research_area": "alignment_auditing_multi_agent_review",
+      "status": "UNDER_TEST_AND_METHOD_DEVELOPMENT",
+      "sheikha_interpretation": "Use as evidence for multi-agent research review, red-team loops, and audit aggregation.",
+      "agi_asi_claim": false
+    }
+  ],
+  "classifications": {
+    "validated_or_reported": [
+      "reasoning_tool_use",
+      "long_horizon_evaluation_method",
+      "algorithm_discovery_experiment_loops",
+      "abstract_reasoning_benchmarks"
+    ],
+    "under_test": [
+      "autonomous_long_horizon_agents",
+      "self_improving_refinement_loops",
+      "interactive_reasoning_benchmarks",
+      "alignment_auditing_agents",
+      "multi_agent_scientific_discovery"
+    ],
+    "not_claimed": [
+      "actual_agi",
+      "actual_asi",
+      "machine_consciousness",
+      "unrestricted_autonomous_scientific_authority"
+    ]
+  },
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

@@ -107,7 +107,7 @@ Installation Methods:
 1. FROM FILE (Offline Installation)
    ────────────────────────────────
    \$ code --install-extension "$VSIX_FILE"
-   
+
    Or via VS Code UI:
    • Open Extensions (Ctrl+Shift+X)
    • Click ⋯ menu → Install from VSIX
@@ -117,7 +117,7 @@ Installation Methods:
    ──────────────────
    \$ cd "$EXTENSION_DIR"
    \$ vsce publish --pat <Azure DevOps PAT>
-   
+
    Note: Requires publisher token
 
 3. FROM VS CODE MARKETPLACE (Future)

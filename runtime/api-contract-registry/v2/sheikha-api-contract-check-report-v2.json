@@ -1,0 +1,58 @@
+{
+  "system": "SHEIKHA_API_CONTRACT_CHECK_V2",
+  "status": "ACTIVE",
+  "score": 100,
+  "decision": "API_CONTRACT_V2_READY",
+  "checks": {
+    "responseLibrary": true,
+    "registryV2": true,
+    "extensionCompatibilityV2": true,
+    "successShape": true,
+    "failureShape": true,
+    "serverExists": true,
+    "vscodeExtensionTestsExist": true,
+    "liveExtensionTestsGated": true,
+    "liveExtensionTestScript": true,
+    "extensionCompatibilityTestGovernance": true
+  },
+  "missing": [],
+  "samples": {
+    "successSample": {
+      "success": true,
+      "data": {
+        "name": "Sheikha Root",
+        "status": "active"
+      },
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "timestamp": "2026-06-04T20:43:57.426Z"
+      }
+    },
+    "failureSample": {
+      "success": false,
+      "error": {
+        "code": "MISSING_FIELD",
+        "message": "Missing required field",
+        "status": 400
+      },
+      "data": null,
+      "meta": {
+        "contract": "SHEIKHA_API_CONTRACT_V2",
+        "timestamp": "2026-06-04T20:43:57.426Z"
+      }
+    }
+  },
+  "liveTestGate": {
+    "environment": "SHEIKHA_RUN_LIVE_EXTENSION_TESTS=true",
+    "script": "npm run test:extension:integration",
+    "defaultJestBehavior": "SKIP_LIVE_SERVER_EXTENSION_TESTS"
+  },
+  "nextActions": [
+    "Use ok(data, meta) for all new success responses.",
+    "Use fail(message, code, status, meta) for validation failures.",
+    "Keep legacy flat responses only behind compatibility adapters.",
+    "Patch VS Code routes to return { success, data, meta }.",
+    "Run live extension tests only with npm run test:extension:integration."
+  ],
+  "principle": "ولا حول ولا قوة إلا بالله"
+}

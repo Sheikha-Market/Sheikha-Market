@@ -1,0 +1,36 @@
+{
+  "report": "SHEIKHA_SOURCE_CONTROL_AND_ROUTE_ALIGNMENT_AUDIT",
+  "status": "ACTIVE",
+  "git": {
+    "status": "## optimization/long-tail-latency-elimination...origin/optimization/long-tail-latency-elimination\n?? runtime/architecture-validation/unified-source-control/\n?? tools/architecture-validation/sheikha-source-control-alignment.js",
+    "branch": "optimization/long-tail-latency-elimination",
+    "remotes": "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)\nenterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (push)\ngithub\thttps://github.com/Sheikha-Market/sheikha-main-portal.git (fetch)\ngithub\tno_push://read-only-remote (push)\ngitlab\tgit@gitlab.com:Sheikha-Market/sheikha.git (fetch)\ngitlab\tno_push://read-only-remote (push)\norigin\tgit@github.com:Sheikha-Market/sheikha-main-portal.git (fetch)\norigin\tgit@github.com:Sheikha-Market/sheikha-main-portal.git (push)",
+    "lastCommit": "b5782e68 Add Sheikha canonical route registry"
+  },
+  "runtime": {
+    "fabricRoutesJson": true,
+    "fabricLoader": true,
+    "canonicalRouteRegistry": true,
+    "routeSourceDiscovery": true
+  },
+  "checks": {
+    "fabricJsonValid": "OK",
+    "fabricLoaderSyntax": "",
+    "serverSyntax": ""
+  },
+  "decision": {
+    "github": "PRIMARY_REMOTE",
+    "gitlab": "MIRROR_ONLY_UNTIL_CONFIGURED",
+    "vscode": "CLIENT_ONLY",
+    "codex": "CLIENT_ONLY",
+    "fabric": "ROUTE_MOUNT_AUTHORITY",
+    "canonicalRegistry": "QUALITY_ALIGNMENT_REFERENCE"
+  },
+  "rules": {
+    "noConflictBetweenGitHubGitLabGitVSCode": true,
+    "noDirectMountConflictWithFabric": true,
+    "noDeletionWithoutCanonicalReview": true,
+    "allRoutesMustAlignToCanonicalRegistry": true
+  },
+  "timestamp": "2026-06-03T20:03:25.473Z"
+}

@@ -1,0 +1,36 @@
+{
+  "system": "SHEIKHA_COMMERCIAL_FLOW_VERIFICATION_V1",
+  "mode": "CONTROLLED_INTERNAL_SIMULATION_ONLY",
+  "status": "PASSED",
+  "customer": {
+    "type": "TEST_CUSTOMER",
+    "status": "CREATED"
+  },
+  "lead": {
+    "status": "QUALIFIED"
+  },
+  "quotation": {
+    "status": "APPROVED_INTERNAL",
+    "currency": "SAR"
+  },
+  "contract": {
+    "status": "READY_FOR_HUMAN_REVIEW"
+  },
+  "invoice": {
+    "status": "ISSUED_SIMULATION",
+    "paymentStatus": "SIMULATED_PENDING_REAL_GATEWAY"
+  },
+  "provisioning": {
+    "status": "READY_FOR_ACTIVATION"
+  },
+  "audit": {
+    "recorded": true,
+    "externalMutation": false
+  },
+  "governance": {
+    "noHarm": true,
+    "noExternalPaymentCaptured": true,
+    "humanApprovalRequiredBeforeRealSale": true
+  },
+  "decision": "COMMERCIAL_FLOW_SIMULATION_PASSED"
+}

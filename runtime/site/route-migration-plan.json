@@ -1,0 +1,42 @@
+{
+  "plan": "SHEIKHA_ROUTE_MIGRATION_PHASE",
+  "status": "ACTIVE",
+  "principle": "لا ضرر ولا ضرار",
+  "targets": {
+    "public": [
+      "/",
+      "/market",
+      "/register",
+      "/government",
+      "/company",
+      "/identity",
+      "/ide"
+    ],
+    "protected": [
+      "/admin",
+      "/runtime",
+      "/governance"
+    ],
+    "internalCandidates": [
+      "dashboard.html",
+      "control-tower.html",
+      "portal-enterprise.html",
+      "monitor/",
+      "mcp.html",
+      "sdk.html",
+      "cli.html"
+    ],
+    "archiveCandidates": [
+      "_archive/",
+      "generated-images/",
+      "_engines/"
+    ],
+    "brandCandidates": [
+      "marketing/",
+      "marketing.html",
+      "SHEIKHA-DIGITAL-IDENTITY.html",
+      "SHEIKHA-COMMUNICATIONS.html"
+    ]
+  },
+  "rule": "Classify first, migrate second, delete last only after review."
+}

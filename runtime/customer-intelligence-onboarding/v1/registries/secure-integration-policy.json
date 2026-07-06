@@ -1,0 +1,17 @@
+{
+  "registry": "SHEIKHA_SECURE_INTEGRATION_POLICY_V1",
+  "status": "ACTIVE",
+  "rules": [
+    "Never commit API keys, SSH keys, VPS credentials, tokens, cookies, or passwords.",
+    "Use .env, vault, or provider secret manager.",
+    "Every API integration requires explicit customer authorization.",
+    "Every scraped or collected data item must include source and timestamp.",
+    "Respect website terms, robots policy, privacy, and applicable law.",
+    "External publication requires customer approval."
+  ],
+  "recommended_storage": [
+    "ENV",
+    "VAULT",
+    "SECRET_MANAGER"
+  ]
+}
