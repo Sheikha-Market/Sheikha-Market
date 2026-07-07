@@ -24131,6 +24131,56 @@ function broadcastPrices() {
 }
 
 // ─────────────────────────────────────────────────────────────
+// Sheikha Sovereign Union Federation API
+// ─────────────────────────────────────────────────────────────
+const getSovereignFederation = () => optionalRequire('./runtime/sheikha-sovereign-union-federation/v1/sheikha-sovereign-union-federation-v1') || {};
+
+app.get('/api/sheikha/sovereign-union/status', (_req, res) => {
+    const sovereignFederation = getSovereignFederation();
+    return res.json({
+        success: true,
+        data: typeof sovereignFederation.getStatus === 'function' ? sovereignFederation.getStatus() : { status: 'fallback', system: 'SOVEREIGN_FEDERATION' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/sovereign-union/compatibility-matrix', (_req, res) => {
+    const sovereignFederation = getSovereignFederation();
+    return res.json({
+        success: true,
+        data: typeof sovereignFederation.getCompatibilityMatrix === 'function' ? sovereignFederation.getCompatibilityMatrix() : { status: 'fallback' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/sovereign-union/federated-consensus', (_req, res) => {
+    const sovereignFederation = getSovereignFederation();
+    return res.json({
+        success: true,
+        data: typeof sovereignFederation.getFederatedConsensus === 'function' ? sovereignFederation.getFederatedConsensus() : { status: 'fallback' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/sovereign-union/aerospace-integration', (_req, res) => {
+    const sovereignFederation = getSovereignFederation();
+    return res.json({
+        success: true,
+        data: typeof sovereignFederation.getAerospaceIntegration === 'function' ? sovereignFederation.getAerospaceIntegration() : { status: 'fallback' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+app.get('/api/sheikha/sovereign-union/supercomputing', (_req, res) => {
+    const sovereignFederation = getSovereignFederation();
+    return res.json({
+        success: true,
+        data: typeof sovereignFederation.getSupercomputingIntegration === 'function' ? sovereignFederation.getSupercomputingIntegration() : { status: 'fallback' },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// ─────────────────────────────────────────────────────────────
 // Sheikha Unified System Status API
 // ─────────────────────────────────────────────────────────────
 try {
