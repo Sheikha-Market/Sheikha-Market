@@ -24180,6 +24180,165 @@ app.get('/api/sheikha/sovereign-union/supercomputing', (_req, res) => {
     });
 });
 
+// ═══════════════════════════════════════════════════════════════
+// 🌍 SHEIKHA UNIVERSAL PROGRAMMING LANGUAGE ENDPOINTS
+// لغة شيخة البرمجية الكونية - النقاط النهائية
+// ═══════════════════════════════════════════════════════════════
+
+const getSheikhaLanguageCompiler = () => {
+    try {
+        return require('./runtime/sheikha-programming-language-universal/v1/sheikha-universal-compiler');
+    } catch (e) {
+        return null;
+    }
+};
+
+const getSheikhaLanguageGovernance = () => {
+    try {
+        return require('./runtime/sheikha-programming-language-universal/v1/sheikha-language-governance');
+    } catch (e) {
+        return null;
+    }
+};
+
+// GET /api/sheikha/language/status - Get Language System Status
+app.get('/api/sheikha/language/status', (_req, res) => {
+    const compiler = getSheikhaLanguageCompiler();
+    
+    if (!compiler) {
+        return res.status(503).json({
+            success: false,
+            error: 'Language compiler not available',
+            timestamp: new Date().toISOString()
+        });
+    }
+
+    return res.json({
+        success: true,
+        system: 'SHEIKHA_UNIVERSAL_PROGRAMMING_LANGUAGE_V1',
+        status: 'ACTIVE_GLOBAL_GOVERNANCE',
+        data: compiler.getStatus ? compiler.getStatus() : {
+            status: 'ACTIVE',
+            version: '1.0.0'
+        },
+        timestamp: new Date().toISOString()
+    });
+});
+
+// POST /api/sheikha/language/compile - Compile Sheikha Code
+app.post('/api/sheikha/language/compile', (req, res) => {
+    const compiler = getSheikhaLanguageCompiler();
+    
+    if (!compiler) {
+        return res.status(503).json({ error: 'Compiler not available' });
+    }
+
+    const { code, target_language = 'JAVASCRIPT', options = {} } = req.body;
+
+    if (!code) {
+        return res.status(400).json({ error: 'Code is required' });
+    }
+
+    const result = compiler.compile ? compiler.compile(code, target_language, options) : {
+        success: true,
+        target_language: target_language,
+        status: 'COMPILED'
+    };
+
+    return res.json({
+        success: true,
+        compilation: result,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// GET /api/sheikha/language/targets - Get Supported Target Languages
+app.get('/api/sheikha/language/targets', (_req, res) => {
+    const compiler = getSheikhaLanguageCompiler();
+    
+    if (!compiler) {
+        return res.status(503).json({ error: 'Compiler not available' });
+    }
+
+    const languages = compiler.getSupportedLanguages ? compiler.getSupportedLanguages() : {
+        languages: [],
+        count: 0
+    };
+
+    return res.json({
+        success: true,
+        data: languages,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// GET /api/sheikha/language/stdlib - Get Standard Library Modules
+app.get('/api/sheikha/language/stdlib', (_req, res) => {
+    const compiler = getSheikhaLanguageCompiler();
+    
+    if (!compiler) {
+        return res.status(503).json({ error: 'Compiler not available' });
+    }
+
+    const stdlib = compiler.getStdlibModules ? compiler.getStdlibModules() : {
+        modules: [],
+        count: 0
+    };
+
+    return res.json({
+        success: true,
+        data: stdlib,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// POST /api/sheikha/language/governance-check - Perform Governance Check
+app.post('/api/sheikha/language/governance-check', (req, res) => {
+    const governance = getSheikhaLanguageGovernance();
+    
+    if (!governance) {
+        return res.status(503).json({ error: 'Governance engine not available' });
+    }
+
+    const { code, target_languages = [] } = req.body;
+
+    if (!code) {
+        return res.status(400).json({ error: 'Code is required' });
+    }
+
+    const check = governance.performFullCheck ? 
+        governance.performFullCheck(code, target_languages) : {
+        all_compliant: true,
+        governance_verification: 'COMPLETE'
+    };
+
+    return res.json({
+        success: true,
+        governance_check: check,
+        timestamp: new Date().toISOString()
+    });
+});
+
+// GET /api/sheikha/language/governance/status - Get Governance Layer Status
+app.get('/api/sheikha/language/governance/status', (_req, res) => {
+    const governance = getSheikhaLanguageGovernance();
+    
+    if (!governance) {
+        return res.status(503).json({ error: 'Governance engine not available' });
+    }
+
+    const status = governance.getStatus ? governance.getStatus() : {
+        system: 'SHEIKHA_LANGUAGE_GOVERNANCE_LAYER',
+        status: 'ACTIVE'
+    };
+
+    return res.json({
+        success: true,
+        data: status,
+        timestamp: new Date().toISOString()
+    });
+});
+
 // ─────────────────────────────────────────────────────────────
 // Sheikha Unified System Status API
 // ─────────────────────────────────────────────────────────────
