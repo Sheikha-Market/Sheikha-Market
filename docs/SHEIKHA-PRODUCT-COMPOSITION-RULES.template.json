@@ -1,0 +1,71 @@
+{
+  "rules_version": "1.0.0",
+  "rules_name": "Sheikha Product Composition and Manufacturing Rules",
+  "principle": "Every user gets a product blueprint aligned with segment, sector, device, and compliance.",
+  "input_dimensions": [
+    "segment",
+    "sector",
+    "device_class",
+    "distribution_channel",
+    "compliance_level"
+  ],
+  "segment_profiles": {
+    "B2B": {
+      "default_product_family": "enterprise_operations_suite",
+      "default_revenue_models": ["SUBSCRIPTION", "PROJECT_BASED", "USAGE_BASED"],
+      "default_sales_methodologies": ["CONSULTATIVE_SELLING", "ACCOUNT_BASED_SELLING"]
+    },
+    "B2C": {
+      "default_product_family": "consumer_superapp_suite",
+      "default_revenue_models": ["SUBSCRIPTION", "INSTALLMENT", "AFFILIATE"],
+      "default_sales_methodologies": ["TRANSACTIONAL_SELLING", "CROSS_SELLING", "UPSELLING"]
+    },
+    "B2G": {
+      "default_product_family": "government_mission_suite",
+      "default_revenue_models": ["PROJECT_BASED", "USAGE_BASED"],
+      "default_sales_methodologies": ["ACCOUNT_BASED_SELLING", "CONSULTATIVE_SELLING"]
+    },
+    "B2S": {
+      "default_product_family": "social_service_suite",
+      "default_revenue_models": ["SUBSCRIPTION", "PROJECT_BASED"],
+      "default_sales_methodologies": ["CONSULTATIVE_SELLING", "SOCIAL_SELLING"]
+    }
+  },
+  "device_profiles": {
+    "mobile": {"product_form": "mobile_app", "build_target": "ios_android"},
+    "tablet": {"product_form": "tablet_app", "build_target": "ios_android_tablet"},
+    "desktop": {"product_form": "desktop_application", "build_target": "desktop_package"},
+    "laptop": {"product_form": "desktop_application", "build_target": "desktop_package"},
+    "server": {"product_form": "server_package", "build_target": "linux_repository"},
+    "data_center": {"product_form": "infrastructure_bundle", "build_target": "private_data_center_distribution"},
+    "industrial_terminal": {"product_form": "industrial_edge_package", "build_target": "industrial_direct_distribution"},
+    "factory_system": {"product_form": "factory_operations_bundle", "build_target": "industrial_direct_distribution"},
+    "refinery_system": {"product_form": "refinery_control_bundle", "build_target": "industrial_direct_distribution"},
+    "vehicle_system": {"product_form": "fleet_edge_package", "build_target": "enterprise_private_distribution"},
+    "truck_system": {"product_form": "fleet_edge_package", "build_target": "enterprise_private_distribution"},
+    "aircraft_system": {"product_form": "aviation_control_package", "build_target": "enterprise_private_distribution"},
+    "marine_system": {"product_form": "marine_control_package", "build_target": "enterprise_private_distribution"}
+  },
+  "pipeline_steps": [
+    "P0_IDENTITY_AND_CONTEXT_CAPTURE",
+    "P1_SEGMENT_SECTOR_DEVICE_CLASSIFICATION",
+    "P2_PRODUCT_BLUEPRINT_COMPOSITION",
+    "P3_PACKAGE_BUILD_AND_BUNDLE",
+    "P4_COMPLIANCE_AND_QUALITY_GATE",
+    "P5_DISTRIBUTION_ROUTING",
+    "P6_KPI_OBSERVABILITY_AND_FEEDBACK"
+  ],
+  "output_schema": {
+    "product_blueprint_id": "string",
+    "target_segment": "B2B|B2C|B2G|B2S",
+    "target_sector": "string",
+    "target_device_class": "string",
+    "product_family": "string",
+    "product_form": "string",
+    "feature_pack": ["string"],
+    "manufacturing_pipeline": ["string"],
+    "distribution_path": ["string"],
+    "compliance_profile": "string",
+    "activation_priority": "foundational|high|medium"
+  }
+}

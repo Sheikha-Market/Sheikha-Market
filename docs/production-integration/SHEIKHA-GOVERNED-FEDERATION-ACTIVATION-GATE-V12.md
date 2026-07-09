@@ -1,5 +1,3 @@
-# SHEIKHA Governed Federation Activation Gate V12
-
 ## التعريف
 
 `SHEIKHA_GOVERNED_FEDERATION_ACTIVATION_GATE_V12` هي بوابة تفعيل محكومة فوق:
