@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-09T22:11:06.294Z",
+  "generatedAt": "2026-07-09T22:17:48.507Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -23,8 +23,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "602b19f9d",
-    "currentHead": "602b19f9d",
+    "localRegistryHead": "5d3350f53",
+    "currentHead": "5d3350f53",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -3273,7 +3273,7 @@
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-09T22:11:00.715Z",
+    "generatedAt": "2026-07-09T22:17:46.192Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
     "componentCount": 7060,
@@ -7216,7 +7216,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-09T22:11:06.294Z",
+    "generatedAt": "2026-07-09T22:17:48.507Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -10714,7 +10714,7 @@
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-09T22:11:00.725Z",
+    "generatedAt": "2026-07-09T22:17:46.196Z",
     "nodes": [
       {
         "id": "APIs",
@@ -11180,7 +11180,7 @@
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-09T22:11:00.774Z",
+    "generatedAt": "2026-07-09T22:17:46.211Z",
     "policy": "REPORT_ONLY_NO_DELETION",
     "duplicateFilesCount": 1200,
     "duplicateServicesCount": 28,
@@ -12360,9 +12360,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            10.24,
-            9.7,
-            6.87
+            3.32,
+            6.35,
+            6.57
           ]
         }
       },
@@ -12370,13 +12370,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 36962406400,
+          "freeMemoryBytes": 38898655232,
           "processMemory": {
-            "rss": 203653120,
-            "heapTotal": 56066048,
-            "heapUsed": 30175032,
-            "external": 22845469,
-            "arrayBuffers": 18900468
+            "rss": 210505728,
+            "heapTotal": 56328192,
+            "heapUsed": 32290368,
+            "external": 20748317,
+            "arrayBuffers": 16803316
           }
         }
       },
@@ -12384,8 +12384,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 537338808,
-          "availableKb": 387175332,
+          "usedKb": 537357508,
+          "availableKb": 387156632,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12658,9 +12658,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            10.24,
-            9.7,
-            6.87
+            3.32,
+            6.35,
+            6.57
           ]
         }
       },
@@ -12668,13 +12668,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 36962754560,
+          "freeMemoryBytes": 38898655232,
           "processMemory": {
-            "rss": 203845632,
-            "heapTotal": 56066048,
-            "heapUsed": 30453664,
-            "external": 22845521,
-            "arrayBuffers": 18900480
+            "rss": 210878464,
+            "heapTotal": 56328192,
+            "heapUsed": 32568760,
+            "external": 20748369,
+            "arrayBuffers": 16803328
           }
         }
       },
@@ -12682,8 +12682,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 537338808,
-          "availableKb": 387175332,
+          "usedKb": 537357508,
+          "availableKb": 387156632,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12995,7 +12995,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-09T22:11:03.920Z",
+    "generatedAt": "2026-07-09T22:17:47.638Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -13814,7 +13814,7 @@
   },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-09T22:11:06.165Z",
+    "generatedAt": "2026-07-09T22:17:48.448Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -13840,9 +13840,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            10.24,
-            9.7,
-            6.87
+            3.32,
+            6.35,
+            6.57
           ]
         }
       },
@@ -13850,13 +13850,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 36962754560,
+          "freeMemoryBytes": 38898655232,
           "processMemory": {
-            "rss": 203845632,
-            "heapTotal": 56066048,
-            "heapUsed": 30453664,
-            "external": 22845521,
-            "arrayBuffers": 18900480
+            "rss": 210878464,
+            "heapTotal": 56328192,
+            "heapUsed": 32568760,
+            "external": 20748369,
+            "arrayBuffers": 16803328
           }
         }
       },
@@ -13864,8 +13864,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 537338808,
-          "availableKb": 387175332,
+          "usedKb": 537357508,
+          "availableKb": 387156632,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -14279,7 +14279,7 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-09T22:11:03.923Z",
+    "generatedAt": "2026-07-09T22:17:47.638Z",
     "count": 1047,
     "canonicalDocs": [
       "docs/canonical/README.md",
@@ -14559,7 +14559,7 @@
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-09T22:11:03.925Z",
+    "generatedAt": "2026-07-09T22:17:47.639Z",
     "githubDependency": false,
     "counts": {
       "systems": 433,

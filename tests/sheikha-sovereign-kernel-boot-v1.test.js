@@ -11,6 +11,8 @@ describe('Sheikha Sovereign Kernel Boot V1', () => {
     expect(report.rootCovenant.foundation).toBe('TAWHID_OF_ALLAH');
     expect(report.rootCovenant.highestLayer).toBe('HAKIMIYYAH_QURAN_SUNNAH_GOVERNANCE');
     expect(report.rootCovenant.noLayerAboveGovernance).toBe(true);
+    expect(report.rootCovenant.hostCapabilitiesAreNotCeiling).toBe(true);
+    expect(report.rootCovenant.sheikhaCapabilitiesAreNativeAndHigherOrder).toBe(true);
     expect(report.governanceKernel.reference.quran).toBe(true);
     expect(report.governanceKernel.reference.authenticSunnah).toBe(true);
     expect(report.governanceKernel.reference.hukmBelongsToAllah).toBe(true);
@@ -41,8 +43,19 @@ describe('Sheikha Sovereign Kernel Boot V1', () => {
     expect(report.fromScratchBoundary.hostSystemFoundationAllowed).toBe(false);
     expect(report.fromScratchBoundary.linuxNodeFoundationAllowed).toBe(false);
     expect(report.fromScratchBoundary.currentRepositoryToolingIsFoundation).toBe(false);
+    expect(report.fromScratchBoundary.currentRepositoryToolingIsCapabilityCeiling).toBe(false);
     expect(report.fromScratchBoundary.bareMetalFullyIndependentToday).toBe(false);
     expect(report.fromScratchBoundary.truthPolicy).toContain('bare-metal');
+  });
+
+  test('treats Linux and Node as adapters, not capability ceilings', () => {
+    const report = buildReport();
+
+    expect(report.capabilitySupremacyModel.hostCapabilityRole).toBe('BUILD_AND_TEST_ADAPTER_ONLY');
+    expect(report.capabilitySupremacyModel.sheikhaCapabilityRole).toBe('NATIVE_FOUNDATIONAL_CAPABILITY_LAYER');
+    expect(report.capabilitySupremacyModel.linuxNodeBoundary.linuxIsCapabilityCeiling).toBe(false);
+    expect(report.capabilitySupremacyModel.linuxNodeBoundary.nodeIsCapabilityCeiling).toBe(false);
+    expect(report.capabilitySupremacyModel.superiorityClaimPolicy).toContain('benchmark evidence');
   });
 
   test('covers frontends stores laptop boot and recovery', () => {

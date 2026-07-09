@@ -94,10 +94,38 @@ function buildReport() {
       noLayerAboveGovernance: true,
       noHostSystemAsFoundation: true,
       noLinuxNodeAsFoundation: true,
+      hostCapabilitiesAreNotCeiling: true,
+      sheikhaCapabilitiesAreNativeAndHigherOrder: true,
       sheikhaLanguageNativeFoundation: true,
       allLowerLayersWrittenAsIslamicContracts: true,
       aiEmbeddedUnderGovernance: true,
       statement: 'شيخة تُعرّف كنظام أصلي من الصفر؛ لغة شيخة هي عقد البرمجة الأول، وما دون طبقة الحاكمية يُكتب بعقود وربط منضبط بالكتاب والسنة.'
+    },
+    capabilitySupremacyModel: {
+      status: 'ACTIVE_AS_ARCHITECTURAL_OBJECTIVE_WITH_EVIDENCE_BOUNDARIES',
+      principleArabic: 'قدرات شيخة الأصلية لا تُقاس بكونها تابعة لـ Linux أو Node؛ هما ليستا سقفًا ولا أساسًا ولا مرجعًا أعلى.',
+      principleEnglish: 'Sheikha-native capabilities are not bounded by Linux/Node host capabilities; host capabilities are adapters, not the ceiling.',
+      hostCapabilityRole: 'BUILD_AND_TEST_ADAPTER_ONLY',
+      sheikhaCapabilityRole: 'NATIVE_FOUNDATIONAL_CAPABILITY_LAYER',
+      target: 'Every host capability must be representable as a Sheikha Language governed contract, then replaced or bypassed by native Sheikha capability where evidence exists.',
+      superiorityClaimPolicy: 'No empirical performance superiority claim is made without benchmark evidence; the superiority here is architectural authority, scope, and native design target.',
+      capabilityDomains: [
+        'governance_by_tawhid_quran_sunnah',
+        'sheikha_language_native_programming',
+        'governed_ai_decision_support',
+        'runtime_kernel_contracts',
+        'store_market_package_surfaces',
+        'recovery_and_self_healing',
+        'native_boot_chain_target',
+        'host_adapter_replacement_roadmap'
+      ],
+      linuxNodeBoundary: {
+        linuxIsFoundation: false,
+        nodeIsFoundation: false,
+        linuxIsCapabilityCeiling: false,
+        nodeIsCapabilityCeiling: false,
+        allowedRole: 'temporary builder/test adapter until Sheikha-native boot and runtime evidence is complete'
+      }
     },
     governanceKernel: {
       reference: {
@@ -151,6 +179,7 @@ function buildReport() {
       nativeNoHostArchitectureTarget: true,
       currentRepositoryToolingRunsOnHost: true,
       currentRepositoryToolingIsFoundation: false,
+      currentRepositoryToolingIsCapabilityCeiling: false,
       currentRepositoryToolingBoundary: 'Node/Linux يظهران كأدوات بناء وفحص داخل المستودع الحالي فقط، وليسا أصل شيخة ولا الطبقة الحاكمة ولا نظامها الأصلي.',
       nativeBootImageVerifiedToday: false,
       bareMetalFullyIndependentToday: false,
@@ -250,6 +279,13 @@ function buildHandbook(report) {
     '- Linux و Node ليستا أساس شيخة ولا طبقة تشغيل حاكمة؛ إن ظهرتا في المستودع فهما أدوات بناء وفحص مؤقتة.',
     '- لغة شيخة هي عقد البرمجة الأول للنظام الأصلي.',
     '',
+    '## Native Capability Model',
+    '',
+    '- قدرات شيخة الأصلية ليست محصورة بقدرات Linux أو Node.',
+    '- Linux و Node ليستا سقفًا ولا معيارًا أعلى؛ هما adapters مؤقتة للبناء والفحص فقط.',
+    '- كل قدرة خارجية يجب أن تُعاد صياغتها كعقد محكوم بلغة شيخة، ثم تُستبدل بقدرة شيخة أصلية عندما يكتمل الدليل.',
+    '- أي ادعاء تفوق أداء رقمي يحتاج benchmark موثق؛ أما التفوق هنا فهو تفوق الأصل والسلطة المعمارية والهدف native/no-host.',
+    '',
     '## Kernel Covenant',
     '',
     '- المرجعية القيمية: الكتاب والسنة الصحيحة.',
@@ -317,6 +353,7 @@ if (require.main === module) {
     recovery: report.recoveryPlaybook.status,
     noHostSystemAsFoundation: report.rootCovenant.noHostSystemAsFoundation,
     noLinuxNodeAsFoundation: report.rootCovenant.noLinuxNodeAsFoundation,
+    hostCapabilitiesAreNotCeiling: report.rootCovenant.hostCapabilitiesAreNotCeiling,
     bareMetalFullyIndependentToday: report.fromScratchBoundary.bareMetalFullyIndependentToday,
     outputs: report.outputs,
     host: {
