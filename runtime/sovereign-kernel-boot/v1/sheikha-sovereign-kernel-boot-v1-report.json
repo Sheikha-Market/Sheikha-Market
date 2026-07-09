@@ -1,0 +1,250 @@
+{
+  "system": "SHEIKHA_SOVEREIGN_KERNEL_BOOT_V1",
+  "generatedAt": "2026-07-09T22:06:18.075Z",
+  "status": "ACTIVE_WITH_SOVEREIGN_BOOT_CATALOG",
+  "score": 100,
+  "checks": {
+    "islamicAiKernelCore": true,
+    "islamicAiActivationTool": true,
+    "runtimeKernel": true,
+    "governanceKernel": true,
+    "quranSunnahGovernance": true,
+    "sheikhaLanguageContract": true,
+    "sheikhaLanguageCompiler": true,
+    "sheikhaLanguageRuntime": true,
+    "masterActivationCatalog": true,
+    "marketplaceOperatingSystem": true,
+    "websiteFrontendRoutes": true,
+    "packageSurface": true,
+    "laptopBootScript": true,
+    "bareMetalSeed": true,
+    "recoveryEngine": true,
+    "recoveryHealthRoutes": true,
+    "operationalReadinessRecovery": true
+  },
+  "governanceKernel": {
+    "reference": {
+      "quran": true,
+      "authenticSunnah": true,
+      "noDivineAuthorityClaim": true,
+      "noRevelationClaim": true,
+      "noInfallibilityClaim": true,
+      "noIndependentFatwa": true,
+      "scholarReviewForReligiousRulings": true,
+      "humanReviewForHighImpact": true
+    },
+    "principles": [
+      "الصدق",
+      "الأمانة",
+      "العدل",
+      "الإحسان",
+      "لا ضرر ولا ضرار",
+      "حفظ الحقوق",
+      "التوثيق والبيّنة",
+      "المراجعة البشرية في القرارات العالية الأثر"
+    ],
+    "aiRole": "governed_decision_support_and_coding_runtime",
+    "decision": "KERNEL_FUSED_WITH_ISLAMIC_GOVERNANCE_AND_AI_SUPPORT"
+  },
+  "sheikhaLanguagePrimacy": {
+    "status": "ACTIVE_AS_FOUNDATIONAL_PROGRAMMING_CONTRACT",
+    "mandatoryForNewSystems": true,
+    "mode": "ARABIC_DSL_GOVERNED_PROGRAMMING_INTEGRATION",
+    "principle": "كل نظام جديد داخل شيخة يبدأ بعقد لغة شيخة: مواصفة، حوكمة، workflow، عقد، تنفيذ، ثم ترجمة آمنة عند الحاجة.",
+    "layers": [
+      "specification_language",
+      "governance_rules_language",
+      "workflow_language",
+      "contracts_language",
+      "execution_language",
+      "translation_layer"
+    ],
+    "integrationTargets": [
+      "sheikha_os",
+      "cloud_runtime",
+      "hpc_runtime",
+      "ai_runtime",
+      "governance_engine",
+      "capability_registry",
+      "knowledge_graph",
+      "master_log",
+      "inspector",
+      "recovery_engine",
+      "executive_control_center"
+    ],
+    "blockedClaims": [
+      "language_ready_without_compiler_check",
+      "governance_ready_without_policy_validation",
+      "execution_ready_without_tests",
+      "production_ready_without_truth_gate"
+    ],
+    "compilerEvidence": [
+      "sheikha-language/compiler/sheikha-compiler.js",
+      "sheikha-language/compiler/sheikha-runner.js",
+      "sheikha-language/specifications/language-spec-registry.json",
+      "runtime/sheikha-programming-language-core/sheikha-programming-language-core.json"
+    ]
+  },
+  "fromScratchBoundary": {
+    "applicationKernelBuiltFromSheikhaContracts": true,
+    "higherBusinessLogicSystemRequired": false,
+    "hostBootstrapRequiredToday": true,
+    "hostBootstrapSubstrate": [
+      "Linux or compatible OS",
+      "Node.js runtime",
+      "PM2 optional process manager"
+    ],
+    "bareMetalFullyIndependentToday": false,
+    "bareMetalSeedPresent": true,
+    "truthPolicy": "لا يتم ادعاء نظام bare-metal مستقل كامل حتى توجد اختبارات إقلاع وملفات صورة وتشغيل على عتاد/VM موثقة.",
+    "roadmapTarget": "Sheikha-first boot chain where Sheikha Language contracts generate runtime services, recovery, stores, and governance before external adapters."
+  },
+  "frontendAndStores": {
+    "status": "READY_FOR_LOCAL_FRONTEND_SMOKE",
+    "routes": [
+      {
+        "route": "/",
+        "present": true
+      },
+      {
+        "route": "/marketplace",
+        "present": true
+      },
+      {
+        "route": "/api/health",
+        "present": true
+      },
+      {
+        "route": "/api/stores",
+        "present": true
+      },
+      {
+        "route": "/api/stores-by-specialty",
+        "present": true
+      },
+      {
+        "route": "/api/sheikha/live/chat/v1",
+        "present": false
+      },
+      {
+        "route": "/api/marketplace/capabilities",
+        "present": true
+      }
+    ],
+    "surfaces": [
+      {
+        "name": "website",
+        "path": "/",
+        "evidence": "server.js"
+      },
+      {
+        "name": "marketplace",
+        "path": "/marketplace",
+        "evidence": "server.js"
+      },
+      {
+        "name": "storesApi",
+        "path": "/api/stores",
+        "evidence": "server.js"
+      },
+      {
+        "name": "storesBySpecialtyApi",
+        "path": "/api/stores-by-specialty",
+        "evidence": "server.js"
+      },
+      {
+        "name": "liveChat",
+        "path": "/api/sheikha/live/chat/v1",
+        "evidence": "routes/live-realtime-fabric"
+      },
+      {
+        "name": "arabicPackageManager",
+        "path": "/api/sheikha/arabic-package-manager-fabric",
+        "evidence": "routes/arabic-package-manager-fabric"
+      },
+      {
+        "name": "vscodeExtensionPackage",
+        "path": "sheikha-vscode-extension",
+        "evidence": "package script: package"
+      }
+    ]
+  },
+  "laptopBootReadiness": {
+    "status": "READY_FOR_HOSTED_LAPTOP_BOOT",
+    "hostRequirements": {
+      "node": "^20.0.0 || ^22.0.0 || ^25.0.0",
+      "pm2": ">=6.0.0",
+      "memory": "8GB minimum, 16GB+ recommended",
+      "storage": "SSD recommended",
+      "network": "optional for local-only mode; required for external integrations"
+    },
+    "commands": [
+      "npm install",
+      "npm run -s ops:sovereign-kernel-boot:v1",
+      "npm run -s ops:master-activation:consolidation:v1",
+      "npm run server:restart",
+      "curl -s http://127.0.0.1:8080/api/health"
+    ]
+  },
+  "recoveryPlaybook": {
+    "status": "ACTIVE_RECOVERY_PATH",
+    "stages": [
+      "detect: health, logs, runtime report, event-loop symptoms",
+      "isolate: stop risky automation and preserve evidence",
+      "restore: recover package/server/runtime snapshots to temporary location first",
+      "repair: run targeted tests and truth-gate checks",
+      "restart: pm2 restart sheikha-main-portal --update-env",
+      "verify: health endpoint, stores API, marketplace, live chat SSE",
+      "document: write recovery report and link to master activation"
+    ],
+    "commands": [
+      "npm run -s ops:runtime:doctor",
+      "bash tools/release/sheikha-operational-readiness-v1.sh",
+      "npm test -- --runInBand tests/sheikha-sovereign-kernel-boot-v1.test.js",
+      "pm2 restart sheikha-main-portal --update-env"
+    ]
+  },
+  "roadmap": [
+    {
+      "phase": 1,
+      "name": "Hosted Sovereign Kernel",
+      "status": "ACTIVE",
+      "output": "Node/Linux hosted Sheikha kernel with Islamic AI governance and language contract."
+    },
+    {
+      "phase": 2,
+      "name": "Sheikha Language First Runtime",
+      "status": "ACTIVE_CONTRACT_NEEDS_MORE_COMPILER_COVERAGE",
+      "output": "All new systems start from .shk/spec contracts and compile/adapt downward."
+    },
+    {
+      "phase": 3,
+      "name": "Frontend and Store Surface Activation",
+      "status": "READY_FOR_LOCAL_SMOKE",
+      "output": "Website, marketplace, stores APIs, package surfaces, and apps verified locally."
+    },
+    {
+      "phase": 4,
+      "name": "Portable Laptop Boot Pack",
+      "status": "READY_FOR_HOSTED_BOOT_PACKAGING",
+      "output": "One-command local laptop boot with recovery handbook."
+    },
+    {
+      "phase": 5,
+      "name": "Bare-Metal/VM Boot Chain",
+      "status": "SEED_PRESENT_NOT_CLAIMED_COMPLETE",
+      "output": "Minimal boot.asm/kernel.c evolves into tested VM image."
+    },
+    {
+      "phase": 6,
+      "name": "Full Sheikha-Native System",
+      "status": "ROADMAP",
+      "output": "Sheikha Language controls boot, services, stores, recovery, governance, and AI adapters."
+    }
+  ],
+  "outputs": {
+    "report": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
+    "handbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md"
+  },
+  "principle": "النواة مدمجة بالحوكمة الإسلامية والذكاء الصناعي، ولغة شيخة هي عقد البرمجة الأساسي؛ لا ادعاء لاستقلال bare-metal كامل قبل دليله."
+}

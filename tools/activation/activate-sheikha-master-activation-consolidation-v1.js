@@ -17,6 +17,8 @@ const finalExecutiveReportPath = 'runtime/master-activation/sheikha-master-final
 const documentationIndexPath = 'runtime/master-activation/sheikha-master-documentation-index-v1.json';
 const methodologyAccreditationPath = 'runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json';
 const externalAccreditationVerificationPath = 'runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json';
+const sovereignKernelBootPath = 'runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json';
+const sovereignKernelBootHandbookPath = 'docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md';
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
@@ -1051,7 +1053,9 @@ function buildDocumentationIndex(files) {
       executiveDashboardPath,
       finalExecutiveReportPath,
       methodologyAccreditationPath,
-      externalAccreditationVerificationPath
+      externalAccreditationVerificationPath,
+      sovereignKernelBootPath,
+      sovereignKernelBootHandbookPath
     ],
     duplicationPolicy: 'Use this index to link existing documents instead of copying their content.'
   };
@@ -1242,6 +1246,8 @@ function buildReport() {
   finalExecutiveReport.counts.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
+  finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
+  finalExecutiveReport.evidence.sovereignKernelBootHandbook = sovereignKernelBootHandbookPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1297,6 +1303,8 @@ function buildReport() {
     finalExecutiveReportPath,
     methodologyAccreditationPath,
     externalAccreditationVerificationPath,
+    sovereignKernelBootPath,
+    sovereignKernelBootHandbookPath,
     dependencyGraph: {
       fullGraphPath: architectureGraphPath,
       layerEdges: architectureGraph.edges.length,
@@ -1429,7 +1437,9 @@ if (require.main === module) {
       finalExecutiveReport: finalExecutiveReportPath,
       documentationIndex: documentationIndexPath,
       methodologyAccreditation: methodologyAccreditationPath,
-      externalAccreditationVerification: externalAccreditationVerificationPath
+      externalAccreditationVerification: externalAccreditationVerificationPath,
+      sovereignKernelBoot: sovereignKernelBootPath,
+      sovereignKernelBootHandbook: sovereignKernelBootHandbookPath
     }
   }, null, 2));
 }
