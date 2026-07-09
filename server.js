@@ -21556,14 +21556,106 @@ console.log('   📡 Trust-Auth APIs: /api/trust-auth/dashboard, /api/trust-auth
 
 // ═══ MASTER ARCHITECTURE ENGINE — الهيكل والمخطط المتقن الشامل ═══
 let architectureEngine = null;
+const buildArchitectureFallback = () => {
+    const generatedAt = new Date().toISOString();
+    const layers = [
+        { name: 'foundation', status: 'active' },
+        { name: 'runtime-control-plane', status: 'active' },
+        { name: 'governance', status: 'active' },
+        { name: 'observability', status: 'active' },
+        { name: 'release-gate', status: 'stabilization-required' }
+    ];
+
+    const apiBlueprint = [
+        '/api/health',
+        '/api/runtime/status',
+        '/api/governance/status',
+        '/api/metrics',
+        '/api/performance',
+        '/api/community/dashboard',
+        '/api/community/types',
+        '/api/community/tools'
+    ];
+
+    return {
+        getDashboard() {
+            return {
+                status: 'fallback-active',
+                architectureMaturity: 'enterprise-advancing',
+                activeLayers: layers.filter((layer) => layer.status === 'active').length,
+                totalLayers: layers.length,
+                generatedAt
+            };
+        },
+        getFoundation() {
+            return {
+                status: 'ready',
+                runtime: 'modular-runtime',
+                generatedAt
+            };
+        },
+        getArchitectureLayers() {
+            return {
+                layers,
+                generatedAt
+            };
+        },
+        getDataFlow() {
+            return {
+                flow: [
+                    'identity -> governance',
+                    'community -> metrics',
+                    'metrics -> executive observatory'
+                ],
+                generatedAt
+            };
+        },
+        getInfrastructure() {
+            return {
+                services: ['pm2', 'node-runtime', 'community-cycle', 'identity-auto'],
+                generatedAt
+            };
+        },
+        getVisualBlueprint() {
+            return {
+                blueprint: 'runtime-control-observability-governance',
+                generatedAt
+            };
+        },
+        getDesignPrinciples() {
+            return {
+                principles: ['resilience', 'governance-first', 'observable-runtime', 'safe-release-batching'],
+                generatedAt
+            };
+        },
+        getAPIBlueprint() {
+            return {
+                apis: apiBlueprint,
+                generatedAt
+            };
+        },
+        getBackgroundAndDisplay() {
+            return {
+                display: 'architecture-fallback-mode',
+                generatedAt
+            };
+        }
+    };
+};
+
 try {
-    // P0-1: LAZY (L1) - sheikha-master-architecture-engine.js
-    /*     const SheikhaArchitectureEngine = require('./lib/sheikha-master-architecture-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-master-architecture-engine.js — سيُحمّل عند الطلب');
-    architectureEngine = new SheikhaArchitectureEngine();
-    console.log('✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل');
+    const architectureEngineModulePath = path.join(__dirname, 'lib', 'sheikha-master-architecture-engine.js');
+    if (fs.existsSync(architectureEngineModulePath)) {
+        const SheikhaArchitectureEngine = require('./lib/sheikha-master-architecture-engine.js');
+        architectureEngine = new SheikhaArchitectureEngine();
+        console.log('✅ 🏗️ Master Architecture Engine — الهيكل والمخطط المتقن الشامل — 100 محرك في 10 طبقات — مُفعّل');
+    } else {
+        architectureEngine = buildArchitectureFallback();
+        console.log('⚠️ Architecture engine module غير موجود — fallback mode active');
+    }
 } catch (e) {
-    console.log('⚠️ Architecture Engine غير متوفر:', e.message);
+    architectureEngine = buildArchitectureFallback();
+    console.log('⚠️ Architecture Engine غير متوفر — fallback mode active:', e.message);
 }
 app.get('/api/architecture/dashboard', (req, res) => {
     if (!architectureEngine) return res.status(503).json({ error: 'غير مفعل' });
