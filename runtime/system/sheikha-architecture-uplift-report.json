@@ -1,8 +1,8 @@
 {
   "system": "SHEIKHA_ARCHITECTURE_UPLIFT_GATE_V1",
-  "generatedAt": "2026-07-09T11:33:10.875Z",
-  "score": 93,
-  "tier": "ENTERPRISE_STRONG",
+  "generatedAt": "2026-07-09T11:48:55.733Z",
+  "score": 100,
+  "tier": "ENTERPRISE_APEX",
   "status": "UPLIFT_HIGH",
   "layers": {
     "foundationLayer": {
@@ -111,12 +111,12 @@
       }
     },
     "releaseGovernanceLayer": {
-      "score": 63,
-      "status": "STABILIZATION_REQUIRED",
+      "score": 100,
+      "status": "READY_FOR_RC",
       "evidence": {
         "qualityReady": true,
-        "gitClean": false,
-        "totalChanges": 3
+        "gitClean": true,
+        "totalChanges": 0
       }
     }
   },
@@ -125,6 +125,6 @@
     "Control plane APIs are healthy.",
     "Executive observatory is live.",
     "Quality gate is healthy.",
-    "Split remaining changes into release batches before final RC."
+    "Workspace is clean for release candidate."
   ]
 }
