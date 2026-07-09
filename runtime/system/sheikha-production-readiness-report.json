@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_PRODUCTION_READINESS_GATE_V1",
-  "status": "PRODUCTION_READY",
-  "generatedAt": "2026-07-09T13:36:36.875Z",
+  "status": "STABILIZATION_REQUIRED",
+  "generatedAt": "2026-07-09T13:55:35.565Z",
   "mode": "full",
   "checks": {
     "operationalReady": true,
@@ -110,7 +110,7 @@
     "identity": {
       "status": "ACTIVE",
       "score": 100,
-      "generatedAt": "2026-07-09T13:30:37.733Z"
+      "generatedAt": "2026-07-09T13:45:16.122Z"
     },
     "community": {
       "status": "KHAYR_ACTIVE",
@@ -135,22 +135,39 @@
     }
   ],
   "git": {
-    "clean": true,
-    "totalChanges": 0,
+    "clean": false,
+    "totalChanges": 5,
     "statusCounts": {
       "added": 0,
-      "modified": 0,
+      "modified": 5,
       "deleted": 0,
       "renamed": 0,
       "untracked": 0,
       "conflicted": 0,
       "other": 0
     },
-    "topDirectories": []
+    "topDirectories": [
+      {
+        "dir": "public",
+        "count": 2
+      },
+      {
+        "dir": "ublic",
+        "count": 1
+      },
+      {
+        "dir": "runtime",
+        "count": 1
+      },
+      {
+        "dir": "(root)",
+        "count": 1
+      }
+    ]
   },
   "recommendations": [
     "Operational gate passed.",
-    "Git workspace is clean.",
+    "Git workspace has pending changes; split into logical feature batches before release.",
     "Quality checks are acceptable for current mode."
   ]
 }
