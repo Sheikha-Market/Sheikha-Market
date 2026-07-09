@@ -110,10 +110,14 @@ npm run -s ops:master-activation:consolidation:v1
 - `runtime/master-activation/sheikha-master-documentation-index-v1.json`
 - `runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json`
 - `runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json`
+- `runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json`
+- `docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md`
 
 قاعدة هذه المرحلة: لا حذف، ولا ادعاء جاهزية إنتاجية بلا دليل، ولا اعتماد على GitHub؛ المصدر التشغيلي المحلي هو `local-registry` وملفات الأدلة داخل `runtime/master-activation`.
 
 اعتمادات المنهجيات في هذه المرحلة هي اعتمادات داخلية محكومة بالأدلة داخل المستودع، وتشمل الجاهزية العلمية والتنظيمية والإدارية والفنية والهندسية والحسابية والحوسبية. أما التراخيص والشهادات المحلية أو الدولية الرسمية فلا تُعد صادرة إلا من الجهة المختصة أو جهة تدقيق/اعتماد معتمدة؛ لذلك يولّد النظام حزمة جاهزية للتقديم ولا يدّعي إصدارًا خارجيًا.
+
+نواة شيخة السيادية مفعّلة كـ hosted sovereign kernel محكومة بالكتاب والسنة، مدمجة بالذكاء الصناعي ولغة شيخة كعقد برمجة أساسي. لا يُدّعى استقلال bare-metal كامل إلا بعد وجود صورة إقلاع واختبارات عتاد/VM موثقة.
 
 ---
 

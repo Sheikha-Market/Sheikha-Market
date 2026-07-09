@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-09T21:54:20.146Z",
+  "generatedAt": "2026-07-09T22:06:37.252Z",
   "nodes": [
     {
       "id": "APIs",
@@ -119,7 +119,7 @@
     {
       "id": "OS",
       "type": "layer",
-      "components": 142,
+      "components": 146,
       "responsibility": "ربط نواة التشغيل والعمليات والخدمات المحلية."
     },
     {
@@ -25298,6 +25298,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sovereign-kernel-boot-5543fd78540f",
+      "fromPath": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-kernel-boot-5543fd78540f",
+      "fromPath": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
       "from": "space-iot-ml-ai-fabric-38fc2c46812e",
       "fromPath": "docs/space-iot-ml-ai-fabric/SHEIKHA-SPACE-IOT-ML-AI-FABRIC-V1.md",
       "to": "Knowledge",
@@ -70412,6 +70424,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sovereign-kernel-boot-report-14674198c2ee",
+      "fromPath": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-kernel-boot-report-14674198c2ee",
+      "fromPath": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
       "from": "space-federation-3a13b463040a",
       "fromPath": "runtime/space-federation/v1/sheikha-space-federation.js",
       "to": "OS",
@@ -83246,6 +83270,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sovereign-kernel-boot-test-a62cfd969a25",
+      "fromPath": "tests/sheikha-sovereign-kernel-boot-v1.test.js",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-kernel-boot-test-a62cfd969a25",
+      "fromPath": "tests/sheikha-sovereign-kernel-boot-v1.test.js",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
       "from": "sovereign-union-federation-test-5d8860d5af22",
       "fromPath": "tests/sheikha-sovereign-union-federation-v1.test.js",
       "to": "Knowledge",
@@ -85181,6 +85217,18 @@
       "from": "runtime-health-engine-9f76a8126798",
       "fromPath": "tools/activation/activate-sheikha-runtime-health-engine-v1.sh",
       "to": "Monitoring",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-kernel-boot-b9344e4f5ea6",
+      "fromPath": "tools/activation/activate-sheikha-sovereign-kernel-boot-v1.js",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-kernel-boot-b9344e4f5ea6",
+      "fromPath": "tools/activation/activate-sheikha-sovereign-kernel-boot-v1.js",
+      "to": "Compute/HPC",
       "type": "component-to-layer"
     },
     {
