@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-  "generatedAt": "2026-07-09T22:17:47.639Z",
+  "generatedAt": "2026-07-09T22:34:27.196Z",
   "githubDependency": false,
   "counts": {
     "systems": 433,
@@ -8,8 +8,8 @@
     "layers": 25,
     "apis": 2687,
     "services": 0,
-    "tests": 336,
-    "docs": 1047,
+    "tests": 337,
+    "docs": 1048,
     "sdks": 80,
     "registries": 365,
     "runtimeEngines": 1236,
@@ -24,15 +24,17 @@
     "securityEngines": 81,
     "dashboards": 71,
     "pipelines": 57,
-    "automationEngines": 377,
+    "automationEngines": 378,
     "integrations": 346,
-    "packageScripts": 635,
-    "duplicateGroups": 1200,
+    "packageScripts": 636,
+    "duplicateGroups": 1201,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
     "internationalAccreditationTargets": 23,
-    "externalCertificatesIssued": 0
+    "externalCertificatesIssued": 0,
+    "universalTechnologyFamilies": 13,
+    "universalTechnologyHpcScore": 100
   },
   "evidence": {
     "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
@@ -42,7 +44,9 @@
     "methodologyAccreditation": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json",
     "externalAccreditationVerification": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
     "sovereignKernelBoot": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
-    "sovereignKernelBootHandbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md"
+    "sovereignKernelBootHandbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
+    "universalTechnologyHpcFabric": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
+    "universalTechnologyHpcFabricHandbook": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md"
   },
   "productionClaimPolicy": "No production-ready claim is made unless supported by tests, health, and runtime evidence."
 }

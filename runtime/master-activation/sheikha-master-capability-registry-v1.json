@@ -1,23 +1,23 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-09T22:17:46.192Z",
+  "generatedAt": "2026-07-09T22:34:26.013Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7060,
+  "componentCount": 7064,
   "apiEndpoints": 2687,
-  "packageScripts": 635,
+  "packageScripts": 636,
   "lifecycleSummary": {
-    "active": 818,
-    "needsLinking": 1170,
-    "needsDevelopment": 4938,
+    "active": 819,
+    "needsLinking": 1171,
+    "needsDevelopment": 4940,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 818,
-    "linkedRequired": 1170,
+    "measured": 819,
+    "linkedRequired": 1171,
     "discovered": 3881,
-    "documented": 768
+    "documented": 769
   },
   "components": [
     {
@@ -119689,6 +119689,67 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "docs/universal-runtime-fabric/SHEIKHA-UNIVERSAL-RUNTIME-FABRIC-V82.md"
+      }
+    },
+    {
+      "id": "universal-technology-hpc-fabric-95e36ac4a5a5",
+      "name": "SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1",
+      "version": "v1",
+      "path": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+      "type": "documentation",
+      "layer": "Compute/HPC",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "قياس الحوسبة الثقيلة والقدرات العالية بدليل محلي.",
+      "inputs": [
+        "benchmark tasks"
+      ],
+      "outputs": [
+        "compute benchmark"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [
+        "tests/sheikha-universal-technology-hpc-fabric-v1.test.js"
+      ],
+      "reports": [
+        "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md"
+      },
+      "maturity": "documented",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md"
       }
     },
     {
@@ -342479,6 +342540,65 @@
       }
     },
     {
+      "id": "universal-technology-hpc-fabric-report-ac7f094f8df7",
+      "name": "sheikha-universal-technology-hpc-fabric-v1-report",
+      "version": "v1",
+      "path": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
+      "type": "report",
+      "layer": "Compute/HPC",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "قياس الحوسبة الثقيلة والقدرات العالية بدليل محلي.",
+      "inputs": [
+        "benchmark tasks"
+      ],
+      "outputs": [
+        "compute benchmark"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json"
+      }
+    },
+    {
       "id": "universal-template-engine-report-1da8d16cb540",
       "name": "sheikha-universal-template-engine-v8-report",
       "version": "v8",
@@ -396519,6 +396639,65 @@
       }
     },
     {
+      "id": "universal-technology-hpc-fabric-test-8516cc3b3a8e",
+      "name": "sheikha-universal-technology-hpc-fabric-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-universal-technology-hpc-fabric-v1.test.js",
+      "type": "test",
+      "layer": "Compute/HPC",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "قياس الحوسبة الثقيلة والقدرات العالية بدليل محلي.",
+      "inputs": [
+        "benchmark tasks"
+      ],
+      "outputs": [
+        "compute benchmark"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [
+        "tests/sheikha-universal-technology-hpc-fabric-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-universal-technology-hpc-fabric-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-universal-technology-hpc-fabric-v1.test.js"
+      }
+    },
+    {
       "id": "universal-template-engine-test-0c6951a1ed64",
       "name": "sheikha-universal-template-engine-v8.test",
       "version": "v8",
@@ -403920,6 +404099,67 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-universal-knowledge-graph-v9.sh"
+      }
+    },
+    {
+      "id": "universal-technology-hpc-fabric-27a9902f18f1",
+      "name": "activate-sheikha-universal-technology-hpc-fabric-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js",
+      "type": "code",
+      "layer": "Compute/HPC",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "قياس الحوسبة الثقيلة والقدرات العالية بدليل محلي.",
+      "inputs": [
+        "benchmark tasks"
+      ],
+      "outputs": [
+        "compute benchmark"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [
+        "tests/sheikha-universal-technology-hpc-fabric-v1.test.js"
+      ],
+      "reports": [
+        "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js"
       }
     },
     {
@@ -423428,8 +423668,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 336,
-    "reports": 382,
-    "docs": 1047
+    "tests": 337,
+    "reports": 383,
+    "docs": 1048
   }
 }

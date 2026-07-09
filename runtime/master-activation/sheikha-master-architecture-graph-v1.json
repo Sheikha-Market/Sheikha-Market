@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-09T22:17:46.196Z",
+  "generatedAt": "2026-07-09T22:34:26.017Z",
   "nodes": [
     {
       "id": "APIs",
@@ -35,7 +35,7 @@
     {
       "id": "Compute/HPC",
       "type": "layer",
-      "components": 48,
+      "components": 52,
       "responsibility": "قياس الحوسبة الثقيلة والقدرات العالية بدليل محلي."
     },
     {
@@ -25658,6 +25658,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-technology-hpc-fabric-95e36ac4a5a5",
+      "fromPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-technology-hpc-fabric-95e36ac4a5a5",
+      "fromPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "module-modernization-and-upgrade-governance-4be2f3e81716",
       "fromPath": "docs/upgrade-governance/SHEIKHA-MODULE-MODERNIZATION-AND-UPGRADE-GOVERNANCE-V1.md",
       "to": "Runtime",
@@ -72296,6 +72308,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-technology-hpc-fabric-report-ac7f094f8df7",
+      "fromPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-technology-hpc-fabric-report-ac7f094f8df7",
+      "fromPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "universal-template-engine-report-1da8d16cb540",
       "fromPath": "runtime/universal-template-engine/sheikha-universal-template-engine-v8-report.json",
       "to": "OS",
@@ -83702,6 +83726,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-technology-hpc-fabric-test-8516cc3b3a8e",
+      "fromPath": "tests/sheikha-universal-technology-hpc-fabric-v1.test.js",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-technology-hpc-fabric-test-8516cc3b3a8e",
+      "fromPath": "tests/sheikha-universal-technology-hpc-fabric-v1.test.js",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "universal-template-engine-test-0c6951a1ed64",
       "fromPath": "tests/sheikha-universal-template-engine-v8.test.js",
       "to": "Knowledge",
@@ -85295,6 +85331,18 @@
       "from": "universal-knowledge-graph-5da91233b54f",
       "fromPath": "tools/activation/activate-sheikha-universal-knowledge-graph-v9.sh",
       "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-technology-hpc-fabric-27a9902f18f1",
+      "fromPath": "tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-technology-hpc-fabric-27a9902f18f1",
+      "fromPath": "tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js",
+      "to": "Cloud",
       "type": "component-to-layer"
     },
     {

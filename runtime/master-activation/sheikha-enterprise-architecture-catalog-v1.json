@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-09T22:17:48.507Z",
+  "generatedAt": "2026-07-09T22:34:28.052Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -1427,7 +1427,7 @@
     },
     {
       "root": "docs",
-      "files": 673,
+      "files": 674,
       "classification": "repository-artifact"
     },
     {
@@ -2142,7 +2142,7 @@
     },
     {
       "root": "runtime",
-      "files": 1933,
+      "files": 1934,
       "classification": "repository-artifact"
     },
     {
@@ -2962,7 +2962,7 @@
     },
     {
       "root": "tests",
-      "files": 326,
+      "files": 327,
       "classification": "repository-artifact"
     },
     {
@@ -2972,7 +2972,7 @@
     },
     {
       "root": "tools",
-      "files": 383,
+      "files": 384,
       "classification": "repository-artifact"
     },
     {
@@ -3255,7 +3255,7 @@
       "responsibility": "نمذجة المجتمع والتكوين الحضاري وروابط المعرفة المجتمعية."
     },
     "Compute/HPC": {
-      "components": 48,
+      "components": 52,
       "dependencies": [
         "OS",
         "Cloud"
@@ -3450,14 +3450,16 @@
   "externalAccreditationVerificationPath": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
   "sovereignKernelBootPath": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
   "sovereignKernelBootHandbookPath": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
+  "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
+  "universalTechnologyHpcFabricHandbookPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 14826
+    "componentEdges": 14834
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-    "duplicateFiles": 1200,
+    "duplicateFiles": 1201,
     "duplicateServices": 28,
     "duplicateApis": 147,
     "duplicateRegistries": 67,
@@ -3469,8 +3471,8 @@
     "layers": 25,
     "apis": 2687,
     "services": 0,
-    "tests": 336,
-    "docs": 1047,
+    "tests": 337,
+    "docs": 1048,
     "sdks": 80,
     "registries": 365,
     "runtimeEngines": 1236,
@@ -3485,14 +3487,16 @@
     "securityEngines": 81,
     "dashboards": 71,
     "pipelines": 57,
-    "automationEngines": 377,
+    "automationEngines": 378,
     "integrations": 346,
-    "packageScripts": 635,
-    "duplicateGroups": 1200,
+    "packageScripts": 636,
+    "duplicateGroups": 1201,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
     "internationalAccreditationTargets": 23,
-    "externalCertificatesIssued": 0
+    "externalCertificatesIssued": 0,
+    "universalTechnologyFamilies": 13,
+    "universalTechnologyHpcScore": 100
   }
 }
