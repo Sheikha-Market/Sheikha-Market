@@ -1,0 +1,47 @@
+{
+  "system": "SHEIKHA_OS_CLOUD_SUPERCOMPUTER_INTEGRATION_V1",
+  "status": "ACTIVE",
+  "mode": "VERIFIABLE_INTEGRATION_FABRIC",
+  "layers": {
+    "os": {
+      "role": "local runtime kernel and process orchestration",
+      "required": true
+    },
+    "cloud": {
+      "role": "deployment, APIs, monitoring, scaling, external availability",
+      "required": true
+    },
+    "supercomputer": {
+      "role": "high performance computation, batch execution, simulation, heavy analytics",
+      "required": true
+    }
+  },
+  "integrationBus": [
+    "runtime_registry",
+    "capability_registry",
+    "master_log",
+    "health_gate",
+    "truth_gate",
+    "inspector",
+    "recovery_engine",
+    "executive_control_center"
+  ],
+  "requiredChecks": [
+    "pm2_processes_online",
+    "main_portal_online",
+    "identity_v2_health_ok",
+    "community_modeling_active",
+    "architecture_registry_tests_pass",
+    "lint_pass",
+    "health_endpoint_200",
+    "master_log_writable",
+    "truth_gate_active"
+  ],
+  "blockedClaims": [
+    "supercomputer_ready_without_live_compute_benchmark",
+    "cloud_ready_without_deployment_runtime",
+    "production_ready_without_truth_gate",
+    "all_integrated_without_health_checks"
+  ],
+  "decision": "OS_CLOUD_SUPERCOMPUTER_INTEGRATION_ACTIVE_PENDING_LIVE_BENCHMARKS"
+}
