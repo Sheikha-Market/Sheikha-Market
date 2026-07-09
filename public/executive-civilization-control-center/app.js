@@ -44,6 +44,9 @@ const governance = [
   ["Truth Gate Policy", "ADVANCED_PRODUCTION_CANDIDATE حتى اكتمال جميع البوابات"]
 ];
 
+let enterpriseIntegrationReport = null;
+let liveComputeBenchmarkReport = null;
+
 async function fetchJson(url) {
   try {
     const response = await fetch(url, { cache: "no-store" });
@@ -121,7 +124,9 @@ async function refreshLiveOperationalData() {
     communityTypes,
     communityTools,
     metrics,
-    performance
+    performance,
+    enterpriseIntegration,
+    liveBenchmark
   ] = await Promise.all([
     fetchJson('/api/health'),
     fetchJson('/api/identity/status'),
@@ -132,8 +137,13 @@ async function refreshLiveOperationalData() {
     fetchJson('/api/community/types'),
     fetchJson('/api/community/tools'),
     fetchJson('/api/metrics'),
-    fetchJson('/api/performance')
+    fetchJson('/api/performance'),
+    fetchJson('/runtime/enterprise-integration/sheikha-enterprise-integration-verification-layer-v1-report.json'),
+    fetchJson('/runtime/os-cloud-supercomputer/sheikha-live-compute-benchmark-v1-report.json')
   ]);
+
+  enterpriseIntegrationReport = enterpriseIntegration;
+  liveComputeBenchmarkReport = liveBenchmark;
 
   const identityScore = Number(identity?.score || metrics?.metrics?.identityScore || 0);
   const truthScore = Number(truthGate?.score || 0);
@@ -193,12 +203,92 @@ async function refreshLiveOperationalData() {
   renderRisks();
   renderDevelopment();
   renderGovernance();
+  renderEnterpriseLayers();
+  renderBenchmark();
+  renderDependencyGraph();
   refreshTimestamp();
 
   if (health?.timestamp) {
     const d = new Date(health.timestamp);
     document.getElementById('lastSync').textContent = `آخر مزامنة ${d.toLocaleTimeString('ar-SA')}`;
   }
+}
+
+function renderEnterpriseLayers() {
+  const root = document.getElementById('layerGrid');
+  if (!enterpriseIntegrationReport?.layers) {
+    root.innerHTML = '<article class="layer-item degraded"><h4>الطبقات</h4><p>لا توجد بيانات تكامل حالية.</p></article>';
+    return;
+  }
+
+  root.innerHTML = Object.values(enterpriseIntegrationReport.layers)
+    .map((layer) => {
+      const statusClass = String(layer.status || '').toLowerCase();
+      const deps = Array.isArray(layer.dependencies) ? layer.dependencies : [];
+      return `
+        <article class="layer-item ${statusClass}">
+          <h4>${layer.name}</h4>
+          <span class="layer-score">${layer.score}%</span>
+          <p class="layer-meta">${layer.status} | ${layer.passed}/${layer.total}</p>
+          <ul class="layer-deps">
+            ${deps.map((dep) => `<li>${dep}</li>`).join('') || '<li>Direct</li>'}
+          </ul>
+        </article>
+      `;
+    })
+    .join('');
+}
+
+function renderBenchmark() {
+  const root = document.getElementById('benchmarkGrid');
+  const unified = enterpriseIntegrationReport?.unifiedBenchmark;
+  const cpu = liveComputeBenchmarkReport?.benchmark?.cpu;
+  const io = liveComputeBenchmarkReport?.benchmark?.io;
+
+  if (!unified) {
+    root.innerHTML = '<article class="benchmark-item"><h4>Unified Benchmark</h4><p>لا توجد بيانات benchmark حالية.</p></article>';
+    return;
+  }
+
+  const cards = [
+    ['CPU Jobs/sec', cpu?.jobsPerSecond ?? unified.jobsPerSecond ?? '--'],
+    ['CPU Duration ms', cpu?.durationMs ?? unified.cpuDurationMs ?? '--'],
+    ['I/O Write ms', io?.writeMs ?? unified.ioWriteMs ?? '--'],
+    ['I/O Read ms', io?.readMs ?? unified.ioReadMs ?? '--'],
+    ['Latency Health ms', unified.latencyHealthEndpointMs ?? '--'],
+    ['Latency Metrics ms', unified.latencyMetricsEndpointMs ?? '--'],
+    ['Latency Performance ms', unified.latencyPerformanceEndpointMs ?? '--'],
+    ['CPU Count', unified.cpuCount ?? '--']
+  ];
+
+  root.innerHTML = cards
+    .map(([title, value]) => `
+      <article class="benchmark-item">
+        <h4>${title}</h4>
+        <p class="benchmark-value"><strong>${value}</strong><span>قياس حي موثّق</span></p>
+      </article>
+    `)
+    .join('');
+}
+
+function renderDependencyGraph() {
+  const root = document.getElementById('dependencyGrid');
+  const graph = enterpriseIntegrationReport?.dependencyResolver;
+
+  if (!graph) {
+    root.innerHTML = '<article class="dependency-item"><h4>Dependency Resolver</h4><p>لا توجد بيانات اعتماديات حالية.</p></article>';
+    return;
+  }
+
+  root.innerHTML = Object.entries(graph)
+    .map(([name, deps]) => `
+      <article class="dependency-item">
+        <h4>${name}</h4>
+        <p>يعتمد على:</p>
+        <ul>${deps.map((dep) => `<li>${dep}</li>`).join('')}</ul>
+      </article>
+    `)
+    .join('');
 }
 
 function renderKpis() {
@@ -265,25 +355,17 @@ function refreshTimestamp() {
   document.getElementById("lastSync").textContent = `آخر مزامنة ${now.toLocaleTimeString("ar-SA")}`;
 }
 
-function pulseNumbers() {
-  kpis.forEach((item) => {
-    const variance = (Math.random() - 0.5) * 0.6;
-    const next = Number(item.value) + variance;
-    item.value = Number(Math.max(next, 1).toFixed(item.unit === "%" ? 1 : 0));
-  });
-  renderKpis();
-  refreshTimestamp();
-}
-
 renderKpis();
 renderJourney();
 renderRisks();
 renderDevelopment();
 renderGovernance();
+renderEnterpriseLayers();
+renderBenchmark();
+renderDependencyGraph();
 refreshTimestamp();
 refreshLiveHealth();
 refreshLiveOperationalData();
 
-setInterval(pulseNumbers, 20000);
 setInterval(refreshLiveHealth, 30000);
 setInterval(refreshLiveOperationalData, 30000);

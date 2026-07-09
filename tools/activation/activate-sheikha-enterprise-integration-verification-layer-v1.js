@@ -6,6 +6,7 @@ const path = require('node:path');
 const { execSync } = require('node:child_process');
 
 const reportPath = 'runtime/enterprise-integration/sheikha-enterprise-integration-verification-layer-v1-report.json';
+const benchmarkReportPath = 'runtime/os-cloud-supercomputer/sheikha-live-compute-benchmark-v1-report.json';
 
 function exists(filePath) {
   return fs.existsSync(filePath);
@@ -39,6 +40,18 @@ function getHttpStatus(url) {
     return Number(code) || 0;
   } catch {
     return 0;
+  }
+}
+
+function getHttpTiming(url) {
+  try {
+    const seconds = execSync(`curl -s -o /dev/null -w "%{time_total}" ${url}`, {
+      encoding: 'utf8',
+      stdio: ['ignore', 'pipe', 'ignore']
+    }).trim();
+    return Number((Number(seconds) * 1000).toFixed(3)) || 0;
+  } catch {
+    return null;
   }
 }
 
@@ -90,6 +103,13 @@ function buildReport() {
   const readiness = safeReadJson('runtime/system/sheikha-production-readiness-report.json');
   const architecture = safeReadJson('runtime/system/sheikha-architecture-uplift-report.json');
   const osCloud = safeReadJson('runtime/os-cloud-supercomputer/sheikha-os-cloud-supercomputer-integration-v1-report.json');
+  const benchmark = safeReadJson(benchmarkReportPath);
+  const latency = {
+    healthMs: getHttpTiming('http://127.0.0.1:8080/api/health'),
+    metricsMs: getHttpTiming('http://127.0.0.1:8080/api/metrics'),
+    performanceMs: getHttpTiming('http://127.0.0.1:8080/api/performance'),
+    communityDashboardMs: getHttpTiming('http://127.0.0.1:8080/api/community/dashboard')
+  };
 
   const layers = {
     os: buildLayer('OS', {
@@ -107,20 +127,26 @@ function buildReport() {
       performanceEndpoint200: getHttpStatus('http://127.0.0.1:8080/api/performance') === 200
     }, ['OS'], {
       monitoringReady: true,
-      scalingMode: 'LOCAL_RUNTIME_WITH_CLOUD_READY_GATE'
+      scalingMode: 'LOCAL_RUNTIME_WITH_CLOUD_READY_GATE',
+      latency
     }),
     supercomputer: buildLayer('Supercomputer', {
       contractPassed: osCloud?.status === 'PASSED',
       truthGatePresent: exists('runtime/production-truth-gate/sheikha-production-truth-gate-v4.json'),
-      computeBenchmarkMeasured: osCloud?.contract?.blockedClaims?.includes('supercomputer_ready_without_live_compute_benchmark') === true
+      computeBenchmarkMeasured: benchmark?.status === 'PASSED'
     }, ['OS', 'Cloud'], {
       benchmark: {
         loadAverage: os.loadavg(),
         totalMemoryBytes: os.totalmem(),
         freeMemoryBytes: os.freemem(),
         cpuCount: os.cpus().length,
-        jobsPerSecond: null,
-        note: 'Live compute benchmark still required before physical supercomputer claims.'
+        jobsPerSecond: benchmark?.benchmark?.cpu?.jobsPerSecond ?? null,
+        cpuDurationMs: benchmark?.benchmark?.cpu?.durationMs ?? null,
+        ioWriteMs: benchmark?.benchmark?.io?.writeMs ?? null,
+        ioReadMs: benchmark?.benchmark?.io?.readMs ?? null,
+        note: benchmark
+          ? 'Live compute benchmark is recorded under the governed truth gate.'
+          : 'Live compute benchmark still required before physical supercomputer claims.'
       }
     }),
     runtime: buildLayer('Runtime', {
@@ -212,9 +238,17 @@ function buildReport() {
       loadAverage: os.loadavg(),
       totalMemoryBytes: os.totalmem(),
       freeMemoryBytes: os.freemem(),
-      latencyHealthEndpointMs: null,
-      jobsPerSecond: null,
-      note: 'This layer records live OS metrics now and reserves benchmark slots for governed future measurements.'
+      latencyHealthEndpointMs: latency.healthMs,
+      latencyMetricsEndpointMs: latency.metricsMs,
+      latencyPerformanceEndpointMs: latency.performanceMs,
+      latencyCommunityDashboardMs: latency.communityDashboardMs,
+      jobsPerSecond: benchmark?.benchmark?.cpu?.jobsPerSecond ?? null,
+      cpuDurationMs: benchmark?.benchmark?.cpu?.durationMs ?? null,
+      ioWriteMs: benchmark?.benchmark?.io?.writeMs ?? null,
+      ioReadMs: benchmark?.benchmark?.io?.readMs ?? null,
+      note: benchmark
+        ? 'This layer includes live OS metrics, API latency, and governed local compute benchmark evidence.'
+        : 'This layer records live OS metrics and API latency while awaiting governed benchmark evidence.'
     },
     recommendations: overallScore === 100
       ? ['Enterprise integration verification layer is ready.', 'Keep benchmarks evidence-based before any supercomputer claim.']

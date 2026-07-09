@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_ENTERPRISE_INTEGRATION_VERIFICATION_LAYER_V1",
   "status": "PRODUCTION_READY",
-  "generatedAt": "2026-07-09T13:36:37.495Z",
+  "generatedAt": "2026-07-09T13:51:41.960Z",
   "principle": "الكتاب والسنة والصدق في الادعاء والقياس قبل الإعلان",
   "overallScore": 100,
   "executiveHealthScore": {
@@ -102,12 +102,12 @@
         "host": "pop-os",
         "platform": "linux",
         "loadAverage": [
-          6.2,
-          5.06,
-          2.81
+          4.79,
+          4.44,
+          3.49
         ]
       },
-      "updatedAt": "2026-07-09T13:36:37.078Z"
+      "updatedAt": "2026-07-09T13:51:41.499Z"
     },
     "cloud": {
       "name": "Cloud",
@@ -125,9 +125,15 @@
       },
       "details": {
         "monitoringReady": true,
-        "scalingMode": "LOCAL_RUNTIME_WITH_CLOUD_READY_GATE"
+        "scalingMode": "LOCAL_RUNTIME_WITH_CLOUD_READY_GATE",
+        "latency": {
+          "healthMs": 2.133,
+          "metricsMs": 3.678,
+          "performanceMs": 2.177,
+          "communityDashboardMs": 1.928
+        }
       },
-      "updatedAt": "2026-07-09T13:36:37.105Z"
+      "updatedAt": "2026-07-09T13:51:41.530Z"
     },
     "supercomputer": {
       "name": "Supercomputer",
@@ -147,18 +153,21 @@
       "details": {
         "benchmark": {
           "loadAverage": [
-            6.2,
-            5.06,
-            2.81
+            4.79,
+            4.44,
+            3.49
           ],
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 38082113536,
+          "freeMemoryBytes": 37046824960,
           "cpuCount": 22,
-          "jobsPerSecond": null,
-          "note": "Live compute benchmark still required before physical supercomputer claims."
+          "jobsPerSecond": 194070624.89,
+          "cpuDurationMs": 15.458,
+          "ioWriteMs": 0.447,
+          "ioReadMs": 0.411,
+          "note": "Live compute benchmark is recorded under the governed truth gate."
         }
       },
-      "updatedAt": "2026-07-09T13:36:37.106Z"
+      "updatedAt": "2026-07-09T13:51:41.531Z"
     },
     "runtime": {
       "name": "Runtime",
@@ -182,8 +191,8 @@
             "status": "online",
             "restarts": 21,
             "uptime": 1783602183397,
-            "memory": 194654208,
-            "cpu": 14.3
+            "memory": 154144768,
+            "cpu": 5.9
           },
           "identityAuto": {
             "found": true,
@@ -203,7 +212,7 @@
           }
         }
       },
-      "updatedAt": "2026-07-09T13:36:37.420Z"
+      "updatedAt": "2026-07-09T13:51:41.902Z"
     },
     "identity": {
       "name": "Identity",
@@ -222,7 +231,7 @@
       "details": {
         "reportPath": "runtime/identity/sheikha-active-identity-v2-report.json"
       },
-      "updatedAt": "2026-07-09T13:36:37.420Z"
+      "updatedAt": "2026-07-09T13:51:41.902Z"
     },
     "community": {
       "name": "Community",
@@ -242,7 +251,7 @@
       "details": {
         "reportPath": "runtime/community/sheikha-community-modeling-report.json"
       },
-      "updatedAt": "2026-07-09T13:36:37.431Z"
+      "updatedAt": "2026-07-09T13:51:41.912Z"
     },
     "architecture": {
       "name": "Architecture",
@@ -261,7 +270,7 @@
         "layers200": true
       },
       "details": {},
-      "updatedAt": "2026-07-09T13:36:37.453Z"
+      "updatedAt": "2026-07-09T13:51:41.929Z"
     },
     "inspector": {
       "name": "Inspector",
@@ -280,7 +289,7 @@
         "identityTokensPresent": true
       },
       "details": {},
-      "updatedAt": "2026-07-09T13:36:37.461Z"
+      "updatedAt": "2026-07-09T13:51:41.939Z"
     },
     "governance": {
       "name": "Governance",
@@ -301,7 +310,7 @@
         "qualityReady": true
       },
       "details": {},
-      "updatedAt": "2026-07-09T13:36:37.461Z"
+      "updatedAt": "2026-07-09T13:51:41.939Z"
     },
     "executiveControlCenter": {
       "name": "ExecutiveControlCenter",
@@ -319,7 +328,7 @@
         "appPresent": true
       },
       "details": {},
-      "updatedAt": "2026-07-09T13:36:37.487Z"
+      "updatedAt": "2026-07-09T13:51:41.948Z"
     },
     "production": {
       "name": "Production",
@@ -337,21 +346,27 @@
         "releaseManifestPresent": true
       },
       "details": {},
-      "updatedAt": "2026-07-09T13:36:37.495Z"
+      "updatedAt": "2026-07-09T13:51:41.959Z"
     }
   },
   "unifiedBenchmark": {
     "cpuCount": 22,
     "loadAverage": [
-      6.2,
-      5.06,
-      2.81
+      4.79,
+      4.44,
+      3.49
     ],
     "totalMemoryBytes": 66875752448,
-    "freeMemoryBytes": 38069161984,
-    "latencyHealthEndpointMs": null,
-    "jobsPerSecond": null,
-    "note": "This layer records live OS metrics now and reserves benchmark slots for governed future measurements."
+    "freeMemoryBytes": 37055475712,
+    "latencyHealthEndpointMs": 2.133,
+    "latencyMetricsEndpointMs": 3.678,
+    "latencyPerformanceEndpointMs": 2.177,
+    "latencyCommunityDashboardMs": 1.928,
+    "jobsPerSecond": 194070624.89,
+    "cpuDurationMs": 15.458,
+    "ioWriteMs": 0.447,
+    "ioReadMs": 0.411,
+    "note": "This layer includes live OS metrics, API latency, and governed local compute benchmark evidence."
   },
   "recommendations": [
     "Enterprise integration verification layer is ready.",
