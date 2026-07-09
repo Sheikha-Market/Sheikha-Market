@@ -1004,9 +1004,8 @@ try {
 // ☪️ محرك المجتمعات والمجموعات
 let communityEngine = null;
 try {
-    // P0-1: LAZY (L2) - sheikha-community-engine.js
-    /*     const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js'); */
-    console.log('⏸️ [LAZY] sheikha-community-engine.js — سيُحمّل عند الطلب');
+    const SheikhaCommunityEngine = require('./lib/sheikha-community-engine.js');
+    console.log('✅ sheikha-community-engine.js loaded');
     communityEngine = new SheikhaCommunityEngine();
     const com = communityEngine.getDashboard();
     console.log(`✅ Community Engine — ${com.summary.communityTypes} نوع مجتمع | ${com.summary.totalSubGroups} مجموعة فرعية | ${com.summary.digitalTools} أداة رقمية | ${com.summary.islamicGoals + com.summary.economicGoals + com.summary.socialGoals + com.summary.digitalGoals} هدف`);
@@ -18865,6 +18864,132 @@ app.get('/api/segments/sharia-marketing', (req, res) => {
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🤝 API — محرك المجتمعات
 // ═══════════════════════════════════════════════════════════════════════════════
+const readExecutiveRuntimeJson = (relativePath) => {
+    try {
+        const fullPath = path.join(__dirname, relativePath);
+        if (!fs.existsSync(fullPath)) {
+            return null;
+        }
+        return JSON.parse(fs.readFileSync(fullPath, 'utf8'));
+    } catch (_error) {
+        return null;
+    }
+};
+
+app.get('/api/identity/status', (req, res) => {
+    const report = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
+    const status = String(report?.status || 'UNKNOWN');
+    const score = Number(report?.score || 0);
+
+    res.json({
+        success: true,
+        status,
+        score,
+        generatedAt: report?.generatedAt || null,
+        passedChecks: report?.totalPassed || null,
+        totalChecks: report?.totalChecks || null
+    });
+});
+
+app.get('/api/runtime/status', (req, res) => {
+    const community = readExecutiveRuntimeJson('runtime/community/sheikha-community-modeling-report.json');
+    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
+
+    const runtimeReady = Boolean(
+        identity?.status === 'ACTIVE' &&
+        community?.status === 'KHAYR_ACTIVE' &&
+        community?.modeling?.formationReady === true
+    );
+
+    res.json({
+        success: true,
+        status: runtimeReady ? 'READY' : 'CHECK_REQUIRED',
+        pid: process.pid,
+        uptimeSeconds: Math.floor(process.uptime()),
+        services: {
+            identity: identity?.status || 'UNKNOWN',
+            community: community?.status || 'UNKNOWN'
+        },
+        generatedAt: new Date().toISOString()
+    });
+});
+
+app.get('/api/governance/status', (req, res) => {
+    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
+    const community = readExecutiveRuntimeJson('runtime/community/sheikha-community-modeling-report.json');
+
+    const score = Number(identity?.score || 0);
+    const formationReady = community?.modeling?.formationReady === true;
+    const governanceReady = score >= 95 && formationReady;
+
+    res.json({
+        success: true,
+        status: governanceReady ? 'GOVERNED' : 'REVIEW_REQUIRED',
+        complianceScore: score,
+        riskLevel: governanceReady ? 'LOW' : score >= 80 ? 'MEDIUM' : 'HIGH',
+        formationReady,
+        generatedAt: new Date().toISOString()
+    });
+});
+
+app.get('/api/production/truth-gate', (req, res) => {
+    const closureReport = readExecutiveRuntimeJson('runtime/production-hardening/sheikha-production-hardening-closure-v1-report.json');
+    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
+
+    const score = Number(identity?.score || 0);
+    const passed = score >= 95;
+
+    res.json({
+        success: true,
+        status: passed ? 'PASSED' : 'REVIEW_REQUIRED',
+        score,
+        source: closureReport ? 'production-hardening-closure-v1' : 'identity-v2-fallback',
+        generatedAt: new Date().toISOString()
+    });
+});
+
+app.get('/api/metrics', (req, res) => {
+    const community = readExecutiveRuntimeJson('runtime/community/sheikha-community-modeling-report.json');
+    const identity = readExecutiveRuntimeJson('runtime/identity/sheikha-active-identity-v2-report.json');
+
+    const communityTypes = Number(community?.modeling?.communityTypes || 0);
+    const digitalTools = Number(community?.modeling?.digitalTools || 0);
+    const identityScore = Number(identity?.score || 0);
+
+    res.json({
+        success: true,
+        metrics: {
+            identityScore,
+            communityTypes,
+            digitalTools,
+            formationReady: community?.modeling?.formationReady === true,
+            liveServices: [
+                identity?.status === 'ACTIVE',
+                community?.status === 'KHAYR_ACTIVE'
+            ].filter(Boolean).length
+        },
+        generatedAt: new Date().toISOString()
+    });
+});
+
+app.get('/api/performance', (req, res) => {
+    const ops = typeof OPERATIONS_STATS !== 'undefined'
+        ? OPERATIONS_STATS
+        : { totalLogged: 0, totalEssential: 0, cloudQueueLength: 0, cloudLastSync: null };
+
+    res.json({
+        success: true,
+        performance: {
+            operationsTotal: ops.totalLogged,
+            operationsEssential: ops.totalEssential,
+            cloudQueueLength: ops.cloudQueueLength,
+            cloudLastSync: ops.cloudLastSync,
+            uptimeSeconds: Math.floor(process.uptime())
+        },
+        generatedAt: new Date().toISOString()
+    });
+});
+
 app.get('/api/community/dashboard', (req, res) => {
     if (!communityEngine) return res.json({ success: false, message: 'Community Engine غير مفعّل' });
     res.json({ success: true, ...communityEngine.getDashboard() });
@@ -19092,9 +19217,8 @@ try {
 
 // ═══ منظومة المجتمع الرقمي والأساسي الشاملة ═══
 try {
-    // P0-1: LAZY (L1) - sheikha-digital-community-ecosystem.js
-    /*     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js'); */
-    console.log('⏸️ [LAZY] sheikha-digital-community-ecosystem.js — سيُحمّل عند الطلب');
+    const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js');
+    console.log('✅ sheikha-digital-community-ecosystem.js loaded');
     communityEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Community Ecosystem — منظومة المجتمع الرقمي الشاملة مفعّلة');
 } catch (e) {
@@ -22386,6 +22510,602 @@ function sheikhaExtensionsLiveHandler(_req, res) {
         timestamp: new Date().toISOString()
     });
 }
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🖥️ SHEIKHA COMPUTER ARCHITECTURE GOVERNANCE API ENDPOINTS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// API 1: Global Computer Architecture Governance Status
+app.get('/api/sheikha/computer-architecture/global-status', (_req, res) => {
+  try {
+    const computerGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-computer-architecture-governance');
+    const status = computerGovernance.getGlobalStatus();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_COMPUTER_ARCHITECTURE_GLOBAL_STATUS',
+      status: status
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load Computer Architecture Governance',
+      message: error.message
+    });
+  }
+});
+
+// API 2: Get All Computer Layers
+app.get('/api/sheikha/computer-architecture/layers', (_req, res) => {
+  try {
+    const computerGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-computer-architecture-governance');
+    const layers = [];
+    for (let i = 0; i <= 7; i++) {
+      const layerNames = ['physics_electronics', 'core_hardware', 'protocols_interfaces', 'operating_system', 'network_protocols', 'applications', 'user_interface', 'governance'];
+      const layer = computerGovernance.getLayerDetails(`layer_${i}_${layerNames[i]}`);
+      if (layer && layer.name) layers.push(layer);
+    }
+    res.json({
+      success: true,
+      route: 'SHEIKHA_COMPUTER_ARCHITECTURE_LAYERS',
+      total_layers: layers.length,
+      layers: layers
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load layers',
+      message: error.message
+    });
+  }
+});
+
+// API 3: Firmware & BIOS/UEFI Status
+app.get('/api/sheikha/computer-architecture/firmware-status', (_req, res) => {
+  try {
+    const firmwareGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-firmware-uefi-bios-governance');
+    const status = firmwareGovernance.getStatus();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_FIRMWARE_GOVERNANCE_STATUS',
+      status: status
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load Firmware Governance',
+      message: error.message
+    });
+  }
+});
+
+// API 4: OSI Protocol Stack (All 7 Layers)
+app.get('/api/sheikha/computer-architecture/osi-protocol-stack', (_req, res) => {
+  try {
+    const osiStack = require('./runtime/sheikha-osi-protocol-stack/v1/sheikha-osi-protocol-stack-complete');
+    const status = osiStack.getStatus();
+    const layers = osiStack.getAllLayers();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_OSI_PROTOCOL_STACK',
+      status: status,
+      layers: layers
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load OSI Protocol Stack',
+      message: error.message
+    });
+  }
+});
+
+// API 5: Specific OSI Layer Details
+app.get('/api/sheikha/computer-architecture/osi-layer/:layer', (req, res) => {
+  try {
+    const osiStack = require('./runtime/sheikha-osi-protocol-stack/v1/sheikha-osi-protocol-stack-complete');
+    const layerName = req.params.layer.toUpperCase();
+    const layer = osiStack.getLayerDetails(layerName);
+    if (!layer || layer.error) {
+      return res.status(404).json({
+        success: false,
+        error: 'Layer not found',
+        layer: layerName
+      });
+    }
+    res.json({
+      success: true,
+      route: 'SHEIKHA_OSI_LAYER_DETAILS',
+      layer: layer
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load OSI Layer',
+      message: error.message
+    });
+  }
+});
+
+// API 6: Operating Systems Federation
+app.get('/api/sheikha/computer-architecture/operating-systems', (_req, res) => {
+  try {
+    const osFamily = require('./runtime/sheikha-operating-systems-federation/v1/sheikha-operating-systems-federation');
+    const status = osFamily.getStatus();
+    const allOS = osFamily.getAllOperatingSystems();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_OPERATING_SYSTEMS_FEDERATION',
+      status: status,
+      total_systems: allOS.length,
+      systems: allOS
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load Operating Systems',
+      message: error.message
+    });
+  }
+});
+
+// API 7: Get Specific OS Family
+app.get('/api/sheikha/computer-architecture/operating-systems/:family', (req, res) => {
+  try {
+    const osFamily = require('./runtime/sheikha-operating-systems-federation/v1/sheikha-operating-systems-federation');
+    const familyName = req.params.family.toLowerCase();
+    
+    let systems = [];
+    if (familyName === 'windows') systems = osFamily.getWindowsSystems();
+    else if (familyName === 'linux') systems = osFamily.getLinuxDistributions();
+    else if (familyName === 'macos') systems = osFamily.getMacOSSystems();
+    else if (familyName === 'mobile') systems = osFamily.getMobileOperatingSystems();
+    else if (familyName === 'embedded') systems = osFamily.getEmbeddedSystems();
+    else if (familyName === 'hypervisors') systems = osFamily.getHypervisors();
+    else {
+      return res.status(404).json({
+        success: false,
+        error: 'OS family not found',
+        family: familyName
+      });
+    }
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_OS_FAMILY_DETAILS',
+      family: familyName,
+      systems: systems
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load OS family',
+      message: error.message
+    });
+  }
+});
+
+// API 8: Hardware Abstraction Layer
+app.get('/api/sheikha/computer-architecture/hardware-abstraction', (_req, res) => {
+  try {
+    const hardwareLayer = require('./runtime/sheikha-hardware-abstraction-layer/v1/sheikha-hardware-abstraction-layer');
+    const status = hardwareLayer.getStatus();
+    const devices = hardwareLayer.getAllHardwareDevices();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_HARDWARE_ABSTRACTION_LAYER',
+      status: status,
+      total_categories: devices.length,
+      devices: devices
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load Hardware Abstraction Layer',
+      message: error.message
+    });
+  }
+});
+
+// API 9: Get Specific Hardware Category
+app.get('/api/sheikha/computer-architecture/hardware/:category', (req, res) => {
+  try {
+    const hardwareLayer = require('./runtime/sheikha-hardware-abstraction-layer/v1/sheikha-hardware-abstraction-layer');
+    const category = req.params.category.toUpperCase();
+    const devices = hardwareLayer.getDeviceCategory(category);
+    
+    if (devices.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'Hardware category not found',
+        category: category
+      });
+    }
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_HARDWARE_CATEGORY',
+      category: category,
+      devices: devices
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load hardware category',
+      message: error.message
+    });
+  }
+});
+
+// API 10: Global Compliance Check
+app.post('/api/sheikha/computer-architecture/compliance-check', express.json(), (req, res) => {
+  try {
+    const computerGovernance = require('./runtime/sheikha-computer-architecture-governance/v1/sheikha-computer-architecture-governance');
+    const component = req.body?.component || 'SYSTEM';
+    const type = req.body?.type || 'COMPLETE';
+    const result = computerGovernance.performGlobalComplianceCheck(component, type);
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_GLOBAL_COMPLIANCE_CHECK',
+      component: component,
+      compliance_result: result
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Compliance check failed',
+      message: error.message
+    });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 🌍 SHEIKHA PROGRAMMING LANGUAGES GOVERNANCE API ENDPOINTS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// API 1: Master Language Governance Global Status
+app.get('/api/sheikha/programming-languages/global-status', (_req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const status = masterGovernance.getGlobalStatus();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_PROGRAMMING_LANGUAGES_GLOBAL_STATUS',
+      status: status,
+      universe_coverage: '7,000-9,000 programming languages'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load Programming Languages Governance',
+      message: error.message
+    });
+  }
+});
+
+// API 2: All Language Abstraction Layers
+app.get('/api/sheikha/programming-languages/layers', (_req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const layers = masterGovernance.getAllLayers();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_PROGRAMMING_LANGUAGE_LAYERS',
+      total_layers: layers.length,
+      layers: layers,
+      description: 'From Machine Code (Layer 0) to Esoteric Languages (Layer 7)'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load language layers',
+      message: error.message
+    });
+  }
+});
+
+// API 3: Specific Language Layer Details
+app.get('/api/sheikha/programming-languages/layers/:layer', (req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const layerKey = req.params.layer.toUpperCase();
+    const layer = masterGovernance.getLayerDetails(layerKey);
+    
+    if (layer.error) {
+      return res.status(404).json({
+        success: false,
+        error: 'Layer not found',
+        available_layers: ['LAYER_0_MACHINE_CODE', 'LAYER_1_ASSEMBLY', 'LAYER_2_MID_LEVEL', 'LAYER_3_HIGH_LEVEL', 'LAYER_4_VERY_HIGH_LEVEL', 'LAYER_5_PARADIGM_SPECIFIC', 'LAYER_6_SPECIALIZED_DOMAINS', 'LAYER_7_ESOTERIC_CHALLENGE']
+      });
+    }
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGE_LAYER_DETAILS',
+      layer: layer
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load layer details',
+      message: error.message
+    });
+  }
+});
+
+// API 4: All Programming Paradigms
+app.get('/api/sheikha/programming-languages/paradigms', (_req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const paradigms = masterGovernance.getAllParadigms();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_PROGRAMMING_PARADIGMS',
+      total_paradigms: paradigms.length,
+      paradigms: paradigms,
+      description: 'OOP, Functional, Logical, Procedural, Reactive, Declarative'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load paradigms',
+      message: error.message
+    });
+  }
+});
+
+// API 5: All Language Families
+app.get('/api/sheikha/programming-languages/families', (_req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const families = masterGovernance.getAllFamilies();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGE_FAMILIES',
+      total_families: families.length,
+      families: families
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load language families',
+      message: error.message
+    });
+  }
+});
+
+// API 6: Language Statistics
+app.get('/api/sheikha/programming-languages/statistics', (_req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const stats = masterGovernance.getLanguageStatistics();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGE_STATISTICS',
+      statistics: stats
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load statistics',
+      message: error.message
+    });
+  }
+});
+
+// API 7: Programming Languages Compliance Check
+app.post('/api/sheikha/programming-languages/compliance-check', express.json(), (req, res) => {
+  try {
+    const masterGovernance = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-master-language-governance');
+    const component = req.body?.component || 'LANGUAGE_ECOSYSTEM';
+    const type = req.body?.type || 'COMPLETE';
+    const result = masterGovernance.performGlobalComplianceCheck(component, type);
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGE_COMPLIANCE_CHECK',
+      component: component,
+      compliance_result: result
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Compliance check failed',
+      message: error.message
+    });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
+// 📚 SHEIKHA PROGRAMMING LANGUAGES ENCYCLOPEDIA API ENDPOINTS
+// ═══════════════════════════════════════════════════════════════════════════════
+
+// API 8: All Programming Languages
+app.get('/api/sheikha/programming-languages/encyclopedia/all-languages', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const languages = encyclopedia.getAllLanguages();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_ALL_PROGRAMMING_LANGUAGES',
+      total_languages: languages.length,
+      languages: languages,
+      universe_total: '7,000-9,000 programming languages'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load programming languages',
+      message: error.message
+    });
+  }
+});
+
+// API 9: All Language Families (Encyclopedia)
+app.get('/api/sheikha/programming-languages/encyclopedia/families', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const families = encyclopedia.getAllFamilies();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGE_FAMILIES_ENCYCLOPEDIA',
+      total_families: families.length,
+      families: families
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load families',
+      message: error.message
+    });
+  }
+});
+
+// API 10: Languages by Category
+app.get('/api/sheikha/programming-languages/encyclopedia/category/:category', (req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const category = req.params.category;
+    const languages = encyclopedia.getLanguagesByCategory(category);
+    
+    if (languages.length === 0) {
+      return res.status(404).json({
+        success: false,
+        error: 'Category not found',
+        category: category,
+        available_categories: ['The Giants', 'Modern Systems', 'Data Science & Analytics', 'Legacy/Historical', 'Functional Programming', 'Web Specialized', 'Data & Databases', 'Government & Military', 'Telecommunications', 'Enterprise', 'Esoteric', 'Logic & Constraint', 'Educational', 'Scientific Computing', 'Markup & Configuration', 'Domain Specific Languages (DSLs)']
+      });
+    }
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGES_BY_CATEGORY',
+      category: category,
+      total_families: languages.length,
+      families: languages
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load category',
+      message: error.message
+    });
+  }
+});
+
+// API 11: Encyclopedia Statistics
+app.get('/api/sheikha/programming-languages/encyclopedia/statistics', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const stats = encyclopedia.getStatistics();
+    res.json({
+      success: true,
+      route: 'SHEIKHA_LANGUAGE_ENCYCLOPEDIA_STATISTICS',
+      statistics: stats
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load statistics',
+      message: error.message
+    });
+  }
+});
+
+// API 12: The GIANTS - Tier 1 Languages (Python, JavaScript, Java, C#, C++)
+app.get('/api/sheikha/programming-languages/tier/1-giants', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const languages = encyclopedia.getAllLanguages();
+    const giants = languages.filter(l => l.tier === 'TIER_1_GIANT');
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_TIER_1_GIANTS',
+      description: 'Languages that power the world',
+      total: giants.length,
+      languages: giants
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load TIER 1 languages',
+      message: error.message
+    });
+  }
+});
+
+// API 13: Modern Systems - Tier 2 Languages (Rust, Go, Swift, Kotlin)
+app.get('/api/sheikha/programming-languages/tier/2-modern-systems', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const languages = encyclopedia.getAllLanguages();
+    const modern = languages.filter(l => l.tier === 'TIER_2_MODERN_SYSTEMS');
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_TIER_2_MODERN_SYSTEMS',
+      description: 'Modern infrastructure and systems languages',
+      total: modern.length,
+      languages: modern
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load TIER 2 languages',
+      message: error.message
+    });
+  }
+});
+
+// API 14: Legacy - Tier 4 Languages (COBOL, Fortran, Lisp, Ada)
+app.get('/api/sheikha/programming-languages/tier/4-legacy', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const languages = encyclopedia.getAllLanguages();
+    const legacy = languages.filter(l => l.tier === 'TIER_4_LEGACY');
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_TIER_4_LEGACY',
+      description: 'Historical languages still in use',
+      total: legacy.length,
+      languages: legacy,
+      note: 'Many power critical infrastructure (banking, government, science)'
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load TIER 4 languages',
+      message: error.message
+    });
+  }
+});
+
+// API 15: Esoteric Languages (Brainfuck, Whitespace, Chef, Piet)
+app.get('/api/sheikha/programming-languages/esoteric', (_req, res) => {
+  try {
+    const encyclopedia = require('./runtime/sheikha-programming-languages-governance/v1/sheikha-language-families-encyclopedia');
+    const families = encyclopedia.getAllFamilies();
+    const esoteric = families.filter(f => f.category === 'Esoteric');
+    
+    res.json({
+      success: true,
+      route: 'SHEIKHA_ESOTERIC_LANGUAGES',
+      description: 'Challenge, artistic, and joke programming languages',
+      total_families: esoteric.length,
+      families: esoteric
+    });
+  } catch (error) {
+    res.status(500).json({
+      success: false,
+      error: 'Failed to load esoteric languages',
+      message: error.message
+    });
+  }
+});
+
+// ═══════════════════════════════════════════════════════════════════════════════
 
 app.get('/api/sheikha/extension/status', sheikhaStatusHandler);
 // Disabled: legacy chat is governed by routes/sheikha-unified-chat-fabric.js

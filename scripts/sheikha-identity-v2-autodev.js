@@ -1,0 +1,154 @@
+#!/usr/bin/env node
+'use strict';
+
+const fs = require('node:fs');
+const path = require('node:path');
+const { execSync } = require('node:child_process');
+
+const repoRoot = process.cwd();
+const uiDir = path.join(repoRoot, 'public', 'executive-civilization-control-center');
+const runtimeDir = path.join(repoRoot, 'runtime', 'identity');
+const reportPath = path.join(runtimeDir, 'sheikha-active-identity-v2-report.json');
+const tokensPath = path.join(uiDir, 'identity.tokens.json');
+const publicHealthPath = path.join(uiDir, 'identity.health.json');
+
+const requiredFiles = [
+  path.join(uiDir, 'index.html'),
+  path.join(uiDir, 'styles.css'),
+  path.join(uiDir, 'app.js')
+];
+
+const baselineTokens = {
+  identity: 'Sheikha active Identity V2',
+  theme: 'Hybrid Executive Theme',
+  rtl: true,
+  palette: {
+    saudiGreen900: '#063B33',
+    saudiGreen800: '#0A4A3F',
+    mint500: '#1FA48A',
+    gold500: '#C8A96B',
+    ivory50: '#F8F6F1'
+  },
+  constraints: {
+    noImagesOfSouls: true,
+    humanApprovalRequiredForHighImpact: true,
+    truthGateLinked: true
+  }
+};
+
+function hasFlag(flag) {
+  return process.argv.includes(flag);
+}
+
+function safeRead(filePath) {
+  if (!fs.existsSync(filePath)) {
+    return '';
+  }
+  return fs.readFileSync(filePath, 'utf8');
+}
+
+function detectAutoProcessStatus() {
+  try {
+    const raw = execSync('pm2 jlist', { encoding: 'utf8', stdio: ['ignore', 'pipe', 'ignore'] });
+    const list = JSON.parse(raw || '[]');
+    const proc = Array.isArray(list)
+      ? list.find((item) => item?.name === 'sheikha-identity-v2-auto')
+      : null;
+    if (!proc) {
+      return { name: 'sheikha-identity-v2-auto', status: 'not-found' };
+    }
+    return {
+      name: proc.name,
+      status: proc.pm2_env?.status || 'unknown',
+      uptime: proc.pm2_env?.pm_uptime || null,
+      restarts: proc.pm2_env?.restart_time ?? null
+    };
+  } catch {
+    return { name: 'sheikha-identity-v2-auto', status: 'unknown' };
+  }
+}
+
+function run() {
+  const apply = hasFlag('--apply');
+  const healthOne = hasFlag('--health-one');
+
+  fs.mkdirSync(uiDir, { recursive: true });
+  fs.mkdirSync(runtimeDir, { recursive: true });
+
+  if (apply || !fs.existsSync(tokensPath)) {
+    fs.writeFileSync(tokensPath, `${JSON.stringify(baselineTokens, null, 2)}\n`, 'utf8');
+  }
+
+  const indexContent = safeRead(path.join(uiDir, 'index.html'));
+  const cssContent = safeRead(path.join(uiDir, 'styles.css'));
+  const jsContent = safeRead(path.join(uiDir, 'app.js'));
+  const tokensContent = safeRead(tokensPath);
+
+  const checks = {
+    filesPresent: requiredFiles.every((p) => fs.existsSync(p)),
+    rtlEnabled: /dir="rtl"/.test(indexContent),
+    sheikhaActiveBranding: /Sheikha active/.test(indexContent),
+    designTokensPresent: /--saudi-green-900|--gold-500|--mint-500/.test(cssContent),
+    responsiveLayoutsPresent: /@media/.test(cssContent),
+    noSoulImagesPolicyText: /no images of souls|noImagesOfSouls|ذوات الأرواح/i.test(`${indexContent}\n${jsContent}\n${tokensContent}`),
+    runtimeDataPresent: /setInterval|renderKpis|journey/.test(jsContent),
+    tokensJsonValid: false
+  };
+
+  try {
+    const parsed = JSON.parse(tokensContent || '{}');
+    checks.tokensJsonValid = Boolean(parsed.identity && parsed.palette && parsed.constraints);
+  } catch {
+    checks.tokensJsonValid = false;
+  }
+
+  const total = Object.keys(checks).length;
+  const passed = Object.values(checks).filter(Boolean).length;
+  const score = Math.round((passed / total) * 100);
+
+  let status = 'IMPROVING';
+  if (score >= 95) {
+    status = 'ACTIVE';
+  } else if (score >= 75) {
+    status = 'STABLE';
+  }
+
+  const report = {
+    system: 'SHEIKHA_ACTIVE_IDENTITY_V2_AUTODEV',
+    status,
+    score,
+    passed,
+    total,
+    uiPath: 'public/executive-civilization-control-center/index.html',
+    generatedAt: new Date().toISOString(),
+    autoDevProcess: detectAutoProcessStatus(),
+    checks,
+    recommendation: status === 'ACTIVE'
+      ? 'Keep PM2 loop active and monitor one-line health.'
+      : 'Run apply mode and complete missing checks before production claim.'
+  };
+
+  fs.writeFileSync(reportPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+  fs.writeFileSync(publicHealthPath, `${JSON.stringify(report, null, 2)}\n`, 'utf8');
+
+  if (healthOne) {
+    const line = `${status === 'ACTIVE' ? 'HEALTH_OK' : 'HEALTH_DEGRADED'} | score=${score} | passed=${passed}/${total} | ui=executive-civilization-control-center | generatedAt=${report.generatedAt}`;
+    process.stdout.write(`${line}\n`);
+    if (status !== 'ACTIVE') {
+      process.exit(1);
+    }
+    return;
+  }
+
+  process.stdout.write(`${JSON.stringify(report, null, 2)}\n`);
+  if (status !== 'ACTIVE') {
+    process.exit(1);
+  }
+}
+
+try {
+  run();
+} catch (error) {
+  console.error(String(error.message || error));
+  process.exit(1);
+}
