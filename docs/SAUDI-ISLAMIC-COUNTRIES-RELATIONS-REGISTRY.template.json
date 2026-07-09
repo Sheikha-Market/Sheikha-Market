@@ -1,0 +1,82 @@
+{
+  "registry_version": "1.0.0",
+  "registry_name": "Saudi Islamic Countries Relations Registry",
+  "reference_state": {
+    "name_ar": "المملكة العربية السعودية",
+    "vision_reference": "Saudi Vision 2030",
+    "sharia_reference": [
+      "الكتاب",
+      "السنة"
+    ]
+  },
+  "classification_model": {
+    "relationship_status": [
+      "allied_treaty",
+      "cooperative",
+      "neutral",
+      "restricted",
+      "hostile",
+      "armed_conflict"
+    ],
+    "recognition_status": [
+      "recognized",
+      "not_recognized_saudi",
+      "not_recognized",
+      "verification_required"
+    ]
+  },
+  "country_record_template": {
+    "country_name_ar": "",
+    "country_name_en": "",
+    "is_muslim_country": false,
+    "is_treaty_country": false,
+    "saudi_official_recognition_status": "verification_required",
+    "international_general_recognition_status": "verification_required",
+    "relationship_status": "verification_required",
+    "war_or_conflict_status": "verification_required",
+    "saudi_activation_eligibility": "verification_required",
+    "active_agreements": [
+      {
+        "agreement_name": "",
+        "agreement_type": "bilateral|multilateral|mou|programmatic",
+        "scope": "economic|non_commercial|regulatory|technical|logistics|investment",
+        "status": "verification_required",
+        "official_source": ""
+      }
+    ],
+    "vision_2030_alignment": {
+      "aligned": false,
+      "programs": []
+    },
+    "entities": {
+      "ministries": [],
+      "authorities": [],
+      "local_organizations": [],
+      "international_organizations": []
+    },
+    "commercial_value_chains": [],
+    "non_commercial_cooperation_tracks": [],
+    "privileges_and_programs": [],
+    "consulting_tracks": [
+      "legal",
+      "economic",
+      "governance",
+      "technical",
+      "treaty"
+    ],
+    "sharia_digitization_controls": [
+      "لا ضرر ولا ضرار",
+      "العدل",
+      "الأمانة",
+      "الوفاء بالعقود",
+      "التثبت"
+    ],
+    "verification": {
+      "status": "verification_required",
+      "official_sources": [],
+      "last_reviewed_at": ""
+    }
+  },
+  "notes": "This file is a digital architecture template and must be populated only with verified official references.",
+  "saudi_rule": "If a country is not officially recognized by Saudi Arabia, mark recognition as not_recognized_saudi and block sovereign activation until verified official change exists."
+}

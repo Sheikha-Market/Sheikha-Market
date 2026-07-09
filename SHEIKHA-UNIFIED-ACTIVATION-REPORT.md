@@ -133,7 +133,7 @@ getContext({
 #### 📖 مجال الشريعة
 ```javascript
 shariah: {
-  minSuccessRate: 0.8,           // الحد الأدنى 80%
+  minSuccessRate: 0.8,           // الحد الأدنى 100%
   reviewOnNegativeFeedback: true, // مراجعة على التغذية السلبية
   guardedModeThreshold: 2,        // تفعيل الوضع المحمي بعد خطأين
   priority: "high",               // أولوية عالية

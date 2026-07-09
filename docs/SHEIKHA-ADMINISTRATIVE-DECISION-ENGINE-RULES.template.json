@@ -1,0 +1,164 @@
+{
+  "rules_version": "1.0.0",
+  "rules_name": "Sheikha Administrative Decision Engine Rules",
+  "principle": "Automated administrative logic with rule-based decision-making, documentation, and continuous improvement.",
+  "decision_types": [
+    "resource_allocation",
+    "process_optimization",
+    "risk_mitigation",
+    "performance_improvement",
+    "cost_reduction"
+  ],
+  "priority_levels": [
+    "critical",
+    "high",
+    "medium",
+    "low"
+  ],
+  "administrative_rules": {
+    "resource_allocation": {
+      "label_ar": "تخصيص الموارد",
+      "description": "قواعد تخصيص الموارد البشرية والمالية والتقنية",
+      "kpis": ["resource_utilization", "allocation_efficiency", "cost_per_unit"],
+      "trigger_conditions": ["budget_available", "workload_spike", "resource_gap"],
+      "required_documentation": ["budget_justification", "resource_plan", "timeline"],
+      "approval_workflow": ["manager_review", "director_approval", "finance_check"]
+    },
+    "process_optimization": {
+      "label_ar": "تحسين العمليات",
+      "description": "قواعس تحسين كفاءة العمليات والتشغيل",
+      "kpis": ["process_efficiency", "cycle_time", "error_rate"],
+      "trigger_conditions": ["performance_below_target", "bottleneck_detected", "automation_opportunity"],
+      "required_documentation": ["current_process_map", "improvement_proposal", "expected_results"],
+      "approval_workflow": ["process_owner_review", "operations_approval"]
+    },
+    "risk_mitigation": {
+      "label_ar": "تخفيف المخاطر",
+      "description": "قواعد تقييم وتخفيف المخاطر التشغيلية والاستراتيجية",
+      "kpis": ["risk_score", "mitigation_coverage", "incident_frequency"],
+      "trigger_conditions": ["risk_threshold_exceeded", "incident_occurred", "compliance_gap"],
+      "required_documentation": ["risk_assessment", "mitigation_plan", "contingency_plan"],
+      "approval_workflow": ["risk_manager_review", "executive_approval", "compliance_check"]
+    },
+    "performance_improvement": {
+      "label_ar": "تحسين الأداء",
+      "description": "قواعد تحسين أداء الفريم والأنظمة",
+      "kpis": ["performance_score", "goal_achievement", "improvement_rate"],
+      "trigger_conditions": ["kpi_below_target", "market_demand_increase", "competitiveness_gap"],
+      "required_documentation": ["performance_baseline", "improvement_plan", "success_metrics"],
+      "approval_workflow": ["team_lead_review", "department_head_approval"]
+    },
+    "cost_reduction": {
+      "label_ar": "خفض التكاليف",
+      "description": "قواعد تحديد فرص خفض التكاليف مع الحفاظ على الجودة",
+      "kpis": ["cost_reduction_percentage", "quality_score", "roi"],
+      "trigger_conditions": ["budget_pressure", "inefficiency_identified", "technology_available"],
+      "required_documentation": ["cost_analysis", "savings_plan", "quality_impact_assessment"],
+      "approval_workflow": ["finance_review", "operations_approval", "executive_sign_off"]
+    }
+  },
+  "decision_engine_logic": {
+    "evaluation_criteria": [
+      "strategic_alignment",
+      "financial_viability",
+      "operational_feasibility",
+      "risk_level",
+      "timeline_feasibility",
+      "stakeholder_impact"
+    ],
+    "approval_rules": {
+      "critical_priority": {
+        "auto_approve": false,
+        "required_approval_levels": 3,
+        "escalation_path": "executive_team",
+        "timeline": "immediate"
+      },
+      "high_priority": {
+        "auto_approve": false,
+        "required_approval_levels": 2,
+        "escalation_path": "department_head",
+        "timeline": "48_hours"
+      },
+      "medium_priority": {
+        "auto_approve": true,
+        "required_approval_levels": 1,
+        "escalation_path": "manager",
+        "timeline": "1_week"
+      },
+      "low_priority": {
+        "auto_approve": true,
+        "required_approval_levels": 0,
+        "escalation_path": "team_lead",
+        "timeline": "1_month"
+      }
+    }
+  },
+  "administrative_tools": {
+    "kpi_dashboard": {
+      "name": "لوحة مؤشرات الأداء الرئيسية",
+      "metrics": ["utilization_rate", "efficiency_score", "cost_per_unit", "quality_score", "on_time_delivery"],
+      "update_frequency": "real_time",
+      "access_level": "all_managers"
+    },
+    "decision_registry": {
+      "name": "سجل القرارات الإدارية",
+      "fields": ["decision_id", "decision_type", "priority", "status", "owner", "created_at", "updated_at", "reasoning"],
+      "retention": "permanent",
+      "access_level": "management"
+    },
+    "audit_trail": {
+      "name": "سجل التدقيق والمراجعة",
+      "logs": ["decision_made", "approval_granted", "implementation_started", "outcome_recorded"],
+      "retention": "7_years",
+      "access_level": "compliance_team"
+    },
+    "continuous_improvement_loop": {
+      "name": "حلقة التحسين المستمر",
+      "steps": ["measure_baseline", "implement_change", "monitor_results", "analyze_impact", "document_lessons", "plan_next_improvement"],
+      "cycle_frequency": "quarterly",
+      "responsible_party": "operations_team"
+    }
+  },
+  "administrative_governance": {
+    "decision_framework": {
+      "alignment_with_strategy": "All decisions must align with organizational strategy and long-term goals",
+      "data_driven": "Decisions must be based on data and evidence, not assumptions",
+      "transparent": "Decision reasoning must be documented and transparent to stakeholders",
+      "accountable": "Clear ownership and accountability for decision implementation",
+      "reversible": "Process for reversing or modifying decisions if outcomes differ from expectations"
+    },
+    "quality_gates": [
+      "strategic_alignment_check",
+      "financial_viability_assessment",
+      "risk_analysis",
+      "stakeholder_impact_review",
+      "implementation_feasibility_check",
+      "compliance_verification"
+    ],
+    "metrics_and_monitoring": {
+      "decision_quality_score": "Measured by outcome vs. expected results",
+      "implementation_success_rate": "Percentage of decisions implemented on time and on budget",
+      "stakeholder_satisfaction": "Feedback from affected stakeholders",
+      "continuous_improvement_index": "Rate of learning and optimization from past decisions"
+    }
+  },
+  "administrative_documentation_standards": {
+    "decision_document": {
+      "required_sections": [
+        "executive_summary",
+        "decision_type_and_context",
+        "options_considered",
+        "selected_option_rationale",
+        "expected_outcomes",
+        "implementation_plan",
+        "risks_and_mitigation",
+        "success_metrics",
+        "timeline",
+        "resource_requirements",
+        "stakeholder_communication_plan"
+      ],
+      "archive_location": "decision_registry",
+      "review_frequency": "at_decision_milestone_and_upon_completion"
+    }
+  }
+}

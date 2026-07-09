@@ -1,0 +1,610 @@
+{
+  "metadata": {
+    "system": "SHEIKHA Feasibility Study Framework",
+    "version": "1.0",
+    "purpose": "نظام شامل لدراسات الجدوى الاقتصادية والفنية والإدارية",
+    "islamic_foundation": "الحساب الدقيق، التخطيط الحكيم، المسؤولية المالية",
+    "last_updated": "2026-07-08"
+  },
+
+  "feasibility_study_template": {
+    "project_identification": {
+      "description": "تحديد المشروع والمعلومات الأساسية",
+      "fields": [
+        {
+          "name": "project_name",
+          "label": "اسم المشروع",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "project_description",
+          "label": "وصف المشروع",
+          "type": "textarea",
+          "required": true
+        },
+        {
+          "name": "project_category",
+          "label": "فئة المشروع",
+          "type": "select",
+          "options": [
+            "إنتاجي",
+            "خدمات",
+            "تجاري",
+            "صناعي",
+            "تقني",
+            "لوجستي",
+            "تطوير عقاري",
+            "زراعي"
+          ]
+        },
+        {
+          "name": "project_duration_months",
+          "label": "مدة المشروع (شهور)",
+          "type": "number",
+          "required": true
+        },
+        {
+          "name": "project_location",
+          "label": "موقع المشروع",
+          "type": "text",
+          "required": true
+        },
+        {
+          "name": "target_market",
+          "label": "السوق المستهدف",
+          "type": "select",
+          "options": [
+            "محلي (السعودية)",
+            "إقليمي (MENA)",
+            "دولي (آسيا)",
+            "دولي (أوروبا)",
+            "عالمي"
+          ]
+        }
+      ]
+    },
+
+    "financial_analysis": {
+      "description": "التحليل المالي الشامل",
+      "components": [
+        {
+          "component": "investment_costs",
+          "label": "تكاليف الاستثمار",
+          "items": [
+            {
+              "name": "land_and_building",
+              "label": "الأراضي والمباني",
+              "unit": "ر.س"
+            },
+            {
+              "name": "machinery_equipment",
+              "label": "الآلات والمعدات",
+              "unit": "ر.س"
+            },
+            {
+              "name": "technology_infrastructure",
+              "label": "البنية التكنولوجية",
+              "unit": "ر.س"
+            },
+            {
+              "name": "working_capital",
+              "label": "رأس المال العامل",
+              "unit": "ر.س"
+            },
+            {
+              "name": "licenses_permits",
+              "label": "التراخيص والتصاريح",
+              "unit": "ر.س"
+            },
+            {
+              "name": "training_staff",
+              "label": "تدريب الكادر",
+              "unit": "ر.س"
+            },
+            {
+              "name": "contingency_reserve",
+              "label": "احتياطي طارئ (10%)",
+              "unit": "ر.س"
+            }
+          ],
+          "calculations": {
+            "total_investment": "مجموع التكاليف الاستثمارية",
+            "investment_per_unit": "التكلفة لكل وحدة إنتاج/خدمة"
+          }
+        },
+        {
+          "component": "operating_costs",
+          "label": "تكاليف التشغيل السنوية",
+          "items": [
+            {
+              "name": "raw_materials",
+              "label": "المواد الخام والمدخلات",
+              "unit": "ر.س/سنة"
+            },
+            {
+              "name": "labor_costs",
+              "label": "رواتب الكادر والموظفين",
+              "unit": "ر.س/سنة"
+            },
+            {
+              "name": "utilities",
+              "label": "الكهرباء والمياه والغاز",
+              "unit": "ر.س/سنة"
+            },
+            {
+              "name": "maintenance",
+              "label": "الصيانة والإصلاحات",
+              "unit": "ر.س/سنة"
+            },
+            {
+              "name": "marketing_distribution",
+              "label": "التسويق والتوزيع",
+              "unit": "ر.س/سنة"
+            },
+            {
+              "name": "administrative",
+              "label": "النفقات الإدارية",
+              "unit": "ر.س/سنة"
+            },
+            {
+              "name": "insurance_taxes",
+              "label": "التأمين والضرائب",
+              "unit": "ر.س/سنة"
+            }
+          ]
+        },
+        {
+          "component": "revenue_projections",
+          "label": "توقعات الإيرادات",
+          "items": [
+            {
+              "name": "unit_price",
+              "label": "سعر الوحدة",
+              "unit": "ر.س"
+            },
+            {
+              "name": "annual_capacity",
+              "label": "الطاقة الإنتاجية السنوية",
+              "unit": "وحدة/سنة"
+            },
+            {
+              "name": "capacity_utilization_year1",
+              "label": "نسبة الاستغلال السنة 1",
+              "unit": "%",
+              "default": 40
+            },
+            {
+              "name": "capacity_utilization_year2",
+              "label": "نسبة الاستغلال السنة 2",
+              "unit": "%",
+              "default": 70
+            },
+            {
+              "name": "capacity_utilization_year3",
+              "label": "نسبة الاستغلال السنة 3",
+              "unit": "%",
+              "default": 85
+            }
+          ],
+          "calculations": {
+            "annual_revenue": "الإيراد السنوي المتوقع",
+            "revenue_growth": "معدل النمو السنوي"
+          }
+        }
+      ]
+    },
+
+    "key_financial_indicators": {
+      "description": "المؤشرات المالية الرئيسية",
+      "indicators": [
+        {
+          "name": "net_profit_loss",
+          "label": "الربح/الخسارة الصافية",
+          "formula": "الإيراد - التكاليف الكلية",
+          "analysis_points": [
+            "مقارنة بالسنة السابقة",
+            "معدل النمو السنوي",
+            "نقطة التعادل"
+          ]
+        },
+        {
+          "name": "roi_return_on_investment",
+          "label": "العائد على الاستثمار (ROI)",
+          "formula": "(الربح السنوي / الاستثمار الكلي) × 100",
+          "target": "> 20%",
+          "analysis_points": [
+            "مقارنة مع معدل الفائدة البنكي",
+            "مقارنة مع مشاريع بديلة",
+            "فترة استرجاع الاستثمار"
+          ]
+        },
+        {
+          "name": "irr_internal_rate_return",
+          "label": "معدل العائد الداخلي (IRR)",
+          "formula": "معدل الخصم الذي يجعل القيمة الحالية الصافية = 0",
+          "target": "> 15%",
+          "analysis_points": [
+            "مقارنة مع تكلفة رأس المال",
+            "حساسية التغيرات"
+          ]
+        },
+        {
+          "name": "npv_net_present_value",
+          "label": "القيمة الحالية الصافية (NPV)",
+          "formula": "مجموع التدفقات النقدية المخصومة - الاستثمار الأولي",
+          "target": "> 0",
+          "analysis_points": [
+            "سنة الدراسة",
+            "معدل الخصم المستخدم"
+          ]
+        },
+        {
+          "name": "payback_period",
+          "label": "فترة استرجاع رأس المال",
+          "formula": "الاستثمار الكلي / التدفق النقدي السنوي",
+          "unit": "سنة",
+          "target": "< 5 سنوات",
+          "analysis_points": [
+            "مقارنة مع معايير الصناعة",
+            "مخاطر التأخير"
+          ]
+        },
+        {
+          "name": "profit_margin",
+          "label": "هامش الربح",
+          "formula": "(الربح الصافي / الإيراد) × 100",
+          "target": "15-25%",
+          "analysis_points": [
+            "مقارنة مع المنافسين",
+            "اتجاه التغير"
+          ]
+        }
+      ]
+    },
+
+    "technical_feasibility": {
+      "description": "جدوى الناحية الفنية والتقنية",
+      "assessment_areas": [
+        {
+          "area": "technology_availability",
+          "label": "توفر التكنولوجيا",
+          "questions": [
+            "هل التكنولوجيا المطلوبة متاحة في السوق؟",
+            "هل يمكن الحصول عليها محلياً أم تحتاج استيراد؟",
+            "ما التكلفة والمدة الزمنية للحصول عليها؟"
+          ]
+        },
+        {
+          "area": "skill_availability",
+          "label": "توفر المهارات والكفاءات",
+          "questions": [
+            "هل يتوفر الكادر الفني المدرب محلياً؟",
+            "ما تكلفة التدريب والتطوير؟",
+            "هل يمكن استقطاب الخبرات الدولية؟"
+          ]
+        },
+        {
+          "area": "infrastructure",
+          "label": "البنية التحتية",
+          "questions": [
+            "هل الموقع يوفر الكهرباء والماء والاتصالات؟",
+            "ما حالة الطرق والمواصلات؟",
+            "هل يوجد ميناء أو مطار قريب؟"
+          ]
+        },
+        {
+          "area": "environmental_compliance",
+          "label": "الامتثال البيئي",
+          "questions": [
+            "هل تتوفر معايير البيئة والسلامة؟",
+            "ما الآثار البيئية المحتملة؟",
+            "ما تكلفة المعالجة والحماية البيئية؟"
+          ]
+        },
+        {
+          "area": "quality_standards",
+          "label": "معايير الجودة",
+          "questions": [
+            "هل يمكن تحقيق معايير الجودة المطلوبة؟",
+            "ما الشهادات الدولية المطلوبة؟",
+            "كيفية ضمان الجودة بشكل مستمر؟"
+          ]
+        }
+      ]
+    },
+
+    "market_analysis": {
+      "description": "تحليل السوق والطلب والعرض",
+      "components": [
+        {
+          "component": "market_size",
+          "label": "حجم السوق",
+          "items": [
+            "عدد المستهلكين المحتملين",
+            "الحجم الكلي للسوق بالقيمة",
+            "معدل النمو السنوي للسوق"
+          ]
+        },
+        {
+          "component": "demand_analysis",
+          "label": "تحليل الطلب",
+          "items": [
+            "مستويات الطلب الحالي والمتوقع",
+            "الاتجاهات المستقبلية",
+            "العوامل المؤثرة على الطلب",
+            "الموسمية والتغيرات الدورية"
+          ]
+        },
+        {
+          "component": "competition",
+          "label": "تحليل المنافسة",
+          "items": [
+            "عدد ونوع المنافسين",
+            "حصتهم السوقية",
+            "نقاط القوة والضعف",
+            "المزايا التنافسية للمشروع"
+          ]
+        },
+        {
+          "component": "pricing_strategy",
+          "label": "استراتيجية التسعير",
+          "items": [
+            "تسعير المنافسين",
+            "تكاليف الإنتاج والهامش",
+            "حساسية السعر لدى المستهلكين",
+            "استراتيجية التسعير المقترحة"
+          ]
+        }
+      ]
+    },
+
+    "organizational_feasibility": {
+      "description": "جدوى الناحية التنظيمية والإدارية",
+      "assessment_areas": [
+        {
+          "area": "management_team",
+          "label": "فريق الإدارة",
+          "requirements": [
+            "الخبرة المطلوبة",
+            "المؤهلات الأساسية",
+            "السجل الإداري"
+          ]
+        },
+        {
+          "area": "organizational_structure",
+          "label": "الهيكل التنظيمي",
+          "requirements": [
+            "الإدارة العليا",
+            "الإدارة الوسطى",
+            "العاملين التنفيذيين",
+            "خطوط المسؤولية والسلطة"
+          ]
+        },
+        {
+          "area": "policies_procedures",
+          "label": "السياسات والإجراءات",
+          "requirements": [
+            "سياسات الموارد البشرية",
+            "إجراءات التشغيل",
+            "معايير الجودة",
+            "آليات المراقبة والتقويم"
+          ]
+        }
+      ]
+    },
+
+    "risk_assessment": {
+      "description": "تقييم المخاطر والتخطيط للطوارئ",
+      "risk_categories": [
+        {
+          "category": "financial_risk",
+          "label": "المخاطر المالية",
+          "examples": [
+            "تغيرات أسعار الصرف",
+            "تقلب أسعار المدخلات",
+            "تأخر العودة على الاستثمار",
+            "تدهور الجدارة الائتمانية"
+          ],
+          "mitigation": "استراتيجيات التخفيف"
+        },
+        {
+          "category": "market_risk",
+          "label": "المخاطر السوقية",
+          "examples": [
+            "تغير الطلب",
+            "دخول منافسين جدد",
+            "تغير تفضيلات المستهلكين",
+            "ركود اقتصادي"
+          ],
+          "mitigation": "تنويع الأسواق والمنتجات"
+        },
+        {
+          "category": "operational_risk",
+          "label": "المخاطر التشغيلية",
+          "examples": [
+            "انقطاع الكهرباء والمياه",
+            "أعطال المعدات",
+            "نقص الكادر المدرب",
+            "تأخر في الإنتاج"
+          ],
+          "mitigation": "تخطيط طارئ وصيانة دورية"
+        },
+        {
+          "category": "regulatory_risk",
+          "label": "المخاطر التنظيمية",
+          "examples": [
+            "تغير القوانين الضريبية",
+            "متطلبات بيئية جديدة",
+            "تنظيمات عمالية أقسى",
+            "تغير التصنيفات الجمركية"
+          ],
+          "mitigation": "مراقبة المتغيرات التنظيمية"
+        },
+        {
+          "category": "force_majeure",
+          "label": "قوة قاهرة",
+          "examples": [
+            "كوارث طبيعية",
+            "أزمات اقتصادية",
+            "حروب وأزمات أمنية",
+            "أوبئة وأمراض"
+          ],
+          "mitigation": "تأمين شامل وخطط بديلة"
+        }
+      ]
+    },
+
+    "sustainability_assessment": {
+      "description": "تقييم الاستدامة والمسؤولية الاجتماعية",
+      "dimensions": [
+        {
+          "dimension": "environmental",
+          "label": "البعد البيئي",
+          "aspects": [
+            "استهلاك الطاقة والمياه",
+            "الانبعاثات والنفايات",
+            "تأثير المشروع على البيئة",
+            "الخطط التعويضية"
+          ]
+        },
+        {
+          "dimension": "social",
+          "label": "البعد الاجتماعي",
+          "aspects": [
+            "فرص العمل المحلية",
+            "تنمية المجتمع المحلي",
+            "معايير السلامة والصحة",
+            "العلاقات المجتمعية"
+          ]
+        },
+        {
+          "dimension": "economic",
+          "label": "البعد الاقتصادي",
+          "aspects": [
+            "المساهمة في النمو الاقتصادي",
+            "العائد على الاستثمار الطويل الأجل",
+            "الاستدامة المالية",
+            "القيمة المضافة للاقتصاد"
+          ]
+        },
+        {
+          "dimension": "islamic",
+          "label": "البعد الإسلامي",
+          "aspects": [
+            "الامتثال للمبادئ الإسلامية",
+            "عدم التعامل بالمحرمات",
+            "الشفافية والعدل",
+            "حقوق الموظفين والعملاء"
+          ]
+        }
+      ]
+    },
+
+    "recommendations": {
+      "description": "التوصيات والخلاصات",
+      "sections": [
+        {
+          "section": "executive_summary",
+          "label": "ملخص تنفيذي",
+          "content": "ملخص شامل للدراسة بما لا يتجاوز صفحة واحدة"
+        },
+        {
+          "section": "go_no_go_recommendation",
+          "label": "التوصية النهائية",
+          "options": [
+            "✓ قابل للتنفيذ - يُوصى بالمتابعة",
+            "✓ قابل للتنفيذ مع تعديلات",
+            "✗ غير قابل للتنفيذ في الوقت الحالي",
+            "؟ يتطلب دراسة إضافية"
+          ]
+        },
+        {
+          "section": "critical_success_factors",
+          "label": "العوامل الحرجة للنجاح",
+          "items": [
+            "الاستثمار في الجودة",
+            "اختيار الكادر المناسب",
+            "الالتزام بالمعايير",
+            "المرونة والاستجابة للسوق"
+          ]
+        },
+        {
+          "section": "implementation_roadmap",
+          "label": "خارطة التنفيذ",
+          "phases": [
+            "المرحلة 1: التأسيس والتجهيز",
+            "المرحلة 2: الإنشاء والتدريب",
+            "المرحلة 3: البدء التجريبي",
+            "المرحلة 4: الإطلاق الكامل"
+          ]
+        }
+      ]
+    }
+  },
+
+  "feasibility_study_quality_metrics": {
+    "description": "معايير جودة دراسة الجدوى",
+    "metrics": [
+      {
+        "metric": "completeness_score",
+        "label": "درجة اكتمال الدراسة",
+        "weight": 25,
+        "target": "> 90%"
+      },
+      {
+        "metric": "accuracy_score",
+        "label": "درجة دقة البيانات",
+        "weight": 30,
+        "target": "> 95%"
+      },
+      {
+        "metric": "realism_score",
+        "label": "درجة واقعية الافتراضات",
+        "weight": 25,
+        "target": "> 85%"
+      },
+      {
+        "metric": "clarity_score",
+        "label": "درجة وضوح العرض",
+        "weight": 20,
+        "target": "> 90%"
+      }
+    ]
+  },
+
+  "feasibility_study_templates": {
+    "quick_assessment": {
+      "name": "تقييم سريع",
+      "duration_days": 7,
+      "sections": [
+        "المشروع والسوق",
+        "التكاليف والإيرادات المتوقعة",
+        "التقييم المالي السريع",
+        "المخاطر الرئيسية",
+        "التوصية الأولية"
+      ]
+    },
+    "standard_assessment": {
+      "name": "دراسة قياسية",
+      "duration_days": 30,
+      "sections": [
+        "جميع أقسام الدراسة الشاملة",
+        "تحليل مفصل للسوق",
+        "تقييم شامل للمخاطر",
+        "خطة تنفيذ تفصيلية"
+      ]
+    },
+    "comprehensive_assessment": {
+      "name": "دراسة شاملة",
+      "duration_days": 90,
+      "sections": [
+        "دراسة عميقة لكل جوانب المشروع",
+        "تحليل السيناريوهات المختلفة",
+        "دراسات حالة مقارنة",
+        "خطط طارئة مفصلة",
+        "عرض أمام أصحاب المصلحة"
+      ]
+    }
+  }
+}

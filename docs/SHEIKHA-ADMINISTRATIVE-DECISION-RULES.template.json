@@ -1,0 +1,94 @@
+{
+  "rules_version": "1.0.0",
+  "engine_name": "Sheikha Administrative Logic and Management Mind Engine",
+  "principles": [
+    "clarity_of_roles",
+    "measurable_accountability",
+    "adaptive_planning",
+    "evidence_based_decisions",
+    "continuous_improvement"
+  ],
+  "entity_types": [
+    "government",
+    "enterprise",
+    "sme",
+    "community_service"
+  ],
+  "maturity_levels": [
+    "foundation",
+    "growth",
+    "scale",
+    "institutional"
+  ],
+  "risk_levels": [
+    "low",
+    "medium",
+    "high",
+    "critical"
+  ],
+  "urgency_levels": [
+    "routine",
+    "priority",
+    "urgent",
+    "immediate"
+  ],
+  "administrative_models": {
+    "government": [
+      "policy_and_compliance_model",
+      "program_management_office",
+      "cross_ministry_coordination"
+    ],
+    "enterprise": [
+      "balanced_scorecard_model",
+      "portfolio_program_project_model",
+      "operational_excellence_model"
+    ],
+    "sme": [
+      "lean_management_model",
+      "okrs_execution_model",
+      "cashflow_control_model"
+    ],
+    "community_service": [
+      "impact_governance_model",
+      "service_quality_model",
+      "stakeholder_engagement_model"
+    ]
+  },
+  "management_tools": {
+    "planning": ["vision_map", "strategy_canvas", "roadmap_matrix"],
+    "execution": ["okr_tracker", "kpi_board", "risk_register"],
+    "organization": ["role_matrix", "delegation_matrix", "decision_log"],
+    "improvement": ["cause_analysis", "process_audit", "learning_loop"]
+  },
+  "scientific_methodologies": [
+    "strategic_management",
+    "systems_analysis",
+    "evidence_based_management",
+    "risk_management",
+    "continuous_improvement",
+    "lean_methodology",
+    "quality_management",
+    "program_evaluation"
+  ],
+  "decision_pipeline": [
+    "A0_CONTEXT_CAPTURE",
+    "A1_ENTITY_AND_MATURITY_CLASSIFICATION",
+    "A2_ADMIN_MODEL_SELECTION",
+    "A3_TOOLSTACK_CONFIGURATION",
+    "A4_EXECUTION_PLAN_GENERATION",
+    "A5_KPI_AND_RISK_ALIGNMENT",
+    "A6_FEEDBACK_AND_AUTOMATIC_IMPROVEMENT"
+  ],
+  "output_schema": {
+    "administrative_blueprint_id": "string",
+    "entity_type": "government|enterprise|sme|community_service",
+    "maturity_level": "foundation|growth|scale|institutional",
+    "selected_model": "string",
+    "toolstack": ["string"],
+    "recommended_methodologies": ["string"],
+    "planning_horizon": "quarterly|semi_annual|annual",
+    "governance_cadence": "weekly|biweekly|monthly",
+    "kpi_profile": ["string"],
+    "risk_profile": "string"
+  }
+}
