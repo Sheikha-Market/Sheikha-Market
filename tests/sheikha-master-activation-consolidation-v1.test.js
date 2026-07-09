@@ -2,6 +2,7 @@
 
 const {
   buildComponent,
+  buildMethodologyAccreditationReadiness,
   buildReport,
   classifyLayer,
   classifyLifecycleStatus
@@ -50,8 +51,51 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.knowledgeVerification.score).toBeGreaterThan(0);
     expect(report.performanceVerification.score).toBeGreaterThan(0);
     expect(report.securityVerification.score).toBeGreaterThan(0);
+    expect(report.methodologyAccreditation.policy.externalAccreditationIssuedBySheikha).toBe(false);
+    expect(report.methodologyAccreditation.internalIssuedAttestations.length).toBeGreaterThan(0);
+    expect(report.methodologyAccreditation.methodologyFamilies.map((item) => item.familyKey)).toEqual(expect.arrayContaining([
+      'SCIENTIFIC',
+      'ORGANIZATIONAL',
+      'ADMINISTRATIVE',
+      'TECHNICAL',
+      'ENGINEERING',
+      'MATHEMATICAL_ACCOUNTING',
+      'COMPUTATIONAL'
+    ]));
+    expect(report.methodologyAccreditation.externalCertificatesIssued).toBe(0);
     expect(report.documentation.count).toBeGreaterThan(0);
     expect(report.executiveDashboard.indicators.githubRequired).toBe(false);
+    expect(report.executiveDashboard.indicators.internalAttestations).toBeGreaterThan(0);
     expect(report.executiveReport.counts.apis).toBeGreaterThan(0);
+    expect(report.executiveReport.counts.externalCertificatesIssued).toBe(0);
+  });
+
+  test('builds methodology accreditation readiness without external issuance claims', () => {
+    const readiness = buildMethodologyAccreditationReadiness(
+      [
+        'docs/scientific-methodology.md',
+        'docs/enterprise-architecture.md',
+        'docs/admin-management.md',
+        'routes/api/runtime-routes.js',
+        'runtime/compute/hpc-engine.json',
+        'runtime/analytics/score-metrics.json',
+        'tools/ai-engine/sheikha-worker-engine.js',
+        'runtime/security/audit-log.json',
+        'tests/quality-readiness.test.js',
+        'runtime/licensing-engine/v1/registries/licenses.json'
+      ],
+      [{ path: 'runtime/security/audit-log.json' }],
+      { score: 100 },
+      { score: 100 },
+      { score: 100, checks: { governance: { evidence: ['runtime/governance/report.json'] } } },
+      { score: 100 },
+      { score: 100, checks: { auditLogs: { evidence: ['runtime/security/audit-log.json'] } } }
+    );
+
+    expect(readiness.policy.internalAttestationsAllowed).toBe(true);
+    expect(readiness.policy.externalAccreditationIssuedBySheikha).toBe(false);
+    expect(readiness.externalCertificatesIssued).toBe(0);
+    expect(readiness.localAccreditationReadinessTargets.length).toBeGreaterThan(0);
+    expect(readiness.internationalAccreditationReadinessTargets.length).toBeGreaterThan(0);
   });
 });

@@ -108,8 +108,11 @@ npm run -s ops:master-activation:consolidation:v1
 - `runtime/master-activation/sheikha-master-executive-dashboard-v1.json`
 - `runtime/master-activation/sheikha-master-final-executive-report-v1.json`
 - `runtime/master-activation/sheikha-master-documentation-index-v1.json`
+- `runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json`
 
 قاعدة هذه المرحلة: لا حذف، ولا ادعاء جاهزية إنتاجية بلا دليل، ولا اعتماد على GitHub؛ المصدر التشغيلي المحلي هو `local-registry` وملفات الأدلة داخل `runtime/master-activation`.
+
+اعتمادات المنهجيات في هذه المرحلة هي اعتمادات داخلية محكومة بالأدلة داخل المستودع، وتشمل الجاهزية العلمية والتنظيمية والإدارية والفنية والهندسية والحسابية والحوسبية. أما التراخيص والشهادات المحلية أو الدولية الرسمية فلا تُعد صادرة إلا من الجهة المختصة أو جهة تدقيق/اعتماد معتمدة؛ لذلك يولّد النظام حزمة جاهزية للتقديم ولا يدّعي إصدارًا خارجيًا.
 
 ---
 
