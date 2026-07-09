@@ -1,0 +1,65 @@
+{
+  "system": "SHEIKHA_COMMUNITY_MODELING_MONITOR_V1",
+  "status": "READY",
+  "generatedAt": "2026-07-09T13:45:10.263Z",
+  "pm2": {
+    "mainPortal": {
+      "name": "sheikha-main-portal",
+      "status": "online",
+      "restarts": 21,
+      "uptime": 1783602183397
+    },
+    "identityAuto": {
+      "name": "sheikha-identity-v2-auto",
+      "status": "online",
+      "restarts": 0,
+      "uptime": 1783566558630
+    },
+    "communityCycle": {
+      "name": "sheikha-community-modeling-cycle",
+      "status": "online",
+      "restarts": 0,
+      "uptime": 1783570981190
+    }
+  },
+  "reports": {
+    "community": {
+      "status": "KHAYR_ACTIVE",
+      "generatedAt": "2026-07-09T13:03:04.607Z",
+      "communityTypes": 12,
+      "digitalTools": 9,
+      "formationReady": true
+    },
+    "identity": {
+      "status": "ACTIVE",
+      "score": 100,
+      "generatedAt": "2026-07-09T13:30:37.733Z"
+    }
+  },
+  "apis": {
+    "dashboard": {
+      "url": "http://127.0.0.1:8080/api/community/dashboard",
+      "ok": true,
+      "sample": {
+        "success": true,
+        "status": null
+      }
+    },
+    "types": {
+      "url": "http://127.0.0.1:8080/api/community/types",
+      "ok": true,
+      "sample": {
+        "success": true,
+        "status": null
+      }
+    },
+    "tools": {
+      "url": "http://127.0.0.1:8080/api/community/tools",
+      "ok": true,
+      "sample": {
+        "success": true,
+        "status": null
+      }
+    }
+  }
+}
