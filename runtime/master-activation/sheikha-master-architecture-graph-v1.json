@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-09T21:39:44.630Z",
+  "generatedAt": "2026-07-09T21:54:20.146Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3087,
+      "components": 3088,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -77,7 +77,7 @@
     {
       "id": "Health",
       "type": "layer",
-      "components": 72,
+      "components": 73,
       "responsibility": "فحص الصحة، الجاهزية، والمؤشرات التشغيلية."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1235,
+      "components": 1236,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -58184,6 +58184,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "master-external-accreditation-verification-607aa5cbf66e",
+      "fromPath": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-external-accreditation-verification-607aa5cbf66e",
+      "fromPath": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "master-final-executive-report-d2526a33e2de",
       "fromPath": "runtime/master-activation/sheikha-master-final-executive-report-v1.json",
       "to": "Control Center",
@@ -58199,6 +58211,18 @@
       "from": "master-final-executive-report-d2526a33e2de",
       "fromPath": "runtime/master-activation/sheikha-master-final-executive-report-v1.json",
       "to": "Health",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-methodology-accreditation-readiness-d29423b49730",
+      "fromPath": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-methodology-accreditation-readiness-d29423b49730",
+      "fromPath": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json",
+      "to": "Monitoring",
       "type": "component-to-layer"
     },
     {
@@ -81983,6 +82007,18 @@
       "from": "extension-streaming-artifact-apex-test-084af97a61b3",
       "fromPath": "tests/sheikha-extension-streaming-artifact-apex-v1.test.js",
       "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "external-accreditation-pack-test-39377cd57c6c",
+      "fromPath": "tests/sheikha-external-accreditation-pack.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "external-accreditation-pack-test-39377cd57c6c",
+      "fromPath": "tests/sheikha-external-accreditation-pack.test.js",
+      "to": "Registry",
       "type": "component-to-layer"
     },
     {

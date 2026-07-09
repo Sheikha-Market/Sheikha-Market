@@ -11,6 +11,8 @@ function buildSignaturePayload(pack) {
     serial: pack.serial,
     generatedAt: pack.generatedAt,
     scope: pack.scope,
+    methodologyReadiness: pack.methodologyReadiness,
+    submissionControlMatrix: pack.submissionControlMatrix,
     localAccreditationTargets: pack.localAccreditationTargets,
     internationalAccreditationTargets: pack.internationalAccreditationTargets,
     standardsMatrix: pack.standardsMatrix,
@@ -31,6 +33,12 @@ function main() {
   const repoRoot = process.cwd();
   const inputPath = process.argv[2] || path.join('reports', 'SHEIKHA-EXTERNAL-ACCREDITATION-LATEST.json');
   const resolvedInputPath = path.resolve(repoRoot, inputPath);
+  const verificationPath = path.join(
+    repoRoot,
+    'runtime',
+    'master-activation',
+    'sheikha-master-external-accreditation-verification-v1.json'
+  );
 
   if (!fs.existsSync(resolvedInputPath)) {
     throw new Error(`Accreditation pack file not found: ${inputPath}`);
@@ -78,7 +86,7 @@ function main() {
   }
 
   const valid = hashValid && (attestationMode !== 'asymmetric' || asymmetricValid === true);
-  process.stdout.write(`${JSON.stringify({
+  const result = {
     status: valid ? 'valid' : 'invalid',
     valid,
     file: path.relative(repoRoot, resolvedInputPath),
@@ -93,8 +101,25 @@ function main() {
       expectedHash: `sha256:${expectedHash}`,
       providedHash: pack?.digitalRecord?.signature || null,
       asymmetricDetails
+    },
+    submission: {
+      methodologyReadinessSource: pack?.scope?.masterMethodologyReadinessArtifact || pack?.submissionControlMatrix?.sourceArtifact || null,
+      methodologyReadinessScore: pack?.methodologyReadiness?.readinessScore ?? null,
+      localAccreditationTargets: Array.isArray(pack?.localAccreditationTargets) ? pack.localAccreditationTargets.length : 0,
+      internationalAccreditationTargets: Array.isArray(pack?.internationalAccreditationTargets) ? pack.internationalAccreditationTargets.length : 0,
+      externalCertificatesIssued: pack?.submissionControlMatrix?.externalCertificatesIssuedByThisPack ?? 0,
+      externalAuthorityApprovalRequired: pack?.submissionControlMatrix?.externalAuthorityApprovalRequired ?? true
     }
-  }, null, 2)}\n`);
+  };
+
+  fs.mkdirSync(path.dirname(verificationPath), { recursive: true });
+  fs.writeFileSync(verificationPath, `${JSON.stringify({
+    system: 'SHEIKHA_MASTER_EXTERNAL_ACCREDITATION_VERIFICATION_V1',
+    generatedAt: new Date().toISOString(),
+    ...result
+  }, null, 2)}\n`, 'utf8');
+
+  process.stdout.write(`${JSON.stringify(result, null, 2)}\n`);
 
   if (!valid) {
     process.exit(1);

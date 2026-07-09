@@ -1,22 +1,22 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-09T21:39:44.626Z",
+  "generatedAt": "2026-07-09T21:54:20.141Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7053,
+  "componentCount": 7056,
   "apiEndpoints": 2687,
   "packageScripts": 634,
   "lifecycleSummary": {
     "active": 817,
     "needsLinking": 1169,
-    "needsDevelopment": 4933,
+    "needsDevelopment": 4936,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
     "measured": 817,
     "linkedRequired": 1169,
-    "discovered": 3879,
+    "discovered": 3881,
     "documented": 767
   },
   "components": [
@@ -272716,6 +272716,67 @@
       }
     },
     {
+      "id": "master-external-accreditation-verification-607aa5cbf66e",
+      "name": "sheikha-master-external-accreditation-verification-v1",
+      "version": "v1",
+      "path": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
+      "type": "data-contract",
+      "layer": "Runtime",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json"
+      }
+    },
+    {
       "id": "master-final-executive-report-d2526a33e2de",
       "name": "sheikha-master-final-executive-report-v1",
       "version": "v1",
@@ -272774,6 +272835,64 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/master-activation/sheikha-master-final-executive-report-v1.json"
+      }
+    },
+    {
+      "id": "master-methodology-accreditation-readiness-d29423b49730",
+      "name": "sheikha-master-methodology-accreditation-readiness-v1",
+      "version": "v1",
+      "path": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json",
+      "type": "data-contract",
+      "layer": "Health",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "فحص الصحة، الجاهزية، والمؤشرات التشغيلية.",
+      "inputs": [
+        "runtime signals"
+      ],
+      "outputs": [
+        "health score",
+        "readiness status"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Monitoring"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json"
       }
     },
     {
@@ -388129,6 +388248,66 @@
       }
     },
     {
+      "id": "external-accreditation-pack-test-39377cd57c6c",
+      "name": "sheikha-external-accreditation-pack.test",
+      "version": "package-1.0.51",
+      "path": "tests/sheikha-external-accreditation-pack.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-external-accreditation-pack.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-external-accreditation-pack.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-external-accreditation-pack.test.js"
+      }
+    },
+    {
       "id": "federated-execution-scheduler-test-d89413753156",
       "name": "sheikha-federated-execution-scheduler-v1.test",
       "version": "v1",
@@ -423001,7 +423180,7 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 334,
+    "tests": 335,
     "reports": 381,
     "docs": 1046
   }

@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-  "generatedAt": "2026-07-09T21:39:46.204Z",
+  "generatedAt": "2026-07-09T21:54:22.107Z",
   "policy": {
     "internalAttestationsAllowed": true,
     "externalAccreditationIssuedBySheikha": false,
@@ -9,12 +9,13 @@
     "githubRequired": false
   },
   "repositoryEvidence": {
-    "components": 7053,
+    "components": 7056,
     "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
     "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "externalPackBuilder": "scripts/sheikha-prepare-external-accreditation.js",
     "internalIssuer": "scripts/sheikha-issue-accreditation.js",
+    "externalVerification": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
     "licensingRegistry": "runtime/licensing-engine/v1/registries/licenses.json"
   },
   "existingEvidence": {
@@ -26,7 +27,8 @@
     "licensesRegistry": true,
     "internalAccreditationIssuer": true,
     "externalAccreditationPackBuilder": true,
-    "externalAccreditationVerifier": true
+    "externalAccreditationVerifier": true,
+    "externalAccreditationVerificationArtifact": true
   },
   "methodologyFamilies": [
     {
@@ -807,7 +809,8 @@
     "securityEvidence": true,
     "methodologyRegistriesPresent": true,
     "licensingEvidencePresent": true,
-    "externalSubmissionPackSupported": true
+    "externalSubmissionPackSupported": true,
+    "externalSubmissionVerificationMirrored": true
   },
   "readinessScore": 100,
   "decision": "INTERNAL_ATTESTATIONS_ISSUED_EXTERNAL_SUBMISSION_READY",
