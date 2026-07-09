@@ -1,23 +1,23 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-09T22:42:25.307Z",
+  "generatedAt": "2026-07-09T22:50:47.735Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7068,
+  "componentCount": 7073,
   "apiEndpoints": 2687,
-  "packageScripts": 637,
+  "packageScripts": 638,
   "lifecycleSummary": {
-    "active": 820,
-    "needsLinking": 1172,
-    "needsDevelopment": 4942,
+    "active": 821,
+    "needsLinking": 1173,
+    "needsDevelopment": 4945,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 820,
-    "linkedRequired": 1172,
-    "discovered": 3881,
-    "documented": 770
+    "measured": 821,
+    "linkedRequired": 1173,
+    "discovered": 3882,
+    "documented": 771
   },
   "components": [
     {
@@ -105770,6 +105770,68 @@
       }
     },
     {
+      "id": "jannat-gardens-96af2c14d742",
+      "name": "SHEIKHA-JANNAT-GARDENS-V1",
+      "version": "v1",
+      "path": "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md",
+      "type": "documentation",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-jannat-gardens-v1.test.js"
+      ],
+      "reports": [
+        "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md"
+      },
+      "maturity": "documented",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md"
+      }
+    },
+    {
       "id": "governance-admission-ownership-075361fe93ab",
       "name": "SHEIKHA-GOVERNANCE-ADMISSION-OWNERSHIP-V1",
       "version": "v1",
@@ -195041,6 +195103,68 @@
       }
     },
     {
+      "id": "jannat-gardens-8b6d4395cd93",
+      "name": "sheikha-jannat-gardens-v1",
+      "version": "v1",
+      "path": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json",
+      "type": "data-contract",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-jannat-gardens-v1.test.js"
+      ],
+      "reports": [
+        "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json"
+      }
+    },
+    {
       "id": "index-c2018bb321cd",
       "name": "index",
       "version": "package-1.0.51",
@@ -267017,6 +267141,69 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/islamic-ai-kernel/v1/sheikha-islamic-ai-kernel-v1-report.json"
+      }
+    },
+    {
+      "id": "jannat-gardens-report-9cdc5f8c0eda",
+      "name": "sheikha-jannat-gardens-v1-report",
+      "version": "v1",
+      "path": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json",
+      "type": "report",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
       }
     },
     {
@@ -390851,6 +391038,66 @@
       }
     },
     {
+      "id": "jannat-gardens-test-4a08abfe2ceb",
+      "name": "sheikha-jannat-gardens-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-jannat-gardens-v1.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-jannat-gardens-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-jannat-gardens-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-jannat-gardens-v1.test.js"
+      }
+    },
+    {
       "id": "kernel-fabric-test-2aed9e7f2135",
       "name": "sheikha-kernel-fabric-v1.test",
       "version": "v1",
@@ -402857,6 +403104,68 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-islamic-ai-kernel-v1.js"
+      }
+    },
+    {
+      "id": "jannat-gardens-d0787d062edd",
+      "name": "activate-sheikha-jannat-gardens-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-jannat-gardens-v1.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-jannat-gardens-v1.test.js"
+      ],
+      "reports": [
+        "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-jannat-gardens-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-jannat-gardens-v1.js"
       }
     },
     {
@@ -423915,8 +424224,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 338,
-    "reports": 384,
-    "docs": 1049
+    "tests": 339,
+    "reports": 385,
+    "docs": 1050
   }
 }

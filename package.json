@@ -80,6 +80,7 @@
     "ops:sovereign-kernel-boot:v1": "node tools/activation/activate-sheikha-sovereign-kernel-boot-v1.js",
     "ops:universal-technology-hpc-fabric:v1": "node tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js",
     "ops:technology-family-tree:v1": "node tools/activation/activate-sheikha-technology-family-tree-v1.js",
+    "ops:jannat-gardens:v1": "node tools/activation/activate-sheikha-jannat-gardens-v1.js",
     "sheikha:system:ignite": "node scripts/sheikha-system-ignite.js",
     "sheikha:system:ignite:report": "cat runtime/system/sheikha-system-ignite-report.json",
     "sheikha:final:pm2:start": "pm2 delete sheikha-final-operational 2>/dev/null; pm2 start bash --name sheikha-final-operational -- -lc 'while true; do cd /home/sheikha/Projects/sheikha/sheikha-main-portal && npm run -s sheikha:from-scratch:activate >/tmp/sheikha-final-operational.log 2>&1; sleep 300; done' && pm2 save",
