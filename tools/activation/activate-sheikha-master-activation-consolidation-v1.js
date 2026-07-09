@@ -19,6 +19,8 @@ const methodologyAccreditationPath = 'runtime/master-activation/sheikha-master-m
 const externalAccreditationVerificationPath = 'runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json';
 const sovereignKernelBootPath = 'runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json';
 const sovereignKernelBootHandbookPath = 'docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md';
+const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json';
+const universalTechnologyHpcFabricHandbookPath = 'docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md';
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
@@ -1055,7 +1057,9 @@ function buildDocumentationIndex(files) {
       methodologyAccreditationPath,
       externalAccreditationVerificationPath,
       sovereignKernelBootPath,
-      sovereignKernelBootHandbookPath
+      sovereignKernelBootHandbookPath,
+      universalTechnologyHpcFabricPath,
+      universalTechnologyHpcFabricHandbookPath
     ],
     duplicationPolicy: 'Use this index to link existing documents instead of copying their content.'
   };
@@ -1228,6 +1232,7 @@ function buildReport() {
   const knowledgeVerification = buildKnowledgeVerification(files, components);
   const performanceVerification = buildPerformanceVerification(files, apiIndex);
   const securityVerification = buildSecurityVerification(files);
+  const universalTechnologyHpcFabric = safeReadJson(universalTechnologyHpcFabricPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1244,10 +1249,14 @@ function buildReport() {
   finalExecutiveReport.counts.localAccreditationTargets = methodologyAccreditation.localAccreditationReadinessTargets.length;
   finalExecutiveReport.counts.internationalAccreditationTargets = methodologyAccreditation.internationalAccreditationReadinessTargets.length;
   finalExecutiveReport.counts.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
+  finalExecutiveReport.counts.universalTechnologyFamilies = universalTechnologyHpcFabric?.technologyFamilies?.length || 0;
+  finalExecutiveReport.counts.universalTechnologyHpcScore = universalTechnologyHpcFabric?.score || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
   finalExecutiveReport.evidence.sovereignKernelBootHandbook = sovereignKernelBootHandbookPath;
+  finalExecutiveReport.evidence.universalTechnologyHpcFabric = universalTechnologyHpcFabricPath;
+  finalExecutiveReport.evidence.universalTechnologyHpcFabricHandbook = universalTechnologyHpcFabricHandbookPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1261,8 +1270,12 @@ function buildReport() {
   executiveDashboard.indicators.internalAttestations = methodologyAccreditation.internalIssuedAttestations.length;
   executiveDashboard.indicators.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
   executiveDashboard.indicators.methodologyAccreditationReadinessScore = methodologyAccreditation.readinessScore;
+  executiveDashboard.indicators.universalTechnologyHpcFabricActive = exists(universalTechnologyHpcFabricPath);
+  executiveDashboard.indicators.universalTechnologyFamilies = universalTechnologyHpcFabric?.technologyFamilies?.length || 0;
   executiveDashboard.decisions.push(
-    'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.'
+    'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.',
+    'Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.',
+    'Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.'
   );
 
   const checks = {
@@ -1277,6 +1290,7 @@ function buildReport() {
     performanceVerificationBuilt: performanceVerification.score > 0,
     securityVerificationBuilt: securityVerification.score > 0,
     methodologyAccreditationBuilt: methodologyAccreditation.readinessScore > 0,
+    universalTechnologyHpcFabricBuilt: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js'),
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1305,6 +1319,8 @@ function buildReport() {
     externalAccreditationVerificationPath,
     sovereignKernelBootPath,
     sovereignKernelBootHandbookPath,
+    universalTechnologyHpcFabricPath,
+    universalTechnologyHpcFabricHandbookPath,
     dependencyGraph: {
       fullGraphPath: architectureGraphPath,
       layerEdges: architectureGraph.edges.length,
@@ -1344,7 +1360,10 @@ function buildReport() {
       documentationFiles: documentationIndex.count,
       methodologyFamilies: methodologyAccreditation.methodologyFamilies.length,
       internalAttestations: methodologyAccreditation.internalIssuedAttestations.length,
-      externalCertificatesIssued: methodologyAccreditation.externalCertificatesIssued
+      externalCertificatesIssued: methodologyAccreditation.externalCertificatesIssued,
+      universalTechnologyFamilies: universalTechnologyHpcFabric?.technologyFamilies?.length || 0,
+      universalTechnologyHpcScore: universalTechnologyHpcFabric?.score || 0,
+      universalTechnologyHpcFabricActive: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js')
     },
     lifecycleSummary,
     capabilityRegistry,
@@ -1366,6 +1385,16 @@ function buildReport() {
     performanceVerification,
     securityVerification,
     methodologyAccreditation,
+    universalTechnologyHpcFabric: {
+      active: exists(universalTechnologyHpcFabricPath),
+      reportPath: universalTechnologyHpcFabricPath,
+      handbookPath: universalTechnologyHpcFabricHandbookPath,
+      status: universalTechnologyHpcFabric?.status || 'PENDING_REPORT_GENERATION',
+      score: universalTechnologyHpcFabric?.score || 0,
+      technologyFamilies: universalTechnologyHpcFabric?.technologyFamilies?.length || 0,
+      fastestClaimAllowedToday: universalTechnologyHpcFabric?.fastestSystemPolicy?.fastestWorldClaimAllowedToday === true,
+      tradeNameDependency: universalTechnologyHpcFabric?.sourceAbstraction?.commercialNameDependency === true
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1373,6 +1402,7 @@ function buildReport() {
       'Capability registry now records inputs, outputs, tests, reports, APIs, maturity, and operation status.',
       'Duplicate detection is report-only and does not delete or mutate discovered components.',
       'Internal methodology attestations and external accreditation readiness targets are cataloged without claiming third-party issuance.',
+      'Universal technology HPC fabric catalogs supercomputing, semiconductor, conductor, supply-chain, factory, recovery, and benchmark capabilities by generic laws and specifications.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1427,6 +1457,8 @@ if (require.main === module) {
     discoveredComponents: report.summary.discoveredComponents,
     apiEndpoints: report.summary.apiEndpoints,
     duplicateGroups: report.summary.duplicateGroups,
+    universalTechnologyFamilies: report.summary.universalTechnologyFamilies,
+    universalTechnologyHpcScore: report.summary.universalTechnologyHpcScore,
     output: {
       report: reportPath,
       catalog: catalogPath,
@@ -1439,7 +1471,9 @@ if (require.main === module) {
       methodologyAccreditation: methodologyAccreditationPath,
       externalAccreditationVerification: externalAccreditationVerificationPath,
       sovereignKernelBoot: sovereignKernelBootPath,
-      sovereignKernelBootHandbook: sovereignKernelBootHandbookPath
+      sovereignKernelBootHandbook: sovereignKernelBootHandbookPath,
+      universalTechnologyHpcFabric: universalTechnologyHpcFabricPath,
+      universalTechnologyHpcFabricHandbook: universalTechnologyHpcFabricHandbookPath
     }
   }, null, 2));
 }
