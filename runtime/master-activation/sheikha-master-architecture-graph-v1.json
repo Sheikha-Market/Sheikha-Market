@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-09T22:42:25.311Z",
+  "generatedAt": "2026-07-09T22:50:47.739Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3091,
+      "components": 3095,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1237,
+      "components": 1238,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -22676,6 +22676,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "jannat-gardens-96af2c14d742",
+      "fromPath": "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-96af2c14d742",
+      "fromPath": "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "governance-admission-ownership-075361fe93ab",
       "fromPath": "docs/kernel-fabric/SHEIKHA-GOVERNANCE-ADMISSION-OWNERSHIP-V1.md",
       "to": "Runtime",
@@ -41702,6 +41714,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "jannat-gardens-8b6d4395cd93",
+      "fromPath": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-8b6d4395cd93",
+      "fromPath": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "index-c2018bb321cd",
       "fromPath": "public/sheikha-logistics-market/index.html",
       "to": "Commerce",
@@ -56795,6 +56819,18 @@
       "from": "islamic-ai-kernel-report-4caef6de7064",
       "fromPath": "runtime/islamic-ai-kernel/v1/sheikha-islamic-ai-kernel-v1-report.json",
       "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-report-9cdc5f8c0eda",
+      "fromPath": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-report-9cdc5f8c0eda",
+      "fromPath": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json",
+      "to": "Cloud",
       "type": "component-to-layer"
     },
     {
@@ -82538,6 +82574,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "jannat-gardens-test-4a08abfe2ceb",
+      "fromPath": "tests/sheikha-jannat-gardens-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-test-4a08abfe2ceb",
+      "fromPath": "tests/sheikha-jannat-gardens-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "kernel-fabric-test-2aed9e7f2135",
       "fromPath": "tests/sheikha-kernel-fabric-v1.test.js",
       "to": "Cloud",
@@ -85085,6 +85133,18 @@
       "from": "islamic-ai-kernel-784f05c2f94c",
       "fromPath": "tools/activation/activate-sheikha-islamic-ai-kernel-v1.js",
       "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-d0787d062edd",
+      "fromPath": "tools/activation/activate-sheikha-jannat-gardens-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "jannat-gardens-d0787d062edd",
+      "fromPath": "tools/activation/activate-sheikha-jannat-gardens-v1.js",
+      "to": "Registry",
       "type": "component-to-layer"
     },
     {

@@ -23,6 +23,9 @@ const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabri
 const universalTechnologyHpcFabricHandbookPath = 'docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md';
 const technologyFamilyTreePath = 'runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json';
 const technologyFamilyTreeHandbookPath = 'docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md';
+const jannatGardensPath = 'runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json';
+const jannatGardensHandbookPath = 'docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md';
+const jannatGardensPublicModelPath = 'public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json';
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
@@ -1063,7 +1066,10 @@ function buildDocumentationIndex(files) {
       universalTechnologyHpcFabricPath,
       universalTechnologyHpcFabricHandbookPath,
       technologyFamilyTreePath,
-      technologyFamilyTreeHandbookPath
+      technologyFamilyTreeHandbookPath,
+      jannatGardensPath,
+      jannatGardensHandbookPath,
+      jannatGardensPublicModelPath
     ],
     duplicationPolicy: 'Use this index to link existing documents instead of copying their content.'
   };
@@ -1238,6 +1244,7 @@ function buildReport() {
   const securityVerification = buildSecurityVerification(files);
   const universalTechnologyHpcFabric = safeReadJson(universalTechnologyHpcFabricPath);
   const technologyFamilyTree = safeReadJson(technologyFamilyTreePath);
+  const jannatGardens = safeReadJson(jannatGardensPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1259,6 +1266,11 @@ function buildReport() {
   finalExecutiveReport.counts.technologyFamilyTreeNodes = technologyFamilyTree?.lowerLayerNodes?.length || 0;
   finalExecutiveReport.counts.technologyFamilyGardenTrees = technologyFamilyTree?.technologyGarden?.trees?.length || 0;
   finalExecutiveReport.counts.technologyFamilyTreeScore = technologyFamilyTree?.score || 0;
+  finalExecutiveReport.counts.jannatGardens = jannatGardens?.metrics?.gardens || 0;
+  finalExecutiveReport.counts.jannatGardenTrees = jannatGardens?.metrics?.trees || 0;
+  finalExecutiveReport.counts.jannatGardenRivers = jannatGardens?.metrics?.rivers || 0;
+  finalExecutiveReport.counts.jannatGardenFruits = jannatGardens?.metrics?.fruits || 0;
+  finalExecutiveReport.counts.jannatGardensScore = jannatGardens?.score || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1267,6 +1279,9 @@ function buildReport() {
   finalExecutiveReport.evidence.universalTechnologyHpcFabricHandbook = universalTechnologyHpcFabricHandbookPath;
   finalExecutiveReport.evidence.technologyFamilyTree = technologyFamilyTreePath;
   finalExecutiveReport.evidence.technologyFamilyTreeHandbook = technologyFamilyTreeHandbookPath;
+  finalExecutiveReport.evidence.jannatGardens = jannatGardensPath;
+  finalExecutiveReport.evidence.jannatGardensHandbook = jannatGardensHandbookPath;
+  finalExecutiveReport.evidence.jannatGardensPublicModel = jannatGardensPublicModelPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1285,11 +1300,17 @@ function buildReport() {
   executiveDashboard.indicators.technologyFamilyTreeActive = exists(technologyFamilyTreePath);
   executiveDashboard.indicators.technologyFamilyTreeNodes = technologyFamilyTree?.lowerLayerNodes?.length || 0;
   executiveDashboard.indicators.technologyFamilyGardenTrees = technologyFamilyTree?.technologyGarden?.trees?.length || 0;
+  executiveDashboard.indicators.jannatGardensActive = exists(jannatGardensPath);
+  executiveDashboard.indicators.jannatGardens = jannatGardens?.metrics?.gardens || 0;
+  executiveDashboard.indicators.jannatGardenTrees = jannatGardens?.metrics?.trees || 0;
+  executiveDashboard.indicators.jannatGardenRivers = jannatGardens?.metrics?.rivers || 0;
+  executiveDashboard.indicators.jannatGardenFruits = jannatGardens?.metrics?.fruits || 0;
   executiveDashboard.decisions.push(
     'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.',
     'Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.',
     'Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.',
-    'Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.'
+    'Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.',
+    'Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling.'
   );
 
   const checks = {
@@ -1306,6 +1327,7 @@ function buildReport() {
     methodologyAccreditationBuilt: methodologyAccreditation.readinessScore > 0,
     universalTechnologyHpcFabricBuilt: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js'),
     technologyFamilyTreeBuilt: exists(technologyFamilyTreePath) || exists('tools/activation/activate-sheikha-technology-family-tree-v1.js'),
+    jannatGardensBuilt: exists(jannatGardensPath) || exists('tools/activation/activate-sheikha-jannat-gardens-v1.js'),
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1338,6 +1360,9 @@ function buildReport() {
     universalTechnologyHpcFabricHandbookPath,
     technologyFamilyTreePath,
     technologyFamilyTreeHandbookPath,
+    jannatGardensPath,
+    jannatGardensHandbookPath,
+    jannatGardensPublicModelPath,
     dependencyGraph: {
       fullGraphPath: architectureGraphPath,
       layerEdges: architectureGraph.edges.length,
@@ -1383,6 +1408,11 @@ function buildReport() {
       technologyFamilyTreeNodes: technologyFamilyTree?.lowerLayerNodes?.length || 0,
       technologyFamilyGardenTrees: technologyFamilyTree?.technologyGarden?.trees?.length || 0,
       technologyFamilyTreeScore: technologyFamilyTree?.score || 0,
+      jannatGardens: jannatGardens?.metrics?.gardens || 0,
+      jannatGardenTrees: jannatGardens?.metrics?.trees || 0,
+      jannatGardenRivers: jannatGardens?.metrics?.rivers || 0,
+      jannatGardenFruits: jannatGardens?.metrics?.fruits || 0,
+      jannatGardensScore: jannatGardens?.score || 0,
       universalTechnologyHpcFabricActive: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js')
     },
     lifecycleSummary,
@@ -1428,6 +1458,20 @@ function buildReport() {
       lowerLayerNodes: technologyFamilyTree?.lowerLayerNodes?.length || 0,
       gardenTrees: technologyFamilyTree?.technologyGarden?.trees?.length || 0
     },
+    jannatGardens: {
+      active: exists(jannatGardensPath),
+      reportPath: jannatGardensPath,
+      handbookPath: jannatGardensHandbookPath,
+      publicModelPath: jannatGardensPublicModelPath,
+      status: jannatGardens?.status || 'PENDING_REPORT_GENERATION',
+      score: jannatGardens?.score || 0,
+      worldlyMetaphorOnly: jannatGardens?.worldlyBeautyBoundary?.worldlyMetaphorOnly === true,
+      actualJannahClaim: jannatGardens?.worldlyBeautyBoundary?.actualJannahClaim === true,
+      gardens: jannatGardens?.metrics?.gardens || 0,
+      trees: jannatGardens?.metrics?.trees || 0,
+      rivers: jannatGardens?.metrics?.rivers || 0,
+      fruits: jannatGardens?.metrics?.fruits || 0
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1437,6 +1481,7 @@ function buildReport() {
       'Internal methodology attestations and external accreditation readiness targets are cataloged without claiming third-party issuance.',
       'Universal technology HPC fabric catalogs supercomputing, semiconductor, conductor, supply-chain, factory, recovery, and benchmark capabilities by generic laws and specifications.',
       'Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.',
+      'Jannat Sheikha gardens define worldly beauty, gardens, trees, rivers, and fruits for interfaces and architecture without claiming unseen Jannah representation.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1496,6 +1541,11 @@ if (require.main === module) {
     technologyFamilyTreeNodes: report.summary.technologyFamilyTreeNodes,
     technologyFamilyGardenTrees: report.summary.technologyFamilyGardenTrees,
     technologyFamilyTreeScore: report.summary.technologyFamilyTreeScore,
+    jannatGardens: report.summary.jannatGardens,
+    jannatGardenTrees: report.summary.jannatGardenTrees,
+    jannatGardenRivers: report.summary.jannatGardenRivers,
+    jannatGardenFruits: report.summary.jannatGardenFruits,
+    jannatGardensScore: report.summary.jannatGardensScore,
     output: {
       report: reportPath,
       catalog: catalogPath,
@@ -1512,7 +1562,10 @@ if (require.main === module) {
       universalTechnologyHpcFabric: universalTechnologyHpcFabricPath,
       universalTechnologyHpcFabricHandbook: universalTechnologyHpcFabricHandbookPath,
       technologyFamilyTree: technologyFamilyTreePath,
-      technologyFamilyTreeHandbook: technologyFamilyTreeHandbookPath
+      technologyFamilyTreeHandbook: technologyFamilyTreeHandbookPath,
+      jannatGardens: jannatGardensPath,
+      jannatGardensHandbook: jannatGardensHandbookPath,
+      jannatGardensPublicModel: jannatGardensPublicModelPath
     }
   }, null, 2));
 }
