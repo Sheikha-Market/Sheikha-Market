@@ -21,6 +21,8 @@ const sovereignKernelBootPath = 'runtime/sovereign-kernel-boot/v1/sheikha-sovere
 const sovereignKernelBootHandbookPath = 'docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md';
 const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json';
 const universalTechnologyHpcFabricHandbookPath = 'docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md';
+const technologyFamilyTreePath = 'runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json';
+const technologyFamilyTreeHandbookPath = 'docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md';
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
@@ -1059,7 +1061,9 @@ function buildDocumentationIndex(files) {
       sovereignKernelBootPath,
       sovereignKernelBootHandbookPath,
       universalTechnologyHpcFabricPath,
-      universalTechnologyHpcFabricHandbookPath
+      universalTechnologyHpcFabricHandbookPath,
+      technologyFamilyTreePath,
+      technologyFamilyTreeHandbookPath
     ],
     duplicationPolicy: 'Use this index to link existing documents instead of copying their content.'
   };
@@ -1233,6 +1237,7 @@ function buildReport() {
   const performanceVerification = buildPerformanceVerification(files, apiIndex);
   const securityVerification = buildSecurityVerification(files);
   const universalTechnologyHpcFabric = safeReadJson(universalTechnologyHpcFabricPath);
+  const technologyFamilyTree = safeReadJson(technologyFamilyTreePath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1251,12 +1256,17 @@ function buildReport() {
   finalExecutiveReport.counts.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
   finalExecutiveReport.counts.universalTechnologyFamilies = universalTechnologyHpcFabric?.technologyFamilies?.length || 0;
   finalExecutiveReport.counts.universalTechnologyHpcScore = universalTechnologyHpcFabric?.score || 0;
+  finalExecutiveReport.counts.technologyFamilyTreeNodes = technologyFamilyTree?.lowerLayerNodes?.length || 0;
+  finalExecutiveReport.counts.technologyFamilyGardenTrees = technologyFamilyTree?.technologyGarden?.trees?.length || 0;
+  finalExecutiveReport.counts.technologyFamilyTreeScore = technologyFamilyTree?.score || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
   finalExecutiveReport.evidence.sovereignKernelBootHandbook = sovereignKernelBootHandbookPath;
   finalExecutiveReport.evidence.universalTechnologyHpcFabric = universalTechnologyHpcFabricPath;
   finalExecutiveReport.evidence.universalTechnologyHpcFabricHandbook = universalTechnologyHpcFabricHandbookPath;
+  finalExecutiveReport.evidence.technologyFamilyTree = technologyFamilyTreePath;
+  finalExecutiveReport.evidence.technologyFamilyTreeHandbook = technologyFamilyTreeHandbookPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1272,10 +1282,14 @@ function buildReport() {
   executiveDashboard.indicators.methodologyAccreditationReadinessScore = methodologyAccreditation.readinessScore;
   executiveDashboard.indicators.universalTechnologyHpcFabricActive = exists(universalTechnologyHpcFabricPath);
   executiveDashboard.indicators.universalTechnologyFamilies = universalTechnologyHpcFabric?.technologyFamilies?.length || 0;
+  executiveDashboard.indicators.technologyFamilyTreeActive = exists(technologyFamilyTreePath);
+  executiveDashboard.indicators.technologyFamilyTreeNodes = technologyFamilyTree?.lowerLayerNodes?.length || 0;
+  executiveDashboard.indicators.technologyFamilyGardenTrees = technologyFamilyTree?.technologyGarden?.trees?.length || 0;
   executiveDashboard.decisions.push(
     'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.',
     'Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.',
-    'Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.'
+    'Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.',
+    'Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.'
   );
 
   const checks = {
@@ -1291,6 +1305,7 @@ function buildReport() {
     securityVerificationBuilt: securityVerification.score > 0,
     methodologyAccreditationBuilt: methodologyAccreditation.readinessScore > 0,
     universalTechnologyHpcFabricBuilt: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js'),
+    technologyFamilyTreeBuilt: exists(technologyFamilyTreePath) || exists('tools/activation/activate-sheikha-technology-family-tree-v1.js'),
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1321,6 +1336,8 @@ function buildReport() {
     sovereignKernelBootHandbookPath,
     universalTechnologyHpcFabricPath,
     universalTechnologyHpcFabricHandbookPath,
+    technologyFamilyTreePath,
+    technologyFamilyTreeHandbookPath,
     dependencyGraph: {
       fullGraphPath: architectureGraphPath,
       layerEdges: architectureGraph.edges.length,
@@ -1363,6 +1380,9 @@ function buildReport() {
       externalCertificatesIssued: methodologyAccreditation.externalCertificatesIssued,
       universalTechnologyFamilies: universalTechnologyHpcFabric?.technologyFamilies?.length || 0,
       universalTechnologyHpcScore: universalTechnologyHpcFabric?.score || 0,
+      technologyFamilyTreeNodes: technologyFamilyTree?.lowerLayerNodes?.length || 0,
+      technologyFamilyGardenTrees: technologyFamilyTree?.technologyGarden?.trees?.length || 0,
+      technologyFamilyTreeScore: technologyFamilyTree?.score || 0,
       universalTechnologyHpcFabricActive: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js')
     },
     lifecycleSummary,
@@ -1395,6 +1415,19 @@ function buildReport() {
       fastestClaimAllowedToday: universalTechnologyHpcFabric?.fastestSystemPolicy?.fastestWorldClaimAllowedToday === true,
       tradeNameDependency: universalTechnologyHpcFabric?.sourceAbstraction?.commercialNameDependency === true
     },
+    technologyFamilyTree: {
+      active: exists(technologyFamilyTreePath),
+      reportPath: technologyFamilyTreePath,
+      handbookPath: technologyFamilyTreeHandbookPath,
+      status: technologyFamilyTree?.status || 'PENDING_REPORT_GENERATION',
+      score: technologyFamilyTree?.score || 0,
+      apexHasNoContracts: technologyFamilyTree?.sovereignApex?.contracts?.length === 0,
+      apexHasNoBindings: technologyFamilyTree?.sovereignApex?.bindings?.length === 0,
+      apexHasNoRuntimeLinks: technologyFamilyTree?.sovereignApex?.runtimeLinks?.length === 0,
+      sheikhaLanguageStatus: technologyFamilyTree?.sheikhaLanguagePrimacy?.status || 'UNKNOWN',
+      lowerLayerNodes: technologyFamilyTree?.lowerLayerNodes?.length || 0,
+      gardenTrees: technologyFamilyTree?.technologyGarden?.trees?.length || 0
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1403,6 +1436,7 @@ function buildReport() {
       'Duplicate detection is report-only and does not delete or mutate discovered components.',
       'Internal methodology attestations and external accreditation readiness targets are cataloged without claiming third-party issuance.',
       'Universal technology HPC fabric catalogs supercomputing, semiconductor, conductor, supply-chain, factory, recovery, and benchmark capabilities by generic laws and specifications.',
+      'Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1459,6 +1493,9 @@ if (require.main === module) {
     duplicateGroups: report.summary.duplicateGroups,
     universalTechnologyFamilies: report.summary.universalTechnologyFamilies,
     universalTechnologyHpcScore: report.summary.universalTechnologyHpcScore,
+    technologyFamilyTreeNodes: report.summary.technologyFamilyTreeNodes,
+    technologyFamilyGardenTrees: report.summary.technologyFamilyGardenTrees,
+    technologyFamilyTreeScore: report.summary.technologyFamilyTreeScore,
     output: {
       report: reportPath,
       catalog: catalogPath,
@@ -1473,7 +1510,9 @@ if (require.main === module) {
       sovereignKernelBoot: sovereignKernelBootPath,
       sovereignKernelBootHandbook: sovereignKernelBootHandbookPath,
       universalTechnologyHpcFabric: universalTechnologyHpcFabricPath,
-      universalTechnologyHpcFabricHandbook: universalTechnologyHpcFabricHandbookPath
+      universalTechnologyHpcFabricHandbook: universalTechnologyHpcFabricHandbookPath,
+      technologyFamilyTree: technologyFamilyTreePath,
+      technologyFamilyTreeHandbook: technologyFamilyTreeHandbookPath
     }
   }, null, 2));
 }

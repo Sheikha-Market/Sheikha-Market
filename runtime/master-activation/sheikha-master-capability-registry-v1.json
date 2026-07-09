@@ -1,23 +1,23 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-09T22:34:26.013Z",
+  "generatedAt": "2026-07-09T22:42:25.307Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7064,
+  "componentCount": 7068,
   "apiEndpoints": 2687,
-  "packageScripts": 636,
+  "packageScripts": 637,
   "lifecycleSummary": {
-    "active": 819,
-    "needsLinking": 1171,
-    "needsDevelopment": 4940,
+    "active": 820,
+    "needsLinking": 1172,
+    "needsDevelopment": 4942,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 819,
-    "linkedRequired": 1171,
+    "measured": 820,
+    "linkedRequired": 1172,
     "discovered": 3881,
-    "documented": 769
+    "documented": 770
   },
   "components": [
     {
@@ -118896,6 +118896,68 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "docs/technical-capability-apex/SHEIKHA-TECHNICAL-CAPABILITY-APEX-V1.md"
+      }
+    },
+    {
+      "id": "technology-family-tree-ee23a05abc58",
+      "name": "SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1",
+      "version": "v1",
+      "path": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
+      "type": "documentation",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-technology-family-tree-v1.test.js"
+      ],
+      "reports": [
+        "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md"
+      },
+      "maturity": "documented",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md"
       }
     },
     {
@@ -338255,6 +338317,69 @@
       }
     },
     {
+      "id": "technology-family-tree-report-5163e02dfdf3",
+      "name": "sheikha-technology-family-tree-v1-report",
+      "version": "v1",
+      "path": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+      "type": "report",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+      }
+    },
+    {
       "id": "technology-radar-engine-7291858e7662",
       "name": "sheikha-technology-radar-engine",
       "version": "package-1.0.51",
@@ -395497,6 +395622,66 @@
       }
     },
     {
+      "id": "technology-family-tree-test-88f1db856975",
+      "name": "sheikha-technology-family-tree-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-technology-family-tree-v1.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-technology-family-tree-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-technology-family-tree-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-technology-family-tree-v1.test.js"
+      }
+    },
+    {
       "id": "template-engine-unification-test-e705ea4971b2",
       "name": "sheikha-template-engine-unification-v11.test",
       "version": "v11",
@@ -403848,6 +404033,68 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-staging-validation-v1.sh"
+      }
+    },
+    {
+      "id": "technology-family-tree-7611c1f81a91",
+      "name": "activate-sheikha-technology-family-tree-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-technology-family-tree-v1.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-technology-family-tree-v1.test.js"
+      ],
+      "reports": [
+        "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-technology-family-tree-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-technology-family-tree-v1.js"
       }
     },
     {
@@ -423668,8 +423915,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 337,
-    "reports": 383,
-    "docs": 1048
+    "tests": 338,
+    "reports": 384,
+    "docs": 1049
   }
 }

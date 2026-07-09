@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-09T22:34:26.017Z",
+  "generatedAt": "2026-07-09T22:42:25.311Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3088,
+      "components": 3091,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1236,
+      "components": 1237,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -25472,6 +25472,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "technology-family-tree-ee23a05abc58",
+      "fromPath": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "technology-family-tree-ee23a05abc58",
+      "fromPath": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "ugit-ai-control-plane-5dbe564df6b0",
       "fromPath": "docs/ugit-ai-control-plane/SHEIKHA-UGIT-AI-CONTROL-PLANE-V1.md",
       "to": "Knowledge",
@@ -71408,6 +71420,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "technology-family-tree-report-5163e02dfdf3",
+      "fromPath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "technology-family-tree-report-5163e02dfdf3",
+      "fromPath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "technology-radar-engine-7291858e7662",
       "fromPath": "runtime/technology-radar/sheikha-technology-radar-engine.js",
       "to": "OS",
@@ -83486,6 +83510,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "technology-family-tree-test-88f1db856975",
+      "fromPath": "tests/sheikha-technology-family-tree-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "technology-family-tree-test-88f1db856975",
+      "fromPath": "tests/sheikha-technology-family-tree-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "template-engine-unification-test-e705ea4971b2",
       "fromPath": "tests/sheikha-template-engine-unification-v11.test.js",
       "to": "Knowledge",
@@ -85276,6 +85312,18 @@
     {
       "from": "staging-validation-b3e7086e410a",
       "fromPath": "tools/activation/activate-sheikha-staging-validation-v1.sh",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "technology-family-tree-7611c1f81a91",
+      "fromPath": "tools/activation/activate-sheikha-technology-family-tree-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "technology-family-tree-7611c1f81a91",
+      "fromPath": "tools/activation/activate-sheikha-technology-family-tree-v1.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

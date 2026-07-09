@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-09T22:34:28.052Z",
+  "generatedAt": "2026-07-09T22:42:27.700Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -16,6 +16,7 @@
     "securityVerificationBuilt": true,
     "methodologyAccreditationBuilt": true,
     "universalTechnologyHpcFabricBuilt": true,
+    "technologyFamilyTreeBuilt": true,
     "documentationIndexBuilt": true,
     "finalExecutiveReportBuilt": true,
     "githubIndependent": true
@@ -24,8 +25,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "43b5e89f0",
-    "currentHead": "43b5e89f0",
+    "localRegistryHead": "90a5dd9c4",
+    "currentHead": "90a5dd9c4",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -1466,7 +1467,7 @@
       },
       {
         "root": "docs",
-        "files": 674,
+        "files": 675,
         "classification": "repository-artifact"
       },
       {
@@ -2181,7 +2182,7 @@
       },
       {
         "root": "runtime",
-        "files": 1934,
+        "files": 1935,
         "classification": "repository-artifact"
       },
       {
@@ -3001,7 +3002,7 @@
       },
       {
         "root": "tests",
-        "files": 327,
+        "files": 328,
         "classification": "repository-artifact"
       },
       {
@@ -3011,7 +3012,7 @@
       },
       {
         "root": "tools",
-        "files": 384,
+        "files": 385,
         "classification": "repository-artifact"
       },
       {
@@ -3250,56 +3251,59 @@
         "classification": "repository-artifact"
       }
     ],
-    "discoveredFiles": 7064,
-    "packageScripts": 636,
+    "discoveredFiles": 7068,
+    "packageScripts": 637,
     "source": "git ls-files -co --exclude-standard",
     "githubRequired": false
   },
   "summary": {
-    "discoveredComponents": 7064,
-    "activeComponents": 819,
-    "duplicateGroups": 1201,
+    "discoveredComponents": 7068,
+    "activeComponents": 820,
+    "duplicateGroups": 1202,
     "apiEndpoints": 2687,
-    "documentationFiles": 1048,
+    "documentationFiles": 1049,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "externalCertificatesIssued": 0,
     "universalTechnologyFamilies": 13,
     "universalTechnologyHpcScore": 100,
+    "technologyFamilyTreeNodes": 8,
+    "technologyFamilyGardenTrees": 6,
+    "technologyFamilyTreeScore": 100,
     "universalTechnologyHpcFabricActive": true
   },
   "lifecycleSummary": {
-    "active": 819,
-    "needsLinking": 1171,
-    "needsDevelopment": 4940,
+    "active": 820,
+    "needsLinking": 1172,
+    "needsDevelopment": 4942,
     "experimental": 71,
     "unused": 63
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-09T22:34:26.013Z",
+    "generatedAt": "2026-07-09T22:42:25.307Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
-    "componentCount": 7064,
+    "componentCount": 7068,
     "apiEndpoints": 2687,
-    "packageScripts": 636,
+    "packageScripts": 637,
     "lifecycleSummary": {
-      "active": 819,
-      "needsLinking": 1171,
-      "needsDevelopment": 4940,
+      "active": 820,
+      "needsLinking": 1172,
+      "needsDevelopment": 4942,
       "experimental": 71,
       "unused": 63
     },
     "maturitySummary": {
-      "measured": 819,
-      "linkedRequired": 1171,
+      "measured": 820,
+      "linkedRequired": 1172,
       "discovered": 3881,
-      "documented": 769
+      "documented": 770
     },
     "evidenceFiles": {
-      "tests": 337,
-      "reports": 383,
-      "docs": 1048
+      "tests": 338,
+      "reports": 384,
+      "docs": 1049
     },
     "fullRegistryPath": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "sampleComponents": [
@@ -7055,6 +7059,7 @@
       "ops:supply-chain-control-tower:v2",
       "ops:supply-chain-simulation:v1",
       "ops:technical-capability-apex:v1",
+      "ops:technology-family-tree:v1",
       "ops:template-engine-unification:v11",
       "ops:training:activate",
       "ops:training:activate:force",
@@ -7221,7 +7226,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-09T22:34:28.052Z",
+    "generatedAt": "2026-07-09T22:42:27.700Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -8648,7 +8653,7 @@
       },
       {
         "root": "docs",
-        "files": 674,
+        "files": 675,
         "classification": "repository-artifact"
       },
       {
@@ -9363,7 +9368,7 @@
       },
       {
         "root": "runtime",
-        "files": 1934,
+        "files": 1935,
         "classification": "repository-artifact"
       },
       {
@@ -10183,7 +10188,7 @@
       },
       {
         "root": "tests",
-        "files": 327,
+        "files": 328,
         "classification": "repository-artifact"
       },
       {
@@ -10193,7 +10198,7 @@
       },
       {
         "root": "tools",
-        "files": 384,
+        "files": 385,
         "classification": "repository-artifact"
       },
       {
@@ -10500,7 +10505,7 @@
         "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
       },
       "Documentation": {
-        "components": 3088,
+        "components": 3091,
         "dependencies": [
           "Knowledge",
           "Registry"
@@ -10616,7 +10621,7 @@
         "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
       },
       "Runtime": {
-        "components": 1236,
+        "components": 1237,
         "dependencies": [
           "OS",
           "Cloud"
@@ -10673,14 +10678,16 @@
     "sovereignKernelBootHandbookPath": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
     "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
     "universalTechnologyHpcFabricHandbookPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+    "technologyFamilyTreePath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+    "technologyFamilyTreeHandbookPath": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
     "dependencyGraph": {
       "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
       "layerEdges": 59,
-      "componentEdges": 14834
+      "componentEdges": 14842
     },
     "duplicateAnalysis": {
       "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-      "duplicateFiles": 1201,
+      "duplicateFiles": 1202,
       "duplicateServices": 28,
       "duplicateApis": 147,
       "duplicateRegistries": 67,
@@ -10692,11 +10699,11 @@
       "layers": 25,
       "apis": 2687,
       "services": 0,
-      "tests": 337,
-      "docs": 1048,
+      "tests": 338,
+      "docs": 1049,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1236,
+      "runtimeEngines": 1237,
       "identityEngines": 94,
       "governanceEngines": 519,
       "knowledgeEngines": 201,
@@ -10708,22 +10715,25 @@
       "securityEngines": 81,
       "dashboards": 71,
       "pipelines": 57,
-      "automationEngines": 378,
+      "automationEngines": 379,
       "integrations": 346,
-      "packageScripts": 636,
-      "duplicateGroups": 1201,
+      "packageScripts": 637,
+      "duplicateGroups": 1202,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
       "internationalAccreditationTargets": 23,
       "externalCertificatesIssued": 0,
       "universalTechnologyFamilies": 13,
-      "universalTechnologyHpcScore": 100
+      "universalTechnologyHpcScore": 100,
+      "technologyFamilyTreeNodes": 8,
+      "technologyFamilyGardenTrees": 6,
+      "technologyFamilyTreeScore": 100
     }
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-09T22:34:26.017Z",
+    "generatedAt": "2026-07-09T22:42:25.311Z",
     "nodes": [
       {
         "id": "APIs",
@@ -10776,7 +10786,7 @@
       {
         "id": "Documentation",
         "type": "layer",
-        "components": 3088,
+        "components": 3091,
         "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
       },
       {
@@ -10860,7 +10870,7 @@
       {
         "id": "Runtime",
         "type": "layer",
-        "components": 1236,
+        "components": 1237,
         "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
       },
       {
@@ -11179,19 +11189,19 @@
         "type": "layer-dependency"
       }
     ],
-    "componentEdgesCount": 14834,
+    "componentEdgesCount": 14842,
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "graphPolicy": "relationships are inferred from repository evidence and layer contracts"
   },
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
-    "componentEdges": 14834
+    "componentEdges": 14842
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-09T22:34:26.030Z",
+    "generatedAt": "2026-07-09T22:42:25.326Z",
     "policy": "REPORT_ONLY_NO_DELETION",
-    "duplicateFilesCount": 1201,
+    "duplicateFilesCount": 1202,
     "duplicateServicesCount": 28,
     "duplicateApisCount": 147,
     "duplicateRegistriesCount": 67,
@@ -12369,9 +12379,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.56,
-            3.65,
-            4.58
+            1.7,
+            2.41,
+            3.6
           ]
         }
       },
@@ -12379,13 +12389,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 38056947712,
+          "freeMemoryBytes": 37456834560,
           "processMemory": {
-            "rss": 192425984,
-            "heapTotal": 56332288,
-            "heapUsed": 35339104,
-            "external": 29136925,
-            "arrayBuffers": 25191924
+            "rss": 181411840,
+            "heapTotal": 55848960,
+            "heapUsed": 22454200,
+            "external": 20747294,
+            "arrayBuffers": 16802293
           }
         }
       },
@@ -12393,8 +12403,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 537398080,
-          "availableKb": 387116060,
+          "usedKb": 537439148,
+          "availableKb": 387074992,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12667,9 +12677,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.56,
-            3.65,
-            4.58
+            1.7,
+            2.41,
+            3.6
           ]
         }
       },
@@ -12677,13 +12687,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 38056947712,
+          "freeMemoryBytes": 37456834560,
           "processMemory": {
-            "rss": 192618496,
-            "heapTotal": 56332288,
-            "heapUsed": 35617464,
-            "external": 29136977,
-            "arrayBuffers": 25191936
+            "rss": 181821440,
+            "heapTotal": 55848960,
+            "heapUsed": 22732608,
+            "external": 20747346,
+            "arrayBuffers": 16802305
           }
         }
       },
@@ -12691,8 +12701,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 537398080,
-          "availableKb": 387116060,
+          "usedKb": 537439272,
+          "availableKb": 387074868,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -13004,7 +13014,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-09T22:34:27.195Z",
+    "generatedAt": "2026-07-09T22:42:26.658Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -13013,7 +13023,7 @@
       "githubRequired": false
     },
     "repositoryEvidence": {
-      "components": 7064,
+      "components": 7068,
       "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
       "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -13831,9 +13841,22 @@
     "fastestClaimAllowedToday": false,
     "tradeNameDependency": false
   },
+  "technologyFamilyTree": {
+    "active": true,
+    "reportPath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+    "handbookPath": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
+    "status": "ACTIVE_WITH_SHEIKHA_TECHNICAL_ROOT_TREE_GARDEN",
+    "score": 100,
+    "apexHasNoContracts": true,
+    "apexHasNoBindings": true,
+    "apexHasNoRuntimeLinks": true,
+    "sheikhaLanguageStatus": "ACTIVE_AS_ALL_SYSTEM_PROGRAMMING_BASIS",
+    "lowerLayerNodes": 8,
+    "gardenTrees": 6
+  },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-09T22:34:28.013Z",
+    "generatedAt": "2026-07-09T22:42:27.651Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -13859,9 +13882,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.56,
-            3.65,
-            4.58
+            1.7,
+            2.41,
+            3.6
           ]
         }
       },
@@ -13869,13 +13892,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875752448,
-          "freeMemoryBytes": 38056947712,
+          "freeMemoryBytes": 37456834560,
           "processMemory": {
-            "rss": 192618496,
-            "heapTotal": 56332288,
-            "heapUsed": 35617464,
-            "external": 29136977,
-            "arrayBuffers": 25191936
+            "rss": 181821440,
+            "heapTotal": 55848960,
+            "heapUsed": 22732608,
+            "external": 20747346,
+            "arrayBuffers": 16802305
           }
         }
       },
@@ -13883,8 +13906,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 537398080,
-          "availableKb": 387116060,
+          "usedKb": 537439272,
+          "availableKb": 387074868,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -14051,11 +14074,11 @@
       "layers": 25,
       "apis": 2687,
       "services": 0,
-      "tests": 337,
-      "docs": 1048,
+      "tests": 338,
+      "docs": 1049,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1236,
+      "runtimeEngines": 1237,
       "identityEngines": 94,
       "governanceEngines": 519,
       "knowledgeEngines": 201,
@@ -14067,29 +14090,35 @@
       "securityEngines": 81,
       "dashboards": 71,
       "pipelines": 57,
-      "automationEngines": 378,
+      "automationEngines": 379,
       "integrations": 346,
-      "packageScripts": 636,
-      "duplicateGroups": 1201,
+      "packageScripts": 637,
+      "duplicateGroups": 1202,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
       "internationalAccreditationTargets": 23,
       "externalCertificatesIssued": 0,
       "universalTechnologyFamilies": 13,
-      "universalTechnologyHpcScore": 100
+      "universalTechnologyHpcScore": 100,
+      "technologyFamilyTreeNodes": 8,
+      "technologyFamilyGardenTrees": 6,
+      "technologyFamilyTreeScore": 100
     },
     "indicators": {
       "apiEndpoints": 2687,
-      "tests": 337,
-      "duplicateGroups": 1201,
+      "tests": 338,
+      "duplicateGroups": 1202,
       "githubRequired": false,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "externalCertificatesIssued": 0,
       "methodologyAccreditationReadinessScore": 100,
       "universalTechnologyHpcFabricActive": true,
-      "universalTechnologyFamilies": 13
+      "universalTechnologyFamilies": 13,
+      "technologyFamilyTreeActive": true,
+      "technologyFamilyTreeNodes": 8,
+      "technologyFamilyGardenTrees": 6
     },
     "decisions": [
       "Use local-registry and local bundles as the operational source of truth.",
@@ -14097,7 +14126,8 @@
       "Keep production claims bound to health, tests, and truth-gate evidence.",
       "Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.",
       "Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.",
-      "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence."
+      "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.",
+      "Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only."
     ],
     "knowledge": {
       "identityEngines": {
@@ -14304,8 +14334,8 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-09T22:34:27.195Z",
-    "count": 1048,
+    "generatedAt": "2026-07-09T22:42:26.659Z",
+    "count": 1049,
     "canonicalDocs": [
       "docs/canonical/README.md",
       "docs/canonical/SHEIKHA-CANONICAL-BLUEPRINTS.md",
@@ -14573,7 +14603,9 @@
       "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
       "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
       "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
-      "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md"
+      "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+      "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+      "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md"
     ],
     "duplicationPolicy": "Use this index to link existing documents instead of copying their content."
   },
@@ -14583,11 +14615,12 @@
     "Duplicate detection is report-only and does not delete or mutate discovered components.",
     "Internal methodology attestations and external accreditation readiness targets are cataloged without claiming third-party issuance.",
     "Universal technology HPC fabric catalogs supercomputing, semiconductor, conductor, supply-chain, factory, recovery, and benchmark capabilities by generic laws and specifications.",
+    "Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.",
     "GitHub is not required for activation; local-registry is the recommended push target."
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-09T22:34:27.196Z",
+    "generatedAt": "2026-07-09T22:42:26.659Z",
     "githubDependency": false,
     "counts": {
       "systems": 433,
@@ -14595,11 +14628,11 @@
       "layers": 25,
       "apis": 2687,
       "services": 0,
-      "tests": 337,
-      "docs": 1048,
+      "tests": 338,
+      "docs": 1049,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1236,
+      "runtimeEngines": 1237,
       "identityEngines": 94,
       "governanceEngines": 519,
       "knowledgeEngines": 201,
@@ -14611,17 +14644,20 @@
       "securityEngines": 81,
       "dashboards": 71,
       "pipelines": 57,
-      "automationEngines": 378,
+      "automationEngines": 379,
       "integrations": 346,
-      "packageScripts": 636,
-      "duplicateGroups": 1201,
+      "packageScripts": 637,
+      "duplicateGroups": 1202,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
       "internationalAccreditationTargets": 23,
       "externalCertificatesIssued": 0,
       "universalTechnologyFamilies": 13,
-      "universalTechnologyHpcScore": 100
+      "universalTechnologyHpcScore": 100,
+      "technologyFamilyTreeNodes": 8,
+      "technologyFamilyGardenTrees": 6,
+      "technologyFamilyTreeScore": 100
     },
     "evidence": {
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
@@ -14633,7 +14669,9 @@
       "sovereignKernelBoot": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
       "sovereignKernelBootHandbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
       "universalTechnologyHpcFabric": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
-      "universalTechnologyHpcFabricHandbook": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md"
+      "universalTechnologyHpcFabricHandbook": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+      "technologyFamilyTree": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+      "technologyFamilyTreeHandbook": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md"
     },
     "productionClaimPolicy": "No production-ready claim is made unless supported by tests, health, and runtime evidence."
   },

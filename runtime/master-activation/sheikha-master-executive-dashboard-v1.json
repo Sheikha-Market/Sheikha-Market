@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-09T22:34:28.013Z",
+  "generatedAt": "2026-07-09T22:42:27.651Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          2.56,
-          3.65,
-          4.58
+          1.7,
+          2.41,
+          3.6
         ]
       }
     },
@@ -36,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875752448,
-        "freeMemoryBytes": 38056947712,
+        "freeMemoryBytes": 37456834560,
         "processMemory": {
-          "rss": 192618496,
-          "heapTotal": 56332288,
-          "heapUsed": 35617464,
-          "external": 29136977,
-          "arrayBuffers": 25191936
+          "rss": 181821440,
+          "heapTotal": 55848960,
+          "heapUsed": 22732608,
+          "external": 20747346,
+          "arrayBuffers": 16802305
         }
       }
     },
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 537398080,
-        "availableKb": 387116060,
+        "usedKb": 537439272,
+        "availableKb": 387074868,
         "usagePercent": "59%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -218,11 +218,11 @@
     "layers": 25,
     "apis": 2687,
     "services": 0,
-    "tests": 337,
-    "docs": 1048,
+    "tests": 338,
+    "docs": 1049,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1236,
+    "runtimeEngines": 1237,
     "identityEngines": 94,
     "governanceEngines": 519,
     "knowledgeEngines": 201,
@@ -234,29 +234,35 @@
     "securityEngines": 81,
     "dashboards": 71,
     "pipelines": 57,
-    "automationEngines": 378,
+    "automationEngines": 379,
     "integrations": 346,
-    "packageScripts": 636,
-    "duplicateGroups": 1201,
+    "packageScripts": 637,
+    "duplicateGroups": 1202,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
     "internationalAccreditationTargets": 23,
     "externalCertificatesIssued": 0,
     "universalTechnologyFamilies": 13,
-    "universalTechnologyHpcScore": 100
+    "universalTechnologyHpcScore": 100,
+    "technologyFamilyTreeNodes": 8,
+    "technologyFamilyGardenTrees": 6,
+    "technologyFamilyTreeScore": 100
   },
   "indicators": {
     "apiEndpoints": 2687,
-    "tests": 337,
-    "duplicateGroups": 1201,
+    "tests": 338,
+    "duplicateGroups": 1202,
     "githubRequired": false,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "externalCertificatesIssued": 0,
     "methodologyAccreditationReadinessScore": 100,
     "universalTechnologyHpcFabricActive": true,
-    "universalTechnologyFamilies": 13
+    "universalTechnologyFamilies": 13,
+    "technologyFamilyTreeActive": true,
+    "technologyFamilyTreeNodes": 8,
+    "technologyFamilyGardenTrees": 6
   },
   "decisions": [
     "Use local-registry and local bundles as the operational source of truth.",
@@ -264,7 +270,8 @@
     "Keep production claims bound to health, tests, and truth-gate evidence.",
     "Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.",
     "Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.",
-    "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence."
+    "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.",
+    "Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only."
   ],
   "knowledge": {
     "identityEngines": {
