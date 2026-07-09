@@ -8,6 +8,10 @@ const ROOT = path.resolve(__dirname, '..');
 const SYSTEM_RUNTIME_DIR = path.join(ROOT, 'runtime', 'system');
 const READINESS_REPORT_PATH = path.join(SYSTEM_RUNTIME_DIR, 'sheikha-production-readiness-report.json');
 const RC_MANIFEST_PATH = path.join(SYSTEM_RUNTIME_DIR, 'sheikha-release-candidate-manifest.json');
+const SELF_GENERATED_GIT_IGNORE = new Set([
+  path.relative(ROOT, READINESS_REPORT_PATH),
+  path.relative(ROOT, RC_MANIFEST_PATH)
+]);
 
 const args = new Set(process.argv.slice(2));
 const runFull = args.has('--full');
@@ -94,7 +98,15 @@ function getPm2Status() {
 
 function summarizeGitStatus() {
   const result = run('git status --porcelain');
-  const lines = result.stdout ? result.stdout.split('\n').filter(Boolean) : [];
+  const lines = result.stdout
+    ? result.stdout
+        .split('\n')
+        .filter(Boolean)
+        .filter((line) => {
+          const filePath = line.slice(3).trim();
+          return !SELF_GENERATED_GIT_IGNORE.has(filePath);
+        })
+    : [];
 
   const statusCounts = {
     added: 0,
