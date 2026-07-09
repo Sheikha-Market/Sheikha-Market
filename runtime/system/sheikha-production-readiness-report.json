@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_PRODUCTION_READINESS_GATE_V1",
-  "status": "STABILIZATION_REQUIRED",
-  "generatedAt": "2026-07-09T12:05:13.295Z",
+  "status": "PRODUCTION_READY",
+  "generatedAt": "2026-07-09T13:31:41.851Z",
   "mode": "full",
   "checks": {
     "operationalReady": true,
@@ -18,8 +18,8 @@
         "found": true,
         "name": "sheikha-main-portal",
         "status": "online",
-        "restarts": 20,
-        "uptime": 1783595523495
+        "restarts": 21,
+        "uptime": 1783602183397
       },
       "identityAuto": {
         "found": true,
@@ -110,11 +110,11 @@
     "identity": {
       "status": "ACTIVE",
       "score": 100,
-      "generatedAt": "2026-07-09T12:03:05.531Z"
+      "generatedAt": "2026-07-09T13:30:37.733Z"
     },
     "community": {
       "status": "KHAYR_ACTIVE",
-      "generatedAt": "2026-07-09T04:23:03.199Z",
+      "generatedAt": "2026-07-09T13:03:04.607Z",
       "communityTypes": 12,
       "digitalTools": 9,
       "formationReady": true
@@ -135,31 +135,22 @@
     }
   ],
   "git": {
-    "clean": false,
-    "totalChanges": 17,
+    "clean": true,
+    "totalChanges": 0,
     "statusCounts": {
       "added": 0,
-      "modified": 17,
+      "modified": 0,
       "deleted": 0,
       "renamed": 0,
       "untracked": 0,
       "conflicted": 0,
       "other": 0
     },
-    "topDirectories": [
-      {
-        "dir": "runtime",
-        "count": 16
-      },
-      {
-        "dir": "ublic",
-        "count": 1
-      }
-    ]
+    "topDirectories": []
   },
   "recommendations": [
     "Operational gate passed.",
-    "Git workspace has pending changes; split into logical feature batches before release.",
+    "Git workspace is clean.",
     "Quality checks are acceptable for current mode."
   ]
 }
