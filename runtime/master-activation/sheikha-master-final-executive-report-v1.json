@@ -1,13 +1,13 @@
 {
   "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-  "generatedAt": "2026-07-09T21:25:17.960Z",
+  "generatedAt": "2026-07-09T21:39:46.206Z",
   "githubDependency": false,
   "counts": {
     "systems": 433,
     "engines": 792,
     "layers": 25,
     "apis": 2687,
-    "services": 8,
+    "services": 0,
     "tests": 334,
     "docs": 1046,
     "sdks": 80,
@@ -27,13 +27,19 @@
     "automationEngines": 376,
     "integrations": 346,
     "packageScripts": 634,
-    "duplicateGroups": 1199
+    "duplicateGroups": 1199,
+    "methodologyFamilies": 10,
+    "internalAttestations": 5,
+    "localAccreditationTargets": 8,
+    "internationalAccreditationTargets": 23,
+    "externalCertificatesIssued": 0
   },
   "evidence": {
     "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "duplicateDetection": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-    "documentationIndex": "runtime/master-activation/sheikha-master-documentation-index-v1.json"
+    "documentationIndex": "runtime/master-activation/sheikha-master-documentation-index-v1.json",
+    "methodologyAccreditation": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json"
   },
   "productionClaimPolicy": "No production-ready claim is made unless supported by tests, health, and runtime evidence."
 }

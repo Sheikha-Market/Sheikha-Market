@@ -1,5 +1,58 @@
 {
   "registry": "SHEIKHA_LICENSES",
   "status": "ACTIVE",
-  "licenses": []
+  "version": "v1",
+  "policy": {
+    "internalLicensesAllowed": true,
+    "externalLicensesIssuedBySheikha": false,
+    "externalAuthorityApprovalRequired": true,
+    "noFalseClaims": true
+  },
+  "licenses": [
+    {
+      "id": "SHEIKHA-INT-LIC-METHODOLOGY-OPERATING-V1",
+      "type": "internal-operating-license",
+      "title": "Sheikha Methodology Operating License",
+      "status": "ISSUED_INTERNAL",
+      "scope": [
+        "scientific",
+        "organizational",
+        "administrative",
+        "technical",
+        "engineering",
+        "mathematical-accounting",
+        "computational"
+      ],
+      "externalAuthority": false,
+      "evidence": [
+        "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json",
+        "runtime/master-activation/sheikha-master-final-executive-report-v1.json",
+        "docs/SHEIKHA-MASTER-ACTIVATION.md"
+      ]
+    },
+    {
+      "id": "SHEIKHA-INT-LIC-ARCHITECTURE-CATALOG-V1",
+      "type": "internal-architecture-license",
+      "title": "Sheikha Enterprise Architecture Catalog License",
+      "status": "ISSUED_INTERNAL",
+      "scope": [
+        "capability-registry",
+        "architecture-graph",
+        "duplicate-detection",
+        "executive-dashboard"
+      ],
+      "externalAuthority": false,
+      "evidence": [
+        "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
+        "runtime/master-activation/sheikha-master-capability-registry-v1.json",
+        "runtime/master-activation/sheikha-master-architecture-graph-v1.json"
+      ]
+    }
+  ],
+  "externalLicenseReadiness": {
+    "issuedExternalCertificates": 0,
+    "status": "READY_FOR_SUBMISSION_NOT_ISSUED",
+    "constraint": "Formal local or international licenses, certificates, and accreditations must be issued by the competent authority, accredited auditor, certification body, lab, or regulator.",
+    "readinessArtifact": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json"
+  }
 }

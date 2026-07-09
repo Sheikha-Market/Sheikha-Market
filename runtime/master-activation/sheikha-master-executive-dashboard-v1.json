@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-09T21:25:18.414Z",
+  "generatedAt": "2026-07-09T21:39:47.257Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -11,13 +11,14 @@
   ],
   "status": {
     "integrationScore": 100,
-    "runtimeScore": 100,
+    "runtimeScore": 60,
     "knowledgeScore": 100,
-    "performanceScore": 100,
+    "performanceScore": 91,
     "securityScore": 100
   },
   "risks": [
-    "duplicate-components-require-review"
+    "duplicate-components-require-review",
+    "runtime-evidence-incomplete-or-sandbox-limited"
   ],
   "performance": {
     "cpu": {
@@ -25,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          4.61,
-          4.58,
-          3.96
+          6.84,
+          5.27,
+          4.33
         ]
       }
     },
@@ -35,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875752448,
-        "freeMemoryBytes": 42346385408,
+        "freeMemoryBytes": 42312318976,
         "processMemory": {
-          "rss": 226557952,
-          "heapTotal": 56184832,
-          "heapUsed": 33779936,
-          "external": 18768570,
-          "arrayBuffers": 14823529
+          "rss": 179347456,
+          "heapTotal": 55799808,
+          "heapUsed": 25220632,
+          "external": 27039825,
+          "arrayBuffers": 23094784
         }
       }
     },
@@ -49,10 +50,10 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 537146180,
-        "availableKb": 387367960,
+        "usedKb": 537208384,
+        "availableKb": 387305756,
         "usagePercent": "59%",
-        "mount": "/"
+        "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
     },
     "api": {
@@ -61,16 +62,16 @@
         "uniqueEndpoints": 2687,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
-          "ok": true,
-          "statusCode": "200",
-          "latencyMs": 2
+          "ok": false,
+          "statusCode": null,
+          "latencyMs": null
         }
       }
     },
     "latency": {
-      "ok": true,
+      "ok": false,
       "evidence": {
-        "healthLatencyMs": 2
+        "healthLatencyMs": null
       }
     },
     "cache": {
@@ -216,7 +217,7 @@
     "engines": 792,
     "layers": 25,
     "apis": 2687,
-    "services": 8,
+    "services": 0,
     "tests": 334,
     "docs": 1046,
     "sdks": 80,
@@ -236,18 +237,28 @@
     "automationEngines": 376,
     "integrations": 346,
     "packageScripts": 634,
-    "duplicateGroups": 1199
+    "duplicateGroups": 1199,
+    "methodologyFamilies": 10,
+    "internalAttestations": 5,
+    "localAccreditationTargets": 8,
+    "internationalAccreditationTargets": 23,
+    "externalCertificatesIssued": 0
   },
   "indicators": {
     "apiEndpoints": 2687,
     "tests": 334,
     "duplicateGroups": 1199,
-    "githubRequired": false
+    "githubRequired": false,
+    "methodologyFamilies": 10,
+    "internalAttestations": 5,
+    "externalCertificatesIssued": 0,
+    "methodologyAccreditationReadinessScore": 100
   },
   "decisions": [
     "Use local-registry and local bundles as the operational source of truth.",
     "Treat duplicate detection as review-only until a human approves consolidation.",
-    "Keep production claims bound to health, tests, and truth-gate evidence."
+    "Keep production claims bound to health, tests, and truth-gate evidence.",
+    "Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance."
   ],
   "knowledge": {
     "identityEngines": {

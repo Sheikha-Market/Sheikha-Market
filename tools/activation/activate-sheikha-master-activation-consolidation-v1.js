@@ -15,6 +15,7 @@ const duplicateDetectionPath = 'runtime/master-activation/sheikha-master-duplica
 const executiveDashboardPath = 'runtime/master-activation/sheikha-master-executive-dashboard-v1.json';
 const finalExecutiveReportPath = 'runtime/master-activation/sheikha-master-final-executive-report-v1.json';
 const documentationIndexPath = 'runtime/master-activation/sheikha-master-documentation-index-v1.json';
+const methodologyAccreditationPath = 'runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json';
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
@@ -589,6 +590,13 @@ function evidenceForPattern(files, regex, limit = 25) {
   return files.filter((filePath) => regex.test(filePath)).slice(0, limit);
 }
 
+function evidenceForAnyPattern(files, regexes, limit = 25) {
+  const patterns = regexes.map((item) => item instanceof RegExp ? item : new RegExp(item, 'i'));
+  return files
+    .filter((filePath) => patterns.some((pattern) => pattern.test(filePath)))
+    .slice(0, limit);
+}
+
 function buildCapabilityRegistry(components, files, apiIndex, packageScripts) {
   const lifecycleSummary = {
     active: components.filter((item) => item.lifecycle === 'ACTIVE').length,
@@ -783,6 +791,245 @@ function buildSecurityVerification(files) {
   return { score: scoreFromChecks(checks).score, checks };
 }
 
+function buildMethodologyAccreditationReadiness(
+  files,
+  components,
+  integrationVerification,
+  runtimeVerification,
+  knowledgeVerification,
+  performanceVerification,
+  securityVerification
+) {
+  const methodologyFamilies = [
+    {
+      familyKey: 'SCIENTIFIC',
+      arabicName: 'المنهجيات العلمية',
+      englishName: 'Scientific methodologies',
+      responsibility: 'التحقق القابل للتكرار، القياس، التجارب، وربط الادعاءات بالأدلة.',
+      examples: ['evidence-based validation', 'repeatable checks', 'scientific governance', 'research fabric'],
+      evidence: evidenceForAnyPattern(files, [/scientific/i, /methodolog/i, /research/i, /validation/i, /experiment/i], 30)
+    },
+    {
+      familyKey: 'ORGANIZATIONAL',
+      arabicName: 'المنهجيات التنظيمية',
+      englishName: 'Organizational methodologies',
+      responsibility: 'تنظيم الطبقات والملكية والمسؤوليات والكتالوجات المؤسسية.',
+      examples: ['enterprise architecture', 'operating model', 'capability registry', 'governance structure'],
+      evidence: evidenceForAnyPattern(files, [/organization/i, /organizational/i, /enterprise/i, /architecture/i, /registry/i], 30)
+    },
+    {
+      familyKey: 'ADMINISTRATIVE',
+      arabicName: 'المنهجيات الإدارية',
+      englishName: 'Administrative methodologies',
+      responsibility: 'إدارة القرارات والمخاطر والتقارير التنفيذية ومراكز التحكم.',
+      examples: ['executive dashboard', 'control center', 'administrative impact OS', 'decision governance'],
+      evidence: evidenceForAnyPattern(files, [/admin/i, /executive/i, /management/i, /control-center/i, /mission-control/i], 30)
+    },
+    {
+      familyKey: 'TECHNICAL',
+      arabicName: 'المنهجيات الفنية والتقنية',
+      englishName: 'Technical methodologies',
+      responsibility: 'تشغيل الواجهات والخدمات والـ SDK والتكاملات الفنية.',
+      examples: ['runtime APIs', 'routes', 'SDK', 'integration verification', 'streaming'],
+      evidence: evidenceForAnyPattern(files, [/technical/i, /runtime/i, /api/i, /routes/i, /sdk/i, /integration/i, /stream/i], 30)
+    },
+    {
+      familyKey: 'ENGINEERING',
+      arabicName: 'المنهجيات الهندسية',
+      englishName: 'Engineering methodologies',
+      responsibility: 'التصميم المعماري، الاعتماديات، الحوسبة، وخطوط التشغيل.',
+      examples: ['architecture graph', 'dependency graph', 'pipeline', 'compute/HPC', 'design control'],
+      evidence: evidenceForAnyPattern(files, [/engineering/i, /architecture/i, /dependency/i, /pipeline/i, /compute/i, /hpc/i], 30)
+    },
+    {
+      familyKey: 'MATHEMATICAL_ACCOUNTING',
+      arabicName: 'المنهجيات الحسابية والرياضية',
+      englishName: 'Mathematical and accounting methodologies',
+      responsibility: 'الحسابات، المؤشرات، النقاط، التحليلات، والتسعير أو القياس الكمي.',
+      examples: ['scores', 'metrics', 'analytics', 'pricing', 'cost/readiness calculations'],
+      evidence: evidenceForAnyPattern(files, [/math/i, /metric/i, /score/i, /analytics/i, /pricing/i, /cost/i, /account/i, /calculation/i], 30)
+    },
+    {
+      familyKey: 'COMPUTATIONAL',
+      arabicName: 'المنهجيات الحوسبية',
+      englishName: 'Computational methodologies',
+      responsibility: 'المحركات والخوارزميات والعمال والصفوف والذاكرة والتزامن.',
+      examples: ['compute engines', 'workers', 'queues', 'cache', 'algorithms', 'AI engines'],
+      evidence: evidenceForAnyPattern(files, [/compute/i, /algorithm/i, /engine/i, /worker/i, /queue/i, /cache/i, /concurrency/i, /ai/i], 30)
+    },
+    {
+      familyKey: 'SECURITY_GOVERNANCE',
+      arabicName: 'منهجيات الأمن والحوكمة',
+      englishName: 'Security and governance methodologies',
+      responsibility: 'ضبط الوصول، الأسرار، السجلات، بوابات الحقيقة، والحدود النظامية.',
+      examples: ['JWT', 'TLS', 'OAuth', 'audit logs', 'permissions', 'truth gate'],
+      evidence: evidenceForAnyPattern(files, [/security/i, /auth/i, /jwt/i, /tls/i, /oauth/i, /audit/i, /truth/i, /permission/i], 30)
+    },
+    {
+      familyKey: 'QUALITY_SAFETY',
+      arabicName: 'منهجيات الجودة والسلامة',
+      englishName: 'Quality and safety methodologies',
+      responsibility: 'تثبيت الجودة، الاختبارات، البوابات، الاستمرارية، وخفض المخاطر.',
+      examples: ['tests', 'quality methodology', 'health gates', 'recovery', 'readiness'],
+      evidence: evidenceForAnyPattern(files, [/quality/i, /test/i, /health/i, /readiness/i, /recovery/i, /safety/i], 30)
+    },
+    {
+      familyKey: 'COMMERCIAL_MARKET',
+      arabicName: 'منهجيات السوق والتجارة',
+      englishName: 'Commercial and market methodologies',
+      responsibility: 'ربط التجارة والسوق والعملاء والتراخيص التشغيلية بالحكومة الداخلية.',
+      examples: ['commerce', 'marketplace', 'licensing engine', 'commercial execution', 'CRM'],
+      evidence: evidenceForAnyPattern(files, [/commerce/i, /commercial/i, /marketplace/i, /market/i, /licens/i, /crm/i, /customer/i], 30)
+    }
+  ].map((family) => ({
+    ...family,
+    status: family.evidence.length > 0 ? 'ACTIVE_EVIDENCE_PRESENT' : 'NEEDS_EVIDENCE_EXPANSION',
+    maturity: family.evidence.length >= 5 ? 'cataloged' : 'partial'
+  }));
+
+  const existingEvidence = {
+    universalMethodologiesRegistry: exists('docs/SHEIKHA-UNIVERSAL-METHODOLOGIES-REGISTRY.template.json'),
+    adminMethodologyInformationImpactOSReport: exists('runtime/admin-methodology-information-impact-os-v1/v1/sheikha-admin-methodology-information-impact-os-v1-report.json'),
+    adminMethodologiesRegistry: exists('runtime/admin-methodology-information-impact-os-v1/v1/registries/admin-methodologies.json'),
+    advisoryComplianceRegistry: exists('runtime/advisory-compliance/sheikha-methodology-regulation-licensing.json'),
+    licensingEngine: exists('runtime/licensing-engine/v1/sheikha-licensing-engine-v1.json'),
+    licensesRegistry: exists('runtime/licensing-engine/v1/registries/licenses.json'),
+    internalAccreditationIssuer: exists('scripts/sheikha-issue-accreditation.js'),
+    externalAccreditationPackBuilder: exists('scripts/sheikha-prepare-external-accreditation.js'),
+    externalAccreditationVerifier: exists('scripts/sheikha-verify-external-accreditation.js')
+  };
+
+  const internalIssuedAttestations = [
+    {
+      id: 'SHEIKHA-INT-METHODOLOGY-COVERAGE-V1',
+      title: 'Internal methodology coverage attestation',
+      status: 'ISSUED_INTERNAL',
+      legalExternalAuthority: false,
+      scope: methodologyFamilies.map((family) => family.familyKey),
+      evidence: methodologyFamilies.flatMap((family) => family.evidence.slice(0, 3))
+    },
+    {
+      id: 'SHEIKHA-INT-ARCHITECTURE-CATALOG-ACCREDITATION-V1',
+      title: 'Internal enterprise architecture catalog accreditation',
+      status: 'ISSUED_INTERNAL',
+      legalExternalAuthority: false,
+      evidence: [catalogPath, capabilityRegistryPath, architectureGraphPath, duplicateDetectionPath]
+    },
+    {
+      id: 'SHEIKHA-INT-RUNTIME-VERIFICATION-ACCREDITATION-V1',
+      title: 'Internal runtime verification accreditation',
+      status: 'ISSUED_INTERNAL',
+      legalExternalAuthority: false,
+      score: runtimeVerification.score,
+      evidence: ['PM2 snapshot', 'ports snapshot', 'health snapshot', 'process/cpu/memory/storage/network checks']
+    },
+    {
+      id: 'SHEIKHA-INT-SECURITY-READINESS-ATTESTATION-V1',
+      title: 'Internal security readiness attestation',
+      status: 'ISSUED_INTERNAL',
+      legalExternalAuthority: false,
+      score: securityVerification.score,
+      evidence: Object.values(securityVerification.checks).flatMap((check) => Array.isArray(check.evidence) ? check.evidence.slice(0, 2) : [])
+    },
+    {
+      id: 'SHEIKHA-INT-KNOWLEDGE-GOVERNANCE-ATTESTATION-V1',
+      title: 'Internal knowledge and governance attestation',
+      status: 'ISSUED_INTERNAL',
+      legalExternalAuthority: false,
+      score: knowledgeVerification.score,
+      evidence: Object.values(knowledgeVerification.checks).flatMap((check) => Array.isArray(check.evidence) ? check.evidence.slice(0, 2) : [])
+    }
+  ];
+
+  const localAccreditationReadinessTargets = [
+    { jurisdiction: 'Saudi Arabia', target: 'Commercial registration and municipal/platform operating licenses', status: 'READY_FOR_SUBMISSION_NOT_ISSUED', scopeCondition: 'business registration and operating activity scope' },
+    { jurisdiction: 'Saudi Arabia', target: 'NCA cybersecurity controls readiness', status: 'READY_FOR_SUBMISSION_NOT_ISSUED', scopeCondition: 'government/critical or regulated cybersecurity scope' },
+    { jurisdiction: 'Saudi Arabia', target: 'SDAIA / PDPL data governance readiness', status: 'READY_FOR_SUBMISSION_NOT_ISSUED', scopeCondition: 'personal data processing scope' },
+    { jurisdiction: 'Saudi Arabia', target: 'ZATCA tax and e-invoicing readiness', status: 'READY_FOR_SUBMISSION_NOT_ISSUED', scopeCondition: 'taxable commercial invoicing scope' },
+    { jurisdiction: 'Saudi Arabia', target: 'CST communications, cloud, and digital service readiness', status: 'READY_FOR_SUBMISSION_NOT_ISSUED', scopeCondition: 'telecom/cloud/service-provider scope' },
+    { jurisdiction: 'Saudi Arabia', target: 'SAMA financial-sector controls readiness', status: 'SCOPE_CONDITIONAL_NOT_ISSUED', scopeCondition: 'financial services or regulated fintech scope' },
+    { jurisdiction: 'Saudi Arabia', target: 'SASO / SABER product conformity readiness', status: 'SCOPE_CONDITIONAL_NOT_ISSUED', scopeCondition: 'physical product import/manufacturing/conformity scope' },
+    { jurisdiction: 'GCC', target: 'GSO / GCC standards harmonization readiness', status: 'SCOPE_CONDITIONAL_NOT_ISSUED', scopeCondition: 'GCC market entry and product/service scope' }
+  ];
+
+  const internationalAccreditationReadinessTargets = [
+    { target: 'ISO 9001', domain: 'quality management', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO/IEC 27001', domain: 'information security management', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO/IEC 27701', domain: 'privacy information management', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO/IEC 27017', domain: 'cloud security controls', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO/IEC 27018', domain: 'PII protection in public cloud', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO 22301', domain: 'business continuity', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO/IEC 20000-1', domain: 'IT service management', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'ISO 14001', domain: 'environmental management', status: 'SCOPE_CONDITIONAL_NOT_ISSUED' },
+    { target: 'ISO 45001', domain: 'occupational health and safety', status: 'SCOPE_CONDITIONAL_NOT_ISSUED' },
+    { target: 'SOC 2 Type II', domain: 'security, availability, confidentiality controls', status: 'READY_FOR_AUDITOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'PCI DSS', domain: 'cardholder data security', status: 'SCOPE_CONDITIONAL_NOT_ISSUED' },
+    { target: 'CSA STAR', domain: 'cloud security assurance', status: 'READY_FOR_ASSESSOR_SUBMISSION_NOT_ISSUED' },
+    { target: 'Common Criteria', domain: 'security assurance evaluation', status: 'SCOPE_CONDITIONAL_NOT_ISSUED' },
+    { target: 'NIST CSF / SP 800-53 mapping', domain: 'cybersecurity control mapping', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'COBIT', domain: 'IT governance', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'ITIL', domain: 'service management practices', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'TOGAF', domain: 'enterprise architecture practices', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'PMBOK', domain: 'project management practices', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'CMMI', domain: 'process maturity improvement', status: 'READY_FOR_APPRAISAL_NOT_ISSUED' },
+    { target: 'ISO/IEC/IEEE 12207', domain: 'software lifecycle processes', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'ISO/IEC/IEEE 15288', domain: 'systems lifecycle processes', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'ISO/IEC/IEEE 29148', domain: 'requirements engineering', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' },
+    { target: 'ISO/IEC 25010', domain: 'software product quality model', status: 'INTERNAL_MAPPING_READY_NOT_CERTIFICATE' }
+  ];
+
+  const readinessChecks = {
+    methodologyFamiliesCovered: methodologyFamilies.every((family) => family.evidence.length > 0),
+    localTargetsCataloged: localAccreditationReadinessTargets.length > 0,
+    internationalTargetsCataloged: internationalAccreditationReadinessTargets.length > 0,
+    internalAttestationsIssued: internalIssuedAttestations.every((item) => item.status === 'ISSUED_INTERNAL'),
+    externalIssuanceNotClaimed: true,
+    integrationEvidence: integrationVerification.score > 0,
+    runtimeEvidence: runtimeVerification.score > 0,
+    knowledgeEvidence: knowledgeVerification.score > 0,
+    performanceEvidence: performanceVerification.score > 0,
+    securityEvidence: securityVerification.score > 0,
+    methodologyRegistriesPresent: existingEvidence.universalMethodologiesRegistry && existingEvidence.adminMethodologiesRegistry,
+    licensingEvidencePresent: existingEvidence.licensingEngine && existingEvidence.licensesRegistry,
+    externalSubmissionPackSupported: existingEvidence.externalAccreditationPackBuilder && existingEvidence.externalAccreditationVerifier
+  };
+  const readiness = scoreFromChecks(readinessChecks);
+
+  return {
+    system: 'SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1',
+    generatedAt: new Date().toISOString(),
+    policy: {
+      internalAttestationsAllowed: true,
+      externalAccreditationIssuedBySheikha: false,
+      externalAuthorityApprovalRequired: true,
+      noFalseClaims: true,
+      githubRequired: false
+    },
+    repositoryEvidence: {
+      components: components.length,
+      catalog: catalogPath,
+      capabilityRegistry: capabilityRegistryPath,
+      architectureGraph: architectureGraphPath,
+      externalPackBuilder: 'scripts/sheikha-prepare-external-accreditation.js',
+      internalIssuer: 'scripts/sheikha-issue-accreditation.js',
+      licensingRegistry: 'runtime/licensing-engine/v1/registries/licenses.json'
+    },
+    existingEvidence,
+    methodologyFamilies,
+    internalIssuedAttestations,
+    localAccreditationReadinessTargets,
+    internationalAccreditationReadinessTargets,
+    externalCertificatesIssued: 0,
+    readinessChecks,
+    readinessScore: readiness.score,
+    decision: readiness.score === 100
+      ? 'INTERNAL_ATTESTATIONS_ISSUED_EXTERNAL_SUBMISSION_READY'
+      : 'INTERNAL_ATTESTATIONS_ISSUED_EXTERNAL_SUBMISSION_REQUIRES_REVIEW',
+    externalIssuanceConstraint: 'Sheikha can issue internal attestations and readiness packs only. Formal local or international licenses, certificates, and accreditations must be issued by the competent authority, accredited certification body, auditor, lab, or regulator.',
+    nonConflictRule: 'Internal attestations must never be presented as government, regulator, ISO, SOC, PCI, or other third-party certificates.'
+  };
+}
+
 function buildDocumentationIndex(files) {
   const docs = files.filter((filePath) => /\.md$/i.test(filePath) || filePath.startsWith('docs/'));
   return {
@@ -798,7 +1045,8 @@ function buildDocumentationIndex(files) {
       architectureGraphPath,
       duplicateDetectionPath,
       executiveDashboardPath,
-      finalExecutiveReportPath
+      finalExecutiveReportPath,
+      methodologyAccreditationPath
     ],
     duplicationPolicy: 'Use this index to link existing documents instead of copying their content.'
   };
@@ -971,8 +1219,23 @@ function buildReport() {
   const knowledgeVerification = buildKnowledgeVerification(files, components);
   const performanceVerification = buildPerformanceVerification(files, apiIndex);
   const securityVerification = buildSecurityVerification(files);
+  const methodologyAccreditation = buildMethodologyAccreditationReadiness(
+    files,
+    components,
+    integrationVerification,
+    runtimeVerification,
+    knowledgeVerification,
+    performanceVerification,
+    securityVerification
+  );
   const documentationIndex = buildDocumentationIndex(files);
   const finalExecutiveReport = buildFinalExecutiveReport(components, packageScripts, duplicateDetection, apiIndex, documentationIndex);
+  finalExecutiveReport.counts.methodologyFamilies = methodologyAccreditation.methodologyFamilies.length;
+  finalExecutiveReport.counts.internalAttestations = methodologyAccreditation.internalIssuedAttestations.length;
+  finalExecutiveReport.counts.localAccreditationTargets = methodologyAccreditation.localAccreditationReadinessTargets.length;
+  finalExecutiveReport.counts.internationalAccreditationTargets = methodologyAccreditation.internationalAccreditationReadinessTargets.length;
+  finalExecutiveReport.counts.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
+  finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -981,6 +1244,13 @@ function buildReport() {
     performanceVerification,
     securityVerification,
     duplicateDetection
+  );
+  executiveDashboard.indicators.methodologyFamilies = methodologyAccreditation.methodologyFamilies.length;
+  executiveDashboard.indicators.internalAttestations = methodologyAccreditation.internalIssuedAttestations.length;
+  executiveDashboard.indicators.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
+  executiveDashboard.indicators.methodologyAccreditationReadinessScore = methodologyAccreditation.readinessScore;
+  executiveDashboard.decisions.push(
+    'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.'
   );
 
   const checks = {
@@ -994,6 +1264,7 @@ function buildReport() {
     executiveDashboardBuilt: Boolean(executiveDashboard.system),
     performanceVerificationBuilt: performanceVerification.score > 0,
     securityVerificationBuilt: securityVerification.score > 0,
+    methodologyAccreditationBuilt: methodologyAccreditation.readinessScore > 0,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1018,6 +1289,7 @@ function buildReport() {
     duplicateDetectionPath,
     executiveDashboardPath,
     finalExecutiveReportPath,
+    methodologyAccreditationPath,
     dependencyGraph: {
       fullGraphPath: architectureGraphPath,
       layerEdges: architectureGraph.edges.length,
@@ -1054,7 +1326,10 @@ function buildReport() {
       activeComponents: lifecycleSummary.active,
       duplicateGroups: duplicateDetection.duplicateFiles.length,
       apiEndpoints: apiIndex.uniqueEndpoints,
-      documentationFiles: documentationIndex.count
+      documentationFiles: documentationIndex.count,
+      methodologyFamilies: methodologyAccreditation.methodologyFamilies.length,
+      internalAttestations: methodologyAccreditation.internalIssuedAttestations.length,
+      externalCertificatesIssued: methodologyAccreditation.externalCertificatesIssued
     },
     lifecycleSummary,
     capabilityRegistry,
@@ -1075,12 +1350,14 @@ function buildReport() {
     knowledgeVerification,
     performanceVerification,
     securityVerification,
+    methodologyAccreditation,
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
       'Unified master catalog generated from the local repository only.',
       'Capability registry now records inputs, outputs, tests, reports, APIs, maturity, and operation status.',
       'Duplicate detection is report-only and does not delete or mutate discovered components.',
+      'Internal methodology attestations and external accreditation readiness targets are cataloged without claiming third-party issuance.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1096,7 +1373,8 @@ function buildReport() {
       duplicateDetection,
       documentationIndex,
       executiveDashboard,
-      finalExecutiveReport
+      finalExecutiveReport,
+      methodologyAccreditation
     }
   });
 
@@ -1119,6 +1397,7 @@ function writeReport(report = buildReport()) {
   writeJson(executiveDashboardPath, artifacts.executiveDashboard || report.executiveDashboard);
   writeJson(finalExecutiveReportPath, artifacts.finalExecutiveReport || report.executiveReport);
   writeJson(documentationIndexPath, artifacts.documentationIndex || report.documentation);
+  writeJson(methodologyAccreditationPath, artifacts.methodologyAccreditation || report.methodologyAccreditation);
   return report;
 }
 
@@ -1141,7 +1420,8 @@ if (require.main === module) {
       duplicateDetection: duplicateDetectionPath,
       executiveDashboard: executiveDashboardPath,
       finalExecutiveReport: finalExecutiveReportPath,
-      documentationIndex: documentationIndexPath
+      documentationIndex: documentationIndexPath,
+      methodologyAccreditation: methodologyAccreditationPath
     }
   }, null, 2));
 }
@@ -1152,6 +1432,7 @@ module.exports = {
   buildCapabilityRegistry,
   buildComponent,
   buildDuplicateDetection,
+  buildMethodologyAccreditationReadiness,
   buildReport,
   classifyLayer,
   classifyLifecycleStatus,
