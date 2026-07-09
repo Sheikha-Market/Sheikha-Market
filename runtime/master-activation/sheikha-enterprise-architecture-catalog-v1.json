@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-09T22:34:28.052Z",
+  "generatedAt": "2026-07-09T22:42:27.700Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -1427,7 +1427,7 @@
     },
     {
       "root": "docs",
-      "files": 674,
+      "files": 675,
       "classification": "repository-artifact"
     },
     {
@@ -2142,7 +2142,7 @@
     },
     {
       "root": "runtime",
-      "files": 1934,
+      "files": 1935,
       "classification": "repository-artifact"
     },
     {
@@ -2962,7 +2962,7 @@
     },
     {
       "root": "tests",
-      "files": 327,
+      "files": 328,
       "classification": "repository-artifact"
     },
     {
@@ -2972,7 +2972,7 @@
     },
     {
       "root": "tools",
-      "files": 384,
+      "files": 385,
       "classification": "repository-artifact"
     },
     {
@@ -3279,7 +3279,7 @@
       "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
     },
     "Documentation": {
-      "components": 3088,
+      "components": 3091,
       "dependencies": [
         "Knowledge",
         "Registry"
@@ -3395,7 +3395,7 @@
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     "Runtime": {
-      "components": 1236,
+      "components": 1237,
       "dependencies": [
         "OS",
         "Cloud"
@@ -3452,14 +3452,16 @@
   "sovereignKernelBootHandbookPath": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
   "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
   "universalTechnologyHpcFabricHandbookPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
+  "technologyFamilyTreePath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
+  "technologyFamilyTreeHandbookPath": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 14834
+    "componentEdges": 14842
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-    "duplicateFiles": 1201,
+    "duplicateFiles": 1202,
     "duplicateServices": 28,
     "duplicateApis": 147,
     "duplicateRegistries": 67,
@@ -3471,11 +3473,11 @@
     "layers": 25,
     "apis": 2687,
     "services": 0,
-    "tests": 337,
-    "docs": 1048,
+    "tests": 338,
+    "docs": 1049,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1236,
+    "runtimeEngines": 1237,
     "identityEngines": 94,
     "governanceEngines": 519,
     "knowledgeEngines": 201,
@@ -3487,16 +3489,19 @@
     "securityEngines": 81,
     "dashboards": 71,
     "pipelines": 57,
-    "automationEngines": 378,
+    "automationEngines": 379,
     "integrations": 346,
-    "packageScripts": 636,
-    "duplicateGroups": 1201,
+    "packageScripts": 637,
+    "duplicateGroups": 1202,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
     "internationalAccreditationTargets": 23,
     "externalCertificatesIssued": 0,
     "universalTechnologyFamilies": 13,
-    "universalTechnologyHpcScore": 100
+    "universalTechnologyHpcScore": 100,
+    "technologyFamilyTreeNodes": 8,
+    "technologyFamilyGardenTrees": 6,
+    "technologyFamilyTreeScore": 100
   }
 }
