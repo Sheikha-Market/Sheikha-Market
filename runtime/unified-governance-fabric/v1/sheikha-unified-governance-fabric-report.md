@@ -4,8 +4,8 @@
 - النظام: SHEIKHA_UNIFIED_GOVERNANCE_FABRIC_V1
 - الحالة: ACTIVE
 - القرار: READY_FOR_GOVERNED_OPERATION
-- الفرع: feature/hub-v1
-- HEAD: 6095dc81
+- الفرع: main
+- HEAD: 9d1df521
 
 ## الفحوص
 - OK quranSunnahGovernance

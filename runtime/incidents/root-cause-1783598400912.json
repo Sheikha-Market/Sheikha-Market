@@ -1,0 +1,15 @@
+{
+  "system": "SHEIKHA_ROOT_CAUSE_ENGINE_V1",
+  "status": "ACTIVE",
+  "generatedAt": "2026-07-09T12:00:00.911Z",
+  "incident": {
+    "name": "CONFIGURATION_REGRESSION_PREVENTION",
+    "rootCause": "Replace settings file instead of merge",
+    "impact": "Removed required workspace contract keys",
+    "prevention": [
+      "validate required settings before commit",
+      "merge configuration changes instead of overwriting",
+      "run sheikha-settings-validator before promotion"
+    ]
+  }
+}

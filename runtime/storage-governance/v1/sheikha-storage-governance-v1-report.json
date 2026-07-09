@@ -5,12 +5,12 @@
   "filesystem": {
     "targetPath": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
     "totalBytes": 997445378048,
-    "usedBytes": 950359683072,
-    "freeBytes": 47085694976,
-    "usedPercent": 95.28,
-    "severity": "CRITICAL"
+    "usedBytes": 597174521856,
+    "freeBytes": 400270856192,
+    "usedPercent": 59.87,
+    "severity": "NORMAL"
   },
-  "decision": "IMMEDIATE_HUMAN_STORAGE_REVIEW_REQUIRED",
+  "decision": "STORAGE_WITHIN_POLICY",
   "integratesWith": [
     "SHEIKHA_MASTER_LOG_CENTER_V1",
     "SHEIKHA_CIVILIZATION_COMMAND_INTELLIGENCE_PLANE_V1",
@@ -41,38 +41,38 @@
       "tracked": false
     },
     {
+      "path": "backups",
+      "sizeBytes": 27910615040,
+      "kind": "directory",
+      "tracked": true
+    },
+    {
       "path": "reports",
-      "sizeBytes": 2789076992,
+      "sizeBytes": 3068268544,
       "kind": "directory",
       "tracked": false
     },
     {
       "path": "node_modules",
-      "sizeBytes": 449011712,
+      "sizeBytes": 461467648,
+      "kind": "directory",
+      "tracked": false
+    },
+    {
+      "path": "logs",
+      "sizeBytes": 245600256,
       "kind": "directory",
       "tracked": false
     },
     {
       "path": "data",
-      "sizeBytes": 212402176,
-      "kind": "directory",
-      "tracked": true
-    },
-    {
-      "path": "logs",
-      "sizeBytes": 211550208,
-      "kind": "directory",
-      "tracked": false
-    },
-    {
-      "path": "backups",
-      "sizeBytes": 133836800,
+      "sizeBytes": 213594112,
       "kind": "directory",
       "tracked": true
     },
     {
       "path": "runtime",
-      "sizeBytes": 55308288,
+      "sizeBytes": 67342336,
       "kind": "directory",
       "tracked": true
     },
@@ -100,6 +100,14 @@
         "tracked": false,
         "protected": false,
         "decision": "EXTERNAL_ARCHIVE_REVIEW_REQUIRED"
+      },
+      {
+        "path": "backups",
+        "sizeBytes": 27910615040,
+        "kind": "directory",
+        "tracked": true,
+        "protected": false,
+        "decision": "EXTERNAL_ARCHIVE_REVIEW_REQUIRED"
       }
     ],
     "steps": [
@@ -119,5 +127,5 @@
     ],
     "decision": "STORAGE_REMEDIATION_REVIEW_REQUIRED"
   },
-  "generatedAt": "2026-06-15T03:20:57.231Z"
+  "generatedAt": "2026-07-09T11:57:25.993Z"
 }
