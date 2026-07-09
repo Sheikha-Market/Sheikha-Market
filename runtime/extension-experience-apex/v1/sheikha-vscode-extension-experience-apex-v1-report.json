@@ -18,11 +18,21 @@
     "bounded-agentic-planning",
     "role-scoped-multi-agent-coordination",
     "sdk-fabric-mcp-integration",
-    "layer-governance-visibility"
+    "layer-governance-visibility",
+    "vital-chat-apex-binding",
+    "debugging-apex-binding",
+    "chat-interface-apex-template",
+    "ide-apex-programming-development-routing",
+    "technical-capability-apex-binding"
   ],
   "surfaces": {
     "conversation": "/api/sheikha/conversation-engine/v1/chat",
     "inspector": "/api/sheikha/enterprise-inspector/v3/status",
+    "vitalChatApex": "/api/sheikha/vital-chat-apex/v1/status",
+    "debuggingApex": "/api/sheikha/debugging-apex/v1/status",
+    "chatInterfaceApex": "/api/sheikha/chat-interface-apex/v1/status",
+    "ideApex": "/api/sheikha/ide-apex/v1/status",
+    "technicalCapabilityApex": "/api/sheikha/technical-capability-apex/v1/status",
     "layerGovernance": "/api/sheikha/layer-governance/v1/status",
     "enterpriseManagement": "/api/sheikha/enterprise-management-os/status"
   },
@@ -38,6 +48,6 @@
   },
   "score": 100,
   "decision": "VSCODE_EXTENSION_EXPERIENCE_APEX_V1_ACTIVE_100",
-  "extensionVersion": "1.0.82",
-  "generatedAt": "2026-06-15T16:40:29.076Z"
+  "extensionVersion": "1.0.89",
+  "generatedAt": "2026-07-09T11:57:26.954Z"
 }
