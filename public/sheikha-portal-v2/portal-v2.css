@@ -7,8 +7,16 @@ main{padding:36px}
 .hero h1{font-size:clamp(34px,6vw,76px);line-height:1.14;margin:0;max-width:1150px}
 .tags{display:flex;gap:12px;flex-wrap:wrap;margin-top:28px}
 .tags span{border:1px solid rgba(255,255,255,.2);background:rgba(255,255,255,.1);border-radius:999px;padding:10px 16px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap;margin-top:24px}
+.btn{display:inline-flex;align-items:center;justify-content:center;border-radius:14px;padding:12px 18px;text-decoration:none;font-weight:700;transition:transform .18s ease,box-shadow .18s ease}
+.btn:hover{transform:translateY(-1px)}
+.btn-primary{background:var(--gold);color:#1f1805;box-shadow:0 10px 26px rgba(216,179,90,.3)}
+.btn-ghost{background:rgba(255,255,255,.13);color:#fff;border:1px solid rgba(255,255,255,.35)}
 .grid{display:grid;grid-template-columns:repeat(3,1fr);gap:22px;margin-top:28px}
 article{background:white;border:1px solid rgba(216,179,90,.25);border-radius:28px;padding:28px;box-shadow:0 20px 60px rgba(6,47,36,.08)}
 article h2{color:var(--g);margin-top:0}
 article p{color:var(--muted);line-height:1.8}
+.portal-card{display:flex;flex-direction:column;gap:14px}
+.card-link{display:inline-flex;align-items:center;justify-content:center;align-self:flex-start;background:#e9f4ef;color:var(--g);text-decoration:none;padding:10px 14px;border-radius:12px;font-weight:700;border:1px solid rgba(6,47,36,.15)}
+.card-link:hover{background:#d8ece4}
 @media(max-width:900px){main{padding:18px}.grid{grid-template-columns:1fr}}
