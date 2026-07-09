@@ -1,17 +1,76 @@
 {
   "system": "SHEIKHA_OS_CLOUD_SUPERCOMPUTER_INTEGRATION_V1",
   "status": "PASSED",
-  "generatedAt": "2026-07-09T13:45:10.302Z",
+  "generatedAt": "2026-07-09T13:48:24.121Z",
   "score": 100,
-  "passed": 6,
-  "total": 6,
+  "passed": 7,
+  "total": 7,
   "checks": {
     "contractPresent": true,
     "identityReportPresent": true,
     "productionTruthGatePresent": true,
     "communityReportPresent": true,
+    "liveComputeBenchmarkPresent": true,
     "packagePresent": true,
     "serverPresent": true
+  },
+  "evidence": {
+    "communityReportPaths": [
+      "runtime/community/sheikha-community-modeling-report.json",
+      "runtime/community/sheikha-community-modeling-monitor-v1-report.json",
+      "runtime/community-modeling/sheikha-community-modeling-monitor-v1.json",
+      "runtime/community-modeling/sheikha-community-modeling-ignite-v1-report.json",
+      "runtime/community/sheikha-community-modeling-ignite-v1-report.json",
+      "runtime/community-modeling/latest.json",
+      "runtime/community/latest.json"
+    ],
+    "benchmarkReportPath": "runtime/os-cloud-supercomputer/sheikha-live-compute-benchmark-v1-report.json",
+    "liveComputeBenchmark": {
+      "system": "SHEIKHA_LIVE_COMPUTE_BENCHMARK_V1",
+      "status": "PASSED",
+      "mode": "LOCAL_LIVE_COMPUTE_MEASUREMENT",
+      "generatedAt": "2026-07-09T13:48:24.006Z",
+      "truthfulness": {
+        "measuredLocally": true,
+        "noPhysicalSupercomputerOwnershipClaim": true,
+        "productionClaimStillBoundToTruthGate": true
+      },
+      "machine": {
+        "platform": "linux",
+        "arch": "x64",
+        "cpus": 22,
+        "totalMemoryGB": 62,
+        "freeMemoryGB": 34.37,
+        "loadAverage": [
+          4.19,
+          4.08,
+          3.18
+        ]
+      },
+      "benchmark": {
+        "cpu": {
+          "iterations": 3000000,
+          "durationMs": 10.263,
+          "checksum": 957768691,
+          "jobsPerSecond": 292306749.43
+        },
+        "io": {
+          "payloadBytes": 1048576,
+          "writeMs": 0.334,
+          "readMs": 0.365,
+          "roundTripBytes": 1048576
+        },
+        "memory": {
+          "rssBefore": 42393600,
+          "rssAfter": 50819072,
+          "heapUsedBefore": 3756160,
+          "heapUsedAfter": 3793392,
+          "rssDelta": 8425472,
+          "heapUsedDelta": 37232
+        }
+      },
+      "decision": "LIVE_COMPUTE_BENCHMARK_RECORDED_UNDER_GOVERNED_TRUTH_GATE"
+    }
   },
   "contract": {
     "system": "SHEIKHA_OS_CLOUD_SUPERCOMPUTER_INTEGRATION_V1",
@@ -46,6 +105,7 @@
       "main_portal_online",
       "identity_v2_health_ok",
       "community_modeling_active",
+      "live_compute_benchmark_recorded",
       "architecture_registry_tests_pass",
       "lint_pass",
       "health_endpoint_200",
@@ -58,7 +118,7 @@
       "production_ready_without_truth_gate",
       "all_integrated_without_health_checks"
     ],
-    "decision": "OS_CLOUD_SUPERCOMPUTER_INTEGRATION_ACTIVE_PENDING_LIVE_BENCHMARKS"
+    "decision": "OS_CLOUD_SUPERCOMPUTER_INTEGRATION_ACTIVE_WITH_MEASURED_BENCHMARK_UNDER_TRUTH_GATE"
   },
-  "recommendation": "Run live health endpoints, compute benchmark, cloud deployment check, and commit as integration gate."
+  "recommendation": "Live compute benchmark is recorded. Keep production claims governed by the truth gate and measured evidence."
 }
