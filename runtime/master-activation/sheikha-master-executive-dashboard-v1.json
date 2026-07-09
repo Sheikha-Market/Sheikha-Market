@@ -1,0 +1,454 @@
+{
+  "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
+  "generatedAt": "2026-07-09T21:25:18.414Z",
+  "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
+  "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
+  "goals": [
+    "تفعيل فعال مبني على الموجود فعليًا",
+    "عدم الاعتماد على GitHub في التشغيل المحلي",
+    "كشف التعارضات قبل أي توسع",
+    "ربط المعرفة والهوية والمجتمع والتجارة والحوكمة"
+  ],
+  "status": {
+    "integrationScore": 100,
+    "runtimeScore": 100,
+    "knowledgeScore": 100,
+    "performanceScore": 100,
+    "securityScore": 100
+  },
+  "risks": [
+    "duplicate-components-require-review"
+  ],
+  "performance": {
+    "cpu": {
+      "ok": true,
+      "evidence": {
+        "cpuCount": 22,
+        "loadAverage": [
+          4.61,
+          4.58,
+          3.96
+        ]
+      }
+    },
+    "memory": {
+      "ok": true,
+      "evidence": {
+        "totalMemoryBytes": 66875752448,
+        "freeMemoryBytes": 42346385408,
+        "processMemory": {
+          "rss": 226557952,
+          "heapTotal": 56184832,
+          "heapUsed": 33779936,
+          "external": 18768570,
+          "arrayBuffers": 14823529
+        }
+      }
+    },
+    "disk": {
+      "ok": true,
+      "evidence": {
+        "totalKb": 974067752,
+        "usedKb": 537146180,
+        "availableKb": 387367960,
+        "usagePercent": "59%",
+        "mount": "/"
+      }
+    },
+    "api": {
+      "ok": true,
+      "evidence": {
+        "uniqueEndpoints": 2687,
+        "health": {
+          "endpoint": "http://127.0.0.1:8080/api/health",
+          "ok": true,
+          "statusCode": "200",
+          "latencyMs": 2
+        }
+      }
+    },
+    "latency": {
+      "ok": true,
+      "evidence": {
+        "healthLatencyMs": 2
+      }
+    },
+    "cache": {
+      "ok": true,
+      "evidence": [
+        "lib/database/redis/redis-connection-manager.js",
+        "middleware/cdn-cache.js",
+        "routes/data-fabric/redis/status.routes.js"
+      ]
+    },
+    "database": {
+      "ok": true,
+      "evidence": [
+        "config/database.js",
+        "database/migrations/2026_05_19_add_google_integration_to_users_table.php",
+        "database/migrations/2026_05_19_create_google_ecosystem_tables.php",
+        "docs/database-knowledge-engine/SHEIKHA-DATABASE-KNOWLEDGE-ENGINE-V1.md",
+        "docs/registry/database/SHEIKHA-SQLSERVER-FABRIC.md",
+        "js/sheikha-database.js",
+        "lib/database/mongodb/mongodb-connection-manager.js",
+        "lib/database/postgresql/postgresql-connection-manager.js",
+        "lib/database/redis/redis-connection-manager.js",
+        "lib/database/sqlserver/sqlserver-audit-logger.js",
+        "lib/database/sqlserver/sqlserver-connection-manager.js",
+        "lib/database/sqlserver/sqlserver-query-gateway.js",
+        "routes/data-fabric/mongodb/status.routes.js",
+        "routes/data-fabric/postgresql/status.routes.js",
+        "routes/database/sqlserver-query.routes.js",
+        "routes/database/sqlserver.routes.js",
+        "runtime/data-fabric/postgresql/sheikha-postgresql-runtime-core.json",
+        "runtime/database-knowledge-engine/v1/registries/content-governance-registry.json",
+        "runtime/database-knowledge-engine/v1/registries/database-schema-registry.json",
+        "runtime/database-knowledge-engine/v1/sheikha-database-knowledge-engine-v1-report.json",
+        "runtime/database-knowledge-engine/v1/sheikha-database-knowledge-engine-v1-report.md",
+        "runtime/database-knowledge-engine/v1/sheikha-database-knowledge-engine-v1.json",
+        "runtime/database/sqlserver/sheikha-sqlserver-fabric.json",
+        "runtime/neural-cluster/engines/postgresql/runtime-core.js",
+        "runtime/neural-cluster/engines/postgresql/runtime-core.json"
+      ]
+    },
+    "queue": {
+      "ok": true,
+      "evidence": [
+        "core/comms/sheikha-dbus.js",
+        "core/enterprise-event-bus/sheikha-enterprise-event-bus-v1.js",
+        "core/kernel/bus/sheikha-runtime-bus-fabric.js",
+        "core/kernel/bus/sheikha-runtime-bus.js",
+        "core/kernel/bus/sheikha-unified-runtime-bus-v2.js",
+        "core/kernel/runtime-bus/sheikha-unified-runtime-bus.js",
+        "core/language/sheikha-arabic/runtime/events/arabic-runtime-event-bus.js",
+        "core/product-knowledge/product-event-bus.js",
+        "core/runtime/bus/sheikha-mcp-toolsets-registry.js",
+        "core/runtime/bus/sheikha-runtime-bus.js",
+        "core/runtime/command-bus/sheikha-runtime-command-bus.js",
+        "core/runtime/event-router/sheikha-runtime-event-router.js",
+        "core/runtime/event-store/sheikha-runtime-event-store.js",
+        "core/runtime/events/sheikha-event-fabric.js",
+        "dist/sheikha-app/opt/sheikha/core/comms/sheikha-dbus.js",
+        "docs/operations/SHEIKHA-ENTERPRISE-EVENT-BUS-V1.md",
+        "events/core/status.json",
+        "public/marketing/business-card-v4.html",
+        "public/marketing/business-card.html",
+        "routes/bus/fabric.js",
+        "routes/bus/runtime-bus.js",
+        "routes/governance/unified-governance-bus/status.routes.js",
+        "routes/protocol-events.routes.js",
+        "runtime/bus/1779852893211-governance.json",
+        "runtime/events/1779848007892-kernel-sync.json"
+      ]
+    },
+    "workers": {
+      "ok": true,
+      "evidence": [
+        "activate-sheikha-industrial-material-lifecycle-fabric-v1.sh",
+        "activate-sheikha-master-life-cycle-v1.sh",
+        "activate-sheikha-material-circular-lifecycle-v55.sh",
+        "core/enterprise-lifecycle-v21/sheikha-enterprise-lifecycle-v21.js",
+        "core/pm2-fabric/sheikha-pm2-fabric-v1.js",
+        "core/product-knowledge/product-lifecycle-engine.js",
+        "core/runtime/lifecycle-engine/sheikha-runtime-lifecycle-engine.js",
+        "docs/enterprise-lifecycle/SHEIKHA-ENTERPRISE-LIFECYCLE-V21.md",
+        "docs/governed-intelligence-execution-loop/SHEIKHA-GOVERNED-INTELLIGENCE-EXECUTION-LOOP-V1.md",
+        "docs/industrial-material-lifecycle-fabric/SHEIKHA-INDUSTRIAL-MATERIAL-LIFECYCLE-FABRIC-V1.md",
+        "docs/master-life-cycle/SHEIKHA-MASTER-LIFE-CYCLE-V1.md",
+        "docs/project-lifecycle-os-v1/SHEIKHA-PROJECT-LIFECYCLE-OS-V1.md",
+        "docs/registry/automation/SHEIKHA-AUTONOMOUS-GOVERNANCE-LOOP.md",
+        "infrastructure/sheikha-human-bio-medical-computing-core/lifecycle/human-lifecycle-framework.json",
+        "infrastructure/sheikha-neural-production-engine/training-loop/infinite-training-loop.json",
+        "knowledge/generative-lifecycle/sheikha-generative-lifecycle.json",
+        "routes/governed-intelligence-execution-loop/status.routes.js",
+        "routes/industrial-material-lifecycle-fabric/sheikha-industrial-material-lifecycle-fabric-routes.js",
+        "routes/master-life-cycle-routes.js",
+        "runtime/agi-asi-research-fabric/v1/registries/scientific-development-cycle.json",
+        "runtime/agi-asi-research-science-fabric/v1/registries/scientific-method-cycle-registry.json",
+        "runtime/devops-ai-lab-fabric/v1/registries/issue-to-impact-loop-registry.json",
+        "runtime/engine-lifecycle/sheikha-engine-lifecycle-manager.json",
+        "runtime/enterprise-lifecycle-v21/sheikha-enterprise-lifecycle-v21-report.json",
+        "runtime/gap-closure-engine/v1/registries/gap-closure-cycle.json"
+      ]
+    },
+    "streaming": {
+      "ok": true,
+      "evidence": [
+        "DISTRIBUTED-ASSESSMENT.md",
+        "FINAL-DELIVERABLES-CHECKLIST.md",
+        "GO-LIVE-READINESS-2026-03-31.txt",
+        "activate-sheikha-extension-real-sse-binding-l51-v1.sh",
+        "activate-sheikha-live-chat-v1.sh",
+        "activate-sheikha-live-realtime-fabric-l40-l45-v1.sh",
+        "activate-sheikha-real-model-live-stream-l50-v1.sh",
+        "activate-sheikha-remove-live-placeholders-final-v1.sh",
+        "activate-sheikha-server-live-8080-v1.sh",
+        "app/Services/GoogleAnalyticsService.php",
+        "app/Services/GoogleMapsService.php",
+        "core/kernel/supercompute/sheikha-supercompute-delivery-report.js",
+        "deploy/nginx/sheikha-split-upstreams.conf",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-live-ai-network.js",
+        "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
+        "docs/extension-streaming-artifact-apex/SHEIKHA-EXTENSION-STREAMING-ARTIFACT-APEX-V1.md",
+        "docs/live-realtime-fabric/SHEIKHA-LIVE-REALTIME-FABRIC-L40-L45-V1.md",
+        "docs/streaming-chat-apex/SHEIKHA-STREAMING-MULTILINGUAL-CHAT-APEX-V1.md",
+        "fix-sheikha-streaming-apex-test-v1.sh",
+        "lib/sheikha-live-ai-network.js",
+        "public/SHEIKHA-LIVE-EVALUATION-v2.html",
+        "public/assets/brand/brand-tokens.json",
+        "public/assets/design-system/sheikha-enterprise.css",
+        "public/assets/market-real/aluminum/cover.png",
+        "public/assets/market-real/copper/cover.png"
+      ]
+    },
+    "concurrency": {
+      "ok": true,
+      "evidence": {
+        "cpuCount": 22
+      }
+    }
+  },
+  "markets": 438,
+  "projects": 433,
+  "customers": 73,
+  "capabilities": {
+    "systems": 433,
+    "engines": 792,
+    "layers": 25,
+    "apis": 2687,
+    "services": 8,
+    "tests": 334,
+    "docs": 1046,
+    "sdks": 80,
+    "registries": 365,
+    "runtimeEngines": 1235,
+    "identityEngines": 94,
+    "governanceEngines": 519,
+    "knowledgeEngines": 201,
+    "communityEngines": 18,
+    "commerceEngines": 73,
+    "enterpriseEngines": 184,
+    "aiEngines": 384,
+    "monitoringEngines": 43,
+    "securityEngines": 81,
+    "dashboards": 71,
+    "pipelines": 57,
+    "automationEngines": 376,
+    "integrations": 346,
+    "packageScripts": 634,
+    "duplicateGroups": 1199
+  },
+  "indicators": {
+    "apiEndpoints": 2687,
+    "tests": 334,
+    "duplicateGroups": 1199,
+    "githubRequired": false
+  },
+  "decisions": [
+    "Use local-registry and local bundles as the operational source of truth.",
+    "Treat duplicate detection as review-only until a human approves consolidation.",
+    "Keep production claims bound to health, tests, and truth-gate evidence."
+  ],
+  "knowledge": {
+    "identityEngines": {
+      "ok": true,
+      "evidence": [
+        "IDENTITY-REVIEW.md",
+        "SHEIKHA-IDENTITY-DESIGN-SYSTEM-v1.md",
+        "config/sheikha-saudi-identity-vision.json",
+        "core/formation-engine/sheikha-formation-engine-v1.js",
+        "core/identity/sheikha-civilizational-identity-v1.js",
+        "core/integration/sheikha-git-platform-identity.js",
+        "core/language/sheikha-arabic/runtime/semantic/semantic-identity-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-digital-identity-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-global-ai-identity-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-identity-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-mis-management-information-system.js",
+        "docs/admin-methodology-information-impact-os-v1/SHEIKHA-ADMIN-METHODOLOGY-INFORMATION-IMPACT-OS-V1.md",
+        "docs/ecosystem/SHEIKHA-UNIFIED-IDENTITY-SYSTEM.md",
+        "docs/identity-fabric-v1/SHEIKHA-IDENTITY-FABRIC-V1.md",
+        "docs/identity/SHEIKHA-CIVILIZATIONAL-IDENTITY-V1.md",
+        "docs/identity/SHEIKHA-FORMATION-ENGINE-V1.md",
+        "docs/integrations/SHEIKHA-GIT-GITHUB-GITLAB-ENTERPRISE-IDENTITY.md",
+        "docs/product-knowledge/PRODUCT_KNOWLEDGE_UI_IDENTITY_PLAN.md",
+        "docs/registry/identity/SHEIKHA-IDENTITY-GOVERNANCE.md",
+        "docs/registry/identity/SHEIKHA-PUBLIC-IDENTITY-MAP.md",
+        "docs/root/SHEIKHA-ROOT-IDENTITY.md",
+        "governance/identity/sheikha-enterprise-identity.json",
+        "governance/identity/sheikha-identity.json",
+        "lib/runtime-identity/sheikha-runtime-identity.js",
+        "lib/sheikha-digital-identity-engine.js"
+      ]
+    },
+    "formationEngines": {
+      "ok": true,
+      "evidence": [
+        "core/formation-engine/sheikha-formation-engine-v1.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-mis-management-information-system.js",
+        "docs/admin-methodology-information-impact-os-v1/SHEIKHA-ADMIN-METHODOLOGY-INFORMATION-IMPACT-OS-V1.md",
+        "docs/identity/SHEIKHA-FORMATION-ENGINE-V1.md",
+        "lib/sheikha-mis-management-information-system.js",
+        "runtime/admin-methodology-information-impact-os-v1/v1/registries/admin-forms.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/registries/admin-methodologies.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/registries/admin-procedures.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/registries/information-flow-map.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/registries/information-impact-value-map.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/registries/os-bindings.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/sheikha-admin-methodology-information-impact-os-v1-report.json",
+        "runtime/admin-methodology-information-impact-os-v1/v1/sheikha-admin-methodology-information-impact-os-v1-report.md",
+        "runtime/admin-methodology-information-impact-os-v1/v1/sheikha-admin-methodology-information-impact-os-v1.json",
+        "runtime/formation-engine/sheikha-formation-engine-v1-report.json",
+        "runtime/sheikha-materials/entity-formation/sheikha-material-entity-formation-fabric.js",
+        "tests/admin-methodology-information-impact-os-v1.test.js",
+        "tests/sheikha-formation-engine-v1.test.js",
+        "tests/sheikha-material-entity-formation-fabric-v1.test.js",
+        "tools/activate-sheikha-admin-methodology-information-impact-os-v1.sh",
+        "tools/activation/activate-sheikha-formation-engine-v1.js",
+        "tools/admin-methodology-information-impact-os-v1/sheikha-admin-methodology-information-impact-os-v1.js"
+      ]
+    },
+    "knowledgeGraph": {
+      "ok": true,
+      "evidence": [
+        "activate-sheikha-knowledge-graph-engine-v63.sh",
+        "activate-sheikha-unified-scientific-knowledge-graph-v68.sh",
+        "app/Services/GoogleCloudStorageService.php",
+        "config/sheikha-generative-rag-core.json",
+        "core/kernel/storage/reports/storage-health.js",
+        "core/kernel/storage/sheikha-storage-governor.js",
+        "core/knowledge/sheikha-universal-knowledge-graph.json",
+        "core/root/knowledge-graph/root-civilization-graph.js",
+        "core/runtime/storage-manager/sheikha-runtime-storage-manager.js",
+        "core/universal-knowledge-graph/sheikha-universal-knowledge-graph-v9.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-rag-engine.js",
+        "docs/knowledge-graph-engine-v1/SHEIKHA-KNOWLEDGE-GRAPH-ENGINE-V1.md",
+        "docs/knowledge-graph-engine/SHEIKHA-KNOWLEDGE-GRAPH-ENGINE-V63.md",
+        "docs/storage-governance/SHEIKHA-STORAGE-GOVERNANCE-V1.md",
+        "docs/storage/STORAGE-STATUS-2026-06.md",
+        "docs/unified-rag-engine/SHEIKHA-UNIFIED-RAG-ENGINE-V1.md",
+        "docs/unified-scientific-knowledge-graph/SHEIKHA-UNIFIED-SCIENTIFIC-KNOWLEDGE-GRAPH-V68.md",
+        "docs/vector-knowledge-store-v2/SHEIKHA-VECTOR-KNOWLEDGE-STORE-V2.md",
+        "docs/vector-knowledge-store/SHEIKHA-VECTOR-KNOWLEDGE-STORE-V1.md",
+        "infrastructure/sheikha-generative-rag-core/generative-rag-core-spec.json",
+        "infrastructure/sheikha-generative-rag-core/governance/generative-rag-governance.json",
+        "infrastructure/sheikha-generative-rag-core/innovation/smart-model-blueprint.json",
+        "infrastructure/sheikha-generative-rag-core/integration/computing-rag-integration.json",
+        "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json",
+        "infrastructure/sheikha-generative-rag-core/models/model-router.json"
+      ]
+    },
+    "community": {
+      "ok": true,
+      "evidence": [
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-community-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-digital-community-ecosystem.js",
+        "docs/registry/community/SHEIKHA-COMMUNITY-FABRIC.md",
+        "lib/sheikha-community-engine.js",
+        "lib/sheikha-digital-community-ecosystem.js",
+        "public/riyadh-aljannah-community/community.css",
+        "public/riyadh-aljannah-community/index.html",
+        "runtime/community-modeling/latest.json",
+        "runtime/community-modeling/sheikha-community-modeling-monitor-v1.json",
+        "runtime/community/sheikha-community-fabric.json",
+        "runtime/community/sheikha-community-modeling-report.json",
+        "runtime/platform-operating-engines/v1/registries/community-engine.json",
+        "runtime/specialized-social-innovation/v1/registries/community-taxonomy.json",
+        "scripts/sheikha-community-modeling-ignite.js",
+        "scripts/sheikha-community-modeling-loop.js",
+        "scripts/sheikha-community-modeling-loop.sh",
+        "scripts/sheikha-community-modeling-monitor.js",
+        "tools/community/sheikha-community-status.js"
+      ]
+    },
+    "commerce": {
+      "ok": true,
+      "evidence": [
+        "core/commercial-launch-validation/sheikha-commercial-launch-validation-v1.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-digital-commerce-network-engine.js",
+        "docs/commercial-execution-cluster/SHEIKHA-COMMERCIAL-EXECUTION-CLUSTER-V1.md",
+        "docs/commercial-execution/SHEIKHA-COMMERCIAL-EXECUTION-LAYER-V1.md",
+        "docs/commercial-launch-validation/SHEIKHA-COMMERCIAL-LAUNCH-VALIDATION-V1.md",
+        "docs/commercial-product-layer/SHEIKHA-COMMERCIAL-PRODUCT-LAYER-V1.md",
+        "docs/commercial-real-activation/SHEIKHA-COMMERCIAL-REAL-ACTIVATION-V1.md",
+        "docs/commercial/SHEIKHA-CONTROLLED-COMMERCIAL-START-V1.md",
+        "docs/crm-sales-pipeline-v2/CRM_SALES_PIPELINE_V2.md",
+        "docs/executive-commercial-os/SHEIKHA-EXECUTIVE-COMMERCIAL-OS-V1.md",
+        "docs/operations/SHEIKHA-COMMERCIAL-FLOW-VERIFICATION-V1.md",
+        "docs/operations/SHEIKHA-CONTROLLED-COMMERCIAL-START-V1.md",
+        "docs/sovereign-commercial-ai-supercluster/SHEIKHA-SOVEREIGN-COMMERCIAL-AI-SUPERCLUSTER-V1.md",
+        "infrastructure/sheikha-cloud/commerce/commerce-engine.json",
+        "lib/sheikha-digital-commerce-network-engine.js",
+        "release/SHEIKHA-COMMERCIAL-LAUNCH-EVIDENCE-V1.json",
+        "routes/advisory-commercial/status.routes.js",
+        "routes/commercial-product-layer/status.routes.js",
+        "routes/commercial-real-activation/status.routes.js",
+        "routes/crm-sales-pipeline-v2/status.routes.js",
+        "routes/sovereign-commercial-ai-supercluster/status.routes.js",
+        "runtime/advisory-commercial/sheikha-advisory-commercial-layer.json",
+        "runtime/commercial-execution-cluster/v1/sheikha-commercial-execution-cluster-v1-report.json",
+        "runtime/commercial-execution-cluster/v1/sheikha-commercial-execution-cluster-v1-report.md",
+        "runtime/commercial-execution-cluster/v1/sheikha-commercial-execution-cluster-v1.json"
+      ]
+    },
+    "market": {
+      "ok": true,
+      "evidence": [
+        "ACTIVATION-MARKETING-INTELLIGENCE.md",
+        "SHEIKHA-MARKET-OPERATIONS.md",
+        "build/sheikha-php-neural/market.ast.json",
+        "build/sheikha-php-neural/market.bytecode.json",
+        "build/sheikha-php-neural/market.generated.php",
+        "build/sheikha-php-neural/market.ir.json",
+        "build/sheikha-php-neural/market.run.json",
+        "build/sheikha-php-neural/market.trace.json",
+        "build/sheikha-php-neural/market.types.json",
+        "config/sheikha-open-markets-core.json",
+        "core/engines/sheikha-market-neural.js",
+        "core/ports/marketplace-router.js",
+        "dist/sheikha-app/opt/sheikha/core/engines/sheikha-market-neural.js",
+        "dist/sheikha-app/opt/sheikha/core/ports/marketplace-router.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-cosmic-marketing-supremacy-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-digital-market-ecosystem.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-global-markets-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-ide-marketplace-system.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-market-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-market-launch-commerce-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-market-structure-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-marketing-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-metals-market-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-metals-scrap-markets-engine.js",
+        "dist/sheikha-app/opt/sheikha/lib/sheikha-smart-market-engine.js"
+      ]
+    },
+    "governance": {
+      "ok": true,
+      "evidence": [
+        ".github/workflows/governance-admission.yml",
+        "FINAL-GOVERNANCE-SUMMARY.md",
+        "GOVERNANCE-ACTIVATION-COMPLETE.md",
+        "PRODUCTION-GOVERNANCE-FRAMEWORK.md",
+        "RUNTIME-GOVERNANCE-LAYER.md",
+        "SHEIKHA-ISLAMIC-GOVERNANCE-FRAMEWORK.md",
+        "activate-sheikha-ai-notes-governance-autofix-v1.sh",
+        "activate-sheikha-sharia-governance-fabric-v1.sh",
+        "activate-sheikha-supreme-governance-intelligence-fabric-v1.sh",
+        "archive/activation-scripts/activate-sheikha-data-governance.sh",
+        "archive/activation-scripts/activate-sheikha-environment-governance.sh",
+        "archive/activation-scripts/activate-sheikha-final-governance-gates.sh",
+        "archive/activation-scripts/activate-sheikha-gitignore-governance.sh",
+        "archive/activation-scripts/activate-sheikha-runtime-governance-practical.sh",
+        "archive/activation-scripts/activate-sheikha-topology-governance.sh",
+        "config/sheikha-consent-communication-governance-core.json",
+        "config/sheikha-foundation-governance.json",
+        "config/sheikha-saudi-agreements-governance.json",
+        "core/enterprise/recovery-health-governance/sheikha-recovery-health-governance.js",
+        "core/kernel/governance/README.md",
+        "core/kernel/governance/index.js",
+        "core/product-knowledge/product-governance-orchestrator.js",
+        "core/product-knowledge/product-governance-pipeline.js",
+        "core/product-knowledge/product-governance-rules.js",
+        "core/product-knowledge/product-policy-registry.js"
+      ]
+    }
+  }
+}

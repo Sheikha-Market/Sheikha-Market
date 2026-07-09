@@ -90,5 +90,28 @@ v1.0 تأسيس ✅ | v1.5 تجريبي 🔄 | v1.6 AL/ML 🔄 | v2.0 تجاري
 
 ---
 
+## 9️⃣ كتالوج التفعيل المعماري المركزي
+
+مرجع التفعيل التشغيلي الحالي لا يعتمد على GitHub، ويُبنى من فهرسة المستودع المحلي عبر:
+
+```
+npm run -s ops:master-activation:consolidation:v1
+```
+
+المخرجات الموحدة:
+
+- `runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json`
+- `runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json`
+- `runtime/master-activation/sheikha-master-capability-registry-v1.json`
+- `runtime/master-activation/sheikha-master-architecture-graph-v1.json`
+- `runtime/master-activation/sheikha-master-duplicate-detection-v1.json`
+- `runtime/master-activation/sheikha-master-executive-dashboard-v1.json`
+- `runtime/master-activation/sheikha-master-final-executive-report-v1.json`
+- `runtime/master-activation/sheikha-master-documentation-index-v1.json`
+
+قاعدة هذه المرحلة: لا حذف، ولا ادعاء جاهزية إنتاجية بلا دليل، ولا اعتماد على GitHub؛ المصدر التشغيلي المحلي هو `local-registry` وملفات الأدلة داخل `runtime/master-activation`.
+
+---
+
 **الختم:** بسم الله توكلنا على الله — لا حول ولا قوة إلا بالله
 **المالك:** سلمان أحمد بن سلمان الراجح — منظومة وسوق شيخة – SHEIKHA
