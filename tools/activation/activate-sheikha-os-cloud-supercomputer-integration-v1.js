@@ -17,6 +17,8 @@ const checks = {
   identityReportPresent: exists('runtime/identity/sheikha-active-identity-v2-report.json'),
   productionTruthGatePresent: exists('runtime/production-truth-gate/sheikha-production-truth-gate-v4.json'),
   communityReportPresent:
+    exists('runtime/community/sheikha-community-modeling-report.json') ||
+    exists('runtime/community/sheikha-community-modeling-monitor-v1-report.json') ||
     exists('runtime/community-modeling/sheikha-community-modeling-ignite-v1-report.json') ||
     exists('runtime/community/sheikha-community-modeling-ignite-v1-report.json'),
   packagePresent: exists('package.json'),
