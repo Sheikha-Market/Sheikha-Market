@@ -86,8 +86,23 @@ function buildReport() {
     status: score.score === 100 ? 'ACTIVE_WITH_SOVEREIGN_BOOT_CATALOG' : 'ACTIVE_WITH_REVIEW',
     score: score.score,
     checks,
+    rootCovenant: {
+      foundation: 'TAWHID_OF_ALLAH',
+      foundationArabic: 'أساس شيخة هو التوحيد لله وحده.',
+      highestLayer: 'HAKIMIYYAH_QURAN_SUNNAH_GOVERNANCE',
+      highestLayerArabic: 'أعلى طبقة حاكمة: الحكم لله، والمرجع الكتاب والسنة الصحيحة.',
+      noLayerAboveGovernance: true,
+      noHostSystemAsFoundation: true,
+      noLinuxNodeAsFoundation: true,
+      sheikhaLanguageNativeFoundation: true,
+      allLowerLayersWrittenAsIslamicContracts: true,
+      aiEmbeddedUnderGovernance: true,
+      statement: 'شيخة تُعرّف كنظام أصلي من الصفر؛ لغة شيخة هي عقد البرمجة الأول، وما دون طبقة الحاكمية يُكتب بعقود وربط منضبط بالكتاب والسنة.'
+    },
     governanceKernel: {
       reference: {
+        tawhidFoundation: true,
+        hukmBelongsToAllah: true,
         quran: true,
         authenticSunnah: true,
         noDivineAuthorityClaim: true,
@@ -113,8 +128,10 @@ function buildReport() {
     sheikhaLanguagePrimacy: {
       status: languageContract.status === 'ACTIVE' ? 'ACTIVE_AS_FOUNDATIONAL_PROGRAMMING_CONTRACT' : 'NEEDS_LANGUAGE_CONTRACT_REVIEW',
       mandatoryForNewSystems: true,
+      nativeSystemLanguage: true,
+      linuxNodeNotFoundation: true,
       mode: languageContract.mode || 'ARABIC_DSL_GOVERNED_PROGRAMMING_INTEGRATION',
-      principle: 'كل نظام جديد داخل شيخة يبدأ بعقد لغة شيخة: مواصفة، حوكمة، workflow، عقد، تنفيذ، ثم ترجمة آمنة عند الحاجة.',
+      principle: 'كل نظام داخل شيخة يبدأ بعقد لغة شيخة: توحيد الجذر، حاكمية الكتاب والسنة، مواصفة، عقد، ربط، تنفيذ، ثم ترجمة آمنة للأدوات المؤقتة عند الحاجة.',
       layers: languageContract.languageLayers || [],
       integrationTargets: languageContract.integrationTargets || [],
       blockedClaims: languageContract.blockedClaims || [],
@@ -126,14 +143,20 @@ function buildReport() {
       ].filter(exists)
     },
     fromScratchBoundary: {
+      constitutionalFoundingFromScratch: true,
       applicationKernelBuiltFromSheikhaContracts: true,
       higherBusinessLogicSystemRequired: false,
-      hostBootstrapRequiredToday: true,
-      hostBootstrapSubstrate: ['Linux or compatible OS', 'Node.js runtime', 'PM2 optional process manager'],
+      hostSystemFoundationAllowed: false,
+      linuxNodeFoundationAllowed: false,
+      nativeNoHostArchitectureTarget: true,
+      currentRepositoryToolingRunsOnHost: true,
+      currentRepositoryToolingIsFoundation: false,
+      currentRepositoryToolingBoundary: 'Node/Linux يظهران كأدوات بناء وفحص داخل المستودع الحالي فقط، وليسا أصل شيخة ولا الطبقة الحاكمة ولا نظامها الأصلي.',
+      nativeBootImageVerifiedToday: false,
       bareMetalFullyIndependentToday: false,
       bareMetalSeedPresent: checks.bareMetalSeed,
-      truthPolicy: 'لا يتم ادعاء نظام bare-metal مستقل كامل حتى توجد اختبارات إقلاع وملفات صورة وتشغيل على عتاد/VM موثقة.',
-      roadmapTarget: 'Sheikha-first boot chain where Sheikha Language contracts generate runtime services, recovery, stores, and governance before external adapters.'
+      truthPolicy: 'التأسيس المعماري من الصفر ثابت في العقد الحاكم، أما ادعاء تشغيل bare-metal بلا مضيف فيحتاج صورة إقلاع واختبارات VM/عتاد موثقة.',
+      roadmapTarget: 'Sheikha-native boot chain where Sheikha Language contracts generate kernel, governance, services, recovery, stores, and AI adapters before any external tooling.'
     },
     frontendAndStores: {
       status: checks.websiteFrontendRoutes ? 'READY_FOR_LOCAL_FRONTEND_SMOKE' : 'ROUTES_REQUIRE_REVIEW',
@@ -149,13 +172,19 @@ function buildReport() {
       ]
     },
     laptopBootReadiness: {
-      status: checks.laptopBootScript ? 'READY_FOR_HOSTED_LAPTOP_BOOT' : 'BOOT_SCRIPT_MISSING',
-      hostRequirements: {
+      status: checks.laptopBootScript ? 'READY_FOR_BUILDER_ASSISTED_LAPTOP_BOOT' : 'BOOT_SCRIPT_MISSING',
+      nativeTarget: {
+        noHostSystemFoundation: true,
+        sheikhaLanguageBootContracts: true,
+        target: 'Sheikha-native laptop boot image'
+      },
+      builderToolingRequirements: {
         node: packageJson.engines?.node || '^20.0.0',
         pm2: packageJson.engines?.pm2 || 'optional',
         memory: '8GB minimum, 16GB+ recommended',
         storage: 'SSD recommended',
-        network: 'optional for local-only mode; required for external integrations'
+        network: 'optional for local-only mode; required for external integrations',
+        note: 'هذه متطلبات أدوات البناء الحالية، وليست أساس النظام الأصلي.'
       },
       commands: [
         'npm install',
@@ -184,18 +213,18 @@ function buildReport() {
       ]
     },
     roadmap: [
-      { phase: 1, name: 'Hosted Sovereign Kernel', status: 'ACTIVE', output: 'Node/Linux hosted Sheikha kernel with Islamic AI governance and language contract.' },
-      { phase: 2, name: 'Sheikha Language First Runtime', status: 'ACTIVE_CONTRACT_NEEDS_MORE_COMPILER_COVERAGE', output: 'All new systems start from .shk/spec contracts and compile/adapt downward.' },
-      { phase: 3, name: 'Frontend and Store Surface Activation', status: 'READY_FOR_LOCAL_SMOKE', output: 'Website, marketplace, stores APIs, package surfaces, and apps verified locally.' },
-      { phase: 4, name: 'Portable Laptop Boot Pack', status: 'READY_FOR_HOSTED_BOOT_PACKAGING', output: 'One-command local laptop boot with recovery handbook.' },
-      { phase: 5, name: 'Bare-Metal/VM Boot Chain', status: 'SEED_PRESENT_NOT_CLAIMED_COMPLETE', output: 'Minimal boot.asm/kernel.c evolves into tested VM image.' },
-      { phase: 6, name: 'Full Sheikha-Native System', status: 'ROADMAP', output: 'Sheikha Language controls boot, services, stores, recovery, governance, and AI adapters.' }
+      { phase: 1, name: 'Tawhid Root Covenant', status: 'ACTIVE', output: 'Foundation: التوحيد لله، highest governance layer: الحكم لله والكتاب والسنة.' },
+      { phase: 2, name: 'Sheikha Native Language Foundation', status: 'ACTIVE_CONTRACT_NEEDS_MORE_COMPILER_COVERAGE', output: 'All systems start from Sheikha Language contracts and Islamic governance bindings.' },
+      { phase: 3, name: 'Governed AI Kernel', status: 'ACTIVE', output: 'AI is embedded under governance as a controlled support layer.' },
+      { phase: 4, name: 'Frontend Store Package Surfaces', status: 'READY_FOR_LOCAL_SMOKE', output: 'Website, marketplace, stores APIs, package surfaces, and apps verified locally.' },
+      { phase: 5, name: 'Sheikha-Native Laptop Boot Image', status: 'SEED_PRESENT_NOT_CLAIMED_COMPLETE', output: 'Minimal boot.asm/kernel.c evolves into tested Sheikha-native VM/laptop image.' },
+      { phase: 6, name: 'Full No-Host Sheikha System', status: 'ROADMAP', output: 'Sheikha Language controls boot, services, stores, recovery, governance, and AI adapters without Linux/Node as foundation.' }
     ],
     outputs: {
       report: reportPath,
       handbook: handbookPath
     },
-    principle: 'النواة مدمجة بالحوكمة الإسلامية والذكاء الصناعي، ولغة شيخة هي عقد البرمجة الأساسي؛ لا ادعاء لاستقلال bare-metal كامل قبل دليله.'
+    principle: 'أساس شيخة التوحيد لله؛ أعلى طبقة الحكم لله بالكتاب والسنة؛ لغة شيخة هي أصل البرمجة؛ Linux/Node ليست أساسًا ولا طبقة حاكمة، بل أدوات بناء مؤقتة حتى يكتمل إقلاع شيخة الأصلي.'
   };
 
   return report;
@@ -213,6 +242,14 @@ function buildHandbook(report) {
     `Status: ${report.status}`,
     `Score: ${report.score}`,
     '',
+    '## Tawhid Root Covenant',
+    '',
+    '- أساس شيخة هو التوحيد لله وحده.',
+    '- أعلى طبقة حاكمة: الحكم لله، والمرجع الكتاب والسنة الصحيحة.',
+    '- لا توجد طبقة فوق الحاكمية.',
+    '- Linux و Node ليستا أساس شيخة ولا طبقة تشغيل حاكمة؛ إن ظهرتا في المستودع فهما أدوات بناء وفحص مؤقتة.',
+    '- لغة شيخة هي عقد البرمجة الأول للنظام الأصلي.',
+    '',
     '## Kernel Covenant',
     '',
     '- المرجعية القيمية: الكتاب والسنة الصحيحة.',
@@ -221,9 +258,11 @@ function buildHandbook(report) {
     '',
     '## Sheikha Language First',
     '',
-    'كل نظام جديد يبدأ من عقد لغة شيخة: مواصفة، حوكمة، workflow، عقد، تنفيذ، ثم ترجمة آمنة عند الحاجة.',
+    'كل نظام داخل شيخة يبدأ من عقد لغة شيخة: توحيد الجذر، حاكمية الكتاب والسنة، مواصفة، عقد، ربط، تنفيذ، ثم ترجمة آمنة للأدوات المؤقتة عند الحاجة.',
     '',
-    '## Hosted Laptop Boot',
+    '## Sheikha Native Boot Target',
+    '',
+    'الهدف الأصلي هو صورة إقلاع شيخة native/no-host. أوامر المستودع التالية هي أوامر بناء وفحص مؤقتة وليست أساس النظام:',
     '',
     '```bash',
     'npm install',
@@ -254,7 +293,7 @@ function buildHandbook(report) {
     '',
     '## Truth Boundary',
     '',
-    'تشغيل شيخة الحالي هو hosted sovereign kernel فوق مضيف محلي. لا يُدّعى استقلال bare-metal كامل حتى تكتمل اختبارات صورة إقلاع موثقة.',
+    'التأسيس المعماري من الصفر ثابت في العقد الحاكم. أما ادعاء تشغيل bare-metal بلا مضيف فلا يُعلن إلا بعد وجود صورة إقلاع واختبارات VM/عتاد موثقة.',
     ''
   ].join('\n');
 }
@@ -276,6 +315,8 @@ if (require.main === module) {
     frontend: report.frontendAndStores.status,
     laptopBoot: report.laptopBootReadiness.status,
     recovery: report.recoveryPlaybook.status,
+    noHostSystemAsFoundation: report.rootCovenant.noHostSystemAsFoundation,
+    noLinuxNodeAsFoundation: report.rootCovenant.noLinuxNodeAsFoundation,
     bareMetalFullyIndependentToday: report.fromScratchBoundary.bareMetalFullyIndependentToday,
     outputs: report.outputs,
     host: {
