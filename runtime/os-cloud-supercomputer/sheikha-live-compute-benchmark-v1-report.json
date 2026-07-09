@@ -2,7 +2,7 @@
   "system": "SHEIKHA_LIVE_COMPUTE_BENCHMARK_V1",
   "status": "PASSED",
   "mode": "LOCAL_LIVE_COMPUTE_MEASUREMENT",
-  "generatedAt": "2026-07-09T13:51:41.128Z",
+  "generatedAt": "2026-07-09T20:49:11.130Z",
   "truthfulness": {
     "measuredLocally": true,
     "noPhysicalSupercomputerOwnershipClaim": true,
@@ -13,32 +13,32 @@
     "arch": "x64",
     "cpus": 22,
     "totalMemoryGB": 62,
-    "freeMemoryGB": 34.55,
+    "freeMemoryGB": 38.88,
     "loadAverage": [
-      4.79,
-      4.44,
-      3.49
+      3.93,
+      3.21,
+      2.4
     ]
   },
   "benchmark": {
     "cpu": {
       "iterations": 3000000,
-      "durationMs": 15.458,
+      "durationMs": 9.601,
       "checksum": 957768691,
-      "jobsPerSecond": 194070624.89
+      "jobsPerSecond": 312467516.4
     },
     "io": {
       "payloadBytes": 1048576,
-      "writeMs": 0.447,
-      "readMs": 0.411,
+      "writeMs": 0.323,
+      "readMs": 0.361,
       "roundTripBytes": 1048576
     },
     "memory": {
-      "rssBefore": 42192896,
-      "rssAfter": 50614272,
+      "rssBefore": 42434560,
+      "rssAfter": 51007488,
       "heapUsedBefore": 3756160,
       "heapUsedAfter": 3793392,
-      "rssDelta": 8421376,
+      "rssDelta": 8572928,
       "heapUsedDelta": 37232
     }
   },
