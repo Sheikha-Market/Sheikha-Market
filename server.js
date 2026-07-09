@@ -3944,7 +3944,7 @@ app.get('/product/pilot', (req, res) => {
 
 // SHEIKHA PRODUCT EXPERIENCE P1 - HOME OVERRIDE
 app.get('/', (req, res) => {
-  res.sendFile(require('path').join(__dirname, 'public', 'product-experience', 'p1', 'index.html'));
+    res.redirect('/executive-civilization-control-center/index.html');
 });
 
 

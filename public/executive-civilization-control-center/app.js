@@ -46,6 +46,12 @@ const governance = [
 
 let enterpriseIntegrationReport = null;
 let liveComputeBenchmarkReport = null;
+let dashboardInsights = {
+  market: [],
+  ai: [],
+  knowledge: [],
+  alerts: []
+};
 
 async function fetchJson(url) {
   try {
@@ -199,6 +205,87 @@ async function refreshLiveOperationalData() {
     ['Ops Throughput', `total=${operationsTotal} | essential=${essentialOps}`]
   );
 
+  const enterpriseLayers = enterpriseIntegration?.layers || {};
+  const marketCoverage = Math.max(typeCount, 1) * Math.max(toolCount, 1);
+  const benchmarkCpu = liveBenchmark?.benchmark?.cpu;
+  const unifiedBenchmark = enterpriseIntegration?.unifiedBenchmark || {};
+  const nonReadyLayers = Object.values(enterpriseLayers).filter((layer) => layer.status !== 'READY');
+
+  dashboardInsights = {
+    market: [
+      {
+        title: 'Market Flow',
+        value: `${Math.round(kpiByKey.marketFlow)} مؤشر`,
+        detail: `تغطية المجتمع ${typeCount} نوع + ${toolCount} أداة`
+      },
+      {
+        title: 'Supply Readiness',
+        value: `${kpiByKey.sufficiency}%`,
+        detail: formationReady ? 'سلسلة الإمداد مهيأة' : 'تحتاج رفع التشكيل'
+      },
+      {
+        title: 'Market Coverage',
+        value: `${marketCoverage}`,
+        detail: 'ناتج أنواع المجتمع مضروبة في الأدوات الرقمية'
+      }
+    ],
+    ai: [
+      {
+        title: 'AI Compute',
+        value: benchmarkCpu?.jobsPerSecond ? `${Math.round(benchmarkCpu.jobsPerSecond).toLocaleString('en-US')}` : '--',
+        detail: 'Jobs/sec من benchmark الحي'
+      },
+      {
+        title: 'API Latency',
+        value: unifiedBenchmark.latencyHealthEndpointMs ? `${unifiedBenchmark.latencyHealthEndpointMs} ms` : '--',
+        detail: 'زمن استجابة health endpoint'
+      },
+      {
+        title: 'Supercomputer Gate',
+        value: enterpriseLayers.supercomputer?.score ? `${enterpriseLayers.supercomputer.score}%` : '--',
+        detail: enterpriseLayers.supercomputer?.status || 'UNKNOWN'
+      }
+    ],
+    knowledge: [
+      {
+        title: 'Knowledge Score',
+        value: enterpriseLayers.architecture?.score ? `${enterpriseLayers.architecture.score}%` : '--',
+        detail: 'بنية ومعمارية ومعرفة تنفيذية'
+      },
+      {
+        title: 'Dependency Graph',
+        value: enterpriseIntegration?.dependencyResolver ? `${Object.keys(enterpriseIntegration.dependencyResolver).length} عقد` : '--',
+        detail: 'اعتماديات قابلة للتحقق'
+      },
+      {
+        title: 'Truth Gate',
+        value: truthGate?.status || 'UNKNOWN',
+        detail: `Score ${truthScore || 0}`
+      }
+    ],
+    alerts: nonReadyLayers.length
+      ? nonReadyLayers.map((layer) => ({
+          title: layer.name,
+          value: layer.status,
+          detail: `Score ${layer.score}%`,
+          level: layer.score >= 60 ? 'medium' : 'high'
+        }))
+      : [
+          {
+            title: 'All Layers Ready',
+            value: 'READY',
+            detail: 'لا توجد طبقات متدهورة حالياً',
+            level: 'low'
+          },
+          {
+            title: 'Production',
+            value: enterpriseIntegration?.status || 'UNKNOWN',
+            detail: `Overall ${enterpriseIntegration?.overallScore || 0}%`,
+            level: 'low'
+          }
+        ]
+  };
+
   renderKpis();
   renderRisks();
   renderDevelopment();
@@ -206,6 +293,7 @@ async function refreshLiveOperationalData() {
   renderEnterpriseLayers();
   renderBenchmark();
   renderDependencyGraph();
+  renderInsights();
   refreshTimestamp();
 
   if (health?.timestamp) {
@@ -291,6 +379,31 @@ function renderDependencyGraph() {
     .join('');
 }
 
+function renderInsightColumn(elementId, cards, isAlerts = false) {
+  const root = document.getElementById(elementId);
+  if (!cards?.length) {
+    root.innerHTML = '<article class="insight-card"><strong>لا توجد بيانات</strong><small>سيتم التحديث عند توفر القياس.</small></article>';
+    return;
+  }
+
+  root.innerHTML = cards
+    .map((card) => `
+      <article class="insight-card ${isAlerts ? `alert-${card.level || 'low'}` : ''}">
+        <strong>${card.title}</strong>
+        <span>${card.value}</span>
+        <small>${card.detail}</small>
+      </article>
+    `)
+    .join('');
+}
+
+function renderInsights() {
+  renderInsightColumn('marketGrid', dashboardInsights.market);
+  renderInsightColumn('aiGrid', dashboardInsights.ai);
+  renderInsightColumn('knowledgeGrid', dashboardInsights.knowledge);
+  renderInsightColumn('alertsGrid', dashboardInsights.alerts, true);
+}
+
 function renderKpis() {
   const grid = document.getElementById("kpiGrid");
   grid.innerHTML = "";
@@ -363,6 +476,7 @@ renderGovernance();
 renderEnterpriseLayers();
 renderBenchmark();
 renderDependencyGraph();
+renderInsights();
 refreshTimestamp();
 refreshLiveHealth();
 refreshLiveOperationalData();
