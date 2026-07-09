@@ -1,4 +1,3 @@
-/* eslint-env jest */
 'use strict';
 
 describe('Arabic Number System', () => {
