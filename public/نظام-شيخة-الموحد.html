@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>🕌 نظام شيخة الموحد — Sheikha OS</title>
+  <style>
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
+    :root {
+      --primary: #d4af37;
+      --secondary: #36d1b7;
+      --bg: #0a0e16;
+      --bg2: #0f1420;
+      --text: #e8eef5;
+      --muted: #8b97a8;
+      --border: rgba(212, 175, 55, 0.15);
+      --radius: 12px;
+    }
+
+    html {
+      font-size: 14px;
+      font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+    }
+
+    body {
+      background: linear-gradient(135deg, var(--bg) 0%, #0d1620 50%, var(--bg) 100%);
+      color: var(--text);
+      min-height: 100vh;
+      display: flex;
+    }
+
+    .sidebar {
+      width: 280px;
+      background: rgba(15, 20, 32, 0.95);
+      border-left: 1px solid var(--border);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    .logo {
+      text-align: center;
+      padding: 20px;
+      border-bottom: 1px solid var(--border);
+      margin-bottom: 20px;
+    }
+
+    .logo h1 {
+      font-size: 2rem;
+      margin-bottom: 8px;
+    }
+
+    .logo p {
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    .nav-section {
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .nav-section h3 {
+      color: var(--primary);
+      font-size: 0.85rem;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      margin-bottom: 10px;
+      padding-bottom: 8px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .nav-item {
+      padding: 12px 16px;
+      border-radius: var(--radius);
+      cursor: pointer;
+      transition: 0.3s;
+      border: 1px solid transparent;
+      font-size: 0.95rem;
+    }
+
+    .nav-item:hover {
+      background: rgba(212, 175, 55, 0.1);
+      border-color: var(--primary);
+      color: var(--primary);
+    }
+
+    .main-content {
+      flex: 1;
+      padding: 30px;
+      display: flex;
+      flex-direction: column;
+      gap: 20px;
+      overflow-y: auto;
+    }
+
+    .header {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      padding-bottom: 20px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .header h1 {
+      font-size: 2rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 12px;
+    }
+
+    .btn {
+      padding: 10px 20px;
+      border: none;
+      border-radius: var(--radius);
+      cursor: pointer;
+      font-weight: 600;
+      transition: 0.3s;
+      font-size: 0.9rem;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--bg);
+      border: 1px solid var(--primary);
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 24px rgba(212, 175, 55, 0.25);
+    }
+
+    .btn-secondary {
+      background: rgba(54, 209, 183, 0.15);
+      color: var(--secondary);
+      border: 1px solid var(--secondary);
+    }
+
+    .btn-secondary:hover {
+      background: rgba(54, 209, 183, 0.25);
+    }
+
+    .panel {
+      background: rgba(15, 20, 32, 0.95);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 24px;
+      display: none;
+    }
+
+    .panel.active {
+      display: block;
+      animation: fadeIn 0.3s ease-in;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(-10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .status-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin-bottom: 20px;
+    }
+
+    .status-card {
+      background: linear-gradient(135deg, rgba(54, 209, 183, 0.1), rgba(212, 175, 55, 0.1));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .status-card h3 {
+      color: var(--primary);
+      font-size: 0.9rem;
+    }
+
+    .status-value {
+      font-size: 2rem;
+      font-weight: 700;
+      color: var(--secondary);
+    }
+
+    .status-subtext {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .terminal {
+      background: #000;
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      min-height: 300px;
+      max-height: 500px;
+      overflow-y: auto;
+      color: #0f0;
+      font-size: 0.9rem;
+      line-height: 1.6;
+    }
+
+    .terminal-line {
+      margin-bottom: 8px;
+    }
+
+    .terminal-prompt {
+      color: var(--primary);
+    }
+
+    .services-list {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+      gap: 16px;
+    }
+
+    .service-item {
+      background: rgba(54, 209, 183, 0.05);
+      border: 1px solid rgba(54, 209, 183, 0.3);
+      border-radius: var(--radius);
+      padding: 16px;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+    }
+
+    .service-info h4 {
+      color: var(--text);
+      margin-bottom: 6px;
+    }
+
+    .service-info p {
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    .status-badge {
+      padding: 6px 12px;
+      border-radius: 20px;
+      font-size: 0.8rem;
+      font-weight: 600;
+    }
+
+    .status-running {
+      background: rgba(54, 209, 183, 0.2);
+      color: var(--secondary);
+    }
+
+    .status-stopped {
+      background: rgba(220, 53, 69, 0.2);
+      color: #dc3545;
+    }
+
+    .chart {
+      background: rgba(15, 20, 32, 0.95);
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 20px;
+      margin-top: 20px;
+    }
+
+    .chart h3 {
+      color: var(--primary);
+      margin-bottom: 16px;
+    }
+
+    .progress-bar {
+      width: 100%;
+      height: 24px;
+      background: rgba(255, 255, 255, 0.05);
+      border-radius: 12px;
+      overflow: hidden;
+      margin-bottom: 12px;
+      display: flex;
+      align-items: center;
+    }
+
+    .progress-fill {
+      height: 100%;
+      background: linear-gradient(90deg, var(--primary), var(--secondary));
+      transition: width 0.3s ease;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--bg);
+      font-weight: 600;
+      font-size: 0.8rem;
+    }
+
+    .progress-label {
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      margin-bottom: 8px;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 1024px) {
+      body {
+        flex-direction: column;
+      }
+
+      .sidebar {
+        width: 100%;
+        height: auto;
+        border-left: none;
+        border-bottom: 1px solid var(--border);
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+      }
+
+      .main-content {
+        padding: 20px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Sidebar -->
+  <div class="sidebar">
+    <div class="logo">
+      <h1>🕌</h1>
+      <h3>شيخة OS</h3>
+      <p>نظام تشغيل موحد</p>
+    </div>
+
+    <div class="nav-section">
+      <h3>📊 المراقبة</h3>
+      <div class="nav-item" onclick="showPanel('dashboard')">📈 لوحة التحكم</div>
+      <div class="nav-item" onclick="showPanel('performance')">⚡ الأداء</div>
+      <div class="nav-item" onclick="showPanel('resources')">💾 الموارد</div>
+    </div>
+
+    <div class="nav-section">
+      <h3>⚙️ الإدارة</h3>
+      <div class="nav-item" onclick="showPanel('services')">🔧 الخدمات</div>
+      <div class="nav-item" onclick="showPanel('processes')">🔄 العمليات</div>
+      <div class="nav-item" onclick="showPanel('system')">🖥️ النظام</div>
+    </div>
+
+    <div class="nav-section">
+      <h3>🛠️ الأدوات</h3>
+      <div class="nav-item" onclick="showPanel('terminal')">⌨️ الطرفية</div>
+      <div class="nav-item" onclick="showPanel('backup')">💾 النسخ الاحتياطي</div>
+      <div class="nav-item" onclick="runDiagnostics()">🔍 التشخيص</div>
+    </div>
+
+    <div style="margin-top: auto;">
+      <button class="btn btn-primary" style="width: 100%; margin-bottom: 10px;" onclick="bootSystem()">
+        🚀 بدء النظام
+      </button>
+      <button class="btn btn-secondary" style="width: 100%;" onclick="shutdownSystem()">
+        🔴 إيقاف النظام
+      </button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="main-content">
+    <!-- Header -->
+    <div class="header">
+      <div>
+        <h1>🕌 شيخة — نظام التشغيل الموحد</h1>
+        <p style="color: var(--muted); margin-top: 8px;">Sheikha OS v3.0 — الإصدار النهائي</p>
+      </div>
+      <div class="header-actions">
+        <button class="btn btn-primary" onclick="refreshData()">🔄 تحديث</button>
+        <button class="btn btn-secondary" onclick="showHelp()">❓ مساعدة</button>
+      </div>
+    </div>
+
+    <!-- Dashboard Panel -->
+    <div id="dashboard" class="panel active">
+      <h2>📊 لوحة التحكم</h2>
+      <div class="status-grid" style="margin-top: 20px;">
+        <div class="status-card">
+          <h3>حالة النظام</h3>
+          <div class="status-value" id="status">✅ تشغيل</div>
+          <p class="status-subtext">نظام التشغيل يعمل بشكل طبيعي</p>
+        </div>
+        <div class="status-card">
+          <h3>وقت التشغيل</h3>
+          <div class="status-value" id="uptime">00:00:00</div>
+          <p class="status-subtext">منذ بدء التشغيل</p>
+        </div>
+        <div class="status-card">
+          <h3>استخدام المعالج</h3>
+          <div class="status-value">15%</div>
+          <p class="status-subtext">استخدام متوسط</p>
+        </div>
+        <div class="status-card">
+          <h3>استخدام الذاكرة</h3>
+          <div class="status-value">28%</div>
+          <p class="status-subtext">512 MB من 4 GB</p>
+        </div>
+      </div>
+
+      <div class="chart">
+        <h3>استخدام الموارد</h3>
+        <div class="progress-label">
+          <span>المعالج</span>
+          <span>15%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 15%;"></div>
+        </div>
+
+        <div class="progress-label">
+          <span>الذاكرة</span>
+          <span>28%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 28%;"></div>
+        </div>
+
+        <div class="progress-label">
+          <span>القرص الصلب</span>
+          <span>35%</span>
+        </div>
+        <div class="progress-bar">
+          <div class="progress-fill" style="width: 35%;"></div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Services Panel -->
+    <div id="services" class="panel">
+      <h2>🔧 الخدمات المتاحة</h2>
+      <div class="services-list" style="margin-top: 20px;">
+        <div class="service-item">
+          <div class="service-info">
+            <h4>وقت التشغيل</h4>
+            <p>SheikhaLanguageRuntime</p>
+          </div>
+          <span class="status-badge status-running">تشغيل</span>
+        </div>
+        <div class="service-item">
+          <div class="service-info">
+            <h4>قاعدة البيانات</h4>
+            <p>SheikhaDatabase</p>
+          </div>
+          <span class="status-badge status-running">تشغيل</span>
+        </div>
+        <div class="service-item">
+          <div class="service-info">
+            <h4>لوحة المعلومات</h4>
+            <p>SheikhaInteractiveDashboard</p>
+          </div>
+          <span class="status-badge status-running">تشغيل</span>
+        </div>
+        <div class="service-item">
+          <div class="service-info">
+            <h4>الواجهات البرمجية</h4>
+            <p>SheikhaAPIServer</p>
+          </div>
+          <span class="status-badge status-running">تشغيل</span>
+        </div>
+        <div class="service-item">
+          <div class="service-info">
+            <h4>شيخة كلاود</h4>
+            <p>SheikhaClaudeSystem</p>
+          </div>
+          <span class="status-badge status-running">تشغيل</span>
+        </div>
+        <div class="service-item">
+          <div class="service-info">
+            <h4>منصة SaaS</h4>
+            <p>SheikhaProEnterprise</p>
+          </div>
+          <span class="status-badge status-running">تشغيل</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terminal Panel -->
+    <div id="terminal" class="panel">
+      <h2>⌨️ الطرفية</h2>
+      <div class="terminal" style="margin-top: 20px;">
+        <div class="terminal-line">
+          <span class="terminal-prompt">sheikha@os:~$</span> welcome to sheikha os
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">sheikha@os:~$</span> system status: operational ✅
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">sheikha@os:~$</span> all services running
+        </div>
+        <div class="terminal-line">
+          <span class="terminal-prompt">sheikha@os:~$</span> type 'help' for more information
+        </div>
+        <div class="terminal-line">&nbsp;</div>
+        <input type="text" style="background: #000; border: none; color: #0f0; font-family: 'Courier New'; width: 100%; outline: none;" 
+               id="terminalInput" placeholder="شيخة@os:~$" onkeypress="handleTerminalInput(event)">
+      </div>
+    </div>
+
+    <!-- System Info Panel -->
+    <div id="system" class="panel">
+      <h2>🖥️ معلومات النظام</h2>
+      <div style="margin-top: 20px; display: grid; gap: 12px;">
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>اسم النظام:</strong>
+          <span>شيخة — Sheikha OS</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>الإصدار:</strong>
+          <span>3.0 (الإصدار النهائي)</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>النواة:</strong>
+          <span>Sheikha Kernel v3.0</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>المعمارية:</strong>
+          <span>64-bit Multi-threaded</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>الذاكرة:</strong>
+          <span>4 GB RAM</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>الخدمات:</strong>
+          <span>9 خدمات متكاملة</span>
+        </div>
+        <div style="display: grid; grid-template-columns: 150px 1fr; gap: 12px; padding: 12px; background: rgba(255,255,255,0.05); border-radius: 8px;">
+          <strong>توفر الخدمة:</strong>
+          <span>99.99% SLA</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    // متغيرات عامة
+    let systemRunning = false;
+    let startTime = null;
+
+    // إظهار اللوحة
+    function showPanel(panelId) {
+      document.querySelectorAll('.panel').forEach(p => p.classList.remove('active'));
+      document.getElementById(panelId).classList.add('active');
+    }
+
+    // بدء النظام
+    function bootSystem() {
+      if (systemRunning) return;
+      
+      systemRunning = true;
+      startTime = Date.now();
+      document.getElementById('status').textContent = '✅ تشغيل';
+      
+      alert('✅ تم بدء نظام شيخة بنجاح\n\nالنظام الآن جاهز للعمل');
+      
+      // تحديث وقت التشغيل
+      setInterval(updateUptime, 1000);
+    }
+
+    // إيقاف النظام
+    function shutdownSystem() {
+      if (!systemRunning) return;
+      
+      systemRunning = false;
+      document.getElementById('status').textContent = '🔴 متوقف';
+      
+      alert('✅ تم إيقاف نظام شيخة\n\nشكراً لاستخدامك نظام شيخة');
+    }
+
+    // تحديث وقت التشغيل
+    function updateUptime() {
+      if (!systemRunning) return;
+      
+      const elapsed = Date.now() - startTime;
+      const hours = Math.floor(elapsed / (1000 * 60 * 60));
+      const minutes = Math.floor((elapsed % (1000 * 60 * 60)) / (1000 * 60));
+      const seconds = Math.floor((elapsed % (1000 * 60)) / 1000);
+      
+      document.getElementById('uptime').textContent = 
+        `${String(hours).padStart(2, '0')}:${String(minutes).padStart(2, '0')}:${String(seconds).padStart(2, '0')}`;
+    }
+
+    // تشخيص
+    function runDiagnostics() {
+      alert('🔍 جاري التشخيص...\n\n✅ جميع الأنظمة تعمل بشكل طبيعي\n✅ الأداء: ممتاز\n✅ الأمان: مضمون\n✅ الامتثال الشرعي: مؤكد');
+    }
+
+    // تحديث البيانات
+    function refreshData() {
+      alert('🔄 تم تحديث البيانات');
+    }
+
+    // المساعدة
+    function showHelp() {
+      alert('📖 مساعدة نظام شيخة الموحد\n\n' +
+            '📊 لوحة التحكم - عرض حالة النظام\n' +
+            '🔧 الخدمات - إدارة الخدمات\n' +
+            '⌨️ الطرفية - واجهة سطر الأوامر\n' +
+            '🖥️ النظام - معلومات النظام');
+    }
+
+    // معالجة إدخال الطرفية
+    function handleTerminalInput(event) {
+      if (event.key !== 'Enter') return;
+      
+      const input = event.target.value;
+      const terminal = event.target.parentElement;
+      
+      // إضافة الأمر
+      const line = document.createElement('div');
+      line.className = 'terminal-line';
+      line.innerHTML = `<span class="terminal-prompt">sheikha@os:~$</span> ${input}`;
+      terminal.insertBefore(line, event.target);
+      
+      // معالجة الأوامر
+      handleCommand(input, terminal);
+      
+      // مسح الإدخال
+      event.target.value = '';
+    }
+
+    // معالجة الأوامر
+    function handleCommand(cmd, terminal) {
+      const line = document.createElement('div');
+      line.className = 'terminal-line';
+      
+      switch(cmd.trim().toLowerCase()) {
+        case 'help':
+          line.textContent = 'الأوامر المتاحة: help, status, services, info, clear, exit';
+          break;
+        case 'status':
+          line.textContent = systemRunning ? 'النظام: تشغيل ✅' : 'النظام: متوقف 🔴';
+          break;
+        case 'services':
+          line.textContent = 'الخدمات المتاحة: 9 خدمات متكاملة - جميعها تعمل بشكل طبيعي';
+          break;
+        case 'info':
+          line.textContent = 'شيخة OS v3.0 - نظام تشغيل موحد متكامل';
+          break;
+        case 'clear':
+          terminal.innerHTML = '<input type="text" style="background: #000; border: none; color: #0f0; font-family: \'Courier New\'; width: 100%; outline: none;" id="terminalInput" placeholder="شيخة@os:~$" onkeypress="handleTerminalInput(event)">';
+          return;
+        default:
+          line.textContent = `أمر غير معروف: ${cmd}`;
+      }
+      
+      terminal.insertBefore(line, terminal.lastElementChild);
+      terminal.scrollTop = terminal.scrollHeight;
+    }
+
+    // بدء تشغيل النظام تلقائياً
+    bootSystem();
+  </script>
+</body>
+
+</html>

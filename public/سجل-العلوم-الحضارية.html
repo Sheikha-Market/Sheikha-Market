@@ -1,0 +1,285 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>شيخة — سجل العلوم الحضارية الإسلامية</title>
+<meta name="description" content="واجهة منظمة وواضحة لسجل شيخة للعلوم الحضارية الإسلامية: بحث، فلاتر، بطاقات، وتصنيف زمني ومعرفي.">
+<link rel="apple-touch-icon" href="/images/og-sheikha.png">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#061019;--bg2:#0d1726;--bg3:#101d31;--gold:#d4af37;--gold2:#f5e4a2;--teal:#0f766e;--text:#f4f6f8;--muted:#a5afbd;--border:rgba(212,175,55,.14);--radius:18px}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;background:radial-gradient(circle at 20% 0%,rgba(15,118,110,.22),transparent 30%),radial-gradient(circle at 100% 100%,rgba(212,175,55,.12),transparent 28%),linear-gradient(180deg,#061019,#09131f 45%,#08111b);color:var(--text);min-height:100vh}
+.wrap{max-width:1280px;margin:0 auto;padding:24px}
+.hero{padding:32px 0 22px}
+.badge{display:inline-flex;gap:8px;align-items:center;padding:8px 14px;border:1px solid var(--border);border-radius:999px;color:var(--gold);background:rgba(212,175,55,.06);font-size:.8rem;font-weight:800}
+.hero h1{font-size:clamp(2rem,4vw,3.2rem);line-height:1.1;margin:16px 0 10px;font-weight:900}
+.hero h1 span{background:linear-gradient(135deg,var(--gold2),var(--gold));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{max-width:860px;color:var(--muted);line-height:1.9;font-size:1rem}
+.topbar{display:grid;grid-template-columns:1.2fr .8fr;gap:14px;margin-top:24px}
+.panel{background:linear-gradient(170deg,rgba(13,23,38,.94),rgba(9,18,30,.92));border:1px solid var(--border);border-radius:var(--radius);padding:18px;box-shadow:0 18px 34px rgba(0,0,0,.22)}
+.panel h2{font-size:1rem;color:var(--gold);margin-bottom:12px}
+.controls{display:grid;grid-template-columns:1.3fr .9fr .8fr;gap:10px}
+.input,.select{width:100%;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:var(--text);border-radius:12px;padding:12px 14px;font-family:inherit}
+.input::placeholder{color:#8a94a4}
+.stats{display:grid;grid-template-columns:repeat(3,1fr);gap:10px}
+.stat{padding:14px;border-radius:14px;background:rgba(15,118,110,.12);border:1px solid rgba(15,118,110,.24)}
+.stat small{display:block;color:#bfd8d5;font-size:.72rem;margin-bottom:6px}
+.stat strong{font-size:1.45rem;font-weight:900;color:#fff}
+.legend{display:flex;flex-wrap:wrap;gap:10px;margin-top:10px}
+.pill{padding:7px 12px;border-radius:999px;background:rgba(101,73,11,.88);border:1px solid rgba(212,175,55,.34);color:#fff8dc;font-size:.76rem}
+.layout{display:grid;grid-template-columns:290px 1fr;gap:16px;margin-top:18px}
+.sidebar .section-title,.content .section-title{font-size:.95rem;color:var(--gold);margin-bottom:10px;font-weight:800}
+.menu{display:flex;flex-direction:column;gap:10px}
+.menu-btn{width:100%;text-align:right;padding:12px 14px;border-radius:12px;background:rgba(255,255,255,.03);color:var(--text);font-family:inherit;cursor:pointer;border:1px solid rgba(255,255,255,.06);transition:.2s}
+.menu-btn.active,.menu-btn:hover{background:rgba(212,175,55,.12);border-color:rgba(212,175,55,.24);color:var(--gold2)}
+.records{display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:14px}
+.card{background:linear-gradient(165deg,rgba(10,19,31,.98),rgba(10,22,36,.92));border:1px solid rgba(255,255,255,.07);border-radius:16px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.card:hover{border-color:rgba(212,175,55,.2);transform:translateY(-2px)}
+.card-top{display:flex;justify-content:space-between;gap:8px;align-items:flex-start}
+.card h3{font-size:1.03rem;font-weight:900}
+.tag{padding:5px 9px;border-radius:999px;font-size:.68rem;background:rgba(15,118,110,.28);border:1px solid rgba(15,118,110,.34);color:#f1fffd;white-space:nowrap}
+.meta{display:grid;gap:6px}
+.meta div{font-size:.8rem;color:var(--muted);line-height:1.7}
+.meta b{color:#fff}
+.empty{padding:24px;text-align:center;color:var(--muted);border:1px dashed rgba(255,255,255,.12);border-radius:16px}
+.footer-link{display:inline-flex;align-items:center;gap:8px;padding:10px 14px;border-radius:12px;border:1px solid var(--border);background:rgba(212,175,55,.06);color:var(--gold2);text-decoration:none;font-weight:700}
+.back-link-wrap{margin-top:14px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:980px){.topbar,.layout{grid-template-columns:1fr}.controls,.stats{grid-template-columns:1fr 1fr}.sidebar{order:2}}
+@media (max-width:640px){.wrap{padding:16px}.controls,.stats{grid-template-columns:1fr}.records{grid-template-columns:1fr}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <div class="badge">سجل واضح • منظم • ميسر</div>
+      <h1>سجل <span>العلوم الحضارية الإسلامية</span></h1>
+      <p>واجهة منظمة لعرض الإرث العلمي والحضاري في شيخة بشكل واضح ومفهوم ومنطقي: ابحث، صفِّ، وتتبع المجال والعصر ونوع الإسهام وحالة التحقق دون الرجوع إلى ملفات خام.</p>
+    </section>
+
+    <section class="topbar">
+      <div class="panel">
+        <h2>أدوات التصفح</h2>
+        <div class="controls">
+          <label for="searchInput" class="sr-only">ابحث في السجل</label>
+          <input id="searchInput" class="input" type="search" placeholder="ابحث بالاسم أو المجال أو الإسهام..." aria-label="ابحث في السجل">
+          <label for="verificationFilter" class="sr-only">فلتر حالة التحقق</label>
+          <select id="verificationFilter" class="select" aria-label="فلتر حالة التحقق">
+            <option value="all">كل حالات التحقق</option>
+            <option value="faith_based">إسناد إيماني</option>
+            <option value="verified_traditional">متحقق تراثيًا</option>
+            <option value="verified_historical">متحقق تاريخيًا</option>
+            <option value="requires_program_specific_entries">مؤسسي يحتاج تفصيل</option>
+          </select>
+          <label for="domainFilter" class="sr-only">فلتر المجال</label>
+          <select id="domainFilter" class="select" aria-label="فلتر المجال">
+            <option value="all">كل المجالات</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h2>ملخص سريع</h2>
+        <div class="stats">
+          <div class="stat"><small>إجمالي السجلات</small><strong id="totalCount">0</strong></div>
+          <div class="stat"><small>المجالات المغطاة</small><strong id="domainCount">0</strong></div>
+          <div class="stat"><small>العصور الظاهرة</small><strong id="eraCount">0</strong></div>
+        </div>
+        <div class="legend" id="coverageLegend"></div>
+      </div>
+    </section>
+
+    <section class="layout">
+      <aside class="sidebar panel" aria-label="التنقل بين العصور">
+        <div class="section-title">العصور</div>
+        <div class="menu" id="eraMenu"></div>
+        <div class="back-link-wrap">
+          <a class="footer-link" href="/منظومة-تطبيقات-شيخة.html">الانتقال إلى منظومة التطبيقات</a>
+          <a class="footer-link" href="/هوية-السوق.html">العودة إلى منظومة الهوية</a>
+        </div>
+      </aside>
+
+      <main class="content panel">
+        <div class="section-title">السجلات</div>
+        <div class="records" id="recordsContainer"></div>
+      </main>
+    </section>
+  </div>
+
+<script type="module">
+const fallbackData = {
+  coverage_domains: [
+    'REVELATION_AND_ITS_SCIENCES','SHARIA_SCIENCES','ARABIC_AND_LANGUAGE_SCIENCES','CALCULATION_AND_MATHEMATICS','LOGIC_AND_REASONING','NATURAL_SCIENCES','MEDICAL_AND_HEALTH_SCIENCES','ENGINEERING_AND_APPLIED_SCIENCES','ECONOMIC_AND_ADMINISTRATIVE_SCIENCES','SOCIAL_AND_HUMAN_SCIENCES','INSTITUTIONAL_AND_CIVILIZATIONAL_DEVELOPMENT'
+  ],
+  records: [
+    {name_ar:'آدم عليه السلام',era:'PROPHETS_FOUNDATIONAL',domain:'المعرفة الإنسانية الأساسية',attribution_type:'revelatory_foundation',contribution_summary:'أصل التعليم الأول للإنسان وتعليم الأسماء.',impact_summary:'تأسيس أصل المعرفة البشرية في المنظور الإيماني.',added_value:'جذر إيماني أول للمعرفة.',verification_status:'faith_based'},
+    {name_ar:'نوح عليه السلام',era:'PROPHETS_FOUNDATIONAL',domain:'الصناعة النافعة وصناعة السفن',attribution_type:'revelatory_foundation',contribution_summary:'صناعة السفينة بأمر الله ووحيه.',impact_summary:'مثال على الصناعة النافعة المرتبطة بالنجاة.',added_value:'إبراز الصناعة المسلمة المنضبطة بالوحي.',verification_status:'faith_based'},
+    {name_ar:'محمد رسول الله ﷺ',era:'PROPHETIC_ERA',domain:'علوم الوحي والمعاملات والتنظيم القيمي',attribution_type:'prophetic_guidance',contribution_summary:'بلاغ القرآن وبيان السنة وتأسيس أصول المعاملات.',impact_summary:'الإطار المرجعي الأعلى للعلوم الشرعية والقيمية.',added_value:'جمع بين الوحي والتطبيق العملي.',verification_status:'faith_based'},
+    {name_ar:'أبو بكر الصديق رضي الله عنه',era:'RASHIDUN_ERA',domain:'جمع القرآن',attribution_type:'companion_consolidation',contribution_summary:'إطلاق جمع القرآن في مصحف واحد.',impact_summary:'حفظ النص القرآني في بنية موحدة.',added_value:'نقل الحفظ إلى جمع منظم.',verification_status:'verified_traditional'},
+    {name_ar:'محمد بن موسى الخوارزمي',era:'ISLAMIC_CIVILIZATIONAL_SCIENTIFIC_ERA',domain:'الرياضيات والجبر',attribution_type:'scholarly_foundation',contribution_summary:'إرساء علم الجبر وتطوير الحسابات الخوارزمية.',impact_summary:'تأثير طويل على الرياضيات والحوسبة.',added_value:'بنية علمية واضحة للجبر.',verification_status:'verified_historical'},
+    {name_ar:'المؤسسات العلمية السعودية الحديثة',era:'SAUDI_MODERN_ERA',domain:'التطوير المؤسسي والعلمي وخدمة الحرمين',attribution_type:'institutional_development',contribution_summary:'بناء جامعات وهيئات ومنصات علمية وخدمية.',impact_summary:'تعزيز البنية العلمية الحديثة.',added_value:'نقل الإسهام من الفرد إلى المؤسسة.',verification_status:'requires_program_specific_entries'}
+  ]
+};
+
+const eraLabels = {
+  all: 'كل العصور',
+  PROPHETS_FOUNDATIONAL: 'الأنبياء والصالحون قبل البعثة',
+  PROPHETIC_ERA: 'العصر النبوي',
+  RASHIDUN_ERA: 'الخلفاء الراشدون والصحابة',
+  CLASSICAL_SCHOLARLY_ERA: 'العلماء والمدارس',
+  ISLAMIC_CIVILIZATIONAL_SCIENTIFIC_ERA: 'الحضارة العلمية الإسلامية',
+  SAUDI_MODERN_ERA: 'العهد السعودي الحديث'
+};
+
+const coverageLabels = {
+  REVELATION_AND_ITS_SCIENCES: 'الوحي وعلومه',
+  SHARIA_SCIENCES: 'العلوم الشرعية',
+  ARABIC_AND_LANGUAGE_SCIENCES: 'العربية وعلومها',
+  CALCULATION_AND_MATHEMATICS: 'الحساب والرياضيات',
+  LOGIC_AND_REASONING: 'المنطق والاستدلال',
+  NATURAL_SCIENCES: 'العلوم الطبيعية',
+  MEDICAL_AND_HEALTH_SCIENCES: 'العلوم الطبية',
+  ENGINEERING_AND_APPLIED_SCIENCES: 'العلوم الهندسية',
+  ECONOMIC_AND_ADMINISTRATIVE_SCIENCES: 'العلوم الاقتصادية والإدارية',
+  SOCIAL_AND_HUMAN_SCIENCES: 'العلوم الاجتماعية والإنسانية',
+  INSTITUTIONAL_AND_CIVILIZATIONAL_DEVELOPMENT: 'التطوير المؤسسي والحضاري'
+};
+
+const verificationLabels = {
+  faith_based: 'مرجع إيماني',
+  verified_traditional: 'موثق تراثيًا',
+  verified_historical: 'موثق تاريخيًا',
+  requires_program_specific_entries: 'بحاجة إلى تفصيل مؤسسي'
+};
+
+const attributionLabels = {
+  revelatory_foundation: 'تأسيس بالوحي',
+  prophetic_guidance: 'توجيه نبوي',
+  companion_consolidation: 'جمع وتثبيت',
+  scholarly_foundation: 'تقعيد علمي',
+  applied_innovation: 'تطوير تطبيقي',
+  institutional_development: 'تطوير مؤسسي',
+  traditional_attribution: 'نسبة تراثية'
+};
+
+let registry = fallbackData;
+let activeEra = 'all';
+
+const searchInput = document.getElementById('searchInput');
+const verificationFilter = document.getElementById('verificationFilter');
+const domainFilter = document.getElementById('domainFilter');
+const eraMenu = document.getElementById('eraMenu');
+const recordsContainer = document.getElementById('recordsContainer');
+
+function fillCoverageLegend() {
+  const legend = document.getElementById('coverageLegend');
+  legend.innerHTML = '';
+  registry.coverage_domains.slice(0, 6).forEach((item) => {
+    const pill = document.createElement('span');
+    pill.className = 'pill';
+    pill.textContent = coverageLabels[item] || item;
+    legend.appendChild(pill);
+  });
+}
+
+function fillDomainFilter() {
+  const domains = [...new Set(registry.records.map((item) => item.domain))].sort((a,b) => a.localeCompare(b, 'ar'));
+  domains.forEach((domain) => {
+    const option = document.createElement('option');
+    option.value = domain;
+    option.textContent = domain;
+    domainFilter.appendChild(option);
+  });
+}
+
+function fillEraMenu() {
+  const eras = ['all', ...new Set(registry.records.map((item) => item.era))];
+  eraMenu.innerHTML = '';
+  eras.forEach((era) => {
+    const button = document.createElement('button');
+    button.type = 'button';
+    button.className = `menu-btn${era === activeEra ? ' active' : ''}`;
+    button.textContent = eraLabels[era] || era;
+    button.addEventListener('click', () => {
+      activeEra = era;
+      fillEraMenu();
+      renderRecords();
+    });
+    eraMenu.appendChild(button);
+  });
+}
+
+function getFilteredRecords() {
+  const q = searchInput.value.trim().toLowerCase();
+  const verification = verificationFilter.value;
+  const domain = domainFilter.value;
+
+  return registry.records.filter((record) => {
+    if (activeEra !== 'all' && record.era !== activeEra) return false;
+    if (verification !== 'all' && record.verification_status !== verification) return false;
+    if (domain !== 'all' && record.domain !== domain) return false;
+    if (!q) return true;
+    const haystack = [record.name_ar, record.domain, record.contribution_summary, record.impact_summary, record.added_value].join(' ').toLowerCase();
+    return haystack.includes(q);
+  });
+}
+
+function renderStats(records) {
+  document.getElementById('totalCount').textContent = String(records.length);
+  document.getElementById('domainCount').textContent = String(new Set(records.map((r) => r.domain)).size);
+  document.getElementById('eraCount').textContent = String(new Set(records.map((r) => r.era)).size);
+}
+
+function renderRecords() {
+  const records = getFilteredRecords();
+  renderStats(records);
+  recordsContainer.innerHTML = '';
+
+  if (!records.length) {
+    recordsContainer.innerHTML = '<div class="empty">لا توجد نتائج مطابقة. غيّر الفلاتر أو ابحث بكلمات أخرى.</div>';
+    return;
+  }
+
+  records.forEach((record) => {
+    const card = document.createElement('article');
+    card.className = 'card';
+    card.innerHTML = `
+      <div class="card-top">
+        <h3>${record.name_ar}</h3>
+        <span class="tag">${verificationLabels[record.verification_status] || record.verification_status}</span>
+      </div>
+      <div class="meta">
+        <div><b>العصر:</b> ${eraLabels[record.era] || record.era}</div>
+        <div><b>المجال:</b> ${record.domain}</div>
+        <div><b>نوع الإسناد:</b> ${attributionLabels[record.attribution_type] || record.attribution_type}</div>
+        <div><b>ما قدّمه:</b> ${record.contribution_summary}</div>
+        <div><b>الأثر:</b> ${record.impact_summary}</div>
+        <div><b>ما أضافه:</b> ${record.added_value}</div>
+      </div>
+    `;
+    recordsContainer.appendChild(card);
+  });
+}
+
+[searchInput, verificationFilter, domainFilter].forEach((el) => el.addEventListener('input', renderRecords));
+[verificationFilter, domainFilter].forEach((el) => el.addEventListener('change', renderRecords));
+
+try {
+  const response = await fetch('/docs/SHEIKHA-ISLAMIC-CIVILIZATIONAL-SCIENCES-REGISTRY.seed.json');
+  if (response.ok) {
+    registry = await response.json();
+  }
+} catch (error) {
+  console.warn('Falling back to bundled registry data.', error);
+  registry = fallbackData;
+}
+
+fillCoverageLegend();
+fillDomainFilter();
+fillEraMenu();
+renderRecords();
+</script>
+</body>
+</html>

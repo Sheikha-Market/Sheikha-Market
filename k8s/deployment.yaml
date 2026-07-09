@@ -1,0 +1,390 @@
+---
+# Kubernetes Manifests
+# منصة سحابة شيخة — Kubernetes Deployment
+# Sheikha Cloud Platform — Kubernetes Configuration
+
+# Namespace
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: sheikha-cloud
+  labels:
+    app: sheikha
+
+# ConfigMap
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: sheikha-api-config
+  namespace: sheikha-cloud
+data:
+  NODE_ENV: "production"
+  LOG_LEVEL: "info"
+  PORT: "3000"
+
+# Secrets
+---
+apiVersion: v1
+kind: Secret
+metadata:
+  name: sheikha-secrets
+  namespace: sheikha-cloud
+type: Opaque
+stringData:
+  MONGODB_URI: "mongodb://mongodb:27017/sheikha-cloud"
+  REDIS_URL: "redis://redis:6379"
+  JWT_SECRET: "your-super-secret-jwt-key-change-in-production"
+  STRIPE_API_KEY: ""
+  CLAUDE_API_KEY: ""
+
+# MongoDB StatefulSet
+---
+apiVersion: apps/v1
+kind: StatefulSet
+metadata:
+  name: mongodb
+  namespace: sheikha-cloud
+spec:
+  serviceName: mongodb
+  replicas: 1
+  selector:
+    matchLabels:
+      app: mongodb
+  template:
+    metadata:
+      labels:
+        app: mongodb
+    spec:
+      containers:
+      - name: mongodb
+        image: mongo:7.0-alpine
+        ports:
+        - containerPort: 27017
+          name: mongodb
+        volumeMounts:
+        - name: mongodb-data
+          mountPath: /data/db
+        env:
+        - name: MONGO_INITDB_ROOT_USERNAME
+          value: "admin"
+        - name: MONGO_INITDB_ROOT_PASSWORD
+          valueFrom:
+            secretKeyRef:
+              name: sheikha-secrets
+              key: MONGO_PASSWORD
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "1Gi"
+          limits:
+            cpu: "1000m"
+            memory: "2Gi"
+        livenessProbe:
+          exec:
+            command:
+            - mongosh
+            - --eval
+            - db.adminCommand('ping')
+          initialDelaySeconds: 30
+          periodSeconds: 10
+  volumeClaimTemplates:
+  - metadata:
+      name: mongodb-data
+    spec:
+      accessModes: [ "ReadWriteOnce" ]
+      resources:
+        requests:
+          storage: 10Gi
+
+# MongoDB Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: mongodb
+  namespace: sheikha-cloud
+spec:
+  clusterIP: None
+  selector:
+    app: mongodb
+  ports:
+  - port: 27017
+    targetPort: 27017
+
+# Redis Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: redis
+  namespace: sheikha-cloud
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: redis
+  template:
+    metadata:
+      labels:
+        app: redis
+    spec:
+      containers:
+      - name: redis
+        image: redis:7-alpine
+        ports:
+        - containerPort: 6379
+        volumeMounts:
+        - name: redis-data
+          mountPath: /data
+        resources:
+          requests:
+            cpu: "250m"
+            memory: "512Mi"
+          limits:
+            cpu: "500m"
+            memory: "1Gi"
+        livenessProbe:
+          exec:
+            command:
+            - redis-cli
+            - ping
+          initialDelaySeconds: 10
+          periodSeconds: 10
+      volumes:
+      - name: redis-data
+        emptyDir: {}
+
+# Redis Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: redis
+  namespace: sheikha-cloud
+spec:
+  selector:
+    app: redis
+  ports:
+  - port: 6379
+    targetPort: 6379
+
+# API Deployment
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: sheikha-api
+  namespace: sheikha-cloud
+spec:
+  replicas: 3
+  strategy:
+    type: RollingUpdate
+    rollingUpdate:
+      maxSurge: 1
+      maxUnavailable: 0
+  selector:
+    matchLabels:
+      app: sheikha-api
+  template:
+    metadata:
+      labels:
+        app: sheikha-api
+    spec:
+      affinity:
+        podAntiAffinity:
+          preferredDuringSchedulingIgnoredDuringExecution:
+          - weight: 100
+            podAffinityTerm:
+              labelSelector:
+                matchExpressions:
+                - key: app
+                  operator: In
+                  values:
+                  - sheikha-api
+              topologyKey: kubernetes.io/hostname
+      containers:
+      - name: sheikha-api
+        image: sheikha/cloud-api:3.0.0
+        imagePullPolicy: Always
+        ports:
+        - containerPort: 3000
+          name: http
+        envFrom:
+        - configMapRef:
+            name: sheikha-api-config
+        - secretRef:
+            name: sheikha-secrets
+        resources:
+          requests:
+            cpu: "500m"
+            memory: "512Mi"
+          limits:
+            cpu: "1000m"
+            memory: "1Gi"
+        livenessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 30
+          periodSeconds: 10
+        readinessProbe:
+          httpGet:
+            path: /api/health
+            port: 3000
+          initialDelaySeconds: 10
+          periodSeconds: 5
+        securityContext:
+          runAsNonRoot: true
+          runAsUser: 1000
+          readOnlyRootFilesystem: true
+          allowPrivilegeEscalation: false
+
+# API Service
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: sheikha-api
+  namespace: sheikha-cloud
+spec:
+  type: ClusterIP
+  selector:
+    app: sheikha-api
+  ports:
+  - port: 3000
+    targetPort: 3000
+    name: http
+
+# API Horizontal Pod Autoscaler
+---
+apiVersion: autoscaling/v2
+kind: HorizontalPodAutoscaler
+metadata:
+  name: sheikha-api-hpa
+  namespace: sheikha-cloud
+spec:
+  scaleTargetRef:
+    apiVersion: apps/v1
+    kind: Deployment
+    name: sheikha-api
+  minReplicas: 3
+  maxReplicas: 10
+  metrics:
+  - type: Resource
+    resource:
+      name: cpu
+      target:
+        type: Utilization
+        averageUtilization: 70
+  - type: Resource
+    resource:
+      name: memory
+      target:
+        type: Utilization
+        averageUtilization: 80
+  behavior:
+    scaleUp:
+      stabilizationWindowSeconds: 60
+      policies:
+      - type: Percent
+        value: 100
+        periodSeconds: 60
+    scaleDown:
+      stabilizationWindowSeconds: 300
+      policies:
+      - type: Percent
+        value: 50
+        periodSeconds: 60
+
+# Ingress
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: sheikha-ingress
+  namespace: sheikha-cloud
+  annotations:
+    cert-manager.io/cluster-issuer: letsencrypt-prod
+    nginx.ingress.kubernetes.io/rate-limit: "100"
+spec:
+  ingressClassName: nginx
+  tls:
+  - hosts:
+    - api.sheikha.cloud
+    secretName: sheikha-tls
+  rules:
+  - host: api.sheikha.cloud
+    http:
+      paths:
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: sheikha-api
+            port:
+              number: 3000
+
+# Network Policy
+---
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: sheikha-network-policy
+  namespace: sheikha-cloud
+spec:
+  podSelector: {}
+  policyTypes:
+  - Ingress
+  - Egress
+  ingress:
+  - from:
+    - namespaceSelector:
+        matchLabels:
+          name: sheikha-cloud
+  egress:
+  - to:
+    - namespaceSelector:
+        matchLabels:
+          name: sheikha-cloud
+  - to:
+    - namespaceSelector: {}
+    ports:
+    - protocol: TCP
+      port: 53
+    - protocol: UDP
+      port: 53
+
+# Pod Disruption Budget
+---
+apiVersion: policy/v1
+kind: PodDisruptionBudget
+metadata:
+  name: sheikha-api-pdb
+  namespace: sheikha-cloud
+spec:
+  minAvailable: 1
+  selector:
+    matchLabels:
+      app: sheikha-api
+
+# Resource Quota
+---
+apiVersion: v1
+kind: ResourceQuota
+metadata:
+  name: sheikha-quota
+  namespace: sheikha-cloud
+spec:
+  hard:
+    requests.cpu: "10"
+    requests.memory: "20Gi"
+    limits.cpu: "20"
+    limits.memory: "40Gi"
+    pods: "100"
+  scopeSelector:
+    matchExpressions:
+    - operator: In
+      scopeName: PriorityClass
+      values: ["high", "medium"]

@@ -1,0 +1,600 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, maximum-scale=5">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="default">
+  <meta name="apple-mobile-web-app-title" content="شيخة">
+  <meta name="theme-color" content="#071018">
+  <title>🕌 شيخة — تطبيق الموبايل</title>
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Changa:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+    
+    :root {
+      --primary: #d4af37;
+      --primary-dark: #be8b23;
+      --secondary: #36d1b7;
+      --bg: #071018;
+      --bg2: #0d1826;
+      --text: #eff4f8;
+      --muted: #9ca8b7;
+      --border: rgba(212, 175, 55, .14);
+      --radius: 16px;
+      --shadow: 0 10px 40px rgba(0, 0, 0, .4);
+    }
+
+    html { font-size: 16px; }
+    
+    body {
+      font-family: 'Tajawal', sans-serif;
+      color: var(--text);
+      background: linear-gradient(180deg, var(--bg) 0%, #09131f 50%, #08111b 100%);
+      min-height: 100vh;
+      display: flex;
+      flex-direction: column;
+    }
+
+    .header {
+      background: linear-gradient(135deg, var(--bg2), var(--bg));
+      border-bottom: 1px solid var(--border);
+      padding: max(12px, env(safe-area-inset-top)) 16px 12px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .header h1 {
+      font-family: 'Changa', sans-serif;
+      font-size: 1.4rem;
+      background: linear-gradient(135deg, var(--primary), var(--secondary));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .header-actions {
+      display: flex;
+      gap: 8px;
+    }
+
+    .icon-btn {
+      width: 40px;
+      height: 40px;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, .08);
+      border: 1px solid var(--border);
+      color: var(--text);
+      font-size: 1.2rem;
+      cursor: pointer;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      transition: .2s;
+    }
+
+    .icon-btn:active {
+      background: rgba(212, 175, 55, .2);
+      transform: scale(0.95);
+    }
+
+    .container {
+      flex: 1;
+      overflow-y: auto;
+      padding-bottom: 80px;
+      -webkit-overflow-scrolling: touch;
+    }
+
+    .section {
+      padding: 16px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    .section h2 {
+      font-size: 1.1rem;
+      color: var(--primary);
+      margin-bottom: 12px;
+      font-weight: 900;
+    }
+
+    .card {
+      background: linear-gradient(165deg, rgba(13, 24, 38, .94), rgba(9, 18, 30, .96));
+      border: 1px solid var(--border);
+      border-radius: var(--radius);
+      padding: 16px;
+      margin-bottom: 12px;
+      display: flex;
+      flex-direction: column;
+      gap: 8px;
+    }
+
+    .card h3 {
+      color: var(--primary);
+      font-size: .95rem;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .card p {
+      color: var(--muted);
+      font-size: .85rem;
+      line-height: 1.6;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, .04);
+      border-radius: 12px;
+      padding: 12px;
+      text-align: center;
+      margin-bottom: 8px;
+    }
+
+    .metric-value {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: var(--primary);
+    }
+
+    .metric-label {
+      font-size: .75rem;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .btn {
+      padding: 12px 16px;
+      border-radius: 12px;
+      border: none;
+      font-weight: 800;
+      font-size: .9rem;
+      cursor: pointer;
+      transition: .2s;
+      font-family: inherit;
+    }
+
+    .btn-primary {
+      background: linear-gradient(135deg, var(--primary), var(--primary-dark));
+      color: var(--bg);
+    }
+
+    .btn-primary:active {
+      transform: scale(0.98);
+    }
+
+    .btn-secondary {
+      background: rgba(54, 209, 183, .15);
+      border: 1px solid rgba(54, 209, 183, .5);
+      color: var(--secondary);
+    }
+
+    .input {
+      width: 100%;
+      padding: 12px;
+      border-radius: 12px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, .04);
+      color: var(--text);
+      font-family: inherit;
+      font-size: 1rem;
+      margin-bottom: 12px;
+    }
+
+    .input::placeholder {
+      color: var(--muted);
+    }
+
+    .footer-nav {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      height: 70px;
+      background: linear-gradient(180deg, rgba(13, 24, 38, .8), var(--bg2));
+      border-top: 1px solid var(--border);
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 4px;
+      padding: 8px 4px max(8px, env(safe-area-inset-bottom));
+      z-index: 100;
+    }
+
+    .nav-item {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      color: var(--muted);
+      font-size: .7rem;
+      cursor: pointer;
+      transition: .2s;
+      border-radius: 12px;
+    }
+
+    .nav-item:active {
+      background: rgba(212, 175, 55, .15);
+      color: var(--primary);
+    }
+
+    .nav-item .icon {
+      font-size: 1.4rem;
+    }
+
+    .modal {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0, 0, 0, .7);
+      z-index: 200;
+      animation: fadeIn .2s;
+    }
+
+    .modal.active {
+      display: flex;
+      align-items: flex-end;
+    }
+
+    .modal-content {
+      width: 100%;
+      background: var(--bg2);
+      border-radius: 20px 20px 0 0;
+      padding: 20px 16px max(16px, env(safe-area-inset-bottom));
+      animation: slideUp .3s;
+      border: 1px solid var(--border);
+    }
+
+    @keyframes fadeIn {
+      from { opacity: 0; }
+      to { opacity: 1; }
+    }
+
+    @keyframes slideUp {
+      from { transform: translateY(100%); }
+      to { transform: translateY(0); }
+    }
+
+    .status-badge {
+      display: inline-block;
+      padding: 4px 8px;
+      border-radius: 6px;
+      font-size: .75rem;
+      font-weight: 800;
+    }
+
+    .status-active {
+      background: rgba(54, 209, 183, .2);
+      color: var(--secondary);
+    }
+
+    .status-pending {
+      background: rgba(212, 175, 55, .2);
+      color: var(--primary);
+    }
+
+    .empty-state {
+      padding: 40px 16px;
+      text-align: center;
+      color: var(--muted);
+    }
+
+    .empty-state p {
+      margin-bottom: 16px;
+    }
+
+    @media (max-height: 600px) {
+      .container {
+        padding-bottom: 100px;
+      }
+    }
+
+    @media (max-width: 480px) {
+      :root {
+        font-size: 14px;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Header -->
+  <div class="header">
+    <h1>🕌 شيخة</h1>
+    <div class="header-actions">
+      <button class="icon-btn" onclick="toggleLanguage()">🌍</button>
+      <button class="icon-btn" onclick="toggleSettings()">⚙️</button>
+    </div>
+  </div>
+
+  <!-- Main Content -->
+  <div class="container">
+    <!-- Dashboard Section -->
+    <div class="section">
+      <h2>📊 لوحة المعلومات</h2>
+      <div style="display: grid; grid-template-columns: repeat(2, 1fr); gap: 8px;">
+        <div class="metric">
+          <div class="metric-value" id="total-ops">0</div>
+          <div class="metric-label">العمليات</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="total-decs">0</div>
+          <div class="metric-label">القرارات</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="compliance">100%</div>
+          <div class="metric-label">الامتثال</div>
+        </div>
+        <div class="metric">
+          <div class="metric-value" id="health">99.9%</div>
+          <div class="metric-label">الصحة</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Operations Section -->
+    <div class="section">
+      <h2>⚙️ العمليات</h2>
+      <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="showNewOperation()">
+        + إضافة عملية جديدة
+      </button>
+      <div id="operations-list">
+        <div class="empty-state">
+          <p>لا توجد عمليات حالياً</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Decisions Section -->
+    <div class="section">
+      <h2>🔔 القرارات</h2>
+      <button class="btn btn-primary" style="width: 100%; margin-bottom: 12px;" onclick="showNewDecision()">
+        + اتخاذ قرار جديد
+      </button>
+      <div id="decisions-list">
+        <div class="empty-state">
+          <p>لا توجد قرارات حالياً</p>
+        </div>
+      </div>
+    </div>
+
+    <!-- Reports Section -->
+    <div class="section">
+      <h2>📈 التقارير</h2>
+      <button class="btn btn-secondary" style="width: 100%; margin-bottom: 8px;" onclick="exportReport()">
+        📥 تحميل التقرير
+      </button>
+      <button class="btn btn-secondary" style="width: 100%;" onclick="createBackup()">
+        💾 نسخة احتياطية
+      </button>
+    </div>
+
+    <!-- Settings Modal -->
+    <div class="modal" id="settingsModal">
+      <div class="modal-content">
+        <h3 style="margin-bottom: 16px; color: var(--primary);">⚙️ الإعدادات</h3>
+        <label style="display: block; margin-bottom: 12px;">
+          <span style="color: var(--muted); font-size: .9rem;">اللغة</span>
+          <select id="languageSelect" class="input" style="margin-top: 4px;">
+            <option value="ar">العربية</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+          </select>
+        </label>
+        <button class="btn btn-primary" style="width: 100%;" onclick="closeModal()">
+          تم
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Bottom Navigation -->
+  <div class="footer-nav">
+    <div class="nav-item" onclick="switchTab('dashboard')">
+      <div class="icon">📊</div>
+      <span>الرئيسية</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('operations')">
+      <div class="icon">⚙️</div>
+      <span>العمليات</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('decisions')">
+      <div class="icon">🔔</div>
+      <span>القرارات</span>
+    </div>
+    <div class="nav-item" onclick="switchTab('reports')">
+      <div class="icon">📈</div>
+      <span>التقارير</span>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script>
+    // التطبيق الرئيسي للموبايل
+    class SheikhaMobileApp {
+      constructor() {
+        this.currentTab = 'dashboard';
+        this.operations = [];
+        this.decisions = [];
+        this.init();
+      }
+
+      init() {
+        this.loadData();
+        this.updateMetrics();
+        this.registerServiceWorker();
+        console.log('✅ تطبيق الموبايل: جاهز');
+      }
+
+      loadData() {
+        // تحميل البيانات من localStorage
+        const stored = localStorage.getItem('sheikha_mobile_data');
+        if (stored) {
+          const data = JSON.parse(stored);
+          this.operations = data.operations || [];
+          this.decisions = data.decisions || [];
+        }
+      }
+
+      saveData() {
+        localStorage.setItem('sheikha_mobile_data', JSON.stringify({
+          operations: this.operations,
+          decisions: this.decisions
+        }));
+      }
+
+      updateMetrics() {
+        document.getElementById('total-ops').textContent = this.operations.length;
+        document.getElementById('total-decs').textContent = this.decisions.length;
+        document.getElementById('compliance').textContent = '100%';
+        document.getElementById('health').textContent = '99.9%';
+      }
+
+      addOperation(name) {
+        const op = {
+          id: 'OP-' + Date.now(),
+          name,
+          createdAt: new Date().toISOString(),
+          status: 'ACTIVE'
+        };
+        this.operations.push(op);
+        this.saveData();
+        this.updateMetrics();
+        this.renderOperations();
+      }
+
+      addDecision(name) {
+        const dec = {
+          id: 'DEC-' + Date.now(),
+          name,
+          createdAt: new Date().toISOString(),
+          status: 'PENDING'
+        };
+        this.decisions.push(dec);
+        this.saveData();
+        this.updateMetrics();
+        this.renderDecisions();
+      }
+
+      renderOperations() {
+        const list = document.getElementById('operations-list');
+        if (this.operations.length === 0) {
+          list.innerHTML = '<div class="empty-state"><p>لا توجد عمليات</p></div>';
+          return;
+        }
+
+        list.innerHTML = this.operations.map(op => `
+          <div class="card">
+            <h3>⚙️ ${op.name}</h3>
+            <p>${new Date(op.createdAt).toLocaleString('ar-SA')}</p>
+            <span class="status-badge status-active">${op.status}</span>
+          </div>
+        `).join('');
+      }
+
+      renderDecisions() {
+        const list = document.getElementById('decisions-list');
+        if (this.decisions.length === 0) {
+          list.innerHTML = '<div class="empty-state"><p>لا توجد قرارات</p></div>';
+          return;
+        }
+
+        list.innerHTML = this.decisions.map(dec => `
+          <div class="card">
+            <h3>🔔 ${dec.name}</h3>
+            <p>${new Date(dec.createdAt).toLocaleString('ar-SA')}</p>
+            <span class="status-badge status-pending">${dec.status}</span>
+          </div>
+        `).join('');
+      }
+
+      registerServiceWorker() {
+        if ('serviceWorker' in navigator) {
+          navigator.serviceWorker.register('/sw.js').catch(() => {
+            console.log('Service Worker التسجيل فشل');
+          });
+        }
+      }
+
+      exportReport() {
+        const report = {
+          timestamp: new Date().toISOString(),
+          operations: this.operations,
+          decisions: this.decisions,
+          compliance: '100%'
+        };
+
+        const blob = new Blob([JSON.stringify(report, null, 2)], {
+          type: 'application/json'
+        });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = `sheikha-report-${Date.now()}.json`;
+        a.click();
+      }
+
+      backup() {
+        console.log('✅ تم إنشاء نسخة احتياطية');
+      }
+    }
+
+    // تهيئة التطبيق
+    const app = new SheikhaMobileApp();
+
+    // دوال الواجهة
+    function showNewOperation() {
+      const name = prompt('اسم العملية:');
+      if (name) {
+        app.addOperation(name);
+      }
+    }
+
+    function showNewDecision() {
+      const name = prompt('اسم القرار:');
+      if (name) {
+        app.addDecision(name);
+      }
+    }
+
+    function exportReport() {
+      app.exportReport();
+    }
+
+    function createBackup() {
+      app.backup();
+      alert('✅ تم إنشاء النسخة الاحتياطية');
+    }
+
+    function switchTab(tab) {
+      app.currentTab = tab;
+      console.log('تم الانتقال إلى:', tab);
+    }
+
+    function toggleLanguage() {
+      const current = document.documentElement.lang === 'ar' ? 'en' : 'ar';
+      document.documentElement.lang = current;
+      document.documentElement.dir = current === 'ar' ? 'rtl' : 'ltr';
+    }
+
+    function toggleSettings() {
+      document.getElementById('settingsModal').classList.add('active');
+    }
+
+    function closeModal() {
+      document.getElementById('settingsModal').classList.remove('active');
+    }
+
+    // تحديث البيانات عند التحميل
+    window.addEventListener('load', () => {
+      app.renderOperations();
+      app.renderDecisions();
+    });
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_PRODUCTION_TRUTH_GATE_V4",
+  "status": "ACTIVE",
+  "mode": "VERIFIABLE_READINESS_ONLY",
+  "principle": "لا إعلان إنتاج كامل إلا بقياس حقيقي",
+  "requiredGates": [
+    "node_check_passed",
+    "lint_passed",
+    "integration_tests_passed",
+    "health_endpoint_200",
+    "required_services_running",
+    "environment_configured",
+    "backup_tools_available_or_alternative_documented",
+    "docker_or_deployment_runtime_available",
+    "human_approval_recorded"
+  ],
+  "blockedClaims": [
+    "100_percent_production_ready_without_all_gates",
+    "all_services_running_without_port_verification",
+    "security_verified_without_scan_or_config_review",
+    "performance_sla_without_live_metrics",
+    "payment_ready_without_real_gateway_approval"
+  ],
+  "allowedDecision": "ADVANCED_PRODUCTION_CANDIDATE_UNTIL_ALL_GATES_PASS",
+  "governance": {
+    "noHarm": true,
+    "truthfulReporting": true,
+    "humanApprovalRequired": true,
+    "highImpactAutomationBlocked": true
+  }
+}
