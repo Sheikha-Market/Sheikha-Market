@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_SOVEREIGN_KERNEL_BOOT_V1",
-  "generatedAt": "2026-07-09T22:06:18.075Z",
+  "generatedAt": "2026-07-09T22:10:45.749Z",
   "status": "ACTIVE_WITH_SOVEREIGN_BOOT_CATALOG",
   "score": 100,
   "checks": {
@@ -22,8 +22,23 @@
     "recoveryHealthRoutes": true,
     "operationalReadinessRecovery": true
   },
+  "rootCovenant": {
+    "foundation": "TAWHID_OF_ALLAH",
+    "foundationArabic": "أساس شيخة هو التوحيد لله وحده.",
+    "highestLayer": "HAKIMIYYAH_QURAN_SUNNAH_GOVERNANCE",
+    "highestLayerArabic": "أعلى طبقة حاكمة: الحكم لله، والمرجع الكتاب والسنة الصحيحة.",
+    "noLayerAboveGovernance": true,
+    "noHostSystemAsFoundation": true,
+    "noLinuxNodeAsFoundation": true,
+    "sheikhaLanguageNativeFoundation": true,
+    "allLowerLayersWrittenAsIslamicContracts": true,
+    "aiEmbeddedUnderGovernance": true,
+    "statement": "شيخة تُعرّف كنظام أصلي من الصفر؛ لغة شيخة هي عقد البرمجة الأول، وما دون طبقة الحاكمية يُكتب بعقود وربط منضبط بالكتاب والسنة."
+  },
   "governanceKernel": {
     "reference": {
+      "tawhidFoundation": true,
+      "hukmBelongsToAllah": true,
       "quran": true,
       "authenticSunnah": true,
       "noDivineAuthorityClaim": true,
@@ -49,8 +64,10 @@
   "sheikhaLanguagePrimacy": {
     "status": "ACTIVE_AS_FOUNDATIONAL_PROGRAMMING_CONTRACT",
     "mandatoryForNewSystems": true,
+    "nativeSystemLanguage": true,
+    "linuxNodeNotFoundation": true,
     "mode": "ARABIC_DSL_GOVERNED_PROGRAMMING_INTEGRATION",
-    "principle": "كل نظام جديد داخل شيخة يبدأ بعقد لغة شيخة: مواصفة، حوكمة، workflow، عقد، تنفيذ، ثم ترجمة آمنة عند الحاجة.",
+    "principle": "كل نظام داخل شيخة يبدأ بعقد لغة شيخة: توحيد الجذر، حاكمية الكتاب والسنة، مواصفة، عقد، ربط، تنفيذ، ثم ترجمة آمنة للأدوات المؤقتة عند الحاجة.",
     "layers": [
       "specification_language",
       "governance_rules_language",
@@ -86,18 +103,20 @@
     ]
   },
   "fromScratchBoundary": {
+    "constitutionalFoundingFromScratch": true,
     "applicationKernelBuiltFromSheikhaContracts": true,
     "higherBusinessLogicSystemRequired": false,
-    "hostBootstrapRequiredToday": true,
-    "hostBootstrapSubstrate": [
-      "Linux or compatible OS",
-      "Node.js runtime",
-      "PM2 optional process manager"
-    ],
+    "hostSystemFoundationAllowed": false,
+    "linuxNodeFoundationAllowed": false,
+    "nativeNoHostArchitectureTarget": true,
+    "currentRepositoryToolingRunsOnHost": true,
+    "currentRepositoryToolingIsFoundation": false,
+    "currentRepositoryToolingBoundary": "Node/Linux يظهران كأدوات بناء وفحص داخل المستودع الحالي فقط، وليسا أصل شيخة ولا الطبقة الحاكمة ولا نظامها الأصلي.",
+    "nativeBootImageVerifiedToday": false,
     "bareMetalFullyIndependentToday": false,
     "bareMetalSeedPresent": true,
-    "truthPolicy": "لا يتم ادعاء نظام bare-metal مستقل كامل حتى توجد اختبارات إقلاع وملفات صورة وتشغيل على عتاد/VM موثقة.",
-    "roadmapTarget": "Sheikha-first boot chain where Sheikha Language contracts generate runtime services, recovery, stores, and governance before external adapters."
+    "truthPolicy": "التأسيس المعماري من الصفر ثابت في العقد الحاكم، أما ادعاء تشغيل bare-metal بلا مضيف فيحتاج صورة إقلاع واختبارات VM/عتاد موثقة.",
+    "roadmapTarget": "Sheikha-native boot chain where Sheikha Language contracts generate kernel, governance, services, recovery, stores, and AI adapters before any external tooling."
   },
   "frontendAndStores": {
     "status": "READY_FOR_LOCAL_FRONTEND_SMOKE",
@@ -170,13 +189,19 @@
     ]
   },
   "laptopBootReadiness": {
-    "status": "READY_FOR_HOSTED_LAPTOP_BOOT",
-    "hostRequirements": {
+    "status": "READY_FOR_BUILDER_ASSISTED_LAPTOP_BOOT",
+    "nativeTarget": {
+      "noHostSystemFoundation": true,
+      "sheikhaLanguageBootContracts": true,
+      "target": "Sheikha-native laptop boot image"
+    },
+    "builderToolingRequirements": {
       "node": "^20.0.0 || ^22.0.0 || ^25.0.0",
       "pm2": ">=6.0.0",
       "memory": "8GB minimum, 16GB+ recommended",
       "storage": "SSD recommended",
-      "network": "optional for local-only mode; required for external integrations"
+      "network": "optional for local-only mode; required for external integrations",
+      "note": "هذه متطلبات أدوات البناء الحالية، وليست أساس النظام الأصلي."
     },
     "commands": [
       "npm install",
@@ -207,44 +232,44 @@
   "roadmap": [
     {
       "phase": 1,
-      "name": "Hosted Sovereign Kernel",
+      "name": "Tawhid Root Covenant",
       "status": "ACTIVE",
-      "output": "Node/Linux hosted Sheikha kernel with Islamic AI governance and language contract."
+      "output": "Foundation: التوحيد لله، highest governance layer: الحكم لله والكتاب والسنة."
     },
     {
       "phase": 2,
-      "name": "Sheikha Language First Runtime",
+      "name": "Sheikha Native Language Foundation",
       "status": "ACTIVE_CONTRACT_NEEDS_MORE_COMPILER_COVERAGE",
-      "output": "All new systems start from .shk/spec contracts and compile/adapt downward."
+      "output": "All systems start from Sheikha Language contracts and Islamic governance bindings."
     },
     {
       "phase": 3,
-      "name": "Frontend and Store Surface Activation",
+      "name": "Governed AI Kernel",
+      "status": "ACTIVE",
+      "output": "AI is embedded under governance as a controlled support layer."
+    },
+    {
+      "phase": 4,
+      "name": "Frontend Store Package Surfaces",
       "status": "READY_FOR_LOCAL_SMOKE",
       "output": "Website, marketplace, stores APIs, package surfaces, and apps verified locally."
     },
     {
-      "phase": 4,
-      "name": "Portable Laptop Boot Pack",
-      "status": "READY_FOR_HOSTED_BOOT_PACKAGING",
-      "output": "One-command local laptop boot with recovery handbook."
-    },
-    {
       "phase": 5,
-      "name": "Bare-Metal/VM Boot Chain",
+      "name": "Sheikha-Native Laptop Boot Image",
       "status": "SEED_PRESENT_NOT_CLAIMED_COMPLETE",
-      "output": "Minimal boot.asm/kernel.c evolves into tested VM image."
+      "output": "Minimal boot.asm/kernel.c evolves into tested Sheikha-native VM/laptop image."
     },
     {
       "phase": 6,
-      "name": "Full Sheikha-Native System",
+      "name": "Full No-Host Sheikha System",
       "status": "ROADMAP",
-      "output": "Sheikha Language controls boot, services, stores, recovery, governance, and AI adapters."
+      "output": "Sheikha Language controls boot, services, stores, recovery, governance, and AI adapters without Linux/Node as foundation."
     }
   ],
   "outputs": {
     "report": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
     "handbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md"
   },
-  "principle": "النواة مدمجة بالحوكمة الإسلامية والذكاء الصناعي، ولغة شيخة هي عقد البرمجة الأساسي؛ لا ادعاء لاستقلال bare-metal كامل قبل دليله."
+  "principle": "أساس شيخة التوحيد لله؛ أعلى طبقة الحكم لله بالكتاب والسنة؛ لغة شيخة هي أصل البرمجة؛ Linux/Node ليست أساسًا ولا طبقة حاكمة، بل أدوات بناء مؤقتة حتى يكتمل إقلاع شيخة الأصلي."
 }
