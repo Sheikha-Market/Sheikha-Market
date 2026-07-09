@@ -16,6 +16,7 @@ const executiveDashboardPath = 'runtime/master-activation/sheikha-master-executi
 const finalExecutiveReportPath = 'runtime/master-activation/sheikha-master-final-executive-report-v1.json';
 const documentationIndexPath = 'runtime/master-activation/sheikha-master-documentation-index-v1.json';
 const methodologyAccreditationPath = 'runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json';
+const externalAccreditationVerificationPath = 'runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json';
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
@@ -896,7 +897,8 @@ function buildMethodologyAccreditationReadiness(
     licensesRegistry: exists('runtime/licensing-engine/v1/registries/licenses.json'),
     internalAccreditationIssuer: exists('scripts/sheikha-issue-accreditation.js'),
     externalAccreditationPackBuilder: exists('scripts/sheikha-prepare-external-accreditation.js'),
-    externalAccreditationVerifier: exists('scripts/sheikha-verify-external-accreditation.js')
+    externalAccreditationVerifier: exists('scripts/sheikha-verify-external-accreditation.js'),
+    externalAccreditationVerificationArtifact: exists(externalAccreditationVerificationPath)
   };
 
   const internalIssuedAttestations = [
@@ -991,7 +993,8 @@ function buildMethodologyAccreditationReadiness(
     securityEvidence: securityVerification.score > 0,
     methodologyRegistriesPresent: existingEvidence.universalMethodologiesRegistry && existingEvidence.adminMethodologiesRegistry,
     licensingEvidencePresent: existingEvidence.licensingEngine && existingEvidence.licensesRegistry,
-    externalSubmissionPackSupported: existingEvidence.externalAccreditationPackBuilder && existingEvidence.externalAccreditationVerifier
+    externalSubmissionPackSupported: existingEvidence.externalAccreditationPackBuilder && existingEvidence.externalAccreditationVerifier,
+    externalSubmissionVerificationMirrored: existingEvidence.externalAccreditationVerificationArtifact
   };
   const readiness = scoreFromChecks(readinessChecks);
 
@@ -1012,6 +1015,7 @@ function buildMethodologyAccreditationReadiness(
       architectureGraph: architectureGraphPath,
       externalPackBuilder: 'scripts/sheikha-prepare-external-accreditation.js',
       internalIssuer: 'scripts/sheikha-issue-accreditation.js',
+      externalVerification: externalAccreditationVerificationPath,
       licensingRegistry: 'runtime/licensing-engine/v1/registries/licenses.json'
     },
     existingEvidence,
@@ -1046,7 +1050,8 @@ function buildDocumentationIndex(files) {
       duplicateDetectionPath,
       executiveDashboardPath,
       finalExecutiveReportPath,
-      methodologyAccreditationPath
+      methodologyAccreditationPath,
+      externalAccreditationVerificationPath
     ],
     duplicationPolicy: 'Use this index to link existing documents instead of copying their content.'
   };
@@ -1236,6 +1241,7 @@ function buildReport() {
   finalExecutiveReport.counts.internationalAccreditationTargets = methodologyAccreditation.internationalAccreditationReadinessTargets.length;
   finalExecutiveReport.counts.externalCertificatesIssued = methodologyAccreditation.externalCertificatesIssued;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
+  finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1290,6 +1296,7 @@ function buildReport() {
     executiveDashboardPath,
     finalExecutiveReportPath,
     methodologyAccreditationPath,
+    externalAccreditationVerificationPath,
     dependencyGraph: {
       fullGraphPath: architectureGraphPath,
       layerEdges: architectureGraph.edges.length,
@@ -1421,7 +1428,8 @@ if (require.main === module) {
       executiveDashboard: executiveDashboardPath,
       finalExecutiveReport: finalExecutiveReportPath,
       documentationIndex: documentationIndexPath,
-      methodologyAccreditation: methodologyAccreditationPath
+      methodologyAccreditation: methodologyAccreditationPath,
+      externalAccreditationVerification: externalAccreditationVerificationPath
     }
   }, null, 2));
 }

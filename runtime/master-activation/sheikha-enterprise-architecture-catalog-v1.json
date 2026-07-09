@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-09T21:39:47.300Z",
+  "generatedAt": "2026-07-09T21:54:23.056Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -2142,7 +2142,7 @@
     },
     {
       "root": "runtime",
-      "files": 1930,
+      "files": 1932,
       "classification": "repository-artifact"
     },
     {
@@ -2962,7 +2962,7 @@
     },
     {
       "root": "tests",
-      "files": 324,
+      "files": 325,
       "classification": "repository-artifact"
     },
     {
@@ -3279,7 +3279,7 @@
       "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
     },
     "Documentation": {
-      "components": 3087,
+      "components": 3088,
       "dependencies": [
         "Knowledge",
         "Registry"
@@ -3313,7 +3313,7 @@
       "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
     },
     "Health": {
-      "components": 72,
+      "components": 73,
       "dependencies": [
         "Runtime",
         "Monitoring"
@@ -3395,7 +3395,7 @@
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     "Runtime": {
-      "components": 1235,
+      "components": 1236,
       "dependencies": [
         "OS",
         "Cloud"
@@ -3447,10 +3447,11 @@
   "executiveDashboardPath": "runtime/master-activation/sheikha-master-executive-dashboard-v1.json",
   "finalExecutiveReportPath": "runtime/master-activation/sheikha-master-final-executive-report-v1.json",
   "methodologyAccreditationPath": "runtime/master-activation/sheikha-master-methodology-accreditation-readiness-v1.json",
+  "externalAccreditationVerificationPath": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 14812
+    "componentEdges": 14818
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
@@ -3466,11 +3467,11 @@
     "layers": 25,
     "apis": 2687,
     "services": 0,
-    "tests": 334,
+    "tests": 335,
     "docs": 1046,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1235,
+    "runtimeEngines": 1236,
     "identityEngines": 94,
     "governanceEngines": 519,
     "knowledgeEngines": 201,
