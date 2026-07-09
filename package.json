@@ -169,6 +169,8 @@
     "ops:community:modeling:pm2:status": "pm2 describe sheikha-community-modeling-cycle",
     "ops:community:modeling:pm2:logs": "pm2 logs sheikha-community-modeling-cycle --lines 80 --nostream",
     "ops:community:modeling:monitor": "node scripts/sheikha-community-modeling-monitor.js",
+    "ops:os-cloud-supercomputer:benchmark:v1": "node tools/activation/sheikha-live-compute-benchmark-v1.js",
+    "ops:os-cloud-supercomputer:verify:v1": "node tools/activation/activate-sheikha-os-cloud-supercomputer-integration-v1.js",
     "ops:production:readiness": "node scripts/sheikha-production-readiness-gate.js",
     "ops:production:readiness:full": "node scripts/sheikha-production-readiness-gate.js --full",
     "ops:production:readiness:report": "npm run -s ops:production:readiness >/dev/null && cat runtime/system/sheikha-production-readiness-report.json",

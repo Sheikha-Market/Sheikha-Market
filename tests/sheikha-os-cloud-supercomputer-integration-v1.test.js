@@ -2,7 +2,9 @@
 
 const contract = require('../runtime/os-cloud-supercomputer/sheikha-os-cloud-supercomputer-integration-v1.json');
 const {
+  benchmarkReportPath,
   buildChecks,
+  buildReport,
   communityReportPaths,
   hasCommunityReport
 } = require('../tools/activation/activate-sheikha-os-cloud-supercomputer-integration-v1');
@@ -35,5 +37,24 @@ describe('Sheikha OS Cloud Supercomputer Integration V1', () => {
 
   test('community report detection stays false when no supported path exists', () => {
     expect(hasCommunityReport(() => false)).toBe(false);
+  });
+
+  test('accepts the live compute benchmark report as required evidence', () => {
+    const checks = buildChecks((filePath) => filePath === benchmarkReportPath);
+    expect(checks.liveComputeBenchmarkPresent).toBe(true);
+  });
+
+  test('report stays under review when benchmark evidence is missing', () => {
+    const report = buildReport((filePath) => [
+      'runtime/os-cloud-supercomputer/sheikha-os-cloud-supercomputer-integration-v1.json',
+      'runtime/identity/sheikha-active-identity-v2-report.json',
+      'runtime/production-truth-gate/sheikha-production-truth-gate-v4.json',
+      'runtime/community/sheikha-community-modeling-report.json',
+      'package.json',
+      'server.js'
+    ].includes(filePath));
+
+    expect(report.status).toBe('NEEDS_REVIEW');
+    expect(report.checks.liveComputeBenchmarkPresent).toBe(false);
   });
 });
