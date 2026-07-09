@@ -1,0 +1,130 @@
+{
+  "system": "SHEIKHA_ARCHITECTURE_UPLIFT_GATE_V1",
+  "generatedAt": "2026-07-09T11:21:27.576Z",
+  "score": 93,
+  "tier": "ENTERPRISE_STRONG",
+  "status": "UPLIFT_HIGH",
+  "layers": {
+    "foundationLayer": {
+      "score": 100,
+      "status": "READY",
+      "evidence": {
+        "operationalReady": true,
+        "pm2Ready": true,
+        "endpointsReady": true
+      }
+    },
+    "knowledgeGraphLayer": {
+      "score": 100,
+      "status": "ACTIVE",
+      "evidence": {
+        "architectureApis": [
+          {
+            "route": "/api/architecture/dashboard",
+            "url": "http://127.0.0.1:8080/api/architecture/dashboard",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/architecture/layers",
+            "url": "http://127.0.0.1:8080/api/architecture/layers",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/architecture/apis",
+            "url": "http://127.0.0.1:8080/api/architecture/apis",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/sheikha/computer-architecture/global-status",
+            "url": "http://127.0.0.1:8080/api/sheikha/computer-architecture/global-status",
+            "ok": true,
+            "code": 200
+          }
+        ]
+      }
+    },
+    "controlPlaneLayer": {
+      "score": 100,
+      "status": "ACTIVE",
+      "evidence": {
+        "controlPlaneApis": [
+          {
+            "route": "/api/runtime/status",
+            "url": "http://127.0.0.1:8080/api/runtime/status",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/governance/status",
+            "url": "http://127.0.0.1:8080/api/governance/status",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/metrics",
+            "url": "http://127.0.0.1:8080/api/metrics",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/performance",
+            "url": "http://127.0.0.1:8080/api/performance",
+            "ok": true,
+            "code": 200
+          }
+        ]
+      }
+    },
+    "observatoryLayer": {
+      "score": 100,
+      "status": "ACTIVE",
+      "evidence": {
+        "observatoryApis": [
+          {
+            "route": "/executive-civilization-control-center/index.html",
+            "url": "http://127.0.0.1:8080/executive-civilization-control-center/index.html",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/community/dashboard",
+            "url": "http://127.0.0.1:8080/api/community/dashboard",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/community/types",
+            "url": "http://127.0.0.1:8080/api/community/types",
+            "ok": true,
+            "code": 200
+          },
+          {
+            "route": "/api/community/tools",
+            "url": "http://127.0.0.1:8080/api/community/tools",
+            "ok": true,
+            "code": 200
+          }
+        ]
+      }
+    },
+    "releaseGovernanceLayer": {
+      "score": 63,
+      "status": "STABILIZATION_REQUIRED",
+      "evidence": {
+        "qualityReady": true,
+        "gitClean": false,
+        "totalChanges": 198
+      }
+    }
+  },
+  "recommendations": [
+    "Knowledge graph and architecture APIs are active.",
+    "Control plane APIs are healthy.",
+    "Executive observatory is live.",
+    "Quality gate is healthy.",
+    "Split remaining changes into release batches before final RC."
+  ]
+}

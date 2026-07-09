@@ -1,0 +1,458 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+  <title>🕌 لغة شيخة البرمجية — المنصة الموحدة</title>
+  <meta name="description" content="لغة شيخة البرمجية — منصة تجارية إسلامية متكاملة برقمنة قرآنية وحديثية شاملة">
+  <link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Changa:wght@500;700;800&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --bg: #071018;
+      --bg2: #0d1826;
+      --bg3: #122236;
+      --gold: #d4af37;
+      --gold-soft: #f3e2a1;
+      --mint: #36d1b7;
+      --ink: #eff4f8;
+      --muted: #9ca8b7;
+      --quranic: #2563eb;
+      --line: rgba(212, 175, 55, .14);
+      --radius: 22px;
+      --shadow: 0 18px 48px rgba(0, 0, 0, .28);
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    body {
+      font-family: 'Tajawal', sans-serif;
+      color: var(--ink);
+      background: linear-gradient(180deg, #071018, #09131f 38%, #08111b 100%);
+      min-height: 100vh;
+      overflow-x: hidden;
+    }
+
+    .wrap {
+      max-width: 1400px;
+      margin: 0 auto;
+      padding: 24px;
+    }
+
+    .hero {
+      padding: 38px 0 18px;
+      text-align: center;
+      margin-bottom: 40px;
+    }
+
+    .hero h1 {
+      font-family: 'Changa', sans-serif;
+      font-size: clamp(2.1rem, 4.6vw, 4rem);
+      background: linear-gradient(135deg, var(--gold-soft), var(--mint));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+    }
+
+    .hero p {
+      font-size: 1rem;
+      line-height: 1.95;
+      color: var(--muted);
+      max-width: 900px;
+      margin: 20px auto 0;
+    }
+
+    .section {
+      margin: 42px 0;
+    }
+
+    .section-head h2 {
+      font-size: 2rem;
+      font-weight: 900;
+      background: linear-gradient(135deg, var(--gold), var(--mint));
+      background-clip: text;
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      margin-bottom: 16px;
+    }
+
+    .section-head p {
+      color: var(--muted);
+      max-width: 900px;
+      margin: 0 auto;
+      line-height: 1.8;
+    }
+
+    .principle-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .principle-card {
+      background: linear-gradient(140deg, rgba(54, 209, 183, .1), rgba(212, 175, 55, .08));
+      border: 1px solid rgba(54, 209, 183, .3);
+      border-radius: 16px;
+      padding: 16px;
+    }
+
+    .principle-card h4 {
+      color: var(--mint);
+      font-size: 1rem;
+      margin-bottom: 8px;
+    }
+
+    .principle-card p {
+      font-size: .85rem;
+      color: var(--muted);
+      line-height: 1.7;
+    }
+
+    .quran-ref {
+      font-size: .8rem;
+      color: var(--quranic);
+      font-weight: 800;
+      margin-top: 12px;
+      padding-top: 12px;
+      border-top: 1px solid rgba(37, 99, 235, .3);
+    }
+
+    .systems-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+      gap: 16px;
+      margin: 24px 0;
+    }
+
+    .system-card {
+      background: linear-gradient(165deg, rgba(13, 24, 38, .94), rgba(9, 18, 30, .96));
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 20px;
+    }
+
+    .system-card h3 {
+      color: var(--gold);
+      font-size: 1.15rem;
+      margin-bottom: 8px;
+    }
+
+    .system-card p {
+      color: var(--muted);
+      font-size: .95rem;
+      line-height: 1.7;
+      margin-bottom: 12px;
+    }
+
+    .layer-badge {
+      display: inline-block;
+      background: rgba(212, 175, 55, .2);
+      padding: 6px 12px;
+      border-radius: 8px;
+      font-size: .8rem;
+      font-weight: 800;
+      color: var(--gold);
+      margin-bottom: 8px;
+    }
+
+    .layer-badge.quranic {
+      background: rgba(37, 99, 235, .2);
+      color: var(--quranic);
+    }
+
+    .metrics-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 12px;
+      margin: 24px 0;
+    }
+
+    .metric {
+      background: rgba(255, 255, 255, .04);
+      border: 1px solid rgba(255, 255, 255, .08);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+    }
+
+    .metric-value {
+      font-size: 1.8rem;
+      font-weight: 900;
+      color: var(--gold);
+      margin-bottom: 4px;
+    }
+
+    .metric-label {
+      font-size: .85rem;
+      color: var(--muted);
+    }
+
+    .code-block {
+      background: rgba(0, 0, 0, .4);
+      border: 1px solid rgba(212, 175, 55, .2);
+      border-radius: 14px;
+      padding: 16px;
+      font-family: 'Courier New', monospace;
+      font-size: .85rem;
+      color: var(--gold-soft);
+      overflow-x: auto;
+      line-height: 1.6;
+      white-space: pre;
+      margin: 20px 0;
+    }
+
+    .footer {
+      text-align: center;
+      padding: 40px 0;
+      border-top: 1px solid var(--line);
+      margin-top: 60px;
+      color: var(--muted);
+    }
+
+    .footer .quran {
+      font-style: italic;
+      color: var(--mint);
+      margin-top: 16px;
+    }
+
+    @media (max-width: 768px) {
+      .section-head h2 {
+        font-size: 1.5rem;
+      }
+
+      .principle-grid, .systems-grid, .metrics-grid {
+        grid-template-columns: 1fr;
+      }
+    }
+  </style>
+</head>
+
+<body>
+  <div class="wrap">
+    <!-- Hero Section -->
+    <section class="hero">
+      <h1>🕌 لغة شيخة البرمجية v1.0</h1>
+      <p>منصة تجارية إسلامية متكاملة بالكتاب والسنة — تدمج أربعة أنظمة في ستة طبقات معمارية</p>
+    </section>
+
+    <!-- Islamic Principles Section -->
+    <section class="section">
+      <div class="section-head">
+        <h2>✨ المبادئ الإسلامية الخمسة</h2>
+        <p>كل عملية برمجية مرتبطة بمبدأ إسلامي وآية قرآنية وتحقق شرعي دائم</p>
+      </div>
+
+      <div class="principle-grid">
+        <div class="principle-card">
+          <h4>العدل — Justice</h4>
+          <p>العدل في كل القرارات والتوزيع والتسعير والموارد</p>
+          <div class="quran-ref">سورة النحل: 90 — "إن الله يأمر بالعدل والإحسان"</div>
+        </div>
+
+        <div class="principle-card">
+          <h4>الأمانة — Trustworthiness</h4>
+          <p>الأمانة في حفظ البيانات والعمليات والسجلات</p>
+          <div class="quran-ref">سورة البقرة: 283 — "فإن أمن بعضكم بعضا"</div>
+        </div>
+
+        <div class="principle-card">
+          <h4>الشفافية — Transparency</h4>
+          <p>الشفافية المطلقة في كل العمليات والتكاليف</p>
+          <div class="quran-ref">سورة النساء: 9 — تحقق كامل</div>
+        </div>
+
+        <div class="principle-card">
+          <h4>الإحسان — Excellence</h4>
+          <p>الإحسان في الخدمة والتعامل مع الجميع</p>
+          <div class="quran-ref">سورة النحل: 90 — الإحسان في كل شيء</div>
+        </div>
+
+        <div class="principle-card">
+          <h4>التوكل — Trust in Allah</h4>
+          <p>التوكل مع الأخذ بالأسباب والتخطيط</p>
+          <div class="quran-ref">سورة الكهف: 19 — الحكمة والتخطيط</div>
+        </div>
+
+        <div class="principle-card">
+          <h4>الشورى — Consultation</h4>
+          <p>الشورى في القرارات الاستراتيجية</p>
+          <div class="quran-ref">سورة الشورى: 38 — أمرهم شورى</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Architecture Layers Section -->
+    <section class="section">
+      <div class="section-head">
+        <h2>🏗️ الطبقات المعمارية الست</h2>
+        <p>من الأساس الإسلامي إلى التحسين المستمر</p>
+      </div>
+
+      <div class="systems-grid">
+        <div class="system-card">
+          <span class="layer-badge">A1</span>
+          <h3>الأساس الإسلامي الموثق</h3>
+          <p>أساس متين من التوثيق والأمان 100%</p>
+          <div class="quran-ref">سورة البقرة: 283 | الجودة: 100% توثيق</div>
+        </div>
+
+        <div class="system-card">
+          <span class="layer-badge">A2</span>
+          <h3>الإقلاع والتهيئة</h3>
+          <p>التهيئة الأولية والتحضير والتحقق</p>
+          <div class="quran-ref">سورة الإسراء: 36 | الجودة: 100% موثق</div>
+        </div>
+
+        <div class="system-card">
+          <span class="layer-badge">A3</span>
+          <h3>التشغيل بالعدل والإحسان</h3>
+          <p>التشغيل اليومي مع تطبيق العدل</p>
+          <div class="quran-ref">سورة النحل: 90 | الجودة: 95% كفاءة</div>
+        </div>
+
+        <div class="system-card">
+          <span class="layer-badge">A4-A6</span>
+          <h3>التوسع والنمو العالمي</h3>
+          <p>التوسع مع 25% نمو سنوي متوقع</p>
+          <div class="quran-ref">سورة الحشر: 18 | الجودة: 25% نمو</div>
+        </div>
+
+        <div class="system-card">
+          <span class="layer-badge quranic">QA</span>
+          <h3>ضمان الجودة والامتثال</h3>
+          <p>ضمان الجودة 99.9% في كل خطوة</p>
+          <div class="quran-ref">سورة النساء: 9 | الجودة: 99.9%</div>
+        </div>
+
+        <div class="system-card">
+          <span class="layer-badge quranic">OPT</span>
+          <h3>التحسين المستمر والابتكار</h3>
+          <p>التطور الدائم والابتكار المستمر</p>
+          <div class="quran-ref">سورة الملك: 3 | الجودة: تطور دائم</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Four Systems Section -->
+    <section class="section">
+      <div class="section-head">
+        <h2>⚙️ الأنظمة الأربعة المتكاملة</h2>
+        <p>أربعة أنظمة أساسية تعمل كجسم واحد منسق</p>
+      </div>
+
+      <div class="systems-grid">
+        <div class="system-card">
+          <h3>1️⃣ الأسواق والتوريد</h3>
+          <p>تتبع السلسلة من التعدين إلى التسليم مع توثيق الحلال والعدالة</p>
+          <div class="layer-badge quranic">سورة النحل: 5-8 | سورة المائدة: 1</div>
+          <p style="font-size: .85rem; color: var(--muted); margin-top: 8px;">✓ HS Codes | ✓ Supply Chain | ✓ Halal</p>
+        </div>
+
+        <div class="system-card">
+          <h3>2️⃣ العقل الإداري</h3>
+          <p>قرارات ذكية مبنية على البيانات مع تحقق شرعي</p>
+          <div class="layer-badge quranic">سورة الشورى: 38 | سورة النحل: 90</div>
+          <p style="font-size: .85rem; color: var(--muted); margin-top: 8px;">✓ 6 Dimensions | ✓ Sharia | ✓ Workflow</p>
+        </div>
+
+        <div class="system-card">
+          <h3>3️⃣ دراسات الجدوى</h3>
+          <p>تحليل مالي شامل مع 6 مؤشرات KPI</p>
+          <div class="layer-badge quranic">سورة الكهف: 18-19 | سورة الحشر: 18</div>
+          <p style="font-size: .85rem; color: var(--muted); margin-top: 8px;">✓ ROI | ✓ IRR | ✓ NPV | ✓ Payback</p>
+        </div>
+
+        <div class="system-card">
+          <h3>4️⃣ التخطيط الاستراتيجي</h3>
+          <p>خطة شاملة من الرؤية 2050 إلى الإجراءات اليومية</p>
+          <div class="layer-badge quranic">سورة الفرقان: 2 | سورة الرعد: 11</div>
+          <p style="font-size: .85rem; color: var(--muted); margin-top: 8px;">✓ Vision | ✓ 6 Pillars | ✓ Review Cycle</p>
+        </div>
+      </div>
+    </section>
+
+    <!-- Performance Metrics -->
+    <section class="section">
+      <div class="section-head">
+        <h2>📊 مؤشرات الأداء</h2>
+        <p>معايير الجودة والامتثال الإسلامي</p>
+      </div>
+
+      <div class="metrics-grid">
+        <div class="metric">
+          <div class="metric-value">100%</div>
+          <div class="metric-label">التوثيق والأمان</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">95%</div>
+          <div class="metric-label">كفاءة التشغيل</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">25%</div>
+          <div class="metric-label">النمو السنوي</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">99.9%</div>
+          <div class="metric-label">الامتثال الشرعي</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">4</div>
+          <div class="metric-label">أنظمة متكاملة</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">6</div>
+          <div class="metric-label">طبقات معمارية</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">15+</div>
+          <div class="metric-label">آيات قرآنية</div>
+        </div>
+
+        <div class="metric">
+          <div class="metric-value">3+</div>
+          <div class="metric-label">أحاديث نبوية</div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Code Example -->
+    <section class="section">
+      <div class="section-head">
+        <h2>💡 مثال على لغة شيخة</h2>
+        <p>عملية مع تحقق إسلامي كامل</p>
+      </div>
+
+      <div class="code-block">اعلن رقم(الربح) = 50000 {
+  unit: "ريال سعودي"
+  verified: HALAL
+  documented: ✓
+  quran_ref: "سورة النحل: 90"
+}
+
+عملية(احسب_الربح) {
+  مدخل: [تكلفة, سعر_بيع]
+  process {
+    verify_sharia_compliance("التسعير العادل")
+    صافي = سعر_بيع - تكلفة
+    verify_islamic_ethics(صافي)
+    apply_principle("العدل")
+    apply_principle("الشفافية")
+  }
+  output: {
+    result: صافي
+    certified: ✓ HALAL
+    layer: A3
+    quran_ref: "سورة النحل: 90"
+  }
+  audit_trail: COMPLETE
+}

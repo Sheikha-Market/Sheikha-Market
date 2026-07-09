@@ -1,0 +1,197 @@
+{
+  "system": "SHEIKHA_PRODUCTION_READINESS_GATE_V1",
+  "status": "STABILIZATION_REQUIRED",
+  "generatedAt": "2026-07-09T11:22:46.147Z",
+  "mode": "full",
+  "checks": {
+    "operationalReady": true,
+    "pm2Ready": true,
+    "endpointsReady": true,
+    "identityReady": true,
+    "communityReady": true,
+    "qualityReady": true
+  },
+  "pm2": {
+    "ok": true,
+    "services": {
+      "mainPortal": {
+        "found": true,
+        "name": "sheikha-main-portal",
+        "status": "online",
+        "restarts": 20,
+        "uptime": 1783595523495
+      },
+      "identityAuto": {
+        "found": true,
+        "name": "sheikha-identity-v2-auto",
+        "status": "online",
+        "restarts": 0,
+        "uptime": 1783566558630
+      },
+      "communityCycle": {
+        "found": true,
+        "name": "sheikha-community-modeling-cycle",
+        "status": "online",
+        "restarts": 0,
+        "uptime": 1783570981190
+      }
+    },
+    "rawError": null
+  },
+  "endpoints": [
+    {
+      "route": "/api/health",
+      "url": "http://127.0.0.1:8080/api/health",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/identity/status",
+      "url": "http://127.0.0.1:8080/api/identity/status",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/runtime/status",
+      "url": "http://127.0.0.1:8080/api/runtime/status",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/governance/status",
+      "url": "http://127.0.0.1:8080/api/governance/status",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/production/truth-gate",
+      "url": "http://127.0.0.1:8080/api/production/truth-gate",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/metrics",
+      "url": "http://127.0.0.1:8080/api/metrics",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/performance",
+      "url": "http://127.0.0.1:8080/api/performance",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/community/dashboard",
+      "url": "http://127.0.0.1:8080/api/community/dashboard",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/community/types",
+      "url": "http://127.0.0.1:8080/api/community/types",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/api/community/tools",
+      "url": "http://127.0.0.1:8080/api/community/tools",
+      "code": 200,
+      "ok": true
+    },
+    {
+      "route": "/executive-civilization-control-center/index.html",
+      "url": "http://127.0.0.1:8080/executive-civilization-control-center/index.html",
+      "code": 200,
+      "ok": true
+    }
+  ],
+  "reports": {
+    "identity": {
+      "status": "ACTIVE",
+      "score": 100,
+      "generatedAt": "2026-07-09T03:53:50.139Z"
+    },
+    "community": {
+      "status": "KHAYR_ACTIVE",
+      "generatedAt": "2026-07-09T04:23:03.199Z",
+      "communityTypes": 12,
+      "digitalTools": 9,
+      "formationReady": true
+    }
+  },
+  "qualityChecks": [
+    {
+      "name": "lint",
+      "ok": true,
+      "code": 0,
+      "summary": "lint passed"
+    },
+    {
+      "name": "test",
+      "ok": true,
+      "code": 0,
+      "summary": "test passed"
+    }
+  ],
+  "git": {
+    "clean": false,
+    "totalChanges": 166,
+    "statusCounts": {
+      "added": 0,
+      "modified": 12,
+      "deleted": 0,
+      "renamed": 0,
+      "untracked": 154,
+      "conflicted": 0,
+      "other": 0
+    },
+    "topDirectories": [
+      {
+        "dir": "(root)",
+        "count": 101
+      },
+      {
+        "dir": "runtime",
+        "count": 28
+      },
+      {
+        "dir": "docs",
+        "count": 22
+      },
+      {
+        "dir": "\"public",
+        "count": 6
+      },
+      {
+        "dir": "config",
+        "count": 3
+      },
+      {
+        "dir": "bin",
+        "count": 1
+      },
+      {
+        "dir": "k8s",
+        "count": 1
+      },
+      {
+        "dir": "public",
+        "count": 1
+      },
+      {
+        "dir": "scripts",
+        "count": 1
+      },
+      {
+        "dir": "security",
+        "count": 1
+      }
+    ]
+  },
+  "recommendations": [
+    "Operational gate passed.",
+    "Git workspace has pending changes; split into logical feature batches before release.",
+    "Quality checks are acceptable for current mode."
+  ]
+}

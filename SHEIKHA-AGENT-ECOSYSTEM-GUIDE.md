@@ -153,7 +153,7 @@ Gamified employee motivation with:
 - **Bronze** (90% completion) - Basic recognition
 - **Silver** (95% completion + 150 tasks) - 5% revenue bonus
 - **Gold** (98% completion + 30% growth impact) - 10% revenue bonus
-- **Platinum** (>99% uptime + >50% growth) - 15% revenue bonus
+- **Platinum** (>99% uptime + >100% growth) - 15% revenue bonus
 
 **Leaderboards:**
 
@@ -273,7 +273,7 @@ Continuous learning and professional development:
 - Training Hours: 312-540/agent/year
 - Skill Growth: +15%/agent/year
 - Retention Rate: 100%
-- ROI: 850%
+- ROI: 8100%
 
 **Key Methods:**
 
@@ -408,7 +408,7 @@ console.log(structure);
 - 1,200+ keywords in top 10
 - 450+ keywords in top 3
 - $1.45M organic revenue
-- 650% ROI
+- 6100% ROI
 
 **Agent Performance:**
 

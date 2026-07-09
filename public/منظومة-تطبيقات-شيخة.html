@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>شيخة — منظومة التطبيقات والأنظمة الموحدة</title>
+<meta name="description" content="واجهة بصرية واضحة لمنظومة شيخة الموحدة: نظام تشغيل، تطبيقات إقلاع، محافظ قطاعية، متاجر توزيع، وأدوار B2B وB2C وB2G وB2S.">
+<link rel="apple-touch-icon" href="/images/og-sheikha.png">
+<link rel="manifest" href="/manifest.json">
+<link href="https://fonts.googleapis.com/css2?family=Tajawal:wght@400;500;700;800;900&family=Changa:wght@500;700;800&display=swap" rel="stylesheet">
+<style>
+:root{--bg:#071018;--bg2:#0d1826;--bg3:#122236;--gold:#d4af37;--gold-soft:#f3e2a1;--mint:#36d1b7;--mint-soft:#153e3c;--ink:#eff4f8;--muted:#9ca8b7;--danger:#ffbf66;--line:rgba(212,175,55,.14);--radius:22px;--shadow:0 18px 48px rgba(0,0,0,.28)}
+*{box-sizing:border-box;margin:0;padding:0}
+body{font-family:'Tajawal',sans-serif;color:var(--ink);background:radial-gradient(circle at 15% 15%,rgba(54,209,183,.16),transparent 24%),radial-gradient(circle at 88% 12%,rgba(212,175,55,.13),transparent 26%),radial-gradient(circle at 80% 92%,rgba(34,67,110,.35),transparent 30%),linear-gradient(180deg,#071018,#09131f 38%,#08111b 100%);min-height:100vh;overflow-x:hidden}
+body::before{content:'';position:fixed;inset:0;background-image:linear-gradient(rgba(255,255,255,.03) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,.03) 1px,transparent 1px);background-size:120px 120px;opacity:.13;pointer-events:none;z-index:-1}
+.wrap{max-width:1320px;margin:0 auto;padding:24px}
+.hero{padding:38px 0 18px;display:grid;grid-template-columns:1.2fr .8fr;gap:18px;align-items:stretch}
+.hero-card,.panel,.card,.lane,.channel,.store-card{background:linear-gradient(165deg,rgba(13,24,38,.94),rgba(9,18,30,.96));border:1px solid var(--line);border-radius:var(--radius);box-shadow:var(--shadow)}
+.hero-card{padding:32px;position:relative;overflow:hidden}
+.hero-card::after{content:'';position:absolute;inset:auto -80px -90px auto;width:240px;height:240px;border-radius:50%;background:radial-gradient(circle,rgba(212,175,55,.15),transparent 60%)}
+.badge{display:inline-flex;align-items:center;gap:8px;padding:8px 14px;border-radius:999px;background:rgba(212,175,55,.08);border:1px solid var(--line);color:var(--gold);font-size:.82rem;font-weight:800}
+.hero h1{font-family:'Changa',sans-serif;font-size:clamp(2.1rem,4.6vw,4rem);line-height:1.08;margin:18px 0 12px}
+.hero h1 span{background:linear-gradient(135deg,var(--gold-soft),var(--gold));background-clip:text;-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.hero p{font-size:1rem;line-height:1.95;color:var(--muted);max-width:780px}
+.hero-actions{display:flex;flex-wrap:wrap;gap:10px;margin-top:20px}
+.action{display:inline-flex;align-items:center;gap:8px;padding:12px 16px;border-radius:14px;text-decoration:none;font-weight:800;font-size:.84rem;transition:.22s}
+.action.primary{background:linear-gradient(135deg,var(--gold),#be8b23);color:#09111a}
+.action.secondary{background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.09);color:var(--ink)}
+.action:hover{transform:translateY(-2px)}
+.hero-side{padding:22px;display:grid;gap:12px}
+.hero-side h2{color:var(--gold);font-size:1rem}
+.stats{display:grid;grid-template-columns:repeat(2,1fr);gap:10px}
+.stat{padding:14px;border-radius:16px;background:linear-gradient(140deg,rgba(54,209,183,.12),rgba(255,255,255,.02));border:1px solid rgba(54,209,183,.14)}
+.stat small{display:block;color:#c9d6df;font-size:.73rem;margin-bottom:6px}
+.stat strong{display:block;font-size:1.5rem;font-weight:900}
+.stat span{font-size:.74rem;color:var(--muted)}
+.live{display:flex;align-items:center;justify-content:space-between;padding:10px 12px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);font-size:.84rem}
+.live b{color:var(--mint)}
+.section{margin-top:20px}
+.section-head{display:flex;align-items:end;justify-content:space-between;gap:12px;margin-bottom:14px;flex-wrap:wrap}
+.section-head h2{font-size:1.35rem;font-weight:900}
+.section-head p{color:var(--muted);max-width:720px;line-height:1.8}
+.system-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.lane{padding:18px}
+.lane .k{font-size:.72rem;color:var(--gold);font-weight:800;letter-spacing:.08em;margin-bottom:8px}
+.lane h3{font-size:1.02rem;margin-bottom:8px}
+.lane p{color:var(--muted);line-height:1.75;font-size:.86rem}
+.filters{display:grid;grid-template-columns:1.2fr .9fr .9fr .9fr;gap:10px}
+.input,.select{width:100%;border-radius:14px;padding:12px 14px;font-family:inherit;color:var(--ink);background:rgba(255,255,255,.04);border:1px solid rgba(255,255,255,.08)}
+.input::placeholder{color:#8d99a8}
+.catalog{display:grid;grid-template-columns:330px 1fr;gap:16px;align-items:start}
+.panel{padding:18px}
+.panel h3{color:var(--gold);font-size:1rem;margin-bottom:10px}
+.legend,.pill-row{display:flex;flex-wrap:wrap;gap:8px}
+.pill{padding:7px 10px;border-radius:999px;background:rgba(118,84,14,.96);border:1px solid rgba(244,211,111,.34);font-size:.75rem;color:#fff9e6}
+.record-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:14px}
+.card{padding:18px;display:flex;flex-direction:column;gap:10px;transition:.22s}
+.card:hover{transform:translateY(-3px);border-color:rgba(212,175,55,.24)}
+.card-top{display:flex;justify-content:space-between;align-items:flex-start;gap:10px}
+.card h3{font-size:1.05rem;line-height:1.45}
+.tag{padding:5px 9px;border-radius:999px;background:rgba(15,103,92,.96);border:1px solid rgba(115,245,223,.28);font-size:.69rem;color:#fbfffe;white-space:nowrap}
+.meta{display:grid;gap:6px}
+.meta div{font-size:.81rem;color:var(--muted);line-height:1.75}
+.meta b{color:var(--ink)}
+.card-footer{display:flex;flex-wrap:wrap;gap:8px;margin-top:auto}
+.micro{padding:6px 8px;border-radius:10px;background:rgba(22,33,48,.96);border:1px solid rgba(174,192,210,.16);font-size:.72rem;color:#f5f8fb}
+.channels{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px}
+.channel{padding:18px}
+.channel h3{font-size:1rem;margin-bottom:8px}
+.channel p{font-size:.84rem;color:var(--muted);line-height:1.78}
+.taxonomy-grid{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:12px}
+.taxonomy{padding:18px}
+.taxonomy h3{font-size:1rem;margin-bottom:10px;color:var(--gold)}
+.taxonomy ul{list-style:none;display:grid;gap:8px}
+.taxonomy li{font-size:.82rem;color:var(--ink);padding:8px 10px;border-radius:10px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08)}
+.composer-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:10px}
+.composer-output{margin-top:12px;padding:14px;border-radius:14px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);display:grid;gap:8px}
+.composer-output div{font-size:.84rem;line-height:1.8;color:var(--muted)}
+.composer-output b{color:var(--ink)}
+.store-grid{display:grid;grid-template-columns:repeat(5,minmax(0,1fr));gap:12px}
+.store-card{padding:16px}
+.store-card h3{font-size:.96rem;margin-bottom:8px}
+.store-card p{font-size:.8rem;color:var(--muted);line-height:1.72}
+.path{margin-top:8px;padding:8px 10px;border-radius:12px;background:rgba(12,87,79,.96);border:1px solid rgba(102,241,218,.24);font-size:.74rem;color:#fbfffe}
+.admin-grid{display:grid;grid-template-columns:repeat(3,minmax(250px,1fr));gap:12px;margin-top:12px}
+.admin-card{background:linear-gradient(165deg,rgba(20,14,7,.62),rgba(8,16,28,.9));border:1px solid rgba(212,175,55,.18);border-radius:14px;padding:16px;display:flex;flex-direction:column;gap:10px}
+.admin-card h4{color:var(--gold);font-size:.95rem;margin-bottom:8px}
+.admin-card p{font-size:.82rem;color:var(--muted);line-height:1.7}
+.decision-input{width:100%;padding:8px 12px;border-radius:10px;background:rgba(255,255,255,.04);border:1px solid rgba(212,175,55,.14);color:var(--ink);font-family:inherit;font-size:.82rem}
+.decision-btn{padding:8px 14px;border-radius:10px;background:linear-gradient(135deg,var(--gold),#be8b23);color:#09111a;border:none;cursor:pointer;font-weight:800;font-size:.82rem;margin-top:8px}
+.decision-output{margin-top:10px;padding:10px;border-radius:10px;background:rgba(54,209,183,.08);border:1px solid rgba(54,209,183,.3);font-size:.8rem;color:var(--ink);line-height:1.75}
+.footer-links{display:flex;flex-wrap:wrap;gap:10px;padding:22px 0 44px}
+.footer-links a{display:inline-flex;align-items:center;gap:8px;padding:11px 14px;border-radius:14px;text-decoration:none;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);color:var(--ink);font-weight:700}
+.empty{padding:22px;text-align:center;color:var(--muted);border:1px dashed rgba(255,255,255,.13);border-radius:18px}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0}
+@media (max-width:1120px){.hero,.catalog,.store-grid,.channels,.system-grid{grid-template-columns:1fr 1fr}.filters{grid-template-columns:1fr 1fr}.catalog{grid-template-columns:1fr}.store-grid{grid-template-columns:repeat(3,1fr)}}
+@media (max-width:760px){.wrap{padding:16px}.hero,.system-grid,.channels,.store-grid,.stats,.filters{grid-template-columns:1fr}.hero-card,.hero-side,.panel,.card,.lane,.channel,.store-card{padding:16px}}
+</style>
+</head>
+<body>
+  <div class="wrap">
+    <section class="hero">
+      <article class="hero-card">
+        <div class="badge">منظومة واحدة • أنظمة وتطبيقات ومتاجر وقنوات</div>
+        <h1>شيخة تبني <span>نظامًا كاملاً</span><br>وليس مجرد واجهة</h1>
+        <p>هذه الصفحة تجسّد المنظومة التي طلبتها: نظام تشغيل أساسي، تطبيقات إقلاع، محافظ تطبيقية حسب الحكومة والشركات الصغيرة والمتوسطة والمستهلكين والخدمة العامة، ثم توزيع ذكي عبر متجر شيخة والمتاجر الأخرى حسب الجهاز والقطاع ومستوى الامتثال.</p>
+        <div class="hero-actions">
+          <a class="action primary" href="/docs/SHEIKHA-UNIFIED-APP-ECOSYSTEM-ARCHITECTURE-V1.md" target="_blank" rel="noopener">فتح المرجع المعماري</a>
+          <a class="action secondary" href="/هوية-السوق.html">العودة إلى منظومة الهوية</a>
+        </div>
+      </article>
+      <aside class="hero-side hero-card" aria-label="لوحة مؤشرات منظومة التطبيقات">
+        <h2>لوحة التفعيل السريع</h2>
+        <div class="stats">
+          <div class="stat"><small>محافظ التطبيقات</small><strong id="portfolioCount">0</strong><span>جاهزة للعرض والتخصيص</span></div>
+          <div class="stat"><small>قنوات التوزيع</small><strong id="storeCount">0</strong><span>متاجر وقنوات خاصة</span></div>
+          <div class="stat"><small>الأجهزة المدعومة</small><strong id="deviceCount">0</strong><span>من الجوال إلى مركز البيانات</span></div>
+          <div class="stat"><small>القطاعات المغطاة</small><strong id="sectorCount">0</strong><span>حكومي وصناعي وتجاري ومجتمعي</span></div>
+        </div>
+        <div class="live"><span>الحالة الحالية</span><b id="liveState">تشغيل موحّد + توزيع متخصّص</b></div>
+        <div class="live"><span>نمط السوق</span><b>متجر شيخة مرجع أعلى</b></div>
+        <div class="live"><span>التخصيص</span><b>حسب B2B / B2C / B2G / B2S</b></div>
+      </aside>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>الطبقات التي تكوّن المنظومة</h2>
+        <p>بدلاً من عرض التطبيقات كقائمة مبعثرة، يتم تنظيمها في طبقات واضحة تبدأ من الهوية والنظام، ثم الإقلاع، ثم التطبيقات التشغيلية، ثم المحافظ القطاعية، ثم التوزيع والتسويق والقياس.</p>
+      </div>
+      <div class="system-grid">
+        <article class="lane"><div class="k">A1</div><h3>نظام شيخة الأساسي</h3><p>هوية، حسابات، صلاحيات، تحديث، إشعارات، وربط مركزي بين كل المحافظ.</p></article>
+        <article class="lane"><div class="k">A2</div><h3>تطبيقات الإقلاع</h3><p>تهيئة أول تشغيل، اختيار الجهاز والقطاع، التحقق، والمزامنة الأولية.</p></article>
+        <article class="lane"><div class="k">A3</div><h3>تطبيقات التشغيل</h3><p>حكومي، منشآت، مستهلك، مجتمع، وتعليم ضمن تجارب تشغيلية واضحة.</p></article>
+        <article class="lane"><div class="k">A4-A6</div><h3>محافظ القطاعات والنشر</h3><p>صناعة، مصافي، طيران، سفن، شاحنات، خوادم، ومتاجر توزيع وقنوات نمو موحدة.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>فهرس المحافظ التطبيقية</h2>
+        <p>يمكنك هنا رؤية كل محفظة حسب الشريحة والقطاع والجهاز والمتجر. التصفية هنا مصممة لتجعل القرار واضحًا: ما الذي يذهب للمستهلك، وما الذي يذهب للجهة، وما الذي يثبت داخل المصنع أو مركز البيانات.</p>
+      </div>
+      <div class="panel">
+        <div class="filters">
+          <label class="sr-only" for="searchInput">بحث</label>
+          <input id="searchInput" class="input" type="search" placeholder="ابحث باسم المحفظة أو الوصف..." aria-label="ابحث باسم المحفظة أو الوصف">
+          <label class="sr-only" for="segmentFilter">الشريحة</label>
+          <select id="segmentFilter" class="select" aria-label="فلتر الشريحة">
+            <option value="all">كل الشرائح</option>
+          </select>
+          <label class="sr-only" for="sectorFilter">القطاع</label>
+          <select id="sectorFilter" class="select" aria-label="فلتر القطاع">
+            <option value="all">كل القطاعات</option>
+          </select>
+          <label class="sr-only" for="deviceFilter">الجهاز</label>
+          <select id="deviceFilter" class="select" aria-label="فلتر الجهاز">
+            <option value="all">كل الأجهزة</option>
+          </select>
+        </div>
+      </div>
+      <div class="catalog section">
+        <aside class="panel" aria-label="خريطة توزيع المتاجر والقواعد">
+          <h3>خريطة التوزيع</h3>
+          <div class="pill-row" id="storeLegend"></div>
+          <h3 style="margin-top:14px;">قواعد ثابتة</h3>
+          <div class="legend">
+            <span class="pill">المتجر المرجعي: متجر شيخة</span>
+            <span class="pill">التوزيع الحكومي عبر قنوات مضبوطة</span>
+            <span class="pill">التطبيق الصناعي لا يُعامل كتطبيق استهلاكي</span>
+            <span class="pill">التخصيص يبدأ من أول تشغيل</span>
+          </div>
+        </aside>
+        <main>
+          <div class="record-grid" id="recordsContainer"></div>
+        </main>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>القنوات التسويقية الموحدة</h2>
+        <p>رغم اختلاف الجمهور والأجهزة والمتاجر، تبقى الرسالة واحدة. الفرق يكون في مسار الوصول والامتثال والعرض، لا في أصل الهوية.</p>
+      </div>
+      <div class="channels">
+        <article class="channel"><h3>القناة المباشرة</h3><p>الموقع، متجر شيخة، الصفحات التعريفية، والعروض الحية. هذه القناة تشرح المنظومة وتجمع الطلبات والتحويلات الأساسية.</p></article>
+        <article class="channel"><h3>القناة المؤسسية والحكومية</h3><p>شراكات، تكاملات، فرق مبيعات، عروض تنفيذية، وتوزيع خاص للجهات والوزارات والمنشآت الكبرى.</p></article>
+        <article class="channel"><h3>القناة القطاعية المتخصصة</h3><p>معارض، موزعون، فرق ميدانية، عروض صناعية، تكاملات تشغيلية، وتسويق موجه حسب الطيران أو النقل أو المصنع أو مركز البيانات.</p></article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>تفعيل النماذج والمنهجيات التجارية</h2>
+        <p>تمت إضافة كل التصنيفات المطلوبة: نماذج العلاقات التجارية، قنوات البيع، منهجيات البيع، ونماذج الإيراد ضمن إطار واحد قابل للفلترة والقياس.</p>
+      </div>
+      <div class="taxonomy-grid">
+        <article class="taxonomy panel">
+          <h3>نماذج الأطراف</h3>
+          <ul id="businessModelList"></ul>
+        </article>
+        <article class="taxonomy panel">
+          <h3>قنوات البيع</h3>
+          <ul id="salesChannelList"></ul>
+        </article>
+        <article class="taxonomy panel">
+          <h3>منهجيات البيع</h3>
+          <ul id="salesMethodologyList"></ul>
+        </article>
+        <article class="taxonomy panel">
+          <h3>نماذج الإيراد</h3>
+          <ul id="revenueModelList"></ul>
+        </article>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>مُكوّن المنتج الآلي حسب المستخدم والجهاز</h2>
+        <p>اختر الشريحة والقطاع والجهاز والقناة، وسيتم تكوين نموذج المنتج تلقائيًا مع مسار التصنيع/التجهيز المناسب للنشر.</p>
+      </div>
+      <div class="panel">
+        <div class="composer-grid">
+          <select id="composerSegment" class="select" aria-label="شريحة المستخدم"></select>
+          <select id="composerSector" class="select" aria-label="القطاع"></select>
+          <select id="composerDevice" class="select" aria-label="الجهاز"></select>
+          <select id="composerChannel" class="select" aria-label="القناة"></select>
+          <button id="composeBtn" class="action primary" type="button">تكوين المنتج</button>
+        </div>
+        <div class="composer-output" id="composerOutput" aria-live="polite"></div>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>المتاجر وقنوات النشر</h2>
+        <p>النشر لا يكون عشوائيًا. كل متجر أو قناة له غرض: عام، مؤسسي، حكومي، صناعي، أو بنية تحتية.</p>
+      </div>
+      <div class="store-grid" id="storeGrid"></div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>نمذجة الأسواق وسلاسل الإمداد والتوريد الرقمية</h2>
+        <p>نظام شامل لتجسيد ونمذجة الأسواق (السعودية والدولية)، المنتجات بأرقام جمركية دولية، وسلاسل الإمداد كاملة من المصدر إلى المستهلك برقمنة إسلامية كاملة: العدل، الأمانة، الشفافية، التوثيق الكامل.</p>
+      </div>
+      
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(320px,1fr));gap:14px;margin-bottom:18px;">
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">📊 الأسواق والتصنيفات</h3>
+          <div style="display:grid;gap:10px;">
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong style="color:var(--mint);">السوق السعودية</strong>
+              <p style="font-size:.82rem;color:var(--muted);margin-top:6px;">الرياض، المنطقة الغربية، المنطقة الشرقية — تنظيم من وزارة التجارة</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong style="color:var(--mint);">الأسواق الإقليمية (MENA)</strong>
+              <p style="font-size:.82rem;color:var(--muted);margin-top:6px;">دول الخليج، مصر، المغرب — اتفاقيات تجارية خليجية</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong style="color:var(--mint);">الأسواق الدولية</strong>
+              <p style="font-size:.82rem;color:var(--muted);margin-top:6px;">آسيا، أوروبا — معايير دولية ISO، HS Codes جمركية</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong style="color:var(--mint);">التصنيفات التنظيمية</strong>
+              <p style="font-size:.82rem;color:var(--muted);margin-top:6px;">موارد استراتيجية، موارد عامة، موارد مقيدة</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">🏭 سلسلة الإمداد والتوريد</h3>
+          <div style="display:grid;gap:10px;">
+            <div style="padding:12px;border-radius:12px;background:rgba(54,209,183,.08);border:1px solid rgba(54,209,183,.24);">
+              <strong style="color:var(--mint);">1️⃣ المصادر الأولية</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">مناجم، مصاهر، مصانع، مواقع إلكترونية، شركات، نقل</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(54,209,183,.08);border:1px solid rgba(54,209,183,.24);">
+              <strong style="color:var(--mint);">2️⃣ المعالجة والتصهير</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">تحسين نقاء، معايير جودة، شهادات ISO</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(54,209,183,.08);border:1px solid rgba(54,209,183,.24);">
+              <strong style="color:var(--mint);">3️⃣ التوزيع واللوجستيات</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">مستودعات، مراكز توزيع، شركات نقل، تتبع GPS</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(54,209,183,.08);border:1px solid rgba(54,209,183,.24);">
+              <strong style="color:var(--mint);">4️⃣ المستهلك النهائي</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">متاجر إلكترونية، فيزيائية، B2B، أفراد</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(3,minmax(280px,1fr));gap:12px;">
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">🔢 الأرقام الجمركية (HS Codes)</h3>
+          <div style="display:grid;gap:8px;font-size:.82rem;">
+            <div><strong>2601:</strong> خام الحديد الطبيعي</div>
+            <div><strong>2603:</strong> خام النحاس والتركيزات</div>
+            <div><strong>2604:</strong> ذهب، فضة، معادن ثمينة</div>
+            <div><strong>7207:</strong> حديد مصهور ومنتجات</div>
+            <div><strong>7408:</strong> نحاس مصنع ومشغول</div>
+            <div><strong>7610:</strong> منتجات ألمنيوم</div>
+            <div style="margin-top:10px;padding:10px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.18);"><em>نظام ترقيم جمركي دولي موحّد</em></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">📍 نقاط سلسلة الإمداد</h3>
+          <div style="display:grid;gap:8px;font-size:.82rem;">
+            <div><strong>المصدر:</strong> SOURCE-MINE/SMELT/FACTORY</div>
+            <div><strong>الكمية:</strong> بالكيلوجرام معايرة</div>
+            <div><strong>التاريخ:</strong> طابع زمني كامل</div>
+            <div><strong>الجودة:</strong> درجة نقاء، شهادات</div>
+            <div><strong>التوثيق:</strong> وثائق قانونية كاملة</div>
+            <div><strong>التتبع:</strong> معرّف فريد لكل منتج</div>
+            <div style="margin-top:10px;padding:10px;border-radius:10px;background:rgba(54,209,183,.08);border:1px solid rgba(54,209,183,.24);"><em>نظام تتبع شامل من المصدر إلى الاستهلاك</em></div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">✓ المبادئ الإسلامية</h3>
+          <div style="display:grid;gap:8px;font-size:.82rem;">
+            <div><strong>العدل:</strong> توزيع عادل للموارد والأرباح</div>
+            <div><strong>الأمانة:</strong> حفظ أمين للمنتج والبيانات</div>
+            <div><strong>الشفافية:</strong> إفصاح شامل عن كل المعلومات</div>
+            <div><strong>الوزن:</strong> دقة قياس بأدوات معايرة</div>
+            <div><strong>التوثيق:</strong> شهادة وتوقيع في كل مرحلة</div>
+            <div><strong>المسؤولية:</strong> مساءلة كاملة في كل مرحلة</div>
+            <div style="margin-top:10px;padding:10px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.18);"><em>رقمنة الكتاب والسنة في كل عملية</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-top:14px;">
+        <h3 style="color:var(--gold);margin-bottom:12px;">📋 نموذج بيئة العميل والمصادر</h3>
+        <table style="width:100%;font-size:.81rem;border-collapse:collapse;">
+          <thead style="border-bottom:1px solid rgba(255,255,255,.1);">
+            <tr style="color:var(--gold);">
+              <th style="text-align:right;padding:10px;">النوع</th>
+              <th style="text-align:right;padding:10px;">الرقم الرقمي</th>
+              <th style="text-align:right;padding:10px;">الخصائص</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+              <td style="padding:10px;"><strong>منجم</strong></td>
+              <td style="padding:10px;font-family:monospace;">SOURCE-MINE-{R}</td>
+              <td style="padding:10px;">موقع، معدن، طاقة، تصاريح</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+              <td style="padding:10px;"><strong>مصهر</strong></td>
+              <td style="padding:10px;font-family:monospace;">SOURCE-SMELT-{C}</td>
+              <td style="padding:10px;">معالجة، نقاء، شهادات</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+              <td style="padding:10px;"><strong>مصنع</strong></td>
+              <td style="padding:10px;font-family:monospace;">SOURCE-FACTORY-{T}</td>
+              <td style="padding:10px;">تخصص، إنتاجية، جودة</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+              <td style="padding:10px;"><strong>موقع إلكتروني</strong></td>
+              <td style="padding:10px;font-family:monospace;">SOURCE-ONLINE-{P}</td>
+              <td style="padding:10px;">منصة، منتجات، مبيعات</td>
+            </tr>
+            <tr style="border-bottom:1px solid rgba(255,255,255,.06);">
+              <td style="padding:10px;"><strong>شركة</strong></td>
+              <td style="padding:10px;font-family:monospace;">SOURCE-COMPANY-{N}</td>
+              <td style="padding:10px;">حجم، تخصص، موقع</td>
+            </tr>
+            <tr>
+              <td style="padding:10px;"><strong>نقل</strong></td>
+              <td style="padding:10px;font-family:monospace;">SOURCE-TRANSPORT-{T}</td>
+              <td style="padding:10px;">نوع، أسطول، مسارات</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:14px;margin-top:14px;">
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">📊 مؤشرات الأداء الرئيسية (KPIs)</h3>
+          <div style="display:grid;gap:8px;font-size:.81rem;">
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>إجمالي الإنتاج الشهري</strong>
+              <p style="color:var(--muted);font-size:.78rem;margin-top:4px;">كيلوجرام — تتبع تلقائي من المصادر</p>
+            </div>
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>معدل الجودة</strong>
+              <p style="color:var(--muted);font-size:.78rem;margin-top:4px;">نسبة مئوية — من مراحل المعالجة</p>
+            </div>
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>سرعة الدوران</strong>
+              <p style="color:var(--muted);font-size:.78rem;margin-top:4px;">أيام — من الاستخراج للتسليم</p>
+            </div>
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>معدل الرضا</strong>
+              <p style="color:var(--muted);font-size:.78rem;margin-top:4px;">نسبة مئوية — استطلاعات العملاء</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">📝 مراحل التوثيق الكامل</h3>
+          <div style="display:grid;gap:6px;font-size:.79rem;color:var(--muted);">
+            <div>✓ <strong>الاستخراج:</strong> موقع GPS، وزن، تصاريح</div>
+            <div>✓ <strong>المعالجة:</strong> درجة نقاء، خسائر، مدة</div>
+            <div>✓ <strong>التصنيع:</strong> منتج نهائي، اختبارات، شهادات</div>
+            <div>✓ <strong>التخزين:</strong> موقع، شروط، تحديثات</div>
+            <div>✓ <strong>النقل:</strong> شركة، مسار، وقت، تأمين</div>
+            <div>✓ <strong>التسليم:</strong> استقبال، توقيع، ملاحظات</div>
+            <div style="margin-top:8px;padding:10px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.18);color:var(--gold);"><em>توثيق شامل في كل مرحلة لضمان العدل والشفافية</em></div>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-top:14px;padding:16px;border-radius:14px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.2);">
+        <p style="font-size:.83rem;line-height:1.85;color:var(--ink);">
+          <strong style="color:var(--gold);">🕋 الأساس الإسلامي:</strong> نظام شيخة يرقمّن مبادئ العدل والأمانة والشفافية من الكتاب والسنة. كل معاملة موثّقة، كل وزن مضبوط، كل طرف مسؤول. بذلك نحقق <strong>التاجر الصادق الأمين</strong> على مستوى رقمي عالمي، ونمنع الغش والتدليس والاحتيال، ونضمن توزيع عادل للثروات والموارد حسب عمل وإحسان كل طرف.
+        </p>
+      </div>
+
+      <div style="margin-top:14px;">
+        <a href="/docs/SHEIKHA-MARKET-SUPPLY-CHAIN-MODELING.template.json" class="action primary" target="_blank" rel="noopener">📄 تحميل ملف النمذجة الكامل (JSON)</a>
+        <a href="/docs/SHEIKHA-MARKET-SUPPLY-CHAIN-MODELING-GUIDE.md" class="action secondary" target="_blank" rel="noopener" style="margin-right:10px;">📖 قراءة الدليل الشامل</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>📊 دراسات الجدوى الاقتصادية والفنية</h2>
+        <p>نظام شامل لإعداد دراسات جدوى دقيقة لأي مشروع: تحليل مالي، تقييم تقني، تقييم سوق، تقييم إداري، تقييم مخاطر، واستدامة</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(320px,1fr));gap:14px;margin-bottom:18px;">
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">💰 التحليل المالي الشامل</h3>
+          <div style="display:grid;gap:10px;">
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong>تكاليف الاستثمار</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">الأراضي، المباني، الآلات، التقنيات، رأس المال العامل، التراخيص</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong>تكاليف التشغيل</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">المواد الخام، الرواتب، الكهرباء، الصيانة، التسويق، الإدارة</p>
+            </div>
+            <div style="padding:12px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid rgba(255,255,255,.08);">
+              <strong>توقعات الإيرادات</strong>
+              <p style="font-size:.8rem;color:var(--muted);margin-top:4px;">سعر الوحدة، الطاقة الإنتاجية، نسب الاستغلال، معدل النمو</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">📈 المؤشرات المالية الرئيسية</h3>
+          <div style="display:grid;gap:8px;font-size:.8rem;">
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>ROI (العائد على الاستثمار)</strong>
+              <p style="color:var(--muted);font-size:.75rem;margin-top:2px;">الربح السنوي / الاستثمار × 100 | الهدف: > 20%</p>
+            </div>
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>IRR (معدل العائد الداخلي)</strong>
+              <p style="color:var(--muted);font-size:.75rem;margin-top:2px;">معدل الخصم الذي يجعل NPV = 0 | الهدف: > 15%</p>
+            </div>
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>Payback Period (فترة الاسترجاع)</strong>
+              <p style="color:var(--muted);font-size:.75rem;margin-top:2px;">الاستثمار / التدفق النقدي السنوي | الهدف: < 5 سنوات</p>
+            </div>
+            <div style="padding:10px;background:rgba(54,209,183,.06);border-radius:10px;border:1px solid rgba(54,209,183,.14);">
+              <strong>Profit Margin (هامش الربح)</strong>
+              <p style="color:var(--muted);font-size:.75rem;margin-top:2px;">الربح الصافي / الإيراد × 100 | الهدف: 15-25%</p>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:14px;">
+        <h3 style="color:var(--gold);margin-bottom:12px;">🔍 مستويات دراسة الجدوى</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;font-size:.82rem;">
+          <div style="padding:12px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.14);">
+            <strong>تقييم سريع</strong>
+            <p style="color:var(--muted);margin-top:6px;">7 أيام — المؤشرات الأساسية والقرار الأولي</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.14);">
+            <strong>دراسة قياسية</strong>
+            <p style="color:var(--muted);margin-top:6px;">30 يوم — تحليل شامل ومفصل لكل الجوانب</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(212,175,55,.08);border:1px solid rgba(212,175,55,.14);">
+            <strong>دراسة شاملة</strong>
+            <p style="color:var(--muted);margin-top:6px;">90 يوم — دراسة عميقة مع سيناريوهات وخطط طارئة</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <a href="/docs/SHEIKHA-FEASIBILITY-STUDY-FRAMEWORK.template.json" class="action primary" target="_blank" rel="noopener">📋 ملف إطار دراسة الجدوى</a>
+        <a href="/docs/SHEIKHA-MARKET-SUPPLY-CHAIN-MODELING-GUIDE.md" class="action secondary" target="_blank" rel="noopener" style="margin-right:10px;">📊 دليل التحليل المالي</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>🎯 التخطيط الاستراتيجي والرؤية والأهداف</h2>
+        <p>نظام متكامل للتخطيط الاستراتيجي يربط الرؤية المستقبلية بالأهداف الفورية والإجراءات اليومية</p>
+      </div>
+
+      <div style="display:grid;grid-template-columns:repeat(2,minmax(300px,1fr));gap:14px;margin-bottom:18px;">
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">🕋 الرؤية والرسالة والقيم</h3>
+          <div style="display:grid;gap:8px;font-size:.81rem;">
+            <div style="padding:10px;border-radius:10px;background:rgba(212,175,55,.06);border-left:3px solid var(--gold);">
+              <strong>الرؤية (2050)</strong>
+              <p style="color:var(--muted);margin-top:4px;">منصة تجارية إسلامية عالمية رقمية تجسد العدل والأمانة</p>
+            </div>
+            <div style="padding:10px;border-radius:10px;background:rgba(54,209,183,.06);border-left:3px solid var(--mint);">
+              <strong>الرسالة</strong>
+              <p style="color:var(--muted);margin-top:4px;">توفير منصة آمنة تطبق مبادئ الإسلام في التجارة</p>
+            </div>
+            <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border-left:3px solid #c9d6df;">
+              <strong>القيم الأساسية</strong>
+              <p style="color:var(--muted);margin-top:4px;">العدل • الأمانة • الشفافية • الإحسان • الاستدامة</p>
+            </div>
+          </div>
+        </div>
+
+        <div class="panel">
+          <h3 style="color:var(--gold);margin-bottom:12px;">🏢 الأهداف الاستراتيجية (3-5 سنوات)</h3>
+          <div style="display:grid;gap:8px;font-size:.8rem;">
+            <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);">
+              <strong>1. التوسع الجغرافي</strong> من السعودية → MENA → عالمي</div>
+            <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);">
+              <strong>2. تحسين الكفاءة</strong> تقليل التكاليف 25%، تحسن 30%</div>
+            <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);">
+              <strong>3. بناء السمعة</strong> تقييم > 4.8/5، رضا > 95%</div>
+            <div style="padding:10px;border-radius:10px;background:rgba(255,255,255,.02);border:1px solid rgba(255,255,255,.08);">
+              <strong>4. تطوير المواهب</strong> نمو من 50 إلى 500 موظف</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="panel" style="margin-bottom:14px;">
+        <h3 style="color:var(--gold);margin-bottom:12px;">🎪 الركائز الاستراتيجية للنجاح</h3>
+        <div style="display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px;font-size:.8rem;">
+          <div style="padding:12px;border-radius:10px;background:rgba(54,209,183,.06);border:1px solid rgba(54,209,183,.14);">
+            <strong style="color:var(--mint);">التقنية والابتكار</strong>
+            <p style="color:var(--muted);margin-top:6px;">20% من الميزانية</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.14);">
+            <strong style="color:var(--gold);">تطوير الموارد البشرية</strong>
+            <p style="color:var(--muted);margin-top:6px;">15% من الميزانية</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(54,209,183,.06);border:1px solid rgba(54,209,183,.14);">
+            <strong style="color:var(--mint);">تجربة العميل</strong>
+            <p style="color:var(--muted);margin-top:6px;">15% من الميزانية</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.14);">
+            <strong style="color:var(--gold);">توسيع السوق</strong>
+            <p style="color:var(--muted);margin-top:6px;">25% من الميزانية</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(54,209,183,.06);border:1px solid rgba(54,209,183,.14);">
+            <strong style="color:var(--mint);">التفوق التشغيلي</strong>
+            <p style="color:var(--muted);margin-top:6px;">15% من الميزانية</p>
+          </div>
+          <div style="padding:12px;border-radius:10px;background:rgba(212,175,55,.06);border:1px solid rgba(212,175,55,.14);">
+            <strong style="color:var(--gold);">المسؤولية الاجتماعية</strong>
+            <p style="color:var(--muted);margin-top:6px;">10% من الميزانية</p>
+          </div>
+        </div>
+      </div>
+
+      <div style="margin-bottom:14px;">
+        <a href="/docs/SHEIKHA-STRATEGIC-PLANNING-FRAMEWORK.template.json" class="action primary" target="_blank" rel="noopener">🎯 ملف التخطيط الاستراتيجي الكامل</a>
+        <a href="/docs/SHEIKHA-UNIFIED-SYSTEM-INTEGRATION-V1.md" class="action secondary" target="_blank" rel="noopener" style="margin-right:10px;">🔗 دليل التكامل بين الأنظمة</a>
+      </div>
+    </section>
+
+    <section class="section">
+      <div class="section-head">
+        <h2>العقل الإداري والقرارات الإدارية الآلية</h2>
+        <p>محرك قرار إداري يعتمد على قواعد إدارية متقدمة: يقيّم السياق والبيانات، ثم يُصدر قرارات إدارية موثّقة قابلة للتحسين المستمر.</p>
+      </div>
+      <div class="panel">
+        <h3 style="color:var(--gold);margin-bottom:12px;">أداة اتخاذ القرار الإداري</h3>
+        <div class="admin-grid">
+          <div class="admin-card">
+            <h4>نوع القرار</h4>
+            <select id="adminDecisionType" class="decision-input" aria-label="نوع القرار الإداري">
+              <option value="">اختر نوع القرار</option>
+              <option value="resource_allocation">تخصيص الموارد</option>
+              <option value="process_optimization">تحسين العمليات</option>
+              <option value="risk_mitigation">تخفيف المخاطر</option>
+              <option value="performance_improvement">تحسين الأداء</option>
+              <option value="cost_reduction">خفض التكاليف</option>
+            </select>
+          </div>
+          <div class="admin-card">
+            <h4>مستوى الأولوية</h4>
+            <select id="adminPriority" class="decision-input" aria-label="مستوى الأولوية">
+              <option value="">اختر الأولوية</option>
+              <option value="critical">حرج (Critical)</option>
+              <option value="high">عالي (High)</option>
+              <option value="medium">متوسط (Medium)</option>
+              <option value="low">منخفض (Low)</option>
+            </select>
+          </div>
+          <div class="admin-card">
+            <h4>التأثير المتوقع</h4>
+            <input type="text" id="adminImpact" class="decision-input" placeholder="مثال: زيادة الكفاءة بـ 15%" aria-label="التأثير المتوقع">
+          </div>
+        </div>
+        <div style="margin-top:12px;">
+          <button id="adminDecideBtn" class="action primary" type="button">اتخاذ القرار الإداري</button>
+        </div>
+        <div id="adminDecisionOutput" class="decision-output" aria-live="polite" style="display:none;"></div>
+      </div>
+    </section>
+
+    <div class="footer-links">
+      <a href="/docs/SHEIKHA-APP-PORTFOLIO-REGISTRY.template.json" target="_blank" rel="noopener">سجل المحافظ التطبيقية</a>
+      <a href="/docs/SHEIKHA-UNIFIED-APP-ECOSYSTEM-ARCHITECTURE-V1.md" target="_blank" rel="noopener">المرجع المعماري</a>
+      <a href="/سجل-العلوم-الحضارية.html">واجهة سجل العلوم الحضارية</a>
+      <a href="/هوية-السوق.html">صفحة الهوية الرئيسية</a>
+    </div>
+  </div>
+
+<script type="module">
+const fallbackRegistry = {
+  business_relationship_models: ['B2B','B2C','B2G','B2S','C2C','C2B','B2B2C','D2C','F2C'],
+  sales_channels: ['IN_STORE','E_COMMERCE','SOCIAL_COMMERCE','FIELD_SALES','INSIDE_SALES'],
+  sales_methodologies: ['CONSULTATIVE_SELLING','TRANSACTIONAL_SELLING','CROSS_SELLING','UPSELLING','ACCOUNT_BASED_SELLING','SOCIAL_SELLING'],
+  revenue_models: ['SUBSCRIPTION','INSTALLMENT','AFFILIATE','PROJECT_BASED','USAGE_BASED'],
+  store_channels: [
+    'sheikha_store','apple_app_store','google_play','android_private_store','linux_repository','desktop_package_direct','web_pwa','enterprise_private_distribution','government_controlled_distribution','industrial_direct_distribution','data_center_private_distribution'
+  ],
+  device_classes: [
+    'laptop','desktop','mobile','tablet','server','data_center','industrial_terminal','factory_system','refinery_system','vehicle_system','truck_system','aircraft_system','marine_system'
+  ],
+  sectors: [
+    'government','sme','enterprise','consumer','education_and_community','industry_and_factory','refinery_and_energy','transport_and_logistics','aviation','marine_and_ports','automotive_and_fleet','server_and_data_center'
+  ],
+  portfolio_records: [
+    {portfolio_id:'sheikha-core-os',name_ar:'نظام شيخة الأساسي',layer:'A1',segment:['B2B','B2C','B2G','B2S'],primary_sector:'cross_sector',device_classes:['laptop','desktop','mobile','server'],stores:['sheikha_store','desktop_package_direct','web_pwa'],boot_required:true,summary_ar:'النواة التشغيلية للهوية والحسابات والصلاحيات والإشعارات والتحديث.',activation_priority:'foundational'},
+    {portfolio_id:'sheikha-launch-suite',name_ar:'مجموعة الإقلاع والتفعيل',layer:'A2',segment:['B2B','B2C','B2G','B2S'],primary_sector:'cross_sector',device_classes:['laptop','desktop','mobile','tablet'],stores:['sheikha_store','apple_app_store','google_play','web_pwa'],boot_required:false,summary_ar:'الترحيب، التحقق، اختيار القطاع، وربط الخدمات من أول تشغيل.',activation_priority:'foundational'},
+    {portfolio_id:'sheikha-government-mission',name_ar:'محفظة الحكومة والجهات',layer:'A3',segment:['B2G'],primary_sector:'government',device_classes:['desktop','tablet','server'],stores:['sheikha_store','government_controlled_distribution','enterprise_private_distribution'],boot_required:true,summary_ar:'لوحات الجهات، الموافقات، والمتابعة التنظيمية.',activation_priority:'high'},
+    {portfolio_id:'sheikha-sme-suite',name_ar:'محفظة المنشآت الصغيرة والمتوسطة',layer:'A3',segment:['B2B'],primary_sector:'sme',device_classes:['laptop','desktop','mobile'],stores:['sheikha_store','apple_app_store','google_play','web_pwa'],boot_required:true,summary_ar:'مبيعات، مخزون، عقود، ومتابعة الموردين.',activation_priority:'high'},
+    {portfolio_id:'sheikha-consumer-superapp',name_ar:'التطبيق الاستهلاكي الموحد',layer:'A3',segment:['B2C'],primary_sector:'consumer',device_classes:['mobile','tablet'],stores:['sheikha_store','apple_app_store','google_play','web_pwa'],boot_required:true,summary_ar:'طلب، عروض، محفظة، وإشعارات وخدمات يومية.',activation_priority:'high'},
+    {portfolio_id:'sheikha-civic-social-suite',name_ar:'محفظة المجتمع والخدمة العامة',layer:'A3',segment:['B2S','B2C'],primary_sector:'education_and_community',device_classes:['mobile','tablet','desktop'],stores:['sheikha_store','apple_app_store','google_play','web_pwa'],boot_required:false,summary_ar:'التوعية، التعليم، والمبادرات والخدمة العامة.',activation_priority:'medium'},
+    {portfolio_id:'sheikha-industrial-ops',name_ar:'محفظة التشغيل الصناعي والمصانع',layer:'A4',segment:['B2B','B2G'],primary_sector:'industry_and_factory',device_classes:['industrial_terminal','factory_system','server'],stores:['sheikha_store','industrial_direct_distribution','enterprise_private_distribution'],boot_required:true,summary_ar:'تشغيل ميداني، صيانة، سلامة، وجودة للمصانع.',activation_priority:'high'},
+    {portfolio_id:'sheikha-refinery-energy-suite',name_ar:'محفظة المصافي والطاقة',layer:'A4',segment:['B2B','B2G'],primary_sector:'refinery_and_energy',device_classes:['refinery_system','industrial_terminal','server'],stores:['sheikha_store','industrial_direct_distribution','government_controlled_distribution'],boot_required:true,summary_ar:'العمليات الحساسة والطاقة والامتثال والجاهزية.',activation_priority:'high'},
+    {portfolio_id:'sheikha-logistics-fleet',name_ar:'محفظة النقل والأساطيل والشاحنات',layer:'A4',segment:['B2B','B2G'],primary_sector:'transport_and_logistics',device_classes:['truck_system','vehicle_system','mobile'],stores:['sheikha_store','google_play','android_private_store','enterprise_private_distribution'],boot_required:false,summary_ar:'الرحلات، التتبع، السائقون، والصيانة والمهام.',activation_priority:'medium'},
+    {portfolio_id:'sheikha-aviation-control',name_ar:'محفظة الطيران والتشغيل الجوي',layer:'A4',segment:['B2B','B2G'],primary_sector:'aviation',device_classes:['aircraft_system','tablet','server'],stores:['sheikha_store','enterprise_private_distribution','government_controlled_distribution'],boot_required:false,summary_ar:'الجداول، الفرق، والامتثال والتشغيل الجوي.',activation_priority:'medium'},
+    {portfolio_id:'sheikha-marine-port-suite',name_ar:'محفظة السفن والموانئ',layer:'A4',segment:['B2B','B2G'],primary_sector:'marine_and_ports',device_classes:['marine_system','tablet','server'],stores:['sheikha_store','enterprise_private_distribution','industrial_direct_distribution'],boot_required:false,summary_ar:'الموانئ، السفن، التصاريح، والحركة اللوجستية.',activation_priority:'medium'},
+    {portfolio_id:'sheikha-data-center-fabric',name_ar:'محفظة الخوادم ومراكز البيانات',layer:'A4',segment:['B2B','B2G'],primary_sector:'server_and_data_center',device_classes:['server','data_center','desktop'],stores:['sheikha_store','linux_repository','data_center_private_distribution','desktop_package_direct'],boot_required:true,summary_ar:'الأحمال، المراقبة، الأمان، والنسخ للبنية التحتية.',activation_priority:'high'},
+    {portfolio_id:'sheikha-store-publisher',name_ar:'محرك النشر والتوزيع متعدد المتاجر',layer:'A5',segment:['B2B','B2C','B2G','B2S'],primary_sector:'cross_sector',device_classes:['desktop','server','data_center'],stores:['sheikha_store','apple_app_store','google_play','linux_repository','enterprise_private_distribution'],boot_required:false,summary_ar:'سياسات التوزيع وربط كل محفظة بالمتجر الأنسب.',activation_priority:'foundational'}
+  ]
+};
+
+const segmentLabels = {B2B:'أعمال وشركات',B2C:'مستهلك وأفراد',B2G:'حكومي وجهات',B2S:'مجتمع وخدمة عامة'};
+const sectorLabels = {all:'كل القطاعات',cross_sector:'عابر للقطاعات',government:'حكومي',sme:'منشآت صغيرة ومتوسطة',enterprise:'شركات كبرى',consumer:'مستهلك',education_and_community:'تعليم ومجتمع',industry_and_factory:'صناعة ومصانع',refinery_and_energy:'مصافي وطاقة',transport_and_logistics:'نقل ولوجستيات',aviation:'طيران',marine_and_ports:'سفن وموانئ',automotive_and_fleet:'سيارات وأساطيل',server_and_data_center:'خوادم ومراكز بيانات'};
+const deviceLabels = {all:'كل الأجهزة',laptop:'لابتوب',desktop:'حاسب مكتبي',mobile:'جوال',tablet:'جهاز لوحي',server:'خادم',data_center:'مركز بيانات',industrial_terminal:'وحدة تشغيل صناعية',factory_system:'نظام مصنع',refinery_system:'نظام مصفاة',vehicle_system:'نظام مركبة',truck_system:'نظام شاحنة',aircraft_system:'نظام طائرة',marine_system:'نظام سفينة'};
+const storeLabels = {sheikha_store:'متجر شيخة',apple_app_store:'متجر أبل',google_play:'متجر أندرويد',android_private_store:'متجر أندرويد خاص',linux_repository:'مستودع لينكس',desktop_package_direct:'حزمة سطح مكتب مباشرة',web_pwa:'نسخة ويب تطبيقية',enterprise_private_distribution:'توزيع مؤسسي خاص',government_controlled_distribution:'توزيع حكومي مضبوط',industrial_direct_distribution:'توزيع صناعي مباشر',data_center_private_distribution:'توزيع خاص لمراكز البيانات'};
+const priorityLabels = {foundational:'تأسيسي',high:'عالٍ',medium:'متوسط'};
+const businessModelLabels = {B2B:'شركة إلى شركة',B2C:'شركة إلى مستهلك',B2G:'شركة إلى حكومة',B2S:'شركة إلى خدمات ومجتمع',C2C:'مستهلك إلى مستهلك',C2B:'مستهلك إلى شركة',B2B2C:'شركة إلى شركة إلى مستهلك',D2C:'علامة إلى مستهلك مباشرة',F2C:'مصنع إلى مستهلك'};
+const salesChannelLabels = {IN_STORE:'بيع داخل الفرع',E_COMMERCE:'تجارة إلكترونية',SOCIAL_COMMERCE:'تجارة اجتماعية',FIELD_SALES:'بيع ميداني',INSIDE_SALES:'بيع عن بعد'};
+const salesMethodologyLabels = {CONSULTATIVE_SELLING:'بيع استشاري',TRANSACTIONAL_SELLING:'بيع معاملاتي',CROSS_SELLING:'بيع متقاطع',UPSELLING:'بيع ارتقائي',ACCOUNT_BASED_SELLING:'بيع قائم على الحسابات',SOCIAL_SELLING:'بيع اجتماعي'};
+const revenueModelLabels = {SUBSCRIPTION:'اشتراكات',INSTALLMENT:'تقسيط',AFFILIATE:'عمولة',PROJECT_BASED:'عقود مشاريع',USAGE_BASED:'حسب الاستخدام'};
+const distributionLabels = {RETAIL:'تجزئة',WHOLESALE:'جملة',DROP_SHIPPING:'دروب شيبينغ',FRANCHISE:'امتياز',AGENCY_DISTRIBUTION:'وكالة/توزيع'};
+
+let registry = fallbackRegistry;
+const searchInput = document.getElementById('searchInput');
+const segmentFilter = document.getElementById('segmentFilter');
+const sectorFilter = document.getElementById('sectorFilter');
+const deviceFilter = document.getElementById('deviceFilter');
+const recordsContainer = document.getElementById('recordsContainer');
+const composerSegment = document.getElementById('composerSegment');
+const composerSector = document.getElementById('composerSector');
+const composerDevice = document.getElementById('composerDevice');
+const composerChannel = document.getElementById('composerChannel');
+const composeBtn = document.getElementById('composeBtn');
+const composerOutput = document.getElementById('composerOutput');
+
+function fillSelect(select, values, labels) {
+  values.forEach((value) => {
+    const option = document.createElement('option');
+    option.value = value;
+    option.textContent = labels[value] || value;
+    select.appendChild(option);
+  });
+}
+
+function fillTopStats() {
+  document.getElementById('portfolioCount').textContent = String(registry.portfolio_records.length);
+  document.getElementById('storeCount').textContent = String(registry.store_channels.length);
+  document.getElementById('deviceCount').textContent = String(registry.device_classes.length);
+  document.getElementById('sectorCount').textContent = String(registry.sectors.length);
+}
+
+function renderStoreLegend() {
+  const legend = document.getElementById('storeLegend');
+  legend.innerHTML = '';
+  registry.store_channels.slice(0, 6).forEach((store) => {
+    const pill = document.createElement('span');
+    pill.className = 'pill';
+    pill.textContent = storeLabels[store] || store;
+    legend.appendChild(pill);
+  });
+}
+
+function renderStoreGrid() {
+  const grid = document.getElementById('storeGrid');
+  grid.innerHTML = '';
+  registry.store_channels.forEach((store) => {
+    const card = document.createElement('article');
+    card.className = 'store-card';
+    const channelType = store.includes('private') || store.includes('controlled') || store.includes('industrial') ? 'قناة متخصصة' : 'قناة عامة أو مرجعية';
+    card.innerHTML = `
+      <h3>${storeLabels[store] || store}</h3>
+      <p>يُستخدم هذا المسار حين تكون طبيعة التطبيق أو الجهة أو الجهاز تتطلب توزيعًا منضبطًا يناسب الامتثال والاستخدام الفعلي.</p>
+      <div class="path">${channelType}</div>
+    `;
+    grid.appendChild(card);
+  });
+}
+
+function renderTaxonomyList(listId, items, labels) {
+  const list = document.getElementById(listId);
+  if (!list) return;
+  list.innerHTML = '';
+  (items || []).forEach((item) => {
+    const li = document.createElement('li');
+    li.textContent = labels[item] || item;
+    list.appendChild(li);
+  });
+}
+
+function renderTaxonomy() {
+  renderTaxonomyList('businessModelList', registry.business_relationship_models || [], businessModelLabels);
+  renderTaxonomyList('salesChannelList', registry.sales_channels || [], salesChannelLabels);
+  renderTaxonomyList('salesMethodologyList', registry.sales_methodologies || [], salesMethodologyLabels);
+  renderTaxonomyList('revenueModelList', registry.revenue_models || [], revenueModelLabels);
+}
+
+function getFilteredRecords() {
+  const q = searchInput.value.trim().toLowerCase();
+  const segment = segmentFilter.value;
+  const sector = sectorFilter.value;
+  const device = deviceFilter.value;
+
+  return registry.portfolio_records.filter((record) => {
+    if (segment !== 'all' && !record.segment.includes(segment)) return false;
+    if (sector !== 'all' && record.primary_sector !== sector) return false;
+    if (device !== 'all' && !record.device_classes.includes(device)) return false;
+    if (!q) return true;
+    const haystack = [record.name_ar, record.summary_ar, record.layer, record.primary_sector, ...(record.segment || []), ...(record.stores || []), ...(record.device_classes || [])].join(' ').toLowerCase();
+    return haystack.includes(q);
+  });
+}
+
+function renderRecords() {
+  const records = getFilteredRecords();
+  recordsContainer.innerHTML = '';
+
+  if (!records.length) {
+    recordsContainer.innerHTML = '<div class="empty">لا توجد محفظة مطابقة لهذه الفلاتر. جرّب تغيير الشريحة أو القطاع أو الجهاز.</div>';
+    return;
+  }
+
+  records.forEach((record) => {
+    const article = document.createElement('article');
+    article.className = 'card';
+    article.innerHTML = `
+      <div class="card-top">
+        <div>
+          <div class="tag">${record.layer}</div>
+          <h3>${record.name_ar}</h3>
+        </div>
+        <span class="tag">${priorityLabels[record.activation_priority] || record.activation_priority}</span>
+      </div>
+      <div class="meta">
+        <div><b>الشريحة:</b> ${record.segment.map((item) => segmentLabels[item] || item).join(' • ')}</div>
+        <div><b>القطاع:</b> ${sectorLabels[record.primary_sector] || record.primary_sector}</div>
+        <div><b>الأجهزة:</b> ${record.device_classes.map((item) => deviceLabels[item] || item).join(' • ')}</div>
+        <div><b>الوصف:</b> ${record.summary_ar}</div>
+      </div>
+      <div class="card-footer">
+        <span class="micro">${record.boot_required ? 'يتطلب طبقة إقلاع' : 'تشغيل لاحق للإقلاع'}</span>
+        <span class="micro">${record.stores.map((item) => storeLabels[item] || item).slice(0, 2).join(' • ')}</span>
+      </div>
+    `;
+    recordsContainer.appendChild(article);
+  });
+}
+
+function initFilters() {
+  fillSelect(segmentFilter, ['B2B','B2C','B2G','B2S'], segmentLabels);
+  fillSelect(sectorFilter, ['cross_sector', ...registry.sectors], sectorLabels);
+  fillSelect(deviceFilter, registry.device_classes, deviceLabels);
+}
+
+function initComposer() {
+  composerSegment.innerHTML = '<option value="">اختر الشريحة</option>';
+  composerSector.innerHTML = '<option value="">اختر القطاع</option>';
+  composerDevice.innerHTML = '<option value="">اختر الجهاز</option>';
+  composerChannel.innerHTML = '<option value="">اختر قناة البيع</option>';
+
+  fillSelect(composerSegment, registry.channel_segments || ['B2B','B2C','B2G','B2S'], segmentLabels);
+  fillSelect(composerSector, registry.sectors || [], sectorLabels);
+  fillSelect(composerDevice, registry.device_classes || [], deviceLabels);
+  fillSelect(composerChannel, registry.sales_channels || [], salesChannelLabels);
+}
+
+function deriveProductForm(device) {
+  if (device === 'mobile' || device === 'tablet') return 'تطبيق جوال/لوحي';
+  if (device === 'server' || device === 'data_center') return 'حزمة بنية تحتية';
+  if (device === 'industrial_terminal' || device === 'factory_system' || device === 'refinery_system') return 'حزمة تشغيل صناعي';
+  if (device === 'vehicle_system' || device === 'truck_system' || device === 'aircraft_system' || device === 'marine_system') return 'حزمة تشغيل ميداني للمركبات';
+  return 'تطبيق سطح مكتب';
+}
+
+function composeProductBlueprint() {
+  const segment = composerSegment.value;
+  const sector = composerSector.value;
+  const device = composerDevice.value;
+  const channel = composerChannel.value;
+
+  if (!segment || !sector || !device || !channel) {
+    composerOutput.innerHTML = '<div><b>تنبيه:</b> يرجى اختيار الشريحة والقطاع والجهاز والقناة قبل التكوين.</div>';
+    return;
+  }
+
+  const candidate = (registry.portfolio_records || []).find((record) => {
+    const matchesSegment = (record.segment || []).includes(segment);
+    const matchesSector = record.primary_sector === sector || record.primary_sector === 'cross_sector';
+    const matchesDevice = (record.device_classes || []).includes(device);
+    return matchesSegment && matchesSector && matchesDevice;
+  });
+
+  const selected = candidate || (registry.portfolio_records || []).find((record) => (record.segment || []).includes(segment));
+  if (!selected) {
+    composerOutput.innerHTML = '<div><b>نتيجة:</b> لا توجد وصفة جاهزة مطابقة حاليًا. أضف محفظة جديدة في السجل.</div>';
+    return;
+  }
+
+  const blueprintId = `BP-${segment}-${sector}-${device}-${selected.layer}`;
+  const productForm = deriveProductForm(device);
+  const pipeline = (registry.product_composition_engine?.pipeline || [
+    'P0_IDENTITY_AND_CONTEXT_CAPTURE',
+    'P1_SEGMENT_SECTOR_DEVICE_CLASSIFICATION',
+    'P2_PRODUCT_BLUEPRINT_COMPOSITION',
+    'P3_PACKAGE_BUILD_AND_BUNDLE',
+    'P4_COMPLIANCE_AND_QUALITY_GATE',
+    'P5_DISTRIBUTION_ROUTING',
+    'P6_KPI_OBSERVABILITY_AND_FEEDBACK'
+  ]);
+
+  composerOutput.innerHTML = `
+    <div><b>Blueprint ID:</b> ${blueprintId}</div>
+    <div><b>المحفظة المقترحة:</b> ${selected.name_ar}</div>
+    <div><b>شكل المنتج:</b> ${productForm}</div>
+    <div><b>القناة المختارة:</b> ${salesChannelLabels[channel] || channel}</div>
+    <div><b>منهجيات البيع:</b> ${(selected.sales_methodologies || []).map((item) => salesMethodologyLabels[item] || item).join(' • ') || 'تُحدد حسب السجل'}</div>
+    <div><b>نموذج الإيراد:</b> ${(selected.revenue_models || []).map((item) => revenueModelLabels[item] || item).join(' • ') || 'تُحدد حسب السجل'}</div>
+    <div><b>مسار التصنيع/التجهيز:</b> ${pipeline.join(' → ')}</div>
+  `;
+}
+
+[searchInput, segmentFilter, sectorFilter, deviceFilter].forEach((element) => {
+  element.addEventListener('input', renderRecords);
+  element.addEventListener('change', renderRecords);
+});
+
+async function loadRegistry() {
+  try {
+    const response = await fetch('/docs/SHEIKHA-APP-PORTFOLIO-REGISTRY.template.json', { cache: 'no-store' });
+    if (response.ok) {
+      registry = await response.json();
+    }
+  } catch (error) {
+    console.warn('Using fallback registry for Sheikha app ecosystem page.', error);
+  }
+
+  initFilters();
+  initComposer();
+  fillTopStats();
+  renderStoreLegend();
+  renderTaxonomy();
+  renderStoreGrid();
+  renderRecords();
+  composeBtn.addEventListener('click', composeProductBlueprint);
+}
+
+function activateAdministrativeLogic() {
+  const decisionTypeEl = document.getElementById('adminDecisionType');
+  const priorityEl = document.getElementById('adminPriority');
+  const impactEl = document.getElementById('adminImpact');
+  const decideBtnEl = document.getElementById('adminDecideBtn');
+  const outputEl = document.getElementById('adminDecisionOutput');
+
+  if (!decisionTypeEl || !priorityEl || !impactEl || !decideBtnEl || !outputEl) return;
+
+  const decisionTypeLabels = {
+    resource_allocation: 'تخصيص الموارد',
+    process_optimization: 'تحسين العمليات',
+    risk_mitigation: 'تخفيف المخاطر',
+    performance_improvement: 'تحسين الأداء',
+    cost_reduction: 'خفض التكاليف'
+  };
+
+  const priorityLabelsAdmin = {
+    critical: 'حرج (تنفيذ فوري)',
+    high: 'عالي (تنفيذ خلال 48 ساعة)',
+    medium: 'متوسط (تنفيذ خلال أسبوع)',
+    low: 'منخفض (تنفيذ ضمن شهر)'
+  };
+
+  const ruleEngine = {
+    evaluateDecision: (type, priority, impact) => {
+      const recommendation = {
+        approved: priority !== 'low' || type === 'cost_reduction',
+        reasoning: [],
+        actions: []
+      };
+
+      if (priority === 'critical') {
+        recommendation.reasoning.push('القرار ذو أولوية حرجة - يتطلب موافقة فورية');
+        recommendation.actions.push('إخطار الإدارة العليا فورًا');
+      } else if (priority === 'high') {
+        recommendation.reasoning.push('القرار ذو أولوية عالية - يتطلب متابعة دقيقة');
+        recommendation.actions.push('تحديث المؤشرات الرئيسية كل 24 ساعة');
+      }
+
+      if (type === 'resource_allocation') {
+        recommendation.reasoning.push('يتطلب توثيق تخصيص الموارد والميزانيات');
+        recommendation.actions.push('إعداد تقرير توزيع الموارد');
+      } else if (type === 'process_optimization') {
+        recommendation.reasoning.push('يتطلب قياس الأداء قبل وبعد التحسين');
+        recommendation.actions.push('تحديد مؤشرات الأداء الأساسية (KPIs)');
+      } else if (type === 'risk_mitigation') {
+        recommendation.reasoning.push('يتطلب خطة تخفيف المخاطر مفصلة');
+        recommendation.actions.push('إعداد خطة احتياطية');
+      } else if (type === 'cost_reduction') {
+        recommendation.reasoning.push('يتطلب تحليل التأثير على الجودة والأداء');
+        recommendation.actions.push('مراجعة تكاليف العمليات الحالية');
+      }
+
+      return recommendation;
+    }
+  };
+
+  decideBtnEl.addEventListener('click', () => {
+    const decisionType = decisionTypeEl.value;
+    const priority = priorityEl.value;
+    const impact = impactEl.value.trim();
+
+    if (!decisionType || !priority || !impact) {
+      outputEl.style.display = 'block';
+      outputEl.innerHTML = '<strong>تنبيه:</strong> يرجى ملء جميع الحقول قبل اتخاذ القرار.';
+      return;
+    }
+
+    const decision = ruleEngine.evaluateDecision(decisionType, priority, impact);
+    const timestamp = new Date().toLocaleString('ar-SA');
+    const decisionId = `DEC-${Date.now()}`;
+
+    let html = `
+      <strong>✓ قرار إداري موثّق</strong><br>
+      <strong>معرّف القرار:</strong> ${decisionId}<br>
+      <strong>التاريخ والوقت:</strong> ${timestamp}<br>
+      <strong>نوع القرار:</strong> ${decisionTypeLabels[decisionType]}<br>
+      <strong>الأولوية:</strong> ${priorityLabelsAdmin[priority]}<br>
+      <strong>التأثير المتوقع:</strong> ${impact}<br>
+      <strong>الموافقة:</strong> ${decision.approved ? '✓ موافق' : '✗ يتطلب مراجعة إضافية'}<br>
+      <strong>التبرير:</strong> ${decision.reasoning.join(' • ')}<br>
+      <strong>الإجراءات المطلوبة:</strong> ${decision.actions.join(' → ')}
+    `;
+    outputEl.innerHTML = html;
+    outputEl.style.display = 'block';
+  });
+}
+
+activateAdministrativeLogic();
+await loadRegistry();
+</script>
+</body>
+</html>

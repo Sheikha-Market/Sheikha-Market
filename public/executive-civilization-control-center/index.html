@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Sheikha active | مركز القيادة التنفيذي V2</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link href="https://fonts.googleapis.com/css2?family=IBM+Plex+Sans+Arabic:wght@300;400;500;600;700&family=Source+Sans+3:wght@400;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="./styles.css" />
+  </head>
+  <body>
+    <div class="shell-pattern" aria-hidden="true"></div>
+    <header class="topbar">
+      <div class="brand">
+        <div class="brand-mark" aria-hidden="true"></div>
+        <div>
+          <h1>شيخة</h1>
+          <p>Sheikha active</p>
+        </div>
+      </div>
+      <div class="status-strip">
+        <span class="pill" id="identityMode">Hybrid Executive Theme</span>
+        <span class="pill success" id="identityState">ACTIVE</span>
+        <span class="pill" id="identityScore">Score --</span>
+        <span class="pill" id="identityAutoState">Auto --</span>
+        <span class="pill" id="lastSync">--:--</span>
+      </div>
+    </header>
+
+    <main class="layout">
+      <section class="kpi-grid" id="kpiGrid"></section>
+
+      <section class="panel journey-panel">
+        <div class="panel-head">
+          <h2>رحلة العميل</h2>
+          <span>Conversion Journey</span>
+        </div>
+        <ol class="journey" id="journeyList"></ol>
+      </section>
+
+      <section class="panel split-panel">
+        <div>
+          <div class="panel-head">
+            <h2>حالة المخاطر</h2>
+            <span>Risk Posture</span>
+          </div>
+          <ul class="risk-list" id="riskList"></ul>
+        </div>
+        <div>
+          <div class="panel-head">
+            <h2>مؤشرات التنمية</h2>
+            <span>Saudi Development Engine</span>
+          </div>
+          <div class="bar-grid" id="developmentBars"></div>
+        </div>
+      </section>
+
+      <section class="panel governance-panel">
+        <div class="panel-head">
+          <h2>القياس الصادق والحوكمة</h2>
+          <span>Truth Gate + Audit</span>
+        </div>
+        <div class="governance-grid" id="governanceGrid"></div>
+      </section>
+    </main>
+
+    <footer class="footnote">
+      <p>هوية مؤسسية تشغيلية بلا صور ذوات أرواح، مخرجات مدعومة بالقياس والتحقق.</p>
+      <small id="versionText">Sheikha active Identity V2</small>
+    </footer>
+
+    <script src="./app.js"></script>
+  </body>
+</html>
