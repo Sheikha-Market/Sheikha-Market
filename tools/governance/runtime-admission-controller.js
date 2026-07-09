@@ -22,6 +22,7 @@ const CLASSIFICATION_RULES = [
   { prefix: 'setup_', classification: 'REVIEW_REQUIRED', owner: 'Runtime Setup Governance' },
   { prefix: 'core/', classification: 'PROTECTED', owner: 'Runtime Kernel Organization' },
   { prefix: 'runtime/', classification: 'PROTECTED', owner: 'Runtime Governance Organization' },
+  { prefix: 'public/executive-civilization-control-center/', classification: 'ACTIVE', owner: 'Executive Observatory Governance' },
   { prefix: 'routes/', classification: 'ACTIVE', owner: 'API Federation Organization' },
   { prefix: 'tools/activation/', classification: 'REVIEW_REQUIRED', owner: 'Activation Governance' },
   { prefix: 'scripts/activate-', classification: 'REVIEW_REQUIRED', owner: 'Activation Governance' },
