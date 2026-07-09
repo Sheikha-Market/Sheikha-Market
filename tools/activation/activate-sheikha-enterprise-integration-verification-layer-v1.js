@@ -99,11 +99,13 @@ function buildLayer(name, checks, dependencies, details = {}) {
 
 function buildReport() {
   const identity = safeReadJson('runtime/identity/sheikha-active-identity-v2-report.json');
+  const unifiedIdentity = safeReadJson('runtime/identity-engine/v1/sheikha-identity-engine-v1-report.json');
   const community = safeReadJson('runtime/community/sheikha-community-modeling-report.json');
   const readiness = safeReadJson('runtime/system/sheikha-production-readiness-report.json');
   const architecture = safeReadJson('runtime/system/sheikha-architecture-uplift-report.json');
   const osCloud = safeReadJson('runtime/os-cloud-supercomputer/sheikha-os-cloud-supercomputer-integration-v1-report.json');
   const benchmark = safeReadJson(benchmarkReportPath);
+  const masterActivation = safeReadJson('runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json');
   const latency = {
     healthMs: getHttpTiming('http://127.0.0.1:8080/api/health'),
     metricsMs: getHttpTiming('http://127.0.0.1:8080/api/metrics'),
@@ -162,10 +164,12 @@ function buildReport() {
     }),
     identity: buildLayer('Identity', {
       reportPresent: Boolean(identity),
+      unifiedIdentityPresent: Boolean(unifiedIdentity),
       score100: identity?.score === 100,
       active: identity?.status === 'ACTIVE'
     }, ['Runtime'], {
-      reportPath: 'runtime/identity/sheikha-active-identity-v2-report.json'
+      reportPath: 'runtime/identity/sheikha-active-identity-v2-report.json',
+      unifiedIdentityPath: unifiedIdentity ? 'runtime/identity-engine/v1/sheikha-identity-engine-v1-report.json' : null
     }),
     community: buildLayer('Community', {
       reportPresent: Boolean(community),
@@ -316,6 +320,14 @@ function buildReport() {
     unifiedVerificationFabric,
     identityEngine,
     executiveCommandCenter,
+    masterActivationConsolidation: masterActivation
+      ? {
+          status: masterActivation.status,
+          discoveredComponents: masterActivation.summary?.discoveredComponents ?? 0,
+          activeComponents: masterActivation.summary?.activeComponents ?? 0,
+          duplicateGroups: masterActivation.summary?.duplicateGroups ?? 0
+        }
+      : null,
     executiveHealthScore: scoreBreakdown,
     integrationGraph: {
       OS: ['Runtime', 'Cloud', 'Supercomputer'],
