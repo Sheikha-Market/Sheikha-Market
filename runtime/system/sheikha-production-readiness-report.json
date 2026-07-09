@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_PRODUCTION_READINESS_GATE_V1",
-  "status": "PRODUCTION_READY",
-  "generatedAt": "2026-07-09T13:31:41.851Z",
+  "status": "STABILIZATION_REQUIRED",
+  "generatedAt": "2026-07-09T13:35:43.668Z",
   "mode": "full",
   "checks": {
     "operationalReady": true,
@@ -135,22 +135,31 @@
     }
   ],
   "git": {
-    "clean": true,
-    "totalChanges": 0,
+    "clean": false,
+    "totalChanges": 15,
     "statusCounts": {
       "added": 0,
-      "modified": 0,
+      "modified": 15,
       "deleted": 0,
       "renamed": 0,
       "untracked": 0,
       "conflicted": 0,
       "other": 0
     },
-    "topDirectories": []
+    "topDirectories": [
+      {
+        "dir": "runtime",
+        "count": 14
+      },
+      {
+        "dir": "untime",
+        "count": 1
+      }
+    ]
   },
   "recommendations": [
     "Operational gate passed.",
-    "Git workspace is clean.",
+    "Git workspace has pending changes; split into logical feature batches before release.",
     "Quality checks are acceptable for current mode."
   ]
 }
