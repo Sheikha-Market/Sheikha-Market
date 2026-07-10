@@ -64,7 +64,17 @@ const ARABIC_REASONS = Object.freeze({
   VALID_REGISTERED_BOUNDARY_REQUIRED: 'يلزم حد مسجل وحالة حد صحيحة.',
   BOUNDARY_STATE_WITHIN_BOUNDARY: 'الطلب ضمن الحد المأذون ويحتاج بوابة التفويض المنفصلة.',
   BOUNDARY_STATE_AT_BOUNDARY: 'الطلب عند الحد ويحتاج مسار الأمان أو المراجعة المناسب.',
-  BOUNDARY_STATE_BEYOND_BOUNDARY: 'الطلب خارج الحد؛ منع التنفيذ وأنتج بديل آمن.'
+  BOUNDARY_STATE_BEYOND_BOUNDARY: 'الطلب خارج الحد؛ منع التنفيذ وأنتج بديل آمن.',
+  CAPACITY_INPUT_INVALID: 'بيانات المقدرة أو المورد أو النطاق غير مكتملة أو غير صحيحة.',
+  SOFTWARE_CANNOT_DECLARE_HALAL_OR_HARAM: 'البرنامج لا يعلن الحلال أو الحرام؛ يلزم أهل العلم المؤهلون.',
+  HUMAN_PARTICIPATION_REQUIRES_CONSENT: 'المشاركة البشرية تحتاج رضا صريحًا وحق الانسحاب وحفظ الكرامة.',
+  RESOURCE_OWNER_PERMISSION_REQUIRED: 'استخدام المقدرة يحتاج إذن مالكها أو صاحب الصلاحية.',
+  CAPACITY_EVIDENCE_REQUIRED: 'مقدار المقدرة غير موثق؛ يلزم قياس أو دليل قابل للتحقق.',
+  KNOWN_HARM_PROHIBITS_CAPACITY_USE: 'ثبت احتمال ضرر غير مقبول؛ يمنع توجيه المقدرة إليه.',
+  NON_HARM_NOT_VERIFIED_USE_SIMULATION: 'عدم الضرر غير مثبت؛ يسمح بالمحاكاة فقط.',
+  REQUEST_EXCEEDS_AVAILABLE_CAPACITY: 'المقدار المطلوب يتجاوز المقدرة المتاحة الموثقة.',
+  EXTERNAL_INTEGRATION_REQUIRES_APPROVAL: 'التكامل الخارجي يحتاج إذنًا صريحًا وموافقة بشرية ونطاقًا محدودًا.',
+  CAPACITY_PLAN_READY_WITHIN_GOVERNED_BOUNDARY: 'خطة المقدرة جاهزة للمرور إلى بوابة التفويض دون تنفيذ تلقائي.'
 });
 
 const ARABIC_BOUNDARIES = Object.freeze({
@@ -97,6 +107,44 @@ const ARABIC_BOUNDARY_STATES = Object.freeze({
 const ARABIC_EVIDENCE_STATES = Object.freeze({
   VERIFIED: 'دليل موثق في سياق التقييم',
   UNKNOWN: 'غير معلوم لعدم كفاية الدليل'
+});
+
+const BOUNDARY_SCOPES = Object.freeze([
+  'INTERNAL',
+  'EXTERNAL',
+  'CROSS_BOUNDARY'
+]);
+
+const RESOURCE_CLASSES = Object.freeze([
+  'HUMAN_PARTICIPATION',
+  'COMPUTE',
+  'NETWORK',
+  'KNOWLEDGE',
+  'MATERIAL',
+  'FINANCIAL',
+  'ENERGY',
+  'SPATIAL',
+  'TEMPORAL',
+  'EQUIPMENT'
+]);
+
+const ARABIC_RESOURCE_CLASSES = Object.freeze({
+  HUMAN_PARTICIPATION: 'مشاركة بشرية طوعية ومصونة الكرامة',
+  COMPUTE: 'قدرة حوسبية',
+  NETWORK: 'قدرة شبكة واتصال',
+  KNOWLEDGE: 'معرفة مأذونة وموثقة',
+  MATERIAL: 'مواد وموجودات غير بشرية',
+  FINANCIAL: 'ميزانية أو مورد مالي مأذون',
+  ENERGY: 'طاقة فيزيائية مقاسة',
+  SPATIAL: 'حيز مكاني مأذون',
+  TEMPORAL: 'وقت أو نافذة زمنية',
+  EQUIPMENT: 'جهاز أو معدة مأذونة'
+});
+
+const ARABIC_BOUNDARY_SCOPES = Object.freeze({
+  INTERNAL: 'حد تشغيلي داخلي',
+  EXTERNAL: 'حد تكامل خارجي',
+  CROSS_BOUNDARY: 'اتصال محكوم بين الداخل والخارج'
 });
 
 const runtimeAudit = [];
@@ -266,7 +314,7 @@ function safeAlternativeFor(boundaryType, reason, capability = null) {
 function parseArabicBoundaryContract(source) {
   const text = String(source || '').slice(0, 8192);
   const extract = (label) => {
-    const match = text.match(new RegExp(`${label}\\s+"([^"]+)"`, 'u'));
+    const match = text.match(new RegExp(`(?:^|\\n)\\s*${label}\\s+"([^"]+)"`, 'u'));
     return match ? cleanText(match[1], 500) : null;
   };
   const decision = extract('فالقرار');
@@ -308,7 +356,7 @@ function parseArabicBoundaryContract(source) {
     decision: contract.decision,
     safeAlternative: contract.safeAlternative
   }).filter(([, value]) => !value).map(([key]) => key);
-  if (quranReferences.length < 6) missing.push('quranWrittenReferences');
+  if (quranReferences.length < 10) missing.push('quranWrittenReferences');
   if (sunnahReferences.length < 1) missing.push('sunnahWrittenReferences');
   if (!/الفتوى_الآلية:\s*ممنوعة/u.test(text)) missing.push('automatedFatwaBoundary');
   if (!/المراجعة_الشرعية:\s*أهل_العلم/u.test(text)) missing.push('qualifiedScholarBoundary');
@@ -705,6 +753,374 @@ function evaluateCapability(input = {}) {
   });
 }
 
+function normalizeCapacityInput(input = {}) {
+  const resource = input.resource && typeof input.resource === 'object'
+    ? input.resource
+    : {};
+  const requestedAmount = Number(resource.requestedAmount ?? input.requestedAmount);
+  const availableAmount = Number(resource.availableAmount ?? input.availableAmount);
+  const declaredBoundaryScope = cleanText(
+    input.boundaryScope || 'INTERNAL',
+    40
+  ).toUpperCase();
+  const externalConnectionRequested = input.externalConnectionRequested === true;
+  const boundaryScope = externalConnectionRequested && declaredBoundaryScope === 'INTERNAL'
+    ? 'CROSS_BOUNDARY'
+    : declaredBoundaryScope;
+  const resourceClass = cleanText(
+    resource.class || input.resourceClass || 'COMPUTE',
+    60
+  ).toUpperCase();
+
+  return {
+    capabilityId: cleanText(input.capabilityId, 160),
+    purpose: cleanText(input.purpose, 1200),
+    boundaryScope,
+    declaredBoundaryScope,
+    resource: {
+      resourceId: cleanText(resource.resourceId || input.resourceId, 160),
+      name: cleanText(resource.name || input.resourceName, 300),
+      class: resourceClass,
+      requestedAmount: Number.isFinite(requestedAmount) ? requestedAmount : null,
+      availableAmount: Number.isFinite(availableAmount) ? availableAmount : null,
+      unit: cleanText(resource.unit || input.unit, 80),
+      owner: cleanText(resource.owner || input.owner, 200),
+      location: cleanText(resource.location || input.location, 200),
+      timeWindow: cleanText(resource.timeWindow || input.timeWindow, 200)
+    },
+    evidence: normalizeEvidence(input.evidence),
+    ownerPermissionGranted: input.ownerPermissionGranted === true,
+    ownerPermissionReference: cleanText(input.ownerPermissionReference, 200),
+    humanConsentGranted: input.humanConsentGranted === true,
+    humanWithdrawalRight: input.humanWithdrawalRight === true,
+    nonHarmConfirmed: input.nonHarmConfirmed === true,
+    knownHarm: input.knownHarm === true,
+    externalConnectionRequested,
+    externalConnectionAuthorized: input.externalConnectionAuthorized === true,
+    humanApproval: input.humanApproval === true,
+    requestsHalalOrHaramClassification:
+      input.requestsHalalOrHaramClassification === true,
+    qualifiedScholarReviewReference:
+      cleanText(input.qualifiedScholarReviewReference, 300)
+  };
+}
+
+function capacityDecision({
+  request,
+  capability,
+  decision,
+  reason,
+  boundaryType,
+  requiredEvidence = [],
+  requiredApprovals = [],
+  harmControls = [],
+  safeAlternative = null
+}) {
+  const evidenceStatus = request.evidence.some((item) => item.verified)
+    ? 'VERIFIED'
+    : 'UNKNOWN';
+  const state = decision === 'ALLOW'
+    ? 'WITHIN_BOUNDARY'
+    : decision === 'DENY'
+      ? 'BEYOND_BOUNDARY'
+      : 'AT_BOUNDARY';
+  const boundaries = [{ type: boundaryType, state }];
+  const resolvedSafeAlternative = safeAlternative ||
+    safeAlternativeFor(boundaryType, reason, capability);
+  const utilizationRatio = request.resource.availableAmount > 0 &&
+    request.resource.requestedAmount !== null
+    ? request.resource.requestedAmount / request.resource.availableAmount
+    : null;
+  const result = {
+    system: 'SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1',
+    status: decision === 'ALLOW'
+      ? 'CAPACITY_PLAN_READY'
+      : decision === 'SANDBOX'
+        ? 'CAPACITY_SIMULATION_REQUIRED'
+        : decision === 'REVIEW'
+          ? 'CAPACITY_REVIEW_REQUIRED'
+          : 'CAPACITY_USE_DENIED',
+    language: 'ar',
+    arabicPrimary: true,
+    decision,
+    reason,
+    capabilityId: capability?.capabilityId || request.capabilityId || null,
+    capabilityName: capability?.name || null,
+    boundaryScope: request.boundaryScope,
+    declaredBoundaryScope: request.declaredBoundaryScope,
+    boundaryScopeArabic:
+      ARABIC_BOUNDARY_SCOPES[request.boundaryScope] || request.boundaryScope,
+    boundaries,
+    resource: {
+      ...request.resource,
+      arabicClass: ARABIC_RESOURCE_CLASSES[request.resource.class] ||
+        request.resource.class,
+      measuredOrDeclaredWithEvidence: evidenceStatus === 'VERIFIED',
+      utilizationRatio,
+      requestedAmountExceedsAvailable:
+        utilizationRatio !== null && utilizationRatio > 1,
+      capacityClaimVerified: decision === 'ALLOW' && evidenceStatus === 'VERIFIED'
+    },
+    operationalPotential: {
+      arabicName: 'المقدرة التشغيلية النافعة',
+      conversionMode: 'GOVERNED_CAPACITY_PLAN_ONLY',
+      physicalEnergyProduced: false,
+      physicalEnergyClaimed: false,
+      physicalEnergyRequiresEngineeringMeasurement: true,
+      metaphoricalEnergyMeansOperationalCapacity: true,
+      requestedAmount: request.resource.requestedAmount,
+      availableAmount: request.resource.availableAmount,
+      unit: request.resource.unit || null
+    },
+    vision: 'توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.',
+    mission: 'قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.',
+    goals: [
+      'إثبات الملكية والإذن والرضا عند الحاجة.',
+      'قياس المقدرة بوحدة ودليل معلومين.',
+      'عدم تجاوز المقدرة المتاحة أو الميزانية.',
+      'اختيار اتصال داخلي أو خارجي بأقل صلاحية.',
+      'حفظ كرامة الإنسان وحقه في الانسحاب.',
+      'قياس الأثر وإتاحة الإيقاف والرجوع.'
+    ],
+    evidenceStatus,
+    requiredEvidence: unique(requiredEvidence),
+    requiredApprovals: unique(requiredApprovals),
+    harmControls: unique(harmControls),
+    safeAlternative: resolvedSafeAlternative,
+    religiousBoundary: {
+      divineLimitsDeterminedBySoftware: false,
+      softwareDeclaresHalalOrHaram: false,
+      religiousStatus: request.requestsHalalOrHaramClassification
+        ? 'QUALIFIED_SCHOLAR_REVIEW_REQUIRED'
+        : 'NOT_DETERMINED_BY_SOFTWARE',
+      qualifiedScholarReviewReference:
+        request.qualifiedScholarReviewReference || null,
+      softwareRepresentsPropheticMission: false,
+      softwarePerformsIslamImanOrIhsan: false,
+      religiousGeneticClassificationAllowed: false
+    },
+    humanDignity: {
+      humanIsExploitableResource: false,
+      humanParticipationIsVoluntary: request.resource.class === 'HUMAN_PARTICIPATION'
+        ? request.humanConsentGranted
+        : null,
+      withdrawalRightRequired: request.resource.class === 'HUMAN_PARTICIPATION',
+      coercionAllowed: false,
+      unlawfulDiscriminationAllowed: false
+    },
+    executionAllowed: false,
+    connectionExecuted: false,
+    externalWritePerformed: false,
+    decisionGrantsAuthorization: false,
+    permissionEscalationAllowed: false,
+    humanFinalDecision: true,
+    humanFinalResponsibility: true,
+    arabic: arabicDecisionView({
+      decision,
+      reason,
+      evidenceStatus,
+      boundaries,
+      requiredEvidence: unique(requiredEvidence),
+      requiredApprovals: unique(requiredApprovals),
+      harmControls: unique(harmControls),
+      safeAlternative: resolvedSafeAlternative
+    })
+  };
+  result.auditId = auditDecision(result);
+  return result;
+}
+
+function classifyPermittedCapacity(input = {}) {
+  const request = normalizeCapacityInput(input);
+  const capability = findCapability(request.capabilityId);
+  const scopeValid = BOUNDARY_SCOPES.includes(request.boundaryScope);
+  const resourceClassValid = RESOURCE_CLASSES.includes(request.resource.class);
+  const resourceIdentityValid = Boolean(
+    request.resource.resourceId && request.resource.owner
+  );
+  const amountsValid = request.resource.requestedAmount !== null &&
+    request.resource.availableAmount !== null &&
+    request.resource.requestedAmount > 0 &&
+    request.resource.availableAmount > 0 &&
+    Boolean(request.resource.unit);
+  const result = (config) => capacityDecision({ request, capability, ...config });
+
+  if (!capability || !request.purpose || !scopeValid || !resourceClassValid ||
+      !resourceIdentityValid || !amountsValid) {
+    return result({
+      decision: 'REVIEW',
+      reason: 'CAPACITY_INPUT_INVALID',
+      boundaryType: 'EVIDENCE_BOUNDARY',
+      requiredEvidence: [
+        'REGISTERED_CAPABILITY',
+        'RESOURCE_ID',
+        'RESOURCE_OWNER',
+        'RESOURCE_CLASS',
+        'AMOUNT',
+        'UNIT'
+      ]
+    });
+  }
+
+  if (request.knownHarm) {
+    return result({
+      decision: 'DENY',
+      reason: 'KNOWN_HARM_PROHIBITS_CAPACITY_USE',
+      boundaryType: 'SAFETY_BOUNDARY',
+      harmControls: ['STOP', 'WARNING', 'RECOVERY', 'HUMAN_HANDOFF']
+    });
+  }
+
+  if (request.requestsHalalOrHaramClassification) {
+    return result({
+      decision: 'REVIEW',
+      reason: 'SOFTWARE_CANNOT_DECLARE_HALAL_OR_HARAM',
+      boundaryType: 'RELIGIOUS_BOUNDARY',
+      requiredApprovals: ['QUALIFIED_SCHOLAR_REVIEW'],
+      harmControls: ['NO_AUTOMATED_HALAL_HARAM_CLASSIFICATION', 'PRESERVE_SOURCE_CONTEXT']
+    });
+  }
+
+  if (request.resource.class === 'HUMAN_PARTICIPATION' &&
+      (!request.humanConsentGranted || !request.humanWithdrawalRight)) {
+    return result({
+      decision: 'DENY',
+      reason: 'HUMAN_PARTICIPATION_REQUIRES_CONSENT',
+      boundaryType: 'HUMAN_AUTHORITY_BOUNDARY',
+      requiredApprovals: ['EXPLICIT_HUMAN_CONSENT', 'WITHDRAWAL_RIGHT'],
+      harmControls: ['NO_COERCION', 'HUMAN_DIGNITY', 'NO_RELIGIOUS_OR_GENETIC_CLASSIFICATION']
+    });
+  }
+
+  if (!request.ownerPermissionGranted || !request.ownerPermissionReference) {
+    return result({
+      decision: 'DENY',
+      reason: 'RESOURCE_OWNER_PERMISSION_REQUIRED',
+      boundaryType: 'PERMISSION_BOUNDARY',
+      requiredApprovals: ['RESOURCE_OWNER_PERMISSION'],
+      requiredEvidence: ['TRACEABLE_PERMISSION_REFERENCE']
+    });
+  }
+
+  if (!request.evidence.some((item) => item.verified)) {
+    return result({
+      decision: 'REVIEW',
+      reason: 'CAPACITY_EVIDENCE_REQUIRED',
+      boundaryType: 'EVIDENCE_BOUNDARY',
+      requiredEvidence: ['VERIFIED_CAPACITY_MEASUREMENT', 'SOURCE_AND_TIMESTAMP']
+    });
+  }
+
+  if (!request.nonHarmConfirmed) {
+    return result({
+      decision: 'SANDBOX',
+      reason: 'NON_HARM_NOT_VERIFIED_USE_SIMULATION',
+      boundaryType: 'SAFETY_BOUNDARY',
+      requiredEvidence: ['NON_HARM_ASSESSMENT'],
+      harmControls: ['SIMULATION_ONLY', 'READ_ONLY', 'ROLLBACK_READY']
+    });
+  }
+
+  if (request.resource.requestedAmount > request.resource.availableAmount) {
+    return result({
+      decision: 'SANDBOX',
+      reason: 'REQUEST_EXCEEDS_AVAILABLE_CAPACITY',
+      boundaryType: 'RESOURCE_AND_COST_BOUNDARY',
+      requiredApprovals: ['RESOURCE_OWNER_REVIEW'],
+      harmControls: ['CAP_AT_VERIFIED_AVAILABLE_AMOUNT', 'BUDGET_GATE', 'SMALL_SCALE_PROBE']
+    });
+  }
+
+  const externalScope = ['EXTERNAL', 'CROSS_BOUNDARY'].includes(request.boundaryScope) ||
+    request.externalConnectionRequested;
+  if (externalScope &&
+      (!request.externalConnectionAuthorized || !request.humanApproval)) {
+    return result({
+      decision: 'REVIEW',
+      reason: 'EXTERNAL_INTEGRATION_REQUIRES_APPROVAL',
+      boundaryType: 'NETWORK_BOUNDARY',
+      requiredApprovals: ['EXTERNAL_CONNECTION_AUTHORIZATION', 'ACCOUNTABLE_HUMAN_APPROVAL'],
+      harmControls: ['LEAST_PRIVILEGE', 'ENCRYPTED_CHANNEL', 'RATE_LIMIT', 'ROLLBACK_READY']
+    });
+  }
+
+  return result({
+    decision: 'ALLOW',
+    reason: 'CAPACITY_PLAN_READY_WITHIN_GOVERNED_BOUNDARY',
+    boundaryType: externalScope ? 'NETWORK_BOUNDARY' : 'SOFTWARE_BOUNDARY',
+    harmControls: [
+      'MEASURED_CAPACITY',
+      'OWNER_PERMISSION',
+      'NO_HARM',
+      'LEAST_PRIVILEGE',
+      'AUDIT_AND_ROLLBACK'
+    ],
+    safeAlternative: {
+      type: 'NOT_REQUIRED',
+      action: 'مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.',
+      boundaryType: null,
+      reason: null,
+      executionPerformed: false,
+      externalWritePerformed: false
+    }
+  });
+}
+
+function planCapacityIntegration(input = {}) {
+  const classification = classifyPermittedCapacity(input);
+  const ready = classification.decision === 'ALLOW';
+  const transportByScope = {
+    INTERNAL: 'LOCAL_GOVERNED_RUNTIME_BUS',
+    EXTERNAL: 'AUTHENTICATED_ENCRYPTED_API_GATEWAY',
+    CROSS_BOUNDARY: 'GOVERNED_ADAPTER_AND_POLICY_GATEWAY'
+  };
+
+  return {
+    system: 'SHEIKHA_CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER_V1',
+    status: ready ? 'INTEGRATION_PLAN_READY' : 'INTEGRATION_PLAN_BLOCKED_BY_GATE',
+    language: 'ar',
+    arabicPrimary: true,
+    decision: classification.decision,
+    classification,
+    connection: {
+      scope: classification.boundaryScope,
+      scopeArabic: classification.boundaryScopeArabic,
+      transport: transportByScope[classification.boundaryScope] || null,
+      connectionExecuted: false,
+      dataTransferred: false,
+      resourceConsumed: false,
+      externalWritePerformed: false,
+      leastPrivilegeRequired: true,
+      encryptionRequiredForExternalConnection: true,
+      identityAndOwnershipVerificationRequired: true,
+      auditRequired: true,
+      rollbackRequired: true
+    },
+    steps: [
+      'تحقق من الهوية والملكية والصفة.',
+      'تحقق من الإذن والرضا والنطاق والمدة.',
+      'ثبت القياس والوحدة والدليل وخط الأساس.',
+      'حدد عقد المدخلات والمخرجات والخصوصية.',
+      'اختبر في العزل أو المحاكاة.',
+      'طبق أقل صلاحية والتشفير وحدود المعدل.',
+      'اعرض الخطة على الإنسان المسؤول.',
+      'نفذ عبر مسار منفصل مأذون مع المراقبة.',
+      'قس الأثر وأوقف عند الضرر.',
+      'احفظ التدقيق وخطة الرجوع.'
+    ],
+    vision: classification.vision,
+    mission: classification.mission,
+    goals: classification.goals,
+    humanFinalDecision: true,
+    humanFinalResponsibility: true,
+    executionAllowed: false,
+    connectionExecuted: false,
+    externalWritePerformed: false,
+    decisionGrantsAuthorization: false,
+    permissionEscalationAllowed: false
+  };
+}
+
 function transformBoundary(input = {}) {
   const boundaryType = cleanText(input.boundaryType || input.boundary, 120).toUpperCase();
   const state = cleanText(input.state || 'AT_BOUNDARY', 40).toUpperCase();
@@ -814,14 +1230,22 @@ function status() {
     benefitDomainsRegistered: currentRegistry.benefitDomains.length,
     architectureComponentsRegistered:
       currentRegistry.architectureComponents?.length || 0,
+    boundaryScopesRegistered:
+      currentRegistry.operationalBoundaryScopes?.length || 0,
+    resourceClassesRegistered: currentRegistry.resourceClasses?.length || 0,
     priorityPolicy: currentRegistry.priorityPolicy || {},
     decisions: DECISIONS,
     boundaryStates: BOUNDARY_STATES,
+    boundaryScopes: BOUNDARY_SCOPES,
+    resourceClasses: RESOURCE_CLASSES,
+    capacityGovernance: currentRegistry.capacityGovernance || {},
     integrations: currentRegistry.integrations || [],
     routes: {
       status: '/api/governance/universal-benefit/status',
       evaluate: '/api/governance/universal-benefit/evaluate',
       transformBoundary: '/api/governance/universal-benefit/transform-boundary',
+      classifyCapacity: '/api/governance/universal-benefit/classify-capacity',
+      planIntegration: '/api/governance/universal-benefit/plan-integration',
       capabilities: '/api/governance/universal-benefit/capabilities',
       evidence: '/api/governance/universal-benefit/evidence'
     },
@@ -834,7 +1258,13 @@ function status() {
       benefitIndicatorIsAbsoluteMoralJudgment: false,
       claimPolicy: 'لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.',
       writtenQuranSunnahValuesReference: true,
-      quranSunnahTextBecomesAutomatedRuling: false
+      quranSunnahTextBecomesAutomatedRuling: false,
+      divineLimitsDeterminedBySoftware: false,
+      halalOrHaramDeclaredBySoftware: false,
+      operationalBoundariesAreReligiousRulings: false,
+      humanParticipationIsExploitableResource: false,
+      connectionPlannerExecutesConnections: false,
+      physicalEnergyClaimRequiresEngineeringMeasurement: true
     }
   };
 }
@@ -845,11 +1275,15 @@ function resetRuntimeAudit() {
 }
 
 module.exports = {
+  BOUNDARY_SCOPES,
   BOUNDARY_STATES,
   DECISIONS,
+  RESOURCE_CLASSES,
+  classifyPermittedCapacity,
   evaluateCapability,
   evidence,
   parseArabicBoundaryContract,
+  planCapacityIntegration,
   registry,
   resetRuntimeAudit,
   status,

@@ -11,6 +11,7 @@ const fabric = require(
 const routes = require('../routes/universal-benefit-boundary/status.routes');
 const {
   buildReport,
+  capacityInput,
   verifiedEvidence
 } = require('../tools/activation/activate-sheikha-universal-benefit-boundary-v1');
 
@@ -44,7 +45,25 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(current.capabilities).toHaveLength(16);
     expect(current.boundaries).toHaveLength(18);
     expect(current.benefitDomains).toHaveLength(16);
-    expect(current.architectureComponents).toHaveLength(18);
+    expect(current.architectureComponents).toHaveLength(21);
+    expect(current.operationalBoundaryScopes).toHaveLength(3);
+    expect(current.resourceClasses).toHaveLength(10);
+    expect(current.capacityGovernance).toMatchObject({
+      operationalPotentialMeansMeasuredCapacity: true,
+      operationalPotentialIsPhysicalEnergy: false,
+      halalOrHaramDeterminedBySoftware: false,
+      divineLimitsDeterminedBySoftware: false,
+      religiousOrGeneticClassificationOfPeopleAllowed: false,
+      automaticConnectionOrResourceConsumption: false,
+      humanFinalResponsibility: true
+    });
+    expect(current.resourceClasses.find(
+      (item) => item.class === 'HUMAN_PARTICIPATION'
+    )).toMatchObject({
+      humanIsResource: false,
+      consentRequired: true,
+      withdrawalRightRequired: true
+    });
     expect(current.priorityPolicy).toMatchObject({
       noInjustice: true,
       noRightsRemoval: true,
@@ -256,6 +275,154 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(result.humanFinalDecision).toBe(true);
   });
 
+  test('19. classifies measured internal capacity without executing it', () => {
+    const result = fabric.classifyPermittedCapacity(capacityInput());
+    expect(result).toMatchObject({
+      status: 'CAPACITY_PLAN_READY',
+      decision: 'ALLOW',
+      boundaryScope: 'INTERNAL',
+      evidenceStatus: 'VERIFIED',
+      executionAllowed: false,
+      connectionExecuted: false,
+      decisionGrantsAuthorization: false,
+      humanFinalResponsibility: true
+    });
+    expect(result.resource).toMatchObject({
+      utilizationRatio: 0.2,
+      requestedAmountExceedsAvailable: false,
+      capacityClaimVerified: true
+    });
+    expect(result.operationalPotential).toMatchObject({
+      physicalEnergyProduced: false,
+      physicalEnergyClaimed: false,
+      physicalEnergyRequiresEngineeringMeasurement: true,
+      metaphoricalEnergyMeansOperationalCapacity: true
+    });
+  });
+
+  test('20. treats people as voluntary participants and requires withdrawal rights', () => {
+    const denied = fabric.classifyPermittedCapacity(capacityInput({
+      resource: { class: 'HUMAN_PARTICIPATION' }
+    }));
+    expect(denied).toMatchObject({
+      decision: 'DENY',
+      reason: 'HUMAN_PARTICIPATION_REQUIRES_CONSENT',
+      humanDignity: {
+        humanIsExploitableResource: false,
+        humanParticipationIsVoluntary: false,
+        withdrawalRightRequired: true,
+        coercionAllowed: false,
+        unlawfulDiscriminationAllowed: false
+      }
+    });
+
+    const allowed = fabric.classifyPermittedCapacity(capacityInput({
+      resource: { class: 'HUMAN_PARTICIPATION' },
+      humanConsentGranted: true,
+      humanWithdrawalRight: true
+    }));
+    expect(allowed.decision).toBe('ALLOW');
+    expect(allowed.humanDignity.humanParticipationIsVoluntary).toBe(true);
+  });
+
+  test('21. requires evidence and contains requests above measured capacity', () => {
+    const unknown = fabric.classifyPermittedCapacity(capacityInput({ evidence: [] }));
+    expect(unknown).toMatchObject({
+      decision: 'REVIEW',
+      reason: 'CAPACITY_EVIDENCE_REQUIRED',
+      evidenceStatus: 'UNKNOWN'
+    });
+
+    const exceeded = fabric.classifyPermittedCapacity(capacityInput({
+      resource: { requestedAmount: 120, availableAmount: 100 }
+    }));
+    expect(exceeded).toMatchObject({
+      decision: 'SANDBOX',
+      reason: 'REQUEST_EXCEEDS_AVAILABLE_CAPACITY'
+    });
+    expect(exceeded.resource.utilizationRatio).toBe(1.2);
+    expect(exceeded.resource.requestedAmountExceedsAvailable).toBe(true);
+  });
+
+  test('22. requires owner permission and stops immediately on known harm', () => {
+    const noPermission = fabric.classifyPermittedCapacity(capacityInput({
+      ownerPermissionGranted: false,
+      ownerPermissionReference: ''
+    }));
+    expect(noPermission).toMatchObject({
+      decision: 'DENY',
+      reason: 'RESOURCE_OWNER_PERMISSION_REQUIRED'
+    });
+
+    const harmful = fabric.classifyPermittedCapacity(capacityInput({
+      knownHarm: true,
+      evidence: []
+    }));
+    expect(harmful).toMatchObject({
+      decision: 'DENY',
+      reason: 'KNOWN_HARM_PROHIBITS_CAPACITY_USE'
+    });
+    expect(harmful.harmControls).toEqual(expect.arrayContaining([
+      'STOP', 'WARNING', 'RECOVERY', 'HUMAN_HANDOFF'
+    ]));
+  });
+
+  test('23. requires external authorization and produces a non-executing plan', () => {
+    const review = fabric.classifyPermittedCapacity(capacityInput({
+      externalConnectionRequested: true
+    }));
+    expect(review).toMatchObject({
+      decision: 'REVIEW',
+      reason: 'EXTERNAL_INTEGRATION_REQUIRES_APPROVAL',
+      declaredBoundaryScope: 'INTERNAL',
+      boundaryScope: 'CROSS_BOUNDARY'
+    });
+
+    const input = capacityInput({
+      boundaryScope: 'EXTERNAL',
+      externalConnectionRequested: true,
+      externalConnectionAuthorized: true,
+      humanApproval: true
+    });
+    const plan = fabric.planCapacityIntegration(input);
+    expect(plan).toMatchObject({
+      status: 'INTEGRATION_PLAN_READY',
+      decision: 'ALLOW',
+      executionAllowed: false,
+      connectionExecuted: false,
+      externalWritePerformed: false,
+      decisionGrantsAuthorization: false,
+      humanFinalResponsibility: true,
+      connection: {
+        scope: 'EXTERNAL',
+        transport: 'AUTHENTICATED_ENCRYPTED_API_GATEWAY',
+        connectionExecuted: false,
+        dataTransferred: false,
+        resourceConsumed: false,
+        externalWritePerformed: false
+      }
+    });
+  });
+
+  test('24. never declares halal or haram and requires qualified review', () => {
+    const result = fabric.classifyPermittedCapacity(capacityInput({
+      requestsHalalOrHaramClassification: true
+    }));
+    expect(result).toMatchObject({
+      decision: 'REVIEW',
+      reason: 'SOFTWARE_CANNOT_DECLARE_HALAL_OR_HARAM',
+      religiousBoundary: {
+        divineLimitsDeterminedBySoftware: false,
+        softwareDeclaresHalalOrHaram: false,
+        religiousStatus: 'QUALIFIED_SCHOLAR_REVIEW_REQUIRED',
+        softwareRepresentsPropheticMission: false,
+        softwarePerformsIslamImanOrIhsan: false,
+        religiousGeneticClassificationAllowed: false
+      }
+    });
+    expect(result.requiredApprovals).toContain('QUALIFIED_SCHOLAR_REVIEW');
+  });
+
   test('Arabic Sheikha DSL compiles the permission and safe-alternative rule', () => {
     const result = fabric.parseArabicBoundaryContract(read(
       'sheikha-language/governance/sheikha-universal-benefit-boundary-v1.shk'
@@ -276,7 +443,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     });
     expect(result.executableAuthorityGranted).toBe(false);
     expect(result.writtenReferences).toMatchObject({
-      quranCount: 6,
+      quranCount: 10,
       authenticSunnahCount: 1,
       valuesReferenceOnly: true,
       automatedInterpretationOrFatwa: false,
@@ -290,7 +457,11 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
         'سورة المائدة: 2',
         'سورة الحجرات: 6',
         'سورة الشورى: 38',
-        'سورة الأعراف: 56'
+        'سورة الأعراف: 56',
+        'سورة البقرة: 229',
+        'سورة الطلاق: 1',
+        'سورة النساء: 112',
+        'سورة الأنبياء: 107'
       ])
     );
     expect(result.writtenReferences.authenticSunnah[0].text).toBe('لا ضرر ولا ضرار');
@@ -341,11 +512,13 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(deny.boundaries.some((item) => item.state === 'BEYOND_BOUNDARY')).toBe(true);
   });
 
-  test('19. status, evaluate, transform, capability and evidence APIs operate', async () => {
+  test('25. status, evaluation, capacity planning and evidence APIs operate', async () => {
     const statusResponse = await request(app())
       .get('/api/governance/universal-benefit/status')
       .expect(200);
     expect(statusResponse.body.result.boundariesRegistered).toBe(18);
+    expect(statusResponse.body.result.boundaryScopesRegistered).toBe(3);
+    expect(statusResponse.body.result.resourceClassesRegistered).toBe(10);
     expect(statusResponse.body.result).toMatchObject({
       language: 'ar',
       arabicPrimary: true,
@@ -371,6 +544,34 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       .expect(200);
     expect(transformResponse.body.result.decision).toBe('SANDBOX');
 
+    const capacityResponse = await request(app())
+      .post('/api/governance/universal-benefit/classify-capacity')
+      .send(capacityInput())
+      .expect(200);
+    expect(capacityResponse.body.result).toMatchObject({
+      status: 'CAPACITY_PLAN_READY',
+      decision: 'ALLOW',
+      executionAllowed: false
+    });
+
+    const integrationResponse = await request(app())
+      .post('/api/governance/universal-benefit/plan-integration')
+      .send(capacityInput({
+        boundaryScope: 'EXTERNAL',
+        externalConnectionRequested: true,
+        externalConnectionAuthorized: true,
+        humanApproval: true
+      }))
+      .expect(200);
+    expect(integrationResponse.body.result).toMatchObject({
+      status: 'INTEGRATION_PLAN_READY',
+      executionAllowed: false,
+      connection: {
+        dataTransferred: false,
+        resourceConsumed: false
+      }
+    });
+
     const capabilitiesResponse = await request(app())
       .get('/api/governance/universal-benefit/capabilities')
       .expect(200);
@@ -383,7 +584,9 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
         automatedJurisprudentialInferenceAllowed: false
       }
     });
-    expect(capabilitiesResponse.body.result.valuesReference.references).toHaveLength(7);
+    expect(capabilitiesResponse.body.result.valuesReference.references).toHaveLength(11);
+    expect(capabilitiesResponse.body.result.operationalBoundaryScopes).toHaveLength(3);
+    expect(capabilitiesResponse.body.result.resourceClasses).toHaveLength(10);
     expect(capabilitiesResponse.body.result.valuesReference.references.every(
       (item) => item.arabicText
     )).toBe(true);
@@ -402,7 +605,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     });
   });
 
-  test('20. activation does not mix unrelated legacy reports', () => {
+  test('26. activation does not mix unrelated legacy reports', () => {
     const report = buildReport();
     expect(report.checks.unrelatedLegacyReportsNotMixed).toBe(true);
     expect(report.status).toBe('VERIFIED_ACTIVE');
@@ -411,7 +614,9 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       capabilitiesRegistered: 16,
       boundariesRegistered: 18,
       benefitDomainsRegistered: 16,
-      architectureComponentsRegistered: 18,
+      architectureComponentsRegistered: 21,
+      boundaryScopesRegistered: 3,
+      resourceClassesRegistered: 10,
       allowedDecisions: 1,
       reviewDecisions: 1,
       sandboxDecisions: 1,
@@ -420,6 +625,17 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       safetyBypassAllowed: false,
       permissionEscalationAllowed: false,
       humanFinalResponsibility: true
+    });
+    expect(report).toMatchObject({
+      divineLimitsDeterminedBySoftware: false,
+      halalOrHaramDeterminedBySoftware: false,
+      operationalBoundariesAreReligiousRulings: false,
+      humanParticipationIsExploitableResource: false,
+      capacity: {
+        connectionExecuted: false,
+        resourceConsumed: false,
+        physicalEnergyProduced: false
+      }
     });
     expect(report).toMatchObject({
       language: 'ar',
@@ -452,6 +668,8 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       module: 'routes/universal-benefit-boundary/status.routes.js'
     });
     expect(read('sdk/sheikha-api/index.js')).toContain('client.universalBenefit');
+    expect(read('sdk/sheikha-api/index.js')).toContain('classifyCapacity');
+    expect(read('sdk/sheikha-api/index.js')).toContain('planIntegration');
     expect(read('docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md'))
       .toContain('decisionGrantsAuthorization: false');
     expect(read('docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md'))

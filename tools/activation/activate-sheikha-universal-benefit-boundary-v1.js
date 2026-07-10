@@ -34,6 +34,79 @@ function verifiedEvidence(id) {
   }];
 }
 
+function capacityInput(overrides = {}) {
+  const { resource = {}, ...rest } = overrides;
+  return {
+    capabilityId: 'SHEIKHA_RESOURCE_OPTIMIZATION',
+    purpose: 'تخصيص مقدرة مأذونة وموثقة لمنفعة عامة قابلة للقياس.',
+    boundaryScope: 'INTERNAL',
+    resource: {
+      resourceId: 'capacity-pool-1',
+      name: 'مجموعة مقدرة اختبارية',
+      class: 'COMPUTE',
+      requestedAmount: 20,
+      availableAmount: 100,
+      unit: 'capacity-unit',
+      owner: 'RESOURCE_OWNER',
+      ...resource
+    },
+    evidence: verifiedEvidence('ubb-capacity-evidence'),
+    ownerPermissionGranted: true,
+    ownerPermissionReference: 'resource-owner-permission-1',
+    nonHarmConfirmed: true,
+    ...rest
+  };
+}
+
+function evaluateCapacityProbes() {
+  const internal = fabric.classifyPermittedCapacity(capacityInput());
+  const externalReview = fabric.classifyPermittedCapacity(capacityInput({
+    boundaryScope: 'EXTERNAL',
+    externalConnectionRequested: true
+  }));
+  const externalApprovedInput = capacityInput({
+    boundaryScope: 'EXTERNAL',
+    externalConnectionRequested: true,
+    externalConnectionAuthorized: true,
+    humanApproval: true
+  });
+  const externalApproved = fabric.classifyPermittedCapacity(externalApprovedInput);
+  const externalPlan = fabric.planCapacityIntegration(externalApprovedInput);
+  const humanWithoutConsent = fabric.classifyPermittedCapacity(capacityInput({
+    resource: { class: 'HUMAN_PARTICIPATION' }
+  }));
+  const missingEvidence = fabric.classifyPermittedCapacity(capacityInput({
+    evidence: []
+  }));
+  const missingOwnerPermission = fabric.classifyPermittedCapacity(capacityInput({
+    ownerPermissionGranted: false,
+    ownerPermissionReference: ''
+  }));
+  const knownHarm = fabric.classifyPermittedCapacity(capacityInput({
+    knownHarm: true,
+    evidence: []
+  }));
+  const exceedsAvailable = fabric.classifyPermittedCapacity(capacityInput({
+    resource: { requestedAmount: 120, availableAmount: 100 }
+  }));
+  const religiousClassification = fabric.classifyPermittedCapacity(capacityInput({
+    requestsHalalOrHaramClassification: true
+  }));
+
+  return {
+    internal,
+    externalReview,
+    externalApproved,
+    externalPlan,
+    humanWithoutConsent,
+    missingEvidence,
+    missingOwnerPermission,
+    knownHarm,
+    exceedsAvailable,
+    religiousClassification
+  };
+}
+
 function evaluateProbes() {
   const allow = fabric.evaluateCapability({
     capabilityId: 'SHEIKHA_PUBLIC_KNOWLEDGE_ASSISTANCE',
@@ -76,6 +149,7 @@ function buildReport() {
   const currentRegistry = fabric.registry();
   const transformations = fabric.transformationRegistry();
   const probes = evaluateProbes();
+  const capacityProbes = evaluateCapacityProbes();
   const noEvidence = fabric.evaluateCapability({
     capabilityId: 'SHEIKHA_PUBLIC_KNOWLEDGE_ASSISTANCE',
     purpose: 'ادعاء يحتاج دليلًا.',
@@ -188,14 +262,22 @@ function buildReport() {
 
   const checks = {
     architectureComponentsComplete:
-      currentStatus.architectureComponentsRegistered === 18,
+      currentStatus.architectureComponentsRegistered === 21,
+    operationalCapacityCatalogComplete:
+      currentStatus.boundaryScopesRegistered === 3 &&
+      currentStatus.resourceClassesRegistered === 10 &&
+      currentRegistry.capacityGovernance?.humanFinalResponsibility === true &&
+      currentRegistry.capacityGovernance?.halalOrHaramDeterminedBySoftware === false,
     writtenArabicQuranSunnahContractComplete:
       dsl.status === 'VALID_GOVERNED_CONTRACT' &&
       dsl.contract?.arabicPrimary === true &&
-      dsl.writtenReferences?.quranCount === 6 &&
+      dsl.writtenReferences?.quranCount === 10 &&
       dsl.writtenReferences?.authenticSunnahCount === 1 &&
       dsl.writtenReferences?.automatedInterpretationOrFatwa === false &&
-      dsl.writtenReferences?.qualifiedScholarReviewRequired === true,
+      dsl.writtenReferences?.qualifiedScholarReviewRequired === true &&
+      ['سورة البقرة: 229', 'سورة الطلاق: 1', 'سورة النساء: 112', 'سورة الأنبياء: 107']
+        .every((location) => dsl.writtenReferences.quran
+          .some((reference) => reference.location === location)),
     arabicApiDecisionSurfaceActive:
       Object.values(probes).every((item) =>
         item.language === 'ar' &&
@@ -241,6 +323,9 @@ function buildReport() {
       kernel,
       missingTool,
       externalWrite,
+      ...Object.values(capacityProbes).filter((item) =>
+        item?.humanFinalResponsibility !== undefined
+      ),
       ...reasoning
     ].every((item) => item.humanFinalResponsibility === true),
     missingToolBecomesRequirementsReport:
@@ -252,6 +337,42 @@ function buildReport() {
     missingEvidenceBecomesUnknown: noEvidence.evidenceStatus === 'UNKNOWN',
     externalWriteRequiresAuthorization:
       externalWrite.decision === 'DENY' && externalWrite.externalWritePerformed === false,
+    humanParticipationRequiresConsentAndWithdrawal:
+      capacityProbes.humanWithoutConsent.decision === 'DENY' &&
+      capacityProbes.humanWithoutConsent.humanDignity.humanIsExploitableResource === false,
+    capacityRequiresVerifiedMeasurement:
+      capacityProbes.missingEvidence.decision === 'REVIEW' &&
+      capacityProbes.missingEvidence.evidenceStatus === 'UNKNOWN',
+    capacityRequiresOwnerPermission:
+      capacityProbes.missingOwnerPermission.decision === 'DENY' &&
+      capacityProbes.missingOwnerPermission.reason ===
+        'RESOURCE_OWNER_PERMISSION_REQUIRED',
+    knownHarmStopsCapacityBeforeEvidenceReview:
+      capacityProbes.knownHarm.decision === 'DENY' &&
+      capacityProbes.knownHarm.reason === 'KNOWN_HARM_PROHIBITS_CAPACITY_USE',
+    capacityOverrunRemainsSandboxed:
+      capacityProbes.exceedsAvailable.decision === 'SANDBOX' &&
+      capacityProbes.exceedsAvailable.resource.requestedAmountExceedsAvailable === true &&
+      capacityProbes.exceedsAvailable.resource.utilizationRatio === 1.2,
+    externalIntegrationRequiresAuthorization:
+      capacityProbes.externalReview.decision === 'REVIEW' &&
+      capacityProbes.externalReview.reason === 'EXTERNAL_INTEGRATION_REQUIRES_APPROVAL',
+    governedIntegrationPlanDoesNotExecute:
+      capacityProbes.externalApproved.decision === 'ALLOW' &&
+      capacityProbes.externalPlan.status === 'INTEGRATION_PLAN_READY' &&
+      capacityProbes.externalPlan.executionAllowed === false &&
+      capacityProbes.externalPlan.connection.dataTransferred === false &&
+      capacityProbes.externalPlan.connection.resourceConsumed === false,
+    softwareDoesNotDeclareHalalOrHaram:
+      capacityProbes.religiousClassification.decision === 'REVIEW' &&
+      capacityProbes.religiousClassification.religiousBoundary
+        .softwareDeclaresHalalOrHaram === false &&
+      capacityProbes.religiousClassification.requiredApprovals
+        .includes('QUALIFIED_SCHOLAR_REVIEW'),
+    operationalPotentialDoesNotClaimPhysicalEnergy:
+      capacityProbes.internal.operationalPotential.physicalEnergyProduced === false &&
+      capacityProbes.internal.operationalPotential
+        .physicalEnergyRequiresEngineeringMeasurement === true,
     reasoningModesDoNotEscalatePermission:
       reasoning.map((item) => item.l24.reasoningMode).join(',') === 'standard,pro,ultra' &&
       reasoning.every((item) => item.permissionEscalationAllowed === false),
@@ -264,7 +385,9 @@ function buildReport() {
       routeRegistered &&
       routeText.includes("router.get('/status'") &&
       evaluationRouteText.includes("router.post('/evaluate'") &&
-      evaluationRouteText.includes("router.post('/transform-boundary'"),
+      evaluationRouteText.includes("router.post('/transform-boundary'") &&
+      evaluationRouteText.includes("router.post('/classify-capacity'") &&
+      evaluationRouteText.includes("router.post('/plan-integration'"),
     unrelatedLegacyReportsNotMixed:
       unrelatedReports.every((file) => !toolSource.includes(`'${file}'`) && !toolSource.includes(`\"${file}\"`))
   };
@@ -288,6 +411,8 @@ function buildReport() {
     benefitDomainsRegistered: currentStatus.benefitDomainsRegistered,
     architectureComponentsRegistered:
       currentStatus.architectureComponentsRegistered,
+    boundaryScopesRegistered: currentStatus.boundaryScopesRegistered,
+    resourceClassesRegistered: currentStatus.resourceClassesRegistered,
     allowedDecisions: countDecision('ALLOW'),
     reviewDecisions: countDecision('REVIEW'),
     sandboxDecisions: countDecision('SANDBOX'),
@@ -303,10 +428,23 @@ function buildReport() {
     externalWriteWithoutAuthorizationAllowed: false,
     automaticKernelOrFirmwareModificationAllowed: false,
     humanFinalResponsibility: true,
+    divineLimitsDeterminedBySoftware: false,
+    halalOrHaramDeterminedBySoftware: false,
+    operationalBoundariesAreReligiousRulings: false,
+    humanParticipationIsExploitableResource: false,
     claimPolicy: 'لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.',
     checks,
     missing,
     decisions: probes,
+    capacity: {
+      vision: currentRegistry.capacityGovernance?.vision,
+      mission: currentRegistry.capacityGovernance?.mission,
+      goals: currentRegistry.capacityGovernance?.goals,
+      classifications: capacityProbes,
+      connectionExecuted: false,
+      resourceConsumed: false,
+      physicalEnergyProduced: false
+    },
     boundaryTransformationProbe: transformed,
     arabicDsl: {
       path: DSL_PATH,
@@ -341,6 +479,10 @@ function buildReport() {
       'قرار ALLOW نتيجة توجيه ولا يمنح تفويض التنفيذ.',
       'مؤشرات المنفعة تشغيلية قابلة للمراجعة وليست أحكامًا أخلاقية مطلقة.',
       'الأحكام الشرعية تحتاج أهل العلم المؤهلين، ولا تصدر فتوى آلية.',
+      'حدود الله لا يحددها البرنامج؛ النطاقات الداخلية والخارجية تصنيفات تشغيلية وليست أحكامًا شرعية.',
+      'المشاركة البشرية طوعية ومصونة الكرامة وليست موردًا قابلًا للاستغلال.',
+      'تحويل المقدرة يعني إعداد خطة تخصيص مقاسة، ولا يعني إنتاج طاقة فيزيائية.',
+      'مصنف المقدرة ومخطط التكامل لا ينفذان اتصالًا أو نقلًا أو استهلاكًا للمورد.',
       'الأعمال عالية الأثر والمادية والقانونية والطبية والمالية وتعديل النواة والبرمجيات الثابتة والكتابة الخارجية تبقى محكومة بشريًا.',
       'دليل التدقيق التشغيلي محدود وفي الذاكرة؛ التدقيق الدائم يحتاج مسار التدقيق المأذون المنفصل.'
     ]
@@ -361,6 +503,8 @@ function summary(report) {
     capabilitiesRegistered: report.capabilitiesRegistered,
     boundariesRegistered: report.boundariesRegistered,
     benefitDomainsRegistered: report.benefitDomainsRegistered,
+    boundaryScopesRegistered: report.boundaryScopesRegistered,
+    resourceClassesRegistered: report.resourceClassesRegistered,
     decisions: {
       ALLOW: report.allowedDecisions,
       REVIEW: report.reviewDecisions,
@@ -391,6 +535,8 @@ if (require.main === module) {
 module.exports = {
   REPORT_PATH,
   buildReport,
+  capacityInput,
+  evaluateCapacityProbes,
   evaluateProbes,
   verifiedEvidence,
   writeReport

@@ -1332,6 +1332,10 @@ function buildReport() {
     universalBenefitBoundary?.benefitDomainsRegistered || 0;
   finalExecutiveReport.counts.universalBenefitArchitectureComponents =
     universalBenefitBoundary?.architectureComponentsRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitBoundaryScopes =
+    universalBenefitBoundary?.boundaryScopesRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitResourceClasses =
+    universalBenefitBoundary?.resourceClassesRegistered || 0;
   finalExecutiveReport.counts.universalBenefitQuranWrittenReferences =
     universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0;
   finalExecutiveReport.counts.universalBenefitSunnahWrittenReferences =
@@ -1440,6 +1444,17 @@ function buildReport() {
     universalBenefitBoundary?.permissionEscalationAllowed === true;
   executiveDashboard.indicators.universalBenefitArabicPrimary =
     universalBenefitBoundary?.arabicPrimary === true;
+  executiveDashboard.indicators.universalBenefitBoundaryScopes =
+    universalBenefitBoundary?.boundaryScopesRegistered || 0;
+  executiveDashboard.indicators.universalBenefitResourceClasses =
+    universalBenefitBoundary?.resourceClassesRegistered || 0;
+  executiveDashboard.indicators.universalBenefitCapacityPlannerExecutes =
+    universalBenefitBoundary?.capacity?.connectionExecuted === true ||
+    universalBenefitBoundary?.capacity?.resourceConsumed === true;
+  executiveDashboard.indicators.universalBenefitHalalOrHaramDeterminedBySoftware =
+    universalBenefitBoundary?.halalOrHaramDeterminedBySoftware === true;
+  executiveDashboard.indicators.universalBenefitHumanParticipationIsExploitableResource =
+    universalBenefitBoundary?.humanParticipationIsExploitableResource === true;
   executiveDashboard.indicators.universalBenefitQuranWrittenReferences =
     universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0;
   executiveDashboard.indicators.universalBenefitSunnahWrittenReferences =
@@ -1564,7 +1579,9 @@ function buildReport() {
       universalBenefitBoundary?.capabilitiesRegistered > 0 &&
       universalBenefitBoundary?.boundariesRegistered === 18 &&
       universalBenefitBoundary?.benefitDomainsRegistered === 16 &&
-      universalBenefitBoundary?.architectureComponentsRegistered === 18 &&
+      universalBenefitBoundary?.architectureComponentsRegistered === 21 &&
+      universalBenefitBoundary?.boundaryScopesRegistered === 3 &&
+      universalBenefitBoundary?.resourceClassesRegistered === 10 &&
       universalBenefitBoundary?.allowedDecisions > 0 &&
       universalBenefitBoundary?.reviewDecisions > 0 &&
       universalBenefitBoundary?.sandboxDecisions > 0 &&
@@ -1576,13 +1593,23 @@ function buildReport() {
       universalBenefitBoundary?.arabicPrimary === true &&
       universalBenefitBoundary?.arabicApi?.primary === true &&
       universalBenefitBoundary?.arabicApi?.decisionsReturnArabicExplanation === true &&
-      universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount === 6 &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount === 10 &&
       universalBenefitBoundary?.arabicDsl?.writtenReferences
         ?.authenticSunnahCount === 1 &&
       universalBenefitBoundary?.arabicDsl?.writtenReferences
         ?.automatedInterpretationOrFatwa === false &&
       universalBenefitBoundary?.arabicDsl?.writtenReferences
         ?.qualifiedScholarReviewRequired === true &&
+      universalBenefitBoundary?.checks?.operationalCapacityCatalogComplete === true &&
+      universalBenefitBoundary?.checks?.humanParticipationRequiresConsentAndWithdrawal === true &&
+      universalBenefitBoundary?.checks?.capacityRequiresOwnerPermission === true &&
+      universalBenefitBoundary?.checks?.knownHarmStopsCapacityBeforeEvidenceReview === true &&
+      universalBenefitBoundary?.checks?.externalIntegrationRequiresAuthorization === true &&
+      universalBenefitBoundary?.checks?.governedIntegrationPlanDoesNotExecute === true &&
+      universalBenefitBoundary?.checks?.softwareDoesNotDeclareHalalOrHaram === true &&
+      universalBenefitBoundary?.divineLimitsDeterminedBySoftware === false &&
+      universalBenefitBoundary?.halalOrHaramDeterminedBySoftware === false &&
+      universalBenefitBoundary?.humanParticipationIsExploitableResource === false &&
       universalBenefitBoundary?.humanFinalResponsibility === true,
     nativeLanguageArchitectureIntegrated:
       nativeLanguageArchitecture?.system === 'SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1' &&
@@ -1768,10 +1795,21 @@ function buildReport() {
         universalBenefitBoundary?.benefitDomainsRegistered || 0,
       universalBenefitArchitectureComponents:
         universalBenefitBoundary?.architectureComponentsRegistered || 0,
+      universalBenefitBoundaryScopes:
+        universalBenefitBoundary?.boundaryScopesRegistered || 0,
+      universalBenefitResourceClasses:
+        universalBenefitBoundary?.resourceClassesRegistered || 0,
       universalBenefitSafeAlternatives:
         universalBenefitBoundary?.safeAlternativesGenerated || 0,
       universalBenefitArabicPrimary:
         universalBenefitBoundary?.arabicPrimary === true,
+      universalBenefitCapacityPlannerExecutes:
+        universalBenefitBoundary?.capacity?.connectionExecuted === true ||
+        universalBenefitBoundary?.capacity?.resourceConsumed === true,
+      universalBenefitHalalOrHaramDeterminedBySoftware:
+        universalBenefitBoundary?.halalOrHaramDeterminedBySoftware === true,
+      universalBenefitHumanParticipationIsExploitableResource:
+        universalBenefitBoundary?.humanParticipationIsExploitableResource === true,
       universalBenefitQuranWrittenReferences:
         universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0,
       universalBenefitSunnahWrittenReferences:
@@ -1979,6 +2017,10 @@ function buildReport() {
         universalBenefitBoundary?.benefitDomainsRegistered || 0,
       architectureComponentsRegistered:
         universalBenefitBoundary?.architectureComponentsRegistered || 0,
+      boundaryScopesRegistered:
+        universalBenefitBoundary?.boundaryScopesRegistered || 0,
+      resourceClassesRegistered:
+        universalBenefitBoundary?.resourceClassesRegistered || 0,
       language: universalBenefitBoundary?.language || 'UNKNOWN',
       arabicPrimary: universalBenefitBoundary?.arabicPrimary === true,
       quranWrittenReferences:
@@ -2004,6 +2046,17 @@ function buildReport() {
         universalBenefitBoundary?.safetyBypassAllowed === true,
       permissionEscalationAllowed:
         universalBenefitBoundary?.permissionEscalationAllowed === true,
+      divineLimitsDeterminedBySoftware:
+        universalBenefitBoundary?.divineLimitsDeterminedBySoftware === true,
+      halalOrHaramDeterminedBySoftware:
+        universalBenefitBoundary?.halalOrHaramDeterminedBySoftware === true,
+      operationalBoundariesAreReligiousRulings:
+        universalBenefitBoundary?.operationalBoundariesAreReligiousRulings === true,
+      humanParticipationIsExploitableResource:
+        universalBenefitBoundary?.humanParticipationIsExploitableResource === true,
+      capacityPlannerExecutes:
+        universalBenefitBoundary?.capacity?.connectionExecuted === true ||
+        universalBenefitBoundary?.capacity?.resourceConsumed === true,
       humanFinalResponsibility:
         universalBenefitBoundary?.humanFinalResponsibility === true
     },
@@ -2207,8 +2260,16 @@ if (require.main === module) {
     universalBenefitCapabilities: report.summary.universalBenefitCapabilities,
     universalBenefitBoundaries: report.summary.universalBenefitBoundaries,
     universalBenefitDomains: report.summary.universalBenefitDomains,
+    universalBenefitBoundaryScopes: report.summary.universalBenefitBoundaryScopes,
+    universalBenefitResourceClasses: report.summary.universalBenefitResourceClasses,
     universalBenefitSafeAlternatives: report.summary.universalBenefitSafeAlternatives,
     universalBenefitArabicPrimary: report.summary.universalBenefitArabicPrimary,
+    universalBenefitCapacityPlannerExecutes:
+      report.summary.universalBenefitCapacityPlannerExecutes,
+    universalBenefitHalalOrHaramDeterminedBySoftware:
+      report.summary.universalBenefitHalalOrHaramDeterminedBySoftware,
+    universalBenefitHumanParticipationIsExploitableResource:
+      report.summary.universalBenefitHumanParticipationIsExploitableResource,
     universalBenefitQuranWrittenReferences:
       report.summary.universalBenefitQuranWrittenReferences,
     universalBenefitSunnahWrittenReferences:
