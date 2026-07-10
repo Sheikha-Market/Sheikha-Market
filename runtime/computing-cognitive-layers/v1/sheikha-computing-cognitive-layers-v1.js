@@ -30,6 +30,18 @@ const TECHNICAL_MODEL = Object.freeze({
       'ACCOUNTABLE_HUMAN_DECISION_AND_APPROVAL'
     ]
   },
+  distributionIntegration: {
+    system: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1',
+    status: 'ACTIVE_LOCAL_FIRST_EVIDENCE_CONSUMER',
+    matrix: 'distribution/manifest/sheikha-release-matrix-v1.json',
+    report: 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json',
+    bareMetalLink: 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json',
+    targetCount: 27,
+    automaticExternalPublishing: false,
+    automaticSigning: false,
+    artifactClaimRequiresEvidence: true,
+    humanReleaseApprovalRequired: true
+  },
   authority: {
     highestGovernanceReference: 'QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY',
     technicalSystemIsReligiousAuthority: false,

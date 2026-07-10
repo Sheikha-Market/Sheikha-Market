@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T13:50:47.891Z",
+  "generatedAt": "2026-07-10T15:13:27.179Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3116,
+      "components": 3129,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -131,13 +131,13 @@
     {
       "id": "Registry",
       "type": "layer",
-      "components": 242,
+      "components": 243,
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1250,
+      "components": 1257,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -19256,6 +19256,162 @@
       "type": "component-to-layer"
     },
     {
+      "from": "readme-45deb13798b2",
+      "fromPath": "distribution/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-45deb13798b2",
+      "fromPath": "distribution/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-utils-0f0d6c68d5fd",
+      "fromPath": "distribution/common/distribution-utils.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-utils-0f0d6c68d5fd",
+      "fromPath": "distribution/common/distribution-utils.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "platform-adapter-registry-b5c263a29fb4",
+      "fromPath": "distribution/common/platform-adapter-registry.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "platform-adapter-registry-b5c263a29fb4",
+      "fromPath": "distribution/common/platform-adapter-registry.js",
+      "to": "Governance",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "source-staging-engine-3473dd6652eb",
+      "fromPath": "distribution/common/source-staging-engine.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "source-staging-engine-3473dd6652eb",
+      "fromPath": "distribution/common/source-staging-engine.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-adapter-89b96932579e",
+      "fromPath": "distribution/linux/cli/sheikha-linux-cli-adapter-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-adapter-89b96932579e",
+      "fromPath": "distribution/linux/cli/sheikha-linux-cli-adapter-v1.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-adapter-a5ab1d1deaba",
+      "fromPath": "distribution/linux/deb/sheikha-linux-deb-adapter-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-adapter-a5ab1d1deaba",
+      "fromPath": "distribution/linux/deb/sheikha-linux-deb-adapter-v1.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-adapter-6cb8d57325ea",
+      "fromPath": "distribution/linux/tar/sheikha-linux-tar-adapter-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-adapter-6cb8d57325ea",
+      "fromPath": "distribution/linux/tar/sheikha-linux-tar-adapter-v1.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-distribution-link-9212987d756a",
+      "fromPath": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-distribution-link-9212987d756a",
+      "fromPath": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "product-manifest-222ab55465ab",
+      "fromPath": "distribution/manifest/sheikha-product-manifest-v1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "product-manifest-222ab55465ab",
+      "fromPath": "distribution/manifest/sheikha-product-manifest-v1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-matrix-ab9899b447a2",
+      "fromPath": "distribution/manifest/sheikha-release-matrix-v1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-matrix-ab9899b447a2",
+      "fromPath": "distribution/manifest/sheikha-release-matrix-v1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "update-channels-62edfe3ee2fb",
+      "fromPath": "distribution/manifest/sheikha-update-channels-v1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "update-channels-62edfe3ee2fb",
+      "fromPath": "distribution/manifest/sheikha-update-channels-v1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-matrix-schema-755fbc9c538a",
+      "fromPath": "distribution/schemas/sheikha-release-matrix-v1.schema.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-matrix-schema-755fbc9c538a",
+      "fromPath": "distribution/schemas/sheikha-release-matrix-v1.schema.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-4d6996f1fd1f",
+      "fromPath": "distribution/scripts/sheikha-distribution-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-4d6996f1fd1f",
+      "fromPath": "distribution/scripts/sheikha-distribution-v1.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "docker-compose-production-yml-51bd3de7918b",
       "fromPath": "docker-compose-production.yml",
       "to": "Knowledge",
@@ -53636,6 +53792,90 @@
       "type": "component-to-layer"
     },
     {
+      "from": "distribution-build-evidence-686d8058f2e3",
+      "fromPath": "runtime/distribution/v1/evidence/sheikha-distribution-build-evidence-v1.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-build-evidence-686d8058f2e3",
+      "fromPath": "runtime/distribution/v1/evidence/sheikha-distribution-build-evidence-v1.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-reproducibility-54174cd65033",
+      "fromPath": "runtime/distribution/v1/evidence/sheikha-distribution-reproducibility-v1.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-reproducibility-54174cd65033",
+      "fromPath": "runtime/distribution/v1/evidence/sheikha-distribution-reproducibility-v1.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-artifacts-c7c54d77af42",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-artifacts-v1.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-artifacts-c7c54d77af42",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-artifacts-v1.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-matrix-report-78b6bdca0e01",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-matrix-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-matrix-report-78b6bdca0e01",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-matrix-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-native-verification-808043f9f25f",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-native-verification-v1.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-native-verification-808043f9f25f",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-native-verification-v1.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-toolchain-report-7069a6262718",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-toolchain-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "distribution-toolchain-report-7069a6262718",
+      "fromPath": "runtime/distribution/v1/sheikha-distribution-toolchain-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-report-eae667b9d519",
+      "fromPath": "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-report-eae667b9d519",
+      "fromPath": "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "domain-registry-de3f766845aa",
       "fromPath": "runtime/domains/domain-registry.json",
       "to": "Knowledge",
@@ -84232,6 +84472,18 @@
     {
       "from": "universal-data-pipeline-fabric-test-a17e56a08023",
       "fromPath": "tests/sheikha-universal-data-pipeline-fabric-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-test-b5e0f1f04b71",
+      "fromPath": "tests/sheikha-universal-distribution-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-test-b5e0f1f04b71",
+      "fromPath": "tests/sheikha-universal-distribution-v1.test.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

@@ -1,0 +1,51 @@
+{
+  "system": "SHEIKHA_DISTRIBUTION_REPRODUCIBILITY_EVIDENCE_V1",
+  "tested": true,
+  "passed": true,
+  "generatedAt": "2026-07-10T15:09:56.989Z",
+  "method": "Two clean local builds with deterministic timestamps, ownership, ordering, and gzip metadata.",
+  "artifacts": [
+    {
+      "targetId": "linux-cli-x86_64",
+      "first": {
+        "name": "sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+        "bytes": 1704,
+        "sha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb"
+      },
+      "second": {
+        "name": "sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+        "bytes": 1704,
+        "sha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb"
+      },
+      "identical": true
+    },
+    {
+      "targetId": "linux-deb-amd64",
+      "first": {
+        "name": "sheikha-1.0.51-linux-amd64.deb",
+        "bytes": 28286916,
+        "sha256": "4990946c1d7e0f717da0449f530a3bbb411d380323b7b20ea871185e98b4f24f"
+      },
+      "second": {
+        "name": "sheikha-1.0.51-linux-amd64.deb",
+        "bytes": 28286916,
+        "sha256": "4990946c1d7e0f717da0449f530a3bbb411d380323b7b20ea871185e98b4f24f"
+      },
+      "identical": true
+    },
+    {
+      "targetId": "linux-tar-x86_64",
+      "first": {
+        "name": "sheikha-1.0.51-linux-x86_64.tar.gz",
+        "bytes": 41375221,
+        "sha256": "92594afe54b32d4fc55c1b7ed9612e2e55a72b740ad6d8147380537ee00b7903"
+      },
+      "second": {
+        "name": "sheikha-1.0.51-linux-x86_64.tar.gz",
+        "bytes": 41375221,
+        "sha256": "92594afe54b32d4fc55c1b7ed9612e2e55a72b740ad6d8147380537ee00b7903"
+      },
+      "identical": true
+    }
+  ]
+}
