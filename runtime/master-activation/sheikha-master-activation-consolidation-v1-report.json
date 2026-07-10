@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-10T20:35:57.991Z",
+  "generatedAt": "2026-07-10T20:53:29.011Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -34,8 +34,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "538f38175",
-    "currentHead": "538f38175",
+    "localRegistryHead": "6247b90ea",
+    "currentHead": "6247b90ea",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -3321,6 +3321,9 @@
     "universalBenefitDomains": 16,
     "universalBenefitArchitectureComponents": 18,
     "universalBenefitSafeAlternatives": 3,
+    "universalBenefitArabicPrimary": true,
+    "universalBenefitQuranWrittenReferences": 6,
+    "universalBenefitSunnahWrittenReferences": 1,
     "nativeLanguageArchitectureFoundationActive": true,
     "sheikhaImplementationSourceFiles": 1,
     "sheikhaHostImplementationSourceFiles": 12581,
@@ -3345,7 +3348,7 @@
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-10T20:35:56.687Z",
+    "generatedAt": "2026-07-10T20:53:27.686Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
     "componentCount": 7172,
@@ -7314,7 +7317,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-10T20:35:57.991Z",
+    "generatedAt": "2026-07-10T20:53:29.011Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -10873,13 +10876,15 @@
       "universalBenefitBoundaries": 18,
       "universalBenefitDomains": 16,
       "universalBenefitArchitectureComponents": 18,
+      "universalBenefitQuranWrittenReferences": 6,
+      "universalBenefitSunnahWrittenReferences": 1,
       "sheikhaNativeImplementationSourceFiles": 1,
       "sheikhaHostImplementationSourceFiles": 12581
     }
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-10T20:35:56.690Z",
+    "generatedAt": "2026-07-10T20:53:27.689Z",
     "nodes": [
       {
         "id": "APIs",
@@ -11345,7 +11350,7 @@
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-10T20:35:56.698Z",
+    "generatedAt": "2026-07-10T20:53:27.696Z",
     "policy": "REPORT_ONLY_NO_DELETION",
     "duplicateFilesCount": 1208,
     "duplicateServicesCount": 28,
@@ -12542,9 +12547,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.02,
-            4,
-            3.3
+            2.4,
+            2.83,
+            3.08
           ]
         }
       },
@@ -12552,13 +12557,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 43884609536,
+          "freeMemoryBytes": 43451604992,
           "processMemory": {
-            "rss": 213884928,
-            "heapTotal": 56631296,
-            "heapUsed": 37138160,
-            "external": 14457043,
-            "arrayBuffers": 10511860
+            "rss": 195497984,
+            "heapTotal": 56639488,
+            "heapUsed": 35165720,
+            "external": 39622867,
+            "arrayBuffers": 35677684
           }
         }
       },
@@ -12566,8 +12571,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 540359568,
-          "availableKb": 384154572,
+          "usedKb": 540843760,
+          "availableKb": 383670380,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12841,9 +12846,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.02,
-            4,
-            3.3
+            2.4,
+            2.83,
+            3.08
           ]
         }
       },
@@ -12851,13 +12856,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 43884609536,
+          "freeMemoryBytes": 43451555840,
           "processMemory": {
-            "rss": 214441984,
-            "heapTotal": 56631296,
-            "heapUsed": 37415984,
-            "external": 14457095,
-            "arrayBuffers": 10511872
+            "rss": 195694592,
+            "heapTotal": 56639488,
+            "heapUsed": 35443544,
+            "external": 39622919,
+            "arrayBuffers": 35677696
           }
         }
       },
@@ -12865,8 +12870,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 540359568,
-          "availableKb": 384154572,
+          "usedKb": 540843760,
+          "availableKb": 383670380,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -13178,7 +13183,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-10T20:35:57.425Z",
+    "generatedAt": "2026-07-10T20:53:28.434Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -14135,6 +14140,12 @@
     "boundariesRegistered": 18,
     "benefitDomainsRegistered": 16,
     "architectureComponentsRegistered": 18,
+    "language": "ar",
+    "arabicPrimary": true,
+    "quranWrittenReferences": 6,
+    "sunnahWrittenReferences": 1,
+    "automatedReligiousInterpretation": false,
+    "qualifiedScholarReviewRequired": true,
     "allowedDecisions": 1,
     "reviewDecisions": 1,
     "sandboxDecisions": 1,
@@ -14221,7 +14232,7 @@
   },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-10T20:35:57.952Z",
+    "generatedAt": "2026-07-10T20:53:28.971Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -14247,9 +14258,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.02,
-            4,
-            3.3
+            2.4,
+            2.83,
+            3.08
           ]
         }
       },
@@ -14257,13 +14268,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 43884609536,
+          "freeMemoryBytes": 43451555840,
           "processMemory": {
-            "rss": 214441984,
-            "heapTotal": 56631296,
-            "heapUsed": 37415984,
-            "external": 14457095,
-            "arrayBuffers": 10511872
+            "rss": 195694592,
+            "heapTotal": 56639488,
+            "heapUsed": 35443544,
+            "external": 39622919,
+            "arrayBuffers": 35677696
           }
         }
       },
@@ -14271,8 +14282,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 540359568,
-          "availableKb": 384154572,
+          "usedKb": 540843760,
+          "availableKb": 383670380,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -14491,6 +14502,8 @@
       "universalBenefitBoundaries": 18,
       "universalBenefitDomains": 16,
       "universalBenefitArchitectureComponents": 18,
+      "universalBenefitQuranWrittenReferences": 6,
+      "universalBenefitSunnahWrittenReferences": 1,
       "sheikhaNativeImplementationSourceFiles": 1,
       "sheikhaHostImplementationSourceFiles": 12581
     },
@@ -14539,6 +14552,10 @@
       "universalBenefitBoundaries": 18,
       "universalBenefitSafeAlternatives": 3,
       "universalBenefitPermissionEscalationAllowed": false,
+      "universalBenefitArabicPrimary": true,
+      "universalBenefitQuranWrittenReferences": 6,
+      "universalBenefitSunnahWrittenReferences": 1,
+      "universalBenefitAutomatedReligiousInterpretation": false,
       "nativeLanguageArchitectureFoundationActive": true,
       "sheikhaCompilerSelfHosted": false,
       "sheikhaNativeTargetAvailable": false,
@@ -14779,7 +14796,7 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-10T20:35:57.425Z",
+    "generatedAt": "2026-07-10T20:53:28.434Z",
     "count": 1073,
     "canonicalDocs": [
       "docs/canonical/README.md",
@@ -15079,7 +15096,7 @@
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-10T20:35:57.425Z",
+    "generatedAt": "2026-07-10T20:53:28.434Z",
     "githubDependency": false,
     "counts": {
       "systems": 435,
@@ -15139,6 +15156,8 @@
       "universalBenefitBoundaries": 18,
       "universalBenefitDomains": 16,
       "universalBenefitArchitectureComponents": 18,
+      "universalBenefitQuranWrittenReferences": 6,
+      "universalBenefitSunnahWrittenReferences": 1,
       "sheikhaNativeImplementationSourceFiles": 1,
       "sheikhaHostImplementationSourceFiles": 12581
     },

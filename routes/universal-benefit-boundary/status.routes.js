@@ -21,9 +21,14 @@ router.get('/capabilities', (_req, res) => {
     result: {
       system: current.system,
       status: current.status,
+      arabicName: current.arabicName,
+      language: current.language,
+      valuesReference: current.valuesReference,
+      architectureComponents: current.architectureComponents,
       capabilities: current.capabilities,
       boundaries: current.boundaries,
       benefitDomains: current.benefitDomains,
+      priorityPolicy: current.priorityPolicy,
       governance: current.governance
     }
   });

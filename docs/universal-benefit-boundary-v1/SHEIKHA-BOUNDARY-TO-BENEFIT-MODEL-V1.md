@@ -1,36 +1,40 @@
-# SHEIKHA Boundary-to-Benefit Model V1
+# نموذج شيخة العربي لتحويل الحد إلى منفعة آمنة V1
 
-## State Model
+## حالات الحد
 
-`WITHIN_BOUNDARY` routes a verified request to the next authorization gate.
+`WITHIN_BOUNDARY`: الطلب ضمن الحد المأذون، فيمر إلى بوابة التفويض التالية دون أن يكتسب إذنًا تلقائيًا.
 
-`AT_BOUNDARY` requests approval, evidence, isolation, minimization, budget control, accessibility adaptation, or specialist review.
+`AT_BOUNDARY`: الطلب عند الحد، فيحتاج موافقة أو دليلًا أو عزلًا أو تقليل بيانات أو ميزانية أو صيغة وصول أو مراجعة مختص.
 
-`BEYOND_BOUNDARY` denies execution and returns a safe alternative.
+`BEYOND_BOUNDARY`: الطلب خارج الحد، فيمنع التنفيذ ويعاد بديل آمن.
 
-No state grants permission escalation or an external write.
+لا تمنح أي حالة تصعيد صلاحية أو كتابة خارجية.
 
-## Transformation Patterns
+## مسارات التحويل
 
-| Condition | Safe transformation |
+| الحالة | التحويل النافع الآمن |
 | --- | --- |
-| Missing permission | Scoped approval request |
-| Missing evidence | `UNKNOWN` plus evidence collection plan |
-| Elevated risk | Sandbox, simulation, or read-only mode |
-| Personal data | Minimization, anonymization, and retention limit |
-| Missing tool | Requirements report and alternative plan |
-| Unsupported hardware | Emulation or compatibility adapter without native claim |
-| Excess cost | Budget gate, optimizer, and small probe |
-| No connection | Local-first and offline mode |
-| Access barrier | Arabic, RTL, text, voice, CLI, API, or simplified UI |
-| Probable harm | Stop, warn, recover, repair, report, and human handoff |
-| Defensive security | Authorized scope, evidence preservation, and remediation |
-| High-impact action | Accountable human and qualified-domain review |
+| غياب الإذن | طلب موافقة محدد النطاق |
+| نقص الدليل | «غير معلوم» مع خطة جمع دليل |
+| ارتفاع الخطر | عزل أو محاكاة أو قراءة فقط |
+| وجود بيانات شخصية | تقليل وإخفاء هوية ومدة احتفاظ |
+| غياب الأداة | تقرير متطلبات وخطة بديلة |
+| عدم دعم العتاد | محاكاة بلا ادعاء دعم أصلي |
+| ارتفاع التكلفة | بوابة ميزانية وتجربة صغيرة |
+| غياب الاتصال | تشغيل محلي وتأجيل المزامنة |
+| حاجز الوصول | عربية وRTL ونص وصوت وCLI وAPI وواجهة مبسطة |
+| احتمال الضرر | إيقاف وتحذير وتعاف وإصلاح وإحالة بشرية |
+| الأمن الدفاعي | نطاق مأذون وحفظ أدلة وإصلاح مسؤول |
+| قرار عالي الأثر | إنسان مسؤول ومختص مؤهل ومسار اعتراض |
 
-## Evidence Rule
+## قاعدة الدليل
 
-An unverified reference is not verified evidence. If required evidence is missing, the output is `REVIEW` with `evidenceStatus: UNKNOWN`; the fabric does not guess or relabel the result as verified.
+الإشارة غير المتحقق منها ليست دليلًا موثقًا. عند غياب الدليل المطلوب يكون القرار `REVIEW` وحالة الدليل `UNKNOWN`، ولا تخمن المنظومة النتيجة.
 
-## Execution Rule
+## قاعدة التنفيذ
 
-The evaluation and transformation APIs are advisory governance gates. Even `ALLOW` returns `executionAllowed: false` and `decisionGrantsAuthorization: false`. A separate permissioned execution pipeline must validate identity, capability token, current policy, approval, rollback, and audit requirements before any actual action.
+واجهتا التقييم وتحويل الحد بوابتان استشاريتان للحوكمة. حتى قرار `ALLOW` يعيد `executionAllowed: false` و`decisionGrantsAuthorization: false`. يلزم مسار تنفيذ منفصل يتحقق من الهوية ورمز القدرة والسياسة الحالية والموافقة وخطة الرجوع والتدقيق.
+
+## قاعدة المرجعية
+
+الكتاب والسنة الصحيحة مرجعية قيمية مكتوبة للعقد. النص الشرعي لا يتحول إلى شيفرة حكم ملزم، والمسألة الشرعية تعرض على أهل العلم المؤهلين.

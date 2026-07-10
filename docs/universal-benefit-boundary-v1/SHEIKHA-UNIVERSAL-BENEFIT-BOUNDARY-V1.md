@@ -1,31 +1,39 @@
-# SHEIKHA Universal Benefit and Boundary Governance Fabric V1
+# منظومة شيخة الشاملة للخير والنفع والحدود V1
 
-System: `SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1`
+النظام: `SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1`
 
-Arabic name: منظومة شيخة الشاملة لتحويل القدرات والحدود إلى الخير والنفع العام V1.
+اللغة الأولى: العربية، والمعرفات الإنجليزية رموز تقنية ثابتة للتوافق البرمجي فقط.
 
-## Purpose
+## الغرض
 
-The fabric evaluates registered capabilities before governed routing. It turns a boundary into an approval request, evidence plan, sandbox, simulation, accessible format, local-first mode, recovery path, or qualified human handoff. A boundary is never treated as permission to bypass security, safety, law, privacy, rights, or ownership.
+تفحص المنظومة القدرة المسجلة قبل توجيهها، وتحول الحد إلى طلب موافقة أو خطة دليل أو عزل أو محاكاة أو صيغة وصول أو تشغيل محلي أو تعاف أو إحالة بشرية مؤهلة. لا يعامل أي حد بوصفه طريقًا لتجاوز الأمن أو السلامة أو القانون أو الخصوصية أو الحقوق أو الملكية.
 
-Decision states:
+## القرارات
 
-- `ALLOW`: verified as within the stated evaluation boundary; it does not grant execution authorization.
-- `REVIEW`: evidence, permission, specialist review, or accountable human approval remains necessary.
-- `SANDBOX`: only an isolated, simulated, read-only, local-first, or low-impact path is acceptable.
-- `DENY`: the requested action is prohibited, unauthorized, or beyond the registered boundary.
+- `ALLOW`: مسموح بالمرور إلى بوابة التفويض المنفصلة، ولا يعني إذن التنفيذ.
+- `REVIEW`: مراجعة بشرية أو تخصصية أو دليل أو إذن مطلوب.
+- `SANDBOX`: عزل أو محاكاة أو قراءة فقط أو تشغيل محلي محدود.
+- `DENY`: منع التنفيذ مع بيان السبب والبديل الآمن.
 
-## Architecture
+كل استجابة تتضمن حقل `arabic` وفيه: القرار والسبب وحالة الدليل والحدود والموافقات والبديل الآمن باللغة العربية.
 
-The implementation reuses the existing public-benefit router, evidence registry, L24 reasoning profiles, governance kernel conventions, truth gates, defensive-awareness policy, distribution fabric, and master catalog. It adds one coordination plane and does not replace those systems.
+## المرجعية المكتوبة
 
-The Arabic DSL contract is located at:
+العقد العربي المرجعي موثق في:
+
+`docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md`
+
+وعقد لغة شيخة موجود في:
 
 `sheikha-language/governance/sheikha-universal-benefit-boundary-v1.shk`
 
-Its core vocabulary is: `قدرة`, `حد`, `إذن`, `دليل`, `منفعة`, `ضرر`, `تخفيف`, `موافقة`, `بديل آمن`, `قرار`, and `تدقيق`.
+يتضمن العقد مقتطفات مكتوبة للعدل والأمانة والتعاون والتثبت والشورى ومنع الفساد، وحديث «لا ضرر ولا ضرار». هذه النصوص مرجعية قيمية غير تنفيذية؛ لا فتوى آلية ولا استنباط فقهي آلي.
 
-## API
+## كلمات لغة شيخة
+
+`قدرة`، `حد`، `إذن`، `دليل`، `منفعة`، `ضرر`، `تخفيف`، `موافقة`، `بديل آمن`، `قرار`، `تدقيق`.
+
+## الواجهات
 
 - `GET /api/governance/universal-benefit/status`
 - `POST /api/governance/universal-benefit/evaluate`
@@ -33,7 +41,7 @@ Its core vocabulary is: `قدرة`, `حد`, `إذن`, `دليل`, `منفعة`, 
 - `GET /api/governance/universal-benefit/capabilities`
 - `GET /api/governance/universal-benefit/evidence`
 
-Example:
+مثال:
 
 ```json
 {
@@ -51,18 +59,18 @@ Example:
 }
 ```
 
-## Runtime Boundaries
+## حدود التشغيل
 
-- Standard, Pro, and Ultra produce bounded analysis only and do not escalate permission.
-- L24 has no Ring 0, kernel, firmware, physical, external-write, or bare-metal authority.
-- High-impact actions require accountable human review.
-- Defensive security is authorization-scoped and sandboxed.
-- Runtime API evaluation writes no external system and grants no authorization.
-- Every evaluation returns `executionAllowed: false` and `decisionGrantsAuthorization: false`.
-- Runtime audit records are bounded, in-memory metadata without sensitive request payloads.
-- Benefit indicators are reviewable operational signals, not absolute moral judgments.
+- أوضاع Standard وPro وUltra للتحليل المحكوم ولا تصعد الصلاحيات.
+- لا يملك L24 سلطة Ring 0 أو النواة أو البرمجيات الثابتة أو الفعل المادي.
+- القرارات عالية الأثر تحتاج مراجعة الإنسان المسؤول.
+- الأمن الدفاعي يعمل في نطاق مأذون وداخل العزل.
+- لا تنفذ واجهة التقييم كتابة خارجية ولا تمنح إذنًا.
+- تعيد كل عملية `executionAllowed: false` و`decisionGrantsAuthorization: false`.
+- سجل التدقيق التشغيلي محدود وفي الذاكرة ولا يحفظ حمولة الطلب الحساسة.
+- مؤشر النفع إشارة تشغيلية قابلة للمراجعة وليس حكمًا أخلاقيًا مطلقًا.
 
-## Commands
+## أوامر التشغيل
 
 ```bash
 npm run -s ops:universal-benefit:activate:v1

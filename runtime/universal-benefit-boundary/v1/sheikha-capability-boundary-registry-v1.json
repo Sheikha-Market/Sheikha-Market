@@ -3,20 +3,28 @@
   "status": "ACTIVE",
   "version": "1.0.0",
   "arabicName": "سجل شيخة الموحد للقدرات والحدود",
+  "language": {
+    "primary": "ar",
+    "arabicPrimary": true,
+    "description": "العربية هي لغة العرض والعقد، والمعرفات الإنجليزية رموز تقنية للتوافق فقط."
+  },
   "valuesReference": {
     "foundation": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_REFERENCE",
     "references": [
-      { "principle": "JUSTICE_AND_IHSAN", "reference": "Quran 16:90" },
-      { "principle": "TRUSTS_AND_JUST_JUDGMENT", "reference": "Quran 4:58" },
-      { "principle": "COOPERATION_IN_RIGHTEOUSNESS", "reference": "Quran 5:2" },
-      { "principle": "VERIFY_REPORTS", "reference": "Quran 49:6" },
-      { "principle": "SHURA", "reference": "Quran 42:38" },
-      { "principle": "PREVENT_CORRUPTION", "reference": "Quran 7:56" },
-      { "principle": "NO_HARM", "reference": "لا ضرر ولا ضرار" }
+      { "principle": "JUSTICE_AND_IHSAN", "arabicPrinciple": "العدل والإحسان", "reference": "سورة النحل: 90", "arabicText": "إن الله يأمر بالعدل والإحسان", "sourceUrl": "https://quran.com/16/90" },
+      { "principle": "TRUSTS_AND_JUST_JUDGMENT", "arabicPrinciple": "أداء الأمانات والحكم بالعدل", "reference": "سورة النساء: 58", "arabicText": "إن الله يأمركم أن تؤدوا الأمانات إلى أهلها وإذا حكمتم بين الناس أن تحكموا بالعدل", "sourceUrl": "https://quran.com/4/58" },
+      { "principle": "COOPERATION_IN_RIGHTEOUSNESS", "arabicPrinciple": "التعاون على البر والتقوى", "reference": "سورة المائدة: 2", "arabicText": "وتعاونوا على البر والتقوى ولا تعاونوا على الإثم والعدوان", "sourceUrl": "https://quran.com/5/2" },
+      { "principle": "VERIFY_REPORTS", "arabicPrinciple": "التثبت من الأخبار", "reference": "سورة الحجرات: 6", "arabicText": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة", "sourceUrl": "https://quran.com/49/6" },
+      { "principle": "SHURA", "arabicPrinciple": "الشورى", "reference": "سورة الشورى: 38", "arabicText": "وأمرهم شورى بينهم", "sourceUrl": "https://quran.com/42/38" },
+      { "principle": "PREVENT_CORRUPTION", "arabicPrinciple": "منع الفساد", "reference": "سورة الأعراف: 56", "arabicText": "ولا تفسدوا في الأرض بعد إصلاحها", "sourceUrl": "https://quran.com/7/56" },
+      { "principle": "NO_HARM", "arabicPrinciple": "منع الضرر", "reference": "سنن ابن ماجه (2340)، صحيح ابن ماجه (1909)", "arabicText": "لا ضرر ولا ضرار", "sourceUrl": "https://dorar.net/hadith/sharh/85582" }
     ],
     "executableReligiousAuthority": false,
     "automatedFatwaAllowed": false,
-    "qualifiedScholarReviewRequired": true
+    "qualifiedScholarReviewRequired": true,
+    "writtenArabicReferences": true,
+    "automatedJurisprudentialInferenceAllowed": false,
+    "sourceTextIntegrityRequiresHumanReview": true
   },
   "architectureComponents": [
     "ISLAMIC_VALUE_REFERENCE_CONTRACT",
@@ -39,24 +47,24 @@
     "PUBLIC_BENEFIT_REPORTING_PLANE"
   ],
   "boundaries": [
-    { "type": "RELIGIOUS_BOUNDARY", "owner": "QUALIFIED_SCHOLAR_REVIEW", "rule": "No automated fatwa or binding religious ruling." },
-    { "type": "HUMAN_AUTHORITY_BOUNDARY", "owner": "ACCOUNTABLE_HUMAN", "rule": "AI remains advisory and cannot replace accountable human authority." },
-    { "type": "LEGAL_BOUNDARY", "owner": "AUTHORIZED_LEGAL_OWNER", "rule": "Legal conclusions require competent jurisdictional review." },
-    { "type": "PERMISSION_BOUNDARY", "owner": "RESOURCE_OWNER", "rule": "No action without explicit applicable permission." },
-    { "type": "SAFETY_BOUNDARY", "owner": "SAFETY_OWNER", "rule": "Stop or isolate when probable harm is identified." },
-    { "type": "SECURITY_BOUNDARY", "owner": "AUTHORIZED_SECURITY_OWNER", "rule": "Defense only, authorized scope only, and no evasion or destructive payloads." },
-    { "type": "PRIVACY_BOUNDARY", "owner": "DATA_OWNER", "rule": "Minimize, anonymize, and retain personal data only under a declared policy." },
-    { "type": "EVIDENCE_BOUNDARY", "owner": "EVIDENCE_OWNER", "rule": "No verified claim without traceable verified evidence." },
-    { "type": "KNOWLEDGE_UNCERTAINTY_BOUNDARY", "owner": "DOMAIN_REVIEWER", "rule": "Declare UNKNOWN when evidence is insufficient; do not guess." },
-    { "type": "HARDWARE_BOUNDARY", "owner": "HARDWARE_OWNER", "rule": "Use emulation until native hardware support is qualified." },
-    { "type": "SOFTWARE_BOUNDARY", "owner": "SOFTWARE_OWNER", "rule": "Missing tools become requirements reports, not capability claims." },
-    { "type": "NETWORK_BOUNDARY", "owner": "NETWORK_OWNER", "rule": "Use local-first operation and defer external synchronization when offline." },
-    { "type": "RESOURCE_AND_COST_BOUNDARY", "owner": "BUDGET_OWNER", "rule": "Apply budgets, quotas, and resource optimization before scaling." },
-    { "type": "ENVIRONMENTAL_BOUNDARY", "owner": "ENVIRONMENTAL_REVIEWER", "rule": "Measure energy, material, waste, and lifecycle impact." },
-    { "type": "ACCESSIBILITY_BOUNDARY", "owner": "ACCESSIBILITY_OWNER", "rule": "Provide accessible Arabic, RTL, text, CLI, API, voice, or simplified alternatives." },
-    { "type": "JURISDICTION_BOUNDARY", "owner": "JURISDICTIONAL_OWNER", "rule": "Respect applicable locality and competent authority." },
-    { "type": "PHYSICAL_WORLD_BOUNDARY", "owner": "PHYSICAL_OPERATIONS_OWNER", "rule": "Physical action requires explicit human authorization and safety controls." },
-    { "type": "HIGH_IMPACT_DECISION_BOUNDARY", "owner": "ACCOUNTABLE_HUMAN", "rule": "High-impact decisions require human and qualified domain review." }
+    { "type": "RELIGIOUS_BOUNDARY", "name": "الحد الشرعي", "owner": "QUALIFIED_SCHOLAR_REVIEW", "rule": "لا فتوى آلية ولا حكم شرعي ملزم يصدره النظام." },
+    { "type": "HUMAN_AUTHORITY_BOUNDARY", "name": "حد مسؤولية الإنسان", "owner": "ACCOUNTABLE_HUMAN", "rule": "الذكاء الصناعي أداة استشارية ولا يحل محل الإنسان المسؤول." },
+    { "type": "LEGAL_BOUNDARY", "name": "الحد القانوني", "owner": "AUTHORIZED_LEGAL_OWNER", "rule": "النتائج القانونية تحتاج مراجعة مختص مأذون في الولاية المعنية." },
+    { "type": "PERMISSION_BOUNDARY", "name": "حد الإذن والصلاحية", "owner": "RESOURCE_OWNER", "rule": "لا تنفيذ دون إذن صريح نافذ ومحدد النطاق." },
+    { "type": "SAFETY_BOUNDARY", "name": "حد السلامة", "owner": "SAFETY_OWNER", "rule": "يوقف العمل أو يعزل عند احتمال الضرر." },
+    { "type": "SECURITY_BOUNDARY", "name": "الحد الأمني الدفاعي", "owner": "AUTHORIZED_SECURITY_OWNER", "rule": "الأمن دفاعي وفي نطاق مأذون، بلا تحايل أو حمولة مدمرة." },
+    { "type": "PRIVACY_BOUNDARY", "name": "حد الخصوصية", "owner": "DATA_OWNER", "rule": "تقلل البيانات وتخفى الهوية وتحدد مدة الاحتفاظ بسياسة معلنة." },
+    { "type": "EVIDENCE_BOUNDARY", "name": "حد الدليل والتثبت", "owner": "EVIDENCE_OWNER", "rule": "لا ادعاء موثق دون دليل قابل للتتبع والتحقق." },
+    { "type": "KNOWLEDGE_UNCERTAINTY_BOUNDARY", "name": "حد عدم اليقين المعرفي", "owner": "DOMAIN_REVIEWER", "rule": "تعلن النتيجة غير معلومة عند نقص الدليل ولا تستخدم التخمين." },
+    { "type": "HARDWARE_BOUNDARY", "name": "حد العتاد", "owner": "HARDWARE_OWNER", "rule": "تستخدم المحاكاة حتى يثبت دعم العتاد الأصلي." },
+    { "type": "SOFTWARE_BOUNDARY", "name": "حد البرمجيات والأدوات", "owner": "SOFTWARE_OWNER", "rule": "غياب الأداة ينتج تقرير متطلبات لا ادعاء قدرة." },
+    { "type": "NETWORK_BOUNDARY", "name": "حد الشبكة", "owner": "NETWORK_OWNER", "rule": "يستخدم التشغيل المحلي ويؤجل التزامن الخارجي عند غياب الاتصال." },
+    { "type": "RESOURCE_AND_COST_BOUNDARY", "name": "حد الموارد والتكلفة", "owner": "BUDGET_OWNER", "rule": "تطبق الميزانية والحصص وترشيد الموارد قبل التوسع." },
+    { "type": "ENVIRONMENTAL_BOUNDARY", "name": "حد المسؤولية البيئية", "owner": "ENVIRONMENTAL_REVIEWER", "rule": "يقاس أثر الطاقة والمواد والنفايات ودورة الحياة." },
+    { "type": "ACCESSIBILITY_BOUNDARY", "name": "حد الوصول والشمول", "owner": "ACCESSIBILITY_OWNER", "rule": "توفر بدائل عربية وRTL ونصية وصوتية وCLI وAPI وواجهة مبسطة." },
+    { "type": "JURISDICTION_BOUNDARY", "name": "حد الولاية والاختصاص", "owner": "JURISDICTIONAL_OWNER", "rule": "تحترم الولاية المطبقة وصاحب الاختصاص النظامي." },
+    { "type": "PHYSICAL_WORLD_BOUNDARY", "name": "حد العالم المادي", "owner": "PHYSICAL_OPERATIONS_OWNER", "rule": "الفعل المادي يحتاج إذنًا بشريًا صريحًا وضوابط سلامة." },
+    { "type": "HIGH_IMPACT_DECISION_BOUNDARY", "name": "حد القرار عالي الأثر", "owner": "ACCOUNTABLE_HUMAN", "rule": "القرار عالي الأثر يحتاج مراجعة الإنسان والمختص المؤهل." }
   ],
   "benefitDomains": [
     "INDIVIDUAL_WELLBEING",
