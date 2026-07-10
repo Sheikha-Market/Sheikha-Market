@@ -1,0 +1,23 @@
+{
+  "id": "SHEIKHA_HAL_CONTRACT_V1",
+  "version": "1.0.0",
+  "architecture": "x86_64",
+  "interfaces": {
+    "serial": {
+      "device": "16550-compatible-uart",
+      "ioBase": "0x3F8",
+      "baud": 115200,
+      "mode": "8N1",
+      "boundedReadyPolling": true
+    },
+    "cpu": {
+      "haltInstruction": "hlt",
+      "interruptsDisabledBeforeHalt": true
+    },
+    "framebuffer": {
+      "status": "deferred",
+      "criticalForBootEvidence": false
+    }
+  },
+  "hostRuntimeDependencies": []
+}

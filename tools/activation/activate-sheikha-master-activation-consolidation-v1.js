@@ -19,6 +19,10 @@ const methodologyAccreditationPath = 'runtime/master-activation/sheikha-master-m
 const externalAccreditationVerificationPath = 'runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json';
 const sovereignKernelBootPath = 'runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json';
 const sovereignKernelBootHandbookPath = 'docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md';
+const bareMetalSeedPath = 'runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json';
+const bareMetalSeedHandbookPath = 'bare-metal/README.md';
+const bareMetalBootArtifactPath = 'bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI';
+const bareMetalBootImagePath = 'bare-metal/images/sheikha-bare-metal-seed-v1.img';
 const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json';
 const universalTechnologyHpcFabricHandbookPath = 'docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md';
 const technologyFamilyTreePath = 'runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json';
@@ -1245,6 +1249,7 @@ function buildReport() {
   const universalTechnologyHpcFabric = safeReadJson(universalTechnologyHpcFabricPath);
   const technologyFamilyTree = safeReadJson(technologyFamilyTreePath);
   const jannatGardens = safeReadJson(jannatGardensPath);
+  const bareMetalSeed = safeReadJson(bareMetalSeedPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1271,6 +1276,8 @@ function buildReport() {
   finalExecutiveReport.counts.jannatGardenRivers = jannatGardens?.metrics?.rivers || 0;
   finalExecutiveReport.counts.jannatGardenFruits = jannatGardens?.metrics?.fruits || 0;
   finalExecutiveReport.counts.jannatGardensScore = jannatGardens?.score || 0;
+  finalExecutiveReport.counts.bareMetalBootArtifacts = bareMetalSeed?.bootArtifactCreated === true ? 1 : 0;
+  finalExecutiveReport.counts.verifiedBareMetalBoots = bareMetalSeed?.bareMetalFullyIndependentToday === true ? 1 : 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1282,6 +1289,10 @@ function buildReport() {
   finalExecutiveReport.evidence.jannatGardens = jannatGardensPath;
   finalExecutiveReport.evidence.jannatGardensHandbook = jannatGardensHandbookPath;
   finalExecutiveReport.evidence.jannatGardensPublicModel = jannatGardensPublicModelPath;
+  finalExecutiveReport.evidence.bareMetalSeed = bareMetalSeedPath;
+  finalExecutiveReport.evidence.bareMetalSeedHandbook = bareMetalSeedHandbookPath;
+  finalExecutiveReport.evidence.bareMetalBootArtifact = bareMetalBootArtifactPath;
+  finalExecutiveReport.evidence.bareMetalBootImage = bareMetalBootImagePath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1305,10 +1316,15 @@ function buildReport() {
   executiveDashboard.indicators.jannatGardenTrees = jannatGardens?.metrics?.trees || 0;
   executiveDashboard.indicators.jannatGardenRivers = jannatGardens?.metrics?.rivers || 0;
   executiveDashboard.indicators.jannatGardenFruits = jannatGardens?.metrics?.fruits || 0;
+  executiveDashboard.indicators.bareMetalBootArtifactCreated = bareMetalSeed?.bootArtifactCreated === true;
+  executiveDashboard.indicators.qemuBareMetalBootExecuted = bareMetalSeed?.qemuBootExecuted === true;
+  executiveDashboard.indicators.bareMetalSerialMarkerVerified = bareMetalSeed?.serialBootMarkerVerified === true;
+  executiveDashboard.indicators.postFirmwareHandoffVerified = bareMetalSeed?.postFirmwareHandoffVerified === true;
+  executiveDashboard.indicators.bareMetalFullyIndependentToday = bareMetalSeed?.bareMetalFullyIndependentToday === true;
   executiveDashboard.decisions.push(
     'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.',
-    'Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.',
     'Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.',
+    'Treat the x86_64 UEFI/QEMU seed as verified bare-metal boot evidence only; it does not prove a complete general-purpose OS or physical-hardware qualification.',
     'Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.',
     'Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling.'
   );
@@ -1328,6 +1344,12 @@ function buildReport() {
     universalTechnologyHpcFabricBuilt: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js'),
     technologyFamilyTreeBuilt: exists(technologyFamilyTreePath) || exists('tools/activation/activate-sheikha-technology-family-tree-v1.js'),
     jannatGardensBuilt: exists(jannatGardensPath) || exists('tools/activation/activate-sheikha-jannat-gardens-v1.js'),
+    bareMetalSeedIntegrated:
+      bareMetalSeed?.system === 'SHEIKHA_BARE_METAL_SEED_V1' &&
+      bareMetalSeed?.bootArtifactCreated === true &&
+      bareMetalSeed?.qemuBootExecuted === true &&
+      bareMetalSeed?.serialBootMarkerVerified === true &&
+      bareMetalSeed?.postFirmwareHandoffVerified === true,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1356,6 +1378,10 @@ function buildReport() {
     externalAccreditationVerificationPath,
     sovereignKernelBootPath,
     sovereignKernelBootHandbookPath,
+    bareMetalSeedPath,
+    bareMetalSeedHandbookPath,
+    bareMetalBootArtifactPath,
+    bareMetalBootImagePath,
     universalTechnologyHpcFabricPath,
     universalTechnologyHpcFabricHandbookPath,
     technologyFamilyTreePath,
@@ -1413,6 +1439,10 @@ function buildReport() {
       jannatGardenRivers: jannatGardens?.metrics?.rivers || 0,
       jannatGardenFruits: jannatGardens?.metrics?.fruits || 0,
       jannatGardensScore: jannatGardens?.score || 0,
+      bareMetalBootArtifactCreated: bareMetalSeed?.bootArtifactCreated === true,
+      qemuBareMetalBootExecuted: bareMetalSeed?.qemuBootExecuted === true,
+      bareMetalSerialMarkerVerified: bareMetalSeed?.serialBootMarkerVerified === true,
+      bareMetalFullyIndependentToday: bareMetalSeed?.bareMetalFullyIndependentToday === true,
       universalTechnologyHpcFabricActive: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js')
     },
     lifecycleSummary,
@@ -1472,6 +1502,23 @@ function buildReport() {
       rivers: jannatGardens?.metrics?.rivers || 0,
       fruits: jannatGardens?.metrics?.fruits || 0
     },
+    bareMetalSeed: {
+      active: exists(bareMetalSeedPath),
+      reportPath: bareMetalSeedPath,
+      handbookPath: bareMetalSeedHandbookPath,
+      bootArtifactPath: bareMetalBootArtifactPath,
+      bootImagePath: bareMetalBootImagePath,
+      status: bareMetalSeed?.status || 'PENDING_REPORT_GENERATION',
+      architecture: bareMetalSeed?.architecture || 'x86_64',
+      bootProtocol: bareMetalSeed?.bootProtocol || 'UEFI',
+      bootArtifactCreated: bareMetalSeed?.bootArtifactCreated === true,
+      qemuBootExecuted: bareMetalSeed?.qemuBootExecuted === true,
+      serialBootMarkerVerified: bareMetalSeed?.serialBootMarkerVerified === true,
+      postFirmwareHandoffVerified: bareMetalSeed?.postFirmwareHandoffVerified === true,
+      bareMetalFullyIndependentToday: bareMetalSeed?.bareMetalFullyIndependentToday === true,
+      linuxRequiredAtKernelRuntime: bareMetalSeed?.linuxRequiredAtKernelRuntime !== false,
+      nodeRequiredAtKernelRuntime: bareMetalSeed?.nodeRequiredAtKernelRuntime !== false
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1482,6 +1529,7 @@ function buildReport() {
       'Universal technology HPC fabric catalogs supercomputing, semiconductor, conductor, supply-chain, factory, recovery, and benchmark capabilities by generic laws and specifications.',
       'Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.',
       'Jannat Sheikha gardens define worldly beauty, gardens, trees, rivers, and fruits for interfaces and architecture without claiming unseen Jannah representation.',
+      'Native x86_64 UEFI seed is linked to QEMU serial evidence and cannot claim bare-metal completion without the post-ExitBootServices marker.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1546,6 +1594,10 @@ if (require.main === module) {
     jannatGardenRivers: report.summary.jannatGardenRivers,
     jannatGardenFruits: report.summary.jannatGardenFruits,
     jannatGardensScore: report.summary.jannatGardensScore,
+    bareMetalBootArtifactCreated: report.summary.bareMetalBootArtifactCreated,
+    qemuBareMetalBootExecuted: report.summary.qemuBareMetalBootExecuted,
+    bareMetalSerialMarkerVerified: report.summary.bareMetalSerialMarkerVerified,
+    bareMetalFullyIndependentToday: report.summary.bareMetalFullyIndependentToday,
     output: {
       report: reportPath,
       catalog: catalogPath,
@@ -1565,7 +1617,11 @@ if (require.main === module) {
       technologyFamilyTreeHandbook: technologyFamilyTreeHandbookPath,
       jannatGardens: jannatGardensPath,
       jannatGardensHandbook: jannatGardensHandbookPath,
-      jannatGardensPublicModel: jannatGardensPublicModelPath
+      jannatGardensPublicModel: jannatGardensPublicModelPath,
+      bareMetalSeed: bareMetalSeedPath,
+      bareMetalSeedHandbook: bareMetalSeedHandbookPath,
+      bareMetalBootArtifact: bareMetalBootArtifactPath,
+      bareMetalBootImage: bareMetalBootImagePath
     }
   }, null, 2));
 }

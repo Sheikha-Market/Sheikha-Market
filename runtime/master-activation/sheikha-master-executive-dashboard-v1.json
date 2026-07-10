@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T02:13:23.526Z",
+  "generatedAt": "2026-07-10T11:17:03.025Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -11,13 +11,14 @@
   ],
   "status": {
     "integrationScore": 100,
-    "runtimeScore": 100,
+    "runtimeScore": 60,
     "knowledgeScore": 100,
-    "performanceScore": 100,
+    "performanceScore": 91,
     "securityScore": 100
   },
   "risks": [
-    "duplicate-components-require-review"
+    "duplicate-components-require-review",
+    "runtime-evidence-incomplete-or-sandbox-limited"
   ],
   "performance": {
     "cpu": {
@@ -25,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          3.28,
-          3.84,
-          3.4
+          2.51,
+          2.43,
+          1.94
         ]
       }
     },
@@ -35,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875777024,
-        "freeMemoryBytes": 42037018624,
+        "freeMemoryBytes": 46638379008,
         "processMemory": {
-          "rss": 148295680,
-          "heapTotal": 58765312,
-          "heapUsed": 32420896,
-          "external": 1876546,
-          "arrayBuffers": 135004
+          "rss": 192905216,
+          "heapTotal": 56131584,
+          "heapUsed": 23477000,
+          "external": 31234129,
+          "arrayBuffers": 27289088
         }
       }
     },
@@ -49,10 +50,10 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 535476032,
-        "availableKb": 389038108,
+        "usedKb": 536031168,
+        "availableKb": 388482972,
         "usagePercent": "58%",
-        "mount": "/"
+        "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
     },
     "api": {
@@ -61,16 +62,16 @@
         "uniqueEndpoints": 2687,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
-          "ok": true,
-          "statusCode": "200",
-          "latencyMs": 2
+          "ok": false,
+          "statusCode": null,
+          "latencyMs": null
         }
       }
     },
     "latency": {
-      "ok": true,
+      "ok": false,
       "evidence": {
-        "healthLatencyMs": 2
+        "healthLatencyMs": null
       }
     },
     "cache": {
@@ -216,26 +217,26 @@
     "engines": 792,
     "layers": 25,
     "apis": 2687,
-    "services": 8,
-    "tests": 339,
-    "docs": 1050,
+    "services": 0,
+    "tests": 340,
+    "docs": 1066,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1238,
+    "runtimeEngines": 1246,
     "identityEngines": 94,
-    "governanceEngines": 519,
-    "knowledgeEngines": 201,
+    "governanceEngines": 521,
+    "knowledgeEngines": 202,
     "communityEngines": 18,
     "commerceEngines": 73,
     "enterpriseEngines": 184,
-    "aiEngines": 384,
+    "aiEngines": 385,
     "monitoringEngines": 43,
-    "securityEngines": 81,
+    "securityEngines": 82,
     "dashboards": 71,
-    "pipelines": 57,
+    "pipelines": 58,
     "automationEngines": 380,
     "integrations": 346,
-    "packageScripts": 638,
+    "packageScripts": 645,
     "duplicateGroups": 1203,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
@@ -251,11 +252,13 @@
     "jannatGardenTrees": 27,
     "jannatGardenRivers": 17,
     "jannatGardenFruits": 27,
-    "jannatGardensScore": 100
+    "jannatGardensScore": 100,
+    "bareMetalBootArtifacts": 1,
+    "verifiedBareMetalBoots": 1
   },
   "indicators": {
     "apiEndpoints": 2687,
-    "tests": 339,
+    "tests": 340,
     "duplicateGroups": 1203,
     "githubRequired": false,
     "methodologyFamilies": 10,
@@ -271,15 +274,20 @@
     "jannatGardens": 9,
     "jannatGardenTrees": 27,
     "jannatGardenRivers": 17,
-    "jannatGardenFruits": 27
+    "jannatGardenFruits": 27,
+    "bareMetalBootArtifactCreated": true,
+    "qemuBareMetalBootExecuted": true,
+    "bareMetalSerialMarkerVerified": true,
+    "postFirmwareHandoffVerified": true,
+    "bareMetalFullyIndependentToday": true
   },
   "decisions": [
     "Use local-registry and local bundles as the operational source of truth.",
     "Treat duplicate detection as review-only until a human approves consolidation.",
     "Keep production claims bound to health, tests, and truth-gate evidence.",
     "Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.",
-    "Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.",
     "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.",
+    "Treat the x86_64 UEFI/QEMU seed as verified bare-metal boot evidence only; it does not prove a complete general-purpose OS or physical-hardware qualification.",
     "Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.",
     "Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling."
   ],
@@ -347,6 +355,7 @@
         "activate-sheikha-knowledge-graph-engine-v63.sh",
         "activate-sheikha-unified-scientific-knowledge-graph-v68.sh",
         "app/Services/GoogleCloudStorageService.php",
+        "bare-metal/drivers/storage/README.md",
         "config/sheikha-generative-rag-core.json",
         "core/kernel/storage/reports/storage-health.js",
         "core/kernel/storage/sheikha-storage-governor.js",
@@ -367,8 +376,7 @@
         "infrastructure/sheikha-generative-rag-core/governance/generative-rag-governance.json",
         "infrastructure/sheikha-generative-rag-core/innovation/smart-model-blueprint.json",
         "infrastructure/sheikha-generative-rag-core/integration/computing-rag-integration.json",
-        "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json",
-        "infrastructure/sheikha-generative-rag-core/models/model-router.json"
+        "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json"
       ]
     },
     "community": {
@@ -472,6 +480,8 @@
         "archive/activation-scripts/activate-sheikha-gitignore-governance.sh",
         "archive/activation-scripts/activate-sheikha-runtime-governance-practical.sh",
         "archive/activation-scripts/activate-sheikha-topology-governance.sh",
+        "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json",
+        "bare-metal/governance/README.md",
         "config/sheikha-consent-communication-governance-core.json",
         "config/sheikha-foundation-governance.json",
         "config/sheikha-saudi-agreements-governance.json",
@@ -479,9 +489,7 @@
         "core/kernel/governance/README.md",
         "core/kernel/governance/index.js",
         "core/product-knowledge/product-governance-orchestrator.js",
-        "core/product-knowledge/product-governance-pipeline.js",
-        "core/product-knowledge/product-governance-rules.js",
-        "core/product-knowledge/product-policy-registry.js"
+        "core/product-knowledge/product-governance-pipeline.js"
       ]
     }
   }

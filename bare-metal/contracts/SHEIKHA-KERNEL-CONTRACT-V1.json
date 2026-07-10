@@ -1,0 +1,18 @@
+{
+  "id": "SHEIKHA_KERNEL_CONTRACT_V1",
+  "version": "1.0.0",
+  "kernel": "SHEIKHA_NATIVE_KERNEL_SEED_V1",
+  "implementationLanguage": "freestanding-c11",
+  "standardLibrary": false,
+  "hostRuntimeDependencies": [],
+  "entryPoint": "sheikha_kernel_entry",
+  "minimumCapabilities": [
+    "uefi_handoff_validation",
+    "serial_output",
+    "contract_identity_output",
+    "interrupt_disable",
+    "controlled_halt"
+  ],
+  "bootSuccessMarker": "SHEIKHA_BARE_METAL_BOOT_OK",
+  "bootSuccessMarkerCondition": "emitted only after successful ExitBootServices"
+}

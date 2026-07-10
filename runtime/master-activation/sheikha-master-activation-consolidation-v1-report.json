@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-10T02:13:23.557Z",
+  "generatedAt": "2026-07-10T11:17:03.055Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -18,6 +18,7 @@
     "universalTechnologyHpcFabricBuilt": true,
     "technologyFamilyTreeBuilt": true,
     "jannatGardensBuilt": true,
+    "bareMetalSeedIntegrated": true,
     "documentationIndexBuilt": true,
     "finalExecutiveReportBuilt": true,
     "githubIndependent": true
@@ -26,8 +27,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "60d358ebe",
-    "currentHead": "60d358ebe",
+    "localRegistryHead": "2169e7379",
+    "currentHead": "2169e7379",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -398,6 +399,7 @@
       "app",
       "archive",
       "backups",
+      "bare-metal",
       "bin",
       "build",
       "cli",
@@ -689,126 +691,6 @@
       {
         "root": ".well-known",
         "files": 2,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "استرجاع-المحادثات-السابقة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "افتح-الموقع.sh",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "التحديث-الاخير.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "التصميم-لم-يتغير-افعل-هذا.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تحديث-الصفحة-لرؤية-التغييرات.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تشغيل-الآن-والبدء-بالتجارة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تشغيل-الآن.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تشغيل-الخادم.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-التفعيل-الكامل.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-المنافذ-الامني.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-تفعيل-مركز-التدريب.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-منظومة-وسوق-شيخة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "جاهزية-التشغيل-والجذب.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "خطة-التشغيل-والتسويق.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "خطوات-لرؤية-التغييرات-على-localhost.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "شغل-البوابة.sh",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "شغل-الموقع.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "شيخة-ناصرة-للإسلام.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "فهرس-الأنظمة",
-        "files": 5,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "كيفية-رؤية-الصور-الجديدة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "م لا يعمل الاا.json",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "محرك-النظم-المعرفية-والابتكارية.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "منظومة-تحليل-البنى-الشاملة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "نظام-التقييم-الموحد-الإسلامي.md",
-        "files": 1,
         "classification": "repository-artifact"
       },
       {
@@ -1350,6 +1232,11 @@
         "root": "backups",
         "files": 1,
         "classification": "local-artifact-or-operational-output"
+      },
+      {
+        "root": "bare-metal",
+        "files": 32,
+        "classification": "repository-artifact"
       },
       {
         "root": "bin",
@@ -2303,7 +2190,7 @@
       },
       {
         "root": "runtime",
-        "files": 1936,
+        "files": 1944,
         "classification": "repository-artifact"
       },
       {
@@ -3123,7 +3010,7 @@
       },
       {
         "root": "tests",
-        "files": 329,
+        "files": 330,
         "classification": "repository-artifact"
       },
       {
@@ -3250,19 +3137,139 @@
         "root": "WORLD-FIRST-ACHIEVEMENT.md",
         "files": 1,
         "classification": "repository-artifact"
+      },
+      {
+        "root": "استرجاع-المحادثات-السابقة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "افتح-الموقع.sh",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "التحديث-الاخير.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "التصميم-لم-يتغير-افعل-هذا.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تحديث-الصفحة-لرؤية-التغييرات.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تشغيل-الآن-والبدء-بالتجارة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تشغيل-الآن.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تشغيل-الخادم.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-التفعيل-الكامل.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-المنافذ-الامني.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-تفعيل-مركز-التدريب.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-منظومة-وسوق-شيخة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "جاهزية-التشغيل-والجذب.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "خطة-التشغيل-والتسويق.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "خطوات-لرؤية-التغييرات-على-localhost.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "شغل-البوابة.sh",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "شغل-الموقع.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "شيخة-ناصرة-للإسلام.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "فهرس-الأنظمة",
+        "files": 5,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "كيفية-رؤية-الصور-الجديدة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "م لا يعمل الاا.json",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "محرك-النظم-المعرفية-والابتكارية.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "منظومة-تحليل-البنى-الشاملة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "نظام-التقييم-الموحد-الإسلامي.md",
+        "files": 1,
+        "classification": "repository-artifact"
       }
     ],
-    "discoveredFiles": 7073,
-    "packageScripts": 638,
+    "discoveredFiles": 7114,
+    "packageScripts": 645,
     "source": "git ls-files -co --exclude-standard",
     "githubRequired": false
   },
   "summary": {
-    "discoveredComponents": 7073,
-    "activeComponents": 821,
+    "discoveredComponents": 7114,
+    "activeComponents": 829,
     "duplicateGroups": 1203,
     "apiEndpoints": 2687,
-    "documentationFiles": 1050,
+    "documentationFiles": 1066,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "externalCertificatesIssued": 0,
@@ -3276,40 +3283,44 @@
     "jannatGardenRivers": 17,
     "jannatGardenFruits": 27,
     "jannatGardensScore": 100,
+    "bareMetalBootArtifactCreated": true,
+    "qemuBareMetalBootExecuted": true,
+    "bareMetalSerialMarkerVerified": true,
+    "bareMetalFullyIndependentToday": true,
     "universalTechnologyHpcFabricActive": true
   },
   "lifecycleSummary": {
-    "active": 821,
+    "active": 829,
     "needsLinking": 1173,
-    "needsDevelopment": 4945,
+    "needsDevelopment": 4978,
     "experimental": 71,
     "unused": 63
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-10T02:13:23.010Z",
+    "generatedAt": "2026-07-10T11:17:01.752Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
-    "componentCount": 7073,
+    "componentCount": 7114,
     "apiEndpoints": 2687,
-    "packageScripts": 638,
+    "packageScripts": 645,
     "lifecycleSummary": {
-      "active": 821,
+      "active": 829,
       "needsLinking": 1173,
-      "needsDevelopment": 4945,
+      "needsDevelopment": 4978,
       "experimental": 71,
       "unused": 63
     },
     "maturitySummary": {
-      "measured": 821,
+      "measured": 829,
       "linkedRequired": 1173,
-      "discovered": 3882,
-      "documented": 771
+      "discovered": 3898,
+      "documented": 787
     },
     "evidenceFiles": {
-      "tests": 339,
-      "reports": 385,
-      "docs": 1050
+      "tests": 340,
+      "reports": 389,
+      "docs": 1066
     },
     "fullRegistryPath": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "sampleComponents": [
@@ -6631,6 +6642,13 @@
       "ops:autonomy:cycle",
       "ops:autonomy:gate:production",
       "ops:autonomy:gate:staging",
+      "ops:bare-metal:all:v1",
+      "ops:bare-metal:build:v1",
+      "ops:bare-metal:clean:v1",
+      "ops:bare-metal:image:v1",
+      "ops:bare-metal:qemu:v1",
+      "ops:bare-metal:toolchain:v1",
+      "ops:bare-metal:verify:v1",
       "ops:bg-guard",
       "ops:bg-guard:loop",
       "ops:bg-guard:pm2:start",
@@ -7233,7 +7251,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-10T02:13:23.557Z",
+    "generatedAt": "2026-07-10T11:17:03.055Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -7590,6 +7608,7 @@
       "app",
       "archive",
       "backups",
+      "bare-metal",
       "bin",
       "build",
       "cli",
@@ -7881,126 +7900,6 @@
       {
         "root": ".well-known",
         "files": 2,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "استرجاع-المحادثات-السابقة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "افتح-الموقع.sh",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "التحديث-الاخير.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "التصميم-لم-يتغير-افعل-هذا.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تحديث-الصفحة-لرؤية-التغييرات.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تشغيل-الآن-والبدء-بالتجارة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تشغيل-الآن.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تشغيل-الخادم.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-التفعيل-الكامل.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-المنافذ-الامني.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-تفعيل-مركز-التدريب.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "تقرير-منظومة-وسوق-شيخة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "جاهزية-التشغيل-والجذب.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "خطة-التشغيل-والتسويق.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "خطوات-لرؤية-التغييرات-على-localhost.txt",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "شغل-البوابة.sh",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "شغل-الموقع.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "شيخة-ناصرة-للإسلام.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "فهرس-الأنظمة",
-        "files": 5,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "كيفية-رؤية-الصور-الجديدة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "م لا يعمل الاا.json",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "محرك-النظم-المعرفية-والابتكارية.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "منظومة-تحليل-البنى-الشاملة.md",
-        "files": 1,
-        "classification": "repository-artifact"
-      },
-      {
-        "root": "نظام-التقييم-الموحد-الإسلامي.md",
-        "files": 1,
         "classification": "repository-artifact"
       },
       {
@@ -8542,6 +8441,11 @@
         "root": "backups",
         "files": 1,
         "classification": "local-artifact-or-operational-output"
+      },
+      {
+        "root": "bare-metal",
+        "files": 32,
+        "classification": "repository-artifact"
       },
       {
         "root": "bin",
@@ -9495,7 +9399,7 @@
       },
       {
         "root": "runtime",
-        "files": 1936,
+        "files": 1944,
         "classification": "repository-artifact"
       },
       {
@@ -10315,7 +10219,7 @@
       },
       {
         "root": "tests",
-        "files": 329,
+        "files": 330,
         "classification": "repository-artifact"
       },
       {
@@ -10442,6 +10346,126 @@
         "root": "WORLD-FIRST-ACHIEVEMENT.md",
         "files": 1,
         "classification": "repository-artifact"
+      },
+      {
+        "root": "استرجاع-المحادثات-السابقة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "افتح-الموقع.sh",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "التحديث-الاخير.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "التصميم-لم-يتغير-افعل-هذا.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تحديث-الصفحة-لرؤية-التغييرات.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تشغيل-الآن-والبدء-بالتجارة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تشغيل-الآن.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تشغيل-الخادم.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-التفعيل-الكامل.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-المنافذ-الامني.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-تفعيل-مركز-التدريب.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "تقرير-منظومة-وسوق-شيخة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "جاهزية-التشغيل-والجذب.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "خطة-التشغيل-والتسويق.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "خطوات-لرؤية-التغييرات-على-localhost.txt",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "شغل-البوابة.sh",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "شغل-الموقع.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "شيخة-ناصرة-للإسلام.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "فهرس-الأنظمة",
+        "files": 5,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "كيفية-رؤية-الصور-الجديدة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "م لا يعمل الاا.json",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "محرك-النظم-المعرفية-والابتكارية.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "منظومة-تحليل-البنى-الشاملة.md",
+        "files": 1,
+        "classification": "repository-artifact"
+      },
+      {
+        "root": "نظام-التقييم-الموحد-الإسلامي.md",
+        "files": 1,
+        "classification": "repository-artifact"
       }
     ],
     "layers": {
@@ -10512,7 +10536,7 @@
         "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
       },
       "Documentation": {
-        "components": 3095,
+        "components": 3113,
         "dependencies": [
           "Knowledge",
           "Registry"
@@ -10538,7 +10562,7 @@
         "responsibility": "تجميع الرؤية والأهداف والمخاطر والقرارات التنفيذية."
       },
       "Governance": {
-        "components": 519,
+        "components": 521,
         "dependencies": [
           "Runtime",
           "Security"
@@ -10570,7 +10594,7 @@
         "responsibility": "الفحص العام والفرعي، كشف التعارض، وتجميع الأدلة."
       },
       "Knowledge": {
-        "components": 201,
+        "components": 202,
         "dependencies": [
           "Identity",
           "Runtime",
@@ -10579,7 +10603,7 @@
         "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
       },
       "Language": {
-        "components": 212,
+        "components": 214,
         "dependencies": [
           "DSL",
           "Runtime"
@@ -10604,7 +10628,7 @@
         "responsibility": "المراقبة والسجلات والتنبيهات والمؤشرات."
       },
       "OS": {
-        "components": 146,
+        "components": 155,
         "dependencies": [
           "Cloud",
           "Compute/HPC"
@@ -10628,7 +10652,7 @@
         "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
       },
       "Runtime": {
-        "components": 1238,
+        "components": 1246,
         "dependencies": [
           "OS",
           "Cloud"
@@ -10645,7 +10669,7 @@
         "responsibility": "ربط SDK/MCP والواجهات البرمجية للمطورين."
       },
       "Security": {
-        "components": 81,
+        "components": 82,
         "dependencies": [
           "Governance",
           "Runtime"
@@ -10683,6 +10707,10 @@
     "externalAccreditationVerificationPath": "runtime/master-activation/sheikha-master-external-accreditation-verification-v1.json",
     "sovereignKernelBootPath": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
     "sovereignKernelBootHandbookPath": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
+    "bareMetalSeedPath": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+    "bareMetalSeedHandbookPath": "bare-metal/README.md",
+    "bareMetalBootArtifactPath": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+    "bareMetalBootImagePath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
     "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
     "universalTechnologyHpcFabricHandbookPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
     "technologyFamilyTreePath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
@@ -10693,7 +10721,7 @@
     "dependencyGraph": {
       "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
       "layerEdges": 59,
-      "componentEdges": 14852
+      "componentEdges": 14935
     },
     "duplicateAnalysis": {
       "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
@@ -10708,26 +10736,26 @@
       "engines": 792,
       "layers": 25,
       "apis": 2687,
-      "services": 8,
-      "tests": 339,
-      "docs": 1050,
+      "services": 0,
+      "tests": 340,
+      "docs": 1066,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1238,
+      "runtimeEngines": 1246,
       "identityEngines": 94,
-      "governanceEngines": 519,
-      "knowledgeEngines": 201,
+      "governanceEngines": 521,
+      "knowledgeEngines": 202,
       "communityEngines": 18,
       "commerceEngines": 73,
       "enterpriseEngines": 184,
-      "aiEngines": 384,
+      "aiEngines": 385,
       "monitoringEngines": 43,
-      "securityEngines": 81,
+      "securityEngines": 82,
       "dashboards": 71,
-      "pipelines": 57,
+      "pipelines": 58,
       "automationEngines": 380,
       "integrations": 346,
-      "packageScripts": 638,
+      "packageScripts": 645,
       "duplicateGroups": 1203,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -10743,12 +10771,14 @@
       "jannatGardenTrees": 27,
       "jannatGardenRivers": 17,
       "jannatGardenFruits": 27,
-      "jannatGardensScore": 100
+      "jannatGardensScore": 100,
+      "bareMetalBootArtifacts": 1,
+      "verifiedBareMetalBoots": 1
     }
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-10T02:13:23.013Z",
+    "generatedAt": "2026-07-10T11:17:01.755Z",
     "nodes": [
       {
         "id": "APIs",
@@ -10801,7 +10831,7 @@
       {
         "id": "Documentation",
         "type": "layer",
-        "components": 3095,
+        "components": 3113,
         "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
       },
       {
@@ -10819,7 +10849,7 @@
       {
         "id": "Governance",
         "type": "layer",
-        "components": 519,
+        "components": 521,
         "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
       },
       {
@@ -10843,13 +10873,13 @@
       {
         "id": "Knowledge",
         "type": "layer",
-        "components": 201,
+        "components": 202,
         "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
       },
       {
         "id": "Language",
         "type": "layer",
-        "components": 212,
+        "components": 214,
         "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة."
       },
       {
@@ -10867,7 +10897,7 @@
       {
         "id": "OS",
         "type": "layer",
-        "components": 146,
+        "components": 155,
         "responsibility": "ربط نواة التشغيل والعمليات والخدمات المحلية."
       },
       {
@@ -10885,7 +10915,7 @@
       {
         "id": "Runtime",
         "type": "layer",
-        "components": 1238,
+        "components": 1246,
         "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
       },
       {
@@ -10897,7 +10927,7 @@
       {
         "id": "Security",
         "type": "layer",
-        "components": 81,
+        "components": 82,
         "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية."
       },
       {
@@ -11204,17 +11234,17 @@
         "type": "layer-dependency"
       }
     ],
-    "componentEdgesCount": 14852,
+    "componentEdgesCount": 14935,
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "graphPolicy": "relationships are inferred from repository evidence and layer contracts"
   },
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
-    "componentEdges": 14852
+    "componentEdges": 14935
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-10T02:13:23.024Z",
+    "generatedAt": "2026-07-10T11:17:01.762Z",
     "policy": "REPORT_ONLY_NO_DELETION",
     "duplicateFilesCount": 1203,
     "duplicateServicesCount": 28,
@@ -11392,6 +11422,22 @@
         "id": "readme",
         "paths": [
           "README.md",
+          "bare-metal/README.md",
+          "bare-metal/architecture/aarch64/README.md",
+          "bare-metal/architecture/x86_64/README.md",
+          "bare-metal/drivers/framebuffer/README.md",
+          "bare-metal/drivers/storage/README.md",
+          "bare-metal/evidence/README.md",
+          "bare-metal/governance/README.md",
+          "bare-metal/hal/README.md",
+          "bare-metal/kernel/cpu/README.md",
+          "bare-metal/kernel/interrupts/README.md",
+          "bare-metal/kernel/memory/README.md",
+          "bare-metal/kernel/runtime/README.md",
+          "bare-metal/kernel/scheduler/README.md",
+          "bare-metal/kernel/security/README.md",
+          "bare-metal/language/README.md",
+          "bare-metal/linker/README.md",
           "core/federation/ide/README.md",
           "core/kernel/README.md",
           "core/kernel/boot/README.md",
@@ -11683,6 +11729,15 @@
           "SHEIKHA-KERNEL-v7-PERFORMANCE-UPGRADE-TO-100.md",
           "SHEIKHA-v7-INTEGRATED-KERNEL-FINAL-STATUS.md",
           "activate-sheikha-civilization-operating-system-v70.sh",
+          "bare-metal/contracts/SHEIKHA-KERNEL-CONTRACT-V1.json",
+          "bare-metal/kernel/cpu/README.md",
+          "bare-metal/kernel/entry/sheikha_kernel.c",
+          "bare-metal/kernel/entry/sheikha_kernel.h",
+          "bare-metal/kernel/interrupts/README.md",
+          "bare-metal/kernel/memory/README.md",
+          "bare-metal/kernel/runtime/README.md",
+          "bare-metal/kernel/scheduler/README.md",
+          "bare-metal/kernel/sheikha_native_seed.c",
           "core/islamic-ai-kernel/sheikha-islamic-ai-kernel-v1.js",
           "core/kernel-fabric/sheikha-kernel-fabric-v1.js",
           "core/kernel-industrial-fabric/sheikha-kernel-industrial-fabric-v1.js",
@@ -11691,16 +11746,7 @@
           "core/kernel/ai-gateway/sheikha-provider-gateway.js",
           "core/kernel/boot/README.md",
           "core/kernel/boot/boot-manager.js",
-          "core/kernel/boot/index.js",
-          "core/kernel/boot/runtime/runtime-bootstrap.js",
-          "core/kernel/bus/sheikha-runtime-bus-fabric.js",
-          "core/kernel/bus/sheikha-runtime-bus.js",
-          "core/kernel/bus/sheikha-unified-runtime-bus-v2.js",
-          "core/kernel/control-plane/sheikha-kernel-control-plane.js",
-          "core/kernel/control-plane/sheikha-runtime-control-plane.js",
-          "core/kernel/data-pipeline/data-intelligence-pipeline.js",
-          "core/kernel/distributed/sheikha-distributed-cluster-fabric.js",
-          "core/kernel/divergence/divergence-detector.js"
+          "core/kernel/boot/index.js"
         ]
       },
       "cloud": {
@@ -11917,6 +11963,7 @@
           "activate-sheikha-unified-knowledge-science-fabric-v62.sh",
           "activate-sheikha-unified-scientific-knowledge-graph-v68.sh",
           "app/Services/GoogleCloudStorageService.php",
+          "bare-metal/drivers/storage/README.md",
           "config/sheikha-generative-rag-core.json",
           "core/human-centered-knowledge-civilization-platform/sheikha-human-centered-knowledge-civilization-platform-v1.js",
           "core/kernel/storage/reports/storage-health.js",
@@ -11932,8 +11979,7 @@
           "core/product-knowledge/product-event-bus.js",
           "core/product-knowledge/product-graph.js",
           "core/product-knowledge/product-intelligence-layer.js",
-          "core/product-knowledge/product-knowledge-fabric.js",
-          "core/product-knowledge/product-lifecycle-engine.js"
+          "core/product-knowledge/product-knowledge-fabric.js"
         ]
       },
       "ai": {
@@ -11973,6 +12019,7 @@
           "SECURITY.md",
           "app/Http/Controllers/Auth/GoogleAuthController.php",
           "archive/backups/server/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627",
+          "bare-metal/kernel/security/README.md",
           "core/kernel/security/README.md",
           "core/kernel/security/index.js",
           "core/kernel/security/runtime-guard.js",
@@ -11992,8 +12039,7 @@
           "docs/registry/security/SHEIKHA-PROTECTED-RUNTIME-ENFORCEMENT.md",
           "docs/root-authority/SHEIKHA-ROOT-AUTHORITY-LAYER-V1.md",
           "docs/security/حوكمة-المنظومة-الرقمية-بالكتاب-والسنة.md",
-          "docs/security/دليل-الاستجابة-للحوادث-شيخة.md",
-          "docs/security/دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة.md"
+          "docs/security/دليل-الاستجابة-للحوادث-شيخة.md"
         ]
       },
       "monitoring": {
@@ -12363,83 +12409,30 @@
     }
   },
   "runtimeVerification": {
-    "score": 100,
+    "score": 60,
     "checks": {
       "pm2": {
-        "ok": true,
-        "evidence": [
-          {
-            "name": "sheikha-main-portal",
-            "status": "online",
-            "cpu": 0.4,
-            "memory": 209440768
-          },
-          {
-            "name": "sheikha-proxy-8082",
-            "status": "online",
-            "cpu": 0.4,
-            "memory": 62042112
-          },
-          {
-            "name": "sheikha-universal-api",
-            "status": "online",
-            "cpu": 0.4,
-            "memory": 161738752
-          },
-          {
-            "name": "sheikha-periodic-safety-gate-v1",
-            "status": "online",
-            "cpu": 0,
-            "memory": 46665728
-          },
-          {
-            "name": "sheikha-final-operational",
-            "status": "online",
-            "cpu": 0,
-            "memory": 7512064
-          },
-          {
-            "name": "sheikha-identity-v2-auto",
-            "status": "online",
-            "cpu": 0,
-            "memory": 3559424
-          },
-          {
-            "name": "sheikha-accreditation-external-auto",
-            "status": "online",
-            "cpu": 0,
-            "memory": 7782400
-          },
-          {
-            "name": "sheikha-community-modeling-cycle",
-            "status": "online",
-            "cpu": 0,
-            "memory": 44740608
-          }
-        ]
+        "ok": false,
+        "evidence": []
       },
       "ports": {
-        "ok": true,
-        "evidence": [
-          "LISTEN 0      511                      127.0.0.1:8080       0.0.0.0:*",
-          "LISTEN 0      4096                             *:3000             *:*",
-          "LISTEN 0      511                              *:8082             *:*"
-        ]
+        "ok": false,
+        "evidence": []
       },
       "health": {
-        "ok": true,
+        "ok": false,
         "evidence": {
           "endpoint": "http://127.0.0.1:8080/api/health",
-          "ok": true,
-          "statusCode": "200",
-          "latencyMs": 2
+          "ok": false,
+          "statusCode": null,
+          "latencyMs": null
         }
       },
       "processes": {
         "ok": true,
         "evidence": {
-          "pid": 233293,
-          "node": "v22.22.2"
+          "pid": 15,
+          "node": "v25.6.1"
         }
       },
       "cpu": {
@@ -12447,9 +12440,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            3.28,
-            3.84,
-            3.4
+            2.51,
+            2.43,
+            1.94
           ]
         }
       },
@@ -12457,13 +12450,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 42037362688,
+          "freeMemoryBytes": 46638379008,
           "processMemory": {
-            "rss": 148295680,
-            "heapTotal": 58765312,
-            "heapUsed": 32142056,
-            "external": 1876494,
-            "arrayBuffers": 134992
+            "rss": 192528384,
+            "heapTotal": 56131584,
+            "heapUsed": 23198816,
+            "external": 31234077,
+            "arrayBuffers": 27289076
           }
         }
       },
@@ -12471,28 +12464,15 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 535476032,
-          "availableKb": 389038108,
+          "usedKb": 536031168,
+          "availableKb": 388482972,
           "usagePercent": "58%",
-          "mount": "/"
+          "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
       },
       "network": {
-        "ok": true,
-        "evidence": [
-          "lo",
-          "wlo1",
-          "tailscale0",
-          "br-910d4d2065ee",
-          "docker0",
-          "enx9cb150bea19e",
-          "vetha33737b",
-          "veth547ac69",
-          "veth618a8d5",
-          "veth4993b70",
-          "vethe0d0406",
-          "veth1dc4f93"
-        ]
+        "ok": false,
+        "evidence": []
       },
       "logs": {
         "ok": true,
@@ -12533,69 +12513,16 @@
     },
     "pm2": {
       "available": true,
-      "count": 8,
-      "online": 8,
-      "services": [
-        {
-          "name": "sheikha-main-portal",
-          "status": "online",
-          "cpu": 0.4,
-          "memory": 209440768
-        },
-        {
-          "name": "sheikha-proxy-8082",
-          "status": "online",
-          "cpu": 0.4,
-          "memory": 62042112
-        },
-        {
-          "name": "sheikha-universal-api",
-          "status": "online",
-          "cpu": 0.4,
-          "memory": 161738752
-        },
-        {
-          "name": "sheikha-periodic-safety-gate-v1",
-          "status": "online",
-          "cpu": 0,
-          "memory": 46665728
-        },
-        {
-          "name": "sheikha-final-operational",
-          "status": "online",
-          "cpu": 0,
-          "memory": 7512064
-        },
-        {
-          "name": "sheikha-identity-v2-auto",
-          "status": "online",
-          "cpu": 0,
-          "memory": 3559424
-        },
-        {
-          "name": "sheikha-accreditation-external-auto",
-          "status": "online",
-          "cpu": 0,
-          "memory": 7782400
-        },
-        {
-          "name": "sheikha-community-modeling-cycle",
-          "status": "online",
-          "cpu": 0,
-          "memory": 44740608
-        }
-      ]
+      "count": 0,
+      "online": 0,
+      "services": []
     },
-    "ports": [
-      "LISTEN 0      511                      127.0.0.1:8080       0.0.0.0:*",
-      "LISTEN 0      4096                             *:3000             *:*",
-      "LISTEN 0      511                              *:8082             *:*"
-    ],
+    "ports": [],
     "health": {
       "endpoint": "http://127.0.0.1:8080/api/health",
-      "ok": true,
-      "statusCode": "200",
-      "latencyMs": 2
+      "ok": false,
+      "statusCode": null,
+      "latencyMs": null
     }
   },
   "knowledgeVerification": {
@@ -12664,6 +12591,7 @@
           "activate-sheikha-knowledge-graph-engine-v63.sh",
           "activate-sheikha-unified-scientific-knowledge-graph-v68.sh",
           "app/Services/GoogleCloudStorageService.php",
+          "bare-metal/drivers/storage/README.md",
           "config/sheikha-generative-rag-core.json",
           "core/kernel/storage/reports/storage-health.js",
           "core/kernel/storage/sheikha-storage-governor.js",
@@ -12684,8 +12612,7 @@
           "infrastructure/sheikha-generative-rag-core/governance/generative-rag-governance.json",
           "infrastructure/sheikha-generative-rag-core/innovation/smart-model-blueprint.json",
           "infrastructure/sheikha-generative-rag-core/integration/computing-rag-integration.json",
-          "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json",
-          "infrastructure/sheikha-generative-rag-core/models/model-router.json"
+          "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json"
         ]
       },
       "community": {
@@ -12789,6 +12716,8 @@
           "archive/activation-scripts/activate-sheikha-gitignore-governance.sh",
           "archive/activation-scripts/activate-sheikha-runtime-governance-practical.sh",
           "archive/activation-scripts/activate-sheikha-topology-governance.sh",
+          "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json",
+          "bare-metal/governance/README.md",
           "config/sheikha-consent-communication-governance-core.json",
           "config/sheikha-foundation-governance.json",
           "config/sheikha-saudi-agreements-governance.json",
@@ -12796,24 +12725,22 @@
           "core/kernel/governance/README.md",
           "core/kernel/governance/index.js",
           "core/product-knowledge/product-governance-orchestrator.js",
-          "core/product-knowledge/product-governance-pipeline.js",
-          "core/product-knowledge/product-governance-rules.js",
-          "core/product-knowledge/product-policy-registry.js"
+          "core/product-knowledge/product-governance-pipeline.js"
         ]
       }
     }
   },
   "performanceVerification": {
-    "score": 100,
+    "score": 91,
     "checks": {
       "cpu": {
         "ok": true,
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            3.28,
-            3.84,
-            3.4
+            2.51,
+            2.43,
+            1.94
           ]
         }
       },
@@ -12821,13 +12748,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 42037018624,
+          "freeMemoryBytes": 46638379008,
           "processMemory": {
-            "rss": 148295680,
-            "heapTotal": 58765312,
-            "heapUsed": 32420896,
-            "external": 1876546,
-            "arrayBuffers": 135004
+            "rss": 192905216,
+            "heapTotal": 56131584,
+            "heapUsed": 23477000,
+            "external": 31234129,
+            "arrayBuffers": 27289088
           }
         }
       },
@@ -12835,10 +12762,10 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 535476032,
-          "availableKb": 389038108,
+          "usedKb": 536031168,
+          "availableKb": 388482972,
           "usagePercent": "58%",
-          "mount": "/"
+          "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
       },
       "api": {
@@ -12847,16 +12774,16 @@
           "uniqueEndpoints": 2687,
           "health": {
             "endpoint": "http://127.0.0.1:8080/api/health",
-            "ok": true,
-            "statusCode": "200",
-            "latencyMs": 2
+            "ok": false,
+            "statusCode": null,
+            "latencyMs": null
           }
         }
       },
       "latency": {
-        "ok": true,
+        "ok": false,
         "evidence": {
-          "healthLatencyMs": 2
+          "healthLatencyMs": null
         }
       },
       "cache": {
@@ -13148,7 +13075,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-10T02:13:23.420Z",
+    "generatedAt": "2026-07-10T11:17:02.494Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -13157,7 +13084,7 @@
       "githubRequired": false
     },
     "repositoryEvidence": {
-      "components": 7073,
+      "components": 7114,
       "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
       "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -13260,13 +13187,13 @@
           "archive/activation-scripts/activate-enterprise-ai.sh",
           "archive/activation-scripts/activate-sheikha-canonical-organization.sh",
           "archive/activation-scripts/activate-sheikha-project-reorganization.sh",
+          "bare-metal/architecture/aarch64/README.md",
+          "bare-metal/architecture/x86_64/README.md",
           "config/runtime-registry.js",
           "config/sheikha-saudi-national-digital-architecture.json",
           "core/activation-learning/sheikha-activation-learning-registry.js",
           "core/dynamic-federation-registry/sheikha-dynamic-federation-registry-v1.js",
-          "core/dynamic-federation-registry/sheikha-dynamic-federation-registry-v2.js",
-          "core/engine-registry/sheikha-engine-registry-v1.js",
-          "core/engine-registry/sheikha-governed-engine-registry-v2.js"
+          "core/dynamic-federation-registry/sheikha-dynamic-federation-registry-v2.js"
         ],
         "status": "ACTIVE_EVIDENCE_PRESENT",
         "maturity": "cataloged"
@@ -13355,11 +13282,11 @@
           "archive/activation-scripts/activate-sheikha-runtime-hardening.sh",
           "archive/activation-scripts/activate-sheikha-runtime-refinement.sh",
           "archive/backups/server/sheikha-strategic-integration-engine.js.backup",
+          "bare-metal/kernel/runtime/README.md",
           "config/gov-api-plans.json",
           "config/runtime-registry.js",
           "config/sheikha-quranic-science-integration-core.json",
-          "core/ai-gateway/sheikha-continuous-learning-runtime.js",
-          "core/api/sheikha-powered.js"
+          "core/ai-gateway/sheikha-continuous-learning-runtime.js"
         ],
         "status": "ACTIVE_EVIDENCE_PRESENT",
         "maturity": "cataloged"
@@ -13390,6 +13317,9 @@
           "activate-sheikha-ai-cluster-pipeline-production-apex-v1.sh",
           "archive/backups/server/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627",
           "archive/backups/server/sheikha-civilian-research-hpc.js.backup-ultimate-supremacy-20260307-154229",
+          "bare-metal/architecture/aarch64/README.md",
+          "bare-metal/architecture/x86_64/README.md",
+          "bare-metal/build/sheikha-bare-metal-pipeline-v1.js",
           "config/sheikha-global-compute-halal-core.json",
           "config/sheikha-saudi-national-digital-architecture.json",
           "core/enterprise-architecture/sheikha-enterprise-architecture-operating-integration-v3.js",
@@ -13403,10 +13333,7 @@
           "core/language/sheikha-arabic/tests/run-arabic-accounting-pipeline.js",
           "core/product-knowledge/product-governance-pipeline.js",
           "core/runtime/dependency-graph/sheikha-runtime-dependency-graph.js",
-          "dist/sheikha-app/opt/sheikha/lib/compute/index.js",
-          "dist/sheikha-app/opt/sheikha/lib/sheikha-architecture-unified.js",
-          "dist/sheikha-app/opt/sheikha/lib/sheikha-civilian-research-hpc.js",
-          "dist/sheikha-app/opt/sheikha/lib/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627"
+          "dist/sheikha-app/opt/sheikha/lib/compute/index.js"
         ],
         "status": "ACTIVE_EVIDENCE_PRESENT",
         "maturity": "cataloged"
@@ -13528,6 +13455,7 @@
           "app/Http/Controllers/Auth/GoogleAuthController.php",
           "archive/activation-scripts/activate-sheikha-audit-retention.sh",
           "archive/backups/server/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627",
+          "bare-metal/kernel/security/README.md",
           "core/kernel/security/README.md",
           "core/kernel/security/index.js",
           "core/kernel/security/runtime-guard.js",
@@ -13548,8 +13476,7 @@
           "docs/canonical/audit-retention/SHEIKHA-AUDIT-RETENTION.md",
           "docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md",
           "docs/canonical/security-governance/SHEIKHA-SECURITY-GOVERNANCE.md",
-          "docs/github-push-auth.md",
-          "docs/operations/SHEIKHA-PRODUCTION-TRUTH-GATE-V4.md"
+          "docs/github-push-auth.md"
         ],
         "status": "ACTIVE_EVIDENCE_PRESENT",
         "maturity": "cataloged"
@@ -13717,7 +13644,7 @@
         "title": "Internal runtime verification accreditation",
         "status": "ISSUED_INTERNAL",
         "legalExternalAuthority": false,
-        "score": 100,
+        "score": 60,
         "evidence": [
           "PM2 snapshot",
           "ports snapshot",
@@ -14002,9 +13929,26 @@
     "rivers": 17,
     "fruits": 27
   },
+  "bareMetalSeed": {
+    "active": true,
+    "reportPath": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+    "handbookPath": "bare-metal/README.md",
+    "bootArtifactPath": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+    "bootImagePath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+    "status": "VERIFIED_BARE_METAL_BOOT",
+    "architecture": "x86_64",
+    "bootProtocol": "UEFI",
+    "bootArtifactCreated": true,
+    "qemuBootExecuted": true,
+    "serialBootMarkerVerified": true,
+    "postFirmwareHandoffVerified": true,
+    "bareMetalFullyIndependentToday": true,
+    "linuxRequiredAtKernelRuntime": false,
+    "nodeRequiredAtKernelRuntime": false
+  },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-10T02:13:23.526Z",
+    "generatedAt": "2026-07-10T11:17:03.025Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -14015,13 +13959,14 @@
     ],
     "status": {
       "integrationScore": 100,
-      "runtimeScore": 100,
+      "runtimeScore": 60,
       "knowledgeScore": 100,
-      "performanceScore": 100,
+      "performanceScore": 91,
       "securityScore": 100
     },
     "risks": [
-      "duplicate-components-require-review"
+      "duplicate-components-require-review",
+      "runtime-evidence-incomplete-or-sandbox-limited"
     ],
     "performance": {
       "cpu": {
@@ -14029,9 +13974,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            3.28,
-            3.84,
-            3.4
+            2.51,
+            2.43,
+            1.94
           ]
         }
       },
@@ -14039,13 +13984,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 42037018624,
+          "freeMemoryBytes": 46638379008,
           "processMemory": {
-            "rss": 148295680,
-            "heapTotal": 58765312,
-            "heapUsed": 32420896,
-            "external": 1876546,
-            "arrayBuffers": 135004
+            "rss": 192905216,
+            "heapTotal": 56131584,
+            "heapUsed": 23477000,
+            "external": 31234129,
+            "arrayBuffers": 27289088
           }
         }
       },
@@ -14053,10 +13998,10 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 535476032,
-          "availableKb": 389038108,
+          "usedKb": 536031168,
+          "availableKb": 388482972,
           "usagePercent": "58%",
-          "mount": "/"
+          "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
       },
       "api": {
@@ -14065,16 +14010,16 @@
           "uniqueEndpoints": 2687,
           "health": {
             "endpoint": "http://127.0.0.1:8080/api/health",
-            "ok": true,
-            "statusCode": "200",
-            "latencyMs": 2
+            "ok": false,
+            "statusCode": null,
+            "latencyMs": null
           }
         }
       },
       "latency": {
-        "ok": true,
+        "ok": false,
         "evidence": {
-          "healthLatencyMs": 2
+          "healthLatencyMs": null
         }
       },
       "cache": {
@@ -14220,26 +14165,26 @@
       "engines": 792,
       "layers": 25,
       "apis": 2687,
-      "services": 8,
-      "tests": 339,
-      "docs": 1050,
+      "services": 0,
+      "tests": 340,
+      "docs": 1066,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1238,
+      "runtimeEngines": 1246,
       "identityEngines": 94,
-      "governanceEngines": 519,
-      "knowledgeEngines": 201,
+      "governanceEngines": 521,
+      "knowledgeEngines": 202,
       "communityEngines": 18,
       "commerceEngines": 73,
       "enterpriseEngines": 184,
-      "aiEngines": 384,
+      "aiEngines": 385,
       "monitoringEngines": 43,
-      "securityEngines": 81,
+      "securityEngines": 82,
       "dashboards": 71,
-      "pipelines": 57,
+      "pipelines": 58,
       "automationEngines": 380,
       "integrations": 346,
-      "packageScripts": 638,
+      "packageScripts": 645,
       "duplicateGroups": 1203,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -14255,11 +14200,13 @@
       "jannatGardenTrees": 27,
       "jannatGardenRivers": 17,
       "jannatGardenFruits": 27,
-      "jannatGardensScore": 100
+      "jannatGardensScore": 100,
+      "bareMetalBootArtifacts": 1,
+      "verifiedBareMetalBoots": 1
     },
     "indicators": {
       "apiEndpoints": 2687,
-      "tests": 339,
+      "tests": 340,
       "duplicateGroups": 1203,
       "githubRequired": false,
       "methodologyFamilies": 10,
@@ -14275,15 +14222,20 @@
       "jannatGardens": 9,
       "jannatGardenTrees": 27,
       "jannatGardenRivers": 17,
-      "jannatGardenFruits": 27
+      "jannatGardenFruits": 27,
+      "bareMetalBootArtifactCreated": true,
+      "qemuBareMetalBootExecuted": true,
+      "bareMetalSerialMarkerVerified": true,
+      "postFirmwareHandoffVerified": true,
+      "bareMetalFullyIndependentToday": true
     },
     "decisions": [
       "Use local-registry and local bundles as the operational source of truth.",
       "Treat duplicate detection as review-only until a human approves consolidation.",
       "Keep production claims bound to health, tests, and truth-gate evidence.",
       "Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.",
-      "Describe supercomputing, semiconductor, conductor, supply-chain, factory, and recovery capabilities by laws/specifications, not commercial names.",
       "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.",
+      "Treat the x86_64 UEFI/QEMU seed as verified bare-metal boot evidence only; it does not prove a complete general-purpose OS or physical-hardware qualification.",
       "Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.",
       "Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling."
     ],
@@ -14351,6 +14303,7 @@
           "activate-sheikha-knowledge-graph-engine-v63.sh",
           "activate-sheikha-unified-scientific-knowledge-graph-v68.sh",
           "app/Services/GoogleCloudStorageService.php",
+          "bare-metal/drivers/storage/README.md",
           "config/sheikha-generative-rag-core.json",
           "core/kernel/storage/reports/storage-health.js",
           "core/kernel/storage/sheikha-storage-governor.js",
@@ -14371,8 +14324,7 @@
           "infrastructure/sheikha-generative-rag-core/governance/generative-rag-governance.json",
           "infrastructure/sheikha-generative-rag-core/innovation/smart-model-blueprint.json",
           "infrastructure/sheikha-generative-rag-core/integration/computing-rag-integration.json",
-          "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json",
-          "infrastructure/sheikha-generative-rag-core/models/model-router.json"
+          "infrastructure/sheikha-generative-rag-core/knowledge/knowledge-sources-map.json"
         ]
       },
       "community": {
@@ -14476,6 +14428,8 @@
           "archive/activation-scripts/activate-sheikha-gitignore-governance.sh",
           "archive/activation-scripts/activate-sheikha-runtime-governance-practical.sh",
           "archive/activation-scripts/activate-sheikha-topology-governance.sh",
+          "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json",
+          "bare-metal/governance/README.md",
           "config/sheikha-consent-communication-governance-core.json",
           "config/sheikha-foundation-governance.json",
           "config/sheikha-saudi-agreements-governance.json",
@@ -14483,17 +14437,15 @@
           "core/kernel/governance/README.md",
           "core/kernel/governance/index.js",
           "core/product-knowledge/product-governance-orchestrator.js",
-          "core/product-knowledge/product-governance-pipeline.js",
-          "core/product-knowledge/product-governance-rules.js",
-          "core/product-knowledge/product-policy-registry.js"
+          "core/product-knowledge/product-governance-pipeline.js"
         ]
       }
     }
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-10T02:13:23.421Z",
-    "count": 1050,
+    "generatedAt": "2026-07-10T11:17:02.495Z",
+    "count": 1066,
     "canonicalDocs": [
       "docs/canonical/README.md",
       "docs/canonical/SHEIKHA-CANONICAL-BLUEPRINTS.md",
@@ -14574,6 +14526,8 @@
       "SHEIKHA-UNIFIED-ACTIVATION-REPORT.md",
       "SHEIKHA-UNIFIED-ARCHITECTURE.md",
       "STRATEGIC-PARTNERSHIPS-MASTER-DOCUMENT.md",
+      "bare-metal/architecture/aarch64/README.md",
+      "bare-metal/architecture/x86_64/README.md",
       "core/kernel/registry/README.md",
       "core/kernel/registry/REGISTRY.md",
       "docs/ARCHITECTURE-ELITE.md",
@@ -14744,9 +14698,7 @@
       "runtime/pr-governance/activation/sheikha-merge-governance-detailed-report.md",
       "runtime/provider-registry/v1/sheikha-provider-compute-fabric-v1-report.md",
       "runtime/reports/root-neural-tawheed-activation-latest.md",
-      "runtime/resource-source-registry/v1/sheikha-resource-source-registry-v1-report.md",
-      "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md",
-      "runtime/sheikha-package-registry-v1/v1/sheikha-package-registry-v1-report.md"
+      "runtime/resource-source-registry/v1/sheikha-resource-source-registry-v1-report.md"
     ],
     "linkedOutputs": [
       "runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json",
@@ -14778,37 +14730,38 @@
     "Universal technology HPC fabric catalogs supercomputing, semiconductor, conductor, supply-chain, factory, recovery, and benchmark capabilities by generic laws and specifications.",
     "Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.",
     "Jannat Sheikha gardens define worldly beauty, gardens, trees, rivers, and fruits for interfaces and architecture without claiming unseen Jannah representation.",
+    "Native x86_64 UEFI seed is linked to QEMU serial evidence and cannot claim bare-metal completion without the post-ExitBootServices marker.",
     "GitHub is not required for activation; local-registry is the recommended push target."
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-10T02:13:23.421Z",
+    "generatedAt": "2026-07-10T11:17:02.495Z",
     "githubDependency": false,
     "counts": {
       "systems": 433,
       "engines": 792,
       "layers": 25,
       "apis": 2687,
-      "services": 8,
-      "tests": 339,
-      "docs": 1050,
+      "services": 0,
+      "tests": 340,
+      "docs": 1066,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1238,
+      "runtimeEngines": 1246,
       "identityEngines": 94,
-      "governanceEngines": 519,
-      "knowledgeEngines": 201,
+      "governanceEngines": 521,
+      "knowledgeEngines": 202,
       "communityEngines": 18,
       "commerceEngines": 73,
       "enterpriseEngines": 184,
-      "aiEngines": 384,
+      "aiEngines": 385,
       "monitoringEngines": 43,
-      "securityEngines": 81,
+      "securityEngines": 82,
       "dashboards": 71,
-      "pipelines": 57,
+      "pipelines": 58,
       "automationEngines": 380,
       "integrations": 346,
-      "packageScripts": 638,
+      "packageScripts": 645,
       "duplicateGroups": 1203,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -14824,7 +14777,9 @@
       "jannatGardenTrees": 27,
       "jannatGardenRivers": 17,
       "jannatGardenFruits": 27,
-      "jannatGardensScore": 100
+      "jannatGardensScore": 100,
+      "bareMetalBootArtifacts": 1,
+      "verifiedBareMetalBoots": 1
     },
     "evidence": {
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
@@ -14841,7 +14796,11 @@
       "technologyFamilyTreeHandbook": "docs/technology-family-tree-v1/SHEIKHA-TECHNOLOGY-FAMILY-TREE-V1.md",
       "jannatGardens": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json",
       "jannatGardensHandbook": "docs/jannat-gardens-v1/SHEIKHA-JANNAT-GARDENS-V1.md",
-      "jannatGardensPublicModel": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json"
+      "jannatGardensPublicModel": "public/sheikha-jannat-gardens/sheikha-jannat-gardens-v1.json",
+      "bareMetalSeed": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+      "bareMetalSeedHandbook": "bare-metal/README.md",
+      "bareMetalBootArtifact": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+      "bareMetalBootImage": "bare-metal/images/sheikha-bare-metal-seed-v1.img"
     },
     "productionClaimPolicy": "No production-ready claim is made unless supported by tests, health, and runtime evidence."
   },

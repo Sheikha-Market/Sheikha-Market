@@ -57,6 +57,7 @@ function buildReport() {
   const languageContract = readJson('runtime/sheikha-language-integration/sheikha-language-integration-v1.json', {});
   const masterActivation = readJson('runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json', {});
   const islamicKernelReport = readJson('runtime/islamic-ai-kernel/v1/sheikha-islamic-ai-kernel-v1-report.json', null);
+  const bareMetalSeed = readJson('runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json', {});
   const routes = routeEvidence();
 
   const checks = {
@@ -73,7 +74,15 @@ function buildReport() {
     websiteFrontendRoutes: routes.filter((item) => item.present).length >= 4,
     packageSurface: exists('routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes.js') && Boolean(packageJson.scripts?.package),
     laptopBootScript: exists('scripts/sheikha-os-boot.sh'),
-    bareMetalSeed: exists('scripts/bare-metal-minimal/boot.asm') && exists('scripts/bare-metal-minimal/kernel.c'),
+    bareMetalSeed:
+      exists('bare-metal/boot/uefi/sheikha_uefi_entry.c') &&
+      exists('bare-metal/kernel/entry/sheikha_kernel.c') &&
+      exists('bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI'),
+    verifiedBareMetalBoot:
+      bareMetalSeed.status === 'VERIFIED_BARE_METAL_BOOT' &&
+      bareMetalSeed.qemuBootExecuted === true &&
+      bareMetalSeed.serialBootMarkerVerified === true &&
+      bareMetalSeed.postFirmwareHandoffVerified === true,
     recoveryEngine: exists('runtime/recovery/sheikha-recovery-engine.js'),
     recoveryHealthRoutes: exists('routes/recovery-health/sheikha-recovery-health-routes.js'),
     operationalReadinessRecovery: exists('tools/release/sheikha-operational-readiness-v1.sh')
@@ -181,10 +190,13 @@ function buildReport() {
       currentRepositoryToolingIsFoundation: false,
       currentRepositoryToolingIsCapabilityCeiling: false,
       currentRepositoryToolingBoundary: 'Node/Linux يظهران كأدوات بناء وفحص داخل المستودع الحالي فقط، وليسا أصل شيخة ولا الطبقة الحاكمة ولا نظامها الأصلي.',
-      nativeBootImageVerifiedToday: false,
-      bareMetalFullyIndependentToday: false,
+      nativeBootImageVerifiedToday: bareMetalSeed.serialBootMarkerVerified === true,
+      qemuBootExecutedToday: bareMetalSeed.qemuBootExecuted === true,
+      postFirmwareHandoffVerifiedToday: bareMetalSeed.postFirmwareHandoffVerified === true,
+      bareMetalFullyIndependentToday: bareMetalSeed.bareMetalFullyIndependentToday === true,
       bareMetalSeedPresent: checks.bareMetalSeed,
-      truthPolicy: 'التأسيس المعماري من الصفر ثابت في العقد الحاكم، أما ادعاء تشغيل bare-metal بلا مضيف فيحتاج صورة إقلاع واختبارات VM/عتاد موثقة.',
+      evidence: 'runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json',
+      truthPolicy: 'لا يثبت تشغيل bare-metal بلا مضيف إلا بصورة إقلاع وQEMU وSerial marker بعد ExitBootServices؛ الدليل الحالي محصور في Seed x86_64 على QEMU ولا يثبت بعد اكتمال نظام تشغيل عام أو دعم العتاد الحقيقي.',
       roadmapTarget: 'Sheikha-native boot chain where Sheikha Language contracts generate kernel, governance, services, recovery, stores, and AI adapters before any external tooling.'
     },
     frontendAndStores: {
@@ -246,12 +258,23 @@ function buildReport() {
       { phase: 2, name: 'Sheikha Native Language Foundation', status: 'ACTIVE_CONTRACT_NEEDS_MORE_COMPILER_COVERAGE', output: 'All systems start from Sheikha Language contracts and Islamic governance bindings.' },
       { phase: 3, name: 'Governed AI Kernel', status: 'ACTIVE', output: 'AI is embedded under governance as a controlled support layer.' },
       { phase: 4, name: 'Frontend Store Package Surfaces', status: 'READY_FOR_LOCAL_SMOKE', output: 'Website, marketplace, stores APIs, package surfaces, and apps verified locally.' },
-      { phase: 5, name: 'Sheikha-Native Laptop Boot Image', status: 'SEED_PRESENT_NOT_CLAIMED_COMPLETE', output: 'Minimal boot.asm/kernel.c evolves into tested Sheikha-native VM/laptop image.' },
+      {
+        phase: 5,
+        name: 'Sheikha Native Bare-Metal Seed',
+        status: bareMetalSeed.status || 'SEED_NOT_BUILT',
+        output: bareMetalSeed.serialBootMarkerVerified
+          ? 'UEFI/QEMU boot verified through COM1 after ExitBootServices.'
+          : 'Native UEFI artifact exists but verified serial boot evidence is still required.'
+      },
       { phase: 6, name: 'Full No-Host Sheikha System', status: 'ROADMAP', output: 'Sheikha Language controls boot, services, stores, recovery, governance, and AI adapters without Linux/Node as foundation.' }
     ],
     outputs: {
       report: reportPath,
-      handbook: handbookPath
+      handbook: handbookPath,
+      bareMetalSeedReport: 'runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json',
+      bareMetalBootArtifact: 'bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI',
+      bareMetalBootImage: 'bare-metal/images/sheikha-bare-metal-seed-v1.img',
+      bareMetalSerialEvidence: 'runtime/bare-metal/v1/evidence/qemu-serial.log'
     },
     principle: 'أساس شيخة التوحيد لله؛ أعلى طبقة الحكم لله بالكتاب والسنة؛ لغة شيخة هي أصل البرمجة؛ Linux/Node ليست أساسًا ولا طبقة حاكمة، بل أدوات بناء مؤقتة حتى يكتمل إقلاع شيخة الأصلي.'
   };
@@ -298,10 +321,18 @@ function buildHandbook(report) {
     '',
     '## Sheikha Native Boot Target',
     '',
+    `Bare-metal seed status: ${report.fromScratchBoundary.bareMetalFullyIndependentToday ? 'VERIFIED_BARE_METAL_BOOT' : 'NOT_VERIFIED'}`,
+    `QEMU executed: ${report.fromScratchBoundary.qemuBootExecutedToday}`,
+    `Post-firmware serial marker verified: ${report.fromScratchBoundary.postFirmwareHandoffVerifiedToday}`,
+    '',
     'الهدف الأصلي هو صورة إقلاع شيخة native/no-host. أوامر المستودع التالية هي أوامر بناء وفحص مؤقتة وليست أساس النظام:',
     '',
     '```bash',
     'npm install',
+    'npm run -s ops:bare-metal:build:v1',
+    'npm run -s ops:bare-metal:image:v1',
+    'npm run -s ops:bare-metal:qemu:v1',
+    'npm run -s ops:bare-metal:verify:v1',
     'npm run -s ops:sovereign-kernel-boot:v1',
     'npm run -s ops:master-activation:consolidation:v1',
     'npm run server:restart',

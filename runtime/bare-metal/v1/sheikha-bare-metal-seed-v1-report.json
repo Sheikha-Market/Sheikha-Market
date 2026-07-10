@@ -1,0 +1,86 @@
+{
+  "system": "SHEIKHA_BARE_METAL_SEED_V1",
+  "generatedAt": "2026-07-10T11:15:45.891Z",
+  "status": "VERIFIED_BARE_METAL_BOOT",
+  "architecture": "x86_64",
+  "bootProtocol": "UEFI",
+  "kernel": "SHEIKHA_NATIVE_KERNEL_SEED_V1",
+  "hostUsedForBuildOnly": true,
+  "linuxRequiredAtKernelRuntime": false,
+  "nodeRequiredAtKernelRuntime": false,
+  "libcRequiredAtKernelRuntime": false,
+  "javascriptInBootChain": false,
+  "aiInCriticalBootPath": false,
+  "bootArtifactCreated": true,
+  "qemuBootExecuted": true,
+  "serialBootMarkerVerified": true,
+  "postFirmwareHandoffVerified": true,
+  "bareMetalFullyIndependentToday": true,
+  "artifact": {
+    "efi": {
+      "path": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+      "bytes": 4516,
+      "sha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd",
+      "pe": {
+        "format": "PE32+",
+        "machine": 34404,
+        "machineName": "x86_64",
+        "sections": 4,
+        "optionalMagic": 523,
+        "entryPointRva": 4752,
+        "imageBase": 4194304,
+        "sectionAlignment": 4096,
+        "fileAlignment": 512,
+        "sizeOfImage": 200704,
+        "sizeOfHeaders": 1024,
+        "headersAligned": true,
+        "subsystem": 10,
+        "subsystemName": "EFI_APPLICATION",
+        "characteristics": 518,
+        "relocationsStripped": false,
+        "dllCharacteristics": 320,
+        "dynamicBase": true,
+        "nxCompatible": true,
+        "importRva": 0,
+        "importSize": 0,
+        "relocationRva": 196608,
+        "relocationSize": 12,
+        "valid": true
+      }
+    },
+    "image": {
+      "path": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+      "bytes": 1474560,
+      "sha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8",
+      "filesystem": "FAT12",
+      "fallbackPath": "EFI/BOOT/BOOTX64.EFI",
+      "deterministic": true
+    }
+  },
+  "contracts": [
+    "bare-metal/contracts/SHEIKHA-BOOT-CONTRACT-V1.json",
+    "bare-metal/contracts/SHEIKHA-KERNEL-CONTRACT-V1.json",
+    "bare-metal/contracts/SHEIKHA-HAL-CONTRACT-V1.json",
+    "bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json",
+    "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json"
+  ],
+  "evidence": {
+    "toolchain": "runtime/bare-metal/v1/evidence/toolchain-report.json",
+    "build": "runtime/bare-metal/v1/evidence/build-report.json",
+    "sha256": "runtime/bare-metal/v1/evidence/artifact-sha256.txt",
+    "qemuCommand": "runtime/bare-metal/v1/evidence/qemu-command.txt",
+    "qemuSerial": "runtime/bare-metal/v1/evidence/qemu-serial.log",
+    "qemuRun": "runtime/bare-metal/v1/evidence/qemu-run-report.json",
+    "bootVerification": "runtime/bare-metal/v1/evidence/boot-verification.json"
+  },
+  "missingRequirements": [],
+  "claimPolicy": "No bare-metal completion claim without verified boot evidence.",
+  "governanceBoundary": {
+    "noRevelationClaim": true,
+    "noInfallibilityClaim": true,
+    "noIndependentFatwa": true,
+    "scholarReviewForReligiousQuestions": true,
+    "humanReviewForHighImpactDecisions": true,
+    "aiRuntimeKernelMutationAllowed": false
+  }
+}

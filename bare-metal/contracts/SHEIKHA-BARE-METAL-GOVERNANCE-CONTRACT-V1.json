@@ -1,0 +1,27 @@
+{
+  "id": "SHEIKHA_BARE_METAL_GOVERNANCE_CONTRACT_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_BOUNDARY",
+  "principles": [
+    "truthfulness",
+    "justice",
+    "trustworthiness",
+    "no_harm",
+    "rights_preservation",
+    "evidence_and_audit"
+  ],
+  "blockedClaims": [
+    "revelation",
+    "infallibility",
+    "independent_fatwa",
+    "autonomous_religious_ruling"
+  ],
+  "controls": {
+    "scholarReviewForReligiousQuestions": true,
+    "humanReviewForHighImpactDecisions": true,
+    "aiInCriticalBootPath": false,
+    "aiRuntimeKernelMutationAllowed": false,
+    "signedHumanApprovalForHighImpactKernelChanges": true
+  },
+  "claimPolicy": "No bare-metal completion claim without verified boot evidence."
+}

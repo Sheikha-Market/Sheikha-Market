@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T02:13:23.013Z",
+  "generatedAt": "2026-07-10T11:17:01.755Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3095,
+      "components": 3113,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -71,7 +71,7 @@
     {
       "id": "Governance",
       "type": "layer",
-      "components": 519,
+      "components": 521,
       "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
     },
     {
@@ -95,13 +95,13 @@
     {
       "id": "Knowledge",
       "type": "layer",
-      "components": 201,
+      "components": 202,
       "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
     },
     {
       "id": "Language",
       "type": "layer",
-      "components": 212,
+      "components": 214,
       "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة."
     },
     {
@@ -119,7 +119,7 @@
     {
       "id": "OS",
       "type": "layer",
-      "components": 146,
+      "components": 155,
       "responsibility": "ربط نواة التشغيل والعمليات والخدمات المحلية."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1238,
+      "components": 1246,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -149,7 +149,7 @@
     {
       "id": "Security",
       "type": "layer",
-      "components": 81,
+      "components": 82,
       "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية."
     },
     {
@@ -5744,6 +5744,396 @@
       "type": "component-to-layer"
     },
     {
+      "from": "makefile-55a350a469ba",
+      "fromPath": "bare-metal/Makefile",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "makefile-55a350a469ba",
+      "fromPath": "bare-metal/Makefile",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-6e6a5d577620",
+      "fromPath": "bare-metal/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-6e6a5d577620",
+      "fromPath": "bare-metal/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-26c657f04995",
+      "fromPath": "bare-metal/architecture/aarch64/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-26c657f04995",
+      "fromPath": "bare-metal/architecture/aarch64/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-c4b251e883c0",
+      "fromPath": "bare-metal/architecture/x86_64/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-c4b251e883c0",
+      "fromPath": "bare-metal/architecture/x86_64/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-uefi-entry-c-8a3385f2ec34",
+      "fromPath": "bare-metal/boot/uefi/sheikha_uefi_entry.c",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-uefi-entry-c-8a3385f2ec34",
+      "fromPath": "bare-metal/boot/uefi/sheikha_uefi_entry.c",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-pipeline-7043945279e6",
+      "fromPath": "bare-metal/build/sheikha-bare-metal-pipeline-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-pipeline-7043945279e6",
+      "fromPath": "bare-metal/build/sheikha-bare-metal-pipeline-v1.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-governance-contract-fe319f69a689",
+      "fromPath": "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-governance-contract-fe319f69a689",
+      "fromPath": "bare-metal/contracts/SHEIKHA-BARE-METAL-GOVERNANCE-CONTRACT-V1.json",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "boot-contract-39e75b138785",
+      "fromPath": "bare-metal/contracts/SHEIKHA-BOOT-CONTRACT-V1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "boot-contract-39e75b138785",
+      "fromPath": "bare-metal/contracts/SHEIKHA-BOOT-CONTRACT-V1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "hal-contract-5d42cb1427d9",
+      "fromPath": "bare-metal/contracts/SHEIKHA-HAL-CONTRACT-V1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "hal-contract-5d42cb1427d9",
+      "fromPath": "bare-metal/contracts/SHEIKHA-HAL-CONTRACT-V1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "kernel-contract-97e7b2326ddf",
+      "fromPath": "bare-metal/contracts/SHEIKHA-KERNEL-CONTRACT-V1.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "kernel-contract-97e7b2326ddf",
+      "fromPath": "bare-metal/contracts/SHEIKHA-KERNEL-CONTRACT-V1.json",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "language-boot-contract-8f9f86833501",
+      "fromPath": "bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "language-boot-contract-8f9f86833501",
+      "fromPath": "bare-metal/contracts/SHEIKHA-LANGUAGE-BOOT-CONTRACT-V1.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-5e9528a5c918",
+      "fromPath": "bare-metal/drivers/framebuffer/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-5e9528a5c918",
+      "fromPath": "bare-metal/drivers/framebuffer/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-serial-c-34336982dd26",
+      "fromPath": "bare-metal/drivers/serial/sheikha_serial.c",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-serial-c-34336982dd26",
+      "fromPath": "bare-metal/drivers/serial/sheikha_serial.c",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-serial-h-f72f9514e983",
+      "fromPath": "bare-metal/drivers/serial/sheikha_serial.h",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-serial-h-f72f9514e983",
+      "fromPath": "bare-metal/drivers/serial/sheikha_serial.h",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-d664afcab366",
+      "fromPath": "bare-metal/drivers/storage/README.md",
+      "to": "Identity",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-d664afcab366",
+      "fromPath": "bare-metal/drivers/storage/README.md",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-d664afcab366",
+      "fromPath": "bare-metal/drivers/storage/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-20014971ce08",
+      "fromPath": "bare-metal/evidence/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-20014971ce08",
+      "fromPath": "bare-metal/evidence/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-3b3187c335ea",
+      "fromPath": "bare-metal/governance/README.md",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-3b3187c335ea",
+      "fromPath": "bare-metal/governance/README.md",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-4f2294cf6775",
+      "fromPath": "bare-metal/hal/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-4f2294cf6775",
+      "fromPath": "bare-metal/hal/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bootx64-efi-7a2be028cd8d",
+      "fromPath": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bootx64-efi-7a2be028cd8d",
+      "fromPath": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-seed-img-7f5f5ae9a111",
+      "fromPath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-seed-img-7f5f5ae9a111",
+      "fromPath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-uefi-h-0c4c9d2d6605",
+      "fromPath": "bare-metal/include/sheikha_uefi.h",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-uefi-h-0c4c9d2d6605",
+      "fromPath": "bare-metal/include/sheikha_uefi.h",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-da5cc639d275",
+      "fromPath": "bare-metal/kernel/cpu/README.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-da5cc639d275",
+      "fromPath": "bare-metal/kernel/cpu/README.md",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-kernel-c-5aa1dd0819b3",
+      "fromPath": "bare-metal/kernel/entry/sheikha_kernel.c",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-kernel-c-5aa1dd0819b3",
+      "fromPath": "bare-metal/kernel/entry/sheikha_kernel.c",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-kernel-h-d287505f69d7",
+      "fromPath": "bare-metal/kernel/entry/sheikha_kernel.h",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-kernel-h-d287505f69d7",
+      "fromPath": "bare-metal/kernel/entry/sheikha_kernel.h",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-c49827df161b",
+      "fromPath": "bare-metal/kernel/interrupts/README.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-c49827df161b",
+      "fromPath": "bare-metal/kernel/interrupts/README.md",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-bce82e5f27fd",
+      "fromPath": "bare-metal/kernel/memory/README.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-bce82e5f27fd",
+      "fromPath": "bare-metal/kernel/memory/README.md",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-8444174080f3",
+      "fromPath": "bare-metal/kernel/runtime/README.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-8444174080f3",
+      "fromPath": "bare-metal/kernel/runtime/README.md",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-c7577b990a42",
+      "fromPath": "bare-metal/kernel/scheduler/README.md",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-c7577b990a42",
+      "fromPath": "bare-metal/kernel/scheduler/README.md",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-80cfa534fa6e",
+      "fromPath": "bare-metal/kernel/security/README.md",
+      "to": "Governance",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-80cfa534fa6e",
+      "fromPath": "bare-metal/kernel/security/README.md",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-native-seed-c-334d4d61ea8c",
+      "fromPath": "bare-metal/kernel/sheikha_native_seed.c",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikha-native-seed-c-334d4d61ea8c",
+      "fromPath": "bare-metal/kernel/sheikha_native_seed.c",
+      "to": "Compute/HPC",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-2500e51c2e1b",
+      "fromPath": "bare-metal/language/README.md",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-2500e51c2e1b",
+      "fromPath": "bare-metal/language/README.md",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-7e327d0c4ba0",
+      "fromPath": "bare-metal/linker/README.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "readme-7e327d0c4ba0",
+      "fromPath": "bare-metal/linker/README.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "sheikha-fe85b0390a13",
       "fromPath": "bin/sheikha",
       "to": "Knowledge",
@@ -49718,6 +50108,102 @@
       "type": "component-to-layer"
     },
     {
+      "from": "artifact-sha256-txt-d0c265e31f8b",
+      "fromPath": "runtime/bare-metal/v1/evidence/artifact-sha256.txt",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "artifact-sha256-txt-d0c265e31f8b",
+      "fromPath": "runtime/bare-metal/v1/evidence/artifact-sha256.txt",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "boot-verification-c9869bb2f07b",
+      "fromPath": "runtime/bare-metal/v1/evidence/boot-verification.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "boot-verification-c9869bb2f07b",
+      "fromPath": "runtime/bare-metal/v1/evidence/boot-verification.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "build-report-d186c97eecf0",
+      "fromPath": "runtime/bare-metal/v1/evidence/build-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "build-report-d186c97eecf0",
+      "fromPath": "runtime/bare-metal/v1/evidence/build-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "qemu-command-txt-03b2bec85b79",
+      "fromPath": "runtime/bare-metal/v1/evidence/qemu-command.txt",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "qemu-command-txt-03b2bec85b79",
+      "fromPath": "runtime/bare-metal/v1/evidence/qemu-command.txt",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "qemu-run-report-f20a1bd43453",
+      "fromPath": "runtime/bare-metal/v1/evidence/qemu-run-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "qemu-run-report-f20a1bd43453",
+      "fromPath": "runtime/bare-metal/v1/evidence/qemu-run-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "qemu-serial-log-0649746b4800",
+      "fromPath": "runtime/bare-metal/v1/evidence/qemu-serial.log",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "qemu-serial-log-0649746b4800",
+      "fromPath": "runtime/bare-metal/v1/evidence/qemu-serial.log",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "toolchain-report-6b69657da84f",
+      "fromPath": "runtime/bare-metal/v1/evidence/toolchain-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "toolchain-report-6b69657da84f",
+      "fromPath": "runtime/bare-metal/v1/evidence/toolchain-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-seed-report-650e82329367",
+      "fromPath": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-seed-report-650e82329367",
+      "fromPath": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "final-runtime-authority-e1d4288fef31",
       "fromPath": "runtime/baseline/authority/final-runtime-authority.json",
       "to": "Governance",
@@ -82900,6 +83386,18 @@
     {
       "from": "modeling-framework-test-e2e91c6574de",
       "fromPath": "tests/sheikha-modeling-framework.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-bare-metal-seed-test-ac4ac970df80",
+      "fromPath": "tests/sheikha-native-bare-metal-seed-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-bare-metal-seed-test-ac4ac970df80",
+      "fromPath": "tests/sheikha-native-bare-metal-seed-v1.test.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

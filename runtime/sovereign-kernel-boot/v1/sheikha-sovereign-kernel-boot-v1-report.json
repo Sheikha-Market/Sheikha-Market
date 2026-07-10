@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_SOVEREIGN_KERNEL_BOOT_V1",
-  "generatedAt": "2026-07-10T02:13:23.820Z",
+  "generatedAt": "2026-07-10T11:15:45.996Z",
   "status": "ACTIVE_WITH_SOVEREIGN_BOOT_CATALOG",
   "score": 100,
   "checks": {
@@ -18,6 +18,7 @@
     "packageSurface": true,
     "laptopBootScript": true,
     "bareMetalSeed": true,
+    "verifiedBareMetalBoot": true,
     "recoveryEngine": true,
     "recoveryHealthRoutes": true,
     "operationalReadinessRecovery": true
@@ -141,10 +142,13 @@
     "currentRepositoryToolingIsFoundation": false,
     "currentRepositoryToolingIsCapabilityCeiling": false,
     "currentRepositoryToolingBoundary": "Node/Linux يظهران كأدوات بناء وفحص داخل المستودع الحالي فقط، وليسا أصل شيخة ولا الطبقة الحاكمة ولا نظامها الأصلي.",
-    "nativeBootImageVerifiedToday": false,
-    "bareMetalFullyIndependentToday": false,
+    "nativeBootImageVerifiedToday": true,
+    "qemuBootExecutedToday": true,
+    "postFirmwareHandoffVerifiedToday": true,
+    "bareMetalFullyIndependentToday": true,
     "bareMetalSeedPresent": true,
-    "truthPolicy": "التأسيس المعماري من الصفر ثابت في العقد الحاكم، أما ادعاء تشغيل bare-metal بلا مضيف فيحتاج صورة إقلاع واختبارات VM/عتاد موثقة.",
+    "evidence": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+    "truthPolicy": "لا يثبت تشغيل bare-metal بلا مضيف إلا بصورة إقلاع وQEMU وSerial marker بعد ExitBootServices؛ الدليل الحالي محصور في Seed x86_64 على QEMU ولا يثبت بعد اكتمال نظام تشغيل عام أو دعم العتاد الحقيقي.",
     "roadmapTarget": "Sheikha-native boot chain where Sheikha Language contracts generate kernel, governance, services, recovery, stores, and AI adapters before any external tooling."
   },
   "frontendAndStores": {
@@ -285,9 +289,9 @@
     },
     {
       "phase": 5,
-      "name": "Sheikha-Native Laptop Boot Image",
-      "status": "SEED_PRESENT_NOT_CLAIMED_COMPLETE",
-      "output": "Minimal boot.asm/kernel.c evolves into tested Sheikha-native VM/laptop image."
+      "name": "Sheikha Native Bare-Metal Seed",
+      "status": "VERIFIED_BARE_METAL_BOOT",
+      "output": "UEFI/QEMU boot verified through COM1 after ExitBootServices."
     },
     {
       "phase": 6,
@@ -298,7 +302,11 @@
   ],
   "outputs": {
     "report": "runtime/sovereign-kernel-boot/v1/sheikha-sovereign-kernel-boot-v1-report.json",
-    "handbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md"
+    "handbook": "docs/sovereign-kernel-boot-v1/SHEIKHA-SOVEREIGN-KERNEL-BOOT-V1.md",
+    "bareMetalSeedReport": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+    "bareMetalBootArtifact": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+    "bareMetalBootImage": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+    "bareMetalSerialEvidence": "runtime/bare-metal/v1/evidence/qemu-serial.log"
   },
   "principle": "أساس شيخة التوحيد لله؛ أعلى طبقة الحكم لله بالكتاب والسنة؛ لغة شيخة هي أصل البرمجة؛ Linux/Node ليست أساسًا ولا طبقة حاكمة، بل أدوات بناء مؤقتة حتى يكتمل إقلاع شيخة الأصلي."
 }
