@@ -17,8 +17,18 @@
       { "principle": "VERIFY_REPORTS", "arabicPrinciple": "التثبت من الأخبار", "reference": "سورة الحجرات: 6", "arabicText": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة", "sourceUrl": "https://quran.com/49/6" },
       { "principle": "SHURA", "arabicPrinciple": "الشورى", "reference": "سورة الشورى: 38", "arabicText": "وأمرهم شورى بينهم", "sourceUrl": "https://quran.com/42/38" },
       { "principle": "PREVENT_CORRUPTION", "arabicPrinciple": "منع الفساد", "reference": "سورة الأعراف: 56", "arabicText": "ولا تفسدوا في الأرض بعد إصلاحها", "sourceUrl": "https://quran.com/7/56" },
+      { "principle": "DO_NOT_TRANSGRESS_DIVINE_LIMITS", "arabicPrinciple": "عدم تعدي حدود الله", "reference": "سورة البقرة: 229", "arabicText": "تلك حدود الله فلا تعتدوها ومن يتعد حدود الله فأولئك هم الظالمون", "sourceUrl": "https://quran.com/2/229" },
+      { "principle": "TRANSGRESSING_DIVINE_LIMITS_IS_SELF_WRONG", "arabicPrinciple": "تعدي حدود الله ظلم للنفس", "reference": "سورة الطلاق: 1", "arabicText": "وتلك حدود الله ومن يتعد حدود الله فقد ظلم نفسه", "sourceUrl": "https://quran.com/65/1" },
+      { "principle": "FALSE_ACCUSATION_AND_SOURCE_INTEGRITY", "arabicPrinciple": "منع البهتان وصيانة نسبة النص", "reference": "سورة النساء: 112", "arabicText": "ومن يكسب خطيئة أو إثما ثم يرم به بريئا فقد احتمل بهتانا وإثما مبينا", "sourceUrl": "https://quran.com/4/112" },
+      { "principle": "MERCY_TO_THE_WORLDS", "arabicPrinciple": "الرحمة للعالمين", "reference": "سورة الأنبياء: 107", "arabicText": "وما أرسلناك إلا رحمة للعالمين", "sourceUrl": "https://quran.com/21/107" },
       { "principle": "NO_HARM", "arabicPrinciple": "منع الضرر", "reference": "سنن ابن ماجه (2340)، صحيح ابن ماجه (1909)", "arabicText": "لا ضرر ولا ضرار", "sourceUrl": "https://dorar.net/hadith/sharh/85582" }
     ],
+    "quotationIntegrityClarification": {
+      "combinedPhraseIsSingleVerse": false,
+      "divineLimitsReference": "سورة الطلاق: 1 وسورة البقرة: 229",
+      "slanderAndManifestSinReference": "سورة النساء: 112",
+      "humanSourceReviewRequired": true
+    },
     "executableReligiousAuthority": false,
     "automatedFatwaAllowed": false,
     "qualifiedScholarReviewRequired": true,
@@ -44,7 +54,10 @@
     "HUMAN_REVIEW_GATE",
     "SAFE_ALTERNATIVE_GENERATOR",
     "AUDIT_AND_EVIDENCE_REGISTRY",
-    "PUBLIC_BENEFIT_REPORTING_PLANE"
+    "PUBLIC_BENEFIT_REPORTING_PLANE",
+    "OPERATIONAL_BOUNDARY_SCOPE_REGISTRY",
+    "PERMITTED_CAPACITY_CLASSIFIER",
+    "CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER"
   ],
   "boundaries": [
     { "type": "RELIGIOUS_BOUNDARY", "name": "الحد الشرعي", "owner": "QUALIFIED_SCHOLAR_REVIEW", "rule": "لا فتوى آلية ولا حكم شرعي ملزم يصدره النظام." },
@@ -66,6 +79,62 @@
     { "type": "PHYSICAL_WORLD_BOUNDARY", "name": "حد العالم المادي", "owner": "PHYSICAL_OPERATIONS_OWNER", "rule": "الفعل المادي يحتاج إذنًا بشريًا صريحًا وضوابط سلامة." },
     { "type": "HIGH_IMPACT_DECISION_BOUNDARY", "name": "حد القرار عالي الأثر", "owner": "ACCOUNTABLE_HUMAN", "rule": "القرار عالي الأثر يحتاج مراجعة الإنسان والمختص المؤهل." }
   ],
+  "operationalBoundaryScopes": [
+    {
+      "scope": "INTERNAL",
+      "name": "حد تشغيلي داخلي",
+      "definition": "عمل داخل نطاق ملكية وثقة وتشغيل محدد، مع بقاء الإذن والدليل ومنع الضرر واجبة.",
+      "isReligiousRuling": false,
+      "automaticExecution": false
+    },
+    {
+      "scope": "EXTERNAL",
+      "name": "حد تكامل خارجي",
+      "definition": "اتصال يعبر إلى مالك أو مؤسسة أو شبكة أو ولاية أخرى، ويحتاج تفويضًا صريحًا وهوية وتشفيرًا وأقل صلاحية.",
+      "isReligiousRuling": false,
+      "automaticExecution": false
+    },
+    {
+      "scope": "CROSS_BOUNDARY",
+      "name": "اتصال محكوم بين الداخل والخارج",
+      "definition": "تبادل مخطط عبر محول وبوابة سياسة مع عقد بيانات وتدقيق وإيقاف ورجوع، دون تنفيذ من المصنف.",
+      "isReligiousRuling": false,
+      "automaticExecution": false
+    }
+  ],
+  "resourceClasses": [
+    { "class": "HUMAN_PARTICIPATION", "name": "مشاركة بشرية طوعية ومصونة الكرامة", "humanIsResource": false, "consentRequired": true, "withdrawalRightRequired": true },
+    { "class": "COMPUTE", "name": "قدرة حوسبية", "measurementRequired": true },
+    { "class": "NETWORK", "name": "قدرة شبكة واتصال", "measurementRequired": true },
+    { "class": "KNOWLEDGE", "name": "معرفة مأذونة وموثقة", "provenanceRequired": true },
+    { "class": "MATERIAL", "name": "مواد وموجودات غير بشرية", "ownershipRequired": true },
+    { "class": "FINANCIAL", "name": "ميزانية أو مورد مالي مأذون", "budgetAuthorizationRequired": true },
+    { "class": "ENERGY", "name": "طاقة فيزيائية مقاسة", "engineeringMeasurementRequired": true },
+    { "class": "SPATIAL", "name": "حيز مكاني مأذون", "ownershipRequired": true },
+    { "class": "TEMPORAL", "name": "وقت أو نافذة زمنية", "measurementRequired": true },
+    { "class": "EQUIPMENT", "name": "جهاز أو معدة مأذونة", "ownershipRequired": true }
+  ],
+  "capacityGovernance": {
+    "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+    "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+    "goals": [
+      "إثبات الملكية والإذن والرضا عند الحاجة.",
+      "قياس المقدرة بوحدة ودليل معلومين.",
+      "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+      "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+      "حفظ كرامة الإنسان وحقه في الانسحاب.",
+      "قياس الأثر وإتاحة الإيقاف والرجوع."
+    ],
+    "operationalPotentialMeansMeasuredCapacity": true,
+    "operationalPotentialIsPhysicalEnergy": false,
+    "physicalEnergyRequiresEngineeringMeasurement": true,
+    "halalOrHaramDeterminedBySoftware": false,
+    "divineLimitsDeterminedBySoftware": false,
+    "qualifiedScholarReviewRequiredForReligiousRuling": true,
+    "religiousOrGeneticClassificationOfPeopleAllowed": false,
+    "automaticConnectionOrResourceConsumption": false,
+    "humanFinalResponsibility": true
+  },
   "benefitDomains": [
     "INDIVIDUAL_WELLBEING",
     "FAMILY_BENEFIT",
@@ -391,6 +460,8 @@
     "SHEIKHA_CLOUD_AND_HPC",
     "SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1",
     "SHEIKHA_EXECUTIVE_DASHBOARD",
+    "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+    "SHEIKHA_CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER_V1",
     "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1"
   ],
   "priorityPolicy": {
@@ -419,6 +490,12 @@
     "noExternalWriteWithoutAuthorization": true,
     "noAutomaticKernelOrFirmwareModification": true,
     "humanFinalResponsibility": true,
+    "divineLimitsDeterminedBySoftware": false,
+    "halalOrHaramDeterminedBySoftware": false,
+    "operationalBoundariesAreReligiousRulings": false,
+    "humanParticipationIsExploitableResource": false,
+    "religiousOrGeneticClassificationOfPeopleAllowed": false,
+    "connectionPlannerExecutesConnections": false,
     "publicBenefitIndicatorIsReviewableOperationalSignalOnly": true
   }
 }

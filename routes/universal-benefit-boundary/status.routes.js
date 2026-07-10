@@ -27,6 +27,9 @@ router.get('/capabilities', (_req, res) => {
       architectureComponents: current.architectureComponents,
       capabilities: current.capabilities,
       boundaries: current.boundaries,
+      operationalBoundaryScopes: current.operationalBoundaryScopes,
+      resourceClasses: current.resourceClasses,
+      capacityGovernance: current.capacityGovernance,
       benefitDomains: current.benefitDomains,
       priorityPolicy: current.priorityPolicy,
       governance: current.governance

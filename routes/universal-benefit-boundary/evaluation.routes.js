@@ -22,4 +22,22 @@ router.post('/transform-boundary', (req, res) => {
   });
 });
 
+router.post('/classify-capacity', (req, res) => {
+  const result = fabric.classifyPermittedCapacity(req.body || {});
+  const statusCode = result.decision === 'DENY' ? 422 : 200;
+  return res.status(statusCode).json({
+    success: result.decision !== 'DENY',
+    result
+  });
+});
+
+router.post('/plan-integration', (req, res) => {
+  const result = fabric.planCapacityIntegration(req.body || {});
+  const statusCode = result.decision === 'DENY' ? 422 : 200;
+  return res.status(statusCode).json({
+    success: result.decision !== 'DENY',
+    result
+  });
+});
+
 module.exports = router;

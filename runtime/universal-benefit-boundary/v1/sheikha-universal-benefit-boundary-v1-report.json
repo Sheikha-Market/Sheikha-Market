@@ -5,12 +5,14 @@
   "arabicName": "منظومة شيخة العربية الشاملة للخير والنفع والحدود",
   "status": "VERIFIED_ACTIVE",
   "mode": "PERMITTED_CAPABILITY_TO_VERIFIED_PUBLIC_BENEFIT",
-  "generatedAt": "2026-07-10T20:52:27.481Z",
+  "generatedAt": "2026-07-10T21:16:41.893Z",
   "score": 100,
   "capabilitiesRegistered": 16,
   "boundariesRegistered": 18,
   "benefitDomainsRegistered": 16,
-  "architectureComponentsRegistered": 18,
+  "architectureComponentsRegistered": 21,
+  "boundaryScopesRegistered": 3,
+  "resourceClassesRegistered": 10,
   "allowedDecisions": 1,
   "reviewDecisions": 1,
   "sandboxDecisions": 1,
@@ -24,9 +26,14 @@
   "externalWriteWithoutAuthorizationAllowed": false,
   "automaticKernelOrFirmwareModificationAllowed": false,
   "humanFinalResponsibility": true,
+  "divineLimitsDeterminedBySoftware": false,
+  "halalOrHaramDeterminedBySoftware": false,
+  "operationalBoundariesAreReligiousRulings": false,
+  "humanParticipationIsExploitableResource": false,
   "claimPolicy": "لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.",
   "checks": {
     "architectureComponentsComplete": true,
+    "operationalCapacityCatalogComplete": true,
     "writtenArabicQuranSunnahContractComplete": true,
     "arabicApiDecisionSurfaceActive": true,
     "deniesWithoutRequiredPermission": true,
@@ -45,6 +52,15 @@
     "unsupportedHardwareBecomesHonestEmulation": true,
     "missingEvidenceBecomesUnknown": true,
     "externalWriteRequiresAuthorization": true,
+    "humanParticipationRequiresConsentAndWithdrawal": true,
+    "capacityRequiresVerifiedMeasurement": true,
+    "capacityRequiresOwnerPermission": true,
+    "knownHarmStopsCapacityBeforeEvidenceReview": true,
+    "capacityOverrunRemainsSandboxed": true,
+    "externalIntegrationRequiresAuthorization": true,
+    "governedIntegrationPlanDoesNotExecute": true,
+    "softwareDoesNotDeclareHalalOrHaram": true,
+    "operationalPotentialDoesNotClaimPhysicalEnergy": true,
     "reasoningModesDoNotEscalatePermission": true,
     "l24RemainsAdvisory": true,
     "apiRoutesRegistered": true,
@@ -154,7 +170,7 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783716747473-1"
+      "auditId": "ubb-1783718201883-1"
     },
     "review": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
@@ -267,7 +283,7 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783716747474-2"
+      "auditId": "ubb-1783718201884-2"
     },
     "sandbox": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
@@ -381,7 +397,7 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783716747474-3"
+      "auditId": "ubb-1783718201884-3"
     },
     "deny": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
@@ -493,8 +509,1327 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783716747474-4"
+      "auditId": "ubb-1783718201885-4"
     }
+  },
+  "capacity": {
+    "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+    "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+    "goals": [
+      "إثبات الملكية والإذن والرضا عند الحاجة.",
+      "قياس المقدرة بوحدة ودليل معلومين.",
+      "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+      "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+      "حفظ كرامة الإنسان وحقه في الانسحاب.",
+      "قياس الأثر وإتاحة الإيقاف والرجوع."
+    ],
+    "classifications": {
+      "internal": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_PLAN_READY",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "ALLOW",
+        "reason": "CAPACITY_PLAN_READY_WITHIN_GOVERNED_BOUNDARY",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "SOFTWARE_BOUNDARY",
+            "state": "WITHIN_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": true
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [],
+        "requiredApprovals": [],
+        "harmControls": [
+          "MEASURED_CAPACITY",
+          "OWNER_PERMISSION",
+          "NO_HARM",
+          "LEAST_PRIVILEGE",
+          "AUDIT_AND_ROLLBACK"
+        ],
+        "safeAlternative": {
+          "type": "NOT_REQUIRED",
+          "action": "مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.",
+          "boundaryType": null,
+          "reason": null,
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "مسموح بالمرور إلى بوابة التفويض المنفصلة",
+          "رمز_القرار_التقني": "ALLOW",
+          "السبب": "خطة المقدرة جاهزة للمرور إلى بوابة التفويض دون تنفيذ تلقائي.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "حد البرمجيات والأدوات",
+              "رمز_الحد_التقني": "SOFTWARE_BOUNDARY",
+              "الحالة": "ضمن الحد المأذون"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [],
+          "ضوابط_منع_الضرر": [
+            "MEASURED_CAPACITY",
+            "OWNER_PERMISSION",
+            "NO_HARM",
+            "LEAST_PRIVILEGE",
+            "AUDIT_AND_ROLLBACK"
+          ],
+          "البديل_الآمن": "مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201885-5"
+      },
+      "externalReview": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_REVIEW_REQUIRED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "REVIEW",
+        "reason": "EXTERNAL_INTEGRATION_REQUIRES_APPROVAL",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "EXTERNAL",
+        "declaredBoundaryScope": "EXTERNAL",
+        "boundaryScopeArabic": "حد تكامل خارجي",
+        "boundaries": [
+          {
+            "type": "NETWORK_BOUNDARY",
+            "state": "AT_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [],
+        "requiredApprovals": [
+          "EXTERNAL_CONNECTION_AUTHORIZATION",
+          "ACCOUNTABLE_HUMAN_APPROVAL"
+        ],
+        "harmControls": [
+          "LEAST_PRIVILEGE",
+          "ENCRYPTED_CHANNEL",
+          "RATE_LIMIT",
+          "ROLLBACK_READY"
+        ],
+        "safeAlternative": {
+          "type": "OFFLINE_MODE",
+          "action": "نفّذ محليًا وأجّل المزامنة الخارجية حتى توفر اتصال مأذون.",
+          "boundaryType": "NETWORK_BOUNDARY",
+          "reason": "EXTERNAL_INTEGRATION_REQUIRES_APPROVAL",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "مراجعة بشرية أو تخصصية مطلوبة",
+          "رمز_القرار_التقني": "REVIEW",
+          "السبب": "التكامل الخارجي يحتاج إذنًا صريحًا وموافقة بشرية ونطاقًا محدودًا.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "حد الشبكة والاتصال",
+              "رمز_الحد_التقني": "NETWORK_BOUNDARY",
+              "الحالة": "عند الحد ويحتاج تحققًا أو مراجعة"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [
+            "EXTERNAL_CONNECTION_AUTHORIZATION",
+            "ACCOUNTABLE_HUMAN_APPROVAL"
+          ],
+          "ضوابط_منع_الضرر": [
+            "LEAST_PRIVILEGE",
+            "ENCRYPTED_CHANNEL",
+            "RATE_LIMIT",
+            "ROLLBACK_READY"
+          ],
+          "البديل_الآمن": "نفّذ محليًا وأجّل المزامنة الخارجية حتى توفر اتصال مأذون.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201886-6"
+      },
+      "externalApproved": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_PLAN_READY",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "ALLOW",
+        "reason": "CAPACITY_PLAN_READY_WITHIN_GOVERNED_BOUNDARY",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "EXTERNAL",
+        "declaredBoundaryScope": "EXTERNAL",
+        "boundaryScopeArabic": "حد تكامل خارجي",
+        "boundaries": [
+          {
+            "type": "NETWORK_BOUNDARY",
+            "state": "WITHIN_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": true
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [],
+        "requiredApprovals": [],
+        "harmControls": [
+          "MEASURED_CAPACITY",
+          "OWNER_PERMISSION",
+          "NO_HARM",
+          "LEAST_PRIVILEGE",
+          "AUDIT_AND_ROLLBACK"
+        ],
+        "safeAlternative": {
+          "type": "NOT_REQUIRED",
+          "action": "مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.",
+          "boundaryType": null,
+          "reason": null,
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "مسموح بالمرور إلى بوابة التفويض المنفصلة",
+          "رمز_القرار_التقني": "ALLOW",
+          "السبب": "خطة المقدرة جاهزة للمرور إلى بوابة التفويض دون تنفيذ تلقائي.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "حد الشبكة والاتصال",
+              "رمز_الحد_التقني": "NETWORK_BOUNDARY",
+              "الحالة": "ضمن الحد المأذون"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [],
+          "ضوابط_منع_الضرر": [
+            "MEASURED_CAPACITY",
+            "OWNER_PERMISSION",
+            "NO_HARM",
+            "LEAST_PRIVILEGE",
+            "AUDIT_AND_ROLLBACK"
+          ],
+          "البديل_الآمن": "مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201886-7"
+      },
+      "externalPlan": {
+        "system": "SHEIKHA_CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER_V1",
+        "status": "INTEGRATION_PLAN_READY",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "ALLOW",
+        "classification": {
+          "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+          "status": "CAPACITY_PLAN_READY",
+          "language": "ar",
+          "arabicPrimary": true,
+          "decision": "ALLOW",
+          "reason": "CAPACITY_PLAN_READY_WITHIN_GOVERNED_BOUNDARY",
+          "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+          "capabilityName": "ترشيد الموارد",
+          "boundaryScope": "EXTERNAL",
+          "declaredBoundaryScope": "EXTERNAL",
+          "boundaryScopeArabic": "حد تكامل خارجي",
+          "boundaries": [
+            {
+              "type": "NETWORK_BOUNDARY",
+              "state": "WITHIN_BOUNDARY"
+            }
+          ],
+          "resource": {
+            "resourceId": "capacity-pool-1",
+            "name": "مجموعة مقدرة اختبارية",
+            "class": "COMPUTE",
+            "requestedAmount": 20,
+            "availableAmount": 100,
+            "unit": "capacity-unit",
+            "owner": "RESOURCE_OWNER",
+            "location": "",
+            "timeWindow": "",
+            "arabicClass": "قدرة حوسبية",
+            "measuredOrDeclaredWithEvidence": true,
+            "utilizationRatio": 0.2,
+            "requestedAmountExceedsAvailable": false,
+            "capacityClaimVerified": true
+          },
+          "operationalPotential": {
+            "arabicName": "المقدرة التشغيلية النافعة",
+            "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+            "physicalEnergyProduced": false,
+            "physicalEnergyClaimed": false,
+            "physicalEnergyRequiresEngineeringMeasurement": true,
+            "metaphoricalEnergyMeansOperationalCapacity": true,
+            "requestedAmount": 20,
+            "availableAmount": 100,
+            "unit": "capacity-unit"
+          },
+          "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+          "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+          "goals": [
+            "إثبات الملكية والإذن والرضا عند الحاجة.",
+            "قياس المقدرة بوحدة ودليل معلومين.",
+            "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+            "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+            "حفظ كرامة الإنسان وحقه في الانسحاب.",
+            "قياس الأثر وإتاحة الإيقاف والرجوع."
+          ],
+          "evidenceStatus": "VERIFIED",
+          "requiredEvidence": [],
+          "requiredApprovals": [],
+          "harmControls": [
+            "MEASURED_CAPACITY",
+            "OWNER_PERMISSION",
+            "NO_HARM",
+            "LEAST_PRIVILEGE",
+            "AUDIT_AND_ROLLBACK"
+          ],
+          "safeAlternative": {
+            "type": "NOT_REQUIRED",
+            "action": "مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.",
+            "boundaryType": null,
+            "reason": null,
+            "executionPerformed": false,
+            "externalWritePerformed": false
+          },
+          "religiousBoundary": {
+            "divineLimitsDeterminedBySoftware": false,
+            "softwareDeclaresHalalOrHaram": false,
+            "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+            "qualifiedScholarReviewReference": null,
+            "softwareRepresentsPropheticMission": false,
+            "softwarePerformsIslamImanOrIhsan": false,
+            "religiousGeneticClassificationAllowed": false
+          },
+          "humanDignity": {
+            "humanIsExploitableResource": false,
+            "humanParticipationIsVoluntary": null,
+            "withdrawalRightRequired": false,
+            "coercionAllowed": false,
+            "unlawfulDiscriminationAllowed": false
+          },
+          "executionAllowed": false,
+          "connectionExecuted": false,
+          "externalWritePerformed": false,
+          "decisionGrantsAuthorization": false,
+          "permissionEscalationAllowed": false,
+          "humanFinalDecision": true,
+          "humanFinalResponsibility": true,
+          "arabic": {
+            "اللغة": "العربية",
+            "القرار": "مسموح بالمرور إلى بوابة التفويض المنفصلة",
+            "رمز_القرار_التقني": "ALLOW",
+            "السبب": "خطة المقدرة جاهزة للمرور إلى بوابة التفويض دون تنفيذ تلقائي.",
+            "حالة_الدليل": "دليل موثق في سياق التقييم",
+            "الحدود": [
+              {
+                "الحد": "حد الشبكة والاتصال",
+                "رمز_الحد_التقني": "NETWORK_BOUNDARY",
+                "الحالة": "ضمن الحد المأذون"
+              }
+            ],
+            "الأدلة_المطلوبة": [],
+            "الموافقات_المطلوبة": [],
+            "ضوابط_منع_الضرر": [
+              "MEASURED_CAPACITY",
+              "OWNER_PERMISSION",
+              "NO_HARM",
+              "LEAST_PRIVILEGE",
+              "AUDIT_AND_ROLLBACK"
+            ],
+            "البديل_الآمن": "مرر الخطة إلى بوابة التفويض المنفصلة؛ لم ينفذ اتصال أو نقل أو استهلاك مورد.",
+            "التنفيذ_تم": false,
+            "القرار_النهائي_للإنسان": true,
+            "الفتوى_الآلية": false,
+            "المعرفات_التقنية_محفوظة_للتوافق": true
+          },
+          "auditId": "ubb-1783718201886-8"
+        },
+        "connection": {
+          "scope": "EXTERNAL",
+          "scopeArabic": "حد تكامل خارجي",
+          "transport": "AUTHENTICATED_ENCRYPTED_API_GATEWAY",
+          "connectionExecuted": false,
+          "dataTransferred": false,
+          "resourceConsumed": false,
+          "externalWritePerformed": false,
+          "leastPrivilegeRequired": true,
+          "encryptionRequiredForExternalConnection": true,
+          "identityAndOwnershipVerificationRequired": true,
+          "auditRequired": true,
+          "rollbackRequired": true
+        },
+        "steps": [
+          "تحقق من الهوية والملكية والصفة.",
+          "تحقق من الإذن والرضا والنطاق والمدة.",
+          "ثبت القياس والوحدة والدليل وخط الأساس.",
+          "حدد عقد المدخلات والمخرجات والخصوصية.",
+          "اختبر في العزل أو المحاكاة.",
+          "طبق أقل صلاحية والتشفير وحدود المعدل.",
+          "اعرض الخطة على الإنسان المسؤول.",
+          "نفذ عبر مسار منفصل مأذون مع المراقبة.",
+          "قس الأثر وأوقف عند الضرر.",
+          "احفظ التدقيق وخطة الرجوع."
+        ],
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false
+      },
+      "humanWithoutConsent": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_USE_DENIED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "DENY",
+        "reason": "HUMAN_PARTICIPATION_REQUIRES_CONSENT",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "HUMAN_AUTHORITY_BOUNDARY",
+            "state": "BEYOND_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "HUMAN_PARTICIPATION",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "مشاركة بشرية طوعية ومصونة الكرامة",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [],
+        "requiredApprovals": [
+          "EXPLICIT_HUMAN_CONSENT",
+          "WITHDRAWAL_RIGHT"
+        ],
+        "harmControls": [
+          "NO_COERCION",
+          "HUMAN_DIGNITY",
+          "NO_RELIGIOUS_OR_GENETIC_CLASSIFICATION"
+        ],
+        "safeAlternative": {
+          "type": "APPROVAL_REQUEST",
+          "action": "أنشئ طلب قرار واضحًا للإنسان المسؤول.",
+          "boundaryType": "HUMAN_AUTHORITY_BOUNDARY",
+          "reason": "HUMAN_PARTICIPATION_REQUIRES_CONSENT",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": false,
+          "withdrawalRightRequired": true,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "منع التنفيذ",
+          "رمز_القرار_التقني": "DENY",
+          "السبب": "المشاركة البشرية تحتاج رضا صريحًا وحق الانسحاب وحفظ الكرامة.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "حد مسؤولية الإنسان وسلطته",
+              "رمز_الحد_التقني": "HUMAN_AUTHORITY_BOUNDARY",
+              "الحالة": "خارج الحد ويمنع التنفيذ"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [
+            "EXPLICIT_HUMAN_CONSENT",
+            "WITHDRAWAL_RIGHT"
+          ],
+          "ضوابط_منع_الضرر": [
+            "NO_COERCION",
+            "HUMAN_DIGNITY",
+            "NO_RELIGIOUS_OR_GENETIC_CLASSIFICATION"
+          ],
+          "البديل_الآمن": "أنشئ طلب قرار واضحًا للإنسان المسؤول.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201887-9"
+      },
+      "missingEvidence": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_REVIEW_REQUIRED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "REVIEW",
+        "reason": "CAPACITY_EVIDENCE_REQUIRED",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "EVIDENCE_BOUNDARY",
+            "state": "AT_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": false,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "UNKNOWN",
+        "requiredEvidence": [
+          "VERIFIED_CAPACITY_MEASUREMENT",
+          "SOURCE_AND_TIMESTAMP"
+        ],
+        "requiredApprovals": [],
+        "harmControls": [],
+        "safeAlternative": {
+          "type": "EVIDENCE_PLAN",
+          "action": "أعلن UNKNOWN وأنشئ خطة جمع أدلة قابلة للتحقق.",
+          "boundaryType": "EVIDENCE_BOUNDARY",
+          "reason": "CAPACITY_EVIDENCE_REQUIRED",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "مراجعة بشرية أو تخصصية مطلوبة",
+          "رمز_القرار_التقني": "REVIEW",
+          "السبب": "مقدار المقدرة غير موثق؛ يلزم قياس أو دليل قابل للتحقق.",
+          "حالة_الدليل": "غير معلوم لعدم كفاية الدليل",
+          "الحدود": [
+            {
+              "الحد": "حد الدليل والتثبت",
+              "رمز_الحد_التقني": "EVIDENCE_BOUNDARY",
+              "الحالة": "عند الحد ويحتاج تحققًا أو مراجعة"
+            }
+          ],
+          "الأدلة_المطلوبة": [
+            "VERIFIED_CAPACITY_MEASUREMENT",
+            "SOURCE_AND_TIMESTAMP"
+          ],
+          "الموافقات_المطلوبة": [],
+          "ضوابط_منع_الضرر": [],
+          "البديل_الآمن": "أعلن UNKNOWN وأنشئ خطة جمع أدلة قابلة للتحقق.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201887-10"
+      },
+      "missingOwnerPermission": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_USE_DENIED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "DENY",
+        "reason": "RESOURCE_OWNER_PERMISSION_REQUIRED",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "PERMISSION_BOUNDARY",
+            "state": "BEYOND_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [
+          "TRACEABLE_PERMISSION_REFERENCE"
+        ],
+        "requiredApprovals": [
+          "RESOURCE_OWNER_PERMISSION"
+        ],
+        "harmControls": [],
+        "safeAlternative": {
+          "type": "APPROVAL_REQUEST",
+          "action": "أنشئ طلب موافقة محدد النطاق والمدة والمالك.",
+          "boundaryType": "PERMISSION_BOUNDARY",
+          "reason": "RESOURCE_OWNER_PERMISSION_REQUIRED",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "منع التنفيذ",
+          "رمز_القرار_التقني": "DENY",
+          "السبب": "استخدام المقدرة يحتاج إذن مالكها أو صاحب الصلاحية.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "حد الإذن والصلاحية",
+              "رمز_الحد_التقني": "PERMISSION_BOUNDARY",
+              "الحالة": "خارج الحد ويمنع التنفيذ"
+            }
+          ],
+          "الأدلة_المطلوبة": [
+            "TRACEABLE_PERMISSION_REFERENCE"
+          ],
+          "الموافقات_المطلوبة": [
+            "RESOURCE_OWNER_PERMISSION"
+          ],
+          "ضوابط_منع_الضرر": [],
+          "البديل_الآمن": "أنشئ طلب موافقة محدد النطاق والمدة والمالك.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201888-11"
+      },
+      "knownHarm": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_USE_DENIED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "DENY",
+        "reason": "KNOWN_HARM_PROHIBITS_CAPACITY_USE",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "SAFETY_BOUNDARY",
+            "state": "BEYOND_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": false,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "UNKNOWN",
+        "requiredEvidence": [],
+        "requiredApprovals": [],
+        "harmControls": [
+          "STOP",
+          "WARNING",
+          "RECOVERY",
+          "HUMAN_HANDOFF"
+        ],
+        "safeAlternative": {
+          "type": "SAFE_SIMULATION",
+          "action": "حوّل العمل إلى محاكاة أو قراءة فقط مع خطة تعافٍ.",
+          "boundaryType": "SAFETY_BOUNDARY",
+          "reason": "KNOWN_HARM_PROHIBITS_CAPACITY_USE",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "منع التنفيذ",
+          "رمز_القرار_التقني": "DENY",
+          "السبب": "ثبت احتمال ضرر غير مقبول؛ يمنع توجيه المقدرة إليه.",
+          "حالة_الدليل": "غير معلوم لعدم كفاية الدليل",
+          "الحدود": [
+            {
+              "الحد": "حد السلامة ومنع الضرر",
+              "رمز_الحد_التقني": "SAFETY_BOUNDARY",
+              "الحالة": "خارج الحد ويمنع التنفيذ"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [],
+          "ضوابط_منع_الضرر": [
+            "STOP",
+            "WARNING",
+            "RECOVERY",
+            "HUMAN_HANDOFF"
+          ],
+          "البديل_الآمن": "حوّل العمل إلى محاكاة أو قراءة فقط مع خطة تعافٍ.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201888-12"
+      },
+      "exceedsAvailable": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_SIMULATION_REQUIRED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "SANDBOX",
+        "reason": "REQUEST_EXCEEDS_AVAILABLE_CAPACITY",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "RESOURCE_AND_COST_BOUNDARY",
+            "state": "AT_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 120,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 1.2,
+          "requestedAmountExceedsAvailable": true,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 120,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [],
+        "requiredApprovals": [
+          "RESOURCE_OWNER_REVIEW"
+        ],
+        "harmControls": [
+          "CAP_AT_VERIFIED_AVAILABLE_AMOUNT",
+          "BUDGET_GATE",
+          "SMALL_SCALE_PROBE"
+        ],
+        "safeAlternative": {
+          "type": "LOW_COST_PLAN",
+          "action": "صغّر النطاق وحسّن الموارد واعرض تقدير التكلفة للموافقة.",
+          "boundaryType": "RESOURCE_AND_COST_BOUNDARY",
+          "reason": "REQUEST_EXCEEDS_AVAILABLE_CAPACITY",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "NOT_DETERMINED_BY_SOFTWARE",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "عزل أو محاكاة أو تشغيل محدود مطلوب",
+          "رمز_القرار_التقني": "SANDBOX",
+          "السبب": "المقدار المطلوب يتجاوز المقدرة المتاحة الموثقة.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "حد الموارد والتكلفة",
+              "رمز_الحد_التقني": "RESOURCE_AND_COST_BOUNDARY",
+              "الحالة": "عند الحد ويحتاج تحققًا أو مراجعة"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [
+            "RESOURCE_OWNER_REVIEW"
+          ],
+          "ضوابط_منع_الضرر": [
+            "CAP_AT_VERIFIED_AVAILABLE_AMOUNT",
+            "BUDGET_GATE",
+            "SMALL_SCALE_PROBE"
+          ],
+          "البديل_الآمن": "صغّر النطاق وحسّن الموارد واعرض تقدير التكلفة للموافقة.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201888-13"
+      },
+      "religiousClassification": {
+        "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+        "status": "CAPACITY_REVIEW_REQUIRED",
+        "language": "ar",
+        "arabicPrimary": true,
+        "decision": "REVIEW",
+        "reason": "SOFTWARE_CANNOT_DECLARE_HALAL_OR_HARAM",
+        "capabilityId": "SHEIKHA_RESOURCE_OPTIMIZATION",
+        "capabilityName": "ترشيد الموارد",
+        "boundaryScope": "INTERNAL",
+        "declaredBoundaryScope": "INTERNAL",
+        "boundaryScopeArabic": "حد تشغيلي داخلي",
+        "boundaries": [
+          {
+            "type": "RELIGIOUS_BOUNDARY",
+            "state": "AT_BOUNDARY"
+          }
+        ],
+        "resource": {
+          "resourceId": "capacity-pool-1",
+          "name": "مجموعة مقدرة اختبارية",
+          "class": "COMPUTE",
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit",
+          "owner": "RESOURCE_OWNER",
+          "location": "",
+          "timeWindow": "",
+          "arabicClass": "قدرة حوسبية",
+          "measuredOrDeclaredWithEvidence": true,
+          "utilizationRatio": 0.2,
+          "requestedAmountExceedsAvailable": false,
+          "capacityClaimVerified": false
+        },
+        "operationalPotential": {
+          "arabicName": "المقدرة التشغيلية النافعة",
+          "conversionMode": "GOVERNED_CAPACITY_PLAN_ONLY",
+          "physicalEnergyProduced": false,
+          "physicalEnergyClaimed": false,
+          "physicalEnergyRequiresEngineeringMeasurement": true,
+          "metaphoricalEnergyMeansOperationalCapacity": true,
+          "requestedAmount": 20,
+          "availableAmount": 100,
+          "unit": "capacity-unit"
+        },
+        "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
+        "mission": "قياس المقدرة وحفظ الحقوق والإذن ومنع الضرر ثم إعداد اتصال محكوم قابل للتدقيق والرجوع.",
+        "goals": [
+          "إثبات الملكية والإذن والرضا عند الحاجة.",
+          "قياس المقدرة بوحدة ودليل معلومين.",
+          "عدم تجاوز المقدرة المتاحة أو الميزانية.",
+          "اختيار اتصال داخلي أو خارجي بأقل صلاحية.",
+          "حفظ كرامة الإنسان وحقه في الانسحاب.",
+          "قياس الأثر وإتاحة الإيقاف والرجوع."
+        ],
+        "evidenceStatus": "VERIFIED",
+        "requiredEvidence": [],
+        "requiredApprovals": [
+          "QUALIFIED_SCHOLAR_REVIEW"
+        ],
+        "harmControls": [
+          "NO_AUTOMATED_HALAL_HARAM_CLASSIFICATION",
+          "PRESERVE_SOURCE_CONTEXT"
+        ],
+        "safeAlternative": {
+          "type": "HUMAN_HANDOFF",
+          "action": "اعرض السياق والمصادر على أهل العلم المؤهلين دون فتوى آلية.",
+          "boundaryType": "RELIGIOUS_BOUNDARY",
+          "reason": "SOFTWARE_CANNOT_DECLARE_HALAL_OR_HARAM",
+          "executionPerformed": false,
+          "externalWritePerformed": false
+        },
+        "religiousBoundary": {
+          "divineLimitsDeterminedBySoftware": false,
+          "softwareDeclaresHalalOrHaram": false,
+          "religiousStatus": "QUALIFIED_SCHOLAR_REVIEW_REQUIRED",
+          "qualifiedScholarReviewReference": null,
+          "softwareRepresentsPropheticMission": false,
+          "softwarePerformsIslamImanOrIhsan": false,
+          "religiousGeneticClassificationAllowed": false
+        },
+        "humanDignity": {
+          "humanIsExploitableResource": false,
+          "humanParticipationIsVoluntary": null,
+          "withdrawalRightRequired": false,
+          "coercionAllowed": false,
+          "unlawfulDiscriminationAllowed": false
+        },
+        "executionAllowed": false,
+        "connectionExecuted": false,
+        "externalWritePerformed": false,
+        "decisionGrantsAuthorization": false,
+        "permissionEscalationAllowed": false,
+        "humanFinalDecision": true,
+        "humanFinalResponsibility": true,
+        "arabic": {
+          "اللغة": "العربية",
+          "القرار": "مراجعة بشرية أو تخصصية مطلوبة",
+          "رمز_القرار_التقني": "REVIEW",
+          "السبب": "البرنامج لا يعلن الحلال أو الحرام؛ يلزم أهل العلم المؤهلون.",
+          "حالة_الدليل": "دليل موثق في سياق التقييم",
+          "الحدود": [
+            {
+              "الحد": "الحد الشرعي",
+              "رمز_الحد_التقني": "RELIGIOUS_BOUNDARY",
+              "الحالة": "عند الحد ويحتاج تحققًا أو مراجعة"
+            }
+          ],
+          "الأدلة_المطلوبة": [],
+          "الموافقات_المطلوبة": [
+            "QUALIFIED_SCHOLAR_REVIEW"
+          ],
+          "ضوابط_منع_الضرر": [
+            "NO_AUTOMATED_HALAL_HARAM_CLASSIFICATION",
+            "PRESERVE_SOURCE_CONTEXT"
+          ],
+          "البديل_الآمن": "اعرض السياق والمصادر على أهل العلم المؤهلين دون فتوى آلية.",
+          "التنفيذ_تم": false,
+          "القرار_النهائي_للإنسان": true,
+          "الفتوى_الآلية": false,
+          "المعرفات_التقنية_محفوظة_للتوافق": true
+        },
+        "auditId": "ubb-1783718201888-14"
+      }
+    },
+    "connectionExecuted": false,
+    "resourceConsumed": false,
+    "physicalEnergyProduced": false
   },
   "boundaryTransformationProbe": {
     "system": "SHEIKHA_BOUNDARY_TO_BENEFIT_TRANSFORMER_V1",
@@ -603,6 +1938,30 @@
           "text": "ولا تفسدوا في الأرض بعد إصلاحها",
           "location": "سورة الأعراف: 56",
           "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "تلك حدود الله فلا تعتدوها ومن يتعد حدود الله فأولئك هم الظالمون",
+          "location": "سورة البقرة: 229",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "وتلك حدود الله ومن يتعد حدود الله فقد ظلم نفسه",
+          "location": "سورة الطلاق: 1",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "ومن يكسب خطيئة أو إثما ثم يرم به بريئا فقد احتمل بهتانا وإثما مبينا",
+          "location": "سورة النساء: 112",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "وما أرسلناك إلا رحمة للعالمين",
+          "location": "سورة الأنبياء: 107",
+          "executableRule": false
         }
       ],
       "authenticSunnah": [
@@ -613,7 +1972,7 @@
           "executableRule": false
         }
       ],
-      "quranCount": 6,
+      "quranCount": 10,
       "authenticSunnahCount": 1,
       "valuesReferenceOnly": true,
       "automatedInterpretationOrFatwa": false,
@@ -647,6 +2006,8 @@
     "SHEIKHA_CLOUD_AND_HPC",
     "SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1",
     "SHEIKHA_EXECUTIVE_DASHBOARD",
+    "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
+    "SHEIKHA_CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER_V1",
     "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1"
   ],
   "registries": {
@@ -658,6 +2019,8 @@
     "status": "/api/governance/universal-benefit/status",
     "evaluate": "/api/governance/universal-benefit/evaluate",
     "transformBoundary": "/api/governance/universal-benefit/transform-boundary",
+    "classifyCapacity": "/api/governance/universal-benefit/classify-capacity",
+    "planIntegration": "/api/governance/universal-benefit/plan-integration",
     "capabilities": "/api/governance/universal-benefit/capabilities",
     "evidence": "/api/governance/universal-benefit/evidence"
   },
@@ -670,10 +2033,16 @@
     "benefitIndicatorIsAbsoluteMoralJudgment": false,
     "claimPolicy": "لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.",
     "writtenQuranSunnahValuesReference": true,
-    "quranSunnahTextBecomesAutomatedRuling": false
+    "quranSunnahTextBecomesAutomatedRuling": false,
+    "divineLimitsDeterminedBySoftware": false,
+    "halalOrHaramDeclaredBySoftware": false,
+    "operationalBoundariesAreReligiousRulings": false,
+    "humanParticipationIsExploitableResource": false,
+    "connectionPlannerExecutesConnections": false,
+    "physicalEnergyClaimRequiresEngineeringMeasurement": true
   },
   "evidence": {
-    "runtimeAuditRecords": 17,
+    "runtimeAuditRecords": 27,
     "persistence": "IN_MEMORY_ONLY",
     "externalWrites": false,
     "sensitiveRequestPayloadsStored": false
@@ -682,6 +2051,10 @@
     "قرار ALLOW نتيجة توجيه ولا يمنح تفويض التنفيذ.",
     "مؤشرات المنفعة تشغيلية قابلة للمراجعة وليست أحكامًا أخلاقية مطلقة.",
     "الأحكام الشرعية تحتاج أهل العلم المؤهلين، ولا تصدر فتوى آلية.",
+    "حدود الله لا يحددها البرنامج؛ النطاقات الداخلية والخارجية تصنيفات تشغيلية وليست أحكامًا شرعية.",
+    "المشاركة البشرية طوعية ومصونة الكرامة وليست موردًا قابلًا للاستغلال.",
+    "تحويل المقدرة يعني إعداد خطة تخصيص مقاسة، ولا يعني إنتاج طاقة فيزيائية.",
+    "مصنف المقدرة ومخطط التكامل لا ينفذان اتصالًا أو نقلًا أو استهلاكًا للمورد.",
     "الأعمال عالية الأثر والمادية والقانونية والطبية والمالية وتعديل النواة والبرمجيات الثابتة والكتابة الخارجية تبقى محكومة بشريًا.",
     "دليل التدقيق التشغيلي محدود وفي الذاكرة؛ التدقيق الدائم يحتاج مسار التدقيق المأذون المنفصل."
   ]

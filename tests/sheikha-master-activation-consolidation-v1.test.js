@@ -103,7 +103,15 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.universalBenefitPermissionEscalationAllowed)
       .toBe(false);
     expect(report.executiveDashboard.indicators.universalBenefitArabicPrimary).toBe(true);
-    expect(report.executiveDashboard.indicators.universalBenefitQuranWrittenReferences).toBe(6);
+    expect(report.executiveDashboard.indicators.universalBenefitBoundaryScopes).toBe(3);
+    expect(report.executiveDashboard.indicators.universalBenefitResourceClasses).toBe(10);
+    expect(report.executiveDashboard.indicators.universalBenefitCapacityPlannerExecutes)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators.universalBenefitHalalOrHaramDeterminedBySoftware)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators
+      .universalBenefitHumanParticipationIsExploitableResource).toBe(false);
+    expect(report.executiveDashboard.indicators.universalBenefitQuranWrittenReferences).toBe(10);
     expect(report.executiveDashboard.indicators.universalBenefitSunnahWrittenReferences).toBe(1);
     expect(report.executiveDashboard.indicators.universalBenefitAutomatedReligiousInterpretation)
       .toBe(false);
@@ -181,10 +189,12 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       capabilitiesRegistered: 16,
       boundariesRegistered: 18,
       benefitDomainsRegistered: 16,
-      architectureComponentsRegistered: 18,
+      architectureComponentsRegistered: 21,
+      boundaryScopesRegistered: 3,
+      resourceClassesRegistered: 10,
       language: 'ar',
       arabicPrimary: true,
-      quranWrittenReferences: 6,
+      quranWrittenReferences: 10,
       sunnahWrittenReferences: 1,
       automatedReligiousInterpretation: false,
       qualifiedScholarReviewRequired: true,
@@ -195,6 +205,11 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       religiousRulingsAutomated: false,
       safetyBypassAllowed: false,
       permissionEscalationAllowed: false,
+      divineLimitsDeterminedBySoftware: false,
+      halalOrHaramDeterminedBySoftware: false,
+      operationalBoundariesAreReligiousRulings: false,
+      humanParticipationIsExploitableResource: false,
+      capacityPlannerExecutes: false,
       humanFinalResponsibility: true
     });
     expect(report.nativeLanguageArchitecture).toMatchObject({
