@@ -1522,6 +1522,10 @@ function buildReport() {
       nativeLanguageArchitecture?.checks
         ?.formalArabicScienceReasoningMethodologyPresent === true &&
       nativeLanguageArchitecture?.checks?.reasoningMethodologyEnforcedAtRuntime === true &&
+      nativeLanguageArchitecture?.checks
+        ?.priorAdvancedHostedArabicFoundationDiscovered === true &&
+      nativeLanguageArchitecture?.checks
+        ?.priorAdvancedHostedArabicFoundationExecuted === true &&
       nativeLanguageArchitecture?.compiler?.selfHosted === false &&
       nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === false &&
       nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === false &&
@@ -1852,6 +1856,16 @@ function buildReport() {
         nativeLanguageArchitecture?.checks?.governancePolicyEnforcedAtRuntime === true,
       reasoningMethodologyEnforcedAtRuntime:
         nativeLanguageArchitecture?.checks?.reasoningMethodologyEnforcedAtRuntime === true,
+      advancedHostedArabicFoundationStatus:
+        nativeLanguageArchitecture?.advancedHostedArabicFoundation?.status || 'UNKNOWN',
+      advancedHostedArabicFoundationScore:
+        nativeLanguageArchitecture?.advancedHostedArabicFoundation?.score || 0,
+      hostedArabicLanguageJavaScriptFiles:
+        nativeLanguageArchitecture?.hostedArabicLanguageInventory
+          ?.javascriptImplementationFiles || 0,
+      hostedArabicLanguageExecutableSourceLines:
+        nativeLanguageArchitecture?.hostedArabicLanguageInventory
+          ?.executableSourceLines || 0,
       foundationScore: nativeLanguageArchitecture?.foundationScore || 0,
       sheikhaImplementationSourceFiles:
         nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0,

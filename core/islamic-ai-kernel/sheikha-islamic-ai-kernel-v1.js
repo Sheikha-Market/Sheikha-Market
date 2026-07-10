@@ -73,7 +73,9 @@ function buildIslamicAIKernel(input = {}) {
     integration: {
       sheikhaLanguage: true,
       sheikhaLanguageMode:
-        'FORMAL_ARABIC_VALUES_REFERENCE_AND_GOVERNANCE_POLICY_FOUNDATION',
+        'ADVANCED_HOSTED_ARABIC_FOUNDATION_WITH_FORMAL_GOVERNANCE',
+      priorAdvancedHostedArabicFoundation: true,
+      priorAdvancedHostedCompilerRuntimeVm: true,
       sheikhaLanguageGovernanceDeclarations: [
         'مرجعية',
         'سياسة',
@@ -96,6 +98,7 @@ function buildIslamicAIKernel(input = {}) {
       formalNonExecutableValuesReference: true,
       formalRuntimeGovernancePolicy: true,
       formalArabicScienceReasoningMethodology: true,
+      advancedHostedArabicImplementationRecognized: true,
       currentPortalRuntime: 'NODE_JS_EXPRESS_PM2',
       compilerBootstrapRuntime: 'Node.js',
       bareMetalSeedLanguage: 'C',

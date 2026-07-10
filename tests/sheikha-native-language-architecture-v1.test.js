@@ -115,12 +115,20 @@ describe('Sheikha Native Language Architecture V1', () => {
       valuesReferenceRegisteredAsNonExecutable: true,
       governancePolicyEnforcedAtRuntime: true,
       formalArabicScienceReasoningMethodologyPresent: true,
-      reasoningMethodologyEnforcedAtRuntime: true
+      reasoningMethodologyEnforcedAtRuntime: true,
+      priorAdvancedHostedArabicFoundationDiscovered: true,
+      priorAdvancedHostedArabicFoundationExecuted: true
     });
     expect(report.source.valuesReferences).toContain('القيم_العليا');
     expect(report.source.governancePolicies).toContain('الخير_والنفع_العام');
     expect(report.source.reasoningMethodologies)
       .toContain('العربية_والعلوم_والاستدلال');
+    expect(report.advancedHostedArabicFoundation).toMatchObject({
+      status: 'ADVANCED_HOSTED_ARABIC_FOUNDATION_VERIFIED',
+      score: 100
+    });
+    expect(report.hostedArabicLanguageInventory.javascriptImplementationFiles)
+      .toBeGreaterThanOrEqual(60);
     expect(report.currentImplementationBoundary).toMatchObject({
       compilerRequiresNodeToday: true,
       linuxRequiredForPortalRuntimeToday: true,
@@ -151,6 +159,8 @@ describe('Sheikha Native Language Architecture V1', () => {
     expect(stages.find((stage) => stage.id === 'SLA-06').status).toBe('NOT_IMPLEMENTED');
     expect(stages.find((stage) => stage.id === 'SLA-01B').status).toBe('VERIFIED');
     expect(stages.find((stage) => stage.id === 'SLA-01C').status).toBe('VERIFIED');
+    expect(stages.find((stage) => stage.id === 'SLA-04A').status)
+      .toBe('VERIFIED_NODE_HOSTED');
     expect(packageJson.scripts['ops:sheikha:language-architecture:v1'])
       .toBe('node tools/activation/activate-sheikha-native-language-architecture-v1.js');
     expect(route).toContain("router.get('/sheikha-language-architecture'");

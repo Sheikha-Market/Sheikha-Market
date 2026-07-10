@@ -10,6 +10,25 @@ const { compileIRToBytecode } = require('../../sheikha-language/compiler/bytecod
 const { runBytecode } = require('../../sheikha-language/compiler/bytecode-vm');
 const { listTargets } = require('../../sheikha-language/compiler/target-generators');
 const { buildIslamicAIKernel } = require('../../core/islamic-ai-kernel/sheikha-islamic-ai-kernel-v1');
+const {
+  compileArabicProgram
+} = require('../../core/language/sheikha-arabic/compiler/compile-arabic-program');
+const {
+  evaluateSimpleArabicMath
+} = require('../../core/language/sheikha-arabic/math/arabic-math-evaluator');
+const {
+  normalizeArabicNumbers,
+  parseArabicNumber
+} = require('../../core/language/sheikha-arabic/math/arabic-number-system');
+const {
+  runArabicProgram
+} = require('../../core/language/sheikha-arabic/vm/run-arabic-program');
+const {
+  runArabicV2
+} = require('../../core/language/sheikha-arabic/vm/v2/run-arabic-v2');
+const {
+  SheikhaLanguageStack
+} = require('../../runtime/sheikha-language-stack/sheikha-language-stack');
 
 const ROOT = process.cwd();
 const SOURCE_PATH = 'sheikha-language/system/sheikha-sovereign-architecture-v1.shk';
@@ -37,6 +56,29 @@ const SKIP_DIRECTORY_NAMES = new Set([
   'coverage', 'dist', 'exports', 'node_modules', 'release', 'releases', 'reports',
   'sheikha-main-portal-restored', 'venv'
 ]);
+const HOSTED_ARABIC_LANGUAGE_PREFIXES = [
+  'core/language/arabic/',
+  'core/language/sheikha-arabic-runtime/',
+  'core/language/sheikha-arabic/',
+  'runtime/arabic-compiler-fabric/',
+  'runtime/arabic-language-cluster-fabric/',
+  'runtime/arabic-package-manager-fabric/',
+  'runtime/arabic-runtime-fabric/',
+  'runtime/arabic-standard-library-fabric/',
+  'runtime/arabic-type-system-fabric/',
+  'runtime/sheikha-language-production/',
+  'runtime/sheikha-language-stack/',
+  'runtime/sheikha-production-language/',
+  'runtime/sheikha-programming-language-universal/'
+];
+const ARABIC_FABRIC_MODULES = [
+  ['V91', '../../runtime/arabic-language-cluster-fabric/v91/sheikha-arabic-language-cluster-fabric-v91'],
+  ['V92', '../../runtime/arabic-compiler-fabric/v92/sheikha-arabic-compiler-fabric-v92'],
+  ['V93', '../../runtime/arabic-type-system-fabric/v93/sheikha-arabic-type-system-fabric-v93'],
+  ['V94', '../../runtime/arabic-standard-library-fabric/v94/sheikha-arabic-standard-library-fabric-v94'],
+  ['V95', '../../runtime/arabic-runtime-fabric/v95/sheikha-arabic-runtime-fabric-v95'],
+  ['V96', '../../runtime/arabic-package-manager-fabric/v96/sheikha-arabic-package-manager-fabric-v96']
+];
 
 function resolve(relativePath) {
   return path.join(ROOT, relativePath);
@@ -149,6 +191,117 @@ function buildSourceInventory(files = repositoryFiles()) {
   };
 }
 
+function buildHostedArabicLanguageInventory(files = repositoryFiles()) {
+  const componentFiles = files.filter((filePath) => (
+    HOSTED_ARABIC_LANGUAGE_PREFIXES.some((prefix) => filePath.startsWith(prefix))
+  ));
+  const javascriptFiles = componentFiles.filter((filePath) => path.extname(filePath) === '.js');
+  const jsonFiles = componentFiles.filter((filePath) => path.extname(filePath) === '.json');
+  const executableSourceLines = javascriptFiles
+    .reduce((total, filePath) => total + countLines(filePath), 0);
+
+  return {
+    classification: 'ADVANCED_HOSTED_ARABIC_LANGUAGE_IMPLEMENTATION',
+    hostRuntime: 'Node.js',
+    componentFiles: componentFiles.length,
+    javascriptImplementationFiles: javascriptFiles.length,
+    jsonContractAndRegistryFiles: jsonFiles.length,
+    executableSourceLines,
+    componentRoots: HOSTED_ARABIC_LANGUAGE_PREFIXES,
+    files: componentFiles
+  };
+}
+
+function verifyAdvancedHostedArabicFoundation() {
+  const accountingInput =
+    'حوّل المورد مبلغًا من حساب_المشتري إلى حساب_سوق_شيخة';
+
+  try {
+    const compiler = compileArabicProgram(accountingInput);
+    const vmV1 = runArabicProgram(accountingInput);
+    const vmV2 = runArabicV2(accountingInput);
+    const math = evaluateSimpleArabicMath('٢ زائد ٣');
+    const languageStack = new SheikhaLanguageStack().compile(
+      'نظام:\n"إدارة البيانات"\nمصدر:\njson',
+      'json'
+    );
+    const fabricStatuses = Object.fromEntries(ARABIC_FABRIC_MODULES.map(([version, modulePath]) => {
+      const moduleStatus = require(modulePath).status();
+      return [version, {
+        system: moduleStatus.system,
+        status: moduleStatus.status,
+        apexLevel: moduleStatus.apexLevel
+      }];
+    }));
+
+    const checks = {
+      arabicProgramCompiled: compiler.status === 'PROGRAM_COMPILED' &&
+        compiler.accounting?.ir?.decision === 'IR_READY_FOR_EXECUTION',
+      arabicAstGenerated: compiler.accounting?.ast?.type === 'SheikhaArabicProgram',
+      arabicIrGenerated: compiler.accounting?.ir?.type === 'SheikhaArabicIR',
+      arabicVmV1Executed: vmV1.result?.status === 'EXECUTED' &&
+        vmV1.result?.state?.ledgerEntries?.length === 1,
+      arabicVmV2Executed: vmV2.program?.status === 'BYTECODE_READY' &&
+        vmV2.result?.status === 'EXECUTED' &&
+        vmV2.result?.ledger?.length === 1,
+      arabicMathEvaluated: math.status === 'EVALUATED' && math.result === 5,
+      arabicNumberNormalizationVerified:
+        normalizeArabicNumbers('١۲3') === '123' && parseArabicNumber('١۲3') === 123,
+      languageStackCompiled: languageStack.status === 'COMPILED' &&
+        languageStack.semantic?.status === 'SEMANTICALLY_VALID' &&
+        languageStack.code?.status === 'CODE_GENERATED',
+      fabricsV91ToV96Active: Object.values(fabricStatuses).every((entry) => (
+        entry.status === 'ACTIVE'
+      ))
+    };
+    const passed = Object.values(checks).filter(Boolean).length;
+    const score = Math.round((passed / Object.keys(checks).length) * 100);
+
+    return {
+      system: 'SHEIKHA_ADVANCED_HOSTED_ARABIC_FOUNDATION_V1',
+      status: score === 100
+        ? 'ADVANCED_HOSTED_ARABIC_FOUNDATION_VERIFIED'
+        : 'ADVANCED_HOSTED_ARABIC_FOUNDATION_REVIEW_REQUIRED',
+      score,
+      checks,
+      fabricStatuses,
+      evidence: {
+        accountingInput,
+        compilerStatus: compiler.status,
+        astType: compiler.accounting?.ast?.type || null,
+        irType: compiler.accounting?.ir?.type || null,
+        vmV1Status: vmV1.result?.status || null,
+        vmV1LedgerEntries: vmV1.result?.state?.ledgerEntries?.length || 0,
+        vmV2BytecodeStatus: vmV2.program?.status || null,
+        vmV2Status: vmV2.result?.status || null,
+        vmV2LedgerEntries: vmV2.result?.ledger?.length || 0,
+        mathInput: math.input,
+        mathResult: math.result,
+        languageStackStatus: languageStack.status
+      },
+      boundary: {
+        advancedHostedImplementationExists: true,
+        hostRuntime: 'Node.js',
+        selfHostedCompilerProven: false,
+        nativeMachineCodeBackendProven: false,
+        generalPurposeNativeOperatingSystemProven: false
+      }
+    };
+  } catch (error) {
+    return {
+      system: 'SHEIKHA_ADVANCED_HOSTED_ARABIC_FOUNDATION_V1',
+      status: 'ADVANCED_HOSTED_ARABIC_FOUNDATION_EXECUTION_FAILED',
+      score: 0,
+      checks: {},
+      error: String(error?.stack || error?.message || error),
+      boundary: {
+        advancedHostedImplementationExists: true,
+        executionVerified: false
+      }
+    };
+  }
+}
+
 function buildMigrationStages(targets) {
   const nativeTargetAvailable = targets.some((target) => (
     ['elf', 'native', 'uefi', 'wasm'].includes(target)
@@ -168,6 +321,11 @@ function buildMigrationStages(targets) {
     { id: 'SLA-02', stage: 'lexer_parser_types_ir_bytecode', status: 'VERIFIED_NODE_BOOTSTRAPPED' },
     { id: 'SLA-03', stage: 'governed_compiled_vm', status: 'VERIFIED_NODE_BOOTSTRAPPED' },
     { id: 'SLA-04', stage: 'semantic_manifest_language_adapters', status: 'VERIFIED_HOST_BRIDGE' },
+    {
+      id: 'SLA-04A',
+      stage: 'advanced_hosted_arabic_compiler_runtime_vm_math_and_v91_v96_fabrics',
+      status: 'VERIFIED_NODE_HOSTED'
+    },
     { id: 'SLA-05', stage: 'self_hosted_sheikha_compiler', status: 'NOT_IMPLEMENTED' },
     {
       id: 'SLA-06',
@@ -189,7 +347,12 @@ function buildReport() {
   const ir = lowerToIR(ast);
   const bytecode = compileIRToBytecode(ir);
   const vm = runBytecode(bytecode, { profile: 'local', strictIsolation: true });
-  const inventory = buildSourceInventory();
+  const repositoryInventoryFiles = repositoryFiles();
+  const inventory = buildSourceInventory(repositoryInventoryFiles);
+  const hostedArabicLanguageInventory = buildHostedArabicLanguageInventory(
+    repositoryInventoryFiles
+  );
+  const advancedHostedArabicFoundation = verifyAdvancedHostedArabicFoundation();
   const targets = listTargets();
   const migrationStages = buildMigrationStages(targets);
   const islamicAiKernel = buildIslamicAIKernel();
@@ -248,7 +411,14 @@ function buildReport() {
     ].every(exists),
     publicBenefitBoundaryLinked: exists(
       'runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json'
-    )
+    ),
+    priorAdvancedHostedArabicFoundationDiscovered:
+      hostedArabicLanguageInventory.javascriptImplementationFiles >= 60 &&
+      hostedArabicLanguageInventory.executableSourceLines >= 2500,
+    priorAdvancedHostedArabicFoundationExecuted:
+      advancedHostedArabicFoundation.status ===
+        'ADVANCED_HOSTED_ARABIC_FOUNDATION_VERIFIED' &&
+      advancedHostedArabicFoundation.score === 100
   };
   const passedChecks = Object.values(checks).filter(Boolean).length;
 
@@ -287,11 +457,16 @@ function buildReport() {
       reasoningMethodologies: reasoningMethodologyNames.length
     },
     sourceInventory: inventory,
+    hostedArabicLanguageInventory,
+    advancedHostedArabicFoundation,
     currentImplementationBoundary: {
       valuesReference: 'QURAN_AND_AUTHENTIC_SUNNAH_VALUES_NON_EXECUTABLE_REFERENCE',
       valuesReferenceIsFirstClassLanguageDeclaration: true,
       governancePolicyIsFirstClassLanguageDeclaration: true,
       reasoningMethodologyIsFirstClassLanguageDeclaration: true,
+      priorAdvancedHostedArabicFoundationRecognized: true,
+      priorAdvancedHostedCompilerRuntimeVmVerified:
+        advancedHostedArabicFoundation.score === 100,
       softwareIsReligiousAuthority: false,
       aiRole: 'GOVERNED_ANALYSIS_AND_ASSISTANCE_ONLY',
       automatedFatwaAllowed: false,
@@ -392,6 +567,12 @@ if (require.main === module) {
     compilerSelfHosted: report.compiler.selfHosted,
     nativeTargetAvailable: report.compiler.nativeTargetAvailable,
     fullNativeMigrationComplete: report.completionGate.nativeMigrationComplete,
+    advancedHostedArabicFoundationStatus:
+      report.advancedHostedArabicFoundation.status,
+    advancedHostedArabicFoundationScore:
+      report.advancedHostedArabicFoundation.score,
+    hostedArabicLanguageJavaScriptFiles:
+      report.hostedArabicLanguageInventory.javascriptImplementationFiles,
     output: REPORT_PATH
   }, null, 2));
 }
@@ -399,7 +580,9 @@ if (require.main === module) {
 module.exports = {
   buildMigrationStages,
   buildReport,
+  buildHostedArabicLanguageInventory,
   buildSourceInventory,
   repositoryFiles,
+  verifyAdvancedHostedArabicFoundation,
   writeReport
 };
