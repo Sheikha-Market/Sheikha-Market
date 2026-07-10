@@ -93,6 +93,8 @@ describe('Sheikha Language Integration V1', () => {
       decision: 'SHEIKHA_HOSTED_PRODUCTION_VERIFIED_WITH_GOVERNED_AI',
       production: {
         hostedLanguageSubsystemReady: true,
+        universalProductionProgramStarted: true,
+        hostedFoundationWave1Admitted: true,
         allSystemsProgrammedInSheikha: false,
         fullNativeProductionReady: false,
         automaticMigrationOrExecution: false
@@ -110,6 +112,28 @@ describe('Sheikha Language Integration V1', () => {
         completionClaimAllowed: false
       }
     });
+    expect(report.universalProductionProgram).toMatchObject({
+      status: 'STARTED_WITH_VERIFIED_HOSTED_FOUNDATION_WAVE_1',
+      declaredPurposeIsMachineVerifiableIntention: false,
+      scope: 'ALL_CATALOGED_APPROVED_SHEIKHA_SYSTEMS',
+      unboundedOrAbsoluteExecutionAllowed: false,
+      automaticGlobalCutoverAllowed: false,
+      wave1: {
+        status: 'HOSTED_PRODUCTION_ADMISSION_PASSED',
+        totalSystems: 7,
+        admittedSystems: 7,
+        rejectedOrReviewSystems: 0
+      },
+      universalCompletion: {
+        allCatalogedSystemsMigrated: false,
+        fullNativeCutoverComplete: false,
+        completionClaimAllowed: false
+      }
+    });
+    expect(report.universalProductionProgram.wave1.systems.every((system) => (
+      system.admitted && system.checks.sourcePresent &&
+      system.checks.testsPresent && system.checks.evidencePresent
+    ))).toBe(true);
     expect(Object.values(report.checks.execution).every(Boolean)).toBe(true);
     expect(Object.values(report.checks.governance).every(Boolean)).toBe(true);
     expect(report.systemMigration.catalogedImplementationSourceFiles).toBeGreaterThan(1000);

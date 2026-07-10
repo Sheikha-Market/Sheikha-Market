@@ -1546,6 +1546,8 @@ function buildReport() {
         'HOSTED_PRODUCTION_GATE_PASSED_NATIVE_SYSTEM_MIGRATION_REQUIRED' &&
       sheikhaLanguageProduction?.hostedProductionScore === 100 &&
       sheikhaLanguageProduction?.production?.hostedLanguageSubsystemReady === true &&
+      sheikhaLanguageProduction?.production?.universalProductionProgramStarted === true &&
+      sheikhaLanguageProduction?.production?.hostedFoundationWave1Admitted === true &&
       sheikhaLanguageProduction?.production?.allSystemsProgrammedInSheikha === false &&
       sheikhaLanguageProduction?.production?.fullNativeProductionReady === false &&
       sheikhaLanguageProduction?.governance?.valuesReferenceExecutable === false &&
@@ -1937,6 +1939,15 @@ function buildReport() {
         sheikhaLanguageProduction?.production?.allSystemsProgrammedInSheikha === true,
       systemMigrationComplete:
         sheikhaLanguageProduction?.systemMigration?.migrationComplete === true,
+      universalProductionProgramStatus:
+        sheikhaLanguageProduction?.universalProductionProgram?.status || 'NOT_STARTED',
+      wave1AdmittedSystems:
+        sheikhaLanguageProduction?.universalProductionProgram?.wave1?.admittedSystems || 0,
+      wave1TotalSystems:
+        sheikhaLanguageProduction?.universalProductionProgram?.wave1?.totalSystems || 0,
+      unboundedOrAbsoluteExecutionAllowed:
+        sheikhaLanguageProduction?.universalProductionProgram
+          ?.unboundedOrAbsoluteExecutionAllowed === true,
       systemMigrationBlockers:
         sheikhaLanguageProduction?.systemMigration?.blockers || []
     },

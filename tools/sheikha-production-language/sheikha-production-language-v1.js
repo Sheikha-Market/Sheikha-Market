@@ -40,6 +40,54 @@ const REQUIRED_ASSETS = {
     'runtime/resource-source-registry/v1/sheikha-resource-source-registry-v1-report.json',
   driftDetector: 'tools/drift/sheikha-runtime-drift-detector.js'
 };
+const UNIVERSAL_PRODUCTION_WAVE_1 = [
+  {
+    id: 'SHEIKHA_LANGUAGE_CORE',
+    source: 'sheikha-language/system/sheikha-sovereign-architecture-v1.shk',
+    tests: ['tests/sheikha-native-language-architecture-v1.test.js'],
+    evidence:
+      'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json'
+  },
+  {
+    id: 'SHEIKHA_ADVANCED_ARABIC_COMPILER_RUNTIME',
+    source: 'core/language/sheikha-arabic/compiler/compile-arabic-program.js',
+    tests: ['tests/sheikha-language-integration-v1.test.js'],
+    evidence:
+      'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json'
+  },
+  {
+    id: 'SHEIKHA_GOVERNED_AI_KERNEL',
+    source: 'core/islamic-ai-kernel/sheikha-islamic-ai-kernel-v1.js',
+    tests: ['tests/sheikha-islamic-ai-kernel-v1.test.js'],
+    evidence: 'runtime/islamic-ai-kernel/v1/sheikha-islamic-ai-kernel-v1-report.json'
+  },
+  {
+    id: 'SHEIKHA_GOVERNANCE_GENERATOR',
+    source: 'runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1.js',
+    tests: ['tests/governance-generator-v1.test.js'],
+    evidence: 'runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json'
+  },
+  {
+    id: 'SHEIKHA_API_SDK',
+    source: 'sdk/sheikha-api/index.js',
+    tests: ['tests/sdk-fabric-mcp-integration-v1.test.js'],
+    evidence:
+      'runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.json'
+  },
+  {
+    id: 'SHEIKHA_UNIFIED_CHAT',
+    source: 'routes/sheikha-unified-chat-fabric.js',
+    tests: ['tests/governance-generator-v1.test.js'],
+    evidence:
+      'runtime/streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1-report.json'
+  },
+  {
+    id: 'SHEIKHA_RUNTIME_HEALTH',
+    source: 'core/runtime-health/sheikha-runtime-health-engine-v1.js',
+    tests: ['tests/sheikha-runtime-health-engine-v1.test.js'],
+    evidence: 'runtime/runtime-health-aggregator/sheikha-runtime-health-aggregator.json'
+  }
+];
 
 function exists(relativePath) {
   return fs.existsSync(path.join(ROOT, relativePath));
@@ -49,6 +97,67 @@ function buildAssetChecks() {
   return Object.fromEntries(
     Object.entries(REQUIRED_ASSETS).map(([name, relativePath]) => [name, exists(relativePath)])
   );
+}
+
+function buildUniversalProductionProgram(hostedProductionGatePassed) {
+  const systems = UNIVERSAL_PRODUCTION_WAVE_1.map((system) => {
+    const checks = {
+      sourcePresent: exists(system.source),
+      testsPresent: system.tests.every(exists),
+      evidencePresent: exists(system.evidence),
+      hostedProductionGatePassed
+    };
+    const admitted = Object.values(checks).every(Boolean);
+
+    return {
+      ...system,
+      checks,
+      status: admitted
+        ? 'ADMITTED_TO_HOSTED_PRODUCTION_WAVE_1'
+        : 'PRODUCTION_ADMISSION_REVIEW_REQUIRED',
+      admitted,
+      executionMode: 'HOSTED_INTEGRATED_PRODUCTION',
+      automaticExternalAction: false,
+      nativeSheikhaPortComplete: false
+    };
+  });
+  const admittedSystems = systems.filter((system) => system.admitted).length;
+  const wavePassed = admittedSystems === systems.length;
+
+  return {
+    system: 'SHEIKHA_UNIVERSAL_GOVERNED_PRODUCTION_PROGRAM_V1',
+    status: wavePassed
+      ? 'STARTED_WITH_VERIFIED_HOSTED_FOUNDATION_WAVE_1'
+      : 'STARTED_WITH_WAVE_1_ADMISSION_REVIEW',
+    declaredPurpose: 'الخير والنفع لله وحده',
+    declaredPurposeIsMachineVerifiableIntention: false,
+    scope: 'ALL_CATALOGED_APPROVED_SHEIKHA_SYSTEMS',
+    unboundedOrAbsoluteExecutionAllowed: false,
+    automaticGlobalCutoverAllowed: false,
+    wave1: {
+      status: wavePassed ? 'HOSTED_PRODUCTION_ADMISSION_PASSED' : 'REVIEW_REQUIRED',
+      systems,
+      totalSystems: systems.length,
+      admittedSystems,
+      rejectedOrReviewSystems: systems.length - admittedSystems
+    },
+    nextWaves: [
+      'IDENTITY_SECURITY_TRUTH_RECOVERY',
+      'MARKET_COMMERCE_SUPPLY_CHAIN',
+      'KNOWLEDGE_COMMUNITY_ENTERPRISE',
+      'CLOUD_HPC_DATA_ANALYTICS',
+      'APPLICATIONS_INTERFACES_PACKAGES',
+      'NATIVE_KERNEL_DRIVERS_HAL'
+    ],
+    universalCompletion: {
+      allCatalogedSystemsMigrated: false,
+      allSystemsBehavioralParityVerified: false,
+      allSystemsSecurityRecoveryVerified: false,
+      allSystemsPerformanceQualified: false,
+      fullNativeCutoverComplete: false,
+      completionClaimAllowed: false
+    }
+  };
 }
 
 function buildProductionReport() {
@@ -114,6 +223,9 @@ function buildProductionReport() {
   const total = Object.keys(gateChecks).length;
   const hostedProductionScore = total ? Math.round((passed / total) * 100) : 0;
   const hostedProductionGatePassed = hostedProductionScore === 100;
+  const universalProductionProgram = buildUniversalProductionProgram(
+    hostedProductionGatePassed
+  );
   const missingAssets = Object.entries(assetChecks)
     .filter(([, present]) => !present)
     .map(([name]) => name);
@@ -172,6 +284,10 @@ function buildProductionReport() {
     },
     production: {
       hostedLanguageSubsystemReady: hostedProductionGatePassed,
+      universalProductionProgramStarted:
+        universalProductionProgram.status.startsWith('STARTED_WITH_'),
+      hostedFoundationWave1Admitted:
+        universalProductionProgram.wave1.status === 'HOSTED_PRODUCTION_ADMISSION_PASSED',
       allSystemsProgrammedInSheikha: false,
       fullNativeProductionReady: false,
       automaticMigrationOrExecution: false,
@@ -205,6 +321,7 @@ function buildProductionReport() {
         'audited_release_evidence'
       ]
     },
+    universalProductionProgram,
     cycle: [
       'ARABIC_SHEIKHA_SOURCE',
       'FORMAL_VALUES_AND_GOVERNANCE_TYPE_CHECK',
@@ -268,6 +385,9 @@ if (require.main === module) {
     status: report.status,
     hostedProductionScore: report.hostedProductionScore,
     hostedLanguageSubsystemReady: report.production.hostedLanguageSubsystemReady,
+    universalProductionProgram: report.universalProductionProgram.status,
+    wave1AdmittedSystems: report.universalProductionProgram.wave1.admittedSystems,
+    wave1TotalSystems: report.universalProductionProgram.wave1.totalSystems,
     advancedHostedArabicFoundation:
       report.integration.advancedHostedArabicFoundation,
     fullNativeProductionReady: report.production.fullNativeProductionReady,
@@ -279,5 +399,6 @@ if (require.main === module) {
 module.exports = {
   buildAssetChecks,
   buildProductionReport,
+  buildUniversalProductionProgram,
   writeReport
 };
