@@ -51,6 +51,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.universalDistributionIntegrated).toBe(true);
     expect(report.checks.universalDistributionApexIntegrated).toBe(true);
     expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(true);
+    expect(report.checks.universalBenefitBoundaryIntegrated).toBe(true);
     expect(report.checks.nativeLanguageArchitectureIntegrated).toBe(true);
     expect(report.checks.sheikhaLanguageHostedProductionIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
@@ -93,6 +94,13 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.publicBenefitRegisteredCapabilities)
       .toBe(report.summary.discoveredComponents);
     expect(report.executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators.universalBenefitBoundaryActive).toBe(true);
+    expect(report.executiveDashboard.indicators.universalBenefitCapabilities).toBe(16);
+    expect(report.executiveDashboard.indicators.universalBenefitBoundaries).toBe(18);
+    expect(report.executiveDashboard.indicators.universalBenefitSafeAlternatives)
+      .toBeGreaterThan(0);
+    expect(report.executiveDashboard.indicators.universalBenefitPermissionEscalationAllowed)
       .toBe(false);
     expect(report.executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive)
       .toBe(true);
@@ -160,6 +168,23 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       decisionGrantsAuthorization: false,
       automatedFatwaAllowed: false,
       humanFinalDecision: true
+    });
+    expect(report.universalBenefitBoundary).toMatchObject({
+      active: true,
+      status: 'VERIFIED_ACTIVE',
+      score: 100,
+      capabilitiesRegistered: 16,
+      boundariesRegistered: 18,
+      benefitDomainsRegistered: 16,
+      architectureComponentsRegistered: 18,
+      allowedDecisions: 1,
+      reviewDecisions: 1,
+      sandboxDecisions: 1,
+      deniedDecisions: 1,
+      religiousRulingsAutomated: false,
+      safetyBypassAllowed: false,
+      permissionEscalationAllowed: false,
+      humanFinalResponsibility: true
     });
     expect(report.nativeLanguageArchitecture).toMatchObject({
       active: true,

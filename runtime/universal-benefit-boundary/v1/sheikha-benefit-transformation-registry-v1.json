@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_BENEFIT_TRANSFORMATION_REGISTRY_V1",
+  "status": "ACTIVE",
+  "policy": "BOUNDARIES_BECOME_SAFETY_GATES_OR_SAFE_ALTERNATIVES_NEVER_BYPASSES",
+  "transformations": [
+    { "boundaryType": "RELIGIOUS_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["NO_AUTOMATED_FATWA", "QUALIFIED_SCHOLAR_REVIEW"], "safeAlternative": { "type": "HUMAN_HANDOFF", "action": "اعرض السياق والمصادر على أهل العلم المؤهلين دون فتوى آلية." } },
+    { "boundaryType": "HUMAN_AUTHORITY_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["ACCOUNTABLE_HUMAN_DECISION"], "safeAlternative": { "type": "APPROVAL_REQUEST", "action": "أنشئ طلب قرار واضحًا للإنسان المسؤول." } },
+    { "boundaryType": "LEGAL_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["JURISDICTION_CHECK", "QUALIFIED_LEGAL_REVIEW"], "safeAlternative": { "type": "HUMAN_HANDOFF", "action": "أنتج ملخص وقائع غير ملزم للمراجعة القانونية المختصة." } },
+    { "boundaryType": "PERMISSION_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["EXPLICIT_PERMISSION", "LEAST_PRIVILEGE"], "safeAlternative": { "type": "APPROVAL_REQUEST", "action": "أنشئ طلب موافقة محدد النطاق والمدة والمالك." } },
+    { "boundaryType": "SAFETY_BOUNDARY", "atBoundaryDecision": "SANDBOX", "controls": ["STOP_HARM", "SIMULATION", "ROLLBACK"], "safeAlternative": { "type": "SAFE_SIMULATION", "action": "حوّل العمل إلى محاكاة أو قراءة فقط مع خطة تعافٍ." } },
+    { "boundaryType": "SECURITY_BOUNDARY", "atBoundaryDecision": "SANDBOX", "controls": ["DEFENSE_ONLY", "AUTHORIZED_SCOPE_ONLY", "PRESERVE_EVIDENCE"], "safeAlternative": { "type": "DEFENSIVE_GUIDANCE", "action": "قدّم تقوية وكشفًا وإصلاحًا دفاعيًا داخل نطاق مأذون." } },
+    { "boundaryType": "PRIVACY_BOUNDARY", "atBoundaryDecision": "SANDBOX", "controls": ["DATA_MINIMIZATION", "ANONYMIZATION", "RETENTION_LIMIT"], "safeAlternative": { "type": "PRIVACY_PRESERVING_MODE", "action": "استخدم بيانات مصغرة أو مجهولة ومحلية مع مدة احتفاظ معلنة." } },
+    { "boundaryType": "EVIDENCE_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["UNKNOWN_UNTIL_VERIFIED", "TRACEABLE_EVIDENCE"], "safeAlternative": { "type": "EVIDENCE_PLAN", "action": "أعلن UNKNOWN وأنشئ خطة جمع أدلة قابلة للتحقق." } },
+    { "boundaryType": "KNOWLEDGE_UNCERTAINTY_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["NO_GUESSING", "SCENARIO_LABELS"], "safeAlternative": { "type": "SCENARIO_ANALYSIS", "action": "قدّم سيناريوهات وافتراضات واضحة بدل حقيقة غير معلومة." } },
+    { "boundaryType": "HARDWARE_BOUNDARY", "atBoundaryDecision": "SANDBOX", "controls": ["EMULATION", "COMPATIBILITY_ADAPTER", "NO_NATIVE_CLAIM"], "safeAlternative": { "type": "EMULATION", "action": "استخدم محاكاة أو staging دون ادعاء دعم أصلي." } },
+    { "boundaryType": "SOFTWARE_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["REQUIREMENTS_REPORT", "NO_MISSING_TOOL_CLAIM"], "safeAlternative": { "type": "REQUIREMENTS_REPORT", "action": "أنشئ تقرير متطلبات وخطة بديلة قابلة للتنفيذ لاحقًا." } },
+    { "boundaryType": "NETWORK_BOUNDARY", "atBoundaryDecision": "SANDBOX", "controls": ["LOCAL_FIRST", "OFFLINE_MODE", "DEFER_SYNC"], "safeAlternative": { "type": "OFFLINE_MODE", "action": "نفّذ محليًا وأجّل المزامنة الخارجية حتى توفر اتصال مأذون." } },
+    { "boundaryType": "RESOURCE_AND_COST_BOUNDARY", "atBoundaryDecision": "SANDBOX", "controls": ["BUDGET_GATE", "RESOURCE_OPTIMIZER", "SMALL_PROBE"], "safeAlternative": { "type": "LOW_COST_PLAN", "action": "صغّر النطاق وحسّن الموارد واعرض تقدير التكلفة للموافقة." } },
+    { "boundaryType": "ENVIRONMENTAL_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["LIFECYCLE_MEASUREMENT", "WASTE_REDUCTION"], "safeAlternative": { "type": "IMPACT_MEASUREMENT_PLAN", "action": "أنشئ خط أساس وقياس دورة حياة قبل ادعاء المنفعة البيئية." } },
+    { "boundaryType": "ACCESSIBILITY_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["ARABIC", "RTL", "TEXT", "VOICE", "CLI", "API", "SIMPLIFIED_UI"], "safeAlternative": { "type": "ACCESSIBLE_FORMAT", "action": "قدّم صيغة عربية نصية أو صوتية أو CLI/API أو واجهة مبسطة." } },
+    { "boundaryType": "JURISDICTION_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["LOCALITY_CHECK", "COMPETENT_AUTHORITY_REVIEW"], "safeAlternative": { "type": "JURISDICTIONAL_HANDOFF", "action": "حدد الولاية المطلوبة وأحل القرار إلى صاحب الاختصاص." } },
+    { "boundaryType": "PHYSICAL_WORLD_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["HUMAN_ON_SITE", "SAFETY_PLAN", "EXPLICIT_AUTHORIZATION"], "safeAlternative": { "type": "DIGITAL_TWIN", "action": "استخدم توأمًا رقميًا أو محاكاة قبل أي عمل مادي." } },
+    { "boundaryType": "HIGH_IMPACT_DECISION_BOUNDARY", "atBoundaryDecision": "REVIEW", "controls": ["HUMAN_APPROVAL", "QUALIFIED_DOMAIN_REVIEW", "APPEAL_PATH"], "safeAlternative": { "type": "DECISION_SUPPORT_ONLY", "action": "اعرض خيارات وأدلة ومخاطر مع إبقاء القرار النهائي للإنسان." } }
+  ],
+  "governance": {
+    "transformationsGrantAuthorization": false,
+    "safeAlternativesExecuteExternalActions": false,
+    "beyondBoundaryAlwaysDenied": true,
+    "humanFinalResponsibility": true
+  }
+}
