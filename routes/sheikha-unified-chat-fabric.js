@@ -46,10 +46,30 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       enterpriseInspector: '/api/sheikha/enterprise-inspector/v3/status'
     },
     intelligenceModes: {
-      runtime: ['smart', 'generative', 'rag', 'agentic', 'multi-agent', 'mcp', 'sdk', 'cli', 'graphics'],
+      runtime: [
+        'smart',
+        'standard',
+        'pro',
+        'ultra',
+        'generative',
+        'rag',
+        'agentic',
+        'multi-agent',
+        'mcp',
+        'sdk',
+        'cli',
+        'graphics'
+      ],
       researchOnly: ['agi-research', 'asi-research'],
       actualAgiReached: false,
       actualAsiReached: false
+    },
+    reasoningProfiles: {
+      standard: 'bounded direct reasoning and relevant adjacent discovery',
+      pro: 'four-lens evidence architecture serendipity and risk review',
+      ultra: 'four governed role slots with human-owned final decision',
+      safetyFilterEvasionAllowed: false,
+      actualIndependentModelProcessesClaimed: false
     },
     requiredPath: [
       'StreamingMultilingualChatApex',

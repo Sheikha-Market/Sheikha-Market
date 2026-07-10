@@ -1,23 +1,23 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T11:17:01.752Z",
+  "generatedAt": "2026-07-10T12:25:52.366Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7114,
-  "apiEndpoints": 2687,
-  "packageScripts": 645,
+  "componentCount": 7119,
+  "apiEndpoints": 2689,
+  "packageScripts": 646,
   "lifecycleSummary": {
-    "active": 829,
-    "needsLinking": 1173,
-    "needsDevelopment": 4978,
+    "active": 831,
+    "needsLinking": 1174,
+    "needsDevelopment": 4980,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 829,
-    "linkedRequired": 1173,
+    "measured": 831,
+    "linkedRequired": 1174,
     "discovered": 3898,
-    "documented": 787
+    "documented": 788
   },
   "components": [
     {
@@ -101548,6 +101548,68 @@
       }
     },
     {
+      "id": "computing-cognitive-layers-9451a2f35bfa",
+      "name": "SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1",
+      "version": "v1",
+      "path": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
+      "type": "documentation",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-computing-cognitive-layers-v1.test.js"
+      ],
+      "reports": [
+        "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md"
+      },
+      "maturity": "documented",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md"
+      }
+    },
+    {
       "id": "cosmic-production-fabric-4b879328b8fc",
       "name": "SHEIKHA-COSMIC-PRODUCTION-FABRIC-V61",
       "version": "v61",
@@ -137052,9 +137114,12 @@
         "Security"
       ],
       "tests": [
-        "tests/enterprise-federation-top-layers.test.js"
+        "tests/enterprise-federation-top-layers.test.js",
+        "tests/sheikha-computing-cognitive-layers-v1.test.js"
       ],
-      "reports": [],
+      "reports": [
+        "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      ],
       "apis": [
         "GET /api/sheikha/global-registry/status",
         "GET /api/sheikha/todo/status",
@@ -242826,6 +242891,134 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/computer-architecture/reports/sheikha-computer-architecture-report.json"
+      }
+    },
+    {
+      "id": "computing-cognitive-layers-report-03aa143b5900",
+      "name": "sheikha-computing-cognitive-layers-v1-report",
+      "version": "v1",
+      "path": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+      "type": "report",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      }
+    },
+    {
+      "id": "computing-cognitive-layers-382ca758cb97",
+      "name": "sheikha-computing-cognitive-layers-v1",
+      "version": "v1",
+      "path": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1.js",
+      "type": "code",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [
+        "tests/sheikha-computing-cognitive-layers-v1.test.js"
+      ],
+      "reports": [
+        "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1.js"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1.js"
       }
     },
     {
@@ -388767,6 +388960,66 @@
       }
     },
     {
+      "id": "computing-cognitive-layers-test-019ffaf6bf66",
+      "name": "sheikha-computing-cognitive-layers-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-computing-cognitive-layers-v1.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-computing-cognitive-layers-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-computing-cognitive-layers-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-computing-cognitive-layers-v1.test.js"
+      }
+    },
+    {
       "id": "connector-federation-fabric-test-839ba9fd578c",
       "name": "sheikha-connector-federation-fabric-v1.test",
       "version": "v1",
@@ -403290,6 +403543,68 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-commercial-launch-validation-v1.js"
+      }
+    },
+    {
+      "id": "computing-cognitive-layers-414c22b54595",
+      "name": "activate-sheikha-computing-cognitive-layers-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-computing-cognitive-layers-v1.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-computing-cognitive-layers-v1.test.js"
+      ],
+      "reports": [
+        "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-computing-cognitive-layers-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-computing-cognitive-layers-v1.js"
       }
     },
     {
@@ -426620,8 +426935,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 340,
-    "reports": 389,
-    "docs": 1066
+    "tests": 341,
+    "reports": 390,
+    "docs": 1067
   }
 }

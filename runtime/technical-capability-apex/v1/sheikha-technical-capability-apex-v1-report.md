@@ -12,6 +12,8 @@
 - codingCopilotPattern: ACTIVE - workspace-aware-code-debug-test-lint-guidance
 - agentic: ACTIVE_GOVERNED - plan-tool-use-execute-with-human-boundaries
 - multiAgent: ACTIVE_GOVERNED - role-based-agent-coordination-for-complex-workflows
+- reasoningSerendipity: ACTIVE_GOVERNED - standard-and-pro-reasoning-with-relevant-unexpected-discovery
+- ultraOrchestration: ACTIVE_GOVERNED - four-role-evidence-architecture-serendipity-risk-coordination
 - rag: ACTIVE - retrieval-grounded-answers-from-approved-context
 - mcp: ACTIVE - tool-contract-integration-and-governed-tool-calling
 - sdk: ACTIVE - programmatic-api-access-and-product-integration

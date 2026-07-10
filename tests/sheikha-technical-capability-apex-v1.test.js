@@ -43,6 +43,11 @@ describe('Sheikha Technical Capability Apex V1', () => {
     expect(matrix.codingCopilotPattern.status).toBe('ACTIVE');
     expect(matrix.agentic.status).toBe('ACTIVE_GOVERNED');
     expect(matrix.multiAgent.status).toBe('ACTIVE_GOVERNED');
+    expect(matrix.reasoningSerendipity.status).toBe('ACTIVE_GOVERNED');
+    expect(matrix.reasoningSerendipity.safetyFilterEvasionAllowed).toBe(false);
+    expect(matrix.ultraOrchestration.status).toBe('ACTIVE_GOVERNED');
+    expect(matrix.ultraOrchestration.actualIndependentModelProcessesClaimed).toBe(false);
+    expect(matrix.ultraOrchestration.humanFinalDecision).toBe(true);
     expect(matrix.rag.status).toBe('ACTIVE');
     expect(matrix.mcp.status).toBe('ACTIVE');
     expect(matrix.sdk.status).toBe('ACTIVE');
@@ -54,6 +59,10 @@ describe('Sheikha Technical Capability Apex V1', () => {
     expect(governance.noExternalModelClaimWithoutConfiguration).toBe(true);
     expect(governance.noActualAgiClaim).toBe(true);
     expect(governance.noActualAsiClaim).toBe(true);
+    expect(technicalCapabilityApex.status().routes.reasoningStatus)
+      .toBe('/api/intelligence/execution-loop/reasoning/status');
+    expect(technicalCapabilityApex.status().routes.reasoning)
+      .toBe('/api/intelligence/execution-loop/reasoning');
   });
 
   test('is wired through server, SDK, extension client, provider, and inspector', () => {

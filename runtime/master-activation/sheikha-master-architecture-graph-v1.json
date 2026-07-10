@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T11:17:01.755Z",
+  "generatedAt": "2026-07-10T12:25:52.368Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3113,
+      "components": 3116,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1246,
+      "components": 1248,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -21746,6 +21746,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "computing-cognitive-layers-9451a2f35bfa",
+      "fromPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-9451a2f35bfa",
+      "fromPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "cosmic-production-fabric-4b879328b8fc",
       "fromPath": "docs/cosmic-production-fabric/SHEIKHA-COSMIC-PRODUCTION-FABRIC-V61.md",
       "to": "Knowledge",
@@ -51784,6 +51796,30 @@
     {
       "from": "computer-architecture-report-6c57034b0d02",
       "fromPath": "runtime/computer-architecture/reports/sheikha-computer-architecture-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-report-03aa143b5900",
+      "fromPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-report-03aa143b5900",
+      "fromPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-382ca758cb97",
+      "fromPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1.js",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-382ca758cb97",
+      "fromPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1.js",
       "to": "Cloud",
       "type": "component-to-layer"
     },
@@ -82022,6 +82058,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "computing-cognitive-layers-test-019ffaf6bf66",
+      "fromPath": "tests/sheikha-computing-cognitive-layers-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-test-019ffaf6bf66",
+      "fromPath": "tests/sheikha-computing-cognitive-layers-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "connector-federation-fabric-test-839ba9fd578c",
       "fromPath": "tests/sheikha-connector-federation-fabric-v1.test.js",
       "to": "Knowledge",
@@ -85115,6 +85163,18 @@
       "from": "commercial-launch-validation-7419692f5122",
       "fromPath": "tools/activation/activate-sheikha-commercial-launch-validation-v1.js",
       "to": "Identity",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-414c22b54595",
+      "fromPath": "tools/activation/activate-sheikha-computing-cognitive-layers-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "computing-cognitive-layers-414c22b54595",
+      "fromPath": "tools/activation/activate-sheikha-computing-cognitive-layers-v1.js",
+      "to": "Registry",
       "type": "component-to-layer"
     },
     {

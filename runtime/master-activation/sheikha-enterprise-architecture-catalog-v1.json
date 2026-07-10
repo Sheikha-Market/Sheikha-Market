@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-10T11:17:03.055Z",
+  "generatedAt": "2026-07-10T12:25:54.062Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -1433,7 +1433,7 @@
     },
     {
       "root": "docs",
-      "files": 676,
+      "files": 677,
       "classification": "repository-artifact"
     },
     {
@@ -2148,7 +2148,7 @@
     },
     {
       "root": "runtime",
-      "files": 1944,
+      "files": 1946,
       "classification": "repository-artifact"
     },
     {
@@ -2968,7 +2968,7 @@
     },
     {
       "root": "tests",
-      "files": 330,
+      "files": 331,
       "classification": "repository-artifact"
     },
     {
@@ -2978,7 +2978,7 @@
     },
     {
       "root": "tools",
-      "files": 386,
+      "files": 387,
       "classification": "repository-artifact"
     },
     {
@@ -3285,7 +3285,7 @@
       "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
     },
     "Documentation": {
-      "components": 3113,
+      "components": 3116,
       "dependencies": [
         "Knowledge",
         "Registry"
@@ -3401,7 +3401,7 @@
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     "Runtime": {
-      "components": 1246,
+      "components": 1248,
       "dependencies": [
         "OS",
         "Cloud"
@@ -3460,6 +3460,8 @@
   "bareMetalSeedHandbookPath": "bare-metal/README.md",
   "bareMetalBootArtifactPath": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
   "bareMetalBootImagePath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+  "computingCognitiveLayersPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+  "computingCognitiveLayersHandbookPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
   "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
   "universalTechnologyHpcFabricHandbookPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
   "technologyFamilyTreePath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
@@ -3470,11 +3472,11 @@
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 14935
+    "componentEdges": 14945
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-    "duplicateFiles": 1203,
+    "duplicateFiles": 1204,
     "duplicateServices": 28,
     "duplicateApis": 147,
     "duplicateRegistries": 67,
@@ -3484,13 +3486,13 @@
     "systems": 433,
     "engines": 792,
     "layers": 25,
-    "apis": 2687,
+    "apis": 2689,
     "services": 0,
-    "tests": 340,
-    "docs": 1066,
+    "tests": 341,
+    "docs": 1067,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1246,
+    "runtimeEngines": 1248,
     "identityEngines": 94,
     "governanceEngines": 521,
     "knowledgeEngines": 202,
@@ -3502,10 +3504,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 380,
+    "automationEngines": 381,
     "integrations": 346,
-    "packageScripts": 645,
-    "duplicateGroups": 1203,
+    "packageScripts": 646,
+    "duplicateGroups": 1204,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -3522,6 +3524,9 @@
     "jannatGardenFruits": 27,
     "jannatGardensScore": 100,
     "bareMetalBootArtifacts": 1,
-    "verifiedBareMetalBoots": 1
+    "verifiedBareMetalBoots": 1,
+    "computingCognitiveDomains": 7,
+    "reasoningModes": 3,
+    "ultraRoleSlots": 4
   }
 }

@@ -57,6 +57,17 @@ function status() {
         purpose: 'role-based-agent-coordination-for-complex-workflows',
         boundedAutonomy: true
       },
+      reasoningSerendipity: {
+        status: 'ACTIVE_GOVERNED',
+        purpose: 'standard-and-pro-reasoning-with-relevant-unexpected-discovery',
+        safetyFilterEvasionAllowed: false
+      },
+      ultraOrchestration: {
+        status: 'ACTIVE_GOVERNED',
+        purpose: 'four-role-evidence-architecture-serendipity-risk-coordination',
+        actualIndependentModelProcessesClaimed: false,
+        humanFinalDecision: true
+      },
       rag: {
         status: 'ACTIVE',
         purpose: 'retrieval-grounded-answers-from-approved-context'
@@ -113,7 +124,9 @@ function status() {
       ideApex: '/api/sheikha/ide-apex/v1/status',
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
-      vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status'
+      vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
+      reasoningStatus: '/api/intelligence/execution-loop/reasoning/status',
+      reasoning: '/api/intelligence/execution-loop/reasoning'
     },
     governance: {
       noExternalModelClaimWithoutConfiguration: true,

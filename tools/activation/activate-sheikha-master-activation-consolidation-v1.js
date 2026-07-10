@@ -23,6 +23,8 @@ const bareMetalSeedPath = 'runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-repo
 const bareMetalSeedHandbookPath = 'bare-metal/README.md';
 const bareMetalBootArtifactPath = 'bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI';
 const bareMetalBootImagePath = 'bare-metal/images/sheikha-bare-metal-seed-v1.img';
+const computingCognitiveLayersPath = 'runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json';
+const computingCognitiveLayersHandbookPath = 'docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md';
 const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json';
 const universalTechnologyHpcFabricHandbookPath = 'docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md';
 const technologyFamilyTreePath = 'runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json';
@@ -1250,6 +1252,7 @@ function buildReport() {
   const technologyFamilyTree = safeReadJson(technologyFamilyTreePath);
   const jannatGardens = safeReadJson(jannatGardensPath);
   const bareMetalSeed = safeReadJson(bareMetalSeedPath);
+  const computingCognitiveLayers = safeReadJson(computingCognitiveLayersPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1278,6 +1281,13 @@ function buildReport() {
   finalExecutiveReport.counts.jannatGardensScore = jannatGardens?.score || 0;
   finalExecutiveReport.counts.bareMetalBootArtifacts = bareMetalSeed?.bootArtifactCreated === true ? 1 : 0;
   finalExecutiveReport.counts.verifiedBareMetalBoots = bareMetalSeed?.bareMetalFullyIndependentToday === true ? 1 : 0;
+  finalExecutiveReport.counts.computingCognitiveDomains = Object.keys(
+    computingCognitiveLayers?.model?.domains || {}
+  ).length;
+  finalExecutiveReport.counts.reasoningModes = Object.keys(
+    computingCognitiveLayers?.model?.reasoningModes || {}
+  ).length;
+  finalExecutiveReport.counts.ultraRoleSlots = computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1293,6 +1303,8 @@ function buildReport() {
   finalExecutiveReport.evidence.bareMetalSeedHandbook = bareMetalSeedHandbookPath;
   finalExecutiveReport.evidence.bareMetalBootArtifact = bareMetalBootArtifactPath;
   finalExecutiveReport.evidence.bareMetalBootImage = bareMetalBootImagePath;
+  finalExecutiveReport.evidence.computingCognitiveLayers = computingCognitiveLayersPath;
+  finalExecutiveReport.evidence.computingCognitiveLayersHandbook = computingCognitiveLayersHandbookPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1321,12 +1333,31 @@ function buildReport() {
   executiveDashboard.indicators.bareMetalSerialMarkerVerified = bareMetalSeed?.serialBootMarkerVerified === true;
   executiveDashboard.indicators.postFirmwareHandoffVerified = bareMetalSeed?.postFirmwareHandoffVerified === true;
   executiveDashboard.indicators.bareMetalFullyIndependentToday = bareMetalSeed?.bareMetalFullyIndependentToday === true;
+  executiveDashboard.indicators.computingCognitiveLayersActive =
+    computingCognitiveLayers?.status === 'ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL';
+  executiveDashboard.indicators.computingCognitiveLayersScore = computingCognitiveLayers?.score || 0;
+  executiveDashboard.indicators.reasoningStandardActive =
+    computingCognitiveLayers?.activation?.standard?.status === 'READY';
+  executiveDashboard.indicators.reasoningProActive =
+    computingCognitiveLayers?.activation?.pro?.status === 'READY';
+  executiveDashboard.indicators.reasoningUltraRoleSlots =
+    computingCognitiveLayers?.activation?.ultra?.orchestration?.roleSlots || 0;
+  executiveDashboard.indicators.reasoningActualIndependentModelProcesses =
+    computingCognitiveLayers?.activation?.ultra?.orchestration?.actualIndependentModelProcesses === true;
+  executiveDashboard.indicators.reasoningHumanFinalDecision =
+    computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true;
+  executiveDashboard.indicators.safetyFilterEvasionAllowed =
+    computingCognitiveLayers?.model?.boundaries?.noSafetyBypass === false;
   executiveDashboard.decisions.push(
     'Issue internal attestations only; external licenses and accreditations require competent authority or accredited auditor issuance.',
     'Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.',
     'Treat the x86_64 UEFI/QEMU seed as verified bare-metal boot evidence only; it does not prove a complete general-purpose OS or physical-hardware qualification.',
     'Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.',
-    'Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling.'
+    'Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling.',
+    'Treat OSI Layer 7, SaaS, high-level languages, CPU privilege, virtualization, firmware, and platform management as distinct technical dimensions.',
+    'Treat Ring -1, Ring -2, and Ring -3 as informal aliases only; do not expose them as architectural x86 privilege rings.',
+    'Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.',
+    'Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls.'
   );
 
   const checks = {
@@ -1350,6 +1381,11 @@ function buildReport() {
       bareMetalSeed?.qemuBootExecuted === true &&
       bareMetalSeed?.serialBootMarkerVerified === true &&
       bareMetalSeed?.postFirmwareHandoffVerified === true,
+    computingCognitiveLayersIntegrated:
+      computingCognitiveLayers?.status === 'ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL' &&
+      computingCognitiveLayers?.score === 100 &&
+      computingCognitiveLayers?.model?.authority?.humanAccountableDecisionMaker === true &&
+      computingCognitiveLayers?.activation?.safetyBypassProbe?.status === 'BLOCKED_BY_SAFETY_POLICY',
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1382,6 +1418,8 @@ function buildReport() {
     bareMetalSeedHandbookPath,
     bareMetalBootArtifactPath,
     bareMetalBootImagePath,
+    computingCognitiveLayersPath,
+    computingCognitiveLayersHandbookPath,
     universalTechnologyHpcFabricPath,
     universalTechnologyHpcFabricHandbookPath,
     technologyFamilyTreePath,
@@ -1443,6 +1481,12 @@ function buildReport() {
       qemuBareMetalBootExecuted: bareMetalSeed?.qemuBootExecuted === true,
       bareMetalSerialMarkerVerified: bareMetalSeed?.serialBootMarkerVerified === true,
       bareMetalFullyIndependentToday: bareMetalSeed?.bareMetalFullyIndependentToday === true,
+      computingCognitiveLayersActive:
+        computingCognitiveLayers?.status === 'ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL',
+      computingCognitiveLayersScore: computingCognitiveLayers?.score || 0,
+      reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
+      ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
+      reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
       universalTechnologyHpcFabricActive: exists(universalTechnologyHpcFabricPath) || exists('tools/activation/activate-sheikha-universal-technology-hpc-fabric-v1.js')
     },
     lifecycleSummary,
@@ -1519,6 +1563,20 @@ function buildReport() {
       linuxRequiredAtKernelRuntime: bareMetalSeed?.linuxRequiredAtKernelRuntime !== false,
       nodeRequiredAtKernelRuntime: bareMetalSeed?.nodeRequiredAtKernelRuntime !== false
     },
+    computingCognitiveLayers: {
+      active: exists(computingCognitiveLayersPath),
+      reportPath: computingCognitiveLayersPath,
+      handbookPath: computingCognitiveLayersHandbookPath,
+      status: computingCognitiveLayers?.status || 'PENDING_REPORT_GENERATION',
+      score: computingCognitiveLayers?.score || 0,
+      domains: Object.keys(computingCognitiveLayers?.model?.domains || {}).length,
+      reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
+      ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
+      actualIndependentModelProcesses:
+        computingCognitiveLayers?.model?.ultraMode?.currentActualIndependentModelProcesses === true,
+      humanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
+      safetyFilterEvasionAllowed: computingCognitiveLayers?.model?.boundaries?.noSafetyBypass === false
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1530,6 +1588,8 @@ function buildReport() {
       'Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.',
       'Jannat Sheikha gardens define worldly beauty, gardens, trees, rivers, and fruits for interfaces and architecture without claiming unseen Jannah representation.',
       'Native x86_64 UEFI seed is linked to QEMU serial evidence and cannot claim bare-metal completion without the post-ExitBootServices marker.',
+      'Computing, cloud, CPU, cognitive, and information layers are consolidated with corrected technical dimensions and primary engineering references.',
+      'Standard, Pro, and Ultra reasoning profiles are active with bounded serendipity, safety gates, and accountable human final decisions.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1598,6 +1658,11 @@ if (require.main === module) {
     qemuBareMetalBootExecuted: report.summary.qemuBareMetalBootExecuted,
     bareMetalSerialMarkerVerified: report.summary.bareMetalSerialMarkerVerified,
     bareMetalFullyIndependentToday: report.summary.bareMetalFullyIndependentToday,
+    computingCognitiveLayersActive: report.summary.computingCognitiveLayersActive,
+    computingCognitiveLayersScore: report.summary.computingCognitiveLayersScore,
+    reasoningModes: report.summary.reasoningModes,
+    ultraRoleSlots: report.summary.ultraRoleSlots,
+    reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,
     output: {
       report: reportPath,
       catalog: catalogPath,
@@ -1621,7 +1686,9 @@ if (require.main === module) {
       bareMetalSeed: bareMetalSeedPath,
       bareMetalSeedHandbook: bareMetalSeedHandbookPath,
       bareMetalBootArtifact: bareMetalBootArtifactPath,
-      bareMetalBootImage: bareMetalBootImagePath
+      bareMetalBootImage: bareMetalBootImagePath,
+      computingCognitiveLayers: computingCognitiveLayersPath,
+      computingCognitiveLayersHandbook: computingCognitiveLayersHandbookPath
     }
   }, null, 2));
 }

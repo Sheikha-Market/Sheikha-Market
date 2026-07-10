@@ -44,6 +44,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.offlineOperation.githubRequired).toBe(false);
     expect(report.checks.githubIndependent).toBe(true);
     expect(report.checks.bareMetalSeedIntegrated).toBe(true);
+    expect(report.checks.computingCognitiveLayersIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -68,9 +69,23 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.githubRequired).toBe(false);
     expect(report.executiveDashboard.indicators.internalAttestations).toBeGreaterThan(0);
     expect(report.executiveDashboard.indicators.bareMetalFullyIndependentToday).toBe(true);
+    expect(report.executiveDashboard.indicators.computingCognitiveLayersActive).toBe(true);
+    expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
+    expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
+    expect(report.executiveDashboard.indicators.reasoningHumanFinalDecision).toBe(true);
+    expect(report.executiveDashboard.indicators.safetyFilterEvasionAllowed).toBe(false);
     expect(report.executiveReport.counts.apis).toBeGreaterThan(0);
     expect(report.executiveReport.counts.verifiedBareMetalBoots).toBe(1);
     expect(report.executiveReport.counts.externalCertificatesIssued).toBe(0);
+    expect(report.executiveReport.counts.computingCognitiveDomains).toBeGreaterThanOrEqual(7);
+    expect(report.executiveReport.counts.reasoningModes).toBe(3);
+    expect(report.computingCognitiveLayers).toMatchObject({
+      score: 100,
+      ultraRoleSlots: 4,
+      actualIndependentModelProcesses: false,
+      humanFinalDecision: true,
+      safetyFilterEvasionAllowed: false
+    });
   });
 
   test('builds methodology accreditation readiness without external issuance claims', () => {
