@@ -90,6 +90,11 @@ function createSheikhaApiClient({
       '/api/governance/generator/sheikha-language-architecture',
       '/api/governance/generator/sheikha-language-production',
       '/api/governance/generator/sheikha-language-production/interpret',
+      '/api/governance/universal-benefit/status',
+      '/api/governance/universal-benefit/evaluate',
+      '/api/governance/universal-benefit/transform-boundary',
+      '/api/governance/universal-benefit/capabilities',
+      '/api/governance/universal-benefit/evidence',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -277,6 +282,22 @@ function createSheikhaApiClient({
     ),
     interpret: input => request(
       '/api/governance/generator/sheikha-language-production/interpret',
+      'POST',
+      input
+    )
+  };
+
+  client.universalBenefit = {
+    status: () => request('/api/governance/universal-benefit/status'),
+    capabilities: () => request('/api/governance/universal-benefit/capabilities'),
+    evidence: () => request('/api/governance/universal-benefit/evidence'),
+    evaluate: input => request(
+      '/api/governance/universal-benefit/evaluate',
+      'POST',
+      input
+    ),
+    transformBoundary: input => request(
+      '/api/governance/universal-benefit/transform-boundary',
       'POST',
       input
     )

@@ -35,6 +35,10 @@ const sheikhaLanguageProductionPath =
   'runtime/sheikha-production-language/v1/sheikha-production-language-v1-report.json';
 const sheikhaLanguageProductionHandbookPath =
   'docs/sheikha-production-language/SHEIKHA-PRODUCTION-LANGUAGE-V1.md';
+const universalBenefitBoundaryPath =
+  'runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1-report.json';
+const universalBenefitBoundaryHandbookPath =
+  'docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md';
 const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
@@ -1272,6 +1276,7 @@ function buildReport() {
   const publicBenefitPolicy = safeReadJson(publicBenefitPolicyPath);
   const nativeLanguageArchitecture = safeReadJson(nativeLanguageArchitecturePath);
   const sheikhaLanguageProduction = safeReadJson(sheikhaLanguageProductionPath);
+  const universalBenefitBoundary = safeReadJson(universalBenefitBoundaryPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1319,6 +1324,14 @@ function buildReport() {
     governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0;
   finalExecutiveReport.counts.publicBenefitActiveCapabilities =
     governanceGenerator?.coverage?.currentlyActiveCapabilities || 0;
+  finalExecutiveReport.counts.universalBenefitCapabilities =
+    universalBenefitBoundary?.capabilitiesRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitBoundaries =
+    universalBenefitBoundary?.boundariesRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitDomains =
+    universalBenefitBoundary?.benefitDomainsRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitArchitectureComponents =
+    universalBenefitBoundary?.architectureComponentsRegistered || 0;
   finalExecutiveReport.counts.sheikhaNativeImplementationSourceFiles =
     nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0;
   finalExecutiveReport.counts.sheikhaHostImplementationSourceFiles =
@@ -1350,6 +1363,9 @@ function buildReport() {
   finalExecutiveReport.evidence.sheikhaLanguageProduction = sheikhaLanguageProductionPath;
   finalExecutiveReport.evidence.sheikhaLanguageProductionHandbook =
     sheikhaLanguageProductionHandbookPath;
+  finalExecutiveReport.evidence.universalBenefitBoundary = universalBenefitBoundaryPath;
+  finalExecutiveReport.evidence.universalBenefitBoundaryHandbook =
+    universalBenefitBoundaryHandbookPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
@@ -1408,6 +1424,16 @@ function buildReport() {
     governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0;
   executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities =
     publicBenefitPolicy?.scope?.policyCoverageDoesNotActivateCapabilities !== true;
+  executiveDashboard.indicators.universalBenefitBoundaryActive =
+    universalBenefitBoundary?.status === 'VERIFIED_ACTIVE';
+  executiveDashboard.indicators.universalBenefitCapabilities =
+    universalBenefitBoundary?.capabilitiesRegistered || 0;
+  executiveDashboard.indicators.universalBenefitBoundaries =
+    universalBenefitBoundary?.boundariesRegistered || 0;
+  executiveDashboard.indicators.universalBenefitSafeAlternatives =
+    universalBenefitBoundary?.safeAlternativesGenerated || 0;
+  executiveDashboard.indicators.universalBenefitPermissionEscalationAllowed =
+    universalBenefitBoundary?.permissionEscalationAllowed === true;
   executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive =
     nativeLanguageArchitecture?.foundationScore === 100;
   executiveDashboard.indicators.sheikhaCompilerSelfHosted =
@@ -1443,6 +1469,7 @@ function buildReport() {
     'Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.',
     'Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.',
     'Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.',
+    'Transform boundaries into approval, evidence, sandbox, accessibility, recovery, or safe-alternative paths; never treat a boundary as permission escalation.',
     'Treat the canonical .shk architecture as a verified language foundation, not proof that the full platform, compiler, kernel, or services have been ported.',
     'Require self-hosting, a native backend, standard library, kernel and service ports, host removal, and hardware qualification before any full Sheikha-only completion claim.',
     'Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries.'
@@ -1516,6 +1543,23 @@ function buildReport() {
       publicBenefitPolicy?.valuesReference?.automatedFatwaAllowed === false &&
       publicBenefitPolicy?.execution?.automaticExecution === false &&
       publicBenefitPolicy?.execution?.decisionGrantsAuthorization === false,
+    universalBenefitBoundaryIntegrated:
+      universalBenefitBoundary?.system ===
+        'SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1' &&
+      universalBenefitBoundary?.status === 'VERIFIED_ACTIVE' &&
+      universalBenefitBoundary?.score === 100 &&
+      universalBenefitBoundary?.capabilitiesRegistered > 0 &&
+      universalBenefitBoundary?.boundariesRegistered === 18 &&
+      universalBenefitBoundary?.benefitDomainsRegistered === 16 &&
+      universalBenefitBoundary?.architectureComponentsRegistered === 18 &&
+      universalBenefitBoundary?.allowedDecisions > 0 &&
+      universalBenefitBoundary?.reviewDecisions > 0 &&
+      universalBenefitBoundary?.sandboxDecisions > 0 &&
+      universalBenefitBoundary?.deniedDecisions > 0 &&
+      universalBenefitBoundary?.religiousRulingsAutomated === false &&
+      universalBenefitBoundary?.safetyBypassAllowed === false &&
+      universalBenefitBoundary?.permissionEscalationAllowed === false &&
+      universalBenefitBoundary?.humanFinalResponsibility === true,
     nativeLanguageArchitectureIntegrated:
       nativeLanguageArchitecture?.system === 'SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1' &&
       nativeLanguageArchitecture?.status ===
@@ -1602,6 +1646,8 @@ function buildReport() {
     nativeLanguageArchitectureHandbookPath,
     sheikhaLanguageProductionPath,
     sheikhaLanguageProductionHandbookPath,
+    universalBenefitBoundaryPath,
+    universalBenefitBoundaryHandbookPath,
     distributionMatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
@@ -1688,6 +1734,18 @@ function buildReport() {
         governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0,
       publicBenefitCurrentlyActiveCapabilities:
         governanceGenerator?.coverage?.currentlyActiveCapabilities || 0,
+      universalBenefitBoundaryActive:
+        universalBenefitBoundary?.status === 'VERIFIED_ACTIVE',
+      universalBenefitCapabilities:
+        universalBenefitBoundary?.capabilitiesRegistered || 0,
+      universalBenefitBoundaries:
+        universalBenefitBoundary?.boundariesRegistered || 0,
+      universalBenefitDomains:
+        universalBenefitBoundary?.benefitDomainsRegistered || 0,
+      universalBenefitArchitectureComponents:
+        universalBenefitBoundary?.architectureComponentsRegistered || 0,
+      universalBenefitSafeAlternatives:
+        universalBenefitBoundary?.safeAlternativesGenerated || 0,
       nativeLanguageArchitectureFoundationActive:
         nativeLanguageArchitecture?.foundationScore === 100,
       sheikhaImplementationSourceFiles:
@@ -1876,6 +1934,35 @@ function buildReport() {
         publicBenefitPolicy?.valuesReference?.automatedFatwaAllowed === true,
       humanFinalDecision: publicBenefitPolicy?.execution?.humanFinalDecision === true
     },
+    universalBenefitBoundary: {
+      active: universalBenefitBoundary?.status === 'VERIFIED_ACTIVE',
+      reportPath: universalBenefitBoundaryPath,
+      handbookPath: universalBenefitBoundaryHandbookPath,
+      status: universalBenefitBoundary?.status || 'PENDING_REPORT_GENERATION',
+      score: universalBenefitBoundary?.score || 0,
+      capabilitiesRegistered:
+        universalBenefitBoundary?.capabilitiesRegistered || 0,
+      boundariesRegistered:
+        universalBenefitBoundary?.boundariesRegistered || 0,
+      benefitDomainsRegistered:
+        universalBenefitBoundary?.benefitDomainsRegistered || 0,
+      architectureComponentsRegistered:
+        universalBenefitBoundary?.architectureComponentsRegistered || 0,
+      allowedDecisions: universalBenefitBoundary?.allowedDecisions || 0,
+      reviewDecisions: universalBenefitBoundary?.reviewDecisions || 0,
+      sandboxDecisions: universalBenefitBoundary?.sandboxDecisions || 0,
+      deniedDecisions: universalBenefitBoundary?.deniedDecisions || 0,
+      safeAlternativesGenerated:
+        universalBenefitBoundary?.safeAlternativesGenerated || 0,
+      religiousRulingsAutomated:
+        universalBenefitBoundary?.religiousRulingsAutomated === true,
+      safetyBypassAllowed:
+        universalBenefitBoundary?.safetyBypassAllowed === true,
+      permissionEscalationAllowed:
+        universalBenefitBoundary?.permissionEscalationAllowed === true,
+      humanFinalResponsibility:
+        universalBenefitBoundary?.humanFinalResponsibility === true
+    },
     nativeLanguageArchitecture: {
       active: nativeLanguageArchitecture?.foundationScore === 100,
       reportPath: nativeLanguageArchitecturePath,
@@ -1985,6 +2072,7 @@ function buildReport() {
       'Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.',
       'Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.',
       'Public Benefit Capability Routing covers the registered catalog with hard boundaries, evidence admission, specialist review, and no automatic execution.',
+      'Universal Benefit and Boundary Governance registers permitted capabilities and transforms boundaries into approval, evidence, sandbox, accessibility, recovery, or safe-alternative paths without permission escalation.',
       'Native Sheikha Language Architecture provides first-class Arabic values-reference, governance-policy, and evidence-domain methodology declarations with compiler and VM enforcement, plus measured migration blockers without claiming a completed Sheikha-only system.',
       'Sheikha Hosted Production Language Gate executes compiler, AST, IR, VM V1/V2, Arabic math, governed AI, assets, and governance checks while keeping full native and all-system migration claims evidence-gated.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
@@ -2071,6 +2159,11 @@ if (require.main === module) {
     publicBenefitRegisteredCapabilities: report.summary.publicBenefitRegisteredCapabilities,
     publicBenefitCurrentlyActiveCapabilities:
       report.summary.publicBenefitCurrentlyActiveCapabilities,
+    universalBenefitBoundaryActive: report.summary.universalBenefitBoundaryActive,
+    universalBenefitCapabilities: report.summary.universalBenefitCapabilities,
+    universalBenefitBoundaries: report.summary.universalBenefitBoundaries,
+    universalBenefitDomains: report.summary.universalBenefitDomains,
+    universalBenefitSafeAlternatives: report.summary.universalBenefitSafeAlternatives,
     nativeLanguageArchitectureFoundationActive:
       report.summary.nativeLanguageArchitectureFoundationActive,
     sheikhaImplementationSourceFiles: report.summary.sheikhaImplementationSourceFiles,
@@ -2121,6 +2214,8 @@ if (require.main === module) {
       nativeLanguageArchitectureHandbook: nativeLanguageArchitectureHandbookPath,
       sheikhaLanguageProduction: sheikhaLanguageProductionPath,
       sheikhaLanguageProductionHandbook: sheikhaLanguageProductionHandbookPath,
+      universalBenefitBoundary: universalBenefitBoundaryPath,
+      universalBenefitBoundaryHandbook: universalBenefitBoundaryHandbookPath,
       universalDistributionMatrix: distributionMatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath

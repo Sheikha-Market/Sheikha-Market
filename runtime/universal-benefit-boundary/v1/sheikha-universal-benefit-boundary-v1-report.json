@@ -1,0 +1,441 @@
+{
+  "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+  "status": "VERIFIED_ACTIVE",
+  "mode": "PERMITTED_CAPABILITY_TO_VERIFIED_PUBLIC_BENEFIT",
+  "generatedAt": "2026-07-10T20:35:18.287Z",
+  "score": 100,
+  "capabilitiesRegistered": 16,
+  "boundariesRegistered": 18,
+  "benefitDomainsRegistered": 16,
+  "architectureComponentsRegistered": 18,
+  "allowedDecisions": 1,
+  "reviewDecisions": 1,
+  "sandboxDecisions": 1,
+  "deniedDecisions": 1,
+  "safeAlternativesGenerated": 3,
+  "humanApprovalRequiredCount": 3,
+  "evidenceVerifiedCount": 4,
+  "religiousRulingsAutomated": false,
+  "safetyBypassAllowed": false,
+  "permissionEscalationAllowed": false,
+  "externalWriteWithoutAuthorizationAllowed": false,
+  "automaticKernelOrFirmwareModificationAllowed": false,
+  "humanFinalResponsibility": true,
+  "claimPolicy": "No benefit, safety, or compliance claim without evidence and applicable human review.",
+  "checks": {
+    "architectureComponentsComplete": true,
+    "deniesWithoutRequiredPermission": true,
+    "noVerifiedClaimWithoutEvidence": true,
+    "highImpactRequiresHumanReview": true,
+    "safetyFilterBypassDenied": true,
+    "unauthorizedCyberAttackDenied": true,
+    "authorizedDefenseSandboxed": true,
+    "personalDataMinimized": true,
+    "safeAlternativeGeneratedOnDenial": true,
+    "automatedReligiousRulingDenied": true,
+    "consciousnessAndInfallibilityClaimsDenied": true,
+    "aiCannotModifyKernelDirectly": true,
+    "humanFinalResponsibilityPreserved": true,
+    "missingToolBecomesRequirementsReport": true,
+    "unsupportedHardwareBecomesHonestEmulation": true,
+    "missingEvidenceBecomesUnknown": true,
+    "externalWriteRequiresAuthorization": true,
+    "reasoningModesDoNotEscalatePermission": true,
+    "l24RemainsAdvisory": true,
+    "apiRoutesRegistered": true,
+    "unrelatedLegacyReportsNotMixed": true
+  },
+  "missing": [],
+  "decisions": {
+    "allow": {
+      "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "decision": "ALLOW",
+      "reason": "WITHIN_BOUNDARY_VERIFIED_FOR_GOVERNED_ROUTING",
+      "capabilityId": "SHEIKHA_PUBLIC_KNOWLEDGE_ASSISTANCE",
+      "capabilityStatus": "ACTIVE_EVALUATION_ONLY",
+      "benefit": {
+        "intendedPurpose": "تقديم معرفة عامة قابلة للتحقق باللغة العربية.",
+        "domains": [
+          "KNOWLEDGE",
+          "EDUCATION",
+          "PUBLIC_SERVICE"
+        ],
+        "beneficiaries": [
+          "PUBLIC_LEARNERS"
+        ],
+        "indicatorOnlyNotAbsoluteMoralJudgment": true,
+        "verifiedBenefitClaim": true
+      },
+      "boundaries": [
+        {
+          "type": "EVIDENCE_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        },
+        {
+          "type": "ACCESSIBILITY_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        }
+      ],
+      "evidenceStatus": "VERIFIED",
+      "requiredEvidence": [],
+      "requiredApprovals": [],
+      "harmControls": [
+        "SOURCE_TRACE",
+        "ACCESSIBLE_OUTPUT",
+        "UNKNOWN_WHEN_UNPROVEN"
+      ],
+      "safeAlternative": {
+        "type": "NOT_REQUIRED",
+        "action": "تابع إلى بوابة التفويض والتنفيذ المنفصلة؛ هذا التقييم لا يمنح الإذن بذاته.",
+        "boundaryType": null,
+        "reason": null,
+        "executionPerformed": false,
+        "externalWritePerformed": false
+      },
+      "humanFinalDecision": true,
+      "humanFinalResponsibility": true,
+      "executionAllowed": false,
+      "decisionGrantsAuthorization": false,
+      "externalWritePerformed": false,
+      "permissionEscalationAllowed": false,
+      "safetyBypassAllowed": false,
+      "religiousRulingsAutomated": false,
+      "aiClaimsConsciousness": false,
+      "l24": {
+        "role": "ADVISORY_ANALYSIS_AND_PROPOSALS",
+        "reasoningMode": "standard",
+        "status": "READY",
+        "roleSlots": 2,
+        "actualIndependentModelProcesses": false,
+        "externalActionAllowed": false,
+        "kernelOrFirmwareAuthority": false,
+        "permissionEscalation": false
+      },
+      "reusedFabrics": {
+        "publicBenefitRouter": "SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_ROUTER_V1",
+        "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
+        "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
+      },
+      "auditId": "ubb-1783715718281-1"
+    },
+    "review": {
+      "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "decision": "REVIEW",
+      "reason": "HUMAN_APPROVAL_REQUIRED",
+      "capabilityId": "SHEIKHA_COMMUNITY_PLANNING",
+      "capabilityStatus": "ACTIVE_REVIEW_REQUIRED",
+      "benefit": {
+        "intendedPurpose": "إعداد بدائل تشاركية لخدمة المجتمع.",
+        "domains": [
+          "COMMUNITY_BENEFIT",
+          "NEIGHBORHOOD_BENEFIT",
+          "PUBLIC_SERVICE"
+        ],
+        "beneficiaries": [
+          "COMMUNITY"
+        ],
+        "indicatorOnlyNotAbsoluteMoralJudgment": true,
+        "verifiedBenefitClaim": false
+      },
+      "boundaries": [
+        {
+          "type": "HUMAN_AUTHORITY_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        },
+        {
+          "type": "ACCESSIBILITY_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        },
+        {
+          "type": "HIGH_IMPACT_DECISION_BOUNDARY",
+          "state": "AT_BOUNDARY"
+        }
+      ],
+      "evidenceStatus": "VERIFIED",
+      "requiredEvidence": [],
+      "requiredApprovals": [
+        "ACCOUNTABLE_HUMAN_APPROVAL"
+      ],
+      "harmControls": [
+        "NO_HIGH_IMPACT_AUTOMATION"
+      ],
+      "safeAlternative": {
+        "type": "DECISION_SUPPORT_ONLY",
+        "action": "اعرض خيارات وأدلة ومخاطر مع إبقاء القرار النهائي للإنسان.",
+        "boundaryType": "HIGH_IMPACT_DECISION_BOUNDARY",
+        "reason": "HUMAN_APPROVAL_REQUIRED",
+        "executionPerformed": false,
+        "externalWritePerformed": false
+      },
+      "humanFinalDecision": true,
+      "humanFinalResponsibility": true,
+      "executionAllowed": false,
+      "decisionGrantsAuthorization": false,
+      "externalWritePerformed": false,
+      "permissionEscalationAllowed": false,
+      "safetyBypassAllowed": false,
+      "religiousRulingsAutomated": false,
+      "aiClaimsConsciousness": false,
+      "l24": {
+        "role": "ADVISORY_ANALYSIS_AND_PROPOSALS",
+        "reasoningMode": "pro",
+        "status": "READY",
+        "roleSlots": 4,
+        "actualIndependentModelProcesses": false,
+        "externalActionAllowed": false,
+        "kernelOrFirmwareAuthority": false,
+        "permissionEscalation": false
+      },
+      "reusedFabrics": {
+        "publicBenefitRouter": "SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_ROUTER_V1",
+        "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
+        "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
+      },
+      "auditId": "ubb-1783715718282-2"
+    },
+    "sandbox": {
+      "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "decision": "SANDBOX",
+      "reason": "HARDWARE_SUPPORT_NOT_VERIFIED_USE_EMULATION",
+      "capabilityId": "SHEIKHA_BARE_METAL_COMPATIBILITY",
+      "capabilityStatus": "ACTIVE_EMULATION_FIRST",
+      "benefit": {
+        "intendedPurpose": "اختبار توافق منصة غير مؤهلة عبر المحاكاة.",
+        "domains": [
+          "RECOVERY_AND_REPAIR",
+          "RESOURCE_EFFICIENCY"
+        ],
+        "beneficiaries": [
+          "SYSTEM_OWNER"
+        ],
+        "indicatorOnlyNotAbsoluteMoralJudgment": true,
+        "verifiedBenefitClaim": false
+      },
+      "boundaries": [
+        {
+          "type": "HARDWARE_BOUNDARY",
+          "state": "AT_BOUNDARY"
+        },
+        {
+          "type": "PHYSICAL_WORLD_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        },
+        {
+          "type": "PERMISSION_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        }
+      ],
+      "evidenceStatus": "VERIFIED",
+      "requiredEvidence": [
+        "NATIVE_HARDWARE_QUALIFICATION"
+      ],
+      "requiredApprovals": [],
+      "harmControls": [
+        "EMULATION_ONLY",
+        "NO_NATIVE_SUPPORT_CLAIM"
+      ],
+      "safeAlternative": {
+        "type": "EMULATION",
+        "action": "استخدم محاكاة أو staging دون ادعاء دعم أصلي.",
+        "boundaryType": "HARDWARE_BOUNDARY",
+        "reason": "HARDWARE_SUPPORT_NOT_VERIFIED_USE_EMULATION",
+        "executionPerformed": false,
+        "externalWritePerformed": false
+      },
+      "humanFinalDecision": true,
+      "humanFinalResponsibility": true,
+      "executionAllowed": false,
+      "decisionGrantsAuthorization": false,
+      "externalWritePerformed": false,
+      "permissionEscalationAllowed": false,
+      "safetyBypassAllowed": false,
+      "religiousRulingsAutomated": false,
+      "aiClaimsConsciousness": false,
+      "l24": {
+        "role": "ADVISORY_ANALYSIS_AND_PROPOSALS",
+        "reasoningMode": "ultra",
+        "status": "READY",
+        "roleSlots": 4,
+        "actualIndependentModelProcesses": false,
+        "externalActionAllowed": false,
+        "kernelOrFirmwareAuthority": false,
+        "permissionEscalation": false
+      },
+      "reusedFabrics": {
+        "publicBenefitRouter": "SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_ROUTER_V1",
+        "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
+        "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
+      },
+      "auditId": "ubb-1783715718282-3"
+    },
+    "deny": {
+      "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "decision": "DENY",
+      "reason": "REQUIRED_PERMISSION_MISSING",
+      "capabilityId": "SHEIKHA_LOCAL_FILE_ANALYSIS",
+      "capabilityStatus": "ACTIVE_EVALUATION_ONLY",
+      "benefit": {
+        "intendedPurpose": "تحليل ملف دون سجل إذن مالكه.",
+        "domains": [
+          "KNOWLEDGE",
+          "EDUCATION"
+        ],
+        "beneficiaries": [
+          "REQUESTER"
+        ],
+        "indicatorOnlyNotAbsoluteMoralJudgment": true,
+        "verifiedBenefitClaim": false
+      },
+      "boundaries": [
+        {
+          "type": "PERMISSION_BOUNDARY",
+          "state": "BEYOND_BOUNDARY"
+        },
+        {
+          "type": "PRIVACY_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        },
+        {
+          "type": "EVIDENCE_BOUNDARY",
+          "state": "WITHIN_BOUNDARY"
+        }
+      ],
+      "evidenceStatus": "VERIFIED",
+      "requiredEvidence": [
+        "TRACEABLE_PERMISSION_RECORD"
+      ],
+      "requiredApprovals": [
+        "FILE_OWNER_PERMISSION"
+      ],
+      "harmControls": [],
+      "safeAlternative": {
+        "type": "APPROVAL_REQUEST",
+        "action": "أنشئ طلب موافقة محدد النطاق والمدة والمالك.",
+        "boundaryType": "PERMISSION_BOUNDARY",
+        "reason": "REQUIRED_PERMISSION_MISSING",
+        "executionPerformed": false,
+        "externalWritePerformed": false
+      },
+      "humanFinalDecision": true,
+      "humanFinalResponsibility": true,
+      "executionAllowed": false,
+      "decisionGrantsAuthorization": false,
+      "externalWritePerformed": false,
+      "permissionEscalationAllowed": false,
+      "safetyBypassAllowed": false,
+      "religiousRulingsAutomated": false,
+      "aiClaimsConsciousness": false,
+      "l24": {
+        "role": "ADVISORY_ANALYSIS_AND_PROPOSALS",
+        "reasoningMode": "standard",
+        "status": "READY",
+        "roleSlots": 2,
+        "actualIndependentModelProcesses": false,
+        "externalActionAllowed": false,
+        "kernelOrFirmwareAuthority": false,
+        "permissionEscalation": false
+      },
+      "reusedFabrics": {
+        "publicBenefitRouter": "SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_ROUTER_V1",
+        "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
+        "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
+      },
+      "auditId": "ubb-1783715718283-4"
+    }
+  },
+  "boundaryTransformationProbe": {
+    "system": "SHEIKHA_BOUNDARY_TO_BENEFIT_TRANSFORMER_V1",
+    "status": "BOUNDARY_TRANSFORMED_TO_SAFE_PATH",
+    "decision": "DENY",
+    "boundaryType": "HARDWARE_BOUNDARY",
+    "state": "BEYOND_BOUNDARY",
+    "controls": [
+      "EMULATION",
+      "COMPATIBILITY_ADAPTER",
+      "NO_NATIVE_CLAIM"
+    ],
+    "safeAlternative": {
+      "type": "EMULATION",
+      "action": "استخدم محاكاة أو staging دون ادعاء دعم أصلي.",
+      "boundaryType": "HARDWARE_BOUNDARY",
+      "reason": "BOUNDARY_STATE_BEYOND_BOUNDARY",
+      "executionPerformed": false,
+      "externalWritePerformed": false
+    },
+    "humanFinalDecision": true,
+    "executionAllowed": false,
+    "decisionGrantsAuthorization": false,
+    "externalWritePerformed": false,
+    "permissionEscalationAllowed": false
+  },
+  "arabicDsl": {
+    "path": "sheikha-language/governance/sheikha-universal-benefit-boundary-v1.shk",
+    "status": "VALID_GOVERNED_CONTRACT",
+    "contract": {
+      "language": "ar",
+      "dsl": "SHEIKHA_ARABIC_BOUNDARY_DSL_V1",
+      "capability": "تحليل ملف",
+      "boundary": "الخصوصية",
+      "permission": "مالك الملف",
+      "dataMinimization": "مفعل",
+      "evidence": "سجل موافقة",
+      "missingPermissionRule": true,
+      "decision": "منع التنفيذ",
+      "safeAlternative": "شرح طريقة التحليل المحلي"
+    },
+    "executableAuthorityGranted": false
+  },
+  "integrations": [
+    "SHEIKHA_COMPUTING_COGNITIVE_LAYERS_L24",
+    "SHEIKHA_REASONING_STANDARD_PRO_ULTRA",
+    "SHEIKHA_BARE_METAL_ARCHITECTURE_REGISTRY",
+    "SHEIKHA_ARABIC_LANGUAGE_RUNTIME",
+    "SHEIKHA_GOVERNANCE_KERNEL",
+    "SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_ROUTER_V1",
+    "SHEIKHA_EVIDENCE_REGISTRY_V1",
+    "SHEIKHA_PRODUCTION_TRUTH_GATE_V4",
+    "SHEIKHA_DEFENSIVE_AWARENESS",
+    "SHEIKHA_HUMAN_APPROVAL_GATE",
+    "SHEIKHA_COMMUNITY_MODELING",
+    "SHEIKHA_SUPPLY_CHAIN",
+    "SHEIKHA_MARKETPLACE",
+    "SHEIKHA_CLOUD_AND_HPC",
+    "SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1",
+    "SHEIKHA_EXECUTIVE_DASHBOARD",
+    "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1"
+  ],
+  "registries": {
+    "capabilityBoundary": "runtime/universal-benefit-boundary/v1/sheikha-capability-boundary-registry-v1.json",
+    "benefitTransformation": "runtime/universal-benefit-boundary/v1/sheikha-benefit-transformation-registry-v1.json",
+    "transformationCount": 18
+  },
+  "routes": {
+    "status": "/api/governance/universal-benefit/status",
+    "evaluate": "/api/governance/universal-benefit/evaluate",
+    "transformBoundary": "/api/governance/universal-benefit/transform-boundary",
+    "capabilities": "/api/governance/universal-benefit/capabilities",
+    "evidence": "/api/governance/universal-benefit/evidence"
+  },
+  "governance": {
+    "religiousRulingsAutomated": false,
+    "safetyBypassAllowed": false,
+    "permissionEscalationAllowed": false,
+    "humanFinalResponsibility": true,
+    "valuesReferenceExecutableAuthority": false,
+    "benefitIndicatorIsAbsoluteMoralJudgment": false,
+    "claimPolicy": "No benefit, safety, or compliance claim without evidence and applicable human review."
+  },
+  "evidence": {
+    "runtimeAuditRecords": 17,
+    "persistence": "IN_MEMORY_ONLY",
+    "externalWrites": false,
+    "sensitiveRequestPayloadsStored": false
+  },
+  "limitations": [
+    "ALLOW is a routing result and does not grant execution authorization.",
+    "Benefit indicators are reviewable operational signals, not absolute moral judgments.",
+    "Religious rulings require qualified scholars; no automated fatwa is produced.",
+    "High-impact, physical, legal, medical, financial, kernel, firmware, and external-write actions remain human governed.",
+    "Runtime audit evidence is bounded and in memory; durable audit requires the separate authorized audit pipeline."
+  ]
+}

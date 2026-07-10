@@ -1,11 +1,11 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T20:02:14.927Z",
+  "generatedAt": "2026-07-10T20:35:56.690Z",
   "nodes": [
     {
       "id": "APIs",
       "type": "layer",
-      "components": 429,
+      "components": 431,
       "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية."
     },
     {
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3131,
+      "components": 3136,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -71,7 +71,7 @@
     {
       "id": "Governance",
       "type": "layer",
-      "components": 523,
+      "components": 525,
       "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
     },
     {
@@ -83,7 +83,7 @@
     {
       "id": "Identity",
       "type": "layer",
-      "components": 94,
+      "components": 95,
       "responsibility": "توحيد هوية شيخة التشغيلية والبصرية والمؤسسية وربطها بالحوكمة."
     },
     {
@@ -131,13 +131,13 @@
     {
       "id": "Registry",
       "type": "layer",
-      "components": 243,
+      "components": 244,
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1259,
+      "components": 1261,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -8420,6 +8420,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-benefit-boundary-9910320e2a64",
+      "fromPath": "core/governance/sheikha-universal-benefit-boundary-v1.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-9910320e2a64",
+      "fromPath": "core/governance/sheikha-universal-benefit-boundary-v1.js",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
       "from": "governed-federation-activation-gate-fe745c50a1f1",
       "fromPath": "core/governed-federation-activation-gate/sheikha-governed-federation-activation-gate-v12.js",
       "to": "Knowledge",
@@ -26212,6 +26224,42 @@
     {
       "from": "unified-scientific-knowledge-graph-585f0ea733d7",
       "fromPath": "docs/unified-scientific-knowledge-graph/SHEIKHA-UNIFIED-SCIENTIFIC-KNOWLEDGE-GRAPH-V68.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "boundary-to-benefit-model-3b9469a545ee",
+      "fromPath": "docs/universal-benefit-boundary-v1/SHEIKHA-BOUNDARY-TO-BENEFIT-MODEL-V1.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "boundary-to-benefit-model-3b9469a545ee",
+      "fromPath": "docs/universal-benefit-boundary-v1/SHEIKHA-BOUNDARY-TO-BENEFIT-MODEL-V1.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "islamic-value-reference-contract-09c57cd86c27",
+      "fromPath": "docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "islamic-value-reference-contract-09c57cd86c27",
+      "fromPath": "docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-c86e6cb4c7d3",
+      "fromPath": "docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-c86e6cb4c7d3",
+      "fromPath": "docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md",
       "to": "Registry",
       "type": "component-to-layer"
     },
@@ -48767,6 +48815,30 @@
       "from": "unified-scientific-knowledge-graph-routes-b5586f12f668",
       "fromPath": "routes/unified-scientific-knowledge-graph/sheikha-unified-scientific-knowledge-graph-routes.js",
       "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "evaluation-routes-126925111c7a",
+      "fromPath": "routes/universal-benefit-boundary/evaluation.routes.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "evaluation-routes-126925111c7a",
+      "fromPath": "routes/universal-benefit-boundary/evaluation.routes.js",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "status-routes-43548bbdb07c",
+      "fromPath": "routes/universal-benefit-boundary/status.routes.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "status-routes-43548bbdb07c",
+      "fromPath": "routes/universal-benefit-boundary/status.routes.js",
+      "to": "Security",
       "type": "component-to-layer"
     },
     {
@@ -73106,6 +73178,54 @@
       "type": "component-to-layer"
     },
     {
+      "from": "benefit-transformation-registry-2163d009c39f",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-benefit-transformation-registry-v1.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "benefit-transformation-registry-2163d009c39f",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-benefit-transformation-registry-v1.json",
+      "to": "Governance",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "capability-boundary-registry-3456767d1730",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-capability-boundary-registry-v1.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "capability-boundary-registry-3456767d1730",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-capability-boundary-registry-v1.json",
+      "to": "Governance",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-report-a628735a2f91",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-report-a628735a2f91",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-6d0cb13f8392",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1.js",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-6d0cb13f8392",
+      "fromPath": "runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1.js",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "universal-civilization-fabric-ea2c5097abdc",
       "fromPath": "runtime/universal-civilization-fabric/v1/sheikha-universal-civilization-fabric-v1.js",
       "to": "OS",
@@ -78914,6 +79034,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-benefit-boundary-shk-653ca5f0efd6",
+      "fromPath": "sheikha-language/governance/sheikha-universal-benefit-boundary-v1.shk",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-shk-653ca5f0efd6",
+      "fromPath": "sheikha-language/governance/sheikha-universal-benefit-boundary-v1.shk",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
       "from": "grammar-ebnf-0a6eb55f147d",
       "fromPath": "sheikha-language/grammar/sheikha-grammar.ebnf",
       "to": "DSL",
@@ -84620,6 +84752,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-benefit-boundary-test-182af05e275e",
+      "fromPath": "tests/sheikha-universal-benefit-boundary-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-test-182af05e275e",
+      "fromPath": "tests/sheikha-universal-benefit-boundary-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "universal-data-integration-plugin-fabric-test-3fa225b114b3",
       "fromPath": "tests/sheikha-universal-data-integration-plugin-fabric-v1.test.js",
       "to": "Knowledge",
@@ -86422,6 +86566,18 @@
     {
       "from": "template-engine-unification-726c120e9e40",
       "fromPath": "tools/activation/activate-sheikha-template-engine-unification-v11.sh",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-5fbe1029c81f",
+      "fromPath": "tools/activation/activate-sheikha-universal-benefit-boundary-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-benefit-boundary-5fbe1029c81f",
+      "fromPath": "tools/activation/activate-sheikha-universal-benefit-boundary-v1.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

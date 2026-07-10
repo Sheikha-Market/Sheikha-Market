@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-  "generatedAt": "2026-07-10T20:02:14.934Z",
+  "generatedAt": "2026-07-10T20:35:56.698Z",
   "policy": "REPORT_ONLY_NO_DELETION",
   "duplicateFiles": [
     {
@@ -1913,6 +1913,15 @@
         "core/global-enterprise-operating-fabric/sheikha-global-enterprise-operating-fabric-v1.js",
         "docs/production-integration/SHEIKHA-GLOBAL-ENTERPRISE-OPERATING-FABRIC-V1.md",
         "tools/activation/activate-sheikha-global-enterprise-operating-fabric-v1.sh"
+      ]
+    },
+    {
+      "id": "universal-benefit-boundary",
+      "paths": [
+        "core/governance/sheikha-universal-benefit-boundary-v1.js",
+        "docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md",
+        "runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1.js",
+        "tools/activation/activate-sheikha-universal-benefit-boundary-v1.js"
       ]
     },
     {
@@ -7715,7 +7724,8 @@
         "routes/system-of-systems/status.routes.js",
         "routes/technical-advisory/status.routes.js",
         "routes/ugit-ai-control-plane/status.routes.js",
-        "routes/unified-protocol-fabric/status.routes.js"
+        "routes/unified-protocol-fabric/status.routes.js",
+        "routes/universal-benefit-boundary/status.routes.js"
       ]
     },
     {
@@ -9575,6 +9585,7 @@
         "routes/telemetry/runtime-telemetry.js",
         "routes/ugit-ai-control-plane/status.routes.js",
         "routes/unified-operational-fabric.js",
+        "routes/universal-benefit-boundary/status.routes.js",
         "routes/universal-sovereign.js",
         "routes/vision-system-routes.js"
       ]
@@ -9639,6 +9650,14 @@
     },
     {
       "method": "get",
+      "path": "/evidence",
+      "files": [
+        "routes/agi-asi-research-science-fabric/status.routes.js",
+        "routes/universal-benefit-boundary/status.routes.js"
+      ]
+    },
+    {
+      "method": "get",
       "path": "/topology",
       "files": [
         "routes/ai-cluster-pipeline-fabric/status.routes.js",
@@ -9669,7 +9688,8 @@
       "path": "/capabilities",
       "files": [
         "routes/ai.js",
-        "routes/governance/capability-registry-v2/status.routes.js"
+        "routes/governance/capability-registry-v2/status.routes.js",
+        "routes/universal-benefit-boundary/status.routes.js"
       ]
     },
     {
@@ -9945,7 +9965,8 @@
       "path": "/evaluate",
       "files": [
         "routes/chat-fabric/sheikha-chat-fabric-routes.js",
-        "routes/sharia-governance.routes.js"
+        "routes/sharia-governance.routes.js",
+        "routes/universal-benefit-boundary/evaluation.routes.js"
       ]
     },
     {
@@ -11499,7 +11520,8 @@
         "routes/system-of-systems/status.routes.js",
         "routes/technical-advisory/status.routes.js",
         "routes/ugit-ai-control-plane/status.routes.js",
-        "routes/unified-protocol-fabric/status.routes.js"
+        "routes/unified-protocol-fabric/status.routes.js",
+        "routes/universal-benefit-boundary/status.routes.js"
       ]
     },
     {
