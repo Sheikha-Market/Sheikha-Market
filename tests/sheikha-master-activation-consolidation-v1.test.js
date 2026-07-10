@@ -170,6 +170,11 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       valuesReferenceRegisteredAsNonExecutable: true,
       governancePolicyEnforcedAtRuntime: true,
       reasoningMethodologyEnforcedAtRuntime: true,
+      advancedHostedArabicFoundationStatus:
+        'ADVANCED_HOSTED_ARABIC_FOUNDATION_VERIFIED',
+      advancedHostedArabicFoundationScore: 100,
+      hostedArabicLanguageJavaScriptFiles: expect.any(Number),
+      hostedArabicLanguageExecutableSourceLines: expect.any(Number),
       foundationScore: 100,
       compilerBootstrapRuntime: 'Node.js',
       compilerSelfHosted: false,
