@@ -199,6 +199,11 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       fullNativeProductionReady: false,
       allSystemsProgrammedInSheikha: false,
       systemMigrationComplete: false,
+      universalProductionProgramStatus:
+        'STARTED_WITH_VERIFIED_HOSTED_FOUNDATION_WAVE_1',
+      wave1AdmittedSystems: 7,
+      wave1TotalSystems: 7,
+      unboundedOrAbsoluteExecutionAllowed: false,
       systemMigrationBlockers: expect.arrayContaining([
         'SLA-05', 'SLA-06', 'SLA-07', 'SLA-08', 'SLA-09', 'SLA-10', 'SLA-11'
       ])
