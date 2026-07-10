@@ -83,9 +83,17 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(snapshot.surfaces.cloudProductionDeploymentApex)
       .toBe('/api/sheikha/cloud-production-deployment-apex/v1/status');
     expect(snapshot.health.cloudProductionDeploymentApex).toBe('ACTIVE');
+    expect(snapshot.surfaces.distributionReleaseApex)
+      .toBe('/api/sheikha/distribution-apex/v1/status');
+    expect(snapshot.health.distributionReleaseApex)
+      .toBe('ACTIVE_WITH_EVIDENCE_GATED_LOCAL_RELEASE');
+    expect(snapshot.distributionReleaseApex.apexLevel).toBe(27);
+    expect(snapshot.distributionReleaseApex.layerRelationship.crossPlaneAuthorityEscalation)
+      .toBe(false);
     expect(snapshot.architecture.flow).toContain('Governance Review');
     expect(snapshot.architecture.nodes).toContain('Streaming Multilingual Chat Apex');
     expect(snapshot.architecture.nodes).toContain('Cloud Production Deployment Apex');
+    expect(snapshot.architecture.nodes).toContain('Universal Distribution Release Apex');
     expect(snapshot.architecture.nodes).toContain('Runtime Fabric V5');
     expect(snapshot.surfaces.runtimeFabric).toBe('/api/sheikha/runtime-fabric/v5/status');
     expect(snapshot.runtimeFabric.cluster.multiNode.active).toBe(false);

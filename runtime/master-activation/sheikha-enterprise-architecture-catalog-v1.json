@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-10T15:13:28.557Z",
+  "generatedAt": "2026-07-10T15:45:45.728Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -2144,7 +2144,7 @@
     },
     {
       "root": "routes",
-      "files": 393,
+      "files": 394,
       "classification": "repository-artifact"
     },
     {
@@ -2154,7 +2154,7 @@
     },
     {
       "root": "runtime",
-      "files": 1955,
+      "files": 1957,
       "classification": "repository-artifact"
     },
     {
@@ -2974,7 +2974,7 @@
     },
     {
       "root": "tests",
-      "files": 332,
+      "files": 333,
       "classification": "repository-artifact"
     },
     {
@@ -2984,7 +2984,7 @@
     },
     {
       "root": "tools",
-      "files": 387,
+      "files": 388,
       "classification": "repository-artifact"
     },
     {
@@ -3225,7 +3225,7 @@
   ],
   "layers": {
     "APIs": {
-      "components": 428,
+      "components": 429,
       "dependencies": [
         "Runtime",
         "Security"
@@ -3291,7 +3291,7 @@
       "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
     },
     "Documentation": {
-      "components": 3129,
+      "components": 3131,
       "dependencies": [
         "Knowledge",
         "Registry"
@@ -3407,7 +3407,7 @@
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     "Runtime": {
-      "components": 1257,
+      "components": 1259,
       "dependencies": [
         "OS",
         "Cloud"
@@ -3469,6 +3469,7 @@
   "computingCognitiveLayersPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
   "computingCognitiveLayersHandbookPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
   "distributionReportPath": "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json",
+  "distributionApexReportPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
   "distributionMatrixPath": "distribution/manifest/sheikha-release-matrix-v1.json",
   "distributionHandbookPath": "distribution/README.md",
   "distributionBareMetalLinkPath": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json",
@@ -3482,11 +3483,11 @@
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 14991
+    "componentEdges": 15001
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-    "duplicateFiles": 1205,
+    "duplicateFiles": 1206,
     "duplicateServices": 28,
     "duplicateApis": 147,
     "duplicateRegistries": 67,
@@ -3496,13 +3497,13 @@
     "systems": 434,
     "engines": 793,
     "layers": 25,
-    "apis": 2690,
+    "apis": 2693,
     "services": 0,
-    "tests": 342,
+    "tests": 343,
     "docs": 1069,
     "sdks": 80,
     "registries": 366,
-    "runtimeEngines": 1257,
+    "runtimeEngines": 1259,
     "identityEngines": 94,
     "governanceEngines": 521,
     "knowledgeEngines": 202,
@@ -3514,10 +3515,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 381,
+    "automationEngines": 382,
     "integrations": 346,
-    "packageScripts": 655,
-    "duplicateGroups": 1205,
+    "packageScripts": 656,
+    "duplicateGroups": 1206,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -3542,6 +3543,7 @@
     "distributionTargets": 27,
     "distributionArtifactsBuilt": 3,
     "distributionTargetsVerified": 1,
-    "distributionTargetsNativeVerified": 1
+    "distributionTargetsNativeVerified": 1,
+    "distributionReleaseApexLevel": 27
   }
 }

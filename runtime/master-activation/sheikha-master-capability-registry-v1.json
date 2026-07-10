@@ -1,22 +1,22 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T15:13:27.177Z",
+  "generatedAt": "2026-07-10T15:45:44.382Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7142,
-  "apiEndpoints": 2690,
-  "packageScripts": 655,
+  "componentCount": 7147,
+  "apiEndpoints": 2693,
+  "packageScripts": 656,
   "lifecycleSummary": {
-    "active": 840,
-    "needsLinking": 1176,
-    "needsDevelopment": 4992,
+    "active": 842,
+    "needsLinking": 1177,
+    "needsDevelopment": 4994,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 840,
-    "linkedRequired": 1176,
-    "discovered": 3908,
+    "measured": 842,
+    "linkedRequired": 1177,
+    "discovered": 3909,
     "documented": 789
   },
   "components": [
@@ -90396,9 +90396,11 @@
         "Registry"
       ],
       "tests": [
+        "tests/sheikha-universal-distribution-apex-v1.test.js",
         "tests/sheikha-universal-distribution-v1.test.js"
       ],
       "reports": [
+        "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
         "runtime/distribution/v1/sheikha-distribution-matrix-v1-report.json",
         "runtime/distribution/v1/sheikha-distribution-toolchain-v1-report.json",
         "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json"
@@ -211321,6 +211323,63 @@
       }
     },
     {
+      "id": "universal-distribution-apex-routes-d9437b532c8c",
+      "name": "sheikha-universal-distribution-apex-routes",
+      "version": "package-1.0.51",
+      "path": "routes/distribution-apex/sheikha-universal-distribution-apex-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /universities",
+        "GET /research-centers",
+        "GET /methodologies",
+        "GET /superior-architecture",
+        "GET /comprehensive-report",
+        "GET /statistics",
+        "GET /islamic-universities",
+        "GET /tools",
+        "GET /search-engines",
+        "POST /compare",
+        "GET /overview",
+        "GET /status",
+        "GET /council",
+        "GET /report",
+        "POST /consult",
+        "POST /trade",
+        "POST /sharia",
+        "POST /investment",
+        "POST /governance",
+        "POST /market"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/distribution-apex/sheikha-universal-distribution-apex-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/distribution-apex/sheikha-universal-distribution-apex-routes.js"
+      }
+    },
+    {
       "id": "earth-digital-twin-fabric-routes-40b09659ed77",
       "name": "sheikha-earth-digital-twin-fabric-routes",
       "version": "package-1.0.51",
@@ -252804,6 +252863,134 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/distributed/nodes/1779935426214-sheikha-cluster-node-01.json"
+      }
+    },
+    {
+      "id": "universal-distribution-apex-report-d43e2f469373",
+      "name": "sheikha-universal-distribution-apex-v1-report",
+      "version": "v1",
+      "path": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
+      "type": "report",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json"
+      }
+    },
+    {
+      "id": "universal-distribution-apex-9f04fab492a4",
+      "name": "sheikha-universal-distribution-apex-v1",
+      "version": "v1",
+      "path": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1.js",
+      "type": "code",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [
+        "tests/sheikha-universal-distribution-apex-v1.test.js"
+      ],
+      "reports": [
+        "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1.js"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1.js"
       }
     },
     {
@@ -400389,6 +400576,66 @@
       }
     },
     {
+      "id": "universal-distribution-apex-test-27b1aab66d08",
+      "name": "sheikha-universal-distribution-apex-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-universal-distribution-apex-v1.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-universal-distribution-apex-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-universal-distribution-apex-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-universal-distribution-apex-v1.test.js"
+      }
+    },
+    {
       "id": "universal-distribution-test-b5e0f1f04b71",
       "name": "sheikha-universal-distribution-v1.test",
       "version": "v1",
@@ -408569,6 +408816,68 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-template-engine-unification-v11.sh"
+      }
+    },
+    {
+      "id": "universal-distribution-apex-c850c27a1f50",
+      "name": "activate-sheikha-universal-distribution-apex-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-universal-distribution-apex-v1.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-universal-distribution-apex-v1.test.js"
+      ],
+      "reports": [
+        "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-universal-distribution-apex-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-universal-distribution-apex-v1.js"
       }
     },
     {
@@ -428330,8 +428639,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 342,
-    "reports": 395,
+    "tests": 343,
+    "reports": 396,
     "docs": 1069
   }
 }

@@ -1,11 +1,11 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T15:13:27.179Z",
+  "generatedAt": "2026-07-10T15:45:44.384Z",
   "nodes": [
     {
       "id": "APIs",
       "type": "layer",
-      "components": 428,
+      "components": 429,
       "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية."
     },
     {
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3129,
+      "components": 3131,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1257,
+      "components": 1259,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -45092,6 +45092,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-distribution-apex-routes-d9437b532c8c",
+      "fromPath": "routes/distribution-apex/sheikha-universal-distribution-apex-routes.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-routes-d9437b532c8c",
+      "fromPath": "routes/distribution-apex/sheikha-universal-distribution-apex-routes.js",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
       "from": "earth-digital-twin-fabric-routes-40b09659ed77",
       "fromPath": "routes/earth-digital-twin-fabric/sheikha-earth-digital-twin-fabric-routes.js",
       "to": "Runtime",
@@ -53788,6 +53800,30 @@
     {
       "from": "1779935426214-cluster-node-01-c782028e9dd6",
       "fromPath": "runtime/distributed/nodes/1779935426214-sheikha-cluster-node-01.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-report-d43e2f469373",
+      "fromPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-report-d43e2f469373",
+      "fromPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-9f04fab492a4",
+      "fromPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1.js",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-9f04fab492a4",
+      "fromPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1.js",
       "to": "Cloud",
       "type": "component-to-layer"
     },
@@ -84476,6 +84512,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "universal-distribution-apex-test-27b1aab66d08",
+      "fromPath": "tests/sheikha-universal-distribution-apex-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-test-27b1aab66d08",
+      "fromPath": "tests/sheikha-universal-distribution-apex-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "universal-distribution-test-b5e0f1f04b71",
       "fromPath": "tests/sheikha-universal-distribution-v1.test.js",
       "to": "Knowledge",
@@ -86230,6 +86278,18 @@
     {
       "from": "template-engine-unification-726c120e9e40",
       "fromPath": "tools/activation/activate-sheikha-template-engine-unification-v11.sh",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-c850c27a1f50",
+      "fromPath": "tools/activation/activate-sheikha-universal-distribution-apex-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-distribution-apex-c850c27a1f50",
+      "fromPath": "tools/activation/activate-sheikha-universal-distribution-apex-v1.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

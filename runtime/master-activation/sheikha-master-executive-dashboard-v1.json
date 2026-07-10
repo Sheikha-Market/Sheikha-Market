@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T15:13:28.519Z",
+  "generatedAt": "2026-07-10T15:45:45.687Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          3.32,
-          2.93,
-          2.68
+          0.66,
+          1.39,
+          1.79
         ]
       }
     },
@@ -36,12 +36,12 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875768832,
-        "freeMemoryBytes": 45695635456,
+        "freeMemoryBytes": 48666492928,
         "processMemory": {
-          "rss": 218648576,
-          "heapTotal": 56127488,
-          "heapUsed": 27287912,
-          "external": 3971153,
+          "rss": 215015424,
+          "heapTotal": 56401920,
+          "heapUsed": 30551736,
+          "external": 3971335,
           "arrayBuffers": 26112
         }
       }
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 538507264,
-        "availableKb": 386006876,
+        "usedKb": 538972808,
+        "availableKb": 385541332,
         "usagePercent": "59%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -59,7 +59,7 @@
     "api": {
       "ok": true,
       "evidence": {
-        "uniqueEndpoints": 2690,
+        "uniqueEndpoints": 2693,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
           "ok": false,
@@ -216,13 +216,13 @@
     "systems": 434,
     "engines": 793,
     "layers": 25,
-    "apis": 2690,
+    "apis": 2693,
     "services": 0,
-    "tests": 342,
+    "tests": 343,
     "docs": 1069,
     "sdks": 80,
     "registries": 366,
-    "runtimeEngines": 1257,
+    "runtimeEngines": 1259,
     "identityEngines": 94,
     "governanceEngines": 521,
     "knowledgeEngines": 202,
@@ -234,10 +234,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 381,
+    "automationEngines": 382,
     "integrations": 346,
-    "packageScripts": 655,
-    "duplicateGroups": 1205,
+    "packageScripts": 656,
+    "duplicateGroups": 1206,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -262,12 +262,13 @@
     "distributionTargets": 27,
     "distributionArtifactsBuilt": 3,
     "distributionTargetsVerified": 1,
-    "distributionTargetsNativeVerified": 1
+    "distributionTargetsNativeVerified": 1,
+    "distributionReleaseApexLevel": 27
   },
   "indicators": {
-    "apiEndpoints": 2690,
-    "tests": 342,
-    "duplicateGroups": 1205,
+    "apiEndpoints": 2693,
+    "tests": 343,
+    "duplicateGroups": 1206,
     "githubRequired": false,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
@@ -298,6 +299,9 @@
     "distributionVerifiedCount": 1,
     "distributionNativeVerifiedCount": 1,
     "distributionLocalRegistryOnly": true,
+    "distributionReleaseApexActive": true,
+    "distributionReleaseApexLevel": 27,
+    "distributionReleaseApexRemoteBuildEndpointExposed": false,
     "reasoningStandardActive": true,
     "reasoningProActive": true,
     "reasoningUltraRoleSlots": 4,
@@ -319,6 +323,8 @@
     "Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.",
     "Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls.",
     "Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.",
+    "Keep L24 as the highest cognitive reasoning plane and L27 as the specialized release-delivery apex; layer numbering does not grant cross-plane authority.",
+    "Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.",
     "Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries."
   ],
   "knowledge": {

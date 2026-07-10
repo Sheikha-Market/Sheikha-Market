@@ -49,6 +49,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.bareMetalSeedIntegrated).toBe(true);
     expect(report.checks.computingCognitiveLayersIntegrated).toBe(true);
     expect(report.checks.universalDistributionIntegrated).toBe(true);
+    expect(report.checks.universalDistributionApexIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -81,6 +82,10 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.distributionBuiltCount).toBeGreaterThanOrEqual(3);
     expect(report.executiveDashboard.indicators.distributionVerifiedCount).toBeGreaterThanOrEqual(1);
     expect(report.executiveDashboard.indicators.distributionLocalRegistryOnly).toBe(true);
+    expect(report.executiveDashboard.indicators.distributionReleaseApexActive).toBe(true);
+    expect(report.executiveDashboard.indicators.distributionReleaseApexLevel).toBe(27);
+    expect(report.executiveDashboard.indicators.distributionReleaseApexRemoteBuildEndpointExposed)
+      .toBe(false);
     expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
     expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningHumanFinalDecision).toBe(true);
@@ -110,6 +115,26 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       localReleasePath: path.join(os.homedir(), 'Sheikha-Local-Registry/releases/1.0.51'),
       localRegistryOnly: true,
       githubRequired: false
+    });
+    expect(report.universalDistributionApex).toMatchObject({
+      active: true,
+      status: 'ACTIVE_WITH_EVIDENCE_GATED_LOCAL_RELEASE',
+      activationStatus: 'L27_ACTIVE_WITH_VERIFIED_BOUNDARIES',
+      score: 100,
+      apexLevel: 27,
+      plane: 'RELEASE_DELIVERY_PLANE_ONLY',
+      targetCount: 27,
+      builtCount: 3,
+      nativeVerifiedCount: 1,
+      localRegistryOnly: true,
+      githubRequired: false,
+      reproducibilityVerified: true,
+      secretScanPassed: true,
+      invalidVerifiedClaims: [],
+      remoteBuildEndpointExposed: false,
+      remotePublishEndpointExposed: false,
+      crossPlaneAuthorityEscalation: false,
+      humanFinalDecision: true
     });
   });
 
