@@ -1,25 +1,28 @@
 const express = require('express');
+const orchestrator = require('../../../core/orchestration/sheikha-root-orchestrator');
 const router = express.Router();
 
-router.get('/orchestration', async (_req, res) => {
+function getStatus(_req, res) {
   const startedAt = Date.now();
   try {
+    const status = orchestrator.status();
     return res.json({
       success: true,
       fabric: 'SHEIKHA_DISTRIBUTED_RUNTIME_ORCHESTRATION',
-      status: 'operational',
-      mode: 'multi-engine-coordination',
-      layers: {
-        governance: { status: 'active', role: 'policy-enforcement' },
-        routing: { status: 'active', role: 'request-distribution' },
-        orchestration: { status: 'active', role: 'runtime-coordination' },
-        fabric: { status: 'active', role: 'data-flow-management' },
-        runtime: { status: 'active', role: 'execution-environment' }
-      },
+      status: status.status,
+      orchestration: status.orchestration,
+      mode: status.mode,
+      layers: status.layers,
+      summary: status.summary,
+      optionalIntegrations: status.optionalIntegrations,
+      offlineOperation: status.offlineOperation,
+      canonicalRuntime: status.canonicalRuntime,
       governance: {
         audit_required: true,
         rollback_required: true,
-        human_approval_required: true
+        human_approval_required: true,
+        readiness_is_evidence_based: true,
+        optional_external_integrations_block_local_runtime: false
       },
       latencyMs: Date.now() - startedAt,
       timestamp: new Date().toISOString()
@@ -31,6 +34,9 @@ router.get('/orchestration', async (_req, res) => {
       timestamp: new Date().toISOString()
     });
   }
-});
+}
+
+router.get('/status', getStatus);
+router.get('/orchestration', getStatus);
 
 module.exports = router;

@@ -35,10 +35,10 @@ router.get('/distributed-root', (_req, res) => {
     layers: o.layers,
     canonicalRuntime: canonical,
     governance: {
-      tawheed: true,
-      basis: 'quran-and-sunnah',
+      valuesReference: 'quran-and-authentic-sunnah',
       humanAuthority: true,
-      halalScopeOnly: true
+      halalOrHaramDeterminedBySoftware: false,
+      qualifiedScholarReviewRequired: true
     },
     timestamp: new Date().toISOString()
   });
@@ -64,9 +64,11 @@ router.get('/health', (_req, res) => {
       recovery: o.layers.recoveryEngine,
       federation: o.layers.federation,
       synchronization: o.layers.synchronization,
-      canonicalRuntime: o.layers.canonicalRuntimeLoader,
-      githubMcpToolsets: o.layers.githubMcpToolsets
+      canonicalRuntime: o.layers.canonicalRuntimeLoader
     },
+    orchestrationSummary: o.summary,
+    optionalIntegrations: o.optionalIntegrations,
+    offlineOperation: o.offlineOperation,
     canonicalRuntime: {
       runtime: canonical.runtime,
       governance: canonical.governance,

@@ -13,16 +13,23 @@ const FEDERATED_SYSTEMS = [
 
 function status() {
   const toolsets = getToolsetsStatus();
+  const systems = FEDERATED_SYSTEMS.map((system) => ({
+    ...system,
+    status: system.id === 'local-runtime'
+      ? 'active-local'
+      : system.id === 'github-mcp'
+        ? 'registered-optional-external'
+        : 'registered-not-liveness-verified',
+    governed: true,
+    requiredForLocalRuntime: system.id === 'local-runtime',
+    livenessVerified: system.id === 'local-runtime'
+  }));
   return {
     success: true,
     name: 'Sheikha Runtime Federation',
     status: 'active',
     mode: 'distributed-root-runtime-federation',
-    systems: FEDERATED_SYSTEMS.map(system => ({
-      ...system,
-      status: 'active',
-      governed: true
-    })),
+    systems,
     toolsets: {
       status: toolsets.status,
       count: toolsets.count,
@@ -35,6 +42,18 @@ function status() {
       noBlindExternalTrust: true,
       localFirst: true,
       auditRequired: true
+    },
+    offlineOperation: {
+      githubRequired: false,
+      gitlabRequired: false,
+      externalCloudRequired: false,
+      localRuntimeIndependent: true
+    },
+    liveness: {
+      registered: systems.length,
+      verifiedLive: systems.filter((system) => system.livenessVerified).length,
+      allRegisteredSystemsLive: false,
+      registryStatusDoesNotClaimRemoteLiveness: true
     },
     timestamp: new Date().toISOString()
   };

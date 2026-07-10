@@ -30,6 +30,7 @@ router.get('/capabilities', (_req, res) => {
       operationalBoundaryScopes: current.operationalBoundaryScopes,
       resourceClasses: current.resourceClasses,
       capacityGovernance: current.capacityGovernance,
+      evidenceResearchPolicy: current.evidenceResearchPolicy,
       benefitDomains: current.benefitDomains,
       priorityPolicy: current.priorityPolicy,
       governance: current.governance

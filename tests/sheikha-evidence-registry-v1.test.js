@@ -39,4 +39,45 @@ describe('Sheikha Evidence Registry V1', () => {
     expect(result.engine).toBe('SHEIKHA_EVIDENCE_LINKER_V1');
     expect(result.links.decisions).toContain('decision-1');
   });
+
+  test('research planning keeps candidate sources UNKNOWN until human verification', () => {
+    const result = evidence.researchPlan({
+      query: 'دليل الخلق والعبودية',
+      religiousDomain: true,
+      requiredEvidence: ['TEXT_SOURCE', 'ISNAD_OR_QURAN_LOCATION'],
+      candidateSources: [{
+        sourceId: 'quran-51-56',
+        sourceKind: 'quran',
+        citation: 'سورة الذاريات: 56',
+        text: 'وما خلقت الجن والإنس إلا ليعبدون',
+        sourceUrl: 'https://quran.com/51/56'
+      }]
+    });
+
+    expect(result).toMatchObject({
+      status: 'CANDIDATE_SOURCES_FOUND_REVIEW_REQUIRED',
+      evidenceStatus: 'UNKNOWN',
+      candidateSourcesAreVerifiedEvidence: false,
+      verifiedEvidenceProduced: false,
+      executionAllowed: false,
+      humanFinalResponsibility: true,
+      searchExecution: {
+        localRegisteredSourceSearchExecuted: false,
+        externalSearchExecuted: false,
+        allAvailableChannelsClaimedAsExecuted: false
+      },
+      religiousGovernance: {
+        automatedAqidahJudgment: false,
+        automatedFatwa: false,
+        metaphysicalTruthAdjudicatedBySoftware: false,
+        qualifiedScholarReviewRequired: true
+      }
+    });
+    expect(result.candidateSources[0]).toMatchObject({
+      sourceKind: 'QURAN',
+      registeredReferenceOnly: true,
+      verifiedEvidenceForDecision: false,
+      interpretationReviewed: false
+    });
+  });
 });

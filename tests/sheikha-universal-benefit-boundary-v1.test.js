@@ -45,7 +45,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(current.capabilities).toHaveLength(16);
     expect(current.boundaries).toHaveLength(18);
     expect(current.benefitDomains).toHaveLength(16);
-    expect(current.architectureComponents).toHaveLength(21);
+    expect(current.architectureComponents).toHaveLength(24);
     expect(current.operationalBoundaryScopes).toHaveLength(3);
     expect(current.resourceClasses).toHaveLength(10);
     expect(current.capacityGovernance).toMatchObject({
@@ -57,6 +57,18 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       automaticConnectionOrResourceConsumption: false,
       humanFinalResponsibility: true
     });
+    expect(current.valuesReference.references).toHaveLength(20);
+    expect(current.evidenceResearchPolicy).toMatchObject({
+      status: 'ACTIVE_LOCAL_RESEARCH_AND_REVIEW_PLANNING',
+      whenEvidenceMissing: 'KEEP_UNKNOWN_AND_START_GOVERNED_RESEARCH',
+      candidateSourceBecomesVerifiedAutomatically: false,
+      webResultBecomesReligiousEvidenceAutomatically: false,
+      metaphysicalTruthAdjudicatedBySoftware: false,
+      automatedAqidahJudgment: false,
+      automatedFatwa: false,
+      humanFinalResponsibility: true
+    });
+    expect(current.evidenceResearchPolicy.argumentMaps).toHaveLength(4);
     expect(current.resourceClasses.find(
       (item) => item.class === 'HUMAN_PARTICIPATION'
     )).toMatchObject({
@@ -120,6 +132,18 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       evidenceStatus: 'UNKNOWN'
     });
     expect(result.benefit.verifiedBenefitClaim).toBe(false);
+    expect(result.safeAlternative.type).toBe('EVIDENCE_RESEARCH_PLAN');
+    expect(result.evidenceResearch).toMatchObject({
+      status: 'EVIDENCE_SEARCH_CONTINUES',
+      evidenceStatus: 'UNKNOWN',
+      candidateSourceCount: 0,
+      candidateSourcesAreVerifiedEvidence: false,
+      verifiedEvidenceProduced: false,
+      theologicalClaimProvenBySoftware: false,
+      scriptureUsedAsSubstituteForEmpiricalMeasurement: false,
+      resultCanPromoteItselfToVerified: false
+    });
+    expect(result.evidenceResearch.methodReferences).toHaveLength(3);
   });
 
   test('3. requires accountable human review for high-impact work', () => {
@@ -332,6 +356,12 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       reason: 'CAPACITY_EVIDENCE_REQUIRED',
       evidenceStatus: 'UNKNOWN'
     });
+    expect(unknown.evidenceResearch).toMatchObject({
+      status: 'EVIDENCE_SEARCH_CONTINUES',
+      candidateSourceCount: 0,
+      verifiedEvidenceProduced: false,
+      scriptureUsedAsSubstituteForEmpiricalMeasurement: false
+    });
 
     const exceeded = fabric.classifyPermittedCapacity(capacityInput({
       resource: { requestedAmount: 120, availableAmount: 100 }
@@ -423,6 +453,89 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(result.requiredApprovals).toContain('QUALIFIED_SCHOLAR_REVIEW');
   });
 
+  test('25. researches creation, tawhid, and worship with provenance and isnad', () => {
+    const result = fabric.researchEvidence({
+      query: 'إثبات وجود الله وخلق الكون وتوحيد الله والعبودية لله',
+      religiousDomain: true,
+      networkAvailable: true,
+      externalSearchAuthorized: true
+    });
+    expect(result).toMatchObject({
+      status: 'CANDIDATE_SOURCES_FOUND_REVIEW_REQUIRED',
+      evidenceStatus: 'UNKNOWN',
+      candidateSourceCount: 10,
+      candidateSourcesAreVerifiedEvidence: false,
+      verifiedEvidenceProduced: false,
+      theologicalClaimProvenBySoftware: false,
+      quranAndSunnahReferencesPresented: true,
+      resultCanPromoteItselfToVerified: false,
+      searchExecution: {
+        localRegisteredSourceSearchExecuted: true,
+        externalSearchExecuted: false,
+        networkAvailable: true,
+        externalSearchAuthorized: true,
+        allAvailableChannelsClaimedAsExecuted: false
+      },
+      religiousGovernance: {
+        religiousDomain: true,
+        automatedAqidahJudgment: false,
+        automatedFatwa: false,
+        metaphysicalTruthAdjudicatedBySoftware: false,
+        beliefCompelledBySoftware: false,
+        qualifiedScholarReviewRequired: true
+      }
+    });
+    expect(result.topics).toEqual(expect.arrayContaining([
+      'DIVINE_EXISTENCE_AND_CREATION',
+      'TAWHID',
+      'WORSHIP',
+      'EVIDENCE_METHOD'
+    ]));
+    expect(result.argumentMaps.map((item) => item.argumentId)).toEqual(
+      expect.arrayContaining([
+        'CREATION_QURANIC_ARGUMENT',
+        'TAWHID_QURANIC_ARGUMENT',
+        'WORSHIP_QURANIC_ARGUMENT',
+        'EVIDENCE_METHOD_ARGUMENT'
+      ])
+    );
+    const hadith = result.candidateSources.find(
+      (source) => source.sourceId === 'ALLAH_BEFORE_CREATION'
+    );
+    expect(hadith).toMatchObject({
+      sourceKind: 'SUNNAH',
+      citation: 'صحيح البخاري (3191)، فتح الباري 13/453',
+      verifiedEvidenceForDecision: false,
+      interpretationReviewed: false,
+      isnad: {
+        applicable: true,
+        narrator: 'عمران بن الحصين',
+        collection: 'صحيح البخاري',
+        number: '3191',
+        grade: 'صحيح',
+        grader: 'ابن حجر العسقلاني'
+      }
+    });
+  });
+
+  test('26. missing theological evidence starts research and requires a scholar', () => {
+    const result = evaluate({
+      evidence: [],
+      purpose: 'عرض أدلة وجود الله والخلق والتوحيد والعبودية',
+      religiousEvidenceResearch: true
+    });
+    expect(result).toMatchObject({
+      decision: 'REVIEW',
+      evidenceStatus: 'UNKNOWN',
+      safeAlternative: { type: 'EVIDENCE_RESEARCH_PLAN' }
+    });
+    expect(result.requiredApprovals).toEqual(expect.arrayContaining([
+      'EVIDENCE_OWNER_REVIEW', 'QUALIFIED_SCHOLAR_REVIEW'
+    ]));
+    expect(result.evidenceResearch.candidateSourceCount).toBe(10);
+    expect(result.evidenceResearch.verifiedEvidenceProduced).toBe(false);
+  });
+
   test('Arabic Sheikha DSL compiles the permission and safe-alternative rule', () => {
     const result = fabric.parseArabicBoundaryContract(read(
       'sheikha-language/governance/sheikha-universal-benefit-boundary-v1.shk'
@@ -443,12 +556,26 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     });
     expect(result.executableAuthorityGranted).toBe(false);
     expect(result.writtenReferences).toMatchObject({
-      quranCount: 10,
-      authenticSunnahCount: 1,
+      quranCount: 18,
+      authenticSunnahCount: 2,
       valuesReferenceOnly: true,
       automatedInterpretationOrFatwa: false,
       qualifiedScholarReviewRequired: true,
       sourceTextIntegrityRequiresHumanReview: true
+    });
+    expect(result.writtenReferences).toMatchObject({
+      missingEvidenceStartsGovernedResearch: true,
+      candidateSourceBecomesVerifiedAutomatically: false,
+      automatedTheologicalProof: false,
+      hadithIsnad: [expect.objectContaining({
+        narrator: 'عمران بن الحصين',
+        collection: 'صحيح البخاري',
+        number: '3191',
+        grade: 'صحيح',
+        grader: 'ابن حجر العسقلاني',
+        automatedAuthentication: false,
+        humanHadithReviewRequired: true
+      })]
     });
     expect(result.writtenReferences.quran.map((item) => item.location)).toEqual(
       expect.arrayContaining([
@@ -461,10 +588,22 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
         'سورة البقرة: 229',
         'سورة الطلاق: 1',
         'سورة النساء: 112',
-        'سورة الأنبياء: 107'
+        'سورة الأنبياء: 107',
+        'سورة الإسراء: 36',
+        'سورة النحل: 43',
+        'سورة الطور: 35-36',
+        'سورة آل عمران: 190',
+        'سورة فصلت: 53',
+        'سورة الأنبياء: 22',
+        'سورة الإخلاص: 1-4',
+        'سورة الذاريات: 56'
       ])
     );
-    expect(result.writtenReferences.authenticSunnah[0].text).toBe('لا ضرر ولا ضرار');
+    expect(result.writtenReferences.authenticSunnah.map((item) => item.text))
+      .toEqual(expect.arrayContaining([
+        'كان الله ولم يكن شيء غيره',
+        'لا ضرر ولا ضرار'
+      ]));
   });
 
   test('returns Arabic-first decisions, reasons, boundaries, and safe alternatives', () => {
@@ -512,13 +651,15 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(deny.boundaries.some((item) => item.state === 'BEYOND_BOUNDARY')).toBe(true);
   });
 
-  test('25. status, evaluation, capacity planning and evidence APIs operate', async () => {
+  test('27. status, evaluation, capacity planning and evidence APIs operate', async () => {
     const statusResponse = await request(app())
       .get('/api/governance/universal-benefit/status')
       .expect(200);
     expect(statusResponse.body.result.boundariesRegistered).toBe(18);
     expect(statusResponse.body.result.boundaryScopesRegistered).toBe(3);
     expect(statusResponse.body.result.resourceClassesRegistered).toBe(10);
+    expect(statusResponse.body.result.evidenceResearchSourcesRegistered).toBe(20);
+    expect(statusResponse.body.result.evidenceArgumentMapsRegistered).toBe(4);
     expect(statusResponse.body.result).toMatchObject({
       language: 'ar',
       arabicPrimary: true,
@@ -572,6 +713,21 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       }
     });
 
+    const researchResponse = await request(app())
+      .post('/api/governance/universal-benefit/research-evidence')
+      .send({
+        query: 'أدلة الخلق والتوحيد والعبودية لله',
+        religiousDomain: true
+      })
+      .expect(200);
+    expect(researchResponse.body.result).toMatchObject({
+      status: 'CANDIDATE_SOURCES_FOUND_REVIEW_REQUIRED',
+      evidenceStatus: 'UNKNOWN',
+      candidateSourceCount: 10,
+      verifiedEvidenceProduced: false,
+      theologicalClaimProvenBySoftware: false
+    });
+
     const capabilitiesResponse = await request(app())
       .get('/api/governance/universal-benefit/capabilities')
       .expect(200);
@@ -584,7 +740,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
         automatedJurisprudentialInferenceAllowed: false
       }
     });
-    expect(capabilitiesResponse.body.result.valuesReference.references).toHaveLength(11);
+    expect(capabilitiesResponse.body.result.valuesReference.references).toHaveLength(20);
     expect(capabilitiesResponse.body.result.operationalBoundaryScopes).toHaveLength(3);
     expect(capabilitiesResponse.body.result.resourceClasses).toHaveLength(10);
     expect(capabilitiesResponse.body.result.valuesReference.references.every(
@@ -605,7 +761,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     });
   });
 
-  test('26. activation does not mix unrelated legacy reports', () => {
+  test('28. activation does not mix unrelated legacy reports', () => {
     const report = buildReport();
     expect(report.checks.unrelatedLegacyReportsNotMixed).toBe(true);
     expect(report.status).toBe('VERIFIED_ACTIVE');
@@ -614,9 +770,11 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       capabilitiesRegistered: 16,
       boundariesRegistered: 18,
       benefitDomainsRegistered: 16,
-      architectureComponentsRegistered: 21,
+      architectureComponentsRegistered: 24,
       boundaryScopesRegistered: 3,
       resourceClassesRegistered: 10,
+      evidenceResearchSourcesRegistered: 20,
+      evidenceArgumentMapsRegistered: 4,
       allowedDecisions: 1,
       reviewDecisions: 1,
       sandboxDecisions: 1,
@@ -649,6 +807,14 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     });
     expect(report.checks.writtenArabicQuranSunnahContractComplete).toBe(true);
     expect(report.checks.arabicApiDecisionSurfaceActive).toBe(true);
+    expect(report.checks.governedEvidenceResearchActive).toBe(true);
+    expect(report.checks.missingEvidenceStartsResearchWithoutFalseVerification)
+      .toBe(true);
+    expect(report.checks.religiousResearchPreservesIsnadAndEpistemicLayers)
+      .toBe(true);
+    expect(report.checks.softwareDoesNotClaimTheologicalProof).toBe(true);
+    expect(report.checks.technicalMeasurementDoesNotUseScriptureAsSubstitute)
+      .toBe(true);
   });
 
   test('package, SDK, docs, and Fabric Bootstrap expose the real surface', () => {
@@ -670,6 +836,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(read('sdk/sheikha-api/index.js')).toContain('client.universalBenefit');
     expect(read('sdk/sheikha-api/index.js')).toContain('classifyCapacity');
     expect(read('sdk/sheikha-api/index.js')).toContain('planIntegration');
+    expect(read('sdk/sheikha-api/index.js')).toContain('researchEvidence');
     expect(read('docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md'))
       .toContain('decisionGrantsAuthorization: false');
     expect(read('docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md'))

@@ -236,6 +236,10 @@ function buildReport() {
     evidence: verifiedEvidence(`ubb-${mode}-evidence`),
     reasoningMode: mode
   }));
+  const religiousEvidenceResearch = fabric.researchEvidence({
+    query: 'عرض أدلة وجود الله وخلق الكون وتوحيد الله والعبودية لله.',
+    religiousDomain: true
+  });
   const dsl = fabric.parseArabicBoundaryContract(read(DSL_PATH));
   const transformed = fabric.transformBoundary({
     boundaryType: 'HARDWARE_BOUNDARY',
@@ -262,7 +266,7 @@ function buildReport() {
 
   const checks = {
     architectureComponentsComplete:
-      currentStatus.architectureComponentsRegistered === 21,
+      currentStatus.architectureComponentsRegistered === 24,
     operationalCapacityCatalogComplete:
       currentStatus.boundaryScopesRegistered === 3 &&
       currentStatus.resourceClassesRegistered === 10 &&
@@ -271,13 +275,58 @@ function buildReport() {
     writtenArabicQuranSunnahContractComplete:
       dsl.status === 'VALID_GOVERNED_CONTRACT' &&
       dsl.contract?.arabicPrimary === true &&
-      dsl.writtenReferences?.quranCount === 10 &&
-      dsl.writtenReferences?.authenticSunnahCount === 1 &&
+      dsl.writtenReferences?.quranCount === 18 &&
+      dsl.writtenReferences?.authenticSunnahCount === 2 &&
+      dsl.writtenReferences?.hadithIsnad?.length === 1 &&
+      dsl.writtenReferences?.hadithIsnad?.[0]?.number === '3191' &&
+      dsl.writtenReferences?.candidateSourceBecomesVerifiedAutomatically === false &&
+      dsl.writtenReferences?.automatedTheologicalProof === false &&
       dsl.writtenReferences?.automatedInterpretationOrFatwa === false &&
       dsl.writtenReferences?.qualifiedScholarReviewRequired === true &&
-      ['سورة البقرة: 229', 'سورة الطلاق: 1', 'سورة النساء: 112', 'سورة الأنبياء: 107']
+      [
+        'سورة البقرة: 229',
+        'سورة الطلاق: 1',
+        'سورة النساء: 112',
+        'سورة الأنبياء: 107',
+        'سورة الطور: 35-36',
+        'سورة الأنبياء: 22',
+        'سورة الإخلاص: 1-4',
+        'سورة الذاريات: 56'
+      ]
         .every((location) => dsl.writtenReferences.quran
           .some((reference) => reference.location === location)),
+    governedEvidenceResearchActive:
+      currentStatus.evidenceResearchSourcesRegistered === 20 &&
+      currentStatus.evidenceArgumentMapsRegistered === 4 &&
+      religiousEvidenceResearch.status ===
+        'CANDIDATE_SOURCES_FOUND_REVIEW_REQUIRED' &&
+      religiousEvidenceResearch.candidateSourceCount === 10 &&
+      religiousEvidenceResearch.argumentMaps.length === 4,
+    missingEvidenceStartsResearchWithoutFalseVerification:
+      noEvidence.safeAlternative?.type === 'EVIDENCE_RESEARCH_PLAN' &&
+      noEvidence.evidenceResearch?.evidenceStatus === 'UNKNOWN' &&
+      noEvidence.evidenceResearch?.verifiedEvidenceProduced === false &&
+      noEvidence.evidenceResearch?.searchExecution?.externalSearchExecuted === false,
+    religiousResearchPreservesIsnadAndEpistemicLayers:
+      religiousEvidenceResearch.candidateSources.some((source) =>
+        source.sourceKind === 'SUNNAH' &&
+        source.isnad?.narrator === 'عمران بن الحصين' &&
+        source.isnad?.collection === 'صحيح البخاري' &&
+        source.isnad?.number === '3191' &&
+        source.isnad?.grade === 'صحيح'
+      ) &&
+      religiousEvidenceResearch.epistemicSeparation?.rationalInference ===
+        'REVIEWABLE_ARGUMENT_NOT_REVELATION',
+    softwareDoesNotClaimTheologicalProof:
+      religiousEvidenceResearch.theologicalClaimProvenBySoftware === false &&
+      religiousEvidenceResearch.religiousGovernance
+        ?.metaphysicalTruthAdjudicatedBySoftware === false &&
+      religiousEvidenceResearch.resultCanPromoteItselfToVerified === false,
+    technicalMeasurementDoesNotUseScriptureAsSubstitute:
+      capacityProbes.missingEvidence.evidenceResearch
+        ?.scriptureUsedAsSubstituteForEmpiricalMeasurement === false &&
+      capacityProbes.missingEvidence.evidenceResearch
+        ?.candidateSourceCount === 0,
     arabicApiDecisionSurfaceActive:
       Object.values(probes).every((item) =>
         item.language === 'ar' &&
@@ -323,6 +372,7 @@ function buildReport() {
       kernel,
       missingTool,
       externalWrite,
+      religiousEvidenceResearch,
       ...Object.values(capacityProbes).filter((item) =>
         item?.humanFinalResponsibility !== undefined
       ),
@@ -387,7 +437,8 @@ function buildReport() {
       evaluationRouteText.includes("router.post('/evaluate'") &&
       evaluationRouteText.includes("router.post('/transform-boundary'") &&
       evaluationRouteText.includes("router.post('/classify-capacity'") &&
-      evaluationRouteText.includes("router.post('/plan-integration'"),
+      evaluationRouteText.includes("router.post('/plan-integration'") &&
+      evaluationRouteText.includes("router.post('/research-evidence'"),
     unrelatedLegacyReportsNotMixed:
       unrelatedReports.every((file) => !toolSource.includes(`'${file}'`) && !toolSource.includes(`\"${file}\"`))
   };
@@ -413,6 +464,10 @@ function buildReport() {
       currentStatus.architectureComponentsRegistered,
     boundaryScopesRegistered: currentStatus.boundaryScopesRegistered,
     resourceClassesRegistered: currentStatus.resourceClassesRegistered,
+    evidenceResearchSourcesRegistered:
+      currentStatus.evidenceResearchSourcesRegistered,
+    evidenceArgumentMapsRegistered:
+      currentStatus.evidenceArgumentMapsRegistered,
     allowedDecisions: countDecision('ALLOW'),
     reviewDecisions: countDecision('REVIEW'),
     sandboxDecisions: countDecision('SANDBOX'),
@@ -432,10 +487,22 @@ function buildReport() {
     halalOrHaramDeterminedBySoftware: false,
     operationalBoundariesAreReligiousRulings: false,
     humanParticipationIsExploitableResource: false,
+    candidateSourceBecomesVerifiedAutomatically: false,
+    automatedTheologicalProofOrAqidahJudgment: false,
     claimPolicy: 'لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.',
     checks,
     missing,
     decisions: probes,
+    evidenceResearch: {
+      status: religiousEvidenceResearch.status,
+      sourcesRegistered: currentStatus.evidenceResearchSourcesRegistered,
+      argumentMapsRegistered: currentStatus.evidenceArgumentMapsRegistered,
+      religiousProbe: religiousEvidenceResearch,
+      missingEvidenceProbe: noEvidence.evidenceResearch,
+      verifiedEvidenceProduced: false,
+      externalSearchExecuted: false,
+      theologicalClaimProvenBySoftware: false
+    },
     capacity: {
       vision: currentRegistry.capacityGovernance?.vision,
       mission: currentRegistry.capacityGovernance?.mission,
@@ -479,6 +546,9 @@ function buildReport() {
       'قرار ALLOW نتيجة توجيه ولا يمنح تفويض التنفيذ.',
       'مؤشرات المنفعة تشغيلية قابلة للمراجعة وليست أحكامًا أخلاقية مطلقة.',
       'الأحكام الشرعية تحتاج أهل العلم المؤهلين، ولا تصدر فتوى آلية.',
+      'البحث يعيد مصادر مرشحة لا دليلًا VERIFIED؛ سلامة النص والإسناد والتفسير والحجة تحتاج مراجعة بشرية مؤهلة.',
+      'البرنامج يعرض أدلة الكتاب والسنة وخريطة الاستدلال، ولا يدعي إثبات الغيب حسابيًا أو إصدار حكم عقدي آلي.',
+      'الملاحظة العلمية والقياس التجريبي لا يتحولان إلى وحي، والنص الشرعي لا يستبدل قياس الدعوى التقنية.',
       'حدود الله لا يحددها البرنامج؛ النطاقات الداخلية والخارجية تصنيفات تشغيلية وليست أحكامًا شرعية.',
       'المشاركة البشرية طوعية ومصونة الكرامة وليست موردًا قابلًا للاستغلال.',
       'تحويل المقدرة يعني إعداد خطة تخصيص مقاسة، ولا يعني إنتاج طاقة فيزيائية.',
@@ -505,6 +575,8 @@ function summary(report) {
     benefitDomainsRegistered: report.benefitDomainsRegistered,
     boundaryScopesRegistered: report.boundaryScopesRegistered,
     resourceClassesRegistered: report.resourceClassesRegistered,
+    evidenceResearchSourcesRegistered: report.evidenceResearchSourcesRegistered,
+    evidenceArgumentMapsRegistered: report.evidenceArgumentMapsRegistered,
     decisions: {
       ALLOW: report.allowedDecisions,
       REVIEW: report.reviewDecisions,

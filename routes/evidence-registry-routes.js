@@ -25,4 +25,13 @@ router.post('/api/sheikha/evidence-registry/link', (req, res) => {
   res.json({ success: true, data: evidence.linkEvidence(req.body || {}) });
 });
 
+router.post('/api/sheikha/evidence-registry/research-plan', (req, res) => {
+  const result = evidence.researchPlan(req.body || {});
+  const statusCode = result.status === 'RESEARCH_QUERY_REQUIRED' ? 422 : 200;
+  res.status(statusCode).json({
+    success: result.status !== 'RESEARCH_QUERY_REQUIRED',
+    data: result
+  });
+});
+
 module.exports = router;
