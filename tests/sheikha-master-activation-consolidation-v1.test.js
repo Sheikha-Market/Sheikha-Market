@@ -52,6 +52,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.universalDistributionApexIntegrated).toBe(true);
     expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(true);
     expect(report.checks.nativeLanguageArchitectureIntegrated).toBe(true);
+    expect(report.checks.sheikhaLanguageHostedProductionIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -183,6 +184,22 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       nativeMigrationComplete: false,
       completionClaimAllowed: false,
       blockers: expect.arrayContaining([
+        'SLA-05', 'SLA-06', 'SLA-07', 'SLA-08', 'SLA-09', 'SLA-10', 'SLA-11'
+      ])
+    });
+    expect(report.sheikhaLanguageProduction).toMatchObject({
+      active: true,
+      status: 'HOSTED_PRODUCTION_GATE_PASSED_NATIVE_SYSTEM_MIGRATION_REQUIRED',
+      hostedProductionScore: 100,
+      advancedHostedArabicFoundation:
+        'ADVANCED_HOSTED_ARABIC_FOUNDATION_VERIFIED',
+      governedAiKernel: 'SHEIKHA_ISLAMIC_AI_KERNEL_V1',
+      valuesReferenceExecutable: false,
+      automatedFatwaAllowed: false,
+      fullNativeProductionReady: false,
+      allSystemsProgrammedInSheikha: false,
+      systemMigrationComplete: false,
+      systemMigrationBlockers: expect.arrayContaining([
         'SLA-05', 'SLA-06', 'SLA-07', 'SLA-08', 'SLA-09', 'SLA-10', 'SLA-11'
       ])
     });

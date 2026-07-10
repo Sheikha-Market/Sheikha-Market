@@ -13,6 +13,9 @@ const {
 const activation = require(
   '../tools/activation/activate-sheikha-native-language-architecture-v1'
 );
+const production = require(
+  '../tools/sheikha-production-language/sheikha-production-language-v1'
+);
 
 const ARABIC_ACCOUNTING_INPUT =
   'حوّل المورد مبلغًا من حساب_المشتري إلى حساب_سوق_شيخة';
@@ -79,5 +82,36 @@ describe('Sheikha Language Integration V1', () => {
       }
     });
     expect(Object.values(verification.checks).every(Boolean)).toBe(true);
+  });
+
+  test('passes the governed hosted production gate without claiming all-system migration', () => {
+    const report = production.buildProductionReport();
+
+    expect(report).toMatchObject({
+      status: 'HOSTED_PRODUCTION_GATE_PASSED_NATIVE_SYSTEM_MIGRATION_REQUIRED',
+      hostedProductionScore: 100,
+      decision: 'SHEIKHA_HOSTED_PRODUCTION_VERIFIED_WITH_GOVERNED_AI',
+      production: {
+        hostedLanguageSubsystemReady: true,
+        allSystemsProgrammedInSheikha: false,
+        fullNativeProductionReady: false,
+        automaticMigrationOrExecution: false
+      },
+      governance: {
+        valuesReferenceExecutable: false,
+        softwareClaimsDivineAuthority: false,
+        aiIsReligiousAuthority: false,
+        automatedFatwaAllowed: false,
+        qualifiedScholarReviewForReligiousRulings: true
+      },
+      systemMigration: {
+        status: 'MEASURED_MIGRATION_REQUIRED',
+        migrationComplete: false,
+        completionClaimAllowed: false
+      }
+    });
+    expect(Object.values(report.checks.execution).every(Boolean)).toBe(true);
+    expect(Object.values(report.checks.governance).every(Boolean)).toBe(true);
+    expect(report.systemMigration.catalogedImplementationSourceFiles).toBeGreaterThan(1000);
   });
 });
