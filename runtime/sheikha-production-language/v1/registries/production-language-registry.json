@@ -1,6 +1,6 @@
 {
   "registry": "SHEIKHA_PRODUCTION_LANGUAGE_REGISTRY_V1",
-  "status": "ACTIVE",
+  "status": "HOSTED_PRODUCTION_VERIFIED_NATIVE_MIGRATION_REQUIRED",
   "components": [
     "compiler",
     "runtime",
@@ -11,6 +11,31 @@
     "docs",
     "examples",
     "ide_extension",
-    "mcp_server_readiness"
+    "mcp_server_readiness",
+    "advanced_arabic_compiler",
+    "arabic_ast_ir",
+    "arabic_vm_v1_v2",
+    "arabic_math_runtime",
+    "formal_values_reference",
+    "formal_governance_policy",
+    "formal_reasoning_methodology",
+    "governed_ai_kernel",
+    "production_evidence_gate",
+    "system_migration_gate"
+  ],
+  "productionScopes": {
+    "hostedLanguageSubsystemVerified": true,
+    "fullNativeProductionVerified": false,
+    "allSystemsProgrammedInSheikha": false,
+    "automaticMigrationAllowed": false
+  },
+  "requiredPerSystem": [
+    "sheikha_source",
+    "type_and_governance_check",
+    "behavioral_parity_tests",
+    "security_and_recovery_tests",
+    "performance_measurement",
+    "human_approval",
+    "audited_release_evidence"
   ]
 }

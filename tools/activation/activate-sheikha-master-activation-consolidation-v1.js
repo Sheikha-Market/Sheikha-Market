@@ -31,6 +31,10 @@ const governanceGeneratorReportPath = 'runtime/governance-generator/v1/sheikha-g
 const publicBenefitPolicyPath = 'runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json';
 const nativeLanguageArchitecturePath = 'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json';
 const nativeLanguageArchitectureHandbookPath = 'docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md';
+const sheikhaLanguageProductionPath =
+  'runtime/sheikha-production-language/v1/sheikha-production-language-v1-report.json';
+const sheikhaLanguageProductionHandbookPath =
+  'docs/sheikha-production-language/SHEIKHA-PRODUCTION-LANGUAGE-V1.md';
 const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
@@ -1267,6 +1271,7 @@ function buildReport() {
   const governanceGenerator = safeReadJson(governanceGeneratorReportPath);
   const publicBenefitPolicy = safeReadJson(publicBenefitPolicyPath);
   const nativeLanguageArchitecture = safeReadJson(nativeLanguageArchitecturePath);
+  const sheikhaLanguageProduction = safeReadJson(sheikhaLanguageProductionPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1342,6 +1347,9 @@ function buildReport() {
   finalExecutiveReport.evidence.nativeLanguageArchitecture = nativeLanguageArchitecturePath;
   finalExecutiveReport.evidence.nativeLanguageArchitectureHandbook =
     nativeLanguageArchitectureHandbookPath;
+  finalExecutiveReport.evidence.sheikhaLanguageProduction = sheikhaLanguageProductionPath;
+  finalExecutiveReport.evidence.sheikhaLanguageProductionHandbook =
+    sheikhaLanguageProductionHandbookPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
@@ -1532,6 +1540,18 @@ function buildReport() {
       nativeLanguageArchitecture?.completionGate?.allowedCompletionClaimToday === false &&
       nativeLanguageArchitecture?.currentImplementationBoundary
         ?.completeArchitectureProgrammedInSheikhaToday === false,
+    sheikhaLanguageHostedProductionIntegrated:
+      sheikhaLanguageProduction?.system === 'SHEIKHA_PRODUCTION_LANGUAGE_V1' &&
+      sheikhaLanguageProduction?.status ===
+        'HOSTED_PRODUCTION_GATE_PASSED_NATIVE_SYSTEM_MIGRATION_REQUIRED' &&
+      sheikhaLanguageProduction?.hostedProductionScore === 100 &&
+      sheikhaLanguageProduction?.production?.hostedLanguageSubsystemReady === true &&
+      sheikhaLanguageProduction?.production?.allSystemsProgrammedInSheikha === false &&
+      sheikhaLanguageProduction?.production?.fullNativeProductionReady === false &&
+      sheikhaLanguageProduction?.governance?.valuesReferenceExecutable === false &&
+      sheikhaLanguageProduction?.governance?.automatedFatwaAllowed === false &&
+      sheikhaLanguageProduction?.systemMigration?.migrationComplete === false &&
+      sheikhaLanguageProduction?.systemMigration?.completionClaimAllowed === false,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1572,6 +1592,8 @@ function buildReport() {
     publicBenefitPolicyPath,
     nativeLanguageArchitecturePath,
     nativeLanguageArchitectureHandbookPath,
+    sheikhaLanguageProductionPath,
+    sheikhaLanguageProductionHandbookPath,
     distributionMatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
@@ -1672,6 +1694,12 @@ function buildReport() {
         nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === true,
       sheikhaFullNativeMigrationComplete:
         nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === true,
+      sheikhaHostedProductionGatePassed:
+        sheikhaLanguageProduction?.production?.hostedLanguageSubsystemReady === true,
+      sheikhaHostedProductionScore:
+        sheikhaLanguageProduction?.hostedProductionScore || 0,
+      allSystemsProgrammedInSheikha:
+        sheikhaLanguageProduction?.production?.allSystemsProgrammedInSheikha === true,
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
       reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
@@ -1887,6 +1915,31 @@ function buildReport() {
         nativeLanguageArchitecture?.completionGate?.allowedCompletionClaimToday === true,
       blockers: nativeLanguageArchitecture?.completionGate?.blockers || []
     },
+    sheikhaLanguageProduction: {
+      active:
+        sheikhaLanguageProduction?.production?.hostedLanguageSubsystemReady === true,
+      reportPath: sheikhaLanguageProductionPath,
+      handbookPath: sheikhaLanguageProductionHandbookPath,
+      status: sheikhaLanguageProduction?.status || 'PENDING_REPORT_GENERATION',
+      hostedProductionScore:
+        sheikhaLanguageProduction?.hostedProductionScore || 0,
+      advancedHostedArabicFoundation:
+        sheikhaLanguageProduction?.integration?.advancedHostedArabicFoundation || 'UNKNOWN',
+      governedAiKernel:
+        sheikhaLanguageProduction?.integration?.aiKernel || 'UNKNOWN',
+      valuesReferenceExecutable:
+        sheikhaLanguageProduction?.governance?.valuesReferenceExecutable === true,
+      automatedFatwaAllowed:
+        sheikhaLanguageProduction?.governance?.automatedFatwaAllowed === true,
+      fullNativeProductionReady:
+        sheikhaLanguageProduction?.production?.fullNativeProductionReady === true,
+      allSystemsProgrammedInSheikha:
+        sheikhaLanguageProduction?.production?.allSystemsProgrammedInSheikha === true,
+      systemMigrationComplete:
+        sheikhaLanguageProduction?.systemMigration?.migrationComplete === true,
+      systemMigrationBlockers:
+        sheikhaLanguageProduction?.systemMigration?.blockers || []
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1905,6 +1958,7 @@ function buildReport() {
       'Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.',
       'Public Benefit Capability Routing covers the registered catalog with hard boundaries, evidence admission, specialist review, and no automatic execution.',
       'Native Sheikha Language Architecture provides first-class Arabic values-reference, governance-policy, and evidence-domain methodology declarations with compiler and VM enforcement, plus measured migration blockers without claiming a completed Sheikha-only system.',
+      'Sheikha Hosted Production Language Gate executes compiler, AST, IR, VM V1/V2, Arabic math, governed AI, assets, and governance checks while keeping full native and all-system migration claims evidence-gated.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1998,6 +2052,10 @@ if (require.main === module) {
     sheikhaCompilerSelfHosted: report.summary.sheikhaCompilerSelfHosted,
     sheikhaNativeTargetAvailable: report.summary.sheikhaNativeTargetAvailable,
     sheikhaFullNativeMigrationComplete: report.summary.sheikhaFullNativeMigrationComplete,
+    sheikhaHostedProductionGatePassed:
+      report.summary.sheikhaHostedProductionGatePassed,
+    sheikhaHostedProductionScore: report.summary.sheikhaHostedProductionScore,
+    allSystemsProgrammedInSheikha: report.summary.allSystemsProgrammedInSheikha,
     reasoningModes: report.summary.reasoningModes,
     ultraRoleSlots: report.summary.ultraRoleSlots,
     reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,
@@ -2033,6 +2091,8 @@ if (require.main === module) {
       publicBenefitCapabilityPolicy: publicBenefitPolicyPath,
       nativeLanguageArchitecture: nativeLanguageArchitecturePath,
       nativeLanguageArchitectureHandbook: nativeLanguageArchitectureHandbookPath,
+      sheikhaLanguageProduction: sheikhaLanguageProductionPath,
+      sheikhaLanguageProductionHandbook: sheikhaLanguageProductionHandbookPath,
       universalDistributionMatrix: distributionMatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath

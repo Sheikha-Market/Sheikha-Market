@@ -102,6 +102,13 @@ router.get('/sheikha-language-architecture', (_req, res) => {
   return res.json({ success: true, languageArchitecture });
 });
 
+router.get('/sheikha-language-production', (_req, res) => {
+  const languageProduction = readJson(
+    'runtime/sheikha-production-language/v1/sheikha-production-language-v1-report.json'
+  );
+  return res.json({ success: true, languageProduction });
+});
+
 router.post('/public-benefit/evaluate', (req, res) => {
   return res.json(publicBenefitRouter.evaluate(req.body || {}));
 });

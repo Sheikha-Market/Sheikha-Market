@@ -1,41 +1,154 @@
 {
   "system": "SHEIKHA_PRODUCTION_LANGUAGE_V1",
-  "status": "ACTIVE",
-  "score": 100,
-  "decision": "SHEIKHA_PRODUCTION_LANGUAGE_ACTIVE_100",
+  "status": "HOSTED_PRODUCTION_GATE_PASSED_NATIVE_SYSTEM_MIGRATION_REQUIRED",
+  "generatedAt": "2026-07-10T19:40:25.042Z",
+  "hostedProductionScore": 100,
+  "decision": "SHEIKHA_HOSTED_PRODUCTION_VERIFIED_WITH_GOVERNED_AI",
   "checks": {
-    "engine": true,
-    "registry": true,
-    "mlAiIotMap": true,
-    "mcpReadiness": true,
-    "docs": true,
-    "examples": true,
-    "sdk": true,
-    "apiSdk": true,
-    "cli": true,
-    "packageManager": true,
-    "ide": true,
-    "mcp": true,
-    "spaceIotMlAi": true,
-    "logisticsPlatform": true,
-    "resourceSources": true,
-    "driftDetector": true
+    "assets": {
+      "engine": true,
+      "registry": true,
+      "mlAiIotMap": true,
+      "mcpReadiness": true,
+      "docs": true,
+      "examples": true,
+      "sdk": true,
+      "apiSdk": true,
+      "cli": true,
+      "packageManager": true,
+      "ide": true,
+      "mcp": true,
+      "spaceIotMlAi": true,
+      "logisticsPlatform": true,
+      "resourceSources": true,
+      "driftDetector": true
+    },
+    "execution": {
+      "canonicalSheikhaSourceCompiled": true,
+      "canonicalGovernedVmPassed": true,
+      "priorAdvancedArabicCompilerPassed": true,
+      "priorArabicAstAndIrPassed": true,
+      "priorArabicVmV1Passed": true,
+      "priorArabicVmV2Passed": true,
+      "arabicMathPassed": true,
+      "languageStackPassed": true,
+      "fabricsV91ToV96Passed": true
+    },
+    "governance": {
+      "valuesReferenceIsFormalAndNonExecutable": true,
+      "publicBenefitPolicyEnforced": true,
+      "arabicScienceReasoningMethodologyEnforced": true,
+      "aiIsGovernedToolOnly": true,
+      "noAutomatedFatwa": true,
+      "qualifiedReviewForReligiousRulings": true,
+      "humanReviewForHighImpact": true,
+      "evidenceAndNoHarmRequired": true,
+      "evidenceDomainsSeparated": true
+    }
   },
-  "missing": [],
+  "missingAssets": [],
+  "failedChecks": [],
+  "integration": {
+    "canonicalSheikhaSource": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
+    "advancedHostedArabicFoundation": "ADVANCED_HOSTED_ARABIC_FOUNDATION_VERIFIED",
+    "advancedHostedArabicFoundationScore": 100,
+    "formalArabicDeclarations": [
+      "مرجعية",
+      "سياسة",
+      "منهج"
+    ],
+    "aiKernel": "SHEIKHA_ISLAMIC_AI_KERNEL_V1",
+    "aiMode": "GOVERNED_AI_KERNEL",
+    "aiRole": "analysis_and_decision_support_only",
+    "compilerRuntime": "Node.js",
+    "productionApi": "/api/governance/generator/sheikha-language-production"
+  },
+  "governance": {
+    "declaredFaithReference": "الحكم لله وحده",
+    "valuesReference": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_NON_EXECUTABLE_REFERENCE",
+    "valuesReferenceExecutable": false,
+    "softwareClaimsDivineAuthority": false,
+    "aiIsReligiousAuthority": false,
+    "automatedFatwaAllowed": false,
+    "qualifiedScholarReviewForReligiousRulings": true,
+    "humanFinalDecisionForHighImpact": true,
+    "noHarm": true,
+    "evidenceRequired": true,
+    "domainEvidenceSeparation": {
+      "religiousReasoning": "QURAN_AUTHENTIC_SUNNAH_QUALIFIED_REVIEW",
+      "mathematics": "DEFINITIONS_AXIOMS_PROOF_TEST",
+      "empiricalScience": "OBSERVATION_MEASUREMENT_EXPERIMENT_REPLICATION"
+    }
+  },
+  "production": {
+    "hostedLanguageSubsystemReady": true,
+    "allSystemsProgrammedInSheikha": false,
+    "fullNativeProductionReady": false,
+    "automaticMigrationOrExecution": false,
+    "externalAccreditationClaimed": false,
+    "scope": "VERIFIED_HOSTED_LANGUAGE_COMPILER_RUNTIME_VM_AI_GOVERNANCE_SUBSYSTEM"
+  },
+  "systemMigration": {
+    "objective": "PORT_ALL_APPROVED_SYSTEMS_TO_SHEIKHA_WITH_TESTED_PARITY",
+    "status": "MEASURED_MIGRATION_REQUIRED",
+    "catalogedImplementationSourceFiles": 12582,
+    "sheikhaNativeImplementationSourceFiles": 1,
+    "hostedArabicLanguageComponentFiles": 111,
+    "hostedArabicLanguageJavaScriptFiles": 81,
+    "migrationComplete": false,
+    "completionClaimAllowed": false,
+    "gates": [
+      "self_hosted_sheikha_compiler",
+      "native_machine_code_backend",
+      "native_standard_library_and_hal",
+      "kernel_and_driver_port",
+      "core_service_port",
+      "remove_node_linux_from_kernel_path",
+      "physical_hardware_and_multi_arch_qualification"
+    ],
+    "blockers": [
+      "SLA-05",
+      "SLA-06",
+      "SLA-07",
+      "SLA-08",
+      "SLA-09",
+      "SLA-10",
+      "SLA-11"
+    ],
+    "requiredPerSystem": [
+      "owner_and_scope",
+      "sheikha_source",
+      "type_and_governance_check",
+      "behavioral_parity_tests",
+      "security_and_recovery_tests",
+      "performance_measurement",
+      "human_approval",
+      "audited_release_evidence"
+    ]
+  },
   "cycle": [
-    "SOURCE",
-    "COMPILER",
-    "RUNTIME",
-    "SDK",
-    "API_SDK",
-    "CLI",
-    "PACKAGE",
-    "IDE",
-    "MCP",
-    "ML_AI_IOT",
-    "PIPELINE",
-    "CLUSTER_READINESS",
-    "PRODUCTS"
+    "ARABIC_SHEIKHA_SOURCE",
+    "FORMAL_VALUES_AND_GOVERNANCE_TYPE_CHECK",
+    "AST_AND_IR",
+    "BYTECODE_OR_APPROVED_TARGET",
+    "GOVERNED_AI_ANALYSIS",
+    "SANDBOXED_RUNTIME",
+    "TEST_AND_SECURITY_GATE",
+    "HUMAN_OR_QUALIFIED_REVIEW",
+    "AUDITED_PACKAGE",
+    "OBSERVED_HOSTED_PRODUCTION",
+    "MEASURED_SYSTEM_MIGRATION"
   ],
-  "principle": "ولا حول ولا قوة إلا بالله"
+  "evidence": {
+    "languageArchitecture": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+    "advancedCompilerStatus": "PROGRAM_COMPILED",
+    "advancedVmV1Status": "EXECUTED",
+    "advancedVmV2Status": "EXECUTED",
+    "arabicMathResult": 5,
+    "testCommands": [
+      "npm run -s ops:sheikha:language-architecture:v1",
+      "npm run -s ops:sheikha-production-language:v1",
+      "npm test -- --runTestsByPath tests/sheikha-language-integration-v1.test.js"
+    ]
+  }
 }
