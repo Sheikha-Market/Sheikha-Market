@@ -1,20 +1,20 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T15:45:44.382Z",
+  "generatedAt": "2026-07-10T17:22:29.029Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7147,
-  "apiEndpoints": 2693,
+  "componentCount": 7149,
+  "apiEndpoints": 2696,
   "packageScripts": 656,
   "lifecycleSummary": {
-    "active": 842,
+    "active": 844,
     "needsLinking": 1177,
     "needsDevelopment": 4994,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 842,
+    "measured": 844,
     "linkedRequired": 1177,
     "discovered": 3909,
     "documented": 789
@@ -263788,6 +263788,65 @@
       }
     },
     {
+      "id": "public-benefit-capability-policy-45742b6f9ceb",
+      "name": "public-benefit-capability-policy-v1",
+      "version": "v1",
+      "path": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
+      "type": "data-contract",
+      "layer": "Governance",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار.",
+      "inputs": [
+        "policies",
+        "runtime evidence"
+      ],
+      "outputs": [
+        "admission decisions",
+        "audit records"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json"
+      }
+    },
+    {
       "id": "sdk-fabric-mcp-governance-generator-map-7c8c3dff0d39",
       "name": "sdk-fabric-mcp-governance-generator-map",
       "version": "v1",
@@ -264091,6 +264150,65 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/governance-generator/v1/sheikha-governance-generator-v1.json"
+      }
+    },
+    {
+      "id": "public-benefit-capability-router-61b78b5774db",
+      "name": "sheikha-public-benefit-capability-router-v1",
+      "version": "v1",
+      "path": "runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1.js",
+      "type": "code",
+      "layer": "Governance",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار.",
+      "inputs": [
+        "policies",
+        "runtime evidence"
+      ],
+      "outputs": [
+        "admission decisions",
+        "audit records"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1.js"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1.js"
       }
     },
     {

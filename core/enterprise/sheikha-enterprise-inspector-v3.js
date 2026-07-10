@@ -52,6 +52,9 @@ const cloudProductionDeploymentApex = require(
 const distributionReleaseApex = require(
   '../../runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1'
 );
+const publicBenefitCapabilityRouter = require(
+  '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -188,6 +191,7 @@ function collectEnterpriseInspector(input = {}) {
   const extensionStreamingArtifactApexStatus = extensionStreamingArtifactApex.status();
   const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
   const distributionReleaseApexStatus = distributionReleaseApex.status();
+  const publicBenefitCapabilityRouterStatus = publicBenefitCapabilityRouter.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -230,6 +234,7 @@ function collectEnterpriseInspector(input = {}) {
       extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus.status,
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
       distributionReleaseApex: distributionReleaseApexStatus.status,
+      publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -290,6 +295,9 @@ function collectEnterpriseInspector(input = {}) {
       distributionReleaseApex: '/api/sheikha/distribution-apex/v1/status',
       distributionReleaseMatrix: '/api/sheikha/distribution-apex/v1/matrix',
       distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index',
+      publicBenefitPolicy: '/api/governance/generator/public-benefit-policy',
+      publicBenefitCoverage: '/api/governance/generator/public-benefit/coverage',
+      publicBenefitEvaluation: '/api/governance/generator/public-benefit/evaluate',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -307,6 +315,7 @@ function collectEnterpriseInspector(input = {}) {
         'Streaming Multilingual Chat Apex',
         'Cloud Production Deployment Apex',
         'Universal Distribution Release Apex',
+        'Public Benefit Capability Router',
         'Technical Capability Apex',
         'Debugging Apex',
         'Chat Interface Apex',
@@ -381,6 +390,7 @@ function collectEnterpriseInspector(input = {}) {
     streamingChatApex: streamingChatApexStatus,
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     distributionReleaseApex: distributionReleaseApexStatus,
+    publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus,
     technicalCapabilityApex: technicalCapabilityApexStatus,
     computingCognitiveApex: computingCognitiveApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,

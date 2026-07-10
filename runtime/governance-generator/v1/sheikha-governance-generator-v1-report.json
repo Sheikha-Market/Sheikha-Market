@@ -12,7 +12,9 @@
     "agiAsiResearchScienceFabric": true,
     "ugitAiControlPlane": true,
     "runtimeAdmissionController": true,
-    "driftDetector": true
+    "driftDetector": true,
+    "masterCapabilityRegistry": true,
+    "masterActivationReport": true
   },
   "checks": {
     "registryActive": true,
@@ -33,6 +35,11 @@
     "earthCycleActive": true,
     "earthCycleComplete": true,
     "earthGuardrailsSafe": true,
+    "publicBenefitPolicyActive": true,
+    "publicBenefitScopeComplete": true,
+    "publicBenefitBoundariesSafe": true,
+    "publicBenefitCoverageLinked": true,
+    "publicBenefitRouterEnforcesBoundaries": true,
     "questionsActive": true,
     "questionSetsComplete": true,
     "permissionScopesComplete": true,
@@ -42,7 +49,7 @@
   "missingDependencies": [],
   "missingChecks": [],
   "coverage": {
-    "capabilities": 13,
+    "capabilities": 14,
     "artifactTypes": 10,
     "targetSystems": 12,
     "generationFlowSteps": 15,
@@ -51,6 +58,10 @@
     "fabricTargets": 11,
     "earthCycleSteps": 13,
     "impactDimensions": 13,
+    "publicBenefitDomains": 10,
+    "publicBenefitHardBoundaries": 10,
+    "registeredCapabilitiesCovered": 7149,
+    "currentlyActiveCapabilities": 844,
     "dailyKickoffQuestions": 6,
     "endOfDayQuestions": 6,
     "researchPromptQuestions": 6
@@ -82,6 +93,8 @@
     "Use this generator to produce governed blueprints before adding new runtime layers.",
     "Keep all user questions consent-based, role-scoped, and transparent.",
     "Bind generated tools to SDK/Fabric/MCP with least privilege.",
+    "Evaluate every capability against public-benefit evidence and hard boundaries before admission.",
+    "Never use a claimed benefit to override harm, rights, privacy, consent, law, or qualified review.",
     "Run test, lint, admission, drift, commit, and push for every generated baseline."
   ],
   "principle": "ولا حول ولا قوة إلا بالله"

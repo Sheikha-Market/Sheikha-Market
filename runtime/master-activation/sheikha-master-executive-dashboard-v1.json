@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T15:45:45.687Z",
+  "generatedAt": "2026-07-10T17:22:30.328Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          0.66,
-          1.39,
-          1.79
+          2.89,
+          3,
+          2.61
         ]
       }
     },
@@ -36,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875768832,
-        "freeMemoryBytes": 48666492928,
+        "freeMemoryBytes": 45807017984,
         "processMemory": {
-          "rss": 215015424,
-          "heapTotal": 56401920,
-          "heapUsed": 30551736,
-          "external": 3971335,
-          "arrayBuffers": 26112
+          "rss": 183894016,
+          "heapTotal": 56147968,
+          "heapUsed": 33027152,
+          "external": 24942855,
+          "arrayBuffers": 20997632
         }
       }
     },
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 538972808,
-        "availableKb": 385541332,
+        "usedKb": 539470928,
+        "availableKb": 385043212,
         "usagePercent": "59%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -59,7 +59,7 @@
     "api": {
       "ok": true,
       "evidence": {
-        "uniqueEndpoints": 2693,
+        "uniqueEndpoints": 2696,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
           "ok": false,
@@ -216,7 +216,7 @@
     "systems": 434,
     "engines": 793,
     "layers": 25,
-    "apis": 2693,
+    "apis": 2696,
     "services": 0,
     "tests": 343,
     "docs": 1069,
@@ -224,7 +224,7 @@
     "registries": 366,
     "runtimeEngines": 1259,
     "identityEngines": 94,
-    "governanceEngines": 521,
+    "governanceEngines": 523,
     "knowledgeEngines": 202,
     "communityEngines": 18,
     "commerceEngines": 73,
@@ -263,10 +263,12 @@
     "distributionArtifactsBuilt": 3,
     "distributionTargetsVerified": 1,
     "distributionTargetsNativeVerified": 1,
-    "distributionReleaseApexLevel": 27
+    "distributionReleaseApexLevel": 27,
+    "publicBenefitRegisteredCapabilities": 7149,
+    "publicBenefitActiveCapabilities": 844
   },
   "indicators": {
-    "apiEndpoints": 2693,
+    "apiEndpoints": 2696,
     "tests": 343,
     "duplicateGroups": 1206,
     "githubRequired": false,
@@ -302,6 +304,9 @@
     "distributionReleaseApexActive": true,
     "distributionReleaseApexLevel": 27,
     "distributionReleaseApexRemoteBuildEndpointExposed": false,
+    "publicBenefitCapabilityRoutingActive": true,
+    "publicBenefitRegisteredCapabilities": 7149,
+    "publicBenefitPolicyActivatesCapabilities": false,
     "reasoningStandardActive": true,
     "reasoningProActive": true,
     "reasoningUltraRoleSlots": 4,
@@ -325,6 +330,8 @@
     "Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.",
     "Keep L24 as the highest cognitive reasoning plane and L27 as the specialized release-delivery apex; layer numbering does not grant cross-plane authority.",
     "Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.",
+    "Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.",
+    "Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.",
     "Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries."
   ],
   "knowledge": {

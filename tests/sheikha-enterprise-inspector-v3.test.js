@@ -90,6 +90,12 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(snapshot.distributionReleaseApex.apexLevel).toBe(27);
     expect(snapshot.distributionReleaseApex.layerRelationship.crossPlaneAuthorityEscalation)
       .toBe(false);
+    expect(snapshot.surfaces.publicBenefitPolicy)
+      .toBe('/api/governance/generator/public-benefit-policy');
+    expect(snapshot.health.publicBenefitCapabilityRouter)
+      .toBe('ACTIVE_GOVERNED_EVALUATION_ONLY');
+    expect(snapshot.publicBenefitCapabilityRouter.coverage.policyCoverageActivatesComponents)
+      .toBe(false);
     expect(snapshot.architecture.flow).toContain('Governance Review');
     expect(snapshot.architecture.nodes).toContain('Streaming Multilingual Chat Apex');
     expect(snapshot.architecture.nodes).toContain('Cloud Production Deployment Apex');

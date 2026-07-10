@@ -50,6 +50,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.computingCognitiveLayersIntegrated).toBe(true);
     expect(report.checks.universalDistributionIntegrated).toBe(true);
     expect(report.checks.universalDistributionApexIntegrated).toBe(true);
+    expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -85,6 +86,11 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.distributionReleaseApexActive).toBe(true);
     expect(report.executiveDashboard.indicators.distributionReleaseApexLevel).toBe(27);
     expect(report.executiveDashboard.indicators.distributionReleaseApexRemoteBuildEndpointExposed)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators.publicBenefitCapabilityRoutingActive).toBe(true);
+    expect(report.executiveDashboard.indicators.publicBenefitRegisteredCapabilities)
+      .toBe(report.summary.discoveredComponents);
+    expect(report.executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities)
       .toBe(false);
     expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
     expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
@@ -134,6 +140,18 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       remoteBuildEndpointExposed: false,
       remotePublishEndpointExposed: false,
       crossPlaneAuthorityEscalation: false,
+      humanFinalDecision: true
+    });
+    expect(report.publicBenefitCapabilityRouting).toMatchObject({
+      active: true,
+      status: 'ACTIVE_POLICY_ONLY_NO_AUTOMATIC_EXECUTION',
+      scope: 'ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES',
+      registeredCapabilities: report.summary.discoveredComponents,
+      policyCoverageActivatesCapabilities: false,
+      hardBoundariesOverrideBenefitIntent: true,
+      automaticExecution: false,
+      decisionGrantsAuthorization: false,
+      automatedFatwaAllowed: false,
       humanFinalDecision: true
     });
   });
