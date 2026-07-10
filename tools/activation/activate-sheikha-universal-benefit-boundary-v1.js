@@ -189,6 +189,23 @@ function buildReport() {
   const checks = {
     architectureComponentsComplete:
       currentStatus.architectureComponentsRegistered === 18,
+    writtenArabicQuranSunnahContractComplete:
+      dsl.status === 'VALID_GOVERNED_CONTRACT' &&
+      dsl.contract?.arabicPrimary === true &&
+      dsl.writtenReferences?.quranCount === 6 &&
+      dsl.writtenReferences?.authenticSunnahCount === 1 &&
+      dsl.writtenReferences?.automatedInterpretationOrFatwa === false &&
+      dsl.writtenReferences?.qualifiedScholarReviewRequired === true,
+    arabicApiDecisionSurfaceActive:
+      Object.values(probes).every((item) =>
+        item.language === 'ar' &&
+        item.arabicPrimary === true &&
+        item.arabic?.['القرار'] &&
+        item.arabic?.['السبب'] &&
+        item.arabic?.['القرار_النهائي_للإنسان'] === true
+      ) &&
+      transformed.arabicPrimary === true &&
+      Boolean(transformed.arabic?.['البديل_الآمن']),
     deniesWithoutRequiredPermission:
       probes.deny.decision === 'DENY' && probes.deny.reason === 'REQUIRED_PERMISSION_MISSING',
     noVerifiedClaimWithoutEvidence:
@@ -259,6 +276,9 @@ function buildReport() {
 
   return {
     system: 'SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1',
+    language: 'ar',
+    arabicPrimary: true,
+    arabicName: 'منظومة شيخة العربية الشاملة للخير والنفع والحدود',
     status: missing.length === 0 ? 'VERIFIED_ACTIVE' : 'ACTIVE_WITH_REVIEW',
     mode: 'PERMITTED_CAPABILITY_TO_VERIFIED_PUBLIC_BENEFIT',
     generatedAt: new Date().toISOString(),
@@ -283,7 +303,7 @@ function buildReport() {
     externalWriteWithoutAuthorizationAllowed: false,
     automaticKernelOrFirmwareModificationAllowed: false,
     humanFinalResponsibility: true,
-    claimPolicy: 'No benefit, safety, or compliance claim without evidence and applicable human review.',
+    claimPolicy: 'لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.',
     checks,
     missing,
     decisions: probes,
@@ -292,7 +312,16 @@ function buildReport() {
       path: DSL_PATH,
       status: dsl.status,
       contract: dsl.contract,
+      writtenReferences: dsl.writtenReferences,
       executableAuthorityGranted: dsl.executableAuthorityGranted
+    },
+    arabicApi: {
+      primary: true,
+      language: 'ar',
+      machineIdentifiersPreservedForCompatibility: true,
+      decisionsReturnArabicExplanation: true,
+      boundariesReturnArabicNames: true,
+      safeAlternativesReturnArabicText: true
     },
     integrations: currentRegistry.integrations,
     registries: {
@@ -309,11 +338,11 @@ function buildReport() {
       sensitiveRequestPayloadsStored: false
     },
     limitations: [
-      'ALLOW is a routing result and does not grant execution authorization.',
-      'Benefit indicators are reviewable operational signals, not absolute moral judgments.',
-      'Religious rulings require qualified scholars; no automated fatwa is produced.',
-      'High-impact, physical, legal, medical, financial, kernel, firmware, and external-write actions remain human governed.',
-      'Runtime audit evidence is bounded and in memory; durable audit requires the separate authorized audit pipeline.'
+      'قرار ALLOW نتيجة توجيه ولا يمنح تفويض التنفيذ.',
+      'مؤشرات المنفعة تشغيلية قابلة للمراجعة وليست أحكامًا أخلاقية مطلقة.',
+      'الأحكام الشرعية تحتاج أهل العلم المؤهلين، ولا تصدر فتوى آلية.',
+      'الأعمال عالية الأثر والمادية والقانونية والطبية والمالية وتعديل النواة والبرمجيات الثابتة والكتابة الخارجية تبقى محكومة بشريًا.',
+      'دليل التدقيق التشغيلي محدود وفي الذاكرة؛ التدقيق الدائم يحتاج مسار التدقيق المأذون المنفصل.'
     ]
   };
 }

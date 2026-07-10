@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T20:35:57.952Z",
+  "generatedAt": "2026-07-10T20:53:28.971Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          4.02,
-          4,
-          3.3
+          2.4,
+          2.83,
+          3.08
         ]
       }
     },
@@ -36,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875768832,
-        "freeMemoryBytes": 43884609536,
+        "freeMemoryBytes": 43451555840,
         "processMemory": {
-          "rss": 214441984,
-          "heapTotal": 56631296,
-          "heapUsed": 37415984,
-          "external": 14457095,
-          "arrayBuffers": 10511872
+          "rss": 195694592,
+          "heapTotal": 56639488,
+          "heapUsed": 35443544,
+          "external": 39622919,
+          "arrayBuffers": 35677696
         }
       }
     },
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 540359568,
-        "availableKb": 384154572,
+        "usedKb": 540843760,
+        "availableKb": 383670380,
         "usagePercent": "59%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -270,6 +270,8 @@
     "universalBenefitBoundaries": 18,
     "universalBenefitDomains": 16,
     "universalBenefitArchitectureComponents": 18,
+    "universalBenefitQuranWrittenReferences": 6,
+    "universalBenefitSunnahWrittenReferences": 1,
     "sheikhaNativeImplementationSourceFiles": 1,
     "sheikhaHostImplementationSourceFiles": 12581
   },
@@ -318,6 +320,10 @@
     "universalBenefitBoundaries": 18,
     "universalBenefitSafeAlternatives": 3,
     "universalBenefitPermissionEscalationAllowed": false,
+    "universalBenefitArabicPrimary": true,
+    "universalBenefitQuranWrittenReferences": 6,
+    "universalBenefitSunnahWrittenReferences": 1,
+    "universalBenefitAutomatedReligiousInterpretation": false,
     "nativeLanguageArchitectureFoundationActive": true,
     "sheikhaCompilerSelfHosted": false,
     "sheikhaNativeTargetAvailable": false,

@@ -102,6 +102,11 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       .toBeGreaterThan(0);
     expect(report.executiveDashboard.indicators.universalBenefitPermissionEscalationAllowed)
       .toBe(false);
+    expect(report.executiveDashboard.indicators.universalBenefitArabicPrimary).toBe(true);
+    expect(report.executiveDashboard.indicators.universalBenefitQuranWrittenReferences).toBe(6);
+    expect(report.executiveDashboard.indicators.universalBenefitSunnahWrittenReferences).toBe(1);
+    expect(report.executiveDashboard.indicators.universalBenefitAutomatedReligiousInterpretation)
+      .toBe(false);
     expect(report.executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive)
       .toBe(true);
     expect(report.executiveDashboard.indicators.sheikhaCompilerSelfHosted).toBe(false);
@@ -177,6 +182,12 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       boundariesRegistered: 18,
       benefitDomainsRegistered: 16,
       architectureComponentsRegistered: 18,
+      language: 'ar',
+      arabicPrimary: true,
+      quranWrittenReferences: 6,
+      sunnahWrittenReferences: 1,
+      automatedReligiousInterpretation: false,
+      qualifiedScholarReviewRequired: true,
       allowedDecisions: 1,
       reviewDecisions: 1,
       sandboxDecisions: 1,

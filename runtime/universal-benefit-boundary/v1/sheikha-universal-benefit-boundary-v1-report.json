@@ -1,8 +1,11 @@
 {
   "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+  "language": "ar",
+  "arabicPrimary": true,
+  "arabicName": "منظومة شيخة العربية الشاملة للخير والنفع والحدود",
   "status": "VERIFIED_ACTIVE",
   "mode": "PERMITTED_CAPABILITY_TO_VERIFIED_PUBLIC_BENEFIT",
-  "generatedAt": "2026-07-10T20:35:18.287Z",
+  "generatedAt": "2026-07-10T20:52:27.481Z",
   "score": 100,
   "capabilitiesRegistered": 16,
   "boundariesRegistered": 18,
@@ -21,9 +24,11 @@
   "externalWriteWithoutAuthorizationAllowed": false,
   "automaticKernelOrFirmwareModificationAllowed": false,
   "humanFinalResponsibility": true,
-  "claimPolicy": "No benefit, safety, or compliance claim without evidence and applicable human review.",
+  "claimPolicy": "لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.",
   "checks": {
     "architectureComponentsComplete": true,
+    "writtenArabicQuranSunnahContractComplete": true,
+    "arabicApiDecisionSurfaceActive": true,
     "deniesWithoutRequiredPermission": true,
     "noVerifiedClaimWithoutEvidence": true,
     "highImpactRequiresHumanReview": true,
@@ -49,6 +54,8 @@
   "decisions": {
     "allow": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "language": "ar",
+      "arabicPrimary": true,
       "decision": "ALLOW",
       "reason": "WITHIN_BOUNDARY_VERIFIED_FOR_GOVERNED_ROUTING",
       "capabilityId": "SHEIKHA_PUBLIC_KNOWLEDGE_ASSISTANCE",
@@ -92,6 +99,37 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "arabic": {
+        "اللغة": "العربية",
+        "القرار": "مسموح بالمرور إلى بوابة التفويض المنفصلة",
+        "رمز_القرار_التقني": "ALLOW",
+        "السبب": "اجتاز الطلب فحص الحدود والدليل للمرور المحكوم، دون منحه إذن تنفيذ.",
+        "حالة_الدليل": "دليل موثق في سياق التقييم",
+        "الحدود": [
+          {
+            "الحد": "حد الدليل والتثبت",
+            "رمز_الحد_التقني": "EVIDENCE_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          },
+          {
+            "الحد": "حد الوصول والشمول",
+            "رمز_الحد_التقني": "ACCESSIBILITY_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          }
+        ],
+        "الأدلة_المطلوبة": [],
+        "الموافقات_المطلوبة": [],
+        "ضوابط_منع_الضرر": [
+          "SOURCE_TRACE",
+          "ACCESSIBLE_OUTPUT",
+          "UNKNOWN_WHEN_UNPROVEN"
+        ],
+        "البديل_الآمن": "تابع إلى بوابة التفويض والتنفيذ المنفصلة؛ هذا التقييم لا يمنح الإذن بذاته.",
+        "التنفيذ_تم": false,
+        "القرار_النهائي_للإنسان": true,
+        "الفتوى_الآلية": false,
+        "المعرفات_التقنية_محفوظة_للتوافق": true
+      },
       "humanFinalDecision": true,
       "humanFinalResponsibility": true,
       "executionAllowed": false,
@@ -116,10 +154,12 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783715718281-1"
+      "auditId": "ubb-1783716747473-1"
     },
     "review": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "language": "ar",
+      "arabicPrimary": true,
       "decision": "REVIEW",
       "reason": "HUMAN_APPROVAL_REQUIRED",
       "capabilityId": "SHEIKHA_COMMUNITY_PLANNING",
@@ -167,6 +207,42 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "arabic": {
+        "اللغة": "العربية",
+        "القرار": "مراجعة بشرية أو تخصصية مطلوبة",
+        "رمز_القرار_التقني": "REVIEW",
+        "السبب": "تحتاج العملية موافقة الإنسان المسؤول.",
+        "حالة_الدليل": "دليل موثق في سياق التقييم",
+        "الحدود": [
+          {
+            "الحد": "حد مسؤولية الإنسان وسلطته",
+            "رمز_الحد_التقني": "HUMAN_AUTHORITY_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          },
+          {
+            "الحد": "حد الوصول والشمول",
+            "رمز_الحد_التقني": "ACCESSIBILITY_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          },
+          {
+            "الحد": "حد القرار عالي الأثر",
+            "رمز_الحد_التقني": "HIGH_IMPACT_DECISION_BOUNDARY",
+            "الحالة": "عند الحد ويحتاج تحققًا أو مراجعة"
+          }
+        ],
+        "الأدلة_المطلوبة": [],
+        "الموافقات_المطلوبة": [
+          "ACCOUNTABLE_HUMAN_APPROVAL"
+        ],
+        "ضوابط_منع_الضرر": [
+          "NO_HIGH_IMPACT_AUTOMATION"
+        ],
+        "البديل_الآمن": "اعرض خيارات وأدلة ومخاطر مع إبقاء القرار النهائي للإنسان.",
+        "التنفيذ_تم": false,
+        "القرار_النهائي_للإنسان": true,
+        "الفتوى_الآلية": false,
+        "المعرفات_التقنية_محفوظة_للتوافق": true
+      },
       "humanFinalDecision": true,
       "humanFinalResponsibility": true,
       "executionAllowed": false,
@@ -191,10 +267,12 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783715718282-2"
+      "auditId": "ubb-1783716747474-2"
     },
     "sandbox": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "language": "ar",
+      "arabicPrimary": true,
       "decision": "SANDBOX",
       "reason": "HARDWARE_SUPPORT_NOT_VERIFIED_USE_EMULATION",
       "capabilityId": "SHEIKHA_BARE_METAL_COMPATIBILITY",
@@ -242,6 +320,43 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "arabic": {
+        "اللغة": "العربية",
+        "القرار": "عزل أو محاكاة أو تشغيل محدود مطلوب",
+        "رمز_القرار_التقني": "SANDBOX",
+        "السبب": "دعم العتاد غير مثبت؛ تستخدم المحاكاة دون ادعاء دعم أصلي.",
+        "حالة_الدليل": "دليل موثق في سياق التقييم",
+        "الحدود": [
+          {
+            "الحد": "حد العتاد",
+            "رمز_الحد_التقني": "HARDWARE_BOUNDARY",
+            "الحالة": "عند الحد ويحتاج تحققًا أو مراجعة"
+          },
+          {
+            "الحد": "حد العالم المادي",
+            "رمز_الحد_التقني": "PHYSICAL_WORLD_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          },
+          {
+            "الحد": "حد الإذن والصلاحية",
+            "رمز_الحد_التقني": "PERMISSION_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          }
+        ],
+        "الأدلة_المطلوبة": [
+          "NATIVE_HARDWARE_QUALIFICATION"
+        ],
+        "الموافقات_المطلوبة": [],
+        "ضوابط_منع_الضرر": [
+          "EMULATION_ONLY",
+          "NO_NATIVE_SUPPORT_CLAIM"
+        ],
+        "البديل_الآمن": "استخدم محاكاة أو staging دون ادعاء دعم أصلي.",
+        "التنفيذ_تم": false,
+        "القرار_النهائي_للإنسان": true,
+        "الفتوى_الآلية": false,
+        "المعرفات_التقنية_محفوظة_للتوافق": true
+      },
       "humanFinalDecision": true,
       "humanFinalResponsibility": true,
       "executionAllowed": false,
@@ -266,10 +381,12 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783715718282-3"
+      "auditId": "ubb-1783716747474-3"
     },
     "deny": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
+      "language": "ar",
+      "arabicPrimary": true,
       "decision": "DENY",
       "reason": "REQUIRED_PERMISSION_MISSING",
       "capabilityId": "SHEIKHA_LOCAL_FILE_ANALYSIS",
@@ -316,6 +433,42 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "arabic": {
+        "اللغة": "العربية",
+        "القرار": "منع التنفيذ",
+        "رمز_القرار_التقني": "DENY",
+        "السبب": "الإذن المطلوب غير موجود أو غير موثق.",
+        "حالة_الدليل": "دليل موثق في سياق التقييم",
+        "الحدود": [
+          {
+            "الحد": "حد الإذن والصلاحية",
+            "رمز_الحد_التقني": "PERMISSION_BOUNDARY",
+            "الحالة": "خارج الحد ويمنع التنفيذ"
+          },
+          {
+            "الحد": "حد الخصوصية وتقليل البيانات",
+            "رمز_الحد_التقني": "PRIVACY_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          },
+          {
+            "الحد": "حد الدليل والتثبت",
+            "رمز_الحد_التقني": "EVIDENCE_BOUNDARY",
+            "الحالة": "ضمن الحد المأذون"
+          }
+        ],
+        "الأدلة_المطلوبة": [
+          "TRACEABLE_PERMISSION_RECORD"
+        ],
+        "الموافقات_المطلوبة": [
+          "FILE_OWNER_PERMISSION"
+        ],
+        "ضوابط_منع_الضرر": [],
+        "البديل_الآمن": "أنشئ طلب موافقة محدد النطاق والمدة والمالك.",
+        "التنفيذ_تم": false,
+        "القرار_النهائي_للإنسان": true,
+        "الفتوى_الآلية": false,
+        "المعرفات_التقنية_محفوظة_للتوافق": true
+      },
       "humanFinalDecision": true,
       "humanFinalResponsibility": true,
       "executionAllowed": false,
@@ -340,11 +493,13 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783715718283-4"
+      "auditId": "ubb-1783716747474-4"
     }
   },
   "boundaryTransformationProbe": {
     "system": "SHEIKHA_BOUNDARY_TO_BENEFIT_TRANSFORMER_V1",
+    "language": "ar",
+    "arabicPrimary": true,
     "status": "BOUNDARY_TRANSFORMED_TO_SAFE_PATH",
     "decision": "DENY",
     "boundaryType": "HARDWARE_BOUNDARY",
@@ -362,6 +517,32 @@
       "executionPerformed": false,
       "externalWritePerformed": false
     },
+    "arabic": {
+      "اللغة": "العربية",
+      "القرار": "منع التنفيذ",
+      "رمز_القرار_التقني": "DENY",
+      "السبب": "الطلب خارج الحد؛ منع التنفيذ وأنتج بديل آمن.",
+      "حالة_الدليل": null,
+      "الحدود": [
+        {
+          "الحد": "حد العتاد",
+          "رمز_الحد_التقني": "HARDWARE_BOUNDARY",
+          "الحالة": "خارج الحد ويمنع التنفيذ"
+        }
+      ],
+      "الأدلة_المطلوبة": [],
+      "الموافقات_المطلوبة": [],
+      "ضوابط_منع_الضرر": [
+        "EMULATION",
+        "COMPATIBILITY_ADAPTER",
+        "NO_NATIVE_CLAIM"
+      ],
+      "البديل_الآمن": "استخدم محاكاة أو staging دون ادعاء دعم أصلي.",
+      "التنفيذ_تم": false,
+      "القرار_النهائي_للإنسان": true,
+      "الفتوى_الآلية": false,
+      "المعرفات_التقنية_محفوظة_للتوافق": true
+    },
     "humanFinalDecision": true,
     "executionAllowed": false,
     "decisionGrantsAuthorization": false,
@@ -373,6 +554,8 @@
     "status": "VALID_GOVERNED_CONTRACT",
     "contract": {
       "language": "ar",
+      "arabicPrimary": true,
+      "tongue": "لسان عربي مبين",
       "dsl": "SHEIKHA_ARABIC_BOUNDARY_DSL_V1",
       "capability": "تحليل ملف",
       "boundary": "الخصوصية",
@@ -383,7 +566,69 @@
       "decision": "منع التنفيذ",
       "safeAlternative": "شرح طريقة التحليل المحلي"
     },
+    "writtenReferences": {
+      "quran": [
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "إن الله يأمر بالعدل والإحسان",
+          "location": "سورة النحل: 90",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "إن الله يأمركم أن تؤدوا الأمانات إلى أهلها وإذا حكمتم بين الناس أن تحكموا بالعدل",
+          "location": "سورة النساء: 58",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "وتعاونوا على البر والتقوى ولا تعاونوا على الإثم والعدوان",
+          "location": "سورة المائدة: 2",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة",
+          "location": "سورة الحجرات: 6",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "وأمرهم شورى بينهم",
+          "location": "سورة الشورى: 38",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "ولا تفسدوا في الأرض بعد إصلاحها",
+          "location": "سورة الأعراف: 56",
+          "executableRule": false
+        }
+      ],
+      "authenticSunnah": [
+        {
+          "kind": "AUTHENTIC_SUNNAH_TEXT",
+          "text": "لا ضرر ولا ضرار",
+          "source": "أخرجه ابن ماجه (2340)، وصححه الألباني في صحيح ابن ماجه (1909)",
+          "executableRule": false
+        }
+      ],
+      "quranCount": 6,
+      "authenticSunnahCount": 1,
+      "valuesReferenceOnly": true,
+      "automatedInterpretationOrFatwa": false,
+      "qualifiedScholarReviewRequired": true,
+      "sourceTextIntegrityRequiresHumanReview": true
+    },
     "executableAuthorityGranted": false
+  },
+  "arabicApi": {
+    "primary": true,
+    "language": "ar",
+    "machineIdentifiersPreservedForCompatibility": true,
+    "decisionsReturnArabicExplanation": true,
+    "boundariesReturnArabicNames": true,
+    "safeAlternativesReturnArabicText": true
   },
   "integrations": [
     "SHEIKHA_COMPUTING_COGNITIVE_LAYERS_L24",
@@ -423,7 +668,9 @@
     "humanFinalResponsibility": true,
     "valuesReferenceExecutableAuthority": false,
     "benefitIndicatorIsAbsoluteMoralJudgment": false,
-    "claimPolicy": "No benefit, safety, or compliance claim without evidence and applicable human review."
+    "claimPolicy": "لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.",
+    "writtenQuranSunnahValuesReference": true,
+    "quranSunnahTextBecomesAutomatedRuling": false
   },
   "evidence": {
     "runtimeAuditRecords": 17,
@@ -432,10 +679,10 @@
     "sensitiveRequestPayloadsStored": false
   },
   "limitations": [
-    "ALLOW is a routing result and does not grant execution authorization.",
-    "Benefit indicators are reviewable operational signals, not absolute moral judgments.",
-    "Religious rulings require qualified scholars; no automated fatwa is produced.",
-    "High-impact, physical, legal, medical, financial, kernel, firmware, and external-write actions remain human governed.",
-    "Runtime audit evidence is bounded and in memory; durable audit requires the separate authorized audit pipeline."
+    "قرار ALLOW نتيجة توجيه ولا يمنح تفويض التنفيذ.",
+    "مؤشرات المنفعة تشغيلية قابلة للمراجعة وليست أحكامًا أخلاقية مطلقة.",
+    "الأحكام الشرعية تحتاج أهل العلم المؤهلين، ولا تصدر فتوى آلية.",
+    "الأعمال عالية الأثر والمادية والقانونية والطبية والمالية وتعديل النواة والبرمجيات الثابتة والكتابة الخارجية تبقى محكومة بشريًا.",
+    "دليل التدقيق التشغيلي محدود وفي الذاكرة؛ التدقيق الدائم يحتاج مسار التدقيق المأذون المنفصل."
   ]
 }

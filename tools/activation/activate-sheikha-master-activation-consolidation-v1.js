@@ -1332,6 +1332,10 @@ function buildReport() {
     universalBenefitBoundary?.benefitDomainsRegistered || 0;
   finalExecutiveReport.counts.universalBenefitArchitectureComponents =
     universalBenefitBoundary?.architectureComponentsRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitQuranWrittenReferences =
+    universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0;
+  finalExecutiveReport.counts.universalBenefitSunnahWrittenReferences =
+    universalBenefitBoundary?.arabicDsl?.writtenReferences?.authenticSunnahCount || 0;
   finalExecutiveReport.counts.sheikhaNativeImplementationSourceFiles =
     nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0;
   finalExecutiveReport.counts.sheikhaHostImplementationSourceFiles =
@@ -1434,6 +1438,15 @@ function buildReport() {
     universalBenefitBoundary?.safeAlternativesGenerated || 0;
   executiveDashboard.indicators.universalBenefitPermissionEscalationAllowed =
     universalBenefitBoundary?.permissionEscalationAllowed === true;
+  executiveDashboard.indicators.universalBenefitArabicPrimary =
+    universalBenefitBoundary?.arabicPrimary === true;
+  executiveDashboard.indicators.universalBenefitQuranWrittenReferences =
+    universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0;
+  executiveDashboard.indicators.universalBenefitSunnahWrittenReferences =
+    universalBenefitBoundary?.arabicDsl?.writtenReferences?.authenticSunnahCount || 0;
+  executiveDashboard.indicators.universalBenefitAutomatedReligiousInterpretation =
+    universalBenefitBoundary?.arabicDsl?.writtenReferences
+      ?.automatedInterpretationOrFatwa === true;
   executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive =
     nativeLanguageArchitecture?.foundationScore === 100;
   executiveDashboard.indicators.sheikhaCompilerSelfHosted =
@@ -1559,6 +1572,17 @@ function buildReport() {
       universalBenefitBoundary?.religiousRulingsAutomated === false &&
       universalBenefitBoundary?.safetyBypassAllowed === false &&
       universalBenefitBoundary?.permissionEscalationAllowed === false &&
+      universalBenefitBoundary?.language === 'ar' &&
+      universalBenefitBoundary?.arabicPrimary === true &&
+      universalBenefitBoundary?.arabicApi?.primary === true &&
+      universalBenefitBoundary?.arabicApi?.decisionsReturnArabicExplanation === true &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount === 6 &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences
+        ?.authenticSunnahCount === 1 &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences
+        ?.automatedInterpretationOrFatwa === false &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences
+        ?.qualifiedScholarReviewRequired === true &&
       universalBenefitBoundary?.humanFinalResponsibility === true,
     nativeLanguageArchitectureIntegrated:
       nativeLanguageArchitecture?.system === 'SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1' &&
@@ -1746,6 +1770,13 @@ function buildReport() {
         universalBenefitBoundary?.architectureComponentsRegistered || 0,
       universalBenefitSafeAlternatives:
         universalBenefitBoundary?.safeAlternativesGenerated || 0,
+      universalBenefitArabicPrimary:
+        universalBenefitBoundary?.arabicPrimary === true,
+      universalBenefitQuranWrittenReferences:
+        universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0,
+      universalBenefitSunnahWrittenReferences:
+        universalBenefitBoundary?.arabicDsl?.writtenReferences
+          ?.authenticSunnahCount || 0,
       nativeLanguageArchitectureFoundationActive:
         nativeLanguageArchitecture?.foundationScore === 100,
       sheikhaImplementationSourceFiles:
@@ -1948,6 +1979,19 @@ function buildReport() {
         universalBenefitBoundary?.benefitDomainsRegistered || 0,
       architectureComponentsRegistered:
         universalBenefitBoundary?.architectureComponentsRegistered || 0,
+      language: universalBenefitBoundary?.language || 'UNKNOWN',
+      arabicPrimary: universalBenefitBoundary?.arabicPrimary === true,
+      quranWrittenReferences:
+        universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0,
+      sunnahWrittenReferences:
+        universalBenefitBoundary?.arabicDsl?.writtenReferences
+          ?.authenticSunnahCount || 0,
+      automatedReligiousInterpretation:
+        universalBenefitBoundary?.arabicDsl?.writtenReferences
+          ?.automatedInterpretationOrFatwa === true,
+      qualifiedScholarReviewRequired:
+        universalBenefitBoundary?.arabicDsl?.writtenReferences
+          ?.qualifiedScholarReviewRequired === true,
       allowedDecisions: universalBenefitBoundary?.allowedDecisions || 0,
       reviewDecisions: universalBenefitBoundary?.reviewDecisions || 0,
       sandboxDecisions: universalBenefitBoundary?.sandboxDecisions || 0,
@@ -2164,6 +2208,11 @@ if (require.main === module) {
     universalBenefitBoundaries: report.summary.universalBenefitBoundaries,
     universalBenefitDomains: report.summary.universalBenefitDomains,
     universalBenefitSafeAlternatives: report.summary.universalBenefitSafeAlternatives,
+    universalBenefitArabicPrimary: report.summary.universalBenefitArabicPrimary,
+    universalBenefitQuranWrittenReferences:
+      report.summary.universalBenefitQuranWrittenReferences,
+    universalBenefitSunnahWrittenReferences:
+      report.summary.universalBenefitSunnahWrittenReferences,
     nativeLanguageArchitectureFoundationActive:
       report.summary.nativeLanguageArchitectureFoundationActive,
     sheikhaImplementationSourceFiles: report.summary.sheikhaImplementationSourceFiles,

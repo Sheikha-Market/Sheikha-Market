@@ -262,6 +262,11 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     ));
     expect(result.status).toBe('VALID_GOVERNED_CONTRACT');
     expect(result.contract).toMatchObject({
+      language: 'ar',
+      arabicPrimary: true,
+      tongue: 'لسان عربي مبين'
+    });
+    expect(result.contract).toMatchObject({
       capability: 'تحليل ملف',
       boundary: 'الخصوصية',
       permission: 'مالك الملف',
@@ -270,6 +275,45 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       safeAlternative: 'شرح طريقة التحليل المحلي'
     });
     expect(result.executableAuthorityGranted).toBe(false);
+    expect(result.writtenReferences).toMatchObject({
+      quranCount: 6,
+      authenticSunnahCount: 1,
+      valuesReferenceOnly: true,
+      automatedInterpretationOrFatwa: false,
+      qualifiedScholarReviewRequired: true,
+      sourceTextIntegrityRequiresHumanReview: true
+    });
+    expect(result.writtenReferences.quran.map((item) => item.location)).toEqual(
+      expect.arrayContaining([
+        'سورة النحل: 90',
+        'سورة النساء: 58',
+        'سورة المائدة: 2',
+        'سورة الحجرات: 6',
+        'سورة الشورى: 38',
+        'سورة الأعراف: 56'
+      ])
+    );
+    expect(result.writtenReferences.authenticSunnah[0].text).toBe('لا ضرر ولا ضرار');
+  });
+
+  test('returns Arabic-first decisions, reasons, boundaries, and safe alternatives', () => {
+    const result = evaluate({ externalWrite: true });
+    expect(result).toMatchObject({ language: 'ar', arabicPrimary: true });
+    expect(result.arabic).toMatchObject({
+      'اللغة': 'العربية',
+      'القرار': 'منع التنفيذ',
+      'السبب': 'الكتابة الخارجية غير مأذونة بإذن صريح.',
+      'القرار_النهائي_للإنسان': true,
+      'الفتوى_الآلية': false
+    });
+    expect(result.arabic['الحدود']).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        'الحد': expect.any(String),
+        'رمز_الحد_التقني': 'PERMISSION_BOUNDARY',
+        'الحالة': 'خارج الحد ويمنع التنفيذ'
+      })
+    ]));
+    expect(result.arabic['البديل_الآمن']).toContain('طلب موافقة');
   });
 
   test('boundary transformer denies beyond-boundary work with a safe path', () => {
@@ -302,6 +346,11 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       .get('/api/governance/universal-benefit/status')
       .expect(200);
     expect(statusResponse.body.result.boundariesRegistered).toBe(18);
+    expect(statusResponse.body.result).toMatchObject({
+      language: 'ar',
+      arabicPrimary: true,
+      arabicName: 'منظومة شيخة الشاملة للخير والنفع والحدود'
+    });
 
     const evaluateResponse = await request(app())
       .post('/api/governance/universal-benefit/evaluate')
@@ -313,6 +362,8 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       })
       .expect(200);
     expect(evaluateResponse.body.result.decision).toBe('ALLOW');
+    expect(evaluateResponse.body.result.arabic['القرار'])
+      .toBe('مسموح بالمرور إلى بوابة التفويض المنفصلة');
 
     const transformResponse = await request(app())
       .post('/api/governance/universal-benefit/transform-boundary')
@@ -320,11 +371,35 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       .expect(200);
     expect(transformResponse.body.result.decision).toBe('SANDBOX');
 
-    await request(app()).get('/api/governance/universal-benefit/capabilities').expect(200);
+    const capabilitiesResponse = await request(app())
+      .get('/api/governance/universal-benefit/capabilities')
+      .expect(200);
+    expect(capabilitiesResponse.body.result).toMatchObject({
+      arabicName: 'سجل شيخة الموحد للقدرات والحدود',
+      language: { primary: 'ar', arabicPrimary: true },
+      valuesReference: {
+        automatedFatwaAllowed: false,
+        writtenArabicReferences: true,
+        automatedJurisprudentialInferenceAllowed: false
+      }
+    });
+    expect(capabilitiesResponse.body.result.valuesReference.references).toHaveLength(7);
+    expect(capabilitiesResponse.body.result.valuesReference.references.every(
+      (item) => item.arabicText
+    )).toBe(true);
     const evidenceResponse = await request(app())
       .get('/api/governance/universal-benefit/evidence')
       .expect(200);
     expect(evidenceResponse.body.result.sensitiveRequestPayloadsStored).toBe(false);
+    expect(evidenceResponse.body.result).toMatchObject({
+      language: 'ar',
+      arabicPrimary: true,
+      arabic: {
+        'الكتابة_الخارجية': false,
+        'حفظ_حمولة_الطلب_الحساسة': false,
+        'المسؤولية_النهائية_للإنسان': true
+      }
+    });
   });
 
   test('20. activation does not mix unrelated legacy reports', () => {
@@ -346,6 +421,18 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
       permissionEscalationAllowed: false,
       humanFinalResponsibility: true
     });
+    expect(report).toMatchObject({
+      language: 'ar',
+      arabicPrimary: true,
+      arabicApi: {
+        primary: true,
+        decisionsReturnArabicExplanation: true,
+        boundariesReturnArabicNames: true,
+        safeAlternativesReturnArabicText: true
+      }
+    });
+    expect(report.checks.writtenArabicQuranSunnahContractComplete).toBe(true);
+    expect(report.checks.arabicApiDecisionSurfaceActive).toBe(true);
   });
 
   test('package, SDK, docs, and Fabric Bootstrap expose the real surface', () => {
@@ -367,5 +454,7 @@ describe('Sheikha Universal Benefit and Boundary Governance V1', () => {
     expect(read('sdk/sheikha-api/index.js')).toContain('client.universalBenefit');
     expect(read('docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md'))
       .toContain('decisionGrantsAuthorization: false');
+    expect(read('docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md'))
+      .toContain('لا ضرر ولا ضرار');
   });
 });

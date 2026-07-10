@@ -34,6 +34,71 @@ const BOUNDARY_STATES = Object.freeze([
   'BEYOND_BOUNDARY'
 ]);
 
+const ARABIC_DECISIONS = Object.freeze({
+  ALLOW: 'مسموح بالمرور إلى بوابة التفويض المنفصلة',
+  REVIEW: 'مراجعة بشرية أو تخصصية مطلوبة',
+  SANDBOX: 'عزل أو محاكاة أو تشغيل محدود مطلوب',
+  DENY: 'منع التنفيذ'
+});
+
+const ARABIC_REASONS = Object.freeze({
+  CAPABILITY_NOT_REGISTERED: 'القدرة غير مسجلة في السجل المعتمد.',
+  PROHIBITED_SECURITY_ACTION: 'الطلب يتضمن فعلًا أمنيًا محظورًا أو غير دفاعي.',
+  AUTOMATED_RELIGIOUS_RULING_PROHIBITED: 'إصدار حكم شرعي أو فتوى آلية مستقلة ممنوع.',
+  PROHIBITED_AI_AUTHORITY_OR_UNSEEN_CLAIM: 'ادعاء الوعي أو العصمة أو الوحي أو علم الغيب ممنوع.',
+  AI_DIRECT_KERNEL_OR_FIRMWARE_MODIFICATION_PROHIBITED: 'لا يملك الذكاء الصناعي تعديل النواة أو البرمجيات الثابتة مباشرة.',
+  EXTERNAL_WRITE_NOT_AUTHORIZED: 'الكتابة الخارجية غير مأذونة بإذن صريح.',
+  REQUIRED_PERMISSION_MISSING: 'الإذن المطلوب غير موجود أو غير موثق.',
+  EVIDENCE_INSUFFICIENT_RESULT_UNKNOWN: 'الدليل غير كاف؛ النتيجة غير معلومة ولا يجوز تخمينها.',
+  QUALIFIED_DOMAIN_REVIEW_REQUIRED: 'تحتاج المسألة مراجعة مختص مؤهل في مجالها.',
+  HUMAN_APPROVAL_REQUIRED: 'تحتاج العملية موافقة الإنسان المسؤول.',
+  TOOL_UNAVAILABLE_REQUIREMENTS_REPORT_REQUIRED: 'الأداة غير متاحة؛ يلزم تقرير متطلبات وخطة بديلة.',
+  HARDWARE_SUPPORT_NOT_VERIFIED_USE_EMULATION: 'دعم العتاد غير مثبت؛ تستخدم المحاكاة دون ادعاء دعم أصلي.',
+  NETWORK_UNAVAILABLE_USE_LOCAL_FIRST: 'الاتصال غير متاح؛ يستخدم التشغيل المحلي أولًا.',
+  PERSONAL_DATA_REQUIRES_MINIMIZATION: 'البيانات الشخصية تحتاج تقليلًا وإخفاء هوية وسياسة احتفاظ.',
+  RESOURCE_OR_COST_BOUNDARY_REACHED: 'بلغ الطلب حد الموارد أو التكلفة ويحتاج ضبط الميزانية.',
+  DEFENSIVE_SECURITY_SCOPE_NOT_AUTHORIZED: 'نطاق الأمن الدفاعي غير مأذون.',
+  AUTHORIZED_DEFENSIVE_SECURITY_SANDBOX_ONLY: 'المراجعة الدفاعية المأذونة تعمل داخل العزل فقط.',
+  ELEVATED_RISK_REQUIRES_ISOLATION: 'الخطر مرتفع ويحتاج عزلًا أو محاكاة أو وضع قراءة فقط.',
+  WITHIN_BOUNDARY_VERIFIED_FOR_GOVERNED_ROUTING: 'اجتاز الطلب فحص الحدود والدليل للمرور المحكوم، دون منحه إذن تنفيذ.',
+  VALID_REGISTERED_BOUNDARY_REQUIRED: 'يلزم حد مسجل وحالة حد صحيحة.',
+  BOUNDARY_STATE_WITHIN_BOUNDARY: 'الطلب ضمن الحد المأذون ويحتاج بوابة التفويض المنفصلة.',
+  BOUNDARY_STATE_AT_BOUNDARY: 'الطلب عند الحد ويحتاج مسار الأمان أو المراجعة المناسب.',
+  BOUNDARY_STATE_BEYOND_BOUNDARY: 'الطلب خارج الحد؛ منع التنفيذ وأنتج بديل آمن.'
+});
+
+const ARABIC_BOUNDARIES = Object.freeze({
+  RELIGIOUS_BOUNDARY: 'الحد الشرعي',
+  HUMAN_AUTHORITY_BOUNDARY: 'حد مسؤولية الإنسان وسلطته',
+  LEGAL_BOUNDARY: 'الحد القانوني',
+  PERMISSION_BOUNDARY: 'حد الإذن والصلاحية',
+  SAFETY_BOUNDARY: 'حد السلامة ومنع الضرر',
+  SECURITY_BOUNDARY: 'الحد الأمني الدفاعي',
+  PRIVACY_BOUNDARY: 'حد الخصوصية وتقليل البيانات',
+  EVIDENCE_BOUNDARY: 'حد الدليل والتثبت',
+  KNOWLEDGE_UNCERTAINTY_BOUNDARY: 'حد عدم اليقين المعرفي',
+  HARDWARE_BOUNDARY: 'حد العتاد',
+  SOFTWARE_BOUNDARY: 'حد البرمجيات والأدوات',
+  NETWORK_BOUNDARY: 'حد الشبكة والاتصال',
+  RESOURCE_AND_COST_BOUNDARY: 'حد الموارد والتكلفة',
+  ENVIRONMENTAL_BOUNDARY: 'حد المسؤولية البيئية',
+  ACCESSIBILITY_BOUNDARY: 'حد الوصول والشمول',
+  JURISDICTION_BOUNDARY: 'حد الولاية والاختصاص',
+  PHYSICAL_WORLD_BOUNDARY: 'حد العالم المادي',
+  HIGH_IMPACT_DECISION_BOUNDARY: 'حد القرار عالي الأثر'
+});
+
+const ARABIC_BOUNDARY_STATES = Object.freeze({
+  WITHIN_BOUNDARY: 'ضمن الحد المأذون',
+  AT_BOUNDARY: 'عند الحد ويحتاج تحققًا أو مراجعة',
+  BEYOND_BOUNDARY: 'خارج الحد ويمنع التنفيذ'
+});
+
+const ARABIC_EVIDENCE_STATES = Object.freeze({
+  VERIFIED: 'دليل موثق في سياق التقييم',
+  UNKNOWN: 'غير معلوم لعدم كفاية الدليل'
+});
+
 const runtimeAudit = [];
 let auditSequence = 0;
 
@@ -205,8 +270,26 @@ function parseArabicBoundaryContract(source) {
     return match ? cleanText(match[1], 500) : null;
   };
   const decision = extract('فالقرار');
+  const quranReferences = [...text.matchAll(
+    /مقتطف_قرآني\s+"([^"]+)"\s+موضعه\s+"([^"]+)"/gu
+  )].map((match) => ({
+    kind: 'QURAN_EXCERPT',
+    text: cleanText(match[1], 500),
+    location: cleanText(match[2], 120),
+    executableRule: false
+  }));
+  const sunnahReferences = [...text.matchAll(
+    /نص_من_السنة\s+"([^"]+)"\s+تخريجه\s+"([^"]+)"/gu
+  )].map((match) => ({
+    kind: 'AUTHENTIC_SUNNAH_TEXT',
+    text: cleanText(match[1], 500),
+    source: cleanText(match[2], 300),
+    executableRule: false
+  }));
   const contract = {
     language: 'ar',
+    arabicPrimary: true,
+    tongue: 'لسان عربي مبين',
     dsl: 'SHEIKHA_ARABIC_BOUNDARY_DSL_V1',
     capability: extract('قدرة'),
     boundary: extract('ضمن حد'),
@@ -225,6 +308,10 @@ function parseArabicBoundaryContract(source) {
     decision: contract.decision,
     safeAlternative: contract.safeAlternative
   }).filter(([, value]) => !value).map(([key]) => key);
+  if (quranReferences.length < 6) missing.push('quranWrittenReferences');
+  if (sunnahReferences.length < 1) missing.push('sunnahWrittenReferences');
+  if (!/الفتوى_الآلية:\s*ممنوعة/u.test(text)) missing.push('automatedFatwaBoundary');
+  if (!/المراجعة_الشرعية:\s*أهل_العلم/u.test(text)) missing.push('qualifiedScholarBoundary');
 
   return {
     system: 'SHEIKHA_ARABIC_BOUNDARY_DSL_V1',
@@ -232,9 +319,51 @@ function parseArabicBoundaryContract(source) {
       ? 'VALID_GOVERNED_CONTRACT'
       : 'INVALID_CONTRACT',
     contract,
+    writtenReferences: {
+      quran: quranReferences,
+      authenticSunnah: sunnahReferences,
+      quranCount: quranReferences.length,
+      authenticSunnahCount: sunnahReferences.length,
+      valuesReferenceOnly: true,
+      automatedInterpretationOrFatwa: false,
+      qualifiedScholarReviewRequired: true,
+      sourceTextIntegrityRequiresHumanReview: true
+    },
     missing,
     executableAuthorityGranted: false,
     automatedReligiousRuling: false
+  };
+}
+
+function arabicDecisionView({
+  decision,
+  reason,
+  evidenceStatus = null,
+  boundaries = [],
+  requiredEvidence = [],
+  requiredApprovals = [],
+  harmControls = [],
+  safeAlternative = null
+}) {
+  return {
+    'اللغة': 'العربية',
+    'القرار': ARABIC_DECISIONS[decision] || decision,
+    'رمز_القرار_التقني': decision,
+    'السبب': ARABIC_REASONS[reason] || reason || 'لم يحدد سبب إضافي.',
+    'حالة_الدليل': ARABIC_EVIDENCE_STATES[evidenceStatus] || evidenceStatus,
+    'الحدود': boundaries.map((item) => ({
+      'الحد': ARABIC_BOUNDARIES[item.type] || item.type,
+      'رمز_الحد_التقني': item.type,
+      'الحالة': ARABIC_BOUNDARY_STATES[item.state] || item.state
+    })),
+    'الأدلة_المطلوبة': requiredEvidence,
+    'الموافقات_المطلوبة': requiredApprovals,
+    'ضوابط_منع_الضرر': harmControls,
+    'البديل_الآمن': safeAlternative?.action || null,
+    'التنفيذ_تم': false,
+    'القرار_النهائي_للإنسان': true,
+    'الفتوى_الآلية': false,
+    'المعرفات_التقنية_محفوظة_للتوافق': true
   };
 }
 
@@ -281,8 +410,23 @@ function decisionResult({
     : decision === 'DENY'
       ? 'BEYOND_BOUNDARY'
       : 'AT_BOUNDARY';
+  const resolvedBoundaries = unique([
+    ...(capability?.applicableBoundaries || []),
+    boundaryType,
+    ...boundaries
+  ]).map((type) => ({
+    type,
+    state: type === boundaryType ? primaryBoundaryState : 'WITHIN_BOUNDARY'
+  }));
+  const resolvedRequiredEvidence = unique(requiredEvidence);
+  const resolvedRequiredApprovals = unique(requiredApprovals);
+  const resolvedHarmControls = unique(harmControls);
+  const resolvedSafeAlternative = safeAlternative ||
+    safeAlternativeFor(boundaryType, reason, capability);
   const result = {
     system: 'SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1',
+    language: 'ar',
+    arabicPrimary: true,
     decision,
     reason,
     capabilityId: capability?.capabilityId || request.capabilityId || null,
@@ -297,19 +441,22 @@ function decisionResult({
       indicatorOnlyNotAbsoluteMoralJudgment: true,
       verifiedBenefitClaim: decision === 'ALLOW' && evidenceStatus === 'VERIFIED'
     },
-    boundaries: unique([
-      ...(capability?.applicableBoundaries || []),
-      boundaryType,
-      ...boundaries
-    ]).map((type) => ({
-      type,
-      state: type === boundaryType ? primaryBoundaryState : 'WITHIN_BOUNDARY'
-    })),
+    boundaries: resolvedBoundaries,
     evidenceStatus,
-    requiredEvidence: unique(requiredEvidence),
-    requiredApprovals: unique(requiredApprovals),
-    harmControls: unique(harmControls),
-    safeAlternative: safeAlternative || safeAlternativeFor(boundaryType, reason, capability),
+    requiredEvidence: resolvedRequiredEvidence,
+    requiredApprovals: resolvedRequiredApprovals,
+    harmControls: resolvedHarmControls,
+    safeAlternative: resolvedSafeAlternative,
+    arabic: arabicDecisionView({
+      decision,
+      reason,
+      evidenceStatus,
+      boundaries: resolvedBoundaries,
+      requiredEvidence: resolvedRequiredEvidence,
+      requiredApprovals: resolvedRequiredApprovals,
+      harmControls: resolvedHarmControls,
+      safeAlternative: resolvedSafeAlternative
+    }),
     humanFinalDecision: true,
     humanFinalResponsibility: true,
     executionAllowed: false,
@@ -563,18 +710,31 @@ function transformBoundary(input = {}) {
   const state = cleanText(input.state || 'AT_BOUNDARY', 40).toUpperCase();
   const registeredBoundary = registry().boundaries.find((item) => item.type === boundaryType);
   if (!registeredBoundary || !BOUNDARY_STATES.includes(state)) {
+    const safeAlternative = safeAlternativeFor(
+      registeredBoundary ? boundaryType : 'PERMISSION_BOUNDARY',
+      'VALID_REGISTERED_BOUNDARY_REQUIRED'
+    );
+    const boundaries = [{
+      type: registeredBoundary ? boundaryType : 'PERMISSION_BOUNDARY',
+      state: 'BEYOND_BOUNDARY'
+    }];
     return {
       system: 'SHEIKHA_BOUNDARY_TO_BENEFIT_TRANSFORMER_V1',
+      language: 'ar',
+      arabicPrimary: true,
       status: 'INVALID_BOUNDARY_REQUEST',
       decision: 'DENY',
       boundaryType: boundaryType || null,
       state,
       humanFinalDecision: true,
       externalWritePerformed: false,
-      safeAlternative: safeAlternativeFor(
-        registeredBoundary ? boundaryType : 'PERMISSION_BOUNDARY',
-        'VALID_REGISTERED_BOUNDARY_REQUIRED'
-      )
+      safeAlternative,
+      arabic: arabicDecisionView({
+        decision: 'DENY',
+        reason: 'VALID_REGISTERED_BOUNDARY_REQUIRED',
+        boundaries,
+        safeAlternative
+      })
     };
   }
 
@@ -584,14 +744,25 @@ function transformBoundary(input = {}) {
     : state === 'BEYOND_BOUNDARY'
       ? 'DENY'
       : transformation?.atBoundaryDecision || 'REVIEW';
+  const safeAlternative = safeAlternativeFor(boundaryType, `BOUNDARY_STATE_${state}`);
+  const boundaries = [{ type: boundaryType, state }];
   return {
     system: 'SHEIKHA_BOUNDARY_TO_BENEFIT_TRANSFORMER_V1',
+    language: 'ar',
+    arabicPrimary: true,
     status: 'BOUNDARY_TRANSFORMED_TO_SAFE_PATH',
     decision,
     boundaryType,
     state,
     controls: transformation?.controls || [],
-    safeAlternative: safeAlternativeFor(boundaryType, `BOUNDARY_STATE_${state}`),
+    safeAlternative,
+    arabic: arabicDecisionView({
+      decision,
+      reason: `BOUNDARY_STATE_${state}`,
+      boundaries,
+      harmControls: transformation?.controls || [],
+      safeAlternative
+    }),
     humanFinalDecision: true,
     executionAllowed: false,
     decisionGrantsAuthorization: false,
@@ -603,7 +774,16 @@ function transformBoundary(input = {}) {
 function evidence() {
   return {
     system: 'SHEIKHA_UNIVERSAL_BENEFIT_EVIDENCE_PLANE_V1',
+    language: 'ar',
+    arabicPrimary: true,
     status: 'ACTIVE_BOUNDED_IN_MEMORY_AUDIT',
+    arabic: {
+      'الاسم': 'سجل أدلة منظومة الخير والنفع والحدود',
+      'الحالة': 'نشط بسجل محدود داخل الذاكرة',
+      'الكتابة_الخارجية': false,
+      'حفظ_حمولة_الطلب_الحساسة': false,
+      'المسؤولية_النهائية_للإنسان': true
+    },
     evidenceRegistry: evidenceRegistry.status(),
     records: runtimeAudit.slice(-50),
     recordsCount: runtimeAudit.length,
@@ -620,6 +800,9 @@ function status() {
   const verificationReport = readJson(REPORT_PATH, {});
   return {
     system: 'SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1',
+    language: 'ar',
+    arabicPrimary: true,
+    arabicName: 'منظومة شيخة الشاملة للخير والنفع والحدود',
     status: verificationReport.status === 'VERIFIED_ACTIVE'
       ? 'VERIFIED_ACTIVE'
       : currentRegistry.status === 'ACTIVE' && transformations.status === 'ACTIVE'
@@ -649,7 +832,9 @@ function status() {
       humanFinalResponsibility: true,
       valuesReferenceExecutableAuthority: false,
       benefitIndicatorIsAbsoluteMoralJudgment: false,
-      claimPolicy: 'No benefit, safety, or compliance claim without evidence and applicable human review.'
+      claimPolicy: 'لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.',
+      writtenQuranSunnahValuesReference: true,
+      quranSunnahTextBecomesAutomatedRuling: false
     }
   };
 }
