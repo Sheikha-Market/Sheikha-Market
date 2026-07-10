@@ -9,6 +9,7 @@ const TECHNICAL_MODEL = Object.freeze({
   position: 'UNDER_NON_EXECUTABLE_QURAN_SUNNAH_VALUES_REFERENCE_AND_COVENANT_GOVERNANCE_ABOVE_L23_L22_L21_L20',
   apexPromotion: {
     highestExecutableTechnicalLayer: true,
+    highestExecutableTechnicalLayerScope: 'COGNITIVE_REASONING_PLANE_ONLY',
     normativeReferenceLayerExecutable: false,
     covenantGovernanceGateRequired: true,
     humanAuthorityAboveAutomation: true,
@@ -33,6 +34,9 @@ const TECHNICAL_MODEL = Object.freeze({
   distributionIntegration: {
     system: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1',
     status: 'ACTIVE_LOCAL_FIRST_EVIDENCE_CONSUMER',
+    releaseApex: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1',
+    releaseApexLevel: 27,
+    relationship: 'SPECIALIZED_RELEASE_PLANE_CONSUMES_L24_EVIDENCE_WITHOUT_AUTHORITY_ESCALATION',
     matrix: 'distribution/manifest/sheikha-release-matrix-v1.json',
     report: 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json',
     bareMetalLink: 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json',

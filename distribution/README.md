@@ -34,3 +34,10 @@ release registry. It refuses to replace an existing release.
 - Snap Store publication is separate and requires explicit credentials and approval.
 - No signing, notarization, external publication, or secret storage is automated.
 - High-impact release decisions remain human-owned.
+
+## Layer Position
+
+`SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1` is the specialized L27 release
+and delivery plane. L24 remains the cognitive evidence and decision-support plane;
+L25 and L26 retain their existing autonomous operations and execution-bridge roles.
+No numeric promotion grants authority over governance or accountable humans.

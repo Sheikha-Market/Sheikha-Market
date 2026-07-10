@@ -49,6 +49,9 @@ const extensionStreamingArtifactApex = require(
 const cloudProductionDeploymentApex = require(
   '../../runtime/cloud-production-deployment-apex/v1/sheikha-cloud-production-deployment-apex-v1'
 );
+const distributionReleaseApex = require(
+  '../../runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -184,6 +187,7 @@ function collectEnterpriseInspector(input = {}) {
   const streamingChatApexStatus = streamingChatApex.status();
   const extensionStreamingArtifactApexStatus = extensionStreamingArtifactApex.status();
   const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
+  const distributionReleaseApexStatus = distributionReleaseApex.status();
 
   const changedFiles = String(controlTower.git.status || '')
     .split('\n')
@@ -225,6 +229,7 @@ function collectEnterpriseInspector(input = {}) {
       streamingChatApex: streamingChatApexStatus.status,
       extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus.status,
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
+      distributionReleaseApex: distributionReleaseApexStatus.status,
       extension: extension.status,
       diagnostics
     },
@@ -282,6 +287,9 @@ function collectEnterpriseInspector(input = {}) {
         '/api/sheikha/cloud-production-deployment-apex/v1/status',
       cloudProductionDeploymentPlan:
         '/api/sheikha/cloud-production-deployment-apex/v1/plan',
+      distributionReleaseApex: '/api/sheikha/distribution-apex/v1/status',
+      distributionReleaseMatrix: '/api/sheikha/distribution-apex/v1/matrix',
+      distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -298,6 +306,7 @@ function collectEnterpriseInspector(input = {}) {
         'Extension Streaming Artifact Apex',
         'Streaming Multilingual Chat Apex',
         'Cloud Production Deployment Apex',
+        'Universal Distribution Release Apex',
         'Technical Capability Apex',
         'Debugging Apex',
         'Chat Interface Apex',
@@ -371,6 +380,7 @@ function collectEnterpriseInspector(input = {}) {
     extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus,
     streamingChatApex: streamingChatApexStatus,
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
+    distributionReleaseApex: distributionReleaseApexStatus,
     technicalCapabilityApex: technicalCapabilityApexStatus,
     computingCognitiveApex: computingCognitiveApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,

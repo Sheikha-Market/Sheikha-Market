@@ -199,6 +199,7 @@ app.use(require('./routes/enterprise-saas-v2-routes'));
 app.use(require('./routes/cloud-saas-apex-routes'));
 app.use(require('./routes/global-control-plane-routes'));
 app.use(require('./routes/cloud-production-deployment-apex/sheikha-cloud-production-deployment-apex-routes'));
+app.use(require('./routes/distribution-apex/sheikha-universal-distribution-apex-routes'));
 app.use(require('./routes/enterprise-platform-routes'));
 app.use(require('./routes/civilization-os-routes'));
 app.use(require('./routes/civilization-governance-v2-routes'));

@@ -26,6 +26,7 @@ const bareMetalBootImagePath = 'bare-metal/images/sheikha-bare-metal-seed-v1.img
 const computingCognitiveLayersPath = 'runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json';
 const computingCognitiveLayersHandbookPath = 'docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md';
 const distributionReportPath = 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json';
+const distributionApexReportPath = 'runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json';
 const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
@@ -1258,6 +1259,7 @@ function buildReport() {
   const bareMetalSeed = safeReadJson(bareMetalSeedPath);
   const computingCognitiveLayers = safeReadJson(computingCognitiveLayersPath);
   const distribution = safeReadJson(distributionReportPath);
+  const distributionApex = safeReadJson(distributionApexReportPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1300,6 +1302,7 @@ function buildReport() {
   finalExecutiveReport.counts.distributionTargetsVerified = distribution?.verifiedCount || 0;
   finalExecutiveReport.counts.distributionTargetsNativeVerified =
     distribution?.nativeVerifiedCount || 0;
+  finalExecutiveReport.counts.distributionReleaseApexLevel = distributionApex?.apexLevel || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1318,6 +1321,7 @@ function buildReport() {
   finalExecutiveReport.evidence.computingCognitiveLayers = computingCognitiveLayersPath;
   finalExecutiveReport.evidence.computingCognitiveLayersHandbook = computingCognitiveLayersHandbookPath;
   finalExecutiveReport.evidence.universalDistribution = distributionReportPath;
+  finalExecutiveReport.evidence.universalDistributionApex = distributionApexReportPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
@@ -1365,6 +1369,11 @@ function buildReport() {
     distribution?.nativeVerifiedCount || 0;
   executiveDashboard.indicators.distributionLocalRegistryOnly =
     distribution?.localRegistryOnly === true;
+  executiveDashboard.indicators.distributionReleaseApexActive =
+    distributionApex?.activationStatus === 'L27_ACTIVE_WITH_VERIFIED_BOUNDARIES';
+  executiveDashboard.indicators.distributionReleaseApexLevel = distributionApex?.apexLevel || 0;
+  executiveDashboard.indicators.distributionReleaseApexRemoteBuildEndpointExposed =
+    distributionApex?.governance?.remoteBuildEndpointExposed === true;
   executiveDashboard.indicators.reasoningStandardActive =
     computingCognitiveLayers?.activation?.standard?.status === 'READY';
   executiveDashboard.indicators.reasoningProActive =
@@ -1388,6 +1397,8 @@ function buildReport() {
     'Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.',
     'Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls.',
     'Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.',
+    'Keep L24 as the highest cognitive reasoning plane and L27 as the specialized release-delivery apex; layer numbering does not grant cross-plane authority.',
+    'Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.',
     'Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries.'
   );
 
@@ -1433,6 +1444,20 @@ function buildReport() {
         target.status !== 'VERIFIED' ||
         (target.artifact && target.nativeVerified === true && target.verificationEvidence)
       ) === true,
+    universalDistributionApexIntegrated:
+      distributionApex?.system === 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1' &&
+      distributionApex?.activationStatus === 'L27_ACTIVE_WITH_VERIFIED_BOUNDARIES' &&
+      distributionApex?.apexLevel === 27 &&
+      distributionApex?.plane === 'RELEASE_DELIVERY_PLANE_ONLY' &&
+      distributionApex?.score === 100 &&
+      distributionApex?.evidence?.localRegistryOnly === true &&
+      distributionApex?.evidence?.githubRequired === false &&
+      distributionApex?.evidence?.reproducibilityVerified === true &&
+      distributionApex?.evidence?.secretScanPassed === true &&
+      distributionApex?.evidence?.invalidVerifiedClaims?.length === 0 &&
+      distributionApex?.governance?.remoteBuildEndpointExposed === false &&
+      distributionApex?.governance?.remotePublishEndpointExposed === false &&
+      distributionApex?.governance?.humanFinalDecision === true,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1468,6 +1493,7 @@ function buildReport() {
     computingCognitiveLayersPath,
     computingCognitiveLayersHandbookPath,
     distributionReportPath,
+    distributionApexReportPath,
     distributionMatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
@@ -1544,6 +1570,10 @@ function buildReport() {
       distributionBuiltCount: distribution?.builtCount || 0,
       distributionVerifiedCount: distribution?.verifiedCount || 0,
       distributionNativeVerifiedCount: distribution?.nativeVerifiedCount || 0,
+      distributionReleaseApexActive:
+        distributionApex?.activationStatus === 'L27_ACTIVE_WITH_VERIFIED_BOUNDARIES',
+      distributionReleaseApexLevel: distributionApex?.apexLevel || 0,
+      distributionReleaseApexPlane: distributionApex?.plane || 'UNKNOWN',
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
       reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
@@ -1666,6 +1696,31 @@ function buildReport() {
       githubRequired: distribution?.githubRequired !== false,
       claimPolicy: distribution?.claimPolicy || 'UNKNOWN'
     },
+    universalDistributionApex: {
+      active: exists(distributionApexReportPath),
+      reportPath: distributionApexReportPath,
+      system: distributionApex?.system || 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1',
+      status: distributionApex?.status || 'PENDING_REPORT_GENERATION',
+      activationStatus: distributionApex?.activationStatus || 'PENDING_REPORT_GENERATION',
+      score: distributionApex?.score || 0,
+      apexLevel: distributionApex?.apexLevel || 0,
+      plane: distributionApex?.plane || 'UNKNOWN',
+      targetCount: distributionApex?.evidence?.targetCount || 0,
+      builtCount: distributionApex?.evidence?.builtCount || 0,
+      nativeVerifiedCount: distributionApex?.evidence?.nativeVerifiedCount || 0,
+      localRegistryOnly: distributionApex?.evidence?.localRegistryOnly === true,
+      githubRequired: distributionApex?.evidence?.githubRequired === true,
+      reproducibilityVerified: distributionApex?.evidence?.reproducibilityVerified === true,
+      secretScanPassed: distributionApex?.evidence?.secretScanPassed === true,
+      invalidVerifiedClaims: distributionApex?.evidence?.invalidVerifiedClaims || [],
+      remoteBuildEndpointExposed:
+        distributionApex?.governance?.remoteBuildEndpointExposed === true,
+      remotePublishEndpointExposed:
+        distributionApex?.governance?.remotePublishEndpointExposed === true,
+      crossPlaneAuthorityEscalation:
+        distributionApex?.layerRelationship?.crossPlaneAuthorityEscalation === true,
+      humanFinalDecision: distributionApex?.governance?.humanFinalDecision === true
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1681,6 +1736,7 @@ function buildReport() {
       'Standard, Pro, and Ultra reasoning profiles are active with bounded serendipity, safety gates, and accountable human final decisions.',
       'Computing Cognitive Layers is promoted to L24 above the L23 extension stream, parallel L22 deployment plane, L21 multilingual stream, and L20 technical capability apex.',
       'Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.',
+      'Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1758,6 +1814,9 @@ if (require.main === module) {
     distributionBuiltCount: report.summary.distributionBuiltCount,
     distributionVerifiedCount: report.summary.distributionVerifiedCount,
     distributionNativeVerifiedCount: report.summary.distributionNativeVerifiedCount,
+    distributionReleaseApexActive: report.summary.distributionReleaseApexActive,
+    distributionReleaseApexLevel: report.summary.distributionReleaseApexLevel,
+    distributionReleaseApexPlane: report.summary.distributionReleaseApexPlane,
     reasoningModes: report.summary.reasoningModes,
     ultraRoleSlots: report.summary.ultraRoleSlots,
     reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,
@@ -1788,6 +1847,7 @@ if (require.main === module) {
       computingCognitiveLayers: computingCognitiveLayersPath,
       computingCognitiveLayersHandbook: computingCognitiveLayersHandbookPath,
       universalDistribution: distributionReportPath,
+      universalDistributionApex: distributionApexReportPath,
       universalDistributionMatrix: distributionMatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath

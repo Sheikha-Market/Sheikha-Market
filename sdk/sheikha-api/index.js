@@ -81,6 +81,9 @@ function createSheikhaApiClient({
       '/api/sheikha/extension-streaming-artifact-apex/v1/status',
       '/api/sheikha/cloud-production-deployment-apex/v1/status',
       '/api/sheikha/cloud-production-deployment-apex/v1/plan',
+      '/api/sheikha/distribution-apex/v1/status',
+      '/api/sheikha/distribution-apex/v1/matrix',
+      '/api/sheikha/distribution-apex/v1/release-index',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -243,6 +246,12 @@ function createSheikhaApiClient({
       '/api/sheikha/cloud-production-deployment-apex/v1/plan'
     ),
     enterpriseManagement: () => request('/api/sheikha/enterprise-management-os/status')
+  };
+
+  client.distribution = {
+    status: () => request('/api/sheikha/distribution-apex/v1/status'),
+    matrix: () => request('/api/sheikha/distribution-apex/v1/matrix'),
+    releaseIndex: () => request('/api/sheikha/distribution-apex/v1/release-index')
   };
 
   return client;

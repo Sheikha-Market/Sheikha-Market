@@ -26,6 +26,8 @@ describe('Sheikha Computing and Cognitive Layers V1', () => {
     expect(model.apexLevel).toBe(24);
     expect(model.level).toBe('L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER');
     expect(model.apexPromotion.highestExecutableTechnicalLayer).toBe(true);
+    expect(model.apexPromotion.highestExecutableTechnicalLayerScope)
+      .toBe('COGNITIVE_REASONING_PLANE_ONLY');
     expect(model.apexPromotion.normativeReferenceLayerExecutable).toBe(false);
     expect(model.apexPromotion.covenantGovernanceGateRequired).toBe(true);
     expect(model.apexPromotion.noPrivilegeEscalationByLayerPromotion).toBe(true);
@@ -34,6 +36,9 @@ describe('Sheikha Computing and Cognitive Layers V1', () => {
     expect(model.distributionIntegration).toMatchObject({
       system: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1',
       status: 'ACTIVE_LOCAL_FIRST_EVIDENCE_CONSUMER',
+      releaseApex: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1',
+      releaseApexLevel: 27,
+      relationship: 'SPECIALIZED_RELEASE_PLANE_CONSUMES_L24_EVIDENCE_WITHOUT_AUTHORITY_ESCALATION',
       targetCount: 27,
       automaticExternalPublishing: false,
       artifactClaimRequiresEvidence: true,

@@ -25,6 +25,7 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
     protocol: 'SHEIKHA_PROTOCOL_V1',
     orchestrator: 'SHEIKHA_SMART_CHAT_ORCHESTRATOR_V3',
     apexLayers: [
+      'Universal Distribution Release Apex',
       'Streaming Multilingual Chat Apex',
       'Technical Capability Apex',
       'IDE Apex',
@@ -43,7 +44,10 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
       vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
-      enterpriseInspector: '/api/sheikha/enterprise-inspector/v3/status'
+      enterpriseInspector: '/api/sheikha/enterprise-inspector/v3/status',
+      distributionReleaseApex: '/api/sheikha/distribution-apex/v1/status',
+      distributionReleaseMatrix: '/api/sheikha/distribution-apex/v1/matrix',
+      distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index'
     },
     intelligenceModes: {
       runtime: [
@@ -74,13 +78,26 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
     highestExecutableTechnicalLayer: {
       system: 'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
       level: 'L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER',
+      plane: 'COGNITIVE_REASONING_PLANE_ONLY',
       status: 'ACTIVE',
       underCovenantGovernance: true,
       humanFinalDecision: true,
       normativeReferenceLayerExecutable: false,
       statusEndpoint: '/api/intelligence/execution-loop/apex/status'
     },
+    highestReleaseDeliveryLayer: {
+      system: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1',
+      level: 'L27_HIGHEST_GOVERNED_RELEASE_DISTRIBUTION_APEX_LAYER',
+      plane: 'RELEASE_DELIVERY_PLANE_ONLY',
+      status: 'ACTIVE_WITH_EVIDENCE_GATED_LOCAL_RELEASE',
+      underCovenantGovernance: true,
+      remoteBuildEndpointExposed: false,
+      remotePublishEndpointExposed: false,
+      humanFinalDecision: true,
+      statusEndpoint: '/api/sheikha/distribution-apex/v1/status'
+    },
     requiredPath: [
+      'DistributionReleaseApex',
       'ComputingCognitiveApex',
       'StreamingMultilingualChatApex',
       'TechnicalCapabilityApex',
