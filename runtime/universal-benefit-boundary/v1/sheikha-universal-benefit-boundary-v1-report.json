@@ -5,14 +5,16 @@
   "arabicName": "منظومة شيخة العربية الشاملة للخير والنفع والحدود",
   "status": "VERIFIED_ACTIVE",
   "mode": "PERMITTED_CAPABILITY_TO_VERIFIED_PUBLIC_BENEFIT",
-  "generatedAt": "2026-07-10T21:16:41.893Z",
+  "generatedAt": "2026-07-10T23:13:14.687Z",
   "score": 100,
   "capabilitiesRegistered": 16,
   "boundariesRegistered": 18,
   "benefitDomainsRegistered": 16,
-  "architectureComponentsRegistered": 21,
+  "architectureComponentsRegistered": 24,
   "boundaryScopesRegistered": 3,
   "resourceClassesRegistered": 10,
+  "evidenceResearchSourcesRegistered": 20,
+  "evidenceArgumentMapsRegistered": 4,
   "allowedDecisions": 1,
   "reviewDecisions": 1,
   "sandboxDecisions": 1,
@@ -30,11 +32,18 @@
   "halalOrHaramDeterminedBySoftware": false,
   "operationalBoundariesAreReligiousRulings": false,
   "humanParticipationIsExploitableResource": false,
+  "candidateSourceBecomesVerifiedAutomatically": false,
+  "automatedTheologicalProofOrAqidahJudgment": false,
   "claimPolicy": "لا ادعاء بمنفعة أو سلامة أو امتثال دون دليل ومراجعة بشرية واجبة.",
   "checks": {
     "architectureComponentsComplete": true,
     "operationalCapacityCatalogComplete": true,
     "writtenArabicQuranSunnahContractComplete": true,
+    "governedEvidenceResearchActive": true,
+    "missingEvidenceStartsResearchWithoutFalseVerification": true,
+    "religiousResearchPreservesIsnadAndEpistemicLayers": true,
+    "softwareDoesNotClaimTheologicalProof": true,
+    "technicalMeasurementDoesNotUseScriptureAsSubstitute": true,
     "arabicApiDecisionSurfaceActive": true,
     "deniesWithoutRequiredPermission": true,
     "noVerifiedClaimWithoutEvidence": true,
@@ -115,6 +124,7 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "evidenceResearch": null,
       "arabic": {
         "اللغة": "العربية",
         "القرار": "مسموح بالمرور إلى بوابة التفويض المنفصلة",
@@ -170,7 +180,7 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783718201883-1"
+      "auditId": "ubb-1783725194670-1"
     },
     "review": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
@@ -223,6 +233,7 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "evidenceResearch": null,
       "arabic": {
         "اللغة": "العربية",
         "القرار": "مراجعة بشرية أو تخصصية مطلوبة",
@@ -283,7 +294,7 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783718201884-2"
+      "auditId": "ubb-1783725194671-2"
     },
     "sandbox": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
@@ -336,6 +347,7 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "evidenceResearch": null,
       "arabic": {
         "اللغة": "العربية",
         "القرار": "عزل أو محاكاة أو تشغيل محدود مطلوب",
@@ -397,7 +409,7 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783718201884-3"
+      "auditId": "ubb-1783725194671-3"
     },
     "deny": {
       "system": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1",
@@ -449,6 +461,7 @@
         "executionPerformed": false,
         "externalWritePerformed": false
       },
+      "evidenceResearch": null,
       "arabic": {
         "اللغة": "العربية",
         "القرار": "منع التنفيذ",
@@ -509,8 +522,789 @@
         "evidenceRegistry": "SHEIKHA_EVIDENCE_REGISTRY_V1",
         "reasoningEngine": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1"
       },
-      "auditId": "ubb-1783718201885-4"
+      "auditId": "ubb-1783725194672-4"
     }
+  },
+  "evidenceResearch": {
+    "status": "CANDIDATE_SOURCES_FOUND_REVIEW_REQUIRED",
+    "sourcesRegistered": 20,
+    "argumentMapsRegistered": 4,
+    "religiousProbe": {
+      "system": "SHEIKHA_GOVERNED_EVIDENCE_RESEARCH_ORCHESTRATOR_V1",
+      "status": "CANDIDATE_SOURCES_FOUND_REVIEW_REQUIRED",
+      "language": "ar",
+      "arabicPrimary": true,
+      "query": "عرض أدلة وجود الله وخلق الكون وتوحيد الله والعبودية لله.",
+      "evidenceStatus": "UNKNOWN",
+      "requiredEvidence": [],
+      "candidateSources": [
+        {
+          "sourceId": "VERIFY_REPORTS",
+          "sourceKind": "QURAN",
+          "title": "التثبت من الأخبار",
+          "citation": "سورة الحجرات: 6",
+          "text": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة",
+          "sourceUrl": "https://quran.com/49/6",
+          "topics": [],
+          "provenance": {
+            "registry": "SHEIKHA_CAPABILITY_BOUNDARY_REGISTRY_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+          "sourceKind": "QURAN",
+          "title": "عدم اتباع ما لا علم به",
+          "citation": "سورة الإسراء: 36",
+          "text": "ولا تقف ما ليس لك به علم إن السمع والبصر والفؤاد كل أولئك كان عنه مسؤولا",
+          "sourceUrl": "https://quran.com/17/36",
+          "topics": [
+            "EVIDENCE_METHOD",
+            "KNOWLEDGE_DISCIPLINE"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "ASK_QUALIFIED_KNOWLEDGE",
+          "sourceKind": "QURAN",
+          "title": "سؤال أهل الذكر عند عدم العلم",
+          "citation": "سورة النحل: 43",
+          "text": "فاسألوا أهل الذكر إن كنتم لا تعلمون",
+          "sourceUrl": "https://quran.com/16/43",
+          "topics": [
+            "EVIDENCE_METHOD",
+            "QUALIFIED_SCHOLAR_REVIEW"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "CREATION_ARGUMENT",
+          "sourceKind": "QURAN",
+          "title": "الحجة في الخلق",
+          "citation": "سورة الطور: 35-36",
+          "text": "أم خلقوا من غير شيء أم هم الخالقون أم خلقوا السماوات والأرض بل لا يوقنون",
+          "sourceUrl": "https://quran.com/52/35-36",
+          "topics": [
+            "DIVINE_EXISTENCE_AND_CREATION",
+            "RATIONAL_ARGUMENT"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "SIGNS_IN_CREATION",
+          "sourceKind": "QURAN",
+          "title": "التفكر في آيات الخلق",
+          "citation": "سورة آل عمران: 190",
+          "text": "إن في خلق السماوات والأرض واختلاف الليل والنهار لآيات لأولي الألباب",
+          "sourceUrl": "https://quran.com/3/190",
+          "topics": [
+            "DIVINE_EXISTENCE_AND_CREATION",
+            "OBSERVATION_AND_REFLECTION"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "SIGNS_IN_HORIZONS_AND_SELVES",
+          "sourceKind": "QURAN",
+          "title": "الآيات في الآفاق والأنفس",
+          "citation": "سورة فصلت: 53",
+          "text": "سنريهم آياتنا في الآفاق وفي أنفسهم حتى يتبين لهم أنه الحق أولم يكف بربك أنه على كل شيء شهيد",
+          "sourceUrl": "https://quran.com/41/53",
+          "topics": [
+            "DIVINE_EXISTENCE_AND_CREATION",
+            "OBSERVATION_AND_REFLECTION"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "TAWHID_ORDER_ARGUMENT",
+          "sourceKind": "QURAN",
+          "title": "الحجة في التوحيد وانتظام الخلق",
+          "citation": "سورة الأنبياء: 22",
+          "text": "لو كان فيهما آلهة إلا الله لفسدتا فسبحان الله رب العرش عما يصفون",
+          "sourceUrl": "https://quran.com/21/22",
+          "topics": [
+            "TAWHID",
+            "RATIONAL_ARGUMENT"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "TAWHID_SURAH_AL_IKHLAS",
+          "sourceKind": "QURAN",
+          "title": "إثبات وحدانية الله وتنزيهه",
+          "citation": "سورة الإخلاص: 1-4",
+          "text": "قل هو الله أحد الله الصمد لم يلد ولم يولد ولم يكن له كفوا أحد",
+          "sourceUrl": "https://quran.com/112",
+          "topics": [
+            "TAWHID",
+            "DIVINE_ATTRIBUTES"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "PURPOSE_OF_CREATION_WORSHIP",
+          "sourceKind": "QURAN",
+          "title": "الخلق للعبودية",
+          "citation": "سورة الذاريات: 56",
+          "text": "وما خلقت الجن والإنس إلا ليعبدون",
+          "sourceUrl": "https://quran.com/51/56",
+          "topics": [
+            "WORSHIP",
+            "PURPOSE_OF_CREATION"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": false,
+            "narrator": null,
+            "collection": null,
+            "number": null,
+            "grade": null,
+            "grader": null,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        },
+        {
+          "sourceId": "ALLAH_BEFORE_CREATION",
+          "sourceKind": "SUNNAH",
+          "title": "الله قبل الخلق",
+          "citation": "صحيح البخاري (3191)، فتح الباري 13/453",
+          "text": "كان الله ولم يكن شيء غيره",
+          "sourceUrl": "https://dorar.net/h/5zjPZvc8",
+          "topics": [
+            "DIVINE_EXISTENCE_AND_CREATION",
+            "TAWHID"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "HADITH_REFERENCE",
+            "textIntegrityStatus": "HUMAN_HADITH_REVIEW_REQUIRED",
+            "retrievedAt": null
+          },
+          "isnad": {
+            "applicable": true,
+            "narrator": "عمران بن الحصين",
+            "collection": "صحيح البخاري",
+            "number": "3191",
+            "grade": "صحيح",
+            "grader": "ابن حجر العسقلاني",
+            "status": "REGISTERED_METADATA_REQUIRES_HUMAN_REVIEW"
+          },
+          "registeredReferenceOnly": true,
+          "verifiedEvidenceForDecision": false,
+          "interpretationReviewed": false
+        }
+      ],
+      "candidateSourceCount": 10,
+      "channels": [
+        {
+          "channel": "LOCAL_REGISTERED_SOURCES",
+          "status": "SEARCH_EXECUTED"
+        },
+        {
+          "channel": "LOCAL_QURAN_INDEX",
+          "status": "REGISTERED_INDEX_REFERENCED"
+        },
+        {
+          "channel": "LOCAL_HADITH_METADATA",
+          "status": "REGISTERED_METADATA_REFERENCED"
+        },
+        {
+          "channel": "QUALIFIED_SCHOLAR_REVIEW",
+          "status": "REQUIRED_NOT_EXECUTED"
+        },
+        {
+          "channel": "DOMAIN_EXPERT_REVIEW",
+          "status": "REQUIRED_WHEN_DOMAIN_SPECIFIC"
+        },
+        {
+          "channel": "ACADEMIC_AND_SCIENTIFIC_INDEXES",
+          "status": "DEFERRED_UNAVAILABLE_OR_UNAUTHORIZED"
+        },
+        {
+          "channel": "AUTHORIZED_WEB_RESEARCH",
+          "status": "DEFERRED_UNAVAILABLE_OR_UNAUTHORIZED"
+        }
+      ],
+      "searchExecution": {
+        "localRegisteredSourceSearchExecuted": true,
+        "externalSearchExecuted": false,
+        "networkAvailable": false,
+        "externalSearchAuthorized": false,
+        "allAvailableChannelsClaimedAsExecuted": false
+      },
+      "verificationWorkflow": [
+        "ثبت النص والموضع والنسخة دون اقتطاع مخل.",
+        "في الحديث: ثبت الراوي والمصدر والرقم والدرجة ومن حكم بها.",
+        "افصل النص المنقول عن التفسير والاستنباط والحجة العقلية.",
+        "اختبر المقدمات والنتيجة واعرض الاعتراضات والحدود.",
+        "تحقق من الدليل التجريبي بمنهج قابل للتكرار عند وجود دعوى تجريبية.",
+        "اعرض المسألة الشرعية على عالم مؤهل، والتخصصية على خبير مجال.",
+        "لا تحول المرشح إلى VERIFIED إلا بتوقيع مراجعة قابل للتتبع."
+      ],
+      "epistemicSeparation": {
+        "quranTextReference": "PRIMARY_REVELATORY_REFERENCE_REQUIRES_TEXT_INTEGRITY",
+        "sunnahReference": "REQUIRES_ISNAD_SOURCE_NUMBER_GRADE_AND_GRADER",
+        "interpretation": "HUMAN_SCHOLARLY_INTERPRETATION",
+        "rationalInference": "REVIEWABLE_ARGUMENT_NOT_REVELATION",
+        "empiricalObservation": "MEASUREMENT_DOES_NOT_BECOME_REVELATION",
+        "unresolvedClaim": "UNKNOWN"
+      },
+      "religiousGovernance": {
+        "religiousDomain": true,
+        "automatedAqidahJudgment": false,
+        "automatedFatwa": false,
+        "metaphysicalTruthAdjudicatedBySoftware": false,
+        "beliefCompelledBySoftware": false,
+        "qualifiedScholarReviewRequired": true,
+        "quranOrSunnahConvertedToExecutableReligiousAuthority": false
+      },
+      "candidateSourcesAreVerifiedEvidence": false,
+      "verifiedEvidenceProduced": false,
+      "decisionGranted": false,
+      "executionAllowed": false,
+      "humanFinalResponsibility": true,
+      "sensitiveQueryPersisted": false,
+      "evidenceRegistryPlanSystem": "SHEIKHA_EVIDENCE_RESEARCH_PLAN_V1",
+      "topics": [
+        "DIVINE_EXISTENCE_AND_CREATION",
+        "TAWHID",
+        "WORSHIP",
+        "EVIDENCE_METHOD"
+      ],
+      "methodReferences": [
+        {
+          "sourceId": "VERIFY_REPORTS",
+          "sourceKind": "QURAN",
+          "title": "التثبت من الأخبار",
+          "citation": "سورة الحجرات: 6",
+          "text": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة",
+          "sourceUrl": "https://quran.com/49/6",
+          "topics": [],
+          "provenance": {
+            "registry": "SHEIKHA_CAPABILITY_BOUNDARY_REGISTRY_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+          },
+          "isnad": {
+            "applicable": false,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          }
+        },
+        {
+          "sourceId": "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+          "sourceKind": "QURAN",
+          "title": "عدم اتباع ما لا علم به",
+          "citation": "سورة الإسراء: 36",
+          "text": "ولا تقف ما ليس لك به علم إن السمع والبصر والفؤاد كل أولئك كان عنه مسؤولا",
+          "sourceUrl": "https://quran.com/17/36",
+          "topics": [
+            "EVIDENCE_METHOD",
+            "KNOWLEDGE_DISCIPLINE"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+          },
+          "isnad": {
+            "applicable": false,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          }
+        },
+        {
+          "sourceId": "ASK_QUALIFIED_KNOWLEDGE",
+          "sourceKind": "QURAN",
+          "title": "سؤال أهل الذكر عند عدم العلم",
+          "citation": "سورة النحل: 43",
+          "text": "فاسألوا أهل الذكر إن كنتم لا تعلمون",
+          "sourceUrl": "https://quran.com/16/43",
+          "topics": [
+            "EVIDENCE_METHOD",
+            "QUALIFIED_SCHOLAR_REVIEW"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+          },
+          "isnad": {
+            "applicable": false,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          }
+        }
+      ],
+      "argumentMaps": [
+        {
+          "argumentId": "CREATION_QURANIC_ARGUMENT",
+          "topic": "الوجود والخلق لله",
+          "sourcePrinciples": [
+            "CREATION_ARGUMENT",
+            "SIGNS_IN_CREATION",
+            "SIGNS_IN_HORIZONS_AND_SELVES",
+            "ALLAH_BEFORE_CREATION"
+          ],
+          "automatedProof": false,
+          "qualifiedScholarReviewRequired": true,
+          "status": "PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW",
+          "sourceCitations": [
+            "سورة الطور: 35-36",
+            "سورة آل عمران: 190",
+            "سورة فصلت: 53",
+            "صحيح البخاري (3191)، فتح الباري 13/453"
+          ],
+          "conclusionDeclaredAsAutomatedProof": false
+        },
+        {
+          "argumentId": "TAWHID_QURANIC_ARGUMENT",
+          "topic": "توحيد الله",
+          "sourcePrinciples": [
+            "TAWHID_ORDER_ARGUMENT",
+            "TAWHID_SURAH_AL_IKHLAS",
+            "ALLAH_BEFORE_CREATION"
+          ],
+          "automatedProof": false,
+          "qualifiedScholarReviewRequired": true,
+          "status": "PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW",
+          "sourceCitations": [
+            "سورة الأنبياء: 22",
+            "سورة الإخلاص: 1-4",
+            "صحيح البخاري (3191)، فتح الباري 13/453"
+          ],
+          "conclusionDeclaredAsAutomatedProof": false
+        },
+        {
+          "argumentId": "WORSHIP_QURANIC_ARGUMENT",
+          "topic": "العبودية لله",
+          "sourcePrinciples": [
+            "PURPOSE_OF_CREATION_WORSHIP"
+          ],
+          "automatedProof": false,
+          "qualifiedScholarReviewRequired": true,
+          "status": "PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW",
+          "sourceCitations": [
+            "سورة الذاريات: 56"
+          ],
+          "conclusionDeclaredAsAutomatedProof": false
+        },
+        {
+          "argumentId": "EVIDENCE_METHOD_ARGUMENT",
+          "topic": "منهج التثبت والرجوع لأهل العلم",
+          "sourcePrinciples": [
+            "VERIFY_REPORTS",
+            "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+            "ASK_QUALIFIED_KNOWLEDGE"
+          ],
+          "automatedProof": false,
+          "qualifiedScholarReviewRequired": true,
+          "status": "PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW",
+          "sourceCitations": [
+            "سورة الحجرات: 6",
+            "سورة الإسراء: 36",
+            "سورة النحل: 43"
+          ],
+          "conclusionDeclaredAsAutomatedProof": false
+        }
+      ],
+      "sourceStandards": {
+        "quran": [
+          "SURAH_AND_AYAH",
+          "TEXT_INTEGRITY",
+          "CONTEXT",
+          "HUMAN_REVIEW"
+        ],
+        "sunnah": [
+          "NARRATOR",
+          "COLLECTION",
+          "NUMBER",
+          "GRADE",
+          "GRADER",
+          "HUMAN_HADITH_REVIEW"
+        ],
+        "interpretation": [
+          "ATTRIBUTED_TAFSIR",
+          "QUALIFIED_SCHOLAR",
+          "DISTINGUISH_FROM_REVELATION"
+        ],
+        "rationalArgument": [
+          "EXPLICIT_PREMISES",
+          "VALID_INFERENCE",
+          "OBJECTIONS",
+          "LIMITS"
+        ],
+        "empiricalEvidence": [
+          "MEASUREMENT",
+          "PROVENANCE",
+          "REPRODUCIBILITY",
+          "DOMAIN_EXPERT"
+        ]
+      },
+      "localIntegrationReferences": [
+        "runtime/evidence-registry/sheikha-evidence-registry-v1.js",
+        "infrastructure/sheikha-islamic-digital-library-core/quran/quran-corpus-manifest.json",
+        "infrastructure/sheikha-islamic-digital-library-core/governance/scholarly-governance.json",
+        "infrastructure/sheikha-quranic-science-integration-core/methodology/hujjah-burhan-istidlal-bayan-framework.json"
+      ],
+      "theologicalClaimProvenBySoftware": false,
+      "quranAndSunnahReferencesPresented": true,
+      "scriptureUsedAsSubstituteForEmpiricalMeasurement": false,
+      "resultCanPromoteItselfToVerified": false
+    },
+    "missingEvidenceProbe": {
+      "system": "SHEIKHA_GOVERNED_EVIDENCE_RESEARCH_ORCHESTRATOR_V1",
+      "status": "EVIDENCE_SEARCH_CONTINUES",
+      "language": "ar",
+      "arabicPrimary": true,
+      "query": "ادعاء يحتاج دليلًا.",
+      "evidenceStatus": "UNKNOWN",
+      "requiredEvidence": [
+        "TRACEABLE_SOURCE_OR_TEST"
+      ],
+      "candidateSources": [],
+      "candidateSourceCount": 0,
+      "channels": [
+        {
+          "channel": "LOCAL_REGISTERED_SOURCES",
+          "status": "SEARCH_EXECUTED"
+        },
+        {
+          "channel": "LOCAL_QURAN_INDEX",
+          "status": "AVAILABLE_NOT_EXECUTED"
+        },
+        {
+          "channel": "LOCAL_HADITH_METADATA",
+          "status": "AVAILABLE_NOT_EXECUTED"
+        },
+        {
+          "channel": "QUALIFIED_SCHOLAR_REVIEW",
+          "status": "AVAILABLE_IF_NEEDED"
+        },
+        {
+          "channel": "DOMAIN_EXPERT_REVIEW",
+          "status": "REQUIRED_WHEN_DOMAIN_SPECIFIC"
+        },
+        {
+          "channel": "ACADEMIC_AND_SCIENTIFIC_INDEXES",
+          "status": "DEFERRED_UNAVAILABLE_OR_UNAUTHORIZED"
+        },
+        {
+          "channel": "AUTHORIZED_WEB_RESEARCH",
+          "status": "DEFERRED_UNAVAILABLE_OR_UNAUTHORIZED"
+        }
+      ],
+      "searchExecution": {
+        "localRegisteredSourceSearchExecuted": true,
+        "externalSearchExecuted": false,
+        "networkAvailable": true,
+        "externalSearchAuthorized": false,
+        "allAvailableChannelsClaimedAsExecuted": false
+      },
+      "verificationWorkflow": [
+        "ثبت النص والموضع والنسخة دون اقتطاع مخل.",
+        "في الحديث: ثبت الراوي والمصدر والرقم والدرجة ومن حكم بها.",
+        "افصل النص المنقول عن التفسير والاستنباط والحجة العقلية.",
+        "اختبر المقدمات والنتيجة واعرض الاعتراضات والحدود.",
+        "تحقق من الدليل التجريبي بمنهج قابل للتكرار عند وجود دعوى تجريبية.",
+        "اعرض المسألة الشرعية على عالم مؤهل، والتخصصية على خبير مجال.",
+        "لا تحول المرشح إلى VERIFIED إلا بتوقيع مراجعة قابل للتتبع."
+      ],
+      "epistemicSeparation": {
+        "quranTextReference": "PRIMARY_REVELATORY_REFERENCE_REQUIRES_TEXT_INTEGRITY",
+        "sunnahReference": "REQUIRES_ISNAD_SOURCE_NUMBER_GRADE_AND_GRADER",
+        "interpretation": "HUMAN_SCHOLARLY_INTERPRETATION",
+        "rationalInference": "REVIEWABLE_ARGUMENT_NOT_REVELATION",
+        "empiricalObservation": "MEASUREMENT_DOES_NOT_BECOME_REVELATION",
+        "unresolvedClaim": "UNKNOWN"
+      },
+      "religiousGovernance": {
+        "religiousDomain": false,
+        "automatedAqidahJudgment": false,
+        "automatedFatwa": false,
+        "metaphysicalTruthAdjudicatedBySoftware": false,
+        "beliefCompelledBySoftware": false,
+        "qualifiedScholarReviewRequired": false,
+        "quranOrSunnahConvertedToExecutableReligiousAuthority": false
+      },
+      "candidateSourcesAreVerifiedEvidence": false,
+      "verifiedEvidenceProduced": false,
+      "decisionGranted": false,
+      "executionAllowed": false,
+      "humanFinalResponsibility": true,
+      "sensitiveQueryPersisted": false,
+      "evidenceRegistryPlanSystem": "SHEIKHA_EVIDENCE_RESEARCH_PLAN_V1",
+      "topics": [
+        "EVIDENCE_METHOD"
+      ],
+      "methodReferences": [
+        {
+          "sourceId": "VERIFY_REPORTS",
+          "sourceKind": "QURAN",
+          "title": "التثبت من الأخبار",
+          "citation": "سورة الحجرات: 6",
+          "text": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة",
+          "sourceUrl": "https://quran.com/49/6",
+          "topics": [],
+          "provenance": {
+            "registry": "SHEIKHA_CAPABILITY_BOUNDARY_REGISTRY_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+          },
+          "isnad": {
+            "applicable": false,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          }
+        },
+        {
+          "sourceId": "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+          "sourceKind": "QURAN",
+          "title": "عدم اتباع ما لا علم به",
+          "citation": "سورة الإسراء: 36",
+          "text": "ولا تقف ما ليس لك به علم إن السمع والبصر والفؤاد كل أولئك كان عنه مسؤولا",
+          "sourceUrl": "https://quran.com/17/36",
+          "topics": [
+            "EVIDENCE_METHOD",
+            "KNOWLEDGE_DISCIPLINE"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+          },
+          "isnad": {
+            "applicable": false,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          }
+        },
+        {
+          "sourceId": "ASK_QUALIFIED_KNOWLEDGE",
+          "sourceKind": "QURAN",
+          "title": "سؤال أهل الذكر عند عدم العلم",
+          "citation": "سورة النحل: 43",
+          "text": "فاسألوا أهل الذكر إن كنتم لا تعلمون",
+          "sourceUrl": "https://quran.com/16/43",
+          "topics": [
+            "EVIDENCE_METHOD",
+            "QUALIFIED_SCHOLAR_REVIEW"
+          ],
+          "provenance": {
+            "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+            "sourceType": "QURAN_LOCATION",
+            "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+          },
+          "isnad": {
+            "applicable": false,
+            "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+          }
+        }
+      ],
+      "argumentMaps": [
+        {
+          "argumentId": "EVIDENCE_METHOD_ARGUMENT",
+          "topic": "منهج التثبت والرجوع لأهل العلم",
+          "sourcePrinciples": [
+            "VERIFY_REPORTS",
+            "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+            "ASK_QUALIFIED_KNOWLEDGE"
+          ],
+          "automatedProof": false,
+          "qualifiedScholarReviewRequired": true,
+          "status": "PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW",
+          "sourceCitations": [
+            "سورة الحجرات: 6",
+            "سورة الإسراء: 36",
+            "سورة النحل: 43"
+          ],
+          "conclusionDeclaredAsAutomatedProof": false
+        }
+      ],
+      "sourceStandards": {
+        "quran": [
+          "SURAH_AND_AYAH",
+          "TEXT_INTEGRITY",
+          "CONTEXT",
+          "HUMAN_REVIEW"
+        ],
+        "sunnah": [
+          "NARRATOR",
+          "COLLECTION",
+          "NUMBER",
+          "GRADE",
+          "GRADER",
+          "HUMAN_HADITH_REVIEW"
+        ],
+        "interpretation": [
+          "ATTRIBUTED_TAFSIR",
+          "QUALIFIED_SCHOLAR",
+          "DISTINGUISH_FROM_REVELATION"
+        ],
+        "rationalArgument": [
+          "EXPLICIT_PREMISES",
+          "VALID_INFERENCE",
+          "OBJECTIONS",
+          "LIMITS"
+        ],
+        "empiricalEvidence": [
+          "MEASUREMENT",
+          "PROVENANCE",
+          "REPRODUCIBILITY",
+          "DOMAIN_EXPERT"
+        ]
+      },
+      "localIntegrationReferences": [
+        "runtime/evidence-registry/sheikha-evidence-registry-v1.js",
+        "infrastructure/sheikha-islamic-digital-library-core/quran/quran-corpus-manifest.json",
+        "infrastructure/sheikha-islamic-digital-library-core/governance/scholarly-governance.json",
+        "infrastructure/sheikha-quranic-science-integration-core/methodology/hujjah-burhan-istidlal-bayan-framework.json"
+      ],
+      "theologicalClaimProvenBySoftware": false,
+      "quranAndSunnahReferencesPresented": false,
+      "scriptureUsedAsSubstituteForEmpiricalMeasurement": false,
+      "resultCanPromoteItselfToVerified": false
+    },
+    "verifiedEvidenceProduced": false,
+    "externalSearchExecuted": false,
+    "theologicalClaimProvenBySoftware": false
   },
   "capacity": {
     "vision": "توجيه المقدرات المأذونة والموثقة إلى منفعة آمنة عادلة قابلة للقياس.",
@@ -597,6 +1391,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -648,7 +1443,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201885-5"
+        "auditId": "ubb-1783725194673-5"
       },
       "externalReview": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -725,6 +1520,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -778,7 +1574,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201886-6"
+        "auditId": "ubb-1783725194673-6"
       },
       "externalApproved": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -853,6 +1649,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -904,7 +1701,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201886-7"
+        "auditId": "ubb-1783725194673-7"
       },
       "externalPlan": {
         "system": "SHEIKHA_CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER_V1",
@@ -985,6 +1782,7 @@
             "executionPerformed": false,
             "externalWritePerformed": false
           },
+          "evidenceResearch": null,
           "religiousBoundary": {
             "divineLimitsDeterminedBySoftware": false,
             "softwareDeclaresHalalOrHaram": false,
@@ -1036,7 +1834,7 @@
             "الفتوى_الآلية": false,
             "المعرفات_التقنية_محفوظة_للتوافق": true
           },
-          "auditId": "ubb-1783718201886-8"
+          "auditId": "ubb-1783725194674-8"
         },
         "connection": {
           "scope": "EXTERNAL",
@@ -1156,6 +1954,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -1208,7 +2007,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201887-9"
+        "auditId": "ubb-1783725194675-9"
       },
       "missingEvidence": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -1271,14 +2070,230 @@
           "SOURCE_AND_TIMESTAMP"
         ],
         "requiredApprovals": [],
-        "harmControls": [],
+        "harmControls": [
+          "MEASURE_WITH_DOMAIN_TOOL",
+          "RECORD_SOURCE_AND_TIMESTAMP",
+          "DO_NOT_USE_SCRIPTURE_AS_MEASUREMENT_SUBSTITUTE"
+        ],
         "safeAlternative": {
-          "type": "EVIDENCE_PLAN",
-          "action": "أعلن UNKNOWN وأنشئ خطة جمع أدلة قابلة للتحقق.",
+          "type": "EVIDENCE_RESEARCH_PLAN",
+          "action": "أبق المقدرة غير موثقة، وحدد أداة القياس وخط الأساس والمصدر والزمن ثم اعرض النتيجة على مالك الدليل.",
           "boundaryType": "EVIDENCE_BOUNDARY",
           "reason": "CAPACITY_EVIDENCE_REQUIRED",
           "executionPerformed": false,
           "externalWritePerformed": false
+        },
+        "evidenceResearch": {
+          "system": "SHEIKHA_GOVERNED_EVIDENCE_RESEARCH_ORCHESTRATOR_V1",
+          "status": "EVIDENCE_SEARCH_CONTINUES",
+          "language": "ar",
+          "arabicPrimary": true,
+          "query": "قياس المقدرة التشغيلية مجموعة مقدرة اختبارية",
+          "evidenceStatus": "UNKNOWN",
+          "requiredEvidence": [
+            "VERIFIED_CAPACITY_MEASUREMENT",
+            "SOURCE_AND_TIMESTAMP"
+          ],
+          "candidateSources": [],
+          "candidateSourceCount": 0,
+          "channels": [
+            {
+              "channel": "LOCAL_REGISTERED_SOURCES",
+              "status": "SEARCH_EXECUTED"
+            },
+            {
+              "channel": "LOCAL_QURAN_INDEX",
+              "status": "AVAILABLE_NOT_EXECUTED"
+            },
+            {
+              "channel": "LOCAL_HADITH_METADATA",
+              "status": "AVAILABLE_NOT_EXECUTED"
+            },
+            {
+              "channel": "QUALIFIED_SCHOLAR_REVIEW",
+              "status": "AVAILABLE_IF_NEEDED"
+            },
+            {
+              "channel": "DOMAIN_EXPERT_REVIEW",
+              "status": "REQUIRED_WHEN_DOMAIN_SPECIFIC"
+            },
+            {
+              "channel": "ACADEMIC_AND_SCIENTIFIC_INDEXES",
+              "status": "DEFERRED_UNAVAILABLE_OR_UNAUTHORIZED"
+            },
+            {
+              "channel": "AUTHORIZED_WEB_RESEARCH",
+              "status": "DEFERRED_UNAVAILABLE_OR_UNAUTHORIZED"
+            }
+          ],
+          "searchExecution": {
+            "localRegisteredSourceSearchExecuted": true,
+            "externalSearchExecuted": false,
+            "networkAvailable": false,
+            "externalSearchAuthorized": false,
+            "allAvailableChannelsClaimedAsExecuted": false
+          },
+          "verificationWorkflow": [
+            "ثبت النص والموضع والنسخة دون اقتطاع مخل.",
+            "في الحديث: ثبت الراوي والمصدر والرقم والدرجة ومن حكم بها.",
+            "افصل النص المنقول عن التفسير والاستنباط والحجة العقلية.",
+            "اختبر المقدمات والنتيجة واعرض الاعتراضات والحدود.",
+            "تحقق من الدليل التجريبي بمنهج قابل للتكرار عند وجود دعوى تجريبية.",
+            "اعرض المسألة الشرعية على عالم مؤهل، والتخصصية على خبير مجال.",
+            "لا تحول المرشح إلى VERIFIED إلا بتوقيع مراجعة قابل للتتبع."
+          ],
+          "epistemicSeparation": {
+            "quranTextReference": "PRIMARY_REVELATORY_REFERENCE_REQUIRES_TEXT_INTEGRITY",
+            "sunnahReference": "REQUIRES_ISNAD_SOURCE_NUMBER_GRADE_AND_GRADER",
+            "interpretation": "HUMAN_SCHOLARLY_INTERPRETATION",
+            "rationalInference": "REVIEWABLE_ARGUMENT_NOT_REVELATION",
+            "empiricalObservation": "MEASUREMENT_DOES_NOT_BECOME_REVELATION",
+            "unresolvedClaim": "UNKNOWN"
+          },
+          "religiousGovernance": {
+            "religiousDomain": false,
+            "automatedAqidahJudgment": false,
+            "automatedFatwa": false,
+            "metaphysicalTruthAdjudicatedBySoftware": false,
+            "beliefCompelledBySoftware": false,
+            "qualifiedScholarReviewRequired": false,
+            "quranOrSunnahConvertedToExecutableReligiousAuthority": false
+          },
+          "candidateSourcesAreVerifiedEvidence": false,
+          "verifiedEvidenceProduced": false,
+          "decisionGranted": false,
+          "executionAllowed": false,
+          "humanFinalResponsibility": true,
+          "sensitiveQueryPersisted": false,
+          "evidenceRegistryPlanSystem": "SHEIKHA_EVIDENCE_RESEARCH_PLAN_V1",
+          "topics": [
+            "EVIDENCE_METHOD"
+          ],
+          "methodReferences": [
+            {
+              "sourceId": "VERIFY_REPORTS",
+              "sourceKind": "QURAN",
+              "title": "التثبت من الأخبار",
+              "citation": "سورة الحجرات: 6",
+              "text": "إن جاءكم فاسق بنبإ فتبينوا أن تصيبوا قوما بجهالة",
+              "sourceUrl": "https://quran.com/49/6",
+              "topics": [],
+              "provenance": {
+                "registry": "SHEIKHA_CAPABILITY_BOUNDARY_REGISTRY_V1",
+                "sourceType": "QURAN_LOCATION",
+                "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+              },
+              "isnad": {
+                "applicable": false,
+                "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+              }
+            },
+            {
+              "sourceId": "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+              "sourceKind": "QURAN",
+              "title": "عدم اتباع ما لا علم به",
+              "citation": "سورة الإسراء: 36",
+              "text": "ولا تقف ما ليس لك به علم إن السمع والبصر والفؤاد كل أولئك كان عنه مسؤولا",
+              "sourceUrl": "https://quran.com/17/36",
+              "topics": [
+                "EVIDENCE_METHOD",
+                "KNOWLEDGE_DISCIPLINE"
+              ],
+              "provenance": {
+                "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+                "sourceType": "QURAN_LOCATION",
+                "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+              },
+              "isnad": {
+                "applicable": false,
+                "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+              }
+            },
+            {
+              "sourceId": "ASK_QUALIFIED_KNOWLEDGE",
+              "sourceKind": "QURAN",
+              "title": "سؤال أهل الذكر عند عدم العلم",
+              "citation": "سورة النحل: 43",
+              "text": "فاسألوا أهل الذكر إن كنتم لا تعلمون",
+              "sourceUrl": "https://quran.com/16/43",
+              "topics": [
+                "EVIDENCE_METHOD",
+                "QUALIFIED_SCHOLAR_REVIEW"
+              ],
+              "provenance": {
+                "registry": "SHEIKHA_ISLAMIC_VALUE_REFERENCE_CONTRACT_V1",
+                "sourceType": "QURAN_LOCATION",
+                "textIntegrityStatus": "HUMAN_REVIEW_REQUIRED"
+              },
+              "isnad": {
+                "applicable": false,
+                "status": "NOT_APPLICABLE_TO_QURAN_REFERENCE"
+              }
+            }
+          ],
+          "argumentMaps": [
+            {
+              "argumentId": "EVIDENCE_METHOD_ARGUMENT",
+              "topic": "منهج التثبت والرجوع لأهل العلم",
+              "sourcePrinciples": [
+                "VERIFY_REPORTS",
+                "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+                "ASK_QUALIFIED_KNOWLEDGE"
+              ],
+              "automatedProof": false,
+              "qualifiedScholarReviewRequired": true,
+              "status": "PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW",
+              "sourceCitations": [
+                "سورة الحجرات: 6",
+                "سورة الإسراء: 36",
+                "سورة النحل: 43"
+              ],
+              "conclusionDeclaredAsAutomatedProof": false
+            }
+          ],
+          "sourceStandards": {
+            "quran": [
+              "SURAH_AND_AYAH",
+              "TEXT_INTEGRITY",
+              "CONTEXT",
+              "HUMAN_REVIEW"
+            ],
+            "sunnah": [
+              "NARRATOR",
+              "COLLECTION",
+              "NUMBER",
+              "GRADE",
+              "GRADER",
+              "HUMAN_HADITH_REVIEW"
+            ],
+            "interpretation": [
+              "ATTRIBUTED_TAFSIR",
+              "QUALIFIED_SCHOLAR",
+              "DISTINGUISH_FROM_REVELATION"
+            ],
+            "rationalArgument": [
+              "EXPLICIT_PREMISES",
+              "VALID_INFERENCE",
+              "OBJECTIONS",
+              "LIMITS"
+            ],
+            "empiricalEvidence": [
+              "MEASUREMENT",
+              "PROVENANCE",
+              "REPRODUCIBILITY",
+              "DOMAIN_EXPERT"
+            ]
+          },
+          "localIntegrationReferences": [
+            "runtime/evidence-registry/sheikha-evidence-registry-v1.js",
+            "infrastructure/sheikha-islamic-digital-library-core/quran/quran-corpus-manifest.json",
+            "infrastructure/sheikha-islamic-digital-library-core/governance/scholarly-governance.json",
+            "infrastructure/sheikha-quranic-science-integration-core/methodology/hujjah-burhan-istidlal-bayan-framework.json"
+          ],
+          "theologicalClaimProvenBySoftware": false,
+          "quranAndSunnahReferencesPresented": false,
+          "scriptureUsedAsSubstituteForEmpiricalMeasurement": false,
+          "resultCanPromoteItselfToVerified": false
         },
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
@@ -1307,7 +2322,7 @@
           "اللغة": "العربية",
           "القرار": "مراجعة بشرية أو تخصصية مطلوبة",
           "رمز_القرار_التقني": "REVIEW",
-          "السبب": "مقدار المقدرة غير موثق؛ يلزم قياس أو دليل قابل للتحقق.",
+          "السبب": "مقدار المقدرة غير موثق؛ بدأ مسار بحث عن قياس ودليل قابلين للتحقق.",
           "حالة_الدليل": "غير معلوم لعدم كفاية الدليل",
           "الحدود": [
             {
@@ -1321,14 +2336,18 @@
             "SOURCE_AND_TIMESTAMP"
           ],
           "الموافقات_المطلوبة": [],
-          "ضوابط_منع_الضرر": [],
-          "البديل_الآمن": "أعلن UNKNOWN وأنشئ خطة جمع أدلة قابلة للتحقق.",
+          "ضوابط_منع_الضرر": [
+            "MEASURE_WITH_DOMAIN_TOOL",
+            "RECORD_SOURCE_AND_TIMESTAMP",
+            "DO_NOT_USE_SCRIPTURE_AS_MEASUREMENT_SUBSTITUTE"
+          ],
+          "البديل_الآمن": "أبق المقدرة غير موثقة، وحدد أداة القياس وخط الأساس والمصدر والزمن ثم اعرض النتيجة على مالك الدليل.",
           "التنفيذ_تم": false,
           "القرار_النهائي_للإنسان": true,
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201887-10"
+        "auditId": "ubb-1783725194677-10"
       },
       "missingOwnerPermission": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -1401,6 +2420,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -1450,7 +2470,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201888-11"
+        "auditId": "ubb-1783725194677-11"
       },
       "knownHarm": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -1524,6 +2544,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -1574,7 +2595,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201888-12"
+        "auditId": "ubb-1783725194678-12"
       },
       "exceedsAvailable": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -1649,6 +2670,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -1700,7 +2722,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201888-13"
+        "auditId": "ubb-1783725194678-13"
       },
       "religiousClassification": {
         "system": "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
@@ -1774,6 +2796,7 @@
           "executionPerformed": false,
           "externalWritePerformed": false
         },
+        "evidenceResearch": null,
         "religiousBoundary": {
           "divineLimitsDeterminedBySoftware": false,
           "softwareDeclaresHalalOrHaram": false,
@@ -1824,7 +2847,7 @@
           "الفتوى_الآلية": false,
           "المعرفات_التقنية_محفوظة_للتوافق": true
         },
-        "auditId": "ubb-1783718201888-14"
+        "auditId": "ubb-1783725194678-14"
       }
     },
     "connectionExecuted": false,
@@ -1962,19 +2985,89 @@
           "text": "وما أرسلناك إلا رحمة للعالمين",
           "location": "سورة الأنبياء: 107",
           "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "ولا تقف ما ليس لك به علم إن السمع والبصر والفؤاد كل أولئك كان عنه مسؤولا",
+          "location": "سورة الإسراء: 36",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "فاسألوا أهل الذكر إن كنتم لا تعلمون",
+          "location": "سورة النحل: 43",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "أم خلقوا من غير شيء أم هم الخالقون أم خلقوا السماوات والأرض بل لا يوقنون",
+          "location": "سورة الطور: 35-36",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "إن في خلق السماوات والأرض واختلاف الليل والنهار لآيات لأولي الألباب",
+          "location": "سورة آل عمران: 190",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "سنريهم آياتنا في الآفاق وفي أنفسهم حتى يتبين لهم أنه الحق أولم يكف بربك أنه على كل شيء شهيد",
+          "location": "سورة فصلت: 53",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "لو كان فيهما آلهة إلا الله لفسدتا فسبحان الله رب العرش عما يصفون",
+          "location": "سورة الأنبياء: 22",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "قل هو الله أحد الله الصمد لم يلد ولم يولد ولم يكن له كفوا أحد",
+          "location": "سورة الإخلاص: 1-4",
+          "executableRule": false
+        },
+        {
+          "kind": "QURAN_EXCERPT",
+          "text": "وما خلقت الجن والإنس إلا ليعبدون",
+          "location": "سورة الذاريات: 56",
+          "executableRule": false
         }
       ],
       "authenticSunnah": [
         {
           "kind": "AUTHENTIC_SUNNAH_TEXT",
+          "text": "كان الله ولم يكن شيء غيره",
+          "source": "أخرجه البخاري (3191)، وصححه ابن حجر في فتح الباري (13/453)",
+          "executableRule": false
+        },
+        {
+          "kind": "AUTHENTIC_SUNNAH_TEXT",
           "text": "لا ضرر ولا ضرار",
-          "source": "أخرجه ابن ماجه (2340)، وصححه الألباني في صحيح ابن ماجه (1909)",
+          "source": "رواه أبو سعيد الخدري؛ حسنه النووي وله طرق يقوي بعضها بعضا؛ أخرجه الدارقطني والحاكم والبيهقي",
           "executableRule": false
         }
       ],
-      "quranCount": 10,
-      "authenticSunnahCount": 1,
+      "hadithIsnad": [
+        {
+          "text": "كان الله ولم يكن شيء غيره",
+          "narrator": "عمران بن الحصين",
+          "collection": "صحيح البخاري",
+          "number": "3191",
+          "grade": "صحيح",
+          "grader": "ابن حجر العسقلاني",
+          "automatedAuthentication": false,
+          "humanHadithReviewRequired": true
+        }
+      ],
+      "quranCount": 18,
+      "authenticSunnahCount": 2,
       "valuesReferenceOnly": true,
+      "referenceAndResearchUseOnly": true,
+      "missingEvidenceStartsGovernedResearch": true,
+      "candidateSourceBecomesVerifiedAutomatically": false,
+      "automatedTheologicalProof": false,
       "automatedInterpretationOrFatwa": false,
       "qualifiedScholarReviewRequired": true,
       "sourceTextIntegrityRequiresHumanReview": true
@@ -2008,6 +3101,8 @@
     "SHEIKHA_EXECUTIVE_DASHBOARD",
     "SHEIKHA_PERMITTED_CAPACITY_CLASSIFIER_V1",
     "SHEIKHA_CAPACITY_CONNECTION_AND_INTEGRATION_PLANNER_V1",
+    "SHEIKHA_EVIDENCE_RESEARCH_PLAN_V1",
+    "SHEIKHA_QURANIC_HUJJAH_BURHAN_ISTIDLAL_BAYAN_FRAMEWORK",
     "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1"
   ],
   "registries": {
@@ -2021,6 +3116,7 @@
     "transformBoundary": "/api/governance/universal-benefit/transform-boundary",
     "classifyCapacity": "/api/governance/universal-benefit/classify-capacity",
     "planIntegration": "/api/governance/universal-benefit/plan-integration",
+    "researchEvidence": "/api/governance/universal-benefit/research-evidence",
     "capabilities": "/api/governance/universal-benefit/capabilities",
     "evidence": "/api/governance/universal-benefit/evidence"
   },
@@ -2039,7 +3135,11 @@
     "operationalBoundariesAreReligiousRulings": false,
     "humanParticipationIsExploitableResource": false,
     "connectionPlannerExecutesConnections": false,
-    "physicalEnergyClaimRequiresEngineeringMeasurement": true
+    "physicalEnergyClaimRequiresEngineeringMeasurement": true,
+    "missingEvidenceStartsGovernedResearch": true,
+    "candidateSourceBecomesVerifiedAutomatically": false,
+    "automatedTheologicalProofOrAqidahJudgment": false,
+    "religiousEvidenceRequiresQualifiedScholarReview": true
   },
   "evidence": {
     "runtimeAuditRecords": 27,
@@ -2051,6 +3151,9 @@
     "قرار ALLOW نتيجة توجيه ولا يمنح تفويض التنفيذ.",
     "مؤشرات المنفعة تشغيلية قابلة للمراجعة وليست أحكامًا أخلاقية مطلقة.",
     "الأحكام الشرعية تحتاج أهل العلم المؤهلين، ولا تصدر فتوى آلية.",
+    "البحث يعيد مصادر مرشحة لا دليلًا VERIFIED؛ سلامة النص والإسناد والتفسير والحجة تحتاج مراجعة بشرية مؤهلة.",
+    "البرنامج يعرض أدلة الكتاب والسنة وخريطة الاستدلال، ولا يدعي إثبات الغيب حسابيًا أو إصدار حكم عقدي آلي.",
+    "الملاحظة العلمية والقياس التجريبي لا يتحولان إلى وحي، والنص الشرعي لا يستبدل قياس الدعوى التقنية.",
     "حدود الله لا يحددها البرنامج؛ النطاقات الداخلية والخارجية تصنيفات تشغيلية وليست أحكامًا شرعية.",
     "المشاركة البشرية طوعية ومصونة الكرامة وليست موردًا قابلًا للاستغلال.",
     "تحويل المقدرة يعني إعداد خطة تخصيص مقاسة، ولا يعني إنتاج طاقة فيزيائية.",

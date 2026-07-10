@@ -1336,6 +1336,10 @@ function buildReport() {
     universalBenefitBoundary?.boundaryScopesRegistered || 0;
   finalExecutiveReport.counts.universalBenefitResourceClasses =
     universalBenefitBoundary?.resourceClassesRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitEvidenceResearchSources =
+    universalBenefitBoundary?.evidenceResearchSourcesRegistered || 0;
+  finalExecutiveReport.counts.universalBenefitEvidenceArgumentMaps =
+    universalBenefitBoundary?.evidenceArgumentMapsRegistered || 0;
   finalExecutiveReport.counts.universalBenefitQuranWrittenReferences =
     universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0;
   finalExecutiveReport.counts.universalBenefitSunnahWrittenReferences =
@@ -1448,6 +1452,16 @@ function buildReport() {
     universalBenefitBoundary?.boundaryScopesRegistered || 0;
   executiveDashboard.indicators.universalBenefitResourceClasses =
     universalBenefitBoundary?.resourceClassesRegistered || 0;
+  executiveDashboard.indicators.universalBenefitEvidenceResearchSources =
+    universalBenefitBoundary?.evidenceResearchSourcesRegistered || 0;
+  executiveDashboard.indicators.universalBenefitEvidenceArgumentMaps =
+    universalBenefitBoundary?.evidenceArgumentMapsRegistered || 0;
+  executiveDashboard.indicators.universalBenefitEvidenceResearchActive =
+    universalBenefitBoundary?.checks?.governedEvidenceResearchActive === true;
+  executiveDashboard.indicators.universalBenefitEvidenceResearchProducesVerified =
+    universalBenefitBoundary?.evidenceResearch?.verifiedEvidenceProduced === true;
+  executiveDashboard.indicators.universalBenefitTheologicalClaimProvenBySoftware =
+    universalBenefitBoundary?.evidenceResearch?.theologicalClaimProvenBySoftware === true;
   executiveDashboard.indicators.universalBenefitCapacityPlannerExecutes =
     universalBenefitBoundary?.capacity?.connectionExecuted === true ||
     universalBenefitBoundary?.capacity?.resourceConsumed === true;
@@ -1579,9 +1593,11 @@ function buildReport() {
       universalBenefitBoundary?.capabilitiesRegistered > 0 &&
       universalBenefitBoundary?.boundariesRegistered === 18 &&
       universalBenefitBoundary?.benefitDomainsRegistered === 16 &&
-      universalBenefitBoundary?.architectureComponentsRegistered === 21 &&
+      universalBenefitBoundary?.architectureComponentsRegistered === 24 &&
       universalBenefitBoundary?.boundaryScopesRegistered === 3 &&
       universalBenefitBoundary?.resourceClassesRegistered === 10 &&
+      universalBenefitBoundary?.evidenceResearchSourcesRegistered === 20 &&
+      universalBenefitBoundary?.evidenceArgumentMapsRegistered === 4 &&
       universalBenefitBoundary?.allowedDecisions > 0 &&
       universalBenefitBoundary?.reviewDecisions > 0 &&
       universalBenefitBoundary?.sandboxDecisions > 0 &&
@@ -1593,9 +1609,11 @@ function buildReport() {
       universalBenefitBoundary?.arabicPrimary === true &&
       universalBenefitBoundary?.arabicApi?.primary === true &&
       universalBenefitBoundary?.arabicApi?.decisionsReturnArabicExplanation === true &&
-      universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount === 10 &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount === 18 &&
       universalBenefitBoundary?.arabicDsl?.writtenReferences
-        ?.authenticSunnahCount === 1 &&
+        ?.authenticSunnahCount === 2 &&
+      universalBenefitBoundary?.arabicDsl?.writtenReferences
+        ?.hadithIsnad?.[0]?.number === '3191' &&
       universalBenefitBoundary?.arabicDsl?.writtenReferences
         ?.automatedInterpretationOrFatwa === false &&
       universalBenefitBoundary?.arabicDsl?.writtenReferences
@@ -1607,6 +1625,17 @@ function buildReport() {
       universalBenefitBoundary?.checks?.externalIntegrationRequiresAuthorization === true &&
       universalBenefitBoundary?.checks?.governedIntegrationPlanDoesNotExecute === true &&
       universalBenefitBoundary?.checks?.softwareDoesNotDeclareHalalOrHaram === true &&
+      universalBenefitBoundary?.checks?.governedEvidenceResearchActive === true &&
+      universalBenefitBoundary?.checks
+        ?.missingEvidenceStartsResearchWithoutFalseVerification === true &&
+      universalBenefitBoundary?.checks
+        ?.religiousResearchPreservesIsnadAndEpistemicLayers === true &&
+      universalBenefitBoundary?.checks?.softwareDoesNotClaimTheologicalProof === true &&
+      universalBenefitBoundary?.checks
+        ?.technicalMeasurementDoesNotUseScriptureAsSubstitute === true &&
+      universalBenefitBoundary?.evidenceResearch?.verifiedEvidenceProduced === false &&
+      universalBenefitBoundary?.evidenceResearch
+        ?.theologicalClaimProvenBySoftware === false &&
       universalBenefitBoundary?.divineLimitsDeterminedBySoftware === false &&
       universalBenefitBoundary?.halalOrHaramDeterminedBySoftware === false &&
       universalBenefitBoundary?.humanParticipationIsExploitableResource === false &&
@@ -1799,6 +1828,17 @@ function buildReport() {
         universalBenefitBoundary?.boundaryScopesRegistered || 0,
       universalBenefitResourceClasses:
         universalBenefitBoundary?.resourceClassesRegistered || 0,
+      universalBenefitEvidenceResearchSources:
+        universalBenefitBoundary?.evidenceResearchSourcesRegistered || 0,
+      universalBenefitEvidenceArgumentMaps:
+        universalBenefitBoundary?.evidenceArgumentMapsRegistered || 0,
+      universalBenefitEvidenceResearchActive:
+        universalBenefitBoundary?.checks?.governedEvidenceResearchActive === true,
+      universalBenefitEvidenceResearchProducesVerified:
+        universalBenefitBoundary?.evidenceResearch?.verifiedEvidenceProduced === true,
+      universalBenefitTheologicalClaimProvenBySoftware:
+        universalBenefitBoundary?.evidenceResearch
+          ?.theologicalClaimProvenBySoftware === true,
       universalBenefitSafeAlternatives:
         universalBenefitBoundary?.safeAlternativesGenerated || 0,
       universalBenefitArabicPrimary:
@@ -2021,6 +2061,10 @@ function buildReport() {
         universalBenefitBoundary?.boundaryScopesRegistered || 0,
       resourceClassesRegistered:
         universalBenefitBoundary?.resourceClassesRegistered || 0,
+      evidenceResearchSourcesRegistered:
+        universalBenefitBoundary?.evidenceResearchSourcesRegistered || 0,
+      evidenceArgumentMapsRegistered:
+        universalBenefitBoundary?.evidenceArgumentMapsRegistered || 0,
       language: universalBenefitBoundary?.language || 'UNKNOWN',
       arabicPrimary: universalBenefitBoundary?.arabicPrimary === true,
       quranWrittenReferences:
@@ -2057,6 +2101,13 @@ function buildReport() {
       capacityPlannerExecutes:
         universalBenefitBoundary?.capacity?.connectionExecuted === true ||
         universalBenefitBoundary?.capacity?.resourceConsumed === true,
+      evidenceResearchActive:
+        universalBenefitBoundary?.checks?.governedEvidenceResearchActive === true,
+      evidenceResearchProducesVerified:
+        universalBenefitBoundary?.evidenceResearch?.verifiedEvidenceProduced === true,
+      theologicalClaimProvenBySoftware:
+        universalBenefitBoundary?.evidenceResearch
+          ?.theologicalClaimProvenBySoftware === true,
       humanFinalResponsibility:
         universalBenefitBoundary?.humanFinalResponsibility === true
     },
@@ -2262,6 +2313,16 @@ if (require.main === module) {
     universalBenefitDomains: report.summary.universalBenefitDomains,
     universalBenefitBoundaryScopes: report.summary.universalBenefitBoundaryScopes,
     universalBenefitResourceClasses: report.summary.universalBenefitResourceClasses,
+    universalBenefitEvidenceResearchSources:
+      report.summary.universalBenefitEvidenceResearchSources,
+    universalBenefitEvidenceArgumentMaps:
+      report.summary.universalBenefitEvidenceArgumentMaps,
+    universalBenefitEvidenceResearchActive:
+      report.summary.universalBenefitEvidenceResearchActive,
+    universalBenefitEvidenceResearchProducesVerified:
+      report.summary.universalBenefitEvidenceResearchProducesVerified,
+    universalBenefitTheologicalClaimProvenBySoftware:
+      report.summary.universalBenefitTheologicalClaimProvenBySoftware,
     universalBenefitSafeAlternatives: report.summary.universalBenefitSafeAlternatives,
     universalBenefitArabicPrimary: report.summary.universalBenefitArabicPrimary,
     universalBenefitCapacityPlannerExecutes:

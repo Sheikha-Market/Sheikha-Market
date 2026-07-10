@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T21:16:51.564Z",
+  "generatedAt": "2026-07-10T23:13:23.236Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3136,
+      "components": 3137,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -84388,6 +84388,18 @@
     {
       "from": "resource-measurement-capability-scoring-fabric-test-498772891896",
       "fromPath": "tests/sheikha-resource-measurement-capability-scoring-fabric-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "root-orchestrator-test-897c071380cc",
+      "fromPath": "tests/sheikha-root-orchestrator.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "root-orchestrator-test-897c071380cc",
+      "fromPath": "tests/sheikha-root-orchestrator.test.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

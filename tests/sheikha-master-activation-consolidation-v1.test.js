@@ -111,8 +111,18 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       .toBe(false);
     expect(report.executiveDashboard.indicators
       .universalBenefitHumanParticipationIsExploitableResource).toBe(false);
-    expect(report.executiveDashboard.indicators.universalBenefitQuranWrittenReferences).toBe(10);
-    expect(report.executiveDashboard.indicators.universalBenefitSunnahWrittenReferences).toBe(1);
+    expect(report.executiveDashboard.indicators.universalBenefitEvidenceResearchSources)
+      .toBe(20);
+    expect(report.executiveDashboard.indicators.universalBenefitEvidenceArgumentMaps)
+      .toBe(4);
+    expect(report.executiveDashboard.indicators.universalBenefitEvidenceResearchActive)
+      .toBe(true);
+    expect(report.executiveDashboard.indicators
+      .universalBenefitEvidenceResearchProducesVerified).toBe(false);
+    expect(report.executiveDashboard.indicators
+      .universalBenefitTheologicalClaimProvenBySoftware).toBe(false);
+    expect(report.executiveDashboard.indicators.universalBenefitQuranWrittenReferences).toBe(18);
+    expect(report.executiveDashboard.indicators.universalBenefitSunnahWrittenReferences).toBe(2);
     expect(report.executiveDashboard.indicators.universalBenefitAutomatedReligiousInterpretation)
       .toBe(false);
     expect(report.executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive)
@@ -189,13 +199,15 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       capabilitiesRegistered: 16,
       boundariesRegistered: 18,
       benefitDomainsRegistered: 16,
-      architectureComponentsRegistered: 21,
+      architectureComponentsRegistered: 24,
       boundaryScopesRegistered: 3,
       resourceClassesRegistered: 10,
+      evidenceResearchSourcesRegistered: 20,
+      evidenceArgumentMapsRegistered: 4,
       language: 'ar',
       arabicPrimary: true,
-      quranWrittenReferences: 10,
-      sunnahWrittenReferences: 1,
+      quranWrittenReferences: 18,
+      sunnahWrittenReferences: 2,
       automatedReligiousInterpretation: false,
       qualifiedScholarReviewRequired: true,
       allowedDecisions: 1,
@@ -210,6 +222,9 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       operationalBoundariesAreReligiousRulings: false,
       humanParticipationIsExploitableResource: false,
       capacityPlannerExecutes: false,
+      evidenceResearchActive: true,
+      evidenceResearchProducesVerified: false,
+      theologicalClaimProvenBySoftware: false,
       humanFinalResponsibility: true
     });
     expect(report.nativeLanguageArchitecture).toMatchObject({

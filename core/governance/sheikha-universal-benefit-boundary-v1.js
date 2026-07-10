@@ -49,7 +49,7 @@ const ARABIC_REASONS = Object.freeze({
   AI_DIRECT_KERNEL_OR_FIRMWARE_MODIFICATION_PROHIBITED: 'لا يملك الذكاء الصناعي تعديل النواة أو البرمجيات الثابتة مباشرة.',
   EXTERNAL_WRITE_NOT_AUTHORIZED: 'الكتابة الخارجية غير مأذونة بإذن صريح.',
   REQUIRED_PERMISSION_MISSING: 'الإذن المطلوب غير موجود أو غير موثق.',
-  EVIDENCE_INSUFFICIENT_RESULT_UNKNOWN: 'الدليل غير كاف؛ النتيجة غير معلومة ولا يجوز تخمينها.',
+  EVIDENCE_INSUFFICIENT_RESULT_UNKNOWN: 'الدليل غير كاف؛ النتيجة غير معلومة وبدأ مسار بحث منضبط دون تخمين.',
   QUALIFIED_DOMAIN_REVIEW_REQUIRED: 'تحتاج المسألة مراجعة مختص مؤهل في مجالها.',
   HUMAN_APPROVAL_REQUIRED: 'تحتاج العملية موافقة الإنسان المسؤول.',
   TOOL_UNAVAILABLE_REQUIREMENTS_REPORT_REQUIRED: 'الأداة غير متاحة؛ يلزم تقرير متطلبات وخطة بديلة.',
@@ -69,7 +69,7 @@ const ARABIC_REASONS = Object.freeze({
   SOFTWARE_CANNOT_DECLARE_HALAL_OR_HARAM: 'البرنامج لا يعلن الحلال أو الحرام؛ يلزم أهل العلم المؤهلون.',
   HUMAN_PARTICIPATION_REQUIRES_CONSENT: 'المشاركة البشرية تحتاج رضا صريحًا وحق الانسحاب وحفظ الكرامة.',
   RESOURCE_OWNER_PERMISSION_REQUIRED: 'استخدام المقدرة يحتاج إذن مالكها أو صاحب الصلاحية.',
-  CAPACITY_EVIDENCE_REQUIRED: 'مقدار المقدرة غير موثق؛ يلزم قياس أو دليل قابل للتحقق.',
+  CAPACITY_EVIDENCE_REQUIRED: 'مقدار المقدرة غير موثق؛ بدأ مسار بحث عن قياس ودليل قابلين للتحقق.',
   KNOWN_HARM_PROHIBITS_CAPACITY_USE: 'ثبت احتمال ضرر غير مقبول؛ يمنع توجيه المقدرة إليه.',
   NON_HARM_NOT_VERIFIED_USE_SIMULATION: 'عدم الضرر غير مثبت؛ يسمح بالمحاكاة فقط.',
   REQUEST_EXCEEDS_AVAILABLE_CAPACITY: 'المقدار المطلوب يتجاوز المقدرة المتاحة الموثقة.',
@@ -241,6 +241,9 @@ function normalizeInput(input = {}) {
     qualifiedScholarReview: input.qualifiedScholarReview === true,
     externalWrite: input.externalWrite === true,
     externalWriteAuthorized: input.externalWriteAuthorized === true,
+    externalResearchAuthorized: input.externalResearchAuthorized === true,
+    religiousEvidenceResearch: input.religiousEvidenceResearch === true,
+    evidenceTopics: cleanList(input.evidenceTopics, 12, 100),
     religiousRuling: input.religiousRuling === true,
     legalMedicalOrFinancialJudgment: input.legalMedicalOrFinancialJudgment === true,
     toolAvailable: input.toolAvailable !== false,
@@ -311,8 +314,142 @@ function safeAlternativeFor(boundaryType, reason, capability = null) {
   };
 }
 
+function normalizeArabicSearchText(value) {
+  return cleanText(value, 2000)
+    .toLowerCase()
+    .replace(/[\u064b-\u065f\u0670\u0640]/gu, '')
+    .replace(/[أإآٱ]/gu, 'ا')
+    .replace(/ى/gu, 'ي');
+}
+
+function detectEvidenceTopics(query, explicitTopics = [], religiousDomain = false) {
+  const allowedTopics = [
+    'DIVINE_EXISTENCE_AND_CREATION',
+    'TAWHID',
+    'WORSHIP',
+    'EVIDENCE_METHOD'
+  ];
+  const normalized = normalizeArabicSearchText(query);
+  const topics = cleanList(explicitTopics, 12, 100)
+    .map((item) => item.toUpperCase())
+    .filter((item) => allowedTopics.includes(item));
+
+  if (/(الوجود|وجود الله|وجود الخالق|خلق الله|الخلق|الخالق|خلق الكون|خلق السماوات|من خلق)/u.test(normalized)) {
+    topics.push('DIVINE_EXISTENCE_AND_CREATION');
+  }
+  if (/(التوحيد|توحيد|وحداني|الله احد|لا اله الا الله|الهة)/u.test(normalized)) {
+    topics.push('TAWHID');
+  }
+  if (/(العبودي|العباد|عباده الله|ليعبدون|غايه الخلق)/u.test(normalized)) {
+    topics.push('WORSHIP');
+  }
+  if (religiousDomain && topics.length === 0) {
+    topics.push('DIVINE_EXISTENCE_AND_CREATION', 'TAWHID', 'WORSHIP');
+  }
+  topics.push('EVIDENCE_METHOD');
+  return unique(topics);
+}
+
+function referenceToCandidateSource(reference = {}) {
+  const sourceKind = reference.sourceKind ||
+    (String(reference.reference || '').startsWith('سورة') ? 'QURAN' : 'SUNNAH');
+  return {
+    sourceId: reference.principle,
+    sourceKind,
+    title: reference.arabicPrinciple,
+    citation: reference.reference,
+    text: reference.arabicText,
+    sourceUrl: reference.sourceUrl,
+    topics: reference.evidenceTopics || [],
+    provenance: {
+      registry: reference.provenance?.registry ||
+        'SHEIKHA_CAPABILITY_BOUNDARY_REGISTRY_V1',
+      sourceType: reference.provenance?.sourceType ||
+        (sourceKind === 'QURAN' ? 'QURAN_LOCATION' : 'HADITH_REFERENCE'),
+      textIntegrityStatus: reference.provenance?.textIntegrityStatus ||
+        'HUMAN_REVIEW_REQUIRED'
+    },
+    isnad: reference.isnad || {
+      applicable: false,
+      status: 'NOT_APPLICABLE_TO_QURAN_REFERENCE'
+    }
+  };
+}
+
+function researchEvidence(input = {}) {
+  const currentRegistry = registry();
+  const policy = currentRegistry.evidenceResearchPolicy || {};
+  const query = cleanText(input.query || input.claim || input.purpose, 1600);
+  const detectedTopics = detectEvidenceTopics(
+    query,
+    input.topics,
+    input.religiousDomain === true
+  );
+  const religiousTopics = detectedTopics.filter((topic) => topic !== 'EVIDENCE_METHOD');
+  const religiousDomain = input.religiousDomain === true || religiousTopics.length > 0;
+  const topicToArgumentId = {
+    DIVINE_EXISTENCE_AND_CREATION: 'CREATION_QURANIC_ARGUMENT',
+    TAWHID: 'TAWHID_QURANIC_ARGUMENT',
+    WORSHIP: 'WORSHIP_QURANIC_ARGUMENT',
+    EVIDENCE_METHOD: 'EVIDENCE_METHOD_ARGUMENT'
+  };
+  const selectedArgumentIds = unique(detectedTopics.map(
+    (topic) => topicToArgumentId[topic]
+  ));
+  const selectedArgumentMaps = (policy.argumentMaps || []).filter((argument) =>
+    selectedArgumentIds.includes(argument.argumentId)
+  );
+  const methodArgument = (policy.argumentMaps || []).find(
+    (argument) => argument.argumentId === 'EVIDENCE_METHOD_ARGUMENT'
+  );
+  const methodPrinciples = methodArgument?.sourcePrinciples || [];
+  const candidatePrinciples = religiousDomain
+    ? unique(selectedArgumentMaps.flatMap((argument) => argument.sourcePrinciples || []))
+    : [];
+  const references = currentRegistry.valuesReference?.references || [];
+  const candidateSources = references
+    .filter((reference) => candidatePrinciples.includes(reference.principle))
+    .map(referenceToCandidateSource);
+  const methodReferences = references
+    .filter((reference) => methodPrinciples.includes(reference.principle))
+    .map(referenceToCandidateSource);
+  const plan = evidenceRegistry.researchPlan({
+    query,
+    requiredEvidence: input.requiredEvidence,
+    candidateSources,
+    availableChannels: policy.searchOrder,
+    networkAvailable: input.networkAvailable === true,
+    externalSearchAuthorized: input.externalSearchAuthorized === true,
+    localSearchExecuted: true,
+    religiousDomain
+  });
+
+  return {
+    ...plan,
+    system: 'SHEIKHA_GOVERNED_EVIDENCE_RESEARCH_ORCHESTRATOR_V1',
+    evidenceRegistryPlanSystem: plan.system,
+    topics: detectedTopics,
+    methodReferences,
+    argumentMaps: selectedArgumentMaps.map((argument) => ({
+      ...argument,
+      status: 'PRESENTED_FOR_QUALIFIED_HUMAN_REVIEW',
+      sourceCitations: references
+        .filter((reference) => (argument.sourcePrinciples || [])
+          .includes(reference.principle))
+        .map((reference) => reference.reference),
+      conclusionDeclaredAsAutomatedProof: false
+    })),
+    sourceStandards: policy.sourceStandards || {},
+    localIntegrationReferences: policy.existingLocalIntegrations || [],
+    theologicalClaimProvenBySoftware: false,
+    quranAndSunnahReferencesPresented: religiousDomain,
+    scriptureUsedAsSubstituteForEmpiricalMeasurement: false,
+    resultCanPromoteItselfToVerified: false
+  };
+}
+
 function parseArabicBoundaryContract(source) {
-  const text = String(source || '').slice(0, 8192);
+  const text = String(source || '').slice(0, 16384);
   const extract = (label) => {
     const match = text.match(new RegExp(`(?:^|\\n)\\s*${label}\\s+"([^"]+)"`, 'u'));
     return match ? cleanText(match[1], 500) : null;
@@ -334,6 +471,21 @@ function parseArabicBoundaryContract(source) {
     source: cleanText(match[2], 300),
     executableRule: false
   }));
+  const hadithIsnadMatch = text.match(
+    /إسناد_الحديث:[\s\S]*?الحديث\s+"([^"]+)"[\s\S]*?الراوي\s+"([^"]+)"[\s\S]*?المصدر\s+"([^"]+)"[\s\S]*?الرقم\s+"([^"]+)"[\s\S]*?الدرجة\s+"([^"]+)"[\s\S]*?حكم_المحدث\s+"([^"]+)"/u
+  );
+  const hadithIsnad = hadithIsnadMatch
+    ? [{
+        text: cleanText(hadithIsnadMatch[1], 500),
+        narrator: cleanText(hadithIsnadMatch[2], 200),
+        collection: cleanText(hadithIsnadMatch[3], 200),
+        number: cleanText(hadithIsnadMatch[4], 80),
+        grade: cleanText(hadithIsnadMatch[5], 100),
+        grader: cleanText(hadithIsnadMatch[6], 200),
+        automatedAuthentication: false,
+        humanHadithReviewRequired: true
+      }]
+    : [];
   const contract = {
     language: 'ar',
     arabicPrimary: true,
@@ -356,10 +508,20 @@ function parseArabicBoundaryContract(source) {
     decision: contract.decision,
     safeAlternative: contract.safeAlternative
   }).filter(([, value]) => !value).map(([key]) => key);
-  if (quranReferences.length < 10) missing.push('quranWrittenReferences');
-  if (sunnahReferences.length < 1) missing.push('sunnahWrittenReferences');
+  if (quranReferences.length < 18) missing.push('quranWrittenReferences');
+  if (sunnahReferences.length < 2) missing.push('sunnahWrittenReferences');
+  if (hadithIsnad.length < 1) missing.push('hadithIsnadMetadata');
   if (!/الفتوى_الآلية:\s*ممنوعة/u.test(text)) missing.push('automatedFatwaBoundary');
   if (!/المراجعة_الشرعية:\s*أهل_العلم/u.test(text)) missing.push('qualifiedScholarBoundary');
+  if (!/عند_نقص_الدليل:\s*ابدأ_بحثا_منضبطا/u.test(text)) {
+    missing.push('missingEvidenceResearchPolicy');
+  }
+  if (!/مرشح_المصدر_يصبح_VERIFIED_تلقائيا:\s*لا/u.test(text)) {
+    missing.push('candidateVerificationBoundary');
+  }
+  if (!/البرهان_العقدي_الآلي:\s*ممنوع/u.test(text)) {
+    missing.push('automatedAqidahProofBoundary');
+  }
 
   return {
     system: 'SHEIKHA_ARABIC_BOUNDARY_DSL_V1',
@@ -370,9 +532,14 @@ function parseArabicBoundaryContract(source) {
     writtenReferences: {
       quran: quranReferences,
       authenticSunnah: sunnahReferences,
+      hadithIsnad,
       quranCount: quranReferences.length,
       authenticSunnahCount: sunnahReferences.length,
       valuesReferenceOnly: true,
+      referenceAndResearchUseOnly: true,
+      missingEvidenceStartsGovernedResearch: true,
+      candidateSourceBecomesVerifiedAutomatically: false,
+      automatedTheologicalProof: false,
       automatedInterpretationOrFatwa: false,
       qualifiedScholarReviewRequired: true,
       sourceTextIntegrityRequiresHumanReview: true
@@ -391,7 +558,8 @@ function arabicDecisionView({
   requiredEvidence = [],
   requiredApprovals = [],
   harmControls = [],
-  safeAlternative = null
+  safeAlternative = null,
+  evidenceResearch = null
 }) {
   return {
     'اللغة': 'العربية',
@@ -444,6 +612,7 @@ function decisionResult({
   requiredApprovals = [],
   harmControls = [],
   safeAlternative = null,
+  evidenceResearch = null,
   boundaries = []
 }) {
   const reasoning = runReasoning({
@@ -495,6 +664,7 @@ function decisionResult({
     requiredApprovals: resolvedRequiredApprovals,
     harmControls: resolvedHarmControls,
     safeAlternative: resolvedSafeAlternative,
+    evidenceResearch,
     arabic: arabicDecisionView({
       decision,
       reason,
@@ -629,14 +799,41 @@ function evaluateCapability(input = {}) {
   }
 
   if (verifiedEvidence.length === 0) {
+    const evidenceResearch = researchEvidence({
+      query: request.purpose,
+      requiredEvidence: capability.requiredEvidence,
+      topics: request.evidenceTopics,
+      religiousDomain: request.religiousEvidenceResearch,
+      networkAvailable: request.networkAvailable,
+      externalSearchAuthorized: request.externalResearchAuthorized
+    });
+    const religiousResearch = evidenceResearch.religiousGovernance
+      ?.religiousDomain === true;
     return result({
       decision: 'REVIEW',
       reason: 'EVIDENCE_INSUFFICIENT_RESULT_UNKNOWN',
       boundaryType: 'EVIDENCE_BOUNDARY',
       evidenceStatus: 'UNKNOWN',
       requiredEvidence: capability.requiredEvidence,
-      requiredApprovals: ['EVIDENCE_OWNER_REVIEW'],
-      harmControls: ['NO_VERIFIED_CLAIM_WITHOUT_EVIDENCE']
+      requiredApprovals: [
+        'EVIDENCE_OWNER_REVIEW',
+        ...(religiousResearch ? ['QUALIFIED_SCHOLAR_REVIEW'] : [])
+      ],
+      harmControls: [
+        'NO_VERIFIED_CLAIM_WITHOUT_EVIDENCE',
+        'SOURCE_PROVENANCE',
+        'ISNAD_WHEN_APPLICABLE',
+        'SEPARATE_TEXT_INTERPRETATION_AND_INFERENCE'
+      ],
+      safeAlternative: {
+        type: 'EVIDENCE_RESEARCH_PLAN',
+        action: 'أبْقِ النتيجة غير معلومة، وابحث في المصادر المسجلة ثم تحقق من النص والإسناد والسياق والاستدلال قبل اعتماد الإنسان المؤهل.',
+        boundaryType: 'EVIDENCE_BOUNDARY',
+        reason: 'EVIDENCE_INSUFFICIENT_RESULT_UNKNOWN',
+        executionPerformed: false,
+        externalWritePerformed: false
+      },
+      evidenceResearch
     });
   }
 
@@ -814,7 +1011,8 @@ function capacityDecision({
   requiredEvidence = [],
   requiredApprovals = [],
   harmControls = [],
-  safeAlternative = null
+  safeAlternative = null,
+  evidenceResearch = null
 }) {
   const evidenceStatus = request.evidence.some((item) => item.verified)
     ? 'VERIFIED'
@@ -887,6 +1085,7 @@ function capacityDecision({
     requiredApprovals: unique(requiredApprovals),
     harmControls: unique(harmControls),
     safeAlternative: resolvedSafeAlternative,
+    evidenceResearch,
     religiousBoundary: {
       divineLimitsDeterminedBySoftware: false,
       softwareDeclaresHalalOrHaram: false,
@@ -1003,11 +1202,36 @@ function classifyPermittedCapacity(input = {}) {
   }
 
   if (!request.evidence.some((item) => item.verified)) {
+    const requiredEvidence = [
+      'VERIFIED_CAPACITY_MEASUREMENT',
+      'SOURCE_AND_TIMESTAMP'
+    ];
+    const evidenceResearch = researchEvidence({
+      query: `قياس المقدرة التشغيلية ${request.resource.name || request.resource.resourceId}`,
+      requiredEvidence,
+      religiousDomain: false,
+      networkAvailable: false,
+      externalSearchAuthorized: false
+    });
     return result({
       decision: 'REVIEW',
       reason: 'CAPACITY_EVIDENCE_REQUIRED',
       boundaryType: 'EVIDENCE_BOUNDARY',
-      requiredEvidence: ['VERIFIED_CAPACITY_MEASUREMENT', 'SOURCE_AND_TIMESTAMP']
+      requiredEvidence,
+      harmControls: [
+        'MEASURE_WITH_DOMAIN_TOOL',
+        'RECORD_SOURCE_AND_TIMESTAMP',
+        'DO_NOT_USE_SCRIPTURE_AS_MEASUREMENT_SUBSTITUTE'
+      ],
+      safeAlternative: {
+        type: 'EVIDENCE_RESEARCH_PLAN',
+        action: 'أبق المقدرة غير موثقة، وحدد أداة القياس وخط الأساس والمصدر والزمن ثم اعرض النتيجة على مالك الدليل.',
+        boundaryType: 'EVIDENCE_BOUNDARY',
+        reason: 'CAPACITY_EVIDENCE_REQUIRED',
+        executionPerformed: false,
+        externalWritePerformed: false
+      },
+      evidenceResearch
     });
   }
 
@@ -1233,12 +1457,17 @@ function status() {
     boundaryScopesRegistered:
       currentRegistry.operationalBoundaryScopes?.length || 0,
     resourceClassesRegistered: currentRegistry.resourceClasses?.length || 0,
+    evidenceResearchSourcesRegistered:
+      currentRegistry.valuesReference?.references?.length || 0,
+    evidenceArgumentMapsRegistered:
+      currentRegistry.evidenceResearchPolicy?.argumentMaps?.length || 0,
     priorityPolicy: currentRegistry.priorityPolicy || {},
     decisions: DECISIONS,
     boundaryStates: BOUNDARY_STATES,
     boundaryScopes: BOUNDARY_SCOPES,
     resourceClasses: RESOURCE_CLASSES,
     capacityGovernance: currentRegistry.capacityGovernance || {},
+    evidenceResearchPolicy: currentRegistry.evidenceResearchPolicy || {},
     integrations: currentRegistry.integrations || [],
     routes: {
       status: '/api/governance/universal-benefit/status',
@@ -1246,6 +1475,7 @@ function status() {
       transformBoundary: '/api/governance/universal-benefit/transform-boundary',
       classifyCapacity: '/api/governance/universal-benefit/classify-capacity',
       planIntegration: '/api/governance/universal-benefit/plan-integration',
+      researchEvidence: '/api/governance/universal-benefit/research-evidence',
       capabilities: '/api/governance/universal-benefit/capabilities',
       evidence: '/api/governance/universal-benefit/evidence'
     },
@@ -1264,7 +1494,11 @@ function status() {
       operationalBoundariesAreReligiousRulings: false,
       humanParticipationIsExploitableResource: false,
       connectionPlannerExecutesConnections: false,
-      physicalEnergyClaimRequiresEngineeringMeasurement: true
+      physicalEnergyClaimRequiresEngineeringMeasurement: true,
+      missingEvidenceStartsGovernedResearch: true,
+      candidateSourceBecomesVerifiedAutomatically: false,
+      automatedTheologicalProofOrAqidahJudgment: false,
+      religiousEvidenceRequiresQualifiedScholarReview: true
     }
   };
 }
@@ -1284,6 +1518,7 @@ module.exports = {
   evidence,
   parseArabicBoundaryContract,
   planCapacityIntegration,
+  researchEvidence,
   registry,
   resetRuntimeAudit,
   status,

@@ -95,6 +95,7 @@ function createSheikhaApiClient({
       '/api/governance/universal-benefit/transform-boundary',
       '/api/governance/universal-benefit/classify-capacity',
       '/api/governance/universal-benefit/plan-integration',
+      '/api/governance/universal-benefit/research-evidence',
       '/api/governance/universal-benefit/capabilities',
       '/api/governance/universal-benefit/evidence',
       '/api/sheikha/enterprise-management-os/status'
@@ -310,6 +311,11 @@ function createSheikhaApiClient({
     ),
     planIntegration: input => request(
       '/api/governance/universal-benefit/plan-integration',
+      'POST',
+      input
+    ),
+    researchEvidence: input => request(
+      '/api/governance/universal-benefit/research-evidence',
       'POST',
       input
     )

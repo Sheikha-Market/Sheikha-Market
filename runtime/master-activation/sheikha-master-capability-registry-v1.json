@@ -1,15 +1,15 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T21:16:51.561Z",
+  "generatedAt": "2026-07-10T23:13:23.233Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7172,
-  "apiEndpoints": 2702,
+  "componentCount": 7173,
+  "apiEndpoints": 2704,
   "packageScripts": 661,
   "lifecycleSummary": {
     "active": 854,
     "needsLinking": 1179,
-    "needsDevelopment": 5005,
+    "needsDevelopment": 5006,
     "experimental": 71,
     "unused": 63
   },
@@ -49094,7 +49094,9 @@
         "Knowledge",
         "Registry"
       ],
-      "tests": [],
+      "tests": [
+        "tests/sheikha-root-orchestrator.test.js"
+      ],
       "reports": [],
       "apis": [
         "GET /api/sheikha/global-registry/status",
@@ -55701,7 +55703,8 @@
       ],
       "tests": [
         "tests/root-cause-v2/sheikha-root-cause-intelligence-v2.test.js",
-        "tests/root-knowledge-agentic-fabric-v1.test.js"
+        "tests/root-knowledge-agentic-fabric-v1.test.js",
+        "tests/sheikha-root-orchestrator.test.js"
       ],
       "reports": [
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
@@ -61107,7 +61110,8 @@
       ],
       "tests": [
         "tests/root-cause-v2/sheikha-root-cause-intelligence-v2.test.js",
-        "tests/root-knowledge-agentic-fabric-v1.test.js"
+        "tests/root-knowledge-agentic-fabric-v1.test.js",
+        "tests/sheikha-root-orchestrator.test.js"
       ],
       "reports": [
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
@@ -216830,6 +216834,7 @@
         "tests/sheikha-ide-connection-orchestrator-v1.test.js",
         "tests/sheikha-meta-federation-orchestrator-v6.test.js",
         "tests/sheikha-orchestrator-fabric-v2.test.js",
+        "tests/sheikha-root-orchestrator.test.js",
         "tests/sheikha-supreme-orchestrator.test.js",
         "tests/sheikha-unified-fifo-application-orchestrator-v1.test.js"
       ],
@@ -282826,6 +282831,7 @@
         "tests/sheikha-ide-connection-orchestrator-v1.test.js",
         "tests/sheikha-meta-federation-orchestrator-v6.test.js",
         "tests/sheikha-orchestrator-fabric-v2.test.js",
+        "tests/sheikha-root-orchestrator.test.js",
         "tests/sheikha-supreme-orchestrator.test.js",
         "tests/sheikha-unified-fifo-application-orchestrator-v1.test.js"
       ],
@@ -400013,6 +400019,66 @@
       }
     },
     {
+      "id": "root-orchestrator-test-897c071380cc",
+      "name": "sheikha-root-orchestrator.test",
+      "version": "package-1.0.51",
+      "path": "tests/sheikha-root-orchestrator.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-root-orchestrator.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-root-orchestrator.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-root-orchestrator.test.js"
+      }
+    },
+    {
       "id": "runtime-health-engine-test-9eaf53de68fb",
       "name": "sheikha-runtime-health-engine-v1.test",
       "version": "v1",
@@ -430133,7 +430199,7 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 345,
+    "tests": 346,
     "reports": 398,
     "docs": 1073
   }

@@ -40,4 +40,13 @@ router.post('/plan-integration', (req, res) => {
   });
 });
 
+router.post('/research-evidence', (req, res) => {
+  const result = fabric.researchEvidence(req.body || {});
+  const statusCode = result.status === 'RESEARCH_QUERY_REQUIRED' ? 422 : 200;
+  return res.status(statusCode).json({
+    success: result.status !== 'RESEARCH_QUERY_REQUIRED',
+    result
+  });
+});
+
 module.exports = router;
