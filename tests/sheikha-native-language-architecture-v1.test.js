@@ -165,8 +165,10 @@ describe('Sheikha Native Language Architecture V1', () => {
       .toBe('node tools/activation/activate-sheikha-native-language-architecture-v1.js');
     expect(route).toContain("router.get('/sheikha-language-architecture'");
     expect(route).toContain("router.get('/sheikha-language-production'");
+    expect(route).toContain("router.post('/sheikha-language-production/interpret'");
     expect(sdk).toContain('client.languageArchitecture');
     expect(sdk).toContain('productionStatus');
+    expect(sdk).toContain('interpret: input');
     expect(unifiedChat).toContain('nativeLanguageArchitecture');
     expect(docs).toContain('FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED');
   });

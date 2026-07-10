@@ -1548,6 +1548,12 @@ function buildReport() {
       sheikhaLanguageProduction?.production?.hostedLanguageSubsystemReady === true &&
       sheikhaLanguageProduction?.production?.universalProductionProgramStarted === true &&
       sheikhaLanguageProduction?.production?.hostedFoundationWave1Admitted === true &&
+      sheikhaLanguageProduction?.interpreters?.status ===
+        'ARABIC_PRIMARY_INTERPRETERS_VERIFIED' &&
+      sheikhaLanguageProduction?.interpreters?.score === 100 &&
+      sheikhaLanguageProduction?.interpreters?.promotion?.apexLevel === 97 &&
+      sheikhaLanguageProduction?.interpreters?.promotion
+        ?.crossPlaneAuthorityEscalation === false &&
       sheikhaLanguageProduction?.production?.allSystemsProgrammedInSheikha === false &&
       sheikhaLanguageProduction?.production?.fullNativeProductionReady === false &&
       sheikhaLanguageProduction?.governance?.valuesReferenceExecutable === false &&
@@ -1948,6 +1954,17 @@ function buildReport() {
       unboundedOrAbsoluteExecutionAllowed:
         sheikhaLanguageProduction?.universalProductionProgram
           ?.unboundedOrAbsoluteExecutionAllowed === true,
+      arabicProductionInterpretersStatus:
+        sheikhaLanguageProduction?.interpreters?.status || 'UNKNOWN',
+      arabicProductionInterpretersScore:
+        sheikhaLanguageProduction?.interpreters?.score || 0,
+      interpreterExternalExecution:
+        sheikhaLanguageProduction?.interpreters?.boundary?.externalExecution === true,
+      interpreterApexLevel:
+        sheikhaLanguageProduction?.interpreters?.promotion?.apexLevel || 0,
+      interpreterCrossPlaneAuthorityEscalation:
+        sheikhaLanguageProduction?.interpreters?.promotion
+          ?.crossPlaneAuthorityEscalation === true,
       systemMigrationBlockers:
         sheikhaLanguageProduction?.systemMigration?.blockers || []
     },

@@ -204,6 +204,12 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       wave1AdmittedSystems: 7,
       wave1TotalSystems: 7,
       unboundedOrAbsoluteExecutionAllowed: false,
+      arabicProductionInterpretersStatus:
+        'ARABIC_PRIMARY_INTERPRETERS_VERIFIED',
+      arabicProductionInterpretersScore: 100,
+      interpreterExternalExecution: false,
+      interpreterApexLevel: 97,
+      interpreterCrossPlaneAuthorityEscalation: false,
       systemMigrationBlockers: expect.arrayContaining([
         'SLA-05', 'SLA-06', 'SLA-07', 'SLA-08', 'SLA-09', 'SLA-10', 'SLA-11'
       ])

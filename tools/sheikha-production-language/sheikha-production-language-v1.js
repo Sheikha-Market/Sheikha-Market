@@ -9,6 +9,10 @@ const {
 const {
   buildIslamicAIKernel
 } = require('../../core/islamic-ai-kernel/sheikha-islamic-ai-kernel-v1');
+const {
+  interpretSheikhaArabicProduction,
+  INTERPRETER_MODES
+} = require('../../core/language/sheikha-arabic-runtime/sheikha-language-runtime');
 
 const ROOT = process.cwd();
 const REPORT_JSON =
@@ -160,6 +164,79 @@ function buildUniversalProductionProgram(hostedProductionGatePassed) {
   };
 }
 
+function verifyArabicProductionInterpreters() {
+  const canonicalSource = fs.readFileSync(
+    path.join(ROOT, 'sheikha-language/system/sheikha-sovereign-architecture-v1.shk'),
+    'utf8'
+  );
+  const sheikhaProgram = interpretSheikhaArabicProduction(canonicalSource, {
+    mode: 'sheikha-program'
+  });
+  const accounting = interpretSheikhaArabicProduction(
+    'حوّل المورد مبلغًا من حساب_المشتري إلى حساب_سوق_شيخة',
+    { mode: 'auto' }
+  );
+  const math = interpretSheikhaArabicProduction('٢ زائد ٣', { mode: 'auto' });
+  const command = interpretSheikhaArabicProduction('تحقق حالة النظام', {
+    mode: 'auto'
+  });
+  const religiousBoundary = interpretSheikhaArabicProduction(
+    'أفتني في حكم شرعي',
+    { mode: 'auto' }
+  );
+  const checks = {
+    sheikhaProgramInterpreted: sheikhaProgram.status === 'INTERPRETED' &&
+      sheikhaProgram.sandbox?.strict === true,
+    arabicAccountingInterpreted: accounting.status === 'INTERPRETED' &&
+      accounting.ledger?.length === 1,
+    arabicMathInterpreted: math.status === 'INTERPRETED' && math.value === 5,
+    arabicCommandInterpretedDryRun:
+      command.status === 'INTERPRETED_DRY_RUN' && command.externalExecution === false,
+    religiousRulingRequiresQualifiedReview:
+      religiousBoundary.status === 'QUALIFIED_REVIEW_REQUIRED' &&
+      religiousBoundary.executionAllowed === false,
+    allModesArabicPrimary: [sheikhaProgram, accounting, math, command]
+      .every((result) => result.arabicPrimary === true),
+    noInterpreterExternalExecution: [sheikhaProgram, accounting, math, command]
+      .every((result) => result.externalExecution === false)
+  };
+  const passed = Object.values(checks).filter(Boolean).length;
+  const total = Object.keys(checks).length;
+
+  return {
+    system: 'SHEIKHA_ARABIC_PRODUCTION_INTERPRETERS_V1',
+    status: passed === total
+      ? 'ARABIC_PRIMARY_INTERPRETERS_VERIFIED'
+      : 'ARABIC_INTERPRETERS_REVIEW_REQUIRED',
+    score: total ? Math.round((passed / total) * 100) : 0,
+    supportedModes: INTERPRETER_MODES,
+    promotion: {
+      apexLevel: 97,
+      layer: 'SHEIKHA_ARABIC_PRODUCTION_INTERPRETER_APEX_L97',
+      scope: 'HOSTED_LANGUAGE_PRODUCTION_PLANE_ONLY',
+      aboveArabicFabricsV91ToV96: true,
+      highestArabicInterfaceInCurrentHostedLanguageStack: true,
+      crossPlaneAuthorityEscalation: false
+    },
+    checks,
+    evidence: {
+      sheikhaProgramStatus: sheikhaProgram.status,
+      accountingStatus: accounting.status,
+      accountingLedgerEntries: accounting.ledger?.length || 0,
+      mathStatus: math.status,
+      mathResult: math.value,
+      commandStatus: command.status,
+      religiousBoundaryStatus: religiousBoundary.status
+    },
+    boundary: {
+      arabicPrimaryAcrossAllModes: true,
+      unrestrictedExecution: false,
+      externalExecution: false,
+      automatedFatwaAllowed: false
+    }
+  };
+}
+
 function buildProductionReport() {
   const architecture = buildLanguageArchitectureReport();
   const advanced = architecture.advancedHostedArabicFoundation;
@@ -167,6 +244,7 @@ function buildProductionReport() {
     purpose: 'SHEIKHA_LANGUAGE_HOSTED_PRODUCTION_GATE'
   });
   const assetChecks = buildAssetChecks();
+  const interpreters = verifyArabicProductionInterpreters();
 
   const executionChecks = {
     canonicalSheikhaSourceCompiled: architecture.checks.typeCheckPassed === true &&
@@ -183,7 +261,10 @@ function buildProductionReport() {
     arabicMathPassed: advanced?.checks?.arabicMathEvaluated === true &&
       advanced?.checks?.arabicNumberNormalizationVerified === true,
     languageStackPassed: advanced?.checks?.languageStackCompiled === true,
-    fabricsV91ToV96Passed: advanced?.checks?.fabricsV91ToV96Active === true
+    fabricsV91ToV96Passed: advanced?.checks?.fabricsV91ToV96Active === true,
+    arabicProductionInterpretersPassed:
+      interpreters.status === 'ARABIC_PRIMARY_INTERPRETERS_VERIFIED' &&
+      interpreters.score === 100
   };
 
   const governanceChecks = {
@@ -262,7 +343,10 @@ function buildProductionReport() {
       aiRole: kernel.aiRuntime?.role,
       compilerRuntime: architecture.compiler.bootstrapRuntime,
       productionApi:
-        '/api/governance/generator/sheikha-language-production'
+        '/api/governance/generator/sheikha-language-production',
+      interpreterApi:
+        '/api/governance/generator/sheikha-language-production/interpret',
+      arabicProductionInterpreters: interpreters.status
     },
     governance: {
       declaredFaithReference: 'الحكم لله وحده',
@@ -322,6 +406,7 @@ function buildProductionReport() {
       ]
     },
     universalProductionProgram,
+    interpreters,
     cycle: [
       'ARABIC_SHEIKHA_SOURCE',
       'FORMAL_VALUES_AND_GOVERNANCE_TYPE_CHECK',
@@ -371,6 +456,8 @@ function renderMarkdown(report) {
 - القرار: ${report.decision}
 - الأساس العربي المتقدم: ${report.integration.advancedHostedArabicFoundation}
 - الإنتاج المستضاف: ${report.production.hostedLanguageSubsystemReady ? 'متحقق' : 'يحتاج مراجعة'}
+- المفسرات العربية: ${report.interpreters.status}
+- طبقة المفسر: L${report.interpreters.promotion.apexLevel}
 - نقل جميع الأنظمة إلى شيخة: ${report.systemMigration.migrationComplete ? 'مكتمل' : 'غير مكتمل'}
 
 المرجعية القيمية غير تنفيذية، والذكاء الصناعي أداة محكومة لا يدعي الوحي أو
@@ -388,6 +475,8 @@ if (require.main === module) {
     universalProductionProgram: report.universalProductionProgram.status,
     wave1AdmittedSystems: report.universalProductionProgram.wave1.admittedSystems,
     wave1TotalSystems: report.universalProductionProgram.wave1.totalSystems,
+    arabicProductionInterpreters: report.interpreters.status,
+    interpreterApexLevel: report.interpreters.promotion.apexLevel,
     advancedHostedArabicFoundation:
       report.integration.advancedHostedArabicFoundation,
     fullNativeProductionReady: report.production.fullNativeProductionReady,
@@ -400,5 +489,6 @@ module.exports = {
   buildAssetChecks,
   buildProductionReport,
   buildUniversalProductionProgram,
+  verifyArabicProductionInterpreters,
   writeReport
 };
