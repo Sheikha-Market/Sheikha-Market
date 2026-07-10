@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_OS_CLOUD_SUPERCOMPUTER_INTEGRATION_V1",
   "status": "PASSED",
-  "generatedAt": "2026-07-10T00:02:12.247Z",
+  "generatedAt": "2026-07-10T02:13:15.445Z",
   "score": 100,
   "passed": 7,
   "total": 7,
@@ -29,7 +29,7 @@
       "system": "SHEIKHA_LIVE_COMPUTE_BENCHMARK_V1",
       "status": "PASSED",
       "mode": "LOCAL_LIVE_COMPUTE_MEASUREMENT",
-      "generatedAt": "2026-07-09T21:14:34.393Z",
+      "generatedAt": "2026-07-10T00:02:12.286Z",
       "truthfulness": {
         "measuredLocally": true,
         "noPhysicalSupercomputerOwnershipClaim": true,
@@ -40,32 +40,32 @@
         "arch": "x64",
         "cpus": 22,
         "totalMemoryGB": 62,
-        "freeMemoryGB": 38.78,
+        "freeMemoryGB": 45.15,
         "loadAverage": [
-          2.77,
-          3.14,
-          3.36
+          4.02,
+          3.45,
+          2.82
         ]
       },
       "benchmark": {
         "cpu": {
           "iterations": 3000000,
-          "durationMs": 10.611,
+          "durationMs": 9.928,
           "checksum": 957768691,
-          "jobsPerSecond": 282719452.02
+          "jobsPerSecond": 302185952.74
         },
         "io": {
           "payloadBytes": 1048576,
-          "writeMs": 0.342,
-          "readMs": 0.377,
+          "writeMs": 0.351,
+          "readMs": 0.338,
           "roundTripBytes": 1048576
         },
         "memory": {
-          "rssBefore": 42627072,
-          "rssAfter": 50896896,
+          "rssBefore": 42221568,
+          "rssAfter": 50323456,
           "heapUsedBefore": 3756160,
           "heapUsedAfter": 3793392,
-          "rssDelta": 8269824,
+          "rssDelta": 8101888,
           "heapUsedDelta": 37232
         }
       },
