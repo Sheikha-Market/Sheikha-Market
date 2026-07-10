@@ -17,7 +17,11 @@ function status() {
     arabicName: 'قمة بث وإظهار مخرجات الإكستنشن في شيخة',
     level: 'L23_EXTENSION_STREAMING_ARTIFACT_APEX',
     apexLevel: 23,
-    position: 'ABOVE_STREAMING_CHAT_APEX_AND_TECHNICAL_CAPABILITY_APEX',
+    position: 'UNDER_COMPUTING_COGNITIVE_APEX_ABOVE_STREAMING_CHAT_APEX_AND_TECHNICAL_CAPABILITY_APEX',
+    governedBy: [
+      'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
+      'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1'
+    ],
     basedOn: [
       streaming.system,
       technical.system,
@@ -55,6 +59,7 @@ function status() {
       noShellExecutionFromPreview: true
     },
     chatApexOrder: [
+      'L24 Computing Cognitive Apex',
       'L23 Extension Streaming Artifact Apex',
       'L21 Streaming Multilingual Chat Apex',
       'L20 Technical Capability Apex',

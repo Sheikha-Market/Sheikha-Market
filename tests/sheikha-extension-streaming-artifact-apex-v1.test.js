@@ -22,7 +22,10 @@ describe('Sheikha Extension Streaming Artifact Apex V1', () => {
     expect(result.level).toContain('L23');
     expect(result.decision).toBe('EXTENSION_STREAMING_ARTIFACT_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
-    expect(result.chatApexOrder[0]).toBe('L23 Extension Streaming Artifact Apex');
+    expect(result.position).toContain('UNDER_COMPUTING_COGNITIVE_APEX');
+    expect(result.governedBy).toContain('SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1');
+    expect(result.chatApexOrder[0]).toBe('L24 Computing Cognitive Apex');
+    expect(result.chatApexOrder[1]).toBe('L23 Extension Streaming Artifact Apex');
     expect(result.capabilities.extensionSseClient).toBe('ACTIVE');
     expect(result.capabilities.safeArtifactPreview).toBe('ACTIVE_SAFE_IFRAME');
     expect(result.artifactPolicy.webviewScripts).toBe('DISABLED');
@@ -50,12 +53,19 @@ describe('Sheikha Extension Streaming Artifact Apex V1', () => {
     expect(server.indexOf('routes/streaming-chat-apex/sheikha-streaming-chat-apex-routes'))
       .toBeLessThan(server.indexOf('routes/extension-streaming-artifact-apex/sheikha-extension-streaming-artifact-apex-routes'));
     expect(sdk).toContain('/api/sheikha/extension-streaming-artifact-apex/v1/status');
+    expect(sdk).toContain('/api/intelligence/execution-loop/apex/status');
     expect(sdk).toContain('extensionStreamingArtifactApex');
+    expect(sdk).toContain('computingCognitiveApex');
     expect(inspector).toContain('extensionStreamingArtifactApexStatus');
+    expect(inspector).toContain('computingCognitiveApexStatus');
     expect(client).toContain('postSse');
     expect(client).toContain('parseSseBuffer');
     expect(client).toContain('EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT');
+    expect(client).toContain('COMPUTING_COGNITIVE_APEX_STATUS_ENDPOINT');
+    expect(client).toContain('getComputingCognitiveApexStatus');
     expect(provider).toContain("command: 'streamToken'");
+    expect(provider).toContain("command: 'computingCognitiveApexStatus'");
+    expect(provider).toContain('L24 Computing Cognitive Apex');
     expect(provider).toContain('Sheikha Live Preview');
     expect(artifactPreview).toContain('sandbox=""');
     expect(artifactPreview).toContain("script-src 'none'");

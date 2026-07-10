@@ -15,18 +15,20 @@
 
 ## Chat Apex Order
 
-1. L21 Streaming Multilingual Chat Apex
-2. L20 Technical Capability Apex
-3. L19 IDE Apex
-4. L18 Debugging Apex
-5. L17 Chat Interface Apex
-6. L16 Vital Chat Apex
-7. Conversation Engine
-8. Memory Fabric
-9. Knowledge Store
-10. Knowledge Graph
-11. Vector Store
-12. Enterprise Governance
+1. L24 Computing Cognitive Apex
+2. L23 Extension Streaming Artifact Apex
+3. L21 Streaming Multilingual Chat Apex
+4. L20 Technical Capability Apex
+5. L19 IDE Apex
+6. L18 Debugging Apex
+7. L17 Chat Interface Apex
+8. L16 Vital Chat Apex
+9. Conversation Engine
+10. Memory Fabric
+11. Knowledge Store
+12. Knowledge Graph
+13. Vector Store
+14. Enterprise Governance
 
 ## Governance
 

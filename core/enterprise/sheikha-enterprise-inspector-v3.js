@@ -37,6 +37,9 @@ const ideApex = require(
 const technicalCapabilityApex = require(
   '../../runtime/technical-capability-apex/v1/sheikha-technical-capability-apex-v1'
 );
+const computingCognitiveApex = require(
+  '../../runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1'
+);
 const streamingChatApex = require(
   '../../runtime/streaming-chat-apex/v1/sheikha-streaming-chat-apex-v1'
 );
@@ -177,6 +180,7 @@ function collectEnterpriseInspector(input = {}) {
   const chatInterfaceApexStatus = chatInterfaceApex.status();
   const ideApexStatus = ideApex.status();
   const technicalCapabilityApexStatus = technicalCapabilityApex.status();
+  const computingCognitiveApexStatus = computingCognitiveApex.status();
   const streamingChatApexStatus = streamingChatApex.status();
   const extensionStreamingArtifactApexStatus = extensionStreamingArtifactApex.status();
   const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
@@ -217,6 +221,7 @@ function collectEnterpriseInspector(input = {}) {
       chatInterfaceApex: chatInterfaceApexStatus.status,
       ideApex: ideApexStatus.status,
       technicalCapabilityApex: technicalCapabilityApexStatus.status,
+      computingCognitiveApex: computingCognitiveApexStatus.status,
       streamingChatApex: streamingChatApexStatus.status,
       extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus.status,
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
@@ -367,6 +372,7 @@ function collectEnterpriseInspector(input = {}) {
     streamingChatApex: streamingChatApexStatus,
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     technicalCapabilityApex: technicalCapabilityApexStatus,
+    computingCognitiveApex: computingCognitiveApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,
     ideApex: ideApexStatus,
     enterpriseManagement: enterpriseManagementStatus,

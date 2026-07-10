@@ -71,7 +71,17 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       safetyFilterEvasionAllowed: false,
       actualIndependentModelProcessesClaimed: false
     },
+    highestExecutableTechnicalLayer: {
+      system: 'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
+      level: 'L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER',
+      status: 'ACTIVE',
+      underCovenantGovernance: true,
+      humanFinalDecision: true,
+      normativeReferenceLayerExecutable: false,
+      statusEndpoint: '/api/intelligence/execution-loop/apex/status'
+    },
     requiredPath: [
+      'ComputingCognitiveApex',
       'StreamingMultilingualChatApex',
       'TechnicalCapabilityApex',
       'IDEApex',

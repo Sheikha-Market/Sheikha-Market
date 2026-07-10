@@ -22,6 +22,15 @@ describe('Sheikha Computing and Cognitive Layers V1', () => {
     const model = status();
 
     expect(model.system).toBe('SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1');
+    expect(model.status).toBe('ACTIVE_AT_HIGHEST_EXECUTABLE_TECHNICAL_LAYER');
+    expect(model.apexLevel).toBe(24);
+    expect(model.level).toBe('L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER');
+    expect(model.apexPromotion.highestExecutableTechnicalLayer).toBe(true);
+    expect(model.apexPromotion.normativeReferenceLayerExecutable).toBe(false);
+    expect(model.apexPromotion.covenantGovernanceGateRequired).toBe(true);
+    expect(model.apexPromotion.noPrivilegeEscalationByLayerPromotion).toBe(true);
+    expect(model.apexPromotion.governedLowerLayers.map((layer) => layer.level))
+      .toEqual([23, 22, 21, 20]);
     expect(model.authority.humanAccountableDecisionMaker).toBe(true);
     expect(model.authority.technicalSystemIsReligiousAuthority).toBe(false);
     expect(model.domains.network.presentationOrder).toHaveLength(7);
@@ -109,9 +118,19 @@ describe('Sheikha Computing and Cognitive Layers V1', () => {
     expect(report.status).toBe('ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL');
     expect(report.score).toBe(100);
     expect(report.checks.bypassBlocked).toBe(true);
+    expect(report.checks.promotedToL24).toBe(true);
+    expect(report.checks.normativeReferenceRemainsNonExecutable).toBe(true);
+    expect(report.promotion).toMatchObject({
+      apexLevel: 24,
+      highestExecutableTechnicalLayer: true,
+      normativeReferenceLayerExecutable: false,
+      humanAuthorityAboveAutomation: true
+    });
     expect(report.integration.governedIntelligenceLoop).toBe('EXTENDED');
     expect(read('routes/governed-intelligence-execution-loop/status.routes.js'))
       .toContain("router.post('/reasoning'");
+    expect(read('routes/governed-intelligence-execution-loop/status.routes.js'))
+      .toContain("router.get('/apex/status'");
     expect(read('docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md'))
       .toContain('https://www.rfc-editor.org/rfc/rfc9110.html');
   });

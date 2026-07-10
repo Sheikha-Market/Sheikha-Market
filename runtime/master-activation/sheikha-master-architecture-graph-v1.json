@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T12:25:52.368Z",
+  "generatedAt": "2026-07-10T13:50:47.891Z",
   "nodes": [
     {
       "id": "APIs",
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1248,
+      "components": 1250,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -55066,6 +55066,30 @@
     {
       "from": "vscode-extension-experience-apex-d9b069683bd5",
       "fromPath": "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1.js",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "extension-streaming-artifact-apex-report-4a587ed5982e",
+      "fromPath": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "extension-streaming-artifact-apex-report-4a587ed5982e",
+      "fromPath": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "extension-streaming-artifact-apex-report-e94f96c67a6b",
+      "fromPath": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "extension-streaming-artifact-apex-report-e94f96c67a6b",
+      "fromPath": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md",
       "to": "Cloud",
       "type": "component-to-layer"
     },

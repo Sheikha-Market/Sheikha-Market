@@ -49,6 +49,25 @@ router.get('/reasoning/status', (_req, res) => {
   });
 });
 
+router.get('/apex/status', (_req, res) => {
+  const system = computingCognitiveStatus();
+  return res.json({
+    success: true,
+    apex: {
+      system: system.system,
+      status: system.status,
+      level: system.level,
+      apexLevel: system.apexLevel,
+      position: system.position,
+      promotion: system.apexPromotion,
+      authority: system.authority,
+      boundaries: system.boundaries,
+      routes: system.apexRoutes
+    },
+    timestamp: new Date().toISOString()
+  });
+});
+
 router.post('/reasoning', (req, res) => {
   const result = runReasoning(req.body || {});
   return res.status(result.status === 'BLOCKED_BY_SAFETY_POLICY' ? 403 : 200).json({

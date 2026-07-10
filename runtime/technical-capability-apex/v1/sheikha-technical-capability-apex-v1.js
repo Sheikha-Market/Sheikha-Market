@@ -6,13 +6,17 @@ function status() {
     status: 'ACTIVE',
     arabicName: 'قمة القدرات التقنية المتكاملة في شيخة',
     level: 'GOVERNED_TECHNICAL_CAPABILITY_APEX_UNDER_STREAMING_MULTILINGUAL_CHAT_APEX',
-    position: 'UNDER_STREAMING_MULTILINGUAL_CHAT_APEX_ABOVE_IDE_APEX_DEBUGGING_APEX_CHAT_INTERFACE_APEX_AND_VITAL_CHAT_APEX',
+    position: 'UNDER_COMPUTING_COGNITIVE_AND_STREAMING_APEXES_ABOVE_IDE_DEBUGGING_CHAT_INTERFACE_AND_VITAL_CHAT_APEXES',
     governedBy: [
+      'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
       'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
       'SHEIKHA_LAYER_GOVERNANCE_AND_PROMOTION_OS_V1',
       'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1'
     ],
     stack: {
+      computingCognitiveApex: 'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
+      extensionStreamingArtifactApex: 'SHEIKHA_EXTENSION_STREAMING_ARTIFACT_APEX_V1',
+      cloudProductionDeploymentApex: 'SHEIKHA_CLOUD_PRODUCTION_DEPLOYMENT_APEX_V1',
       streamingMultilingualChatApex: 'SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1',
       ideApex: 'SHEIKHA_IDE_APEX_V1',
       debuggingApex: 'SHEIKHA_DEBUGGING_APEX_V1',
@@ -28,6 +32,9 @@ function status() {
       enterpriseInspector: 'SHEIKHA_ENTERPRISE_INSPECTOR_V3'
     },
     layerModel: {
+      l24: 'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
+      l23: 'SHEIKHA_EXTENSION_STREAMING_ARTIFACT_APEX_V1',
+      l22: 'SHEIKHA_CLOUD_PRODUCTION_DEPLOYMENT_APEX_V1_PARALLEL_PLANE',
       l21: 'SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1',
       l20: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1',
       l19: 'SHEIKHA_IDE_APEX_V1',
@@ -102,6 +109,8 @@ function status() {
       }
     },
     chatApexOrder: [
+      'L24 Computing Cognitive Apex',
+      'L23 Extension Streaming Artifact Apex',
       'L21 Streaming Multilingual Chat Apex',
       'L20 Technical Capability Apex',
       'L19 IDE Apex',
@@ -126,7 +135,8 @@ function status() {
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
       vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
       reasoningStatus: '/api/intelligence/execution-loop/reasoning/status',
-      reasoning: '/api/intelligence/execution-loop/reasoning'
+      reasoning: '/api/intelligence/execution-loop/reasoning',
+      computingCognitiveApex: '/api/intelligence/execution-loop/apex/status'
     },
     governance: {
       noExternalModelClaimWithoutConfiguration: true,

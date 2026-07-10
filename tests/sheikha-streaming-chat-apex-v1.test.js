@@ -21,8 +21,12 @@ describe('Sheikha Streaming Multilingual Chat Apex V1', () => {
     expect(result.decision).toBe('STREAMING_MULTILINGUAL_CHAT_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
     expect(result.level).toContain('L21');
+    expect(result.position).toContain('UNDER_COMPUTING_COGNITIVE_APEX');
     expect(result.position).toContain('ABOVE_TECHNICAL_CAPABILITY_APEX');
-    expect(result.chatApexOrder[0]).toBe('L21 Streaming Multilingual Chat Apex');
+    expect(result.stack.computingCognitiveApex).toBe('SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1');
+    expect(result.chatApexOrder[0]).toBe('L24 Computing Cognitive Apex');
+    expect(result.chatApexOrder[1]).toBe('L23 Extension Streaming Artifact Apex');
+    expect(result.chatApexOrder[2]).toBe('L21 Streaming Multilingual Chat Apex');
     expect(result.protocols.primary).toBe('SSE');
     expect(result.protocols.fallback).toBe('JSON_CHAT');
     expect(result.governance.noHarmNoDamage).toBe(true);

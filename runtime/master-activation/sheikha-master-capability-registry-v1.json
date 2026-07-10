@@ -1,20 +1,20 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T12:25:52.366Z",
+  "generatedAt": "2026-07-10T13:50:47.889Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7119,
-  "apiEndpoints": 2689,
+  "componentCount": 7121,
+  "apiEndpoints": 2690,
   "packageScripts": 646,
   "lifecycleSummary": {
-    "active": 831,
+    "active": 833,
     "needsLinking": 1174,
     "needsDevelopment": 4980,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 831,
+    "measured": 833,
     "linkedRequired": 1174,
     "discovered": 3898,
     "documented": 788
@@ -104180,7 +104180,10 @@
       "tests": [
         "tests/sheikha-extension-streaming-artifact-apex-v1.test.js"
       ],
-      "reports": [],
+      "reports": [
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      ],
       "apis": [
         "GET /api/sheikha/global-registry/status",
         "GET /api/sheikha/todo/status",
@@ -181265,6 +181268,8 @@
       "reports": [
         "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.json",
         "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.md",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md",
         "sheikha-vscode-extension/dist/release-cycle-report.json"
       ],
       "apis": [
@@ -258112,6 +258117,134 @@
       }
     },
     {
+      "id": "extension-streaming-artifact-apex-report-4a587ed5982e",
+      "name": "sheikha-extension-streaming-artifact-apex-v1-report",
+      "version": "v1",
+      "path": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+      "type": "report",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json"
+      }
+    },
+    {
+      "id": "extension-streaming-artifact-apex-report-e94f96c67a6b",
+      "name": "sheikha-extension-streaming-artifact-apex-v1-report",
+      "version": "v1",
+      "path": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md",
+      "type": "documentation",
+      "layer": "Runtime",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
+      "inputs": [
+        "requests",
+        "jobs",
+        "events"
+      ],
+      "outputs": [
+        "responses",
+        "reports",
+        "logs"
+      ],
+      "dependencies": [
+        "OS",
+        "Cloud"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      }
+    },
+    {
       "id": "extension-streaming-artifact-apex-774e74d7389d",
       "name": "sheikha-extension-streaming-artifact-apex-v1",
       "version": "v1",
@@ -258138,7 +258271,10 @@
       "tests": [
         "tests/sheikha-extension-streaming-artifact-apex-v1.test.js"
       ],
-      "reports": [],
+      "reports": [
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      ],
       "apis": [
         "GET /api/sheikha/global-registry/status",
         "GET /api/sheikha/todo/status",
@@ -375257,6 +375393,8 @@
       "reports": [
         "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.json",
         "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.md",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md",
         "sheikha-vscode-extension/dist/release-cycle-report.json"
       ],
       "apis": [
@@ -376987,6 +377125,8 @@
       "reports": [
         "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.json",
         "runtime/extension-experience-apex/v1/sheikha-vscode-extension-experience-apex-v1-report.md",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md",
         "sheikha-vscode-extension/dist/release-cycle-report.json"
       ],
       "apis": [
@@ -413173,7 +413313,10 @@
       "tests": [
         "tests/sheikha-extension-streaming-artifact-apex-v1.test.js"
       ],
-      "reports": [],
+      "reports": [
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.json",
+        "runtime/extension-streaming-artifact-apex/v1/sheikha-extension-streaming-artifact-apex-v1-report.md"
+      ],
       "apis": [
         "GET /api/sheikha/global-registry/status",
         "GET /api/sheikha/todo/status",
@@ -426936,7 +427079,7 @@
   ],
   "evidenceFiles": {
     "tests": 341,
-    "reports": 390,
-    "docs": 1067
+    "reports": 392,
+    "docs": 1068
   }
 }

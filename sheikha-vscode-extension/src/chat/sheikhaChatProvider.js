@@ -13,6 +13,7 @@ const crypto = require('crypto');
 const {
   DEFAULT_BASE_URL,
   getChatInterfaceApexStatus,
+  getComputingCognitiveApexStatus,
   getDebuggingApexStatus,
   getExtensionStreamingArtifactApexStatus,
   getExtensionExperienceStatus,
@@ -75,6 +76,14 @@ class SheikhaChatProvider {
       webviewView.webview.postMessage({
         command: 'technicalCapabilityStatus',
         technicalCapability
+      });
+    }).catch(() => {});
+    getComputingCognitiveApexStatus({
+      baseUrl: DEFAULT_BASE_URL
+    }).then((computingCognitiveApex) => {
+      webviewView.webview.postMessage({
+        command: 'computingCognitiveApexStatus',
+        computingCognitiveApex
       });
     }).catch(() => {});
     getStreamingChatApexStatus({
@@ -270,10 +279,11 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 <div class="shell">
 <div class="header">
   <div class="header-main">
-    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.89</small></div>
+    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.89</small></div>
     <span class="status-pill" id="modeLabel">SMART</span>
   </div>
 <div class="apex" id="apex">
+  <b class="active">L24 Computing Cognitive Apex</b>
   <b class="active">L23 Extension Streaming Artifact Apex</b>
   <b class="active">L21 Streaming Multilingual Chat Apex</b>
   <b class="active">L20 Technical Capability Apex</b>
@@ -468,7 +478,7 @@ window.addEventListener('message', event => {
   if (msg.command === 'experienceStatus' && msg.experience && msg.experience.success === true) {
     const data = msg.experience.data || {};
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
       (data.governedByApexLevel || 18) +
       ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.89';
   }
@@ -476,9 +486,10 @@ window.addEventListener('message', event => {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
       (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
     document.getElementById('apex').innerHTML = [
+      ['L24 Computing Cognitive Apex', 'PENDING_STATUS'],
       ['L23 Extension Streaming Artifact Apex', 'PENDING_STATUS'],
       ['L21 Streaming Multilingual Chat Apex', 'PENDING_STATUS'],
       ['L20 Technical Capability Apex', 'PENDING_STATUS'],
@@ -498,14 +509,14 @@ window.addEventListener('message', event => {
   if (msg.command === 'debuggingStatus' && msg.debugging && msg.debugging.success === true) {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
       (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
     const template = data.template || {};
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
       (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
     if (Array.isArray(template.regions)) {
       document.getElementById('contextRail').innerHTML = template.regions
@@ -517,7 +528,7 @@ window.addEventListener('message', event => {
   if (msg.command === 'ideApexStatus' && msg.ideApex && msg.ideApex.success === true) {
     const data = msg.ideApex.data || {};
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
       (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
   }
   if (
@@ -528,7 +539,7 @@ window.addEventListener('message', event => {
     const data = msg.technicalCapability.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
       ' · Extension 1.0.89';
     if (order.length) {
@@ -545,7 +556,7 @@ window.addEventListener('message', event => {
     const data = msg.streamingApex.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
       ' · SSE · RTL/LTR · Extension 1.0.89';
     if (order.length) {
@@ -562,12 +573,42 @@ window.addEventListener('message', event => {
     const data = msg.extensionArtifactApex.data || {};
     const order = Array.isArray(data.chatApexOrder) ? data.chatApexOrder : [];
     document.getElementById('experience').textContent =
-      'L23 Extension Streaming Artifact Apex · ' +
+      'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
       ' · SSE Client · Safe Preview · Extension 1.0.89';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
+        .join('');
+    }
+  }
+  if (
+    msg.command === 'computingCognitiveApexStatus' &&
+    msg.computingCognitiveApex &&
+    msg.computingCognitiveApex.success === true
+  ) {
+    const apex = msg.computingCognitiveApex.apex || {};
+    const promotion = apex.promotion || {};
+    document.getElementById('experience').textContent =
+      'L24 Computing Cognitive Apex · ' +
+      (apex.status || 'ACTIVE') +
+      ' · Human Final Decision · Extension 1.0.89';
+    const current = document.getElementById('apex');
+    const lower = Array.isArray(promotion.governedLowerLayers)
+      ? promotion.governedLowerLayers
+      : [];
+    const promotedOrder = [
+      'L24 Computing Cognitive Apex',
+      ...lower
+        .filter(layer => layer.level !== 22)
+        .map(layer => 'L' + layer.level + ' ' + String(layer.system || '')
+          .replace(/^SHEIKHA_/, '')
+          .replace(/_V\d+$/, '')
+          .replace(/_/g, ' '))
+    ];
+    if (promotedOrder.length > 1) {
+      current.innerHTML = promotedOrder
+        .map(name => '<b class="active" title="GOVERNED">' + String(name) + '</b>')
         .join('');
     }
   }

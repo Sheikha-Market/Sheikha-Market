@@ -20,15 +20,21 @@ describe('Sheikha Technical Capability Apex V1', () => {
     expect(result.status).toBe('ACTIVE');
     expect(result.decision).toBe('TECHNICAL_CAPABILITY_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
-    expect(result.position).toContain('UNDER_STREAMING_MULTILINGUAL_CHAT_APEX');
+    expect(result.position).toContain('UNDER_COMPUTING_COGNITIVE');
+    expect(result.governedBy).toContain('SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1');
+    expect(result.layerModel.l24).toBe('SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1');
+    expect(result.layerModel.l23).toBe('SHEIKHA_EXTENSION_STREAMING_ARTIFACT_APEX_V1');
+    expect(result.layerModel.l22).toBe('SHEIKHA_CLOUD_PRODUCTION_DEPLOYMENT_APEX_V1_PARALLEL_PLANE');
     expect(result.layerModel.l21).toBe('SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1');
     expect(result.layerModel.l20).toBe('SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1');
     expect(result.layerModel.l19).toBe('SHEIKHA_IDE_APEX_V1');
     expect(result.layerModel.l18).toBe('SHEIKHA_DEBUGGING_APEX_V1');
     expect(result.layerModel.l17).toBe('SHEIKHA_CHAT_INTERFACE_APEX_V1');
     expect(result.layerModel.l16).toBe('SHEIKHA_VITAL_CHAT_APEX_V1');
-    expect(result.chatApexOrder[0]).toBe('L21 Streaming Multilingual Chat Apex');
-    expect(result.chatApexOrder[1]).toBe('L20 Technical Capability Apex');
+    expect(result.chatApexOrder[0]).toBe('L24 Computing Cognitive Apex');
+    expect(result.chatApexOrder[1]).toBe('L23 Extension Streaming Artifact Apex');
+    expect(result.chatApexOrder[2]).toBe('L21 Streaming Multilingual Chat Apex');
+    expect(result.chatApexOrder[3]).toBe('L20 Technical Capability Apex');
     expect(result.stack.streamingMultilingualChatApex)
       .toBe('SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1');
     expect(result.stack.ideApex).toBe('SHEIKHA_IDE_APEX_V1');
@@ -63,6 +69,8 @@ describe('Sheikha Technical Capability Apex V1', () => {
       .toBe('/api/intelligence/execution-loop/reasoning/status');
     expect(technicalCapabilityApex.status().routes.reasoning)
       .toBe('/api/intelligence/execution-loop/reasoning');
+    expect(technicalCapabilityApex.status().routes.computingCognitiveApex)
+      .toBe('/api/intelligence/execution-loop/apex/status');
   });
 
   test('is wired through server, SDK, extension client, provider, and inspector', () => {

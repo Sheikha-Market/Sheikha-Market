@@ -230,6 +230,7 @@ function createSheikhaApiClient({
     chatInterfaceApex: () => request('/api/sheikha/chat-interface-apex/v1/status'),
     ideApex: () => request('/api/sheikha/ide-apex/v1/status'),
     technicalCapabilityApex: () => request('/api/sheikha/technical-capability-apex/v1/status'),
+    computingCognitiveApex: () => request('/api/intelligence/execution-loop/apex/status'),
     streamingChatApex: () => request('/api/sheikha/streaming-chat-apex/v1/status'),
     streamingChat: input => request('/api/sheikha/streaming-chat-apex/v1/chat', 'POST', input),
     extensionStreamingArtifactApex: () => request(
