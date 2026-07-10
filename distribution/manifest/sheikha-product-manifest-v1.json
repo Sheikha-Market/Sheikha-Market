@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1",
+  "product": "sheikha-operating-system",
+  "displayName": "SHEIKHA Global Runtime Platform",
+  "version": "1.0.51",
+  "applicationType": "NODE_SERVER_WITH_CLI",
+  "desktopRuntime": {
+    "implemented": false,
+    "framework": null,
+    "installerClaimAllowed": false
+  },
+  "entrypoints": {
+    "server": "server.js",
+    "cli": "bin/sheikha",
+    "packageBin": "sheikha"
+  },
+  "runtimeRequirements": {
+    "node": "20, 22, or 25",
+    "serverDependenciesBundled": false,
+    "dependencyInstallCommand": "npm ci --omit=dev"
+  },
+  "linkedArchitecture": {
+    "computingCognitiveApex": {
+      "system": "SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1",
+      "level": 24,
+      "role": "governed release planning and evidence consumer"
+    },
+    "bareMetalSeed": {
+      "system": "SHEIKHA_BARE_METAL_SEED_V1",
+      "architecture": "x86_64",
+      "artifact": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+      "includedInInstallerMatrix": false,
+      "reason": "Bare-metal firmware and kernel artifacts use their own verified pipeline."
+    }
+  },
+  "governance": {
+    "localRegistryOnly": true,
+    "githubRequired": false,
+    "externalPublishingAutomatic": false,
+    "signingAutomatic": false,
+    "notarizationAutomatic": false,
+    "humanApprovalForHighImpactChanges": true,
+    "aiIsToolOnly": true,
+    "humanFinalDecision": true
+  }
+}

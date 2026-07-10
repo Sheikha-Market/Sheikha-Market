@@ -1,0 +1,44 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "https://sheikha.local/schemas/sheikha-release-matrix-v1.schema.json",
+  "title": "Sheikha Release Matrix V1",
+  "type": "object",
+  "required": ["schemaVersion", "system", "version", "targetCount", "targets"],
+  "properties": {
+    "schemaVersion": { "const": "1.0.0" },
+    "system": { "const": "SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1" },
+    "version": { "type": "string", "pattern": "^[0-9]+\\.[0-9]+\\.[0-9]+$" },
+    "targetCount": { "const": 27 },
+    "targets": {
+      "type": "array",
+      "minItems": 27,
+      "maxItems": 27,
+      "items": {
+        "type": "object",
+        "required": [
+          "id", "platform", "operatingSystem", "architecture", "packageFormat",
+          "installationScope", "buildHostRequirement", "signingRequirement",
+          "nativeSmokeTestRequirement", "artifactName", "status", "evidence",
+          "limitations"
+        ],
+        "properties": {
+          "id": { "type": "string", "minLength": 3 },
+          "platform": { "enum": ["windows", "linux", "macos"] },
+          "operatingSystem": { "type": "string" },
+          "architecture": { "type": "string" },
+          "packageFormat": { "type": "string" },
+          "installationScope": { "type": "string" },
+          "buildHostRequirement": { "type": "string" },
+          "signingRequirement": { "type": "string" },
+          "nativeSmokeTestRequirement": { "type": "string" },
+          "artifactName": { "type": "string" },
+          "status": { "type": "string" },
+          "evidence": { "type": "array" },
+          "limitations": { "type": "array" }
+        },
+        "additionalProperties": false
+      }
+    }
+  },
+  "additionalProperties": false
+}

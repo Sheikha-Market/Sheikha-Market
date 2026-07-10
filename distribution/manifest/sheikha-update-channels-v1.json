@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LOCAL_UPDATE_CHANNELS_V1",
+  "defaultChannel": "stable",
+  "channels": [
+    {
+      "id": "stable",
+      "registry": "local-registry",
+      "requiresVerifiedArtifacts": true,
+      "externalPublishing": false
+    },
+    {
+      "id": "beta",
+      "registry": "local-registry",
+      "requiresVerifiedArtifacts": true,
+      "externalPublishing": false
+    },
+    {
+      "id": "development",
+      "registry": "workspace-only",
+      "requiresVerifiedArtifacts": false,
+      "externalPublishing": false
+    }
+  ],
+  "policy": {
+    "silentOverwrite": false,
+    "atomicPromotion": true,
+    "rollbackEvidenceRequired": true,
+    "storeCredentialsInGit": false
+  }
+}

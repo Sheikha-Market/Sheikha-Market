@@ -25,6 +25,10 @@ const bareMetalBootArtifactPath = 'bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI';
 const bareMetalBootImagePath = 'bare-metal/images/sheikha-bare-metal-seed-v1.img';
 const computingCognitiveLayersPath = 'runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json';
 const computingCognitiveLayersHandbookPath = 'docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md';
+const distributionReportPath = 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json';
+const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
+const distributionHandbookPath = 'distribution/README.md';
+const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
 const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json';
 const universalTechnologyHpcFabricHandbookPath = 'docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md';
 const technologyFamilyTreePath = 'runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json';
@@ -1253,6 +1257,7 @@ function buildReport() {
   const jannatGardens = safeReadJson(jannatGardensPath);
   const bareMetalSeed = safeReadJson(bareMetalSeedPath);
   const computingCognitiveLayers = safeReadJson(computingCognitiveLayersPath);
+  const distribution = safeReadJson(distributionReportPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1290,6 +1295,11 @@ function buildReport() {
   finalExecutiveReport.counts.ultraRoleSlots = computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0;
   finalExecutiveReport.counts.highestExecutableTechnicalApexLevel =
     computingCognitiveLayers?.promotion?.apexLevel || 0;
+  finalExecutiveReport.counts.distributionTargets = distribution?.targetCount || 0;
+  finalExecutiveReport.counts.distributionArtifactsBuilt = distribution?.builtCount || 0;
+  finalExecutiveReport.counts.distributionTargetsVerified = distribution?.verifiedCount || 0;
+  finalExecutiveReport.counts.distributionTargetsNativeVerified =
+    distribution?.nativeVerifiedCount || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1307,6 +1317,10 @@ function buildReport() {
   finalExecutiveReport.evidence.bareMetalBootImage = bareMetalBootImagePath;
   finalExecutiveReport.evidence.computingCognitiveLayers = computingCognitiveLayersPath;
   finalExecutiveReport.evidence.computingCognitiveLayersHandbook = computingCognitiveLayersHandbookPath;
+  finalExecutiveReport.evidence.universalDistribution = distributionReportPath;
+  finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
+  finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
+  finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
   const executiveDashboard = buildExecutiveDashboard(
     finalExecutiveReport,
     integrationVerification,
@@ -1344,6 +1358,13 @@ function buildReport() {
     computingCognitiveLayers?.promotion?.highestExecutableTechnicalLayer === true;
   executiveDashboard.indicators.normativeReferenceLayerExecutable =
     computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === true;
+  executiveDashboard.indicators.distributionTargetCount = distribution?.targetCount || 0;
+  executiveDashboard.indicators.distributionBuiltCount = distribution?.builtCount || 0;
+  executiveDashboard.indicators.distributionVerifiedCount = distribution?.verifiedCount || 0;
+  executiveDashboard.indicators.distributionNativeVerifiedCount =
+    distribution?.nativeVerifiedCount || 0;
+  executiveDashboard.indicators.distributionLocalRegistryOnly =
+    distribution?.localRegistryOnly === true;
   executiveDashboard.indicators.reasoningStandardActive =
     computingCognitiveLayers?.activation?.standard?.status === 'READY';
   executiveDashboard.indicators.reasoningProActive =
@@ -1366,7 +1387,8 @@ function buildReport() {
     'Treat Ring -1, Ring -2, and Ring -3 as informal aliases only; do not expose them as architectural x86 privilege rings.',
     'Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.',
     'Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls.',
-    'Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.'
+    'Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.',
+    'Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries.'
   );
 
   const checks = {
@@ -1398,6 +1420,19 @@ function buildReport() {
       computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === false &&
       computingCognitiveLayers?.model?.authority?.humanAccountableDecisionMaker === true &&
       computingCognitiveLayers?.activation?.safetyBypassProbe?.status === 'BLOCKED_BY_SAFETY_POLICY',
+    universalDistributionIntegrated:
+      distribution?.system === 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1' &&
+      distribution?.targetCount === 27 &&
+      distribution?.builtCount > 0 &&
+      distribution?.verifiedCount > 0 &&
+      distribution?.localRegistryOnly === true &&
+      distribution?.githubRequired === false &&
+      distribution?.targets?.filter((target) => target.built === true).length ===
+        distribution?.builtCount &&
+      distribution?.targets?.every((target) =>
+        target.status !== 'VERIFIED' ||
+        (target.artifact && target.nativeVerified === true && target.verificationEvidence)
+      ) === true,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1432,6 +1467,10 @@ function buildReport() {
     bareMetalBootImagePath,
     computingCognitiveLayersPath,
     computingCognitiveLayersHandbookPath,
+    distributionReportPath,
+    distributionMatrixPath,
+    distributionHandbookPath,
+    distributionBareMetalLinkPath,
     universalTechnologyHpcFabricPath,
     universalTechnologyHpcFabricHandbookPath,
     technologyFamilyTreePath,
@@ -1501,6 +1540,10 @@ function buildReport() {
         computingCognitiveLayers?.promotion?.highestExecutableTechnicalLayer === true,
       normativeReferenceLayerExecutable:
         computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === true,
+      distributionTargetCount: distribution?.targetCount || 0,
+      distributionBuiltCount: distribution?.builtCount || 0,
+      distributionVerifiedCount: distribution?.verifiedCount || 0,
+      distributionNativeVerifiedCount: distribution?.nativeVerifiedCount || 0,
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
       reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
@@ -1603,6 +1646,26 @@ function buildReport() {
       humanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
       safetyFilterEvasionAllowed: computingCognitiveLayers?.model?.boundaries?.noSafetyBypass === false
     },
+    universalDistribution: {
+      active: exists(distributionReportPath),
+      reportPath: distributionReportPath,
+      matrixPath: distributionMatrixPath,
+      handbookPath: distributionHandbookPath,
+      bareMetalLinkPath: distributionBareMetalLinkPath,
+      status: distribution?.status || 'PENDING_REPORT_GENERATION',
+      targetCount: distribution?.targetCount || 0,
+      builtCount: distribution?.builtCount || 0,
+      verifiedCount: distribution?.verifiedCount || 0,
+      nativeVerifiedCount: distribution?.nativeVerifiedCount || 0,
+      signedCount: distribution?.signedCount || 0,
+      notarizedCount: distribution?.notarizedCount || 0,
+      publishedCount: distribution?.publishedCount || 0,
+      localRegistryPublishedCount: distribution?.localRegistryPublishedCount || 0,
+      localReleasePath: distribution?.localReleasePath || null,
+      localRegistryOnly: distribution?.localRegistryOnly === true,
+      githubRequired: distribution?.githubRequired !== false,
+      claimPolicy: distribution?.claimPolicy || 'UNKNOWN'
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1617,6 +1680,7 @@ function buildReport() {
       'Computing, cloud, CPU, cognitive, and information layers are consolidated with corrected technical dimensions and primary engineering references.',
       'Standard, Pro, and Ultra reasoning profiles are active with bounded serendipity, safety gates, and accountable human final decisions.',
       'Computing Cognitive Layers is promoted to L24 above the L23 extension stream, parallel L22 deployment plane, L21 multilingual stream, and L20 technical capability apex.',
+      'Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1690,6 +1754,10 @@ if (require.main === module) {
     computingCognitiveApexLevel: report.summary.computingCognitiveApexLevel,
     highestExecutableTechnicalLayer: report.summary.highestExecutableTechnicalLayer,
     normativeReferenceLayerExecutable: report.summary.normativeReferenceLayerExecutable,
+    distributionTargetCount: report.summary.distributionTargetCount,
+    distributionBuiltCount: report.summary.distributionBuiltCount,
+    distributionVerifiedCount: report.summary.distributionVerifiedCount,
+    distributionNativeVerifiedCount: report.summary.distributionNativeVerifiedCount,
     reasoningModes: report.summary.reasoningModes,
     ultraRoleSlots: report.summary.ultraRoleSlots,
     reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,
@@ -1718,7 +1786,11 @@ if (require.main === module) {
       bareMetalBootArtifact: bareMetalBootArtifactPath,
       bareMetalBootImage: bareMetalBootImagePath,
       computingCognitiveLayers: computingCognitiveLayersPath,
-      computingCognitiveLayersHandbook: computingCognitiveLayersHandbookPath
+      computingCognitiveLayersHandbook: computingCognitiveLayersHandbookPath,
+      universalDistribution: distributionReportPath,
+      universalDistributionMatrix: distributionMatrixPath,
+      universalDistributionHandbook: distributionHandbookPath,
+      distributionBareMetalLink: distributionBareMetalLinkPath
     }
   }, null, 2));
 }

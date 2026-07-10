@@ -1,0 +1,36 @@
+{
+  "system": "SHEIKHA_DISTRIBUTION_BUILD_EVIDENCE_V1",
+  "generatedAt": "2026-07-10T15:12:42.688Z",
+  "matrixValid": true,
+  "adapterRegistry": [
+    {
+      "targetId": "linux-deb-amd64",
+      "available": true
+    },
+    {
+      "targetId": "linux-tar-x86_64",
+      "available": true
+    },
+    {
+      "targetId": "linux-cli-x86_64",
+      "available": true
+    }
+  ],
+  "builtTargets": [
+    "linux-deb-amd64",
+    "linux-tar-x86_64",
+    "linux-cli-x86_64"
+  ],
+  "nativeVerifiedTargets": [
+    "linux-cli-x86_64"
+  ],
+  "secretScan": {
+    "passed": true,
+    "findings": []
+  },
+  "claimValidation": {
+    "valid": true,
+    "errors": []
+  },
+  "matrixReport": "runtime/distribution/v1/sheikha-distribution-matrix-v1-report.json"
+}

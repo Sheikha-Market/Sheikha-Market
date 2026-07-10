@@ -31,6 +31,14 @@ describe('Sheikha Computing and Cognitive Layers V1', () => {
     expect(model.apexPromotion.noPrivilegeEscalationByLayerPromotion).toBe(true);
     expect(model.apexPromotion.governedLowerLayers.map((layer) => layer.level))
       .toEqual([23, 22, 21, 20]);
+    expect(model.distributionIntegration).toMatchObject({
+      system: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1',
+      status: 'ACTIVE_LOCAL_FIRST_EVIDENCE_CONSUMER',
+      targetCount: 27,
+      automaticExternalPublishing: false,
+      artifactClaimRequiresEvidence: true,
+      humanReleaseApprovalRequired: true
+    });
     expect(model.authority.humanAccountableDecisionMaker).toBe(true);
     expect(model.authority.technicalSystemIsReligiousAuthority).toBe(false);
     expect(model.domains.network.presentationOrder).toHaveLength(7);

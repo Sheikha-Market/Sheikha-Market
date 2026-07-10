@@ -1,5 +1,8 @@
 'use strict';
 
+const os = require('node:os');
+const path = require('node:path');
+
 const {
   buildComponent,
   buildMethodologyAccreditationReadiness,
@@ -45,6 +48,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.githubIndependent).toBe(true);
     expect(report.checks.bareMetalSeedIntegrated).toBe(true);
     expect(report.checks.computingCognitiveLayersIntegrated).toBe(true);
+    expect(report.checks.universalDistributionIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -73,6 +77,10 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.computingCognitiveApexLevel).toBe(24);
     expect(report.executiveDashboard.indicators.highestExecutableTechnicalLayer).toBe(true);
     expect(report.executiveDashboard.indicators.normativeReferenceLayerExecutable).toBe(false);
+    expect(report.executiveDashboard.indicators.distributionTargetCount).toBe(27);
+    expect(report.executiveDashboard.indicators.distributionBuiltCount).toBeGreaterThanOrEqual(3);
+    expect(report.executiveDashboard.indicators.distributionVerifiedCount).toBeGreaterThanOrEqual(1);
+    expect(report.executiveDashboard.indicators.distributionLocalRegistryOnly).toBe(true);
     expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
     expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningHumanFinalDecision).toBe(true);
@@ -92,6 +100,16 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       actualIndependentModelProcesses: false,
       humanFinalDecision: true,
       safetyFilterEvasionAllowed: false
+    });
+    expect(report.universalDistribution).toMatchObject({
+      targetCount: 27,
+      builtCount: 3,
+      verifiedCount: 1,
+      nativeVerifiedCount: 1,
+      localRegistryPublishedCount: 3,
+      localReleasePath: path.join(os.homedir(), 'Sheikha-Local-Registry/releases/1.0.51'),
+      localRegistryOnly: true,
+      githubRequired: false
     });
   });
 

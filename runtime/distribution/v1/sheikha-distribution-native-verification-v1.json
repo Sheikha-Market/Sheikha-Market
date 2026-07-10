@@ -1,0 +1,170 @@
+{
+  "system": "SHEIKHA_DISTRIBUTION_NATIVE_VERIFICATION_V1",
+  "generatedAt": "2026-07-10T15:12:42.688Z",
+  "nativeVerifiedCount": 1,
+  "policy": "Cross-build and structural inspection are not native verification.",
+  "targets": [
+    {
+      "id": "windows-user-installer-x64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-user-installer-arm64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-system-installer-x64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-system-installer-arm64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-portable-x64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-portable-arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-cli-x64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "windows-cli-arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-deb-amd64",
+      "status": "BUILT_NOT_NATIVE_VERIFIED",
+      "nativeVerified": false,
+      "evidence": "distribution/artifacts/1.0.51/verification/sheikha-1.0.51-linux-amd64.deb.verification.json"
+    },
+    {
+      "id": "linux-deb-armhf",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-deb-arm64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-rpm-x86_64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-rpm-armv7hl",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-rpm-aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-tar-x86_64",
+      "status": "BUILT_NOT_NATIVE_VERIFIED",
+      "nativeVerified": false,
+      "evidence": "distribution/artifacts/1.0.51/verification/sheikha-1.0.51-linux-x86_64.tar.gz.verification.json"
+    },
+    {
+      "id": "linux-tar-armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-tar-aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-snap-amd64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-snap-armhf",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-snap-arm64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-cli-x86_64",
+      "status": "VERIFIED",
+      "nativeVerified": true,
+      "evidence": "distribution/artifacts/1.0.51/verification/sheikha-cli-1.0.51-linux-x86_64.tar.gz.verification.json"
+    },
+    {
+      "id": "linux-cli-armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "linux-cli-aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "macos-dmg-universal2",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "macos-cli-x86_64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "macos-cli-arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    },
+    {
+      "id": "macos-cli-universal2",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": null
+    }
+  ]
+}
