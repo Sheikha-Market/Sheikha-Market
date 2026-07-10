@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T19:49:44.748Z",
+  "generatedAt": "2026-07-10T20:02:16.204Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          2.96,
-          2.93,
-          2.9
+          2.62,
+          2.85,
+          3.05
         ]
       }
     },
@@ -36,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875768832,
-        "freeMemoryBytes": 44914327552,
+        "freeMemoryBytes": 44804202496,
         "processMemory": {
-          "rss": 194547712,
-          "heapTotal": 56172544,
-          "heapUsed": 26834640,
-          "external": 39622919,
-          "arrayBuffers": 35677696
+          "rss": 195702784,
+          "heapTotal": 56438784,
+          "heapUsed": 34626152,
+          "external": 37525767,
+          "arrayBuffers": 33580544
         }
       }
     },
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 540267788,
-        "availableKb": 384246352,
+        "usedKb": 540312944,
+        "availableKb": 384201196,
         "usagePercent": "59%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -59,7 +59,7 @@
     "api": {
       "ok": true,
       "evidence": {
-        "uniqueEndpoints": 2698,
+        "uniqueEndpoints": 2699,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
           "ok": false,
@@ -216,7 +216,7 @@
     "systems": 435,
     "engines": 793,
     "layers": 25,
-    "apis": 2698,
+    "apis": 2699,
     "services": 0,
     "tests": 344,
     "docs": 1070,
@@ -270,7 +270,7 @@
     "sheikhaHostImplementationSourceFiles": 12581
   },
   "indicators": {
-    "apiEndpoints": 2698,
+    "apiEndpoints": 2699,
     "tests": 344,
     "duplicateGroups": 1207,
     "githubRequired": false,

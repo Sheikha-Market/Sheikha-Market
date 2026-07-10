@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_PRODUCTION_LANGUAGE_V1",
   "status": "HOSTED_PRODUCTION_GATE_PASSED_NATIVE_SYSTEM_MIGRATION_REQUIRED",
-  "generatedAt": "2026-07-10T19:49:07.373Z",
+  "generatedAt": "2026-07-10T20:01:13.799Z",
   "hostedProductionScore": 100,
   "decision": "SHEIKHA_HOSTED_PRODUCTION_VERIFIED_WITH_GOVERNED_AI",
   "checks": {
@@ -32,7 +32,8 @@
       "priorArabicVmV2Passed": true,
       "arabicMathPassed": true,
       "languageStackPassed": true,
-      "fabricsV91ToV96Passed": true
+      "fabricsV91ToV96Passed": true,
+      "arabicProductionInterpretersPassed": true
     },
     "governance": {
       "valuesReferenceIsFormalAndNonExecutable": true,
@@ -61,7 +62,9 @@
     "aiMode": "GOVERNED_AI_KERNEL",
     "aiRole": "analysis_and_decision_support_only",
     "compilerRuntime": "Node.js",
-    "productionApi": "/api/governance/generator/sheikha-language-production"
+    "productionApi": "/api/governance/generator/sheikha-language-production",
+    "interpreterApi": "/api/governance/generator/sheikha-language-production/interpret",
+    "arabicProductionInterpreters": "ARABIC_PRIMARY_INTERPRETERS_VERIFIED"
   },
   "governance": {
     "declaredFaithReference": "الحكم لله وحده",
@@ -292,6 +295,50 @@
       "allSystemsPerformanceQualified": false,
       "fullNativeCutoverComplete": false,
       "completionClaimAllowed": false
+    }
+  },
+  "interpreters": {
+    "system": "SHEIKHA_ARABIC_PRODUCTION_INTERPRETERS_V1",
+    "status": "ARABIC_PRIMARY_INTERPRETERS_VERIFIED",
+    "score": 100,
+    "supportedModes": [
+      "auto",
+      "sheikha-program",
+      "arabic-accounting",
+      "arabic-math",
+      "arabic-command"
+    ],
+    "promotion": {
+      "apexLevel": 97,
+      "layer": "SHEIKHA_ARABIC_PRODUCTION_INTERPRETER_APEX_L97",
+      "scope": "HOSTED_LANGUAGE_PRODUCTION_PLANE_ONLY",
+      "aboveArabicFabricsV91ToV96": true,
+      "highestArabicInterfaceInCurrentHostedLanguageStack": true,
+      "crossPlaneAuthorityEscalation": false
+    },
+    "checks": {
+      "sheikhaProgramInterpreted": true,
+      "arabicAccountingInterpreted": true,
+      "arabicMathInterpreted": true,
+      "arabicCommandInterpretedDryRun": true,
+      "religiousRulingRequiresQualifiedReview": true,
+      "allModesArabicPrimary": true,
+      "noInterpreterExternalExecution": true
+    },
+    "evidence": {
+      "sheikhaProgramStatus": "INTERPRETED",
+      "accountingStatus": "INTERPRETED",
+      "accountingLedgerEntries": 1,
+      "mathStatus": "INTERPRETED",
+      "mathResult": 5,
+      "commandStatus": "INTERPRETED_DRY_RUN",
+      "religiousBoundaryStatus": "QUALIFIED_REVIEW_REQUIRED"
+    },
+    "boundary": {
+      "arabicPrimaryAcrossAllModes": true,
+      "unrestrictedExecution": false,
+      "externalExecution": false,
+      "automatedFatwaAllowed": false
     }
   },
   "cycle": [

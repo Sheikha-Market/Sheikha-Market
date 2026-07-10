@@ -89,6 +89,7 @@ function createSheikhaApiClient({
       '/api/governance/generator/public-benefit/evaluate',
       '/api/governance/generator/sheikha-language-architecture',
       '/api/governance/generator/sheikha-language-production',
+      '/api/governance/generator/sheikha-language-production/interpret',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -273,6 +274,11 @@ function createSheikhaApiClient({
     status: () => request('/api/governance/generator/sheikha-language-architecture'),
     productionStatus: () => request(
       '/api/governance/generator/sheikha-language-production'
+    ),
+    interpret: input => request(
+      '/api/governance/generator/sheikha-language-production/interpret',
+      'POST',
+      input
     )
   };
 

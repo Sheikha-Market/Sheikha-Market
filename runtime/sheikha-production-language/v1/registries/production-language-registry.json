@@ -21,6 +21,11 @@
     "formal_reasoning_methodology",
     "governed_ai_kernel",
     "production_evidence_gate",
+    "arabic_production_interpreter_auto",
+    "sheikha_program_interpreter",
+    "arabic_accounting_interpreter",
+    "arabic_math_interpreter",
+    "arabic_command_interpreter",
     "system_migration_gate"
   ],
   "productionScopes": {
@@ -30,7 +35,9 @@
     "fullNativeProductionVerified": false,
     "allSystemsProgrammedInSheikha": false,
     "automaticMigrationAllowed": false,
-    "unboundedOrAbsoluteExecutionAllowed": false
+    "unboundedOrAbsoluteExecutionAllowed": false,
+    "arabicPrimaryAcrossInterpreterModes": true,
+    "interpreterExternalExecutionAllowed": false
   },
   "wave1Systems": [
     "SHEIKHA_LANGUAGE_CORE",
@@ -41,6 +48,13 @@
     "SHEIKHA_UNIFIED_CHAT",
     "SHEIKHA_RUNTIME_HEALTH"
   ],
+  "interpreterApex": {
+    "apexLevel": 97,
+    "layer": "SHEIKHA_ARABIC_PRODUCTION_INTERPRETER_APEX_L97",
+    "scope": "HOSTED_LANGUAGE_PRODUCTION_PLANE_ONLY",
+    "aboveArabicFabricsV91ToV96": true,
+    "crossPlaneAuthorityEscalation": false
+  },
   "requiredPerSystem": [
     "sheikha_source",
     "type_and_governance_check",

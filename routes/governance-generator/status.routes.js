@@ -4,6 +4,9 @@ const path = require('path');
 const publicBenefitRouter = require(
   '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
 );
+const {
+  interpretSheikhaArabicProduction
+} = require('../../core/language/sheikha-arabic-runtime/sheikha-language-runtime');
 
 const router = express.Router();
 
@@ -107,6 +110,23 @@ router.get('/sheikha-language-production', (_req, res) => {
     'runtime/sheikha-production-language/v1/sheikha-production-language-v1-report.json'
   );
   return res.json({ success: true, languageProduction });
+});
+
+router.post('/sheikha-language-production/interpret', (req, res) => {
+  const result = interpretSheikhaArabicProduction(
+    req.body?.source,
+    { mode: req.body?.mode || 'auto' }
+  );
+  const rejectedStatuses = new Set([
+    'INPUT_REQUIRED',
+    'SOURCE_TOO_LARGE',
+    'UNSUPPORTED_INTERPRETER_MODE'
+  ]);
+  const blocked = rejectedStatuses.has(result.status) ||
+    result.status === 'QUALIFIED_REVIEW_REQUIRED' ||
+    result.status.endsWith('_BLOCKED');
+
+  return res.status(blocked ? 422 : 200).json({ success: !blocked, result });
 });
 
 router.post('/public-benefit/evaluate', (req, res) => {

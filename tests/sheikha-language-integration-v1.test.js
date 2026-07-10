@@ -16,6 +16,10 @@ const activation = require(
 const production = require(
   '../tools/sheikha-production-language/sheikha-production-language-v1'
 );
+const {
+  interpretSheikhaArabicProduction,
+  INTERPRETER_MODES
+} = require('../core/language/sheikha-arabic-runtime/sheikha-language-runtime');
 
 const ARABIC_ACCOUNTING_INPUT =
   'حوّل المورد مبلغًا من حساب_المشتري إلى حساب_سوق_شيخة';
@@ -137,5 +141,71 @@ describe('Sheikha Language Integration V1', () => {
     expect(Object.values(report.checks.execution).every(Boolean)).toBe(true);
     expect(Object.values(report.checks.governance).every(Boolean)).toBe(true);
     expect(report.systemMigration.catalogedImplementationSourceFiles).toBeGreaterThan(1000);
+    expect(report.interpreters).toMatchObject({
+      status: 'ARABIC_PRIMARY_INTERPRETERS_VERIFIED',
+      score: 100,
+      boundary: {
+        arabicPrimaryAcrossAllModes: true,
+        unrestrictedExecution: false,
+        externalExecution: false,
+        automatedFatwaAllowed: false
+      },
+      promotion: {
+        apexLevel: 97,
+        layer: 'SHEIKHA_ARABIC_PRODUCTION_INTERPRETER_APEX_L97',
+        scope: 'HOSTED_LANGUAGE_PRODUCTION_PLANE_ONLY',
+        aboveArabicFabricsV91ToV96: true,
+        crossPlaneAuthorityEscalation: false
+      }
+    });
+  });
+
+  test('interprets all Arabic production modes inside the governed boundary', () => {
+    const sheikha = interpretSheikhaArabicProduction([
+      'إجراء تشغيل:',
+      '  اعرض "SHEIKHA_ARABIC_INTERPRETER_OK"',
+      ''
+    ].join('\n'), { mode: 'sheikha-program' });
+    const accounting = interpretSheikhaArabicProduction(
+      ARABIC_ACCOUNTING_INPUT,
+      { mode: 'auto' }
+    );
+    const math = interpretSheikhaArabicProduction('٢ زائد ٣', { mode: 'auto' });
+    const command = interpretSheikhaArabicProduction('تحقق حالة النظام', {
+      mode: 'auto'
+    });
+    const religious = interpretSheikhaArabicProduction('أفتني في حكم شرعي', {
+      mode: 'auto'
+    });
+
+    expect(INTERPRETER_MODES).toEqual(expect.arrayContaining([
+      'auto', 'sheikha-program', 'arabic-accounting', 'arabic-math', 'arabic-command'
+    ]));
+    expect(sheikha).toMatchObject({
+      status: 'INTERPRETED',
+      mode: 'sheikha-program',
+      arabicPrimary: true,
+      externalExecution: false
+    });
+    expect(sheikha.output).toContain('"SHEIKHA_ARABIC_INTERPRETER_OK"');
+    expect(accounting).toMatchObject({
+      status: 'INTERPRETED',
+      mode: 'arabic-accounting'
+    });
+    expect(math).toMatchObject({
+      status: 'INTERPRETED',
+      mode: 'arabic-math',
+      value: 5
+    });
+    expect(command).toMatchObject({
+      status: 'INTERPRETED_DRY_RUN',
+      mode: 'arabic-command',
+      executionAllowed: false
+    });
+    expect(religious).toMatchObject({
+      status: 'QUALIFIED_REVIEW_REQUIRED',
+      executionAllowed: false,
+      automatedFatwaAllowed: false
+    });
   });
 });
