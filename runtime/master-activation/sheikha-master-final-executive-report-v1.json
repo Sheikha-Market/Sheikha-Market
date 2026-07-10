@@ -1,18 +1,18 @@
 {
   "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-  "generatedAt": "2026-07-10T11:17:02.495Z",
+  "generatedAt": "2026-07-10T12:25:53.492Z",
   "githubDependency": false,
   "counts": {
     "systems": 433,
     "engines": 792,
     "layers": 25,
-    "apis": 2687,
+    "apis": 2689,
     "services": 0,
-    "tests": 340,
-    "docs": 1066,
+    "tests": 341,
+    "docs": 1067,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1246,
+    "runtimeEngines": 1248,
     "identityEngines": 94,
     "governanceEngines": 521,
     "knowledgeEngines": 202,
@@ -24,10 +24,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 380,
+    "automationEngines": 381,
     "integrations": 346,
-    "packageScripts": 645,
-    "duplicateGroups": 1203,
+    "packageScripts": 646,
+    "duplicateGroups": 1204,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -44,7 +44,10 @@
     "jannatGardenFruits": 27,
     "jannatGardensScore": 100,
     "bareMetalBootArtifacts": 1,
-    "verifiedBareMetalBoots": 1
+    "verifiedBareMetalBoots": 1,
+    "computingCognitiveDomains": 7,
+    "reasoningModes": 3,
+    "ultraRoleSlots": 4
   },
   "evidence": {
     "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
@@ -65,7 +68,9 @@
     "bareMetalSeed": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
     "bareMetalSeedHandbook": "bare-metal/README.md",
     "bareMetalBootArtifact": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
-    "bareMetalBootImage": "bare-metal/images/sheikha-bare-metal-seed-v1.img"
+    "bareMetalBootImage": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+    "computingCognitiveLayers": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+    "computingCognitiveLayersHandbook": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md"
   },
   "productionClaimPolicy": "No production-ready claim is made unless supported by tests, health, and runtime evidence."
 }

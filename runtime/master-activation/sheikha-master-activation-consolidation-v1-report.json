@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-10T11:17:03.055Z",
+  "generatedAt": "2026-07-10T12:25:54.062Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -19,6 +19,7 @@
     "technologyFamilyTreeBuilt": true,
     "jannatGardensBuilt": true,
     "bareMetalSeedIntegrated": true,
+    "computingCognitiveLayersIntegrated": true,
     "documentationIndexBuilt": true,
     "finalExecutiveReportBuilt": true,
     "githubIndependent": true
@@ -27,8 +28,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "2169e7379",
-    "currentHead": "2169e7379",
+    "localRegistryHead": "56004e68f",
+    "currentHead": "56004e68f",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -1475,7 +1476,7 @@
       },
       {
         "root": "docs",
-        "files": 676,
+        "files": 677,
         "classification": "repository-artifact"
       },
       {
@@ -2190,7 +2191,7 @@
       },
       {
         "root": "runtime",
-        "files": 1944,
+        "files": 1946,
         "classification": "repository-artifact"
       },
       {
@@ -3010,7 +3011,7 @@
       },
       {
         "root": "tests",
-        "files": 330,
+        "files": 331,
         "classification": "repository-artifact"
       },
       {
@@ -3020,7 +3021,7 @@
       },
       {
         "root": "tools",
-        "files": 386,
+        "files": 387,
         "classification": "repository-artifact"
       },
       {
@@ -3259,17 +3260,17 @@
         "classification": "repository-artifact"
       }
     ],
-    "discoveredFiles": 7114,
-    "packageScripts": 645,
+    "discoveredFiles": 7119,
+    "packageScripts": 646,
     "source": "git ls-files -co --exclude-standard",
     "githubRequired": false
   },
   "summary": {
-    "discoveredComponents": 7114,
-    "activeComponents": 829,
-    "duplicateGroups": 1203,
-    "apiEndpoints": 2687,
-    "documentationFiles": 1066,
+    "discoveredComponents": 7119,
+    "activeComponents": 831,
+    "duplicateGroups": 1204,
+    "apiEndpoints": 2689,
+    "documentationFiles": 1067,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "externalCertificatesIssued": 0,
@@ -3287,40 +3288,45 @@
     "qemuBareMetalBootExecuted": true,
     "bareMetalSerialMarkerVerified": true,
     "bareMetalFullyIndependentToday": true,
+    "computingCognitiveLayersActive": true,
+    "computingCognitiveLayersScore": 100,
+    "reasoningModes": 3,
+    "ultraRoleSlots": 4,
+    "reasoningHumanFinalDecision": true,
     "universalTechnologyHpcFabricActive": true
   },
   "lifecycleSummary": {
-    "active": 829,
-    "needsLinking": 1173,
-    "needsDevelopment": 4978,
+    "active": 831,
+    "needsLinking": 1174,
+    "needsDevelopment": 4980,
     "experimental": 71,
     "unused": 63
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-10T11:17:01.752Z",
+    "generatedAt": "2026-07-10T12:25:52.366Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
-    "componentCount": 7114,
-    "apiEndpoints": 2687,
-    "packageScripts": 645,
+    "componentCount": 7119,
+    "apiEndpoints": 2689,
+    "packageScripts": 646,
     "lifecycleSummary": {
-      "active": 829,
-      "needsLinking": 1173,
-      "needsDevelopment": 4978,
+      "active": 831,
+      "needsLinking": 1174,
+      "needsDevelopment": 4980,
       "experimental": 71,
       "unused": 63
     },
     "maturitySummary": {
-      "measured": 829,
-      "linkedRequired": 1173,
+      "measured": 831,
+      "linkedRequired": 1174,
       "discovered": 3898,
-      "documented": 787
+      "documented": 788
     },
     "evidenceFiles": {
-      "tests": 340,
-      "reports": 389,
-      "docs": 1066
+      "tests": 341,
+      "reports": 390,
+      "docs": 1067
     },
     "fullRegistryPath": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "sampleComponents": [
@@ -6699,6 +6705,7 @@
       "ops:community:modeling:pm2:stop",
       "ops:community:modeling:report",
       "ops:compute-integration-readiness:v1",
+      "ops:computing-cognitive-layers:v1",
       "ops:consent-communication:activate",
       "ops:consent-communication:activate:force",
       "ops:consent-communication:status",
@@ -7251,7 +7258,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-10T11:17:03.055Z",
+    "generatedAt": "2026-07-10T12:25:54.062Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -8684,7 +8691,7 @@
       },
       {
         "root": "docs",
-        "files": 676,
+        "files": 677,
         "classification": "repository-artifact"
       },
       {
@@ -9399,7 +9406,7 @@
       },
       {
         "root": "runtime",
-        "files": 1944,
+        "files": 1946,
         "classification": "repository-artifact"
       },
       {
@@ -10219,7 +10226,7 @@
       },
       {
         "root": "tests",
-        "files": 330,
+        "files": 331,
         "classification": "repository-artifact"
       },
       {
@@ -10229,7 +10236,7 @@
       },
       {
         "root": "tools",
-        "files": 386,
+        "files": 387,
         "classification": "repository-artifact"
       },
       {
@@ -10536,7 +10543,7 @@
         "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
       },
       "Documentation": {
-        "components": 3113,
+        "components": 3116,
         "dependencies": [
           "Knowledge",
           "Registry"
@@ -10652,7 +10659,7 @@
         "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
       },
       "Runtime": {
-        "components": 1246,
+        "components": 1248,
         "dependencies": [
           "OS",
           "Cloud"
@@ -10711,6 +10718,8 @@
     "bareMetalSeedHandbookPath": "bare-metal/README.md",
     "bareMetalBootArtifactPath": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
     "bareMetalBootImagePath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+    "computingCognitiveLayersPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+    "computingCognitiveLayersHandbookPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
     "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
     "universalTechnologyHpcFabricHandbookPath": "docs/universal-technology-hpc-fabric-v1/SHEIKHA-UNIVERSAL-TECHNOLOGY-HPC-FABRIC-V1.md",
     "technologyFamilyTreePath": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json",
@@ -10721,11 +10730,11 @@
     "dependencyGraph": {
       "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
       "layerEdges": 59,
-      "componentEdges": 14935
+      "componentEdges": 14945
     },
     "duplicateAnalysis": {
       "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-      "duplicateFiles": 1203,
+      "duplicateFiles": 1204,
       "duplicateServices": 28,
       "duplicateApis": 147,
       "duplicateRegistries": 67,
@@ -10735,13 +10744,13 @@
       "systems": 433,
       "engines": 792,
       "layers": 25,
-      "apis": 2687,
+      "apis": 2689,
       "services": 0,
-      "tests": 340,
-      "docs": 1066,
+      "tests": 341,
+      "docs": 1067,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1246,
+      "runtimeEngines": 1248,
       "identityEngines": 94,
       "governanceEngines": 521,
       "knowledgeEngines": 202,
@@ -10753,10 +10762,10 @@
       "securityEngines": 82,
       "dashboards": 71,
       "pipelines": 58,
-      "automationEngines": 380,
+      "automationEngines": 381,
       "integrations": 346,
-      "packageScripts": 645,
-      "duplicateGroups": 1203,
+      "packageScripts": 646,
+      "duplicateGroups": 1204,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
@@ -10773,12 +10782,15 @@
       "jannatGardenFruits": 27,
       "jannatGardensScore": 100,
       "bareMetalBootArtifacts": 1,
-      "verifiedBareMetalBoots": 1
+      "verifiedBareMetalBoots": 1,
+      "computingCognitiveDomains": 7,
+      "reasoningModes": 3,
+      "ultraRoleSlots": 4
     }
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-10T11:17:01.755Z",
+    "generatedAt": "2026-07-10T12:25:52.368Z",
     "nodes": [
       {
         "id": "APIs",
@@ -10831,7 +10843,7 @@
       {
         "id": "Documentation",
         "type": "layer",
-        "components": 3113,
+        "components": 3116,
         "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
       },
       {
@@ -10915,7 +10927,7 @@
       {
         "id": "Runtime",
         "type": "layer",
-        "components": 1246,
+        "components": 1248,
         "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
       },
       {
@@ -11234,19 +11246,19 @@
         "type": "layer-dependency"
       }
     ],
-    "componentEdgesCount": 14935,
+    "componentEdgesCount": 14945,
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "graphPolicy": "relationships are inferred from repository evidence and layer contracts"
   },
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
-    "componentEdges": 14935
+    "componentEdges": 14945
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-10T11:17:01.762Z",
+    "generatedAt": "2026-07-10T12:25:52.377Z",
     "policy": "REPORT_ONLY_NO_DELETION",
-    "duplicateFilesCount": 1203,
+    "duplicateFilesCount": 1204,
     "duplicateServicesCount": 28,
     "duplicateApisCount": 147,
     "duplicateRegistriesCount": 67,
@@ -12431,7 +12443,7 @@
       "processes": {
         "ok": true,
         "evidence": {
-          "pid": 15,
+          "pid": 14,
           "node": "v25.6.1"
         }
       },
@@ -12440,23 +12452,23 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.51,
-            2.43,
-            1.94
+            2.77,
+            2.34,
+            1.92
           ]
         }
       },
       "memory": {
         "ok": true,
         "evidence": {
-          "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 46638379008,
+          "totalMemoryBytes": 66875768832,
+          "freeMemoryBytes": 47012597760,
           "processMemory": {
-            "rss": 192528384,
-            "heapTotal": 56131584,
-            "heapUsed": 23198816,
-            "external": 31234077,
-            "arrayBuffers": 27289076
+            "rss": 193757184,
+            "heapTotal": 56111104,
+            "heapUsed": 31689832,
+            "external": 12359709,
+            "arrayBuffers": 8414708
           }
         }
       },
@@ -12464,8 +12476,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 536031168,
-          "availableKb": 388482972,
+          "usedKb": 535888640,
+          "availableKb": 388625500,
           "usagePercent": "58%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12738,23 +12750,23 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.51,
-            2.43,
-            1.94
+            2.77,
+            2.34,
+            1.92
           ]
         }
       },
       "memory": {
         "ok": true,
         "evidence": {
-          "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 46638379008,
+          "totalMemoryBytes": 66875768832,
+          "freeMemoryBytes": 47011426304,
           "processMemory": {
-            "rss": 192905216,
-            "heapTotal": 56131584,
-            "heapUsed": 23477000,
-            "external": 31234129,
-            "arrayBuffers": 27289088
+            "rss": 193949696,
+            "heapTotal": 56111104,
+            "heapUsed": 31970464,
+            "external": 12359761,
+            "arrayBuffers": 8414720
           }
         }
       },
@@ -12762,8 +12774,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 536031168,
-          "availableKb": 388482972,
+          "usedKb": 535888640,
+          "availableKb": 388625500,
           "usagePercent": "58%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12771,7 +12783,7 @@
       "api": {
         "ok": true,
         "evidence": {
-          "uniqueEndpoints": 2687,
+          "uniqueEndpoints": 2689,
           "health": {
             "endpoint": "http://127.0.0.1:8080/api/health",
             "ok": false,
@@ -13075,7 +13087,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-10T11:17:02.494Z",
+    "generatedAt": "2026-07-10T12:25:53.491Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -13084,7 +13096,7 @@
       "githubRequired": false
     },
     "repositoryEvidence": {
-      "components": 7114,
+      "components": 7119,
       "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
       "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -13946,9 +13958,22 @@
     "linuxRequiredAtKernelRuntime": false,
     "nodeRequiredAtKernelRuntime": false
   },
+  "computingCognitiveLayers": {
+    "active": true,
+    "reportPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+    "handbookPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
+    "status": "ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL",
+    "score": 100,
+    "domains": 7,
+    "reasoningModes": 3,
+    "ultraRoleSlots": 4,
+    "actualIndependentModelProcesses": false,
+    "humanFinalDecision": true,
+    "safetyFilterEvasionAllowed": false
+  },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-10T11:17:03.025Z",
+    "generatedAt": "2026-07-10T12:25:54.023Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -13974,23 +13999,23 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.51,
-            2.43,
-            1.94
+            2.77,
+            2.34,
+            1.92
           ]
         }
       },
       "memory": {
         "ok": true,
         "evidence": {
-          "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 46638379008,
+          "totalMemoryBytes": 66875768832,
+          "freeMemoryBytes": 47011426304,
           "processMemory": {
-            "rss": 192905216,
-            "heapTotal": 56131584,
-            "heapUsed": 23477000,
-            "external": 31234129,
-            "arrayBuffers": 27289088
+            "rss": 193949696,
+            "heapTotal": 56111104,
+            "heapUsed": 31970464,
+            "external": 12359761,
+            "arrayBuffers": 8414720
           }
         }
       },
@@ -13998,8 +14023,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 536031168,
-          "availableKb": 388482972,
+          "usedKb": 535888640,
+          "availableKb": 388625500,
           "usagePercent": "58%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -14007,7 +14032,7 @@
       "api": {
         "ok": true,
         "evidence": {
-          "uniqueEndpoints": 2687,
+          "uniqueEndpoints": 2689,
           "health": {
             "endpoint": "http://127.0.0.1:8080/api/health",
             "ok": false,
@@ -14164,13 +14189,13 @@
       "systems": 433,
       "engines": 792,
       "layers": 25,
-      "apis": 2687,
+      "apis": 2689,
       "services": 0,
-      "tests": 340,
-      "docs": 1066,
+      "tests": 341,
+      "docs": 1067,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1246,
+      "runtimeEngines": 1248,
       "identityEngines": 94,
       "governanceEngines": 521,
       "knowledgeEngines": 202,
@@ -14182,10 +14207,10 @@
       "securityEngines": 82,
       "dashboards": 71,
       "pipelines": 58,
-      "automationEngines": 380,
+      "automationEngines": 381,
       "integrations": 346,
-      "packageScripts": 645,
-      "duplicateGroups": 1203,
+      "packageScripts": 646,
+      "duplicateGroups": 1204,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
@@ -14202,12 +14227,15 @@
       "jannatGardenFruits": 27,
       "jannatGardensScore": 100,
       "bareMetalBootArtifacts": 1,
-      "verifiedBareMetalBoots": 1
+      "verifiedBareMetalBoots": 1,
+      "computingCognitiveDomains": 7,
+      "reasoningModes": 3,
+      "ultraRoleSlots": 4
     },
     "indicators": {
-      "apiEndpoints": 2687,
-      "tests": 340,
-      "duplicateGroups": 1203,
+      "apiEndpoints": 2689,
+      "tests": 341,
+      "duplicateGroups": 1204,
       "githubRequired": false,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -14227,7 +14255,15 @@
       "qemuBareMetalBootExecuted": true,
       "bareMetalSerialMarkerVerified": true,
       "postFirmwareHandoffVerified": true,
-      "bareMetalFullyIndependentToday": true
+      "bareMetalFullyIndependentToday": true,
+      "computingCognitiveLayersActive": true,
+      "computingCognitiveLayersScore": 100,
+      "reasoningStandardActive": true,
+      "reasoningProActive": true,
+      "reasoningUltraRoleSlots": 4,
+      "reasoningActualIndependentModelProcesses": false,
+      "reasoningHumanFinalDecision": true,
+      "safetyFilterEvasionAllowed": false
     },
     "decisions": [
       "Use local-registry and local bundles as the operational source of truth.",
@@ -14237,7 +14273,11 @@
       "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.",
       "Treat the x86_64 UEFI/QEMU seed as verified bare-metal boot evidence only; it does not prove a complete general-purpose OS or physical-hardware qualification.",
       "Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.",
-      "Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling."
+      "Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling.",
+      "Treat OSI Layer 7, SaaS, high-level languages, CPU privilege, virtualization, firmware, and platform management as distinct technical dimensions.",
+      "Treat Ring -1, Ring -2, and Ring -3 as informal aliases only; do not expose them as architectural x86 privilege rings.",
+      "Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.",
+      "Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls."
     ],
     "knowledge": {
       "identityEngines": {
@@ -14444,8 +14484,8 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-10T11:17:02.495Z",
-    "count": 1066,
+    "generatedAt": "2026-07-10T12:25:53.492Z",
+    "count": 1067,
     "canonicalDocs": [
       "docs/canonical/README.md",
       "docs/canonical/SHEIKHA-CANONICAL-BLUEPRINTS.md",
@@ -14731,23 +14771,25 @@
     "Technology family tree defines Sheikha root, technical garden, and lower-layer Sharia contracts while keeping the highest governance apex contractless and linkless.",
     "Jannat Sheikha gardens define worldly beauty, gardens, trees, rivers, and fruits for interfaces and architecture without claiming unseen Jannah representation.",
     "Native x86_64 UEFI seed is linked to QEMU serial evidence and cannot claim bare-metal completion without the post-ExitBootServices marker.",
+    "Computing, cloud, CPU, cognitive, and information layers are consolidated with corrected technical dimensions and primary engineering references.",
+    "Standard, Pro, and Ultra reasoning profiles are active with bounded serendipity, safety gates, and accountable human final decisions.",
     "GitHub is not required for activation; local-registry is the recommended push target."
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-10T11:17:02.495Z",
+    "generatedAt": "2026-07-10T12:25:53.492Z",
     "githubDependency": false,
     "counts": {
       "systems": 433,
       "engines": 792,
       "layers": 25,
-      "apis": 2687,
+      "apis": 2689,
       "services": 0,
-      "tests": 340,
-      "docs": 1066,
+      "tests": 341,
+      "docs": 1067,
       "sdks": 80,
       "registries": 365,
-      "runtimeEngines": 1246,
+      "runtimeEngines": 1248,
       "identityEngines": 94,
       "governanceEngines": 521,
       "knowledgeEngines": 202,
@@ -14759,10 +14801,10 @@
       "securityEngines": 82,
       "dashboards": 71,
       "pipelines": 58,
-      "automationEngines": 380,
+      "automationEngines": 381,
       "integrations": 346,
-      "packageScripts": 645,
-      "duplicateGroups": 1203,
+      "packageScripts": 646,
+      "duplicateGroups": 1204,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
@@ -14779,7 +14821,10 @@
       "jannatGardenFruits": 27,
       "jannatGardensScore": 100,
       "bareMetalBootArtifacts": 1,
-      "verifiedBareMetalBoots": 1
+      "verifiedBareMetalBoots": 1,
+      "computingCognitiveDomains": 7,
+      "reasoningModes": 3,
+      "ultraRoleSlots": 4
     },
     "evidence": {
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
@@ -14800,7 +14845,9 @@
       "bareMetalSeed": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
       "bareMetalSeedHandbook": "bare-metal/README.md",
       "bareMetalBootArtifact": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
-      "bareMetalBootImage": "bare-metal/images/sheikha-bare-metal-seed-v1.img"
+      "bareMetalBootImage": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+      "computingCognitiveLayers": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+      "computingCognitiveLayersHandbook": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md"
     },
     "productionClaimPolicy": "No production-ready claim is made unless supported by tests, health, and runtime evidence."
   },

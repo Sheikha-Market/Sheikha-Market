@@ -1,0 +1,850 @@
+{
+  "system": "SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1",
+  "status": "ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL",
+  "generatedAt": "2026-07-10T12:25:39.278Z",
+  "score": 100,
+  "decision": "SHEIKHA_COMPUTING_COGNITIVE_LAYERS_ACTIVE_100",
+  "checks": {
+    "unifiedProtocolFabric": true,
+    "cloudSaasApex": true,
+    "osKernelFederation": true,
+    "bareMetalSeed": true,
+    "cognitivePipeline": true,
+    "governedIntelligenceLoop": true,
+    "multiAgentFabric": true,
+    "executionPipeline": true,
+    "networkModelComplete": true,
+    "cpuModelCorrected": true,
+    "humanPrimacy": true,
+    "standardActive": true,
+    "proActive": true,
+    "ultraBounded": true,
+    "bypassBlocked": true,
+    "noUnsupportedSuperiorityClaim": true
+  },
+  "missing": [],
+  "model": {
+    "system": "SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1",
+    "status": "ACTIVE",
+    "authority": {
+      "highestGovernanceReference": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY",
+      "technicalSystemIsReligiousAuthority": false,
+      "humanAccountableDecisionMaker": true,
+      "aiRole": "ADVISORY_ANALYSIS_AND_BOUNDED_ORCHESTRATION",
+      "noAutonomousFatwa": true,
+      "scholarReviewForReligiousQuestions": true,
+      "humanReviewForHighImpactActions": true
+    },
+    "domains": {
+      "network": {
+        "model": "SHEIKHA_OSI_INTEROPERABILITY_PROFILE",
+        "presentationOrder": [
+          {
+            "layer": 7,
+            "name": "APPLICATION",
+            "role": "user-facing network services and application protocols"
+          },
+          {
+            "layer": 6,
+            "name": "PRESENTATION",
+            "role": "representation, encoding, and cryptographic formatting"
+          },
+          {
+            "layer": 5,
+            "name": "SESSION",
+            "role": "dialog and session coordination"
+          },
+          {
+            "layer": 4,
+            "name": "TRANSPORT",
+            "role": "end-to-end transport behavior"
+          },
+          {
+            "layer": 3,
+            "name": "NETWORK",
+            "role": "addressing and routing"
+          },
+          {
+            "layer": 2,
+            "name": "DATA_LINK",
+            "role": "local-link framing and media access"
+          },
+          {
+            "layer": 1,
+            "name": "PHYSICAL",
+            "role": "signals and physical transmission"
+          }
+        ],
+        "applicationIsTopInPresentationOrder": true,
+        "applicationHasHighestMachinePrivilege": false,
+        "sheikhaHttp": {
+          "profile": "SHEIKHA_HTTP_PROFILE_V1",
+          "baseStandard": "IETF_RFC_9110_HTTP_SEMANTICS",
+          "newWireProtocolClaimed": false,
+          "role": "governed application profile over standards-compliant HTTP semantics",
+          "externalTrafficRequiresHttps": true,
+          "controls": [
+            "method_semantics",
+            "origin_validation",
+            "authentication_and_authorization",
+            "request_size_limits",
+            "rate_limits",
+            "secure_headers",
+            "audit_trace",
+            "privacy_and_data_minimization"
+          ]
+        }
+      },
+      "abstraction": {
+        "model": "SHEIKHA_COMPUTER_ABSTRACTION_PROFILE",
+        "topHumanFacingLayer": "SHEIKHA_APPLICATIONS_AND_HIGH_LEVEL_LANGUAGE",
+        "layers": [
+          "human_intent_and_accountability",
+          "applications",
+          "sheikha_high_level_language_and_apis",
+          "runtime_and_system_services",
+          "kernel_and_hal",
+          "firmware_and_boot",
+          "instruction_set_architecture",
+          "microarchitecture_and_hardware"
+        ],
+        "highLevelLanguageIsUniversalAuthority": false,
+        "note": "High-level language is a high abstraction for program construction, not a CPU privilege level."
+      },
+      "operatingSystem": {
+        "model": "SHEIKHA_HUMAN_CONTROLLED_APPLICATION_STACK",
+        "controlOrder": [
+          "accountable_human_operator",
+          "governance_and_policy",
+          "applications",
+          "services_and_runtime",
+          "kernel_and_hal",
+          "firmware",
+          "hardware"
+        ],
+        "applicationsAreHighestUserFacingSoftware": true,
+        "userConsentAndControlRequired": true,
+        "aiMayOverrideHumanByDefault": false
+      },
+      "cpuProtection": {
+        "model": "SHEIKHA_CPU_PRIVILEGE_AND_EXECUTION_DOMAINS",
+        "architecturalPrivilegeLevels": [
+          {
+            "cpl": 0,
+            "commonName": "Ring 0",
+            "privilege": "most privileged architectural CPL"
+          },
+          {
+            "cpl": 1,
+            "commonName": "Ring 1",
+            "privilege": "intermediate; rarely used by common operating systems"
+          },
+          {
+            "cpl": 2,
+            "commonName": "Ring 2",
+            "privilege": "intermediate; rarely used by common operating systems"
+          },
+          {
+            "cpl": 3,
+            "commonName": "Ring 3",
+            "privilege": "least privileged architectural CPL; applications"
+          }
+        ],
+        "orthogonalExecutionDomains": [
+          {
+            "name": "VMX_ROOT_AND_NON_ROOT",
+            "commonAlias": "Ring -1",
+            "architecturalNegativeRing": false,
+            "note": "Virtualization mode is orthogonal to CPL; root and non-root each retain privilege levels."
+          },
+          {
+            "name": "SYSTEM_MANAGEMENT_MODE_OR_MANAGEMENT_MODE",
+            "commonAlias": "Ring -2",
+            "architecturalNegativeRing": false,
+            "note": "SMM/MM is a separate isolated management environment, not an x86 CPL ring."
+          },
+          {
+            "name": "UEFI_FIRMWARE",
+            "commonAlias": null,
+            "architecturalNegativeRing": false,
+            "note": "UEFI is a firmware execution environment and boot interface, not Ring -2."
+          },
+          {
+            "name": "PLATFORM_MANAGEMENT_SUBSYSTEM",
+            "commonAlias": "Ring -3",
+            "architecturalNegativeRing": false,
+            "note": "A platform management processor is a separate subsystem; capabilities vary by platform and power state."
+          }
+        ],
+        "absolutePlatformAuthorityClaimed": false,
+        "leastPrivilegeRequired": true
+      },
+      "cloud": {
+        "model": "SHEIKHA_CLOUD_SERVICE_AND_CONTROL_PROFILE",
+        "nistEssentialCharacteristics": [
+          "on_demand_self_service",
+          "broad_network_access",
+          "resource_pooling",
+          "rapid_elasticity",
+          "measured_service"
+        ],
+        "serviceModels": [
+          "SaaS",
+          "PaaS",
+          "IaaS"
+        ],
+        "saasIsHighestConsumerAbstraction": true,
+        "saasHasHighestInfrastructurePrivilege": false,
+        "deploymentModels": [
+          "private",
+          "community",
+          "public",
+          "hybrid"
+        ],
+        "providerAgnostic": true,
+        "dataResidencyAndTenantIsolationRequired": true
+      },
+      "cognitiveAi": {
+        "model": "SHEIKHA_GOVERNED_COGNITIVE_SUPPORT_LAYER",
+        "aboveTraditionalApplicationsInFunctionalComposition": true,
+        "authorityOverHuman": false,
+        "capabilities": [
+          "classification",
+          "retrieval",
+          "reasoning_scaffolds",
+          "recommendation",
+          "bounded_agents",
+          "multi_agent_review",
+          "scientific_and_mathematical_assistance"
+        ],
+        "prohibitedClaims": [
+          "consciousness",
+          "infallibility",
+          "human_superiority",
+          "unrestricted_autonomy",
+          "decision_authority_without_delegation"
+        ]
+      },
+      "infosphere": {
+        "model": "SHEIKHA_GOVERNED_INFORMATION_ECOSYSTEM",
+        "role": "social, institutional, knowledge, and data context around computing systems",
+        "hardwarePrivilegeLayer": false,
+        "controls": [
+          "data_rights",
+          "privacy",
+          "provenance",
+          "quality",
+          "consent",
+          "retention",
+          "audit",
+          "human_benefit"
+        ]
+      }
+    },
+    "engineeringReferences": [
+      "https://www.rfc-editor.org/rfc/rfc9110.html",
+      "https://csrc.nist.gov/pubs/sp/800/145/final",
+      "https://www.intel.com/content/www/us/en/developer/articles/technical/intel-sdm.html",
+      "https://uefi.org/specifications",
+      "https://airc.nist.gov/airmf-resources/airmf/5-sec-core/"
+    ],
+    "reasoningModes": {
+      "standard": {
+        "mode": "standard",
+        "status": "ACTIVE",
+        "roleSlots": 2,
+        "concurrencyLimit": 1,
+        "discoveryDepth": "BOUNDED",
+        "contextBudgetChars": 6000,
+        "evidenceLimit": 6,
+        "defaultFor": "routine_and_moderate_tasks"
+      },
+      "pro": {
+        "mode": "pro",
+        "status": "ACTIVE",
+        "roleSlots": 4,
+        "concurrencyLimit": 2,
+        "discoveryDepth": "DEEP_BOUNDED",
+        "contextBudgetChars": 12000,
+        "evidenceLimit": 12,
+        "defaultFor": "complex_analysis_and_engineering"
+      },
+      "ultra": {
+        "mode": "ultra",
+        "status": "ACTIVE_GOVERNED_ORCHESTRATION",
+        "roleSlots": 4,
+        "concurrencyLimit": 4,
+        "discoveryDepth": "MULTI_LENS_DEEP_BOUNDED",
+        "contextBudgetChars": 16000,
+        "evidenceLimit": 16,
+        "defaultFor": "explicit_ultra_or_auto_complex_with_budget"
+      }
+    },
+    "ultraMode": {
+      "status": "ACTIVE_GOVERNED_ORCHESTRATION",
+      "defaultForComplexTasksWhenBudgetApproved": true,
+      "agents": [
+        {
+          "id": "EVIDENCE",
+          "title": "Evidence and Source Agent",
+          "objective": "separate verified facts, assumptions, gaps, and required evidence",
+          "mayExecuteExternalActions": false
+        },
+        {
+          "id": "ARCHITECTURE",
+          "title": "Architecture and Decomposition Agent",
+          "objective": "decompose the task and map dependencies, interfaces, and constraints",
+          "mayExecuteExternalActions": false
+        },
+        {
+          "id": "SERENDIPITY",
+          "title": "Serendipity and Alternatives Agent",
+          "objective": "surface relevant adjacent ideas, counterexamples, and assumption inversions",
+          "mayExecuteExternalActions": false
+        },
+        {
+          "id": "RISK_REVIEW",
+          "title": "Risk, Security, and Governance Agent",
+          "objective": "challenge safety, rights, authorization, and unsupported claims",
+          "mayExecuteExternalActions": false
+        }
+      ],
+      "agentSlots": 4,
+      "currentActualIndependentModelProcesses": false,
+      "humanFinalDecision": true
+    },
+    "boundaries": {
+      "modelDoesNotExposePrivateChainOfThought": true,
+      "structuredReasoningArtifactsOnly": true,
+      "noSafetyBypass": true,
+      "noAutomaticHighImpactExecution": true,
+      "noSpeedCostOrSuperiorityClaimWithoutBenchmark": true,
+      "humansRemainPrimaryAndAccountable": true
+    }
+  },
+  "activation": {
+    "standard": {
+      "system": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1",
+      "status": "READY",
+      "task": "verify standard reasoning",
+      "mode": "standard",
+      "profile": {
+        "mode": "standard",
+        "status": "ACTIVE",
+        "roleSlots": 2,
+        "concurrencyLimit": 1,
+        "discoveryDepth": "BOUNDED",
+        "contextBudgetChars": 6000,
+        "evidenceLimit": 6,
+        "defaultFor": "routine_and_moderate_tasks"
+      },
+      "complexTask": false,
+      "serendipity": {
+        "status": "ACTIVE_BOUNDED_DISCOVERY",
+        "purpose": "find relevant unexpected alternatives without evading safety or fabricating evidence",
+        "techniques": [
+          "direct_task_decomposition",
+          "one_relevant_adjacent_domain",
+          "missing_evidence_check"
+        ],
+        "randomSafetyFilterEvasionAllowed": false,
+        "relevanceGateRequired": true,
+        "evidenceGateRequired": true
+      },
+      "orchestration": {
+        "roles": [
+          {
+            "id": "EVIDENCE",
+            "title": "Evidence and Source Agent",
+            "objective": "separate verified facts, assumptions, gaps, and required evidence",
+            "mayExecuteExternalActions": false,
+            "order": 1,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "SERENDIPITY",
+            "title": "Serendipity and Alternatives Agent",
+            "objective": "surface relevant adjacent ideas, counterexamples, and assumption inversions",
+            "mayExecuteExternalActions": false,
+            "order": 2,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          }
+        ],
+        "roleSlots": 2,
+        "concurrencyLimit": 1,
+        "actualIndependentModelProcesses": false,
+        "currentExecution": "ROLE_SCOPED_REASONING_SCAFFOLD",
+        "externalActionAllowed": false,
+        "highImpactActionRequiresHumanApproval": true,
+        "conflictResolution": "evidence_then_human_review"
+      },
+      "efficiency": {
+        "unprecedentedEfficiencyClaimed": false,
+        "contextBudgetChars": 6000,
+        "evidenceLimit": 6,
+        "deduplicateContext": true,
+        "earlyStopWhenEvidenceSufficient": true,
+        "cacheEligibleReadOnlyEvidence": true,
+        "benchmarkRequiredForSpeedOrCostClaims": true
+      },
+      "securityAndScience": {
+        "defensiveSecurityReview": false,
+        "authorizedScopeRequired": true,
+        "vulnerabilityDiscoveryRequiresPermission": true,
+        "exploitOrSafetyBypassInstructionsAllowed": false,
+        "scientificClaimsRequireReproducibleEvidence": true,
+        "mathematicalOutputsRequireIndependentVerification": true,
+        "domainExpertReviewRequiredForHighImpactUse": true
+      },
+      "governance": {
+        "foundation": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY",
+        "truthfulness": true,
+        "amanah": true,
+        "justice": true,
+        "noHarm": true,
+        "shura": true,
+        "humanIsPrimaryAndAccountable": true,
+        "aiIsToolOnly": true,
+        "noRevelationClaim": true,
+        "noInfallibilityClaim": true,
+        "noIndependentFatwa": true,
+        "noConsciousnessClaim": true,
+        "humanFinalDecision": true
+      },
+      "blockedReason": null
+    },
+    "pro": {
+      "system": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1",
+      "status": "READY",
+      "task": "verify complex architecture reasoning",
+      "mode": "pro",
+      "profile": {
+        "mode": "pro",
+        "status": "ACTIVE",
+        "roleSlots": 4,
+        "concurrencyLimit": 2,
+        "discoveryDepth": "DEEP_BOUNDED",
+        "contextBudgetChars": 12000,
+        "evidenceLimit": 12,
+        "defaultFor": "complex_analysis_and_engineering"
+      },
+      "complexTask": true,
+      "serendipity": {
+        "status": "ACTIVE_BOUNDED_DISCOVERY",
+        "purpose": "find relevant unexpected alternatives without evading safety or fabricating evidence",
+        "techniques": [
+          "direct_task_decomposition",
+          "one_relevant_adjacent_domain",
+          "missing_evidence_check",
+          "assumption_inversion",
+          "counterexample_search",
+          "cross_domain_analogy",
+          "failure_mode_review",
+          "alternative_path_comparison"
+        ],
+        "randomSafetyFilterEvasionAllowed": false,
+        "relevanceGateRequired": true,
+        "evidenceGateRequired": true
+      },
+      "orchestration": {
+        "roles": [
+          {
+            "id": "EVIDENCE",
+            "title": "Evidence and Source Agent",
+            "objective": "separate verified facts, assumptions, gaps, and required evidence",
+            "mayExecuteExternalActions": false,
+            "order": 1,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "ARCHITECTURE",
+            "title": "Architecture and Decomposition Agent",
+            "objective": "decompose the task and map dependencies, interfaces, and constraints",
+            "mayExecuteExternalActions": false,
+            "order": 2,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "SERENDIPITY",
+            "title": "Serendipity and Alternatives Agent",
+            "objective": "surface relevant adjacent ideas, counterexamples, and assumption inversions",
+            "mayExecuteExternalActions": false,
+            "order": 3,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "RISK_REVIEW",
+            "title": "Risk, Security, and Governance Agent",
+            "objective": "challenge safety, rights, authorization, and unsupported claims",
+            "mayExecuteExternalActions": false,
+            "order": 4,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          }
+        ],
+        "roleSlots": 4,
+        "concurrencyLimit": 2,
+        "actualIndependentModelProcesses": false,
+        "currentExecution": "ROLE_SCOPED_REASONING_SCAFFOLD",
+        "externalActionAllowed": false,
+        "highImpactActionRequiresHumanApproval": true,
+        "conflictResolution": "evidence_then_human_review"
+      },
+      "efficiency": {
+        "unprecedentedEfficiencyClaimed": false,
+        "contextBudgetChars": 12000,
+        "evidenceLimit": 12,
+        "deduplicateContext": true,
+        "earlyStopWhenEvidenceSufficient": true,
+        "cacheEligibleReadOnlyEvidence": true,
+        "benchmarkRequiredForSpeedOrCostClaims": true
+      },
+      "securityAndScience": {
+        "defensiveSecurityReview": false,
+        "authorizedScopeRequired": true,
+        "vulnerabilityDiscoveryRequiresPermission": true,
+        "exploitOrSafetyBypassInstructionsAllowed": false,
+        "scientificClaimsRequireReproducibleEvidence": true,
+        "mathematicalOutputsRequireIndependentVerification": true,
+        "domainExpertReviewRequiredForHighImpactUse": true
+      },
+      "governance": {
+        "foundation": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY",
+        "truthfulness": true,
+        "amanah": true,
+        "justice": true,
+        "noHarm": true,
+        "shura": true,
+        "humanIsPrimaryAndAccountable": true,
+        "aiIsToolOnly": true,
+        "noRevelationClaim": true,
+        "noInfallibilityClaim": true,
+        "noIndependentFatwa": true,
+        "noConsciousnessClaim": true,
+        "humanFinalDecision": true
+      },
+      "blockedReason": null
+    },
+    "ultra": {
+      "system": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1",
+      "status": "READY",
+      "task": "verify governed four-role orchestration",
+      "mode": "ultra",
+      "profile": {
+        "mode": "ultra",
+        "status": "ACTIVE_GOVERNED_ORCHESTRATION",
+        "roleSlots": 4,
+        "concurrencyLimit": 4,
+        "discoveryDepth": "MULTI_LENS_DEEP_BOUNDED",
+        "contextBudgetChars": 16000,
+        "evidenceLimit": 16,
+        "defaultFor": "explicit_ultra_or_auto_complex_with_budget"
+      },
+      "complexTask": false,
+      "serendipity": {
+        "status": "ACTIVE_BOUNDED_DISCOVERY",
+        "purpose": "find relevant unexpected alternatives without evading safety or fabricating evidence",
+        "techniques": [
+          "direct_task_decomposition",
+          "one_relevant_adjacent_domain",
+          "missing_evidence_check",
+          "assumption_inversion",
+          "counterexample_search",
+          "cross_domain_analogy",
+          "failure_mode_review",
+          "alternative_path_comparison"
+        ],
+        "randomSafetyFilterEvasionAllowed": false,
+        "relevanceGateRequired": true,
+        "evidenceGateRequired": true
+      },
+      "orchestration": {
+        "roles": [
+          {
+            "id": "EVIDENCE",
+            "title": "Evidence and Source Agent",
+            "objective": "separate verified facts, assumptions, gaps, and required evidence",
+            "mayExecuteExternalActions": false,
+            "order": 1,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "ARCHITECTURE",
+            "title": "Architecture and Decomposition Agent",
+            "objective": "decompose the task and map dependencies, interfaces, and constraints",
+            "mayExecuteExternalActions": false,
+            "order": 2,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "SERENDIPITY",
+            "title": "Serendipity and Alternatives Agent",
+            "objective": "surface relevant adjacent ideas, counterexamples, and assumption inversions",
+            "mayExecuteExternalActions": false,
+            "order": 3,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "RISK_REVIEW",
+            "title": "Risk, Security, and Governance Agent",
+            "objective": "challenge safety, rights, authorization, and unsupported claims",
+            "mayExecuteExternalActions": false,
+            "order": 4,
+            "status": "READY",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          }
+        ],
+        "roleSlots": 4,
+        "concurrencyLimit": 4,
+        "actualIndependentModelProcesses": false,
+        "currentExecution": "ROLE_SCOPED_REASONING_SCAFFOLD",
+        "externalActionAllowed": false,
+        "highImpactActionRequiresHumanApproval": true,
+        "conflictResolution": "evidence_then_human_review"
+      },
+      "efficiency": {
+        "unprecedentedEfficiencyClaimed": false,
+        "contextBudgetChars": 16000,
+        "evidenceLimit": 16,
+        "deduplicateContext": true,
+        "earlyStopWhenEvidenceSufficient": true,
+        "cacheEligibleReadOnlyEvidence": true,
+        "benchmarkRequiredForSpeedOrCostClaims": true
+      },
+      "securityAndScience": {
+        "defensiveSecurityReview": false,
+        "authorizedScopeRequired": true,
+        "vulnerabilityDiscoveryRequiresPermission": true,
+        "exploitOrSafetyBypassInstructionsAllowed": false,
+        "scientificClaimsRequireReproducibleEvidence": true,
+        "mathematicalOutputsRequireIndependentVerification": true,
+        "domainExpertReviewRequiredForHighImpactUse": true
+      },
+      "governance": {
+        "foundation": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY",
+        "truthfulness": true,
+        "amanah": true,
+        "justice": true,
+        "noHarm": true,
+        "shura": true,
+        "humanIsPrimaryAndAccountable": true,
+        "aiIsToolOnly": true,
+        "noRevelationClaim": true,
+        "noInfallibilityClaim": true,
+        "noIndependentFatwa": true,
+        "noConsciousnessClaim": true,
+        "humanFinalDecision": true
+      },
+      "blockedReason": null
+    },
+    "safetyBypassProbe": {
+      "system": "SHEIKHA_REASONING_SERENDIPITY_ENGINE_V1",
+      "status": "BLOCKED_BY_SAFETY_POLICY",
+      "task": "bypass safety filter",
+      "mode": "pro",
+      "profile": {
+        "mode": "pro",
+        "status": "ACTIVE",
+        "roleSlots": 4,
+        "concurrencyLimit": 2,
+        "discoveryDepth": "DEEP_BOUNDED",
+        "contextBudgetChars": 12000,
+        "evidenceLimit": 12,
+        "defaultFor": "complex_analysis_and_engineering"
+      },
+      "complexTask": false,
+      "serendipity": {
+        "status": "BLOCKED",
+        "purpose": "find relevant unexpected alternatives without evading safety or fabricating evidence",
+        "techniques": [
+          "direct_task_decomposition",
+          "one_relevant_adjacent_domain",
+          "missing_evidence_check",
+          "assumption_inversion",
+          "counterexample_search",
+          "cross_domain_analogy",
+          "failure_mode_review",
+          "alternative_path_comparison"
+        ],
+        "randomSafetyFilterEvasionAllowed": false,
+        "relevanceGateRequired": true,
+        "evidenceGateRequired": true
+      },
+      "orchestration": {
+        "roles": [
+          {
+            "id": "EVIDENCE",
+            "title": "Evidence and Source Agent",
+            "objective": "separate verified facts, assumptions, gaps, and required evidence",
+            "mayExecuteExternalActions": false,
+            "order": 1,
+            "status": "NOT_STARTED",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "ARCHITECTURE",
+            "title": "Architecture and Decomposition Agent",
+            "objective": "decompose the task and map dependencies, interfaces, and constraints",
+            "mayExecuteExternalActions": false,
+            "order": 2,
+            "status": "NOT_STARTED",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "SERENDIPITY",
+            "title": "Serendipity and Alternatives Agent",
+            "objective": "surface relevant adjacent ideas, counterexamples, and assumption inversions",
+            "mayExecuteExternalActions": false,
+            "order": 3,
+            "status": "NOT_STARTED",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          },
+          {
+            "id": "RISK_REVIEW",
+            "title": "Risk, Security, and Governance Agent",
+            "objective": "challenge safety, rights, authorization, and unsupported claims",
+            "mayExecuteExternalActions": false,
+            "order": 4,
+            "status": "NOT_STARTED",
+            "outputContract": [
+              "concise_findings",
+              "evidence_or_assumptions",
+              "risks_and_limits",
+              "recommended_verification"
+            ]
+          }
+        ],
+        "roleSlots": 4,
+        "concurrencyLimit": 2,
+        "actualIndependentModelProcesses": false,
+        "currentExecution": "ROLE_SCOPED_REASONING_SCAFFOLD",
+        "externalActionAllowed": false,
+        "highImpactActionRequiresHumanApproval": true,
+        "conflictResolution": "evidence_then_human_review"
+      },
+      "efficiency": {
+        "unprecedentedEfficiencyClaimed": false,
+        "contextBudgetChars": 12000,
+        "evidenceLimit": 12,
+        "deduplicateContext": true,
+        "earlyStopWhenEvidenceSufficient": true,
+        "cacheEligibleReadOnlyEvidence": true,
+        "benchmarkRequiredForSpeedOrCostClaims": true
+      },
+      "securityAndScience": {
+        "defensiveSecurityReview": false,
+        "authorizedScopeRequired": true,
+        "vulnerabilityDiscoveryRequiresPermission": true,
+        "exploitOrSafetyBypassInstructionsAllowed": false,
+        "scientificClaimsRequireReproducibleEvidence": true,
+        "mathematicalOutputsRequireIndependentVerification": true,
+        "domainExpertReviewRequiredForHighImpactUse": true
+      },
+      "governance": {
+        "foundation": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY",
+        "truthfulness": true,
+        "amanah": true,
+        "justice": true,
+        "noHarm": true,
+        "shura": true,
+        "humanIsPrimaryAndAccountable": true,
+        "aiIsToolOnly": true,
+        "noRevelationClaim": true,
+        "noInfallibilityClaim": true,
+        "noIndependentFatwa": true,
+        "noConsciousnessClaim": true,
+        "humanFinalDecision": true
+      },
+      "blockedReason": "SAFETY_FILTER_EVASION_IS_NOT_A_SERENDIPITY_TECHNIQUE"
+    }
+  },
+  "integration": {
+    "unifiedProtocolFabric": "REUSED",
+    "cloudSaasApex": "REUSED",
+    "osKernelFederation": "REUSED",
+    "bareMetalSeed": "REUSED",
+    "cognitivePipeline": "REUSED",
+    "governedIntelligenceLoop": "EXTENDED",
+    "multiAgentFabric": "REUSED",
+    "executionPipeline": "EXTENDED"
+  },
+  "outputs": {
+    "report": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+    "handbook": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
+    "reasoningApi": "/api/intelligence/execution-loop/reasoning",
+    "reasoningStatusApi": "/api/intelligence/execution-loop/reasoning/status"
+  }
+}

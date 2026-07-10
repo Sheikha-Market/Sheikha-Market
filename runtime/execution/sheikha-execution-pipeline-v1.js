@@ -45,6 +45,10 @@ const cp = require('child_process');
 const fs = require('fs');
 const path = require('path');
 const modelExecutor = require('../model-cluster/sheikha-model-executor-v1');
+const {
+  formatReasoningResponse,
+  runReasoning
+} = require('../computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1');
 
 function safeExec(cmd, cwd) {
   try {
@@ -207,6 +211,8 @@ function buildContentReport(message, payload = {}) {
 const MODE_ALIASES = {
   agent: 'agentic',
   multi_agent: 'multi-agent',
+  professional: 'pro',
+  ultra_mode: 'ultra',
   agi: 'agi-research',
   asi: 'asi-research'
 };
@@ -219,6 +225,9 @@ function normalizeIntelligenceMode(mode) {
 function intentForMode(message, mode) {
   const modeIntents = {
     generative: 'GENERATIVE_AI',
+    standard: 'STANDARD_REASONING',
+    pro: 'PRO_REASONING',
+    ultra: 'ULTRA_GOVERNED_ORCHESTRATION',
     rag: 'RAG_LOOKUP',
     agentic: 'AGENTIC_PLAN',
     'multi-agent': 'MULTI_AGENT_COORDINATION',
@@ -614,6 +623,7 @@ function executePipeline(payload = {}) {
   const knownResolution = buildKnownToolResolution(message);
 
   let answer;
+  let reasoningResult;
 
   if (/^\s*شيخة\s*$/i.test(message) && intelligenceMode === 'smart') {
     answer = 'بسم الله الرحمن الرحيم\n\nأنا شيخة.\n\nما الذي تحتاج إليه من مساعدة أو عون؟';
@@ -640,6 +650,13 @@ function executePipeline(payload = {}) {
       '### مبدأ الهوية',
       'موحدة لله، ومنضبطة بالكتاب والسنة، بلا صور أرواح.'
     ].join('\n');
+  } else if (['standard', 'pro', 'ultra'].includes(intelligenceMode)) {
+    reasoningResult = runReasoning({
+      message,
+      mode: intelligenceMode,
+      ultraBudgetApproved: payload.ultraBudgetApproved === true
+    });
+    answer = formatReasoningResponse(reasoningResult);
   } else if (intelligenceMode === 'rag') {
     answer = buildGroundedRagAnswer(message, payload.conversationContext);
   } else if (intelligenceMode === 'agentic') {
@@ -692,6 +709,16 @@ function executePipeline(payload = {}) {
     pipeline: 'SHEIKHA_EXECUTION_PIPELINE_V1',
     intent,
     intelligenceMode,
+    reasoning: reasoningResult ? {
+      system: reasoningResult.system,
+      status: reasoningResult.status,
+      mode: reasoningResult.mode,
+      roleSlots: reasoningResult.orchestration.roleSlots,
+      actualIndependentModelProcesses:
+        reasoningResult.orchestration.actualIndependentModelProcesses,
+      humanFinalDecision: reasoningResult.governance.humanFinalDecision,
+      blockedReason: reasoningResult.blockedReason
+    } : undefined,
     claimStatus: {
       actualAgiReached: false,
       actualAsiReached: false,

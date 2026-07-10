@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T11:17:03.025Z",
+  "generatedAt": "2026-07-10T12:25:54.023Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,23 +26,23 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          2.51,
-          2.43,
-          1.94
+          2.77,
+          2.34,
+          1.92
         ]
       }
     },
     "memory": {
       "ok": true,
       "evidence": {
-        "totalMemoryBytes": 66875777024,
-        "freeMemoryBytes": 46638379008,
+        "totalMemoryBytes": 66875768832,
+        "freeMemoryBytes": 47011426304,
         "processMemory": {
-          "rss": 192905216,
-          "heapTotal": 56131584,
-          "heapUsed": 23477000,
-          "external": 31234129,
-          "arrayBuffers": 27289088
+          "rss": 193949696,
+          "heapTotal": 56111104,
+          "heapUsed": 31970464,
+          "external": 12359761,
+          "arrayBuffers": 8414720
         }
       }
     },
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 536031168,
-        "availableKb": 388482972,
+        "usedKb": 535888640,
+        "availableKb": 388625500,
         "usagePercent": "58%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -59,7 +59,7 @@
     "api": {
       "ok": true,
       "evidence": {
-        "uniqueEndpoints": 2687,
+        "uniqueEndpoints": 2689,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
           "ok": false,
@@ -216,13 +216,13 @@
     "systems": 433,
     "engines": 792,
     "layers": 25,
-    "apis": 2687,
+    "apis": 2689,
     "services": 0,
-    "tests": 340,
-    "docs": 1066,
+    "tests": 341,
+    "docs": 1067,
     "sdks": 80,
     "registries": 365,
-    "runtimeEngines": 1246,
+    "runtimeEngines": 1248,
     "identityEngines": 94,
     "governanceEngines": 521,
     "knowledgeEngines": 202,
@@ -234,10 +234,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 380,
+    "automationEngines": 381,
     "integrations": 346,
-    "packageScripts": 645,
-    "duplicateGroups": 1203,
+    "packageScripts": 646,
+    "duplicateGroups": 1204,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -254,12 +254,15 @@
     "jannatGardenFruits": 27,
     "jannatGardensScore": 100,
     "bareMetalBootArtifacts": 1,
-    "verifiedBareMetalBoots": 1
+    "verifiedBareMetalBoots": 1,
+    "computingCognitiveDomains": 7,
+    "reasoningModes": 3,
+    "ultraRoleSlots": 4
   },
   "indicators": {
-    "apiEndpoints": 2687,
-    "tests": 340,
-    "duplicateGroups": 1203,
+    "apiEndpoints": 2689,
+    "tests": 341,
+    "duplicateGroups": 1204,
     "githubRequired": false,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
@@ -279,7 +282,15 @@
     "qemuBareMetalBootExecuted": true,
     "bareMetalSerialMarkerVerified": true,
     "postFirmwareHandoffVerified": true,
-    "bareMetalFullyIndependentToday": true
+    "bareMetalFullyIndependentToday": true,
+    "computingCognitiveLayersActive": true,
+    "computingCognitiveLayersScore": 100,
+    "reasoningStandardActive": true,
+    "reasoningProActive": true,
+    "reasoningUltraRoleSlots": 4,
+    "reasoningActualIndependentModelProcesses": false,
+    "reasoningHumanFinalDecision": true,
+    "safetyFilterEvasionAllowed": false
   },
   "decisions": [
     "Use local-registry and local bundles as the operational source of truth.",
@@ -289,7 +300,11 @@
     "Do not claim fastest-world or fastest-universe performance without repeatable benchmark and truth-gate evidence.",
     "Treat the x86_64 UEFI/QEMU seed as verified bare-metal boot evidence only; it does not prove a complete general-purpose OS or physical-hardware qualification.",
     "Keep the highest Quran and Sunnah governance apex outside executable contracts and runtime links; lower layers carry written Sharia contracts only.",
-    "Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling."
+    "Render Jannat Sheikha as a worldly beauty metaphor only; never present it as an unseen Jannah representation or religious ruling.",
+    "Treat OSI Layer 7, SaaS, high-level languages, CPU privilege, virtualization, firmware, and platform management as distinct technical dimensions.",
+    "Treat Ring -1, Ring -2, and Ring -3 as informal aliases only; do not expose them as architectural x86 privilege rings.",
+    "Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.",
+    "Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls."
   ],
   "knowledge": {
     "identityEngines": {
