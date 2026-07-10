@@ -50,7 +50,9 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index',
       publicBenefitPolicy: '/api/governance/generator/public-benefit-policy',
       publicBenefitCoverage: '/api/governance/generator/public-benefit/coverage',
-      publicBenefitEvaluation: '/api/governance/generator/public-benefit/evaluate'
+      publicBenefitEvaluation: '/api/governance/generator/public-benefit/evaluate',
+      nativeLanguageArchitecture:
+        '/api/governance/generator/sheikha-language-architecture'
     },
     intelligenceModes: {
       runtime: [
@@ -110,7 +112,20 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       humanFinalDecision: true,
       statusEndpoint: '/api/governance/generator/public-benefit/coverage'
     },
+    nativeLanguageArchitecture: {
+      system: 'SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1',
+      status: 'FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED',
+      canonicalSource:
+        'sheikha-language/system/sheikha-sovereign-architecture-v1.shk',
+      compilerSelfHosted: false,
+      nativeTargetAvailable: false,
+      fullSystemPortedToSheikha: false,
+      currentPortalRequiresNode: true,
+      completionClaimAllowed: false,
+      statusEndpoint: '/api/governance/generator/sheikha-language-architecture'
+    },
     requiredPath: [
+      'NativeSheikhaLanguageArchitectureFoundation',
       'PublicBenefitCapabilityRouter',
       'DistributionReleaseApex',
       'ComputingCognitiveApex',

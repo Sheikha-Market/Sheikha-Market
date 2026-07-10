@@ -96,6 +96,12 @@ describe('Sheikha Enterprise Inspector V3', () => {
       .toBe('ACTIVE_GOVERNED_EVALUATION_ONLY');
     expect(snapshot.publicBenefitCapabilityRouter.coverage.policyCoverageActivatesComponents)
       .toBe(false);
+    expect(snapshot.surfaces.nativeLanguageArchitecture)
+      .toBe('/api/governance/generator/sheikha-language-architecture');
+    expect(snapshot.health.nativeLanguageArchitecture)
+      .toBe('FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED');
+    expect(snapshot.nativeLanguageArchitecture.completionGate.nativeMigrationComplete)
+      .toBe(false);
     expect(snapshot.architecture.flow).toContain('Governance Review');
     expect(snapshot.architecture.nodes).toContain('Streaming Multilingual Chat Apex');
     expect(snapshot.architecture.nodes).toContain('Cloud Production Deployment Apex');

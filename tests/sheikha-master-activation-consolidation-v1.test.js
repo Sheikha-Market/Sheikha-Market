@@ -51,6 +51,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.universalDistributionIntegrated).toBe(true);
     expect(report.checks.universalDistributionApexIntegrated).toBe(true);
     expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(true);
+    expect(report.checks.nativeLanguageArchitectureIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -92,6 +93,11 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       .toBe(report.summary.discoveredComponents);
     expect(report.executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities)
       .toBe(false);
+    expect(report.executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive)
+      .toBe(true);
+    expect(report.executiveDashboard.indicators.sheikhaCompilerSelfHosted).toBe(false);
+    expect(report.executiveDashboard.indicators.sheikhaNativeTargetAvailable).toBe(false);
+    expect(report.executiveDashboard.indicators.sheikhaFullNativeMigrationComplete).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
     expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningHumanFinalDecision).toBe(true);
@@ -153,6 +159,21 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       decisionGrantsAuthorization: false,
       automatedFatwaAllowed: false,
       humanFinalDecision: true
+    });
+    expect(report.nativeLanguageArchitecture).toMatchObject({
+      active: true,
+      status: 'FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED',
+      canonicalSource: 'sheikha-language/system/sheikha-sovereign-architecture-v1.shk',
+      foundationScore: 100,
+      compilerBootstrapRuntime: 'Node.js',
+      compilerSelfHosted: false,
+      nativeTargetAvailable: false,
+      fullSystemPortedToSheikha: false,
+      nativeMigrationComplete: false,
+      completionClaimAllowed: false,
+      blockers: expect.arrayContaining([
+        'SLA-05', 'SLA-06', 'SLA-07', 'SLA-08', 'SLA-09', 'SLA-10', 'SLA-11'
+      ])
     });
   });
 

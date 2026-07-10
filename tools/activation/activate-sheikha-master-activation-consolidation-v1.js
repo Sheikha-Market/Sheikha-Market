@@ -29,6 +29,8 @@ const distributionReportPath = 'runtime/distribution/v1/sheikha-universal-distri
 const distributionApexReportPath = 'runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json';
 const governanceGeneratorReportPath = 'runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json';
 const publicBenefitPolicyPath = 'runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json';
+const nativeLanguageArchitecturePath = 'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json';
+const nativeLanguageArchitectureHandbookPath = 'docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md';
 const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
@@ -1264,6 +1266,7 @@ function buildReport() {
   const distributionApex = safeReadJson(distributionApexReportPath);
   const governanceGenerator = safeReadJson(governanceGeneratorReportPath);
   const publicBenefitPolicy = safeReadJson(publicBenefitPolicyPath);
+  const nativeLanguageArchitecture = safeReadJson(nativeLanguageArchitecturePath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1311,6 +1314,10 @@ function buildReport() {
     governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0;
   finalExecutiveReport.counts.publicBenefitActiveCapabilities =
     governanceGenerator?.coverage?.currentlyActiveCapabilities || 0;
+  finalExecutiveReport.counts.sheikhaNativeImplementationSourceFiles =
+    nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0;
+  finalExecutiveReport.counts.sheikhaHostImplementationSourceFiles =
+    nativeLanguageArchitecture?.sourceInventory?.hostImplementationSourceFiles || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1332,6 +1339,9 @@ function buildReport() {
   finalExecutiveReport.evidence.universalDistributionApex = distributionApexReportPath;
   finalExecutiveReport.evidence.governanceGenerator = governanceGeneratorReportPath;
   finalExecutiveReport.evidence.publicBenefitCapabilityPolicy = publicBenefitPolicyPath;
+  finalExecutiveReport.evidence.nativeLanguageArchitecture = nativeLanguageArchitecturePath;
+  finalExecutiveReport.evidence.nativeLanguageArchitectureHandbook =
+    nativeLanguageArchitectureHandbookPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
@@ -1390,6 +1400,14 @@ function buildReport() {
     governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0;
   executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities =
     publicBenefitPolicy?.scope?.policyCoverageDoesNotActivateCapabilities !== true;
+  executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive =
+    nativeLanguageArchitecture?.foundationScore === 100;
+  executiveDashboard.indicators.sheikhaCompilerSelfHosted =
+    nativeLanguageArchitecture?.compiler?.selfHosted === true;
+  executiveDashboard.indicators.sheikhaNativeTargetAvailable =
+    nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === true;
+  executiveDashboard.indicators.sheikhaFullNativeMigrationComplete =
+    nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === true;
   executiveDashboard.indicators.reasoningStandardActive =
     computingCognitiveLayers?.activation?.standard?.status === 'READY';
   executiveDashboard.indicators.reasoningProActive =
@@ -1417,6 +1435,8 @@ function buildReport() {
     'Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.',
     'Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.',
     'Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.',
+    'Treat the canonical .shk architecture as a verified language foundation, not proof that the full platform, compiler, kernel, or services have been ported.',
+    'Require self-hosting, a native backend, standard library, kernel and service ports, host removal, and hardware qualification before any full Sheikha-only completion claim.',
     'Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries.'
   );
 
@@ -1488,6 +1508,19 @@ function buildReport() {
       publicBenefitPolicy?.valuesReference?.automatedFatwaAllowed === false &&
       publicBenefitPolicy?.execution?.automaticExecution === false &&
       publicBenefitPolicy?.execution?.decisionGrantsAuthorization === false,
+    nativeLanguageArchitectureIntegrated:
+      nativeLanguageArchitecture?.system === 'SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1' &&
+      nativeLanguageArchitecture?.status ===
+        'FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED' &&
+      nativeLanguageArchitecture?.foundationScore === 100 &&
+      nativeLanguageArchitecture?.checks?.typeCheckPassed === true &&
+      nativeLanguageArchitecture?.checks?.vmPassed === true &&
+      nativeLanguageArchitecture?.compiler?.selfHosted === false &&
+      nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === false &&
+      nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === false &&
+      nativeLanguageArchitecture?.completionGate?.allowedCompletionClaimToday === false &&
+      nativeLanguageArchitecture?.currentImplementationBoundary
+        ?.completeArchitectureProgrammedInSheikhaToday === false,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1526,6 +1559,8 @@ function buildReport() {
     distributionApexReportPath,
     governanceGeneratorReportPath,
     publicBenefitPolicyPath,
+    nativeLanguageArchitecturePath,
+    nativeLanguageArchitectureHandbookPath,
     distributionMatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
@@ -1612,6 +1647,20 @@ function buildReport() {
         governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0,
       publicBenefitCurrentlyActiveCapabilities:
         governanceGenerator?.coverage?.currentlyActiveCapabilities || 0,
+      nativeLanguageArchitectureFoundationActive:
+        nativeLanguageArchitecture?.foundationScore === 100,
+      sheikhaImplementationSourceFiles:
+        nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0,
+      sheikhaHostImplementationSourceFiles:
+        nativeLanguageArchitecture?.sourceInventory?.hostImplementationSourceFiles || 0,
+      sheikhaImplementationLineSharePercent:
+        nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationLineSharePercent || 0,
+      sheikhaCompilerSelfHosted:
+        nativeLanguageArchitecture?.compiler?.selfHosted === true,
+      sheikhaNativeTargetAvailable:
+        nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === true,
+      sheikhaFullNativeMigrationComplete:
+        nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === true,
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
       reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
@@ -1780,6 +1829,33 @@ function buildReport() {
         publicBenefitPolicy?.valuesReference?.automatedFatwaAllowed === true,
       humanFinalDecision: publicBenefitPolicy?.execution?.humanFinalDecision === true
     },
+    nativeLanguageArchitecture: {
+      active: nativeLanguageArchitecture?.foundationScore === 100,
+      reportPath: nativeLanguageArchitecturePath,
+      handbookPath: nativeLanguageArchitectureHandbookPath,
+      status: nativeLanguageArchitecture?.status || 'PENDING_REPORT_GENERATION',
+      canonicalSource: nativeLanguageArchitecture?.source?.path || null,
+      foundationScore: nativeLanguageArchitecture?.foundationScore || 0,
+      sheikhaImplementationSourceFiles:
+        nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0,
+      hostImplementationSourceFiles:
+        nativeLanguageArchitecture?.sourceInventory?.hostImplementationSourceFiles || 0,
+      sheikhaImplementationLineSharePercent:
+        nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationLineSharePercent || 0,
+      compilerBootstrapRuntime:
+        nativeLanguageArchitecture?.compiler?.bootstrapRuntime || 'UNKNOWN',
+      compilerSelfHosted: nativeLanguageArchitecture?.compiler?.selfHosted === true,
+      nativeTargetAvailable:
+        nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === true,
+      fullSystemPortedToSheikha:
+        nativeLanguageArchitecture?.currentImplementationBoundary
+          ?.allSystemsPortedToSheikhaToday === true,
+      nativeMigrationComplete:
+        nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === true,
+      completionClaimAllowed:
+        nativeLanguageArchitecture?.completionGate?.allowedCompletionClaimToday === true,
+      blockers: nativeLanguageArchitecture?.completionGate?.blockers || []
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1797,6 +1873,7 @@ function buildReport() {
       'Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.',
       'Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.',
       'Public Benefit Capability Routing covers the registered catalog with hard boundaries, evidence admission, specialist review, and no automatic execution.',
+      'Native Sheikha Language Architecture provides a compiled and VM-verified .shk foundation plus measured migration blockers without claiming a completed Sheikha-only system.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1881,6 +1958,15 @@ if (require.main === module) {
     publicBenefitRegisteredCapabilities: report.summary.publicBenefitRegisteredCapabilities,
     publicBenefitCurrentlyActiveCapabilities:
       report.summary.publicBenefitCurrentlyActiveCapabilities,
+    nativeLanguageArchitectureFoundationActive:
+      report.summary.nativeLanguageArchitectureFoundationActive,
+    sheikhaImplementationSourceFiles: report.summary.sheikhaImplementationSourceFiles,
+    sheikhaHostImplementationSourceFiles: report.summary.sheikhaHostImplementationSourceFiles,
+    sheikhaImplementationLineSharePercent:
+      report.summary.sheikhaImplementationLineSharePercent,
+    sheikhaCompilerSelfHosted: report.summary.sheikhaCompilerSelfHosted,
+    sheikhaNativeTargetAvailable: report.summary.sheikhaNativeTargetAvailable,
+    sheikhaFullNativeMigrationComplete: report.summary.sheikhaFullNativeMigrationComplete,
     reasoningModes: report.summary.reasoningModes,
     ultraRoleSlots: report.summary.ultraRoleSlots,
     reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,
@@ -1914,6 +2000,8 @@ if (require.main === module) {
       universalDistributionApex: distributionApexReportPath,
       governanceGenerator: governanceGeneratorReportPath,
       publicBenefitCapabilityPolicy: publicBenefitPolicyPath,
+      nativeLanguageArchitecture: nativeLanguageArchitecturePath,
+      nativeLanguageArchitectureHandbook: nativeLanguageArchitectureHandbookPath,
       universalDistributionMatrix: distributionMatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath

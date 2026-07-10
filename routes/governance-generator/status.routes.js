@@ -95,6 +95,13 @@ router.get('/public-benefit/coverage', (_req, res) => {
   return res.json(publicBenefitRouter.coverage());
 });
 
+router.get('/sheikha-language-architecture', (_req, res) => {
+  const languageArchitecture = readJson(
+    'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json'
+  );
+  return res.json({ success: true, languageArchitecture });
+});
+
 router.post('/public-benefit/evaluate', (req, res) => {
   return res.json(publicBenefitRouter.evaluate(req.body || {}));
 });

@@ -47,6 +47,7 @@
 - `/api/governance/generator/public-benefit-policy`
 - `/api/governance/generator/public-benefit/coverage`
 - `POST /api/governance/generator/public-benefit/evaluate`
+- `/api/governance/generator/sheikha-language-architecture`
 - `/api/governance/generator/questions`
 
 ولا حول ولا قوة إلا بالله.

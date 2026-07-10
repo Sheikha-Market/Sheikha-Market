@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-10T17:22:30.328Z",
+  "generatedAt": "2026-07-10T17:53:42.803Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -26,9 +26,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          2.89,
-          3,
-          2.61
+          1.21,
+          1.27,
+          1.72
         ]
       }
     },
@@ -36,13 +36,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875768832,
-        "freeMemoryBytes": 45807017984,
+        "freeMemoryBytes": 44279640064,
         "processMemory": {
-          "rss": 183894016,
-          "heapTotal": 56147968,
-          "heapUsed": 33027152,
-          "external": 24942855,
-          "arrayBuffers": 20997632
+          "rss": 222760960,
+          "heapTotal": 56422400,
+          "heapUsed": 35663480,
+          "external": 14457095,
+          "arrayBuffers": 10511872
         }
       }
     },
@@ -50,8 +50,8 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 539470928,
-        "availableKb": 385043212,
+        "usedKb": 540140748,
+        "availableKb": 384373392,
         "usagePercent": "59%",
         "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
       }
@@ -59,7 +59,7 @@
     "api": {
       "ok": true,
       "evidence": {
-        "uniqueEndpoints": 2696,
+        "uniqueEndpoints": 2697,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
           "ok": false,
@@ -210,16 +210,16 @@
     }
   },
   "markets": 439,
-  "projects": 434,
+  "projects": 435,
   "customers": 73,
   "capabilities": {
-    "systems": 434,
+    "systems": 435,
     "engines": 793,
     "layers": 25,
-    "apis": 2696,
+    "apis": 2697,
     "services": 0,
-    "tests": 343,
-    "docs": 1069,
+    "tests": 344,
+    "docs": 1070,
     "sdks": 80,
     "registries": 366,
     "runtimeEngines": 1259,
@@ -234,10 +234,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 382,
+    "automationEngines": 383,
     "integrations": 346,
-    "packageScripts": 656,
-    "duplicateGroups": 1206,
+    "packageScripts": 657,
+    "duplicateGroups": 1207,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -264,13 +264,15 @@
     "distributionTargetsVerified": 1,
     "distributionTargetsNativeVerified": 1,
     "distributionReleaseApexLevel": 27,
-    "publicBenefitRegisteredCapabilities": 7149,
-    "publicBenefitActiveCapabilities": 844
+    "publicBenefitRegisteredCapabilities": 7159,
+    "publicBenefitActiveCapabilities": 850,
+    "sheikhaNativeImplementationSourceFiles": 1,
+    "sheikhaHostImplementationSourceFiles": 12581
   },
   "indicators": {
-    "apiEndpoints": 2696,
-    "tests": 343,
-    "duplicateGroups": 1206,
+    "apiEndpoints": 2697,
+    "tests": 344,
+    "duplicateGroups": 1207,
     "githubRequired": false,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
@@ -305,8 +307,12 @@
     "distributionReleaseApexLevel": 27,
     "distributionReleaseApexRemoteBuildEndpointExposed": false,
     "publicBenefitCapabilityRoutingActive": true,
-    "publicBenefitRegisteredCapabilities": 7149,
+    "publicBenefitRegisteredCapabilities": 7159,
     "publicBenefitPolicyActivatesCapabilities": false,
+    "nativeLanguageArchitectureFoundationActive": true,
+    "sheikhaCompilerSelfHosted": false,
+    "sheikhaNativeTargetAvailable": false,
+    "sheikhaFullNativeMigrationComplete": false,
     "reasoningStandardActive": true,
     "reasoningProActive": true,
     "reasoningUltraRoleSlots": 4,
@@ -332,6 +338,8 @@
     "Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.",
     "Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.",
     "Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.",
+    "Treat the canonical .shk architecture as a verified language foundation, not proof that the full platform, compiler, kernel, or services have been ported.",
+    "Require self-hosting, a native backend, standard library, kernel and service ports, host removal, and hardware qualification before any full Sheikha-only completion claim.",
     "Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries."
   ],
   "knowledge": {

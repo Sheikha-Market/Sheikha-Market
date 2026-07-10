@@ -10,6 +10,9 @@ function buildIslamicAIKernel(input = {}) {
       quran: true,
       authenticSunnah: true,
       rightlyGuidedCaliphsGuidance: true,
+      divineJudgmentBelief: 'الحكم لله وحده',
+      valuesReferenceExecutable: false,
+      softwareRepresentsDivineAuthority: false,
       note: 'النظام أداة برمجية محكومة، لا يدعي الوحي ولا العصمة ولا يصدر الفتوى.'
     },
     governance: {
@@ -65,6 +68,7 @@ function buildIslamicAIKernel(input = {}) {
     },
     integration: {
       sheikhaLanguage: true,
+      sheikhaLanguageMode: 'CANONICAL_ARCHITECTURE_AND_GOVERNED_VM_FOUNDATION',
       os: true,
       cloud: true,
       hpc: true,
@@ -74,6 +78,19 @@ function buildIslamicAIKernel(input = {}) {
       capabilityRegistry: true,
       masterLog: true,
       executiveControlCenter: true
+    },
+    implementationBoundary: {
+      evidence: 'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
+      canonicalSheikhaArchitectureSource:
+        'sheikha-language/system/sheikha-sovereign-architecture-v1.shk',
+      currentPortalRuntime: 'NODE_JS_EXPRESS_PM2',
+      compilerBootstrapRuntime: 'Node.js',
+      bareMetalSeedLanguage: 'C',
+      compilerSelfHosted: false,
+      nativeCompilerBackendAvailable: false,
+      fullSystemPortedToSheikha: false,
+      fullGeneralPurposeBareMetalOsComplete: false,
+      completionClaimAllowed: false
     },
     executionCycle: [
       'request',
@@ -88,7 +105,7 @@ function buildIslamicAIKernel(input = {}) {
       'improvement'
     ],
     input,
-    decision: 'ISLAMIC_AI_KERNEL_READY_FOR_GOVERNED_INTEGRATION'
+    decision: 'ISLAMIC_AI_KERNEL_FOUNDATION_LINKED_NATIVE_MIGRATION_REQUIRED'
   };
 }
 

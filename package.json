@@ -151,6 +151,7 @@
     "ops:sheikha:lang:sprint3:run:live": "node sheikha-language/compiler/sheikha-runner.js sheikha-language/examples/orchestration.shk --engine compiled --live --json sheikha-language/examples/orchestration.run.live.json --trace sheikha-language/examples/orchestration.trace.live.json --types sheikha-language/examples/orchestration.types.runtime.json",
     "ops:sheikha:lang:typecheck": "node sheikha-language/compiler/sheikha-compiler.js sheikha-language/examples/orchestration.shk --types sheikha-language/examples/orchestration.types.json",
     "ops:sheikha:lang:compiled:test": "node --test sheikha-language/compiler/tests/compiled-vm.test.js sheikha-language/compiler/tests/type-checker.test.js sheikha-language/compiler/tests/unified-language.test.js",
+    "ops:sheikha:language-architecture:v1": "node tools/activation/activate-sheikha-native-language-architecture-v1.js",
     "dev:vscode:doctor": "node scripts/vscode-doctor.js",
     "ops:extension:release:plan": "npm --prefix sheikha-vscode-extension run -s release:plan",
     "ops:extension:release:apply": "npm --prefix sheikha-vscode-extension run -s release:apply",

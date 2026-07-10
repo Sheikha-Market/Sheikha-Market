@@ -1,0 +1,222 @@
+{
+  "system": "SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1",
+  "status": "FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED",
+  "generatedAt": "2026-07-10T17:50:07.519Z",
+  "foundationScore": 100,
+  "checks": {
+    "canonicalSourceIsSheikha": true,
+    "architectureEntitiesPresent": true,
+    "architectureProceduresPresent": true,
+    "typeCheckPassed": true,
+    "irGenerated": true,
+    "bytecodeGenerated": true,
+    "vmPassed": true,
+    "foundationMarkerEmitted": true,
+    "islamicAiGovernanceLinked": true,
+    "rootAuthorityEvidencePresent": true,
+    "bareMetalContractsPresent": true,
+    "publicBenefitBoundaryLinked": true
+  },
+  "source": {
+    "path": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
+    "language": "sheikha",
+    "kind": "shk",
+    "entities": [
+      "مرجعية_القيم_العليا",
+      "الحوكمة_الإسلامية",
+      "الذكاء_الصناعي_المحكوم",
+      "لغة_شيخة_الأساسية",
+      "نواة_شيخة_الأصلية",
+      "معمارية_شيخة_الكاملة",
+      "بوابة_التحول_الكامل"
+    ],
+    "procedures": [
+      "تحقق_المرجعية",
+      "تحقق_الاكتمال",
+      "تشغيل_المعمارية"
+    ]
+  },
+  "compiler": {
+    "bootstrapRuntime": "Node.js",
+    "supportedTargets": [
+      "php",
+      "javascript",
+      "python",
+      "json-ir",
+      "bytecode"
+    ],
+    "selfHosted": false,
+    "nativeTargetAvailable": false,
+    "typeCheckPassed": true,
+    "irSteps": 60,
+    "bytecodeInstructions": 60,
+    "vmStatus": "passed",
+    "governanceViolations": 0
+  },
+  "sourceInventory": {
+    "codeFiles": 12975,
+    "implementationSourceFiles": 12582,
+    "sheikhaSourceFiles": 8,
+    "sheikhaImplementationSourceFiles": 1,
+    "sheikhaExampleAndDocumentationFiles": 7,
+    "hostImplementationSourceFiles": 12581,
+    "nativeKernelCHeaderFiles": 7,
+    "compilerBootstrapJavaScriptFiles": 16,
+    "sheikhaImplementationLines": 64,
+    "hostImplementationLines": 3670807,
+    "implementationLines": 3670871,
+    "sheikhaImplementationFileSharePercent": 0.0079,
+    "sheikhaImplementationLineSharePercent": 0.0017,
+    "sheikhaSources": [
+      "docs/sheikha-production-language/examples/hello.sheikha",
+      "docs/sheikha-production-language/examples/network-design.sheikha",
+      "sheikha-lang/examples/full-activation.shk",
+      "sheikha-lang/examples/ultimate-activation.shk",
+      "sheikha-language/examples/market.shk",
+      "sheikha-language/examples/orchestration.shk",
+      "sheikha-language/examples/python-bridge.shk",
+      "sheikha-language/system/sheikha-sovereign-architecture-v1.shk"
+    ],
+    "sheikhaImplementationSources": [
+      "sheikha-language/system/sheikha-sovereign-architecture-v1.shk"
+    ],
+    "nativeKernelSources": [
+      "bare-metal/boot/uefi/sheikha_uefi_entry.c",
+      "bare-metal/drivers/serial/sheikha_serial.c",
+      "bare-metal/drivers/serial/sheikha_serial.h",
+      "bare-metal/include/sheikha_uefi.h",
+      "bare-metal/kernel/entry/sheikha_kernel.c",
+      "bare-metal/kernel/entry/sheikha_kernel.h",
+      "bare-metal/kernel/sheikha_native_seed.c"
+    ],
+    "compilerBootstrapSources": [
+      "sheikha-language/compiler/bytecode-vm.js",
+      "sheikha-language/compiler/bytecode.js",
+      "sheikha-language/compiler/governance.js",
+      "sheikha-language/compiler/ir.js",
+      "sheikha-language/compiler/language-registry.js",
+      "sheikha-language/compiler/lexer.js",
+      "sheikha-language/compiler/parser.js",
+      "sheikha-language/compiler/policy-signatures-cli.js",
+      "sheikha-language/compiler/policy-signatures.js",
+      "sheikha-language/compiler/sandbox-policy.js",
+      "sheikha-language/compiler/sheikha-compiler.js",
+      "sheikha-language/compiler/sheikha-runner.js",
+      "sheikha-language/compiler/source-loader.js",
+      "sheikha-language/compiler/target-generators.js",
+      "sheikha-language/compiler/type-checker.js",
+      "sheikha-language/compiler/vm.js"
+    ]
+  },
+  "currentImplementationBoundary": {
+    "valuesReference": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_NON_EXECUTABLE_REFERENCE",
+    "softwareIsReligiousAuthority": false,
+    "aiRole": "GOVERNED_ANALYSIS_AND_ASSISTANCE_ONLY",
+    "automatedFatwaAllowed": false,
+    "currentPortalRuntime": "NODE_JS_EXPRESS_PM2",
+    "compilerRequiresNodeToday": true,
+    "bareMetalSeedImplementation": "C_UEFI_X86_64",
+    "linuxRequiredForPortalRuntimeToday": true,
+    "completeArchitectureProgrammedInSheikhaToday": false,
+    "allSystemsPortedToSheikhaToday": false,
+    "fullGeneralPurposeBareMetalOsCompleteToday": false,
+    "physicalHardwareQualificationCompleteToday": false
+  },
+  "migrationStages": [
+    {
+      "id": "SLA-01",
+      "stage": "canonical_sheikha_architecture_source",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "SLA-02",
+      "stage": "lexer_parser_types_ir_bytecode",
+      "status": "VERIFIED_NODE_BOOTSTRAPPED"
+    },
+    {
+      "id": "SLA-03",
+      "stage": "governed_compiled_vm",
+      "status": "VERIFIED_NODE_BOOTSTRAPPED"
+    },
+    {
+      "id": "SLA-04",
+      "stage": "semantic_manifest_language_adapters",
+      "status": "VERIFIED_HOST_BRIDGE"
+    },
+    {
+      "id": "SLA-05",
+      "stage": "self_hosted_sheikha_compiler",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "SLA-06",
+      "stage": "native_machine_code_or_uefi_backend",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "SLA-07",
+      "stage": "native_standard_library_and_hal",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "SLA-08",
+      "stage": "kernel_and_driver_port_to_sheikha",
+      "status": "NOT_IMPLEMENTED"
+    },
+    {
+      "id": "SLA-09",
+      "stage": "core_service_port_to_sheikha",
+      "status": "NOT_STARTED"
+    },
+    {
+      "id": "SLA-10",
+      "stage": "node_linux_host_removal_from_kernel_path",
+      "status": "NOT_READY"
+    },
+    {
+      "id": "SLA-11",
+      "stage": "physical_hardware_and_multi_arch_qualification",
+      "status": "NOT_COMPLETE"
+    }
+  ],
+  "completionGate": {
+    "nativeMigrationComplete": false,
+    "allowedCompletionClaimToday": false,
+    "blockers": [
+      "SLA-05",
+      "SLA-06",
+      "SLA-07",
+      "SLA-08",
+      "SLA-09",
+      "SLA-10",
+      "SLA-11"
+    ],
+    "requiredForCompletion": [
+      "self_hosted_sheikha_compiler",
+      "native_machine_code_backend",
+      "native_standard_library_and_hal",
+      "kernel_and_driver_port",
+      "core_service_port",
+      "remove_node_linux_from_kernel_path",
+      "physical_hardware_and_multi_arch_qualification"
+    ]
+  },
+  "governance": {
+    "divineJudgmentBelief": "الحكم لله وحده",
+    "valuesReferenceExecutable": false,
+    "systemClaimsDivineAuthority": false,
+    "noRevelationOrInfallibilityClaim": true,
+    "noAutomatedFatwa": true,
+    "qualifiedScholarReviewForReligiousRulings": true,
+    "evidenceBeforeTechnicalClaim": true,
+    "noHarm": true,
+    "humanFinalDecisionForHighImpact": true
+  },
+  "evidence": {
+    "ast": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json",
+    "ir": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ir.json",
+    "types": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.types.json",
+    "bytecode": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.bytecode.json",
+    "run": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.run.json"
+  }
+}
