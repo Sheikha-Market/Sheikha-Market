@@ -136,7 +136,11 @@ function status() {
     status: 'ACTIVE',
     arabicName: 'قمة جاهزية النشر السحابي الإنتاجي المحكوم في شيخة',
     level: 'L22_GOVERNED_CLOUD_PRODUCTION_DEPLOYMENT_APEX_LAYER',
-    position: 'ABOVE_STREAMING_CHAT_APEX_GLOBAL_CONTROL_PLANE_AND_CLOUD_SAAS_APEX',
+    position: 'UNDER_COMPUTING_COGNITIVE_APEX_ABOVE_STREAMING_CHAT_GLOBAL_CONTROL_AND_CLOUD_SAAS_APEXES',
+    governedBy: [
+      'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
+      'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1'
+    ],
     basedOn: [
       global.system,
       cloud.system,

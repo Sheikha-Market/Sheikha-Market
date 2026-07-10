@@ -41,6 +41,16 @@ function buildReport() {
     governedIntelligenceLoop: exists('runtime/governed-intelligence-execution-loop/v1/sheikha-governed-intelligence-execution-loop-v1-report.json'),
     multiAgentFabric: exists('runtime/multi-agent-federation-fabric/v88/sheikha-multi-agent-federation-fabric-v88.js'),
     executionPipeline: exists('runtime/execution/sheikha-execution-pipeline-v1.js'),
+    promotedToL24: model.apexLevel === 24 &&
+      model.level === 'L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER',
+    highestExecutableTechnicalLayer:
+      model.apexPromotion.highestExecutableTechnicalLayer === true,
+    normativeReferenceRemainsNonExecutable:
+      model.apexPromotion.normativeReferenceLayerExecutable === false,
+    covenantGovernanceGateRequired:
+      model.apexPromotion.covenantGovernanceGateRequired === true,
+    promotionDoesNotEscalatePrivilege:
+      model.apexPromotion.noPrivilegeEscalationByLayerPromotion === true,
     networkModelComplete: model.domains.network.presentationOrder.length === 7,
     cpuModelCorrected: model.domains.cpuProtection.orthogonalExecutionDomains
       .every((domain) => domain.architecturalNegativeRing === false),
@@ -72,6 +82,19 @@ function buildReport() {
       ultra,
       safetyBypassProbe: bypass
     },
+    promotion: {
+      level: model.level,
+      apexLevel: model.apexLevel,
+      position: model.position,
+      highestExecutableTechnicalLayer:
+        model.apexPromotion.highestExecutableTechnicalLayer,
+      normativeReferenceLayerExecutable:
+        model.apexPromotion.normativeReferenceLayerExecutable,
+      governedLowerLayers: model.apexPromotion.governedLowerLayers,
+      executionOrder: model.apexPromotion.executionOrder,
+      humanAuthorityAboveAutomation:
+        model.apexPromotion.humanAuthorityAboveAutomation
+    },
     integration: {
       unifiedProtocolFabric: 'REUSED',
       cloudSaasApex: 'REUSED',
@@ -85,6 +108,7 @@ function buildReport() {
     outputs: {
       report: reportPath,
       handbook: handbookPath,
+      apexStatusApi: '/api/intelligence/execution-loop/apex/status',
       reasoningApi: '/api/intelligence/execution-loop/reasoning',
       reasoningStatusApi: '/api/intelligence/execution-loop/reasoning/status'
     }
@@ -105,6 +129,13 @@ function buildHandbook(report) {
     '- Religious questions require qualified scholar review.',
     '- High-impact technical decisions require accountable human approval.',
     '- AI is an advisory and bounded orchestration tool; humans remain primary.',
+    '',
+    '## Apex Promotion',
+    '',
+    '- Level: ' + report.promotion.level,
+    '- Position: highest executable technical and cognitive layer under the non-executable values reference and covenant governance gate.',
+    '- L24 governs the L23 extension stream, the parallel L22 deployment plane, L21 multilingual stream, and L20 technical capability apex.',
+    '- Promotion changes architectural placement only; it grants no automatic privilege, external action, or authority over humans.',
     '',
     '## Corrected Layer Model',
     '',
@@ -163,6 +194,8 @@ if (require.main === module) {
     ultraRoles: report.activation.ultra.orchestration.roleSlots,
     safetyBypassProbe: report.activation.safetyBypassProbe.status,
     humanFinalDecision: report.model.ultraMode.humanFinalDecision,
+    apexLevel: report.promotion.apexLevel,
+    highestExecutableTechnicalLayer: report.promotion.highestExecutableTechnicalLayer,
     outputs: report.outputs
   }, null, 2));
 }

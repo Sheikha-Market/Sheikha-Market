@@ -21,6 +21,8 @@ describe('Sheikha Cloud Production Deployment Apex V1', () => {
     expect(result.level).toContain('L22');
     expect(result.decision).toBe('CLOUD_PRODUCTION_DEPLOYMENT_APEX_V1_ACTIVE_100');
     expect(result.score).toBe(100);
+    expect(result.position).toContain('UNDER_COMPUTING_COGNITIVE_APEX');
+    expect(result.governedBy).toContain('SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1');
     expect(result.basedOn).toEqual(expect.arrayContaining([
       'SHEIKHA_GLOBAL_CONTROL_PLANE_V1',
       'SHEIKHA_CLOUD_SAAS_APEX_V1',

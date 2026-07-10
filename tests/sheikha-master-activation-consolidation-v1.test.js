@@ -70,6 +70,9 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.internalAttestations).toBeGreaterThan(0);
     expect(report.executiveDashboard.indicators.bareMetalFullyIndependentToday).toBe(true);
     expect(report.executiveDashboard.indicators.computingCognitiveLayersActive).toBe(true);
+    expect(report.executiveDashboard.indicators.computingCognitiveApexLevel).toBe(24);
+    expect(report.executiveDashboard.indicators.highestExecutableTechnicalLayer).toBe(true);
+    expect(report.executiveDashboard.indicators.normativeReferenceLayerExecutable).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningUltraRoleSlots).toBe(4);
     expect(report.executiveDashboard.indicators.reasoningActualIndependentModelProcesses).toBe(false);
     expect(report.executiveDashboard.indicators.reasoningHumanFinalDecision).toBe(true);
@@ -81,6 +84,10 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveReport.counts.reasoningModes).toBe(3);
     expect(report.computingCognitiveLayers).toMatchObject({
       score: 100,
+      apexLevel: 24,
+      highestExecutableTechnicalLayer: true,
+      normativeReferenceLayerExecutable: false,
+      humanAuthorityAboveAutomation: true,
       ultraRoleSlots: 4,
       actualIndependentModelProcesses: false,
       humanFinalDecision: true,

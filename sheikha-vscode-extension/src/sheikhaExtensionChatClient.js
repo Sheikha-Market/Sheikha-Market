@@ -18,6 +18,7 @@ const DEBUGGING_APEX_STATUS_ENDPOINT = '/api/sheikha/debugging-apex/v1/status';
 const CHAT_INTERFACE_APEX_STATUS_ENDPOINT = '/api/sheikha/chat-interface-apex/v1/status';
 const IDE_APEX_STATUS_ENDPOINT = '/api/sheikha/ide-apex/v1/status';
 const TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT = '/api/sheikha/technical-capability-apex/v1/status';
+const COMPUTING_COGNITIVE_APEX_STATUS_ENDPOINT = '/api/intelligence/execution-loop/apex/status';
 const STREAMING_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/status';
 const STREAMING_CHAT_APEX_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/stream';
 const AUTONOMOUS_CHAT_ENDPOINT = '/api/sheikha/chat/autonomous/v1';
@@ -438,6 +439,18 @@ async function getTechnicalCapabilityApexStatus(options = {}) {
   try {
     return await getJson(
       TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT,
+      options.baseUrl || DEFAULT_BASE_URL,
+      options.timeout || 15000
+    );
+  } catch (error) {
+    return { success: false, status: 'OFFLINE', error: error.message };
+  }
+}
+
+async function getComputingCognitiveApexStatus(options = {}) {
+  try {
+    return await getJson(
+      COMPUTING_COGNITIVE_APEX_STATUS_ENDPOINT,
       options.baseUrl || DEFAULT_BASE_URL,
       options.timeout || 15000
     );
@@ -893,6 +906,7 @@ module.exports = {
   CHAT_INTERFACE_APEX_STATUS_ENDPOINT,
   IDE_APEX_STATUS_ENDPOINT,
   TECHNICAL_CAPABILITY_APEX_STATUS_ENDPOINT,
+  COMPUTING_COGNITIVE_APEX_STATUS_ENDPOINT,
   STREAMING_CHAT_APEX_STATUS_ENDPOINT,
   STREAMING_CHAT_APEX_STREAM_ENDPOINT,
   EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT,
@@ -909,6 +923,7 @@ module.exports = {
   getChatInterfaceApexStatus,
   getIdeApexStatus,
   getTechnicalCapabilityApexStatus,
+  getComputingCognitiveApexStatus,
   getStreamingChatApexStatus,
   getExtensionStreamingArtifactApexStatus,
   buildLocalChatFallbackAnswer,

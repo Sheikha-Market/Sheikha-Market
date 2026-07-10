@@ -1288,6 +1288,8 @@ function buildReport() {
     computingCognitiveLayers?.model?.reasoningModes || {}
   ).length;
   finalExecutiveReport.counts.ultraRoleSlots = computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0;
+  finalExecutiveReport.counts.highestExecutableTechnicalApexLevel =
+    computingCognitiveLayers?.promotion?.apexLevel || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1336,6 +1338,12 @@ function buildReport() {
   executiveDashboard.indicators.computingCognitiveLayersActive =
     computingCognitiveLayers?.status === 'ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL';
   executiveDashboard.indicators.computingCognitiveLayersScore = computingCognitiveLayers?.score || 0;
+  executiveDashboard.indicators.computingCognitiveApexLevel =
+    computingCognitiveLayers?.promotion?.apexLevel || 0;
+  executiveDashboard.indicators.highestExecutableTechnicalLayer =
+    computingCognitiveLayers?.promotion?.highestExecutableTechnicalLayer === true;
+  executiveDashboard.indicators.normativeReferenceLayerExecutable =
+    computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === true;
   executiveDashboard.indicators.reasoningStandardActive =
     computingCognitiveLayers?.activation?.standard?.status === 'READY';
   executiveDashboard.indicators.reasoningProActive =
@@ -1357,7 +1365,8 @@ function buildReport() {
     'Treat OSI Layer 7, SaaS, high-level languages, CPU privilege, virtualization, firmware, and platform management as distinct technical dimensions.',
     'Treat Ring -1, Ring -2, and Ring -3 as informal aliases only; do not expose them as architectural x86 privilege rings.',
     'Keep AI advisory, bounded, evidence-gated, and subject to accountable human approval for high-impact decisions.',
-    'Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls.'
+    'Use serendipity for relevant alternative discovery only; never use it to bypass safety, authorization, or rights controls.',
+    'Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.'
   );
 
   const checks = {
@@ -1384,6 +1393,9 @@ function buildReport() {
     computingCognitiveLayersIntegrated:
       computingCognitiveLayers?.status === 'ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL' &&
       computingCognitiveLayers?.score === 100 &&
+      computingCognitiveLayers?.promotion?.apexLevel === 24 &&
+      computingCognitiveLayers?.promotion?.highestExecutableTechnicalLayer === true &&
+      computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === false &&
       computingCognitiveLayers?.model?.authority?.humanAccountableDecisionMaker === true &&
       computingCognitiveLayers?.activation?.safetyBypassProbe?.status === 'BLOCKED_BY_SAFETY_POLICY',
     documentationIndexBuilt: documentationIndex.count > 0,
@@ -1484,6 +1496,11 @@ function buildReport() {
       computingCognitiveLayersActive:
         computingCognitiveLayers?.status === 'ACTIVE_WITH_CORRECTED_TECHNICAL_MODEL',
       computingCognitiveLayersScore: computingCognitiveLayers?.score || 0,
+      computingCognitiveApexLevel: computingCognitiveLayers?.promotion?.apexLevel || 0,
+      highestExecutableTechnicalLayer:
+        computingCognitiveLayers?.promotion?.highestExecutableTechnicalLayer === true,
+      normativeReferenceLayerExecutable:
+        computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === true,
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
       reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
@@ -1569,6 +1586,15 @@ function buildReport() {
       handbookPath: computingCognitiveLayersHandbookPath,
       status: computingCognitiveLayers?.status || 'PENDING_REPORT_GENERATION',
       score: computingCognitiveLayers?.score || 0,
+      apexLevel: computingCognitiveLayers?.promotion?.apexLevel || 0,
+      level: computingCognitiveLayers?.promotion?.level || 'UNKNOWN',
+      position: computingCognitiveLayers?.promotion?.position || 'UNKNOWN',
+      highestExecutableTechnicalLayer:
+        computingCognitiveLayers?.promotion?.highestExecutableTechnicalLayer === true,
+      normativeReferenceLayerExecutable:
+        computingCognitiveLayers?.promotion?.normativeReferenceLayerExecutable === true,
+      humanAuthorityAboveAutomation:
+        computingCognitiveLayers?.promotion?.humanAuthorityAboveAutomation === true,
       domains: Object.keys(computingCognitiveLayers?.model?.domains || {}).length,
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
@@ -1590,6 +1616,7 @@ function buildReport() {
       'Native x86_64 UEFI seed is linked to QEMU serial evidence and cannot claim bare-metal completion without the post-ExitBootServices marker.',
       'Computing, cloud, CPU, cognitive, and information layers are consolidated with corrected technical dimensions and primary engineering references.',
       'Standard, Pro, and Ultra reasoning profiles are active with bounded serendipity, safety gates, and accountable human final decisions.',
+      'Computing Cognitive Layers is promoted to L24 above the L23 extension stream, parallel L22 deployment plane, L21 multilingual stream, and L20 technical capability apex.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1660,6 +1687,9 @@ if (require.main === module) {
     bareMetalFullyIndependentToday: report.summary.bareMetalFullyIndependentToday,
     computingCognitiveLayersActive: report.summary.computingCognitiveLayersActive,
     computingCognitiveLayersScore: report.summary.computingCognitiveLayersScore,
+    computingCognitiveApexLevel: report.summary.computingCognitiveApexLevel,
+    highestExecutableTechnicalLayer: report.summary.highestExecutableTechnicalLayer,
+    normativeReferenceLayerExecutable: report.summary.normativeReferenceLayerExecutable,
     reasoningModes: report.summary.reasoningModes,
     ultraRoleSlots: report.summary.ultraRoleSlots,
     reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,

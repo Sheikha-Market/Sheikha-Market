@@ -2,7 +2,34 @@
 
 const TECHNICAL_MODEL = Object.freeze({
   system: 'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
-  status: 'ACTIVE',
+  status: 'ACTIVE_AT_HIGHEST_EXECUTABLE_TECHNICAL_LAYER',
+  arabicName: 'قمة شيخة للحوسبة والإدراك المحكوم',
+  level: 'L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER',
+  apexLevel: 24,
+  position: 'UNDER_NON_EXECUTABLE_QURAN_SUNNAH_VALUES_REFERENCE_AND_COVENANT_GOVERNANCE_ABOVE_L23_L22_L21_L20',
+  apexPromotion: {
+    highestExecutableTechnicalLayer: true,
+    normativeReferenceLayerExecutable: false,
+    covenantGovernanceGateRequired: true,
+    humanAuthorityAboveAutomation: true,
+    noPrivilegeEscalationByLayerPromotion: true,
+    governedLowerLayers: [
+      { level: 23, system: 'SHEIKHA_EXTENSION_STREAMING_ARTIFACT_APEX_V1' },
+      { level: 22, system: 'SHEIKHA_CLOUD_PRODUCTION_DEPLOYMENT_APEX_V1', plane: 'PARALLEL_DEPLOYMENT_PLANE' },
+      { level: 21, system: 'SHEIKHA_STREAMING_MULTILINGUAL_CHAT_APEX_V1' },
+      { level: 20, system: 'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1' }
+    ],
+    executionOrder: [
+      'NON_EXECUTABLE_VALUES_REFERENCE',
+      'COVENANT_GOVERNANCE_ASSURANCE_GATE',
+      'L24_COMPUTING_COGNITIVE_APEX',
+      'L23_EXTENSION_STREAMING_ARTIFACT_APEX',
+      'L22_CLOUD_PRODUCTION_DEPLOYMENT_PARALLEL_PLANE',
+      'L21_STREAMING_MULTILINGUAL_CHAT_APEX',
+      'L20_TECHNICAL_CAPABILITY_APEX',
+      'ACCOUNTABLE_HUMAN_DECISION_AND_APPROVAL'
+    ]
+  },
   authority: {
     highestGovernanceReference: 'QURAN_AND_AUTHENTIC_SUNNAH_VALUES_BOUNDARY',
     technicalSystemIsReligiousAuthority: false,
@@ -437,6 +464,11 @@ function status() {
       noAutomaticHighImpactExecution: true,
       noSpeedCostOrSuperiorityClaimWithoutBenchmark: true,
       humansRemainPrimaryAndAccountable: true
+    },
+    apexRoutes: {
+      status: '/api/intelligence/execution-loop/apex/status',
+      reasoningStatus: '/api/intelligence/execution-loop/reasoning/status',
+      reasoning: '/api/intelligence/execution-loop/reasoning'
     }
   };
 }

@@ -11,6 +11,13 @@ Score: 100
 - High-impact technical decisions require accountable human approval.
 - AI is an advisory and bounded orchestration tool; humans remain primary.
 
+## Apex Promotion
+
+- Level: L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER
+- Position: highest executable technical and cognitive layer under the non-executable values reference and covenant governance gate.
+- L24 governs the L23 extension stream, the parallel L22 deployment plane, L21 multilingual stream, and L20 technical capability apex.
+- Promotion changes architectural placement only; it grants no automatic privilege, external action, or authority over humans.
+
 ## Corrected Layer Model
 
 - OSI Layer 7 is the top of the model presentation order, not the highest CPU privilege.

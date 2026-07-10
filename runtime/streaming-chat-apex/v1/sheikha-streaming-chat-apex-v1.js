@@ -83,13 +83,15 @@ function status() {
     status: 'ACTIVE',
     arabicName: 'قمة الشات المتدفق متعدد اللغات في شيخة',
     level: 'L21_HIGHEST_GOVERNED_STREAMING_MULTILINGUAL_CHAT_APEX_LAYER',
-    position: 'ABOVE_TECHNICAL_CAPABILITY_APEX_AND_CHAT_INTERFACE_APEX',
+    position: 'UNDER_COMPUTING_COGNITIVE_APEX_ABOVE_TECHNICAL_CAPABILITY_APEX_AND_CHAT_INTERFACE_APEX',
     governedBy: [
+      'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
       'SHEIKHA_COVENANT_GOVERNANCE_APEX_V1',
       'SHEIKHA_GOVERNANCE_OF_GOVERNANCE_V1',
       'SHEIKHA_TECHNICAL_CAPABILITY_APEX_V1'
     ],
     stack: {
+      computingCognitiveApex: 'SHEIKHA_COMPUTING_COGNITIVE_LAYERS_V1',
       streaming: 'SERVER_SENT_EVENTS_ACTIVE',
       websocketReadiness: 'READY_FOR_GOVERNED_ADAPTER',
       llmInferenceStreaming: 'SUPPORTED_WHEN_PROVIDER_IS_CONFIGURED',
@@ -121,6 +123,8 @@ function status() {
       extensionChat: '/api/sheikha/extension/chat'
     },
     chatApexOrder: [
+      'L24 Computing Cognitive Apex',
+      'L23 Extension Streaming Artifact Apex',
       'L21 Streaming Multilingual Chat Apex',
       'L20 Technical Capability Apex',
       'L19 IDE Apex',
