@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-10T00:02:21.190Z",
+  "generatedAt": "2026-07-10T02:13:23.557Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -26,8 +26,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "6e6633f7c",
-    "currentHead": "6e6633f7c",
+    "localRegistryHead": "60d358ebe",
+    "currentHead": "60d358ebe",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -3287,7 +3287,7 @@
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-10T00:02:20.592Z",
+    "generatedAt": "2026-07-10T02:13:23.010Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
     "componentCount": 7073,
@@ -7233,7 +7233,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-10T00:02:21.190Z",
+    "generatedAt": "2026-07-10T02:13:23.557Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -10748,7 +10748,7 @@
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-10T00:02:20.595Z",
+    "generatedAt": "2026-07-10T02:13:23.013Z",
     "nodes": [
       {
         "id": "APIs",
@@ -11214,7 +11214,7 @@
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-10T00:02:20.606Z",
+    "generatedAt": "2026-07-10T02:13:23.024Z",
     "policy": "REPORT_ONLY_NO_DELETION",
     "duplicateFilesCount": 1203,
     "duplicateServicesCount": 28,
@@ -12371,20 +12371,20 @@
           {
             "name": "sheikha-main-portal",
             "status": "online",
-            "cpu": 0.3,
-            "memory": 211570688
+            "cpu": 0.4,
+            "memory": 209440768
           },
           {
             "name": "sheikha-proxy-8082",
             "status": "online",
-            "cpu": 0.3,
-            "memory": 60489728
+            "cpu": 0.4,
+            "memory": 62042112
           },
           {
             "name": "sheikha-universal-api",
             "status": "online",
-            "cpu": 0,
-            "memory": 160366592
+            "cpu": 0.4,
+            "memory": 161738752
           },
           {
             "name": "sheikha-periodic-safety-gate-v1",
@@ -12438,7 +12438,7 @@
       "processes": {
         "ok": true,
         "evidence": {
-          "pid": 91552,
+          "pid": 233293,
           "node": "v22.22.2"
         }
       },
@@ -12447,9 +12447,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.26,
-            3.51,
-            2.85
+            3.28,
+            3.84,
+            3.4
           ]
         }
       },
@@ -12457,13 +12457,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 48370274304,
+          "freeMemoryBytes": 42037362688,
           "processMemory": {
-            "rss": 146767872,
+            "rss": 148295680,
             "heapTotal": 58765312,
-            "heapUsed": 32943800,
-            "external": 1876410,
-            "arrayBuffers": 134908
+            "heapUsed": 32142056,
+            "external": 1876494,
+            "arrayBuffers": 134992
           }
         }
       },
@@ -12471,8 +12471,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 535794724,
-          "availableKb": 388719416,
+          "usedKb": 535476032,
+          "availableKb": 389038108,
           "usagePercent": "58%",
           "mount": "/"
         }
@@ -12485,6 +12485,7 @@
           "tailscale0",
           "br-910d4d2065ee",
           "docker0",
+          "enx9cb150bea19e",
           "vetha33737b",
           "veth547ac69",
           "veth618a8d5",
@@ -12538,20 +12539,20 @@
         {
           "name": "sheikha-main-portal",
           "status": "online",
-          "cpu": 0.3,
-          "memory": 211570688
+          "cpu": 0.4,
+          "memory": 209440768
         },
         {
           "name": "sheikha-proxy-8082",
           "status": "online",
-          "cpu": 0.3,
-          "memory": 60489728
+          "cpu": 0.4,
+          "memory": 62042112
         },
         {
           "name": "sheikha-universal-api",
           "status": "online",
-          "cpu": 0,
-          "memory": 160366592
+          "cpu": 0.4,
+          "memory": 161738752
         },
         {
           "name": "sheikha-periodic-safety-gate-v1",
@@ -12810,9 +12811,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.26,
-            3.51,
-            2.85
+            3.28,
+            3.84,
+            3.4
           ]
         }
       },
@@ -12820,13 +12821,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 48369246208,
+          "freeMemoryBytes": 42037018624,
           "processMemory": {
-            "rss": 147128320,
+            "rss": 148295680,
             "heapTotal": 58765312,
-            "heapUsed": 33217800,
-            "external": 1876462,
-            "arrayBuffers": 134920
+            "heapUsed": 32420896,
+            "external": 1876546,
+            "arrayBuffers": 135004
           }
         }
       },
@@ -12834,8 +12835,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 535794724,
-          "availableKb": 388719416,
+          "usedKb": 535476032,
+          "availableKb": 389038108,
           "usagePercent": "58%",
           "mount": "/"
         }
@@ -12848,14 +12849,14 @@
             "endpoint": "http://127.0.0.1:8080/api/health",
             "ok": true,
             "statusCode": "200",
-            "latencyMs": 1
+            "latencyMs": 2
           }
         }
       },
       "latency": {
         "ok": true,
         "evidence": {
-          "healthLatencyMs": 1
+          "healthLatencyMs": 2
         }
       },
       "cache": {
@@ -13147,7 +13148,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-10T00:02:21.032Z",
+    "generatedAt": "2026-07-10T02:13:23.420Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -14003,7 +14004,7 @@
   },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-10T00:02:21.152Z",
+    "generatedAt": "2026-07-10T02:13:23.526Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -14028,9 +14029,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.26,
-            3.51,
-            2.85
+            3.28,
+            3.84,
+            3.4
           ]
         }
       },
@@ -14038,13 +14039,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875777024,
-          "freeMemoryBytes": 48369246208,
+          "freeMemoryBytes": 42037018624,
           "processMemory": {
-            "rss": 147128320,
+            "rss": 148295680,
             "heapTotal": 58765312,
-            "heapUsed": 33217800,
-            "external": 1876462,
-            "arrayBuffers": 134920
+            "heapUsed": 32420896,
+            "external": 1876546,
+            "arrayBuffers": 135004
           }
         }
       },
@@ -14052,8 +14053,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 535794724,
-          "availableKb": 388719416,
+          "usedKb": 535476032,
+          "availableKb": 389038108,
           "usagePercent": "58%",
           "mount": "/"
         }
@@ -14066,14 +14067,14 @@
             "endpoint": "http://127.0.0.1:8080/api/health",
             "ok": true,
             "statusCode": "200",
-            "latencyMs": 1
+            "latencyMs": 2
           }
         }
       },
       "latency": {
         "ok": true,
         "evidence": {
-          "healthLatencyMs": 1
+          "healthLatencyMs": 2
         }
       },
       "cache": {
@@ -14491,7 +14492,7 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-10T00:02:21.033Z",
+    "generatedAt": "2026-07-10T02:13:23.421Z",
     "count": 1050,
     "canonicalDocs": [
       "docs/canonical/README.md",
@@ -14781,7 +14782,7 @@
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-10T00:02:21.033Z",
+    "generatedAt": "2026-07-10T02:13:23.421Z",
     "githubDependency": false,
     "counts": {
       "systems": 433,
