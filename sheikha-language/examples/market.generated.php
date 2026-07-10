@@ -24,6 +24,12 @@ final class SheikhaGeneratedRule
       ],
       "ast_summary" => [
           "nodes" => 4,
+          "values_references" => [
+
+          ],
+          "governance_policies" => [
+
+          ],
           "procedures" => [
               [
                   "name" => "تحقق_شرعي",

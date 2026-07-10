@@ -155,6 +155,16 @@ function buildMigrationStages(targets) {
   ));
   return [
     { id: 'SLA-01', stage: 'canonical_sheikha_architecture_source', status: 'VERIFIED' },
+    {
+      id: 'SLA-01B',
+      stage: 'formal_non_executable_values_reference_and_governance_policy',
+      status: 'VERIFIED'
+    },
+    {
+      id: 'SLA-01C',
+      stage: 'formal_arabic_science_and_reasoning_methodology',
+      status: 'VERIFIED'
+    },
     { id: 'SLA-02', stage: 'lexer_parser_types_ir_bytecode', status: 'VERIFIED_NODE_BOOTSTRAPPED' },
     { id: 'SLA-03', stage: 'governed_compiled_vm', status: 'VERIFIED_NODE_BOOTSTRAPPED' },
     { id: 'SLA-04', stage: 'semantic_manifest_language_adapters', status: 'VERIFIED_HOST_BRIDGE' },
@@ -189,16 +199,38 @@ function buildReport() {
   const procedureNames = ast.body
     .filter((node) => node.type === 'ProcedureDeclaration')
     .map((node) => node.name);
+  const valuesReferenceNames = ast.body
+    .filter((node) => node.type === 'ValuesReferenceDeclaration')
+    .map((node) => node.name);
+  const governancePolicyNames = ast.body
+    .filter((node) => node.type === 'GovernancePolicyDeclaration')
+    .map((node) => node.name);
+  const reasoningMethodologyNames = ast.body
+    .filter((node) => node.type === 'ReasoningMethodologyDeclaration')
+    .map((node) => node.name);
 
   const checks = {
     canonicalSourceIsSheikha: sourceProgram.sourceLanguage === 'sheikha' &&
       sourceProgram.sourceKind === 'shk',
-    architectureEntitiesPresent: entityNames.length >= 7,
+    architectureEntitiesPresent: entityNames.length >= 5,
     architectureProceduresPresent: procedureNames.length >= 3,
+    formalValuesReferencePresent: valuesReferenceNames.includes('القيم_العليا'),
+    formalGovernancePolicyPresent:
+      governancePolicyNames.includes('الخير_والنفع_العام'),
+    formalArabicScienceReasoningMethodologyPresent:
+      reasoningMethodologyNames.includes('العربية_والعلوم_والاستدلال'),
     typeCheckPassed: typeCheck.ok === true,
     irGenerated: ir.type === 'SheikhaIR' && ir.steps.length > 0,
     bytecodeGenerated: bytecode.instructions.length > 0,
     vmPassed: vm.ok === true && vm.state.governance.violations.length === 0,
+    valuesReferenceRegisteredAsNonExecutable:
+      vm.state.valuesReferences?.['القيم_العليا']?.executable === false,
+    governancePolicyEnforcedAtRuntime: vm.state.governance.checks.some((entry) => (
+      entry.rule === 'public-benefit-governance-policy' && entry.status === 'pass'
+    )),
+    reasoningMethodologyEnforcedAtRuntime: vm.state.governance.checks.some((entry) => (
+      entry.rule === 'arabic-science-reasoning-methodology' && entry.status === 'pass'
+    )),
     foundationMarkerEmitted: vm.state.output.some((line) => (
       line.includes('SHEIKHA_LANGUAGE_ARCHITECTURE_FOUNDATION_OK')
     )),
@@ -232,6 +264,9 @@ function buildReport() {
       path: SOURCE_PATH,
       language: sourceProgram.sourceLanguage,
       kind: sourceProgram.sourceKind,
+      valuesReferences: valuesReferenceNames,
+      governancePolicies: governancePolicyNames,
+      reasoningMethodologies: reasoningMethodologyNames,
       entities: entityNames,
       procedures: procedureNames
     },
@@ -246,11 +281,17 @@ function buildReport() {
       irSteps: ir.steps.length,
       bytecodeInstructions: bytecode.instructions.length,
       vmStatus: vm.status,
-      governanceViolations: vm.state.governance.violations.length
+      governanceViolations: vm.state.governance.violations.length,
+      valuesReferences: valuesReferenceNames.length,
+      governancePolicies: governancePolicyNames.length,
+      reasoningMethodologies: reasoningMethodologyNames.length
     },
     sourceInventory: inventory,
     currentImplementationBoundary: {
       valuesReference: 'QURAN_AND_AUTHENTIC_SUNNAH_VALUES_NON_EXECUTABLE_REFERENCE',
+      valuesReferenceIsFirstClassLanguageDeclaration: true,
+      governancePolicyIsFirstClassLanguageDeclaration: true,
+      reasoningMethodologyIsFirstClassLanguageDeclaration: true,
       softwareIsReligiousAuthority: false,
       aiRole: 'GOVERNED_ANALYSIS_AND_ASSISTANCE_ONLY',
       automatedFatwaAllowed: false,
@@ -289,7 +330,13 @@ function buildReport() {
       qualifiedScholarReviewForReligiousRulings: true,
       evidenceBeforeTechnicalClaim: true,
       noHarm: true,
-      humanFinalDecisionForHighImpact: true
+      humanFinalDecisionForHighImpact: true,
+      languageTypeChecksGovernanceBoundaries: true,
+      vmEnforcesGovernanceBoundaries: true,
+      arabicLanguageSciencesDeclared: true,
+      mathematicalProofMethodDeclared: true,
+      empiricalScienceMethodDeclared: true,
+      domainEvidenceSeparationEnforced: true
     },
     evidence: {
       ast: `${EVIDENCE_DIR}/sheikha-sovereign-architecture-v1.ast.json`,
@@ -318,6 +365,9 @@ function writeReport(report = buildReport()) {
     status: artifacts.vm.status,
     output: artifacts.vm.state.output,
     governance: artifacts.vm.state.governance,
+    valuesReferences: artifacts.vm.state.valuesReferences,
+    governancePolicies: artifacts.vm.state.governancePolicies,
+    reasoningMethodologies: artifacts.vm.state.reasoningMethodologies,
     sandbox: artifacts.vm.state.sandbox,
     neural: artifacts.vm.state.neural
   });

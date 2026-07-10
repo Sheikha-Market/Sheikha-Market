@@ -80,3 +80,56 @@ test('market controls apply only to market and transaction entities', () => {
         violation.rule === 'market-controls-required'
     )));
 });
+
+test('compiled VM registers governance declarations as metadata and blocks unsafe variants', () => {
+    const validSource = fs.readFileSync(
+        path.resolve(__dirname, '../../system/sheikha-sovereign-architecture-v1.shk'),
+        'utf8'
+    );
+    const validResult = runBytecode(
+        compileIRToBytecode(lowerToIR(parse(lex(validSource)))),
+        { profile: 'local', strictIsolation: true }
+    );
+    assert.equal(validResult.ok, true);
+    assert.equal(validResult.state.valuesReferences['القيم_العليا'].executable, false);
+    assert.ok(validResult.state.governancePolicies['الخير_والنفع_العام']);
+    assert.ok(validResult.state.reasoningMethodologies['العربية_والعلوم_والاستدلال']);
+    assert.ok(validResult.state.governance.checks.some((entry) => (
+        entry.rule === 'non-executable-values-reference' && entry.status === 'pass'
+    )));
+    assert.ok(validResult.state.governance.checks.some((entry) => (
+        entry.rule === 'arabic-science-reasoning-methodology' && entry.status === 'pass'
+    )));
+
+    const unsafeSource = [
+        'مرجعية مرجعية_غير_آمنة:',
+        '  المصدر: مجهول',
+        '  الدور: تنفيذية',
+        '  السلطة_البرمجية: نعم',
+        '  الفتوى_الآلية: مسموحة',
+        '  المراجعة_الشرعية: آلية',
+        '  التحقق_من_المصادر: غير_مطلوب',
+        'منهج منهج_غير_موثق:',
+        '  لغة_البرمجة: غير_محددة',
+        '  علوم_العربية: النحو',
+        '  علوم_الاستدلال: المنطق',
+        '  منهج_الحساب: تخمين',
+        '  منهج_العلوم_التجريبية: رأي',
+        '  الاستدلال_الشرعي: آلي',
+        '  خلط_المجالات: مسموح',
+        '  بيان_الدليل_والثقة: غير_مطلوب',
+        '  الفتوى_الآلية: مسموحة',
+        '',
+    ].join('\n');
+    const unsafeResult = runBytecode(
+        compileIRToBytecode(lowerToIR(parse(lex(unsafeSource)))),
+        { profile: 'local', strictIsolation: true }
+    );
+    assert.equal(unsafeResult.ok, false);
+    assert.ok(unsafeResult.state.governance.violations.some((entry) => (
+        entry.rule === 'non-executable-values-reference'
+    )));
+    assert.ok(unsafeResult.state.governance.violations.some((entry) => (
+        entry.rule === 'arabic-science-reasoning-methodology'
+    )));
+});

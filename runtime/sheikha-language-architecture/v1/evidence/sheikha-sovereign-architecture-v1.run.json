@@ -11,6 +11,66 @@
   "governance": {
     "checks": [
       {
+        "rule": "non-executable-values-reference",
+        "status": "pass",
+        "detail": "المرجعية قيمية غير تنفيذية ولا تصدر فتوى آلية.",
+        "step": {
+          "op": "VALUES_REFERENCE_END",
+          "name": "القيم_العليا",
+          "loc": {
+            "start": {
+              "line": 3,
+              "column": 1
+            },
+            "end": {
+              "line": 13,
+              "column": 1
+            }
+          }
+        },
+        "ts": "2026-07-10T19:17:02.573Z"
+      },
+      {
+        "rule": "public-benefit-governance-policy",
+        "status": "pass",
+        "detail": "سياسة النفع تلتزم بالدليل ومنع الضرر والمراجعة البشرية.",
+        "step": {
+          "op": "GOVERNANCE_POLICY_END",
+          "name": "الخير_والنفع_العام",
+          "loc": {
+            "start": {
+              "line": 13,
+              "column": 1
+            },
+            "end": {
+              "line": 20,
+              "column": 1
+            }
+          }
+        },
+        "ts": "2026-07-10T19:17:02.573Z"
+      },
+      {
+        "rule": "arabic-science-reasoning-methodology",
+        "status": "pass",
+        "detail": "منهج العربية والحساب والعلوم والاستدلال موثق بحدود مجاله.",
+        "step": {
+          "op": "REASONING_METHODOLOGY_END",
+          "name": "العربية_والعلوم_والاستدلال",
+          "loc": {
+            "start": {
+              "line": 20,
+              "column": 1
+            },
+            "end": {
+              "line": 32,
+              "column": 1
+            }
+          }
+        },
+        "ts": "2026-07-10T19:17:02.573Z"
+      },
+      {
         "rule": "prohibited-financial-patterns",
         "status": "pass",
         "detail": "لا توجد عبارات ربا/غرر",
@@ -21,16 +81,16 @@
           "argument": "\"المرجعية القيمية من القرآن والسنة غير قابلة للتحويل إلى سلطة برمجية أو فتوى آلية\"",
           "loc": {
             "start": {
-              "line": 52,
+              "line": 68,
               "column": 3
             },
             "end": {
-              "line": 52,
+              "line": 68,
               "column": 90
             }
           }
         },
-        "ts": "2026-07-10T17:50:06.066Z"
+        "ts": "2026-07-10T19:17:02.573Z"
       },
       {
         "rule": "prohibited-financial-patterns",
@@ -43,16 +103,16 @@
           "argument": "\"الذكاء الصناعي أداة تحليل ومساعدة تحت الحوكمة والمراجعة البشرية\"",
           "loc": {
             "start": {
-              "line": 53,
+              "line": 69,
               "column": 3
             },
             "end": {
-              "line": 53,
+              "line": 69,
               "column": 73
             }
           }
         },
-        "ts": "2026-07-10T17:50:06.066Z"
+        "ts": "2026-07-10T19:17:02.573Z"
       },
       {
         "rule": "prohibited-financial-patterns",
@@ -65,16 +125,16 @@
           "argument": "\"حالة الاكتمال: غير مكتمل ولا يسمح بادعاء الاكتمال\"",
           "loc": {
             "start": {
-              "line": 57,
+              "line": 73,
               "column": 5
             },
             "end": {
-              "line": 57,
+              "line": 73,
               "column": 61
             }
           }
         },
-        "ts": "2026-07-10T17:50:06.066Z"
+        "ts": "2026-07-10T19:17:02.573Z"
       },
       {
         "rule": "prohibited-financial-patterns",
@@ -87,16 +147,16 @@
           "argument": "\"SHEIKHA_LANGUAGE_ARCHITECTURE_FOUNDATION_OK\"",
           "loc": {
             "start": {
-              "line": 62,
+              "line": 78,
               "column": 3
             },
             "end": {
-              "line": 62,
+              "line": 78,
               "column": 53
             }
           }
         },
-        "ts": "2026-07-10T17:50:06.066Z"
+        "ts": "2026-07-10T19:17:02.573Z"
       },
       {
         "rule": "prohibited-financial-patterns",
@@ -109,19 +169,57 @@
           "argument": "\"الهجرة الكاملة تستمر بالدليل والاختبار دون ادعاء سابق لأوانه\"",
           "loc": {
             "start": {
-              "line": 63,
+              "line": 79,
               "column": 3
             },
             "end": {
-              "line": 63,
+              "line": 79,
               "column": 70
             }
           }
         },
-        "ts": "2026-07-10T17:50:06.066Z"
+        "ts": "2026-07-10T19:17:02.573Z"
       }
     ],
     "violations": []
+  },
+  "valuesReferences": {
+    "القيم_العليا": {
+      "executable": false,
+      "properties": {
+        "المصدر": "القرآن_الكريم_والسنة_الصحيحة",
+        "الإيمان": "الحكم_لله_وحده",
+        "الدور": "قيم_وحدود_غير_تنفيذية",
+        "السلطة_البرمجية": "لا",
+        "الفتوى_الآلية": "ممنوعة",
+        "المراجعة_الشرعية": "أهل_العلم_المؤهلون",
+        "التحقق_من_المصادر": "واجب",
+        "منع": "ادعاء_الوحي، ادعاء_العصمة، الفتوى_الآلية، الإكراه"
+      }
+    }
+  },
+  "governancePolicies": {
+    "الخير_والنفع_العام": {
+      "يوجب": "الصدق، العدل، الأمانة، الدليل، الإحسان، الشورى، حفظ_الحقوق",
+      "يمنع": "الضرر، الظلم، الغش، الخداع، الإكراه، تجاوز_الخصوصية",
+      "القرار_العالي_الأثر": "مراجعة_بشرية_ملزمة",
+      "التنفيذ": "أقل_صلاحية_وموافقة_صريحة",
+      "البوابة": "الدليل_ثم_المراجعة_ثم_الإذن"
+    }
+  },
+  "reasoningMethodologies": {
+    "العربية_والعلوم_والاستدلال": {
+      "لغة_البرمجة": "العربية",
+      "علوم_العربية": "النحو، الصرف، البلاغة، البيان",
+      "علوم_الاستدلال": "المنطق، الحجة، البرهان، الاستدلال",
+      "منهج_الحساب": "تعريفات، مسلمات، برهان، اختبار",
+      "منهج_العلوم_التجريبية": "ملاحظة، قياس، تجربة، تكرار",
+      "الاستدلال_الشرعي": "القرآن_الكريم_والسنة_الصحيحة_مع_أهل_العلم",
+      "خلط_المجالات": "ممنوع",
+      "بيان_الدليل_والثقة": "واجب",
+      "الفتوى_الآلية": "ممنوعة",
+      "المقصد_المعلن": "الخير_والنفع_لله_وحده"
+    }
   },
   "sandbox": {
     "profile": "local",
@@ -157,152 +255,152 @@
         },
         {
           "id": "n2",
-          "label": "ENTITY_BEGIN",
+          "label": "VALUES_REFERENCE_BEGIN",
           "procedure": null
         },
         {
           "id": "n3",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n4",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n5",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n6",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n7",
-          "label": "ENTITY_END",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n8",
-          "label": "ENTITY_BEGIN",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n9",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n10",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_PROPERTY",
           "procedure": null
         },
         {
           "id": "n11",
-          "label": "ENTITY_PROPERTY",
+          "label": "VALUES_REFERENCE_END",
           "procedure": null
         },
         {
           "id": "n12",
-          "label": "ENTITY_PROPERTY",
+          "label": "GOVERNANCE_POLICY_BEGIN",
           "procedure": null
         },
         {
           "id": "n13",
-          "label": "ENTITY_PROPERTY",
+          "label": "GOVERNANCE_POLICY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n14",
-          "label": "ENTITY_END",
+          "label": "GOVERNANCE_POLICY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n15",
-          "label": "ENTITY_BEGIN",
+          "label": "GOVERNANCE_POLICY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n16",
-          "label": "ENTITY_PROPERTY",
+          "label": "GOVERNANCE_POLICY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n17",
-          "label": "ENTITY_PROPERTY",
+          "label": "GOVERNANCE_POLICY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n18",
-          "label": "ENTITY_PROPERTY",
+          "label": "GOVERNANCE_POLICY_END",
           "procedure": null
         },
         {
           "id": "n19",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_BEGIN",
           "procedure": null
         },
         {
           "id": "n20",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n21",
-          "label": "ENTITY_END",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n22",
-          "label": "ENTITY_BEGIN",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n23",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n24",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n25",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n26",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n27",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n28",
-          "label": "ENTITY_END",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n29",
-          "label": "ENTITY_BEGIN",
+          "label": "REASONING_METHODOLOGY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n30",
-          "label": "ENTITY_PROPERTY",
+          "label": "REASONING_METHODOLOGY_END",
           "procedure": null
         },
         {
           "id": "n31",
-          "label": "ENTITY_PROPERTY",
+          "label": "ENTITY_BEGIN",
           "procedure": null
         },
         {
@@ -322,22 +420,22 @@
         },
         {
           "id": "n35",
-          "label": "ENTITY_END",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n36",
-          "label": "ENTITY_BEGIN",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n37",
-          "label": "ENTITY_PROPERTY",
+          "label": "ENTITY_END",
           "procedure": null
         },
         {
           "id": "n38",
-          "label": "ENTITY_PROPERTY",
+          "label": "ENTITY_BEGIN",
           "procedure": null
         },
         {
@@ -352,12 +450,12 @@
         },
         {
           "id": "n41",
-          "label": "ENTITY_END",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n42",
-          "label": "ENTITY_BEGIN",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
@@ -367,12 +465,12 @@
         },
         {
           "id": "n44",
-          "label": "ENTITY_PROPERTY",
+          "label": "ENTITY_END",
           "procedure": null
         },
         {
           "id": "n45",
-          "label": "ENTITY_PROPERTY",
+          "label": "ENTITY_BEGIN",
           "procedure": null
         },
         {
@@ -392,61 +490,141 @@
         },
         {
           "id": "n49",
-          "label": "ENTITY_END",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n50",
-          "label": "PROCEDURE_BEGIN",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n51",
-          "label": "COMMAND",
-          "procedure": "تحقق_المرجعية"
+          "label": "ENTITY_END",
+          "procedure": null
         },
         {
           "id": "n52",
-          "label": "COMMAND",
-          "procedure": "تحقق_المرجعية"
+          "label": "ENTITY_BEGIN",
+          "procedure": null
         },
         {
           "id": "n53",
-          "label": "PROCEDURE_END",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n54",
-          "label": "PROCEDURE_BEGIN",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n55",
-          "label": "IF",
-          "procedure": "تحقق_الاكتمال"
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
         },
         {
           "id": "n56",
-          "label": "PROCEDURE_END",
+          "label": "ENTITY_PROPERTY",
           "procedure": null
         },
         {
           "id": "n57",
-          "label": "PROCEDURE_BEGIN",
+          "label": "ENTITY_END",
           "procedure": null
         },
         {
           "id": "n58",
-          "label": "COMMAND",
-          "procedure": "تشغيل_المعمارية"
+          "label": "ENTITY_BEGIN",
+          "procedure": null
         },
         {
           "id": "n59",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n60",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n61",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n62",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n63",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n64",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n65",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n66",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n67",
+          "label": "COMMAND",
+          "procedure": "تحقق_المرجعية"
+        },
+        {
+          "id": "n68",
+          "label": "COMMAND",
+          "procedure": "تحقق_المرجعية"
+        },
+        {
+          "id": "n69",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        },
+        {
+          "id": "n70",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n71",
+          "label": "IF",
+          "procedure": "تحقق_الاكتمال"
+        },
+        {
+          "id": "n72",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        },
+        {
+          "id": "n73",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n74",
           "label": "COMMAND",
           "procedure": "تشغيل_المعمارية"
         },
         {
-          "id": "n60",
+          "id": "n75",
+          "label": "COMMAND",
+          "procedure": "تشغيل_المعمارية"
+        },
+        {
+          "id": "n76",
           "label": "PROCEDURE_END",
           "procedure": null
         }
@@ -687,17 +865,88 @@
         {
           "from": "n59",
           "to": "n60"
+        },
+        {
+          "from": "n60",
+          "to": "n61"
+        },
+        {
+          "from": "n61",
+          "to": "n62"
+        },
+        {
+          "from": "n62",
+          "to": "n63"
+        },
+        {
+          "from": "n63",
+          "to": "n64"
+        },
+        {
+          "from": "n64",
+          "to": "n65"
+        },
+        {
+          "from": "n65",
+          "to": "n66"
+        },
+        {
+          "from": "n66",
+          "to": "n67"
+        },
+        {
+          "from": "n67",
+          "to": "n68"
+        },
+        {
+          "from": "n68",
+          "to": "n69"
+        },
+        {
+          "from": "n69",
+          "to": "n70"
+        },
+        {
+          "from": "n70",
+          "to": "n71"
+        },
+        {
+          "from": "n71",
+          "to": "n72"
+        },
+        {
+          "from": "n72",
+          "to": "n73"
+        },
+        {
+          "from": "n73",
+          "to": "n74"
+        },
+        {
+          "from": "n74",
+          "to": "n75"
+        },
+        {
+          "from": "n75",
+          "to": "n76"
         }
       ]
     },
-    "mesh": "SHEIKHA_RADICAL_NEURAL_MESH_V2",
+    "mesh": "SHEIKHA_GOVERNED_COMPILED_VM_V1",
     "layers": {
-      "quranic": 19,
-      "sunnah": 11,
-      "maqasid": 11,
-      "fiqh": 8,
-      "tawheed": 1,
-      "governance": 7
+      "lexer": true,
+      "parser": true,
+      "types": true,
+      "ir": true,
+      "bytecode": true,
+      "governance": true,
+      "sandbox": true
+    },
+    "valuesReference": {
+      "basis": "QURAN_AND_AUTHENTIC_SUNNAH",
+      "executable": false,
+      "automatedFatwaAllowed": false,
+      "religiousAuthorityClaimed": false
     },
     "mode": "compiled-bytecode-runtime"
   }

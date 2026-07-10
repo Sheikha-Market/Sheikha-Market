@@ -72,3 +72,28 @@ test('parses adapter commands from orchestration.shk', () => {
     assert.ok(commands.includes('PM2'));
     assert.ok(commands.includes('DOCKER'));
 });
+
+test('parses Arabic values references and governance policies as first-class declarations', () => {
+    const source = [
+        'مرجعية القيم:',
+        '  المصدر: القرآن_والسنة_الصحيحة',
+        'سياسة النفع:',
+        '  يوجب: الصدق، العدل',
+        'منهج العربية:',
+        '  لغة_البرمجة: العربية',
+        '',
+    ].join('\n');
+    const ast = parse(lex(source));
+
+    const reference = ast.body.find((entry) => entry.type === 'ValuesReferenceDeclaration');
+    const policy = ast.body.find((entry) => entry.type === 'GovernancePolicyDeclaration');
+    const methodology = ast.body.find((entry) => (
+        entry.type === 'ReasoningMethodologyDeclaration'
+    ));
+    assert.equal(reference.name, 'القيم');
+    assert.equal(reference.properties[0].key, 'المصدر');
+    assert.equal(policy.name, 'النفع');
+    assert.equal(policy.properties[0].key, 'يوجب');
+    assert.equal(methodology.name, 'العربية');
+    assert.equal(methodology.properties[0].key, 'لغة_البرمجة');
+});

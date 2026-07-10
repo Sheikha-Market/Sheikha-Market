@@ -66,6 +66,15 @@ function buildAstFromManifest(manifest, profile, displayPath) {
     const nextLoc = createLocFactory();
     const directives = Array.isArray(manifest.program?.directives) ? manifest.program.directives : [];
     const entities = Array.isArray(manifest.program?.entities) ? manifest.program.entities : [];
+    const valuesReferences = Array.isArray(manifest.program?.valuesReferences)
+        ? manifest.program.valuesReferences
+        : [];
+    const governancePolicies = Array.isArray(manifest.program?.governancePolicies)
+        ? manifest.program.governancePolicies
+        : [];
+    const reasoningMethodologies = Array.isArray(manifest.program?.reasoningMethodologies)
+        ? manifest.program.reasoningMethodologies
+        : [];
     const procedures = Array.isArray(manifest.program?.procedures) ? manifest.program.procedures : [];
 
     const body = [];
@@ -87,6 +96,33 @@ function buildAstFromManifest(manifest, profile, displayPath) {
         });
     }
 
+    for (const reference of valuesReferences) {
+        body.push(buildPropertyDeclaration(
+            'ValuesReferenceDeclaration',
+            reference,
+            'مرجعية_قيم',
+            nextLoc
+        ));
+    }
+
+    for (const policy of governancePolicies) {
+        body.push(buildPropertyDeclaration(
+            'GovernancePolicyDeclaration',
+            policy,
+            'سياسة_حوكمة',
+            nextLoc
+        ));
+    }
+
+    for (const methodology of reasoningMethodologies) {
+        body.push(buildPropertyDeclaration(
+            'ReasoningMethodologyDeclaration',
+            methodology,
+            'منهج_استدلال',
+            nextLoc
+        ));
+    }
+
     for (const procedure of procedures) {
         const procedureLoc = nextLoc();
         body.push({
@@ -102,6 +138,15 @@ function buildAstFromManifest(manifest, profile, displayPath) {
         body,
         loc: { start: { line: 1, column: 1 }, end: { line: body.length + 1, column: 1 } },
     }, profile, manifest.sourceFile || displayPath);
+}
+
+function buildPropertyDeclaration(type, descriptor, fallbackName, nextLoc) {
+    return {
+        type,
+        name: String(descriptor.name || fallbackName),
+        properties: normalizeProperties(descriptor.properties, nextLoc),
+        loc: nextLoc(),
+    };
 }
 
 function attachAstMeta(ast, profile, sourceFile) {

@@ -1,16 +1,22 @@
 {
   "system": "SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1",
   "status": "FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED",
-  "generatedAt": "2026-07-10T17:50:07.519Z",
+  "generatedAt": "2026-07-10T19:17:03.312Z",
   "foundationScore": 100,
   "checks": {
     "canonicalSourceIsSheikha": true,
     "architectureEntitiesPresent": true,
     "architectureProceduresPresent": true,
+    "formalValuesReferencePresent": true,
+    "formalGovernancePolicyPresent": true,
+    "formalArabicScienceReasoningMethodologyPresent": true,
     "typeCheckPassed": true,
     "irGenerated": true,
     "bytecodeGenerated": true,
     "vmPassed": true,
+    "valuesReferenceRegisteredAsNonExecutable": true,
+    "governancePolicyEnforcedAtRuntime": true,
+    "reasoningMethodologyEnforcedAtRuntime": true,
     "foundationMarkerEmitted": true,
     "islamicAiGovernanceLinked": true,
     "rootAuthorityEvidencePresent": true,
@@ -21,9 +27,16 @@
     "path": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
     "language": "sheikha",
     "kind": "shk",
+    "valuesReferences": [
+      "القيم_العليا"
+    ],
+    "governancePolicies": [
+      "الخير_والنفع_العام"
+    ],
+    "reasoningMethodologies": [
+      "العربية_والعلوم_والاستدلال"
+    ],
     "entities": [
-      "مرجعية_القيم_العليا",
-      "الحوكمة_الإسلامية",
       "الذكاء_الصناعي_المحكوم",
       "لغة_شيخة_الأساسية",
       "نواة_شيخة_الأصلية",
@@ -48,13 +61,16 @@
     "selfHosted": false,
     "nativeTargetAvailable": false,
     "typeCheckPassed": true,
-    "irSteps": 60,
-    "bytecodeInstructions": 60,
+    "irSteps": 76,
+    "bytecodeInstructions": 76,
     "vmStatus": "passed",
-    "governanceViolations": 0
+    "governanceViolations": 0,
+    "valuesReferences": 1,
+    "governancePolicies": 1,
+    "reasoningMethodologies": 1
   },
   "sourceInventory": {
-    "codeFiles": 12975,
+    "codeFiles": 12976,
     "implementationSourceFiles": 12582,
     "sheikhaSourceFiles": 8,
     "sheikhaImplementationSourceFiles": 1,
@@ -62,11 +78,11 @@
     "hostImplementationSourceFiles": 12581,
     "nativeKernelCHeaderFiles": 7,
     "compilerBootstrapJavaScriptFiles": 16,
-    "sheikhaImplementationLines": 64,
-    "hostImplementationLines": 3670807,
-    "implementationLines": 3670871,
+    "sheikhaImplementationLines": 80,
+    "hostImplementationLines": 3671549,
+    "implementationLines": 3671629,
     "sheikhaImplementationFileSharePercent": 0.0079,
-    "sheikhaImplementationLineSharePercent": 0.0017,
+    "sheikhaImplementationLineSharePercent": 0.0022,
     "sheikhaSources": [
       "docs/sheikha-production-language/examples/hello.sheikha",
       "docs/sheikha-production-language/examples/network-design.sheikha",
@@ -110,6 +126,9 @@
   },
   "currentImplementationBoundary": {
     "valuesReference": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_NON_EXECUTABLE_REFERENCE",
+    "valuesReferenceIsFirstClassLanguageDeclaration": true,
+    "governancePolicyIsFirstClassLanguageDeclaration": true,
+    "reasoningMethodologyIsFirstClassLanguageDeclaration": true,
     "softwareIsReligiousAuthority": false,
     "aiRole": "GOVERNED_ANALYSIS_AND_ASSISTANCE_ONLY",
     "automatedFatwaAllowed": false,
@@ -126,6 +145,16 @@
     {
       "id": "SLA-01",
       "stage": "canonical_sheikha_architecture_source",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "SLA-01B",
+      "stage": "formal_non_executable_values_reference_and_governance_policy",
+      "status": "VERIFIED"
+    },
+    {
+      "id": "SLA-01C",
+      "stage": "formal_arabic_science_and_reasoning_methodology",
       "status": "VERIFIED"
     },
     {
@@ -210,7 +239,13 @@
     "qualifiedScholarReviewForReligiousRulings": true,
     "evidenceBeforeTechnicalClaim": true,
     "noHarm": true,
-    "humanFinalDecisionForHighImpact": true
+    "humanFinalDecisionForHighImpact": true,
+    "languageTypeChecksGovernanceBoundaries": true,
+    "vmEnforcesGovernanceBoundaries": true,
+    "arabicLanguageSciencesDeclared": true,
+    "mathematicalProofMethodDeclared": true,
+    "empiricalScienceMethodDeclared": true,
+    "domainEvidenceSeparationEnforced": true
   },
   "evidence": {
     "ast": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json",

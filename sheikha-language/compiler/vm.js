@@ -31,6 +31,9 @@ function createState(options) {
 
     return {
         entities: {},
+        valuesReferences: {},
+        governancePolicies: {},
+        reasoningMethodologies: {},
         procedures: {},
         activeProcedure: null,
         directives: [],
@@ -58,6 +61,40 @@ function executeStep(state, step, options) {
     switch (step.op) {
     case 'DIRECTIVE':
         state.directives.push(step.name);
+        return null;
+    case 'VALUES_REFERENCE_BEGIN':
+        state.valuesReferences[step.name] = {
+            executable: false,
+            properties: {},
+        };
+        return null;
+    case 'VALUES_REFERENCE_PROPERTY':
+        state.valuesReferences[step.declaration] = state.valuesReferences[step.declaration] || {
+            executable: false,
+            properties: {},
+        };
+        state.valuesReferences[step.declaration].properties[step.key] = step.value;
+        return null;
+    case 'VALUES_REFERENCE_END':
+        return null;
+    case 'GOVERNANCE_POLICY_BEGIN':
+        state.governancePolicies[step.name] = state.governancePolicies[step.name] || {};
+        return null;
+    case 'GOVERNANCE_POLICY_PROPERTY':
+        state.governancePolicies[step.declaration] = state.governancePolicies[step.declaration] || {};
+        state.governancePolicies[step.declaration][step.key] = step.value;
+        return null;
+    case 'GOVERNANCE_POLICY_END':
+        return null;
+    case 'REASONING_METHODOLOGY_BEGIN':
+        state.reasoningMethodologies[step.name] = state.reasoningMethodologies[step.name] || {};
+        return null;
+    case 'REASONING_METHODOLOGY_PROPERTY':
+        state.reasoningMethodologies[step.declaration] =
+            state.reasoningMethodologies[step.declaration] || {};
+        state.reasoningMethodologies[step.declaration][step.key] = step.value;
+        return null;
+    case 'REASONING_METHODOLOGY_END':
         return null;
     case 'ENTITY_BEGIN':
         state.entities[step.name] = state.entities[step.name] || {};

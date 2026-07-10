@@ -13,14 +13,21 @@ function runBytecode(bytecode, options = {}) {
 
     base.state.neural.cells = bytecode.neuralProfile?.cells || 57;
     base.state.neural.status = 'hyper-online';
-    base.state.neural.mesh = bytecode.neuralProfile?.mesh || 'SHEIKHA_RADICAL_NEURAL_MESH_V2';
+    base.state.neural.mesh = bytecode.neuralProfile?.mesh || 'SHEIKHA_GOVERNED_COMPILED_VM_V1';
     base.state.neural.layers = bytecode.neuralProfile?.layers || {
-        quranic: 19,
-        sunnah: 11,
-        maqasid: 11,
-        fiqh: 8,
-        tawheed: 1,
-        governance: 7,
+        lexer: true,
+        parser: true,
+        types: true,
+        ir: true,
+        bytecode: true,
+        governance: true,
+        sandbox: true,
+    };
+    base.state.neural.valuesReference = bytecode.neuralProfile?.valuesReference || {
+        basis: 'QURAN_AND_AUTHENTIC_SUNNAH',
+        executable: false,
+        automatedFatwaAllowed: false,
+        religiousAuthorityClaimed: false,
     };
     base.state.neural.mode = 'compiled-bytecode-runtime';
 
@@ -55,6 +62,15 @@ function instructionToSteps(instruction) {
 
     const mapping = {
         PUSH_DIRECTIVE: 'DIRECTIVE',
+        OPEN_VALUES_REFERENCE: 'VALUES_REFERENCE_BEGIN',
+        SET_VALUES_REFERENCE_PROP: 'VALUES_REFERENCE_PROPERTY',
+        CLOSE_VALUES_REFERENCE: 'VALUES_REFERENCE_END',
+        OPEN_GOVERNANCE_POLICY: 'GOVERNANCE_POLICY_BEGIN',
+        SET_GOVERNANCE_POLICY_PROP: 'GOVERNANCE_POLICY_PROPERTY',
+        CLOSE_GOVERNANCE_POLICY: 'GOVERNANCE_POLICY_END',
+        OPEN_REASONING_METHODOLOGY: 'REASONING_METHODOLOGY_BEGIN',
+        SET_REASONING_METHODOLOGY_PROP: 'REASONING_METHODOLOGY_PROPERTY',
+        CLOSE_REASONING_METHODOLOGY: 'REASONING_METHODOLOGY_END',
         OPEN_ENTITY: 'ENTITY_BEGIN',
         SET_ENTITY_PROP: 'ENTITY_PROPERTY',
         CLOSE_ENTITY: 'ENTITY_END',
