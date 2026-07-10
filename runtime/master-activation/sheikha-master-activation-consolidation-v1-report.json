@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-10T17:22:30.358Z",
+  "generatedAt": "2026-07-10T17:53:42.842Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -23,6 +23,7 @@
     "universalDistributionIntegrated": true,
     "universalDistributionApexIntegrated": true,
     "publicBenefitCapabilityRoutingIntegrated": true,
+    "nativeLanguageArchitectureIntegrated": true,
     "documentationIndexBuilt": true,
     "finalExecutiveReportBuilt": true,
     "githubIndependent": true
@@ -31,8 +32,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "1a1979abd",
-    "currentHead": "1a1979abd",
+    "localRegistryHead": "2193570f1",
+    "currentHead": "2193570f1",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -1485,7 +1486,7 @@
       },
       {
         "root": "docs",
-        "files": 677,
+        "files": 678,
         "classification": "repository-artifact"
       },
       {
@@ -2200,7 +2201,7 @@
       },
       {
         "root": "runtime",
-        "files": 1959,
+        "files": 1965,
         "classification": "repository-artifact"
       },
       {
@@ -2630,7 +2631,7 @@
       },
       {
         "root": "sheikha-language",
-        "files": 57,
+        "files": 58,
         "classification": "repository-artifact"
       },
       {
@@ -3020,7 +3021,7 @@
       },
       {
         "root": "tests",
-        "files": 333,
+        "files": 334,
         "classification": "repository-artifact"
       },
       {
@@ -3030,7 +3031,7 @@
       },
       {
         "root": "tools",
-        "files": 388,
+        "files": 389,
         "classification": "repository-artifact"
       },
       {
@@ -3269,17 +3270,17 @@
         "classification": "repository-artifact"
       }
     ],
-    "discoveredFiles": 7149,
-    "packageScripts": 656,
+    "discoveredFiles": 7159,
+    "packageScripts": 657,
     "source": "git ls-files -co --exclude-standard",
     "githubRequired": false
   },
   "summary": {
-    "discoveredComponents": 7149,
-    "activeComponents": 844,
-    "duplicateGroups": 1206,
-    "apiEndpoints": 2696,
-    "documentationFiles": 1069,
+    "discoveredComponents": 7159,
+    "activeComponents": 850,
+    "duplicateGroups": 1207,
+    "apiEndpoints": 2697,
+    "documentationFiles": 1070,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "externalCertificatesIssued": 0,
@@ -3310,45 +3311,52 @@
     "distributionReleaseApexLevel": 27,
     "distributionReleaseApexPlane": "RELEASE_DELIVERY_PLANE_ONLY",
     "publicBenefitCapabilityRoutingActive": true,
-    "publicBenefitRegisteredCapabilities": 7149,
-    "publicBenefitCurrentlyActiveCapabilities": 844,
+    "publicBenefitRegisteredCapabilities": 7159,
+    "publicBenefitCurrentlyActiveCapabilities": 850,
+    "nativeLanguageArchitectureFoundationActive": true,
+    "sheikhaImplementationSourceFiles": 1,
+    "sheikhaHostImplementationSourceFiles": 12581,
+    "sheikhaImplementationLineSharePercent": 0.0017,
+    "sheikhaCompilerSelfHosted": false,
+    "sheikhaNativeTargetAvailable": false,
+    "sheikhaFullNativeMigrationComplete": false,
     "reasoningModes": 3,
     "ultraRoleSlots": 4,
     "reasoningHumanFinalDecision": true,
     "universalTechnologyHpcFabricActive": true
   },
   "lifecycleSummary": {
-    "active": 844,
-    "needsLinking": 1177,
-    "needsDevelopment": 4994,
+    "active": 850,
+    "needsLinking": 1178,
+    "needsDevelopment": 4997,
     "experimental": 71,
     "unused": 63
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-10T17:22:29.029Z",
+    "generatedAt": "2026-07-10T17:53:41.548Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
-    "componentCount": 7149,
-    "apiEndpoints": 2696,
-    "packageScripts": 656,
+    "componentCount": 7159,
+    "apiEndpoints": 2697,
+    "packageScripts": 657,
     "lifecycleSummary": {
-      "active": 844,
-      "needsLinking": 1177,
-      "needsDevelopment": 4994,
+      "active": 850,
+      "needsLinking": 1178,
+      "needsDevelopment": 4997,
       "experimental": 71,
       "unused": 63
     },
     "maturitySummary": {
-      "measured": 844,
-      "linkedRequired": 1177,
-      "discovered": 3909,
-      "documented": 789
+      "measured": 850,
+      "linkedRequired": 1178,
+      "discovered": 3910,
+      "documented": 790
     },
     "evidenceFiles": {
-      "tests": 343,
-      "reports": 396,
-      "docs": 1069
+      "tests": 344,
+      "reports": 397,
+      "docs": 1070
     },
     "fullRegistryPath": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "sampleComponents": [
@@ -7096,6 +7104,7 @@
       "ops:sheikha:lang:typecheck",
       "ops:sheikha:lang:ultimate",
       "ops:sheikha:lang:ultimate:compile",
+      "ops:sheikha:language-architecture:v1",
       "ops:sheikha:policy:rotate:cycle",
       "ops:sheikha:policy:rotate:cycle:apply",
       "ops:sheikha:policy:rotate:cycle:once",
@@ -7290,7 +7299,7 @@
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-10T17:22:30.358Z",
+    "generatedAt": "2026-07-10T17:53:42.842Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -8729,7 +8738,7 @@
       },
       {
         "root": "docs",
-        "files": 677,
+        "files": 678,
         "classification": "repository-artifact"
       },
       {
@@ -9444,7 +9453,7 @@
       },
       {
         "root": "runtime",
-        "files": 1959,
+        "files": 1965,
         "classification": "repository-artifact"
       },
       {
@@ -9874,7 +9883,7 @@
       },
       {
         "root": "sheikha-language",
-        "files": 57,
+        "files": 58,
         "classification": "repository-artifact"
       },
       {
@@ -10264,7 +10273,7 @@
       },
       {
         "root": "tests",
-        "files": 333,
+        "files": 334,
         "classification": "repository-artifact"
       },
       {
@@ -10274,7 +10283,7 @@
       },
       {
         "root": "tools",
-        "files": 388,
+        "files": 389,
         "classification": "repository-artifact"
       },
       {
@@ -10648,7 +10657,7 @@
         "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
       },
       "Language": {
-        "components": 214,
+        "components": 224,
         "dependencies": [
           "DSL",
           "Runtime"
@@ -10762,6 +10771,8 @@
     "distributionApexReportPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
     "governanceGeneratorReportPath": "runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json",
     "publicBenefitPolicyPath": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
+    "nativeLanguageArchitecturePath": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+    "nativeLanguageArchitectureHandbookPath": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
     "distributionMatrixPath": "distribution/manifest/sheikha-release-matrix-v1.json",
     "distributionHandbookPath": "distribution/README.md",
     "distributionBareMetalLinkPath": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json",
@@ -10775,24 +10786,24 @@
     "dependencyGraph": {
       "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
       "layerEdges": 59,
-      "componentEdges": 15005
+      "componentEdges": 15025
     },
     "duplicateAnalysis": {
       "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-      "duplicateFiles": 1206,
+      "duplicateFiles": 1207,
       "duplicateServices": 28,
       "duplicateApis": 147,
       "duplicateRegistries": 67,
       "policy": "REPORT_ONLY_NO_DELETION"
     },
     "executiveCounts": {
-      "systems": 434,
+      "systems": 435,
       "engines": 793,
       "layers": 25,
-      "apis": 2696,
+      "apis": 2697,
       "services": 0,
-      "tests": 343,
-      "docs": 1069,
+      "tests": 344,
+      "docs": 1070,
       "sdks": 80,
       "registries": 366,
       "runtimeEngines": 1259,
@@ -10807,10 +10818,10 @@
       "securityEngines": 82,
       "dashboards": 71,
       "pipelines": 58,
-      "automationEngines": 382,
+      "automationEngines": 383,
       "integrations": 346,
-      "packageScripts": 656,
-      "duplicateGroups": 1206,
+      "packageScripts": 657,
+      "duplicateGroups": 1207,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
@@ -10837,13 +10848,15 @@
       "distributionTargetsVerified": 1,
       "distributionTargetsNativeVerified": 1,
       "distributionReleaseApexLevel": 27,
-      "publicBenefitRegisteredCapabilities": 7149,
-      "publicBenefitActiveCapabilities": 844
+      "publicBenefitRegisteredCapabilities": 7159,
+      "publicBenefitActiveCapabilities": 850,
+      "sheikhaNativeImplementationSourceFiles": 1,
+      "sheikhaHostImplementationSourceFiles": 12581
     }
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-10T17:22:29.031Z",
+    "generatedAt": "2026-07-10T17:53:41.551Z",
     "nodes": [
       {
         "id": "APIs",
@@ -10944,7 +10957,7 @@
       {
         "id": "Language",
         "type": "layer",
-        "components": 214,
+        "components": 224,
         "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة."
       },
       {
@@ -11299,19 +11312,19 @@
         "type": "layer-dependency"
       }
     ],
-    "componentEdgesCount": 15005,
+    "componentEdgesCount": 15025,
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "graphPolicy": "relationships are inferred from repository evidence and layer contracts"
   },
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
-    "componentEdges": 15005
+    "componentEdges": 15025
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-10T17:22:29.039Z",
+    "generatedAt": "2026-07-10T17:53:41.558Z",
     "policy": "REPORT_ONLY_NO_DELETION",
-    "duplicateFilesCount": 1206,
+    "duplicateFilesCount": 1207,
     "duplicateServicesCount": 28,
     "duplicateApisCount": 147,
     "duplicateRegistriesCount": 67,
@@ -12506,9 +12519,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.89,
-            3,
-            2.61
+            1.21,
+            1.27,
+            1.72
           ]
         }
       },
@@ -12516,13 +12529,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 45807845376,
+          "freeMemoryBytes": 44279083008,
           "processMemory": {
-            "rss": 183697408,
-            "heapTotal": 56147968,
-            "heapUsed": 32748616,
-            "external": 24942803,
-            "arrayBuffers": 20997620
+            "rss": 222384128,
+            "heapTotal": 56422400,
+            "heapUsed": 35385664,
+            "external": 14457043,
+            "arrayBuffers": 10511860
           }
         }
       },
@@ -12530,8 +12543,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 539470928,
-          "availableKb": 385043212,
+          "usedKb": 540140748,
+          "availableKb": 384373392,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12804,9 +12817,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.89,
-            3,
-            2.61
+            1.21,
+            1.27,
+            1.72
           ]
         }
       },
@@ -12814,13 +12827,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 45807017984,
+          "freeMemoryBytes": 44279640064,
           "processMemory": {
-            "rss": 183894016,
-            "heapTotal": 56147968,
-            "heapUsed": 33027152,
-            "external": 24942855,
-            "arrayBuffers": 20997632
+            "rss": 222760960,
+            "heapTotal": 56422400,
+            "heapUsed": 35663480,
+            "external": 14457095,
+            "arrayBuffers": 10511872
           }
         }
       },
@@ -12828,8 +12841,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 539470928,
-          "availableKb": 385043212,
+          "usedKb": 540140748,
+          "availableKb": 384373392,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12837,7 +12850,7 @@
       "api": {
         "ok": true,
         "evidence": {
-          "uniqueEndpoints": 2696,
+          "uniqueEndpoints": 2697,
           "health": {
             "endpoint": "http://127.0.0.1:8080/api/health",
             "ok": false,
@@ -13141,7 +13154,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-10T17:22:29.778Z",
+    "generatedAt": "2026-07-10T17:53:42.273Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -13150,7 +13163,7 @@
       "githubRequired": false
     },
     "repositoryEvidence": {
-      "components": 7149,
+      "components": 7159,
       "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
       "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -14079,8 +14092,8 @@
     "policyPath": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
     "status": "ACTIVE_POLICY_ONLY_NO_AUTOMATIC_EXECUTION",
     "scope": "ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES",
-    "registeredCapabilities": 7149,
-    "currentlyActiveCapabilities": 844,
+    "registeredCapabilities": 7159,
+    "currentlyActiveCapabilities": 850,
     "policyCoverageActivatesCapabilities": false,
     "hardBoundariesOverrideBenefitIntent": true,
     "automaticExecution": false,
@@ -14088,9 +14101,35 @@
     "automatedFatwaAllowed": false,
     "humanFinalDecision": true
   },
+  "nativeLanguageArchitecture": {
+    "active": true,
+    "reportPath": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+    "handbookPath": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
+    "status": "FOUNDATION_ACTIVE_FULL_NATIVE_MIGRATION_REQUIRED",
+    "canonicalSource": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
+    "foundationScore": 100,
+    "sheikhaImplementationSourceFiles": 1,
+    "hostImplementationSourceFiles": 12581,
+    "sheikhaImplementationLineSharePercent": 0.0017,
+    "compilerBootstrapRuntime": "Node.js",
+    "compilerSelfHosted": false,
+    "nativeTargetAvailable": false,
+    "fullSystemPortedToSheikha": false,
+    "nativeMigrationComplete": false,
+    "completionClaimAllowed": false,
+    "blockers": [
+      "SLA-05",
+      "SLA-06",
+      "SLA-07",
+      "SLA-08",
+      "SLA-09",
+      "SLA-10",
+      "SLA-11"
+    ]
+  },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-10T17:22:30.328Z",
+    "generatedAt": "2026-07-10T17:53:42.803Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -14116,9 +14155,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            2.89,
-            3,
-            2.61
+            1.21,
+            1.27,
+            1.72
           ]
         }
       },
@@ -14126,13 +14165,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 45807017984,
+          "freeMemoryBytes": 44279640064,
           "processMemory": {
-            "rss": 183894016,
-            "heapTotal": 56147968,
-            "heapUsed": 33027152,
-            "external": 24942855,
-            "arrayBuffers": 20997632
+            "rss": 222760960,
+            "heapTotal": 56422400,
+            "heapUsed": 35663480,
+            "external": 14457095,
+            "arrayBuffers": 10511872
           }
         }
       },
@@ -14140,8 +14179,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 539470928,
-          "availableKb": 385043212,
+          "usedKb": 540140748,
+          "availableKb": 384373392,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -14149,7 +14188,7 @@
       "api": {
         "ok": true,
         "evidence": {
-          "uniqueEndpoints": 2696,
+          "uniqueEndpoints": 2697,
           "health": {
             "endpoint": "http://127.0.0.1:8080/api/health",
             "ok": false,
@@ -14300,16 +14339,16 @@
       }
     },
     "markets": 439,
-    "projects": 434,
+    "projects": 435,
     "customers": 73,
     "capabilities": {
-      "systems": 434,
+      "systems": 435,
       "engines": 793,
       "layers": 25,
-      "apis": 2696,
+      "apis": 2697,
       "services": 0,
-      "tests": 343,
-      "docs": 1069,
+      "tests": 344,
+      "docs": 1070,
       "sdks": 80,
       "registries": 366,
       "runtimeEngines": 1259,
@@ -14324,10 +14363,10 @@
       "securityEngines": 82,
       "dashboards": 71,
       "pipelines": 58,
-      "automationEngines": 382,
+      "automationEngines": 383,
       "integrations": 346,
-      "packageScripts": 656,
-      "duplicateGroups": 1206,
+      "packageScripts": 657,
+      "duplicateGroups": 1207,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
@@ -14354,13 +14393,15 @@
       "distributionTargetsVerified": 1,
       "distributionTargetsNativeVerified": 1,
       "distributionReleaseApexLevel": 27,
-      "publicBenefitRegisteredCapabilities": 7149,
-      "publicBenefitActiveCapabilities": 844
+      "publicBenefitRegisteredCapabilities": 7159,
+      "publicBenefitActiveCapabilities": 850,
+      "sheikhaNativeImplementationSourceFiles": 1,
+      "sheikhaHostImplementationSourceFiles": 12581
     },
     "indicators": {
-      "apiEndpoints": 2696,
-      "tests": 343,
-      "duplicateGroups": 1206,
+      "apiEndpoints": 2697,
+      "tests": 344,
+      "duplicateGroups": 1207,
       "githubRequired": false,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -14395,8 +14436,12 @@
       "distributionReleaseApexLevel": 27,
       "distributionReleaseApexRemoteBuildEndpointExposed": false,
       "publicBenefitCapabilityRoutingActive": true,
-      "publicBenefitRegisteredCapabilities": 7149,
+      "publicBenefitRegisteredCapabilities": 7159,
       "publicBenefitPolicyActivatesCapabilities": false,
+      "nativeLanguageArchitectureFoundationActive": true,
+      "sheikhaCompilerSelfHosted": false,
+      "sheikhaNativeTargetAvailable": false,
+      "sheikhaFullNativeMigrationComplete": false,
       "reasoningStandardActive": true,
       "reasoningProActive": true,
       "reasoningUltraRoleSlots": 4,
@@ -14422,6 +14467,8 @@
       "Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.",
       "Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.",
       "Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.",
+      "Treat the canonical .shk architecture as a verified language foundation, not proof that the full platform, compiler, kernel, or services have been ported.",
+      "Require self-hosting, a native backend, standard library, kernel and service ports, host removal, and hardware qualification before any full Sheikha-only completion claim.",
       "Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries."
     ],
     "knowledge": {
@@ -14629,8 +14676,8 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-10T17:22:29.778Z",
-    "count": 1069,
+    "generatedAt": "2026-07-10T17:53:42.274Z",
+    "count": 1070,
     "canonicalDocs": [
       "docs/canonical/README.md",
       "docs/canonical/SHEIKHA-CANONICAL-BLUEPRINTS.md",
@@ -14867,6 +14914,7 @@
       "docs/registry/tenants/SHEIKHA-TENANTS-FABRIC.md",
       "docs/resource-source-registry/SHEIKHA-RESOURCE-SOURCE-REGISTRY-V1.md",
       "docs/setup/GOOGLE-ACTIVATION-GUIDE.md",
+      "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
       "docs/sheikha-package-registry-v1/SHEIKHA_PACKAGE_REGISTRY_V1.md",
       "exports/activation-bundle/README-ACTIVATION-BUNDLE.md",
       "exports/activation-bundle/docs/SHEIKHA-CHARTER-FINAL-CLASSIFICATION-REPORT.md",
@@ -14882,8 +14930,7 @@
       "runtime/ownership/OWNERSHIP-REGISTRY.md",
       "runtime/pr-governance/activation/sheikha-merge-governance-detailed-report.md",
       "runtime/provider-registry/v1/sheikha-provider-compute-fabric-v1-report.md",
-      "runtime/reports/root-neural-tawheed-activation-latest.md",
-      "runtime/resource-source-registry/v1/sheikha-resource-source-registry-v1-report.md"
+      "runtime/reports/root-neural-tawheed-activation-latest.md"
     ],
     "linkedOutputs": [
       "runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json",
@@ -14922,20 +14969,21 @@
     "Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.",
     "Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.",
     "Public Benefit Capability Routing covers the registered catalog with hard boundaries, evidence admission, specialist review, and no automatic execution.",
+    "Native Sheikha Language Architecture provides a compiled and VM-verified .shk foundation plus measured migration blockers without claiming a completed Sheikha-only system.",
     "GitHub is not required for activation; local-registry is the recommended push target."
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-10T17:22:29.779Z",
+    "generatedAt": "2026-07-10T17:53:42.274Z",
     "githubDependency": false,
     "counts": {
-      "systems": 434,
+      "systems": 435,
       "engines": 793,
       "layers": 25,
-      "apis": 2696,
+      "apis": 2697,
       "services": 0,
-      "tests": 343,
-      "docs": 1069,
+      "tests": 344,
+      "docs": 1070,
       "sdks": 80,
       "registries": 366,
       "runtimeEngines": 1259,
@@ -14950,10 +14998,10 @@
       "securityEngines": 82,
       "dashboards": 71,
       "pipelines": 58,
-      "automationEngines": 382,
+      "automationEngines": 383,
       "integrations": 346,
-      "packageScripts": 656,
-      "duplicateGroups": 1206,
+      "packageScripts": 657,
+      "duplicateGroups": 1207,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
       "localAccreditationTargets": 8,
@@ -14980,8 +15028,10 @@
       "distributionTargetsVerified": 1,
       "distributionTargetsNativeVerified": 1,
       "distributionReleaseApexLevel": 27,
-      "publicBenefitRegisteredCapabilities": 7149,
-      "publicBenefitActiveCapabilities": 844
+      "publicBenefitRegisteredCapabilities": 7159,
+      "publicBenefitActiveCapabilities": 850,
+      "sheikhaNativeImplementationSourceFiles": 1,
+      "sheikhaHostImplementationSourceFiles": 12581
     },
     "evidence": {
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
@@ -15009,6 +15059,8 @@
       "universalDistributionApex": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
       "governanceGenerator": "runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json",
       "publicBenefitCapabilityPolicy": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
+      "nativeLanguageArchitecture": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+      "nativeLanguageArchitectureHandbook": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
       "universalDistributionMatrix": "distribution/manifest/sheikha-release-matrix-v1.json",
       "universalDistributionHandbook": "distribution/README.md",
       "distributionBareMetalLink": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json"

@@ -35,6 +35,7 @@ function lowerToIR(ast) {
         type: 'SheikhaIR',
         version: '0.2.0',
         meta: {
+            ...(ast.meta || {}),
             nodes: ast.body?.length || 0,
             generatedAt: new Date().toISOString(),
         },

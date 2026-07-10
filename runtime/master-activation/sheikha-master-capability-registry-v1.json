@@ -1,23 +1,23 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T17:22:29.029Z",
+  "generatedAt": "2026-07-10T17:53:41.548Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7149,
-  "apiEndpoints": 2696,
-  "packageScripts": 656,
+  "componentCount": 7159,
+  "apiEndpoints": 2697,
+  "packageScripts": 657,
   "lifecycleSummary": {
-    "active": 844,
-    "needsLinking": 1177,
-    "needsDevelopment": 4994,
+    "active": 850,
+    "needsLinking": 1178,
+    "needsDevelopment": 4997,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 844,
-    "linkedRequired": 1177,
-    "discovered": 3909,
-    "documented": 789
+    "measured": 850,
+    "linkedRequired": 1178,
+    "discovered": 3910,
+    "documented": 790
   },
   "components": [
     {
@@ -10665,7 +10665,8 @@
         "tests/sheikha-architecture-unified.test.js",
         "tests/sheikha-divine-integration-architecture.test.js",
         "tests/sheikha-enterprise-architecture-operating-integration-v3.test.js",
-        "tests/sheikha-enterprise-architecture-v1.test.js"
+        "tests/sheikha-enterprise-architecture-v1.test.js",
+        "tests/sheikha-native-language-architecture-v1.test.js"
       ],
       "reports": [
         "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
@@ -10673,6 +10674,7 @@
         "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md",
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
         "runtime/system/sheikha-architecture-uplift-report.json"
       ],
       "apis": [
@@ -95605,7 +95607,8 @@
         "tests/sheikha-architecture-unified.test.js",
         "tests/sheikha-divine-integration-architecture.test.js",
         "tests/sheikha-enterprise-architecture-operating-integration-v3.test.js",
-        "tests/sheikha-enterprise-architecture-v1.test.js"
+        "tests/sheikha-enterprise-architecture-v1.test.js",
+        "tests/sheikha-native-language-architecture-v1.test.js"
       ],
       "reports": [
         "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
@@ -95613,6 +95616,7 @@
         "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md",
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
         "runtime/system/sheikha-architecture-uplift-report.json"
       ],
       "apis": [
@@ -119935,6 +119939,67 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "docs/sheikha-khair-max-production.md"
+      }
+    },
+    {
+      "id": "native-language-architecture-1904e7093907",
+      "name": "SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1",
+      "version": "v1",
+      "path": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
+      "type": "documentation",
+      "layer": "Language",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-native-language-architecture-v1.test.js"
+      ],
+      "reports": [
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md"
+      },
+      "maturity": "documented",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md"
       }
     },
     {
@@ -215384,7 +215449,8 @@
         "tests/sheikha-architecture-unified.test.js",
         "tests/sheikha-divine-integration-architecture.test.js",
         "tests/sheikha-enterprise-architecture-operating-integration-v3.test.js",
-        "tests/sheikha-enterprise-architecture-v1.test.js"
+        "tests/sheikha-enterprise-architecture-v1.test.js",
+        "tests/sheikha-native-language-architecture-v1.test.js"
       ],
       "reports": [
         "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
@@ -215392,6 +215458,7 @@
         "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md",
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
         "runtime/system/sheikha-architecture-uplift-report.json"
       ],
       "apis": [
@@ -330257,6 +330324,350 @@
       }
     },
     {
+      "id": "sovereign-architecture-ast-d6e6d85a610c",
+      "name": "sheikha-sovereign-architecture-v1.ast",
+      "version": "v1",
+      "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json",
+      "type": "data-contract",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json"
+      }
+    },
+    {
+      "id": "sovereign-architecture-bytecode-959cc11e2a0f",
+      "name": "sheikha-sovereign-architecture-v1.bytecode",
+      "version": "v1",
+      "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.bytecode.json",
+      "type": "data-contract",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.bytecode.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.bytecode.json"
+      }
+    },
+    {
+      "id": "sovereign-architecture-ir-a5b5e0d58a56",
+      "name": "sheikha-sovereign-architecture-v1.ir",
+      "version": "v1",
+      "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ir.json",
+      "type": "data-contract",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ir.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ir.json"
+      }
+    },
+    {
+      "id": "sovereign-architecture-run-4dc883bfaaeb",
+      "name": "sheikha-sovereign-architecture-v1.run",
+      "version": "v1",
+      "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.run.json",
+      "type": "data-contract",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.run.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.run.json"
+      }
+    },
+    {
+      "id": "sovereign-architecture-types-7a5d0421f375",
+      "name": "sheikha-sovereign-architecture-v1.types",
+      "version": "v1",
+      "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.types.json",
+      "type": "data-contract",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.types.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.types.json"
+      }
+    },
+    {
+      "id": "native-language-architecture-report-03d3f1307b9d",
+      "name": "sheikha-native-language-architecture-v1-report",
+      "version": "v1",
+      "path": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+      "type": "report",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json"
+      }
+    },
+    {
       "id": "language-integration-report-8eea05e340ba",
       "name": "sheikha-language-integration-v1-report",
       "version": "v1",
@@ -373883,6 +374294,63 @@
       }
     },
     {
+      "id": "sovereign-architecture-shk-03a0fb0246b0",
+      "name": "sheikha-sovereign-architecture-v1",
+      "version": "v1",
+      "path": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
+      "type": "artifact",
+      "layer": "Language",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk"
+      }
+    },
+    {
       "id": "vm-1814d5a1bc8b",
       "name": "sheikha-vm",
       "version": "package-1.0.51",
@@ -374561,7 +375029,8 @@
         "tests/sheikha-architecture-unified.test.js",
         "tests/sheikha-divine-integration-architecture.test.js",
         "tests/sheikha-enterprise-architecture-operating-integration-v3.test.js",
-        "tests/sheikha-enterprise-architecture-v1.test.js"
+        "tests/sheikha-enterprise-architecture-v1.test.js",
+        "tests/sheikha-native-language-architecture-v1.test.js"
       ],
       "reports": [
         "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
@@ -374569,6 +375038,7 @@
         "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md",
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
         "runtime/system/sheikha-architecture-uplift-report.json"
       ],
       "apis": [
@@ -396948,6 +397418,65 @@
       }
     },
     {
+      "id": "native-language-architecture-test-16bf196d1224",
+      "name": "sheikha-native-language-architecture-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-native-language-architecture-v1.test.js",
+      "type": "test",
+      "layer": "Language",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-native-language-architecture-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-native-language-architecture-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-native-language-architecture-v1.test.js"
+      }
+    },
+    {
       "id": "observability-runtime-test-cb214c111812",
       "name": "sheikha-observability-runtime-v1.test",
       "version": "v1",
@@ -408129,6 +408658,67 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-meta-federation-orchestrator-v6.sh"
+      }
+    },
+    {
+      "id": "native-language-architecture-e9dd1300fcd0",
+      "name": "activate-sheikha-native-language-architecture-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-native-language-architecture-v1.js",
+      "type": "code",
+      "layer": "Language",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-native-language-architecture-v1.test.js"
+      ],
+      "reports": [
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-native-language-architecture-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-native-language-architecture-v1.js"
       }
     },
     {
@@ -426810,7 +427400,8 @@
         "tests/sheikha-architecture-unified.test.js",
         "tests/sheikha-divine-integration-architecture.test.js",
         "tests/sheikha-enterprise-architecture-operating-integration-v3.test.js",
-        "tests/sheikha-enterprise-architecture-v1.test.js"
+        "tests/sheikha-enterprise-architecture-v1.test.js",
+        "tests/sheikha-native-language-architecture-v1.test.js"
       ],
       "reports": [
         "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
@@ -426818,6 +427409,7 @@
         "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.json",
         "runtime/root-architecture-tools/v1/sheikha-root-architecture-tools-report.md",
+        "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
         "runtime/system/sheikha-architecture-uplift-report.json"
       ],
       "apis": [
@@ -428757,8 +429349,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 343,
-    "reports": 396,
-    "docs": 1069
+    "tests": 344,
+    "reports": 397,
+    "docs": 1070
   }
 }

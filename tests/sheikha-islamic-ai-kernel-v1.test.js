@@ -32,4 +32,28 @@ describe('Sheikha Islamic AI Kernel V1', () => {
     expect(kernel.integration.hpc).toBe(true);
     expect(kernel.integration.truthGate).toBe(true);
   });
+
+  test('links the canonical Sheikha source without claiming full native completion', () => {
+    const kernel = buildIslamicAIKernel();
+
+    expect(kernel.reference).toMatchObject({
+      divineJudgmentBelief: 'الحكم لله وحده',
+      valuesReferenceExecutable: false,
+      softwareRepresentsDivineAuthority: false
+    });
+    expect(kernel.integration.sheikhaLanguageMode)
+      .toBe('CANONICAL_ARCHITECTURE_AND_GOVERNED_VM_FOUNDATION');
+    expect(kernel.implementationBoundary).toMatchObject({
+      currentPortalRuntime: 'NODE_JS_EXPRESS_PM2',
+      compilerBootstrapRuntime: 'Node.js',
+      bareMetalSeedLanguage: 'C',
+      compilerSelfHosted: false,
+      nativeCompilerBackendAvailable: false,
+      fullSystemPortedToSheikha: false,
+      fullGeneralPurposeBareMetalOsComplete: false,
+      completionClaimAllowed: false
+    });
+    expect(kernel.decision)
+      .toBe('ISLAMIC_AI_KERNEL_FOUNDATION_LINKED_NATIVE_MIGRATION_REQUIRED');
+  });
 });

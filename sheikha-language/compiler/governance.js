@@ -1,6 +1,7 @@
 'use strict';
 
 const MANDATORY_MARKET_CONTROLS = ['احتكار', 'غش', 'ضرر'];
+const MARKET_ENTITY_PATTERN = /سوق|صفقة|تجارة|market|trade|deal/i;
 const PROHIBITED_TOKENS = ['ربا', 'غرر'];
 const BLOCKED_ADAPTER_ACTIONS = ['prune', 'rm', 'rmi', 'kill'];
 
@@ -30,7 +31,11 @@ function containsAny(text, values) {
 }
 
 function beforeStep(state, step) {
-    if (step.op === 'ENTITY_PROPERTY' && step.key === 'منع') {
+    if (
+        step.op === 'ENTITY_PROPERTY' &&
+        step.key === 'منع' &&
+        MARKET_ENTITY_PATTERN.test(String(step.entity || ''))
+    ) {
         const missing = MANDATORY_MARKET_CONTROLS.filter((value) => !String(step.value).includes(value));
         addCheck(state, {
             rule: 'market-controls-required',

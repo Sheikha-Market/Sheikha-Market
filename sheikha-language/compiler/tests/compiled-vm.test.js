@@ -47,3 +47,36 @@ test('compiled VM allows local sandbox profile override', () => {
     assert.equal(result.state.sandbox.profile, 'local');
     assert.equal(result.state.sandbox.strict, false);
 });
+
+test('market controls apply only to market and transaction entities', () => {
+    const generalSource = [
+        'كيان ذكاء_محكوم:',
+        '  منع: ضرر، خداع',
+        'إجراء تشغيل:',
+        '  اعرض "تشغيل محكوم"',
+        '',
+    ].join('\n');
+    const marketSource = [
+        'كيان سوق_معادن:',
+        '  منع: ضرر',
+        'إجراء تشغيل:',
+        '  اعرض "تشغيل سوق"',
+        '',
+    ].join('\n');
+
+    const generalResult = runBytecode(
+        compileIRToBytecode(lowerToIR(parse(lex(generalSource)))),
+        { profile: 'local', strictIsolation: true }
+    );
+    const marketResult = runBytecode(
+        compileIRToBytecode(lowerToIR(parse(lex(marketSource)))),
+        { profile: 'local', strictIsolation: true }
+    );
+
+    assert.equal(generalResult.ok, true);
+    assert.equal(generalResult.state.governance.violations.length, 0);
+    assert.equal(marketResult.ok, false);
+    assert.ok(marketResult.state.governance.violations.some((violation) => (
+        violation.rule === 'market-controls-required'
+    )));
+});

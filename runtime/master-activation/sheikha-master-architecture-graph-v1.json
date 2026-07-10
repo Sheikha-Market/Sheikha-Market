@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T17:22:29.031Z",
+  "generatedAt": "2026-07-10T17:53:41.551Z",
   "nodes": [
     {
       "id": "APIs",
@@ -101,7 +101,7 @@
     {
       "id": "Language",
       "type": "layer",
-      "components": 214,
+      "components": 224,
       "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة."
     },
     {
@@ -25676,6 +25676,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "native-language-architecture-1904e7093907",
+      "fromPath": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-language-architecture-1904e7093907",
+      "fromPath": "docs/sheikha-language-architecture-v1/SHEIKHA-NATIVE-LANGUAGE-ARCHITECTURE-V1.md",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
       "from": "language-production-readiness-ef9eee9d7a41",
       "fromPath": "docs/sheikha-language-production/SHEIKHA-LANGUAGE-PRODUCTION-READINESS-V1.md",
       "to": "Runtime",
@@ -69794,6 +69806,78 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sovereign-architecture-ast-d6e6d85a610c",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-ast-d6e6d85a610c",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ast.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-bytecode-959cc11e2a0f",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.bytecode.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-bytecode-959cc11e2a0f",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.bytecode.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-ir-a5b5e0d58a56",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ir.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-ir-a5b5e0d58a56",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.ir.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-run-4dc883bfaaeb",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.run.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-run-4dc883bfaaeb",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.run.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-types-7a5d0421f375",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.types.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-types-7a5d0421f375",
+      "fromPath": "runtime/sheikha-language-architecture/v1/evidence/sheikha-sovereign-architecture-v1.types.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-language-architecture-report-03d3f1307b9d",
+      "fromPath": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-language-architecture-report-03d3f1307b9d",
+      "fromPath": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
       "from": "language-integration-report-8eea05e340ba",
       "fromPath": "runtime/sheikha-language-integration/sheikha-language-integration-v1-report.json",
       "to": "DSL",
@@ -78878,6 +78962,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sovereign-architecture-shk-03a0fb0246b0",
+      "fromPath": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sovereign-architecture-shk-03a0fb0246b0",
+      "fromPath": "sheikha-language/system/sheikha-sovereign-architecture-v1.shk",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
       "from": "vm-1814d5a1bc8b",
       "fromPath": "sheikha-language/vm/sheikha-vm.js",
       "to": "DSL",
@@ -83774,6 +83870,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "native-language-architecture-test-16bf196d1224",
+      "fromPath": "tests/sheikha-native-language-architecture-v1.test.js",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-language-architecture-test-16bf196d1224",
+      "fromPath": "tests/sheikha-native-language-architecture-v1.test.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
       "from": "observability-runtime-test-cb214c111812",
       "fromPath": "tests/sheikha-observability-runtime-v1.test.js",
       "to": "Runtime",
@@ -86147,6 +86255,18 @@
       "from": "meta-federation-orchestrator-db126d3e1ca6",
       "fromPath": "tools/activation/activate-sheikha-meta-federation-orchestrator-v6.sh",
       "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-language-architecture-e9dd1300fcd0",
+      "fromPath": "tools/activation/activate-sheikha-native-language-architecture-v1.js",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-language-architecture-e9dd1300fcd0",
+      "fromPath": "tools/activation/activate-sheikha-native-language-architecture-v1.js",
+      "to": "Runtime",
       "type": "component-to-layer"
     },
     {

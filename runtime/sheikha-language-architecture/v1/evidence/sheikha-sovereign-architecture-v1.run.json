@@ -1,0 +1,704 @@
+{
+  "success": true,
+  "status": "passed",
+  "output": [
+    "\"المرجعية القيمية من القرآن والسنة غير قابلة للتحويل إلى سلطة برمجية أو فتوى آلية\"",
+    "\"الذكاء الصناعي أداة تحليل ومساعدة تحت الحوكمة والمراجعة البشرية\"",
+    "\"حالة الاكتمال: غير مكتمل ولا يسمح بادعاء الاكتمال\"",
+    "\"SHEIKHA_LANGUAGE_ARCHITECTURE_FOUNDATION_OK\"",
+    "\"الهجرة الكاملة تستمر بالدليل والاختبار دون ادعاء سابق لأوانه\""
+  ],
+  "governance": {
+    "checks": [
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "تحقق_المرجعية",
+          "command": "اعرض",
+          "argument": "\"المرجعية القيمية من القرآن والسنة غير قابلة للتحويل إلى سلطة برمجية أو فتوى آلية\"",
+          "loc": {
+            "start": {
+              "line": 52,
+              "column": 3
+            },
+            "end": {
+              "line": 52,
+              "column": 90
+            }
+          }
+        },
+        "ts": "2026-07-10T17:50:06.066Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "تحقق_المرجعية",
+          "command": "اعرض",
+          "argument": "\"الذكاء الصناعي أداة تحليل ومساعدة تحت الحوكمة والمراجعة البشرية\"",
+          "loc": {
+            "start": {
+              "line": 53,
+              "column": 3
+            },
+            "end": {
+              "line": 53,
+              "column": 73
+            }
+          }
+        },
+        "ts": "2026-07-10T17:50:06.066Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "تحقق_الاكتمال",
+          "command": "اعرض",
+          "argument": "\"حالة الاكتمال: غير مكتمل ولا يسمح بادعاء الاكتمال\"",
+          "loc": {
+            "start": {
+              "line": 57,
+              "column": 5
+            },
+            "end": {
+              "line": 57,
+              "column": 61
+            }
+          }
+        },
+        "ts": "2026-07-10T17:50:06.066Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "تشغيل_المعمارية",
+          "command": "اعرض",
+          "argument": "\"SHEIKHA_LANGUAGE_ARCHITECTURE_FOUNDATION_OK\"",
+          "loc": {
+            "start": {
+              "line": 62,
+              "column": 3
+            },
+            "end": {
+              "line": 62,
+              "column": 53
+            }
+          }
+        },
+        "ts": "2026-07-10T17:50:06.066Z"
+      },
+      {
+        "rule": "prohibited-financial-patterns",
+        "status": "pass",
+        "detail": "لا توجد عبارات ربا/غرر",
+        "step": {
+          "op": "COMMAND",
+          "procedure": "تشغيل_المعمارية",
+          "command": "اعرض",
+          "argument": "\"الهجرة الكاملة تستمر بالدليل والاختبار دون ادعاء سابق لأوانه\"",
+          "loc": {
+            "start": {
+              "line": 63,
+              "column": 3
+            },
+            "end": {
+              "line": 63,
+              "column": 70
+            }
+          }
+        },
+        "ts": "2026-07-10T17:50:06.066Z"
+      }
+    ],
+    "violations": []
+  },
+  "sandbox": {
+    "profile": "local",
+    "strict": true,
+    "networkHosts": [
+      "127.0.0.1",
+      "localhost"
+    ],
+    "pm2Targets": [
+      "sheikha-api",
+      "sheikha-meta-background",
+      "sheikha-copilot"
+    ],
+    "dockerTargets": [
+      "sheikha-api",
+      "sheikha-php-gateway",
+      "sheikha-neural-gateway"
+    ],
+    "dockerAllowNoTargetActions": [
+      "ps",
+      "images"
+    ]
+  },
+  "neural": {
+    "cells": 57,
+    "status": "hyper-online",
+    "executionGraph": {
+      "nodes": [
+        {
+          "id": "n1",
+          "label": "DIRECTIVE",
+          "procedure": null
+        },
+        {
+          "id": "n2",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n3",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n4",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n5",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n6",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n7",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n8",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n9",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n10",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n11",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n12",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n13",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n14",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n15",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n16",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n17",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n18",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n19",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n20",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n21",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n22",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n23",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n24",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n25",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n26",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n27",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n28",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n29",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n30",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n31",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n32",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n33",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n34",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n35",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n36",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n37",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n38",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n39",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n40",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n41",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n42",
+          "label": "ENTITY_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n43",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n44",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n45",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n46",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n47",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n48",
+          "label": "ENTITY_PROPERTY",
+          "procedure": null
+        },
+        {
+          "id": "n49",
+          "label": "ENTITY_END",
+          "procedure": null
+        },
+        {
+          "id": "n50",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n51",
+          "label": "COMMAND",
+          "procedure": "تحقق_المرجعية"
+        },
+        {
+          "id": "n52",
+          "label": "COMMAND",
+          "procedure": "تحقق_المرجعية"
+        },
+        {
+          "id": "n53",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        },
+        {
+          "id": "n54",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n55",
+          "label": "IF",
+          "procedure": "تحقق_الاكتمال"
+        },
+        {
+          "id": "n56",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        },
+        {
+          "id": "n57",
+          "label": "PROCEDURE_BEGIN",
+          "procedure": null
+        },
+        {
+          "id": "n58",
+          "label": "COMMAND",
+          "procedure": "تشغيل_المعمارية"
+        },
+        {
+          "id": "n59",
+          "label": "COMMAND",
+          "procedure": "تشغيل_المعمارية"
+        },
+        {
+          "id": "n60",
+          "label": "PROCEDURE_END",
+          "procedure": null
+        }
+      ],
+      "edges": [
+        {
+          "from": "n1",
+          "to": "n2"
+        },
+        {
+          "from": "n2",
+          "to": "n3"
+        },
+        {
+          "from": "n3",
+          "to": "n4"
+        },
+        {
+          "from": "n4",
+          "to": "n5"
+        },
+        {
+          "from": "n5",
+          "to": "n6"
+        },
+        {
+          "from": "n6",
+          "to": "n7"
+        },
+        {
+          "from": "n7",
+          "to": "n8"
+        },
+        {
+          "from": "n8",
+          "to": "n9"
+        },
+        {
+          "from": "n9",
+          "to": "n10"
+        },
+        {
+          "from": "n10",
+          "to": "n11"
+        },
+        {
+          "from": "n11",
+          "to": "n12"
+        },
+        {
+          "from": "n12",
+          "to": "n13"
+        },
+        {
+          "from": "n13",
+          "to": "n14"
+        },
+        {
+          "from": "n14",
+          "to": "n15"
+        },
+        {
+          "from": "n15",
+          "to": "n16"
+        },
+        {
+          "from": "n16",
+          "to": "n17"
+        },
+        {
+          "from": "n17",
+          "to": "n18"
+        },
+        {
+          "from": "n18",
+          "to": "n19"
+        },
+        {
+          "from": "n19",
+          "to": "n20"
+        },
+        {
+          "from": "n20",
+          "to": "n21"
+        },
+        {
+          "from": "n21",
+          "to": "n22"
+        },
+        {
+          "from": "n22",
+          "to": "n23"
+        },
+        {
+          "from": "n23",
+          "to": "n24"
+        },
+        {
+          "from": "n24",
+          "to": "n25"
+        },
+        {
+          "from": "n25",
+          "to": "n26"
+        },
+        {
+          "from": "n26",
+          "to": "n27"
+        },
+        {
+          "from": "n27",
+          "to": "n28"
+        },
+        {
+          "from": "n28",
+          "to": "n29"
+        },
+        {
+          "from": "n29",
+          "to": "n30"
+        },
+        {
+          "from": "n30",
+          "to": "n31"
+        },
+        {
+          "from": "n31",
+          "to": "n32"
+        },
+        {
+          "from": "n32",
+          "to": "n33"
+        },
+        {
+          "from": "n33",
+          "to": "n34"
+        },
+        {
+          "from": "n34",
+          "to": "n35"
+        },
+        {
+          "from": "n35",
+          "to": "n36"
+        },
+        {
+          "from": "n36",
+          "to": "n37"
+        },
+        {
+          "from": "n37",
+          "to": "n38"
+        },
+        {
+          "from": "n38",
+          "to": "n39"
+        },
+        {
+          "from": "n39",
+          "to": "n40"
+        },
+        {
+          "from": "n40",
+          "to": "n41"
+        },
+        {
+          "from": "n41",
+          "to": "n42"
+        },
+        {
+          "from": "n42",
+          "to": "n43"
+        },
+        {
+          "from": "n43",
+          "to": "n44"
+        },
+        {
+          "from": "n44",
+          "to": "n45"
+        },
+        {
+          "from": "n45",
+          "to": "n46"
+        },
+        {
+          "from": "n46",
+          "to": "n47"
+        },
+        {
+          "from": "n47",
+          "to": "n48"
+        },
+        {
+          "from": "n48",
+          "to": "n49"
+        },
+        {
+          "from": "n49",
+          "to": "n50"
+        },
+        {
+          "from": "n50",
+          "to": "n51"
+        },
+        {
+          "from": "n51",
+          "to": "n52"
+        },
+        {
+          "from": "n52",
+          "to": "n53"
+        },
+        {
+          "from": "n53",
+          "to": "n54"
+        },
+        {
+          "from": "n54",
+          "to": "n55"
+        },
+        {
+          "from": "n55",
+          "to": "n56"
+        },
+        {
+          "from": "n56",
+          "to": "n57"
+        },
+        {
+          "from": "n57",
+          "to": "n58"
+        },
+        {
+          "from": "n58",
+          "to": "n59"
+        },
+        {
+          "from": "n59",
+          "to": "n60"
+        }
+      ]
+    },
+    "mesh": "SHEIKHA_RADICAL_NEURAL_MESH_V2",
+    "layers": {
+      "quranic": 19,
+      "sunnah": 11,
+      "maqasid": 11,
+      "fiqh": 8,
+      "tawheed": 1,
+      "governance": 7
+    },
+    "mode": "compiled-bytecode-runtime"
+  }
+}

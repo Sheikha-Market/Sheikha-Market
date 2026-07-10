@@ -55,6 +55,9 @@ const distributionReleaseApex = require(
 const publicBenefitCapabilityRouter = require(
   '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
 );
+const nativeLanguageArchitecture = require(
+  '../../runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json'
+);
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
@@ -235,6 +238,7 @@ function collectEnterpriseInspector(input = {}) {
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
       distributionReleaseApex: distributionReleaseApexStatus.status,
       publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus.status,
+      nativeLanguageArchitecture: nativeLanguageArchitecture.status,
       extension: extension.status,
       diagnostics
     },
@@ -298,6 +302,8 @@ function collectEnterpriseInspector(input = {}) {
       publicBenefitPolicy: '/api/governance/generator/public-benefit-policy',
       publicBenefitCoverage: '/api/governance/generator/public-benefit/coverage',
       publicBenefitEvaluation: '/api/governance/generator/public-benefit/evaluate',
+      nativeLanguageArchitecture:
+        '/api/governance/generator/sheikha-language-architecture',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
@@ -316,6 +322,7 @@ function collectEnterpriseInspector(input = {}) {
         'Cloud Production Deployment Apex',
         'Universal Distribution Release Apex',
         'Public Benefit Capability Router',
+        'Native Sheikha Language Architecture Foundation',
         'Technical Capability Apex',
         'Debugging Apex',
         'Chat Interface Apex',
@@ -391,6 +398,7 @@ function collectEnterpriseInspector(input = {}) {
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     distributionReleaseApex: distributionReleaseApexStatus,
     publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus,
+    nativeLanguageArchitecture,
     technicalCapabilityApex: technicalCapabilityApexStatus,
     computingCognitiveApex: computingCognitiveApexStatus,
     chatInterfaceApex: chatInterfaceApexStatus,
