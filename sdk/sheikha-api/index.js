@@ -84,6 +84,9 @@ function createSheikhaApiClient({
       '/api/sheikha/distribution-apex/v1/status',
       '/api/sheikha/distribution-apex/v1/matrix',
       '/api/sheikha/distribution-apex/v1/release-index',
+      '/api/governance/generator/public-benefit-policy',
+      '/api/governance/generator/public-benefit/coverage',
+      '/api/governance/generator/public-benefit/evaluate',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -252,6 +255,16 @@ function createSheikhaApiClient({
     status: () => request('/api/sheikha/distribution-apex/v1/status'),
     matrix: () => request('/api/sheikha/distribution-apex/v1/matrix'),
     releaseIndex: () => request('/api/sheikha/distribution-apex/v1/release-index')
+  };
+
+  client.publicBenefit = {
+    policy: () => request('/api/governance/generator/public-benefit-policy'),
+    coverage: () => request('/api/governance/generator/public-benefit/coverage'),
+    evaluate: input => request(
+      '/api/governance/generator/public-benefit/evaluate',
+      'POST',
+      input
+    )
   };
 
   return client;

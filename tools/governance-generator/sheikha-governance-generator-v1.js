@@ -2,6 +2,9 @@
 
 const fs = require('fs');
 const path = require('path');
+const publicBenefitRouter = require(
+  '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
+);
 
 const ROOT = process.cwd();
 const RUNTIME_DIR = 'runtime/governance-generator/v1';
@@ -45,6 +48,9 @@ const generation = readJson(`${RUNTIME_DIR}/registries/governance-generation-reg
 const policies = readJson(`${RUNTIME_DIR}/registries/governance-policy-template-registry.json`);
 const sdkMap = readJson(`${RUNTIME_DIR}/registries/sdk-fabric-mcp-governance-generator-map.json`);
 const earthCycle = readJson(`${RUNTIME_DIR}/registries/earth-development-governance-cycle.json`);
+const publicBenefitPolicy = readJson(
+  `${RUNTIME_DIR}/registries/public-benefit-capability-policy-v1.json`
+);
 const questions = readJson(`${RUNTIME_DIR}/registries/user-interaction-question-registry.json`);
 const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
 const route = routeMounted(fabric.routes || []);
@@ -61,6 +67,7 @@ const requiredCapabilities = [
   'daily_operational_governance_questions',
   'permission_scoped_information_capture',
   'earth_development_cycle_governance',
+  'public_benefit_capability_routing',
   'research_result_tool_binding',
   'sheikha_lab_studio_git_hub_governance'
 ];
@@ -142,8 +149,50 @@ const dependencies = {
   agiAsiResearchScienceFabric: exists('runtime/agi-asi-research-science-fabric/v1/sheikha-agi-asi-research-science-fabric-v1-report.json'),
   ugitAiControlPlane: exists('runtime/ugit-ai-control-plane/v1/sheikha-ugit-ai-control-plane-v1-report.json'),
   runtimeAdmissionController: exists('tools/governance/runtime-admission-controller.js'),
-  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js')
+  driftDetector: exists('tools/drift/sheikha-runtime-drift-detector.js'),
+  masterCapabilityRegistry: exists(
+    'runtime/master-activation/sheikha-master-capability-registry-v1.json'
+  ),
+  masterActivationReport: exists(
+    'runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json'
+  )
 };
+
+const eligibleBenefitProbe = publicBenefitRouter.evaluate({
+  capability: 'SHEIKHA_GOVERNANCE_GENERATOR_V1',
+  intendedBenefit: 'Improve public service quality with traceable evidence.',
+  beneficiaries: ['public_service_users'],
+  benefitDomains: ['public_infrastructure_and_service_quality'],
+  evidence: ['local_test_evidence'],
+  riskLevel: 'low',
+  boundaries: {
+    lawful: true,
+    authorized: true,
+    rightsRespected: true,
+    privacyProtected: true,
+    nonCoercive: true,
+    truthful: true,
+    leastPrivilege: true
+  }
+});
+const harmfulBenefitProbe = publicBenefitRouter.evaluate({
+  capability: 'SHEIKHA_GOVERNANCE_GENERATOR_V1',
+  intendedBenefit: 'Claimed benefit with identified harm.',
+  beneficiaries: ['unknown'],
+  evidence: ['risk_evidence'],
+  riskLevel: 'high',
+  boundaries: {
+    harmIdentified: true,
+    lawful: true,
+    authorized: true,
+    rightsRespected: true,
+    privacyProtected: true,
+    nonCoercive: true,
+    truthful: true,
+    leastPrivilege: true
+  }
+});
+const benefitCoverage = publicBenefitRouter.coverage();
 
 const checks = {
   registryActive: registry.system === 'SHEIKHA_GOVERNANCE_GENERATOR_V1' &&
@@ -202,6 +251,25 @@ const checks = {
     earthCycle.guardrails.role_based_visibility === true &&
     earthCycle.guardrails.high_impact_human_review === true &&
     earthCycle.guardrails.non_muslim_users_must_not_be_coerced_or_manipulated === true,
+  publicBenefitPolicyActive:
+    publicBenefitPolicy.status === 'ACTIVE_POLICY_ONLY_NO_AUTOMATIC_EXECUTION',
+  publicBenefitScopeComplete:
+    publicBenefitPolicy.scope?.appliesTo === 'ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES' &&
+    publicBenefitPolicy.scope?.policyCoverageDoesNotActivateCapabilities === true,
+  publicBenefitBoundariesSafe:
+    publicBenefitPolicy.purpose?.endsNeverJustifyForbiddenOrHarmfulMeans === true &&
+    publicBenefitPolicy.valuesReference?.executableReligiousAuthority === false &&
+    publicBenefitPolicy.valuesReference?.automatedFatwaAllowed === false &&
+    publicBenefitPolicy.execution?.automaticExecution === false &&
+    publicBenefitPolicy.execution?.humanFinalDecision === true,
+  publicBenefitCoverageLinked:
+    benefitCoverage.registeredComponents > 0 &&
+    benefitCoverage.policyAppliesToAllRegisteredComponents === true &&
+    benefitCoverage.policyCoverageActivatesComponents === false,
+  publicBenefitRouterEnforcesBoundaries:
+    eligibleBenefitProbe.decision === 'ELIGIBLE_FOR_GOVERNED_BENEFIT_ROUTING' &&
+    eligibleBenefitProbe.executionAllowed === false &&
+    harmfulBenefitProbe.decision === 'BLOCKED_BOUNDARY_VIOLATION',
   questionsActive: questions.status === 'ACTIVE',
   questionSetsComplete: (questions.dailyKickoffQuestions || []).length >= 6 &&
     (questions.endOfDayQuestions || []).length >= 6 &&
@@ -251,6 +319,10 @@ const report = {
     fabricTargets: (sdkMap.fabricTargets || []).length,
     earthCycleSteps: (earthCycle.cycle || []).length,
     impactDimensions: (earthCycle.impactDimensions || []).length,
+    publicBenefitDomains: (publicBenefitPolicy.benefitDomains || []).length,
+    publicBenefitHardBoundaries: (publicBenefitPolicy.hardBoundaries || []).length,
+    registeredCapabilitiesCovered: benefitCoverage.registeredComponents,
+    currentlyActiveCapabilities: benefitCoverage.currentlyActiveComponents,
     dailyKickoffQuestions: (questions.dailyKickoffQuestions || []).length,
     endOfDayQuestions: (questions.endOfDayQuestions || []).length,
     researchPromptQuestions: (questions.researchPromptQuestions || []).length
@@ -277,6 +349,8 @@ const report = {
     'Use this generator to produce governed blueprints before adding new runtime layers.',
     'Keep all user questions consent-based, role-scoped, and transparent.',
     'Bind generated tools to SDK/Fabric/MCP with least privilege.',
+    'Evaluate every capability against public-benefit evidence and hard boundaries before admission.',
+    'Never use a claimed benefit to override harm, rights, privacy, consent, law, or qualified review.',
     'Run test, lint, admission, drift, commit, and push for every generated baseline.'
   ],
   principle: 'ولا حول ولا قوة إلا بالله'
@@ -313,6 +387,14 @@ writeFile(
 - Authorized decisions
 - Impact measurement
 - Knowledge and curriculum update
+
+## Public Benefit Capability Routing
+- Applies policy to all registered capabilities without activating unready components
+- Hard boundaries override claimed benefit
+- Evidence is required before admission
+- High-impact use requires accountable human review
+- Religious rulings require qualified scholar review
+- Evaluation never executes the capability automatically
 
 ## Runtime Route
 - \`/api/governance/generator/status\`

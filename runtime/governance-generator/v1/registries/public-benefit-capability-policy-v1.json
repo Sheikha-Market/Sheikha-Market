@@ -1,0 +1,87 @@
+{
+  "system": "SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_POLICY_V1",
+  "status": "ACTIVE_POLICY_ONLY_NO_AUTOMATIC_EXECUTION",
+  "arabicName": "سياسة شيخة لتوجيه القدرات إلى النفع العام",
+  "scope": {
+    "appliesTo": "ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES",
+    "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
+    "masterActivationReport": "runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json",
+    "policyCoverageDoesNotActivateCapabilities": true,
+    "readinessClaimsRequireIndependentEvidence": true
+  },
+  "purpose": {
+    "primary": "Route available capabilities toward truthful, measurable, rights-respecting public benefit.",
+    "arabic": "توجيه القدرات المتاحة إلى خير نافع قابل للقياس مع حفظ الحقوق ومنع الضرر.",
+    "endsNeverJustifyForbiddenOrHarmfulMeans": true
+  },
+  "valuesReference": {
+    "boundary": "QURAN_AND_AUTHENTIC_SUNNAH_VALUES_REFERENCE",
+    "principles": [
+      "truthfulness",
+      "justice",
+      "ihsan",
+      "amanah",
+      "cooperation_in_righteousness",
+      "no_harm",
+      "public_benefit"
+    ],
+    "executableReligiousAuthority": false,
+    "automatedFatwaAllowed": false,
+    "qualifiedScholarReviewForReligiousRulings": true,
+    "transparentContextForReligiousContent": true,
+    "noCoercionOrManipulation": true
+  },
+  "benefitDomains": [
+    "human_safety_and_dignity",
+    "health_and_accessibility",
+    "education_and_useful_knowledge",
+    "fair_livelihood_and_economic_opportunity",
+    "family_and_community_wellbeing",
+    "justice_rights_and_trust",
+    "food_water_energy_and_supply_resilience",
+    "environmental_stewardship_and_recycling",
+    "public_infrastructure_and_service_quality",
+    "emergency_preparedness_and_recovery"
+  ],
+  "hardBoundaries": [
+    "no_harm_or_reciprocal_harm",
+    "lawful_and_authorized_use",
+    "rights_dignity_and_fairness",
+    "privacy_consent_and_data_minimization",
+    "truthfulness_and_no_deception",
+    "security_and_least_privilege",
+    "no_coercion_or_discrimination",
+    "environmental_and_resource_responsibility",
+    "human_review_for_high_impact_actions",
+    "qualified_review_for_religious_legal_medical_and_financial_judgments"
+  ],
+  "requiredAssurances": [
+    "lawful",
+    "authorized",
+    "rightsRespected",
+    "privacyProtected",
+    "nonCoercive",
+    "truthful",
+    "leastPrivilege"
+  ],
+  "decisionStates": [
+    "ELIGIBLE_FOR_GOVERNED_BENEFIT_ROUTING",
+    "EVIDENCE_REQUIRED",
+    "HUMAN_REVIEW_REQUIRED",
+    "QUALIFIED_REVIEW_REQUIRED",
+    "BLOCKED_BOUNDARY_VIOLATION"
+  ],
+  "execution": {
+    "evaluationOnly": true,
+    "automaticExecution": false,
+    "automaticExternalAction": false,
+    "automaticHighImpactApproval": false,
+    "capabilityTokenRequired": true,
+    "auditEvidenceRequired": true,
+    "independentEvidenceVerificationRequired": true,
+    "decisionGrantsAuthorization": false,
+    "rollbackRequiredWhenApplicable": true,
+    "humanFinalDecision": true
+  },
+  "principle": "لا ضرر ولا ضرار"
+}

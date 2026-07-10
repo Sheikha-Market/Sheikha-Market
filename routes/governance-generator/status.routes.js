@@ -1,8 +1,13 @@
 const express = require('express');
 const fs = require('fs');
 const path = require('path');
+const publicBenefitRouter = require(
+  '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
+);
 
 const router = express.Router();
+
+router.use(express.json({ limit: '64kb' }));
 
 function readJson(relativePath) {
   return JSON.parse(
@@ -25,6 +30,7 @@ router.get('/status', (_req, res) => {
     success: true,
     registry,
     report,
+    publicBenefit: publicBenefitRouter.status(),
     timestamp: new Date().toISOString()
   });
 });
@@ -75,6 +81,22 @@ router.get('/earth-development-cycle', (_req, res) => {
     earthDevelopmentCycle,
     timestamp: new Date().toISOString()
   });
+});
+
+router.get('/public-benefit-policy', (_req, res) => {
+  return res.json({
+    success: true,
+    policy: publicBenefitRouter.policy(),
+    timestamp: new Date().toISOString()
+  });
+});
+
+router.get('/public-benefit/coverage', (_req, res) => {
+  return res.json(publicBenefitRouter.coverage());
+});
+
+router.post('/public-benefit/evaluate', (req, res) => {
+  return res.json(publicBenefitRouter.evaluate(req.body || {}));
 });
 
 router.get('/questions', (_req, res) => {

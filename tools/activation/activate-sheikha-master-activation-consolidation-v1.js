@@ -27,6 +27,8 @@ const computingCognitiveLayersPath = 'runtime/computing-cognitive-layers/v1/shei
 const computingCognitiveLayersHandbookPath = 'docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md';
 const distributionReportPath = 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json';
 const distributionApexReportPath = 'runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json';
+const governanceGeneratorReportPath = 'runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json';
+const publicBenefitPolicyPath = 'runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json';
 const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
@@ -1260,6 +1262,8 @@ function buildReport() {
   const computingCognitiveLayers = safeReadJson(computingCognitiveLayersPath);
   const distribution = safeReadJson(distributionReportPath);
   const distributionApex = safeReadJson(distributionApexReportPath);
+  const governanceGenerator = safeReadJson(governanceGeneratorReportPath);
+  const publicBenefitPolicy = safeReadJson(publicBenefitPolicyPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1303,6 +1307,10 @@ function buildReport() {
   finalExecutiveReport.counts.distributionTargetsNativeVerified =
     distribution?.nativeVerifiedCount || 0;
   finalExecutiveReport.counts.distributionReleaseApexLevel = distributionApex?.apexLevel || 0;
+  finalExecutiveReport.counts.publicBenefitRegisteredCapabilities =
+    governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0;
+  finalExecutiveReport.counts.publicBenefitActiveCapabilities =
+    governanceGenerator?.coverage?.currentlyActiveCapabilities || 0;
   finalExecutiveReport.evidence.methodologyAccreditation = methodologyAccreditationPath;
   finalExecutiveReport.evidence.externalAccreditationVerification = externalAccreditationVerificationPath;
   finalExecutiveReport.evidence.sovereignKernelBoot = sovereignKernelBootPath;
@@ -1322,6 +1330,8 @@ function buildReport() {
   finalExecutiveReport.evidence.computingCognitiveLayersHandbook = computingCognitiveLayersHandbookPath;
   finalExecutiveReport.evidence.universalDistribution = distributionReportPath;
   finalExecutiveReport.evidence.universalDistributionApex = distributionApexReportPath;
+  finalExecutiveReport.evidence.governanceGenerator = governanceGeneratorReportPath;
+  finalExecutiveReport.evidence.publicBenefitCapabilityPolicy = publicBenefitPolicyPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
@@ -1374,6 +1384,12 @@ function buildReport() {
   executiveDashboard.indicators.distributionReleaseApexLevel = distributionApex?.apexLevel || 0;
   executiveDashboard.indicators.distributionReleaseApexRemoteBuildEndpointExposed =
     distributionApex?.governance?.remoteBuildEndpointExposed === true;
+  executiveDashboard.indicators.publicBenefitCapabilityRoutingActive =
+    governanceGenerator?.checks?.publicBenefitRouterEnforcesBoundaries === true;
+  executiveDashboard.indicators.publicBenefitRegisteredCapabilities =
+    governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0;
+  executiveDashboard.indicators.publicBenefitPolicyActivatesCapabilities =
+    publicBenefitPolicy?.scope?.policyCoverageDoesNotActivateCapabilities !== true;
   executiveDashboard.indicators.reasoningStandardActive =
     computingCognitiveLayers?.activation?.standard?.status === 'READY';
   executiveDashboard.indicators.reasoningProActive =
@@ -1399,6 +1415,8 @@ function buildReport() {
     'Promote the computing cognitive engine to L24 as the highest executable technical layer while keeping the values reference non-executable and human authority above automation.',
     'Keep L24 as the highest cognitive reasoning plane and L27 as the specialized release-delivery apex; layer numbering does not grant cross-plane authority.',
     'Expose distribution-apex status, matrix, and release index as read-only APIs; building, signing, notarization, and external publishing remain local human-approved operations.',
+    'Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.',
+    'Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.',
     'Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries.'
   );
 
@@ -1458,6 +1476,18 @@ function buildReport() {
       distributionApex?.governance?.remoteBuildEndpointExposed === false &&
       distributionApex?.governance?.remotePublishEndpointExposed === false &&
       distributionApex?.governance?.humanFinalDecision === true,
+    publicBenefitCapabilityRoutingIntegrated:
+      governanceGenerator?.system === 'SHEIKHA_GOVERNANCE_GENERATOR_V1' &&
+      governanceGenerator?.status === 'ACTIVE' &&
+      governanceGenerator?.score === 100 &&
+      governanceGenerator?.checks?.publicBenefitPolicyActive === true &&
+      governanceGenerator?.checks?.publicBenefitCoverageLinked === true &&
+      governanceGenerator?.checks?.publicBenefitRouterEnforcesBoundaries === true &&
+      governanceGenerator?.coverage?.registeredCapabilitiesCovered === components.length &&
+      publicBenefitPolicy?.scope?.policyCoverageDoesNotActivateCapabilities === true &&
+      publicBenefitPolicy?.valuesReference?.automatedFatwaAllowed === false &&
+      publicBenefitPolicy?.execution?.automaticExecution === false &&
+      publicBenefitPolicy?.execution?.decisionGrantsAuthorization === false,
     documentationIndexBuilt: documentationIndex.count > 0,
     finalExecutiveReportBuilt: Boolean(finalExecutiveReport.counts),
     githubIndependent: getOfflineOperationStatus().githubRequired === false
@@ -1494,6 +1524,8 @@ function buildReport() {
     computingCognitiveLayersHandbookPath,
     distributionReportPath,
     distributionApexReportPath,
+    governanceGeneratorReportPath,
+    publicBenefitPolicyPath,
     distributionMatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
@@ -1574,6 +1606,12 @@ function buildReport() {
         distributionApex?.activationStatus === 'L27_ACTIVE_WITH_VERIFIED_BOUNDARIES',
       distributionReleaseApexLevel: distributionApex?.apexLevel || 0,
       distributionReleaseApexPlane: distributionApex?.plane || 'UNKNOWN',
+      publicBenefitCapabilityRoutingActive:
+        governanceGenerator?.checks?.publicBenefitRouterEnforcesBoundaries === true,
+      publicBenefitRegisteredCapabilities:
+        governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0,
+      publicBenefitCurrentlyActiveCapabilities:
+        governanceGenerator?.coverage?.currentlyActiveCapabilities || 0,
       reasoningModes: Object.keys(computingCognitiveLayers?.model?.reasoningModes || {}).length,
       ultraRoleSlots: computingCognitiveLayers?.model?.ultraMode?.agentSlots || 0,
       reasoningHumanFinalDecision: computingCognitiveLayers?.model?.ultraMode?.humanFinalDecision === true,
@@ -1721,6 +1759,27 @@ function buildReport() {
         distributionApex?.layerRelationship?.crossPlaneAuthorityEscalation === true,
       humanFinalDecision: distributionApex?.governance?.humanFinalDecision === true
     },
+    publicBenefitCapabilityRouting: {
+      active: governanceGenerator?.checks?.publicBenefitRouterEnforcesBoundaries === true,
+      reportPath: governanceGeneratorReportPath,
+      policyPath: publicBenefitPolicyPath,
+      status: publicBenefitPolicy?.status || 'PENDING_REPORT_GENERATION',
+      scope: publicBenefitPolicy?.scope?.appliesTo || 'UNKNOWN',
+      registeredCapabilities:
+        governanceGenerator?.coverage?.registeredCapabilitiesCovered || 0,
+      currentlyActiveCapabilities:
+        governanceGenerator?.coverage?.currentlyActiveCapabilities || 0,
+      policyCoverageActivatesCapabilities:
+        publicBenefitPolicy?.scope?.policyCoverageDoesNotActivateCapabilities !== true,
+      hardBoundariesOverrideBenefitIntent:
+        publicBenefitPolicy?.purpose?.endsNeverJustifyForbiddenOrHarmfulMeans === true,
+      automaticExecution: publicBenefitPolicy?.execution?.automaticExecution === true,
+      decisionGrantsAuthorization:
+        publicBenefitPolicy?.execution?.decisionGrantsAuthorization === true,
+      automatedFatwaAllowed:
+        publicBenefitPolicy?.valuesReference?.automatedFatwaAllowed === true,
+      humanFinalDecision: publicBenefitPolicy?.execution?.humanFinalDecision === true
+    },
     executiveDashboard,
     documentation: documentationIndex,
     safeImprovementsExecuted: [
@@ -1737,6 +1796,7 @@ function buildReport() {
       'Computing Cognitive Layers is promoted to L24 above the L23 extension stream, parallel L22 deployment plane, L21 multilingual stream, and L20 technical capability apex.',
       'Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.',
       'Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.',
+      'Public Benefit Capability Routing covers the registered catalog with hard boundaries, evidence admission, specialist review, and no automatic execution.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
@@ -1817,6 +1877,10 @@ if (require.main === module) {
     distributionReleaseApexActive: report.summary.distributionReleaseApexActive,
     distributionReleaseApexLevel: report.summary.distributionReleaseApexLevel,
     distributionReleaseApexPlane: report.summary.distributionReleaseApexPlane,
+    publicBenefitCapabilityRoutingActive: report.summary.publicBenefitCapabilityRoutingActive,
+    publicBenefitRegisteredCapabilities: report.summary.publicBenefitRegisteredCapabilities,
+    publicBenefitCurrentlyActiveCapabilities:
+      report.summary.publicBenefitCurrentlyActiveCapabilities,
     reasoningModes: report.summary.reasoningModes,
     ultraRoleSlots: report.summary.ultraRoleSlots,
     reasoningHumanFinalDecision: report.summary.reasoningHumanFinalDecision,
@@ -1848,6 +1912,8 @@ if (require.main === module) {
       computingCognitiveLayersHandbook: computingCognitiveLayersHandbookPath,
       universalDistribution: distributionReportPath,
       universalDistributionApex: distributionApexReportPath,
+      governanceGenerator: governanceGeneratorReportPath,
+      publicBenefitCapabilityPolicy: publicBenefitPolicyPath,
       universalDistributionMatrix: distributionMatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath

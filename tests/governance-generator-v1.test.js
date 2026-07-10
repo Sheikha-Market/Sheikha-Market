@@ -1,5 +1,8 @@
 const fs = require('fs');
 const path = require('path');
+const publicBenefitRouter = require(
+  '../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
+);
 
 const root = path.join(__dirname, '..');
 
@@ -28,11 +31,87 @@ describe('Sheikha Governance Generator V1', () => {
       'sdk_fabric_mcp_binding_generation',
       'daily_operational_governance_questions',
       'earth_development_cycle_governance',
+      'public_benefit_capability_routing',
       'sheikha_lab_studio_git_hub_governance'
     ]));
     expect(registry.truthfulness.no_hidden_persuasion).toBe(true);
     expect(registry.truthfulness.no_private_data_without_consent).toBe(true);
     expect(registry.truthfulness.system_is_tool_not_religious_authority).toBe(true);
+  });
+
+  test('applies public-benefit policy to the full catalog without activating components', () => {
+    const policy = readJson(
+      'runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json'
+    );
+    const coverage = publicBenefitRouter.coverage();
+    const status = publicBenefitRouter.status();
+
+    expect(policy.status).toBe('ACTIVE_POLICY_ONLY_NO_AUTOMATIC_EXECUTION');
+    expect(policy.scope.appliesTo).toBe('ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES');
+    expect(policy.scope.policyCoverageDoesNotActivateCapabilities).toBe(true);
+    expect(policy.purpose.endsNeverJustifyForbiddenOrHarmfulMeans).toBe(true);
+    expect(policy.valuesReference).toMatchObject({
+      executableReligiousAuthority: false,
+      automatedFatwaAllowed: false,
+      qualifiedScholarReviewForReligiousRulings: true,
+      noCoercionOrManipulation: true
+    });
+    expect(policy.execution).toMatchObject({
+      evaluationOnly: true,
+      automaticExecution: false,
+      automaticExternalAction: false,
+      automaticHighImpactApproval: false,
+      humanFinalDecision: true
+    });
+    expect(coverage.registeredComponents).toBeGreaterThan(7000);
+    expect(coverage.policyAppliesToAllRegisteredComponents).toBe(true);
+    expect(coverage.policyCoverageActivatesComponents).toBe(false);
+    expect(status.status).toBe('ACTIVE_GOVERNED_EVALUATION_ONLY');
+  });
+
+  test('routes benefit only after evidence and boundaries while preserving expert review', () => {
+    const safeInput = {
+      capability: 'SHEIKHA_KNOWLEDGE_CAPABILITY',
+      intendedBenefit: 'Provide useful accessible knowledge.',
+      beneficiaries: ['learners'],
+      benefitDomains: ['education_and_useful_knowledge'],
+      evidence: ['approved_test_report'],
+      riskLevel: 'low',
+      boundaries: {
+        lawful: true,
+        authorized: true,
+        rightsRespected: true,
+        privacyProtected: true,
+        nonCoercive: true,
+        truthful: true,
+        leastPrivilege: true
+      }
+    };
+
+    expect(publicBenefitRouter.evaluate(safeInput)).toMatchObject({
+      decision: 'ELIGIBLE_FOR_GOVERNED_BENEFIT_ROUTING',
+      executionAllowed: false,
+      capabilityRegistrationVerified: false,
+      evidenceIndependentlyVerified: false,
+      decisionGrantsAuthorization: false,
+      nextGate: 'VERIFY_REGISTRATION_EVIDENCE_CAPABILITY_ADMISSION_AND_HUMAN_APPROVAL'
+    });
+    expect(publicBenefitRouter.evaluate({ ...safeInput, evidence: [] }).decision)
+      .toBe('EVIDENCE_REQUIRED');
+    expect(publicBenefitRouter.evaluate({ ...safeInput, highImpact: true }).decision)
+      .toBe('HUMAN_REVIEW_REQUIRED');
+    expect(publicBenefitRouter.evaluate({ ...safeInput, religiousBindingDecision: true }))
+      .toMatchObject({
+        decision: 'QUALIFIED_REVIEW_REQUIRED',
+        nextGate: 'QUALIFIED_SCHOLAR_REVIEW'
+      });
+    expect(publicBenefitRouter.evaluate({
+      ...safeInput,
+      boundaries: { ...safeInput.boundaries, harmIdentified: true }
+    })).toMatchObject({
+      decision: 'BLOCKED_BOUNDARY_VIOLATION',
+      violations: expect.arrayContaining(['HARM_IDENTIFIED'])
+    });
   });
 
   test('generation registry covers runtime registry tool route tests and Sheikha operating targets', () => {
@@ -157,11 +236,20 @@ describe('Sheikha Governance Generator V1', () => {
     expect(report.missing).toEqual([]);
     expect(report.coverage.artifactTypes).toBeGreaterThanOrEqual(10);
     expect(report.coverage.targetSystems).toBeGreaterThanOrEqual(12);
+    expect(report.coverage.publicBenefitDomains).toBeGreaterThanOrEqual(10);
+    expect(report.coverage.publicBenefitHardBoundaries).toBeGreaterThanOrEqual(10);
+    expect(report.coverage.registeredCapabilitiesCovered).toBeGreaterThan(7000);
     expect(packageJson.scripts['ops:governance-generator:v1']).toBe(
       'node tools/governance-generator/sheikha-governance-generator-v1.js'
     );
     expect(docs).toContain('SHEIKHA_GOVERNANCE_GENERATOR_V1');
     expect(docs).toContain('/api/governance/generator/status');
+    expect(docs).toContain('/api/governance/generator/public-benefit/evaluate');
+    expect(readText('routes/governance-generator/status.routes.js'))
+      .toContain("router.post('/public-benefit/evaluate'");
+    expect(readText('sdk/sheikha-api/index.js')).toContain('client.publicBenefit');
+    expect(readText('routes/sheikha-unified-chat-fabric.js'))
+      .toContain('publicBenefitRouting');
     expect(route).toEqual(expect.objectContaining({
       mount: '/api/governance/generator',
       module: 'routes/governance-generator/status.routes.js',

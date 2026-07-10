@@ -27,6 +27,14 @@
 - Impact measurement
 - Knowledge and curriculum update
 
+## Public Benefit Capability Routing
+- Applies policy to all registered capabilities without activating unready components
+- Hard boundaries override claimed benefit
+- Evidence is required before admission
+- High-impact use requires accountable human review
+- Religious rulings require qualified scholar review
+- Evaluation never executes the capability automatically
+
 ## Runtime Route
 - `/api/governance/generator/status`
 

@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T15:45:44.384Z",
+  "generatedAt": "2026-07-10T17:22:29.031Z",
   "nodes": [
     {
       "id": "APIs",
@@ -71,7 +71,7 @@
     {
       "id": "Governance",
       "type": "layer",
-      "components": 521,
+      "components": 523,
       "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
     },
     {
@@ -56204,6 +56204,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "public-benefit-capability-policy-45742b6f9ceb",
+      "fromPath": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "public-benefit-capability-policy-45742b6f9ceb",
+      "fromPath": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
       "from": "sdk-fabric-mcp-governance-generator-map-7c8c3dff0d39",
       "fromPath": "runtime/governance-generator/v1/registries/sdk-fabric-mcp-governance-generator-map.json",
       "to": "Runtime",
@@ -56260,6 +56272,18 @@
     {
       "from": "governance-generator-5a185b89fdca",
       "fromPath": "runtime/governance-generator/v1/sheikha-governance-generator-v1.json",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "public-benefit-capability-router-61b78b5774db",
+      "fromPath": "runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "public-benefit-capability-router-61b78b5774db",
+      "fromPath": "runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1.js",
       "to": "Security",
       "type": "component-to-layer"
     },

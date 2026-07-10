@@ -47,7 +47,10 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       enterpriseInspector: '/api/sheikha/enterprise-inspector/v3/status',
       distributionReleaseApex: '/api/sheikha/distribution-apex/v1/status',
       distributionReleaseMatrix: '/api/sheikha/distribution-apex/v1/matrix',
-      distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index'
+      distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index',
+      publicBenefitPolicy: '/api/governance/generator/public-benefit-policy',
+      publicBenefitCoverage: '/api/governance/generator/public-benefit/coverage',
+      publicBenefitEvaluation: '/api/governance/generator/public-benefit/evaluate'
     },
     intelligenceModes: {
       runtime: [
@@ -96,7 +99,19 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       humanFinalDecision: true,
       statusEndpoint: '/api/sheikha/distribution-apex/v1/status'
     },
+    publicBenefitRouting: {
+      system: 'SHEIKHA_PUBLIC_BENEFIT_CAPABILITY_ROUTER_V1',
+      status: 'ACTIVE_GOVERNED_EVALUATION_ONLY',
+      scope: 'ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES',
+      hardBoundariesOverrideBenefitIntent: true,
+      policyCoverageActivatesCapabilities: false,
+      automaticExecution: false,
+      automatedFatwaAllowed: false,
+      humanFinalDecision: true,
+      statusEndpoint: '/api/governance/generator/public-benefit/coverage'
+    },
     requiredPath: [
+      'PublicBenefitCapabilityRouter',
       'DistributionReleaseApex',
       'ComputingCognitiveApex',
       'StreamingMultilingualChatApex',
