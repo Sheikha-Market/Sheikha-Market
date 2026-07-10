@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-09T23:04:05.653Z",
+  "generatedAt": "2026-07-10T00:02:21.152Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -25,23 +25,23 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          2.38,
-          1.42,
-          1.94
+          4.26,
+          3.51,
+          2.85
         ]
       }
     },
     "memory": {
       "ok": true,
       "evidence": {
-        "totalMemoryBytes": 66875752448,
-        "freeMemoryBytes": 44462919680,
+        "totalMemoryBytes": 66875777024,
+        "freeMemoryBytes": 48369246208,
         "processMemory": {
-          "rss": 152879104,
+          "rss": 147128320,
           "heapTotal": 58765312,
-          "heapUsed": 33990344,
-          "external": 1876899,
-          "arrayBuffers": 135357
+          "heapUsed": 33217800,
+          "external": 1876462,
+          "arrayBuffers": 134920
         }
       }
     },
@@ -49,9 +49,9 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 537533688,
-        "availableKb": 386980452,
-        "usagePercent": "59%",
+        "usedKb": 535794724,
+        "availableKb": 388719416,
+        "usagePercent": "58%",
         "mount": "/"
       }
     },
@@ -63,14 +63,14 @@
           "endpoint": "http://127.0.0.1:8080/api/health",
           "ok": true,
           "statusCode": "200",
-          "latencyMs": 2
+          "latencyMs": 1
         }
       }
     },
     "latency": {
       "ok": true,
       "evidence": {
-        "healthLatencyMs": 2
+        "healthLatencyMs": 1
       }
     },
     "cache": {
