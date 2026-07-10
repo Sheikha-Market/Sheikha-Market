@@ -160,3 +160,7 @@ security/keys/
 # Local offline backups
 release/offline-backup/
 sheikha-main-portal-restored/
+
+# Sheikha native bare-metal build intermediates
+bare-metal/build/out/
+!runtime/bare-metal/v1/evidence/qemu-serial.log

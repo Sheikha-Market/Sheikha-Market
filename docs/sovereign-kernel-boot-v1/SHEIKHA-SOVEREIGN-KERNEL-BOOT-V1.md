@@ -30,10 +30,18 @@ Score: 100
 
 ## Sheikha Native Boot Target
 
+Bare-metal seed status: VERIFIED_BARE_METAL_BOOT
+QEMU executed: true
+Post-firmware serial marker verified: true
+
 الهدف الأصلي هو صورة إقلاع شيخة native/no-host. أوامر المستودع التالية هي أوامر بناء وفحص مؤقتة وليست أساس النظام:
 
 ```bash
 npm install
+npm run -s ops:bare-metal:build:v1
+npm run -s ops:bare-metal:image:v1
+npm run -s ops:bare-metal:qemu:v1
+npm run -s ops:bare-metal:verify:v1
 npm run -s ops:sovereign-kernel-boot:v1
 npm run -s ops:master-activation:consolidation:v1
 npm run server:restart

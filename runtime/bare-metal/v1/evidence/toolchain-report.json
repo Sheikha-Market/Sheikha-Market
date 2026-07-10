@@ -1,0 +1,93 @@
+{
+  "system": "SHEIKHA_BARE_METAL_TOOLCHAIN_V1",
+  "generatedAt": "2026-07-10T11:10:59.024Z",
+  "architecture": "x86_64",
+  "selectedBackend": "freestanding-c11-gnu-pe32plus",
+  "rustPreferredButUnavailable": true,
+  "tools": {
+    "gcc": {
+      "available": true,
+      "path": "/usr/bin/gcc",
+      "version": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+    },
+    "ld": {
+      "available": true,
+      "path": "/usr/bin/ld",
+      "version": "GNU ld (GNU Binutils for Ubuntu) 2.38"
+    },
+    "objcopy": {
+      "available": true,
+      "path": "/usr/bin/objcopy",
+      "version": "GNU objcopy (GNU Binutils for Ubuntu) 2.38"
+    },
+    "readelf": {
+      "available": true,
+      "path": "/usr/bin/readelf",
+      "version": "GNU readelf (GNU Binutils for Ubuntu) 2.38"
+    },
+    "rustc": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "cargo": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "clang": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "ld.lld": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "lld": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "nasm": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "qemu-system-x86_64": {
+      "available": true,
+      "path": "/tmp/sheikha-qemu-local/usr/bin/qemu-system-x86_64",
+      "version": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)"
+    },
+    "qemu-system-aarch64": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "xorriso": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "grub-mkrescue": {
+      "available": false,
+      "path": null,
+      "version": null
+    },
+    "mkfs.fat": {
+      "available": true,
+      "path": "/usr/sbin/mkfs.fat",
+      "version": "mkfs.fat 4.2 (2021-01-31)"
+    }
+  },
+  "firmware": {
+    "ovmfCode": "/tmp/sheikha-qemu-local/usr/share/OVMF/OVMF_CODE_4M.fd",
+    "ovmfVars": "/tmp/sheikha-qemu-local/usr/share/OVMF/OVMF_VARS_4M.fd"
+  },
+  "buildReady": true,
+  "qemuBootReady": true,
+  "missingBuildRequirements": [],
+  "missingBootRequirements": [],
+  "packageInstallationPerformed": false
+}

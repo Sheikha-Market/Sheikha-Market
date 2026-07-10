@@ -43,6 +43,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
 
     expect(report.offlineOperation.githubRequired).toBe(false);
     expect(report.checks.githubIndependent).toBe(true);
+    expect(report.checks.bareMetalSeedIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
     expect(report.architectureGraph.nodes.length).toBeGreaterThan(0);
     expect(report.duplicateAnalysis.policy).toBe('REPORT_ONLY_NO_DELETION');
@@ -66,7 +67,9 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.documentation.count).toBeGreaterThan(0);
     expect(report.executiveDashboard.indicators.githubRequired).toBe(false);
     expect(report.executiveDashboard.indicators.internalAttestations).toBeGreaterThan(0);
+    expect(report.executiveDashboard.indicators.bareMetalFullyIndependentToday).toBe(true);
     expect(report.executiveReport.counts.apis).toBeGreaterThan(0);
+    expect(report.executiveReport.counts.verifiedBareMetalBoots).toBe(1);
     expect(report.executiveReport.counts.externalCertificatesIssued).toBe(0);
   });
 

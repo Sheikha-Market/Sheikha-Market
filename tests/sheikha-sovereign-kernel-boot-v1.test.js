@@ -34,6 +34,7 @@ describe('Sheikha Sovereign Kernel Boot V1', () => {
 
   test('defines no-host from-scratch foundation while keeping boot evidence truthful', () => {
     const report = buildReport();
+    const bareMetalEvidence = require('../runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json');
 
     expect(report.rootCovenant.noHostSystemAsFoundation).toBe(true);
     expect(report.rootCovenant.noLinuxNodeAsFoundation).toBe(true);
@@ -44,8 +45,11 @@ describe('Sheikha Sovereign Kernel Boot V1', () => {
     expect(report.fromScratchBoundary.linuxNodeFoundationAllowed).toBe(false);
     expect(report.fromScratchBoundary.currentRepositoryToolingIsFoundation).toBe(false);
     expect(report.fromScratchBoundary.currentRepositoryToolingIsCapabilityCeiling).toBe(false);
-    expect(report.fromScratchBoundary.bareMetalFullyIndependentToday).toBe(false);
-    expect(report.fromScratchBoundary.truthPolicy).toContain('bare-metal');
+    expect(report.fromScratchBoundary.bareMetalFullyIndependentToday)
+      .toBe(bareMetalEvidence.bareMetalFullyIndependentToday);
+    expect(report.fromScratchBoundary.qemuBootExecutedToday).toBe(true);
+    expect(report.fromScratchBoundary.postFirmwareHandoffVerifiedToday).toBe(true);
+    expect(report.fromScratchBoundary.truthPolicy).toContain('QEMU');
   });
 
   test('treats Linux and Node as adapters, not capability ceilings', () => {

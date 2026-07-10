@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-  "generatedAt": "2026-07-10T02:13:23.420Z",
+  "generatedAt": "2026-07-10T11:17:02.494Z",
   "policy": {
     "internalAttestationsAllowed": true,
     "externalAccreditationIssuedBySheikha": false,
@@ -9,7 +9,7 @@
     "githubRequired": false
   },
   "repositoryEvidence": {
-    "components": 7073,
+    "components": 7114,
     "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
     "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -112,13 +112,13 @@
         "archive/activation-scripts/activate-enterprise-ai.sh",
         "archive/activation-scripts/activate-sheikha-canonical-organization.sh",
         "archive/activation-scripts/activate-sheikha-project-reorganization.sh",
+        "bare-metal/architecture/aarch64/README.md",
+        "bare-metal/architecture/x86_64/README.md",
         "config/runtime-registry.js",
         "config/sheikha-saudi-national-digital-architecture.json",
         "core/activation-learning/sheikha-activation-learning-registry.js",
         "core/dynamic-federation-registry/sheikha-dynamic-federation-registry-v1.js",
-        "core/dynamic-federation-registry/sheikha-dynamic-federation-registry-v2.js",
-        "core/engine-registry/sheikha-engine-registry-v1.js",
-        "core/engine-registry/sheikha-governed-engine-registry-v2.js"
+        "core/dynamic-federation-registry/sheikha-dynamic-federation-registry-v2.js"
       ],
       "status": "ACTIVE_EVIDENCE_PRESENT",
       "maturity": "cataloged"
@@ -207,11 +207,11 @@
         "archive/activation-scripts/activate-sheikha-runtime-hardening.sh",
         "archive/activation-scripts/activate-sheikha-runtime-refinement.sh",
         "archive/backups/server/sheikha-strategic-integration-engine.js.backup",
+        "bare-metal/kernel/runtime/README.md",
         "config/gov-api-plans.json",
         "config/runtime-registry.js",
         "config/sheikha-quranic-science-integration-core.json",
-        "core/ai-gateway/sheikha-continuous-learning-runtime.js",
-        "core/api/sheikha-powered.js"
+        "core/ai-gateway/sheikha-continuous-learning-runtime.js"
       ],
       "status": "ACTIVE_EVIDENCE_PRESENT",
       "maturity": "cataloged"
@@ -242,6 +242,9 @@
         "activate-sheikha-ai-cluster-pipeline-production-apex-v1.sh",
         "archive/backups/server/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627",
         "archive/backups/server/sheikha-civilian-research-hpc.js.backup-ultimate-supremacy-20260307-154229",
+        "bare-metal/architecture/aarch64/README.md",
+        "bare-metal/architecture/x86_64/README.md",
+        "bare-metal/build/sheikha-bare-metal-pipeline-v1.js",
         "config/sheikha-global-compute-halal-core.json",
         "config/sheikha-saudi-national-digital-architecture.json",
         "core/enterprise-architecture/sheikha-enterprise-architecture-operating-integration-v3.js",
@@ -255,10 +258,7 @@
         "core/language/sheikha-arabic/tests/run-arabic-accounting-pipeline.js",
         "core/product-knowledge/product-governance-pipeline.js",
         "core/runtime/dependency-graph/sheikha-runtime-dependency-graph.js",
-        "dist/sheikha-app/opt/sheikha/lib/compute/index.js",
-        "dist/sheikha-app/opt/sheikha/lib/sheikha-architecture-unified.js",
-        "dist/sheikha-app/opt/sheikha/lib/sheikha-civilian-research-hpc.js",
-        "dist/sheikha-app/opt/sheikha/lib/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627"
+        "dist/sheikha-app/opt/sheikha/lib/compute/index.js"
       ],
       "status": "ACTIVE_EVIDENCE_PRESENT",
       "maturity": "cataloged"
@@ -380,6 +380,7 @@
         "app/Http/Controllers/Auth/GoogleAuthController.php",
         "archive/activation-scripts/activate-sheikha-audit-retention.sh",
         "archive/backups/server/sheikha-civilian-research-hpc.js.backup-complete-security-20260307-140627",
+        "bare-metal/kernel/security/README.md",
         "core/kernel/security/README.md",
         "core/kernel/security/index.js",
         "core/kernel/security/runtime-guard.js",
@@ -400,8 +401,7 @@
         "docs/canonical/audit-retention/SHEIKHA-AUDIT-RETENTION.md",
         "docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md",
         "docs/canonical/security-governance/SHEIKHA-SECURITY-GOVERNANCE.md",
-        "docs/github-push-auth.md",
-        "docs/operations/SHEIKHA-PRODUCTION-TRUTH-GATE-V4.md"
+        "docs/github-push-auth.md"
       ],
       "status": "ACTIVE_EVIDENCE_PRESENT",
       "maturity": "cataloged"
@@ -569,7 +569,7 @@
       "title": "Internal runtime verification accreditation",
       "status": "ISSUED_INTERNAL",
       "legalExternalAuthority": false,
-      "score": 100,
+      "score": 60,
       "evidence": [
         "PM2 snapshot",
         "ports snapshot",

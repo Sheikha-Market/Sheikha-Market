@@ -1,0 +1,22 @@
+{
+  "id": "SHEIKHA_BOOT_CONTRACT_V1",
+  "version": "1.0.0",
+  "architecture": "x86_64",
+  "protocol": "UEFI",
+  "fallbackPath": "EFI/BOOT/BOOTX64.EFI",
+  "entryPoint": "efi_main",
+  "handoff": {
+    "requiresMemoryMap": true,
+    "requiresExitBootServices": true,
+    "bootMarkerAllowedBeforeExitBootServices": false
+  },
+  "hostRuntimeDependencies": [],
+  "criticalPath": [
+    "firmware",
+    "uefi_boot_entry",
+    "exit_boot_services",
+    "sheikha_kernel_entry",
+    "serial_evidence",
+    "controlled_halt"
+  ]
+}

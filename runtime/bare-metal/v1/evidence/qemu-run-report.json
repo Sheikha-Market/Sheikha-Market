@@ -1,0 +1,23 @@
+{
+  "system": "SHEIKHA_BARE_METAL_QEMU_RUN_V1",
+  "generatedAt": "2026-07-10T11:11:14.047Z",
+  "executed": true,
+  "durationMs": 15020,
+  "timedOutAfterControlledHalt": true,
+  "exitStatus": 0,
+  "signal": null,
+  "error": {
+    "code": "ETIMEDOUT",
+    "message": "spawnSync /tmp/sheikha-qemu-local/usr/bin/qemu-system-x86_64 ETIMEDOUT"
+  },
+  "markerVerified": true,
+  "postFirmwareHandoffVerified": true,
+  "command": "'/tmp/sheikha-qemu-local/usr/bin/qemu-system-x86_64' '-machine' 'q35,accel=tcg' '-cpu' 'qemu64' '-m' '128M' '-display' 'none' '-vga' 'none' '-monitor' 'none' '-serial' 'stdio' '-net' 'none' '-no-reboot' '-no-shutdown' '-L' '/tmp/sheikha-qemu-local/usr/share/qemu' '-drive' 'if=pflash,format=raw,unit=0,readonly=on,file=/tmp/sheikha-qemu-local/usr/share/OVMF/OVMF_CODE_4M.fd' '-drive' 'if=pflash,format=raw,unit=1,file=/home/sheikha/Projects/sheikha/sheikha-main-portal/bare-metal/build/out/OVMF_VARS.runtime.fd' '-drive' 'if=ide,format=raw,file=/home/sheikha/Projects/sheikha/sheikha-main-portal/bare-metal/build/out/sheikha-bare-metal-seed-v1.runtime.img'",
+  "firmware": {
+    "ovmfCode": "/tmp/sheikha-qemu-local/usr/share/OVMF/OVMF_CODE_4M.fd",
+    "ovmfVars": "/tmp/sheikha-qemu-local/usr/share/OVMF/OVMF_VARS_4M.fd"
+  },
+  "image": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+  "serialEvidence": "runtime/bare-metal/v1/evidence/qemu-serial.log",
+  "missingRequirements": []
+}

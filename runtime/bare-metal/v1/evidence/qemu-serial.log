@@ -1,0 +1,21 @@
+[2J[01;01H[=3h[2J[01;01HBdsDxe: failed to load Boot0001 "UEFI QEMU DVD-ROM QM00005 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x2,0xFFFF,0x0): Not Found
+BdsDxe: loading Boot0002 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+BdsDxe: starting Boot0002 "UEFI QEMU HARDDISK QM00001 " from PciRoot(0x0)/Pci(0x1F,0x2)/Sata(0x0,0xFFFF,0x0)
+SHEIKHA_UEFI_BOOT_ENTRY
+Sheikha Native Kernel Seed V1
+SHEIKHA_BARE_METAL_BOOT_OK
+architecture=x86_64
+boot_protocol=UEFI
+boot_services=EXITED
+kernel=SHEIKHA_NATIVE_KERNEL_SEED_V1
+kernel_version=1.0.0
+governance_boundary=ACTIVE
+ai_boot_control=DISABLED
+linux_runtime_required=false
+node_runtime_required=false
+boot_contract=SHEIKHA_BOOT_CONTRACT_V1
+kernel_contract=SHEIKHA_KERNEL_CONTRACT_V1
+hal_contract=SHEIKHA_HAL_CONTRACT_V1
+language_contract=SHEIKHA_LANGUAGE_BOOT_CONTRACT_V1
+governance_contract=SHEIKHA_BARE_METAL_GOVERNANCE_CONTRACT_V1
+runtime_state=CONTROLLED_HALT
