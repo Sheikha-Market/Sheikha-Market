@@ -41,6 +41,25 @@ describe('Sheikha Native Language Architecture V1', () => {
     expect(bytecode.instructions.length).toBeGreaterThan(0);
     expect(vm.ok).toBe(true);
     expect(vm.state.governance.violations).toEqual([]);
+    expect(vm.state.valuesReferences['القيم_العليا']).toMatchObject({
+      executable: false
+    });
+    expect(vm.state.governancePolicies['الخير_والنفع_العام']).toBeDefined();
+    expect(vm.state.reasoningMethodologies['العربية_والعلوم_والاستدلال']).toBeDefined();
+    expect(vm.state.governance.checks).toEqual(expect.arrayContaining([
+      expect.objectContaining({
+        rule: 'non-executable-values-reference',
+        status: 'pass'
+      }),
+      expect.objectContaining({
+        rule: 'public-benefit-governance-policy',
+        status: 'pass'
+      }),
+      expect.objectContaining({
+        rule: 'arabic-science-reasoning-methodology',
+        status: 'pass'
+      })
+    ]));
     expect(vm.state.output.some((line) => (
       line.includes('SHEIKHA_LANGUAGE_ARCHITECTURE_FOUNDATION_OK')
     ))).toBe(true);
@@ -90,6 +109,18 @@ describe('Sheikha Native Language Architecture V1', () => {
       typeCheckPassed: true,
       governanceViolations: 0
     });
+    expect(report.checks).toMatchObject({
+      formalValuesReferencePresent: true,
+      formalGovernancePolicyPresent: true,
+      valuesReferenceRegisteredAsNonExecutable: true,
+      governancePolicyEnforcedAtRuntime: true,
+      formalArabicScienceReasoningMethodologyPresent: true,
+      reasoningMethodologyEnforcedAtRuntime: true
+    });
+    expect(report.source.valuesReferences).toContain('القيم_العليا');
+    expect(report.source.governancePolicies).toContain('الخير_والنفع_العام');
+    expect(report.source.reasoningMethodologies)
+      .toContain('العربية_والعلوم_والاستدلال');
     expect(report.currentImplementationBoundary).toMatchObject({
       compilerRequiresNodeToday: true,
       linuxRequiredForPortalRuntimeToday: true,
@@ -118,6 +149,8 @@ describe('Sheikha Native Language Architecture V1', () => {
 
     expect(stages.find((stage) => stage.id === 'SLA-05').status).toBe('NOT_IMPLEMENTED');
     expect(stages.find((stage) => stage.id === 'SLA-06').status).toBe('NOT_IMPLEMENTED');
+    expect(stages.find((stage) => stage.id === 'SLA-01B').status).toBe('VERIFIED');
+    expect(stages.find((stage) => stage.id === 'SLA-01C').status).toBe('VERIFIED');
     expect(packageJson.scripts['ops:sheikha:language-architecture:v1'])
       .toBe('node tools/activation/activate-sheikha-native-language-architecture-v1.js');
     expect(route).toContain("router.get('/sheikha-language-architecture'");

@@ -104,6 +104,30 @@ function parseTopLevel(stream) {
         return parseEntity(stream);
     }
 
+    if (current.value === 'مرجعية') {
+        return parseNamedPropertyDeclaration(
+            stream,
+            'مرجعية',
+            'ValuesReferenceDeclaration'
+        );
+    }
+
+    if (current.value === 'سياسة') {
+        return parseNamedPropertyDeclaration(
+            stream,
+            'سياسة',
+            'GovernancePolicyDeclaration'
+        );
+    }
+
+    if (current.value === 'منهج') {
+        return parseNamedPropertyDeclaration(
+            stream,
+            'منهج',
+            'ReasoningMethodologyDeclaration'
+        );
+    }
+
     if (current.value === 'إجراء') {
         return parseProcedure(stream);
     }
@@ -112,7 +136,11 @@ function parseTopLevel(stream) {
 }
 
 function parseEntity(stream) {
-    const start = stream.consume('IDENT', 'كيان');
+    return parseNamedPropertyDeclaration(stream, 'كيان', 'EntityDeclaration');
+}
+
+function parseNamedPropertyDeclaration(stream, keyword, declarationType) {
+    const start = stream.consume('IDENT', keyword);
     const name = collectTextUntil(stream, 'COLON');
     stream.consume('COLON');
     stream.consume('NEWLINE');
@@ -126,7 +154,7 @@ function parseEntity(stream) {
     }
 
     const end = stream.consume('DEDENT');
-    return node('EntityDeclaration', { name, properties }, start, end);
+    return node(declarationType, { name, properties }, start, end);
 }
 
 function parseProcedure(stream) {

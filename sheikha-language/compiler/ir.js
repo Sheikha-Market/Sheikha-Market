@@ -9,6 +9,21 @@ function lowerToIR(ast) {
             continue;
         }
 
+        if (node.type === 'ValuesReferenceDeclaration') {
+            pushMetadataDeclaration(steps, node, 'VALUES_REFERENCE');
+            continue;
+        }
+
+        if (node.type === 'GovernancePolicyDeclaration') {
+            pushMetadataDeclaration(steps, node, 'GOVERNANCE_POLICY');
+            continue;
+        }
+
+        if (node.type === 'ReasoningMethodologyDeclaration') {
+            pushMetadataDeclaration(steps, node, 'REASONING_METHODOLOGY');
+            continue;
+        }
+
         if (node.type === 'EntityDeclaration') {
             steps.push({ op: 'ENTITY_BEGIN', name: node.name, loc: node.loc });
             for (const property of node.properties || []) {
@@ -41,6 +56,20 @@ function lowerToIR(ast) {
         },
         steps,
     };
+}
+
+function pushMetadataDeclaration(steps, declaration, opPrefix) {
+    steps.push({ op: `${opPrefix}_BEGIN`, name: declaration.name, loc: declaration.loc });
+    for (const property of declaration.properties || []) {
+        steps.push({
+            op: `${opPrefix}_PROPERTY`,
+            declaration: declaration.name,
+            key: property.key,
+            value: property.value,
+            loc: property.loc,
+        });
+    }
+    steps.push({ op: `${opPrefix}_END`, name: declaration.name, loc: declaration.loc });
 }
 
 function pushStatements(steps, statements, procedureName) {

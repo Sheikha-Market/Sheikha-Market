@@ -26,6 +26,10 @@ function buildIslamicAIKernel(input = {}) {
       writtenContracts: true,
       evidenceRequired: true,
       auditRequired: true,
+      valuesReferenceLanguageTypeChecked: true,
+      governancePolicyRuntimeEnforced: true,
+      arabicScienceReasoningMethodologyRuntimeEnforced: true,
+      evidenceDomainsSeparated: true,
       humanReviewForHighImpact: true,
       scholarsReviewForReligiousRulings: true
     },
@@ -68,7 +72,13 @@ function buildIslamicAIKernel(input = {}) {
     },
     integration: {
       sheikhaLanguage: true,
-      sheikhaLanguageMode: 'CANONICAL_ARCHITECTURE_AND_GOVERNED_VM_FOUNDATION',
+      sheikhaLanguageMode:
+        'FORMAL_ARABIC_VALUES_REFERENCE_AND_GOVERNANCE_POLICY_FOUNDATION',
+      sheikhaLanguageGovernanceDeclarations: [
+        'مرجعية',
+        'سياسة',
+        'منهج'
+      ],
       os: true,
       cloud: true,
       hpc: true,
@@ -83,6 +93,9 @@ function buildIslamicAIKernel(input = {}) {
       evidence: 'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
       canonicalSheikhaArchitectureSource:
         'sheikha-language/system/sheikha-sovereign-architecture-v1.shk',
+      formalNonExecutableValuesReference: true,
+      formalRuntimeGovernancePolicy: true,
+      formalArabicScienceReasoningMethodology: true,
       currentPortalRuntime: 'NODE_JS_EXPRESS_PM2',
       compilerBootstrapRuntime: 'Node.js',
       bareMetalSeedLanguage: 'C',

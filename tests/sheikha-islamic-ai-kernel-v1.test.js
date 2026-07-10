@@ -13,6 +13,10 @@ describe('Sheikha Islamic AI Kernel V1', () => {
     const kernel = buildIslamicAIKernel();
     expect(kernel.governance.noHarm).toBe(true);
     expect(kernel.governance.evidenceRequired).toBe(true);
+    expect(kernel.governance.valuesReferenceLanguageTypeChecked).toBe(true);
+    expect(kernel.governance.governancePolicyRuntimeEnforced).toBe(true);
+    expect(kernel.governance.arabicScienceReasoningMethodologyRuntimeEnforced).toBe(true);
+    expect(kernel.governance.evidenceDomainsSeparated).toBe(true);
     expect(kernel.governance.humanReviewForHighImpact).toBe(true);
     expect(kernel.governance.scholarsReviewForReligiousRulings).toBe(true);
   });
@@ -42,8 +46,13 @@ describe('Sheikha Islamic AI Kernel V1', () => {
       softwareRepresentsDivineAuthority: false
     });
     expect(kernel.integration.sheikhaLanguageMode)
-      .toBe('CANONICAL_ARCHITECTURE_AND_GOVERNED_VM_FOUNDATION');
+      .toBe('FORMAL_ARABIC_VALUES_REFERENCE_AND_GOVERNANCE_POLICY_FOUNDATION');
+    expect(kernel.integration.sheikhaLanguageGovernanceDeclarations)
+      .toEqual(['مرجعية', 'سياسة', 'منهج']);
     expect(kernel.implementationBoundary).toMatchObject({
+      formalNonExecutableValuesReference: true,
+      formalRuntimeGovernancePolicy: true,
+      formalArabicScienceReasoningMethodology: true,
       currentPortalRuntime: 'NODE_JS_EXPRESS_PM2',
       compilerBootstrapRuntime: 'Node.js',
       bareMetalSeedLanguage: 'C',

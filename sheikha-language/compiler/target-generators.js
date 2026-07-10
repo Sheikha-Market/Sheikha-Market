@@ -50,6 +50,15 @@ function generateTarget(target, context) {
 }
 
 function buildPayload(context, target) {
+    const valuesReferences = (context.ast.body || [])
+        .filter((node) => node.type === 'ValuesReferenceDeclaration')
+        .map((node) => ({ name: node.name, executable: false }));
+    const governancePolicies = (context.ast.body || [])
+        .filter((node) => node.type === 'GovernancePolicyDeclaration')
+        .map((node) => ({ name: node.name, controls: (node.properties || []).length }));
+    const reasoningMethodologies = (context.ast.body || [])
+        .filter((node) => node.type === 'ReasoningMethodologyDeclaration')
+        .map((node) => ({ name: node.name, controls: (node.properties || []).length }));
     const procedures = (context.ast.body || [])
         .filter((node) => node.type === 'ProcedureDeclaration')
         .map((node) => ({ name: node.name, statements: (node.body || []).length }));
@@ -66,6 +75,9 @@ function buildPayload(context, target) {
         supported_targets: listTargets(),
         ast_summary: {
             nodes: context.ast.body.length,
+            values_references: valuesReferences,
+            governance_policies: governancePolicies,
+            reasoning_methodologies: reasoningMethodologies,
             procedures,
         },
         ir_summary: {

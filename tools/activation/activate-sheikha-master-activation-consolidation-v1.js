@@ -1515,6 +1515,13 @@ function buildReport() {
       nativeLanguageArchitecture?.foundationScore === 100 &&
       nativeLanguageArchitecture?.checks?.typeCheckPassed === true &&
       nativeLanguageArchitecture?.checks?.vmPassed === true &&
+      nativeLanguageArchitecture?.checks?.formalValuesReferencePresent === true &&
+      nativeLanguageArchitecture?.checks?.formalGovernancePolicyPresent === true &&
+      nativeLanguageArchitecture?.checks?.valuesReferenceRegisteredAsNonExecutable === true &&
+      nativeLanguageArchitecture?.checks?.governancePolicyEnforcedAtRuntime === true &&
+      nativeLanguageArchitecture?.checks
+        ?.formalArabicScienceReasoningMethodologyPresent === true &&
+      nativeLanguageArchitecture?.checks?.reasoningMethodologyEnforcedAtRuntime === true &&
       nativeLanguageArchitecture?.compiler?.selfHosted === false &&
       nativeLanguageArchitecture?.compiler?.nativeTargetAvailable === false &&
       nativeLanguageArchitecture?.completionGate?.nativeMigrationComplete === false &&
@@ -1835,6 +1842,16 @@ function buildReport() {
       handbookPath: nativeLanguageArchitectureHandbookPath,
       status: nativeLanguageArchitecture?.status || 'PENDING_REPORT_GENERATION',
       canonicalSource: nativeLanguageArchitecture?.source?.path || null,
+      valuesReferences: nativeLanguageArchitecture?.source?.valuesReferences || [],
+      governancePolicies: nativeLanguageArchitecture?.source?.governancePolicies || [],
+      reasoningMethodologies:
+        nativeLanguageArchitecture?.source?.reasoningMethodologies || [],
+      valuesReferenceRegisteredAsNonExecutable:
+        nativeLanguageArchitecture?.checks?.valuesReferenceRegisteredAsNonExecutable === true,
+      governancePolicyEnforcedAtRuntime:
+        nativeLanguageArchitecture?.checks?.governancePolicyEnforcedAtRuntime === true,
+      reasoningMethodologyEnforcedAtRuntime:
+        nativeLanguageArchitecture?.checks?.reasoningMethodologyEnforcedAtRuntime === true,
       foundationScore: nativeLanguageArchitecture?.foundationScore || 0,
       sheikhaImplementationSourceFiles:
         nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0,
@@ -1873,7 +1890,7 @@ function buildReport() {
       'Universal distribution uses one 27-target matrix and independent package adapters; completion counts come only from built, inspected, checksummed, and natively evidenced artifacts.',
       'Universal Distribution Release Apex is promoted to specialized L27 with read-only runtime APIs and no cross-plane authority escalation.',
       'Public Benefit Capability Routing covers the registered catalog with hard boundaries, evidence admission, specialist review, and no automatic execution.',
-      'Native Sheikha Language Architecture provides a compiled and VM-verified .shk foundation plus measured migration blockers without claiming a completed Sheikha-only system.',
+      'Native Sheikha Language Architecture provides first-class Arabic values-reference, governance-policy, and evidence-domain methodology declarations with compiler and VM enforcement, plus measured migration blockers without claiming a completed Sheikha-only system.',
       'GitHub is not required for activation; local-registry is the recommended push target.'
     ],
     executiveReport: finalExecutiveReport,
