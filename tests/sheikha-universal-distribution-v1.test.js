@@ -12,6 +12,11 @@ const {
   validateResultClaims,
   verifyReleaseIndex
 } = require('../distribution/scripts/sheikha-distribution-v1');
+const {
+  listTrackedRuntimeFiles,
+  scanStageForSecrets,
+  sourceFilter
+} = require('../distribution/common/source-staging-engine');
 
 const ROOT = path.join(__dirname, '..');
 const MATRIX_PATH = path.join(
@@ -28,6 +33,35 @@ function readJson(filePath) {
 }
 
 describe('Sheikha Universal Distribution and Installer Fabric V1', () => {
+  test('stages only tracked source paths and preserves Arabic filenames', () => {
+    const files = listTrackedRuntimeFiles();
+
+    expect(files.length).toBeGreaterThan(0);
+    expect(files.some((file) => /[\u0600-\u06ff]/u.test(file))).toBe(true);
+    expect(files.some((file) => file.includes('pm2-jlist'))).toBe(false);
+    expect(files.some((file) => file.startsWith('runtime/master-activation/'))).toBe(false);
+    expect(files.every((file) => !file.startsWith('"'))).toBe(true);
+  });
+
+  test('excludes runtime snapshots and fails closed on secret-shaped content', () => {
+    expect(sourceFilter(path.join(ROOT, 'runtime/pm2-fabric/pm2-jlist.json'))).toBe(false);
+    expect(sourceFilter(path.join(ROOT, 'runtime/example/sheikha-status-report.json'))).toBe(false);
+    expect(sourceFilter(path.join(ROOT, '.env'))).toBe(false);
+
+    const fixture = fs.mkdtempSync(path.join(os.tmpdir(), 'sheikha-stage-secret-'));
+    try {
+      fs.writeFileSync(path.join(fixture, 'unsafe.txt'), `token=${'sk-' + 'x'.repeat(24)}`);
+      const scan = scanStageForSecrets(fixture);
+      expect(scan.passed).toBe(false);
+      expect(scan.findings).toEqual([{
+        path: 'unsafe.txt',
+        pattern: 'openai-key'
+      }]);
+    } finally {
+      fs.rmSync(fixture, { recursive: true, force: true });
+    }
+  });
+
   test('defines exactly 27 unique release targets', () => {
     const matrix = readJson(MATRIX_PATH);
     const validation = validateMatrix(matrix);
