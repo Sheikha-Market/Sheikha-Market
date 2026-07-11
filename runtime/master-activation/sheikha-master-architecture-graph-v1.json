@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T23:59:10.100Z",
+  "generatedAt": "2026-07-11T00:15:05.599Z",
   "nodes": [
     {
       "id": "APIs",
@@ -95,7 +95,7 @@
     {
       "id": "Knowledge",
       "type": "layer",
-      "components": 202,
+      "components": 203,
       "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
     },
     {
@@ -83951,6 +83951,24 @@
       "from": "master-blueprint-runtime-loader-test-f20cdf5886ce",
       "fromPath": "tests/sheikha-master-blueprint-runtime-loader-v1.test.js",
       "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-capability-registry-storage-test-fca838bbfaae",
+      "fromPath": "tests/sheikha-master-capability-registry-storage-v1.test.js",
+      "to": "Identity",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-capability-registry-storage-test-fca838bbfaae",
+      "fromPath": "tests/sheikha-master-capability-registry-storage-v1.test.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-capability-registry-storage-test-fca838bbfaae",
+      "fromPath": "tests/sheikha-master-capability-registry-storage-v1.test.js",
+      "to": "Registry",
       "type": "component-to-layer"
     },
     {
