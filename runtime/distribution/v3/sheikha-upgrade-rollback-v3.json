@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_UPGRADE_AND_ROLLBACK_V3",
+  "status": "DECLARED",
+  "generatedAt": "2026-07-11T15:51:29.444Z",
+  "baseline": {
+    "releaseLine": "v2",
+    "version": "1.0.51",
+    "verified": true
+  },
+  "current": {
+    "releaseLine": "v3",
+    "version": "1.0.51"
+  },
+  "compatibilityMode": "ADDITIVE_PRODUCT_CORE_NO_V2_BINARY_REPLACEMENT",
+  "upgradeTestedNatively": false,
+  "rollbackTestedNatively": false,
+  "nativeRunnerRequired": true,
+  "humanApprovalRequired": true,
+  "rollbackPreservesUserData": true,
+  "rollbackManifest": "distribution/artifacts/v3/1.0.51/rollback-manifest.json",
+  "blockers": [
+    "NATIVE_INSTALL_NOT_EXECUTED",
+    "NATIVE_UPGRADE_NOT_EXECUTED",
+    "NATIVE_ROLLBACK_NOT_EXECUTED"
+  ]
+}

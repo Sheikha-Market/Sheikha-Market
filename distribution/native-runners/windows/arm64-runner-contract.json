@@ -1,0 +1,255 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_NATIVE_RUNNER_WINDOWS_ARM64_V3",
+  "status": "DECLARED",
+  "platform": "windows",
+  "architecture": "arm64",
+  "contractDefined": true,
+  "runnerImplementedByThisContract": false,
+  "externalPublishingAllowed": false,
+  "githubRequired": false,
+  "immutableInputsRequired": true,
+  "crossArchitectureRenameAcceptedAsBuild": false,
+  "executionFlow": [
+    "HUMAN_APPROVAL",
+    "GOVERNANCE_GATE",
+    "CAPABILITY_CHECK",
+    "EXECUTION_ADAPTER",
+    "AUDIT_EVIDENCE"
+  ],
+  "platformRequirements": {
+    "operatingSystem": "Windows 11 or supported Windows Server native runner",
+    "architectureInspector": [
+      "GetBinaryType",
+      "dumpbin or equivalent PE inspector"
+    ],
+    "installerProfiles": [
+      "user",
+      "system"
+    ],
+    "signingBoundary": "AUTHENTICODE_SIGNING_REQUIRED_FOR_PUBLIC_RELEASE",
+    "administratorBoundary": "Only the system profile may request Administrator approval."
+  },
+  "lifecycle": {
+    "build": {
+      "operationId": "sheikha.native.windows.arm64.build.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "write-build-workspace",
+      "approval": "PIPELINE_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "EXIT_ZERO",
+        "ARTIFACT_EXISTS",
+        "ARTIFACT_ARCHITECTURE_MATCHES_RUNNER"
+      ],
+      "evidenceFile": "build-evidence.json"
+    },
+    "install": {
+      "operationId": "sheikha.native.windows.arm64.install.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "host-modification",
+      "approval": "HUMAN_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "INSTALLER_EXIT_ZERO",
+        "INSTALL_ROOT_WITHIN_APPROVED_SCOPE"
+      ],
+      "evidenceFile": "install-evidence.json"
+    },
+    "launch": {
+      "operationId": "sheikha.native.windows.arm64.launch.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "process-execution",
+      "approval": "HUMAN_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "PROCESS_STARTED",
+        "EXPECTED_APPLICATION_IDENTITY"
+      ],
+      "evidenceFile": "launch-evidence.json"
+    },
+    "health": {
+      "operationId": "sheikha.native.windows.arm64.health.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "read-only",
+      "approval": "CAPABILITY_GRANT",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "HEALTH_CHECK_PASSED",
+        "NO_UNEXPECTED_PRIVILEGE"
+      ],
+      "evidenceFile": "health-evidence.json"
+    },
+    "version": {
+      "operationId": "sheikha.native.windows.arm64.version.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "read-only",
+      "approval": "CAPABILITY_GRANT",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "VERSION_MATCHES_RELEASE_INDEX"
+      ],
+      "evidenceFile": "version-evidence.json"
+    },
+    "upgrade": {
+      "operationId": "sheikha.native.windows.arm64.upgrade.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "host-modification",
+      "approval": "HUMAN_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "PREVIOUS_VERSION_CAPTURED",
+        "NEW_VERSION_HEALTHY",
+        "USER_DATA_PRESERVED"
+      ],
+      "evidenceFile": "upgrade-evidence.json"
+    },
+    "uninstall": {
+      "operationId": "sheikha.native.windows.arm64.uninstall.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "host-modification",
+      "approval": "HUMAN_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "PRODUCT_FILES_REMOVED",
+        "UNRELATED_FILES_PRESERVED"
+      ],
+      "evidenceFile": "uninstall-evidence.json"
+    },
+    "rollback": {
+      "operationId": "sheikha.native.windows.arm64.rollback.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "host-modification",
+      "approval": "HUMAN_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "PREVIOUS_VERSION_RESTORED",
+        "HEALTH_CHECK_PASSED"
+      ],
+      "evidenceFile": "rollback-evidence.json"
+    },
+    "logs": {
+      "operationId": "sheikha.native.windows.arm64.logs.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "read-only",
+      "approval": "CAPABILITY_GRANT",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "LOGS_REDACTED",
+        "LOG_SCOPE_RESTRICTED"
+      ],
+      "evidenceFile": "logs-evidence.json"
+    },
+    "evidence": {
+      "operationId": "sheikha.native.windows.arm64.evidence.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "write-evidence-root",
+      "approval": "PIPELINE_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "JSON_VALID",
+        "SHA256_RECORDED",
+        "TIMESTAMPS_RECORDED"
+      ],
+      "evidenceFile": "evidence-evidence.json"
+    },
+    "cleanup": {
+      "operationId": "sheikha.native.windows.arm64.cleanup.v3",
+      "executionAdapterRequired": true,
+      "structuredArgvOnly": true,
+      "shellStringInterpolationAllowed": false,
+      "impact": "delete-runner-temporary-files",
+      "approval": "PIPELINE_APPROVAL",
+      "requiredInputs": [
+        "runId",
+        "releaseIndexSha256",
+        "artifactSha256",
+        "evidenceRoot"
+      ],
+      "successCriteria": [
+        "ONLY_RUN_SCOPED_TEMP_REMOVED",
+        "RELEASE_ARTIFACTS_PRESERVED"
+      ],
+      "evidenceFile": "cleanup-evidence.json"
+    }
+  },
+  "evidencePolicy": {
+    "retainBuildLogs": true,
+    "redactSecrets": true,
+    "sha256EveryArtifact": true,
+    "recordNativeArchitecture": true,
+    "recordInstallAndUninstall": true,
+    "recordUpgradeAndRollback": true,
+    "fabricatedEvidenceAllowed": false
+  }
+}

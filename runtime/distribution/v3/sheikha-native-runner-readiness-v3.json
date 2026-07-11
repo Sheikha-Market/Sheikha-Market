@@ -1,0 +1,134 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_NATIVE_RUNNER_READINESS_V3",
+  "status": "CONTRACTS_ACTIVE_RUNNERS_PARTIAL",
+  "generatedAt": "2026-07-11T15:51:29.387Z",
+  "runnerCount": 7,
+  "contractCount": 7,
+  "statusCounts": {
+    "REQUIRES_NATIVE_RUNNER": 4,
+    "BUILD_READY": 1,
+    "TOOLCHAIN_MISSING": 2
+  },
+  "runners": [
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_WINDOWS_X64_V3",
+      "platform": "windows",
+      "architecture": "x64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "contract": "distribution/native-runners/windows/x64-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": false,
+      "compilerAvailable": null,
+      "linkerAvailable": null,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "NATIVE_RUNNER_REQUIRED"
+      ]
+    },
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_WINDOWS_ARM64_V3",
+      "platform": "windows",
+      "architecture": "arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "contract": "distribution/native-runners/windows/arm64-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": false,
+      "compilerAvailable": null,
+      "linkerAvailable": null,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "NATIVE_RUNNER_REQUIRED"
+      ]
+    },
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_MACOS_X86_64_V3",
+      "platform": "macos",
+      "architecture": "x86_64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "contract": "distribution/native-runners/macos/intel-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": false,
+      "compilerAvailable": null,
+      "linkerAvailable": null,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "NATIVE_RUNNER_REQUIRED"
+      ]
+    },
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_MACOS_ARM64_V3",
+      "platform": "macos",
+      "architecture": "arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "contract": "distribution/native-runners/macos/apple-silicon-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": false,
+      "compilerAvailable": null,
+      "linkerAvailable": null,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "NATIVE_RUNNER_REQUIRED"
+      ]
+    },
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_LINUX_X86_64_V3",
+      "platform": "linux",
+      "architecture": "x86_64",
+      "status": "BUILD_READY",
+      "contract": "distribution/native-runners/linux/x86_64-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": true,
+      "compilerAvailable": true,
+      "linkerAvailable": true,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "NATIVE_DESKTOP_SHELL_NOT_IMPLEMENTED"
+      ]
+    },
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_LINUX_AARCH64_V3",
+      "platform": "linux",
+      "architecture": "aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "contract": "distribution/native-runners/linux/arm64-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "TARGET_TOOLCHAIN_MISSING"
+      ]
+    },
+    {
+      "id": "SHEIKHA_NATIVE_RUNNER_LINUX_ARMV7_V3",
+      "platform": "linux",
+      "architecture": "armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "contract": "distribution/native-runners/linux/armv7-runner-contract.json",
+      "contractDefined": true,
+      "nativeRunnerDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "nativeDesktopShellAvailable": false,
+      "signingAvailable": false,
+      "notarizationAvailable": false,
+      "blockers": [
+        "TARGET_TOOLCHAIN_MISSING"
+      ]
+    }
+  ]
+}

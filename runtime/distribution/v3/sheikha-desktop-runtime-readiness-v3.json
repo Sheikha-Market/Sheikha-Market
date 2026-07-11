@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_DESKTOP_RUNTIME_READINESS_V3",
+  "status": "PRODUCT_CORE_IMPLEMENTED_NATIVE_SHELL_TOOLCHAIN_MISSING",
+  "generatedAt": "2026-07-11T15:51:29.444Z",
+  "productCore": {
+    "implemented": true,
+    "governedBridgeImplemented": true,
+    "highImpactFlowImplemented": true,
+    "artifactBuilt": true,
+    "artifactInspected": true,
+    "artifact": {
+      "id": "desktop-product-core-neutral-v3",
+      "product": "sheikha-desktop-product-core",
+      "version": "1.0.51",
+      "status": "INSPECTED",
+      "artifactKind": "PLATFORM_NEUTRAL_SOURCE_ARCHIVE",
+      "architecture": "neutral-source",
+      "desktopExecutable": false,
+      "nativeVerified": false,
+      "path": "distribution/artifacts/v3/1.0.51/artifacts/sheikha-desktop-product-core-1.0.51-v3.tar.gz",
+      "bytes": 8797,
+      "sha256": "fb828842e1041ebffaf1b2f2b930c6fe2ba63734690e4fe068f69043b90767aa"
+    }
+  },
+  "nativeShell": {
+    "implemented": false,
+    "selectedCandidate": "TAURI_2",
+    "frameworkInstalled": false,
+    "toolchainReady": false,
+    "desktopExecutableBuilt": false,
+    "nativeDesktopTested": false
+  },
+  "directControlBoundaries": {
+    "shell": false,
+    "kernel": false,
+    "firmware": false,
+    "packageInstallation": false,
+    "secrets": false,
+    "unscopedFilesystem": false
+  },
+  "decisionReport": "runtime/desktop-runtime/v1/sheikha-desktop-runtime-decision-v1.json"
+}

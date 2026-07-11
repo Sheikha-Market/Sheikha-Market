@@ -286,6 +286,14 @@ function createSheikhaApiClient({
     releaseIndex: () => request('/api/sheikha/distribution-apex/v2/release-index')
   };
 
+  client.nativeDelivery = {
+    status: () => request('/api/sheikha/distribution-apex/v3/status'),
+    desktopReadiness: () => request('/api/sheikha/distribution-apex/v3/desktop-readiness'),
+    eligibility: () => request('/api/sheikha/distribution-apex/v3/eligibility'),
+    runners: () => request('/api/sheikha/distribution-apex/v3/runners'),
+    releaseIndex: () => request('/api/sheikha/distribution-apex/v3/release-index')
+  };
+
   client.publicBenefit = {
     policy: () => request('/api/governance/generator/public-benefit-policy'),
     coverage: () => request('/api/governance/generator/public-benefit/coverage'),

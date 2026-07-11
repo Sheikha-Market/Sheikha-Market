@@ -79,16 +79,23 @@ describe('Sheikha Universal Distribution Release Apex V1', () => {
     const sdk = read('sdk/sheikha-api/index.js');
     const inspector = read('core/enterprise/sheikha-enterprise-inspector-v3.js');
 
-    expect(route.match(/router\.get\(/g)).toHaveLength(6);
+    expect(route.match(/router\.get\(/g)).toHaveLength(11);
     expect(route).toContain('/api/sheikha/distribution-apex/v2/status');
     expect(route).toContain('/api/sheikha/distribution-apex/v2/matrix');
     expect(route).toContain('/api/sheikha/distribution-apex/v2/release-index');
+    expect(route).toContain('/api/sheikha/distribution-apex/v3/status');
+    expect(route).toContain('/api/sheikha/distribution-apex/v3/desktop-readiness');
+    expect(route).toContain('/api/sheikha/distribution-apex/v3/eligibility');
+    expect(route).toContain('/api/sheikha/distribution-apex/v3/runners');
+    expect(route).toContain('/api/sheikha/distribution-apex/v3/release-index');
     expect(route).not.toContain('router.post(');
     expect(server).toContain("require('./routes/distribution-apex/sheikha-universal-distribution-apex-routes')");
     expect(sdk).toContain('client.distribution');
     expect(sdk).toContain('client.delivery');
+    expect(sdk).toContain('client.nativeDelivery');
     expect(inspector).toContain('distributionReleaseApexStatus');
     expect(inspector).toContain('universalDeliveryV2Status');
+    expect(inspector).toContain('nativeDeliveryV3Status');
   });
 
   test('writes a complete activation report only when all boundaries pass', () => {

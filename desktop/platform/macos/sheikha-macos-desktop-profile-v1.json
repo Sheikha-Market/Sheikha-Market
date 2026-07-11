@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_MACOS_DESKTOP_PROFILE_V1",
+  "status": "REQUIRES_NATIVE_RUNNER",
+  "architectures": ["x86_64", "arm64"],
+  "nativeRunnerAvailableLocally": false,
+  "desktopRuntimeBuilt": false,
+  "universal2ClaimAllowed": false,
+  "universal2RequiredEvidence": [
+    "MACH_O_X86_64_SLICE",
+    "MACH_O_ARM64_SLICE"
+  ],
+  "publicReleaseBoundaries": [
+    "CODESIGN_EVIDENCE_REQUIRED",
+    "NOTARIZATION_EVIDENCE_REQUIRED",
+    "STAPLING_EVIDENCE_REQUIRED_WHEN_APPLICABLE"
+  ],
+  "claims": {
+    "dmgBuilt": false,
+    "universal2": false,
+    "nativeVerified": false,
+    "signed": false,
+    "notarized": false
+  }
+}

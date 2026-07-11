@@ -1,0 +1,32 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DESKTOP_UPDATE_POLICY_V1",
+  "status": "DECLARED",
+  "automaticUpdateExecution": false,
+  "externalPublishingAutomatic": false,
+  "githubRequired": false,
+  "requiredFlow": [
+    "CHECK_IMMUTABLE_RELEASE_INDEX",
+    "VERIFY_SHA256",
+    "VERIFY_SBOM_AND_PROVENANCE",
+    "CHECK_PLATFORM_AND_ARCHITECTURE",
+    "REQUIRE_HUMAN_APPROVAL",
+    "CREATE_ROLLBACK_POINT",
+    "EXECUTE_NATIVE_ADAPTER",
+    "VERIFY_HEALTH_AND_VERSION",
+    "PERSIST_AUDIT_EVIDENCE"
+  ],
+  "failurePolicy": {
+    "silentOverwriteAllowed": false,
+    "automaticPrivilegeEscalationAllowed": false,
+    "rollbackOnHealthFailure": true,
+    "deleteUserDataOnRollback": false,
+    "crossArchitectureSubstitutionAllowed": false
+  },
+  "aiBoundary": {
+    "mayRecommend": true,
+    "mayApprove": false,
+    "mayExecuteWithoutHumanApproval": false,
+    "humanFinalDecision": true
+  }
+}

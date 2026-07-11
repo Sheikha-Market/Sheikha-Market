@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DESKTOP_PRODUCT_CORE_TEST_VECTORS_V1",
+  "vectors": [
+    {
+      "id": "read-status-allowed",
+      "capability": "runtime.status.read",
+      "grantedCapabilities": ["runtime.status.read"],
+      "expected": "SUCCEEDED"
+    },
+    {
+      "id": "direct-shell-blocked",
+      "capability": "shell.execute",
+      "grantedCapabilities": ["shell.execute"],
+      "expected": "BLOCKED"
+    },
+    {
+      "id": "system-install-human-approval-required",
+      "capability": "installer.system.install",
+      "grantedCapabilities": ["installer.system.install"],
+      "expected": "BLOCKED"
+    },
+    {
+      "id": "ai-cannot-authorize-system-install",
+      "capability": "installer.system.install",
+      "grantedCapabilities": ["installer.system.install"],
+      "aiApproval": true,
+      "expected": "BLOCKED"
+    }
+  ]
+}

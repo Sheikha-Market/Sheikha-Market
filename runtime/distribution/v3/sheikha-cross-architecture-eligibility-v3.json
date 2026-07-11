@@ -1,0 +1,419 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_CROSS_ARCHITECTURE_ELIGIBILITY_V3",
+  "status": "INSPECTED",
+  "generatedAt": "2026-07-11T15:51:29.387Z",
+  "architectureCount": 3,
+  "productCount": 5,
+  "eligibilityRecordCount": 15,
+  "statusCounts": {
+    "NATIVE_VERIFIED": 2,
+    "REQUIRES_NATIVE_RUNNER": 6,
+    "INSPECTED": 2,
+    "TOOLCHAIN_MISSING": 5
+  },
+  "policy": {
+    "renamedArtifactIsBuild": false,
+    "sourceEligibilityIsNativeVerification": false,
+    "qemuIsPhysicalHardwareVerification": false,
+    "externalNodeRuntimeIsDeclared": true
+  },
+  "entries": [
+    {
+      "id": "sheikha-cli-x86_64",
+      "product": "sheikha-cli",
+      "architecture": "x86_64",
+      "status": "NATIVE_VERIFIED",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": true,
+      "linkerAvailable": true,
+      "runtimeAvailable": true,
+      "dynamicLinkerAvailable": true,
+      "artifactBuilt": true,
+      "architectureInspected": true,
+      "nativeTested": true,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [
+        {
+          "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+          "bytes": 1704,
+          "sha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "id": "sheikha-cli-aarch64",
+      "product": "sheikha-cli",
+      "architecture": "aarch64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-cli-armv7",
+      "product": "sheikha-cli",
+      "architecture": "armv7",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-server-runtime-x86_64",
+      "product": "sheikha-server-runtime",
+      "architecture": "x86_64",
+      "status": "INSPECTED",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": true,
+      "linkerAvailable": true,
+      "runtimeAvailable": true,
+      "dynamicLinkerAvailable": true,
+      "artifactBuilt": true,
+      "architectureInspected": true,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [
+        {
+          "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+          "bytes": 25607636,
+          "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
+        },
+        {
+          "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-x86_64.tar.gz",
+          "bytes": 33956546,
+          "sha256": "baf5877814b334e20366d66088bc1985f96c28a22e5d6c91cc02957cb362883c"
+        }
+      ],
+      "blockers": [
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-server-runtime-aarch64",
+      "product": "sheikha-server-runtime",
+      "architecture": "aarch64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-server-runtime-armv7",
+      "product": "sheikha-server-runtime",
+      "architecture": "armv7",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-vscode-extension-x86_64",
+      "product": "sheikha-vscode-extension",
+      "architecture": "x86_64",
+      "status": "NATIVE_VERIFIED",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": true,
+      "linkerAvailable": true,
+      "runtimeAvailable": true,
+      "dynamicLinkerAvailable": true,
+      "artifactBuilt": true,
+      "architectureInspected": true,
+      "nativeTested": true,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [
+        {
+          "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-vscode-extension-1.0.91.vsix",
+          "bytes": 90108,
+          "sha256": "4389763a9595773ef88217d2881cf270b382c31cdec767b94b26ffc4b4d8f0a3"
+        }
+      ],
+      "blockers": []
+    },
+    {
+      "id": "sheikha-vscode-extension-aarch64",
+      "product": "sheikha-vscode-extension",
+      "architecture": "aarch64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-vscode-extension-armv7",
+      "product": "sheikha-vscode-extension",
+      "architecture": "armv7",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-bare-metal-seed-x86_64",
+      "product": "sheikha-bare-metal-seed",
+      "architecture": "x86_64",
+      "status": "INSPECTED",
+      "sourcePortable": true,
+      "dependenciesPortable": true,
+      "nativeModulesDetected": true,
+      "compilerAvailable": true,
+      "linkerAvailable": true,
+      "runtimeAvailable": true,
+      "dynamicLinkerAvailable": true,
+      "artifactBuilt": true,
+      "architectureInspected": true,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [
+        {
+          "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-bare-metal-1.0.51-x86_64.efi",
+          "bytes": 4516,
+          "sha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd"
+        },
+        {
+          "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-bare-metal-1.0.51-x86_64.img",
+          "bytes": 1474560,
+          "sha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8"
+        }
+      ],
+      "blockers": [
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-bare-metal-seed-aarch64",
+      "product": "sheikha-bare-metal-seed",
+      "architecture": "aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "sourcePortable": false,
+      "dependenciesPortable": false,
+      "nativeModulesDetected": true,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "SOURCE_NOT_PORTED_TO_ARCHITECTURE",
+        "DEPENDENCY_PORTABILITY_NOT_VERIFIED",
+        "ARCHITECTURE_COMPILER_MISSING",
+        "ARCHITECTURE_LINKER_MISSING",
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-bare-metal-seed-armv7",
+      "product": "sheikha-bare-metal-seed",
+      "architecture": "armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "sourcePortable": false,
+      "dependenciesPortable": false,
+      "nativeModulesDetected": true,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "SOURCE_NOT_PORTED_TO_ARCHITECTURE",
+        "DEPENDENCY_PORTABILITY_NOT_VERIFIED",
+        "ARCHITECTURE_COMPILER_MISSING",
+        "ARCHITECTURE_LINKER_MISSING",
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED"
+      ]
+    },
+    {
+      "id": "sheikha-desktop-x86_64",
+      "product": "sheikha-desktop",
+      "architecture": "x86_64",
+      "status": "TOOLCHAIN_MISSING",
+      "sourcePortable": true,
+      "dependenciesPortable": false,
+      "nativeModulesDetected": false,
+      "compilerAvailable": true,
+      "linkerAvailable": true,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": true,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "DEPENDENCY_PORTABILITY_NOT_VERIFIED",
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED",
+        "NATIVE_DESKTOP_SHELL_NOT_IMPLEMENTED"
+      ]
+    },
+    {
+      "id": "sheikha-desktop-aarch64",
+      "product": "sheikha-desktop",
+      "architecture": "aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "sourcePortable": true,
+      "dependenciesPortable": false,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "DEPENDENCY_PORTABILITY_NOT_VERIFIED",
+        "ARCHITECTURE_COMPILER_MISSING",
+        "ARCHITECTURE_LINKER_MISSING",
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED",
+        "NATIVE_DESKTOP_SHELL_NOT_IMPLEMENTED"
+      ]
+    },
+    {
+      "id": "sheikha-desktop-armv7",
+      "product": "sheikha-desktop",
+      "architecture": "armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "sourcePortable": true,
+      "dependenciesPortable": false,
+      "nativeModulesDetected": false,
+      "compilerAvailable": false,
+      "linkerAvailable": false,
+      "runtimeAvailable": false,
+      "dynamicLinkerAvailable": false,
+      "artifactBuilt": false,
+      "architectureInspected": false,
+      "nativeTested": false,
+      "desktopExecutableBuilt": false,
+      "artifactEvidence": [],
+      "blockers": [
+        "DEPENDENCY_PORTABILITY_NOT_VERIFIED",
+        "ARCHITECTURE_COMPILER_MISSING",
+        "ARCHITECTURE_LINKER_MISSING",
+        "ARCHITECTURE_RUNTIME_OR_NATIVE_RUNNER_MISSING",
+        "ARCHITECTURE_ARTIFACT_NOT_BUILT",
+        "ARCHITECTURE_NOT_INSPECTED",
+        "NATIVE_TEST_NOT_EXECUTED",
+        "NATIVE_DESKTOP_SHELL_NOT_IMPLEMENTED"
+      ]
+    }
+  ]
+}

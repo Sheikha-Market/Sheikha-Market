@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_V2_IMMUTABLE_BASELINE_LINK_V3",
+  "status": "V2_BASELINE_VERIFIED_UNMODIFIED",
+  "version": "1.0.51",
+  "report": {
+    "path": "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json",
+    "sha256": "065d18fa17da7c2610a987be1fb8b19d6b34bdf6eabdfa59793551824405eae3"
+  },
+  "workspaceReleaseIndex": {
+    "path": "distribution/artifacts/v2/1.0.51/release-index.json",
+    "sha256": "f363a597a709a510ce7e8907630dbabb03db04583938d0455cf064ab7f7bd284"
+  },
+  "localReleaseIndex": {
+    "sha256": "840445d60b0029a6b66809e4acffa969d07ace6a36f1f7448f7e924cd71b37bb"
+  },
+  "workspaceAndLocalIndexMatch": false,
+  "workspaceAndLocalArtifactSetMatch": true,
+  "localPublicationMetadataDifferenceExpected": true,
+  "artifactCount": 6,
+  "workspaceArtifacts": [
+    {
+      "name": "sheikha-bare-metal-1.0.51-x86_64.img",
+      "expectedSha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8",
+      "actualSha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8",
+      "valid": true
+    },
+    {
+      "name": "sheikha-bare-metal-1.0.51-x86_64.efi",
+      "expectedSha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd",
+      "actualSha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd",
+      "valid": true
+    },
+    {
+      "name": "sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+      "expectedSha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb",
+      "actualSha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb",
+      "valid": true
+    },
+    {
+      "name": "sheikha-1.0.51-linux-amd64.deb",
+      "expectedSha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42",
+      "actualSha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42",
+      "valid": true
+    },
+    {
+      "name": "sheikha-1.0.51-linux-x86_64.tar.gz",
+      "expectedSha256": "baf5877814b334e20366d66088bc1985f96c28a22e5d6c91cc02957cb362883c",
+      "actualSha256": "baf5877814b334e20366d66088bc1985f96c28a22e5d6c91cc02957cb362883c",
+      "valid": true
+    },
+    {
+      "name": "sheikha-vscode-extension-1.0.91.vsix",
+      "expectedSha256": "4389763a9595773ef88217d2881cf270b382c31cdec767b94b26ffc4b4d8f0a3",
+      "actualSha256": "4389763a9595773ef88217d2881cf270b382c31cdec767b94b26ffc4b4d8f0a3",
+      "valid": true
+    }
+  ],
+  "v2ModifiedPaths": [],
+  "historicalFilesModifiedByV3": false
+}
