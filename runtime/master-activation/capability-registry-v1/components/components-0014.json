@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1",
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-07-11T00:15:05.596Z",
+  "generatedAt": "2026-07-11T00:56:38.832Z",
   "parentRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
   "shard": {
     "number": 14,
@@ -10,6 +10,83 @@
     "componentCount": 500
   },
   "components": [
+    {
+      "id": "quranic-atlas-test-69274ec020a7",
+      "name": "sheikha-quranic-atlas-v1.test",
+      "version": "v1",
+      "path": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js",
+      "type": "test",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js"
+      }
+    },
+    {
+      "id": "quranic-operating-system-atlas-test-9d09b7686175",
+      "name": "sheikha-quranic-operating-system-atlas-v1.test",
+      "version": "v1",
+      "path": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js",
+      "type": "test",
+      "layer": "OS",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "ربط نواة التشغيل والعمليات والخدمات المحلية.",
+      "inputs": [
+        "process state"
+      ],
+      "outputs": [
+        "runtime process capability"
+      ],
+      "dependencies": [
+        "Cloud",
+        "Compute/HPC"
+      ],
+      "tests": [
+        "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
+      }
+    },
     {
       "id": "research-fabric-test-f054b644eab8",
       "name": "sheikha-research-fabric-v2.test",
@@ -5589,6 +5666,44 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tests/sheikha-master-blueprint-runtime-loader-v1.test.js"
+      }
+    },
+    {
+      "id": "master-capability-registry-query-test-9b3b42a4f4af",
+      "name": "sheikha-master-capability-registry-query-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-master-capability-registry-query-v1.test.js",
+      "type": "test",
+      "layer": "Registry",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية.",
+      "inputs": [
+        "component evidence"
+      ],
+      "outputs": [
+        "registry entries"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Governance"
+      ],
+      "tests": [
+        "tests/sheikha-master-capability-registry-query-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-master-capability-registry-query-v1.test.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-master-capability-registry-query-v1.test.js"
       }
     },
     {
@@ -15893,6 +16008,7 @@
       ],
       "tests": [
         "tests/capability-registry-v2.test.js",
+        "tests/sheikha-master-capability-registry-query-v1.test.js",
         "tests/sheikha-master-capability-registry-storage-v1.test.js"
       ],
       "reports": [
@@ -15911,6 +16027,42 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/capability-registry/sheikha-capability-registry-v2.js"
+      }
+    },
+    {
+      "id": "master-capability-index-60f8a669366f",
+      "name": "sheikha-master-capability-index-v1",
+      "version": "v1",
+      "path": "tools/capability-registry/sheikha-master-capability-index-v1.js",
+      "type": "registry",
+      "layer": "Registry",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية.",
+      "inputs": [
+        "component evidence"
+      ],
+      "outputs": [
+        "registry entries"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Governance"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/capability-registry/sheikha-master-capability-index-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/capability-registry/sheikha-master-capability-index-v1.js"
       }
     },
     {
@@ -18599,9 +18751,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -19791,174 +19943,6 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/knowledge-evidence-fabric/sheikha-knowledge-evidence-fabric-cli.js"
-      }
-    },
-    {
-      "id": "knowledge-graph-engine-1f9309f57f30",
-      "name": "sheikha-knowledge-graph-engine-v1",
-      "version": "v1",
-      "path": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js",
-      "type": "code",
-      "layer": "Knowledge",
-      "status": "requires-catalog-link",
-      "lifecycle": "NEEDS_LINKING",
-      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
-      "inputs": [
-        "docs",
-        "reports",
-        "indexes"
-      ],
-      "outputs": [
-        "knowledge graph",
-        "retrieval evidence"
-      ],
-      "dependencies": [
-        "Identity",
-        "Runtime",
-        "Registry"
-      ],
-      "tests": [
-        "tests/knowledge-graph-engine-v1.test.js"
-      ],
-      "reports": [
-        "runtime/knowledge-graph-engine-v1/v1/sheikha-knowledge-graph-engine-v1-report.json",
-        "runtime/knowledge-graph-engine-v1/v1/sheikha-knowledge-graph-engine-v1-report.md"
-      ],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js"
-      },
-      "maturity": "implemented-needs-registry-link",
-      "operationStatus": "requires-catalog-link",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js"
-      }
-    },
-    {
-      "id": "knowledge-graph-engine-cli-74a61c93ded9",
-      "name": "sheikha-knowledge-graph-engine-v63-cli",
-      "version": "v63",
-      "path": "tools/knowledge-graph-engine/sheikha-knowledge-graph-engine-v63-cli.js",
-      "type": "code",
-      "layer": "Knowledge",
-      "status": "requires-catalog-link",
-      "lifecycle": "NEEDS_LINKING",
-      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
-      "inputs": [
-        "docs",
-        "reports",
-        "indexes"
-      ],
-      "outputs": [
-        "knowledge graph",
-        "retrieval evidence"
-      ],
-      "dependencies": [
-        "Identity",
-        "Runtime",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "tools/knowledge-graph-engine/sheikha-knowledge-graph-engine-v63-cli.js"
-      },
-      "maturity": "implemented-needs-registry-link",
-      "operationStatus": "requires-catalog-link",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "tools/knowledge-graph-engine/sheikha-knowledge-graph-engine-v63-cli.js"
-      }
-    },
-    {
-      "id": "knowledge-universe-graph-cli-464f32217c17",
-      "name": "sheikha-knowledge-universe-graph-v76-cli",
-      "version": "v76",
-      "path": "tools/knowledge-universe-graph/sheikha-knowledge-universe-graph-v76-cli.js",
-      "type": "code",
-      "layer": "Knowledge",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
-      "inputs": [
-        "docs",
-        "reports",
-        "indexes"
-      ],
-      "outputs": [
-        "knowledge graph",
-        "retrieval evidence"
-      ],
-      "dependencies": [
-        "Identity",
-        "Runtime",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "tools/knowledge-universe-graph/sheikha-knowledge-universe-graph-v76-cli.js"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "tools/knowledge-universe-graph/sheikha-knowledge-universe-graph-v76-cli.js"
-      }
-    },
-    {
-      "id": "layer-governance-promotion-os-68d37e4f5151",
-      "name": "sheikha-layer-governance-promotion-os-v1",
-      "version": "v1",
-      "path": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js",
-      "type": "code",
-      "layer": "Governance",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار.",
-      "inputs": [
-        "policies",
-        "runtime evidence"
-      ],
-      "outputs": [
-        "admission decisions",
-        "audit records"
-      ],
-      "dependencies": [
-        "Runtime",
-        "Security"
-      ],
-      "tests": [
-        "tests/layer-governance-promotion-os-v1.test.js"
-      ],
-      "reports": [
-        "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.json",
-        "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.md"
-      ],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js"
       }
     }
   ]

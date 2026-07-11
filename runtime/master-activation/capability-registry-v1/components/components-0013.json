@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1",
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-07-11T00:15:05.596Z",
+  "generatedAt": "2026-07-11T00:56:38.832Z",
   "parentRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
   "shard": {
     "number": 13,
@@ -5682,11 +5682,11 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
         "tests/architecture-digital-twin/sheikha-architecture-digital-twin-v1.test.js",
         "tests/dependency-genome/sheikha-dependency-genome-v1.test.js",
-        "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js",
-        "tests/execution-cortex/sheikha-execution-cortex-omega-v1.test.js"
+        "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js"
       ],
       "reports": [
         "SHEIKHA-COMPREHENSIVE-TRAINING-REPORT.json",
@@ -11085,9 +11085,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -11193,9 +11193,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -12155,6 +12155,7 @@
       "tests": [
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
         "tests/sheikha-extension-streaming-artifact-apex-v1.test.js",
         "tests/sheikha-vscode-extension-experience-apex-v1.test.js"
@@ -12623,11 +12624,11 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
         "tests/architecture-digital-twin/sheikha-architecture-digital-twin-v1.test.js",
         "tests/dependency-genome/sheikha-dependency-genome-v1.test.js",
-        "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js",
-        "tests/execution-cortex/sheikha-execution-cortex-omega-v1.test.js"
+        "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js"
       ],
       "reports": [
         "SHEIKHA-COMPREHENSIVE-TRAINING-REPORT.json",
@@ -13278,6 +13279,7 @@
       "tests": [
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
         "tests/sheikha-extension-streaming-artifact-apex-v1.test.js",
         "tests/sheikha-vscode-extension-experience-apex-v1.test.js"
@@ -13486,6 +13488,43 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "sheikha-vscode-extension/src/sheikhaArtifactPreview.js"
+      }
+    },
+    {
+      "id": "sheikhacommandbridge-dbc0d71b7ae0",
+      "name": "sheikhaCommandBridge",
+      "version": "package-1.0.51",
+      "path": "sheikha-vscode-extension/src/sheikhaCommandBridge.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "sheikha-vscode-extension/src/sheikhaCommandBridge.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "sheikha-vscode-extension/src/sheikhaCommandBridge.js"
       }
     },
     {
@@ -14676,6 +14715,48 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js"
+      }
+    },
+    {
+      "id": "sheikhacommandcoverage-test-86c9278ef6b6",
+      "name": "sheikhaCommandCoverage.test",
+      "version": "package-1.0.51",
+      "path": "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
+      "type": "test",
+      "layer": "Knowledge",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
+      "inputs": [
+        "docs",
+        "reports",
+        "indexes"
+      ],
+      "outputs": [
+        "knowledge graph",
+        "retrieval evidence"
+      ],
+      "dependencies": [
+        "Identity",
+        "Runtime",
+        "Registry"
+      ],
+      "tests": [
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js"
+      ],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js"
       }
     },
     {
@@ -19170,83 +19251,6 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tests/provider-compute-fabric-v1.test.js"
-      }
-    },
-    {
-      "id": "quranic-atlas-test-69274ec020a7",
-      "name": "sheikha-quranic-atlas-v1.test",
-      "version": "v1",
-      "path": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js",
-      "type": "test",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [
-        "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js"
-      ],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js"
-      },
-      "maturity": "verification",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js"
-      }
-    },
-    {
-      "id": "quranic-operating-system-atlas-test-9d09b7686175",
-      "name": "sheikha-quranic-operating-system-atlas-v1.test",
-      "version": "v1",
-      "path": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js",
-      "type": "test",
-      "layer": "OS",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "ربط نواة التشغيل والعمليات والخدمات المحلية.",
-      "inputs": [
-        "process state"
-      ],
-      "outputs": [
-        "runtime process capability"
-      ],
-      "dependencies": [
-        "Cloud",
-        "Compute/HPC"
-      ],
-      "tests": [
-        "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
-      ],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
-      },
-      "maturity": "verification",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
       }
     }
   ]

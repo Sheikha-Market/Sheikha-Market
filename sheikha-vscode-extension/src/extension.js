@@ -2,6 +2,8 @@
 
 const vscode = require('vscode');
 const { sendInspectorHeartbeat } = require('./sheikhaEnterpriseInspectorBridge');
+const { DEFAULT_BASE_URL } = require('./sheikhaExtensionChatClient');
+const { registerSheikhaCommandBridge } = require('./sheikhaCommandBridge');
 const { collectVsCodeAwareness } = require('./vscodeAwareness');
 const { collectUnifiedRegistry } = require('./sheikhaUnifiedRegistry');
 const { collectRegistryBroker } = require('./sheikhaRegistryBroker');
@@ -12,6 +14,18 @@ async function openSheikhaChatView() {
   try {
     await vscode.commands.executeCommand('sheikha.chatView.focus');
   } catch (_) {}
+}
+
+function getConfiguredBaseUrl() {
+  const configured = String(
+    vscode.workspace.getConfiguration('sheikha').get('serverUrl', DEFAULT_BASE_URL)
+  ).trim().replace(/\/+$/u, '');
+  try {
+    const url = new URL(configured);
+    return ['http:', 'https:'].includes(url.protocol) ? url.toString().replace(/\/+$/u, '') : DEFAULT_BASE_URL;
+  } catch {
+    return DEFAULT_BASE_URL;
+  }
 }
 
 function registerCommandOnce(context, command, handler) {
@@ -34,19 +48,35 @@ function activate(context) {
   registerCommandOnce(context, 'sheikha.chat.open', openSheikhaChatView);
   registerCommandOnce(context, 'sheikha.openChat', openSheikhaChatView);
 
+  const refreshSeconds = Math.max(
+    15,
+    Number(vscode.workspace.getConfiguration('sheikha').get('inspectorRefreshSeconds', 30)) || 30
+  );
+  let inspectorHeartbeatInFlight = false;
+  const sendHeartbeat = async () => {
+    if (inspectorHeartbeatInFlight) return;
+    inspectorHeartbeatInFlight = true;
+    try {
+      await sendInspectorHeartbeat(getConfiguredBaseUrl());
+    } catch {} finally {
+      inspectorHeartbeatInFlight = false;
+    }
+  };
   const sheikhaInspectorHeartbeat = setInterval(() => {
-    sendInspectorHeartbeat().catch(() => {});
-  }, 15000);
+    sendHeartbeat();
+  }, refreshSeconds * 1000);
   context.subscriptions.push({ dispose: () => clearInterval(sheikhaInspectorHeartbeat) });
-  sendInspectorHeartbeat().catch(() => {});
+  sendHeartbeat();
 
   let chatProvider = null;
   try {
     const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
     const { SheikhaInspectorProvider } = require('./sheikhaInspectorProvider');
 
-    chatProvider = new SheikhaChatProvider(context);
+    chatProvider = new SheikhaChatProvider(context, { getBaseUrl: getConfiguredBaseUrl });
     const inspectorProvider = new SheikhaInspectorProvider(context, {
+      getBaseUrl: getConfiguredBaseUrl,
+      refreshSeconds,
       onAsk: async (prompt) => {
         await openSheikhaChatView();
         await new Promise((resolve) => setTimeout(resolve, 150));
@@ -71,6 +101,19 @@ function activate(context) {
     console.error('[Sheikha] Chat/Inspector provider activation failed:', error);
     vscode.window.showErrorMessage(`Sheikha chat failed to activate: ${error.message}`);
   }
+
+  registerSheikhaCommandBridge(context, {
+    chatProvider,
+    getBaseUrl: getConfiguredBaseUrl,
+    openChat: openSheikhaChatView
+  });
+  const statusBar = vscode.window.createStatusBarItem(vscode.StatusBarAlignment.Left, 100);
+  statusBar.name = 'Sheikha Local Runtime';
+  statusBar.text = '$(pulse) شيخة: محلي';
+  statusBar.tooltip = 'فتح Sheikha Enterprise Inspector';
+  statusBar.command = 'sheikha.openWorkspaceControl';
+  statusBar.show();
+  context.subscriptions.push(statusBar);
 
   console.log('Sheikha extension activated');
 
@@ -148,4 +191,4 @@ context.subscriptions.push(
 
 function deactivate() {}
 
-module.exports = { activate, deactivate };
+module.exports = { activate, deactivate, getConfiguredBaseUrl };

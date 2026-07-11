@@ -179,7 +179,7 @@ describe('Sheikha Conversation Engine V1', () => {
     expect(route).toContain("router.get('/api/sheikha/conversation-engine/v1/chat'");
     expect(route).toContain("method: 'POST'");
     expect(client).toContain("const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';");
-    expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';");
+    expect(client).toContain("const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/context';");
     expect(client).toContain("const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';");
     expect(apiClient).toContain("EXTENSION_CHAT_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat'");
     expect(provider).toContain('L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex');

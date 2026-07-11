@@ -3,6 +3,7 @@
 const crypto = require('node:crypto');
 const fs = require('node:fs');
 const path = require('node:path');
+const zlib = require('node:zlib');
 
 const ROOT = path.resolve(__dirname, '..');
 const INDEX_PATH = path.join(
@@ -26,6 +27,10 @@ describe('Sheikha master capability registry sharded storage V1', () => {
     expect(index.status).toBe('ACTIVE_SHARDED_INDEX');
     expect(index.storage.format).toBe('SHARDED_JSON_V1');
     expect(index.storage.fullComponentRecordsInShards).toBe(true);
+    expect(index.storage.compression).toMatchObject({
+      algorithm: 'BROTLI',
+      losslessRoundTripRequired: true
+    });
     expect(fs.statSync(INDEX_PATH).size).toBeLessThan(MAX_INDEX_BYTES);
     expect(index.components).toHaveLength(index.componentCount);
     expect(descriptors).toHaveLength(index.storage.shardCount);
@@ -34,12 +39,18 @@ describe('Sheikha master capability registry sharded storage V1', () => {
       const shardPath = path.join(ROOT, descriptor.path);
       const shardText = fs.readFileSync(shardPath, 'utf8');
       const shard = JSON.parse(shardText);
+      const compressedPath = path.join(ROOT, descriptor.compression.path);
+      const compressed = fs.readFileSync(compressedPath);
 
       expect(fs.statSync(shardPath).size).toBeLessThan(MAX_SHARD_BYTES);
       expect(Buffer.byteLength(shardText, 'utf8')).toBe(descriptor.bytes);
       expect(crypto.createHash('sha256').update(shardText, 'utf8').digest('hex'))
         .toBe(descriptor.sha256);
       expect(shard.components).toHaveLength(descriptor.componentCount);
+      expect(compressed.length).toBe(descriptor.compression.bytes);
+      expect(crypto.createHash('sha256').update(compressed).digest('hex'))
+        .toBe(descriptor.compression.sha256);
+      expect(zlib.brotliDecompressSync(compressed).toString('utf8')).toBe(shardText);
 
       componentCount += shard.components.length;
       for (const component of shard.components) {

@@ -8,6 +8,7 @@ const {
   STREAMING_CHAT_APEX_STREAM_ENDPOINT,
   buildLocalChatFallbackAnswer,
   isLocalBaseUrl,
+  isProvisionalLiveResponse,
   parseSseBuffer,
   safeJsonParse,
   shouldUseUnifiedFallback
@@ -42,13 +43,13 @@ describe('Sheikha Extension Chat Transport', () => {
   });
 
   test('keeps package transport version aligned with the released extension', () => {
-    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.89');
+    expect(EXTENSION_TRANSPORT_VERSION).toBe('1.0.90');
   });
 
   test('parses governed SSE frames for the streaming extension path', () => {
     const { events, rest } = parseSseBuffer(
-      'event: ack\\ndata: {"accepted":true}\\n\\n' +
-      'event: token\\ndata: {"text":"مرحبا"}\\n\\npartial'
+      'event: ack\ndata: {"accepted":true}\n\n' +
+      'event: token\ndata: {"text":"مرحبا"}\n\npartial'
     );
 
     expect(rest).toBe('partial');
@@ -59,6 +60,29 @@ describe('Sheikha Extension Chat Transport', () => {
       .toBe('/api/sheikha/streaming-chat-apex/v1/stream');
     expect(EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT)
       .toBe('/api/sheikha/extension-streaming-artifact-apex/v1/status');
+  });
+
+  test('preserves escaped newlines inside an SSE JSON token', () => {
+    const { events } = parseSseBuffer(
+      'event: token\ndata: {"text":"سطر أول\\nسطر ثان"}\n\n'
+    );
+
+    expect(events).toHaveLength(1);
+    expect(events[0].data.text).toBe('سطر أول\nسطر ثان');
+  });
+
+  test('treats the fast Arabic live acknowledgement as provisional', () => {
+    expect(isProvisionalLiveResponse({
+      answer: 'تم، أعمل على ذلك الآن.',
+      events: [
+        { event: 'meta', data: { deepModelMode: 'background' } },
+        { event: 'done', data: { route: 'FAST_ARABIC_DEFAULT' } }
+      ]
+    })).toBe(true);
+    expect(isProvisionalLiveResponse({
+      answer: 'هذه إجابة مكتملة.',
+      events: [{ event: 'done', data: { route: 'FULL_MODEL_STREAM' } }]
+    })).toBe(false);
   });
 
   test('builds a useful local Todo Tree fallback instead of exposing gateway noise', () => {

@@ -12,8 +12,13 @@ class SheikhaInspectorProvider {
   constructor(context, options = {}) {
     this.context = context;
     this.onAsk = options.onAsk;
+    this.getBaseUrl = typeof options.getBaseUrl === 'function'
+      ? options.getBaseUrl
+      : () => DEFAULT_BASE_URL;
+    this.refreshIntervalMs = Math.max(15, Number(options.refreshSeconds) || 30) * 1000;
     this.view = null;
     this.refreshTimer = null;
+    this.refreshPromise = null;
     this.refreshSequence = 0;
   }
 
@@ -38,7 +43,7 @@ class SheikhaInspectorProvider {
     this.refresh();
     this.refreshTimer = setInterval(() => {
       if (this.view?.visible) this.refresh();
-    }, 15000);
+    }, this.refreshIntervalMs);
   }
 
   disposeTimer() {
@@ -47,15 +52,22 @@ class SheikhaInspectorProvider {
   }
 
   async refresh() {
+    if (this.refreshPromise) return this.refreshPromise;
     const sequence = ++this.refreshSequence;
-    const local = collectVSCodeToolContext();
-    const runtime = collectLocalRuntime();
-    const remote = await getEnterpriseInspectorStatus({
-      baseUrl: DEFAULT_BASE_URL
-    });
+    this.refreshPromise = (async () => {
+      const local = collectVSCodeToolContext();
+      const runtime = collectLocalRuntime();
+      const remote = await getEnterpriseInspectorStatus({
+        baseUrl: this.getBaseUrl(),
+        timeout: Math.min(this.refreshIntervalMs - 1000, 15000)
+      });
 
-    if (!this.view || sequence !== this.refreshSequence) return;
-    this.view.webview.html = inspectorHtml(local, runtime, remote);
+      if (!this.view || sequence !== this.refreshSequence) return;
+      this.view.webview.html = inspectorHtml(local, runtime, remote);
+    })().finally(() => {
+      this.refreshPromise = null;
+    });
+    return this.refreshPromise;
   }
 }
 

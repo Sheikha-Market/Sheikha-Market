@@ -64,12 +64,19 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       format: 'SHARDED_JSON_V1',
       shardCount: 2,
       shardSize: 2,
-      fullComponentRecordsInShards: true
+      fullComponentRecordsInShards: true,
+      compression: {
+        algorithm: 'BROTLI',
+        losslessRoundTripRequired: true
+      }
     });
     expect(storage.index.components).toHaveLength(3);
     expect(storage.index.components[0].responsibility).toBeUndefined();
     expect(storage.shards.map((item) => item.payload.components.length)).toEqual([2, 1]);
     expect(storage.shards.every((item) => item.descriptor.bytes > 0)).toBe(true);
+    expect(storage.shards.every((item) => item.descriptor.compression.bytes > 0)).toBe(true);
+    expect(storage.shards.every((item) => item.descriptor.compression.bytes < item.descriptor.bytes))
+      .toBe(true);
     expect(storage.shards.every((item) => /^[a-f0-9]{64}$/u.test(item.descriptor.sha256))).toBe(true);
   });
 

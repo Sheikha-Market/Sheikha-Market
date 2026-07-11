@@ -61,6 +61,7 @@ const nativeLanguageArchitecture = require(
 
 const MAX_DIAGNOSTIC_GROUPS = 30;
 const MAX_DIAGNOSTICS_PER_GROUP = 20;
+const INSPECTOR_CACHE_TTL_MS = 10000;
 
 const INSPECTOR_RUNTIME_STATE = {
   extension: {
@@ -77,6 +78,10 @@ const INSPECTOR_RUNTIME_STATE = {
     diagnostics: [],
     lastHeartbeat: null
   }
+};
+const INSPECTOR_SNAPSHOT_CACHE = {
+  snapshot: null,
+  expiresAt: 0
 };
 
 function basename(value) {
@@ -144,8 +149,20 @@ function updateExtensionHeartbeat(payload = {}) {
     ...extension,
     lastHeartbeat: new Date().toISOString()
   };
+  INSPECTOR_SNAPSHOT_CACHE.expiresAt = 0;
 
   return INSPECTOR_RUNTIME_STATE.extension;
+}
+
+function getEnterpriseInspectorSnapshot(options = {}) {
+  const now = Date.now();
+  if (!options.force && INSPECTOR_SNAPSHOT_CACHE.snapshot && now < INSPECTOR_SNAPSHOT_CACHE.expiresAt) {
+    return INSPECTOR_SNAPSHOT_CACHE.snapshot;
+  }
+  const snapshot = collectEnterpriseInspector(options.input || {});
+  INSPECTOR_SNAPSHOT_CACHE.snapshot = snapshot;
+  INSPECTOR_SNAPSHOT_CACHE.expiresAt = now + INSPECTOR_CACHE_TTL_MS;
+  return snapshot;
 }
 
 function summarizeDiagnostics(groups = []) {
@@ -434,8 +451,10 @@ function compactInspectorContext(snapshot = {}) {
 module.exports = {
   collectEnterpriseInspector,
   compactInspectorContext,
+  getEnterpriseInspectorSnapshot,
   sanitizeExtensionContext,
   summarizeDiagnostics,
   updateExtensionHeartbeat,
-  INSPECTOR_RUNTIME_STATE
+  INSPECTOR_RUNTIME_STATE,
+  INSPECTOR_SNAPSHOT_CACHE
 };
