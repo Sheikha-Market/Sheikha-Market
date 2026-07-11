@@ -26,7 +26,7 @@ const AUTONOMOUS_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/autonomo
 const LIVE_CHAT_ENDPOINT = '/api/sheikha/live/chat/v1';
 const EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT =
   '/api/sheikha/extension-streaming-artifact-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.90';
+const EXTENSION_TRANSPORT_VERSION = '1.0.91';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();

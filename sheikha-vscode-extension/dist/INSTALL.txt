@@ -3,15 +3,15 @@ Sheikha Extension - Installation Summary
 
 Extension: sheikha
 Publisher: sheikha
-Version: 1.0.90
-Built: Sat Jul 11 03:59:36 +03 2026
+Version: 1.0.91
+Built: Sat Jul 11 16:33:59 +03 2026
 
 Installation Methods:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. FROM FILE (Offline Installation)
    ────────────────────────────────
-   $ code --install-extension "/home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/dist/sheikha.sheikha-1.0.90.vsix"
+   $ code --install-extension "/home/sheikha/Projects/sheikha/sheikha-main-portal/sheikha-vscode-extension/dist/sheikha.sheikha-1.0.91.vsix"
 
    Or via VS Code UI:
    • Open Extensions (Ctrl+Shift+X)
@@ -47,7 +47,7 @@ First Steps After Installation:
 ━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
 
 1. Reload VS Code (Ctrl+R)
-2. Verify in Extensions view (should show version 1.0.90)
+2. Verify in Extensions view (should show version 1.0.91)
 3. Open Command Palette (Ctrl+Shift+P)
 4. Run: "Sheikha: حالة النظام"
 5. Check if API is reachable (http://localhost:8080)
@@ -62,4 +62,4 @@ VS Code Settings (Ctrl+,):
 • sheikha.enableInlineCompletions → Toggle suggestions
 • sheikha.completionDelay → Delay before showing suggestions (ms)
 
-Created: 2026-07-11 03:59:36
+Created: 2026-07-11 16:33:59
