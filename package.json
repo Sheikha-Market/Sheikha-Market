@@ -90,6 +90,8 @@
     "ops:universal-benefit:verify:v1": "node tools/activation/activate-sheikha-universal-benefit-boundary-v1.js verify",
     "ops:universal-benefit:status:v1": "node tools/activation/activate-sheikha-universal-benefit-boundary-v1.js status",
     "ops:universal-benefit:test:v1": "jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-universal-benefit-boundary-v1.test.js",
+    "ops:arabic-semantic-encoding:activate:v1": "node tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js",
+    "ops:arabic-semantic-encoding:test:v1": "jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-arabic-semantic-encoding-v1.test.js",
     "ops:distribution:inspect:v1": "node distribution/scripts/sheikha-distribution-v1.js inspect",
     "ops:distribution:plan:v1": "node distribution/scripts/sheikha-distribution-v1.js plan",
     "ops:distribution:build:local:v1": "node distribution/scripts/sheikha-distribution-v1.js build-local",

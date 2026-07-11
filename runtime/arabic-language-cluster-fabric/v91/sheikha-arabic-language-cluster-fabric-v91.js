@@ -11,6 +11,8 @@ const PROGRAMMING_LANGUAGE_CHAIN = [
 ];
 
 const MARKUP_LANGUAGE_CHAIN = [
+  'UNICODE_SCALAR_AND_STRICT_UTF8_VALIDATION',
+  'ARABIC_SEMANTIC_ENCODING_PROFILE',
   'ARABIC_TAGS_AND_ATTRIBUTES',
   'DOCUMENT_SCHEMA_BINDING',
   'KNOWLEDGE_SECTION_TABS',
@@ -67,6 +69,7 @@ function status() {
       'SHEIKHA_ARABIC_COMPILER_CLUSTER',
       'SHEIKHA_ARABIC_TYPE_SYSTEM_CLUSTER',
       'SHEIKHA_ARABIC_DOCUMENT_CLUSTER',
+      'SHEIKHA_ARABIC_SEMANTIC_ENCODING_PROFILE',
       'SHEIKHA_ARABIC_GOVERNANCE_CLUSTER',
       'SHEIKHA_ARABIC_PACKAGE_CLUSTER',
       'SHEIKHA_ARABIC_RUNTIME_CLUSTER',
@@ -85,6 +88,20 @@ function status() {
       'CONTINUOUS_IMPROVEMENT'
     ],
     integrations: ['SHEIKHA_DISTRIBUTED_COGNITIVE_MESH_FABRIC_V90'],
+    encodingProfile: {
+      system: 'SHEIKHA_ARABIC_SEMANTIC_ENCODING_PROFILE_V1',
+      status: 'ACTIVE',
+      relationship: 'HIGHER_LEVEL_PROFILE_OVER_UNICODE_AND_UTF8',
+      canonicalSemanticRoot: 'SHEIKHA_CANONICAL_ARABIC_SEMANTIC_ROOT_V1',
+      externalTechnicalSystemAboveRoot: false,
+      unicodeUtf8TcpIpAreAdaptersBelowRoot: true,
+      unicodeReplaced: false,
+      utf8Replaced: false,
+      aiAdvisoryOnly: true,
+      religiousSourcePreservationRequired: true,
+      hostedAdapterImplementationToday: true,
+      fullNativeIndependenceComplete: false
+    },
     governance: {
       principle: 'لا ضرر ولا ضرار',
       humanIsPrimary: true,

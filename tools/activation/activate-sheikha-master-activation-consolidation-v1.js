@@ -39,6 +39,12 @@ const universalBenefitBoundaryPath =
   'runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1-report.json';
 const universalBenefitBoundaryHandbookPath =
   'docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md';
+const arabicSemanticEncodingPath =
+  'runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json';
+const arabicSemanticEncodingSpecificationPath =
+  'runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json';
+const arabicSemanticEncodingHandbookPath =
+  'docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md';
 const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
@@ -1277,6 +1283,7 @@ function buildReport() {
   const nativeLanguageArchitecture = safeReadJson(nativeLanguageArchitecturePath);
   const sheikhaLanguageProduction = safeReadJson(sheikhaLanguageProductionPath);
   const universalBenefitBoundary = safeReadJson(universalBenefitBoundaryPath);
+  const arabicSemanticEncoding = safeReadJson(arabicSemanticEncodingPath);
   const methodologyAccreditation = buildMethodologyAccreditationReadiness(
     files,
     components,
@@ -1344,6 +1351,10 @@ function buildReport() {
     universalBenefitBoundary?.arabicDsl?.writtenReferences?.quranCount || 0;
   finalExecutiveReport.counts.universalBenefitSunnahWrittenReferences =
     universalBenefitBoundary?.arabicDsl?.writtenReferences?.authenticSunnahCount || 0;
+  finalExecutiveReport.counts.arabicSemanticEncodingLayers =
+    Object.keys(arabicSemanticEncoding?.layers || {}).length;
+  finalExecutiveReport.counts.arabicSemanticEncodingScore =
+    arabicSemanticEncoding?.score || 0;
   finalExecutiveReport.counts.sheikhaNativeImplementationSourceFiles =
     nativeLanguageArchitecture?.sourceInventory?.sheikhaImplementationSourceFiles || 0;
   finalExecutiveReport.counts.sheikhaHostImplementationSourceFiles =
@@ -1378,6 +1389,11 @@ function buildReport() {
   finalExecutiveReport.evidence.universalBenefitBoundary = universalBenefitBoundaryPath;
   finalExecutiveReport.evidence.universalBenefitBoundaryHandbook =
     universalBenefitBoundaryHandbookPath;
+  finalExecutiveReport.evidence.arabicSemanticEncoding = arabicSemanticEncodingPath;
+  finalExecutiveReport.evidence.arabicSemanticEncodingSpecification =
+    arabicSemanticEncodingSpecificationPath;
+  finalExecutiveReport.evidence.arabicSemanticEncodingHandbook =
+    arabicSemanticEncodingHandbookPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
@@ -1476,6 +1492,22 @@ function buildReport() {
   executiveDashboard.indicators.universalBenefitAutomatedReligiousInterpretation =
     universalBenefitBoundary?.arabicDsl?.writtenReferences
       ?.automatedInterpretationOrFatwa === true;
+  executiveDashboard.indicators.arabicSemanticEncodingActive =
+    arabicSemanticEncoding?.status === 'VERIFIED_PROFILE_ACTIVE';
+  executiveDashboard.indicators.arabicSemanticEncodingScore =
+    arabicSemanticEncoding?.score || 0;
+  executiveDashboard.indicators.arabicSemanticEncodingLayers =
+    Object.keys(arabicSemanticEncoding?.layers || {}).length;
+  executiveDashboard.indicators.arabicSemanticEncodingReplacesUnicode =
+    arabicSemanticEncoding?.claims?.unicodeReplaced === true;
+  executiveDashboard.indicators.arabicSemanticEncodingHardwareTransmission =
+    arabicSemanticEncoding?.claims?.hardwarePhysicalTransmissionActivated === true;
+  executiveDashboard.indicators.arabicSemanticRootHighestInternalAuthority =
+    arabicSemanticEncoding?.claims?.semanticRootHighestInternalAuthority === true;
+  executiveDashboard.indicators.arabicSemanticExternalAuthorityAboveRoot =
+    arabicSemanticEncoding?.claims?.externalTechnicalSystemAuthorityAboveRoot === true;
+  executiveDashboard.indicators.arabicSemanticNativeCodecComplete =
+    arabicSemanticEncoding?.claims?.nativeIndependentCodecComplete === true;
   executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive =
     nativeLanguageArchitecture?.foundationScore === 100;
   executiveDashboard.indicators.sheikhaCompilerSelfHosted =
@@ -1512,6 +1544,7 @@ function buildReport() {
     'Apply public-benefit policy to every registered capability while keeping registration, evidence verification, admission, and execution as separate governed gates.',
     'Never treat a claimed good outcome as permission to override harm, rights, privacy, consent, law, or qualified professional review.',
     'Transform boundaries into approval, evidence, sandbox, accessibility, recovery, or safe-alternative paths; never treat a boundary as permission escalation.',
+    'Treat Sheikha Arabic Semantic Encoding as a higher-level Unicode/UTF-8 profile; do not claim a replacement, smaller wire size, faster processing, or hardware transmission without measured evidence.',
     'Treat the canonical .shk architecture as a verified language foundation, not proof that the full platform, compiler, kernel, or services have been ported.',
     'Require self-hosting, a native backend, standard library, kernel and service ports, host removal, and hardware qualification before any full Sheikha-only completion claim.',
     'Count distribution targets from inspected artifacts and native evidence only; never infer package readiness from placeholders or matrix entries.'
@@ -1640,6 +1673,31 @@ function buildReport() {
       universalBenefitBoundary?.halalOrHaramDeterminedBySoftware === false &&
       universalBenefitBoundary?.humanParticipationIsExploitableResource === false &&
       universalBenefitBoundary?.humanFinalResponsibility === true,
+    arabicSemanticEncodingIntegrated:
+      arabicSemanticEncoding?.system ===
+        'SHEIKHA_ARABIC_SEMANTIC_ENCODING_ACTIVATION_V1' &&
+      arabicSemanticEncoding?.status === 'VERIFIED_PROFILE_ACTIVE' &&
+      arabicSemanticEncoding?.score === 100 &&
+      Object.keys(arabicSemanticEncoding?.layers || {}).length === 4 &&
+      arabicSemanticEncoding?.checks?.religiousTextPreserved === true &&
+      arabicSemanticEncoding?.checks?.roundTripVerified === true &&
+      arabicSemanticEncoding?.checks?.tamperRejected === true &&
+      arabicSemanticEncoding?.checks?.bidiControlsRejected === true &&
+      arabicSemanticEncoding?.claims?.unicodeReplaced === false &&
+      arabicSemanticEncoding?.claims?.utf8Replaced === false &&
+      arabicSemanticEncoding?.claims?.hardwarePhysicalTransmissionActivated === false &&
+      arabicSemanticEncoding?.claims?.softwarePhysicalAdapterVerified === true &&
+      arabicSemanticEncoding?.claims?.externalStandardsCertificationIssued === false &&
+      arabicSemanticEncoding?.claims?.automatedReligiousRuling === false &&
+      arabicSemanticEncoding?.claims?.aiModelInvokedInEncodingPath === false &&
+      arabicSemanticEncoding?.claims?.semanticRootHighestInternalAuthority === true &&
+      arabicSemanticEncoding?.claims?.externalTechnicalSystemAuthorityAboveRoot === false &&
+      arabicSemanticEncoding?.claims?.unicodeUtf8TcpIpAdaptersBelowRoot === true &&
+      arabicSemanticEncoding?.claims?.hostedAdapterImplementationToday === true &&
+      arabicSemanticEncoding?.claims?.nativeIndependentCodecComplete === false &&
+      arabicSemanticEncoding?.claims?.nativeIndependentTransportComplete === false &&
+      arabicSemanticEncoding?.claims?.fullHostRemovalComplete === false &&
+      arabicSemanticEncoding?.claims?.automaticRuntimeSelfModification === false,
     nativeLanguageArchitectureIntegrated:
       nativeLanguageArchitecture?.system === 'SHEIKHA_NATIVE_LANGUAGE_ARCHITECTURE_V1' &&
       nativeLanguageArchitecture?.status ===
@@ -1728,6 +1786,9 @@ function buildReport() {
     sheikhaLanguageProductionHandbookPath,
     universalBenefitBoundaryPath,
     universalBenefitBoundaryHandbookPath,
+    arabicSemanticEncodingPath,
+    arabicSemanticEncodingSpecificationPath,
+    arabicSemanticEncodingHandbookPath,
     distributionMatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
@@ -1855,6 +1916,21 @@ function buildReport() {
       universalBenefitSunnahWrittenReferences:
         universalBenefitBoundary?.arabicDsl?.writtenReferences
           ?.authenticSunnahCount || 0,
+      arabicSemanticEncodingActive:
+        arabicSemanticEncoding?.status === 'VERIFIED_PROFILE_ACTIVE',
+      arabicSemanticEncodingScore: arabicSemanticEncoding?.score || 0,
+      arabicSemanticEncodingLayers:
+        Object.keys(arabicSemanticEncoding?.layers || {}).length,
+      arabicSemanticEncodingReplacesUnicode:
+        arabicSemanticEncoding?.claims?.unicodeReplaced === true,
+      arabicSemanticEncodingHardwareTransmission:
+        arabicSemanticEncoding?.claims?.hardwarePhysicalTransmissionActivated === true,
+      arabicSemanticRootHighestInternalAuthority:
+        arabicSemanticEncoding?.claims?.semanticRootHighestInternalAuthority === true,
+      arabicSemanticExternalAuthorityAboveRoot:
+        arabicSemanticEncoding?.claims?.externalTechnicalSystemAuthorityAboveRoot === true,
+      arabicSemanticNativeCodecComplete:
+        arabicSemanticEncoding?.claims?.nativeIndependentCodecComplete === true,
       nativeLanguageArchitectureFoundationActive:
         nativeLanguageArchitecture?.foundationScore === 100,
       sheikhaImplementationSourceFiles:
@@ -2111,6 +2187,51 @@ function buildReport() {
       humanFinalResponsibility:
         universalBenefitBoundary?.humanFinalResponsibility === true
     },
+    arabicSemanticEncoding: {
+      active: arabicSemanticEncoding?.status === 'VERIFIED_PROFILE_ACTIVE',
+      reportPath: arabicSemanticEncodingPath,
+      specificationPath: arabicSemanticEncodingSpecificationPath,
+      handbookPath: arabicSemanticEncodingHandbookPath,
+      status: arabicSemanticEncoding?.status || 'PENDING_REPORT_GENERATION',
+      score: arabicSemanticEncoding?.score || 0,
+      layers: Object.keys(arabicSemanticEncoding?.layers || {}).length,
+      roundTripVerified:
+        arabicSemanticEncoding?.checks?.roundTripVerified === true,
+      tamperRejected: arabicSemanticEncoding?.checks?.tamperRejected === true,
+      bidiControlsRejected:
+        arabicSemanticEncoding?.checks?.bidiControlsRejected === true,
+      unicodeReplaced:
+        arabicSemanticEncoding?.claims?.unicodeReplaced === true,
+      utf8Replaced: arabicSemanticEncoding?.claims?.utf8Replaced === true,
+      hardwarePhysicalTransmissionActivated:
+        arabicSemanticEncoding?.claims?.hardwarePhysicalTransmissionActivated === true,
+      softwarePhysicalAdapterVerified:
+        arabicSemanticEncoding?.claims?.softwarePhysicalAdapterVerified === true,
+      fasterThanUtf8: arabicSemanticEncoding?.claims?.fasterThanUtf8 === true,
+      smallerThanUtf8: arabicSemanticEncoding?.claims?.smallerThanUtf8 === true,
+      externalStandardsCertificationIssued:
+        arabicSemanticEncoding?.claims?.externalStandardsCertificationIssued === true,
+      automatedReligiousRuling:
+        arabicSemanticEncoding?.claims?.automatedReligiousRuling === true,
+      aiModelInvokedInEncodingPath:
+        arabicSemanticEncoding?.claims?.aiModelInvokedInEncodingPath === true,
+      semanticRootHighestInternalAuthority:
+        arabicSemanticEncoding?.claims?.semanticRootHighestInternalAuthority === true,
+      externalTechnicalSystemAuthorityAboveRoot:
+        arabicSemanticEncoding?.claims?.externalTechnicalSystemAuthorityAboveRoot === true,
+      unicodeUtf8TcpIpAdaptersBelowRoot:
+        arabicSemanticEncoding?.claims?.unicodeUtf8TcpIpAdaptersBelowRoot === true,
+      hostedAdapterImplementationToday:
+        arabicSemanticEncoding?.claims?.hostedAdapterImplementationToday === true,
+      nativeIndependentCodecComplete:
+        arabicSemanticEncoding?.claims?.nativeIndependentCodecComplete === true,
+      nativeIndependentTransportComplete:
+        arabicSemanticEncoding?.claims?.nativeIndependentTransportComplete === true,
+      fullHostRemovalComplete:
+        arabicSemanticEncoding?.claims?.fullHostRemovalComplete === true,
+      automaticRuntimeSelfModification:
+        arabicSemanticEncoding?.claims?.automaticRuntimeSelfModification === true
+    },
     nativeLanguageArchitecture: {
       active: nativeLanguageArchitecture?.foundationScore === 100,
       reportPath: nativeLanguageArchitecturePath,
@@ -2335,6 +2456,22 @@ if (require.main === module) {
       report.summary.universalBenefitQuranWrittenReferences,
     universalBenefitSunnahWrittenReferences:
       report.summary.universalBenefitSunnahWrittenReferences,
+    arabicSemanticEncodingActive:
+      report.summary.arabicSemanticEncodingActive,
+    arabicSemanticEncodingScore:
+      report.summary.arabicSemanticEncodingScore,
+    arabicSemanticEncodingLayers:
+      report.summary.arabicSemanticEncodingLayers,
+    arabicSemanticEncodingReplacesUnicode:
+      report.summary.arabicSemanticEncodingReplacesUnicode,
+    arabicSemanticEncodingHardwareTransmission:
+      report.summary.arabicSemanticEncodingHardwareTransmission,
+    arabicSemanticRootHighestInternalAuthority:
+      report.summary.arabicSemanticRootHighestInternalAuthority,
+    arabicSemanticExternalAuthorityAboveRoot:
+      report.summary.arabicSemanticExternalAuthorityAboveRoot,
+    arabicSemanticNativeCodecComplete:
+      report.summary.arabicSemanticNativeCodecComplete,
     nativeLanguageArchitectureFoundationActive:
       report.summary.nativeLanguageArchitectureFoundationActive,
     sheikhaImplementationSourceFiles: report.summary.sheikhaImplementationSourceFiles,
@@ -2387,6 +2524,9 @@ if (require.main === module) {
       sheikhaLanguageProductionHandbook: sheikhaLanguageProductionHandbookPath,
       universalBenefitBoundary: universalBenefitBoundaryPath,
       universalBenefitBoundaryHandbook: universalBenefitBoundaryHandbookPath,
+      arabicSemanticEncoding: arabicSemanticEncodingPath,
+      arabicSemanticEncodingSpecification: arabicSemanticEncodingSpecificationPath,
+      arabicSemanticEncodingHandbook: arabicSemanticEncodingHandbookPath,
       universalDistributionMatrix: distributionMatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath

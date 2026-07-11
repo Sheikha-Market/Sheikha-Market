@@ -1,11 +1,11 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-10T23:13:23.236Z",
+  "generatedAt": "2026-07-10T23:59:10.100Z",
   "nodes": [
     {
       "id": "APIs",
       "type": "layer",
-      "components": 431,
+      "components": 432,
       "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية."
     },
     {
@@ -101,7 +101,7 @@
     {
       "id": "Language",
       "type": "layer",
-      "components": 224,
+      "components": 230,
       "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة."
     },
     {
@@ -9764,6 +9764,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "arabic-semantic-encoding-b720d1505f79",
+      "fromPath": "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-b720d1505f79",
+      "fromPath": "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
       "from": "export-arabic-ir-ff51313d7a22",
       "fromPath": "core/language/sheikha-arabic/exporters/export-arabic-ir.js",
       "to": "DSL",
@@ -20410,6 +20422,18 @@
     {
       "from": "arabic-runtime-fabric-f85305f7ce05",
       "fromPath": "docs/arabic-runtime-fabric/SHEIKHA-ARABIC-RUNTIME-FABRIC-V95.md",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-2748e6ebaba7",
+      "fromPath": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-2748e6ebaba7",
+      "fromPath": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md",
       "to": "Runtime",
       "type": "component-to-layer"
     },
@@ -44234,6 +44258,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "status-routes-8752d5d3a96d",
+      "fromPath": "routes/arabic-semantic-encoding/status.routes.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "status-routes-8752d5d3a96d",
+      "fromPath": "routes/arabic-semantic-encoding/status.routes.js",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
       "from": "arabic-standard-library-fabric-routes-c06a6067b332",
       "fromPath": "routes/arabic-standard-library-fabric/sheikha-arabic-standard-library-fabric-routes.js",
       "to": "Runtime",
@@ -49738,6 +49774,30 @@
     {
       "from": "arabic-runtime-fabric-fe1fc88a5204",
       "fromPath": "runtime/arabic-runtime-fabric/v95/sheikha-arabic-runtime-fabric-v95.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-profile-a87143ecffc6",
+      "fromPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-profile-a87143ecffc6",
+      "fromPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-report-21dcebf32a16",
+      "fromPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-report-21dcebf32a16",
+      "fromPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json",
       "to": "Runtime",
       "type": "component-to-layer"
     },
@@ -82382,6 +82442,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "arabic-semantic-encoding-test-d62195f11340",
+      "fromPath": "tests/sheikha-arabic-semantic-encoding-v1.test.js",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-test-d62195f11340",
+      "fromPath": "tests/sheikha-arabic-semantic-encoding-v1.test.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
       "from": "architecture-catalog-digital-twin-test-b573ee5b41c9",
       "fromPath": "tests/sheikha-architecture-catalog-digital-twin-v1.test.js",
       "to": "Knowledge",
@@ -85709,6 +85781,18 @@
       "from": "activation-learning-2c866862646c",
       "fromPath": "tools/activation/activate-sheikha-activation-learning-v1.sh",
       "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-c934d7098bed",
+      "fromPath": "tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js",
+      "to": "DSL",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "arabic-semantic-encoding-c934d7098bed",
+      "fromPath": "tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js",
+      "to": "Runtime",
       "type": "component-to-layer"
     },
     {
