@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_RUNTIME_DECISION_V2",
+  "status": "NATIVE_VERIFIED",
+  "generatedAt": "2026-07-11T16:29:29.126Z",
+  "supersedesDecision": "runtime/desktop-runtime/v1/sheikha-desktop-runtime-decision-v1.json",
+  "selection": {
+    "selectedRuntime": "DYNAMIC_GTK3_WEBKIT2GTK_RUNTIME_BINDING",
+    "reason": "The installed x86_64 runtime exposes the required stable C ABI, allowing a small native shell without installing packages or adding Node to the native process.",
+    "developmentHeadersRequired": false,
+    "packagesInstalled": false,
+    "nativeBridgeExposed": false,
+    "loopbackOnly": true
+  },
+  "measurements": {
+    "elfBytes": 18568,
+    "archiveBytes": 11055,
+    "nativeSmokeDurationMs": 1142.47,
+    "measuredElapsedSeconds": 1.13,
+    "measuredPeakRssKB": 160640,
+    "reproducibleSha256": "84d19098648225e7726552cb5341d1c2b0e610dd01ed4aaeb4fb877098d2258a",
+    "measuredLocally": true
+  },
+  "platformCoverage": {
+    "linuxX86_64": "NATIVE_VERIFIED",
+    "linuxAarch64": "TOOLCHAIN_MISSING",
+    "linuxArmv7": "TOOLCHAIN_MISSING",
+    "windowsX64": "REQUIRES_NATIVE_RUNNER",
+    "windowsArm64": "REQUIRES_NATIVE_RUNNER",
+    "macosX86_64": "REQUIRES_NATIVE_RUNNER",
+    "macosArm64": "REQUIRES_NATIVE_RUNNER"
+  },
+  "boundaries": {
+    "windowsExeBuilt": false,
+    "macosDmgBuilt": false,
+    "armArtifactBuilt": false,
+    "signed": false,
+    "notarized": false,
+    "externalPublishing": false
+  }
+}

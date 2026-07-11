@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "3.1.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_RUNTIME_INSPECTION_V31",
+  "status": "BUILD_READY",
+  "host": {
+    "platform": "linux",
+    "architecture": "x64",
+    "display": ":1",
+    "node": "v25.6.1",
+    "kernel": "7.0.11-76070011-generic"
+  },
+  "tools": {
+    "gcc": "/usr/bin/gcc",
+    "strip": "/usr/bin/strip",
+    "file": "/usr/bin/file",
+    "readelf": "/usr/bin/readelf",
+    "objdump": "/usr/bin/objdump",
+    "nm": "/usr/bin/nm",
+    "ldd": "/usr/bin/ldd",
+    "tar": "/usr/bin/tar",
+    "gzip": "/usr/bin/gzip",
+    "sha256sum": "/usr/bin/sha256sum",
+    "dpkg-query": "/usr/bin/dpkg-query",
+    "/usr/bin/time": "/usr/bin/time"
+  },
+  "missingTools": [],
+  "libraries": {
+    "gtk3": {
+      "path": "/lib/x86_64-linux-gnu/libgtk-3.so.0",
+      "available": true,
+      "inspection": "/lib/x86_64-linux-gnu/libgtk-3.so.0: symbolic link to libgtk-3.so.0.2404.29"
+    },
+    "webkit2gtk": {
+      "path": "/lib/x86_64-linux-gnu/libwebkit2gtk-4.0.so.37",
+      "available": true,
+      "inspection": "/lib/x86_64-linux-gnu/libwebkit2gtk-4.0.so.37: symbolic link to libwebkit2gtk-4.0.so.37.74.7"
+    },
+    "gobject": {
+      "path": "/lib/x86_64-linux-gnu/libgobject-2.0.so.0",
+      "available": true,
+      "inspection": "/lib/x86_64-linux-gnu/libgobject-2.0.so.0: symbolic link to libgobject-2.0.so.0.7200.4"
+    },
+    "glib": {
+      "path": "/lib/x86_64-linux-gnu/libglib-2.0.so.0",
+      "available": true,
+      "inspection": "/lib/x86_64-linux-gnu/libglib-2.0.so.0: symbolic link to libglib-2.0.so.0.7200.4"
+    }
+  },
+  "missingLibraries": [],
+  "packages": [
+    {
+      "name": "libglib2.0-0",
+      "version": "2.72.4-0ubuntu2.9",
+      "architecture": "amd64"
+    },
+    {
+      "name": "libgtk-3-0",
+      "version": "3.24.33-1ubuntu2.2",
+      "architecture": "amd64"
+    },
+    {
+      "name": "libwebkit2gtk-4.0-37",
+      "version": "2.50.4-0ubuntu0.22.04.1",
+      "architecture": "amd64"
+    }
+  ],
+  "dynamicBinding": true,
+  "developmentHeadersRequired": false,
+  "packagesInstalledByV31": false,
+  "sudoUsed": false
+}

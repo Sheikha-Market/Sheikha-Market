@@ -294,6 +294,14 @@ function createSheikhaApiClient({
     releaseIndex: () => request('/api/sheikha/distribution-apex/v3/release-index')
   };
 
+  client.nativeDesktop = {
+    status: () => request('/api/sheikha/distribution-apex/v3.1/status'),
+    nativeVerification: () => request('/api/sheikha/distribution-apex/v3.1/native-verification'),
+    installerLifecycle: () => request('/api/sheikha/distribution-apex/v3.1/installer-lifecycle'),
+    security: () => request('/api/sheikha/distribution-apex/v3.1/security'),
+    releaseIndex: () => request('/api/sheikha/distribution-apex/v3.1/release-index')
+  };
+
   client.publicBenefit = {
     policy: () => request('/api/governance/generator/public-benefit-policy'),
     coverage: () => request('/api/governance/generator/public-benefit/coverage'),
