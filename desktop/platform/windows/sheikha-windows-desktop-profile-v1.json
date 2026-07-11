@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_WINDOWS_DESKTOP_PROFILE_V1",
+  "status": "REQUIRES_NATIVE_RUNNER",
+  "architectures": ["x64", "arm64"],
+  "nativeRunnerAvailableLocally": false,
+  "desktopRuntimeBuilt": false,
+  "userAndSystemInstallerAdapterShared": true,
+  "profiles": ["user", "system"],
+  "requiredEvidence": [
+    "PE_ARCHITECTURE",
+    "INSTALL",
+    "LAUNCH",
+    "HEALTH",
+    "VERSION",
+    "UNINSTALL",
+    "ROLLBACK"
+  ],
+  "publicReleaseBoundaries": ["AUTHENTICODE_SIGNING_REQUIRED"],
+  "claims": {
+    "exeBuilt": false,
+    "nativeVerified": false,
+    "signed": false
+  }
+}

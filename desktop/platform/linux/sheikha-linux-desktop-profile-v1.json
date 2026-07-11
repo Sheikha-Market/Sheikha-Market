@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LINUX_DESKTOP_PROFILE_V1",
+  "status": "TOOLCHAIN_MISSING",
+  "architectures": ["x86_64", "aarch64", "armv7"],
+  "nativeRunnerAvailableLocally": {
+    "x86_64": true,
+    "aarch64": false,
+    "armv7": false
+  },
+  "selectedShellCandidate": "TAURI_2",
+  "desktopRuntimeBuilt": false,
+  "localToolchain": {
+    "rustc": false,
+    "cargo": false,
+    "webkit2gtk4_1Development": false,
+    "gtk4Development": false,
+    "rpmbuild": false,
+    "snapcraft": false
+  },
+  "claims": {
+    "desktopBinaryBuilt": false,
+    "rpmBuilt": false,
+    "snapBuilt": false,
+    "nativeDesktopVerified": false
+  }
+}

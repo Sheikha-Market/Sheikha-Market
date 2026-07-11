@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_INSTALLER_VERIFICATION_V3",
+  "status": "INSPECTED_WITH_NATIVE_RUNNER_BOUNDARIES",
+  "generatedAt": "2026-07-11T15:51:29.387Z",
+  "desktopExecutableBuilt": false,
+  "windows": {
+    "status": "REQUIRES_NATIVE_RUNNER",
+    "sharedAdapter": "desktop/installer-contracts/sheikha-desktop-installer-adapter-v1.js",
+    "profiles": {
+      "user": {
+        "scope": "current-user",
+        "administratorRequired": false,
+        "artifactBuilt": false
+      },
+      "system": {
+        "scope": "machine-wide",
+        "administratorRequired": true,
+        "artifactBuilt": false
+      }
+    },
+    "exeBuilt": false,
+    "nativeTested": false,
+    "signed": false
+  },
+  "linux": {
+    "nativeHostArchitecture": "x86_64",
+    "rpm": {
+      "status": "TOOLCHAIN_MISSING",
+      "artifactBuilt": false,
+      "published": false
+    },
+    "snap": {
+      "status": "TOOLCHAIN_MISSING",
+      "artifactBuilt": false,
+      "published": false
+    },
+    "packagesInstalledByV3": false
+  },
+  "macos": {
+    "status": "REQUIRES_NATIVE_RUNNER",
+    "dmgBuilt": false,
+    "universal2": false,
+    "machoX86_64SliceVerified": false,
+    "machoArm64SliceVerified": false,
+    "signed": false,
+    "notarized": false,
+    "stapled": false
+  },
+  "boundaries": {
+    "fakeExeCreated": false,
+    "fakeDmgCreated": false,
+    "fakeArmArtifactCreated": false,
+    "signingPerformed": false,
+    "notarizationPerformed": false,
+    "externalPublishingPerformed": false
+  }
+}

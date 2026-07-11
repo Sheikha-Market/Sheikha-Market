@@ -1,0 +1,91 @@
+{
+  "valid": true,
+  "errors": [],
+  "artifactCount": 1,
+  "inheritedArtifactCount": 6,
+  "secretScan": {
+    "passed": true,
+    "findings": []
+  },
+  "duplicateArtifactNames": 0,
+  "duplicateArtifactHashes": 0,
+  "index": {
+    "schemaVersion": "3.0.0",
+    "system": "SHEIKHA_LOCAL_RELEASE_INDEX_V3",
+    "version": "1.0.51",
+    "releaseLine": "v3",
+    "sourceBaselineCommit": "cecfcea6ff3db13df2dd41489419c86df19e2d8c",
+    "artifactCount": 1,
+    "inheritedArtifactCount": 6,
+    "localRegistryOnly": true,
+    "githubRequired": false,
+    "externalPublishingRequested": false,
+    "immutableRelease": true,
+    "desktopExecutableArtifactCount": 0,
+    "artifacts": [
+      {
+        "artifactId": "desktop-product-core-neutral-v3",
+        "product": "sheikha-desktop-product-core",
+        "productVersion": "1.0.51",
+        "status": "INSPECTED",
+        "name": "sheikha-desktop-product-core-1.0.51-v3.tar.gz",
+        "relativePath": "artifacts/sheikha-desktop-product-core-1.0.51-v3.tar.gz",
+        "bytes": 8797,
+        "sha256": "fb828842e1041ebffaf1b2f2b930c6fe2ba63734690e4fe068f69043b90767aa",
+        "artifactKind": "PLATFORM_NEUTRAL_SOURCE_ARCHIVE",
+        "architecture": "neutral-source",
+        "desktopExecutable": false,
+        "nativeVerified": false,
+        "publicationState": "NOT_PUBLISHED",
+        "verification": "verification/sheikha-desktop-product-core-1.0.51-v3.tar.gz.verification.json",
+        "sbom": "sbom/sheikha-desktop-product-core-1.0.51-v3.tar.gz.cdx.json",
+        "provenance": "provenance/sheikha-desktop-product-core-1.0.51-v3.tar.gz.provenance.json",
+        "metadata": "metadata/sheikha-desktop-product-core-1.0.51-v3.tar.gz.manifest.json"
+      }
+    ],
+    "baseline": {
+      "releaseLine": "v2",
+      "version": "1.0.51",
+      "releaseIndexSha256": "840445d60b0029a6b66809e4acffa969d07ace6a36f1f7448f7e924cd71b37bb",
+      "workspaceReleaseIndexSha256": "f363a597a709a510ce7e8907630dbabb03db04583938d0455cf064ab7f7bd284",
+      "artifacts": [
+        {
+          "artifactId": "bare-metal-fat-esp-image-x86_64",
+          "name": "sheikha-bare-metal-1.0.51-x86_64.img",
+          "bytes": 1474560,
+          "sha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8"
+        },
+        {
+          "artifactId": "bare-metal-uefi-x86_64",
+          "name": "sheikha-bare-metal-1.0.51-x86_64.efi",
+          "bytes": 4516,
+          "sha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd"
+        },
+        {
+          "artifactId": "linux-cli-x86_64",
+          "name": "sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+          "bytes": 1704,
+          "sha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb"
+        },
+        {
+          "artifactId": "linux-deb-amd64",
+          "name": "sheikha-1.0.51-linux-amd64.deb",
+          "bytes": 25607636,
+          "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
+        },
+        {
+          "artifactId": "linux-tar-x86_64",
+          "name": "sheikha-1.0.51-linux-x86_64.tar.gz",
+          "bytes": 33956546,
+          "sha256": "baf5877814b334e20366d66088bc1985f96c28a22e5d6c91cc02957cb362883c"
+        },
+        {
+          "artifactId": "vscode-extension-vsix",
+          "name": "sheikha-vscode-extension-1.0.91.vsix",
+          "bytes": 90108,
+          "sha256": "4389763a9595773ef88217d2881cf270b382c31cdec767b94b26ffc4b4d8f0a3"
+        }
+      ]
+    }
+  }
+}

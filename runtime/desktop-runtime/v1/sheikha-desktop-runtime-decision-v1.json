@@ -1,0 +1,182 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DESKTOP_RUNTIME_ARCHITECTURE_DECISION_V1",
+  "status": "DECISION_COMPLETE_PRODUCT_CORE_IMPLEMENTED_NATIVE_SHELL_TOOLCHAIN_MISSING",
+  "generatedAt": "2026-07-11T15:51:29.275Z",
+  "repositoryDiscovery": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_DESKTOP_RUNTIME_DISCOVERY_V1",
+    "status": "NO_EXECUTABLE_DESKTOP_RUNTIME_FOUND",
+    "trackedFileCount": 7270,
+    "packageManifestCount": 7,
+    "dependencyEvidence": [],
+    "configEvidence": [],
+    "sourceEvidence": [],
+    "electronImplemented": false,
+    "tauriImplemented": false,
+    "qtImplemented": false,
+    "gtkImplemented": false,
+    "nativeWebViewImplemented": false,
+    "executableDesktopRuntimeFound": false,
+    "documentationMentionsCountedAsImplementation": false
+  },
+  "selection": {
+    "selectedCandidate": "TAURI_2",
+    "selectionType": "ARCHITECTURE_CANDIDATE_NOT_INSTALLED",
+    "reason": "The current product is web-oriented, does not require Node in a native shell, and needs a narrow capability model. Tauri aligns best, but local prerequisites are absent.",
+    "desktopExecutableBuilt": false,
+    "dependencyAdded": false,
+    "frameworkInstalled": false
+  },
+  "measurementPolicy": {
+    "localArtifactSizeMeasuredOnlyAfterBuild": true,
+    "localMemoryMeasuredOnlyAfterNativeLaunch": true,
+    "localStartupMeasuredOnlyAfterNativeLaunch": true,
+    "vendorClaimsAreNotLocalMeasurements": true
+  },
+  "candidates": [
+    {
+      "id": "TAURI_2",
+      "rank": 1,
+      "runtimeBundling": "Uses the operating system webview with a Rust native core.",
+      "nodeRequiredAtRuntime": false,
+      "supportedTargets": [
+        "Windows x64/arm64",
+        "Linux x86_64/aarch64/armv7 subject to dependencies",
+        "macOS x86_64/arm64"
+      ],
+      "capabilitySecurityModel": "Granular capabilities constrain frontend access to native commands.",
+      "updateAndSigning": "Platform-specific signing and updater evidence remain mandatory.",
+      "localBuildReady": false,
+      "localBlockers": [
+        "rustc",
+        "cargo",
+        "webkit2gtk-4.1",
+        "gtk4"
+      ],
+      "officialEvidence": [
+        "https://v2.tauri.app/start/",
+        "https://v2.tauri.app/security/capabilities/",
+        "https://v2.tauri.app/start/prerequisites/"
+      ],
+      "localArtifactBytes": null,
+      "localPeakMemoryBytes": null,
+      "localColdStartMilliseconds": null,
+      "measuredLocally": false
+    },
+    {
+      "id": "ELECTRON",
+      "rank": 2,
+      "runtimeBundling": "Bundles Chromium and Node.js into the desktop runtime.",
+      "nodeRequiredAtRuntime": true,
+      "supportedTargets": [
+        "Windows",
+        "Linux",
+        "macOS",
+        "x64",
+        "ia32",
+        "arm64",
+        "arm where supported"
+      ],
+      "capabilitySecurityModel": "Requires strict main/preload/renderer isolation and narrow IPC.",
+      "updateAndSigning": "Mature packaging ecosystem; native signing remains platform-specific.",
+      "localBuildReady": false,
+      "localBlockers": [
+        "electron dependency absent",
+        "desktop main process absent"
+      ],
+      "officialEvidence": [
+        "https://www.electronjs.org/docs/latest/",
+        "https://www.electronjs.org/docs/latest/tutorial/process-model",
+        "https://www.electronjs.org/docs/latest/tutorial/installation"
+      ],
+      "localArtifactBytes": null,
+      "localPeakMemoryBytes": null,
+      "localColdStartMilliseconds": null,
+      "measuredLocally": false
+    },
+    {
+      "id": "QT_6",
+      "rank": 3,
+      "runtimeBundling": "Native C++ application and Qt runtime/plugins with platform-specific deployment.",
+      "nodeRequiredAtRuntime": false,
+      "supportedTargets": [
+        "Windows",
+        "Linux",
+        "macOS with platform-specific architecture support"
+      ],
+      "capabilitySecurityModel": "Native surface must be explicitly designed and sandboxed.",
+      "updateAndSigning": "Deployment, plugins, licensing, and signing require platform review.",
+      "localBuildReady": false,
+      "localBlockers": [
+        "qmake absent",
+        "Qt project absent"
+      ],
+      "officialEvidence": [
+        "https://doc.qt.io/qt-6/supported-platforms.html",
+        "https://doc.qt.io/qt-6/deployment.html"
+      ],
+      "localArtifactBytes": null,
+      "localPeakMemoryBytes": null,
+      "localColdStartMilliseconds": null,
+      "measuredLocally": false
+    },
+    {
+      "id": "GTK_4",
+      "rank": 4,
+      "runtimeBundling": "Native GTK application with platform port and packaging work.",
+      "nodeRequiredAtRuntime": false,
+      "supportedTargets": [
+        "Linux primary",
+        "Windows backend",
+        "macOS port"
+      ],
+      "capabilitySecurityModel": "Native surface and WebView bridge would require project-specific controls.",
+      "updateAndSigning": "No unified cross-platform application packaging is provided by GTK itself.",
+      "localBuildReady": false,
+      "localBlockers": [
+        "gtk4 development absent"
+      ],
+      "officialEvidence": [
+        "https://docs.gtk.org/gtk4/",
+        "https://docs.gtk.org/gtk4/getting_started.html",
+        "https://docs.gtk.org/gtk4/windows.html",
+        "https://docs.gtk.org/gtk4/osx.html"
+      ],
+      "localArtifactBytes": null,
+      "localPeakMemoryBytes": null,
+      "localColdStartMilliseconds": null,
+      "measuredLocally": false
+    },
+    {
+      "id": "CUSTOM_NATIVE_WEBVIEW",
+      "rank": 5,
+      "runtimeBundling": "Uses each platform WebView through custom native bindings.",
+      "nodeRequiredAtRuntime": false,
+      "supportedTargets": [
+        "Possible per platform; no shared implementation exists in the repository"
+      ],
+      "capabilitySecurityModel": "Highest project-owned bridge and lifecycle security burden.",
+      "updateAndSigning": "All packaging, updating, signing, and lifecycle behavior must be implemented.",
+      "localBuildReady": false,
+      "localBlockers": [
+        "native shell source absent",
+        "platform bridges absent"
+      ],
+      "officialEvidence": [],
+      "localArtifactBytes": null,
+      "localPeakMemoryBytes": null,
+      "localColdStartMilliseconds": null,
+      "measuredLocally": false
+    }
+  ],
+  "boundaries": {
+    "noFakeExe": true,
+    "noFakeDmg": true,
+    "noArmArtifactByRenaming": true,
+    "noSigningClaimWithoutEvidence": true,
+    "noNotarizationClaimWithoutEvidence": true,
+    "humanFinalDecision": true,
+    "aiIsAdvisoryOnly": true
+  }
+}

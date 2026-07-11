@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DESKTOP_INSTALLER_LIFECYCLE_CONTRACT_V1",
+  "status": "DECLARED",
+  "adapter": "DesktopInstallerAdapterV1",
+  "profiles": {
+    "user": {
+      "scope": "current-user",
+      "administratorRequired": false,
+      "installRootClass": "user-local",
+      "uninstallScope": "current-user"
+    },
+    "system": {
+      "scope": "machine-wide",
+      "administratorRequired": true,
+      "installRootClass": "system",
+      "uninstallScope": "machine-wide"
+    }
+  },
+  "stages": [
+    "build",
+    "install",
+    "launch",
+    "health",
+    "version",
+    "upgrade",
+    "uninstall",
+    "rollback",
+    "logs",
+    "evidence",
+    "cleanup"
+  ],
+  "nativeExecutorRequired": true,
+  "artifactFabricationAllowed": false
+}

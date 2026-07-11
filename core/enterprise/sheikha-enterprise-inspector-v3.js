@@ -55,6 +55,9 @@ const distributionReleaseApex = require(
 const universalDeliveryV2 = require(
   '../../runtime/distribution/v2/sheikha-universal-delivery-v2-status'
 );
+const nativeDeliveryV3 = require(
+  '../../runtime/distribution/v3/sheikha-native-delivery-v3-status'
+);
 const publicBenefitCapabilityRouter = require(
   '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
 );
@@ -215,6 +218,7 @@ function collectEnterpriseInspector(input = {}) {
   const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
   const distributionReleaseApexStatus = distributionReleaseApex.status();
   const universalDeliveryV2Status = universalDeliveryV2.status();
+  const nativeDeliveryV3Status = nativeDeliveryV3.status();
   const publicBenefitCapabilityRouterStatus = publicBenefitCapabilityRouter.status();
 
   const changedFiles = String(controlTower.git.status || '')
@@ -259,6 +263,7 @@ function collectEnterpriseInspector(input = {}) {
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
       distributionReleaseApex: distributionReleaseApexStatus.status,
       universalDeliveryV2: universalDeliveryV2Status.status,
+      nativeDeliveryV3: nativeDeliveryV3Status.status,
       publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus.status,
       nativeLanguageArchitecture: nativeLanguageArchitecture.status,
       extension: extension.status,
@@ -424,6 +429,7 @@ function collectEnterpriseInspector(input = {}) {
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     distributionReleaseApex: distributionReleaseApexStatus,
     universalDeliveryV2: universalDeliveryV2Status,
+    nativeDeliveryV3: nativeDeliveryV3Status,
     publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus,
     nativeLanguageArchitecture,
     technicalCapabilityApex: technicalCapabilityApexStatus,

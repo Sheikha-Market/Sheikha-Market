@@ -1,0 +1,42 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DESKTOP_SHELL_CONTRACT_V1",
+  "status": "TOOLCHAIN_MISSING",
+  "selectedCandidate": "TAURI_2",
+  "selectionState": "CANDIDATE_SELECTED_NATIVE_SHELL_NOT_BUILT",
+  "desktopExecutableImplemented": false,
+  "productCoreImplemented": true,
+  "frameworkDependencyAdded": false,
+  "security": {
+    "remoteNavigationAllowed": false,
+    "remoteContentExecutionAllowed": false,
+    "frontendDirectNodeAccessAllowed": false,
+    "frontendDirectShellAccessAllowed": false,
+    "frontendDirectFilesystemAccessAllowed": false,
+    "contentSecurityPolicyRequired": true,
+    "capabilityAllowlistRequired": true,
+    "humanApprovalForHighImpactActions": true,
+    "durableAuditEvidenceForHighImpactActions": true
+  },
+  "executionFlow": [
+    "HUMAN_APPROVAL",
+    "GOVERNANCE_GATE",
+    "CAPABILITY_CHECK",
+    "EXECUTION_ADAPTER",
+    "AUDIT_EVIDENCE"
+  ],
+  "localBlockers": [
+    "RUSTC_MISSING",
+    "CARGO_MISSING",
+    "WEBKIT2GTK_4_1_DEVELOPMENT_MISSING",
+    "GTK4_DEVELOPMENT_MISSING",
+    "NATIVE_DESKTOP_RUNNER_NOT_IMPLEMENTED"
+  ],
+  "claims": {
+    "windowsExeBuilt": false,
+    "macosDmgBuilt": false,
+    "linuxDesktopBinaryBuilt": false,
+    "signed": false,
+    "notarized": false
+  }
+}
