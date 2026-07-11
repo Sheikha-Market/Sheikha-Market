@@ -77,6 +77,7 @@
     "ops:enterprise:integration:report:v1": "npm run -s ops:enterprise:integration:verify:v1 >/dev/null && cat runtime/enterprise-integration/sheikha-enterprise-integration-verification-layer-v1-report.json",
     "ops:master-activation:consolidation:v1": "node tools/activation/activate-sheikha-master-activation-consolidation-v1.js",
     "ops:master-activation:report:v1": "npm run -s ops:master-activation:consolidation:v1 >/dev/null && cat runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json",
+    "ops:master-capability-registry:test:v1": "jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-master-capability-registry-storage-v1.test.js",
     "ops:sovereign-kernel-boot:v1": "node tools/activation/activate-sheikha-sovereign-kernel-boot-v1.js",
     "ops:bare-metal:toolchain:v1": "node bare-metal/build/sheikha-bare-metal-pipeline-v1.js toolchain",
     "ops:bare-metal:clean:v1": "node bare-metal/build/sheikha-bare-metal-pipeline-v1.js clean",

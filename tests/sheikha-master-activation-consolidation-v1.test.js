@@ -4,6 +4,7 @@ const os = require('node:os');
 const path = require('node:path');
 
 const {
+  buildCapabilityRegistryStorage,
   buildComponent,
   buildMethodologyAccreditationReadiness,
   buildReport,
@@ -32,6 +33,44 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(component.outputs.length).toBeGreaterThan(0);
     expect(component.githubRequired).toBeUndefined();
     expect(component.evidence.githubRequired).toBe(false);
+  });
+
+  test('links APIs only to the file that declares the route', () => {
+    const component = buildComponent('docs/example.md', {
+      apiRoutes: [
+        { file: 'server.js', method: 'get', path: '/health' },
+        { file: 'docs/example.md', method: 'post', path: '/api/example' },
+        { file: 'docs/example.md', method: 'post', path: '/api/example' }
+      ]
+    });
+
+    expect(component.apis).toEqual(['POST /api/example']);
+  });
+
+  test('builds a compact index with complete records in bounded shards', () => {
+    const components = [
+      buildComponent('runtime/example/a.json'),
+      buildComponent('runtime/example/b.json'),
+      buildComponent('runtime/example/c.json')
+    ];
+    const storage = buildCapabilityRegistryStorage({
+      system: 'SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1',
+      generatedAt: '2026-07-11T00:00:00.000Z',
+      componentCount: components.length,
+      components
+    }, { shardSize: 2 });
+
+    expect(storage.index.storage).toMatchObject({
+      format: 'SHARDED_JSON_V1',
+      shardCount: 2,
+      shardSize: 2,
+      fullComponentRecordsInShards: true
+    });
+    expect(storage.index.components).toHaveLength(3);
+    expect(storage.index.components[0].responsibility).toBeUndefined();
+    expect(storage.shards.map((item) => item.payload.components.length)).toEqual([2, 1]);
+    expect(storage.shards.every((item) => item.descriptor.bytes > 0)).toBe(true);
+    expect(storage.shards.every((item) => /^[a-f0-9]{64}$/u.test(item.descriptor.sha256))).toBe(true);
   });
 
   test('builds repository discovery report', () => {

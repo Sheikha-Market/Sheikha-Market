@@ -10,6 +10,10 @@ const ROOT = process.cwd();
 const reportPath = 'runtime/master-activation/sheikha-master-activation-consolidation-v1-report.json';
 const catalogPath = 'runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json';
 const capabilityRegistryPath = 'runtime/master-activation/sheikha-master-capability-registry-v1.json';
+const capabilityRegistryShardDirectory =
+  'runtime/master-activation/capability-registry-v1/components';
+const CAPABILITY_REGISTRY_SHARD_SIZE = 500;
+const CAPABILITY_REGISTRY_SCHEMA_VERSION = '1.1.0';
 const architectureGraphPath = 'runtime/master-activation/sheikha-master-architecture-graph-v1.json';
 const duplicateDetectionPath = 'runtime/master-activation/sheikha-master-duplicate-detection-v1.json';
 const executiveDashboardPath = 'runtime/master-activation/sheikha-master-executive-dashboard-v1.json';
@@ -58,6 +62,9 @@ const jannatGardensPublicModelPath = 'public/sheikha-jannat-gardens/sheikha-jann
 const packageJson = require(path.join(ROOT, 'package.json'));
 
 const DISCOVERY_EXCLUDES = new Set(['.git', 'node_modules']);
+const DISCOVERY_PATH_PREFIX_EXCLUDES = [
+  `${capabilityRegistryShardDirectory}/`
+];
 const LOCAL_ARTIFACT_ROOTS = new Set([
   '.venv',
   'archive',
@@ -366,10 +373,11 @@ function buildComponent(filePath, context = {}) {
   const io = IO_BY_LAYER[layer] || { inputs: ['repository file'], outputs: ['catalog evidence'] };
   const id = `${normalizeKey(normalized) || 'component'}-${shaPath(normalized)}`;
   const apiRoutes = context.apiRoutes || [];
-  const relatedApis = apiRoutes
-    .filter((route) => route.file === normalized || normalized.includes(path.dirname(route.file)))
-    .slice(0, 20)
-    .map((route) => `${route.method.toUpperCase()} ${route.path}`);
+  const relatedApis = Array.from(new Set(
+    apiRoutes
+      .filter((route) => route.file === normalized)
+      .map((route) => `${route.method.toUpperCase()} ${route.path}`)
+  )).slice(0, 20);
 
   return {
     id,
@@ -410,6 +418,7 @@ function walkFallback(relativePath = '.', collector = []) {
     const nextRelative = normalizePath(path.join(relativePath, entry.name));
     const rootName = nextRelative.split('/')[0];
     if (LOCAL_ARTIFACT_ROOTS.has(rootName)) continue;
+    if (DISCOVERY_PATH_PREFIX_EXCLUDES.some((prefix) => nextRelative.startsWith(prefix))) continue;
     if (entry.isDirectory()) {
       walkFallback(nextRelative, collector);
     } else {
@@ -431,6 +440,7 @@ function getRepositoryFiles() {
       .map(normalizePath)
       .filter(Boolean)
       .filter((filePath) => !DISCOVERY_EXCLUDES.has(filePath.split('/')[0]))
+      .filter((filePath) => !DISCOVERY_PATH_PREFIX_EXCLUDES.some((prefix) => filePath.startsWith(prefix)))
       .sort();
     return files.length > 0 ? files : walkFallback('.');
   } catch {
@@ -666,6 +676,169 @@ function buildCapabilityRegistry(components, files, apiIndex, packageScripts) {
       docs: files.filter((filePath) => /\.md$/i.test(filePath) || filePath.startsWith('docs/')).length
     }
   };
+}
+
+function serializeJson(payload) {
+  return `${JSON.stringify(payload, null, 2)}\n`;
+}
+
+function buildCapabilityRegistryStorage(registry, options = {}) {
+  const requestedShardSize = Number(options.shardSize);
+  const shardSize = Number.isInteger(requestedShardSize) && requestedShardSize > 0
+    ? requestedShardSize
+    : CAPABILITY_REGISTRY_SHARD_SIZE;
+  const components = Array.isArray(registry.components) ? registry.components : [];
+  const shardCount = Math.ceil(components.length / shardSize);
+  const shards = [];
+  const componentIndex = [];
+
+  for (let offset = 0, shardIndex = 0; offset < components.length; offset += shardSize, shardIndex += 1) {
+    const shardNumber = shardIndex + 1;
+    const shardComponents = components.slice(offset, offset + shardSize);
+    const shardPath = `${capabilityRegistryShardDirectory}/components-${String(shardNumber).padStart(4, '0')}.json`;
+    const payload = {
+      system: 'SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1',
+      schemaVersion: CAPABILITY_REGISTRY_SCHEMA_VERSION,
+      generatedAt: registry.generatedAt,
+      parentRegistry: capabilityRegistryPath,
+      shard: {
+        number: shardNumber,
+        count: shardCount,
+        offset,
+        componentCount: shardComponents.length
+      },
+      components: shardComponents
+    };
+    const text = serializeJson(payload);
+    const sha256 = crypto.createHash('sha256').update(text, 'utf8').digest('hex');
+
+    for (const component of shardComponents) {
+      componentIndex.push({
+        id: component.id,
+        path: component.path,
+        layer: component.layer,
+        lifecycle: component.lifecycle,
+        shard: shardPath
+      });
+    }
+
+    shards.push({
+      path: shardPath,
+      payload,
+      text,
+      descriptor: {
+        number: shardNumber,
+        path: shardPath,
+        offset,
+        componentCount: shardComponents.length,
+        bytes: Buffer.byteLength(text, 'utf8'),
+        sha256,
+        firstComponentPath: shardComponents[0]?.path || null,
+        lastComponentPath: shardComponents.at(-1)?.path || null
+      }
+    });
+  }
+
+  const shardDescriptors = shards.map((item) => item.descriptor);
+  const registrySummary = Object.fromEntries(
+    Object.entries(registry).filter(([key]) => key !== 'components')
+  );
+  const shardDigestChainSha256 = crypto
+    .createHash('sha256')
+    .update(shardDescriptors.map((item) => item.sha256).join('\n'), 'utf8')
+    .digest('hex');
+
+  return {
+    index: {
+      ...registrySummary,
+      schemaVersion: CAPABILITY_REGISTRY_SCHEMA_VERSION,
+      status: 'ACTIVE_SHARDED_INDEX',
+      components: componentIndex,
+      storage: {
+        format: 'SHARDED_JSON_V1',
+        indexPath: capabilityRegistryPath,
+        shardDirectory: capabilityRegistryShardDirectory,
+        shardSize,
+        shardCount,
+        componentCount: components.length,
+        componentsArrayMode: 'COMPACT_REFERENCES',
+        fullComponentRecordsInShards: true,
+        unlistedShardPolicy: 'IGNORE_NOT_REFERENCED_BY_INDEX',
+        shardDigestChainSha256,
+        shards: shardDescriptors
+      }
+    },
+    shards
+  };
+}
+
+function verifyCapabilityRegistryStorage(index) {
+  const descriptors = index?.storage?.shards || [];
+  const checks = {
+    shardedIndexActive: index?.status === 'ACTIVE_SHARDED_INDEX',
+    formatSupported: index?.storage?.format === 'SHARDED_JSON_V1',
+    shardCountMatches: descriptors.length === index?.storage?.shardCount,
+    compactIndexCountMatches: index?.components?.length === index?.componentCount,
+    shardFilesPresent: true,
+    shardBytesMatch: true,
+    shardDigestsMatch: true,
+    shardPayloadCountsMatch: true,
+    totalComponentCountMatches: false,
+    componentIdsUnique: false,
+    digestChainMatches: false
+  };
+  let totalComponents = 0;
+
+  for (const descriptor of descriptors) {
+    const absolutePath = resolve(descriptor.path);
+    if (!fs.existsSync(absolutePath)) {
+      checks.shardFilesPresent = false;
+      checks.shardBytesMatch = false;
+      checks.shardDigestsMatch = false;
+      checks.shardPayloadCountsMatch = false;
+      continue;
+    }
+    const text = fs.readFileSync(absolutePath, 'utf8');
+    const payload = JSON.parse(text);
+    totalComponents += payload.components?.length || 0;
+    if (Buffer.byteLength(text, 'utf8') !== descriptor.bytes) checks.shardBytesMatch = false;
+    if (crypto.createHash('sha256').update(text, 'utf8').digest('hex') !== descriptor.sha256) {
+      checks.shardDigestsMatch = false;
+    }
+    if (payload.components?.length !== descriptor.componentCount) checks.shardPayloadCountsMatch = false;
+  }
+
+  const uniqueIds = new Set((index.components || []).map((component) => component.id));
+  const expectedDigestChain = crypto
+    .createHash('sha256')
+    .update(descriptors.map((item) => item.sha256).join('\n'), 'utf8')
+    .digest('hex');
+  checks.totalComponentCountMatches = totalComponents === index.componentCount;
+  checks.componentIdsUnique = uniqueIds.size === index.componentCount;
+  checks.digestChainMatches = expectedDigestChain === index.storage?.shardDigestChainSha256;
+
+  return {
+    status: Object.values(checks).every(Boolean) ? 'VERIFIED' : 'FAILED',
+    verified: Object.values(checks).every(Boolean),
+    checks,
+    componentCount: index.componentCount,
+    shardCount: descriptors.length,
+    indexPath: capabilityRegistryPath
+  };
+}
+
+function writeCapabilityRegistry(registry) {
+  const storage = buildCapabilityRegistryStorage(registry);
+  for (const shard of storage.shards) {
+    fs.mkdirSync(path.dirname(resolve(shard.path)), { recursive: true });
+    fs.writeFileSync(resolve(shard.path), shard.text, 'utf8');
+  }
+  writeJson(capabilityRegistryPath, storage.index);
+  const verification = verifyCapabilityRegistryStorage(storage.index);
+  if (!verification.verified) {
+    throw new Error('SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_VERIFICATION_FAILED');
+  }
+  return { index: storage.index, verification };
 }
 
 function buildArchitectureGraph(components, layerSummary) {
@@ -1147,6 +1320,17 @@ function buildFinalExecutiveReport(components, packageScripts, duplicateDetectio
 }
 
 function summarizeCapabilityRegistry(registry) {
+  const componentCount = registry.componentCount || 0;
+  const storage = {
+    format: 'SHARDED_JSON_V1',
+    indexPath: capabilityRegistryPath,
+    shardDirectory: capabilityRegistryShardDirectory,
+    shardSize: CAPABILITY_REGISTRY_SHARD_SIZE,
+    shardCount: Math.ceil(componentCount / CAPABILITY_REGISTRY_SHARD_SIZE),
+    componentCount,
+    componentsArrayMode: 'COMPACT_REFERENCES',
+    fullComponentRecordsInShards: true
+  };
   return {
     system: registry.system,
     generatedAt: registry.generatedAt,
@@ -1159,6 +1343,7 @@ function summarizeCapabilityRegistry(registry) {
     maturitySummary: registry.maturitySummary,
     evidenceFiles: registry.evidenceFiles,
     fullRegistryPath: capabilityRegistryPath,
+    storage,
     sampleComponents: registry.components.slice(0, 50)
   };
 }
@@ -1961,7 +2146,14 @@ function buildReport() {
     capabilityRegistryBuild: {
       scripts: packageScripts,
       reportPath: 'runtime/capability-registry/v2/sheikha-capability-registry-v2-report.json',
-      unifiedPath: capabilityRegistryPath
+      unifiedPath: capabilityRegistryPath,
+      storage: {
+        format: 'SHARDED_JSON_V1',
+        shardDirectory: capabilityRegistryShardDirectory,
+        shardSize: CAPABILITY_REGISTRY_SHARD_SIZE,
+        shardCount: Math.ceil(capabilityRegistry.componentCount / CAPABILITY_REGISTRY_SHARD_SIZE),
+        fullComponentRecordsInShards: true
+      }
     },
     architectureCatalog,
     architectureGraph: summarizeArchitectureGraph(architectureGraph),
@@ -2375,9 +2567,16 @@ function writeJson(relativePath, payload) {
 
 function writeReport(report = buildReport()) {
   const artifacts = report.__artifacts || {};
+  if (!artifacts.capabilityRegistry) {
+    throw new Error('SHEIKHA_MASTER_CAPABILITY_REGISTRY_FULL_ARTIFACT_REQUIRED');
+  }
+  const capabilityStorage = writeCapabilityRegistry(artifacts.capabilityRegistry);
+  report.capabilityRegistry.storage = capabilityStorage.index.storage;
+  report.capabilityRegistry.storageVerification = capabilityStorage.verification;
+  report.capabilityRegistryBuild.storage = capabilityStorage.index.storage;
+  report.capabilityRegistryBuild.storageVerification = capabilityStorage.verification;
   writeJson(reportPath, report);
   writeJson(catalogPath, artifacts.architectureCatalog || report.architectureCatalog);
-  writeJson(capabilityRegistryPath, artifacts.capabilityRegistry || report.capabilityRegistry);
   writeJson(architectureGraphPath, artifacts.architectureGraph || report.architectureGraph);
   writeJson(duplicateDetectionPath, artifacts.duplicateDetection || report.duplicateAnalysis);
   writeJson(executiveDashboardPath, artifacts.executiveDashboard || report.executiveDashboard);
@@ -2397,6 +2596,9 @@ if (require.main === module) {
     localRegistryConfigured: report.offlineOperation.localRegistryConfigured,
     discoveredComponents: report.summary.discoveredComponents,
     apiEndpoints: report.summary.apiEndpoints,
+    capabilityRegistryStorage: report.capabilityRegistry.storage.format,
+    capabilityRegistryShards: report.capabilityRegistry.storage.shardCount,
+    capabilityRegistryStorageVerified: report.capabilityRegistry.storageVerification.verified,
     duplicateGroups: report.summary.duplicateGroups,
     universalTechnologyFamilies: report.summary.universalTechnologyFamilies,
     universalTechnologyHpcScore: report.summary.universalTechnologyHpcScore,
@@ -2538,6 +2740,7 @@ module.exports = {
   buildApiIndex,
   buildArchitectureGraph,
   buildCapabilityRegistry,
+  buildCapabilityRegistryStorage,
   buildComponent,
   buildDuplicateDetection,
   buildMethodologyAccreditationReadiness,
@@ -2546,5 +2749,6 @@ module.exports = {
   classifyLifecycleStatus,
   getRepositoryFiles,
   scoreFromChecks,
+  verifyCapabilityRegistryStorage,
   writeReport
 };
