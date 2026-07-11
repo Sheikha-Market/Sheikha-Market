@@ -154,6 +154,12 @@
       "priority": 250
     },
     {
+      "name": "arabic-semantic-encoding-v1",
+      "mount": "/api/language/arabic-semantic-encoding",
+      "module": "routes/arabic-semantic-encoding/status.routes.js",
+      "priority": 247
+    },
+    {
       "name": "governance-generator-v1",
       "mount": "/api/governance/generator",
       "module": "routes/governance-generator/status.routes.js",

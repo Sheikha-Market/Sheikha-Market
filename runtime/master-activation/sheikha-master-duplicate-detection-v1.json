@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-  "generatedAt": "2026-07-10T23:13:23.244Z",
+  "generatedAt": "2026-07-10T23:59:10.107Z",
   "policy": "REPORT_ONLY_NO_DELETION",
   "duplicateFiles": [
     {
@@ -2227,6 +2227,14 @@
         "runtime/state/recovery/.gitkeep",
         "runtime/verification/.gitkeep",
         "sheikha-safe-monitor/reports/.gitkeep"
+      ]
+    },
+    {
+      "id": "arabic-semantic-encoding",
+      "paths": [
+        "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js",
+        "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md",
+        "tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js"
       ]
     },
     {
@@ -7643,6 +7651,7 @@
         "routes/agi-asi-research-science-fabric/status.routes.js",
         "routes/ai-cluster-pipeline-fabric/status.routes.js",
         "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js",
+        "routes/arabic-semantic-encoding/status.routes.js",
         "routes/autonomous-runtime-coordination/status.routes.js",
         "routes/capability-token-fabric/status.routes.js",
         "routes/chat-code-governance/status.routes.js",
@@ -9438,6 +9447,7 @@
         "routes/akhira.js",
         "routes/alliance.js",
         "routes/api-gateway.js",
+        "routes/arabic-semantic-encoding/status.routes.js",
         "routes/autonomous-runtime-coordination/status.routes.js",
         "routes/bus/fabric.js",
         "routes/bus/runtime-bus.js",
@@ -9801,22 +9811,31 @@
     },
     {
       "method": "post",
-      "path": "/parse",
-      "files": [
-        "routes/arabic.js",
-        "routes/sheikha-coding-language.routes.js"
-      ]
-    },
-    {
-      "method": "post",
       "path": "/analyze",
       "files": [
+        "routes/arabic-semantic-encoding/status.routes.js",
         "routes/arabic.js",
         "routes/healing.js",
         "routes/live-ai.js",
         "routes/neural-erp-scm-admin.js",
         "routes/seo.js",
         "routes/visual.routes.js"
+      ]
+    },
+    {
+      "method": "post",
+      "path": "/explain",
+      "files": [
+        "routes/arabic-semantic-encoding/status.routes.js",
+        "routes/healing.js"
+      ]
+    },
+    {
+      "method": "post",
+      "path": "/parse",
+      "files": [
+        "routes/arabic.js",
+        "routes/sheikha-coding-language.routes.js"
       ]
     },
     {
@@ -11440,6 +11459,7 @@
         "routes/agi-asi-research-science-fabric/status.routes.js",
         "routes/ai-cluster-pipeline-fabric/status.routes.js",
         "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js",
+        "routes/arabic-semantic-encoding/status.routes.js",
         "routes/autonomous-runtime-coordination/status.routes.js",
         "routes/capability-token-fabric/status.routes.js",
         "routes/chat-code-governance/status.routes.js",

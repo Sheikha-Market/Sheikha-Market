@@ -8,6 +8,24 @@
     "network": ["IPV4", "IPV6", "DNS", "DHCP", "ICMP"],
     "api": ["REST", "GRAPHQL", "GRPC", "JSON_RPC", "OPENAPI", "ASYNCAPI"],
     "iot": ["MQTT", "AMQP", "COAP", "OPC_UA", "MODBUS"],
-    "development": ["LSP", "MCP"]
+    "development": ["LSP", "MCP"],
+    "encoding": ["UNICODE", "UTF8", "SHEIKHA_ARABIC_SEMANTIC_PROFILE_V1"]
+  },
+  "layerProfiles": {
+    "SHEIKHA_ARABIC_SEMANTIC_PROFILE_V1": {
+      "status": "ACTIVE",
+      "role": "HIGHER_LEVEL_ARABIC_SEMANTIC_SECURITY_AND_GOVERNANCE_PROFILE",
+      "canonicalSemanticRoot": "SHEIKHA_CANONICAL_ARABIC_SEMANTIC_ROOT_V1",
+      "externalTechnicalSystemAboveRoot": false,
+      "unicodeUtf8TcpIpAreAdaptersBelowRoot": true,
+      "physical": "SOFTWARE_BITSTREAM_ADAPTER_ONLY",
+      "transportNetwork": "SEGMENTATION_AND_REASSEMBLY_OVER_AUTHORIZED_TRANSPORT",
+      "presentation": "STRICT_UTF8_NFC_OR_PRESERVE",
+      "application": "SEMANTIC_AND_GOVERNANCE_ENVELOPE",
+      "replacesUnicode": false,
+      "replacesUtf8": false,
+      "replacesTcpIpOrQuic": false,
+      "hardwareTransmissionExecuted": false
+    }
   }
 }

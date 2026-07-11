@@ -52,6 +52,7 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.checks.universalDistributionApexIntegrated).toBe(true);
     expect(report.checks.publicBenefitCapabilityRoutingIntegrated).toBe(true);
     expect(report.checks.universalBenefitBoundaryIntegrated).toBe(true);
+    expect(report.checks.arabicSemanticEncodingIntegrated).toBe(true);
     expect(report.checks.nativeLanguageArchitectureIntegrated).toBe(true);
     expect(report.checks.sheikhaLanguageHostedProductionIntegrated).toBe(true);
     expect(report.capabilityRegistry.componentCount).toBeGreaterThan(0);
@@ -111,6 +112,19 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       .toBe(false);
     expect(report.executiveDashboard.indicators
       .universalBenefitHumanParticipationIsExploitableResource).toBe(false);
+    expect(report.executiveDashboard.indicators.arabicSemanticEncodingActive).toBe(true);
+    expect(report.executiveDashboard.indicators.arabicSemanticEncodingScore).toBe(100);
+    expect(report.executiveDashboard.indicators.arabicSemanticEncodingLayers).toBe(4);
+    expect(report.executiveDashboard.indicators.arabicSemanticEncodingReplacesUnicode)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators.arabicSemanticEncodingHardwareTransmission)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators.arabicSemanticRootHighestInternalAuthority)
+      .toBe(true);
+    expect(report.executiveDashboard.indicators.arabicSemanticExternalAuthorityAboveRoot)
+      .toBe(false);
+    expect(report.executiveDashboard.indicators.arabicSemanticNativeCodecComplete)
+      .toBe(false);
     expect(report.executiveDashboard.indicators.universalBenefitEvidenceResearchSources)
       .toBe(20);
     expect(report.executiveDashboard.indicators.universalBenefitEvidenceArgumentMaps)
@@ -125,6 +139,31 @@ describe('Sheikha Master Activation Consolidation V1', () => {
     expect(report.executiveDashboard.indicators.universalBenefitSunnahWrittenReferences).toBe(2);
     expect(report.executiveDashboard.indicators.universalBenefitAutomatedReligiousInterpretation)
       .toBe(false);
+    expect(report.arabicSemanticEncoding).toMatchObject({
+      active: true,
+      score: 100,
+      layers: 4,
+      roundTripVerified: true,
+      tamperRejected: true,
+      bidiControlsRejected: true,
+      unicodeReplaced: false,
+      utf8Replaced: false,
+      hardwarePhysicalTransmissionActivated: false,
+      softwarePhysicalAdapterVerified: true,
+      fasterThanUtf8: false,
+      smallerThanUtf8: false,
+      externalStandardsCertificationIssued: false,
+      automatedReligiousRuling: false,
+      aiModelInvokedInEncodingPath: false,
+      semanticRootHighestInternalAuthority: true,
+      externalTechnicalSystemAuthorityAboveRoot: false,
+      unicodeUtf8TcpIpAdaptersBelowRoot: true,
+      hostedAdapterImplementationToday: true,
+      nativeIndependentCodecComplete: false,
+      nativeIndependentTransportComplete: false,
+      fullHostRemovalComplete: false,
+      automaticRuntimeSelfModification: false
+    });
     expect(report.executiveDashboard.indicators.nativeLanguageArchitectureFoundationActive)
       .toBe(true);
     expect(report.executiveDashboard.indicators.sheikhaCompilerSelfHosted).toBe(false);

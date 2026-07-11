@@ -1,0 +1,235 @@
+{
+  "system": "SHEIKHA_ARABIC_SEMANTIC_ENCODING_PROFILE_V1",
+  "nameAr": "ملف شيخة للترميز العربي الدلالي",
+  "version": "1.0.0",
+  "status": "ACTIVE_SPECIFICATION",
+  "mediaType": "application/vnd.sheikha.arabic-semantic+binary;version=1",
+  "sovereignSemanticRoot": {
+    "id": "SHEIKHA_CANONICAL_ARABIC_SEMANTIC_ROOT_V1",
+    "position": "HIGHEST_INTERNAL_TECHNICAL_SEMANTIC_AUTHORITY",
+    "primaryLanguage": "ar",
+    "externalTechnicalAuthorityAboveRoot": false,
+    "humanAccountabilityOutsideTechnicalHierarchy": true,
+    "valuesReferenceOutsideExecutableHierarchy": true,
+    "adaptersBelowRoot": [
+      "UNICODE_SCALAR_ADAPTER",
+      "UTF8_WIRE_ADAPTER",
+      "TCP_IP_QUIC_TRANSPORT_ADAPTER",
+      "HOST_RUNTIME_ADAPTER"
+    ],
+    "hostedAdapterImplementationToday": true,
+    "nativeIndependentCodecComplete": false,
+    "nativeIndependentTransportComplete": false,
+    "fullHostRemovalComplete": false
+  },
+  "relationshipToStandards": {
+    "unicodeRole": "CHARACTER_REPERTOIRE_AND_SCALAR_VALUES",
+    "utf8Role": "INTEROPERABLE_WIRE_ENCODING",
+    "sheikhaRole": "HIGHER_LEVEL_SEMANTIC_SECURITY_AND_GOVERNANCE_PROFILE",
+    "unicodeReplaced": false,
+    "utf8Replaced": false,
+    "newUnicodeCodePointsAllocated": false,
+    "privateUseCharactersRequired": false,
+    "externalStandardsCertificationClaimed": false,
+    "universalSuperiorityClaimed": false
+  },
+  "normativeReferences": [
+    {
+      "id": "UNICODE_D92",
+      "title": "The Unicode Standard, UTF-8 encoding form",
+      "url": "https://www.unicode.org/versions/latest/core-spec/chapter-3/"
+    },
+    {
+      "id": "RFC_3629",
+      "title": "UTF-8, a transformation format of ISO 10646",
+      "url": "https://www.rfc-editor.org/rfc/rfc3629"
+    },
+    {
+      "id": "RFC_5198",
+      "title": "Unicode Format for Network Interchange",
+      "url": "https://www.rfc-editor.org/rfc/rfc5198"
+    },
+    {
+      "id": "UAX_15",
+      "title": "Unicode Normalization Forms",
+      "url": "https://www.unicode.org/reports/tr15/"
+    },
+    {
+      "id": "UAX_9",
+      "title": "Unicode Bidirectional Algorithm",
+      "url": "https://www.unicode.org/reports/tr9/"
+    },
+    {
+      "id": "UTS_39",
+      "title": "Unicode Security Mechanisms",
+      "url": "https://www.unicode.org/reports/tr39/"
+    },
+    {
+      "id": "UTS_55",
+      "title": "Unicode Source Code Handling",
+      "url": "https://www.unicode.org/reports/tr55/"
+    }
+  ],
+  "wireFrame": {
+    "magicAscii": "SHK1",
+    "version": 1,
+    "fixedHeaderBytes": 48,
+    "integerByteOrder": "NETWORK_BIG_ENDIAN",
+    "payloadEncoding": "UTF-8",
+    "metadataEncoding": "CANONICAL_JSON_UTF-8",
+    "apiBinaryTextEncoding": "BASE64URL_UNPADDED",
+    "integrityDigest": "SHA-256",
+    "integrityIsAuthentication": false,
+    "encryptionProvided": false,
+    "signatureProvided": false
+  },
+  "textProfile": {
+    "generalTextNormalization": "NFC",
+    "religiousSourceNormalization": "PRESERVE",
+    "destructiveArabicLetterFolding": false,
+    "diacriticsRemoved": false,
+    "unpairedSurrogatesAllowed": false,
+    "byteOrderMarkAllowed": false,
+    "bidirectionalControlsAllowedByDefault": false,
+    "strictUtf8Decode": true,
+    "roundTripRequired": true
+  },
+  "layers": [
+    {
+      "id": "L1_PHYSICAL_ADAPTER",
+      "nameAr": "الطبقة الفيزيائية",
+      "status": "ACTIVE_VERIFIED_SOFTWARE_ADAPTER",
+      "responsibility": "تحويل الإطار إلى ثمانيات وبتات وقياس الحجم دون ادعاء إرسال عتادي",
+      "hardwareTransmissionExecuted": false
+    },
+    {
+      "id": "L3_L4_TRANSPORT_NETWORK",
+      "nameAr": "طبقة النقل والشبكة",
+      "status": "ACTIVE_SEGMENTATION_AND_REASSEMBLY",
+      "responsibility": "تجزئة الإطار وترقيم المقاطع والتحقق منها وإعادة تجميعها فوق ناقل مصرح",
+      "replacesTcpIpOrQuic": false
+    },
+    {
+      "id": "L6_PRESENTATION_ENCODING",
+      "nameAr": "طبقة التقديم والترميز",
+      "status": "ACTIVE_STRICT_ARABIC_PRESENTATION_PROFILE",
+      "responsibility": "UTF-8 صارم وتطبيع NFC اختياري وحماية اتجاه النص وحفظ النص الحساس"
+    },
+    {
+      "id": "L7_APPLICATION_SEMANTICS",
+      "nameAr": "طبقة التطبيقات",
+      "status": "ACTIVE_SEMANTIC_ENVELOPE",
+      "responsibility": "إرفاق نوع الرسالة والنية ومستوى المخاطر وعقد الذكاء الاستشاري والحوكمة"
+    }
+  ],
+  "limits": {
+    "maxPayloadBytes": 1048576,
+    "maxMetadataBytes": 16384,
+    "minSegmentBytes": 64,
+    "maxSegmentBytes": 65535,
+    "maxSegments": 16384
+  },
+  "aiIntegration": {
+    "status": "ACTIVE_ADVISORY_CONTRACT",
+    "modelInvocationInEncodingPath": false,
+    "mayAlterEncodedPayload": false,
+    "mayGrantAuthorization": false,
+    "mayIssueReligiousRuling": false,
+    "humanFinalDecision": true
+  },
+  "continuousImprovement": {
+    "status": "GOVERNED_PROPOSAL_PIPELINE_ACTIVE",
+    "aiMayDraftProposal": true,
+    "automaticRuntimeSelfModification": false,
+    "automaticProfileActivation": false,
+    "requiredGates": [
+      "EVIDENCE",
+      "SECURITY_REVIEW",
+      "BACKWARD_COMPATIBILITY",
+      "ROUND_TRIP_TESTS",
+      "PERFORMANCE_MEASUREMENT",
+      "HUMAN_APPROVAL",
+      "VERSIONED_RELEASE"
+    ]
+  },
+  "governance": {
+    "valuesReference": "QURAN_AND_AUTHENTIC_SUNNAH",
+    "declaredHumanProjectIntentionAr": "وحدها لله",
+    "softwarePossessesWorshipOrIntention": false,
+    "valuesContract": "docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md",
+    "valuesAreExecutableBytecode": false,
+    "encodingDecisionIsExecutionAuthorization": false,
+    "automatedHalalOrHaramDecision": false,
+    "qualifiedScholarReviewForReligiousInterpretation": true,
+    "sourceIntegrityReviewForReligiousText": true,
+    "noHarm": true,
+    "humanAccountability": true
+  },
+  "valuesEvidence": [
+    {
+      "id": "VERIFY_BEFORE_DECISION",
+      "kind": "QURAN",
+      "reference": "سورة الحجرات: 6",
+      "url": "https://quran.com/49/6",
+      "role": "EVIDENCE_AND_VERIFICATION_DISCIPLINE",
+      "executableAlgorithm": false,
+      "textIntegrityReviewRequired": true
+    },
+    {
+      "id": "DO_NOT_FOLLOW_WITHOUT_KNOWLEDGE",
+      "kind": "QURAN",
+      "reference": "سورة الإسراء: 36",
+      "url": "https://quran.com/17/36",
+      "role": "NO_UNSUPPORTED_TECHNICAL_CLAIMS",
+      "executableAlgorithm": false,
+      "textIntegrityReviewRequired": true
+    },
+    {
+      "id": "JUSTICE_AND_EXCELLENCE",
+      "kind": "QURAN",
+      "reference": "سورة النحل: 90",
+      "url": "https://quran.com/16/90",
+      "role": "JUSTICE_AND_ITQAN_VALUES",
+      "executableAlgorithm": false,
+      "textIntegrityReviewRequired": true
+    },
+    {
+      "id": "NO_HARM",
+      "kind": "SUNNAH",
+      "reference": "لا ضرر ولا ضرار",
+      "url": "https://dorar.net/hadith/sharh/85582",
+      "role": "NO_HARM_SECURITY_BOUNDARY",
+      "isnadMetadata": {
+        "narrator": "أبو سعيد الخدري",
+        "source": "الأربعون النووية",
+        "grader": "النووي",
+        "grade": "حسن وله طرق يقوي بعضها بعضا"
+      },
+      "executableAlgorithm": false,
+      "qualifiedReviewRequired": true
+    }
+  ],
+  "scope": {
+    "implemented": ["ARABIC_TEXT", "UNICODE_TEXT"],
+    "plannedNotImplemented": [
+      "ARBITRARY_BINARY_SEMANTIC_TYPES",
+      "NATIVE_PHYSICAL_CODEC",
+      "INDEPENDENT_NETWORK_TRANSPORT",
+      "SELF_HOSTED_ENCODING_RUNTIME"
+    ],
+    "encodesEverythingClaimedToday": false
+  },
+  "measurementPolicy": {
+    "betterMeans": [
+      "ARABIC_SOURCE_PRESERVATION",
+      "STRICT_UTF8_VALIDATION",
+      "BIDI_RISK_VISIBILITY",
+      "FRAME_INTEGRITY",
+      "SEMANTIC_METADATA",
+      "GOVERNED_AI_BOUNDARY"
+    ],
+    "smallerThanUtf8Claimed": false,
+    "fasterThanUtf8Claimed": false,
+    "benchmarkRequiredForPerformanceClaim": true
+  }
+}

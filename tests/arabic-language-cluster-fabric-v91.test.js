@@ -22,6 +22,13 @@ describe('Sheikha Arabic Language Cluster Fabric V91', () => {
     );
     expect(PROGRAMMING_LANGUAGE_CHAIN).toContain('EVIDENCE_AND_AUDIT_TRACE');
     expect(MARKUP_LANGUAGE_CHAIN).toContain('ARCHIVAL_EVIDENCE_EXPORT');
+    expect(result.encodingProfile).toMatchObject({
+      canonicalSemanticRoot: 'SHEIKHA_CANONICAL_ARABIC_SEMANTIC_ROOT_V1',
+      externalTechnicalSystemAboveRoot: false,
+      unicodeUtf8TcpIpAreAdaptersBelowRoot: true,
+      hostedAdapterImplementationToday: true,
+      fullNativeIndependenceComplete: false
+    });
   });
 
   test('maps internal and external cluster chains with authorization rules', () => {

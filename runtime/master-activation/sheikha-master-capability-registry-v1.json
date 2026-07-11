@@ -1,23 +1,23 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-  "generatedAt": "2026-07-10T23:13:23.233Z",
+  "generatedAt": "2026-07-10T23:59:10.097Z",
   "source": "git-ls-files-local-repository",
   "githubRequired": false,
-  "componentCount": 7173,
-  "apiEndpoints": 2704,
-  "packageScripts": 661,
+  "componentCount": 7180,
+  "apiEndpoints": 2710,
+  "packageScripts": 663,
   "lifecycleSummary": {
-    "active": 854,
-    "needsLinking": 1179,
-    "needsDevelopment": 5006,
+    "active": 856,
+    "needsLinking": 1180,
+    "needsDevelopment": 5010,
     "experimental": 71,
     "unused": 63
   },
   "maturitySummary": {
-    "measured": 854,
-    "linkedRequired": 1179,
-    "discovered": 3914,
-    "documented": 793
+    "measured": 856,
+    "linkedRequired": 1180,
+    "discovered": 3916,
+    "documented": 794
   },
   "components": [
     {
@@ -44126,6 +44126,67 @@
       }
     },
     {
+      "id": "arabic-semantic-encoding-b720d1505f79",
+      "name": "sheikha-arabic-semantic-encoding-v1",
+      "version": "v1",
+      "path": "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js",
+      "type": "code",
+      "layer": "Language",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-arabic-semantic-encoding-v1.test.js"
+      ],
+      "reports": [
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js"
+      }
+    },
+    {
       "id": "export-arabic-ir-ff51313d7a22",
       "name": "export-arabic-ir",
       "version": "package-1.0.51",
@@ -54258,7 +54319,7 @@
         "runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.md",
         "runtime/apex-control-plane/v1/sheikha-apex-control-plane-v1-report.json",
         "runtime/apex-control-plane/v1/sheikha-apex-control-plane-v1-report.md",
-        "runtime/archive-governance/reports/archive-governance-report.json"
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
       ],
       "apis": [
         "GET /api/sheikha/global-registry/status",
@@ -95241,6 +95302,67 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "docs/arabic-runtime-fabric/SHEIKHA-ARABIC-RUNTIME-FABRIC-V95.md"
+      }
+    },
+    {
+      "id": "arabic-semantic-encoding-2748e6ebaba7",
+      "name": "SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1",
+      "version": "v1",
+      "path": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md",
+      "type": "documentation",
+      "layer": "Language",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-arabic-semantic-encoding-v1.test.js"
+      ],
+      "reports": [
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md"
+      },
+      "maturity": "documented",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md"
       }
     },
     {
@@ -207300,6 +207422,63 @@
       }
     },
     {
+      "id": "status-routes-8752d5d3a96d",
+      "name": "status.routes",
+      "version": "package-1.0.51",
+      "path": "routes/arabic-semantic-encoding/status.routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /universities",
+        "GET /research-centers",
+        "GET /methodologies",
+        "GET /superior-architecture",
+        "GET /comprehensive-report",
+        "GET /statistics",
+        "GET /islamic-universities",
+        "GET /tools",
+        "GET /search-engines",
+        "POST /compare",
+        "GET /overview",
+        "GET /status",
+        "GET /council",
+        "GET /report",
+        "POST /consult",
+        "POST /trade",
+        "POST /sharia",
+        "POST /investment",
+        "POST /governance",
+        "POST /market"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/arabic-semantic-encoding/status.routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/arabic-semantic-encoding/status.routes.js"
+      }
+    },
+    {
       "id": "arabic-standard-library-fabric-routes-c06a6067b332",
       "name": "sheikha-arabic-standard-library-fabric-routes",
       "version": "package-1.0.51",
@@ -207435,9 +207614,12 @@
       ],
       "tests": [
         "core/language/sheikha-arabic/math/arabic-number-system.test.js",
-        "tests/arabic-language-cluster-fabric-v91.test.js"
+        "tests/arabic-language-cluster-fabric-v91.test.js",
+        "tests/sheikha-arabic-semantic-encoding-v1.test.js"
       ],
-      "reports": [],
+      "reports": [
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
+      ],
       "apis": [
         "GET /universities",
         "GET /research-centers",
@@ -233329,6 +233511,122 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/arabic-runtime-fabric/v95/sheikha-arabic-runtime-fabric-v95.js"
+      }
+    },
+    {
+      "id": "arabic-semantic-encoding-profile-a87143ecffc6",
+      "name": "sheikha-arabic-semantic-encoding-profile-v1",
+      "version": "v1",
+      "path": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json",
+      "type": "data-contract",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json"
+      }
+    },
+    {
+      "id": "arabic-semantic-encoding-report-21dcebf32a16",
+      "name": "sheikha-arabic-semantic-encoding-v1-report",
+      "version": "v1",
+      "path": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json",
+      "type": "report",
+      "layer": "Language",
+      "status": "evidence-present",
+      "lifecycle": "ACTIVE",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": true,
+        "pm2Managed": false,
+        "evidence": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
+      },
+      "maturity": "measured",
+      "operationStatus": "evidence-present",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
       }
     },
     {
@@ -371521,7 +371819,7 @@
         "runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.md",
         "runtime/apex-control-plane/v1/sheikha-apex-control-plane-v1-report.json",
         "runtime/apex-control-plane/v1/sheikha-apex-control-plane-v1-report.md",
-        "runtime/archive-governance/reports/archive-governance-report.json"
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
       ],
       "apis": [
         "GET /api/sheikha/global-registry/status",
@@ -390653,6 +390951,65 @@
       }
     },
     {
+      "id": "arabic-semantic-encoding-test-d62195f11340",
+      "name": "sheikha-arabic-semantic-encoding-v1.test",
+      "version": "v1",
+      "path": "tests/sheikha-arabic-semantic-encoding-v1.test.js",
+      "type": "test",
+      "layer": "Language",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-arabic-semantic-encoding-v1.test.js"
+      ],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tests/sheikha-arabic-semantic-encoding-v1.test.js"
+      },
+      "maturity": "verification",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tests/sheikha-arabic-semantic-encoding-v1.test.js"
+      }
+    },
+    {
       "id": "architecture-catalog-digital-twin-test-b573ee5b41c9",
       "name": "sheikha-architecture-catalog-digital-twin-v1.test",
       "version": "v1",
@@ -406306,6 +406663,67 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "tools/activation/activate-sheikha-activation-learning-v1.sh"
+      }
+    },
+    {
+      "id": "arabic-semantic-encoding-c934d7098bed",
+      "name": "activate-sheikha-arabic-semantic-encoding-v1",
+      "version": "v1",
+      "path": "tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js",
+      "type": "code",
+      "layer": "Language",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "تشغيل اللغة العربية وطبقات DSL/Compiler المرتبطة.",
+      "inputs": [
+        "Arabic language assets"
+      ],
+      "outputs": [
+        "language integration report"
+      ],
+      "dependencies": [
+        "DSL",
+        "Runtime"
+      ],
+      "tests": [
+        "tests/sheikha-arabic-semantic-encoding-v1.test.js"
+      ],
+      "reports": [
+        "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json"
+      ],
+      "apis": [
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /api/sheikha/global-registry/status",
+        "GET /api/sheikha/todo/status",
+        "POST /api/sheikha/todo/add",
+        "GET /api/sheikha/tags/status",
+        "POST /api/sheikha/tags/add",
+        "GET /.well-known/sheikha.json",
+        "POST /api/sheikha/live-chat",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/streaming-chat-apex/v1/stream",
+        "POST /api/sheikha/extension-streaming-artifact-apex/v1/stream",
+        "GET /api/sheikha/extension-streaming-artifact-apex/v1/status",
+        "POST /api/sheikha/chat/autonomous/v1",
+        "POST /api/sheikha/streaming-chat-apex/v1/autonomous",
+        "GET /marketplace",
+        "GET /health"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/activation/activate-sheikha-arabic-semantic-encoding-v1.js"
       }
     },
     {
@@ -430199,8 +430617,8 @@
     }
   ],
   "evidenceFiles": {
-    "tests": 346,
-    "reports": 398,
-    "docs": 1073
+    "tests": 347,
+    "reports": 399,
+    "docs": 1074
   }
 }

@@ -1,0 +1,333 @@
+{
+  "system": "SHEIKHA_ARABIC_SEMANTIC_ENCODING_ACTIVATION_V1",
+  "status": "VERIFIED_PROFILE_ACTIVE",
+  "score": 100,
+  "checks": {
+    "profileIdentityVerified": true,
+    "sovereignArabicSemanticRootVerified": true,
+    "unicodeRelationshipTruthful": true,
+    "fourLayersActive": true,
+    "religiousTextPreserved": true,
+    "arabicEncodingExplanationVerified": true,
+    "roundTripVerified": true,
+    "frameIntegrityVerified": true,
+    "tamperRejected": true,
+    "bidiControlsRejected": true,
+    "transportReassemblyVerified": true,
+    "physicalClaimBounded": true,
+    "aiBoundaryVerified": true,
+    "governedImprovementBoundaryVerified": true,
+    "governanceBoundaryVerified": true,
+    "valuesEvidenceDigitizedWithoutExecution": true,
+    "performanceClaimTruthful": true,
+    "protocolRegistryIntegrated": true,
+    "languageClusterIntegrated": true,
+    "fabricRouteIntegrated": true,
+    "documentationPresent": true
+  },
+  "missing": [],
+  "profile": {
+    "system": "SHEIKHA_ARABIC_SEMANTIC_ENCODING_PROFILE_V1",
+    "nameAr": "ملف شيخة للترميز العربي الدلالي",
+    "version": "1.0.0",
+    "status": "VERIFIED_PROFILE_IMPLEMENTATION_ACTIVE",
+    "mediaType": "application/vnd.sheikha.arabic-semantic+binary;version=1",
+    "runtimeStandards": {
+      "unicodeVersion": "17.0",
+      "icuVersion": "78.2",
+      "utf8BytesPerScalar": "1_TO_4",
+      "unicodeIsEightBit": false,
+      "unicodeReplaced": false,
+      "utf8Replaced": false,
+      "higherLevelProfile": true,
+      "externalConformanceCertificationClaimed": false
+    },
+    "layers": [
+      {
+        "id": "L1_PHYSICAL_ADAPTER",
+        "nameAr": "الطبقة الفيزيائية",
+        "status": "ACTIVE_VERIFIED_SOFTWARE_ADAPTER",
+        "responsibility": "تحويل الإطار إلى ثمانيات وبتات وقياس الحجم دون ادعاء إرسال عتادي",
+        "hardwareTransmissionExecuted": false
+      },
+      {
+        "id": "L3_L4_TRANSPORT_NETWORK",
+        "nameAr": "طبقة النقل والشبكة",
+        "status": "ACTIVE_SEGMENTATION_AND_REASSEMBLY",
+        "responsibility": "تجزئة الإطار وترقيم المقاطع والتحقق منها وإعادة تجميعها فوق ناقل مصرح",
+        "replacesTcpIpOrQuic": false
+      },
+      {
+        "id": "L6_PRESENTATION_ENCODING",
+        "nameAr": "طبقة التقديم والترميز",
+        "status": "ACTIVE_STRICT_ARABIC_PRESENTATION_PROFILE",
+        "responsibility": "UTF-8 صارم وتطبيع NFC اختياري وحماية اتجاه النص وحفظ النص الحساس"
+      },
+      {
+        "id": "L7_APPLICATION_SEMANTICS",
+        "nameAr": "طبقة التطبيقات",
+        "status": "ACTIVE_SEMANTIC_ENVELOPE",
+        "responsibility": "إرفاق نوع الرسالة والنية ومستوى المخاطر وعقد الذكاء الاستشاري والحوكمة"
+      }
+    ],
+    "aiIntegration": {
+      "status": "ACTIVE_ADVISORY_CONTRACT",
+      "modelInvocationInEncodingPath": false,
+      "mayAlterEncodedPayload": false,
+      "mayGrantAuthorization": false,
+      "mayIssueReligiousRuling": false,
+      "humanFinalDecision": true
+    },
+    "continuousImprovement": {
+      "status": "GOVERNED_PROPOSAL_PIPELINE_ACTIVE",
+      "aiMayDraftProposal": true,
+      "automaticRuntimeSelfModification": false,
+      "automaticProfileActivation": false,
+      "requiredGates": [
+        "EVIDENCE",
+        "SECURITY_REVIEW",
+        "BACKWARD_COMPATIBILITY",
+        "ROUND_TRIP_TESTS",
+        "PERFORMANCE_MEASUREMENT",
+        "HUMAN_APPROVAL",
+        "VERSIONED_RELEASE"
+      ]
+    },
+    "governance": {
+      "valuesReference": "QURAN_AND_AUTHENTIC_SUNNAH",
+      "declaredHumanProjectIntentionAr": "وحدها لله",
+      "softwarePossessesWorshipOrIntention": false,
+      "valuesContract": "docs/universal-benefit-boundary-v1/SHEIKHA-ISLAMIC-VALUE-REFERENCE-CONTRACT-V1.md",
+      "valuesAreExecutableBytecode": false,
+      "encodingDecisionIsExecutionAuthorization": false,
+      "automatedHalalOrHaramDecision": false,
+      "qualifiedScholarReviewForReligiousInterpretation": true,
+      "sourceIntegrityReviewForReligiousText": true,
+      "noHarm": true,
+      "humanAccountability": true
+    },
+    "measurementPolicy": {
+      "betterMeans": [
+        "ARABIC_SOURCE_PRESERVATION",
+        "STRICT_UTF8_VALIDATION",
+        "BIDI_RISK_VISIBILITY",
+        "FRAME_INTEGRITY",
+        "SEMANTIC_METADATA",
+        "GOVERNED_AI_BOUNDARY"
+      ],
+      "smallerThanUtf8Claimed": false,
+      "fasterThanUtf8Claimed": false,
+      "benchmarkRequiredForPerformanceClaim": true
+    },
+    "scope": {
+      "implemented": [
+        "ARABIC_TEXT",
+        "UNICODE_TEXT"
+      ],
+      "plannedNotImplemented": [
+        "ARBITRARY_BINARY_SEMANTIC_TYPES",
+        "NATIVE_PHYSICAL_CODEC",
+        "INDEPENDENT_NETWORK_TRANSPORT",
+        "SELF_HOSTED_ENCODING_RUNTIME"
+      ],
+      "encodesEverythingClaimedToday": false
+    },
+    "limits": {
+      "maxPayloadBytes": 1048576,
+      "maxMetadataBytes": 16384,
+      "minSegmentBytes": 64,
+      "maxSegmentBytes": 65535,
+      "maxSegments": 16384
+    },
+    "architecture": {
+      "semanticRoot": {
+        "id": "SHEIKHA_CANONICAL_ARABIC_SEMANTIC_ROOT_V1",
+        "position": "HIGHEST_INTERNAL_TECHNICAL_SEMANTIC_AUTHORITY",
+        "primaryLanguage": "ar",
+        "externalTechnicalAuthorityAboveRoot": false,
+        "humanAccountabilityOutsideTechnicalHierarchy": true,
+        "valuesReferenceOutsideExecutableHierarchy": true,
+        "adaptersBelowRoot": [
+          "UNICODE_SCALAR_ADAPTER",
+          "UTF8_WIRE_ADAPTER",
+          "TCP_IP_QUIC_TRANSPORT_ADAPTER",
+          "HOST_RUNTIME_ADAPTER"
+        ],
+        "hostedAdapterImplementationToday": true,
+        "nativeIndependentCodecComplete": false,
+        "nativeIndependentTransportComplete": false,
+        "fullHostRemovalComplete": false
+      },
+      "externalTechnicalSystemAboveRoot": false,
+      "unicodeUtf8TcpIpAreAdaptersBelowRoot": true,
+      "implementationHostedToday": true,
+      "fullNativeIndependenceComplete": false
+    },
+    "integrations": {
+      "existingArabicUtf8Engine": "lib/sheikha-arabic-utf8-neural-engine.js",
+      "languageCluster": "SHEIKHA_ARABIC_LANGUAGE_CLUSTER_FABRIC_V91",
+      "protocolRegistry": "SHEIKHA_PROTOCOL_REGISTRY_V1",
+      "networkFabric": "sheikha-network-fabric-core",
+      "universalBenefitBoundary": "SHEIKHA_UNIVERSAL_BENEFIT_BOUNDARY_GOVERNANCE_V1"
+    }
+  },
+  "layers": {
+    "physical": {
+      "id": "L1_PHYSICAL_ADAPTER",
+      "status": "ACTIVE_VERIFIED_SOFTWARE_ADAPTER",
+      "representation": "BINARY_OCTET_STREAM",
+      "octets": 2811,
+      "bitLength": 22488,
+      "bitPreview": "01010011 01001000 01001011 00110001 00000001 00001010 00000000 00110000 00000000 00000000 00001010 10000010 00000000 00000000 00000000 01001001",
+      "hardwareTransmissionExecuted": false,
+      "carrierOrDeviceRequiredForTransmission": true
+    },
+    "transportNetwork": {
+      "id": "L3_L4_TRANSPORT_NETWORK",
+      "status": "ACTIVE_SEGMENTATION_AND_REASSEMBLY",
+      "segmentCount": 22,
+      "maxSegmentBytes": 128,
+      "replacesTcpIpOrQuic": false,
+      "networkTransmissionExecuted": false
+    },
+    "presentation": {
+      "id": "L6_PRESENTATION_ENCODING",
+      "status": "ACTIVE_STRICT_ARABIC_PRESENTATION_PROFILE",
+      "encoding": "UTF-8",
+      "normalization": "PRESERVE",
+      "analysis": {
+        "codePointCount": 38,
+        "utf16CodeUnitCount": 38,
+        "graphemeCount": 22,
+        "payloadBytes": 73,
+        "arabicCharacterCount": 19,
+        "arabicRatioPercent": 54.29,
+        "mixedArabicLatin": false,
+        "nfc": true,
+        "bidiControls": [],
+        "bidiControlCount": 0,
+        "byteOrderMarkPresent": false,
+        "diacriticsPreserved": true,
+        "destructiveArabicLetterFoldingApplied": false
+      },
+      "strictRoundTripVerified": true
+    },
+    "application": {
+      "id": "L7_APPLICATION_SEMANTICS",
+      "status": "ACTIVE_SEMANTIC_ENVELOPE",
+      "metadata": {
+        "schema": "sheikha/arabic-semantic-envelope/v1",
+        "profile": "SHEIKHA_ARABIC_SEMANTIC_ENCODING_PROFILE_V1",
+        "profileVersion": "1.0.0",
+        "arabicCanonicalCore": {
+          "المخطط": "شيخة/الجذر-الدلالي-العربي/1",
+          "الموضع": "المرجع_التقني_الدلالي_الأعلى_داخل_شيخة",
+          "لا_سلطة_تقنية_خارجية_فوق_الجذر": true,
+          "المساءلة_البشرية_خارج_الهرم_التقني": true,
+          "اللغة_الأساسية": "العربية",
+          "نوع_المحتوى": "RELIGIOUS_SOURCE",
+          "منهج_الحفظ": "PRESERVE",
+          "عدد_العناقيد_الكتابية": 22,
+          "بصمة_الحمولة": "a83ca7b2c2b3d1ef0c5dd0a0d10ae2704707602ed48cfca8268df5453a69cb34",
+          "المهايئات_الواقعة_أسفل_الجذر": [
+            "Unicode",
+            "UTF-8",
+            "TCP/IP أو QUIC",
+            "Host Runtime"
+          ],
+          "مرجعية_القيم": "الكتاب_والسنة_الصحيحة",
+          "النية_البشرية_المعلنة_للمشروع": "وحدها لله",
+          "للبرنامج_نية_أو_عبادة": false,
+          "مرجعية_القيم_تعليمة_تنفيذية": false,
+          "الحكم_الشرعي_الآلي": false
+        },
+        "language": "ar",
+        "contentClass": "RELIGIOUS_SOURCE",
+        "normalization": "PRESERVE",
+        "application": {
+          "messageType": "ARABIC_TEXT",
+          "intent": "TEXT_INTERCHANGE",
+          "correlationId": null
+        },
+        "presentation": {
+          "originalDigest": "a83ca7b2c2b3d1ef0c5dd0a0d10ae2704707602ed48cfca8268df5453a69cb34",
+          "payloadDigest": "a83ca7b2c2b3d1ef0c5dd0a0d10ae2704707602ed48cfca8268df5453a69cb34",
+          "changedByNormalization": false,
+          "arabicRatioPercent": 54.29,
+          "graphemeCount": 22,
+          "bidiControlCount": 0,
+          "diacriticsPreserved": true,
+          "destructiveArabicLetterFoldingApplied": false
+        },
+        "ai": {
+          "contract": "SHEIKHA_AI_ENCODING_ADVISORY_V1",
+          "status": "ADVISORY_REQUEST_READY_NOT_EXECUTED",
+          "requested": true,
+          "modelInvocationExecuted": false,
+          "providerRequiredForEncoding": false,
+          "mayAlterEncodedPayload": false,
+          "mayGrantAuthorization": false,
+          "mayIssueReligiousRuling": false,
+          "purpose": "ARABIC_SEMANTIC_ANNOTATION",
+          "inputDigest": "a83ca7b2c2b3d1ef0c5dd0a0d10ae2704707602ed48cfca8268df5453a69cb34",
+          "inputTextEmbeddedInAdvisoryMetadata": false,
+          "humanReviewRequiredForUse": true
+        },
+        "governance": {
+          "contract": "SHEIKHA_ENCODING_GOVERNANCE_V1",
+          "valuesReference": "QURAN_AND_AUTHENTIC_SUNNAH",
+          "valuesReferenceIsExecutableBytecode": false,
+          "technicalEncodingDecision": "ALLOW",
+          "downstreamExecutionDecision": "NOT_AUTHORIZED_BY_ENCODING",
+          "riskLevel": "LOW",
+          "humanApproved": false,
+          "encodingGrantsExecutionAuthorization": false,
+          "automatedHalalOrHaramDecision": false,
+          "automatedReligiousInterpretation": false,
+          "qualifiedScholarReviewRequired": true,
+          "religiousSourceIntegrityReviewRequired": true,
+          "aiIsAdvisoryOnly": true,
+          "noHarmBoundaryActive": true,
+          "humanFinalResponsibility": true
+        }
+      }
+    }
+  },
+  "evidence": {
+    "sampleDigest": "a83ca7b2c2b3d1ef0c5dd0a0d10ae2704707602ed48cfca8268df5453a69cb34",
+    "sourceBytes": 73,
+    "frameBytes": 2811,
+    "overheadBytes": 2738,
+    "segmentCount": 22,
+    "tamperError": "FRAME_INTEGRITY_FAILED",
+    "unicodeRuntimeVersion": "17.0",
+    "icuRuntimeVersion": "78.2"
+  },
+  "claims": {
+    "unicodeReplaced": false,
+    "utf8Replaced": false,
+    "tcpIpOrQuicReplaced": false,
+    "hardwarePhysicalTransmissionActivated": false,
+    "softwarePhysicalAdapterVerified": true,
+    "smallerThanUtf8": false,
+    "fasterThanUtf8": false,
+    "externalStandardsCertificationIssued": false,
+    "automatedReligiousRuling": false,
+    "aiModelInvokedInEncodingPath": false,
+    "semanticRootHighestInternalAuthority": true,
+    "externalTechnicalSystemAuthorityAboveRoot": false,
+    "unicodeUtf8TcpIpAdaptersBelowRoot": true,
+    "hostedAdapterImplementationToday": true,
+    "nativeIndependentCodecComplete": false,
+    "nativeIndependentTransportComplete": false,
+    "fullHostRemovalComplete": false,
+    "automaticRuntimeSelfModification": false
+  },
+  "output": {
+    "report": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json",
+    "specification": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json",
+    "implementation": "core/language/sheikha-arabic/encoding/sheikha-arabic-semantic-encoding-v1.js",
+    "documentation": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md"
+  },
+  "generatedAt": "2026-07-10T23:59:03.526Z"
+}

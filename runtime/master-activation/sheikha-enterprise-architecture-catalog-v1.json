@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-10T23:13:24.818Z",
+  "generatedAt": "2026-07-10T23:59:11.434Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -1314,7 +1314,7 @@
     },
     {
       "root": "core",
-      "files": 400,
+      "files": 401,
       "classification": "repository-artifact"
     },
     {
@@ -1439,7 +1439,7 @@
     },
     {
       "root": "docs",
-      "files": 681,
+      "files": 682,
       "classification": "repository-artifact"
     },
     {
@@ -2144,7 +2144,7 @@
     },
     {
       "root": "routes",
-      "files": 396,
+      "files": 397,
       "classification": "repository-artifact"
     },
     {
@@ -2154,7 +2154,7 @@
     },
     {
       "root": "runtime",
-      "files": 1969,
+      "files": 1971,
       "classification": "repository-artifact"
     },
     {
@@ -2974,7 +2974,7 @@
     },
     {
       "root": "tests",
-      "files": 336,
+      "files": 337,
       "classification": "repository-artifact"
     },
     {
@@ -2984,7 +2984,7 @@
     },
     {
       "root": "tools",
-      "files": 390,
+      "files": 391,
       "classification": "repository-artifact"
     },
     {
@@ -3225,7 +3225,7 @@
   ],
   "layers": {
     "APIs": {
-      "components": 431,
+      "components": 432,
       "dependencies": [
         "Runtime",
         "Security"
@@ -3358,7 +3358,7 @@
       "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
     },
     "Language": {
-      "components": 224,
+      "components": 230,
       "dependencies": [
         "DSL",
         "Runtime"
@@ -3478,6 +3478,9 @@
   "sheikhaLanguageProductionHandbookPath": "docs/sheikha-production-language/SHEIKHA-PRODUCTION-LANGUAGE-V1.md",
   "universalBenefitBoundaryPath": "runtime/universal-benefit-boundary/v1/sheikha-universal-benefit-boundary-v1-report.json",
   "universalBenefitBoundaryHandbookPath": "docs/universal-benefit-boundary-v1/SHEIKHA-UNIVERSAL-BENEFIT-BOUNDARY-V1.md",
+  "arabicSemanticEncodingPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json",
+  "arabicSemanticEncodingSpecificationPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json",
+  "arabicSemanticEncodingHandbookPath": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md",
   "distributionMatrixPath": "distribution/manifest/sheikha-release-matrix-v1.json",
   "distributionHandbookPath": "distribution/README.md",
   "distributionBareMetalLinkPath": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json",
@@ -3491,13 +3494,13 @@
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 15053
+    "componentEdges": 15067
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
-    "duplicateFiles": 1208,
+    "duplicateFiles": 1209,
     "duplicateServices": 28,
-    "duplicateApis": 148,
+    "duplicateApis": 149,
     "duplicateRegistries": 67,
     "policy": "REPORT_ONLY_NO_DELETION"
   },
@@ -3505,10 +3508,10 @@
     "systems": 435,
     "engines": 793,
     "layers": 25,
-    "apis": 2704,
+    "apis": 2710,
     "services": 0,
-    "tests": 346,
-    "docs": 1073,
+    "tests": 347,
+    "docs": 1074,
     "sdks": 80,
     "registries": 368,
     "runtimeEngines": 1261,
@@ -3523,10 +3526,10 @@
     "securityEngines": 82,
     "dashboards": 71,
     "pipelines": 58,
-    "automationEngines": 384,
+    "automationEngines": 385,
     "integrations": 346,
-    "packageScripts": 661,
-    "duplicateGroups": 1208,
+    "packageScripts": 663,
+    "duplicateGroups": 1209,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
     "localAccreditationTargets": 8,
@@ -3553,8 +3556,8 @@
     "distributionTargetsVerified": 1,
     "distributionTargetsNativeVerified": 1,
     "distributionReleaseApexLevel": 27,
-    "publicBenefitRegisteredCapabilities": 7173,
-    "publicBenefitActiveCapabilities": 854,
+    "publicBenefitRegisteredCapabilities": 7180,
+    "publicBenefitActiveCapabilities": 856,
     "universalBenefitCapabilities": 16,
     "universalBenefitBoundaries": 18,
     "universalBenefitDomains": 16,
@@ -3565,6 +3568,8 @@
     "universalBenefitEvidenceArgumentMaps": 4,
     "universalBenefitQuranWrittenReferences": 18,
     "universalBenefitSunnahWrittenReferences": 2,
+    "arabicSemanticEncodingLayers": 4,
+    "arabicSemanticEncodingScore": 100,
     "sheikhaNativeImplementationSourceFiles": 1,
     "sheikhaHostImplementationSourceFiles": 12581
   }

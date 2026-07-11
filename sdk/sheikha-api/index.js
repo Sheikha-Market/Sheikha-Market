@@ -98,6 +98,15 @@ function createSheikhaApiClient({
       '/api/governance/universal-benefit/research-evidence',
       '/api/governance/universal-benefit/capabilities',
       '/api/governance/universal-benefit/evidence',
+      '/api/language/arabic-semantic-encoding/status',
+      '/api/language/arabic-semantic-encoding/specification',
+      '/api/language/arabic-semantic-encoding/analyze',
+      '/api/language/arabic-semantic-encoding/explain',
+      '/api/language/arabic-semantic-encoding/improvement-plan',
+      '/api/language/arabic-semantic-encoding/encode',
+      '/api/language/arabic-semantic-encoding/decode',
+      '/api/language/arabic-semantic-encoding/segment',
+      '/api/language/arabic-semantic-encoding/reassemble',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -316,6 +325,46 @@ function createSheikhaApiClient({
     ),
     researchEvidence: input => request(
       '/api/governance/universal-benefit/research-evidence',
+      'POST',
+      input
+    )
+  };
+
+  client.arabicSemanticEncoding = {
+    status: () => request('/api/language/arabic-semantic-encoding/status'),
+    specification: () => request('/api/language/arabic-semantic-encoding/specification'),
+    analyze: input => request(
+      '/api/language/arabic-semantic-encoding/analyze',
+      'POST',
+      input
+    ),
+    explain: input => request(
+      '/api/language/arabic-semantic-encoding/explain',
+      'POST',
+      input
+    ),
+    proposeImprovement: input => request(
+      '/api/language/arabic-semantic-encoding/improvement-plan',
+      'POST',
+      input
+    ),
+    encode: input => request(
+      '/api/language/arabic-semantic-encoding/encode',
+      'POST',
+      input
+    ),
+    decode: input => request(
+      '/api/language/arabic-semantic-encoding/decode',
+      'POST',
+      input
+    ),
+    segment: input => request(
+      '/api/language/arabic-semantic-encoding/segment',
+      'POST',
+      input
+    ),
+    reassemble: input => request(
+      '/api/language/arabic-semantic-encoding/reassemble',
       'POST',
       input
     )
