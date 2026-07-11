@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1",
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-07-11T00:56:38.832Z",
+  "generatedAt": "2026-07-11T14:37:59.390Z",
   "parentRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
   "shard": {
     "number": 4,
@@ -390,6 +390,265 @@
       }
     },
     {
+      "id": "bare-metal-artifact-adapter-8b21f3d54666",
+      "name": "bare-metal-artifact-adapter-v2",
+      "version": "v2",
+      "path": "distribution/adapters/bare-metal/bare-metal-artifact-adapter-v2.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/bare-metal/bare-metal-artifact-adapter-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/bare-metal/bare-metal-artifact-adapter-v2.js"
+      }
+    },
+    {
+      "id": "cli-distribution-adapter-beaf6b64a584",
+      "name": "sheikha-cli-distribution-adapter-v2",
+      "version": "v2",
+      "path": "distribution/adapters/cli/sheikha-cli-distribution-adapter-v2.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/cli/sheikha-cli-distribution-adapter-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/cli/sheikha-cli-distribution-adapter-v2.js"
+      }
+    },
+    {
+      "id": "index-31c345e31a9d",
+      "name": "index",
+      "version": "package-1.0.51",
+      "path": "distribution/adapters/index.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/index.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/index.js"
+      }
+    },
+    {
+      "id": "linux-bridge-adapter-dc696508e960",
+      "name": "linux-v1-bridge-adapter-v2",
+      "version": "v1",
+      "path": "distribution/adapters/linux/linux-v1-bridge-adapter-v2.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/linux/linux-v1-bridge-adapter-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/linux/linux-v1-bridge-adapter-v2.js"
+      }
+    },
+    {
+      "id": "macos-readiness-adapter-781baffb20cf",
+      "name": "macos-readiness-adapter-v2",
+      "version": "v2",
+      "path": "distribution/adapters/macos/macos-readiness-adapter-v2.js",
+      "type": "code",
+      "layer": "Health",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "فحص الصحة، الجاهزية، والمؤشرات التشغيلية.",
+      "inputs": [
+        "runtime signals"
+      ],
+      "outputs": [
+        "health score",
+        "readiness status"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Monitoring"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/macos/macos-readiness-adapter-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/macos/macos-readiness-adapter-v2.js"
+      }
+    },
+    {
+      "id": "vscode-extension-adapter-2e04fb1dbf4e",
+      "name": "vscode-extension-adapter-v2",
+      "version": "v2",
+      "path": "distribution/adapters/vscode/vscode-extension-adapter-v2.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/vscode/vscode-extension-adapter-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/vscode/vscode-extension-adapter-v2.js"
+      }
+    },
+    {
+      "id": "windows-installer-adapter-183189975e9e",
+      "name": "windows-installer-adapter-v2",
+      "version": "v2",
+      "path": "distribution/adapters/windows/windows-installer-adapter-v2.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/adapters/windows/windows-installer-adapter-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/adapters/windows/windows-installer-adapter-v2.js"
+      }
+    },
+    {
       "id": "distribution-utils-0f0d6c68d5fd",
       "name": "distribution-utils",
       "version": "package-1.0.51",
@@ -648,6 +907,43 @@
       }
     },
     {
+      "id": "format-compatibility-d159e31ce681",
+      "name": "sheikha-format-compatibility-v2",
+      "version": "v2",
+      "path": "distribution/manifest/sheikha-format-compatibility-v2.json",
+      "type": "data-contract",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/manifest/sheikha-format-compatibility-v2.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/manifest/sheikha-format-compatibility-v2.json"
+      }
+    },
+    {
       "id": "product-manifest-222ab55465ab",
       "name": "sheikha-product-manifest-v1",
       "version": "v1",
@@ -682,6 +978,82 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "distribution/manifest/sheikha-product-manifest-v1.json"
+      }
+    },
+    {
+      "id": "products-8774cd445a64",
+      "name": "sheikha-products-v2",
+      "version": "v2",
+      "path": "distribution/manifest/sheikha-products-v2.json",
+      "type": "data-contract",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [
+        "runtime/products/sheikha-product-knowledge-platform-v2-report.json"
+      ],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/manifest/sheikha-products-v2.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/manifest/sheikha-products-v2.json"
+      }
+    },
+    {
+      "id": "release-channels-57169554eac8",
+      "name": "sheikha-release-channels-v2",
+      "version": "v2",
+      "path": "distribution/manifest/sheikha-release-channels-v2.json",
+      "type": "data-contract",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/manifest/sheikha-release-channels-v2.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/manifest/sheikha-release-channels-v2.json"
       }
     },
     {
@@ -722,6 +1094,43 @@
       }
     },
     {
+      "id": "target-matrix-dae36d994d15",
+      "name": "sheikha-target-matrix-v2",
+      "version": "v2",
+      "path": "distribution/manifest/sheikha-target-matrix-v2.json",
+      "type": "data-contract",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/manifest/sheikha-target-matrix-v2.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/manifest/sheikha-target-matrix-v2.json"
+      }
+    },
+    {
       "id": "update-channels-62edfe3ee2fb",
       "name": "sheikha-update-channels-v1",
       "version": "v1",
@@ -756,6 +1165,85 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "distribution/manifest/sheikha-update-channels-v1.json"
+      }
+    },
+    {
+      "id": "update-policy-54acebd97b9f",
+      "name": "sheikha-update-policy-v2",
+      "version": "v2",
+      "path": "distribution/manifest/sheikha-update-policy-v2.json",
+      "type": "data-contract",
+      "layer": "Governance",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار.",
+      "inputs": [
+        "policies",
+        "runtime evidence"
+      ],
+      "outputs": [
+        "admission decisions",
+        "audit records"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/manifest/sheikha-update-policy-v2.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/manifest/sheikha-update-policy-v2.json"
+      }
+    },
+    {
+      "id": "universal-delivery-4bd7b286cd7c",
+      "name": "sheikha-universal-delivery-v2",
+      "version": "v2",
+      "path": "distribution/pipeline/sheikha-universal-delivery-v2.js",
+      "type": "code",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [
+        "tests/sheikha-universal-delivery-v2.test.js"
+      ],
+      "reports": [
+        "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json"
+      ],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/pipeline/sheikha-universal-delivery-v2.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/pipeline/sheikha-universal-delivery-v2.js"
       }
     },
     {
@@ -796,6 +1284,43 @@
       }
     },
     {
+      "id": "target-matrix-schema-fc980aed1580",
+      "name": "sheikha-target-matrix-v2.schema",
+      "version": "v2",
+      "path": "distribution/schemas/sheikha-target-matrix-v2.schema.json",
+      "type": "data-contract",
+      "layer": "Documentation",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
+      "inputs": [
+        "reports",
+        "source docs"
+      ],
+      "outputs": [
+        "documentation index"
+      ],
+      "dependencies": [
+        "Knowledge",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "distribution/schemas/sheikha-target-matrix-v2.schema.json"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "distribution/schemas/sheikha-target-matrix-v2.schema.json"
+      }
+    },
+    {
       "id": "distribution-4d6996f1fd1f",
       "name": "sheikha-distribution-v1",
       "version": "v1",
@@ -824,7 +1349,9 @@
         "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
         "runtime/distribution/v1/sheikha-distribution-matrix-v1-report.json",
         "runtime/distribution/v1/sheikha-distribution-toolchain-v1-report.json",
-        "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json"
+        "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json",
+        "runtime/distribution/v2/sheikha-product-matrix-v2-report.json",
+        "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json"
       ],
       "apis": [],
       "runtime": {
@@ -18884,547 +19411,6 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "docs/safe-catalyst-transport-fabric/SHEIKHA-SAFE-CATALYST-TRANSPORT-FABRIC-V1.md"
-      }
-    },
-    {
-      "id": "sdk-fabric-mcp-integration-a2c4ecbd22f9",
-      "name": "SHEIKHA-SDK-FABRIC-MCP-INTEGRATION-V1",
-      "version": "v1",
-      "path": "docs/sdk-fabric-mcp-integration/SHEIKHA-SDK-FABRIC-MCP-INTEGRATION-V1.md",
-      "type": "documentation",
-      "layer": "SDK",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "ربط SDK/MCP والواجهات البرمجية للمطورين.",
-      "inputs": [
-        "API contracts"
-      ],
-      "outputs": [
-        "SDK mapping"
-      ],
-      "dependencies": [
-        "APIs",
-        "Runtime",
-        "Registry"
-      ],
-      "tests": [
-        "tests/sdk-fabric-mcp-integration-v1.test.js"
-      ],
-      "reports": [
-        "runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.json",
-        "runtime/sdk-fabric-mcp-integration/v1/sheikha-sdk-fabric-mcp-integration-v1-report.md"
-      ],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/sdk-fabric-mcp-integration/SHEIKHA-SDK-FABRIC-MCP-INTEGRATION-V1.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/sdk-fabric-mcp-integration/SHEIKHA-SDK-FABRIC-MCP-INTEGRATION-V1.md"
-      }
-    },
-    {
-      "id": "حوكمة-المنظومة-الرقمية-بالكتاب-والسنة-ad5838aa9596",
-      "name": "حوكمة-المنظومة-الرقمية-بالكتاب-والسنة",
-      "version": "package-1.0.51",
-      "path": "docs/security/حوكمة-المنظومة-الرقمية-بالكتاب-والسنة.md",
-      "type": "documentation",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/security/حوكمة-المنظومة-الرقمية-بالكتاب-والسنة.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/security/حوكمة-المنظومة-الرقمية-بالكتاب-والسنة.md"
-      }
-    },
-    {
-      "id": "دليل-الاستجابة-للحوادث-شيخة-a43343fce69d",
-      "name": "دليل-الاستجابة-للحوادث-شيخة",
-      "version": "package-1.0.51",
-      "path": "docs/security/دليل-الاستجابة-للحوادث-شيخة.md",
-      "type": "documentation",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/security/دليل-الاستجابة-للحوادث-شيخة.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/security/دليل-الاستجابة-للحوادث-شيخة.md"
-      }
-    },
-    {
-      "id": "دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة-9ab2ee88ba88",
-      "name": "دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة",
-      "version": "package-1.0.51",
-      "path": "docs/security/دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة.md",
-      "type": "documentation",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/security/دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/security/دليل-تفعيل-الملكية-الفكرية-والأمن-الرقمي-شيخة.md"
-      }
-    },
-    {
-      "id": "سياسة-أمن-المعلومات-شيخة-87460f567ff9",
-      "name": "سياسة-أمن-المعلومات-شيخة",
-      "version": "package-1.0.51",
-      "path": "docs/security/سياسة-أمن-المعلومات-شيخة.md",
-      "type": "documentation",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/security/سياسة-أمن-المعلومات-شيخة.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/security/سياسة-أمن-المعلومات-شيخة.md"
-      }
-    },
-    {
-      "id": "ملكية-فكرية-وترخيص-شيخة-9b429854f5f0",
-      "name": "ملكية-فكرية-وترخيص-شيخة",
-      "version": "package-1.0.51",
-      "path": "docs/security/ملكية-فكرية-وترخيص-شيخة.md",
-      "type": "documentation",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/security/ملكية-فكرية-وترخيص-شيخة.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/security/ملكية-فكرية-وترخيص-شيخة.md"
-      }
-    },
-    {
-      "id": "نظام-التعليمات-والاجراءات-والقوانين-شيخة-60fc95553bf1",
-      "name": "نظام-التعليمات-والاجراءات-والقوانين-شيخة",
-      "version": "package-1.0.51",
-      "path": "docs/security/نظام-التعليمات-والاجراءات-والقوانين-شيخة.md",
-      "type": "documentation",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/security/نظام-التعليمات-والاجراءات-والقوانين-شيخة.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/security/نظام-التعليمات-والاجراءات-والقوانين-شيخة.md"
-      }
-    },
-    {
-      "id": "self-healing-fabric-e9925e6c3fd1",
-      "name": "SHEIKHA-SELF-HEALING-FABRIC-V74",
-      "version": "v74",
-      "path": "docs/self-healing-fabric/SHEIKHA-SELF-HEALING-FABRIC-V74.md",
-      "type": "documentation",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [
-        "tests/self-healing-v2/sheikha-self-healing-fabric-v2.test.js"
-      ],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/self-healing-fabric/SHEIKHA-SELF-HEALING-FABRIC-V74.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/self-healing-fabric/SHEIKHA-SELF-HEALING-FABRIC-V74.md"
-      }
-    },
-    {
-      "id": "self-improvement-mesh-fabric-7b5adc8fc71d",
-      "name": "SHEIKHA-SELF-IMPROVEMENT-MESH-FABRIC-V120",
-      "version": "v120",
-      "path": "docs/self-improvement-mesh-fabric/SHEIKHA-SELF-IMPROVEMENT-MESH-FABRIC-V120.md",
-      "type": "documentation",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/self-improvement-mesh-fabric/SHEIKHA-SELF-IMPROVEMENT-MESH-FABRIC-V120.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/self-improvement-mesh-fabric/SHEIKHA-SELF-IMPROVEMENT-MESH-FABRIC-V120.md"
-      }
-    },
-    {
-      "id": "service-mesh-fabric-3a110bb2f003",
-      "name": "SHEIKHA-SERVICE-MESH-FABRIC-V1",
-      "version": "v1",
-      "path": "docs/service-mesh-fabric-v1/SHEIKHA-SERVICE-MESH-FABRIC-V1.md",
-      "type": "documentation",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [
-        "tests/service-mesh-fabric-v1.test.js"
-      ],
-      "reports": [
-        "runtime/service-mesh-fabric-v1/v1/sheikha-service-mesh-fabric-v1-report.json"
-      ],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/service-mesh-fabric-v1/SHEIKHA-SERVICE-MESH-FABRIC-V1.md"
-      },
-      "maturity": "documented",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/service-mesh-fabric-v1/SHEIKHA-SERVICE-MESH-FABRIC-V1.md"
-      }
-    },
-    {
-      "id": "خدمة-التخزين-hybrid-evaluation-2f03900b4af9",
-      "name": "خدمة-التخزين.hybrid-evaluation",
-      "version": "package-1.0.51",
-      "path": "docs/services/evaluations/خدمة-التخزين.hybrid-evaluation.json",
-      "type": "data-contract",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/services/evaluations/خدمة-التخزين.hybrid-evaluation.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/services/evaluations/خدمة-التخزين.hybrid-evaluation.json"
-      }
-    },
-    {
-      "id": "خدمة-التخليص-الجمركي-hybrid-evaluation-dfc7e4731784",
-      "name": "خدمة-التخليص-الجمركي.hybrid-evaluation",
-      "version": "package-1.0.51",
-      "path": "docs/services/evaluations/خدمة-التخليص-الجمركي.hybrid-evaluation.json",
-      "type": "data-contract",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/services/evaluations/خدمة-التخليص-الجمركي.hybrid-evaluation.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/services/evaluations/خدمة-التخليص-الجمركي.hybrid-evaluation.json"
-      }
-    },
-    {
-      "id": "خدمة-الفحص-والجودة-hybrid-evaluation-0c610b5fca93",
-      "name": "خدمة-الفحص-والجودة.hybrid-evaluation",
-      "version": "package-1.0.51",
-      "path": "docs/services/evaluations/خدمة-الفحص-والجودة.hybrid-evaluation.json",
-      "type": "data-contract",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/services/evaluations/خدمة-الفحص-والجودة.hybrid-evaluation.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/services/evaluations/خدمة-الفحص-والجودة.hybrid-evaluation.json"
-      }
-    },
-    {
-      "id": "خدمة-المتجر-الإلكتروني-hybrid-evaluation-4ebc427ada83",
-      "name": "خدمة-المتجر-الإلكتروني.hybrid-evaluation",
-      "version": "package-1.0.51",
-      "path": "docs/services/evaluations/خدمة-المتجر-الإلكتروني.hybrid-evaluation.json",
-      "type": "data-contract",
-      "layer": "Documentation",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم.",
-      "inputs": [
-        "reports",
-        "source docs"
-      ],
-      "outputs": [
-        "documentation index"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Registry"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": false,
-        "pm2Managed": false,
-        "evidence": "docs/services/evaluations/خدمة-المتجر-الإلكتروني.hybrid-evaluation.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "docs/services/evaluations/خدمة-المتجر-الإلكتروني.hybrid-evaluation.json"
       }
     }
   ]

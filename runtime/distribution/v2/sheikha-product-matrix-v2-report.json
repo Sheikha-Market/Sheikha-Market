@@ -1,0 +1,1003 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_PRODUCT_TARGET_MATRIX_REPORT_V2",
+  "generatedAt": "2026-07-11T14:35:57.263Z",
+  "sourceOfTruth": "distribution/manifest/sheikha-target-matrix-v2.json",
+  "productCount": 4,
+  "targetCount": 27,
+  "platformCounts": {
+    "windows": 8,
+    "linux": 15,
+    "macos": 4
+  },
+  "statusCounts": {
+    "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION": 5,
+    "REQUIRES_NATIVE_RUNNER": 7,
+    "BUILT_NOT_NATIVE_VERIFIED": 2,
+    "TOOLCHAIN_MISSING": 12,
+    "VERIFIED": 1
+  },
+  "compatibility": {
+    "schemaVersion": "2.0.0",
+    "system": "SHEIKHA_PRODUCT_FORMAT_COMPATIBILITY_V2",
+    "sourceMatrix": "distribution/manifest/sheikha-target-matrix-v2.json",
+    "rules": [
+      {
+        "product": "sheikha-cli",
+        "formats": [
+          "tar.gz",
+          "zip"
+        ],
+        "allowed": true,
+        "conditions": [
+          "launcher and external runtime requirements are declared"
+        ]
+      },
+      {
+        "product": "sheikha-server-runtime",
+        "formats": [
+          "tar.gz",
+          "zip",
+          "deb",
+          "rpm",
+          "snap"
+        ],
+        "allowed": true,
+        "conditions": [
+          "target architecture and package structure are inspected"
+        ]
+      },
+      {
+        "product": "sheikha-desktop",
+        "formats": [
+          "exe",
+          "dmg"
+        ],
+        "allowed": false,
+        "conditions": [
+          "blocked until an executable desktop runtime exists"
+        ]
+      },
+      {
+        "product": "sheikha-vscode-extension",
+        "formats": [
+          "vsix"
+        ],
+        "allowed": true,
+        "conditions": [
+          "extension manifest version and archive structure are inspected"
+        ]
+      },
+      {
+        "product": "sheikha-bare-metal-seed",
+        "formats": [
+          "efi",
+          "img"
+        ],
+        "allowed": true,
+        "conditions": [
+          "PE architecture, FAT image, checksums, and boot evidence are inspected"
+        ]
+      }
+    ],
+    "prohibitedFabrication": [
+      "Windows EXE without a desktop runtime and Windows-native installer evidence",
+      "macOS DMG without a desktop runtime and macOS-native image evidence",
+      "Universal 2 claim without x86_64 and arm64 Mach-O slices",
+      "standalone claim while an external Node.js runtime is required"
+    ]
+  },
+  "targets": [
+    {
+      "id": "windows-user-installer-x64",
+      "product": "sheikha-desktop",
+      "platform": "windows",
+      "operatingSystem": "Windows 10/11",
+      "architecture": "x64",
+      "format": "exe",
+      "installationScope": "current-user",
+      "runtimeType": "desktop-runtime-not-implemented",
+      "buildStrategy": "WINDOWS_INSTALLER_ADAPTER_PROFILED",
+      "buildHostRequirement": "WINDOWS_NATIVE_RUNNER_AND_DESKTOP_RUNTIME",
+      "nativeRunnerRequirement": "INSTALL_LAUNCH_VERSION_UNINSTALL_WITHOUT_ADMIN",
+      "signingRequirement": "AUTHENTICODE_REQUIRED_FOR_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-windows-x64-user-installer.exe",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-user-installer-x64.json"
+      ],
+      "limitations": [
+        "No executable desktop shell exists.",
+        "Windows native runner is unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-user-installer-arm64",
+      "product": "sheikha-desktop",
+      "platform": "windows",
+      "operatingSystem": "Windows 11",
+      "architecture": "arm64",
+      "format": "exe",
+      "installationScope": "current-user",
+      "runtimeType": "desktop-runtime-not-implemented",
+      "buildStrategy": "WINDOWS_INSTALLER_ADAPTER_PROFILED",
+      "buildHostRequirement": "WINDOWS_ARM64_NATIVE_RUNNER_AND_DESKTOP_RUNTIME",
+      "nativeRunnerRequirement": "INSTALL_LAUNCH_VERSION_UNINSTALL_WITHOUT_ADMIN",
+      "signingRequirement": "AUTHENTICODE_REQUIRED_FOR_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-windows-arm64-user-installer.exe",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-user-installer-arm64.json"
+      ],
+      "limitations": [
+        "No executable desktop shell exists.",
+        "Windows ARM64 runner is unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-system-installer-x64",
+      "product": "sheikha-desktop",
+      "platform": "windows",
+      "operatingSystem": "Windows 10/11",
+      "architecture": "x64",
+      "format": "exe",
+      "installationScope": "system",
+      "runtimeType": "desktop-runtime-not-implemented",
+      "buildStrategy": "WINDOWS_INSTALLER_ADAPTER_PROFILED",
+      "buildHostRequirement": "WINDOWS_NATIVE_RUNNER_AND_DESKTOP_RUNTIME",
+      "nativeRunnerRequirement": "ADMIN_CONSENT_INSTALL_LAUNCH_VERSION_UNINSTALL",
+      "signingRequirement": "AUTHENTICODE_REQUIRED_FOR_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-windows-x64-system-installer.exe",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-system-installer-x64.json"
+      ],
+      "limitations": [
+        "No executable desktop shell exists.",
+        "Administrator consent was not tested."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-system-installer-arm64",
+      "product": "sheikha-desktop",
+      "platform": "windows",
+      "operatingSystem": "Windows 11",
+      "architecture": "arm64",
+      "format": "exe",
+      "installationScope": "system",
+      "runtimeType": "desktop-runtime-not-implemented",
+      "buildStrategy": "WINDOWS_INSTALLER_ADAPTER_PROFILED",
+      "buildHostRequirement": "WINDOWS_ARM64_NATIVE_RUNNER_AND_DESKTOP_RUNTIME",
+      "nativeRunnerRequirement": "ADMIN_CONSENT_INSTALL_LAUNCH_VERSION_UNINSTALL",
+      "signingRequirement": "AUTHENTICODE_REQUIRED_FOR_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-windows-arm64-system-installer.exe",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-system-installer-arm64.json"
+      ],
+      "limitations": [
+        "No executable desktop shell exists.",
+        "Windows ARM64 runner is unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-portable-x64",
+      "product": "sheikha-server-runtime",
+      "platform": "windows",
+      "operatingSystem": "Windows 10/11",
+      "architecture": "x64",
+      "format": "zip",
+      "installationScope": "portable",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "WINDOWS_PORTABLE_STAGING_ADAPTER",
+      "buildHostRequirement": "WINDOWS_NATIVE_RUNNER",
+      "nativeRunnerRequirement": "EXTRACT_LAUNCH_VERSION",
+      "signingRequirement": "RECOMMENDED",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-windows-x64-portable.zip",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-portable-x64.json"
+      ],
+      "limitations": [
+        "Windows launch behavior has not been implemented or tested."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-portable-arm64",
+      "product": "sheikha-server-runtime",
+      "platform": "windows",
+      "operatingSystem": "Windows 11",
+      "architecture": "arm64",
+      "format": "zip",
+      "installationScope": "portable",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "WINDOWS_PORTABLE_STAGING_ADAPTER",
+      "buildHostRequirement": "WINDOWS_ARM64_NATIVE_RUNNER",
+      "nativeRunnerRequirement": "EXTRACT_LAUNCH_VERSION",
+      "signingRequirement": "RECOMMENDED",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-windows-arm64-portable.zip",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-portable-arm64.json"
+      ],
+      "limitations": [
+        "Windows ARM64 launch behavior has not been implemented or tested."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-cli-x64",
+      "product": "sheikha-cli",
+      "platform": "windows",
+      "operatingSystem": "Windows 10/11",
+      "architecture": "x64",
+      "format": "zip",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER",
+      "buildHostRequirement": "WINDOWS_NATIVE_RUNNER",
+      "nativeRunnerRequirement": "CLI_HELP_VERSION_AND_API_STATUS",
+      "signingRequirement": "RECOMMENDED",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-windows-x64.zip",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-cli-x64.json"
+      ],
+      "limitations": [
+        "Windows command wrapper and native smoke evidence are unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "windows-cli-arm64",
+      "product": "sheikha-cli",
+      "platform": "windows",
+      "operatingSystem": "Windows 11",
+      "architecture": "arm64",
+      "format": "zip",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER",
+      "buildHostRequirement": "WINDOWS_ARM64_NATIVE_RUNNER",
+      "nativeRunnerRequirement": "CLI_HELP_VERSION_AND_API_STATUS",
+      "signingRequirement": "RECOMMENDED",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-windows-arm64.zip",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-cli-arm64.json"
+      ],
+      "limitations": [
+        "Windows ARM64 command wrapper and native smoke evidence are unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-deb-amd64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Debian/Ubuntu Linux",
+      "architecture": "amd64",
+      "format": "deb",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "V1_LINUX_DEB_ADAPTER_BRIDGE",
+      "buildHostRequirement": "LINUX_X86_64_WITH_DPKG_DEB",
+      "nativeRunnerRequirement": "PACKAGE_INSTALL_LAUNCH_VERSION_UNINSTALL",
+      "signingRequirement": "RECOMMENDED_FOR_REPOSITORY_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-amd64.deb",
+      "status": "BUILT_NOT_NATIVE_VERIFIED",
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-1.0.51-linux-amd64.deb.verification.json"
+      ],
+      "limitations": [
+        "System install and uninstall require explicit elevated test approval."
+      ],
+      "built": true,
+      "inspected": true,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": true,
+      "artifact": {
+        "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+        "bytes": 25607636,
+        "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
+      },
+      "buildError": null
+    },
+    {
+      "id": "linux-deb-armhf",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Debian/Ubuntu Linux",
+      "architecture": "armhf",
+      "format": "deb",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "DECLARATIVE_TARGET",
+      "buildHostRequirement": "LINUX_ARMV7_NATIVE_OR_CROSS_TOOLCHAIN",
+      "nativeRunnerRequirement": "PACKAGE_INSTALL_LAUNCH_VERSION_UNINSTALL_ON_ARMV7",
+      "signingRequirement": "RECOMMENDED_FOR_REPOSITORY_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-armhf.deb",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-deb-armhf.json"
+      ],
+      "limitations": [
+        "No ARMv7 cross-toolchain or native runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-deb-arm64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Debian/Ubuntu Linux",
+      "architecture": "arm64",
+      "format": "deb",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "DECLARATIVE_TARGET",
+      "buildHostRequirement": "LINUX_ARM64_NATIVE_OR_CROSS_TOOLCHAIN",
+      "nativeRunnerRequirement": "PACKAGE_INSTALL_LAUNCH_VERSION_UNINSTALL_ON_ARM64",
+      "signingRequirement": "RECOMMENDED_FOR_REPOSITORY_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-arm64.deb",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-deb-arm64.json"
+      ],
+      "limitations": [
+        "No ARM64 cross-toolchain or native runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-rpm-x86_64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "RPM-based Linux",
+      "architecture": "x86_64",
+      "format": "rpm",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "LINUX_RPM_ADAPTER_PENDING_TOOLCHAIN",
+      "buildHostRequirement": "LINUX_WITH_RPMBUILD",
+      "nativeRunnerRequirement": "PACKAGE_INSTALL_LAUNCH_VERSION_UNINSTALL",
+      "signingRequirement": "RECOMMENDED_FOR_REPOSITORY_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-x86_64.rpm",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-rpm-x86_64.json"
+      ],
+      "limitations": [
+        "rpmbuild and rpm are not installed."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-rpm-armv7hl",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "RPM-based Linux",
+      "architecture": "armv7hl",
+      "format": "rpm",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "LINUX_RPM_ADAPTER_PENDING_TOOLCHAIN",
+      "buildHostRequirement": "LINUX_ARMV7_WITH_RPMBUILD",
+      "nativeRunnerRequirement": "PACKAGE_INSTALL_LAUNCH_VERSION_UNINSTALL_ON_ARMV7",
+      "signingRequirement": "RECOMMENDED_FOR_REPOSITORY_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-armv7hl.rpm",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-rpm-armv7hl.json"
+      ],
+      "limitations": [
+        "rpmbuild and an ARMv7 toolchain are unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-rpm-aarch64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "RPM-based Linux",
+      "architecture": "aarch64",
+      "format": "rpm",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "LINUX_RPM_ADAPTER_PENDING_TOOLCHAIN",
+      "buildHostRequirement": "LINUX_ARM64_WITH_RPMBUILD",
+      "nativeRunnerRequirement": "PACKAGE_INSTALL_LAUNCH_VERSION_UNINSTALL_ON_ARM64",
+      "signingRequirement": "RECOMMENDED_FOR_REPOSITORY_RELEASE",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-aarch64.rpm",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-rpm-aarch64.json"
+      ],
+      "limitations": [
+        "rpmbuild and an ARM64 toolchain are unavailable."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-tar-x86_64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Generic Linux",
+      "architecture": "x86_64",
+      "format": "tar.gz",
+      "installationScope": "portable-source-runtime",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "V1_LINUX_TAR_ADAPTER_BRIDGE",
+      "buildHostRequirement": "LINUX_X86_64_WITH_TAR_GZIP",
+      "nativeRunnerRequirement": "EXTRACT_STRUCTURE_AND_SERVER_SYNTAX",
+      "signingRequirement": "OPTIONAL",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-x86_64.tar.gz",
+      "status": "BUILT_NOT_NATIVE_VERIFIED",
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-1.0.51-linux-x86_64.tar.gz.verification.json"
+      ],
+      "limitations": [
+        "Production dependencies are installed after extraction with npm ci --omit=dev."
+      ],
+      "built": true,
+      "inspected": true,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": true,
+      "artifact": {
+        "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-x86_64.tar.gz",
+        "bytes": 33956546,
+        "sha256": "baf5877814b334e20366d66088bc1985f96c28a22e5d6c91cc02957cb362883c"
+      },
+      "buildError": null
+    },
+    {
+      "id": "linux-tar-armv7",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Generic Linux",
+      "architecture": "armv7",
+      "format": "tar.gz",
+      "installationScope": "portable-source-runtime",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "DECLARATIVE_TARGET",
+      "buildHostRequirement": "LINUX_ARMV7_NATIVE_OR_CROSS_TOOLCHAIN",
+      "nativeRunnerRequirement": "EXTRACT_STRUCTURE_AND_SERVER_SMOKE_ON_ARMV7",
+      "signingRequirement": "OPTIONAL",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-armv7.tar.gz",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-tar-armv7.json"
+      ],
+      "limitations": [
+        "No ARMv7 cross-toolchain or native runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-tar-aarch64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Generic Linux",
+      "architecture": "aarch64",
+      "format": "tar.gz",
+      "installationScope": "portable-source-runtime",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "DECLARATIVE_TARGET",
+      "buildHostRequirement": "LINUX_ARM64_NATIVE_OR_CROSS_TOOLCHAIN",
+      "nativeRunnerRequirement": "EXTRACT_STRUCTURE_AND_SERVER_SMOKE_ON_ARM64",
+      "signingRequirement": "OPTIONAL",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-aarch64.tar.gz",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-tar-aarch64.json"
+      ],
+      "limitations": [
+        "No ARM64 cross-toolchain or native runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-snap-amd64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Snap-enabled Linux",
+      "architecture": "amd64",
+      "format": "snap",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "LINUX_SNAP_ADAPTER_PENDING_TOOLCHAIN",
+      "buildHostRequirement": "LINUX_WITH_SNAPCRAFT",
+      "nativeRunnerRequirement": "SNAP_INSTALL_LAUNCH_VERSION_REMOVE",
+      "signingRequirement": "STORE_ASSERTION_REQUIRED_FOR_PUBLICATION",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-amd64.snap",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-snap-amd64.json"
+      ],
+      "limitations": [
+        "snapcraft is not installed.",
+        "Snap Store publication was not requested."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-snap-armhf",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Snap-enabled Linux",
+      "architecture": "armhf",
+      "format": "snap",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "LINUX_SNAP_ADAPTER_PENDING_TOOLCHAIN",
+      "buildHostRequirement": "LINUX_ARMV7_WITH_SNAPCRAFT",
+      "nativeRunnerRequirement": "SNAP_INSTALL_LAUNCH_VERSION_REMOVE_ON_ARMV7",
+      "signingRequirement": "STORE_ASSERTION_REQUIRED_FOR_PUBLICATION",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-armhf.snap",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-snap-armhf.json"
+      ],
+      "limitations": [
+        "snapcraft and an ARMv7 runner are unavailable.",
+        "Snap Store publication was not requested."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-snap-arm64",
+      "product": "sheikha-server-runtime",
+      "platform": "linux",
+      "operatingSystem": "Snap-enabled Linux",
+      "architecture": "arm64",
+      "format": "snap",
+      "installationScope": "system-package",
+      "runtimeType": "node-source-runtime-external-dependencies",
+      "buildStrategy": "LINUX_SNAP_ADAPTER_PENDING_TOOLCHAIN",
+      "buildHostRequirement": "LINUX_ARM64_WITH_SNAPCRAFT",
+      "nativeRunnerRequirement": "SNAP_INSTALL_LAUNCH_VERSION_REMOVE_ON_ARM64",
+      "signingRequirement": "STORE_ASSERTION_REQUIRED_FOR_PUBLICATION",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-linux-arm64.snap",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-snap-arm64.json"
+      ],
+      "limitations": [
+        "snapcraft and an ARM64 runner are unavailable.",
+        "Snap Store publication was not requested."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-cli-x86_64",
+      "product": "sheikha-cli",
+      "platform": "linux",
+      "operatingSystem": "Generic Linux",
+      "architecture": "x86_64",
+      "format": "tar.gz",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER",
+      "buildHostRequirement": "LINUX_X86_64_WITH_NODE_TAR_GZIP",
+      "nativeRunnerRequirement": "CLI_HELP_AND_UNKNOWN_COMMAND_EXIT",
+      "signingRequirement": "OPTIONAL",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+      "status": "VERIFIED",
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-cli-1.0.51-linux-x86_64.tar.gz.verification.json"
+      ],
+      "limitations": [
+        "Node.js 20, 22, or 25 is required on the target host."
+      ],
+      "built": true,
+      "inspected": true,
+      "verified": true,
+      "nativeVerified": true,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": true,
+      "artifact": {
+        "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-cli-1.0.51-linux-x86_64.tar.gz",
+        "bytes": 1704,
+        "sha256": "65b1e39c35920150fe10aa06ea0022052b1dee45b3c23eb29eaf036d9e2252eb"
+      },
+      "buildError": null
+    },
+    {
+      "id": "linux-cli-armv7",
+      "product": "sheikha-cli",
+      "platform": "linux",
+      "operatingSystem": "Generic Linux",
+      "architecture": "armv7",
+      "format": "tar.gz",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "DECLARATIVE_TARGET",
+      "buildHostRequirement": "LINUX_ARMV7_NATIVE_OR_CROSS_TOOLCHAIN",
+      "nativeRunnerRequirement": "CLI_HELP_AND_VERSION_ON_ARMV7",
+      "signingRequirement": "OPTIONAL",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-linux-armv7.tar.gz",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-cli-armv7.json"
+      ],
+      "limitations": [
+        "No ARMv7 runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "linux-cli-aarch64",
+      "product": "sheikha-cli",
+      "platform": "linux",
+      "operatingSystem": "Generic Linux",
+      "architecture": "aarch64",
+      "format": "tar.gz",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "DECLARATIVE_TARGET",
+      "buildHostRequirement": "LINUX_ARM64_NATIVE_OR_CROSS_TOOLCHAIN",
+      "nativeRunnerRequirement": "CLI_HELP_AND_VERSION_ON_ARM64",
+      "signingRequirement": "OPTIONAL",
+      "notarizationRequirement": "NOT_APPLICABLE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-linux-aarch64.tar.gz",
+      "status": "TOOLCHAIN_MISSING",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-cli-aarch64.json"
+      ],
+      "limitations": [
+        "No ARM64 runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "macos-dmg-universal2",
+      "product": "sheikha-desktop",
+      "platform": "macos",
+      "operatingSystem": "macOS",
+      "architecture": "universal2",
+      "format": "dmg",
+      "installationScope": "user-application",
+      "runtimeType": "desktop-runtime-not-implemented",
+      "buildStrategy": "MACOS_DMG_ADAPTER_PENDING_RUNTIME",
+      "buildHostRequirement": "MACOS_NATIVE_RUNNER_AND_DESKTOP_RUNTIME",
+      "nativeRunnerRequirement": "MOUNT_INSTALL_LAUNCH_ON_INTEL_AND_APPLE_SILICON",
+      "signingRequirement": "APPLE_DEVELOPER_ID_AND_NOTARIZATION_REQUIRED",
+      "notarizationRequirement": "MACOS_NOTARIZATION_REQUIRED_FOR_PUBLIC_DESKTOP_RELEASE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-1.0.51-macos-universal.dmg",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-dmg-universal2.json"
+      ],
+      "limitations": [
+        "No executable desktop shell exists.",
+        "macOS signing and notarization were not performed."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "macos-cli-x86_64",
+      "product": "sheikha-cli",
+      "platform": "macos",
+      "operatingSystem": "macOS",
+      "architecture": "x86_64",
+      "format": "tar.gz",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER",
+      "buildHostRequirement": "MACOS_INTEL_NATIVE_RUNNER",
+      "nativeRunnerRequirement": "CLI_HELP_AND_VERSION_ON_INTEL_MAC",
+      "signingRequirement": "APPLE_DEVELOPER_ID_RECOMMENDED",
+      "notarizationRequirement": "MACOS_NOTARIZATION_REQUIRED_FOR_PUBLIC_DESKTOP_RELEASE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-macos-x86_64.tar.gz",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-cli-x86_64.json"
+      ],
+      "limitations": [
+        "No macOS Intel native runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "macos-cli-arm64",
+      "product": "sheikha-cli",
+      "platform": "macos",
+      "operatingSystem": "macOS",
+      "architecture": "arm64",
+      "format": "tar.gz",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER",
+      "buildHostRequirement": "MACOS_APPLE_SILICON_NATIVE_RUNNER",
+      "nativeRunnerRequirement": "CLI_HELP_AND_VERSION_ON_APPLE_SILICON",
+      "signingRequirement": "APPLE_DEVELOPER_ID_RECOMMENDED",
+      "notarizationRequirement": "MACOS_NOTARIZATION_REQUIRED_FOR_PUBLIC_DESKTOP_RELEASE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-macos-arm64.tar.gz",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-cli-arm64.json"
+      ],
+      "limitations": [
+        "No Apple silicon native runner is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    },
+    {
+      "id": "macos-cli-universal2",
+      "product": "sheikha-cli",
+      "platform": "macos",
+      "operatingSystem": "macOS",
+      "architecture": "universal2",
+      "format": "tar.gz",
+      "installationScope": "portable-cli",
+      "runtimeType": "node-cli-external-runtime",
+      "buildStrategy": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER",
+      "buildHostRequirement": "MACOS_NATIVE_RUNNER_WITH_LIPO",
+      "nativeRunnerRequirement": "CLI_HELP_AND_VERSION_ON_INTEL_AND_APPLE_SILICON",
+      "signingRequirement": "APPLE_DEVELOPER_ID_RECOMMENDED",
+      "notarizationRequirement": "MACOS_NOTARIZATION_REQUIRED_FOR_PUBLIC_DESKTOP_RELEASE",
+      "publicationRequirement": "LOCAL_REGISTRY_ONLY_EXTERNAL_PUBLISHING_NOT_REQUESTED",
+      "artifactName": "sheikha-cli-1.0.51-macos-universal.tar.gz",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-cli-universal2.json"
+      ],
+      "limitations": [
+        "No macOS native runner or Universal 2 merge evidence is available."
+      ],
+      "built": false,
+      "inspected": false,
+      "verified": false,
+      "nativeVerified": false,
+      "signed": false,
+      "notarized": false,
+      "localRegistryPublished": false,
+      "artifact": null,
+      "buildError": null
+    }
+  ]
+}

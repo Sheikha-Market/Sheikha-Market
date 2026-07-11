@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_PRODUCT_CATALOG_V2",
+  "platformVersion": "1.0.51",
+  "productCount": 4,
+  "products": [
+    {
+      "id": "sheikha-cli",
+      "name": "Sheikha CLI",
+      "version": "1.0.51",
+      "implemented": true,
+      "countedAsProduct": true,
+      "baseMatrixParticipant": true,
+      "runtimeType": "node-cli-external-runtime",
+      "standalone": false,
+      "runtimeRequirements": ["Node.js 20, 22, or 25"],
+      "entrypoint": "bin/sheikha"
+    },
+    {
+      "id": "sheikha-server-runtime",
+      "name": "Sheikha Server Runtime",
+      "version": "1.0.51",
+      "implemented": true,
+      "countedAsProduct": true,
+      "baseMatrixParticipant": true,
+      "runtimeType": "node-server-source-runtime",
+      "standalone": false,
+      "runtimeRequirements": ["Node.js 20, 22, or 25", "npm production dependency installation"],
+      "entrypoint": "server.js"
+    },
+    {
+      "id": "sheikha-vscode-extension",
+      "name": "Sheikha VS Code Extension",
+      "version": "1.0.91",
+      "implemented": true,
+      "countedAsProduct": true,
+      "baseMatrixParticipant": false,
+      "runtimeType": "vscode-extension-host",
+      "standalone": false,
+      "runtimeRequirements": ["VS Code 1.85 or later"],
+      "entrypoint": "extension.js"
+    },
+    {
+      "id": "sheikha-bare-metal-seed",
+      "name": "Sheikha Bare-Metal OS Seed",
+      "version": "1.0.51",
+      "implemented": true,
+      "countedAsProduct": true,
+      "baseMatrixParticipant": false,
+      "runtimeType": "uefi-x86_64-boot-seed",
+      "standalone": true,
+      "runtimeRequirements": ["x86_64 UEFI firmware or QEMU UEFI runner"],
+      "entrypoint": "EFI/BOOT/BOOTX64.EFI"
+    }
+  ],
+  "declaredCandidates": [
+    {
+      "id": "sheikha-desktop",
+      "name": "Sheikha Desktop",
+      "implemented": false,
+      "countedAsProduct": false,
+      "baseMatrixParticipant": true,
+      "installerClaimAllowed": false,
+      "blockReason": "No executable desktop runtime exists in the repository."
+    }
+  ],
+  "governance": {
+    "githubRequired": false,
+    "localRegistryOnly": true,
+    "externalPublishingAutomatic": false,
+    "signingAutomatic": false,
+    "notarizationAutomatic": false,
+    "humanFinalDecision": true
+  }
+}

@@ -1,0 +1,272 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_NATIVE_VERIFICATION_V2",
+  "generatedAt": "2026-07-11T14:35:57.263Z",
+  "policy": "Cross-build, extraction, source syntax, and QEMU evidence are reported separately from native install verification.",
+  "nativeVerifiedTargetCount": 1,
+  "targets": [
+    {
+      "id": "windows-user-installer-x64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-user-installer-x64.json"
+      ]
+    },
+    {
+      "id": "windows-user-installer-arm64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-user-installer-arm64.json"
+      ]
+    },
+    {
+      "id": "windows-system-installer-x64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-system-installer-x64.json"
+      ]
+    },
+    {
+      "id": "windows-system-installer-arm64",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-system-installer-arm64.json"
+      ]
+    },
+    {
+      "id": "windows-portable-x64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-portable-x64.json"
+      ]
+    },
+    {
+      "id": "windows-portable-arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-portable-arm64.json"
+      ]
+    },
+    {
+      "id": "windows-cli-x64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-cli-x64.json"
+      ]
+    },
+    {
+      "id": "windows-cli-arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/windows-cli-arm64.json"
+      ]
+    },
+    {
+      "id": "linux-deb-amd64",
+      "status": "BUILT_NOT_NATIVE_VERIFIED",
+      "nativeVerified": false,
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-1.0.51-linux-amd64.deb.verification.json"
+      ]
+    },
+    {
+      "id": "linux-deb-armhf",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-deb-armhf.json"
+      ]
+    },
+    {
+      "id": "linux-deb-arm64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-deb-arm64.json"
+      ]
+    },
+    {
+      "id": "linux-rpm-x86_64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-rpm-x86_64.json"
+      ]
+    },
+    {
+      "id": "linux-rpm-armv7hl",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-rpm-armv7hl.json"
+      ]
+    },
+    {
+      "id": "linux-rpm-aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-rpm-aarch64.json"
+      ]
+    },
+    {
+      "id": "linux-tar-x86_64",
+      "status": "BUILT_NOT_NATIVE_VERIFIED",
+      "nativeVerified": false,
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-1.0.51-linux-x86_64.tar.gz.verification.json"
+      ]
+    },
+    {
+      "id": "linux-tar-armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-tar-armv7.json"
+      ]
+    },
+    {
+      "id": "linux-tar-aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-tar-aarch64.json"
+      ]
+    },
+    {
+      "id": "linux-snap-amd64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-snap-amd64.json"
+      ]
+    },
+    {
+      "id": "linux-snap-armhf",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-snap-armhf.json"
+      ]
+    },
+    {
+      "id": "linux-snap-arm64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-snap-arm64.json"
+      ]
+    },
+    {
+      "id": "linux-cli-x86_64",
+      "status": "VERIFIED",
+      "nativeVerified": true,
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-cli-1.0.51-linux-x86_64.tar.gz.verification.json"
+      ]
+    },
+    {
+      "id": "linux-cli-armv7",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-cli-armv7.json"
+      ]
+    },
+    {
+      "id": "linux-cli-aarch64",
+      "status": "TOOLCHAIN_MISSING",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/linux-cli-aarch64.json"
+      ]
+    },
+    {
+      "id": "macos-dmg-universal2",
+      "status": "REQUIRES_DESKTOP_RUNTIME_IMPLEMENTATION",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-dmg-universal2.json"
+      ]
+    },
+    {
+      "id": "macos-cli-x86_64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-cli-x86_64.json"
+      ]
+    },
+    {
+      "id": "macos-cli-arm64",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-cli-arm64.json"
+      ]
+    },
+    {
+      "id": "macos-cli-universal2",
+      "status": "REQUIRES_NATIVE_RUNNER",
+      "nativeVerified": false,
+      "evidence": [
+        "runtime/distribution/v2/evidence/target-plans/macos-cli-universal2.json"
+      ]
+    }
+  ],
+  "auxiliary": [
+    {
+      "id": "vscode-extension-vsix",
+      "product": "sheikha-vscode-extension",
+      "status": "VERIFIED",
+      "built": true,
+      "verified": true,
+      "nativeVerified": true,
+      "qemuVerified": false,
+      "artifact": {
+        "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-vscode-extension-1.0.91.vsix",
+        "bytes": 90108,
+        "sha256": "4389763a9595773ef88217d2881cf270b382c31cdec767b94b26ffc4b4d8f0a3"
+      },
+      "evidence": "distribution/artifacts/v2/1.0.51/verification/sheikha-vscode-extension-1.0.91.vsix.verification.json"
+    },
+    {
+      "id": "bare-metal-uefi-x86_64",
+      "product": "sheikha-bare-metal-seed",
+      "status": "INSPECTED",
+      "built": true,
+      "verified": false,
+      "nativeVerified": false,
+      "qemuVerified": true,
+      "artifact": {
+        "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-bare-metal-1.0.51-x86_64.efi",
+        "bytes": 4516,
+        "sha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd"
+      },
+      "evidence": "distribution/artifacts/v2/1.0.51/verification/sheikha-bare-metal-1.0.51-x86_64.efi.verification.json"
+    },
+    {
+      "id": "bare-metal-fat-esp-image-x86_64",
+      "product": "sheikha-bare-metal-seed",
+      "status": "INSPECTED",
+      "built": true,
+      "verified": false,
+      "nativeVerified": false,
+      "qemuVerified": true,
+      "artifact": {
+        "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-bare-metal-1.0.51-x86_64.img",
+        "bytes": 1474560,
+        "sha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8"
+      },
+      "evidence": "distribution/artifacts/v2/1.0.51/verification/sheikha-bare-metal-1.0.51-x86_64.img.verification.json"
+    }
+  ]
+}

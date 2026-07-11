@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1",
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-07-11T00:56:38.832Z",
+  "generatedAt": "2026-07-11T14:37:59.390Z",
   "parentRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
   "shard": {
     "number": 8,
@@ -10,6 +10,670 @@
     "componentCount": 500
   },
   "components": [
+    {
+      "id": "ai-cluster-pipeline-production-routes-6f012e491c17",
+      "name": "sheikha-ai-cluster-pipeline-production-routes",
+      "version": "package-1.0.51",
+      "path": "routes/ai-cluster-pipeline-production/sheikha-ai-cluster-pipeline-production-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/ai-cluster-pipeline-production/v1/status",
+        "POST /api/sheikha/ai-cluster-pipeline-production/v1/run"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/ai-cluster-pipeline-production/sheikha-ai-cluster-pipeline-production-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/ai-cluster-pipeline-production/sheikha-ai-cluster-pipeline-production-routes.js"
+      }
+    },
+    {
+      "id": "ai-notes-governance-routes-bb150cf1299a",
+      "name": "sheikha-ai-notes-governance-routes",
+      "version": "package-1.0.51",
+      "path": "routes/ai-notes-governance/sheikha-ai-notes-governance-routes.js",
+      "type": "api-route",
+      "layer": "Governance",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار.",
+      "inputs": [
+        "policies",
+        "runtime evidence"
+      ],
+      "outputs": [
+        "admission decisions",
+        "audit records"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/ai-notes-governance/v1/status",
+        "POST /api/sheikha/ai-notes-governance/v1/analyze",
+        "POST /api/sheikha/ai-notes-governance/v1/autofix"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/ai-notes-governance/sheikha-ai-notes-governance-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/ai-notes-governance/sheikha-ai-notes-governance-routes.js"
+      }
+    },
+    {
+      "id": "status-routes-4d82cc8f04f6",
+      "name": "status.routes",
+      "version": "package-1.0.51",
+      "path": "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /status",
+        "GET /components"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js"
+      }
+    },
+    {
+      "id": "ai-supply-chain-living-production-routes-20b7e9fc4276",
+      "name": "sheikha-ai-supply-chain-living-production-routes",
+      "version": "package-1.0.51",
+      "path": "routes/ai-supply-chain-living-production/sheikha-ai-supply-chain-living-production-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/ai-supply-chain-living-production/v1/status",
+        "POST /api/sheikha/ai-supply-chain-living-production/v1/event",
+        "POST /api/sheikha/ai-supply-chain-living-production/v1/learn",
+        "POST /api/sheikha/ai-supply-chain-living-production/v1/plan",
+        "POST /api/sheikha/ai-supply-chain-living-production/v1/self-heal"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/ai-supply-chain-living-production/sheikha-ai-supply-chain-living-production-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/ai-supply-chain-living-production/sheikha-ai-supply-chain-living-production-routes.js"
+      }
+    },
+    {
+      "id": "ai-266adc568008",
+      "name": "ai",
+      "version": "package-1.0.51",
+      "path": "routes/ai.js",
+      "type": "code",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [
+        "tests/ai-cluster-pipeline-fabric-v1.test.js",
+        "tests/ai-supercomputer-cloud-cluster-pipeline-fabric-v1.test.js",
+        "tests/devops-ai-lab-fabric-v1.test.js",
+        "tests/sheikha-ai-foundry-cluster-fabric.test.js",
+        "tests/sheikha-ai-gateway-fast-operational.test.js",
+        "tests/sheikha-direct-repair-governance-v1.test.js",
+        "tests/sheikha-domain-data-contracts-v1.test.js",
+        "tests/sheikha-islamic-ai-kernel-v1.test.js",
+        "tests/sheikha-supreme-ai-governance.test.js",
+        "tests/sheikha-supreme-compute-ai-federation-fabric-v1.test.js",
+        "tests/sovereign-commercial-ai-supercluster-v1.test.js",
+        "tests/supply-chain-control-tower-v2.test.js",
+        "tests/ugit-ai-control-plane-v1.test.js"
+      ],
+      "reports": [
+        "LLM-DIALOGUE-TRAINING-REPORT.json",
+        "SHEIKHA-COMPREHENSIVE-TRAINING-REPORT.json",
+        "runtime/ai-cluster-pipeline-fabric/v1/sheikha-ai-cluster-pipeline-fabric-v1-report.json",
+        "runtime/ai-cluster-pipeline-fabric/v1/sheikha-ai-cluster-pipeline-fabric-v1-report.md",
+        "runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.json",
+        "runtime/ai-supercomputer-cloud-cluster-pipeline-fabric/v1/sheikha-ai-supercomputer-cloud-cluster-pipeline-fabric-v1-report.md",
+        "runtime/bare-metal/v1/evidence/toolchain-report.json",
+        "runtime/devops-ai-lab-fabric/v1/sheikha-devops-ai-lab-fabric-v1-report.json",
+        "runtime/devops-ai-lab-fabric/v1/sheikha-devops-ai-lab-fabric-v1-report.md",
+        "runtime/distribution/v1/sheikha-distribution-toolchain-v1-report.json",
+        "runtime/islamic-ai-kernel/v1/sheikha-islamic-ai-kernel-v1-report.json",
+        "runtime/pr-governance/activation/sheikha-merge-governance-detailed-report.json",
+        "runtime/pr-governance/activation/sheikha-merge-governance-detailed-report.md",
+        "runtime/sovereign-commercial-ai-supercluster/v1/sheikha-sovereign-commercial-ai-supercluster-v1-report.json",
+        "runtime/sovereign-commercial-ai-supercluster/v1/sheikha-sovereign-commercial-ai-supercluster-v1-report.md",
+        "runtime/space-iot-ml-ai-fabric/v1/sheikha-space-iot-ml-ai-fabric-v1-report.json"
+      ],
+      "apis": [
+        "GET /status",
+        "GET /model-strategy",
+        "GET /ollama/resources",
+        "GET /ollama/recommendation",
+        "GET /ollama/models",
+        "POST /ollama/sync",
+        "POST /model-router/plan",
+        "GET /model-router/status",
+        "GET /model-integrations",
+        "POST /model-integrations",
+        "PATCH /model-integrations/:id",
+        "POST /model-integrations/auto-refresh",
+        "POST /chat",
+        "POST /chat/think",
+        "POST /chat/compact",
+        "POST /analyze-company",
+        "POST /analyze-concept",
+        "POST /development/analyze",
+        "POST /development/generate",
+        "POST /rag/query"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/ai.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/ai.js"
+      }
+    },
+    {
+      "id": "akhira-4d19722c911e",
+      "name": "akhira",
+      "version": "package-1.0.51",
+      "path": "routes/akhira.js",
+      "type": "code",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /status",
+        "GET /signs",
+        "GET /important"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/akhira.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/akhira.js"
+      }
+    },
+    {
+      "id": "alliance-8303f1e08b39",
+      "name": "alliance",
+      "version": "package-1.0.51",
+      "path": "routes/alliance.js",
+      "type": "code",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [
+        "SHEIKHA-SUPERIOR-ALLIANCE-REPORT.json",
+        "SHEIKHA-SUPERIOR-ALLIANCE-REPORT.md"
+      ],
+      "apis": [
+        "GET /dashboard",
+        "GET /status",
+        "GET /full-report",
+        "GET /leader",
+        "GET /manifesto",
+        "GET /reach-channels",
+        "GET /digital-armory",
+        "GET /non-digital",
+        "GET /nation-networks",
+        "GET /trader-networks",
+        "GET /army-coordination",
+        "GET /victory-strategies",
+        "GET /covenant",
+        "GET /network/dashboard",
+        "GET /network/status",
+        "GET /network/full-report",
+        "GET /network/tech",
+        "GET /network/science",
+        "GET /network/social",
+        "GET /network/culture"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/alliance.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/alliance.js"
+      }
+    },
+    {
+      "id": "api-gateway-df63faac8d1b",
+      "name": "api-gateway",
+      "version": "package-1.0.51",
+      "path": "routes/api-gateway.js",
+      "type": "code",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /status",
+        "GET /metrics",
+        "GET /metrics/top",
+        "GET /db/status",
+        "GET /db/stats",
+        "GET /endpoints",
+        "GET /health",
+        "POST /metrics/reset"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/api-gateway.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/api-gateway.js"
+      }
+    },
+    {
+      "id": "api-afbba222fbb9",
+      "name": "api",
+      "version": "package-1.0.51",
+      "path": "routes/api.js",
+      "type": "code",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [
+        "tests/api-contract-v2.test.js"
+      ],
+      "reports": [
+        "runtime/runtime-api/reports/runtime-api-report.json"
+      ],
+      "apis": [
+        "GET /server/health",
+        "GET /server/stats",
+        "GET /settings",
+        "GET /prices",
+        "GET /listings",
+        "POST /listings",
+        "GET /companies",
+        "GET /companies/:id",
+        "GET /search"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/api.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/api.js"
+      }
+    },
+    {
+      "id": "market-4911fc983c25",
+      "name": "market",
+      "version": "package-1.0.51",
+      "path": "routes/api/market.js",
+      "type": "code",
+      "layer": "Marketplace",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تنظيم السوق والفرص والكتالوجات والتجارب التجارية.",
+      "inputs": [
+        "catalogs",
+        "market data"
+      ],
+      "outputs": [
+        "market views",
+        "opportunity signals"
+      ],
+      "dependencies": [
+        "Commerce",
+        "Community",
+        "Knowledge"
+      ],
+      "tests": [
+        "tests/marketplace-operating-system-v1.test.js",
+        "tests/sheikha-adapter-marketplace-operational-runtime-v1.test.js",
+        "tests/sheikha-market-sector-product-federation-v1.test.js",
+        "tests/sheikha-universal-market-sector-runtime-v1.test.js"
+      ],
+      "reports": [
+        "runtime/logistics-market-network-platform/v1/sheikha-logistics-market-network-platform-v1-report.json",
+        "runtime/logistics-market-network-platform/v1/sheikha-logistics-market-network-platform-v1-report.md",
+        "runtime/marketplace-catalog-v2/v1/sheikha-marketplace-catalog-v2-report.json",
+        "runtime/marketplace-catalog-v2/v1/sheikha-marketplace-catalog-v2-report.md",
+        "runtime/marketplace-operating-system-v1/v1/sheikha-marketplace-operating-system-v1-report.json",
+        "runtime/marketplace-operating-system-v1/v1/sheikha-marketplace-operating-system-v1-report.md",
+        "runtime/resource-product-market-intelligence/v1/sheikha-resource-product-market-intelligence-v1-report.json",
+        "runtime/resource-product-market-intelligence/v1/sheikha-resource-product-market-intelligence-v1-report.md"
+      ],
+      "apis": [
+        "POST /order",
+        "GET /order/:id",
+        "POST /shipment",
+        "POST /track/:shipmentId",
+        "GET /track/:shipmentId"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/api/market.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/api/market.js"
+      }
+    },
+    {
+      "id": "arabic-compiler-fabric-routes-10c43419eb7a",
+      "name": "sheikha-arabic-compiler-fabric-routes",
+      "version": "package-1.0.51",
+      "path": "routes/arabic-compiler-fabric/sheikha-arabic-compiler-fabric-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/arabic-compiler-fabric/v92/status",
+        "GET /api/sheikha/arabic-compiler-fabric/v92/demo",
+        "POST /api/sheikha/arabic-compiler-fabric/v92/plan"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/arabic-compiler-fabric/sheikha-arabic-compiler-fabric-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/arabic-compiler-fabric/sheikha-arabic-compiler-fabric-routes.js"
+      }
+    },
+    {
+      "id": "arabic-language-cluster-fabric-routes-b8c0766c2375",
+      "name": "sheikha-arabic-language-cluster-fabric-routes",
+      "version": "package-1.0.51",
+      "path": "routes/arabic-language-cluster-fabric/sheikha-arabic-language-cluster-fabric-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/arabic-language-cluster-fabric/v91/status",
+        "GET /api/sheikha/arabic-language-cluster-fabric/v91/demo",
+        "POST /api/sheikha/arabic-language-cluster-fabric/v91/plan"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/arabic-language-cluster-fabric/sheikha-arabic-language-cluster-fabric-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/arabic-language-cluster-fabric/sheikha-arabic-language-cluster-fabric-routes.js"
+      }
+    },
+    {
+      "id": "arabic-package-manager-fabric-routes-0bfef1f698dc",
+      "name": "sheikha-arabic-package-manager-fabric-routes",
+      "version": "package-1.0.51",
+      "path": "routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/arabic-package-manager-fabric/v96/status",
+        "GET /api/sheikha/arabic-package-manager-fabric/v96/demo",
+        "POST /api/sheikha/arabic-package-manager-fabric/v96/plan"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes.js"
+      }
+    },
+    {
+      "id": "arabic-runtime-fabric-routes-fc400445f1ad",
+      "name": "sheikha-arabic-runtime-fabric-routes",
+      "version": "package-1.0.51",
+      "path": "routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes.js",
+      "type": "api-route",
+      "layer": "APIs",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
+      "inputs": [
+        "HTTP requests"
+      ],
+      "outputs": [
+        "HTTP responses"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [
+        "GET /api/sheikha/arabic-runtime-fabric/v95/status",
+        "GET /api/sheikha/arabic-runtime-fabric/v95/demo",
+        "POST /api/sheikha/arabic-runtime-fabric/v95/plan"
+      ],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes.js"
+      }
+    },
     {
       "id": "status-routes-8752d5d3a96d",
       "name": "status.routes",
@@ -3256,7 +3920,10 @@
       "apis": [
         "GET /api/sheikha/distribution-apex/v1/status",
         "GET /api/sheikha/distribution-apex/v1/matrix",
-        "GET /api/sheikha/distribution-apex/v1/release-index"
+        "GET /api/sheikha/distribution-apex/v1/release-index",
+        "GET /api/sheikha/distribution-apex/v2/status",
+        "GET /api/sheikha/distribution-apex/v2/matrix",
+        "GET /api/sheikha/distribution-apex/v2/release-index"
       ],
       "runtime": {
         "present": false,
@@ -16224,10 +16891,10 @@
         "sheikha-language/compiler/tests/unified-language.test.js",
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
+        "sheikha-vscode-extension/tests/sheikhaAdvancedTemplates.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
         "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
-        "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js"
+        "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -16298,10 +16965,10 @@
         "sheikha-language/compiler/tests/unified-language.test.js",
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
+        "sheikha-vscode-extension/tests/sheikhaAdvancedTemplates.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
         "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
-        "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js"
+        "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -20520,560 +21187,6 @@
         "source": "local-repository-discovery",
         "githubRequired": false,
         "path": "runtime/authority/post_api_sheikha_live-chat.txt"
-      }
-    },
-    {
-      "id": "runtime-authority-map-3310a093ad15",
-      "name": "runtime-authority-map",
-      "version": "package-1.0.51",
-      "path": "runtime/authority/runtime-authority-map.json",
-      "type": "data-contract",
-      "layer": "Security",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "حماية الوصول والأسرار والحدود والسياسات الأمنية.",
-      "inputs": [
-        "credentials",
-        "headers",
-        "policies"
-      ],
-      "outputs": [
-        "allow/deny decisions",
-        "audit logs"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/authority/runtime-authority-map.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/authority/runtime-authority-map.json"
-      }
-    },
-    {
-      "id": "use-api-runtime-root-txt-b91696700d02",
-      "name": "use_api_runtime-root",
-      "version": "package-1.0.51",
-      "path": "runtime/authority/use_api_runtime-root.txt",
-      "type": "artifact",
-      "layer": "APIs",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "توفير الواجهات البرمجية والمسارات الداخلية والخارجية.",
-      "inputs": [
-        "HTTP requests"
-      ],
-      "outputs": [
-        "HTTP responses"
-      ],
-      "dependencies": [
-        "Runtime",
-        "Security"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/authority/use_api_runtime-root.txt"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/authority/use_api_runtime-root.txt"
-      }
-    },
-    {
-      "id": "auto-registration-feacf2d5a436",
-      "name": "sheikha-auto-registration",
-      "version": "package-1.0.51",
-      "path": "runtime/auto-registration/sheikha-auto-registration.js",
-      "type": "code",
-      "layer": "Runtime",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [
-        "tests/sheikha-auto-registration-v1.test.js"
-      ],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/auto-registration/sheikha-auto-registration.js"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/auto-registration/sheikha-auto-registration.js"
-      }
-    },
-    {
-      "id": "autonomous-enterprise-fabric-799047570a12",
-      "name": "sheikha-autonomous-enterprise-fabric-v1",
-      "version": "v1",
-      "path": "runtime/autonomous-enterprise-fabric/v1/sheikha-autonomous-enterprise-fabric-v1.js",
-      "type": "code",
-      "layer": "Enterprise",
-      "status": "evidence-present",
-      "lifecycle": "ACTIVE",
-      "responsibility": "تنظيم المنصة المؤسسية والطبقات التشغيلية العليا.",
-      "inputs": [
-        "capabilities",
-        "registries"
-      ],
-      "outputs": [
-        "enterprise status",
-        "integration decisions"
-      ],
-      "dependencies": [
-        "Governance",
-        "Runtime",
-        "Knowledge"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/autonomous-enterprise-fabric/v1/sheikha-autonomous-enterprise-fabric-v1.js"
-      },
-      "maturity": "measured",
-      "operationStatus": "evidence-present",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/autonomous-enterprise-fabric/v1/sheikha-autonomous-enterprise-fabric-v1.js"
-      }
-    },
-    {
-      "id": "autonomous-execution-bridge-ed7663d49429",
-      "name": "sheikha-autonomous-execution-bridge-v1",
-      "version": "v1",
-      "path": "runtime/autonomous-execution-bridge/v1/sheikha-autonomous-execution-bridge-v1.js",
-      "type": "code",
-      "layer": "Runtime",
-      "status": "evidence-present",
-      "lifecycle": "ACTIVE",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/autonomous-execution-bridge/v1/sheikha-autonomous-execution-bridge-v1.js"
-      },
-      "maturity": "measured",
-      "operationStatus": "evidence-present",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/autonomous-execution-bridge/v1/sheikha-autonomous-execution-bridge-v1.js"
-      }
-    },
-    {
-      "id": "autonomous-improvement-fabric-13b1618c3ea5",
-      "name": "sheikha-autonomous-improvement-fabric-v87",
-      "version": "v87",
-      "path": "runtime/autonomous-improvement-fabric/v87/sheikha-autonomous-improvement-fabric-v87.js",
-      "type": "code",
-      "layer": "Runtime",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/autonomous-improvement-fabric/v87/sheikha-autonomous-improvement-fabric-v87.js"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/autonomous-improvement-fabric/v87/sheikha-autonomous-improvement-fabric-v87.js"
-      }
-    },
-    {
-      "id": "autonomous-runtime-coordination-a18be68111b7",
-      "name": "sheikha-autonomous-runtime-coordination",
-      "version": "package-1.0.51",
-      "path": "runtime/autonomous-runtime-coordination/sheikha-autonomous-runtime-coordination.json",
-      "type": "data-contract",
-      "layer": "Runtime",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/autonomous-runtime-coordination/sheikha-autonomous-runtime-coordination.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/autonomous-runtime-coordination/sheikha-autonomous-runtime-coordination.json"
-      }
-    },
-    {
-      "id": "autonomous-service-mesh-fabric-c1a41a6fa918",
-      "name": "sheikha-autonomous-service-mesh-fabric-v115",
-      "version": "v115",
-      "path": "runtime/autonomous-service-mesh-fabric/v115/sheikha-autonomous-service-mesh-fabric-v115.js",
-      "type": "code",
-      "layer": "Runtime",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/autonomous-service-mesh-fabric/v115/sheikha-autonomous-service-mesh-fabric-v115.js"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/autonomous-service-mesh-fabric/v115/sheikha-autonomous-service-mesh-fabric-v115.js"
-      }
-    },
-    {
-      "id": "backend-registry-intelligence-0dafba96c84c",
-      "name": "sheikha-backend-registry-intelligence-v1",
-      "version": "v1",
-      "path": "runtime/backend-registry-intelligence/sheikha-backend-registry-intelligence-v1.js",
-      "type": "registry",
-      "layer": "Registry",
-      "status": "requires-catalog-link",
-      "lifecycle": "NEEDS_LINKING",
-      "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية.",
-      "inputs": [
-        "component evidence"
-      ],
-      "outputs": [
-        "registry entries"
-      ],
-      "dependencies": [
-        "Knowledge",
-        "Governance"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/backend-registry-intelligence/sheikha-backend-registry-intelligence-v1.js"
-      },
-      "maturity": "implemented-needs-registry-link",
-      "operationStatus": "requires-catalog-link",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/backend-registry-intelligence/sheikha-backend-registry-intelligence-v1.js"
-      }
-    },
-    {
-      "id": "runtime-consolidation-backlog-33044c7bd043",
-      "name": "runtime-consolidation-backlog",
-      "version": "package-1.0.51",
-      "path": "runtime/backlog/runtime-consolidation-backlog.json",
-      "type": "data-contract",
-      "layer": "Runtime",
-      "status": "discovered-not-claimed-production",
-      "lifecycle": "NEEDS_DEVELOPMENT",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/backlog/runtime-consolidation-backlog.json"
-      },
-      "maturity": "discovered",
-      "operationStatus": "discovered-not-claimed-production",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/backlog/runtime-consolidation-backlog.json"
-      }
-    },
-    {
-      "id": "artifact-sha256-txt-d0c265e31f8b",
-      "name": "artifact-sha256",
-      "version": "v1",
-      "path": "runtime/bare-metal/v1/evidence/artifact-sha256.txt",
-      "type": "artifact",
-      "layer": "Runtime",
-      "status": "evidence-present",
-      "lifecycle": "ACTIVE",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/bare-metal/v1/evidence/artifact-sha256.txt"
-      },
-      "maturity": "measured",
-      "operationStatus": "evidence-present",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/bare-metal/v1/evidence/artifact-sha256.txt"
-      }
-    },
-    {
-      "id": "boot-verification-c9869bb2f07b",
-      "name": "boot-verification",
-      "version": "v1",
-      "path": "runtime/bare-metal/v1/evidence/boot-verification.json",
-      "type": "data-contract",
-      "layer": "Runtime",
-      "status": "evidence-present",
-      "lifecycle": "ACTIVE",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/bare-metal/v1/evidence/boot-verification.json"
-      },
-      "maturity": "measured",
-      "operationStatus": "evidence-present",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/bare-metal/v1/evidence/boot-verification.json"
-      }
-    },
-    {
-      "id": "build-report-d186c97eecf0",
-      "name": "build-report",
-      "version": "v1",
-      "path": "runtime/bare-metal/v1/evidence/build-report.json",
-      "type": "report",
-      "layer": "Runtime",
-      "status": "evidence-present",
-      "lifecycle": "ACTIVE",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [
-        "runtime/bare-metal/v1/evidence/build-report.json"
-      ],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/bare-metal/v1/evidence/build-report.json"
-      },
-      "maturity": "measured",
-      "operationStatus": "evidence-present",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/bare-metal/v1/evidence/build-report.json"
-      }
-    },
-    {
-      "id": "qemu-command-txt-03b2bec85b79",
-      "name": "qemu-command",
-      "version": "v1",
-      "path": "runtime/bare-metal/v1/evidence/qemu-command.txt",
-      "type": "artifact",
-      "layer": "Runtime",
-      "status": "evidence-present",
-      "lifecycle": "ACTIVE",
-      "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2.",
-      "inputs": [
-        "requests",
-        "jobs",
-        "events"
-      ],
-      "outputs": [
-        "responses",
-        "reports",
-        "logs"
-      ],
-      "dependencies": [
-        "OS",
-        "Cloud"
-      ],
-      "tests": [],
-      "reports": [],
-      "apis": [],
-      "runtime": {
-        "present": true,
-        "pm2Managed": false,
-        "evidence": "runtime/bare-metal/v1/evidence/qemu-command.txt"
-      },
-      "maturity": "measured",
-      "operationStatus": "evidence-present",
-      "evidence": {
-        "source": "local-repository-discovery",
-        "githubRequired": false,
-        "path": "runtime/bare-metal/v1/evidence/qemu-command.txt"
       }
     }
   ]

@@ -52,6 +52,9 @@ const cloudProductionDeploymentApex = require(
 const distributionReleaseApex = require(
   '../../runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1'
 );
+const universalDeliveryV2 = require(
+  '../../runtime/distribution/v2/sheikha-universal-delivery-v2-status'
+);
 const publicBenefitCapabilityRouter = require(
   '../../runtime/governance-generator/v1/sheikha-public-benefit-capability-router-v1'
 );
@@ -211,6 +214,7 @@ function collectEnterpriseInspector(input = {}) {
   const extensionStreamingArtifactApexStatus = extensionStreamingArtifactApex.status();
   const cloudProductionDeploymentApexStatus = cloudProductionDeploymentApex.status();
   const distributionReleaseApexStatus = distributionReleaseApex.status();
+  const universalDeliveryV2Status = universalDeliveryV2.status();
   const publicBenefitCapabilityRouterStatus = publicBenefitCapabilityRouter.status();
 
   const changedFiles = String(controlTower.git.status || '')
@@ -254,6 +258,7 @@ function collectEnterpriseInspector(input = {}) {
       extensionStreamingArtifactApex: extensionStreamingArtifactApexStatus.status,
       cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus.status,
       distributionReleaseApex: distributionReleaseApexStatus.status,
+      universalDeliveryV2: universalDeliveryV2Status.status,
       publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus.status,
       nativeLanguageArchitecture: nativeLanguageArchitecture.status,
       extension: extension.status,
@@ -316,6 +321,9 @@ function collectEnterpriseInspector(input = {}) {
       distributionReleaseApex: '/api/sheikha/distribution-apex/v1/status',
       distributionReleaseMatrix: '/api/sheikha/distribution-apex/v1/matrix',
       distributionReleaseIndex: '/api/sheikha/distribution-apex/v1/release-index',
+      universalDeliveryV2: '/api/sheikha/distribution-apex/v2/status',
+      universalDeliveryV2Matrix: '/api/sheikha/distribution-apex/v2/matrix',
+      universalDeliveryV2ReleaseIndex: '/api/sheikha/distribution-apex/v2/release-index',
       publicBenefitPolicy: '/api/governance/generator/public-benefit-policy',
       publicBenefitCoverage: '/api/governance/generator/public-benefit/coverage',
       publicBenefitEvaluation: '/api/governance/generator/public-benefit/evaluate',
@@ -338,6 +346,7 @@ function collectEnterpriseInspector(input = {}) {
         'Streaming Multilingual Chat Apex',
         'Cloud Production Deployment Apex',
         'Universal Distribution Release Apex',
+        'Universal Delivery and Installer Fabric V2',
         'Public Benefit Capability Router',
         'Native Sheikha Language Architecture Foundation',
         'Technical Capability Apex',
@@ -414,6 +423,7 @@ function collectEnterpriseInspector(input = {}) {
     streamingChatApex: streamingChatApexStatus,
     cloudProductionDeploymentApex: cloudProductionDeploymentApexStatus,
     distributionReleaseApex: distributionReleaseApexStatus,
+    universalDeliveryV2: universalDeliveryV2Status,
     publicBenefitCapabilityRouter: publicBenefitCapabilityRouterStatus,
     nativeLanguageArchitecture,
     technicalCapabilityApex: technicalCapabilityApexStatus,

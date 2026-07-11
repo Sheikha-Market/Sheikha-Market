@@ -1,0 +1,21 @@
+{
+  "system": "SHEIKHA_CLI_DISTRIBUTION_ADAPTER_V2",
+  "targetId": "linux-cli-x86_64",
+  "launcher": "bin/sheikha",
+  "launcherExists": true,
+  "launcherExecutable": true,
+  "runtimePayload": "external-node-runtime",
+  "configuration": "external-environment-and-config-files",
+  "licenses": [],
+  "manifests": [
+    "package.json",
+    "distribution-manifest.json"
+  ],
+  "checksumsRequired": true,
+  "requiresExternalNodeRuntime": true,
+  "standalone": false,
+  "declaredNodeVersions": "^20.0.0 || ^22.0.0 || ^25.0.0",
+  "nativeExecutable": false,
+  "nativeArchitectureClaimAllowed": false,
+  "limitation": "The CLI launcher is JavaScript and requires a compatible external Node.js runtime."
+}

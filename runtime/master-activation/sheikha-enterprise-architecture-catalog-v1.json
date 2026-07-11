@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-  "generatedAt": "2026-07-11T00:56:40.169Z",
+  "generatedAt": "2026-07-11T14:38:00.547Z",
   "source": "local-repository-discovery",
   "githubRequired": false,
   "roots": [
@@ -1419,7 +1419,7 @@
     },
     {
       "root": "distribution",
-      "files": 13,
+      "files": 27,
       "classification": "repository-artifact"
     },
     {
@@ -2154,7 +2154,7 @@
     },
     {
       "root": "runtime",
-      "files": 1971,
+      "files": 2008,
       "classification": "repository-artifact"
     },
     {
@@ -2809,7 +2809,7 @@
     },
     {
       "root": "sheikha-vscode-extension",
-      "files": 93,
+      "files": 96,
       "classification": "repository-artifact"
     },
     {
@@ -2974,7 +2974,7 @@
     },
     {
       "root": "tests",
-      "files": 339,
+      "files": 340,
       "classification": "repository-artifact"
     },
     {
@@ -3291,7 +3291,7 @@
       "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
     },
     "Documentation": {
-      "components": 3138,
+      "components": 3153,
       "dependencies": [
         "Knowledge",
         "Registry"
@@ -3317,7 +3317,7 @@
       "responsibility": "تجميع الرؤية والأهداف والمخاطر والقرارات التنفيذية."
     },
     "Governance": {
-      "components": 525,
+      "components": 526,
       "dependencies": [
         "Runtime",
         "Security"
@@ -3325,7 +3325,7 @@
       "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
     },
     "Health": {
-      "components": 73,
+      "components": 75,
       "dependencies": [
         "Runtime",
         "Monitoring"
@@ -3341,7 +3341,7 @@
       "responsibility": "توحيد هوية شيخة التشغيلية والبصرية والمؤسسية وربطها بالحوكمة."
     },
     "Inspector": {
-      "components": 16,
+      "components": 17,
       "dependencies": [
         "Runtime",
         "Knowledge"
@@ -3407,7 +3407,7 @@
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     "Runtime": {
-      "components": 1261,
+      "components": 1297,
       "dependencies": [
         "OS",
         "Cloud"
@@ -3468,7 +3468,8 @@
   "bareMetalBootImagePath": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
   "computingCognitiveLayersPath": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
   "computingCognitiveLayersHandbookPath": "docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md",
-  "distributionReportPath": "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json",
+  "distributionReportPath": "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json",
+  "distributionV1ReportPath": "runtime/distribution/v1/sheikha-universal-distribution-v1-report.json",
   "distributionApexReportPath": "runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json",
   "governanceGeneratorReportPath": "runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json",
   "publicBenefitPolicyPath": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
@@ -3481,7 +3482,8 @@
   "arabicSemanticEncodingPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-v1-report.json",
   "arabicSemanticEncodingSpecificationPath": "runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json",
   "arabicSemanticEncodingHandbookPath": "docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md",
-  "distributionMatrixPath": "distribution/manifest/sheikha-release-matrix-v1.json",
+  "distributionMatrixPath": "distribution/manifest/sheikha-target-matrix-v2.json",
+  "distributionV1MatrixPath": "distribution/manifest/sheikha-release-matrix-v1.json",
   "distributionHandbookPath": "distribution/README.md",
   "distributionBareMetalLinkPath": "distribution/manifest/sheikha-bare-metal-distribution-link-v1.json",
   "universalTechnologyHpcFabricPath": "runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json",
@@ -3494,7 +3496,7 @@
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "layerEdges": 59,
-    "componentEdges": 15079
+    "componentEdges": 15189
   },
   "duplicateAnalysis": {
     "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
@@ -3505,30 +3507,30 @@
     "policy": "REPORT_ONLY_NO_DELETION"
   },
   "executiveCounts": {
-    "systems": 435,
+    "systems": 437,
     "engines": 793,
     "layers": 25,
-    "apis": 2710,
-    "services": 0,
-    "tests": 350,
+    "apis": 2713,
+    "services": 8,
+    "tests": 352,
     "docs": 1074,
     "sdks": 80,
     "registries": 371,
-    "runtimeEngines": 1261,
+    "runtimeEngines": 1297,
     "identityEngines": 95,
-    "governanceEngines": 525,
+    "governanceEngines": 526,
     "knowledgeEngines": 204,
     "communityEngines": 18,
     "commerceEngines": 73,
     "enterpriseEngines": 184,
-    "aiEngines": 386,
+    "aiEngines": 389,
     "monitoringEngines": 43,
     "securityEngines": 82,
     "dashboards": 71,
-    "pipelines": 58,
+    "pipelines": 59,
     "automationEngines": 385,
     "integrations": 346,
-    "packageScripts": 666,
+    "packageScripts": 674,
     "duplicateGroups": 1209,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
@@ -3556,8 +3558,8 @@
     "distributionTargetsVerified": 1,
     "distributionTargetsNativeVerified": 1,
     "distributionReleaseApexLevel": 27,
-    "publicBenefitRegisteredCapabilities": 7185,
-    "publicBenefitActiveCapabilities": 856,
+    "publicBenefitRegisteredCapabilities": 7240,
+    "publicBenefitActiveCapabilities": 893,
     "universalBenefitCapabilities": 16,
     "universalBenefitBoundaries": 18,
     "universalBenefitDomains": 16,

@@ -79,11 +79,16 @@ describe('Sheikha Universal Distribution Release Apex V1', () => {
     const sdk = read('sdk/sheikha-api/index.js');
     const inspector = read('core/enterprise/sheikha-enterprise-inspector-v3.js');
 
-    expect(route.match(/router\.get\(/g)).toHaveLength(3);
+    expect(route.match(/router\.get\(/g)).toHaveLength(6);
+    expect(route).toContain('/api/sheikha/distribution-apex/v2/status');
+    expect(route).toContain('/api/sheikha/distribution-apex/v2/matrix');
+    expect(route).toContain('/api/sheikha/distribution-apex/v2/release-index');
     expect(route).not.toContain('router.post(');
     expect(server).toContain("require('./routes/distribution-apex/sheikha-universal-distribution-apex-routes')");
     expect(sdk).toContain('client.distribution');
+    expect(sdk).toContain('client.delivery');
     expect(inspector).toContain('distributionReleaseApexStatus');
+    expect(inspector).toContain('universalDeliveryV2Status');
   });
 
   test('writes a complete activation report only when all boundaries pass', () => {

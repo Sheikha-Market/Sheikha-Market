@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_PRODUCT_FORMAT_COMPATIBILITY_V2",
+  "sourceMatrix": "distribution/manifest/sheikha-target-matrix-v2.json",
+  "rules": [
+    {
+      "product": "sheikha-cli",
+      "formats": ["tar.gz", "zip"],
+      "allowed": true,
+      "conditions": ["launcher and external runtime requirements are declared"]
+    },
+    {
+      "product": "sheikha-server-runtime",
+      "formats": ["tar.gz", "zip", "deb", "rpm", "snap"],
+      "allowed": true,
+      "conditions": ["target architecture and package structure are inspected"]
+    },
+    {
+      "product": "sheikha-desktop",
+      "formats": ["exe", "dmg"],
+      "allowed": false,
+      "conditions": ["blocked until an executable desktop runtime exists"]
+    },
+    {
+      "product": "sheikha-vscode-extension",
+      "formats": ["vsix"],
+      "allowed": true,
+      "conditions": ["extension manifest version and archive structure are inspected"]
+    },
+    {
+      "product": "sheikha-bare-metal-seed",
+      "formats": ["efi", "img"],
+      "allowed": true,
+      "conditions": ["PE architecture, FAT image, checksums, and boot evidence are inspected"]
+    }
+  ],
+  "prohibitedFabrication": [
+    "Windows EXE without a desktop runtime and Windows-native installer evidence",
+    "macOS DMG without a desktop runtime and macOS-native image evidence",
+    "Universal 2 claim without x86_64 and arm64 Mach-O slices",
+    "standalone claim while an external Node.js runtime is required"
+  ]
+}

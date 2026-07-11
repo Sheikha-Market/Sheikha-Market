@@ -1,0 +1,22 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_UPDATE_AND_ROLLBACK_POLICY_V2",
+  "updates": {
+    "automaticExternalFetch": false,
+    "checksumRequired": true,
+    "releaseIndexRequired": true,
+    "rollbackManifestRequired": true,
+    "deltaUpdateImplemented": false,
+    "deltaUpdateReadiness": "DECLARED_ONLY"
+  },
+  "offline": {
+    "localReleaseTreeSelfDescribing": true,
+    "runtimeDependenciesBundled": false,
+    "limitation": "CLI and server packages require a compatible external Node.js runtime; server dependencies are installed separately."
+  },
+  "rollback": {
+    "silentOverwriteAllowed": false,
+    "previousReleaseMustRemainImmutable": true,
+    "humanApprovalRequired": true
+  }
+}

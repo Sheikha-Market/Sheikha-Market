@@ -41,6 +41,10 @@ function buildReport() {
     governedIntelligenceLoop: exists('runtime/governed-intelligence-execution-loop/v1/sheikha-governed-intelligence-execution-loop-v1-report.json'),
     multiAgentFabric: exists('runtime/multi-agent-federation-fabric/v88/sheikha-multi-agent-federation-fabric-v88.js'),
     executionPipeline: exists('runtime/execution/sheikha-execution-pipeline-v1.js'),
+    universalDeliveryV2: exists('runtime/distribution/v2/sheikha-universal-delivery-v2-report.json') &&
+      model.distributionIntegration.system ===
+        'SHEIKHA_UNIVERSAL_DELIVERY_DISTRIBUTION_INSTALLER_FABRIC_V2' &&
+      model.distributionIntegration.architecturalReadinessSeparatedFromArtifactVerification === true,
     promotedToL24: model.apexLevel === 24 &&
       model.level === 'L24_HIGHEST_GOVERNED_COMPUTING_COGNITIVE_APEX_LAYER',
     highestExecutableTechnicalLayer:
@@ -103,7 +107,8 @@ function buildReport() {
       cognitivePipeline: 'REUSED',
       governedIntelligenceLoop: 'EXTENDED',
       multiAgentFabric: 'REUSED',
-      executionPipeline: 'EXTENDED'
+      executionPipeline: 'EXTENDED',
+      universalDeliveryV2: 'EVIDENCE_CONSUMER_LINKED'
     },
     outputs: {
       report: reportPath,
