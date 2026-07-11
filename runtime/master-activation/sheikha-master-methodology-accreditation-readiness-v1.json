@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-  "generatedAt": "2026-07-11T00:56:39.592Z",
+  "generatedAt": "2026-07-11T14:38:00.074Z",
   "policy": {
     "internalAttestationsAllowed": true,
     "externalAccreditationIssuedBySheikha": false,
@@ -9,7 +9,7 @@
     "githubRequired": false
   },
   "repositoryEvidence": {
-    "components": 7185,
+    "components": 7240,
     "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
     "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
     "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -448,7 +448,7 @@
         "dist/sheikha-app/opt/sheikha/lib/sheikha-islamic-digital-healthcare.js",
         "dist/sheikha-app/opt/sheikha/lib/sheikha-readiness-compliance-engine.js",
         "dist/sheikha-app/opt/sheikha/lib/universal-sovereign-test.js",
-        "docs/architecture/03-QUALITY-METHODOLOGY.md"
+        "distribution/adapters/macos/macos-readiness-adapter-v2.js"
       ],
       "status": "ACTIVE_EVIDENCE_PRESENT",
       "maturity": "cataloged"
@@ -569,7 +569,7 @@
       "title": "Internal runtime verification accreditation",
       "status": "ISSUED_INTERNAL",
       "legalExternalAuthority": false,
-      "score": 60,
+      "score": 100,
       "evidence": [
         "PM2 snapshot",
         "ports snapshot",

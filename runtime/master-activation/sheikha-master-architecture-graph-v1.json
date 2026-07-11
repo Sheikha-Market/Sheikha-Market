@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-11T00:56:38.834Z",
+  "generatedAt": "2026-07-11T14:37:59.392Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3138,
+      "components": 3153,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -71,13 +71,13 @@
     {
       "id": "Governance",
       "type": "layer",
-      "components": 525,
+      "components": 526,
       "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار."
     },
     {
       "id": "Health",
       "type": "layer",
-      "components": 73,
+      "components": 75,
       "responsibility": "فحص الصحة، الجاهزية، والمؤشرات التشغيلية."
     },
     {
@@ -89,7 +89,7 @@
     {
       "id": "Inspector",
       "type": "layer",
-      "components": 16,
+      "components": 17,
       "responsibility": "الفحص العام والفرعي، كشف التعارض، وتجميع الأدلة."
     },
     {
@@ -137,7 +137,7 @@
     {
       "id": "Runtime",
       "type": "layer",
-      "components": 1261,
+      "components": 1297,
       "responsibility": "تشغيل الخدمات والمحركات والمهام والواجهات في بيئة Node/PM2."
     },
     {
@@ -19292,6 +19292,90 @@
       "type": "component-to-layer"
     },
     {
+      "from": "bare-metal-artifact-adapter-8b21f3d54666",
+      "fromPath": "distribution/adapters/bare-metal/bare-metal-artifact-adapter-v2.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "bare-metal-artifact-adapter-8b21f3d54666",
+      "fromPath": "distribution/adapters/bare-metal/bare-metal-artifact-adapter-v2.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "cli-distribution-adapter-beaf6b64a584",
+      "fromPath": "distribution/adapters/cli/sheikha-cli-distribution-adapter-v2.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "cli-distribution-adapter-beaf6b64a584",
+      "fromPath": "distribution/adapters/cli/sheikha-cli-distribution-adapter-v2.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "index-31c345e31a9d",
+      "fromPath": "distribution/adapters/index.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "index-31c345e31a9d",
+      "fromPath": "distribution/adapters/index.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-bridge-adapter-dc696508e960",
+      "fromPath": "distribution/adapters/linux/linux-v1-bridge-adapter-v2.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-bridge-adapter-dc696508e960",
+      "fromPath": "distribution/adapters/linux/linux-v1-bridge-adapter-v2.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-readiness-adapter-781baffb20cf",
+      "fromPath": "distribution/adapters/macos/macos-readiness-adapter-v2.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-readiness-adapter-781baffb20cf",
+      "fromPath": "distribution/adapters/macos/macos-readiness-adapter-v2.js",
+      "to": "Monitoring",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "vscode-extension-adapter-2e04fb1dbf4e",
+      "fromPath": "distribution/adapters/vscode/vscode-extension-adapter-v2.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "vscode-extension-adapter-2e04fb1dbf4e",
+      "fromPath": "distribution/adapters/vscode/vscode-extension-adapter-v2.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-installer-adapter-183189975e9e",
+      "fromPath": "distribution/adapters/windows/windows-installer-adapter-v2.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-installer-adapter-183189975e9e",
+      "fromPath": "distribution/adapters/windows/windows-installer-adapter-v2.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "distribution-utils-0f0d6c68d5fd",
       "fromPath": "distribution/common/distribution-utils.js",
       "to": "Knowledge",
@@ -19376,6 +19460,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "format-compatibility-d159e31ce681",
+      "fromPath": "distribution/manifest/sheikha-format-compatibility-v2.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "format-compatibility-d159e31ce681",
+      "fromPath": "distribution/manifest/sheikha-format-compatibility-v2.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "product-manifest-222ab55465ab",
       "fromPath": "distribution/manifest/sheikha-product-manifest-v1.json",
       "to": "Knowledge",
@@ -19384,6 +19480,30 @@
     {
       "from": "product-manifest-222ab55465ab",
       "fromPath": "distribution/manifest/sheikha-product-manifest-v1.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "products-8774cd445a64",
+      "fromPath": "distribution/manifest/sheikha-products-v2.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "products-8774cd445a64",
+      "fromPath": "distribution/manifest/sheikha-products-v2.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-channels-57169554eac8",
+      "fromPath": "distribution/manifest/sheikha-release-channels-v2.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-channels-57169554eac8",
+      "fromPath": "distribution/manifest/sheikha-release-channels-v2.json",
       "to": "Registry",
       "type": "component-to-layer"
     },
@@ -19400,6 +19520,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "target-matrix-dae36d994d15",
+      "fromPath": "distribution/manifest/sheikha-target-matrix-v2.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "target-matrix-dae36d994d15",
+      "fromPath": "distribution/manifest/sheikha-target-matrix-v2.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "update-channels-62edfe3ee2fb",
       "fromPath": "distribution/manifest/sheikha-update-channels-v1.json",
       "to": "Knowledge",
@@ -19412,6 +19544,30 @@
       "type": "component-to-layer"
     },
     {
+      "from": "update-policy-54acebd97b9f",
+      "fromPath": "distribution/manifest/sheikha-update-policy-v2.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "update-policy-54acebd97b9f",
+      "fromPath": "distribution/manifest/sheikha-update-policy-v2.json",
+      "to": "Security",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-4bd7b286cd7c",
+      "fromPath": "distribution/pipeline/sheikha-universal-delivery-v2.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-4bd7b286cd7c",
+      "fromPath": "distribution/pipeline/sheikha-universal-delivery-v2.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "release-matrix-schema-755fbc9c538a",
       "fromPath": "distribution/schemas/sheikha-release-matrix-v1.schema.json",
       "to": "Knowledge",
@@ -19420,6 +19576,18 @@
     {
       "from": "release-matrix-schema-755fbc9c538a",
       "fromPath": "distribution/schemas/sheikha-release-matrix-v1.schema.json",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "target-matrix-schema-fc980aed1580",
+      "fromPath": "distribution/schemas/sheikha-target-matrix-v2.schema.json",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "target-matrix-schema-fc980aed1580",
+      "fromPath": "distribution/schemas/sheikha-target-matrix-v2.schema.json",
       "to": "Registry",
       "type": "component-to-layer"
     },
@@ -54056,6 +54224,450 @@
       "type": "component-to-layer"
     },
     {
+      "from": "matrix-validation-58e375d18b0b",
+      "fromPath": "runtime/distribution/v2/evidence/matrix-validation-v2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "matrix-validation-58e375d18b0b",
+      "fromPath": "runtime/distribution/v2/evidence/matrix-validation-v2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-tree-verification-ac49a32edf47",
+      "fromPath": "runtime/distribution/v2/evidence/release-tree-verification-v2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "release-tree-verification-ac49a32edf47",
+      "fromPath": "runtime/distribution/v2/evidence/release-tree-verification-v2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-aarch64-8aacc30affe2",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-cli-aarch64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-aarch64-8aacc30affe2",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-cli-aarch64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-armv7-d3504522a004",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-cli-armv7.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-armv7-d3504522a004",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-cli-armv7.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-x86-64-3d6a4e3539cc",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-cli-x86_64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-cli-x86-64-3d6a4e3539cc",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-cli-x86_64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-amd64-199b579e3a96",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-deb-amd64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-amd64-199b579e3a96",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-deb-amd64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-arm64-fbecba5f81dc",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-deb-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-arm64-fbecba5f81dc",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-deb-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-armhf-57e7d39cd568",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-deb-armhf.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-deb-armhf-57e7d39cd568",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-deb-armhf.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-rpm-aarch64-30187ceb0016",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-rpm-aarch64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-rpm-aarch64-30187ceb0016",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-rpm-aarch64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-rpm-armv7hl-c282b627f799",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-rpm-armv7hl.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-rpm-armv7hl-c282b627f799",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-rpm-armv7hl.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-rpm-x86-64-61a2c11eb2b6",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-rpm-x86_64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-rpm-x86-64-61a2c11eb2b6",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-rpm-x86_64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-snap-amd64-5ea8938a207c",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-snap-amd64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-snap-amd64-5ea8938a207c",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-snap-amd64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-snap-arm64-0e5e78ea461d",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-snap-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-snap-arm64-0e5e78ea461d",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-snap-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-snap-armhf-837d4a55de6a",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-snap-armhf.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-snap-armhf-837d4a55de6a",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-snap-armhf.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-aarch64-7dff6ae9ee5c",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-tar-aarch64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-aarch64-7dff6ae9ee5c",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-tar-aarch64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-armv7-e7016a1342b4",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-tar-armv7.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-armv7-e7016a1342b4",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-tar-armv7.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-x86-64-bcf349958db6",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-tar-x86_64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "linux-tar-x86-64-bcf349958db6",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/linux-tar-x86_64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-cli-arm64-eea5ad50a65a",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-cli-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-cli-arm64-eea5ad50a65a",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-cli-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-cli-universal2-8e01cee06bc5",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-cli-universal2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-cli-universal2-8e01cee06bc5",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-cli-universal2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-cli-x86-64-f973be9bffc5",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-cli-x86_64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-cli-x86-64-f973be9bffc5",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-cli-x86_64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-dmg-universal2-7f7860ac9f80",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-dmg-universal2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "macos-dmg-universal2-7f7860ac9f80",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/macos-dmg-universal2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-cli-arm64-ea87f61180fa",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-cli-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-cli-arm64-ea87f61180fa",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-cli-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-cli-x64-67f6f5e2d141",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-cli-x64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-cli-x64-67f6f5e2d141",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-cli-x64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-portable-arm64-8980c584c066",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-portable-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-portable-arm64-8980c584c066",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-portable-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-portable-x64-677d007dd1e3",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-portable-x64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-portable-x64-677d007dd1e3",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-portable-x64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-system-installer-arm64-d0f4c38a832b",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-system-installer-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-system-installer-arm64-d0f4c38a832b",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-system-installer-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-system-installer-x64-274f8ff36aad",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-system-installer-x64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-system-installer-x64-274f8ff36aad",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-system-installer-x64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-user-installer-arm64-a26d420a90bf",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-user-installer-arm64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-user-installer-arm64-a26d420a90bf",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-user-installer-arm64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-user-installer-x64-d0dab53afdda",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-user-installer-x64.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "windows-user-installer-x64-d0dab53afdda",
+      "fromPath": "runtime/distribution/v2/evidence/target-plans/windows-user-installer-x64.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "artifact-inventory-8769a970cca2",
+      "fromPath": "runtime/distribution/v2/sheikha-artifact-inventory-v2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "artifact-inventory-8769a970cca2",
+      "fromPath": "runtime/distribution/v2/sheikha-artifact-inventory-v2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-verification-186bede518ae",
+      "fromPath": "runtime/distribution/v2/sheikha-native-verification-v2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "native-verification-186bede518ae",
+      "fromPath": "runtime/distribution/v2/sheikha-native-verification-v2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "product-matrix-report-3ca677cfa3a1",
+      "fromPath": "runtime/distribution/v2/sheikha-product-matrix-v2-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "product-matrix-report-3ca677cfa3a1",
+      "fromPath": "runtime/distribution/v2/sheikha-product-matrix-v2-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "signing-readiness-2e6611d3a2e0",
+      "fromPath": "runtime/distribution/v2/sheikha-signing-readiness-v2.json",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "signing-readiness-2e6611d3a2e0",
+      "fromPath": "runtime/distribution/v2/sheikha-signing-readiness-v2.json",
+      "to": "Monitoring",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "supply-chain-integrity-e40d078c9f18",
+      "fromPath": "runtime/distribution/v2/sheikha-supply-chain-integrity-v2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "supply-chain-integrity-e40d078c9f18",
+      "fromPath": "runtime/distribution/v2/sheikha-supply-chain-integrity-v2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "toolchain-inspection-eea4fd0f63fd",
+      "fromPath": "runtime/distribution/v2/sheikha-toolchain-inspection-v2.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "toolchain-inspection-eea4fd0f63fd",
+      "fromPath": "runtime/distribution/v2/sheikha-toolchain-inspection-v2.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-report-1b541dbb5d96",
+      "fromPath": "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-report-1b541dbb5d96",
+      "fromPath": "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-status-77cb15b7f400",
+      "fromPath": "runtime/distribution/v2/sheikha-universal-delivery-v2-status.js",
+      "to": "OS",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-status-77cb15b7f400",
+      "fromPath": "runtime/distribution/v2/sheikha-universal-delivery-v2-status.js",
+      "to": "Cloud",
+      "type": "component-to-layer"
+    },
+    {
       "from": "domain-registry-de3f766845aa",
       "fromPath": "runtime/domains/domain-registry.json",
       "to": "Knowledge",
@@ -80378,6 +80990,30 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sheikhachattemplate-c460bd391a04",
+      "fromPath": "sheikha-vscode-extension/src/ui/sheikhaChatTemplate.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhachattemplate-c460bd391a04",
+      "fromPath": "sheikha-vscode-extension/src/ui/sheikhaChatTemplate.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhainspectortemplate-dccccb87caa4",
+      "fromPath": "sheikha-vscode-extension/src/ui/sheikhaInspectorTemplate.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhainspectortemplate-dccccb87caa4",
+      "fromPath": "sheikha-vscode-extension/src/ui/sheikhaInspectorTemplate.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
       "from": "vscodeawareness-c6ef600cf206",
       "fromPath": "sheikha-vscode-extension/src/vscodeAwareness.js",
       "to": "Knowledge",
@@ -80566,6 +81202,18 @@
     {
       "from": "integration-test-b9afd998caf2",
       "fromPath": "sheikha-vscode-extension/tests/integration.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhaadvancedtemplates-test-e954d4391a19",
+      "fromPath": "sheikha-vscode-extension/tests/sheikhaAdvancedTemplates.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhaadvancedtemplates-test-e954d4391a19",
+      "fromPath": "sheikha-vscode-extension/tests/sheikhaAdvancedTemplates.test.js",
       "to": "Registry",
       "type": "component-to-layer"
     },
@@ -84928,6 +85576,18 @@
     {
       "from": "universal-data-pipeline-fabric-test-a17e56a08023",
       "fromPath": "tests/sheikha-universal-data-pipeline-fabric-v1.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-test-ac23d3ea7f4e",
+      "fromPath": "tests/sheikha-universal-delivery-v2.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "universal-delivery-test-ac23d3ea7f4e",
+      "fromPath": "tests/sheikha-universal-delivery-v2.test.js",
       "to": "Registry",
       "type": "component-to-layer"
     },

@@ -182,7 +182,9 @@ describe('Sheikha Enterprise Inspector V3', () => {
   test('extension inspector and chat share an actionable governed flow', () => {
     const activation = read('sheikha-vscode-extension/src/extension.js');
     const inspector = read('sheikha-vscode-extension/src/sheikhaInspectorProvider.js');
+    const inspectorTemplate = read('sheikha-vscode-extension/src/ui/sheikhaInspectorTemplate.js');
     const chat = read('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
+    const chatTemplate = read('sheikha-vscode-extension/src/ui/sheikhaChatTemplate.js');
     const client = read('sheikha-vscode-extension/src/sheikhaExtensionChatClient.js');
     const extensionPackage = JSON.parse(read('sheikha-vscode-extension/package.json'));
 
@@ -195,9 +197,9 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(extensionPackage.activationEvents).toContain('onView:sheikha.inspectorView');
     expect(extensionPackage.activationEvents).not.toContain('onView:sheikha.chatview');
     expect(inspector).toContain('getEnterpriseInspectorStatus');
-    expect(inspector).toContain('حلل في الشات');
+    expect(inspectorTemplate).toContain('حلّل في الشات');
     expect(chat).toContain("command: 'prefill'");
-    expect(chat).toContain('حالة المنظومة');
+    expect(chatTemplate).toContain('حالة المنظومة');
     expect(client).toContain('SHEIKHA_ENTERPRISE_CHAT_GOVERNANCE_V1');
   });
 });

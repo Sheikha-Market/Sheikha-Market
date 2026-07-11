@@ -1,0 +1,147 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_DELIVERY_TOOLCHAIN_AND_DEPENDENCY_INSPECTOR_V2",
+  "status": "INSPECTED",
+  "generatedAt": "2026-07-11T14:35:05.165Z",
+  "host": {
+    "platform": "linux",
+    "architecture": "x86_64",
+    "node": "v25.6.1",
+    "release": "7.0.11-76070011-generic"
+  },
+  "tools": {
+    "node": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
+    "npm": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/npm",
+    "tar": "/usr/bin/tar",
+    "gzip": "/usr/bin/gzip",
+    "zip": "/usr/bin/zip",
+    "unzip": "/usr/bin/unzip",
+    "sha256sum": "/usr/bin/sha256sum",
+    "file": "/usr/bin/file",
+    "readelf": "/usr/bin/readelf",
+    "objdump": "/usr/bin/objdump",
+    "ar": "/usr/bin/ar",
+    "dpkg-deb": "/usr/bin/dpkg-deb",
+    "dpkg": "/usr/bin/dpkg",
+    "fakeroot": "/usr/bin/fakeroot",
+    "rpmbuild": null,
+    "rpm": null,
+    "snapcraft": null,
+    "syft": null,
+    "cyclonedx": null,
+    "cosign": null,
+    "lipo": null,
+    "hdiutil": null,
+    "codesign": null,
+    "productbuild": null,
+    "xcrun": null,
+    "osslsigncode": null,
+    "makensis": null,
+    "wix": null,
+    "wixl": null,
+    "signtool": null,
+    "qemu-system-x86_64": null,
+    "qemu-system-aarch64": null,
+    "rg": "/usr/bin/rg"
+  },
+  "available": [
+    "node",
+    "npm",
+    "tar",
+    "gzip",
+    "zip",
+    "unzip",
+    "sha256sum",
+    "file",
+    "readelf",
+    "objdump",
+    "ar",
+    "dpkg-deb",
+    "dpkg",
+    "fakeroot",
+    "rg"
+  ],
+  "missing": [
+    "rpmbuild",
+    "rpm",
+    "snapcraft",
+    "syft",
+    "cyclonedx",
+    "cosign",
+    "lipo",
+    "hdiutil",
+    "codesign",
+    "productbuild",
+    "xcrun",
+    "osslsigncode",
+    "makensis",
+    "wix",
+    "wixl",
+    "signtool",
+    "qemu-system-x86_64",
+    "qemu-system-aarch64"
+  ],
+  "npmProductionTree": {
+    "commandSucceeded": true,
+    "dependencyCount": 29,
+    "problems": [
+      "extraneous: gcp-metadata@7.0.1 /home/sheikha/Projects/sheikha/sheikha-main-portal/node_modules/gcp-metadata"
+    ]
+  },
+  "nativeDependencies": {
+    "packageLockVersion": 3,
+    "lockNativeCandidates": [
+      {
+        "location": "node_modules/fsevents",
+        "name": "fsevents",
+        "version": "2.3.3",
+        "hasInstallScript": true,
+        "gypfile": false,
+        "topLevelProductionDependency": false
+      },
+      {
+        "location": "node_modules/protobufjs",
+        "name": "protobufjs",
+        "version": "7.6.0",
+        "hasInstallScript": true,
+        "gypfile": false,
+        "topLevelProductionDependency": false
+      },
+      {
+        "location": "node_modules/unrs-resolver",
+        "name": "unrs-resolver",
+        "version": "1.12.2",
+        "hasInstallScript": true,
+        "gypfile": false,
+        "topLevelProductionDependency": false
+      }
+    ],
+    "trackedNativeSources": [],
+    "installedNativeAddons": [
+      {
+        "path": "node_modules/@unrs/resolver-binding-linux-x64-musl/resolver.linux-x64-musl.node",
+        "packageName": "@unrs/resolver-binding-linux-x64-musl",
+        "productionTopLevel": false,
+        "inspection": "node_modules/@unrs/resolver-binding-linux-x64-musl/resolver.linux-x64-musl.node: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, stripped"
+      },
+      {
+        "path": "node_modules/@unrs/resolver-binding-linux-x64-gnu/resolver.linux-x64-gnu.node",
+        "packageName": "@unrs/resolver-binding-linux-x64-gnu",
+        "productionTopLevel": false,
+        "inspection": "node_modules/@unrs/resolver-binding-linux-x64-gnu/resolver.linux-x64-gnu.node: ELF 64-bit LSB shared object, x86-64, version 1 (SYSV), dynamically linked, stripped"
+      }
+    ],
+    "productionTopLevelNativeAddons": [],
+    "conclusion": "NO_TOP_LEVEL_PRODUCTION_NATIVE_ADDON_DETECTED",
+    "caveat": "Transitive package install scripts remain target-specific and require package-native runner verification."
+  },
+  "constraints": {
+    "sudoUsed": false,
+    "packagesInstalled": false,
+    "nativeWindowsRunner": false,
+    "nativeMacosRunner": false,
+    "nativeLinuxRunner": true,
+    "externalPublishingConfigured": false,
+    "signingCredentialsLoaded": false
+  }
+}

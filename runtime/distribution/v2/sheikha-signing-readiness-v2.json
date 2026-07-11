@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_SIGNING_AND_NOTARIZATION_READINESS_V2",
+  "generatedAt": "2026-07-11T14:35:57.263Z",
+  "credentialsLoaded": false,
+  "signedCount": 0,
+  "notarizedCount": 0,
+  "signingRequiredTargets": [
+    "windows-user-installer-x64",
+    "windows-user-installer-arm64",
+    "windows-system-installer-x64",
+    "windows-system-installer-arm64",
+    "linux-snap-amd64",
+    "linux-snap-armhf",
+    "linux-snap-arm64",
+    "macos-dmg-universal2"
+  ],
+  "notarizationRequiredTargets": [
+    "macos-dmg-universal2",
+    "macos-cli-x86_64",
+    "macos-cli-arm64",
+    "macos-cli-universal2"
+  ],
+  "automaticSigning": false,
+  "automaticNotarization": false
+}

@@ -1,0 +1,28 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_SUPPLY_CHAIN_INTEGRITY_V2",
+  "generatedAt": "2026-07-11T14:35:57.263Z",
+  "status": "PASSED",
+  "sourceCommit": "962904e77dc3da5ec86b884c79f6810dd61c29ba",
+  "deterministicArtifactNames": true,
+  "checksumsVerified": true,
+  "sbomFormat": "CycloneDX 1.5",
+  "provenanceFormat": "SLSA v1 shaped in-toto statement",
+  "releaseSecretScan": {
+    "passed": true,
+    "findings": []
+  },
+  "distributionSourceSecretScan": {
+    "passed": true,
+    "findings": []
+  },
+  "duplicateArtifactNames": 0,
+  "duplicateArtifactHashes": 0,
+  "claimValidation": {
+    "valid": true,
+    "errors": []
+  },
+  "noAutomaticExternalPublication": true,
+  "githubRequired": false,
+  "nativeDependencyInspection": "runtime/distribution/v2/sheikha-toolchain-inspection-v2.json"
+}

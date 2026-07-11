@@ -22,6 +22,8 @@ function assertGeneratedPath(target) {
   const resolved = path.resolve(target);
   const allowed = [
     path.join(DISTRIBUTION_ROOT, 'artifacts'),
+    path.join(DISTRIBUTION_ROOT, 'staging'),
+    path.join(DISTRIBUTION_ROOT, 'verification'),
     path.join(DISTRIBUTION_ROOT, 'common', 'staging'),
     path.join(DISTRIBUTION_ROOT, 'common', 'verification'),
     path.join(os.tmpdir(), 'sheikha-distribution')

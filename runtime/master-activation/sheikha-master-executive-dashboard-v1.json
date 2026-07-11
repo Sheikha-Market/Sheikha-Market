@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-  "generatedAt": "2026-07-11T00:56:40.133Z",
+  "generatedAt": "2026-07-11T14:38:00.512Z",
   "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
   "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
   "goals": [
@@ -11,14 +11,13 @@
   ],
   "status": {
     "integrationScore": 100,
-    "runtimeScore": 60,
+    "runtimeScore": 100,
     "knowledgeScore": 100,
-    "performanceScore": 91,
+    "performanceScore": 100,
     "securityScore": 100
   },
   "risks": [
-    "duplicate-components-require-review",
-    "runtime-evidence-incomplete-or-sandbox-limited"
+    "duplicate-components-require-review"
   ],
   "performance": {
     "cpu": {
@@ -26,9 +25,9 @@
       "evidence": {
         "cpuCount": 22,
         "loadAverage": [
-          5.56,
-          3.02,
-          2.68
+          2.23,
+          1.81,
+          1.58
         ]
       }
     },
@@ -36,13 +35,13 @@
       "ok": true,
       "evidence": {
         "totalMemoryBytes": 66875768832,
-        "freeMemoryBytes": 41097998336,
+        "freeMemoryBytes": 45648863232,
         "processMemory": {
-          "rss": 163258368,
-          "heapTotal": 31797248,
-          "heapUsed": 19822936,
-          "external": 18684806,
-          "arrayBuffers": 14708192
+          "rss": 178327552,
+          "heapTotal": 32858112,
+          "heapUsed": 19432792,
+          "external": 16705271,
+          "arrayBuffers": 12728657
         }
       }
     },
@@ -50,28 +49,28 @@
       "ok": true,
       "evidence": {
         "totalKb": 974067752,
-        "usedKb": 541153656,
-        "availableKb": 383360484,
+        "usedKb": 542319056,
+        "availableKb": 382195084,
         "usagePercent": "59%",
-        "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
+        "mount": "/"
       }
     },
     "api": {
       "ok": true,
       "evidence": {
-        "uniqueEndpoints": 2710,
+        "uniqueEndpoints": 2713,
         "health": {
           "endpoint": "http://127.0.0.1:8080/api/health",
-          "ok": false,
-          "statusCode": null,
-          "latencyMs": null
+          "ok": true,
+          "statusCode": "200",
+          "latencyMs": 2
         }
       }
     },
     "latency": {
-      "ok": false,
+      "ok": true,
       "evidence": {
-        "healthLatencyMs": null
+        "healthLatencyMs": 2
       }
     },
     "cache": {
@@ -189,6 +188,7 @@
         "core/kernel/supercompute/sheikha-supercompute-delivery-report.js",
         "deploy/nginx/sheikha-split-upstreams.conf",
         "dist/sheikha-app/opt/sheikha/lib/sheikha-live-ai-network.js",
+        "distribution/pipeline/sheikha-universal-delivery-v2.js",
         "docs/architecture/SHEIKHA-SUPERCOMPUTE-FABRIC-DELIVERY-REPORT.md",
         "docs/extension-streaming-artifact-apex/SHEIKHA-EXTENSION-STREAMING-ARTIFACT-APEX-V1.md",
         "docs/live-realtime-fabric/SHEIKHA-LIVE-REALTIME-FABRIC-L40-L45-V1.md",
@@ -198,8 +198,7 @@
         "public/SHEIKHA-LIVE-EVALUATION-v2.html",
         "public/assets/brand/brand-tokens.json",
         "public/assets/design-system/sheikha-enterprise.css",
-        "public/assets/market-real/aluminum/cover.png",
-        "public/assets/market-real/copper/cover.png"
+        "public/assets/market-real/aluminum/cover.png"
       ]
     },
     "concurrency": {
@@ -210,33 +209,33 @@
     }
   },
   "markets": 444,
-  "projects": 435,
+  "projects": 437,
   "customers": 73,
   "capabilities": {
-    "systems": 435,
+    "systems": 437,
     "engines": 793,
     "layers": 25,
-    "apis": 2710,
-    "services": 0,
-    "tests": 350,
+    "apis": 2713,
+    "services": 8,
+    "tests": 352,
     "docs": 1074,
     "sdks": 80,
     "registries": 371,
-    "runtimeEngines": 1261,
+    "runtimeEngines": 1297,
     "identityEngines": 95,
-    "governanceEngines": 525,
+    "governanceEngines": 526,
     "knowledgeEngines": 204,
     "communityEngines": 18,
     "commerceEngines": 73,
     "enterpriseEngines": 184,
-    "aiEngines": 386,
+    "aiEngines": 389,
     "monitoringEngines": 43,
     "securityEngines": 82,
     "dashboards": 71,
-    "pipelines": 58,
+    "pipelines": 59,
     "automationEngines": 385,
     "integrations": 346,
-    "packageScripts": 666,
+    "packageScripts": 674,
     "duplicateGroups": 1209,
     "methodologyFamilies": 10,
     "internalAttestations": 5,
@@ -264,8 +263,8 @@
     "distributionTargetsVerified": 1,
     "distributionTargetsNativeVerified": 1,
     "distributionReleaseApexLevel": 27,
-    "publicBenefitRegisteredCapabilities": 7185,
-    "publicBenefitActiveCapabilities": 856,
+    "publicBenefitRegisteredCapabilities": 7240,
+    "publicBenefitActiveCapabilities": 893,
     "universalBenefitCapabilities": 16,
     "universalBenefitBoundaries": 18,
     "universalBenefitDomains": 16,
@@ -282,8 +281,8 @@
     "sheikhaHostImplementationSourceFiles": 12581
   },
   "indicators": {
-    "apiEndpoints": 2710,
-    "tests": 350,
+    "apiEndpoints": 2713,
+    "tests": 352,
     "duplicateGroups": 1209,
     "githubRequired": false,
     "methodologyFamilies": 10,
@@ -319,7 +318,7 @@
     "distributionReleaseApexLevel": 27,
     "distributionReleaseApexRemoteBuildEndpointExposed": false,
     "publicBenefitCapabilityRoutingActive": true,
-    "publicBenefitRegisteredCapabilities": 7185,
+    "publicBenefitRegisteredCapabilities": 7240,
     "publicBenefitPolicyActivatesCapabilities": false,
     "universalBenefitBoundaryActive": true,
     "universalBenefitCapabilities": 16,

@@ -32,15 +32,21 @@ const TECHNICAL_MODEL = Object.freeze({
     ]
   },
   distributionIntegration: {
-    system: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1',
+    system: 'SHEIKHA_UNIVERSAL_DELIVERY_DISTRIBUTION_INSTALLER_FABRIC_V2',
     status: 'ACTIVE_LOCAL_FIRST_EVIDENCE_CONSUMER',
     releaseApex: 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1',
     releaseApexLevel: 27,
     relationship: 'SPECIALIZED_RELEASE_PLANE_CONSUMES_L24_EVIDENCE_WITHOUT_AUTHORITY_ESCALATION',
-    matrix: 'distribution/manifest/sheikha-release-matrix-v1.json',
-    report: 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json',
+    matrix: 'distribution/manifest/sheikha-target-matrix-v2.json',
+    report: 'runtime/distribution/v2/sheikha-universal-delivery-v2-report.json',
     bareMetalLink: 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json',
+    v1Compatibility: {
+      matrix: 'distribution/manifest/sheikha-release-matrix-v1.json',
+      report: 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json'
+    },
     targetCount: 27,
+    implementedProductCount: 4,
+    architecturalReadinessSeparatedFromArtifactVerification: true,
     automaticExternalPublishing: false,
     automaticSigning: false,
     artifactClaimRequiresEvidence: true,

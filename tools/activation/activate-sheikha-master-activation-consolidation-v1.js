@@ -31,7 +31,8 @@ const bareMetalBootArtifactPath = 'bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI';
 const bareMetalBootImagePath = 'bare-metal/images/sheikha-bare-metal-seed-v1.img';
 const computingCognitiveLayersPath = 'runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json';
 const computingCognitiveLayersHandbookPath = 'docs/computing-cognitive-layers-v1/SHEIKHA-COMPUTING-COGNITIVE-LAYERS-V1.md';
-const distributionReportPath = 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json';
+const distributionReportPath = 'runtime/distribution/v2/sheikha-universal-delivery-v2-report.json';
+const distributionV1ReportPath = 'runtime/distribution/v1/sheikha-universal-distribution-v1-report.json';
 const distributionApexReportPath = 'runtime/distribution-apex/v1/sheikha-universal-distribution-apex-v1-report.json';
 const governanceGeneratorReportPath = 'runtime/governance-generator/v1/sheikha-governance-generator-v1-report.json';
 const publicBenefitPolicyPath = 'runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json';
@@ -51,7 +52,8 @@ const arabicSemanticEncodingSpecificationPath =
   'runtime/arabic-semantic-encoding/v1/sheikha-arabic-semantic-encoding-profile-v1.json';
 const arabicSemanticEncodingHandbookPath =
   'docs/arabic-semantic-encoding-v1/SHEIKHA-ARABIC-SEMANTIC-ENCODING-V1.md';
-const distributionMatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
+const distributionMatrixPath = 'distribution/manifest/sheikha-target-matrix-v2.json';
+const distributionV1MatrixPath = 'distribution/manifest/sheikha-release-matrix-v1.json';
 const distributionHandbookPath = 'distribution/README.md';
 const distributionBareMetalLinkPath = 'distribution/manifest/sheikha-bare-metal-distribution-link-v1.json';
 const universalTechnologyHpcFabricPath = 'runtime/universal-technology-hpc-fabric/v1/sheikha-universal-technology-hpc-fabric-v1-report.json';
@@ -1633,6 +1635,7 @@ function buildReport() {
   finalExecutiveReport.evidence.computingCognitiveLayers = computingCognitiveLayersPath;
   finalExecutiveReport.evidence.computingCognitiveLayersHandbook = computingCognitiveLayersHandbookPath;
   finalExecutiveReport.evidence.universalDistribution = distributionReportPath;
+  finalExecutiveReport.evidence.universalDistributionV1Compatibility = distributionV1ReportPath;
   finalExecutiveReport.evidence.universalDistributionApex = distributionApexReportPath;
   finalExecutiveReport.evidence.governanceGenerator = governanceGeneratorReportPath;
   finalExecutiveReport.evidence.publicBenefitCapabilityPolicy = publicBenefitPolicyPath;
@@ -1651,6 +1654,7 @@ function buildReport() {
   finalExecutiveReport.evidence.arabicSemanticEncodingHandbook =
     arabicSemanticEncodingHandbookPath;
   finalExecutiveReport.evidence.universalDistributionMatrix = distributionMatrixPath;
+  finalExecutiveReport.evidence.universalDistributionV1MatrixCompatibility = distributionV1MatrixPath;
   finalExecutiveReport.evidence.universalDistributionHandbook = distributionHandbookPath;
   finalExecutiveReport.evidence.distributionBareMetalLink = distributionBareMetalLinkPath;
   const executiveDashboard = buildExecutiveDashboard(
@@ -1836,17 +1840,19 @@ function buildReport() {
       computingCognitiveLayers?.model?.authority?.humanAccountableDecisionMaker === true &&
       computingCognitiveLayers?.activation?.safetyBypassProbe?.status === 'BLOCKED_BY_SAFETY_POLICY',
     universalDistributionIntegrated:
-      distribution?.system === 'SHEIKHA_UNIVERSAL_DISTRIBUTION_INSTALLER_FABRIC_V1' &&
+      distribution?.system === 'SHEIKHA_UNIVERSAL_DELIVERY_DISTRIBUTION_INSTALLER_FABRIC_V2' &&
       distribution?.targetCount === 27 &&
       distribution?.builtCount > 0 &&
       distribution?.verifiedCount > 0 &&
       distribution?.localRegistryOnly === true &&
       distribution?.githubRequired === false &&
+      distribution?.architecturalReadinessSeparatedFromArtifactVerification === true &&
+      distribution?.coverage?.falseCompletionClaims === 0 &&
       distribution?.targets?.filter((target) => target.built === true).length ===
         distribution?.builtCount &&
       distribution?.targets?.every((target) =>
         target.status !== 'VERIFIED' ||
-        (target.artifact && target.nativeVerified === true && target.verificationEvidence)
+        (target.artifact && target.nativeVerified === true && target.evidence?.length > 0)
       ) === true,
     universalDistributionApexIntegrated:
       distributionApex?.system === 'SHEIKHA_UNIVERSAL_DISTRIBUTION_RELEASE_APEX_V1' &&
@@ -2033,6 +2039,7 @@ function buildReport() {
     computingCognitiveLayersPath,
     computingCognitiveLayersHandbookPath,
     distributionReportPath,
+    distributionV1ReportPath,
     distributionApexReportPath,
     governanceGeneratorReportPath,
     publicBenefitPolicyPath,
@@ -2046,6 +2053,7 @@ function buildReport() {
     arabicSemanticEncodingSpecificationPath,
     arabicSemanticEncodingHandbookPath,
     distributionMatrixPath,
+    distributionV1MatrixPath,
     distributionHandbookPath,
     distributionBareMetalLinkPath,
     universalTechnologyHpcFabricPath,
@@ -2335,11 +2343,19 @@ function buildReport() {
       signedCount: distribution?.signedCount || 0,
       notarizedCount: distribution?.notarizedCount || 0,
       publishedCount: distribution?.publishedCount || 0,
-      localRegistryPublishedCount: distribution?.localRegistryPublishedCount || 0,
+      publishedExternallyCount: distribution?.publishedExternallyCount || 0,
+      localRegistryPublishedCount:
+        distribution?.publishedLocallyCount || distribution?.localRegistryPublishedCount || 0,
+      totalArtifactCount: distribution?.totalArtifactCount || 0,
       localReleasePath: distribution?.localReleasePath || null,
       localRegistryOnly: distribution?.localRegistryOnly === true,
       githubRequired: distribution?.githubRequired !== false,
-      claimPolicy: distribution?.claimPolicy || 'UNKNOWN'
+      claimPolicy: distribution?.claimPolicy || 'UNKNOWN',
+      architecturalReadinessSeparatedFromArtifactVerification:
+        distribution?.architecturalReadinessSeparatedFromArtifactVerification === true,
+      falseCompletionClaims: distribution?.coverage?.falseCompletionClaims ?? null,
+      v1CompatibilityReportPath: distributionV1ReportPath,
+      v1CompatibilityMatrixPath: distributionV1MatrixPath
     },
     universalDistributionApex: {
       active: exists(distributionApexReportPath),
@@ -2793,6 +2809,7 @@ if (require.main === module) {
       computingCognitiveLayers: computingCognitiveLayersPath,
       computingCognitiveLayersHandbook: computingCognitiveLayersHandbookPath,
       universalDistribution: distributionReportPath,
+      universalDistributionV1Compatibility: distributionV1ReportPath,
       universalDistributionApex: distributionApexReportPath,
       governanceGenerator: governanceGeneratorReportPath,
       publicBenefitCapabilityPolicy: publicBenefitPolicyPath,
@@ -2806,6 +2823,7 @@ if (require.main === module) {
       arabicSemanticEncodingSpecification: arabicSemanticEncodingSpecificationPath,
       arabicSemanticEncodingHandbook: arabicSemanticEncodingHandbookPath,
       universalDistributionMatrix: distributionMatrixPath,
+      universalDistributionV1MatrixCompatibility: distributionV1MatrixPath,
       universalDistributionHandbook: distributionHandbookPath,
       distributionBareMetalLink: distributionBareMetalLinkPath
     }

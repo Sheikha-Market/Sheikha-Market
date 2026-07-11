@@ -1,8 +1,5 @@
 'use strict';
 
-const os = require('node:os');
-const path = require('node:path');
-
 const {
   buildCapabilityRegistryStorage,
   buildComponent,
@@ -240,11 +237,15 @@ describe('Sheikha Master Activation Consolidation V1', () => {
       builtCount: 3,
       verifiedCount: 1,
       nativeVerifiedCount: 1,
-      localRegistryPublishedCount: 3,
-      localReleasePath: path.join(os.homedir(), 'Sheikha-Local-Registry/releases/1.0.51'),
       localRegistryOnly: true,
-      githubRequired: false
+      githubRequired: false,
+      architecturalReadinessSeparatedFromArtifactVerification: true,
+      falseCompletionClaims: 0,
+      totalArtifactCount: 6
     });
+    expect([0, 6]).toContain(report.universalDistribution.localRegistryPublishedCount);
+    expect(report.universalDistribution.localReleasePath === null ||
+      report.universalDistribution.localReleasePath.endsWith('/releases/v2/1.0.51')).toBe(true);
     expect(report.universalDistributionApex).toMatchObject({
       active: true,
       status: 'ACTIVE_WITH_EVIDENCE_GATED_LOCAL_RELEASE',

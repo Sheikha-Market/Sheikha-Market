@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_LOCAL_RELEASE_CHANNELS_V2",
+  "defaultChannel": "stable",
+  "channels": [
+    { "id": "dev", "externalPublishing": false, "promotionRequiresHumanApproval": true },
+    { "id": "beta", "externalPublishing": false, "promotionRequiresHumanApproval": true },
+    { "id": "stable", "externalPublishing": false, "promotionRequiresHumanApproval": true }
+  ],
+  "policy": {
+    "localRegistryOnly": true,
+    "githubRequired": false,
+    "silentOverwrite": false,
+    "automaticPromotion": false
+  }
+}
