@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.89",
+  "version": "1.0.90",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -103,9 +103,12 @@
     "syntaxes/**",
     "snippets/**",
     "language-configuration.json",
-    "src/**",
+    "src/**/*.js",
     "resources/**",
-    "src/projectContext.js"
+    "agents/**",
+    "mcp/**",
+    "prompts/**",
+    "schemas/**"
   ],
   "contributes": {
     "languages": [
@@ -463,6 +466,12 @@
           "default": 60,
           "minimum": 30,
           "description": "فاصل تحديث لوحة التكاملات بالثواني (الحد الأدنى 30 ثانية)"
+        },
+        "sheikha.inspectorRefreshSeconds": {
+          "type": "number",
+          "default": 30,
+          "minimum": 15,
+          "description": "فاصل تحديث Enterprise Inspector بالثواني"
         }
       }
     },
@@ -649,7 +658,7 @@
   "activationEvents": [
     "onCommand:sheikha.openChat",
     "onCommand:sheikha.chat.open",
-    "*",
+    "onStartupFinished",
     "onView:sheikha.chatView",
     "onView:sheikha.inspectorView"
   ]

@@ -4,6 +4,7 @@ const fs = require('node:fs');
 const os = require('node:os');
 const path = require('node:path');
 const crypto = require('node:crypto');
+const zlib = require('node:zlib');
 const { execSync } = require('node:child_process');
 
 const ROOT = process.cwd();
@@ -14,6 +15,7 @@ const capabilityRegistryShardDirectory =
   'runtime/master-activation/capability-registry-v1/components';
 const CAPABILITY_REGISTRY_SHARD_SIZE = 500;
 const CAPABILITY_REGISTRY_SCHEMA_VERSION = '1.1.0';
+const CAPABILITY_REGISTRY_BROTLI_QUALITY = 7;
 const architectureGraphPath = 'runtime/master-activation/sheikha-master-architecture-graph-v1.json';
 const duplicateDetectionPath = 'runtime/master-activation/sheikha-master-duplicate-detection-v1.json';
 const executiveDashboardPath = 'runtime/master-activation/sheikha-master-executive-dashboard-v1.json';
@@ -711,6 +713,14 @@ function buildCapabilityRegistryStorage(registry, options = {}) {
     };
     const text = serializeJson(payload);
     const sha256 = crypto.createHash('sha256').update(text, 'utf8').digest('hex');
+    const compressedPath = `${shardPath}.br`;
+    const compressed = zlib.brotliCompressSync(Buffer.from(text, 'utf8'), {
+      params: {
+        [zlib.constants.BROTLI_PARAM_MODE]: zlib.constants.BROTLI_MODE_TEXT,
+        [zlib.constants.BROTLI_PARAM_QUALITY]: CAPABILITY_REGISTRY_BROTLI_QUALITY
+      }
+    });
+    const compressedSha256 = crypto.createHash('sha256').update(compressed).digest('hex');
 
     for (const component of shardComponents) {
       componentIndex.push({
@@ -726,6 +736,7 @@ function buildCapabilityRegistryStorage(registry, options = {}) {
       path: shardPath,
       payload,
       text,
+      compressed,
       descriptor: {
         number: shardNumber,
         path: shardPath,
@@ -733,6 +744,13 @@ function buildCapabilityRegistryStorage(registry, options = {}) {
         componentCount: shardComponents.length,
         bytes: Buffer.byteLength(text, 'utf8'),
         sha256,
+        compression: {
+          algorithm: 'BROTLI',
+          quality: CAPABILITY_REGISTRY_BROTLI_QUALITY,
+          path: compressedPath,
+          bytes: compressed.length,
+          sha256: compressedSha256
+        },
         firstComponentPath: shardComponents[0]?.path || null,
         lastComponentPath: shardComponents.at(-1)?.path || null
       }
@@ -740,6 +758,11 @@ function buildCapabilityRegistryStorage(registry, options = {}) {
   }
 
   const shardDescriptors = shards.map((item) => item.descriptor);
+  const rawBytes = shardDescriptors.reduce((sum, item) => sum + item.bytes, 0);
+  const compressedBytes = shardDescriptors.reduce(
+    (sum, item) => sum + item.compression.bytes,
+    0
+  );
   const registrySummary = Object.fromEntries(
     Object.entries(registry).filter(([key]) => key !== 'components')
   );
@@ -763,6 +786,16 @@ function buildCapabilityRegistryStorage(registry, options = {}) {
         componentCount: components.length,
         componentsArrayMode: 'COMPACT_REFERENCES',
         fullComponentRecordsInShards: true,
+        compression: {
+          algorithm: 'BROTLI',
+          quality: CAPABILITY_REGISTRY_BROTLI_QUALITY,
+          rawBytes,
+          compressedBytes,
+          savingsPercent: rawBytes === 0
+            ? 0
+            : Math.round((1 - compressedBytes / rawBytes) * 10000) / 100,
+          losslessRoundTripRequired: true
+        },
         unlistedShardPolicy: 'IGNORE_NOT_REFERENCED_BY_INDEX',
         shardDigestChainSha256,
         shards: shardDescriptors
@@ -783,6 +816,10 @@ function verifyCapabilityRegistryStorage(index) {
     shardBytesMatch: true,
     shardDigestsMatch: true,
     shardPayloadCountsMatch: true,
+    compressedFilesPresent: true,
+    compressedBytesMatch: true,
+    compressedDigestsMatch: true,
+    compressedRoundTripMatches: true,
     totalComponentCountMatches: false,
     componentIdsUnique: false,
     digestChainMatches: false
@@ -796,6 +833,10 @@ function verifyCapabilityRegistryStorage(index) {
       checks.shardBytesMatch = false;
       checks.shardDigestsMatch = false;
       checks.shardPayloadCountsMatch = false;
+      checks.compressedFilesPresent = false;
+      checks.compressedBytesMatch = false;
+      checks.compressedDigestsMatch = false;
+      checks.compressedRoundTripMatches = false;
       continue;
     }
     const text = fs.readFileSync(absolutePath, 'utf8');
@@ -806,6 +847,30 @@ function verifyCapabilityRegistryStorage(index) {
       checks.shardDigestsMatch = false;
     }
     if (payload.components?.length !== descriptor.componentCount) checks.shardPayloadCountsMatch = false;
+
+    const compressedPath = resolve(descriptor.compression?.path || '');
+    if (!descriptor.compression?.path || !fs.existsSync(compressedPath)) {
+      checks.compressedFilesPresent = false;
+      checks.compressedBytesMatch = false;
+      checks.compressedDigestsMatch = false;
+      checks.compressedRoundTripMatches = false;
+      continue;
+    }
+    const compressed = fs.readFileSync(compressedPath);
+    if (compressed.length !== descriptor.compression.bytes) checks.compressedBytesMatch = false;
+    if (crypto.createHash('sha256').update(compressed).digest('hex') !== descriptor.compression.sha256) {
+      checks.compressedDigestsMatch = false;
+    }
+    let decompressed;
+    try {
+      decompressed = zlib.brotliDecompressSync(compressed);
+    } catch {
+      checks.compressedRoundTripMatches = false;
+      continue;
+    }
+    if (!decompressed.equals(Buffer.from(text, 'utf8'))) {
+      checks.compressedRoundTripMatches = false;
+    }
   }
 
   const uniqueIds = new Set((index.components || []).map((component) => component.id));
@@ -832,6 +897,7 @@ function writeCapabilityRegistry(registry) {
   for (const shard of storage.shards) {
     fs.mkdirSync(path.dirname(resolve(shard.path)), { recursive: true });
     fs.writeFileSync(resolve(shard.path), shard.text, 'utf8');
+    fs.writeFileSync(resolve(shard.descriptor.compression.path), shard.compressed);
   }
   writeJson(capabilityRegistryPath, storage.index);
   const verification = verifyCapabilityRegistryStorage(storage.index);
@@ -1329,7 +1395,12 @@ function summarizeCapabilityRegistry(registry) {
     shardCount: Math.ceil(componentCount / CAPABILITY_REGISTRY_SHARD_SIZE),
     componentCount,
     componentsArrayMode: 'COMPACT_REFERENCES',
-    fullComponentRecordsInShards: true
+    fullComponentRecordsInShards: true,
+    compression: {
+      algorithm: 'BROTLI',
+      quality: CAPABILITY_REGISTRY_BROTLI_QUALITY,
+      losslessRoundTripRequired: true
+    }
   };
   return {
     system: registry.system,
@@ -2152,7 +2223,12 @@ function buildReport() {
         shardDirectory: capabilityRegistryShardDirectory,
         shardSize: CAPABILITY_REGISTRY_SHARD_SIZE,
         shardCount: Math.ceil(capabilityRegistry.componentCount / CAPABILITY_REGISTRY_SHARD_SIZE),
-        fullComponentRecordsInShards: true
+        fullComponentRecordsInShards: true,
+        compression: {
+          algorithm: 'BROTLI',
+          quality: CAPABILITY_REGISTRY_BROTLI_QUALITY,
+          losslessRoundTripRequired: true
+        }
       }
     },
     architectureCatalog,

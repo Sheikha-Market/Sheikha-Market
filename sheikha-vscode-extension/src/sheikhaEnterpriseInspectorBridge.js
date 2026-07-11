@@ -10,7 +10,8 @@ async function sendInspectorHeartbeat(baseUrl) {
     source: 'SHEIKHA_VSCODE_EXTENSION',
     status: 'CONNECTED',
     heartbeatAt: new Date().toISOString(),
-    vscodeTools
+    vscodeTools,
+    __timeoutMs: 10000
   }, baseUrl);
 }
 

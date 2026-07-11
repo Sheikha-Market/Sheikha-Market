@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_ACTIVATION_CONSOLIDATION_V1",
   "status": "ACTIVE_WITH_VERIFIED_LOCAL_CATALOG",
-  "generatedAt": "2026-07-11T00:15:07.063Z",
+  "generatedAt": "2026-07-11T00:56:40.169Z",
   "score": 100,
   "checks": {
     "repositoryDiscoveryComplete": true,
@@ -35,8 +35,8 @@
     "githubRequired": false,
     "localGitUsable": true,
     "localRegistryConfigured": true,
-    "localRegistryHead": "646afc0c0",
-    "currentHead": "646afc0c0",
+    "localRegistryHead": "26e98c264",
+    "currentHead": "26e98c264",
     "currentBranch": "main",
     "remotes": [
       "enterprise\tgit@github.com:Sheikha-Market/sheikha-enterprise-portal.git (fetch)",
@@ -2859,7 +2859,7 @@
       },
       {
         "root": "sheikha-vscode-extension",
-        "files": 91,
+        "files": 93,
         "classification": "repository-artifact"
       },
       {
@@ -3024,7 +3024,7 @@
       },
       {
         "root": "tests",
-        "files": 338,
+        "files": 339,
         "classification": "repository-artifact"
       },
       {
@@ -3034,7 +3034,7 @@
       },
       {
         "root": "tools",
-        "files": 391,
+        "files": 392,
         "classification": "repository-artifact"
       },
       {
@@ -3273,13 +3273,13 @@
         "classification": "repository-artifact"
       }
     ],
-    "discoveredFiles": 7181,
-    "packageScripts": 664,
+    "discoveredFiles": 7185,
+    "packageScripts": 666,
     "source": "git ls-files -co --exclude-standard",
     "githubRequired": false
   },
   "summary": {
-    "discoveredComponents": 7181,
+    "discoveredComponents": 7185,
     "activeComponents": 856,
     "duplicateGroups": 1209,
     "apiEndpoints": 2710,
@@ -3314,7 +3314,7 @@
     "distributionReleaseApexLevel": 27,
     "distributionReleaseApexPlane": "RELEASE_DELIVERY_PLANE_ONLY",
     "publicBenefitCapabilityRoutingActive": true,
-    "publicBenefitRegisteredCapabilities": 7181,
+    "publicBenefitRegisteredCapabilities": 7185,
     "publicBenefitCurrentlyActiveCapabilities": 856,
     "universalBenefitBoundaryActive": true,
     "universalBenefitCapabilities": 16,
@@ -3360,34 +3360,34 @@
   },
   "lifecycleSummary": {
     "active": 856,
-    "needsLinking": 1181,
-    "needsDevelopment": 5010,
+    "needsLinking": 1183,
+    "needsDevelopment": 5012,
     "experimental": 71,
     "unused": 63
   },
   "capabilityRegistry": {
     "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_V1",
-    "generatedAt": "2026-07-11T00:15:05.596Z",
+    "generatedAt": "2026-07-11T00:56:38.832Z",
     "source": "git-ls-files-local-repository",
     "githubRequired": false,
-    "componentCount": 7181,
+    "componentCount": 7185,
     "apiEndpoints": 2710,
-    "packageScripts": 664,
+    "packageScripts": 666,
     "lifecycleSummary": {
       "active": 856,
-      "needsLinking": 1181,
-      "needsDevelopment": 5010,
+      "needsLinking": 1183,
+      "needsDevelopment": 5012,
       "experimental": 71,
       "unused": 63
     },
     "maturitySummary": {
       "measured": 856,
-      "linkedRequired": 1181,
-      "discovered": 3916,
+      "linkedRequired": 1183,
+      "discovered": 3917,
       "documented": 794
     },
     "evidenceFiles": {
-      "tests": 348,
+      "tests": 350,
       "reports": 399,
       "docs": 1074
     },
@@ -3398,19 +3398,34 @@
       "shardDirectory": "runtime/master-activation/capability-registry-v1/components",
       "shardSize": 500,
       "shardCount": 15,
-      "componentCount": 7181,
+      "componentCount": 7185,
       "componentsArrayMode": "COMPACT_REFERENCES",
       "fullComponentRecordsInShards": true,
+      "compression": {
+        "algorithm": "BROTLI",
+        "quality": 7,
+        "rawBytes": 9113828,
+        "compressedBytes": 374544,
+        "savingsPercent": 95.89,
+        "losslessRoundTripRequired": true
+      },
       "unlistedShardPolicy": "IGNORE_NOT_REFERENCED_BY_INDEX",
-      "shardDigestChainSha256": "3fbda559d34526ef891d38c8e6d2e21f07fb94d21b0c007a3fd0f4deb23c91c9",
+      "shardDigestChainSha256": "d0561acdc017dd0d92c98e4ab75dae54c8be03caf54d4fdaf9a3253b337a7d02",
       "shards": [
         {
           "number": 1,
           "path": "runtime/master-activation/capability-registry-v1/components/components-0001.json",
           "offset": 0,
           "componentCount": 500,
-          "bytes": 595706,
-          "sha256": "4e634d23d63d77a590b2476afe874ccad49d3e7bae1c3828235734f9fea84655",
+          "bytes": 595775,
+          "sha256": "6fd9c1c761d9dae3071c6f519efa85acb99ea7acf8b9cc7dd6116ff8f48db93f",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0001.json.br",
+            "bytes": 25539,
+            "sha256": "ce224406fbf39435fa9710bad8df6be3b9579fee3f953c94b0f07fbfc48c9d81"
+          },
           "firstComponentPath": ".claude/config.json",
           "lastComponentPath": "config/deployment-supreme.config.js"
         },
@@ -3419,8 +3434,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0002.json",
           "offset": 500,
           "componentCount": 500,
-          "bytes": 650648,
-          "sha256": "2bffad999b31322783a23c07bb5246c27f069d48a7c6d9a97d6946a72a39d3a5",
+          "bytes": 651051,
+          "sha256": "b096050a79365515ddac923ce1117d2295ebb6a0c701ce40a49322dce8cd7d2c",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0002.json.br",
+            "bytes": 26333,
+            "sha256": "b74fa2757b0564d77c2309af768dcb9b2f8d2df99ae6b0aed2a59a593dd1ccf1"
+          },
           "firstComponentPath": "config/engines-jawami-final.json",
           "lastComponentPath": "dist/sheikha-app/opt/sheikha/core/neural/neural-cells.js"
         },
@@ -3429,8 +3451,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0003.json",
           "offset": 1000,
           "componentCount": 500,
-          "bytes": 620894,
-          "sha256": "2e6326663144d1f2d844740bee05618877d5eff10a4c07add09b4653c16de23d",
+          "bytes": 620963,
+          "sha256": "900dbc9e9143e2bd5e90258b640ecf7143e14e2578609ac83f33538011f567d4",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0003.json.br",
+            "bytes": 23834,
+            "sha256": "7375d34179e91567288adf53b59308c02f921ed796760239e51f15d1ee7457c0"
+          },
           "firstComponentPath": "dist/sheikha-app/opt/sheikha/core/neural/root-neural-fabric.js",
           "lastComponentPath": "dist/sheikha-app/opt/sheikha/lib/sheikha/package-lock.json"
         },
@@ -3439,8 +3468,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0004.json",
           "offset": 1500,
           "componentCount": 500,
-          "bytes": 641338,
-          "sha256": "c7266869bdbd25897f905ab4384ddb901679a77139bbc792395091eba574517d",
+          "bytes": 641545,
+          "sha256": "c5691bcb1478522d16df5bfe3f312308c5893a1fc3bcc572e8fb2229550fd98a",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0004.json.br",
+            "bytes": 30860,
+            "sha256": "bfbf04773c06a85d6dab736dba03845e97de6ed5b679e1f65fad71bda7427ad3"
+          },
           "firstComponentPath": "dist/sheikha-app/opt/sheikha/lib/sheikha/package.json",
           "lastComponentPath": "docs/services/evaluations/خدمة-المتجر-الإلكتروني.hybrid-evaluation.json"
         },
@@ -3450,7 +3486,14 @@
           "offset": 2000,
           "componentCount": 500,
           "bytes": 637727,
-          "sha256": "a6a245199a4a3a2ff6e85c6dd7fc5fe251b6795fcf8be426ee686cc5fe17278b",
+          "sha256": "ffa34c8fd67121966a1cb250b3401436f41c3d082dcee913ab40464296d72e52",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0005.json.br",
+            "bytes": 27055,
+            "sha256": "0b861b44bbc630870f467a216e4e9d9ab62285a3fe6f1c9aaff737b6848cde88"
+          },
           "firstComponentPath": "docs/services/evaluations/خدمة-النقل-والشحن.hybrid-evaluation.json",
           "lastComponentPath": "knowledge/graph/status.json"
         },
@@ -3460,7 +3503,14 @@
           "offset": 2500,
           "componentCount": 500,
           "bytes": 572409,
-          "sha256": "01e51a3b6fe44a45bd2d932fdb95e1c7dd8e0d12908f9513282571ab879796e8",
+          "sha256": "0173bfcfa7ccdb63deae96587215770adb801230cdcde8aa73c6dbe6d9ff2c42",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0006.json.br",
+            "bytes": 23014,
+            "sha256": "bc0474f202f28ef98e617e88e1edab92ee776a02e8372d0120a7f718c9033387"
+          },
           "firstComponentPath": "knowledge/quranic-atlas/sheikha-quranic-architectural-atlas.json",
           "lastComponentPath": "lib/sheikha-wisdom-fusion-engine.js"
         },
@@ -3469,8 +3519,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0007.json",
           "offset": 3000,
           "componentCount": 500,
-          "bytes": 615628,
-          "sha256": "84e7bcf1c8ee6f7aff915f2266db550b4498333dfa3700e7faedcd508a6b5da9",
+          "bytes": 616394,
+          "sha256": "d4d536303e046c393fbec403359aabf983a7c18e327e36346d9d8a62157080eb",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0007.json.br",
+            "bytes": 25627,
+            "sha256": "b345c12f70fcdd0e3d01c0c13dc88246a4b7e1405d26360e94815ef3c54e48ef"
+          },
           "firstComponentPath": "lib/sheikha-wisdom-power-engine.js",
           "lastComponentPath": "routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes.js"
         },
@@ -3479,8 +3536,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0008.json",
           "offset": 3500,
           "componentCount": 500,
-          "bytes": 676172,
-          "sha256": "0e16e0c75687dd620abb30c1291ddba3b7e48a56011372698a2fa8ac1ccf3cee",
+          "bytes": 676271,
+          "sha256": "39b86ec6cd05b83fd94aefc4da4c792cb4356da45e2ce600d795ad6e713e6199",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0008.json.br",
+            "bytes": 33672,
+            "sha256": "0df174074cb2b2448eb122cc0c3aee0744cb203c7f72e626f4fb56e336d1518a"
+          },
           "firstComponentPath": "routes/arabic-semantic-encoding/status.routes.js",
           "lastComponentPath": "runtime/bare-metal/v1/evidence/qemu-command.txt"
         },
@@ -3489,8 +3553,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0009.json",
           "offset": 4000,
           "componentCount": 500,
-          "bytes": 664119,
-          "sha256": "4b35b81208979faeb4841b594298a9b14f5b37c08d3625affebe18c0467ad139",
+          "bytes": 664417,
+          "sha256": "9225e45b7c6e937ff6ceeddaa87c7099c1954bf28159d79693d1a46b65534d7f",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0009.json.br",
+            "bytes": 25358,
+            "sha256": "aebe925c9ba63a397478a9b7628071d10ddcccefe4766c52134208543418cbaa"
+          },
           "firstComponentPath": "runtime/bare-metal/v1/evidence/qemu-run-report.json",
           "lastComponentPath": "runtime/health/alerts/.gitignore"
         },
@@ -3499,8 +3570,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0010.json",
           "offset": 4500,
           "componentCount": 500,
-          "bytes": 648958,
-          "sha256": "b290f229039e12ac9a6b84b907933a27c89b69141f740d1557867eff4d8c8ae8",
+          "bytes": 649187,
+          "sha256": "03b3223b5e3d848ff4539a1523270646d023d98717a5393c1ca241e75eb6f874",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0010.json.br",
+            "bytes": 24891,
+            "sha256": "de96dbcd593a45a0032328e84da447f70ca08441a23c9a3767a834c2856f7a74"
+          },
           "firstComponentPath": "runtime/health/heartbeat/1779941376554-heartbeat.json",
           "lastComponentPath": "runtime/reports/root-neural-tawheed-activation-20260516T180549Z.json"
         },
@@ -3510,7 +3588,14 @@
           "offset": 5000,
           "componentCount": 500,
           "bytes": 647191,
-          "sha256": "1bba191fe47ffd21a26ab062ff7975f7b2271bee344fa0174782a3d6ea48a1ac",
+          "sha256": "589d7bf06921144be541ed4b5630b6aec224ad1722e8208a7402ac40a0ccac2d",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0011.json.br",
+            "bytes": 18490,
+            "sha256": "ce33d248df08f579cd92215eda404bd42aa6143f64ba9422c9622c86959ed3ca"
+          },
           "firstComponentPath": "runtime/reports/root-neural-tawheed-activation-20260516T225952Z.json",
           "lastComponentPath": "runtime/sheikha-architecture-catalog/sheikha-architecture-catalog-digital-twin.js"
         },
@@ -3519,8 +3604,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0012.json",
           "offset": 5500,
           "componentCount": 500,
-          "bytes": 641313,
-          "sha256": "1353119616c009e4f91703cfb7ea53799c8d29c8b99a25d28e3130144e334547",
+          "bytes": 641414,
+          "sha256": "ebf133657050a42c6093ef6cf889247f4e277c80231849a7f5aae6cddb21e413",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0012.json.br",
+            "bytes": 25101,
+            "sha256": "e72e87a74fe698fe1081934bf260d4ce93582d85acd6100c5c6d28772f3f4eb1"
+          },
           "firstComponentPath": "runtime/sheikha-cli-v1/v1/registries/cli-commands.json",
           "lastComponentPath": "scripts/ops/measure-api-latency-curl.sh"
         },
@@ -3529,29 +3621,50 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0013.json",
           "offset": 6000,
           "componentCount": 500,
-          "bytes": 605921,
-          "sha256": "ecfc2dc54ea72adfc548c3b0a4311e8bd65da43ab251936d0c077efa21dee61a",
+          "bytes": 606017,
+          "sha256": "f5a9f2180c360274405e816b80b4571443efdad8a3c18b77a47ebccfc52873fe",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0013.json.br",
+            "bytes": 25733,
+            "sha256": "37411391c0493ac211f51db26630bb265a396672d7e326e84e5fac620dd0199b"
+          },
           "firstComponentPath": "scripts/ops/measure-api-latency-keepalive.mjs",
-          "lastComponentPath": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
+          "lastComponentPath": "tests/provider-compute-fabric-v1.test.js"
         },
         {
           "number": 14,
           "path": "runtime/master-activation/capability-registry-v1/components/components-0014.json",
           "offset": 6500,
           "componentCount": 500,
-          "bytes": 653867,
-          "sha256": "a634021d1a35df886f48d71571933f8bf7e2ebc9e7c7168b8393ba19eb0a170e",
-          "firstComponentPath": "tests/research-fabric-v2/sheikha-research-fabric-v2.test.js",
-          "lastComponentPath": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js"
+          "bytes": 653295,
+          "sha256": "5fe0f972ac39a7a4c647217bd55ec12739dcdc8f7f43a7b0b10b24755a5a6ad5",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0014.json.br",
+            "bytes": 26798,
+            "sha256": "44af4eb49eee61cc310adb2cad0a962482c6ad1b10d7909165b893a8967fb642"
+          },
+          "firstComponentPath": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js",
+          "lastComponentPath": "tools/knowledge-evidence-fabric/sheikha-knowledge-evidence-fabric-cli.js"
         },
         {
           "number": 15,
           "path": "runtime/master-activation/capability-registry-v1/components/components-0015.json",
           "offset": 7000,
-          "componentCount": 181,
-          "bytes": 234511,
-          "sha256": "e406e75fe66d69eda7516f06152bcf51c6db167d27417025f80f0144a9f56b3e",
-          "firstComponentPath": "tools/licensing-engine/sheikha-licensing-engine-v1.js",
+          "componentCount": 185,
+          "bytes": 240172,
+          "sha256": "2f641c8488eeb294cbb9e5377d70d3e406a2f3e1997b399fc6908c7ed7ce7959",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0015.json.br",
+            "bytes": 12239,
+            "sha256": "57b97aaa5c24f3c5c2516fac348f5ab2999362d95474355fad0e744de1903809"
+          },
+          "firstComponentPath": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js",
           "lastComponentPath": "نظام-التقييم-الموحد-الإسلامي.md"
         }
       ]
@@ -3631,9 +3744,9 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-          "tests/admin-methodology-information-impact-os-v1.test.js",
-          "tests/agi-asi-research-science-fabric-v1.test.js"
+          "tests/admin-methodology-information-impact-os-v1.test.js"
         ],
         "reports": [
           "ACTIVATION-REPORT.json",
@@ -3702,9 +3815,9 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-          "tests/admin-methodology-information-impact-os-v1.test.js",
-          "tests/agi-asi-research-science-fabric-v1.test.js"
+          "tests/admin-methodology-information-impact-os-v1.test.js"
         ],
         "reports": [
           "ACTIVATION-REPORT.json",
@@ -3847,9 +3960,9 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-          "tests/admin-methodology-information-impact-os-v1.test.js",
-          "tests/agi-asi-research-science-fabric-v1.test.js"
+          "tests/admin-methodology-information-impact-os-v1.test.js"
         ],
         "reports": [
           "ACTIVATION-REPORT.json",
@@ -4531,9 +4644,9 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-          "tests/admin-methodology-information-impact-os-v1.test.js",
-          "tests/agi-asi-research-science-fabric-v1.test.js"
+          "tests/admin-methodology-information-impact-os-v1.test.js"
         ],
         "reports": [
           "ACTIVATION-REPORT.json",
@@ -4729,9 +4842,9 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-          "tests/admin-methodology-information-impact-os-v1.test.js",
-          "tests/agi-asi-research-science-fabric-v1.test.js"
+          "tests/admin-methodology-information-impact-os-v1.test.js"
         ],
         "reports": [
           "ACTIVATION-REPORT.json",
@@ -4800,9 +4913,9 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-          "tests/admin-methodology-information-impact-os-v1.test.js",
-          "tests/agi-asi-research-science-fabric-v1.test.js"
+          "tests/admin-methodology-information-impact-os-v1.test.js"
         ],
         "reports": [
           "ACTIVATION-REPORT.json",
@@ -5215,11 +5328,11 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
           "tests/architecture-digital-twin/sheikha-architecture-digital-twin-v1.test.js",
           "tests/dependency-genome/sheikha-dependency-genome-v1.test.js",
-          "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js",
-          "tests/execution-cortex/sheikha-execution-cortex-omega-v1.test.js"
+          "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js"
         ],
         "reports": [
           "SHEIKHA-COMPREHENSIVE-TRAINING-REPORT.json",
@@ -5360,11 +5473,11 @@
           "sheikha-language/compiler/tests/vm.test.js",
           "sheikha-vscode-extension/tests/integration.test.js",
           "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+          "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
           "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
           "tests/architecture-digital-twin/sheikha-architecture-digital-twin-v1.test.js",
           "tests/dependency-genome/sheikha-dependency-genome-v1.test.js",
-          "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js",
-          "tests/execution-cortex/sheikha-execution-cortex-omega-v1.test.js"
+          "tests/evolution-fabric/sheikha-evolution-fabric-v1.test.js"
         ],
         "reports": [
           "SHEIKHA-COMPREHENSIVE-TRAINING-REPORT.json",
@@ -5792,11 +5905,15 @@
         "shardBytesMatch": true,
         "shardDigestsMatch": true,
         "shardPayloadCountsMatch": true,
+        "compressedFilesPresent": true,
+        "compressedBytesMatch": true,
+        "compressedDigestsMatch": true,
+        "compressedRoundTripMatches": true,
         "totalComponentCountMatches": true,
         "componentIdsUnique": true,
         "digestChainMatches": true
       },
-      "componentCount": 7181,
+      "componentCount": 7185,
       "shardCount": 15,
       "indexPath": "runtime/master-activation/sheikha-master-capability-registry-v1.json"
     }
@@ -6106,6 +6223,8 @@
       "ops:marketplace-operating-system:v1",
       "ops:master-activation:consolidation:v1",
       "ops:master-activation:report:v1",
+      "ops:master-capability-registry:query:v1",
+      "ops:master-capability-registry:stats:v1",
       "ops:master-capability-registry:test:v1",
       "ops:meta-federation-orchestrator:v6",
       "ops:mobile:logs",
@@ -6476,19 +6595,34 @@
       "shardDirectory": "runtime/master-activation/capability-registry-v1/components",
       "shardSize": 500,
       "shardCount": 15,
-      "componentCount": 7181,
+      "componentCount": 7185,
       "componentsArrayMode": "COMPACT_REFERENCES",
       "fullComponentRecordsInShards": true,
+      "compression": {
+        "algorithm": "BROTLI",
+        "quality": 7,
+        "rawBytes": 9113828,
+        "compressedBytes": 374544,
+        "savingsPercent": 95.89,
+        "losslessRoundTripRequired": true
+      },
       "unlistedShardPolicy": "IGNORE_NOT_REFERENCED_BY_INDEX",
-      "shardDigestChainSha256": "3fbda559d34526ef891d38c8e6d2e21f07fb94d21b0c007a3fd0f4deb23c91c9",
+      "shardDigestChainSha256": "d0561acdc017dd0d92c98e4ab75dae54c8be03caf54d4fdaf9a3253b337a7d02",
       "shards": [
         {
           "number": 1,
           "path": "runtime/master-activation/capability-registry-v1/components/components-0001.json",
           "offset": 0,
           "componentCount": 500,
-          "bytes": 595706,
-          "sha256": "4e634d23d63d77a590b2476afe874ccad49d3e7bae1c3828235734f9fea84655",
+          "bytes": 595775,
+          "sha256": "6fd9c1c761d9dae3071c6f519efa85acb99ea7acf8b9cc7dd6116ff8f48db93f",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0001.json.br",
+            "bytes": 25539,
+            "sha256": "ce224406fbf39435fa9710bad8df6be3b9579fee3f953c94b0f07fbfc48c9d81"
+          },
           "firstComponentPath": ".claude/config.json",
           "lastComponentPath": "config/deployment-supreme.config.js"
         },
@@ -6497,8 +6631,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0002.json",
           "offset": 500,
           "componentCount": 500,
-          "bytes": 650648,
-          "sha256": "2bffad999b31322783a23c07bb5246c27f069d48a7c6d9a97d6946a72a39d3a5",
+          "bytes": 651051,
+          "sha256": "b096050a79365515ddac923ce1117d2295ebb6a0c701ce40a49322dce8cd7d2c",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0002.json.br",
+            "bytes": 26333,
+            "sha256": "b74fa2757b0564d77c2309af768dcb9b2f8d2df99ae6b0aed2a59a593dd1ccf1"
+          },
           "firstComponentPath": "config/engines-jawami-final.json",
           "lastComponentPath": "dist/sheikha-app/opt/sheikha/core/neural/neural-cells.js"
         },
@@ -6507,8 +6648,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0003.json",
           "offset": 1000,
           "componentCount": 500,
-          "bytes": 620894,
-          "sha256": "2e6326663144d1f2d844740bee05618877d5eff10a4c07add09b4653c16de23d",
+          "bytes": 620963,
+          "sha256": "900dbc9e9143e2bd5e90258b640ecf7143e14e2578609ac83f33538011f567d4",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0003.json.br",
+            "bytes": 23834,
+            "sha256": "7375d34179e91567288adf53b59308c02f921ed796760239e51f15d1ee7457c0"
+          },
           "firstComponentPath": "dist/sheikha-app/opt/sheikha/core/neural/root-neural-fabric.js",
           "lastComponentPath": "dist/sheikha-app/opt/sheikha/lib/sheikha/package-lock.json"
         },
@@ -6517,8 +6665,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0004.json",
           "offset": 1500,
           "componentCount": 500,
-          "bytes": 641338,
-          "sha256": "c7266869bdbd25897f905ab4384ddb901679a77139bbc792395091eba574517d",
+          "bytes": 641545,
+          "sha256": "c5691bcb1478522d16df5bfe3f312308c5893a1fc3bcc572e8fb2229550fd98a",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0004.json.br",
+            "bytes": 30860,
+            "sha256": "bfbf04773c06a85d6dab736dba03845e97de6ed5b679e1f65fad71bda7427ad3"
+          },
           "firstComponentPath": "dist/sheikha-app/opt/sheikha/lib/sheikha/package.json",
           "lastComponentPath": "docs/services/evaluations/خدمة-المتجر-الإلكتروني.hybrid-evaluation.json"
         },
@@ -6528,7 +6683,14 @@
           "offset": 2000,
           "componentCount": 500,
           "bytes": 637727,
-          "sha256": "a6a245199a4a3a2ff6e85c6dd7fc5fe251b6795fcf8be426ee686cc5fe17278b",
+          "sha256": "ffa34c8fd67121966a1cb250b3401436f41c3d082dcee913ab40464296d72e52",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0005.json.br",
+            "bytes": 27055,
+            "sha256": "0b861b44bbc630870f467a216e4e9d9ab62285a3fe6f1c9aaff737b6848cde88"
+          },
           "firstComponentPath": "docs/services/evaluations/خدمة-النقل-والشحن.hybrid-evaluation.json",
           "lastComponentPath": "knowledge/graph/status.json"
         },
@@ -6538,7 +6700,14 @@
           "offset": 2500,
           "componentCount": 500,
           "bytes": 572409,
-          "sha256": "01e51a3b6fe44a45bd2d932fdb95e1c7dd8e0d12908f9513282571ab879796e8",
+          "sha256": "0173bfcfa7ccdb63deae96587215770adb801230cdcde8aa73c6dbe6d9ff2c42",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0006.json.br",
+            "bytes": 23014,
+            "sha256": "bc0474f202f28ef98e617e88e1edab92ee776a02e8372d0120a7f718c9033387"
+          },
           "firstComponentPath": "knowledge/quranic-atlas/sheikha-quranic-architectural-atlas.json",
           "lastComponentPath": "lib/sheikha-wisdom-fusion-engine.js"
         },
@@ -6547,8 +6716,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0007.json",
           "offset": 3000,
           "componentCount": 500,
-          "bytes": 615628,
-          "sha256": "84e7bcf1c8ee6f7aff915f2266db550b4498333dfa3700e7faedcd508a6b5da9",
+          "bytes": 616394,
+          "sha256": "d4d536303e046c393fbec403359aabf983a7c18e327e36346d9d8a62157080eb",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0007.json.br",
+            "bytes": 25627,
+            "sha256": "b345c12f70fcdd0e3d01c0c13dc88246a4b7e1405d26360e94815ef3c54e48ef"
+          },
           "firstComponentPath": "lib/sheikha-wisdom-power-engine.js",
           "lastComponentPath": "routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes.js"
         },
@@ -6557,8 +6733,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0008.json",
           "offset": 3500,
           "componentCount": 500,
-          "bytes": 676172,
-          "sha256": "0e16e0c75687dd620abb30c1291ddba3b7e48a56011372698a2fa8ac1ccf3cee",
+          "bytes": 676271,
+          "sha256": "39b86ec6cd05b83fd94aefc4da4c792cb4356da45e2ce600d795ad6e713e6199",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0008.json.br",
+            "bytes": 33672,
+            "sha256": "0df174074cb2b2448eb122cc0c3aee0744cb203c7f72e626f4fb56e336d1518a"
+          },
           "firstComponentPath": "routes/arabic-semantic-encoding/status.routes.js",
           "lastComponentPath": "runtime/bare-metal/v1/evidence/qemu-command.txt"
         },
@@ -6567,8 +6750,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0009.json",
           "offset": 4000,
           "componentCount": 500,
-          "bytes": 664119,
-          "sha256": "4b35b81208979faeb4841b594298a9b14f5b37c08d3625affebe18c0467ad139",
+          "bytes": 664417,
+          "sha256": "9225e45b7c6e937ff6ceeddaa87c7099c1954bf28159d79693d1a46b65534d7f",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0009.json.br",
+            "bytes": 25358,
+            "sha256": "aebe925c9ba63a397478a9b7628071d10ddcccefe4766c52134208543418cbaa"
+          },
           "firstComponentPath": "runtime/bare-metal/v1/evidence/qemu-run-report.json",
           "lastComponentPath": "runtime/health/alerts/.gitignore"
         },
@@ -6577,8 +6767,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0010.json",
           "offset": 4500,
           "componentCount": 500,
-          "bytes": 648958,
-          "sha256": "b290f229039e12ac9a6b84b907933a27c89b69141f740d1557867eff4d8c8ae8",
+          "bytes": 649187,
+          "sha256": "03b3223b5e3d848ff4539a1523270646d023d98717a5393c1ca241e75eb6f874",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0010.json.br",
+            "bytes": 24891,
+            "sha256": "de96dbcd593a45a0032328e84da447f70ca08441a23c9a3767a834c2856f7a74"
+          },
           "firstComponentPath": "runtime/health/heartbeat/1779941376554-heartbeat.json",
           "lastComponentPath": "runtime/reports/root-neural-tawheed-activation-20260516T180549Z.json"
         },
@@ -6588,7 +6785,14 @@
           "offset": 5000,
           "componentCount": 500,
           "bytes": 647191,
-          "sha256": "1bba191fe47ffd21a26ab062ff7975f7b2271bee344fa0174782a3d6ea48a1ac",
+          "sha256": "589d7bf06921144be541ed4b5630b6aec224ad1722e8208a7402ac40a0ccac2d",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0011.json.br",
+            "bytes": 18490,
+            "sha256": "ce33d248df08f579cd92215eda404bd42aa6143f64ba9422c9622c86959ed3ca"
+          },
           "firstComponentPath": "runtime/reports/root-neural-tawheed-activation-20260516T225952Z.json",
           "lastComponentPath": "runtime/sheikha-architecture-catalog/sheikha-architecture-catalog-digital-twin.js"
         },
@@ -6597,8 +6801,15 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0012.json",
           "offset": 5500,
           "componentCount": 500,
-          "bytes": 641313,
-          "sha256": "1353119616c009e4f91703cfb7ea53799c8d29c8b99a25d28e3130144e334547",
+          "bytes": 641414,
+          "sha256": "ebf133657050a42c6093ef6cf889247f4e277c80231849a7f5aae6cddb21e413",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0012.json.br",
+            "bytes": 25101,
+            "sha256": "e72e87a74fe698fe1081934bf260d4ce93582d85acd6100c5c6d28772f3f4eb1"
+          },
           "firstComponentPath": "runtime/sheikha-cli-v1/v1/registries/cli-commands.json",
           "lastComponentPath": "scripts/ops/measure-api-latency-curl.sh"
         },
@@ -6607,29 +6818,50 @@
           "path": "runtime/master-activation/capability-registry-v1/components/components-0013.json",
           "offset": 6000,
           "componentCount": 500,
-          "bytes": 605921,
-          "sha256": "ecfc2dc54ea72adfc548c3b0a4311e8bd65da43ab251936d0c077efa21dee61a",
+          "bytes": 606017,
+          "sha256": "f5a9f2180c360274405e816b80b4571443efdad8a3c18b77a47ebccfc52873fe",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0013.json.br",
+            "bytes": 25733,
+            "sha256": "37411391c0493ac211f51db26630bb265a396672d7e326e84e5fac620dd0199b"
+          },
           "firstComponentPath": "scripts/ops/measure-api-latency-keepalive.mjs",
-          "lastComponentPath": "tests/quranic-operating-system/sheikha-quranic-operating-system-atlas-v1.test.js"
+          "lastComponentPath": "tests/provider-compute-fabric-v1.test.js"
         },
         {
           "number": 14,
           "path": "runtime/master-activation/capability-registry-v1/components/components-0014.json",
           "offset": 6500,
           "componentCount": 500,
-          "bytes": 653867,
-          "sha256": "a634021d1a35df886f48d71571933f8bf7e2ebc9e7c7168b8393ba19eb0a170e",
-          "firstComponentPath": "tests/research-fabric-v2/sheikha-research-fabric-v2.test.js",
-          "lastComponentPath": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js"
+          "bytes": 653295,
+          "sha256": "5fe0f972ac39a7a4c647217bd55ec12739dcdc8f7f43a7b0b10b24755a5a6ad5",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0014.json.br",
+            "bytes": 26798,
+            "sha256": "44af4eb49eee61cc310adb2cad0a962482c6ad1b10d7909165b893a8967fb642"
+          },
+          "firstComponentPath": "tests/quranic-atlas/sheikha-quranic-atlas-v1.test.js",
+          "lastComponentPath": "tools/knowledge-evidence-fabric/sheikha-knowledge-evidence-fabric-cli.js"
         },
         {
           "number": 15,
           "path": "runtime/master-activation/capability-registry-v1/components/components-0015.json",
           "offset": 7000,
-          "componentCount": 181,
-          "bytes": 234511,
-          "sha256": "e406e75fe66d69eda7516f06152bcf51c6db167d27417025f80f0144a9f56b3e",
-          "firstComponentPath": "tools/licensing-engine/sheikha-licensing-engine-v1.js",
+          "componentCount": 185,
+          "bytes": 240172,
+          "sha256": "2f641c8488eeb294cbb9e5377d70d3e406a2f3e1997b399fc6908c7ed7ce7959",
+          "compression": {
+            "algorithm": "BROTLI",
+            "quality": 7,
+            "path": "runtime/master-activation/capability-registry-v1/components/components-0015.json.br",
+            "bytes": 12239,
+            "sha256": "57b97aaa5c24f3c5c2516fac348f5ab2999362d95474355fad0e744de1903809"
+          },
+          "firstComponentPath": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js",
           "lastComponentPath": "نظام-التقييم-الموحد-الإسلامي.md"
         }
       ]
@@ -6646,18 +6878,22 @@
         "shardBytesMatch": true,
         "shardDigestsMatch": true,
         "shardPayloadCountsMatch": true,
+        "compressedFilesPresent": true,
+        "compressedBytesMatch": true,
+        "compressedDigestsMatch": true,
+        "compressedRoundTripMatches": true,
         "totalComponentCountMatches": true,
         "componentIdsUnique": true,
         "digestChainMatches": true
       },
-      "componentCount": 7181,
+      "componentCount": 7185,
       "shardCount": 15,
       "indexPath": "runtime/master-activation/sheikha-master-capability-registry-v1.json"
     }
   },
   "architectureCatalog": {
     "system": "SHEIKHA_ENTERPRISE_ARCHITECTURE_CATALOG_V1",
-    "generatedAt": "2026-07-11T00:15:07.063Z",
+    "generatedAt": "2026-07-11T00:56:40.169Z",
     "source": "local-repository-discovery",
     "githubRequired": false,
     "roots": [
@@ -9466,7 +9702,7 @@
       },
       {
         "root": "sheikha-vscode-extension",
-        "files": 91,
+        "files": 93,
         "classification": "repository-artifact"
       },
       {
@@ -9631,7 +9867,7 @@
       },
       {
         "root": "tests",
-        "files": 338,
+        "files": 339,
         "classification": "repository-artifact"
       },
       {
@@ -9641,7 +9877,7 @@
       },
       {
         "root": "tools",
-        "files": 391,
+        "files": 392,
         "classification": "repository-artifact"
       },
       {
@@ -9948,7 +10184,7 @@
         "responsibility": "تعريف لغة تشغيلية محكومة وقابلة للقياس."
       },
       "Documentation": {
-        "components": 3137,
+        "components": 3138,
         "dependencies": [
           "Knowledge",
           "Registry"
@@ -10006,7 +10242,7 @@
         "responsibility": "الفحص العام والفرعي، كشف التعارض، وتجميع الأدلة."
       },
       "Knowledge": {
-        "components": 203,
+        "components": 204,
         "dependencies": [
           "Identity",
           "Runtime",
@@ -10056,7 +10292,7 @@
         "responsibility": "التعافي، الرجوع الآمن، وإصلاح حالات التعطل."
       },
       "Registry": {
-        "components": 244,
+        "components": 246,
         "dependencies": [
           "Knowledge",
           "Governance"
@@ -10151,7 +10387,7 @@
     "dependencyGraph": {
       "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
       "layerEdges": 59,
-      "componentEdges": 15070
+      "componentEdges": 15079
     },
     "duplicateAnalysis": {
       "fullDuplicateReportPath": "runtime/master-activation/sheikha-master-duplicate-detection-v1.json",
@@ -10167,14 +10403,14 @@
       "layers": 25,
       "apis": 2710,
       "services": 0,
-      "tests": 348,
+      "tests": 350,
       "docs": 1074,
       "sdks": 80,
-      "registries": 369,
+      "registries": 371,
       "runtimeEngines": 1261,
       "identityEngines": 95,
       "governanceEngines": 525,
-      "knowledgeEngines": 203,
+      "knowledgeEngines": 204,
       "communityEngines": 18,
       "commerceEngines": 73,
       "enterpriseEngines": 184,
@@ -10185,7 +10421,7 @@
       "pipelines": 58,
       "automationEngines": 385,
       "integrations": 346,
-      "packageScripts": 664,
+      "packageScripts": 666,
       "duplicateGroups": 1209,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -10213,7 +10449,7 @@
       "distributionTargetsVerified": 1,
       "distributionTargetsNativeVerified": 1,
       "distributionReleaseApexLevel": 27,
-      "publicBenefitRegisteredCapabilities": 7181,
+      "publicBenefitRegisteredCapabilities": 7185,
       "publicBenefitActiveCapabilities": 856,
       "universalBenefitCapabilities": 16,
       "universalBenefitBoundaries": 18,
@@ -10233,7 +10469,7 @@
   },
   "architectureGraph": {
     "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-    "generatedAt": "2026-07-11T00:15:05.599Z",
+    "generatedAt": "2026-07-11T00:56:38.834Z",
     "nodes": [
       {
         "id": "APIs",
@@ -10286,7 +10522,7 @@
       {
         "id": "Documentation",
         "type": "layer",
-        "components": 3137,
+        "components": 3138,
         "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
       },
       {
@@ -10328,7 +10564,7 @@
       {
         "id": "Knowledge",
         "type": "layer",
-        "components": 203,
+        "components": 204,
         "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
       },
       {
@@ -10364,7 +10600,7 @@
       {
         "id": "Registry",
         "type": "layer",
-        "components": 244,
+        "components": 246,
         "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
       },
       {
@@ -10689,17 +10925,17 @@
         "type": "layer-dependency"
       }
     ],
-    "componentEdgesCount": 15070,
+    "componentEdgesCount": 15079,
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
     "graphPolicy": "relationships are inferred from repository evidence and layer contracts"
   },
   "dependencyGraph": {
     "fullGraphPath": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
-    "componentEdges": 15070
+    "componentEdges": 15079
   },
   "duplicateAnalysis": {
     "system": "SHEIKHA_MASTER_DUPLICATE_DETECTION_V1",
-    "generatedAt": "2026-07-11T00:15:05.610Z",
+    "generatedAt": "2026-07-11T00:56:38.843Z",
     "policy": "REPORT_ONLY_NO_DELETION",
     "duplicateFilesCount": 1209,
     "duplicateServicesCount": 28,
@@ -11896,9 +12132,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.54,
-            4.01,
-            3.75
+            5.56,
+            3.02,
+            2.68
           ]
         }
       },
@@ -11906,13 +12142,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 43455238144,
+          "freeMemoryBytes": 41097998336,
           "processMemory": {
-            "rss": 174931968,
-            "heapTotal": 31789056,
-            "heapUsed": 19216360,
-            "external": 20748499,
-            "arrayBuffers": 16803316
+            "rss": 163061760,
+            "heapTotal": 31797248,
+            "heapUsed": 19544400,
+            "external": 18684754,
+            "arrayBuffers": 14708180
           }
         }
       },
@@ -11920,8 +12156,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 541105172,
-          "availableKb": 383408968,
+          "usedKb": 541153656,
+          "availableKb": 383360484,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12195,9 +12431,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.54,
-            4.01,
-            3.75
+            5.56,
+            3.02,
+            2.68
           ]
         }
       },
@@ -12205,13 +12441,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 43454824448,
+          "freeMemoryBytes": 41097998336,
           "processMemory": {
-            "rss": 175128576,
-            "heapTotal": 31789056,
-            "heapUsed": 19494176,
-            "external": 20748551,
-            "arrayBuffers": 16803328
+            "rss": 163258368,
+            "heapTotal": 31797248,
+            "heapUsed": 19822936,
+            "external": 18684806,
+            "arrayBuffers": 14708192
           }
         }
       },
@@ -12219,8 +12455,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 541105172,
-          "availableKb": 383408968,
+          "usedKb": 541153656,
+          "availableKb": 383360484,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -12532,7 +12768,7 @@
   },
   "methodologyAccreditation": {
     "system": "SHEIKHA_MASTER_METHODOLOGY_ACCREDITATION_READINESS_V1",
-    "generatedAt": "2026-07-11T00:15:06.417Z",
+    "generatedAt": "2026-07-11T00:56:39.592Z",
     "policy": {
       "internalAttestationsAllowed": true,
       "externalAccreditationIssuedBySheikha": false,
@@ -12541,7 +12777,7 @@
       "githubRequired": false
     },
     "repositoryEvidence": {
-      "components": 7181,
+      "components": 7185,
       "catalog": "runtime/master-activation/sheikha-enterprise-architecture-catalog-v1.json",
       "capabilityRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
       "architectureGraph": "runtime/master-activation/sheikha-master-architecture-graph-v1.json",
@@ -13470,7 +13706,7 @@
     "policyPath": "runtime/governance-generator/v1/registries/public-benefit-capability-policy-v1.json",
     "status": "ACTIVE_POLICY_ONLY_NO_AUTOMATIC_EXECUTION",
     "scope": "ALL_DISCOVERED_AND_REGISTERED_CAPABILITIES",
-    "registeredCapabilities": 7181,
+    "registeredCapabilities": 7185,
     "currentlyActiveCapabilities": 856,
     "policyCoverageActivatesCapabilities": false,
     "hardBoundariesOverrideBenefitIntent": true,
@@ -13622,7 +13858,7 @@
   },
   "executiveDashboard": {
     "system": "SHEIKHA_MASTER_EXECUTIVE_DASHBOARD_V1",
-    "generatedAt": "2026-07-11T00:15:07.008Z",
+    "generatedAt": "2026-07-11T00:56:40.133Z",
     "vision": "شيخة منصة تشغيل معرفية وتجارية وصناعية محكومة بالأدلة والإتقان.",
     "mission": "توحيد المحركات والطبقات والواجهات في كتالوج واحد يمنع التكرار ويقود التحسين الآمن.",
     "goals": [
@@ -13648,9 +13884,9 @@
         "evidence": {
           "cpuCount": 22,
           "loadAverage": [
-            4.54,
-            4.01,
-            3.75
+            5.56,
+            3.02,
+            2.68
           ]
         }
       },
@@ -13658,13 +13894,13 @@
         "ok": true,
         "evidence": {
           "totalMemoryBytes": 66875768832,
-          "freeMemoryBytes": 43454824448,
+          "freeMemoryBytes": 41097998336,
           "processMemory": {
-            "rss": 175128576,
-            "heapTotal": 31789056,
-            "heapUsed": 19494176,
-            "external": 20748551,
-            "arrayBuffers": 16803328
+            "rss": 163258368,
+            "heapTotal": 31797248,
+            "heapUsed": 19822936,
+            "external": 18684806,
+            "arrayBuffers": 14708192
           }
         }
       },
@@ -13672,8 +13908,8 @@
         "ok": true,
         "evidence": {
           "totalKb": 974067752,
-          "usedKb": 541105172,
-          "availableKb": 383408968,
+          "usedKb": 541153656,
+          "availableKb": 383360484,
           "usagePercent": "59%",
           "mount": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
         }
@@ -13831,7 +14067,7 @@
         }
       }
     },
-    "markets": 442,
+    "markets": 444,
     "projects": 435,
     "customers": 73,
     "capabilities": {
@@ -13840,14 +14076,14 @@
       "layers": 25,
       "apis": 2710,
       "services": 0,
-      "tests": 348,
+      "tests": 350,
       "docs": 1074,
       "sdks": 80,
-      "registries": 369,
+      "registries": 371,
       "runtimeEngines": 1261,
       "identityEngines": 95,
       "governanceEngines": 525,
-      "knowledgeEngines": 203,
+      "knowledgeEngines": 204,
       "communityEngines": 18,
       "commerceEngines": 73,
       "enterpriseEngines": 184,
@@ -13858,7 +14094,7 @@
       "pipelines": 58,
       "automationEngines": 385,
       "integrations": 346,
-      "packageScripts": 664,
+      "packageScripts": 666,
       "duplicateGroups": 1209,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -13886,7 +14122,7 @@
       "distributionTargetsVerified": 1,
       "distributionTargetsNativeVerified": 1,
       "distributionReleaseApexLevel": 27,
-      "publicBenefitRegisteredCapabilities": 7181,
+      "publicBenefitRegisteredCapabilities": 7185,
       "publicBenefitActiveCapabilities": 856,
       "universalBenefitCapabilities": 16,
       "universalBenefitBoundaries": 18,
@@ -13905,7 +14141,7 @@
     },
     "indicators": {
       "apiEndpoints": 2710,
-      "tests": 348,
+      "tests": 350,
       "duplicateGroups": 1209,
       "githubRequired": false,
       "methodologyFamilies": 10,
@@ -13941,7 +14177,7 @@
       "distributionReleaseApexLevel": 27,
       "distributionReleaseApexRemoteBuildEndpointExposed": false,
       "publicBenefitCapabilityRoutingActive": true,
-      "publicBenefitRegisteredCapabilities": 7181,
+      "publicBenefitRegisteredCapabilities": 7185,
       "publicBenefitPolicyActivatesCapabilities": false,
       "universalBenefitBoundaryActive": true,
       "universalBenefitCapabilities": 16,
@@ -14211,7 +14447,7 @@
   },
   "documentation": {
     "system": "SHEIKHA_MASTER_DOCUMENTATION_INDEX_V1",
-    "generatedAt": "2026-07-11T00:15:06.417Z",
+    "generatedAt": "2026-07-11T00:56:39.593Z",
     "count": 1074,
     "canonicalDocs": [
       "docs/canonical/README.md",
@@ -14511,7 +14747,7 @@
   ],
   "executiveReport": {
     "system": "SHEIKHA_MASTER_FINAL_EXECUTIVE_REPORT_V1",
-    "generatedAt": "2026-07-11T00:15:06.417Z",
+    "generatedAt": "2026-07-11T00:56:39.593Z",
     "githubDependency": false,
     "counts": {
       "systems": 435,
@@ -14519,14 +14755,14 @@
       "layers": 25,
       "apis": 2710,
       "services": 0,
-      "tests": 348,
+      "tests": 350,
       "docs": 1074,
       "sdks": 80,
-      "registries": 369,
+      "registries": 371,
       "runtimeEngines": 1261,
       "identityEngines": 95,
       "governanceEngines": 525,
-      "knowledgeEngines": 203,
+      "knowledgeEngines": 204,
       "communityEngines": 18,
       "commerceEngines": 73,
       "enterpriseEngines": 184,
@@ -14537,7 +14773,7 @@
       "pipelines": 58,
       "automationEngines": 385,
       "integrations": 346,
-      "packageScripts": 664,
+      "packageScripts": 666,
       "duplicateGroups": 1209,
       "methodologyFamilies": 10,
       "internalAttestations": 5,
@@ -14565,7 +14801,7 @@
       "distributionTargetsVerified": 1,
       "distributionTargetsNativeVerified": 1,
       "distributionReleaseApexLevel": 27,
-      "publicBenefitRegisteredCapabilities": 7181,
+      "publicBenefitRegisteredCapabilities": 7185,
       "publicBenefitActiveCapabilities": 856,
       "universalBenefitCapabilities": 16,
       "universalBenefitBoundaries": 18,

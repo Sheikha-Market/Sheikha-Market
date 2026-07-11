@@ -1,15 +1,183 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1",
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-07-11T00:15:05.596Z",
+  "generatedAt": "2026-07-11T00:56:38.832Z",
   "parentRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
   "shard": {
     "number": 15,
     "count": 15,
     "offset": 7000,
-    "componentCount": 181
+    "componentCount": 185
   },
   "components": [
+    {
+      "id": "knowledge-graph-engine-1f9309f57f30",
+      "name": "sheikha-knowledge-graph-engine-v1",
+      "version": "v1",
+      "path": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js",
+      "type": "code",
+      "layer": "Knowledge",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
+      "inputs": [
+        "docs",
+        "reports",
+        "indexes"
+      ],
+      "outputs": [
+        "knowledge graph",
+        "retrieval evidence"
+      ],
+      "dependencies": [
+        "Identity",
+        "Runtime",
+        "Registry"
+      ],
+      "tests": [
+        "tests/knowledge-graph-engine-v1.test.js"
+      ],
+      "reports": [
+        "runtime/knowledge-graph-engine-v1/v1/sheikha-knowledge-graph-engine-v1-report.json",
+        "runtime/knowledge-graph-engine-v1/v1/sheikha-knowledge-graph-engine-v1-report.md"
+      ],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/knowledge-graph-engine-v1/sheikha-knowledge-graph-engine-v1.js"
+      }
+    },
+    {
+      "id": "knowledge-graph-engine-cli-74a61c93ded9",
+      "name": "sheikha-knowledge-graph-engine-v63-cli",
+      "version": "v63",
+      "path": "tools/knowledge-graph-engine/sheikha-knowledge-graph-engine-v63-cli.js",
+      "type": "code",
+      "layer": "Knowledge",
+      "status": "requires-catalog-link",
+      "lifecycle": "NEEDS_LINKING",
+      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
+      "inputs": [
+        "docs",
+        "reports",
+        "indexes"
+      ],
+      "outputs": [
+        "knowledge graph",
+        "retrieval evidence"
+      ],
+      "dependencies": [
+        "Identity",
+        "Runtime",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/knowledge-graph-engine/sheikha-knowledge-graph-engine-v63-cli.js"
+      },
+      "maturity": "implemented-needs-registry-link",
+      "operationStatus": "requires-catalog-link",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/knowledge-graph-engine/sheikha-knowledge-graph-engine-v63-cli.js"
+      }
+    },
+    {
+      "id": "knowledge-universe-graph-cli-464f32217c17",
+      "name": "sheikha-knowledge-universe-graph-v76-cli",
+      "version": "v76",
+      "path": "tools/knowledge-universe-graph/sheikha-knowledge-universe-graph-v76-cli.js",
+      "type": "code",
+      "layer": "Knowledge",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع.",
+      "inputs": [
+        "docs",
+        "reports",
+        "indexes"
+      ],
+      "outputs": [
+        "knowledge graph",
+        "retrieval evidence"
+      ],
+      "dependencies": [
+        "Identity",
+        "Runtime",
+        "Registry"
+      ],
+      "tests": [],
+      "reports": [],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/knowledge-universe-graph/sheikha-knowledge-universe-graph-v76-cli.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/knowledge-universe-graph/sheikha-knowledge-universe-graph-v76-cli.js"
+      }
+    },
+    {
+      "id": "layer-governance-promotion-os-68d37e4f5151",
+      "name": "sheikha-layer-governance-promotion-os-v1",
+      "version": "v1",
+      "path": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js",
+      "type": "code",
+      "layer": "Governance",
+      "status": "discovered-not-claimed-production",
+      "lifecycle": "NEEDS_DEVELOPMENT",
+      "responsibility": "تطبيق الحوكمة، السياسات، بوابات الحقيقة، وضوابط القرار.",
+      "inputs": [
+        "policies",
+        "runtime evidence"
+      ],
+      "outputs": [
+        "admission decisions",
+        "audit records"
+      ],
+      "dependencies": [
+        "Runtime",
+        "Security"
+      ],
+      "tests": [
+        "tests/layer-governance-promotion-os-v1.test.js"
+      ],
+      "reports": [
+        "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.json",
+        "runtime/layer-governance-promotion-os/v1/sheikha-layer-governance-promotion-os-v1-report.md"
+      ],
+      "apis": [],
+      "runtime": {
+        "present": false,
+        "pm2Managed": false,
+        "evidence": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js"
+      },
+      "maturity": "discovered",
+      "operationStatus": "discovered-not-claimed-production",
+      "evidence": {
+        "source": "local-repository-discovery",
+        "githubRequired": false,
+        "path": "tools/layer-governance-promotion-os/sheikha-layer-governance-promotion-os-v1.js"
+      }
+    },
     {
       "id": "licensing-engine-f60c4a1356be",
       "name": "sheikha-licensing-engine-v1",

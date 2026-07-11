@@ -11,7 +11,7 @@ const LOCAL_BASE_URL = process.env.SHEIKHA_LOCAL_API_BASE_URL || 'http://127.0.0
 const DEFAULT_BASE_URL = process.env.SHEIKHA_API_BASE_URL || LOCAL_BASE_URL;
 const CONVERSATION_ENDPOINT = '/api/sheikha/conversation-engine/v1/chat';
 const UNIFIED_CHAT_FALLBACK_ENDPOINT = '/api/sheikha/unified-chat';
-const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/status';
+const INSPECTOR_STATUS_ENDPOINT = '/api/sheikha/enterprise-inspector/v3/context';
 const EXTENSION_EXPERIENCE_STATUS_ENDPOINT = '/api/sheikha/extension-experience/v1/status';
 const VITAL_CHAT_APEX_STATUS_ENDPOINT = '/api/sheikha/vital-chat-apex/v1/status';
 const DEBUGGING_APEX_STATUS_ENDPOINT = '/api/sheikha/debugging-apex/v1/status';
@@ -26,7 +26,7 @@ const AUTONOMOUS_STREAM_ENDPOINT = '/api/sheikha/streaming-chat-apex/v1/autonomo
 const LIVE_CHAT_ENDPOINT = '/api/sheikha/live/chat/v1';
 const EXTENSION_STREAMING_ARTIFACT_APEX_STATUS_ENDPOINT =
   '/api/sheikha/extension-streaming-artifact-apex/v1/status';
-const EXTENSION_TRANSPORT_VERSION = '1.0.89';
+const EXTENSION_TRANSPORT_VERSION = '1.0.90';
 
 function safeJsonParse(rawInput, metadata = {}) {
   const raw = String(rawInput || '').trim();
@@ -76,7 +76,10 @@ function safeJsonParse(rawInput, metadata = {}) {
 function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
   return new Promise((resolve, reject) => {
     const url = new URL(path, baseUrl);
-    const body = JSON.stringify(payload || {});
+    const timeoutMs = Number(payload?.__timeoutMs || 60000);
+    const wirePayload = { ...(payload || {}) };
+    delete wirePayload.__timeoutMs;
+    const body = JSON.stringify(wirePayload);
     const lib = url.protocol === 'https:' ? https : http;
 
     const req = lib.request({
@@ -90,7 +93,7 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
         'Content-Length': Buffer.byteLength(body),
         'User-Agent': `Sheikha-VSCode-Extension/${EXTENSION_TRANSPORT_VERSION}`
       },
-      timeout: Number(payload?.__timeoutMs || 60000)
+      timeout: timeoutMs
     }, (res) => {
       let data = '';
 
@@ -110,7 +113,7 @@ function postJson(path, payload, baseUrl = DEFAULT_BASE_URL) {
     });
 
     req.on('timeout', () => {
-      req.destroy(new Error(`Sheikha extension chat timeout after ${Number(payload?.__timeoutMs || 60000)}ms`));
+      req.destroy(new Error(`Sheikha extension chat timeout after ${timeoutMs}ms`));
     });
 
     req.on('error', reject);
@@ -145,7 +148,6 @@ function parseSseEvent(frame = '') {
 
 function parseSseBuffer(buffer = '') {
   const normalized = String(buffer || '')
-    .replace(/\\n/g, '\n')
     .replace(/\r\n/g, '\n')
     .replace(/\r/g, '\n');
 
@@ -165,6 +167,19 @@ function parseSseBuffer(buffer = '') {
     .filter(Boolean);
 
   return { events, rest };
+}
+
+function isProvisionalLiveResponse(streamed = {}) {
+  const events = Array.isArray(streamed.events) ? streamed.events : [];
+  const done = events.find((item) => item.event === 'done');
+  const meta = events.find((item) => item.event === 'meta');
+  const route = String(done?.data?.route || streamed.route || '').toUpperCase();
+  const deepMode = String(meta?.data?.deepModelMode || '').toLowerCase();
+  const answer = String(streamed.answer || '').trim();
+
+  return route === 'FAST_ARABIC_DEFAULT' ||
+    deepMode === 'background' ||
+    answer === 'تم، أعمل على ذلك الآن.';
 }
 
 function stripLeadingGreetingBlock(input = '') {
@@ -224,6 +239,9 @@ function postSse(path, payload, baseUrl = DEFAULT_BASE_URL, handlers = {}) {
     let ended = false;
     let statusCode = 0;
     let contentType = '';
+    let receivedBytes = 0;
+    const timeoutMs = Number(handlers.timeout || 90000);
+    const maxResponseBytes = Number(handlers.maxResponseBytes || 8 * 1024 * 1024);
 
     const greetingFilter = createStreamingGreetingFilter(handlers.greetingAllowed !== false);
 
@@ -231,6 +249,38 @@ function postSse(path, payload, baseUrl = DEFAULT_BASE_URL, handlers = {}) {
       if (ended) return;
       ended = true;
       resolve(result);
+    }
+
+    function fail(error) {
+      if (ended) return;
+      ended = true;
+      reject(error);
+    }
+
+    function processEvent(item) {
+      if (!item || ended) return;
+      events.push(item);
+      if (typeof handlers.onEvent === 'function') handlers.onEvent(item);
+
+      if (item.event === 'token') {
+        const rawText = String(item.data?.text || '');
+        const filteredText = greetingFilter.push(rawText);
+        if (!filteredText) return;
+        tokens.push(filteredText);
+        if (typeof handlers.onToken === 'function') {
+          handlers.onToken({
+            ...item,
+            data: { ...(item.data || {}), text: filteredText },
+            text: filteredText
+          });
+        }
+      }
+
+      if (item.event === 'error') {
+        const error = new Error(item.data?.error || 'Sheikha SSE stream error');
+        error.payload = item.data;
+        fail(error);
+      }
     }
 
     const req = lib.request({
@@ -244,47 +294,27 @@ function postSse(path, payload, baseUrl = DEFAULT_BASE_URL, handlers = {}) {
         'Content-Length': Buffer.byteLength(body),
         'User-Agent': `Sheikha-VSCode-Extension/${EXTENSION_TRANSPORT_VERSION}`
       },
-      timeout: handlers.timeout || 90000
+      timeout: timeoutMs
     }, (res) => {
       statusCode = Number(res.statusCode || 0);
       contentType = String(res.headers['content-type'] || '');
 
       res.on('data', (chunk) => {
+        receivedBytes += chunk.length;
+        if (receivedBytes > maxResponseBytes) {
+          res.destroy(new Error('Sheikha SSE response exceeded the governed size limit'));
+          return;
+        }
         const parsed = parseSseBuffer(rest + chunk.toString('utf8'));
         rest = parsed.rest;
-
-        parsed.events.forEach((item) => {
-          events.push(item);
-          if (typeof handlers.onEvent === 'function') handlers.onEvent(item);
-
-          if (item.event === 'token') {
-            const rawText = String(item.data?.text || '');
-            const filteredText = greetingFilter.push(rawText);
-            if (!filteredText) return;
-            tokens.push(filteredText);
-            if (typeof handlers.onToken === 'function') {
-              handlers.onToken({
-                ...item,
-                data: { ...(item.data || {}), text: filteredText },
-                text: filteredText
-              });
-            }
-          }
-
-          if (item.event === 'error') {
-            const error = new Error(item.data?.error || 'Sheikha SSE stream error');
-            error.payload = item.data;
-            reject(error);
-          }
-        });
+        parsed.events.forEach(processEvent);
       });
 
       res.on('end', () => {
+        if (ended) return;
         const parsed = parseSseBuffer(rest.endsWith('\n\n') ? rest : `${rest}\n\n`);
-        parsed.events.forEach((item) => {
-          events.push(item);
-          if (typeof handlers.onEvent === 'function') handlers.onEvent(item);
-        });
+        parsed.events.forEach(processEvent);
+        if (ended) return;
         const flushed = greetingFilter.flush();
         if (flushed) {
           tokens.push(flushed);
@@ -304,15 +334,15 @@ function postSse(path, payload, baseUrl = DEFAULT_BASE_URL, handlers = {}) {
           events
         });
       });
+      res.on('aborted', () => fail(new Error('Sheikha SSE response aborted')));
+      res.on('error', fail);
     });
 
     req.on('timeout', () => {
-      req.destroy(new Error('Sheikha extension streaming timeout after 90s'));
+      req.destroy(new Error(`Sheikha extension streaming timeout after ${timeoutMs}ms`));
     });
 
-    req.on('error', (error) => {
-      if (!ended) reject(error);
-    });
+    req.on('error', fail);
     req.write(body);
     req.end();
   });
@@ -644,7 +674,8 @@ async function sendExtensionChat(message, options = {}) {
           },
           primaryBaseUrl,
           {
-            timeout: Number(options.timeout || 180000),
+            timeout: Number(options.liveTimeout || 15000),
+            greetingAllowed,
             onEvent: options.onEvent,
             onToken: options.onToken
           }
@@ -657,7 +688,8 @@ async function sendExtensionChat(message, options = {}) {
           ''
         ).trim();
 
-        if (streamed?.success !== false && answerText) {
+        const provisional = isProvisionalLiveResponse(streamed);
+        if (streamed?.success !== false && answerText && !provisional) {
           return {
             success: true,
             answer: dedupeSheikhaAnswer(answerText),
@@ -669,6 +701,15 @@ async function sendExtensionChat(message, options = {}) {
             }
           };
         }
+        if (provisional && typeof options.onEvent === 'function') {
+          options.onEvent({
+            event: 'live-fast-ack-complete',
+            data: {
+              route: 'FAST_ARABIC_DEFAULT',
+              continuingToDeepRoute: true
+            }
+          });
+        }
       } catch (sseError) {
         if (typeof options.onEvent === 'function') {
           options.onEvent({
@@ -676,7 +717,6 @@ async function sendExtensionChat(message, options = {}) {
             data: { error: sseError.message }
           });
         }
-        throw sseError;
       }
     }
 
@@ -765,8 +805,6 @@ async function sendExtensionChat(message, options = {}) {
         }
       }
     }
-
-    // Removed obsolete JSON fastpath; real SSE L51 is authoritative.
 
     // Removed obsolete JSON fastpath; real SSE L51 is authoritative.
 
@@ -931,6 +969,7 @@ module.exports = {
   parseSseEvent,
   isLocalBaseUrl,
   isInspectorRequest,
+  isProvisionalLiveResponse,
   safeJsonParse,
   shouldUseUnifiedFallback
 };

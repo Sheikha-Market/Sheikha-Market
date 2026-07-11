@@ -12,6 +12,7 @@ function getNonce() {
 const crypto = require('crypto');
 const {
   DEFAULT_BASE_URL,
+  EXTENSION_TRANSPORT_VERSION,
   getChatInterfaceApexStatus,
   getComputingCognitiveApexStatus,
   getDebuggingApexStatus,
@@ -29,9 +30,13 @@ const {
 } = require('../sheikhaArtifactPreview');
 
 class SheikhaChatProvider {
-  constructor(context) {
+  constructor(context, options = {}) {
     this.context = context;
+    this.getBaseUrl = typeof options.getBaseUrl === 'function'
+      ? options.getBaseUrl
+      : () => DEFAULT_BASE_URL;
     this.views = new Set();
+    this.pendingViews = new WeakSet();
     this.conversationId = crypto.randomUUID();
     this.history = [];
     this.artifactPanel = null;
@@ -46,32 +51,32 @@ class SheikhaChatProvider {
 
     webviewView.webview.html = this.getHtml();
     getExtensionExperienceStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((experience) => {
       webviewView.webview.postMessage({ command: 'experienceStatus', experience });
     }).catch(() => {});
     getVitalChatApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((vital) => {
       webviewView.webview.postMessage({ command: 'vitalStatus', vital });
     }).catch(() => {});
     getDebuggingApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((debugging) => {
       webviewView.webview.postMessage({ command: 'debuggingStatus', debugging });
     }).catch(() => {});
     getChatInterfaceApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((interfaceApex) => {
       webviewView.webview.postMessage({ command: 'interfaceStatus', interfaceApex });
     }).catch(() => {});
     getIdeApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((ideApex) => {
       webviewView.webview.postMessage({ command: 'ideApexStatus', ideApex });
     }).catch(() => {});
     getTechnicalCapabilityApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((technicalCapability) => {
       webviewView.webview.postMessage({
         command: 'technicalCapabilityStatus',
@@ -79,7 +84,7 @@ class SheikhaChatProvider {
       });
     }).catch(() => {});
     getComputingCognitiveApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((computingCognitiveApex) => {
       webviewView.webview.postMessage({
         command: 'computingCognitiveApexStatus',
@@ -87,7 +92,7 @@ class SheikhaChatProvider {
       });
     }).catch(() => {});
     getStreamingChatApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((streamingApex) => {
       webviewView.webview.postMessage({
         command: 'streamingApexStatus',
@@ -95,7 +100,7 @@ class SheikhaChatProvider {
       });
     }).catch(() => {});
     getExtensionStreamingArtifactApexStatus({
-      baseUrl: DEFAULT_BASE_URL
+      baseUrl: this.getBaseUrl()
     }).then((extensionArtifactApex) => {
       webviewView.webview.postMessage({
         command: 'extensionArtifactApexStatus',
@@ -104,6 +109,7 @@ class SheikhaChatProvider {
     }).catch(() => {});
 
     webviewView.webview.onDidReceiveMessage(async (msg) => {
+      let requestAcquired = false;
       try {
         if (!msg || msg.command !== 'ask') return;
 
@@ -118,6 +124,17 @@ class SheikhaChatProvider {
           return;
         }
 
+        if (this.pendingViews.has(webviewView)) {
+          webviewView.webview.postMessage({
+            command: 'reply',
+            text: 'يوجد طلب قيد المعالجة. انتظر اكتماله قبل إرسال طلب آخر.',
+            meta: { busy: true }
+          });
+          return;
+        }
+        this.pendingViews.add(webviewView);
+        requestAcquired = true;
+
         webviewView.webview.postMessage({
           command: 'typing',
           text: 'شيخة تقرأ السياق والذاكرة وحالة المشروع...'
@@ -131,7 +148,7 @@ class SheikhaChatProvider {
         });
 
         const result = await sendExtensionChat(text, {
-          baseUrl: DEFAULT_BASE_URL,
+          baseUrl: this.getBaseUrl(),
           mode: msg.mode || 'smart',
           conversationId: this.conversationId,
           history: this.history,
@@ -187,6 +204,8 @@ class SheikhaChatProvider {
           text: 'حدث خطأ في شات شيخة. أرسل الخطأ أو أعد المحاولة، وسأساعدك في إصلاحه.\n\n' + String(e.message || e),
           meta: { error: true }
         });
+      } finally {
+        if (requestAcquired) this.pendingViews.delete(webviewView);
       }
     });
   }
@@ -279,7 +298,7 @@ textarea { width:100%; box-sizing:border-box; border-radius:7px; padding:10px; b
 <div class="shell">
 <div class="header">
   <div class="header-main">
-    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension 1.0.89</small></div>
+    <div><strong>شات شيخة المتدفق المتقدم</strong><small id="experience">L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · Extension ${EXTENSION_TRANSPORT_VERSION}</small></div>
     <span class="status-pill" id="modeLabel">SMART</span>
   </div>
 <div class="apex" id="apex">
@@ -480,14 +499,14 @@ window.addEventListener('message', event => {
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · Layer Governance L' +
       (data.governedByApexLevel || 18) +
-      ' · L18 Debugging Apex · Runtime L1-L8 · Extension 1.0.89';
+      ' · L18 Debugging Apex · Runtime L1-L8 · Extension ${EXTENSION_TRANSPORT_VERSION}';
   }
   if (msg.command === 'vitalStatus' && msg.vital && msg.vital.success === true) {
     const data = msg.vital.data || {};
     const stack = data.stack || {};
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
+      (data.decision || data.status || 'ACTIVE') + ' · Extension ${EXTENSION_TRANSPORT_VERSION}';
     document.getElementById('apex').innerHTML = [
       ['L24 Computing Cognitive Apex', 'PENDING_STATUS'],
       ['L23 Extension Streaming Artifact Apex', 'PENDING_STATUS'],
@@ -510,14 +529,14 @@ window.addEventListener('message', event => {
     const data = msg.debugging.data || {};
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L18 Debugging Apex · L19 IDE Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
+      (data.decision || data.status || 'ACTIVE') + ' · Extension ${EXTENSION_TRANSPORT_VERSION}';
   }
   if (msg.command === 'interfaceStatus' && msg.interfaceApex && msg.interfaceApex.success === true) {
     const data = msg.interfaceApex.data || {};
     const template = data.template || {};
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L17 Chat Interface Apex · L16 Vital Chat Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
+      (data.decision || data.status || 'ACTIVE') + ' · Extension ${EXTENSION_TRANSPORT_VERSION}';
     if (Array.isArray(template.regions)) {
       document.getElementById('contextRail').innerHTML = template.regions
         .slice(0, 8)
@@ -529,7 +548,7 @@ window.addEventListener('message', event => {
     const data = msg.ideApex.data || {};
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · L19 IDE Apex · L18 Debugging Apex · ' +
-      (data.decision || data.status || 'ACTIVE') + ' · Extension 1.0.89';
+      (data.decision || data.status || 'ACTIVE') + ' · Extension ${EXTENSION_TRANSPORT_VERSION}';
   }
   if (
     msg.command === 'technicalCapabilityStatus' &&
@@ -541,7 +560,7 @@ window.addEventListener('message', event => {
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · L20 Technical Capability Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · Extension 1.0.89';
+      ' · Extension ${EXTENSION_TRANSPORT_VERSION}';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
@@ -558,7 +577,7 @@ window.addEventListener('message', event => {
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · L21 Streaming Multilingual Chat Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · SSE · RTL/LTR · Extension 1.0.89';
+      ' · SSE · RTL/LTR · Extension ${EXTENSION_TRANSPORT_VERSION}';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
@@ -575,7 +594,7 @@ window.addEventListener('message', event => {
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · L23 Extension Streaming Artifact Apex · ' +
       (data.decision || data.status || 'ACTIVE') +
-      ' · SSE Client · Safe Preview · Extension 1.0.89';
+      ' · SSE Client · Safe Preview · Extension ${EXTENSION_TRANSPORT_VERSION}';
     if (order.length) {
       document.getElementById('apex').innerHTML = order
         .map(name => '<b class="active" title="ACTIVE">' + String(name) + '</b>')
@@ -592,7 +611,7 @@ window.addEventListener('message', event => {
     document.getElementById('experience').textContent =
       'L24 Computing Cognitive Apex · ' +
       (apex.status || 'ACTIVE') +
-      ' · Human Final Decision · Extension 1.0.89';
+      ' · Human Final Decision · Extension ${EXTENSION_TRANSPORT_VERSION}';
     const current = document.getElementById('apex');
     const lower = Array.isArray(promotion.governedLowerLayers)
       ? promotion.governedLowerLayers

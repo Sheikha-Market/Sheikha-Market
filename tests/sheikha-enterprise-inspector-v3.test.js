@@ -5,6 +5,7 @@ const path = require('path');
 const {
   collectEnterpriseInspector,
   compactInspectorContext,
+  getEnterpriseInspectorSnapshot,
   sanitizeExtensionContext,
   summarizeDiagnostics
 } = require('../core/enterprise/sheikha-enterprise-inspector-v3');
@@ -60,6 +61,16 @@ describe('Sheikha Enterprise Inspector V3', () => {
       information: 0,
       total: 1
     });
+  });
+
+  test('uses cached inspector snapshots and non-blocking Git collection', () => {
+    const controlTower = read('core/enterprise/sheikha-enterprise-control-tower-v1.js');
+    const first = getEnterpriseInspectorSnapshot({ force: true });
+    const second = getEnterpriseInspectorSnapshot();
+
+    expect(second).toBe(first);
+    expect(controlTower).toContain("cp.execFile('git'");
+    expect(controlTower).not.toContain('execSync');
   });
 
   test('snapshot unifies runtime, governance, chat, extension, and architecture', () => {
@@ -158,11 +169,14 @@ describe('Sheikha Enterprise Inspector V3', () => {
 
   test('server mounts inspector once before unified chat', () => {
     const server = read('server.js');
+    const routes = read('routes/sheikha-enterprise-inspector-v3-routes.js');
     const inspectorMount = "app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));";
     const chatMount = "app.use(require('./routes/sheikha-unified-chat-fabric'));";
 
     expect(server.split(inspectorMount).length - 1).toBe(1);
     expect(server.indexOf(inspectorMount)).toBeLessThan(server.indexOf(chatMount));
+    expect(routes).toContain("status: 'CONTEXT_ACCEPTED'");
+    expect(routes).toContain('getEnterpriseInspectorSnapshot()');
   });
 
   test('extension inspector and chat share an actionable governed flow', () => {

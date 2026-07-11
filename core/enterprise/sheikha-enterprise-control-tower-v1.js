@@ -3,20 +3,67 @@
 const os = require('os');
 const cp = require('child_process');
 
-function sh(cmd) {
-  try {
-    return cp.execSync(cmd, {
+const GIT_SNAPSHOT_TTL_MS = 10000;
+const GIT_SNAPSHOT = {
+  branch: 'غير متاح',
+  status: '',
+  aheadBehind: 'غير متاح',
+  refreshedAt: null,
+  refreshStatus: 'PENDING'
+};
+let gitRefreshPromise = null;
+
+function execGit(args, fallback = 'غير متاح') {
+  return new Promise((resolve) => {
+    cp.execFile('git', args, {
+      cwd: process.cwd(),
       encoding: 'utf8',
-      stdio: ['ignore', 'pipe', 'pipe'],
-      timeout: 5000
-    }).trim();
-  } catch (e) {
-    return String(e.stderr || e.message || 'غير متاح').trim();
-  }
+      timeout: 5000,
+      maxBuffer: 2 * 1024 * 1024
+    }, (error, stdout) => {
+      if (error) {
+        resolve(fallback);
+        return;
+      }
+      resolve(String(stdout || '').trim());
+    });
+  });
+}
+
+function refreshGitSnapshot(options = {}) {
+  const refreshedAtMs = GIT_SNAPSHOT.refreshedAt
+    ? Date.parse(GIT_SNAPSHOT.refreshedAt)
+    : 0;
+  const fresh = Number.isFinite(refreshedAtMs) &&
+    Date.now() - refreshedAtMs < GIT_SNAPSHOT_TTL_MS;
+  if (!options.force && fresh) return Promise.resolve({ ...GIT_SNAPSHOT });
+  if (gitRefreshPromise) return gitRefreshPromise;
+
+  GIT_SNAPSHOT.refreshStatus = 'REFRESHING';
+  gitRefreshPromise = Promise.all([
+    execGit(['rev-parse', '--abbrev-ref', 'HEAD']),
+    execGit(['status', '--short'], ''),
+    execGit(['rev-list', '--left-right', '--count', '@{u}...HEAD'])
+  ]).then(([branch, status, aheadBehind]) => {
+    Object.assign(GIT_SNAPSHOT, {
+      branch,
+      status,
+      aheadBehind,
+      refreshedAt: new Date().toISOString(),
+      refreshStatus: 'READY'
+    });
+    return { ...GIT_SNAPSHOT };
+  }).finally(() => {
+    gitRefreshPromise = null;
+  });
+  return gitRefreshPromise;
 }
 
 function collectControlTowerStatus() {
   const mem = process.memoryUsage();
+  refreshGitSnapshot().catch(() => {
+    GIT_SNAPSHOT.refreshStatus = 'DEGRADED';
+  });
 
   return {
     success: true,
@@ -30,9 +77,9 @@ function collectControlTowerStatus() {
       uptimeSeconds: Math.round(process.uptime())
     },
     git: {
-      branch: sh('git rev-parse --abbrev-ref HEAD'),
-      status: sh('git status --short'),
-      aheadBehind: sh('git rev-list --left-right --count @{u}...HEAD 2>/dev/null || echo "غير متاح"')
+      ...GIT_SNAPSHOT,
+      stale: !GIT_SNAPSHOT.refreshedAt ||
+        Date.now() - Date.parse(GIT_SNAPSHOT.refreshedAt) >= GIT_SNAPSHOT_TTL_MS
     },
     project: {
       workspace: process.cwd()
@@ -62,5 +109,11 @@ function collectControlTowerStatus() {
 }
 
 module.exports = {
-  collectControlTowerStatus
+  GIT_SNAPSHOT,
+  collectControlTowerStatus,
+  refreshGitSnapshot
 };
+
+refreshGitSnapshot().catch(() => {
+  GIT_SNAPSHOT.refreshStatus = 'DEGRADED';
+});

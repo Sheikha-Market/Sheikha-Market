@@ -1,7 +1,7 @@
 {
   "system": "SHEIKHA_MASTER_CAPABILITY_REGISTRY_SHARD_V1",
   "schemaVersion": "1.1.0",
-  "generatedAt": "2026-07-11T00:15:05.596Z",
+  "generatedAt": "2026-07-11T00:56:38.832Z",
   "parentRegistry": "runtime/master-activation/sheikha-master-capability-registry-v1.json",
   "shard": {
     "number": 10,
@@ -321,9 +321,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -1568,9 +1568,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -1640,9 +1640,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -6620,6 +6620,7 @@
         "Governance"
       ],
       "tests": [
+        "tests/sheikha-master-capability-registry-query-v1.test.js",
         "tests/sheikha-master-capability-registry-storage-v1.test.js"
       ],
       "reports": [],
@@ -7756,9 +7757,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -7830,9 +7831,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -8535,9 +8536,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -17514,9 +17515,9 @@
         "sheikha-language/compiler/tests/vm.test.js",
         "sheikha-vscode-extension/tests/integration.test.js",
         "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+        "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
         "sheikha-vscode-extension/tests/sheikhaExtensionChatTransport.test.js",
-        "tests/admin-methodology-information-impact-os-v1.test.js",
-        "tests/agi-asi-research-science-fabric-v1.test.js"
+        "tests/admin-methodology-information-impact-os-v1.test.js"
       ],
       "reports": [
         "ACTIVATION-REPORT.json",
@@ -18201,6 +18202,7 @@
       ],
       "tests": [
         "tests/capability-registry-v2.test.js",
+        "tests/sheikha-master-capability-registry-query-v1.test.js",
         "tests/sheikha-master-capability-registry-storage-v1.test.js"
       ],
       "reports": [

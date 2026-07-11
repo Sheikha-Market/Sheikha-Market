@@ -1,6 +1,6 @@
 {
   "system": "SHEIKHA_MASTER_ARCHITECTURE_GRAPH_V1",
-  "generatedAt": "2026-07-11T00:15:05.599Z",
+  "generatedAt": "2026-07-11T00:56:38.834Z",
   "nodes": [
     {
       "id": "APIs",
@@ -53,7 +53,7 @@
     {
       "id": "Documentation",
       "type": "layer",
-      "components": 3137,
+      "components": 3138,
       "responsibility": "توثيق الأدلة والقرارات والواجهات دون تكرار غير لازم."
     },
     {
@@ -95,7 +95,7 @@
     {
       "id": "Knowledge",
       "type": "layer",
-      "components": 203,
+      "components": 204,
       "responsibility": "إدارة المعرفة والرسوم المعرفية والفهارس والاسترجاع."
     },
     {
@@ -131,7 +131,7 @@
     {
       "id": "Registry",
       "type": "layer",
-      "components": 244,
+      "components": 246,
       "responsibility": "حفظ السجلات المرجعية للقدرات والواجهات والملكية."
     },
     {
@@ -80180,6 +80180,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "sheikhacommandbridge-dbc0d71b7ae0",
+      "fromPath": "sheikha-vscode-extension/src/sheikhaCommandBridge.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhacommandbridge-dbc0d71b7ae0",
+      "fromPath": "sheikha-vscode-extension/src/sheikhaCommandBridge.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
       "from": "sheikhaenterpriseinspectorbridge-659af983aae1",
       "fromPath": "sheikha-vscode-extension/src/sheikhaEnterpriseInspectorBridge.js",
       "to": "Governance",
@@ -80566,6 +80578,24 @@
     {
       "from": "sheikhaartifactpreview-test-eff5fc157421",
       "fromPath": "sheikha-vscode-extension/tests/sheikhaArtifactPreview.test.js",
+      "to": "Registry",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhacommandcoverage-test-86c9278ef6b6",
+      "fromPath": "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
+      "to": "Identity",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhacommandcoverage-test-86c9278ef6b6",
+      "fromPath": "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
+      "to": "Runtime",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "sheikhacommandcoverage-test-86c9278ef6b6",
+      "fromPath": "sheikha-vscode-extension/tests/sheikhaCommandCoverage.test.js",
       "to": "Registry",
       "type": "component-to-layer"
     },
@@ -83954,6 +83984,18 @@
       "type": "component-to-layer"
     },
     {
+      "from": "master-capability-registry-query-test-9b3b42a4f4af",
+      "fromPath": "tests/sheikha-master-capability-registry-query-v1.test.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-capability-registry-query-test-9b3b42a4f4af",
+      "fromPath": "tests/sheikha-master-capability-registry-query-v1.test.js",
+      "to": "Governance",
+      "type": "component-to-layer"
+    },
+    {
       "from": "master-capability-registry-storage-test-fca838bbfaae",
       "fromPath": "tests/sheikha-master-capability-registry-storage-v1.test.js",
       "to": "Identity",
@@ -87262,6 +87304,18 @@
     {
       "from": "capability-registry-dfd1529bb288",
       "fromPath": "tools/capability-registry/sheikha-capability-registry-v2.js",
+      "to": "Governance",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-capability-index-60f8a669366f",
+      "fromPath": "tools/capability-registry/sheikha-master-capability-index-v1.js",
+      "to": "Knowledge",
+      "type": "component-to-layer"
+    },
+    {
+      "from": "master-capability-index-60f8a669366f",
+      "fromPath": "tools/capability-registry/sheikha-master-capability-index-v1.js",
       "to": "Governance",
       "type": "component-to-layer"
     },
