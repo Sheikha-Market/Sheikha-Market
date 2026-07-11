@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "3.1.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_LINUX_SECURITY_CONTRACT_V31",
+  "status": "BUILD_READY",
+  "platform": "linux",
+  "architecture": "x86_64",
+  "runtimeBinding": "DYNAMIC_GTK3_WEBKIT2GTK4_0_ABI",
+  "allowedTopLevelOrigins": [
+    "http://127.0.0.1:8080",
+    "http://localhost:8080"
+  ],
+  "nativeBridge": {
+    "implemented": false,
+    "shellAccess": false,
+    "filesystemAccess": false,
+    "kernelAccess": false,
+    "firmwareAccess": false,
+    "packageManagerAccess": false,
+    "secretsAccess": false
+  },
+  "webView": {
+    "sandboxRequired": true,
+    "developerExtras": false,
+    "clipboardAccess": false,
+    "mediaPermissions": false,
+    "downloads": false,
+    "newWindows": false,
+    "contextMenu": false,
+    "fileUrlAccess": false,
+    "universalFileUrlAccess": false,
+    "remoteTopLevelNavigation": false
+  },
+  "highImpactActions": {
+    "exposedByNativeShell": false,
+    "requiredExternalFlow": [
+      "HUMAN_APPROVAL",
+      "GOVERNANCE_GATE",
+      "CAPABILITY_CHECK",
+      "EXECUTION_ADAPTER",
+      "AUDIT_EVIDENCE"
+    ]
+  },
+  "humanFinalDecision": true,
+  "aiCanAuthorize": false
+}

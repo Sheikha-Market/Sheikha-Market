@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "3.1.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_SECURITY_HARDENING_V31",
+  "status": "NATIVE_VERIFIED",
+  "elf": {
+    "fileInspection": "/home/sheikha/Projects/sheikha/sheikha-main-portal/distribution/artifacts/v3.1/1.0.51/artifacts/sheikha-native-desktop-1.0.51-linux-x86_64: ELF 64-bit LSB pie executable, x86-64, version 1 (SYSV), dynamically linked, interpreter /lib64/ld-linux-x86-64.so.2, BuildID[sha1]=be1fe48db4d056394136bc98614972e0f6ca57d5, for GNU/Linux 3.2.0, stripped",
+    "elfHeader": "ELF Header:\n  Magic:   7f 45 4c 46 02 01 01 00 00 00 00 00 00 00 00 00 \n  Class:                             ELF64\n  Data:                              2's complement, little endian\n  Version:                           1 (current)\n  OS/ABI:                            UNIX - System V\n  ABI Version:                       0\n  Type:                              DYN (Position-Independent Executable file)\n  Machine:                           Advanced Micro Devices X86-64\n  Version:                           0x1\n  Entry point address:               0x1ca0\n  Start of program headers:          64 (bytes into file)\n  Start of section headers:          16712 (bytes into file)\n  Flags:                             0x0\n  Size of this header:               64 (bytes)\n  Size of program headers:           56 (bytes)\n  Number of program headers:         13\n  Size of section headers:           64 (bytes)\n  Number of section headers:         29\n  Section header string table index: 28",
+    "programHeaders": "Elf file type is DYN (Position-Independent Executable file)\nEntry point 0x1ca0\nThere are 13 program headers, starting at offset 64\n\nProgram Headers:\n  Type           Offset   VirtAddr           PhysAddr           FileSiz  MemSiz   Flg Align\n  PHDR           0x000040 0x0000000000000040 0x0000000000000040 0x0002d8 0x0002d8 R   0x8\n  INTERP         0x000318 0x0000000000000318 0x0000000000000318 0x00001c 0x00001c R   0x1\n      [Requesting program interpreter: /lib64/ld-linux-x86-64.so.2]\n  LOAD           0x000000 0x0000000000000000 0x0000000000000000 0x000960 0x000960 R   0x1000\n  LOAD           0x001000 0x0000000000001000 0x0000000000001000 0x001359 0x001359 R E 0x1000\n  LOAD           0x003000 0x0000000000003000 0x0000000000003000 0x000bdc 0x000bdc R   0x1000\n  LOAD           0x003d60 0x0000000000004d60 0x0000000000004d60 0x0002b0 0x000438 RW  0x1000\n  DYNAMIC        0x003d70 0x0000000000004d70 0x0000000000004d70 0x0001f0 0x0001f0 RW  0x8\n  NOTE           0x000338 0x0000000000000338 0x0000000000000338 0x000030 0x000030 R   0x8\n  NOTE           0x000368 0x0000000000000368 0x0000000000000368 0x000044 0x000044 R   0x4\n  GNU_PROPERTY   0x000338 0x0000000000000338 0x0000000000000338 0x000030 0x000030 R   0x8\n  GNU_EH_FRAME   0x003898 0x0000000000003898 0x0000000000003898 0x00009c 0x00009c R   0x4\n  GNU_STACK      0x000000 0x0000000000000000 0x0000000000000000 0x000000 0x000000 RW  0x10\n  GNU_RELRO      0x003d60 0x0000000000004d60 0x0000000000004d60 0x0002a0 0x0002a0 R   0x1\n\n Section to Segment mapping:\n  Segment Sections...\n   00     \n   01     .interp \n   02     .interp .note.gnu.property .note.gnu.build-id .note.ABI-tag .gnu.hash .dynsym .dynstr .gnu.version .gnu.version_r .rela.dyn .rela.plt \n   03     .init .plt .plt.got .plt.sec .text .fini \n   04     .rodata .eh_frame_hdr .eh_frame \n   05     .init_array .fini_array .dynamic .got .data .bss \n   06     .dynamic \n   07     .note.gnu.property \n   08     .note.gnu.build-id .note.ABI-tag \n   09     .note.gnu.property \n   10     .eh_frame_hdr \n   11     \n   12     .init_array .fini_array .dynamic .got",
+    "dynamicSection": "Dynamic section at offset 0x3d70 contains 27 entries:\n  Tag        Type                         Name/Value\n 0x0000000000000001 (NEEDED)             Shared library: [libc.so.6]\n 0x000000000000000c (INIT)               0x1000\n 0x000000000000000d (FINI)               0x234c\n 0x0000000000000019 (INIT_ARRAY)         0x4d60\n 0x000000000000001b (INIT_ARRAYSZ)       8 (bytes)\n 0x000000000000001a (FINI_ARRAY)         0x4d68\n 0x000000000000001c (FINI_ARRAYSZ)       8 (bytes)\n 0x000000006ffffef5 (GNU_HASH)           0x3b0\n 0x0000000000000005 (STRTAB)             0x5c0\n 0x0000000000000006 (SYMTAB)             0x3e0\n 0x000000000000000a (STRSZ)              279 (bytes)\n 0x000000000000000b (SYMENT)             24 (bytes)\n 0x0000000000000015 (DEBUG)              0x0\n 0x0000000000000003 (PLTGOT)             0x4f60\n 0x0000000000000002 (PLTRELSZ)           288 (bytes)\n 0x0000000000000014 (PLTREL)             RELA\n 0x0000000000000017 (JMPREL)             0x840\n 0x0000000000000007 (RELA)               0x750\n 0x0000000000000008 (RELASZ)             240 (bytes)\n 0x0000000000000009 (RELAENT)            24 (bytes)\n 0x000000000000001e (FLAGS)              BIND_NOW\n 0x000000006ffffffb (FLAGS_1)            Flags: NOW PIE\n 0x000000006ffffffe (VERNEED)            0x700\n 0x000000006fffffff (VERNEEDNUM)         1\n 0x000000006ffffff0 (VERSYM)             0x6d8\n 0x000000006ffffff9 (RELACOUNT)          3\n 0x0000000000000000 (NULL)               0x0",
+    "dynamicSymbols": "w _ITM_deregisterTMCloneTable\n                 w _ITM_registerTMCloneTable\n                 w __cxa_finalize@GLIBC_2.2.5\n                 U __fprintf_chk@GLIBC_2.3.4\n                 w __gmon_start__\n                 U __libc_start_main@GLIBC_2.34\n                 U __printf_chk@GLIBC_2.3.4\n                 U __stack_chk_fail@GLIBC_2.4\n                 U dlclose@GLIBC_2.34\n                 U dlerror@GLIBC_2.34\n                 U dlopen@GLIBC_2.34\n                 U dlsym@GLIBC_2.34\n                 U fflush@GLIBC_2.2.5\n                 U fwrite@GLIBC_2.2.5\n                 U puts@GLIBC_2.2.5\n0000000000005040 B stderr@GLIBC_2.2.5\n0000000000005020 B stdout@GLIBC_2.2.5\n                 U strcmp@GLIBC_2.2.5\n                 U strncmp@GLIBC_2.2.5",
+    "dependencies": "linux-vdso.so.1 (0x000079fc423e6000)\n\tlibc.so.6 => /lib/x86_64-linux-gnu/libc.so.6 (0x000079fc42000000)\n\t/lib64/ld-linux-x86-64.so.2 (0x000079fc423e8000)",
+    "architectureCorrect": true,
+    "pie": true,
+    "nxStack": true,
+    "relro": true,
+    "bindNow": true,
+    "stackCanary": true,
+    "directNodeDependency": false,
+    "directGtkLinkDependency": false
+  },
+  "contract": {
+    "schemaVersion": "3.1.0",
+    "system": "SHEIKHA_NATIVE_DESKTOP_LINUX_SECURITY_CONTRACT_V31",
+    "status": "BUILD_READY",
+    "platform": "linux",
+    "architecture": "x86_64",
+    "runtimeBinding": "DYNAMIC_GTK3_WEBKIT2GTK4_0_ABI",
+    "allowedTopLevelOrigins": [
+      "http://127.0.0.1:8080",
+      "http://localhost:8080"
+    ],
+    "nativeBridge": {
+      "implemented": false,
+      "shellAccess": false,
+      "filesystemAccess": false,
+      "kernelAccess": false,
+      "firmwareAccess": false,
+      "packageManagerAccess": false,
+      "secretsAccess": false
+    },
+    "webView": {
+      "sandboxRequired": true,
+      "developerExtras": false,
+      "clipboardAccess": false,
+      "mediaPermissions": false,
+      "downloads": false,
+      "newWindows": false,
+      "contextMenu": false,
+      "fileUrlAccess": false,
+      "universalFileUrlAccess": false,
+      "remoteTopLevelNavigation": false
+    },
+    "highImpactActions": {
+      "exposedByNativeShell": false,
+      "requiredExternalFlow": [
+        "HUMAN_APPROVAL",
+        "GOVERNANCE_GATE",
+        "CAPABILITY_CHECK",
+        "EXECUTION_ADAPTER",
+        "AUDIT_EVIDENCE"
+      ]
+    },
+    "humanFinalDecision": true,
+    "aiCanAuthorize": false
+  },
+  "remoteUrlDenied": true
+}

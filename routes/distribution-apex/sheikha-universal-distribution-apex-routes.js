@@ -11,6 +11,9 @@ const universalDeliveryV2 = require(
 const nativeDeliveryV3 = require(
   '../../runtime/distribution/v3/sheikha-native-delivery-v3-status'
 );
+const nativeDesktopV31 = require(
+  '../../runtime/distribution/v3.1/sheikha-native-desktop-v31-status'
+);
 
 const router = express.Router();
 
@@ -56,6 +59,26 @@ router.get('/api/sheikha/distribution-apex/v3/runners', (_req, res) => {
 
 router.get('/api/sheikha/distribution-apex/v3/release-index', (_req, res) => {
   res.json({ success: true, data: nativeDeliveryV3.releaseIndex() });
+});
+
+router.get('/api/sheikha/distribution-apex/v3.1/status', (_req, res) => {
+  res.json(nativeDesktopV31.status());
+});
+
+router.get('/api/sheikha/distribution-apex/v3.1/native-verification', (_req, res) => {
+  res.json({ success: true, data: nativeDesktopV31.nativeVerification() });
+});
+
+router.get('/api/sheikha/distribution-apex/v3.1/installer-lifecycle', (_req, res) => {
+  res.json({ success: true, data: nativeDesktopV31.installerLifecycle() });
+});
+
+router.get('/api/sheikha/distribution-apex/v3.1/security', (_req, res) => {
+  res.json({ success: true, data: nativeDesktopV31.security() });
+});
+
+router.get('/api/sheikha/distribution-apex/v3.1/release-index', (_req, res) => {
+  res.json({ success: true, data: nativeDesktopV31.releaseIndex() });
 });
 
 module.exports = router;
