@@ -1,0 +1,15 @@
+{
+  "$schema": "../gen/schemas/desktop-schema.json",
+  "identifier": "main-governed",
+  "description": "Only the governed Sheikha request bridge and native smoke acknowledgement are exposed.",
+  "windows": [
+    "main"
+  ],
+  "platforms": [
+    "linux"
+  ],
+  "permissions": [
+    "allow-governed-request",
+    "allow-native-smoke-ready"
+  ]
+}

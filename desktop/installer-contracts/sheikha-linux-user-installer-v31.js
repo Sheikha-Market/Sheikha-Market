@@ -106,8 +106,8 @@ function releaseArtifacts(releaseRoot) {
 
 function run(command, args) {
   const result = spawnSync(command, args, { encoding: 'utf8', timeout: 30000 });
-  if (result.error || result.status !== 0) {
-    throw new Error(`${command} failed: ${result.error?.message || result.stderr || result.stdout}`);
+  if (result.status !== 0) {
+    throw new Error(`${command} failed: ${result.stderr || result.stdout || result.error?.message}`);
   }
   return String(result.stdout || '').trim();
 }

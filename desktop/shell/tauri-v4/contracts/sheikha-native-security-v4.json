@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_SECURITY_CONTRACT_V4",
+  "status": "IMPLEMENTED_PENDING_NATIVE_VERIFICATION",
+  "framework": "tauri-2",
+  "platform": "linux",
+  "architecture": "x86_64",
+  "defaultDeny": {
+    "shell": true,
+    "arbitraryFilesystem": true,
+    "arbitraryProcessSpawning": true,
+    "unrestrictedNetwork": true,
+    "installerExecution": true,
+    "kernelAccess": true,
+    "firmwareAccess": true
+  },
+  "tauriPlugins": {
+    "shell": false,
+    "filesystem": false,
+    "http": false,
+    "process": false,
+    "updater": false,
+    "opener": false
+  },
+  "allowedTauriCommands": [
+    "governed_request",
+    "native_smoke_ready"
+  ],
+  "requestFlow": [
+    "UI Request",
+    "Schema Validation",
+    "Capability Contract",
+    "Governance Gate",
+    "Human Approval when required",
+    "Native Adapter",
+    "Audit Evidence"
+  ],
+  "localApi": {
+    "host": "127.0.0.1",
+    "port": 8080,
+    "paths": "EXPLICIT_ALLOWLIST_ONLY"
+  },
+  "audit": {
+    "directoryClass": "TAURI_APP_LOCAL_DATA_ONLY",
+    "payloadStored": false,
+    "payloadSha256Stored": true
+  },
+  "artificialIntelligence": {
+    "automaticShellExecution": false,
+    "automaticPackageInstallation": false,
+    "automaticSystemMutation": false,
+    "humanApprovalBypass": false,
+    "automatedReligiousRuling": false
+  },
+  "cdn": false,
+  "remoteFrontend": false,
+  "humanFinalDecision": true
+}

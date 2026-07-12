@@ -111,8 +111,9 @@ function timedRun(command, args = [], options = {}) {
     timeout: options.timeout || 45000
   });
   const durationMs = Number((performance.now() - started).toFixed(2));
-  if (result.error || (options.allowFailure !== true && result.status !== 0)) {
-    const detail = result.error?.message || result.stderr || result.stdout || `exit ${result.status}`;
+  const processDidNotStart = !Number.isInteger(result.status);
+  if (processDidNotStart || (options.allowFailure !== true && result.status !== 0)) {
+    const detail = result.stderr || result.stdout || result.error?.message || `exit ${result.status}`;
     throw new Error(`${command} failed: ${String(detail).trim()}`);
   }
   return {
