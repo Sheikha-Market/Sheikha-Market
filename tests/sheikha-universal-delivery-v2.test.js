@@ -15,6 +15,11 @@ const {
 const { WindowsInstallerAdapter } = require('../distribution/adapters/windows/windows-installer-adapter-v2');
 const { SheikhaCliDistributionAdapter } = require('../distribution/adapters/cli/sheikha-cli-distribution-adapter-v2');
 const { sha256File } = require('../distribution/common/distribution-utils');
+const {
+  RUNTIME_DIRECTORIES,
+  RUNTIME_FILES,
+  listTrackedRuntimeFiles
+} = require('../distribution/common/source-staging-engine');
 const { createSheikhaApiClient } = require('../sdk/sheikha-api');
 
 const ROOT = path.join(__dirname, '..');
@@ -224,6 +229,48 @@ describe('Sheikha Universal Delivery, Distribution and Installer Fabric V2', () 
     expect(channels.policy.silentOverwrite).toBe(false);
     expect(products.governance.githubRequired).toBe(false);
     expect(products.governance.externalPublishingAutomatic).toBe(false);
+  });
+
+  test('stages every runtime root required by the packaged server bootstrap', () => {
+    const trackedRuntimeFiles = listTrackedRuntimeFiles();
+
+    expect(RUNTIME_DIRECTORIES).toEqual(expect.arrayContaining([
+      'knowledge',
+      'sheikha-language'
+    ]));
+    expect(RUNTIME_FILES).toEqual(expect.arrayContaining([
+      'routes/pr-governance/status.routes.js',
+      'routes/runtime/verification/status.routes.js',
+      'runtime/distribution/v2/sheikha-universal-delivery-v2-status.js',
+      'runtime/distribution/v3/sheikha-native-delivery-v3-status.js',
+      'runtime/distribution/v3.1/sheikha-native-desktop-v31-status.js',
+      'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
+      'runtime/snapshots/sheikha-snapshot-engine.js',
+      'tools/activation/sheikha-unified-apex-manifest-v1.json'
+    ]));
+    expect(trackedRuntimeFiles).toEqual(expect.arrayContaining([
+      'knowledge/quranic-atlas/sheikha-quranic-architectural-atlas.json',
+      'knowledge/quranic-operating-system/sheikha-quranic-operating-system-atlas-omega-v1.json',
+      'knowledge/unified-graph/sheikha-unified-graph-fabric-v1.json',
+      'routes/pr-governance/status.routes.js',
+      'routes/runtime/verification/status.routes.js',
+      'runtime/distribution/v2/sheikha-universal-delivery-v2-status.js',
+      'runtime/distribution/v3/sheikha-native-delivery-v3-status.js',
+      'runtime/distribution/v3.1/sheikha-native-desktop-v31-status.js',
+      'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
+      'runtime/snapshots/sheikha-snapshot-engine.js',
+      'sheikha-language/compiler/lexer.js',
+      'tools/activation/sheikha-unified-apex-manifest-v1.json'
+    ]));
+  });
+
+  test('defines a bounded clean shutdown for packaged runtime lifecycle tests', () => {
+    const source = fs.readFileSync(path.join(ROOT, 'server.js'), 'utf8');
+
+    expect(source).toContain("process.once('SIGTERM'");
+    expect(source).toContain("process.once('SIGINT'");
+    expect(source).toContain('SHEIKHA_RUNTIME_CLEAN_SHUTDOWN_OK');
+    expect(source).toContain('server.close(finish)');
   });
 
   test('exposes read-only V2 delivery operations through the local SDK', async () => {

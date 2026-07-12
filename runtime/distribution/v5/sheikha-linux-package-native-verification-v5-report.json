@@ -1,0 +1,399 @@
+{
+  "schemaVersion": "5.0.0",
+  "system": "SHEIKHA_LINUX_PACKAGE_NATIVE_VERIFICATION_V5",
+  "generatedAt": "2026-07-12T12:14:32.246Z",
+  "status": "TAR_NATIVE_VERIFIED_CANDIDATE_UNCOMMITTED_DEB_BLOCKED",
+  "scope": "LINUX_X86_64_TAR_AND_DEB_LIFECYCLE_ONLY",
+  "source": {
+    "head": "f93af34019f7d422655f933182f828bfc8aaece6",
+    "sourceCommitted": false,
+    "scopedDiffSha256": "8a8b57bd51d729234a03ee039771b1c7eabc125e3def353e86225474d343a976",
+    "sourceFiles": [
+      {
+        "path": "server.js",
+        "sha256": "0e3215f347f7fb08a2f1404be565176740e5404a87fd234cad4c62c0c367ad15"
+      },
+      {
+        "path": "bin/sheikha",
+        "sha256": "c498451c35cba987918c129e984ff76ba9ccfd5e456fab58fdc35bbfe4376b26"
+      },
+      {
+        "path": "distribution/common/source-staging-engine.js",
+        "sha256": "23f36ee0108ad51e73016fd63913bd278267f4eb633e23b87525da326489e3bc"
+      }
+    ],
+    "fingerprint": "cc37ac3cce0b3e837daa",
+    "sourceMode": "HEAD_PLUS_EXPLICIT_SERVER_AND_STAGING_PATCH",
+    "unrelatedWorktreeChangesIncluded": false
+  },
+  "historicalIntegrity": {
+    "status": "VERIFIED_UNMODIFIED",
+    "modified": [],
+    "files": [
+      {
+        "path": "runtime/distribution/v2/sheikha-universal-delivery-v2-report.json",
+        "sha256": "065d18fa17da7c2610a987be1fb8b19d6b34bdf6eabdfa59793551824405eae3"
+      },
+      {
+        "path": "runtime/distribution/v2/sheikha-native-verification-v2.json",
+        "sha256": "fc21fbc5bff926f10576deb6a4f0c72699fa8b2e5343b18083d19bf87c4bf137"
+      },
+      {
+        "path": "runtime/distribution/v3/sheikha-native-delivery-v3-report.json",
+        "sha256": "7bb005fa711fb07b14c39e1a3f20e9b6119bdc9b3029d1d2ed74d534306c78a2"
+      },
+      {
+        "path": "runtime/desktop-runtime/v4/sheikha-native-desktop-v4-report.json",
+        "sha256": "00e514e7dd7ac099d8bdfe1e69e2f5f5377ea4714e28eb7593ad0b5430815fa7"
+      }
+    ]
+  },
+  "candidate": {
+    "releaseRoot": "distribution/artifacts/v5/1.0.51-candidate-cc37ac3cce0b3e837daa",
+    "artifact": {
+      "path": "distribution/artifacts/v5/1.0.51-candidate-cc37ac3cce0b3e837daa/artifacts/sheikha-1.0.51-linux-x86_64-v5-cc37ac3cce0b3e837daa.tar.gz",
+      "bytes": 34012938,
+      "sha256": "04c3a889ceaddc7c59aaac853d8320046ba697821dbc9e8208264b1cdc84b83f"
+    },
+    "reused": true,
+    "secretScanPassed": true,
+    "silentOverwriteAllowed": false
+  },
+  "tar": {
+    "schemaVersion": "5.0.0",
+    "system": "SHEIKHA_LINUX_TAR_NATIVE_LIFECYCLE_V5",
+    "status": "NATIVE_VERIFIED",
+    "candidateOnly": true,
+    "artifact": {
+      "path": "distribution/artifacts/v5/1.0.51-candidate-cc37ac3cce0b3e837daa/artifacts/sheikha-1.0.51-linux-x86_64-v5-cc37ac3cce0b3e837daa.tar.gz",
+      "bytes": 34012938,
+      "sha256": "04c3a889ceaddc7c59aaac853d8320046ba697821dbc9e8208264b1cdc84b83f"
+    },
+    "checksumVerified": true,
+    "requiredFiles": [
+      {
+        "path": "server.js",
+        "present": true
+      },
+      {
+        "path": "bin/sheikha",
+        "present": true
+      },
+      {
+        "path": "routes/pr-governance/status.routes.js",
+        "present": true
+      },
+      {
+        "path": "routes/runtime/verification/status.routes.js",
+        "present": true
+      },
+      {
+        "path": "runtime/distribution/v2/sheikha-universal-delivery-v2-status.js",
+        "present": true
+      },
+      {
+        "path": "runtime/distribution/v3/sheikha-native-delivery-v3-status.js",
+        "present": true
+      },
+      {
+        "path": "runtime/distribution/v3.1/sheikha-native-desktop-v31-status.js",
+        "present": true
+      },
+      {
+        "path": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+        "present": true
+      },
+      {
+        "path": "runtime/snapshots/sheikha-snapshot-engine.js",
+        "present": true
+      },
+      {
+        "path": "tools/activation/sheikha-unified-apex-manifest-v1.json",
+        "present": true
+      },
+      {
+        "path": "knowledge/quranic-atlas/sheikha-quranic-architectural-atlas.json",
+        "present": true
+      },
+      {
+        "path": "knowledge/quranic-operating-system/sheikha-quranic-operating-system-atlas-omega-v1.json",
+        "present": true
+      },
+      {
+        "path": "knowledge/unified-graph/sheikha-unified-graph-fabric-v1.json",
+        "present": true
+      },
+      {
+        "path": "sheikha-language/compiler/lexer.js",
+        "present": true
+      }
+    ],
+    "secretScanPassed": true,
+    "install": {
+      "extracted": true,
+      "npmCiOffline": true,
+      "npmCiExitCode": 0,
+      "productionDependenciesInstalled": true,
+      "lifecycleScriptsDisabled": false,
+      "isolatedCache": true,
+      "inheritedHostSecrets": false,
+      "nodeVersion": "v25.6.1",
+      "nodeModulesBytes": 301688352
+    },
+    "cli": {
+      "help": {
+        "args": [
+          "--help"
+        ],
+        "status": 0,
+        "stdout": "Sheikha CLI V1\nCommands: status, protocol, decision, runtime, saas, saas-v2, tenants, subscriptions, usage, api-keys, governance, deploy, mcp, sdk, service-tiers, test, lint, drift, verify\n",
+        "stderr": "",
+        "passed": true
+      },
+      "version": {
+        "args": [
+          "--version"
+        ],
+        "status": 0,
+        "stdout": "1.0.51\n",
+        "stderr": "",
+        "passed": true
+      },
+      "cliVerified": true
+    },
+    "run": {
+      "nativeLaunchExecuted": true,
+      "nativeLaunchVerified": true,
+      "executableLaunches": true,
+      "healthPassed": true,
+      "runtimeReadinessPassed": true,
+      "chatPassed": true,
+      "conversationEngineStatusPassed": true,
+      "integrationSummary": {
+        "enabled": 0,
+        "ready": 0
+      },
+      "missingModules": [],
+      "fabricErrors": [],
+      "sigterm": {
+        "signal": "SIGTERM",
+        "command": [
+          "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
+          "--require",
+          "/tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs",
+          "server.js"
+        ],
+        "port": 37129,
+        "startupMs": 525,
+        "processId": 1803095,
+        "executableLaunches": true,
+        "portClosedBefore": true,
+        "portOpenDuringRun": true,
+        "loopbackBindingOnly": true,
+        "listeningDuringRun": [
+          {
+            "protocol": "tcp",
+            "address": "0100007F",
+            "port": 37129,
+            "state": "LISTEN"
+          }
+        ],
+        "healthPassed": true,
+        "chatPassed": true,
+        "conversationEngineStatusPassed": true,
+        "processTreeBeforeShutdown": [
+          {
+            "pid": 1803095,
+            "ppid": 1802908,
+            "command": "node",
+            "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs server.js",
+            "role": "packaged-server"
+          }
+        ],
+        "observedChildProcesses": [],
+        "remainingProcesses": [],
+        "noRemainingProcesses": true,
+        "listeningAfterShutdown": [],
+        "noRemainingPorts": true,
+        "shutdown": {
+          "exitCode": 0,
+          "signal": null,
+          "forced": false
+        },
+        "cleanShutdown": true,
+        "missingModules": [],
+        "fabricErrors": [],
+        "guardDenials": [],
+        "writeConfinementPassed": true,
+        "externalNetworkDenied": true,
+        "outputSecretScan": {
+          "passed": true,
+          "findings": []
+        },
+        "stdoutSha256": "1b748b30ae6c47d0b5da8fc9a537a21dfa73926cf991ad44a042765e1c86a041",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "healthStatusCode": 200,
+        "chatStatusCode": 200,
+        "conversationStatusCode": 200
+      },
+      "sigint": {
+        "signal": "SIGINT",
+        "command": [
+          "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
+          "--require",
+          "/tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs",
+          "server.js"
+        ],
+        "port": 33351,
+        "startupMs": 1022,
+        "processId": 1803120,
+        "executableLaunches": true,
+        "portClosedBefore": true,
+        "portOpenDuringRun": true,
+        "loopbackBindingOnly": true,
+        "listeningDuringRun": [
+          {
+            "protocol": "tcp",
+            "address": "0100007F",
+            "port": 33351,
+            "state": "LISTEN"
+          }
+        ],
+        "healthPassed": true,
+        "chatPassed": true,
+        "conversationEngineStatusPassed": true,
+        "processTreeBeforeShutdown": [
+          {
+            "pid": 1803120,
+            "ppid": 1802908,
+            "command": "node",
+            "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs server.js",
+            "role": "packaged-server"
+          }
+        ],
+        "observedChildProcesses": [],
+        "remainingProcesses": [],
+        "noRemainingProcesses": true,
+        "listeningAfterShutdown": [],
+        "noRemainingPorts": true,
+        "shutdown": {
+          "exitCode": 0,
+          "signal": null,
+          "forced": false
+        },
+        "cleanShutdown": true,
+        "missingModules": [],
+        "fabricErrors": [],
+        "guardDenials": [],
+        "writeConfinementPassed": true,
+        "externalNetworkDenied": true,
+        "outputSecretScan": {
+          "passed": true,
+          "findings": []
+        },
+        "stdoutSha256": "5f94d2a1f2d2e2d4d35ef32d9b258aa3c1fcab732125f3793d1e45c1ee04ecff",
+        "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+        "healthStatusCode": 200,
+        "chatStatusCode": null,
+        "conversationStatusCode": null
+      },
+      "cleanShutdownVerified": true,
+      "noRemainingProcesses": true,
+      "noRemainingPorts": true,
+      "noUnexpectedChildProcesses": true,
+      "loopbackOnly": true,
+      "externalNetworkDenied": true,
+      "unrestrictedWriteDenied": true
+    },
+    "rollback": {
+      "installationRoot": "/tmp/sheikha-linux-native-v5-WM28ar/installation/sheikha-1.0.51-linux-x86_64",
+      "removalAttempted": true,
+      "verified": true
+    },
+    "nativeVerified": true,
+    "cleanup": {
+      "schemaVersion": "5.0.0",
+      "temporaryRoot": "/tmp/sheikha-linux-native-v5-WM28ar",
+      "removalAttempted": true,
+      "temporaryRootRemoved": true,
+      "checkedAt": "2026-07-12T12:14:31.887Z"
+    }
+  },
+  "deb": {
+    "schemaVersion": "5.0.0",
+    "system": "SHEIKHA_LINUX_DEB_NATIVE_LIFECYCLE_V5",
+    "status": "BLOCKED_NATIVE_DPKG_LIFECYCLE",
+    "artifact": {
+      "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+      "bytes": 25607636,
+      "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
+    },
+    "structuralInspection": {
+      "packageMetadataPassed": true,
+      "architectureAmd64": true,
+      "entryCount": 5145,
+      "extractionPassed": true,
+      "cliHelpPassed": true,
+      "serverSyntaxPassed": true,
+      "rollbackVerified": true
+    },
+    "nativePackageManagerLifecycle": {
+      "dpkgInstallExecuted": false,
+      "upgradeExecuted": false,
+      "uninstallExecuted": false,
+      "purgeExecuted": false,
+      "reason": "No inspected Debian or Ubuntu root environment with Node.js >=20 is available without installing or downloading a new base image."
+    },
+    "dependencyGate": {
+      "declared": "nodejs (>= 20), npm",
+      "hostDpkgNodeVersion": "12.22.9~dfsg-1ubuntu3.6",
+      "hostDpkgDependencySatisfied": false,
+      "activeNodeVersion": "v25.6.1",
+      "activeNodeProvidedByDpkg": false
+    },
+    "nativeVerified": false,
+    "claim": "dpkg-deb extraction is structural evidence only and must not be counted as native install verification."
+  },
+  "nativeLaunchExecuted": true,
+  "nativeLaunchVerified": true,
+  "canonicalPromotionAllowed": false,
+  "matrix": {
+    "targetCount": 27,
+    "canonicalBefore": {
+      "verified": 1,
+      "builtNotNativeVerified": 2,
+      "remaining": 26
+    },
+    "canonicalAfterThisRun": {
+      "verified": 1,
+      "builtNotNativeVerified": 2,
+      "remaining": 26
+    },
+    "candidateEligibleIncrement": 1,
+    "canonicalCountsMutated": false
+  },
+  "restrictions": {
+    "sudoUsed": false,
+    "packagesInstalledOnHost": false,
+    "githubUsed": false,
+    "externalPublishing": false,
+    "signingUsed": false,
+    "v2HistoricalArtifactsOverwritten": false
+  },
+  "evidence": {
+    "tarLifecycle": "runtime/distribution/v5/evidence/tar-native-lifecycle.json",
+    "tarLaunch": "runtime/distribution/v5/evidence/tar-native-launch.txt",
+    "nativeTarLaunchCommand": "runtime/distribution/v5/evidence/native-tar-launch-command.txt",
+    "nativeTarLaunchLog": "runtime/distribution/v5/evidence/native-tar-launch.log",
+    "nativeTarHealth": "runtime/distribution/v5/evidence/native-tar-health-response.json",
+    "nativeTarProcessTree": "runtime/distribution/v5/evidence/native-tar-process-tree.txt",
+    "nativeTarOpenPorts": "runtime/distribution/v5/evidence/native-tar-open-ports.txt",
+    "nativeTarShutdown": "runtime/distribution/v5/evidence/native-tar-shutdown.log",
+    "nativeTarCleanup": "runtime/distribution/v5/evidence/native-tar-cleanup-verification.json",
+    "nativeTarVerification": "runtime/distribution/v5/evidence/native-tar-verification.json",
+    "artifactSha256": "runtime/distribution/v5/evidence/artifact-sha256.txt",
+    "debLifecycle": "runtime/distribution/v5/evidence/deb-native-lifecycle.json",
+    "debInspection": "runtime/distribution/v5/evidence/deb-inspection.txt"
+  },
+  "claimPolicy": "No target count changes until the artifact is built from committed source and its required native lifecycle passes."
+}

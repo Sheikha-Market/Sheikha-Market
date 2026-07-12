@@ -1,0 +1,11 @@
+signal=SIGTERM
+shutdown={"exitCode":0,"signal":null,"forced":false}
+clean=true
+[SHEIKHA_RUNTIME_SHUTDOWN_REQUESTED] signal=SIGTERM
+[SHEIKHA_RUNTIME_CLEAN_SHUTDOWN_OK]
+
+signal=SIGINT
+shutdown={"exitCode":0,"signal":null,"forced":false}
+clean=true
+[SHEIKHA_RUNTIME_SHUTDOWN_REQUESTED] signal=SIGINT
+[SHEIKHA_RUNTIME_CLEAN_SHUTDOWN_OK]

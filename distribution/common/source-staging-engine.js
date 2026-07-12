@@ -17,12 +17,14 @@ const RUNTIME_DIRECTORIES = [
   'config',
   'core',
   'js',
+  'knowledge',
   'lib',
   'middleware',
   'public',
   'routes',
   'runtime',
-  'sdk'
+  'sdk',
+  'sheikha-language'
 ];
 
 const RUNTIME_FILES = [
@@ -30,7 +32,15 @@ const RUNTIME_FILES = [
   'package.json',
   'package-lock.json',
   '.env.example',
-  'LICENSE'
+  'LICENSE',
+  'routes/pr-governance/status.routes.js',
+  'routes/runtime/verification/status.routes.js',
+  'runtime/distribution/v2/sheikha-universal-delivery-v2-status.js',
+  'runtime/distribution/v3/sheikha-native-delivery-v3-status.js',
+  'runtime/distribution/v3.1/sheikha-native-desktop-v31-status.js',
+  'runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json',
+  'runtime/snapshots/sheikha-snapshot-engine.js',
+  'tools/activation/sheikha-unified-apex-manifest-v1.json'
 ];
 
 const EXCLUDED_SEGMENTS = new Set([
@@ -49,19 +59,23 @@ const SECRET_PATTERNS = Object.freeze([
 
 function sourceFilter(source) {
   const relative = path.relative(ROOT, source);
+  const normalizedRelative = relative.split(path.sep).join('/');
   const segments = relative.split(path.sep);
   const name = path.basename(source);
-  if (relative === 'runtime/distribution' || relative.startsWith(`runtime${path.sep}distribution${path.sep}`)) {
+  const explicitlyAllowed = RUNTIME_FILES.includes(normalizedRelative);
+  if (!explicitlyAllowed &&
+      (relative === 'runtime/distribution' || relative.startsWith(`runtime${path.sep}distribution${path.sep}`))) {
     return false;
   }
-  if (segments.some((segment) => EXCLUDED_SEGMENTS.has(segment))) return false;
+  if (!explicitlyAllowed && segments.some((segment) => EXCLUDED_SEGMENTS.has(segment))) return false;
   if (name !== '.env.example' && /^\.env(?:\.|$)/u.test(name)) return false;
   if (/\.(?:key|pem|p12|pfx|crt)$/iu.test(name)) return false;
   if (/(?:credential|private[-_]?key|secret|token)[-_]?(?:dump|snapshot|value)?\./iu.test(name)) {
     return false;
   }
   if (/(?:pm2-jlist|process(?:es)?-snapshot|environment-dump)/iu.test(name)) return false;
-  if (segments[0] === 'runtime' && /(?:-report|report-|snapshot|dump)\.json$/iu.test(name)) {
+  if (!explicitlyAllowed && segments[0] === 'runtime' &&
+      /(?:-report|report-|snapshot|dump)\.json$/iu.test(name)) {
     return false;
   }
   if (/\.(?:log|ndjson|sqlite|sqlite3|db)$/i.test(name)) return false;
@@ -199,7 +213,7 @@ function stageRuntimeSource(context, target) {
     '3. Configure environment values outside source control.',
     '4. Run `npm start`.',
     '',
-    'Dependencies are not bundled. This artifact is not native runtime verified.',
+    'Dependencies are not bundled. Confirm native verification in the matching release evidence.',
     ''
   ].join('\n'));
   writeStageManifest(root, target, 'server-source');
@@ -213,6 +227,7 @@ function stageRuntimeSource(context, target) {
 
 module.exports = {
   RUNTIME_DIRECTORIES,
+  RUNTIME_FILES,
   SECRET_PATTERNS,
   assertStageContainsNoSecrets,
   copyTrackedFileFromHead,
