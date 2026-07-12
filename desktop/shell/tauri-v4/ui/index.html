@@ -1,0 +1,151 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="color-scheme" content="dark">
+  <title>شيخة | سطح المكتب</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <div class="brand-lockup">
+        <img src="assets/sheikha-emblem-v4.svg" alt="شعار شيخة" class="brand-mark">
+        <div>
+          <h1>شيخة</h1>
+          <p>سطح المكتب المؤسسي المحكوم</p>
+        </div>
+      </div>
+      <div class="header-actions">
+        <span class="security-state"><i></i> الصلاحيات مقيدة</span>
+        <button id="refresh-all" class="icon-button" type="button" title="تحديث الحالة" aria-label="تحديث الحالة">↻</button>
+      </div>
+    </header>
+
+    <nav class="view-tabs" aria-label="أقسام التطبيق">
+      <button type="button" class="tab-button active" data-view="overview">الحالة</button>
+      <button type="button" class="tab-button" data-view="chat">محادثة شيخة</button>
+      <button type="button" class="tab-button" data-view="inspector">المفتش المؤسسي</button>
+    </nav>
+
+    <main>
+      <section id="view-overview" class="view active" aria-labelledby="overview-title">
+        <div class="section-heading">
+          <div>
+            <p class="eyebrow">SHEIKHA NATIVE DESKTOP V4</p>
+            <h2 id="overview-title">مركز التشغيل المحلي</h2>
+          </div>
+          <span id="last-refresh" class="refresh-time">قيد الاتصال</span>
+        </div>
+
+        <div class="status-grid" aria-live="polite">
+          <article class="status-card" id="status-health" data-state="loading">
+            <span class="status-dot"></span>
+            <p>Runtime Health</p>
+            <strong>جاري الفحص</strong>
+            <small>الخادم المحلي</small>
+          </article>
+          <article class="status-card" id="status-v2" data-state="loading">
+            <span class="status-dot"></span>
+            <p>Distribution V2</p>
+            <strong>جاري الفحص</strong>
+            <small>التسليم الشامل</small>
+          </article>
+          <article class="status-card" id="status-v3" data-state="loading">
+            <span class="status-dot"></span>
+            <p>Distribution V3</p>
+            <strong>جاري الفحص</strong>
+            <small>حدود التشغيل الأصلي</small>
+          </article>
+          <article class="status-card" id="status-bare-metal" data-state="loading">
+            <span class="status-dot"></span>
+            <p>Bare-Metal</p>
+            <strong>جاري الفحص</strong>
+            <small>UEFI / QEMU x86_64</small>
+          </article>
+          <article class="status-card" id="status-l24" data-state="loading">
+            <span class="status-dot"></span>
+            <p>L24 Cognitive Apex</p>
+            <strong>جاري الفحص</strong>
+            <small>القمة الإدراكية المحكومة</small>
+          </article>
+          <article class="status-card" id="status-registry" data-state="loading">
+            <span class="status-dot"></span>
+            <p>Local Release Registry</p>
+            <strong>جاري الفحص</strong>
+            <small>الإصدارات المحلية</small>
+          </article>
+        </div>
+
+        <div class="overview-band">
+          <div>
+            <span>التنفيذ</span>
+            <strong>Linux x86_64 · Tauri 2</strong>
+          </div>
+          <div>
+            <span>الاتصال</span>
+            <strong>127.0.0.1:8080 فقط</strong>
+          </div>
+          <div>
+            <span>الحوكمة</span>
+            <strong>Human Final Decision</strong>
+          </div>
+          <div>
+            <span>التدقيق</span>
+            <strong id="audit-state">بانتظار أول سجل</strong>
+          </div>
+        </div>
+      </section>
+
+      <section id="view-chat" class="view" aria-labelledby="chat-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">SHEIKHA CHAT</p>
+            <h2 id="chat-title">محادثة شيخة</h2>
+          </div>
+          <span id="chat-backend-state" class="service-pill">قيد الاتصال</span>
+        </div>
+        <div id="chat-stream" class="chat-stream" aria-live="polite">
+          <div class="message assistant-message">
+            <span>شيخة</span>
+            <p>بسم الله الرحمن الرحيم. أنا جاهزة للعمل ضمن الصلاحيات المحكومة.</p>
+          </div>
+        </div>
+        <form id="chat-form" class="chat-composer">
+          <label for="chat-input" class="sr-only">اكتب رسالتك</label>
+          <textarea id="chat-input" maxlength="4096" rows="3" placeholder="اكتب رسالتك هنا" required></textarea>
+          <button id="chat-send" type="submit">إرسال</button>
+        </form>
+      </section>
+
+      <section id="view-inspector" class="view" aria-labelledby="inspector-title">
+        <div class="section-heading compact">
+          <div>
+            <p class="eyebrow">ENTERPRISE INSPECTOR</p>
+            <h2 id="inspector-title">المفتش المؤسسي</h2>
+          </div>
+          <span id="inspector-state" class="service-pill">قيد الاتصال</span>
+        </div>
+        <dl class="inspector-grid">
+          <div><dt>الحالة العامة</dt><dd id="inspector-overall">جاري الفحص</dd></div>
+          <div><dt>Runtime</dt><dd id="inspector-runtime">جاري الفحص</dd></div>
+          <div><dt>Governance</dt><dd id="inspector-governance">جاري الفحص</dd></div>
+          <div><dt>Native Desktop V3.1</dt><dd id="inspector-native">جاري الفحص</dd></div>
+          <div><dt>Extension</dt><dd id="inspector-extension">جاري الفحص</dd></div>
+          <div><dt>Diagnostics</dt><dd id="inspector-diagnostics">جاري الفحص</dd></div>
+          <div><dt>CPU / RAM</dt><dd id="inspector-resources">جاري الفحص</dd></div>
+          <div><dt>آخر تحديث</dt><dd id="inspector-updated">جاري الفحص</dd></div>
+        </dl>
+      </section>
+    </main>
+
+    <footer class="app-footer">
+      <span>Sheikha Native Desktop 1.0.51</span>
+      <span id="native-state">Tauri Native Runtime</span>
+    </footer>
+  </div>
+  <div id="native-smoke-marker" hidden data-ready="false"></div>
+  <script src="app.js"></script>
+</body>
+</html>

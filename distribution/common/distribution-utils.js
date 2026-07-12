@@ -72,8 +72,9 @@ function run(command, args = [], options = {}) {
     maxBuffer: options.maxBuffer || 64 * 1024 * 1024,
     timeout: options.timeout || 120000
   });
-  if (result.error || (options.allowFailure !== true && result.status !== 0)) {
-    const detail = result.error?.message || result.stderr || result.stdout || `exit ${result.status}`;
+  const processDidNotStart = !Number.isInteger(result.status);
+  if (processDidNotStart || (options.allowFailure !== true && result.status !== 0)) {
+    const detail = result.stderr || result.stdout || result.error?.message || `exit ${result.status}`;
     throw new Error(`${command} failed: ${String(detail).trim()}`);
   }
   return {

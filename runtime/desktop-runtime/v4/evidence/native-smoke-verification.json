@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_V4_SMOKE_VERIFICATION",
+  "generatedAt": "2026-07-12T02:11:28.906Z",
+  "status": "NATIVE_VERIFIED",
+  "framework": "tauri-2",
+  "platform": "linux",
+  "architecture": "x86_64",
+  "display": ":1",
+  "waylandDisplay": null,
+  "command": "desktop/shell/tauri-v4/src-tauri/target/release/sheikha-native-desktop --smoke",
+  "artifactSha256": "5cb316ac06ed795ce196fb9944eb979ea07df0c34bcc551fe702326ff87d6559",
+  "startedAt": "2026-07-12T02:11:26.348Z",
+  "finishedAt": "2026-07-12T02:11:28.906Z",
+  "durationMs": 2557,
+  "exitCode": 0,
+  "signal": null,
+  "timedOut": false,
+  "markers": {
+    "launch": true,
+    "window": true,
+    "health": true,
+    "chat": true,
+    "inspector": true,
+    "smoke": true,
+    "cleanShutdown": true
+  },
+  "executableLaunches": true,
+  "mainWindowOpens": true,
+  "mainWindowVisibilityCheckedByRust": true,
+  "localHealthEndpointWorks": true,
+  "chatViewLoads": true,
+  "inspectorLoads": true,
+  "cleanShutdown": true,
+  "observedExpectedChildProcesses": [
+    {
+      "pid": 1659359,
+      "ppid": 1659347,
+      "command": "WebKitNetworkPr",
+      "arguments": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitNetworkProcess 1 15 17"
+    },
+    {
+      "pid": 1659374,
+      "ppid": 1659347,
+      "command": "WebKitWebProces",
+      "arguments": "/usr/lib/x86_64-linux-gnu/webkit2gtk-4.1/WebKitWebProcess 4 44 47"
+    }
+  ],
+  "unexpectedChildProcesses": [],
+  "childProcessesRemainingAfterShutdown": [],
+  "noUnexpectedChildProcesses": true,
+  "noSecretExposure": true,
+  "noUnrestrictedShellAccess": true,
+  "noUnrestrictedFilesystemAccess": true,
+  "noUnrestrictedNetworkAccess": true,
+  "stdoutSha256": "67869d5619b1a080dabbe217fd9c3a1a11ab098f41b94b3683de92572266e410",
+  "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+  "v4NativeLaunchExecuted": true,
+  "v4NativeLaunchVerified": true
+}

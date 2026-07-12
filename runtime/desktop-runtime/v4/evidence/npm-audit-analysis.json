@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_V4_NPM_AUDIT_ANALYSIS",
+  "status": "REVIEW_REQUIRED_UNCHANGED_BY_V4",
+  "packageLockSha256": "6de0e1709db90bea67b64ec1534d81a6f1b2f5ed6a05a3d05f766dc2771750ec",
+  "before": {
+    "total": 35,
+    "low": 1,
+    "moderate": 31,
+    "high": 3,
+    "critical": 0
+  },
+  "after": {
+    "total": 35,
+    "low": 1,
+    "moderate": 31,
+    "high": 3,
+    "critical": 0
+  },
+  "directlyChangedByV4": [],
+  "tauriUsesNpmDependencies": false,
+  "affectedDependencyFamilies": [
+    "@babel/core",
+    "@opentelemetry/core",
+    "brace-expansion",
+    "form-data",
+    "js-yaml",
+    "protobufjs",
+    "uuid",
+    "ws"
+  ],
+  "decision": {
+    "npmAuditFixForceUsed": false,
+    "majorVersionsChanged": false,
+    "packageLockChanged": false,
+    "reason": "V4 adds no npm dependency. Several suggested remediations are breaking changes and protobufjs has no available fix in the reported tree; remediation requires a separate impact-reviewed dependency phase."
+  }
+}

@@ -1,0 +1,72 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_CAPABILITY_CONTRACTS_V4",
+  "status": "IMPLEMENTED",
+  "adapter": {
+    "host": "127.0.0.1",
+    "port": 8080,
+    "arbitraryHost": false,
+    "arbitraryPort": false,
+    "redirects": false,
+    "credentials": false
+  },
+  "capabilities": [
+    {
+      "id": "runtime.health.read",
+      "method": "GET",
+      "path": "/api/health",
+      "impact": "read-only"
+    },
+    {
+      "id": "distribution.v2.read",
+      "method": "GET",
+      "path": "/api/sheikha/distribution-apex/v2/status",
+      "impact": "read-only"
+    },
+    {
+      "id": "distribution.v3.read",
+      "method": "GET",
+      "path": "/api/sheikha/distribution-apex/v3/status",
+      "impact": "read-only"
+    },
+    {
+      "id": "distribution.v31.registry.read",
+      "method": "GET",
+      "path": "/api/sheikha/distribution-apex/v3.1/release-index",
+      "impact": "read-only"
+    },
+    {
+      "id": "bare-metal.status.read",
+      "method": "GET",
+      "path": "/api/sheikha/distribution-apex/v2/status",
+      "impact": "read-only"
+    },
+    {
+      "id": "l24.apex.read",
+      "method": "GET",
+      "path": "/api/sheikha/technical-capability-apex/v1/status",
+      "impact": "read-only"
+    },
+    {
+      "id": "inspector.status.read",
+      "method": "GET",
+      "path": "/api/sheikha/enterprise-inspector/v3/status",
+      "impact": "read-only"
+    },
+    {
+      "id": "chat.status.read",
+      "method": "GET",
+      "path": "/api/sheikha/conversation-engine/v1/status",
+      "impact": "read-only"
+    },
+    {
+      "id": "chat.message.submit",
+      "method": "POST",
+      "path": "/api/sheikha/conversation-engine/v1/chat",
+      "impact": "low",
+      "messageMaxBytes": 4096
+    }
+  ],
+  "unknownCapabilities": "DENY",
+  "highImpactActions": "DENY_WITHOUT_EXPLICIT_HUMAN_APPROVAL_AND_SEPARATE_ADAPTER"
+}

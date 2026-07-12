@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_CLAIM_SEPARATION_V4",
+  "scope": "Claims are independent and must never be summed as desktop-native verification.",
+  "desktopNativeVerified": {
+    "existingNonTauriVerifiedCount": 1,
+    "v4TauriVerifiedCount": 1,
+    "predecessor": {
+      "framework": "dynamic-gtk3-webkit2gtk-4.0",
+      "releaseLine": "v3.1",
+      "status": "NATIVE_VERIFIED",
+      "verified": true,
+      "desktopExecutableArtifactCount": 1,
+      "artifact": {
+        "name": "sheikha-native-desktop-1.0.51-linux-x86_64",
+        "bytes": 18568,
+        "sha256": "84d19098648225e7726552cb5341d1c2b0e610dd01ed4aaeb4fb877098d2258a"
+      },
+      "evidence": "runtime/distribution/v3.1/sheikha-native-desktop-completion-v31-report.json",
+      "countsTowardV4Tauri": false
+    },
+    "claim": "V3.1 is a verified Linux x86_64 desktop executable, but it is not a Tauri 2 V4 artifact."
+  },
+  "bareMetalNativeVerified": {
+    "verifiedCount": 1,
+    "status": "VERIFIED_BARE_METAL_BOOT",
+    "serialMarkerVerified": true,
+    "evidence": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+    "claim": "This proves the scoped UEFI/QEMU seed boot only; it is not desktop verification."
+  },
+  "cliNativeVerified": {
+    "legacyVerifiedCount": 1,
+    "status": "VERIFIED",
+    "runtimeType": "node-cli-external-runtime",
+    "selfContainedNativeExecutable": false,
+    "evidence": [
+      "distribution/artifacts/v2/1.0.51/verification/sheikha-cli-1.0.51-linux-x86_64.tar.gz.verification.json"
+    ],
+    "claim": "The legacy CLI verification requires an external Node.js runtime and is not desktop verification."
+  },
+  "eligibilityOnlyVerification": {
+    "count": 1,
+    "status": "INSPECTED",
+    "artifactKind": "PLATFORM_NEUTRAL_SOURCE_ARCHIVE",
+    "desktopExecutable": false,
+    "nativeVerified": false,
+    "evidence": "runtime/distribution/v3/sheikha-native-delivery-v3-report.json",
+    "claim": "V3 source and product-core inspection is eligibility evidence only."
+  }
+}

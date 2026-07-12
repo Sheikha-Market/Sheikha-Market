@@ -1,0 +1,160 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_EXECUTABLE_V4",
+  "generatedAt": "2026-07-12T02:16:58.014Z",
+  "status": "NATIVE_VERIFIED",
+  "statusReason": "A real Tauri ELF passed native window, service, security, and shutdown verification.",
+  "scope": "V4_TAURI_2_LINUX_X86_64_ONLY",
+  "platform": "linux",
+  "architecture": "x86_64",
+  "framework": "tauri-2",
+  "requestedStartHead": "d387436f11b2d48ac91f435245b6b836499a0afa",
+  "actualStartHead": "5190dd1ebb30b330c825112aad8f13ae227fbc23",
+  "historicalV2V3Modified": false,
+  "tauriShellCreated": true,
+  "cargoManifestCreated": true,
+  "desktopExecutableBuilt": true,
+  "desktopExecutableBuiltCount": 1,
+  "artifactInspected": true,
+  "nativeLaunchExecuted": true,
+  "nativeLaunchVerified": true,
+  "desktopNativeVerifiedCount": 1,
+  "unrestrictedShellAccess": false,
+  "unrestrictedFilesystemAccess": false,
+  "unrestrictedNetworkAccess": false,
+  "processSpawningAllowed": false,
+  "systemInstallerAccess": false,
+  "firmwareAccess": false,
+  "kernelAccess": false,
+  "humanApprovalForHighImpact": true,
+  "artifact": {
+    "path": "desktop/shell/tauri-v4/src-tauri/target/release/sheikha-native-desktop",
+    "bytes": 4962728,
+    "sha256": "5cb316ac06ed795ce196fb9944eb979ea07df0c34bcc551fe702326ff87d6559",
+    "format": "ELF",
+    "architecture": "x86_64",
+    "pie": true,
+    "bindNow": true,
+    "dependenciesResolved": true
+  },
+  "missingRequirements": [],
+  "requiredPackageNamesOnly": [
+    "rustc",
+    "cargo",
+    "build-essential",
+    "libwebkit2gtk-4.1-dev",
+    "libgtk-3-dev",
+    "libssl-dev",
+    "libayatana-appindicator3-dev",
+    "librsvg2-dev",
+    "libxdo-dev"
+  ],
+  "installationPerformed": true,
+  "sudoUsed": true,
+  "githubUsed": false,
+  "windowsArtifactsCreated": false,
+  "macosArtifactsCreated": false,
+  "armArtifactsCreated": false,
+  "claimSeparation": {
+    "schemaVersion": "4.0.0",
+    "system": "SHEIKHA_NATIVE_CLAIM_SEPARATION_V4",
+    "scope": "Claims are independent and must never be summed as desktop-native verification.",
+    "desktopNativeVerified": {
+      "existingNonTauriVerifiedCount": 1,
+      "v4TauriVerifiedCount": 1,
+      "predecessor": {
+        "framework": "dynamic-gtk3-webkit2gtk-4.0",
+        "releaseLine": "v3.1",
+        "status": "NATIVE_VERIFIED",
+        "verified": true,
+        "desktopExecutableArtifactCount": 1,
+        "artifact": {
+          "name": "sheikha-native-desktop-1.0.51-linux-x86_64",
+          "bytes": 18568,
+          "sha256": "84d19098648225e7726552cb5341d1c2b0e610dd01ed4aaeb4fb877098d2258a"
+        },
+        "evidence": "runtime/distribution/v3.1/sheikha-native-desktop-completion-v31-report.json",
+        "countsTowardV4Tauri": false
+      },
+      "claim": "V3.1 is a verified Linux x86_64 desktop executable, but it is not a Tauri 2 V4 artifact."
+    },
+    "bareMetalNativeVerified": {
+      "verifiedCount": 1,
+      "status": "VERIFIED_BARE_METAL_BOOT",
+      "serialMarkerVerified": true,
+      "evidence": "runtime/bare-metal/v1/sheikha-bare-metal-seed-v1-report.json",
+      "claim": "This proves the scoped UEFI/QEMU seed boot only; it is not desktop verification."
+    },
+    "cliNativeVerified": {
+      "legacyVerifiedCount": 1,
+      "status": "VERIFIED",
+      "runtimeType": "node-cli-external-runtime",
+      "selfContainedNativeExecutable": false,
+      "evidence": [
+        "distribution/artifacts/v2/1.0.51/verification/sheikha-cli-1.0.51-linux-x86_64.tar.gz.verification.json"
+      ],
+      "claim": "The legacy CLI verification requires an external Node.js runtime and is not desktop verification."
+    },
+    "eligibilityOnlyVerification": {
+      "count": 1,
+      "status": "INSPECTED",
+      "artifactKind": "PLATFORM_NEUTRAL_SOURCE_ARCHIVE",
+      "desktopExecutable": false,
+      "nativeVerified": false,
+      "evidence": "runtime/distribution/v3/sheikha-native-delivery-v3-report.json",
+      "claim": "V3 source and product-core inspection is eligibility evidence only."
+    }
+  },
+  "existingNonTauriNativeDesktop": {
+    "framework": "dynamic-gtk3-webkit2gtk-4.0",
+    "releaseLine": "v3.1",
+    "status": "NATIVE_VERIFIED",
+    "verified": true,
+    "desktopExecutableArtifactCount": 1,
+    "artifact": {
+      "name": "sheikha-native-desktop-1.0.51-linux-x86_64",
+      "bytes": 18568,
+      "sha256": "84d19098648225e7726552cb5341d1c2b0e610dd01ed4aaeb4fb877098d2258a"
+    },
+    "evidence": "runtime/distribution/v3.1/sheikha-native-desktop-completion-v31-report.json",
+    "countsTowardV4Tauri": false
+  },
+  "security": {
+    "status": "NATIVE_ENFORCEMENT_VERIFIED",
+    "implementationVerified": true,
+    "defaultDeny": {
+      "shell": true,
+      "arbitraryFilesystem": true,
+      "arbitraryNetwork": true,
+      "processSpawning": true,
+      "systemInstaller": true,
+      "firmware": true,
+      "kernel": true
+    },
+    "humanApprovalForHighImpact": true
+  },
+  "verification": {
+    "cargoCheck": "PASSED",
+    "cargoTest": "PASSED",
+    "artifactInspection": "PASSED",
+    "nativeSmoke": "NATIVE_VERIFIED"
+  },
+  "evidence": {
+    "toolchain-report.json": "runtime/desktop-runtime/v4/evidence/toolchain-report.json",
+    "build-command.txt": "runtime/desktop-runtime/v4/evidence/build-command.txt",
+    "build-log.txt": "runtime/desktop-runtime/v4/evidence/build-log.txt",
+    "artifact-sha256.txt": "runtime/desktop-runtime/v4/evidence/artifact-sha256.txt",
+    "elf-inspection.txt": "runtime/desktop-runtime/v4/evidence/elf-inspection.txt",
+    "dependency-inspection.txt": "runtime/desktop-runtime/v4/evidence/dependency-inspection.txt",
+    "native-launch.log": "runtime/desktop-runtime/v4/evidence/native-launch.log",
+    "security-verification.json": "runtime/desktop-runtime/v4/evidence/security-verification.json",
+    "native-smoke-verification.json": "runtime/desktop-runtime/v4/evidence/native-smoke-verification.json",
+    "claim-separation.json": "runtime/desktop-runtime/v4/evidence/claim-separation.json",
+    "historical-integrity.json": "runtime/desktop-runtime/v4/evidence/historical-integrity.json",
+    "dependency-installation.json": "runtime/desktop-runtime/v4/evidence/dependency-installation.json",
+    "cargo-check.log": "runtime/desktop-runtime/v4/evidence/cargo-check.log",
+    "cargo-test.log": "runtime/desktop-runtime/v4/evidence/cargo-test.log",
+    "npm-audit-analysis.json": "runtime/desktop-runtime/v4/evidence/npm-audit-analysis.json"
+  },
+  "claimPolicy": "No desktop completion claim without a built executable and native launch evidence."
+}

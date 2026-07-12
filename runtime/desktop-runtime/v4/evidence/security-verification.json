@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_NATIVE_DESKTOP_V4_SECURITY_VERIFICATION",
+  "status": "NATIVE_ENFORCEMENT_VERIFIED",
+  "implementationVerified": true,
+  "nativeEnforcementVerified": true,
+  "artifactBuilt": true,
+  "artifactInspected": true,
+  "reason": "The deny-by-default Tauri ACL and fixed loopback adapter passed native launch verification.",
+  "defaultDeny": {
+    "shell": true,
+    "arbitraryFilesystem": true,
+    "arbitraryNetwork": true,
+    "processSpawning": true,
+    "systemInstaller": true,
+    "firmware": true,
+    "kernel": true
+  },
+  "allowedCapabilities": [
+    "read governed application state",
+    "call approved loopback API",
+    "open approved local resources",
+    "render chat and inspector",
+    "request high-impact action through approval gate"
+  ],
+  "invocationFlow": [
+    "UI Request",
+    "Schema Validation",
+    "Capability Contract",
+    "Governance Gate",
+    "Human Approval when required",
+    "Native Adapter",
+    "Audit Record"
+  ],
+  "artificialIntelligenceBoundaries": {
+    "automaticShellExecution": false,
+    "automaticPackageInstallation": false,
+    "automaticSystemMutation": false,
+    "writesOutsideApprovedPaths": false,
+    "humanApprovalBypass": false,
+    "automatedReligiousRuling": false
+  },
+  "remoteContentAllowed": false,
+  "cdnAllowed": false,
+  "broadTauriPluginPermissionsAllowed": false,
+  "humanApprovalForHighImpact": true,
+  "existingGovernanceGate": "desktop/security/sheikha-desktop-governance-gate-v1.js",
+  "existingCapabilityBridge": "desktop/bridge/sheikha-desktop-capability-bridge-v1.js",
+  "tauriCapabilityManifestCreated": true,
+  "tauriPermissions": [
+    "allow-governed-request",
+    "allow-native-smoke-ready"
+  ],
+  "cargoManifestPresent": true,
+  "prohibitedTauriPluginsPresent": false,
+  "claim": "Static policy is verified; Tauri runtime enforcement remains unverified until a real build and native launch exist."
+}
