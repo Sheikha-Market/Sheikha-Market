@@ -4,6 +4,12 @@
 const { execFileSync } = require('child_process');
 
 const cmd = process.argv[2] || 'help';
+let version = '1.0.51';
+try {
+  version = require('../package.json').version || version;
+} catch (_) {
+  // Standalone CLI distributions retain the release fallback above.
+}
 
 function run(command, args = []) {
   execFileSync(command, args, { stdio: 'inherit' });
@@ -67,6 +73,11 @@ const commands = {
     commands.drift();
   }
 };
+
+commands['--help'] = commands.help;
+commands['-h'] = commands.help;
+commands['--version'] = () => console.log(version);
+commands['-v'] = commands['--version'];
 
 if (!commands[cmd]) {
   console.error(`Unknown command: ${cmd}`);

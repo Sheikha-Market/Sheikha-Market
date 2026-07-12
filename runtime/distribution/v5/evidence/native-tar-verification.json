@@ -1,0 +1,260 @@
+{
+  "schemaVersion": "5.0.0",
+  "system": "SHEIKHA_LINUX_TAR_NATIVE_LIFECYCLE_V5",
+  "status": "NATIVE_VERIFIED",
+  "candidateOnly": true,
+  "artifact": {
+    "path": "distribution/artifacts/v5/1.0.51-candidate-cc37ac3cce0b3e837daa/artifacts/sheikha-1.0.51-linux-x86_64-v5-cc37ac3cce0b3e837daa.tar.gz",
+    "bytes": 34012938,
+    "sha256": "04c3a889ceaddc7c59aaac853d8320046ba697821dbc9e8208264b1cdc84b83f"
+  },
+  "checksumVerified": true,
+  "requiredFiles": [
+    {
+      "path": "server.js",
+      "present": true
+    },
+    {
+      "path": "bin/sheikha",
+      "present": true
+    },
+    {
+      "path": "routes/pr-governance/status.routes.js",
+      "present": true
+    },
+    {
+      "path": "routes/runtime/verification/status.routes.js",
+      "present": true
+    },
+    {
+      "path": "runtime/distribution/v2/sheikha-universal-delivery-v2-status.js",
+      "present": true
+    },
+    {
+      "path": "runtime/distribution/v3/sheikha-native-delivery-v3-status.js",
+      "present": true
+    },
+    {
+      "path": "runtime/distribution/v3.1/sheikha-native-desktop-v31-status.js",
+      "present": true
+    },
+    {
+      "path": "runtime/sheikha-language-architecture/v1/sheikha-native-language-architecture-v1-report.json",
+      "present": true
+    },
+    {
+      "path": "runtime/snapshots/sheikha-snapshot-engine.js",
+      "present": true
+    },
+    {
+      "path": "tools/activation/sheikha-unified-apex-manifest-v1.json",
+      "present": true
+    },
+    {
+      "path": "knowledge/quranic-atlas/sheikha-quranic-architectural-atlas.json",
+      "present": true
+    },
+    {
+      "path": "knowledge/quranic-operating-system/sheikha-quranic-operating-system-atlas-omega-v1.json",
+      "present": true
+    },
+    {
+      "path": "knowledge/unified-graph/sheikha-unified-graph-fabric-v1.json",
+      "present": true
+    },
+    {
+      "path": "sheikha-language/compiler/lexer.js",
+      "present": true
+    }
+  ],
+  "secretScanPassed": true,
+  "install": {
+    "extracted": true,
+    "npmCiOffline": true,
+    "npmCiExitCode": 0,
+    "productionDependenciesInstalled": true,
+    "lifecycleScriptsDisabled": false,
+    "isolatedCache": true,
+    "inheritedHostSecrets": false,
+    "nodeVersion": "v25.6.1",
+    "nodeModulesBytes": 301688352
+  },
+  "cli": {
+    "help": {
+      "args": [
+        "--help"
+      ],
+      "status": 0,
+      "stdout": "Sheikha CLI V1\nCommands: status, protocol, decision, runtime, saas, saas-v2, tenants, subscriptions, usage, api-keys, governance, deploy, mcp, sdk, service-tiers, test, lint, drift, verify\n",
+      "stderr": "",
+      "passed": true
+    },
+    "version": {
+      "args": [
+        "--version"
+      ],
+      "status": 0,
+      "stdout": "1.0.51\n",
+      "stderr": "",
+      "passed": true
+    },
+    "cliVerified": true
+  },
+  "run": {
+    "nativeLaunchExecuted": true,
+    "nativeLaunchVerified": true,
+    "executableLaunches": true,
+    "healthPassed": true,
+    "runtimeReadinessPassed": true,
+    "chatPassed": true,
+    "conversationEngineStatusPassed": true,
+    "integrationSummary": {
+      "enabled": 0,
+      "ready": 0
+    },
+    "missingModules": [],
+    "fabricErrors": [],
+    "sigterm": {
+      "signal": "SIGTERM",
+      "command": [
+        "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
+        "--require",
+        "/tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs",
+        "server.js"
+      ],
+      "port": 37129,
+      "startupMs": 525,
+      "processId": 1803095,
+      "executableLaunches": true,
+      "portClosedBefore": true,
+      "portOpenDuringRun": true,
+      "loopbackBindingOnly": true,
+      "listeningDuringRun": [
+        {
+          "protocol": "tcp",
+          "address": "0100007F",
+          "port": 37129,
+          "state": "LISTEN"
+        }
+      ],
+      "healthPassed": true,
+      "chatPassed": true,
+      "conversationEngineStatusPassed": true,
+      "processTreeBeforeShutdown": [
+        {
+          "pid": 1803095,
+          "ppid": 1802908,
+          "command": "node",
+          "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs server.js",
+          "role": "packaged-server"
+        }
+      ],
+      "observedChildProcesses": [],
+      "remainingProcesses": [],
+      "noRemainingProcesses": true,
+      "listeningAfterShutdown": [],
+      "noRemainingPorts": true,
+      "shutdown": {
+        "exitCode": 0,
+        "signal": null,
+        "forced": false
+      },
+      "cleanShutdown": true,
+      "missingModules": [],
+      "fabricErrors": [],
+      "guardDenials": [],
+      "writeConfinementPassed": true,
+      "externalNetworkDenied": true,
+      "outputSecretScan": {
+        "passed": true,
+        "findings": []
+      },
+      "stdoutSha256": "1b748b30ae6c47d0b5da8fc9a537a21dfa73926cf991ad44a042765e1c86a041",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "healthStatusCode": 200,
+      "chatStatusCode": 200,
+      "conversationStatusCode": 200
+    },
+    "sigint": {
+      "signal": "SIGINT",
+      "command": [
+        "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
+        "--require",
+        "/tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs",
+        "server.js"
+      ],
+      "port": 33351,
+      "startupMs": 1022,
+      "processId": 1803120,
+      "executableLaunches": true,
+      "portClosedBefore": true,
+      "portOpenDuringRun": true,
+      "loopbackBindingOnly": true,
+      "listeningDuringRun": [
+        {
+          "protocol": "tcp",
+          "address": "0100007F",
+          "port": 33351,
+          "state": "LISTEN"
+        }
+      ],
+      "healthPassed": true,
+      "chatPassed": true,
+      "conversationEngineStatusPassed": true,
+      "processTreeBeforeShutdown": [
+        {
+          "pid": 1803120,
+          "ppid": 1802908,
+          "command": "node",
+          "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-WM28ar/sheikha-v5-runtime-guard.cjs server.js",
+          "role": "packaged-server"
+        }
+      ],
+      "observedChildProcesses": [],
+      "remainingProcesses": [],
+      "noRemainingProcesses": true,
+      "listeningAfterShutdown": [],
+      "noRemainingPorts": true,
+      "shutdown": {
+        "exitCode": 0,
+        "signal": null,
+        "forced": false
+      },
+      "cleanShutdown": true,
+      "missingModules": [],
+      "fabricErrors": [],
+      "guardDenials": [],
+      "writeConfinementPassed": true,
+      "externalNetworkDenied": true,
+      "outputSecretScan": {
+        "passed": true,
+        "findings": []
+      },
+      "stdoutSha256": "5f94d2a1f2d2e2d4d35ef32d9b258aa3c1fcab732125f3793d1e45c1ee04ecff",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "healthStatusCode": 200,
+      "chatStatusCode": null,
+      "conversationStatusCode": null
+    },
+    "cleanShutdownVerified": true,
+    "noRemainingProcesses": true,
+    "noRemainingPorts": true,
+    "noUnexpectedChildProcesses": true,
+    "loopbackOnly": true,
+    "externalNetworkDenied": true,
+    "unrestrictedWriteDenied": true
+  },
+  "rollback": {
+    "installationRoot": "/tmp/sheikha-linux-native-v5-WM28ar/installation/sheikha-1.0.51-linux-x86_64",
+    "removalAttempted": true,
+    "verified": true
+  },
+  "nativeVerified": true,
+  "cleanup": {
+    "schemaVersion": "5.0.0",
+    "temporaryRoot": "/tmp/sheikha-linux-native-v5-WM28ar",
+    "removalAttempted": true,
+    "temporaryRootRemoved": true,
+    "checkedAt": "2026-07-12T12:14:31.887Z"
+  }
+}

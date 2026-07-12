@@ -25183,3 +25183,43 @@ try {
 try {
 } catch (error) {
 }
+
+let runtimeShutdownRequested = false;
+
+function shutdownRuntime(signal) {
+    if (runtimeShutdownRequested) return;
+    runtimeShutdownRequested = true;
+    console.log(`[SHEIKHA_RUNTIME_SHUTDOWN_REQUESTED] signal=${signal}`);
+
+    const forcedExit = setTimeout(() => {
+        console.error('[SHEIKHA_RUNTIME_SHUTDOWN_TIMEOUT]');
+        process.exit(1);
+    }, 10000);
+    forcedExit.unref();
+
+    try {
+        clients.forEach((client) => client.terminate());
+        wss.close();
+    } catch (error) {
+        console.warn('[SHEIKHA_RUNTIME_WEBSOCKET_CLOSE_WARNING]', error.message);
+    }
+
+    const finish = (error = null) => {
+        clearTimeout(forcedExit);
+        if (error) {
+            console.error('[SHEIKHA_RUNTIME_SHUTDOWN_FAILED]', error.message || error);
+            process.exit(1);
+        }
+        console.log('[SHEIKHA_RUNTIME_CLEAN_SHUTDOWN_OK]');
+        process.exit(0);
+    };
+
+    if (!server || !server.listening) {
+        finish();
+        return;
+    }
+    server.close(finish);
+}
+
+process.once('SIGTERM', () => shutdownRuntime('SIGTERM'));
+process.once('SIGINT', () => shutdownRuntime('SIGINT'));

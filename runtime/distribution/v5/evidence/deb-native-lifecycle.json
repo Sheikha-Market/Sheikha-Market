@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "5.0.0",
+  "system": "SHEIKHA_LINUX_DEB_NATIVE_LIFECYCLE_V5",
+  "status": "BLOCKED_NATIVE_DPKG_LIFECYCLE",
+  "artifact": {
+    "path": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+    "bytes": 25607636,
+    "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
+  },
+  "structuralInspection": {
+    "packageMetadataPassed": true,
+    "architectureAmd64": true,
+    "entryCount": 5145,
+    "extractionPassed": true,
+    "cliHelpPassed": true,
+    "serverSyntaxPassed": true,
+    "rollbackVerified": true
+  },
+  "nativePackageManagerLifecycle": {
+    "dpkgInstallExecuted": false,
+    "upgradeExecuted": false,
+    "uninstallExecuted": false,
+    "purgeExecuted": false,
+    "reason": "No inspected Debian or Ubuntu root environment with Node.js >=20 is available without installing or downloading a new base image."
+  },
+  "dependencyGate": {
+    "declared": "nodejs (>= 20), npm",
+    "hostDpkgNodeVersion": "12.22.9~dfsg-1ubuntu3.6",
+    "hostDpkgDependencySatisfied": false,
+    "activeNodeVersion": "v25.6.1",
+    "activeNodeProvidedByDpkg": false
+  },
+  "nativeVerified": false,
+  "claim": "dpkg-deb extraction is structural evidence only and must not be counted as native install verification."
+}

@@ -1,0 +1,20 @@
+== dpkg-deb --info ==
+new Debian package, version 2.0.
+ size 25607636 bytes: control archive=357 bytes.
+     398 bytes,    10 lines      control
+ Package: sheikha
+ Version: 1.0.51
+ Section: web
+ Priority: optional
+ Architecture: amd64
+ Maintainer: Sheikha Local Release <local-release@sheikha.invalid>
+ Depends: nodejs (>= 20), npm
+ Description: Sheikha local-first server source runtime and CLI
+  Includes the governed Sheikha CLI and server source. Production dependencies
+  are installed explicitly with npm ci --omit=dev after package installation.
+
+== dependency gate ==
+host_dpkg_node_version=12.22.9~dfsg-1ubuntu3.6
+dependency_satisfied=false
+active_node_version=v25.6.1
+native_dpkg_install_executed=false
