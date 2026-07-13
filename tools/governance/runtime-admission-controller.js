@@ -1,5 +1,7 @@
 'use strict';
 
+const crypto = require('crypto');
+const { execFileSync } = require('child_process');
 const os = require('os');
 const path = require('path');
 const { readStatus } = require('./git-context-reader');
@@ -135,6 +137,235 @@ function isSecurityScanArtifact(file) {
   );
 }
 
+
+// SHEIKHA_WRITTEN_CONTRACT_HASH_PINNING_V1
+const WRITTEN_CONTRACT_PATH =
+  'runtime/distribution/v6/' +
+  'sheikha-v6-written-governance-contract.json';
+
+function readStagedBuffer(file) {
+  try {
+    return execFileSync(
+      'git',
+      ['show', `:${file}`],
+      {
+        encoding: null,
+        stdio: [
+          'ignore',
+          'pipe',
+          'ignore'
+        ]
+      }
+    );
+  } catch {
+    return null;
+  }
+}
+
+function hashBuffer(value) {
+  return crypto
+    .createHash('sha256')
+    .update(value)
+    .digest('hex');
+}
+
+function containsActualSecretMaterial(value) {
+  const text = value.toString('utf8');
+
+  const patterns = [
+    /\bsk-[A-Za-z0-9_-]{35,}\b/,
+    /\b(?:gh[pousr]_|github_pat_)[A-Za-z0-9_]{30,}\b/,
+    /\bAKIA[0-9A-Z]{16}\b/,
+    /\beyJ[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{20,}\.[A-Za-z0-9_-]{10,}\b/,
+    /-----BEGIN (?:RSA |EC |OPENSSH )?PRIVATE KEY-----/,
+    /\b(?:JWT_SECRET|DATA_ENCRYPTION_KEY|PASSWORD_SALT)\s*=\s*['"]?[A-Fa-f0-9]{32,}['"]?/
+  ];
+
+  return patterns.some(
+    pattern => pattern.test(text)
+  );
+}
+
+function loadWrittenContract() {
+  const staged =
+    readStagedBuffer(WRITTEN_CONTRACT_PATH);
+
+  if (!staged) {
+    return null;
+  }
+
+  let contract;
+
+  try {
+    contract = JSON.parse(
+      staged.toString('utf8')
+    );
+  } catch {
+    return null;
+  }
+
+  const acceptanceText =
+    contract.acceptance &&
+    contract.acceptance.text;
+
+  const valid = [
+    contract.system ===
+      'SHEIKHA-V6-WRITTEN-GOVERNANCE-CONTRACT-V1',
+
+    contract.status ===
+      'ACTIVE_WRITTEN_ACCEPTED',
+
+    contract.effective === true,
+
+    contract.acceptanceRecorded === true,
+
+    contract.defaultAuthorization ===
+      'DENY',
+
+    contract.entryCount === 9,
+
+    Array.isArray(contract.entries),
+
+    contract.entries.length === 9,
+
+    typeof acceptanceText ===
+      'string',
+
+    contract.requiredAcceptanceText ===
+      acceptanceText,
+
+    contract.requiredAcceptanceTextSha256 ===
+      hashBuffer(
+        Buffer.from(
+          acceptanceText,
+          'utf8'
+        )
+      ),
+
+    contract.acceptance.sha256 ===
+      hashBuffer(
+        Buffer.from(
+          acceptanceText,
+          'utf8'
+        )
+      ),
+
+    contract.permissions &&
+      contract.permissions
+        .actualSecretMaterial === false,
+
+    contract.permissions &&
+      contract.permissions
+        .additionalFiles === false,
+
+    contract.permissions &&
+      contract.permissions
+        .network === false,
+
+    contract.permissions &&
+      contract.permissions
+        .sudo === false,
+
+    contract.permissions &&
+      contract.permissions
+        .externalPublishing === false,
+
+    contract.automaticRevocation &&
+      contract.automaticRevocation
+        .onHashChange === true,
+
+    contract.automaticRevocation &&
+      contract.automaticRevocation
+        .onPathChange === true,
+
+    contract.automaticRevocation &&
+      contract.automaticRevocation
+        .onSizeChange === true
+  ].every(Boolean);
+
+  return valid
+    ? contract
+    : null;
+}
+
+function getWrittenContractApproval(file) {
+  const contract =
+    loadWrittenContract();
+
+  if (!contract) {
+    return {
+      approved: false,
+      reason:
+        'No active valid written contract'
+    };
+  }
+
+  const entry =
+    contract.entries.find(
+      item => item.path === file
+    );
+
+  if (!entry) {
+    return {
+      approved: false,
+      reason:
+        'Path absent from written contract'
+    };
+  }
+
+  const staged =
+    readStagedBuffer(file);
+
+  if (!staged) {
+    return {
+      approved: false,
+      reason:
+        'No staged content'
+    };
+  }
+
+  if (
+    staged.length !== entry.bytes
+  ) {
+    return {
+      approved: false,
+      reason:
+        'Written contract byte length mismatch'
+    };
+  }
+
+  if (
+    hashBuffer(staged) !==
+    entry.sha256
+  ) {
+    return {
+      approved: false,
+      reason:
+        'Written contract hash mismatch'
+    };
+  }
+
+  if (
+    containsActualSecretMaterial(staged)
+  ) {
+    return {
+      approved: false,
+      reason:
+        'Actual secret-like material detected'
+    };
+  }
+
+  return {
+    approved: true,
+    contractId:
+      contract.system,
+    contractStatus:
+      contract.status,
+    entrySha256:
+      entry.sha256
+  };
+}
+
 function isBlocked(file) {
   if (isEnvTemplate(file)) {
     return false;
@@ -150,6 +381,25 @@ function isBlocked(file) {
 }
 
 function evaluateFile(file) {
+  const writtenContractApproval =
+    getWrittenContractApproval(file);
+
+  if (
+    writtenContractApproval.approved
+  ) {
+    return {
+      file,
+      decision: 'ALLOWED',
+      classification:
+        'WRITTEN_CONTRACT_HASH_PINNED',
+      owner:
+        'Written Governance Contract',
+      contractId:
+        writtenContractApproval.contractId,
+      entrySha256:
+        writtenContractApproval.entrySha256
+    };
+  }
 
   if (isBlocked(file)) {
     return {

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "6.0.0",
+  "system": "SHEIKHA_V6_GOVERNED_FINALIZATION_REVIEW",
+  "status": "READY_FOR_LOCAL_COMMIT_TAG_AND_BUNDLE",
+  "target": "linux-deb-amd64",
+  "lifecycle": {
+    "status": "DEB_NATIVE_LIFECYCLE_VERIFIED",
+    "nativeVerified": true,
+    "canonicalPromotionAllowed": true,
+    "install": true,
+    "launch": true,
+    "upgrade": true,
+    "sigtermAndSigint": true,
+    "remove": true,
+    "purge": true,
+    "rollback": true,
+    "noRemainingProcesses": true,
+    "noRemainingPorts": true
+  },
+  "artifacts": {
+    "baseline": {
+      "packageVersion": "1.0.51+sheikha.v6.1",
+      "applicationVersion": "1.0.51",
+      "sha256": "13b9985be019f111e2da16652f9f4d9c8ba7647497df4c450954dfb8003314a4"
+    },
+    "candidate": {
+      "packageVersion": "1.0.51+sheikha.v6.2",
+      "applicationVersion": "1.0.51",
+      "sha256": "74665268a6c02c939bcb8ef11242711353c01390b7b10545c275ba0a99801368"
+    }
+  },
+  "matrix": {
+    "targetCount": 27,
+    "verified": 3,
+    "builtNotNativeVerified": 0,
+    "remaining": 24
+  },
+  "isolation": {
+    "networkMode": "none",
+    "capDrop": "ALL",
+    "noNewPrivileges": true,
+    "privileged": false
+  },
+  "security": {
+    "realProductionCredentialsUsed": false,
+    "securityValuesRecorded": false,
+    "insecureDefaultsEmbedded": false
+  },
+  "heritage": {
+    "v2OriginalModified": false,
+    "v2UsedAsRuntimeBaseline": false,
+    "derivativeRepairReservation": "1.0.51+sheikha.v2.r1"
+  },
+  "externalActions": {
+    "githubUsed": false,
+    "externalPushAllowed": false,
+    "signingUsed": false
+  },
+  "defaultAuthorization": "DENY",
+  "principle": "لا ضرر ولا ضرار",
+  "reviewedAt": "2026-07-13T02:47:05.631Z"
+}

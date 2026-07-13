@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_HERITAGE_RECORD",
+  "status": "HISTORICAL_RUNTIME_INCOMPLETE_PRESERVED",
+  "purpose": [
+    "الاعتبار",
+    "العبرة",
+    "العظة",
+    "التعلم البشري",
+    "حفظ سلسلة التطور والوراثة الهندسية"
+  ],
+  "originalArtifact": {
+    "generation": "V2",
+    "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+    "version": "1.0.51",
+    "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42",
+    "bytes": 25607636,
+    "architecture": "amd64",
+    "immutableHistoricalArtifact": true,
+    "overwriteAllowed": false,
+    "runtimeComplete": false,
+    "knownFacts": {
+      "nodeModulesIncluded": false,
+      "expressResolvable": false,
+      "nativeRuntimeLifecycleVerified": false
+    }
+  },
+  "inheritanceLineage": [
+    {
+      "generation": "V2",
+      "role": "HISTORICAL_PACKAGING_ORIGIN",
+      "runtimeComplete": false
+    },
+    {
+      "generation": "V6.1",
+      "role": "FIRST_RUNTIME_COMPLETE_DEB_BASELINE",
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/distribution/artifacts/v6/1.0.51_sheikha.v6.1/artifacts/sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.1.deb",
+      "version": "1.0.51+sheikha.v6.1",
+      "sha256": "13b9985be019f111e2da16652f9f4d9c8ba7647497df4c450954dfb8003314a4",
+      "runtimeComplete": true,
+      "inheritedLessonsFrom": "V2"
+    },
+    {
+      "generation": "V6.2",
+      "role": "CANONICAL_CLI_ENTRYPOINT_SUCCESSOR",
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/distribution/artifacts/v6/1.0.51_sheikha.v6.2/artifacts/sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.2.deb",
+      "version": "1.0.51+sheikha.v6.2",
+      "sha256": "74665268a6c02c939bcb8ef11242711353c01390b7b10545c275ba0a99801368",
+      "runtimeComplete": true,
+      "inheritedLessonsFrom": "V2_AND_V6.1"
+    }
+  ],
+  "lessonsLearned": [
+    "وجود ملف DEB لا يثبت اكتمال التشغيل.",
+    "يجب تضمين Production dependencies داخل Artifact.",
+    "يجب أن يقود المدخل العام إلى CLI القانوني.",
+    "يجب اختيار Runtime baseline مكتملة للترقية والرجوع.",
+    "لا تُرفع حالة VERIFIED قبل دورة install/upgrade/remove/purge/rollback."
+  ],
+  "repairPolicy": {
+    "repairOriginalInPlaceAllowed": false,
+    "derivativeRepairAllowed": true,
+    "proposedDerivativeName": "SHEIKHA_V2R1_HERITAGE_REPAIR",
+    "proposedDerivativeVersion": "1.0.51+sheikha.v2.r1",
+    "derivativeMustHaveNewHash": true,
+    "derivativeMustNotReplaceOriginal": true,
+    "nativeLifecycleRequiredBeforeVerification": true
+  },
+  "knowledgePolicy": {
+    "humanLearningAndReview": true,
+    "autonomousLearningClaimed": false,
+    "predictionClaimed": false,
+    "evidenceBasedImprovementOnly": true
+  },
+  "governance": {
+    "defaultAuthorization": "DENY",
+    "principle": "لا ضرر ولا ضرار",
+    "historicalRecordMutationAllowed": false
+  },
+  "generatedAt": "2026-07-12T21:42:37.269Z"
+}

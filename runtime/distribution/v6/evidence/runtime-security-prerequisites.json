@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "6.0.0",
+  "system": "SHEIKHA_V6_RUNTIME_SECURITY_PREREQUISITES",
+  "status": "EXTERNAL_SECURITY_CONFIGURATION_REQUIRED",
+  "requiredVariables": [
+    {
+      "name": "JWT_SECRET",
+      "minimumCharacters": 32,
+      "packageDefaultProvided": false,
+      "persistentProductionValueRequired": true
+    },
+    {
+      "name": "DATA_ENCRYPTION_KEY",
+      "requiredBytes": 32,
+      "verificationEncoding": "hex",
+      "packageDefaultProvided": false,
+      "persistentProductionValueRequired": true
+    },
+    {
+      "name": "PASSWORD_SALT",
+      "requiredBytesForVerification": 32,
+      "verificationEncoding": "hex",
+      "packageDefaultProvided": false,
+      "persistentProductionValueRequired": true
+    }
+  ],
+  "packagingPolicy": {
+    "secretsEmbeddedInDeb": false,
+    "secretsCommittedToRepository": false,
+    "insecureDefaultsAllowed": false,
+    "deploymentEnvironmentProvidesValues": true
+  },
+  "verificationPolicy": {
+    "ephemeralRandomValuesAllowed": true,
+    "valuesGeneratedInsideContainer": true,
+    "valuesTransferredFromHost": false,
+    "valuesRecorded": false,
+    "realProductionCredentialsUsed": false,
+    "isolatedContainerOnly": true,
+    "networkMode": "none"
+  },
+  "productionNotice": "Ephemeral verification values are not production credentials.",
+  "defaultAuthorization": "DENY",
+  "principle": "لا ضرر ولا ضرار",
+  "generatedAt": "2026-07-13T00:29:48.762Z"
+}
