@@ -1,0 +1,202 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA-V6-WRITTEN-GOVERNANCE-CONTRACT-V1",
+  "contractType": "WRITTEN_TECHNICAL_GOVERNANCE_CONTRACT",
+  "status": "ACTIVE_WRITTEN_ACCEPTED",
+  "effective": true,
+  "defaultAuthorization": "DENY",
+  "sourceHead": "04fbf459ce90f8cd24da6aec2f2628700cae9c9e",
+  "owner": {
+    "name": "سلمان الراجح",
+    "role": "OWNER_AND_DECLARANT"
+  },
+  "technicalExecutor": {
+    "name": "SHEIKHA_SYSTEM",
+    "nature": "TECHNICAL_TOOL_NOT_HUMAN_NOT_LEGAL_PERSON"
+  },
+  "governingDeclaration": "العقد يكون كتابي بمفهوم كتابة العقود والتعاقد بالكتابة كما بالكتاب والسنة لاي عقد يكون بالكتاب والسنة",
+  "referenceFramework": "الكتاب والسنة وسنة الرسول محمد صلى الله عليه وسلم وسنة الخلفاء الراشدين المهديين",
+  "principles": [
+    "WRITTEN_DOCUMENTATION",
+    "EXPLICIT_ACCEPTANCE",
+    "FULFILLMENT",
+    "JUSTICE",
+    "TRUST",
+    "NO_OPPRESSION",
+    "NO_HARM",
+    "NO_AMBIGUITY",
+    "DEFAULT_DENY",
+    "لا ضرر ولا ضرار"
+  ],
+  "scope": "EXACT_NINE_V6_COMMIT_ADMISSION_PATHS_AND_HASHES_ONLY",
+  "entries": [
+    {
+      "path": "runtime/distribution/v6/evidence/high-entropy-secret-review.json",
+      "sha256": "7ce9db54881acec79e4dd6356771ccf5ec28578e8463406e4eb0e67534bf0138",
+      "bytes": 35676,
+      "classification": "V6_SECURITY_EVIDENCE_REFERENCE_ONLY",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "runtime/distribution/v6/evidence/latest-candidate.env",
+      "sha256": "6d5ea16fc38b3a24608ecce44a99e4ac0a2c708e6fb263f5677b30b92c4d0880",
+      "bytes": 734,
+      "classification": "V6_CANDIDATE_METADATA_NO_CREDENTIALS",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "runtime/distribution/v6/evidence/secret-gate-report.json",
+      "sha256": "cc705b3fa8f7fe1ee8b7a6d21fb2aad5557a344cd51eb7747d35ecb2f8b1c46d",
+      "bytes": 124682,
+      "classification": "V6_SECURITY_GATE_EVIDENCE_REFERENCE_ONLY",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "runtime/distribution/v6/evidence/selected-environment.env",
+      "sha256": "7e0399ebe2d955ee45d1d8f1033479500c8a5935768732b1838a91e5d7b96ca2",
+      "bytes": 366,
+      "classification": "V6_ENVIRONMENT_METADATA_NO_CREDENTIALS",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "runtime/distribution/v6/evidence/structural-secret-audit.json",
+      "sha256": "68c25b7fd89851e3d397c8fafb74e5e3687e8630b966b1b5963a1660e8f300b0",
+      "bytes": 7796,
+      "classification": "V6_STRUCTURAL_AUDIT_EVIDENCE_REFERENCE_ONLY",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "runtime/distribution/v6/sheikha-v6-secret-reference-approval.json",
+      "sha256": "1798738e5c421ea836cee84a4beb1a14574b3649ac1df5c8e7291be618d6dcf2",
+      "bytes": 2914,
+      "classification": "EXISTING_SIX_REFERENCE_APPROVAL_RECORD",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "tools/activation/v6/sheikha-v6-hash-pinned-secret-gate.py",
+      "sha256": "4dc842745c1b1160b4428e228dc580b9933a98e40e5d0d5cd5ba710dc55c2b80",
+      "bytes": 15851,
+      "classification": "V6_SECURITY_AUDIT_TOOLING",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "tools/activation/v6/sheikha-v6-secret-reference-audit.py",
+      "sha256": "31542a111154e27f8296ed00ef11daf8b3df50873906d3bf03fe19489a126b22",
+      "bytes": 8424,
+      "classification": "V6_SECURITY_AUDIT_TOOLING",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    },
+    {
+      "path": "tools/activation/v6/sheikha-v6-structural-secret-audit.py",
+      "sha256": "18c8a4e931fd1bb02588a29d713324f136008a056a32e75c584f4fe7336e8f52",
+      "bytes": 14372,
+      "classification": "V6_SECURITY_AUDIT_TOOLING",
+      "staged": true,
+      "actualSecretMaterialDetected": false,
+      "hashMatched": true,
+      "bytesMatched": true
+    }
+  ],
+  "entryCount": 9,
+  "excluded": [
+    {
+      "path": "runtime/distribution/v6/evidence/secret-reference-audit.json",
+      "includedInContract": false,
+      "reason": "UNTRACKED_SUPERSEDED_AUDIT_NOT_APPROVED",
+      "expectedSha256": "d5fc390daeef60fa2487be6aa9297bb300403fbcad23166908af4ecff577c5fa",
+      "expectedBytes": 15497,
+      "present": true,
+      "actualSha256": "d5fc390daeef60fa2487be6aa9297bb300403fbcad23166908af4ecff577c5fa",
+      "actualBytes": 15497,
+      "hashMatched": true,
+      "bytesMatched": true
+    }
+  ],
+  "existingSixReferenceApproval": {
+    "expanded": false,
+    "scopeChanged": false,
+    "actualSecretMaterialAllowed": false
+  },
+  "permissions": {
+    "actualSecretMaterial": false,
+    "pathOnlyException": false,
+    "hashChange": false,
+    "additionalFiles": false,
+    "network": false,
+    "sudo": false,
+    "github": false,
+    "externalPublishing": false,
+    "signing": false,
+    "mediaApproval": false
+  },
+  "automaticRevocation": {
+    "onPathChange": true,
+    "onHashChange": true,
+    "onSizeChange": true,
+    "onHeadChange": true,
+    "onAdditionalFile": true,
+    "onActualCredentialDetection": true
+  },
+  "requiredAcceptanceText": "أوافق كتابةً على عقد حوكمة V6 المحدود بالمسارات التسعة وبصماتها المثبتة فقط، دون توسيع موافقة المراجع الستة، ودون السماح بأي أسرار فعلية أو صلاحيات أو شبكة أو نشر خارجي، مع بقاء الأصل المنع ومبدأ لا ضرر ولا ضرار.",
+  "requiredAcceptanceTextSha256": "363bb6a2dfa5abc5855abd986f942016522d446ce3051ae1749069f2e365b562",
+  "acceptanceRecorded": true,
+  "humanReadableDocument": "runtime/distribution/v6/SHEIKHA-V6-WRITTEN-GOVERNANCE-CONTRACT.md",
+  "humanReadableDocumentSha256": "3393de823b6ecaed17d0398dbfdde2db1ad4f1c88e4bc46888ba81c0807f953a",
+  "legalAndReligiousQualification": "Internal technical governance record only; not a fatwa and not a substitute for qualified religious or legal review of external contracts.",
+  "createdAt": "2026-07-13T14:07:38.544230+00:00",
+  "sourceIndexTreeBeforeActivation": "a8220793cd529745251d6741256c0c4614c16ab5",
+  "acceptedAt": "2026-07-13T14:24:37.894053+00:00",
+  "acceptedBy": {
+    "name": "سلمان الراجح",
+    "role": "OWNER_AND_DECLARANT",
+    "method": "LOCAL_INTERACTIVE_EXPLICIT_WRITTEN_ACCEPTANCE"
+  },
+  "acceptance": {
+    "text": "أوافق كتابةً على عقد حوكمة V6 المحدود بالمسارات التسعة وبصماتها المثبتة فقط، دون توسيع موافقة المراجع الستة، ودون السماح بأي أسرار فعلية أو صلاحيات أو شبكة أو نشر خارجي، مع بقاء الأصل المنع ومبدأ لا ضرر ولا ضرار.",
+    "sha256": "363bb6a2dfa5abc5855abd986f942016522d446ce3051ae1749069f2e365b562",
+    "explicit": true,
+    "written": true,
+    "recorded": true
+  },
+  "admissionEffect": {
+    "mode": "EXACT_PATH_HASH_AND_BYTES_ONLY",
+    "decision": "WRITTEN_CONTRACT_HASH_PINNED",
+    "additionalFilesAllowed": false,
+    "pathOnlyApprovalAllowed": false,
+    "contentHashRequired": true,
+    "byteLengthRequired": true,
+    "actualSecretMaterialAllowed": false
+  },
+  "futureContractRule": {
+    "writtenFormRequired": true,
+    "explicitAcceptanceRequired": true,
+    "scopeAndObligationsRequired": true,
+    "defaultAuthorization": "DENY",
+    "referenceFramework": "الكتاب والسنة وسنة الرسول محمد صلى الله عليه وسلم وسنة الخلفاء الراشدين المهديين",
+    "technicalEnforcementScope": "IMPLEMENTED_FOR_V6_ADMISSION_CONTRACT"
+  }
+}

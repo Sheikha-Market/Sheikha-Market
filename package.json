@@ -744,7 +744,12 @@
     "sheikha:settings:validate": "node tools/governance/sheikha-settings-validator.js",
     "sheikha:dependency:guardian": "node tools/governance/sheikha-dependency-guardian.js",
     "sheikha:root-cause": "node tools/governance/sheikha-root-cause-engine.js",
-    "sheikha:governance:verify": "npm run sheikha:contract:validate && npm run sheikha:settings:validate && npm run sheikha:dependency:guardian && npm run sheikha:root-cause"
+    "sheikha:governance:verify": "npm run sheikha:contract:validate && npm run sheikha:settings:validate && npm run sheikha:dependency:guardian && npm run sheikha:root-cause",
+    "ops:delivery:linux-deb:preflight:v6": "bash tools/activation/v6/00-v6-preflight.sh",
+    "ops:delivery:linux-deb:build:v6": "bash tools/activation/v6/10-v6-build-candidate.sh",
+    "ops:delivery:linux-deb:verify:v6": "bash tools/activation/v6/20-v6-run-native-lifecycle.sh",
+    "ops:delivery:linux-deb:test:v6": "jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-linux-deb-native-lifecycle-v6.test.js",
+    "ops:delivery:linux-deb:finalize:v6": "bash tools/activation/v6/30-v6-finalize.sh"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",

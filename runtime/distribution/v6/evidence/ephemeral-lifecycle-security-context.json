@@ -1,0 +1,41 @@
+{
+  "schemaVersion": "6.0.0",
+  "system": "SHEIKHA_V6_EPHEMERAL_LIFECYCLE_SECURITY_CONTEXT",
+  "status": "ACTIVE_FOR_ISOLATED_NATIVE_VERIFICATION",
+  "nodeEnvironment": "production",
+  "host": "127.0.0.1",
+  "variables": {
+    "JWT_SECRET": {
+      "present": true,
+      "characterLength": 96,
+      "valueRecorded": false,
+      "persistent": false
+    },
+    "DATA_ENCRYPTION_KEY": {
+      "present": true,
+      "encoding": "hex",
+      "byteLength": 32,
+      "characterLength": 64,
+      "valueRecorded": false,
+      "persistent": false
+    },
+    "PASSWORD_SALT": {
+      "present": true,
+      "encoding": "hex",
+      "byteLength": 32,
+      "characterLength": 64,
+      "valueRecorded": false,
+      "persistent": false
+    }
+  },
+  "valuesGeneratedInsideContainer": true,
+  "valuesTransferredFromHost": false,
+  "valuesRecorded": false,
+  "realProductionCredentialsUsed": false,
+  "artifactModified": false,
+  "hostEnvironmentModified": false,
+  "externalNetworkUsed": false,
+  "networkMode": "none",
+  "defaultAuthorization": "DENY",
+  "principle": "لا ضرر ولا ضرار"
+}

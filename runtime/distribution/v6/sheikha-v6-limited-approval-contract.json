@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "6.0.0",
+  "system": "SHEIKHA_V6_LIMITED_EXECUTION_APPROVAL_CONTRACT",
+  "status": "ACTIVE_LIMITED_DEFAULT_DENY",
+  "defaultAuthorization": "DENY",
+  "scope": "LINUX_DEB_AMD64_NATIVE_LIFECYCLE_V6_ONLY",
+  "allowed": {
+    "repository": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "containerEngine": "docker",
+    "containerImage": "sheikha/debian-node20-v6:local",
+    "approvedBaseDigest": "debian@sha256:28de0877c2189802884ccd20f15ee41c203573bd87bb6b883f5f46362d24c5c2",
+    "containerNetworkDuringVerification": "none",
+    "loopbackRuntimeOnly": true,
+    "temporaryPaths": [
+      "/tmp/sheikha-v6-*"
+    ],
+    "evidencePath": "runtime/distribution/v6/evidence"
+  },
+  "forbidden": {
+    "hostSudo": true,
+    "hostPackageInstallation": true,
+    "privilegedContainer": true,
+    "hostNetwork": true,
+    "dockerSocketMount": true,
+    "externalNetworkDuringVerification": true,
+    "github": true,
+    "externalPublishing": true,
+    "signing": true,
+    "notarization": true,
+    "credentials": true,
+    "firmwareAccess": true,
+    "kernelModification": true,
+    "diskOrUsbWriting": true,
+    "unrestrictedFilesystemWrite": true,
+    "gitAddAll": true,
+    "gitCommitAll": true,
+    "hardReset": true,
+    "gitClean": true
+  },
+  "ethicalSafety": {
+    "noHarm": true,
+    "principle": "لا ضرر ولا ضرار",
+    "humanApprovalRequiredForNewPermissions": true,
+    "noPermissionWithoutExplicitApproval": true
+  },
+  "visualContentPolicy": {
+    "containerImageIsFilesystemNotVisualPicture": true,
+    "livingBeingImagesAllowed": false,
+    "prohibitedVisualOrAudioContentAllowed": false,
+    "unreviewedMediaDefault": "DENY",
+    "explicitPerAssetApprovalRequired": true,
+    "automaticSemanticReligiousJudgmentClaimed": false,
+    "packageProfile": "NO_VISUAL_AUDIO_MEDIA_SERVER_RUNTIME",
+    "defaultAuthorization": "DENY",
+    "allUnreviewedMediaExcluded": true,
+    "automaticMediaApprovalAllowed": false,
+    "sourceAssetsMayBeModified": false,
+    "candidateTemporaryStagingExclusionOnly": true
+  },
+  "claimPolicy": "V6 packages no visual or audio media. All detected media is removed only from temporary candidate staging. Source assets remain unchanged. No media approval or additional permission is granted."
+}
