@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LIVE_PROFILE_TEST_RECONCILIATION_V3",
+  "status": "RECONCILED_VERIFIED_AND_WHITESPACE_CLEAN",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "runtime": {
+    "path": "runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1.js",
+    "sha256": "a57e642ac4259c41ffbe748ee2499e8a24be6f5d99c7e47f86116b6bfb7975d6",
+    "modifiedDuringFinalization": false
+  },
+  "test": {
+    "path": "tests/live-realtime-fabric-v1.test.js",
+    "sha256BeforeWhitespaceCleanup": "89ce1cb5107a5fc2193904df17b128f65345a70401171cd6b456bfbb0106b31c",
+    "sha256Final": "6b00fb20cf2c64e69c854655919cd21f0a0ab64efe9b38f6e4b1372ed50e9f01",
+    "trailingWhitespaceRemoved": true,
+    "oldStaleExpectationRemoved": true,
+    "explicitLiveContractPresent": true,
+    "codingPrecedenceContractPresent": true
+  },
+  "precedence": [
+    "reasoning",
+    "coding",
+    "explicit-fast-live",
+    "general"
+  ],
+  "models": {
+    "coding": "qwen2.5-coder:7b",
+    "reasoning": "deepseek-r1:8b",
+    "fast": "tinyllama:latest",
+    "deepArabic": "Sheikha-Core:latest"
+  },
+  "verification": {
+    "rootSuitesPassed": 6,
+    "rootTestsPassed": 29,
+    "extensionSuitesPassed": 2,
+    "extensionTestsPassed": 12,
+    "lintPassed": true,
+    "gitDiffCheckPassed": true,
+    "routeContractPassed": true,
+    "runtimeUnchangedDuringFinalization": true,
+    "gitIndexUnchanged": true
+  },
+  "execution": {
+    "ollamaCalled": false,
+    "modelRequestExecuted": false,
+    "pm2Restarted": false,
+    "sudoUsed": false,
+    "gitStaged": false,
+    "gitCommitted": false,
+    "gitTagged": false,
+    "gitPushed": false
+  },
+  "nextStage": "V3_QWEN_EXACT_OUTPUT_AND_DEEP_EXTENSION_RUNTIME_VERIFICATION",
+  "backup": "/home/sheikha/Backups/sheikha/live-profile-test-finalization-v3-20260714-201004",
+  "verifiedAt": "2026-07-14T17:05:05.544239+00:00",
+  "finalizedAt": "2026-07-14T17:10:09.947735+00:00"
+}

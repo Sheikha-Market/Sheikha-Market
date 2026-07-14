@@ -3,7 +3,7 @@
 const LIVE_FAST_MODEL = process.env.SHEIKHA_LIVE_FAST_MODEL || 'tinyllama:latest';
 const LIVE_GENERAL_MODEL = process.env.SHEIKHA_OLLAMA_MODEL || 'Sheikha-Core:latest';
 const LIVE_ARABIC_MODEL = process.env.SHEIKHA_LIVE_ARABIC_MODEL || LIVE_FAST_MODEL;
-const LIVE_CODE_MODEL = process.env.SHEIKHA_LIVE_CODE_MODEL || LIVE_FAST_MODEL;
+const LIVE_CODE_MODEL = process.env.SHEIKHA_LIVE_CODE_MODEL || 'qwen2.5-coder:7b';
 const LIVE_REASONING_MODEL = process.env.SHEIKHA_LIVE_REASONING_MODEL || 'deepseek-r1:8b';
 
 const LIVE_ROUTE = 'SHEIKHA_REAL_MODEL_LIVE_STREAM_L65_V2';
@@ -76,10 +76,20 @@ function status() {
       ackBeforeModel: true,
       fastArabicDefault: true,
       firstArabicTokenWithoutModelWait: true,
+      fastThenDeepStreaming: false,
+      fastModelInlineStreaming: true,
+      progressSeparatedFromFinalAnswer: true,
+      backgroundDeepSingleFlight: false,
+      backgroundDeepDisabledByDefault: true,
       noPlaceholderTokens: true,
       defaultNumPredict: PROFILES.general.numPredict,
       defaultTimeoutMs: PROFILES.general.timeoutMs,
       firstTokenTargetMs: PROFILES.general.firstTokenTargetMs,
+      firstTokenTargetPurpose: 'MODEL_WAIT_PROGRESS_THRESHOLD',
+      firstTokenTargetIsSla: false,
+      coldStartFirstTokenSlaMs: null,
+      coldStartPerformanceCertification: 'NOT_CERTIFIED_CPU_VARIABLE',
+      promptComplianceCertification: 'MODEL_AND_PROFILE_SPECIFIC',
       deepLayerEscalationAvailable: true
     },
     governance: {
@@ -96,31 +106,64 @@ function isArabicText(input = '') {
 }
 
 function resolveLiveProfile(message = '', mode = 'smart', context = {}) {
+  // SHEIKHA_LIVE_PROFILE_PRECEDENCE_V3
   const text = String(message || '');
-  const normalizedMode = String(mode || 'smart').toLowerCase();
-  const channel = String(context.channel || '').toLowerCase();
+  const normalizedMode = String(mode || 'smart')
+    .trim()
+    .toLowerCase();
+  const channel = String(context.channel || '')
+    .trim()
+    .toLowerCase();
+  const normalizedLanguage = String(context.language || '')
+    .trim()
+    .toLowerCase();
+
   const arabicInput = isArabicText(text) ||
-    String(context.language || '').toLowerCase().startsWith('ar');
-  const wantsFast = normalizedMode === 'fast' ||
+    normalizedLanguage.startsWith('ar');
+
+  const wantsReasoning =
+    normalizedMode === 'reasoning' ||
+    normalizedMode === 'reason' ||
+    normalizedMode === 'deep' ||
+    /حلل|استنتج|reason|deep|منطق|برهان|استدلال/i.test(text);
+
+  const wantsCode =
+    normalizedMode === 'code' ||
+    normalizedMode === 'coding' ||
+    normalizedMode === 'debug' ||
+    normalizedMode === 'programming' ||
+    /كود|برمج|debug|fix|test|اختبار|patch|diff|stack|trace|خطأ|javascript|typescript|python|java|rust|golang|php|c#/i.test(text);
+
+  // Match explicit fast/live instructions only.
+  // Identifiers such as LIVE_MODEL_STREAM_OK must not activate this lane.
+  const explicitFastText =
+    /(?:^|[\s,;:()])(?:fast|live)(?:$|[\s,;:()])/i.test(text) ||
+    /سريع|مختصر|لايف/i.test(text);
+
+  const wantsFast =
+    normalizedMode === 'fast' ||
     normalizedMode === 'live' ||
-    channel === 'extension-chat' ||
-    /سريع|مختصر|fast|live|لايف/i.test(text);
-  const wantsReasoning = /حلل|استنتج|reason|deep|منطق|برهان|استدلال/i.test(text);
-  const wantsCode = normalizedMode === 'code' ||
-    /كود|برمج|debug|fix|test|اختبار|patch|diff|stack|trace|خطأ/i.test(text);
+    (
+      channel === 'extension-chat' &&
+      !wantsReasoning &&
+      !wantsCode
+    ) ||
+    explicitFastText;
 
   let key = 'general';
   let reason = 'general-live-default';
 
-  if (wantsFast && !wantsReasoning) {
-    key = 'fast';
-    reason = 'live-first-speed-requested';
-  } else if (wantsReasoning) {
+  // Governed priority:
+  // reasoning -> coding -> explicit fast -> general
+  if (wantsReasoning) {
     key = 'reasoning';
     reason = 'deep-reasoning-requested';
   } else if (wantsCode) {
     key = 'code';
     reason = 'code-quality-requested';
+  } else if (wantsFast) {
+    key = 'fast';
+    reason = 'live-first-speed-requested';
   }
 
   const profile = {
@@ -134,7 +177,12 @@ function resolveLiveProfile(message = '', mode = 'smart', context = {}) {
     deepLayerEscalationAvailable: true
   };
 
-  if (arabicInput && key !== 'reasoning') {
+  // The lightweight Arabic override is only for ordinary fast/general
+  // conversation. It must not replace coding or reasoning models.
+  if (
+    arabicInput &&
+    (key === 'fast' || key === 'general')
+  ) {
     profile.model = LIVE_ARABIC_MODEL;
     profile.reason = `${reason}-arabic-same-language`;
     profile.sameLanguageModel = true;
@@ -175,7 +223,41 @@ function liveRequestOptions(message = '', mode = 'smart', context = {}) {
   };
 }
 
+
+// SHEIKHA_LIVE_EXACT_OUTPUT_AND_TRUTHFUL_LATENCY_POLICY_V3
+function extractExactOutputContract(message = '') {
+  const text = String(message || '').trim();
+
+  const patterns = [
+    /^(?:return|reply|respond|output|print)\s+only\s+(?:this\s+)?(?:text|identifier|token|string)\s*:\s*([\s\S]+)$/i,
+    /^(?:أعد|ارجع|اكتب|اطبع)\s+(?:فقط\s+)?(?:هذا\s+)?(?:النص|المعرف|الرمز|السلسلة)\s*:\s*([\s\S]+)$/i
+  ];
+
+  for (const pattern of patterns) {
+    const match = text.match(pattern);
+
+    if (!match) continue;
+
+    return String(match[1] || '')
+      .trim()
+      .replace(/^["'`]+|["'`]+$/g, '');
+  }
+
+  return null;
+}
+
 function buildPrompt(message = '', profile = {}) {
+
+  const exactOutput = extractExactOutputContract(message);
+
+  if (exactOutput) {
+    return [
+      'Output exactly the text below.',
+      'Do not add an introduction, explanation, translation, quotation marks, or punctuation.',
+      exactOutput
+    ].join('\n');
+  }
+
   const userMessage = String(message || '').trim();
   const arabicInput = /[\u0600-\u06FF]/.test(userMessage);
 
@@ -207,5 +289,6 @@ module.exports = {
   buildFastArabicReply,
   selectLiveModel,
   liveRequestOptions,
-  buildPrompt
+  buildPrompt,
+  extractExactOutputContract
 };

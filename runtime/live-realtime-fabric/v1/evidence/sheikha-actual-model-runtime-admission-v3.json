@@ -1,0 +1,159 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_ACTUAL_MODEL_RUNTIME_ADMISSION_V3",
+  "status": "ACTUAL_LOCAL_MODELS_VERIFIED",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "runtime": {
+    "path": "runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1.js",
+    "sha256": "a57e642ac4259c41ffbe748ee2499e8a24be6f5d99c7e47f86116b6bfb7975d6",
+    "modifiedDuringAdmission": false
+  },
+  "routing": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_RUNTIME_PROFILE_ADMISSION_V3",
+    "coding": {
+      "key": "code",
+      "model": "qwen2.5-coder:7b",
+      "reason": "code-quality-requested",
+      "firstTokenTargetMs": 5000,
+      "timeoutMs": 90000,
+      "numPredict": 160
+    },
+    "fast": {
+      "key": "fast",
+      "model": "tinyllama:latest",
+      "reason": "live-first-speed-requested-arabic-same-language",
+      "firstTokenTargetMs": 2500
+    },
+    "deep": {
+      "key": "fast",
+      "model": "tinyllama:latest",
+      "reason": "live-first-speed-requested-arabic-same-language",
+      "deepLayerEscalationAvailable": true,
+      "deepArabicModel": "Sheikha-Core:latest"
+    },
+    "checks": {
+      "resolveFunction": true,
+      "selectFunction": true,
+      "codingProfile": true,
+      "codingModel": true,
+      "codingReason": true,
+      "codingNotArabicOverridden": true,
+      "codingSelectedModel": true,
+      "codingTargetDefined": true,
+      "fastProfile": true,
+      "fastModel": true,
+      "deepEscalation": true,
+      "deepArabicModel": true,
+      "truthfulLatencyMarker": true,
+      "targetNotPromisedAsSla": true
+    },
+    "failedChecks": [],
+    "passed": true
+  },
+  "modelRuntime": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_ACTUAL_LOCAL_MODEL_RUNTIME_V3",
+    "availableModels": [
+      "qwen2.5-coder:7b",
+      "deepseek-r1:8b",
+      "Sheikha-Core:latest",
+      "Sheikha-Core-Clean:latest",
+      "llama3.1:8b",
+      "tinyllama:latest"
+    ],
+    "resolvedModels": {
+      "coding": "qwen2.5-coder:7b",
+      "deepArabic": "Sheikha-Core:latest"
+    },
+    "qwenExact": {
+      "expected": "LIVE_MODEL_STREAM_OK",
+      "attempts": [
+        {
+          "attempt": 1,
+          "rawResponse": "LIVE_MODEL_STREAM_OK",
+          "normalizedResponse": "LIVE_MODEL_STREAM_OK",
+          "elapsedMs": 38906.711,
+          "passed": true
+        }
+      ],
+      "elapsedMs": 38906.711,
+      "totalDurationNs": 38904284581,
+      "passed": true
+    },
+    "qwenStreaming": {
+      "rawResponse": "LIVE_MODEL_STREAM_OK",
+      "normalizedResponse": "LIVE_MODEL_STREAM_OK",
+      "firstTokenMs": 18619.463,
+      "elapsedMs": 22261.641,
+      "totalDurationNs": 22259291293,
+      "evalCount": 6,
+      "passed": true
+    },
+    "deepArabic": {
+      "response": "نعم، مسار التحليل العربي العميق يعمل تشغيليًا داخل بنية Sheikha-Core.",
+      "arabicCharacterCount": 47,
+      "forbiddenClaimsFound": [],
+      "elapsedMs": 159991.156,
+      "totalDurationNs": 159989226674,
+      "passed": true
+    },
+    "disconnect": {
+      "firstFrameMs": 26196.265,
+      "firstFrameDone": false,
+      "closedDuringActiveStream": true,
+      "ollamaHealthyAfterDisconnect": true,
+      "passed": true
+    },
+    "checks": {
+      "qwenExactOutput": true,
+      "qwenStreamingDone": true,
+      "qwenStreamingExact": true,
+      "qwenFirstTokenObserved": true,
+      "deepArabicValid": true,
+      "deepForbiddenClaimsAbsent": true,
+      "disconnectDuringActiveStream": true,
+      "ollamaHealthyAfterDisconnect": true
+    },
+    "failedChecks": [],
+    "passed": true
+  },
+  "modelWaitDecision": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_CODING_MODEL_WAIT_DECISION_V3",
+    "profile": "code",
+    "firstTokenTargetMs": 5000,
+    "observedFirstTokenMs": 18619.463,
+    "thresholdCrossed": true,
+    "decision": "THRESHOLD_CROSSED_SEND_MODEL_WAIT",
+    "firstTokenTargetIsSla": false,
+    "passed": true
+  },
+  "verification": {
+    "qwenExactOutputVerified": true,
+    "qwenStreamingVerified": true,
+    "deepArabicRuntimeVerified": true,
+    "deepDisconnectVerified": true,
+    "ollamaHealthyAfterDisconnect": true,
+    "targetRepresentedAsSla": false,
+    "targetedTestsPassed": true,
+    "lintPassed": true,
+    "gitDiffCheckPassed": true
+  },
+  "execution": {
+    "actualModelRequestsExecuted": true,
+    "localOllamaOnly": true,
+    "externalNetworkUsed": false,
+    "modelDownloaded": false,
+    "packageInstalled": false,
+    "pm2Restarted": false,
+    "sudoUsed": false,
+    "gitStaged": false,
+    "gitCommitted": false,
+    "gitTagged": false,
+    "gitPushed": false
+  },
+  "nextStage": "V3_PM2_ENDPOINT_ADMISSION_THEN_COMMIT_TAG_PUSH",
+  "backup": "/home/sheikha/Backups/sheikha/actual-model-runtime-admission-v3-20260714-210357",
+  "verifiedAt": "2026-07-14T18:08:12.175315+00:00"
+}
