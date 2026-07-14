@@ -67,6 +67,26 @@ try {
 
 const app = express();
 
+// SHEIKHA LANGUAGE FOUNDATION AND WORKBENCH V1
+app.use(
+  '/api/sheikha-platform/v1',
+  require(
+    './routes/sheikha-platform/' +
+    'sheikha-platform-routes'
+  )
+);
+
+app.use(
+  '/system-builder-workbench',
+  express.static(
+    require('path').join(
+      __dirname,
+      'public',
+      'system-builder-workbench'
+    )
+  )
+);
+
 // SHEIKHA SYSTEM BUILDER PLATFORM HIERARCHY V1
 app.use(
   '/api/system-builder-platform/v1',

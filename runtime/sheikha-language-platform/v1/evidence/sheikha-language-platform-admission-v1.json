@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LANGUAGE_PLATFORM_ADMISSION_V1",
+  "status": "SHEIKHA_LANGUAGE_COMPILER_VM_AND_GOVERNANCE_VERIFIED",
+  "sourceHead": "b9703cae9f1894fa74ed973ab72854ced00362bc",
+  "identity": {
+    "arabicName": "لغة شيخة البرمجية",
+    "canonicalName": "Sheikha Language",
+    "extension": ".shk",
+    "role": "FIRST_PARTY_PROGRAMMING_LANGUAGE_FOR_SYSTEM_BUILDER_PLATFORM"
+  },
+  "contract": {
+    "path": "runtime/sheikha-language-platform/v1/sheikha-language-platform-v1.json",
+    "sha256": "396223caac94eff7ad8647d66355940a6f6129f484710a8a3ad3d3877a4379d3"
+  },
+  "sourceExample": {
+    "path": "sheikha-language/examples/market.shk",
+    "sha256": "1d44eef7363450d7bf7af7763b2872fc97ed20bf074d998f7726810d17dc98c0"
+  },
+  "verifiedPipeline": [
+    "lexer",
+    "parser",
+    "ast",
+    "type-checker",
+    "ir",
+    "bytecode",
+    "governance-hooks",
+    "compiled-vm",
+    "trace",
+    "evidence"
+  ],
+  "artifacts": {
+    "astSha256": "7e6c7b65153565a5336b89e3b5d1e02216753bb4ed419cf20b1e002c72443385",
+    "irSha256": "5d3e6859f58303e37009fba99e83808443684ff5558fc11f6fb61550a3f23345",
+    "typesSha256": "1880a3711b810dbdcd7d460f6d813f2f59de978994b588bf459d6865752b02c7",
+    "bytecodeSha256": "520455241c64ccb61341cadc1fee75abd36e28f6510e07b1728620cfdd3d6599",
+    "runSha256": "a8a638abbff58cdb4f4cc9c0130abf5de4264f76de949ca0c733eff705a043a1",
+    "traceSha256": "a8a37a4b45f0ecaf87dc3b43dfdc65c53f539084d9e0d79f1be4f8d96522e013"
+  },
+  "targets": {
+    "internalVmVerified": true,
+    "nodeHostRuntimeVerified": true,
+    "phpGenerated": true,
+    "phpSyntaxVerified": true,
+    "pythonClaimedComplete": false,
+    "wasmClaimedComplete": false
+  },
+  "governance": {
+    "defaultExecutionAuthorization": "DENY",
+    "governanceHooksVerified": true,
+    "traceVerified": true,
+    "humanProductionApprovalRequired": true,
+    "issuesReligiousRulings": false,
+    "modelsDivineEntitiesAsSoftwareNodes": false
+  },
+  "verification": {
+    "nativeTestsPassed": true,
+    "compilePassed": true,
+    "compiledVmRunPassed": true,
+    "targetTestsPassed": true,
+    "lintPassed": true,
+    "gitDiffCheckPassed": true,
+    "passed": true
+  },
+  "gitActions": {
+    "staged": false,
+    "committed": false,
+    "tagged": false,
+    "pushed": false
+  },
+  "backup": "/home/sheikha/Backups/sheikha/language-foundation-workbench-v1-20260714-215410",
+  "verifiedAt": "2026-07-14T18:54:16.978070+00:00"
+}

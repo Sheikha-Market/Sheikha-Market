@@ -1,0 +1,197 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+  <title>شيخة | بناء الأنظمة بلغة شيخة</title>
+  <link
+    rel="stylesheet"
+    href="/system-builder-workbench/styles.css"
+  >
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <strong>شيخة</strong>
+      <span>منصة بناء الأنظمة ولغة شيخة البرمجية</span>
+    </div>
+    <a href="/">الموقع الرئيسي</a>
+  </header>
+
+  <main class="shell">
+    <section class="hero">
+      <div>
+        <span class="eyebrow">SHEIKHA LANGUAGE · .SHK</span>
+        <h1>لغة عربية لبناء الأنظمة المحكومة</h1>
+        <p>
+          لغة شيخة هي اللغة البرمجية الأصلية لمنصة بناء الأنظمة.
+          تمر الشفرة عبر Lexer وParser وAST والتحقق من الأنواع
+          وIR وBytecode والحوكمة قبل الوصول إلى VM أو مخرج الهدف.
+        </p>
+      </div>
+
+      <div class="status-card">
+        <b id="platformStatus">جارٍ التحقق...</b>
+        <span>اللغة الأصلية: لغة شيخة</span>
+        <span>امتداد المصدر: .shk</span>
+        <span>التفويض الافتراضي: منع التنفيذ</span>
+        <span>VS Code وCodex: أدوات اختيارية</span>
+      </div>
+    </section>
+
+    <section class="architecture">
+      <span>المصدر .shk</span>
+      <i>←</i>
+      <span>Lexer + Parser</span>
+      <i>←</i>
+      <span>AST + Types</span>
+      <i>←</i>
+      <span>IR + Bytecode</span>
+      <i>←</i>
+      <span>Governance</span>
+      <i>←</i>
+      <span>VM + Evidence</span>
+    </section>
+
+    <section class="grid">
+      <form id="blueprintForm" class="panel">
+        <div class="panel-head">
+          <h2>تعريف النظام</h2>
+          <p>
+            أنشئ خطة محكومة قبل كتابة الشفرة أو النشر.
+          </p>
+        </div>
+
+        <label>
+          اسم النظام
+          <input
+            name="name"
+            minlength="3"
+            required
+            placeholder="نظام إدارة سلسلة الإمداد"
+          >
+        </label>
+
+        <label>
+          المسؤول
+          <input
+            name="owner"
+            minlength="3"
+            required
+            placeholder="اسم الشخص أو المؤسسة"
+          >
+        </label>
+
+        <label>
+          الغرض والمنفعة
+          <textarea
+            name="purpose"
+            minlength="10"
+            required
+            placeholder="المشكلة التي يعالجها النظام والمنفعة المتوقعة"
+          ></textarea>
+        </label>
+
+        <label>
+          اللغة البرمجية
+          <select name="programmingLanguage">
+            <option value="sheikha">
+              لغة شيخة البرمجية (.shk)
+            </option>
+            <option value="javascript">JavaScript</option>
+            <option value="python">Python</option>
+            <option value="php">PHP</option>
+            <option value="go">Go</option>
+            <option value="rust">Rust</option>
+            <option value="java">Java</option>
+            <option value="csharp">C#</option>
+          </select>
+        </label>
+
+        <label>
+          البيئة
+          <select name="targetEnvironment">
+            <option value="development">التطوير</option>
+            <option value="test">الاختبار</option>
+            <option value="staging">ما قبل الإنتاج</option>
+            <option value="production">الإنتاج</option>
+          </select>
+        </label>
+
+        <label>
+          القدرات المطلوبة
+          <input
+            name="capabilities"
+            required
+            placeholder="registry, governance, api, recovery"
+          >
+        </label>
+
+        <label>
+          الأدوات
+          <input
+            name="tools"
+            placeholder="Sheikha VM, Node.js, PHP"
+          >
+        </label>
+
+        <label>
+          التكاملات
+          <input
+            name="integrations"
+            placeholder="ERP, API, Connector"
+          >
+        </label>
+
+        <label>
+          القيود
+          <input
+            name="constraints"
+            placeholder="privacy, no-harm, audit"
+          >
+        </label>
+
+        <label>
+          المستفيدون
+          <input
+            name="beneficiaries"
+            placeholder="التاجر، المؤسسة، العميل"
+          >
+        </label>
+
+        <button type="submit">
+          إنشاء خطة بناء محكومة
+        </button>
+      </form>
+
+      <section class="panel">
+        <div class="panel-head">
+          <h2>الخطة والبوابات</h2>
+          <p>
+            إنشاء الخطة لا يعني الإذن بالتنفيذ أو الإنتاج.
+          </p>
+        </div>
+
+        <div id="summary" class="summary empty">
+          أدخل تعريف النظام.
+        </div>
+
+        <div id="lifecycle" class="lifecycle"></div>
+      </section>
+    </section>
+
+    <section class="panel inventory-panel">
+      <div class="panel-head">
+        <h2>جرد الأنظمة والمكتسبات</h2>
+        <p>مستخرج فعليًا من ملفات المستودع.</p>
+      </div>
+      <div id="inventory" class="inventory"></div>
+    </section>
+  </main>
+
+  <script src="/system-builder-workbench/app.js"></script>
+</body>
+</html>

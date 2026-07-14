@@ -1,0 +1,80 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LANGUAGE_PLATFORM_V1",
+  "status": "ACTIVE",
+  "identity": {
+    "canonicalName": "Sheikha Language",
+    "arabicName": "لغة شيخة البرمجية",
+    "sourceExtension": ".shk",
+    "legacyAlias": "SHL",
+    "canonicalShortName": "SHK",
+    "languagePriority": [
+      "Arabic",
+      "English"
+    ]
+  },
+  "position": {
+    "role": "FIRST_PARTY_PROGRAMMING_LANGUAGE_FOR_SYSTEM_BUILDER_PLATFORM",
+    "foundationPlatform": "Sheikha System Builder Platform",
+    "requiredForExternalEditors": false,
+    "vscodeIsOptionalAdapter": true,
+    "websiteWorkbenchIsPrimarySurface": true
+  },
+  "pipeline": [
+    "source",
+    "lexer",
+    "parser",
+    "ast",
+    "type-checker",
+    "ir",
+    "bytecode",
+    "governance-hooks",
+    "tree-vm-or-compiled-vm",
+    "target-artifacts",
+    "trace-and-evidence"
+  ],
+  "verifiedComponents": {
+    "lexer": true,
+    "parser": true,
+    "ast": true,
+    "typeChecker": true,
+    "ir": true,
+    "bytecode": true,
+    "governanceHooks": true,
+    "treeVm": true,
+    "compiledVm": true,
+    "compilerCli": true,
+    "runnerCli": true,
+    "grammarSpecification": true,
+    "astDocumentation": true
+  },
+  "targets": {
+    "internalVm": {
+      "status": "VERIFIED"
+    },
+    "php": {
+      "status": "VERIFIED"
+    },
+    "nodeHostRuntime": {
+      "status": "VERIFIED"
+    },
+    "python": {
+      "status": "PLANNED_NOT_CLAIMED"
+    },
+    "wasm": {
+      "status": "PLANNED_NOT_CLAIMED"
+    }
+  },
+  "governance": {
+    "defaultExecutionAuthorization": "DENY",
+    "sourceValidationRequired": true,
+    "typeValidationRequired": true,
+    "governanceHooksRequired": true,
+    "traceRequired": true,
+    "evidenceRequired": true,
+    "humanProductionApprovalRequired": true,
+    "valuesGuidanceOnly": true,
+    "issuesReligiousRulings": false,
+    "modelsDivineEntitiesAsSoftwareNodes": false
+  }
+}
