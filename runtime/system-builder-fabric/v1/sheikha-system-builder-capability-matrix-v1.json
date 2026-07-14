@@ -1,0 +1,413 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BUILDER_CAPABILITY_MATRIX_V1",
+  "status": "ACTIVE",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "families": [
+    {
+      "family": "ALPINE_BUILD",
+      "tools": [
+        "abuild"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "ANDROID_BUILD",
+      "tools": [
+        "soong"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "ARCH_IMAGE",
+      "tools": [
+        "archiso"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "BSD_BUILD",
+      "tools": [
+        "poudriere"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "CONTAINER_EXECUTION",
+      "tools": [
+        "docker"
+      ],
+      "active": 1,
+      "registered": 0
+    },
+    {
+      "family": "CROSS_DISTRIBUTION_IMAGE",
+      "tools": [
+        "kiwi-ng",
+        "mkosi"
+      ],
+      "active": 0,
+      "registered": 2
+    },
+    {
+      "family": "DEBIAN_BUILD",
+      "tools": [
+        "sbuild",
+        "pbuilder"
+      ],
+      "active": 0,
+      "registered": 2
+    },
+    {
+      "family": "DEBIAN_IMAGE",
+      "tools": [
+        "debos",
+        "live-build"
+      ],
+      "active": 0,
+      "registered": 2
+    },
+    {
+      "family": "DECLARATIVE_SYSTEM",
+      "tools": [
+        "nix",
+        "nixos",
+        "guix"
+      ],
+      "active": 0,
+      "registered": 3
+    },
+    {
+      "family": "EMBEDDED_SYSTEM",
+      "tools": [
+        "yocto-openembedded",
+        "bitbake",
+        "buildroot"
+      ],
+      "active": 0,
+      "registered": 3
+    },
+    {
+      "family": "FEDORA_BUILD_FARM",
+      "tools": [
+        "koji"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "FEDORA_CLEANROOM",
+      "tools": [
+        "mock",
+        "mockchain"
+      ],
+      "active": 0,
+      "registered": 2
+    },
+    {
+      "family": "FEDORA_COMMUNITY_BUILD",
+      "tools": [
+        "copr"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "FEDORA_COMPOSE",
+      "tools": [
+        "pungi"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "FEDORA_DIST_GIT",
+      "tools": [
+        "fedpkg",
+        "rpkg"
+      ],
+      "active": 0,
+      "registered": 2
+    },
+    {
+      "family": "FEDORA_IMAGE_BUILDER",
+      "tools": [
+        "osbuild",
+        "image-builder",
+        "osbuild-composer"
+      ],
+      "active": 0,
+      "registered": 3
+    },
+    {
+      "family": "FEDORA_INSTALLER",
+      "tools": [
+        "lorax",
+        "livemedia-creator",
+        "anaconda"
+      ],
+      "active": 0,
+      "registered": 3
+    },
+    {
+      "family": "FEDORA_RPM",
+      "tools": [
+        "rpm",
+        "rpmbuild",
+        "rpmdevtools"
+      ],
+      "active": 3,
+      "registered": 0
+    },
+    {
+      "family": "GENERAL_BUILD_GRAPH",
+      "tools": [
+        "bazel"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "IMAGE_MODE_OS",
+      "tools": [
+        "bootc",
+        "bootc-image-builder"
+      ],
+      "active": 0,
+      "registered": 2
+    },
+    {
+      "family": "IMMUTABLE_OS",
+      "tools": [
+        "rpm-ostree"
+      ],
+      "active": 0,
+      "registered": 1
+    },
+    {
+      "family": "NETWORK_DEVICE_OS",
+      "tools": [
+        "openwrt-imagebuilder"
+      ],
+      "active": 0,
+      "registered": 1
+    }
+  ],
+  "executionProfiles": [
+    {
+      "id": "FEDORA_RPM_MINIMAL_V7",
+      "family": "FEDORA_RPM",
+      "status": "ACTIVE",
+      "adapter": "FEDORA_RPM_V7_NATIVE_ADAPTER",
+      "image": "sheikha/fedora-rpmbuild-v7:89f61a1244142618-amd64",
+      "imageId": "sha256:cba9e0d79ffa932e0fd35d86dc158da909891d728e8298357cd30751c82bc716",
+      "contract": "runtime/distribution/v7/sheikha-v7-native-rpm-build-contract.json",
+      "tools": [
+        "rpm",
+        "rpmbuild",
+        "rpmdevtools"
+      ],
+      "networkDefault": "none",
+      "isolation": {
+        "imageSelection": "IMMUTABLE_IMAGE_ID",
+        "readOnlyRootFilesystem": true,
+        "capabilitiesDropped": "ALL",
+        "noNewPrivileges": true,
+        "nonRootUser": true,
+        "dockerSocketMount": false,
+        "repositoryMount": false,
+        "credentialMount": false
+      },
+      "lastExecution": {
+        "status": "BUILT_CONTENT_VERIFIED_DEPENDENCY_GAP",
+        "buildCount": 1,
+        "artifact": "distribution/artifacts/v7/1.0.51_sheikha.v7.1/artifacts/sheikha-1.0.51-0.sheikha.v7.1.x86_64.rpm",
+        "artifactSha256": "936bdc0dfbb794e1fe41d8fd7799af95a9e3cc92b117a62c0b8b2383f6a571b9",
+        "contentEquivalent": true,
+        "exactModeEquivalent": false,
+        "permissionsSafelyTightened": true,
+        "dependencyDeclarationsComplete": false,
+        "nativeInstallVerified": false
+      }
+    },
+    {
+      "id": "FEDORA_CLEANROOM",
+      "family": "FEDORA_CLEANROOM",
+      "status": "PLANNED",
+      "tools": [
+        "mock",
+        "mockchain"
+      ]
+    },
+    {
+      "id": "FEDORA_DIST_GIT",
+      "family": "FEDORA_DIST_GIT",
+      "status": "PLANNED",
+      "tools": [
+        "fedpkg",
+        "rpkg"
+      ]
+    },
+    {
+      "id": "FEDORA_BUILD_FARM",
+      "family": "FEDORA_BUILD_FARM",
+      "status": "PLANNED",
+      "tools": [
+        "koji"
+      ]
+    },
+    {
+      "id": "FEDORA_COMMUNITY_BUILD",
+      "family": "FEDORA_COMMUNITY_BUILD",
+      "status": "PLANNED",
+      "tools": [
+        "copr"
+      ]
+    },
+    {
+      "id": "FEDORA_COMPOSE",
+      "family": "FEDORA_COMPOSE",
+      "status": "PLANNED",
+      "tools": [
+        "pungi"
+      ]
+    },
+    {
+      "id": "FEDORA_INSTALLER",
+      "family": "FEDORA_INSTALLER",
+      "status": "PLANNED",
+      "tools": [
+        "lorax",
+        "livemedia-creator",
+        "anaconda"
+      ]
+    },
+    {
+      "id": "FEDORA_IMAGE_BUILDER",
+      "family": "FEDORA_IMAGE_BUILDER",
+      "status": "PLANNED",
+      "tools": [
+        "osbuild",
+        "image-builder",
+        "osbuild-composer"
+      ]
+    },
+    {
+      "id": "IMMUTABLE_OS",
+      "family": "IMMUTABLE_OS",
+      "status": "PLANNED",
+      "tools": [
+        "rpm-ostree"
+      ]
+    },
+    {
+      "id": "IMAGE_MODE_OS",
+      "family": "IMAGE_MODE_OS",
+      "status": "PLANNED",
+      "tools": [
+        "bootc",
+        "bootc-image-builder"
+      ]
+    },
+    {
+      "id": "EMBEDDED_SYSTEM",
+      "family": "EMBEDDED_SYSTEM",
+      "status": "PLANNED",
+      "tools": [
+        "yocto-openembedded",
+        "bitbake",
+        "buildroot"
+      ]
+    },
+    {
+      "id": "NETWORK_DEVICE_OS",
+      "family": "NETWORK_DEVICE_OS",
+      "status": "PLANNED",
+      "tools": [
+        "openwrt-imagebuilder"
+      ]
+    },
+    {
+      "id": "DECLARATIVE_SYSTEM",
+      "family": "DECLARATIVE_SYSTEM",
+      "status": "PLANNED",
+      "tools": [
+        "nix",
+        "nixos",
+        "guix"
+      ]
+    },
+    {
+      "id": "CROSS_DISTRIBUTION_IMAGE",
+      "family": "CROSS_DISTRIBUTION_IMAGE",
+      "status": "PLANNED",
+      "tools": [
+        "kiwi-ng",
+        "mkosi"
+      ]
+    },
+    {
+      "id": "DEBIAN_BUILD",
+      "family": "DEBIAN_BUILD",
+      "status": "PLANNED",
+      "tools": [
+        "sbuild",
+        "pbuilder"
+      ]
+    },
+    {
+      "id": "DEBIAN_IMAGE",
+      "family": "DEBIAN_IMAGE",
+      "status": "PLANNED",
+      "tools": [
+        "debos",
+        "live-build"
+      ]
+    },
+    {
+      "id": "GENERAL_BUILD_GRAPH",
+      "family": "GENERAL_BUILD_GRAPH",
+      "status": "PLANNED",
+      "tools": [
+        "bazel"
+      ]
+    },
+    {
+      "id": "ALPINE_BUILD",
+      "family": "ALPINE_BUILD",
+      "status": "PLANNED",
+      "tools": [
+        "abuild"
+      ]
+    },
+    {
+      "id": "ANDROID_BUILD",
+      "family": "ANDROID_BUILD",
+      "status": "PLANNED",
+      "tools": [
+        "soong"
+      ]
+    },
+    {
+      "id": "ARCH_IMAGE",
+      "family": "ARCH_IMAGE",
+      "status": "PLANNED",
+      "tools": [
+        "archiso"
+      ]
+    },
+    {
+      "id": "BSD_BUILD",
+      "family": "BSD_BUILD",
+      "status": "PLANNED",
+      "tools": [
+        "poudriere"
+      ]
+    }
+  ],
+  "createdAt": "2026-07-13T17:37:00.338636+00:00"
+}

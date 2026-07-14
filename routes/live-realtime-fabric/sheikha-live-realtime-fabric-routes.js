@@ -13,23 +13,68 @@ const {
 } = require('../../runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1');
 
 const OLLAMA_HOST = process.env.OLLAMA_HOST || 'http://127.0.0.1:11434';
+let backgroundDeepInFlight = false;
+
+// SHEIKHA_LIVE_REQUEST_METRICS_V1
+const liveRequestMetrics = {
+  totalOllamaRequests: 0,
+  activeOllamaRequests: 0,
+  completedOllamaRequests: 0,
+  abortedOllamaRequests: 0,
+  timedOutOllamaRequests: 0,
+  failedOllamaRequests: 0,
+  closedOllamaRequests: 0,
+  lastOutcome: null,
+  lastReason: null,
+  lastStartedAt: null,
+  lastSettledAt: null
+};
+
+function snapshotLiveRequestMetrics() {
+  return {
+    ...liveRequestMetrics
+  };
+}
+
+
+// SHEIKHA_LANGUAGE_AWARE_MODEL_ROUTING_V3
+function containsArabicText(value = '') {
+  return /[\u0600-\u06ff]/u.test(String(value || ''));
+}
 
 router.get('/api/sheikha/live-realtime-fabric/v1/status', (_req, res) => {
-  res.json(status());
+  res.json({
+    ...status(),
+    liveRequestMetrics: snapshotLiveRequestMetrics()
+  });
 });
 
+function isSseWritable(res) {
+  return Boolean(
+    res &&
+    !res.writableEnded &&
+    !res.destroyed
+  );
+}
+
 function sendSse(res, event, data) {
+  if (!isSseWritable(res)) return false;
+
   res.write(`event: ${event}\n`);
   res.write(`data: ${JSON.stringify(data)}\n\n`);
+
+  return true;
 }
 
 function streamOllama({ message, mode, profile, res }) {
+  // SHEIKHA_LIVE_ABORT_CONTROLLER_NORMALIZATION_V1
   const liveProfile = profile || resolveLiveProfile(message, mode);
   const model = liveProfile.model;
   const body = JSON.stringify({
     model,
     prompt: buildPrompt(message, liveProfile),
     stream: true,
+    keep_alive: process.env.SHEIKHA_LIVE_KEEP_ALIVE || '30m',
     options: {
       temperature: liveProfile.temperature,
       top_p: liveProfile.topP,
@@ -38,6 +83,73 @@ function streamOllama({ message, mode, profile, res }) {
   });
 
   const url = new URL('/api/generate', OLLAMA_HOST);
+  const abortController = new AbortController();
+
+  liveRequestMetrics.totalOllamaRequests += 1;
+  liveRequestMetrics.activeOllamaRequests += 1;
+  liveRequestMetrics.lastStartedAt = new Date().toISOString();
+
+  let requestMetricsSettled = false;
+
+  const settleLiveRequestMetrics = (
+    outcome,
+    reason = null
+  ) => {
+    if (requestMetricsSettled) return;
+
+    requestMetricsSettled = true;
+
+    liveRequestMetrics.activeOllamaRequests = Math.max(
+      0,
+      liveRequestMetrics.activeOllamaRequests - 1
+    );
+
+    liveRequestMetrics.lastOutcome = outcome;
+    liveRequestMetrics.lastReason = reason;
+    liveRequestMetrics.lastSettledAt =
+      new Date().toISOString();
+
+    switch (outcome) {
+      case 'completed':
+        liveRequestMetrics.completedOllamaRequests += 1;
+        break;
+
+      case 'aborted':
+        liveRequestMetrics.abortedOllamaRequests += 1;
+        break;
+
+      case 'timeout':
+        liveRequestMetrics.timedOutOllamaRequests += 1;
+        break;
+
+      case 'failed':
+        liveRequestMetrics.failedOllamaRequests += 1;
+        break;
+
+      default:
+        liveRequestMetrics.closedOllamaRequests += 1;
+        break;
+    }
+  };
+
+  let clientClosed = false;
+  let firstTokenSeen = false;
+
+  const isSseOpen = () => (
+    !clientClosed &&
+    isSseWritable(res)
+  );
+  const firstTokenGuard = setTimeout(() => {
+    if (!firstTokenSeen && isSseOpen()) {
+      sendSse(res, 'model_wait', {
+        success: true,
+        waitingForFirstToken: true,
+        model,
+        liveProfile: liveProfile.name,
+        firstTokenTargetMs: liveProfile.firstTokenTargetMs
+      });
+    }
+  }, liveProfile.firstTokenTargetMs);
 
   const req = http.request({
     hostname: url.hostname,
@@ -48,26 +160,16 @@ function streamOllama({ message, mode, profile, res }) {
       'Content-Type': 'application/json',
       'Content-Length': Buffer.byteLength(body)
     },
+    signal: abortController.signal,
     timeout: liveProfile.timeoutMs
   }, (ollamaRes) => {
     let buffer = '';
-    let firstTokenSeen = false;
     let sameLanguageGateOpen = !liveProfile.sameLanguageModel;
     let sameLanguagePending = '';
 
-    const firstTokenGuard = setTimeout(() => {
-      if (!firstTokenSeen && !res.writableEnded) {
-        sendSse(res, 'model_wait', {
-          success: true,
-          waitingForFirstToken: true,
-          model,
-          liveProfile: liveProfile.name,
-          firstTokenTargetMs: liveProfile.firstTokenTargetMs
-        });
-      }
-    }, liveProfile.firstTokenTargetMs);
-
     ollamaRes.on('data', (chunk) => {
+      if (!isSseOpen()) return;
+
       buffer += chunk.toString();
 
       const lines = buffer.split('\n');
@@ -98,6 +200,7 @@ function streamOllama({ message, mode, profile, res }) {
             sendSse(res, 'token', { text: tokenText });
           }
           if (frame.done) {
+            settleLiveRequestMetrics('completed');
             clearTimeout(firstTokenGuard);
             sendSse(res, 'done', {
               success: true,
@@ -112,19 +215,72 @@ function streamOllama({ message, mode, profile, res }) {
 
     ollamaRes.on('end', () => {
       clearTimeout(firstTokenGuard);
-      if (!res.writableEnded) {
-        sendSse(res, 'done', { success: true, model });
+      settleLiveRequestMetrics('completed');
+
+      if (isSseOpen()) {
+        sendSse(res, 'done', {
+          success: true,
+          model
+        });
+
         res.end();
       }
     });
   });
 
+  req.once('close', () => {
+    if (!requestMetricsSettled) {
+      settleLiveRequestMetrics(
+        abortController.signal.aborted
+          ? 'aborted'
+          : 'closed',
+        abortController.signal.reason?.message || null
+      );
+    }
+  });
+
   req.on('timeout', () => {
-    req.destroy(new Error(`Ollama live stream timeout after ${liveProfile.timeoutMs}ms`));
+    clearTimeout(firstTokenGuard);
+
+    const timeoutError = new Error(
+      `Ollama live stream timeout after ${liveProfile.timeoutMs}ms`
+    );
+
+    settleLiveRequestMetrics(
+      'timeout',
+      timeoutError.message
+    );
+
+    if (!abortController.signal.aborted) {
+      abortController.abort(timeoutError);
+    }
+
+    if (!req.destroyed) {
+      req.destroy(timeoutError);
+    }
   });
 
   req.on('error', (error) => {
-    if (!res.writableEnded) {
+    clearTimeout(firstTokenGuard);
+
+    settleLiveRequestMetrics(
+      (
+        clientClosed ||
+        abortController.signal.aborted
+      )
+        ? 'aborted'
+        : 'failed',
+      error.message
+    );
+
+    if (
+      clientClosed &&
+      abortController.signal.aborted
+    ) {
+      return;
+    }
+
+    if (isSseOpen()) {
       sendSse(res, 'error', {
         success: false,
         error: error.message,
@@ -134,14 +290,70 @@ function streamOllama({ message, mode, profile, res }) {
     }
   });
 
+  res.once('close', () => {
+    clearTimeout(firstTokenGuard);
+
+    // close is also emitted after a normal res.end().
+    if (res.writableEnded) return;
+
+    clientClosed = true;
+
+    const disconnectError = new Error(
+      'Sheikha live client disconnected'
+    );
+
+    settleLiveRequestMetrics(
+      'aborted',
+      disconnectError.message
+    );
+
+    if (!abortController.signal.aborted) {
+      abortController.abort(disconnectError);
+    }
+
+    // Keep request.destroy as a fail-safe for Node HTTP transports.
+    if (!req.destroyed) {
+      req.destroy(disconnectError);
+    }
+  });
+
   req.write(body);
   req.end();
 
   return model;
 }
 
+function createDeepStreamingProfile(profile = {}) {
+  const model = profile.deepArabicModel ||
+    process.env.SHEIKHA_OLLAMA_MODEL ||
+    'Sheikha-Core:latest';
+
+  return {
+    ...profile,
+    key: 'deep-response',
+    name: 'EXTENSION_DEEP_ARABIC_STREAM',
+    reason: `${profile.reason || 'live'}-deep-response-requested`,
+    model,
+    deepArabicModel: model,
+    timeoutMs: Number(
+      process.env.SHEIKHA_EXTENSION_DEEP_TIMEOUT_MS || 90000
+    ),
+    numPredict: Number(
+      process.env.SHEIKHA_EXTENSION_DEEP_NUM_PREDICT || 64
+    ),
+    temperature: 0.15,
+    topP: 0.9,
+    firstTokenTargetMs: Number(
+      process.env.SHEIKHA_EXTENSION_DEEP_FIRST_TOKEN_MS || 3500
+    ),
+    sameLanguageModel: true
+  };
+}
+
 function runDeepSheikhaCoreInBackground(payload = {}, profile = {}) {
   if (process.env.SHEIKHA_LIVE_BACKGROUND_DEEP === 'false') return;
+  if (backgroundDeepInFlight) return;
+  backgroundDeepInFlight = true;
 
   setImmediate(() => {
     const model = profile.deepArabicModel ||
@@ -154,10 +366,11 @@ function runDeepSheikhaCoreInBackground(payload = {}, profile = {}) {
         name: 'BACKGROUND_DEEP_ARABIC'
       }),
       stream: false,
+      keep_alive: process.env.SHEIKHA_LIVE_KEEP_ALIVE || '30m',
       options: {
         temperature: 0.15,
         top_p: 0.9,
-        num_predict: Number(process.env.SHEIKHA_LIVE_BACKGROUND_NUM_PREDICT || 180)
+        num_predict: Number(process.env.SHEIKHA_LIVE_BACKGROUND_NUM_PREDICT || 64)
       }
     });
     const url = new URL('/api/generate', OLLAMA_HOST);
@@ -174,38 +387,55 @@ function runDeepSheikhaCoreInBackground(payload = {}, profile = {}) {
       timeout: Number(process.env.SHEIKHA_LIVE_BACKGROUND_TIMEOUT_MS || 120000)
     }, (backgroundRes) => {
       backgroundRes.resume();
+      backgroundRes.once('end', () => {
+        backgroundDeepInFlight = false;
+      });
+      backgroundRes.once('close', () => {
+        backgroundDeepInFlight = false;
+      });
     });
 
     req.on('timeout', () => {
+      backgroundDeepInFlight = false;
       req.destroy(new Error('Sheikha live background model timeout'));
     });
-    req.on('error', () => {});
+    req.on('error', () => {
+      backgroundDeepInFlight = false;
+    });
     req.write(body);
     req.end();
   });
 }
 
-function writeLivePrelude(res, profile, model, fastArabicDefault = false) {
+function writeLivePrelude(
+  res,
+  profile,
+  model,
+  fastArabicDefault = false,
+  options = {}
+) {
   sendSse(res, 'ack', {
     ok: true,
     success: true,
     route: profile.route,
     compatibilityRoute: profile.compatibilityRoute,
     liveFirst: true,
-    mode: fastArabicDefault
+    mode: options.mode || (fastArabicDefault
       ? 'LIVE_FAST_ARABIC_FIRST'
-      : 'LIVE_MODEL_STREAM'
+      : 'LIVE_MODEL_STREAM')
   });
 
   sendSse(res, 'meta', {
     ok: true,
-    profile: fastArabicDefault ? 'arabic-fast-default' : profile.name,
+    profile: options.profileName ||
+      (fastArabicDefault ? 'arabic-fast-default' : profile.name),
     route: profile.route,
     compatibilityRoute: profile.compatibilityRoute,
     apexLevel: profile.apexLevel,
     model,
     deepModel: profile.deepArabicModel || process.env.SHEIKHA_OLLAMA_MODEL || 'Sheikha-Core:latest',
-    deepModelMode: fastArabicDefault ? 'background' : 'inline-stream',
+    deepModelMode: options.deepModelMode ||
+      (fastArabicDefault ? 'fast-inline-stream' : 'inline-stream'),
     liveProfile: profile.name,
     profileReason: profile.reason,
     fastArabicDefault,
@@ -215,7 +445,8 @@ function writeLivePrelude(res, profile, model, fastArabicDefault = false) {
       firstTokenTargetMs: profile.firstTokenTargetMs
     },
     placeholderRemoved: true,
-    source: fastArabicDefault ? 'fast-arabic-default' : 'ollama-stream',
+    source: options.source ||
+      (fastArabicDefault ? 'fast-model-inline-stream' : 'ollama-stream'),
     deepLayerEscalationAvailable: profile.deepLayerEscalationAvailable
   });
 
@@ -224,6 +455,15 @@ function writeLivePrelude(res, profile, model, fastArabicDefault = false) {
     live: true,
     route: profile.route,
     ts: new Date().toISOString()
+  });
+}
+
+function writeFastArabicProgress(res) {
+  sendSse(res, 'progress', {
+    ok: true,
+    text: 'تم استلام الطلب، ويجري الآن توليد الإجابة الكاملة.',
+    phase: 'deep-model-stream',
+    finalAnswer: false
   });
 }
 
@@ -250,13 +490,21 @@ router.post('/api/sheikha/live/chat/v1', (req, res) => {
   const channel = req.body?.channel || 'extension-chat';
   const language = req.body?.language || req.body?.locale || '';
   const profile = resolveLiveProfile(message, mode, { channel, language });
-  const model = profile.model;
-  const fastArabicDefault = shouldUseFastArabicDefault(message, mode, {
+  const inputContainsArabic = containsArabicText(message);
+  const fastArabicDefault = inputContainsArabic &&
+    shouldUseFastArabicDefault(message, mode, {
     channel,
     language,
     fastArabic: req.body?.fastArabic,
     liveFast: req.body?.liveFast
   });
+  const deepStreamRequested = channel === 'extension-chat' &&
+    String(req.body?.responseMode || '').toUpperCase() ===
+      'FAST_THEN_DEEP_STREAM';
+  const responseProfile = deepStreamRequested
+    ? createDeepStreamingProfile(profile)
+    : profile;
+  const responseModel = responseProfile.model;
 
   res.writeHead(200, {
     'Content-Type': 'text/event-stream; charset=utf-8',
@@ -265,16 +513,46 @@ router.post('/api/sheikha/live/chat/v1', (req, res) => {
     'X-Accel-Buffering': 'no'
   });
 
-  writeLivePrelude(res, profile, model, fastArabicDefault);
+  writeLivePrelude(
+    res,
+    responseProfile,
+    responseModel,
+    fastArabicDefault,
+    deepStreamRequested
+      ? {
+          mode: 'LIVE_FAST_THEN_DEEP_STREAM',
+          profileName: 'arabic-fast-then-deep',
+          deepModelMode: 'inline-stream',
+          source: 'extension-deep-stream'
+        }
+      : {}
+  );
 
-  if (fastArabicDefault) {
-    writeFastArabicCompletion(res, message);
-    runDeepSheikhaCoreInBackground({
+  // SHEIKHA_FAST_MODEL_INLINE_STREAM_V2
+  // Default live chat must stream a real fast-model answer
+  // in the same SSE connection. No canned final token and
+  // no duplicate background generation.
+  if (fastArabicDefault && !deepStreamRequested) {
+    writeFastArabicProgress(res);
+
+    streamOllama({
       message,
       mode,
-      channel,
-      language
-    }, profile);
+      profile,
+      res
+    });
+
+    return;
+  }
+
+  if (fastArabicDefault && deepStreamRequested) {
+    writeFastArabicProgress(res);
+    streamOllama({
+      message,
+      mode,
+      profile: responseProfile,
+      res
+    });
     return;
   }
 
@@ -282,8 +560,15 @@ router.post('/api/sheikha/live/chat/v1', (req, res) => {
 });
 
 router.__test = {
+  containsArabicText,
+  snapshotLiveRequestMetrics,
+  streamOllama,
+  sendSse,
+  isSseWritable,
+  createDeepStreamingProfile,
   writeLivePrelude,
-  writeFastArabicCompletion
+  writeFastArabicCompletion,
+  writeFastArabicProgress
 };
 
 module.exports = router;

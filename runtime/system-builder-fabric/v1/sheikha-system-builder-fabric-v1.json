@@ -1,0 +1,55 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BUILDER_FABRIC_V1",
+  "status": "ACTIVE_GOVERNED_TOOL_FABRIC",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "registry": "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json",
+  "capabilityMatrix": "runtime/system-builder-fabric/v1/sheikha-system-builder-capability-matrix-v1.json",
+  "activeProfile": "FEDORA_RPM_MINIMAL_V7",
+  "activeExecution": {
+    "status": "BUILT_CONTENT_VERIFIED_DEPENDENCY_GAP",
+    "artifactSha256": "936bdc0dfbb794e1fe41d8fd7799af95a9e3cc92b117a62c0b8b2383f6a571b9",
+    "nativeInstallVerified": false,
+    "lifecycleVerified": false,
+    "report": "runtime/distribution/v7/evidence/sheikha-v7-rpm-native-build-report.json"
+  },
+  "executionPolicy": {
+    "unit": "ISOLATED_FAMILY_PROFILE",
+    "adapterDispatch": "STATIC_ALLOWLIST_ONLY",
+    "crossFamilyToolAggregation": "DENY",
+    "plannedProfileExecution": "DENY",
+    "activeProfileRequiresImmutableImageId": true,
+    "activeProfileRequiresWrittenContract": true,
+    "artifactFingerprint": "SHA-256"
+  },
+  "familyIsolation": {
+    "registeredFamilyCount": 22,
+    "isolatedBuildFamilyCount": 21,
+    "executionSubstrateFamilyCount": 1,
+    "activeIsolatedFamilyCount": 1,
+    "plannedProfileCount": 20,
+    "allPlannedProfilesBlockedFromExecution": true,
+    "singleImageContainingAllToolFamilies": false
+  },
+  "layers": [
+    "TOOL_REGISTRY",
+    "CAPABILITY_MATRIX",
+    "ISOLATED_EXECUTION_PROFILE",
+    "DIGEST_PINNING",
+    "BUILD_CONTRACT",
+    "ARTIFACT_PROVENANCE",
+    "PAYLOAD_VERIFICATION",
+    "LIFECYCLE_VERIFICATION",
+    "REPRODUCIBILITY_GATE",
+    "LOCAL_REGISTRY_CLOSURE"
+  ],
+  "governance": {
+    "defaultAuthorization": "DENY",
+    "principle": "لا ضرر ولا ضرار",
+    "noAutomaticPrivilegeExpansion": true,
+    "noAutomaticHostInstallation": true,
+    "noAutomaticExternalPublishing": true,
+    "noClaimOfOfficialPlatformAuthority": true
+  },
+  "createdAt": "2026-07-13T17:37:00.338636+00:00"
+}

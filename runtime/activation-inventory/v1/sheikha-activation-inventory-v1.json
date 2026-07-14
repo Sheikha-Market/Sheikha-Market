@@ -13,13 +13,13 @@
       "governance",
       "sheikha-language"
     ],
-    "filesInspected": 4562,
-    "discoveredSystems": 2220
+    "filesInspected": 3055,
+    "discoveredSystems": 2221
   },
   "summary": {
-    "VERIFIED": 103,
-    "IMPLEMENTED": 338,
-    "DECLARED": 1779
+    "VERIFIED": 86,
+    "IMPLEMENTED": 334,
+    "DECLARED": 1801
   },
   "systems": [
     {
@@ -5422,9 +5422,7 @@
     {
       "system": "SHEIKHA_DELIVERY_CLOSURE_ROADMAP_V23",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/distribution/roadmap/v23/sheikha-delivery-closure-roadmap-v23.json",
-        "tools/distribution/sheikha-delivery-closure-roadmap-v23.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -6780,8 +6778,7 @@
         "core/enterprise-kernel/sheikha-enterprise-kernel-v1.js",
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
         "runtime/closure/sheikha-enterprise-kernel-final.json",
-        "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json",
-        "runtime/releases/architecture-freeze/architecture-freeze.json"
+        "runtime/enterprise-architecture-operating-integration/sheikha-enterprise-architecture-operating-integration-v3-report.json"
       ],
       "testFiles": [
         "tests/sheikha-enterprise-kernel-v1.test.js"
@@ -8365,9 +8362,7 @@
     {
       "system": "SHEIKHA_FAMILY_CAPABILITY_GRAPH_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-capability-graph-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8379,17 +8374,13 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-acceptance-evidence-v1.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_ACTIVATION_CONTRACT_ACTIVATED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8398,9 +8389,7 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_ACTIVATION_CONTRACT_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-activation-contract-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8409,9 +8398,7 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_LAYER_CREATED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8420,9 +8407,7 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_LAYER_STATUS",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8431,9 +8416,7 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_LAYER_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8442,9 +8425,7 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_LAYER_V1_SELFTEST",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-selftest-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8453,21 +8434,16 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_LAYER_V1_SELFTEST_PASSED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
-      "testFiles": [
-        "tests/sheikha-family-federation-layer-v1.test.js"
-      ],
+      "testFiles": [],
       "evidenceFiles": [],
-      "classification": "IMPLEMENTED"
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_ROUTE_PLAN_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8476,9 +8452,7 @@
     {
       "system": "SHEIKHA_FAMILY_FEDERATION_WRITTEN_ACCEPTANCE_RECEIVED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8487,9 +8461,7 @@
     {
       "system": "SHEIKHA_FAMILY_INTEGRATION_MATRIX_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-integration-matrix-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8498,9 +8470,7 @@
     {
       "system": "SHEIKHA_FAMILY_OPERATION_ROUTES_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-operation-routes-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8509,9 +8479,7 @@
     {
       "system": "SHEIKHA_FAMILY_REGISTRY_CREATED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -8520,9 +8488,7 @@
     {
       "system": "SHEIKHA_FAMILY_REGISTRY_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-registry-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -9043,8 +9009,10 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [],
-      "classification": "DECLARED"
+      "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json"
+      ],
+      "classification": "VERIFIED"
     },
     {
       "system": "SHEIKHA_FOUNDATIONAL_LANGUAGE_PLATFORM_V1",
@@ -9053,8 +9021,10 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [],
-      "classification": "DECLARED"
+      "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json"
+      ],
+      "classification": "VERIFIED"
     },
     {
       "system": "SHEIKHA_FOUNDRY",
@@ -12391,9 +12361,12 @@
     },
     {
       "system": "SHEIKHA_LANGUAGE_COMPILER_VM_AND_GOVERNANCE_VERIFIED",
-      "implementationFiles": [],
+      "implementationFiles": [
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
+      ],
       "testFiles": [],
       "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json",
         "runtime/sheikha-language-platform/v1/evidence/sheikha-language-platform-admission-v1.json"
       ],
       "classification": "VERIFIED"
@@ -12419,6 +12392,17 @@
       "testFiles": [],
       "evidenceFiles": [],
       "classification": "DECLARED"
+    },
+    {
+      "system": "SHEIKHA_LANGUAGE_FOUNDATIONAL_CLOSURE_V1",
+      "implementationFiles": [
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
+      ],
+      "testFiles": [],
+      "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json"
+      ],
+      "classification": "VERIFIED"
     },
     {
       "system": "SHEIKHA_LANGUAGE_FOUNDATIONS",
@@ -12499,9 +12483,12 @@
     },
     {
       "system": "SHEIKHA_LANGUAGE_PLATFORM_ADMISSION_V1",
-      "implementationFiles": [],
+      "implementationFiles": [
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
+      ],
       "testFiles": [],
       "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json",
         "runtime/sheikha-language-platform/v1/evidence/sheikha-language-platform-admission-v1.json"
       ],
       "classification": "VERIFIED"
@@ -12516,8 +12503,10 @@
       "testFiles": [
         "tests/sheikha-language-platform-foundation-v1.test.js"
       ],
-      "evidenceFiles": [],
-      "classification": "IMPLEMENTED"
+      "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json"
+      ],
+      "classification": "VERIFIED"
     },
     {
       "system": "SHEIKHA_LANGUAGE_PRODUCTION_READINESS_V1",
@@ -15600,6 +15589,7 @@
         "runtime/distribution/v6/evidence/rollback-health.json",
         "runtime/distribution/v6/evidence/upgraded-sigint-health.json",
         "runtime/distribution/v6/evidence/upgraded-sigterm-health.json",
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json",
         "runtime/system-builder-fabric/v1/evidence/sheikha-system-builder-platform-hierarchy-admission-v1.json",
         "runtime/website-primary-runtime/v1/evidence/sheikha-website-primary-runtime-admission-v1.json"
       ],
@@ -16170,35 +16160,6 @@
       "system": "SHEIKHA_PERIODIC_SAFETY_GATE_V1",
       "implementationFiles": [
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260705154842.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260705165206.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260706012338.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260706183637.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707003643.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707063643.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707123644.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707180310.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707200052.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708020101.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708150329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708210329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709030332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709114329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709174329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709230646.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710120332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710120829.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710191011.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260711011124.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260711185827.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260712132150.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260712193339.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713013332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713131821.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713184037.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260714004044.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260714173653.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-latest.json",
         "tools/release/sheikha-periodic-safety-gate-v1.js"
       ],
       "testFiles": [],
@@ -17082,35 +17043,6 @@
       "implementationFiles": [
         "core/production-hardening/sheikha-production-hardening-closure-v1.js",
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260705154842.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260705165206.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260706012338.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260706183637.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707003643.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707063643.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707123644.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707180310.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707200052.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708020101.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708150329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708210329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709030332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709114329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709174329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709230646.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710120332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710120829.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710191011.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260711011124.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260711185827.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260712132150.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260712193339.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713013332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713131821.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713184037.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260714004044.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260714173653.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-latest.json",
         "runtime/production-hardening/sheikha-production-hardening-closure-v1-report.json"
       ],
       "testFiles": [
@@ -17183,35 +17115,6 @@
       "system": "SHEIKHA_PRODUCTION_READINESS_GATE_V1",
       "implementationFiles": [
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260705154842.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260705165206.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260706012338.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260706183637.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707003643.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707063643.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707123644.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707180310.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260707200052.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708020101.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708150329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260708210329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709030332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709114329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709174329.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260709230646.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710120332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710120829.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260710191011.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260711011124.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260711185827.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260712132150.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260712193339.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713013332.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713131821.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260713184037.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260714004044.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-20260714173653.json",
-        "runtime/operational-verification/sheikha-periodic-safety-gate-v1-latest.json",
         "runtime/production-hardening/sheikha-production-hardening-closure-v1-report.json",
         "runtime/production-readiness/sheikha-production-readiness-gate-v1.json",
         "runtime/system/sheikha-production-readiness-report.json",
@@ -17251,300 +17154,7 @@
       "system": "SHEIKHA_PRODUCTION_RUNTIME_SUMMARY_V1",
       "implementationFiles": [
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/production-summary.js",
-        "runtime/snapshots/snapshot-1782078486085.json",
-        "runtime/snapshots/snapshot-1782078509123.json",
-        "runtime/snapshots/snapshot-1782081196773.json",
-        "runtime/snapshots/snapshot-1782081223647.json",
-        "runtime/snapshots/snapshot-1782081332253.json",
-        "runtime/snapshots/snapshot-1782081440480.json",
-        "runtime/snapshots/snapshot-1782098823303.json",
-        "runtime/snapshots/snapshot-1782129108145.json",
-        "runtime/snapshots/snapshot-1782129113701.json",
-        "runtime/snapshots/snapshot-1782129422275.json",
-        "runtime/snapshots/snapshot-1782129765463.json",
-        "runtime/snapshots/snapshot-1782129780556.json",
-        "runtime/snapshots/snapshot-1782129831411.json",
-        "runtime/snapshots/snapshot-1782130434571.json",
-        "runtime/snapshots/snapshot-1782135017339.json",
-        "runtime/snapshots/snapshot-1782135205549.json",
-        "runtime/snapshots/snapshot-1782141638946.json",
-        "runtime/snapshots/snapshot-1782142039019.json",
-        "runtime/snapshots/snapshot-1782142687288.json",
-        "runtime/snapshots/snapshot-1782143414725.json",
-        "runtime/snapshots/snapshot-1782147828048.json",
-        "runtime/snapshots/snapshot-1782159246077.json",
-        "runtime/snapshots/snapshot-1782159718896.json",
-        "runtime/snapshots/snapshot-1782162688104.json",
-        "runtime/snapshots/snapshot-1782166578698.json",
-        "runtime/snapshots/snapshot-1782166815644.json",
-        "runtime/snapshots/snapshot-1782167326908.json",
-        "runtime/snapshots/snapshot-1782313296458.json",
-        "runtime/snapshots/snapshot-1782330960656.json",
-        "runtime/snapshots/snapshot-1782332536343.json",
-        "runtime/snapshots/snapshot-1782339066514.json",
-        "runtime/snapshots/snapshot-1782360011178.json",
-        "runtime/snapshots/snapshot-1782362772375.json",
-        "runtime/snapshots/snapshot-1782366513403.json",
-        "runtime/snapshots/snapshot-1782397125026.json",
-        "runtime/snapshots/snapshot-1782397636270.json",
-        "runtime/snapshots/snapshot-1782397649234.json",
-        "runtime/snapshots/snapshot-1782397658636.json",
-        "runtime/snapshots/snapshot-1782399844442.json",
-        "runtime/snapshots/snapshot-1782400303831.json",
-        "runtime/snapshots/snapshot-1782417634184.json",
-        "runtime/snapshots/snapshot-1782421371967.json",
-        "runtime/snapshots/snapshot-1782422193018.json",
-        "runtime/snapshots/snapshot-1782426153675.json",
-        "runtime/snapshots/snapshot-1782428229719.json",
-        "runtime/snapshots/snapshot-1782430828948.json",
-        "runtime/snapshots/snapshot-1782431319468.json",
-        "runtime/snapshots/snapshot-1782432347734.json",
-        "runtime/snapshots/snapshot-1782433487900.json",
-        "runtime/snapshots/snapshot-1782439850355.json",
-        "runtime/snapshots/snapshot-1782442178373.json",
-        "runtime/snapshots/snapshot-1782476124498.json",
-        "runtime/snapshots/snapshot-1782477771380.json",
-        "runtime/snapshots/snapshot-1782481009438.json",
-        "runtime/snapshots/snapshot-1782483591933.json",
-        "runtime/snapshots/snapshot-1782484119220.json",
-        "runtime/snapshots/snapshot-1782484640665.json",
-        "runtime/snapshots/snapshot-1782485221170.json",
-        "runtime/snapshots/snapshot-1782487229710.json",
-        "runtime/snapshots/snapshot-1782487817819.json",
-        "runtime/snapshots/snapshot-1782488791248.json",
-        "runtime/snapshots/snapshot-1782490428893.json",
-        "runtime/snapshots/snapshot-1782492897500.json",
-        "runtime/snapshots/snapshot-1782494187834.json",
-        "runtime/snapshots/snapshot-1782494523277.json",
-        "runtime/snapshots/snapshot-1782496702691.json",
-        "runtime/snapshots/snapshot-1782501472426.json",
-        "runtime/snapshots/snapshot-1782501496193.json",
-        "runtime/snapshots/snapshot-1782506954875.json",
-        "runtime/snapshots/snapshot-1782508727234.json",
-        "runtime/snapshots/snapshot-1782510488933.json",
-        "runtime/snapshots/snapshot-1782511519442.json",
-        "runtime/snapshots/snapshot-1782513298055.json",
-        "runtime/snapshots/snapshot-1782514186817.json",
-        "runtime/snapshots/snapshot-1782515328460.json",
-        "runtime/snapshots/snapshot-1782531787714.json",
-        "runtime/snapshots/snapshot-1782533848402.json",
-        "runtime/snapshots/snapshot-1782535526279.json",
-        "runtime/snapshots/snapshot-1782571865335.json",
-        "runtime/snapshots/snapshot-1782572608169.json",
-        "runtime/snapshots/snapshot-1782572714312.json",
-        "runtime/snapshots/snapshot-1782574217457.json",
-        "runtime/snapshots/snapshot-1782575026812.json",
-        "runtime/snapshots/snapshot-1782578408827.json",
-        "runtime/snapshots/snapshot-1782580654778.json",
-        "runtime/snapshots/snapshot-1782589486698.json",
-        "runtime/snapshots/snapshot-1782596824714.json",
-        "runtime/snapshots/snapshot-1782598273033.json",
-        "runtime/snapshots/snapshot-1782599141022.json",
-        "runtime/snapshots/snapshot-1782599665168.json",
-        "runtime/snapshots/snapshot-1782656718527.json",
-        "runtime/snapshots/snapshot-1782692742627.json",
-        "runtime/snapshots/snapshot-1782693286288.json",
-        "runtime/snapshots/snapshot-1782693812477.json",
-        "runtime/snapshots/snapshot-1782695243689.json",
-        "runtime/snapshots/snapshot-1782695342114.json",
-        "runtime/snapshots/snapshot-1782741352662.json",
-        "runtime/snapshots/snapshot-1782760264837.json",
-        "runtime/snapshots/snapshot-1782760445976.json",
-        "runtime/snapshots/snapshot-1782760763915.json",
-        "runtime/snapshots/snapshot-1782760986657.json",
-        "runtime/snapshots/snapshot-1782761227684.json",
-        "runtime/snapshots/snapshot-1782761331254.json",
-        "runtime/snapshots/snapshot-1782761797787.json",
-        "runtime/snapshots/snapshot-1782762279278.json",
-        "runtime/snapshots/snapshot-1782762706846.json",
-        "runtime/snapshots/snapshot-1782762718857.json",
-        "runtime/snapshots/snapshot-1782762973348.json",
-        "runtime/snapshots/snapshot-1782764288590.json",
-        "runtime/snapshots/snapshot-1782764538812.json",
-        "runtime/snapshots/snapshot-1782764710167.json",
-        "runtime/snapshots/snapshot-1782764721241.json",
-        "runtime/snapshots/snapshot-1782764832946.json",
-        "runtime/snapshots/snapshot-1782765263865.json",
-        "runtime/snapshots/snapshot-1782765905778.json",
-        "runtime/snapshots/snapshot-1782766164618.json",
-        "runtime/snapshots/snapshot-1782766402371.json",
-        "runtime/snapshots/snapshot-1782767599930.json",
-        "runtime/snapshots/snapshot-1782767930225.json",
-        "runtime/snapshots/snapshot-1782767968312.json",
-        "runtime/snapshots/snapshot-1782768232149.json",
-        "runtime/snapshots/snapshot-1782768462823.json",
-        "runtime/snapshots/snapshot-1782768476020.json",
-        "runtime/snapshots/snapshot-1782768781990.json",
-        "runtime/snapshots/snapshot-1782768793721.json",
-        "runtime/snapshots/snapshot-1782768983327.json",
-        "runtime/snapshots/snapshot-1782769464666.json",
-        "runtime/snapshots/snapshot-1782769471836.json",
-        "runtime/snapshots/snapshot-1782769614549.json",
-        "runtime/snapshots/snapshot-1782769840458.json",
-        "runtime/snapshots/snapshot-1782770005227.json",
-        "runtime/snapshots/snapshot-1782770499483.json",
-        "runtime/snapshots/snapshot-1782770792325.json",
-        "runtime/snapshots/snapshot-1782771052248.json",
-        "runtime/snapshots/snapshot-1782771334205.json",
-        "runtime/snapshots/snapshot-1782771670744.json",
-        "runtime/snapshots/snapshot-1782774805118.json",
-        "runtime/snapshots/snapshot-1782776182960.json",
-        "runtime/snapshots/snapshot-1782777198028.json",
-        "runtime/snapshots/snapshot-1782777625532.json",
-        "runtime/snapshots/snapshot-1782778062192.json",
-        "runtime/snapshots/snapshot-1782778183892.json",
-        "runtime/snapshots/snapshot-1782778259789.json",
-        "runtime/snapshots/snapshot-1782778457318.json",
-        "runtime/snapshots/snapshot-1782778782928.json",
-        "runtime/snapshots/snapshot-1782779594387.json",
-        "runtime/snapshots/snapshot-1782779860533.json",
-        "runtime/snapshots/snapshot-1782779873190.json",
-        "runtime/snapshots/snapshot-1782780105558.json",
-        "runtime/snapshots/snapshot-1782780451950.json",
-        "runtime/snapshots/snapshot-1782780891255.json",
-        "runtime/snapshots/snapshot-1782780925387.json",
-        "runtime/snapshots/snapshot-1782781035791.json",
-        "runtime/snapshots/snapshot-1782781162547.json",
-        "runtime/snapshots/snapshot-1782781172191.json",
-        "runtime/snapshots/snapshot-1782793723183.json",
-        "runtime/snapshots/snapshot-1782793738204.json",
-        "runtime/snapshots/snapshot-1782798266897.json",
-        "runtime/snapshots/snapshot-1782798578569.json",
-        "runtime/snapshots/snapshot-1782802474319.json",
-        "runtime/snapshots/snapshot-1782802948757.json",
-        "runtime/snapshots/snapshot-1782803424548.json",
-        "runtime/snapshots/snapshot-1782804377986.json",
-        "runtime/snapshots/snapshot-1782806025686.json",
-        "runtime/snapshots/snapshot-1782807133441.json",
-        "runtime/snapshots/snapshot-1782809028215.json",
-        "runtime/snapshots/snapshot-1782828539662.json",
-        "runtime/snapshots/snapshot-1782828971392.json",
-        "runtime/snapshots/snapshot-1782832292299.json",
-        "runtime/snapshots/snapshot-1782864447111.json",
-        "runtime/snapshots/snapshot-1782869435498.json",
-        "runtime/snapshots/snapshot-1782869453545.json",
-        "runtime/snapshots/snapshot-1782869500157.json",
-        "runtime/snapshots/snapshot-1782870158156.json",
-        "runtime/snapshots/snapshot-1782967620387.json",
-        "runtime/snapshots/snapshot-1782967857760.json",
-        "runtime/snapshots/snapshot-1783003365211.json",
-        "runtime/snapshots/snapshot-1783003442280.json",
-        "runtime/snapshots/snapshot-1783003496689.json",
-        "runtime/snapshots/snapshot-1783004069999.json",
-        "runtime/snapshots/snapshot-1783004124459.json",
-        "runtime/snapshots/snapshot-1783024568428.json",
-        "runtime/snapshots/snapshot-1783032229965.json",
-        "runtime/snapshots/snapshot-1783034422800.json",
-        "runtime/snapshots/snapshot-1783039684553.json",
-        "runtime/snapshots/snapshot-1783041728971.json",
-        "runtime/snapshots/snapshot-1783041756303.json",
-        "runtime/snapshots/snapshot-1783041762361.json",
-        "runtime/snapshots/snapshot-1783043938554.json",
-        "runtime/snapshots/snapshot-1783090120785.json",
-        "runtime/snapshots/snapshot-1783091198907.json",
-        "runtime/snapshots/snapshot-1783091624019.json",
-        "runtime/snapshots/snapshot-1783099457805.json",
-        "runtime/snapshots/snapshot-1783110126265.json",
-        "runtime/snapshots/snapshot-1783110562177.json",
-        "runtime/snapshots/snapshot-1783110568434.json",
-        "runtime/snapshots/snapshot-1783134455623.json",
-        "runtime/snapshots/snapshot-1783134493433.json",
-        "runtime/snapshots/snapshot-1783135044782.json",
-        "runtime/snapshots/snapshot-1783135066714.json",
-        "runtime/snapshots/snapshot-1783135873573.json",
-        "runtime/snapshots/snapshot-1783135931544.json",
-        "runtime/snapshots/snapshot-1783136814447.json",
-        "runtime/snapshots/snapshot-1783137379646.json",
-        "runtime/snapshots/snapshot-1783138199510.json",
-        "runtime/snapshots/snapshot-1783138220551.json",
-        "runtime/snapshots/snapshot-1783138638965.json",
-        "runtime/snapshots/snapshot-1783142500501.json",
-        "runtime/snapshots/snapshot-1783187966559.json",
-        "runtime/snapshots/snapshot-1783188146549.json",
-        "runtime/snapshots/snapshot-1783188551892.json",
-        "runtime/snapshots/snapshot-1783191497400.json",
-        "runtime/snapshots/snapshot-1783193397270.json",
-        "runtime/snapshots/snapshot-1783193410361.json",
-        "runtime/snapshots/snapshot-1783195955361.json",
-        "runtime/snapshots/snapshot-1783196417650.json",
-        "runtime/snapshots/snapshot-1783197907716.json",
-        "runtime/snapshots/snapshot-1783199069589.json",
-        "runtime/snapshots/snapshot-1783200023204.json",
-        "runtime/snapshots/snapshot-1783200104579.json",
-        "runtime/snapshots/snapshot-1783202446343.json",
-        "runtime/snapshots/snapshot-1783202923859.json",
-        "runtime/snapshots/snapshot-1783223025045.json",
-        "runtime/snapshots/snapshot-1783223038576.json",
-        "runtime/snapshots/snapshot-1783223744926.json",
-        "runtime/snapshots/snapshot-1783223890781.json",
-        "runtime/snapshots/snapshot-1783224219893.json",
-        "runtime/snapshots/snapshot-1783224291086.json",
-        "runtime/snapshots/snapshot-1783224564623.json",
-        "runtime/snapshots/snapshot-1783224671536.json",
-        "runtime/snapshots/snapshot-1783225022478.json",
-        "runtime/snapshots/snapshot-1783225036202.json",
-        "runtime/snapshots/snapshot-1783225319795.json",
-        "runtime/snapshots/snapshot-1783225435411.json",
-        "runtime/snapshots/snapshot-1783225689646.json",
-        "runtime/snapshots/snapshot-1783225851103.json",
-        "runtime/snapshots/snapshot-1783226141914.json",
-        "runtime/snapshots/snapshot-1783226267772.json",
-        "runtime/snapshots/snapshot-1783229489498.json",
-        "runtime/snapshots/snapshot-1783254276057.json",
-        "runtime/snapshots/snapshot-1783254381311.json",
-        "runtime/snapshots/snapshot-1783261224558.json",
-        "runtime/snapshots/snapshot-1783265814035.json",
-        "runtime/snapshots/snapshot-1783371415061.json",
-        "runtime/snapshots/snapshot-1783374627582.json",
-        "runtime/snapshots/snapshot-1783379333230.json",
-        "runtime/snapshots/snapshot-1783379596286.json",
-        "runtime/snapshots/snapshot-1783379625315.json",
-        "runtime/snapshots/snapshot-1783379770643.json",
-        "runtime/snapshots/snapshot-1783379929547.json",
-        "runtime/snapshots/snapshot-1783380311244.json",
-        "runtime/snapshots/snapshot-1783380691425.json",
-        "runtime/snapshots/snapshot-1783382177103.json",
-        "runtime/snapshots/snapshot-1783382722042.json",
-        "runtime/snapshots/snapshot-1783383744707.json",
-        "runtime/snapshots/snapshot-1783384058215.json",
-        "runtime/snapshots/snapshot-1783387318455.json",
-        "runtime/snapshots/snapshot-1783387990181.json",
-        "runtime/snapshots/snapshot-1783421424139.json",
-        "runtime/snapshots/snapshot-1783422841803.json",
-        "runtime/snapshots/snapshot-1783423829219.json",
-        "runtime/snapshots/snapshot-1783424823461.json",
-        "runtime/snapshots/snapshot-1783424879315.json",
-        "runtime/snapshots/snapshot-1783424891563.json",
-        "runtime/snapshots/snapshot-1783424927029.json",
-        "runtime/snapshots/snapshot-1783424998131.json",
-        "runtime/snapshots/snapshot-1783425070336.json",
-        "runtime/snapshots/snapshot-1783438391848.json",
-        "runtime/snapshots/snapshot-1783544651010.json",
-        "runtime/snapshots/snapshot-1783571816310.json",
-        "runtime/snapshots/snapshot-1783572227185.json",
-        "runtime/snapshots/snapshot-1783594738620.json",
-        "runtime/snapshots/snapshot-1783594766645.json",
-        "runtime/snapshots/snapshot-1783594851271.json",
-        "runtime/snapshots/snapshot-1783595466423.json",
-        "runtime/snapshots/snapshot-1783596165878.json",
-        "runtime/snapshots/snapshot-1783596787227.json",
-        "runtime/snapshots/snapshot-1783597734640.json",
-        "runtime/snapshots/snapshot-1783598276494.json",
-        "runtime/snapshots/snapshot-1783598346515.json",
-        "runtime/snapshots/snapshot-1783598396183.json",
-        "runtime/snapshots/snapshot-1783598429099.json",
-        "runtime/snapshots/snapshot-1783598485366.json",
-        "runtime/snapshots/snapshot-1783598661403.json",
-        "runtime/snapshots/snapshot-1783598706044.json",
-        "runtime/snapshots/snapshot-1783603898560.json",
-        "runtime/snapshots/snapshot-1783604095832.json",
-        "runtime/snapshots/snapshot-1783604140142.json",
-        "runtime/snapshots/snapshot-1783604194903.json",
-        "runtime/snapshots/snapshot-1783605331868.json",
-        "runtime/snapshots/snapshot-1783605378631.json",
-        "runtime/snapshots/snapshot-1783605466775.json",
-        "runtime/snapshots/snapshot-1783606145417.json"
+        "runtime/production-summary.js"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -19254,9 +18864,7 @@
     {
       "system": "SHEIKHA_RPM_SPEC_GATE_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-rpm-spec-semantic-verification-v1.json",
-        "tools/system-builder-fabric/sheikha-rpm-spec-gate-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -20223,7 +19831,6 @@
       "system": "SHEIKHA_RUNTIME_ROLLBACK",
       "implementationFiles": [
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/recovery/rollback/rollback-2026-05-30T19-51-50-070Z.json",
         "tools/recovery/sheikha-rollback-engine.js"
       ],
       "testFiles": [],
@@ -22723,16 +22330,12 @@
         "governance/foundational-charter/v1/sheikha-foundational-charter-v1.json",
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
         "runtime/system-builder-fabric/v1/sheikha-system-builder-fabric-v1.json",
-        "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json",
-        "tools/system-builder-fabric/sheikha-system-builder-fabric-v1.js",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-executor.js",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-verifier.js"
+        "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json"
       ],
       "testFiles": [
-        "tests/sheikha-system-builder-fabric-v1.test.js"
+        "tests/sheikha-clean-checkout-dependency-closure-v1.test.js"
       ],
       "evidenceFiles": [
-        "runtime/distribution/v7/evidence/sheikha-v7-rpm-native-build-report.json",
         "runtime/system-builder-fabric/v1/evidence/sheikha-system-builder-platform-hierarchy-admission-v1.json"
       ],
       "classification": "VERIFIED"
@@ -22742,11 +22345,9 @@
       "implementationFiles": [
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
-      "testFiles": [
-        "tests/sheikha-system-builder-fabric-v1.test.js"
-      ],
+      "testFiles": [],
       "evidenceFiles": [],
-      "classification": "IMPLEMENTED"
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_SYSTEM_BUILDER_PLATFORM_HIERARCHY_ADMISSION_V1",
@@ -22777,8 +22378,7 @@
       "system": "SHEIKHA_SYSTEM_BUILDER_TOOL_REGISTRY_V1",
       "implementationFiles": [
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json",
-        "tools/system-builder-fabric/sheikha-system-builder-fabric-v1.js"
+        "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -22791,8 +22391,10 @@
         "runtime/system-builder-workbench/v1/sheikha-system-builder-workbench-v1.js"
       ],
       "testFiles": [],
-      "evidenceFiles": [],
-      "classification": "DECLARED"
+      "evidenceFiles": [
+        "runtime/foundational-closure/v1/evidence/sheikha-language-foundational-closure-v1.json"
+      ],
+      "classification": "VERIFIED"
     },
     {
       "system": "SHEIKHA_SYSTEM_IGNITE_PACKAGE_V1",
@@ -24626,11 +24228,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v6.1/evidence/artifact-integrity.json",
-        "tools/activation/v6/sheikha-v6-evidence-reconciliation-v1.js"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V6_1_EVIDENCE_GAP_REGISTER",
@@ -24638,11 +24237,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v6.1/evidence/evidence-gap-register.json",
-        "tools/activation/v6/sheikha-v6-evidence-reconciliation-v1.js"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V6_1_FINAL_STATE_RECONCILIATION",
@@ -24650,12 +24246,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v6.1/evidence/final-state-reconciliation.json",
-        "runtime/distribution/v6.1/sheikha-v6-evidence-reconciliation-v1-report.json",
-        "tools/activation/v6/sheikha-v6-evidence-reconciliation-v1.js"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V6_CANONICAL_CLI_ENTRYPOINT",
@@ -24718,11 +24310,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v6.1/sheikha-v6-evidence-reconciliation-v1-report.json",
-        "tools/activation/v6/sheikha-v6-evidence-reconciliation-v1.js"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V6_GOVERNED_FINALIZATION_REVIEW",
@@ -24848,10 +24437,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7.1-governance-quarantine.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_CORRECTED_RPM_BUILD_CONTRACT_ACTIVATED",
@@ -24859,18 +24446,13 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7.3-corrected-rpm-closure-verification.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_CORRECTED_RPM_BUILD_CONTRACT_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/distribution/v7/final/sheikha-v7-corrected-rpm-build-contract-v1.json",
-        "tools/system-builder-fabric/sheikha-v7-corrected-rpm-contract-v1.js",
-        "tools/system-builder-fabric/sheikha-v7-corrected-rpm-executor-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -24882,22 +24464,17 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7.3-corrected-rpm-closure-verification.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_CORRECTED_RPM_BUILD_EXECUTION_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "tools/system-builder-fabric/sheikha-v7-corrected-rpm-executor-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7.3-corrected-rpm-build-execution-result.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_CORRECTED_RPM_CLOSURE_VERIFICATION_V1",
@@ -24905,17 +24482,13 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7.3-corrected-rpm-closure-verification.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_CORRECTED_RPM_V1",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/distribution/v7/final/sheikha-v7-corrected-rpm-v1-report.json",
-        "tools/system-builder-fabric/sheikha-v7-corrected-rpm-executor-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -24927,17 +24500,13 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7.3-corrected-rpm-closure-verification.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_CORRECTED_SPEC_GATE_PASSED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -24949,10 +24518,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-deb-payload-mode-inspection.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_FEDORA_LINUX_AMD64_DIGEST_RESOLUTION",
@@ -24960,17 +24527,13 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/fedora-linux-amd64-resolution.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_NATIVE_RPM_BUILD_CONTRACT",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/distribution/v7/sheikha-v7-native-rpm-build-contract.json",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-executor.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -24982,10 +24545,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-offline-toolchain-correction.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_RPM_BUILDER_CONTRACT_EXECUTION",
@@ -24993,16 +24554,13 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-builder-contract-execution-result.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_RPM_BUILDER_READINESS",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/distribution/v7/sheikha-v7-rpm-builder-readiness-report.json"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
       "evidenceFiles": [],
@@ -25014,62 +24572,44 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-rpm-container-invocation-rejection.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_RPM_LIFECYCLE_ENVIRONMENT_PREFLIGHT",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "tools/activation/v7/sheikha-v7-lifecycle-environment-preflight.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7-lifecycle-environment-preflight.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_RPM_NATIVE_BUILD_EXECUTION",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-executor.js",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-verifier.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-rpm-native-build-execution-result.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_RPM_NATIVE_BUILD_REPORT",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-executor.js",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-verifier.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/sheikha-v7-rpm-native-build-report.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_RPM_PAYLOAD_EQUIVALENCE",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-executor.js",
-        "tools/system-builder-fabric/sheikha-system-builder-v7-rpm-verifier.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-rpm-payload-equivalence.json",
-        "runtime/distribution/v7/final/evidence/v7.3-rpm-payload-equivalence.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_SOURCE_DEB_METADATA",
@@ -25077,23 +24617,17 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/evidence/v7-source-deb-metadata.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_SPEC_GATE_AND_FAMILY_FEDERATION_LAYER_VERIFIED",
       "implementationFiles": [
-        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
-        "runtime/system-builder-fabric/v1/family-federation/sheikha-family-federation-layer-v1.json",
-        "tools/system-builder-fabric/sheikha-family-federation-layer-v1.js"
+        "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
-      "testFiles": [
-        "tests/sheikha-family-federation-layer-v1.test.js"
-      ],
+      "testFiles": [],
       "evidenceFiles": [],
-      "classification": "IMPLEMENTED"
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_V7_SPEC_GATE_CORRECTION",
@@ -25101,10 +24635,8 @@
         "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json"
       ],
       "testFiles": [],
-      "evidenceFiles": [
-        "runtime/distribution/v7/final/evidence/v7-spec-gate-correction.json"
-      ],
-      "classification": "VERIFIED"
+      "evidenceFiles": [],
+      "classification": "DECLARED"
     },
     {
       "system": "SHEIKHA_VALUE_CAPTURE_CLUSTER",
