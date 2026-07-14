@@ -1,0 +1,84 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BUILDER_PLATFORM_HIERARCHY_V1",
+  "status": "ACTIVE",
+  "architecture": {
+    "foundation": {
+      "id": "system-builder-platform",
+      "name": "Sheikha System Builder Platform",
+      "role": "PRIMARY_SYSTEM_AND_SYSTEM_BUILDING_FOUNDATION",
+      "required": true
+    },
+    "coreFabric": {
+      "id": "system-builder-fabric",
+      "system": "SHEIKHA_SYSTEM_BUILDER_FABRIC_V1",
+      "role": "GOVERNED_SYSTEM_BUILDING_EXECUTION_FABRIC",
+      "required": true
+    },
+    "developmentPlatform": {
+      "id": "sheikha-developer-platform",
+      "system": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+      "role": "FIRST_PARTY_SYSTEM_DEVELOPMENT_ENVIRONMENT",
+      "requiredForSystemBuildingExperience": true
+    },
+    "website": {
+      "id": "website",
+      "role": "PRIMARY_PRODUCT_CONTROL_OPERATION_AND_SYSTEM_BUILDING_SURFACE",
+      "isFoundation": false,
+      "isPrimaryProductSurface": true,
+      "isPrimaryPublicSurface": true,
+      "requiredForPublicProductAccess": true,
+      "requiredForCoreFabricExecution": false
+    },
+    "vscode": {
+      "id": "vscode",
+      "role": "OPTIONAL_DEVELOPMENT_ADAPTER_AND_TOOL",
+      "isFoundation": false,
+      "requiredForProduction": false,
+      "requiredForWebsiteStartup": false,
+      "requiredForSystemBuilderRuntime": false
+    },
+    "codex": {
+      "id": "codex",
+      "role": "OPTIONAL_DEVELOPMENT_AND_AUTOMATION_TOOL",
+      "isFoundation": false,
+      "requiredForProduction": false,
+      "requiredForWebsiteStartup": false,
+      "requiredForSystemBuilderRuntime": false
+    }
+  },
+  "systemBuildingLifecycle": [
+    "discover-requirements",
+    "define-system-contract",
+    "resolve-capabilities",
+    "select-governed-tools",
+    "compose-architecture",
+    "generate-or-adapt-components",
+    "validate-dependencies",
+    "execute-tests-and-gates",
+    "package-artifacts",
+    "verify-artifacts",
+    "deploy-through-governed-runtime",
+    "observe-and-recover"
+  ],
+  "governance": {
+    "defaultExecutionAuthorization": "DENY",
+    "executionRequiresVerifiedContract": true,
+    "executionRequiresRegisteredTool": true,
+    "executionRequiresCapabilityMatch": true,
+    "websiteCannotOverrideSystemBuilderGovernance": true,
+    "externalEditorCannotOverrideSystemBuilderGovernance": true,
+    "truthfulEvidenceRequired": true
+  },
+  "dependencyOrder": [
+    "governance",
+    "system-builder-platform",
+    "system-builder-fabric",
+    "tool-registry",
+    "capability-matrix",
+    "family-federation",
+    "developer-platform",
+    "website-product-surface",
+    "optional-editor-adapters"
+  ]
+}

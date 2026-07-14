@@ -1,0 +1,190 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BUILDER_PLATFORM_HIERARCHY_ADMISSION_V1",
+  "status": "SYSTEM_BUILDER_FOUNDATION_AND_WEBSITE_SURFACE_VERIFIED",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "architecture": {
+    "foundation": "Sheikha System Builder Platform",
+    "coreFabric": "SHEIKHA_SYSTEM_BUILDER_FABRIC_V1",
+    "developerPlatform": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+    "primaryProductSurface": "website",
+    "websiteIsFoundation": false,
+    "websiteIsSystemBuilderSurface": true,
+    "vscodeRole": "OPTIONAL_DEVELOPMENT_ADAPTER_AND_TOOL",
+    "codexRole": "OPTIONAL_DEVELOPMENT_AND_AUTOMATION_TOOL"
+  },
+  "files": {
+    "hierarchyContract": "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json",
+    "hierarchyEngine": "tools/system-builder-fabric/sheikha-system-builder-platform-hierarchy-v1.js",
+    "websiteRuntime": "runtime/website-primary-runtime/v1/sheikha-website-primary-runtime-v1.js"
+  },
+  "verification": {
+    "builderStatus": {
+      "ok": true,
+      "data": {
+        "system": "SHEIKHA_SYSTEM_BUILDER_PLATFORM_HIERARCHY_V1",
+        "status": "ACTIVE",
+        "foundation": {
+          "id": "system-builder-platform",
+          "name": "Sheikha System Builder Platform",
+          "role": "PRIMARY_SYSTEM_AND_SYSTEM_BUILDING_FOUNDATION",
+          "required": true
+        },
+        "coreFabric": {
+          "id": "system-builder-fabric",
+          "system": "SHEIKHA_SYSTEM_BUILDER_FABRIC_V1",
+          "role": "GOVERNED_SYSTEM_BUILDING_EXECUTION_FABRIC",
+          "required": true
+        },
+        "productSurface": {
+          "id": "website",
+          "role": "PRIMARY_PRODUCT_CONTROL_OPERATION_AND_SYSTEM_BUILDING_SURFACE",
+          "isFoundation": false,
+          "isPrimaryProductSurface": true,
+          "isPrimaryPublicSurface": true,
+          "requiredForPublicProductAccess": true,
+          "requiredForCoreFabricExecution": false
+        },
+        "developmentPlatform": {
+          "id": "sheikha-developer-platform",
+          "system": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+          "role": "FIRST_PARTY_SYSTEM_DEVELOPMENT_ENVIRONMENT",
+          "requiredForSystemBuildingExperience": true
+        },
+        "optionalAdapters": {
+          "vscode": {
+            "id": "vscode",
+            "role": "OPTIONAL_DEVELOPMENT_ADAPTER_AND_TOOL",
+            "isFoundation": false,
+            "requiredForProduction": false,
+            "requiredForWebsiteStartup": false,
+            "requiredForSystemBuilderRuntime": false
+          },
+          "codex": {
+            "id": "codex",
+            "role": "OPTIONAL_DEVELOPMENT_AND_AUTOMATION_TOOL",
+            "isFoundation": false,
+            "requiredForProduction": false,
+            "requiredForWebsiteStartup": false,
+            "requiredForSystemBuilderRuntime": false
+          }
+        },
+        "systemBuildingLifecycle": [
+          "discover-requirements",
+          "define-system-contract",
+          "resolve-capabilities",
+          "select-governed-tools",
+          "compose-architecture",
+          "generate-or-adapt-components",
+          "validate-dependencies",
+          "execute-tests-and-gates",
+          "package-artifacts",
+          "verify-artifacts",
+          "deploy-through-governed-runtime",
+          "observe-and-recover"
+        ],
+        "governance": {
+          "defaultExecutionAuthorization": "DENY",
+          "executionRequiresVerifiedContract": true,
+          "executionRequiresRegisteredTool": true,
+          "executionRequiresCapabilityMatch": true,
+          "websiteCannotOverrideSystemBuilderGovernance": true,
+          "externalEditorCannotOverrideSystemBuilderGovernance": true,
+          "truthfulEvidenceRequired": true
+        },
+        "checks": {
+          "hierarchyActive": true,
+          "systemBuilderIsFoundation": true,
+          "fabricIsRequired": true,
+          "websiteIsNotFoundation": true,
+          "websiteIsPrimaryProductSurface": true,
+          "websiteDoesNotOwnCoreExecution": true,
+          "vscodeIsOptional": true,
+          "codexIsOptional": true,
+          "defaultDeny": true,
+          "fabricPresent": true,
+          "toolRegistryPresent": true,
+          "capabilityMatrixPresent": true,
+          "lifecycleComplete": true
+        },
+        "failedChecks": [],
+        "passed": true
+      }
+    },
+    "websiteReadiness": {
+      "ok": true,
+      "ready": true,
+      "foundationPlatform": "system-builder-platform",
+      "primarySurface": "website",
+      "systemBuilderIsFoundation": true,
+      "websiteIsFoundation": false,
+      "websiteIsPrimaryProductSurface": true,
+      "websiteIsSystemBuilderSurface": true,
+      "vscodeIsToolOnly": true,
+      "editorRequiredForRuntime": false,
+      "extensionRequiredForRuntime": false,
+      "modelFailureStopsWebsite": false,
+      "validation": {
+        "system": "SHEIKHA_WEBSITE_PRIMARY_RUNTIME_V1",
+        "checks": {
+          "active": true,
+          "systemBuilderIsFoundation": true,
+          "websiteIsPrimary": true,
+          "portalIsPrimaryRuntime": true,
+          "websiteRequiredForProduction": true,
+          "websiteIndependent": true,
+          "websiteIsNotSystemFoundation": true,
+          "websiteIsSystemBuilderSurface": true,
+          "vscodeNotRequired": true,
+          "extensionNotRequired": true,
+          "editorNotRuntimeDependency": true,
+          "slowModelDoesNotStopWebsite": true,
+          "deepModelDoesNotStopWebsite": true,
+          "deepAnalysisNonBlocking": true,
+          "latencyTargetIsNotSla": true
+        },
+        "failedChecks": [],
+        "passed": true
+      }
+    },
+    "health": {
+      "success": true,
+      "data": {
+        "identity": {
+          "system": "SHEIKHA_OPERATING_SYSTEM_V1",
+          "officialName": "Sheikha Operating System",
+          "arabicName": "نظام تشغيل شيخة",
+          "packageName": "sheikha-operating-system"
+        },
+        "status": "ok",
+        "pid": 927630,
+        "uptimeSeconds": 1,
+        "languageCounts": {
+          "human": 25,
+          "programming": 72,
+          "markup": 20
+        },
+        "integrationSummary": {
+          "enabled": 2,
+          "ready": 2
+        }
+      },
+      "message": "الخدمة تعمل بشكل طبيعي",
+      "timestamp": "2026-07-14T18:25:01.704Z"
+    },
+    "pm2Status": "online",
+    "testsPassed": true,
+    "lintPassed": true,
+    "gitDiffCheckPassed": true,
+    "passed": true
+  },
+  "gitActions": {
+    "staged": false,
+    "committed": false,
+    "tagged": false,
+    "pushed": false
+  },
+  "nextStage": "SYSTEM_BUILDER_PLATFORM_SCOPED_COMMIT_THEN_BUILD_WORKBENCH",
+  "backup": "/home/sheikha/Backups/sheikha/system-builder-platform-hierarchy-v1-20260714-212456",
+  "verifiedAt": "2026-07-14T18:25:01.922144+00:00"
+}

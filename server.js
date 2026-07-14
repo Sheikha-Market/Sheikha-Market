@@ -67,6 +67,24 @@ try {
 
 const app = express();
 
+// SHEIKHA SYSTEM BUILDER PLATFORM HIERARCHY V1
+app.use(
+  '/api/system-builder-platform/v1',
+  require(
+    './routes/system-builder-platform/' +
+    'sheikha-system-builder-platform-routes'
+  )
+);
+
+// SHEIKHA WEBSITE PRIMARY RUNTIME V1
+app.use(
+  '/api/website-primary-runtime/v1',
+  require(
+    './routes/website-primary-runtime/' +
+    'sheikha-website-primary-runtime-routes'
+  )
+);
+
 registerSheikhaRuntimeHealthRoutes(app);
 registerSheikhaRuntimeBootstrapRoutes(app);
 

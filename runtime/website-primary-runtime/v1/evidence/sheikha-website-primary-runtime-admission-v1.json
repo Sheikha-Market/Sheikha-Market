@@ -1,0 +1,207 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_WEBSITE_PRIMARY_RUNTIME_ADMISSION_V1",
+  "status": "WEBSITE_PRIMARY_RUNTIME_OPERATIONALLY_ADMITTED",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "architecture": {
+    "primarySurface": "website",
+    "primaryRuntime": "sheikha-main-portal",
+    "vscodeRole": "DEVELOPMENT_ADMINISTRATION_AND_DIAGNOSTIC_TOOL_ONLY",
+    "extensionRole": "OPTIONAL_CLIENT_ADAPTER",
+    "editorRequiredForProduction": false,
+    "editorRequiredForWebsiteStartup": false,
+    "deepAnalysisMode": "EXPLICIT_OR_BACKGROUND_NON_BLOCKING",
+    "modelFailureMode": "DEGRADED_AI_CAPABILITY_NOT_WEBSITE_OUTAGE"
+  },
+  "files": {
+    "runtime": "runtime/website-primary-runtime/v1/sheikha-website-primary-runtime-v1.js",
+    "route": "routes/website-primary-runtime/sheikha-website-primary-runtime-routes.js",
+    "test": "tests/sheikha-website-primary-runtime-v1.test.js"
+  },
+  "operationalVerification": {
+    "pm2Application": "sheikha-main-portal",
+    "pm2Status": "online",
+    "rootHtmlVerified": true,
+    "localAssetsVerified": true,
+    "healthVerified": true,
+    "statusEndpointVerified": true,
+    "readinessEndpointVerified": true,
+    "independentOfVscode": true,
+    "passed": true
+  },
+  "modelPerformanceContext": {
+    "qwenFirstTokenMs": 18619.463,
+    "deepArabicElapsedMs": 159991.156,
+    "sourceEvidence": "runtime/live-realtime-fabric/v1/evidence/sheikha-actual-model-runtime-admission-v3.json"
+  },
+  "statusPayload": {
+    "ok": true,
+    "data": {
+      "status": {
+        "system": "SHEIKHA_WEBSITE_PRIMARY_RUNTIME_V1",
+        "version": "1.0.0",
+        "status": "ACTIVE",
+        "primarySurface": "website",
+        "primaryRuntime": "sheikha-main-portal",
+        "productSurfaces": {
+          "website": {
+            "role": "PRIMARY_PRODUCT_AND_COMMERCIAL_SURFACE",
+            "requiredForProduction": true,
+            "independentlyOperable": true,
+            "defaultPort": 8080,
+            "responsibilities": [
+              "public-product-experience",
+              "commerce-experience",
+              "customer-access",
+              "marketplace-access",
+              "enterprise-apis",
+              "health-and-readiness"
+            ]
+          },
+          "vscode": {
+            "role": "DEVELOPMENT_ADMINISTRATION_AND_DIAGNOSTIC_TOOL_ONLY",
+            "requiredForProduction": false,
+            "requiredForWebsiteStartup": false,
+            "requiredForCustomerAccess": false,
+            "mayBeClosedWhileWebsiteRuns": true
+          },
+          "vscodeExtension": {
+            "role": "OPTIONAL_CLIENT_ADAPTER",
+            "requiredForProduction": false,
+            "requiredForWebsiteStartup": false,
+            "requiredForCustomerAccess": false
+          }
+        },
+        "availabilityPolicy": {
+          "websiteMustNotDependOnEditorProcess": true,
+          "websiteMustNotDependOnExtensionProcess": true,
+          "websiteMustRemainAvailableWhenModelIsSlow": true,
+          "websiteMustRemainAvailableWhenDeepModelIsUnavailable": true,
+          "modelFailureMode": "DEGRADED_AI_CAPABILITY_NOT_WEBSITE_OUTAGE",
+          "deepAnalysisMode": "EXPLICIT_OR_BACKGROUND_NON_BLOCKING",
+          "immediateUserAcknowledgementRequired": true,
+          "modelWaitProgressEventRequired": true,
+          "firstTokenTargetIsSla": false
+        },
+        "routingPolicy": {
+          "websiteRequestOrder": [
+            "validate-request",
+            "governance-gate",
+            "serve-immediate-web-response",
+            "start-fast-model-when-needed",
+            "emit-model-wait-progress-when-threshold-crossed",
+            "run-deep-analysis-only-when-explicitly-required",
+            "complete-response-or-governed-fallback"
+          ],
+          "profiles": {
+            "fast": "tinyllama:latest",
+            "coding": "qwen2.5-coder:7b",
+            "reasoning": "deepseek-r1:8b",
+            "deepArabic": "Sheikha-Core:latest"
+          }
+        },
+        "requiredProductionDependencies": [
+          "node-runtime",
+          "sheikha-main-portal",
+          "public-web-assets",
+          "enterprise-api-routes",
+          "health-endpoint"
+        ],
+        "optionalProductionDependencies": [
+          "ollama",
+          "local-language-models",
+          "vscode",
+          "sheikha-vscode-extension"
+        ],
+        "operationalMeaning": {
+          "websiteIsFoundation": true,
+          "vscodeIsToolOnly": true,
+          "editorShutdownMustNotStopWebsite": true,
+          "deepModelMustNotBlockWebsiteAvailability": true
+        }
+      },
+      "validation": {
+        "system": "SHEIKHA_WEBSITE_PRIMARY_RUNTIME_V1",
+        "checks": {
+          "active": true,
+          "websiteIsPrimary": true,
+          "portalIsPrimaryRuntime": true,
+          "websiteRequiredForProduction": true,
+          "websiteIndependent": true,
+          "vscodeNotRequired": true,
+          "extensionNotRequired": true,
+          "editorNotRuntimeDependency": true,
+          "slowModelDoesNotStopWebsite": true,
+          "deepModelDoesNotStopWebsite": true,
+          "deepAnalysisNonBlocking": true,
+          "latencyTargetIsNotSla": true
+        },
+        "failedChecks": [],
+        "passed": true
+      }
+    }
+  },
+  "readinessPayload": {
+    "ok": true,
+    "ready": true,
+    "primarySurface": "website",
+    "websiteIsFoundation": true,
+    "vscodeIsToolOnly": true,
+    "editorRequiredForRuntime": false,
+    "extensionRequiredForRuntime": false,
+    "modelFailureStopsWebsite": false,
+    "validation": {
+      "system": "SHEIKHA_WEBSITE_PRIMARY_RUNTIME_V1",
+      "checks": {
+        "active": true,
+        "websiteIsPrimary": true,
+        "portalIsPrimaryRuntime": true,
+        "websiteRequiredForProduction": true,
+        "websiteIndependent": true,
+        "vscodeNotRequired": true,
+        "extensionNotRequired": true,
+        "editorNotRuntimeDependency": true,
+        "slowModelDoesNotStopWebsite": true,
+        "deepModelDoesNotStopWebsite": true,
+        "deepAnalysisNonBlocking": true,
+        "latencyTargetIsNotSla": true
+      },
+      "failedChecks": [],
+      "passed": true
+    }
+  },
+  "healthPayload": {
+    "success": true,
+    "data": {
+      "identity": {
+        "system": "SHEIKHA_OPERATING_SYSTEM_V1",
+        "officialName": "Sheikha Operating System",
+        "arabicName": "نظام تشغيل شيخة",
+        "packageName": "sheikha-operating-system"
+      },
+      "status": "ok",
+      "pid": 909684,
+      "uptimeSeconds": 1,
+      "languageCounts": {
+        "human": 25,
+        "programming": 72,
+        "markup": 20
+      },
+      "integrationSummary": {
+        "enabled": 2,
+        "ready": 2
+      }
+    },
+    "message": "الخدمة تعمل بشكل طبيعي",
+    "timestamp": "2026-07-14T18:15:34.869Z"
+  },
+  "gitActions": {
+    "staged": false,
+    "committed": false,
+    "tagged": false,
+    "pushed": false
+  },
+  "nextStage": "WEBSITE_PRIMARY_RUNTIME_COMMIT_TAG_AND_CONTROLLED_PUSH",
+  "backup": "/home/sheikha/Backups/sheikha/website-primary-runtime-v1-20260714-211529",
+  "verifiedAt": "2026-07-14T18:15:35.136588+00:00"
+}
