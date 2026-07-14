@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_PROVIDER_INDEPENDENT_CONTINUITY_V2",
+  "status": "ACTIVE",
+  "sourceControl": {
+    "sourceOfTruth": "LOCAL_BARE_GIT_REGISTRY",
+    "primaryRegistry": "~/Sheikha-Registry/sheikha-main-portal.git",
+    "disasterRecoveryRegistry": "~/Backups/sheikha/git-mirrors/sheikha-main-portal.git",
+    "offlineOperationSupported": true
+  },
+  "externalProviders": {
+    "github": {
+      "required": false,
+      "mode": "OPTIONAL_MIRROR_ONLY",
+      "failureImpactOnRuntime": "NONE"
+    },
+    "gitlab": {
+      "required": false,
+      "mode": "OPTIONAL_MIRROR_ONLY"
+    },
+    "hostingerGitIntegration": {
+      "required": false,
+      "mode": "OPTIONAL_DEPLOYMENT_CHANNEL"
+    }
+  },
+  "runtimeDependencies": {
+    "externalGitProviderRequired": false,
+    "githubAuthenticationRequired": false,
+    "networkRequiredForLocalRuntime": false,
+    "networkRequiredForCompiler": false,
+    "networkRequiredForSystemBuilder": false,
+    "networkRequiredForWorkbench": false,
+    "networkRequiredForLocalRecovery": false
+  },
+  "backupModel": {
+    "gitBundle": true,
+    "dirtyStateOverlay": true,
+    "trackedBinaryPatch": true,
+    "untrackedFileManifest": true,
+    "sha256Verification": true,
+    "bareRegistry": true,
+    "secondaryBareRegistry": true
+  },
+  "deployment": {
+    "releaseArtifact": "GIT_ARCHIVE_WITH_SHA256",
+    "transport": "SSH_OR_SFTP",
+    "githubActionsRequired": false,
+    "automaticProductionDeployment": false,
+    "humanApprovalRequired": true
+  },
+  "governance": {
+    "defaultExecutionAuthorization": "DENY",
+    "defaultDeploymentAuthorization": "DENY",
+    "forcePushAllowed": false,
+    "singleExternalProviderDependencyAllowed": false,
+    "evidenceBeforeClaim": true
+  }
+}

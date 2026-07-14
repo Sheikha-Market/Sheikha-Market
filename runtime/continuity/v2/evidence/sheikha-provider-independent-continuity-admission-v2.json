@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_PROVIDER_INDEPENDENT_CONTINUITY_ADMISSION_V2",
+  "status": "LOCAL_REGISTRY_BUNDLE_DIRTY_OVERLAY_AND_RELEASE_CONTINUITY_VERIFIED",
+  "history": {
+    "languageFoundationCommit": "d2ec934a2ba28f8a38d1b45b4b6f2ec649396997",
+    "cleanCheckoutClosureCommit": "afd0638146da8e536aa279fd5ba5c32120164853"
+  },
+  "sourceControl": {
+    "sourceOfTruth": "LOCAL_BARE_GIT_REGISTRY",
+    "primaryRegistry": "/home/sheikha/Sheikha-Registry/sheikha-main-portal.git",
+    "disasterRecoveryRegistry": "/home/sheikha/Backups/sheikha/git-mirrors/sheikha-main-portal.git",
+    "verified": true
+  },
+  "dirtyState": {
+    "overlay": "/home/sheikha/Backups/sheikha/provider-independent-continuity-v2-20260715-002226/sheikha-dirty-state-20260715-002226.tar.zst",
+    "sha256": "7033a180612bf2a2b71c2b77510401f86922926e3f9e4c80a6ac87df6dbdd44c",
+    "trackedPatchPreserved": true,
+    "indexPatchPreserved": true,
+    "untrackedManifestPreserved": true,
+    "verified": true
+  },
+  "repositoryBundle": {
+    "path": "/home/sheikha/Backups/sheikha/provider-independent-continuity-v2-20260715-002226/sheikha-history-before-continuity-20260715-002226.bundle",
+    "sha256": "9cb4af2a5794789f3deeec5b3b002ca848fe3c4962e0611b8c118eb89329a611",
+    "verified": true
+  },
+  "externalProviders": {
+    "githubRequired": false,
+    "githubAuthenticationRequired": false,
+    "gitlabRequired": false,
+    "hostingerGitIntegrationRequired": false
+  },
+  "deployment": {
+    "mode": "SHA256_PINNED_ARCHIVE_OVER_SSH_OR_SFTP",
+    "automatic": false,
+    "humanApprovalRequired": true
+  },
+  "quality": {
+    "continuityTestsPassed": true,
+    "languagePlatformTestsPassed": true,
+    "systemBuilderTestsPassed": true,
+    "cleanCheckoutTestsPassed": true,
+    "lintPassed": true,
+    "passed": true
+  },
+  "governance": {
+    "defaultExecutionAuthorization": "DENY",
+    "defaultDeploymentAuthorization": "DENY",
+    "forcePushAllowed": false,
+    "singleProviderDependencyAllowed": false
+  },
+  "createdAt": "2026-07-14T21:23:45.368516+00:00"
+}
