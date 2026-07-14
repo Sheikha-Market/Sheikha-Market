@@ -1,0 +1,280 @@
+:root {
+  --bg: #f3f5ef;
+  --card: #fff;
+  --ink: #081b15;
+  --muted: #68766f;
+  --green: #052c21;
+  --green2: #0e4a38;
+  --gold: #d5aa3d;
+  --line: #dde4dd;
+  --shadow: 0 24px 70px rgba(5, 44, 33, .12);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background:
+    radial-gradient(circle at 15% 0, rgba(213, 170, 61, .12), transparent 28%),
+    radial-gradient(circle at 85% 8%, rgba(14, 74, 56, .10), transparent 30%),
+    var(--bg);
+  font-family: system-ui, -apple-system, "Segoe UI", sans-serif;
+}
+
+.topbar {
+  min-height: 76px;
+  padding: 12px max(20px, calc((100vw - 1240px) / 2));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  color: #fff;
+  background: #041f18;
+}
+
+.topbar div {
+  display: grid;
+}
+
+.topbar strong {
+  color: var(--gold);
+  font-size: 27px;
+}
+
+.topbar span {
+  color: #c8d5ce;
+  font-size: 13px;
+}
+
+.topbar a {
+  color: #fff;
+  text-decoration: none;
+  border: 1px solid rgba(255, 255, 255, .18);
+  border-radius: 14px;
+  padding: 10px 16px;
+}
+
+.shell {
+  width: min(1240px, calc(100% - 32px));
+  margin: auto;
+  padding: 34px 0 70px;
+}
+
+.hero {
+  padding: 38px;
+  display: grid;
+  grid-template-columns: 1.35fr .65fr;
+  gap: 28px;
+  color: #fff;
+  border-radius: 34px;
+  background:
+    radial-gradient(circle at 15% 10%, rgba(213, 170, 61, .18), transparent 28%),
+    linear-gradient(135deg, var(--green), var(--green2));
+  box-shadow: var(--shadow);
+}
+
+.eyebrow {
+  color: #f2d98e;
+  font-weight: 900;
+  letter-spacing: .08em;
+}
+
+.hero h1 {
+  margin: 12px 0;
+  font-size: clamp(34px, 5vw, 62px);
+  line-height: 1.1;
+}
+
+.hero p {
+  color: #e3ece7;
+  line-height: 1.9;
+}
+
+.status-card {
+  padding: 24px;
+  display: grid;
+  align-content: center;
+  gap: 11px;
+  border: 1px solid rgba(255, 255, 255, .16);
+  border-radius: 24px;
+  background: rgba(255, 255, 255, .08);
+}
+
+.status-card b {
+  color: #f2d98e;
+}
+
+.architecture {
+  margin: 22px 0;
+  padding: 16px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 9px;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--line);
+  border-radius: 22px;
+  background: #fff;
+}
+
+.architecture span {
+  padding: 9px 13px;
+  border-radius: 13px;
+  background: #f2f6f2;
+  font-weight: 800;
+}
+
+.architecture i {
+  color: var(--gold);
+  font-style: normal;
+  font-weight: 1000;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: .9fr 1.1fr;
+  gap: 24px;
+}
+
+.panel {
+  padding: 26px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: var(--card);
+  box-shadow: 0 16px 45px rgba(5, 44, 33, .06);
+}
+
+.panel-head {
+  margin-bottom: 22px;
+}
+
+.panel-head h2 {
+  margin: 0 0 7px;
+}
+
+.panel-head p {
+  margin: 0;
+  color: var(--muted);
+}
+
+form {
+  display: grid;
+  gap: 15px;
+}
+
+label {
+  display: grid;
+  gap: 7px;
+  font-weight: 800;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: 13px 15px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  color: var(--ink);
+  background: #fbfcfa;
+  font: inherit;
+}
+
+textarea {
+  min-height: 120px;
+  resize: vertical;
+}
+
+button {
+  padding: 15px 20px;
+  border: 0;
+  border-radius: 15px;
+  color: #102019;
+  background: var(--gold);
+  font: inherit;
+  font-weight: 1000;
+  cursor: pointer;
+}
+
+.summary {
+  padding: 18px;
+  display: grid;
+  gap: 8px;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #f7f8f4;
+}
+
+.summary.empty {
+  color: var(--muted);
+}
+
+.lifecycle {
+  margin-top: 18px;
+  display: grid;
+  gap: 10px;
+}
+
+.stage {
+  padding: 13px;
+  display: grid;
+  grid-template-columns: 46px 1fr;
+  gap: 12px;
+  align-items: center;
+  border: 1px solid var(--line);
+  border-radius: 16px;
+}
+
+.stage > strong {
+  color: var(--gold);
+}
+
+.stage div {
+  display: grid;
+}
+
+.stage small {
+  color: var(--muted);
+}
+
+.inventory-panel {
+  margin-top: 24px;
+}
+
+.inventory {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.inventory article {
+  padding: 18px 12px;
+  text-align: center;
+  border: 1px solid var(--line);
+  border-radius: 18px;
+  background: #f7f8f4;
+}
+
+.inventory b {
+  display: block;
+  color: var(--green);
+  font-size: 28px;
+}
+
+.inventory span {
+  color: var(--muted);
+  font-size: 12px;
+}
+
+@media (max-width: 900px) {
+  .hero,
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .inventory {
+    grid-template-columns: 1fr;
+  }
+}
