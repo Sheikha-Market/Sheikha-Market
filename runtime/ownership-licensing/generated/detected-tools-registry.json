@@ -1,0 +1,223 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_DETECTED_TOOLS_RIGHTS_AWARE_REGISTRY_V1",
+  "sourceRegistryStatus": "REGISTERED_FROM_VERIFIED_READ_ONLY_INVENTORY",
+  "toolCount": 19,
+  "tools": [
+    {
+      "id": "tool:composer",
+      "name": "composer",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/composer",
+      "integrationRole": "PHP_PACKAGE_MANAGER"
+    },
+    {
+      "id": "tool:corepack",
+      "name": "corepack",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/corepack",
+      "integrationRole": "NODE_PACKAGE_MANAGER_BRIDGE"
+    },
+    {
+      "id": "tool:curl",
+      "name": "curl",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/curl",
+      "integrationRole": "HTTP_HEALTH_AND_API_CLIENT"
+    },
+    {
+      "id": "tool:docker",
+      "name": "docker",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/docker",
+      "integrationRole": "CONTAINER_RUNTIME"
+    },
+    {
+      "id": "tool:git",
+      "name": "git",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/git",
+      "integrationRole": "LOCAL_SOURCE_CONTINUITY"
+    },
+    {
+      "id": "tool:jq",
+      "name": "jq",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/jq",
+      "integrationRole": "JSON_INSPECTION_AND_TRANSFORMATION"
+    },
+    {
+      "id": "tool:nginx",
+      "name": "nginx",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/sbin/nginx",
+      "integrationRole": "REVERSE_PROXY_AND_TLS_EDGE"
+    },
+    {
+      "id": "tool:node",
+      "name": "node",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/node",
+      "integrationRole": "PRIMARY_APPLICATION_RUNTIME"
+    },
+    {
+      "id": "tool:npm",
+      "name": "npm",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/npm",
+      "integrationRole": "NODE_PACKAGE_AND_SCRIPT_MANAGER"
+    },
+    {
+      "id": "tool:npx",
+      "name": "npx",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/npx",
+      "integrationRole": "NODE_TOOL_EXECUTOR"
+    },
+    {
+      "id": "tool:ollama",
+      "name": "ollama",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/local/bin/ollama",
+      "integrationRole": "LOCAL_MODEL_RUNTIME"
+    },
+    {
+      "id": "tool:openssl",
+      "name": "openssl",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/openssl",
+      "integrationRole": "CRYPTOGRAPHIC_VERIFICATION"
+    },
+    {
+      "id": "tool:php",
+      "name": "php",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/php",
+      "integrationRole": "OPTIONAL_APPLICATION_RUNTIME"
+    },
+    {
+      "id": "tool:pm2",
+      "name": "pm2",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/pm2",
+      "integrationRole": "PRODUCTION_PROCESS_MANAGER"
+    },
+    {
+      "id": "tool:python3",
+      "name": "python3",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/python3",
+      "integrationRole": "AUTOMATION_AND_VALIDATION_RUNTIME"
+    },
+    {
+      "id": "tool:rsync",
+      "name": "rsync",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/rsync",
+      "integrationRole": "CONTROLLED_FILE_SYNCHRONIZATION"
+    },
+    {
+      "id": "tool:tar",
+      "name": "tar",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/tar",
+      "integrationRole": "ARCHIVE_AND_RECOVERY"
+    },
+    {
+      "id": "tool:wget",
+      "name": "wget",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/wget",
+      "integrationRole": "CONTROLLED_FILE_RETRIEVAL"
+    },
+    {
+      "id": "tool:zstd",
+      "name": "zstd",
+      "ownershipClass": "INTEGRATED",
+      "upstreamOwnershipPreserved": true,
+      "upstreamLicenseMustBePreserved": true,
+      "sublicensingAuthorized": false,
+      "state": "INSTALLED",
+      "path": "/usr/bin/zstd",
+      "integrationRole": "COMPRESSION_AND_RECOVERY"
+    }
+  ],
+  "rules": {
+    "installedDoesNotMeanOwned": true,
+    "administrativeControlDoesNotTransferCopyright": true,
+    "upstreamLicensesMustBePreserved": true,
+    "sublicensingRequiresExplicitRight": true
+  }
+}

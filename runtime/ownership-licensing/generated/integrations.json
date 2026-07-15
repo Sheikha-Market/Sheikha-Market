@@ -1,0 +1,49 @@
+[
+  {
+    "schemaVersion": "1.0.0",
+    "id": "SHEIKHA_LOCAL_PORTAL_INTEGRATION_V1",
+    "target": "Sheikha Main Portal",
+    "targetOwner": "Salman Ahmed Salman Al-Rajeh",
+    "scope": "LOCAL",
+    "states": [
+      "REGISTERED",
+      "INTEGRATED",
+      "LICENSED",
+      "AUTHORIZED"
+    ],
+    "adapter": "LOCAL_PORTAL_RUNTIME_ADAPTER",
+    "contractReference": "SHEIKHA_OWNERSHIP_LICENSING_FEDERATION_CONTRACT_V1",
+    "licenseReference": "SHEIKHA_INTERNAL_OPERATION_LICENSE_V1",
+    "authorizationEvidence": "OWNER_INTERNAL_AUTHORIZATION",
+    "dataBoundaries": [
+      "LOCAL_REPOSITORY",
+      "LOCAL_TOOL_REGISTRY",
+      "NO_UNAUTHORIZED_EXTERNAL_DATA_TRANSFER"
+    ],
+    "allowedCapabilities": [
+      "OWNERSHIP_REGISTRATION",
+      "LICENSE_REGISTRATION",
+      "INTEGRATION_REGISTRATION",
+      "FEDERATION_POLICY"
+    ],
+    "deniedCapabilities": [
+      "UNAUTHORIZED_PRODUCTION_MUTATION",
+      "UNAUTHORIZED_SUBLICENSING",
+      "FALSE_THIRD_PARTY_OWNERSHIP_CLAIM"
+    ],
+    "leastPrivilege": true,
+    "upstreamRightsPreserved": true,
+    "noOwnershipTransfer": true,
+    "noSovereigntyClaim": true,
+    "registeredAt": "2026-07-15T15:27:45.839Z",
+    "authority": {
+      "authorityId": "SHEIKHA_INTEGRATION_AUTHORITY_V1",
+      "authorityNameAr": "سلطة التكامل التقني لمنظومة شيخة",
+      "authorityNameEn": "Sheikha Technical Integration Authority"
+    },
+    "integrity": {
+      "algorithm": "SHA-256",
+      "digest": "2c1a68c6c454be6a4bea75ae74b5188d52014436a605addebf7e29426f95c821"
+    }
+  }
+]

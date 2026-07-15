@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractId": "SHEIKHA_OWNERSHIP_LICENSING_FEDERATION_CONTRACT_V1",
+  "owner": {
+    "id": "SALMAN_AHMED_SALMAN_AL_RAJEH",
+    "legalNameAr": "سلمان أحمد سلمان الراجح",
+    "legalNameEn": "Salman Ahmed Salman Al-Rajeh"
+  },
+  "system": {
+    "nameAr": "منظومة شيخة",
+    "nameEn": "Sheikha",
+    "portal": "Sheikha Main Portal"
+  },
+  "ownershipClasses": [
+    "OWNED",
+    "LICENSED",
+    "INTEGRATED",
+    "FEDERATED",
+    "AUTHORIZED",
+    "THIRD_PARTY_UNVERIFIED"
+  ],
+  "rules": {
+    "ownedRequiresProvenanceEvidence": true,
+    "thirdPartyOwnershipMustBePreserved": true,
+    "upstreamLicensesMustBePreserved": true,
+    "sublicensingRequiresExplicitRight": true,
+    "authorizationRequiresEvidence": true,
+    "federationDoesNotTransferOwnership": true,
+    "integrationDoesNotCreateSovereignty": true,
+    "legalRegistrationClaimed": false,
+    "officialAuthorityClaimed": false
+  },
+  "technicalScopes": [
+    "LOCAL",
+    "NATIONAL",
+    "REGIONAL",
+    "INTERNATIONAL",
+    "GLOBAL",
+    "UNIVERSAL_TECHNICAL_INTEROPERABILITY"
+  ],
+  "activation": {
+    "localPortalFoundation": true,
+    "productionDeployment": false,
+    "remoteMutation": false,
+    "cleanupAuthorized": false,
+    "retentionMode": "DENY_BY_DEFAULT"
+  }
+}
