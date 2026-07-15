@@ -2,6 +2,8 @@
 const shariaGuard = require('../middleware/sheikha-sharia-guard');
 
 // تطبيق middleware على جميع عمليات POST/PUT/PATCH/DELETE
+const express = require('express');
+const router = express.Router();
 router.use((req, res, next) => {
     if (['POST', 'PUT', 'PATCH', 'DELETE'].includes(req.method)) {
         return shariaGuard(req, res, next);
@@ -15,8 +17,6 @@ router.use((req, res, next) => {
  * ═══════════════════════════════════════════════════════════════════════════════
  */
 
-const express = require('express');
-const router = express.Router();
 const database = require('../config/database');
 
 // ─── السوق السعودي المُجهز ────────────────────────────────────────────────────
