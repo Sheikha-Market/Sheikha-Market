@@ -6,6 +6,11 @@
  */
 
 const express = require('express');
+// SHEIKHA_OWNERSHIP_LICENSING_ROUTE_MODULE_V1
+const sheikhaOwnershipLicensingRoutes = require(
+  "./ownership-licensing/sheikha-ownership-licensing-routes.cjs"
+);
+
 const router = express.Router();
 
 // استيراد المسارات الفرعية
@@ -77,5 +82,11 @@ router.get('/api/health-disabled', (req, res) => {
         version: '2.0.0'
     });
 });
+
+// SHEIKHA_OWNERSHIP_LICENSING_ROUTE_MOUNT_V1
+router.use(
+  "/api/sheikha/ownership-licensing/v1",
+  sheikhaOwnershipLicensingRoutes
+);
 
 module.exports = router;

@@ -1,0 +1,74 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_OWNERSHIP_LICENSING_HTTP_ADAPTER_WIRING_STATE_V1",
+  "owner": {
+    "id": "SALMAN_AHMED_SALMAN_AL_RAJEH",
+    "legalNameAr": "سلمان أحمد سلمان الراجح",
+    "legalNameEn": "Salman Ahmed Salman Al-Rajeh"
+  },
+  "systemIdentity": {
+    "nameAr": "منظومة شيخة",
+    "nameEn": "Sheikha"
+  },
+  "paths": {
+    "launchPath": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "sourceRepositoryPath": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "buildWorktreePath": "/home/sheikha/Worktrees/sheikha/ownership-licensing-http-adapter-v1-20260715-193106",
+    "localActivationTarget": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "productionReleaseRoot": "/opt/sheikha/releases",
+    "productionCurrentLink": "/opt/sheikha/current"
+  },
+  "routeWiring": {
+    "candidateFile": "routes/index.js",
+    "basePath": "/api/sheikha/ownership-licensing/v1",
+    "module": "routes/ownership-licensing/sheikha-ownership-licensing-routes.cjs",
+    "wired": true,
+    "tested": true,
+    "verified": true,
+    "featureCommitBeforeWiring": "e0e137a52068efe6a72e3f4538ff4296ba71398f"
+  },
+  "activation": {
+    "RUNTIME_WIRING_EXECUTED": true,
+    "RUNTIME_WIRING_TESTED": true,
+    "RUNTIME_WIRING_VERIFIED": true,
+    "MAIN_PORTAL_MUTATION_PERFORMED": false,
+    "REMOTE_MUTATION_PERFORMED": false,
+    "PRODUCTION_DEPLOYMENT_EXECUTED": false,
+    "SERVICES_RESTARTED": false,
+    "PACKAGES_INSTALLED": false,
+    "EXTERNAL_CONNECTIONS_CREATED": false,
+    "CLEANUP_AUTHORIZED": false,
+    "RETENTION_MODE": "DENY_BY_DEFAULT",
+    "MARKET_ROUTER_ORDER_FIXED": true,
+    "ROUTE_TEST_OPEN_HANDLES_CONTROLLED": true,
+    "ROUTE_VERIFIER_JSON_NORMALIZED": true
+  },
+  "source": {
+    "inspectionEvidence": "/home/sheikha/Backups/sheikha/route-loader-registration-inspection-v1-20260715-194453/route-loader-inspection.json"
+  },
+  "runtimeCompatibilityFixes": {
+    "marketRouterImportAndInitializationOrder": {
+      "status": "FIXED_TESTED_AND_VERIFIED",
+      "rootCause": "EXPRESS_IMPORT_AND_ROUTER_DECLARATION_AFTER_FIRST_USE",
+      "file": "routes/market.js",
+      "repair": "MOVED_EXPRESS_IMPORT_AND_ROUTER_DECLARATION_AS_ORDERED_BLOCK",
+      "onlyOrderedBlockMoved": true,
+      "middlewareOrderPreserved": true,
+      "sha256": "bdf3b7e667393a4a0ad2fe4e7548ae2bc56d3511d2870802c6c4e8329c954ed5",
+      "inspectionEvidence": "/home/sheikha/Backups/sheikha/market-router-order-inspection-v1-20260715-200109/market-router-order-inspection.json"
+    },
+    "routeIndexTestOpenHandles": {
+      "status": "CONTROLLED_AND_VERIFIED",
+      "rootCause": "ROUTES_INDEX_LOADED_LONG_LIVED_OPEN_HANDLES_AFTER_TEST_COMPLETION",
+      "testResolution": "NODE_TEST_FORCE_EXIT",
+      "verifierResolution": "EXPLICIT_EXIT_AFTER_STDOUT_FLUSH",
+      "boundedExecution": true
+    },
+    "routeVerifierJsonNormalization": {
+      "status": "VERIFIED",
+      "rootCause": "RUNTIME_STARTUP_LOGS_PRECEDED_JSON_ON_STDOUT",
+      "rawStdoutPreserved": true,
+      "matchingJsonObjectExtracted": true
+    }
+  }
+}
