@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "1.0.0",
+  "contractId": "SHEIKHA_OWNERSHIP_LICENSING_HTTP_ADAPTER_V1",
+  "owner": {
+    "id": "SALMAN_AHMED_SALMAN_AL_RAJEH",
+    "legalNameAr": "سلمان أحمد سلمان الراجح",
+    "legalNameEn": "Salman Ahmed Salman Al-Rajeh"
+  },
+  "system": {
+    "nameAr": "منظومة شيخة",
+    "nameEn": "Sheikha"
+  },
+  "basePath": "/api/sheikha/ownership-licensing/v1",
+  "endpoints": [
+    {
+      "method": "GET",
+      "path": "/status",
+      "capability": "STATUS"
+    },
+    {
+      "method": "GET",
+      "path": "/assets",
+      "capability": "OWNED_ASSET_REGISTRY_READ"
+    },
+    {
+      "method": "GET",
+      "path": "/licenses",
+      "capability": "LICENSE_REGISTRY_READ"
+    },
+    {
+      "method": "GET",
+      "path": "/integrations",
+      "capability": "INTEGRATION_REGISTRY_READ"
+    },
+    {
+      "method": "GET",
+      "path": "/verify",
+      "capability": "INTEGRITY_VERIFICATION"
+    }
+  ],
+  "security": {
+    "readOnly": true,
+    "mutationEndpointsExposed": false,
+    "credentialValuesExposed": false,
+    "environmentValuesExposed": false,
+    "leastPrivilege": true,
+    "cacheControl": "no-store",
+    "upstreamRightsPreserved": true
+  },
+  "activation": {
+    "adapterBuilt": true,
+    "adapterTestsRequired": true,
+    "runtimeWiringExecuted": false,
+    "remoteMutationPerformed": false,
+    "productionDeploymentExecuted": false,
+    "cleanupAuthorized": false,
+    "retentionMode": "DENY_BY_DEFAULT"
+  }
+}
