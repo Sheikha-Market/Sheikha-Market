@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCTION_CHANGE_ADMISSION_GATE_V1",
+  "status": "ACTIVE",
+  "mode": "EVIDENCE_VERIFY_CLASSIFY_REQUIRE_HUMAN_APPROVAL_ONLY",
+  "authority": "HUMAN_ONLY",
+  "failClosed": true,
+  "failClosedDecision": "ADMISSION_DENIED",
+  "sourceGovernanceSystem": "SHEIKHA_PRODUCTION_RISK_TO_SAFE_GOVERNANCE_V1",
+  "knownChangeClasses": [
+    "NO_CHANGE",
+    "DOCUMENTATION_ONLY",
+    "LOW_RISK_INTERNAL_CHANGE",
+    "CONTROLLED_RUNTIME_CHANGE",
+    "HIGH_IMPACT_PRODUCTION_CHANGE"
+  ],
+  "impactLevels": [
+    "NONE",
+    "LOW",
+    "MEDIUM",
+    "HIGH",
+    "CRITICAL"
+  ],
+  "technicalGates": [
+    "CLASSIFICATION_KNOWN",
+    "BASELINE_VERIFIED",
+    "OPERATIONAL_ASSURANCE_VERIFIED",
+    "CURRENT_STATE_HEALTHY",
+    "ZERO_CRITICAL_DRIFT",
+    "EVIDENCE_COMPLETE",
+    "CHANGE_SCOPE_DECLARED",
+    "TESTS_PASSED",
+    "CURRENT_RELEASE_VERIFIED",
+    "ROLLBACK_READY",
+    "ENDPOINTS_VERIFIED",
+    "CONTRACTS_VERIFIED",
+    "STORAGE_WITHIN_LIMIT",
+    "RETENTION_VERIFIED",
+    "PACKAGE_PLAN_VERIFIED",
+    "DEPLOYMENT_PLAN_VERIFIED",
+    "POST_DEPLOYMENT_VERIFICATION_PLANNED",
+    "RISK_TO_SAFE_ASSESSMENT_SAFE"
+  ],
+  "decisionPipeline": [
+    "READ_RECORDED_BASELINE",
+    "READ_OPERATIONAL_ASSURANCE",
+    "CLASSIFY_CHANGE",
+    "VERIFY_EVIDENCE",
+    "VERIFY_TESTS",
+    "VERIFY_ROLLBACK",
+    "VERIFY_RETENTION",
+    "ASSESS_PRODUCTION_RISK",
+    "REQUIRE_HUMAN_APPROVAL",
+    "REQUIRE_HIGH_IMPACT_APPROVAL_WHEN_APPLICABLE",
+    "RETURN_MANUAL_EXECUTION_DECISION_ONLY",
+    "PRESERVE_EVIDENCE"
+  ],
+  "technicalBoundaries": {
+    "externalRequestMayGrantApproval": false,
+    "autonomousProductionMutationAllowed": false,
+    "externalMutationPerformed": false,
+    "productionDeploymentExecuted": false,
+    "servicesRestarted": false,
+    "packagesInstalled": false,
+    "cleanupAuthorized": false,
+    "cleanupExecuted": false,
+    "retentionMode": "DENY_BY_DEFAULT",
+    "humanDecisionAuthority": true,
+    "recommendationOnly": true,
+    "futurePredictionClaim": false,
+    "unseenKnowledgeClaim": false
+  }
+}

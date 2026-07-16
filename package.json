@@ -9,6 +9,7 @@
     "vscode": "^1.85.0"
   },
   "scripts": {
+    "ops:production-change-admission:v1": "node tools/activation/sheikha-production-change-admission-gate-v1.js",
     "ops:integrative-awareness:v1": "node tools/activation/sheikha-integrative-awareness-fabric-v1.js",
     "start": "node --max-old-space-size=2048 server.js",
     "start:proxy": "node scripts/proxy-8081.js",
