@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_INTEGRATIVE_AWARENESS_FABRIC_V1",
+  "status": "ACTIVE",
+  "mode": "GOVERNED_CONTEXT_INTEGRATION_ONLY",
+  "purpose": "Integrate verified human experience, domain, temporal, geographic, organizational, operational, risk and evidence context for human review.",
+  "dependencies": [
+    "SHEIKHA_HUMAN_CENTERED_KNOWLEDGE_CIVILIZATION_PLATFORM_V1",
+    "SHEIKHA_HUMAN_DEVELOPMENT_FRAMEWORK_V1",
+    "SHEIKHA_HUMAN_EXPERIENCE_GRAPH_V1"
+  ],
+  "contextLenses": [
+    "HUMAN_EXPERIENCE",
+    "DOMAIN_KNOWLEDGE",
+    "TIME_AND_CALENDAR",
+    "GEOGRAPHIC_CONTEXT",
+    "ORGANIZATIONAL_CONTEXT",
+    "OPERATIONAL_CONTEXT",
+    "RISK_AND_SAFETY",
+    "EVIDENCE_AND_TRACEABILITY"
+  ],
+  "governance": {
+    "reference": "QURAN_AND_SUNNAH_GOVERNANCE_REFERENCE",
+    "noHarm": true,
+    "truthfulnessRequired": true,
+    "privacyAndMinimizationRequired": true,
+    "humanDecisionAuthority": true,
+    "humanApprovalRequiredForHighImpact": true,
+    "futurePredictionClaimDenied": true,
+    "unseenKnowledgeClaimDenied": true,
+    "literalConsciousnessClaimDenied": true,
+    "humanSimulationClaimDenied": true,
+    "agiOrAsiClaimDenied": true
+  },
+  "capabilities": {
+    "contextNormalization": true,
+    "contextCorrelation": true,
+    "governanceAssessment": true,
+    "evidenceGate": true,
+    "humanReviewPreparation": true,
+    "recommendationOnly": true,
+    "executionCapabilityExposed": false,
+    "externalMutationCapabilityExposed": false
+  },
+  "retentionMode": "DENY_BY_DEFAULT",
+  "cleanupAuthorized": false
+}
