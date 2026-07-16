@@ -78,6 +78,11 @@ app.use(
   sheikhaOwnershipLicensingRoutes
 );
 
+app.use(
+  '/api/sheikha/integrative-awareness/v1',
+  require('./routes/integrative-awareness/sheikha-integrative-awareness-routes-v1')
+);
+
 
 // SHEIKHA LANGUAGE FOUNDATION AND WORKBENCH V1
 app.use(
