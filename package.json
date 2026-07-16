@@ -750,7 +750,8 @@
     "ops:delivery:linux-deb:build:v6": "bash tools/activation/v6/10-v6-build-candidate.sh",
     "ops:delivery:linux-deb:verify:v6": "bash tools/activation/v6/20-v6-run-native-lifecycle.sh",
     "ops:delivery:linux-deb:test:v6": "jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-linux-deb-native-lifecycle-v6.test.js",
-    "ops:delivery:linux-deb:finalize:v6": "bash tools/activation/v6/30-v6-finalize.sh"
+    "ops:delivery:linux-deb:finalize:v6": "bash tools/activation/v6/30-v6-finalize.sh",
+    "ops:production-risk-to-safe:v1": "node tools/activation/sheikha-production-risk-to-safe-governance-v1.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",
