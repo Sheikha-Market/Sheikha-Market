@@ -73,6 +73,11 @@ const sheikhaOwnershipLicensingRoutes = require(
   'sheikha-ownership-licensing-routes.cjs'
 );
 
+const sheikhaProductionRiskToSafeRoutes = require(
+  './routes/production-risk-to-safe/' +
+  'sheikha-production-risk-to-safe-routes-v1'
+);
+
 app.use(
   '/api/sheikha/ownership-licensing/v1',
   sheikhaOwnershipLicensingRoutes
@@ -81,6 +86,11 @@ app.use(
 app.use(
   '/api/sheikha/integrative-awareness/v1',
   require('./routes/integrative-awareness/sheikha-integrative-awareness-routes-v1')
+);
+
+app.use(
+  '/api/sheikha/production-risk-to-safe/v1',
+  sheikhaProductionRiskToSafeRoutes
 );
 
 
