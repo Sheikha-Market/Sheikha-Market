@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCTION_RISK_TO_SAFE_GOVERNANCE_V1",
+  "status": "ACTIVE",
+  "mode": "PREVENT_CONTAIN_REMEDIATE_VERIFY_APPROVE_ONLY",
+  "governanceReference": [
+    "الكتاب والسنة",
+    "لا ضرر ولا ضرار",
+    "الصدق",
+    "الأمانة",
+    "التحقق قبل التنفيذ",
+    "سلطة القرار البشري"
+  ],
+  "objective": {
+    "arabic": "منع انتقال أي حالة خطر إلى الإنتاج، واعتراضها وتحويلها إلى مسار إصلاح آمن ومتحقق قبل اعتماد أي مرشح إنتاجي جديد.",
+    "english": "Prevent risk from reaching production and convert detected risk into a verified safe remediation path before any new production candidate is approved."
+  },
+  "riskClassifications": [
+    "NO_OPERATIONAL_DRIFT",
+    "HEALTHY_RUNTIME_CHURN",
+    "DEPLOYMENT_DRIFT",
+    "SERVICE_DRIFT",
+    "STORAGE_RISK",
+    "RETENTION_DRIFT",
+    "MULTIPLE_CRITICAL_DRIFT_CONDITIONS",
+    "UNRECOGNIZED_STATE"
+  ],
+  "safePipeline": [
+    "DETECT",
+    "FREEZE_RISKY_PROMOTION",
+    "PRESERVE_EVIDENCE",
+    "CONTAIN",
+    "BUILD_REMEDIATION_PLAN",
+    "VERIFY_REMEDIATION",
+    "REQUIRE_HUMAN_APPROVAL",
+    "PROMOTE_ONLY_VERIFIED_SAFE_CANDIDATE",
+    "KEEP_ROLLBACK_RELEASE",
+    "OBSERVE"
+  ],
+  "decisionMatrix": {
+    "NO_OPERATIONAL_DRIFT": {
+      "decision": "CONTINUE_CURRENT_VERIFIED_RELEASE",
+      "newPromotion": "BLOCKED_UNTIL_SEPARATE_APPROVAL"
+    },
+    "HEALTHY_RUNTIME_CHURN": {
+      "decision": "CONTINUE_AND_OBSERVE_CURRENT_RELEASE",
+      "newPromotion": "BLOCKED_UNTIL_SEPARATE_APPROVAL"
+    },
+    "DEPLOYMENT_DRIFT": {
+      "decision": "SAFE_HOLD",
+      "required": [
+        "freeze_all_new_promotions",
+        "verify_active_release_manifest",
+        "prepare_controlled_repair_candidate",
+        "require_human_approval"
+      ]
+    },
+    "SERVICE_DRIFT": {
+      "decision": "SAFE_HOLD",
+      "required": [
+        "freeze_high_impact_changes",
+        "preserve_logs_and_runtime_evidence",
+        "prepare_verified_rollback_or_repair_plan",
+        "require_human_approval"
+      ]
+    },
+    "STORAGE_RISK": {
+      "decision": "SAFE_HOLD",
+      "required": [
+        "deny_new_release_expansion",
+        "preserve_current_and_rollback_releases",
+        "prepare_non_destructive_capacity_plan",
+        "require_independent_backup_before_cleanup_scope"
+      ]
+    },
+    "RETENTION_DRIFT": {
+      "decision": "SAFE_HOLD",
+      "required": [
+        "deny_cleanup",
+        "freeze_release_retirement",
+        "restore_deny_by_default_retention",
+        "require_human_approval"
+      ]
+    },
+    "MULTIPLE_CRITICAL_DRIFT_CONDITIONS": {
+      "decision": "SAFE_HOLD",
+      "required": [
+        "freeze_promotions_restarts_and_cleanup",
+        "preserve_all_available_evidence",
+        "prepare_ordered_recovery_plan",
+        "verify_each_gate_before_execution"
+      ]
+    },
+    "UNRECOGNIZED_STATE": {
+      "decision": "SAFE_HOLD",
+      "required": [
+        "deny_promotion_restart_and_cleanup",
+        "preserve_evidence",
+        "require_complete_classification",
+        "require_human_review"
+      ]
+    }
+  },
+  "technicalBoundaries": {
+    "externalMutationPerformed": false,
+    "productionDeploymentExecuted": false,
+    "servicesRestarted": false,
+    "packagesInstalled": false,
+    "cleanupAuthorized": false,
+    "cleanupExecuted": false,
+    "retentionMode": "DENY_BY_DEFAULT",
+    "humanDecisionAuthority": true,
+    "highImpactApprovalRequired": true,
+    "recommendationOnly": true,
+    "futurePredictionClaim": false,
+    "unseenKnowledgeClaim": false
+  }
+}
