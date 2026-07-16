@@ -67,6 +67,18 @@ try {
 
 const app = express();
 
+// SHEIKHA_OWNERSHIP_LICENSING_PRODUCTION_ENTRYPOINT_V1
+const sheikhaOwnershipLicensingRoutes = require(
+  './routes/ownership-licensing/' +
+  'sheikha-ownership-licensing-routes.cjs'
+);
+
+app.use(
+  '/api/sheikha/ownership-licensing/v1',
+  sheikhaOwnershipLicensingRoutes
+);
+
+
 // SHEIKHA LANGUAGE FOUNDATION AND WORKBENCH V1
 app.use(
   '/api/sheikha-platform/v1',
