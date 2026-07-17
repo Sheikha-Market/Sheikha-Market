@@ -1,0 +1,40 @@
+{
+  "system": "SHEIKHA_PRODUCTION_CHANGE_ADMISSION_ENFORCEMENT_PLANE_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE",
+  "authority": "HUMAN_ONLY",
+  "executionBoundary": "CONTROLLED_LOCAL_PRODUCTION_PROMOTION_WORKFLOW",
+  "failClosed": true,
+  "executesCommands": false,
+  "performsProductionMutation": false,
+  "acceptsHttpApproval": false,
+  "acceptsExternalApprovalFields": false,
+  "requiresLocalApprovalRecord": true,
+  "approvalRecord": {
+    "system": "SHEIKHA_CONTROLLED_LOCAL_PRODUCTION_APPROVAL_RECORD_V1",
+    "channel": "LOCAL_HUMAN_SESSION_ACKNOWLEDGEMENT",
+    "identityProofClaimed": false,
+    "sha256VerificationRequired": true,
+    "candidateBindingRequired": true,
+    "payloadBindingRequired": true,
+    "scopeBindingRequired": true
+  },
+  "requiredEvidence": [
+    "baseline_verified",
+    "operational_assurance_verified",
+    "no_operational_drift",
+    "current_state_healthy",
+    "rollback_ready",
+    "approval_record_sha256_verified"
+  ],
+  "forbiddenInputs": [
+    "http_external_approval",
+    "untrusted_request_approval",
+    "automatic_production_promotion_without_human_approval",
+    "package_install_without_explicit_scope",
+    "cleanup_without_explicit_scope"
+  ],
+  "governanceReference": "الكتاب والسنة",
+  "noHarmRule": "لا ضرر ولا ضرار",
+  "retentionMode": "DENY_BY_DEFAULT"
+}
