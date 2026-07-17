@@ -78,6 +78,13 @@ const sheikhaProductionRiskToSafeRoutes = require(
   'sheikha-production-risk-to-safe-routes-v1'
 );
 
+const {
+  createSheikhaProductionChangeAdmissionRoutesV1
+} = require(
+  './routes/production-change-admission/'
+  + 'sheikha-production-change-admission-routes-v1'
+);
+
 app.use(
   '/api/sheikha/ownership-licensing/v1',
   sheikhaOwnershipLicensingRoutes
@@ -101,6 +108,11 @@ app.use(
     './routes/sheikha-platform/' +
     'sheikha-platform-routes'
   )
+);
+
+app.use(
+  '/api/sheikha/production-change-admission/v1',
+  createSheikhaProductionChangeAdmissionRoutesV1()
 );
 
 app.use(
