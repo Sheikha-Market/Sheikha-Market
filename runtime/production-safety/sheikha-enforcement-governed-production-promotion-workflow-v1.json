@@ -1,0 +1,29 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_ENFORCEMENT_GOVERNED_PRODUCTION_PROMOTION_WORKFLOW_V1",
+  "status": "READY",
+  "authority": "HUMAN_ONLY",
+  "executionBoundary": "CONTROLLED_LOCAL_PRODUCTION_PROMOTION_WORKFLOW",
+  "mode": "GOVERNED_PLAN_ONLY",
+  "httpApprovalAccepted": false,
+  "externalApprovalTrusted": false,
+  "packageInstallAllowed": false,
+  "cleanupAllowed": false,
+  "serviceRestartAllowed": false,
+  "commandsExecuted": false,
+  "productionMutationPerformed": false,
+  "requiresSeparateReviewedExecutor": true,
+  "failClosed": true,
+  "workflowPhases": [
+    "VERIFY_LOCAL_EVIDENCE",
+    "VERIFY_EXACT_SCOPE",
+    "MATERIALIZE_PROPOSED_RELEASE",
+    "VERIFY_PROPOSED_RELEASE",
+    "SWITCH_CURRENT_LINK",
+    "VERIFY_PM2_PROCESS_UNCHANGED",
+    "VERIFY_POST_PROMOTION_HEALTH",
+    "PRESERVE_ROLLBACK_RELEASES"
+  ],
+  "governanceReference": "الكتاب والسنة",
+  "noHarmRule": "لا ضرر ولا ضرار"
+}
