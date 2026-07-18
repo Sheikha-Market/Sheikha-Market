@@ -754,7 +754,15 @@
     "ops:delivery:linux-deb:test:v6": "jest --config jest.config.js --runInBand --runTestsByPath tests/sheikha-linux-deb-native-lifecycle-v6.test.js",
     "ops:delivery:linux-deb:finalize:v6": "bash tools/activation/v6/30-v6-finalize.sh",
     "ops:production-risk-to-safe:v1": "node tools/activation/sheikha-production-risk-to-safe-governance-v1.js",
-    "ops:enforcement-governed-production-promotion-workflow:v1": "node tools/activation/sheikha-enforcement-governed-production-promotion-workflow-v1.js"
+    "ops:enforcement-governed-production-promotion-workflow:v1": "node tools/activation/sheikha-enforcement-governed-production-promotion-workflow-v1.js",
+    "sheikha:dist:linux:deb:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js build --product deb --arch x64",
+    "sheikha:dist:linux:rpm:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js build --product rpm --arch x64",
+    "sheikha:dist:linux:tar-gz:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js build --product tar-gz --arch x64",
+    "sheikha:dist:linux:cli:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js build --product cli --arch x64",
+    "sheikha:dist:linux:status:deb:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js status --product deb --arch x64",
+    "sheikha:dist:linux:status:rpm:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js status --product rpm --arch x64",
+    "sheikha:dist:linux:status:tar-gz:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js status --product tar-gz --arch x64",
+    "sheikha:dist:linux:status:cli:x64": "node tools/distribution/sheikha-linux-x64-product-build-v1.js status --product cli --arch x64"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.91.1",

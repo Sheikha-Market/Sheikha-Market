@@ -5,16 +5,25 @@ export LC_ALL=C.UTF-8
 export LANG=C.UTF-8
 
 ROOT="$(git rev-parse --show-toplevel)"
-TARGET="${1:-}"
-OUTPUT_DIR="${2:-$ROOT/dist/native-build/linux/$TARGET}"
+PRODUCT="${1:-}"
+ARCH="${2:-}"
+OUTPUT_DIR="${3:-$ROOT/dist/native-build/linux/$PRODUCT-$ARCH}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 LOG_FILE="$OUTPUT_DIR/build-$STAMP.log"
 RESULT_FILE="$OUTPUT_DIR/build-result-$STAMP.json"
 
-case "$TARGET" in
-  x64|arm32|arm64|snap) ;;
+case "$PRODUCT" in
+  deb|rpm|tar-gz|cli) ;;
   *)
-    echo "Usage: $0 <x64|arm32|arm64|snap> [output-dir]" >&2
+    echo "Usage: $0 <deb|rpm|tar-gz|cli> <x64> [output-dir]" >&2
+    exit 20
+    ;;
+esac
+
+case "$ARCH" in
+  x64) ;;
+  *)
+    echo "Usage: $0 <deb|rpm|tar-gz|cli> <x64> [output-dir]" >&2
     exit 20
     ;;
 esac
@@ -24,56 +33,36 @@ esac
   exit 21
 }
 
-mkdir -p "$OUTPUT_DIR"
+PACKAGE_SCRIPT="sheikha:dist:linux:${PRODUCT}:${ARCH}"
 
-node - "$ROOT/package.json" "$TARGET" > "$OUTPUT_DIR/selected-script.txt" <<'NODE'
+node - "$ROOT/package.json" "$PACKAGE_SCRIPT" <<'NODE'
 const fs = require('node:fs');
 
 const packageJsonPath = process.argv[2];
-const target = process.argv[3];
-const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+const packageScript = process.argv[3];
+const packageJson = JSON.parse(
+  fs.readFileSync(packageJsonPath, 'utf8')
+);
 const scripts = packageJson.scripts || {};
 
-const candidates = target === 'snap'
-  ? [
-      'sheikha:dist:snap',
-      'dist:snap',
-      'build:snap',
-      'package:snap'
-    ]
-  : [
-      `sheikha:dist:linux:${target}`,
-      `dist:linux:${target}`,
-      `build:linux:${target}`,
-      `package:linux:${target}`,
-      'sheikha:dist:linux',
-      'dist:linux',
-      'build:linux',
-      'package:linux'
-    ];
-
-const selected = candidates.find((name) =>
-  Object.prototype.hasOwnProperty.call(scripts, name)
-);
-
-if (!selected) {
+if (typeof scripts[packageScript] !== 'string') {
   process.stderr.write(
-    `No configured package script for Linux target ${target}\n`
+    `Exact package script is not configured: ${packageScript}\n`
   );
   process.exit(42);
 }
-
-process.stdout.write(`${selected}\n`);
 NODE
 
-SELECTED_SCRIPT="$(tr -d '\r\n' < "$OUTPUT_DIR/selected-script.txt")"
+mkdir -p "$OUTPUT_DIR"
+
 SOURCE_COMMIT="$(git -C "$ROOT" rev-parse HEAD)"
 
 {
   echo "SYSTEM_ID=SHEIKHA_LINUX_NATIVE_INSTALLER_BUILD_RUNNER_V1"
-  echo "TARGET=$TARGET"
+  echo "PRODUCT=$PRODUCT"
+  echo "ARCHITECTURE=$ARCH"
   echo "SOURCE_COMMIT=$SOURCE_COMMIT"
-  echo "SELECTED_SCRIPT=$SELECTED_SCRIPT"
+  echo "PACKAGE_SCRIPT=$PACKAGE_SCRIPT"
   echo "OUTPUT_DIR=$OUTPUT_DIR"
   echo "PACKAGE_INSTALLATION_PERFORMED=false"
   echo "BUILD_STARTED_AT=$(date -Is)"
@@ -83,18 +72,20 @@ set +e
 (
   cd "$ROOT"
   SHEIKHA_TARGET_PLATFORM="linux" \
-  SHEIKHA_TARGET_ARCH="$TARGET" \
+  SHEIKHA_TARGET_PRODUCT="$PRODUCT" \
+  SHEIKHA_TARGET_ARCH="$ARCH" \
   SHEIKHA_OUTPUT_DIR="$OUTPUT_DIR" \
-  npm run "$SELECTED_SCRIPT"
+  npm run "$PACKAGE_SCRIPT"
 ) 2>&1 | tee -a "$LOG_FILE"
 BUILD_RC="${PIPESTATUS[0]}"
 set -e
 
 node - \
   "$RESULT_FILE" \
-  "$TARGET" \
+  "$PRODUCT" \
+  "$ARCH" \
   "$SOURCE_COMMIT" \
-  "$SELECTED_SCRIPT" \
+  "$PACKAGE_SCRIPT" \
   "$OUTPUT_DIR" \
   "$LOG_FILE" \
   "$BUILD_RC" <<'NODE'
@@ -102,9 +93,10 @@ const fs = require('node:fs');
 
 const [
   output,
-  target,
+  product,
+  architecture,
   sourceCommit,
-  selectedScript,
+  packageScript,
   outputDir,
   logFile,
   buildRc
@@ -112,13 +104,14 @@ const [
 
 const result = {
   system: 'SHEIKHA_LINUX_NATIVE_INSTALLER_BUILD_RESULT_V1',
-  target,
+  product,
+  architecture,
   sourceCommit,
-  selectedScript,
+  packageScript,
   outputDir,
   logFile,
   buildExitCode: Number(buildRc),
-  buildCompleted: Number(buildRc) === 0,
+  delegateExecutionCompleted: Number(buildRc) === 0,
   artifactEvidenceCollected: false,
   installTestExecuted: false,
   smokeTestExecuted: false,
@@ -126,11 +119,15 @@ const result = {
   productionPromotionAuthorized: false
 };
 
-fs.writeFileSync(output, `${JSON.stringify(result, null, 2)}\n`);
+fs.writeFileSync(
+  output,
+  `${JSON.stringify(result, null, 2)}\n`
+);
 NODE
 
 echo "BUILD_EXIT_CODE=$BUILD_RC"
 echo "BUILD_RESULT=$RESULT_FILE"
-echo "ARTIFACT_EVIDENCE_COLLECTION_REQUIRED=true"
+echo "ARTIFACT_INSPECTION_REQUIRED=true"
+echo "INSTALL_SMOKE_UNINSTALL_EVIDENCE_REQUIRED=true"
 
 exit "$BUILD_RC"
