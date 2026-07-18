@@ -1,0 +1,61 @@
+{
+  "system": "SHEIKHA_LINUX_X64_PRODUCT_BUILD_CONTRACT_V1",
+  "platform": "linux",
+  "architecture": "x64",
+  "targets": [
+    {
+      "id": "LINUX_DEB_X64",
+      "product": "deb",
+      "packageScript": "sheikha:dist:linux:deb:x64",
+      "delegateScript": "release:deb",
+      "requiredCommands": ["node", "npm", "dpkg-deb", "fakeroot"],
+      "delegateExecutionValidationRequired": true
+    },
+    {
+      "id": "LINUX_RPM_X64",
+      "product": "rpm",
+      "packageScript": "sheikha:dist:linux:rpm:x64",
+      "delegateScript": "ops:delivery:linux-native:build:v5",
+      "requiredCommands": ["node", "npm", "rpmbuild"],
+      "delegateExecutionValidationRequired": true
+    },
+    {
+      "id": "LINUX_TAR_GZ_X64",
+      "product": "tar-gz",
+      "packageScript": "sheikha:dist:linux:tar-gz:x64",
+      "delegateScript": "ops:distribution:build:linux:v1",
+      "requiredCommands": ["node", "npm", "tar", "gzip"],
+      "delegateExecutionValidationRequired": true
+    },
+    {
+      "id": "LINUX_CLI_X64",
+      "product": "cli",
+      "packageScript": "sheikha:dist:linux:cli:x64",
+      "delegateScript": "ops:delivery:build:linux:v2",
+      "requiredCommands": ["node", "npm", "tar", "gzip"],
+      "delegateExecutionValidationRequired": true
+    }
+  ],
+  "runnerInterface": {
+    "requiredArguments": ["product", "architecture"],
+    "allowedProducts": ["deb", "rpm", "tar-gz", "cli"],
+    "allowedArchitectures": ["x64"],
+    "productEnvironmentVariable": "SHEIKHA_TARGET_PRODUCT",
+    "architectureEnvironmentVariable": "SHEIKHA_TARGET_ARCH",
+    "outputDirectoryEnvironmentVariable": "SHEIKHA_OUTPUT_DIR",
+    "exactProductScriptSelectionRequired": true,
+    "genericFallbackAllowed": false
+  },
+  "truthBoundaries": {
+    "scriptConfigurationProvesArtifactBuilt": false,
+    "delegateExecutionProvesCorrectArtifactWithoutInspection": false,
+    "nativeInstallTestingStillRequired": true,
+    "humanReleaseApprovalStillRequired": true
+  },
+  "production": {
+    "artifactPromotionAuthorized": false,
+    "deploymentAuthorized": false,
+    "serviceRestartAuthorized": false,
+    "cleanupAuthorized": false
+  }
+}
