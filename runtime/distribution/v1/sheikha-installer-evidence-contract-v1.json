@@ -1,0 +1,47 @@
+{
+  "system": "SHEIKHA_INSTALLER_EVIDENCE_CONTRACT_V1",
+  "requiredGates": [
+    "SOURCE_COMMIT_BOUND",
+    "NATIVE_BUILD_COMPLETED",
+    "ARTIFACT_PRESENT",
+    "SHA256_RECORDED",
+    "SBOM_RECORDED",
+    "PROVENANCE_RECORDED",
+    "NATIVE_INSTALL_TEST_PASSED",
+    "SMOKE_TEST_PASSED",
+    "UNINSTALL_TEST_PASSED",
+    "SIGNATURE_OR_UNSIGNED_STATUS_RECORDED"
+  ],
+  "conditionalGates": {
+    "storePublicationRequired": [
+      "STORE_UPLOAD_COMPLETED",
+      "STORE_PUBLICATION_STATUS_RECORDED"
+    ],
+    "macosDistribution": [
+      "MACOS_SIGNING_STATUS_RECORDED",
+      "MACOS_NOTARIZATION_STATUS_RECORDED"
+    ],
+    "windowsDistribution": [
+      "WINDOWS_CODE_SIGNING_STATUS_RECORDED"
+    ]
+  },
+  "fullEvidenceRule": {
+    "allRequiredGatesMustPass": true,
+    "allApplicableConditionalGatesMustPass": true,
+    "artifactDigestMustMatch": true,
+    "nativePlatformTestRequired": true,
+    "humanReleaseApprovalRequired": true
+  },
+  "truthBoundaries": {
+    "configurationAloneProvesActivation": false,
+    "artifactPresenceAloneProvesActivation": false,
+    "crossPlatformBuildClaimWithoutNativeEvidenceAllowed": false,
+    "storePublicationClaimWithoutReceiptAllowed": false
+  },
+  "deployment": {
+    "productionChangeAuthorized": false,
+    "serviceRestartAuthorized": false,
+    "packageInstallationAuthorized": false,
+    "cleanupAuthorized": false
+  }
+}

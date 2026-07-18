@@ -1,0 +1,249 @@
+{
+  "system": "SHEIKHA_INSTALLER_DISTRIBUTION_MATRIX_V1",
+  "targetCount": 26,
+  "statusVocabulary": [
+    "FULLY_EVIDENCED",
+    "ARTIFACT_PRESENT_EVIDENCE_INCOMPLETE",
+    "BUILD_CONFIGURATION_PRESENT",
+    "DECLARED_ONLY",
+    "GAP_CONFIRMED"
+  ],
+  "targets": [
+    {
+      "id": "WINDOWS_USER_INSTALLER_X64",
+      "platform": "windows",
+      "product": "user-installer",
+      "architecture": "x64",
+      "artifactExtensions": [".exe"],
+      "nativeRunner": "windows-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_USER_INSTALLER_ARM64",
+      "platform": "windows",
+      "product": "user-installer",
+      "architecture": "arm64",
+      "artifactExtensions": [".exe"],
+      "nativeRunner": "windows-arm64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_SYSTEM_INSTALLER_X64",
+      "platform": "windows",
+      "product": "system-installer",
+      "architecture": "x64",
+      "artifactExtensions": [".msi", ".exe"],
+      "nativeRunner": "windows-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_SYSTEM_INSTALLER_ARM64",
+      "platform": "windows",
+      "product": "system-installer",
+      "architecture": "arm64",
+      "artifactExtensions": [".msi", ".exe"],
+      "nativeRunner": "windows-arm64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_ZIP_X64",
+      "platform": "windows",
+      "product": "zip",
+      "architecture": "x64",
+      "artifactExtensions": [".zip"],
+      "nativeRunner": "windows-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_ZIP_ARM64",
+      "platform": "windows",
+      "product": "zip",
+      "architecture": "arm64",
+      "artifactExtensions": [".zip"],
+      "nativeRunner": "windows-arm64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_CLI_X64",
+      "platform": "windows",
+      "product": "cli",
+      "architecture": "x64",
+      "artifactExtensions": [".exe", ".zip"],
+      "nativeRunner": "windows-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "WINDOWS_CLI_ARM64",
+      "platform": "windows",
+      "product": "cli",
+      "architecture": "arm64",
+      "artifactExtensions": [".exe", ".zip"],
+      "nativeRunner": "windows-arm64",
+      "storePublicationRequired": false
+    },
+
+    {
+      "id": "LINUX_DEB_X64",
+      "platform": "linux",
+      "product": "deb",
+      "architecture": "x64",
+      "artifactExtensions": [".deb"],
+      "nativeRunner": "linux-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_DEB_ARM32",
+      "platform": "linux",
+      "product": "deb",
+      "architecture": "arm32",
+      "artifactExtensions": [".deb"],
+      "nativeRunner": "linux-arm32",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_DEB_ARM64",
+      "platform": "linux",
+      "product": "deb",
+      "architecture": "arm64",
+      "artifactExtensions": [".deb"],
+      "nativeRunner": "linux-arm64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_RPM_X64",
+      "platform": "linux",
+      "product": "rpm",
+      "architecture": "x64",
+      "artifactExtensions": [".rpm"],
+      "nativeRunner": "linux-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_RPM_ARM32",
+      "platform": "linux",
+      "product": "rpm",
+      "architecture": "arm32",
+      "artifactExtensions": [".rpm"],
+      "nativeRunner": "linux-arm32",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_RPM_ARM64",
+      "platform": "linux",
+      "product": "rpm",
+      "architecture": "arm64",
+      "artifactExtensions": [".rpm"],
+      "nativeRunner": "linux-arm64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_TAR_GZ_X64",
+      "platform": "linux",
+      "product": "tar-gz",
+      "architecture": "x64",
+      "artifactExtensions": [".tar.gz", ".tgz"],
+      "nativeRunner": "linux-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_TAR_GZ_ARM32",
+      "platform": "linux",
+      "product": "tar-gz",
+      "architecture": "arm32",
+      "artifactExtensions": [".tar.gz", ".tgz"],
+      "nativeRunner": "linux-arm32",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_TAR_GZ_ARM64",
+      "platform": "linux",
+      "product": "tar-gz",
+      "architecture": "arm64",
+      "artifactExtensions": [".tar.gz", ".tgz"],
+      "nativeRunner": "linux-arm64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_SNAP_STORE",
+      "platform": "linux",
+      "product": "snap",
+      "architecture": "multi",
+      "artifactExtensions": [".snap"],
+      "nativeRunner": "linux-native",
+      "storePublicationRequired": true
+    },
+    {
+      "id": "LINUX_CLI_X64",
+      "platform": "linux",
+      "product": "cli",
+      "architecture": "x64",
+      "artifactExtensions": [".tar.gz", ".tgz"],
+      "nativeRunner": "linux-x64",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_CLI_ARM32",
+      "platform": "linux",
+      "product": "cli",
+      "architecture": "arm32",
+      "artifactExtensions": [".tar.gz", ".tgz"],
+      "nativeRunner": "linux-arm32",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "LINUX_CLI_ARM64",
+      "platform": "linux",
+      "product": "cli",
+      "architecture": "arm64",
+      "artifactExtensions": [".tar.gz", ".tgz"],
+      "nativeRunner": "linux-arm64",
+      "storePublicationRequired": false
+    },
+
+    {
+      "id": "MACOS_DMG_INTEL",
+      "platform": "macos",
+      "product": "dmg",
+      "architecture": "x64",
+      "artifactExtensions": [".dmg"],
+      "nativeRunner": "macos-intel",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "MACOS_DMG_APPLE_SILICON",
+      "platform": "macos",
+      "product": "dmg",
+      "architecture": "arm64",
+      "artifactExtensions": [".dmg"],
+      "nativeRunner": "macos-apple-silicon",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "MACOS_DMG_UNIVERSAL",
+      "platform": "macos",
+      "product": "dmg",
+      "architecture": "universal",
+      "artifactExtensions": [".dmg"],
+      "nativeRunner": "macos-universal",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "MACOS_CLI_INTEL",
+      "platform": "macos",
+      "product": "cli",
+      "architecture": "x64",
+      "artifactExtensions": [".tar.gz", ".zip"],
+      "nativeRunner": "macos-intel",
+      "storePublicationRequired": false
+    },
+    {
+      "id": "MACOS_CLI_APPLE_SILICON",
+      "platform": "macos",
+      "product": "cli",
+      "architecture": "arm64",
+      "artifactExtensions": [".tar.gz", ".zip"],
+      "nativeRunner": "macos-apple-silicon",
+      "storePublicationRequired": false
+    }
+  ]
+}
