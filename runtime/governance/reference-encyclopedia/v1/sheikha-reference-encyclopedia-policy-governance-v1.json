@@ -1,0 +1,116 @@
+{
+  "system": "SHEIKHA_REFERENCE_ENCYCLOPEDIA_POLICY_GOVERNANCE_V1",
+  "owner": {
+    "id": "SALMAN_AHMED_SALMAN_AL_RAJEH",
+    "arabicName": "سلمان أحمد سلمان الراجح",
+    "englishName": "Salman Ahmed Salman Al-Rajeh"
+  },
+  "roles": {
+    "internalReference": true,
+    "evidenceBasedEncyclopedia": true,
+    "internalPolicyDraftingEngine": true,
+    "internalRegulationDraftingEngine": true,
+    "contractDraftingEngine": true,
+    "governanceAndCompliancePlatform": true,
+    "organizationalCoordinationPlatform": true,
+    "controlledExecutionPolicyEngine": true
+  },
+  "authorityBoundaries": {
+    "humanAuthorityOnly": true,
+    "religiousLegislativeAuthority": false,
+    "governmentRegulatoryAuthority": false,
+    "judicialAuthority": false,
+    "officialArbitrationAuthority": false,
+    "officialRepresentation": false,
+    "fatwaAuthority": false,
+    "independentHumanIjtihadClaimed": false,
+    "softwareFaithClaimed": false,
+    "softwareConsciousnessClaimed": false,
+    "unseenKnowledgeClaimed": false,
+    "futureGuaranteeClaimed": false
+  },
+  "referenceLayers": [
+    {
+      "priority": 1,
+      "id": "QURAN_AND_AUTHENTIC_SUNNAH",
+      "humanSpecialistReviewRequired": true
+    },
+    {
+      "priority": 2,
+      "id": "APPLICABLE_OFFICIAL_LAWS_REGULATIONS_AND_DECISIONS",
+      "currentOfficialSourceRequired": true
+    },
+    {
+      "priority": 3,
+      "id": "APPROVED_INTERNAL_CONTRACTS_POLICIES_AND_PROCEDURES",
+      "writtenApprovalRequired": true
+    },
+    {
+      "priority": 4,
+      "id": "STANDARDS_AND_PROFESSIONAL_REFERENCES",
+      "sourceAttributionRequired": true
+    },
+    {
+      "priority": 5,
+      "id": "VERIFIED_OPERATIONAL_DATA",
+      "integrityEvidenceRequired": true
+    },
+    {
+      "priority": 6,
+      "id": "NON_BINDING_ANALYSIS_AND_PROPOSALS",
+      "mustBeLabeledNonBinding": true
+    }
+  ],
+  "knowledgeRecordRequirements": [
+    "stableId",
+    "title",
+    "source",
+    "createdAt",
+    "lastReviewedAt",
+    "version",
+    "status",
+    "references",
+    "scope",
+    "knownConflicts",
+    "humanReviewer",
+    "changeHistory"
+  ],
+  "allowedStatuses": [
+    "DRAFT",
+    "UNDER_REVIEW",
+    "INTERNALLY_APPROVED",
+    "SUSPENDED",
+    "SUPERSEDED",
+    "REVOKED",
+    "EXTERNAL_OFFICIAL_SOURCE",
+    "NON_BINDING_ANALYSIS"
+  ],
+  "highImpactPolicy": {
+    "automaticApprovalAllowed": false,
+    "writtenHumanApprovalRequired": true,
+    "evidencePreservationRequired": true,
+    "rollbackRequired": true,
+    "conflictReviewRequired": true
+  },
+  "governance": {
+    "reference": "الكتاب والسنة",
+    "noHarmRule": "لا ضرر ولا ضرار",
+    "truthfulnessRequired": true,
+    "evidenceBeforeClaim": true,
+    "sourceAttributionRequired": true,
+    "versioningRequired": true,
+    "reversibilityRequired": true,
+    "thirdPartyRightsPreserved": true
+  },
+  "productArchitecture": {
+    "websitePrimaryProductSurface": true,
+    "editorsOptionalDevelopmentTools": true,
+    "githubRuntimeDependencyRequired": false
+  },
+  "deployment": {
+    "productionChangeAuthorized": false,
+    "serviceRestartAuthorized": false,
+    "packageInstallationAuthorized": false,
+    "cleanupAuthorized": false
+  }
+}
