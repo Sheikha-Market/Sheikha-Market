@@ -1,0 +1,68 @@
+{
+  "system": "SHEIKHA_NATIVE_INSTALLER_BUILD_EXECUTION_CONTRACT_V1",
+  "owner": {
+    "id": "SALMAN_AHMED_SALMAN_AL_RAJEH",
+    "arabicName": "سلمان أحمد سلمان الراجح",
+    "englishName": "Salman Ahmed Salman Al-Rajeh"
+  },
+  "targetCount": 26,
+  "runnerGroups": [
+    "windows-x64",
+    "windows-arm64",
+    "linux-x64",
+    "linux-arm32",
+    "linux-arm64",
+    "linux-native",
+    "macos-intel",
+    "macos-apple-silicon",
+    "macos-universal"
+  ],
+  "executionRules": {
+    "nativeOrApprovedCompatibleRunnerRequired": true,
+    "sourceCommitBindingRequired": true,
+    "cleanSourceWorktreeRequired": true,
+    "dependencyLockRequired": true,
+    "packageInstallationDuringGovernanceBuildAllowed": false,
+    "secretsInRepositoryAllowed": false,
+    "crossPlatformCompletionClaimWithoutEvidenceAllowed": false,
+    "artifactPromotionBeforeEvidenceAllowed": false,
+    "humanReleaseApprovalRequired": true
+  },
+  "artifactRules": {
+    "versionedFileNameRequired": true,
+    "platformAndArchitectureInFileNameRequired": true,
+    "sha256Required": true,
+    "sbomRequired": true,
+    "provenanceRequired": true,
+    "buildLogRequired": true,
+    "installTestLogRequired": true,
+    "smokeTestLogRequired": true,
+    "uninstallTestLogRequired": true,
+    "signingStatusRequired": true
+  },
+  "platformRules": {
+    "windows": {
+      "nativePowerShellRunnerRequired": true,
+      "codeSigningStatusRequired": true
+    },
+    "linux": {
+      "nativeShellRunnerRequired": true,
+      "packageMetadataValidationRequired": true
+    },
+    "macos": {
+      "nativeShellRunnerRequired": true,
+      "signingStatusRequired": true,
+      "notarizationStatusRequired": true
+    },
+    "snap": {
+      "storeUploadReceiptRequired": true,
+      "storePublicationStatusRequired": true
+    }
+  },
+  "production": {
+    "artifactPromotionAuthorized": false,
+    "deploymentAuthorized": false,
+    "serviceRestartAuthorized": false,
+    "cleanupAuthorized": false
+  }
+}

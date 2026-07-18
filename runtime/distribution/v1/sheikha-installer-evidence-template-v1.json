@@ -1,0 +1,51 @@
+{
+  "system": "SHEIKHA_INSTALLER_EVIDENCE_BUNDLE_V1",
+  "targetId": "",
+  "sourceCommit": "",
+  "artifact": {
+    "path": "",
+    "fileName": "",
+    "sizeBytes": 0,
+    "sha256": ""
+  },
+  "runner": {
+    "platform": "",
+    "architecture": "",
+    "hostName": "",
+    "startedAt": "",
+    "completedAt": ""
+  },
+  "evidenceFiles": {
+    "buildLog": "",
+    "sbom": "",
+    "provenance": "",
+    "installTestLog": "",
+    "smokeTestLog": "",
+    "uninstallTestLog": "",
+    "signingStatus": "",
+    "storeReceipt": ""
+  },
+  "gates": {
+    "SOURCE_COMMIT_BOUND": false,
+    "NATIVE_BUILD_COMPLETED": false,
+    "ARTIFACT_PRESENT": false,
+    "SHA256_RECORDED": false,
+    "SBOM_RECORDED": false,
+    "PROVENANCE_RECORDED": false,
+    "NATIVE_INSTALL_TEST_PASSED": false,
+    "SMOKE_TEST_PASSED": false,
+    "UNINSTALL_TEST_PASSED": false,
+    "SIGNATURE_OR_UNSIGNED_STATUS_RECORDED": false,
+    "WINDOWS_CODE_SIGNING_STATUS_RECORDED": false,
+    "MACOS_SIGNING_STATUS_RECORDED": false,
+    "MACOS_NOTARIZATION_STATUS_RECORDED": false,
+    "STORE_UPLOAD_COMPLETED": false,
+    "STORE_PUBLICATION_STATUS_RECORDED": false
+  },
+  "humanReleaseApproval": false,
+  "approval": {
+    "approvedBy": "",
+    "approvedAt": "",
+    "record": ""
+  }
+}
