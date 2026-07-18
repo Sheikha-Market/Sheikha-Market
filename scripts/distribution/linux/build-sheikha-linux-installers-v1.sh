@@ -7,7 +7,7 @@ export LANG=C.UTF-8
 ROOT="$(git rev-parse --show-toplevel)"
 PRODUCT="${1:-}"
 ARCH="${2:-}"
-OUTPUT_DIR="${3:-$ROOT/dist/native-build/linux/$PRODUCT-$ARCH}"
+OUTPUT_DIR="${3:-}"
 STAMP="$(date +%Y%m%d-%H%M%S)"
 LOG_FILE="$OUTPUT_DIR/build-$STAMP.log"
 RESULT_FILE="$OUTPUT_DIR/build-result-$STAMP.json"
@@ -15,7 +15,7 @@ RESULT_FILE="$OUTPUT_DIR/build-result-$STAMP.json"
 case "$PRODUCT" in
   deb|rpm|tar-gz|cli) ;;
   *)
-    echo "Usage: $0 <deb|rpm|tar-gz|cli> <x64> [output-dir]" >&2
+    echo "Usage: $0 <deb|rpm|tar-gz|cli> <x64> <output-dir>" >&2
     exit 20
     ;;
 esac
@@ -23,7 +23,7 @@ esac
 case "$ARCH" in
   x64) ;;
   *)
-    echo "Usage: $0 <deb|rpm|tar-gz|cli> <x64> [output-dir]" >&2
+    echo "Usage: $0 <deb|rpm|tar-gz|cli> <x64> <output-dir>" >&2
     exit 20
     ;;
 esac
@@ -32,6 +32,44 @@ esac
   echo "NATIVE_PLATFORM_MISMATCH=true" >&2
   exit 21
 }
+
+[[ -n "$OUTPUT_DIR" ]] || {
+  echo "EXPLICIT_OUTPUT_DIRECTORY_REQUIRED=true" >&2
+  exit 22
+}
+
+OUTPUT_DIR="$(python3 - "$OUTPUT_DIR" <<'PY_OUTPUT'
+from pathlib import Path
+import sys
+print(Path(sys.argv[1]).expanduser().resolve())
+PY_OUTPUT
+)"
+
+ALLOWED_OUTPUT_ROOT="$HOME/Backups/sheikha/native-installer-validation-builds"
+
+python3 - "$ROOT" "$ALLOWED_OUTPUT_ROOT" "$OUTPUT_DIR" <<'PY_VALIDATE'
+from pathlib import Path
+import sys
+
+root = Path(sys.argv[1]).resolve()
+allowed = Path(sys.argv[2]).resolve()
+output = Path(sys.argv[3]).resolve()
+
+def within(parent, child):
+    try:
+        child.relative_to(parent)
+        return child != parent
+    except ValueError:
+        return False
+
+if output == root or within(root, output):
+    raise SystemExit("OUTPUT_DIRECTORY_INSIDE_REPOSITORY_REJECTED")
+
+if not within(allowed, output):
+    raise SystemExit(
+        f"OUTPUT_DIRECTORY_OUTSIDE_ALLOWED_ROOT={allowed}"
+    )
+PY_VALIDATE
 
 PACKAGE_SCRIPT="sheikha:dist:linux:${PRODUCT}:${ARCH}"
 

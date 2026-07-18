@@ -1,0 +1,42 @@
+{
+  "system": "SHEIKHA_LINUX_X64_CONTROLLED_VALIDATION_BUILD_CONTRACT_V1",
+  "platform": "linux",
+  "architecture": "x64",
+  "mode": "NON_RELEASE_VALIDATION_ONLY",
+  "allowedOutputRoot": "$HOME/Backups/sheikha/native-installer-validation-builds",
+  "targets": [
+    {
+      "id": "LINUX_DEB_X64",
+      "product": "deb",
+      "requiredCommands": ["git", "node", "tar", "dpkg-deb", "sha256sum", "file"],
+      "artifactExtension": ".deb"
+    },
+    {
+      "id": "LINUX_TAR_GZ_X64",
+      "product": "tar-gz",
+      "requiredCommands": ["git", "node", "tar", "gzip", "sha256sum", "file"],
+      "artifactExtension": ".tar.gz"
+    },
+    {
+      "id": "LINUX_CLI_X64",
+      "product": "cli",
+      "requiredCommands": ["git", "node", "tar", "gzip", "sha256sum", "file"],
+      "artifactExtension": ".tar.gz"
+    }
+  ],
+  "executionRules": {
+    "cleanSourceWorktreeRequired": true,
+    "sourceCommitBindingRequired": true,
+    "explicitOutputDirectoryRequired": true,
+    "outputMustBeOutsideRepository": true,
+    "outputMustBeUnderAllowedRoot": true,
+    "networkAccessRequired": false,
+    "packageInstallationAllowed": false,
+    "serviceControlAllowed": false,
+    "remoteMutationAllowed": false,
+    "productionDeploymentAllowed": false,
+    "artifactPromotionAllowed": false,
+    "nativeInstallTestStillRequired": true,
+    "humanReleaseApprovalStillRequired": true
+  }
+}

@@ -142,50 +142,50 @@ function build(product, architecture, outputDir) {
     );
   }
 
-  const resolvedOutput = path.resolve(
-    outputDir ||
-    path.join(
+  if (!outputDir) {
+    throw new Error('EXPLICIT_OUTPUT_DIRECTORY_REQUIRED');
+  }
+
+  const controlledProducts = new Set(['deb', 'tar-gz', 'cli']);
+
+  if (controlledProducts.has(product)) {
+    const builder = path.join(
       ROOT,
-      'dist',
-      'native-build',
-      'linux',
-      `${product}-${architecture}`
-    )
+      'tools',
+      'distribution',
+      'sheikha-linux-x64-controlled-validation-builder-v1.js'
+    );
+
+    const result = spawnSync(
+      process.execPath,
+      [
+        builder,
+        'build',
+        '--product',
+        product,
+        '--arch',
+        architecture,
+        '--output-dir',
+        outputDir
+      ],
+      {
+        cwd: ROOT,
+        env: process.env,
+        stdio: 'inherit'
+      }
+    );
+
+    process.exitCode =
+      typeof result.status === 'number'
+        ? result.status
+        : 1;
+
+    return;
+  }
+
+  throw new Error(
+    `CONTROLLED_BUILDER_NOT_CONFIGURED target=${context.target.id}`
   );
-
-  fs.mkdirSync(resolvedOutput, { recursive: true });
-
-  const environment = {
-    ...process.env,
-    SHEIKHA_TARGET_PLATFORM: 'linux',
-    SHEIKHA_TARGET_PRODUCT: product,
-    SHEIKHA_TARGET_ARCH: architecture,
-    SHEIKHA_OUTPUT_DIR: resolvedOutput
-  };
-
-  const result = spawnSync(
-    'npm',
-    ['run', context.target.delegateScript],
-    {
-      cwd: ROOT,
-      env: environment,
-      stdio: 'inherit'
-    }
-  );
-
-  process.stdout.write(
-    `DELEGATE_EXECUTION_COMPLETED=true\n` +
-    `TARGET_ID=${context.target.id}\n` +
-    `DELEGATE_SCRIPT=${context.target.delegateScript}\n` +
-    `OUTPUT_DIR=${resolvedOutput}\n` +
-    `ARTIFACT_INSPECTION_REQUIRED=true\n` +
-    `NATIVE_INSTALL_TEST_REQUIRED=true\n`
-  );
-
-  process.exitCode =
-    typeof result.status === 'number'
-      ? result.status
-      : 1;
 }
 
 function main() {
