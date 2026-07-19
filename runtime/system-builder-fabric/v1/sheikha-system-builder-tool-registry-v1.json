@@ -1,0 +1,374 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BUILDER_TOOL_REGISTRY_V1",
+  "status": "ACTIVE_REGISTRY",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "defaultAuthorization": "DENY",
+  "toolCount": 38,
+  "enginePolicy": {
+    "registeredToolsAreGovernedCapabilityEngines": true,
+    "executionUnit": "ISOLATED_FAMILY_PROFILE",
+    "directHostExecution": "DENY",
+    "crossFamilyToolAggregation": "DENY",
+    "immutableImageIdentityRequiredForActiveProfiles": true,
+    "plannedProfilesAreExecutable": false
+  },
+  "tools": [
+    {
+      "id": "docker",
+      "family": "CONTAINER_EXECUTION",
+      "capabilities": [
+        "IMAGE_BUILD",
+        "ISOLATED_EXECUTION"
+      ],
+      "status": "ACTIVE_HOST_TOOL"
+    },
+    {
+      "id": "rpm",
+      "family": "FEDORA_RPM",
+      "capabilities": [
+        "RPM_INSPECTION",
+        "RPM_EXTRACTION"
+      ],
+      "status": "ACTIVE_ISOLATED_PROFILE"
+    },
+    {
+      "id": "rpmbuild",
+      "family": "FEDORA_RPM",
+      "capabilities": [
+        "RPM_BINARY_BUILD",
+        "RPM_SOURCE_BUILD"
+      ],
+      "status": "ACTIVE_ISOLATED_PROFILE"
+    },
+    {
+      "id": "rpmdevtools",
+      "family": "FEDORA_RPM",
+      "capabilities": [
+        "RPM_DEVELOPMENT_LAYOUT",
+        "SPEC_ASSISTANCE"
+      ],
+      "status": "ACTIVE_ISOLATED_PROFILE"
+    },
+    {
+      "id": "mock",
+      "family": "FEDORA_CLEANROOM",
+      "capabilities": [
+        "CHROOT_BUILD",
+        "CROSS_RELEASE_RPM_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "mockchain",
+      "family": "FEDORA_CLEANROOM",
+      "capabilities": [
+        "DEPENDENCY_CHAIN_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "fedpkg",
+      "family": "FEDORA_DIST_GIT",
+      "capabilities": [
+        "PACKAGE_WORKFLOW",
+        "MOCKBUILD_REQUEST"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "rpkg",
+      "family": "FEDORA_DIST_GIT",
+      "capabilities": [
+        "DIST_GIT_CLIENT_FRAMEWORK"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "koji",
+      "family": "FEDORA_BUILD_FARM",
+      "capabilities": [
+        "BUILD_ORCHESTRATION",
+        "MULTI_ARCH_BUILD"
+      ],
+      "status": "REGISTERED_NOT_CONFIGURED"
+    },
+    {
+      "id": "copr",
+      "family": "FEDORA_COMMUNITY_BUILD",
+      "capabilities": [
+        "REMOTE_PACKAGE_BUILD",
+        "REPOSITORY_BUILD"
+      ],
+      "status": "REGISTERED_EXTERNAL_PERMISSION_REQUIRED"
+    },
+    {
+      "id": "pungi",
+      "family": "FEDORA_COMPOSE",
+      "capabilities": [
+        "REPOSITORY_COMPOSE",
+        "INSTALL_TREE",
+        "IMAGE_COMPOSE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "lorax",
+      "family": "FEDORA_INSTALLER",
+      "capabilities": [
+        "INSTALLER_IMAGE_BUILD",
+        "BOOT_IMAGE_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "livemedia-creator",
+      "family": "FEDORA_INSTALLER",
+      "capabilities": [
+        "LIVE_ISO_BUILD",
+        "DISK_IMAGE_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "anaconda",
+      "family": "FEDORA_INSTALLER",
+      "capabilities": [
+        "OPERATING_SYSTEM_INSTALLATION"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "osbuild",
+      "family": "FEDORA_IMAGE_BUILDER",
+      "capabilities": [
+        "PIPELINE_IMAGE_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "image-builder",
+      "family": "FEDORA_IMAGE_BUILDER",
+      "capabilities": [
+        "QCOW2",
+        "RAW_IMAGE",
+        "VMDK",
+        "CLOUD_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "osbuild-composer",
+      "family": "FEDORA_IMAGE_BUILDER",
+      "capabilities": [
+        "BLUEPRINT_COMPOSE",
+        "IMAGE_SERVICE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "rpm-ostree",
+      "family": "IMMUTABLE_OS",
+      "capabilities": [
+        "OSTREE_COMPOSE",
+        "ATOMIC_OS_TREE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "bootc",
+      "family": "IMAGE_MODE_OS",
+      "capabilities": [
+        "BOOTABLE_CONTAINER_OS"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "bootc-image-builder",
+      "family": "IMAGE_MODE_OS",
+      "capabilities": [
+        "BOOTC_DISK_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "kiwi-ng",
+      "family": "CROSS_DISTRIBUTION_IMAGE",
+      "capabilities": [
+        "ISO",
+        "VM_IMAGE",
+        "CLOUD_IMAGE",
+        "APPLIANCE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "mkosi",
+      "family": "CROSS_DISTRIBUTION_IMAGE",
+      "capabilities": [
+        "SYSTEM_IMAGE",
+        "INITRD",
+        "DISK_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "yocto-openembedded",
+      "family": "EMBEDDED_SYSTEM",
+      "capabilities": [
+        "CUSTOM_LINUX_DISTRIBUTION",
+        "CROSS_COMPILE",
+        "SDK"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "bitbake",
+      "family": "EMBEDDED_SYSTEM",
+      "capabilities": [
+        "RECIPE_ENGINE",
+        "TASK_GRAPH"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "buildroot",
+      "family": "EMBEDDED_SYSTEM",
+      "capabilities": [
+        "ROOT_FILESYSTEM",
+        "TOOLCHAIN",
+        "KERNEL",
+        "BOOTLOADER"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "openwrt-imagebuilder",
+      "family": "NETWORK_DEVICE_OS",
+      "capabilities": [
+        "ROUTER_FIRMWARE_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "nix",
+      "family": "DECLARATIVE_SYSTEM",
+      "capabilities": [
+        "REPRODUCIBLE_BUILD",
+        "SYSTEM_CLOSURE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "nixos",
+      "family": "DECLARATIVE_SYSTEM",
+      "capabilities": [
+        "DECLARATIVE_OS",
+        "ISO",
+        "DISK_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "guix",
+      "family": "DECLARATIVE_SYSTEM",
+      "capabilities": [
+        "REPRODUCIBLE_SYSTEM",
+        "SYSTEM_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "sbuild",
+      "family": "DEBIAN_BUILD",
+      "capabilities": [
+        "CLEAN_DEB_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "pbuilder",
+      "family": "DEBIAN_BUILD",
+      "capabilities": [
+        "DEB_CHROOT_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "debos",
+      "family": "DEBIAN_IMAGE",
+      "capabilities": [
+        "DEBIAN_OS_IMAGE"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "live-build",
+      "family": "DEBIAN_IMAGE",
+      "capabilities": [
+        "DEBIAN_LIVE_SYSTEM"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "archiso",
+      "family": "ARCH_IMAGE",
+      "capabilities": [
+        "ARCH_LIVE_ISO"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "abuild",
+      "family": "ALPINE_BUILD",
+      "capabilities": [
+        "APK_PACKAGE_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "poudriere",
+      "family": "BSD_BUILD",
+      "capabilities": [
+        "FREEBSD_PACKAGE_BUILD",
+        "JAIL_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "soong",
+      "family": "ANDROID_BUILD",
+      "capabilities": [
+        "ANDROID_PLATFORM_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    },
+    {
+      "id": "bazel",
+      "family": "GENERAL_BUILD_GRAPH",
+      "capabilities": [
+        "HERMETIC_BUILD",
+        "MULTI_LANGUAGE_BUILD"
+      ],
+      "status": "REGISTERED_NOT_INSTALLED"
+    }
+  ],
+  "activationPolicy": {
+    "registrationDoesNotMeanInstallation": true,
+    "oneIsolatedProfilePerToolFamily": true,
+    "digestPinnedBaseImagesRequired": true,
+    "writtenContractRequiredForNetwork": true,
+    "writtenContractRequiredForHostInstallation": true,
+    "hostInstallationDefault": "DENY",
+    "privilegedExecutionDefault": "DENY",
+    "externalPublishingDefault": "DENY",
+    "credentialsDefault": "DENY",
+    "arbitraryCodeExecutionWithoutContract": false
+  },
+  "extensibility": {
+    "openEndedAdapterRegistry": true,
+    "literalEveryWorldwideToolClaimed": false,
+    "newToolsRequireGovernedAdapter": true
+  },
+  "createdAt": "2026-07-13T17:37:00.338636+00:00"
+}
