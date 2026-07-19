@@ -1,0 +1,112 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_FIRST_REVENUE_OFFERS_V1",
+  "brand": {
+    "nameAr": "شيخة / سوق شيخة",
+    "nameEn": "Sheikha / Sooq Sheikha",
+    "website": "https://sheikha.top",
+    "salesEmail": "market@sheikha.top",
+    "market": "Saudi Arabia",
+    "primaryLanguage": "ar"
+  },
+  "currency": "SAR",
+  "taxPolicy": "ADD_VAT_ONLY_WHEN_LEGALLY_APPLICABLE",
+  "paymentPolicy": {
+    "initialChannel": "MANUAL_INVOICE_AND_VERIFIED_BANK_TRANSFER",
+    "electronicGateway": "PENDING_SAMA_LICENSED_PROVIDER_CONNECTION",
+    "noPaymentClaimWithoutEvidence": true,
+    "noRevenueClaimWithoutRecognitionGate": true
+  },
+  "governance": {
+    "humanApprovalRequired": true,
+    "noRiba": true,
+    "noGharar": true,
+    "noFraud": true,
+    "noMisleadingClaims": true,
+    "noAutomaticContractAcceptance": true,
+    "noAutomaticRevenueRecognition": true
+  },
+  "offers": [
+    {
+      "id": "SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1",
+      "nameAr": "تشخيص سلسلة الإمداد التنفيذي",
+      "status": "OFFERABLE_NOW",
+      "customerType": ["B2B", "B2G", "INDUSTRIAL"],
+      "deliveryMode": "CONSULTING_AND_REPORT",
+      "deliveryDays": 5,
+      "pricing": {
+        "type": "FIXED",
+        "amountSar": 2500
+      },
+      "paymentTerms": "100_PERCENT_BEFORE_DELIVERY",
+      "deliverables": [
+        "اجتماع تشخيصي",
+        "خريطة الاختناقات والمخاطر",
+        "خطة تحسين ذات أولويات",
+        "تقرير تنفيذي عربي",
+        "جلسة تسليم ومراجعة"
+      ]
+    },
+    {
+      "id": "SHEIKHA_ENERGY_SUPPLY_CHAIN_REPORT_V1",
+      "nameAr": "تقرير ذكاء الطاقة وسلسلة الإمداد",
+      "status": "OFFERABLE_NOW",
+      "customerType": ["ENTERPRISE", "INDUSTRIAL", "ENERGY"],
+      "deliveryMode": "CUSTOM_INTELLIGENCE_REPORT",
+      "deliveryDays": 10,
+      "pricing": {
+        "type": "FIXED",
+        "amountSar": 7500
+      },
+      "paymentTerms": "50_PERCENT_ON_ORDER_50_PERCENT_BEFORE_FINAL_DELIVERY",
+      "deliverables": [
+        "تحليل السوق والموردين",
+        "تحليل المخاطر والفرص",
+        "سيناريوات تشغيلية غير تنبؤية",
+        "مصفوفة قرار قابلة للتدقيق",
+        "عرض تنفيذي"
+      ]
+    },
+    {
+      "id": "SHEIKHA_ENTERPRISE_PILOT_30D_V1",
+      "nameAr": "تجربة شيخة المؤسسية لمدة 30 يومًا",
+      "status": "OFFERABLE_AFTER_SCOPE_APPROVAL",
+      "customerType": ["ENTERPRISE", "INDUSTRIAL", "LOGISTICS"],
+      "deliveryMode": "CONTROLLED_ENTERPRISE_PILOT",
+      "deliveryDays": 30,
+      "pricing": {
+        "type": "FIXED",
+        "amountSar": 30000
+      },
+      "paymentTerms": "50_PERCENT_ON_SIGNATURE_50_PERCENT_ON_ACCEPTANCE",
+      "deliverables": [
+        "تحليل المتطلبات",
+        "تكوين بيئة تجريبية محكومة",
+        "لوحة تشغيل وقياس",
+        "تكامل واحد معتمد",
+        "تقرير نتائج وخطة توسع"
+      ]
+    },
+    {
+      "id": "SOOQ_SHEIKHA_DEAL_FACILITATION_V1",
+      "nameAr": "تسهيل وإغلاق صفقة عبر سوق شيخة",
+      "status": "OFFERABLE_BY_SIGNED_DEAL_MANDATE",
+      "customerType": ["BUYER", "SELLER", "TRADER", "FACTORY"],
+      "deliveryMode": "B2B_DEAL_FACILITATION",
+      "deliveryDays": null,
+      "pricing": {
+        "type": "SUCCESS_FEE",
+        "rateBasisPoints": 100,
+        "minimumAmountSar": 1500
+      },
+      "paymentTerms": "AFTER_VERIFIED_TRANSACTION_CLOSURE",
+      "deliverables": [
+        "تأهيل الطلب أو العرض",
+        "تنظيم المستندات",
+        "تنسيق التفاوض",
+        "سجل إجراءات قابل للتدقيق",
+        "إثبات إغلاق الصفقة"
+      ]
+    }
+  ]
+}

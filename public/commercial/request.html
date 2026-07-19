@@ -1,0 +1,126 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta
+    name="viewport"
+    content="width=device-width,initial-scale=1"
+  >
+  <title>طلب عرض تجاري — شيخة</title>
+  <link
+    rel="stylesheet"
+    href="/commercial/assets/sheikha-commercial.css"
+  >
+</head>
+<body>
+  <header class="simple-header">
+    <a href="/commercial/index.html">شيخة / سوق شيخة</a>
+  </header>
+
+  <main class="form-shell">
+    <section class="form-card">
+      <h1>طلب عرض تجاري</h1>
+      <p>
+        أدخل بيانات التواصل والحاجة التشغيلية فقط.
+        لا تدخل بيانات بطاقات أو حسابات بنكية.
+      </p>
+
+      <form id="commercialLeadForm">
+        <label>
+          الاسم
+          <input
+            name="name"
+            type="text"
+            minlength="2"
+            maxlength="160"
+            required
+          >
+        </label>
+
+        <label>
+          المنشأة
+          <input
+            name="company"
+            type="text"
+            maxlength="200"
+          >
+        </label>
+
+        <label>
+          البريد الإلكتروني
+          <input
+            name="email"
+            type="email"
+            maxlength="200"
+          >
+        </label>
+
+        <label>
+          رقم التواصل
+          <input
+            name="phone"
+            type="tel"
+            maxlength="40"
+          >
+        </label>
+
+        <label>
+          الخدمة المطلوبة
+          <select name="offerId" id="offerId" required>
+            <option value="">اختر الخدمة</option>
+            <option value="SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1">
+              تشخيص سلسلة الإمداد — 2,500 ريال
+            </option>
+            <option value="SHEIKHA_ENERGY_SUPPLY_CHAIN_REPORT_V1">
+              تقرير ذكاء الطاقة — 7,500 ريال
+            </option>
+            <option value="SHEIKHA_ENTERPRISE_PILOT_30D_V1">
+              تجربة مؤسسية — 30,000 ريال
+            </option>
+            <option value="SOOQ_SHEIKHA_DEAL_FACILITATION_V1">
+              تسهيل صفقة — أجر نجاح
+            </option>
+          </select>
+        </label>
+
+        <label>
+          وصف الحاجة
+          <textarea
+            name="need"
+            minlength="10"
+            maxlength="2000"
+            rows="7"
+            required
+          ></textarea>
+        </label>
+
+        <label class="checkbox-row">
+          <input
+            name="consent"
+            type="checkbox"
+            required
+          >
+          <span>
+            أوافق على استخدام البيانات للتواصل بخصوص هذا الطلب،
+            وقد قرأت
+            <a href="/commercial/privacy.html">سياسة الخصوصية</a>.
+          </span>
+        </label>
+
+        <button class="primary-button" type="submit">
+          إرسال الطلب
+        </button>
+
+        <div
+          id="formResult"
+          class="form-result"
+          role="status"
+          aria-live="polite"
+        ></div>
+      </form>
+    </section>
+  </main>
+
+  <script src="/commercial/assets/sheikha-commercial.js"></script>
+</body>
+</html>
