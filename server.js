@@ -24663,6 +24663,48 @@ app.post('/api/sheikha/protocol/decision', express.json(), (req, res) => {
 
 
 
+
+// SHEIKHA_COMMERCIAL_SALES_V1_BEFORE_404
+try {
+  const {
+    mountCommercialSales
+  } = require(
+    './routes/commercial-sales/' +
+    'sheikha-commercial-sales-mount-v1'
+  );
+
+  const commercialSalesMount = mountCommercialSales(
+    app,
+    {
+      dataDir:
+        process.env.SHEIKHA_COMMERCIAL_DATA_DIR
+    }
+  );
+
+  console.log(
+    '[Sheikha] Commercial sales v1 mounted',
+    {
+      apiBasePath:
+        commercialSalesMount.apiBasePath,
+      staticBasePath:
+        commercialSalesMount.staticBasePath,
+      paymentCaptureEnabled:
+        commercialSalesMount.paymentCaptureEnabled,
+      officialTaxInvoiceEnabled:
+        commercialSalesMount.officialTaxInvoiceEnabled
+    }
+  );
+} catch (commercialSalesMountError) {
+  console.error(
+    '[Sheikha] Commercial sales v1 mount failed:',
+    commercialSalesMountError.message
+  );
+
+  if (process.env.NODE_ENV === 'production') {
+    throw commercialSalesMountError;
+  }
+}
+
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
         return res.status(404).json({

@@ -1,0 +1,245 @@
+:root {
+  --green: #123d2d;
+  --green-light: #1d5a43;
+  --gold: #b8943e;
+  --paper: #f8f7f2;
+  --white: #ffffff;
+  --ink: #17201c;
+  --muted: #5d6862;
+  --border: #d9dedb;
+  --danger: #8c2525;
+  --success: #17613f;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  color: var(--ink);
+  background: var(--paper);
+  font-family:
+    Tahoma,
+    Arial,
+    sans-serif;
+  line-height: 1.8;
+}
+
+a {
+  color: var(--green-light);
+}
+
+.hero {
+  color: var(--white);
+  background:
+    linear-gradient(
+      135deg,
+      var(--green),
+      #0b281e
+    );
+  padding: 0 6vw 5rem;
+}
+
+.nav {
+  display: flex;
+  justify-content: space-between;
+  gap: 2rem;
+  align-items: center;
+  padding: 1.2rem 0;
+}
+
+.nav a {
+  color: var(--white);
+  margin-inline-start: 1rem;
+}
+
+.hero-content {
+  max-width: 850px;
+  padding-top: 5rem;
+}
+
+.hero h1 {
+  max-width: 780px;
+  margin: 0 0 1rem;
+  font-size: clamp(2rem, 5vw, 4rem);
+  line-height: 1.25;
+}
+
+.eyebrow {
+  color: #e5c96e;
+  font-weight: bold;
+}
+
+.primary-button {
+  display: inline-block;
+  border: 0;
+  border-radius: 8px;
+  padding: 0.85rem 1.4rem;
+  color: var(--white);
+  background: var(--green-light);
+  font: inherit;
+  font-weight: bold;
+  text-decoration: none;
+  cursor: pointer;
+}
+
+.hero .primary-button {
+  color: var(--green);
+  background: #e5c96e;
+}
+
+.section {
+  width: min(1120px, 90%);
+  margin: 0 auto;
+  padding: 4rem 0;
+}
+
+.offer-grid {
+  display: grid;
+  grid-template-columns:
+    repeat(auto-fit, minmax(230px, 1fr));
+  gap: 1rem;
+}
+
+.offer-card,
+.form-card,
+.policy-page {
+  border: 1px solid var(--border);
+  border-radius: 14px;
+  background: var(--white);
+  box-shadow: 0 10px 30px rgb(0 0 0 / 5%);
+}
+
+.offer-card {
+  position: relative;
+  padding: 1.5rem;
+}
+
+.offer-card h3 {
+  min-height: 4rem;
+}
+
+.price {
+  color: var(--green);
+  font-size: 1.45rem;
+  font-weight: bold;
+}
+
+.badge {
+  display: inline-block;
+  border-radius: 999px;
+  padding: 0.2rem 0.7rem;
+  color: var(--green);
+  background: #f0df9e;
+  font-size: 0.85rem;
+  font-weight: bold;
+}
+
+.process ol {
+  padding-inline-start: 1.5rem;
+}
+
+.callout {
+  margin-bottom: 4rem;
+  border-radius: 14px;
+  padding: 2rem;
+  color: var(--white);
+  background: var(--green);
+}
+
+footer {
+  padding: 2rem 6vw;
+  color: var(--white);
+  background: #0b281e;
+}
+
+footer a {
+  color: #e5c96e;
+}
+
+.simple-header {
+  padding: 1rem 5vw;
+  background: var(--green);
+}
+
+.simple-header a {
+  color: var(--white);
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.form-shell {
+  width: min(760px, 92%);
+  margin: 3rem auto;
+}
+
+.form-card,
+.policy-page {
+  padding: clamp(1.2rem, 4vw, 3rem);
+}
+
+form {
+  display: grid;
+  gap: 1rem;
+}
+
+label {
+  display: grid;
+  gap: 0.35rem;
+  font-weight: bold;
+}
+
+input,
+select,
+textarea {
+  width: 100%;
+  border: 1px solid var(--border);
+  border-radius: 7px;
+  padding: 0.75rem;
+  background: var(--white);
+  font: inherit;
+}
+
+textarea {
+  resize: vertical;
+}
+
+.checkbox-row {
+  grid-template-columns: auto 1fr;
+  align-items: start;
+}
+
+.checkbox-row input {
+  width: auto;
+  margin-top: 0.55rem;
+}
+
+.form-result {
+  min-height: 2rem;
+  padding-top: 0.5rem;
+}
+
+.form-result.success {
+  color: var(--success);
+}
+
+.form-result.error {
+  color: var(--danger);
+}
+
+.policy-page {
+  width: min(900px, 92%);
+  margin: 3rem auto;
+}
+
+@media (max-width: 650px) {
+  .nav {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+
+  .hero-content {
+    padding-top: 3rem;
+  }
+}
