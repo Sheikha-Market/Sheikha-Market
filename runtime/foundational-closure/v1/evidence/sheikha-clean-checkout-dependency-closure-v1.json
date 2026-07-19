@@ -1,0 +1,62 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_CLEAN_CHECKOUT_DEPENDENCY_CLOSURE_V1",
+  "status": "CLEAN_CHECKOUT_DEPENDENCIES_RECONCILED_AND_VERIFIED",
+  "previousCommit": "d2ec934a2ba28f8a38d1b45b4b6f2ec649396997",
+  "reconciliationBranch": "fix/sheikha-clean-checkout-dependency-closure-v1-20260714-230401",
+  "rootCauses": [
+    {
+      "id": "SYSTEM_BUILDER_CONTRACTS_NOT_COMMITTED",
+      "effect": "Clean checkout could not load the core fabric, tool registry and capability matrix."
+    },
+    {
+      "id": "LIVE_ROUTE_FIX_NOT_COMMITTED",
+      "effect": "Committed live route did not match the existing stream contract tests."
+    }
+  ],
+  "correctiveScope": [
+    "docs/system-builder-fabric/SHEIKHA-SYSTEM-BUILDER-FABRIC-V1.md",
+    "routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes.js",
+    "runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json",
+    "runtime/live-realtime-fabric/v1/evidence/sheikha-live-abort-controller-normalization-v1.json",
+    "runtime/live-realtime-fabric/v1/evidence/sheikha-live-fast-model-runtime-resume-v2.json",
+    "runtime/live-realtime-fabric/v1/policy/sheikha-live-routing-quality-and-latency-policy-v3.json",
+    "runtime/system-builder-fabric/v1/sheikha-system-builder-capability-matrix-v1.json",
+    "runtime/system-builder-fabric/v1/sheikha-system-builder-fabric-v1.json",
+    "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json",
+    "tests/sheikha-clean-checkout-dependency-closure-v1.test.js",
+    "tests/sheikha-live-chat-abort-controller-v1.test.js",
+    "tests/sheikha-live-chat-runtime-metrics-v1.test.js",
+    "tests/sheikha-live-fast-model-inline-stream-v2.test.js"
+  ],
+  "systemBuilder": {
+    "foundationVerified": true,
+    "hierarchyPassed": true,
+    "defaultAuthorization": "DENY"
+  },
+  "liveRuntime": {
+    "deepStreamingProfileExportVerified": true,
+    "inlineStreamingContractVerified": true,
+    "abortControllerEvidenceCommitted": true,
+    "routingPolicyCommitted": true
+  },
+  "quality": {
+    "nativeLanguageTestsPassed": true,
+    "cleanCheckoutJestTestsPassed": true,
+    "lintPassed": true,
+    "gitDiffCheckPassed": true,
+    "passed": true
+  },
+  "evidenceCorrection": {
+    "previousDirtyWorktreeValidationDiscarded": false,
+    "previousValidationScopeQualified": true,
+    "cleanCheckoutValidationNowAuthoritative": true
+  },
+  "governance": {
+    "defaultExecutionAuthorization": "DENY",
+    "forcePushAllowed": false,
+    "automaticProductionDeployment": false,
+    "humanProductionApprovalRequired": true
+  },
+  "createdAt": "2026-07-14T20:04:08.260524+00:00"
+}
