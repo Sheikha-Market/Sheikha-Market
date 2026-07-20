@@ -1,0 +1,75 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIVERSAL_HARDWARE_COMPATIBILITY_FABRIC_V1",
+  "generatedAt": "2026-07-20T19:54:36.980Z",
+  "status": "ACTIVE_WITH_VERIFIED_X86_64_FOUNDATION",
+  "driverAbi": {
+    "path": "bare-metal/include/sheikha_driver_abi_v1.h",
+    "sourceVerified": true,
+    "smokeVerified": true,
+    "smokeEvidence": "runtime/bare-metal/v2/hardware-compatibility/v1/sheikha-driver-abi-v1-smoke-report.json",
+    "defaultAuthorization": "DENY",
+    "unrestrictedDeviceAccess": false
+  },
+  "coverage": {
+    "architectures": 8,
+    "targetClasses": 17,
+    "connectors": 56,
+    "operatingEnvironments": 10,
+    "emulatedVerifiedArchitectures": 1,
+    "emulatedVerifiedConnectors": 7,
+    "currentNativeVerifiedEnvironments": 2,
+    "physicalVerifiedTargets": 0,
+    "safetyCertifiedTargets": 0,
+    "defaultDenyConnectors": 56
+  },
+  "activeFoundation": {
+    "x86_64UefiQemuBoot": true,
+    "boundedSerialOutput": true,
+    "localHostedRuntime": true,
+    "currentEfiArtifact": true,
+    "currentMsiImage": true
+  },
+  "historicalEvidence": {
+    "linuxDesktopNativeVerified": true,
+    "linuxDesktopArtifactPresentNow": false,
+    "linuxDebLifecycleVerified": true,
+    "linuxDebArtifactPresentNow": false
+  },
+  "controls": {
+    "defaultAuthorization": "DENY",
+    "humanApprovalForHighImpact": true,
+    "aiMayAutonomouslyMutateFirmware": false,
+    "aiMayAutonomouslyControlVehiclesOrMachines": false,
+    "physicalMediaWriteAuthorized": false,
+    "externalNetworkDuringVerifiedBareMetalBoot": false,
+    "independentSafetyCertificationRequired": true
+  },
+  "claimBoundary": {
+    "portabilityFrameworkActive": true,
+    "runnableEverywhereToday": false,
+    "universalHardwareSupportClaimed": false,
+    "allDriversImplementedClaimed": false,
+    "allOperatingSystemsNativeVerifiedClaimed": false,
+    "physicalHardwareVerified": false,
+    "automotiveSafetyCertified": false,
+    "industrialSafetyCertified": false,
+    "semiconductorValidated": false,
+    "openEndedHardwareUniverse": true,
+    "statement": "The registry defines one governed porting and qualification path. It does not convert untested targets into support claims."
+  },
+  "outputs": {
+    "registry": "runtime/bare-metal/v2/hardware-compatibility/v1/sheikha-hardware-compatibility-registry-v1.json",
+    "qualificationMatrix": "runtime/bare-metal/v2/hardware-compatibility/v1/sheikha-hardware-qualification-matrix-v1.json",
+    "architectureGraph": "runtime/bare-metal/v2/hardware-compatibility/v1/sheikha-hardware-compatibility-graph-v1.json",
+    "roadmap": "runtime/bare-metal/v2/hardware-compatibility/v1/sheikha-hardware-porting-roadmap-v1.json",
+    "contract": "runtime/bare-metal/v2/contracts/sheikha-universal-hardware-compatibility-fabric-v1-contract.json"
+  },
+  "nextExecutableGates": [
+    "NAMED_MSI_PHYSICAL_BOOT_READ_ONLY",
+    "X86_64_ACPI_AND_PCI_READ_ONLY_DISCOVERY",
+    "NATIVE_FRAMEBUFFER_AND_HID",
+    "READ_ONLY_BLOCK_DRIVER",
+    "AARCH64_QEMU_BOOT_ARTIFACT"
+  ]
+}

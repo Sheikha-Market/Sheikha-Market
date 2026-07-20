@@ -2,47 +2,54 @@
 <html lang="ar" dir="rtl">
 <head>
   <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta
-    name="viewport"
-    content="width=device-width,initial-scale=1"
+    name="description"
+    content="منصة شيخة لبناء خطط الأنظمة المحكومة والتحقق من القدرات والعقود قبل التنفيذ."
   >
-  <title>شيخة | بناء الأنظمة بلغة شيخة</title>
-  <link
-    rel="stylesheet"
-    href="/system-builder-workbench/styles.css"
-  >
+  <title>Sheikha System Builder | بناء الأنظمة المحكومة</title>
+  <link rel="stylesheet" href="/system-builder-workbench/styles.css">
 </head>
 <body>
   <header class="topbar">
-    <div>
-      <strong>شيخة</strong>
-      <span>منصة بناء الأنظمة ولغة شيخة البرمجية</span>
-    </div>
-    <a href="/">الموقع الرئيسي</a>
+    <a class="brand" href="/" aria-label="شيخة، الصفحة الرئيسية">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة</strong><small>System Builder</small></span>
+    </a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/market/">السوق</a>
+      <a href="/riyadh-aljannah-community/">الجنات</a>
+      <a class="active" href="/system-builder-workbench/" aria-current="page">البناء</a>
+      <a href="/boot-trial/">الإقلاع</a>
+      <a href="/site-map/">الدليل</a>
+    </nav>
   </header>
 
   <main class="shell">
-    <section class="hero">
+    <section class="page-intro" aria-labelledby="page-title">
       <div>
-        <span class="eyebrow">SHEIKHA LANGUAGE · .SHK</span>
-        <h1>لغة عربية لبناء الأنظمة المحكومة</h1>
+        <p class="eyebrow">SHEIKHA SYSTEM BUILDER · .SHK</p>
+        <h1 id="page-title">بناء الأنظمة المحكومة</h1>
         <p>
-          لغة شيخة هي اللغة البرمجية الأصلية لمنصة بناء الأنظمة.
-          تمر الشفرة عبر Lexer وParser وAST والتحقق من الأنواع
-          وIR وBytecode والحوكمة قبل الوصول إلى VM أو مخرج الهدف.
+          عرّف الغرض والقدرات والقيود أولًا، ثم استخرج خطة قابلة للمراجعة.
+          إنشاء الخطة لا يمنح إذن التنفيذ أو النشر.
         </p>
       </div>
-
-      <div class="status-card">
-        <b id="platformStatus">جارٍ التحقق...</b>
-        <span>اللغة الأصلية: لغة شيخة</span>
-        <span>امتداد المصدر: .shk</span>
-        <span>التفويض الافتراضي: منع التنفيذ</span>
-        <span>VS Code وCodex: أدوات اختيارية</span>
-      </div>
+      <dl class="platform-state">
+        <div><dt>الحالة</dt><dd id="platformStatus">جارٍ التحقق</dd></div>
+        <div><dt>اللغة الأصلية</dt><dd>لغة شيخة · .shk</dd></div>
+        <div><dt>التفويض</dt><dd>DENY</dd></div>
+      </dl>
     </section>
 
-    <section class="architecture">
+    <section class="integration-rail" aria-label="تكامل منتجات شيخة">
+      <div data-product="gardens"><span>الجنات</span><strong>...</strong></div>
+      <div data-product="system-builder"><span>System Builder</span><strong>...</strong></div>
+      <div data-product="uefi"><span>UEFI</span><strong>...</strong></div>
+      <div data-product="bare-metal"><span>Bare Metal</span><strong>...</strong></div>
+    </section>
+
+    <section class="architecture" aria-label="مسار لغة شيخة">
       <span>المصدر .shk</span>
       <i>←</i>
       <span>Lexer + Parser</span>
@@ -56,51 +63,29 @@
       <span>VM + Evidence</span>
     </section>
 
-    <section class="grid">
-      <form id="blueprintForm" class="panel">
-        <div class="panel-head">
+    <section class="work-grid">
+      <form id="blueprintForm" class="work-column">
+        <div class="section-head">
           <h2>تعريف النظام</h2>
-          <p>
-            أنشئ خطة محكومة قبل كتابة الشفرة أو النشر.
-          </p>
+          <p>الحقول الأساسية لعقد الخطة قبل أي تنفيذ.</p>
         </div>
 
         <label>
           اسم النظام
-          <input
-            name="name"
-            minlength="3"
-            required
-            placeholder="نظام إدارة سلسلة الإمداد"
-          >
+          <input name="name" minlength="3" required placeholder="نظام إدارة سلسلة الإمداد">
         </label>
-
         <label>
           المسؤول
-          <input
-            name="owner"
-            minlength="3"
-            required
-            placeholder="اسم الشخص أو المؤسسة"
-          >
+          <input name="owner" minlength="3" required placeholder="اسم الشخص أو المؤسسة">
         </label>
-
         <label>
           الغرض والمنفعة
-          <textarea
-            name="purpose"
-            minlength="10"
-            required
-            placeholder="المشكلة التي يعالجها النظام والمنفعة المتوقعة"
-          ></textarea>
+          <textarea name="purpose" minlength="10" required placeholder="المشكلة التي يعالجها النظام والمنفعة المتوقعة"></textarea>
         </label>
-
         <label>
           اللغة البرمجية
           <select name="programmingLanguage">
-            <option value="sheikha">
-              لغة شيخة البرمجية (.shk)
-            </option>
+            <option value="sheikha">لغة شيخة البرمجية (.shk)</option>
             <option value="javascript">JavaScript</option>
             <option value="python">Python</option>
             <option value="php">PHP</option>
@@ -110,7 +95,6 @@
             <option value="csharp">C#</option>
           </select>
         </label>
-
         <label>
           البيئة
           <select name="targetEnvironment">
@@ -120,76 +104,56 @@
             <option value="production">الإنتاج</option>
           </select>
         </label>
-
         <label>
           القدرات المطلوبة
-          <input
-            name="capabilities"
-            required
-            placeholder="registry, governance, api, recovery"
-          >
+          <input name="capabilities" required placeholder="registry, governance, api, recovery">
         </label>
-
         <label>
           الأدوات
-          <input
-            name="tools"
-            placeholder="Sheikha VM, Node.js, PHP"
-          >
+          <input name="tools" placeholder="Sheikha VM, Node.js, PHP">
         </label>
-
         <label>
           التكاملات
-          <input
-            name="integrations"
-            placeholder="ERP, API, Connector"
-          >
+          <input name="integrations" placeholder="ERP, API, Connector">
         </label>
-
         <label>
           القيود
-          <input
-            name="constraints"
-            placeholder="privacy, no-harm, audit"
-          >
+          <input name="constraints" placeholder="privacy, no-harm, audit">
         </label>
-
         <label>
           المستفيدون
-          <input
-            name="beneficiaries"
-            placeholder="التاجر، المؤسسة، العميل"
-          >
+          <input name="beneficiaries" placeholder="التاجر، المؤسسة، العميل">
         </label>
 
-        <button type="submit">
-          إنشاء خطة بناء محكومة
-        </button>
+        <button type="submit">إنشاء خطة بناء محكومة</button>
       </form>
 
-      <section class="panel">
-        <div class="panel-head">
-          <h2>الخطة والبوابات</h2>
-          <p>
-            إنشاء الخطة لا يعني الإذن بالتنفيذ أو الإنتاج.
-          </p>
+      <section class="work-column" aria-labelledby="plan-title">
+        <div class="section-head">
+          <h2 id="plan-title">الخطة والبوابات</h2>
+          <p>الحالة الناتجة من التحقق، مع مراحل التنفيذ الممنوعة حتى اكتمال الأدلة.</p>
         </div>
-
-        <div id="summary" class="summary empty">
-          أدخل تعريف النظام.
-        </div>
-
+        <div id="summary" class="summary empty">أدخل تعريف النظام.</div>
         <div id="lifecycle" class="lifecycle"></div>
       </section>
     </section>
 
-    <section class="panel inventory-panel">
-      <div class="panel-head">
+    <section class="inventory-section">
+      <div class="section-head">
         <h2>جرد الأنظمة والمكتسبات</h2>
-        <p>مستخرج فعليًا من ملفات المستودع.</p>
+        <p>مستخرج من ملفات المستودع الحالية.</p>
       </div>
       <div id="inventory" class="inventory"></div>
     </section>
+
+    <aside class="governance-boundary">
+      <strong>بوابة المرجعية</strong>
+      <p>
+        القيم التشغيلية المعلنة هي الصدق والعدل والأمانة والوفاء بالعقود
+        والتثبت ومنع الضرر. الأحكام الشرعية لا يصدرها النظام آليًا وتحتاج
+        مراجعة بشرية مؤهلة.
+      </p>
+    </aside>
   </main>
 
   <script src="/system-builder-workbench/app.js"></script>

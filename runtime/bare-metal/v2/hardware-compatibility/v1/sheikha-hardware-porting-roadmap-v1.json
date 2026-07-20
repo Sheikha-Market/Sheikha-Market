@@ -1,0 +1,119 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_HARDWARE_PORTING_ROADMAP_V1",
+  "status": "ACTIVE_GATED_ROADMAP",
+  "rule": "Each phase closes only with architecture-specific artifacts and execution evidence.",
+  "phases": [
+    {
+      "id": "H0",
+      "title": "Portable Driver ABI and qualification gate",
+      "status": "ACTIVE_CONTRACT_VERIFIED",
+      "deliverables": [
+        "DRIVER_ABI_V1",
+        "CAPABILITY_GATE",
+        "EVIDENCE_REGISTRY"
+      ]
+    },
+    {
+      "id": "H1",
+      "title": "x86_64 physical computer foundation",
+      "status": "EMULATED_VERIFIED_PHYSICAL_PENDING",
+      "deliverables": [
+        "READ_ONLY_ACPI_AND_PCI_DISCOVERY",
+        "NATIVE_FRAMEBUFFER",
+        "HID_INPUT",
+        "READ_ONLY_NVME",
+        "NAMED_MSI_PHYSICAL_BOOT"
+      ]
+    },
+    {
+      "id": "H2",
+      "title": "ARM64 architecture and board support",
+      "status": "REGISTERED",
+      "deliverables": [
+        "AARCH64_ENTRY",
+        "PAGE_TABLES",
+        "GIC",
+        "UART",
+        "DEVICE_TREE_OR_ACPI",
+        "QEMU_BOOT"
+      ]
+    },
+    {
+      "id": "H3",
+      "title": "RISC-V and open board support",
+      "status": "REGISTERED",
+      "deliverables": [
+        "RISCV64_ENTRY",
+        "SBI",
+        "PAGE_TABLES",
+        "INTERRUPTS",
+        "DEVICE_TREE",
+        "QEMU_BOOT"
+      ]
+    },
+    {
+      "id": "H4",
+      "title": "General device subsystem",
+      "status": "REGISTERED",
+      "deliverables": [
+        "PCI_ENUMERATION",
+        "USB_HOST",
+        "BLOCK_IO",
+        "FILESYSTEM",
+        "NETWORK",
+        "POWER_RECOVERY"
+      ]
+    },
+    {
+      "id": "H5",
+      "title": "Hosted operating-system adapters",
+      "status": "LINUX_LOCAL_VERIFIED_OTHER_RUNNERS_PENDING",
+      "deliverables": [
+        "LINUX_RELEASE_REBUILD",
+        "WINDOWS_RUNNER",
+        "MACOS_RUNNER",
+        "ANDROID_RUNNER",
+        "IOS_RUNNER"
+      ]
+    },
+    {
+      "id": "H6",
+      "title": "HPC, cloud, and heterogeneous acceleration",
+      "status": "REGISTERED",
+      "deliverables": [
+        "RDMA",
+        "MESSAGE_PASSING",
+        "ACCELERATOR_ADAPTERS",
+        "SCHEDULER",
+        "SCALE_BENCHMARK",
+        "RECOVERY"
+      ]
+    },
+    {
+      "id": "H7",
+      "title": "Industrial, automotive, robotics, and medical safety",
+      "status": "REGISTERED_EXTERNAL_SAFETY_CASE_REQUIRED",
+      "deliverables": [
+        "REAL_TIME_PROFILE",
+        "FAIL_SAFE_CONTROL",
+        "PHYSICAL_TEST_CELL",
+        "INDEPENDENT_CERTIFICATION",
+        "SITE_ACCEPTANCE"
+      ]
+    },
+    {
+      "id": "H8",
+      "title": "Custom semiconductor and FPGA enablement",
+      "status": "REGISTERED_SILICON_PROGRAM_REQUIRED",
+      "deliverables": [
+        "ISA_CONTRACT",
+        "HDL_TOOLCHAIN",
+        "BSP",
+        "SIMULATION",
+        "BOARD_BRINGUP",
+        "SILICON_VALIDATION"
+      ]
+    }
+  ]
+}

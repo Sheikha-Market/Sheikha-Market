@@ -1,0 +1,102 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIVERSAL_HARDWARE_COMPATIBILITY_FABRIC_V1_CONTRACT",
+  "status": "ACTIVE_CONTRACT_ONLY",
+  "scope": "PORTABILITY_DRIVER_ABI_QUALIFICATION_AND_EVIDENCE_GOVERNANCE",
+  "defaultAuthorization": "DENY",
+  "driverAbi": {
+    "version": "1.0.0",
+    "path": "bare-metal/include/sheikha_driver_abi_v1.h",
+    "lifecycle": [
+      "REGISTER",
+      "PROBE",
+      "BIND",
+      "INITIALIZE",
+      "START",
+      "OPERATE",
+      "QUIESCE",
+      "RECOVER",
+      "HEALTH",
+      "DETACH"
+    ],
+    "dynamicMemoryRequired": false,
+    "unrestrictedHostSyscalls": false,
+    "unrestrictedDeviceAccess": false
+  },
+  "requestPipeline": [
+    "DEVICE_IDENTITY_VALIDATION",
+    "DRIVER_ABI_VALIDATION",
+    "CAPABILITY_CONTRACT",
+    "GOVERNANCE_GATE",
+    "HUMAN_APPROVAL_WHEN_REQUIRED",
+    "PLATFORM_ADAPTER",
+    "BOUNDED_DEVICE_OPERATION",
+    "AUDIT_EVIDENCE"
+  ],
+  "qualificationLevels": [
+    "REGISTERED",
+    "CONTRACT_VERIFIED",
+    "BUILD_VERIFIED",
+    "EMULATED_VERIFIED",
+    "NATIVE_VERIFIED",
+    "PHYSICAL_VERIFIED",
+    "SAFETY_CERTIFIED"
+  ],
+  "lowImpactCapabilities": [
+    "DISCOVER",
+    "READ_BOUNDED_TELEMETRY",
+    "HEALTH",
+    "QUIESCE"
+  ],
+  "highImpactCapabilities": [
+    "WRITE",
+    "DMA",
+    "NETWORK_TRANSMIT",
+    "POWER_CONTROL",
+    "PHYSICAL_ACTUATION",
+    "STORAGE_MUTATION",
+    "FIRMWARE_MUTATION",
+    "SAFETY_CONTROL"
+  ],
+  "humanApprovalRequiredFor": [
+    "PHYSICAL_MEDIA_WRITE",
+    "FIRMWARE_OR_BOOT_VARIABLE_CHANGE",
+    "VEHICLE_CONTROL",
+    "INDUSTRIAL_ACTUATION",
+    "MEDICAL_OR_LIFE_CRITICAL_ACTION",
+    "POWER_OR_THERMAL_LIMIT_CHANGE",
+    "EXTERNAL_NETWORK_ENABLEMENT"
+  ],
+  "absoluteRuntimeDenials": [
+    "AI_AUTONOMOUS_FIRMWARE_FLASH",
+    "AI_AUTONOMOUS_SAFETY_INTERLOCK_OVERRIDE",
+    "AI_AUTONOMOUS_PHYSICAL_DISK_SELECTION",
+    "UNBOUNDED_MMIO_OR_PORT_IO",
+    "UNVERIFIED_DRIVER_PROMOTION",
+    "CERTIFICATION_CLAIM_WITHOUT_EXTERNAL_EVIDENCE"
+  ],
+  "governance": {
+    "principles": [
+      "TRUTHFULNESS",
+      "AMANAH",
+      "JUSTICE",
+      "NO_HARM",
+      "FULFIL_CONTRACTS",
+      "VERIFY_BEFORE_ACTION"
+    ],
+    "aiRole": "ADVISORY_AND_TEST_ASSISTANCE_ONLY",
+    "humanAuthorityForHighImpact": true,
+    "qualifiedHumanReviewForReligiousRulings": true,
+    "automatedFatwa": false,
+    "revelationOrInfallibilityClaim": false
+  },
+  "claimBoundary": {
+    "universalHardwareSupportClaimed": false,
+    "allDriversImplementedClaimed": false,
+    "allOperatingSystemsNativeVerifiedClaimed": false,
+    "automotiveSafetyCertifiedClaimed": false,
+    "industrialSafetyCertifiedClaimed": false,
+    "semiconductorValidatedClaimed": false,
+    "openEndedUniverseAcknowledged": true
+  }
+}
