@@ -31,9 +31,10 @@
   "workstreams": [
     {
       "id": "MEMORY_AND_PAGING",
-      "status": "PHASE1_VERIFIED",
-      "completion": "X86_64_HARDWARE_PAGING_INTEGRATION_PENDING",
-      "phase1Evidence": "runtime/bare-metal/v2/evidence/sheikha-v2-memory-paging-phase1.json"
+      "status": "PHASE2A_VERIFIED",
+      "completion": "UEFI_CR3_TLB_QEMU_INTEGRATION_PENDING",
+      "phase1Evidence": "runtime/bare-metal/v2/evidence/sheikha-v2-memory-paging-phase1.json",
+      "phase2aEvidence": "runtime/bare-metal/v2/evidence/sheikha-v2-x86-64-paging-runtime-phase2a.json"
     },
     {
       "id": "INTERRUPTS_IDT_APIC",
@@ -84,7 +85,8 @@
   },
   "remainingCompletionGates": 4,
   "verifiedPhases": {
-    "MEMORY_AND_PAGING_PHASE1": true
+    "MEMORY_AND_PAGING_PHASE1": true,
+    "X86_64_PAGING_RUNTIME_PHASE2A": true
   },
-  "nextExecutionPhase": "X86_64_4_LEVEL_PAGE_TABLE_RUNTIME_AND_BOOT_INTEGRATION"
+  "nextExecutionPhase": "UEFI_BOOT_PATH_WIRING_CR3_LOAD_TLB_AND_QEMU_EVIDENCE"
 }

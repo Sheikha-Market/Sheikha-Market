@@ -1,0 +1,20 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_X86_64_PAGING_RUNTIME_PHASE2A_CONTRACT",
+  "policy": "FAIL_CLOSED",
+  "requiredArtifacts": [
+    "bare-metal/kernel/v2/include/sheikha_x86_64_paging.h",
+    "bare-metal/kernel/v2/memory/sheikha_x86_64_paging.c",
+    "bare-metal/kernel/v2/arch/x86_64/sheikha_cr3.S",
+    "bare-metal/boot/uefi/sheikha_v2_paging_boot_adapter.c",
+    "bare-metal/kernel/v2/memory/sheikha_x86_64_paging_phase2a_test.c",
+    "scripts/bare-metal/v2/build-x86-64-paging-runtime-phase2a.sh"
+  ],
+  "completion": {
+    "phase2aVerified": true,
+    "cr3LoadedAtRuntime": false,
+    "tlbInvalidationExecutedAtRuntime": false,
+    "uefiBootIntegrationComplete": false,
+    "memoryWorkstreamComplete": false
+  }
+}
