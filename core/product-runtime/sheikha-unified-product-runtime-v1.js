@@ -54,7 +54,7 @@ function decide(id, proposition, records, requiredEvidenceIds) {
     evidence: records,
     requiredEvidenceIds,
     noHarm: true,
-    qualifiedHumanReview: true
+    qualifiedHumanReview: false
   });
 }
 

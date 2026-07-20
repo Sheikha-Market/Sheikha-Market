@@ -125,13 +125,12 @@ function evaluateEvidenceDecision(input = {}) {
   } else if (contradictions.length > 0) {
     status = DECISION_STATUS.CONTRADICTED;
     blockers.push(...contradictions);
-  } else if ((highImpact || religiousRuling) && !qualifiedHumanReview) {
+  } else if (religiousRuling) {
     status = DECISION_STATUS.HUMAN_REVIEW_REQUIRED;
-    blockers.push(
-      religiousRuling
-        ? 'qualified-religious-human-review-required'
-        : 'high-impact-human-review-required'
-    );
+    blockers.push('automated-religious-ruling-denied');
+  } else if (highImpact && !qualifiedHumanReview) {
+    status = DECISION_STATUS.HUMAN_REVIEW_REQUIRED;
+    blockers.push('high-impact-human-review-required');
   } else if (
     !proposition ||
     malformedEvidenceIds.length > 0 ||

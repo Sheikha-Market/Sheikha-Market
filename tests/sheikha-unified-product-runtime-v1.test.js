@@ -53,5 +53,21 @@ describe('Sheikha Unified Product Runtime V1', () => {
       .send({ proposition: 'Unsupported claim' });
     expect(incomplete.status).toBe(422);
     expect(incomplete.body.data.authorization).toBe('DENY');
+
+    const religious = await request(app)
+      .post('/api/sheikha/product-runtime/v1/logic/evaluate')
+      .send({
+        proposition: 'Issue a religious ruling.',
+        domain: 'RELIGIOUS_RULING',
+        qualifiedHumanReview: true,
+        evidence: [{
+          id: 'reference',
+          source: 'client-asserted-reference',
+          verified: true,
+          supports: true
+        }]
+      });
+    expect(religious.status).toBe(422);
+    expect(religious.body.data.authorization).toBe('DENY');
   });
 });

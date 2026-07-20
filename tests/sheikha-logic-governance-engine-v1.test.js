@@ -108,4 +108,26 @@ describe('Sheikha Logic Governance Engine V1', () => {
     expect(result.governance.automatedFatwa).toBe(false);
     expect(result.authorization).toBe('DENY');
   });
+
+  test('never authorizes a religious ruling from a boolean assertion', () => {
+    const result = evaluateEvidenceDecision({
+      proposition: 'A religious ruling should be issued.',
+      domain: 'RELIGIOUS_RULING',
+      qualifiedHumanReview: true,
+      evidence: [{
+        id: 'reference',
+        source: 'qualified-reference-register',
+        verified: true,
+        supports: true
+      }]
+    });
+
+    expect(result.status).toBe(
+      DECISION_STATUS.HUMAN_REVIEW_REQUIRED
+    );
+    expect(result.blockers).toContain(
+      'automated-religious-ruling-denied'
+    );
+    expect(result.authorization).toBe('DENY');
+  });
 });

@@ -400,6 +400,11 @@ function generate() {
   }
   for (const [route, canonicalRoute] of Object.entries(SITE_POLICY.aliases)) {
     if (canonicalRouteSet.has(route)) continue;
+    if (!canonicalRouteSet.has(canonicalRoute)) {
+      throw new Error(
+        `Declared alias ${route} targets non-canonical route ${canonicalRoute}`
+      );
+    }
     aliasRouteMap.set(route, {
       route,
       canonicalRoute,

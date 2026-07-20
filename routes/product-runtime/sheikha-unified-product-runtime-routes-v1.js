@@ -55,7 +55,10 @@ router.get('/logic', (_req, res) => statusResponse(res, (status) => ({
 })));
 
 router.post('/logic/evaluate', (req, res) => {
-  const result = evaluateEvidenceDecision(req.body);
+  const result = evaluateEvidenceDecision({
+    ...req.body,
+    qualifiedHumanReview: false
+  });
   res.status(result.verified ? 200 : 422).json({
     ok: result.verified,
     data: result

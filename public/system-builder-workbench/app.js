@@ -1,5 +1,7 @@
 'use strict';
 
+/* global FormData */
+
 const api = '/api/sheikha-platform/v1';
 
 const productStateLabels = {
