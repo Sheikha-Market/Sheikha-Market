@@ -99,7 +99,15 @@ describe('Sheikha Native Bare-Metal Seed V1 final closure', () => {
   });
 
   test('opens V2 without false completion claims', () => {
-    expect(program.status).toBe('EXECUTION_PROGRAM_OPEN');
+    expect([
+      'EXECUTION_PROGRAM_OPEN',
+      'IMPLEMENTATION_ACTIVE'
+    ]).toContain(program.status);
+
+    if (program.status === 'IMPLEMENTATION_ACTIVE') {
+      expect(program.programOpen).toBe(true);
+      expect(program.activationBaselineClosed).toBe(true);
+    }
     expect(program.claimComplete).toBe(false);
 
     expect(

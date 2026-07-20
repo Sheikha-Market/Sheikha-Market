@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SOVEREIGN_BARE_METAL_OS_V2_COMPLETION_GATES",
+  "policy": "FAIL_CLOSED_EVIDENCE_REQUIRED",
+  "gates": [
+    {
+      "flag": "GENERAL_PURPOSE_OPERATING_SYSTEM_COMPLETE",
+      "evidence": "runtime/bare-metal/v2/evidence/general-purpose-os-complete.json",
+      "requires": ["memory_and_paging_verified","interrupts_and_apic_verified","preemptive_scheduler_verified","process_isolation_verified","userspace_verified","syscalls_verified","storage_verified","filesystem_verified","network_verified","reboot_and_recovery_verified"]
+    },
+    {
+      "flag": "ALL_DRIVERS_COMPLETE",
+      "evidence": "runtime/bare-metal/v2/evidence/all-drivers-complete.json",
+      "requires": ["hardware_scope_frozen","pci_matrix_complete","storage_matrix_complete","network_matrix_complete","display_input_matrix_complete","usb_matrix_complete","unsupported_devices_zero_within_scope"]
+    },
+    {
+      "flag": "PHYSICAL_HARDWARE_BOOT_VERIFIED",
+      "evidence": "runtime/bare-metal/v2/evidence/physical-hardware-boot-verification.json",
+      "requires": ["physical_machine_identifier","firmware_identifier","boot_log_hash","artifact_hash","cold_boot_verified","reboot_verified","operator_attestation"]
+    },
+    {
+      "flag": "SECURE_BOOT_VERIFIED",
+      "evidence": "runtime/bare-metal/v2/evidence/secure-boot-verification.json",
+      "requires": ["signed_efi_hash","certificate_fingerprint","uefi_db_enrollment_evidence","secure_boot_enabled_evidence","unsigned_image_rejected","signed_image_accepted","tpm_quote_hash"]
+    }
+  ]
+}
