@@ -29,15 +29,52 @@
     "SECURE_BOOT_VERIFIED": false
   },
   "workstreams": [
-    {"id":"MEMORY_AND_PAGING","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"INTERRUPTS_IDT_APIC","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"TIMER_AND_SCHEDULER","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"PROCESSES_AND_USERSPACE","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"SYSTEM_CALLS","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"PCI_STORAGE_FILESYSTEM","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"NETWORK_STACK","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
-    {"id":"PHYSICAL_HARDWARE_MATRIX","status":"VERIFICATION_PROGRAM_ACTIVE","completion":"PHYSICAL_EVIDENCE_REQUIRED"},
-    {"id":"SECURE_BOOT_AND_TPM","status":"VERIFICATION_PROGRAM_ACTIVE","completion":"SIGNED_BOOT_AND_ATTESTATION_REQUIRED"}
+    {
+      "id": "MEMORY_AND_PAGING",
+      "status": "PHASE1_VERIFIED",
+      "completion": "X86_64_HARDWARE_PAGING_INTEGRATION_PENDING",
+      "phase1Evidence": "runtime/bare-metal/v2/evidence/sheikha-v2-memory-paging-phase1.json"
+    },
+    {
+      "id": "INTERRUPTS_IDT_APIC",
+      "status": "FOUNDATION_IMPLEMENTED",
+      "completion": "VERIFICATION_PENDING"
+    },
+    {
+      "id": "TIMER_AND_SCHEDULER",
+      "status": "FOUNDATION_IMPLEMENTED",
+      "completion": "VERIFICATION_PENDING"
+    },
+    {
+      "id": "PROCESSES_AND_USERSPACE",
+      "status": "FOUNDATION_IMPLEMENTED",
+      "completion": "VERIFICATION_PENDING"
+    },
+    {
+      "id": "SYSTEM_CALLS",
+      "status": "FOUNDATION_IMPLEMENTED",
+      "completion": "VERIFICATION_PENDING"
+    },
+    {
+      "id": "PCI_STORAGE_FILESYSTEM",
+      "status": "FOUNDATION_IMPLEMENTED",
+      "completion": "VERIFICATION_PENDING"
+    },
+    {
+      "id": "NETWORK_STACK",
+      "status": "FOUNDATION_IMPLEMENTED",
+      "completion": "VERIFICATION_PENDING"
+    },
+    {
+      "id": "PHYSICAL_HARDWARE_MATRIX",
+      "status": "VERIFICATION_PROGRAM_ACTIVE",
+      "completion": "PHYSICAL_EVIDENCE_REQUIRED"
+    },
+    {
+      "id": "SECURE_BOOT_AND_TPM",
+      "status": "VERIFICATION_PROGRAM_ACTIVE",
+      "completion": "SIGNED_BOOT_AND_ATTESTATION_REQUIRED"
+    }
   ],
   "truthPolicy": {
     "neverSetCompletionTrueWithoutEvidence": true,
@@ -45,5 +82,9 @@
     "interfacePresenceIsNotDriverCompleteness": true,
     "secureBootCodeIsNotSecureBootVerification": true
   },
-  "remainingCompletionGates": 4
+  "remainingCompletionGates": 4,
+  "verifiedPhases": {
+    "MEMORY_AND_PAGING_PHASE1": true
+  },
+  "nextExecutionPhase": "X86_64_4_LEVEL_PAGE_TABLE_RUNTIME_AND_BOOT_INTEGRATION"
 }
