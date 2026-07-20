@@ -1,0 +1,135 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_PHYSICAL_BOOT_TRIAL_V1",
+  "generatedAt": "2026-07-20T18:47:44.623Z",
+  "status": "TRIAL_KIT_READY_REMOVABLE_MEDIA_NOT_ATTACHED",
+  "hostArchitectureCompatible": true,
+  "hostFirmwareCompatible": true,
+  "secureBootAllowsUnsignedArtifact": true,
+  "trialKitPrepared": true,
+  "removableMediaAttached": false,
+  "removableCandidatesForHumanReview": [],
+  "targetDeviceSelected": null,
+  "physicalMediaWritten": false,
+  "physicalBootExecuted": false,
+  "physicalBootVerified": false,
+  "qemuBootVerified": true,
+  "visualIndicatorImplemented": true,
+  "serialEvidenceContainsDisplayOutcome": true,
+  "artifacts": [
+    {
+      "role": "UEFI_APPLICATION",
+      "path": "bare-metal/images/v2/esp/EFI/BOOT/BOOTX64.EFI",
+      "exists": true,
+      "bytes": 11849,
+      "sha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9"
+    },
+    {
+      "role": "BOOTABLE_FAT12_IMAGE",
+      "path": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-phase2b.img",
+      "exists": true,
+      "bytes": 1474560,
+      "sha256": "2a1965845071475d36b824dad31fa08aa49b91182e7d3724779d07f342ae907c"
+    }
+  ],
+  "evidence": {
+    "phaseReport": "runtime/bare-metal/v2/sheikha-sovereign-bare-metal-os-v2-phase2b-report.json",
+    "serial": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+    "hardwarePreflight": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-host-hardware-preflight-v1.json",
+    "deviceMatrix": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-device-support-matrix-v1.json",
+    "manifest": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-physical-boot-trial-manifest-v1.json",
+    "sha256": "runtime/bare-metal/v2/physical-trial/v1/SHA256SUMS"
+  },
+  "methodologyAndAccreditation": {
+    "source": "reports/SHEIKHA-EXTERNAL-ACCREDITATION-LATEST.json",
+    "methodologyFamilyCount": 10,
+    "methodologyFamilies": [
+      {
+        "familyKey": "SCIENTIFIC",
+        "arabicName": "المنهجيات العلمية",
+        "englishName": "Scientific methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "ORGANIZATIONAL",
+        "arabicName": "المنهجيات التنظيمية",
+        "englishName": "Organizational methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "ADMINISTRATIVE",
+        "arabicName": "المنهجيات الإدارية",
+        "englishName": "Administrative methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "TECHNICAL",
+        "arabicName": "المنهجيات الفنية والتقنية",
+        "englishName": "Technical methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "ENGINEERING",
+        "arabicName": "المنهجيات الهندسية",
+        "englishName": "Engineering methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "MATHEMATICAL_ACCOUNTING",
+        "arabicName": "المنهجيات الحسابية والرياضية",
+        "englishName": "Mathematical and accounting methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "COMPUTATIONAL",
+        "arabicName": "المنهجيات الحوسبية",
+        "englishName": "Computational methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "SECURITY_GOVERNANCE",
+        "arabicName": "منهجيات الأمن والحوكمة",
+        "englishName": "Security and governance methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "QUALITY_SAFETY",
+        "arabicName": "منهجيات الجودة والسلامة",
+        "englishName": "Quality and safety methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      },
+      {
+        "familyKey": "COMMERCIAL_MARKET",
+        "arabicName": "منهجيات السوق والتجارة",
+        "englishName": "Commercial and market methodologies",
+        "status": "ACTIVE_EVIDENCE_PRESENT",
+        "maturity": "cataloged"
+      }
+    ],
+    "internalAttestationCount": 5,
+    "externalCertificatesIssued": 0,
+    "officialExternalCertificationClaimed": false,
+    "externalAuthorityApprovalRequired": true,
+    "licenseRegistry": "runtime/licensing-engine/v1/registries/licenses.json"
+  },
+  "safetyBoundary": {
+    "diskWritePerformed": false,
+    "firmwareWritePerformed": false,
+    "bootOrderModified": false,
+    "sudoUsed": false,
+    "networkUsed": false,
+    "internalDiskRejectedByDefault": true,
+    "humanApprovalRequiredBeforePhysicalWrite": true
+  },
+  "nextAction": "Attach one dedicated disposable USB device, rerun the preflight, then provide its exact device path and explicit write approval.",
+  "claimPolicy": "Physical boot remains unverified until a selected removable target is written and observed on hardware."
+}

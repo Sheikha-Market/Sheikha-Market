@@ -29,18 +29,21 @@
       "version": "GNU objdump (GNU Binutils for Ubuntu) 2.38"
     },
     "qemu-system-x86_64": {
-      "available": true,
-      "path": "/tmp/sheikha-qemu-v2-local/usr/bin/qemu-system-x86_64",
-      "version": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)"
+      "available": false,
+      "path": null,
+      "version": null
     }
   },
   "firmware": {
-    "ovmfCode": "/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_CODE_4M.fd",
-    "ovmfVars": "/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_VARS_4M.fd"
+    "ovmfCode": null,
+    "ovmfVars": null
   },
   "buildReady": true,
-  "qemuBootReady": true,
+  "qemuBootReady": false,
   "missingBuildRequirements": [],
-  "missingBootRequirements": [],
+  "missingBootRequirements": [
+    "qemu-system-x86_64",
+    "OVMF_CODE.fd"
+  ],
   "packageInstallationPerformed": false
 }

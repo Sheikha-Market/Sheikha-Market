@@ -1,0 +1,35 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_MSI_USB_BOOT_TRIAL_V1",
+  "generatedAt": "2026-07-20T18:52:22.606Z",
+  "status": "MSI_USB_IMAGE_QEMU_VERIFIED_NOT_WRITTEN",
+  "imageBuilt": true,
+  "imageStructurallyVerified": true,
+  "qemuBootExecuted": true,
+  "qemuBootVerified": true,
+  "physicalMediaWritten": false,
+  "physicalBootExecuted": false,
+  "physicalBootVerified": false,
+  "diskInstallerImplemented": false,
+  "installableToInternalDisk": false,
+  "installerUiAvailable": false,
+  "safeTrialUiAvailable": true,
+  "secureBootSigningAvailable": false,
+  "artifact": {
+    "role": "MSI_USB_GPT_IMAGE",
+    "path": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-msi-usb-gpt-v1.img",
+    "bytes": 67108864,
+    "sha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3"
+  },
+  "manifest": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-manifest.json",
+  "safetyBoundary": {
+    "usbWritePerformed": false,
+    "internalDiskWritePerformed": false,
+    "firmwareWritePerformed": false,
+    "bootOrderModified": false,
+    "humanApprovalRequiredBeforePhysicalWrite": true
+  },
+  "nextAction": "Attach a dedicated disposable USB, identify its exact device path, and provide explicit approval before running the guarded writer.",
+  "claimPolicy": "This artifact is a read-only boot trial that ends in a controlled halt; it is not an operating-system installer.",
+  "qemuEvidence": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-qemu.json"
+}

@@ -30,6 +30,10 @@ class SheikhaRuntimeKernel extends EventEmitter {
             memory: path.join(process.cwd(), 'data/memory'),
             events: path.join(process.cwd(), 'data/events')
         };
+
+        this.fallbackPaths = {
+            logs: path.join(process.cwd(), 'runtime/logs')
+        };
     }
 
     async initialize() {
@@ -54,8 +58,23 @@ class SheikhaRuntimeKernel extends EventEmitter {
     }
 
     async ensureDirectories() {
-        for (const dir of Object.values(this.paths)) {
-            fs.mkdirSync(dir, { recursive: true });
+        for (const [name, dir] of Object.entries(this.paths)) {
+            try {
+                fs.mkdirSync(dir, { recursive: true });
+            } catch (error) {
+                const canFallback = name === 'logs'
+                    && ['EACCES', 'EPERM', 'EROFS'].includes(error.code);
+
+                if (!canFallback) {
+                    throw error;
+                }
+
+                this.paths.logs = this.fallbackPaths.logs;
+                fs.mkdirSync(this.paths.logs, { recursive: true });
+                console.warn(
+                    `Runtime log directory unavailable; using ${this.paths.logs}`
+                );
+            }
         }
 
         console.log('✅ Runtime directories ready');

@@ -1,0 +1,123 @@
+{
+  "system": "SHEIKHA_SITE_ROUTE_POLICY_V2",
+  "version": "2.0.0",
+  "status": "ACTIVE",
+  "identity": {
+    "nameAr": "شيخة",
+    "nameEn": "SHEIKHA",
+    "canonicalHostname": "sheikha.top",
+    "publicAliasHostname": "www.sheikha.top",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  "primaryRoutes": {
+    "/": "public/index.html",
+    "/market/": "public/market/index.html",
+    "/register/": "public/register/index.html",
+    "/commercial/": "public/commercial/index.html",
+    "/company/": "public/company/index.html",
+    "/government/": "public/government/index.html",
+    "/identity/": "public/identity/index.html",
+    "/ide/": "public/ide/index.html",
+    "/system-builder-workbench/": "public/system-builder-workbench/index.html",
+    "/riyadh-aljannah-community/": "public/riyadh-aljannah-community/index.html",
+    "/site-map/": "public/site-map/index.html",
+    "/boot-trial/": "public/boot-trial/index.html"
+  },
+  "aliases": {
+    "/home": "/",
+    "/pages": "/site-map/",
+    "/map": "/site-map/",
+    "/map/": "/site-map/",
+    "/site-map": "/site-map/",
+    "/boot": "/boot-trial/",
+    "/bare-metal": "/boot-trial/",
+    "/bare-metal/": "/boot-trial/",
+    "/uefi": "/boot-trial/",
+    "/uefi/": "/boot-trial/",
+    "/gardens": "/riyadh-aljannah-community/",
+    "/gardens/": "/riyadh-aljannah-community/",
+    "/builder": "/system-builder-workbench/",
+    "/builder/": "/system-builder-workbench/",
+    "/system-builder": "/system-builder-workbench/",
+    "/market": "/market/",
+    "/سوق-شيخة.html": "/market/",
+    "/register": "/register/",
+    "/تسجيل-الشركات.html": "/register/",
+    "/ide": "/ide/",
+    "/sheikha-ide.html": "/ide/"
+  },
+  "productRouteFamilies": {
+    "gardens": {
+      "canonical": "/riyadh-aljannah-community/",
+      "domain": "knowledge"
+    },
+    "systemBuilder": {
+      "canonical": "/system-builder-workbench/",
+      "domain": "developer"
+    },
+    "bareMetal": {
+      "canonical": "/boot-trial/",
+      "domain": "native"
+    },
+    "uefi": {
+      "canonical": "/boot-trial/",
+      "domain": "native"
+    }
+  },
+  "protectedPageRoutes": [
+    "/لوحة-الادمن.html",
+    "/_admin/sheikha-command-center.html",
+    "/التسويق-الرقمي.html",
+    "/المواد-التسويقية.html",
+    "/marketing.html",
+    "/المخطط-الهيكلي.html",
+    "/فهرس-المنظومة.html",
+    "/خريطة-شيخة.html",
+    "/منظومة-الذكاء-والتقدم.html",
+    "/الإنتاج-المنهجي.html",
+    "/الإتقان-والتقدم.html",
+    "/التجربة-التشغيلية.html",
+    "/تجربة-المنظومة.html",
+    "/منظومة-الشبكات-والطاقة.html",
+    "/منظومة-الأرض-والسماء.html",
+    "/منظومة-الحكمة-والمنطق.html",
+    "/الهيكل-الإداري.html",
+    "/خريطة-الأهداف.html",
+    "/لوحة-المؤشرات.html",
+    "/لوحة-التحكم-الإدارية-البصرية-المتقدمة.html",
+    "/لوحة-المراقبة-والمؤشرات.html",
+    "/مركز-اللوحات-الرقمية.html",
+    "/منظومة-الرؤية-الشاملة.html",
+    "/لوحة-التنفيذ-المباشر.html",
+    "/لوحة-التحكم-العصبية.html",
+    "/لوحة-التحكم.html",
+    "/control-tower.html",
+    "/sheikha-ai-command-center.html"
+  ],
+  "protectedPrefixes": [
+    "/_admin/",
+    "/marketing/",
+    "/_engines/"
+  ],
+  "loginRequiredPageRoutes": [
+    "/لوحة-تحكم-المستخدم.html",
+    "/لوحة-الشركة.html"
+  ],
+  "governmentPageRoutes": [
+    "/لوحة-الحكومة-السعودية.html",
+    "/لوحة-الحكومات-الدولية.html",
+    "/gov-dashboard.html",
+    "/الشركات-الحكومية.html"
+  ],
+  "hiddenPrefixes": [
+    "/_archive/"
+  ],
+  "policies": {
+    "canonicalizePublicHostnameInProduction": true,
+    "preserveAliasFiles": true,
+    "excludeProtectedPagesFromPublicCatalog": true,
+    "excludeArchiveFromPublicCatalog": true,
+    "denyDeletionWithoutHumanReview": true
+  }
+}

@@ -1,0 +1,1296 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UEFI_CAPABILITY_REGISTRY_V1",
+  "status": "ACTIVE_WITH_VERIFIED_FOUNDATION_SUBSETS",
+  "specification": {
+    "name": "UEFI Specification",
+    "revision": "2.11",
+    "publisher": "UEFI Forum",
+    "reference": "https://uefi.org/specs/UEFI/2.11/"
+  },
+  "counts": {
+    "chapters": 39,
+    "appendices": 18,
+    "total": 57,
+    "fullyImplemented": 0,
+    "qemuVerifiedSubsets": 11,
+    "sourceVerifiedSubsets": 2,
+    "referenceMapped": 17,
+    "defaultDeny": 27,
+    "evidencePending": 0
+  },
+  "claimBoundary": {
+    "fullUefiImplementationClaimed": false,
+    "uefiConformanceCertified": false,
+    "physicalMsiBootVerified": false,
+    "secureBootVerified": false,
+    "nativeUsbStackImplemented": false,
+    "nativeNetworkStackImplemented": false,
+    "firmwareUpdateEnabled": false,
+    "diskWriteEnabled": false
+  },
+  "capabilities": [
+    {
+      "id": "UEFI-C01",
+      "kind": "CHAPTER",
+      "ordinal": 1,
+      "title": "Introduction",
+      "category": "SPECIFICATION_FOUNDATION",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Canonical terminology and architectural scope.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C02",
+      "kind": "CHAPTER",
+      "ordinal": 2,
+      "title": "Overview",
+      "category": "SPECIFICATION_FOUNDATION",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Canonical terminology and architectural scope.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C03",
+      "kind": "CHAPTER",
+      "ordinal": 3,
+      "title": "Boot Manager",
+      "category": "BOOT_MANAGER",
+      "provider": "PLATFORM_FIRMWARE_WITH_SHEIKHA_FALLBACK_IMAGE",
+      "responsibility": "Firmware selects the removable-media fallback path; Sheikha supplies BOOTX64.EFI.",
+      "implementationLevel": "FIRMWARE_INTEGRATED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY",
+      "evidence": [
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-manifest.json",
+          "claim": "EFI/BOOT/BOOTX64.EFI fallback path",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-report.json",
+          "claim": "Firmware boot of GPT/FAT32 image",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "No BootOrder or NVRAM variables are modified.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C04",
+      "kind": "CHAPTER",
+      "ordinal": 4,
+      "title": "EFI System Table",
+      "category": "SYSTEM_TABLE",
+      "provider": "SHEIKHA_UEFI_BOOT_APPLICATION",
+      "responsibility": "Validate table signatures, revision, size, and required pointers.",
+      "implementationLevel": "IMPLEMENTED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+          "claim": "EFI System Table implementation",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "EFI System Table QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "EFI System Table serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "Read-only table inspection; configuration tables are not modified.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C05",
+      "kind": "CHAPTER",
+      "ordinal": 5,
+      "title": "GUID Partition Table (GPT) Disk Layout",
+      "category": "STORAGE_LAYOUT",
+      "provider": "SHEIKHA_DETERMINISTIC_IMAGE_BUILDER",
+      "responsibility": "Create and verify protective MBR, primary/backup GPT, and EFI System Partition.",
+      "implementationLevel": "IMPLEMENTED_ARTIFACT_SUBSET",
+      "verificationStatus": "STRUCTURAL_AND_QEMU_VERIFIED",
+      "activation": "ACTIVE_BUILD_TIME_ONLY",
+      "evidence": [
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-manifest.json",
+          "claim": "GPT CRC and partition structure",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-report.json",
+          "claim": "GPT image QEMU boot",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "Image creation writes only a project artifact, never a physical disk.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C06",
+      "kind": "CHAPTER",
+      "ordinal": 6,
+      "title": "Block Translation Table (BTT) Layout",
+      "category": "STORAGE_LAYOUT",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C07",
+      "kind": "CHAPTER",
+      "ordinal": 7,
+      "title": "Services - Boot Services",
+      "category": "UEFI_SERVICES",
+      "provider": "PLATFORM_FIRMWARE_AND_SHEIKHA_ADAPTER",
+      "responsibility": "Consume GetMemoryMap, ExitBootServices, protocol lookup, and watchdog services.",
+      "implementationLevel": "IMPLEMENTED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+          "claim": "Services - Boot Services implementation",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "Services - Boot Services QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "Services - Boot Services serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "Boot Services are exited before native kernel control.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C08",
+      "kind": "CHAPTER",
+      "ordinal": 8,
+      "title": "Services - Runtime Services",
+      "category": "UEFI_SERVICES",
+      "provider": "PLATFORM_FIRMWARE",
+      "responsibility": "Validate presence of the Runtime Services table.",
+      "implementationLevel": "DISCOVERY_ONLY",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_DISCOVERY_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+          "claim": "Services - Runtime Services implementation",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "Services - Runtime Services QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "Services - Runtime Services serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "No Runtime Services call or NVRAM write is performed.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C09",
+      "kind": "CHAPTER",
+      "ordinal": 9,
+      "title": "Protocols - EFI Loaded Image",
+      "category": "BOOT_PROTOCOLS",
+      "provider": "PLATFORM_FIRMWARE_AND_SHEIKHA_ADAPTER",
+      "responsibility": "Discover and validate the current EFI loaded image context.",
+      "implementationLevel": "IMPLEMENTED_DISCOVERY_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+          "claim": "Protocols - EFI Loaded Image implementation",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "Protocols - EFI Loaded Image QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "Protocols - EFI Loaded Image serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "The image context is read only and is not unloaded or replaced.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C10",
+      "kind": "CHAPTER",
+      "ordinal": 10,
+      "title": "Protocols - Device Path Protocol",
+      "category": "BOOT_PROTOCOLS",
+      "provider": "PLATFORM_FIRMWARE_AND_SHEIKHA_ADAPTER",
+      "responsibility": "Discover and structurally validate the first device-path node.",
+      "implementationLevel": "IMPLEMENTED_DISCOVERY_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+          "claim": "Protocols - Device Path Protocol implementation",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "Protocols - Device Path Protocol QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "Protocols - Device Path Protocol serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "No controller connection or device-path mutation is permitted.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C11",
+      "kind": "CHAPTER",
+      "ordinal": 11,
+      "title": "Protocols - UEFI Driver Model",
+      "category": "BOOT_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C12",
+      "kind": "CHAPTER",
+      "ordinal": 12,
+      "title": "Protocols - Console Support",
+      "category": "BOOT_PROTOCOLS",
+      "provider": "PLATFORM_FIRMWARE_AND_SHEIKHA_ADAPTER",
+      "responsibility": "Render the bounded native boot status through Simple Text Output.",
+      "implementationLevel": "IMPLEMENTED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+          "claim": "Protocols - Console Support implementation",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "Protocols - Console Support QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "Protocols - Console Support serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "PHYSICAL_MSI_BOOT_EVIDENCE"
+      ],
+      "safetyBoundary": "Output only; keyboard and pointer protocols remain unconsumed.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C13",
+      "kind": "CHAPTER",
+      "ordinal": 13,
+      "title": "Protocols - Media Access",
+      "category": "BOOT_PROTOCOLS",
+      "provider": "PLATFORM_FIRMWARE_WITH_SHEIKHA_FAT32_ARTIFACT",
+      "responsibility": "Provide a firmware-readable FAT32 EFI System Partition image.",
+      "implementationLevel": "FIRMWARE_INTEGRATED_SUBSET",
+      "verificationStatus": "STRUCTURAL_AND_QEMU_VERIFIED",
+      "activation": "ACTIVE_READ_ONLY_BOOT_TRANSPORT",
+      "evidence": [
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-manifest.json",
+          "claim": "FAT32 and embedded EFI verification",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-report.json",
+          "claim": "Firmware media boot",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "NATIVE_BLOCK_IO_READ_ONLY_ADAPTER"
+      ],
+      "safetyBoundary": "No native Block I/O write path is implemented.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C14",
+      "kind": "CHAPTER",
+      "ordinal": 14,
+      "title": "Protocols - PCI Bus Support",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C15",
+      "kind": "CHAPTER",
+      "ordinal": 15,
+      "title": "Protocols - SCSI Driver Models and Bus Support",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C16",
+      "kind": "CHAPTER",
+      "ordinal": 16,
+      "title": "Protocols - iSCSI Boot",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C17",
+      "kind": "CHAPTER",
+      "ordinal": 17,
+      "title": "Protocols - USB Support",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "PLATFORM_FIRMWARE",
+      "responsibility": "Transport the fallback EFI image from removable media.",
+      "implementationLevel": "FIRMWARE_BOOT_TRANSPORT_ONLY",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "FIRMWARE_PROVIDED_ONLY",
+      "evidence": [
+        {
+          "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-report.json",
+          "claim": "Firmware removable-media boot path",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "NATIVE_USB_HOST_CONTROLLER_DRIVER",
+        "NATIVE_USB_MASS_STORAGE_DRIVER",
+        "PHYSICAL_USB_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No Sheikha-native USB stack or runtime USB control is claimed.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C18",
+      "kind": "CHAPTER",
+      "ordinal": 18,
+      "title": "Protocols - Debugger Support",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C19",
+      "kind": "CHAPTER",
+      "ordinal": 19,
+      "title": "Protocols - Compression Algorithm Specification",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C20",
+      "kind": "CHAPTER",
+      "ordinal": 20,
+      "title": "Protocols - ACPI Protocols",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C21",
+      "kind": "CHAPTER",
+      "ordinal": 21,
+      "title": "Protocols - String Services",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C22",
+      "kind": "CHAPTER",
+      "ordinal": 22,
+      "title": "EFI Byte Code Virtual Machine",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C23",
+      "kind": "CHAPTER",
+      "ordinal": 23,
+      "title": "Firmware Update and Reporting",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NONE",
+      "responsibility": "Registered high-impact firmware lifecycle capability.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "VENDOR_FIRMWARE_CONTRACT",
+        "SIGNED_CAPSULE",
+        "HUMAN_APPROVAL",
+        "RECOVERY_AND_ROLLBACK_EVIDENCE"
+      ],
+      "safetyBoundary": "Firmware update and variable writes are explicitly denied.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C24",
+      "kind": "CHAPTER",
+      "ordinal": 24,
+      "title": "Network Protocols - SNP, PXE, BIS and HTTP Boot",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C25",
+      "kind": "CHAPTER",
+      "ordinal": 25,
+      "title": "Network Protocols - Managed Network",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C26",
+      "kind": "CHAPTER",
+      "ordinal": 26,
+      "title": "Network Protocols - Bluetooth",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C27",
+      "kind": "CHAPTER",
+      "ordinal": 27,
+      "title": "Network Protocols - VLAN, EAP, Wi-Fi and Supplicant",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C28",
+      "kind": "CHAPTER",
+      "ordinal": 28,
+      "title": "Network Protocols - TCP, IP, IPsec, FTP, TLS and Configurations",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C29",
+      "kind": "CHAPTER",
+      "ordinal": 29,
+      "title": "Network Protocols - ARP, DHCP, DNS, HTTP and REST",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C30",
+      "kind": "CHAPTER",
+      "ordinal": 30,
+      "title": "Network Protocols - UDP and MTFTP",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C31",
+      "kind": "CHAPTER",
+      "ordinal": 31,
+      "title": "EFI Redfish Service Support",
+      "category": "NETWORK_AND_MANAGEMENT",
+      "provider": "NONE",
+      "responsibility": "Registered network or management protocol family.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "NATIVE_NETWORK_DRIVER",
+        "BOUNDED_NETWORK_CAPABILITY_CONTRACT",
+        "TLS_IDENTITY_AND_TRUST_POLICY",
+        "NETWORK_ISOLATION_TESTS"
+      ],
+      "safetyBoundary": "Network is disabled in the verified QEMU boot path.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C32",
+      "kind": "CHAPTER",
+      "ordinal": 32,
+      "title": "Secure Boot and Driver Signing",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NONE",
+      "responsibility": "Registered image-authentication and platform-key capability.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "REQUIRES_EXTERNAL_KEYS_AND_SIGNING",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "OWNER_CONTROLLED_SIGNING_KEY",
+        "SIGNED_EFI_ARTIFACT",
+        "PLATFORM_KEY_ENROLLMENT_APPROVAL",
+        "SECURE_BOOT_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No keys are generated, enrolled, or accessed automatically.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C33",
+      "kind": "CHAPTER",
+      "ordinal": 33,
+      "title": "Human Interface Infrastructure Overview",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C34",
+      "kind": "CHAPTER",
+      "ordinal": 34,
+      "title": "HII Protocols",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C35",
+      "kind": "CHAPTER",
+      "ordinal": 35,
+      "title": "HII Configuration Processing and Browser Protocol",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C36",
+      "kind": "CHAPTER",
+      "ordinal": 36,
+      "title": "User Identification",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C37",
+      "kind": "CHAPTER",
+      "ordinal": 37,
+      "title": "Secure Technologies",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C38",
+      "kind": "CHAPTER",
+      "ordinal": 38,
+      "title": "Confidential Computing",
+      "category": "SECURITY_AND_HUMAN_INTERFACE",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-C39",
+      "kind": "CHAPTER",
+      "ordinal": 39,
+      "title": "Miscellaneous Protocols",
+      "category": "PLATFORM_PROTOCOLS",
+      "provider": "NOT_SELECTED",
+      "responsibility": "Registered for staged implementation and verification.",
+      "implementationLevel": "REGISTERED_NOT_IMPLEMENTED",
+      "verificationStatus": "NOT_VERIFIED",
+      "activation": "REGISTERED_DEFAULT_DENY",
+      "evidence": [],
+      "nextRequirements": [
+        "CAPABILITY_CONTRACT",
+        "FREESTANDING_IMPLEMENTATION",
+        "QEMU_EVIDENCE",
+        "TARGET_HARDWARE_EVIDENCE"
+      ],
+      "safetyBoundary": "No runtime access is granted by registry presence.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-A",
+      "kind": "APPENDIX",
+      "ordinal": "A",
+      "title": "GUID and Time Formats",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "SHEIKHA_UEFI_HEADER_SUBSET",
+      "responsibility": "Represent EFI GUIDs; EFI time formats remain pending.",
+      "implementationLevel": "IMPLEMENTED_GUID_SUBSET",
+      "verificationStatus": "SOURCE_VERIFIED",
+      "activation": "ACTIVE_BUILD_TIME_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/include/sheikha_uefi.h",
+          "claim": "EFI_GUID representation",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "EFI_TIME_REPRESENTATION_AND_TESTS"
+      ],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-B",
+      "kind": "APPENDIX",
+      "ordinal": "B",
+      "title": "Console",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "PLATFORM_FIRMWARE_AND_SHEIKHA_ADAPTER",
+      "responsibility": "Use bounded text output during the native boot handoff.",
+      "implementationLevel": "IMPLEMENTED_OUTPUT_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED",
+      "activation": "ACTIVE_OUTPUT_ONLY",
+      "evidence": [
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-qemu.json",
+          "claim": "Console output QEMU marker",
+          "exists": true,
+          "verified": true
+        },
+        {
+          "path": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+          "claim": "Console output serial marker",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "CONSOLE_INPUT_TESTS"
+      ],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-C",
+      "kind": "APPENDIX",
+      "ordinal": "C",
+      "title": "Device Path Examples",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-D",
+      "kind": "APPENDIX",
+      "ordinal": "D",
+      "title": "Status Codes",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "SHEIKHA_UEFI_HEADER_SUBSET",
+      "responsibility": "Handle EFI_SUCCESS and the architecture error bit.",
+      "implementationLevel": "IMPLEMENTED_STATUS_SUBSET",
+      "verificationStatus": "SOURCE_VERIFIED",
+      "activation": "ACTIVE_BUILD_TIME_ONLY",
+      "evidence": [
+        {
+          "path": "bare-metal/include/sheikha_uefi.h",
+          "claim": "EFI status handling subset",
+          "exists": true,
+          "verified": true
+        }
+      ],
+      "nextRequirements": [
+        "COMPLETE_NAMED_STATUS_CODE_MAP"
+      ],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-E",
+      "kind": "APPENDIX",
+      "ordinal": "E",
+      "title": "Universal Network Driver Interfaces",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-F",
+      "kind": "APPENDIX",
+      "ordinal": "F",
+      "title": "Using the Simple Pointer Protocol",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-G",
+      "kind": "APPENDIX",
+      "ordinal": "G",
+      "title": "Using the EFI Extended SCSI Pass Thru Protocol",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-H",
+      "kind": "APPENDIX",
+      "ordinal": "H",
+      "title": "Compression Source Code",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-I",
+      "kind": "APPENDIX",
+      "ordinal": "I",
+      "title": "Decompression Source Code",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-J",
+      "kind": "APPENDIX",
+      "ordinal": "J",
+      "title": "EFI Byte Code Virtual Machine Opcode List",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-K",
+      "kind": "APPENDIX",
+      "ordinal": "K",
+      "title": "Alphabetic Function Lists",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-L",
+      "kind": "APPENDIX",
+      "ordinal": "L",
+      "title": "EFI 1.10 Protocol Changes",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-M",
+      "kind": "APPENDIX",
+      "ordinal": "M",
+      "title": "Formats - Language Codes and Language Code Arrays",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-N",
+      "kind": "APPENDIX",
+      "ordinal": "N",
+      "title": "Common Platform Error Record (CPER)",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-O",
+      "kind": "APPENDIX",
+      "ordinal": "O",
+      "title": "UEFI ACPI Data Table",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-P",
+      "kind": "APPENDIX",
+      "ordinal": "P",
+      "title": "Hardware Error Record Persistence Usage",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-Q",
+      "kind": "APPENDIX",
+      "ordinal": "Q",
+      "title": "References",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    },
+    {
+      "id": "UEFI-APP-R",
+      "kind": "APPENDIX",
+      "ordinal": "R",
+      "title": "Glossary",
+      "category": "SPECIFICATION_APPENDIX",
+      "provider": "UEFI_FORUM_SPECIFICATION",
+      "responsibility": "Registered reference material for implementation review.",
+      "implementationLevel": "REFERENCE_MAPPED",
+      "verificationStatus": "REFERENCE_REGISTERED",
+      "activation": "REFERENCE_ONLY",
+      "evidence": [],
+      "nextRequirements": [],
+      "safetyBoundary": "Reference mapping is not an implementation claim.",
+      "officialReference": "https://uefi.org/specs/UEFI/2.11/"
+    }
+  ]
+}

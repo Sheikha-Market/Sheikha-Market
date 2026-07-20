@@ -1013,8 +1013,8 @@
                     <span class="logo-text">SHEIKHA</span>
                 </a>
                 <div style="display:flex;align-items:center;gap:12px;">
-                    <a href="#" class="back-btn" id="topRegisterBtn" style="padding:8px 14px">تسجيل</a>
-                    <a href="#" class="back-btn" id="topLoginBtn" style="padding:8px 14px">دخول</a>
+                    <a href="#register" class="back-btn" id="topRegisterBtn" style="padding:8px 14px">تسجيل</a>
+                    <a href="#login" class="back-btn" id="topLoginBtn" style="padding:8px 14px">دخول</a>
                     <!-- محوّل اللغات -->
                     <div class="lang-switcher" id="langSwitcher">
                         <button class="lang-toggle" id="langToggle">
@@ -1262,7 +1262,7 @@
 
             <!-- Footer Link -->
             <div class="footer-link" id="footerLink">
-                <span data-i18n="noAccount">ليس لديك حساب؟</span> <a href="#" data-tab-target="register" data-i18n="signUpFree">سجّل الآن مجاناً</a>
+                <span data-i18n="noAccount">ليس لديك حساب؟</span> <a href="#register" data-tab-target="register" data-i18n="signUpFree">سجّل الآن مجاناً</a>
             </div>
 
                 <!-- Merchant CTA -->
@@ -1469,9 +1469,9 @@
             if (topRegisterBtn) topRegisterBtn.style.borderColor = (tab === 'register') ? 'var(--gold)' : 'var(--border)';
             var footerLink = document.getElementById('footerLink');
             if (tab === 'login') {
-                footerLink.innerHTML = '\u0644\u064a\u0633 \u0644\u062f\u064a\u0643 \u062d\u0633\u0627\u0628\u061f <a href="#" data-tab-target="register">\u0633\u062c\u0651\u0644 \u0627\u0644\u0622\u0646 \u0645\u062c\u0627\u0646\u0627\u064b</a>';
+                footerLink.innerHTML = '\u0644\u064a\u0633 \u0644\u062f\u064a\u0643 \u062d\u0633\u0627\u0628\u061f <a href="#register" data-tab-target="register">\u0633\u062c\u0651\u0644 \u0627\u0644\u0622\u0646 \u0645\u062c\u0627\u0646\u0627\u064b</a>';
             } else {
-                footerLink.innerHTML = '\u0644\u062f\u064a\u0643 \u062d\u0633\u0627\u0628\u061f <a href="#" data-tab-target="login">\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644</a>';
+                footerLink.innerHTML = '\u0644\u062f\u064a\u0643 \u062d\u0633\u0627\u0628\u061f <a href="#login" data-tab-target="login">\u062a\u0633\u062c\u064a\u0644 \u0627\u0644\u062f\u062e\u0648\u0644</a>';
             }
             hideMsg();
         }

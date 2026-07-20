@@ -8,6 +8,8 @@
 - CR3 read, write and read-back path linked into the EFI artifact.
 - INVLPG path linked after CR3 activation.
 - Low-address preflight for the image data, stack and page-table pool.
+- UEFI pre-exit text plus a post-handoff green GOP status bar when the
+  framebuffer is available inside the bootstrap identity window.
 - Deterministic FAT12 image with `EFI/BOOT/BOOTX64.EFI`.
 - PE32+ inspection, SHA-256 evidence and embedded marker checks.
 
@@ -20,6 +22,8 @@ SHA-256 values, so the verified status cannot be reused for a changed image.
 
 This closes Phase 2B in the emulator scope only. Physical hardware, Secure Boot,
 all drivers, and general-purpose OS completion remain unverified.
+The read-only laptop preflight and removable-media procedure are documented in
+`docs/products/SHEIKHA-V2-PHYSICAL-BOOT-TRIAL-V1.md`.
 
 ## Security boundary
 

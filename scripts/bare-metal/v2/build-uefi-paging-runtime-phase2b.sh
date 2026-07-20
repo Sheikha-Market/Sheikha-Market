@@ -54,22 +54,3 @@ printf 'FOUR_GIB_IDENTITY_MAP_MODEL_VERIFIED=true\n'
 printf 'EXPECTED_SIX_TABLE_TOPOLOGY_VERIFIED=true\n'
 printf 'CR3_AND_INVLPG_STATE_MACHINE_HOST_STUB_VERIFIED=true\n'
 printf 'PRIVILEGED_INSTRUCTIONS_EXECUTED_IN_HOST_TEST=false\n'
-
-# SHEIKHA_PHASE2B_EVIDENCE_WHITESPACE_NORMALIZATION_V4
-SHEIKHA_PHASE2B_ROOT="$(
-  cd "$(dirname "${BASH_SOURCE[0]}")/../../.." &&
-  pwd
-)"
-
-for SHEIKHA_PHASE2B_EVIDENCE_FILE in \
-  "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-cr3-disassembly.txt" \
-  "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-elf-inspection.txt"
-do
-  if [[ -f "$SHEIKHA_PHASE2B_ROOT/$SHEIKHA_PHASE2B_EVIDENCE_FILE" ]]; then
-    sed -i 's/[[:space:]]\+$//' \
-      "$SHEIKHA_PHASE2B_ROOT/$SHEIKHA_PHASE2B_EVIDENCE_FILE"
-  fi
-done
-
-unset SHEIKHA_PHASE2B_EVIDENCE_FILE
-unset SHEIKHA_PHASE2B_ROOT

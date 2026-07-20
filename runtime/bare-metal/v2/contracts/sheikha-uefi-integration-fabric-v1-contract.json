@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_UEFI_INTEGRATION_FABRIC_V1",
+  "status": "ACTIVE",
+  "purpose": "Govern the staged integration of UEFI capabilities without converting specification coverage into unsupported implementation claims.",
+  "defaultAuthorization": "DENY",
+  "approvedReadOnlyCapabilities": [
+    "VALIDATE_EFI_SYSTEM_TABLE",
+    "VALIDATE_BOOT_AND_RUNTIME_SERVICE_HEADERS",
+    "CONSUME_BOUNDED_BOOT_SERVICES",
+    "DISCOVER_LOADED_IMAGE_PROTOCOL",
+    "DISCOVER_DEVICE_PATH_PROTOCOL",
+    "DISCOVER_GRAPHICS_OUTPUT_PROTOCOL",
+    "WRITE_BOUNDED_BOOT_STATUS_TO_CONSOLE",
+    "BUILD_DETERMINISTIC_GPT_FAT32_IMAGE",
+    "BOOT_IMAGE_IN_ISOLATED_QEMU_WITH_NETWORK_DISABLED"
+  ],
+  "explicitlyDeniedCapabilities": [
+    "WRITE_PHYSICAL_DISK",
+    "MODIFY_BOOT_ORDER",
+    "WRITE_NVRAM_VARIABLES",
+    "UPDATE_FIRMWARE",
+    "ENROLL_PLATFORM_KEYS",
+    "ACCESS_SIGNING_KEYS",
+    "ENABLE_UNRESTRICTED_NETWORK",
+    "CONNECT_OR_DISCONNECT_CONTROLLERS",
+    "INSTALL_UEFI_DRIVERS",
+    "CLAIM_UEFI_CONFORMANCE_CERTIFICATION",
+    "CLAIM_PHYSICAL_MSI_VERIFICATION_WITHOUT_EVIDENCE"
+  ],
+  "highImpactHumanApprovalRequired": [
+    "PHYSICAL_MEDIA_WRITE",
+    "SECURE_BOOT_KEY_ENROLLMENT",
+    "FIRMWARE_UPDATE",
+    "NETWORK_ACTIVATION",
+    "NEW_HARDWARE_DRIVER_ACTIVATION"
+  ],
+  "governance": {
+    "truthfulClaims": true,
+    "evidenceRequired": true,
+    "preventHarm": true,
+    "contractFidelity": true,
+    "humanReviewForReligiousJudgment": true,
+    "automatedReligiousRuling": false
+  }
+}

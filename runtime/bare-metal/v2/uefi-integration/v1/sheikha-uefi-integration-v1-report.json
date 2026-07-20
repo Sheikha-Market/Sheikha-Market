@@ -1,0 +1,151 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UEFI_INTEGRATION_FABRIC_V1",
+  "status": "ACTIVE_WITH_VERIFIED_FOUNDATION_SUBSETS",
+  "specification": {
+    "name": "UEFI Specification",
+    "revision": "2.11",
+    "publisher": "UEFI Forum",
+    "reference": "https://uefi.org/specs/UEFI/2.11/"
+  },
+  "coverage": {
+    "chapters": 39,
+    "appendices": 18,
+    "total": 57,
+    "fullyImplemented": 0,
+    "qemuVerifiedSubsets": 11,
+    "sourceVerifiedSubsets": 2,
+    "referenceMapped": 17,
+    "defaultDeny": 27,
+    "evidencePending": 0
+  },
+  "activeFoundation": [
+    {
+      "id": "UEFI-C03",
+      "title": "Boot Manager",
+      "implementationLevel": "FIRMWARE_INTEGRATED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C04",
+      "title": "EFI System Table",
+      "implementationLevel": "IMPLEMENTED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C05",
+      "title": "GUID Partition Table (GPT) Disk Layout",
+      "implementationLevel": "IMPLEMENTED_ARTIFACT_SUBSET",
+      "verificationStatus": "STRUCTURAL_AND_QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C07",
+      "title": "Services - Boot Services",
+      "implementationLevel": "IMPLEMENTED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C08",
+      "title": "Services - Runtime Services",
+      "implementationLevel": "DISCOVERY_ONLY",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C09",
+      "title": "Protocols - EFI Loaded Image",
+      "implementationLevel": "IMPLEMENTED_DISCOVERY_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C10",
+      "title": "Protocols - Device Path Protocol",
+      "implementationLevel": "IMPLEMENTED_DISCOVERY_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C12",
+      "title": "Protocols - Console Support",
+      "implementationLevel": "IMPLEMENTED_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-C13",
+      "title": "Protocols - Media Access",
+      "implementationLevel": "FIRMWARE_INTEGRATED_SUBSET",
+      "verificationStatus": "STRUCTURAL_AND_QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-APP-A",
+      "title": "GUID and Time Formats",
+      "implementationLevel": "IMPLEMENTED_GUID_SUBSET",
+      "verificationStatus": "SOURCE_VERIFIED"
+    },
+    {
+      "id": "UEFI-APP-B",
+      "title": "Console",
+      "implementationLevel": "IMPLEMENTED_OUTPUT_SUBSET",
+      "verificationStatus": "QEMU_VERIFIED"
+    },
+    {
+      "id": "UEFI-APP-D",
+      "title": "Status Codes",
+      "implementationLevel": "IMPLEMENTED_STATUS_SUBSET",
+      "verificationStatus": "SOURCE_VERIFIED"
+    }
+  ],
+  "controls": {
+    "defaultAuthorization": "DENY",
+    "physicalDiskWrite": "DENY",
+    "nvramMutation": "DENY",
+    "firmwareUpdate": "DENY",
+    "networkDuringVerifiedBoot": "DENY",
+    "unsignedSecureBootClaim": "DENY",
+    "automatedKeyEnrollment": "DENY",
+    "automatedReligiousRuling": "DENY",
+    "highImpactHumanApproval": "REQUIRED"
+  },
+  "roadmap": [
+    {
+      "stage": "U0",
+      "title": "Verified UEFI foundation",
+      "status": "ACTIVE_WITH_VERIFIED_FOUNDATION_SUBSETS"
+    },
+    {
+      "stage": "U1",
+      "title": "Read-only Block I/O and filesystem inspection",
+      "status": "PLANNED_DEFAULT_DENY"
+    },
+    {
+      "stage": "U2",
+      "title": "ACPI and PCI read-only enumeration",
+      "status": "PLANNED_DEFAULT_DENY"
+    },
+    {
+      "stage": "U3",
+      "title": "Native input and bounded HII",
+      "status": "PLANNED_DEFAULT_DENY"
+    },
+    {
+      "stage": "U4",
+      "title": "Owner-controlled Secure Boot signing",
+      "status": "REQUIRES_KEYS_SIGNING_AND_HARDWARE"
+    },
+    {
+      "stage": "U5",
+      "title": "Opt-in isolated native network stack",
+      "status": "REQUIRES_DRIVERS_TLS_AND_ISOLATION"
+    },
+    {
+      "stage": "U6",
+      "title": "Firmware lifecycle",
+      "status": "SEPARATE_HIGH_IMPACT_APPROVAL_REQUIRED"
+    }
+  ],
+  "artifacts": {
+    "registry": "runtime/bare-metal/v2/uefi-integration/v1/sheikha-uefi-capability-registry-v1.json",
+    "architectureGraph": "runtime/bare-metal/v2/uefi-integration/v1/sheikha-uefi-architecture-graph-v1.json",
+    "contract": "runtime/bare-metal/v2/contracts/sheikha-uefi-integration-fabric-v1-contract.json"
+  },
+  "graphNodeCount": 8,
+  "claimPolicy": "Registration is not implementation. Verification requires local source plus artifact or runtime evidence."
+}

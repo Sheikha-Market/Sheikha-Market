@@ -1,0 +1,86 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UEFI_ARCHITECTURE_GRAPH_V1",
+  "status": "ACTIVE_GOVERNED_GRAPH",
+  "nodes": [
+    {
+      "id": "PLATFORM_FIRMWARE",
+      "type": "FIRMWARE",
+      "state": "EXTERNAL"
+    },
+    {
+      "id": "UEFI_BOOT_MANAGER",
+      "type": "FIRMWARE_SERVICE",
+      "state": "USED"
+    },
+    {
+      "id": "GPT_ESP_FAT32",
+      "type": "BOOT_ARTIFACT",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "BOOTX64_EFI",
+      "type": "EFI_APPLICATION",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "UEFI_CAPABILITY_GATE",
+      "type": "GOVERNANCE_GATE",
+      "state": "ACTIVE"
+    },
+    {
+      "id": "BOOT_SERVICES_HANDOFF",
+      "type": "HANDOFF",
+      "state": "VERIFIED"
+    },
+    {
+      "id": "SHEIKHA_NATIVE_KERNEL_V2",
+      "type": "NATIVE_KERNEL",
+      "state": "CONTROLLED_HALT"
+    },
+    {
+      "id": "DEFAULT_DENY_BOUNDARY",
+      "type": "SECURITY_BOUNDARY",
+      "state": "ACTIVE"
+    }
+  ],
+  "edges": [
+    {
+      "from": "PLATFORM_FIRMWARE",
+      "to": "UEFI_BOOT_MANAGER",
+      "relation": "PROVIDES"
+    },
+    {
+      "from": "UEFI_BOOT_MANAGER",
+      "to": "GPT_ESP_FAT32",
+      "relation": "DISCOVERS"
+    },
+    {
+      "from": "GPT_ESP_FAT32",
+      "to": "BOOTX64_EFI",
+      "relation": "CONTAINS"
+    },
+    {
+      "from": "BOOTX64_EFI",
+      "to": "UEFI_CAPABILITY_GATE",
+      "relation": "ENTERS"
+    },
+    {
+      "from": "UEFI_CAPABILITY_GATE",
+      "to": "BOOT_SERVICES_HANDOFF",
+      "relation": "AUTHORIZES_SUBSET"
+    },
+    {
+      "from": "BOOT_SERVICES_HANDOFF",
+      "to": "SHEIKHA_NATIVE_KERNEL_V2",
+      "relation": "TRANSFERS_CONTROL"
+    },
+    {
+      "from": "DEFAULT_DENY_BOUNDARY",
+      "to": "UEFI_CAPABILITY_GATE",
+      "relation": "GOVERNS"
+    }
+  ],
+  "capabilityRegistry": "runtime/bare-metal/v2/uefi-integration/v1/sheikha-uefi-capability-registry-v1.json",
+  "registeredCapabilityCount": 57
+}

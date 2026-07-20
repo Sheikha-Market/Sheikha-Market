@@ -8,9 +8,9 @@ ELF Header:
   Type:                              EXEC (Executable file)
   Machine:                           Advanced Micro Devices X86-64
   Version:                           0x1
-  Entry point address:               0x401d70
+  Entry point address:               0x401fa0
   Start of program headers:          64 (bytes into file)
-  Start of section headers:          15192 (bytes into file)
+  Start of section headers:          16496 (bytes into file)
   Flags:                             0x0
   Size of this header:               64 (bytes)
   Size of program headers:           56 (bytes)
@@ -21,7 +21,7 @@ ELF Header:
 
 
 Elf file type is EXEC (Executable file)
-Entry point 0x401d70
+Entry point 0x401fa0
 There are 5 program headers, starting at offset 64
 
 Program Headers:
@@ -30,9 +30,9 @@ Program Headers:
   LOAD           0x0000000000000000 0x0000000000400000 0x0000000000400000
                  0x0000000000000158 0x0000000000000158  R      0x1000
   LOAD           0x0000000000001000 0x0000000000401000 0x0000000000401000
-                 0x00000000000010cc 0x00000000000010cc  R E    0x1000
+                 0x0000000000001644 0x0000000000001644  R E    0x1000
   LOAD           0x0000000000003000 0x0000000000403000 0x0000000000403000
-                 0x000000000000049a 0x000000000000049a  R      0x1000
+                 0x00000000000008c0 0x00000000000008c0  R      0x1000
   LOAD           0x0000000000000000 0x0000000000405000 0x0000000000405000
                  0x0000000000000000 0x0000000000029000  RW     0x1000
   GNU_STACK      0x0000000000000000 0x0000000000000000 0x0000000000000000
@@ -46,7 +46,7 @@ Program Headers:
    03     .bss
    04
 
-There are 8 section headers, starting at offset 0x3b58:
+There are 8 section headers, starting at offset 0x4070:
 
 Section Headers:
   [Nr] Name              Type             Address           Offset
@@ -54,18 +54,18 @@ Section Headers:
   [ 0]                   NULL             0000000000000000  00000000
        0000000000000000  0000000000000000           0     0     0
   [ 1] .text             PROGBITS         0000000000401000  00001000
-       00000000000010cc  0000000000000000  AX       0     0     16
+       0000000000001644  0000000000000000  AX       0     0     16
   [ 2] .rodata           PROGBITS         0000000000403000  00003000
-       000000000000049a  0000000000000000   A       0     0     8
+       00000000000008c0  0000000000000000   A       0     0     16
   [ 3] .bss              NOBITS           0000000000405000  00004000
        0000000000029000  0000000000000000  WA       0     0     4096
-  [ 4] .comment          PROGBITS         0000000000000000  0000349a
+  [ 4] .comment          PROGBITS         0000000000000000  000038c0
        000000000000002d  0000000000000001  MS       0     0     1
-  [ 5] .symtab           SYMTAB           0000000000000000  000034c8
-       0000000000000330  0000000000000018           6     7     8
-  [ 6] .strtab           STRTAB           0000000000000000  000037f8
-       0000000000000326  0000000000000000           0     0     1
-  [ 7] .shstrtab         STRTAB           0000000000000000  00003b1e
+  [ 5] .symtab           SYMTAB           0000000000000000  000038f0
+       00000000000003a8  0000000000000018           6    12     8
+  [ 6] .strtab           STRTAB           0000000000000000  00003c98
+       000000000000039d  0000000000000000           0     0     1
+  [ 7] .shstrtab         STRTAB           0000000000000000  00004035
        0000000000000037  0000000000000000           0     0     1
 Key to Flags:
   W (write), A (alloc), X (execute), M (merge), S (strings), I (info),
