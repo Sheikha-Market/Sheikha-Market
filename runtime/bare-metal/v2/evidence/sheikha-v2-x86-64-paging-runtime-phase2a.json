@@ -1,0 +1,31 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_X86_64_PAGING_RUNTIME_PHASE2A",
+  "status": "PHASE2A_VERIFIED",
+  "verified": true,
+  "scope": {
+    "pml4Indexing": true,
+    "pdptIndexing": true,
+    "pageDirectoryIndexing": true,
+    "pageTableIndexing": true,
+    "canonicalAddressValidation": true,
+    "fourLevelTableAllocation": true,
+    "fourKilobyteMapping": true,
+    "translation": true,
+    "unmap": true,
+    "duplicateMappingProtection": true,
+    "cr3ReadInterfaceCompiled": true,
+    "cr3WriteInterfaceCompiled": true,
+    "invlpgInterfaceCompiled": true,
+    "uefiPagingBootAdapterCompiled": true
+  },
+  "truthBoundary": {
+    "cr3LoadedAtRuntime": false,
+    "invlpgExecutedAtRuntime": false,
+    "uefiBootPathWired": false,
+    "qemuBootWithNewPageTablesVerified": false,
+    "physicalHardwareVerified": false,
+    "generalPurposeOperatingSystemComplete": false
+  },
+  "nextPhase": "UEFI_BOOT_PATH_WIRING_CR3_LOAD_TLB_AND_QEMU_EVIDENCE"
+}
