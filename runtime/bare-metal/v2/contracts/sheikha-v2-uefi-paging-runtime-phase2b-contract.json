@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_UEFI_PAGING_RUNTIME_PHASE2B_CONTRACT",
+  "policy": "FAIL_CLOSED_EVIDENCE_REQUIRED",
+  "purpose": "Wire a dedicated V2 UEFI artifact to a four-level x86_64 bootstrap page table, load CR3, execute INVLPG, and prove the path in QEMU serial evidence.",
+  "requiredArtifacts": [
+    "bare-metal/boot/uefi/sheikha_v2_paging_boot_adapter.h",
+    "bare-metal/boot/uefi/sheikha_v2_paging_boot_adapter.c",
+    "bare-metal/boot/uefi/sheikha_v2_uefi_entry.c",
+    "bare-metal/kernel/v2/include/sheikha_v2_kernel_entry.h",
+    "bare-metal/kernel/v2/entry/sheikha_v2_kernel_entry.c",
+    "bare-metal/kernel/v2/memory/sheikha_x86_64_paging_phase2b_test.c",
+    "bare-metal/kernel/sheikha_native_v2_seed.c",
+    "bare-metal/build/sheikha-bare-metal-v2-phase2b.js",
+    "scripts/bare-metal/v2/build-uefi-paging-runtime-phase2b.sh"
+  ],
+  "requiredRuntimeMarkers": [
+    "SHEIKHA_V2_PAGING_PREPARED",
+    "SHEIKHA_V2_CR3_LOAD_OK",
+    "SHEIKHA_V2_INVLPG_OK",
+    "SHEIKHA_V2_PAGING_BOOT_OK",
+    "SHEIKHA_BARE_METAL_BOOT_OK",
+    "boot_services=EXITED"
+  ],
+  "criticalBootPolicy": {
+    "aiControl": "DENY",
+    "systemBuilderControl": "DENY",
+    "jannatGardensControl": "DENY",
+    "networkRequired": false,
+    "hostRuntimeRequired": false,
+    "defaultAuthorization": "DENY"
+  },
+  "completionRule": {
+    "efiArtifactBuilt": true,
+    "qemuBootRequired": true,
+    "allRuntimeMarkersRequired": true,
+    "phase2bCompletionWithoutSerialEvidence": false
+  },
+  "truthBoundary": {
+    "qemuEvidenceIsPhysicalHardwareEvidence": false,
+    "phase2bIsGeneralPurposeOsCompletion": false,
+    "phase2bIsAllDriversCompletion": false,
+    "phase2bIsSecureBootVerification": false
+  }
+}

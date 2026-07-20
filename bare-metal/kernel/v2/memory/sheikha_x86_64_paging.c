@@ -12,6 +12,12 @@ static bool aligned_4k(uint64_t address) {
   ) == 0ULL;
 }
 
+static bool aligned_2m(uint64_t address) {
+  return (
+    address & (SHEIKHA_X86_64_PAGE_2M_SIZE - 1ULL)
+  ) == 0ULL;
+}
+
 static uint64_t table_physical(
   const sheikha_x86_64_page_table_pool_t *pool,
   size_t table_index
@@ -326,6 +332,91 @@ int sheikha_x86_64_map_4k(
   return SHEIKHA_X86_64_PAGING_OK;
 }
 
+int sheikha_x86_64_map_2m(
+  sheikha_x86_64_page_table_pool_t *pool,
+  uint64_t virtual_address,
+  uint64_t physical_address,
+  uint64_t leaf_flags
+) {
+  if (
+    pool == NULL ||
+    pool->tables == NULL ||
+    !sheikha_x86_64_is_canonical(
+      virtual_address
+    ) ||
+    !aligned_2m(virtual_address) ||
+    !aligned_2m(physical_address)
+  ) {
+    return SHEIKHA_X86_64_PAGING_INVALID_ARGUMENT;
+  }
+
+  uint64_t intermediate_flags =
+    SHEIKHA_X86_64_PAGE_WRITABLE;
+
+  if (
+    (
+      leaf_flags &
+      SHEIKHA_X86_64_PAGE_USER
+    ) != 0ULL
+  ) {
+    intermediate_flags |=
+      SHEIKHA_X86_64_PAGE_USER;
+  }
+
+  size_t pdpt = 0U;
+  size_t pd = 0U;
+
+  int result = get_or_create_child(
+    pool,
+    0U,
+    sheikha_x86_64_pml4_index(
+      virtual_address
+    ),
+    intermediate_flags,
+    &pdpt
+  );
+
+  if (result != SHEIKHA_X86_64_PAGING_OK) {
+    return result;
+  }
+
+  result = get_or_create_child(
+    pool,
+    pdpt,
+    sheikha_x86_64_pdpt_index(
+      virtual_address
+    ),
+    intermediate_flags,
+    &pd
+  );
+
+  if (result != SHEIKHA_X86_64_PAGING_OK) {
+    return result;
+  }
+
+  uint64_t *leaf =
+    &pool->tables[pd].entries[
+      sheikha_x86_64_pd_index(
+        virtual_address
+      )
+    ];
+
+  if ((*leaf & SHEIKHA_X86_64_PAGE_PRESENT) != 0ULL) {
+    return SHEIKHA_X86_64_PAGING_ALREADY_MAPPED;
+  }
+
+  *leaf =
+    (
+      physical_address &
+      SHEIKHA_X86_64_2M_ADDRESS_MASK
+    ) |
+    leaf_flags |
+    SHEIKHA_X86_64_PAGE_HUGE |
+    SHEIKHA_X86_64_PAGE_PRESENT;
+
+  return SHEIKHA_X86_64_PAGING_OK;
+}
+
 int sheikha_x86_64_translate(
   const sheikha_x86_64_page_table_pool_t *pool,
   uint64_t virtual_address,
@@ -369,11 +460,34 @@ int sheikha_x86_64_translate(
 
     if (
       (entry & SHEIKHA_X86_64_PAGE_PRESENT) ==
-        0ULL ||
-      (entry & SHEIKHA_X86_64_PAGE_HUGE) !=
         0ULL
     ) {
       return SHEIKHA_X86_64_PAGING_NOT_MAPPED;
+    }
+
+    if (
+      (entry & SHEIKHA_X86_64_PAGE_HUGE) !=
+        0ULL
+    ) {
+      if (level != 2U) {
+        return SHEIKHA_X86_64_PAGING_NOT_MAPPED;
+      }
+
+      *physical_address =
+        (
+          entry &
+          SHEIKHA_X86_64_2M_ADDRESS_MASK
+        ) |
+        (
+          virtual_address &
+          (SHEIKHA_X86_64_PAGE_2M_SIZE - 1ULL)
+        );
+
+      *leaf_flags =
+        entry &
+        ~SHEIKHA_X86_64_2M_ADDRESS_MASK;
+
+      return SHEIKHA_X86_64_PAGING_OK;
     }
 
     const int result =
@@ -461,6 +575,13 @@ int sheikha_x86_64_unmap_4k(
         0ULL
     ) {
       return SHEIKHA_X86_64_PAGING_NOT_MAPPED;
+    }
+
+    if (
+      (entry & SHEIKHA_X86_64_PAGE_HUGE) !=
+        0ULL
+    ) {
+      return SHEIKHA_X86_64_PAGING_INVALID_ARGUMENT;
     }
 
     const int result =

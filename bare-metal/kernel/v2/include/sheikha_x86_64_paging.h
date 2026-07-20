@@ -6,8 +6,10 @@
 #include <stdint.h>
 
 #define SHEIKHA_X86_64_PAGE_SIZE 4096ULL
+#define SHEIKHA_X86_64_PAGE_2M_SIZE (1ULL << 21)
 #define SHEIKHA_X86_64_TABLE_ENTRIES 512ULL
 #define SHEIKHA_X86_64_ADDRESS_MASK 0x000ffffffffff000ULL
+#define SHEIKHA_X86_64_2M_ADDRESS_MASK 0x000fffffffe00000ULL
 
 #define SHEIKHA_X86_64_PAGE_PRESENT (1ULL << 0)
 #define SHEIKHA_X86_64_PAGE_WRITABLE (1ULL << 1)
@@ -57,6 +59,13 @@ uint64_t sheikha_x86_64_root_physical(
 );
 
 int sheikha_x86_64_map_4k(
+  sheikha_x86_64_page_table_pool_t *pool,
+  uint64_t virtual_address,
+  uint64_t physical_address,
+  uint64_t leaf_flags
+);
+
+int sheikha_x86_64_map_2m(
   sheikha_x86_64_page_table_pool_t *pool,
   uint64_t virtual_address,
   uint64_t physical_address,

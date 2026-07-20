@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_PHASE2B_QEMU_BOOT",
+  "status": "VERIFIED",
+  "executed": true,
+  "durationMs": 15023,
+  "timedOutAfterControlledHalt": true,
+  "exitStatus": 0,
+  "signal": null,
+  "error": {
+    "code": "ETIMEDOUT",
+    "message": "spawnSync /tmp/sheikha-qemu-v2-local/usr/bin/qemu-system-x86_64 ETIMEDOUT"
+  },
+  "markerVerified": true,
+  "markerChecks": {
+    "SHEIKHA_V2_PAGING_PREPARED": true,
+    "SHEIKHA_V2_CR3_LOAD_OK": true,
+    "SHEIKHA_V2_INVLPG_OK": true,
+    "SHEIKHA_V2_PAGING_BOOT_OK": true,
+    "SHEIKHA_BARE_METAL_BOOT_OK": true,
+    "boot_services=EXITED": true
+  },
+  "artifactSha256": "6aa84ac3825ceffd53cf75b2bba310ade818b1fba4f664cd61d2f9a4822da43a",
+  "imageSha256": "8abe850d0e77e78c471494d1d843b5b51eab5cfb3ce0251ef658faaba631fa3e",
+  "executionSubstrate": {
+    "accelerator": "tcg",
+    "networkEnabled": false,
+    "qemuVersion": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)",
+    "qemuSha256": "55862c768c21fa7d3e72ca1b24797d8ab5b406eb5ef4c9ab9c2280f4e0b8f330",
+    "ovmfCodeSha256": "79809fbf9a39943c576a072df411d3393eb54e9b53dece84ba66c50b4de3d34d",
+    "ovmfVarsSha256": "5d2ac383371b408398accee7ec27c8c09ea5b74a0de0ceea6513388b15be5d1e",
+    "systemPackageInstallationPerformed": false
+  },
+  "command": "'/tmp/sheikha-qemu-v2-local/usr/bin/qemu-system-x86_64' '-machine' 'q35,accel=tcg' '-cpu' 'qemu64' '-m' '128M' '-display' 'none' '-vga' 'none' '-monitor' 'none' '-serial' 'stdio' '-net' 'none' '-no-reboot' '-no-shutdown' '-L' '/tmp/sheikha-qemu-v2-local/usr/share/qemu' '-drive' 'if=pflash,format=raw,unit=0,readonly=on,file=/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_CODE_4M.fd' '-drive' 'if=pflash,format=raw,unit=1,file=/home/sheikha/Projects/sheikha/sheikha-main-portal/bare-metal/kernel/v2/build/uefi-paging-runtime-phase2b/OVMF_VARS.runtime.fd' '-drive' 'if=ide,format=raw,file=/home/sheikha/Projects/sheikha/sheikha-main-portal/bare-metal/kernel/v2/build/uefi-paging-runtime-phase2b/phase2b.runtime.img'",
+  "environment": {
+    "qemuDataDir": "/tmp/sheikha-qemu-v2-local/usr/share/qemu",
+    "qemuModuleDir": "/tmp/sheikha-qemu-v2-local/usr/lib/x86_64-linux-gnu/qemu",
+    "localLibraryPathConfigured": true
+  },
+  "firmware": {
+    "ovmfCode": "/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_CODE_4M.fd",
+    "ovmfVars": "/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_VARS_4M.fd"
+  },
+  "image": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-phase2b.img",
+  "serialEvidence": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log",
+  "missingRequirements": []
+}
