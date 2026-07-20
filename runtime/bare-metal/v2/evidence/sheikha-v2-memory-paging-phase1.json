@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_MEMORY_AND_PAGING_PHASE1",
+  "status": "PHASE1_VERIFIED",
+  "verified": true,
+  "scope": {
+    "frameAllocator": true,
+    "reservedFrameRanges": true,
+    "frameAllocationAndRelease": true,
+    "pageMappingModel": true,
+    "duplicateMappingProtection": true,
+    "virtualToPhysicalTranslation": true,
+    "pageUnmap": true,
+    "noExecuteFlagContract": true
+  },
+  "truthBoundary": {
+    "realX8664PageTablesInstalled": false,
+    "cr3Loaded": false,
+    "tlbInvalidationExecuted": false,
+    "physicalHardwareVerified": false,
+    "generalPurposeOperatingSystemComplete": false
+  },
+  "nextPhase": "X86_64_4_LEVEL_PAGE_TABLE_RUNTIME_AND_BOOT_INTEGRATION"
+}
