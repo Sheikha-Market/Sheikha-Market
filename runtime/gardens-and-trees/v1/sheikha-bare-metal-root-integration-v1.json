@@ -1,0 +1,48 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_BARE_METAL_ROOT_INTEGRATION_V1",
+  "status": "INTEGRATION_VERIFIED",
+  "integrationReady": true,
+  "layers": [
+    {
+      "id": "BARE_METAL_ROOT",
+      "status": "READY_SEED_SCOPE"
+    },
+    {
+      "id": "SYSTEM_BUILDER_PLATFORM",
+      "status": "CANONICAL_AVAILABLE",
+      "route": "/api/system-builder-platform/v1"
+    },
+    {
+      "id": "ROOT_NEURAL_AND_AI",
+      "status": "PRESENT",
+      "evidencePath": "core/kernel/hardware-inspired/sheikha-ai-computer-architecture.js"
+    },
+    {
+      "id": "ENTERPRISE_INSPECTOR",
+      "status": "PRESENT",
+      "evidencePath": "core/enterprise/sheikha-enterprise-inspector-v3.js"
+    },
+    {
+      "id": "MASTER_LOG",
+      "status": "PRESENT",
+      "evidencePath": "runtime/master-log/sheikha-master-log-v1.js"
+    },
+    {
+      "id": "RECOVERY_AND_SELF_HEALING",
+      "status": "PRESENT",
+      "evidencePath": "core/runtime/recovery-engine/sheikha-runtime-recovery-engine.js"
+    },
+    {
+      "id": "STUDIO_IDE_WORKBENCH",
+      "status": "PRESENT",
+      "route": "/system-builder-workbench"
+    }
+  ],
+  "criticalBootBoundary": {
+    "aiInsideBootCriticalPath": false,
+    "systemBuilderInsideBootCriticalPath": false,
+    "governanceAppliedAboveNativeRuntime": true
+  },
+  "verifiedAt": "2026-07-20T00:43:06.614305+00:00"
+}

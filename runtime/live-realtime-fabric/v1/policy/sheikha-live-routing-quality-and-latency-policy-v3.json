@@ -1,0 +1,66 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LIVE_ROUTING_QUALITY_AND_LATENCY_POLICY_V3",
+  "status": "ACTIVE_TRUTHFUL_LIMITED_ADMISSION",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "routing": {
+    "arabicLightweightLane": "tinyllama:latest",
+    "codingLane": "qwen2.5-coder:7b",
+    "generalLane": "Sheikha-Core:latest",
+    "deepExtensionLane": "Sheikha-Core:latest",
+    "deepExtensionRequiredChannel": "extension-chat",
+    "fastArabicGateRequiresArabicInput": true
+  },
+  "latencyPolicy": {
+    "firstTokenTargetPurpose": "MODEL_WAIT_PROGRESS_THRESHOLD",
+    "firstTokenTargetIsSla": false,
+    "coldStartFirstTokenSlaMs": null,
+    "observedCpuFirstTokenMinimumMs": 131,
+    "observedCpuFirstTokenMaximumMs": 27729,
+    "consistentColdStartCertification": false,
+    "modelWaitRequiredAfterThreshold": true,
+    "measureAndReportRequired": true
+  },
+  "qualityPolicy": {
+    "transportStreamingVerified": true,
+    "tinyLlamaInstructionComplianceCertified": false,
+    "codingInstructionModel": "qwen2.5-coder:7b",
+    "exactOutputContractSupported": true,
+    "exactOutputRuntimeVerificationRequired": true,
+    "arabicAnswerQualityCertification": false
+  },
+  "admission": {
+    "staticPolicyAdmission": true,
+    "runtimeCommitAdmission": false,
+    "runtimeCommitBlockers": [
+      "QWEN_EXACT_OUTPUT_RUNTIME_VERIFICATION",
+      "SHEIKHA_CORE_DEEP_EXTENSION_ROUTING_VERIFICATION",
+      "MODEL_WAIT_THRESHOLD_SEMANTICS_VERIFICATION"
+    ],
+    "performanceCertification": false
+  },
+  "files": {
+    "route": "routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes.js",
+    "runtime": "runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1.js"
+  },
+  "governance": {
+    "defaultAuthorization": "DENY",
+    "noFalseLatencyClaim": true,
+    "noFalseQualityClaim": true,
+    "noCannedFinalAnswer": true,
+    "qualifiedHumanReviewForReligiousJudgment": true
+  },
+  "execution": {
+    "pm2Restarted": false,
+    "modelRequestExecuted": false,
+    "rpmRebuilt": false,
+    "networkExternalUsed": false,
+    "hostInstalled": false,
+    "sudoUsed": false,
+    "gitStaged": false,
+    "gitCommitted": false,
+    "gitTagged": false,
+    "gitPushed": false
+  },
+  "createdAt": "2026-07-14T16:18:10.389525+00:00"
+}

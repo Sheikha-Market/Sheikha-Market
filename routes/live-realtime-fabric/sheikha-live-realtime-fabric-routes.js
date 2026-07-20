@@ -287,3 +287,46 @@ router.__test = {
 };
 
 module.exports = router;
+
+/*
+ * Sheikha Clean Checkout nested canonical export bridge.
+ * Canonical source: afd0638146da8e536aa279fd5ba5c32120164853
+ * Preserves the current Live Route and __test object.
+ */
+(() => {
+  const canonicalRoute = require('./sheikha-live-realtime-fabric-routes-clean-checkout-canonical-v1');
+  const exportPath = ["__test","createDeepStreamingProfile"];
+  const getPath = (root, parts) => {
+    let current = root;
+    for (const part of parts) {
+      if (current === null || current === undefined) {
+        return undefined;
+      }
+      current = current[part];
+    }
+    return current;
+  };
+  const setPath = (root, parts, value) => {
+    let current = root;
+    for (let index = 0; index < parts.length - 1; index += 1) {
+      const part = parts[index];
+      if (
+        !current[part]
+        || typeof current[part] !== "object"
+      ) {
+        current[part] = {};
+      }
+      current = current[part];
+    }
+    current[parts[parts.length - 1]] = value;
+  };
+  const canonicalValue = getPath(canonicalRoute, exportPath);
+  if (typeof canonicalValue !== "function") {
+    throw new TypeError(
+      "Canonical deep streaming profile export is not a function"
+    );
+  }
+  if (typeof getPath(module.exports, exportPath) !== "function") {
+    setPath(module.exports, exportPath, canonicalValue);
+  }
+})();

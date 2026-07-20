@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_NATIVE_BARE_METAL_SEED_V1_PRODUCT",
+  "productName": "Sheikha Native Bare-Metal Seed V1",
+  "status": "PRODUCT_READY_AND_CLOSED",
+  "productClass": "NATIVE_BARE_METAL_SEED",
+  "architecture": "x86_64",
+  "firmware": "UEFI_OVMF",
+  "sourceBaselineCommit": "e5d389164fe0ba78771335dda7ce450c5a93ba77",
+  "productReady": true,
+  "productClosed": true,
+  "bootChain": [
+    "UEFI_OVMF",
+    "BOOTX64_EFI",
+    "EXIT_BOOT_SERVICES",
+    "SHEIKHA_NATIVE_KERNEL_SEED",
+    "COM1_SERIAL",
+    "SHEIKHA_BARE_METAL_BOOT_OK"
+  ],
+  "artifacts": {
+    "bootloader": {
+      "path": "bare-metal/images/esp/EFI/BOOT/BOOTX64.EFI",
+      "sha256": "99b952b84b0b33f61b6c0184f174b5ace0d8216cbdcf391a4ddca1c64e0365dd",
+      "format": "PE32_PLUS_UEFI",
+      "externalDllImportCount": 0,
+      "nxCompat": true
+    },
+    "bootImage": {
+      "path": "bare-metal/images/sheikha-bare-metal-seed-v1.img",
+      "sha256": "ff385760c1cf5c9ee83f2a95c60b6225bc4f716e68dda306aa67ed21195597d8",
+      "format": "FAT12"
+    },
+    "serialEvidence": {
+      "path": "runtime/bare-metal/v1/evidence/qemu-serial.log",
+      "sha256": "83c5cf005a03c07733cb9e047a9c532c9a1deb5eb7bd31d49745e7b45ef30a94",
+      "bootMarker": "SHEIKHA_BARE_METAL_BOOT_OK",
+      "bootServices": "EXITED"
+    }
+  },
+  "verifiedCapabilities": [
+    "UEFI_ENTRY",
+    "PE32_PLUS_BOOT_ARTIFACT",
+    "EXIT_BOOT_SERVICES",
+    "NATIVE_KERNEL_SEED",
+    "COM1_SERIAL_DRIVER",
+    "QEMU_OVMF_BOOT",
+    "NO_LINUX_RUNTIME_DEPENDENCY",
+    "NO_NODE_RUNTIME_DEPENDENCY",
+    "NO_LIBC_RUNTIME_DEPENDENCY"
+  ],
+  "truthBoundary": {
+    "generalPurposeOperatingSystemComplete": false,
+    "allDriversComplete": false,
+    "physicalHardwareBootVerified": false,
+    "secureBootVerified": false
+  },
+  "verifiedAt": "2026-07-20T00:43:06.614305+00:00"
+}

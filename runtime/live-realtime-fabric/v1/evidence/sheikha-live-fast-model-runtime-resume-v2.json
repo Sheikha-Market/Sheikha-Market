@@ -1,0 +1,593 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_FAST_MODEL_RUNTIME_RESUME_AND_DISCONNECT_V2",
+  "status": "REAL_FAST_MODEL_STREAM_AND_GOVERNED_DISCONNECT_VERIFIED",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "route": {
+    "path": "routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes.js",
+    "sha256": "fb025aecd7f9c8b34487717a6db551bc1cc1416f986f232bb62d56503b61fa0a",
+    "endpoint": "/api/sheikha/live/chat/v1"
+  },
+  "runtime": {
+    "path": "runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1.js",
+    "sha256": "3287ab336be6b56aa6c58d3bd37499cb1339359a74e04d121df11888e44fde24"
+  },
+  "alignedTest": {
+    "path": "tests/live-realtime-fabric-v1.test.js",
+    "sha256": "b53fa041444b70516708e2b4b0c2401d25209995d25b1bd3723be503059ea0d0"
+  },
+  "models": {
+    "fast": "tinyllama:latest",
+    "deepDisconnectTest": "Sheikha-Core:latest"
+  },
+  "normalFastModelRequest": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_REAL_FAST_MODEL_INLINE_RUNTIME_V2",
+    "statusCode": 200,
+    "contentType": "text/event-stream; charset=utf-8",
+    "elapsedMs": 32731,
+    "events": [
+      {
+        "event": "ack",
+        "atMs": 11,
+        "data": {
+          "ok": true,
+          "success": true,
+          "route": "SHEIKHA_REAL_MODEL_LIVE_STREAM_L65_V2",
+          "compatibilityRoute": "SHEIKHA_REAL_MODEL_LIVE_STREAM_L50_V1",
+          "liveFirst": true,
+          "mode": "LIVE_FAST_ARABIC_FIRST"
+        }
+      },
+      {
+        "event": "meta",
+        "atMs": 11,
+        "data": {
+          "ok": true,
+          "profile": "arabic-fast-default",
+          "route": "SHEIKHA_REAL_MODEL_LIVE_STREAM_L65_V2",
+          "compatibilityRoute": "SHEIKHA_REAL_MODEL_LIVE_STREAM_L50_V1",
+          "apexLevel": 65,
+          "model": "tinyllama:latest",
+          "deepModel": "Sheikha-Core:latest",
+          "deepModelMode": "fast-inline-stream",
+          "liveProfile": "LIVE_FIRST_FAST_L65",
+          "profileReason": "live-first-speed-requested",
+          "fastArabicDefault": true,
+          "performanceBudget": {
+            "timeoutMs": 60000,
+            "numPredict": 48,
+            "firstTokenTargetMs": 2500
+          },
+          "placeholderRemoved": true,
+          "source": "fast-model-inline-stream",
+          "deepLayerEscalationAvailable": true
+        }
+      },
+      {
+        "event": "heartbeat",
+        "atMs": 11,
+        "data": {
+          "success": true,
+          "live": true,
+          "route": "SHEIKHA_REAL_MODEL_LIVE_STREAM_L65_V2",
+          "ts": "2026-07-14T14:36:29.553Z"
+        }
+      },
+      {
+        "event": "progress",
+        "atMs": 11,
+        "data": {
+          "ok": true,
+          "text": "تم استلام الطلب، ويجري الآن توليد الإجابة الكاملة.",
+          "phase": "deep-model-stream",
+          "finalAnswer": false
+        }
+      },
+      {
+        "event": "model_wait",
+        "atMs": 2511,
+        "data": {
+          "success": true,
+          "waitingForFirstToken": true,
+          "model": "tinyllama:latest",
+          "liveProfile": "LIVE_FIRST_FAST_L65",
+          "firstTokenTargetMs": 2500
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 27729,
+        "data": {
+          "text": "S"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 27858,
+        "data": {
+          "text": "ure"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 27981,
+        "data": {
+          "text": ","
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28098,
+        "data": {
+          "text": " here"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28215,
+        "data": {
+          "text": "'"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28328,
+        "data": {
+          "text": "s"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28440,
+        "data": {
+          "text": " a"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28550,
+        "data": {
+          "text": " sample"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28660,
+        "data": {
+          "text": " response"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28766,
+        "data": {
+          "text": " in"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28872,
+        "data": {
+          "text": " Arab"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 28974,
+        "data": {
+          "text": "ic"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29073,
+        "data": {
+          "text": ":"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29171,
+        "data": {
+          "text": "\n"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29265,
+        "data": {
+          "text": "\n"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29386,
+        "data": {
+          "text": "ل"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29508,
+        "data": {
+          "text": "ا"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29637,
+        "data": {
+          "text": " "
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29758,
+        "data": {
+          "text": "ت"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 29880,
+        "data": {
+          "text": "س"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30002,
+        "data": {
+          "text": "ت"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30122,
+        "data": {
+          "text": "خ"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30243,
+        "data": {
+          "text": "د"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30354,
+        "data": {
+          "text": "م"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30467,
+        "data": {
+          "text": " "
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30580,
+        "data": {
+          "text": "ع"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30685,
+        "data": {
+          "text": "ب"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30788,
+        "data": {
+          "text": "ا"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30889,
+        "data": {
+          "text": "ر"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 30985,
+        "data": {
+          "text": "ا"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31078,
+        "data": {
+          "text": "ت"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31179,
+        "data": {
+          "text": ":"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31277,
+        "data": {
+          "text": " "
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31373,
+        "data": {
+          "text": "ي"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31474,
+        "data": {
+          "text": "و"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31567,
+        "data": {
+          "text": "ج"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31664,
+        "data": {
+          "text": "د"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31760,
+        "data": {
+          "text": " ال"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31853,
+        "data": {
+          "text": "ط"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 31946,
+        "data": {
+          "text": "ل"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32041,
+        "data": {
+          "text": "ب"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32140,
+        "data": {
+          "text": " "
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32239,
+        "data": {
+          "text": "ف"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32335,
+        "data": {
+          "text": "ي"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32429,
+        "data": {
+          "text": " "
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32541,
+        "data": {
+          "text": "أ"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32644,
+        "data": {
+          "text": "ح"
+        }
+      },
+      {
+        "event": "token",
+        "atMs": 32731,
+        "data": {
+          "text": "م"
+        }
+      },
+      {
+        "event": "done",
+        "atMs": 32731,
+        "data": {
+          "success": true,
+          "model": "tinyllama:latest",
+          "doneReason": "length"
+        }
+      }
+    ],
+    "metaSource": "fast-model-inline-stream",
+    "deepModelMode": "fast-inline-stream",
+    "actualModel": "tinyllama:latest",
+    "firstModelTokenMs": 27729,
+    "doneMs": 32731,
+    "progressEventCount": 2,
+    "immediateTokenCount": 0,
+    "modelTokenCount": 48,
+    "answer": "Sure, here's a sample response in Arabic:\n\nلا تستخدم عبارات: يوجد الطلب في أحم",
+    "answerBytes": 106,
+    "errorEventPresent": false,
+    "metricsBefore": {
+      "totalOllamaRequests": 0,
+      "activeOllamaRequests": 0,
+      "completedOllamaRequests": 0,
+      "abortedOllamaRequests": 0,
+      "timedOutOllamaRequests": 0,
+      "failedOllamaRequests": 0,
+      "closedOllamaRequests": 0,
+      "lastOutcome": null,
+      "lastReason": null,
+      "lastStartedAt": null,
+      "lastSettledAt": null
+    },
+    "metricsAfter": {
+      "totalOllamaRequests": 1,
+      "activeOllamaRequests": 0,
+      "completedOllamaRequests": 1,
+      "abortedOllamaRequests": 0,
+      "timedOutOllamaRequests": 0,
+      "failedOllamaRequests": 0,
+      "closedOllamaRequests": 0,
+      "lastOutcome": "completed",
+      "lastReason": null,
+      "lastStartedAt": "2026-07-14T14:36:29.553Z",
+      "lastSettledAt": "2026-07-14T14:37:02.276Z"
+    },
+    "validations": {
+      "statusCode200": true,
+      "eventStreamContentType": true,
+      "expectedModel": true,
+      "inlineSource": true,
+      "inlineMode": true,
+      "noImmediateCannedToken": true,
+      "realModelTokenReceived": true,
+      "nonEmptyAnswer": true,
+      "doneReceived": true,
+      "noErrorEvent": true,
+      "metricsIncremented": true,
+      "completionIncremented": true,
+      "activeReturnedToBaseline": true
+    },
+    "failedValidations": [],
+    "passed": true
+  },
+  "disconnectRequest": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_DEEP_MODEL_DISCONNECT_RUNTIME_V2",
+    "expectedModel": "Sheikha-Core:latest",
+    "metaModel": "tinyllama:latest",
+    "responseStarted": true,
+    "receivedBytes": 1092,
+    "activeRequestObserved": true,
+    "intentionalDisconnect": true,
+    "metricsBefore": {
+      "totalOllamaRequests": 1,
+      "activeOllamaRequests": 0,
+      "completedOllamaRequests": 1,
+      "abortedOllamaRequests": 0,
+      "timedOutOllamaRequests": 0,
+      "failedOllamaRequests": 0,
+      "closedOllamaRequests": 0,
+      "lastOutcome": "completed",
+      "lastReason": null,
+      "lastStartedAt": "2026-07-14T14:36:29.553Z",
+      "lastSettledAt": "2026-07-14T14:37:02.276Z"
+    },
+    "metricsWhileActive": {
+      "totalOllamaRequests": 2,
+      "activeOllamaRequests": 1,
+      "completedOllamaRequests": 1,
+      "abortedOllamaRequests": 0,
+      "timedOutOllamaRequests": 0,
+      "failedOllamaRequests": 0,
+      "closedOllamaRequests": 0,
+      "lastOutcome": "completed",
+      "lastReason": null,
+      "lastStartedAt": "2026-07-14T14:37:02.318Z",
+      "lastSettledAt": "2026-07-14T14:37:02.276Z"
+    },
+    "metricsAfter": {
+      "totalOllamaRequests": 2,
+      "activeOllamaRequests": 0,
+      "completedOllamaRequests": 1,
+      "abortedOllamaRequests": 1,
+      "timedOutOllamaRequests": 0,
+      "failedOllamaRequests": 0,
+      "closedOllamaRequests": 0,
+      "lastOutcome": "aborted",
+      "lastReason": "Sheikha live client disconnected",
+      "lastStartedAt": "2026-07-14T14:37:02.318Z",
+      "lastSettledAt": "2026-07-14T14:37:02.320Z"
+    },
+    "validations": {
+      "totalCounterIncremented": true,
+      "activeCounterObserved": true,
+      "activeReturnedToBaseline": true,
+      "abortedCounterIncremented": true,
+      "lastOutcomeAborted": true
+    },
+    "failedValidations": [],
+    "passed": true
+  },
+  "finalMetrics": {
+    "totalOllamaRequests": 2,
+    "activeOllamaRequests": 0,
+    "completedOllamaRequests": 1,
+    "abortedOllamaRequests": 1,
+    "timedOutOllamaRequests": 0,
+    "failedOllamaRequests": 0,
+    "closedOllamaRequests": 0,
+    "lastOutcome": "aborted",
+    "lastReason": "Sheikha live client disconnected",
+    "lastStartedAt": "2026-07-14T14:37:02.318Z",
+    "lastSettledAt": "2026-07-14T14:37:02.320Z"
+  },
+  "verification": {
+    "realFastModelTokenReceived": true,
+    "cannedImmediateTokenDisabled": true,
+    "sameSseConnectionUsed": true,
+    "fastModelInlineStream": true,
+    "defaultBackgroundDeepDisabled": true,
+    "activeRequestObservedBeforeDisconnect": true,
+    "abortCounterIncremented": true,
+    "activeRequestsReturnedToZero": true,
+    "abortControllerEnabled": true,
+    "httpRequestDestroyFailsafeRetained": true,
+    "pm2RestartCount": 1,
+    "rpmRebuilt": false,
+    "externalNetworkUsed": false,
+    "hostInstallExecuted": false,
+    "sudoUsed": false,
+    "gitStaged": false,
+    "gitCommitted": false,
+    "gitTagged": false,
+    "gitPushed": false
+  },
+  "backup": "/home/sheikha/Backups/sheikha/live-fast-runtime-resume-v2-20260714-173626",
+  "verifiedAt": "2026-07-14T14:37:02.513311+00:00"
+}
