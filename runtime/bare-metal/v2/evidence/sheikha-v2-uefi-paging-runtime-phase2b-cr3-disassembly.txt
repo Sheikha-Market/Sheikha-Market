@@ -1,0 +1,17 @@
+
+/home/sheikha/Projects/sheikha/sheikha-main-portal/bare-metal/kernel/v2/build/uefi-paging-runtime-phase2b/sheikha_cr3.o:     file format elf64-x86-64
+
+
+Disassembly of section .text:
+
+0000000000000000 <sheikha_x86_64_read_cr3>:
+   0:	0f 20 d8             	mov    %cr3,%rax
+   3:	c3                   	ret
+
+0000000000000004 <sheikha_x86_64_write_cr3>:
+   4:	0f 22 df             	mov    %rdi,%cr3
+   7:	c3                   	ret
+
+0000000000000008 <sheikha_x86_64_invalidate_page>:
+   8:	0f 01 3f             	invlpg (%rdi)
+   b:	c3                   	ret

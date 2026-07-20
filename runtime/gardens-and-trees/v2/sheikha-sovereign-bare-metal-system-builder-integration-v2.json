@@ -1,0 +1,68 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SOVEREIGN_BARE_METAL_SYSTEM_BUILDER_GARDENS_INTEGRATION_V2",
+  "status": "ACTIVE_WITH_BOOT_BOUNDARY_ENFORCED",
+  "integrationReady": true,
+  "layerOrder": [
+    {
+      "rank": 1,
+      "id": "SHEIKHA_NATIVE_BARE_METAL_ROOT",
+      "role": "UEFI handoff, native kernel entry, memory ownership and hardware control",
+      "currentEvidence": "runtime/bare-metal/v2/sheikha-sovereign-bare-metal-os-v2-phase2b-report.json"
+    },
+    {
+      "rank": 2,
+      "id": "SHEIKHA_SOVEREIGN_KERNEL_V2",
+      "role": "Native runtime foundations under evidence-gated completion",
+      "currentState": "PHASE2B_VERIFIED_IN_QEMU"
+    },
+    {
+      "rank": 3,
+      "id": "SHEIKHA_SYSTEM_BUILDER_FABRIC",
+      "role": "Governed post-boot system and artifact construction",
+      "currentEvidence": "runtime/system-builder-fabric/v1/sheikha-system-builder-fabric-v1.json"
+    },
+    {
+      "rank": 4,
+      "id": "SHEIKHA_TECHNOLOGY_FAMILY_TREE",
+      "role": "Capability and product-family organization",
+      "currentEvidence": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+    },
+    {
+      "rank": 5,
+      "id": "SHEIKHA_JANNAT_GARDENS",
+      "role": "Worldly interface and architecture metaphor for useful product experiences",
+      "currentEvidence": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+    }
+  ],
+  "criticalBootBoundary": {
+    "aiInsideBootCriticalPath": false,
+    "systemBuilderInsideBootCriticalPath": false,
+    "technologyTreeInsideBootCriticalPath": false,
+    "jannatGardensInsideBootCriticalPath": false,
+    "postBootCapabilitiesMayMutateKernelWithoutApproval": false,
+    "bootFailureMayBeHiddenByPresentationLayer": false
+  },
+  "governance": {
+    "principles": [
+      "truthfulness",
+      "amanah",
+      "justice",
+      "fulfilment_of_contracts",
+      "verification",
+      "prevention_of_harm"
+    ],
+    "religiousAuthorityClaim": false,
+    "automatedFatwa": false,
+    "qualifiedHumanReviewForReligiousRulings": true,
+    "evidenceRequiredForTechnicalClaims": true,
+    "defaultAuthorization": "DENY"
+  },
+  "productBoundary": {
+    "jannatIsWorldlyMetaphorOnly": true,
+    "unseenRepresentationClaim": false,
+    "generalPurposeOsClaim": false,
+    "physicalHardwareClaim": false,
+    "secureBootClaim": false
+  }
+}

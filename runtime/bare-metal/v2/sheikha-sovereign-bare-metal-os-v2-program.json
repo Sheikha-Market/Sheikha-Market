@@ -31,10 +31,11 @@
   "workstreams": [
     {
       "id": "MEMORY_AND_PAGING",
-      "status": "PHASE2A_VERIFIED",
-      "completion": "UEFI_CR3_TLB_QEMU_INTEGRATION_PENDING",
+      "status": "PHASE2B_VERIFIED",
+      "completion": "UEFI_CR3_TLB_QEMU_INTEGRATION_VERIFIED",
       "phase1Evidence": "runtime/bare-metal/v2/evidence/sheikha-v2-memory-paging-phase1.json",
-      "phase2aEvidence": "runtime/bare-metal/v2/evidence/sheikha-v2-x86-64-paging-runtime-phase2a.json"
+      "phase2aEvidence": "runtime/bare-metal/v2/evidence/sheikha-v2-x86-64-paging-runtime-phase2a.json",
+      "phase2bEvidence": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b.json"
     },
     {
       "id": "INTERRUPTS_IDT_APIC",
@@ -83,10 +84,30 @@
     "interfacePresenceIsNotDriverCompleteness": true,
     "secureBootCodeIsNotSecureBootVerification": true
   },
+  "postBootIntegrations": {
+    "systemBuilder": {
+      "status": "ACTIVE_GOVERNED_TOOL_FABRIC",
+      "criticalBootControl": false,
+      "evidence": "runtime/system-builder-fabric/v1/sheikha-system-builder-fabric-v1.json"
+    },
+    "technologyFamilyTree": {
+      "status": "ACTIVE",
+      "criticalBootControl": false,
+      "evidence": "runtime/technology-family-tree/v1/sheikha-technology-family-tree-v1-report.json"
+    },
+    "jannatGardens": {
+      "status": "ACTIVE_WORLDLY_METAPHOR",
+      "criticalBootControl": false,
+      "evidence": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json"
+    },
+    "integrationEvidence": "runtime/gardens-and-trees/v2/sheikha-sovereign-bare-metal-system-builder-integration-v2.json"
+  },
   "remainingCompletionGates": 4,
   "verifiedPhases": {
     "MEMORY_AND_PAGING_PHASE1": true,
-    "X86_64_PAGING_RUNTIME_PHASE2A": true
+    "X86_64_PAGING_RUNTIME_PHASE2A": true,
+    "UEFI_PAGING_RUNTIME_PHASE2B_BUILD": true,
+    "UEFI_PAGING_RUNTIME_PHASE2B_QEMU": true
   },
-  "nextExecutionPhase": "UEFI_BOOT_PATH_WIRING_CR3_LOAD_TLB_AND_QEMU_EVIDENCE"
+  "nextExecutionPhase": "INTERRUPTS_IDT_APIC_RUNTIME_VERIFICATION"
 }

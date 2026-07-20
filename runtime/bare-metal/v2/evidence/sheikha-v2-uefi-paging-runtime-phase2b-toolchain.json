@@ -1,0 +1,46 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_PHASE2B_TOOLCHAIN",
+  "architecture": "x86_64",
+  "tools": {
+    "gcc": {
+      "available": true,
+      "path": "/usr/bin/gcc",
+      "version": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+    },
+    "ld": {
+      "available": true,
+      "path": "/usr/bin/ld",
+      "version": "GNU ld (GNU Binutils for Ubuntu) 2.38"
+    },
+    "objcopy": {
+      "available": true,
+      "path": "/usr/bin/objcopy",
+      "version": "GNU objcopy (GNU Binutils for Ubuntu) 2.38"
+    },
+    "readelf": {
+      "available": true,
+      "path": "/usr/bin/readelf",
+      "version": "GNU readelf (GNU Binutils for Ubuntu) 2.38"
+    },
+    "objdump": {
+      "available": true,
+      "path": "/usr/bin/objdump",
+      "version": "GNU objdump (GNU Binutils for Ubuntu) 2.38"
+    },
+    "qemu-system-x86_64": {
+      "available": true,
+      "path": "/tmp/sheikha-qemu-v2-local/usr/bin/qemu-system-x86_64",
+      "version": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)"
+    }
+  },
+  "firmware": {
+    "ovmfCode": "/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_CODE_4M.fd",
+    "ovmfVars": "/tmp/sheikha-qemu-v2-local/usr/share/OVMF/OVMF_VARS_4M.fd"
+  },
+  "buildReady": true,
+  "qemuBootReady": true,
+  "missingBuildRequirements": [],
+  "missingBootRequirements": [],
+  "packageInstallationPerformed": false
+}
