@@ -1,0 +1,24 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_SOVEREIGN_BARE_METAL_OPERATING_SYSTEM_V2_PROGRAM",
+  "status": "EXECUTION_PROGRAM_OPEN",
+  "predecessor": "SHEIKHA_NATIVE_BARE_METAL_SEED_V1_PRODUCT",
+  "workstreams": [
+    "MEMORY_AND_PAGING",
+    "INTERRUPTS_IDT_APIC",
+    "TIMER_AND_SCHEDULER",
+    "USERSPACE_AND_SYSCALLS",
+    "PCI_STORAGE_FILESYSTEM",
+    "NETWORK_STACK",
+    "PHYSICAL_HARDWARE_MATRIX",
+    "SECURE_BOOT_AND_TPM"
+  ],
+  "completionGate": {
+    "generalPurposeOperatingSystemComplete": false,
+    "allDriversComplete": false,
+    "physicalHardwareBootVerified": false,
+    "secureBootVerified": false
+  },
+  "claimComplete": false,
+  "openedAt": "2026-07-20T00:43:06.614305+00:00"
+}

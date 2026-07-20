@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LIVE_ABORT_CONTROLLER_NORMALIZATION_V1",
+  "status": "ABORT_CONTROLLER_AND_HTTP_DESTROY_FAILSAFE_VERIFIED",
+  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "route": {
+    "path": "routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes.js",
+    "sha256Before": "508fc63ed3a5df2b992e71537169502dd0b09a51cdf36974fb0df632a01ac50e",
+    "sha256After": "85d4d85c0202a7bff65e475729f5214235ba801744e1d44c3d9591046f91ddde"
+  },
+  "test": {
+    "path": "tests/sheikha-live-chat-abort-controller-v1.test.js",
+    "sha256": "1da199b9870c3847fcc5eef0d8cf0aa68af5215be91089da9c398eef2e1f7305",
+    "behavioralCases": [
+      "CLIENT_CLOSE_ABORTS_SIGNAL",
+      "CLIENT_CLOSE_DESTROYS_HTTP_REQUEST",
+      "LATE_OLLAMA_DATA_NOT_WRITTEN",
+      "DESTROYED_SSE_RESPONSE_NOT_WRITTEN",
+      "OPEN_SSE_RESPONSE_WRITES_NORMALLY"
+    ]
+  },
+  "cancellation": {
+    "abortController": true,
+    "abortSignalPassedToHttpRequest": true,
+    "requestDestroyFailsafeRetained": true,
+    "clientCloseHandled": true,
+    "normalCompletionNotAborted": true,
+    "lateWritesPrevented": true
+  },
+  "execution": {
+    "generationRequestExecuted": false,
+    "ollamaCalled": false,
+    "pm2Restarted": false,
+    "rpmRebuilt": false,
+    "externalNetworkUsed": false,
+    "hostInstallExecuted": false,
+    "sudoUsed": false,
+    "gitStaged": false,
+    "gitCommitted": false,
+    "gitTagged": false,
+    "gitPushed": false
+  },
+  "backup": "/home/sheikha/Backups/sheikha/live-abort-controller-v1-20260714-052740",
+  "verifiedAt": "2026-07-14T02:27:42.671707+00:00"
+}
