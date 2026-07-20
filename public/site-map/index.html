@@ -1,0 +1,90 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta
+    name="description"
+    content="دليل صفحات شيخة ومساراتها العامة المصنفة حسب المجال."
+  >
+  <title>دليل شيخة | الصفحات والمسارات</title>
+  <link rel="stylesheet" href="/site-map/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة</strong><small>دليل المنظومة</small></span>
+    </a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/market/">السوق</a>
+      <a href="/commercial/">الخدمات</a>
+      <a href="/system-builder-workbench/">البناء</a>
+      <a class="active" href="/site-map/" aria-current="page">الدليل</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="page-heading">
+      <div>
+        <p class="eyebrow">SHEIKHA ROUTE REGISTRY V2</p>
+        <h1>صفحات شيخة ومساراتها العامة</h1>
+        <p>مرجع واحد للواجهات العامة القانونية، مع استبعاد الإدارة والأرشيف.</p>
+      </div>
+      <div class="registry-state" aria-live="polite">
+        <span id="registryDot"></span>
+        <strong id="registryState">جارٍ التحقق</strong>
+      </div>
+    </section>
+
+    <section class="summary" aria-label="ملخص الجرد">
+      <div><strong id="allCount">0</strong><span>صفحة مكتشفة</span></div>
+      <div><strong id="publicCount">0</strong><span>صفحة عامة</span></div>
+      <div><strong id="canonicalCount">0</strong><span>مسار عام قانوني</span></div>
+      <div><strong id="domainCount">0</strong><span>مجالات منظمة</span></div>
+    </section>
+
+    <section class="directory">
+      <div class="toolbar">
+        <label class="search-field">
+          <span>البحث</span>
+          <input
+            id="searchInput"
+            type="search"
+            placeholder="اسم الصفحة أو المسار"
+            autocomplete="off"
+          >
+        </label>
+        <label class="domain-field">
+          <span>المجال</span>
+          <select id="domainSelect">
+            <option value="">كل المجالات</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="directory-head">
+        <h2>المسارات العامة</h2>
+        <span id="resultCount">0 نتيجة</span>
+      </div>
+
+      <div class="route-table" role="table" aria-label="المسارات العامة">
+        <div class="route-row route-header" role="row">
+          <span role="columnheader">الصفحة</span>
+          <span role="columnheader">المجال</span>
+          <span role="columnheader">المسار</span>
+          <span role="columnheader">الحالة</span>
+          <span aria-hidden="true"></span>
+        </div>
+        <div id="routeRows"></div>
+      </div>
+
+      <p id="emptyState" class="empty-state" hidden>
+        لا توجد صفحة عامة مطابقة.
+      </p>
+    </section>
+  </main>
+
+  <script src="/site-map/app.js" defer></script>
+</body>
+</html>

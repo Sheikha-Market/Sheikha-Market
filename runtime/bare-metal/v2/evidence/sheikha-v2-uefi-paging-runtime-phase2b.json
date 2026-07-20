@@ -1,0 +1,69 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_UEFI_PAGING_RUNTIME_PHASE2B",
+  "status": "PHASE2B_VERIFIED",
+  "verified": true,
+  "scope": {
+    "twoMegabyteMappingModelVerified": true,
+    "fourGiBBootstrapIdentityMapBuilt": true,
+    "expectedSixTableTopologyVerified": true,
+    "uefiBootPathWired": true,
+    "cr3InterfaceLinked": true,
+    "invlpgInterfaceLinked": true,
+    "efiArtifactBuilt": true,
+    "qemuBootExecuted": true,
+    "cr3LoadedAtRuntime": true,
+    "invlpgExecutedAtRuntime": true
+  },
+  "truthBoundary": {
+    "qemuBootWithNewPageTablesVerified": true,
+    "physicalHardwareVerified": false,
+    "secureBootVerified": false,
+    "generalPurposeOperatingSystemComplete": false,
+    "allDriversComplete": false,
+    "bootstrapIdentityMapPermissionsTightened": false
+  },
+  "artifacts": {
+    "efi": {
+      "path": "bare-metal/images/v2/esp/EFI/BOOT/BOOTX64.EFI",
+      "bytes": 11849,
+      "sha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9",
+      "pe": {
+        "format": "PE32+",
+        "machine": 34404,
+        "machineName": "x86_64",
+        "sections": 4,
+        "optionalMagic": 523,
+        "entryPointRva": 8096,
+        "imageBase": 4194304,
+        "sectionAlignment": 4096,
+        "fileAlignment": 512,
+        "sizeOfImage": 397312,
+        "sizeOfHeaders": 1024,
+        "headersAligned": true,
+        "subsystem": 10,
+        "subsystemName": "EFI_APPLICATION",
+        "characteristics": 518,
+        "relocationsStripped": false,
+        "dllCharacteristics": 320,
+        "dynamicBase": true,
+        "nxCompatible": true,
+        "importRva": 0,
+        "importSize": 0,
+        "relocationRva": 393216,
+        "relocationSize": 12,
+        "valid": true
+      }
+    },
+    "image": {
+      "path": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-phase2b.img",
+      "bytes": 1474560,
+      "sha256": "2a1965845071475d36b824dad31fa08aa49b91182e7d3724779d07f342ae907c",
+      "filesystem": "FAT12",
+      "fallbackPath": "EFI/BOOT/BOOTX64.EFI",
+      "deterministic": true
+    }
+  },
+  "missingRequirements": [],
+  "nextPhase": "INTERRUPTS_IDT_APIC_RUNTIME_VERIFICATION"
+}

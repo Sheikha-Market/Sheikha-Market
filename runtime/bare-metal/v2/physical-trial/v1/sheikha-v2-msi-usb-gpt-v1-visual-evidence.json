@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_MSI_USB_GPT_VISUAL_EVIDENCE_V1",
+  "status": "QEMU_BOOT_UI_VISUALLY_VERIFIED",
+  "platform": "x86_64 UEFI",
+  "emulator": "QEMU with OVMF",
+  "display": {
+    "width": 1024,
+    "height": 768,
+    "format": "PNG"
+  },
+  "artifactBinding": {
+    "msiUsbImageSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+    "efiArtifactSha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9",
+    "verified": true
+  },
+  "observations": {
+    "safeTrialLabelVisible": true,
+    "readOnlyControlledHaltLabelVisible": true,
+    "diskInstallerDisabledLabelVisible": true,
+    "pagingHandoffLabelVisible": true,
+    "greenSuccessBarVisible": true,
+    "unexpectedUiOverlapObserved": false
+  },
+  "artifacts": [
+    {
+      "role": "BOOT_SCREEN",
+      "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-boot-screen.png",
+      "bytes": 14196,
+      "sha256": "6a4e69bd38c9b5b7869d8c3834356d4cd2e15850f4cd9b7d477327cef2eed29e"
+    },
+    {
+      "role": "VISUAL_RUN_SERIAL_LOG",
+      "path": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-visual-serial.log",
+      "bytes": 2039,
+      "sha256": "29d966f31e6f06ce0b89de370b4e34258b642d2bc46009f59994d4be43fbc754"
+    }
+  ],
+  "firmwareBranding": {
+    "observed": "TianoCore",
+    "source": "OVMF test firmware",
+    "partOfSheikhaArtifact": false
+  },
+  "physicalMsiBootExecuted": false,
+  "physicalMsiBootVerified": false,
+  "networkEnabled": false,
+  "gopDiscoveryVerified": true,
+  "claimPolicy": "Visual QEMU evidence does not replace a physical MSI boot observation."
+}

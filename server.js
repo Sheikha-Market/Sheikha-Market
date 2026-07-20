@@ -115,6 +115,36 @@ app.use(
   createSheikhaProductionChangeAdmissionRoutesV1()
 );
 
+// SHEIKHA SITE ROUTE, DOMAIN, AND IDENTITY REGISTRY V2
+app.use(
+  '/',
+  require(
+    './routes/site-registry/sheikha-public-route-aliases-v2'
+  )
+);
+app.use(
+  '/api/site-registry/v2',
+  require(
+    './routes/site-registry/sheikha-site-registry-routes-v2'
+  )
+);
+
+app.use(
+  '/api/sheikha/bare-metal/v2/physical-trial/v1',
+  require(
+    './routes/bare-metal-v2/' +
+      'sheikha-bare-metal-v2-physical-trial-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/bare-metal/v2/uefi-integration/v1',
+  require(
+    './routes/bare-metal-v2/' +
+      'sheikha-uefi-integration-routes-v1'
+  )
+);
+
 app.use(
   '/system-builder-workbench',
   express.static(
@@ -3405,30 +3435,14 @@ const securityLog = (event, details) => {
 
 // ═══ حماية المسارات الإدارية — Admin Route Protection ═══
 // الصفحات التي تتطلب صلاحية admin فقط
-const ADMIN_ONLY_PAGES = [
-    '/لوحة-الادمن.html',
-    '/_admin/sheikha-command-center.html',
-    '/التسويق-الرقمي.html',
-    '/المواد-التسويقية.html',
-    '/marketing.html',
-    '/المخطط-الهيكلي.html',
-    '/فهرس-المنظومة.html',
-    '/خريطة-شيخة.html',
-    '/منظومة-الذكاء-والتقدم.html',
-    '/الإنتاج-المنهجي.html',
-    '/الإتقان-والتقدم.html',
-    '/التجربة-التشغيلية.html',
-    '/تجربة-المنظومة.html',
-    '/منظومة-الشبكات-والطاقة.html',
-    '/منظومة-الأرض-والسماء.html',
-    '/منظومة-الحكمة-والمنطق.html',
-    '/الهيكل-الإداري.html',
-    '/خريطة-الأهداف.html',
-    '/لوحة-المؤشرات.html'
-];
-const ADMIN_PREFIXES = ['/_admin/', '/marketing/', '/_engines/'];
-const LOGIN_REQUIRED_PAGES = ['/لوحة-تحكم-المستخدم.html', '/لوحة-الشركة.html'];
-const GOV_PAGES = ['/لوحة-الحكومة-السعودية.html', '/لوحة-الحكومات-الدولية.html', '/gov-dashboard.html', '/الشركات-الحكومية.html'];
+const SITE_ROUTE_POLICY_V2 = require(
+    './config/sheikha-site-route-policy-v2.json'
+);
+const ADMIN_ONLY_PAGES = SITE_ROUTE_POLICY_V2.protectedPageRoutes;
+const ADMIN_PREFIXES = SITE_ROUTE_POLICY_V2.protectedPrefixes;
+const LOGIN_REQUIRED_PAGES =
+    SITE_ROUTE_POLICY_V2.loginRequiredPageRoutes;
+const GOV_PAGES = SITE_ROUTE_POLICY_V2.governmentPageRoutes;
 
 function verifyTokenRole(req) {
     try {

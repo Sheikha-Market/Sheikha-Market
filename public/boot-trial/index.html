@@ -1,0 +1,156 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="حالة تجربة إقلاع شيخة الأصلية على MSI عبر UEFI وUSB.">
+  <title>تجربة إقلاع شيخة | MSI UEFI</title>
+  <link rel="stylesheet" href="/boot-trial/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="العودة إلى شيخة">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span>شيخة</span>
+    </a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/site-map/">دليل الصفحات</a>
+      <a href="/system-builder-workbench/">System Builder</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="title-band" aria-labelledby="page-title">
+      <div>
+        <p class="eyebrow">SHEIKHA NATIVE V2</p>
+        <h1 id="page-title">تجربة إقلاع MSI</h1>
+        <p>UEFI x86_64 · GPT · FAT32 · توقف محكوم دون تثبيت</p>
+      </div>
+      <span class="state" id="overall-state">جارٍ التحقق</span>
+    </section>
+
+    <section class="status-grid" aria-label="حالة الجاهزية">
+      <article>
+        <span>صورة USB</span>
+        <strong id="image-state">...</strong>
+      </article>
+      <article>
+        <span>اختبار QEMU</span>
+        <strong id="qemu-state">...</strong>
+      </article>
+      <article>
+        <span>اختبار MSI الفعلي</span>
+        <strong id="physical-state">...</strong>
+      </article>
+      <article>
+        <span>مثبّت القرص</span>
+        <strong id="installer-state">...</strong>
+      </article>
+    </section>
+
+    <section class="uefi-fabric" aria-labelledby="uefi-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">UEFI 2.11 INTEGRATION FABRIC</p>
+          <h2 id="uefi-title">سجل قدرات الإقلاع</h2>
+        </div>
+        <label class="capability-filter">
+          <span>العرض</span>
+          <select id="uefi-filter">
+            <option value="all">جميع البنود</option>
+            <option value="verified">المتحقق فقط</option>
+            <option value="denied">المسجل والممنوع</option>
+            <option value="reference">المراجع</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="uefi-summary" aria-label="ملخص تغطية UEFI">
+        <div><span>الفصول</span><strong id="uefi-chapters">...</strong></div>
+        <div><span>الملاحق</span><strong id="uefi-appendices">...</strong></div>
+        <div><span>أجزاء متحققة</span><strong id="uefi-verified">...</strong></div>
+        <div><span>منع افتراضي</span><strong id="uefi-denied">...</strong></div>
+      </div>
+
+      <div class="capability-table-wrap">
+        <table class="capability-table">
+          <thead>
+            <tr>
+              <th scope="col">المرجع</th>
+              <th scope="col">القدرة</th>
+              <th scope="col">التنفيذ</th>
+              <th scope="col">التحقق</th>
+              <th scope="col">التفعيل</th>
+            </tr>
+          </thead>
+          <tbody id="uefi-capabilities">
+            <tr><td colspan="5">جارٍ تحميل السجل...</td></tr>
+          </tbody>
+        </table>
+      </div>
+      <p class="claim-boundary" id="uefi-claim-boundary">
+        التسجيل لا يعني اكتمال التنفيذ أو شهادة مطابقة.
+      </p>
+    </section>
+
+    <section class="workflow" aria-labelledby="workflow-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">مسار التشغيل المحكوم</p>
+          <h2 id="workflow-title">الفلاشة ثم قائمة F11</h2>
+        </div>
+        <a class="download" id="download-image"
+          href="/api/sheikha/bare-metal/v2/physical-trial/v1/download">
+          <span aria-hidden="true">↓</span>
+          تنزيل الصورة
+        </a>
+      </div>
+
+      <ol class="steps">
+        <li>
+          <span>01</span>
+          <div><strong>فلاشة مخصصة</strong><p>غير متصلة حاليًا، ولا يُقبل القرص الداخلي.</p></div>
+        </li>
+        <li>
+          <span>02</span>
+          <div><strong>كتابة محكومة</strong><p>المسار والبصمة وقبول الجهاز مطلوبة قبل أي كتابة.</p></div>
+        </li>
+        <li>
+          <span>03</span>
+          <div><strong>MSI F11</strong><p>اختيار مدخل UEFI USB لمرة واحدة دون تغيير ترتيب الإقلاع.</p></div>
+        </li>
+        <li>
+          <span>04</span>
+          <div><strong>علامة النجاح</strong><p>SHEIKHA_BARE_METAL_BOOT_OK ثم توقف محكوم.</p></div>
+        </li>
+      </ol>
+    </section>
+
+    <section class="artifact" aria-labelledby="artifact-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">Artifact Evidence</p>
+          <h2 id="artifact-title">دليل الصورة</h2>
+        </div>
+      </div>
+      <dl>
+        <div><dt>الملف</dt><dd id="artifact-name">...</dd></div>
+        <div><dt>الحجم</dt><dd id="artifact-size">...</dd></div>
+        <div><dt>SHA-256</dt><dd id="artifact-hash">...</dd></div>
+        <div><dt>الوضع</dt><dd>READ_ONLY_CONTROLLED_HALT</dd></div>
+      </dl>
+    </section>
+
+    <aside class="boundary" aria-label="حدود السلامة">
+      <strong>حدود المرحلة</strong>
+      <p>لا يوجد مُثبّت أقراص أو نظام ملفات مستخدم أو تعريفات أجهزة عامة بعد. هذه تجربة إقلاع للنواة فقط، وليست تثبيتًا لنظام تشغيل على MSI.</p>
+    </aside>
+  </main>
+
+  <footer>
+    <span>sheikha.top</span>
+    <a href="/الشروط-والسياسات.html">السياسات والحوكمة</a>
+  </footer>
+  <script src="/boot-trial/app.js" defer></script>
+</body>
+</html>

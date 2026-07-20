@@ -1,0 +1,21 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_MSI_USB_GPT_QEMU_V1",
+  "generatedAt": "2026-07-20T18:52:22.606Z",
+  "status": "VERIFIED",
+  "executed": true,
+  "verified": true,
+  "durationMs": 15022,
+  "timedOutAfterControlledHalt": true,
+  "markerChecks": {
+    "SHEIKHA_V2_UEFI_BOOT_ENTRY": true,
+    "SHEIKHA_V2_PAGING_PREPARED": true,
+    "SHEIKHA_V2_CR3_LOAD_OK": true,
+    "SHEIKHA_V2_INVLPG_OK": true,
+    "SHEIKHA_BARE_METAL_BOOT_OK": true
+  },
+  "imageSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+  "efiArtifactSha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9",
+  "networkEnabled": false,
+  "serialEvidence": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-msi-usb-gpt-v1-qemu-serial.log"
+}
