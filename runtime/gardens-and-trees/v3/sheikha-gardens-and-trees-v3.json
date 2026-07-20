@@ -1,0 +1,47 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_GARDENS_AND_TREES_V3",
+  "status": "OPERATIONAL_TAXONOMY_ACTIVE",
+  "description": "NON_BIOLOGICAL_OPERATIONAL_CLASSIFICATION",
+  "roots": [
+    "ISLAMIC_REFERENCE_GOVERNANCE",
+    "ETHICS_AND_JUSTICE",
+    "IDENTITY_AND_CONSTITUTION",
+    "EVIDENCE_AND_AUDIT"
+  ],
+  "trunks": [
+    "SYSTEM_BUILDER",
+    "BARE_METAL",
+    "UEFI",
+    "RUNTIME",
+    "GOVERNANCE"
+  ],
+  "branches": [
+    "DRIVER_ABI",
+    "HARDWARE_COMPATIBILITY",
+    "SITE",
+    "CLI",
+    "APIS",
+    "ENTERPRISE",
+    "MARKETPLACE"
+  ],
+  "leaves": [
+    "ROUTES",
+    "PROTOCOLS",
+    "DRIVERS",
+    "COMPONENTS",
+    "TESTS"
+  ],
+  "fruits": [
+    "VERIFIED_SERVICES",
+    "RECOVERABLE_RELEASES",
+    "SAFE_USER_OUTCOMES"
+  ],
+  "rules": {
+    "everyLeafHasBranch": true,
+    "everyBranchHasTrunk": true,
+    "everyTrunkHasRoot": true,
+    "everyFruitRequiresEvidence": true,
+    "orphanCapabilitiesForbidden": true
+  }
+}

@@ -1,0 +1,33 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BUILDER_ROOT_V1",
+  "status": "ROOT_COMPOSITION_ACTIVE",
+  "pipeline": [
+    "DISCOVER",
+    "CLASSIFY",
+    "VALIDATE",
+    "COMPOSE",
+    "BUILD",
+    "TEST",
+    "EVIDENCE",
+    "PACKAGE",
+    "RECOVER"
+  ],
+  "inputs": [
+    "ARCHITECTURE_CONTRACTS",
+    "CAPABILITY_REGISTRY",
+    "DEPENDENCY_GRAPH",
+    "POLICY_GATES",
+    "SOURCE_ARTIFACTS"
+  ],
+  "outputs": [
+    "BARE_METAL_IMAGES",
+    "UEFI_APPLICATIONS",
+    "RUNTIME_SERVICES",
+    "SITE_RELEASES",
+    "CLI_PACKAGES",
+    "AUDIT_EVIDENCE"
+  ],
+  "failClosed": true,
+  "automaticProductionDeployment": false
+}

@@ -1,0 +1,64 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_ROOT_ARCHITECTURE_V3",
+  "scope": "SHEIKHA_IS_BROADER_THAN_A_SINGLE_PROJECT",
+  "status": "ROOT_ARCHITECTURE_ACTIVE",
+  "hierarchy": [
+    {
+      "order": 1,
+      "id": "ISLAMIC_REFERENCE_GOVERNANCE",
+      "role": "REFERENCE_PROVENANCE_CITATION_AND_REVIEW"
+    },
+    {
+      "order": 2,
+      "id": "ETHICS_JUSTICE_AND_HARM_PREVENTION",
+      "role": "POLICY_GATES_AND_FAIL_CLOSED_GOVERNANCE"
+    },
+    {
+      "order": 3,
+      "id": "IDENTITY_SCOPE_AND_CONSTITUTION",
+      "role": "ROOT_IDENTITY_BOUNDARIES_AND_ACCOUNTABILITY"
+    },
+    {
+      "order": 4,
+      "id": "LOGIC_AND_REASONING_GOVERNANCE",
+      "role": "CLAIM_EVIDENCE_CONSISTENCY_AND_DECISION_ROUTING"
+    },
+    {
+      "order": 5,
+      "id": "SHEIKHA_SYSTEM_BUILDER",
+      "role": "DISCOVERY_COMPOSITION_BUILD_TEST_PACKAGE_AND_RECOVERY"
+    },
+    {
+      "order": 6,
+      "id": "SHEIKHA_BARE_METAL_AND_UEFI",
+      "role": "FIRMWARE_BOOT_MEMORY_KERNEL_DRIVER_AND_HARDWARE_INTERFACES"
+    },
+    {
+      "order": 7,
+      "id": "GARDENS_AND_TREES",
+      "role": "OPERATIONAL_CAPABILITY_TAXONOMY"
+    },
+    {
+      "order": 8,
+      "id": "PRODUCT_RUNTIME_SITE_CLI_AND_APIS",
+      "role": "USER_FACING_DELIVERY_AND_INTEGRATION"
+    }
+  ],
+  "unification": {
+    "singleRootRegistry": true,
+    "singleCapabilityGraph": true,
+    "singleGovernanceBus": true,
+    "singleEvidenceModel": true,
+    "singleProjectStateRecorder": true,
+    "developmentProductionSeparation": true
+  },
+  "truthBoundaries": {
+    "notHuman": true,
+    "notConscious": true,
+    "noDivineAuthorityClaim": true,
+    "noAutonomousReligiousRuling": true,
+    "noCertainFuturePrediction": true,
+    "completionRequiresEvidence": true
+  }
+}
