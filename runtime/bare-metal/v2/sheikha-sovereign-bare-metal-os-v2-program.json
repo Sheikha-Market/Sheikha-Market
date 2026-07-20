@@ -1,24 +1,49 @@
 {
-  "schemaVersion": "2.0.0",
+  "schemaVersion": "2.1.0",
   "system": "SHEIKHA_SOVEREIGN_BARE_METAL_OPERATING_SYSTEM_V2_PROGRAM",
-  "status": "EXECUTION_PROGRAM_OPEN",
-  "predecessor": "SHEIKHA_NATIVE_BARE_METAL_SEED_V1_PRODUCT",
-  "workstreams": [
-    "MEMORY_AND_PAGING",
-    "INTERRUPTS_IDT_APIC",
-    "TIMER_AND_SCHEDULER",
-    "USERSPACE_AND_SYSCALLS",
-    "PCI_STORAGE_FILESYSTEM",
-    "NETWORK_STACK",
-    "PHYSICAL_HARDWARE_MATRIX",
-    "SECURE_BOOT_AND_TPM"
-  ],
+  "status": "IMPLEMENTATION_ACTIVE",
+  "programOpen": true,
+  "activationBaselineClosed": true,
+  "claimComplete": false,
   "completionGate": {
     "generalPurposeOperatingSystemComplete": false,
     "allDriversComplete": false,
     "physicalHardwareBootVerified": false,
     "secureBootVerified": false
   },
-  "claimComplete": false,
-  "openedAt": "2026-07-20T00:43:06.614305+00:00"
+  "activationFlags": {
+    "MEMORY_AND_PAGING_ACTIVE": true,
+    "INTERRUPTS_IDT_APIC_ACTIVE": true,
+    "TIMER_AND_SCHEDULER_ACTIVE": true,
+    "PROCESSES_AND_USERSPACE_ACTIVE": true,
+    "SYSTEM_CALLS_ACTIVE": true,
+    "PCI_STORAGE_FILESYSTEM_ACTIVE": true,
+    "NETWORK_STACK_ACTIVE": true,
+    "PHYSICAL_HARDWARE_VERIFICATION_PROGRAM_ACTIVE": true,
+    "SECURE_BOOT_AND_TPM_VERIFICATION_PROGRAM_ACTIVE": true
+  },
+  "completionFlags": {
+    "GENERAL_PURPOSE_OPERATING_SYSTEM_COMPLETE": false,
+    "ALL_DRIVERS_COMPLETE": false,
+    "PHYSICAL_HARDWARE_BOOT_VERIFIED": false,
+    "SECURE_BOOT_VERIFIED": false
+  },
+  "workstreams": [
+    {"id":"MEMORY_AND_PAGING","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"INTERRUPTS_IDT_APIC","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"TIMER_AND_SCHEDULER","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"PROCESSES_AND_USERSPACE","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"SYSTEM_CALLS","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"PCI_STORAGE_FILESYSTEM","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"NETWORK_STACK","status":"FOUNDATION_IMPLEMENTED","completion":"VERIFICATION_PENDING"},
+    {"id":"PHYSICAL_HARDWARE_MATRIX","status":"VERIFICATION_PROGRAM_ACTIVE","completion":"PHYSICAL_EVIDENCE_REQUIRED"},
+    {"id":"SECURE_BOOT_AND_TPM","status":"VERIFICATION_PROGRAM_ACTIVE","completion":"SIGNED_BOOT_AND_ATTESTATION_REQUIRED"}
+  ],
+  "truthPolicy": {
+    "neverSetCompletionTrueWithoutEvidence": true,
+    "emulatorEvidenceIsNotPhysicalHardwareEvidence": true,
+    "interfacePresenceIsNotDriverCompleteness": true,
+    "secureBootCodeIsNotSecureBootVerification": true
+  },
+  "remainingCompletionGates": 4
 }
