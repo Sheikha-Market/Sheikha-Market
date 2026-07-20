@@ -1,0 +1,118 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_UEFI_CAPABILITY_REGISTRY_V2",
+  "status": "CAPABILITY_REGISTRY_ACTIVE",
+  "groups": [
+    {
+      "id": "FOUNDATION",
+      "capabilities": [
+        "SYSTEM_TABLE",
+        "BOOT_SERVICES",
+        "RUNTIME_SERVICES",
+        "CONFIGURATION_TABLES",
+        "GUID_AND_TIME_FORMATS",
+        "STATUS_CODES"
+      ]
+    },
+    {
+      "id": "CONSOLE_AND_HUMAN_INTERFACE",
+      "capabilities": [
+        "SIMPLE_TEXT_INPUT",
+        "SIMPLE_TEXT_OUTPUT",
+        "SIMPLE_POINTER",
+        "ABSOLUTE_POINTER",
+        "GRAPHICS_OUTPUT",
+        "HII_DATABASE",
+        "HII_CONFIG_ROUTING",
+        "HII_BROWSER",
+        "USER_IDENTIFICATION"
+      ]
+    },
+    {
+      "id": "DRIVER_AND_DEVICE",
+      "capabilities": [
+        "DEVICE_PATH",
+        "DRIVER_BINDING",
+        "COMPONENT_NAME",
+        "LOADED_IMAGE",
+        "PCI_IO",
+        "USB_IO",
+        "BLOCK_IO",
+        "DISK_IO",
+        "SIMPLE_FILE_SYSTEM",
+        "EXTENDED_SCSI_PASS_THRU"
+      ]
+    },
+    {
+      "id": "FIRMWARE_AND_EXECUTION",
+      "capabilities": [
+        "FIRMWARE_MANAGEMENT",
+        "CAPSULE_UPDATE",
+        "FIRMWARE_REPORTING",
+        "EFI_BYTE_CODE_VM",
+        "COMPRESSION",
+        "DECOMPRESSION",
+        "STRING_SERVICES"
+      ]
+    },
+    {
+      "id": "NETWORK",
+      "capabilities": [
+        "SIMPLE_NETWORK",
+        "PXE_BASE_CODE",
+        "BIS",
+        "MANAGED_NETWORK",
+        "BLUETOOTH",
+        "VLAN",
+        "EAP",
+        "WIFI",
+        "SUPPLICANT",
+        "TCP4",
+        "TCP6",
+        "IP4",
+        "IP6",
+        "IPSEC",
+        "FTP",
+        "TLS",
+        "ARP",
+        "DHCP4",
+        "DHCP6",
+        "DNS4",
+        "DNS6",
+        "HTTP",
+        "REST",
+        "UDP4",
+        "UDP6",
+        "MTFTP4",
+        "MTFTP6",
+        "RED_FISH_SERVICE"
+      ]
+    },
+    {
+      "id": "SECURITY_AND_CONFIDENTIAL_COMPUTING",
+      "capabilities": [
+        "SECURE_BOOT",
+        "DRIVER_SIGNING",
+        "SECURITY_ARCH",
+        "SECURITY2_ARCH",
+        "TCG2",
+        "TPM_MEASUREMENT",
+        "CONFIDENTIAL_COMPUTING",
+        "HARDWARE_ERROR_RECORD_PERSISTENCE",
+        "CPER"
+      ]
+    }
+  ],
+  "implementationPolicy": {
+    "registrationDoesNotMeanImplemented": true,
+    "implementationRequiresBuild": true,
+    "implementationRequiresTest": true,
+    "implementationRequiresEvidence": true,
+    "physicalClaimRequiresPhysicalEvidence": true
+  },
+  "completion": {
+    "allUefiProtocolsImplemented": false,
+    "physicalHardwareBootVerified": false,
+    "secureBootVerified": false
+  }
+}

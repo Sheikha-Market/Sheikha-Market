@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_SITE_UNIFICATION_V2",
+  "status": "SOURCE_INTEGRATION_ACTIVE",
+  "languagePolicy": {
+    "arabicFirst": true,
+    "rtlFirst": true,
+    "englishSecond": true,
+    "arabicProofreadingGate": true
+  },
+  "domains": [
+    "HOME",
+    "DOWNLOAD",
+    "SDK",
+    "SITE_MAP",
+    "BOOT_TRIAL",
+    "BARE_METAL_STATUS",
+    "SYSTEM_BUILDER_STATUS",
+    "UEFI_CAPABILITY_STATUS",
+    "HARDWARE_COMPATIBILITY",
+    "PRODUCT_RUNTIME",
+    "PROJECT_STATE"
+  ],
+  "integration": {
+    "singleSiteRegistry": true,
+    "singleRoutePolicy": true,
+    "singleNavigationCatalog": true,
+    "singleHealthContract": true,
+    "brokenLinkAuditRequired": true,
+    "localSmokeRequired": true,
+    "productionEvidenceRequired": true
+  },
+  "completion": {
+    "sourceIntegrated": true,
+    "localRuntimeVerified": false,
+    "productionSiteDeployed": false,
+    "productionTlsVerified": false,
+    "rollbackVerified": false
+  }
+}
