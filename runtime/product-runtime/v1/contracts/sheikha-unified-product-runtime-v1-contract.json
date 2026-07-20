@@ -1,0 +1,122 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIFIED_PRODUCT_RUNTIME_V1_CONTRACT",
+  "status": "ACTIVE",
+  "identity": {
+    "nameAr": "شيخة",
+    "nameEn": "SHEIKHA",
+    "productNameAr": "جنات وأشجار شيخة",
+    "canonicalHostname": "sheikha.top",
+    "publicAliasHostname": "www.sheikha.top",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  "governance": {
+    "declaredFoundation": "TAWHID_OF_ALLAH",
+    "quranSunnahDigitizationMode": "DECLARED_REFERENCE_REGISTER_WITH_QUALIFIED_HUMAN_REVIEW",
+    "operationalValues": [
+      "truthfulness",
+      "amanah",
+      "justice",
+      "fulfilment_of_contracts",
+      "verification",
+      "prevention_of_harm",
+      "excellence"
+    ],
+    "referenceRegister": [
+      {
+        "id": "QURAN_4_58",
+        "purpose": "AMANAH_AND_JUSTICE",
+        "automatedRuling": false
+      },
+      {
+        "id": "QURAN_5_1",
+        "purpose": "FULFILMENT_OF_CONTRACTS",
+        "automatedRuling": false
+      },
+      {
+        "id": "QURAN_49_6",
+        "purpose": "VERIFICATION_BEFORE_ACTION",
+        "automatedRuling": false
+      },
+      {
+        "id": "QURAN_16_90",
+        "purpose": "JUSTICE_AND_EXCELLENCE",
+        "automatedRuling": false
+      },
+      {
+        "id": "HADITH_NO_HARM",
+        "purpose": "PREVENTION_OF_HARM",
+        "sourceAndApplicationReview": "QUALIFIED_HUMAN_REVIEW_REQUIRED",
+        "automatedRuling": false
+      }
+    ],
+    "religiousAuthorityClaim": false,
+    "automatedFatwa": false,
+    "revelationClaim": false,
+    "infallibilityClaim": false,
+    "qualifiedHumanReviewForReligiousRulings": true,
+    "humanApprovalForHighImpact": true,
+    "defaultAuthorization": "DENY"
+  },
+  "layers": [
+    {
+      "rank": 1,
+      "id": "HUMAN_ACCOUNTABILITY_AND_GOVERNANCE_REFERENCE",
+      "executable": false
+    },
+    {
+      "rank": 2,
+      "id": "EVIDENCE_LOGIC_GATE",
+      "executable": true
+    },
+    {
+      "rank": 3,
+      "id": "UNIFIED_PRODUCT_ORCHESTRATION",
+      "executable": true
+    },
+    {
+      "rank": 4,
+      "id": "JANNAT_AND_TREES_EXPERIENCE",
+      "executable": true
+    },
+    {
+      "rank": 5,
+      "id": "SYSTEM_BUILDER_FABRIC",
+      "executable": true
+    },
+    {
+      "rank": 6,
+      "id": "BARE_METAL_UEFI_HARDWARE_FOUNDATION",
+      "executable": true
+    }
+  ],
+  "productRoutes": [
+    {
+      "id": "gardens",
+      "canonical": "/riyadh-aljannah-community/",
+      "aliases": ["/gardens", "/gardens/"]
+    },
+    {
+      "id": "system-builder",
+      "canonical": "/system-builder-workbench/",
+      "aliases": ["/builder", "/builder/", "/system-builder"]
+    },
+    {
+      "id": "bare-metal",
+      "canonical": "/boot-trial/",
+      "aliases": ["/bare-metal", "/bare-metal/"]
+    },
+    {
+      "id": "uefi",
+      "canonical": "/boot-trial/",
+      "aliases": ["/uefi", "/uefi/"]
+    },
+    {
+      "id": "site-map",
+      "canonical": "/site-map/",
+      "aliases": ["/map", "/map/"]
+    }
+  ],
+  "claimPolicy": "A registered layer or route is not a completion claim. Product status must be derived from named local evidence."
+}

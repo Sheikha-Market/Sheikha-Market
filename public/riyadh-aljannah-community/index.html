@@ -1,29 +1,111 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>رياض الجنة | مجتمع المعرفة والابتكار</title>
-  <link rel="stylesheet" href="./community.css"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta
+    name="description"
+    content="جنات وأشجار شيخة: تجربة دنيوية للمعرفة والهندسة والعمل النافع مرتبطة بمنظومة شيخة."
+  >
+  <title>جنات وأشجار شيخة | المعرفة والعمل النافع</title>
+  <link rel="stylesheet" href="/riyadh-aljannah-community/community.css">
 </head>
 <body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="شيخة، الصفحة الرئيسية">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة</strong><small>جنات وأشجار شيخة</small></span>
+    </a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/market/">السوق</a>
+      <a class="active" href="/riyadh-aljannah-community/" aria-current="page">الجنات</a>
+      <a href="/system-builder-workbench/">البناء</a>
+      <a href="/boot-trial/">الإقلاع</a>
+      <a href="/site-map/">الدليل</a>
+    </nav>
+  </header>
+
   <main>
-    <section class="hero">
-      <p>رياض الجنة – مجتمع العلم والمعرفة والابتكار</p>
-      <h1>مجتمع تخصصي يحوّل القضايا إلى علوم وحلول ومنتجات نافعة</h1>
-      <div class="tags">
-        <span>قرآن وسنة</span><span>علوم تطبيقية</span><span>ذكاء صناعي</span><span>مختبر ابتكار</span><span>ويكي</span><span>نشر علمي</span>
+    <section class="garden-stage" aria-labelledby="page-title">
+      <img
+        src="/images/sheikha-worldly-gardens-v1.png"
+        alt="حديقة دنيوية سعودية فيها نخيل وماء ومرافق معرفة وطاقة"
+      >
+      <div class="stage-shade" aria-hidden="true"></div>
+      <div class="stage-copy">
+        <p class="eyebrow">SHEIKHA GARDENS &amp; TREES</p>
+        <h1 id="page-title">جنات وأشجار شيخة</h1>
+        <p>
+          حدائق دنيوية للمعرفة والهندسة والسوق والتعافي؛ كل شجرة قدرة،
+          وكل نهر مسار، وكل ثمرة نتيجة نافعة قابلة للتثبت.
+        </p>
+        <a href="#garden-directory">استعراض الحدائق</a>
       </div>
     </section>
 
-    <section class="grid">
-      <article><h2>المجتمع التخصصي</h2><p>تعريف، خبرات، نقاشات، مجموعات تخصصية.</p></article>
-      <article><h2>القضايا والحلول</h2><p>طرح قضية، تحليل، خبراء، حل، أثر.</p></article>
-      <article><h2>مختبر الابتكار</h2><p>تحويل الأفكار إلى نماذج وأدوات ومنتجات.</p></article>
-      <article><h2>النشر العلمي</h2><p>ورقة، مراجعة، تحقق، نشر، شهادة.</p></article>
-      <article><h2>الويكي</h2><p>موسوعة تخصصية للمصطلحات والمشاريع والمعرفة.</p></article>
-      <article><h2>Git المعرفة</h2><p>تتبع الحلول والأبحاث والأدوات بإصدارات محكومة.</p></article>
+    <section class="runtime-strip" aria-label="حالة تجربة الجنات">
+      <div><span id="runtime-dot"></span><strong id="runtime-state">جارٍ التحقق</strong></div>
+      <dl>
+        <div><dt>الحدائق</dt><dd id="garden-count">--</dd></div>
+        <div><dt>الأشجار</dt><dd id="tree-count">--</dd></div>
+        <div><dt>الأنهار الرمزية</dt><dd id="river-count">--</dd></div>
+        <div><dt>الثمار</dt><dd id="fruit-count">--</dd></div>
+      </dl>
     </section>
+
+    <section class="garden-directory" id="garden-directory">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">السجل المعرفي</p>
+          <h2>حدائق مترابطة من الجذر إلى المنفعة</h2>
+          <p>المحتوى التالي يأتي من سجل جنات شيخة العام، لا من نص ثابت داخل الصفحة.</p>
+        </div>
+        <label>
+          <span>الحديقة</span>
+          <select id="garden-filter">
+            <option value="all">كل الحدائق</option>
+          </select>
+        </label>
+      </div>
+
+      <div class="garden-grid" id="garden-grid" aria-live="polite">
+        <p class="loading">جارٍ تحميل سجل الحدائق...</p>
+      </div>
+    </section>
+
+    <section class="product-bridge" aria-labelledby="bridge-title">
+      <div class="section-heading">
+        <p class="eyebrow">من التجربة إلى التنفيذ</p>
+        <h2 id="bridge-title">الهوية موحدة، وحدود التنفيذ منفصلة</h2>
+        <p>
+          واجهة الجنات تنظّم المعرفة؛ System Builder يبني العقود؛ UEFI يسلّم
+          الإقلاع؛ وBare Metal يشغّل الأساس المتحقق فقط.
+        </p>
+      </div>
+      <ol id="product-bridge-list">
+        <li data-product="gardens"><span>01</span><strong>الجنات</strong><b>جارٍ التحقق</b></li>
+        <li data-product="system-builder"><span>02</span><strong>System Builder</strong><b>جارٍ التحقق</b></li>
+        <li data-product="uefi"><span>03</span><strong>UEFI</strong><b>جارٍ التحقق</b></li>
+        <li data-product="bare-metal"><span>04</span><strong>Bare Metal</strong><b>جارٍ التحقق</b></li>
+      </ol>
+    </section>
+
+    <aside class="boundary" aria-label="حدود المرجعية والتجربة">
+      <strong>حدود صريحة</strong>
+      <p id="garden-boundary">
+        جنات شيخة استعارة دنيوية للواجهة والمعمار والمعرفة، وليست تمثيلًا
+        للجنة الغيبية. مرجعية الكتاب والسنة هنا قيم معلنة للصدق والعدل
+        والأمانة ومنع الضرر، مع مراجعة بشرية مؤهلة للأحكام الشرعية، دون فتوى آلية.
+      </p>
+    </aside>
   </main>
+
+  <footer>
+    <strong>شيخة</strong>
+    <span>الخبر، المملكة العربية السعودية</span>
+    <a href="/site-map/">دليل المسارات</a>
+  </footer>
+
+  <script src="/riyadh-aljannah-community/app.js" defer></script>
 </body>
 </html>

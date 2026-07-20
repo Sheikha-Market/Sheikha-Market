@@ -1,0 +1,415 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIFIED_PRODUCT_RUNTIME_V1",
+  "generatedAt": "2026-07-20T19:50:52.082Z",
+  "status": "ACTIVE_WITH_BOUNDED_VERIFIED_FOUNDATIONS",
+  "identity": {
+    "nameAr": "شيخة",
+    "nameEn": "SHEIKHA",
+    "productNameAr": "جنات وأشجار شيخة",
+    "canonicalHostname": "sheikha.top",
+    "publicAliasHostname": "www.sheikha.top",
+    "language": "ar",
+    "direction": "rtl"
+  },
+  "governance": {
+    "declaredFoundation": "TAWHID_OF_ALLAH",
+    "quranSunnahDigitizationMode": "DECLARED_REFERENCE_REGISTER_WITH_QUALIFIED_HUMAN_REVIEW",
+    "operationalValues": [
+      "truthfulness",
+      "amanah",
+      "justice",
+      "fulfilment_of_contracts",
+      "verification",
+      "prevention_of_harm",
+      "excellence"
+    ],
+    "referenceRegister": [
+      {
+        "id": "QURAN_4_58",
+        "purpose": "AMANAH_AND_JUSTICE",
+        "automatedRuling": false
+      },
+      {
+        "id": "QURAN_5_1",
+        "purpose": "FULFILMENT_OF_CONTRACTS",
+        "automatedRuling": false
+      },
+      {
+        "id": "QURAN_49_6",
+        "purpose": "VERIFICATION_BEFORE_ACTION",
+        "automatedRuling": false
+      },
+      {
+        "id": "QURAN_16_90",
+        "purpose": "JUSTICE_AND_EXCELLENCE",
+        "automatedRuling": false
+      },
+      {
+        "id": "HADITH_NO_HARM",
+        "purpose": "PREVENTION_OF_HARM",
+        "sourceAndApplicationReview": "QUALIFIED_HUMAN_REVIEW_REQUIRED",
+        "automatedRuling": false
+      }
+    ],
+    "religiousAuthorityClaim": false,
+    "automatedFatwa": false,
+    "revelationClaim": false,
+    "infallibilityClaim": false,
+    "qualifiedHumanReviewForReligiousRulings": true,
+    "humanApprovalForHighImpact": true,
+    "defaultAuthorization": "DENY"
+  },
+  "layers": [
+    {
+      "rank": 1,
+      "id": "HUMAN_ACCOUNTABILITY_AND_GOVERNANCE_REFERENCE",
+      "executable": false
+    },
+    {
+      "rank": 2,
+      "id": "EVIDENCE_LOGIC_GATE",
+      "executable": true
+    },
+    {
+      "rank": 3,
+      "id": "UNIFIED_PRODUCT_ORCHESTRATION",
+      "executable": true
+    },
+    {
+      "rank": 4,
+      "id": "JANNAT_AND_TREES_EXPERIENCE",
+      "executable": true
+    },
+    {
+      "rank": 5,
+      "id": "SYSTEM_BUILDER_FABRIC",
+      "executable": true
+    },
+    {
+      "rank": 6,
+      "id": "BARE_METAL_UEFI_HARDWARE_FOUNDATION",
+      "executable": true
+    }
+  ],
+  "products": [
+    {
+      "id": "gardens",
+      "nameAr": "جنات وأشجار شيخة",
+      "status": "VERIFIED",
+      "route": "/riyadh-aljannah-community/",
+      "metrics": {
+        "gardens": 9,
+        "trees": 27,
+        "rivers": 17,
+        "fruits": 27,
+        "graphEdges": 9
+      },
+      "boundary": {
+        "worldlyMetaphorOnly": true,
+        "actualJannahClaim": false,
+        "unseenRepresentationClaim": false,
+        "sacredSimulationClaim": false,
+        "equivalentToHereafterJannah": false,
+        "religiousRulingClaim": false,
+        "purpose": "A worldly visual and architectural metaphor for beauty, mercy, order, knowledge, provision, and excellence inside Sheikha.",
+        "boundaryArabic": "جنات شيخة هنا استعارة دنيوية جميلة للواجهة والمعمار والمعرفة، وليست ادعاءً بتمثيل الجنة الغيبية أو مساواتها."
+      }
+    },
+    {
+      "id": "bare-metal",
+      "nameAr": "Sheikha Bare Metal",
+      "status": "QEMU_VERIFIED_PHYSICAL_PENDING",
+      "route": "/boot-trial/",
+      "architecture": "x86_64",
+      "phase2bVerified": true,
+      "physicalBootVerified": false,
+      "generalPurposeOperatingSystemComplete": false
+    },
+    {
+      "id": "uefi",
+      "nameAr": "Sheikha UEFI",
+      "status": "VERIFIED",
+      "route": "/boot-trial/",
+      "coverage": {
+        "chapters": 39,
+        "appendices": 18,
+        "total": 57,
+        "fullyImplemented": 0,
+        "qemuVerifiedSubsets": 11,
+        "sourceVerifiedSubsets": 2,
+        "referenceMapped": 17,
+        "defaultDeny": 27,
+        "evidencePending": 0
+      },
+      "fullyImplemented": 0
+    },
+    {
+      "id": "system-builder",
+      "nameAr": "Sheikha System Builder",
+      "status": "VERIFIED",
+      "route": "/system-builder-workbench/",
+      "registeredFamilies": 22,
+      "activeProfile": "FEDORA_RPM_MINIMAL_V7",
+      "nativeInstallVerified": false,
+      "lifecycleVerified": false
+    }
+  ],
+  "hardwareCompatibility": {
+    "status": "ACTIVE_WITH_VERIFIED_X86_64_FOUNDATION",
+    "coverage": {
+      "architectures": 8,
+      "targetClasses": 17,
+      "connectors": 56,
+      "operatingEnvironments": 10,
+      "emulatedVerifiedArchitectures": 1,
+      "emulatedVerifiedConnectors": 7,
+      "currentNativeVerifiedEnvironments": 2,
+      "physicalVerifiedTargets": 0,
+      "safetyCertifiedTargets": 0,
+      "defaultDenyConnectors": 56
+    },
+    "runnableEverywhereToday": false,
+    "physicalVerifiedTargets": 0,
+    "safetyCertifiedTargets": 0
+  },
+  "decisions": {
+    "gardens": {
+      "system": "SHEIKHA_LOGIC_GOVERNANCE_ENGINE_V1",
+      "decisionId": "gardens-worldly-experience",
+      "proposition": "The Sheikha gardens experience is active as a worldly metaphor only.",
+      "status": "VERIFIED",
+      "verified": true,
+      "authorization": "ALLOW_BOUNDED",
+      "evidence": {
+        "total": 2,
+        "verified": 2,
+        "required": [
+          "gardens-boundary",
+          "gardens-model"
+        ],
+        "missing": [],
+        "malformed": [],
+        "sha256": "a1534354eb8ccba42aa1135d2832231ad7e1551ba58545e5c2b6040c7321c440"
+      },
+      "contradictions": [],
+      "blockers": [],
+      "governance": {
+        "defaultAuthorization": "DENY",
+        "noHarm": true,
+        "highImpact": false,
+        "qualifiedHumanReview": true,
+        "religiousRuling": false,
+        "automatedFatwa": false,
+        "religiousAuthorityClaim": false
+      },
+      "trace": [
+        "normalize-proposition",
+        "validate-evidence-records",
+        "verify-required-evidence",
+        "detect-contradictions",
+        "apply-no-harm-gate",
+        "apply-human-review-gate",
+        "issue-bounded-decision"
+      ]
+    },
+    "bareMetal": {
+      "system": "SHEIKHA_LOGIC_GOVERNANCE_ENGINE_V1",
+      "decisionId": "bare-metal-qemu-foundation",
+      "proposition": "The Sheikha x86_64 bare-metal Phase 2B foundation is verified in QEMU.",
+      "status": "VERIFIED",
+      "verified": true,
+      "authorization": "ALLOW_BOUNDED",
+      "evidence": {
+        "total": 2,
+        "verified": 2,
+        "required": [
+          "bare-metal-phase2b",
+          "bare-metal-artifact"
+        ],
+        "missing": [],
+        "malformed": [],
+        "sha256": "944a4213495d937cc0ecca666586dc1de67a885852b66d84d352858e9778529f"
+      },
+      "contradictions": [],
+      "blockers": [],
+      "governance": {
+        "defaultAuthorization": "DENY",
+        "noHarm": true,
+        "highImpact": false,
+        "qualifiedHumanReview": true,
+        "religiousRuling": false,
+        "automatedFatwa": false,
+        "religiousAuthorityClaim": false
+      },
+      "trace": [
+        "normalize-proposition",
+        "validate-evidence-records",
+        "verify-required-evidence",
+        "detect-contradictions",
+        "apply-no-harm-gate",
+        "apply-human-review-gate",
+        "issue-bounded-decision"
+      ]
+    },
+    "uefi": {
+      "system": "SHEIKHA_LOGIC_GOVERNANCE_ENGINE_V1",
+      "decisionId": "uefi-foundation-subsets",
+      "proposition": "The UEFI registry and its bounded verified foundation subsets are active.",
+      "status": "VERIFIED",
+      "verified": true,
+      "authorization": "ALLOW_BOUNDED",
+      "evidence": {
+        "total": 2,
+        "verified": 2,
+        "required": [
+          "uefi-registry",
+          "uefi-verified-subsets"
+        ],
+        "missing": [],
+        "malformed": [],
+        "sha256": "7a3bf1e0d7b8aa28625a6dda5cd3c79d3cb84fc1ddfbcdfd6ab332200d9c91eb"
+      },
+      "contradictions": [],
+      "blockers": [],
+      "governance": {
+        "defaultAuthorization": "DENY",
+        "noHarm": true,
+        "highImpact": false,
+        "qualifiedHumanReview": true,
+        "religiousRuling": false,
+        "automatedFatwa": false,
+        "religiousAuthorityClaim": false
+      },
+      "trace": [
+        "normalize-proposition",
+        "validate-evidence-records",
+        "verify-required-evidence",
+        "detect-contradictions",
+        "apply-no-harm-gate",
+        "apply-human-review-gate",
+        "issue-bounded-decision"
+      ]
+    },
+    "systemBuilder": {
+      "system": "SHEIKHA_LOGIC_GOVERNANCE_ENGINE_V1",
+      "decisionId": "system-builder-governed-fabric",
+      "proposition": "The System Builder governed fabric and hierarchy are active.",
+      "status": "VERIFIED",
+      "verified": true,
+      "authorization": "ALLOW_BOUNDED",
+      "evidence": {
+        "total": 2,
+        "verified": 2,
+        "required": [
+          "system-builder-fabric",
+          "system-builder-hierarchy"
+        ],
+        "missing": [],
+        "malformed": [],
+        "sha256": "2d2a549999490b7520063810d8fdf9156e3dcb5db4b93f0508eafd6b35917325"
+      },
+      "contradictions": [],
+      "blockers": [],
+      "governance": {
+        "defaultAuthorization": "DENY",
+        "noHarm": true,
+        "highImpact": false,
+        "qualifiedHumanReview": true,
+        "religiousRuling": false,
+        "automatedFatwa": false,
+        "religiousAuthorityClaim": false
+      },
+      "trace": [
+        "normalize-proposition",
+        "validate-evidence-records",
+        "verify-required-evidence",
+        "detect-contradictions",
+        "apply-no-harm-gate",
+        "apply-human-review-gate",
+        "issue-bounded-decision"
+      ]
+    }
+  },
+  "productRoutes": [
+    {
+      "id": "gardens",
+      "canonical": "/riyadh-aljannah-community/",
+      "aliases": [
+        "/gardens",
+        "/gardens/"
+      ]
+    },
+    {
+      "id": "system-builder",
+      "canonical": "/system-builder-workbench/",
+      "aliases": [
+        "/builder",
+        "/builder/",
+        "/system-builder"
+      ]
+    },
+    {
+      "id": "bare-metal",
+      "canonical": "/boot-trial/",
+      "aliases": [
+        "/bare-metal",
+        "/bare-metal/"
+      ]
+    },
+    {
+      "id": "uefi",
+      "canonical": "/boot-trial/",
+      "aliases": [
+        "/uefi",
+        "/uefi/"
+      ]
+    },
+    {
+      "id": "site-map",
+      "canonical": "/site-map/",
+      "aliases": [
+        "/map",
+        "/map/"
+      ]
+    }
+  ],
+  "routeChecks": {
+    "productRoutesDeclared": true,
+    "aliasTargetsAreAbsolute": true,
+    "aliasesUnique": true,
+    "canonicalRoutesPresent": true
+  },
+  "checks": {
+    "allProductDecisionsVerified": true,
+    "integrationBoundaryActive": true,
+    "bootCriticalPathIsolated": true,
+    "defaultAuthorizationDeny": true,
+    "noAutomatedFatwa": true,
+    "noReligiousAuthorityClaim": true,
+    "routesValid": true
+  },
+  "failedChecks": [],
+  "passed": true,
+  "claimBoundary": {
+    "jannatIsWorldlyMetaphorOnly": true,
+    "physicalHardwareVerified": false,
+    "secureBootVerified": false,
+    "generalPurposeOsComplete": false,
+    "runnableEverywhereToday": false,
+    "externalCertificationClaimed": false,
+    "religiousRulingAutomated": false
+  },
+  "sourceFiles": {
+    "contract": "runtime/product-runtime/v1/contracts/sheikha-unified-product-runtime-v1-contract.json",
+    "gardens": "runtime/jannat-gardens/v1/sheikha-jannat-gardens-v1-report.json",
+    "gardensIntegration": "runtime/gardens-and-trees/v2/sheikha-sovereign-bare-metal-system-builder-integration-v2.json",
+    "bareMetal": "runtime/bare-metal/v2/sheikha-sovereign-bare-metal-os-v2-phase2b-report.json",
+    "physicalTrial": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-physical-boot-trial-v1-report.json",
+    "uefi": "runtime/bare-metal/v2/uefi-integration/v1/sheikha-uefi-integration-v1-report.json",
+    "hardware": "runtime/bare-metal/v2/hardware-compatibility/v1/sheikha-universal-hardware-compatibility-v1-report.json",
+    "systemBuilder": "runtime/system-builder-fabric/v1/sheikha-system-builder-fabric-v1.json",
+    "systemBuilderHierarchy": "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json"
+  },
+  "claimPolicy": "A registered layer or route is not a completion claim. Product status must be derived from named local evidence."
+}

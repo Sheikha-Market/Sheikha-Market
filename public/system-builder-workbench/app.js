@@ -2,6 +2,11 @@
 
 const api = '/api/sheikha-platform/v1';
 
+const productStateLabels = {
+  VERIFIED: 'متحقق بالدليل',
+  QEMU_VERIFIED_PHYSICAL_PENDING: 'QEMU متحقق · الفيزيائي منتظر'
+};
+
 function split(value) {
   return String(value || '')
     .split(',')
@@ -83,7 +88,10 @@ async function load() {
   );
 
   try {
-    const response = await request(`${api}/status`);
+    const [response, productRuntime] = await Promise.all([
+      request(`${api}/status`),
+      request('/api/sheikha/product-runtime/v1/status')
+    ]);
 
     status.textContent = response.ok
       ? 'المنصة واللغة جاهزتان للتخطيط المحكوم'
@@ -92,6 +100,16 @@ async function load() {
     renderInventory(
       response.data.inventory.summary
     );
+
+    for (const product of productRuntime.data.products) {
+      const target = document.querySelector(
+        `[data-product="${product.id}"] strong`
+      );
+      if (!target) continue;
+      target.textContent =
+        productStateLabels[product.status] || product.status;
+      target.classList.add('ready');
+    }
   } catch (error) {
     status.textContent =
       `تعذر التحقق: ${error.message}`;

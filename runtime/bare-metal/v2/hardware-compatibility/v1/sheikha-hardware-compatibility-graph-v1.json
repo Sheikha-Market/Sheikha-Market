@@ -1,0 +1,1030 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_HARDWARE_COMPATIBILITY_GRAPH_V1",
+  "generatedAt": "2026-07-20T19:54:36.980Z",
+  "status": "ACTIVE",
+  "nodes": [
+    {
+      "id": "governance-gate",
+      "type": "GOVERNANCE"
+    },
+    {
+      "id": "driver-abi-v1",
+      "type": "DRIVER_ABI"
+    },
+    {
+      "id": "qualification-gate",
+      "type": "QUALIFICATION"
+    },
+    {
+      "id": "arch:x86_64",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:aarch64",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:armv7-a",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:riscv64",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:ppc64le",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:s390x",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:loongarch64",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "arch:custom-fpga-asic",
+      "type": "ARCHITECTURE"
+    },
+    {
+      "id": "target:pc-laptop-desktop-x86_64",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:pc-laptop-desktop-arm64",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:smartphone-tablet-open-arm64",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:mobile-hosted-applications",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:datacenter-servers",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:hpc-supercomputer-cluster",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:automotive-safety-controller",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:automotive-infotainment",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:industrial-edge-controller",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:factory-control-tower",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:embedded-iot-controller",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:network-appliance",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:mainframe-enterprise-system",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:fpga-asic-development-board",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:cloud-virtual-machine-container",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:medical-instrument",
+      "type": "TARGET"
+    },
+    {
+      "id": "target:robotics-autonomous-machine",
+      "type": "TARGET"
+    },
+    {
+      "id": "connector:firmware-uefi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:firmware-acpi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:firmware-device-tree",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:firmware-sbi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:firmware-device-path",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:bus-pcie",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:bus-cxl",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:peripheral-usb",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:peripheral-usb-c",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:bus-i2c",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:bus-spi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:bus-uart-16550",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:bus-gpio",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:debug-jtag-swd",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-nvme",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-sata",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-sas",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-sd-emmc",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-uefi-block-io",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-gpt",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-fat32",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-parallel",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:storage-enterprise",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:network-ethernet",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:network-wifi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:network-bluetooth",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:network-cellular",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:network-satellite",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:network-low-power",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:automotive-can-fd",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:automotive-lin",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:automotive-flexray",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:automotive-ethernet",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:industrial-modbus",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:industrial-opcua",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:industrial-deterministic-ethernet",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:display-uefi-gop",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:display-hdmi-dp",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:display-mipi-dsi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:camera-mipi-csi",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:audio-hda",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:input-hid",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:sensor-iio",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:compute-gpu",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:compute-npu",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:compute-fpga",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:hpc-rdma",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:hpc-message-passing",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:memory-coherent-interconnect",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:security-tpm",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:security-secure-element",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:safety-watchdog",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:host-posix-api",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:host-container-api",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:host-mobile-api",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "connector:host-enterprise-api",
+      "type": "CONNECTOR"
+    },
+    {
+      "id": "environment:sheikha-bare-metal-x86_64",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:linux-x86_64-hosted-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:linux-arm64-hosted-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:windows-hosted-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:macos-hosted-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:android-hosted-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:ios-hosted-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:web-pwa-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:container-cloud-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    },
+    {
+      "id": "environment:posix-rtos-runtime",
+      "type": "OPERATING_ENVIRONMENT"
+    }
+  ],
+  "edges": [
+    {
+      "from": "governance-gate",
+      "to": "driver-abi-v1",
+      "type": "GOVERNS"
+    },
+    {
+      "from": "driver-abi-v1",
+      "to": "qualification-gate",
+      "type": "REQUIRES_EVIDENCE_FROM"
+    },
+    {
+      "from": "target:pc-laptop-desktop-x86_64",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:pc-laptop-desktop-x86_64",
+      "to": "connector:firmware-uefi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-x86_64",
+      "to": "connector:bus-pcie",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-x86_64",
+      "to": "connector:peripheral-usb",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-x86_64",
+      "to": "connector:input-hid",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-arm64",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:pc-laptop-desktop-arm64",
+      "to": "connector:firmware-uefi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-arm64",
+      "to": "connector:firmware-acpi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-arm64",
+      "to": "connector:bus-pcie",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:pc-laptop-desktop-arm64",
+      "to": "connector:peripheral-usb",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:smartphone-tablet-open-arm64",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:smartphone-tablet-open-arm64",
+      "to": "connector:display-mipi-dsi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:smartphone-tablet-open-arm64",
+      "to": "connector:camera-mipi-csi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:smartphone-tablet-open-arm64",
+      "to": "connector:network-cellular",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:smartphone-tablet-open-arm64",
+      "to": "connector:storage-sd-emmc",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:mobile-hosted-applications",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:mobile-hosted-applications",
+      "to": "arch:armv7-a",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:mobile-hosted-applications",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:mobile-hosted-applications",
+      "to": "connector:host-mobile-api",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "arch:ppc64le",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "connector:bus-pcie",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "connector:storage-nvme",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "connector:network-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:datacenter-servers",
+      "to": "connector:security-tpm",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "arch:ppc64le",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "connector:hpc-rdma",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "connector:hpc-message-passing",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "connector:compute-gpu",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:hpc-supercomputer-cluster",
+      "to": "connector:storage-parallel",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "arch:armv7-a",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "arch:custom-fpga-asic",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "connector:automotive-can-fd",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "connector:automotive-lin",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "connector:automotive-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-safety-controller",
+      "to": "connector:safety-watchdog",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-infotainment",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:automotive-infotainment",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:automotive-infotainment",
+      "to": "connector:display-mipi-dsi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-infotainment",
+      "to": "connector:audio-hda",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-infotainment",
+      "to": "connector:automotive-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:automotive-infotainment",
+      "to": "connector:network-cellular",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "arch:armv7-a",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "connector:industrial-modbus",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "connector:industrial-opcua",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "connector:bus-gpio",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:industrial-edge-controller",
+      "to": "connector:sensor-iio",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:factory-control-tower",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:factory-control-tower",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:factory-control-tower",
+      "to": "connector:industrial-opcua",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:factory-control-tower",
+      "to": "connector:network-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:factory-control-tower",
+      "to": "connector:storage-nvme",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "arch:armv7-a",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "arch:custom-fpga-asic",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "connector:bus-i2c",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "connector:bus-spi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "connector:bus-gpio",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:embedded-iot-controller",
+      "to": "connector:network-low-power",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:network-appliance",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:network-appliance",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:network-appliance",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:network-appliance",
+      "to": "connector:network-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:network-appliance",
+      "to": "connector:bus-pcie",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:network-appliance",
+      "to": "connector:security-tpm",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:mainframe-enterprise-system",
+      "to": "arch:s390x",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:mainframe-enterprise-system",
+      "to": "connector:host-enterprise-api",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:mainframe-enterprise-system",
+      "to": "connector:storage-enterprise",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:mainframe-enterprise-system",
+      "to": "connector:network-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:fpga-asic-development-board",
+      "to": "arch:custom-fpga-asic",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:fpga-asic-development-board",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:fpga-asic-development-board",
+      "to": "connector:debug-jtag-swd",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:fpga-asic-development-board",
+      "to": "connector:bus-pcie",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:fpga-asic-development-board",
+      "to": "connector:bus-spi",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:fpga-asic-development-board",
+      "to": "connector:compute-fpga",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "arch:ppc64le",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "arch:s390x",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "connector:host-posix-api",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "connector:host-container-api",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:cloud-virtual-machine-container",
+      "to": "connector:network-ethernet",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "arch:armv7-a",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "arch:custom-fpga-asic",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "connector:sensor-iio",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "connector:safety-watchdog",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:medical-instrument",
+      "to": "connector:security-secure-element",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "arch:x86_64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "arch:aarch64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "arch:riscv64",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "arch:custom-fpga-asic",
+      "type": "TARGETS"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "connector:sensor-iio",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "connector:bus-gpio",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "connector:compute-npu",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "target:robotics-autonomous-machine",
+      "to": "connector:safety-watchdog",
+      "type": "REQUIRES"
+    },
+    {
+      "from": "environment:sheikha-bare-metal-x86_64",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:linux-x86_64-hosted-runtime",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:linux-arm64-hosted-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:windows-hosted-runtime",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:windows-hosted-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:macos-hosted-runtime",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:macos-hosted-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:android-hosted-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:android-hosted-runtime",
+      "to": "arch:armv7-a",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:android-hosted-runtime",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:ios-hosted-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:container-cloud-runtime",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:container-cloud-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:container-cloud-runtime",
+      "to": "arch:ppc64le",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:container-cloud-runtime",
+      "to": "arch:s390x",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:posix-rtos-runtime",
+      "to": "arch:x86_64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:posix-rtos-runtime",
+      "to": "arch:aarch64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:posix-rtos-runtime",
+      "to": "arch:armv7-a",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    },
+    {
+      "from": "environment:posix-rtos-runtime",
+      "to": "arch:riscv64",
+      "type": "RUNS_ON_AFTER_QUALIFICATION"
+    }
+  ],
+  "counts": {
+    "nodes": 94,
+    "edges": 128
+  }
+}
