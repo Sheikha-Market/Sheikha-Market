@@ -1,0 +1,2123 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_SITE_ROUTE_DOMAIN_REGISTRY_V2",
+  "generatedAt": "2026-07-20T19:50:52.278Z",
+  "status": "ACTIVE_GENERATED_REGISTRY",
+  "identity": {
+    "nameAr": "شيخة",
+    "nameEn": "SHEIKHA",
+    "primaryDomain": "sheikha.top",
+    "primaryLocalRuntime": "http://127.0.0.1:8080",
+    "direction": "rtl",
+    "language": "ar",
+    "values": [
+      "العدل",
+      "الأمانة",
+      "الشفافية",
+      "الإتقان",
+      "منع الضرر"
+    ]
+  },
+  "hostnames": [
+    {
+      "hostname": "sheikha.top",
+      "role": "CANONICAL_PUBLIC_DOMAIN",
+      "deploymentVerifiedByThisRun": false
+    },
+    {
+      "hostname": "www.sheikha.top",
+      "role": "PUBLIC_ALIAS_REQUIRES_REDIRECT_VERIFICATION",
+      "deploymentVerifiedByThisRun": false
+    },
+    {
+      "hostname": "api.sheikha.top",
+      "role": "DECLARED_API_DOMAIN_NOT_LOCALLY_BOUND",
+      "deploymentVerifiedByThisRun": false
+    },
+    {
+      "hostname": "127.0.0.1:8080",
+      "role": "LOCAL_DEVELOPMENT_RUNTIME",
+      "deploymentVerifiedByThisRun": true
+    }
+  ],
+  "domains": [
+    {
+      "id": "identity",
+      "labelAr": "الهوية والتعريف",
+      "descriptionAr": "الصفحة الرئيسية والهوية والشركة والتعريف العام.",
+      "publicPageCount": 4,
+      "canonicalPageCount": 4,
+      "routes": [
+        "/الشبكة-العصبية-للهوية.html",
+        "/SHEIKHA-DIGITAL-IDENTITY.html",
+        "/sheikha-visual-future-home.html",
+        "/verify.html"
+      ]
+    },
+    {
+      "id": "marketplace",
+      "labelAr": "السوق والقطاعات",
+      "descriptionAr": "الأسواق والمنتجات والمعادن والسكراب والفرص.",
+      "publicPageCount": 13,
+      "canonicalPageCount": 12,
+      "routes": [
+        "/بنك-شيخة.html",
+        "/خريطة-الشبكات.html",
+        "/سوق-المدينة.html",
+        "/شيخة-القيادة-التسويقية.html",
+        "/هوية-شيخة.html",
+        "/market/",
+        "/offline.html",
+        "/product-knowledge/",
+        "/product-knowledge/enterprise-dashboard.html",
+        "/sheikha-advisory/",
+        "/SHEIKHA-MARKET-SYSTEM.html",
+        "/sheikha-ui/"
+      ]
+    },
+    {
+      "id": "commerce",
+      "labelAr": "التجارة والعملاء",
+      "descriptionAr": "التسجيل والطلبات والعقود والدفع والخدمات التجارية.",
+      "publicPageCount": 6,
+      "canonicalPageCount": 4,
+      "routes": [
+        "/تسجيل-الدخول.html",
+        "/commercial/",
+        "/commercial/request.html",
+        "/register/"
+      ]
+    },
+    {
+      "id": "logistics",
+      "labelAr": "اللوجستيات وسلاسل الإمداد",
+      "descriptionAr": "النقل والشحن والتتبع والتوريد والخدمات المساندة.",
+      "publicPageCount": 2,
+      "canonicalPageCount": 2,
+      "routes": [
+        "/التميز-اللوجستي.html",
+        "/sheikha-logistics-market/"
+      ]
+    },
+    {
+      "id": "enterprise",
+      "labelAr": "المؤسسة والجهات",
+      "descriptionAr": "الشركات والحكومة والإدارة ومراكز التحكم.",
+      "publicPageCount": 13,
+      "canonicalPageCount": 12,
+      "routes": [
+        "/الشركات-الحكومية.html",
+        "/لوحة-إدارة-LLM.html",
+        "/لوحة-التحكم-الإدارية.html",
+        "/لوحة-الحكومات-الدولية.html",
+        "/لوحة-الحكومة-السعودية.html",
+        "/لوحة-القيادة-التنفيذية-الموحدة.html",
+        "/لوحة-الملاحة-المشاريع.html",
+        "/company/",
+        "/enterprise-control-center/",
+        "/executive-civilization-control-center/",
+        "/gov-dashboard.html",
+        "/portal-enterprise.html"
+      ]
+    },
+    {
+      "id": "knowledge",
+      "labelAr": "المعرفة والمجتمع",
+      "descriptionAr": "المعرفة والأبحاث والمجتمع ورياض الجنة.",
+      "publicPageCount": 4,
+      "canonicalPageCount": 4,
+      "routes": [
+        "/المجتمع.html",
+        "/تعليم-المجتمع.html",
+        "/رياض-الجنة-الباحثين.html",
+        "/riyadh-aljannah-community/"
+      ]
+    },
+    {
+      "id": "developer",
+      "labelAr": "البناء والتطوير",
+      "descriptionAr": "لغة شيخة وIDE وSystem Builder والعمارة والتكامل.",
+      "publicPageCount": 15,
+      "canonicalPageCount": 13,
+      "routes": [
+        "/تكامل-شيخة-الذكي.html",
+        "/شيخة-ميتا-AI.html",
+        "/قوة-شيخة-التقنية.html",
+        "/لغة-شيخة-البرمجية.html",
+        "/لوحة-تكامل-شيخة-الموحدة.html",
+        "/architecture-explorer/",
+        "/ide/",
+        "/identity/",
+        "/sdk.html",
+        "/sheikha-devops-lab/",
+        "/sheikha-logo-tech-experience.html",
+        "/SHEIKHA-SMART-DIGITAL.html",
+        "/system-builder-workbench/"
+      ]
+    },
+    {
+      "id": "native",
+      "labelAr": "الإقلاع والعتاد",
+      "descriptionAr": "Bare Metal وUEFI وصور الإقلاع وتوافق الأجهزة.",
+      "publicPageCount": 1,
+      "canonicalPageCount": 1,
+      "routes": [
+        "/boot-trial/"
+      ]
+    },
+    {
+      "id": "operations",
+      "labelAr": "التشغيل والمراقبة",
+      "descriptionAr": "الصحة والمراقبة والتوزيع ولوحات التشغيل.",
+      "publicPageCount": 10,
+      "canonicalPageCount": 10,
+      "routes": [
+        "/كتيب-التشغيل-والاستخدام.html",
+        "/لوحة-التحكم-الإسلامية-المتقدمة.html",
+        "/لوحة-التحكم-الموحدة.html",
+        "/لوحة-تحكم-المستخدم.html",
+        "/مراقبة-العمليات.html",
+        "/dashboard.html",
+        "/monitor/",
+        "/sheikha-cloud-console.html",
+        "/sheikha-dashboards/",
+        "/sheikha-platform/"
+      ]
+    },
+    {
+      "id": "governance",
+      "labelAr": "الحوكمة والامتثال",
+      "descriptionAr": "السياسات والشروط والخصوصية والحوكمة والمراجعة.",
+      "publicPageCount": 10,
+      "canonicalPageCount": 10,
+      "routes": [
+        "/الحوكمة.html",
+        "/الشروط-والسياسات.html",
+        "/الشريعة-الاسلامية.html",
+        "/المشرع-الذكي.html",
+        "/المُشرِّع-الذكي.html",
+        "/سياسة-الخصوصية.html",
+        "/commercial/privacy.html",
+        "/commercial/refund.html",
+        "/commercial/terms.html",
+        "/government/"
+      ]
+    },
+    {
+      "id": "general",
+      "labelAr": "خدمات ومنظومات أخرى",
+      "descriptionAr": "صفحات عامة تحتاج تصنيفًا أدق في دورة المراجعة.",
+      "publicPageCount": 37,
+      "canonicalPageCount": 37,
+      "routes": [
+        "/",
+        "/آيات-التجارة.html",
+        "/أدوات-التسويق.html",
+        "/أدوات/محلل-الإعراب.html",
+        "/العاصمة-الاقتصادية.html",
+        "/المتحف-الحضاري.html",
+        "/الوكلاء-الإسلاميين.html",
+        "/تطبيق-شيخة-الموبايل.html",
+        "/حقائق-شيخة.html",
+        "/خريطة-الأرض-التفاعلية.html",
+        "/دليل-الاستخدام.html",
+        "/سجل-العلوم-الحضارية.html",
+        "/شبكة-عملة-شيخة-الرقمية.html",
+        "/شيخة-التواصل-الاجتماعي.html",
+        "/شيخة-امبراطورية-الكون.html",
+        "/شيخة-ترميز-UTF8.html",
+        "/شيخة-عملة-الكون.html",
+        "/شيخة-محادثة-حية.html",
+        "/مختبرات-الابتكار.html",
+        "/مركز-التدريب-متعدد-اللغات.html",
+        "/معايير-الأحاديث.html",
+        "/منطق-الصفحات-والايقونات.html",
+        "/منظومة-البركة.html",
+        "/منظومة-تطبيقات-شيخة.html",
+        "/نظام-شيخة-الموحد.html",
+        "/cli.html",
+        "/download.html",
+        "/mcp.html",
+        "/product-experience/p1/",
+        "/SHEIKHA-COMMUNICATIONS.html",
+        "/sheikha-customer-revenue/",
+        "/SHEIKHA-EVALUATION-FINAL.html",
+        "/SHEIKHA-LIVE-EVALUATION-v2.html",
+        "/sheikha-organization/",
+        "/sheikha-portal-v2/",
+        "/sheikha-visual-chain/",
+        "/site-map/"
+      ]
+    }
+  ],
+  "canonicalRoutes": [
+    {
+      "route": "/SHEIKHA-COMMUNICATIONS.html",
+      "file": "public/SHEIKHA-COMMUNICATIONS.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/SHEIKHA-DIGITAL-IDENTITY.html",
+      "file": "public/SHEIKHA-DIGITAL-IDENTITY.html",
+      "domain": "identity",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/SHEIKHA-EVALUATION-FINAL.html",
+      "file": "public/SHEIKHA-EVALUATION-FINAL.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/SHEIKHA-LIVE-EVALUATION-v2.html",
+      "file": "public/SHEIKHA-LIVE-EVALUATION-v2.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/SHEIKHA-MARKET-SYSTEM.html",
+      "file": "public/SHEIKHA-MARKET-SYSTEM.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/SHEIKHA-SMART-DIGITAL.html",
+      "file": "public/SHEIKHA-SMART-DIGITAL.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/api-docs.html",
+      "file": "public/_admin/api-docs.html",
+      "domain": "developer",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/app-store-guide.html",
+      "file": "public/_admin/app-store-guide.html",
+      "domain": "commerce",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/devops.html",
+      "file": "public/_admin/devops.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/sheikha-command-center.html",
+      "file": "public/_admin/sheikha-command-center.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/إدارة-الفيديو-والمحتوى.html",
+      "file": "public/_admin/إدارة-الفيديو-والمحتوى.html",
+      "domain": "enterprise",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/إدارة-المشاريع.html",
+      "file": "public/_admin/إدارة-المشاريع.html",
+      "domain": "enterprise",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/ادارة-النظام.html",
+      "file": "public/_admin/ادارة-النظام.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/التكاملات-والشراكات.html",
+      "file": "public/_admin/التكاملات-والشراكات.html",
+      "domain": "developer",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/اللوائح-والقوانين-والاجراءات.html",
+      "file": "public/_admin/اللوائح-والقوانين-والاجراءات.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/النظام-المحاسبي.html",
+      "file": "public/_admin/النظام-المحاسبي.html",
+      "domain": "developer",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/تجربة-العميل.html",
+      "file": "public/_admin/تجربة-العميل.html",
+      "domain": "commerce",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/تسجيل-تاجر.html",
+      "file": "public/_admin/تسجيل-تاجر.html",
+      "domain": "commerce",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/تسجيل-ناقل.html",
+      "file": "public/_admin/تسجيل-ناقل.html",
+      "domain": "logistics",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/تطبيق-السائق.html",
+      "file": "public/_admin/تطبيق-السائق.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/تفعيل-الأنظمة.html",
+      "file": "public/_admin/تفعيل-الأنظمة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/حملات-التسويق.html",
+      "file": "public/_admin/حملات-التسويق.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/خطة-الإطلاق.html",
+      "file": "public/_admin/خطة-الإطلاق.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/قاعدة-بيانات-الشركات.html",
+      "file": "public/_admin/قاعدة-بيانات-الشركات.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/لوحة-تحكم-الأدمن-متقدمة.html",
+      "file": "public/_admin/لوحة-تحكم-الأدمن-متقدمة.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/منظومة-التسويق-الشاملة.html",
+      "file": "public/_admin/منظومة-التسويق-الشاملة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/نظام-الإشعارات.html",
+      "file": "public/_admin/نظام-الإشعارات.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/نظام-البرمجة.html",
+      "file": "public/_admin/نظام-البرمجة.html",
+      "domain": "developer",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/نظام-المدفوعات.html",
+      "file": "public/_admin/نظام-المدفوعات.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_admin/نظام-شيخة-الذكي.html",
+      "file": "public/_admin/نظام-شيخة-الذكي.html",
+      "domain": "enterprise",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_admin/نظام-متابعة-وتنفيذ-وتحليل.html",
+      "file": "public/_admin/نظام-متابعة-وتنفيذ-وتحليل.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/admin-app.html",
+      "file": "public/_archive/admin-app.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/admin-dashboard.html",
+      "file": "public/_archive/admin-dashboard.html",
+      "domain": "operations",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_archive/admin-panel.html",
+      "file": "public/_archive/admin-panel.html",
+      "domain": "operations",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_archive/app.html",
+      "file": "public/_archive/app.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/enterprise.html",
+      "file": "public/_archive/enterprise.html",
+      "domain": "enterprise",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/fbs.html",
+      "file": "public/_archive/fbs.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/index-old.html",
+      "file": "public/_archive/index-old.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/offline.html",
+      "file": "public/_archive/offline.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_archive/scrap-specialist.html",
+      "file": "public/_archive/scrap-specialist.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/user-app.html",
+      "file": "public/_archive/user-app.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/آلية-الأرباح.html",
+      "file": "public/_archive/آلية-الأرباح.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/آلية-البيع.html",
+      "file": "public/_archive/آلية-البيع.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/الاقسام.html",
+      "file": "public/_archive/الاقسام.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/الالتزام-الشرعي.html",
+      "file": "public/_archive/الالتزام-الشرعي.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/التكامل-الصناعي.html",
+      "file": "public/_archive/التكامل-الصناعي.html",
+      "domain": "developer",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/التكاملات.html",
+      "file": "public/_archive/التكاملات.html",
+      "domain": "developer",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/السلسلة-الذكية.html",
+      "file": "public/_archive/السلسلة-الذكية.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/السوق.html",
+      "file": "public/_archive/السوق.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/السياسات-والشروط.html",
+      "file": "public/_archive/السياسات-والشروط.html",
+      "domain": "governance",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/الشبكات-التجارية.html",
+      "file": "public/_archive/الشبكات-التجارية.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/اللوائح-الإدارية.html",
+      "file": "public/_archive/اللوائح-الإدارية.html",
+      "domain": "enterprise",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/المتاجر.html",
+      "file": "public/_archive/المتاجر.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/المجتمعات.html",
+      "file": "public/_archive/المجتمعات.html",
+      "domain": "knowledge",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/المختبرات.html",
+      "file": "public/_archive/المختبرات.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/المساعد-الذكي.html",
+      "file": "public/_archive/المساعد-الذكي.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/المنتدى-old.html",
+      "file": "public/_archive/المنتدى-old.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/الهوية-والبيئة-والجودة.html",
+      "file": "public/_archive/الهوية-والبيئة-والجودة.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تجربة-منظومة-البرمجة.html",
+      "file": "public/_archive/تجربة-منظومة-البرمجة.html",
+      "domain": "developer",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تحليل-الشركات.html",
+      "file": "public/_archive/تحليل-الشركات.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تحليل-العملية-التجارية.html",
+      "file": "public/_archive/تحليل-العملية-التجارية.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تحميل-التطبيق.html",
+      "file": "public/_archive/تحميل-التطبيق.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تخطيط-كل-مرحلة.html",
+      "file": "public/_archive/تخطيط-كل-مرحلة.html",
+      "domain": "commerce",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تسجيل-الشركاء.html",
+      "file": "public/_archive/تسجيل-الشركاء.html",
+      "domain": "commerce",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تسجيل-سريع.html",
+      "file": "public/_archive/تسجيل-سريع.html",
+      "domain": "commerce",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تفعيل-النموذج.html",
+      "file": "public/_archive/تفعيل-النموذج.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/تكامل.html",
+      "file": "public/_archive/تكامل.html",
+      "domain": "developer",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/خدمات-شيخة.html",
+      "file": "public/_archive/خدمات-شيخة.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/خريطة-الموقع.html",
+      "file": "public/_archive/خريطة-الموقع.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/خريطة-رحلة-العميل.html",
+      "file": "public/_archive/خريطة-رحلة-العميل.html",
+      "domain": "commerce",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/رسم-سلسلة-التوريد.html",
+      "file": "public/_archive/رسم-سلسلة-التوريد.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/رسومات-هندسية-وفنية.html",
+      "file": "public/_archive/رسومات-هندسية-وفنية.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/ريادة-الأعمال.html",
+      "file": "public/_archive/ريادة-الأعمال.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/سلاسل-الإمداد-المتقدمة.html",
+      "file": "public/_archive/سلاسل-الإمداد-المتقدمة.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/سلسلة-التوريد-الذكية-backup.html",
+      "file": "public/_archive/سلسلة-التوريد-الذكية-backup.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/سلسلة-التوريد-رسم.html",
+      "file": "public/_archive/سلسلة-التوريد-رسم.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/سلسلة-التوريد-قديم.html",
+      "file": "public/_archive/سلسلة-التوريد-قديم.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/سوق-سلسلة-التوريد.html",
+      "file": "public/_archive/سوق-سلسلة-التوريد.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/سوق-شيخة-الشركات.html",
+      "file": "public/_archive/سوق-شيخة-الشركات.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/عرض-بضائع.html",
+      "file": "public/_archive/عرض-بضائع.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/لوحة-التحكم-الذكية.html",
+      "file": "public/_archive/لوحة-التحكم-الذكية.html",
+      "domain": "operations",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/لوحة-التحكم.html",
+      "file": "public/_archive/لوحة-التحكم.html",
+      "domain": "operations",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_archive/لوحة-المؤشرات.html",
+      "file": "public/_archive/لوحة-المؤشرات.html",
+      "domain": "operations",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_archive/لوحة-تحكم-الأدمن.html",
+      "file": "public/_archive/لوحة-تحكم-الأدمن.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/لوحة-تحكم-المدير.html",
+      "file": "public/_archive/لوحة-تحكم-المدير.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/مركز-أبحاث-شيخة.html",
+      "file": "public/_archive/مركز-أبحاث-شيخة.html",
+      "domain": "knowledge",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/مركز-الأبحاث.html",
+      "file": "public/_archive/مركز-الأبحاث.html",
+      "domain": "knowledge",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/مساعد-شيخة.html",
+      "file": "public/_archive/مساعد-شيخة.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/معايير-الجودة.html",
+      "file": "public/_archive/معايير-الجودة.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_archive/منتجات-شيخة.html",
+      "file": "public/_archive/منتجات-شيخة.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/منتدى-شيخة.html",
+      "file": "public/_archive/منتدى-شيخة.html",
+      "domain": "general",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/منظومة-شيخة.html",
+      "file": "public/_archive/منظومة-شيخة.html",
+      "domain": "marketplace",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/نظام-اللوجستيات-الذكي.html",
+      "file": "public/_archive/نظام-اللوجستيات-الذكي.html",
+      "domain": "logistics",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/نظام-اللوجستيات.html",
+      "file": "public/_archive/نظام-اللوجستيات.html",
+      "domain": "developer",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/_archive/نظام-المتجر-المتكامل.html",
+      "file": "public/_archive/نظام-المتجر-المتكامل.html",
+      "domain": "developer",
+      "visibility": "ARCHIVE_REVIEW_ONLY",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/الإتقان-والتقدم.html",
+      "file": "public/_engines/الإتقان-والتقدم.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/الإنتاج-المنهجي.html",
+      "file": "public/_engines/الإنتاج-المنهجي.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/التجربة-التشغيلية.html",
+      "file": "public/_engines/التجربة-التشغيلية.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/تجربة-المنظومة.html",
+      "file": "public/_engines/تجربة-المنظومة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/منظومة-الأرض-والسماء.html",
+      "file": "public/_engines/منظومة-الأرض-والسماء.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/منظومة-الحكمة-والمنطق.html",
+      "file": "public/_engines/منظومة-الحكمة-والمنطق.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/منظومة-الذكاء-والتقدم.html",
+      "file": "public/_engines/منظومة-الذكاء-والتقدم.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/_engines/منظومة-الشبكات-والطاقة.html",
+      "file": "public/_engines/منظومة-الشبكات-والطاقة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/architecture-explorer/",
+      "file": "public/architecture-explorer/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/boot-trial/",
+      "file": "public/boot-trial/index.html",
+      "domain": "native",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/cli.html",
+      "file": "public/cli.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/commercial/",
+      "file": "public/commercial/index.html",
+      "domain": "commerce",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/commercial/privacy.html",
+      "file": "public/commercial/privacy.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/commercial/refund.html",
+      "file": "public/commercial/refund.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/commercial/request.html",
+      "file": "public/commercial/request.html",
+      "domain": "commerce",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/commercial/terms.html",
+      "file": "public/commercial/terms.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/company/",
+      "file": "public/company/index.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/control-tower.html",
+      "file": "public/control-tower.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/dashboard.html",
+      "file": "public/dashboard.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/download.html",
+      "file": "public/download.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/enterprise-control-center/",
+      "file": "public/enterprise-control-center/index.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/executive-civilization-control-center/",
+      "file": "public/executive-civilization-control-center/index.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776478578568-7P0F0.html",
+      "file": "public/generated-images/IMG-1776478578568-7P0F0.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776478578568-BJWVB.html",
+      "file": "public/generated-images/IMG-1776478578568-BJWVB.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776478578568-UBZSE.html",
+      "file": "public/generated-images/IMG-1776478578568-UBZSE.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776478578568-W4434.html",
+      "file": "public/generated-images/IMG-1776478578568-W4434.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776479365197-8L6J2.html",
+      "file": "public/generated-images/IMG-1776479365197-8L6J2.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776479365197-E53UZ.html",
+      "file": "public/generated-images/IMG-1776479365197-E53UZ.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776479365197-NU1U3.html",
+      "file": "public/generated-images/IMG-1776479365197-NU1U3.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/generated-images/IMG-1776479365197-SDFVR.html",
+      "file": "public/generated-images/IMG-1776479365197-SDFVR.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/gov-dashboard.html",
+      "file": "public/gov-dashboard.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/government/",
+      "file": "public/government/index.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/ide/",
+      "file": "public/ide/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/identity/",
+      "file": "public/identity/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/",
+      "file": "public/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/layouts/sheikha-shell.html",
+      "file": "public/layouts/sheikha-shell.html",
+      "domain": "general",
+      "visibility": "TEMPLATE_OR_GENERATED_ASSET",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/market/",
+      "file": "public/market/index.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing.html",
+      "file": "public/marketing.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/SHEIKHA-CARDS-V5.html",
+      "file": "public/marketing/SHEIKHA-CARDS-V5.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/SHEIKHA-DIGITAL-PACKAGE.html",
+      "file": "public/marketing/SHEIKHA-DIGITAL-PACKAGE.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/banner.html",
+      "file": "public/marketing/banner.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/brochure.html",
+      "file": "public/marketing/brochure.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/business-card-v4.html",
+      "file": "public/marketing/business-card-v4.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/business-card.html",
+      "file": "public/marketing/business-card.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/company-profile.html",
+      "file": "public/marketing/company-profile.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/marketing/email-signature.html",
+      "file": "public/marketing/email-signature.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/mcp.html",
+      "file": "public/mcp.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/monitor/",
+      "file": "public/monitor/index.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/offline.html",
+      "file": "public/offline.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/portal-enterprise.html",
+      "file": "public/portal-enterprise.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/product-experience/p1/",
+      "file": "public/product-experience/p1/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/product-knowledge/enterprise-dashboard.html",
+      "file": "public/product-knowledge/enterprise-dashboard.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/product-knowledge/",
+      "file": "public/product-knowledge/index.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/register/",
+      "file": "public/register/index.html",
+      "domain": "commerce",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/riyadh-aljannah-community/",
+      "file": "public/riyadh-aljannah-community/index.html",
+      "domain": "knowledge",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sdk.html",
+      "file": "public/sdk.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-advisory/",
+      "file": "public/sheikha-advisory/index.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-ai-command-center.html",
+      "file": "public/sheikha-ai-command-center.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/sheikha-cloud-console.html",
+      "file": "public/sheikha-cloud-console.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-customer-revenue/",
+      "file": "public/sheikha-customer-revenue/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-dashboards/",
+      "file": "public/sheikha-dashboards/index.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-devops-lab/",
+      "file": "public/sheikha-devops-lab/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-logistics-market/",
+      "file": "public/sheikha-logistics-market/index.html",
+      "domain": "logistics",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-logo-tech-experience.html",
+      "file": "public/sheikha-logo-tech-experience.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-organization/",
+      "file": "public/sheikha-organization/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-platform/",
+      "file": "public/sheikha-platform/index.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-portal-v2/",
+      "file": "public/sheikha-portal-v2/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-ui/",
+      "file": "public/sheikha-ui/index.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-visual-chain/",
+      "file": "public/sheikha-visual-chain/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/sheikha-visual-future-home.html",
+      "file": "public/sheikha-visual-future-home.html",
+      "domain": "identity",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/site-map/",
+      "file": "public/site-map/index.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/system-builder-workbench/",
+      "file": "public/system-builder-workbench/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/verify.html",
+      "file": "public/verify.html",
+      "domain": "identity",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/آيات-التجارة.html",
+      "file": "public/آيات-التجارة.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/أدوات-التسويق.html",
+      "file": "public/أدوات-التسويق.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/أدوات/محلل-الإعراب.html",
+      "file": "public/أدوات/محلل-الإعراب.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/التسويق-الرقمي.html",
+      "file": "public/التسويق-الرقمي.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/التميز-اللوجستي.html",
+      "file": "public/التميز-اللوجستي.html",
+      "domain": "logistics",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الحوكمة.html",
+      "file": "public/الحوكمة.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الشبكة-العصبية-للهوية.html",
+      "file": "public/الشبكة-العصبية-للهوية.html",
+      "domain": "identity",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الشركات-الحكومية.html",
+      "file": "public/الشركات-الحكومية.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الشروط-والسياسات.html",
+      "file": "public/الشروط-والسياسات.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الشريعة-الاسلامية.html",
+      "file": "public/الشريعة-الاسلامية.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/العاصمة-الاقتصادية.html",
+      "file": "public/العاصمة-الاقتصادية.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/المتحف-الحضاري.html",
+      "file": "public/المتحف-الحضاري.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/المجتمع.html",
+      "file": "public/المجتمع.html",
+      "domain": "knowledge",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/المخطط-الهيكلي.html",
+      "file": "public/المخطط-الهيكلي.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/المشرع-الذكي.html",
+      "file": "public/المشرع-الذكي.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/المواد-التسويقية.html",
+      "file": "public/المواد-التسويقية.html",
+      "domain": "marketplace",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/المُشرِّع-الذكي.html",
+      "file": "public/المُشرِّع-الذكي.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الهيكل-الإداري.html",
+      "file": "public/الهيكل-الإداري.html",
+      "domain": "enterprise",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/الوكلاء-الإسلاميين.html",
+      "file": "public/الوكلاء-الإسلاميين.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/بنك-شيخة.html",
+      "file": "public/بنك-شيخة.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/تسجيل-الدخول.html",
+      "file": "public/تسجيل-الدخول.html",
+      "domain": "commerce",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/تطبيق-شيخة-الموبايل.html",
+      "file": "public/تطبيق-شيخة-الموبايل.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/تعليم-المجتمع.html",
+      "file": "public/تعليم-المجتمع.html",
+      "domain": "knowledge",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/تكامل-شيخة-الذكي.html",
+      "file": "public/تكامل-شيخة-الذكي.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/حقائق-شيخة.html",
+      "file": "public/حقائق-شيخة.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/خريطة-الأرض-التفاعلية.html",
+      "file": "public/خريطة-الأرض-التفاعلية.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/خريطة-الأهداف.html",
+      "file": "public/خريطة-الأهداف.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/خريطة-الشبكات.html",
+      "file": "public/خريطة-الشبكات.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/خريطة-شيخة.html",
+      "file": "public/خريطة-شيخة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/دليل-الاستخدام.html",
+      "file": "public/دليل-الاستخدام.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/رياض-الجنة-الباحثين.html",
+      "file": "public/رياض-الجنة-الباحثين.html",
+      "domain": "knowledge",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/سجل-العلوم-الحضارية.html",
+      "file": "public/سجل-العلوم-الحضارية.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/سوق-المدينة.html",
+      "file": "public/سوق-المدينة.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/سياسة-الخصوصية.html",
+      "file": "public/سياسة-الخصوصية.html",
+      "domain": "governance",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شبكة-عملة-شيخة-الرقمية.html",
+      "file": "public/شبكة-عملة-شيخة-الرقمية.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-التواصل-الاجتماعي.html",
+      "file": "public/شيخة-التواصل-الاجتماعي.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-القيادة-التسويقية.html",
+      "file": "public/شيخة-القيادة-التسويقية.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-امبراطورية-الكون.html",
+      "file": "public/شيخة-امبراطورية-الكون.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-ترميز-UTF8.html",
+      "file": "public/شيخة-ترميز-UTF8.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-عملة-الكون.html",
+      "file": "public/شيخة-عملة-الكون.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-محادثة-حية.html",
+      "file": "public/شيخة-محادثة-حية.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/شيخة-ميتا-AI.html",
+      "file": "public/شيخة-ميتا-AI.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/فهرس-المنظومة.html",
+      "file": "public/فهرس-المنظومة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/قوة-شيخة-التقنية.html",
+      "file": "public/قوة-شيخة-التقنية.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/كتيب-التشغيل-والاستخدام.html",
+      "file": "public/كتيب-التشغيل-والاستخدام.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لغة-شيخة-البرمجية.html",
+      "file": "public/لغة-شيخة-البرمجية.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-إدارة-LLM.html",
+      "file": "public/لوحة-إدارة-LLM.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-الادمن.html",
+      "file": "public/لوحة-الادمن.html",
+      "domain": "enterprise",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/لوحة-التحكم-الإدارية-البصرية-المتقدمة.html",
+      "file": "public/لوحة-التحكم-الإدارية-البصرية-المتقدمة.html",
+      "domain": "enterprise",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/لوحة-التحكم-الإدارية.html",
+      "file": "public/لوحة-التحكم-الإدارية.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-التحكم-الإسلامية-المتقدمة.html",
+      "file": "public/لوحة-التحكم-الإسلامية-المتقدمة.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-التحكم-العصبية.html",
+      "file": "public/لوحة-التحكم-العصبية.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/لوحة-التحكم-الموحدة.html",
+      "file": "public/لوحة-التحكم-الموحدة.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-التحكم.html",
+      "file": "public/لوحة-التحكم.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/لوحة-التنفيذ-المباشر.html",
+      "file": "public/لوحة-التنفيذ-المباشر.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/لوحة-الحكومات-الدولية.html",
+      "file": "public/لوحة-الحكومات-الدولية.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-الحكومة-السعودية.html",
+      "file": "public/لوحة-الحكومة-السعودية.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-القيادة-التنفيذية-الموحدة.html",
+      "file": "public/لوحة-القيادة-التنفيذية-الموحدة.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-المؤشرات.html",
+      "file": "public/لوحة-المؤشرات.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-المراقبة-والمؤشرات.html",
+      "file": "public/لوحة-المراقبة-والمؤشرات.html",
+      "domain": "operations",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/لوحة-الملاحة-المشاريع.html",
+      "file": "public/لوحة-الملاحة-المشاريع.html",
+      "domain": "enterprise",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-تحكم-المستخدم.html",
+      "file": "public/لوحة-تحكم-المستخدم.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/لوحة-تكامل-شيخة-الموحدة.html",
+      "file": "public/لوحة-تكامل-شيخة-الموحدة.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/مختبرات-الابتكار.html",
+      "file": "public/مختبرات-الابتكار.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/مراقبة-العمليات.html",
+      "file": "public/مراقبة-العمليات.html",
+      "domain": "operations",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/مركز-التدريب-متعدد-اللغات.html",
+      "file": "public/مركز-التدريب-متعدد-اللغات.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/مركز-اللوحات-الرقمية.html",
+      "file": "public/مركز-اللوحات-الرقمية.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/معايير-الأحاديث.html",
+      "file": "public/معايير-الأحاديث.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/منطق-الصفحات-والايقونات.html",
+      "file": "public/منطق-الصفحات-والايقونات.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/منظومة-البركة.html",
+      "file": "public/منظومة-البركة.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/منظومة-الرؤية-الشاملة.html",
+      "file": "public/منظومة-الرؤية-الشاملة.html",
+      "domain": "general",
+      "visibility": "PROTECTED_OPERATIONAL",
+      "readiness": "NEEDS_LINK_OR_CONTROL_REPAIR"
+    },
+    {
+      "route": "/منظومة-تطبيقات-شيخة.html",
+      "file": "public/منظومة-تطبيقات-شيخة.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/نظام-شيخة-الموحد.html",
+      "file": "public/نظام-شيخة-الموحد.html",
+      "domain": "general",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/هوية-شيخة.html",
+      "file": "public/هوية-شيخة.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    }
+  ],
+  "aliasRoutes": [
+    {
+      "route": "/_archive/سلسلة-التوريد.html",
+      "canonicalRoute": "/_archive/سلسلة-التوريد-الذكية-backup.html",
+      "file": "public/_archive/سلسلة-التوريد.html",
+      "source": "IDENTICAL_ARTIFACT"
+    },
+    {
+      "route": "/تسجيل-الشركات.html",
+      "canonicalRoute": "/register/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/تسجيل-حكومي.html",
+      "canonicalRoute": "/government/",
+      "file": "public/تسجيل-حكومي.html",
+      "source": "IDENTICAL_ARTIFACT"
+    },
+    {
+      "route": "/سوق-شيخة.html",
+      "canonicalRoute": "/market/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/لوحة-الشركة.html",
+      "canonicalRoute": "/company/",
+      "file": "public/لوحة-الشركة.html",
+      "source": "IDENTICAL_ARTIFACT"
+    },
+    {
+      "route": "/هوية-السوق.html",
+      "canonicalRoute": "/identity/",
+      "file": "public/هوية-السوق.html",
+      "source": "IDENTICAL_ARTIFACT"
+    },
+    {
+      "route": "/bare-metal",
+      "canonicalRoute": "/boot-trial/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/bare-metal/",
+      "canonicalRoute": "/boot-trial/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/boot",
+      "canonicalRoute": "/boot-trial/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/builder",
+      "canonicalRoute": "/system-builder-workbench/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/builder/",
+      "canonicalRoute": "/system-builder-workbench/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/gardens",
+      "canonicalRoute": "/riyadh-aljannah-community/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/gardens/",
+      "canonicalRoute": "/riyadh-aljannah-community/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/generated-images/IMG-1776478578568-A1J1K.html",
+      "canonicalRoute": "/generated-images/IMG-1776478578568-7P0F0.html",
+      "file": "public/generated-images/IMG-1776478578568-A1J1K.html",
+      "source": "IDENTICAL_ARTIFACT"
+    },
+    {
+      "route": "/generated-images/IMG-1776479365197-ZZ3X4.html",
+      "canonicalRoute": "/generated-images/IMG-1776479365197-SDFVR.html",
+      "file": "public/generated-images/IMG-1776479365197-ZZ3X4.html",
+      "source": "IDENTICAL_ARTIFACT"
+    },
+    {
+      "route": "/home",
+      "canonicalRoute": "/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/ide",
+      "canonicalRoute": "/ide/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/map",
+      "canonicalRoute": "/site-map/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/map/",
+      "canonicalRoute": "/site-map/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/market",
+      "canonicalRoute": "/market/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/pages",
+      "canonicalRoute": "/site-map/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/register",
+      "canonicalRoute": "/register/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/sheikha-ide.html",
+      "canonicalRoute": "/ide/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/site-map",
+      "canonicalRoute": "/site-map/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/system-builder",
+      "canonicalRoute": "/system-builder-workbench/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/uefi",
+      "canonicalRoute": "/boot-trial/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/uefi/",
+      "canonicalRoute": "/boot-trial/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    }
+  ],
+  "policies": {
+    "singleCanonicalRoutePerIdenticalArtifact": true,
+    "aliasesPreserved": true,
+    "archivesExcludedFromPublicNavigation": true,
+    "protectedPagesExcludedFromPublicCatalog": true,
+    "noDeleteWithoutHumanReview": true,
+    "externalDomainStateMustBeVerifiedBeforeClaim": true
+  },
+  "sourceInventory": "runtime/site/v2/sheikha-site-page-inventory-v2.json",
+  "sourceLinkAudit": "runtime/site/v2/sheikha-site-link-audit-v2.json"
+}

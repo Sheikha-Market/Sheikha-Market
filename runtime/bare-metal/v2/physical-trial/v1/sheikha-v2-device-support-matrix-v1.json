@@ -1,0 +1,60 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_DEVICE_SUPPORT_MATRIX_V1",
+  "generatedAt": "2026-07-20T18:47:44.621Z",
+  "claimPolicy": "One verified x86_64 QEMU artifact does not establish universal device support.",
+  "targets": [
+    {
+      "family": "x86_64 UEFI QEMU",
+      "status": "BOOT_VERIFIED",
+      "evidence": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log"
+    },
+    {
+      "family": "Current x86_64 UEFI laptop",
+      "status": "HOST_PRECHECK_COMPATIBLE_PHYSICAL_TRIAL_PENDING",
+      "evidence": "runtime/bare-metal/v2/physical-trial/v1/sheikha-v2-host-hardware-preflight-v1.json"
+    },
+    {
+      "family": "Other x86_64 UEFI computers and servers",
+      "status": "HARDWARE_MATRIX_AND_DRIVER_VERIFICATION_REQUIRED"
+    },
+    {
+      "family": "ARM64 UEFI computers, servers, and phones",
+      "status": "ARCHITECTURE_PORT_AND_VENDOR_BOOT_CHAIN_REQUIRED"
+    },
+    {
+      "family": "RISC-V systems",
+      "status": "ARCHITECTURE_PORT_AND_FIRMWARE_ADAPTER_REQUIRED"
+    },
+    {
+      "family": "Legacy BIOS systems",
+      "status": "SEPARATE_BOOT_PROTOCOL_REQUIRED"
+    },
+    {
+      "family": "Automotive controllers and vehicles",
+      "status": "HAL_DRIVERS_REAL_TIME_SAFETY_CASE_AND_EXTERNAL_APPROVAL_REQUIRED"
+    },
+    {
+      "family": "Industrial equipment and factories",
+      "status": "DEVICE_HAL_FUNCTIONAL_SAFETY_AND_SITE_ACCEPTANCE_REQUIRED"
+    },
+    {
+      "family": "Data centers and cloud fleets",
+      "status": "DEPLOYMENT_CONTROL_PLANE_AND_HARDWARE_QUALIFICATION_REQUIRED"
+    },
+    {
+      "family": "HPC and supercomputers",
+      "status": "INTERCONNECT_ACCELERATOR_SCHEDULER_AND_SCALE_TESTS_REQUIRED"
+    },
+    {
+      "family": "Semiconductor, FPGA, and custom silicon targets",
+      "status": "ISA_HDL_TOOLCHAIN_AND_SILICON_VALIDATION_REQUIRED"
+    }
+  ],
+  "currentHost": {
+    "architecture": "x86_64",
+    "bootMode": "UEFI",
+    "secureBoot": "DISABLED"
+  },
+  "universalDeviceSupportClaimed": false
+}

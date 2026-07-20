@@ -26,15 +26,15 @@
   "artifacts": {
     "efi": {
       "path": "bare-metal/images/v2/esp/EFI/BOOT/BOOTX64.EFI",
-      "bytes": 9080,
-      "sha256": "6aa84ac3825ceffd53cf75b2bba310ade818b1fba4f664cd61d2f9a4822da43a",
+      "bytes": 11849,
+      "sha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9",
       "pe": {
         "format": "PE32+",
         "machine": 34404,
         "machineName": "x86_64",
         "sections": 4,
         "optionalMagic": 523,
-        "entryPointRva": 7536,
+        "entryPointRva": 8096,
         "imageBase": 4194304,
         "sectionAlignment": 4096,
         "fileAlignment": 512,
@@ -58,7 +58,7 @@
     "image": {
       "path": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-phase2b.img",
       "bytes": 1474560,
-      "sha256": "8abe850d0e77e78c471494d1d843b5b51eab5cfb3ce0251ef658faaba631fa3e",
+      "sha256": "2a1965845071475d36b824dad31fa08aa49b91182e7d3724779d07f342ae907c",
       "filesystem": "FAT12",
       "fallbackPath": "EFI/BOOT/BOOTX64.EFI",
       "deterministic": true

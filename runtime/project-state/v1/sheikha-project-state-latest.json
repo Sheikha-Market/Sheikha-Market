@@ -4,12 +4,14 @@
   "scope": "SHEIKHA_IS_BROADER_THAN_A_SINGLE_PROJECT",
   "projectsRoot": "/home/sheikha/Projects/sheikha",
   "repositoryPath": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
-  "updatedAt": "2026-07-20T18:57:47.778159+00:00",
-  "continuationMarker": "CONTINUE_FROM_SHEIKHA_V2_UEFI_PAGING_RUNTIME_PHASE2B_VERIFIED",
+  "updatedAt": "2026-07-20T22:32:50+03:00",
+  "continuationMarker": "CONTINUE_FROM_SHEIKHA_HARDWARE_COMPATIBILITY_FABRIC_V1_VERIFIED",
   "sourceControl": {
-    "branch": "feature/sheikha-v2-uefi-paging-runtime-phase2b-verified-v4-20260720-215706",
-    "head": "462d96c76e33ae4bbf76e511c40e459f6581d4d6",
-    "pagingRuntimePhase2aCommit": "d4b1e896ca03b83a341e0f4753e1616cf5a27c1e"
+    "branch": "main",
+    "head": "268f58121411740b94ec866afd68a1c3127b056d",
+    "pagingRuntimePhase2aCommit": "d4b1e896ca03b83a341e0f4753e1616cf5a27c1e",
+    "pagingRuntimePhase2bCommit": "462d96c76e33ae4bbf76e511c40e459f6581d4d6",
+    "preservationCommit": "8124bb4b52af96311491d07c2026a962c2e309fc"
   },
   "activation": {
     "SHEIKHA_PROJECT_STATE_PERSISTENCE_ACTIVE": true,
@@ -26,16 +28,31 @@
     "CR3_DISASSEMBLY_EVIDENCE_PRESENT": true,
     "SERIAL_EVIDENCE_PRESENT": true,
     "QEMU_EVIDENCE_RECORDED": true,
-    "GARDENS_AND_TREES_INTEGRATION_V2_ACTIVE": true
+    "GARDENS_AND_TREES_INTEGRATION_V2_ACTIVE": true,
+    "UEFI_INTEGRATION_FABRIC_V1_ACTIVE": true,
+    "UEFI_SPEC_ITEMS_REGISTERED": 57,
+    "UEFI_QEMU_VERIFIED_SUBSETS": 11,
+    "UEFI_SOURCE_VERIFIED_SUBSETS": 2,
+    "MSI_USB_GPT_IMAGE_QEMU_VERIFIED": true,
+    "VISUAL_BOOT_UI_BOUND_TO_ARTIFACT": true,
+    "LOCAL_SITE_SMOKE_PASSED": true,
+    "LIVE_CHAT_FAST_ARABIC_VERIFIED": true,
+    "HARDWARE_COMPATIBILITY_FABRIC_V1_ACTIVE": true,
+    "DRIVER_ABI_V1_SMOKE_VERIFIED": true,
+    "HARDWARE_ARCHITECTURES_REGISTERED": 8,
+    "HARDWARE_TARGET_CLASSES_REGISTERED": 17,
+    "HARDWARE_CONNECTORS_REGISTERED": 56,
+    "OPERATING_ENVIRONMENTS_REGISTERED": 10,
+    "EMULATED_VERIFIED_ARCHITECTURES": 1
   },
   "preservedCompleteConcurrentTree": {
-    "status": "PRESERVED_SEPARATELY",
+    "status": "RESTORED_TO_CURRENT_WORKTREE_AND_VERIFIED",
     "actualUniquePathCount": 94,
     "concurrentPathCount": 61,
     "commit": "8124bb4b52af96311491d07c2026a962c2e309fc",
     "branch": "safety/sheikha-complete-concurrent-tree-before-phase2b-v4-20260720-215706",
     "tag": "checkpoint-sheikha-complete-concurrent-tree-before-phase2b-v4-20260720-215706",
-    "validationClaimed": false
+    "validationClaimed": true
   },
   "cli": {
     "publicNpmPackageInstalled": false,
@@ -51,20 +68,33 @@
     "ALL_DRIVERS_COMPLETE": false,
     "PHYSICAL_HARDWARE_BOOT_VERIFIED": false,
     "SECURE_BOOT_VERIFIED": false,
+    "FULL_UEFI_IMPLEMENTATION_CLAIMED": false,
+    "UEFI_CERTIFICATION_CLAIMED": false,
+    "RUNNABLE_EVERYWHERE_TODAY": false,
+    "AUTOMOTIVE_SAFETY_CERTIFIED": false,
+    "INDUSTRIAL_SAFETY_CERTIFIED": false,
+    "SEMICONDUCTOR_VALIDATED": false,
     "REMAINING_V2_COMPLETION_GATES": 4
   },
   "runtime": {
     "PM2_STATUS": "errored",
+    "LOCAL_DEVELOPMENT_RUNTIME_ACTIVE": true,
     "LOCAL_HEALTH_HTTP": "200",
+    "PRODUCTION_RUNTIME_REQUIRES_OPERATOR_SECRETS": true,
     "RUNTIME_RECOVERY_BLOCKER": "NO_VALID_BACKUP_CANDIDATE",
     "NEW_DATA_ENCRYPTION_KEY_GENERATED": false
   },
-  "nextStep": "Activate the global hardware compatibility program from the verified Phase 2B commit. Review the complete concurrent safety branch separately, then package the local Sheikha CLI with version and login contracts.",
+  "nextStep": "Commit the restored verified UEFI and hardware-compatibility tree intentionally. Then perform the physical MSI USB read-only trial only after explicit approval of the exact removable device, implement governed x86_64 ACPI/PCI discovery, and build the first AArch64 QEMU boot artifact before promoting any ARM target.",
   "truthPolicy": {
     "completionRequiresEvidence": true,
     "qemuEvidenceIsNotPhysicalHardware": true,
     "worldwideHardwareSetIsOpenEnded": true,
     "completeConcurrentTreePreservedBeforeReconstruction": true,
-    "generatedEvidenceWhitespaceNormalized": true
+    "generatedEvidenceWhitespaceNormalized": true,
+    "registryCoverageIsNotFullImplementation": true,
+    "uefiCertificationNotClaimed": true,
+    "registeredHardwareIsNotSupportedHardware": true,
+    "emulationIsNotPhysicalVerification": true,
+    "safetyCertificationRequiresIndependentEvidence": true
   }
 }

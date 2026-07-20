@@ -1,0 +1,204 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_LOCAL_SITE_SMOKE_V1",
+  "generatedAt": "2026-07-20T19:52:53.034Z",
+  "status": "LOCAL_SITE_SMOKE_PASSED",
+  "baseUrl": "http://127.0.0.1:8080",
+  "executionScope": "LOCAL_DEVELOPMENT_RUNTIME",
+  "pages": [
+    {
+      "path": "/",
+      "statusCode": 200,
+      "bytes": 8318,
+      "marker": "<title>شيخة",
+      "markerPresent": true,
+      "durationMs": 35.1,
+      "passed": true
+    },
+    {
+      "path": "/commercial/",
+      "statusCode": 200,
+      "bytes": 4350,
+      "marker": "حلول شيخة التجارية",
+      "markerPresent": true,
+      "durationMs": 10.33,
+      "passed": true
+    },
+    {
+      "path": "/system-builder-workbench/",
+      "statusCode": 200,
+      "bytes": 6644,
+      "marker": "بناء الأنظمة المحكومة",
+      "markerPresent": true,
+      "durationMs": 1.68,
+      "passed": true
+    },
+    {
+      "path": "/enterprise-control-center/",
+      "statusCode": 200,
+      "bytes": 3506,
+      "marker": "المركز المؤسسي لشيخة",
+      "markerPresent": true,
+      "durationMs": 2.95,
+      "passed": true
+    },
+    {
+      "path": "/riyadh-aljannah-community/",
+      "statusCode": 200,
+      "bytes": 5192,
+      "marker": "جنات وأشجار شيخة",
+      "markerPresent": true,
+      "durationMs": 2.68,
+      "passed": true
+    },
+    {
+      "path": "/site-map/",
+      "statusCode": 200,
+      "bytes": 3287,
+      "marker": "صفحات شيخة ومساراتها العامة",
+      "markerPresent": true,
+      "durationMs": 2.36,
+      "passed": true
+    },
+    {
+      "path": "/boot-trial/",
+      "statusCode": 200,
+      "bytes": 8662,
+      "marker": "تجربة إقلاع MSI",
+      "markerPresent": true,
+      "durationMs": 2.59,
+      "passed": true
+    },
+    {
+      "path": "/download.html",
+      "statusCode": 200,
+      "bytes": 4003,
+      "marker": "قناة التنزيل",
+      "markerPresent": true,
+      "durationMs": 2,
+      "passed": true
+    }
+  ],
+  "health": {
+    "statusCode": 200,
+    "serviceStatus": "ok",
+    "system": "SHEIKHA_OPERATING_SYSTEM_V1",
+    "integrationSummary": {
+      "enabled": 9,
+      "ready": 9
+    },
+    "durationMs": 1.66,
+    "passed": true
+  },
+  "liveChat": {
+    "statusCode": 200,
+    "contentType": "text/event-stream; charset=utf-8",
+    "eventOrder": [
+      "ack",
+      "meta",
+      "heartbeat",
+      "token",
+      "done"
+    ],
+    "requiredOrderValid": true,
+    "immediateArabicToken": true,
+    "responseCompletedUnderOneSecond": true,
+    "elapsedMs": 5.67,
+    "deepModelMode": "background",
+    "passed": true
+  },
+  "siteRegistry": {
+    "statusCode": 200,
+    "status": "ACTIVE",
+    "discoveredHtmlPages": 251,
+    "publicCanonicalPages": 109,
+    "domains": 11,
+    "passed": true
+  },
+  "bootTrial": {
+    "statusCode": 200,
+    "status": "MSI_USB_IMAGE_QEMU_VERIFIED_NOT_WRITTEN",
+    "imageSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+    "structurallyVerified": true,
+    "qemuBootVerified": true,
+    "physicalBootVerified": false,
+    "installableToInternalDisk": false,
+    "passed": true
+  },
+  "uefiIntegration": {
+    "statusCode": 200,
+    "status": "ACTIVE_WITH_VERIFIED_FOUNDATION_SUBSETS",
+    "specificationRevision": "2.11",
+    "chapters": 39,
+    "appendices": 18,
+    "registeredCapabilities": 57,
+    "verifiedSubsets": 13,
+    "defaultDenyCapabilities": 27,
+    "fullImplementationClaimed": false,
+    "conformanceCertified": false,
+    "passed": true
+  },
+  "hardwareCompatibility": {
+    "statusCode": 200,
+    "status": "ACTIVE_WITH_VERIFIED_X86_64_FOUNDATION",
+    "architectures": 8,
+    "targetClasses": 17,
+    "connectors": 56,
+    "operatingEnvironments": 10,
+    "emulatedVerifiedArchitectures": 1,
+    "physicalVerifiedTargets": 0,
+    "safetyCertifiedTargets": 0,
+    "runnableEverywhereToday": false,
+    "universalHardwareSupportClaimed": false,
+    "passed": true
+  },
+  "unifiedProductRuntime": {
+    "statusCode": 200,
+    "status": "ACTIVE_WITH_BOUNDED_VERIFIED_FOUNDATIONS",
+    "productCount": 4,
+    "allProductDecisionsVerified": true,
+    "jannatIsWorldlyMetaphorOnly": true,
+    "physicalHardwareVerified": false,
+    "generalPurposeOsComplete": false,
+    "runnableEverywhereToday": false,
+    "automatedFatwa": false,
+    "passed": true
+  },
+  "productAliases": {
+    "results": [
+      {
+        "route": "/gardens",
+        "target": "/riyadh-aljannah-community/",
+        "statusCode": 308,
+        "location": "/riyadh-aljannah-community/",
+        "passed": true
+      },
+      {
+        "route": "/builder",
+        "target": "/system-builder-workbench/",
+        "statusCode": 308,
+        "location": "/system-builder-workbench/",
+        "passed": true
+      },
+      {
+        "route": "/uefi",
+        "target": "/boot-trial/",
+        "statusCode": 308,
+        "location": "/boot-trial/",
+        "passed": true
+      },
+      {
+        "route": "/bare-metal",
+        "target": "/boot-trial/",
+        "statusCode": 308,
+        "location": "/boot-trial/",
+        "passed": true
+      }
+    ],
+    "passed": true
+  },
+  "checkedPageCount": 8,
+  "passed": true,
+  "productionReadinessClaimed": false,
+  "productionBoundary": "Production startup requires operator-provided JWT and data-encryption secrets."
+}

@@ -17,12 +17,21 @@
     "qemuArtifactBindingVerified": true
   },
   "markerPresence": {
+    "SHEIKHA_UEFI_SYSTEM_TABLE_VALIDATED": true,
+    "SHEIKHA_UEFI_BOOT_SERVICES_ACTIVE": true,
+    "SHEIKHA_UEFI_RUNTIME_SERVICES_PRESENT": true,
+    "SHEIKHA_UEFI_CONSOLE_OUTPUT_OK": true,
+    "SHEIKHA_UEFI_WATCHDOG_DISABLED": true,
+    "SHEIKHA_UEFI_LOADED_IMAGE_PROTOCOL_OK": true,
+    "SHEIKHA_UEFI_DEVICE_PATH_PROTOCOL_OK": true,
+    "SHEIKHA_UEFI_GOP_DISCOVERY_ATTEMPTED": true,
     "SHEIKHA_V2_PAGING_PREPARED": true,
     "SHEIKHA_V2_CR3_LOAD_OK": true,
     "SHEIKHA_V2_INVLPG_OK": true,
     "SHEIKHA_V2_PAGING_BOOT_OK": true,
     "SHEIKHA_BARE_METAL_BOOT_OK": true,
-    "boot_services=EXITED": true
+    "boot_services=EXITED": true,
+    "physical_display_indicator=": true
   },
   "pe": {
     "format": "PE32+",
@@ -30,7 +39,7 @@
     "machineName": "x86_64",
     "sections": 4,
     "optionalMagic": 523,
-    "entryPointRva": 7536,
+    "entryPointRva": 8096,
     "imageBase": 4194304,
     "sectionAlignment": 4096,
     "fileAlignment": 512,

@@ -9,6 +9,7 @@ const {
   EFI_ARTIFACT,
   FAT_IMAGE,
   REQUIRED_MARKERS,
+  normalizeToolOutput,
 } = require('../bare-metal/build/sheikha-bare-metal-v2-phase2b');
 const {
   parsePeArtifact,
@@ -30,6 +31,12 @@ function sha256(filePath) {
 }
 
 describe('Sheikha V2 UEFI paging runtime Phase 2B', () => {
+  test('normalizes generated tool evidence without trailing whitespace', () => {
+    expect(normalizeToolOutput('line  \nnext\t\n\n')).toBe(
+      'line\nnext\n'
+    );
+  });
+
   test('verifies the 2 MiB bootstrap model without host privileges', () => {
     const output = execFileSync(
       'bash',

@@ -1,0 +1,40 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V2_PHYSICAL_BOOT_TRIAL_MANIFEST_V1",
+  "generatedAt": "2026-07-20T18:47:44.623Z",
+  "architecture": "x86_64",
+  "bootProtocol": "UEFI removable-media fallback",
+  "filesystem": "FAT12",
+  "fallbackPath": "EFI/BOOT/BOOTX64.EFI",
+  "artifacts": [
+    {
+      "role": "UEFI_APPLICATION",
+      "path": "bare-metal/images/v2/esp/EFI/BOOT/BOOTX64.EFI",
+      "exists": true,
+      "bytes": 11849,
+      "sha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9"
+    },
+    {
+      "role": "BOOTABLE_FAT12_IMAGE",
+      "path": "bare-metal/images/v2/sheikha-sovereign-bare-metal-v2-phase2b.img",
+      "exists": true,
+      "bytes": 1474560,
+      "sha256": "2a1965845071475d36b824dad31fa08aa49b91182e7d3724779d07f342ae907c"
+    }
+  ],
+  "hashesMatchPhaseReport": true,
+  "expectedObservation": {
+    "preExitText": [
+      "Sheikha Sovereign Native Kernel V2",
+      "Paging prepared; entering native kernel..."
+    ],
+    "postKernelVisualIndicator": "GREEN_STATUS_BAR_WHEN_GOP_FRAMEBUFFER_IS_IDENTITY_MAPPED",
+    "serialSuccessMarker": "SHEIKHA_BARE_METAL_BOOT_OK"
+  },
+  "writePolicy": {
+    "automaticWrite": false,
+    "targetDeviceSelected": null,
+    "explicitHumanApprovalRequired": true,
+    "internalSystemDiskAllowed": false
+  }
+}

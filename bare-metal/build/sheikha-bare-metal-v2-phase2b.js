@@ -96,12 +96,21 @@ const REQUIRED_BUILD_TOOLS = [
   'objdump',
 ];
 const REQUIRED_MARKERS = [
+  'SHEIKHA_UEFI_SYSTEM_TABLE_VALIDATED',
+  'SHEIKHA_UEFI_BOOT_SERVICES_ACTIVE',
+  'SHEIKHA_UEFI_RUNTIME_SERVICES_PRESENT',
+  'SHEIKHA_UEFI_CONSOLE_OUTPUT_OK',
+  'SHEIKHA_UEFI_WATCHDOG_DISABLED',
+  'SHEIKHA_UEFI_LOADED_IMAGE_PROTOCOL_OK',
+  'SHEIKHA_UEFI_DEVICE_PATH_PROTOCOL_OK',
+  'SHEIKHA_UEFI_GOP_DISCOVERY_ATTEMPTED',
   'SHEIKHA_V2_PAGING_PREPARED',
   'SHEIKHA_V2_CR3_LOAD_OK',
   'SHEIKHA_V2_INVLPG_OK',
   'SHEIKHA_V2_PAGING_BOOT_OK',
   'SHEIKHA_BARE_METAL_BOOT_OK',
   'boot_services=EXITED',
+  'physical_display_indicator=',
 ];
 const CONTRACTS = [
   ['SHEIKHA_BOOT_CONTRACT_ID', 'contracts/SHEIKHA-BOOT-CONTRACT-V1.json'],
@@ -164,6 +173,14 @@ function sha256(filePath) {
     .createHash('sha256')
     .update(fs.readFileSync(filePath))
     .digest('hex');
+}
+
+function normalizeToolOutput(value) {
+  return `${String(value || '')
+    .split(/\r?\n/)
+    .map((line) => line.replace(/[ \t]+$/g, ''))
+    .join('\n')
+    .replace(/\n*$/g, '')}\n`;
 }
 
 function findExecutable(name) {
@@ -501,17 +518,17 @@ function buildArtifact() {
     );
   }
 
-  const elfInspection = [
+  const elfInspection = normalizeToolOutput([
     run(toolchain.tools.readelf.path, ['-h', linkedElf]).stdout,
     run(toolchain.tools.readelf.path, ['-l', linkedElf]).stdout,
     run(toolchain.tools.readelf.path, ['-S', linkedElf]).stdout,
-  ].join('\n');
+  ].join('\n'));
   fs.writeFileSync(ELF_INSPECTION_PATH, elfInspection, 'utf8');
 
-  const cr3Disassembly = run(
+  const cr3Disassembly = normalizeToolOutput(run(
     toolchain.tools.objdump.path,
     ['-d', cr3Object]
-  ).stdout;
+  ).stdout);
   if (!/mov.*%cr3|mov.*cr3/.test(cr3Disassembly)) {
     throw new Error('CR3 instruction was not found in the linked interface');
   }
@@ -1017,6 +1034,7 @@ module.exports = {
   buildArtifact,
   buildImage,
   inspectToolchain,
+  normalizeToolOutput,
   runQemu,
   verify,
 };
