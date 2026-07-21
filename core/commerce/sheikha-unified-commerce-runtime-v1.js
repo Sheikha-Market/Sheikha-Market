@@ -142,36 +142,43 @@ const WORKFLOW_PRESENTATION = Object.freeze({
 const PRODUCT_PRESENTATION = Object.freeze({
   'PROD-GOV-001': {
     nameAr: 'محرك شيخة للحوكمة',
+    summaryAr: 'يحكم قرارات الذكاء والمراجعة والدمج والتشغيل والسياسات وفق الأدلة والموافقات.',
     primarySector: 'government',
     targetSectors: ['government', 'commerce', 'cybersecurity']
   },
   'PROD-STAB-001': {
     nameAr: 'محرك شيخة للاستقرار',
+    summaryAr: 'يقيس الاستقرار ويمنع الانحراف ويفرض الاختبارات وبوابات الجودة.',
     primarySector: 'cloud-saas',
     targetSectors: ['cloud-saas', 'ai-services', 'cybersecurity']
   },
   'PROD-DEC-001': {
     nameAr: 'سجل شيخة للقرارات',
+    summaryAr: 'يحوّل المعرفة المحكومة إلى قرارات قابلة للتتبع بالأدلة والقياسات.',
     primarySector: 'commerce',
     targetSectors: ['commerce', 'government', 'ai-services']
   },
   'PROD-CAP-001': {
     nameAr: 'سجل شيخة للقدرات',
+    summaryAr: 'يسجل قدرات الذكاء والهندسة ويحكم صلاحيات تفعيلها واستخدامها.',
     primarySector: 'ai-services',
     targetSectors: ['ai-services', 'cloud-saas', 'industry']
   },
   'PROD-ENG-001': {
     nameAr: 'أدوات شيخة للمراجعة الهندسية',
+    summaryAr: 'تساند مراجعة الشفرة والاستعداد للدمج والتحقق من العقود التشغيلية.',
     primarySector: 'cloud-saas',
     targetSectors: ['cloud-saas', 'ai-services', 'industry']
   },
   'PROD-AICL-001': {
     nameAr: 'نسيج شيخة لمسارات عناقيد الذكاء الصناعي',
+    summaryAr: 'ينظم مسارات البيانات والنماذج والأدوات والنشر والرصد والوكلاء ضمن نطاق محكوم.',
     primarySector: 'ai-services',
     targetSectors: ['ai-services', 'cloud-saas', 'industry']
   },
   'PROD-UGITAI-001': {
     nameAr: 'مستوى شيخة للتحكم في الذكاء الصناعي',
+    summaryAr: 'يوحد التحكم المحكوم في العناقيد والسحابة والبيانات والوكلاء وتحويل القدرات إلى منتجات.',
     primarySector: 'cloud-saas',
     targetSectors: ['cloud-saas', 'ai-services', 'commerce', 'supply-chain']
   },
@@ -259,7 +266,8 @@ function normalizeCommercialProduct(product) {
     id: product.id,
     nameAr: presentation.nameAr,
     nameEn: product.name,
-    summaryAr: product.value,
+    summaryAr: presentation.summaryAr,
+    summaryEn: product.value,
     kind: 'COMMERCIAL_DIGITAL_PRODUCT',
     primarySector: presentation.primarySector,
     targetSectors: presentation.targetSectors,

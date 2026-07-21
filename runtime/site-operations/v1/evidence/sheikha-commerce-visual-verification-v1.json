@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_COMMERCE_VISUAL_VERIFICATION_V1",
+  "generatedAt": "2026-07-21T06:45:34+03:00",
+  "baseUrl": "http://127.0.0.1:8080",
+  "captureTool": "google-chrome headless",
+  "status": "VISUALLY_REVIEWED",
+  "captures": [
+    {
+      "route": "/market/",
+      "viewport": "1440x1000",
+      "file": "runtime/site-operations/v1/evidence/market-desktop-1440x1000.png",
+      "bytes": 832984,
+      "sha256": "2da29c109cccfd227f586578cdf5cdeb52d6a213e50cf1213e8cfbb6f1e793a1"
+    },
+    {
+      "route": "/market/",
+      "viewport": "390x844",
+      "file": "runtime/site-operations/v1/evidence/market-mobile-390x844.png",
+      "bytes": 258892,
+      "sha256": "aaf946e2edc2d04d0b5f22835be8045558d00e1e83acd3d373477c25ba4f7a1d"
+    },
+    {
+      "route": "/dashboard/",
+      "viewport": "1440x1000",
+      "file": "runtime/site-operations/v1/evidence/dashboard-desktop-1440x1000.png",
+      "bytes": 96082,
+      "sha256": "594fe5c7b328d6e3ef86d052063954186da7ab6d5075ce20d404c3d9af892572"
+    },
+    {
+      "route": "/dashboard/",
+      "viewport": "390x844",
+      "file": "runtime/site-operations/v1/evidence/dashboard-mobile-390x844.png",
+      "bytes": 43954,
+      "sha256": "a3675437e7ccf3739177c298000d929f191cdfe499d603840984c4ebda4e8d8f"
+    }
+  ],
+  "review": {
+    "rtlLayout": true,
+    "desktopLayout": true,
+    "mobileLayout": true,
+    "textClippingObserved": false,
+    "incoherentOverlapObserved": false,
+    "primaryNavigationVisible": true,
+    "marketIdentityVisibleInFirstViewport": true,
+    "dashboardOperationalContentVisibleInFirstViewport": true
+  },
+  "claimBoundary": "Visual review covers the recorded local viewports only; it is not an external accessibility or conformity certification."
+}

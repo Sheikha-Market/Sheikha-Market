@@ -24,6 +24,10 @@ describe('Sheikha Unified Commerce Economy Runtime V1', () => {
     expect(runtime.coverage.products).toBe(13);
     expect(runtime.evidenceDecision.status).toBe('VERIFIED');
     expect(runtime.failedChecks).toEqual([]);
+    for (const product of runtime.catalog) {
+      expect(product.nameAr).toMatch(/[\u0600-\u06ff]/);
+      expect(product.summaryAr).toMatch(/[\u0600-\u06ff]/);
+    }
   });
 
   test('publishes Sheikha Cloud SaaS without inventing price or activation', () => {

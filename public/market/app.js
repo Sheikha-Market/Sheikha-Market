@@ -66,16 +66,7 @@ function productImage(product) {
   if (product.kind === 'SAAS_PRODUCT' || product.kind === 'COMMERCIAL_DIGITAL_PRODUCT') {
     return ['/images/sheikha-emblem-hd.png', true];
   }
-  const sectorImages = {
-    metals: '/assets/market-real/steel/cover.png',
-    'precious-metals': '/assets/market-real/precious/cover.png',
-    recycling: '/assets/market-real/scrap/cover.png',
-    energy: '/assets/market-real/copper/cover.png'
-  };
-  return [
-    sectorImages[product.primarySector] || '/images/sheikha-industrial-market-hero-v1.png',
-    false
-  ];
+  return ['/images/sheikha-industrial-market-hero-v1.png', false];
 }
 
 function sectorName(id) {
