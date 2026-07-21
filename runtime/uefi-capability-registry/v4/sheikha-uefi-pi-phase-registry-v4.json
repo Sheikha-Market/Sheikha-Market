@@ -1,0 +1,59 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_UEFI_PI_PHASE_REGISTRY_V4",
+  "classification": "UEFI_PI_PHASES_REGISTERED",
+  "phaseCount": 8,
+  "phases": [
+    {
+      "id": "sec",
+      "name": "Security Phase",
+      "specFamily": "PI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "pei",
+      "name": "Pre-EFI Initialization",
+      "specFamily": "PI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "dxe",
+      "name": "Driver Execution Environment",
+      "specFamily": "PI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "bds",
+      "name": "Boot Device Selection",
+      "specFamily": "UEFI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "tsl",
+      "name": "Transient System Load",
+      "specFamily": "UEFI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "runtime",
+      "name": "Runtime",
+      "specFamily": "UEFI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "mm",
+      "name": "Management Mode",
+      "specFamily": "PI",
+      "implementationStatus": "NOT_VERIFIED"
+    },
+    {
+      "id": "capsule-recovery",
+      "name": "Capsule Update and Recovery",
+      "specFamily": "UEFI_PI",
+      "implementationStatus": "NOT_VERIFIED"
+    }
+  ],
+  "completeBootFlowImplemented": false,
+  "physicalHardwareBootVerified": false,
+  "generatedAt": "2026-07-21T00:12:50.095818+00:00"
+}

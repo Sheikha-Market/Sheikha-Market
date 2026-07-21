@@ -1,0 +1,63 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_CURRENT_FIVE_PATHS_V2",
+  "classification": "FIVE_GOVERNED_PATHS_REGISTERED",
+  "pathCount": 5,
+  "paths": [
+    {
+      "id": "previous-concurrent-evolved-work",
+      "order": 1,
+      "nameAr": "الأعمال المتزامنة السابقة والمتطورة",
+      "evidence": [
+        {
+          "branch": "safety/sheikha-preserved-concurrent-evolution-20260720-225501",
+          "commit": "a81d6935124ef9aae11ed300567fbd569848a81d"
+        },
+        {
+          "branch": "safety/sheikha-complete-current-work-before-root-v3-20260720-225501",
+          "commit": "5f69587b2cec633a20368af2067bd3a0d15df6c9"
+        },
+        {
+          "branch": "safety/sheikha-root-repository-residual-before-main-20260721-012452",
+          "commit": "7b865d483185535f850f07534d430c547ecb0673"
+        },
+        {
+          "branch": "safety/sheikha-vscode-settings-before-openssl-correlation-20260721-023310",
+          "commit": "0a0b5b2e1f726fb48e417ba19f994be34827bd29"
+        }
+      ],
+      "implementationStatus": "PRESERVED_EVIDENCE"
+    },
+    {
+      "id": "driver-abi",
+      "order": 2,
+      "nameAr": "واجهة السائق الثنائية",
+      "implementationStatus": "CONTRACT_REGISTERED_NOT_VERIFIED"
+    },
+    {
+      "id": "hardware-compatibility",
+      "order": 3,
+      "nameAr": "توافق العتاد",
+      "implementationStatus": "EVIDENCE_REGISTRY_NOT_UNIVERSAL_SUPPORT"
+    },
+    {
+      "id": "logic-governance",
+      "order": 4,
+      "nameAr": "حوكمة المنطق والاستدلال",
+      "implementationStatus": "GOVERNANCE_REGISTERED"
+    },
+    {
+      "id": "unified-product-runtime",
+      "order": 5,
+      "nameAr": "زمن تشغيل المنتج الموحد",
+      "implementationStatus": "SOURCE_CONTRACT_RUNTIME_NOT_STARTED"
+    }
+  ],
+  "truthBoundaries": {
+    "registrationDoesNotMeanImplemented": true,
+    "implementationDoesNotMeanVerified": true,
+    "allDevicesWorldwideSupported": false,
+    "generalPurposeOperatingSystemComplete": false
+  },
+  "generatedAt": "2026-07-21T00:12:50.095818+00:00"
+}

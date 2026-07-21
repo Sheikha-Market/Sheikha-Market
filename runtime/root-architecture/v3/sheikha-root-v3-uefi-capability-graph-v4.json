@@ -1,0 +1,898 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_ROOT_V3_UEFI_CAPABILITY_GRAPH_V4",
+  "classification": "REGISTERED_CAPABILITY_GRAPH_NOT_RUNTIME_TOPOLOGY",
+  "nodeCount": 73,
+  "edgeCount": 103,
+  "nodes": [
+    {
+      "id": "spec::uefi-specification",
+      "kind": "SPECIFICATION_BASELINE",
+      "label": "UEFI Specification 2.11"
+    },
+    {
+      "id": "spec::uefi-platform-initialization",
+      "kind": "SPECIFICATION_BASELINE",
+      "label": "UEFI Platform Initialization Specification 1.9"
+    },
+    {
+      "id": "spec::acpi-specification",
+      "kind": "SPECIFICATION_BASELINE",
+      "label": "ACPI Specification 6.6"
+    },
+    {
+      "id": "spec::uefi-shell-specification",
+      "kind": "SPECIFICATION_BASELINE",
+      "label": "UEFI Shell Specification 2.2"
+    },
+    {
+      "id": "spec::pi-distribution-packaging",
+      "kind": "SPECIFICATION_BASELINE",
+      "label": "UEFI PI Distribution Packaging Specification 1.1"
+    },
+    {
+      "id": "package::armpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "ArmPkg"
+    },
+    {
+      "id": "package::armplatformpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "ArmPlatformPkg"
+    },
+    {
+      "id": "package::armvirtpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "ArmVirtPkg"
+    },
+    {
+      "id": "package::basetools",
+      "kind": "EDK2_PACKAGE",
+      "label": "BaseTools"
+    },
+    {
+      "id": "package::cryptopkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "CryptoPkg"
+    },
+    {
+      "id": "package::dynamictablespkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "DynamicTablesPkg"
+    },
+    {
+      "id": "package::embeddedpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "EmbeddedPkg"
+    },
+    {
+      "id": "package::emulatorpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "EmulatorPkg"
+    },
+    {
+      "id": "package::fatpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "FatPkg"
+    },
+    {
+      "id": "package::fmpdevicepkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "FmpDevicePkg"
+    },
+    {
+      "id": "package::intelfsp2pkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "IntelFsp2Pkg"
+    },
+    {
+      "id": "package::intelfsp2wrapperpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "IntelFsp2WrapperPkg"
+    },
+    {
+      "id": "package::manageabilitypkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "ManageabilityPkg"
+    },
+    {
+      "id": "package::mdemodulepkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "MdeModulePkg"
+    },
+    {
+      "id": "package::mdepkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "MdePkg"
+    },
+    {
+      "id": "package::networkpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "NetworkPkg"
+    },
+    {
+      "id": "package::ovmfpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "OvmfPkg"
+    },
+    {
+      "id": "package::pcatchipsetpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "PcAtChipsetPkg"
+    },
+    {
+      "id": "package::prmpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "PrmPkg"
+    },
+    {
+      "id": "package::redfishpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "RedfishPkg"
+    },
+    {
+      "id": "package::securitypkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "SecurityPkg"
+    },
+    {
+      "id": "package::shellpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "ShellPkg"
+    },
+    {
+      "id": "package::sourceleveldebugpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "SourceLevelDebugPkg"
+    },
+    {
+      "id": "package::standalonemmpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "StandaloneMmPkg"
+    },
+    {
+      "id": "package::tcgtpmpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "TcgTpmPkg"
+    },
+    {
+      "id": "package::ueficpupkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "UefiCpuPkg"
+    },
+    {
+      "id": "package::uefipayloadpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "UefiPayloadPkg"
+    },
+    {
+      "id": "package::unittestframeworkpkg",
+      "kind": "EDK2_PACKAGE",
+      "label": "UnitTestFrameworkPkg"
+    },
+    {
+      "id": "group::system-table-image-model",
+      "kind": "CAPABILITY_GROUP",
+      "label": "System Table and Image Model"
+    },
+    {
+      "id": "group::boot-services",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Boot Services"
+    },
+    {
+      "id": "group::runtime-services",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Runtime Services"
+    },
+    {
+      "id": "group::console-hii",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Console, HII, Forms, Fonts and Images"
+    },
+    {
+      "id": "group::driver-model",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Device Path and Driver Model"
+    },
+    {
+      "id": "group::pci",
+      "kind": "CAPABILITY_GROUP",
+      "label": "PCI and Root Bridge"
+    },
+    {
+      "id": "group::usb",
+      "kind": "CAPABILITY_GROUP",
+      "label": "USB"
+    },
+    {
+      "id": "group::storage-block-media",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Storage, Block, Media and Pass-Through"
+    },
+    {
+      "id": "group::filesystem-load",
+      "kind": "CAPABILITY_GROUP",
+      "label": "File Systems and Image Loading"
+    },
+    {
+      "id": "group::network-link-config",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Network Link and Configuration"
+    },
+    {
+      "id": "group::network-transport-services",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Network Transport and Boot Services"
+    },
+    {
+      "id": "group::wireless-eap",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Wi-Fi and EAP"
+    },
+    {
+      "id": "group::http-tls-rest-redfish",
+      "kind": "CAPABILITY_GROUP",
+      "label": "HTTP, TLS, REST and Redfish"
+    },
+    {
+      "id": "group::secure-boot-image-auth",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Secure Boot, Image Authentication and Signing"
+    },
+    {
+      "id": "group::cryptography-hash-rng",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Cryptography, Hashing and Randomness"
+    },
+    {
+      "id": "group::tpm-tcg-measured-boot",
+      "kind": "CAPABILITY_GROUP",
+      "label": "TPM, TCG and Measured Boot"
+    },
+    {
+      "id": "group::firmware-management-capsule",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Firmware Management, Capsules and ESRT"
+    },
+    {
+      "id": "group::variables-time-reset-memory",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Variables, Time, Reset and Runtime Memory"
+    },
+    {
+      "id": "group::graphics-input-serial",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Graphics, Input, Pointer and Serial I/O"
+    },
+    {
+      "id": "group::boot-manager-user-credential",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Boot Manager, Recovery and User Credential"
+    },
+    {
+      "id": "group::diagnostics-health-status",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Diagnostics, Health and Status Code"
+    },
+    {
+      "id": "group::spdm-device-security",
+      "kind": "CAPABILITY_GROUP",
+      "label": "SPDM and Device Security"
+    },
+    {
+      "id": "group::confidential-computing",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Confidential Computing"
+    },
+    {
+      "id": "group::acpi-apei-cper",
+      "kind": "CAPABILITY_GROUP",
+      "label": "ACPI, APEI and CPER"
+    },
+    {
+      "id": "group::smbios-platform-inventory",
+      "kind": "CAPABILITY_GROUP",
+      "label": "SMBIOS and Platform Inventory"
+    },
+    {
+      "id": "group::pi-sec-pei-ppi",
+      "kind": "CAPABILITY_GROUP",
+      "label": "PI SEC, PEI and PPIs"
+    },
+    {
+      "id": "group::pi-dxe-services",
+      "kind": "CAPABILITY_GROUP",
+      "label": "PI DXE Foundation and Services"
+    },
+    {
+      "id": "group::pi-mm-smm",
+      "kind": "CAPABILITY_GROUP",
+      "label": "PI Management Mode and SMM"
+    },
+    {
+      "id": "group::uefi-shell",
+      "kind": "CAPABILITY_GROUP",
+      "label": "UEFI Shell"
+    },
+    {
+      "id": "group::ebc-image-execution",
+      "kind": "CAPABILITY_GROUP",
+      "label": "EFI Byte Code and Image Execution"
+    },
+    {
+      "id": "group::platform-bus-peripheral",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Platform Buses and Peripherals"
+    },
+    {
+      "id": "group::manageability-redfish-ipmi-prm",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Manageability, Redfish, IPMI, MCTP, PLDM and PRM"
+    },
+    {
+      "id": "group::architecture-cpu-interrupt-timer",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Architecture, CPU, Interrupt and Timer"
+    },
+    {
+      "id": "group::platform-build-packaging",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Platform Build, Packaging and Distribution"
+    },
+    {
+      "id": "group::qualification-test-evidence",
+      "kind": "CAPABILITY_GROUP",
+      "label": "Qualification, Test and Evidence"
+    },
+    {
+      "id": "root::five-paths",
+      "kind": "ROOT_CONTRACT",
+      "label": "Five Paths"
+    },
+    {
+      "id": "root::driver-abi",
+      "kind": "ROOT_CONTRACT",
+      "label": "Driver ABI V2"
+    },
+    {
+      "id": "root::unified-product-runtime",
+      "kind": "ROOT_CONTRACT",
+      "label": "Unified Product Runtime V2"
+    },
+    {
+      "id": "root::logic-governance",
+      "kind": "GOVERNANCE",
+      "label": "Logic and Reasoning Governance V2"
+    },
+    {
+      "id": "root::quran-sunnah-reference",
+      "kind": "REFERENCE_GOVERNANCE",
+      "label": "Quran and Sunnah Reference Governance"
+    }
+  ],
+  "edges": [
+    {
+      "from": "group::system-table-image-model",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::boot-services",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::runtime-services",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::console-hii",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::driver-model",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::pci",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::pci",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::usb",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::storage-block-media",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::filesystem-load",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::network-link-config",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::network-transport-services",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::wireless-eap",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::http-tls-rest-redfish",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::secure-boot-image-auth",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::cryptography-hash-rng",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::tpm-tcg-measured-boot",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::firmware-management-capsule",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::firmware-management-capsule",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::variables-time-reset-memory",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::graphics-input-serial",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::boot-manager-user-credential",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::diagnostics-health-status",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::diagnostics-health-status",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::acpi-apei-cper",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::acpi-apei-cper",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::pi-sec-pei-ppi",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::pi-dxe-services",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::pi-mm-smm",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::uefi-shell",
+      "to": "spec::uefi-shell-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::ebc-image-execution",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::ebc-image-execution",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::platform-bus-peripheral",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::platform-bus-peripheral",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::architecture-cpu-interrupt-timer",
+      "to": "spec::uefi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::architecture-cpu-interrupt-timer",
+      "to": "spec::acpi-specification",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "group::platform-build-packaging",
+      "to": "spec::pi-distribution-packaging",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "package::armpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::armplatformpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::armvirtpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::basetools",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::cryptopkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::dynamictablespkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::embeddedpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::emulatorpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::fatpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::fmpdevicepkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::intelfsp2pkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::intelfsp2wrapperpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::manageabilitypkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::mdemodulepkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::mdepkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::networkpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::ovmfpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::pcatchipsetpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::prmpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::redfishpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::securitypkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::shellpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::sourceleveldebugpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::standalonemmpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::tcgtpmpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::ueficpupkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::uefipayloadpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "package::unittestframeworkpkg",
+      "to": "root::unified-product-runtime",
+      "relation": "REGISTERED_AS_PACKAGE_INPUT"
+    },
+    {
+      "from": "group::system-table-image-model",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::boot-services",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::runtime-services",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::console-hii",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::driver-model",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::pci",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::usb",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::storage-block-media",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::filesystem-load",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::network-link-config",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::network-transport-services",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::wireless-eap",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::http-tls-rest-redfish",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::secure-boot-image-auth",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::cryptography-hash-rng",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::tpm-tcg-measured-boot",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::firmware-management-capsule",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::variables-time-reset-memory",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::graphics-input-serial",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::boot-manager-user-credential",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::diagnostics-health-status",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::spdm-device-security",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::confidential-computing",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::acpi-apei-cper",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::smbios-platform-inventory",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::pi-sec-pei-ppi",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::pi-dxe-services",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::pi-mm-smm",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::uefi-shell",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::ebc-image-execution",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::platform-bus-peripheral",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::manageability-redfish-ipmi-prm",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::architecture-cpu-interrupt-timer",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::platform-build-packaging",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "group::qualification-test-evidence",
+      "to": "root::five-paths",
+      "relation": "REGISTERED_UNDER_ROOT"
+    },
+    {
+      "from": "root::unified-product-runtime",
+      "to": "root::logic-governance",
+      "relation": "GOVERNED_BY"
+    },
+    {
+      "from": "root::unified-product-runtime",
+      "to": "root::quran-sunnah-reference",
+      "relation": "REFERENCE_BOUNDARY"
+    },
+    {
+      "from": "root::driver-abi",
+      "to": "root::unified-product-runtime",
+      "relation": "SUPPLIES_CONTRACT"
+    }
+  ],
+  "truthBoundaries": {
+    "graphRegistrationDoesNotMeanRuntimeWiring": true,
+    "allNodesImplemented": false,
+    "allEdgesRuntimeVerified": false,
+    "productionTopologyVerified": false
+  },
+  "generatedAt": "2026-07-21T00:12:50.095818+00:00"
+}
