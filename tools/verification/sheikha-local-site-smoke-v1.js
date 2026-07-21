@@ -13,6 +13,8 @@ const REPORT_PATH = path.join(
 );
 const PAGE_CHECKS = [
   { path: '/', marker: '<title>شيخة' },
+  { path: '/market/', marker: '<title>سوق شيخة' },
+  { path: '/dashboard/', marker: '<title>لوحة شيخة' },
   { path: '/commercial/', marker: 'حلول شيخة التجارية' },
   {
     path: '/system-builder-workbench/',
@@ -307,8 +309,47 @@ async function checkUnifiedProductRuntime(baseUrl) {
   };
 }
 
+async function checkUnifiedCommerceRuntime(baseUrl) {
+  const response = await fetchWithTimeout(
+    `${baseUrl}/api/sheikha/commerce/v1/status`
+  );
+  const body = await response.json();
+  const data = body.data || {};
+  const cloud = Array.isArray(data.catalog)
+    ? data.catalog.find((product) => product.id === 'PROD-CLOUD-SAAS')
+    : null;
+  return {
+    statusCode: response.status,
+    status: data.status || null,
+    products: data.coverage?.products || 0,
+    sectors: data.coverage?.sectors || 0,
+    marketGroups: data.coverage?.marketGroups || 0,
+    workflows: data.coverage?.workflows || 0,
+    saasServices: data.coverage?.saasServices || 0,
+    cloudSaasPresent: Boolean(cloud),
+    transactionExecutionEnabled:
+      data.claimBoundary?.transactionExecutionEnabled === true,
+    externalAccreditationClaimed:
+      data.claimBoundary?.externalAccreditationClaimed === true,
+    passed: response.status === 200 &&
+      body.ok === true &&
+      data.status === 'ACTIVE_WITH_GOVERNED_CATALOG' &&
+      data.coverage?.products === 13 &&
+      data.coverage?.sectors === 30 &&
+      data.coverage?.marketGroups === 7 &&
+      data.coverage?.workflows === 12 &&
+      data.coverage?.saasServices === 14 &&
+      Boolean(cloud) &&
+      cloud.pricing?.mode === 'REQUEST_QUOTE' &&
+      cloud.transactionReady === false &&
+      data.claimBoundary?.transactionExecutionEnabled === false &&
+      data.claimBoundary?.externalAccreditationClaimed === false,
+  };
+}
+
 async function checkProductAliases(baseUrl) {
   const aliases = [
+    ['/dashboard', '/dashboard/'],
     ['/gardens', '/riyadh-aljannah-community/'],
     ['/builder', '/system-builder-workbench/'],
     ['/uefi', '/boot-trial/'],
@@ -347,6 +388,7 @@ async function runSmoke(baseUrl) {
   const uefiIntegration = await checkUefiIntegration(origin);
   const hardwareCompatibility = await checkHardwareCompatibility(origin);
   const unifiedProductRuntime = await checkUnifiedProductRuntime(origin);
+  const unifiedCommerceRuntime = await checkUnifiedCommerceRuntime(origin);
   const productAliases = await checkProductAliases(origin);
   const passed = pages.every((page) => page.passed) &&
     health.passed &&
@@ -356,6 +398,7 @@ async function runSmoke(baseUrl) {
     uefiIntegration.passed &&
     hardwareCompatibility.passed &&
     unifiedProductRuntime.passed &&
+    unifiedCommerceRuntime.passed &&
     productAliases.passed;
   const report = {
     schemaVersion: '1.0.0',
@@ -372,6 +415,7 @@ async function runSmoke(baseUrl) {
     uefiIntegration,
     hardwareCompatibility,
     unifiedProductRuntime,
+    unifiedCommerceRuntime,
     productAliases,
     checkedPageCount: pages.length,
     passed,

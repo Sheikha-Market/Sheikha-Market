@@ -8,6 +8,7 @@ const {
   REGISTRY_PATH,
   classifyDomain,
   classifyVisibility,
+  primaryRouteForFile,
   routeForFile,
 } = require('../tools/site/sheikha-site-catalog-v2');
 
@@ -15,6 +16,12 @@ describe('Sheikha site catalog V2', () => {
   test('maps index pages and regular files to stable routes', () => {
     expect(routeForFile('index.html')).toBe('/');
     expect(routeForFile('market/index.html')).toBe('/market/');
+    expect(routeForFile('sheikha-dashboards/index.html')).toBe(
+      '/sheikha-dashboards/'
+    );
+    expect(primaryRouteForFile('sheikha-dashboards/index.html')).toBe(
+      '/dashboard/'
+    );
     expect(routeForFile('الشريعة-الاسلامية.html')).toBe(
       '/الشريعة-الاسلامية.html'
     );
@@ -38,6 +45,9 @@ describe('Sheikha site catalog V2', () => {
       'developer'
     );
     expect(classifyDomain('boot-trial/index.html')).toBe('native');
+    expect(classifyDomain('sheikha-dashboards/index.html')).toBe(
+      'operations'
+    );
     expect(classifyDomain('نظام-اللوجستيات.html')).toBe('logistics');
   });
 
@@ -50,6 +60,12 @@ describe('Sheikha site catalog V2', () => {
 
     expect(inventory.totalHtmlPages).toBeGreaterThan(200);
     expect(registry.policies.aliasesPreserved).toBe(true);
+    expect(registry.routePolicyChecks).toEqual({
+      primaryRouteFilesExist: true,
+      aliasTargetsAreCanonical: true,
+      dashboardCanonicalRoutePresent: true,
+      marketCanonicalRoutePresent: true,
+    });
     expect(registry.aliasRoutes).toEqual(expect.arrayContaining([
       expect.objectContaining({
         route: '/uefi',

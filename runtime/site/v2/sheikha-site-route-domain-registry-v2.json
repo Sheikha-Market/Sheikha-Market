@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0.0",
   "system": "SHEIKHA_SITE_ROUTE_DOMAIN_REGISTRY_V2",
-  "generatedAt": "2026-07-20T19:50:52.278Z",
+  "generatedAt": "2026-07-21T03:30:21.916Z",
   "status": "ACTIVE_GENERATED_REGISTRY",
   "identity": {
     "nameAr": "شيخة",
@@ -59,11 +59,12 @@
       "labelAr": "السوق والقطاعات",
       "descriptionAr": "الأسواق والمنتجات والمعادن والسكراب والفرص.",
       "publicPageCount": 13,
-      "canonicalPageCount": 12,
+      "canonicalPageCount": 13,
       "routes": [
         "/بنك-شيخة.html",
         "/خريطة-الشبكات.html",
         "/سوق-المدينة.html",
+        "/سوق-شيخة.html",
         "/شيخة-القيادة-التسويقية.html",
         "/هوية-شيخة.html",
         "/market/",
@@ -178,9 +179,9 @@
         "/لوحة-تحكم-المستخدم.html",
         "/مراقبة-العمليات.html",
         "/dashboard.html",
+        "/dashboard/",
         "/monitor/",
         "/sheikha-cloud-console.html",
-        "/sheikha-dashboards/",
         "/sheikha-platform/"
       ]
     },
@@ -1337,7 +1338,7 @@
       "readiness": "ROUTE_READY"
     },
     {
-      "route": "/sheikha-dashboards/",
+      "route": "/dashboard/",
       "file": "public/sheikha-dashboards/index.html",
       "domain": "operations",
       "visibility": "PUBLIC",
@@ -1659,6 +1660,13 @@
       "readiness": "ROUTE_READY"
     },
     {
+      "route": "/سوق-شيخة.html",
+      "file": "public/سوق-شيخة.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
       "route": "/سياسة-الخصوصية.html",
       "file": "public/سياسة-الخصوصية.html",
       "domain": "governance",
@@ -1966,12 +1974,6 @@
       "source": "IDENTICAL_ARTIFACT"
     },
     {
-      "route": "/سوق-شيخة.html",
-      "canonicalRoute": "/market/",
-      "file": null,
-      "source": "DECLARED_ROUTE_POLICY"
-    },
-    {
       "route": "/لوحة-الشركة.html",
       "canonicalRoute": "/company/",
       "file": "public/لوحة-الشركة.html",
@@ -2010,6 +2012,18 @@
     {
       "route": "/builder/",
       "canonicalRoute": "/system-builder-workbench/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/dashboard",
+      "canonicalRoute": "/dashboard/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/dashboards",
+      "canonicalRoute": "/dashboard/",
       "file": null,
       "source": "DECLARED_ROUTE_POLICY"
     },
@@ -2080,6 +2094,18 @@
       "source": "DECLARED_ROUTE_POLICY"
     },
     {
+      "route": "/sheikha-dashboards",
+      "canonicalRoute": "/dashboard/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/sheikha-dashboards/",
+      "canonicalRoute": "/dashboard/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
       "route": "/sheikha-ide.html",
       "canonicalRoute": "/ide/",
       "file": null,
@@ -2117,6 +2143,12 @@
     "protectedPagesExcludedFromPublicCatalog": true,
     "noDeleteWithoutHumanReview": true,
     "externalDomainStateMustBeVerifiedBeforeClaim": true
+  },
+  "routePolicyChecks": {
+    "primaryRouteFilesExist": true,
+    "aliasTargetsAreCanonical": true,
+    "dashboardCanonicalRoutePresent": true,
+    "marketCanonicalRoutePresent": true
   },
   "sourceInventory": "runtime/site/v2/sheikha-site-page-inventory-v2.json",
   "sourceLinkAudit": "runtime/site/v2/sheikha-site-link-audit-v2.json"
