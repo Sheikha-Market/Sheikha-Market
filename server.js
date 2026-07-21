@@ -162,6 +162,22 @@ app.use(
 );
 
 app.use(
+  '/api/sheikha/commerce/v1',
+  require(
+    './routes/commerce/' +
+      'sheikha-unified-commerce-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/technical-experience/v1',
+  require(
+    './routes/technical-experience/' +
+      'sheikha-technical-experience-routes-v1'
+  )
+);
+
+app.use(
   '/system-builder-workbench',
   express.static(
     require('path').join(

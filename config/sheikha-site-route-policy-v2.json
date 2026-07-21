@@ -13,6 +13,9 @@
   "primaryRoutes": {
     "/": "public/index.html",
     "/market/": "public/market/index.html",
+    "/dashboard/": "public/sheikha-dashboards/index.html",
+    "/technology/": "public/technology/index.html",
+    "/product-technical/": "public/product-technical/index.html",
     "/register/": "public/register/index.html",
     "/commercial/": "public/commercial/index.html",
     "/company/": "public/company/index.html",
@@ -42,6 +45,15 @@
     "/system-builder": "/system-builder-workbench/",
     "/market": "/market/",
     "/سوق-شيخة.html": "/market/",
+    "/dashboard": "/dashboard/",
+    "/dashboards": "/dashboard/",
+    "/sheikha-dashboards": "/dashboard/",
+    "/sheikha-dashboards/": "/dashboard/",
+    "/technology": "/technology/",
+    "/tech": "/technology/",
+    "/technical": "/technology/",
+    "/product-technical": "/product-technical/",
+    "/technical-product": "/product-technical/",
     "/register": "/register/",
     "/تسجيل-الشركات.html": "/register/",
     "/ide": "/ide/",
@@ -63,6 +75,14 @@
     "uefi": {
       "canonical": "/boot-trial/",
       "domain": "native"
+    },
+    "technology": {
+      "canonical": "/technology/",
+      "domain": "developer"
+    },
+    "technicalDossier": {
+      "canonical": "/product-technical/",
+      "domain": "developer"
     }
   },
   "protectedPageRoutes": [
