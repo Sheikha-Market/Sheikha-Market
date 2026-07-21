@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0.0",
   "system": "SHEIKHA_SITE_ROUTE_DOMAIN_REGISTRY_V2",
-  "generatedAt": "2026-07-20T19:50:52.278Z",
+  "generatedAt": "2026-07-21T16:42:34.364Z",
   "status": "ACTIVE_GENERATED_REGISTRY",
   "identity": {
     "nameAr": "شيخة",
@@ -59,11 +59,12 @@
       "labelAr": "السوق والقطاعات",
       "descriptionAr": "الأسواق والمنتجات والمعادن والسكراب والفرص.",
       "publicPageCount": 13,
-      "canonicalPageCount": 12,
+      "canonicalPageCount": 13,
       "routes": [
         "/بنك-شيخة.html",
         "/خريطة-الشبكات.html",
         "/سوق-المدينة.html",
+        "/سوق-شيخة.html",
         "/شيخة-القيادة-التسويقية.html",
         "/هوية-شيخة.html",
         "/market/",
@@ -137,8 +138,8 @@
       "id": "developer",
       "labelAr": "البناء والتطوير",
       "descriptionAr": "لغة شيخة وIDE وSystem Builder والعمارة والتكامل.",
-      "publicPageCount": 15,
-      "canonicalPageCount": 13,
+      "publicPageCount": 17,
+      "canonicalPageCount": 15,
       "routes": [
         "/تكامل-شيخة-الذكي.html",
         "/شيخة-ميتا-AI.html",
@@ -148,11 +149,13 @@
         "/architecture-explorer/",
         "/ide/",
         "/identity/",
+        "/product-technical/",
         "/sdk.html",
         "/sheikha-devops-lab/",
         "/sheikha-logo-tech-experience.html",
         "/SHEIKHA-SMART-DIGITAL.html",
-        "/system-builder-workbench/"
+        "/system-builder-workbench/",
+        "/technology/"
       ]
     },
     {
@@ -178,9 +181,9 @@
         "/لوحة-تحكم-المستخدم.html",
         "/مراقبة-العمليات.html",
         "/dashboard.html",
+        "/dashboard/",
         "/monitor/",
         "/sheikha-cloud-console.html",
-        "/sheikha-dashboards/",
         "/sheikha-platform/"
       ]
     },
@@ -1288,6 +1291,13 @@
       "readiness": "ROUTE_READY"
     },
     {
+      "route": "/product-technical/",
+      "file": "public/product-technical/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
       "route": "/register/",
       "file": "public/register/index.html",
       "domain": "commerce",
@@ -1337,7 +1347,7 @@
       "readiness": "ROUTE_READY"
     },
     {
-      "route": "/sheikha-dashboards/",
+      "route": "/dashboard/",
       "file": "public/sheikha-dashboards/index.html",
       "domain": "operations",
       "visibility": "PUBLIC",
@@ -1416,6 +1426,13 @@
     {
       "route": "/system-builder-workbench/",
       "file": "public/system-builder-workbench/index.html",
+      "domain": "developer",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/technology/",
+      "file": "public/technology/index.html",
       "domain": "developer",
       "visibility": "PUBLIC",
       "readiness": "ROUTE_READY"
@@ -1654,6 +1671,13 @@
     {
       "route": "/سوق-المدينة.html",
       "file": "public/سوق-المدينة.html",
+      "domain": "marketplace",
+      "visibility": "PUBLIC",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "route": "/سوق-شيخة.html",
+      "file": "public/سوق-شيخة.html",
       "domain": "marketplace",
       "visibility": "PUBLIC",
       "readiness": "ROUTE_READY"
@@ -1966,12 +1990,6 @@
       "source": "IDENTICAL_ARTIFACT"
     },
     {
-      "route": "/سوق-شيخة.html",
-      "canonicalRoute": "/market/",
-      "file": null,
-      "source": "DECLARED_ROUTE_POLICY"
-    },
-    {
       "route": "/لوحة-الشركة.html",
       "canonicalRoute": "/company/",
       "file": "public/لوحة-الشركة.html",
@@ -2010,6 +2028,18 @@
     {
       "route": "/builder/",
       "canonicalRoute": "/system-builder-workbench/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/dashboard",
+      "canonicalRoute": "/dashboard/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/dashboards",
+      "canonicalRoute": "/dashboard/",
       "file": null,
       "source": "DECLARED_ROUTE_POLICY"
     },
@@ -2074,8 +2104,26 @@
       "source": "DECLARED_ROUTE_POLICY"
     },
     {
+      "route": "/product-technical",
+      "canonicalRoute": "/product-technical/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
       "route": "/register",
       "canonicalRoute": "/register/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/sheikha-dashboards",
+      "canonicalRoute": "/dashboard/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/sheikha-dashboards/",
+      "canonicalRoute": "/dashboard/",
       "file": null,
       "source": "DECLARED_ROUTE_POLICY"
     },
@@ -2094,6 +2142,30 @@
     {
       "route": "/system-builder",
       "canonicalRoute": "/system-builder-workbench/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/tech",
+      "canonicalRoute": "/technology/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/technical",
+      "canonicalRoute": "/technology/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/technical-product",
+      "canonicalRoute": "/product-technical/",
+      "file": null,
+      "source": "DECLARED_ROUTE_POLICY"
+    },
+    {
+      "route": "/technology",
+      "canonicalRoute": "/technology/",
       "file": null,
       "source": "DECLARED_ROUTE_POLICY"
     },
@@ -2117,6 +2189,14 @@
     "protectedPagesExcludedFromPublicCatalog": true,
     "noDeleteWithoutHumanReview": true,
     "externalDomainStateMustBeVerifiedBeforeClaim": true
+  },
+  "routePolicyChecks": {
+    "primaryRouteFilesExist": true,
+    "aliasTargetsAreCanonical": true,
+    "dashboardCanonicalRoutePresent": true,
+    "marketCanonicalRoutePresent": true,
+    "technologyCanonicalRoutePresent": true,
+    "productTechnicalCanonicalRoutePresent": true
   },
   "sourceInventory": "runtime/site/v2/sheikha-site-page-inventory-v2.json",
   "sourceLinkAudit": "runtime/site/v2/sheikha-site-link-audit-v2.json"

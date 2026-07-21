@@ -34,6 +34,15 @@ describe('Sheikha site registry routes V2', () => {
       canonicalRoute: '/riyadh-aljannah-community/',
       alias: true,
     });
+    expect(resolvePublicRoute('/technology/')).toMatchObject({
+      found: true,
+      canonicalRoute: '/technology/',
+    });
+    expect(resolvePublicRoute('/technical-product')).toMatchObject({
+      found: true,
+      canonicalRoute: '/product-technical/',
+      alias: true,
+    });
   });
 
   test('serves public APIs and canonical redirects', async () => {
@@ -52,6 +61,14 @@ describe('Sheikha site registry routes V2', () => {
     const uefi = await request(app).get('/uefi');
     expect(uefi.status).toBe(308);
     expect(uefi.headers.location).toBe('/boot-trial/');
+
+    const technology = await request(app).get('/tech');
+    expect(technology.status).toBe(308);
+    expect(technology.headers.location).toBe('/technology/');
+
+    const technicalProduct = await request(app).get('/technical-product');
+    expect(technicalProduct.status).toBe(308);
+    expect(technicalProduct.headers.location).toBe('/product-technical/');
 
     const archive = await request(app).get('/_archive/index-old.html');
     expect(archive.status).toBe(404);

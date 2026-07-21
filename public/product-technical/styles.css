@@ -1,0 +1,200 @@
+:root {
+  color-scheme: light;
+  --ink: #17211f;
+  --muted: #66716e;
+  --paper: #f4f7f5;
+  --surface: #ffffff;
+  --line: #cdd7d3;
+  --green-950: #03271f;
+  --green-800: #07543f;
+  --green-650: #147057;
+  --gold: #ddb446;
+  --gold-soft: #f4df9a;
+  --blue: #176d91;
+  --cyan: #2ba4b6;
+  --danger: #a74035;
+  font-family: "Noto Sans Arabic", "IBM Plex Sans Arabic", Tahoma, Arial, sans-serif;
+}
+
+* { box-sizing: border-box; }
+body { margin: 0; color: var(--ink); background: var(--paper); }
+a { color: inherit; }
+button, select { font: inherit; }
+
+.topbar {
+  min-height: 70px;
+  padding: 0 6vw;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: center;
+  gap: 28px;
+  color: #fff;
+  background: var(--green-950);
+  border-bottom: 3px solid var(--gold);
+}
+
+.brand { display: inline-flex; align-items: center; gap: 10px; text-decoration: none; }
+.brand img { width: 43px; height: 43px; object-fit: contain; }
+.brand span { display: grid; line-height: 1.15; }
+.brand strong { color: var(--gold-soft); font-size: 17px; }
+.brand small { color: #aebfba; font-size: 10px; }
+.topbar nav { display: flex; justify-content: center; gap: 8px; }
+.topbar nav a { padding: 9px 12px; border-radius: 5px; color: #dbe7e3; font-size: 14px; font-weight: 700; text-decoration: none; }
+.topbar nav a:hover, .topbar nav a.active { color: #fff; background: #21493f; }
+.catalog-link { padding: 9px 13px; color: #12221f; background: var(--gold); border-radius: 5px; font-size: 13px; font-weight: 800; text-decoration: none; white-space: nowrap; }
+
+main { padding-bottom: 70px; }
+
+.product-header {
+  padding: 70px 7vw 58px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+  gap: 70px;
+  color: #fff;
+  background: #082d25;
+  border-bottom: 1px solid #225348;
+}
+
+.eyebrow { margin: 0 0 8px; color: var(--blue); font-size: 11px; font-weight: 900; letter-spacing: 0; }
+.product-header .eyebrow { color: var(--gold-soft); }
+.product-header h1 { max-width: 850px; margin: 0; font-size: clamp(38px, 5vw, 67px); line-height: 1.15; letter-spacing: 0; }
+.product-title-block > p:not(.eyebrow) { max-width: 780px; margin: 20px 0 0; color: #d8e6e1; font-size: 18px; line-height: 1.9; }
+
+.product-facts { margin: 30px 0 0; display: flex; flex-wrap: wrap; gap: 10px; }
+.product-facts div { min-width: 150px; padding: 10px 14px; background: #123d34; border: 1px solid #34675b; }
+.product-facts dt { color: #9cb8b0; font-size: 10px; }
+.product-facts dd { margin: 3px 0 0; font-size: 12px; overflow-wrap: anywhere; }
+
+.product-controls { align-self: center; padding: 22px; background: #f7faf8; color: var(--ink); border-top: 4px solid var(--cyan); }
+.product-controls label { display: grid; gap: 7px; }
+.product-controls label span, .product-controls legend { color: var(--muted); font-size: 11px; font-weight: 800; }
+.product-controls select { width: 100%; min-height: 44px; padding: 8px 10px; color: var(--ink); background: #fff; border: 1px solid #aebdb8; border-radius: 4px; }
+.product-controls fieldset { margin: 20px 0 0; padding: 0; border: 0; }
+.level-control { margin-top: 7px; display: grid; grid-template-columns: repeat(3, 1fr); }
+.level-control button { min-height: 42px; color: var(--green-800); background: #fff; border: 1px solid #aebdb8; cursor: pointer; }
+.level-control button + button { border-right: 0; }
+.level-control button.active { color: #fff; background: var(--green-800); }
+.product-controls > p { min-height: 42px; margin: 16px 0 0; color: var(--muted); font-size: 12px; line-height: 1.7; }
+
+.system-visual {
+  width: min(1240px, 90vw);
+  margin: 42px auto 0;
+  background: #071d1a;
+  border: 1px solid #26463f;
+}
+
+.system-visual header { min-height: 86px; padding: 18px 22px; display: flex; justify-content: space-between; align-items: center; gap: 24px; color: #fff; border-bottom: 1px solid #26463f; }
+.system-visual header .eyebrow { color: var(--gold-soft); }
+.system-visual h2 { margin: 0; font-size: 25px; }
+.system-visual header > span { max-width: 540px; color: #a9c1ba; text-align: left; line-height: 1.7; }
+#product-flow-canvas { display: block; width: 100%; height: 300px; }
+
+.io-section, .science-section, .knowledge-section, .paths-section, .full-dossier {
+  width: min(1240px, 90vw);
+  margin: 76px auto 0;
+}
+
+.section-heading { padding-bottom: 20px; display: grid; grid-template-columns: minmax(0, 1fr) minmax(280px, 460px); align-items: end; gap: 36px; border-bottom: 1px solid var(--line); }
+.section-heading h2 { margin: 0; font-size: clamp(28px, 4vw, 43px); line-height: 1.2; }
+.section-heading > p { margin: 0; color: var(--muted); line-height: 1.85; }
+
+.io-grid { margin-top: 28px; display: grid; grid-template-columns: 1fr 1fr; gap: 16px; }
+.io-grid section { background: var(--surface); border: 1px solid var(--line); }
+.io-grid h3 { margin: 0; padding: 17px 20px; font-size: 18px; background: #e8efec; border-bottom: 1px solid var(--line); }
+.io-grid ol { margin: 0; padding: 10px 44px 18px 20px; }
+.io-grid li { padding: 12px 4px; border-bottom: 1px solid #e6ece9; }
+.io-grid li:last-child { border-bottom: 0; }
+
+.formula-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 14px; }
+.formula-card { min-height: 170px; padding: 22px; display: grid; grid-template-rows: auto auto 1fr; gap: 10px; background: var(--surface); border: 1px solid var(--line); border-right: 4px solid var(--blue); }
+.formula-card h3 { margin: 0; font-size: 18px; }
+.formula-card code { direction: ltr; text-align: left; color: #0a5f76; font: 700 15px/1.5 "IBM Plex Mono", "Courier New", monospace; overflow-wrap: anywhere; }
+.formula-card p { margin: 0; color: var(--muted); line-height: 1.75; }
+
+.glossary { margin: 28px 0 0; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); background: var(--surface); border: 1px solid var(--line); }
+.glossary div { min-height: 135px; padding: 20px; border-bottom: 1px solid var(--line); border-left: 1px solid var(--line); }
+.glossary div:nth-child(even) { border-left: 0; }
+.glossary dt { font-size: 18px; font-weight: 900; }
+.glossary dt span { margin-right: 7px; color: var(--blue); font-size: 12px; direction: ltr; }
+.glossary dd { margin: 10px 0 0; color: var(--muted); line-height: 1.75; }
+.glossary dd small { display: block; margin-top: 8px; color: var(--green-650); }
+
+.path-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(3, 1fr); gap: 14px; }
+.knowledge-path { min-height: 270px; padding: 22px; display: grid; grid-template-rows: auto auto 1fr auto; gap: 9px; background: var(--surface); border: 1px solid var(--line); border-top: 4px solid #87948f; }
+.knowledge-path.active { border-top-color: var(--gold); box-shadow: 0 10px 26px rgba(3, 39, 31, 0.1); }
+.knowledge-path > span { color: var(--green-650); font-size: 11px; font-weight: 900; }
+.knowledge-path h3 { margin: 0; font-size: 22px; }
+.knowledge-path p { margin: 6px 0; color: var(--muted); line-height: 1.75; }
+.knowledge-path ul { margin: 0; padding: 0 19px 0 0; color: #40504b; }
+
+.evidence-section {
+  width: min(1240px, 90vw);
+  margin: 76px auto 0;
+  padding: 28px;
+  display: grid;
+  grid-template-columns: minmax(280px, 0.7fr) minmax(0, 1.3fr);
+  gap: 30px;
+  background: #e7eeeb;
+  border: 1px solid var(--line);
+}
+.evidence-section h2 { margin: 0; font-size: 31px; }
+.evidence-section p { color: var(--muted); line-height: 1.8; }
+.evidence-section ul { margin: 0; padding: 0; list-style: none; }
+.evidence-section li { padding: 11px 0; direction: ltr; text-align: left; overflow-wrap: anywhere; border-bottom: 1px solid #c8d3cf; font: 12px/1.6 "IBM Plex Mono", "Courier New", monospace; }
+
+.entitlement-section {
+  width: min(1240px, 90vw);
+  margin: 76px auto 0;
+  padding: 34px;
+  display: grid;
+  grid-template-columns: minmax(0, 1.25fr) minmax(300px, 0.75fr);
+  gap: 40px;
+  color: #fff;
+  background: #082d25;
+  border-top: 4px solid var(--gold);
+}
+.entitlement-section .eyebrow { color: var(--gold-soft); }
+.entitlement-section h2 { margin: 0; font-size: 34px; }
+.entitlement-section p { color: #c5d8d2; line-height: 1.85; }
+.entitlement-section button { min-height: 44px; padding: 10px 17px; color: #13211e; background: var(--gold); border: 0; border-radius: 5px; font-weight: 900; cursor: pointer; }
+.entitlement-state { align-self: stretch; padding: 22px; display: grid; align-content: center; gap: 7px; background: #0e4438; border: 1px solid #376c60; }
+.entitlement-state strong { font-size: 18px; }
+.entitlement-state span { color: #bbd0ca; line-height: 1.7; }
+.entitlement-state.denied { background: #432a25; border-color: #8c5a50; }
+.entitlement-state.allowed { background: #134d38; border-color: #4d9c75; }
+
+.full-dossier[hidden] { display: none; }
+.dossier-grid { margin-top: 28px; display: grid; grid-template-columns: repeat(2, 1fr); gap: 14px; }
+.dossier-module { padding: 22px; background: #fff; border: 1px solid var(--line); }
+.dossier-module h3 { margin: 0 0 12px; }
+.dossier-module ul { margin: 0; padding: 0 20px 0 0; }
+.dossier-module li { margin: 8px 0; color: var(--muted); }
+
+footer { margin-top: 80px; padding: 30px 6vw; display: flex; justify-content: space-between; align-items: center; gap: 20px; color: #dbe7e3; background: var(--green-950); }
+footer strong { color: var(--gold-soft); }
+footer span { color: #9db2ac; }
+footer nav { display: flex; gap: 18px; }
+footer a { color: #dbe7e3; text-decoration: none; }
+
+@media (max-width: 980px) {
+  .topbar { grid-template-columns: auto 1fr; }
+  .catalog-link { display: none; }
+  .product-header { grid-template-columns: 1fr; gap: 36px; }
+  .path-grid { grid-template-columns: 1fr; }
+}
+
+@media (max-width: 720px) {
+  .topbar { padding: 12px 16px; display: flex; flex-wrap: wrap; }
+  .topbar nav { order: 2; width: 100%; justify-content: flex-start; overflow-x: auto; }
+  .topbar nav a { white-space: nowrap; }
+  .product-header { padding: 48px 20px 42px; }
+  .product-header h1 { font-size: 43px; }
+  .product-facts div { min-width: calc(50% - 5px); }
+  .system-visual header { align-items: flex-start; flex-direction: column; }
+  .system-visual header > span { text-align: right; }
+  #product-flow-canvas { height: 380px; }
+  .section-heading, .io-grid, .formula-grid, .evidence-section, .entitlement-section, .dossier-grid { grid-template-columns: 1fr; }
+  .glossary { grid-template-columns: 1fr; }
+  .glossary div { border-left: 0; }
+  footer { align-items: flex-start; flex-direction: column; }
+}

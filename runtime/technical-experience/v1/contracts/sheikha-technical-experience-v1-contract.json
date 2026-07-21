@@ -1,0 +1,52 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_TECHNICAL_EXPERIENCE_RUNTIME_V1",
+  "status": "ACTIVE_CONTRACT",
+  "purpose": "عرض التقدم التقني والقياسات الحية والشرح العلمي والهندسي للمنتجات دون اختلاق أداء أو صلاحية شراء.",
+  "routes": {
+    "technologyCenter": "/technology/",
+    "productTechnical": "/product-technical/",
+    "api": "/api/sheikha/technical-experience/v1"
+  },
+  "architecture": {
+    "model": "GOVERNED_HYBRID_CENTRAL_AND_DECENTRALIZED",
+    "centralAuthority": [
+      "governance",
+      "catalog",
+      "identity",
+      "documentation-entitlement",
+      "audit-evidence"
+    ],
+    "decentralizedExecution": [
+      "browser-measurement",
+      "sector-adapters",
+      "local-analysis",
+      "event-consumers"
+    ],
+    "externalFederationVerified": false
+  },
+  "measurementPolicy": {
+    "clientRoundTripMeasuredInBrowser": true,
+    "payloadBytesMeasuredInBrowser": true,
+    "transferThroughputDerivedFromObservedBytesAndTime": true,
+    "serverMemoryMeasuredFromProcess": true,
+    "eventLoopUtilizationMeasuredFromProcess": true,
+    "syntheticPerformanceClaims": false
+  },
+  "documentationAccess": {
+    "publicTechnicalPreview": "ALLOW",
+    "fullTechnicalDossier": "VERIFIED_PURCHASE_OR_SIGNED_CONTRACT_REQUIRED",
+    "clientSuppliedEntitlement": "DENY",
+    "defaultAuthorization": "DENY"
+  },
+  "governance": {
+    "noAutomaticPurchase": true,
+    "noAutomaticPayment": true,
+    "noAutomaticContract": true,
+    "noAutomatedReligiousRuling": true,
+    "noExternalCertificationClaim": true,
+    "humanReviewForHighImpact": true,
+    "noHarm": true,
+    "evidenceRequired": true
+  }
+}

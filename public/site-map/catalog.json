@@ -1,7 +1,7 @@
 {
   "schemaVersion": "2.0.0",
   "system": "SHEIKHA_PUBLIC_SITE_CATALOG_V2",
-  "generatedAt": "2026-07-20T19:50:52.278Z",
+  "generatedAt": "2026-07-21T16:42:34.364Z",
   "identity": {
     "nameAr": "شيخة",
     "nameEn": "SHEIKHA",
@@ -36,11 +36,12 @@
       "labelAr": "السوق والقطاعات",
       "descriptionAr": "الأسواق والمنتجات والمعادن والسكراب والفرص.",
       "publicPageCount": 13,
-      "canonicalPageCount": 12,
+      "canonicalPageCount": 13,
       "routes": [
         "/بنك-شيخة.html",
         "/خريطة-الشبكات.html",
         "/سوق-المدينة.html",
+        "/سوق-شيخة.html",
         "/شيخة-القيادة-التسويقية.html",
         "/هوية-شيخة.html",
         "/market/",
@@ -114,8 +115,8 @@
       "id": "developer",
       "labelAr": "البناء والتطوير",
       "descriptionAr": "لغة شيخة وIDE وSystem Builder والعمارة والتكامل.",
-      "publicPageCount": 15,
-      "canonicalPageCount": 13,
+      "publicPageCount": 17,
+      "canonicalPageCount": 15,
       "routes": [
         "/تكامل-شيخة-الذكي.html",
         "/شيخة-ميتا-AI.html",
@@ -125,11 +126,13 @@
         "/architecture-explorer/",
         "/ide/",
         "/identity/",
+        "/product-technical/",
         "/sdk.html",
         "/sheikha-devops-lab/",
         "/sheikha-logo-tech-experience.html",
         "/SHEIKHA-SMART-DIGITAL.html",
-        "/system-builder-workbench/"
+        "/system-builder-workbench/",
+        "/technology/"
       ]
     },
     {
@@ -155,9 +158,9 @@
         "/لوحة-تحكم-المستخدم.html",
         "/مراقبة-العمليات.html",
         "/dashboard.html",
+        "/dashboard/",
         "/monitor/",
         "/sheikha-cloud-console.html",
-        "/sheikha-dashboards/",
         "/sheikha-platform/"
       ]
     },
@@ -228,11 +231,11 @@
     }
   ],
   "summary": {
-    "discoveredHtmlPages": 251,
-    "canonicalHtmlPages": 242,
-    "duplicateGroups": 9,
-    "publicPages": 115,
-    "publicCanonicalPages": 109,
+    "discoveredHtmlPages": 253,
+    "canonicalHtmlPages": 245,
+    "duplicateGroups": 8,
+    "publicPages": 117,
+    "publicCanonicalPages": 112,
     "archivePages": 65,
     "protectedPages": 60,
     "templatePages": 11,
@@ -436,8 +439,8 @@
     {
       "id": "8592fc0203b2",
       "route": "/market/",
-      "title": "سوق شيخة — إحياء سوق المدينة رقميا | أول سوق إسلامي رقمي للمعادن | SHEIKHA",
-      "h1": null,
+      "title": "سوق شيخة | المنتجات والخدمات وسلاسل الإمداد",
+      "h1": "سوق شيخة",
       "domain": "marketplace",
       "readiness": "ROUTE_READY"
     },
@@ -498,6 +501,14 @@
       "readiness": "ROUTE_READY"
     },
     {
+      "id": "84445534c81a",
+      "route": "/product-technical/",
+      "title": "الملف الهندسي للمنتج | شيخة",
+      "h1": "الملف الهندسي للمنتج",
+      "domain": "developer",
+      "readiness": "ROUTE_READY"
+    },
+    {
       "id": "d880ab30887d",
       "route": "/register/",
       "title": "تسجيل التاجر في سوق شيخة | 5 خطوات | SHEIKHA",
@@ -547,9 +558,9 @@
     },
     {
       "id": "390219fca9fa",
-      "route": "/sheikha-dashboards/",
-      "title": "لوحات تحكم شيخة",
-      "h1": "لوحة التحكم الرئيسية",
+      "route": "/dashboard/",
+      "title": "لوحة شيخة | التجارة والاقتصاد والقطاعات",
+      "h1": "لوحة التجارة والاقتصاد",
       "domain": "operations",
       "readiness": "ROUTE_READY"
     },
@@ -638,6 +649,14 @@
       "route": "/system-builder-workbench/",
       "title": "Sheikha System Builder | بناء الأنظمة المحكومة",
       "h1": "بناء الأنظمة المحكومة",
+      "domain": "developer",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "id": "64ea4fcb0b5d",
+      "route": "/technology/",
+      "title": "مرصد شيخة التقني | القياس والمعمارية والذكاء الحي",
+      "h1": "مرصد شيخة التقني",
       "domain": "developer",
       "readiness": "ROUTE_READY"
     },
@@ -862,6 +881,14 @@
       "route": "/سوق-المدينة.html",
       "title": "سوق المدينة المنورة — المنظومة الكاملة | شيخة",
       "h1": "سوق المدينة المنورة الذي أسسه النبي محمد ﷺ — رقمنة كاملة",
+      "domain": "marketplace",
+      "readiness": "ROUTE_READY"
+    },
+    {
+      "id": "df7e65ee8066",
+      "route": "/سوق-شيخة.html",
+      "title": "سوق شيخة — إحياء سوق المدينة رقميا | أول سوق إسلامي رقمي للمعادن | SHEIKHA",
+      "h1": null,
       "domain": "marketplace",
       "readiness": "ROUTE_READY"
     },

@@ -13,6 +13,13 @@ const REPORT_PATH = path.join(
 );
 const PAGE_CHECKS = [
   { path: '/', marker: '<title>شيخة' },
+  { path: '/market/', marker: '<title>سوق شيخة' },
+  { path: '/dashboard/', marker: '<title>لوحة شيخة' },
+  { path: '/technology/', marker: '<title>مرصد شيخة التقني' },
+  {
+    path: '/product-technical/',
+    marker: '<title>الملف الهندسي للمنتج',
+  },
   { path: '/commercial/', marker: 'حلول شيخة التجارية' },
   {
     path: '/system-builder-workbench/',
@@ -307,12 +314,125 @@ async function checkUnifiedProductRuntime(baseUrl) {
   };
 }
 
+async function checkUnifiedCommerceRuntime(baseUrl) {
+  const response = await fetchWithTimeout(
+    `${baseUrl}/api/sheikha/commerce/v1/status`
+  );
+  const body = await response.json();
+  const data = body.data || {};
+  const cloud = Array.isArray(data.catalog)
+    ? data.catalog.find((product) => product.id === 'PROD-CLOUD-SAAS')
+    : null;
+  return {
+    statusCode: response.status,
+    status: data.status || null,
+    products: data.coverage?.products || 0,
+    sectors: data.coverage?.sectors || 0,
+    marketGroups: data.coverage?.marketGroups || 0,
+    workflows: data.coverage?.workflows || 0,
+    saasServices: data.coverage?.saasServices || 0,
+    cloudSaasPresent: Boolean(cloud),
+    transactionExecutionEnabled:
+      data.claimBoundary?.transactionExecutionEnabled === true,
+    externalAccreditationClaimed:
+      data.claimBoundary?.externalAccreditationClaimed === true,
+    passed: response.status === 200 &&
+      body.ok === true &&
+      data.status === 'ACTIVE_WITH_GOVERNED_CATALOG' &&
+      data.coverage?.products === 13 &&
+      data.coverage?.sectors === 30 &&
+      data.coverage?.marketGroups === 7 &&
+      data.coverage?.workflows === 12 &&
+      data.coverage?.saasServices === 14 &&
+      Boolean(cloud) &&
+      cloud.pricing?.mode === 'REQUEST_QUOTE' &&
+      cloud.transactionReady === false &&
+      data.claimBoundary?.transactionExecutionEnabled === false &&
+      data.claimBoundary?.externalAccreditationClaimed === false,
+  };
+}
+
+async function checkTechnicalExperienceRuntime(baseUrl) {
+  const api = `${baseUrl}/api/sheikha/technical-experience/v1`;
+  const [statusResponse, telemetryResponse, previewResponse, dossierResponse] =
+    await Promise.all([
+      fetchWithTimeout(`${api}/status`),
+      fetchWithTimeout(`${api}/telemetry`),
+      fetchWithTimeout(`${api}/products/PROD-CLOUD-SAAS/preview?level=expert`),
+      fetchWithTimeout(`${api}/products/PROD-CLOUD-SAAS/dossier?level=expert`),
+    ]);
+  const [statusBody, telemetryBody, previewBody, dossierBody] =
+    await Promise.all([
+      statusResponse.json(),
+      telemetryResponse.json(),
+      previewResponse.json(),
+      dossierResponse.json(),
+    ]);
+  const status = statusBody.data || {};
+  const telemetry = telemetryBody.data || {};
+  const preview = previewBody.data || {};
+  const architecture = status.architecture || {};
+  const telemetryIsMeasured =
+    Number.isFinite(telemetry.process?.eventLoop?.observedTurnDelayMs) &&
+    Number.isFinite(telemetry.process?.memoryMiB?.heapUsed) &&
+    telemetry.secretsIncluded === false &&
+    telemetry.syntheticBenchmarkClaimed === false;
+  const previewIsComplete =
+    preview.product?.id === 'PROD-CLOUD-SAAS' &&
+    preview.knowledgeLevel?.id === 'expert' &&
+    Array.isArray(preview.sharedMeasurements) &&
+    preview.sharedMeasurements.length === 3 &&
+    preview.fullDossier?.access === 'VERIFIED_ENTITLEMENT_REQUIRED';
+  const dossierDefaultDeny =
+    dossierResponse.status === 401 &&
+    dossierBody.error === 'AUTHENTICATED_SUBJECT_REQUIRED';
+  const architectureIsBounded =
+    architecture.model === 'GOVERNED_HYBRID_CENTRAL_AND_DECENTRALIZED' &&
+    architecture.central?.length === 4 &&
+    architecture.decentralized?.length === 4 &&
+    architecture.boundaries?.externalFederationVerified === false &&
+    architecture.boundaries?.centralPolicyBypassAllowed === false;
+
+  return {
+    statusCode: statusResponse.status,
+    status: status.status || null,
+    products: status.coverage?.products || 0,
+    technicalProfiles: status.coverage?.technicalProfiles || 0,
+    activeDocumentationEntitlements:
+      status.coverage?.activeDocumentationEntitlements || 0,
+    telemetryIsMeasured,
+    previewIsComplete,
+    dossierStatusCode: dossierResponse.status,
+    dossierDefaultDeny,
+    architectureIsBounded,
+    externalCertificationClaimed:
+      status.governance?.noExternalCertificationClaim !== true,
+    passed: statusResponse.status === 200 &&
+      telemetryResponse.status === 200 &&
+      previewResponse.status === 200 &&
+      statusBody.ok === true &&
+      telemetryBody.ok === true &&
+      previewBody.ok === true &&
+      status.status === 'ACTIVE_WITH_MEASURED_LOCAL_FOUNDATIONS' &&
+      status.coverage?.products === 13 &&
+      status.coverage?.technicalProfiles === 13 &&
+      telemetryIsMeasured &&
+      previewIsComplete &&
+      dossierDefaultDeny &&
+      architectureIsBounded &&
+      status.governance?.noExternalCertificationClaim === true,
+  };
+}
+
 async function checkProductAliases(baseUrl) {
   const aliases = [
+    ['/dashboard', '/dashboard/'],
     ['/gardens', '/riyadh-aljannah-community/'],
     ['/builder', '/system-builder-workbench/'],
     ['/uefi', '/boot-trial/'],
     ['/bare-metal', '/boot-trial/'],
+    ['/tech', '/technology/'],
+    ['/technical-product', '/product-technical/'],
   ];
   const results = [];
   for (const [route, target] of aliases) {
@@ -347,6 +467,9 @@ async function runSmoke(baseUrl) {
   const uefiIntegration = await checkUefiIntegration(origin);
   const hardwareCompatibility = await checkHardwareCompatibility(origin);
   const unifiedProductRuntime = await checkUnifiedProductRuntime(origin);
+  const unifiedCommerceRuntime = await checkUnifiedCommerceRuntime(origin);
+  const technicalExperienceRuntime =
+    await checkTechnicalExperienceRuntime(origin);
   const productAliases = await checkProductAliases(origin);
   const passed = pages.every((page) => page.passed) &&
     health.passed &&
@@ -356,6 +479,8 @@ async function runSmoke(baseUrl) {
     uefiIntegration.passed &&
     hardwareCompatibility.passed &&
     unifiedProductRuntime.passed &&
+    unifiedCommerceRuntime.passed &&
+    technicalExperienceRuntime.passed &&
     productAliases.passed;
   const report = {
     schemaVersion: '1.0.0',
@@ -372,6 +497,8 @@ async function runSmoke(baseUrl) {
     uefiIntegration,
     hardwareCompatibility,
     unifiedProductRuntime,
+    unifiedCommerceRuntime,
+    technicalExperienceRuntime,
     productAliases,
     checkedPageCount: pages.length,
     passed,
