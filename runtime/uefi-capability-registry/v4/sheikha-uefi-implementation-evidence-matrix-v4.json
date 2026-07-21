@@ -1,0 +1,49 @@
+{
+  "schemaVersion": "4.0.0",
+  "system": "SHEIKHA_UEFI_IMPLEMENTATION_EVIDENCE_MATRIX_V4",
+  "classification": "FAIL_CLOSED_IMPLEMENTATION_EVIDENCE_MATRIX",
+  "states": [
+    {
+      "state": "REGISTERED",
+      "meaning": "Inventory entry exists only",
+      "implementationAllowed": false,
+      "verificationAllowed": false
+    },
+    {
+      "state": "SOURCE_MAPPED",
+      "meaning": "Source module and canonical interface are mapped",
+      "implementationAllowed": false,
+      "verificationAllowed": false
+    },
+    {
+      "state": "BUILT",
+      "meaning": "Target build completed with evidence",
+      "implementationAllowed": true,
+      "verificationAllowed": false
+    },
+    {
+      "state": "EMULATOR_VERIFIED",
+      "meaning": "Repeatable emulator result exists",
+      "implementationAllowed": true,
+      "verificationAllowed": true,
+      "physicalHardwareVerified": false
+    },
+    {
+      "state": "PHYSICAL_HARDWARE_VERIFIED",
+      "meaning": "Repeatable physical-platform result exists",
+      "implementationAllowed": true,
+      "verificationAllowed": true,
+      "physicalHardwareVerified": true
+    },
+    {
+      "state": "PRODUCTION_QUALIFIED",
+      "meaning": "Security, rollback, platform and release evidence approved",
+      "implementationAllowed": true,
+      "verificationAllowed": true,
+      "productionReady": true
+    }
+  ],
+  "defaultState": "REGISTERED",
+  "automaticPromotionAllowed": false,
+  "generatedAt": "2026-07-21T00:12:50.095818+00:00"
+}

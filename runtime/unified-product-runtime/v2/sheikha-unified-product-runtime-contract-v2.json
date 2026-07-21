@@ -1,0 +1,43 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_UNIFIED_PRODUCT_RUNTIME_CONTRACT_V2",
+  "classification": "UNIFIED_PRODUCT_RUNTIME_SOURCE_CONTRACT_REGISTERED",
+  "domains": [
+    {
+      "id": "firmware-capability-catalog",
+      "inputs": [
+        "uefi-comprehensive-registration-v4",
+        "uefi-specification-baseline-v4",
+        "edk2-package-registry-v4"
+      ],
+      "runtimeStatus": "NOT_STARTED"
+    },
+    {
+      "id": "hardware-product-compatibility",
+      "inputs": [
+        "driver-abi-contract-v2",
+        "hardware-compatibility-evidence",
+        "architecture-target-registry-v4"
+      ],
+      "runtimeStatus": "NOT_STARTED"
+    },
+    {
+      "id": "governed-site-product-publication",
+      "inputs": [
+        "unified-site-source-integration-v2",
+        "root-capability-graph-v4",
+        "logic-and-reasoning-governance-v2"
+      ],
+      "runtimeStatus": "NOT_STARTED"
+    }
+  ],
+  "truthBoundaries": {
+    "sourceContractRegistered": true,
+    "runtimeProcessStarted": false,
+    "siteLocalRuntimeVerified": false,
+    "productionDeployed": false,
+    "autonomousReligiousRulingAllowed": false,
+    "qualifiedScholarReviewRequired": true
+  },
+  "generatedAt": "2026-07-21T00:12:50.095818+00:00"
+}

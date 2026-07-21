@@ -1,0 +1,71 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_DRIVER_ABI_CONTRACT_V2",
+  "classification": "MULTI_ARCH_DRIVER_ABI_CONTRACT_REGISTERED",
+  "targets": [
+    {
+      "architecture": "IA32",
+      "registrationStatus": "REGISTERED",
+      "callingConventionMapped": false,
+      "binaryCompatibilityVerified": false,
+      "physicalHardwareVerified": false
+    },
+    {
+      "architecture": "X64",
+      "registrationStatus": "REGISTERED",
+      "callingConventionMapped": false,
+      "binaryCompatibilityVerified": false,
+      "physicalHardwareVerified": false
+    },
+    {
+      "architecture": "ARM",
+      "registrationStatus": "REGISTERED",
+      "callingConventionMapped": false,
+      "binaryCompatibilityVerified": false,
+      "physicalHardwareVerified": false
+    },
+    {
+      "architecture": "AARCH64",
+      "registrationStatus": "REGISTERED",
+      "callingConventionMapped": false,
+      "binaryCompatibilityVerified": false,
+      "physicalHardwareVerified": false
+    },
+    {
+      "architecture": "RISCV64",
+      "registrationStatus": "REGISTERED",
+      "callingConventionMapped": false,
+      "binaryCompatibilityVerified": false,
+      "physicalHardwareVerified": false
+    },
+    {
+      "architecture": "LOONGARCH64",
+      "registrationStatus": "REGISTERED",
+      "callingConventionMapped": false,
+      "binaryCompatibilityVerified": false,
+      "physicalHardwareVerified": false
+    }
+  ],
+  "domains": [
+    "uefi-calling-convention",
+    "protocol-handle-lifecycle",
+    "guid-identity-discovery",
+    "memory-ownership-alignment",
+    "tpl-event-reentrancy",
+    "efi-status-error-mapping",
+    "driver-binding-supported-start-stop",
+    "device-path-ownership",
+    "runtime-virtual-address-transition",
+    "secure-boot-driver-signing",
+    "mm-smm-communication-boundary"
+  ],
+  "truthBoundaries": {
+    "abiRegistered": true,
+    "abiFullyImplemented": false,
+    "allDriversComplete": false,
+    "allArchitectureTargetsVerified": false,
+    "physicalHardwareVerified": false,
+    "secureBootDriverSigningVerified": false
+  },
+  "generatedAt": "2026-07-21T00:12:50.095818+00:00"
+}
