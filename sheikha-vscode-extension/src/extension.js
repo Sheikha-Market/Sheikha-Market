@@ -69,12 +69,17 @@ function activate(context) {
   sendHeartbeat();
 
   let chatProvider = null;
+  let inspectorProvider = null;
+  const providerRegistrations = {
+    chat: false,
+    inspector: false
+  };
   try {
     const { SheikhaChatProvider } = require('./chat/sheikhaChatProvider');
     const { SheikhaInspectorProvider } = require('./sheikhaInspectorProvider');
 
     chatProvider = new SheikhaChatProvider(context, { getBaseUrl: getConfiguredBaseUrl });
-    const inspectorProvider = new SheikhaInspectorProvider(context, {
+    inspectorProvider = new SheikhaInspectorProvider(context, {
       getBaseUrl: getConfiguredBaseUrl,
       refreshSeconds,
       onAsk: async (prompt) => {
@@ -84,14 +89,14 @@ function activate(context) {
       }
     });
 
-    registerWebviewProviderSafe(
+    providerRegistrations.inspector = registerWebviewProviderSafe(
       context,
       'sheikha.inspectorView',
       inspectorProvider,
       { webviewOptions: { retainContextWhenHidden: true } }
     );
 
-    registerWebviewProviderSafe(
+    providerRegistrations.chat = registerWebviewProviderSafe(
       context,
       'sheikha.chatView',
       chatProvider,
@@ -116,6 +121,37 @@ function activate(context) {
   context.subscriptions.push(statusBar);
 
   console.log('Sheikha extension activated');
+
+  if (process.env.SHEIKHA_EXTENSION_SMOKE_EVIDENCE) {
+    const {
+      runLiveExtensionSmoke
+    } = require('./sheikhaLiveExtensionSmoke');
+    runLiveExtensionSmoke({
+      vscode,
+      context,
+      chatProvider,
+      inspectorProvider,
+      registrations: providerRegistrations,
+      expectedVersion: context.extension.packageJSON.version,
+      baseUrl: getConfiguredBaseUrl()
+    }).then((report) => {
+      console.log('[Sheikha] Live extension smoke', report.status);
+      if (process.env.SHEIKHA_EXTENSION_SMOKE_CLOSE === '1') {
+        return vscode.commands.executeCommand(
+          'workbench.action.closeWindow'
+        );
+      }
+      return null;
+    }).catch((error) => {
+      console.error('[Sheikha] Live extension smoke failed:', error);
+      if (process.env.SHEIKHA_EXTENSION_SMOKE_CLOSE === '1') {
+        return vscode.commands.executeCommand(
+          'workbench.action.closeWindow'
+        );
+      }
+      return null;
+    });
+  }
 
   context.subscriptions.push(
     vscode.commands.registerCommand('sheikha.awareness.scan', async () => {

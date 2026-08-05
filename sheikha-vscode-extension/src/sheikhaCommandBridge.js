@@ -227,6 +227,12 @@ function registerSheikhaCommandBridge(context, options = {}) {
   ));
 
   register('sheikha.activateNeuralEngine', async () => {
+    const confirmation = await vscode.window.showWarningMessage(
+      'تفعيل محرك الشبكة العصبية الجذرية في Runtime المحلي؟',
+      { modal: true },
+      'تفعيل المحرك'
+    );
+    if (confirmation !== 'تفعيل المحرك') return;
     const data = await postJson(
       '/api/sheikha/supreme-root-neural-fabric/activate',
       { actor: 'vscode-extension', reason: 'explicit-user-command' },

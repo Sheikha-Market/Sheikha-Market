@@ -162,6 +162,78 @@ app.use(
 );
 
 app.use(
+  '/api/sheikha/commerce/v1',
+  require(
+    './routes/commerce/' +
+      'sheikha-unified-commerce-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/organization-control/v1',
+  require(
+    './routes/organization/' +
+      'sheikha-autonomous-role-dashboard-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/technical-experience/v1',
+  require(
+    './routes/technical-experience/' +
+      'sheikha-technical-experience-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/production-qualification/v1',
+  require(
+    './routes/production-qualification/' +
+      'sheikha-producer-production-qualification-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/production-federation/v1',
+  require(
+    './routes/production-federation/' +
+      'sheikha-governed-production-federation-routes-v1'
+  )
+);
+
+app.use(
+  '/api/sheikha/gardens-knowledge-dialogue/v2',
+  require(
+    './routes/gardens-dialogue/' +
+      'sheikha-gardens-knowledge-dialogue-routes-v2'
+  )
+);
+
+app.use(
+  '/api/sheikha/constructive-thought-dialogue/v3',
+  require(
+    './routes/gardens-dialogue/' +
+      'sheikha-constructive-thought-dialogue-ai-routes-v3'
+  )
+);
+
+app.use(
+  '/api/sheikha/root-architecture/v3',
+  require(
+    './routes/root-architecture/' +
+      'sheikha-root-architecture-v3-routes'
+  )
+);
+
+app.use(
+  '/api/sheikha/language-foundation/v2',
+  require(
+    './routes/language-foundation/' +
+      'sheikha-language-foundation-root-v2-routes'
+  )
+);
+
+app.use(
   '/system-builder-workbench',
   express.static(
     require('path').join(
@@ -289,6 +361,13 @@ app.use(require('./routes/sheikha-orchestrator-fabric-v2-routes'));
 app.use(require('./routes/sheikha-apex-control-plane-v1-routes'));
 app.use(require('./routes/sheikha-enterprise-orchestrator-routes'));
 app.use(require('./routes/sheikha-executive-platform-v2-routes'));
+app.use(
+  '/api/sheikha/intelligence-capability-apex/v1',
+  require(
+    './routes/intelligence-apex/' +
+    'sheikha-intelligence-capability-apex-routes-v1'
+  )
+);
 app.use(require('./routes/sheikha-conversation-engine-v1-routes'));
 app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
 // Recovery Health Governance routes (self-healing + corrective governance)
