@@ -41,6 +41,9 @@ function renderInspectorTemplate(model = {}) {
   const remoteGit = remote.git || {};
   const architecture = remote.architecture || {};
   const governance = remote.governance || {};
+  const organization = remote.organizationControl || {};
+  const organizationModel = organization.operatingModel || {};
+  const organizationAutomation = organization.automation || {};
   const surfaces = remote.surfaces || {};
   const remoteOnline = remote.success === true;
   const overall = normalizeStatus(remoteOnline ? remoteHealth.overall || remote.status : remote.status || 'OFFLINE');
@@ -82,8 +85,8 @@ button:focus-visible,input:focus-visible,summary:focus-visible{outline:1px solid
 .app{min-width:0}.top{position:sticky;top:0;z-index:2;padding:12px;background:var(--surface);border-bottom:1px solid var(--line)}
 .identity{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:10px;align-items:start}.identity h1{font-size:15px;margin:0}.identity p{margin:2px 0 0;color:var(--muted);font-size:10px}.health{display:flex;gap:6px;align-items:center;color:${remoteOnline ? 'var(--good)' : 'var(--bad)'};font-size:10px;white-space:nowrap}.health::before{content:'';width:7px;height:7px;border-radius:50%;background:currentColor}
 .actions{display:flex;gap:6px;margin-top:9px}button{height:30px;border:1px solid var(--line);border-radius:6px;background:var(--raised);color:var(--text);padding:0 9px;cursor:pointer}button:hover{border-color:var(--focus)}button.primary{background:var(--accent);border-color:transparent;color:var(--accentText)}
-.summary{padding:12px;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;border-bottom:1px solid var(--line)}.metric{min-width:0;padding:7px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}.metric span{display:block;color:var(--muted);font-size:9px}.metric b{display:block;margin-top:2px;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.metric.good b{color:var(--good)}.metric.warn b{color:var(--warn)}.metric.bad b{color:var(--bad)}
-.tabs{position:sticky;top:73px;z-index:1;display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:3px;padding:7px 12px;background:var(--bg);border-bottom:1px solid var(--line)}.tab{height:28px;padding:0 5px;color:var(--muted);font-size:10px}.tab.active{color:var(--text);border-color:var(--good);background:color-mix(in srgb,var(--good) 10%,var(--raised))}
+.summary{padding:12px;display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:6px;border-bottom:1px solid var(--line)}.metric{min-width:0;padding:7px;border:1px solid var(--line);border-radius:6px;background:var(--surface)}.metric span{display:block;color:var(--muted);font-size:9px}.metric b{display:block;margin-top:2px;font-size:13px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.metric.good b{color:var(--good)}.metric.warn b{color:var(--warn)}.metric.bad b{color:var(--bad)}
+.tabs{position:sticky;top:73px;z-index:1;display:flex;gap:3px;padding:7px 12px;background:var(--bg);border-bottom:1px solid var(--line);overflow-x:auto;scrollbar-width:thin}.tab{flex:1 0 72px;height:28px;padding:0 5px;color:var(--muted);font-size:10px}.tab.active{color:var(--text);border-color:var(--good);background:color-mix(in srgb,var(--good) 10%,var(--raised))}
 .panels{padding:12px}.panel{display:none}.panel.active{display:block}.section{padding:0 0 14px;margin:0 0 14px;border-bottom:1px solid var(--line)}.section:last-child{border-bottom:0;margin-bottom:0}.section h2{font-size:12px;margin:0 0 8px;color:var(--warn)}
 .rows{display:grid;gap:1px}.row{display:grid;grid-template-columns:minmax(90px,38%) minmax(0,1fr);gap:8px;padding:6px 0;border-bottom:1px solid color-mix(in srgb,var(--line) 55%,transparent)}.row:last-child{border-bottom:0}.row span{color:var(--muted)}.row b{font-weight:500;overflow-wrap:anywhere}.row b.ltr{direction:ltr;text-align:left;unicode-bidi:plaintext}
 .flow{margin:0;padding:0;list-style:none;counter-reset:step}.flow li{counter-increment:step;display:grid;grid-template-columns:22px minmax(0,1fr);gap:7px;align-items:center;padding:5px 0}.flow li::before{content:counter(step);width:20px;height:20px;display:grid;place-items:center;border:1px solid #3a7250;border-radius:50%;color:var(--good);font-size:9px}
@@ -110,12 +113,15 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}pre{direction:
   <section class="summary" aria-label="الملخص التنفيذي">
     ${metric('Runtime', normalizeStatus(remoteHealth.runtime || (remoteOnline ? 'ACTIVE' : 'OFFLINE')), remoteOnline ? 'good' : 'bad')}
     ${metric('Governance', normalizeStatus(remoteHealth.governance || 'UNKNOWN'), remoteHealth.governance === 'ACTIVE' ? 'good' : 'warn')}
+    ${metric('Organization', normalizeStatus(remoteHealth.organizationControl || 'UNKNOWN'), remoteHealth.organizationControl ? 'good' : 'warn')}
+    ${metric('Human Ops', organizationModel.defaultHumanOperatorCount ?? 'n/a', organizationModel.defaultHumanOperatorCount === 0 ? 'good' : 'warn')}
     ${metric('Errors', diagnostics.errors, diagnostics.errors ? 'bad' : 'good')}
     ${metric('Warnings', diagnostics.warnings, diagnostics.warnings ? 'warn' : 'good')}
   </section>
 
   <nav class="tabs" aria-label="أقسام المفتش">
     <button class="tab active" data-tab="overview">الملخص</button>
+    <button class="tab" data-tab="organization">المؤسسة</button>
     <button class="tab" data-tab="workspace">المشروع</button>
     <button class="tab" data-tab="governance">الحوكمة</button>
     <button class="tab" data-tab="interfaces">الواجهات</button>
@@ -135,6 +141,23 @@ details{margin-top:10px}summary{cursor:pointer;color:var(--muted)}pre{direction:
         ${row('Git', changedFiles.length ? `${changedFiles.length} modified` : 'clean', { ltr: true })}
         ${row('Diagnostics', diagnostics.total ? `${diagnostics.total} total` : 'clean', { ltr: true })}
       </div></div>
+    </section>
+
+    <section class="panel" data-panel="organization">
+      <div class="section"><h2>مركز المالك والأدوار</h2><div class="rows">
+        ${row('الحالة', normalizeStatus(organization.status || remoteHealth.organizationControl))}
+        ${row('الأدوار المسجلة', organization.roleCount ?? 'غير متاح')}
+        ${row('الموظفون الافتراضيون', organizationModel.defaultHumanOperatorCount ?? 'غير متاح')}
+        ${row('التوظيف البشري', organizationModel.humanEmploymentOptional === true ? 'اختياري' : 'غير متاح')}
+        ${row('لوحات مولدة لكل دور', organizationModel.everyRoleHasGeneratedDashboard === true ? 'نعم' : 'غير متاح')}
+        ${row('سلطة القرار الملزم للآلة', organizationModel.bindingDecisionAutomation === true ? 'مفعلة' : 'ممنوعة')}
+      </div></div>
+      <div class="section"><h2>حدود التشغيل الآلي</h2><div class="rows">
+        ${row('الكتابة الخارجية', normalizeStatus(organizationAutomation.externalWritesDefault || 'DENY'))}
+        ${row('الأثر العالي', normalizeStatus(organizationAutomation.highImpactDefault || 'HUMAN_APPROVAL_REQUIRED'))}
+        ${row('الأهلية تعني التنفيذ', organizationAutomation.eligibilityIsExecution === true ? 'نعم' : 'لا')}
+      </div></div>
+      <div class="policy">الوكلاء تدير القراءة والقياس والتحليل والتخطيط ضمن أقل صلاحية. العقود والمال والتوظيف والتغييرات عالية الأثر تنتظر موافقة بشرية مخولة.</div>
     </section>
 
     <section class="panel" data-panel="workspace">
