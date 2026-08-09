@@ -42,4 +42,24 @@ describe('Sheikha Production Readiness Gate V1', () => {
     expect(isCurrentPm2Log('sheikha-main-portal-error__2026-05-30_01-29-01.log')).toBe(false);
     expect(isCurrentPm2Log('sheikha-api-error-129.log')).toBe(false);
   });
+
+  test('bounds stored findings while preserving the full summary', () => {
+    const lines = Array.from({ length: 250 }, (_, index) => ({
+      file: 'sheikha-main-portal-error.log',
+      line: `Engine${index} is not defined`
+    }));
+    const result = evaluateProductionReadiness(lines, {
+      maxFindings: 10,
+      generatedAt: '2026-07-31T00:00:00.000Z'
+    });
+
+    expect(result.status).toBe('BLOCKED');
+    expect(result.findings).toHaveLength(10);
+    expect(result.summary).toMatchObject({
+      blockers: 250,
+      total: 250,
+      suppressed: 240
+    });
+    expect(result.scanScope.maximumStoredFindings).toBe(10);
+  });
 });

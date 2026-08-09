@@ -100,6 +100,12 @@ function routeForFile(relativeFile) {
   return `/${normalized}`;
 }
 
+function primaryRouteForFile(relativeFile) {
+  const publicFile = `public/${toPosix(relativeFile)}`;
+  return Object.entries(SITE_POLICY.primaryRoutes)
+    .find(([, file]) => file === publicFile)?.[0] || null;
+}
+
 function stripMarkup(value = '') {
   return value
     .replace(/<script\b[^>]*>[\s\S]*?<\/script>/gi, ' ')
@@ -163,10 +169,14 @@ function localCandidates(pageFile, reference) {
     // Keep the original path when percent encoding is malformed.
   }
 
+  const policyRoute = SITE_POLICY.aliases[decoded] || decoded;
+  const declaredFile = SITE_POLICY.primaryRoutes[policyRoute];
   const base = decoded.startsWith('/')
     ? path.join(PUBLIC_ROOT, decoded.replace(/^\/+/, ''))
     : path.resolve(path.dirname(pageFile), decoded);
-  const candidates = [base];
+  const candidates = declaredFile
+    ? [path.join(ROOT, declaredFile), base]
+    : [base];
   if (decoded.endsWith('/')) {
     candidates.push(path.join(base, 'index.html'));
   } else if (!path.extname(decoded)) {
@@ -213,6 +223,20 @@ function classifyVisibility(relativeFile) {
 }
 
 function classifyDomain(relativeFile, title = '') {
+  const normalized = toPosix(relativeFile);
+  if (normalized === 'market/index.html') return 'marketplace';
+  if ([
+    'technology/index.html',
+    'product-technical/index.html',
+  ].includes(normalized)) {
+    return 'developer';
+  }
+  if (normalized === 'constructive-dialogue/index.html') {
+    return 'knowledge';
+  }
+  if (normalized === 'sheikha-dashboards/index.html') {
+    return 'operations';
+  }
   const value = `${relativeFile} ${title}`.toLowerCase();
   const rules = [
     ['governance', /شريع|حوكم|امتثال|قانون|سياس|خصوص|شروط|استرداد|govern/],
@@ -249,6 +273,8 @@ function canonicalPriority(page) {
 function inspectPage(filePath) {
   const source = fs.readFileSync(filePath, 'utf8');
   const relativeFile = toPosix(path.relative(PUBLIC_ROOT, filePath));
+  const physicalRoute = routeForFile(relativeFile);
+  const declaredPrimaryRoute = primaryRouteForFile(relativeFile);
   const references = extractReferences(source);
   const placeholderReferences = references.filter(isPlaceholderReference);
   const brokenLocalReferences = references
@@ -282,7 +308,9 @@ function inspectPage(filePath) {
     id: crypto.createHash('sha1').update(relativeFile).digest('hex').slice(0, 12),
     file: `public/${relativeFile}`,
     relativeFile,
-    route: routeForFile(relativeFile),
+    route: declaredPrimaryRoute || physicalRoute,
+    physicalRoute,
+    declaredPrimaryRoute,
     title,
     h1,
     language,
@@ -398,6 +426,16 @@ function generate() {
       source: 'IDENTICAL_ARTIFACT'
     });
   }
+  for (const page of pages.filter((entry) =>
+    entry.physicalRoute !== entry.route
+  )) {
+    aliasRouteMap.set(page.physicalRoute, {
+      route: page.physicalRoute,
+      canonicalRoute: page.route,
+      file: page.file,
+      source: 'DECLARED_PRIMARY_ROUTE'
+    });
+  }
   for (const [route, canonicalRoute] of Object.entries(SITE_POLICY.aliases)) {
     if (canonicalRouteSet.has(route)) continue;
     aliasRouteMap.set(route, {
@@ -410,6 +448,20 @@ function generate() {
   const aliasRoutes = [...aliasRouteMap.values()].sort((left, right) =>
     left.route.localeCompare(right.route, 'ar')
   );
+  const routePolicyChecks = {
+    primaryRouteFilesExist: Object.values(SITE_POLICY.primaryRoutes)
+      .every((file) => fs.existsSync(path.join(ROOT, file))),
+    aliasTargetsAreCanonical: aliasRoutes.every((alias) =>
+      canonicalRouteSet.has(alias.canonicalRoute)
+    ),
+    dashboardCanonicalRoutePresent: canonicalRouteSet.has('/dashboard/'),
+    marketCanonicalRoutePresent: canonicalRouteSet.has('/market/'),
+    technologyCanonicalRoutePresent: canonicalRouteSet.has('/technology/'),
+    productTechnicalCanonicalRoutePresent:
+      canonicalRouteSet.has('/product-technical/'),
+    constructiveDialogueCanonicalRoutePresent:
+      canonicalRouteSet.has('/constructive-dialogue/')
+  };
 
   const inventory = {
     schemaVersion: '2.0.0',
@@ -509,6 +561,7 @@ function generate() {
       noDeleteWithoutHumanReview: true,
       externalDomainStateMustBeVerifiedBeforeClaim: true,
     },
+    routePolicyChecks,
     sourceInventory: toPosix(path.relative(ROOT, INVENTORY_PATH)),
     sourceLinkAudit: toPosix(path.relative(ROOT, LINK_AUDIT_PATH)),
   };
@@ -598,6 +651,7 @@ module.exports = {
   extractReferences,
   generate,
   localCandidates,
+  primaryRouteForFile,
   resolveLocalReference,
   routeForFile,
 };

@@ -37,9 +37,15 @@ function getLanguageProfile(name) {
     if (!profile) {
         return null;
     }
+    const foundation = normalized ===
+        registry.architecturePolicy?.firstPartyFoundationLanguage;
     return {
         ...profile,
         name: normalized,
+        role: foundation
+            ? 'first-party-foundation-language'
+            : 'tool-adapter',
+        foundation,
     };
 }
 
@@ -60,11 +66,16 @@ function inferSourceLanguageFromPath(filePath) {
 }
 
 function listSupportedLanguages() {
-    return registry.languages.map((entry) => ({
-        name: entry.name,
-        family: entry.family,
-        inputKinds: entry.inputKinds || [],
-    }));
+    return registry.languages.map((entry) => {
+        const profile = getLanguageProfile(entry.name);
+        return {
+            name: profile.name,
+            family: profile.family,
+            inputKinds: profile.inputKinds || [],
+            role: profile.role,
+            foundation: profile.foundation,
+        };
+    });
 }
 
 module.exports = {

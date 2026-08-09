@@ -2,7 +2,7 @@
   "name": "sheikha",
   "displayName": "Sheikha",
   "description": "مساعد البرمجة الذكي — Sheikha AI-powered coding assistant with inline suggestions, chat, agent mode & sharia guardrails",
-  "version": "1.0.91",
+  "version": "1.0.114",
   "publisher": "sheikha",
   "engines": {
     "vscode": "^1.85.0"
@@ -85,9 +85,8 @@
     "islamic",
     "arabic programming"
   ],
-  "main": "./extension.js",
+  "main": "./src/extension.js",
   "files": [
-    "extension.js",
     "package.json",
     "images/**",
     "scripts/auto-release-cycle.js",
@@ -627,6 +626,7 @@
     "vscode:prepublish": "echo 'Sheikha ready'",
     "compile": "node -e \"console.log('Sheikha compile check OK')\"",
     "test": "jest --runInBand --verbose",
+    "test:send-click": "node scripts/test-chat-send-click.js",
     "test:watch": "jest --watch",
     "release:plan": "node scripts/auto-release-cycle.js",
     "release:apply": "node scripts/auto-release-cycle.js --apply",

@@ -93,7 +93,7 @@ function runCapture(command, args = [], options = {}) {
     cwd: options.cwd || ROOT,
     encoding: 'utf8',
     env: options.env || process.env,
-    maxBuffer: 8 * 1024 * 1024,
+    maxBuffer: options.maxBuffer || 8 * 1024 * 1024,
     timeout: options.timeout || 15000
   });
   return {
@@ -603,6 +603,91 @@ function stripTrailingWhitespace(value) {
   return String(value || '').split('\n').map((line) => line.trimEnd()).join('\n');
 }
 
+function runGovernedBuild() {
+  const toolchain = inspectToolchain();
+  if (toolchain.status !== 'BUILD_READY') {
+    return {
+      system: SYSTEM,
+      status: 'TOOLCHAIN_MISSING',
+      buildExecuted: false,
+      missingRequirements: toolchain.missingRequirements,
+      report: generateV4Inspection()
+    };
+  }
+
+  const cargo = toolchain.tools.cargo.path;
+  const args = [
+    'build',
+    '--release',
+    '--locked',
+    '--offline',
+    '--manifest-path',
+    TAURI_MANIFEST
+  ];
+  const startedAt = new Date().toISOString();
+  const result = runCapture(cargo, args, {
+    timeout: 30 * 60 * 1000,
+    maxBuffer: 64 * 1024 * 1024,
+    env: {
+      ...process.env,
+      CARGO_NET_OFFLINE: 'true'
+    }
+  });
+  const finishedAt = new Date().toISOString();
+  const command = [cargo, ...args].join(' ');
+  const artifact = inspectBuiltArtifact();
+  const succeeded =
+    result.status === 0 &&
+    artifact.built &&
+    artifact.inspected;
+
+  writeFileAtomic(path.join(EVIDENCE_ROOT, 'build-command.txt'), [
+    `status=${succeeded ? 'BUILD_SUCCEEDED' : 'BUILD_FAILED'}`,
+    `command=${command}`,
+    'cargo_network_mode=OFFLINE',
+    'external_publish=DENY',
+    'sudo=DENY',
+    `started_at=${startedAt}`,
+    `finished_at=${finishedAt}`,
+    `exit_code=${result.status}`,
+    ''
+  ].join('\n'));
+  writeFileAtomic(path.join(EVIDENCE_ROOT, 'build-log.txt'), [
+    `status=${succeeded ? 'BUILD_SUCCEEDED' : 'BUILD_FAILED'}`,
+    `started_at=${startedAt}`,
+    `finished_at=${finishedAt}`,
+    `exit_code=${result.status}`,
+    `error=${result.error || 'none'}`,
+    '',
+    '== stdout ==',
+    result.stdout,
+    '',
+    '== stderr ==',
+    result.stderr,
+    ''
+  ].join('\n'));
+
+  const report = generateV4Inspection();
+  return {
+    system: SYSTEM,
+    status: succeeded ? report.status : 'BUILD_FAILED',
+    buildExecuted: true,
+    buildSucceeded: succeeded,
+    cargoNetworkMode: 'OFFLINE',
+    externalPublishExecuted: false,
+    sudoUsed: false,
+    command,
+    exitCode: result.status,
+    artifact: artifact.built ? {
+      path: artifact.path,
+      bytes: artifact.bytes,
+      sha256: artifact.sha256,
+      inspected: artifact.inspected
+    } : null,
+    report
+  };
+}
+
 function generateV4Inspection(options = {}) {
   const reportRoot = options.reportRoot || REPORT_ROOT;
   const evidenceRoot = path.join(reportRoot, 'evidence');
@@ -614,11 +699,19 @@ function generateV4Inspection(options = {}) {
   const predecessor = unverifiedClaims.desktopNativeVerified.predecessor;
   const smokePath = path.join(evidenceRoot, 'native-smoke-verification.json');
   const priorSmoke = readJsonOptional(smokePath, null);
-  const smoke = priorSmoke?.status === 'NATIVE_VERIFIED'
+  const priorSmokeMatchesArtifact = Boolean(
+    priorSmoke?.status === 'NATIVE_VERIFIED' &&
+    artifact.built &&
+    artifact.inspected &&
+    priorSmoke.artifactSha256 === artifact.sha256
+  );
+  const smoke = priorSmokeMatchesArtifact
     ? priorSmoke
     : nativeSmokeVerification(predecessor, artifact);
   const buildReady = toolchain.status === 'BUILD_READY';
-  const nativeVerified = smoke.status === 'NATIVE_VERIFIED' &&
+  const nativeVerified = artifact.built &&
+    artifact.inspected &&
+    smoke.status === 'NATIVE_VERIFIED' &&
     smoke.v4NativeLaunchVerified === true;
   const claims = claimSeparation(nativeVerified);
   const security = securityVerification(artifact, smoke);
@@ -652,7 +745,7 @@ function generateV4Inspection(options = {}) {
     artifact.built
   ));
   const buildLogPath = path.join(evidenceRoot, 'build-log.txt');
-  if (!artifact.built || !fs.existsSync(buildLogPath)) {
+  if (!fs.existsSync(buildLogPath)) {
     writeFileAtomic(buildLogPath, evidenceText(
       buildReady ? 'BUILD_READY_NOT_EXECUTED' : 'NOT_EXECUTED_TOOLCHAIN_MISSING',
       'No Cargo release build log is available.'
@@ -817,16 +910,29 @@ function verifyEvidence(reportRoot = REPORT_ROOT) {
   const evidenceRoot = path.join(reportRoot, 'evidence');
   const reportPath = path.join(reportRoot, 'sheikha-native-desktop-v4-report.json');
   const report = readJson(reportPath);
+  const currentArtifact = inspectBuiltArtifact();
+  const smoke = readJsonOptional(
+    path.join(evidenceRoot, 'native-smoke-verification.json'),
+    {}
+  );
   const missingFiles = REQUIRED_EVIDENCE_FILES.filter((name) => !fs.existsSync(path.join(evidenceRoot, name)));
   const artifactClaimValid = report.desktopExecutableBuilt === true
     ? Boolean(
       report.artifact &&
       report.artifactInspected === true &&
-      /^[a-f0-9]{64}$/u.test(report.artifact.sha256 || '')
+      /^[a-f0-9]{64}$/u.test(report.artifact.sha256 || '') &&
+      currentArtifact.built &&
+      currentArtifact.inspected &&
+      report.artifact.sha256 === currentArtifact.sha256
     )
-    : report.artifact === null && report.artifactInspected === false;
+    : report.artifact === null &&
+      report.artifactInspected === false &&
+      currentArtifact.built === false;
   const nativeClaimValid = report.nativeLaunchVerified === true
-    ? report.desktopNativeVerifiedCount === 1 && report.status === 'NATIVE_VERIFIED'
+    ? report.desktopNativeVerifiedCount === 1 &&
+      report.status === 'NATIVE_VERIFIED' &&
+      smoke.status === 'NATIVE_VERIFIED' &&
+      smoke.artifactSha256 === currentArtifact.sha256
     : report.desktopNativeVerifiedCount === 0 && report.status !== 'NATIVE_VERIFIED';
   const valid = missingFiles.length === 0 &&
     report.system === SYSTEM &&
@@ -839,6 +945,12 @@ function main() {
   const command = process.argv[2] || 'inspect';
   if (command === 'inspect') {
     process.stdout.write(`${JSON.stringify(generateV4Inspection(), null, 2)}\n`);
+    return;
+  }
+  if (command === 'build') {
+    const build = runGovernedBuild();
+    process.stdout.write(`${JSON.stringify(build, null, 2)}\n`);
+    if (build.buildSucceeded !== true) process.exitCode = 1;
     return;
   }
   if (command === 'status') {
@@ -866,6 +978,7 @@ module.exports = {
   historicalIntegrity,
   inspectBuiltArtifact,
   inspectToolchain,
+  runGovernedBuild,
   securityVerification,
   verifyEvidence
 };

@@ -25,6 +25,12 @@ const extensionExperience = require(
 const enterpriseManagement = require(
   '../../runtime/enterprise-management-os/sheikha-enterprise-management-os-v1'
 );
+const organizationControl = require(
+  '../organization/sheikha-autonomous-role-dashboard-fabric-v1'
+);
+const productionFederation = require(
+  '../production-federation/sheikha-governed-production-federation-v1'
+);
 const debuggingApex = require(
   '../../runtime/debugging-apex/v1/sheikha-debugging-apex-v1'
 );
@@ -211,6 +217,8 @@ function collectEnterpriseInspector(input = {}) {
   const layerGovernanceStatus = layerGovernance.status();
   const extensionExperienceStatus = extensionExperience.status();
   const enterpriseManagementStatus = enterpriseManagement.status();
+  const organizationControlStatus = organizationControl.status();
+  const productionFederationStatus = productionFederation.status();
   const debuggingApexStatus = debuggingApex.status();
   const chatInterfaceApexStatus = chatInterfaceApex.status();
   const ideApexStatus = ideApex.status();
@@ -257,6 +265,8 @@ function collectEnterpriseInspector(input = {}) {
       layerGovernance: layerGovernanceStatus.status,
       extensionExperience: extensionExperienceStatus.status,
       enterpriseManagement: enterpriseManagementStatus.status,
+      organizationControl: organizationControlStatus.status,
+      productionFederation: productionFederationStatus.status,
       debuggingApex: debuggingApexStatus.status,
       chatInterfaceApex: chatInterfaceApexStatus.status,
       ideApex: ideApexStatus.status,
@@ -340,6 +350,18 @@ function collectEnterpriseInspector(input = {}) {
       nativeLanguageArchitecture:
         '/api/governance/generator/sheikha-language-architecture',
       enterpriseManagement: '/api/sheikha/enterprise-management-os/status',
+      organizationControl: '/api/sheikha/organization-control/v1/status',
+      organizationRoles: '/api/sheikha/organization-control/v1/roles',
+      organizationOperatingModel:
+        '/api/sheikha/organization-control/v1/operating-model?humanOperators=0',
+      productionFederation:
+        '/api/sheikha/production-federation/v1/status',
+      productionFederationModels:
+        '/api/sheikha/production-federation/v1/models',
+      productionFederationSystems:
+        '/api/sheikha/production-federation/v1/systems',
+      productionFederationEvidence:
+        '/api/sheikha/production-federation/v1/evidence',
       civilizationCommand: '/api/sheikha/civilization-command/v1/status',
       civilizationDashboard: '/api/sheikha/civilization-command/v1/dashboard'
     },
@@ -364,6 +386,8 @@ function collectEnterpriseInspector(input = {}) {
         'Chat Interface Apex',
         'IDE Apex',
         'Enterprise Management OS',
+        'Autonomous Role Dashboard Fabric',
+        'Governed Production Federation',
         'Civilization Stewardship Apex',
         'Civilization Command & Intelligence Plane',
         'Runtime Fabric V5',
@@ -443,6 +467,8 @@ function collectEnterpriseInspector(input = {}) {
     chatInterfaceApex: chatInterfaceApexStatus,
     ideApex: ideApexStatus,
     enterpriseManagement: enterpriseManagementStatus,
+    organizationControl: organizationControlStatus,
+    productionFederation: productionFederationStatus,
     lifeFabric: getLifeFabricStatus(),
     lifeIntegration: getLifeIntegrationStatus(),
     orchestration: {
@@ -466,7 +492,9 @@ function compactInspectorContext(snapshot = {}) {
     extension: snapshot.extension || {},
     governance: snapshot.governance || {},
     architecture: snapshot.architecture || {},
-    surfaces: snapshot.surfaces || {}
+    surfaces: snapshot.surfaces || {},
+    organizationControl: snapshot.organizationControl || {},
+    productionFederation: snapshot.productionFederation || {}
   };
 }
 

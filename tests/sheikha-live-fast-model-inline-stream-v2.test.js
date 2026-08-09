@@ -3,14 +3,19 @@
 const fs = require('node:fs');
 const path = require('node:path');
 
-describe('Sheikha real fast-model inline stream V2', () => {
+afterEach(() => {
+  jest.resetModules();
+  jest.restoreAllMocks();
+});
+
+describe('Sheikha contextual Arabic first token stream V3', () => {
   const root = path.resolve(__dirname, '..');
 
   const route = fs.readFileSync(
     path.join(
       root,
       'routes/live-realtime-fabric/' +
-      'sheikha-live-realtime-fabric-routes.js'
+      'sheikha-live-realtime-fabric-routes-clean-checkout-canonical-v1.js'
     ),
     'utf8'
   );
@@ -25,7 +30,7 @@ describe('Sheikha real fast-model inline stream V2', () => {
   );
 
   test(
-    'routes default live chat through a real inline model stream',
+    'sends a contextual token before the real inline model stream',
     () => {
       const defaultGate = route.indexOf(
         'if (fastArabicDefault && ' +
@@ -48,6 +53,10 @@ describe('Sheikha real fast-model inline stream V2', () => {
 
       expect(block).toContain('streamOllama({');
       expect(block).toContain('profile,');
+      expect(block).toContain(
+        'writeFastArabicOpening(res, message)'
+      );
+      expect(block).toContain('initialTokenSent');
       expect(block).not.toContain(
         'writeFastArabicCompletion'
       );
@@ -65,15 +74,15 @@ describe('Sheikha real fast-model inline stream V2', () => {
       );
 
       expect(runtime).toContain(
-        'fastThenDeepStreaming: false'
+        'fastThenDeepStreaming: true'
       );
 
       expect(runtime).toContain(
-        'backgroundDeepSingleFlight: false'
+        'firstArabicTokenWithoutModelWait: true'
       );
 
       expect(runtime).toContain(
-        'backgroundDeepDisabledByDefault: true'
+        'immediateContextualArabicOpening: true'
       );
     }
   );
@@ -92,6 +101,29 @@ describe('Sheikha real fast-model inline stream V2', () => {
       expect(route).toContain(
         'req.destroy(disconnectError)'
       );
+
+      expect(route).toContain(
+        'modelFirstTokenHardTimeoutMs'
+      );
+
+      expect(route).toContain(
+        'writeGovernedFallbackCompletion'
+      );
+    }
+  );
+
+  test(
+    'parses malformed stream frames safely',
+    () => {
+      const router = require(
+        '../routes/live-realtime-fabric/' +
+        'sheikha-live-realtime-fabric-routes-clean-checkout-canonical-v1.js'
+      );
+
+      expect(router.__test.parseOllamaStreamLine('not-json')).toBeNull();
+      expect(
+        router.__test.parseOllamaStreamLine('{"response":"مرحبا"}')
+      ).toEqual({ response: 'مرحبا' });
     }
   );
 });

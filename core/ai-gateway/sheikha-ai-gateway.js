@@ -5,6 +5,12 @@ const {
 } = require('../root-governance/sheikha-universal-divine-governance');
 
 const { askWithFallback } = require('../providers/provider-registry');
+const {
+    executeIntelligenceRequest
+} = require(
+    '../intelligence-apex/' +
+    'sheikha-intelligence-capability-apex-v1'
+);
 
 const OLLAMA_URL = process.env.OLLAMA_HOST || process.env.OLLAMA_URL || 'http://127.0.0.1:11434';
 const DEFAULT_MODEL = process.env.SHEIKHA_CORE_MODEL || 'Sheikha-Core';
@@ -325,7 +331,14 @@ async function getSheikhaGatewayStatus() {
     }
 }
 
-async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
+async function askSheikhaCore({
+    prompt,
+    model = DEFAULT_MODEL,
+    mode = 'chat',
+    task,
+    ultraBudgetApproved = false,
+    context = {}
+}) {
     if (!prompt || typeof prompt !== 'string') {
         return {
             success: false,
@@ -384,6 +397,43 @@ async function askSheikhaCore({ prompt, model = DEFAULT_MODEL, context = {} }) {
             timestamp: new Date().toISOString(),
             poweredBy: 'SHEIKHA — عنصر الحياة الرقمية',
             reason: 'operational_fast_path'
+        };
+    }
+
+    if (['standard', 'pro', 'ultra'].includes(String(mode).toLowerCase())) {
+        const apex = await executeIntelligenceRequest({
+            prompt,
+            mode,
+            task,
+            ultraBudgetApproved
+        });
+        return {
+            success: apex.success,
+            provider: 'Sheikha-Intelligence-Apex',
+            model: apex.execution.selectedModels.join(', ') || model,
+            mode: `governed-${apex.mode.resolved}-capability-route`,
+            localModelOnline:
+                apex.execution.route === 'LOCAL_MULTI_MODEL',
+            fallbackReason:
+                apex.status === 'MODEL_EXECUTION_FAILED'
+                    ? apex.status
+                    : null,
+            governance: {
+                ...governanceEnvelope(),
+                humanApprovalRequired:
+                    apex.governance.humanApprovalRequired,
+                executionAuthorized: false
+            },
+            context: {
+                ...context,
+                task: apex.task,
+                requestedMode: mode,
+                resolvedMode: apex.mode.resolved
+            },
+            output: apex.output,
+            intelligenceApex: apex,
+            timestamp: apex.generatedAt,
+            poweredBy: 'SHEIKHA — capability-routed local intelligence'
         };
     }
 

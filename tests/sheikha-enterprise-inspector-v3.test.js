@@ -119,6 +119,24 @@ describe('Sheikha Enterprise Inspector V3', () => {
     expect(snapshot.architecture.nodes).toContain('Universal Distribution Release Apex');
     expect(snapshot.architecture.nodes).toContain('Runtime Fabric V5');
     expect(snapshot.surfaces.runtimeFabric).toBe('/api/sheikha/runtime-fabric/v5/status');
+    expect(snapshot.surfaces.organizationControl)
+      .toBe('/api/sheikha/organization-control/v1/status');
+    expect(snapshot.health.organizationControl)
+      .toBe('ACTIVE_GOVERNED_AUTONOMOUS_CONTINUITY');
+    expect(snapshot.organizationControl.operatingModel.defaultHumanOperatorCount)
+      .toBe(0);
+    expect(snapshot.organizationControl.operatingModel.bindingDecisionAutomation)
+      .toBe(false);
+    expect(snapshot.surfaces.productionFederation)
+      .toBe('/api/sheikha/production-federation/v1/status');
+    expect(snapshot.health.productionFederation)
+      .toBe('ACTIVE_BOUNDED_INTERNAL_EXTERNAL_DEFAULT_DENY');
+    expect(snapshot.productionFederation.externalLane.status)
+      .toBe('REGISTERED_DEFAULT_DENY');
+    expect(snapshot.productionFederation.externalLane.deploymentExecuted)
+      .toBe(false);
+    expect(snapshot.architecture.nodes)
+      .toContain('Governed Production Federation');
     expect(snapshot.runtimeFabric.cluster.multiNode.active).toBe(false);
     expect(snapshot.surfaces.civilizationCommand)
       .toBe('/api/sheikha/civilization-command/v1/status');

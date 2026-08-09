@@ -29,7 +29,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     path.join(
       root,
       'routes/live-realtime-fabric/' +
-      'sheikha-live-realtime-fabric-routes.js'
+      'sheikha-live-realtime-fabric-routes-clean-checkout-canonical-v1.js'
     ),
     'utf8'
   );
@@ -77,7 +77,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     );
   });
 
-  test('retains the Sheikha-Core deep extension profile', () => {
+  test('uses the locally verified Arabic quality model for the extension', () => {
     const base = runtime.resolveLiveProfile(
       'تحليل عميق',
       'general'
@@ -86,7 +86,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     const deep =
       router.__test.createDeepStreamingProfile(base);
 
-    expect(deep.model).toBe('Sheikha-Core:latest');
+    expect(deep.model).toBe('qwen2.5-coder:7b');
   });
 
   test('declares the first-token target as progress, not SLA', () => {
@@ -109,7 +109,7 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     ).toBe('NOT_CERTIFIED_CPU_VARIABLE');
   });
 
-  test('removes the unreachable canned completion route', () => {
+  test('uses a contextual first token and keeps canned completion unreachable', () => {
     const defaultInline = routeSource.indexOf(
       'if (fastArabicDefault && !deepStreamRequested)'
     );
@@ -121,16 +121,13 @@ describe('Sheikha live routing, quality and latency policy V3', () => {
     expect(defaultInline).toBeGreaterThan(-1);
     expect(deepInline).toBeGreaterThan(defaultInline);
 
-    const afterDeepGate = routeSource.slice(
-      deepInline,
-      routeSource.indexOf(
-        'streamOllama({ message, mode, profile, res });',
-        deepInline
-      )
-    );
+    const afterDeepGate = routeSource.slice(deepInline);
 
     expect(afterDeepGate).not.toContain(
       'writeFastArabicCompletion(res, message)'
+    );
+    expect(afterDeepGate).toContain(
+      'writeFastArabicOpening(res, message)'
     );
 
     expect(runtimeSource).toContain(
