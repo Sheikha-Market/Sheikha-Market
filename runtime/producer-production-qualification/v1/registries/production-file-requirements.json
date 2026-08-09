@@ -1,0 +1,448 @@
+{
+  "schemaVersion": "1.0.0",
+  "registry": "SHEIKHA_PRODUCTION_FILE_REQUIREMENTS_V1",
+  "status": "ACTIVE",
+  "count": 31,
+  "requirements": [
+    {
+      "id": "PRODUCT_IDENTITY_AND_VERSION",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "هوية المنتج والإصدار والنطاق",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PRODUCER_LEGAL_ENTITY_REFERENCE",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "مرجع الكيان القانوني للمنتج",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "AUTHORIZED_REPRESENTATIVE_REFERENCE",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "مرجع المفوض النظامي",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": false,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "OWNERSHIP_AND_IP_RIGHTS",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "الملكية وحقوق الاستخدام والإنتاج",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "CONTRACT_SCOPE_AND_RESPONSIBILITIES",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "العقد والنطاق والمسؤوليات",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "INTERNAL_LICENSE_TERMS",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "شروط الترخيص الداخلي",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "EXTERNAL_LICENSE_AND_REGULATORY_MATRIX",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "مصفوفة التراخيص والجهات المختصة",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PRIVACY_AND_DATA_PROCESSING",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "الخصوصية ومعالجة البيانات",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "LIABILITY_RISK_AND_DISPUTE_TERMS",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "المسؤولية والمخاطر وآلية النزاع",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "EXTERNAL_AUTHORITY_CERTIFICATES",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "شهادات الجهة الخارجية المختصة",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "REGULATED"
+      ],
+      "externalAuthorityOnly": true,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PRODUCT_REQUIREMENTS_SPECIFICATION",
+      "family": "ENGINEERING",
+      "titleAr": "مواصفات متطلبات المنتج",
+      "ownerRole": "SYSTEMS_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "ARCHITECTURE_AND_INTERFACE_CONTRACTS",
+      "family": "ENGINEERING",
+      "titleAr": "المعمارية وعقود الواجهات",
+      "ownerRole": "SYSTEMS_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SOURCE_AND_CONFIGURATION_BASELINE",
+      "family": "ENGINEERING",
+      "titleAr": "خط أساس المصدر والإعدادات",
+      "ownerRole": "CONFIGURATION_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SOFTWARE_BILL_OF_MATERIALS",
+      "family": "ENGINEERING",
+      "titleAr": "قائمة مكونات البرمجيات SBOM",
+      "ownerRole": "SECURITY_ENGINEER",
+      "appliesTo": [
+        "DIGITAL",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "HARDWARE_BILL_OF_MATERIALS",
+      "family": "ENGINEERING",
+      "titleAr": "قائمة مكونات العتاد",
+      "ownerRole": "HARDWARE_ENGINEER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "HARDWARE_QUALIFICATION_EVIDENCE",
+      "family": "ENGINEERING",
+      "titleAr": "أدلة تأهيل العتاد",
+      "ownerRole": "HARDWARE_ENGINEER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SECURITY_THREAT_MODEL",
+      "family": "ENGINEERING",
+      "titleAr": "نموذج التهديدات والأمن",
+      "ownerRole": "SECURITY_ENGINEER",
+      "appliesTo": [
+        "DIGITAL",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SAFETY_HAZARD_ANALYSIS",
+      "family": "ENGINEERING",
+      "titleAr": "تحليل المخاطر والسلامة",
+      "ownerRole": "SAFETY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "TEST_AND_VERIFICATION_PLAN",
+      "family": "ENGINEERING",
+      "titleAr": "خطة الاختبار والتحقق",
+      "ownerRole": "QUALITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "TEST_RESULTS_AND_TRACEABILITY",
+      "family": "ENGINEERING",
+      "titleAr": "نتائج الاختبار والتتبع",
+      "ownerRole": "QUALITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "QUALITY_PLAN_AND_ACCEPTANCE_CRITERIA",
+      "family": "ENGINEERING",
+      "titleAr": "خطة الجودة ومعايير القبول",
+      "ownerRole": "QUALITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PRODUCTION_PROCESS_PLAN",
+      "family": "PRODUCTION",
+      "titleAr": "خطة عملية الإنتاج",
+      "ownerRole": "PRODUCTION_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "FACILITY_AND_EQUIPMENT_CAPABILITY",
+      "family": "PRODUCTION",
+      "titleAr": "قدرة المنشأة والمعدات",
+      "ownerRole": "PRODUCTION_ENGINEER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PERSONNEL_COMPETENCE_AND_ROLES",
+      "family": "PRODUCTION",
+      "titleAr": "كفاءة فريق الإنتاج والأدوار",
+      "ownerRole": "PRODUCTION_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SUPPLIER_AND_MATERIAL_TRACEABILITY",
+      "family": "PRODUCTION",
+      "titleAr": "تتبع الموردين والمواد",
+      "ownerRole": "SUPPLY_CHAIN_MANAGER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "CAPACITY_AND_RESOURCE_PLAN",
+      "family": "PRODUCTION",
+      "titleAr": "خطة الطاقة والموارد",
+      "ownerRole": "PRODUCTION_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "RELEASE_PACKAGING_AND_DISTRIBUTION",
+      "family": "PRODUCTION",
+      "titleAr": "الإصدار والتغليف والتوزيع",
+      "ownerRole": "RELEASE_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "OPERATIONS_MONITORING_AND_SUPPORT",
+      "family": "PRODUCTION",
+      "titleAr": "التشغيل والرصد والدعم",
+      "ownerRole": "OPERATIONS_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "MAINTENANCE_RECOVERY_AND_ROLLBACK",
+      "family": "PRODUCTION",
+      "titleAr": "الصيانة والتعافي والتراجع",
+      "ownerRole": "RELIABILITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "CHANGE_CONTROL_AND_AUDIT",
+      "family": "PRODUCTION",
+      "titleAr": "إدارة التغيير وسجل التدقيق",
+      "ownerRole": "GOVERNANCE_REVIEWER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "USER_ADMIN_AND_TRAINING_DOCUMENTATION",
+      "family": "PRODUCTION",
+      "titleAr": "أدلة المستخدم والإدارة والتدريب",
+      "ownerRole": "DOCUMENTATION_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    }
+  ]
+}

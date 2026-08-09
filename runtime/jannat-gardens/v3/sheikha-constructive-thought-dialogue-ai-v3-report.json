@@ -1,0 +1,67 @@
+{
+  "schemaVersion": "3.0.0",
+  "system": "SHEIKHA_CONSTRUCTIVE_THOUGHT_DIALOGUE_AI_V3",
+  "generatedAt": "2026-07-27T15:37:59.598Z",
+  "status": "ACTIVE_GOVERNED_AI_CONSTRUCTIVE_DIALOGUE",
+  "passed": true,
+  "checks": {
+    "contractActive": true,
+    "contemporaryFrameworksIntegrated": true,
+    "historicalFrameworksIntegrated": true,
+    "audienceContextsBounded": true,
+    "personClassificationDisabled": true,
+    "targetedPersuasionDisabled": true,
+    "automatedFatwaDisabled": true,
+    "approvedReferenceMetadataAvailable": true,
+    "intelligenceProviderIntegrated": true,
+    "localFirst": true,
+    "githubNotRequired": true,
+    "deterministicIntegrationSelfTestPassed": true
+  },
+  "failedChecks": [],
+  "coverage": {
+    "contemporaryThoughtFrameworks": 19,
+    "historicalThoughtFrameworks": 18,
+    "totalThoughtFrameworks": 37,
+    "audienceContexts": 6,
+    "methodReferenceAnchors": 8
+  },
+  "foundations": {
+    "dialogueRuntime": "ACTIVE_WITH_BOUNDED_GARDENS_GUIDES_AND_DIALOGUE",
+    "thoughtRegistry": "ACTIVE_IDEA_LEVEL_DIALOGUE_MATRIX",
+    "intelligenceProvider": "ACTIVE_LOCAL_MULTI_MODEL_CAPABILITY_ROUTER",
+    "discoveredLocalModels": 6
+  },
+  "routes": {
+    "status": "/api/sheikha/constructive-thought-dialogue/v3/status",
+    "audiences": "/api/sheikha/constructive-thought-dialogue/v3/audiences",
+    "matrix": "/api/sheikha/constructive-thought-dialogue/v3/frameworks/matrix",
+    "respond": "/api/sheikha/constructive-thought-dialogue/v3/respond",
+    "conversationEngine": "/api/sheikha/conversation-engine/v1/chat"
+  },
+  "governance": {
+    "analysisTarget": "IDEAS_NOT_PEOPLE",
+    "personClassification": false,
+    "sensitiveTraitInference": false,
+    "targetedPersuasion": false,
+    "coerciveAdoption": false,
+    "automatedFatwa": false,
+    "qualifiedHumanReviewForReligiousRulings": true
+  },
+  "intelligenceEvidence": {
+    "integrationImplemented": true,
+    "deterministicIntegrationSelfTestPassed": true,
+    "selfTestOutputStored": false,
+    "liveModelInvokedBySelfTest": false,
+    "liveSemanticCorrectnessProven": false,
+    "modelOutputIsReligiousEvidence": false
+  },
+  "outputs": {
+    "contract": "runtime/jannat-gardens/v3/contracts/sheikha-constructive-thought-dialogue-ai-v3-contract.json",
+    "matrix": "runtime/jannat-gardens/v3/registries/sheikha-thought-dialogue-matrix-v3.json",
+    "report": "runtime/jannat-gardens/v3/sheikha-constructive-thought-dialogue-ai-v3-report.json",
+    "integrationEvidence": "runtime/jannat-gardens/v3/evidence/sheikha-thought-dialogue-integration-selftest-v3.json",
+    "intelligenceReport": "runtime/intelligence-capability-apex/v1/sheikha-intelligence-capability-apex-v1-report.json"
+  },
+  "claimBoundary": "This fabric generates bounded educational dialogue from a curated registry. It does not classify people, establish religious truth, issue rulings, exhaust world ideologies, or prove model correctness."
+}

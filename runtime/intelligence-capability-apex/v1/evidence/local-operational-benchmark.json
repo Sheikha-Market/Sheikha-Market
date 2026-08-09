@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_INTELLIGENCE_CAPABILITY_APEX_V1_LOCAL_OPERATIONAL_BENCHMARK",
+  "generatedAt": "2026-07-31T00:50:24.909Z",
+  "status": "LOCAL_OPERATIONAL_SMOKE_REVIEW_REQUIRED",
+  "scope": "LOCAL_ROUTING_INFERENCE_AND_OUTPUT_SAFETY_SMOKE_ONLY",
+  "inventory": {
+    "status": "LOCAL_MODELS_DISCOVERED",
+    "online": true,
+    "endpoint": "http://127.0.0.1:11434",
+    "discoveryMethod": "NODE_FETCH_LOOPBACK",
+    "modelCount": 6,
+    "error": null
+  },
+  "executionBudget": {
+    "timeoutMsPerCase": 60000,
+    "numPredictMaximum": 32,
+    "numCtxMaximum": 512,
+    "thinkingDisabledForOperationalSmoke": true,
+    "keepAlive": "2m",
+    "normalRuntimeProfilesModified": false
+  },
+  "cases": [
+    {
+      "id": "ARABIC_GENERAL_SMOKE",
+      "expectedTask": "ARABIC_GENERAL",
+      "observedTask": "ARABIC_GENERAL",
+      "status": "MODEL_EXECUTION_FAILED",
+      "passed": false,
+      "route": "LOCAL_MULTI_MODEL",
+      "modelBacked": false,
+      "selectedModels": [
+        "Sheikha-Core-Clean:latest"
+      ],
+      "modelInvocations": 1,
+      "successfulModelInvocations": 0,
+      "failedModelInvocations": 1,
+      "errors": [
+        "MODEL_TIMEOUT"
+      ],
+      "outputSha256": null,
+      "outputBytes": 0,
+      "elapsedMs": 60011.02,
+      "qualityStatus": "QUALITY_REVIEW_REQUIRED",
+      "qualityFailures": [
+        "nonEmptyOutput",
+        "arabicForArabicPrompt"
+      ],
+      "semanticCorrectnessProven": false
+    },
+    {
+      "id": "FAST_RESPONSE_SMOKE",
+      "expectedTask": "FAST_RESPONSE",
+      "observedTask": "FAST_RESPONSE",
+      "status": "MODEL_EXECUTION_FAILED",
+      "passed": false,
+      "route": "LOCAL_MULTI_MODEL",
+      "modelBacked": false,
+      "selectedModels": [
+        "Sheikha-Core-Clean:latest"
+      ],
+      "modelInvocations": 1,
+      "successfulModelInvocations": 0,
+      "failedModelInvocations": 1,
+      "errors": [
+        "MODEL_TIMEOUT"
+      ],
+      "outputSha256": null,
+      "outputBytes": 0,
+      "elapsedMs": 60002.35,
+      "qualityStatus": "QUALITY_REVIEW_REQUIRED",
+      "qualityFailures": [
+        "nonEmptyOutput",
+        "arabicForArabicPrompt"
+      ],
+      "semanticCorrectnessProven": false
+    },
+    {
+      "id": "CODING_SMOKE",
+      "expectedTask": "CODING",
+      "observedTask": "CODING",
+      "status": "MODEL_EXECUTION_FAILED",
+      "passed": false,
+      "route": "LOCAL_MULTI_MODEL",
+      "modelBacked": false,
+      "selectedModels": [
+        "qwen2.5-coder:7b"
+      ],
+      "modelInvocations": 1,
+      "successfulModelInvocations": 0,
+      "failedModelInvocations": 1,
+      "errors": [
+        "MODEL_TIMEOUT"
+      ],
+      "outputSha256": null,
+      "outputBytes": 0,
+      "elapsedMs": 60002.03,
+      "qualityStatus": "QUALITY_REVIEW_REQUIRED",
+      "qualityFailures": [
+        "nonEmptyOutput",
+        "arabicForArabicPrompt"
+      ],
+      "semanticCorrectnessProven": false
+    },
+    {
+      "id": "REASONING_SMOKE",
+      "expectedTask": "REASONING",
+      "observedTask": "REASONING",
+      "status": "MODEL_EXECUTION_FAILED",
+      "passed": false,
+      "route": "LOCAL_MULTI_MODEL",
+      "modelBacked": false,
+      "selectedModels": [
+        "deepseek-r1:8b"
+      ],
+      "modelInvocations": 1,
+      "successfulModelInvocations": 0,
+      "failedModelInvocations": 1,
+      "errors": [
+        "MODEL_TIMEOUT"
+      ],
+      "outputSha256": null,
+      "outputBytes": 0,
+      "elapsedMs": 60003.93,
+      "qualityStatus": "QUALITY_REVIEW_REQUIRED",
+      "qualityFailures": [
+        "nonEmptyOutput",
+        "arabicForArabicPrompt"
+      ],
+      "semanticCorrectnessProven": false
+    }
+  ],
+  "summary": {
+    "executedCases": 4,
+    "passedCases": 0,
+    "failedCases": 4,
+    "modelBackedCases": 0,
+    "fallbackCases": 0,
+    "modelInvocations": 4,
+    "externalComparisonCases": 0,
+    "copilotComparisonCases": 0,
+    "externalGptComparisonCases": 0
+  },
+  "truthBoundaries": {
+    "zeroModelInvocationCanPass": false,
+    "operationalSmokeIsSemanticBenchmark": false,
+    "operationalSmokeIsCompetitorBenchmark": false,
+    "superiorityEstablished": false,
+    "accuracyEstablished": false,
+    "independentBlindReviewCompleted": false,
+    "humansRemainPrimaryAndAccountable": true
+  },
+  "nextGate": "Add versioned public task suites, equal budgets, blind human scoring, reproducible hardware disclosure, and authorized competitor runs."
+}

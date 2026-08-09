@@ -1,0 +1,168 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCER_PRODUCTION_QUALIFICATION_V1_ENGINEERING_FILE_INDEX",
+  "family": "ENGINEERING",
+  "count": 11,
+  "status": "REQUIREMENTS_REGISTERED",
+  "files": [
+    {
+      "id": "PRODUCT_REQUIREMENTS_SPECIFICATION",
+      "family": "ENGINEERING",
+      "titleAr": "مواصفات متطلبات المنتج",
+      "ownerRole": "SYSTEMS_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "ARCHITECTURE_AND_INTERFACE_CONTRACTS",
+      "family": "ENGINEERING",
+      "titleAr": "المعمارية وعقود الواجهات",
+      "ownerRole": "SYSTEMS_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SOURCE_AND_CONFIGURATION_BASELINE",
+      "family": "ENGINEERING",
+      "titleAr": "خط أساس المصدر والإعدادات",
+      "ownerRole": "CONFIGURATION_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SOFTWARE_BILL_OF_MATERIALS",
+      "family": "ENGINEERING",
+      "titleAr": "قائمة مكونات البرمجيات SBOM",
+      "ownerRole": "SECURITY_ENGINEER",
+      "appliesTo": [
+        "DIGITAL",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "HARDWARE_BILL_OF_MATERIALS",
+      "family": "ENGINEERING",
+      "titleAr": "قائمة مكونات العتاد",
+      "ownerRole": "HARDWARE_ENGINEER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "HARDWARE_QUALIFICATION_EVIDENCE",
+      "family": "ENGINEERING",
+      "titleAr": "أدلة تأهيل العتاد",
+      "ownerRole": "HARDWARE_ENGINEER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SECURITY_THREAT_MODEL",
+      "family": "ENGINEERING",
+      "titleAr": "نموذج التهديدات والأمن",
+      "ownerRole": "SECURITY_ENGINEER",
+      "appliesTo": [
+        "DIGITAL",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SAFETY_HAZARD_ANALYSIS",
+      "family": "ENGINEERING",
+      "titleAr": "تحليل المخاطر والسلامة",
+      "ownerRole": "SAFETY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "TEST_AND_VERIFICATION_PLAN",
+      "family": "ENGINEERING",
+      "titleAr": "خطة الاختبار والتحقق",
+      "ownerRole": "QUALITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "TEST_RESULTS_AND_TRACEABILITY",
+      "family": "ENGINEERING",
+      "titleAr": "نتائج الاختبار والتتبع",
+      "ownerRole": "QUALITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "QUALITY_PLAN_AND_ACCEPTANCE_CRITERIA",
+      "family": "ENGINEERING",
+      "titleAr": "خطة الجودة ومعايير القبول",
+      "ownerRole": "QUALITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    }
+  ],
+  "completionPolicy": "A registered requirement is not complete until submitted evidence is hash-verified and accepted by a qualified human reviewer."
+}

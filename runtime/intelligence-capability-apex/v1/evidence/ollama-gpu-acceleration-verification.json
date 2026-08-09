@@ -1,0 +1,54 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_OLLAMA_GPU_ACCELERATION_VERIFICATION_V1",
+  "generatedAt": "2026-07-27T08:17:40.000Z",
+  "status": "BLOCKED_BY_OLLAMA_CUDA_LIBRARY_PERMISSIONS",
+  "passed": false,
+  "hostGpu": {
+    "detectedOutsideCodexSandbox": true,
+    "model": "NVIDIA GeForce RTX 4060 Laptop GPU",
+    "memoryMiB": 8188,
+    "driverVersion": "580.159.03",
+    "cudaVersionReportedByDriver": "13.0",
+    "nvidiaSmiPassed": true
+  },
+  "ollama": {
+    "version": "0.18.3",
+    "serviceUser": "sheikha",
+    "localEndpoint": "http://127.0.0.1:11434",
+    "modelsDiscovered": 6,
+    "gpuInferenceVerified": false,
+    "observedVramBytes": 0,
+    "observedComputeBackend": "CPU",
+    "visibleDeviceOverrideRemoved": true,
+    "serviceRestartedAfterOverride": true,
+    "automaticGpuDiscoveryAfterRestart": false
+  },
+  "rootCauseEvidence": {
+    "cudaBackendPath": "/usr/local/lib/ollama/cuda_v12",
+    "owner": "nobody",
+    "group": "nogroup",
+    "mode": "0700",
+    "serviceUserCanTraverseBackendPath": false,
+    "ollamaStartupObservedBackend": "cpu",
+    "ollamaStartupObservedVram": "0 B"
+  },
+  "safety": {
+    "sudoCommandExecuted": false,
+    "systemLibraryPermissionsChanged": false,
+    "packageInstalled": false,
+    "serviceOverrideChangedWithoutSudo": true,
+    "broadWorldReadablePermissionApplied": false
+  },
+  "requiredHumanGate": {
+    "explicitSudoApprovalRequired": true,
+    "qualifiedSystemReviewRequired": true,
+    "recommendedScope": "Grant the ollama service user read and traverse access only to the required CUDA backend files, then restart and verify before making the change permanent."
+  },
+  "truthBoundaries": {
+    "gpuHardwareAvailable": true,
+    "gpuAcceleratedInferenceActive": false,
+    "cpuInferenceActive": true,
+    "performanceSuperiorityEstablished": false
+  }
+}

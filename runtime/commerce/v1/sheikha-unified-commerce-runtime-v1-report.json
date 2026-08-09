@@ -1,0 +1,1577 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIFIED_COMMERCE_ECONOMY_RUNTIME_V1",
+  "generatedAt": "2026-07-21T16:42:25.913Z",
+  "status": "ACTIVE_WITH_GOVERNED_CATALOG",
+  "identity": {
+    "nameAr": "شيخة للتجارات والاقتصادات والأسواق",
+    "nameEn": "Sheikha Unified Commerce & Economy Runtime",
+    "platform": "SHEIKHA UGIT-RP",
+    "language": [
+      "ar",
+      "en"
+    ],
+    "direction": "rtl"
+  },
+  "routes": {
+    "market": "/market/",
+    "dashboard": "/dashboard/",
+    "gardens": "/riyadh-aljannah-community/",
+    "api": "/api/sheikha/commerce/v1"
+  },
+  "governance": {
+    "defaultAuthorization": "DENY",
+    "catalogRead": "ALLOW",
+    "automaticTransactionExecution": false,
+    "automaticContractExecution": false,
+    "automaticPaymentExecution": false,
+    "humanApprovalForHighImpact": true,
+    "evidenceRequired": true,
+    "noHarm": true,
+    "noDeception": true,
+    "automatedFatwa": false,
+    "religiousAuthorityClaim": false
+  },
+  "catalog": [
+    {
+      "id": "PROD-GOV-001",
+      "nameAr": "محرك شيخة للحوكمة",
+      "nameEn": "Sheikha Governance Engine",
+      "summaryAr": "يحكم قرارات الذكاء والمراجعة والدمج والتشغيل والسياسات وفق الأدلة والموافقات.",
+      "summaryEn": "Govern AI, PR, merge, runtime, and policy decisions.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "government",
+      "targetSectors": [
+        "government",
+        "commerce",
+        "cybersecurity"
+      ],
+      "commercialModels": [
+        "License",
+        "SaaS",
+        "API",
+        "SDK"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "Root Authority Layer",
+        "Unified Governance Fabric",
+        "PR Governance"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-STAB-001",
+      "nameAr": "محرك شيخة للاستقرار",
+      "nameEn": "Sheikha Stability Engine",
+      "summaryAr": "يقيس الاستقرار ويمنع الانحراف ويفرض الاختبارات وبوابات الجودة.",
+      "summaryEn": "Measure stability, prevent drift, enforce tests and quality gates.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "cloud-saas",
+      "targetSectors": [
+        "cloud-saas",
+        "ai-services",
+        "cybersecurity"
+      ],
+      "commercialModels": [
+        "License",
+        "SaaS",
+        "API"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "Stability Layer score 100",
+        "NO_DRIFT",
+        "CI checks PASS"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-DEC-001",
+      "nameAr": "سجل شيخة للقرارات",
+      "nameEn": "Sheikha Decision Registry",
+      "summaryAr": "يحوّل المعرفة المحكومة إلى قرارات قابلة للتتبع بالأدلة والقياسات.",
+      "summaryEn": "Convert governed knowledge into traceable decisions with evidence and measurements.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "commerce",
+      "targetSectors": [
+        "commerce",
+        "government",
+        "ai-services"
+      ],
+      "commercialModels": [
+        "License",
+        "SDK",
+        "Enterprise Component"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "Decision Registry V2",
+        "Knowledge Engine V2"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-CAP-001",
+      "nameAr": "سجل شيخة للقدرات",
+      "nameEn": "Sheikha Capability Registry",
+      "summaryAr": "يسجل قدرات الذكاء والهندسة ويحكم صلاحيات تفعيلها واستخدامها.",
+      "summaryEn": "Register, govern, and gate AI and engineering capabilities.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "ai-services",
+      "targetSectors": [
+        "ai-services",
+        "cloud-saas",
+        "industry"
+      ],
+      "commercialModels": [
+        "License",
+        "SDK",
+        "API"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "Capability Registry V2 active 100"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-ENG-001",
+      "nameAr": "أدوات شيخة للمراجعة الهندسية",
+      "nameEn": "Sheikha Engineering Automation Review Tools",
+      "summaryAr": "تساند مراجعة الشفرة والاستعداد للدمج والتحقق من العقود التشغيلية.",
+      "summaryEn": "Automate code review, governance checks, PR readiness, and contract validation.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "cloud-saas",
+      "targetSectors": [
+        "cloud-saas",
+        "ai-services",
+        "industry"
+      ],
+      "commercialModels": [
+        "SaaS",
+        "CLI",
+        "SDK"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "Runtime Contract Enforcer",
+        "API Contract Registry",
+        "Test Fabric"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-AICL-001",
+      "nameAr": "نسيج شيخة لمسارات عناقيد الذكاء الصناعي",
+      "nameEn": "Sheikha AI Cluster Pipeline Fabric",
+      "summaryAr": "ينظم مسارات البيانات والنماذج والأدوات والنشر والرصد والوكلاء ضمن نطاق محكوم.",
+      "summaryEn": "Govern AI cluster hierarchy, data and model pipelines, tool orchestration, deployment readiness, monitoring, MoE routing, and multi-agent execution without claiming physical supercluster ownership.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "ai-services",
+      "targetSectors": [
+        "ai-services",
+        "cloud-saas",
+        "industry"
+      ],
+      "commercialModels": [
+        "Technology License",
+        "SaaS",
+        "API",
+        "SDK",
+        "Enterprise Component"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "AI Cluster Pipeline Fabric V1",
+        "Supercompute Fabric readiness",
+        "Commercial Execution Cluster V1"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-UGITAI-001",
+      "nameAr": "مستوى شيخة للتحكم في الذكاء الصناعي",
+      "nameEn": "Sheikha UGIT AI Control Plane",
+      "summaryAr": "يوحد التحكم المحكوم في العناقيد والسحابة والبيانات والوكلاء وتحويل القدرات إلى منتجات.",
+      "summaryEn": "Unify governed AI cluster, cloud supercomputer readiness, data mesh, MoE routing, multi-agent operations, domain pipelines, productization gates, and evidence controls under SHEIKHA UGIT-RP.",
+      "kind": "COMMERCIAL_DIGITAL_PRODUCT",
+      "primarySector": "cloud-saas",
+      "targetSectors": [
+        "cloud-saas",
+        "ai-services",
+        "commerce",
+        "supply-chain"
+      ],
+      "commercialModels": [
+        "Technology License",
+        "SaaS",
+        "API",
+        "SDK",
+        "Enterprise Component"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_QUOTE",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "UGIT AI Control Plane V1",
+        "Cloud Supercomputer Fabric V1",
+        "Sovereign Commercial AI Supercluster V1",
+        "AI Cluster Pipeline Fabric V1"
+      ],
+      "source": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-SUPPLY-CHAIN",
+      "nameAr": "منصة شيخة لسلاسل الإمداد",
+      "nameEn": "Sheikha Supply Chain Platform",
+      "summaryAr": "منتج مسجل للاستكشاف والتكامل وفق عقده التشغيلي.",
+      "kind": "PLATFORM_PRODUCT",
+      "primarySector": "supply-chain",
+      "targetSectors": [
+        "supply-chain",
+        "logistics",
+        "industry",
+        "manufacturing"
+      ],
+      "customerSegments": [
+        "B2B",
+        "B2G",
+        "INDUSTRIAL",
+        "LOGISTICS"
+      ],
+      "commercialModels": [
+        "SUBSCRIPTION",
+        "ENTERPRISE_LICENSE",
+        "CONSULTING"
+      ],
+      "availability": "DISCOVERY_READY",
+      "salesAction": "REQUEST_DISCOVERY",
+      "route": null,
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "PROD-SUPPLY-CHAIN",
+        "SHEIKHA_PRODUCT_CATALOG_V1"
+      ],
+      "source": "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-ENERGY",
+      "nameAr": "ذكاء شيخة لسلاسل إمداد الطاقة",
+      "nameEn": "Sheikha Energy Supply Chain Intelligence",
+      "summaryAr": "منتج مسجل للاستكشاف والتكامل وفق عقده التشغيلي.",
+      "kind": "PLATFORM_PRODUCT",
+      "primarySector": "energy",
+      "targetSectors": [
+        "energy",
+        "oil-gas",
+        "electricity",
+        "government"
+      ],
+      "customerSegments": [
+        "ENERGY",
+        "OIL_AND_GAS",
+        "UTILITIES",
+        "B2G"
+      ],
+      "commercialModels": [
+        "ENTERPRISE_LICENSE",
+        "REPORTS",
+        "CONSULTING"
+      ],
+      "availability": "DISCOVERY_READY",
+      "salesAction": "REQUEST_DISCOVERY",
+      "route": null,
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "PROD-ENERGY",
+        "SHEIKHA_PRODUCT_CATALOG_V1"
+      ],
+      "source": "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-MARKETPLACE",
+      "nameAr": "سوق شيخة الصناعي",
+      "nameEn": "Sheikha Industrial Marketplace",
+      "summaryAr": "منتج مسجل للاستكشاف والتكامل وفق عقده التشغيلي.",
+      "kind": "PLATFORM_PRODUCT",
+      "primarySector": "marketplaces",
+      "targetSectors": [
+        "marketplaces",
+        "commerce",
+        "industry",
+        "metals"
+      ],
+      "customerSegments": [
+        "SUPPLIERS",
+        "BUYERS",
+        "TRADERS",
+        "FACTORIES"
+      ],
+      "commercialModels": [
+        "COMMISSION",
+        "LISTING_FEES",
+        "SUBSCRIPTION"
+      ],
+      "availability": "DISCOVERY_READY",
+      "salesAction": "REQUEST_DISCOVERY",
+      "route": null,
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "PROD-MARKETPLACE",
+        "SHEIKHA_PRODUCT_CATALOG_V1"
+      ],
+      "source": "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-RIYADH-ALJANNAH",
+      "nameAr": "جنات وأشجار شيخة للمعرفة والابتكار",
+      "nameEn": "Riyadh AlJannah Knowledge & Innovation",
+      "summaryAr": "منتج مسجل للاستكشاف والتكامل وفق عقده التشغيلي.",
+      "kind": "KNOWLEDGE_COMMUNITY_PRODUCT",
+      "primarySector": "education",
+      "targetSectors": [
+        "education",
+        "agriculture",
+        "environment",
+        "ai-services"
+      ],
+      "customerSegments": [
+        "LEARNERS",
+        "EXPERTS",
+        "UNIVERSITIES",
+        "ORGANIZATIONS"
+      ],
+      "commercialModels": [
+        "TRAINING",
+        "CERTIFICATION",
+        "COMMUNITY_SUBSCRIPTION"
+      ],
+      "availability": "DISCOVERY_READY",
+      "salesAction": "EXPLORE_PRODUCT",
+      "route": "/riyadh-aljannah-community/",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "PROD-RIYADH-ALJANNAH",
+        "SHEIKHA_PRODUCT_CATALOG_V1"
+      ],
+      "source": "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-INNOVATION-LAB",
+      "nameAr": "مختبر شيخة لتحويل المسائل إلى منتجات",
+      "nameEn": "Sheikha Issue-to-Product Innovation Lab",
+      "summaryAr": "منتج مسجل للاستكشاف والتكامل وفق عقده التشغيلي.",
+      "kind": "PLATFORM_PRODUCT",
+      "primarySector": "industry",
+      "targetSectors": [
+        "industry",
+        "education",
+        "ai-services",
+        "government"
+      ],
+      "customerSegments": [
+        "GOVERNMENTS",
+        "COMPANIES",
+        "UNIVERSITIES",
+        "COMMUNITIES"
+      ],
+      "commercialModels": [
+        "PROJECTS",
+        "RESEARCH",
+        "PRODUCTIZATION",
+        "LICENSE"
+      ],
+      "availability": "DISCOVERY_READY",
+      "salesAction": "REQUEST_DISCOVERY",
+      "route": null,
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "evidence": [
+        "PROD-INNOVATION-LAB",
+        "SHEIKHA_PRODUCT_CATALOG_V1"
+      ],
+      "source": "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+      "transactionReady": false,
+      "externalAccreditationClaimed": false
+    },
+    {
+      "id": "PROD-CLOUD-SAAS",
+      "nameAr": "خدمة شيخة السحابية SaaS",
+      "nameEn": "Sheikha Cloud SaaS",
+      "summaryAr": "مساحة تشغيل متعددة المستأجرين للسوق والإمداد والعمل والمعرفة.",
+      "kind": "SAAS_PRODUCT",
+      "primarySector": "cloud-saas",
+      "targetSectors": [
+        "commerce",
+        "marketplaces",
+        "industry",
+        "construction",
+        "architecture",
+        "energy",
+        "oil-gas",
+        "electricity",
+        "logistics",
+        "supply-chain",
+        "manufacturing",
+        "recycling",
+        "metals",
+        "precious-metals",
+        "agriculture",
+        "food",
+        "healthcare",
+        "education",
+        "government",
+        "finance",
+        "real-estate",
+        "transportation",
+        "telecom",
+        "cloud-saas",
+        "ai-services",
+        "cybersecurity",
+        "media-without-living-beings",
+        "environment",
+        "smart-cities",
+        "industrial-iot"
+      ],
+      "commercialModels": [
+        "SAAS_SUBSCRIPTION",
+        "ENTERPRISE",
+        "API"
+      ],
+      "availability": "CATALOG_READY",
+      "salesAction": "REQUEST_ACTIVATION",
+      "pricing": {
+        "mode": "REQUEST_QUOTE",
+        "amount": null,
+        "currency": null,
+        "livePriceClaimed": false
+      },
+      "services": [
+        "MARKETPLACE_PORTAL",
+        "SUPPLIER_PORTAL",
+        "BUYER_PORTAL",
+        "RFQ_SERVICE",
+        "QUOTATION_SERVICE",
+        "CONTRACT_SERVICE",
+        "ORDER_SERVICE",
+        "SHIPMENT_SERVICE",
+        "INVOICE_SERVICE",
+        "PROJECT_SERVICE",
+        "WORKFLOW_SERVICE",
+        "KNOWLEDGE_SERVICE",
+        "DASHBOARD_SERVICE",
+        "API_GATEWAY_SERVICE"
+      ],
+      "roles": [
+        "OWNER",
+        "TENANT_ADMIN",
+        "EXECUTIVE",
+        "MANAGER",
+        "SUPERVISOR",
+        "EMPLOYEE",
+        "CUSTOMER",
+        "SUPPLIER",
+        "PARTNER",
+        "AUDITOR",
+        "GUEST"
+      ],
+      "evidence": [
+        "SHEIKHA_SAAS_SERVICES_V1",
+        "SHEIKHA_SAAS_ROLES_V1",
+        "SHEIKHA_SAAS_PLATFORM_LAYER_V1"
+      ],
+      "source": "runtime/saas-platform-layer-v1/v1/sheikha-saas-platform-layer-v1.json",
+      "transactionReady": false,
+      "tenantProvisioningAutomatic": false,
+      "externalAccreditationClaimed": false
+    }
+  ],
+  "sectors": [
+    {
+      "id": "commerce",
+      "nameAr": "التجارة",
+      "groupId": "trade-markets",
+      "groupNameAr": "التجارة والأسواق",
+      "benefitAr": "وضوح العرض والطلب، مقارنة موثقة، وتبادل منظم بلا ادعاء سعر حي.",
+      "status": "CONTRACT_READY",
+      "productCount": 5,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "marketplaces",
+      "nameAr": "الأسواق",
+      "groupId": "trade-markets",
+      "groupNameAr": "التجارة والأسواق",
+      "benefitAr": "وضوح العرض والطلب، مقارنة موثقة، وتبادل منظم بلا ادعاء سعر حي.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "industry",
+      "nameAr": "الصناعة",
+      "groupId": "industry-built-environment",
+      "groupNameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "status": "CONTRACT_READY",
+      "productCount": 7,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "construction",
+      "nameAr": "الإنشاءات",
+      "groupId": "industry-built-environment",
+      "groupNameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "architecture",
+      "nameAr": "العمارة",
+      "groupId": "industry-built-environment",
+      "groupNameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "energy",
+      "nameAr": "الطاقة",
+      "groupId": "energy-environment",
+      "groupNameAr": "الطاقة والبيئة",
+      "benefitAr": "قياس الموارد والمخاطر والكفاءة والأثر قبل اعتماد القرار.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "oil-gas",
+      "nameAr": "النفط والغاز",
+      "groupId": "energy-environment",
+      "groupNameAr": "الطاقة والبيئة",
+      "benefitAr": "قياس الموارد والمخاطر والكفاءة والأثر قبل اعتماد القرار.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "electricity",
+      "nameAr": "الكهرباء",
+      "groupId": "energy-environment",
+      "groupNameAr": "الطاقة والبيئة",
+      "benefitAr": "قياس الموارد والمخاطر والكفاءة والأثر قبل اعتماد القرار.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "logistics",
+      "nameAr": "اللوجستيات",
+      "groupId": "supply-logistics",
+      "groupNameAr": "الإمداد واللوجستيات",
+      "benefitAr": "تتبّع الطلب والمخزون والنقل والتسليم والأدلة عبر دورة موحدة.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "supply-chain",
+      "nameAr": "سلاسل الإمداد",
+      "groupId": "supply-logistics",
+      "groupNameAr": "الإمداد واللوجستيات",
+      "benefitAr": "تتبّع الطلب والمخزون والنقل والتسليم والأدلة عبر دورة موحدة.",
+      "status": "CONTRACT_READY",
+      "productCount": 3,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "manufacturing",
+      "nameAr": "التصنيع",
+      "groupId": "industry-built-environment",
+      "groupNameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "recycling",
+      "nameAr": "إعادة التدوير",
+      "groupId": "industry-built-environment",
+      "groupNameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "metals",
+      "nameAr": "المعادن",
+      "groupId": "trade-markets",
+      "groupNameAr": "التجارة والأسواق",
+      "benefitAr": "وضوح العرض والطلب، مقارنة موثقة، وتبادل منظم بلا ادعاء سعر حي.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "precious-metals",
+      "nameAr": "المعادن الثمينة",
+      "groupId": "trade-markets",
+      "groupNameAr": "التجارة والأسواق",
+      "benefitAr": "وضوح العرض والطلب، مقارنة موثقة، وتبادل منظم بلا ادعاء سعر حي.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "agriculture",
+      "nameAr": "الزراعة",
+      "groupId": "agriculture-food",
+      "groupNameAr": "الزراعة والغذاء",
+      "benefitAr": "تتبّع المصدر والجودة والتخزين والتوزيع وحفظ سلامة البيانات.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "food",
+      "nameAr": "الغذاء",
+      "groupId": "agriculture-food",
+      "groupNameAr": "الزراعة والغذاء",
+      "benefitAr": "تتبّع المصدر والجودة والتخزين والتوزيع وحفظ سلامة البيانات.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "healthcare",
+      "nameAr": "الصحة",
+      "groupId": "public-human-services",
+      "groupNameAr": "الخدمات العامة والإنسانية",
+      "benefitAr": "تنظيم الخدمة والمعرفة والموافقات مع إبقاء القرار البشري مسؤولًا.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "education",
+      "nameAr": "التعليم",
+      "groupId": "public-human-services",
+      "groupNameAr": "الخدمات العامة والإنسانية",
+      "benefitAr": "تنظيم الخدمة والمعرفة والموافقات مع إبقاء القرار البشري مسؤولًا.",
+      "status": "CONTRACT_READY",
+      "productCount": 3,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "government",
+      "nameAr": "الجهات الحكومية",
+      "groupId": "public-human-services",
+      "groupNameAr": "الخدمات العامة والإنسانية",
+      "benefitAr": "تنظيم الخدمة والمعرفة والموافقات مع إبقاء القرار البشري مسؤولًا.",
+      "status": "CONTRACT_READY",
+      "productCount": 5,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "finance",
+      "nameAr": "المالية",
+      "groupId": "trade-markets",
+      "groupNameAr": "التجارة والأسواق",
+      "benefitAr": "وضوح العرض والطلب، مقارنة موثقة، وتبادل منظم بلا ادعاء سعر حي.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "real-estate",
+      "nameAr": "العقار",
+      "groupId": "industry-built-environment",
+      "groupNameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "transportation",
+      "nameAr": "النقل",
+      "groupId": "supply-logistics",
+      "groupNameAr": "الإمداد واللوجستيات",
+      "benefitAr": "تتبّع الطلب والمخزون والنقل والتسليم والأدلة عبر دورة موحدة.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "telecom",
+      "nameAr": "الاتصالات",
+      "groupId": "digital-technology",
+      "groupNameAr": "التقنية والاقتصاد الرقمي",
+      "benefitAr": "تشغيل خدمات رقمية محكومة، قابلة للقياس والعزل والتدقيق.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "cloud-saas",
+      "nameAr": "الخدمات السحابية SaaS",
+      "groupId": "digital-technology",
+      "groupNameAr": "التقنية والاقتصاد الرقمي",
+      "benefitAr": "تشغيل خدمات رقمية محكومة، قابلة للقياس والعزل والتدقيق.",
+      "status": "CONTRACT_READY",
+      "productCount": 6,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "ai-services",
+      "nameAr": "خدمات الذكاء الصناعي",
+      "groupId": "digital-technology",
+      "groupNameAr": "التقنية والاقتصاد الرقمي",
+      "benefitAr": "تشغيل خدمات رقمية محكومة، قابلة للقياس والعزل والتدقيق.",
+      "status": "CONTRACT_READY",
+      "productCount": 9,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "cybersecurity",
+      "nameAr": "الأمن السيبراني",
+      "groupId": "digital-technology",
+      "groupNameAr": "التقنية والاقتصاد الرقمي",
+      "benefitAr": "تشغيل خدمات رقمية محكومة، قابلة للقياس والعزل والتدقيق.",
+      "status": "CONTRACT_READY",
+      "productCount": 3,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "media-without-living-beings",
+      "nameAr": "الإعلام غير المجسّد للأحياء",
+      "groupId": "digital-technology",
+      "groupNameAr": "التقنية والاقتصاد الرقمي",
+      "benefitAr": "تشغيل خدمات رقمية محكومة، قابلة للقياس والعزل والتدقيق.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "environment",
+      "nameAr": "البيئة",
+      "groupId": "energy-environment",
+      "groupNameAr": "الطاقة والبيئة",
+      "benefitAr": "قياس الموارد والمخاطر والكفاءة والأثر قبل اعتماد القرار.",
+      "status": "CONTRACT_READY",
+      "productCount": 2,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "smart-cities",
+      "nameAr": "المدن الذكية",
+      "groupId": "public-human-services",
+      "groupNameAr": "الخدمات العامة والإنسانية",
+      "benefitAr": "تنظيم الخدمة والمعرفة والموافقات مع إبقاء القرار البشري مسؤولًا.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    },
+    {
+      "id": "industrial-iot",
+      "nameAr": "إنترنت الأشياء الصناعي",
+      "groupId": "supply-logistics",
+      "groupNameAr": "الإمداد واللوجستيات",
+      "benefitAr": "تتبّع الطلب والمخزون والنقل والتسليم والأدلة عبر دورة موحدة.",
+      "status": "CONTRACT_READY",
+      "productCount": 1,
+      "capabilities": [
+        "discover-sector-needs",
+        "classify-market-data",
+        "connect-sector-systems",
+        "measure-sector-quality",
+        "register-sector-capabilities",
+        "compare-sector-sources",
+        "recommend-improvements",
+        "govern-sector-workflows",
+        "audit-sector-events",
+        "recover-sector-services"
+      ],
+      "liveConnectionClaimed": false
+    }
+  ],
+  "marketGroups": [
+    {
+      "id": "trade-markets",
+      "nameAr": "التجارة والأسواق",
+      "benefitAr": "وضوح العرض والطلب، مقارنة موثقة، وتبادل منظم بلا ادعاء سعر حي.",
+      "sectors": [
+        "commerce",
+        "marketplaces",
+        "metals",
+        "precious-metals",
+        "finance"
+      ]
+    },
+    {
+      "id": "industry-built-environment",
+      "nameAr": "الصناعة والعمران",
+      "benefitAr": "ربط المادة والمصنع والمشروع والجودة في سجل تشغيلي واحد.",
+      "sectors": [
+        "industry",
+        "manufacturing",
+        "construction",
+        "architecture",
+        "recycling",
+        "real-estate"
+      ]
+    },
+    {
+      "id": "supply-logistics",
+      "nameAr": "الإمداد واللوجستيات",
+      "benefitAr": "تتبّع الطلب والمخزون والنقل والتسليم والأدلة عبر دورة موحدة.",
+      "sectors": [
+        "logistics",
+        "supply-chain",
+        "transportation",
+        "industrial-iot"
+      ]
+    },
+    {
+      "id": "energy-environment",
+      "nameAr": "الطاقة والبيئة",
+      "benefitAr": "قياس الموارد والمخاطر والكفاءة والأثر قبل اعتماد القرار.",
+      "sectors": [
+        "energy",
+        "oil-gas",
+        "electricity",
+        "environment"
+      ]
+    },
+    {
+      "id": "agriculture-food",
+      "nameAr": "الزراعة والغذاء",
+      "benefitAr": "تتبّع المصدر والجودة والتخزين والتوزيع وحفظ سلامة البيانات.",
+      "sectors": [
+        "agriculture",
+        "food"
+      ]
+    },
+    {
+      "id": "public-human-services",
+      "nameAr": "الخدمات العامة والإنسانية",
+      "benefitAr": "تنظيم الخدمة والمعرفة والموافقات مع إبقاء القرار البشري مسؤولًا.",
+      "sectors": [
+        "healthcare",
+        "education",
+        "government",
+        "smart-cities"
+      ]
+    },
+    {
+      "id": "digital-technology",
+      "nameAr": "التقنية والاقتصاد الرقمي",
+      "benefitAr": "تشغيل خدمات رقمية محكومة، قابلة للقياس والعزل والتدقيق.",
+      "sectors": [
+        "telecom",
+        "cloud-saas",
+        "ai-services",
+        "cybersecurity",
+        "media-without-living-beings"
+      ]
+    }
+  ],
+  "workflows": [
+    {
+      "id": "SUPPLIER_ONBOARDING",
+      "order": 1,
+      "nameAr": "تأهيل المورد",
+      "highImpact": false,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "BUYER_ONBOARDING",
+      "order": 2,
+      "nameAr": "تأهيل المشتري",
+      "highImpact": false,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "PRODUCT_LISTING",
+      "order": 3,
+      "nameAr": "إدراج المنتج",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "RFQ_CREATION",
+      "order": 4,
+      "nameAr": "إنشاء طلب عرض سعر",
+      "highImpact": false,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "QUOTATION_SUBMISSION",
+      "order": 5,
+      "nameAr": "تقديم عرض السعر",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "NEGOTIATION",
+      "order": 6,
+      "nameAr": "التفاوض",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "CONTRACT_GENERATION",
+      "order": 7,
+      "nameAr": "إعداد العقد",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "ORDER_CREATION",
+      "order": 8,
+      "nameAr": "إنشاء الطلب",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "SHIPMENT_TRACKING",
+      "order": 9,
+      "nameAr": "تتبّع الشحنة",
+      "highImpact": false,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "INVOICE_ISSUANCE",
+      "order": 10,
+      "nameAr": "إصدار الفاتورة",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "PERFORMANCE_REVIEW",
+      "order": 11,
+      "nameAr": "مراجعة الأداء",
+      "highImpact": false,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    },
+    {
+      "id": "AUDIT_REVIEW",
+      "order": 12,
+      "nameAr": "مراجعة التدقيق",
+      "highImpact": true,
+      "executionMode": "PLAN_AND_HUMAN_GATE",
+      "source": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+    }
+  ],
+  "coverage": {
+    "products": 13,
+    "catalogReady": 8,
+    "discoveryReady": 5,
+    "saasServices": 14,
+    "saasRoles": 11,
+    "sectors": 30,
+    "marketGroups": 7,
+    "workflows": 12
+  },
+  "integration": {
+    "marketplace": [
+      "PRODUCT_CATALOG",
+      "SUPPLIER_REGISTRY",
+      "BUYER_REGISTRY",
+      "RFQ_ENGINE",
+      "QUOTATION_ENGINE",
+      "CONTRACT_ENGINE",
+      "ORDER_ENGINE",
+      "SHIPMENT_ENGINE",
+      "INVOICE_ENGINE",
+      "MARKETPLACE_GOVERNANCE",
+      "MARKETPLACE_AUDIT",
+      "MARKETPLACE_DASHBOARD"
+    ],
+    "supplyChain": [
+      "DEMAND",
+      "SUPPLY",
+      "INVENTORY",
+      "PROCUREMENT",
+      "LOGISTICS",
+      "PORTS",
+      "FLEET",
+      "WAREHOUSES",
+      "RISK",
+      "CARBON",
+      "SDK_FABRIC_MCP_INTEGRATION"
+    ],
+    "saas": [
+      "TENANT_MANAGEMENT",
+      "SUBSCRIPTION_MANAGEMENT",
+      "IDENTITY_ACCESS_MANAGEMENT",
+      "ROLE_BASED_ACCESS_CONTROL",
+      "TENANT_ISOLATION",
+      "BILLING_INVOICING",
+      "USAGE_METERING",
+      "API_GATEWAY",
+      "MARKETPLACE_SAAS_SERVICES",
+      "PROJECT_SAAS_SERVICES",
+      "WORKFLOW_SAAS_SERVICES",
+      "KNOWLEDGE_SAAS_SERVICES",
+      "AUDIT_LOGGING",
+      "SECURITY_GOVERNANCE"
+    ],
+    "productRuntimeStatus": "ACTIVE_WITH_BOUNDED_VERIFIED_FOUNDATIONS",
+    "commonFlow": [
+      "market-need",
+      "product-or-service",
+      "rfq",
+      "quotation",
+      "human-review",
+      "contract",
+      "order",
+      "supply-chain",
+      "invoice",
+      "audit-evidence"
+    ]
+  },
+  "evidenceDecision": {
+    "system": "SHEIKHA_LOGIC_GOVERNANCE_ENGINE_V1",
+    "decisionId": "unified-commerce-local-evidence",
+    "proposition": "The local commerce catalog and orchestration contracts are active.",
+    "status": "VERIFIED",
+    "verified": true,
+    "authorization": "ALLOW_BOUNDED",
+    "evidence": {
+      "total": 9,
+      "verified": 9,
+      "required": [
+        "contract",
+        "commercial-products",
+        "customer-products",
+        "saas-platform",
+        "saas-services",
+        "marketplace",
+        "workflows",
+        "supply-chain",
+        "product-runtime"
+      ],
+      "missing": [],
+      "malformed": [],
+      "sha256": "b94f8b6aab04b65cd9fd05b7e7d4850f63df27f893724b1f03af7e9739105e11"
+    },
+    "contradictions": [],
+    "blockers": [],
+    "governance": {
+      "defaultAuthorization": "DENY",
+      "noHarm": true,
+      "highImpact": false,
+      "qualifiedHumanReview": false,
+      "religiousRuling": false,
+      "automatedFatwa": false,
+      "religiousAuthorityClaim": false
+    },
+    "trace": [
+      "normalize-proposition",
+      "validate-evidence-records",
+      "verify-required-evidence",
+      "detect-contradictions",
+      "apply-no-harm-gate",
+      "apply-human-review-gate",
+      "issue-bounded-decision"
+    ]
+  },
+  "checks": {
+    "localEvidenceVerified": true,
+    "catalogNotEmpty": true,
+    "catalogIdsUnique": true,
+    "cloudSaasPresent": true,
+    "gardensPresent": true,
+    "allSectorsMapped": true,
+    "sectorGroupsExact": true,
+    "workflowsMapped": true,
+    "pricesAreBounded": true,
+    "transactionsNotAutoExecuted": true,
+    "defaultAuthorizationDeny": true,
+    "noAutomatedFatwa": true,
+    "noExternalAccreditationClaim": true
+  },
+  "failedChecks": [],
+  "passed": true,
+  "claimBoundary": {
+    "livePricesVerified": false,
+    "liveInventoryVerifiedByThisRuntime": false,
+    "transactionExecutionEnabled": false,
+    "paymentExecutionEnabled": false,
+    "externalAccreditationClaimed": false,
+    "automatedReligiousRuling": false,
+    "merchantListingsAreSeparateLiveFeed": true
+  },
+  "sourceFiles": {
+    "contract": "runtime/commerce/v1/contracts/sheikha-unified-commerce-runtime-v1-contract.json",
+    "commercialProducts": "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+    "customerProducts": "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+    "saasPlatform": "runtime/saas-platform-layer-v1/v1/sheikha-saas-platform-layer-v1.json",
+    "saasServices": "runtime/saas-platform-layer-v1/v1/registries/saas-services.json",
+    "saasRoles": "runtime/saas-platform-layer-v1/v1/registries/saas-roles.json",
+    "marketplace": "runtime/marketplace-operating-system-v1/v1/sheikha-marketplace-operating-system-v1.json",
+    "workflows": "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json",
+    "supplyChain": "runtime/supply-chain-control-tower-v2/v1/sheikha-supply-chain-control-tower-v2.json",
+    "productRuntime": "runtime/product-runtime/v1/sheikha-unified-product-runtime-v1-report.json"
+  },
+  "claimPolicy": "Catalog and orchestration readiness are reported from local repository evidence. No live price, inventory, sale, payment, external certification, or religious ruling is claimed without its own verified evidence and qualified human review."
+}

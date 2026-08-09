@@ -1,0 +1,14 @@
+{
+  "schemaVersion": "1.0.0",
+  "registry": "SHEIKHA_PRODUCT_DOCUMENTATION_ENTITLEMENTS_V1",
+  "status": "ACTIVE_DEFAULT_DENY",
+  "grants": [],
+  "grantRequirements": [
+    "subjectId",
+    "productIds",
+    "status=ACTIVE",
+    "evidence.verificationStatus=VERIFIED",
+    "evidence.purchaseOrderId or evidence.signedContractId"
+  ],
+  "claimBoundary": "No documentation access is granted until a server-side purchase or signed-contract entitlement is verified."
+}

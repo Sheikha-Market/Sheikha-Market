@@ -1,0 +1,34 @@
+{
+  "contract": "SHEIKHA_AUTONOMOUS_ROLE_DASHBOARD_CONTRACT_V1",
+  "status": "ACTIVE",
+  "defaultOperatingMode": "ZERO_HUMAN_OPERATIONAL_CONTINUITY",
+  "scope": {
+    "autonomous": [
+      "read",
+      "measure",
+      "analyze",
+      "report",
+      "recommend",
+      "internal-reversible-work"
+    ],
+    "humanApprovalRequired": [
+      "fiduciary-decisions",
+      "legal-commitments",
+      "financial-transfers",
+      "employment-decisions",
+      "production-mutations",
+      "safety-critical-decisions"
+    ]
+  },
+  "rules": {
+    "humanEmploymentOptional": true,
+    "dashboardGeneratedFromRoleContract": true,
+    "leastPrivilege": true,
+    "separationOfDuties": true,
+    "auditSensitiveActions": true,
+    "externalWritesDefaultDeny": true,
+    "noAutomatedFatwa": true,
+    "noClaimOfReligiousAuthority": true,
+    "eligibilityIsNotExecution": true
+  }
+}

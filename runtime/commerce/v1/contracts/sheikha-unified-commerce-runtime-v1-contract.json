@@ -1,0 +1,57 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_UNIFIED_COMMERCE_ECONOMY_RUNTIME_V1",
+  "status": "ACTIVE_CONTRACT",
+  "identity": {
+    "nameAr": "شيخة للتجارات والاقتصادات والأسواق",
+    "nameEn": "Sheikha Unified Commerce & Economy Runtime",
+    "platform": "SHEIKHA UGIT-RP",
+    "language": ["ar", "en"],
+    "direction": "rtl"
+  },
+  "routes": {
+    "market": "/market/",
+    "dashboard": "/dashboard/",
+    "gardens": "/riyadh-aljannah-community/",
+    "api": "/api/sheikha/commerce/v1"
+  },
+  "catalogSources": [
+    "runtime/commercial-product-layer/v1/registries/commercial-products-registry.json",
+    "runtime/customer-revenue-experience/v1/registries/product-catalog.json",
+    "runtime/saas-platform-layer-v1/v1/registries/saas-services.json",
+    "runtime/marketplace-operating-system-v1/v1/registries/marketplace-workflows.json"
+  ],
+  "governance": {
+    "defaultAuthorization": "DENY",
+    "catalogRead": "ALLOW",
+    "automaticTransactionExecution": false,
+    "automaticContractExecution": false,
+    "automaticPaymentExecution": false,
+    "humanApprovalForHighImpact": true,
+    "evidenceRequired": true,
+    "noHarm": true,
+    "noDeception": true,
+    "automatedFatwa": false,
+    "religiousAuthorityClaim": false
+  },
+  "commercialPolicy": {
+    "unverifiedPriceMode": "REQUEST_QUOTE",
+    "unverifiedInventoryMode": "NOT_CLAIMED",
+    "externalAccreditationClaimed": false,
+    "merchantListingSource": "/api/market/products",
+    "merchantListingFallback": "EMPTY_VERIFIED_FEED"
+  },
+  "sharedOperationFlow": [
+    "market-need",
+    "product-or-service",
+    "rfq",
+    "quotation",
+    "human-review",
+    "contract",
+    "order",
+    "supply-chain",
+    "invoice",
+    "audit-evidence"
+  ],
+  "claimPolicy": "Catalog and orchestration readiness are reported from local repository evidence. No live price, inventory, sale, payment, external certification, or religious ruling is claimed without its own verified evidence and qualified human review."
+}

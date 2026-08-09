@@ -1,0 +1,38 @@
+{
+  "policy": "EXTERNAL_SYSTEMS_ARE_TOOLS_NOT_FOUNDATIONS",
+  "adapters": [
+    {
+      "id": "LINUX_HOST_ADAPTER",
+      "nameAr": "محول Linux",
+      "role": "CURRENT_BUILD_AND_PORTAL_HOST_TOOL",
+      "status": "ACTIVE_LOCAL_HOST_ADAPTER",
+      "foundation": false,
+      "nativeVerification": true,
+      "mayReplaceSheikhaFoundation": false,
+      "defaultAuthorization": "DENY",
+      "explicitContractRequired": true
+    },
+    {
+      "id": "WINDOWS_HOST_ADAPTER",
+      "nameAr": "محول Windows",
+      "role": "OPTIONAL_BUILD_AND_COMPATIBILITY_TOOL",
+      "status": "REGISTERED_NATIVE_TEST_PENDING",
+      "foundation": false,
+      "nativeVerification": false,
+      "mayReplaceSheikhaFoundation": false,
+      "defaultAuthorization": "DENY",
+      "explicitContractRequired": true
+    },
+    {
+      "id": "MACOS_HOST_ADAPTER",
+      "nameAr": "محول macOS",
+      "role": "OPTIONAL_BUILD_AND_COMPATIBILITY_TOOL",
+      "status": "REGISTERED_NATIVE_TEST_PENDING",
+      "foundation": false,
+      "nativeVerification": false,
+      "mayReplaceSheikhaFoundation": false,
+      "defaultAuthorization": "DENY",
+      "explicitContractRequired": true
+    }
+  ]
+}

@@ -1,0 +1,237 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_INTELLIGENCE_CAPABILITY_APEX_V1",
+  "generatedAt": "2026-07-31T00:54:24.965Z",
+  "status": "ACTIVE_LOCAL_MULTI_MODEL_CAPABILITY_ROUTER",
+  "passed": true,
+  "checks": {
+    "contractActive": true,
+    "localDiscoveryOperational": true,
+    "capabilityRegistryGenerated": true,
+    "humanAuthority": true,
+    "shellDenied": true,
+    "fileWritesDenied": true,
+    "automatedFatwaDenied": true,
+    "absoluteSuperiorityDenied": true,
+    "githubNotRequired": true,
+    "copilotNotRequired": true
+  },
+  "failedChecks": [],
+  "coverage": {
+    "discoveredLocalModels": 6,
+    "registeredCapabilities": 34,
+    "activeLocalCapabilities": 18,
+    "activeGovernedCapabilities": 9,
+    "providerRequiredCapabilities": 3,
+    "toolRequiredCapabilities": 1,
+    "evidenceRequiredCapabilities": 3,
+    "reasoningModes": 3,
+    "multiAgentRoleSlots": 4
+  },
+  "localRuntime": {
+    "online": true,
+    "endpoint": "http://127.0.0.1:11434",
+    "models": [
+      {
+        "name": "qwen2.5-coder:7b",
+        "profileId": "QWEN_CODER_LOCAL",
+        "capabilities": [
+          "CODE",
+          "REVIEW",
+          "STRUCTURED",
+          "GENERAL"
+        ],
+        "benchmarkVerified": false
+      },
+      {
+        "name": "deepseek-r1:8b",
+        "profileId": "DEEPSEEK_REASONING_LOCAL",
+        "capabilities": [
+          "REASONING",
+          "MATHEMATICS",
+          "SCIENCE",
+          "SECURITY",
+          "REVIEW",
+          "GENERAL"
+        ],
+        "benchmarkVerified": false
+      },
+      {
+        "name": "Sheikha-Core:latest",
+        "profileId": "SHEIKHA_CORE_LOCAL",
+        "capabilities": [
+          "ARABIC",
+          "GENERAL",
+          "GOVERNANCE",
+          "INDUSTRIAL",
+          "SUPPLY_CHAIN",
+          "SYNTHESIS"
+        ],
+        "benchmarkVerified": false
+      },
+      {
+        "name": "Sheikha-Core-Clean:latest",
+        "profileId": "SHEIKHA_CORE_LOCAL",
+        "capabilities": [
+          "ARABIC",
+          "GENERAL",
+          "GOVERNANCE",
+          "INDUSTRIAL",
+          "SUPPLY_CHAIN",
+          "SYNTHESIS"
+        ],
+        "benchmarkVerified": false
+      },
+      {
+        "name": "llama3.1:8b",
+        "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+        "capabilities": [
+          "GENERAL",
+          "REASONING",
+          "REVIEW",
+          "STRUCTURED",
+          "SYNTHESIS"
+        ],
+        "benchmarkVerified": false
+      },
+      {
+        "name": "tinyllama:latest",
+        "profileId": "TINY_FAST_LOCAL",
+        "capabilities": [
+          "FAST",
+          "GENERAL"
+        ],
+        "benchmarkVerified": false
+      }
+    ]
+  },
+  "externalProviders": {
+    "openaiConfigured": false,
+    "anthropicConfigured": false,
+    "geminiConfigured": false,
+    "credentialsExposed": false,
+    "externalUsageActivatedByStatusCheck": false
+  },
+  "acceleration": {
+    "status": "BLOCKED_BY_OLLAMA_CUDA_LIBRARY_PERMISSIONS",
+    "hostGpuDetected": true,
+    "gpuInferenceVerified": false,
+    "observedComputeBackend": "CPU",
+    "observedVramBytes": 0,
+    "explicitSystemPermissionApprovalRequired": true
+  },
+  "benchmark": {
+    "status": "LOCAL_OPERATIONAL_SMOKE_REVIEW_REQUIRED",
+    "executedCases": 4,
+    "passedCases": 0,
+    "externalComparisonCases": 0,
+    "competitorSuperiorityEstablished": false
+  },
+  "modes": {
+    "standard": {
+      "mode": "standard",
+      "roleSlots": 1,
+      "concurrency": 1,
+      "modelInvocationMaximum": 1,
+      "numCtx": 4096,
+      "numPredict": 64,
+      "timeoutMs": 180000,
+      "budgetApprovalRequired": false
+    },
+    "pro": {
+      "mode": "pro",
+      "roleSlots": 4,
+      "concurrency": 2,
+      "modelInvocationMaximum": 5,
+      "numCtx": 8192,
+      "numPredict": 80,
+      "timeoutMs": 240000,
+      "budgetApprovalRequired": false
+    },
+    "ultra": {
+      "mode": "ultra",
+      "roleSlots": 4,
+      "concurrency": 4,
+      "modelInvocationMaximum": 5,
+      "numCtx": 12288,
+      "numPredict": 96,
+      "timeoutMs": 300000,
+      "budgetApprovalRequired": true
+    }
+  },
+  "authority": {
+    "mayAnswerAndAnalyze": true,
+    "mayRouteBetweenApprovedModels": true,
+    "mayProduceReadOnlyPlans": true,
+    "mayExecuteShell": false,
+    "mayWriteFiles": false,
+    "mayInstallSoftware": false,
+    "mayPublish": false,
+    "mayMakePayments": false,
+    "mayControlPhysicalSystems": false,
+    "mayIssueReligiousRuling": false,
+    "mayOverrideHuman": false
+  },
+  "providerPolicy": {
+    "localFirst": true,
+    "offlineContinuity": true,
+    "githubRequired": false,
+    "copilotRequired": false,
+    "singleExternalProviderRequired": false,
+    "externalProviderUseRequiresConfigurationAndApproval": true,
+    "externalProviderIsReplaceableTool": true,
+    "noCredentialExposure": true
+  },
+  "qualityPolicy": {
+    "nonEmptyOutputRequired": true,
+    "arabicResponseRequiredForArabicPrompt": true,
+    "secretPatternDetection": true,
+    "unsupportedAbsoluteClaimDetection": true,
+    "consciousnessClaimDetection": true,
+    "sourceEvidenceRequiredForExternalResearchClaims": true,
+    "independentVerificationRequiredForMathematicsAndScience": true,
+    "humanReviewRequiredForHighImpact": true
+  },
+  "governance": {
+    "valuesReference": "runtime/islamic-reference-governance/v1/sheikha-quran-sunnah-reference-policy-v1.json",
+    "values": [
+      "TRUTH",
+      "JUSTICE",
+      "TRUST",
+      "FULFIL_CONTRACTS",
+      "VERIFY_BEFORE_CLAIM",
+      "NO_HARM"
+    ],
+    "valuesAreExecutableReligiousAuthority": false,
+    "automatedFatwa": false,
+    "qualifiedHumanReviewForReligiousJudgments": true
+  },
+  "truthBoundaries": {
+    "betterThanAllModelsClaimed": false,
+    "bestPossibleByEvidenceObjective": true,
+    "copilotBenchmarked": false,
+    "externalGptModelBenchmarked": false,
+    "allExternalModelsBenchmarked": false,
+    "agiClaimed": false,
+    "asiClaimed": false,
+    "consciousnessClaimed": false,
+    "humansRemainPrimaryAndAccountable": true,
+    "modelProfilesAreNotBenchmarkProof": true,
+    "localOperationalSmokeIsNotCompetitorBenchmark": true
+  },
+  "outputs": {
+    "contract": "runtime/intelligence-capability-apex/v1/contracts/sheikha-intelligence-capability-apex-v1-contract.json",
+    "capabilities": "runtime/intelligence-capability-apex/v1/registries/intelligence-capability-registry.json",
+    "models": "runtime/intelligence-capability-apex/v1/registries/local-model-inventory.json",
+    "routing": "runtime/intelligence-capability-apex/v1/registries/task-model-routing-matrix.json",
+    "benchmark": "runtime/intelligence-capability-apex/v1/evidence/local-operational-benchmark.json",
+    "audit": "runtime/intelligence-capability-apex/v1/audit/intelligence-execution-audit.jsonl",
+    "report": "runtime/intelligence-capability-apex/v1/sheikha-intelligence-capability-apex-v1-report.json",
+    "ragEvidence": "runtime/root-knowledge-agentic-fabric/v1/sheikha-root-knowledge-agentic-fabric-v1-report.json",
+    "liveEvidence": "runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1.json",
+    "cognitiveEvidence": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+    "providerEvidence": "runtime/provider-registry/v1/sheikha-provider-registry-v1.json",
+    "accelerationEvidence": "runtime/intelligence-capability-apex/v1/evidence/ollama-gpu-acceleration-verification.json"
+  },
+  "nextGate": "Run reproducible task suites with equal prompts, tools, budgets, hardware disclosure, blind scoring, and independent review before any comparative superiority statement."
+}

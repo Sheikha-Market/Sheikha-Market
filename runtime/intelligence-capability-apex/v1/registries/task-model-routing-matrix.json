@@ -1,0 +1,498 @@
+{
+  "schemaVersion": "1.0.0",
+  "registry": "SHEIKHA_TASK_MODEL_ROUTING_MATRIX_V1",
+  "status": "ACTIVE_LOCAL_ROUTING",
+  "modes": {
+    "standard": {
+      "mode": "standard",
+      "roleSlots": 1,
+      "concurrency": 1,
+      "modelInvocationMaximum": 1,
+      "numCtx": 4096,
+      "numPredict": 64,
+      "timeoutMs": 180000,
+      "budgetApprovalRequired": false
+    },
+    "pro": {
+      "mode": "pro",
+      "roleSlots": 4,
+      "concurrency": 2,
+      "modelInvocationMaximum": 5,
+      "numCtx": 8192,
+      "numPredict": 80,
+      "timeoutMs": 240000,
+      "budgetApprovalRequired": false
+    },
+    "ultra": {
+      "mode": "ultra",
+      "roleSlots": 4,
+      "concurrency": 4,
+      "modelInvocationMaximum": 5,
+      "numCtx": 12288,
+      "numPredict": 96,
+      "timeoutMs": 300000,
+      "budgetApprovalRequired": true
+    }
+  },
+  "tasks": [
+    {
+      "task": "ARABIC_GENERAL",
+      "requirements": [
+        "ARABIC",
+        "GENERAL"
+      ],
+      "rankedModels": [
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 185,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 185,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "CODING",
+      "requirements": [
+        "CODE",
+        "REVIEW"
+      ],
+      "rankedModels": [
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 180,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 25,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 25,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "REASONING",
+      "requirements": [
+        "REASONING",
+        "REVIEW"
+      ],
+      "rankedModels": [
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 180,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 125,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "MATHEMATICS",
+      "requirements": [
+        "MATHEMATICS",
+        "REASONING"
+      ],
+      "rankedModels": [
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 180,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "SCIENCE",
+      "requirements": [
+        "SCIENCE",
+        "REASONING"
+      ],
+      "rankedModels": [
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 165,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "DEFENSIVE_SECURITY",
+      "requirements": [
+        "SECURITY",
+        "CODE",
+        "REVIEW"
+      ],
+      "rankedModels": [
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 140,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 140,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 85,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "RESEARCH",
+      "requirements": [
+        "RESEARCH",
+        "REASONING",
+        "REVIEW"
+      ],
+      "rankedModels": [
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 130,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 130,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 35,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 35,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "DATA_ANALYSIS",
+      "requirements": [
+        "DATA",
+        "REASONING"
+      ],
+      "rankedModels": [
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 35,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 0,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "FAST_RESPONSE",
+      "requirements": [
+        "FAST",
+        "GENERAL"
+      ],
+      "rankedModels": [
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 200,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    },
+    {
+      "task": "GENERAL",
+      "requirements": [
+        "GENERAL",
+        "ARABIC"
+      ],
+      "rankedModels": [
+        {
+          "model": "Sheikha-Core-Clean:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 170,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "Sheikha-Core:latest",
+          "profileId": "SHEIKHA_CORE_LOCAL",
+          "routingScore": 170,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "llama3.1:8b",
+          "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+          "routingScore": 115,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "tinyllama:latest",
+          "profileId": "TINY_FAST_LOCAL",
+          "routingScore": 40,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "deepseek-r1:8b",
+          "profileId": "DEEPSEEK_REASONING_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        },
+        {
+          "model": "qwen2.5-coder:7b",
+          "profileId": "QWEN_CODER_LOCAL",
+          "routingScore": 30,
+          "routingScoreIsBenchmarkScore": false
+        }
+      ]
+    }
+  ],
+  "policy": {
+    "taskCapabilityBeforeBrand": true,
+    "availabilityRequired": true,
+    "routingScoreIsBenchmarkScore": false,
+    "localFirst": true,
+    "noSingleProviderDependency": true
+  }
+}

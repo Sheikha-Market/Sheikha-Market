@@ -1,0 +1,375 @@
+{
+  "schemaVersion": "1.0.0",
+  "registry": "SHEIKHA_INTELLIGENCE_CAPABILITY_REGISTRY_V1",
+  "status": "ACTIVE_EVIDENCE_BOUNDED",
+  "count": 34,
+  "coverage": {
+    "activeLocal": 18,
+    "activeGoverned": 9,
+    "providerRequired": 3,
+    "toolRequired": 1,
+    "evidenceRequired": 3
+  },
+  "capabilities": [
+    {
+      "id": "ARABIC_NATIVE_INTERACTION",
+      "category": "LANGUAGE",
+      "titleAr": "تفاعل عربي أصيل",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_MODEL_CAPABILITY_PROFILE",
+      "limitations": []
+    },
+    {
+      "id": "MULTILINGUAL_TEXT",
+      "category": "LANGUAGE",
+      "titleAr": "نصوص متعددة اللغات",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_MODEL_DISCOVERY",
+      "limitations": [
+        "Language quality requires task-specific benchmark evidence."
+      ]
+    },
+    {
+      "id": "GENERAL_GENERATION",
+      "category": "GENERATION",
+      "titleAr": "توليد عام",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_MODEL_CAPABILITY_PROFILE",
+      "limitations": []
+    },
+    {
+      "id": "CODE_GENERATION",
+      "category": "ENGINEERING",
+      "titleAr": "توليد الشفرة",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "QWEN_CODER_LOCAL_DISCOVERY",
+      "limitations": []
+    },
+    {
+      "id": "CODE_REVIEW_AND_DEBUG",
+      "category": "ENGINEERING",
+      "titleAr": "مراجعة الشفرة والتشخيص",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "SPECIALIST_MODEL_PAIR",
+      "limitations": []
+    },
+    {
+      "id": "LOGICAL_REASONING",
+      "category": "REASONING",
+      "titleAr": "الاستدلال المنطقي",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "REASONING_MODEL_DISCOVERY",
+      "limitations": []
+    },
+    {
+      "id": "MATHEMATICAL_ASSISTANCE",
+      "category": "SCIENCE",
+      "titleAr": "المساعدة الرياضية",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "REASONING_MODEL_DISCOVERY",
+      "limitations": [
+        "Independent verification is required for consequential results."
+      ]
+    },
+    {
+      "id": "SCIENTIFIC_ASSISTANCE",
+      "category": "SCIENCE",
+      "titleAr": "المساعدة العلمية",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "REASONING_MODEL_DISCOVERY",
+      "limitations": [
+        "Reproducible evidence and domain review remain required."
+      ]
+    },
+    {
+      "id": "DEFENSIVE_SECURITY_REVIEW",
+      "category": "SECURITY",
+      "titleAr": "مراجعة أمنية دفاعية",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_SECURITY_REVIEW_PROFILE",
+      "limitations": [
+        "Authorized defensive scope only.",
+        "No safety-filter evasion or unrestricted exploitation."
+      ]
+    },
+    {
+      "id": "RAG_RETRIEVAL",
+      "category": "KNOWLEDGE",
+      "titleAr": "استرجاع المعرفة RAG",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/root-knowledge-agentic-fabric/v1/sheikha-root-knowledge-agentic-fabric-v1-report.json",
+      "limitations": []
+    },
+    {
+      "id": "SOURCE_GROUNDING",
+      "category": "KNOWLEDGE",
+      "titleAr": "تأصيل الإجابة بالمصادر",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/root-knowledge-agentic-fabric/v1/sheikha-root-knowledge-agentic-fabric-v1-report.json",
+      "limitations": []
+    },
+    {
+      "id": "DATA_ANALYSIS",
+      "category": "ANALYTICS",
+      "titleAr": "تحليل البيانات",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_REASONING_AND_STRUCTURED_OUTPUT",
+      "limitations": []
+    },
+    {
+      "id": "STRUCTURED_OUTPUT",
+      "category": "GENERATION",
+      "titleAr": "مخرجات منظمة",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_MODEL_CAPABILITY_PROFILE",
+      "limitations": []
+    },
+    {
+      "id": "DOCUMENT_ANALYSIS",
+      "category": "KNOWLEDGE",
+      "titleAr": "تحليل الوثائق النصية",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_MODEL_AND_RAG_FOUNDATION",
+      "limitations": []
+    },
+    {
+      "id": "LONG_CONTEXT",
+      "category": "REASONING",
+      "titleAr": "سياق طويل",
+      "status": "REGISTERED_EVIDENCE_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "TASK_SPECIFIC_BENCHMARK_REQUIRED",
+      "limitations": [
+        "Configured context size is not proof of retained-context quality."
+      ]
+    },
+    {
+      "id": "TOOL_CALLING_PLAN",
+      "category": "TOOLS",
+      "titleAr": "تخطيط استدعاء الأدوات",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "GOVERNED_PLAN_ONLY",
+      "limitations": [
+        "Automatic high-impact tool execution is denied."
+      ]
+    },
+    {
+      "id": "AGENTIC_PLANNING",
+      "category": "AGENTS",
+      "titleAr": "تخطيط وكيلي محكوم",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/root-knowledge-agentic-fabric/v1/sheikha-root-knowledge-agentic-fabric-v1-report.json",
+      "limitations": []
+    },
+    {
+      "id": "MULTI_MODEL_REVIEW",
+      "category": "AGENTS",
+      "titleAr": "مراجعة متعددة النماذج",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_MODEL_INVENTORY",
+      "limitations": []
+    },
+    {
+      "id": "BOUNDED_SERENDIPITY",
+      "category": "REASONING",
+      "titleAr": "اكتشاف بدائل مرتبطة",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/computing-cognitive-layers/v1/sheikha-computing-cognitive-layers-v1-report.json",
+      "limitations": []
+    },
+    {
+      "id": "FAST_RESPONSE",
+      "category": "PERFORMANCE",
+      "titleAr": "استجابة سريعة",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOCAL_FAST_MODEL_DISCOVERY",
+      "limitations": [
+        "Latency must be measured on the current host and prompt class."
+      ]
+    },
+    {
+      "id": "GPU_ACCELERATED_INFERENCE",
+      "category": "PERFORMANCE",
+      "titleAr": "استدلال مسرع بالمعالج الرسومي",
+      "status": "REGISTERED_EVIDENCE_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "runtime/intelligence-capability-apex/v1/evidence/ollama-gpu-acceleration-verification.json",
+      "limitations": [
+        "GPU hardware is present, but Ollama GPU inference is not verified.",
+        "System permission repair requires explicit human authorization."
+      ]
+    },
+    {
+      "id": "STREAMING_RESPONSE",
+      "category": "PERFORMANCE",
+      "titleAr": "استجابة متدفقة",
+      "status": "REGISTERED_EVIDENCE_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "runtime/live-realtime-fabric/v1/sheikha-live-realtime-fabric-v1.json",
+      "limitations": []
+    },
+    {
+      "id": "PRIVATE_LOCAL_INFERENCE",
+      "category": "PRIVACY",
+      "titleAr": "استدلال محلي خاص",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "LOOPBACK_OLLAMA_DISCOVERY",
+      "limitations": []
+    },
+    {
+      "id": "OFFLINE_CONTINUITY",
+      "category": "RELIABILITY",
+      "titleAr": "استمرارية دون مزود خارجي",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "SHEIKHA_OFFLINE_PROVIDER",
+      "limitations": []
+    },
+    {
+      "id": "HUMAN_APPROVAL_GOVERNANCE",
+      "category": "GOVERNANCE",
+      "titleAr": "حوكمة الموافقة البشرية",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/intelligence-capability-apex/v1/contracts/sheikha-intelligence-capability-apex-v1-contract.json",
+      "limitations": []
+    },
+    {
+      "id": "HASH_ONLY_AUDIT",
+      "category": "GOVERNANCE",
+      "titleAr": "تدقيق بالبصمات دون حفظ النص",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/intelligence-capability-apex/v1/contracts/sheikha-intelligence-capability-apex-v1-contract.json",
+      "limitations": []
+    },
+    {
+      "id": "MODEL_CAPABILITY_ROUTING",
+      "category": "ORCHESTRATION",
+      "titleAr": "توجيه النماذج بحسب القدرة",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "DYNAMIC_LOCAL_MODEL_INVENTORY",
+      "limitations": []
+    },
+    {
+      "id": "LOCAL_OPERATIONAL_EVALUATION",
+      "category": "EVALUATION",
+      "titleAr": "تقييم تشغيلي محلي",
+      "status": "ACTIVE_GOVERNED",
+      "executable": true,
+      "modelBacked": false,
+      "evidence": "runtime/intelligence-capability-apex/v1/evidence/local-operational-benchmark.json",
+      "limitations": []
+    },
+    {
+      "id": "VISION_UNDERSTANDING",
+      "category": "MULTIMODAL",
+      "titleAr": "فهم الصور",
+      "status": "REGISTERED_PROVIDER_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "LOCAL_VISION_MODEL_NOT_DISCOVERED",
+      "limitations": []
+    },
+    {
+      "id": "AUDIO_SPEECH",
+      "category": "MULTIMODAL",
+      "titleAr": "الصوت والكلام",
+      "status": "REGISTERED_PROVIDER_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "LOCAL_AUDIO_MODEL_NOT_DISCOVERED",
+      "limitations": []
+    },
+    {
+      "id": "IMAGE_GENERATION",
+      "category": "MULTIMODAL",
+      "titleAr": "توليد الصور",
+      "status": "REGISTERED_PROVIDER_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "LOCAL_IMAGE_MODEL_NOT_DISCOVERED",
+      "limitations": []
+    },
+    {
+      "id": "LIVE_WEB_RESEARCH",
+      "category": "KNOWLEDGE",
+      "titleAr": "بحث مباشر في الويب",
+      "status": "REGISTERED_TOOL_REQUIRED",
+      "executable": false,
+      "modelBacked": false,
+      "evidence": "AUTHORIZED_RESEARCH_TOOL_REQUIRED",
+      "limitations": []
+    },
+    {
+      "id": "INDUSTRIAL_DOMAIN_ASSISTANCE",
+      "category": "DOMAIN",
+      "titleAr": "مساعدة صناعية",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "SHEIKHA_CORE_LOCAL_PROFILE",
+      "limitations": [
+        "Domain expert review remains required for high-impact use."
+      ]
+    },
+    {
+      "id": "SUPPLY_CHAIN_ASSISTANCE",
+      "category": "DOMAIN",
+      "titleAr": "مساعدة سلاسل الإمداد",
+      "status": "ACTIVE_LOCAL",
+      "executable": true,
+      "modelBacked": true,
+      "evidence": "SHEIKHA_CORE_LOCAL_PROFILE",
+      "limitations": []
+    }
+  ]
+}

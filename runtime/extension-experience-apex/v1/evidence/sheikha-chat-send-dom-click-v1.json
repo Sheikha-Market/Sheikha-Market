@@ -1,0 +1,37 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_CHAT_SEND_DOM_CLICK_V1",
+  "generatedAt": "2026-08-04T00:47:44.720Z",
+  "status": "DOM_CLICK_VERIFIED",
+  "passed": true,
+  "browser": "google-chrome-headless",
+  "extensionVersion": "1.0.114",
+  "readyAckInjected": false,
+  "checks": {
+    "chromeExecuted": true,
+    "clickExecuted": true,
+    "sendEnabledBeforeClick": true,
+    "askPosted": true,
+    "askTextMatched": true,
+    "composerLockedAfterAcceptedClick": true,
+    "allChatToolsRendered": true,
+    "governedToolClickPosted": true,
+    "governedToolIdMatched": true
+  },
+  "failedChecks": [],
+  "observations": {
+    "exitCode": 0,
+    "signal": null,
+    "error": null,
+    "domSha256": "7f24c19b7717a4342692f2457ad5e5d4f4d7fcc55a1a4acccee4861d119d68dc",
+    "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+    "temporaryFixture": "/tmp/sheikha-send-click-MVsvwG/chat.html"
+  },
+  "boundaries": {
+    "externalNetworkUsed": false,
+    "vscodeSettingsModified": false,
+    "shellCommandSentByChat": false,
+    "arbitraryVsCodeCommandAccepted": false,
+    "arbitraryFilesystemAccessGranted": false
+  }
+}

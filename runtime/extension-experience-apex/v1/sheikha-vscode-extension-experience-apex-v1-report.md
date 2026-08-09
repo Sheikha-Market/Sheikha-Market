@@ -2,7 +2,8 @@
 
 - Status: ACTIVE
 - Decision: VSCODE_EXTENSION_EXPERIENCE_APEX_V1_ACTIVE_100
-- Extension: 1.0.91
+- Extension: 1.0.100
+- Live extension host smoke: VERIFIED
 - Governed by Apex: L18
 
 Conversation is contextual and responsive. Inspector output is explicit-request only.

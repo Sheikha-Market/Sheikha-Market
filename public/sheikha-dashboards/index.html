@@ -1,34 +1,249 @@
 <!doctype html>
 <html lang="ar" dir="rtl">
 <head>
-  <meta charset="utf-8"/>
-  <meta name="viewport" content="width=device-width,initial-scale=1"/>
-  <title>لوحات تحكم شيخة</title>
-  <link rel="stylesheet" href="./dashboards.css"/>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="مركز شيخة الأعلى للمالك والإدارة ومجالس الإدارة والوظائف والعمليات المحكومة.">
+  <link rel="canonical" href="https://sheikha.top/dashboard/">
+  <title>مركز شيخة الأعلى | لوحة المالك والإدارة</title>
+  <link rel="stylesheet" href="/sheikha-dashboards/dashboards.css">
 </head>
 <body>
-  <aside class="sidebar">
-    <div class="brand">شيخة</div>
-    <button data-role="owner">لوحة المالك</button>
-    <button data-role="admin">لوحة الإدارة</button>
-    <button data-role="supplier">لوحة المورد</button>
-    <button data-role="buyer">لوحة المشتري</button>
-    <button data-role="customer">لوحة العميل</button>
-    <button data-role="finance">المالية</button>
-    <button data-role="governance">الحوكمة</button>
-  </aside>
+  <header class="app-header">
+    <a class="brand" href="/">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة</strong><small>Owner &amp; Organization Control</small></span>
+    </a>
+    <div class="header-state"><span id="health-dot"></span><b id="health-state">جارٍ التحقق</b></div>
+    <nav aria-label="روابط المنتج">
+      <a href="/market/">السوق</a>
+      <a href="/technology/">التقدم التقني</a>
+      <a href="/riyadh-aljannah-community/">الجنات</a>
+      <a href="/site-map/">الدليل</a>
+    </nav>
+  </header>
 
-  <main>
-    <section class="top">
-      <p>منظمة شيخة للمنظمات</p>
-      <h1 id="title">لوحة التحكم الرئيسية</h1>
-      <span id="model">نموذج العمل: تشغيل تجاري محكوم</span>
-    </section>
+  <div class="app-shell">
+    <aside class="side-nav" aria-label="أقسام لوحة التحكم">
+      <p>مساحة العمل</p>
+      <button class="active" type="button" data-view="overview">الملخص</button>
+      <button type="button" data-view="organization">الهيكل والأدوار</button>
+      <button type="button" data-view="tasks">المهام الآلية</button>
+      <button type="button" data-view="workforce">الوظائف والكوادر</button>
+      <button type="button" data-view="governance">الموافقات والحوكمة</button>
+      <button type="button" data-view="production">الإنتاج والاتحاد</button>
+      <button type="button" data-view="products">المنتجات والخدمات</button>
+      <button type="button" data-view="sectors">القطاعات والأسواق</button>
+      <button type="button" data-view="operations">مسارات العمليات</button>
+      <div class="side-note">
+        <strong>الوضع الافتراضي</strong>
+        <span>0 موظفين تشغيليين</span>
+        <span>وكلاء آليون لكل دور</span>
+        <span>القرارات الملزمة بموافقة بشرية</span>
+      </div>
+    </aside>
 
-    <section class="kpis" id="kpis"></section>
-    <section class="workspace" id="workspace"></section>
-  </main>
+    <main class="workspace">
+      <header class="workspace-header">
+        <div>
+          <p class="eyebrow">SHEIKHA OWNER &amp; ORGANIZATION CONTROL CENTER</p>
+          <h1 id="view-title">لوحة المالك العليا</h1>
+          <p id="view-description">قيادة المؤسسة والأدوار والمهام الآلية والموافقات من سجل واحد محكوم.</p>
+        </div>
+        <button id="refresh-dashboard" type="button">تحديث البيانات</button>
+      </header>
 
-  <script src="./dashboards.js"></script>
+      <section class="control-strip" aria-label="مرشحات لوحة التحكم">
+        <label>
+          <span>الدور</span>
+          <select id="role-filter">
+            <option value="OWNER">جارٍ تحميل سجل الأدوار</option>
+          </select>
+        </label>
+        <label>
+          <span>الإسناد</span>
+          <select id="assignment-filter">
+            <option value="AUTONOMOUS_AGENT">وكيل آلي محكوم</option>
+            <option value="HUMAN">كادر بشري مخوّل</option>
+          </select>
+        </label>
+        <label>
+          <span>القطاع</span>
+          <select id="dashboard-sector"><option value="all">كل القطاعات</option></select>
+        </label>
+        <div class="scope-state">
+          <span>النطاق الحالي</span>
+          <strong id="scope-label">كل القطاعات</strong>
+        </div>
+      </section>
+
+      <section class="view active" id="view-overview" data-panel="overview">
+        <div class="kpi-grid" id="kpi-grid"></div>
+        <section class="operating-banner" aria-label="نموذج التشغيل">
+          <div><span>نموذج التشغيل</span><strong id="operating-mode">جارٍ التحقق</strong></div>
+          <div><span>الموظفون التشغيليون</span><strong id="human-operators">0</strong></div>
+          <div><span>إسنادات الوكلاء</span><strong id="agent-assignments">0</strong></div>
+          <div><span>القرارات الملزمة</span><strong>موافقة بشرية</strong></div>
+        </section>
+        <div class="overview-grid">
+          <section class="focus-panel" aria-labelledby="focus-title">
+            <header><h2 id="focus-title">أولوية الدور</h2><span id="role-name">المالك</span></header>
+            <ol id="role-focus"></ol>
+          </section>
+          <section class="data-panel" aria-labelledby="data-title">
+            <header><h2 id="data-title">صدق البيانات</h2><span>حدود مباشرة</span></header>
+            <dl id="data-state"></dl>
+          </section>
+        </div>
+        <section class="sector-preview" aria-labelledby="sector-preview-title">
+          <header>
+            <div><h2 id="sector-preview-title">القطاعات</h2><p>منفعة تشغيلية محددة لكل قطاع.</p></div>
+            <button type="button" data-open-view="sectors">عرض الكل</button>
+          </header>
+          <div id="sector-preview-grid"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-organization" data-panel="organization">
+        <header class="table-heading">
+          <div><h2>الهيكل القيادي والوظيفي</h2><p>كل دور له عقد صلاحيات ولوحة مولدة ومهام محددة.</p></div>
+          <span class="table-status" id="role-count">0 دور</span>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>المنصب</th><th>المستوى</th><th>المهمة</th><th>الإسناد</th><th>السلطة الملزمة</th></tr></thead>
+            <tbody id="organization-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-tasks" data-panel="tasks">
+        <header class="table-heading">
+          <div><h2>مهام الدور الحالي</h2><p>الأهلية الآلية لا تعني أن التنفيذ تم، وكل أثر عالٍ يمر ببوابة اعتماد.</p></div>
+          <span class="table-status" id="task-role-label">المالك</span>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>المهمة</th><th>القدرة</th><th>الأثر</th><th>طريقة التشغيل</th><th>البوابة</th></tr></thead>
+            <tbody id="task-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-workforce" data-panel="workforce">
+        <div class="workforce-layout">
+          <section class="workforce-summary">
+            <header><h2>تشغيل دون موظفين</h2><span>الوضع الافتراضي</span></header>
+            <p>تتولى الوكلاء المحكومة القراءة والقياس والتحليل والتقارير والتخطيط والأعمال الداخلية القابلة للعكس.</p>
+            <dl id="workforce-state"></dl>
+          </section>
+          <section class="position-preview">
+            <header><h2>فتح وظيفة عند الحاجة</h2><span>معاينة فقط</span></header>
+            <p>يُنشأ عقد الدور ولوحته وصلاحياته قبل نشر الوظيفة أو منح الوصول.</p>
+            <button id="preview-position" type="button">معاينة وظيفة الدور الحالي</button>
+            <div id="position-result" role="status">لم تُنشأ معاينة بعد.</div>
+          </section>
+        </div>
+      </section>
+
+      <section class="view" id="view-governance" data-panel="governance">
+        <header class="table-heading">
+          <div><h2>سياسة الأتمتة والموافقة</h2><p>العدل والأمانة والوفاء بالعقود والتثبت ومنع الضرر، مع مراجعة بشرية مؤهلة.</p></div>
+        </header>
+        <div class="governance-grid" id="governance-grid"></div>
+        <aside class="operation-boundary">
+          لا تصدر المنظومة فتوى أو حكمًا شرعيًا آليًا، ولا تستبدل المسؤولية القانونية أو الائتمانية لمجلس الإدارة والمالك.
+        </aside>
+      </section>
+
+      <section class="view" id="view-production" data-panel="production">
+        <header class="table-heading">
+          <div>
+            <h2>الإنتاج الداخلي والخارجي المحكوم</h2>
+            <p>المسار الداخلي يستخدم الأدلة المحلية، والخارجي ممنوع حتى اختيار العميل والعقد والموافقة.</p>
+          </div>
+          <span class="table-status">Same artifact digest</span>
+        </header>
+        <section class="operating-banner production-banner" aria-label="حالة اتحاد الإنتاج">
+          <div><span>المسار الداخلي</span><strong id="production-internal-state">جارٍ التحقق</strong></div>
+          <div><span>القدرات المتحققة</span><strong class="count-ratio" id="production-verified-count">0</strong></div>
+          <div><span>المسار الخارجي</span><strong id="production-external-state">DEFAULT DENY</strong></div>
+          <div><span>محولات خارجية مفوضة</span><strong id="production-external-ready">0</strong></div>
+        </section>
+        <header class="table-heading production-subheading">
+          <div>
+            <h2>الأدلة الداخلية المباشرة</h2>
+            <p>وجود التقرير وحده لا يكفي؛ القطع التنفيذية تُفحص بالحجم والبصمة قبل احتسابها.</p>
+          </div>
+          <span class="table-status">Evidence before claim</span>
+        </header>
+        <div class="table-wrap production-table">
+          <table>
+            <thead><tr><th>القدرة</th><th>التحقق</th><th>مستوى الدليل</th><th>حالة القطعة</th></tr></thead>
+            <tbody id="production-evidence-table"></tbody>
+          </table>
+        </div>
+        <div class="table-wrap production-table">
+          <table>
+            <thead><tr><th>نموذج الإنتاج</th><th>المسار</th><th>الحالة</th><th>المكوّن الخارجي</th></tr></thead>
+            <tbody id="production-model-table"></tbody>
+          </table>
+        </div>
+        <header class="table-heading production-subheading">
+          <div>
+            <h2>عائلات الأنظمة والمحولات</h2>
+            <p>التسجيل يفتح مسار التقييم فقط، ولا يثبت التنفيذ أو الدعم الإنتاجي.</p>
+          </div>
+          <span class="table-status" id="production-system-count">0 عائلة</span>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>العائلة</th><th>الملكية</th><th>حالة المحول</th><th>الدعم الإنتاجي</th></tr></thead>
+            <tbody id="production-system-table"></tbody>
+          </table>
+        </div>
+        <aside class="operation-boundary">
+          لا تنفذ هذه اللوحة Build أو اتصالًا أو نشرًا. كل مسار خارجي يحتاج اختيارًا صريحًا مستنيرًا وحقوقًا موثقة ومراجعة بشرية منفصلة.
+        </aside>
+      </section>
+
+      <section class="view" id="view-products" data-panel="products">
+        <header class="table-heading">
+          <div><h2>سجل المنتجات والخدمات</h2><p>المصدر نفسه المستخدم في صفحة السوق.</p></div>
+          <a href="/market/">فتح السوق</a>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>المنتج</th><th>النوع</th><th>القطاع</th><th>الحالة</th><th>السعر</th><th>الهندسة</th></tr></thead>
+            <tbody id="product-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-sectors" data-panel="sectors">
+        <header class="table-heading">
+          <div><h2>مصفوفة القطاعات والأسواق</h2><p>ثلاثون قطاعًا ضمن سبع عائلات تشغيلية.</p></div>
+        </header>
+        <div class="table-wrap">
+          <table>
+            <thead><tr><th>القطاع</th><th>عائلة السوق</th><th>المنتجات</th><th>المنفعة</th><th>الحالة</th></tr></thead>
+            <tbody id="sector-table"></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="view" id="view-operations" data-panel="operations">
+        <header class="table-heading">
+          <div><h2>مسارات العمليات المشتركة</h2><p>الخطة أولًا، والموافقة قبل التنفيذ عالي الأثر.</p></div>
+        </header>
+        <ol class="operation-list" id="operation-list"></ol>
+        <aside class="operation-boundary">
+          لا تنفذ اللوحة عقدًا أو طلبًا أو فاتورة أو دفعًا تلقائيًا، ولا تصدر حكمًا شرعيًا آليًا.
+        </aside>
+      </section>
+    </main>
+  </div>
+
+  <script src="/sheikha-dashboards/dashboards.js" defer></script>
 </body>
 </html>

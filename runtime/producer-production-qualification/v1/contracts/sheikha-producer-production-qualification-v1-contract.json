@@ -1,0 +1,96 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCER_PRODUCTION_QUALIFICATION_V1",
+  "status": "ACTIVE_CONTRACT",
+  "identity": {
+    "nameAr": "منظومة شيخة لتأهيل المنتجين وجاهزية الإنتاج",
+    "nameEn": "Sheikha Producer and Production Qualification",
+    "scope": "INTERNAL_EVIDENCE_GOVERNANCE_AND_PRODUCTION_AUTHORIZATION"
+  },
+  "workflow": [
+    "APPLICATION",
+    "SCHEMA_VALIDATION",
+    "ADMINISTRATIVE_COMPLETENESS",
+    "ENGINEERING_REVIEW",
+    "HARDWARE_AND_SAFETY_REVIEW_WHEN_APPLICABLE",
+    "EXTERNAL_AUTHORITY_EVIDENCE_WHEN_REQUIRED",
+    "HUMAN_DECISION",
+    "INTERNAL_PRODUCTION_AUTHORIZATION",
+    "AUDIT",
+    "RENEWAL_OR_SUSPENSION"
+  ],
+  "authorizationClasses": [
+    {
+      "id": "INTERNAL_PRODUCER_QUALIFICATION",
+      "issuer": "SHEIKHA_INTERNAL_HUMAN_AUTHORITY",
+      "officialGovernmentLicense": false
+    },
+    {
+      "id": "INTERNAL_PRODUCTION_AUTHORIZATION",
+      "issuer": "SHEIKHA_INTERNAL_HUMAN_AUTHORITY",
+      "officialGovernmentLicense": false
+    },
+    {
+      "id": "EXTERNAL_REGULATORY_LICENSE",
+      "issuer": "COMPETENT_EXTERNAL_AUTHORITY_ONLY",
+      "issuedBySheikha": false
+    },
+    {
+      "id": "INDEPENDENT_SAFETY_CERTIFICATION",
+      "issuer": "ACCREDITED_LAB_OR_CERTIFICATION_BODY_ONLY",
+      "issuedBySheikha": false
+    }
+  ],
+  "decisionPolicy": {
+    "defaultAuthorization": "DENY",
+    "completionIsNotVerification": true,
+    "verificationIsNotExternalLicensing": true,
+    "humanApprovalRequired": true,
+    "qualifiedEngineeringReviewRequired": true,
+    "externalIssuerEvidenceRequiredWhenApplicable": true,
+    "authorizationBoundToProductVersionAndScope": true,
+    "maximumAuthorizationDays": 365
+  },
+  "candidatePolicy": {
+    "organizationAndCapabilityAssessmentOnly": true,
+    "individualFaithScoring": false,
+    "individualIdeologyScoring": false,
+    "sensitiveTraitInference": false,
+    "schemaValidationMayRejectMalformedSubmission": true,
+    "automatedSubstantiveCandidateRejection": false,
+    "secretCollection": false,
+    "opaqueRepresentativeReferenceRequired": true
+  },
+  "aiPolicy": {
+    "mayCheckCompleteness": true,
+    "mayCheckHashesAndConsistency": true,
+    "mayIdentifyEvidenceGaps": true,
+    "mayIssueFinalAuthorization": false,
+    "mayVerifyGovernmentIdentity": false,
+    "mayIssueExternalCertificate": false,
+    "mayOverrideHumanReviewer": false
+  },
+  "governance": {
+    "valuesReference": "runtime/islamic-reference-governance/v1/sheikha-quran-sunnah-reference-policy-v1.json",
+    "values": [
+      "TRUTH",
+      "JUSTICE",
+      "TRUST",
+      "FULFIL_CONTRACTS",
+      "VERIFY_BEFORE_CLAIM",
+      "NO_HARM"
+    ],
+    "valuesAreExecutableReligiousAuthority": false,
+    "automatedFatwa": false,
+    "qualifiedHumanReviewForReligiousJudgments": true
+  },
+  "truthBoundaries": {
+    "governmentApprovalClaimed": false,
+    "externalAccreditationClaimed": false,
+    "allProductsProductionReadyClaimed": false,
+    "allHardwareQualifiedClaimed": false,
+    "candidateEvidenceAutoTrusted": false,
+    "internalAuthorizationMayReplaceLaw": false,
+    "internalAuthorizationMayReplaceSafetyCertification": false
+  }
+}

@@ -1,0 +1,313 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_TECHNICAL_EXPERIENCE_RUNTIME_V1",
+  "generatedAt": "2026-07-21T16:54:42.669Z",
+  "status": "ACTIVE_WITH_MEASURED_LOCAL_FOUNDATIONS",
+  "routes": {
+    "technologyCenter": "/technology/",
+    "productTechnical": "/product-technical/",
+    "api": "/api/sheikha/technical-experience/v1"
+  },
+  "coverage": {
+    "products": 13,
+    "technicalProfiles": 13,
+    "sectors": 30,
+    "marketGroups": 7,
+    "workflows": 12,
+    "activeDocumentationEntitlements": 0,
+    "publicCanonicalPages": 112
+  },
+  "layers": [
+    {
+      "id": "commerce",
+      "nameAr": "التجارة والاقتصاد",
+      "status": "ACTIVE_WITH_GOVERNED_CATALOG",
+      "verified": true
+    },
+    {
+      "id": "products",
+      "nameAr": "المنتجات",
+      "status": "ACTIVE_WITH_BOUNDED_VERIFIED_FOUNDATIONS",
+      "verified": true
+    },
+    {
+      "id": "technical-docs",
+      "nameAr": "الشرح التقني",
+      "status": "ACTIVE_WITH_PUBLIC_PREVIEW",
+      "verified": true
+    },
+    {
+      "id": "live-measurement",
+      "nameAr": "القياس الحي",
+      "status": "ACTIVE_LOCAL_OBSERVATION",
+      "verified": true
+    },
+    {
+      "id": "ai-live",
+      "nameAr": "مسار الذكاء الحي",
+      "status": "ROUTE_CONFIGURED_NOT_PROBED",
+      "verified": true
+    },
+    {
+      "id": "entitlement",
+      "nameAr": "استحقاق ما بعد الشراء",
+      "status": "ACTIVE_DEFAULT_DENY",
+      "verified": true
+    }
+  ],
+  "architecture": {
+    "model": "GOVERNED_HYBRID_CENTRAL_AND_DECENTRALIZED",
+    "central": [
+      {
+        "id": "governance",
+        "nameAr": "الحوكمة والسياسات",
+        "status": "ACTIVE_LOCAL"
+      },
+      {
+        "id": "catalog",
+        "nameAr": "كتالوج المنتجات",
+        "status": "ACTIVE_LOCAL"
+      },
+      {
+        "id": "identity",
+        "nameAr": "الهوية والاستحقاق",
+        "status": "DEFAULT_DENY"
+      },
+      {
+        "id": "audit",
+        "nameAr": "الأدلة والتدقيق",
+        "status": "ACTIVE_LOCAL"
+      }
+    ],
+    "decentralized": [
+      {
+        "id": "browser",
+        "nameAr": "قياس المتصفح",
+        "status": "ACTIVE_WHEN_PAGE_OPEN"
+      },
+      {
+        "id": "sector-adapters",
+        "nameAr": "موصلات القطاعات",
+        "status": "REGISTERED_CONTRACTS"
+      },
+      {
+        "id": "local-analysis",
+        "nameAr": "التحليل المحلي",
+        "status": "ACTIVE_LOCAL"
+      },
+      {
+        "id": "event-consumers",
+        "nameAr": "مستهلكو الأحداث",
+        "status": "REGISTERED_CONTRACTS"
+      }
+    ],
+    "sharedFlow": [
+      "collect",
+      "schema-validate",
+      "govern",
+      "analyze",
+      "explain",
+      "audit",
+      "deliver"
+    ],
+    "boundaries": {
+      "externalFederationVerified": false,
+      "decentralizedExecutionUniversallyActive": false,
+      "blockchainClaimed": false,
+      "centralPolicyBypassAllowed": false
+    }
+  },
+  "ai": {
+    "liveEndpoint": "/api/sheikha/live/chat/v1",
+    "statusEndpoint": "/api/sheikha/live-realtime-fabric/v1/status",
+    "configuredModel": "Sheikha-Core",
+    "deepModelMode": "background",
+    "modelReachability": "NOT_PROBED_BY_STATUS_BUILD"
+  },
+  "measurement": {
+    "clientRoundTripMeasuredInBrowser": true,
+    "payloadBytesMeasuredInBrowser": true,
+    "transferThroughputDerivedFromObservedBytesAndTime": true,
+    "serverMemoryMeasuredFromProcess": true,
+    "eventLoopUtilizationMeasuredFromProcess": true,
+    "syntheticPerformanceClaims": false
+  },
+  "governance": {
+    "noAutomaticPurchase": true,
+    "noAutomaticPayment": true,
+    "noAutomaticContract": true,
+    "noAutomatedReligiousRuling": true,
+    "noExternalCertificationClaim": true,
+    "humanReviewForHighImpact": true,
+    "noHarm": true,
+    "evidenceRequired": true
+  },
+  "claimBoundary": "Local routes, contracts, and process metrics are reported. External federation, universal deployment, model reachability, purchase, and certification require separate evidence.",
+  "telemetryEvidence": {
+    "schemaVersion": "1.0.0",
+    "system": "SHEIKHA_TECHNICAL_LIVE_TELEMETRY_V1",
+    "generatedAt": "2026-07-21T16:54:42.669Z",
+    "process": {
+      "pid": 14,
+      "uptimeSeconds": 0.03,
+      "memoryMiB": {
+        "rss": 48.11,
+        "heapUsed": 4.79,
+        "heapTotal": 7.88,
+        "external": 1.59
+      },
+      "cpuCumulativeMs": {
+        "user": 26.04,
+        "system": 3.86
+      },
+      "eventLoop": {
+        "observedTurnDelayMs": 0.505,
+        "utilizationPercent": 100,
+        "measurementScope": "CURRENT_NODE_PROCESS"
+      }
+    },
+    "clientMeasurementContract": {
+      "roundTripFormula": "RTT = t_response_received - t_request_sent",
+      "transferFormula": "T = response_bytes / RTT",
+      "browserMustMeasure": true
+    },
+    "ai": {
+      "routeConfigured": true,
+      "endpoint": "/api/sheikha/live/chat/v1",
+      "reachabilityProbed": false
+    },
+    "secretsIncluded": false,
+    "syntheticBenchmarkClaimed": false
+  },
+  "checks": {
+    "runtimeActive": true,
+    "allCommerceProductsDocumented": true,
+    "allProfilesHaveMeasurement": true,
+    "allProfilesHaveArabicExplanation": true,
+    "centralAndDecentralizedDeclared": true,
+    "externalFederationNotClaimed": true,
+    "telemetryContainsNoSecrets": true,
+    "dossierDefaultDeny": true,
+    "noAutomaticPurchase": true,
+    "noAutomatedReligiousRuling": true,
+    "technologyPageExists": true,
+    "productTechnicalPageExists": true,
+    "industrialVisualExists": true,
+    "functionalCanvasesDeclared": true,
+    "animatedDataFlowsImplemented": true,
+    "reducedMotionHonored": true,
+    "responsiveLayoutsDeclared": true,
+    "noExternalMediaDependencies": true,
+    "fullDossierNotEmbeddedInPublicHtml": true,
+    "entitlementVerifiedByServer": true
+  },
+  "failedChecks": [],
+  "passed": true,
+  "interfaceEvidence": {
+    "visualMode": "LOCAL_INDUSTRIAL_MEDIA_AND_FUNCTIONAL_CANVAS",
+    "motionPurpose": "DATA_FLOW_AND_PROCESS_STATE_ONLY",
+    "mediaSubjectPolicy": "INDUSTRIAL_INFRASTRUCTURE_WITHOUT_PEOPLE_OR_ANIMALS",
+    "externalMediaDependencies": 0,
+    "screenshotVerificationExecuted": false,
+    "screenshotVerificationBoundary": "Headless browser execution requires a separately authorized GUI-capable runner.",
+    "userLevels": [
+      "guided",
+      "practitioner",
+      "expert"
+    ],
+    "entitlementMode": "SERVER_SIDE_DEFAULT_DENY"
+  },
+  "productTechnicalIndex": [
+    {
+      "id": "PROD-GOV-001",
+      "nameAr": "محرك شيخة للحوكمة",
+      "disciplineAr": "هندسة السياسات والقرار",
+      "measurement": "C_p = N_enforced / N_applicable x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-STAB-001",
+      "nameAr": "محرك شيخة للاستقرار",
+      "disciplineAr": "هندسة الاعتمادية والأداء",
+      "measurement": "R_f = N_failed / N_total x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-DEC-001",
+      "nameAr": "سجل شيخة للقرارات",
+      "disciplineAr": "هندسة المعرفة والقرار",
+      "measurement": "C_t = N_traceable / N_decisions x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-CAP-001",
+      "nameAr": "سجل شيخة للقدرات",
+      "disciplineAr": "هندسة القدرات والاعتماديات",
+      "measurement": "C_v = N_verified / N_registered x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-ENG-001",
+      "nameAr": "أدوات شيخة للمراجعة الهندسية",
+      "disciplineAr": "هندسة البرمجيات والجودة",
+      "measurement": "R_e = N_post_release / N_total_defects x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-AICL-001",
+      "nameAr": "نسيج شيخة لمسارات عناقيد الذكاء الصناعي",
+      "disciplineAr": "هندسة بيانات ونماذج الذكاء الصناعي",
+      "measurement": "U_p = t_busy / t_observed x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-UGITAI-001",
+      "nameAr": "مستوى شيخة للتحكم في الذكاء الصناعي",
+      "disciplineAr": "هندسة مستويات التحكم الموزعة",
+      "measurement": "C_c = N_governed / N_active_paths x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-SUPPLY-CHAIN",
+      "nameAr": "منصة شيخة لسلاسل الإمداد",
+      "disciplineAr": "بحوث العمليات وهندسة سلاسل الإمداد",
+      "measurement": "F = Q_fulfilled / Q_requested x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-ENERGY",
+      "nameAr": "ذكاء شيخة لسلاسل إمداد الطاقة",
+      "disciplineAr": "هندسة الطاقة والتحسين",
+      "measurement": "eta = E_useful / E_input x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-MARKETPLACE",
+      "nameAr": "سوق شيخة الصناعي",
+      "disciplineAr": "هندسة الأسواق ونظم المعلومات",
+      "measurement": "L_q = t_quote - t_rfq",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-RIYADH-ALJANNAH",
+      "nameAr": "جنات وأشجار شيخة للمعرفة والابتكار",
+      "disciplineAr": "هندسة المعرفة والتعليم",
+      "measurement": "C_k = N_linked / N_required x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-INNOVATION-LAB",
+      "nameAr": "مختبر شيخة لتحويل المسائل إلى منتجات",
+      "disciplineAr": "هندسة النظم والابتكار",
+      "measurement": "C_i = N_productized / N_validated x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    },
+    {
+      "id": "PROD-CLOUD-SAAS",
+      "nameAr": "خدمة شيخة السحابية SaaS",
+      "disciplineAr": "هندسة البرمجيات السحابية متعددة المستأجرين",
+      "measurement": "A = N_success / N_checks x 100",
+      "fullDossierAccess": "VERIFIED_ENTITLEMENT_REQUIRED"
+    }
+  ]
+}
