@@ -4,7 +4,22 @@ const crypto = require('crypto');
 const fs = require('fs');
 const path = require('path');
 
-const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
+const {
+  executePipelineAsync
+} = require('../execution/sheikha-execution-pipeline-v1');
+const {
+  executeIntelligenceRequest
+} = require(
+  '../../core/intelligence-apex/' +
+  'sheikha-intelligence-capability-apex-v1'
+);
+const {
+  detectConstructiveDialogueTopic,
+  generateConstructiveDialogue
+} = require(
+  '../../core/gardens-dialogue/' +
+  'sheikha-constructive-thought-dialogue-ai-v3'
+);
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
 const { orchestrate } = require('../orchestrator/orchestrator-fabric');
 const {
@@ -48,7 +63,7 @@ function collectEnterpriseInspectorSnapshot(input = {}) {
   return collectEnterpriseInspector(input);
 }
 
-function handleUnifiedChatFallback(payload = {}) {
+async function handleUnifiedChatFallback(payload = {}) {
   const {
     handleUnifiedChat
   } = require('../chat-fabric/sheikha-unified-chat-fabric-v1');
@@ -61,10 +76,28 @@ function isDiagnosticRequest(message) {
     .test(String(message || ''));
 }
 
+function isConstructiveThoughtDialogueRequested(payload = {}) {
+  const mode = String(
+    payload.dialogueMode || payload.dialogue || ''
+  ).trim().toLowerCase();
+  const explicitMode = payload.thoughtDialogue === true ||
+    [
+      'constructive',
+      'constructive-thought',
+      'thought-dialogue',
+      'ideology-dialogue'
+    ].includes(mode);
+  if (explicitMode) return true;
+  return detectConstructiveDialogueTopic(
+    payload.message || payload.prompt || payload.text
+  ).matched;
+}
+
 function writeConversationAudit(record, options = {}) {
   const paths = getAuditPaths(options.rootDir);
   const answer = String(record.answer || '');
   const timestamp = record.timestamp || new Date().toISOString();
+  const metadataOnly = record.metadataOnly === true;
 
   const latest = {
     engine: 'SHEIKHA_CONVERSATION_ENGINE_V1',
@@ -81,9 +114,10 @@ function writeConversationAudit(record, options = {}) {
       bytes: Buffer.byteLength(String(record.message || ''))
     },
     response: {
-      answer: answer.slice(0, 50000),
+      answer: metadataOnly ? undefined : answer.slice(0, 50000),
       sha256: hash(answer),
-      bytes: Buffer.byteLength(answer)
+      bytes: Buffer.byteLength(answer),
+      contentStored: !metadataOnly
     },
     layerTrace: (record.layerStack?.layers || []).map((layer) => ({
       layer: layer.layer,
@@ -124,7 +158,8 @@ function writeConversationAudit(record, options = {}) {
     response: {
       sha256: latest.response.sha256,
       bytes: latest.response.bytes,
-      preview: answer.slice(0, 500)
+      preview: metadataOnly ? undefined : answer.slice(0, 500),
+      contentStored: !metadataOnly
     },
     layerTrace: latest.layerTrace
   };
@@ -219,6 +254,9 @@ async function handleConversation(payload = {}, options = {}) {
   const message = String(payload.message || payload.prompt || payload.text || '').trim();
   const channel = String(payload.channel || payload.source || 'api');
   const diagnosticRequested = payload.diagnosticRequested === true || isDiagnosticRequest(message);
+  const thoughtDialogueRequested =
+    !diagnosticRequested &&
+    isConstructiveThoughtDialogueRequested(payload);
 
   const governance = governGovernance({
     actor: payload.actor || channel,
@@ -253,16 +291,98 @@ async function handleConversation(payload = {}, options = {}) {
         })
       : undefined;
 
-    const result = executePipeline({
-      ...payload,
-      message,
-      source: channel,
-      channel,
-      conversationContext,
-      orchestrationFabric,
-      apexControlPlane,
-      enterpriseInspector
-    });
+    const requestedMode = String(payload.mode || '').toLowerCase();
+    const intelligenceApexRequested =
+      !diagnosticRequested &&
+      ['standard', 'pro', 'ultra'].includes(requestedMode);
+    let thoughtDialogue;
+    let intelligenceApex;
+    let result;
+
+    if (thoughtDialogueRequested) {
+      thoughtDialogue = await generateConstructiveDialogue({
+        message,
+        frameworkIds: payload.frameworkIds,
+        audienceContext: payload.audienceContext,
+        religiousLensRequested:
+          payload.religiousLensRequested !== false,
+        mode: ['standard', 'pro', 'ultra'].includes(requestedMode)
+          ? requestedMode
+          : 'standard',
+        ultraBudgetApproved:
+          payload.ultraBudgetApproved === true,
+        classifyPerson: payload.classifyPerson === true,
+        inferBeliefs: payload.inferBeliefs === true,
+        inferReligiousSchool:
+          payload.inferReligiousSchool === true,
+        inferPoliticalIdeology:
+          payload.inferPoliticalIdeology === true,
+        politicalMicrotargeting:
+          payload.politicalMicrotargeting === true,
+        religiousMicrotargeting:
+          payload.religiousMicrotargeting === true
+      }, {
+        intelligenceOptions:
+          options.intelligenceOptions || {},
+        persist: options.persist !== false,
+        root: options.rootDir || payload.workspaceRoot
+      });
+
+      result = {
+        pipeline: thoughtDialogue.system,
+        intent: 'CONSTRUCTIVE_THOUGHT_DIALOGUE',
+        intelligenceMode:
+          thoughtDialogue.intelligence?.mode?.resolved || null,
+        answer: thoughtDialogue.answer
+      };
+    } else if (intelligenceApexRequested) {
+      intelligenceApex = await executeIntelligenceRequest({
+        prompt: message,
+        task: payload.task,
+        mode: requestedMode,
+        ultraBudgetApproved:
+          payload.ultraBudgetApproved === true
+      }, {
+        ...(options.intelligenceOptions || {}),
+        root: options.rootDir || payload.workspaceRoot,
+        persist: options.persist !== false
+      });
+
+      if (
+        intelligenceApex.status === 'BLOCKED_BY_GOVERNANCE'
+      ) {
+        return handleBlocked({
+          governance: {
+            ...governance,
+            allowed: false,
+            reason: 'INTELLIGENCE_APEX_POLICY'
+          },
+          message,
+          channel,
+          diagnosticRequested,
+          options
+        });
+      }
+
+      result = {
+        pipeline: intelligenceApex.system,
+        intent: intelligenceApex.task,
+        intelligenceMode:
+          intelligenceApex.mode.resolved,
+        answer: intelligenceApex.output
+      };
+    } else {
+      result = await executePipelineAsync({
+        ...payload,
+        message,
+        source: channel,
+        channel,
+        conversationContext,
+        orchestrationFabric,
+        apexControlPlane,
+        enterpriseInspector
+      });
+    }
 
     const response = {
       success: true,
@@ -277,6 +397,31 @@ async function handleConversation(payload = {}, options = {}) {
       pipeline: result.pipeline,
       intent: result.intent,
       intelligenceMode: result.intelligenceMode,
+      intelligenceApex: intelligenceApex
+        ? {
+          system: intelligenceApex.system,
+          status: intelligenceApex.status,
+          task: intelligenceApex.task,
+          mode: intelligenceApex.mode,
+          execution: intelligenceApex.execution,
+          quality: intelligenceApex.quality,
+          comparison: intelligenceApex.comparison
+        }
+        : undefined,
+      thoughtDialogue: thoughtDialogue
+        ? {
+          system: thoughtDialogue.system,
+          status: thoughtDialogue.status,
+          audience: thoughtDialogue.audience,
+          subject: thoughtDialogue.subject,
+          methodAnchors: thoughtDialogue.methodAnchors,
+          intelligence: thoughtDialogue.intelligence,
+          dialogueQuality: thoughtDialogue.dialogueQuality,
+          governance: thoughtDialogue.governance,
+          privacy: thoughtDialogue.privacy,
+          execution: thoughtDialogue.execution
+        }
+        : undefined,
       layerStack,
       diagnosticRequested,
       inspector: diagnosticRequested ? enterpriseInspector : undefined,
@@ -289,9 +434,16 @@ async function handleConversation(payload = {}, options = {}) {
         ...response,
         message,
         channel,
+        metadataOnly: Boolean(thoughtDialogue),
         timestamp: new Date().toISOString()
       }, options);
-      response.memory = payload.memoryConsent === true
+      response.memory = thoughtDialogue
+        ? {
+          success: false,
+          skipped: true,
+          reason: 'CONSTRUCTIVE_DIALOGUE_METADATA_ONLY'
+        }
+        : payload.memoryConsent === true
         ? persistConversationMemory({
             requestId: layerStack.requestId,
             channel,
@@ -300,18 +452,24 @@ async function handleConversation(payload = {}, options = {}) {
             intent: response.intent
           }, options)
         : { success: false, skipped: true, reason: 'MEMORY_CONSENT_REQUIRED' };
-      response.postgresql = await persistConversationPostgreSQL({
-        requestId: layerStack.requestId,
-        channel,
-        message,
-        answer: response.answer,
-        intent: response.intent
-      });
+      response.postgresql = thoughtDialogue
+        ? {
+          success: false,
+          skipped: true,
+          reason: 'CONSTRUCTIVE_DIALOGUE_METADATA_ONLY'
+        }
+        : await persistConversationPostgreSQL({
+          requestId: layerStack.requestId,
+          channel,
+          message,
+          answer: response.answer,
+          intent: response.intent
+        });
     }
 
     return response;
   } catch (error) {
-    const fallback = handleUnifiedChatFallback({
+    const fallback = await handleUnifiedChatFallback({
       ...payload,
       message,
       channel,
@@ -335,6 +493,7 @@ async function handleConversation(payload = {}, options = {}) {
         ...response,
         message,
         channel,
+        metadataOnly: thoughtDialogueRequested,
         timestamp: new Date().toISOString()
       }, options);
     }

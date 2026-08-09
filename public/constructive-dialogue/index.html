@@ -1,0 +1,322 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta
+    name="description"
+    content="مساحة شيخة للحوار البنّاء على مستوى الأفكار والدعاوى والأهداف والأدلة دون تصنيف الأشخاص."
+  >
+  <title>حوار شيخة البنّاء | الأفكار وبرامج المنفعة</title>
+  <link rel="stylesheet" href="/constructive-dialogue/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة</strong><small>الحوار البنّاء</small></span>
+    </a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/market/">السوق</a>
+      <a href="/riyadh-aljannah-community/">الجنات</a>
+      <a class="active" href="/constructive-dialogue/" aria-current="page">الحوار</a>
+      <a href="/technology/">التقنية</a>
+      <a href="/site-map/">الدليل</a>
+    </nav>
+  </header>
+
+  <main>
+    <section class="dialogue-stage" aria-labelledby="page-title">
+      <img
+        src="/images/sheikha-worldly-gardens-v1.png"
+        alt="حديقة معرفة دنيوية ومسارات ماء وطاقة"
+      >
+      <div class="stage-shade" aria-hidden="true"></div>
+      <div class="stage-copy">
+        <p class="eyebrow">GOVERNED IDEAS &amp; AI DIALOGUE V3</p>
+        <h1 id="page-title">الحوار والبناء</h1>
+        <p>فكرة محددة، دليل واعتراض، ثم برنامج نافع قابل للقياس والمراجعة والتعافي.</p>
+      </div>
+    </section>
+
+    <section class="dialogue-workspace" aria-labelledby="workspace-title">
+      <aside class="framework-rail">
+        <div class="rail-heading">
+          <p class="eyebrow">أطر المقارنة</p>
+          <h2 id="workspace-title">الأفكار المسجلة</h2>
+          <span id="framework-status">جارٍ التحميل</span>
+        </div>
+        <div class="framework-list" id="framework-list"></div>
+      </aside>
+
+      <div class="dialogue-main">
+        <form id="dialogue-form">
+          <fieldset class="mode-switch">
+            <legend>نوع المخرج</legend>
+            <label>
+              <input type="radio" name="output-mode" value="dialogue" checked>
+              <span>خطة حوار</span>
+            </label>
+            <label>
+              <input type="radio" name="output-mode" value="ai">
+              <span>جواب شيخة</span>
+            </label>
+            <label>
+              <input type="radio" name="output-mode" value="program">
+              <span>برنامج مجتمع</span>
+            </label>
+            <label>
+              <input type="radio" name="output-mode" value="assessment">
+              <span>فحص الفكرة</span>
+            </label>
+            <label>
+              <input type="radio" name="output-mode" value="synthesis">
+              <span>توليد فكرة</span>
+            </label>
+          </fieldset>
+
+          <div class="ai-fields" id="ai-fields" hidden>
+            <label>
+              <span>سياق الجمهور</span>
+              <select id="audience-context" name="audienceContext">
+                <option value="GENERAL_PUBLIC">الجمهور العام</option>
+                <option value="LEARNER">المتعلم</option>
+                <option value="TECHNICAL_PROFESSIONAL">الممارس التقني</option>
+                <option value="RESEARCHER">الباحث</option>
+                <option value="COMMUNITY_FACILITATOR">ميسر الحوار المجتمعي</option>
+                <option value="DECISION_REVIEWER">مراجع القرار</option>
+              </select>
+            </label>
+            <label>
+              <span>نمط الاستدلال</span>
+              <select id="ai-reasoning-mode" name="reasoningMode">
+                <option value="standard">قياسي</option>
+                <option value="pro">احترافي متعدد النماذج</option>
+                <option value="ultra">فائق بموافقة الميزانية</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="program-fields" id="program-fields" hidden>
+            <label>
+              <span>اسم البرنامج</span>
+              <input
+                id="program-name"
+                name="programName"
+                maxlength="120"
+                value="برنامج شيخة للمنفعة العامة"
+              >
+            </label>
+            <label>
+              <span>نطاق المجتمع</span>
+              <select id="community-scope" name="communityScope">
+                <option value="local-community">مجتمع محلي</option>
+                <option value="neighborhood">حي</option>
+                <option value="institution">مؤسسة</option>
+                <option value="city">مدينة</option>
+                <option value="digital-community">مجتمع رقمي</option>
+              </select>
+            </label>
+          </div>
+
+          <div class="idea-fields" id="idea-fields" hidden>
+            <label>
+              <span>اسم الفكرة</span>
+              <input
+                id="idea-name"
+                name="ideaName"
+                maxlength="120"
+                value="إطار شيخة للمنفعة المتوازنة"
+              >
+            </label>
+            <label>
+              <span>النتائج المرغوبة</span>
+              <input
+                id="desired-outcomes"
+                name="desiredOutcomes"
+                maxlength="500"
+                placeholder="تعليم موثوق، عمل نافع، استدامة"
+              >
+            </label>
+            <label>
+              <span>النطاق</span>
+              <select id="idea-scope" name="ideaScope">
+                <option value="local-community">مجتمع محلي</option>
+                <option value="neighborhood">حي</option>
+                <option value="institution">مؤسسة</option>
+                <option value="city">مدينة</option>
+                <option value="digital-community">مجتمع رقمي</option>
+              </select>
+            </label>
+          </div>
+
+          <label for="dialogue-message">الفكرة أو الدعوى</label>
+          <textarea
+            id="dialogue-message"
+            name="message"
+            maxlength="4000"
+            required
+            placeholder="مثال: كيف نوازن بين تسريع التقنية والاستدامة والعدالة؟"
+          ></textarea>
+          <div class="form-actions">
+            <label class="method-toggle">
+              <input type="checkbox" id="religious-lens" checked>
+              <span>منهج قيم الكتاب والسنة مع مراجعة بشرية مؤهلة</span>
+            </label>
+            <button type="submit" id="build-plan">إعداد خطة الحوار</button>
+          </div>
+        </form>
+
+        <div class="plan-state" id="plan-state" aria-live="polite">
+          <strong>جاهز</strong>
+          <span>لا يُنشأ ملف معتقدات ولا يُحفظ نص الحوار في هذا المسار.</span>
+        </div>
+
+        <section class="plan-output" id="plan-output" hidden>
+          <header>
+            <p class="eyebrow">خطة الحوار</p>
+            <h2 id="plan-title">مسار التحليل</h2>
+            <span id="plan-decision"></span>
+          </header>
+          <div class="phase-track" id="phase-track"></div>
+          <div class="evidence-grid">
+            <section>
+              <h3>الأهداف والمشترك</h3>
+              <ul id="goal-list"></ul>
+            </section>
+            <section>
+              <h3>المخاطر والنقد</h3>
+              <ul id="risk-list"></ul>
+            </section>
+            <section>
+              <h3>أسئلة التثبت</h3>
+              <ul id="question-list"></ul>
+            </section>
+          </div>
+          <div class="framework-output" id="framework-output"></div>
+        </section>
+
+        <section class="ai-output" id="ai-output" hidden>
+          <header>
+            <p class="eyebrow">حوار شيخة الذكي V3</p>
+            <h2>الجواب البنّاء</h2>
+            <span id="ai-status"></span>
+          </header>
+          <div class="ai-meta" aria-label="بيانات التنفيذ">
+            <div>
+              <span>سياق الجمهور</span>
+              <strong id="ai-audience"></strong>
+            </div>
+            <div>
+              <span>النماذج</span>
+              <strong id="ai-models"></strong>
+            </div>
+            <div>
+              <span>بوابة الجودة</span>
+              <strong id="ai-quality"></strong>
+            </div>
+          </div>
+          <pre id="ai-answer" class="ai-answer"></pre>
+          <section class="ai-references">
+            <h3>المراجع المنهجية وحدود الاستعمال</h3>
+            <ul id="ai-references"></ul>
+          </section>
+        </section>
+
+        <section class="assessment-output" id="assessment-output" hidden>
+          <header>
+            <p class="eyebrow">فحص النزاهة</p>
+            <h2>أبعاد التثبت</h2>
+            <span id="assessment-status"></span>
+          </header>
+          <div class="assessment-summary" id="assessment-summary"></div>
+          <div class="dimension-grid" id="dimension-grid"></div>
+        </section>
+
+        <section class="program-output" id="program-output" hidden>
+          <header>
+            <p class="eyebrow">برنامج المنفعة العامة</p>
+            <h2 id="program-title"></h2>
+            <span id="program-status"></span>
+          </header>
+          <div class="vision-band">
+            <section>
+              <span>الرؤية</span>
+              <p id="program-vision"></p>
+            </section>
+            <section>
+              <span>الرسالة</span>
+              <p id="program-mission"></p>
+            </section>
+          </div>
+          <div class="program-grid" id="program-grid"></div>
+          <div class="program-details">
+            <section>
+              <h3>الأهداف القابلة للقياس</h3>
+              <ul id="objective-list"></ul>
+            </section>
+            <section>
+              <h3>دورة التعافي</h3>
+              <ol id="recovery-list"></ol>
+            </section>
+          </div>
+          <p class="execution-boundary" id="execution-boundary"></p>
+        </section>
+
+        <section class="idea-output" id="idea-output" hidden>
+          <header>
+            <p class="eyebrow">مسودة فكرية هادفة</p>
+            <h2 id="idea-title"></h2>
+            <span id="idea-status"></span>
+          </header>
+          <div class="vision-band">
+            <section>
+              <span>الرؤية</span>
+              <p id="idea-vision"></p>
+            </section>
+            <section>
+              <span>الرسالة</span>
+              <p id="idea-mission"></p>
+            </section>
+          </div>
+          <section class="idea-challenge">
+            <span>المشكلة المحددة</span>
+            <p id="idea-challenge"></p>
+          </section>
+          <div class="principle-grid" id="principle-grid"></div>
+          <h3 class="section-heading">نظرية التغيير</h3>
+          <div class="change-track" id="change-track"></div>
+          <div class="idea-details">
+            <section>
+              <h3>النتائج المرغوبة</h3>
+              <ul id="idea-outcome-list"></ul>
+            </section>
+            <section>
+              <h3>التوترات التي لم تُحسم آليًا</h3>
+              <ul id="idea-tension-list"></ul>
+            </section>
+          </div>
+          <p class="execution-boundary" id="idea-boundary"></p>
+        </section>
+      </div>
+    </section>
+
+    <aside class="boundary">
+      <strong>حدود صريحة</strong>
+      <p>
+        التحليل موجّه إلى الأفكار التي تختارها، لا إلى تصنيف دينك أو مذهبك
+        أو توجهك السياسي. البرامج مسودات تطوعية تحفظ الحقوق، وليست سلطة
+        تنفيذ أو علاجًا طبيًا. لا إقناع قسري ولا فتوى أو حكم عقدي آلي.
+      </p>
+    </aside>
+  </main>
+
+  <footer>
+    <strong>شيخة</strong>
+    <span>حوار بالدليل والعدل ومنع الضرر</span>
+    <a href="/riyadh-aljannah-community/">دليل الجنات</a>
+  </footer>
+
+  <script src="/constructive-dialogue/app.js" defer></script>
+</body>
+</html>

@@ -3,7 +3,9 @@
 const fs = require('fs');
 const path = require('path');
 const { governGovernance } = require('../governance/sheikha-governance-of-governance-v1');
-const { executePipeline } = require('../execution/sheikha-execution-pipeline-v1');
+const {
+  executePipelineAsync
+} = require('../execution/sheikha-execution-pipeline-v1');
 
 const ROOT = process.env.SHEIKHA_ROOT || (
   fs.existsSync('/opt/sheikha/current') ? '/opt/sheikha/current' : process.cwd()
@@ -66,7 +68,7 @@ function compactInspectorSnapshot(snapshot = {}) {
   return compactInspectorContext(snapshot);
 }
 
-function handleUnifiedChat(payload = {}) {
+async function handleUnifiedChat(payload = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const channel = normalizeChannel(payload.channel || payload.source || payload.actor);
 
@@ -96,7 +98,7 @@ function handleUnifiedChat(payload = {}) {
       })
     : undefined;
 
-  const result = executePipeline({
+  const result = await executePipelineAsync({
     ...payload,
     message,
     source: channel,
