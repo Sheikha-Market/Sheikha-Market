@@ -1,0 +1,73 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCTION_MODEL_REGISTRY_V1",
+  "status": "ACTIVE",
+  "defaultModel": "INTERNAL_MAXIMUM_CAPABILITY",
+  "count": 8,
+  "models": [
+    {
+      "id": "INTERNAL_MAXIMUM_CAPABILITY",
+      "titleAr": "الإنتاج الداخلي بأعلى قدرة محلية متحققة",
+      "lane": "INTERNAL",
+      "default": true,
+      "externalComponents": false,
+      "activation": "ACTIVE_BOUNDED_BY_LOCAL_EVIDENCE"
+    },
+    {
+      "id": "INTERNAL_WITH_APPROVED_EXTERNAL_AUGMENTATION",
+      "titleAr": "إنتاج داخلي مع قدرة خارجية معتمدة",
+      "lane": "HYBRID",
+      "default": false,
+      "externalComponents": true,
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "CUSTOMER_OWNED_PLATFORM",
+      "titleAr": "بيئة يملكها العميل",
+      "lane": "EXTERNAL",
+      "default": false,
+      "externalComponents": true,
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "EXTERNAL_MANAGED_PLATFORM",
+      "titleAr": "منصة خارجية مُدارة",
+      "lane": "EXTERNAL",
+      "default": false,
+      "externalComponents": true,
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "HYBRID_INTERNAL_EXTERNAL",
+      "titleAr": "إنتاج هجين داخلي وخارجي",
+      "lane": "HYBRID",
+      "default": false,
+      "externalComponents": true,
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "FEDERATED_MULTI_PLATFORM",
+      "titleAr": "اتحاد منصات متعددة",
+      "lane": "FEDERATED",
+      "default": false,
+      "externalComponents": true,
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "AIR_GAPPED_INTERNAL",
+      "titleAr": "إنتاج داخلي معزول شبكيًا",
+      "lane": "INTERNAL",
+      "default": false,
+      "externalComponents": false,
+      "activation": "AVAILABLE_BY_EXPLICIT_SCOPE"
+    },
+    {
+      "id": "MIGRATION_EXIT_OR_PROVIDER_REPLACEMENT",
+      "titleAr": "الهجرة أو الخروج أو استبدال المزود",
+      "lane": "FEDERATED",
+      "default": false,
+      "externalComponents": true,
+      "activation": "REGISTERED_DEFAULT_DENY"
+    }
+  ]
+}

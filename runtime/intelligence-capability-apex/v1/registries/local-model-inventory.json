@@ -1,0 +1,154 @@
+{
+  "schemaVersion": "1.0.0",
+  "registry": "SHEIKHA_LOCAL_MODEL_INVENTORY_V1",
+  "generatedAt": "2026-07-31T00:54:24.962Z",
+  "status": "LOCAL_MODELS_DISCOVERED",
+  "online": true,
+  "endpoint": "http://127.0.0.1:11434",
+  "discoveryMethod": "NODE_FETCH_LOOPBACK",
+  "discoveryEvidence": null,
+  "count": 6,
+  "models": [
+    {
+      "name": "qwen2.5-coder:7b",
+      "digest": "dae161e27b0e90dd1856c8bb3209201fd6736d8eb66298e75ed87571486f4364",
+      "sizeBytes": 4683087561,
+      "modifiedAt": "2026-06-17T01:40:11.619007119+03:00",
+      "profileId": "QWEN_CODER_LOCAL",
+      "capabilities": [
+        "CODE",
+        "REVIEW",
+        "STRUCTURED",
+        "GENERAL"
+      ],
+      "taskWeights": {
+        "CODING": 120,
+        "DEFENSIVE_SECURITY": 80,
+        "DATA_ANALYSIS": 35
+      },
+      "discoveredLocally": true,
+      "benchmarkVerified": false,
+      "externalModel": false
+    },
+    {
+      "name": "deepseek-r1:8b",
+      "digest": "6995872bfe4c521a67b32da386cd21d5c6e819b6e0d62f79f64ec83be99f5763",
+      "sizeBytes": 5225376047,
+      "modifiedAt": "2026-06-08T22:24:29.506508788+03:00",
+      "profileId": "DEEPSEEK_REASONING_LOCAL",
+      "capabilities": [
+        "REASONING",
+        "MATHEMATICS",
+        "SCIENCE",
+        "SECURITY",
+        "REVIEW",
+        "GENERAL"
+      ],
+      "taskWeights": {
+        "REASONING": 120,
+        "MATHEMATICS": 120,
+        "SCIENCE": 105,
+        "DEFENSIVE_SECURITY": 80,
+        "RESEARCH": 70
+      },
+      "discoveredLocally": true,
+      "benchmarkVerified": false,
+      "externalModel": false
+    },
+    {
+      "name": "Sheikha-Core:latest",
+      "digest": "4c8f210078d7813e0e13deacb64f0defbb990a021cafb7cd859decc480ee148c",
+      "sizeBytes": 4920754025,
+      "modifiedAt": "2026-06-01T06:45:42.08095628+03:00",
+      "profileId": "SHEIKHA_CORE_LOCAL",
+      "capabilities": [
+        "ARABIC",
+        "GENERAL",
+        "GOVERNANCE",
+        "INDUSTRIAL",
+        "SUPPLY_CHAIN",
+        "SYNTHESIS"
+      ],
+      "taskWeights": {
+        "ARABIC_GENERAL": 125,
+        "GENERAL": 110,
+        "RESEARCH": 35,
+        "CODING": 25
+      },
+      "discoveredLocally": true,
+      "benchmarkVerified": false,
+      "externalModel": false
+    },
+    {
+      "name": "Sheikha-Core-Clean:latest",
+      "digest": "d8396ecddfbbf0a6497366dc351a9e51230ae6639e1bae5e0a612f5f0f6b00b0",
+      "sizeBytes": 4920753345,
+      "modifiedAt": "2026-06-01T06:36:29.633708436+03:00",
+      "profileId": "SHEIKHA_CORE_LOCAL",
+      "capabilities": [
+        "ARABIC",
+        "GENERAL",
+        "GOVERNANCE",
+        "INDUSTRIAL",
+        "SUPPLY_CHAIN",
+        "SYNTHESIS"
+      ],
+      "taskWeights": {
+        "ARABIC_GENERAL": 125,
+        "GENERAL": 110,
+        "RESEARCH": 35,
+        "CODING": 25
+      },
+      "discoveredLocally": true,
+      "benchmarkVerified": false,
+      "externalModel": false
+    },
+    {
+      "name": "llama3.1:8b",
+      "digest": "46e0c10c039e019119339687c3c1757cc81b9da49709a3b3924863ba87ca666e",
+      "sizeBytes": 4920753328,
+      "modifiedAt": "2026-05-23T02:26:13.043110465+03:00",
+      "profileId": "LLAMA_GENERAL_REVIEW_LOCAL",
+      "capabilities": [
+        "GENERAL",
+        "REASONING",
+        "REVIEW",
+        "STRUCTURED",
+        "SYNTHESIS"
+      ],
+      "taskWeights": {
+        "GENERAL": 85,
+        "RESEARCH": 70,
+        "REASONING": 65,
+        "DEFENSIVE_SECURITY": 55
+      },
+      "discoveredLocally": true,
+      "benchmarkVerified": false,
+      "externalModel": false
+    },
+    {
+      "name": "tinyllama:latest",
+      "digest": "2644915ede352ea7bdfaff0bfac0be74c719d5d5202acb63a6fb095b52f394a4",
+      "sizeBytes": 637700138,
+      "modifiedAt": "2026-05-15T16:28:41.686582725+03:00",
+      "profileId": "TINY_FAST_LOCAL",
+      "capabilities": [
+        "FAST",
+        "GENERAL"
+      ],
+      "taskWeights": {
+        "FAST_RESPONSE": 140,
+        "GENERAL": 10
+      },
+      "discoveredLocally": true,
+      "benchmarkVerified": false,
+      "externalModel": false
+    }
+  ],
+  "error": null,
+  "policy": {
+    "discoveryIsPerformanceBenchmark": false,
+    "modelNameIsCapabilityProof": false,
+    "localAvailabilityRequiredForExecution": true
+  }
+}

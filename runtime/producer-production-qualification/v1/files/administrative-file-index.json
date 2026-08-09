@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCER_PRODUCTION_QUALIFICATION_V1_ADMINISTRATIVE_FILE_INDEX",
+  "family": "ADMINISTRATIVE",
+  "count": 10,
+  "status": "REQUIREMENTS_REGISTERED",
+  "files": [
+    {
+      "id": "PRODUCT_IDENTITY_AND_VERSION",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "هوية المنتج والإصدار والنطاق",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PRODUCER_LEGAL_ENTITY_REFERENCE",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "مرجع الكيان القانوني للمنتج",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "AUTHORIZED_REPRESENTATIVE_REFERENCE",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "مرجع المفوض النظامي",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": false,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "OWNERSHIP_AND_IP_RIGHTS",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "الملكية وحقوق الاستخدام والإنتاج",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "CONTRACT_SCOPE_AND_RESPONSIBILITIES",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "العقد والنطاق والمسؤوليات",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "INTERNAL_LICENSE_TERMS",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "شروط الترخيص الداخلي",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "EXTERNAL_LICENSE_AND_REGULATORY_MATRIX",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "مصفوفة التراخيص والجهات المختصة",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PRIVACY_AND_DATA_PROCESSING",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "الخصوصية ومعالجة البيانات",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "LIABILITY_RISK_AND_DISPUTE_TERMS",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "المسؤولية والمخاطر وآلية النزاع",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "EXTERNAL_AUTHORITY_CERTIFICATES",
+      "family": "ADMINISTRATIVE",
+      "titleAr": "شهادات الجهة الخارجية المختصة",
+      "ownerRole": "PRODUCT_OWNER",
+      "appliesTo": [
+        "REGULATED"
+      ],
+      "externalAuthorityOnly": true,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    }
+  ],
+  "completionPolicy": "A registered requirement is not complete until submitted evidence is hash-verified and accepted by a qualified human reviewer."
+}

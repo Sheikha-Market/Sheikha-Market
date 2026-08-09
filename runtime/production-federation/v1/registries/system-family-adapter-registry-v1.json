@@ -1,0 +1,132 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_FAMILY_ADAPTER_REGISTRY_V1",
+  "status": "ACTIVE_OPEN_ENDED_DEFAULT_DENY",
+  "count": 15,
+  "unlistedAdapterPathAvailable": true,
+  "registrationDoesNotMeanImplementation": true,
+  "allSystemsIntegrated": false,
+  "allSystemsProductionReady": false,
+  "families": [
+    {
+      "id": "SHEIKHA_NATIVE_SYSTEMS",
+      "titleAr": "أنظمة شيخة الأصلية",
+      "ownershipClass": "SHEIKHA_OWNED",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "BOUNDED_LOCAL_EVIDENCE_ONLY",
+      "activation": "ACTIVE_BOUNDED_LOCAL_EVIDENCE"
+    },
+    {
+      "id": "FIRMWARE_AND_UEFI",
+      "titleAr": "البرمجيات الثابتة وواجهات الإقلاع",
+      "ownershipClass": "MIXED_RIGHTS",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "ACTIVE_VERIFIED_FOUNDATION_SUBSETS"
+    },
+    {
+      "id": "DESKTOP_OS",
+      "titleAr": "أنظمة الحاسب المكتبي والمحمول",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "MOBILE_OS",
+      "titleAr": "أنظمة الأجهزة المحمولة",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "SERVER_AND_NETWORK_OS",
+      "titleAr": "أنظمة الخوادم والشبكات",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "HYPERVISOR_AND_CLOUD",
+      "titleAr": "الافتراضية ومنصات السحابة",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "REAL_TIME_OS",
+      "titleAr": "أنظمة الزمن الحقيقي",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "EMBEDDED_AND_DEVICE_OS",
+      "titleAr": "الأنظمة المضمنة وأنظمة الأجهزة",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "MAINFRAME_OS",
+      "titleAr": "أنظمة الحواسيب المركزية",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "HPC_AND_SUPERCOMPUTING",
+      "titleAr": "الحوسبة الفائقة والعناقيد",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "SECURITY_CRITICAL",
+      "titleAr": "الأنظمة الحرجة وعالية الضمان",
+      "ownershipClass": "RESTRICTED_EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "RESEARCH_AND_EXPERIMENTAL",
+      "titleAr": "الأنظمة البحثية والتجريبية",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "LEGACY_AND_HISTORICAL",
+      "titleAr": "الأنظمة القديمة والتاريخية",
+      "ownershipClass": "EXTERNAL",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "CUSTOMER_OR_INDUSTRY_SPECIFIC",
+      "titleAr": "أنظمة العميل أو القطاع",
+      "ownershipClass": "CUSTOMER_OWNED",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    },
+    {
+      "id": "UNLISTED_SYSTEM_OR_PLATFORM",
+      "titleAr": "أي نظام أو منصة غير مدرجة",
+      "ownershipClass": "UNCLASSIFIED",
+      "adapterContract": "OPEN_ENDED_EVIDENCE_BOUND_ADAPTER",
+      "productionSupport": "NOT_PRODUCTION_SUPPORTED_UNTIL_PROVEN",
+      "activation": "REGISTERED_DEFAULT_DENY"
+    }
+  ]
+}

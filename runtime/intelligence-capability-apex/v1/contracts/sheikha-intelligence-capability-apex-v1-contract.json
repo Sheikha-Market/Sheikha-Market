@@ -1,0 +1,124 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_INTELLIGENCE_CAPABILITY_APEX_V1",
+  "status": "ACTIVE_CONTRACT",
+  "identity": {
+    "nameAr": "قمة شيخة للقدرات الذكية المحكومة",
+    "nameEn": "Sheikha Governed Intelligence Capability Apex",
+    "scope": "LOCAL_FIRST_CAPABILITY_ROUTING_MULTI_MODEL_REVIEW_AND_MEASUREMENT"
+  },
+  "objective": {
+    "definition": "Select and coordinate the strongest evidence-backed available route for each task under explicit safety, privacy, latency, and human-approval constraints.",
+    "absoluteSuperiorityClaim": false,
+    "bestPossibleByEvidence": true,
+    "benchmarkBeforeComparison": true,
+    "humansRemainPrimaryAndAccountable": true
+  },
+  "executionFlow": [
+    "INPUT_SCHEMA_VALIDATION",
+    "SECRET_REDACTION",
+    "INTENT_AND_RISK_CLASSIFICATION",
+    "CAPABILITY_REQUIREMENTS",
+    "LOCAL_MODEL_DISCOVERY",
+    "EVIDENCE_BACKED_MODEL_SELECTION",
+    "STANDARD_OR_PRO_OR_ULTRA_ORCHESTRATION",
+    "QUALITY_AND_SAFETY_GATES",
+    "HUMAN_APPROVAL_FOR_HIGH_IMPACT",
+    "HASH_ONLY_AUDIT_EVIDENCE"
+  ],
+  "modes": {
+    "standard": {
+      "modelInvocationsMaximum": 1,
+      "roleSlots": 1,
+      "concurrencyMaximum": 1,
+      "budgetApprovalRequired": false
+    },
+    "pro": {
+      "modelInvocationsMaximum": 5,
+      "roleSlots": 4,
+      "concurrencyMaximum": 2,
+      "budgetApprovalRequired": false
+    },
+    "ultra": {
+      "modelInvocationsMaximum": 5,
+      "roleSlots": 4,
+      "concurrencyMaximum": 4,
+      "budgetApprovalRequired": true
+    }
+  },
+  "authority": {
+    "mayAnswerAndAnalyze": true,
+    "mayRouteBetweenApprovedModels": true,
+    "mayProduceReadOnlyPlans": true,
+    "mayExecuteShell": false,
+    "mayWriteFiles": false,
+    "mayInstallSoftware": false,
+    "mayPublish": false,
+    "mayMakePayments": false,
+    "mayControlPhysicalSystems": false,
+    "mayIssueReligiousRuling": false,
+    "mayOverrideHuman": false
+  },
+  "providerPolicy": {
+    "localFirst": true,
+    "offlineContinuity": true,
+    "githubRequired": false,
+    "copilotRequired": false,
+    "singleExternalProviderRequired": false,
+    "externalProviderUseRequiresConfigurationAndApproval": true,
+    "externalProviderIsReplaceableTool": true,
+    "noCredentialExposure": true
+  },
+  "candidateModelPolicy": {
+    "selectionByTaskCapability": true,
+    "selectionByMeasuredAvailability": true,
+    "selectionByBrandRank": false,
+    "unavailableModelClaimedActive": false,
+    "registeredCapabilityMeansVerifiedPerformance": false,
+    "modelSelfReportTrustedAsBenchmark": false
+  },
+  "qualityPolicy": {
+    "nonEmptyOutputRequired": true,
+    "arabicResponseRequiredForArabicPrompt": true,
+    "secretPatternDetection": true,
+    "unsupportedAbsoluteClaimDetection": true,
+    "consciousnessClaimDetection": true,
+    "sourceEvidenceRequiredForExternalResearchClaims": true,
+    "independentVerificationRequiredForMathematicsAndScience": true,
+    "humanReviewRequiredForHighImpact": true
+  },
+  "governance": {
+    "valuesReference": "runtime/islamic-reference-governance/v1/sheikha-quran-sunnah-reference-policy-v1.json",
+    "values": [
+      "TRUTH",
+      "JUSTICE",
+      "TRUST",
+      "FULFIL_CONTRACTS",
+      "VERIFY_BEFORE_CLAIM",
+      "NO_HARM"
+    ],
+    "valuesAreExecutableReligiousAuthority": false,
+    "automatedFatwa": false,
+    "qualifiedHumanReviewForReligiousJudgments": true
+  },
+  "privacy": {
+    "promptStoredInAudit": false,
+    "responseStoredInAudit": false,
+    "promptHashStored": true,
+    "responseHashStored": true,
+    "secretValuesStored": false,
+    "dataMinimization": true
+  },
+  "truthBoundaries": {
+    "betterThanAllModelsClaimed": false,
+    "copilotBenchmarked": false,
+    "externalGptModelBenchmarked": false,
+    "allExternalModelsBenchmarked": false,
+    "agiClaimed": false,
+    "asiClaimed": false,
+    "consciousnessClaimed": false,
+    "infallibilityClaimed": false,
+    "independentAgentProcessesClaimed": false,
+    "independentModelInvocationsMayBeMeasured": true
+  }
+}

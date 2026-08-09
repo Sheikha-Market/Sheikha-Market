@@ -2,16 +2,24 @@
   "schemaVersion": "1.0.0",
   "system": "SHEIKHA_SYSTEM_BUILDER_FABRIC_V1",
   "status": "ACTIVE_GOVERNED_TOOL_FABRIC",
-  "sourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+  "sourceHead": "f953c0ad29689feb17059d8da90676f149aa6389",
   "registry": "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json",
   "capabilityMatrix": "runtime/system-builder-fabric/v1/sheikha-system-builder-capability-matrix-v1.json",
   "activeProfile": "FEDORA_RPM_MINIMAL_V7",
   "activeExecution": {
-    "status": "BUILT_CONTENT_VERIFIED_DEPENDENCY_GAP",
+    "status": "RECOVERED_HISTORICAL_ARTIFACT_CONTENT_VERIFIED_DEPENDENCY_GAP",
     "artifactSha256": "936bdc0dfbb794e1fe41d8fd7799af95a9e3cc92b117a62c0b8b2383f6a571b9",
     "nativeInstallVerified": false,
     "lifecycleVerified": false,
-    "report": "runtime/distribution/v7/evidence/sheikha-v7-rpm-native-build-report.json"
+    "report": "runtime/distribution/v7/evidence/sheikha-v7-rpm-native-build-report.json",
+    "artifactPath": "distribution/artifacts/v7/1.0.51_sheikha.v7.1/artifacts/sheikha-1.0.51-0.sheikha.v7.1.x86_64.rpm",
+    "artifactBytes": 26200270,
+    "artifactPresent": true,
+    "artifactVerificationStatus": "SHA256_VERIFIED",
+    "artifactSourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+    "recoveryVerificationHead": "f953c0ad29689feb17059d8da90676f149aa6389",
+    "dependencyMetadataComplete": false,
+    "recoveryEvidence": "runtime/distribution/v7/recovery/sheikha-v7-local-artifact-recovery-verification-v1.json"
   },
   "executionPolicy": {
     "unit": "ISOLATED_FAMILY_PROFILE",
@@ -51,5 +59,6 @@
     "noAutomaticExternalPublishing": true,
     "noClaimOfOfficialPlatformAuthority": true
   },
-  "createdAt": "2026-07-13T17:37:00.338636+00:00"
+  "createdAt": "2026-07-13T17:37:00.338636+00:00",
+  "verifiedAt": "2026-07-31T00:47:52.665Z"
 }

@@ -76,6 +76,7 @@
   ],
   "productionGate": {
     "system": "SHEIKHA_PRODUCTION_READINESS_GATE_V1",
+    "generatedAt": "2026-08-08T23:39:36.997Z",
     "status": "PASSED",
     "productionReady": true,
     "candidateReady": true,
@@ -85,6 +86,16 @@
       "review": 0,
       "total": 0,
       "suppressed": 0
+    },
+    "scanScope": {
+      "activePm2Apps": [
+        "sheikha-main-portal",
+        "sheikha-proxy-8082",
+        "sheikha-universal-api"
+      ],
+      "inputLineCount": 668,
+      "maximumStoredFindings": 100,
+      "historicalRotatedLogsIncluded": false
     },
     "requiredBeforeProfitLaunch": [
       "clean_pm2_logs",
@@ -119,5 +130,5 @@
     "principle": "لا ضرر ولا ضرار",
     "tawhid": "الله وحده لا شريك له"
   },
-  "timestamp": "2026-07-09T23:06:39.705Z"
+  "timestamp": "2026-08-08T23:39:36.997Z"
 }

@@ -1,0 +1,152 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PRODUCER_PRODUCTION_QUALIFICATION_V1_PRODUCTION_FILE_INDEX",
+  "family": "PRODUCTION",
+  "count": 10,
+  "status": "REQUIREMENTS_REGISTERED",
+  "files": [
+    {
+      "id": "PRODUCTION_PROCESS_PLAN",
+      "family": "PRODUCTION",
+      "titleAr": "خطة عملية الإنتاج",
+      "ownerRole": "PRODUCTION_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "FACILITY_AND_EQUIPMENT_CAPABILITY",
+      "family": "PRODUCTION",
+      "titleAr": "قدرة المنشأة والمعدات",
+      "ownerRole": "PRODUCTION_ENGINEER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": true,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "PERSONNEL_COMPETENCE_AND_ROLES",
+      "family": "PRODUCTION",
+      "titleAr": "كفاءة فريق الإنتاج والأدوار",
+      "ownerRole": "PRODUCTION_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "SUPPLIER_AND_MATERIAL_TRACEABILITY",
+      "family": "PRODUCTION",
+      "titleAr": "تتبع الموردين والمواد",
+      "ownerRole": "SUPPLY_CHAIN_MANAGER",
+      "appliesTo": [
+        "HARDWARE",
+        "HYBRID"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "CAPACITY_AND_RESOURCE_PLAN",
+      "family": "PRODUCTION",
+      "titleAr": "خطة الطاقة والموارد",
+      "ownerRole": "PRODUCTION_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "RELEASE_PACKAGING_AND_DISTRIBUTION",
+      "family": "PRODUCTION",
+      "titleAr": "الإصدار والتغليف والتوزيع",
+      "ownerRole": "RELEASE_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "OPERATIONS_MONITORING_AND_SUPPORT",
+      "family": "PRODUCTION",
+      "titleAr": "التشغيل والرصد والدعم",
+      "ownerRole": "OPERATIONS_MANAGER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "MAINTENANCE_RECOVERY_AND_ROLLBACK",
+      "family": "PRODUCTION",
+      "titleAr": "الصيانة والتعافي والتراجع",
+      "ownerRole": "RELIABILITY_ENGINEER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "CHANGE_CONTROL_AND_AUDIT",
+      "family": "PRODUCTION",
+      "titleAr": "إدارة التغيير وسجل التدقيق",
+      "ownerRole": "GOVERNANCE_REVIEWER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    },
+    {
+      "id": "USER_ADMIN_AND_TRAINING_DOCUMENTATION",
+      "family": "PRODUCTION",
+      "titleAr": "أدلة المستخدم والإدارة والتدريب",
+      "ownerRole": "DOCUMENTATION_OWNER",
+      "appliesTo": [
+        "ALL"
+      ],
+      "externalAuthorityOnly": false,
+      "qualifiedReviewRequired": false,
+      "sha256Required": true,
+      "blocking": true,
+      "retention": "PRODUCT_LIFECYCLE_PLUS_POLICY_PERIOD"
+    }
+  ],
+  "completionPolicy": "A registered requirement is not complete until submitted evidence is hash-verified and accepted by a qualified human reviewer."
+}

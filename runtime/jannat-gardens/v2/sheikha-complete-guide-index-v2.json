@@ -1,0 +1,553 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_COMPLETE_GUIDE_INDEX_V2",
+  "generatedAt": "2026-07-26T23:53:05.123Z",
+  "status": "VERIFIED_LOCAL_GUIDE_INDEX",
+  "coverage": {
+    "gardens": 9,
+    "trees": 27,
+    "products": 13,
+    "sectors": 30,
+    "markets": 7,
+    "workflows": 12,
+    "thoughtFrameworks": 37,
+    "contemporaryThoughtFrameworks": 19,
+    "historicalThoughtFrameworks": 18,
+    "religiousMethodReferences": 8
+  },
+  "gardens": [
+    {
+      "id": "RAWDAH_OF_TAWHID_GOVERNANCE",
+      "nameAr": "روضة التوحيد والحاكمية",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/RAWDAH_OF_TAWHID_GOVERNANCE"
+    },
+    {
+      "id": "GARDEN_OF_SHEIKHA_LANGUAGE",
+      "nameAr": "حديقة لغة شيخة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_SHEIKHA_LANGUAGE"
+    },
+    {
+      "id": "GARDEN_OF_GOVERNED_AI",
+      "nameAr": "حديقة الذكاء الصناعي المحكوم",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_GOVERNED_AI"
+    },
+    {
+      "id": "GARDEN_OF_KNOWLEDGE_AND_TRUTH",
+      "nameAr": "حديقة المعرفة والبيّنة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_KNOWLEDGE_AND_TRUTH"
+    },
+    {
+      "id": "GARDEN_OF_TECHNOLOGY_AND_COMPUTE",
+      "nameAr": "حديقة التقنية والحوسبة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_TECHNOLOGY_AND_COMPUTE"
+    },
+    {
+      "id": "GARDEN_OF_SUPPLY_AND_PROVISION",
+      "nameAr": "حديقة الإمداد والرزق",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_SUPPLY_AND_PROVISION"
+    },
+    {
+      "id": "GARDEN_OF_MARKET_AND_COMMUNITY",
+      "nameAr": "حديقة السوق والمجتمع",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_MARKET_AND_COMMUNITY"
+    },
+    {
+      "id": "GARDEN_OF_SECURITY_AND_RECOVERY",
+      "nameAr": "حديقة الأمن والتعافي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_SECURITY_AND_RECOVERY"
+    },
+    {
+      "id": "GARDEN_OF_BEAUTY_AND_EXPERIENCE",
+      "nameAr": "حديقة الجمال والتجربة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/gardens/GARDEN_OF_BEAUTY_AND_EXPERIENCE"
+    }
+  ],
+  "products": [
+    {
+      "id": "PROD-GOV-001",
+      "nameAr": "محرك شيخة للحوكمة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-GOV-001/guide"
+    },
+    {
+      "id": "PROD-STAB-001",
+      "nameAr": "محرك شيخة للاستقرار",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-STAB-001/guide"
+    },
+    {
+      "id": "PROD-DEC-001",
+      "nameAr": "سجل شيخة للقرارات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-DEC-001/guide"
+    },
+    {
+      "id": "PROD-CAP-001",
+      "nameAr": "سجل شيخة للقدرات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-CAP-001/guide"
+    },
+    {
+      "id": "PROD-ENG-001",
+      "nameAr": "أدوات شيخة للمراجعة الهندسية",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-ENG-001/guide"
+    },
+    {
+      "id": "PROD-AICL-001",
+      "nameAr": "نسيج شيخة لمسارات عناقيد الذكاء الصناعي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-AICL-001/guide"
+    },
+    {
+      "id": "PROD-UGITAI-001",
+      "nameAr": "مستوى شيخة للتحكم في الذكاء الصناعي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-UGITAI-001/guide"
+    },
+    {
+      "id": "PROD-SUPPLY-CHAIN",
+      "nameAr": "منصة شيخة لسلاسل الإمداد",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-SUPPLY-CHAIN/guide"
+    },
+    {
+      "id": "PROD-ENERGY",
+      "nameAr": "ذكاء شيخة لسلاسل إمداد الطاقة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-ENERGY/guide"
+    },
+    {
+      "id": "PROD-MARKETPLACE",
+      "nameAr": "سوق شيخة الصناعي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-MARKETPLACE/guide"
+    },
+    {
+      "id": "PROD-RIYADH-ALJANNAH",
+      "nameAr": "جنات وأشجار شيخة للمعرفة والابتكار",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-RIYADH-ALJANNAH/guide"
+    },
+    {
+      "id": "PROD-INNOVATION-LAB",
+      "nameAr": "مختبر شيخة لتحويل المسائل إلى منتجات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-INNOVATION-LAB/guide"
+    },
+    {
+      "id": "PROD-CLOUD-SAAS",
+      "nameAr": "خدمة شيخة السحابية SaaS",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/products/PROD-CLOUD-SAAS/guide"
+    }
+  ],
+  "sectors": [
+    {
+      "id": "commerce",
+      "nameAr": "التجارة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/commerce/guide"
+    },
+    {
+      "id": "marketplaces",
+      "nameAr": "الأسواق",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/marketplaces/guide"
+    },
+    {
+      "id": "industry",
+      "nameAr": "الصناعة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/industry/guide"
+    },
+    {
+      "id": "construction",
+      "nameAr": "الإنشاءات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/construction/guide"
+    },
+    {
+      "id": "architecture",
+      "nameAr": "العمارة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/architecture/guide"
+    },
+    {
+      "id": "energy",
+      "nameAr": "الطاقة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/energy/guide"
+    },
+    {
+      "id": "oil-gas",
+      "nameAr": "النفط والغاز",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/oil-gas/guide"
+    },
+    {
+      "id": "electricity",
+      "nameAr": "الكهرباء",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/electricity/guide"
+    },
+    {
+      "id": "logistics",
+      "nameAr": "اللوجستيات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/logistics/guide"
+    },
+    {
+      "id": "supply-chain",
+      "nameAr": "سلاسل الإمداد",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/supply-chain/guide"
+    },
+    {
+      "id": "manufacturing",
+      "nameAr": "التصنيع",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/manufacturing/guide"
+    },
+    {
+      "id": "recycling",
+      "nameAr": "إعادة التدوير",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/recycling/guide"
+    },
+    {
+      "id": "metals",
+      "nameAr": "المعادن",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/metals/guide"
+    },
+    {
+      "id": "precious-metals",
+      "nameAr": "المعادن الثمينة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/precious-metals/guide"
+    },
+    {
+      "id": "agriculture",
+      "nameAr": "الزراعة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/agriculture/guide"
+    },
+    {
+      "id": "food",
+      "nameAr": "الغذاء",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/food/guide"
+    },
+    {
+      "id": "healthcare",
+      "nameAr": "الصحة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/healthcare/guide"
+    },
+    {
+      "id": "education",
+      "nameAr": "التعليم",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/education/guide"
+    },
+    {
+      "id": "government",
+      "nameAr": "الجهات الحكومية",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/government/guide"
+    },
+    {
+      "id": "finance",
+      "nameAr": "المالية",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/finance/guide"
+    },
+    {
+      "id": "real-estate",
+      "nameAr": "العقار",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/real-estate/guide"
+    },
+    {
+      "id": "transportation",
+      "nameAr": "النقل",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/transportation/guide"
+    },
+    {
+      "id": "telecom",
+      "nameAr": "الاتصالات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/telecom/guide"
+    },
+    {
+      "id": "cloud-saas",
+      "nameAr": "الخدمات السحابية SaaS",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/cloud-saas/guide"
+    },
+    {
+      "id": "ai-services",
+      "nameAr": "خدمات الذكاء الصناعي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/ai-services/guide"
+    },
+    {
+      "id": "cybersecurity",
+      "nameAr": "الأمن السيبراني",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/cybersecurity/guide"
+    },
+    {
+      "id": "media-without-living-beings",
+      "nameAr": "الإعلام غير المجسّد للأحياء",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/media-without-living-beings/guide"
+    },
+    {
+      "id": "environment",
+      "nameAr": "البيئة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/environment/guide"
+    },
+    {
+      "id": "smart-cities",
+      "nameAr": "المدن الذكية",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/smart-cities/guide"
+    },
+    {
+      "id": "industrial-iot",
+      "nameAr": "إنترنت الأشياء الصناعي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/sectors/industrial-iot/guide"
+    }
+  ],
+  "markets": [
+    {
+      "id": "trade-markets",
+      "nameAr": "التجارة والأسواق",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/trade-markets/guide"
+    },
+    {
+      "id": "industry-built-environment",
+      "nameAr": "الصناعة والعمران",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/industry-built-environment/guide"
+    },
+    {
+      "id": "supply-logistics",
+      "nameAr": "الإمداد واللوجستيات",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/supply-logistics/guide"
+    },
+    {
+      "id": "energy-environment",
+      "nameAr": "الطاقة والبيئة",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/energy-environment/guide"
+    },
+    {
+      "id": "agriculture-food",
+      "nameAr": "الزراعة والغذاء",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/agriculture-food/guide"
+    },
+    {
+      "id": "public-human-services",
+      "nameAr": "الخدمات العامة والإنسانية",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/public-human-services/guide"
+    },
+    {
+      "id": "digital-technology",
+      "nameAr": "التقنية والاقتصاد الرقمي",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/markets/digital-technology/guide"
+    }
+  ],
+  "thoughtFrameworks": [
+    {
+      "id": "LIBERALISM",
+      "nameAr": "الليبرالية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/LIBERALISM"
+    },
+    {
+      "id": "SOCIALISM",
+      "nameAr": "الاشتراكية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/SOCIALISM"
+    },
+    {
+      "id": "SOCIAL_DEMOCRACY",
+      "nameAr": "الديمقراطية الاجتماعية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/SOCIAL_DEMOCRACY"
+    },
+    {
+      "id": "CONSERVATISM",
+      "nameAr": "المحافظة",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/CONSERVATISM"
+    },
+    {
+      "id": "LIBERTARIANISM",
+      "nameAr": "التحررية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/LIBERTARIANISM"
+    },
+    {
+      "id": "TECHNO_ACCELERATION_AND_FUTURISM",
+      "nameAr": "التعجيلية التقنية والمستقبلية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/TECHNO_ACCELERATION_AND_FUTURISM"
+    },
+    {
+      "id": "TECHNO_CAPITALISM",
+      "nameAr": "الرأسمالية التقنية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/TECHNO_CAPITALISM"
+    },
+    {
+      "id": "CYBER_SOVEREIGNTY",
+      "nameAr": "السيادة السيبرانية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/CYBER_SOVEREIGNTY"
+    },
+    {
+      "id": "TECHNO_FEUDALISM_CRITIQUE",
+      "nameAr": "أطروحة الإقطاعية التقنية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/TECHNO_FEUDALISM_CRITIQUE"
+    },
+    {
+      "id": "IDENTITY_POLITICS",
+      "nameAr": "السياسات الهوياتية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/IDENTITY_POLITICS"
+    },
+    {
+      "id": "NEW_LOCALISM_AND_POPULISM",
+      "nameAr": "المحلية الجديدة والشعوبية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/NEW_LOCALISM_AND_POPULISM"
+    },
+    {
+      "id": "CONTEMPORARY_EXISTENTIALISM_AND_ETHICS",
+      "nameAr": "الوجودية والأخلاق المعاصرة",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/CONTEMPORARY_EXISTENTIALISM_AND_ETHICS"
+    },
+    {
+      "id": "SPECULATIVE_REALISM",
+      "nameAr": "الواقعية المضاربة",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/SPECULATIVE_REALISM"
+    },
+    {
+      "id": "EFFECTIVE_ALTRUISM",
+      "nameAr": "الإيثار الفعال",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/EFFECTIVE_ALTRUISM"
+    },
+    {
+      "id": "TRANSHUMANISM_AND_DIGITAL_TRANSFORMATION",
+      "nameAr": "ما بعد الإنسانية والتحول الرقمي",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/TRANSHUMANISM_AND_DIGITAL_TRANSFORMATION"
+    },
+    {
+      "id": "PROTECTIONISM_AND_NEO_POPULISM",
+      "nameAr": "الحمائية والشعوبية الجديدة",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/PROTECTIONISM_AND_NEO_POPULISM"
+    },
+    {
+      "id": "DEGROWTH_AND_ENVIRONMENTAL_SUSTAINABILITY",
+      "nameAr": "نقص النمو والاستدامة البيئية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/DEGROWTH_AND_ENVIRONMENTAL_SUSTAINABILITY"
+    },
+    {
+      "id": "HIGH_TECH_AND_POLITICAL_NATIONALISM",
+      "nameAr": "التقنية الفائقة والقومية السياسية",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/HIGH_TECH_AND_POLITICAL_NATIONALISM"
+    },
+    {
+      "id": "ENVIRONMENTAL_DISRUPTION_AND_RESILIENCE",
+      "nameAr": "الاضطراب البيئي والمرونة",
+      "era": "CONTEMPORARY",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/ENVIRONMENTAL_DISRUPTION_AND_RESILIENCE"
+    },
+    {
+      "id": "CLASSICAL_LIBERALISM",
+      "nameAr": "الليبرالية الكلاسيكية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/CLASSICAL_LIBERALISM"
+    },
+    {
+      "id": "CIVIC_REPUBLICANISM",
+      "nameAr": "الجمهورية المدنية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/CIVIC_REPUBLICANISM"
+    },
+    {
+      "id": "MARXISM",
+      "nameAr": "الماركسية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/MARXISM"
+    },
+    {
+      "id": "ANARCHISM",
+      "nameAr": "اللاسلطوية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/ANARCHISM"
+    },
+    {
+      "id": "MERCANTILISM",
+      "nameAr": "المذهب التجاري",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/MERCANTILISM"
+    },
+    {
+      "id": "KEYNESIANISM",
+      "nameAr": "الاقتصاد الكينزي",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/KEYNESIANISM"
+    },
+    {
+      "id": "NEOLIBERALISM",
+      "nameAr": "النيوليبرالية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/NEOLIBERALISM"
+    },
+    {
+      "id": "COMMUNITARIANISM",
+      "nameAr": "الجماعاتية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/COMMUNITARIANISM"
+    },
+    {
+      "id": "MODERN_NATIONALISM",
+      "nameAr": "القومية الحديثة",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/MODERN_NATIONALISM"
+    },
+    {
+      "id": "ANTI_COLONIAL_THOUGHT",
+      "nameAr": "الفكر المناهض للاستعمار",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/ANTI_COLONIAL_THOUGHT"
+    },
+    {
+      "id": "ENVIRONMENTALISM",
+      "nameAr": "الفكر البيئي",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/ENVIRONMENTALISM"
+    },
+    {
+      "id": "FEMINIST_THOUGHT",
+      "nameAr": "الفكر النسوي",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/FEMINIST_THOUGHT"
+    },
+    {
+      "id": "HUMANISM",
+      "nameAr": "الإنسانية الفلسفية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/HUMANISM"
+    },
+    {
+      "id": "UTILITARIANISM",
+      "nameAr": "النفعية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/UTILITARIANISM"
+    },
+    {
+      "id": "DEONTOLOGICAL_ETHICS",
+      "nameAr": "أخلاق الواجب",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/DEONTOLOGICAL_ETHICS"
+    },
+    {
+      "id": "VIRTUE_ETHICS",
+      "nameAr": "أخلاق الفضيلة",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/VIRTUE_ETHICS"
+    },
+    {
+      "id": "EMPIRICISM",
+      "nameAr": "التجريبية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/EMPIRICISM"
+    },
+    {
+      "id": "RATIONALISM",
+      "nameAr": "العقلانية",
+      "era": "HISTORICAL",
+      "endpoint": "/api/sheikha/gardens-knowledge-dialogue/v2/thought-frameworks/RATIONALISM"
+    }
+  ],
+  "governedOperations": {
+    "religiousMethodReferences": "/api/sheikha/gardens-knowledge-dialogue/v2/religious-method/references",
+    "dialoguePlan": "/api/sheikha/gardens-knowledge-dialogue/v2/dialogue/plan",
+    "ideaIntegrityAssessment": "/api/sheikha/gardens-knowledge-dialogue/v2/ideas/assess",
+    "purposefulIdeaDraft": "/api/sheikha/gardens-knowledge-dialogue/v2/ideas/synthesize",
+    "communityProgram": "/api/sheikha/gardens-knowledge-dialogue/v2/community/program"
+  },
+  "claimBoundary": "Guides are generated from registered local products and sectors. External operation and exhaustive world-thought coverage are not claimed."
+}

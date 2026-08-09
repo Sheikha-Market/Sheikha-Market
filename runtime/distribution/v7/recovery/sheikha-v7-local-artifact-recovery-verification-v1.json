@@ -1,0 +1,38 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_V7_LOCAL_ARTIFACT_RECOVERY_V1",
+  "generatedAt": "2026-07-31T00:47:52.665Z",
+  "status": "HISTORICAL_RPM_ARTIFACT_RECOVERED_AND_SHA256_VERIFIED",
+  "passed": true,
+  "artifact": {
+    "path": "distribution/artifacts/v7/1.0.51_sheikha.v7.1/artifacts/sheikha-1.0.51-0.sheikha.v7.1.x86_64.rpm",
+    "bytes": 26200270,
+    "sha256": "936bdc0dfbb794e1fe41d8fd7799af95a9e3cc92b117a62c0b8b2383f6a571b9",
+    "rpmMagicVerified": true,
+    "architecture": "x86_64",
+    "signed": false
+  },
+  "provenance": {
+    "artifactSourceHead": "33752746f4969647191f0a830949ad328f0d9bc3",
+    "recoveryVerificationHead": "f953c0ad29689feb17059d8da90676f149aa6389",
+    "historicalBuildReportSha256": "2caa87cf1c380874cd65f0106b8f1b88e5eceec8441664984d4a5ed5c34abae5",
+    "sourceBackup": "/home/sheikha/Backups/sheikha/v7-complete-finalization-20260713-225943/sheikha-1.0.51-0.sheikha.v7.1.x86_64.rpm",
+    "copiedWithoutRebuild": true,
+    "rpmBuildCountAdded": 0
+  },
+  "dependencyPolicy": {
+    "metadataComplete": false,
+    "nativeInstallAuthorized": false,
+    "lifecycleVerificationAuthorized": false,
+    "nextGate": "A newly accepted corrected-build contract is required before creating a dependency-corrected RPM."
+  },
+  "executionBoundaries": {
+    "networkUsed": false,
+    "sudoUsed": false,
+    "hostInstallExecuted": false,
+    "containerExecuted": false,
+    "externalPublishingExecuted": false,
+    "signingExecuted": false,
+    "gitMutationExecuted": false
+  }
+}

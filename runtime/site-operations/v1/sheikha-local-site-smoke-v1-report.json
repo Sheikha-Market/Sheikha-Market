@@ -1,7 +1,7 @@
 {
   "schemaVersion": "1.0.0",
   "system": "SHEIKHA_LOCAL_SITE_SMOKE_V1",
-  "generatedAt": "2026-07-20T19:52:53.034Z",
+  "generatedAt": "2026-07-27T03:11:00.383Z",
   "status": "LOCAL_SITE_SMOKE_PASSED",
   "baseUrl": "http://127.0.0.1:8080",
   "executionScope": "LOCAL_DEVELOPMENT_RUNTIME",
@@ -9,10 +9,46 @@
     {
       "path": "/",
       "statusCode": 200,
-      "bytes": 8318,
+      "bytes": 9206,
       "marker": "<title>شيخة",
       "markerPresent": true,
-      "durationMs": 35.1,
+      "durationMs": 32.79,
+      "passed": true
+    },
+    {
+      "path": "/market/",
+      "statusCode": 200,
+      "bytes": 9279,
+      "marker": "<title>سوق شيخة",
+      "markerPresent": true,
+      "durationMs": 2.54,
+      "passed": true
+    },
+    {
+      "path": "/dashboard/",
+      "statusCode": 200,
+      "bytes": 6263,
+      "marker": "<title>لوحة شيخة",
+      "markerPresent": true,
+      "durationMs": 1.45,
+      "passed": true
+    },
+    {
+      "path": "/technology/",
+      "statusCode": 200,
+      "bytes": 8908,
+      "marker": "<title>مرصد شيخة التقني",
+      "markerPresent": true,
+      "durationMs": 1.24,
+      "passed": true
+    },
+    {
+      "path": "/product-technical/",
+      "statusCode": 200,
+      "bytes": 7386,
+      "marker": "<title>الملف الهندسي للمنتج",
+      "markerPresent": true,
+      "durationMs": 1.21,
       "passed": true
     },
     {
@@ -21,7 +57,7 @@
       "bytes": 4350,
       "marker": "حلول شيخة التجارية",
       "markerPresent": true,
-      "durationMs": 10.33,
+      "durationMs": 1.07,
       "passed": true
     },
     {
@@ -30,7 +66,7 @@
       "bytes": 6644,
       "marker": "بناء الأنظمة المحكومة",
       "markerPresent": true,
-      "durationMs": 1.68,
+      "durationMs": 1.03,
       "passed": true
     },
     {
@@ -39,16 +75,25 @@
       "bytes": 3506,
       "marker": "المركز المؤسسي لشيخة",
       "markerPresent": true,
-      "durationMs": 2.95,
+      "durationMs": 7.91,
       "passed": true
     },
     {
       "path": "/riyadh-aljannah-community/",
       "statusCode": 200,
-      "bytes": 5192,
+      "bytes": 7101,
       "marker": "جنات وأشجار شيخة",
       "markerPresent": true,
-      "durationMs": 2.68,
+      "durationMs": 1.26,
+      "passed": true
+    },
+    {
+      "path": "/constructive-dialogue/",
+      "statusCode": 200,
+      "bytes": 10645,
+      "marker": "<title>حوار شيخة البنّاء",
+      "markerPresent": true,
+      "durationMs": 1.01,
       "passed": true
     },
     {
@@ -57,7 +102,7 @@
       "bytes": 3287,
       "marker": "صفحات شيخة ومساراتها العامة",
       "markerPresent": true,
-      "durationMs": 2.36,
+      "durationMs": 0.63,
       "passed": true
     },
     {
@@ -66,7 +111,7 @@
       "bytes": 8662,
       "marker": "تجربة إقلاع MSI",
       "markerPresent": true,
-      "durationMs": 2.59,
+      "durationMs": 0.64,
       "passed": true
     },
     {
@@ -75,7 +120,7 @@
       "bytes": 4003,
       "marker": "قناة التنزيل",
       "markerPresent": true,
-      "durationMs": 2,
+      "durationMs": 2.41,
       "passed": true
     }
   ],
@@ -87,7 +132,7 @@
       "enabled": 9,
       "ready": 9
     },
-    "durationMs": 1.66,
+    "durationMs": 1.37,
     "passed": true
   },
   "liveChat": {
@@ -103,15 +148,15 @@
     "requiredOrderValid": true,
     "immediateArabicToken": true,
     "responseCompletedUnderOneSecond": true,
-    "elapsedMs": 5.67,
+    "elapsedMs": 4.75,
     "deepModelMode": "background",
     "passed": true
   },
   "siteRegistry": {
     "statusCode": 200,
     "status": "ACTIVE",
-    "discoveredHtmlPages": 251,
-    "publicCanonicalPages": 109,
+    "discoveredHtmlPages": 254,
+    "publicCanonicalPages": 113,
     "domains": 11,
     "passed": true
   },
@@ -152,6 +197,30 @@
     "universalHardwareSupportClaimed": false,
     "passed": true
   },
+  "languageFoundationV2": {
+    "statusCode": 200,
+    "status": "FOUNDATION_ACTIVE_HOST_BOOTSTRAPPED_NATIVE_MIGRATION_REQUIRED",
+    "aiCapabilityRootCount": 8,
+    "systemAdapterCount": 3,
+    "qemuBootVerified": true,
+    "contractIdentityEmbedded": true,
+    "compilerSelfHosted": false,
+    "nativeMachineCodeBackend": false,
+    "passed": true
+  },
+  "rootEvidenceTruthMatrix": {
+    "statusCode": 200,
+    "status": "VERIFIED",
+    "truthStatus": "BOUNDED_EVIDENCE_VERIFIED_WITH_GAPS",
+    "domains": 9,
+    "parsedEvidence": 9,
+    "artifactsBuilt": 5,
+    "qemuVerified": 3,
+    "nativeLifecycleVerified": 1,
+    "physicalHardwareVerified": 0,
+    "externallyCertified": 0,
+    "passed": true
+  },
   "unifiedProductRuntime": {
     "statusCode": 200,
     "status": "ACTIVE_WITH_BOUNDED_VERIFIED_FOUNDATIONS",
@@ -164,8 +233,84 @@
     "automatedFatwa": false,
     "passed": true
   },
+  "unifiedCommerceRuntime": {
+    "statusCode": 200,
+    "status": "ACTIVE_WITH_GOVERNED_CATALOG",
+    "products": 13,
+    "sectors": 30,
+    "marketGroups": 7,
+    "workflows": 12,
+    "saasServices": 14,
+    "cloudSaasPresent": true,
+    "transactionExecutionEnabled": false,
+    "externalAccreditationClaimed": false,
+    "passed": true
+  },
+  "technicalExperienceRuntime": {
+    "statusCode": 200,
+    "status": "ACTIVE_WITH_MEASURED_LOCAL_FOUNDATIONS",
+    "products": 13,
+    "technicalProfiles": 13,
+    "activeDocumentationEntitlements": 0,
+    "telemetryIsMeasured": true,
+    "previewIsComplete": true,
+    "dossierStatusCode": 401,
+    "dossierDefaultDeny": true,
+    "architectureIsBounded": true,
+    "externalCertificationClaimed": false,
+    "passed": true
+  },
+  "productionQualificationV1": {
+    "statusCode": 200,
+    "status": "ACTIVE_INTERNAL_QUALIFICATION_GATE",
+    "registeredProducts": 13,
+    "productionFileRequirements": 31,
+    "administrativeRequirements": 10,
+    "engineeringRequirements": 11,
+    "productionRequirements": 10,
+    "producerApplications": 0,
+    "activeInternalAuthorizations": 0,
+    "productionReadyProducts": 0,
+    "externallyIssuedCertificates": 0,
+    "physicallyVerifiedHardwareTargets": 0,
+    "runtimeProductionGateStatus": "BLOCKED",
+    "passed": true
+  },
+  "gardensKnowledgeDialogueV2": {
+    "statusCode": 200,
+    "status": "ACTIVE_WITH_BOUNDED_GARDENS_GUIDES_AND_DIALOGUE",
+    "coverage": {
+      "gardens": 9,
+      "trees": 27,
+      "products": 13,
+      "sectors": 30,
+      "markets": 7,
+      "workflows": 12,
+      "thoughtFrameworks": 37,
+      "contemporaryThoughtFrameworks": 19,
+      "historicalThoughtFrameworks": 18,
+      "religiousMethodReferences": 8
+    },
+    "treeDetailsComplete": true,
+    "planIsBounded": true,
+    "frameworkCoverageComplete": true,
+    "religiousReferencesBounded": true,
+    "assessmentIsBounded": true,
+    "purposefulIdeaIsBounded": true,
+    "communityProgramIsBounded": true,
+    "sensitiveClassificationDenied": true,
+    "physicalPlantingClaimed": false,
+    "passed": true
+  },
   "productAliases": {
     "results": [
+      {
+        "route": "/dashboard",
+        "target": "/dashboard/",
+        "statusCode": 308,
+        "location": "/dashboard/",
+        "passed": true
+      },
       {
         "route": "/gardens",
         "target": "/riyadh-aljannah-community/",
@@ -193,11 +338,32 @@
         "statusCode": 308,
         "location": "/boot-trial/",
         "passed": true
+      },
+      {
+        "route": "/tech",
+        "target": "/technology/",
+        "statusCode": 308,
+        "location": "/technology/",
+        "passed": true
+      },
+      {
+        "route": "/technical-product",
+        "target": "/product-technical/",
+        "statusCode": 308,
+        "location": "/product-technical/",
+        "passed": true
+      },
+      {
+        "route": "/dialogue",
+        "target": "/constructive-dialogue/",
+        "statusCode": 308,
+        "location": "/constructive-dialogue/",
+        "passed": true
       }
     ],
     "passed": true
   },
-  "checkedPageCount": 8,
+  "checkedPageCount": 13,
   "passed": true,
   "productionReadinessClaimed": false,
   "productionBoundary": "Production startup requires operator-provided JWT and data-encryption secrets."

@@ -5,9 +5,9 @@
   <meta name="viewport" content="width=device-width,initial-scale=1">
   <meta
     name="description"
-    content="جنات وأشجار شيخة: تجربة دنيوية للمعرفة والهندسة والعمل النافع مرتبطة بمنظومة شيخة."
+    content="دليل جنات وأشجار شيخة: التربة والأنهار والأشجار والثمار والقوانين وخريطة الغرس المرتبطة بالمنتجات والقطاعات."
   >
-  <title>جنات وأشجار شيخة | المعرفة والعمل النافع</title>
+  <title>جنات وأشجار شيخة | الدليل التشغيلي والزراعي المفهومي</title>
   <link rel="stylesheet" href="/riyadh-aljannah-community/community.css">
 </head>
 <body>
@@ -19,8 +19,8 @@
     <nav aria-label="التنقل الرئيسي">
       <a href="/market/">السوق</a>
       <a class="active" href="/riyadh-aljannah-community/" aria-current="page">الجنات</a>
-      <a href="/system-builder-workbench/">البناء</a>
-      <a href="/boot-trial/">الإقلاع</a>
+      <a href="/constructive-dialogue/">الحوار</a>
+      <a href="/technology/">التقنية</a>
       <a href="/site-map/">الدليل</a>
     </nav>
   </header>
@@ -33,35 +33,40 @@
       >
       <div class="stage-shade" aria-hidden="true"></div>
       <div class="stage-copy">
-        <p class="eyebrow">SHEIKHA GARDENS &amp; TREES</p>
+        <p class="eyebrow">SHEIKHA GARDENS &amp; TREES V2</p>
         <h1 id="page-title">جنات وأشجار شيخة</h1>
         <p>
-          حدائق دنيوية للمعرفة والهندسة والسوق والتعافي؛ كل شجرة قدرة،
-          وكل نهر مسار، وكل ثمرة نتيجة نافعة قابلة للتثبت.
+          كل حديقة مجال نافع، وكل شجرة قدرة، وكل نهر مسار،
+          وكل ثمرة نتيجة لها دليل ومالك وحدود.
         </p>
-        <a href="#garden-directory">استعراض الحدائق</a>
+        <a href="#garden-directory">فتح سجل الحدائق</a>
       </div>
     </section>
 
-    <section class="runtime-strip" aria-label="حالة تجربة الجنات">
-      <div><span id="runtime-dot"></span><strong id="runtime-state">جارٍ التحقق</strong></div>
+    <section class="runtime-strip" aria-label="حالة دليل الجنات">
+      <div class="runtime-state">
+        <span id="runtime-dot"></span>
+        <strong id="runtime-state">جارٍ التحقق</strong>
+      </div>
       <dl>
         <div><dt>الحدائق</dt><dd id="garden-count">--</dd></div>
         <div><dt>الأشجار</dt><dd id="tree-count">--</dd></div>
-        <div><dt>الأنهار الرمزية</dt><dd id="river-count">--</dd></div>
-        <div><dt>الثمار</dt><dd id="fruit-count">--</dd></div>
+        <div><dt>المنتجات</dt><dd id="product-count">--</dd></div>
+        <div><dt>القطاعات</dt><dd id="sector-count">--</dd></div>
+        <div><dt>الأسواق</dt><dd id="market-count">--</dd></div>
+        <div><dt>الأطر الفكرية</dt><dd id="framework-count">--</dd></div>
       </dl>
     </section>
 
     <section class="garden-directory" id="garden-directory">
       <div class="section-heading">
         <div>
-          <p class="eyebrow">السجل المعرفي</p>
-          <h2>حدائق مترابطة من الجذر إلى المنفعة</h2>
-          <p>المحتوى التالي يأتي من سجل جنات شيخة العام، لا من نص ثابت داخل الصفحة.</p>
+          <p class="eyebrow">السجل المعرفي المحكوم</p>
+          <h2>من التربة والجذر إلى الثمرة والدليل</h2>
+          <p>تصف السجلات النموذج الرقمي والنموذج النباتي المفهومي كلًا بحدوده.</p>
         </div>
         <label>
-          <span>الحديقة</span>
+          <span>تصفية الحديقة</span>
           <select id="garden-filter">
             <option value="all">كل الحدائق</option>
           </select>
@@ -73,13 +78,70 @@
       </div>
     </section>
 
+    <section
+      class="garden-detail"
+      id="garden-detail"
+      aria-labelledby="garden-detail-title"
+      tabindex="-1"
+      hidden
+    >
+      <header class="detail-header">
+        <div>
+          <p class="eyebrow" id="garden-detail-role"></p>
+          <h2 id="garden-detail-title"></h2>
+          <p id="garden-detail-description"></p>
+        </div>
+        <button type="button" id="close-detail" aria-label="إغلاق دليل الحديقة">
+          إغلاق
+        </button>
+      </header>
+
+      <dl class="land-profile" id="land-profile"></dl>
+
+      <div class="detail-band">
+        <div>
+          <h3>الأنهار والمسارات</h3>
+          <ul id="river-list"></ul>
+        </div>
+        <div>
+          <h3>الشروط والقوانين</h3>
+          <ul id="garden-law-list"></ul>
+        </div>
+      </div>
+
+      <div class="roadmap">
+        <h3>خريطة الغرس والتشغيل</h3>
+        <ol id="planting-roadmap"></ol>
+      </div>
+
+      <div class="tree-directory">
+        <div>
+          <p class="eyebrow">الأشجار والنماذج النباتية</p>
+          <h3>الزهر والثمر والطعم والاستخدام</h3>
+        </div>
+        <div class="tree-grid" id="tree-grid"></div>
+      </div>
+    </section>
+
+    <section class="knowledge-bridge" aria-labelledby="knowledge-title">
+      <div>
+        <p class="eyebrow">الحوار المعرفي</p>
+        <h2 id="knowledge-title">ناقش الفكرة، لا تصنّف الإنسان</h2>
+        <p>
+          يقارن المسار الأهداف والدعاوى والوسائل والأدلة،
+          ويحفظ الاختلاف بلا إكراه أو ملف معتقدات.
+        </p>
+      </div>
+      <a href="/constructive-dialogue/">فتح مساحة الحوار</a>
+    </section>
+
     <section class="product-bridge" aria-labelledby="bridge-title">
       <div class="section-heading">
-        <p class="eyebrow">من التجربة إلى التنفيذ</p>
-        <h2 id="bridge-title">الهوية موحدة، وحدود التنفيذ منفصلة</h2>
+        <p class="eyebrow">من المعرفة إلى التنفيذ</p>
+        <h2 id="bridge-title">هوية واحدة وحدود تشغيل مثبتة</h2>
         <p>
-          واجهة الجنات تنظّم المعرفة؛ System Builder يبني العقود؛ UEFI يسلّم
-          الإقلاع؛ وBare Metal يشغّل الأساس المتحقق فقط.
+          الجنات تنظّم المعرفة؛ System Builder يبني العقود؛
+          وUEFI وBare Metal لا يتجاوزان ما تحقق باختبار أصلي.
         </p>
       </div>
       <ol id="product-bridge-list">
@@ -91,11 +153,10 @@
     </section>
 
     <aside class="boundary" aria-label="حدود المرجعية والتجربة">
-      <strong>حدود صريحة</strong>
+      <strong>حدود الدليل</strong>
       <p id="garden-boundary">
-        جنات شيخة استعارة دنيوية للواجهة والمعمار والمعرفة، وليست تمثيلًا
-        للجنة الغيبية. مرجعية الكتاب والسنة هنا قيم معلنة للصدق والعدل
-        والأمانة ومنع الضرر، مع مراجعة بشرية مؤهلة للأحكام الشرعية، دون فتوى آلية.
+        جنات شيخة استعارة دنيوية، والغرس المادي يحتاج تحليل تربة وماء
+        ومهندسًا زراعيًا محليًا. لا فتوى آلية ولا ادعاء بتمثيل الغيب.
       </p>
     </aside>
   </main>

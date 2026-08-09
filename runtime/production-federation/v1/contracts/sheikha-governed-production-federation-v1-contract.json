@@ -1,0 +1,58 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_GOVERNED_PRODUCTION_FEDERATION_V1",
+  "status": "ACTIVE_FAIL_CLOSED_CONTRACT",
+  "defaultProductionModel": "INTERNAL_MAXIMUM_CAPABILITY",
+  "defaultAuthorization": "DENY",
+  "releaseIdentityPolicy": {
+    "strategy": "BUILD_ONCE_VERIFY_DIGEST_PROMOTE_SAME_ARTIFACT",
+    "sameArtifactDigestRequiredAcrossLanes": true,
+    "sameGovernanceContractDigestRequiredAcrossLanes": true,
+    "silentArtifactSubstitutionAllowed": false,
+    "signingRequiredWhenTargetPolicyRequiresIt": true,
+    "signingClaimRequiresEvidence": true
+  },
+  "externalLanePolicy": {
+    "noValidCustomerChoiceMeansNoExternalProduction": true,
+    "explicitInformedCustomerChoiceRequired": true,
+    "rightsAndLicenseVerificationRequired": true,
+    "providerAndEnvironmentIdentityRequired": true,
+    "securityPrivacyAndSupplyChainReviewRequired": true,
+    "exitAndRollbackPlanRequired": true,
+    "humanApprovalRequired": true,
+    "externalNetworkDefault": "DENY",
+    "automaticExternalPublishing": false
+  },
+  "ownershipPolicy": {
+    "sheikhaOwnedInputsRemainSheikhaOwned": true,
+    "externalInputsRemainExternalUnlessValidlyAssigned": true,
+    "useOrHostingTransfersOwnership": false,
+    "everyInputRequiresRightsAndProvenance": true,
+    "everyOutputRequiresRightsClassificationAndProvenance": true,
+    "unverifiedRightsPromotionAllowed": false,
+    "sheikhaClaimsOwnershipOfExternalSystems": false
+  },
+  "islamicGovernance": {
+    "referencePolicy": "runtime/islamic-reference-governance/v1/sheikha-quran-sunnah-reference-policy-v1.json",
+    "fulfillmentOfContractsRequired": true,
+    "trustJusticeAndMutualConsentRequired": true,
+    "noUnjustTakingRequired": true,
+    "noRibaGate": true,
+    "noGhararGate": true,
+    "truthDisclosureAndNoFraudGate": true,
+    "noHarmGate": true,
+    "qualifiedHumanShariaReviewWhenApplicable": true,
+    "qualifiedLegalReviewWhenApplicable": true,
+    "automatedFatwaAllowed": false,
+    "automatedHalalCertificationAllowed": false,
+    "automatedJudicialAuthorityAllowed": false
+  },
+  "executionBoundary": {
+    "evaluatesPlansOnly": true,
+    "executesBuilds": false,
+    "connectsPlatforms": false,
+    "performsDeployment": false,
+    "mutatesProduction": false,
+    "writesExternalSystems": false
+  }
+}

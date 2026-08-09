@@ -1,0 +1,50 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_VSCODE_LIVE_EXTENSION_HOST_SMOKE_V1",
+  "status": "LIVE_EXTENSION_HOST_SMOKE_PASSED",
+  "passed": true,
+  "startedAt": "2026-07-31T11:03:22.781Z",
+  "finishedAt": "2026-07-31T11:03:23.051Z",
+  "vscodeVersion": "1.131.0",
+  "extensionId": "sheikha.sheikha",
+  "extensionVersion": "1.0.101",
+  "extensionMode": "2",
+  "platform": "linux",
+  "architecture": "x64",
+  "runtimeBaseUrl": "http://localhost:8080",
+  "checks": {
+    "actualVsCodeExtensionHost": true,
+    "versionMatchesPackage": true,
+    "chatProviderRegistered": true,
+    "inspectorProviderRegistered": true,
+    "composerRendered": true,
+    "sendControlRendered": true,
+    "sendEventBound": true,
+    "sendDoesNotDependOnReadyAck": true,
+    "stalledRequestUnlocksComposer": true,
+    "progressFeedbackHandled": true,
+    "readyHandshakeObserved": true,
+    "askMessageProcessed": true,
+    "chatResponseObserved": true,
+    "responseNotProvisionalOnly": true,
+    "inspectorRendered": true,
+    "inspectorLoadingReplaced": true
+  },
+  "failedChecks": [],
+  "observations": {
+    "postedMessageCount": 15,
+    "streamTokenCount": 1,
+    "finalCommand": "streamDone",
+    "finalTextBytes": 31,
+    "finalRoute": "/api/sheikha/live/chat/v1",
+    "inspectorHtmlBytes": 63787
+  },
+  "boundaries": {
+    "shellExecuted": false,
+    "arbitraryFilesystemAccessGranted": false,
+    "externalNetworkRequired": false,
+    "highImpactActionExecuted": false,
+    "automatedReligiousRulingIssued": false,
+    "evidenceWriteRestrictedToWorkspace": true
+  }
+}

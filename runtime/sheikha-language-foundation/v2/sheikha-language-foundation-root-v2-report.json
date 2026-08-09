@@ -1,0 +1,304 @@
+{
+  "schemaVersion": "2.0.0",
+  "system": "SHEIKHA_LANGUAGE_FOUNDATION_ROOT_V2",
+  "status": "FOUNDATION_ACTIVE_HOST_BOOTSTRAPPED_NATIVE_MIGRATION_REQUIRED",
+  "generatedAt": "2026-07-27T01:09:45.433Z",
+  "passed": true,
+  "score": 100,
+  "checks": {
+    "canonicalSourceIsSheikha": true,
+    "requiredEntitiesPresent": true,
+    "formalValuesReferencePresent": true,
+    "formalGovernancePolicyPresent": true,
+    "formalReasoningMethodologyPresent": true,
+    "typeCheckPassed": true,
+    "bytecodeGenerated": true,
+    "governedVmPassed": true,
+    "allFoundationMarkersEmitted": true,
+    "languageBootContractValid": true,
+    "languageContractIdentityObservedInQemu": true,
+    "uefiBoundaryVerified": true,
+    "externalSystemsAreToolAdapters": true,
+    "externalLanguagePolicyIsToolOnly": true,
+    "aiRootsRemainPostBoot": true
+  },
+  "failedChecks": [],
+  "identity": {
+    "canonicalName": "Sheikha Language Foundation Root",
+    "arabicName": "جذر لغة شيخة البرمجية",
+    "sourceExtension": ".shk",
+    "sourcePath": "sheikha-language/system/sheikha-foundation-root-v2.shk",
+    "sourceSha256": "1f9d997c04f8002f128d459d6c5cc5bffa36f9a890083ff52c5aa579530c5d6a",
+    "bytecodeSha256": "0ec66455867d798f8963d6e6add7b581201c0dd89ba4914bdb8307c7d0eb0715",
+    "projectFirstPartyFoundation": true,
+    "globalUniversalAiFoundationClaimed": false
+  },
+  "compilation": {
+    "pipeline": [
+      "source",
+      "lexer",
+      "parser",
+      "ast",
+      "type-checker",
+      "ir",
+      "bytecode",
+      "governance",
+      "vm"
+    ],
+    "bootstrapRuntime": "Node.js",
+    "sourceLanguage": "sheikha",
+    "typeCheckPassed": true,
+    "astNodes": 15,
+    "irSteps": 105,
+    "bytecodeInstructions": 105,
+    "vmStatus": "passed",
+    "governanceViolations": 0,
+    "selfHostedCompilerVerified": false,
+    "nativeMachineCodeBackendVerified": false
+  },
+  "declarations": {
+    "valuesReferences": [
+      "القيم_العليا"
+    ],
+    "governancePolicies": [
+      "الخير_والنفع_العام"
+    ],
+    "reasoningMethodologies": [
+      "العربية_والعلوم_والاستدلال"
+    ],
+    "entities": [
+      "جذر_لغة_شيخة",
+      "جذور_قدرات_الذكاء_الصناعي",
+      "شيخة_UEFI",
+      "شيخة_QEMU",
+      "شيخة_Bare_Metal",
+      "محولات_الأنظمة_الخارجية",
+      "حدود_الاستقلال"
+    ],
+    "procedures": [
+      "تحقق_الجذر",
+      "تحقق_الذكاء",
+      "تحقق_المحولات",
+      "تحقق_الاستقلال"
+    ]
+  },
+  "aiCapabilityRoots": {
+    "count": 8,
+    "roots": [
+      {
+        "id": "ARABIC_LANGUAGE_UNDERSTANDING",
+        "nameAr": "فهم اللغة العربية والسياق",
+        "responsibility": "LANGUAGE_ANALYSIS_AND_CONTEXT",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "KNOWLEDGE_RETRIEVAL",
+        "nameAr": "الاسترجاع والمعرفة",
+        "responsibility": "EVIDENCE_BOUND_RETRIEVAL",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "REASONING_ASSISTANCE",
+        "nameAr": "الاستدلال والتخطيط المساعد",
+        "responsibility": "BOUNDED_REASONING_SUPPORT",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "GENERATIVE_ASSISTANCE",
+        "nameAr": "التوليد المساعد",
+        "responsibility": "GOVERNED_CONTENT_GENERATION",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "CODE_AND_SYSTEMS_ASSISTANCE",
+        "nameAr": "البرمجة وهندسة الأنظمة",
+        "responsibility": "CODE_ANALYSIS_AND_PROPOSAL",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "MEMORY_AND_CONTEXT",
+        "nameAr": "الذاكرة والسياق",
+        "responsibility": "SCOPED_CONTEXT_MANAGEMENT",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "EVALUATION_AND_SAFETY",
+        "nameAr": "التقييم والسلامة",
+        "responsibility": "EVIDENCE_RISK_AND_POLICY_CHECKS",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      },
+      {
+        "id": "TOOL_MEDIATION",
+        "nameAr": "وساطة الأدوات",
+        "responsibility": "CAPABILITY_GATED_TOOL_ROUTING",
+        "status": "REGISTERED_GOVERNED_POST_BOOT_CAPABILITY",
+        "providerBinding": "APPROVED_PROVIDER_ADAPTER_REQUIRED",
+        "criticalBootPath": false,
+        "independentHighImpactExecution": false,
+        "evidenceRequiredPerProvider": true,
+        "humanFinalAuthority": true
+      }
+    ],
+    "localPostBootRuntimeEvidence": {
+      "liveSseChatVerified": true,
+      "elapsedMs": 9.18
+    },
+    "everyAiSystemInUniverseIntegrated": false,
+    "everyAiProviderVerified": false
+  },
+  "nativeStack": {
+    "bareMetal": {
+      "id": "SHEIKHA_BARE_METAL_PROFILE",
+      "foundationTarget": true,
+      "status": "PHASE2B_VERIFIED",
+      "architecture": "x86_64",
+      "qemuBootVerified": true,
+      "physicalHardwareVerified": false,
+      "generalPurposeOperatingSystemComplete": false,
+      "hostRuntimeRequiredAtKernelRuntime": false
+    },
+    "uefi": {
+      "id": "SHEIKHA_UEFI_PROFILE",
+      "role": "FIRMWARE_INTERFACE_PROFILE",
+      "status": "ACTIVE_WITH_VERIFIED_FOUNDATION_SUBSETS",
+      "registeredCapabilities": 57,
+      "verifiedSubsets": 13,
+      "fullyImplementedCapabilities": 0,
+      "externalSpecificationOwned": false
+    },
+    "qemu": {
+      "id": "SHEIKHA_QEMU_VALIDATION_PROFILE",
+      "role": "EXTERNAL_EMULATION_AND_VALIDATION_TOOL",
+      "status": "LOCAL_QEMU_BOOT_EVIDENCE_VERIFIED",
+      "foundation": false,
+      "replacesPhysicalHardwareQualification": false,
+      "qemuOwnershipClaimed": false
+    },
+    "languageBinding": {
+      "contractId": "SHEIKHA_LANGUAGE_BOOT_CONTRACT_V1",
+      "contractIdentityEmbeddedInNativeArtifact": true,
+      "sheikhaSourceFingerprintEmbeddedInNativeArtifact": false,
+      "bytecodeExecutedInsideKernel": false,
+      "currentKernelBackend": "freestanding-c11",
+      "nodeRequiredAtKernelRuntime": false,
+      "linuxRequiredAtKernelRuntime": false
+    }
+  },
+  "systemToolAdapters": {
+    "policy": "EXTERNAL_SYSTEMS_ARE_TOOLS_NOT_FOUNDATIONS",
+    "adapters": [
+      {
+        "id": "LINUX_HOST_ADAPTER",
+        "nameAr": "محول Linux",
+        "role": "CURRENT_BUILD_AND_PORTAL_HOST_TOOL",
+        "status": "ACTIVE_LOCAL_HOST_ADAPTER",
+        "foundation": false,
+        "nativeVerification": true,
+        "mayReplaceSheikhaFoundation": false,
+        "defaultAuthorization": "DENY",
+        "explicitContractRequired": true
+      },
+      {
+        "id": "WINDOWS_HOST_ADAPTER",
+        "nameAr": "محول Windows",
+        "role": "OPTIONAL_BUILD_AND_COMPATIBILITY_TOOL",
+        "status": "REGISTERED_NATIVE_TEST_PENDING",
+        "foundation": false,
+        "nativeVerification": false,
+        "mayReplaceSheikhaFoundation": false,
+        "defaultAuthorization": "DENY",
+        "explicitContractRequired": true
+      },
+      {
+        "id": "MACOS_HOST_ADAPTER",
+        "nameAr": "محول macOS",
+        "role": "OPTIONAL_BUILD_AND_COMPATIBILITY_TOOL",
+        "status": "REGISTERED_NATIVE_TEST_PENDING",
+        "foundation": false,
+        "nativeVerification": false,
+        "mayReplaceSheikhaFoundation": false,
+        "defaultAuthorization": "DENY",
+        "explicitContractRequired": true
+      }
+    ]
+  },
+  "implementationBoundary": {
+    "hostedCompilerAndVmVerified": true,
+    "nativeBootContractBindingVerified": true,
+    "bootArtifactIndependentFromLinuxAndNodeAtRuntime": true,
+    "selfHostedCompilerComplete": false,
+    "nativeMachineCodeBackendComplete": false,
+    "standardLibraryAndHalPortComplete": false,
+    "kernelWrittenInSheikhaComplete": false,
+    "physicalHardwareQualificationComplete": false,
+    "multiArchitectureQualificationComplete": false,
+    "allSystemsProgrammedInSheikha": false,
+    "universalAiFoundationEstablished": false
+  },
+  "governance": {
+    "valuesReferenceExecutable": false,
+    "softwareClaimsDivineAuthority": false,
+    "aiIsReligiousAuthority": false,
+    "automatedFatwaAllowed": false,
+    "qualifiedScholarReviewForReligiousRulings": true,
+    "humanApprovalForHighImpact": true,
+    "evidenceBeforeCompletionClaim": true,
+    "defaultAuthorization": "DENY"
+  },
+  "evidence": {
+    "source": "sheikha-language/system/sheikha-foundation-root-v2.shk",
+    "ast": "runtime/sheikha-language-foundation/v2/evidence/sheikha-foundation-root-v2.ast.json",
+    "types": "runtime/sheikha-language-foundation/v2/evidence/sheikha-foundation-root-v2.types.json",
+    "ir": "runtime/sheikha-language-foundation/v2/evidence/sheikha-foundation-root-v2.ir.json",
+    "bytecode": "runtime/sheikha-language-foundation/v2/evidence/sheikha-foundation-root-v2.bytecode.json",
+    "run": "runtime/sheikha-language-foundation/v2/evidence/sheikha-foundation-root-v2.run.json",
+    "aiRegistry": "runtime/sheikha-language-foundation/v2/evidence/sheikha-ai-capability-root-registry-v2.json",
+    "systemAdapterRegistry": "runtime/sheikha-language-foundation/v2/evidence/sheikha-system-tool-adapter-registry-v2.json",
+    "bareMetal": "runtime/bare-metal/v2/sheikha-sovereign-bare-metal-os-v2-phase2b-report.json",
+    "uefi": "runtime/bare-metal/v2/uefi-integration/v1/sheikha-uefi-integration-v1-report.json",
+    "qemuSerial": "runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log"
+  },
+  "nextStages": [
+    "SHEIKHA_SELF_HOSTED_COMPILER",
+    "SHEIKHA_NATIVE_MACHINE_CODE_OR_UEFI_BACKEND",
+    "SHEIKHA_NATIVE_STANDARD_LIBRARY_AND_HAL",
+    "SHEIKHA_KERNEL_AND_DRIVER_PORT",
+    "PHYSICAL_HARDWARE_AND_MULTI_ARCH_QUALIFICATION"
+  ],
+  "claimPolicy": "Sheikha is the first-party project foundation. It is not a self-hosted native language or universal AI foundation until those capabilities are built and independently verified."
+}
