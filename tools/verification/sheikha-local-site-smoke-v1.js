@@ -13,6 +13,13 @@ const REPORT_PATH = path.join(
 );
 const PAGE_CHECKS = [
   { path: '/', marker: '<title>شيخة' },
+  { path: '/market/', marker: '<title>سوق شيخة' },
+  { path: '/dashboard/', marker: '<title>لوحة شيخة' },
+  { path: '/technology/', marker: '<title>مرصد شيخة التقني' },
+  {
+    path: '/product-technical/',
+    marker: '<title>الملف الهندسي للمنتج',
+  },
   { path: '/commercial/', marker: 'حلول شيخة التجارية' },
   {
     path: '/system-builder-workbench/',
@@ -25,6 +32,10 @@ const PAGE_CHECKS = [
   {
     path: '/riyadh-aljannah-community/',
     marker: 'جنات وأشجار شيخة',
+  },
+  {
+    path: '/constructive-dialogue/',
+    marker: '<title>حوار شيخة البنّاء',
   },
   {
     path: '/site-map/',
@@ -307,12 +318,516 @@ async function checkUnifiedProductRuntime(baseUrl) {
   };
 }
 
+async function checkLanguageFoundationV2(baseUrl) {
+  const response = await fetchWithTimeout(
+    `${baseUrl}/api/sheikha/language-foundation/v2/status`
+  );
+  const body = await response.json();
+  const data = body.data || {};
+  const roots = data.aiCapabilityRoots?.roots || [];
+  const adapters = data.systemToolAdapters?.adapters || [];
+  const binding = data.nativeStack?.languageBinding || {};
+  const implementation = data.implementationBoundary || {};
+  const governance = data.governance || {};
+  return {
+    statusCode: response.status,
+    status: data.status || null,
+    aiCapabilityRootCount: roots.length,
+    systemAdapterCount: adapters.length,
+    qemuBootVerified:
+      data.nativeStack?.bareMetal?.qemuBootVerified === true,
+    contractIdentityEmbedded:
+      binding.contractIdentityEmbeddedInNativeArtifact === true,
+    compilerSelfHosted:
+      data.compilation?.selfHostedCompilerVerified === true,
+    nativeMachineCodeBackend:
+      data.compilation?.nativeMachineCodeBackendVerified === true,
+    passed: response.status === 200 &&
+      body.ok === true &&
+      data.status ===
+        'FOUNDATION_ACTIVE_HOST_BOOTSTRAPPED_NATIVE_MIGRATION_REQUIRED' &&
+      data.passed === true &&
+      roots.length === 8 &&
+      roots.every((root) =>
+        root.criticalBootPath === false &&
+        root.independentHighImpactExecution === false
+      ) &&
+      adapters.length === 3 &&
+      adapters.every((adapter) =>
+        adapter.foundation === false &&
+        adapter.mayReplaceSheikhaFoundation === false
+      ) &&
+      data.nativeStack?.bareMetal?.qemuBootVerified === true &&
+      binding.contractIdentityEmbeddedInNativeArtifact === true &&
+      binding.bytecodeExecutedInsideKernel === false &&
+      implementation.selfHostedCompilerComplete === false &&
+      implementation.nativeMachineCodeBackendComplete === false &&
+      implementation.universalAiFoundationEstablished === false &&
+      governance.automatedFatwaAllowed === false,
+  };
+}
+
+async function checkRootEvidenceTruthMatrix(baseUrl) {
+  const response = await fetchWithTimeout(
+    `${baseUrl}/api/sheikha/root-architecture/v3/truth-matrix`
+  );
+  const body = await response.json();
+  const data = body.data || {};
+  const domains = Object.fromEntries(
+    (data.domains || []).map((domain) => [domain.id, domain])
+  );
+  const summary = data.evidenceSummary || {};
+  const boundaries = data.claimBoundaries || {};
+  return {
+    statusCode: response.status,
+    status: data.status || null,
+    truthStatus: data.truthStatus || null,
+    domains: summary.domainCount || 0,
+    parsedEvidence: summary.parsedEvidenceCount || 0,
+    artifactsBuilt: summary.artifactBuiltCount || 0,
+    qemuVerified: summary.qemuVerifiedCount || 0,
+    nativeLifecycleVerified:
+      summary.nativeLifecycleVerifiedCount || 0,
+    physicalHardwareVerified:
+      summary.physicalHardwareVerifiedCount || 0,
+    externallyCertified: summary.externallyCertifiedCount || 0,
+    passed: response.status === 200 &&
+      body.ok === true &&
+      data.status === 'VERIFIED' &&
+      data.truthStatus === 'BOUNDED_EVIDENCE_VERIFIED_WITH_GAPS' &&
+      summary.domainCount === 9 &&
+      summary.parsedEvidenceCount === 9 &&
+      summary.artifactBuiltCount >= 4 &&
+      summary.qemuVerifiedCount >= 3 &&
+      summary.nativeLifecycleVerifiedCount === 1 &&
+      summary.physicalHardwareVerifiedCount === 0 &&
+      summary.externallyCertifiedCount === 0 &&
+      domains.BARE_METAL_X86_64_PHASE2B?.verificationLevel ===
+        'QEMU_RUNTIME_VERIFIED_SUBSET' &&
+      domains.LINUX_DEB_AMD64?.verificationLevel ===
+        'NATIVE_LIFECYCLE_VERIFIED' &&
+      domains.PHYSICAL_BOOT_TRIAL?.claims
+        ?.physicalHardwareVerified === false &&
+      domains.VSCODE_EXTENSION?.claims
+        ?.chatInteractionSmokeVerified === false &&
+      domains.SHEIKHA_LANGUAGE_FOUNDATION_ROOT?.verificationLevel ===
+        'HOST_BOOTSTRAPPED_LANGUAGE_FOUNDATION_VERIFIED' &&
+      domains.SHEIKHA_LANGUAGE_FOUNDATION_ROOT?.claims
+        ?.compilerSelfHosted === false &&
+      domains.SHEIKHA_LANGUAGE_FOUNDATION_ROOT?.claims
+        ?.nativeBootContractIdentityVerified === true &&
+      domains.SHEIKHA_LANGUAGE_FOUNDATION_ROOT?.claims
+        ?.universalAiFoundationClaimed === false &&
+      domains.PRODUCER_PRODUCTION_QUALIFICATION
+        ?.verificationLevel ===
+        'INTERNAL_QUALIFICATION_GATE_ACTIVE' &&
+      domains.PRODUCER_PRODUCTION_QUALIFICATION?.claims
+        ?.registeredRequirementCount === 31 &&
+      domains.PRODUCER_PRODUCTION_QUALIFICATION?.claims
+        ?.productionReadyProductCount === 0 &&
+      domains.PRODUCER_PRODUCTION_QUALIFICATION?.claims
+        ?.governmentLicenseIssuanceAvailable === false &&
+      domains.PRODUCER_PRODUCTION_QUALIFICATION?.claims
+        ?.candidateSensitiveScoringPerformed === false &&
+      boundaries.registrationDoesNotMeanImplementation === true &&
+      boundaries.internalProductionAuthorizationIsNotExternalLicensing ===
+        true &&
+      boundaries.aiFinalProductionAuthorizationAllowed === false &&
+      boundaries.automatedFatwa === false,
+  };
+}
+
+async function checkUnifiedCommerceRuntime(baseUrl) {
+  const response = await fetchWithTimeout(
+    `${baseUrl}/api/sheikha/commerce/v1/status`
+  );
+  const body = await response.json();
+  const data = body.data || {};
+  const cloud = Array.isArray(data.catalog)
+    ? data.catalog.find((product) => product.id === 'PROD-CLOUD-SAAS')
+    : null;
+  return {
+    statusCode: response.status,
+    status: data.status || null,
+    products: data.coverage?.products || 0,
+    sectors: data.coverage?.sectors || 0,
+    marketGroups: data.coverage?.marketGroups || 0,
+    workflows: data.coverage?.workflows || 0,
+    saasServices: data.coverage?.saasServices || 0,
+    cloudSaasPresent: Boolean(cloud),
+    transactionExecutionEnabled:
+      data.claimBoundary?.transactionExecutionEnabled === true,
+    externalAccreditationClaimed:
+      data.claimBoundary?.externalAccreditationClaimed === true,
+    passed: response.status === 200 &&
+      body.ok === true &&
+      data.status === 'ACTIVE_WITH_GOVERNED_CATALOG' &&
+      data.coverage?.products === 13 &&
+      data.coverage?.sectors === 30 &&
+      data.coverage?.marketGroups === 7 &&
+      data.coverage?.workflows === 12 &&
+      data.coverage?.saasServices === 14 &&
+      Boolean(cloud) &&
+      cloud.pricing?.mode === 'REQUEST_QUOTE' &&
+      cloud.transactionReady === false &&
+      data.claimBoundary?.transactionExecutionEnabled === false &&
+      data.claimBoundary?.externalAccreditationClaimed === false,
+  };
+}
+
+async function checkTechnicalExperienceRuntime(baseUrl) {
+  const api = `${baseUrl}/api/sheikha/technical-experience/v1`;
+  const [statusResponse, telemetryResponse, previewResponse, dossierResponse] =
+    await Promise.all([
+      fetchWithTimeout(`${api}/status`),
+      fetchWithTimeout(`${api}/telemetry`),
+      fetchWithTimeout(`${api}/products/PROD-CLOUD-SAAS/preview?level=expert`),
+      fetchWithTimeout(`${api}/products/PROD-CLOUD-SAAS/dossier?level=expert`),
+    ]);
+  const [statusBody, telemetryBody, previewBody, dossierBody] =
+    await Promise.all([
+      statusResponse.json(),
+      telemetryResponse.json(),
+      previewResponse.json(),
+      dossierResponse.json(),
+    ]);
+  const status = statusBody.data || {};
+  const telemetry = telemetryBody.data || {};
+  const preview = previewBody.data || {};
+  const architecture = status.architecture || {};
+  const telemetryIsMeasured =
+    Number.isFinite(telemetry.process?.eventLoop?.observedTurnDelayMs) &&
+    Number.isFinite(telemetry.process?.memoryMiB?.heapUsed) &&
+    telemetry.secretsIncluded === false &&
+    telemetry.syntheticBenchmarkClaimed === false;
+  const previewIsComplete =
+    preview.product?.id === 'PROD-CLOUD-SAAS' &&
+    preview.knowledgeLevel?.id === 'expert' &&
+    Array.isArray(preview.sharedMeasurements) &&
+    preview.sharedMeasurements.length === 3 &&
+    preview.fullDossier?.access === 'VERIFIED_ENTITLEMENT_REQUIRED';
+  const dossierDefaultDeny =
+    dossierResponse.status === 401 &&
+    dossierBody.error === 'AUTHENTICATED_SUBJECT_REQUIRED';
+  const architectureIsBounded =
+    architecture.model === 'GOVERNED_HYBRID_CENTRAL_AND_DECENTRALIZED' &&
+    architecture.central?.length === 4 &&
+    architecture.decentralized?.length === 4 &&
+    architecture.boundaries?.externalFederationVerified === false &&
+    architecture.boundaries?.centralPolicyBypassAllowed === false;
+
+  return {
+    statusCode: statusResponse.status,
+    status: status.status || null,
+    products: status.coverage?.products || 0,
+    technicalProfiles: status.coverage?.technicalProfiles || 0,
+    activeDocumentationEntitlements:
+      status.coverage?.activeDocumentationEntitlements || 0,
+    telemetryIsMeasured,
+    previewIsComplete,
+    dossierStatusCode: dossierResponse.status,
+    dossierDefaultDeny,
+    architectureIsBounded,
+    externalCertificationClaimed:
+      status.governance?.noExternalCertificationClaim !== true,
+    passed: statusResponse.status === 200 &&
+      telemetryResponse.status === 200 &&
+      previewResponse.status === 200 &&
+      statusBody.ok === true &&
+      telemetryBody.ok === true &&
+      previewBody.ok === true &&
+      status.status === 'ACTIVE_WITH_MEASURED_LOCAL_FOUNDATIONS' &&
+      status.coverage?.products === 13 &&
+      status.coverage?.technicalProfiles === 13 &&
+      telemetryIsMeasured &&
+      previewIsComplete &&
+      dossierDefaultDeny &&
+      architectureIsBounded &&
+      status.governance?.noExternalCertificationClaim === true,
+  };
+}
+
+async function checkProductionQualificationV1(baseUrl) {
+  const api = `${baseUrl}/api/sheikha/production-qualification/v1`;
+  const [statusResponse, requirementsResponse, productsResponse] =
+    await Promise.all([
+      fetchWithTimeout(`${api}/status`),
+      fetchWithTimeout(`${api}/requirements`),
+      fetchWithTimeout(`${api}/products`),
+    ]);
+  const [statusBody, requirementsBody, productsBody] =
+    await Promise.all([
+      statusResponse.json(),
+      requirementsResponse.json(),
+      productsResponse.json(),
+    ]);
+  const status = statusBody.data || {};
+  const requirements = requirementsBody.data || {};
+  const products = productsBody.data || {};
+  const coverage = status.coverage || {};
+  const policy = status.authorizationPolicy || {};
+  const boundaries = status.truthBoundaries || {};
+
+  return {
+    statusCode: statusResponse.status,
+    status: status.status || null,
+    registeredProducts: coverage.registeredProducts || 0,
+    productionFileRequirements:
+      coverage.productionFileRequirements || 0,
+    administrativeRequirements:
+      coverage.administrativeRequirements || 0,
+    engineeringRequirements:
+      coverage.engineeringRequirements || 0,
+    productionRequirements:
+      coverage.productionRequirements || 0,
+    producerApplications: coverage.producerApplications || 0,
+    activeInternalAuthorizations:
+      coverage.activeInternalAuthorizations || 0,
+    productionReadyProducts:
+      coverage.productionReadyProducts || 0,
+    externallyIssuedCertificates:
+      coverage.externallyIssuedCertificates || 0,
+    physicallyVerifiedHardwareTargets:
+      coverage.physicallyVerifiedHardwareTargets || 0,
+    runtimeProductionGateStatus:
+      status.runtimeEvidence?.productionGateStatus || null,
+    passed: statusResponse.status === 200 &&
+      requirementsResponse.status === 200 &&
+      productsResponse.status === 200 &&
+      statusBody.ok === true &&
+      requirementsBody.ok === true &&
+      productsBody.ok === true &&
+      status.status === 'ACTIVE_INTERNAL_QUALIFICATION_GATE' &&
+      status.passed === true &&
+      coverage.registeredProducts === 13 &&
+      coverage.productionFileRequirements === 31 &&
+      coverage.administrativeRequirements === 10 &&
+      coverage.engineeringRequirements === 11 &&
+      coverage.productionRequirements === 10 &&
+      coverage.producerApplications === 0 &&
+      coverage.activeInternalAuthorizations === 0 &&
+      coverage.productionReadyProducts === 0 &&
+      coverage.externallyIssuedCertificates === 0 &&
+      coverage.physicallyVerifiedHardwareTargets === 0 &&
+      requirements.count === 31 &&
+      products.count === 13 &&
+      products.productionReadyCount === 0 &&
+      policy.internalProductionAuthorizationAvailable === true &&
+      policy.officialGovernmentLicenseIssuanceAvailable === false &&
+      status.candidatePolicy?.sensitiveTraitInference === false &&
+      status.aiPolicy?.mayIssueFinalAuthorization === false &&
+      boundaries.internalAuthorizationIsNotGovernmentLicense === true &&
+      boundaries.allProductsProductionReadyObserved === false &&
+      boundaries.allProductsProductionReadyClaimed === false,
+  };
+}
+
+async function checkGardensKnowledgeDialogueV2(baseUrl) {
+  const api = `${baseUrl}/api/sheikha/gardens-knowledge-dialogue/v2`;
+  const [
+    statusResponse,
+    gardenResponse,
+    frameworksResponse,
+    referencesResponse,
+    planResponse,
+    assessmentResponse,
+    ideaResponse,
+    programResponse,
+    deniedResponse,
+  ] = await Promise.all([
+    fetchWithTimeout(`${api}/status`),
+    fetchWithTimeout(`${api}/gardens/GARDEN_OF_GOVERNED_AI`),
+    fetchWithTimeout(`${api}/thought-frameworks`),
+    fetchWithTimeout(`${api}/religious-method/references`),
+    fetchWithTimeout(`${api}/dialogue/plan`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        message: 'وازن بين الاستدامة وتسريع التقنية',
+        frameworkIds: [
+          'DEGROWTH_AND_ENVIRONMENTAL_SUSTAINABILITY',
+          'HIGH_TECH_AND_POLITICAL_NATIONALISM',
+        ],
+        religiousLensRequested: true,
+      }),
+    }),
+    fetchWithTimeout(`${api}/ideas/assess`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        message: 'برنامج تعليمي وتقني نافع للمجتمع',
+        frameworkIds: ['EFFECTIVE_ALTRUISM'],
+        religiousLensRequested: true,
+      }),
+    }),
+    fetchWithTimeout(`${api}/ideas/synthesize`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        ideaName: 'إطار العلم والعمران',
+        communityScope: 'digital-community',
+        message: 'توسيع المعرفة الموثوقة والمهارات النافعة',
+        desiredOutcomes: ['تعليم موثوق', 'عمل منتج'],
+        frameworkIds: ['EFFECTIVE_ALTRUISM', 'COMMUNITARIANISM'],
+        religiousLensRequested: true,
+      }),
+    }),
+    fetchWithTimeout(`${api}/community/program`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        programName: 'برنامج حي نافع',
+        communityScope: 'local-community',
+        message: 'التعليم والاستدامة والتحول الرقمي المسؤول',
+        frameworkIds: [
+          'EFFECTIVE_ALTRUISM',
+          'ENVIRONMENTALISM',
+        ],
+        religiousLensRequested: true,
+      }),
+    }),
+    fetchWithTimeout(`${api}/dialogue/plan`, {
+      method: 'POST',
+      headers: { 'content-type': 'application/json' },
+      body: JSON.stringify({
+        message: 'صنف معتقد الشخص',
+        inferBeliefs: true,
+      }),
+    }),
+  ]);
+  const [
+    statusBody,
+    gardenBody,
+    frameworksBody,
+    referencesBody,
+    planBody,
+    assessmentBody,
+    ideaBody,
+    programBody,
+    deniedBody,
+  ] =
+    await Promise.all([
+      statusResponse.json(),
+      gardenResponse.json(),
+      frameworksResponse.json(),
+      referencesResponse.json(),
+      planResponse.json(),
+      assessmentResponse.json(),
+      ideaResponse.json(),
+      programResponse.json(),
+      deniedResponse.json(),
+    ]);
+  const status = statusBody.data || {};
+  const garden = gardenBody.data || {};
+  const frameworks = frameworksBody.data || {};
+  const references = referencesBody.data || {};
+  const plan = planBody.data || {};
+  const assessment = assessmentBody.data || {};
+  const idea = ideaBody.data || {};
+  const program = programBody.data || {};
+  const denied = deniedBody.data || {};
+  const treeDetailsComplete =
+    Array.isArray(garden.trees) &&
+    garden.trees.length > 0 &&
+    garden.trees.every((tree) =>
+      tree.operationalAnatomy?.fruitAr &&
+      tree.physicalExemplar?.scientificName &&
+      tree.physicalExemplar?.siteApprovalStatus ===
+        'LOCAL_AGRONOMIST_AND_SITE_DATA_REQUIRED'
+    );
+  const planIsBounded =
+    plan.status === 'CONSTRUCTIVE_IDEA_LEVEL_PLAN_READY' &&
+    plan.subject?.personIdeologyInferred === false &&
+    plan.privacy?.contentPersisted === false &&
+    plan.religiousMethod?.automatedFatwa === false &&
+    plan.religiousMethod?.qualifiedScholarReviewRequired === true;
+  const sensitiveClassificationDenied =
+    deniedResponse.status === 422 &&
+    denied.status === 'SAFE_REDIRECTION_REQUIRED' &&
+    denied.personProfileCreated === false;
+  const frameworkCoverageComplete =
+    frameworks.coverage?.total === 37 &&
+    frameworks.coverage?.contemporary === 19 &&
+    frameworks.coverage?.historical === 18 &&
+    frameworks.frameworks?.length === 37;
+  const religiousReferencesBounded =
+    references.references?.length === 8 &&
+    references.automationBoundary?.automatedFatwa === false &&
+    references.automationBoundary?.qualifiedScholarReviewRequired === true;
+  const assessmentIsBounded =
+    assessmentResponse.status === 200 &&
+    assessment.dimensions?.length === 10 &&
+    assessment.conclusions?.ideaDeclaredCorrect === false &&
+    assessment.conclusions?.truthClaimVerified === false &&
+    assessment.privacy?.individualIdeologyScoreCreated === false;
+  const communityProgramIsBounded =
+    programResponse.status === 200 &&
+    program.status === 'GOVERNED_PEACEFUL_PROGRAM_DRAFT_READY' &&
+    program.programs?.length === 7 &&
+    program.execution?.authorized === false &&
+    program.communityHealth?.individualFaithScore === false &&
+    program.communityHealth?.individualIdeologyScore === false &&
+    program.communityHealth?.coerciveTreatment === false;
+  const purposefulIdeaIsBounded =
+    ideaResponse.status === 200 &&
+    idea.status === 'GOVERNED_PURPOSEFUL_IDEA_DRAFT_READY' &&
+    idea.idea?.generatedIdeologyDraft === true &&
+    idea.idea?.canonicalTruthOrIdeology === false &&
+    idea.principles?.length === 8 &&
+    idea.theoryOfChange?.length === 5 &&
+    idea.programs?.length === 7 &&
+    idea.governance?.coerciveAdoption === false &&
+    idea.governance?.targetedPersuasion === false &&
+    idea.execution?.authorized === false;
+
+  return {
+    statusCode: statusResponse.status,
+    status: status.status || null,
+    coverage: status.coverage || null,
+    treeDetailsComplete,
+    planIsBounded,
+    frameworkCoverageComplete,
+    religiousReferencesBounded,
+    assessmentIsBounded,
+    purposefulIdeaIsBounded,
+    communityProgramIsBounded,
+    sensitiveClassificationDenied,
+    physicalPlantingClaimed:
+      garden.physicalBoundary?.physicalPlantingExecuted === true,
+    passed: statusResponse.status === 200 &&
+      gardenResponse.status === 200 &&
+      planResponse.status === 200 &&
+      status.coverage?.gardens === 9 &&
+      status.coverage?.trees === 27 &&
+      status.coverage?.products === 13 &&
+      status.coverage?.sectors === 30 &&
+      status.coverage?.markets === 7 &&
+      status.coverage?.thoughtFrameworks === 37 &&
+      status.coverage?.contemporaryThoughtFrameworks === 19 &&
+      status.coverage?.historicalThoughtFrameworks === 18 &&
+      status.coverage?.religiousMethodReferences === 8 &&
+      treeDetailsComplete &&
+      planIsBounded &&
+      frameworkCoverageComplete &&
+      religiousReferencesBounded &&
+      assessmentIsBounded &&
+      purposefulIdeaIsBounded &&
+      communityProgramIsBounded &&
+      sensitiveClassificationDenied &&
+      garden.physicalBoundary?.physicalPlantingExecuted === false,
+  };
+}
+
 async function checkProductAliases(baseUrl) {
   const aliases = [
+    ['/dashboard', '/dashboard/'],
     ['/gardens', '/riyadh-aljannah-community/'],
     ['/builder', '/system-builder-workbench/'],
     ['/uefi', '/boot-trial/'],
     ['/bare-metal', '/boot-trial/'],
+    ['/tech', '/technology/'],
+    ['/technical-product', '/product-technical/'],
+    ['/dialogue', '/constructive-dialogue/'],
   ];
   const results = [];
   for (const [route, target] of aliases) {
@@ -346,7 +861,18 @@ async function runSmoke(baseUrl) {
   const bootTrial = await checkBootTrial(origin);
   const uefiIntegration = await checkUefiIntegration(origin);
   const hardwareCompatibility = await checkHardwareCompatibility(origin);
+  const languageFoundationV2 =
+    await checkLanguageFoundationV2(origin);
+  const rootEvidenceTruthMatrix =
+    await checkRootEvidenceTruthMatrix(origin);
   const unifiedProductRuntime = await checkUnifiedProductRuntime(origin);
+  const unifiedCommerceRuntime = await checkUnifiedCommerceRuntime(origin);
+  const technicalExperienceRuntime =
+    await checkTechnicalExperienceRuntime(origin);
+  const productionQualificationV1 =
+    await checkProductionQualificationV1(origin);
+  const gardensKnowledgeDialogueV2 =
+    await checkGardensKnowledgeDialogueV2(origin);
   const productAliases = await checkProductAliases(origin);
   const passed = pages.every((page) => page.passed) &&
     health.passed &&
@@ -355,7 +881,13 @@ async function runSmoke(baseUrl) {
     bootTrial.passed &&
     uefiIntegration.passed &&
     hardwareCompatibility.passed &&
+    languageFoundationV2.passed &&
+    rootEvidenceTruthMatrix.passed &&
     unifiedProductRuntime.passed &&
+    unifiedCommerceRuntime.passed &&
+    technicalExperienceRuntime.passed &&
+    productionQualificationV1.passed &&
+    gardensKnowledgeDialogueV2.passed &&
     productAliases.passed;
   const report = {
     schemaVersion: '1.0.0',
@@ -371,7 +903,13 @@ async function runSmoke(baseUrl) {
     bootTrial,
     uefiIntegration,
     hardwareCompatibility,
+    languageFoundationV2,
+    rootEvidenceTruthMatrix,
     unifiedProductRuntime,
+    unifiedCommerceRuntime,
+    technicalExperienceRuntime,
+    productionQualificationV1,
+    gardensKnowledgeDialogueV2,
     productAliases,
     checkedPageCount: pages.length,
     passed,

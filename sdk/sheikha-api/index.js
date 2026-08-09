@@ -110,6 +110,11 @@ function createSheikhaApiClient({
       '/api/language/arabic-semantic-encoding/decode',
       '/api/language/arabic-semantic-encoding/segment',
       '/api/language/arabic-semantic-encoding/reassemble',
+      '/api/sheikha/production-federation/v1/status',
+      '/api/sheikha/production-federation/v1/models',
+      '/api/sheikha/production-federation/v1/systems',
+      '/api/sheikha/production-federation/v1/evidence',
+      '/api/sheikha/production-federation/v1/evaluate',
       '/api/sheikha/enterprise-management-os/status'
     ],
     requestDescriptor(path, method = 'GET') {
@@ -300,6 +305,18 @@ function createSheikhaApiClient({
     installerLifecycle: () => request('/api/sheikha/distribution-apex/v3.1/installer-lifecycle'),
     security: () => request('/api/sheikha/distribution-apex/v3.1/security'),
     releaseIndex: () => request('/api/sheikha/distribution-apex/v3.1/release-index')
+  };
+
+  client.productionFederation = {
+    status: () => request('/api/sheikha/production-federation/v1/status'),
+    models: () => request('/api/sheikha/production-federation/v1/models'),
+    systems: () => request('/api/sheikha/production-federation/v1/systems'),
+    evidence: () => request('/api/sheikha/production-federation/v1/evidence'),
+    evaluate: input => request(
+      '/api/sheikha/production-federation/v1/evaluate',
+      'POST',
+      input
+    )
   };
 
   client.publicBenefit = {

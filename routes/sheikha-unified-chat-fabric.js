@@ -44,6 +44,12 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       debuggingApex: '/api/sheikha/debugging-apex/v1/status',
       chatInterfaceApex: '/api/sheikha/chat-interface-apex/v1/status',
       vitalChatApex: '/api/sheikha/vital-chat-apex/v1/status',
+      intelligenceCapabilityApex:
+        '/api/sheikha/intelligence-capability-apex/v1/status',
+      intelligenceCapabilities:
+        '/api/sheikha/intelligence-capability-apex/v1/capabilities',
+      intelligenceModels:
+        '/api/sheikha/intelligence-capability-apex/v1/models',
       enterpriseInspector: '/api/sheikha/enterprise-inspector/v3/status',
       distributionReleaseApex: '/api/sheikha/distribution-apex/v1/status',
       distributionReleaseMatrix: '/api/sheikha/distribution-apex/v1/matrix',
@@ -78,6 +84,7 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       pro: 'four-lens evidence architecture serendipity and risk review',
       ultra: 'four governed role slots with human-owned final decision',
       safetyFilterEvasionAllowed: false,
+      actualIndependentModelInvocationsAvailable: true,
       actualIndependentModelProcessesClaimed: false
     },
     highestExecutableTechnicalLayer: {
@@ -129,6 +136,7 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
       'PublicBenefitCapabilityRouter',
       'DistributionReleaseApex',
       'ComputingCognitiveApex',
+      'IntelligenceCapabilityApex',
       'StreamingMultilingualChatApex',
       'TechnicalCapabilityApex',
       'IDEApex',
@@ -145,8 +153,8 @@ router.get('/api/sheikha/unified-chat/status', (req, res) => {
   });
 });
 
-router.post('/api/sheikha/unified-chat', (req, res) => {
-  const result = handleUnifiedChat(req.body || {});
+router.post('/api/sheikha/unified-chat', async (req, res) => {
+  const result = await handleUnifiedChat(req.body || {});
   res.status(result.blocked ? 403 : 200).json(result);
 });
 

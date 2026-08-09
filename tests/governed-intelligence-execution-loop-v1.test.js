@@ -13,6 +13,9 @@ const {
   buildExecutionMetadata,
   formatChatAnswer
 } = require('../runtime/chat-fabric/sheikha-unified-chat-fabric-v1');
+const {
+  CHAT_MODES
+} = require('../sheikha-vscode-extension/src/ui/sheikhaChatTemplate');
 
 const ROOT = path.join(__dirname, '..');
 
@@ -83,7 +86,6 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
     const fabric = readJson('runtime/fabric-bootstrap/sheikha-fabric-routes.json');
     const mcp = readJson('runtime/sdk-fabric-mcp-integration/v1/registries/mcp-tool-catalog.json');
     const sdk = readJson('runtime/sdk-fabric-mcp-integration/v1/registries/sdk-fabric-map.json');
-    const extension = readText('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
     const report = readJson(
       'runtime/governed-intelligence-execution-loop/v1/sheikha-governed-intelligence-execution-loop-v1-report.json'
     );
@@ -100,8 +102,16 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
       'run_intelligence_execution_impact_loop'
     ]));
     expect(sdk.fabricTargets).toContain('governed_intelligence_execution_loop');
-    ['generative', 'rag', 'agentic', 'multi-agent', 'agi-research', 'asi-research']
-      .forEach((mode) => expect(extension).toContain(`data-mode="${mode}"`));
+    expect(CHAT_MODES.map(([mode]) => mode)).toEqual(
+      expect.arrayContaining([
+        'generative',
+        'rag',
+        'agentic',
+        'multi-agent',
+        'agi-research',
+        'asi-research'
+      ])
+    );
     expect(report.decision).toBe('GOVERNED_INTELLIGENCE_EXECUTION_LOOP_ACTIVE_100');
   });
 
@@ -157,11 +167,18 @@ describe('Sheikha Governed Intelligence Execution Loop V1', () => {
   });
 
   test('extension replaces typing indicator instead of leaving it in chat history', () => {
-    const extension = readText('sheikha-vscode-extension/src/chat/sheikhaChatProvider.js');
+    const extension = readText(
+      'sheikha-vscode-extension/src/ui/sheikhaChatTemplate.js'
+    );
 
     expect(extension).toContain('let typingMessage = null;');
     expect(extension).toContain('typingMessage.remove()');
     expect(extension).toContain("if (msg.command === 'reply') {");
-    expect(extension).toContain('send.disabled = false;');
+    expect(extension).toContain('send.disabled = busy;');
+    expect(extension).toContain("send.addEventListener('click', ask)");
+    expect(extension).not.toContain(
+      'send.disabled = busy || !bridgeReady;'
+    );
+    expect(extension).toContain("msg.command === 'readyAck'");
   });
 });

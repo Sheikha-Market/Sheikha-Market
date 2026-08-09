@@ -30,6 +30,16 @@ router.use((req, res, next) => {
   if (req.method !== 'GET' && req.method !== 'HEAD') {
     return next();
   }
+  const declaredFile = policy.primaryRoutes[req.path];
+  if (!declaredFile || req.path === '/') return next();
+  const relativeFile = declaredFile.replace(/^public\//, '');
+  return res.sendFile(path.join(publicRoot, relativeFile));
+});
+
+router.use((req, res, next) => {
+  if (req.method !== 'GET' && req.method !== 'HEAD') {
+    return next();
+  }
   let requestPath = req.path;
   try {
     requestPath = decodeURIComponent(requestPath);

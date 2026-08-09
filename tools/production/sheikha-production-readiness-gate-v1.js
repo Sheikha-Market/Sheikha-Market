@@ -120,11 +120,19 @@ function evaluateProductionReadiness(lines = readLogs(), options = {}) {
 
   return {
     system: 'SHEIKHA_PRODUCTION_READINESS_GATE_V1',
+    generatedAt:
+      options.generatedAt || new Date().toISOString(),
     status: summary.blockers ? 'BLOCKED' : summary.review ? 'REVIEW' : 'PASSED',
     productionReady: summary.total === 0,
     candidateReady: summary.blockers === 0,
     findings,
     summary,
+    scanScope: {
+      activePm2Apps: ACTIVE_PM2_APPS,
+      inputLineCount: lines.length,
+      maximumStoredFindings: maxFindings,
+      historicalRotatedLogsIncluded: false
+    },
     requiredBeforeProfitLaunch: [
       'clean_pm2_logs',
       'stable_health_checks',
@@ -146,7 +154,7 @@ if (require.main === module) {
   fs.mkdirSync('runtime/production-readiness', { recursive: true });
   fs.writeFileSync(
     'runtime/production-readiness/sheikha-production-readiness-gate-v1.json',
-    JSON.stringify(result, null, 2)
+    `${JSON.stringify(result, null, 2)}\n`
   );
   console.log(JSON.stringify(result, null, 2));
   process.exit(result.productionReady ? 0 : 1);

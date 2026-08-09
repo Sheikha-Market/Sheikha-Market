@@ -1,14 +1,24 @@
 {
   "version": "1.0.0",
   "defaultSourceLanguage": "sheikha",
+  "architecturePolicy": {
+    "firstPartyFoundationLanguage": "sheikha",
+    "externalLanguagesRole": "TOOL_ADAPTER",
+    "externalLanguagesMayReplaceFoundation": false,
+    "currentCompilerBootstrapRuntime": "Node.js",
+    "selfHostedCompilerVerified": false,
+    "nativeMachineCodeBackendVerified": false
+  },
   "languages": [
     {
       "name": "sheikha",
       "family": "sheikha-dsl",
       "extensions": [".shk"],
       "inputKinds": ["shk", "semantic-manifest"],
-      "runtime": "native",
-      "governance": "native"
+      "runtime": "hosted-bytecode-vm",
+      "governance": "native",
+      "selfHostedCompiler": false,
+      "nativeMachineCodeBackend": false
     },
     {
       "name": "javascript",

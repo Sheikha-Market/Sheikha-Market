@@ -13,6 +13,9 @@
   "primaryRoutes": {
     "/": "public/index.html",
     "/market/": "public/market/index.html",
+    "/dashboard/": "public/sheikha-dashboards/index.html",
+    "/technology/": "public/technology/index.html",
+    "/product-technical/": "public/product-technical/index.html",
     "/register/": "public/register/index.html",
     "/commercial/": "public/commercial/index.html",
     "/company/": "public/company/index.html",
@@ -21,6 +24,7 @@
     "/ide/": "public/ide/index.html",
     "/system-builder-workbench/": "public/system-builder-workbench/index.html",
     "/riyadh-aljannah-community/": "public/riyadh-aljannah-community/index.html",
+    "/constructive-dialogue/": "public/constructive-dialogue/index.html",
     "/site-map/": "public/site-map/index.html",
     "/boot-trial/": "public/boot-trial/index.html"
   },
@@ -37,11 +41,24 @@
     "/uefi/": "/boot-trial/",
     "/gardens": "/riyadh-aljannah-community/",
     "/gardens/": "/riyadh-aljannah-community/",
+    "/dialogue": "/constructive-dialogue/",
+    "/dialogue/": "/constructive-dialogue/",
+    "/idea-dialogue": "/constructive-dialogue/",
+    "/idea-dialogue/": "/constructive-dialogue/",
     "/builder": "/system-builder-workbench/",
     "/builder/": "/system-builder-workbench/",
     "/system-builder": "/system-builder-workbench/",
     "/market": "/market/",
     "/سوق-شيخة.html": "/market/",
+    "/dashboard": "/dashboard/",
+    "/dashboards": "/dashboard/",
+    "/sheikha-dashboards": "/dashboard/",
+    "/sheikha-dashboards/": "/dashboard/",
+    "/technology": "/technology/",
+    "/tech": "/technology/",
+    "/technical": "/technology/",
+    "/product-technical": "/product-technical/",
+    "/technical-product": "/product-technical/",
     "/register": "/register/",
     "/تسجيل-الشركات.html": "/register/",
     "/ide": "/ide/",
@@ -50,6 +67,10 @@
   "productRouteFamilies": {
     "gardens": {
       "canonical": "/riyadh-aljannah-community/",
+      "domain": "knowledge"
+    },
+    "constructiveDialogue": {
+      "canonical": "/constructive-dialogue/",
       "domain": "knowledge"
     },
     "systemBuilder": {
@@ -63,6 +84,14 @@
     "uefi": {
       "canonical": "/boot-trial/",
       "domain": "native"
+    },
+    "technology": {
+      "canonical": "/technology/",
+      "domain": "developer"
+    },
+    "technicalDossier": {
+      "canonical": "/product-technical/",
+      "domain": "developer"
     }
   },
   "protectedPageRoutes": [

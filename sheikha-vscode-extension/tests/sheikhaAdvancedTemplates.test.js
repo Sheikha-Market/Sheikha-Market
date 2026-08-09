@@ -3,6 +3,10 @@
 const {
   APEX_LAYERS,
   CHAT_MODES,
+  CHAT_TOOL_COMMAND_IDS,
+  CHAT_TOOL_GROUPS,
+  CHAT_TOOLS,
+  DIALOGUE_AUDIENCES,
   QUICK_ACTIONS,
   renderSheikhaChatTemplate
 } = require('../src/ui/sheikhaChatTemplate');
@@ -12,13 +16,38 @@ const {
 
 describe('Sheikha advanced VS Code templates', () => {
   test('renders a conversation-first governed chat without placeholder regions', () => {
-    const html = renderSheikhaChatTemplate({ nonce: 'safe-nonce', version: '1.0.91' });
+    const html = renderSheikhaChatTemplate({ nonce: 'safe-nonce', version: '1.0.102' });
 
     expect(html).toContain('شات شيخة');
-    expect(html).toContain('Extension 1.0.91');
+    expect(html).toContain('Extension 1.0.102');
+    expect(html).toContain('لوحة المالك');
+    expect(html).toContain('id="composerForm"');
+    expect(html).toContain('type="button"');
+    expect(html).toContain("command: 'ready'");
+    expect(html).toContain("msg.command === 'readyAck'");
+    expect(html).toContain('function announceReady()');
+    expect(html).toContain('setInterval(announceReady, 500)');
+    expect(html).toContain('clearInterval(readyTimer)');
+    expect(html).toContain("composerForm.addEventListener('submit', ask)");
+    expect(html).toContain("send.addEventListener('click', ask)");
+    expect(html).toContain('send.disabled = busy;');
+    expect(html).not.toContain('send.disabled = busy || !bridgeReady;');
+    expect(html).toContain('armRequestTimeout();');
+    expect(html).toContain('const REQUEST_IDLE_TIMEOUT_MS = 100000;');
+    expect(html).toContain("msg.command === 'progress'");
     expect(html).toContain('id="mode"');
+    expect(html).toContain('id="audience"');
+    expect(html).toContain('حوار فكري محكوم');
     expect(html).toContain('class="conversation"');
     expect(html).toContain('class="composer"');
+    expect(html).toContain('id="toolbox"');
+    expect(html).toContain('id="toolSearch"');
+    expect(html).toContain('39 أداة محكومة');
+    expect(html).toContain('data-tool-command="sheikha.showStatus"');
+    expect(html).toContain('data-tool-command="sheikha.runtime.restart"');
+    expect(html).toContain("command: 'tool'");
+    expect(html).toContain("msg.command === 'toolAvailability'");
+    expect(html).toContain("msg.command === 'toolResult'");
     expect(html).toContain("script-src 'nonce-safe-nonce'");
     expect(html).toContain('replaceChildren');
     expect(html).not.toContain('context_rail');
@@ -26,7 +55,26 @@ describe('Sheikha advanced VS Code templates', () => {
     expect(html).not.toContain('.innerHTML');
     expect(APEX_LAYERS).toHaveLength(8);
     expect(CHAT_MODES.length).toBeGreaterThanOrEqual(10);
-    expect(QUICK_ACTIONS).toHaveLength(4);
+    expect(DIALOGUE_AUDIENCES).toHaveLength(6);
+    expect(QUICK_ACTIONS).toHaveLength(6);
+    expect(CHAT_TOOL_GROUPS).toHaveLength(6);
+    expect(CHAT_TOOLS).toHaveLength(39);
+    expect(new Set(CHAT_TOOL_COMMAND_IDS).size).toBe(39);
+  });
+
+  test('emits syntactically valid webview scripts', () => {
+    const html = renderSheikhaChatTemplate({
+      nonce: 'syntax-nonce',
+      version: '1.0.102'
+    });
+    const scripts = [...html.matchAll(
+      /<script[^>]*>([\s\S]*?)<\/script>/g
+    )].map((match) => match[1]);
+
+    expect(scripts).toHaveLength(1);
+    for (const script of scripts) {
+      expect(() => new Function(script)).not.toThrow();
+    }
   });
 
   test('renders an inspector with compact summary tabs and searchable interfaces', () => {
@@ -56,11 +104,13 @@ describe('Sheikha advanced VS Code templates', () => {
     });
 
     expect(html).toContain('data-tab="overview"');
+    expect(html).toContain('data-tab="organization"');
     expect(html).toContain('data-tab="workspace"');
     expect(html).toContain('data-tab="governance"');
     expect(html).toContain('data-tab="interfaces"');
     expect(html).toContain('id="routeFilter"');
     expect(html).toContain('القرار النهائي للإنسان');
+    expect(html).toContain('سلطة القرار الملزم للآلة');
     expect(html).toContain("script-src 'nonce-inspector-nonce'");
     expect(html).not.toContain('50</b><span>Open Editors');
   });

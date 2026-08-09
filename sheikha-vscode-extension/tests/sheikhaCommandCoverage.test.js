@@ -6,6 +6,9 @@ const path = require('node:path');
 const {
   BRIDGE_COMMAND_IDS
 } = require('../src/sheikhaCommandBridge');
+const {
+  CHAT_TOOL_COMMAND_IDS
+} = require('../src/ui/sheikhaChatTemplate');
 
 const ROOT = path.resolve(__dirname, '..');
 const packageJson = require('../package.json');
@@ -37,11 +40,25 @@ describe('Sheikha extension command coverage', () => {
     for (const command of CORE_COMMAND_IDS) expect(activation).toContain(command);
   });
 
-  test('uses the governed src entrypoint without an undeclared dependency', () => {
-    const entrypoint = fs.readFileSync(path.join(ROOT, 'extension.js'), 'utf8');
+  test('exposes every declared command through the governed chat toolbox', () => {
+    const declared = packageJson.contributes.commands
+      .map((item) => item.command)
+      .sort();
+    const chatTools = [...CHAT_TOOL_COMMAND_IDS].sort();
 
-    expect(entrypoint).toContain("require('./src/extension')");
+    expect(chatTools).toEqual(declared);
+    expect(new Set(chatTools).size).toBe(chatTools.length);
+  });
+
+  test('uses the governed src entrypoint without an undeclared dependency', () => {
+    const entrypoint = fs.readFileSync(
+      path.join(ROOT, packageJson.main),
+      'utf8'
+    );
+
+    expect(packageJson.main).toBe('./src/extension.js');
     expect(entrypoint).not.toContain("require('node-fetch')");
+    expect(packageJson.files).not.toContain('extension.js');
   });
 
   test('activates after startup without the expensive wildcard event', () => {
@@ -49,10 +66,18 @@ describe('Sheikha extension command coverage', () => {
     expect(packageJson.activationEvents).not.toContain('*');
   });
 
-  test('packages executable source without backup trees or conflicting ignore rules', () => {
+  test('packages executable source with explicit backup and test exclusions', () => {
+    const vscodeIgnore = fs.readFileSync(
+      path.join(ROOT, '.vscodeignore'),
+      'utf8'
+    );
+
     expect(packageJson.files).toContain('src/**/*.js');
     expect(packageJson.files).not.toContain('src/**');
-    expect(fs.existsSync(path.join(ROOT, '.vscodeignore'))).toBe(false);
+    expect(vscodeIgnore).toContain('**/*.bak*');
+    expect(vscodeIgnore).toContain('**/*.broken.*');
+    expect(vscodeIgnore).toContain('tests/**');
+    expect(vscodeIgnore).toContain('dist/**');
   });
 
   test('keeps GitHub and GitLab integrations optional and user-triggered', () => {

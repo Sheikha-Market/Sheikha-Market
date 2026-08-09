@@ -57,9 +57,9 @@ if [ ! -f "$EXTENSION_DIR/package.json" ]; then
     exit 1
 fi
 
-# Validate extension.js exists
-if [ ! -f "$EXTENSION_DIR/extension.js" ]; then
-    echo -e "${RED}❌ extension.js not found in $EXTENSION_DIR${NC}"
+# Validate the governed extension entrypoint exists
+if [ ! -f "$EXTENSION_DIR/src/extension.js" ]; then
+    echo -e "${RED}❌ src/extension.js not found in $EXTENSION_DIR${NC}"
     exit 1
 fi
 
@@ -85,6 +85,17 @@ else
     echo -e "${RED}❌ Failed to create .vsix package${NC}"
     exit 1
 fi
+
+PACKAGE_FILES=$(unzip -Z1 "$VSIX_FILE")
+if ! grep -Fxq "extension/src/extension.js" <<< "$PACKAGE_FILES"; then
+    echo -e "${RED}❌ Governed entrypoint is missing from the package${NC}"
+    exit 1
+fi
+if grep -Fxq "extension/extension.js" <<< "$PACKAGE_FILES"; then
+    echo -e "${RED}❌ Conflicting legacy entrypoint is present in the package${NC}"
+    exit 1
+fi
+echo -e "${GREEN}✅ Governed entrypoint verified${NC}"
 
 # Verify file size
 FILE_SIZE=$(du -h "$VSIX_FILE" | cut -f1)
