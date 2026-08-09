@@ -613,7 +613,72 @@ function buildRecentConversationContext(history = []) {
   })).filter(turn => turn.content).map(turn => `${turn.role}: ${turn.content}`).join('\n');
 }
 
-function executePipeline(payload = {}) {
+function finalizePipelineResult({
+  answer,
+  cli,
+  intelligenceMode,
+  intent,
+  knownResolution,
+  message,
+  payload,
+  reasoningResult
+}) {
+  const vscodeReport = buildVSCodeToolsReport(payload.vscodeTools);
+  let finalAnswer = answer;
+
+  if (
+    !knownResolution &&
+    vscodeReport &&
+    /vscode|أدوات|الملف النشط|المشاكل|diagnostics|problems|فرع/i
+      .test(message)
+  ) {
+    finalAnswer = `${finalAnswer}\n${vscodeReport}`;
+  }
+
+  return {
+    success: true,
+    pipeline: 'SHEIKHA_EXECUTION_PIPELINE_V1',
+    intent,
+    intelligenceMode,
+    reasoning: reasoningResult ? {
+      system: reasoningResult.system,
+      status: reasoningResult.status,
+      mode: reasoningResult.mode,
+      roleSlots: reasoningResult.orchestration.roleSlots,
+      actualIndependentModelProcesses:
+        reasoningResult.orchestration.actualIndependentModelProcesses,
+      humanFinalDecision: reasoningResult.governance.humanFinalDecision,
+      blockedReason: reasoningResult.blockedReason
+    } : undefined,
+    claimStatus: {
+      actualAgiReached: false,
+      actualAsiReached: false,
+      consciousnessClaimed: false,
+      superhumanCapabilityClaimed: false
+    },
+    vitality: {
+      mode: 'RESPONSIVE_CONTEXTUAL_CONVERSATION',
+      sessionContextUsed:
+        Array.isArray(payload.history) && payload.history.length > 0,
+      humanLikeConsciousnessClaimed: false
+    },
+    cli,
+    conversationContext: payload.conversationContext || null,
+    enterpriseInspector: payload.enterpriseInspector || null,
+    vscodeTools: payload.vscodeTools || null,
+    answer: finalAnswer,
+    governance: {
+      engine: 'SHEIKHA_GOVERNANCE_PROTOCOL_V1',
+      allowed: true,
+      basis:
+        'التوحيد لله وحده، والرقمنة منضبطة بالكتاب والسنة، ' +
+        'ولا ضرر ولا ضرار',
+      humanReviewRequiredForExecution: true
+    }
+  };
+}
+
+function executePipeline(payload = {}, options = {}) {
   const message = String(payload.message || payload.prompt || '').trim();
   const workspace = payload.workspace || {};
   const workspaceRoot = workspace.workspaceRoot || payload.workspaceRoot || process.cwd();
@@ -686,66 +751,61 @@ function executePipeline(payload = {}) {
   } else if (intent === 'CONTENT_REPORT') {
     answer = buildContentReport(message, payload);
   } else {
-    const executed = modelExecutor.execute(message, {
+    const modelOptions = {
       context: [
         buildRecentConversationContext(payload.history),
         buildConversationModelContext(payload.conversationContext),
         buildInspectorModelContext(payload.enterpriseInspector)
       ].filter(Boolean).join('\n\n')
-    });
+    };
+    const executed = typeof options.executeModel === 'function'
+      ? options.executeModel(message, modelOptions)
+      : modelExecutor.execute(message, modelOptions);
+
+    if (executed && typeof executed.then === 'function') {
+      return executed.then((modelResult) => finalizePipelineResult({
+        answer: modelResult.success
+          ? modelResult.answer
+          : modelResult.answer ||
+            modelResult.error ||
+            'تعذر تنفيذ النموذج.',
+        cli,
+        intelligenceMode,
+        intent,
+        knownResolution,
+        message,
+        payload,
+        reasoningResult
+      }));
+    }
+
     answer = executed.success
       ? executed.answer
       : executed.answer || executed.error || 'تعذر تنفيذ النموذج.';
   }
 
-  const vscodeReport = buildVSCodeToolsReport(payload.vscodeTools);
-
-  if (!knownResolution && vscodeReport && /vscode|أدوات|الملف النشط|المشاكل|diagnostics|problems|فرع/i.test(message)) {
-    answer = `${answer}\n${vscodeReport}`;
-  }
-
-  return {
-    success: true,
-    pipeline: 'SHEIKHA_EXECUTION_PIPELINE_V1',
-    intent,
-    intelligenceMode,
-    reasoning: reasoningResult ? {
-      system: reasoningResult.system,
-      status: reasoningResult.status,
-      mode: reasoningResult.mode,
-      roleSlots: reasoningResult.orchestration.roleSlots,
-      actualIndependentModelProcesses:
-        reasoningResult.orchestration.actualIndependentModelProcesses,
-      humanFinalDecision: reasoningResult.governance.humanFinalDecision,
-      blockedReason: reasoningResult.blockedReason
-    } : undefined,
-    claimStatus: {
-      actualAgiReached: false,
-      actualAsiReached: false,
-      consciousnessClaimed: false,
-      superhumanCapabilityClaimed: false
-    },
-    vitality: {
-      mode: 'RESPONSIVE_CONTEXTUAL_CONVERSATION',
-      sessionContextUsed: Array.isArray(payload.history) && payload.history.length > 0,
-      humanLikeConsciousnessClaimed: false
-    },
-    cli,
-    conversationContext: payload.conversationContext || null,
-    enterpriseInspector: payload.enterpriseInspector || null,
-    vscodeTools: payload.vscodeTools || null,
+  return finalizePipelineResult({
     answer,
-    governance: {
-      engine: 'SHEIKHA_GOVERNANCE_PROTOCOL_V1',
-      allowed: true,
-      basis: 'التوحيد لله وحده، والرقمنة منضبطة بالكتاب والسنة، ولا ضرر ولا ضرار',
-      humanReviewRequiredForExecution: true
-    }
-  };
+    cli,
+    intelligenceMode,
+    intent,
+    knownResolution,
+    message,
+    payload,
+    reasoningResult
+  });
+}
+
+async function executePipelineAsync(payload = {}, options = {}) {
+  return executePipeline(payload, {
+    executeModel:
+      options.executeModel || modelExecutor.executeAsync
+  });
 }
 
 module.exports = {
   executePipeline,
+  executePipelineAsync,
   classifyIntent,
   isFoundryTopic,
   buildFoundryReport,

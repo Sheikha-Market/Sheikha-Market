@@ -1,0 +1,163 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="مرصد شيخة التقني للقياسات الحية والمعمارية والذكاء الصناعي وملفات المنتجات الهندسية.">
+  <link rel="canonical" href="https://sheikha.top/technology/">
+  <title>مرصد شيخة التقني | القياس والمعمارية والذكاء الحي</title>
+  <link rel="stylesheet" href="/technology/styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="شيخة، الصفحة الرئيسية">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة</strong><small>TECHNICAL OBSERVATORY</small></span>
+    </a>
+    <nav aria-label="التنقل الرئيسي">
+      <a href="/market/">السوق</a>
+      <a href="/dashboard/">لوحة التحكم</a>
+      <a class="active" href="/technology/" aria-current="page">التقنية</a>
+      <a href="/product-technical/">ملفات المنتجات</a>
+      <a href="/site-map/">الدليل</a>
+    </nav>
+    <span class="runtime-state"><i id="runtime-dot"></i><b id="runtime-label">جارٍ القياس</b></span>
+  </header>
+
+  <main>
+    <section class="observatory" aria-labelledby="observatory-title">
+      <img
+        class="observatory-image"
+        src="/images/sheikha-industrial-market-hero-v1.png"
+        alt="منشأة صناعية ومواد معدنية ومسارات نقل وميناء"
+      >
+      <div class="observatory-shade" aria-hidden="true"></div>
+      <canvas id="network-canvas" role="img" aria-label="رسم حي لتدفق البيانات بين مستوى التحكم المركزي وعقد التنفيذ"></canvas>
+      <div class="observatory-copy">
+        <p class="eyebrow">SHEIKHA TECHNICAL PROGRESS</p>
+        <h1 id="observatory-title">مرصد شيخة التقني</h1>
+        <p>
+          قياس حقيقي للمسار المحلي، ورؤية واضحة لانتقال البيانات من الجمع
+          والتحقق إلى التحليل والنتيجة والدليل.
+        </p>
+        <div class="observatory-actions">
+          <button id="run-ai-probe" type="button">اختبر مسار الذكاء الحي</button>
+          <a href="/product-technical/">افتح الملفات الهندسية</a>
+        </div>
+      </div>
+      <div class="architecture-badge">
+        <span>النمط</span>
+        <strong>تحكم مركزي وتنفيذ موزع محكوم</strong>
+        <small>الاتحاد الخارجي غير مدعى دون دليل مستقل</small>
+      </div>
+    </section>
+
+    <section class="metric-band" aria-label="القياسات الحية">
+      <article><span>زمن الجولة</span><strong id="metric-rtt">--</strong><small>مللي ثانية، من هذا المتصفح</small></article>
+      <article><span>معدل الحمولة</span><strong id="metric-throughput">--</strong><small>KiB/s مرصودة للطلب الحالي</small></article>
+      <article><span>حجم الاستجابة</span><strong id="metric-payload">--</strong><small>KiB</small></article>
+      <article><span>دورة الأحداث</span><strong id="metric-loop">--</strong><small>تأخر دورة مرصود</small></article>
+      <article><span>ذاكرة Heap</span><strong id="metric-heap">--</strong><small>MiB للعملية</small></article>
+      <article><span>تشغيل الخدمة</span><strong id="metric-uptime">--</strong><small>مدة العملية الحالية</small></article>
+    </section>
+
+    <section class="pipeline-section" aria-labelledby="pipeline-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">DATA TO UNDERSTANDING</p>
+          <h2 id="pipeline-title">من البيانات إلى الفهم القابل للإثبات</h2>
+        </div>
+        <p>كل مرحلة لها مدخل ومخرج وحد فشل، ولا تتحول النتيجة إلى تنفيذ عالي الأثر دون موافقة.</p>
+      </header>
+      <ol class="pipeline" id="pipeline" aria-label="مسار البيانات والتحليل">
+        <li><b>01</b><strong>الجمع</strong><span>مصدر ووقت وحجم</span></li>
+        <li><b>02</b><strong>التحقق</strong><span>مخطط وسلامة</span></li>
+        <li><b>03</b><strong>الحوكمة</strong><span>هوية وسياسة</span></li>
+        <li><b>04</b><strong>التحليل</strong><span>قياس واستدلال</span></li>
+        <li><b>05</b><strong>الفهم</strong><span>شرح وحدود</span></li>
+        <li><b>06</b><strong>الدليل</strong><span>أثر قابل للتدقيق</span></li>
+        <li><b>07</b><strong>التسليم</strong><span>واجهة أو API</span></li>
+      </ol>
+    </section>
+
+    <section class="architecture-section" aria-labelledby="architecture-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">CONTROL &amp; EXECUTION</p>
+          <h2 id="architecture-title">مركزية القرار ولامركزية التنفيذ</h2>
+        </div>
+        <p>المركز يحكم السياسة والهوية والدليل، والأطراف تقيس وتنفذ ضمن عقد وصلاحية محددين.</p>
+      </header>
+      <div class="architecture-columns">
+        <section aria-labelledby="central-title">
+          <header><span>CONTROL PLANE</span><h3 id="central-title">المستوى المركزي</h3></header>
+          <ul id="central-nodes"></ul>
+        </section>
+        <section aria-labelledby="edge-title">
+          <header><span>EXECUTION NODES</span><h3 id="edge-title">العقد اللامركزية</h3></header>
+          <ul id="edge-nodes"></ul>
+        </section>
+      </div>
+      <aside class="architecture-boundary">
+        <strong>الحد المثبت</strong>
+        <p>التشغيل المحلي والعقود مسجلة. لا تُعرض شبكة خارجية موحدة أو انتشار عالمي بوصفه منفذًا حتى توجد قياسات أصلية لكل بيئة.</p>
+      </aside>
+    </section>
+
+    <section class="progress-section" aria-labelledby="progress-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">EVIDENCE TRUTH MATRIX</p>
+          <h2 id="progress-title">حقيقة التنفيذ بالأدلة</h2>
+        </div>
+        <p id="progress-summary">جارٍ قراءة الأدلة المحلية.</p>
+      </header>
+      <div class="progress-grid" id="progress-grid"></div>
+    </section>
+
+    <section class="ai-lab" aria-labelledby="ai-lab-title">
+      <div class="ai-copy">
+        <p class="eyebrow">LIVE AI PATH</p>
+        <h2 id="ai-lab-title">اختبار الذكاء الصناعي الحي</h2>
+        <p>
+          يبدأ الاختبار بطلب عربي محدود ويقيس وصول الإقرار وأول نص والنهاية.
+          النتيجة المعروضة هي ما وصل فعليًا من SSE في هذه الجلسة.
+        </p>
+        <dl>
+          <div><dt>الإقرار</dt><dd id="ai-ack-time">لم يُختبر</dd></div>
+          <div><dt>أول نص</dt><dd id="ai-token-time">لم يُختبر</dd></div>
+          <div><dt>الإكمال</dt><dd id="ai-done-time">لم يُختبر</dd></div>
+        </dl>
+      </div>
+      <div class="ai-console" aria-live="polite">
+        <header><strong>Sheikha Live Stream</strong><span id="ai-state">جاهز للاختبار اليدوي</span></header>
+        <pre id="ai-output">لم يبدأ اختبار النموذج.</pre>
+        <ol id="ai-events" aria-label="أحداث البث"></ol>
+      </div>
+    </section>
+
+    <section class="products-section" aria-labelledby="products-title">
+      <header class="section-heading">
+        <div>
+          <p class="eyebrow">PRODUCT ENGINEERING</p>
+          <h2 id="products-title">ملفات تقنية حسب مستوى المستخدم</h2>
+        </div>
+        <p>عرض عام متاح، والملف التشغيلي الكامل يُفتح باستحقاق شراء أو عقد موثق من الخادم.</p>
+      </header>
+      <div class="product-tech-grid" id="product-tech-grid"></div>
+    </section>
+  </main>
+
+  <footer>
+    <strong>شيخة</strong>
+    <span>قياس محلي، حوكمة معلنة، وادعاءات مرتبطة بالدليل.</span>
+    <nav aria-label="روابط التذييل">
+      <a href="/market/">السوق</a>
+      <a href="/product-technical/">ملفات المنتجات</a>
+      <a href="/site-map/">دليل الموقع</a>
+    </nav>
+  </footer>
+
+  <script src="/technology/app.js" defer></script>
+</body>
+</html>
