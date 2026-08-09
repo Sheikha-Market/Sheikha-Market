@@ -175,3 +175,33 @@ bare-metal/build/out/
 !runtime/bare-metal/v2/evidence/sheikha-v2-uefi-paging-runtime-phase2b-serial.log
 /bare-metal/kernel/v2/build/
 /tools/project-state/__pycache__/
+
+# --- Runtime auto-generated reports (PM2 periodic writers) ---
+runtime/community/sheikha-community-modeling-report.json
+runtime/activation-inventory/v1/sheikha-activation-inventory-v1.json
+runtime/bare-metal/v2/evidence/
+runtime/bare-metal/v2/hardware-compatibility/
+runtime/desktop-runtime/v4/evidence/
+runtime/desktop-runtime/v4/sheikha-native-desktop-v4-report.json
+runtime/distribution/v1/sheikha-distribution-toolchain-v1-report.json
+runtime/extension-experience-apex/v1/*-report.*
+runtime/master-activation/
+runtime/production-hardening/
+runtime/production-readiness/sheikha-production-readiness-gate-v1.json
+runtime/root-architecture/v3/*.json
+runtime/security/semantic-secret-scan-v1.json
+runtime/site-operations/
+runtime/site/v2/
+runtime/system-builder-fabric/v1/
+runtime/identity/sheikha-active-identity-v2-report.json
+
+# --- Home dotfiles (مسربة في الـ worktree) ---
+.bash_profile
+.bashrc
+.zshrc
+.zprofile
+.profile
+.gitconfig
+.gitmodules
+.ripgreprc
+.mcp.json
