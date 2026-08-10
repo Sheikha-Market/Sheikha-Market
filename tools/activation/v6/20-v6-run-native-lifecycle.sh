@@ -824,6 +824,7 @@ node - \
   "$CANDIDATE_SHA" \
   "$CANDIDATE_BYTES" <<'NODE'
 const fs = require('node:fs');
+const path = require('node:path');
 
 const [
   engine,
@@ -883,11 +884,11 @@ const report = {
   },
   artifacts: {
     baseline: {
-      path: baseline,
+      path: path.relative(process.cwd(), baseline),
       version: baselineVersion
     },
     candidate: {
-      path: candidate,
+      path: path.relative(process.cwd(), candidate),
       version: candidateVersion,
       bytes: Number(bytes),
       sha256

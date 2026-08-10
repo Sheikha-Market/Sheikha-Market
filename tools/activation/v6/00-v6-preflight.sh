@@ -2,7 +2,7 @@
 set -Eeuo pipefail
 
 ROOT="${SHEIKHA_ROOT:-$HOME/Projects/sheikha/sheikha-main-portal}"
-EXPECTED_HEAD="04fbf459ce90f8cd24da6aec2f2628700cae9c9e"
+EXPECTED_HEAD="${SHEIKHA_V6_EXPECTED_HEAD:-}"
 BASELINE_REL="distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb"
 BASELINE_SHA="3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
 REPORT_DIR="$ROOT/runtime/distribution/v6/evidence"
@@ -58,6 +58,10 @@ NODE
 
 HEAD_SHA="$(git rev-parse HEAD)"
 REGISTRY_SHA="$(git rev-parse local-registry/main)"
+
+if [[ -z "$EXPECTED_HEAD" ]]; then
+  EXPECTED_HEAD="$REGISTRY_SHA"
+fi
 
 printf 'HEAD=%s\n' "$HEAD_SHA"
 printf 'LOCAL_REGISTRY_MAIN=%s\n' "$REGISTRY_SHA"
@@ -250,7 +254,19 @@ fi
 {
   printf 'ENGINE=%q\n' "$ENGINE"
   printf 'IMAGE=%q\n' "$SELECTED_IMAGE"
-  printf 'BASELINE=%q\n' "$BASELINE"
+  printf 'BASELINE=%q\n' "$BASELINE_REL"
+
+  RUNTIME_BASELINE_REL="distribution/artifacts/v6/1.0.51_sheikha.v6.1/artifacts/sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.1.deb"
+  RUNTIME_BASELINE="$ROOT/$RUNTIME_BASELINE_REL"
+
+  if [[ -f "$RUNTIME_BASELINE" ]] &&
+     [[ "$(dpkg-deb -f "$RUNTIME_BASELINE" Package)" == "sheikha" ]] &&
+     [[ "$(dpkg-deb -f "$RUNTIME_BASELINE" Version)" == "1.0.51+sheikha.v6.1" ]] &&
+     [[ "$(dpkg-deb -f "$RUNTIME_BASELINE" Architecture)" == "amd64" ]]
+  then
+    printf 'RUNTIME_BASELINE=%q\n' "$RUNTIME_BASELINE_REL"
+  fi
+
   printf 'IMAGE_ID=%q\n' "$IMAGE_ID"
   printf 'APPROVED_BASE_DIGEST=%q\n' "$APPROVED_DIGEST"
 } > "$ENV_FILE"

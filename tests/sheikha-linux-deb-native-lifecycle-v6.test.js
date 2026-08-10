@@ -12,6 +12,39 @@ function readJson(relativePath) {
 }
 
 describe('Sheikha Linux DEB Native Lifecycle V6', () => {
+  test('uses governed release selection and a modern runtime baseline', () => {
+    const buildScript = fs.readFileSync(
+      path.join(
+        ROOT,
+        'tools/activation/v6/10-v6-build-candidate.sh'
+      ),
+      'utf8'
+    );
+    const preflightScript = fs.readFileSync(
+      path.join(ROOT, 'tools/activation/v6/00-v6-preflight.sh'),
+      'utf8'
+    );
+
+    expect(buildScript).toContain(
+      'SHEIKHA_V6_RELEASE:-v6.2'
+    );
+    expect(buildScript).toContain(
+      '[[ ! "$V6_RELEASE" =~ ^v6\\.[1-9][0-9]*$ ]]'
+    );
+    expect(preflightScript).toContain(
+      "Version)\" == \"1.0.51+sheikha.v6.1\""
+    );
+    expect(preflightScript).toContain(
+      "printf 'RUNTIME_BASELINE=%q\\n'"
+    );
+    expect(preflightScript).toContain(
+      "printf 'BASELINE=%q\\n' \"$BASELINE_REL\""
+    );
+    expect(buildScript).toContain(
+      '"${OUT#"$ROOT"/}"'
+    );
+  });
+
   test('records a fully verified dpkg lifecycle', () => {
     const report = readJson(
       'runtime/distribution/v6/' +

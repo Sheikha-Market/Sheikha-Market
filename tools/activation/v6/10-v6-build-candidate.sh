@@ -55,7 +55,14 @@ if [[ "$ARCH" != "amd64" ]]; then
   exit 23
 fi
 
-CANDIDATE_VERSION="${BASE_VERSION}+sheikha.v6.2"
+V6_RELEASE="${SHEIKHA_V6_RELEASE:-v6.2}"
+
+if [[ ! "$V6_RELEASE" =~ ^v6\.[1-9][0-9]*$ ]]; then
+  echo "ERROR: إصدار V6 غير صالح: $V6_RELEASE"
+  exit 241
+fi
+
+CANDIDATE_VERSION="${BASE_VERSION}+sheikha.${V6_RELEASE}"
 
 if ! dpkg --compare-versions "$CANDIDATE_VERSION" gt "$BASE_VERSION"; then
   echo "ERROR: candidate version ليست أكبر من baseline."
@@ -580,7 +587,7 @@ cat > "$METADATA/candidate-manifest.json" <<JSON
 JSON
 
 {
-  printf 'CANDIDATE=%q\n' "$OUT"
+  printf 'CANDIDATE=%q\n' "${OUT#"$ROOT"/}"
   printf 'PACKAGE_NAME=%q\n' "$PACKAGE_NAME"
   printf 'BASE_VERSION=%q\n' "$BASE_VERSION"
   printf 'CANDIDATE_VERSION=%q\n' "$CANDIDATE_VERSION"
