@@ -14,11 +14,18 @@ const reportPath = path.join(
   'runtime/distribution/v6/sheikha-linux-deb-native-lifecycle-v6-report.json'
 );
 const report = JSON.parse(fs.readFileSync(reportPath, 'utf8'));
+const v5Report = JSON.parse(fs.readFileSync(path.join(
+  root,
+  'runtime/distribution/v5/sheikha-linux-package-native-verification-v5-report.json'
+), 'utf8'));
 const releaseToolCommit = execFileSync(
   'git', ['rev-parse', 'HEAD'], { cwd: root, encoding: 'utf8' }
 ).trim();
-const artifactSourceCommit =
-  '91097129fe2beabb6ef0e463871f9c608860c517';
+const artifactSourceCommit = v5Report.source?.head;
+
+if (!/^[0-9a-f]{40}$/.test(artifactSourceCommit || '')) {
+  throw new Error('V5 artifact source commit is missing or invalid.');
+}
 
 if (
   report.status !== 'DEB_NATIVE_LIFECYCLE_VERIFIED' ||
@@ -133,7 +140,7 @@ const generatedAt = new Date().toISOString();
 const index = {
   schemaVersion: '6.0.0',
   system: 'SHEIKHA_LOCAL_RELEASE_INDEX_V6',
-  version: '1.0.51+sheikha.v6.2',
+  version: report.artifacts.candidate.version,
   channel: 'verified-local',
   sourceCommit: releaseToolCommit,
   artifactSourceCommit,

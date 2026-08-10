@@ -13,17 +13,17 @@
   },
   "artifacts": {
     "baseline": {
-      "path": "distribution/artifacts/v6/1.0.51_sheikha.v6.1/artifacts/sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.1.deb",
-      "version": "1.0.51+sheikha.v6.1",
-      "bytes": 22061110,
-      "sha256": "c6237ecc1c529eba3bad60f1bca907fb71db40ab722f571f0478108a0df14ff9",
-      "versionSemantics": "DEBIAN_PACKAGE_VERSION"
-    },
-    "candidate": {
       "path": "distribution/artifacts/v6/1.0.51_sheikha.v6.2/artifacts/sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.2.deb",
       "version": "1.0.51+sheikha.v6.2",
       "bytes": 22061018,
       "sha256": "73d3ad8f22dd37aedc9f2e5bedeaf4ad00bc48ccf66fcdd897dfbee1a403145d",
+      "versionSemantics": "DEBIAN_PACKAGE_VERSION"
+    },
+    "candidate": {
+      "path": "distribution/artifacts/v6/1.0.51_sheikha.v6.3/artifacts/sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.3.deb",
+      "version": "1.0.51+sheikha.v6.3",
+      "bytes": 19702610,
+      "sha256": "21bc5b375540fdb76d6cefce5762ba7af0347930db1402dc65e5e513a5c57a31",
       "versionSemantics": "DEBIAN_PACKAGE_VERSION"
     }
   },
@@ -62,20 +62,20 @@
     "remaining": 24
   },
   "claimPolicy": "No DEB target is VERIFIED without real dpkg install, upgrade, remove, purge and rollback verification.",
-  "generatedAt": "2026-08-10T20:55:49.103Z",
+  "generatedAt": "2026-08-10T21:19:24.024Z",
   "applicationVersion": "1.0.51",
   "runtimeBaselineProvenance": {
     "selected": true,
-    "packageVersion": "1.0.51+sheikha.v6.1",
-    "sha256": "c6237ecc1c529eba3bad60f1bca907fb71db40ab722f571f0478108a0df14ff9",
-    "bytes": 22061110,
+    "packageVersion": "1.0.51+sheikha.v6.2",
+    "sha256": "73d3ad8f22dd37aedc9f2e5bedeaf4ad00bc48ccf66fcdd897dfbee1a403145d",
+    "bytes": 22061018,
     "historicalV2Used": false,
     "sourceOfTruth": "dpkg-deb-control-metadata"
   },
   "candidateProvenance": {
-    "packageVersion": "1.0.51+sheikha.v6.2",
-    "sha256": "73d3ad8f22dd37aedc9f2e5bedeaf4ad00bc48ccf66fcdd897dfbee1a403145d",
-    "bytes": 22061018,
+    "packageVersion": "1.0.51+sheikha.v6.3",
+    "sha256": "21bc5b375540fdb76d6cefce5762ba7af0347930db1402dc65e5e513a5c57a31",
+    "bytes": 19702610,
     "sourceOfTruth": "dpkg-deb-control-metadata"
   }
 }

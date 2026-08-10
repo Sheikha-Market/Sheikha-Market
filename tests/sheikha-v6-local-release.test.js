@@ -21,5 +21,7 @@ describe('Sheikha V6 local release publisher', () => {
     expect(source).toContain('rollbackRequiresHumanApproval: true');
     expect(source).toContain("'git', ['rev-parse', 'HEAD']");
     expect(source).toContain('artifactSourceCommit');
+    expect(source).toContain('v5Report.source?.head');
+    expect(source).toContain('report.artifacts.candidate.version');
   });
 });
