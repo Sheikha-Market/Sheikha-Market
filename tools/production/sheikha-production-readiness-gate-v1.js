@@ -118,20 +118,50 @@ function evaluateProductionReadiness(lines = readLogs(), options = {}) {
     }
   }
 
+  const assurance = options.assurance || null;
+  const assuranceChecks = assurance
+    ? {
+        dependencyHighVulnerabilitiesZero:
+          assurance.dependencyHighVulnerabilities === 0,
+        secretScanPassed: assurance.secretScanPassed === true,
+        nativeArtifactVerified: assurance.nativeArtifactVerified === true,
+        workspaceClean: assurance.workspaceClean === true
+      }
+    : null;
+  const assuranceComplete = Boolean(
+    assuranceChecks && Object.values(assuranceChecks).every(Boolean)
+  );
+  const runtimeLogReady = summary.total === 0;
+  const productionReady = runtimeLogReady && assuranceComplete;
+  const status = summary.blockers
+    ? 'BLOCKED'
+    : summary.review
+      ? 'REVIEW'
+      : productionReady
+        ? 'PASSED'
+        : 'EVIDENCE_REQUIRED';
+
   return {
     system: 'SHEIKHA_PRODUCTION_READINESS_GATE_V1',
     generatedAt:
       options.generatedAt || new Date().toISOString(),
-    status: summary.blockers ? 'BLOCKED' : summary.review ? 'REVIEW' : 'PASSED',
-    productionReady: summary.total === 0,
+    status,
+    runtimeLogReady,
+    productionReady,
     candidateReady: summary.blockers === 0,
+    assurance: {
+      provided: assurance !== null,
+      complete: assuranceComplete,
+      checks: assuranceChecks
+    },
     findings,
     summary,
     scanScope: {
       activePm2Apps: ACTIVE_PM2_APPS,
       inputLineCount: lines.length,
       maximumStoredFindings: maxFindings,
-      historicalRotatedLogsIncluded: false
+      historicalRotatedLogsIncluded: false,
+      productionReadinessClaimedFromLogsAlone: false
     },
     requiredBeforeProfitLaunch: [
       'clean_pm2_logs',

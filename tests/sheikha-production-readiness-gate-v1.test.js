@@ -6,13 +6,34 @@ const {
 } = require('../tools/production/sheikha-production-readiness-gate-v1');
 
 describe('Sheikha Production Readiness Gate V1', () => {
-  test('passes clean logs', () => {
+  test('requires external assurance even when logs are clean', () => {
     const result = evaluateProductionReadiness([
       { file: 'ok.log', line: 'service online health ok' }
     ]);
 
+    expect(result.status).toBe('EVIDENCE_REQUIRED');
+    expect(result.runtimeLogReady).toBe(true);
+    expect(result.productionReady).toBe(false);
+    expect(result.candidateReady).toBe(true);
+    expect(result.assurance.complete).toBe(false);
+  });
+
+  test('passes only with complete production assurance', () => {
+    const result = evaluateProductionReadiness(
+      [{ file: 'ok.log', line: 'service online health ok' }],
+      {
+        assurance: {
+          dependencyHighVulnerabilities: 0,
+          secretScanPassed: true,
+          nativeArtifactVerified: true,
+          workspaceClean: true
+        }
+      }
+    );
+
     expect(result.status).toBe('PASSED');
     expect(result.productionReady).toBe(true);
+    expect(result.assurance.complete).toBe(true);
   });
 
   test('blocks runtime errors', () => {
