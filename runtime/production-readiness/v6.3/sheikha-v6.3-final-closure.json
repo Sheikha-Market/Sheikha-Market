@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "6.3.0",
+  "system": "SHEIKHA_V6_3_FINAL_CLOSURE",
+  "status": "RELEASE_ARTIFACT_CLOSED_PLATFORM_PRODUCTION_BLOCKED",
+  "generatedAt": "2026-08-11T00:30:00+03:00",
+  "source": {
+    "artifactSourceCommit": "01cc267110c5d042d225d377949fd07a0141ccd0",
+    "evidenceCommit": "65e33b1aa7d24c2de78290c0f99c790916a87caf",
+    "closureRecordedInSuccessorCommit": true,
+    "tag": "sheikha-linux-deb-native-v6.3-local-release"
+  },
+  "release": {
+    "path": "/home/sheikha/Sheikha-Local-Registry/releases/v6.3/1.0.51",
+    "version": "1.0.51+sheikha.v6.3",
+    "artifact": "sheikha-1.0.51-linux-amd64-v6-1.0.51_sheikha.v6.3.deb",
+    "bytes": 19702610,
+    "sha256": "21bc5b375540fdb76d6cefce5762ba7af0347930db1402dc65e5e513a5c57a31",
+    "atomicLocalPublicationVerified": true,
+    "silentOverwriteUsed": false,
+    "nativeLifecycleVerified": true,
+    "upgradeFromV62Verified": true,
+    "rollbackToV62Verified": true,
+    "healthVerified": true,
+    "chatVerified": true,
+    "cliVerified": true,
+    "cleanShutdownVerified": true,
+    "secretScanPassed": true,
+    "externalNetworkUsedDuringNativeLifecycle": false
+  },
+  "backup": {
+    "bundle": "/home/sheikha/Backups/sheikha/sheikha-linux-deb-v6.3-20260810T212109Z.bundle",
+    "sha256": "80b03d694178bfb57df2ec49744787c9caccba7d409f64a69ccc571bd2d0284f",
+    "bundleVerified": true,
+    "restoreTestVerified": true,
+    "restoredHead": "65e33b1aa7d24c2de78290c0f99c790916a87caf"
+  },
+  "quality": {
+    "targetedJestPassed": 58,
+    "nodeTestPassed": 15,
+    "fullJestSuitesPassed": 381,
+    "fullJestTestsPassed": 2749,
+    "fullJestSuitesFailed": 8,
+    "fullJestTestsFailed": 12,
+    "lintPassed": true,
+    "jsonValidationPassed": true,
+    "diffCheckPassed": true,
+    "fullSuitePassed": false
+  },
+  "security": {
+    "productionAudit": {
+      "critical": 0,
+      "high": 14,
+      "moderate": 3,
+      "low": 2,
+      "total": 19
+    },
+    "forceFixUsed": false,
+    "productionSecurityGatePassed": false
+  },
+  "platform": {
+    "verifiedTargets": 3,
+    "targetCount": 27,
+    "remainingTargets": 24,
+    "mainWorkspaceClean": false,
+    "productionReady": false,
+    "readinessStatus": "EVIDENCE_REQUIRED"
+  },
+  "blockers": [
+    "14 high-severity production dependency advisories remain",
+    "12 full-suite tests remain failing across 8 suites",
+    "V3, V3.1 and V4 test artifact trees are incomplete in the isolated checkout",
+    "The primary main worktree contains unrelated pending changes",
+    "24 distribution targets remain unverified"
+  ],
+  "claimPolicy": "V6.3 Linux DEB is closed and natively verified. The wider platform is not production-ready until every blocking gate is cleared with evidence.",
+  "defaultAuthorization": "DENY",
+  "externalPublishingPerformed": false,
+  "githubUsed": false,
+  "signingUsed": false,
+  "notarizationUsed": false
+}
