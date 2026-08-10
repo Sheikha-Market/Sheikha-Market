@@ -4,9 +4,9 @@
   "status": "NATIVE_VERIFIED",
   "candidateOnly": false,
   "artifact": {
-    "path": "distribution/artifacts/v5/1.0.51-candidate-44a826c0974fb44939f2/artifacts/sheikha-1.0.51-linux-x86_64-v5-44a826c0974fb44939f2.tar.gz",
-    "bytes": 34013030,
-    "sha256": "51b9ea63c8d2b74e5b557a7153f1a32b180d18bed9332b23ebc7a5c76f8a70c2"
+    "path": "distribution/artifacts/v5/1.0.51-candidate-278bc6185f05ade94cb4/artifacts/sheikha-1.0.51-linux-x86_64-v5-278bc6185f05ade94cb4.tar.gz",
+    "bytes": 39378381,
+    "sha256": "0e8766169bd7c6161cdd21e0f1466ddc699823767912e6afbe223131edd964a4"
   },
   "checksumVerified": true,
   "requiredFiles": [
@@ -77,7 +77,7 @@
     "isolatedCache": true,
     "inheritedHostSecrets": false,
     "nodeVersion": "v25.6.1",
-    "nodeModulesBytes": 301688352
+    "nodeModulesBytes": 262814684
   },
   "cli": {
     "help": {
@@ -119,12 +119,12 @@
       "command": [
         "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
         "--require",
-        "/tmp/sheikha-linux-native-v5-O1ghAB/sheikha-v5-runtime-guard.cjs",
+        "/tmp/sheikha-linux-native-v5-LZVtCb/sheikha-v5-runtime-guard.cjs",
         "server.js"
       ],
-      "port": 36767,
-      "startupMs": 521,
-      "processId": 1811584,
+      "port": 38057,
+      "startupMs": 777,
+      "processId": 1429038,
       "executableLaunches": true,
       "portClosedBefore": true,
       "portOpenDuringRun": true,
@@ -133,7 +133,7 @@
         {
           "protocol": "tcp",
           "address": "0100007F",
-          "port": 36767,
+          "port": 38057,
           "state": "LISTEN"
         }
       ],
@@ -142,10 +142,10 @@
       "conversationEngineStatusPassed": true,
       "processTreeBeforeShutdown": [
         {
-          "pid": 1811584,
-          "ppid": 1807704,
+          "pid": 1429038,
+          "ppid": 1428541,
           "command": "node",
-          "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-O1ghAB/sheikha-v5-runtime-guard.cjs server.js",
+          "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-LZVtCb/sheikha-v5-runtime-guard.cjs server.js",
           "role": "packaged-server"
         }
       ],
@@ -169,7 +169,7 @@
         "passed": true,
         "findings": []
       },
-      "stdoutSha256": "5e2f2d0f128c396687e68b512d2b2d561eb7a7eb556094f7d2757e200e4c7f9f",
+      "stdoutSha256": "172bc69563c0f270fdc6b6ea6da28e34fe725ede42f1ee390109f96bc7a85ca0",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "healthStatusCode": 200,
       "chatStatusCode": 200,
@@ -180,12 +180,12 @@
       "command": [
         "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
         "--require",
-        "/tmp/sheikha-linux-native-v5-O1ghAB/sheikha-v5-runtime-guard.cjs",
+        "/tmp/sheikha-linux-native-v5-LZVtCb/sheikha-v5-runtime-guard.cjs",
         "server.js"
       ],
-      "port": 39723,
-      "startupMs": 517,
-      "processId": 1811643,
+      "port": 36159,
+      "startupMs": 768,
+      "processId": 1429112,
       "executableLaunches": true,
       "portClosedBefore": true,
       "portOpenDuringRun": true,
@@ -194,7 +194,7 @@
         {
           "protocol": "tcp",
           "address": "0100007F",
-          "port": 39723,
+          "port": 36159,
           "state": "LISTEN"
         }
       ],
@@ -203,10 +203,10 @@
       "conversationEngineStatusPassed": true,
       "processTreeBeforeShutdown": [
         {
-          "pid": 1811643,
-          "ppid": 1807704,
+          "pid": 1429112,
+          "ppid": 1428541,
           "command": "node",
-          "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-O1ghAB/sheikha-v5-runtime-guard.cjs server.js",
+          "arguments": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --require /tmp/sheikha-linux-native-v5-LZVtCb/sheikha-v5-runtime-guard.cjs server.js",
           "role": "packaged-server"
         }
       ],
@@ -230,7 +230,7 @@
         "passed": true,
         "findings": []
       },
-      "stdoutSha256": "62f2b847f47bad60ae2995a011d6b6c625245f5f0e1410ed832589d1b81b6006",
+      "stdoutSha256": "8c2c8cb140a820e71f84acd8e0e6c58046f9fbe37f9b5e10a5caf2bc9e17c951",
       "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
       "healthStatusCode": 200,
       "chatStatusCode": null,
@@ -245,16 +245,16 @@
     "unrestrictedWriteDenied": true
   },
   "rollback": {
-    "installationRoot": "/tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64",
+    "installationRoot": "/tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64",
     "removalAttempted": true,
     "verified": true
   },
   "nativeVerified": true,
   "cleanup": {
     "schemaVersion": "5.0.0",
-    "temporaryRoot": "/tmp/sheikha-linux-native-v5-O1ghAB",
+    "temporaryRoot": "/tmp/sheikha-linux-native-v5-LZVtCb",
     "removalAttempted": true,
     "temporaryRootRemoved": true,
-    "checkedAt": "2026-07-12T12:18:55.038Z"
+    "checkedAt": "2026-08-10T21:16:07.413Z"
   }
 }

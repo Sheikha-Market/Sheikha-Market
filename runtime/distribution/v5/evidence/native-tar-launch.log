@@ -1,19 +1,14 @@
 status=NATIVE_VERIFIED
-artifact_sha256=51b9ea63c8d2b74e5b557a7153f1a32b180d18bed9332b23ebc7a5c76f8a70c2
+artifact_sha256=0e8766169bd7c6161cdd21e0f1466ddc699823767912e6afbe223131edd964a4
 
 == npm ci stdout ==
-added 470 packages in 3s
+added 397 packages in 2s
 
 == npm ci stderr ==
 npm warn deprecated google-p12-pem@3.1.4: Package is no longer maintained
 npm warn deprecated node-domexception@1.0.0: Use your platform's native DOMException instead
 npm warn deprecated uuid@8.3.2: uuid@10 and below is no longer supported.  For ESM codebases, update to uuid@latest.  For CommonJS codebases, use uuid@11 (but be aware this version will likely be deprecated in 2028).
 npm warn deprecated glob@10.5.0: Old versions of glob are not supported, and contain widely publicized security vulnerabilities, which have been fixed in the current version. Please update. Support for old versions may be purchased (at exorbitant rates) by contacting i@izs.me
-npm notice
-npm notice New minor version of npm available! 11.9.0 -> 11.18.0
-npm notice Changelog: https://github.com/npm/cli/releases/tag/v11.18.0
-npm notice To update run: npm install -g npm@11.18.0
-npm notice
 
 == SIGTERM server stdout ==
 ✅ SHEIKHA Governed Engine Registry V2 ACTIVE
@@ -147,7 +142,7 @@ npm notice
 ║     🕌 SHEIKHA ISLAMIC FOUNDATION LAYER — تفعيل الطبقة الأساسية     ║
 ╠══════════════════════════════════════════════════════════════════════╣
 ║  بسم الله الرحمن الرحيم                                              ║
-║  IFL v1.0.0  |  PID: 1811584  |  v25.6.1         ║
+║  IFL v1.0.0  |  PID: 1429038  |  v25.6.1         ║
 ║  Platform: linux/x64  |  Host: pop-os               ║
 ╠══════════════════════════════════════════════════════════════════════╣
 ║  المرجعية الحاكمة (لا تتغير بتغير الموقع أو الزمن):                ║
@@ -165,7 +160,7 @@ npm notice
 ╚══════════════════════════════════════════════════════════════════════╝
 
 ✅ Root Neural Cell Network ACTIVE on /api/root-neural-network
-🔐 نظام حماية المسارات — مفعّل | 19 صفحة محمية | 3 مسار إداري
+🔐 نظام حماية المسارات — مفعّل | 28 صفحة محمية | 3 مسار إداري
 🧪 Pilot Middleware — مفعّل | الوضع: PILOT
 ⏸️ [CRON DISABLED] */15 * * * * — set SHEIKHA_ENABLE_CRON=true in worker only
 ⏸️ [CRON DISABLED] */30 * * * * * — set SHEIKHA_ENABLE_CRON=true in worker only
@@ -401,253 +396,259 @@ npm notice
 ✅ SHEIKHA Redis Neural Cache mounted
 ✅ SHEIKHA MongoDB Document Fabric mounted
 ✅ SHEIKHA Unified Health Platform mounted
-[SHEIKHA FABRIC] sheikha-root-identity /api/root-identity /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1571
-✅ SHEIKHA FABRIC mounted: sheikha-root-identity -> /api/root-identity
-[SHEIKHA FABRIC] sheikha-operating-system-identity /api/operating-system /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1572
-✅ SHEIKHA FABRIC mounted: sheikha-operating-system-identity -> /api/operating-system
-[SHEIKHA FABRIC] chat-code-governance /api/chat-code-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/chat-code-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1573
-✅ SHEIKHA FABRIC mounted: chat-code-governance -> /api/chat-code-governance
-[SHEIKHA FABRIC] quran-sunnah-governance /api/quran-sunnah-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/quran-sunnah-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1574
-✅ SHEIKHA FABRIC mounted: quran-sunnah-governance -> /api/quran-sunnah-governance
-[SHEIKHA FABRIC] technical-advisory /api/technical-advisory /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/technical-advisory/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1575
-✅ SHEIKHA FABRIC mounted: technical-advisory -> /api/technical-advisory
-[SHEIKHA FABRIC] pr-governance /api/pr-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/pr-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1576
-✅ SHEIKHA FABRIC mounted: pr-governance -> /api/pr-governance
-[SHEIKHA FABRIC] project-governance /api/project-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/project-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1577
-✅ SHEIKHA FABRIC mounted: project-governance -> /api/project-governance
-[SHEIKHA FABRIC] sheikha-data /api/sheikha-data /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/sheikha-data/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1578
-✅ SHEIKHA FABRIC mounted: sheikha-data -> /api/sheikha-data
-[SHEIKHA FABRIC] openapi-registry /api/openapi-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/openapi-registry/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1579
-✅ SHEIKHA FABRIC mounted: openapi-registry -> /api/openapi-registry
-[SHEIKHA FABRIC] sheikha-mcp-unified-bridge /api/sheikha/mcp /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1580
-✅ SHEIKHA FABRIC mounted: sheikha-mcp-unified-bridge -> /api/sheikha/mcp
-[SHEIKHA FABRIC] mcp-unified-bridge /api/mcp /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1581
-✅ SHEIKHA FABRIC mounted: mcp-unified-bridge -> /api/mcp
-[SHEIKHA FABRIC] federated-knowledge-fabric /api/federated-knowledge-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/federated-knowledge-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1582
-✅ SHEIKHA FABRIC mounted: federated-knowledge-fabric -> /api/federated-knowledge-fabric
-[SHEIKHA FABRIC] autonomous-runtime-coordination /api/autonomous-runtime-coordination /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/autonomous-runtime-coordination/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1583
-✅ SHEIKHA FABRIC mounted: autonomous-runtime-coordination -> /api/autonomous-runtime-coordination
-[SHEIKHA FABRIC] distributed-telemetry-fabric /api/distributed-telemetry-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/distributed-telemetry-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1584
-✅ SHEIKHA FABRIC mounted: distributed-telemetry-fabric -> /api/distributed-telemetry-fabric
-[SHEIKHA FABRIC] execution-orchestration-grid /api/execution-orchestration-grid /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/execution-orchestration-grid/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1585
-✅ SHEIKHA FABRIC mounted: execution-orchestration-grid -> /api/execution-orchestration-grid
-[SHEIKHA FABRIC] capability-token-fabric /api/capability-token-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/capability-token-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1586
-✅ SHEIKHA FABRIC mounted: capability-token-fabric -> /api/capability-token-fabric
-[SHEIKHA FABRIC] global-domain-registry /api/global-domain-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/global-domain-registry/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1587
-✅ SHEIKHA FABRIC mounted: global-domain-registry -> /api/global-domain-registry
-[SHEIKHA FABRIC] runtime-federation-mesh /api/runtime-federation-mesh /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime-federation-mesh/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1588
-✅ SHEIKHA FABRIC mounted: runtime-federation-mesh -> /api/runtime-federation-mesh
-[SHEIKHA FABRIC] sovereign-control-plane /api/control-plane /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/control-plane/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1589
-✅ SHEIKHA FABRIC mounted: sovereign-control-plane -> /api/control-plane
-[SHEIKHA FABRIC] organizational-federation-kernel /api/federation/organizational-kernel /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/federation/organizational-kernel/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1590
-✅ SHEIKHA FABRIC mounted: organizational-federation-kernel -> /api/federation/organizational-kernel
-[SHEIKHA FABRIC] domain-contract-fabric /api/governance/domain-contract-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/domain-contract-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1591
-✅ SHEIKHA FABRIC mounted: domain-contract-fabric -> /api/governance/domain-contract-fabric
-[SHEIKHA FABRIC] governance-graph-engine /api/governance/graph-engine /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/graph-engine/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1592
-✅ SHEIKHA FABRIC mounted: governance-graph-engine -> /api/governance/graph-engine
-[SHEIKHA FABRIC] policy-enforcement-point /api/governance/pep /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pep/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1593
-✅ SHEIKHA FABRIC mounted: policy-enforcement-point -> /api/governance/pep
-[SHEIKHA FABRIC] policy-decision-point /api/governance/pdp /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pdp/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1594
-✅ SHEIKHA FABRIC mounted: policy-decision-point -> /api/governance/pdp
-[SHEIKHA FABRIC] unified-governance-bus /api/governance/bus /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/unified-governance-bus/status.routes.js
+[SHEIKHA FABRIC] sheikha-root-identity /api/root-identity /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1595
-✅ SHEIKHA FABRIC mounted: unified-governance-bus -> /api/governance/bus
-[SHEIKHA FABRIC] arabic-semantic-encoding-v1 /api/language/arabic-semantic-encoding /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/arabic-semantic-encoding/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-root-identity -> /api/root-identity
+[SHEIKHA FABRIC] sheikha-operating-system-identity /api/operating-system /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1596
-✅ SHEIKHA FABRIC mounted: arabic-semantic-encoding-v1 -> /api/language/arabic-semantic-encoding
-[SHEIKHA FABRIC] universal-benefit-boundary-v1 /api/governance/universal-benefit /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/universal-benefit-boundary/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-operating-system-identity -> /api/operating-system
+[SHEIKHA FABRIC] chat-code-governance /api/chat-code-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/chat-code-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1597
-✅ SHEIKHA FABRIC mounted: universal-benefit-boundary-v1 -> /api/governance/universal-benefit
-[SHEIKHA FABRIC] development-functions-fabric-v1 /api/development/functions-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/development-functions-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: chat-code-governance -> /api/chat-code-governance
+[SHEIKHA FABRIC] quran-sunnah-governance /api/quran-sunnah-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/quran-sunnah-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1598
-✅ SHEIKHA FABRIC mounted: development-functions-fabric-v1 -> /api/development/functions-fabric
-[SHEIKHA FABRIC] governance-generator-v1 /api/governance/generator /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance-generator/status.routes.js
+✅ SHEIKHA FABRIC mounted: quran-sunnah-governance -> /api/quran-sunnah-governance
+[SHEIKHA FABRIC] technical-advisory /api/technical-advisory /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/technical-advisory/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1599
-✅ SHEIKHA FABRIC mounted: governance-generator-v1 -> /api/governance/generator
-[SHEIKHA FABRIC] governed-intelligence-execution-loop-v1 /api/intelligence/execution-loop /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governed-intelligence-execution-loop/status.routes.js
+✅ SHEIKHA FABRIC mounted: technical-advisory -> /api/technical-advisory
+[SHEIKHA FABRIC] pr-governance /api/pr-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/pr-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1600
-✅ SHEIKHA FABRIC mounted: governed-intelligence-execution-loop-v1 -> /api/intelligence/execution-loop
-[SHEIKHA FABRIC] agi-asi-research-science-fabric-v1 /api/research/agi-asi-science-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/agi-asi-research-science-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: pr-governance -> /api/pr-governance
+[SHEIKHA FABRIC] project-governance /api/project-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/project-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1601
-✅ SHEIKHA FABRIC mounted: agi-asi-research-science-fabric-v1 -> /api/research/agi-asi-science-fabric
-[SHEIKHA FABRIC] capability-token-engine /api/governance/capability-tokens /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-tokens/status.routes.js
+✅ SHEIKHA FABRIC mounted: project-governance -> /api/project-governance
+[SHEIKHA FABRIC] sheikha-data /api/sheikha-data /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/sheikha-data/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1602
-✅ SHEIKHA FABRIC mounted: capability-token-engine -> /api/governance/capability-tokens
-[SHEIKHA FABRIC] intelligence-integration-fabric-v1 /api/intelligence/integration-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/intelligence-integration-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-data -> /api/sheikha-data
+[SHEIKHA FABRIC] openapi-registry /api/openapi-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/openapi-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1603
-✅ SHEIKHA FABRIC mounted: intelligence-integration-fabric-v1 -> /api/intelligence/integration-fabric
-[SHEIKHA FABRIC] root-knowledge-agentic-fabric-v1 /api/knowledge/agentic-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/root-knowledge-agentic-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: openapi-registry -> /api/openapi-registry
+[SHEIKHA FABRIC] sheikha-mcp-unified-bridge /api/sheikha/mcp /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1604
-✅ SHEIKHA FABRIC mounted: root-knowledge-agentic-fabric-v1 -> /api/knowledge/agentic-fabric
-[SHEIKHA FABRIC] sdk-fabric-mcp-integration-v1 /api/sdk-fabric-mcp/integration /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/sdk-fabric-mcp-integration/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-mcp-unified-bridge -> /api/sheikha/mcp
+[SHEIKHA FABRIC] mcp-unified-bridge /api/mcp /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1605
-✅ SHEIKHA FABRIC mounted: sdk-fabric-mcp-integration-v1 -> /api/sdk-fabric-mcp/integration
-[SHEIKHA FABRIC] provider-agreement-roadmap-v1 /api/provider/agreement-roadmap /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/provider-agreement-roadmap/status.routes.js
+✅ SHEIKHA FABRIC mounted: mcp-unified-bridge -> /api/mcp
+[SHEIKHA FABRIC] federated-knowledge-fabric /api/federated-knowledge-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/federated-knowledge-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1606
-✅ SHEIKHA FABRIC mounted: provider-agreement-roadmap-v1 -> /api/provider/agreement-roadmap
-[SHEIKHA FABRIC] ugit-ai-control-plane-v1 /api/ai/ugit-control-plane /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/ugit-ai-control-plane/status.routes.js
+✅ SHEIKHA FABRIC mounted: federated-knowledge-fabric -> /api/federated-knowledge-fabric
+[SHEIKHA FABRIC] autonomous-runtime-coordination /api/autonomous-runtime-coordination /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/autonomous-runtime-coordination/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1607
-✅ SHEIKHA FABRIC mounted: ugit-ai-control-plane-v1 -> /api/ai/ugit-control-plane
-[SHEIKHA FABRIC] provider-compute-fabric-v1 /api/ai/provider-compute-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/provider-compute-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: autonomous-runtime-coordination -> /api/autonomous-runtime-coordination
+[SHEIKHA FABRIC] distributed-telemetry-fabric /api/distributed-telemetry-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/distributed-telemetry-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1608
-✅ SHEIKHA FABRIC mounted: provider-compute-fabric-v1 -> /api/ai/provider-compute-fabric
-[SHEIKHA FABRIC] commercial-real-activation-v1 /api/commercial/real-activation /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-real-activation/status.routes.js
+✅ SHEIKHA FABRIC mounted: distributed-telemetry-fabric -> /api/distributed-telemetry-fabric
+[SHEIKHA FABRIC] execution-orchestration-grid /api/execution-orchestration-grid /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/execution-orchestration-grid/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1609
-✅ SHEIKHA FABRIC mounted: commercial-real-activation-v1 -> /api/commercial/real-activation
-[SHEIKHA FABRIC] multi-supercomputer-cloud-fabric-v1 /api/ai/multi-supercomputer-cloud-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/multi-supercomputer-cloud-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: execution-orchestration-grid -> /api/execution-orchestration-grid
+[SHEIKHA FABRIC] capability-token-fabric /api/capability-token-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/capability-token-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1610
-✅ SHEIKHA FABRIC mounted: multi-supercomputer-cloud-fabric-v1 -> /api/ai/multi-supercomputer-cloud-fabric
-[SHEIKHA FABRIC] ai-supercomputer-cloud-cluster-pipeline-fabric-v1 /api/ai/supercomputer-cloud-cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: capability-token-fabric -> /api/capability-token-fabric
+[SHEIKHA FABRIC] global-domain-registry /api/global-domain-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/global-domain-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1611
-✅ SHEIKHA FABRIC mounted: ai-supercomputer-cloud-cluster-pipeline-fabric-v1 -> /api/ai/supercomputer-cloud-cluster-pipeline-fabric
-[SHEIKHA FABRIC] customer-classification-v1 /api/customers/classification /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/customer-classification/status.routes.js
+✅ SHEIKHA FABRIC mounted: global-domain-registry -> /api/global-domain-registry
+[SHEIKHA FABRIC] runtime-federation-mesh /api/runtime-federation-mesh /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime-federation-mesh/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1612
-✅ SHEIKHA FABRIC mounted: customer-classification-v1 -> /api/customers/classification
-[SHEIKHA FABRIC] platform-factories-v1 /api/platform/factories /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/platform-factories/status.routes.js
+✅ SHEIKHA FABRIC mounted: runtime-federation-mesh -> /api/runtime-federation-mesh
+[SHEIKHA FABRIC] sovereign-control-plane /api/control-plane /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/control-plane/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1613
-✅ SHEIKHA FABRIC mounted: platform-factories-v1 -> /api/platform/factories
-[SHEIKHA FABRIC] devops-ai-lab-fabric-v1 /api/devops/ai-lab /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/devops-ai-lab-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: sovereign-control-plane -> /api/control-plane
+[SHEIKHA FABRIC] organizational-federation-kernel /api/federation/organizational-kernel /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/federation/organizational-kernel/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1614
-✅ SHEIKHA FABRIC mounted: devops-ai-lab-fabric-v1 -> /api/devops/ai-lab
-[SHEIKHA FABRIC] resource-intelligence-simulation-fabric-v1 /api/resource-intelligence/simulation-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/resource-intelligence-simulation-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: organizational-federation-kernel -> /api/federation/organizational-kernel
+[SHEIKHA FABRIC] domain-contract-fabric /api/governance/domain-contract-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/domain-contract-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1615
-✅ SHEIKHA FABRIC mounted: resource-intelligence-simulation-fabric-v1 -> /api/resource-intelligence/simulation-fabric
-[SHEIKHA FABRIC] risk-classification-engine /api/governance/risk-engine /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/risk-engine/status.routes.js
+✅ SHEIKHA FABRIC mounted: domain-contract-fabric -> /api/governance/domain-contract-fabric
+[SHEIKHA FABRIC] governance-graph-engine /api/governance/graph-engine /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/graph-engine/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1616
-✅ SHEIKHA FABRIC mounted: risk-classification-engine -> /api/governance/risk-engine
-[SHEIKHA FABRIC] audit-ledger /api/governance/audit-ledger /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/audit-ledger/status.routes.js
+✅ SHEIKHA FABRIC mounted: governance-graph-engine -> /api/governance/graph-engine
+[SHEIKHA FABRIC] policy-enforcement-point /api/governance/pep /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pep/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1617
-✅ SHEIKHA FABRIC mounted: audit-ledger -> /api/governance/audit-ledger
-[SHEIKHA FABRIC] policy-compiler /api/governance/policy-compiler /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policy-compiler/status.routes.js
+✅ SHEIKHA FABRIC mounted: policy-enforcement-point -> /api/governance/pep
+[SHEIKHA FABRIC] policy-decision-point /api/governance/pdp /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pdp/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1618
-✅ SHEIKHA FABRIC mounted: policy-compiler -> /api/governance/policy-compiler
-[SHEIKHA FABRIC] capability-execution-registry /api/governance/capability-execution-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-execution-registry/status.routes.js
+✅ SHEIKHA FABRIC mounted: policy-decision-point -> /api/governance/pdp
+[SHEIKHA FABRIC] unified-governance-bus /api/governance/bus /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/unified-governance-bus/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1619
-✅ SHEIKHA FABRIC mounted: capability-execution-registry -> /api/governance/capability-execution-registry
-[SHEIKHA FABRIC] execution-governance-kernel /api/governance/execution-kernel /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/execution-kernel/status.routes.js
+✅ SHEIKHA FABRIC mounted: unified-governance-bus -> /api/governance/bus
+[SHEIKHA FABRIC] arabic-semantic-encoding-v1 /api/language/arabic-semantic-encoding /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/arabic-semantic-encoding/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1620
-✅ SHEIKHA FABRIC mounted: execution-governance-kernel -> /api/governance/execution-kernel
-[SHEIKHA FABRIC] governance-enforcement-engine /api/governance/enforcement-engine /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/enforcement-engine/status.routes.js
+✅ SHEIKHA FABRIC mounted: arabic-semantic-encoding-v1 -> /api/language/arabic-semantic-encoding
+[SHEIKHA FABRIC] universal-benefit-boundary-v1 /api/governance/universal-benefit /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/universal-benefit-boundary/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1621
-✅ SHEIKHA FABRIC mounted: governance-enforcement-engine -> /api/governance/enforcement-engine
-[SHEIKHA FABRIC] sheikha-organization-system-of-systems /api/organization/sheikha /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/organization/sheikha-organization/status.routes.js
+✅ SHEIKHA FABRIC mounted: universal-benefit-boundary-v1 -> /api/governance/universal-benefit
+[SHEIKHA FABRIC] development-functions-fabric-v1 /api/development/functions-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/development-functions-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1622
-✅ SHEIKHA FABRIC mounted: sheikha-organization-system-of-systems -> /api/organization/sheikha
-[SHEIKHA FABRIC] unified-capability-registry /api/governance/capability-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry/status.routes.js
+✅ SHEIKHA FABRIC mounted: development-functions-fabric-v1 -> /api/development/functions-fabric
+[SHEIKHA FABRIC] governance-generator-v1 /api/governance/generator /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance-generator/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1623
-✅ SHEIKHA FABRIC mounted: unified-capability-registry -> /api/governance/capability-registry
-[SHEIKHA FABRIC] capability-registry-v2 /api/governance/capability-registry-v2 /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry-v2/status.routes.js
+✅ SHEIKHA FABRIC mounted: governance-generator-v1 -> /api/governance/generator
+[SHEIKHA FABRIC] governed-intelligence-execution-loop-v1 /api/intelligence/execution-loop /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governed-intelligence-execution-loop/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1624
-✅ SHEIKHA FABRIC mounted: capability-registry-v2 -> /api/governance/capability-registry-v2
-[SHEIKHA FABRIC] commercial-product-layer-v1 /api/commercial/product-layer /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-product-layer/status.routes.js
+✅ SHEIKHA FABRIC mounted: governed-intelligence-execution-loop-v1 -> /api/intelligence/execution-loop
+[SHEIKHA FABRIC] agi-asi-research-science-fabric-v1 /api/research/agi-asi-science-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/agi-asi-research-science-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1625
-✅ SHEIKHA FABRIC mounted: commercial-product-layer-v1 -> /api/commercial/product-layer
-[SHEIKHA FABRIC] ai-cluster-pipeline-fabric-v1 /api/ai/cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/ai-cluster-pipeline-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: agi-asi-research-science-fabric-v1 -> /api/research/agi-asi-science-fabric
+[SHEIKHA FABRIC] capability-token-engine /api/governance/capability-tokens /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-tokens/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1626
-✅ SHEIKHA FABRIC mounted: ai-cluster-pipeline-fabric-v1 -> /api/ai/cluster-pipeline-fabric
-[SHEIKHA FABRIC] sovereign-commercial-ai-supercluster-v1 /api/ai/sovereign-commercial-supercluster /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/sovereign-commercial-ai-supercluster/status.routes.js
+✅ SHEIKHA FABRIC mounted: capability-token-engine -> /api/governance/capability-tokens
+[SHEIKHA FABRIC] intelligence-integration-fabric-v1 /api/intelligence/integration-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/intelligence-integration-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1627
-✅ SHEIKHA FABRIC mounted: sovereign-commercial-ai-supercluster-v1 -> /api/ai/sovereign-commercial-supercluster
-[SHEIKHA FABRIC] cloud-supercomputer-fabric-v1 /api/ai/cloud-supercomputer-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/cloud-supercomputer-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: intelligence-integration-fabric-v1 -> /api/intelligence/integration-fabric
+[SHEIKHA FABRIC] root-knowledge-agentic-fabric-v1 /api/knowledge/agentic-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/root-knowledge-agentic-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1628
-✅ SHEIKHA FABRIC mounted: cloud-supercomputer-fabric-v1 -> /api/ai/cloud-supercomputer-fabric
-[SHEIKHA FABRIC] highest-authority-readiness /api/governance/authority-readiness /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/authority-readiness/status.routes.js
+✅ SHEIKHA FABRIC mounted: root-knowledge-agentic-fabric-v1 -> /api/knowledge/agentic-fabric
+[SHEIKHA FABRIC] sdk-fabric-mcp-integration-v1 /api/sdk-fabric-mcp/integration /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/sdk-fabric-mcp-integration/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1629
-✅ SHEIKHA FABRIC mounted: highest-authority-readiness -> /api/governance/authority-readiness
-[SHEIKHA FABRIC] sheikha-exchange-trading-readiness /api/exchange/sheikha /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/exchange/sheikha-exchange/status.routes.js
+✅ SHEIKHA FABRIC mounted: sdk-fabric-mcp-integration-v1 -> /api/sdk-fabric-mcp/integration
+[SHEIKHA FABRIC] provider-agreement-roadmap-v1 /api/provider/agreement-roadmap /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/provider-agreement-roadmap/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1630
-✅ SHEIKHA FABRIC mounted: sheikha-exchange-trading-readiness -> /api/exchange/sheikha
-[SHEIKHA FABRIC] market-infrastructure-fabric /api/market-infrastructure /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/market-infrastructure/status.routes.js
+✅ SHEIKHA FABRIC mounted: provider-agreement-roadmap-v1 -> /api/provider/agreement-roadmap
+[SHEIKHA FABRIC] ugit-ai-control-plane-v1 /api/ai/ugit-control-plane /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/ugit-ai-control-plane/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1631
-✅ SHEIKHA FABRIC mounted: market-infrastructure-fabric -> /api/market-infrastructure
-[SHEIKHA FABRIC] system-of-systems /api/system-of-systems /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/system-of-systems/status.routes.js
+✅ SHEIKHA FABRIC mounted: ugit-ai-control-plane-v1 -> /api/ai/ugit-control-plane
+[SHEIKHA FABRIC] provider-compute-fabric-v1 /api/ai/provider-compute-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/provider-compute-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1632
-✅ SHEIKHA FABRIC mounted: system-of-systems -> /api/system-of-systems
-[SHEIKHA FABRIC] constitutional-governance-fabric /api/governance/constitutional-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/constitutional-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: provider-compute-fabric-v1 -> /api/ai/provider-compute-fabric
+[SHEIKHA FABRIC] commercial-real-activation-v1 /api/commercial/real-activation /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-real-activation/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1633
-✅ SHEIKHA FABRIC mounted: constitutional-governance-fabric -> /api/governance/constitutional-fabric
-[SHEIKHA FABRIC] sheikha-legislative-authority /api/governance/sheikha-authority /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sheikha-authority/status.routes.js
+✅ SHEIKHA FABRIC mounted: commercial-real-activation-v1 -> /api/commercial/real-activation
+[SHEIKHA FABRIC] multi-supercomputer-cloud-fabric-v1 /api/ai/multi-supercomputer-cloud-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/multi-supercomputer-cloud-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1634
-✅ SHEIKHA FABRIC mounted: sheikha-legislative-authority -> /api/governance/sheikha-authority
-[SHEIKHA FABRIC] supreme-governance-control-layer /api/governance/supreme-control /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/supreme-control/status.routes.js
+✅ SHEIKHA FABRIC mounted: multi-supercomputer-cloud-fabric-v1 -> /api/ai/multi-supercomputer-cloud-fabric
+[SHEIKHA FABRIC] ai-supercomputer-cloud-cluster-pipeline-fabric-v1 /api/ai/supercomputer-cloud-cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1635
-✅ SHEIKHA FABRIC mounted: supreme-governance-control-layer -> /api/governance/supreme-control
-[SHEIKHA FABRIC] advisory-commercial-layer /api/advisory-commercial /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-commercial/status.routes.js
+✅ SHEIKHA FABRIC mounted: ai-supercomputer-cloud-cluster-pipeline-fabric-v1 -> /api/ai/supercomputer-cloud-cluster-pipeline-fabric
+[SHEIKHA FABRIC] customer-classification-v1 /api/customers/classification /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/customer-classification/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1636
-✅ SHEIKHA FABRIC mounted: advisory-commercial-layer -> /api/advisory-commercial
-[SHEIKHA FABRIC] advisory-compliance-methodology-licensing /api/advisory-compliance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-compliance/status.routes.js
+✅ SHEIKHA FABRIC mounted: customer-classification-v1 -> /api/customers/classification
+[SHEIKHA FABRIC] platform-factories-v1 /api/platform/factories /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/platform-factories/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1637
-✅ SHEIKHA FABRIC mounted: advisory-compliance-methodology-licensing -> /api/advisory-compliance
-[SHEIKHA FABRIC] legislative-regulatory-licensing-project /api/legislative-regulatory-licensing /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/legislative-regulatory-licensing/status.routes.js
+✅ SHEIKHA FABRIC mounted: platform-factories-v1 -> /api/platform/factories
+[SHEIKHA FABRIC] devops-ai-lab-fabric-v1 /api/devops/ai-lab /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/devops-ai-lab-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1638
-✅ SHEIKHA FABRIC mounted: legislative-regulatory-licensing-project -> /api/legislative-regulatory-licensing
-[SHEIKHA FABRIC] runtime-verification-engine /api/runtime/verification /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/verification/status.routes.js
+✅ SHEIKHA FABRIC mounted: devops-ai-lab-fabric-v1 -> /api/devops/ai-lab
+[SHEIKHA FABRIC] resource-intelligence-simulation-fabric-v1 /api/resource-intelligence/simulation-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/resource-intelligence-simulation-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1639
-✅ SHEIKHA FABRIC mounted: runtime-verification-engine -> /api/runtime/verification
-[SHEIKHA FABRIC] sovereign-governance-layer /api/governance/sovereign-layer /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sovereign-layer/status.routes.js
+✅ SHEIKHA FABRIC mounted: resource-intelligence-simulation-fabric-v1 -> /api/resource-intelligence/simulation-fabric
+[SHEIKHA FABRIC] risk-classification-engine /api/governance/risk-engine /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/risk-engine/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1640
-✅ SHEIKHA FABRIC mounted: sovereign-governance-layer -> /api/governance/sovereign-layer
-[SHEIKHA FABRIC] cross-engine-governance /api/governance/policies /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policies/cross-engine.routes.js
+✅ SHEIKHA FABRIC mounted: risk-classification-engine -> /api/governance/risk-engine
+[SHEIKHA FABRIC] audit-ledger /api/governance/audit-ledger /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/audit-ledger/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1641
-✅ SHEIKHA FABRIC mounted: cross-engine-governance -> /api/governance/policies
-[SHEIKHA FABRIC] self-development-governance-kernel /api/self-development /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/self-development/status.routes.js
+✅ SHEIKHA FABRIC mounted: audit-ledger -> /api/governance/audit-ledger
+[SHEIKHA FABRIC] policy-compiler /api/governance/policy-compiler /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policy-compiler/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1642
-✅ SHEIKHA FABRIC mounted: self-development-governance-kernel -> /api/self-development
-[SHEIKHA FABRIC] runtime-orchestration /api/runtime/orchestration /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/orchestration/status.routes.js
+✅ SHEIKHA FABRIC mounted: policy-compiler -> /api/governance/policy-compiler
+[SHEIKHA FABRIC] capability-execution-registry /api/governance/capability-execution-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-execution-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1643
-✅ SHEIKHA FABRIC mounted: runtime-orchestration -> /api/runtime/orchestration
-[SHEIKHA FABRIC] runtime-registry /api/runtime/registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/registry/runtime-registry.routes.js
+✅ SHEIKHA FABRIC mounted: capability-execution-registry -> /api/governance/capability-execution-registry
+[SHEIKHA FABRIC] execution-governance-kernel /api/governance/execution-kernel /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/execution-kernel/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1644
-✅ SHEIKHA FABRIC mounted: runtime-registry -> /api/runtime/registry
-[SHEIKHA FABRIC] neural-routing-topology /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/topology.routes.js
+✅ SHEIKHA FABRIC mounted: execution-governance-kernel -> /api/governance/execution-kernel
+[SHEIKHA FABRIC] governance-enforcement-engine /api/governance/enforcement-engine /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/enforcement-engine/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1645
-✅ SHEIKHA FABRIC mounted: neural-routing-topology -> /api/neural-fabric/routing
-[SHEIKHA FABRIC] neural-routing-decisions /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/decision.routes.js
+✅ SHEIKHA FABRIC mounted: governance-enforcement-engine -> /api/governance/enforcement-engine
+[SHEIKHA FABRIC] sheikha-organization-system-of-systems /api/organization/sheikha /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/organization/sheikha-organization/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1646
-✅ SHEIKHA FABRIC mounted: neural-routing-decisions -> /api/neural-fabric/routing
-[SHEIKHA FABRIC] query-federation /api/runtime/federation /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/federation/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-organization-system-of-systems -> /api/organization/sheikha
+[SHEIKHA FABRIC] unified-capability-registry /api/governance/capability-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1647
-✅ SHEIKHA FABRIC mounted: query-federation -> /api/runtime/federation
-[SHEIKHA FABRIC] runtime-engine-discovery /api/runtime/discovery /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/discovery/discovery.routes.js
+✅ SHEIKHA FABRIC mounted: unified-capability-registry -> /api/governance/capability-registry
+[SHEIKHA FABRIC] capability-registry-v2 /api/governance/capability-registry-v2 /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry-v2/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1648
-✅ SHEIKHA FABRIC mounted: runtime-engine-discovery -> /api/runtime/discovery
-[SHEIKHA FABRIC] vector-semantic-layer /api/neural-fabric/vector /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/vector/status.routes.js
+✅ SHEIKHA FABRIC mounted: capability-registry-v2 -> /api/governance/capability-registry-v2
+[SHEIKHA FABRIC] commercial-product-layer-v1 /api/commercial/product-layer /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-product-layer/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1649
-✅ SHEIKHA FABRIC mounted: vector-semantic-layer -> /api/neural-fabric/vector
-[SHEIKHA FABRIC] neural-memory-layer /api/neural-fabric/memory /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/memory/status.routes.js
+✅ SHEIKHA FABRIC mounted: commercial-product-layer-v1 -> /api/commercial/product-layer
+[SHEIKHA FABRIC] ai-cluster-pipeline-fabric-v1 /api/ai/cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/ai-cluster-pipeline-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1650
-✅ SHEIKHA FABRIC mounted: neural-memory-layer -> /api/neural-fabric/memory
-[SHEIKHA FABRIC] runtime-telemetry /api/observability/telemetry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/observability/telemetry/metrics.routes.js
+✅ SHEIKHA FABRIC mounted: ai-cluster-pipeline-fabric-v1 -> /api/ai/cluster-pipeline-fabric
+[SHEIKHA FABRIC] sovereign-commercial-ai-supercluster-v1 /api/ai/sovereign-commercial-supercluster /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/sovereign-commercial-ai-supercluster/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1651
-✅ SHEIKHA FABRIC mounted: runtime-telemetry -> /api/observability/telemetry
-[SHEIKHA FABRIC] advisory-intelligence-provider /api/advisory-provider /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-provider/status.routes.js
+✅ SHEIKHA FABRIC mounted: sovereign-commercial-ai-supercluster-v1 -> /api/ai/sovereign-commercial-supercluster
+[SHEIKHA FABRIC] cloud-supercomputer-fabric-v1 /api/ai/cloud-supercomputer-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/cloud-supercomputer-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1652
+✅ SHEIKHA FABRIC mounted: cloud-supercomputer-fabric-v1 -> /api/ai/cloud-supercomputer-fabric
+[SHEIKHA FABRIC] highest-authority-readiness /api/governance/authority-readiness /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/authority-readiness/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1653
+✅ SHEIKHA FABRIC mounted: highest-authority-readiness -> /api/governance/authority-readiness
+[SHEIKHA FABRIC] sheikha-exchange-trading-readiness /api/exchange/sheikha /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/exchange/sheikha-exchange/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1654
+✅ SHEIKHA FABRIC mounted: sheikha-exchange-trading-readiness -> /api/exchange/sheikha
+[SHEIKHA FABRIC] market-infrastructure-fabric /api/market-infrastructure /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/market-infrastructure/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1655
+✅ SHEIKHA FABRIC mounted: market-infrastructure-fabric -> /api/market-infrastructure
+[SHEIKHA FABRIC] system-of-systems /api/system-of-systems /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/system-of-systems/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1656
+✅ SHEIKHA FABRIC mounted: system-of-systems -> /api/system-of-systems
+[SHEIKHA FABRIC] constitutional-governance-fabric /api/governance/constitutional-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/constitutional-fabric/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1657
+✅ SHEIKHA FABRIC mounted: constitutional-governance-fabric -> /api/governance/constitutional-fabric
+[SHEIKHA FABRIC] sheikha-legislative-authority /api/governance/sheikha-authority /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sheikha-authority/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1658
+✅ SHEIKHA FABRIC mounted: sheikha-legislative-authority -> /api/governance/sheikha-authority
+[SHEIKHA FABRIC] supreme-governance-control-layer /api/governance/supreme-control /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/supreme-control/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1659
+✅ SHEIKHA FABRIC mounted: supreme-governance-control-layer -> /api/governance/supreme-control
+[SHEIKHA FABRIC] advisory-commercial-layer /api/advisory-commercial /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-commercial/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1660
+✅ SHEIKHA FABRIC mounted: advisory-commercial-layer -> /api/advisory-commercial
+[SHEIKHA FABRIC] advisory-compliance-methodology-licensing /api/advisory-compliance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-compliance/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1661
+✅ SHEIKHA FABRIC mounted: advisory-compliance-methodology-licensing -> /api/advisory-compliance
+[SHEIKHA FABRIC] legislative-regulatory-licensing-project /api/legislative-regulatory-licensing /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/legislative-regulatory-licensing/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1662
+✅ SHEIKHA FABRIC mounted: legislative-regulatory-licensing-project -> /api/legislative-regulatory-licensing
+[SHEIKHA FABRIC] runtime-verification-engine /api/runtime/verification /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/verification/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1663
+✅ SHEIKHA FABRIC mounted: runtime-verification-engine -> /api/runtime/verification
+[SHEIKHA FABRIC] sovereign-governance-layer /api/governance/sovereign-layer /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sovereign-layer/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1664
+✅ SHEIKHA FABRIC mounted: sovereign-governance-layer -> /api/governance/sovereign-layer
+[SHEIKHA FABRIC] cross-engine-governance /api/governance/policies /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policies/cross-engine.routes.js
+[SHEIKHA APP ROUTER STACK] 1665
+✅ SHEIKHA FABRIC mounted: cross-engine-governance -> /api/governance/policies
+[SHEIKHA FABRIC] self-development-governance-kernel /api/self-development /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/self-development/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1666
+✅ SHEIKHA FABRIC mounted: self-development-governance-kernel -> /api/self-development
+[SHEIKHA FABRIC] runtime-orchestration /api/runtime/orchestration /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/orchestration/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1667
+✅ SHEIKHA FABRIC mounted: runtime-orchestration -> /api/runtime/orchestration
+[SHEIKHA FABRIC] runtime-registry /api/runtime/registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/registry/runtime-registry.routes.js
+[SHEIKHA APP ROUTER STACK] 1668
+✅ SHEIKHA FABRIC mounted: runtime-registry -> /api/runtime/registry
+[SHEIKHA FABRIC] neural-routing-topology /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/topology.routes.js
+[SHEIKHA APP ROUTER STACK] 1669
+✅ SHEIKHA FABRIC mounted: neural-routing-topology -> /api/neural-fabric/routing
+[SHEIKHA FABRIC] neural-routing-decisions /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/decision.routes.js
+[SHEIKHA APP ROUTER STACK] 1670
+✅ SHEIKHA FABRIC mounted: neural-routing-decisions -> /api/neural-fabric/routing
+[SHEIKHA FABRIC] query-federation /api/runtime/federation /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/federation/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1671
+✅ SHEIKHA FABRIC mounted: query-federation -> /api/runtime/federation
+[SHEIKHA FABRIC] runtime-engine-discovery /api/runtime/discovery /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/discovery/discovery.routes.js
+[SHEIKHA APP ROUTER STACK] 1672
+✅ SHEIKHA FABRIC mounted: runtime-engine-discovery -> /api/runtime/discovery
+[SHEIKHA FABRIC] vector-semantic-layer /api/neural-fabric/vector /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/vector/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1673
+✅ SHEIKHA FABRIC mounted: vector-semantic-layer -> /api/neural-fabric/vector
+[SHEIKHA FABRIC] neural-memory-layer /api/neural-fabric/memory /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/memory/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1674
+✅ SHEIKHA FABRIC mounted: neural-memory-layer -> /api/neural-fabric/memory
+[SHEIKHA FABRIC] runtime-telemetry /api/observability/telemetry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/observability/telemetry/metrics.routes.js
+[SHEIKHA APP ROUTER STACK] 1675
+✅ SHEIKHA FABRIC mounted: runtime-telemetry -> /api/observability/telemetry
+[SHEIKHA FABRIC] advisory-intelligence-provider /api/advisory-provider /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-provider/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1676
 ✅ SHEIKHA FABRIC mounted: advisory-intelligence-provider -> /api/advisory-provider
 ✅ SHEIKHA Dynamic Fabric Bootstrap ACTIVE 82
+[Sheikha] Commercial sales v1 mounted {
+  apiBasePath: '/api/commercial/v1',
+  staticBasePath: '/commercial',
+  paymentCaptureEnabled: false,
+  officialTaxInvoiceEnabled: false
+}
 ✅ SHEIKHA Runtime Authority mounted
 ⏸️ [LAZY] sheikha-quran-ai-foundations — سيُحمّل عند الطلب
    📖 [QuranAI] محرك الأسس القرآنية — 12 مفهوم | 7 مرحلة خلق | يعمل بالخلفية
@@ -657,7 +658,7 @@ npm notice
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
 ║                           Sheikha Metals & Scrap Market - Main Portal                                              ║
 ╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║   🌐 http://localhost:36767                                                                                     ║
+║   🌐 http://localhost:38057                                                                                     ║
 ║   ⚙️  محرك الأتمتة v2.0 — أقوى من n8n — مُفعَّل                                                                    ║
 ║   🔗 تكامل n8n المؤسسي: /api/automation/n8n/webhook                                                               ║
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
@@ -808,7 +809,7 @@ npm notice
 ║     🕌 SHEIKHA ISLAMIC FOUNDATION LAYER — تفعيل الطبقة الأساسية     ║
 ╠══════════════════════════════════════════════════════════════════════╣
 ║  بسم الله الرحمن الرحيم                                              ║
-║  IFL v1.0.0  |  PID: 1811643  |  v25.6.1         ║
+║  IFL v1.0.0  |  PID: 1429112  |  v25.6.1         ║
 ║  Platform: linux/x64  |  Host: pop-os               ║
 ╠══════════════════════════════════════════════════════════════════════╣
 ║  المرجعية الحاكمة (لا تتغير بتغير الموقع أو الزمن):                ║
@@ -826,7 +827,7 @@ npm notice
 ╚══════════════════════════════════════════════════════════════════════╝
 
 ✅ Root Neural Cell Network ACTIVE on /api/root-neural-network
-🔐 نظام حماية المسارات — مفعّل | 19 صفحة محمية | 3 مسار إداري
+🔐 نظام حماية المسارات — مفعّل | 28 صفحة محمية | 3 مسار إداري
 🧪 Pilot Middleware — مفعّل | الوضع: PILOT
 ⏸️ [CRON DISABLED] */15 * * * * — set SHEIKHA_ENABLE_CRON=true in worker only
 ⏸️ [CRON DISABLED] */30 * * * * * — set SHEIKHA_ENABLE_CRON=true in worker only
@@ -1062,253 +1063,259 @@ npm notice
 ✅ SHEIKHA Redis Neural Cache mounted
 ✅ SHEIKHA MongoDB Document Fabric mounted
 ✅ SHEIKHA Unified Health Platform mounted
-[SHEIKHA FABRIC] sheikha-root-identity /api/root-identity /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1571
-✅ SHEIKHA FABRIC mounted: sheikha-root-identity -> /api/root-identity
-[SHEIKHA FABRIC] sheikha-operating-system-identity /api/operating-system /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1572
-✅ SHEIKHA FABRIC mounted: sheikha-operating-system-identity -> /api/operating-system
-[SHEIKHA FABRIC] chat-code-governance /api/chat-code-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/chat-code-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1573
-✅ SHEIKHA FABRIC mounted: chat-code-governance -> /api/chat-code-governance
-[SHEIKHA FABRIC] quran-sunnah-governance /api/quran-sunnah-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/quran-sunnah-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1574
-✅ SHEIKHA FABRIC mounted: quran-sunnah-governance -> /api/quran-sunnah-governance
-[SHEIKHA FABRIC] technical-advisory /api/technical-advisory /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/technical-advisory/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1575
-✅ SHEIKHA FABRIC mounted: technical-advisory -> /api/technical-advisory
-[SHEIKHA FABRIC] pr-governance /api/pr-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/pr-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1576
-✅ SHEIKHA FABRIC mounted: pr-governance -> /api/pr-governance
-[SHEIKHA FABRIC] project-governance /api/project-governance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/project-governance/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1577
-✅ SHEIKHA FABRIC mounted: project-governance -> /api/project-governance
-[SHEIKHA FABRIC] sheikha-data /api/sheikha-data /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/sheikha-data/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1578
-✅ SHEIKHA FABRIC mounted: sheikha-data -> /api/sheikha-data
-[SHEIKHA FABRIC] openapi-registry /api/openapi-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/openapi-registry/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1579
-✅ SHEIKHA FABRIC mounted: openapi-registry -> /api/openapi-registry
-[SHEIKHA FABRIC] sheikha-mcp-unified-bridge /api/sheikha/mcp /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1580
-✅ SHEIKHA FABRIC mounted: sheikha-mcp-unified-bridge -> /api/sheikha/mcp
-[SHEIKHA FABRIC] mcp-unified-bridge /api/mcp /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1581
-✅ SHEIKHA FABRIC mounted: mcp-unified-bridge -> /api/mcp
-[SHEIKHA FABRIC] federated-knowledge-fabric /api/federated-knowledge-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/federated-knowledge-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1582
-✅ SHEIKHA FABRIC mounted: federated-knowledge-fabric -> /api/federated-knowledge-fabric
-[SHEIKHA FABRIC] autonomous-runtime-coordination /api/autonomous-runtime-coordination /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/autonomous-runtime-coordination/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1583
-✅ SHEIKHA FABRIC mounted: autonomous-runtime-coordination -> /api/autonomous-runtime-coordination
-[SHEIKHA FABRIC] distributed-telemetry-fabric /api/distributed-telemetry-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/distributed-telemetry-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1584
-✅ SHEIKHA FABRIC mounted: distributed-telemetry-fabric -> /api/distributed-telemetry-fabric
-[SHEIKHA FABRIC] execution-orchestration-grid /api/execution-orchestration-grid /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/execution-orchestration-grid/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1585
-✅ SHEIKHA FABRIC mounted: execution-orchestration-grid -> /api/execution-orchestration-grid
-[SHEIKHA FABRIC] capability-token-fabric /api/capability-token-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/capability-token-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1586
-✅ SHEIKHA FABRIC mounted: capability-token-fabric -> /api/capability-token-fabric
-[SHEIKHA FABRIC] global-domain-registry /api/global-domain-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/global-domain-registry/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1587
-✅ SHEIKHA FABRIC mounted: global-domain-registry -> /api/global-domain-registry
-[SHEIKHA FABRIC] runtime-federation-mesh /api/runtime-federation-mesh /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime-federation-mesh/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1588
-✅ SHEIKHA FABRIC mounted: runtime-federation-mesh -> /api/runtime-federation-mesh
-[SHEIKHA FABRIC] sovereign-control-plane /api/control-plane /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/control-plane/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1589
-✅ SHEIKHA FABRIC mounted: sovereign-control-plane -> /api/control-plane
-[SHEIKHA FABRIC] organizational-federation-kernel /api/federation/organizational-kernel /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/federation/organizational-kernel/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1590
-✅ SHEIKHA FABRIC mounted: organizational-federation-kernel -> /api/federation/organizational-kernel
-[SHEIKHA FABRIC] domain-contract-fabric /api/governance/domain-contract-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/domain-contract-fabric/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1591
-✅ SHEIKHA FABRIC mounted: domain-contract-fabric -> /api/governance/domain-contract-fabric
-[SHEIKHA FABRIC] governance-graph-engine /api/governance/graph-engine /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/graph-engine/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1592
-✅ SHEIKHA FABRIC mounted: governance-graph-engine -> /api/governance/graph-engine
-[SHEIKHA FABRIC] policy-enforcement-point /api/governance/pep /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pep/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1593
-✅ SHEIKHA FABRIC mounted: policy-enforcement-point -> /api/governance/pep
-[SHEIKHA FABRIC] policy-decision-point /api/governance/pdp /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pdp/status.routes.js
-[SHEIKHA APP ROUTER STACK] 1594
-✅ SHEIKHA FABRIC mounted: policy-decision-point -> /api/governance/pdp
-[SHEIKHA FABRIC] unified-governance-bus /api/governance/bus /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/unified-governance-bus/status.routes.js
+[SHEIKHA FABRIC] sheikha-root-identity /api/root-identity /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1595
-✅ SHEIKHA FABRIC mounted: unified-governance-bus -> /api/governance/bus
-[SHEIKHA FABRIC] arabic-semantic-encoding-v1 /api/language/arabic-semantic-encoding /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/arabic-semantic-encoding/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-root-identity -> /api/root-identity
+[SHEIKHA FABRIC] sheikha-operating-system-identity /api/operating-system /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/identity/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1596
-✅ SHEIKHA FABRIC mounted: arabic-semantic-encoding-v1 -> /api/language/arabic-semantic-encoding
-[SHEIKHA FABRIC] universal-benefit-boundary-v1 /api/governance/universal-benefit /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/universal-benefit-boundary/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-operating-system-identity -> /api/operating-system
+[SHEIKHA FABRIC] chat-code-governance /api/chat-code-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/chat-code-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1597
-✅ SHEIKHA FABRIC mounted: universal-benefit-boundary-v1 -> /api/governance/universal-benefit
-[SHEIKHA FABRIC] development-functions-fabric-v1 /api/development/functions-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/development-functions-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: chat-code-governance -> /api/chat-code-governance
+[SHEIKHA FABRIC] quran-sunnah-governance /api/quran-sunnah-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/quran-sunnah-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1598
-✅ SHEIKHA FABRIC mounted: development-functions-fabric-v1 -> /api/development/functions-fabric
-[SHEIKHA FABRIC] governance-generator-v1 /api/governance/generator /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance-generator/status.routes.js
+✅ SHEIKHA FABRIC mounted: quran-sunnah-governance -> /api/quran-sunnah-governance
+[SHEIKHA FABRIC] technical-advisory /api/technical-advisory /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/technical-advisory/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1599
-✅ SHEIKHA FABRIC mounted: governance-generator-v1 -> /api/governance/generator
-[SHEIKHA FABRIC] governed-intelligence-execution-loop-v1 /api/intelligence/execution-loop /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governed-intelligence-execution-loop/status.routes.js
+✅ SHEIKHA FABRIC mounted: technical-advisory -> /api/technical-advisory
+[SHEIKHA FABRIC] pr-governance /api/pr-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/pr-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1600
-✅ SHEIKHA FABRIC mounted: governed-intelligence-execution-loop-v1 -> /api/intelligence/execution-loop
-[SHEIKHA FABRIC] agi-asi-research-science-fabric-v1 /api/research/agi-asi-science-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/agi-asi-research-science-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: pr-governance -> /api/pr-governance
+[SHEIKHA FABRIC] project-governance /api/project-governance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/project-governance/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1601
-✅ SHEIKHA FABRIC mounted: agi-asi-research-science-fabric-v1 -> /api/research/agi-asi-science-fabric
-[SHEIKHA FABRIC] capability-token-engine /api/governance/capability-tokens /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-tokens/status.routes.js
+✅ SHEIKHA FABRIC mounted: project-governance -> /api/project-governance
+[SHEIKHA FABRIC] sheikha-data /api/sheikha-data /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/sheikha-data/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1602
-✅ SHEIKHA FABRIC mounted: capability-token-engine -> /api/governance/capability-tokens
-[SHEIKHA FABRIC] intelligence-integration-fabric-v1 /api/intelligence/integration-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/intelligence-integration-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-data -> /api/sheikha-data
+[SHEIKHA FABRIC] openapi-registry /api/openapi-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/openapi-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1603
-✅ SHEIKHA FABRIC mounted: intelligence-integration-fabric-v1 -> /api/intelligence/integration-fabric
-[SHEIKHA FABRIC] root-knowledge-agentic-fabric-v1 /api/knowledge/agentic-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/root-knowledge-agentic-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: openapi-registry -> /api/openapi-registry
+[SHEIKHA FABRIC] sheikha-mcp-unified-bridge /api/sheikha/mcp /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1604
-✅ SHEIKHA FABRIC mounted: root-knowledge-agentic-fabric-v1 -> /api/knowledge/agentic-fabric
-[SHEIKHA FABRIC] sdk-fabric-mcp-integration-v1 /api/sdk-fabric-mcp/integration /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/sdk-fabric-mcp-integration/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-mcp-unified-bridge -> /api/sheikha/mcp
+[SHEIKHA FABRIC] mcp-unified-bridge /api/mcp /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/mcp-unified-bridge/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1605
-✅ SHEIKHA FABRIC mounted: sdk-fabric-mcp-integration-v1 -> /api/sdk-fabric-mcp/integration
-[SHEIKHA FABRIC] provider-agreement-roadmap-v1 /api/provider/agreement-roadmap /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/provider-agreement-roadmap/status.routes.js
+✅ SHEIKHA FABRIC mounted: mcp-unified-bridge -> /api/mcp
+[SHEIKHA FABRIC] federated-knowledge-fabric /api/federated-knowledge-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/federated-knowledge-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1606
-✅ SHEIKHA FABRIC mounted: provider-agreement-roadmap-v1 -> /api/provider/agreement-roadmap
-[SHEIKHA FABRIC] ugit-ai-control-plane-v1 /api/ai/ugit-control-plane /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/ugit-ai-control-plane/status.routes.js
+✅ SHEIKHA FABRIC mounted: federated-knowledge-fabric -> /api/federated-knowledge-fabric
+[SHEIKHA FABRIC] autonomous-runtime-coordination /api/autonomous-runtime-coordination /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/autonomous-runtime-coordination/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1607
-✅ SHEIKHA FABRIC mounted: ugit-ai-control-plane-v1 -> /api/ai/ugit-control-plane
-[SHEIKHA FABRIC] provider-compute-fabric-v1 /api/ai/provider-compute-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/provider-compute-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: autonomous-runtime-coordination -> /api/autonomous-runtime-coordination
+[SHEIKHA FABRIC] distributed-telemetry-fabric /api/distributed-telemetry-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/distributed-telemetry-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1608
-✅ SHEIKHA FABRIC mounted: provider-compute-fabric-v1 -> /api/ai/provider-compute-fabric
-[SHEIKHA FABRIC] commercial-real-activation-v1 /api/commercial/real-activation /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-real-activation/status.routes.js
+✅ SHEIKHA FABRIC mounted: distributed-telemetry-fabric -> /api/distributed-telemetry-fabric
+[SHEIKHA FABRIC] execution-orchestration-grid /api/execution-orchestration-grid /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/execution-orchestration-grid/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1609
-✅ SHEIKHA FABRIC mounted: commercial-real-activation-v1 -> /api/commercial/real-activation
-[SHEIKHA FABRIC] multi-supercomputer-cloud-fabric-v1 /api/ai/multi-supercomputer-cloud-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/multi-supercomputer-cloud-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: execution-orchestration-grid -> /api/execution-orchestration-grid
+[SHEIKHA FABRIC] capability-token-fabric /api/capability-token-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/capability-token-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1610
-✅ SHEIKHA FABRIC mounted: multi-supercomputer-cloud-fabric-v1 -> /api/ai/multi-supercomputer-cloud-fabric
-[SHEIKHA FABRIC] ai-supercomputer-cloud-cluster-pipeline-fabric-v1 /api/ai/supercomputer-cloud-cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: capability-token-fabric -> /api/capability-token-fabric
+[SHEIKHA FABRIC] global-domain-registry /api/global-domain-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/global-domain-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1611
-✅ SHEIKHA FABRIC mounted: ai-supercomputer-cloud-cluster-pipeline-fabric-v1 -> /api/ai/supercomputer-cloud-cluster-pipeline-fabric
-[SHEIKHA FABRIC] customer-classification-v1 /api/customers/classification /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/customer-classification/status.routes.js
+✅ SHEIKHA FABRIC mounted: global-domain-registry -> /api/global-domain-registry
+[SHEIKHA FABRIC] runtime-federation-mesh /api/runtime-federation-mesh /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime-federation-mesh/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1612
-✅ SHEIKHA FABRIC mounted: customer-classification-v1 -> /api/customers/classification
-[SHEIKHA FABRIC] platform-factories-v1 /api/platform/factories /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/platform-factories/status.routes.js
+✅ SHEIKHA FABRIC mounted: runtime-federation-mesh -> /api/runtime-federation-mesh
+[SHEIKHA FABRIC] sovereign-control-plane /api/control-plane /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/control-plane/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1613
-✅ SHEIKHA FABRIC mounted: platform-factories-v1 -> /api/platform/factories
-[SHEIKHA FABRIC] devops-ai-lab-fabric-v1 /api/devops/ai-lab /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/devops-ai-lab-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: sovereign-control-plane -> /api/control-plane
+[SHEIKHA FABRIC] organizational-federation-kernel /api/federation/organizational-kernel /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/federation/organizational-kernel/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1614
-✅ SHEIKHA FABRIC mounted: devops-ai-lab-fabric-v1 -> /api/devops/ai-lab
-[SHEIKHA FABRIC] resource-intelligence-simulation-fabric-v1 /api/resource-intelligence/simulation-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/resource-intelligence-simulation-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: organizational-federation-kernel -> /api/federation/organizational-kernel
+[SHEIKHA FABRIC] domain-contract-fabric /api/governance/domain-contract-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/domain-contract-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1615
-✅ SHEIKHA FABRIC mounted: resource-intelligence-simulation-fabric-v1 -> /api/resource-intelligence/simulation-fabric
-[SHEIKHA FABRIC] risk-classification-engine /api/governance/risk-engine /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/risk-engine/status.routes.js
+✅ SHEIKHA FABRIC mounted: domain-contract-fabric -> /api/governance/domain-contract-fabric
+[SHEIKHA FABRIC] governance-graph-engine /api/governance/graph-engine /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/graph-engine/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1616
-✅ SHEIKHA FABRIC mounted: risk-classification-engine -> /api/governance/risk-engine
-[SHEIKHA FABRIC] audit-ledger /api/governance/audit-ledger /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/audit-ledger/status.routes.js
+✅ SHEIKHA FABRIC mounted: governance-graph-engine -> /api/governance/graph-engine
+[SHEIKHA FABRIC] policy-enforcement-point /api/governance/pep /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pep/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1617
-✅ SHEIKHA FABRIC mounted: audit-ledger -> /api/governance/audit-ledger
-[SHEIKHA FABRIC] policy-compiler /api/governance/policy-compiler /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policy-compiler/status.routes.js
+✅ SHEIKHA FABRIC mounted: policy-enforcement-point -> /api/governance/pep
+[SHEIKHA FABRIC] policy-decision-point /api/governance/pdp /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/pdp/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1618
-✅ SHEIKHA FABRIC mounted: policy-compiler -> /api/governance/policy-compiler
-[SHEIKHA FABRIC] capability-execution-registry /api/governance/capability-execution-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-execution-registry/status.routes.js
+✅ SHEIKHA FABRIC mounted: policy-decision-point -> /api/governance/pdp
+[SHEIKHA FABRIC] unified-governance-bus /api/governance/bus /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/unified-governance-bus/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1619
-✅ SHEIKHA FABRIC mounted: capability-execution-registry -> /api/governance/capability-execution-registry
-[SHEIKHA FABRIC] execution-governance-kernel /api/governance/execution-kernel /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/execution-kernel/status.routes.js
+✅ SHEIKHA FABRIC mounted: unified-governance-bus -> /api/governance/bus
+[SHEIKHA FABRIC] arabic-semantic-encoding-v1 /api/language/arabic-semantic-encoding /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/arabic-semantic-encoding/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1620
-✅ SHEIKHA FABRIC mounted: execution-governance-kernel -> /api/governance/execution-kernel
-[SHEIKHA FABRIC] governance-enforcement-engine /api/governance/enforcement-engine /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/enforcement-engine/status.routes.js
+✅ SHEIKHA FABRIC mounted: arabic-semantic-encoding-v1 -> /api/language/arabic-semantic-encoding
+[SHEIKHA FABRIC] universal-benefit-boundary-v1 /api/governance/universal-benefit /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/universal-benefit-boundary/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1621
-✅ SHEIKHA FABRIC mounted: governance-enforcement-engine -> /api/governance/enforcement-engine
-[SHEIKHA FABRIC] sheikha-organization-system-of-systems /api/organization/sheikha /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/organization/sheikha-organization/status.routes.js
+✅ SHEIKHA FABRIC mounted: universal-benefit-boundary-v1 -> /api/governance/universal-benefit
+[SHEIKHA FABRIC] development-functions-fabric-v1 /api/development/functions-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/development-functions-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1622
-✅ SHEIKHA FABRIC mounted: sheikha-organization-system-of-systems -> /api/organization/sheikha
-[SHEIKHA FABRIC] unified-capability-registry /api/governance/capability-registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry/status.routes.js
+✅ SHEIKHA FABRIC mounted: development-functions-fabric-v1 -> /api/development/functions-fabric
+[SHEIKHA FABRIC] governance-generator-v1 /api/governance/generator /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance-generator/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1623
-✅ SHEIKHA FABRIC mounted: unified-capability-registry -> /api/governance/capability-registry
-[SHEIKHA FABRIC] capability-registry-v2 /api/governance/capability-registry-v2 /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry-v2/status.routes.js
+✅ SHEIKHA FABRIC mounted: governance-generator-v1 -> /api/governance/generator
+[SHEIKHA FABRIC] governed-intelligence-execution-loop-v1 /api/intelligence/execution-loop /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governed-intelligence-execution-loop/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1624
-✅ SHEIKHA FABRIC mounted: capability-registry-v2 -> /api/governance/capability-registry-v2
-[SHEIKHA FABRIC] commercial-product-layer-v1 /api/commercial/product-layer /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-product-layer/status.routes.js
+✅ SHEIKHA FABRIC mounted: governed-intelligence-execution-loop-v1 -> /api/intelligence/execution-loop
+[SHEIKHA FABRIC] agi-asi-research-science-fabric-v1 /api/research/agi-asi-science-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/agi-asi-research-science-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1625
-✅ SHEIKHA FABRIC mounted: commercial-product-layer-v1 -> /api/commercial/product-layer
-[SHEIKHA FABRIC] ai-cluster-pipeline-fabric-v1 /api/ai/cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/ai-cluster-pipeline-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: agi-asi-research-science-fabric-v1 -> /api/research/agi-asi-science-fabric
+[SHEIKHA FABRIC] capability-token-engine /api/governance/capability-tokens /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-tokens/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1626
-✅ SHEIKHA FABRIC mounted: ai-cluster-pipeline-fabric-v1 -> /api/ai/cluster-pipeline-fabric
-[SHEIKHA FABRIC] sovereign-commercial-ai-supercluster-v1 /api/ai/sovereign-commercial-supercluster /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/sovereign-commercial-ai-supercluster/status.routes.js
+✅ SHEIKHA FABRIC mounted: capability-token-engine -> /api/governance/capability-tokens
+[SHEIKHA FABRIC] intelligence-integration-fabric-v1 /api/intelligence/integration-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/intelligence-integration-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1627
-✅ SHEIKHA FABRIC mounted: sovereign-commercial-ai-supercluster-v1 -> /api/ai/sovereign-commercial-supercluster
-[SHEIKHA FABRIC] cloud-supercomputer-fabric-v1 /api/ai/cloud-supercomputer-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/cloud-supercomputer-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: intelligence-integration-fabric-v1 -> /api/intelligence/integration-fabric
+[SHEIKHA FABRIC] root-knowledge-agentic-fabric-v1 /api/knowledge/agentic-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/root-knowledge-agentic-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1628
-✅ SHEIKHA FABRIC mounted: cloud-supercomputer-fabric-v1 -> /api/ai/cloud-supercomputer-fabric
-[SHEIKHA FABRIC] highest-authority-readiness /api/governance/authority-readiness /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/authority-readiness/status.routes.js
+✅ SHEIKHA FABRIC mounted: root-knowledge-agentic-fabric-v1 -> /api/knowledge/agentic-fabric
+[SHEIKHA FABRIC] sdk-fabric-mcp-integration-v1 /api/sdk-fabric-mcp/integration /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/sdk-fabric-mcp-integration/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1629
-✅ SHEIKHA FABRIC mounted: highest-authority-readiness -> /api/governance/authority-readiness
-[SHEIKHA FABRIC] sheikha-exchange-trading-readiness /api/exchange/sheikha /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/exchange/sheikha-exchange/status.routes.js
+✅ SHEIKHA FABRIC mounted: sdk-fabric-mcp-integration-v1 -> /api/sdk-fabric-mcp/integration
+[SHEIKHA FABRIC] provider-agreement-roadmap-v1 /api/provider/agreement-roadmap /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/provider-agreement-roadmap/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1630
-✅ SHEIKHA FABRIC mounted: sheikha-exchange-trading-readiness -> /api/exchange/sheikha
-[SHEIKHA FABRIC] market-infrastructure-fabric /api/market-infrastructure /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/market-infrastructure/status.routes.js
+✅ SHEIKHA FABRIC mounted: provider-agreement-roadmap-v1 -> /api/provider/agreement-roadmap
+[SHEIKHA FABRIC] ugit-ai-control-plane-v1 /api/ai/ugit-control-plane /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/ugit-ai-control-plane/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1631
-✅ SHEIKHA FABRIC mounted: market-infrastructure-fabric -> /api/market-infrastructure
-[SHEIKHA FABRIC] system-of-systems /api/system-of-systems /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/system-of-systems/status.routes.js
+✅ SHEIKHA FABRIC mounted: ugit-ai-control-plane-v1 -> /api/ai/ugit-control-plane
+[SHEIKHA FABRIC] provider-compute-fabric-v1 /api/ai/provider-compute-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/provider-compute-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1632
-✅ SHEIKHA FABRIC mounted: system-of-systems -> /api/system-of-systems
-[SHEIKHA FABRIC] constitutional-governance-fabric /api/governance/constitutional-fabric /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/constitutional-fabric/status.routes.js
+✅ SHEIKHA FABRIC mounted: provider-compute-fabric-v1 -> /api/ai/provider-compute-fabric
+[SHEIKHA FABRIC] commercial-real-activation-v1 /api/commercial/real-activation /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-real-activation/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1633
-✅ SHEIKHA FABRIC mounted: constitutional-governance-fabric -> /api/governance/constitutional-fabric
-[SHEIKHA FABRIC] sheikha-legislative-authority /api/governance/sheikha-authority /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sheikha-authority/status.routes.js
+✅ SHEIKHA FABRIC mounted: commercial-real-activation-v1 -> /api/commercial/real-activation
+[SHEIKHA FABRIC] multi-supercomputer-cloud-fabric-v1 /api/ai/multi-supercomputer-cloud-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/multi-supercomputer-cloud-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1634
-✅ SHEIKHA FABRIC mounted: sheikha-legislative-authority -> /api/governance/sheikha-authority
-[SHEIKHA FABRIC] supreme-governance-control-layer /api/governance/supreme-control /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/supreme-control/status.routes.js
+✅ SHEIKHA FABRIC mounted: multi-supercomputer-cloud-fabric-v1 -> /api/ai/multi-supercomputer-cloud-fabric
+[SHEIKHA FABRIC] ai-supercomputer-cloud-cluster-pipeline-fabric-v1 /api/ai/supercomputer-cloud-cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/ai-supercomputer-cloud-cluster-pipeline-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1635
-✅ SHEIKHA FABRIC mounted: supreme-governance-control-layer -> /api/governance/supreme-control
-[SHEIKHA FABRIC] advisory-commercial-layer /api/advisory-commercial /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-commercial/status.routes.js
+✅ SHEIKHA FABRIC mounted: ai-supercomputer-cloud-cluster-pipeline-fabric-v1 -> /api/ai/supercomputer-cloud-cluster-pipeline-fabric
+[SHEIKHA FABRIC] customer-classification-v1 /api/customers/classification /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/customer-classification/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1636
-✅ SHEIKHA FABRIC mounted: advisory-commercial-layer -> /api/advisory-commercial
-[SHEIKHA FABRIC] advisory-compliance-methodology-licensing /api/advisory-compliance /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-compliance/status.routes.js
+✅ SHEIKHA FABRIC mounted: customer-classification-v1 -> /api/customers/classification
+[SHEIKHA FABRIC] platform-factories-v1 /api/platform/factories /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/platform-factories/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1637
-✅ SHEIKHA FABRIC mounted: advisory-compliance-methodology-licensing -> /api/advisory-compliance
-[SHEIKHA FABRIC] legislative-regulatory-licensing-project /api/legislative-regulatory-licensing /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/legislative-regulatory-licensing/status.routes.js
+✅ SHEIKHA FABRIC mounted: platform-factories-v1 -> /api/platform/factories
+[SHEIKHA FABRIC] devops-ai-lab-fabric-v1 /api/devops/ai-lab /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/devops-ai-lab-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1638
-✅ SHEIKHA FABRIC mounted: legislative-regulatory-licensing-project -> /api/legislative-regulatory-licensing
-[SHEIKHA FABRIC] runtime-verification-engine /api/runtime/verification /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/verification/status.routes.js
+✅ SHEIKHA FABRIC mounted: devops-ai-lab-fabric-v1 -> /api/devops/ai-lab
+[SHEIKHA FABRIC] resource-intelligence-simulation-fabric-v1 /api/resource-intelligence/simulation-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/resource-intelligence-simulation-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1639
-✅ SHEIKHA FABRIC mounted: runtime-verification-engine -> /api/runtime/verification
-[SHEIKHA FABRIC] sovereign-governance-layer /api/governance/sovereign-layer /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sovereign-layer/status.routes.js
+✅ SHEIKHA FABRIC mounted: resource-intelligence-simulation-fabric-v1 -> /api/resource-intelligence/simulation-fabric
+[SHEIKHA FABRIC] risk-classification-engine /api/governance/risk-engine /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/risk-engine/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1640
-✅ SHEIKHA FABRIC mounted: sovereign-governance-layer -> /api/governance/sovereign-layer
-[SHEIKHA FABRIC] cross-engine-governance /api/governance/policies /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policies/cross-engine.routes.js
+✅ SHEIKHA FABRIC mounted: risk-classification-engine -> /api/governance/risk-engine
+[SHEIKHA FABRIC] audit-ledger /api/governance/audit-ledger /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/audit-ledger/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1641
-✅ SHEIKHA FABRIC mounted: cross-engine-governance -> /api/governance/policies
-[SHEIKHA FABRIC] self-development-governance-kernel /api/self-development /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/self-development/status.routes.js
+✅ SHEIKHA FABRIC mounted: audit-ledger -> /api/governance/audit-ledger
+[SHEIKHA FABRIC] policy-compiler /api/governance/policy-compiler /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policy-compiler/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1642
-✅ SHEIKHA FABRIC mounted: self-development-governance-kernel -> /api/self-development
-[SHEIKHA FABRIC] runtime-orchestration /api/runtime/orchestration /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/orchestration/status.routes.js
+✅ SHEIKHA FABRIC mounted: policy-compiler -> /api/governance/policy-compiler
+[SHEIKHA FABRIC] capability-execution-registry /api/governance/capability-execution-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-execution-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1643
-✅ SHEIKHA FABRIC mounted: runtime-orchestration -> /api/runtime/orchestration
-[SHEIKHA FABRIC] runtime-registry /api/runtime/registry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/registry/runtime-registry.routes.js
+✅ SHEIKHA FABRIC mounted: capability-execution-registry -> /api/governance/capability-execution-registry
+[SHEIKHA FABRIC] execution-governance-kernel /api/governance/execution-kernel /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/execution-kernel/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1644
-✅ SHEIKHA FABRIC mounted: runtime-registry -> /api/runtime/registry
-[SHEIKHA FABRIC] neural-routing-topology /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/topology.routes.js
+✅ SHEIKHA FABRIC mounted: execution-governance-kernel -> /api/governance/execution-kernel
+[SHEIKHA FABRIC] governance-enforcement-engine /api/governance/enforcement-engine /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/enforcement-engine/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1645
-✅ SHEIKHA FABRIC mounted: neural-routing-topology -> /api/neural-fabric/routing
-[SHEIKHA FABRIC] neural-routing-decisions /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/decision.routes.js
+✅ SHEIKHA FABRIC mounted: governance-enforcement-engine -> /api/governance/enforcement-engine
+[SHEIKHA FABRIC] sheikha-organization-system-of-systems /api/organization/sheikha /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/organization/sheikha-organization/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1646
-✅ SHEIKHA FABRIC mounted: neural-routing-decisions -> /api/neural-fabric/routing
-[SHEIKHA FABRIC] query-federation /api/runtime/federation /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/federation/status.routes.js
+✅ SHEIKHA FABRIC mounted: sheikha-organization-system-of-systems -> /api/organization/sheikha
+[SHEIKHA FABRIC] unified-capability-registry /api/governance/capability-registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1647
-✅ SHEIKHA FABRIC mounted: query-federation -> /api/runtime/federation
-[SHEIKHA FABRIC] runtime-engine-discovery /api/runtime/discovery /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/discovery/discovery.routes.js
+✅ SHEIKHA FABRIC mounted: unified-capability-registry -> /api/governance/capability-registry
+[SHEIKHA FABRIC] capability-registry-v2 /api/governance/capability-registry-v2 /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/capability-registry-v2/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1648
-✅ SHEIKHA FABRIC mounted: runtime-engine-discovery -> /api/runtime/discovery
-[SHEIKHA FABRIC] vector-semantic-layer /api/neural-fabric/vector /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/vector/status.routes.js
+✅ SHEIKHA FABRIC mounted: capability-registry-v2 -> /api/governance/capability-registry-v2
+[SHEIKHA FABRIC] commercial-product-layer-v1 /api/commercial/product-layer /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/commercial-product-layer/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1649
-✅ SHEIKHA FABRIC mounted: vector-semantic-layer -> /api/neural-fabric/vector
-[SHEIKHA FABRIC] neural-memory-layer /api/neural-fabric/memory /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/memory/status.routes.js
+✅ SHEIKHA FABRIC mounted: commercial-product-layer-v1 -> /api/commercial/product-layer
+[SHEIKHA FABRIC] ai-cluster-pipeline-fabric-v1 /api/ai/cluster-pipeline-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/ai-cluster-pipeline-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1650
-✅ SHEIKHA FABRIC mounted: neural-memory-layer -> /api/neural-fabric/memory
-[SHEIKHA FABRIC] runtime-telemetry /api/observability/telemetry /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/observability/telemetry/metrics.routes.js
+✅ SHEIKHA FABRIC mounted: ai-cluster-pipeline-fabric-v1 -> /api/ai/cluster-pipeline-fabric
+[SHEIKHA FABRIC] sovereign-commercial-ai-supercluster-v1 /api/ai/sovereign-commercial-supercluster /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/sovereign-commercial-ai-supercluster/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1651
-✅ SHEIKHA FABRIC mounted: runtime-telemetry -> /api/observability/telemetry
-[SHEIKHA FABRIC] advisory-intelligence-provider /api/advisory-provider /tmp/sheikha-linux-native-v5-O1ghAB/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-provider/status.routes.js
+✅ SHEIKHA FABRIC mounted: sovereign-commercial-ai-supercluster-v1 -> /api/ai/sovereign-commercial-supercluster
+[SHEIKHA FABRIC] cloud-supercomputer-fabric-v1 /api/ai/cloud-supercomputer-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/cloud-supercomputer-fabric/status.routes.js
 [SHEIKHA APP ROUTER STACK] 1652
+✅ SHEIKHA FABRIC mounted: cloud-supercomputer-fabric-v1 -> /api/ai/cloud-supercomputer-fabric
+[SHEIKHA FABRIC] highest-authority-readiness /api/governance/authority-readiness /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/authority-readiness/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1653
+✅ SHEIKHA FABRIC mounted: highest-authority-readiness -> /api/governance/authority-readiness
+[SHEIKHA FABRIC] sheikha-exchange-trading-readiness /api/exchange/sheikha /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/exchange/sheikha-exchange/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1654
+✅ SHEIKHA FABRIC mounted: sheikha-exchange-trading-readiness -> /api/exchange/sheikha
+[SHEIKHA FABRIC] market-infrastructure-fabric /api/market-infrastructure /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/market-infrastructure/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1655
+✅ SHEIKHA FABRIC mounted: market-infrastructure-fabric -> /api/market-infrastructure
+[SHEIKHA FABRIC] system-of-systems /api/system-of-systems /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/system-of-systems/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1656
+✅ SHEIKHA FABRIC mounted: system-of-systems -> /api/system-of-systems
+[SHEIKHA FABRIC] constitutional-governance-fabric /api/governance/constitutional-fabric /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/constitutional-fabric/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1657
+✅ SHEIKHA FABRIC mounted: constitutional-governance-fabric -> /api/governance/constitutional-fabric
+[SHEIKHA FABRIC] sheikha-legislative-authority /api/governance/sheikha-authority /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sheikha-authority/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1658
+✅ SHEIKHA FABRIC mounted: sheikha-legislative-authority -> /api/governance/sheikha-authority
+[SHEIKHA FABRIC] supreme-governance-control-layer /api/governance/supreme-control /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/supreme-control/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1659
+✅ SHEIKHA FABRIC mounted: supreme-governance-control-layer -> /api/governance/supreme-control
+[SHEIKHA FABRIC] advisory-commercial-layer /api/advisory-commercial /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-commercial/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1660
+✅ SHEIKHA FABRIC mounted: advisory-commercial-layer -> /api/advisory-commercial
+[SHEIKHA FABRIC] advisory-compliance-methodology-licensing /api/advisory-compliance /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-compliance/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1661
+✅ SHEIKHA FABRIC mounted: advisory-compliance-methodology-licensing -> /api/advisory-compliance
+[SHEIKHA FABRIC] legislative-regulatory-licensing-project /api/legislative-regulatory-licensing /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/legislative-regulatory-licensing/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1662
+✅ SHEIKHA FABRIC mounted: legislative-regulatory-licensing-project -> /api/legislative-regulatory-licensing
+[SHEIKHA FABRIC] runtime-verification-engine /api/runtime/verification /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/verification/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1663
+✅ SHEIKHA FABRIC mounted: runtime-verification-engine -> /api/runtime/verification
+[SHEIKHA FABRIC] sovereign-governance-layer /api/governance/sovereign-layer /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/sovereign-layer/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1664
+✅ SHEIKHA FABRIC mounted: sovereign-governance-layer -> /api/governance/sovereign-layer
+[SHEIKHA FABRIC] cross-engine-governance /api/governance/policies /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/governance/policies/cross-engine.routes.js
+[SHEIKHA APP ROUTER STACK] 1665
+✅ SHEIKHA FABRIC mounted: cross-engine-governance -> /api/governance/policies
+[SHEIKHA FABRIC] self-development-governance-kernel /api/self-development /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/self-development/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1666
+✅ SHEIKHA FABRIC mounted: self-development-governance-kernel -> /api/self-development
+[SHEIKHA FABRIC] runtime-orchestration /api/runtime/orchestration /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/orchestration/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1667
+✅ SHEIKHA FABRIC mounted: runtime-orchestration -> /api/runtime/orchestration
+[SHEIKHA FABRIC] runtime-registry /api/runtime/registry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/registry/runtime-registry.routes.js
+[SHEIKHA APP ROUTER STACK] 1668
+✅ SHEIKHA FABRIC mounted: runtime-registry -> /api/runtime/registry
+[SHEIKHA FABRIC] neural-routing-topology /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/topology.routes.js
+[SHEIKHA APP ROUTER STACK] 1669
+✅ SHEIKHA FABRIC mounted: neural-routing-topology -> /api/neural-fabric/routing
+[SHEIKHA FABRIC] neural-routing-decisions /api/neural-fabric/routing /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/routing/decision.routes.js
+[SHEIKHA APP ROUTER STACK] 1670
+✅ SHEIKHA FABRIC mounted: neural-routing-decisions -> /api/neural-fabric/routing
+[SHEIKHA FABRIC] query-federation /api/runtime/federation /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/federation/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1671
+✅ SHEIKHA FABRIC mounted: query-federation -> /api/runtime/federation
+[SHEIKHA FABRIC] runtime-engine-discovery /api/runtime/discovery /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/runtime/discovery/discovery.routes.js
+[SHEIKHA APP ROUTER STACK] 1672
+✅ SHEIKHA FABRIC mounted: runtime-engine-discovery -> /api/runtime/discovery
+[SHEIKHA FABRIC] vector-semantic-layer /api/neural-fabric/vector /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/vector/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1673
+✅ SHEIKHA FABRIC mounted: vector-semantic-layer -> /api/neural-fabric/vector
+[SHEIKHA FABRIC] neural-memory-layer /api/neural-fabric/memory /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/neural-fabric/memory/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1674
+✅ SHEIKHA FABRIC mounted: neural-memory-layer -> /api/neural-fabric/memory
+[SHEIKHA FABRIC] runtime-telemetry /api/observability/telemetry /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/observability/telemetry/metrics.routes.js
+[SHEIKHA APP ROUTER STACK] 1675
+✅ SHEIKHA FABRIC mounted: runtime-telemetry -> /api/observability/telemetry
+[SHEIKHA FABRIC] advisory-intelligence-provider /api/advisory-provider /tmp/sheikha-linux-native-v5-LZVtCb/installation/sheikha-1.0.51-linux-x86_64/routes/advisory-provider/status.routes.js
+[SHEIKHA APP ROUTER STACK] 1676
 ✅ SHEIKHA FABRIC mounted: advisory-intelligence-provider -> /api/advisory-provider
 ✅ SHEIKHA Dynamic Fabric Bootstrap ACTIVE 82
+[Sheikha] Commercial sales v1 mounted {
+  apiBasePath: '/api/commercial/v1',
+  staticBasePath: '/commercial',
+  paymentCaptureEnabled: false,
+  officialTaxInvoiceEnabled: false
+}
 ✅ SHEIKHA Runtime Authority mounted
 ⏸️ [LAZY] sheikha-quran-ai-foundations — سيُحمّل عند الطلب
    📖 [QuranAI] محرك الأسس القرآنية — 12 مفهوم | 7 مرحلة خلق | يعمل بالخلفية
@@ -1318,7 +1325,7 @@ npm notice
 ║                           🏪 سوق شيخة للمعادن والسكراب - البوابة الرئيسية                                          ║
 ║                           Sheikha Metals & Scrap Market - Main Portal                                              ║
 ╠═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╣
-║   🌐 http://localhost:39723                                                                                     ║
+║   🌐 http://localhost:36159                                                                                     ║
 ║   ⚙️  محرك الأتمتة v2.0 — أقوى من n8n — مُفعَّل                                                                    ║
 ║   🔗 تكامل n8n المؤسسي: /api/automation/n8n/webhook                                                               ║
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
