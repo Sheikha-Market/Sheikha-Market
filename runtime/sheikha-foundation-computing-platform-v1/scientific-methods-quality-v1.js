@@ -1,0 +1,33 @@
+    'use strict';
+
+    const scientificMethods = Object.freeze({
+  "hypothesisIsNotFact": true,
+  "measurementUncertaintyRequiredWhenApplicable": true,
+  "methods": [
+    "SCIENTIFIC_METHOD",
+    "SYSTEMS_ENGINEERING",
+    "REQUIREMENTS_ENGINEERING",
+    "MODEL_BASED_DESIGN_WHERE_USEFUL",
+    "DESIGN_BUILD_TEST_VERIFY_ITERATION",
+    "AGILE_INCREMENTAL_DELIVERY",
+    "KANBAN_FLOW_AND_WIP_LIMITS",
+    "STAGE_GATE_RELEASE_GOVERNANCE",
+    "DEVSECOPS",
+    "SRE_OPERABILITY_AND_RELIABILITY",
+    "PDCA_CONTINUOUS_IMPROVEMENT",
+    "LEAN_WASTE_REDUCTION",
+    "ROOT_CAUSE_ANALYSIS",
+    "FMEA_WHERE_APPLICABLE",
+    "BENCHMARKING",
+    "EXPERIMENT_DESIGN_WHERE_APPLICABLE",
+    "SIMULATION_FOR_OBSERVED_OR_ENGINEERED_SYSTEMS",
+    "PEER_REVIEW_AND_REPRODUCIBILITY",
+    "SECURITY_THREAT_MODELING",
+    "POST_INCIDENT_LEARNING"
+  ],
+  "modelOutputIsNotFactByDefault": true
+});
+
+
+
+    module.exports = { scientificMethods };
