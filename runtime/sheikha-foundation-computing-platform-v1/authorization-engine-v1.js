@@ -20,6 +20,11 @@ function sameScope(left, right) {
   return a.length === b.length && a.every((value, index) => value === b[index]);
 }
 
+function timestamp(value) {
+  const parsed = new Date(value).getTime();
+  return Number.isFinite(parsed) ? parsed : null;
+}
+
 function authorize({
   authorizationId,
   action,
@@ -34,7 +39,7 @@ function authorize({
     if (!nonBlank(value)) throw new Error(name.toUpperCase() + '_REQUIRED');
   }
 
-  if (expiresAt != null && !Number.isFinite(Date.parse(expiresAt))) {
+  if (expiresAt != null && timestamp(expiresAt) == null) {
     throw new Error('INVALID_AUTHORIZATION_EXPIRY');
   }
 
@@ -68,9 +73,10 @@ function canUse(auth, {
   }
 
   if (auth.expiresAt != null) {
-    const expiry = Date.parse(auth.expiresAt);
-    if (!Number.isFinite(expiry)) return false;
-    if (now >= expiry) return false;
+    const expiry = timestamp(auth.expiresAt);
+    const evaluatedAt = timestamp(now);
+    if (expiry == null || evaluatedAt == null) return false;
+    if (evaluatedAt >= expiry) return false;
   }
 
   return true;
@@ -148,6 +154,7 @@ module.exports = {
   nonBlank,
   normalizeScope,
   sameScope,
+  timestamp,
   authorize,
   canUse,
   verifyAndConsume
