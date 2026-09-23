@@ -4,11 +4,13 @@ on:
   pull_request:
     paths:
       - "runtime/sheikha-foundation-computing-platform-v1/**"
+      - "tools/database/postgresql/sheikha-foundation-computing-platform-v1/**"
       - ".github/workflows/sheikha-foundation-computing-platform-v1.yml"
   push:
     branches: [main]
     paths:
       - "runtime/sheikha-foundation-computing-platform-v1/**"
+      - "tools/database/postgresql/sheikha-foundation-computing-platform-v1/**"
       - ".github/workflows/sheikha-foundation-computing-platform-v1.yml"
   workflow_dispatch:
 
@@ -32,6 +34,8 @@ jobs:
             -maxdepth 1 -type f -name '*.js' -print0 \
             | sort -z \
             | xargs -0 -n1 node --check
+          node --check \
+            tools/database/postgresql/sheikha-foundation-computing-platform-v1/sheikha-postgres-schema-provisioner-v1.js
       - name: Validate foundation manifest JSON
         run: >-
           node -e "JSON.parse(require('node:fs').readFileSync(
@@ -43,5 +47,5 @@ jobs:
           node runtime/sheikha-foundation-computing-platform-v1/test.js \
             | tee /tmp/sheikha-foundation-v1-test.log
           grep -Fxq \
-            'SHEIKHA_FOUNDATION_V4_QURAN_POLICY_MAPPING_GATE_REPAIR_STATIC_TEST_TARGET_READY=true' \
+            'SHEIKHA_FOUNDATION_V5_AUTHORIZATION_GOVERNANCE_REPAIR_STATIC_TEST_TARGET_READY=true' \
             /tmp/sheikha-foundation-v1-test.log

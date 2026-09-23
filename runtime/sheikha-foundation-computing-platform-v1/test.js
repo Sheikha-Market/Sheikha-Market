@@ -1,6 +1,9 @@
 'use strict';
 
 const assert = require('node:assert/strict');
+const fs = require('node:fs');
+const path = require('node:path');
+const foundationManifest = require('./foundation-manifest-v1.json');
 const {
   ugoSchema,
   createGovernedObject,
@@ -27,9 +30,32 @@ const {
 const {
   buildPostgresAuthorizationClaimStore
 } = require('./postgres-authorization-claim-store-v1');
+const {
+  BOOTSTRAP_MIGRATION_ID,
+  loadMigration,
+  provisionSchema
+} = require('../../tools/database/postgresql/sheikha-foundation-computing-platform-v1/sheikha-postgres-schema-provisioner-v1');
 const { routes } = require('./server');
 
+function listFiles(directory) {
+  return fs.readdirSync(directory, { withFileTypes: true }).flatMap((entry) => {
+    const entryPath = path.join(directory, entry.name);
+    return entry.isDirectory() ? listFiles(entryPath) : [entryPath];
+  });
+}
+
 async function main() {
+  const foundationFiles = listFiles(__dirname);
+  assert.equal(foundationManifest.design, 'V5_AUTHORIZATION_GOVERNANCE_REPAIR_V1');
+  assert.equal(foundationManifest.targetFileCount, foundationFiles.length);
+  assert.equal(
+    foundationManifest.jsFileCount,
+    foundationFiles.filter((file) => file.endsWith('.js')).length
+  );
+  assert.equal(
+    foundationManifest.postgresMigrationFileCount,
+    foundationFiles.filter((file) => file.endsWith('.sql')).length
+  );
   assert.equal(ugoSchema.fieldCount, 40);
   assert.equal(governanceScope.count, 40);
   assert.equal(eventFabric.count, 28);
@@ -257,6 +283,24 @@ async function main() {
       action: 'RUN',
       scope: [],
       now: Date.parse('2026-09-18T00:00:00Z')
+    }),
+    false
+  );
+  assert.equal(
+    canUse(expiredAuthorization, {
+      objectId: 'example',
+      action: 'RUN',
+      scope: [],
+      now: '2026-09-18T00:00:00Z'
+    }),
+    false
+  );
+  assert.equal(
+    canUse(expiredAuthorization, {
+      objectId: 'example',
+      action: 'RUN',
+      scope: [],
+      now: 'invalid-evaluation-time'
     }),
     false
   );
@@ -491,6 +535,107 @@ async function main() {
   });
   assert.equal(readOnlyResult.allowed, true);
   assert.equal(readOnlyResult.executed, false);
+
+  // A pristine PostgreSQL database must create the immutable ledger before
+  // the provisioner attempts its first ledger lookup.
+  const schemaDirectory = path.join(__dirname, 'schema', 'postgresql');
+  const migrationPlan = [
+    loadMigration({
+      id: BOOTSTRAP_MIGRATION_ID,
+      path: path.join(schemaDirectory, '000_sheikha_schema_migrations_v1.sql'),
+      appliedBy: 'TEST_OPERATOR',
+      evidenceRef: 'TEST_EVIDENCE_000'
+    }),
+    loadMigration({
+      id: '001_sheikha_authorization_claims_v1',
+      path: path.join(schemaDirectory, '001_sheikha_authorization_claims_v1.sql'),
+      appliedBy: 'TEST_OPERATOR',
+      evidenceRef: 'TEST_EVIDENCE_001'
+    })
+  ];
+  const provisionTrace = [];
+  const migrationLedger = new Map();
+  let ledgerExists = false;
+  const provisionClient = {
+    async query(sql, parameters = []) {
+      provisionTrace.push({ sql, parameters });
+      if (sql === 'BEGIN' || sql === 'COMMIT' || sql === 'ROLLBACK') return { rows: [] };
+      if (sql.includes('pg_advisory_xact_lock')) return { rows: [] };
+      if (sql.startsWith('SELECT to_regclass')) {
+        return { rows: [{ ledger: ledgerExists ? parameters[0] : null }] };
+      }
+      if (sql === migrationPlan[0].sql) {
+        ledgerExists = true;
+        return { rows: [] };
+      }
+      if (sql.startsWith('SELECT checksum_sha256')) {
+        assert.equal(ledgerExists, true);
+        const checksum = migrationLedger.get(parameters[0]);
+        return { rows: checksum ? [{ checksum_sha256: checksum }] : [] };
+      }
+      if (sql === migrationPlan[1].sql) {
+        assert.equal(ledgerExists, true);
+        return { rows: [] };
+      }
+      if (sql.includes('INSERT INTO sheikha_foundation.schema_migrations')) {
+        migrationLedger.set(parameters[0], parameters[1]);
+        return { rows: [] };
+      }
+      throw new Error('UNEXPECTED_PROVISIONING_QUERY');
+    }
+  };
+
+  const firstProvision = await provisionSchema({
+    client: provisionClient,
+    operatorAuthorized: true,
+    migrations: migrationPlan
+  });
+  assert.equal(firstProvision.ok, true);
+  assert.equal(migrationLedger.size, 2);
+  assert.equal(
+    provisionTrace.findIndex(({ sql }) => sql === migrationPlan[0].sql) <
+      provisionTrace.findIndex(({ sql }) => sql.startsWith('SELECT checksum_sha256')),
+    true
+  );
+
+  const secondProvision = await provisionSchema({
+    client: provisionClient,
+    operatorAuthorized: true,
+    migrations: migrationPlan
+  });
+  assert.equal(secondProvision.ok, true);
+  assert.equal(
+    provisionTrace.filter(({ sql }) => sql === migrationPlan[0].sql).length,
+    1
+  );
+  assert.equal(
+    provisionTrace.filter(({ sql }) => sql === migrationPlan[1].sql).length,
+    1
+  );
+
+  const checksumConflict = await provisionSchema({
+    client: provisionClient,
+    operatorAuthorized: true,
+    migrations: [{
+      ...migrationPlan[0],
+      checksum: 'tampered-bootstrap-checksum',
+      sql: 'DANGEROUS_BOOTSTRAP_SQL_MUST_NOT_EXECUTE'
+    }, migrationPlan[1]]
+  });
+  assert.equal(checksumConflict.ok, false);
+  assert.equal(checksumConflict.reason, 'MIGRATION_CHECKSUM_CONFLICT');
+  assert.equal(
+    provisionTrace.some(({ sql }) => sql === 'DANGEROUS_BOOTSTRAP_SQL_MUST_NOT_EXECUTE'),
+    false
+  );
+
+  const missingBootstrap = await provisionSchema({
+    client: provisionClient,
+    operatorAuthorized: true,
+    migrations: [migrationPlan[1]]
+  });
+  assert.equal(missingBootstrap.ok, false);
+  assert.equal(missingBootstrap.reason, 'BOOTSTRAP_MIGRATION_MUST_BE_FIRST');
 
   process.stdout.write(
     'SHEIKHA_FOUNDATION_V5_AUTHORIZATION_GOVERNANCE_REPAIR_STATIC_TEST_TARGET_READY=true\n'
