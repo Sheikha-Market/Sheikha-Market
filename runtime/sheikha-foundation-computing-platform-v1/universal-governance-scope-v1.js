@@ -1,0 +1,51 @@
+    'use strict';
+
+    const governanceScope = Object.freeze({
+  "count": 40,
+  "items": [
+    "OWNED_RESOURCES",
+    "NON_OWNED_RESOURCES",
+    "LICENSED_ASSETS",
+    "INFORMATION",
+    "KNOWLEDGE",
+    "LAWS",
+    "REGULATIONS",
+    "STANDARDS",
+    "CONTRACTS",
+    "PRODUCTS",
+    "SERVICES",
+    "PROJECTS",
+    "PROGRAMS",
+    "OPERATIONS",
+    "CUSTOMER_JOURNEYS",
+    "COMMERCIAL_JOURNEYS",
+    "SUPPLY_CHAINS",
+    "INPUTS",
+    "PROCESSES",
+    "OUTPUTS",
+    "OUTCOMES",
+    "RESULTS",
+    "FEEDBACK",
+    "IMPROVEMENT",
+    "DATA_LIFECYCLES",
+    "RESOURCE_LIFECYCLES",
+    "PRODUCT_LIFECYCLES",
+    "PROJECT_LIFECYCLES",
+    "ASSET_LIFECYCLES",
+    "POLICY_LIFECYCLES",
+    "LEGAL_LIFECYCLES",
+    "IOT",
+    "INDUSTRIAL_SYSTEMS",
+    "SPACE_EARTH_MARITIME_GEOSPATIAL_INFORMATION",
+    "ENVIRONMENTS",
+    "SECURITY",
+    "TRUST",
+    "HIGH_IMPACT_HUMAN_DECISIONS",
+    "FINANCIAL_FLOWS",
+    "PUBLIC_BENEFIT_FLOWS"
+  ]
+});
+
+
+
+    module.exports = { governanceScope };
