@@ -9619,11 +9619,11 @@ app.get('/api/ai/capabilities', (req, res) => {
                 smartConsultant: {
                     name: 'المستشار الذكي',
                     nameEn: 'Smart Consultant',
-                    status: aiEnabled ? 'online' : 'standby'
+                    status: openaiEnabled ? 'online' : 'standby'
                 }
             },
             model: AI_LLM_MODEL,
-            enabled: aiEnabled,
+            enabled: openaiEnabled,
             capabilities,
             knowledgeBase: {
                 metals: SHEIKHA_KNOWLEDGE_BASE.metals.categories.length + ' تصنيف',
