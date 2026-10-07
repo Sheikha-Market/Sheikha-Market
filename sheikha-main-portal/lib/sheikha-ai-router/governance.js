@@ -16,7 +16,11 @@ function createSheikhaRouterGovernor(env = process.env) {
     );
 
     function governChatRequest(payload = {}, router) {
-        if (!router || router.provider !== 'sheikha-ai-router') {
+        if (
+            !router ||
+            router.provider !== 'sheikha' ||
+            router.router !== 'sheikha-ai-router'
+        ) {
             throw new Error('SHEIKHA_GOVERNANCE_ROUTER_REQUIRED');
         }
         if (!router.enabled || !router.configured) {
