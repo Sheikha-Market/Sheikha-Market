@@ -5,7 +5,7 @@ const {
     createSheikhaAIRouter,
     createSheikhaRouterGovernor,
     createSheikhaProvider
-} = require('../lib/sheikha-ai-router');
+} = require('../lib/sheikha-ai-router/index.js');
 
 async function main() {
     const env = {
