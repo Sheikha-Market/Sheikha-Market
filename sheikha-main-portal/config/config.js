@@ -61,6 +61,27 @@ const config = {
 
     // ─── إعدادات الذكاء الاصطناعي ─────────────────────────────────────────────
     ai: {
+        authority: {
+            name: 'Sheikha Supreme AI Governance',
+            id: 'sheikha-governance',
+            provider: 'sheikha',
+            principles: [
+                'no-harm',
+                'no-riba',
+                'no-deception',
+                'secret-isolation',
+                'explicit-authority',
+                'fail-closed'
+            ]
+        },
+        provider: {
+            name: 'Sheikha AI Provider',
+            id: 'sheikha',
+            routingLayer: 'sheikha-ai-router',
+            defaultUpstream: 'sheikha',
+            nativeModel: 'SheikhaNeural-v1.0',
+            upstreamVisibility: 'native'
+        },
         ollama: {
             enabled: process.env.OLLAMA_ENABLED !== 'false',
             // الأولوية: Azure VM Endpoint > OLLAMA_HOST > localhost
@@ -77,37 +98,60 @@ const config = {
             timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '90000', 10)
         },
         router: {
+            name: 'Sheikha AI Router',
+            provider: 'sheikha-ai-router',
+            upstream: process.env.SHEIKHA_AI_ROUTER_UPSTREAM || 'sheikha',
             enabled:
-                process.env.HOSTINGER_AI_ROUTER_ENABLED !== 'false' &&
-                Boolean(process.env.HOSTINGER_AI_ROUTER_API_KEY),
-            provider: 'hostinger-ai-router',
+                (process.env.SHEIKHA_AI_ROUTER_ENABLED ||
+                    'true') === 'true',
             baseUrl:
-                process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
-                'https://router.hostinger.com/v1',
+                process.env.SHEIKHA_AI_ROUTER_BASE_URL ||
+                (process.env.SHEIKHA_AI_ROUTER_UPSTREAM === 'hostinger'
+                    ? process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
+                      'https://router.hostinger.com/v1'
+                    : 'sheikha://native'),
             model:
-                process.env.HOSTINGER_AI_ROUTER_MODEL ||
-                process.env.AI_LLM_MODEL ||
-                'gpt-5.2',
-            allowedModels: String(process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS || '')
+                process.env.SHEIKHA_AI_ROUTER_MODEL ||
+                (process.env.SHEIKHA_AI_ROUTER_UPSTREAM === 'hostinger'
+                    ? process.env.HOSTINGER_AI_ROUTER_MODEL ||
+                      process.env.AI_LLM_MODEL ||
+                      'gpt-5.2'
+                    : 'SheikhaNeural-v1.0'),
+            allowedModels: String(
+                process.env.SHEIKHA_AI_ROUTER_ALLOWED_MODELS ||
+                    process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS ||
+                    ''
+            )
                 .split(',')
                 .map(v => v.trim())
                 .filter(Boolean),
-            fallbackModels: String(process.env.HOSTINGER_AI_ROUTER_FALLBACK_MODELS || '')
+            fallbackModels: String(
+                process.env.SHEIKHA_AI_ROUTER_FALLBACK_MODELS ||
+                    process.env.HOSTINGER_AI_ROUTER_FALLBACK_MODELS ||
+                    ''
+            )
                 .split(',')
                 .map(v => v.trim())
                 .filter(Boolean),
-            failClosed: process.env.HOSTINGER_AI_ROUTER_FAIL_CLOSED !== 'false'
+            failClosed:
+                (process.env.SHEIKHA_AI_ROUTER_FAIL_CLOSED ||
+                    process.env.HOSTINGER_AI_ROUTER_FAIL_CLOSED ||
+                    'true') !== 'false'
         },
         openai: {
             apiKey:
+                process.env.SHEIKHA_AI_ROUTER_API_KEY ||
                 process.env.HOSTINGER_AI_ROUTER_API_KEY ||
                 process.env.OPENAI_API_KEY,
             baseUrl:
+                process.env.SHEIKHA_AI_ROUTER_API_KEY ||
                 process.env.HOSTINGER_AI_ROUTER_API_KEY
-                    ? process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
+                    ? process.env.SHEIKHA_AI_ROUTER_BASE_URL ||
+                      process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
                       'https://router.hostinger.com/v1'
                     : process.env.AI_LLM_BASE_URL || 'https://api.openai.com/v1',
             model:
+                process.env.SHEIKHA_AI_ROUTER_MODEL ||
                 process.env.HOSTINGER_AI_ROUTER_MODEL ||
                 process.env.AI_LLM_MODEL ||
                 'gpt-5.2',
@@ -146,13 +190,14 @@ const config = {
             ]
         },
         routing: {
-            development: 'anthropic',   // Claude Opus 4.6 للتطوير (الأقوى)
-            analysis: 'anthropic',      // Claude Opus 4.6 للتحليل المتقدم
-            coding: 'anthropic',        // Claude Opus 4.6 للبرمجة
-            chat: 'openai',             // GPT للمحادثة العامة
-            quickTasks: 'openai'        // GPT للمهام السريعة
+            development: 'sheikha',
+            analysis: 'sheikha',
+            coding: 'sheikha',
+            chat: 'sheikha',
+            quickTasks: 'sheikha',
+            externalAdapters: ['hostinger', 'openai', 'anthropic', 'ollama']
         },
-        mode: process.env.AI_MODE || 'auto'
+        mode: process.env.AI_MODE || 'sheikha'
     },
 
     // ─── إعدادات الأمان ───────────────────────────────────────────────────────
