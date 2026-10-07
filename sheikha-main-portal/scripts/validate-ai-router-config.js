@@ -1,6 +1,10 @@
 'use strict';
 
-require('dotenv').config();
+try {
+    require('dotenv').config();
+} catch (_) {
+    // Validator remains dependency-free when run before npm install.
+}
 
 const UPSTREAM_BASE = 'https://router.hostinger.com/v1';
 
