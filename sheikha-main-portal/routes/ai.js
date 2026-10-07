@@ -14,6 +14,7 @@ const fs = require('fs');
 const path = require('path');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
+const { createSheikhaProvider } = require('../lib/sheikha-ai-router/index.js');
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -54,6 +55,15 @@ let ragEngine = null;
 let agentOrchestrator = null;
 let productionMonitor = null;
 let islamicGuardrails = null;
+let sheikhaProvider = null;
+
+try {
+    sheikhaProvider = createSheikhaProvider();
+    console.log('✅ [Sheikha AI] Provider/Router الأصلي — مفعّل');
+} catch (e) {
+    console.warn('⚠️ [Sheikha AI] تعذر تهيئة Provider:', e.message);
+}
+
 const ollamaOrchestrator = new SheikhaOllamaOrchestrator({
     ollamaHost: config.ai?.ollama?.host
 });
@@ -131,7 +141,14 @@ router.get('/status', (req, res) => {
     const ollamaRec = ollamaOrchestrator.recommendedModels(ollamaOrchestrator.detectResources());
     res.json({
         success: true,
+        provider: sheikhaProvider ? sheikhaProvider.status() : null,
         engines: {
+            sheikha: {
+                enabled: !!sheikhaProvider,
+                provider: 'sheikha',
+                upstream: sheikhaProvider ? sheikhaProvider.status().upstream : null,
+                native: sheikhaProvider ? sheikhaProvider.status().upstream === 'sheikha' : false
+            },
             ollama: {
                 enabled: !!config.ai?.ollama?.enabled,
                 host: config.ai?.ollama?.host,
@@ -328,6 +345,21 @@ function defaultModelRegistry() {
         lastRefreshedAt: null,
         integrations: [
             {
+                id: 'sheikha-native',
+                name: 'Sheikha Native Provider',
+                provider: 'sheikha',
+                model: 'SheikhaNeural-v1.0',
+                llmLanguage: 'ar',
+                devLanguage: 'javascript',
+                baseUrl: 'sheikha://native',
+                apiKeyEnv: '',
+                active: true,
+                autoUpgrade: false,
+                notes: 'المزود الأصلي والـUpstream الافتراضي لشيخة',
+                createdAt: new Date().toISOString(),
+                updatedAt: new Date().toISOString()
+            },
+            {
                 id: 'openai-primary',
                 name: 'OpenAI Primary',
                 provider: 'openai',
@@ -400,7 +432,8 @@ function buildModelRecommendations() {
     const resources = ollamaOrchestrator.detectResources();
     const ollamaRec = ollamaOrchestrator.recommendedModels(resources);
     return {
-        openai: { recommended: 'gpt-5.3', reason: 'أداء أعلى في التخطيط والتطوير متعدد الخطوات' },
+        sheikha: { recommended: 'SheikhaNeural-v1.0', reason: 'المزود الأصلي والسيادي الافتراضي' },
+        openai: { recommended: 'gpt-5.3', reason: 'محوّل خارجي اختياري للمهام المعقدة' },
         anthropic: { recommended: 'claude-opus-4-6-20260205', reason: 'تحليل عميق واستدلال قوي' },
         ollama: { recommended: ollamaRec.bestModel, reason: 'موصى به حسب موارد الخادم الحالية' }
     };
@@ -589,7 +622,34 @@ router.post('/chat', async (req, res) => {
             hasOllama: !!config.ai?.ollama?.enabled
         });
 
-        // ─── 3. أولوية Claude Opus 4.6 مع سياق RAG ────────────────
+        // ─── 3. Sheikha AI Provider — المسار الأصلي والسيادي الافتراضي ───────
+        if (!response && sheikhaProvider && (model === 'auto' || model === 'sheikha' || preferredModel === 'sheikha')) {
+            try {
+                const providerResult = await sheikhaProvider.chatCompletions({
+                    model: config.ai?.router?.model || 'SheikhaNeural-v1.0',
+                    messages: [
+                        ...(context ? [{ role: 'system', content: String(context) }] : []),
+                        { role: 'user', content: message }
+                    ],
+                    max_tokens: config.ai?.openai?.maxTokens || 4000
+                });
+                response = providerResult?.choices?.[0]?.message?.content || '';
+                provider = 'sheikha';
+                if (ragContext && ragContext.retrieval?.results?.length > 0 && response) {
+                    const extraContext = ragContext.retrieval.results
+                        .slice(0, 2)
+                        .map(r => r.text)
+                        .join(' | ');
+                    if (extraContext.length > 20) {
+                        response += '\n\n📚 معلومات إضافية: ' + extraContext;
+                    }
+                }
+            } catch (e) {
+                console.warn('[Sheikha AI Provider] خطأ:', e.message);
+            }
+        }
+
+        // ─── 4. محولات خارجية اختيارية بعد مسار شيخة ─────────────────
         if (config.ai.anthropic.apiKey && (preferredModel === 'claude' || preferredModel === 'anthropic')) {
             try {
                 const augmentedContext = ragContext
@@ -604,7 +664,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 4. OpenAI GPT-5.2 كبديل ───────────────────────────────
+        // ─── 5. OpenAI كـ adapter خارجي اختياري ─────────────────────
         if (!response && config.ai.openai.apiKey && (preferredModel === 'openai' || preferredModel === 'auto')) {
             try {
                 response = await callOpenAI(message, context);
@@ -614,7 +674,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 4.5. Ollama (محلي/‏VPS) ضمن منظومة التكامل ─────────────
+        // ─── 6. Ollama adapter محلي/‏VPS ─────────────────────────────
         if (!response && config.ai?.ollama?.enabled && modelPipeline.includes('ollama')) {
             try {
                 response = await callOllama(message, context, taskType, sensitivity);
@@ -624,7 +684,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 5. Ollama المحلي (تشغيل VPS/On-Prem) ────────────────────
+        // ─── 7. Ollama المحلي (تشغيل VPS/On-Prem) ────────────────────
         if (!response && config.ai?.ollama?.enabled && (preferredModel === 'ollama' || preferredModel === 'auto' || preferredModel === 'local')) {
             try {
                 const ollamaModel = resolveOllamaModel(taskType, req.body?.ollamaModel);
@@ -635,7 +695,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 6. عقل شيخة المحلي المستقل (الأولوية الأولى بدون API) ──
+        // ─── 8. عقل شيخة المحلي الاحتياطي ─────────────────────────────
         if (!response && localMind && localMind.ready) {
             try {
                 const userId = req.body.userId || req.ip || 'anonymous';
@@ -656,7 +716,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 7. استجابة محلية بسيطة كاحتياط أخير ─────────────────────
+        // ─── 9. استجابة محلية بسيطة كاحتياط أخير ─────────────────────
         if (!response) {
             if (ragContext && ragContext.retrieval?.results?.length > 0) {
                 const topResults = ragContext.retrieval.results.slice(0, 3);
@@ -673,7 +733,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 8. فحص المخرجات ────────────────────────────────────────
+        // ─── 10. فحص المخرجات ───────────────────────────────────────
         if (islamicGuardrails) {
             const outputCheck = islamicGuardrails.validateOutput(response);
             if (outputCheck.warnings.length > 0) {
@@ -681,7 +741,7 @@ router.post('/chat', async (req, res) => {
             }
         }
 
-        // ─── 9. تقييم الجودة ────────────────────────────────────────
+        // ─── 11. تقييم الجودة ───────────────────────────────────────
         let quality = null;
         if (ragEngine && ragContext) {
             quality = ragEngine.evaluateQuality(message, response, ragContext.retrieval.results);
