@@ -76,9 +76,41 @@ const config = {
             lightModel: process.env.OLLAMA_LIGHT_MODEL || 'phi3:mini',
             timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '90000', 10)
         },
+        router: {
+            enabled:
+                process.env.HOSTINGER_AI_ROUTER_ENABLED !== 'false' &&
+                Boolean(process.env.HOSTINGER_AI_ROUTER_API_KEY),
+            provider: 'hostinger-ai-router',
+            baseUrl:
+                process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
+                'https://router.hostinger.com/v1',
+            model:
+                process.env.HOSTINGER_AI_ROUTER_MODEL ||
+                process.env.AI_LLM_MODEL ||
+                'gpt-5.2',
+            allowedModels: String(process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS || '')
+                .split(',')
+                .map(v => v.trim())
+                .filter(Boolean),
+            fallbackModels: String(process.env.HOSTINGER_AI_ROUTER_FALLBACK_MODELS || '')
+                .split(',')
+                .map(v => v.trim())
+                .filter(Boolean),
+            failClosed: process.env.HOSTINGER_AI_ROUTER_FAIL_CLOSED !== 'false'
+        },
         openai: {
-            apiKey: process.env.OPENAI_API_KEY,
-            model: process.env.AI_LLM_MODEL || 'gpt-5.2',
+            apiKey:
+                process.env.HOSTINGER_AI_ROUTER_API_KEY ||
+                process.env.OPENAI_API_KEY,
+            baseUrl:
+                process.env.HOSTINGER_AI_ROUTER_API_KEY
+                    ? process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
+                      'https://router.hostinger.com/v1'
+                    : process.env.AI_LLM_BASE_URL || 'https://api.openai.com/v1',
+            model:
+                process.env.HOSTINGER_AI_ROUTER_MODEL ||
+                process.env.AI_LLM_MODEL ||
+                'gpt-5.2',
             maxTokens: 4000
         },
         humain: {
