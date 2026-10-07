@@ -78,7 +78,9 @@ const config = {
             name: 'Sheikha AI Provider',
             id: 'sheikha',
             routingLayer: 'sheikha-ai-router',
-            upstreamVisibility: 'private'
+            defaultUpstream: 'sheikha',
+            nativeModel: 'SheikhaNeural-v1.0',
+            upstreamVisibility: 'native'
         },
         ollama: {
             enabled: process.env.OLLAMA_ENABLED !== 'false',
@@ -98,20 +100,23 @@ const config = {
         router: {
             name: 'Sheikha AI Router',
             provider: 'sheikha-ai-router',
-            upstream: process.env.SHEIKHA_AI_ROUTER_UPSTREAM || 'hostinger',
+            upstream: process.env.SHEIKHA_AI_ROUTER_UPSTREAM || 'sheikha',
             enabled:
                 (process.env.SHEIKHA_AI_ROUTER_ENABLED ||
-                    process.env.HOSTINGER_AI_ROUTER_ENABLED ||
-                    'false') === 'true',
+                    'true') === 'true',
             baseUrl:
                 process.env.SHEIKHA_AI_ROUTER_BASE_URL ||
-                process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
-                'https://router.hostinger.com/v1',
+                (process.env.SHEIKHA_AI_ROUTER_UPSTREAM === 'hostinger'
+                    ? process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
+                      'https://router.hostinger.com/v1'
+                    : 'sheikha://native'),
             model:
                 process.env.SHEIKHA_AI_ROUTER_MODEL ||
-                process.env.HOSTINGER_AI_ROUTER_MODEL ||
-                process.env.AI_LLM_MODEL ||
-                'gpt-5.2',
+                (process.env.SHEIKHA_AI_ROUTER_UPSTREAM === 'hostinger'
+                    ? process.env.HOSTINGER_AI_ROUTER_MODEL ||
+                      process.env.AI_LLM_MODEL ||
+                      'gpt-5.2'
+                    : 'SheikhaNeural-v1.0'),
             allowedModels: String(
                 process.env.SHEIKHA_AI_ROUTER_ALLOWED_MODELS ||
                     process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS ||
