@@ -61,6 +61,25 @@ const config = {
 
     // ─── إعدادات الذكاء الاصطناعي ─────────────────────────────────────────────
     ai: {
+        authority: {
+            name: 'Sheikha Supreme AI Governance',
+            id: 'sheikha-governance',
+            provider: 'sheikha',
+            principles: [
+                'no-harm',
+                'no-riba',
+                'no-deception',
+                'secret-isolation',
+                'explicit-authority',
+                'fail-closed'
+            ]
+        },
+        provider: {
+            name: 'Sheikha AI Provider',
+            id: 'sheikha',
+            routingLayer: 'sheikha-ai-router',
+            upstreamVisibility: 'private'
+        },
         ollama: {
             enabled: process.env.OLLAMA_ENABLED !== 'false',
             // الأولوية: Azure VM Endpoint > OLLAMA_HOST > localhost
