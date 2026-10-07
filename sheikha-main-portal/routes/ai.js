@@ -15,6 +15,10 @@ const path = require('path');
 const config = require('../config/config');
 const SheikhaOllamaOrchestrator = require('../lib/sheikha-ollama-orchestrator');
 const { createSheikhaProvider } = require('../lib/sheikha-ai-router/index.js');
+const {
+    buildStatus: buildSheikhaAICapabilityStatus,
+    planCapabilityRoute
+} = require('../lib/sheikha-ai-capability-fabric');
 
 // ─── استيراد المحركات الأساسية ───────────────────────────────────────────────
 let SheikaAIEngine = null;
@@ -199,6 +203,26 @@ router.get('/status', (req, res) => {
         },
         routing: config.ai.routing,
         mode: config.ai.mode
+    });
+});
+
+router.get('/capability-fabric/status', (req, res) => {
+    res.json({
+        success: true,
+        data: buildSheikhaAICapabilityStatus(),
+        executionPerformed: false,
+        timestamp: new Date().toISOString()
+    });
+});
+
+router.post('/capability-fabric/plan', (req, res) => {
+    const plan = planCapabilityRoute(req.body || {});
+    const status = plan.ok ? 200 : plan.decision === 'REVIEW_REQUIRED' ? 409 : 400;
+    res.status(status).json({
+        success: plan.ok,
+        data: plan,
+        executionPerformed: false,
+        timestamp: new Date().toISOString()
     });
 });
 
