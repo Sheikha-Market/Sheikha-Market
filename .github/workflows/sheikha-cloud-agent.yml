@@ -17,6 +17,7 @@ on:
     paths:
       - "sheikha-main-portal/core/**"
       - "sheikha-main-portal/server.js"
+      - ".github/workflows/sheikha-cloud-agent.yml"
   workflow_dispatch:
     inputs:
       task_type:
@@ -148,7 +149,7 @@ jobs:
         run: |
           python3 -c "
           import json, sys
-          with open('sheikha-main-portal/core/neural/neural-cells-manifest.json') as f:
+          with open('core/neural/neural-cells-manifest.json') as f:
               m = json.load(f)
           cells = m.get('cells', [])
           assert len(cells) == 12, f'Expected 12 cells, got {len(cells)}'
@@ -161,7 +162,7 @@ jobs:
         run: |
           python3 -c "
           import json, sys
-          with open('sheikha-main-portal/core/sheikha-cloud-agent/agent-registry.json') as f:
+          with open('core/sheikha-cloud-agent/agent-registry.json') as f:
               r = json.load(f)
           assert r['meta']['masterAgentId'] == 786, 'Master agent ID must be 786'
           agents = r.get('agents', [])

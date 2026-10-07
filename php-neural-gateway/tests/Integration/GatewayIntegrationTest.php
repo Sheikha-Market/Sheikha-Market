@@ -200,8 +200,7 @@ class GatewayIntegrationTest extends TestCase
         if ($alive) {
             $this->assertTrue($alive, '✅ Node.js متاح — اختبار التكامل الكامل');
         } else {
-            $this->addWarning('⚠️ Node.js غير متاح — تم تخطي اختبار التكامل مع Node.js');
-            $this->assertTrue(true); // لا نفشل الاختبار بسبب غياب Node.js
+            $this->markTestSkipped('Node.js غير متاح — تم تخطي اختبار التكامل مع Node.js');
         }
     }
 
