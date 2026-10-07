@@ -2,9 +2,9 @@
 
 ## Principle
 
-Sheikha is the governing upper layer and the logical provider identity.
+Sheikha is the governing upper layer, the logical provider, the router, and the default upstream.
 
-Hostinger AI Router is an integrated upstream transport/provider under Sheikha governance. It is not the governing authority.
+Hostinger AI Router is an optional external adapter under Sheikha governance. It is never the governing authority and is not the default upstream.
 
 ## Layer model
 
@@ -22,9 +22,10 @@ Sheikha Supreme Governance
 │   │   └── fail-closed decisions
 │   │
 │   └── Sheikha Provider Fabric
-│       ├── hostinger upstream adapter
-│       ├── future upstream adapters
-│       └── provider observability
+│       ├── Sheikha Native Upstream
+│       │   └── Sheikha Local Mind / SheikhaNeural-v1.0
+│       ├── optional Hostinger adapter
+│       └── future optional adapters
 │
 ├── Sheikha Applications
 │   ├── sheikha.top
@@ -35,9 +36,11 @@ Sheikha Supreme Governance
 │   ├── OpenClaw
 │   └── Hermes
 │
-└── Upstreams
-    └── Hostinger AI Router
-        └── https://router.hostinger.com/v1
+└── External adapters
+    ├── Hostinger AI Router (optional)
+    ├── OpenAI (optional)
+    ├── Anthropic (optional)
+    └── Ollama (optional/local adapter)
 ```
 
 ## Authority boundaries
@@ -58,38 +61,55 @@ Responsibilities:
 
 Provider ID: `sheikha`
 
-External consumers see Sheikha as the logical provider identity.
-
-The provider selects and calls a registered private upstream adapter only after governance approval.
+External consumers see Sheikha as the provider identity.
 
 ### Router layer
 
 Router ID: `sheikha-ai-router`
 
 The router owns:
+- upstream selection
 - allowed models
 - fallback models
-- base URL policy
-- selected model
-- provider selection
+- token and input limits
+- adapter policy
 - client configuration
 
-### Upstream layer
+### Native upstream
 
-Current upstream ID: `hostinger`
+Default upstream ID: `sheikha`
 
-Current official upstream base URL:
-`https://router.hostinger.com/v1`
+Native model: `SheikhaNeural-v1.0`
 
-The upstream is private implementation detail. It does not override Sheikha governance.
+Native base identity: `sheikha://native`
+
+The native path uses the existing Sheikha Local Mind architecture and does not require an external API key.
+
+### Hostinger integration
+
+Hostinger is an optional external adapter only.
+
+To select it explicitly:
+
+```env
+SHEIKHA_AI_ROUTER_UPSTREAM=hostinger
+SHEIKHA_AI_ROUTER_BASE_URL=https://router.hostinger.com/v1
+SHEIKHA_AI_ROUTER_API_KEY=<secret>
+SHEIKHA_AI_ROUTER_MODEL=<allowed-model-id>
+```
+
+If these values are not set, Sheikha remains the native upstream.
 
 ## Runtime files
 
+- `lib/sheikha-local-mind.js`
 - `lib/sheikha-ai-router.js`
+- `lib/sheikha-ai-router/sheikha-upstream.js`
 - `lib/sheikha-ai-router/governance.js`
 - `lib/sheikha-ai-router/provider.js`
 - `lib/sheikha-ai-router/hostinger-upstream.js`
 - `lib/sheikha-ai-router/index.js`
+- `routes/ai.js`
 
 ## Commands
 
@@ -101,10 +121,24 @@ npm run sheikha-ai-provider:status
 npm run sheikha-ai-provider:test
 ```
 
+Expected default status:
+
+```json
+{
+  "provider": "sheikha",
+  "identity": "Sheikha AI Provider",
+  "upperLayer": "Sheikha Supreme AI Governance",
+  "routingLayer": "Sheikha AI Router",
+  "lowerLayer": "Sheikha Provider Fabric",
+  "upstream": "sheikha",
+  "upstreamVisibility": "native"
+}
+```
+
 ## Security and operations
 
-- Real credentials remain in environment variables only.
-- Provider responses identify `sheikha` as the logical provider.
-- Upstream identity is retained internally for observability and troubleshooting.
-- Model or token requests that violate Sheikha policy are rejected before the upstream call.
+- Real external credentials remain in environment variables only.
+- Sheikha remains the visible provider identity.
+- External adapters cannot override Sheikha governance.
+- Model or token requests that violate Sheikha policy are rejected before any adapter call.
 - No automatic deployment, payment, purchase, or secret mutation is performed by this architecture.
