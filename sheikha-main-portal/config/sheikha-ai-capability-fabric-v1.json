@@ -1,0 +1,156 @@
+{
+  "system": "SHEIKHA_AI_CAPABILITY_FABRIC_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_PRIMARY_EXTERNAL_GATED",
+  "providerIdentity": "sheikha",
+  "defaultUpstream": "sheikha",
+  "principles": [
+    "no-harm",
+    "no-riba",
+    "no-deception",
+    "privacy-first",
+    "secret-isolation",
+    "explicit-authority",
+    "fail-closed",
+    "no-automatic-spend"
+  ],
+  "capabilities": {
+    "text-chat": {
+      "native": true
+    },
+    "domain-reasoning": {
+      "native": true
+    },
+    "rag": {
+      "native": true
+    },
+    "agents": {
+      "native": true
+    },
+    "tool-calling": {
+      "native": true,
+      "notes": "Native Sheikha agent/tool fabric; external tool calling requires adapter support."
+    },
+    "model-routing": {
+      "native": true
+    },
+    "provider-routing": {
+      "native": true
+    },
+    "structured-output": {
+      "native": false
+    },
+    "streaming": {
+      "native": false
+    },
+    "vision-input": {
+      "native": false
+    },
+    "audio-input": {
+      "native": false
+    },
+    "file-input": {
+      "native": false
+    },
+    "video-input": {
+      "native": false
+    },
+    "web-search": {
+      "native": false
+    },
+    "image-output": {
+      "native": false
+    },
+    "speech-to-text": {
+      "native": false
+    },
+    "text-to-speech": {
+      "native": false
+    },
+    "prompt-caching": {
+      "native": false
+    },
+    "batching": {
+      "native": false
+    }
+  },
+  "adapters": {
+    "sheikha": {
+      "kind": "NATIVE",
+      "enabledByDefault": true,
+      "capabilities": [
+        "text-chat",
+        "domain-reasoning",
+        "rag",
+        "agents",
+        "tool-calling",
+        "model-routing",
+        "provider-routing"
+      ],
+      "requiresCredential": false,
+      "privacy": "LOCAL"
+    },
+    "openrouter": {
+      "kind": "EXTERNAL_OPTIONAL",
+      "enabledByDefault": false,
+      "baseUrl": "https://openrouter.ai/api/v1",
+      "keyEnv": "OPENROUTER_API_KEY",
+      "capabilities": [
+        "text-chat",
+        "tool-calling",
+        "structured-output",
+        "streaming",
+        "vision-input",
+        "audio-input",
+        "file-input",
+        "video-input",
+        "web-search",
+        "image-output",
+        "prompt-caching",
+        "model-routing",
+        "provider-routing"
+      ],
+      "references": [
+        "https://openrouter.ai/docs/guides/routing/routers/auto-router",
+        "https://openrouter.ai/docs/guides/features/tool-calling",
+        "https://openrouter.ai/docs/guides/features/structured-outputs",
+        "https://openrouter.ai/tool/web-search/",
+        "https://openrouter.ai/docs/guides/routing/model-fallbacks"
+      ]
+    },
+    "hostinger": {
+      "kind": "EXTERNAL_OPTIONAL",
+      "enabledByDefault": false,
+      "baseUrl": "https://router.hostinger.com/v1",
+      "keyEnv": "HOSTINGER_AI_ROUTER_API_KEY",
+      "capabilities": [
+        "text-chat",
+        "model-routing",
+        "provider-routing"
+      ],
+      "references": [
+        "https://www.hostinger.com/support/what-is-hostinger-ai-router-and-how-to-get-started/"
+      ]
+    },
+    "ollama": {
+      "kind": "LOCAL_OPTIONAL",
+      "enabledByDefault": false,
+      "baseUrl": "http://127.0.0.1:11434",
+      "keyEnv": null,
+      "capabilities": [
+        "text-chat",
+        "domain-reasoning",
+        "coding"
+      ],
+      "privacy": "LOCAL"
+    }
+  },
+  "policy": {
+    "defaultExternalExecution": false,
+    "restrictedDataExternal": false,
+    "highImpactAutoRoute": false,
+    "externalRequiresExplicitAuthorization": true,
+    "costTierDefault": "balanced",
+    "sessionStickiness": true
+  }
+}
