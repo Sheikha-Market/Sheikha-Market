@@ -2,6 +2,7 @@
 
 const { createSheikhaAIRouter } = require('../sheikha-ai-router');
 const { createSheikhaRouterGovernor } = require('./governance');
+const { createSheikhaUpstreamAdapter } = require('./sheikha-upstream');
 const { createHostingerUpstreamAdapter } = require('./hostinger-upstream');
 
 function createSheikhaProvider(options = {}) {
@@ -11,14 +12,21 @@ function createSheikhaProvider(options = {}) {
 
     const upstreams = new Map();
     upstreams.set(
-        'hostinger',
-        options.hostingerAdapter ||
-            createHostingerUpstreamAdapter({
-                router,
-                fetchImpl: options.fetchImpl,
-                env
-            })
+        'sheikha',
+        options.sheikhaAdapter || createSheikhaUpstreamAdapter({ env })
     );
+
+    if (router.upstream === 'hostinger' || options.hostingerAdapter) {
+        upstreams.set(
+            'hostinger',
+            options.hostingerAdapter ||
+                createHostingerUpstreamAdapter({
+                    router,
+                    fetchImpl: options.fetchImpl,
+                    env
+                })
+        );
+    }
 
     function getUpstream() {
         const upstream = upstreams.get(router.upstream);
@@ -55,7 +63,7 @@ function createSheikhaProvider(options = {}) {
             routingLayer: 'Sheikha AI Router',
             lowerLayer: 'Sheikha Provider Fabric',
             upstream: router.upstream,
-            upstreamVisibility: 'private',
+            upstreamVisibility: router.upstream === 'sheikha' ? 'native' : 'private',
             router: router.status()
         };
     }
