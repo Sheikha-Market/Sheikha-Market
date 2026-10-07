@@ -161,7 +161,9 @@
     "test:ai-router": "node tests/sheikha-ai-router-config.test.js && node tests/sheikha-ai-router-runtime.test.js && node tests/sheikha-ai-provider-hierarchy.test.js",
     "sheikha-ai-router:test": "npm run -s test:ai-router",
     "sheikha-ai-provider:test": "node tests/sheikha-ai-provider-hierarchy.test.js",
-    "sheikha-ai-provider:status": "node -e \"const p=require('./lib/sheikha-ai-router/index.js').createSheikhaProvider(); console.log(JSON.stringify(p.status(),null,2))\""
+    "sheikha-ai-provider:status": "node -e \"const p=require('./lib/sheikha-ai-router/index.js').createSheikhaProvider(); console.log(JSON.stringify(p.status(),null,2))\"",
+    "sheikha-ai-capabilities:test": "node tests/sheikha-ai-capability-fabric.test.js",
+    "sheikha-ai-capabilities:status": "node -e \"console.log(JSON.stringify(require('./lib/sheikha-ai-capability-fabric').buildStatus(),null,2))\""
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
