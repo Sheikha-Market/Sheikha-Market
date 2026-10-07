@@ -6,7 +6,9 @@ try {
     // Validator remains dependency-free when run before npm install.
 }
 
-const UPSTREAM_BASE = 'https://router.hostinger.com/v1';
+const HOSTINGER_UPSTREAM_BASE = 'https://router.hostinger.com/v1';
+const SHEIKHA_NATIVE_BASE = 'sheikha://native';
+const SHEIKHA_NATIVE_MODEL = 'SheikhaNeural-v1.0';
 
 function first(...values) {
     return values.find(v => String(v || '').trim()) || '';
@@ -19,22 +21,33 @@ const enabled =
         'false'
     ).toLowerCase() === 'true';
 
-const baseUrl = first(
-    process.env.SHEIKHA_AI_ROUTER_BASE_URL,
-    process.env.HOSTINGER_AI_ROUTER_BASE_URL,
-    UPSTREAM_BASE
-);
+const upstream = first(process.env.SHEIKHA_AI_ROUTER_UPSTREAM, 'sheikha');
 
-const apiKey = first(
-    process.env.SHEIKHA_AI_ROUTER_API_KEY,
-    process.env.HOSTINGER_AI_ROUTER_API_KEY
-);
+const baseUrl =
+    upstream === 'hostinger'
+        ? first(
+              process.env.SHEIKHA_AI_ROUTER_BASE_URL,
+              process.env.HOSTINGER_AI_ROUTER_BASE_URL,
+              HOSTINGER_UPSTREAM_BASE
+          )
+        : first(process.env.SHEIKHA_AI_ROUTER_BASE_URL, SHEIKHA_NATIVE_BASE);
 
-const model = first(
-    process.env.SHEIKHA_AI_ROUTER_MODEL,
-    process.env.HOSTINGER_AI_ROUTER_MODEL,
-    process.env.AI_LLM_MODEL
-);
+const apiKey =
+    upstream === 'hostinger'
+        ? first(
+              process.env.SHEIKHA_AI_ROUTER_API_KEY,
+              process.env.HOSTINGER_AI_ROUTER_API_KEY
+          )
+        : '';
+
+const model =
+    upstream === 'hostinger'
+        ? first(
+              process.env.SHEIKHA_AI_ROUTER_MODEL,
+              process.env.HOSTINGER_AI_ROUTER_MODEL,
+              process.env.AI_LLM_MODEL
+          )
+        : first(process.env.SHEIKHA_AI_ROUTER_MODEL, SHEIKHA_NATIVE_MODEL);
 
 const allowed = first(
     process.env.SHEIKHA_AI_ROUTER_ALLOWED_MODELS,
@@ -53,10 +66,14 @@ const failClosed =
 
 const checks = {
     enabled,
-    https: String(baseUrl).startsWith('https://'),
-    upstreamOfficial: baseUrl === UPSTREAM_BASE,
+    nativeSheikha: upstream === 'sheikha',
+    secureTransport:
+        upstream === 'sheikha' || String(baseUrl).startsWith('https://'),
+    hostingerOfficial:
+        upstream !== 'hostinger' || baseUrl === HOSTINGER_UPSTREAM_BASE,
     modelConfigured: Boolean(model),
-    keyPresent: Boolean(apiKey),
+    keyPresent: upstream === 'sheikha' ? false : Boolean(apiKey),
+    credentialsRequired: upstream === 'hostinger',
     modelAllowed: !allowed.length || allowed.includes(model),
     failClosed
 };
@@ -64,7 +81,7 @@ const checks = {
 console.log(JSON.stringify({
     name: 'Sheikha AI Router',
     provider: 'sheikha-ai-router',
-    upstream: 'hostinger-ai-router',
+    upstream,
     baseUrl,
     model: model || null,
     allowedModels: allowed,
@@ -74,7 +91,10 @@ console.log(JSON.stringify({
 if (
     enabled &&
     failClosed &&
-    (!checks.https || !checks.modelConfigured || !checks.keyPresent || !checks.modelAllowed)
+    (!checks.secureTransport ||
+        !checks.modelConfigured ||
+        (checks.credentialsRequired && !checks.keyPresent) ||
+        !checks.modelAllowed)
 ) {
     process.exit(1);
 }
