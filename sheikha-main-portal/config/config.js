@@ -190,13 +190,14 @@ const config = {
             ]
         },
         routing: {
-            development: 'anthropic',   // Claude Opus 4.6 للتطوير (الأقوى)
-            analysis: 'anthropic',      // Claude Opus 4.6 للتحليل المتقدم
-            coding: 'anthropic',        // Claude Opus 4.6 للبرمجة
-            chat: 'openai',             // GPT للمحادثة العامة
-            quickTasks: 'openai'        // GPT للمهام السريعة
+            development: 'sheikha',
+            analysis: 'sheikha',
+            coding: 'sheikha',
+            chat: 'sheikha',
+            quickTasks: 'sheikha',
+            externalAdapters: ['hostinger', 'openai', 'anthropic', 'ollama']
         },
-        mode: process.env.AI_MODE || 'auto'
+        mode: process.env.AI_MODE || 'sheikha'
     },
 
     // ─── إعدادات الأمان ───────────────────────────────────────────────────────
