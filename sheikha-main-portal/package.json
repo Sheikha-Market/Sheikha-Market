@@ -158,7 +158,8 @@
     "ai-router:validate": "npm run -s sheikha-ai-router:validate",
     "sheikha-ai-router:validate": "node scripts/validate-ai-router-config.js",
     "sheikha-ai-router:status": "node scripts/validate-ai-router-config.js",
-    "test:ai-router": "node tests/sheikha-ai-router-config.test.js"
+    "test:ai-router": "node tests/sheikha-ai-router-config.test.js && node tests/sheikha-ai-router-runtime.test.js",
+    "sheikha-ai-router:test": "npm run -s test:ai-router"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
