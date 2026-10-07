@@ -157,7 +157,8 @@
     "ops:vps:deploy:dry": "bash scripts/vps-deploy.sh --dry-run",
     "ai-router:validate": "npm run -s sheikha-ai-router:validate",
     "sheikha-ai-router:validate": "node scripts/validate-ai-router-config.js",
-    "sheikha-ai-router:status": "node scripts/validate-ai-router-config.js"
+    "sheikha-ai-router:status": "node scripts/validate-ai-router-config.js",
+    "test:ai-router": "node tests/sheikha-ai-router-config.test.js"
   },
   "dependencies": {
     "@anthropic-ai/sdk": "^0.110.0",
