@@ -1,35 +1,76 @@
 'use strict';
 
-const OFFICIAL_BASE = 'https://router.hostinger.com/v1';
+require('dotenv').config();
+
+const UPSTREAM_BASE = 'https://router.hostinger.com/v1';
+
+function first(...values) {
+    return values.find(v => String(v || '').trim()) || '';
+}
 
 const enabled =
-    process.env.HOSTINGER_AI_ROUTER_ENABLED !== 'false' &&
-    Boolean(process.env.HOSTINGER_AI_ROUTER_API_KEY);
+    first(
+        process.env.SHEIKHA_AI_ROUTER_ENABLED,
+        process.env.HOSTINGER_AI_ROUTER_ENABLED,
+        'false'
+    ).toLowerCase() === 'true';
 
-const baseUrl = process.env.HOSTINGER_AI_ROUTER_BASE_URL || OFFICIAL_BASE;
-const model = process.env.HOSTINGER_AI_ROUTER_MODEL || process.env.AI_LLM_MODEL || '';
-const allowed = String(process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS || '')
+const baseUrl = first(
+    process.env.SHEIKHA_AI_ROUTER_BASE_URL,
+    process.env.HOSTINGER_AI_ROUTER_BASE_URL,
+    UPSTREAM_BASE
+);
+
+const apiKey = first(
+    process.env.SHEIKHA_AI_ROUTER_API_KEY,
+    process.env.HOSTINGER_AI_ROUTER_API_KEY
+);
+
+const model = first(
+    process.env.SHEIKHA_AI_ROUTER_MODEL,
+    process.env.HOSTINGER_AI_ROUTER_MODEL,
+    process.env.AI_LLM_MODEL
+);
+
+const allowed = first(
+    process.env.SHEIKHA_AI_ROUTER_ALLOWED_MODELS,
+    process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS
+)
     .split(',')
     .map(v => v.trim())
     .filter(Boolean);
 
+const failClosed =
+    first(
+        process.env.SHEIKHA_AI_ROUTER_FAIL_CLOSED,
+        process.env.HOSTINGER_AI_ROUTER_FAIL_CLOSED,
+        'true'
+    ).toLowerCase() !== 'false';
+
 const checks = {
     enabled,
     https: String(baseUrl).startsWith('https://'),
-    officialBase: baseUrl === OFFICIAL_BASE,
+    upstreamOfficial: baseUrl === UPSTREAM_BASE,
     modelConfigured: Boolean(model),
-    keyPresent: Boolean(process.env.HOSTINGER_AI_ROUTER_API_KEY),
-    modelAllowed: !allowed.length || allowed.includes(model)
+    keyPresent: Boolean(apiKey),
+    modelAllowed: !allowed.length || allowed.includes(model),
+    failClosed
 };
 
 console.log(JSON.stringify({
-    provider: 'hostinger-ai-router',
+    name: 'Sheikha AI Router',
+    provider: 'sheikha-ai-router',
+    upstream: 'hostinger-ai-router',
     baseUrl,
     model: model || null,
     allowedModels: allowed,
     checks
 }, null, 2));
 
-if (enabled && (!checks.https || !checks.modelConfigured || !checks.keyPresent || !checks.modelAllowed)) {
+if (
+    enabled &&
+    failClosed &&
+    (!checks.https || !checks.modelConfigured || !checks.keyPresent || !checks.modelAllowed)
+) {
     process.exit(1);
 }
