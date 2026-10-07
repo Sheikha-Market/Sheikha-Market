@@ -1,6 +1,7 @@
 'use strict';
 
-const OFFICIAL_UPSTREAM = 'https://router.hostinger.com/v1';
+const HOSTINGER_UPSTREAM_BASE = 'https://router.hostinger.com/v1';
+const SHEIKHA_NATIVE_MODEL = 'SheikhaNeural-v1.0';
 
 function first(...values) {
     return values.find(v => String(v || '').trim()) || '';
@@ -21,21 +22,30 @@ function createSheikhaAIRouter(env = process.env) {
             'false'
         ).toLowerCase() === 'true';
 
-    const upstream = first(env.SHEIKHA_AI_ROUTER_UPSTREAM, 'hostinger');
-    const baseUrl = first(
-        env.SHEIKHA_AI_ROUTER_BASE_URL,
-        env.HOSTINGER_AI_ROUTER_BASE_URL,
-        OFFICIAL_UPSTREAM
-    );
-    const apiKey = first(
-        env.SHEIKHA_AI_ROUTER_API_KEY,
-        env.HOSTINGER_AI_ROUTER_API_KEY
-    );
-    const model = first(
-        env.SHEIKHA_AI_ROUTER_MODEL,
-        env.HOSTINGER_AI_ROUTER_MODEL,
-        env.AI_LLM_MODEL
-    );
+    const upstream = first(env.SHEIKHA_AI_ROUTER_UPSTREAM, 'sheikha');
+    const baseUrl =
+        upstream === 'hostinger'
+            ? first(
+                  env.SHEIKHA_AI_ROUTER_BASE_URL,
+                  env.HOSTINGER_AI_ROUTER_BASE_URL,
+                  HOSTINGER_UPSTREAM_BASE
+              )
+            : first(env.SHEIKHA_AI_ROUTER_BASE_URL, 'sheikha://native');
+    const apiKey =
+        upstream === 'hostinger'
+            ? first(
+                  env.SHEIKHA_AI_ROUTER_API_KEY,
+                  env.HOSTINGER_AI_ROUTER_API_KEY
+              )
+            : '';
+    const model =
+        upstream === 'hostinger'
+            ? first(
+                  env.SHEIKHA_AI_ROUTER_MODEL,
+                  env.HOSTINGER_AI_ROUTER_MODEL,
+                  env.AI_LLM_MODEL
+              )
+            : first(env.SHEIKHA_AI_ROUTER_MODEL, SHEIKHA_NATIVE_MODEL);
     const allowedModels = splitList(
         first(
             env.SHEIKHA_AI_ROUTER_ALLOWED_MODELS,
@@ -55,8 +65,8 @@ function createSheikhaAIRouter(env = process.env) {
             'true'
         ).toLowerCase() !== 'false';
 
-    const configured = Boolean(apiKey && model);
-    const secureBase = String(baseUrl).startsWith('https://');
+    const configured = upstream === 'sheikha' ? Boolean(model) : Boolean(apiKey && model);
+    const secureBase = upstream === 'sheikha' || String(baseUrl).startsWith('https://');
     const modelAllowed = !allowedModels.length || allowedModels.includes(model);
 
     if (
@@ -78,7 +88,7 @@ function createSheikhaAIRouter(env = process.env) {
         allowedModels,
         fallbackModels,
         failClosed,
-        keyPresent: Boolean(apiKey),
+        keyPresent: upstream === 'sheikha' ? false : Boolean(apiKey),
         resolveModel(requestedModel) {
             const selected = requestedModel || model;
             if (allowedModels.length && !allowedModels.includes(selected)) {
@@ -90,9 +100,19 @@ function createSheikhaAIRouter(env = process.env) {
             if (!configured) {
                 throw new Error('SHEIKHA_AI_ROUTER_NOT_CONFIGURED');
             }
+            if (upstream === 'sheikha') {
+                return {
+                    provider: 'sheikha',
+                    model,
+                    native: true
+                };
+            }
             return {
+                provider: 'hostinger',
                 apiKey,
-                baseURL: baseUrl
+                baseURL: baseUrl,
+                model,
+                native: false
             };
         },
         status() {
@@ -107,13 +127,14 @@ function createSheikhaAIRouter(env = process.env) {
                 allowedModels,
                 fallbackModels,
                 failClosed,
-                keyPresent: Boolean(apiKey)
+                keyPresent: upstream === 'sheikha' ? false : Boolean(apiKey)
             };
         }
     });
 }
 
 module.exports = {
-    OFFICIAL_UPSTREAM,
+    HOSTINGER_UPSTREAM_BASE,
+    SHEIKHA_NATIVE_MODEL,
     createSheikhaAIRouter
 };
