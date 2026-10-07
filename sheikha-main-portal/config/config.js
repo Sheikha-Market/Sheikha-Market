@@ -77,37 +77,57 @@ const config = {
             timeoutMs: parseInt(process.env.OLLAMA_TIMEOUT_MS || '90000', 10)
         },
         router: {
+            name: 'Sheikha AI Router',
+            provider: 'sheikha-ai-router',
+            upstream: process.env.SHEIKHA_AI_ROUTER_UPSTREAM || 'hostinger',
             enabled:
-                process.env.HOSTINGER_AI_ROUTER_ENABLED !== 'false' &&
-                Boolean(process.env.HOSTINGER_AI_ROUTER_API_KEY),
-            provider: 'hostinger-ai-router',
+                (process.env.SHEIKHA_AI_ROUTER_ENABLED ||
+                    process.env.HOSTINGER_AI_ROUTER_ENABLED ||
+                    'false') === 'true',
             baseUrl:
+                process.env.SHEIKHA_AI_ROUTER_BASE_URL ||
                 process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
                 'https://router.hostinger.com/v1',
             model:
+                process.env.SHEIKHA_AI_ROUTER_MODEL ||
                 process.env.HOSTINGER_AI_ROUTER_MODEL ||
                 process.env.AI_LLM_MODEL ||
                 'gpt-5.2',
-            allowedModels: String(process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS || '')
+            allowedModels: String(
+                process.env.SHEIKHA_AI_ROUTER_ALLOWED_MODELS ||
+                    process.env.HOSTINGER_AI_ROUTER_ALLOWED_MODELS ||
+                    ''
+            )
                 .split(',')
                 .map(v => v.trim())
                 .filter(Boolean),
-            fallbackModels: String(process.env.HOSTINGER_AI_ROUTER_FALLBACK_MODELS || '')
+            fallbackModels: String(
+                process.env.SHEIKHA_AI_ROUTER_FALLBACK_MODELS ||
+                    process.env.HOSTINGER_AI_ROUTER_FALLBACK_MODELS ||
+                    ''
+            )
                 .split(',')
                 .map(v => v.trim())
                 .filter(Boolean),
-            failClosed: process.env.HOSTINGER_AI_ROUTER_FAIL_CLOSED !== 'false'
+            failClosed:
+                (process.env.SHEIKHA_AI_ROUTER_FAIL_CLOSED ||
+                    process.env.HOSTINGER_AI_ROUTER_FAIL_CLOSED ||
+                    'true') !== 'false'
         },
         openai: {
             apiKey:
+                process.env.SHEIKHA_AI_ROUTER_API_KEY ||
                 process.env.HOSTINGER_AI_ROUTER_API_KEY ||
                 process.env.OPENAI_API_KEY,
             baseUrl:
+                process.env.SHEIKHA_AI_ROUTER_API_KEY ||
                 process.env.HOSTINGER_AI_ROUTER_API_KEY
-                    ? process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
+                    ? process.env.SHEIKHA_AI_ROUTER_BASE_URL ||
+                      process.env.HOSTINGER_AI_ROUTER_BASE_URL ||
                       'https://router.hostinger.com/v1'
                     : process.env.AI_LLM_BASE_URL || 'https://api.openai.com/v1',
             model:
+                process.env.SHEIKHA_AI_ROUTER_MODEL ||
                 process.env.HOSTINGER_AI_ROUTER_MODEL ||
                 process.env.AI_LLM_MODEL ||
                 'gpt-5.2',
