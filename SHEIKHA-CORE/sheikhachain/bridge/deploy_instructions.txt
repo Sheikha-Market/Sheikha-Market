@@ -1,0 +1,12 @@
+
+# تحتاج PRIVATE_KEY في .env
+# python3 -m pip install web3
+import json, os
+from web3 import Web3
+from pathlib import Path
+
+REG = json.loads(Path("SHEIKHA-CORE/blockchain/registry.json").read_text())
+print(f"Deploying {len(REG)} weights to Amoy...")
+print(f"Total SHK Rewards: {sum(v.get('shk_reward',0) for v in REG.values()):,} SHK")
+print("كل SHK = HS Code + SBC 303 + Body Twin")
+# ضع PRIVATE_KEY في .env ثم شغل
