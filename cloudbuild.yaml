@@ -1,15 +1,13 @@
 steps:
-    - name: 'gcr.io/cloud-builders/docker'
-    args: ['build', '--network=host', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$_COMMIT_SHA', '-t', 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:latest', '.']
-    - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$_COMMIT_SHA']
-    - name: 'gcr.io/cloud-builders/docker'
-    args: ['push', 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:latest']
-    - name: 'gcr.io/google.com/cloudsdktool/cloud-sdk'
-    entrypoint: gcloud
-    args: ['run','deploy','sheikha-main-portal','--image=us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$_COMMIT_SHA','--region=us-central1','--platform=managed','--allow-unauthenticated','--set-env-vars=SHEIKHA_ENABLE_ALL_ENGINES=false,BOUND_BY_QURAN_SUNNAH=true']
-substitutions:
-  _COMMIT_SHA: latest
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['build','-t','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$COMMIT_SHA','-t','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:v44-20-omni','.']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$COMMIT_SHA']
+- name: 'gcr.io/cloud-builders/docker'
+  args: ['push','us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:v44-20-omni']
+images:
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:$COMMIT_SHA'
+- 'us-central1-docker.pkg.dev/$PROJECT_ID/sheikha-apps/sheikha-main-portal:v44-20-omni'
+timeout: 1200s
 options:
   logging: CLOUD_LOGGING_ONLY
-timeout: 1200s
