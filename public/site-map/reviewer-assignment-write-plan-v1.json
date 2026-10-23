@@ -1,0 +1,32 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_WRITE_PLAN_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "DETERMINISTIC_PATCH_PREVIEW_NO_WRITE",
+  "governance": {
+    "manualCommitEligibilityRequired": true,
+    "planDoesNotWrite": true,
+    "planDoesNotAssign": true,
+    "deterministicPatchRequired": true,
+    "preStateChecksumRequired": true,
+    "postStateChecksumRequired": true,
+    "auditEnvelopeRequired": true,
+    "duplicateAssignmentDenied": true,
+    "scopeChecksumRequired": true,
+    "noAutomaticPersistence": true,
+    "noProductionMutation": true,
+    "noSecretMaterial": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "assignmentRecords": 0,
+    "persistedPlans": 0,
+    "writesPerformedByPlanner": 0
+  },
+  "truth": {
+    "deterministicPreviewOnly": true,
+    "noAutomaticPersistence": true,
+    "noAssignmentWrite": true,
+    "explicitUserActionRequiredAfterPlan": true
+  }
+}

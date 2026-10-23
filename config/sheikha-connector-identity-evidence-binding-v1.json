@@ -1,0 +1,116 @@
+{
+  "system": "SHEIKHA_CONNECTOR_IDENTITY_EVIDENCE_BINDING_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "IDENTITY_SCOPE_EVIDENCE_BEFORE_AUTHORIZATION",
+  "identityNamespace": "urn:sheikha:connector",
+  "governance": {
+    "defaultDeny": true,
+    "identityRequiredBeforeAuthorization": true,
+    "dataScopeRequiredBeforeAuthorization": true,
+    "permissionScopeRequiredBeforeAuthorization": true,
+    "termsOrContractEvidenceRequired": true,
+    "authorizationEvidenceRequired": true,
+    "humanApprovalRequired": true,
+    "credentialsRequiredWhenProfileRequires": true,
+    "liveEvidenceRequiredBeforeLiveClaim": true,
+    "auditBindingRequiredBeforeLiveClaim": true,
+    "noSecretMaterialInRegistry": true,
+    "noAutomaticPromotion": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "authorizationRequirements": [
+    "IDENTITY_BOUND",
+    "DATA_SCOPE_DECLARED",
+    "PERMISSION_SCOPE_DECLARED",
+    "TERMS_OR_CONTRACT_EVIDENCE",
+    "AUTHORIZATION_EVIDENCE",
+    "HUMAN_APPROVAL_EVIDENCE"
+  ],
+  "liveRequirements": [
+    "AUTHORIZED",
+    "CREDENTIAL_EVIDENCE_IF_REQUIRED",
+    "LIVE_CONNECTION_EVIDENCE",
+    "HEALTHCHECK_EVIDENCE",
+    "AUDIT_BINDING"
+  ],
+  "categoryPolicies": {
+    "OPEN_DATA_PORTALS": {
+      "dataScope": ["public_dataset_metadata", "public_dataset_content"],
+      "ownerRole": "DATA_STEWARD",
+      "termsEvidence": "REQUIRED"
+    },
+    "RESEARCH_DATABASES": {
+      "dataScope": ["research_metadata", "licensed_or_open_research_content"],
+      "ownerRole": "KNOWLEDGE_DATA_STEWARD",
+      "termsEvidence": "REQUIRED"
+    },
+    "SCIENTIFIC_PUBLICATIONS": {
+      "dataScope": ["publication_metadata", "citation_data", "licensed_content_if_authorized"],
+      "ownerRole": "KNOWLEDGE_RIGHTS_STEWARD",
+      "termsEvidence": "REQUIRED"
+    },
+    "EDUCATIONAL_PLATFORMS": {
+      "dataScope": ["course_metadata", "authorized_learning_records"],
+      "ownerRole": "EDUCATION_DATA_STEWARD",
+      "termsEvidence": "REQUIRED"
+    },
+    "ERP_SYSTEMS": {
+      "dataScope": ["authorized_enterprise_master_data", "authorized_transaction_views"],
+      "ownerRole": "ENTERPRISE_SYSTEM_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "CRM_SYSTEMS": {
+      "dataScope": ["authorized_customer_records", "authorized_pipeline_records"],
+      "ownerRole": "CRM_DATA_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "WMS": {
+      "dataScope": ["authorized_inventory_records", "authorized_warehouse_events"],
+      "ownerRole": "WAREHOUSE_SYSTEM_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "TMS": {
+      "dataScope": ["authorized_transport_routes", "authorized_shipment_events"],
+      "ownerRole": "TRANSPORT_SYSTEM_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "IOT_PLATFORMS": {
+      "dataScope": ["authorized_sensor_metadata", "authorized_sensor_observations"],
+      "ownerRole": "IOT_SYSTEM_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "SATELLITE_OPEN_OBSERVATION_DATA": {
+      "dataScope": ["observation_metadata", "licensed_or_open_observation_data"],
+      "ownerRole": "GEOSPATIAL_DATA_STEWARD",
+      "termsEvidence": "REQUIRED"
+    },
+    "CLOUD_PROVIDERS": {
+      "dataScope": ["authorized_account_metadata", "authorized_resource_inventory"],
+      "ownerRole": "CLOUD_ACCOUNT_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "DATA_CENTERS": {
+      "dataScope": ["authorized_facility_metadata", "authorized_service_inventory"],
+      "ownerRole": "INFRASTRUCTURE_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "SUPERCOMPUTING_RESOURCES": {
+      "dataScope": ["authorized_allocation_metadata", "authorized_workload_inventory"],
+      "ownerRole": "COMPUTE_RESOURCE_OWNER",
+      "termsEvidence": "REQUIRED"
+    },
+    "NAMED_ENTERPRISE_CONNECTOR": {
+      "dataScope": [],
+      "ownerRole": "INTEGRATION_AUTHORITY",
+      "termsEvidence": "REQUIRED_AFTER_PROFILE_BINDING"
+    }
+  },
+  "evidenceSources": {
+    "connectorProfiles": "runtime/sdk-fabric-mcp-integration/v1/registries/connector-profile-registry.json",
+    "enterpriseConnectors": "runtime/enterprise-connector-fabric-v1/v1/registries/enterprise-connectors.json",
+    "connectorGovernance": "runtime/enterprise-connector-fabric-v1/v1/registries/connector-governance-policy.json",
+    "authorityMatrixConfig": "config/sheikha-connector-authority-capability-matrix-v1.json",
+    "evidenceRegistry": "runtime/evidence-registry/sheikha-evidence-registry-v1.js"
+  }
+}

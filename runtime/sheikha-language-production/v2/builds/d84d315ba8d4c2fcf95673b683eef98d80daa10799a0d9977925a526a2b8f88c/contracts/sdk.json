@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "component": "sdk",
+  "language": "sheikha",
+  "sourceSha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c",
+  "definition": {
+    "name": "شيخة_SDK",
+    "properties": {
+      "المعرف": "sdk",
+      "المسؤولية": "واجهات_التطبيقات_واللغة",
+      "التبعيات": "language، governance",
+      "الحد": "تكامل_محلي_لا_حزمة_منشورة",
+      "المسؤول_الإداري": "غير_معين",
+      "المراجعة": "حوكمة_واختبار_قبل_الإصدار"
+    }
+  },
+  "dependencies": [
+    "language",
+    "governance"
+  ],
+  "status": "LOCAL_CONTRACT_PRODUCED",
+  "verificationScope": "LOCAL_ARTIFACT_OR_PROBE_ONLY",
+  "verificationBasis": "LOCAL_SDK_LANGUAGE_EXECUTION",
+  "productionServiceActivated": false,
+  "hardwareMutationPerformed": false,
+  "deploymentPerformed": false
+}

@@ -1,0 +1,229 @@
+{
+  "schema": "SHEIKHA_REVIEW_ACCEPTANCE_PLAN_V1",
+  "organized_on": "2026-10-17",
+  "status": "READ_ONLY_VERIFIER_IMPLEMENTED_OPERATIONAL_REPAIRS_OPEN",
+  "prior_repairs": [
+    {
+      "id": "AI-001",
+      "priority": "P1",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "AI-002",
+      "priority": "P1",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "GIT-001",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "AI-003",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "AI-004",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "AI-005",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "AI-006",
+      "priority": "P3",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "DIST-001",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "DIST-002",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "API-001",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "API-002",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "PATH-001",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "MCP-001",
+      "priority": "P2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    },
+    {
+      "id": "DOC-001",
+      "priority": "P3",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "source": "docs/canonical/registry/reviews/2026-10-17/repair-backlog.json"
+    }
+  ],
+  "v35_findings": [
+    {
+      "id": "V35-E01",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E02",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E03",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E04",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E05",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E06",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E07",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E08",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    },
+    {
+      "id": "V35-E09",
+      "status": "OPEN_FOR_CAPABILITY_ASSESSMENT",
+      "source": "docs/canonical/registry/reviews/2026-10-17-v35-evidence/evidence-reconciliation.json"
+    }
+  ],
+  "summary": {
+    "prior_repairs": 14,
+    "v35_findings": 9,
+    "operational_findings_closed": 0
+  },
+  "implemented_here": [
+    "Read-only eleven-file verifier",
+    "Synthetic isolated behavior tests",
+    "Draft catalog data contract",
+    "Linked acceptance plan"
+  ],
+  "steps": [
+    {
+      "id": "STEP-01",
+      "title_ar": "تسوية اختلاف DB وV2 عن اللقطة السابقة",
+      "state": "OPEN",
+      "finding_refs": [
+        "V35-E01",
+        "V35-E09"
+      ],
+      "actions_ar": [
+        "تحديد كاتب التغييرات وسجل مصدرها بقراءة مستقلة دون إيقافه أو تعديل إعداداته.",
+        "تفسير الفرق في تقرير لاحق وحفظ الأدلة السابقة، دون تغيير baseline لمجرد جعل الفحص ناجحًا."
+      ],
+      "acceptance_ar": [
+        "سبب التغير واللقطة الجديدة موثقان بأدلة مستقلة.",
+        "الفاحص يرفض الفشل، وتُربط أي baseline لاحقة بمراجعة محددة وصريحة."
+      ]
+    },
+    {
+      "id": "STEP-02",
+      "title_ar": "ضبط حوكمة AI والوجهة الخارجية",
+      "state": "OPEN",
+      "repair_refs": [
+        "AI-001",
+        "AI-002"
+      ],
+      "acceptance_ar": [
+        "اختبارات معزولة تثبت صفر اتصالات عند منع الإفصاح أو غياب التفويض.",
+        "عنوان غير معتمد وإعادة توجيه غير معتمدة يُرفضان قبل إرسال بيانات اعتماد."
+      ]
+    },
+    {
+      "id": "STEP-03",
+      "title_ar": "مراجعة عقد الكيانات والمادة والإصدار",
+      "state": "DRAFT_CONTRACT_CREATED",
+      "finding_refs": [
+        "V35-E05",
+        "V35-E06"
+      ],
+      "artifact": "catalog-contract.schema.json",
+      "acceptance_ar": [
+        "سجلات مستقلة لكيان واحد ولائحتين ومادتين وإصدارين لكل مادة دون overwrite.",
+        "تتحقق المراجع الفعلية وتاريخ النفاذ وشروط الانطباق وبيانات المراجعة؛ تحقق JSON Schema وحده لا يكفي.",
+        "لا هجرة إلى DB القديمة ولا تغيير أرقام سجل رسمي أو إنشاء كيان رسمي."
+      ]
+    },
+    {
+      "id": "STEP-04",
+      "title_ar": "توثيق قياسات الأصول والجودة ومصدر البصمات",
+      "state": "OPEN",
+      "finding_refs": [
+        "V35-E03",
+        "V35-E04"
+      ],
+      "acceptance_ar": [
+        "كل بصمة مرتبطة بالأصل المقاس، ولكل ادعاء جودة قياس ووحدة وطريقة ودليل.",
+        "أي ادعاء توقيع أو تشفير أو PQ يحدد الخوارزمية والتنفيذ واختبار التحقق؛ لا يُستنتج من SHA-256 وحده."
+      ]
+    },
+    {
+      "id": "STEP-05",
+      "title_ar": "إثبات الخدمات والتكامل والإغلاق ضمن نطاق مستقل",
+      "state": "OPEN",
+      "finding_refs": [
+        "V35-E02",
+        "V35-E07",
+        "V35-E08"
+      ],
+      "acceptance_ar": [
+        "قياس الخدمة والصلاحيات والتكامل بنطاق معلوم وأدلة مستقلة.",
+        "يبقى كل ادعاء غير مختبر مفتوحًا، ولا يُستخدم echo COMPLETE معيار قبول.",
+        "لا تشغيل مراحل V35 التاريخية أو تغيير production ضمن هذه الحزمة."
+      ]
+    }
+  ],
+  "boundaries_ar": [
+    "لا تشغيل أو تعديل لمصادر V35 التاريخية أو DB أو V2.",
+    "لا تشغيل خدمات أو نشر أو Git merge أو commit أو push.",
+    "لا تصديق تلقائي على كيان قانوني أو امتثال أو حكم شرعي أو شهادة جودة."
+  ]
+}

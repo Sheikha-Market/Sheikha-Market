@@ -1,0 +1,185 @@
+{
+  "schema": "SHEIKHA_REQUIREMENTS_PRODUCTION_QUALIFICATION_MAPPING_EVIDENCE_V1",
+  "mode": "EVIDENCE_ONLY_NO_CANONICAL_RECORD_SYNTHESIS",
+  "authoritativeDesignCanon": "V61",
+  "authoritativeClosureCanon": "V62",
+  "sourceDiagnosis": {
+    "stage": "I19",
+    "decision": "AUTHOR_BOUNDED_MAPPING_EVIDENCE_REGISTRY_ONLY",
+    "mappingEvidenceRegistrySafe": true,
+    "canonicalRecordTransformationSafe": false
+  },
+  "sourceRegistry": {
+    "artifact": "runtime/producer-production-qualification/v1/registries/production-file-requirements.json",
+    "sha256": "34e6fe290fc3f1ac6b729f776a0b492f51d9ec0cfc3876064f4b7cf5a766460a",
+    "schemaVersion": "1.0.0",
+    "registry": "SHEIKHA_PRODUCTION_FILE_REQUIREMENTS_V1",
+    "registryStatus": "ACTIVE",
+    "declaredRequirementCount": 31,
+    "actualRequirementCount": 31,
+    "recordCommonKeyCount": 10,
+    "recordCommonKeys": [
+      "appliesTo",
+      "blocking",
+      "externalAuthorityOnly",
+      "family",
+      "id",
+      "ownerRole",
+      "qualifiedReviewRequired",
+      "retention",
+      "sha256Required",
+      "titleAr"
+    ],
+    "requirementIdAllPresent": true,
+    "requirementIdAllUnique": true,
+    "familyValues": [
+      "ADMINISTRATIVE",
+      "ENGINEERING",
+      "PRODUCTION"
+    ],
+    "uniqueOwnerRoleCount": 15
+  },
+  "sourceArtifacts": [
+    {
+      "artifact": "runtime/producer-production-qualification/v1/registries/production-file-requirements.json",
+      "sha256": "34e6fe290fc3f1ac6b729f776a0b492f51d9ec0cfc3876064f4b7cf5a766460a",
+      "preserve": true
+    },
+    {
+      "artifact": "core/production-qualification/sheikha-producer-production-qualification-v1.js",
+      "sha256": "ea24816828febcb33e97dcd1decea1596d65f01ac9f4f03de717e2c522f8838f",
+      "preserve": true
+    },
+    {
+      "artifact": "tests/sheikha-producer-production-qualification-v1.test.js",
+      "sha256": "8c13abf0b11b775173dbe91871f654681f0032b131c11c54cb422112846758ad",
+      "preserve": true
+    }
+  ],
+  "canonicalMapping": [
+    {
+      "canonicalField": "requirementId",
+      "disposition": "DIRECT",
+      "sourceField": "requirements[*].id",
+      "reason": "Every source requirement record has a unique non-empty id."
+    },
+    {
+      "canonicalField": "type",
+      "disposition": "AMBIGUOUS",
+      "sourceField": "requirements[*].family",
+      "reason": "family is record-level and consistent, but its ADMINISTRATIVE/ENGINEERING/PRODUCTION vocabulary is not proven equivalent to the canonical requirement type enum."
+    },
+    {
+      "canonicalField": "source",
+      "disposition": "DERIVABLE_WITH_EXPLICIT_RULE",
+      "explicitRule": "source.kind='existing-domain-artifact'; source.reference='<artifact-path>#/requirements/<index>'",
+      "reason": "Artifact path and array index provide deterministic provenance without inventing business semantics."
+    },
+    {
+      "canonicalField": "rationale",
+      "disposition": "ABSENT",
+      "reason": "No per-requirement rationale or justification field exists."
+    },
+    {
+      "canonicalField": "statement",
+      "disposition": "AMBIGUOUS",
+      "sourceField": "requirements[*].titleAr",
+      "reason": "titleAr is an Arabic record title; evidence does not prove it is the complete normative requirement statement."
+    },
+    {
+      "canonicalField": "acceptanceCriteria",
+      "disposition": "ABSENT",
+      "reason": "blocking, sha256Required, and qualifiedReviewRequired are controls and do not constitute complete acceptance criteria."
+    },
+    {
+      "canonicalField": "verificationMethod",
+      "disposition": "ABSENT",
+      "reason": "No per-requirement verification-method field exists."
+    },
+    {
+      "canonicalField": "owner",
+      "disposition": "DIRECT",
+      "sourceField": "requirements[*].ownerRole",
+      "reason": "ownerRole is explicit and present on every source requirement record."
+    },
+    {
+      "canonicalField": "status",
+      "disposition": "ABSENT",
+      "reason": "status exists at registry or workflow level; no per-requirement lifecycle status field exists."
+    },
+    {
+      "canonicalField": "version",
+      "disposition": "ABSENT",
+      "reason": "schemaVersion is registry/schema metadata; no per-requirement version field exists."
+    },
+    {
+      "canonicalField": "traceLinks",
+      "disposition": "ABSENT",
+      "reason": "appliesTo expresses applicability and is not requirement traceability to need/design/implementation/V&V/release."
+    },
+    {
+      "canonicalField": "changeHistory",
+      "disposition": "ABSENT",
+      "reason": "No per-requirement change-history or revision-history field exists."
+    }
+  ],
+  "mappingSummary": {
+    "directCount": 2,
+    "derivableWithExplicitRuleCount": 1,
+    "absentCount": 7,
+    "ambiguousCount": 2,
+    "notApplicableCount": 0,
+    "directFields": [
+      "requirementId",
+      "owner"
+    ],
+    "derivableFields": [
+      "source"
+    ],
+    "absentFields": [
+      "rationale",
+      "acceptanceCriteria",
+      "verificationMethod",
+      "status",
+      "version",
+      "traceLinks",
+      "changeHistory"
+    ],
+    "ambiguousFields": [
+      "type",
+      "statement"
+    ]
+  },
+  "domainExtensionFields": [
+    "family",
+    "titleAr",
+    "appliesTo",
+    "externalAuthorityOnly",
+    "qualifiedReviewRequired",
+    "sha256Required",
+    "blocking",
+    "retention"
+  ],
+  "guardrails": {
+    "noCanonicalRecordSynthesis": true,
+    "registryStatusIsNotRequirementStatus": true,
+    "schemaVersionIsNotRequirementVersion": true,
+    "appliesToIsNotTraceLinks": true,
+    "titleArIsNotAssumedCompleteStatement": true,
+    "familyRequiresExplicitCanonicalTypeMapping": true,
+    "missingCanonicalFieldsMustNotBeFabricated": true,
+    "existingDomainArtifactsRemainAuthoritativeForOwnDomain": true,
+    "existingAdapterRegistryNotModifiedByThisStage": true
+  },
+  "nextReview": {
+    "requiresIndependentVerification": true,
+    "canonicalTransformationAuthorized": false,
+    "adapterMutationAuthorized": false,
+    "recommendedNextStage": "SHEIKHA_IMPLEMENTATION_I21_REQUIREMENTS_MAPPING_EVIDENCE_REGISTRY_READ_ONLY_VERIFICATION_V1"
+  },
+  "pr31": {
+    "targetSha256": "dd9ab8f2a3f45ecdf0cbc19b077c403e41a74b2e0987b4953087f50ad08a6b5a",
+    "consumed": "UNKNOWN_UNTIL_TERMINAL_OUTPUT",
+    "doNotAdvance": true
+  }
+}

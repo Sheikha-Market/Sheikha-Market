@@ -1,0 +1,42 @@
+{
+  "schema": "SHEIKHA_CREATION_STEWARDSHIP_HEAVENS_BINDINGS_V1",
+  "bindingMode": "REFERENCE_ONLY",
+  "foundationBoundary": "../../stewardship/heavens-revival-metaphor.boundary.json",
+  "worldDomain": "../../world/heavens/heavens-observation.domain.json",
+  "bindings": [
+    {
+      "path": "core/comms/telecom-org/satellite.js",
+      "role": "satellite integration"
+    },
+    {
+      "path": "runtime/space-federation/v1/sheikha-space-federation.js",
+      "role": "space federation runtime"
+    },
+    {
+      "path": "runtime/space-iot-ml-ai-fabric/v1/sheikha-space-iot-ml-ai-fabric-v1.json",
+      "role": "space/IoT/ML/AI governed fabric"
+    },
+    {
+      "path": "runtime/space-iot-ml-ai-fabric/v1/registries/environment-intelligence-map.json",
+      "role": "space/environment observation registry"
+    },
+    {
+      "path": "runtime/space-iot-ml-ai-fabric/v1/registries/space-data-products.json",
+      "role": "space data products registry"
+    },
+    {
+      "path": "tools/space-iot-ml-ai-fabric/sheikha-space-iot-ml-ai-fabric-v1.js",
+      "role": "space fabric tooling"
+    }
+  ],
+  "rules": {
+    "moveSource": false,
+    "renameSource": false,
+    "duplicateSource": false,
+    "executeSource": false,
+    "literalRevival": false,
+    "ownershipClaim": false,
+    "controlOfCreationClaim": false,
+    "ghaybPrediction": false
+  }
+}

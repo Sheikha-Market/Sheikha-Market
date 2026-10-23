@@ -1,0 +1,202 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "sheikha://foundation/requirements/requirement.schema.v1",
+  "title": "Sheikha Controlled Requirement",
+  "type": "object",
+  "additionalProperties": false,
+  "required": [
+    "requirementId",
+    "type",
+    "source",
+    "rationale",
+    "statement",
+    "acceptanceCriteria",
+    "verificationMethod",
+    "owner",
+    "status",
+    "version",
+    "traceLinks",
+    "changeHistory"
+  ],
+  "properties": {
+    "requirementId": {
+      "type": "string",
+      "minLength": 1,
+      "pattern": "^[A-Za-z0-9][A-Za-z0-9._:-]*$"
+    },
+    "type": {
+      "type": "string",
+      "enum": [
+        "stakeholder",
+        "business",
+        "customer",
+        "regulatory",
+        "system",
+        "subsystem",
+        "component",
+        "interface",
+        "manufacturing",
+        "service-support",
+        "security",
+        "safety",
+        "privacy",
+        "quality",
+        "environment-resource",
+        "legal-ip"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": true,
+      "required": [
+        "kind",
+        "reference"
+      ],
+      "properties": {
+        "kind": {
+          "type": "string",
+          "minLength": 1
+        },
+        "reference": {
+          "type": "string",
+          "minLength": 1
+        }
+      }
+    },
+    "rationale": {
+      "type": "string",
+      "minLength": 1
+    },
+    "statement": {
+      "type": "string",
+      "minLength": 1
+    },
+    "acceptanceCriteria": {
+      "type": "array",
+      "minItems": 1,
+      "items": {
+        "type": "string",
+        "minLength": 1
+      }
+    },
+    "verificationMethod": {
+      "type": "string",
+      "enum": [
+        "inspection",
+        "analysis",
+        "test",
+        "demonstration",
+        "simulation",
+        "review",
+        "other"
+      ]
+    },
+    "owner": {
+      "type": "string",
+      "minLength": 1
+    },
+    "status": {
+      "type": "string",
+      "enum": [
+        "draft",
+        "review",
+        "approved",
+        "implemented",
+        "verified",
+        "validated",
+        "released",
+        "retired",
+        "rejected"
+      ]
+    },
+    "version": {
+      "type": "string",
+      "minLength": 1
+    },
+    "criticality": {
+      "type": "string",
+      "enum": [
+        "noncritical",
+        "important",
+        "critical"
+      ]
+    },
+    "traceLinks": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "relation",
+          "target"
+        ],
+        "properties": {
+          "relation": {
+            "type": "string",
+            "enum": [
+              "derived-from-need",
+              "refines-requirement",
+              "allocated-to-architecture",
+              "allocated-to-design",
+              "implemented-by",
+              "verified-by",
+              "validated-by",
+              "released-in",
+              "supersedes",
+              "superseded-by"
+            ]
+          },
+          "target": {
+            "type": "string",
+            "minLength": 1
+          }
+        }
+      }
+    },
+    "changeHistory": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "additionalProperties": false,
+        "required": [
+          "version",
+          "changeType",
+          "reason"
+        ],
+        "properties": {
+          "version": {
+            "type": "string",
+            "minLength": 1
+          },
+          "changeType": {
+            "type": "string",
+            "enum": [
+              "create",
+              "modify",
+              "approve",
+              "reject",
+              "implement",
+              "verify",
+              "validate",
+              "release",
+              "retire"
+            ]
+          },
+          "reason": {
+            "type": "string",
+            "minLength": 1
+          },
+          "authority": {
+            "type": "string"
+          },
+          "evidence": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            }
+          }
+        }
+      }
+    }
+  }
+}

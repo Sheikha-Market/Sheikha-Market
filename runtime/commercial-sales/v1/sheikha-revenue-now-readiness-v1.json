@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_REVENUE_NOW_READINESS_V1",
+  "checkedAt": "2026-08-30",
+  "status": "CUSTOMER_ACQUISITION_ACTIVE_MANUAL_REVENUE_CLOSURE_CONDITIONAL",
+  "officialWebsite": {
+    "url": "https://www.sheikha.top/commercial/",
+    "httpStatus": 200,
+    "commercialApiUrl": "https://www.sheikha.top/api/commercial/v1/status",
+    "commercialApiHttpStatus": 200
+  },
+  "offerCatalog": {
+    "offersCount": 4,
+    "lowestFixedOfferSar": 2500,
+    "primaryOfferId": "SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1",
+    "primaryOfferDeliveryDays": 5
+  },
+  "activeNow": {
+    "publicOfferPage": true,
+    "privacyTermsAndRefundPages": true,
+    "leadCapture": true,
+    "quoteGeneration": true,
+    "orderGeneration": true,
+    "proformaGeneration": true,
+    "manualInvoiceAndVerifiedBankTransferPath": true,
+    "cardDataCollection": false,
+    "automaticRevenueRecognition": false
+  },
+  "tests": {
+    "passed": 20,
+    "failed": 0
+  },
+  "firstRevenueSequence": [
+    "CUSTOMER_SUBMITS_LEAD",
+    "OWNER_REVIEWS_SCOPE",
+    "APPROVED_QUOTE_SENT",
+    "CUSTOMER_ACCEPTS_AND_SIGNS",
+    "PROFORMA_PAYMENT_REQUEST_ISSUED",
+    "VERIFIED_BANK_TRANSFER_RECEIVED",
+    "SERVICE_DELIVERED",
+    "CUSTOMER_ACCEPTANCE_RECORDED",
+    "REVENUE_RECOGNITION_REVIEW"
+  ],
+  "requiredBeforePaymentRequest": [
+    "SELLER_LEGAL_NAME_AND_REGISTRATION_NUMBER",
+    "SELLER_ADDRESS_AND_CONTACT",
+    "VAT_REGISTRATION_STATUS",
+    "VERIFIED_BUSINESS_BANK_ACCOUNT",
+    "AUTHORIZED_SIGNATORY",
+    "APPROVED_SCOPE_AND_SIGNED_ORDER"
+  ],
+  "claimPolicy": "Lead capture readiness is not payment receipt. Payment receipt is not revenue recognition without delivery and customer acceptance."
+}

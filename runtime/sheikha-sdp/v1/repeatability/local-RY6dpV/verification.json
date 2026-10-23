@@ -1,0 +1,80 @@
+{
+  "id": "hello-sheikha-v1",
+  "timestamp": "2026-10-13T05:00:33.110Z",
+  "status": "LOCAL_TWO_BUILD_REPEATABILITY_OBSERVED",
+  "sourceMatched": true,
+  "outputMatched": true,
+  "binaryMatched": true,
+  "scope": "TWO_BUILDS_ON_CURRENT_HOST_ONLY",
+  "crossPlatformReproducibilityEstablished": false,
+  "externalCertificationGranted": false,
+  "productionReady": false,
+  "reviews": [
+    {
+      "id": "hello-sheikha-v1",
+      "status": "TOOLCHAIN_STORED_EVIDENCE_CONSISTENCY_VERIFIED",
+      "artifactHashesVerified": 4,
+      "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+      "binarySha256": "cc79d3f2880187083246d266b71e443aa00c72ba00290b4182a718b610c70f7e",
+      "output": "\"SHEIKHA_PROJECT_LOCAL_OK\"\n",
+      "storedOutputMatchesCurrentVm": true,
+      "binaryExecutedByReviewer": false,
+      "binarySemanticsIndependentlyVerified": false,
+      "signatureAuthenticated": false,
+      "compilerVersionClaimsIndependentlyVerified": false,
+      "externalCertificationGranted": false,
+      "productionReady": false,
+      "build": "toolchain-eAdaxg",
+      "snapshot": {
+        "id": "hello-sheikha-v1",
+        "status": "PROJECT_SNAPSHOT_AND_BYTECODE_REPLAY_VERIFIED",
+        "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+        "artifactHashesVerified": 5,
+        "legacyReferencesVerified": 4,
+        "output": [
+          "\"SHEIKHA_PROJECT_LOCAL_OK\""
+        ],
+        "snapshotComparedWithCurrentCompiler": true,
+        "currentWorkspaceSourceCompared": false,
+        "signatureAuthenticated": false,
+        "independentCertification": false,
+        "distributionAuthorized": false,
+        "productionReady": false,
+        "build": "local-sXBmVr"
+      }
+    },
+    {
+      "id": "hello-sheikha-v1",
+      "status": "TOOLCHAIN_STORED_EVIDENCE_CONSISTENCY_VERIFIED",
+      "artifactHashesVerified": 4,
+      "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+      "binarySha256": "cc79d3f2880187083246d266b71e443aa00c72ba00290b4182a718b610c70f7e",
+      "output": "\"SHEIKHA_PROJECT_LOCAL_OK\"\n",
+      "storedOutputMatchesCurrentVm": true,
+      "binaryExecutedByReviewer": false,
+      "binarySemanticsIndependentlyVerified": false,
+      "signatureAuthenticated": false,
+      "compilerVersionClaimsIndependentlyVerified": false,
+      "externalCertificationGranted": false,
+      "productionReady": false,
+      "build": "toolchain-bUaVQN",
+      "snapshot": {
+        "id": "hello-sheikha-v1",
+        "status": "PROJECT_SNAPSHOT_AND_BYTECODE_REPLAY_VERIFIED",
+        "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+        "artifactHashesVerified": 5,
+        "legacyReferencesVerified": 4,
+        "output": [
+          "\"SHEIKHA_PROJECT_LOCAL_OK\""
+        ],
+        "snapshotComparedWithCurrentCompiler": true,
+        "currentWorkspaceSourceCompared": false,
+        "signatureAuthenticated": false,
+        "independentCertification": false,
+        "distributionAuthorized": false,
+        "productionReady": false,
+        "build": "local-f8wKKj"
+      }
+    }
+  ]
+}

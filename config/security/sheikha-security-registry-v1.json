@@ -1,0 +1,136 @@
+{
+  "system": "SHEIKHA_SECURITY_REGISTRY_LINKAGE_V1",
+  "version": "1.0.0",
+  "mode": "DEFENSIVE_EVIDENCE_ONLY_FAIL_CLOSED",
+  "eventStates": [
+    "OBSERVED",
+    "SOURCE_VERIFIED",
+    "APPLICABILITY_CHECK",
+    "EXPOSURE_CHECK",
+    "REPAIR_CANDIDATE",
+    "CLOSED_WITH_EVIDENCE"
+  ],
+  "applicabilityStates": [
+    "UNKNOWN",
+    "NOT_APPLICABLE",
+    "POTENTIALLY_AFFECTED",
+    "AFFECTED",
+    "NOT_AFFECTED"
+  ],
+  "sourcePriority": [
+    "VENDOR_SECURITY_ADVISORY",
+    "CISA_KEV",
+    "NVD",
+    "GITHUB_SECURITY_ADVISORY",
+    "PACKAGE_REGISTRY_ADVISORY",
+    "MCP_VENDOR_OR_SPEC_ADVISORY",
+    "VENDOR_STATUS"
+  ],
+  "sourceProfiles": {
+    "OPENAI_STATUS": {
+      "sourceClass": "VENDOR_STATUS",
+      "purpose": "availability_and_incident_status",
+      "securityAuthority": false
+    },
+    "OPENAI_SECURITY": {
+      "sourceClass": "VENDOR_SECURITY_ADVISORY",
+      "purpose": "official_security_guidance",
+      "securityAuthority": true
+    },
+    "CISA_KEV": {
+      "sourceClass": "CISA_KEV",
+      "purpose": "known_exploited_catalog",
+      "securityAuthority": true
+    },
+    "NVD": {
+      "sourceClass": "NVD",
+      "purpose": "cve_enrichment",
+      "securityAuthority": true
+    },
+    "GHSA": {
+      "sourceClass": "GITHUB_SECURITY_ADVISORY",
+      "purpose": "dependency_and_repository_advisories",
+      "securityAuthority": true
+    },
+    "NCA_SAUDI_CERT": {
+      "sourceClass": "VENDOR_SECURITY_ADVISORY",
+      "purpose": "saudi_security_advisories",
+      "securityAuthority": true
+    }
+  },
+  "rootMapping": {
+    "AUTH_IDENTITY": [
+      "IDENTITY_ROOT",
+      "AUTHORITY_ROOT",
+      "SECRET_ROOT"
+    ],
+    "DATA_EXPOSURE": [
+      "DATA_ROOT",
+      "SECRET_ROOT",
+      "OBSERVABILITY_ROOT"
+    ],
+    "SUPPLY_CHAIN": [
+      "SUPPLY_CHAIN_ROOT",
+      "BUILD_ROOT"
+    ],
+    "MCP_CONNECTOR": [
+      "MCP_ROOT",
+      "AUTHORITY_ROOT",
+      "SECRET_ROOT",
+      "RUNTIME_ROOT"
+    ],
+    "VULNERABILITY": [
+      "RUNTIME_ROOT",
+      "RECOVERY_ROOT"
+    ],
+    "ACTIVELY_EXPLOITED": [
+      "RUNTIME_ROOT",
+      "RECOVERY_ROOT",
+      "OBSERVABILITY_ROOT"
+    ],
+    "MISCONFIGURATION": [
+      "AUTHORITY_ROOT",
+      "RUNTIME_ROOT",
+      "BUILD_ROOT"
+    ],
+    "AVAILABILITY_INCIDENT": [
+      "OBSERVABILITY_ROOT",
+      "RECOVERY_ROOT"
+    ],
+    "SECURITY_ADVISORY": [
+      "OBSERVABILITY_ROOT"
+    ],
+    "UNKNOWN_REVIEW_REQUIRED": [
+      "OBSERVABILITY_ROOT"
+    ]
+  },
+  "exposureEvidenceRequired": [
+    "vendor_or_component_identity",
+    "installed_or_used_component",
+    "version_or_build_when_applicable",
+    "advisory_or_cve_scope",
+    "reachable_or_exposed_path_when_relevant"
+  ],
+  "failClosedRules": [
+    "unknown_inventory_is_investigate_not_safe",
+    "affected_requires_positive_evidence",
+    "not_affected_requires_version_or_scope_evidence",
+    "availability_does_not_imply_vulnerability",
+    "external_testing_requires_formal_authorization",
+    "repair_is_candidate_only_until_separately_authorized"
+  ],
+  "prohibited": [
+    "unauthorized_probe",
+    "exploit",
+    "credential_use",
+    "secret_mutation",
+    "permission_escalation",
+    "auto_install",
+    "merge",
+    "deploy",
+    "production_mutation",
+    "payment",
+    "contract",
+    "external_contact"
+  ]
+}

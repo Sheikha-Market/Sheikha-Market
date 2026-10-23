@@ -1,0 +1,467 @@
+{
+  "type": "SheikhaBytecode",
+  "version": "0.1.0",
+  "neuralProfile": {
+    "mesh": "SHEIKHA_GOVERNED_COMPILED_VM_V1",
+    "cells": 57,
+    "metricKind": "compatibility_profile_not_intelligence_claim",
+    "layers": {
+      "lexer": true,
+      "parser": true,
+      "types": true,
+      "ir": true,
+      "bytecode": true,
+      "governance": true,
+      "sandbox": true
+    },
+    "valuesReference": {
+      "basis": "QURAN_AND_AUTHENTIC_SUNNAH",
+      "executable": false,
+      "automatedFatwaAllowed": false,
+      "religiousAuthorityClaimed": false
+    }
+  },
+  "instructions": [
+    {
+      "code": "PUSH_DIRECTIVE",
+      "op": "DIRECTIVE",
+      "name": "بسم_الله",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      }
+    },
+    {
+      "code": "OPEN_VALUES_REFERENCE",
+      "op": "VALUES_REFERENCE_BEGIN",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المصدر",
+      "value": "الكتاب_والسنة_الصحيحة",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 32
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الدور",
+      "value": "قيم_غير_تنفيذية",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 3
+        },
+        "end": {
+          "line": 4,
+          "column": 25
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "السلطة_البرمجية",
+      "value": "لا",
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 3
+        },
+        "end": {
+          "line": 5,
+          "column": 22
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الفتوى_الآلية",
+      "value": "ممنوعة",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "line": 6,
+          "column": 24
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المراجعة_الشرعية",
+      "value": "أهل_العلم_المؤهلون",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 3
+        },
+        "end": {
+          "line": 7,
+          "column": 39
+        }
+      }
+    },
+    {
+      "code": "SET_VALUES_REFERENCE_PROP",
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "التحقق_من_المصادر",
+      "value": "واجب",
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 3
+        },
+        "end": {
+          "line": 8,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "CLOSE_VALUES_REFERENCE",
+      "op": "VALUES_REFERENCE_END",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 9,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_GOVERNANCE_POLICY",
+      "op": "GOVERNANCE_POLICY_BEGIN",
+      "name": "الروبوت",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "يوجب",
+      "value": "الصدق، العدل، الأمانة، الدليل",
+      "loc": {
+        "start": {
+          "line": 10,
+          "column": 3
+        },
+        "end": {
+          "line": 10,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "يمنع",
+      "value": "الضرر، الظلم، الغش، الخداع، الإكراه",
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 3
+        },
+        "end": {
+          "line": 11,
+          "column": 44
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "القرار_العالي_الأثر",
+      "value": "مراجعة_بشرية_ملزمة",
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 42
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "التنفيذ",
+      "value": "أقل_صلاحية_وموافقة_صريحة",
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 3
+        },
+        "end": {
+          "line": 13,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "SET_GOVERNANCE_POLICY_PROP",
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الروبوت",
+      "key": "الاتصال_بالأجهزة",
+      "value": "ممنوع_في_المحاكاة",
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 3
+        },
+        "end": {
+          "line": 14,
+          "column": 38
+        }
+      }
+    },
+    {
+      "code": "CLOSE_GOVERNANCE_POLICY",
+      "op": "GOVERNANCE_POLICY_END",
+      "name": "الروبوت",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 1
+        },
+        "end": {
+          "line": 15,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_ENTITY",
+      "op": "ENTITY_BEGIN",
+      "name": "الروبوت_الرقمي",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوت_الرقمي",
+      "key": "الهوية",
+      "value": "SHEIKHA_DIGITAL_ROBOT_V1",
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 3
+        },
+        "end": {
+          "line": 16,
+          "column": 35
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوت_الرقمي",
+      "key": "النواة",
+      "value": "آلة_حالات_محدودة",
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 3
+        },
+        "end": {
+          "line": 17,
+          "column": 27
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوت_الرقمي",
+      "key": "الحساسات",
+      "value": "بيانات_محاكاة",
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 3
+        },
+        "end": {
+          "line": 18,
+          "column": 26
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوت_الرقمي",
+      "key": "التحكم",
+      "value": "خطة_ثم_تحقق_ثم_محاكاة",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 3
+        },
+        "end": {
+          "line": 19,
+          "column": 32
+        }
+      }
+    },
+    {
+      "code": "SET_ENTITY_PROP",
+      "op": "ENTITY_PROPERTY",
+      "entity": "الروبوت_الرقمي",
+      "key": "الاتصال_الحقيقي",
+      "value": "غير_مفعل",
+      "loc": {
+        "start": {
+          "line": 20,
+          "column": 3
+        },
+        "end": {
+          "line": 20,
+          "column": 28
+        }
+      }
+    },
+    {
+      "code": "CLOSE_ENTITY",
+      "op": "ENTITY_END",
+      "name": "الروبوت_الرقمي",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "OPEN_PROCEDURE",
+      "op": "PROCEDURE_BEGIN",
+      "name": "التفعيل_المحلي",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 24,
+          "column": 1
+        }
+      }
+    },
+    {
+      "code": "CALL_COMMAND",
+      "op": "COMMAND",
+      "procedure": "التفعيل_المحلي",
+      "command": "حاكي_روبوت",
+      "argument": "\"warehouse-inspection\"",
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 3
+        },
+        "end": {
+          "line": 22,
+          "column": 36
+        }
+      }
+    },
+    {
+      "code": "CALL_COMMAND",
+      "op": "COMMAND",
+      "procedure": "التفعيل_المحلي",
+      "command": "اعرض",
+      "argument": "\"SHEIKHA_ROBOT_LOCAL_ACTIVATION_COMPLETE\"",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 3
+        },
+        "end": {
+          "line": 23,
+          "column": 49
+        }
+      }
+    },
+    {
+      "code": "CLOSE_PROCEDURE",
+      "op": "PROCEDURE_END",
+      "name": "التفعيل_المحلي",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 24,
+          "column": 1
+        }
+      }
+    }
+  ]
+}

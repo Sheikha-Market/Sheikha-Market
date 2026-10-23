@@ -1,0 +1,82 @@
+{
+  "name": "SHEIKHA_GOVERNED_CONNECTIONS_V1",
+  "ethicalReference": "QURAN_AND_SUNNAH_NO_HARM_USER_DIRECTIVE",
+  "religiousCertificationGranted": false,
+  "relationship": {
+    "provider": "sheikha-local-health",
+    "endpoint": "http://127.0.0.1:8080/health",
+    "operation": "GET",
+    "scope": "LOCAL_HEALTH_OBSERVATION_ONLY",
+    "transport": "HTTP_LOOPBACK",
+    "credentialRequired": false,
+    "remoteIdentityAuthenticated": false
+  },
+  "goal": {
+    "id": "local-health-response",
+    "successHttpStatus": 200,
+    "maxResponseTimeMs": 1000,
+    "thresholdSource": "LOCAL_DEVELOPMENT_TARGET_NOT_SLA"
+  },
+  "externalNetworkAuthorized": false,
+  "automaticInterventionEnabled": false,
+  "physicalActuationAuthorized": false,
+  "paymentAuthorized": false,
+  "productionAuthorized": false,
+  "universalInteroperabilityEstablished": false,
+  "status": "LOCAL_CONNECTION_OBSERVED",
+  "observation": {
+    "name": "SHEIKHA_LOCAL_BACKEND_8080",
+    "endpoint": "http://127.0.0.1:8080/health",
+    "checkedAt": "2026-10-13T21:08:19.717Z",
+    "completedAt": "2026-10-13T21:08:19.724Z",
+    "responseTimeMs": 8,
+    "state": "HTTP_200_OBSERVED",
+    "httpStatus": 200,
+    "method": "GET",
+    "responseBodyStored": false,
+    "fullServiceReadinessEstablished": false,
+    "automaticInterventionEnabled": false
+  },
+  "feedback": {
+    "sequence": 1,
+    "goalId": "local-health-response",
+    "observedAt": "2026-10-13T21:08:19.724Z",
+    "goalMet": true,
+    "state": "HTTP_200_OBSERVED",
+    "responseTimeMs": 8,
+    "previousGoalFailures": 0,
+    "nextAction": "CONTINUE_REQUEST_DRIVEN_OBSERVATION",
+    "automaticActionTaken": false
+  },
+  "history": {
+    "recordCount": 1,
+    "maxRecords": 720,
+    "recordLimitReached": false,
+    "storageState": "MEMORY_ONLY",
+    "chainHead": "4aa39b17222a56e261b8705761fdd2dfb14a7a8bf588ddac30a6744aec596f68",
+    "recentRecords": [
+      {
+        "sequence": 1,
+        "previousHash": null,
+        "observation": {
+          "endpoint": "http://127.0.0.1:8080/health",
+          "method": "GET",
+          "checkedAt": "2026-10-13T21:08:19.717Z",
+          "completedAt": "2026-10-13T21:08:19.724Z",
+          "responseTimeMs": 8,
+          "state": "HTTP_200_OBSERVED",
+          "httpStatus": 200,
+          "responseBodyStored": false,
+          "fullServiceReadinessEstablished": false,
+          "automaticInterventionEnabled": false
+        },
+        "sha256": "4aa39b17222a56e261b8705761fdd2dfb14a7a8bf588ddac30a6744aec596f68"
+      }
+    ],
+    "continuousMonitoringEnabled": false,
+    "signatureAuthenticated": false
+  },
+  "goalFailureCount": 0,
+  "persistentFeedbackSaved": false,
+  "fullServiceReadinessEstablished": false
+}

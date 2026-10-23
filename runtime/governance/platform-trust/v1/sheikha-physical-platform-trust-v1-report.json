@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_PHYSICAL_PLATFORM_TRUST_AND_ATTESTATION_V1",
+  "status": "PARTIAL_LOCAL_PLATFORM_TRUST_EVIDENCE",
+  "checkedAt": "2026-09-10T13:41:11.582Z",
+  "platform": {
+    "vendor": "Micro-Star International Co., Ltd.",
+    "model": "Pulse 16 AI C1VFKG",
+    "architecture": "x86_64",
+    "firmwareMode": "UEFI",
+    "biosVendor": "American Megatrends International, LLC.",
+    "biosVersion": "E15P3IMS.10D",
+    "biosDate": "2024-12-25"
+  },
+  "artifact": {
+    "role": "MSI_USB_GPT_IMAGE",
+    "sha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+    "efiSha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9"
+  },
+  "probes": {
+    "uefiRuntimePresent": true,
+    "secureBootVariablePresent": true,
+    "secureBootEnabled": false,
+    "tpmPresent": true,
+    "tpmVersion": "2",
+    "measuredBootEventLogReadable": false,
+    "bmcIpmiPresent": false
+  },
+  "checks": {
+    "platformIdentityBound": true,
+    "physicalBootEvidenceVerified": true,
+    "uefiRuntimePresent": true,
+    "secureBootEnabled": false,
+    "tpm2Present": true,
+    "measuredBootEvidenceAvailable": false,
+    "cryptographicAttestationVerified": false,
+    "bmcIdentityAndAttestationVerified": false
+  },
+  "blockers": [
+    "secureBootEnabled",
+    "measuredBootEvidenceAvailable",
+    "cryptographicAttestationVerified",
+    "bmcIdentityAndAttestationVerified"
+  ],
+  "claimBoundary": {
+    "localObservationOnly": true,
+    "remoteAttestationClaimed": false,
+    "secureBootClaimed": false,
+    "measuredBootClaimed": false,
+    "productionReadinessClaimed": false
+  },
+  "reportSha256": "2a08e5e24dacc267a20c72a1ddf05b8e760507d8b2f94eceeae9ae08e6f5e516"
+}

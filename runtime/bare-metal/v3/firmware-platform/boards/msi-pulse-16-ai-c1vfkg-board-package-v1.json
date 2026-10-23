@@ -1,0 +1,45 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SFP_BOARD_MSI_PULSE_16_AI_C1VFKG_V1",
+  "status": "BOARD_PACKAGE_CONTRACT_READY_IMPLEMENTATION_PENDING",
+  "binding": {
+    "vendor": "Micro-Star International Co., Ltd.",
+    "model": "Pulse 16 AI C1VFKG",
+    "architecture": "x86_64",
+    "firmwareMode": "UEFI",
+    "biosVendor": "American Megatrends International, LLC.",
+    "biosVersion": "E15P3IMS.10D",
+    "biosDate": "2024-12-25"
+  },
+  "verifiedSeed": {
+    "mode": "READ_ONLY_REMOVABLE_MEDIA_CONTROLLED_HALT",
+    "coldBootCount": 2,
+    "postExitBootServicesKernelEntry": true,
+    "internalDiskWriteObserved": false,
+    "permanentBootOrderChangeObserved": false,
+    "evidence": "runtime/bare-metal/v2/evidence/physical-hardware-boot-verification.json"
+  },
+  "implementationUnits": [
+    {"id": "BOARD_ID_AND_REVISION_MATCH", "state": "EVIDENCE_VERIFIED"},
+    {"id": "REMOVABLE_MEDIA_UEFI_BOOT", "state": "EVIDENCE_VERIFIED"},
+    {"id": "POST_EXIT_BOOT_SERVICES_HANDOFF", "state": "EVIDENCE_VERIFIED"},
+    {"id": "SILICON_INITIALIZATION_PACKAGE", "state": "LICENSE_AND_IMPLEMENTATION_REQUIRED"},
+    {"id": "BOARD_ACPI_TABLES", "state": "IMPLEMENTATION_AND_VALIDATION_REQUIRED"},
+    {"id": "BOARD_SMBIOS_TABLES", "state": "IMPLEMENTATION_AND_VALIDATION_REQUIRED"},
+    {"id": "DEVICE_ENABLEMENT_MATRIX", "state": "IMPLEMENTATION_AND_VALIDATION_REQUIRED"},
+    {"id": "SIGNED_CAPSULE_UPDATE", "state": "IMPLEMENTATION_AND_KEY_CEREMONY_REQUIRED"},
+    {"id": "NON_DESTRUCTIVE_RECOVERY_DRILL", "state": "PHYSICAL_LAB_REQUIRED"}
+  ],
+  "writePolicy": {
+    "physicalFirmwareWriteAuthorized": false,
+    "nvramWriteAuthorized": false,
+    "internalDiskWriteAuthorized": false,
+    "default": "DENY"
+  },
+  "claimBoundary": {
+    "isReplacementMotherboardFirmware": false,
+    "isCompletedBsp": false,
+    "isProductionRelease": false,
+    "appliesToOtherMsiModels": false
+  }
+}

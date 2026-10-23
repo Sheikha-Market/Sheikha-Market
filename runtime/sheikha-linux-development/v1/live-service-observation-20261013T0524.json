@@ -1,0 +1,92 @@
+{
+  "observedAt": "2026-10-13T05:24:16.028Z",
+  "mode": "READ_ONLY_REQUEST_DRIVEN_EVIDENCE_VIEW",
+  "productionEnabled": false,
+  "externalCertificationGranted": false,
+  "platform": {
+    "status": "LOCAL_SDP_COMPILER_READY",
+    "commands": [
+      "status",
+      "build",
+      "check",
+      "project-init",
+      "project-build",
+      "project-verify",
+      "inventory",
+      "native-linux",
+      "toolchain-status",
+      "toolchain-verify",
+      "toolchain-review",
+      "toolchain-repeatability",
+      "watch-check",
+      "watch-session",
+      "watch-session-review"
+    ],
+    "buildTargets": [
+      "SHEIKHA_BYTECODE_LOCAL_VM",
+      "LINUX_X64_LIMITED_ELF",
+      "CLANG_CMAKE_NINJA_LIMITED_ELF"
+    ],
+    "internalScopeMatched": true,
+    "admissionPolicy": {
+      "id": "SHEIKHA_LOCAL_DEVELOPMENT_ADMISSION_V1",
+      "ethicalReference": "QURAN_AND_SUNNAH_NO_HARM_USER_DIRECTIVE",
+      "religiousComplianceCertification": false,
+      "shariaReview": "QUALIFIED_HUMAN_REVIEW_REQUIRED_FOR_SPECIFIC_MATTERS",
+      "technicalEnforcement": "CLI_COMMAND_ARGUMENT_AND_EXISTING_INTERNAL_SCOPE_CHECKS",
+      "osSandboxImplementedByThisModule": false,
+      "productionAuthorized": false,
+      "commands": [
+        "status",
+        "inventory",
+        "check",
+        "build",
+        "project-init",
+        "project-build",
+        "project-verify",
+        "native-linux",
+        "toolchain-status",
+        "toolchain-verify",
+        "toolchain-review",
+        "toolchain-repeatability",
+        "watch-check",
+        "watch-session",
+        "watch-session-review"
+      ]
+    },
+    "nativeArtifactIntegrity": true,
+    "nativeEvidenceScope": "HISTORICAL_ARTIFACT_CHECK_NOT_FRESH_BOOT"
+  },
+  "build": {
+    "id": "hello-sheikha-v1",
+    "build": "toolchain-YBIoJQ",
+    "status": "TOOLCHAIN_STORED_EVIDENCE_CONSISTENCY_VERIFIED",
+    "output": "\"SHEIKHA_PROJECT_LOCAL_OK\"\n",
+    "artifactHashesVerified": 4,
+    "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+    "binarySha256": "cc79d3f2880187083246d266b71e443aa00c72ba00290b4182a718b610c70f7e",
+    "binaryExecutedNow": false
+  },
+  "watch": {
+    "session": "session-4HhuKN",
+    "status": "STORED_WATCH_SESSION_CONSISTENCY_VERIFIED",
+    "recordedSessionStatus": "BOUNDED_WATCH_THREE_ROUNDS_PASSED",
+    "rounds": 3,
+    "artifactHashesVerified": 4,
+    "currentServiceHealthChecked": false,
+    "continuousMonitoringEnabled": false
+  },
+  "liveService": {
+    "name": "SHEIKHA_LOCAL_BACKEND_8080",
+    "endpoint": "http://127.0.0.1:8080/health",
+    "checkedAt": "2026-10-13T05:24:16.035Z",
+    "completedAt": "2026-10-13T05:24:16.039Z",
+    "responseTimeMs": 3,
+    "state": "HTTP_200_OBSERVED",
+    "httpStatus": 200,
+    "method": "GET",
+    "responseBodyStored": false,
+    "fullServiceReadinessEstablished": false,
+    "automaticInterventionEnabled": false
+  }
+}

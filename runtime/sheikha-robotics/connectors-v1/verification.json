@@ -1,0 +1,128 @@
+{
+  "status": "LOCAL_CONNECTOR_CONTRACT_SIMULATION_VERIFIED",
+  "source": "sheikha-language/robots/sheikha-robotic-connectors-v1.shk",
+  "sourceSha256": "0b8c2698b5d9a8f06f8b1dbc03b5689730fdc5f2890ec18dcaf9130b8d7f8115",
+  "simulation": {
+    "modules": [
+      {
+        "id": "visual-robot",
+        "name": "Sheikha Visual Robot",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "visual",
+        "name": "Sheikha Visual",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "robotics",
+        "name": "Sheikha Robotics",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "lab",
+        "name": "Sheikha Lab Robotics",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "studio",
+        "name": "Sheikha Studio Robotics",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "foundry",
+        "name": "Sheikha Foundry Robotics",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "robotic-pipeline",
+        "name": "Sheikha Robotic Pipeline",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "visual-pipeline",
+        "name": "Sheikha Visual Pipeline",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "connection-pipeline",
+        "name": "Sheikha Connection Pipeline",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      },
+      {
+        "id": "connectors",
+        "name": "Sheikha Robotic Connectors",
+        "status": "LOCAL_CONTRACT_DEFINED",
+        "productionVerified": "UNKNOWN"
+      }
+    ],
+    "profiles": [
+      {
+        "profile": "wire",
+        "mode": "SIMULATION_ONLY",
+        "realConnection": "UNKNOWN",
+        "authenticatedDevice": false,
+        "cryptographicVerification": "UNKNOWN",
+        "connected": false,
+        "physicalActuationAllowed": false,
+        "sequence": 0
+      },
+      {
+        "profile": "wireless",
+        "mode": "SIMULATION_ONLY",
+        "realConnection": "UNKNOWN",
+        "authenticatedDevice": false,
+        "cryptographicVerification": "UNKNOWN",
+        "connected": false,
+        "physicalActuationAllowed": false,
+        "sequence": 0
+      },
+      {
+        "profile": "iot",
+        "mode": "SIMULATION_ONLY",
+        "realConnection": "UNKNOWN",
+        "authenticatedDevice": false,
+        "cryptographicVerification": "UNKNOWN",
+        "connected": false,
+        "physicalActuationAllowed": false,
+        "sequence": 0
+      },
+      {
+        "profile": "satellite",
+        "mode": "SIMULATION_ONLY",
+        "realConnection": "UNKNOWN",
+        "authenticatedDevice": false,
+        "cryptographicVerification": "UNKNOWN",
+        "connected": false,
+        "physicalActuationAllowed": false,
+        "sequence": 0
+      },
+      {
+        "profile": "hybrid",
+        "mode": "SIMULATION_ONLY",
+        "realConnection": "UNKNOWN",
+        "authenticatedDevice": false,
+        "cryptographicVerification": "UNKNOWN",
+        "connected": false,
+        "physicalActuationAllowed": false,
+        "sequence": 0
+      }
+    ],
+    "wirelessFallbackVerified": "UNKNOWN",
+    "satelliteCoverage": "UNKNOWN",
+    "hardwareAdapterConfigured": false,
+    "physicalCommandSent": false
+  },
+  "hostRuntime": "Node.js",
+  "nativeGuestExecution": "UNKNOWN",
+  "productionReady": false
+}

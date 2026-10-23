@@ -1,0 +1,40 @@
+{
+  "system": "SHEIKHA_CONNECTOR_EVIDENCE_INTAKE_REVIEW_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "CANDIDATE_INTAKE_HUMAN_REVIEW_NO_AUTO_APPROVAL",
+  "evidenceKinds": [
+    "TERMS_OR_CONTRACT",
+    "AUTHORIZATION",
+    "HUMAN_APPROVAL",
+    "CREDENTIAL",
+    "LIVE_CONNECTION",
+    "HEALTHCHECK",
+    "AUDIT_BINDING"
+  ],
+  "reviewDecisions": ["PENDING", "APPROVED", "REJECTED"],
+  "queueSource": "runtime/connector-evidence-review/v1/evidence-review-queue-v1.json",
+  "approvedLedgerProjection": "SHEIKHA_CONNECTOR_AUTHORIZATION_EVIDENCE_LEDGER_V1",
+  "governance": {
+    "candidateIsNotVerifiedEvidence": true,
+    "intakeDoesNotAuthorize": true,
+    "reviewDoesNotAutoAuthorize": true,
+    "approvedEvidenceStillRequiresPromotionGate": true,
+    "reviewerIdentityRequiredForDecision": true,
+    "signerIdentityRequiredForApproval": true,
+    "ownerIdentityRequiredForApproval": true,
+    "evidenceRegistryReferenceRequiredForApproval": true,
+    "sha256IntegrityRequiredForApproval": true,
+    "scopeRequiredForApproval": true,
+    "expiryCheckedWhenPresent": true,
+    "secretMaterialForbidden": true,
+    "rawCredentialMaterialForbidden": true,
+    "noAutomaticQueueMutation": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "principle": "لا ضرر ولا ضرار"
+  }
+}

@@ -1,0 +1,404 @@
+{
+  "system": "SHEIKHA_LIVE_ADVISORY_INGESTION_V1",
+  "version": "1.0.0",
+  "generatedAt": "2026-10-06T00:25:50.065Z",
+  "inputCount": 4,
+  "uniqueCount": 4,
+  "duplicateCount": 0,
+  "duplicates": [],
+  "results": [
+    {
+      "key": "GHSA-58qx-3vcg-4xpx",
+      "event": {
+        "id": "GHSA-58qx-3vcg-4xpx",
+        "source": "GitHub Advisory Database",
+        "sourceClass": "GITHUB_SECURITY_ADVISORY",
+        "sourceUrl": "https://github.com/advisories/GHSA-58qx-3vcg-4xpx",
+        "publishedAt": "2026-05-12",
+        "observedAt": "2026-10-06T00:25:50.060Z",
+        "title": "ws: Uninitialized memory disclosure",
+        "summary": "",
+        "ecosystem": "npm",
+        "vendor": "websockets",
+        "product": "ws",
+        "versionRange": {
+          "minInclusive": "8.0.0",
+          "maxExclusive": "8.20.1"
+        },
+        "severity": "MODERATE",
+        "cvss": null,
+        "patchedVersion": "8.20.1",
+        "activelyExploited": false,
+        "eventType": null,
+        "securityEvidence": true
+      },
+      "classification": "SECURITY_ADVISORY",
+      "applicability": "AFFECTED_LOCKED_COMPONENT",
+      "asset": {
+        "vendor": "websockets",
+        "component": "ws",
+        "product": "ws",
+        "version": "8.20.0",
+        "evidenceState": "LOCKED_COMPONENT",
+        "evidenceSource": "package-lock.json"
+      },
+      "assetEvidenceState": "LOCKED_COMPONENT",
+      "runtimeReachability": "UNKNOWN_FROM_LOCKFILE_ONLY",
+      "compromised": false,
+      "automaticRemediation": false,
+      "inventoryEvidence": {
+        "generatedAt": "2026-10-05T23:18:17.157Z",
+        "packageLockSha256": "aa73791e397703d05f103668618aec0d0d0bb73d95796f75fc38cc83f0dbefb0",
+        "requirementsSha256": "f98761dc4163019bbf045483effd3390eedbfb589d30770a7d39683fb26a0057",
+        "sbomState": "SBOM_GAP"
+      },
+      "registry": {
+        "registryVersion": "1.0.0",
+        "eventId": "GHSA-58qx-3vcg-4xpx",
+        "eventState": "SOURCE_VERIFIED",
+        "nextState": "APPLICABILITY_CHECK",
+        "source": "GitHub Advisory Database",
+        "sourceClass": "GITHUB_SECURITY_ADVISORY",
+        "component": "ws",
+        "classification": "VULNERABILITY",
+        "rootIds": [
+          "RUNTIME_ROOT",
+          "RECOVERY_ROOT"
+        ],
+        "applicability": {
+          "state": "POTENTIALLY_AFFECTED",
+          "reason": "VERSION_SCOPE_INCOMPLETE"
+        },
+        "disposition": "DEFENSIVE_SECURITY_REVIEW",
+        "securityEvidence": true,
+        "repairMode": "CANDIDATE_ONLY",
+        "allowedNow": [
+          "collect_public_or_authorized_evidence",
+          "cross_check",
+          "classify",
+          "prepare_containment",
+          "prepare_candidate_fix",
+          "static_verify_candidate"
+        ],
+        "blocked": [
+          "active_external_probe",
+          "exploit",
+          "credential_use",
+          "production_mutation",
+          "merge",
+          "deploy",
+          "payment",
+          "contract"
+        ],
+        "evidenceNeeded": [
+          "vendor_or_component_identity",
+          "installed_or_used_component",
+          "version_or_build_when_applicable",
+          "advisory_or_cve_scope",
+          "reachable_or_exposed_path_when_relevant",
+          "exact_version_and_advisory_range"
+        ],
+        "externalAuthorizationRequired": true
+      },
+      "exposure": {
+        "state": "AFFECTED_BY_VERSION_RANGE",
+        "reason": "COMPONENT_AND_VERSION_MATCH"
+      },
+      "nextAction": "PREPARE_LOCKFILE_REPAIR_CANDIDATE"
+    },
+    {
+      "key": "GHSA-96hv-2xvq-fx4p",
+      "event": {
+        "id": "GHSA-96hv-2xvq-fx4p",
+        "source": "GitHub Advisory Database",
+        "sourceClass": "GITHUB_SECURITY_ADVISORY",
+        "sourceUrl": "https://github.com/advisories/GHSA-96hv-2xvq-fx4p",
+        "publishedAt": "2026-05-22",
+        "observedAt": "2026-10-06T00:25:50.063Z",
+        "title": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+        "summary": "",
+        "ecosystem": "npm",
+        "vendor": "websockets",
+        "product": "ws",
+        "versionRange": {
+          "minInclusive": "8.0.0",
+          "maxExclusive": "8.21.0"
+        },
+        "severity": "HIGH",
+        "cvss": null,
+        "patchedVersion": "8.21.0",
+        "activelyExploited": false,
+        "eventType": null,
+        "securityEvidence": true
+      },
+      "classification": "SECURITY_ADVISORY",
+      "applicability": "AFFECTED_LOCKED_COMPONENT",
+      "asset": {
+        "vendor": "websockets",
+        "component": "ws",
+        "product": "ws",
+        "version": "8.20.0",
+        "evidenceState": "LOCKED_COMPONENT",
+        "evidenceSource": "package-lock.json"
+      },
+      "assetEvidenceState": "LOCKED_COMPONENT",
+      "runtimeReachability": "UNKNOWN_FROM_LOCKFILE_ONLY",
+      "compromised": false,
+      "automaticRemediation": false,
+      "inventoryEvidence": {
+        "generatedAt": "2026-10-05T23:18:17.157Z",
+        "packageLockSha256": "aa73791e397703d05f103668618aec0d0d0bb73d95796f75fc38cc83f0dbefb0",
+        "requirementsSha256": "f98761dc4163019bbf045483effd3390eedbfb589d30770a7d39683fb26a0057",
+        "sbomState": "SBOM_GAP"
+      },
+      "registry": {
+        "registryVersion": "1.0.0",
+        "eventId": "GHSA-96hv-2xvq-fx4p",
+        "eventState": "SOURCE_VERIFIED",
+        "nextState": "APPLICABILITY_CHECK",
+        "source": "GitHub Advisory Database",
+        "sourceClass": "GITHUB_SECURITY_ADVISORY",
+        "component": "ws",
+        "classification": "VULNERABILITY",
+        "rootIds": [
+          "RUNTIME_ROOT",
+          "RECOVERY_ROOT"
+        ],
+        "applicability": {
+          "state": "POTENTIALLY_AFFECTED",
+          "reason": "VERSION_SCOPE_INCOMPLETE"
+        },
+        "disposition": "DEFENSIVE_SECURITY_REVIEW",
+        "securityEvidence": true,
+        "repairMode": "CANDIDATE_ONLY",
+        "allowedNow": [
+          "collect_public_or_authorized_evidence",
+          "cross_check",
+          "classify",
+          "prepare_containment",
+          "prepare_candidate_fix",
+          "static_verify_candidate"
+        ],
+        "blocked": [
+          "active_external_probe",
+          "exploit",
+          "credential_use",
+          "production_mutation",
+          "merge",
+          "deploy",
+          "payment",
+          "contract"
+        ],
+        "evidenceNeeded": [
+          "vendor_or_component_identity",
+          "installed_or_used_component",
+          "version_or_build_when_applicable",
+          "advisory_or_cve_scope",
+          "reachable_or_exposed_path_when_relevant",
+          "exact_version_and_advisory_range"
+        ],
+        "externalAuthorizationRequired": true
+      },
+      "exposure": {
+        "state": "AFFECTED_BY_VERSION_RANGE",
+        "reason": "COMPONENT_AND_VERSION_MATCH"
+      },
+      "nextAction": "PREPARE_LOCKFILE_REPAIR_CANDIDATE"
+    },
+    {
+      "key": "GHSA-345p-7cg4-v4c7",
+      "event": {
+        "id": "GHSA-345p-7cg4-v4c7",
+        "source": "GitHub Advisory Database",
+        "sourceClass": "GITHUB_SECURITY_ADVISORY",
+        "sourceUrl": "https://github.com/advisories/GHSA-345p-7cg4-v4c7",
+        "publishedAt": "2026-02-04",
+        "observedAt": "2026-10-06T00:25:50.064Z",
+        "title": "@modelcontextprotocol/sdk cross-client data leak via shared server/transport instance reuse",
+        "summary": "",
+        "ecosystem": "npm",
+        "vendor": "modelcontextprotocol",
+        "product": "@modelcontextprotocol/sdk",
+        "versionRange": {
+          "minInclusive": "1.10.0",
+          "maxInclusive": "1.25.3"
+        },
+        "severity": "HIGH",
+        "cvss": null,
+        "patchedVersion": "1.26.0",
+        "activelyExploited": false,
+        "eventType": null,
+        "securityEvidence": true
+      },
+      "classification": "SECURITY_ADVISORY",
+      "applicability": "NOT_AFFECTED_LOCKED_COMPONENT",
+      "asset": {
+        "vendor": "modelcontextprotocol",
+        "component": "@modelcontextprotocol/sdk",
+        "product": "@modelcontextprotocol/sdk",
+        "version": "1.32.0",
+        "evidenceState": "LOCKED_COMPONENT",
+        "evidenceSource": "package-lock.json"
+      },
+      "assetEvidenceState": "LOCKED_COMPONENT",
+      "runtimeReachability": "UNKNOWN_FROM_LOCKFILE_ONLY",
+      "compromised": false,
+      "automaticRemediation": false,
+      "inventoryEvidence": {
+        "generatedAt": "2026-10-05T23:18:17.157Z",
+        "packageLockSha256": "aa73791e397703d05f103668618aec0d0d0bb73d95796f75fc38cc83f0dbefb0",
+        "requirementsSha256": "f98761dc4163019bbf045483effd3390eedbfb589d30770a7d39683fb26a0057",
+        "sbomState": "SBOM_GAP"
+      },
+      "registry": {
+        "registryVersion": "1.0.0",
+        "eventId": "GHSA-345p-7cg4-v4c7",
+        "eventState": "SOURCE_VERIFIED",
+        "nextState": "APPLICABILITY_CHECK",
+        "source": "GitHub Advisory Database",
+        "sourceClass": "GITHUB_SECURITY_ADVISORY",
+        "component": "@modelcontextprotocol/sdk",
+        "classification": "DATA_EXPOSURE",
+        "rootIds": [
+          "DATA_ROOT",
+          "SECRET_ROOT",
+          "OBSERVABILITY_ROOT"
+        ],
+        "applicability": {
+          "state": "POTENTIALLY_AFFECTED",
+          "reason": "VERSION_SCOPE_INCOMPLETE"
+        },
+        "disposition": "DEFENSIVE_SECURITY_REVIEW",
+        "securityEvidence": true,
+        "repairMode": "CANDIDATE_ONLY",
+        "allowedNow": [
+          "collect_public_or_authorized_evidence",
+          "cross_check",
+          "classify",
+          "prepare_containment",
+          "prepare_candidate_fix",
+          "static_verify_candidate"
+        ],
+        "blocked": [
+          "active_external_probe",
+          "exploit",
+          "credential_use",
+          "production_mutation",
+          "merge",
+          "deploy",
+          "payment",
+          "contract"
+        ],
+        "evidenceNeeded": [
+          "vendor_or_component_identity",
+          "installed_or_used_component",
+          "version_or_build_when_applicable",
+          "advisory_or_cve_scope",
+          "reachable_or_exposed_path_when_relevant",
+          "exact_version_and_advisory_range"
+        ],
+        "externalAuthorizationRequired": true
+      },
+      "exposure": {
+        "state": "NOT_AFFECTED",
+        "reason": "VERSION_OUTSIDE_ADVISORY_RANGE"
+      },
+      "nextAction": "WATCH"
+    },
+    {
+      "key": "OPENAI-STATUS-2026-10-05-WORK-MODE",
+      "event": {
+        "id": "OPENAI-STATUS-2026-10-05-WORK-MODE",
+        "source": "OpenAI Status",
+        "sourceClass": "OPENAI_STATUS",
+        "sourceUrl": "https://status.openai.com/incidents/mysmq298",
+        "publishedAt": "2026-10-05",
+        "observedAt": "2026-10-06T00:25:50.065Z",
+        "title": "Elevated Work Mode errors",
+        "summary": "Mitigated; monitoring recovery.",
+        "ecosystem": null,
+        "vendor": null,
+        "product": "ChatGPT Work",
+        "versionRange": null,
+        "severity": null,
+        "cvss": null,
+        "patchedVersion": null,
+        "activelyExploited": false,
+        "eventType": "AVAILABILITY_INCIDENT",
+        "securityEvidence": false
+      },
+      "classification": "AVAILABILITY_INCIDENT",
+      "applicability": "NOT_EVALUATED_AS_VULNERABILITY",
+      "assetEvidenceState": null,
+      "runtimeReachability": "NOT_APPLICABLE",
+      "compromised": false,
+      "automaticRemediation": false,
+      "registry": {
+        "registryVersion": "1.0.0",
+        "eventId": "OPENAI-STATUS-2026-10-05-WORK-MODE",
+        "eventState": "OBSERVED",
+        "nextState": "SOURCE_VERIFIED",
+        "source": "OpenAI Status",
+        "sourceClass": "OPENAI_STATUS",
+        "component": "ChatGPT Work",
+        "classification": "AVAILABILITY_INCIDENT",
+        "rootIds": [
+          "OBSERVABILITY_ROOT",
+          "RECOVERY_ROOT"
+        ],
+        "applicability": {
+          "state": "UNKNOWN",
+          "reason": "AVAILABILITY_EVENT_REQUIRES_NO_VULNERABILITY_INFERENCE"
+        },
+        "disposition": "UNTRUSTED_SOURCE_HOLD",
+        "securityEvidence": false,
+        "repairMode": "CANDIDATE_ONLY",
+        "allowedNow": [
+          "collect_public_or_authorized_evidence",
+          "cross_check",
+          "classify",
+          "prepare_containment",
+          "prepare_candidate_fix",
+          "static_verify_candidate"
+        ],
+        "blocked": [
+          "active_external_probe",
+          "exploit",
+          "credential_use",
+          "production_mutation",
+          "merge",
+          "deploy",
+          "payment",
+          "contract"
+        ],
+        "evidenceNeeded": [
+          "vendor_or_component_identity",
+          "installed_or_used_component",
+          "version_or_build_when_applicable",
+          "advisory_or_cve_scope",
+          "reachable_or_exposed_path_when_relevant",
+          "asset_inventory"
+        ],
+        "externalAuthorizationRequired": true
+      },
+      "nextAction": "WATCH_AVAILABILITY"
+    }
+  ],
+  "safety": {
+    "activeProbe": false,
+    "exploit": false,
+    "credentialUse": false,
+    "install": false,
+    "upgrade": false,
+    "secretMutation": false,
+    "permissionEscalation": false,
+    "gitWrite": false,
+    "ciRerun": false,
+    "merge": false,
+    "deploy": false,
+    "production": false,
+    "payment": false,
+    "contract": false,
+    "externalContact": false
+  }
+}

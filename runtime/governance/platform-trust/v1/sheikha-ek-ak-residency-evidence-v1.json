@@ -1,0 +1,13 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_EK_AK_RESIDENCY_EVIDENCE_V1",
+  "status": "OFFLINE_VERIFIER_IMPLEMENTED_REAL_CREDENTIAL_ACTIVATION_REQUIRED",
+  "requiredEvidence": ["EK_CERTIFICATE_CHAIN", "PINNED_EK_ROOT", "PLATFORM_ENROLLMENT", "AK_ENROLLMENT", "TRUSTED_COLLECTOR", "ACTIVATION_CHALLENGE", "AK_OBJECT_NAME", "EK_FINGERPRINT", "RECOVERED_SECRET_DIGEST", "EXTERNAL_ACTIVATION_EXECUTION"],
+  "boundaries": {
+    "ekTrustAloneProvesAkResidency": false,
+    "akKeyMatchAloneProvesTpmResidency": false,
+    "fixtureIsProductionEvidence": false,
+    "noTpmCommandsExecutedByVerifier": true,
+    "noFirmwareMutation": true
+  }
+}

@@ -1,0 +1,63 @@
+{
+  "system": "SHEIKHA_PUBLIC_SECURITY_SOURCES_V1",
+  "version": "1.0.0",
+  "mode": "READ_ONLY_PUBLIC_SOURCE_REGISTRY",
+  "generatedAt": "2026-10-06T00:00:00+03:00",
+  "principles": [
+    "SOURCE_DOES_NOT_EQUAL_APPLICABILITY",
+    "AVAILABILITY_DOES_NOT_EQUAL_SECURITY",
+    "AFFECTED_DOES_NOT_EQUAL_COMPROMISED",
+    "NO_ACTIVE_PROBING",
+    "NO_AUTOMATIC_REMEDIATION"
+  ],
+  "sources": [
+    {
+      "id": "github-advisory-db",
+      "name": "GitHub Advisory Database",
+      "class": "GITHUB_SECURITY_ADVISORY",
+      "url": "https://github.com/advisories",
+      "trust": "PRIMARY_OR_CURATED",
+      "ingest": "EVIDENCE_SNAPSHOT_ONLY"
+    },
+    {
+      "id": "cisa-kev",
+      "name": "CISA Known Exploited Vulnerabilities Catalog",
+      "class": "CISA_KEV",
+      "url": "https://www.cisa.gov/known-exploited-vulnerabilities-catalog",
+      "trust": "PRIMARY",
+      "ingest": "EVIDENCE_SNAPSHOT_ONLY"
+    },
+    {
+      "id": "nvd",
+      "name": "NIST National Vulnerability Database",
+      "class": "NVD",
+      "url": "https://nvd.nist.gov/",
+      "trust": "PRIMARY",
+      "ingest": "EVIDENCE_SNAPSHOT_ONLY"
+    },
+    {
+      "id": "saudi-cert",
+      "name": "Saudi CERT / NCA",
+      "class": "SAUDI_CERT",
+      "url": "https://cert.gov.sa/",
+      "trust": "PRIMARY_NATIONAL",
+      "ingest": "EVIDENCE_SNAPSHOT_ONLY"
+    },
+    {
+      "id": "openai-status",
+      "name": "OpenAI Status",
+      "class": "OPENAI_STATUS",
+      "url": "https://status.openai.com/",
+      "trust": "PRIMARY_VENDOR_AVAILABILITY",
+      "ingest": "EVIDENCE_SNAPSHOT_ONLY"
+    },
+    {
+      "id": "vendor-advisory",
+      "name": "Vendor Security Advisories",
+      "class": "VENDOR_ADVISORY",
+      "url": null,
+      "trust": "PRIMARY_VENDOR",
+      "ingest": "EVIDENCE_SNAPSHOT_ONLY"
+    }
+  ]
+}

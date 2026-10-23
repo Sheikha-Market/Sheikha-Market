@@ -1,0 +1,49 @@
+{
+  "timestamp": "2026-10-13T04:51:08.166464+00:00",
+  "status": "CLANG_CMAKE_NINJA_LOCAL_BUILD_VERIFIED",
+  "steps": [
+    {
+      "command": [
+        "cmake",
+        "-S",
+        "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/sheikha-sdp/v1/provisioning/clang-cmake-ninja-bnb5bh6p",
+        "-B",
+        "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/sheikha-sdp/v1/provisioning/clang-cmake-ninja-bnb5bh6p/build",
+        "-G",
+        "Ninja",
+        "-DCMAKE_C_COMPILER=/usr/bin/clang"
+      ],
+      "exit_code": 0,
+      "stdout": "-- The C compiler identification is Clang 14.0.0\n-- Detecting C compiler ABI info\n-- Detecting C compiler ABI info - done\n-- Check for working C compiler: /usr/bin/clang - skipped\n-- Detecting C compile features\n-- Detecting C compile features - done\n-- Configuring done\n-- Generating done\n-- Build files have been written to: /home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/sheikha-sdp/v1/provisioning/clang-cmake-ninja-bnb5bh6p/build\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "cmake",
+        "--build",
+        "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/sheikha-sdp/v1/provisioning/clang-cmake-ninja-bnb5bh6p/build"
+      ],
+      "exit_code": 0,
+      "stdout": "[1/2] Building C object CMakeFiles/sheikha-check.dir/program.c.o\n[2/2] Linking C executable sheikha-check\n",
+      "stderr": ""
+    },
+    {
+      "command": [
+        "/home/sheikha/Projects/sheikha/sheikha-main-portal/runtime/sheikha-sdp/v1/provisioning/clang-cmake-ninja-bnb5bh6p/build/sheikha-check"
+      ],
+      "exit_code": 0,
+      "stdout": "\"SHEIKHA_PROJECT_LOCAL_OK\"\n",
+      "stderr": ""
+    }
+  ],
+  "output_matches_previous_vm": true,
+  "source_sha256": "70af0f4d61873277f7287fd3b0b68302f2c46f7fee1f7cc39b8916825f1b4065",
+  "binary_sha256": "cc79d3f2880187083246d266b71e443aa00c72ba00290b4182a718b610c70f7e",
+  "haproxy_observation": {
+    "active": true,
+    "backend_8080_health_http": 200,
+    "cause_of_prior_alerts": "NOT_ESTABLISHED"
+  },
+  "baremetal": false,
+  "production_ready": false
+}

@@ -1,0 +1,856 @@
+TAP version 13
+# Subtest: digital passports, architecture, gates, evidence and failure recovery work on desktop and mobile without mutations
+ok 1 - digital passports, architecture, gates, evidence and failure recovery work on desktop and mobile without mutations
+  ---
+  duration_ms: 5173.25107
+  type: 'test'
+  ...
+# Subtest: digitization is bounded, deterministic, redacted and read-only with no inherited authority
+ok 2 - digitization is bounded, deterministic, redacted and read-only with no inherited authority
+  ---
+  duration_ms: 13.145422
+  type: 'test'
+  ...
+# Subtest: duplicate attachments are counted by bytes, and source mismatch is never ownership proof
+ok 3 - duplicate attachments are counted by bytes, and source mismatch is never ownership proof
+  ---
+  duration_ms: 5.133942
+  type: 'test'
+  ...
+# Subtest: package hash checks and declared hold do not accept incomplete or self-approved declarations
+ok 4 - package hash checks and declared hold do not accept incomplete or self-approved declarations
+  ---
+  duration_ms: 9.680425
+  type: 'test'
+  ...
+# Subtest: source reader refuses oversized, linked, special and symlinked files without traversing directories
+ok 5 - source reader refuses oversized, linked, special and symlinked files without traversing directories
+  ---
+  duration_ms: 11.644062
+  type: 'test'
+  ...
+# Subtest: source configuration is server-only and rejects unknown or relative overrides
+ok 6 - source configuration is server-only and rejects unknown or relative overrides
+  ---
+  duration_ms: 0.456585
+  type: 'test'
+  ...
+# Subtest: changes during source reads are rejected rather than recorded as a stable observation
+ok 7 - changes during source reads are rejected rather than recorded as a stable observation
+  ---
+  duration_ms: 2.249092
+  type: 'test'
+  ...
+# Subtest: explicit snapshots are private, content addressed, idempotent and reject changed records
+ok 8 - explicit snapshots are private, content addressed, idempotent and reject changed records
+  ---
+  duration_ms: 14.251995
+  type: 'test'
+  ...
+# Subtest: snapshot locks and bounded capacity never delete existing records or grant production
+ok 9 - snapshot locks and bounded capacity never delete existing records or grant production
+  ---
+  duration_ms: 6.915711
+  type: 'test'
+  ...
+# Subtest: architecture references only declared passports and assigns no people or executable routes
+ok 10 - architecture references only declared passports and assigns no people or executable routes
+  ---
+  duration_ms: 2.375954
+  type: 'test'
+  ...
+# Subtest: asset HTTP report uses exact local gates and exposes no execute, upload, save or caller-selected path
+ok 11 - asset HTTP report uses exact local gates and exposes no execute, upload, save or caller-selected path
+  ---
+  duration_ms: 72.651719
+  type: 'test'
+  ...
+# Subtest: plan covers each capability and gate with stable IDs, acceptance criteria and evidence requirements
+ok 12 - plan covers each capability and gate with stable IDs, acceptance criteria and evidence requirements
+  ---
+  duration_ms: 9.758345
+  type: 'test'
+  ...
+# Subtest: proposed requirement graph is acyclic, resolves every dependency, and retains all authorization gates
+ok 13 - proposed requirement graph is acyclic, resolves every dependency, and retains all authorization gates
+  ---
+  duration_ms: 2.979406
+  type: 'test'
+  ...
+# Subtest: missing, refused, malformed, unhashable or changed sources fail only their local checks without granting readiness
+ok 14 - missing, refused, malformed, unhashable or changed sources fail only their local checks without granting readiness
+  ---
+  duration_ms: 5.238186
+  type: 'test'
+  ...
+# Subtest: package inconsistency takes priority over ordinary next steps and no manifest claim satisfies acceptance
+ok 15 - package inconsistency takes priority over ordinary next steps and no manifest claim satisfies acceptance
+  ---
+  duration_ms: 3.790589
+  type: 'test'
+  ...
+# Subtest: catalog drift fails closed rather than silently omitting a new asset capability
+ok 16 - catalog drift fails closed rather than silently omitting a new asset capability
+  ---
+  duration_ms: 2.591932
+  type: 'test'
+  ...
+# Subtest: dossier hashes and private snapshots include the plan while preserving historical snapshots
+ok 17 - dossier hashes and private snapshots include the plan while preserving historical snapshots
+  ---
+  duration_ms: 18.534369
+  type: 'test'
+  ...
+# Subtest: activation, client identity and approval assertions cannot expand the federation policy
+ok 18 - activation, client identity and approval assertions cannot expand the federation policy
+  ---
+  duration_ms: 2.978381
+  type: 'test'
+  ...
+# Subtest: malformed limits, disabled audit and widened deny rules fail closed
+ok 19 - malformed limits, disabled audit and widened deny rules fail closed
+  ---
+  duration_ms: 0.709337
+  type: 'test'
+  ...
+# Subtest: resources and tools share a per-process rate limit and resource audit is accurate
+ok 20 - resources and tools share a per-process rate limit and resource audit is accurate
+  ---
+  duration_ms: 5.502833
+  type: 'test'
+  ...
+# Subtest: asynchronous audit failure blocks tools and resources
+ok 21 - asynchronous audit failure blocks tools and resources
+  ---
+  duration_ms: 0.376098
+  type: 'test'
+  ...
+# Subtest: parse JSON before redaction so embedded bearer strings cannot disable nested secret filtering
+ok 22 - parse JSON before redaction so embedded bearer strings cannot disable nested secret filtering
+  ---
+  duration_ms: 0.759907
+  type: 'test'
+  ...
+# Subtest: unavailable shared policy closes dispatch, catalogs and resources without exceptions or execution
+ok 23 - unavailable shared policy closes dispatch, catalogs and resources without exceptions or execution
+  ---
+  duration_ms: 1.215111
+  type: 'test'
+  ...
+# Subtest: project bindings agree and drift checker rejects duplicate local aliases and broader command configurations
+ok 24 - project bindings agree and drift checker rejects duplicate local aliases and broader command configurations
+  ---
+  duration_ms: 0.826213
+  type: 'test'
+  ...
+# Subtest: repeatable bridge probe verifies local handshake without claiming app reload or cloud connection
+ok 25 - repeatable bridge probe verifies local handshake without claiming app reload or cloud connection
+  ---
+  duration_ms: 180.621471
+  type: 'test'
+  ...
+# Subtest: real ChatGPT-labelled and Codex-labelled local clients see identical policy and cannot inherit permissions
+ok 26 - real ChatGPT-labelled and Codex-labelled local clients see identical policy and cannot inherit permissions
+  ---
+  duration_ms: 346.723514
+  type: 'test'
+  ...
+# Subtest: real federation evidence is redacted in both tool/resource paths and bounded files fail closed
+ok 27 - real federation evidence is redacted in both tool/resource paths and bounded files fail closed
+  ---
+  duration_ms: 160.907173
+  type: 'test'
+  ...
+# Subtest: archive survives restart with review and export but no live run, on desktop and narrow mobile
+ok 28 - archive survives restart with review and export but no live run, on desktop and narrow mobile
+  ---
+  duration_ms: 4182.772833
+  type: 'test'
+  ...
+# Subtest: archive is lazy, private, idempotent, durable across instances and strictly review-only
+ok 29 - archive is lazy, private, idempotent, durable across instances and strictly review-only
+  ---
+  duration_ms: 15.259462
+  type: 'test'
+  ...
+# Subtest: each saved revision and generation remains independent after reset
+ok 30 - each saved revision and generation remains independent after reset
+  ---
+  duration_ms: 17.023648
+  type: 'test'
+  ...
+# Subtest: strict inputs reject traversal, unknown fields, physical claims and oversize snapshots
+ok 31 - strict inputs reject traversal, unknown fields, physical claims and oversize snapshots
+  ---
+  duration_ms: 5.274674
+  type: 'test'
+  ...
+# Subtest: corrupt, hash-mismatched and changed-policy files fail closed without replacement
+ok 32 - corrupt, hash-mismatched and changed-policy files fail closed without replacement
+  ---
+  duration_ms: 6.669877
+  type: 'test'
+  ...
+# Subtest: symlinks, linked files, permissive files, special files and huge files are rejected
+ok 33 - symlinks, linked files, permissive files, special files and huge files are rejected
+  ---
+  duration_ms: 6.671732
+  type: 'test'
+  ...
+# Subtest: unsafe roots, symlink ancestors and an occupied writer lock do not get repaired implicitly
+ok 34 - unsafe roots, symlink ancestors and an occupied writer lock do not get repaired implicitly
+  ---
+  duration_ms: 1.698447
+  type: 'test'
+  ...
+# Subtest: record and scan limits refuse growth without deleting records; retries still succeed at capacity
+ok 35 - record and scan limits refuse growth without deleting records; retries still succeed at capacity
+  ---
+  duration_ms: 275.713105
+  type: 'test'
+  ...
+# Subtest: largest completed federation fits a bounded archive record
+ok 36 - largest completed federation fits a bounded archive record
+  ---
+  duration_ms: 14.564299
+  type: 'test'
+  ...
+# Subtest: failed disk writes leave no published record or lock and do not advance the simulation
+ok 37 - failed disk writes leave no published record or lock and do not advance the simulation
+  ---
+  duration_ms: 4.673779
+  type: 'test'
+  ...
+# Subtest: HTTP archive is session-gated, revision-checked, read-only after restart and never served as static files
+ok 38 - HTTP archive is session-gated, revision-checked, read-only after restart and never served as static files
+  ---
+  duration_ms: 91.182701
+  type: 'test'
+  ...
+# Subtest: archived comparisons render neutral full/partial reports, export, preserve drafts and recover on desktop/mobile
+ok 39 - archived comparisons render neutral full/partial reports, export, preserve drafts and recover on desktop/mobile
+  ---
+  duration_ms: 4692.402691
+  type: 'test'
+  ...
+# Subtest: completed snapshots produce deterministic neutral deltas without writes, inherited approval or live execution
+ok 40 - completed snapshots produce deterministic neutral deltas without writes, inherited approval or live execution
+  ---
+  duration_ms: 38.275281
+  type: 'test'
+  ...
+# Subtest: new, running, paused, stopped and reset snapshots remain explicitly partial
+ok 41 - new, running, paused, stopped and reset snapshots remain explicitly partial
+  ---
+  duration_ms: 32.959341
+  type: 'test'
+  ...
+# Subtest: faults and step-budget exhaustion are counted without treating fewer outputs as efficiency
+ok 42 - faults and step-budget exhaustion are counted without treating fewer outputs as efficiency
+  ---
+  duration_ms: 26.830051
+  type: 'test'
+  ...
+# Subtest: an incomplete original cannot become a completed comparison just because the child finishes
+ok 43 - an incomplete original cannot become a completed comparison just because the child finishes
+  ---
+  duration_ms: 16.147257
+  type: 'test'
+  ...
+# Subtest: missing, corrupt or mismatched original evidence fails closed, while the child archive stays readable
+ok 44 - missing, corrupt or mismatched original evidence fails closed, while the child archive stays readable
+  ---
+  duration_ms: 30.468717
+  type: 'test'
+  ...
+# Subtest: the comparison rejects invalid topology, duplicate or forged artifacts and inconsistent completion evidence
+ok 45 - the comparison rejects invalid topology, duplicate or forged artifacts and inconsistent completion evidence
+  ---
+  duration_ms: 89.537036
+  type: 'test'
+  ...
+# Subtest: maximum valid topology and already-emitted outputs remain countable after a partial stop
+ok 46 - maximum valid topology and already-emitted outputs remain countable after a partial stop
+  ---
+  duration_ms: 29.020386
+  type: 'test'
+  ...
+# Subtest: read-only comparison HTTP route enforces gates, redacts failures and is reproducible after restart
+ok 47 - read-only comparison HTTP route enforces gates, redacts failures and is reproducible after restart
+  ---
+  duration_ms: 77.376172
+  type: 'test'
+  ...
+# Subtest: federation controls, cultivation, latches, stale-state recovery and export work on desktop and mobile
+ok 48 - federation controls, cultivation, latches, stale-state recovery and export work on desktop and mobile
+  ---
+  duration_ms: 11678.720593
+  type: 'test'
+  ...
+# Subtest: federation creates a finite hierarchy without execution at construction or read
+ok 49 - federation creates a finite hierarchy without execution at construction or read
+  ---
+  duration_ms: 2.796704
+  type: 'test'
+  ...
+# Subtest: existing network completes foundries before lines and emits unique review-only artifacts
+ok 50 - existing network completes foundries before lines and emits unique review-only artifacts
+  ---
+  duration_ms: 4.14156
+  type: 'test'
+  ...
+# Subtest: symbolic cultivation reuses all eight stages without granting real harvest or propagation
+ok 51 - symbolic cultivation reuses all eight stages without granting real harvest or propagation
+  ---
+  duration_ms: 3.301208
+  type: 'test'
+  ...
+# Subtest: fault in one farm blocks its cluster while another completes; budget prevents endless progress
+ok 52 - fault in one farm blocks its cluster while another completes; budget prevents endless progress
+  ---
+  duration_ms: 11.789705
+  type: 'test'
+  ...
+# Subtest: network faults work after source cells complete and are latched until reset
+ok 53 - network faults work after source cells complete and are latched until reset
+  ---
+  duration_ms: 10.465622
+  type: 'test'
+  ...
+# Subtest: pause, optimistic revisions, stop latch and generation reset preserve deterministic states
+ok 54 - pause, optimistic revisions, stop latch and generation reset preserve deterministic states
+  ---
+  duration_ms: 5.502469
+  type: 'test'
+  ...
+# Subtest: strict shape and bounds reject approval, endpoint, unlimited replication and research execution inputs
+ok 55 - strict shape and bounds reject approval, endpoint, unlimited replication and research execution inputs
+  ---
+  duration_ms: 3.486198
+  type: 'test'
+  ...
+# Subtest: maximal federation is bounded and snapshots cannot mutate the engine
+ok 56 - maximal federation is bounded and snapshots cannot mutate the engine
+  ---
+  duration_ms: 8.83511
+  type: 'test'
+  ...
+# Subtest: store expires active runs, caps memory and supports revision-checked discard
+ok 57 - store expires active runs, caps memory and supports revision-checked discard
+  ---
+  duration_ms: 2.944797
+  type: 'test'
+  ...
+# Subtest: HTTP simulations inherit local gates, expose no unauthenticated run and reject stale writers
+ok 58 - HTTP simulations inherit local gates, expose no unauthenticated run and reject stale writers
+  ---
+  duration_ms: 72.780792
+  type: 'test'
+  ...
+# Subtest: derived experiment UI preserves lineage and drafts, resolves conflicts and lost replies on desktop/mobile
+ok 59 - derived experiment UI preserves lineage and drafts, resolves conflicts and lost replies on desktop/mobile
+  ---
+  duration_ms: 4847.385638
+  type: 'test'
+  ...
+# Subtest: derived run is fresh, preserves source evidence, and cannot inherit review or production approval
+ok 60 - derived run is fresh, preserves source evidence, and cannot inherit review or production approval
+  ---
+  duration_ms: 32.462821
+  type: 'test'
+  ...
+# Subtest: source revision and chain head must match; only latest still-open change requests are selectable
+ok 61 - source revision and chain head must match; only latest still-open change requests are selectable
+  ---
+  duration_ms: 43.377858
+  type: 'test'
+  ...
+# Subtest: strict inputs reject unbounded changes, sector swaps, unchanged counts, forged evidence and extra permissions
+ok 62 - strict inputs reject unbounded changes, sector swaps, unchanged counts, forged evidence and extra permissions
+  ---
+  duration_ms: 18.915051
+  type: 'test'
+  ...
+# Subtest: same-process retries recover exactly one child and never recreate expired or discarded runs
+ok 63 - same-process retries recover exactly one child and never recreate expired or discarded runs
+  ---
+  duration_ms: 28.356223
+  type: 'test'
+  ...
+# Subtest: process dedup quota is bounded without eviction, and failed run capacity does not consume a request
+ok 64 - process dedup quota is bounded without eviction, and failed run capacity does not consume a request
+  ---
+  duration_ms: 105.832038
+  type: 'test'
+  ...
+# Subtest: largest derived archive fits the existing quota, remains immutable and starts a separate review journal
+ok 65 - largest derived archive fits the existing quota, remains immutable and starts a separate review journal
+  ---
+  duration_ms: 77.435595
+  type: 'test'
+  ...
+# Subtest: invalid persisted source evidence prevents new experiments, without rewriting the archive or journal
+ok 66 - invalid persisted source evidence prevents new experiments, without rewriting the archive or journal
+  ---
+  duration_ms: 12.18007
+  type: 'test'
+  ...
+# Subtest: derivation holds the review writer lock and never bypasses an occupied or stale lock
+ok 67 - derivation holds the review writer lock and never bypasses an occupied or stale lock
+  ---
+  duration_ms: 13.937586
+  type: 'test'
+  ...
+# Subtest: derive and recovery HTTP routes enforce session/origin and do not restart runs after process recreation
+ok 68 - derive and recovery HTTP routes enforce session/origin and do not restart runs after process recreation
+  ---
+  duration_ms: 93.007266
+  type: 'test'
+  ...
+# Subtest: lineage filtering, snapshot grouping, draft guards, export and loss recovery work on desktop and mobile
+ok 69 - lineage filtering, snapshot grouping, draft guards, export and loss recovery work on desktop and mobile
+  ---
+  duration_ms: 4057.76824
+  type: 'test'
+  ...
+# Subtest: empty lineage reads create no archive or review directories
+ok 70 - empty lineage reads create no archive or review directories
+  ---
+  duration_ms: 2.136835
+  type: 'test'
+  ...
+# Subtest: branching lineage groups saves and reset generations as one experiment and remains read-only across restart
+ok 71 - branching lineage groups saves and reset generations as one experiment and remains read-only across restart
+  ---
+  duration_ms: 59.056556
+  type: 'test'
+  ...
+# Subtest: missing or corrupt ancestors produce incomplete families without losing readable descendants
+ok 72 - missing or corrupt ancestors produce incomplete families without losing readable descendants
+  ---
+  duration_ms: 22.587475
+  type: 'test'
+  ...
+# Subtest: source identity, revision, generation and configuration mismatches are not linked
+ok 73 - source identity, revision, generation and configuration mismatches are not linked
+  ---
+  duration_ms: 31.093966
+  type: 'test'
+  ...
+# Subtest: conflicting saves cannot choose an authoritative lineage or lend authority to descendants
+ok 74 - conflicting saves cannot choose an authoritative lineage or lend authority to descendants
+  ---
+  duration_ms: 66.033223
+  type: 'test'
+  ...
+# Subtest: bounded graph traversal rejects cycles and handles a 100-record chain without recursion
+ok 75 - bounded graph traversal rejects cycles and handles a 100-record chain without recursion
+  ---
+  duration_ms: 18.776658
+  type: 'test'
+  ...
+# Subtest: a file lost during a bounded read is omitted and unexpected adapter errors are not hidden
+ok 76 - a file lost during a bounded read is omitted and unexpected adapter errors are not hidden
+  ---
+  duration_ms: 10.899021
+  type: 'test'
+  ...
+# Subtest: lineage HTTP is authenticated read-only, bounded and stable after restart
+ok 77 - lineage HTTP is authenticated read-only, bounded and stable after restart
+  ---
+  duration_ms: 70.756401
+  type: 'test'
+  ...
+# Subtest: dependency graph completes seven cells without physical commands
+ok 78 - dependency graph completes seven cells without physical commands
+  ---
+  duration_ms: 0.904022
+  type: 'test'
+  ...
+# Subtest: fault prevents downstream completion and reviewed recovery permits progress
+ok 79 - fault prevents downstream completion and reviewed recovery permits progress
+  ---
+  duration_ms: 0.509264
+  type: 'test'
+  ...
+# Subtest: emergency stop freezes progress and denies recovery until reset
+ok 80 - emergency stop freezes progress and denies recovery until reset
+  ---
+  duration_ms: 0.621936
+  type: 'test'
+  ...
+# Subtest: language admits fixed network only and fails without trusted handler
+ok 81 - language admits fixed network only and fails without trusted handler
+  ---
+  duration_ms: 2.490755
+  type: 'test'
+  ...
+# Subtest: industrial planning works on desktop and mobile with downloads, research boundaries and failure recovery
+ok 82 - industrial planning works on desktop and mobile with downloads, research boundaries and failure recovery
+  ---
+  duration_ms: 4724.620358
+  type: 'test'
+  ...
+# Subtest: catalog covers five structures and twelve distinct conceptual sectors with explicit evidence limits
+ok 83 - catalog covers five structures and twelve distinct conceptual sectors with explicit evidence limits
+  ---
+  duration_ms: 0.786191
+  type: 'test'
+  ...
+# Subtest: every compatible structure and sector produces an unapproved plan with ordered dependencies
+ok 84 - every compatible structure and sector produces an unapproved plan with ordered dependencies
+  ---
+  duration_ms: 3.094676
+  type: 'test'
+  ...
+# Subtest: targets are bounded arithmetic goals, never a delivery forecast or measured capacity
+ok 85 - targets are bounded arithmetic goals, never a delivery forecast or measured capacity
+  ---
+  duration_ms: 0.334224
+  type: 'test'
+  ...
+# Subtest: research horizon overrides any sector workflow with research-only stages and output
+ok 86 - research horizon overrides any sector workflow with research-only stages and output
+  ---
+  duration_ms: 0.75978
+  type: 'test'
+  ...
+# Subtest: unknown fields, incompatible types, approval flags and executable endpoints cannot enter plans
+ok 87 - unknown fields, incompatible types, approval flags and executable endpoints cannot enter plans
+  ---
+  duration_ms: 0.363295
+  type: 'test'
+  ...
+# Subtest: numeric inputs reject nonfinite, coercible, fractional and oversized values
+ok 88 - numeric inputs reject nonfinite, coercible, fractional and oversized values
+  ---
+  duration_ms: 0.341066
+  type: 'test'
+  ...
+# Subtest: returned plans and catalogs do not mutate shared registry or other plans
+ok 89 - returned plans and catalogs do not mutate shared registry or other plans
+  ---
+  duration_ms: 0.315021
+  type: 'test'
+  ...
+# Subtest: local HTTP routes use existing host, origin, session and bounded-input gates
+ok 90 - local HTTP routes use existing host, origin, session and bounded-input gates
+  ---
+  duration_ms: 74.611474
+  type: 'test'
+  ...
+# Subtest: review workflow handles conflicts, lost responses, restart and export on desktop and mobile
+ok 91 - review workflow handles conflicts, lost responses, restart and export on desktop and mobile
+  ---
+  duration_ms: 4087.741858
+  type: 'test'
+  ...
+# Subtest: review starts lazily, stays separate from immutable archive, and restores after service recreation
+ok 92 - review starts lazily, stays separate from immutable archive, and restores after service recreation
+  ---
+  duration_ms: 13.234244
+  type: 'test'
+  ...
+# Subtest: artifact review decisions, comments and reopening never approve production or other targets
+ok 93 - artifact review decisions, comments and reopening never approve production or other targets
+  ---
+  duration_ms: 16.715513
+  type: 'test'
+  ...
+# Subtest: revision checks and stable request identifiers avoid lost updates and duplicate comments
+ok 94 - revision checks and stable request identifiers avoid lost updates and duplicate comments
+  ---
+  duration_ms: 11.296761
+  type: 'test'
+  ...
+# Subtest: invalid targets, input shape, notes and approval claims cannot enter the review journal
+ok 95 - invalid targets, input shape, notes and approval claims cannot enter the review journal
+  ---
+  duration_ms: 6.585563
+  type: 'test'
+  ...
+# Subtest: corrupt chains and policy changes fail closed without rewriting the journal
+ok 96 - corrupt chains and policy changes fail closed without rewriting the journal
+  ---
+  duration_ms: 13.437453
+  type: 'test'
+  ...
+# Subtest: untrusted filesystem objects and a corrupted source archive prevent review reads and writes
+ok 97 - untrusted filesystem objects and a corrupted source archive prevent review reads and writes
+  ---
+  duration_ms: 8.509923
+  type: 'test'
+  ...
+# Subtest: failed disk writes preserve previous history and release the lock
+ok 98 - failed disk writes preserve previous history and release the lock
+  ---
+  duration_ms: 9.751155
+  type: 'test'
+  ...
+# Subtest: journal limit preserves all events and still permits an exact retry at capacity
+ok 99 - journal limit preserves all events and still permits an exact retry at capacity
+  ---
+  duration_ms: 271.094944
+  type: 'test'
+  ...
+# Subtest: no review or approval is inherited by a different saved revision or generation
+ok 100 - no review or approval is inherited by a different saved revision or generation
+  ---
+  duration_ms: 9.465157
+  type: 'test'
+  ...
+# Subtest: HTTP review routes require session and origin, reject stale requests and survive a server restart
+ok 101 - HTTP review routes require session and origin, reject stale requests and survive a server restart
+  ---
+  duration_ms: 74.900223
+  type: 'test'
+  ...
+# Subtest: MCP discovers and processes local natural data with SDK parity and rejects scope expansion
+ok 102 - MCP discovers and processes local natural data with SDK parity and rejects scope expansion
+  ---
+  duration_ms: 173.020755
+  type: 'test'
+  ...
+# Subtest: registers Sheikha-owned assets only with provenance
+ok 103 - registers Sheikha-owned assets only with provenance
+  ---
+  duration_ms: 1.728732
+  type: 'test'
+  ...
+# Subtest: does not convert installed third-party tools into owned assets
+ok 104 - does not convert installed third-party tools into owned assets
+  ---
+  duration_ms: 0.198308
+  type: 'test'
+  ...
+# Subtest: issues an explicit active internal license
+ok 105 - issues an explicit active internal license
+  ---
+  duration_ms: 0.337511
+  type: 'test'
+  ...
+# Subtest: requires evidence for LICENSED and AUTHORIZED integrations
+ok 106 - requires evidence for LICENSED and AUTHORIZED integrations
+  ---
+  duration_ms: 0.417426
+  type: 'test'
+  ...
+# Subtest: activates the local portal foundation without false production claims
+ok 107 - activates the local portal foundation without false production claims
+  ---
+  duration_ms: 1.71379
+  type: 'test'
+  ...
+# Subtest: unknown and mutation tools cannot execute even with client approval
+ok 108 - unknown and mutation tools cannot execute even with client approval
+  ---
+  duration_ms: 1.777742
+  type: 'test'
+  ...
+# Subtest: read result strips nested credentials and audit contains no input
+ok 109 - read result strips nested credentials and audit contains no input
+  ---
+  duration_ms: 0.683869
+  type: 'test'
+  ...
+# Subtest: request bounds and rate limit prevent execution
+ok 110 - request bounds and rate limit prevent execution
+  ---
+  duration_ms: 8.461488
+  type: 'test'
+  ...
+# Subtest: identity and approval headers cannot replace a scoped key
+ok 111 - identity and approval headers cannot replace a scoped key
+  ---
+  duration_ms: 0.284558
+  type: 'test'
+  ...
+# Subtest: catalog only exposes admitted read tools with annotations
+ok 112 - catalog only exposes admitted read tools with annotations
+  ---
+  duration_ms: 0.204809
+  type: 'test'
+  ...
+# Subtest: audit failure blocks dispatch
+ok 113 - audit failure blocks dispatch
+  ---
+  duration_ms: 0.188748
+  type: 'test'
+  ...
+# Subtest: resource response JSON is redacted and private resources are not admitted
+ok 114 - resource response JSON is redacted and private resources are not admitted
+  ---
+  duration_ms: 0.269771
+  type: 'test'
+  ...
+# Subtest: real MCP dispatch and catalog use governance before tool execution
+ok 115 - real MCP dispatch and catalog use governance before tool execution
+  ---
+  duration_ms: 5.421769
+  type: 'test'
+  ...
+# Subtest: standalone SDK HTTP handler rejects forged identity and accepts scoped key
+ok 116 - standalone SDK HTTP handler rejects forged identity and accepts scoped key
+  ---
+  duration_ms: 1.457982
+  type: 'test'
+  ...
+# Subtest: SDK entrypoint uses exactly the observatory core and produces both languages
+ok 117 - SDK entrypoint uses exactly the observatory core and produces both languages
+  ---
+  duration_ms: 13.345975
+  type: 'test'
+  ...
+# Subtest: SDK denies authority, URLs, file paths, secrets, origin and caller clock overrides
+ok 118 - SDK denies authority, URLs, file paths, secrets, origin and caller clock overrides
+  ---
+  duration_ms: 0.500203
+  type: 'test'
+  ...
+# Subtest: direct SDK objects cannot invoke getters or serialization hooks
+ok 119 - direct SDK objects cannot invoke getters or serialization hooks
+  ---
+  duration_ms: 0.281476
+  type: 'test'
+  ...
+# Subtest: bounds arrays and validates source, tenant, sequence, units and time through the core
+ok 120 - bounds arrays and validates source, tenant, sequence, units and time through the core
+  ---
+  duration_ms: 0.852979
+  type: 'test'
+  ...
+# Subtest: quality and unknown uncertainty cannot become a normal reference assessment
+ok 121 - quality and unknown uncertainty cannot become a normal reference assessment
+  ---
+  duration_ms: 0.968956
+  type: 'test'
+  ...
+# Subtest: requests are stateless, defensively copied and disclose replay boundary
+ok 122 - requests are stateless, defensively copied and disclose replay boundary
+  ---
+  duration_ms: 1.014124
+  type: 'test'
+  ...
+# Subtest: input schema is bounded and detached; metadata cannot enable network or actuation
+ok 123 - input schema is bounded and detached; metadata cannot enable network or actuation
+  ---
+  duration_ms: 0.269493
+  type: 'test'
+  ...
+# Subtest: interpretation performs no file, process or network I/O after module initialization
+ok 124 - interpretation performs no file, process or network I/O after module initialization
+  ---
+  duration_ms: 1.981349
+  type: 'test'
+  ...
+# Subtest: real local MCP handshake, tool call, Arabic/English parity and denials
+ok 125 - real local MCP handshake, tool call, Arabic/English parity and denials
+  ---
+  duration_ms: 167.471736
+  type: 'test'
+  ...
+# Subtest: supplier lab supports filtering, pagination, linked records, scoped exports and failure recovery across desktop and mobile
+ok 126 - supplier lab supports filtering, pagination, linked records, scoped exports and failure recovery across desktop and mobile
+  ---
+  duration_ms: 5139.879031
+  type: 'test'
+  ...
+# Subtest: three contracts return bounded synthetic pages with independent requirement references and no production authority
+ok 127 - three contracts return bounded synthetic pages with independent requirement references and no production authority
+  ---
+  duration_ms: 1.790875
+  type: 'test'
+  ...
+# Subtest: stable pagination returns all records exactly once and empty pages have no synthetic completion claims
+ok 128 - stable pagination returns all records exactly once and empty pages have no synthetic completion claims
+  ---
+  duration_ms: 1.646707
+  type: 'test'
+  ...
+# Subtest: filters compose, supplier relationships and units are explicit, and documents have no private content or paths
+ok 129 - filters compose, supplier relationships and units are explicit, and documents have no private content or paths
+  ---
+  duration_ms: 0.711651
+  type: 'test'
+  ...
+# Subtest: query contract rejects coercion, duplicate keys, extra permissions and caller-selected paths
+ok 130 - query contract rejects coercion, duplicate keys, extra permissions and caller-selected paths
+  ---
+  duration_ms: 0.907715
+  type: 'test'
+  ...
+# Subtest: returned records and policies cannot mutate the fixture dataset, and reports are reproducible
+ok 131 - returned records and policies cannot mutate the fixture dataset, and reports are reproducible
+  ---
+  duration_ms: 0.37354
+  type: 'test'
+  ...
+# Subtest: HTTP contracts require exact host, origin and session and expose no mutation, content or arbitrary file routes
+ok 132 - HTTP contracts require exact host, origin and session and expose no mutation, content or arbitrary file routes
+  ---
+  duration_ms: 73.365555
+  type: 'test'
+  ...
+# Subtest: HTTP rejects raw duplicate and nested query keys without reflecting data, and handles empty and filtered lists
+ok 133 - HTTP rejects raw duplicate and nested query keys without reflecting data, and handles empty and filtered lists
+  ---
+  duration_ms: 11.446513
+  type: 'test'
+  ...
+# Subtest: live local contract checks emit scoped acceptance evidence for the prototype only
+ok 134 - live local contract checks emit scoped acceptance evidence for the prototype only
+  ---
+  duration_ms: 11.38697
+  type: 'test'
+  ...
+# Subtest: desktop and mobile workflows, real SDK/MCP, review gates and visual layout
+ok 135 - desktop and mobile workflows, real SDK/MCP, review gates and visual layout
+  ---
+  duration_ms: 7522.846064
+  type: 'test'
+  ...
+# Subtest: workspace serves scoped assets, evidence catalog and honest recorded state
+ok 136 - workspace serves scoped assets, evidence catalog and honest recorded state
+  ---
+  duration_ms: 67.040759
+  type: 'test'
+  ...
+# Subtest: exact host, origin, session and JSON gates reject unsolicited calls
+ok 137 - exact host, origin, session and JSON gates reject unsolicited calls
+  ---
+  duration_ms: 14.807291
+  type: 'test'
+  ...
+# Subtest: the broker has only three functions and no caller-selected URLs, paths or tools
+ok 138 - the broker has only three functions and no caller-selected URLs, paths or tools
+  ---
+  duration_ms: 146.881507
+  type: 'test'
+  ...
+# Subtest: all three SDK and real MCP round trips return evidence with production disabled
+ok 139 - all three SDK and real MCP round trips return evidence with production disabled
+  ---
+  duration_ms: 441.228441
+  type: 'test'
+  ...
+# Subtest: RFQ uses existing planning core, never sends or stores orders, and rejects oversized intent
+ok 140 - RFQ uses existing planning core, never sends or stores orders, and rejects oversized intent
+  ---
+  duration_ms: 13.388512
+  type: 'test'
+  ...
+# Subtest: body size and rate bounds are enforced with redacted errors
+ok 141 - body size and rate bounds are enforced with redacted errors
+  ---
+  duration_ms: 17.678309
+  type: 'test'
+  ...
+1..141
+# tests 141
+# suites 0
+# pass 141
+# fail 0
+# cancelled 0
+# skipped 0
+# todo 0
+# duration_ms 66790.49727

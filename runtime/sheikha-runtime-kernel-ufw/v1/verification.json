@@ -1,0 +1,80 @@
+{
+  "system": "SHEIKHA_RUNTIME_KERNEL_UFW_V1",
+  "status": "LOCAL_FOUNDATION_VERIFIED",
+  "source": "sheikha-language/foundations/sheikha-runtime-kernel-ufw-v1.shk",
+  "sourceSha256": "dd7bc0f130acc3ca87923002fc09cc5c4d12b5fc4b103ed3e4b73ba11f4118be",
+  "defaultDecision": "DENY",
+  "exception": "LOCAL_DIAGNOSTIC",
+  "runtime": {
+    "status": "LOCAL_RUNTIME_VERIFIED",
+    "hostRuntime": "Node.js",
+    "nativeRuntime": "DEVELOPMENT_VM_RUNTIME_VERIFIED"
+  },
+  "kernel": {
+    "status": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+    "artifactIntegrityVerified": true,
+    "buildId": "48cc4a2b39b796091091f6307f8229f1b70d0968f1765871ab017e0812bd07ae",
+    "evidenceFile": "runtime/sheikha-native-environment/v1/builds/48cc4a2b39b796091091f6307f8229f1b70d0968f1765871ab017e0812bd07ae/verification.json",
+    "bootExecutedThisSession": true,
+    "generalPurposeKernelReady": false,
+    "freshBootStatus": "LOCAL_VM_BOOT_VERIFIED",
+    "qemuExitCode": 33,
+    "guestContractCount": 18,
+    "networkEnabled": false
+  },
+  "ufw": {
+    "status": "LOCAL_POLICY_SIMULATION_VERIFIED",
+    "meaning": "PROVISIONAL_FIREWALL_POLICY",
+    "linuxUfwUsed": false,
+    "enforcementVerified": "UNKNOWN",
+    "nativePacketFilterVerified": "UNKNOWN",
+    "hostFirewallChanged": false
+  },
+  "productionReady": false,
+  "remoteDeploymentPerformed": false,
+  "policyChecks": [
+    {
+      "input": {
+        "direction": "egress",
+        "scope": "local",
+        "channel": "diagnostic"
+      },
+      "result": {
+        "decision": "ALLOW_LOCAL_SIMULATION",
+        "reason": "LANGUAGE_POLICY",
+        "mode": "POLICY_SIMULATION_ONLY",
+        "packetFiltered": false,
+        "hostFirewallChanged": false
+      }
+    },
+    {
+      "input": {
+        "direction": "ingress",
+        "scope": "network",
+        "channel": "telemetry"
+      },
+      "result": {
+        "decision": "DENY",
+        "reason": "LANGUAGE_POLICY",
+        "mode": "POLICY_SIMULATION_ONLY",
+        "packetFiltered": false,
+        "hostFirewallChanged": false
+      }
+    },
+    {
+      "input": {
+        "direction": "egress",
+        "scope": "network",
+        "channel": "actuation"
+      },
+      "result": {
+        "decision": "DENY",
+        "reason": "LANGUAGE_POLICY",
+        "mode": "POLICY_SIMULATION_ONLY",
+        "packetFiltered": false,
+        "hostFirewallChanged": false
+      }
+    }
+  ],
+  "verifiedAt": "2026-10-12T23:29:23.179Z"
+}

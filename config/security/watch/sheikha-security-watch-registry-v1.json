@@ -1,0 +1,48 @@
+{
+  "system": "SHEIKHA_SECURITY_WATCH_REGISTRY_V1",
+  "version": "1.0.0",
+  "mode": "DEFENSIVE_READ_ONLY_CANDIDATE_REPAIR",
+  "records": [
+    "SOURCE_EVENT",
+    "ASSET_COMPONENT",
+    "EXPOSURE_ASSESSMENT",
+    "REPAIR_CANDIDATE",
+    "EVIDENCE_RECEIPT"
+  ],
+  "sourceTrust": [
+    "VENDOR_STATUS",
+    "VENDOR_SECURITY_ADVISORY",
+    "CISA_KEV",
+    "NVD",
+    "GITHUB_SECURITY_ADVISORY",
+    "PACKAGE_REGISTRY_ADVISORY",
+    "MCP_VENDOR_OR_SPEC_ADVISORY"
+  ],
+  "exposureStates": [
+    "UNKNOWN",
+    "NOT_APPLICABLE",
+    "NOT_AFFECTED",
+    "POTENTIALLY_AFFECTED",
+    "AFFECTED_BY_VERSION_RANGE",
+    "EXPOSURE_CONFIRMED_BY_AUTHORIZED_EVIDENCE"
+  ],
+  "priorities": [
+    "P0_CRITICAL_CONFIRMED",
+    "P1_URGENT_INVESTIGATE",
+    "P2_HIGH",
+    "P3_MEDIUM",
+    "P4_LOW",
+    "INFO"
+  ],
+  "rules": {
+    "availabilityDoesNotEqualVulnerability": true,
+    "affectedDoesNotEqualCompromised": true,
+    "assetMatchRequiresComponentIdentity": true,
+    "versionRangeRequiredForAffectedByVersion": true,
+    "noActiveProbeByDefault": true,
+    "noExternalCredentialUse": true,
+    "noAutoPatch": true,
+    "noProductionMutation": true,
+    "evidenceReceiptsAppendOnly": true
+  }
+}

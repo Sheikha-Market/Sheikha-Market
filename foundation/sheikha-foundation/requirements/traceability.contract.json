@@ -1,0 +1,38 @@
+{
+  "schema": "SHEIKHA_REQUIREMENTS_TRACEABILITY_CONTRACT_V1",
+  "chain": [
+    "Need",
+    "Requirement",
+    "Architecture/Design",
+    "Implementation",
+    "Verification",
+    "Validation",
+    "Release"
+  ],
+  "requiredRelations": {
+    "needToRequirement": "derived-from-need",
+    "requirementToArchitecture": "allocated-to-architecture",
+    "requirementToDesign": "allocated-to-design",
+    "requirementToImplementation": "implemented-by",
+    "requirementToVerification": "verified-by",
+    "requirementToValidation": "validated-by",
+    "requirementToRelease": "released-in"
+  },
+  "rules": {
+    "bidirectionalTraceRequiredForCriticalRequirements": true,
+    "orphanCriticalRequirementAllowed": false,
+    "fabricatedTraceAllowed": false,
+    "missingVerificationOnCriticalRequirementAllowedAtRelease": false,
+    "missingValidationContextAllowedForIntendedUseClaim": false,
+    "traceTargetMustBeExplicit": true,
+    "traceEvidenceMayBeUnknownButMustNotBeInvented": true
+  },
+  "stopGates": [
+    "critical requirement without source",
+    "critical requirement without acceptance criteria",
+    "critical requirement without verification method",
+    "critical requirement without owner",
+    "critical requirement orphaned from architecture/design",
+    "critical requirement released without verification evidence"
+  ]
+}

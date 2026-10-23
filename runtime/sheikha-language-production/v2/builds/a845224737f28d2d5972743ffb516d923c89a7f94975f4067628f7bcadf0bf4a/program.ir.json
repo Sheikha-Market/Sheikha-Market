@@ -1,0 +1,3155 @@
+{
+  "type": "SheikhaIR",
+  "version": "0.2.0",
+  "meta": {
+    "nodes": 22
+  },
+  "steps": [
+    {
+      "op": "DIRECTIVE",
+      "name": "بسم_الله",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_BEGIN",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 11,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المصدر",
+      "value": "الكتاب_والسنة_الصحيحة",
+      "loc": {
+        "start": {
+          "line": 4,
+          "column": 3
+        },
+        "end": {
+          "line": 4,
+          "column": 32
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الدور",
+      "value": "قيم_غير_تنفيذية",
+      "loc": {
+        "start": {
+          "line": 5,
+          "column": 3
+        },
+        "end": {
+          "line": 5,
+          "column": 25
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "السلطة_البرمجية",
+      "value": "لا",
+      "loc": {
+        "start": {
+          "line": 6,
+          "column": 3
+        },
+        "end": {
+          "line": 6,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "الفتوى_الآلية",
+      "value": "ممنوعة",
+      "loc": {
+        "start": {
+          "line": 7,
+          "column": 3
+        },
+        "end": {
+          "line": 7,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "المراجعة_الشرعية",
+      "value": "أهل_العلم_المؤهلون",
+      "loc": {
+        "start": {
+          "line": 8,
+          "column": 3
+        },
+        "end": {
+          "line": 8,
+          "column": 39
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_PROPERTY",
+      "declaration": "القيم",
+      "key": "التحقق_من_المصادر",
+      "value": "واجب",
+      "loc": {
+        "start": {
+          "line": 9,
+          "column": 3
+        },
+        "end": {
+          "line": 9,
+          "column": 26
+        }
+      }
+    },
+    {
+      "op": "VALUES_REFERENCE_END",
+      "name": "القيم",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 1
+        },
+        "end": {
+          "line": 11,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_BEGIN",
+      "name": "الانتاج_المحلي",
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "يوجب",
+      "value": "الصدق، العدل، الأمانة، الدليل",
+      "loc": {
+        "start": {
+          "line": 12,
+          "column": 3
+        },
+        "end": {
+          "line": 12,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "يمنع",
+      "value": "الضرر، الظلم، الغش، الخداع، الإكراه",
+      "loc": {
+        "start": {
+          "line": 13,
+          "column": 3
+        },
+        "end": {
+          "line": 13,
+          "column": 44
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "القرار_العالي_الأثر",
+      "value": "مراجعة_بشرية_ملزمة",
+      "loc": {
+        "start": {
+          "line": 14,
+          "column": 3
+        },
+        "end": {
+          "line": 14,
+          "column": 42
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "التنفيذ",
+      "value": "أقل_صلاحية_وموافقة_صريحة",
+      "loc": {
+        "start": {
+          "line": 15,
+          "column": 3
+        },
+        "end": {
+          "line": 15,
+          "column": 36
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "النطاق",
+      "value": "إنتاج_عقود_محلية",
+      "loc": {
+        "start": {
+          "line": 16,
+          "column": 3
+        },
+        "end": {
+          "line": 16,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "النشر",
+      "value": "ممنوع",
+      "loc": {
+        "start": {
+          "line": 17,
+          "column": 3
+        },
+        "end": {
+          "line": 17,
+          "column": 15
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "كتابة_الأجهزة",
+      "value": "ممنوعة",
+      "loc": {
+        "start": {
+          "line": 18,
+          "column": 3
+        },
+        "end": {
+          "line": 18,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_PROPERTY",
+      "declaration": "الانتاج_المحلي",
+      "key": "أسرار_المالك",
+      "value": "غير_مدرجة",
+      "loc": {
+        "start": {
+          "line": 19,
+          "column": 3
+        },
+        "end": {
+          "line": 19,
+          "column": 26
+        }
+      }
+    },
+    {
+      "op": "GOVERNANCE_POLICY_END",
+      "name": "الانتاج_المحلي",
+      "loc": {
+        "start": {
+          "line": 11,
+          "column": 1
+        },
+        "end": {
+          "line": 21,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_UTF",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_UTF",
+      "key": "المعرف",
+      "value": "utf",
+      "loc": {
+        "start": {
+          "line": 22,
+          "column": 3
+        },
+        "end": {
+          "line": 22,
+          "column": 14
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_UTF",
+      "key": "المسؤولية",
+      "value": "النص_والترميز",
+      "loc": {
+        "start": {
+          "line": 23,
+          "column": 3
+        },
+        "end": {
+          "line": 23,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_UTF",
+      "key": "التبعيات",
+      "value": "لا_شيء",
+      "loc": {
+        "start": {
+          "line": 24,
+          "column": 3
+        },
+        "end": {
+          "line": 24,
+          "column": 19
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_UTF",
+      "key": "الحد",
+      "value": "ربط_الاسم_مؤقت",
+      "loc": {
+        "start": {
+          "line": 25,
+          "column": 3
+        },
+        "end": {
+          "line": 25,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_UTF",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 26,
+          "column": 3
+        },
+        "end": {
+          "line": 26,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_UTF",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 27,
+          "column": 3
+        },
+        "end": {
+          "line": 27,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_UTF",
+      "loc": {
+        "start": {
+          "line": 21,
+          "column": 1
+        },
+        "end": {
+          "line": 29,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "لغة_شيخة",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 1
+        },
+        "end": {
+          "line": 37,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "لغة_شيخة",
+      "key": "المعرف",
+      "value": "language",
+      "loc": {
+        "start": {
+          "line": 30,
+          "column": 3
+        },
+        "end": {
+          "line": 30,
+          "column": 19
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "لغة_شيخة",
+      "key": "المسؤولية",
+      "value": "التحليل_والترجمة_والتنفيذ",
+      "loc": {
+        "start": {
+          "line": 31,
+          "column": 3
+        },
+        "end": {
+          "line": 31,
+          "column": 39
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "لغة_شيخة",
+      "key": "التبعيات",
+      "value": "utf",
+      "loc": {
+        "start": {
+          "line": 32,
+          "column": 3
+        },
+        "end": {
+          "line": 32,
+          "column": 16
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "لغة_شيخة",
+      "key": "الحد",
+      "value": "مترجم_مستضاف_على_Node",
+      "loc": {
+        "start": {
+          "line": 33,
+          "column": 3
+        },
+        "end": {
+          "line": 33,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "لغة_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 34,
+          "column": 3
+        },
+        "end": {
+          "line": 34,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "لغة_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 35,
+          "column": 3
+        },
+        "end": {
+          "line": 35,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "لغة_شيخة",
+      "loc": {
+        "start": {
+          "line": 29,
+          "column": 1
+        },
+        "end": {
+          "line": 37,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_Core",
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 1
+        },
+        "end": {
+          "line": 45,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Core",
+      "key": "المعرف",
+      "value": "core",
+      "loc": {
+        "start": {
+          "line": 38,
+          "column": 3
+        },
+        "end": {
+          "line": 38,
+          "column": 15
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Core",
+      "key": "المسؤولية",
+      "value": "العقود_والسجل",
+      "loc": {
+        "start": {
+          "line": 39,
+          "column": 3
+        },
+        "end": {
+          "line": 39,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Core",
+      "key": "التبعيات",
+      "value": "utf",
+      "loc": {
+        "start": {
+          "line": 40,
+          "column": 3
+        },
+        "end": {
+          "line": 40,
+          "column": 16
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Core",
+      "key": "الحد",
+      "value": "تركيب_عقود_محلي",
+      "loc": {
+        "start": {
+          "line": 41,
+          "column": 3
+        },
+        "end": {
+          "line": 41,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Core",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 42,
+          "column": 3
+        },
+        "end": {
+          "line": 42,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Core",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 43,
+          "column": 3
+        },
+        "end": {
+          "line": 43,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_Core",
+      "loc": {
+        "start": {
+          "line": 37,
+          "column": 1
+        },
+        "end": {
+          "line": 45,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "حوكمة_شيخة",
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 1
+        },
+        "end": {
+          "line": 53,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "حوكمة_شيخة",
+      "key": "المعرف",
+      "value": "governance",
+      "loc": {
+        "start": {
+          "line": 46,
+          "column": 3
+        },
+        "end": {
+          "line": 46,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "حوكمة_شيخة",
+      "key": "المسؤولية",
+      "value": "الصلاحيات_والمنع_والتدقيق",
+      "loc": {
+        "start": {
+          "line": 47,
+          "column": 3
+        },
+        "end": {
+          "line": 47,
+          "column": 39
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "حوكمة_شيخة",
+      "key": "التبعيات",
+      "value": "core",
+      "loc": {
+        "start": {
+          "line": 48,
+          "column": 3
+        },
+        "end": {
+          "line": 48,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "حوكمة_شيخة",
+      "key": "الحد",
+      "value": "حوكمة_محلية_لا_فتوى",
+      "loc": {
+        "start": {
+          "line": 49,
+          "column": 3
+        },
+        "end": {
+          "line": 49,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "حوكمة_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 50,
+          "column": 3
+        },
+        "end": {
+          "line": 50,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "حوكمة_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 51,
+          "column": 3
+        },
+        "end": {
+          "line": 51,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "حوكمة_شيخة",
+      "loc": {
+        "start": {
+          "line": 45,
+          "column": 1
+        },
+        "end": {
+          "line": 53,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "ملكية_شيخة",
+      "loc": {
+        "start": {
+          "line": 53,
+          "column": 1
+        },
+        "end": {
+          "line": 61,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "ملكية_شيخة",
+      "key": "المعرف",
+      "value": "ownership",
+      "loc": {
+        "start": {
+          "line": 54,
+          "column": 3
+        },
+        "end": {
+          "line": 54,
+          "column": 20
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "ملكية_شيخة",
+      "key": "المسؤولية",
+      "value": "سجل_الحقوق_والتراخيص",
+      "loc": {
+        "start": {
+          "line": 55,
+          "column": 3
+        },
+        "end": {
+          "line": 55,
+          "column": 34
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "ملكية_شيخة",
+      "key": "التبعيات",
+      "value": "governance",
+      "loc": {
+        "start": {
+          "line": 56,
+          "column": 3
+        },
+        "end": {
+          "line": 56,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "ملكية_شيخة",
+      "key": "الحد",
+      "value": "التحقق_القانوني_UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 57,
+          "column": 3
+        },
+        "end": {
+          "line": 57,
+          "column": 32
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "ملكية_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 58,
+          "column": 3
+        },
+        "end": {
+          "line": 58,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "ملكية_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 59,
+          "column": 3
+        },
+        "end": {
+          "line": 59,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "ملكية_شيخة",
+      "loc": {
+        "start": {
+          "line": 53,
+          "column": 1
+        },
+        "end": {
+          "line": 61,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_SDK",
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 1
+        },
+        "end": {
+          "line": 69,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_SDK",
+      "key": "المعرف",
+      "value": "sdk",
+      "loc": {
+        "start": {
+          "line": 62,
+          "column": 3
+        },
+        "end": {
+          "line": 62,
+          "column": 14
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_SDK",
+      "key": "المسؤولية",
+      "value": "واجهات_التطبيقات_واللغة",
+      "loc": {
+        "start": {
+          "line": 63,
+          "column": 3
+        },
+        "end": {
+          "line": 63,
+          "column": 37
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_SDK",
+      "key": "التبعيات",
+      "value": "language، governance",
+      "loc": {
+        "start": {
+          "line": 64,
+          "column": 3
+        },
+        "end": {
+          "line": 64,
+          "column": 32
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_SDK",
+      "key": "الحد",
+      "value": "تكامل_محلي_لا_حزمة_منشورة",
+      "loc": {
+        "start": {
+          "line": 65,
+          "column": 3
+        },
+        "end": {
+          "line": 65,
+          "column": 34
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_SDK",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 66,
+          "column": 3
+        },
+        "end": {
+          "line": 66,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_SDK",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 67,
+          "column": 3
+        },
+        "end": {
+          "line": 67,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_SDK",
+      "loc": {
+        "start": {
+          "line": 61,
+          "column": 1
+        },
+        "end": {
+          "line": 69,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_MCP",
+      "loc": {
+        "start": {
+          "line": 69,
+          "column": 1
+        },
+        "end": {
+          "line": 77,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_MCP",
+      "key": "المعرف",
+      "value": "mcp",
+      "loc": {
+        "start": {
+          "line": 70,
+          "column": 3
+        },
+        "end": {
+          "line": 70,
+          "column": 14
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_MCP",
+      "key": "المسؤولية",
+      "value": "أدوات_قراءة_محكومة",
+      "loc": {
+        "start": {
+          "line": 71,
+          "column": 3
+        },
+        "end": {
+          "line": 71,
+          "column": 32
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_MCP",
+      "key": "التبعيات",
+      "value": "sdk، governance",
+      "loc": {
+        "start": {
+          "line": 72,
+          "column": 3
+        },
+        "end": {
+          "line": 72,
+          "column": 27
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_MCP",
+      "key": "الحد",
+      "value": "لا_تشغيل_خادم_حي",
+      "loc": {
+        "start": {
+          "line": 73,
+          "column": 3
+        },
+        "end": {
+          "line": 73,
+          "column": 25
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_MCP",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 74,
+          "column": 3
+        },
+        "end": {
+          "line": 74,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_MCP",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 75,
+          "column": 3
+        },
+        "end": {
+          "line": 75,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_MCP",
+      "loc": {
+        "start": {
+          "line": 69,
+          "column": 1
+        },
+        "end": {
+          "line": 77,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "منصة_شيخة",
+      "loc": {
+        "start": {
+          "line": 77,
+          "column": 1
+        },
+        "end": {
+          "line": 85,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "منصة_شيخة",
+      "key": "المعرف",
+      "value": "platform",
+      "loc": {
+        "start": {
+          "line": 78,
+          "column": 3
+        },
+        "end": {
+          "line": 78,
+          "column": 19
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "منصة_شيخة",
+      "key": "المسؤولية",
+      "value": "إدارة_الوحدات_والخدمات",
+      "loc": {
+        "start": {
+          "line": 79,
+          "column": 3
+        },
+        "end": {
+          "line": 79,
+          "column": 36
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "منصة_شيخة",
+      "key": "التبعيات",
+      "value": "core، sdk، mcp، ownership",
+      "loc": {
+        "start": {
+          "line": 80,
+          "column": 3
+        },
+        "end": {
+          "line": 80,
+          "column": 35
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "منصة_شيخة",
+      "key": "الحد",
+      "value": "تفعيل_الإنتاج_UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 81,
+          "column": 3
+        },
+        "end": {
+          "line": 81,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "منصة_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 82,
+          "column": 3
+        },
+        "end": {
+          "line": 82,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "منصة_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 83,
+          "column": 3
+        },
+        "end": {
+          "line": 83,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "منصة_شيخة",
+      "loc": {
+        "start": {
+          "line": 77,
+          "column": 1
+        },
+        "end": {
+          "line": 85,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "فوندري_شيخة",
+      "loc": {
+        "start": {
+          "line": 85,
+          "column": 1
+        },
+        "end": {
+          "line": 93,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "فوندري_شيخة",
+      "key": "المعرف",
+      "value": "foundry",
+      "loc": {
+        "start": {
+          "line": 86,
+          "column": 3
+        },
+        "end": {
+          "line": 86,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "فوندري_شيخة",
+      "key": "المسؤولية",
+      "value": "خطوط_تطوير_وتقييم_النماذج",
+      "loc": {
+        "start": {
+          "line": 87,
+          "column": 3
+        },
+        "end": {
+          "line": 87,
+          "column": 39
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "فوندري_شيخة",
+      "key": "التبعيات",
+      "value": "core، language، governance",
+      "loc": {
+        "start": {
+          "line": 88,
+          "column": 3
+        },
+        "end": {
+          "line": 88,
+          "column": 37
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "فوندري_شيخة",
+      "key": "الحد",
+      "value": "جاهزية_تدريب_كبير_UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 89,
+          "column": 3
+        },
+        "end": {
+          "line": 89,
+          "column": 34
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "فوندري_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 90,
+          "column": 3
+        },
+        "end": {
+          "line": 90,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "فوندري_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 91,
+          "column": 3
+        },
+        "end": {
+          "line": 91,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "فوندري_شيخة",
+      "loc": {
+        "start": {
+          "line": 85,
+          "column": 1
+        },
+        "end": {
+          "line": 93,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "أوزان_شيخة",
+      "loc": {
+        "start": {
+          "line": 93,
+          "column": 1
+        },
+        "end": {
+          "line": 101,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "أوزان_شيخة",
+      "key": "المعرف",
+      "value": "weights",
+      "loc": {
+        "start": {
+          "line": 94,
+          "column": 3
+        },
+        "end": {
+          "line": 94,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "أوزان_شيخة",
+      "key": "المسؤولية",
+      "value": "سلامة_ملفات_التخصيص",
+      "loc": {
+        "start": {
+          "line": 95,
+          "column": 3
+        },
+        "end": {
+          "line": 95,
+          "column": 33
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "أوزان_شيخة",
+      "key": "التبعيات",
+      "value": "foundry، ownership",
+      "loc": {
+        "start": {
+          "line": 96,
+          "column": 3
+        },
+        "end": {
+          "line": 96,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "أوزان_شيخة",
+      "key": "الحد",
+      "value": "لا_نسخ_أوزان_ولا_كشف_أسرار",
+      "loc": {
+        "start": {
+          "line": 97,
+          "column": 3
+        },
+        "end": {
+          "line": 97,
+          "column": 35
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "أوزان_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 98,
+          "column": 3
+        },
+        "end": {
+          "line": 98,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "أوزان_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 99,
+          "column": 3
+        },
+        "end": {
+          "line": 99,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "أوزان_شيخة",
+      "loc": {
+        "start": {
+          "line": 93,
+          "column": 1
+        },
+        "end": {
+          "line": 101,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "نموذج_شيخة",
+      "loc": {
+        "start": {
+          "line": 101,
+          "column": 1
+        },
+        "end": {
+          "line": 109,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "نموذج_شيخة",
+      "key": "المعرف",
+      "value": "llm",
+      "loc": {
+        "start": {
+          "line": 102,
+          "column": 3
+        },
+        "end": {
+          "line": 102,
+          "column": 14
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "نموذج_شيخة",
+      "key": "المسؤولية",
+      "value": "عقد_النموذج_وحقوق_الأصل",
+      "loc": {
+        "start": {
+          "line": 103,
+          "column": 3
+        },
+        "end": {
+          "line": 103,
+          "column": 37
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "نموذج_شيخة",
+      "key": "التبعيات",
+      "value": "weights، foundry",
+      "loc": {
+        "start": {
+          "line": 104,
+          "column": 3
+        },
+        "end": {
+          "line": 104,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "نموذج_شيخة",
+      "key": "الحد",
+      "value": "إنتاج_النموذج_التجاري_UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 105,
+          "column": 3
+        },
+        "end": {
+          "line": 105,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "نموذج_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 106,
+          "column": 3
+        },
+        "end": {
+          "line": 106,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "نموذج_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 107,
+          "column": 3
+        },
+        "end": {
+          "line": 107,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "نموذج_شيخة",
+      "loc": {
+        "start": {
+          "line": 101,
+          "column": 1
+        },
+        "end": {
+          "line": 109,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "مصانع_شيخة",
+      "loc": {
+        "start": {
+          "line": 109,
+          "column": 1
+        },
+        "end": {
+          "line": 117,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصانع_شيخة",
+      "key": "المعرف",
+      "value": "factories",
+      "loc": {
+        "start": {
+          "line": 110,
+          "column": 3
+        },
+        "end": {
+          "line": 110,
+          "column": 20
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصانع_شيخة",
+      "key": "المسؤولية",
+      "value": "تعريف_المصانع_ومخرجاتها",
+      "loc": {
+        "start": {
+          "line": 111,
+          "column": 3
+        },
+        "end": {
+          "line": 111,
+          "column": 37
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصانع_شيخة",
+      "key": "التبعيات",
+      "value": "foundry، language",
+      "loc": {
+        "start": {
+          "line": 112,
+          "column": 3
+        },
+        "end": {
+          "line": 112,
+          "column": 29
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصانع_شيخة",
+      "key": "الحد",
+      "value": "إنتاج_عقود_محلية",
+      "loc": {
+        "start": {
+          "line": 113,
+          "column": 3
+        },
+        "end": {
+          "line": 113,
+          "column": 25
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصانع_شيخة",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 114,
+          "column": 3
+        },
+        "end": {
+          "line": 114,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "مصانع_شيخة",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 115,
+          "column": 3
+        },
+        "end": {
+          "line": 115,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "مصانع_شيخة",
+      "loc": {
+        "start": {
+          "line": 109,
+          "column": 1
+        },
+        "end": {
+          "line": 117,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "خطوط_الإنتاج",
+      "loc": {
+        "start": {
+          "line": 117,
+          "column": 1
+        },
+        "end": {
+          "line": 125,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "خطوط_الإنتاج",
+      "key": "المعرف",
+      "value": "pipelines",
+      "loc": {
+        "start": {
+          "line": 118,
+          "column": 3
+        },
+        "end": {
+          "line": 118,
+          "column": 20
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "خطوط_الإنتاج",
+      "key": "المسؤولية",
+      "value": "التحقق_والبناء_والإصدار",
+      "loc": {
+        "start": {
+          "line": 119,
+          "column": 3
+        },
+        "end": {
+          "line": 119,
+          "column": 37
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "خطوط_الإنتاج",
+      "key": "التبعيات",
+      "value": "factories، governance",
+      "loc": {
+        "start": {
+          "line": 120,
+          "column": 3
+        },
+        "end": {
+          "line": 120,
+          "column": 33
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "خطوط_الإنتاج",
+      "key": "الحد",
+      "value": "لا_نشر_تلقائي",
+      "loc": {
+        "start": {
+          "line": 121,
+          "column": 3
+        },
+        "end": {
+          "line": 121,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "خطوط_الإنتاج",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 122,
+          "column": 3
+        },
+        "end": {
+          "line": 122,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "خطوط_الإنتاج",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 123,
+          "column": 3
+        },
+        "end": {
+          "line": 123,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "خطوط_الإنتاج",
+      "loc": {
+        "start": {
+          "line": 117,
+          "column": 1
+        },
+        "end": {
+          "line": 125,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_Studio",
+      "loc": {
+        "start": {
+          "line": 125,
+          "column": 1
+        },
+        "end": {
+          "line": 133,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Studio",
+      "key": "المعرف",
+      "value": "studio",
+      "loc": {
+        "start": {
+          "line": 126,
+          "column": 3
+        },
+        "end": {
+          "line": 126,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Studio",
+      "key": "المسؤولية",
+      "value": "مساحة_المطور_وأدوات_اللغة",
+      "loc": {
+        "start": {
+          "line": 127,
+          "column": 3
+        },
+        "end": {
+          "line": 127,
+          "column": 39
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Studio",
+      "key": "التبعيات",
+      "value": "core، language، sdk",
+      "loc": {
+        "start": {
+          "line": 128,
+          "column": 3
+        },
+        "end": {
+          "line": 128,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Studio",
+      "key": "الحد",
+      "value": "محرر_حي_UNKNOWN",
+      "loc": {
+        "start": {
+          "line": 129,
+          "column": 3
+        },
+        "end": {
+          "line": 129,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Studio",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 130,
+          "column": 3
+        },
+        "end": {
+          "line": 130,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Studio",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 131,
+          "column": 3
+        },
+        "end": {
+          "line": 131,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_Studio",
+      "loc": {
+        "start": {
+          "line": 125,
+          "column": 1
+        },
+        "end": {
+          "line": 133,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_Lab",
+      "loc": {
+        "start": {
+          "line": 133,
+          "column": 1
+        },
+        "end": {
+          "line": 141,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Lab",
+      "key": "المعرف",
+      "value": "lab",
+      "loc": {
+        "start": {
+          "line": 134,
+          "column": 3
+        },
+        "end": {
+          "line": 134,
+          "column": 14
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Lab",
+      "key": "المسؤولية",
+      "value": "التجربة_قبل_الترقية",
+      "loc": {
+        "start": {
+          "line": 135,
+          "column": 3
+        },
+        "end": {
+          "line": 135,
+          "column": 33
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Lab",
+      "key": "التبعيات",
+      "value": "core، studio، pipelines",
+      "loc": {
+        "start": {
+          "line": 136,
+          "column": 3
+        },
+        "end": {
+          "line": 136,
+          "column": 34
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Lab",
+      "key": "الحد",
+      "value": "تجربة_محلية",
+      "loc": {
+        "start": {
+          "line": 137,
+          "column": 3
+        },
+        "end": {
+          "line": 137,
+          "column": 20
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Lab",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 138,
+          "column": 3
+        },
+        "end": {
+          "line": 138,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Lab",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 139,
+          "column": 3
+        },
+        "end": {
+          "line": 139,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_Lab",
+      "loc": {
+        "start": {
+          "line": 133,
+          "column": 1
+        },
+        "end": {
+          "line": 141,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_Visual",
+      "loc": {
+        "start": {
+          "line": 141,
+          "column": 1
+        },
+        "end": {
+          "line": 149,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Visual",
+      "key": "المعرف",
+      "value": "visual",
+      "loc": {
+        "start": {
+          "line": 142,
+          "column": 3
+        },
+        "end": {
+          "line": 142,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Visual",
+      "key": "المسؤولية",
+      "value": "الهندسة_والمشاهد",
+      "loc": {
+        "start": {
+          "line": 143,
+          "column": 3
+        },
+        "end": {
+          "line": 143,
+          "column": 30
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Visual",
+      "key": "التبعيات",
+      "value": "utf، core، studio",
+      "loc": {
+        "start": {
+          "line": 144,
+          "column": 3
+        },
+        "end": {
+          "line": 144,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Visual",
+      "key": "الحد",
+      "value": "حساب_وفحص_محلي",
+      "loc": {
+        "start": {
+          "line": 145,
+          "column": 3
+        },
+        "end": {
+          "line": 145,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Visual",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 146,
+          "column": 3
+        },
+        "end": {
+          "line": 146,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Visual",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 147,
+          "column": 3
+        },
+        "end": {
+          "line": 147,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_Visual",
+      "loc": {
+        "start": {
+          "line": 141,
+          "column": 1
+        },
+        "end": {
+          "line": 149,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_Firmware",
+      "loc": {
+        "start": {
+          "line": 149,
+          "column": 1
+        },
+        "end": {
+          "line": 157,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Firmware",
+      "key": "المعرف",
+      "value": "firmware",
+      "loc": {
+        "start": {
+          "line": 150,
+          "column": 3
+        },
+        "end": {
+          "line": 150,
+          "column": 19
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Firmware",
+      "key": "المسؤولية",
+      "value": "حوكمة_البرامج_الثابتة",
+      "loc": {
+        "start": {
+          "line": 151,
+          "column": 3
+        },
+        "end": {
+          "line": 151,
+          "column": 35
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Firmware",
+      "key": "التبعيات",
+      "value": "governance",
+      "loc": {
+        "start": {
+          "line": 152,
+          "column": 3
+        },
+        "end": {
+          "line": 152,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Firmware",
+      "key": "الحد",
+      "value": "دون_كتابة_جهاز",
+      "loc": {
+        "start": {
+          "line": 153,
+          "column": 3
+        },
+        "end": {
+          "line": 153,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Firmware",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 154,
+          "column": 3
+        },
+        "end": {
+          "line": 154,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_Firmware",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 155,
+          "column": 3
+        },
+        "end": {
+          "line": 155,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_Firmware",
+      "loc": {
+        "start": {
+          "line": 149,
+          "column": 1
+        },
+        "end": {
+          "line": 157,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_BEGIN",
+      "name": "شيخة_BareMetal",
+      "loc": {
+        "start": {
+          "line": 157,
+          "column": 1
+        },
+        "end": {
+          "line": 165,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_BareMetal",
+      "key": "المعرف",
+      "value": "bare-metal",
+      "loc": {
+        "start": {
+          "line": 158,
+          "column": 3
+        },
+        "end": {
+          "line": 158,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_BareMetal",
+      "key": "المسؤولية",
+      "value": "عقود_الإقلاع_والنواة",
+      "loc": {
+        "start": {
+          "line": 159,
+          "column": 3
+        },
+        "end": {
+          "line": 159,
+          "column": 34
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_BareMetal",
+      "key": "التبعيات",
+      "value": "firmware",
+      "loc": {
+        "start": {
+          "line": 160,
+          "column": 3
+        },
+        "end": {
+          "line": 160,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_BareMetal",
+      "key": "الحد",
+      "value": "دون_إقلاع_جديد",
+      "loc": {
+        "start": {
+          "line": 161,
+          "column": 3
+        },
+        "end": {
+          "line": 161,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_BareMetal",
+      "key": "المسؤول_الإداري",
+      "value": "غير_معين",
+      "loc": {
+        "start": {
+          "line": 162,
+          "column": 3
+        },
+        "end": {
+          "line": 162,
+          "column": 28
+        }
+      }
+    },
+    {
+      "op": "ENTITY_PROPERTY",
+      "entity": "شيخة_BareMetal",
+      "key": "المراجعة",
+      "value": "حوكمة_واختبار_قبل_الإصدار",
+      "loc": {
+        "start": {
+          "line": 163,
+          "column": 3
+        },
+        "end": {
+          "line": 163,
+          "column": 38
+        }
+      }
+    },
+    {
+      "op": "ENTITY_END",
+      "name": "شيخة_BareMetal",
+      "loc": {
+        "start": {
+          "line": 157,
+          "column": 1
+        },
+        "end": {
+          "line": 165,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "PROCEDURE_BEGIN",
+      "name": "خط_الإنتاج",
+      "loc": {
+        "start": {
+          "line": 165,
+          "column": 1
+        },
+        "end": {
+          "line": 203,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"utf\"",
+      "loc": {
+        "start": {
+          "line": 166,
+          "column": 3
+        },
+        "end": {
+          "line": 166,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"utf\"",
+      "loc": {
+        "start": {
+          "line": 167,
+          "column": 3
+        },
+        "end": {
+          "line": 167,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"language\"",
+      "loc": {
+        "start": {
+          "line": 168,
+          "column": 3
+        },
+        "end": {
+          "line": 168,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"language\"",
+      "loc": {
+        "start": {
+          "line": 169,
+          "column": 3
+        },
+        "end": {
+          "line": 169,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"core\"",
+      "loc": {
+        "start": {
+          "line": 170,
+          "column": 3
+        },
+        "end": {
+          "line": 170,
+          "column": 19
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"core\"",
+      "loc": {
+        "start": {
+          "line": 171,
+          "column": 3
+        },
+        "end": {
+          "line": 171,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"governance\"",
+      "loc": {
+        "start": {
+          "line": 172,
+          "column": 3
+        },
+        "end": {
+          "line": 172,
+          "column": 25
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"governance\"",
+      "loc": {
+        "start": {
+          "line": 173,
+          "column": 3
+        },
+        "end": {
+          "line": 173,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"ownership\"",
+      "loc": {
+        "start": {
+          "line": 174,
+          "column": 3
+        },
+        "end": {
+          "line": 174,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"ownership\"",
+      "loc": {
+        "start": {
+          "line": 175,
+          "column": 3
+        },
+        "end": {
+          "line": 175,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"sdk\"",
+      "loc": {
+        "start": {
+          "line": 176,
+          "column": 3
+        },
+        "end": {
+          "line": 176,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"sdk\"",
+      "loc": {
+        "start": {
+          "line": 177,
+          "column": 3
+        },
+        "end": {
+          "line": 177,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"mcp\"",
+      "loc": {
+        "start": {
+          "line": 178,
+          "column": 3
+        },
+        "end": {
+          "line": 178,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"mcp\"",
+      "loc": {
+        "start": {
+          "line": 179,
+          "column": 3
+        },
+        "end": {
+          "line": 179,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"platform\"",
+      "loc": {
+        "start": {
+          "line": 180,
+          "column": 3
+        },
+        "end": {
+          "line": 180,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"platform\"",
+      "loc": {
+        "start": {
+          "line": 181,
+          "column": 3
+        },
+        "end": {
+          "line": 181,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"foundry\"",
+      "loc": {
+        "start": {
+          "line": 182,
+          "column": 3
+        },
+        "end": {
+          "line": 182,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"foundry\"",
+      "loc": {
+        "start": {
+          "line": 183,
+          "column": 3
+        },
+        "end": {
+          "line": 183,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"weights\"",
+      "loc": {
+        "start": {
+          "line": 184,
+          "column": 3
+        },
+        "end": {
+          "line": 184,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"weights\"",
+      "loc": {
+        "start": {
+          "line": 185,
+          "column": 3
+        },
+        "end": {
+          "line": 185,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"llm\"",
+      "loc": {
+        "start": {
+          "line": 186,
+          "column": 3
+        },
+        "end": {
+          "line": 186,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"llm\"",
+      "loc": {
+        "start": {
+          "line": 187,
+          "column": 3
+        },
+        "end": {
+          "line": 187,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"factories\"",
+      "loc": {
+        "start": {
+          "line": 188,
+          "column": 3
+        },
+        "end": {
+          "line": 188,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"factories\"",
+      "loc": {
+        "start": {
+          "line": 189,
+          "column": 3
+        },
+        "end": {
+          "line": 189,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"pipelines\"",
+      "loc": {
+        "start": {
+          "line": 190,
+          "column": 3
+        },
+        "end": {
+          "line": 190,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"pipelines\"",
+      "loc": {
+        "start": {
+          "line": 191,
+          "column": 3
+        },
+        "end": {
+          "line": 191,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"studio\"",
+      "loc": {
+        "start": {
+          "line": 192,
+          "column": 3
+        },
+        "end": {
+          "line": 192,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"studio\"",
+      "loc": {
+        "start": {
+          "line": 193,
+          "column": 3
+        },
+        "end": {
+          "line": 193,
+          "column": 20
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"lab\"",
+      "loc": {
+        "start": {
+          "line": 194,
+          "column": 3
+        },
+        "end": {
+          "line": 194,
+          "column": 18
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"lab\"",
+      "loc": {
+        "start": {
+          "line": 195,
+          "column": 3
+        },
+        "end": {
+          "line": 195,
+          "column": 17
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"visual\"",
+      "loc": {
+        "start": {
+          "line": 196,
+          "column": 3
+        },
+        "end": {
+          "line": 196,
+          "column": 21
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"visual\"",
+      "loc": {
+        "start": {
+          "line": 197,
+          "column": 3
+        },
+        "end": {
+          "line": 197,
+          "column": 20
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"firmware\"",
+      "loc": {
+        "start": {
+          "line": 198,
+          "column": 3
+        },
+        "end": {
+          "line": 198,
+          "column": 23
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"firmware\"",
+      "loc": {
+        "start": {
+          "line": 199,
+          "column": 3
+        },
+        "end": {
+          "line": 199,
+          "column": 22
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "تحقق_وحدة",
+      "argument": "\"bare-metal\"",
+      "loc": {
+        "start": {
+          "line": 200,
+          "column": 3
+        },
+        "end": {
+          "line": 200,
+          "column": 25
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "انتج_عقد",
+      "argument": "\"bare-metal\"",
+      "loc": {
+        "start": {
+          "line": 201,
+          "column": 3
+        },
+        "end": {
+          "line": 201,
+          "column": 24
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "خط_الإنتاج",
+      "command": "اعرض",
+      "argument": "\"SHEIKHA_LANGUAGE_LOCAL_PRODUCTION_COMPLETE\"",
+      "loc": {
+        "start": {
+          "line": 202,
+          "column": 3
+        },
+        "end": {
+          "line": 202,
+          "column": 52
+        }
+      }
+    },
+    {
+      "op": "PROCEDURE_END",
+      "name": "خط_الإنتاج",
+      "loc": {
+        "start": {
+          "line": 165,
+          "column": 1
+        },
+        "end": {
+          "line": 203,
+          "column": 1
+        }
+      }
+    }
+  ]
+}

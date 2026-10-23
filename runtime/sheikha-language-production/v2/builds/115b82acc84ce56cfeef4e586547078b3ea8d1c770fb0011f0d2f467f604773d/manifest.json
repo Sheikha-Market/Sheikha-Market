@@ -1,0 +1,150 @@
+{
+  "schemaVersion": "1.0",
+  "status": "LOCAL_LANGUAGE_PRODUCTION_COMPLETE",
+  "sourceFile": "sheikha-language/foundations/activated-session-production-v1.shk",
+  "sourceSha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c",
+  "hostRuntime": "Node.js",
+  "selfHostedCompiler": false,
+  "fullyMigratedServices": false,
+  "compilerEvidence": [
+    {
+      "file": "sheikha-language/compiler/parser.js",
+      "sha256": "9ffc66411da48fad42dccaaee25b9dd454a56e44517f77f16890dea77f0d6840"
+    },
+    {
+      "file": "sheikha-language/compiler/type-checker.js",
+      "sha256": "362c353ac4d93bc3b190c1da316d806344bc733a09d5c74c2935fa80882c16fd"
+    },
+    {
+      "file": "sheikha-language/compiler/ir.js",
+      "sha256": "bbf398b6d3fda26f6d28fb1d8eae980ee74298ab83edfdbac86bc9003a5f89d1"
+    },
+    {
+      "file": "sheikha-language/compiler/bytecode.js",
+      "sha256": "cfa5e22cc393a969a36edc148d063ffc1ae7ddad81da0e8608f413a8bb228fe6"
+    },
+    {
+      "file": "sheikha-language/compiler/vm.js",
+      "sha256": "748e021489de6baad499d0ef88c4cd7c94d3519790d9960e1cc7b033e7112623"
+    },
+    {
+      "file": "core/foundation/sheikha-language-production-v1.cjs",
+      "sha256": "c75cc6cd82e673ceec6f4a55fbf0e44b8eb5c3c5468315a7dbc88cfff92f2744"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "source.shk",
+      "bytes": 7557,
+      "sha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c"
+    },
+    {
+      "file": "program.bytecode.json",
+      "bytes": 69958,
+      "sha256": "32961debd5ae1499f1fcfc9b67ad1b5dd47342f18337e8dfcc67996b2e26d40a"
+    },
+    {
+      "file": "program.ir.json",
+      "bytes": 62860,
+      "sha256": "eab00b2232667824422c24fa6e1a1905d0338157899cd516c3c415c2e814f043"
+    },
+    {
+      "file": "execution.json",
+      "bytes": 3184,
+      "sha256": "9d0cd7ba626d176b948c59b36b037c7212e58e0b9d9fd7fde50d0d90779eeb2e"
+    },
+    {
+      "file": "contracts/utf.json",
+      "bytes": 832,
+      "sha256": "81ff289c6b5013b9a0f0d7136a8fcd2f62bd26b655dba97d176490f14eb3815f"
+    },
+    {
+      "file": "contracts/language.json",
+      "bytes": 880,
+      "sha256": "ce4085a90129b813578a27e43c34c13579e7d8fc6ceef85cb88fa094fce7a14e"
+    },
+    {
+      "file": "contracts/core.json",
+      "bytes": 841,
+      "sha256": "cdbb7360b4a855f8f31ba439ce1daefd8dcd686e7c98420eb498e626bae6f38f"
+    },
+    {
+      "file": "contracts/governance.json",
+      "bytes": 903,
+      "sha256": "215be7d403c2d580f31bafb153550c1b382740087af5e96c8fe682bfb797e6a2"
+    },
+    {
+      "file": "contracts/ownership.json",
+      "bytes": 905,
+      "sha256": "0762de19f923e08305cb50d0ddd01459b094f5956e9ec6e2bff4c3aae4042422"
+    },
+    {
+      "file": "contracts/sdk.json",
+      "bytes": 913,
+      "sha256": "476726cf751ca6b0fd71f5c9ee4655c33b0b240d1ea99a413fde8929b02f4082"
+    },
+    {
+      "file": "contracts/mcp.json",
+      "bytes": 881,
+      "sha256": "5da5043785ddab7ba46b256e7bc795a6ac2cd29943b66dd9d091a3075fee706f"
+    },
+    {
+      "file": "contracts/platform.json",
+      "bytes": 952,
+      "sha256": "9b71e74bbc4f4d1e532640ce581e7664f82f495e77f67fc612d9e74d7cccfacf"
+    },
+    {
+      "file": "contracts/foundry.json",
+      "bytes": 961,
+      "sha256": "55689a3fadb1d2a3f7ac535c0627315b33b1eff7bb5c544aa344fcd74d613106"
+    },
+    {
+      "file": "contracts/weights.json",
+      "bytes": 918,
+      "sha256": "11db0710e5c7f7be6ced02bdbdfc3a9947c44fafbdb9fb3fe0f72315253a109d"
+    },
+    {
+      "file": "contracts/llm.json",
+      "bytes": 928,
+      "sha256": "974017ab77eecc7a8067bc761611beb28af0d2ad740bcf69b90742380e972108"
+    },
+    {
+      "file": "contracts/factories.json",
+      "bytes": 925,
+      "sha256": "5829e0d00fe5b1d58c9924289f3f08b540825fa3017e70cbbd86dbd128b797f5"
+    },
+    {
+      "file": "contracts/pipelines.json",
+      "bytes": 931,
+      "sha256": "1f616420d35644e7e18f95871722f3a74c518a3b1bbc947c75fa7f99f93f1a95"
+    },
+    {
+      "file": "contracts/studio.json",
+      "bytes": 916,
+      "sha256": "b469989d5b2d12d3b493813b998cd8a15aac3880291c45883980deae35707cce"
+    },
+    {
+      "file": "contracts/lab.json",
+      "bytes": 909,
+      "sha256": "e6f4f1b95f83a27ad6a74289ad5e05feaf0a01bcc0366cbc35606fa1c8b26f3f"
+    },
+    {
+      "file": "contracts/visual.json",
+      "bytes": 897,
+      "sha256": "44209bed62faf38f602ffdb57ff1ec4740632082c224cba97a5fec3aa4d75a71"
+    },
+    {
+      "file": "contracts/firmware.json",
+      "bytes": 873,
+      "sha256": "e25c90576d300609e5c448f53f4498c0c20de05933f820d3b1564f4b693a72a0"
+    },
+    {
+      "file": "contracts/bare-metal.json",
+      "bytes": 888,
+      "sha256": "71b5d53d26ba815fdc28fb194cd880563416047083e1dbd14cb06b774a077874"
+    }
+  ],
+  "deployed": false,
+  "servicesStarted": false,
+  "physicalDeviceWritten": false
+}

@@ -1,0 +1,940 @@
+{
+  "system": "SHEIKHA_MASTER_ENGINE_REGISTRY_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "authority": "MASTER_ENGINE_METADATA_AND_ROUTING_AUTHORITY",
+  "mode": "FAIL_CLOSED_METADATA_WITH_LEGACY_EXECUTION_ADAPTERS",
+  "governance": {
+    "noMerge": true,
+    "noDeploy": true,
+    "noProduction": true,
+    "noPayment": true,
+    "noContract": true,
+    "noSecretMutation": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "humanReviewForHighImpact": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "coreEngines": 28,
+    "optionalEngines": 25,
+    "totalEngineRecords": 53,
+    "domains": 12,
+    "missingSources": 0,
+    "duplicateIds": 0,
+    "canonicalIntentOwners": 17,
+    "runtimeProjectionEngines": 28,
+    "runtimeMissingFromMaster": 0,
+    "masterMissingFromRuntime": 0,
+    "criticalBootFiles": 21,
+    "criticalMissingFiles": 0,
+    "tiers": {
+      "L0": 8,
+      "L1": 14,
+      "L2": 6,
+      "OPTIONAL": 25
+    }
+  },
+  "domains": [
+    "governance",
+    "knowledge",
+    "marketplace",
+    "commerce",
+    "identity",
+    "operations",
+    "integration",
+    "enterprise",
+    "developer",
+    "platform",
+    "native",
+    "logistics"
+  ],
+  "coreEngines": [
+    {
+      "id": "sharia",
+      "nameAr": "محرك الشريعة الإسلامية",
+      "source": "lib/sheikha-sharia-engine.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "governance"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "agents",
+      "nameAr": "محرك الوكلاء الإسلاميين",
+      "source": "lib/sheikha-islamic-agents-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "governance",
+        "knowledge"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "quran",
+      "nameAr": "محرك القرآن والسنة",
+      "source": "lib/sheikha-quran-sunnah-engine.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "knowledge",
+        "governance"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "learning",
+      "nameAr": "محرك التعلم والتدريب",
+      "source": "lib/sheikha-learning-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "knowledge"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "knowledge",
+      "nameAr": "محرك المعرفة والعلوم",
+      "source": "lib/sheikha-knowledge-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "knowledge"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "market",
+      "nameAr": "محرك السوق الذكي",
+      "source": "lib/sheikha-smart-market-engine.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "marketplace"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "trade",
+      "nameAr": "محرك التجارة",
+      "source": "lib/sheikha-trade-engine.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "commerce",
+        "marketplace"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "payments",
+      "nameAr": "محرك المدفوعات",
+      "source": "lib/sheikha-payments-engine.js",
+      "loadTier": "L2",
+      "governed": true,
+      "domains": [
+        "commerce"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "zakat",
+      "nameAr": "محرك البركة والزكاة",
+      "source": "lib/sheikha-barakah-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "governance",
+        "marketplace"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "identity",
+      "nameAr": "محرك الهوية الرقمية",
+      "source": "lib/sheikha-digital-identity-engine.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "identity",
+        "commerce"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "security",
+      "nameAr": "محرك الأمان",
+      "source": "lib/sheikha-security-engine.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "governance",
+        "operations",
+        "integration"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "medical",
+      "nameAr": "محرك الصحة والطب",
+      "source": "lib/sheikha-medical-engine.js",
+      "loadTier": "L2",
+      "governed": true,
+      "domains": [
+        "enterprise"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "ai",
+      "nameAr": "محرك الذكاء الاصطناعي",
+      "source": "lib/sheikha-ai-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "developer",
+        "platform"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "cloud",
+      "nameAr": "محرك السحابة",
+      "source": "lib/sheikha-cloud-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "platform",
+        "operations",
+        "integration"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "lmm",
+      "nameAr": "محرك نموذج اللغة",
+      "source": "lib/sheikha-lmm-engine.js",
+      "loadTier": "L2",
+      "governed": true,
+      "domains": [
+        "developer"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "standards",
+      "nameAr": "محرك المعايير والجودة والمقاييس",
+      "source": "core/standards/index.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "governance",
+        "commerce",
+        "native"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "vision",
+      "nameAr": "محرك الرؤى والاستشارات الدولية",
+      "source": "core/visions/index.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "enterprise"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "consulting",
+      "nameAr": "محرك شيخة للاستشارات",
+      "source": "core/consulting/index.js",
+      "loadTier": "L2",
+      "governed": true,
+      "domains": [
+        "enterprise"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "sovereign",
+      "nameAr": "الحاكمة العليا",
+      "source": "core/sheikha-sovereign-governor.js",
+      "loadTier": "L0",
+      "governed": true,
+      "domains": [
+        "governance"
+      ],
+      "required": true,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "live-ai",
+      "nameAr": "شبكة الذكاء الاصطناعي الحية",
+      "source": "lib/sheikha-live-ai-network.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "platform",
+        "knowledge"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "specialized_neural",
+      "nameAr": "محرك الشبكات العصبية المتخصصة",
+      "source": "lib/sheikha-specialized-neural-networks.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "developer",
+        "native",
+        "marketplace"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "universal_networks",
+      "nameAr": "المحرك العصبي الشامل للشبكات",
+      "source": "lib/sheikha-universal-networks-neural-engine.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "integration",
+        "platform",
+        "logistics",
+        "operations"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "nextgen_manufacturer",
+      "nameAr": "صانعة شيخة الجيل الجديد",
+      "source": "lib/sheikha-nextgen-manufacturer.js",
+      "loadTier": "L2",
+      "governed": true,
+      "domains": [
+        "marketplace",
+        "developer"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "industrial_nn",
+      "nameAr": "شبكة شيخة العصبية للصناعة",
+      "source": "lib/sheikha-industrial-neural-network.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "logistics",
+        "marketplace"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "energy",
+      "nameAr": "شبكة شيخة العصبية للطاقة",
+      "source": "lib/sheikha-energy-neural-network.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "marketplace",
+        "logistics"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "resources",
+      "nameAr": "شبكة شيخة العصبية للموارد",
+      "source": "lib/sheikha-resources-neural-network.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "logistics",
+        "marketplace"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "production_neural",
+      "nameAr": "شبكة شيخة العصبية للإنتاج",
+      "source": "lib/sheikha-production-neural-network.js",
+      "loadTier": "L1",
+      "governed": true,
+      "domains": [
+        "operations"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    },
+    {
+      "id": "neural-cells",
+      "nameAr": "خلايا الشبكة العصبية",
+      "source": "core/sheikha-neural-cells.js",
+      "loadTier": "L2",
+      "governed": true,
+      "domains": [
+        "developer"
+      ],
+      "required": false,
+      "sourceExists": true,
+      "status": "SOURCE_READY"
+    }
+  ],
+  "optionalEngines": [
+    {
+      "id": "AS",
+      "nameAr": "Auto Salvage",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "salvage"
+      ],
+      "contract": "market",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "TNH",
+      "nameAr": "Trade Networks History",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "trade-history"
+      ],
+      "contract": "knowledge",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "LG",
+      "nameAr": "Leadership Governance",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "leadership"
+      ],
+      "contract": "governance",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "MB",
+      "nameAr": "Metals Bank",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "metals-bank"
+      ],
+      "contract": "market",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "LR",
+      "nameAr": "Licenses Registry",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "licensing"
+      ],
+      "contract": "registry",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "OD",
+      "nameAr": "Official Documents",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "documents"
+      ],
+      "contract": "documents",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "AE",
+      "nameAr": "Archive Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "archive"
+      ],
+      "contract": "documents",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "GPE",
+      "nameAr": "Government Platforms Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "government"
+      ],
+      "contract": "integration",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "LME",
+      "nameAr": "Logistics Management Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "logistics-management"
+      ],
+      "contract": "logistics",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "MSE",
+      "nameAr": "Materials Specs Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "materials-specs"
+      ],
+      "contract": "standards",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "RCE",
+      "nameAr": "Readiness Compliance Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "readiness"
+      ],
+      "contract": "readiness",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "WPE",
+      "nameAr": "Wisdom Policy Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "wisdom-policy"
+      ],
+      "contract": "wisdom",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "MIE",
+      "nameAr": "Metals Impact Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "metals-impact"
+      ],
+      "contract": "impact",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "MME",
+      "nameAr": "Metals Measurement Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "metals-measurement"
+      ],
+      "contract": "measurement",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "LE",
+      "nameAr": "Logic Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "logic"
+      ],
+      "contract": "logic",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "QSE",
+      "nameAr": "Quantum Statistics Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "quantum-statistics"
+      ],
+      "contract": "analytics",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "WFE",
+      "nameAr": "Wisdom Fusion Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "wisdom-fusion"
+      ],
+      "contract": "wisdom",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "QJE",
+      "nameAr": "Quraysh Journey Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "quraysh-journey"
+      ],
+      "contract": "heritage",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "SLE",
+      "nameAr": "Sheikha Learning Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "learning"
+      ],
+      "contract": "learning",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "WBE",
+      "nameAr": "Walaa Baraa Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "walaa-baraa"
+      ],
+      "contract": "governance",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "TLE",
+      "nameAr": "Trade Legacy Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "trade-legacy"
+      ],
+      "contract": "trade",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "AAE",
+      "nameAr": "Adab Anbiya Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "private-adab"
+      ],
+      "contract": "private-governance",
+      "inferred": false,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "LSC",
+      "nameAr": "Logistics Supply Chain",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "logistics"
+      ],
+      "contract": "logistics",
+      "inferred": true,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "ACE",
+      "nameAr": "Accounting Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "accounting"
+      ],
+      "contract": "accounting",
+      "inferred": true,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    },
+    {
+      "id": "TAE",
+      "nameAr": "Trust Auth Engine",
+      "source": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+      "loadTier": "OPTIONAL",
+      "governed": true,
+      "required": false,
+      "optional": true,
+      "domains": [
+        "trust-auth"
+      ],
+      "contract": "trust",
+      "inferred": true,
+      "sourceExists": true,
+      "status": "OPTIONAL_CONTRACT_READY"
+    }
+  ],
+  "canonicalIntentOwners": {
+    "compliance": "standards",
+    "sharia.compliance": "sharia",
+    "market": "market",
+    "trade": "trade",
+    "identity": "identity",
+    "security": "security",
+    "knowledge": "knowledge",
+    "learning": "learning",
+    "integration": "universal_networks",
+    "network": "universal_networks",
+    "industry": "industrial_nn",
+    "manufacturing": "industrial_nn",
+    "energy": "energy",
+    "resources": "resources",
+    "production": "production_neural",
+    "developer": "ai",
+    "platform": "live-ai"
+  },
+  "optionalRegistry": {
+    "authority": "SHEIKHA_OPTIONAL_ENGINE_CONTRACT_FABRIC_V14",
+    "definitionsSource": "core/optional-engine-contract-fabric/sheikha-optional-engine-data-contracts-v14.js",
+    "executionRegistry": "core/engine-registry/sheikha-engine-registry-v1.js",
+    "governedAdapter": "core/engine-registry/sheikha-governed-engine-registry-v2.js",
+    "loadTier": "OPTIONAL"
+  },
+  "legacyProjections": {
+    "criticalEngines": "config/critical-engines.json",
+    "neuralRouter": "core/engines/sheikha-neural-router.js",
+    "engineIndex": "core/engines/index.js",
+    "siteDomainRegistry": "config/sheikha-engine-domain-registry-v3.json"
+  },
+  "findings": {
+    "duplicateIds": [],
+    "missingSources": [],
+    "runtimeMissingFromMaster": [],
+    "masterMissingFromRuntime": [],
+    "criticalMissingFiles": []
+  },
+  "projections": {
+    "runtimeEngineIds": [
+      "sharia",
+      "agents",
+      "quran",
+      "learning",
+      "knowledge",
+      "market",
+      "trade",
+      "payments",
+      "zakat",
+      "identity",
+      "security",
+      "medical",
+      "ai",
+      "cloud",
+      "lmm",
+      "standards",
+      "vision",
+      "consulting",
+      "sovereign",
+      "live-ai",
+      "specialized_neural",
+      "universal_networks",
+      "nextgen_manufacturer",
+      "industrial_nn",
+      "energy",
+      "resources",
+      "production_neural",
+      "neural-cells"
+    ],
+    "runtimeMissingFromMaster": [],
+    "masterMissingFromRuntime": [],
+    "criticalFiles": [
+      "sheikha-security-engine.js",
+      "sheikha-sharia-engine.js",
+      "sheikha-admin-blueprint-engine.js",
+      "sheikha-hadith-standards-engine.js",
+      "sheikha-quran-trade-engine.js",
+      "sheikha-taqwa-engine.js",
+      "sheikha-musharri-engine.js",
+      "sheikha-legal-engine.js",
+      "sheikha-souq-madinah-engine.js",
+      "sheikha-market-structure-engine.js",
+      "sheikha-metals-market-engine.js",
+      "sheikha-banking-engine.js",
+      "sheikha-trade-engine.js",
+      "sheikha-supply-logistics-engine.js",
+      "sheikha-dashboard-engine.js",
+      "sheikha-experience-engine.js",
+      "sheikha-pilot-engine.js",
+      "sheikha-segments-engine.js",
+      "sheikha-historical-engine.js",
+      "sheikha-quran-sunnah-engine.js",
+      "sheikha-brand-engine.js"
+    ],
+    "criticalMissingFiles": []
+  }
+}

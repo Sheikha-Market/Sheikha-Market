@@ -1,0 +1,66 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_RECOVERY_RECONCILIATION_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "READ_ONLY_RECOVERY_PLAN_NO_ROLLBACK",
+  "governance": {
+    "reconcileOnlyWhenDriftDetected": true,
+    "expectedVsActualRequired": true,
+    "sourceAttributionRequired": true,
+    "humanDecisionRequired": true,
+    "noAutomaticRollback": true,
+    "noAutomaticRepair": true,
+    "noAutomaticBaselineRefresh": true,
+    "noAutomaticAssignment": true,
+    "noProductionMutation": true,
+    "readOnlyPlanning": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "driftDetected": 0,
+    "proposedActions": 0,
+    "addedAssignmentIds": 0,
+    "missingAssignmentIds": 0,
+    "automaticRepairsPerformed": 0,
+    "automaticRollbacksPerformed": 0,
+    "baselineRefreshesPerformed": 0
+  },
+  "comparison": {
+    "expected": {
+      "sha256": "a599798c04cec3f81c7c7b34a222bb290b7c67816fbec3c2e83f4fa44d9eca22",
+      "recordCount": 0,
+      "assignmentIds": [],
+      "sourceAuditId": "assignment-audit-genesis-v1"
+    },
+    "actual": {
+      "sha256": "a599798c04cec3f81c7c7b34a222bb290b7c67816fbec3c2e83f4fa44d9eca22",
+      "recordCount": 0,
+      "assignmentIds": []
+    },
+    "diff": {
+      "hashChanged": false,
+      "recordCountChanged": false,
+      "addedAssignmentIds": [],
+      "missingAssignmentIds": []
+    },
+    "provenanceHints": {
+      "latestAuditId": "assignment-audit-genesis-v1",
+      "latestWritePlanId": null,
+      "latestWritePlanPresent": false,
+      "registryStatus": "ACTIVE_EMPTY_ASSIGNMENTS"
+    }
+  },
+  "plan": {
+    "actions": [],
+    "selectedAction": null,
+    "executionAuthorized": false,
+    "humanDecisionRequired": true
+  },
+  "truth": {
+    "planOnly": true,
+    "noAutomaticRollback": true,
+    "noAutomaticRepair": true,
+    "noAutomaticBaselineRefresh": true,
+    "noAssignmentMutation": true
+  }
+}

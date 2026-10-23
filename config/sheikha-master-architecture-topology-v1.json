@@ -1,0 +1,116 @@
+{
+  "system": "SHEIKHA_MASTER_ARCHITECTURE_TOPOLOGY_V1",
+  "schemaVersion": 1,
+  "status": "DESIRED_LOCAL_ARCHITECTURE",
+  "source": "CURRENT_USER_REQUEST",
+  "groups": [
+    { "id": "core-systems", "labelAr": "البوابة والخدمات المركزية" },
+    { "id": "commerce-supply", "labelAr": "التجارة وسلاسل الإمداد" },
+    { "id": "fintech-capital", "labelAr": "القطاع المالي والاستثماري" },
+    { "id": "identity-edge", "labelAr": "خدمات الهوية والواجهات المساندة" }
+  ],
+  "repositories": [
+    "sheikha-main-portal",
+    "sheikha-portal-core",
+    "sheikha-ops-reports",
+    "sheikha_lc_governance"
+  ],
+  "domains": [
+    {
+      "hostname": "sheikha.top",
+      "group": "core-systems",
+      "kind": "service",
+      "repository": "sheikha-main-portal",
+      "roleAr": "البوابة السيادية الرئيسية"
+    },
+    {
+      "hostname": "sheikha.dev",
+      "group": "core-systems",
+      "kind": "service",
+      "repository": "sheikha-portal-core",
+      "roleAr": "بيئة المطورين والواجهات الموحدة APIs"
+    },
+    {
+      "hostname": "sheikha.cloud",
+      "group": "core-systems",
+      "kind": "service",
+      "repository": "sheikha-ops-reports",
+      "roleAr": "الخدمات السحابية ومراقبة البنية"
+    },
+    {
+      "hostname": "sheikha.digital",
+      "group": "core-systems",
+      "kind": "service",
+      "repository": "sheikha_lc_governance",
+      "roleAr": "الخدمات الرقمية وسجلات الحوكمة"
+    },
+    {
+      "hostname": "sheikha.shop",
+      "group": "commerce-supply",
+      "kind": "service",
+      "repository": "sheikha-main-portal",
+      "roleAr": "تطبيق المتجر الإلكتروني المباشر"
+    },
+    {
+      "hostname": "sheikha.market",
+      "group": "commerce-supply",
+      "kind": "service",
+      "repository": "sheikha-portal-core",
+      "roleAr": "سوق التجارة الإلكترونية وسلاسل الإمداد"
+    },
+    {
+      "hostname": "sheikha.capital",
+      "group": "fintech-capital",
+      "kind": "service",
+      "repository": "sheikha-portal-core",
+      "roleAr": "إدارة الاستثمارات والصندوق السيادي"
+    },
+    {
+      "hostname": "sheikha.money",
+      "group": "fintech-capital",
+      "kind": "redirect",
+      "target": "https://sheikha.capital",
+      "statusCode": 301,
+      "pathPolicy": "fixed-target",
+      "queryPolicy": "drop",
+      "methods": ["GET", "HEAD"]
+    },
+    {
+      "hostname": "sheikha.app",
+      "group": "identity-edge",
+      "kind": "service",
+      "repository": "sheikha-main-portal",
+      "roleAr": "واجهة تطبيق الجوال والويب"
+    },
+    {
+      "hostname": "sheikha.me",
+      "group": "identity-edge",
+      "kind": "redirect",
+      "target": "https://sheikha.top/profile",
+      "statusCode": 301,
+      "pathPolicy": "fixed-target",
+      "queryPolicy": "drop",
+      "methods": ["GET", "HEAD"]
+    },
+    {
+      "hostname": "sheikha.site",
+      "group": "identity-edge",
+      "kind": "redirect",
+      "target": "https://sheikha.top",
+      "statusCode": 301,
+      "pathPolicy": "fixed-target",
+      "queryPolicy": "drop",
+      "methods": ["GET", "HEAD"]
+    },
+    {
+      "hostname": "sheikha.click",
+      "group": "identity-edge",
+      "kind": "redirect",
+      "target": "https://sheikha.shop",
+      "statusCode": 301,
+      "pathPolicy": "fixed-target",
+      "queryPolicy": "drop",
+      "methods": ["GET", "HEAD"]
+    }
+  ]
+}

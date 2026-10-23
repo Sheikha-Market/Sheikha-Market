@@ -1,0 +1,15 @@
+{
+  "schemaVersion": 1,
+  "tenantId": "sheikha-local-lab",
+  "sources": [
+    {"id":"ENV-TEMP-01","labelAr":"حرارة البيئة","labelEn":"Ambient temperature","domain":"environment","metric":"temperature","maxAgeSeconds":120,"referenceMin":18,"referenceMax":35},
+    {"id":"ENV-RH-01","labelAr":"الرطوبة النسبية","labelEn":"Relative humidity","domain":"environment","metric":"humidity","maxAgeSeconds":120,"referenceMin":25,"referenceMax":65},
+    {"id":"IND-PRESSURE-01","labelAr":"ضغط الخط التجريبي","labelEn":"Test line pressure","domain":"industrial","metric":"pressure","maxAgeSeconds":60,"referenceMin":100,"referenceMax":300},
+    {"id":"IND-TEMP-01","labelAr":"حرارة الوحدة التجريبية","labelEn":"Test unit temperature","domain":"industrial","metric":"temperature","maxAgeSeconds":60,"referenceMin":20,"referenceMax":60},
+    {"id":"HOME-POWER-01","labelAr":"قدرة الدائرة التجريبية","labelEn":"Test circuit power","domain":"home","metric":"power","maxAgeSeconds":180,"referenceMin":0,"referenceMax":5},
+    {"id":"SPACE-SOLAR-01","labelAr":"الإشعاع الشمسي التجريبي","labelEn":"Test solar irradiance","domain":"space","metric":"irradiance","maxAgeSeconds":300,"referenceMin":0,"referenceMax":1000}
+  ],
+  "referencePolicy": "ILLUSTRATIVE_ENGINEERING_RANGES_NOT_SAFETY_LIMITS",
+  "physicalActuationAllowed": false,
+  "realTransportConfigured": false
+}

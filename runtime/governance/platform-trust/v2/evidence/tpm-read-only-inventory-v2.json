@@ -1,0 +1,77 @@
+{
+  "system": "SHEIKHA_TPM_READ_ONLY_RESET_COUNT_AND_HANDLE_INVENTORY_V2",
+  "status": "READ_ONLY_INVENTORY_COMPLETE",
+  "checkedAt": "2026-09-02T04:40:00.017Z",
+  "device": "/dev/tpmrm0",
+  "allowedExecutables": [
+    "tpm2_readclock",
+    "tpm2_getcap"
+  ],
+  "capabilities": [
+    {
+      "capability": "clock-info",
+      "exitCode": 0,
+      "stdoutSha256": "c310b3ab5d2d0d3b084106346628f41f2d474d47f4991803649be77a7636dc51",
+      "stderr": null
+    },
+    {
+      "capability": "properties-fixed",
+      "exitCode": 0,
+      "stdoutSha256": "cdc42f2180ae18fd7079c2dd9096d5795ea8ef15ce94dd95ee5409ddaaee8b26",
+      "stderr": null
+    },
+    {
+      "capability": "properties-variable",
+      "exitCode": 0,
+      "stdoutSha256": "22b070221ecff3b41acdcb453c33063004049302065bb22289d35d581f7e686e",
+      "stderr": null
+    },
+    {
+      "capability": "handles-persistent",
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": null
+    },
+    {
+      "capability": "handles-transient",
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": null
+    },
+    {
+      "capability": "handles-loaded-session",
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": null
+    },
+    {
+      "capability": "handles-saved-session",
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderr": null
+    }
+  ],
+  "inventory": {
+    "clock": 17199926869,
+    "resetCount": 1155440497,
+    "restartCount": 0,
+    "clockSafe": true,
+    "persistentHandles": [],
+    "transientHandles": [],
+    "loadedSessionHandles": [],
+    "savedSessionHandles": []
+  },
+  "countersObserved": true,
+  "originalSavedContextsCanBeRecoveredFromInventory": false,
+  "transientObjectsCurrentlyPresent": false,
+  "nextStage": "DEVICE_BOUND_EK_AK_RECREATION_REQUIRES_NEW_MUTATION_AUTHORIZATION",
+  "controls": {
+    "tpmMutationExecuted": false,
+    "keyOrSessionCreated": false,
+    "activateCredentialExecuted": false,
+    "firmwareOrSecureBootModified": false,
+    "networkUsed": false,
+    "authorizationSinglePurpose": true
+  },
+  "reportSha256": "397dd4652991ff58f0cf97586c0768b49eb772628cbee3911edaf89469cdba35"
+}

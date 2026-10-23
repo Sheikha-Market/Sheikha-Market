@@ -1,0 +1,46 @@
+{
+  "schema": "SHEIKHA_FOUNDATION_V1",
+  "identity": {
+    "name": "Sheikha Foundation",
+    "arabic": "أساس شيخة",
+    "repository": "sheikha-main-portal",
+    "canonicalRoot": "/home/sheikha/Projects/sheikha/sheikha-main-portal"
+  },
+  "religiousBoundary": {
+    "divineSovereignty": "Allah alone",
+    "highestReligiousSources": [
+      "Qur'an",
+      "Authentic Sunnah of Prophet Muhammad ﷺ"
+    ],
+    "detailedApplication": "qualified human scholars",
+    "systemRole": "tool for organization, analysis, evidence and implementation support",
+    "systemIsMufti": false,
+    "systemIsScholar": false,
+    "systemKnowsGhayb": false
+  },
+  "architecture": {
+    "rules": "rules/root-governance.json",
+    "rootRegistry": "roots/root-registry.json",
+    "irrigation": "irrigation/irrigation.contract.json",
+    "growth": "growth/growth.contract.json",
+    "planting": "propagation/planting.contract.json",
+    "arabianPeninsula": "geography/arabian-peninsula/arabian-peninsula.landscape.json",
+    "earth": "world/earth/earth.domain.json",
+    "between": "world/between-them/between-them.domain.json",
+    "heavens": "world/heavens/heavens-observation.domain.json",
+    "universe": "world/sheikha-universe.domain.json",
+    "kingdomModel": "realm/sheikha-kingdom-model.domain.json",
+    "akhirahBoundary": "akhirah/akhirah-paradise.reference.json"
+  },
+  "claims": {
+    "realWorldSovereignState": false,
+    "territorialOwnership": false,
+    "ownershipOfHeavensOrEarth": false,
+    "architectureNamespaceOnly": true
+  },
+  "pr31": {
+    "targetSha256": "dd9ab8f2a3f45ecdf0cbc19b077c403e41a74b2e0987b4953087f50ad08a6b5a",
+    "consumed": "UNKNOWN_UNTIL_TERMINAL_OUTPUT",
+    "doNotAdvance": true
+  }
+}

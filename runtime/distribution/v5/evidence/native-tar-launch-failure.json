@@ -1,0 +1,12 @@
+{
+  "schemaVersion": "5.0.0",
+  "system": "SHEIKHA_LINUX_TAR_NATIVE_LAUNCH_FAILURE_V5",
+  "status": "FAILED_CLOSED",
+  "error": "PACKAGED_SERVER_EXITED_BEFORE_HEALTH",
+  "outputSha256": "770878c8c902d3f59320585211f2041b954b2330539f4b7d9ee3926f4b9d9008",
+  "secretScan": {
+    "passed": true,
+    "findings": []
+  },
+  "output": "✅ SHEIKHA Governed Engine Registry V2 ACTIVE\n\nnode:internal/modules/cjs/loader:1458\n  throw err;\n  ^\n\nError: Cannot find module '../../tools/system-builder-fabric/sheikha-system-builder-platform-hierarchy-v1'\nRequire stack:\n- /tmp/sheikha-linux-native-v5-CEl2TP/installation/sheikha-1.0.51-linux-x86_64/routes/system-builder-platform/sheikha-system-builder-platform-routes.js\n- /tmp/sheikha-linux-native-v5-CEl2TP/installation/sheikha-1.0.51-linux-x86_64/server.js\n    at Module._resolveFilename (node:internal/modules/cjs/loader:1455:15)\n    at defaultResolveImpl (node:internal/modules/cjs/loader:1065:19)\n    at resolveForCJSWithHooks (node:internal/modules/cjs/loader:1070:22)\n    at Module._load (node:internal/modules/cjs/loader:1241:25)\n    at wrapModuleLoad (node:internal/modules/cjs/loader:255:19)\n    at Module.require (node:internal/modules/cjs/loader:1555:12)\n    at require (node:internal/modules/helpers:152:16)\n    at Object.<anonymous> (/tmp/sheikha-linux-native-v5-CEl2TP/installation/sheikha-1.0.51-linux-x86_64/routes/system-builder-platform/sheikha-system-builder-platform-routes.js:7:5)\n    at Module._compile (node:internal/modules/cjs/loader:1811:14)\n    at Object..js (node:internal/modules/cjs/loader:1942:10) {\n  code: 'MODULE_NOT_FOUND',\n  requireStack: [\n    '/tmp/sheikha-linux-native-v5-CEl2TP/installation/sheikha-1.0.51-linux-x86_64/routes/system-builder-platform/sheikha-system-builder-platform-routes.js',\n    '/tmp/sheikha-linux-native-v5-CEl2TP/installation/sheikha-1.0.51-linux-x86_64/server.js'\n  ]\n}\n\nNode.js v25.6.1\n"
+}

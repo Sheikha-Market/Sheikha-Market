@@ -1,0 +1,16 @@
+[Unit]
+Description=Sheikha read-only assistant governance audit
+
+[Service]
+Type=oneshot
+WorkingDirectory=%h/Projects/sheikha/sheikha-main-portal
+Environment=CODEX_HOME=%h/codex PATH=/usr/bin:/bin
+UnsetEnvironment=DBUS_SESSION_BUS_ADDRESS DISPLAY WAYLAND_DISPLAY SSH_AUTH_SOCK GPG_TTY GNOME_KEYRING_CONTROL
+ExecStart=%h/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node tools/environment/sheikha-assistant-governance-check.cjs --hosts
+NoNewPrivileges=yes
+RestrictAddressFamilies=AF_UNIX
+UMask=0077
+TimeoutStartSec=20
+StandardOutput=journal
+StandardError=journal
+SyslogIdentifier=sheikha-governance-audit

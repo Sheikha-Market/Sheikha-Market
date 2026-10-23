@@ -1,0 +1,41 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_PROPOSAL_GATE_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "PROPOSAL_AND_RATIFICATION_PREVIEW_ONLY",
+  "governance": {
+    "defaultDeny": true,
+    "systemCannotAssignReviewer": true,
+    "proposalDoesNotAssign": true,
+    "reviewDoesNotAssign": true,
+    "approvedAssignmentRequiresExplicitHumanRatification": true,
+    "ratifierIdentityRequired": true,
+    "ratificationEvidenceRequired": true,
+    "ratificationSignatureRequired": true,
+    "ratificationIntegrityRequired": true,
+    "separationOfDutiesRequired": true,
+    "selfAssignmentDenied": true,
+    "scopeMustFitAuthorityRole": true,
+    "baseIdentityRoleMustFitAuthorityRole": true,
+    "noAutomaticPersistence": true,
+    "noAutomaticAssignment": true,
+    "noProductionMutation": true,
+    "noSecretMaterial": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "proposals": 0,
+    "ratifications": 0,
+    "approvedAssignmentPreviews": 0,
+    "activeReviewerAssignments": 0,
+    "assignmentsCreatedByGate": 0
+  },
+  "truth": {
+    "proposalDoesNotAssign": true,
+    "ratificationPreviewDoesNotAssign": true,
+    "noAutomaticAssignment": true,
+    "explicitUserActionRequiredForAnyFutureAssignmentWrite": true
+  },
+  "proposals": [],
+  "ratifications": []
+}

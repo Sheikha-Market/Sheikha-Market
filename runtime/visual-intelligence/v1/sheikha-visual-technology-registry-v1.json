@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "registry": "SHEIKHA_VISUAL_TECHNOLOGY_REGISTRY_V1",
+  "status": "INTERNAL_SPECIFICATION_ACTIVE",
+  "licenseId": "SHEIKHA-VISUAL-GOVERNED-USE-1.0",
+  "licenseDocument": "LICENSES/SHEIKHA-VISUAL-MEDIA-GOVERNED-USE-LICENSE-V1-AR.md",
+  "technologies": [
+    { "id": "SHEIKHA_SCENE_INPUT", "nameAr": "شيخة لإدخال المشاهد الجامدة", "category": "VISUAL_INPUT", "maturity": "SPECIFICATION", "functions": ["sensor-ingest", "metadata", "color-profile"], "formats": ["JPEG", "PNG", "WebP", "RAW-adapter"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_VISUAL_DRAWING_FORGE", "nameAr": "مسبك شيخة للرسم المرئي", "category": "VISUAL_AI", "maturity": "LOCAL_PILOT", "functions": ["planning", "enhancement", "generation-adapters", "provenance"], "formats": ["PNG", "JPEG", "WebP"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_GRAPHICS_CANVAS", "nameAr": "لوحة شيخة للرسومات", "category": "GRAPHICS_2D", "maturity": "LOCAL_PILOT", "functions": ["vector", "raster", "diagram", "infographic"], "formats": ["SVG", "PNG", "HTML5-Canvas"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_SPATIAL_ENGINE", "nameAr": "محرك شيخة المجسم", "category": "GRAPHICS_3D", "maturity": "FOUNDATION", "functions": ["scene-graph", "materials", "lighting", "camera", "gpu-render"], "formats": ["glTF-adapter", "WebGL"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_MOTION_STUDIO", "nameAr": "استوديو شيخة للحركة", "category": "VIDEO", "maturity": "LOCAL_PILOT", "functions": ["storyboard", "timeline", "preview", "review-workflow"], "formats": ["MP4-adapter", "WebM-adapter", "HTML5"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_CODEC_GATEWAY", "nameAr": "بوابة شيخة للترميز", "category": "CODEC", "maturity": "SPECIFICATION", "functions": ["encode-adapter", "decode-adapter", "transcode-policy"], "formats": ["H.264-external", "H.265-external", "AV1-external", "VP9-external"], "commercialUse": "PATENT_AND_CODEC_LICENSE_REVIEW_REQUIRED" },
+    { "id": "SHEIKHA_STREAM_FABRIC", "nameAr": "نسيج شيخة للبث", "category": "STREAMING", "maturity": "SPECIFICATION", "functions": ["live", "recorded", "adaptive-delivery", "access-control"], "protocols": ["HLS-adapter", "DASH-adapter", "WebRTC-adapter"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_SCENE_ANALYTICS", "nameAr": "شيخة لتحليل المشهد", "category": "COMPUTER_VISION", "maturity": "FOUNDATION", "functions": ["classification", "detection", "tracking", "event-review"], "commercialUse": "GATED" },
+    { "id": "SHEIKHA_SECURE_SCENE_RECORDS", "nameAr": "شيخة لإدارة المشاهد المسجلة", "category": "VMS_CCTV", "maturity": "SPECIFICATION", "functions": ["device-registry", "retention", "alerts", "audit"], "commercialUse": "PRIVACY_AND_SURVEILLANCE_LAW_REVIEW_REQUIRED" },
+    { "id": "SHEIKHA_MOTION_EXTRACTION", "nameAr": "شيخة لاستخراج الحركة غير التجسيدية", "category": "MOTION_AI", "maturity": "DESIGN_ONLY", "functions": ["object-motion", "rigging", "animation-export"], "commercialUse": "NON_LIVING_SUBJECT_MODE_ONLY" },
+    { "id": "SHEIKHA_XR", "nameAr": "شيخة للواقع الممتد", "category": "AR_VR_MR", "maturity": "DESIGN_ONLY", "functions": ["AR", "VR", "MR", "spatial-interaction"], "protocols": ["WebXR-adapter"], "commercialUse": "DEVICE_TESTING_REQUIRED" },
+    { "id": "SHEIKHA_SCIENCE_VISUAL", "nameAr": "شيخة للتصور العلمي", "category": "SCIENCE_SIMULATION", "maturity": "DESIGN_ONLY", "functions": ["deterministic-data", "units", "simulation", "uncertainty-display"], "commercialUse": "DOMAIN_VALIDATION_REQUIRED" }
+  ],
+  "arabicTerminologyPolicy": {
+    "publicPreferredTerms": ["رسم", "مشهد", "جرافكس", "مجسم", "حركة", "رسم متحرك", "محاكاة", "خيال بصري"],
+    "technicalInteroperabilityTermsAllowedInMetadata": ["image", "video", "codec", "computer-vision"],
+    "renamingDoesNotChangeContentReality": true,
+    "religiousRulingRequiresQualifiedHumanReview": true
+  },
+  "nonLivingDrawingMode": {
+    "id": "SHEIKHA_NON_LIVING_DRAWING_MODE_V1",
+    "defaultForSheikhaVisualProducts": true,
+    "allowedSubjects": ["geometry", "buildings", "products", "machines", "maps", "landscapes", "plants", "water", "sky", "astronomy", "data", "calligraphy", "abstract-light"],
+    "deniedSubjects": ["people", "faces", "human-avatars", "animals", "anthropomorphic-characters", "biometric-reconstruction"],
+    "denyByDefaultWhenSubjectIsAmbiguous": true
+  },
+  "dimensionalModel": {
+    "2D": "سطح ومحوران",
+    "3D": "مجسم ذو ثلاثة محاور مكانية",
+    "4D": "مشهد ثلاثي الأبعاد تتغير حالته عبر الزمن",
+    "5D": "اصطلاح منتج لربط المشهد بالبيانات والسياق والقرار، وليس ادعاء بعد فيزيائي خامس"
+  },
+  "thirdPartyConnectorPolicy": {
+    "examples": ["OpenAI Sora", "Google Veo", "Runway", "Luma Dream Machine", "Kling AI", "Adobe Firefly", "HeyGen", "Synthesia"],
+    "classification": "OPTIONAL_EXTERNAL_PROVIDERS_NOT_SHEIKHA_PRODUCTS",
+    "brandingAndOwnershipRemainWithProvider": true,
+    "separateSubscriptionAndTermsRequired": true,
+    "customerContentTrainingDefault": false
+  },
+  "truthfulness": {
+    "specificationIsNotImplementation": true,
+    "adapterIsNotProviderOwnership": true,
+    "internalLicenseIsNotGovernmentRegistration": true,
+    "commercialReleaseRequiresEvidence": true
+  }
+}

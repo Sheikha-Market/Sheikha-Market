@@ -1,0 +1,44 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_MANUAL_COMMIT_GATE_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "PREVIEW_ONLY_EXPLICIT_USER_WRITE_REQUIRED",
+  "governance": {
+    "defaultDeny": true,
+    "previewOnly": true,
+    "noWriteEndpoint": true,
+    "explicitUserConfirmationRequired": true,
+    "expectedRegistrySha256Required": true,
+    "proposalIdRequired": true,
+    "approvedRatificationRequired": true,
+    "scopeChecksumRequired": true,
+    "registryCompareAndSwapRequired": true,
+    "separationOfDutiesRequired": true,
+    "noAutomaticAssignment": true,
+    "noAutomaticPersistence": true,
+    "noProductionMutation": true,
+    "noSecretMaterial": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "assignmentRecords": 0,
+    "proposalRecords": 0,
+    "ratificationRecords": 0,
+    "commitIntentsPersisted": 0,
+    "assignmentsWrittenByGate": 0
+  },
+  "currentRegistry": {
+    "source": "runtime/connector-evidence-review/v1/reviewer-authority-assignments-v1.json",
+    "registry": "SHEIKHA_REVIEWER_AUTHORITY_ASSIGNMENTS_V1",
+    "status": "ACTIVE_EMPTY_ASSIGNMENTS",
+    "recordCount": 0,
+    "sha256": "a599798c04cec3f81c7c7b34a222bb290b7c67816fbec3c2e83f4fa44d9eca22"
+  },
+  "requiredConfirmationPhrase": "AUTHORIZE_REVIEWER_ASSIGNMENT_WRITE",
+  "truth": {
+    "previewOnly": true,
+    "noWriteEndpoint": true,
+    "noAutomaticAssignment": true,
+    "explicitUserActionStillRequiredAfterEligibility": true
+  }
+}

@@ -1,0 +1,25 @@
+[Unit]
+Description=Sheikha local daily supervisor report only
+
+[Service]
+Type=oneshot
+ExecStart=/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node --jitless /home/sheikha/Projects/sheikha/sheikha-main-portal/tools/health/sheikha-sovereign-supervisor-v1.cjs --write --snapshot /home/sheikha/sheikha-supervisor/sanitized-external-evidence.json
+WorkingDirectory=/home/sheikha/Projects/sheikha/sheikha-main-portal
+UMask=0077
+NoNewPrivileges=true
+# Per-user service: network syscalls are restricted to AF_UNIX below.
+ProtectSystem=strict
+ProtectHome=read-only
+ReadWritePaths=/home/sheikha/sheikha-supervisor
+RestrictAddressFamilies=AF_UNIX
+IPAddressDeny=any
+RestrictSUIDSGID=true
+LockPersonality=true
+MemoryDenyWriteExecute=true
+TimeoutStartSec=120s
+MemoryMax=256M
+CPUQuota=20%
+TasksMax=32
+LimitNOFILE=128
+Environment=NODE_OPTIONS=
+

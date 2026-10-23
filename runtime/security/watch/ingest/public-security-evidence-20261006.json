@@ -1,0 +1,72 @@
+{
+  "system": "SHEIKHA_PUBLIC_SECURITY_EVIDENCE_SNAPSHOT_20261006",
+  "observedAt": "2026-10-06T00:00:00+03:00",
+  "events": [
+    {
+      "id": "GHSA-58qx-3vcg-4xpx",
+      "source": "GitHub Advisory Database",
+      "sourceClass": "GITHUB_SECURITY_ADVISORY",
+      "sourceUrl": "https://github.com/advisories/GHSA-58qx-3vcg-4xpx",
+      "publishedAt": "2026-05-12",
+      "ecosystem": "npm",
+      "vendor": "websockets",
+      "product": "ws",
+      "title": "ws: Uninitialized memory disclosure",
+      "severity": "MODERATE",
+      "patchedVersion": "8.20.1",
+      "securityEvidence": true,
+      "versionRange": {
+        "minInclusive": "8.0.0",
+        "maxExclusive": "8.20.1"
+      }
+    },
+    {
+      "id": "GHSA-96hv-2xvq-fx4p",
+      "source": "GitHub Advisory Database",
+      "sourceClass": "GITHUB_SECURITY_ADVISORY",
+      "sourceUrl": "https://github.com/advisories/GHSA-96hv-2xvq-fx4p",
+      "publishedAt": "2026-05-22",
+      "ecosystem": "npm",
+      "vendor": "websockets",
+      "product": "ws",
+      "title": "ws: Memory exhaustion DoS from tiny fragments and data chunks",
+      "severity": "HIGH",
+      "patchedVersion": "8.21.0",
+      "securityEvidence": true,
+      "versionRange": {
+        "minInclusive": "8.0.0",
+        "maxExclusive": "8.21.0"
+      }
+    },
+    {
+      "id": "GHSA-345p-7cg4-v4c7",
+      "source": "GitHub Advisory Database",
+      "sourceClass": "GITHUB_SECURITY_ADVISORY",
+      "sourceUrl": "https://github.com/advisories/GHSA-345p-7cg4-v4c7",
+      "publishedAt": "2026-02-04",
+      "ecosystem": "npm",
+      "vendor": "modelcontextprotocol",
+      "product": "@modelcontextprotocol/sdk",
+      "title": "@modelcontextprotocol/sdk cross-client data leak via shared server/transport instance reuse",
+      "severity": "HIGH",
+      "patchedVersion": "1.26.0",
+      "securityEvidence": true,
+      "versionRange": {
+        "minInclusive": "1.10.0",
+        "maxInclusive": "1.25.3"
+      }
+    },
+    {
+      "id": "OPENAI-STATUS-2026-10-05-WORK-MODE",
+      "source": "OpenAI Status",
+      "sourceClass": "OPENAI_STATUS",
+      "sourceUrl": "https://status.openai.com/incidents/mysmq298",
+      "publishedAt": "2026-10-05",
+      "product": "ChatGPT Work",
+      "title": "Elevated Work Mode errors",
+      "summary": "Mitigated; monitoring recovery.",
+      "eventType": "AVAILABILITY_INCIDENT",
+      "securityEvidence": false
+    }
+  ]
+}

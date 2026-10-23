@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "component": "firmware",
+  "language": "sheikha",
+  "sourceSha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c",
+  "definition": {
+    "name": "شيخة_Firmware",
+    "properties": {
+      "المعرف": "firmware",
+      "المسؤولية": "حوكمة_البرامج_الثابتة",
+      "التبعيات": "governance",
+      "الحد": "دون_كتابة_جهاز",
+      "المسؤول_الإداري": "غير_معين",
+      "المراجعة": "حوكمة_واختبار_قبل_الإصدار"
+    }
+  },
+  "dependencies": [
+    "governance"
+  ],
+  "status": "LOCAL_CONTRACT_PRODUCED",
+  "verificationScope": "LOCAL_ARTIFACT_OR_PROBE_ONLY",
+  "verificationBasis": "LOCAL_POLICY_DENIAL_TEST",
+  "productionServiceActivated": false,
+  "hardwareMutationPerformed": false,
+  "deploymentPerformed": false
+}

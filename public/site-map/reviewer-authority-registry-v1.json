@@ -1,0 +1,125 @@
+{
+  "system": "SHEIKHA_REVIEWER_AUTHORITY_REGISTRY_V1",
+  "version": "1.0.0",
+  "status": "CLEAR",
+  "mode": "ROLE_SCOPE_PLUS_EXPLICIT_IDENTITY_ASSIGNMENT",
+  "governance": {
+    "defaultDeny": true,
+    "reviewerIdentityMustBeAssigned": true,
+    "roleScopeMustMatch": true,
+    "evidenceKindMustMatch": true,
+    "domainScopeMustMatch": true,
+    "humanReviewerRequiredForApproval": true,
+    "separationOfDutiesRequired": true,
+    "selfApprovalDenied": true,
+    "reviewAuthorityDoesNotGrantConnectorAuthorization": true,
+    "noAutomaticRoleAssignment": true,
+    "noExternalAuthorityClaim": true,
+    "noSecretMaterial": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "summary": {
+    "authorityRoles": 4,
+    "identityRoleVocabulary": 11,
+    "assignments": 0,
+    "invalidRoleReferences": 0,
+    "invalidAssignments": 0
+  },
+  "roles": [
+    {
+      "id": "OWNER_AUTHORITY_REVIEWER",
+      "baseIdentityRoles": [
+        "OWNER"
+      ],
+      "evidenceKinds": [
+        "*"
+      ],
+      "domains": [
+        "*"
+      ],
+      "decisions": [
+        "APPROVED",
+        "REJECTED"
+      ],
+      "highImpactReview": true
+    },
+    {
+      "id": "RIGHTS_CONTRACT_REVIEWER",
+      "baseIdentityRoles": [
+        "OWNER",
+        "TENANT_ADMIN",
+        "AUDITOR"
+      ],
+      "evidenceKinds": [
+        "TERMS_OR_CONTRACT"
+      ],
+      "domains": [
+        "*"
+      ],
+      "decisions": [
+        "APPROVED",
+        "REJECTED"
+      ],
+      "highImpactReview": true
+    },
+    {
+      "id": "AUTHORIZATION_REVIEWER",
+      "baseIdentityRoles": [
+        "OWNER",
+        "TENANT_ADMIN",
+        "AUDITOR"
+      ],
+      "evidenceKinds": [
+        "AUTHORIZATION",
+        "HUMAN_APPROVAL"
+      ],
+      "domains": [
+        "*"
+      ],
+      "decisions": [
+        "APPROVED",
+        "REJECTED"
+      ],
+      "highImpactReview": true
+    },
+    {
+      "id": "TECHNICAL_TRUST_REVIEWER",
+      "baseIdentityRoles": [
+        "OWNER",
+        "TENANT_ADMIN",
+        "MANAGER",
+        "AUDITOR"
+      ],
+      "evidenceKinds": [
+        "CREDENTIAL",
+        "LIVE_CONNECTION",
+        "HEALTHCHECK",
+        "AUDIT_BINDING"
+      ],
+      "domains": [
+        "identity",
+        "marketplace",
+        "commerce",
+        "logistics",
+        "enterprise",
+        "knowledge",
+        "developer",
+        "operations",
+        "governance",
+        "native",
+        "integration",
+        "platform"
+      ],
+      "decisions": [
+        "APPROVED",
+        "REJECTED"
+      ],
+      "highImpactReview": false
+    }
+  ],
+  "assignments": [],
+  "findings": {
+    "invalidRoleReferences": [],
+    "invalidAssignments": []
+  }
+}

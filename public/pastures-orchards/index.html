@@ -1,0 +1,129 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>مراعي وجنات شيخة</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <div>
+      <p class="brand">شيخة</p>
+      <h1>مراعي وجنات الدنيا</h1>
+    </div>
+    <div class="status" id="runtime-status" aria-live="polite">جار التحقق</div>
+  </header>
+
+  <main>
+    <section class="hero" aria-labelledby="hero-title">
+      <img src="/images/sheikha-worldly-gardens-v1.png" alt="حدائق دنيوية خضراء">
+      <div class="hero-copy">
+        <p class="eyebrow">نظام الاستزراع المستمر V4</p>
+        <h2 id="hero-title">أرض وماء وغذاء وسكن تنمو بالدليل</h2>
+        <p>تشغيل دنيوي مقاس للمغارس والبساتين والمراعي والمرافق، من البذرة إلى الثمرة والتوسع المحكوم.</p>
+      </div>
+    </section>
+
+    <section class="metrics" aria-label="مؤشرات التشغيل">
+      <div><span>المغارس</span><strong id="metric-total">-</strong></div>
+      <div><span>النشطة</span><strong id="metric-active">-</strong></div>
+      <div><span>جاهزة للحصاد</span><strong id="metric-harvest">-</strong></div>
+      <div><span>جاهزة للتكاثر</span><strong id="metric-propagation">-</strong></div>
+    </section>
+
+    <section class="band">
+      <div class="section-heading">
+        <div><p class="eyebrow">المغارس الحالية</p><h2>مسارات النمو</h2></div>
+        <button id="refresh" type="button">تحديث</button>
+      </div>
+      <div class="table-wrap">
+        <table>
+          <thead><tr><th>المغرس</th><th>المسار</th><th>المرحلة</th><th>الحصاد</th><th>الموانع</th></tr></thead>
+          <tbody id="plots-body"><tr><td colspan="5">جار التحميل</td></tr></tbody>
+        </table>
+      </div>
+    </section>
+
+    <section class="planner band" aria-labelledby="planner-title">
+      <div class="section-heading">
+        <div><p class="eyebrow">موازنة الموقع</p><h2 id="planner-title">احسب موارد المغرس</h2></div>
+      </div>
+      <form id="balance-form">
+        <label>عدد السكان<input name="populationTarget" type="number" min="1" value="500" required></label>
+        <label>مساحة الموقع م²<input name="siteAreaM2" type="number" min="1" value="100000" required></label>
+        <label>رؤوس الماشية<input name="livestockHeads" type="number" min="0" value="50" required></label>
+        <button type="submit">احسب الموازنة</button>
+      </form>
+      <p class="notice">النتيجة سيناريو تخطيطي، ولا تعتمد للبناء أو الزراعة قبل دراسات الموقع.</p>
+      <div class="balance-grid" id="balance-results" aria-live="polite"></div>
+    </section>
+
+    <section class="band">
+      <div class="section-heading"><div><p class="eyebrow">البيئة المتكاملة</p><h2>النطاقات السبعة</h2></div></div>
+      <div class="domain-grid" id="domain-grid"></div>
+    </section>
+
+    <section class="language band" aria-labelledby="language-title">
+      <div class="section-heading">
+        <div>
+          <p class="eyebrow">لغة شيخة البرمجية</p>
+          <h2 id="language-title">حرر مخطط المراعي والجنات</h2>
+        </div>
+        <span class="source-kind">.shk</span>
+      </div>
+      <div class="language-layout">
+        <div>
+          <label for="sheikha-source">البرنامج</label>
+          <textarea id="sheikha-source" spellcheck="false">بسم_الله
+
+جنة جنات_الدنيا:
+  النطاق: الدنيا
+  الموقع: موقع_تجريبي
+  المساحة: 100000 متر_مربع
+  السكان: 500 شخص
+  الماشية: 50 رأس
+  دراسة_الماء: مرجع_مطلوب
+  دراسة_التربة: مرجع_مطلوب
+  المسح_الطبوغرافي: مرجع_مطلوب
+  دراسة_المخاطر_والسيول: مرجع_مطلوب
+  حقوق_الأرض: نعم
+  الميزانية: مرجع_مطلوب
+  جهة_الاختصاص: جهة_معلنة
+  التحقق_المستقل: لا
+  يرتبط: تربة_حية، بذرة_موثقة، مرعى_دوري، ثمرة_نافعة
+
+تربة تربة_حية:
+  فحص: الخصوبة، الملوحة، الصرف
+
+بذرة بذرة_موثقة:
+  المصدر: مملوك_أو_مرخص
+
+مرعى مرعى_دوري:
+  السعة: تحسب_من_الموقع
+
+ثمرة ثمرة_نافعة:
+  النوع: غذاء، معرفة، دخل_مثبت</textarea>
+          <button id="compile-source" type="button">ترجم البرنامج</button>
+        </div>
+        <div class="compiler-output" id="compiler-output" aria-live="polite">
+          <p class="empty-output">لم تبدأ الترجمة بعد.</p>
+        </div>
+      </div>
+      <p class="notice">المترجم ينتج عقد قبول ومراجعة يبين الأدلة والموانع والبوابة التالية. الترجمة وحدها لا تصرح بالتنفيذ المادي أو الأوامر الخارجية.</p>
+    </section>
+
+    <section class="sacred band" aria-labelledby="sacred-title">
+      <div>
+        <p class="eyebrow">الآخرة والغيب</p>
+        <h2 id="sacred-title">مراجع للتذكير وطلب الجنة</h2>
+        <p>لا محاكاة للجنة، ولا استنتاج لكيفية الغيب، ولا تفسير أو فتوى آلية. الشرح المنشور يحتاج مراجعة عالم مؤهل.</p>
+      </div>
+      <ul id="sacred-references"></ul>
+    </section>
+  </main>
+
+  <footer>شيخة UGIT-RP · التخطيط لا يساوي التنفيذ الهندسي</footer>
+  <script src="./app.js" defer></script>
+</body>
+</html>

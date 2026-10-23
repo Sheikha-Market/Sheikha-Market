@@ -1,0 +1,25 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_FOUNDATION_COMPUTING_PLATFORM_V1",
+  "status": "ARCHITECTURE_ACTIVE_IMPLEMENTATION_PARTIAL",
+  "arabicName": "منصة شيخة للحوسبة التأسيسية",
+  "purpose": "Unify evidence-governed foundational computing from firmware through the enterprise control plane without converting architecture registration into implementation claims.",
+  "layers": [
+    {"id": "FIRMWARE", "system": "SHEIKHA_FOUNDATION_FIRMWARE_PLATFORM", "state": "DEVELOPMENT_FOUNDATION_ACTIVE"},
+    {"id": "BARE_METAL", "system": "SHEIKHA_SOVEREIGN_BARE_METAL", "state": "NAMED_DEVICE_SEED_VERIFIED"},
+    {"id": "RUNTIME", "system": "SHEIKHA_RUNTIME", "state": "EXISTING_SYSTEM_REFERENCE"},
+    {"id": "OPERATING_SYSTEM", "system": "SHEIKHA_OPERATING_SYSTEM", "state": "NOT_GENERAL_PURPOSE_COMPLETE"},
+    {"id": "MANAGEABILITY", "system": "SHEIKHA_MANAGE_FOUNDATION", "state": "ARCHITECTURE_DEFINED"},
+    {"id": "SECURITY", "system": "SHEIKHA_TRUST_FOUNDATION", "state": "ARCHITECTURE_DEFINED"},
+    {"id": "OBSERVABILITY", "system": "SHEIKHA_FIRMWARE_OPERATIONS", "state": "ARCHITECTURE_DEFINED"},
+    {"id": "ENTERPRISE_CONTROL_PLANE", "system": "SHEIKHA_ENTERPRISE_CONTROL_PLANE", "state": "INTEGRATION_REQUIRED"}
+  ],
+  "sharedDecisionContract": "SHEIKHA_UNIFIED_GOVERNANCE_DECISION_CONTRACT_V1",
+  "governanceControlPlane": "SHEIKHA_GOVERNANCE_CONTROL_PLANE_AND_MASTER_AUDIT_V1",
+  "claimBoundary": {
+    "fullComputingPlatformImplemented": false,
+    "generalPurposeOperatingSystemComplete": false,
+    "universalHardwareSupport": false,
+    "architectureAndImplementationStatesSeparated": true
+  }
+}

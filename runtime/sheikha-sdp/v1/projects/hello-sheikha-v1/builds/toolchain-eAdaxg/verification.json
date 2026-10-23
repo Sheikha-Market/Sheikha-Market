@@ -1,0 +1,51 @@
+{
+  "timestamp": "2026-10-13T05:00:32.842Z",
+  "status": "LOCAL_TOOLCHAIN_BUILD_EXECUTION_VERIFIED",
+  "id": "hello-sheikha-v1",
+  "tools": {
+    "status": "LOCAL_TOOLCHAIN_AVAILABLE",
+    "versions": {
+      "gcc": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0",
+      "clang": "Ubuntu clang version 14.0.0-1ubuntu1.1",
+      "cmake": "cmake version 3.22.1",
+      "ninja": "1.10.1"
+    },
+    "productionReady": false
+  },
+  "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+  "snapshot": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/local-sXBmVr",
+  "binarySha256": "cc79d3f2880187083246d266b71e443aa00c72ba00290b4182a718b610c70f7e",
+  "output": "\"SHEIKHA_PROJECT_LOCAL_OK\"\n",
+  "vmOutputMatched": true,
+  "binding": {
+    "status": "EXISTING_PLATFORM_AND_INTERNAL_SCOPE_MATCHED",
+    "passed": true,
+    "checks": {
+      "licenseDigest": true,
+      "internalLicense": true,
+      "scope": true,
+      "grants": true,
+      "existingPlatform": true,
+      "parentHierarchy": true,
+      "defaultDeny": true
+    },
+    "parentPlatform": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+    "foundation": "system-builder-platform",
+    "adapter": "SHEIKHA_SDP_LOCAL_BYTECODE_ADAPTER_V1",
+    "role": "BOUNDED_LOCAL_DEVELOPMENT_TOOL",
+    "registryEntryModified": false,
+    "licenseSource": "runtime/ownership-licensing/generated/licenses.json",
+    "externalCertificationGranted": false,
+    "productionAuthorized": false,
+    "rightsAuthenticity": "DECLARED_INTERNAL_RECORD_NOT_INDEPENDENTLY_AUTHENTICATED",
+    "sourceDigests": {
+      "runtime/ownership-licensing/generated/licenses.json": "6086654d6724ed31375577ef5ec33b0ae356c740d131d0f6818fbd8ab283fb16",
+      "runtime/sheikha-developer-platform/v1/sheikha-developer-platform-v1.json": "33bfa0e30148a978575c1537e3a74c5a96df210680d83b3ebefe033255982882",
+      "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json": "9e94a8995189f3c4833fbbda6dee4b950f151c6bea0539ede0f58be005106812",
+      "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json": "f07f2c28053383efe6d666155144948d7276fc90c4756e91c506c4263302cce9"
+    }
+  },
+  "bareMetal": false,
+  "externalCertificationGranted": false,
+  "productionReady": false
+}

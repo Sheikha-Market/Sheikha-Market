@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_CHAT_COMMERCIAL_READINESS_V1",
+  "generatedAt": "2026-08-11T22:19:19.101Z",
+  "startedAt": "2026-08-11T22:19:19.087Z",
+  "status": "COMMERCIAL_RESPONSE_PATH_VERIFIED",
+  "passed": true,
+  "endpoint": "http://127.0.0.1:8080/api/sheikha/live/chat/v1",
+  "request": {
+    "language": "ar",
+    "mode": "smart",
+    "channel": "extension-chat",
+    "responseMode": "FAST_THEN_DEEP_STREAM",
+    "bodySha256": "2978acc9c5f55025cab757004d688da760ab0f4cd6b8829eb1553d03a726152e"
+  },
+  "timingMs": {
+    "firstEvent": 12.763,
+    "firstToken": 12.869,
+    "done": 12.928,
+    "total": 13.894
+  },
+  "thresholds": {
+    "firstEventMsMaximum": 1000,
+    "firstTokenMsMaximum": 8000,
+    "doneMsMaximum": 90000
+  },
+  "route": "SHEIKHA_REAL_MODEL_LIVE_STREAM_L65_V2",
+  "terminalRoute": "GOVERNED_COMMERCIAL_READINESS_EVIDENCE_PATH",
+  "httpStatus": 200,
+  "eventSequence": [
+    "ack",
+    "meta",
+    "heartbeat",
+    "token",
+    "done"
+  ],
+  "doneReason": null,
+  "response": {
+    "text": "الحالة: مسار الشات المحلي مستجيب. الأدلة: استقبل الخادم الطلب وفتح بث HTTP وSSE لهذا الرد. الحدود: لا يثبت ذلك النشر العام أو توافق الأجهزة أو اتفاقية مستوى خدمة، ويلزم تحقق مستقل قبل الاعتماد التجاري.",
+    "characters": 201,
+    "sha256": "68bb3463769b07289ef0f5b07be3b55c27e32ef8c421a483533eac3ce613401a"
+  },
+  "checks": {
+    "httpSuccess": true,
+    "firstEventWithinBudget": true,
+    "firstTokenWithinBudget": true,
+    "doneReceived": true,
+    "modelStoppedNaturally": true,
+    "doneWithinBudget": true,
+    "routePresent": true,
+    "requiredSectionsPresent": true,
+    "fullResponsePresent": true,
+    "noFallbackCompletion": true,
+    "noUnsupportedCommercialClaim": true,
+    "noSecretMaterialRecorded": true
+  },
+  "error": null,
+  "boundaries": {
+    "localLoopbackOnly": true,
+    "externalNetworkUsed": false,
+    "highImpactActionExecuted": false,
+    "credentialsRecorded": false,
+    "productionClaimScope": "Verifies one local response path; does not establish public SLA or multi-node availability."
+  }
+}

@@ -1,0 +1,1140 @@
+{
+  "schema": "SHEIKHA_FIRMWARE_EVIDENCE_REVIEW_V1",
+  "review_date": "2026-10-17",
+  "document_generated_at_utc": "2026-10-17T03:18:42Z",
+  "project": {
+    "marketing_name": "SHEIKHA Global Runtime Platform",
+    "official_abbreviation": "SHEIKHA UGIT-RP"
+  },
+  "status": "STATIC_REVIEW_COMPLETE_NATIVE_FIRMWARE_PROOF_HOLD",
+  "review_complete": true,
+  "native_firmware_replacement_verified": false,
+  "superiority_verified": false,
+  "scope": {
+    "mode": "READ_ONLY_EXTERNAL_ARTIFACTS_WITH_CANONICAL_DOCUMENTATION",
+    "path_scope": "Only the paths listed in this observation; not a repository-wide absence claim",
+    "historical_sources_imported": false,
+    "historical_engines_executed": false,
+    "historical_tests_or_builds_rerun": false,
+    "new_boot_performed": false,
+    "network_or_cloud_account_calls": false,
+    "sqlite_connection_opened": false,
+    "external_artifacts_modified": false,
+    "v2_repinned": false,
+    "firmware_flash_performed": false,
+    "uefi_variables_written": false,
+    "secrets_or_model_weights_read": false,
+    "merge_or_deploy_performed": false,
+    "web_sources_read": "Public primary technical documentation only",
+    "measurement_limit": "Separate per-file observations, not an atomic snapshot of all artifacts; byte hashes do not attest execution or provenance"
+  },
+  "binary_observations": [
+    {
+      "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_os_minikernel_v27_6/sheikha_minikernel_v276.elf",
+      "exists": true,
+      "bytes": 8972,
+      "sha256": "ab4cdc5b90f6107a1cf908189adaa1b1238b15c80a8a61f03b97c3793b6ca961",
+      "stable_metadata": true,
+      "symlink": false,
+      "elf_class": 32,
+      "machine": 3,
+      "entry": 1052672,
+      "entry_hex": "0x101000",
+      "load_segments": [
+        {
+          "offset": 4096,
+          "vaddr": 1048576,
+          "paddr": 1048576,
+          "filesz": 12,
+          "memsz": 12,
+          "flags": 4,
+          "align": 4096,
+          "file_data_within_eof": true,
+          "writable_and_executable": false,
+          "entry_in_segment": false
+        },
+        {
+          "offset": 8192,
+          "vaddr": 1052672,
+          "paddr": 1052672,
+          "filesz": 117,
+          "memsz": 16512,
+          "flags": 7,
+          "align": 4096,
+          "file_data_within_eof": true,
+          "writable_and_executable": true,
+          "entry_in_segment": true
+        }
+      ],
+      "multiboot_v1_headers_in_first_8k": [
+        {
+          "offset": 4096,
+          "flags": 3,
+          "checksum_valid": true
+        }
+      ],
+      "wx_segment_count": 1,
+      "runtime_nx_tested": false,
+      "executed": false
+    },
+    {
+      "path": "/tmp/sheikha-firmware-lQojf1mR/output/sheikha_lab_hardened.elf",
+      "exists": false
+    },
+    {
+      "path": "/usr/share/OVMF/OVMF_CODE_4M.fd",
+      "exists": true,
+      "bytes": 3653632,
+      "sha256": "9be5f162354721899002f2d4ae8417809e509fe7477f8c9f02d2acf7e3e37af3",
+      "stable_metadata": true,
+      "symlink": false
+    },
+    {
+      "path": "/usr/share/OVMF/OVMF_VARS_4M.fd",
+      "exists": true,
+      "bytes": 540672,
+      "sha256": "5d2ac383371b408398accee7ec27c8c09ea5b74a0de0ceea6513388b15be5d1e",
+      "stable_metadata": true,
+      "symlink": false
+    },
+    {
+      "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_os_minikernel_v27_6/linker_v276.ld",
+      "exists": true,
+      "bytes": 240,
+      "sha256": "53638371a007e4ff78de762828da4d70e83d554849e52ae3a3ead25e444adc0d",
+      "stable_metadata": true,
+      "symlink": false
+    },
+    {
+      "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_os_minikernel_v27_6/kernel_v276.S",
+      "exists": true,
+      "bytes": 967,
+      "sha256": "92a8033b67b80ffd78930ff275175bc808d78085b9f6808d675ffbd1c24f3155",
+      "stable_metadata": true,
+      "symlink": false
+    }
+  ],
+  "hardened_lab": {
+    "transcript_reported_sha256": "44e656b7945afe18dca672397fe614cbd3549b424f55ba26de079a866e1c499f",
+    "transcript_reported_tests_passed": 22,
+    "transcript_reported_load_flags": [
+      4,
+      5,
+      6
+    ],
+    "current_elf_hash_independently_verified": false,
+    "current_tests_independently_rerun": false,
+    "referenced_path_present": false,
+    "named_tmp_scope_matches": [],
+    "functional_equivalence_to_original_established": false,
+    "source_scope": "Sets a stack and enters a CLI/HLT loop; original source emits a UART marker and QEMU debug exit. Neither source shows paging/NX initialization.",
+    "package": {
+      "source_files": [
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/README_AR.md",
+          "relative_path": "README_AR.md",
+          "bytes": 1289,
+          "sha256": "8f2c9e564e4574408a08143b0424ab3bfe8afd03d5cd2609d4160bdd0f847387"
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/docs/GOVERNANCE_AR.md",
+          "relative_path": "docs/GOVERNANCE_AR.md",
+          "bytes": 457,
+          "sha256": "1765f7bdacb4a6c07963591ef67d7e6c8dd461d6c334300adea67fe2d69fce4a"
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "relative_path": "src/guard.py",
+          "bytes": 3628,
+          "sha256": "e44c656a92b0a1139b893e8bb35c88e124eb2c35e78303a8304d1935a3d0deae"
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/lab_linker.ld",
+          "relative_path": "src/lab_linker.ld",
+          "bytes": 415,
+          "sha256": "2208e9eb2e959d896cc5a7187491b1974c4bc160cd5b2151e40fb0154d3075e7"
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/minikernel_lab.S",
+          "relative_path": "src/minikernel_lab.S",
+          "bytes": 329,
+          "sha256": "42f3ecc46fbdbbcc8db734de35405d4b297eef39b90d4631ce8a4d67c4c7bb58"
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/tests/test_guard.py",
+          "relative_path": "tests/test_guard.py",
+          "bytes": 2727,
+          "sha256": "caa53cd016e88b7bd70cdce55a3f23869634560991816fd72a69c6ecc65ce0b4"
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/tools/build_lab.sh",
+          "relative_path": "tools/build_lab.sh",
+          "bytes": 463,
+          "sha256": "9ab9b54c3641249d3cee926874ed303eba6c6818575c5568902aec792c7606f3"
+        }
+      ],
+      "zip": {
+        "path": "/home/sheikha/التنزيلات/SHEIKHA_FIRMWARE_HARDENING_V29_7_5.zip",
+        "exists": true,
+        "bytes": 6123,
+        "sha256": "2f33a8d8baa0279d7a96331bf364d0afb94b273c086f5fe69a6c142f6edf07ea",
+        "members": [
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/README_AR.md",
+            "bytes": 1289
+          },
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/docs/GOVERNANCE_AR.md",
+            "bytes": 457
+          },
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+            "bytes": 3628
+          },
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/lab_linker.ld",
+            "bytes": 415
+          },
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/minikernel_lab.S",
+            "bytes": 329
+          },
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/tests/test_guard.py",
+            "bytes": 2727
+          },
+          {
+            "name": "SHEIKHA_FIRMWARE_HARDENING_V29_7_5/tools/build_lab.sh",
+            "bytes": 463
+          }
+        ],
+        "source_match": {
+          "README_AR.md": true,
+          "docs/GOVERNANCE_AR.md": true,
+          "src/guard.py": true,
+          "src/lab_linker.ld": true,
+          "src/minikernel_lab.S": true,
+          "tests/test_guard.py": true,
+          "tools/build_lab.sh": true
+        }
+      }
+    }
+  },
+  "v297_boot_receipt": {
+    "receipt": {
+      "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_firmware_v29_7/BOOT_OBSERVATION_V29_7.json",
+      "bytes": 1488,
+      "sha256": "dd87ee09e2d118e9264836bc080e28acdf6a6f717aa64c4f42a213ec9a7fe574",
+      "content": {
+        "schema": "SHEIKHA_FIRMWARE_V29_7_BOOT_OBSERVATION",
+        "observed_utc": "2026-10-14T22:58:13.491571+00:00",
+        "platform": "QEMU_TCG_OVMF_X86_64",
+        "source_and_artifacts": {
+          "efi_lab_v297.c": {
+            "sha256": "e39a9d30b685f74cbce383f78a87233a3eeeca96546499e674232d6729dabf3d",
+            "bytes": 2303
+          },
+          "SHEIKHA_BOOTX64.EFI": {
+            "sha256": "191af5cf88aa15ec3e7a1f11ffb53e521af89e979a7ae982405f97d2cae52754",
+            "bytes": 50295
+          },
+          "isolated_uefi_boot_32m.img": {
+            "sha256": "2cdc8612fa87cb28707b03474f943f7fb40c678bf2169140b4a7da8d573792d0",
+            "bytes": 33554432
+          },
+          "isolated_ovmf_vars.fd": {
+            "sha256": "04a47475e938c05850d4f66fe3b8f6cb8c3e993da9c8d5193a1f11ae7ed53c11",
+            "bytes": 540672
+          }
+        },
+        "firmware_reference_sha256": "9be5f162354721899002f2d4ae8417809e509fe7477f8c9f02d2acf7e3e37af3",
+        "observed_output": [
+          "BdsDxe: starting Boot0001",
+          "SHEIKHA_V297_UEFI_ENTRY",
+          "SHEIKHA_V297_EXIT_BOOT_SERVICES_OK",
+          "QEMU_PROCESS_EXIT=33"
+        ],
+        "code_contract": "Success marker written after ExitBootServices returned EFI_SUCCESS; serial I/O only after exit",
+        "original_full_uefi_log_separately_archived": false,
+        "external_witness": false,
+        "signed_firmware_attestation": false,
+        "original_multiboot_kernel_handoff_proven": false,
+        "sheikha_full_os_boot_proven": false,
+        "machine_firmware_modified": false,
+        "network_enabled": false,
+        "production": false,
+        "decision": "LAB_UEFI_EXIT_OBSERVED_RELEASE_HOLD"
+      }
+    },
+    "source_and_artifacts": [
+      {
+        "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_firmware_v29_7/efi_lab_v297.c",
+        "bytes": 2303,
+        "sha256": "e39a9d30b685f74cbce383f78a87233a3eeeca96546499e674232d6729dabf3d",
+        "recorded_sha256": "e39a9d30b685f74cbce383f78a87233a3eeeca96546499e674232d6729dabf3d",
+        "hash_matches_record": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_firmware_v29_7/SHEIKHA_BOOTX64.EFI",
+        "bytes": 50295,
+        "sha256": "191af5cf88aa15ec3e7a1f11ffb53e521af89e979a7ae982405f97d2cae52754",
+        "recorded_sha256": "191af5cf88aa15ec3e7a1f11ffb53e521af89e979a7ae982405f97d2cae52754",
+        "hash_matches_record": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_firmware_v29_7/isolated_uefi_boot_32m.img",
+        "bytes": 33554432,
+        "sha256": "2cdc8612fa87cb28707b03474f943f7fb40c678bf2169140b4a7da8d573792d0",
+        "recorded_sha256": "2cdc8612fa87cb28707b03474f943f7fb40c678bf2169140b4a7da8d573792d0",
+        "hash_matches_record": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_firmware_v29_7/isolated_ovmf_vars.fd",
+        "bytes": 540672,
+        "sha256": "04a47475e938c05850d4f66fe3b8f6cb8c3e993da9c8d5193a1f11ae7ed53c11",
+        "recorded_sha256": "04a47475e938c05850d4f66fe3b8f6cb8c3e993da9c8d5193a1f11ae7ed53c11",
+        "hash_matches_record": true
+      }
+    ],
+    "guard": {
+      "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_firmware_v29_7/firmware_guard_v297.py",
+      "bytes": 1248,
+      "sha256": "a32187196952b4f5c609e7997349a07efeff4f0309cdbb1d7718212ab90dada1"
+    },
+    "new_boot_performed": false
+  },
+  "stage_reconciliation": {
+    "engine_count": 22,
+    "manifest_count": 22,
+    "manifest_v2_matches": 21,
+    "manifest_v2_mismatches": 1,
+    "classification": "SQL_CATALOG_AND_MANIFEST_WRITER",
+    "static_imports_seen": [
+      "os",
+      "json",
+      "time",
+      "hashlib",
+      "sqlite3"
+    ],
+    "build_or_boot_or_systemctl_or_network_calls_in_these_engines": false,
+    "database_digest_values_match_v2_for_21_manifests_with_a_db_field": true,
+    "version_without_db_digest_in_manifest": "30.6",
+    "recorded_db_comparison_is_not_a_current_db_check": true,
+    "stages": [
+      {
+        "version": "30.1",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_1_firmware_activation_engine.py",
+          "bytes": 6111,
+          "sha256": "d687ca801748bd395d56fc086ba167383c0882b60ac10ddb1743e51accedfe0b",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_1_firmware_manifest.json",
+          "bytes": 1201,
+          "sha256": "e1e68b26937912b8d33aa61043665f601b714cb45fc704036bed83cf9be8d81d",
+          "matching_v2_keys": [
+            "sheikha_v30_1_firmware_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "5d9b3adaa7d890b2a31db25480c832641f9cb0b38b2b305d9026b5069eb8fe4a"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_1_firmware_manifest_hash": "e1e68b26937912b8d33aa61043665f601b714cb45fc704036bed83cf9be8d81d",
+          "sheikha_sql_db_v30_1_firmware_hash": "5d9b3adaa7d890b2a31db25480c832641f9cb0b38b2b305d9026b5069eb8fe4a"
+        }
+      },
+      {
+        "version": "30.2",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_2_firmware_hardening_engine.py",
+          "bytes": 6291,
+          "sha256": "3a0be99ddca869b91c70f6c8e8b24e0c9e76ad780364d043ee47e80fb34f3a88",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_2_firmware_hardening_manifest.json",
+          "bytes": 1109,
+          "sha256": "9f9c2c2b1287190987f82baed1f926fdd382c9b2398a216a7563bfc7fcfffbf1",
+          "matching_v2_keys": [
+            "sheikha_v30_2_firmware_hardening_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "73e8f0653d64b15950a35b9f4c3c6980b9ef0aab0035ca355894e0e21e52b0bf"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_2_firmware_hardening_manifest_hash": "9f9c2c2b1287190987f82baed1f926fdd382c9b2398a216a7563bfc7fcfffbf1",
+          "sheikha_sql_db_v30_2_hardening_hash": "73e8f0653d64b15950a35b9f4c3c6980b9ef0aab0035ca355894e0e21e52b0bf"
+        }
+      },
+      {
+        "version": "30.3",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_3_sovereign_firmware_engine.py",
+          "bytes": 6994,
+          "sha256": "b784871ae4598b8adc59b41706ad39faff0a0deea70538cf0924037019bbc299",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_3_sovereign_firmware_manifest.json",
+          "bytes": 1144,
+          "sha256": "b0b01a7c551edadb570d58df4f8f57bf884364a39286af656d74a81dba62ba34",
+          "matching_v2_keys": [
+            "sheikha_v30_3_sovereign_firmware_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "5d9a546b4e585025095c3cba5163756331ffaad4175023be658fef6191f06eff"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_3_sovereign_firmware_manifest_hash": "b0b01a7c551edadb570d58df4f8f57bf884364a39286af656d74a81dba62ba34",
+          "sheikha_sql_db_v30_3_sovereign_firmware_hash": "5d9a546b4e585025095c3cba5163756331ffaad4175023be658fef6191f06eff"
+        }
+      },
+      {
+        "version": "30.4",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_4_ultimate_proof_engine.py",
+          "bytes": 7026,
+          "sha256": "22e1fcc201267ca140159072ac9ec09ccb320c39773ee045bc8951fa91299b94",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_4_ultimate_proof_manifest.json",
+          "bytes": 1281,
+          "sha256": "ad92fe11facab608276247a981875b5167c254cd1180509b6e28150f255bf228",
+          "matching_v2_keys": [
+            "sheikha_v30_4_ultimate_proof_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "186035800446bfce4d25d1e17aadfc9a6c727d303fba7b544a53feae07540872"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_4_ultimate_proof_manifest_hash": "ad92fe11facab608276247a981875b5167c254cd1180509b6e28150f255bf228",
+          "sheikha_sql_db_v30_4_ultimate_proof_hash": "186035800446bfce4d25d1e17aadfc9a6c727d303fba7b544a53feae07540872"
+        }
+      },
+      {
+        "version": "30.5",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_5_industrial_foundry_engine.py",
+          "bytes": 6582,
+          "sha256": "087ccf56735e90d95c7358699100513909de140eb7307de97145687caabcf9cf",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_5_industrial_foundry_manifest.json",
+          "bytes": 1147,
+          "sha256": "319ba80de57cf6e3f6339514474fc8dbf000160c9140ec9ae2759f1c5c42b5ea",
+          "matching_v2_keys": [
+            "sheikha_v30_5_industrial_foundry_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "c6f6465490506c4ac6859e5f62b963ef1ebe43e2ad14281b78c8879604ee88c7"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_5_industrial_foundry_manifest_hash": "319ba80de57cf6e3f6339514474fc8dbf000160c9140ec9ae2759f1c5c42b5ea",
+          "sheikha_sql_db_v30_5_industrial_foundry_hash": "c6f6465490506c4ac6859e5f62b963ef1ebe43e2ad14281b78c8879604ee88c7"
+        }
+      },
+      {
+        "version": "30.6",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_6_ultimate_omni_master_closure_engine.py",
+          "bytes": 8337,
+          "sha256": "e5bcdf74562fcd443f53283f028bc4d786af57df300051bbc66d7b0f0c9af766",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_6_ultimate_omni_master_manifest.json",
+          "bytes": 2164,
+          "sha256": "5530b8c65ff6625802b24558139aeca45d9f19a44d8b4dbe22e459c470e8b9f8",
+          "matching_v2_keys": [
+            "sheikha_v30_6_omni_master_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [],
+        "selected_v2_digests": {
+          "sheikha_v30_6_omni_master_manifest_hash": "5530b8c65ff6625802b24558139aeca45d9f19a44d8b4dbe22e459c470e8b9f8",
+          "sheikha_sql_db_v30_6_master_closed_hash": "2a00f8fdacd3fd933c3b0aa81ffde5c69898582435e7a350e6d9bc2e5bf470a1"
+        }
+      },
+      {
+        "version": "30.7",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_7_silicon_foundry_engine.py",
+          "bytes": 5334,
+          "sha256": "e640da732a43da518b59d1622fb1e6c5db8ba4c42f0150e9249cc285b258faea",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_7_silicon_foundry_manifest.json",
+          "bytes": 1086,
+          "sha256": "9ae7f8776f15c0e6e69bcab93e4fab9999776fd68585e1ec80656849fb02d9dd",
+          "matching_v2_keys": [
+            "sheikha_v30_7_silicon_foundry_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "3e1cf669bab13871e4b24b5f6288f09ef0abf61435c38616adf3967e77c0642e"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_7_silicon_foundry_manifest_hash": "9ae7f8776f15c0e6e69bcab93e4fab9999776fd68585e1ec80656849fb02d9dd",
+          "sheikha_sql_db_v30_7_silicon_foundry_hash": "3e1cf669bab13871e4b24b5f6288f09ef0abf61435c38616adf3967e77c0642e"
+        }
+      },
+      {
+        "version": "30.8",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_8_universal_compute_engine.py",
+          "bytes": 6251,
+          "sha256": "bf730ddac6151558efa495558cdd190db7f5774d8192c997ced1d4deb8273638",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_8_universal_compute_manifest.json",
+          "bytes": 1257,
+          "sha256": "fb179c66ce83cb8777d98683b7cdff0215eee554c4c1e0fc46de1330797a9075",
+          "matching_v2_keys": [
+            "sheikha_v30_8_universal_compute_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "559735a1bf34064393661d60cb0e1d8986f627e15557346444027ce24b65dbb1"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_8_universal_compute_manifest_hash": "fb179c66ce83cb8777d98683b7cdff0215eee554c4c1e0fc46de1330797a9075",
+          "sheikha_sql_db_v30_8_universal_compute_hash": "559735a1bf34064393661d60cb0e1d8986f627e15557346444027ce24b65dbb1"
+        }
+      },
+      {
+        "version": "30.9",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_9_pure_native_engine.py",
+          "bytes": 6403,
+          "sha256": "db31e3b00db6f2e9299913e3df8de7d0e1efc6ada35fc857db2fbd0990d24bf1",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_9_pure_native_manifest.json",
+          "bytes": 1166,
+          "sha256": "9400baf7fda8e89fe52b9ed98e1e2bfcef776eb03cd604a793e61019c77e7be3",
+          "matching_v2_keys": [
+            "sheikha_v30_9_pure_native_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "77693118bc85d684008b527846d9842bf20b34bf8c8a2cfe5b1b4b2faf737d4a"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v30_9_pure_native_manifest_hash": "9400baf7fda8e89fe52b9ed98e1e2bfcef776eb03cd604a793e61019c77e7be3",
+          "sheikha_sql_db_v30_9_pure_native_hash": "77693118bc85d684008b527846d9842bf20b34bf8c8a2cfe5b1b4b2faf737d4a"
+        }
+      },
+      {
+        "version": "31.0",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_0_supreme_master_engine.py",
+          "bytes": 6618,
+          "sha256": "9805c5ddc43f9792a31f452654d212498ab2a04009d2efa693d74de387795bab",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_0_supreme_master_manifest.json",
+          "bytes": 1235,
+          "sha256": "77ae38bfe65b3d3ca17e6e00507b3034bad9cc92ef9e40d2fc081d36541cfb44",
+          "matching_v2_keys": [
+            "sheikha_v31_0_supreme_master_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "e48ea3e7c61c68032956992789b996882991695aa1a170607bbadc18e380b78f"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_0_supreme_master_manifest_hash": "77ae38bfe65b3d3ca17e6e00507b3034bad9cc92ef9e40d2fc081d36541cfb44",
+          "sheikha_sql_db_v31_0_supreme_master_hash": "e48ea3e7c61c68032956992789b996882991695aa1a170607bbadc18e380b78f"
+        }
+      },
+      {
+        "version": "31.1",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_1_kernel_activation_and_master_closure_engine.py",
+          "bytes": 6932,
+          "sha256": "f223af80427a725df0764588b82567533f7827a842405c790364fce4935a6f37",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_1_activated_kernel_manifest.json",
+          "bytes": 2070,
+          "sha256": "400cb1f2883b77f816cfcc825cc44a2addd35d78e626056d97199c6ea703e387",
+          "matching_v2_keys": []
+        },
+        "db_hashes_in_manifest": [
+          "af91ff57a95031bd7fa90b431d982acf8e3e9257cf360fbb7bf6db8e641e32b7"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_1_activated_kernel_manifest_hash": "0d79923bc11f8c0eeb63fa32e3c6d12dc25f70113dbdf2d1d8f3f945e0a3ac6e",
+          "sheikha_sql_db_v31_1_activated_kernel_hash": "af91ff57a95031bd7fa90b431d982acf8e3e9257cf360fbb7bf6db8e641e32b7"
+        }
+      },
+      {
+        "version": "31.2",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_2_omni_manifests_engine.py",
+          "bytes": 7116,
+          "sha256": "eec293726be2473f2d627651725608ffc25648fbe60f04a8ba07753de2bac0b3",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_2_omni_manifest.json",
+          "bytes": 1230,
+          "sha256": "542cd40c79da5b45a4bd6527701c0ad53f3df42ea7b53bdd160e94e1561172e5",
+          "matching_v2_keys": [
+            "sheikha_v31_2_omni_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "bb81f71a6c039b2114b66dba64d9f96f6ec62c4f3ca9c745aaecc2d1f5638ff6"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_2_omni_manifest_hash": "542cd40c79da5b45a4bd6527701c0ad53f3df42ea7b53bdd160e94e1561172e5",
+          "sheikha_sql_db_v31_2_omni_manifest_hash": "bb81f71a6c039b2114b66dba64d9f96f6ec62c4f3ca9c745aaecc2d1f5638ff6"
+        }
+      },
+      {
+        "version": "31.3",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_3_omni_master_engine.py",
+          "bytes": 6256,
+          "sha256": "6bdcbb6bb9ade0c66f7bf5f28022a61be9721b076af972c3645cff9068937e92",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_3_omni_master_manifest.json",
+          "bytes": 1476,
+          "sha256": "7aed2e0f07f4e758325562fd8973e05853c7dfd870be204a1c7263ad2edd16b6",
+          "matching_v2_keys": [
+            "sheikha_v31_3_omni_master_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "646a0a05132e1d4cece9cb68bc729da9531c73cc19fb085385f35b86f77719a8"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_3_omni_master_manifest_hash": "7aed2e0f07f4e758325562fd8973e05853c7dfd870be204a1c7263ad2edd16b6",
+          "sheikha_sql_db_v31_3_omni_master_hash": "646a0a05132e1d4cece9cb68bc729da9531c73cc19fb085385f35b86f77719a8"
+        }
+      },
+      {
+        "version": "31.4",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_4_pure_native_base_engine.py",
+          "bytes": 6267,
+          "sha256": "6e241e4013feaca2921494021706481aac909ad1efb80036bf7645b6517037bf",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_4_pure_native_base_manifest.json",
+          "bytes": 1424,
+          "sha256": "4b9f55903993bc2295d2c29ee42d944ba78f8e1d0ef2b33e1ec0a8bc2bc1ab29",
+          "matching_v2_keys": [
+            "sheikha_v31_4_pure_native_base_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "869bec7f007ecb15d30abe85b88bff38411c94406e9cb5a25bf4d316f5519fad"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_4_pure_native_base_manifest_hash": "4b9f55903993bc2295d2c29ee42d944ba78f8e1d0ef2b33e1ec0a8bc2bc1ab29",
+          "sheikha_sql_db_v31_4_pure_native_base_hash": "869bec7f007ecb15d30abe85b88bff38411c94406e9cb5a25bf4d316f5519fad"
+        }
+      },
+      {
+        "version": "31.5",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_5_ip_and_scientific_engine.py",
+          "bytes": 7896,
+          "sha256": "4faa611bfd3d0806eb32d8c9b86d224d7fe11b7b45333ae04803edef40657915",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_5_ip_scientific_manifest.json",
+          "bytes": 2105,
+          "sha256": "a05fe81c2329d7d89227fa054743c9e657de3baec05d91a11156e5327d7599c2",
+          "matching_v2_keys": [
+            "sheikha_v31_5_ip_scientific_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "90051572d148641828cb25b38cec31c65b0777d326881728854b63ef5ec90b09"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_5_ip_scientific_manifest_hash": "a05fe81c2329d7d89227fa054743c9e657de3baec05d91a11156e5327d7599c2",
+          "sheikha_sql_db_v31_5_ip_scientific_hash": "90051572d148641828cb25b38cec31c65b0777d326881728854b63ef5ec90b09"
+        }
+      },
+      {
+        "version": "31.6",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_6_supreme_scientific_engine.py",
+          "bytes": 7876,
+          "sha256": "a328d24d93809b73a91605e034e25f95638bfedfe73e91ae199c9e622c97cc63",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_6_supreme_scientific_manifest.json",
+          "bytes": 2085,
+          "sha256": "afeaba7345ef5b178ad92d84e153898bedf2ce4072d7c5a611b921ece45e1468",
+          "matching_v2_keys": [
+            "sheikha_v31_6_supreme_scientific_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "b12a82844f48f990a66c4365a02db0288cb3f9469b3a395933087d14502d27b0"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_6_supreme_scientific_manifest_hash": "afeaba7345ef5b178ad92d84e153898bedf2ce4072d7c5a611b921ece45e1468",
+          "sheikha_sql_db_v31_6_supreme_scientific_hash": "b12a82844f48f990a66c4365a02db0288cb3f9469b3a395933087d14502d27b0"
+        }
+      },
+      {
+        "version": "31.7",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_7_absolute_pinnacle_engine.py",
+          "bytes": 7781,
+          "sha256": "8551b43437d4c6895e9f081d187763d61e2e0d592913fd4c3ba22212e989e3af",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_7_absolute_pinnacle_manifest.json",
+          "bytes": 2063,
+          "sha256": "94a76b3135dba7f798204eba8919950eb82453cefb23a3c08162dc58d8ea3e63",
+          "matching_v2_keys": [
+            "sheikha_v31_7_absolute_pinnacle_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "be3e8dee6876c2ce65185c5d194512b3c2dcfdc18dc4e6dbe01ab61802e95bad"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_7_absolute_pinnacle_manifest_hash": "94a76b3135dba7f798204eba8919950eb82453cefb23a3c08162dc58d8ea3e63",
+          "sheikha_sql_db_v31_7_absolute_pinnacle_hash": "be3e8dee6876c2ce65185c5d194512b3c2dcfdc18dc4e6dbe01ab61802e95bad"
+        }
+      },
+      {
+        "version": "31.8",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_8_omni_scientific_engine.py",
+          "bytes": 7871,
+          "sha256": "1c0d9dd4e0492bce7b04454b344351e88898e57a17f39df3bace892c3aebce78",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_8_omni_scientific_manifest.json",
+          "bytes": 2110,
+          "sha256": "c4a745559758a24007b42f5ed59e53eb22d1a038a56929a7e0601ac5da8b7c4a",
+          "matching_v2_keys": [
+            "sheikha_v31_8_omni_scientific_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "0f7a72d0de0d86bfc70d3ee74b16a67ed1b6ca4a4dcd1b00fa766115beb456c3"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_8_omni_scientific_manifest_hash": "c4a745559758a24007b42f5ed59e53eb22d1a038a56929a7e0601ac5da8b7c4a",
+          "sheikha_sql_db_v31_8_omni_scientific_hash": "0f7a72d0de0d86bfc70d3ee74b16a67ed1b6ca4a4dcd1b00fa766115beb456c3"
+        }
+      },
+      {
+        "version": "31.9",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_9_credentials_engine.py",
+          "bytes": 8133,
+          "sha256": "4aa9b68612cf965517e64e09704c0c0e6d14f3cb76ed66f6d3092c3a6563c77f",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_9_credentials_manifest.json",
+          "bytes": 1628,
+          "sha256": "55fbc823791fb059e8f16f1b38c78c05d19392b74e919a4f95520dcb906b66a2",
+          "matching_v2_keys": [
+            "sheikha_v31_9_credentials_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "663724ff5a8cc11d16a01ccffea012b8aaed2eaf85ed183af7c24e2091690a3a"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v31_9_credentials_manifest_hash": "55fbc823791fb059e8f16f1b38c78c05d19392b74e919a4f95520dcb906b66a2",
+          "sheikha_sql_db_v31_9_credentials_hash": "663724ff5a8cc11d16a01ccffea012b8aaed2eaf85ed183af7c24e2091690a3a"
+        }
+      },
+      {
+        "version": "32.0",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_0_cybersecurity_engine.py",
+          "bytes": 6393,
+          "sha256": "63fe8be00b8e79b09112659ba58b332b30aec5760a29af99dfa80fe101e5dba3",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_0_cybersecurity_manifest.json",
+          "bytes": 1440,
+          "sha256": "46dda48831ed82e39ef2238f80b391926f14ab48b5137c2f468c304051bc25d2",
+          "matching_v2_keys": [
+            "sheikha_v32_0_cybersecurity_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "e275d4d0c5f02c70409f90ea869adf24815064d8f7ef2ae11325af1f8d3ca674"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v32_0_cybersecurity_manifest_hash": "46dda48831ed82e39ef2238f80b391926f14ab48b5137c2f468c304051bc25d2",
+          "sheikha_sql_db_v32_0_cybersecurity_hash": "e275d4d0c5f02c70409f90ea869adf24815064d8f7ef2ae11325af1f8d3ca674"
+        }
+      },
+      {
+        "version": "32.1",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_1_sovereign_finance_engine.py",
+          "bytes": 8143,
+          "sha256": "67e8daa92d07d6369ad57171f32ba9d77423abdf0697d4a98739b2d3df1790ae",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_1_sovereign_finance_manifest.json",
+          "bytes": 1600,
+          "sha256": "7536316c788ef641f7b357ff253218ea3db35ae193a4502a7b1765aab94689d7",
+          "matching_v2_keys": [
+            "sheikha_v32_1_sovereign_finance_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "7f6cc5de4559818de7f85bd0729442e2ee972240adb6f131a32a9ebbadc64b13"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v32_1_sovereign_finance_manifest_hash": "7536316c788ef641f7b357ff253218ea3db35ae193a4502a7b1765aab94689d7",
+          "sheikha_sql_db_v32_1_sovereign_finance_hash": "7f6cc5de4559818de7f85bd0729442e2ee972240adb6f131a32a9ebbadc64b13"
+        }
+      },
+      {
+        "version": "32.2",
+        "engine": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_2_specifications_engine.py",
+          "bytes": 6921,
+          "sha256": "4efaba57a9f6704e3e4aaea69f80a608cd316a2fc1675de19812906817c94b06",
+          "ast_parse_valid": true
+        },
+        "manifest": {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_2_specifications_manifest.json",
+          "bytes": 1386,
+          "sha256": "4b7a36d0d5611665c622de30fd2e45d1ec45fb017ef4c1bc39eeb62f5b5c0035",
+          "matching_v2_keys": [
+            "sheikha_v32_2_specifications_manifest_hash"
+          ]
+        },
+        "db_hashes_in_manifest": [
+          "d20ceb0c729e742f624949e85095b56a37adca4770450c71e90dc3b54f7fdc57"
+        ],
+        "selected_v2_digests": {
+          "sheikha_v32_2_specifications_manifest_hash": "4b7a36d0d5611665c622de30fd2e45d1ec45fb017ef4c1bc39eeb62f5b5c0035",
+          "sheikha_sql_db_v32_2_specifications_hash": "d20ceb0c729e742f624949e85095b56a37adca4770450c71e90dc3b54f7fdc57"
+        }
+      }
+    ]
+  },
+  "mutable_evidence_files": {
+    "current_database": {
+      "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+      "bytes": 856064,
+      "sha256": "39c19d0c7d810c524edd96a291856945aae983bc66e3f2d054283036613228b9",
+      "stable_metadata": true,
+      "sidecars": {
+        "-wal": false,
+        "-shm": false,
+        "-journal": false
+      },
+      "database_connection_opened": false
+    },
+    "v2": {
+      "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+      "bytes": 22500,
+      "sha256": "ae2a4439443ead49edeb9855457c6f0e0dda4bd348c7abfbe93ec4611d3986b9"
+    },
+    "previous_v36_database_sha256": "1e4cbb3aa7caf817ba8185a8830443b2476ae6a3b9a8af2c87b104a8c680752e",
+    "database_differs_from_previous_review": true,
+    "cause_or_actor_established": false,
+    "historical_baselines_changed_by_review": false
+  },
+  "findings": [
+    {
+      "id": "FW-001",
+      "status": "OPEN",
+      "category": "RELEASE_PROOF_GAP",
+      "title": "النواة الأصلية ما زالت تتضمن PT_LOAD قابلًا للكتابة والتنفيذ",
+      "evidence_level": "INDEPENDENT_STATIC_BINARY_READ",
+      "details": "بصمة ELF الأصلية تطابق المرجع؛ المقطع الذي يحوي نقطة الدخول flags=7 وwx_segment_count=1. لم يثبت تفعيل paging أو NX أثناء التشغيل.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_os_minikernel_v27_6/sheikha_minikernel_v276.elf",
+          "line": null
+        },
+        {
+          "path": "/home/sheikha/sheikha-foundation-lab/SHEIKHA_SOVEREIGN_AI_FOUNDATION_V1/architecture_protection_v1/sheikha_os_minikernel_v27_6/kernel_v276.S",
+          "line": 15
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G02",
+        "G05"
+      ]
+    },
+    {
+      "id": "FW-002",
+      "status": "OPEN",
+      "category": "MISSING_CURRENT_ARTIFACT",
+      "title": "ملف النموذج المقوّى غير متاح في مساره المؤقت المذكور",
+      "evidence_level": "BOUNDED_PATH_OBSERVATION",
+      "details": "المسار المرسل غائب، والبحث في /tmp/sheikha-firmware-*/output/sheikha_lab_hardened.elf بلا نتائج. ZIP يحتوي مصادر ووثائق فقط. لا تُعمم هذه النتيجة على الجهاز كله؛ نتيجة22/22 وبصمة lab منقولتان من المحادثة ولم تُعدا في هذه المراجعة.",
+      "refs": [
+        {
+          "path": "/tmp/sheikha-firmware-lQojf1mR/output/sheikha_lab_hardened.elf",
+          "line": null
+        },
+        {
+          "path": "/home/sheikha/التنزيلات/SHEIKHA_FIRMWARE_HARDENING_V29_7_5.zip",
+          "line": null
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G01",
+        "G03"
+      ]
+    },
+    {
+      "id": "FW-003",
+      "status": "OPEN",
+      "category": "CAPABILITY_NOT_ESTABLISHED",
+      "title": "محرك V30.3 يسجل وصف ROM ولا ينتج بديلًا تنفيذيًا",
+      "evidence_level": "STATIC_SOURCE_AND_AST",
+      "details": "الأربعة مكونات وreset vector وhandover target ثوابت؛ يخزن SHA256(code:description:status:timestamp) لوصف السجل، ثم يكتب إعلان REPLACED_BY...SPEC. لا ينشئ ROM أو يستدعي compiler/QEMU أو يهيئ العتاد. الحكم خاص بالمحرك لا بكل مصادر المنظومة.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_3_sovereign_firmware_engine.py",
+          "line": 26
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_3_sovereign_firmware_engine.py",
+          "line": 64
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_3_sovereign_firmware_engine.py",
+          "line": 94
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G00",
+        "G03",
+        "G04",
+        "G06"
+      ]
+    },
+    {
+      "id": "FW-004",
+      "status": "OPEN",
+      "category": "DIGEST_MISMATCH",
+      "title": "مانيفست V31.1 لا يطابق بصمته المسجلة في V2",
+      "evidence_level": "INDEPENDENT_HASH_COMPARISON",
+      "details": "المحتوى الحالي يضم حقولًا إضافية مقارنة بقاموس الكاتب. لا تُستنتج هوية منفذ التغيير أو توقيته أو سببه؛ لا يُعاد تعيين المرجع لتجاوز الاختلاف.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_1_activated_kernel_manifest.json",
+          "line": 11
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+          "line": 141
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G01"
+      ]
+    },
+    {
+      "id": "FW-005",
+      "status": "OPEN",
+      "category": "STATIC_GUARD_FALSE_POSITIVE",
+      "title": "قبول entry داخل RW أو BSS وفحص تداخل غير كافٍ",
+      "evidence_level": "STATIC_SOURCE_PEER_REVIEW_NOT_EXECUTED",
+      "details": "entry ضمن memsz لأي LOAD يكفي؛ لا يلزم PF_X أو entry داخل بايتات الكود المخزنة. p_paddr وp_align مهملان؛ التداخل بالبايتات الافتراضية فقط، بلا مجال32بت أو محاذاة/تداخل فيزيائي/صفحي. مجموعة flags لا تشترط ثلاثة LOAD بالضبط. هذه فجوات في مؤشر المختبر؛ قرار HOLD باقٍ في المصدر.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 20
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 23
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 24
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 46
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G02"
+      ]
+    },
+    {
+      "id": "FW-006",
+      "status": "OPEN",
+      "category": "MULTIBOOT_VALIDATION_GAP",
+      "title": "فحص Multiboot يتحقق من checksum دون كامل عقد الترويسة",
+      "evidence_level": "STATIC_SOURCE_PEER_REVIEW_NOT_EXECUTED",
+      "details": "يسمح مجال البحث ببداية عند8184/8188 إذا كان الملف طويلًا بما يكفي، ثم قد تتجاوز الترويسة حدود8192. لا يتحقق من flags والحقول المطلوبة بها. لم تُنفذ حالات اختبار جديدة.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 28
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 30
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G02",
+        "G04"
+      ]
+    },
+    {
+      "id": "FW-007",
+      "status": "OPEN",
+      "category": "CLI_RESULT_NOT_A_GATE",
+      "title": "رمز خروج صفر لا يعني اجتياز التقوية أو مطابقة المراجع",
+      "evidence_level": "STATIC_SOURCE_PEER_REVIEW_NOT_EXECUTED",
+      "details": "تطبع CLI التقرير وتخرج طبيعيًا حتى عند lab_structural_hardening_pass=false أو اختلاف الأصل/firmware؛ الاستثناء فقط يخرج2. لا ينبغي اعتبار echo COMPLETE أو exit0 اعتمادًا. التقرير نفسه يثبت HOLD وكل التفويضاتfalse.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 47
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 50
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G02",
+        "G07"
+      ]
+    },
+    {
+      "id": "FW-008",
+      "status": "OPEN",
+      "category": "FILE_READ_STABILITY_GAP",
+      "title": "الحارس يرفض الرابط النهائي دون حماية سلسلة المجلدات والتبديل المتزامن",
+      "evidence_level": "STATIC_SOURCE_PEER_REVIEW_NOT_EXECUTED",
+      "details": "is_symlink ثم read_bytes منفصلان ويتبعان روابط المجلدات؛ لا يثبت الحارس استقرار الملف أثناء القراءة. سكربت البناء لا يفرض أن المخرج خارج المصادر.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 12
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/src/guard.py",
+          "line": 37
+        },
+        {
+          "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_FIRMWARE_HARDENING_V29_7_5/tools/build_lab.sh",
+          "line": 4
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G02",
+        "G03"
+      ]
+    },
+    {
+      "id": "FW-009",
+      "status": "OPEN",
+      "category": "CATALOG_NOT_CAPABILITY",
+      "title": "إعلانات التحويل الأصلي والتشغيل والأمن والمالية والشهادات ليست تطبيقات لتلك القدرات",
+      "evidence_level": "STATIC_SOURCE_AND_AST_22_ENGINES",
+      "details": "الاستدعاءات في المحركات22 هي قراءة/كتابة ملفات وSQLite وJSON وبصمات. V30.9 لا يشغل مترجمًا؛ V31.1 لا يقلع النواة؛ V32.0 لا ينشئ عزلًا أو watchdog؛ V31.9 وV32.1 ينشئان جداول إضافية دون INSERT فيها. هذا لا يحكم على محتوى DB الحالي، الذي لم يُفتح، أو على وحدات أخرى.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_9_pure_native_engine.py",
+          "line": 26
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_1_kernel_activation_and_master_closure_engine.py",
+          "line": 27
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_0_cybersecurity_engine.py",
+          "line": 22
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v31_9_credentials_engine.py",
+          "line": 50
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_1_sovereign_finance_engine.py",
+          "line": 50
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v32_2_specifications_engine.py",
+          "line": 26
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G00",
+        "G08",
+        "G09"
+      ]
+    },
+    {
+      "id": "FW-010",
+      "status": "OPEN",
+      "category": "EVIDENCE_BINDING_GAP",
+      "title": "V30.6 ثابت بلا بصمة DB والكتابة بين DB وmanifest وV2 ليست ذرية",
+      "evidence_level": "STATIC_SOURCE_AND_RECORDED_VALUE_COMPARISON",
+      "details": "يحسب V30.6 بصمة DB لكنه لا يضمها أو timestamp إلى manifest، لذلك يمكن أن تبقى بصمة manifest ثابتة مع تغير DB. تستخدم المحركات INSERT OR REPLACE ثم تكتب manifest وV2 على مراحل منفصلة بلا معاملة مشتركة أو تاريخ revisions مستقل. SHA256 لأوصاف أو ملفات يثبت تطابق بايتات فقط؛ لا يثبت مصدر الحالة أو اكتمال القدرة.",
+      "refs": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_6_ultimate_omni_master_closure_engine.py",
+          "line": 66
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_6_ultimate_omni_master_closure_engine.py",
+          "line": 69
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v30_6_ultimate_omni_master_closure_engine.py",
+          "line": 119
+        }
+      ],
+      "acceptance_gate_ids": [
+        "G01",
+        "G07"
+      ]
+    }
+  ],
+  "acceptance_plan": "acceptance-plan.json",
+  "evidence_policy": {
+    "reported_statuses_are_not_verified_capabilities": true,
+    "audit_hashes_are_not_encryption_or_authentication": true,
+    "shariah_or_legal_or_certification_status_inferred_from_literals": false,
+    "matching_manifest_count_is_not_a_release_percentage": true,
+    "archive_result_is_not_new_runtime_observation": true
+  }
+}

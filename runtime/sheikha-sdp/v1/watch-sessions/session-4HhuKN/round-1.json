@@ -1,0 +1,115 @@
+{
+  "sequence": 1,
+  "previousHash": null,
+  "observation": {
+    "id": "hello-sheikha-v1",
+    "build": "toolchain-YBIoJQ",
+    "timestamp": "2026-10-13T05:10:19.639Z",
+    "status": "LOCAL_EVIDENCE_CHECKS_PASSED",
+    "checks": {
+      "internalScope": "PASS",
+      "historicalNativeArtifactIntegrity": "PASS",
+      "storedToolchainEvidence": "PASS"
+    },
+    "scope": "ONE_SHOT_LOCAL_RECORD_AND_ARTIFACT_INSPECTION",
+    "continuousMonitoringEnabled": false,
+    "freshGuestBootPerformed": false,
+    "physicalSensorsRead": false,
+    "serviceHealthAssessed": false,
+    "automaticInterventionEnabled": false,
+    "productionReady": false,
+    "externalCertificationGranted": false,
+    "observations": {
+      "binding": {
+        "status": "EXISTING_PLATFORM_AND_INTERNAL_SCOPE_MATCHED",
+        "passed": true,
+        "checks": {
+          "licenseDigest": true,
+          "internalLicense": true,
+          "scope": true,
+          "grants": true,
+          "existingPlatform": true,
+          "parentHierarchy": true,
+          "defaultDeny": true
+        },
+        "parentPlatform": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+        "foundation": "system-builder-platform",
+        "adapter": "SHEIKHA_SDP_LOCAL_BYTECODE_ADAPTER_V1",
+        "role": "BOUNDED_LOCAL_DEVELOPMENT_TOOL",
+        "registryEntryModified": false,
+        "licenseSource": "runtime/ownership-licensing/generated/licenses.json",
+        "externalCertificationGranted": false,
+        "productionAuthorized": false,
+        "rightsAuthenticity": "DECLARED_INTERNAL_RECORD_NOT_INDEPENDENTLY_AUTHENTICATED",
+        "sourceDigests": {
+          "runtime/ownership-licensing/generated/licenses.json": "6086654d6724ed31375577ef5ec33b0ae356c740d131d0f6818fbd8ab283fb16",
+          "runtime/sheikha-developer-platform/v1/sheikha-developer-platform-v1.json": "33bfa0e30148a978575c1537e3a74c5a96df210680d83b3ebefe033255982882",
+          "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json": "9e94a8995189f3c4833fbbda6dee4b950f151c6bea0539ede0f58be005106812",
+          "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json": "f07f2c28053383efe6d666155144948d7276fc90c4756e91c506c4263302cce9"
+        }
+      },
+      "native": {
+        "system": "SHEIKHA_NATIVE_DEPLOYMENT_ENVIRONMENT_V1",
+        "status": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+        "buildId": "48cc4a2b39b796091091f6307f8229f1b70d0968f1765871ab017e0812bd07ae",
+        "artifactIntegrityVerified": true,
+        "nativeGuestExecutionVerified": true,
+        "deploymentMode": "STATIC_DEVELOPMENT_PACKAGE_IN_RAM",
+        "guestRuntimeDependencies": [],
+        "buildHostDependencies": [
+          "Node.js",
+          "GCC",
+          "binutils",
+          "QEMU",
+          "OVMF"
+        ],
+        "productionReady": false,
+        "physicalDeploymentVerified": "UNKNOWN",
+        "blockers": [
+          "NETWORK_STACK",
+          "PERSISTENT_FILESYSTEM",
+          "USER_MODE_ISOLATION",
+          "PREEMPTIVE_SCHEDULER",
+          "DYNAMIC_PACKAGE_LOADER",
+          "TLS_AND_HTTP",
+          "SIGNED_RELEASES",
+          "FULL_SERVICE_MIGRATION"
+        ],
+        "evidenceFile": "runtime/sheikha-native-environment/v1/builds/48cc4a2b39b796091091f6307f8229f1b70d0968f1765871ab017e0812bd07ae/verification.json"
+      },
+      "toolchain": {
+        "id": "hello-sheikha-v1",
+        "status": "TOOLCHAIN_STORED_EVIDENCE_CONSISTENCY_VERIFIED",
+        "artifactHashesVerified": 4,
+        "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+        "binarySha256": "cc79d3f2880187083246d266b71e443aa00c72ba00290b4182a718b610c70f7e",
+        "output": "\"SHEIKHA_PROJECT_LOCAL_OK\"\n",
+        "storedOutputMatchesCurrentVm": true,
+        "binaryExecutedByReviewer": false,
+        "binarySemanticsIndependentlyVerified": false,
+        "signatureAuthenticated": false,
+        "compilerVersionClaimsIndependentlyVerified": false,
+        "externalCertificationGranted": false,
+        "productionReady": false,
+        "build": "toolchain-YBIoJQ",
+        "snapshot": {
+          "id": "hello-sheikha-v1",
+          "status": "PROJECT_SNAPSHOT_AND_BYTECODE_REPLAY_VERIFIED",
+          "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+          "artifactHashesVerified": 5,
+          "legacyReferencesVerified": 4,
+          "output": [
+            "\"SHEIKHA_PROJECT_LOCAL_OK\""
+          ],
+          "snapshotComparedWithCurrentCompiler": true,
+          "currentWorkspaceSourceCompared": false,
+          "signatureAuthenticated": false,
+          "independentCertification": false,
+          "distributionAuthorized": false,
+          "productionReady": false,
+          "build": "local-Cvqanh"
+        }
+      }
+    }
+  }
+}

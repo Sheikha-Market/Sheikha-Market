@@ -1,0 +1,53 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BARE_METAL_KERNEL_INTEGRATION_V1",
+  "asOf": "2026-08-31",
+  "status": "INTEGRATED_ROADMAP_ACTIVE_QEMU_FOUNDATION_PHYSICAL_BOOT_PENDING",
+  "planes": [
+    {"id": "NATIVE", "runtime": "UEFI_KERNEL_HAL_DRIVERS", "status": "QEMU_VERIFIED_SUBSET"},
+    {"id": "RUNTIME", "runtime": "LINUX_NODE_SERVICES", "status": "CURRENT_PRODUCTION_BASE"},
+    {"id": "PRODUCT", "runtime": "CHAT_REPORTS_MARKET", "status": "COMMERCIAL_VALIDATION"}
+  ],
+  "verified": {
+    "architecture": "x86_64",
+    "bootProtocol": "UEFI",
+    "qemuBoot": true,
+    "exitBootServices": true,
+    "cr3RuntimeLoad": true,
+    "invlpgRuntime": true,
+    "deterministicImage": true,
+    "driverAbiSmoke": true
+  },
+  "notVerified": {
+    "physicalBoot": true,
+    "secureBoot": true,
+    "generalPurposeOs": true,
+    "allDrivers": true,
+    "externalSafetyCertification": true
+  },
+  "stages": [
+    {"id": "K0", "targetEnd": "2026-08-31", "status": "COMPLETE_QEMU_SCOPE", "gate": "PHASE2B_VERIFIED"},
+    {"id": "K1", "targetEnd": "2026-09-14", "status": "PENDING_HUMAN_USB_APPROVAL", "gate": "TWO_PHYSICAL_BOOTS_ZERO_INTERNAL_WRITES"},
+    {"id": "K2", "targetEnd": "2026-10-31", "status": "PLANNED", "gate": "MEMORY_INTERRUPT_24H_STRESS"},
+    {"id": "K3", "targetEnd": "2027-02-28", "status": "PLANNED", "gate": "NAMED_HARDWARE_DRIVER_MATRIX"},
+    {"id": "K4", "targetEnd": "2027-07-31", "status": "PLANNED", "gate": "USER_MODE_VFS_NETWORK_72H_SOAK"},
+    {"id": "K5", "targetEnd": "2027-09-30", "status": "PLANNED", "gate": "SECURE_BOOT_REJECTION_TPM_ROLLBACK"},
+    {"id": "K6", "targetEnd": "2027-12-31", "status": "PLANNED", "gate": "DEVELOPER_PREVIEW_10_USERS_30_DAYS"},
+    {"id": "K7", "targetEnd": "2028-06-30", "status": "PLANNED", "gate": "EDGE_APPLIANCE_3_CANARY_CUSTOMERS"},
+    {"id": "K8", "targetEnd": "2029-12-31", "status": "DIRECTIONAL", "gate": "DEMAND_LED_PLATFORM_QUALIFICATION"}
+  ],
+  "commercialPolicy": {
+    "currentProductsRemainOnLinux": true,
+    "bareMetalGeneralPurposeSaleAllowedNow": false,
+    "firstPotentialProduct": "QEMU_BARE_METAL_DEVELOPER_LAB",
+    "firstPotentialHardwareProduct": "SHEIKHA_SECURE_EDGE_IMAGE_NAMED_DEVICE_ONLY"
+  },
+  "governance": {
+    "physicalDiskWriteDefault": "DENY",
+    "firmwareMutationDefault": "DENY",
+    "nvramMutationDefault": "DENY",
+    "aiInCriticalBootPath": false,
+    "humanApprovalForHighImpact": true,
+    "qemuEvidenceIsPhysicalEvidence": false
+  }
+}

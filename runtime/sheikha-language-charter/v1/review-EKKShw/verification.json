@@ -1,0 +1,28 @@
+{
+  "timestamp": "2026-10-13T19:15:27.605Z",
+  "status": "LOCAL_ARABIC_LANGUAGE_CHARTER_CONTRACT_AND_VM_VERIFIED",
+  "source": "sheikha-language/examples/language-charter-v1.shk",
+  "sourceSha256": "224e79e0285d09d732ff53926bc2d83cbed2ded835d15a2592a97ff0721301ff",
+  "specification": "sheikha-language/docs/unified-language-spec.md",
+  "specificationSha256": "f754892393b4dfddd7908facb369d7d90d5e83db2acbf58fe0306de340522d12",
+  "execution": {
+    "success": true,
+    "status": "VERIFIED_DRY_RUN",
+    "output": [
+      "\"SHEIKHA_ARABIC_VALUES_CHARTER_LOCAL\""
+    ],
+    "evidence": {
+      "adapterDryRun": true,
+      "strictIsolation": true,
+      "violations": [],
+      "instructions": 33,
+      "adapterCalls": []
+    }
+  },
+  "metadataRequirementsValidated": true,
+  "allSciencesImplemented": false,
+  "naturalArabicGrammarComplete": false,
+  "religiousCertificationGranted": false,
+  "automatedFatwaAllowed": false,
+  "productionEnabled": false
+}

@@ -1,0 +1,63 @@
+{
+  "system": "SHEIKHA_CONNECTOR_AUTHORITY_CAPABILITY_MATRIX_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "AVAILABLE_AUTHORIZED_LIVE_SEPARATION",
+  "operations": ["READ", "WRITE", "CREATE", "UPDATE", "DELETE", "EXECUTE"],
+  "governance": {
+    "defaultDeny": true,
+    "externalActivationRequiresAuthorization": true,
+    "externalWriteRequiresExplicitAuthorization": true,
+    "highImpactWriteRequiresHumanApproval": true,
+    "noSecretMutation": true,
+    "noProductionMutation": true,
+    "noPayment": true,
+    "noContract": true,
+    "noPhysicalActuation": true,
+    "noIrrigation": true,
+    "noLiveClaimWithoutEvidence": true,
+    "auditRequired": true,
+    "dataScopeRequired": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "channelRules": {
+    "INTERNAL_SERVICE": {
+      "available": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": true},
+      "authorized": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "live": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "reason": "LOCAL_SOURCE_AND_READ_ONLY_INSPECTION"
+    },
+    "SDK": {
+      "available": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": true},
+      "authorized": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "live": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "reason": "LOCAL_SDK_CONTRACT_READY_NO_EXTERNAL_EXECUTION_AUTHORITY"
+    },
+    "MCP": {
+      "available": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": true},
+      "authorized": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "live": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "reason": "LOCAL_MCP_CONTRACT_READY_TOOL_EXECUTION_REQUIRES_ACTION_AUTHORITY"
+    },
+    "EXTERNAL_PROFILE": {
+      "available": {"READ": true, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "authorized": {"READ": false, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "live": {"READ": false, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "reason": "READINESS_PROFILE_ONLY_REQUIRES_TERMS_CREDENTIALS_OR_AUTHORIZATION"
+    },
+    "ENTERPRISE_DECLARATION": {
+      "available": {"READ": false, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "authorized": {"READ": false, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "live": {"READ": false, "WRITE": false, "CREATE": false, "UPDATE": false, "DELETE": false, "EXECUTE": false},
+      "reason": "NAME_DECLARATION_ONLY_NO_PROFILE_BINDING_OR_LIVE_EVIDENCE"
+    }
+  },
+  "evidenceSources": {
+    "integrationFabric": "public/site-map/engine-integration-fabric-v1.json",
+    "connectorProfiles": "runtime/sdk-fabric-mcp-integration/v1/registries/connector-profile-registry.json",
+    "enterpriseConnectors": "runtime/enterprise-connector-fabric-v1/v1/registries/enterprise-connectors.json",
+    "connectorGovernance": "runtime/enterprise-connector-fabric-v1/v1/registries/connector-governance-policy.json",
+    "mcpTools": "runtime/sdk-fabric-mcp-integration/v1/registries/mcp-tool-catalog.json",
+    "masterEngines": "public/site-map/master-engine-registry-v1.json"
+  }
+}

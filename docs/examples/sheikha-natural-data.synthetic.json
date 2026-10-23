@@ -1,0 +1,20 @@
+{
+  "schemaVersion": 1,
+  "asOf": "2026-10-18T12:00:00.000Z",
+  "sources": [
+    { "id": "demo-solar", "domain": "solar", "kind": "synthetic", "referenceId": "example-only", "contextId": "demo-site-horizontal-plane" },
+    { "id": "demo-lunar", "domain": "lunar", "kind": "synthetic", "referenceId": "example-only", "contextId": "demo-moon-geocentric" },
+    { "id": "demo-planet", "domain": "planetary", "kind": "synthetic", "referenceId": "example-only", "contextId": "demo-earth-to-mars-geocentric" },
+    { "id": "demo-earth", "domain": "earth", "kind": "synthetic", "referenceId": "example-only", "contextId": "demo-site-wgs84-ellipsoid" },
+    { "id": "demo-air", "domain": "atmosphere", "kind": "synthetic", "referenceId": "example-only", "contextId": "demo-site-station-height" }
+  ],
+  "observations": [
+    { "sourceId": "demo-solar", "metric": "solar_irradiance", "observedAt": "2026-10-18T11:00:00.000Z", "value": 0.5, "unit": "kW/m2" },
+    { "sourceId": "demo-solar", "metric": "solar_irradiance", "observedAt": "2026-10-18T11:30:00.000Z", "value": 700, "unit": "W/m2" },
+    { "sourceId": "demo-lunar", "metric": "lunar_illuminated_fraction", "observedAt": "2026-10-18T11:00:00.000Z", "value": 50, "unit": "%" },
+    { "sourceId": "demo-planet", "metric": "planetary_distance", "observedAt": "2026-10-18T11:00:00.000Z", "value": 75000000, "unit": "km" },
+    { "sourceId": "demo-earth", "metric": "earth_elevation", "observedAt": "2026-10-18T11:00:00.000Z", "value": 0.025, "unit": "km" },
+    { "sourceId": "demo-air", "metric": "air_temperature", "observedAt": "2026-10-18T11:00:00.000Z", "value": 25, "unit": "degC" },
+    { "sourceId": "demo-air", "metric": "air_pressure", "observedAt": "2026-10-18T11:00:00.000Z", "value": 1013.25, "unit": "hPa" }
+  ]
+}

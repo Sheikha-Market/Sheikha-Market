@@ -1,0 +1,27 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<title>Sheikha Unified 5D Experience</title>
+<style>
+:root{color-scheme:dark;--bg:#07140f;--panel:rgba(20,52,39,.76);--line:rgba(215,190,120,.26);--text:#f4f5ed;--muted:#b8c8bd}
+*{box-sizing:border-box}body{margin:0;font-family:system-ui,sans-serif;background:radial-gradient(circle at 20% 15%,#173b2c 0,#07140f 42%,#030806 100%);color:var(--text);min-height:100vh;overflow-x:hidden}
+body:before{content:"";position:fixed;inset:-30%;background:conic-gradient(from 0deg,transparent,rgba(120,190,145,.08),transparent,rgba(218,190,110,.05),transparent);animation:spin 35s linear infinite;pointer-events:none}@keyframes spin{to{transform:rotate(360deg)}}
+main{position:relative;max-width:1320px;margin:auto;padding:34px}.hero{padding:34px;border:1px solid var(--line);border-radius:28px;background:linear-gradient(135deg,rgba(24,67,49,.86),rgba(7,20,15,.75));backdrop-filter:blur(12px);box-shadow:0 30px 80px rgba(0,0,0,.35)}
+h1{font-size:clamp(32px,6vw,74px);margin:.1em 0}.sub{color:var(--muted);font-size:18px}.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:14px;margin-top:20px}.card{border:1px solid var(--line);background:var(--panel);padding:20px;border-radius:22px;transition:.25s transform,.25s background}.card:hover{transform:translateY(-4px) scale(1.01);background:rgba(27,72,54,.86)}.tag{display:inline-block;padding:6px 10px;border:1px solid var(--line);border-radius:999px;color:#e5d49e;margin:3px;font-size:12px}
+.controls{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:10px;margin:22px 0}.controls input,.controls select,.controls button{padding:13px;border-radius:14px;border:1px solid var(--line);background:#0a1e16;color:var(--text)}button{cursor:pointer}.zone{font-weight:700}.meta{font-family:monospace;color:#b9d6c3;font-size:12px;word-break:break-all}
+</style>
+</head><body><main><section class="hero">
+<div class="tag">Sheikha Runtime</div><div class="tag">5D = 3D + Time + Adaptive State</div><div class="tag">Local Governed</div>
+<h1>بيئة شيخة الموحدة</h1>
+<p class="sub">Studio + Trust + Build + Cloud + Market + Gardens + Observability + Security في تجربة واحدة تتغير حسب السياق، ولا تعتمد نسخة جديدة إلا بعد قياس التحسن.</p>
+<div class="controls">
+<select id="segment"><option value="general">عام</option><option value="creator">مبدع</option><option value="developer">مطور</option><option value="enterprise">مؤسسة</option><option value="agriculture">زراعة</option><option value="engineering">هندسة</option><option value="accessibility">إتاحة</option><option value="security">أمن</option></select>
+<input id="domain" placeholder="المجال"><input id="goal" placeholder="الهدف"><button onclick="refresh()">جدّد البيئة</button>
+</div>
+<div id="meta" class="meta"></div><div id="grid" class="grid"></div>
+</section></main>
+<script>
+async function refresh(){const s=segment.value,d=domain.value,g=goal.value;const r=await fetch(`/api/runtime/experience?segment=${encodeURIComponent(s)}&domain=${encodeURIComponent(d)}&goal=${encodeURIComponent(g)}`);const x=await r.json();meta.textContent=`Experience ${x.experienceId} • D5=${x.dimensionModel.D5}`;grid.innerHTML=x.payload.zones.map(z=>`<article class="card"><div class="zone">${z}</div><p>جزء من البيئة الموحدة حسب سياقك الحالي.</p></article>`).join('')}
+refresh();setInterval(()=>document.body.style.setProperty('--pulse',Date.now()%1000),1000);
+</script></body></html>

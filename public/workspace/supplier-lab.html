@@ -1,0 +1,59 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>شيخة | مختبر الموردين</title>
+  <link rel="icon" href="/images/sheikha-emblem-hd.png"><link rel="stylesheet" href="./workspace.css"><link rel="stylesheet" href="./supplier-lab.css">
+  <script src="./supplier-lab.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">تجاوز إلى المحتوى</a>
+  <header class="topbar">
+    <a class="brand" href="./#/sheikha"><img src="/images/sheikha-emblem-hd.png" alt="" width="42" height="42"><span>شيخة <small>SHEIKHA</small></span></a>
+    <nav aria-label="التنقل الرئيسي"><a href="./#/sheikha">المنظومة</a><a href="./#/market">السوق</a><a href="./assets.html">الأصول</a><a href="./supplier-lab.html" aria-current="page">مختبر الموردين</a><a href="./industry-runtime.html">التجمع الصناعي</a></nav>
+    <span class="local-label">بيانات تجريبية · قراءة فقط</span>
+  </header>
+  <main id="main" class="content band" tabindex="-1">
+    <div class="heading"><div><p class="eyebrow">SHEIKHA SUPPLIER LAB</p><h1 class="page-title">مختبر الموردين</h1></div><div class="lab-actions">
+      <button id="lab-refresh" class="icon-button" title="تحديث السجلات" aria-label="تحديث السجلات"><img class="icon" src="/architecture-explorer/icons/refresh-cw.svg" alt=""></button>
+      <button id="lab-export" class="icon-button" title="تنزيل الصفحة الحالية بصيغة JSON" aria-label="تنزيل الصفحة الحالية بصيغة JSON" disabled><img class="icon" src="/architecture-explorer/icons/download.svg" alt=""></button>
+    </div></div>
+    <p class="notice">سجلات اصطناعية وليست موردين أو عروضًا أو مستندات شراء حقيقية. لا إرسال طلبات أو اعتماد موردين أو محتوى وثائق خاص.</p>
+    <div class="lab-tabs" role="tablist" aria-label="سجلات المختبر">
+      <button id="tab-suppliers" role="tab" aria-controls="lab-panel" aria-selected="true" tabindex="0" data-view="suppliers">الموردون</button>
+      <button id="tab-materials" role="tab" aria-controls="lab-panel" aria-selected="false" tabindex="-1" data-view="materials">المواد</button>
+      <button id="tab-documents" role="tab" aria-controls="lab-panel" aria-selected="false" tabindex="-1" data-view="documents">الوثائق</button>
+    </div>
+    <section id="lab-panel" role="tabpanel" aria-labelledby="tab-suppliers" aria-busy="true">
+      <form id="lab-filters" class="lab-filters">
+        <label>البحث<input id="lab-search" type="search" maxlength="80" placeholder="اسم أو معرف تجريبي"></label>
+        <label><span id="lab-category-label">القطاع</span><select id="lab-category"><option value="">الكل</option></select></label>
+        <label id="lab-supplier-label" hidden>المورد<select id="lab-supplier"><option value="">جميع الموردين</option></select></label>
+        <label>حجم الصفحة<select id="lab-limit"><option value="5">5</option><option value="10">10</option><option value="25">25</option></select></label>
+        <div class="lab-actions">
+          <button class="icon-button" type="submit" title="بحث" aria-label="بحث"><img class="icon" src="/architecture-explorer/icons/search.svg" alt=""></button>
+          <button class="icon-button" type="button" id="lab-reset" title="مسح المرشحات" aria-label="مسح المرشحات"><img class="icon" src="/architecture-explorer/icons/filter-x.svg" alt=""></button>
+        </div>
+      </form>
+      <p id="lab-status" role="status">جارٍ قراءة سجلات المختبر</p>
+      <div class="lab-layout">
+        <div class="lab-list">
+          <table class="lab-table"><caption id="lab-caption">الموردون التجريبيون</caption><colgroup><col class="lab-name-col"><col><col><col class="lab-action-col"></colgroup>
+            <thead><tr><th scope="col">السجل</th><th scope="col" id="lab-column-type">القطاع</th><th scope="col" id="lab-column-relation">السجلات المرتبطة</th><th scope="col"><span class="lab-sr-only">التفاصيل</span></th></tr></thead>
+            <tbody id="lab-rows"></tbody>
+          </table>
+          <p id="lab-empty" hidden>لا سجلات مطابقة.</p>
+          <div class="lab-pagination"><span id="lab-page-count"></span><div class="lab-actions">
+            <button id="lab-previous" class="icon-button" title="الصفحة السابقة" aria-label="الصفحة السابقة" disabled><img class="icon lab-flip" src="/architecture-explorer/icons/arrow-left.svg" alt=""></button>
+            <button id="lab-next" class="icon-button" title="الصفحة التالية" aria-label="الصفحة التالية" disabled><img class="icon" src="/architecture-explorer/icons/arrow-left.svg" alt=""></button>
+          </div></div>
+        </div>
+        <aside id="lab-detail" aria-labelledby="lab-detail-title"><h2 id="lab-detail-title" tabindex="-1">تفاصيل السجل</h2><p id="lab-unselected">لا سجل محدد.</p><div id="lab-detail-body" hidden></div></aside>
+      </div>
+      <details id="lab-contract"><summary>عقد القراءة وحدوده</summary><p id="lab-contract-name"></p><code id="lab-contract-path"></code><p id="lab-requirement"></p><p>نموذج داخل الذاكرة، دون قاعدة بيانات فعلية أو صلاحيات إنتاج. الوثائق بيانات وصفية فقط.</p></details>
+    </section>
+  </main>
+  <footer class="content"><strong>شيخة | SHEIKHA</strong><a href="./assets.html">سجل الأصول ومتطلبات القبول</a><span dir="ltr">SHEIKHA UGIT-RP</span></footer>
+  <noscript><p class="notice">JavaScript غير مفعّل؛ سجلات المختبر غير متاحة.</p></noscript>
+</body>
+</html>

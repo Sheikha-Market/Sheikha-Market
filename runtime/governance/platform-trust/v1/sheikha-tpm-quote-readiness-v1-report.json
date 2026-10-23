@@ -1,0 +1,65 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_TPM_QUOTE_READINESS_PREFLIGHT_V1",
+  "status": "LOCAL_TPM_PREPARATION_REQUIRED",
+  "checks": {
+    "tpm2SysfsPresent": true,
+    "tpmResourceManagerPresent": false,
+    "eventLogPresent": true,
+    "eventLogReadable": false,
+    "allRequiredToolsPresent": false,
+    "secureBootEnabled": false,
+    "akEnrollmentRecordConfigured": false
+  },
+  "toolAvailability": {
+    "tpm2_getcap": false,
+    "tpm2_pcrread": false,
+    "tpm2_createak": false,
+    "tpm2_readpublic": false,
+    "tpm2_quote": false
+  },
+  "readiness": {
+    "readyForReadOnlyCollection": false,
+    "readyForGovernedQuote": false,
+    "readyForProductionAttestation": false
+  },
+  "blockers": [
+    "tpmResourceManagerPresent",
+    "eventLogReadable",
+    "allRequiredToolsPresent",
+    "secureBootEnabled",
+    "akEnrollmentRecordConfigured"
+  ],
+  "nextActions": [
+    {
+      "blocker": "tpmResourceManagerPresent",
+      "action": "EXPOSE_DEV_TPMRM0_WITH_LEAST_PRIVILEGE"
+    },
+    {
+      "blocker": "eventLogReadable",
+      "action": "GRANT_NARROW_READ_ACCESS_OR_EXPORT_WITH_PRIVILEGED_HELPER"
+    },
+    {
+      "blocker": "allRequiredToolsPresent",
+      "action": "INSTALL_PINNED_TPM2_TOOLS_AFTER_PACKAGE_REVIEW"
+    },
+    {
+      "blocker": "secureBootEnabled",
+      "action": "PLAN_SEPARATE_RECOVERABLE_SECURE_BOOT_ENROLLMENT"
+    },
+    {
+      "blocker": "akEnrollmentRecordConfigured",
+      "action": "CREATE_GOVERNED_AK_ENROLLMENT_RECORD_AFTER_AK_GENERATION"
+    }
+  ],
+  "executionBoundary": {
+    "tpmCommandExecuted": false,
+    "akCreated": false,
+    "quoteCollected": false,
+    "secureBootChanged": false,
+    "firmwareMutationPerformed": false,
+    "networkUsed": false
+  },
+  "checkedAt": "2026-09-01T03:46:44.031Z",
+  "reportSha256": "ccc51e41563a731b1bd99af8c1e6866f817bd3ae2beeff587a4660f229750fe5"
+}

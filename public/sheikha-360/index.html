@@ -1,0 +1,158 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <meta name="description" content="Sheikha 360، مساحة القرار والجدوى والتجارب والشات المحكوم.">
+  <title>شيخة 360 | مركز القرار والتشغيل</title>
+  <link rel="stylesheet" href="/sheikha-360/styles.css?v=3">
+</head>
+<body>
+  <header class="topbar">
+    <a class="brand" href="/" aria-label="العودة إلى شيخة">
+      <img src="/images/sheikha-emblem-hd.png" alt="شعار شيخة">
+      <span><strong>شيخة 360</strong><small>مركز القرار والتشغيل</small></span>
+    </a>
+    <div class="live-state"><i></i><span id="connectionText">جارٍ الاتصال</span></div>
+    <a class="back-link" href="/">الرئيسية</a>
+  </header>
+
+  <div class="app-shell">
+    <nav class="side-nav" aria-label="مساحات العمل">
+      <p class="nav-label">مساحات العمل</p>
+      <button class="nav-button active" data-view="overview" title="النظرة التنفيذية"><span>01</span>النظرة التنفيذية</button>
+      <button class="nav-button" data-view="feasibility" title="دراسة الجدوى"><span>02</span>دراسة الجدوى</button>
+      <button class="nav-button" data-view="experiments" title="مختبر التحسين"><span>03</span>مختبر التحسين</button>
+      <button class="nav-button" data-view="experience" title="تجربة العميل 5D"><span>04</span>تجربة العميل 5D</button>
+      <button class="nav-button" data-view="chat" title="شات شيخة"><span>05</span>شات شيخة</button>
+      <div class="nav-foot"><span class="nav-foot-mark"></span><div><strong>المحرك المحلي</strong><small>قياس محكوم بالأدلة</small></div></div>
+    </nav>
+
+    <main>
+      <section class="view active" id="view-overview">
+        <div class="page-heading">
+          <div><p class="kicker">SHEIKHA COMMERCIAL OPERATING SYSTEM</p><h1>من الرؤية إلى قرار قابل للقياس</h1></div>
+          <button class="icon-button" id="refreshButton" title="تحديث البيانات" aria-label="تحديث البيانات">↻</button>
+        </div>
+
+        <section class="overview-visual" aria-label="منظومة شيخة الصناعية والتجارية">
+          <div><p>منظومة تشغيل واحدة</p><h2>السوق والواقع والقرار<br>في سياق متصل</h2><span>بيانات مقاسة · حساب شفاف · تنفيذ محكوم</span></div>
+        </section>
+
+        <div class="metric-strip">
+          <article><small>حالة التشغيل</small><strong id="operatingState">جارٍ الفحص</strong><span>نموذج تجريبي سعودي</span></article>
+          <article><small>العروض المسجلة</small><strong id="offerCount">--</strong><span>خدمات قابلة للتسعير</span></article>
+          <article><small>الفئات الأولية</small><strong id="segmentCount">--</strong><span>أسواق محددة قابلة للقياس</span></article>
+          <article><small>بوابات الإصدار</small><strong id="gateCount">--</strong><span>لا إطلاق دون اجتيازها</span></article>
+        </div>
+
+        <section class="work-band">
+          <div class="band-heading"><div><p class="kicker">SHEIKHA UNIFIED RUNTIME</p><h2>المكونات المترابطة وأدلة تشغيلها</h2></div><span class="tag" id="runtimeEvidence">جارٍ الفحص</span></div>
+          <div class="runtime-grid" id="runtimeGrid" aria-live="polite"></div>
+          <p class="runtime-boundary" id="runtimeBoundary">تُعرض حالة كل مكوّن من المصدر المحلي، مع بقاء بوابة الإصدار مستقلة.</p>
+        </section>
+
+        <section class="work-band">
+          <div class="band-heading"><div><p class="kicker">خطة العمل</p><h2>المسار التنفيذي لأول 90 يومًا</h2></div><span class="tag">مرحلة البيع المنضبط</span></div>
+          <div class="timeline">
+            <article><b>1</b><div><strong>إثبات الحاجة</strong><p>20 مقابلة، 10 عروض، وعميل مدفوع واحد.</p></div><span>14 يومًا</span></article>
+            <article><b>2</b><div><strong>إثبات التسليم</strong><p>تسليم مقبول وهامش مساهمة موجب.</p></div><span>30 يومًا</span></article>
+            <article><b>3</b><div><strong>إثبات التكرار</strong><p>ثلاثة عملاء وتخفيض زمن الإعداد المقاس.</p></div><span>60 يومًا</span></article>
+            <article><b>4</b><div><strong>قرار التوسع</strong><p>التوسع أو التعديل أو الإيقاف بحسب الدليل.</p></div><span>90 يومًا</span></article>
+          </div>
+        </section>
+
+        <section class="work-band">
+          <div class="band-heading"><div><p class="kicker">الركائز</p><h2>منهجيات العمل النشطة</h2></div></div>
+          <div class="method-list" id="methodList"></div>
+        </section>
+      </section>
+
+      <section class="view" id="view-feasibility">
+        <div class="page-heading"><div><p class="kicker">UNIT ECONOMICS</p><h1>حاسبة الجدوى الاقتصادية</h1><p>غيّر الافتراضات وشاهد النتيجة فورًا. الحساب سيناريو وليس توقع مبيعات.</p></div></div>
+        <div class="split-workspace">
+          <form class="control-panel" id="feasibilityForm">
+            <label>المنتج<select name="offerId"><option value="SHEIKHA_360_MEASURED_TWIN_PILOT_V1">تجربة شيخة 360 المقاسة</option><option value="SHEIKHA_SUPPLY_CHAIN_DIAGNOSTIC_V1">تشخيص سلسلة الإمداد</option><option value="SHEIKHA_PRODUCT_VISUAL_PACK_V1">حزمة رسومات المنتج</option></select></label>
+            <label>عدد العملاء شهريًا<input name="customers" type="number" min="0" value="2"></label>
+            <label>التكلفة المتغيرة لكل عميل<input name="variableCostPerCustomerSar" type="number" min="0" value="4000"><span>ريال</span></label>
+            <label>التكلفة الثابتة الشهرية<input name="monthlyFixedCostSar" type="number" min="0" value="7000"><span>ريال</span></label>
+            <button type="submit" class="primary-button">احسب الجدوى</button>
+          </form>
+          <div class="result-panel" aria-live="polite">
+            <p class="kicker">النتيجة المحسوبة</p>
+            <strong class="result-number" id="operatingResult">--</strong>
+            <span id="resultDecision">أدخل الافتراضات</span>
+            <dl><div><dt>الإيراد قبل الضريبة</dt><dd id="revenue">--</dd></div><div><dt>هامش المساهمة</dt><dd id="margin">--</dd></div><div><dt>نقطة التعادل</dt><dd id="breakEven">--</dd></div><div><dt>إجمالي الفاتورة</dt><dd id="invoiceTotal">--</dd></div></dl>
+          </div>
+        </div>
+      </section>
+
+      <section class="view" id="view-experiments">
+        <div class="page-heading"><div><p class="kicker">MEASURED IMPROVEMENT</p><h1>مختبر التجربة المتجددة</h1><p>لا تُرقّى التجربة لأنها جديدة؛ يجب أن تكون أفضل بالدليل ودون انحدار.</p></div></div>
+        <div class="split-workspace">
+          <form class="control-panel" id="experimentForm">
+            <label>خط الأساس<input name="baseline" type="number" step="any" value="100"></label>
+            <label>نتيجة المرشح<input name="candidate" type="number" step="any" value="120"></label>
+            <label>اتجاه التحسن<select name="direction"><option value="HIGHER_IS_BETTER">الأعلى أفضل</option><option value="LOWER_IS_BETTER">الأقل أفضل</option></select></label>
+            <label>الحد الأدنى للتحسن<input name="minimumImprovementPercent" type="number" min="0" value="10"><span>%</span></label>
+            <label>حجم العينة<input name="sampleSize" type="number" min="1" value="30"></label>
+            <label>عدد الانحدارات<input name="regressions" type="number" min="0" value="0"></label>
+            <button type="submit" class="primary-button">قيّم التجربة</button>
+          </form>
+          <div class="result-panel experiment-result" aria-live="polite"><p class="kicker">قرار البوابة</p><strong id="experimentStatus">لم تُقيّم بعد</strong><div class="score-ring"><span id="improvement">--</span><small>تحسن</small></div><p id="experimentNote">الترقية النهائية تتطلب مراجعة بشرية.</p></div>
+        </div>
+      </section>
+
+      <section class="view" id="view-experience">
+        <div class="page-heading"><div><p class="kicker">CUSTOMER EXPERIENCE 5D</p><h1>بيئة واحدة، تجربة قابلة للقياس</h1><p>خمسة محاور تشغيلية تجمع الويب والجوال والموقع والعمل، وليست ادعاءً بأبعاد فيزيائية إضافية.</p></div></div>
+        <form id="experienceForm" class="experience-workspace">
+          <section class="experience-matrix">
+            <header><strong>محور التجربة</strong><span>الأساس</span><span>المرشح</span></header>
+            <label><strong>القيمة النافعة</strong><input name="baselineValue" type="number" min="0" max="100" value="70"><input name="candidateValue" type="number" min="0" max="100" value="78"></label>
+            <label><strong>سهولة الاستخدام</strong><input name="baselineUsability" type="number" min="0" max="100" value="72"><input name="candidateUsability" type="number" min="0" max="100" value="76"></label>
+            <label><strong>الثقة والأمان</strong><input name="baselineTrust" type="number" min="0" max="100" value="80"><input name="candidateTrust" type="number" min="0" max="100" value="82"></label>
+            <label><strong>ملاءمة السياق</strong><input name="baselineContext" type="number" min="0" max="100" value="65"><input name="candidateContext" type="number" min="0" max="100" value="73"></label>
+            <label><strong>السرعة والاستمرارية</strong><input name="baselineTime" type="number" min="0" max="100" value="68"><input name="candidateTime" type="number" min="0" max="100" value="75"></label>
+          </section>
+          <aside class="experience-controls">
+            <p class="kicker">البيئات المدمجة</p>
+            <div class="environment-options">
+              <label><input type="checkbox" name="environment" value="WEB" checked> الويب</label>
+              <label><input type="checkbox" name="environment" value="MOBILE" checked> الجوال</label>
+              <label><input type="checkbox" name="environment" value="PHYSICAL_SITE"> الموقع الواقعي</label>
+              <label><input type="checkbox" name="environment" value="WORKPLACE"> بيئة العمل</label>
+              <label><input type="checkbox" name="environment" value="CLASSROOM"> التعليم</label>
+              <label><input type="checkbox" name="environment" value="AR_VR"> AR / VR</label>
+            </div>
+            <label class="consent"><input type="checkbox" id="experienceConsent" checked> موافقة العميل على القياس لهذه التجربة</label>
+            <button class="primary-button" type="submit">قيّم التجربة 5D</button>
+          </aside>
+          <section class="experience-decision" aria-live="polite">
+            <div><small>درجة الأساس</small><strong id="baseline5d">--</strong></div>
+            <div><small>درجة المرشح</small><strong id="candidate5d">--</strong></div>
+            <div><small>التغير المقاس</small><strong id="delta5d">--</strong></div>
+            <p id="decision5d">جارٍ إعداد التقييم</p>
+          </section>
+        </form>
+      </section>
+
+      <section class="view chat-view" id="view-chat">
+        <div class="page-heading"><div><p class="kicker">GOVERNED PUBLIC CHAT</p><h1>شات شيخة</h1><p>مساعدة تعليمية ومهنية عامة، مع حدود عمرية ومعرفية واضحة.</p></div></div>
+        <div class="chat-layout">
+          <aside class="chat-settings">
+            <label>الفئة<select id="audienceProfile"><option value="adult">بالغ</option><option value="university">جامعي وباحث</option><option value="student">طالب</option><option value="child">طفل بإشراف ولي</option><option value="professional">مهني ومنشأة</option></select></label>
+            <label>المجال<select id="chatDomain"><option value="general">عام نافع</option><option value="education">تعليمي</option><option value="science">علم وحساب</option><option value="business">أعمال وجدوى</option><option value="faith">معرفة إسلامية موثقة</option></select></label>
+            <label class="guardian-control" id="guardianControl"><input type="checkbox" id="guardianConsent"> أؤكد إشراف ولي الأمر</label>
+            <div class="boundary-note"><strong>حدود الخدمة</strong><p>لا فتوى آلية، ولا محاكاة للغيب، ولا إجراء عالي الأثر دون مختص وموافقة.</p><small>Built with Llama · يخضع النموذج لترخيص المصدر.</small></div>
+          </aside>
+          <div class="chat-panel">
+            <div class="messages" id="messages" aria-live="polite"><div class="message assistant"><span>شيخة</span><p>بسم الله الرحمن الرحيم. كيف أساعدك في علم أو تعلم أو عمل نافع اليوم؟</p></div></div>
+            <form class="composer" id="chatForm"><textarea id="chatInput" rows="2" maxlength="4000" placeholder="اكتب سؤالك بوضوح" required></textarea><button type="submit" title="إرسال" aria-label="إرسال">↑</button></form>
+          </div>
+        </div>
+      </section>
+    </main>
+  </div>
+  <script src="/sheikha-360/app.js?v=3" defer></script>
+</body>
+</html>

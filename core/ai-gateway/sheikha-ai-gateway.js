@@ -1,5 +1,7 @@
 'use strict';
 
+const crypto = require('node:crypto');
+
 const {
     getUniversalDivineGovernance
 } = require('../root-governance/sheikha-universal-divine-governance');
@@ -63,6 +65,50 @@ function governanceEnvelope() {
         allSystemsGoverned: true,
         universalGovernance
     };
+}
+
+function buildExternalDisclosureResource(prompt) {
+    const sha256 = crypto
+        .createHash('sha256')
+        .update(JSON.stringify({
+            prompt: String(prompt || ''),
+            system: SHEIKHA_CORE_RUNTIME_PROMPT
+        }))
+        .digest('hex');
+
+    return {
+        resourceId:
+            `AI-PROMPT-${sha256.slice(0, 24)}`,
+        sha256
+    };
+}
+
+function isTrustedExternalDisclosureDecision(
+    decision,
+    expectedResource,
+    now = new Date()
+) {
+    const expiresAt = new Date(decision?.expiresAt);
+
+    return Boolean(
+        decision &&
+        decision.allowed === true &&
+        decision.executionAuthorized === true &&
+        decision.decision === 'ALLOW_EXACT_BOUNDED_ACTION' &&
+        decision.action === 'DISCLOSE_EXTERNAL' &&
+        expectedResource &&
+        decision.resourceId === expectedResource.resourceId &&
+        /^[a-f0-9]{64}$/i.test(
+            String(decision.resourceSha256 || '')
+        ) &&
+        decision.resourceSha256 === expectedResource.sha256 &&
+        decision.granteeId &&
+        decision.rightsHolderId &&
+        decision.purpose &&
+        decision.noScopeExpansion === true &&
+        !Number.isNaN(expiresAt.getTime()) &&
+        expiresAt > now
+    );
 }
 
 function isArabic(text) {
@@ -331,14 +377,17 @@ async function getSheikhaGatewayStatus() {
     }
 }
 
-async function askSheikhaCore({
-    prompt,
-    model = DEFAULT_MODEL,
-    mode = 'chat',
-    task,
-    ultraBudgetApproved = false,
-    context = {}
-}) {
+async function askSheikhaCore(
+    {
+        prompt,
+        model = DEFAULT_MODEL,
+        mode = 'chat',
+        task,
+        ultraBudgetApproved = false,
+        context = {}
+    },
+    trustedControls = {}
+) {
     if (!prompt || typeof prompt !== 'string') {
         return {
             success: false,
@@ -439,6 +488,12 @@ async function askSheikhaCore({
 
     // استخدام طبقة Provider Abstraction مع fallback ذكي تلقائي
     const preferredProvider = process.env.SHEIKHA_PROVIDER || 'ollama';
+    const externalDisclosureAllowed =
+        isTrustedExternalDisclosureDecision(
+            trustedControls.externalDisclosureDecision,
+            buildExternalDisclosureResource(prompt)
+        );
+
     const result = await askWithFallback({
         prompt,
         system: SHEIKHA_CORE_RUNTIME_PROMPT,
@@ -449,7 +504,9 @@ async function askSheikhaCore({
             num_predict: DEFAULT_NUM_PREDICT,
             top_p: 0.85
         }
-    }, preferredProvider);
+    }, preferredProvider, {
+        allowExternalProviders: externalDisclosureAllowed
+    });
 
     if (result?.success) {
         return {
@@ -459,6 +516,9 @@ async function askSheikhaCore({
             mode: result._providerUsed === 'ollama' ? 'governed-local-ai' : 'governed-cloud-ai',
             localModelOnline: result._providerUsed === 'ollama',
             fallbackReason: result._fallbackReason || null,
+            externalDisclosureAllowed,
+            externalProvidersBlocked:
+                result._externalProvidersBlocked || [],
             governance: governanceEnvelope(),
             context,
             output: result.output || '',
@@ -488,5 +548,7 @@ module.exports = {
     buildFastOperationalAnswer,
     isCanonicalIdentityPrompt,
     isOllamaRecognitionPrompt,
-    buildOllamaRecognitionAnswer
+    buildOllamaRecognitionAnswer,
+    buildExternalDisclosureResource,
+    isTrustedExternalDisclosureDecision
 };

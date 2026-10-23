@@ -1,0 +1,421 @@
+{
+  "timestamp": "2026-10-13T02:26:51.815Z",
+  "status": "LINUX_LOCAL_INTEGRATION_VERIFIED",
+  "platforms": {
+    "system": "SHEIKHA_PLATFORM_CAPABILITIES_V1",
+    "profiles": [
+      {
+        "id": "development",
+        "status": "LOCAL_HOST_AND_LIMITED_X64_VM",
+        "requirements": [
+          "local_toolchain",
+          "bounded_probes"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "laptops",
+        "status": "PROPOSED",
+        "requirements": [
+          "device_drivers",
+          "desktop",
+          "power_management",
+          "application_compatibility"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "mobile",
+        "status": "PROPOSED",
+        "requirements": [
+          "arm64_port",
+          "device_drivers",
+          "battery_management",
+          "mobile_security"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "datacenters_hpc",
+        "status": "PROPOSED",
+        "requirements": [
+          "network_stack",
+          "storage",
+          "resource_isolation",
+          "distributed_jobs",
+          "fault_recovery"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "industrial_labs",
+        "status": "PROPOSED",
+        "requirements": [
+          "qualified_io",
+          "calibration",
+          "real_time_measurements",
+          "site_safety"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "robotics",
+        "status": "PROPOSED",
+        "requirements": [
+          "qualified_sensors",
+          "independent_stop",
+          "motion_limits",
+          "simulation_and_field_tests"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "public_administration",
+        "status": "PROPOSED",
+        "requirements": [
+          "identity_and_roles",
+          "privacy",
+          "data_residency_review",
+          "audit",
+          "service_continuity"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "maritime_navigation",
+        "status": "RESEARCH_ONLY",
+        "requirements": [
+          "qualified_navigation_inputs",
+          "redundancy",
+          "timing",
+          "independent_safety_review"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "aviation",
+        "status": "RESEARCH_ONLY",
+        "requirements": [
+          "deterministic_control",
+          "fault_containment",
+          "hardware_qualification",
+          "independent_airworthiness_review"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "space_satellites",
+        "status": "RESEARCH_ONLY",
+        "requirements": [
+          "radiation_and_thermal_qualification",
+          "limited_power",
+          "communications",
+          "fault_tolerance"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      },
+      {
+        "id": "defense_support",
+        "status": "RESEARCH_ONLY",
+        "requirements": [
+          "authorized_non_weapon_scope",
+          "access_control",
+          "system_specific_review"
+        ],
+        "physicalDeploymentVerified": false,
+        "fullOsSupportVerified": false
+      }
+    ],
+    "nativeEvidence": {
+      "architecture": "x86_64",
+      "status": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+      "artifactIntegrity": true,
+      "newBoot": false
+    },
+    "architecture": {
+      "layers": [
+        "platform_contract",
+        "kernel_and_hal",
+        "device_adapters",
+        "bounded_services",
+        "isolated_ai",
+        "versioned_integration_gateway",
+        "evidence_and_governance"
+      ],
+      "aiPlacement": "ISOLATED_SERVICE_WITH_BOUNDED_KERNEL_INTERFACE",
+      "criticalControl": "REQUIRES_PLATFORM_SPECIFIC_DETERMINISTIC_AND_INDEPENDENT_SAFETY_DESIGN",
+      "proposedIntegrationEnvelope": [
+        "schema_version",
+        "source_id",
+        "timestamp",
+        "units",
+        "quality",
+        "sequence",
+        "authorization_scope"
+      ],
+      "integrationImplementedForAllPlatforms": false
+    },
+    "universalCompatibility": false,
+    "agiOrAsiVerified": false,
+    "networkConnectionsOpened": false,
+    "deviceCommandsSent": false,
+    "productionEnabled": false
+  },
+  "integration": {
+    "system": "SHEIKHA_OS_INTEGRATED_V1",
+    "status": "LOCAL_SPECIFICATION_AND_PROBES_VERIFIED",
+    "source": "sheikha-language/foundations/sheikha-os-integrated-v1.shk",
+    "sourceSha256": "c35b2103564ed40d4dcffe68560acb783c5de21c1208f2f60a10c486b329ec21",
+    "layers": [
+      {
+        "id": "boot",
+        "properties": {
+          "الدور": "إقلاع_UEFI_وتسليم_التحكم",
+          "معيار_الإثبات": "boot_artifact_integrity",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "kernel",
+        "properties": {
+          "الدور": "ذاكرة_ومقاطعات_وتوقيت_وعزل",
+          "معيار_الإثبات": "kernel_runtime_safety",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "scheduler",
+        "properties": {
+          "الدور": "جدولة_وميزانية_ومنع_تجويع",
+          "معيار_الإثبات": "scheduling",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "hal",
+        "properties": {
+          "الدور": "تعريفات_أجهزة_ومعايرة_وحدود",
+          "معيار_الإثبات": "hardware_drivers",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "storage",
+        "properties": {
+          "الدور": "ملفات_دائمة_وتعاف_وصلاحيات",
+          "معيار_الإثبات": "persistent_storage",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "network",
+        "properties": {
+          "الدور": "شبكة_ومصادقة_وتشفير",
+          "معيار_الإثبات": "network_stack",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "security",
+        "properties": {
+          "الدور": "أقل_صلاحية_وفصل_وتدقيق",
+          "معيار_الإثبات": "security_isolation",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "packages",
+        "properties": {
+          "الدور": "حزم_موقعة_وترقية_وتراجع",
+          "معيار_الإثبات": "package_management",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "language",
+        "properties": {
+          "الدور": "مترجم_شيخة_وآلة_افتراضية",
+          "معيار_الإثبات": "language_runtime",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "desktop",
+        "properties": {
+          "الدور": "واجهة_عربية_وتطبيقات_وإتاحة",
+          "معيار_الإثبات": "desktop",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "research",
+        "properties": {
+          "الدور": "منهجيات_وتجارب_ومراجعة",
+          "معيار_الإثبات": "research_planning",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "watch",
+        "properties": {
+          "الدور": "قياس_وسجل_ورصد_تقادم",
+          "معيار_الإثبات": "local_monitoring",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "evidence",
+        "properties": {
+          "الدور": "بصمات_محتوى_وفحص_ادعاءات",
+          "معيار_الإثبات": "independent_evidence",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "governance",
+        "properties": {
+          "الدور": "تفويض_منفصل_ولائحة_تغيير",
+          "معيار_الإثبات": "governance",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "migration",
+        "properties": {
+          "الدور": "ترحيل_خدمات_وتكافؤ_سلوك",
+          "معيار_الإثبات": "service_migration",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      },
+      {
+        "id": "recovery",
+        "properties": {
+          "الدور": "نسخ_واستعادة_واختبار_تعاف",
+          "معيار_الإثبات": "recovery",
+          "الحالة": "DESIGN_CONTRACT",
+          "الاعتماد_الإنتاجي": "UNKNOWN"
+        }
+      }
+    ],
+    "probes": {
+      "bootArtifactIntegrity": true,
+      "recordedVmBootStatus": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+      "bootExecutedThisSession": false,
+      "languageExecution": "VERIFIED_DRY_RUN",
+      "methodProfiles": 11,
+      "methodRequirementsPresent": true,
+      "monitorStaleData": "STALE_DATA"
+    },
+    "unverified": [
+      {
+        "id": "boot",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "kernel",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "scheduler",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "hal",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "storage",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "network",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "security",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "packages",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "desktop",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "evidence",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "governance",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "migration",
+        "fullCapability": "UNKNOWN"
+      },
+      {
+        "id": "recovery",
+        "fullCapability": "UNKNOWN"
+      }
+    ],
+    "policy": {
+      "authorityGranted": false,
+      "productionEnabled": false,
+      "networkOperations": false,
+      "physicalActuation": false,
+      "serviceControl": false,
+      "independentShariaApproval": "UNKNOWN",
+      "legalCompliance": "UNKNOWN"
+    },
+    "allScientificMethodsActivated": false,
+    "linuxReplacementReady": false,
+    "hostRuntime": "Node.js"
+  },
+  "tests": {
+    "passed": 11,
+    "failed": 0,
+    "output": "✔ integrated probes separate limited evidence from full OS readiness (11.407013ms)\n✔ client flags cannot enable deployment, services or devices (0.333786ms)\n✔ platform registry never promotes proposals to physical or universal support (1.610953ms)\n✔ caller cannot authorize hardware, flight, deployment or model execution (0.169476ms)\n✔ synthetic samples have provenance and linked content digests (0.158601ms)\n✔ stale measurements become visible without restarting services (0.107065ms)\n✔ replay, wrong units, bad values and client approval fail closed (0.171854ms)\n✔ innovation proposes multiple candidates without approving deployment (0.15254ms)\n✔ method catalog produces bounded plans without conclusions or authority (0.116271ms)\n✔ client approval and unknown methods are rejected (0.178708ms)\n✔ statistics describe samples without causal claims (0.212836ms)\nℹ tests 11\nℹ suites 0\nℹ pass 11\nℹ fail 0\nℹ cancelled 0\nℹ skipped 0\nℹ todo 0\nℹ duration_ms 50.455094\n"
+  },
+  "authorization": {
+    "userRequestedLocalExecution": true,
+    "productionAuthorization": false,
+    "physicalOperationAuthorization": false,
+    "regulatoryApproval": "NOT_OBTAINED",
+    "independentQualification": "NOT_OBTAINED",
+    "note": "Local execution consent is not a regulatory license or certification"
+  },
+  "operation": {
+    "mode": "BOUNDED_LOCAL_RUN_COMPLETED",
+    "continuousServiceStarted": false,
+    "newNativeBoot": false,
+    "networkChanged": false,
+    "hardwareCommandSent": false
+  }
+}

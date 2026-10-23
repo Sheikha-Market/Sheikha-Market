@@ -1,0 +1,90 @@
+{
+  "status": "LOCAL_PORTFOLIO_AND_SYNTHETIC_MONITOR_VERIFIED",
+  "source": "sheikha-language/foundations/sheikha-innovation-portfolio-v1.shk",
+  "sourceSha256": "8c3889c9733bba0706632febb047e821f29a23f6460b972f79a82c5dce53c5c2",
+  "programs": [
+    {
+      "id": "P1",
+      "name": "Kernel & Foundries"
+    },
+    {
+      "id": "P2",
+      "name": "Commerce & Supply Chains"
+    },
+    {
+      "id": "P3",
+      "name": "Robotics & Intelligence"
+    },
+    {
+      "id": "P4",
+      "name": "Measurement & Telemetry"
+    },
+    {
+      "id": "P5",
+      "name": "Innovation Incubator"
+    }
+  ],
+  "experiment": {
+    "mode": "BOUNDED_LOCAL_EXPERIMENT",
+    "guard": "STALE_DATA",
+    "records": [
+      {
+        "data": {
+          "sequence": 0,
+          "tick": 0,
+          "channel": "load",
+          "unit": "kg",
+          "value": 2,
+          "source": "SYNTHETIC_LOCAL_SAMPLE",
+          "calibration": "UNKNOWN",
+          "previousHash": null
+        },
+        "sha256": "febfa04087c522978e15480b0868dafe4ec6012e54dd3ff0413ff58f5412a327"
+      }
+    ],
+    "physicalSensorConnection": "UNKNOWN",
+    "hardwareSafetyEnforcement": "UNKNOWN",
+    "monitor24x7": "UNKNOWN",
+    "servicesStopped": false,
+    "physicalCommandSent": false
+  },
+  "innovationCandidates": [
+    {
+      "id": "CANDIDATE_1",
+      "theme": "MEASUREMENT_BASELINE",
+      "status": "PROPOSED_NOT_AUTHORIZED",
+      "problem": "تقليل هدر الموارد",
+      "metric": "كمية الهدر",
+      "method": "REQUIRES_RESEARCHER_SELECTION",
+      "baseline": "UNKNOWN",
+      "independentReview": "UNKNOWN",
+      "productionEnabled": false
+    },
+    {
+      "id": "CANDIDATE_2",
+      "theme": "PROCESS_EFFICIENCY",
+      "status": "PROPOSED_NOT_AUTHORIZED",
+      "problem": "تقليل هدر الموارد",
+      "metric": "كمية الهدر",
+      "method": "REQUIRES_RESEARCHER_SELECTION",
+      "baseline": "UNKNOWN",
+      "independentReview": "UNKNOWN",
+      "productionEnabled": false
+    },
+    {
+      "id": "CANDIDATE_3",
+      "theme": "RESOURCE_REUSE",
+      "status": "PROPOSED_NOT_AUTHORIZED",
+      "problem": "تقليل هدر الموارد",
+      "metric": "كمية الهدر",
+      "method": "REQUIRES_RESEARCHER_SELECTION",
+      "baseline": "UNKNOWN",
+      "independentReview": "UNKNOWN",
+      "productionEnabled": false
+    }
+  ],
+  "testsPassed": 4,
+  "evidenceV2Modified": false,
+  "continuousMonitoringStarted": false,
+  "productionReady": false
+}

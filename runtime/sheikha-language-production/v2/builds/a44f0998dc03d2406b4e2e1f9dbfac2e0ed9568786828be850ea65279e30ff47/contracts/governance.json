@@ -1,0 +1,26 @@
+{
+  "schemaVersion": "1.0",
+  "component": "governance",
+  "language": "sheikha",
+  "sourceSha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c",
+  "definition": {
+    "name": "حوكمة_شيخة",
+    "properties": {
+      "المعرف": "governance",
+      "المسؤولية": "الصلاحيات_والمنع_والتدقيق",
+      "التبعيات": "core",
+      "الحد": "حوكمة_محلية_لا_فتوى",
+      "المسؤول_الإداري": "غير_معين",
+      "المراجعة": "حوكمة_واختبار_قبل_الإصدار"
+    }
+  },
+  "dependencies": [
+    "core"
+  ],
+  "status": "LOCAL_CONTRACT_PRODUCED",
+  "verificationScope": "LOCAL_ARTIFACT_OR_PROBE_ONLY",
+  "verificationBasis": "LOCAL_IMPLEMENTATION_ARTIFACT_PRESENCE_ONLY",
+  "productionServiceActivated": false,
+  "hardwareMutationPerformed": false,
+  "deploymentPerformed": false
+}

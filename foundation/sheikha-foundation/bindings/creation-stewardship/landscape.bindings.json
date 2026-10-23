@@ -1,0 +1,167 @@
+{
+  "schema": "SHEIKHA_CREATION_STEWARDSHIP_LANDSCAPE_BINDINGS_V1",
+  "bindingMode": "REFERENCE_ONLY",
+  "rootContracts": {
+    "gardens": "../../roots/gardens/root.contract.json",
+    "meadows": "../../roots/meadows/root.contract.json",
+    "rivers": "../../roots/rivers/root.contract.json"
+  },
+  "gardens": {
+    "bindings": [
+      {
+        "path": "core/gardens-dialogue",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "docs/jannat-gardens-v1",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "docs/jannat-gardens-v2",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "docs/jannat-gardens-v4",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "public/sheikha-jannat-gardens",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "routes/gardens-dialogue",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "runtime/gardens-and-trees",
+        "role": "garden domain/module"
+      },
+      {
+        "path": "runtime/jannat-gardens",
+        "role": "garden domain/module"
+      }
+    ]
+  },
+  "meadows": {
+    "bindings": [
+      {
+        "path": "core/foundry/sheikha-foundry-capacity-v1.js",
+        "role": "capacity source"
+      },
+      {
+        "path": "docs/global-resource-graph-v2/SHEIKHA-GLOBAL-RESOURCE-GRAPH-V2.md",
+        "role": "resource graph specification"
+      },
+      {
+        "path": "docs/industrial-material-lifecycle-fabric/SHEIKHA-INDUSTRIAL-MATERIAL-LIFECYCLE-FABRIC-V1.md",
+        "role": "material lifecycle specification"
+      },
+      {
+        "path": "docs/resource-source-registry/SHEIKHA-RESOURCE-SOURCE-REGISTRY-V1.md",
+        "role": "source registry specification"
+      },
+      {
+        "path": "runtime/executive-commercial-os/v1/registries/global-resource-graph.json",
+        "role": "commercial resource graph"
+      },
+      {
+        "path": "runtime/global-resource-graph-v2/v1/registries/resource-nodes.json",
+        "role": "resource nodes"
+      },
+      {
+        "path": "runtime/industrial-material-lifecycle-fabric/v1/sheikha-industrial-material-lifecycle-fabric-v1.js",
+        "role": "material lifecycle runtime"
+      },
+      {
+        "path": "runtime/intelligence/materials/sheikha-material-intelligence.json",
+        "role": "material intelligence"
+      },
+      {
+        "path": "runtime/resource-source-registry/v1/registries/material-classification-map.json",
+        "role": "material classification"
+      },
+      {
+        "path": "runtime/resource-source-registry/v1/registries/source-chain-flow.json",
+        "role": "source-chain flow"
+      },
+      {
+        "path": "runtime/resource-source-registry/v1/registries/source-type-taxonomy.json",
+        "role": "source taxonomy"
+      },
+      {
+        "path": "runtime/resource-source-registry/v1/sheikha-resource-source-registry-v1.json",
+        "role": "resource/source registry"
+      },
+      {
+        "path": "runtime/sheikha-materials/entity-formation/sheikha-material-entity-formation-fabric.js",
+        "role": "material entity formation"
+      }
+    ]
+  },
+  "rivers": {
+    "bindings": [
+      {
+        "path": "core/enterprise-event-bus/sheikha-enterprise-event-bus-v1.js",
+        "role": "enterprise event flow"
+      },
+      {
+        "path": "core/kernel/bus/sheikha-runtime-bus-fabric.js",
+        "role": "runtime bus fabric"
+      },
+      {
+        "path": "core/kernel/runtime-bus/sheikha-unified-runtime-bus.js",
+        "role": "unified runtime bus"
+      },
+      {
+        "path": "core/runtime/event-router/sheikha-runtime-event-router.js",
+        "role": "event routing"
+      },
+      {
+        "path": "core/runtime/event-store/sheikha-runtime-event-store.js",
+        "role": "event persistence"
+      },
+      {
+        "path": "core/product-knowledge/product-event-bus.js",
+        "role": "product knowledge events"
+      },
+      {
+        "path": "core/ai-gateway/sheikha-ai-gateway.js",
+        "role": "AI gateway flow"
+      },
+      {
+        "path": "core/integration/gateway.js",
+        "role": "integration gateway"
+      },
+      {
+        "path": "runtime/commercial-flow-verification/sheikha-commercial-flow-v1.json",
+        "role": "commercial flow verification"
+      },
+      {
+        "path": "runtime/customer-revenue-experience/v1/registries/customer-onboarding-flow.json",
+        "role": "customer onboarding flow"
+      },
+      {
+        "path": "runtime/evidence-registry/sheikha-evidence-registry-v1.js",
+        "role": "evidence flow"
+      },
+      {
+        "path": "runtime/federated-knowledge-fabric/sheikha-federated-knowledge-fabric.json",
+        "role": "federated knowledge flow"
+      },
+      {
+        "path": "runtime/global-knowledge-mesh/v81/sheikha-global-knowledge-mesh-v81.js",
+        "role": "global knowledge flow"
+      },
+      {
+        "path": "runtime/distributed-knowledge-mesh-fabric/v118/sheikha-distributed-knowledge-mesh-fabric-v118.js",
+        "role": "distributed knowledge flow"
+      }
+    ]
+  },
+  "rules": {
+    "moveSource": false,
+    "renameSource": false,
+    "duplicateSource": false,
+    "nestedGit": false
+  }
+}

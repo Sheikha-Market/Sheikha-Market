@@ -1,0 +1,68 @@
+{
+  "type": "SheikhaIR",
+  "version": "0.2.0",
+  "meta": {
+    "nodes": 2,
+    "generatedAt": "2026-10-13T05:00:32.643Z"
+  },
+  "steps": [
+    {
+      "op": "DIRECTIVE",
+      "name": "بسم_الله",
+      "loc": {
+        "start": {
+          "line": 1,
+          "column": 1
+        },
+        "end": {
+          "line": 1,
+          "column": 9
+        }
+      }
+    },
+    {
+      "op": "PROCEDURE_BEGIN",
+      "name": "البداية",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 1
+        }
+      }
+    },
+    {
+      "op": "COMMAND",
+      "procedure": "البداية",
+      "command": "اعرض",
+      "argument": "\"SHEIKHA_PROJECT_LOCAL_OK\"",
+      "loc": {
+        "start": {
+          "line": 3,
+          "column": 3
+        },
+        "end": {
+          "line": 3,
+          "column": 34
+        }
+      }
+    },
+    {
+      "op": "PROCEDURE_END",
+      "name": "البداية",
+      "loc": {
+        "start": {
+          "line": 2,
+          "column": 1
+        },
+        "end": {
+          "line": 4,
+          "column": 1
+        }
+      }
+    }
+  ]
+}

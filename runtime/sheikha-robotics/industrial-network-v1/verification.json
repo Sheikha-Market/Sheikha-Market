@@ -1,0 +1,261 @@
+{
+  "status": "LOCAL_LANGUAGE_NETWORK_SIMULATION_VERIFIED",
+  "source": "sheikha-language/robots/sheikha-industrial-network-v1.shk",
+  "sourceSha256": "e68243ff2693fa368890dd6c9fb909d16572fb6d8196d23d3e02a8c0044542bf",
+  "simulation": {
+    "mode": "SIMULATION_ONLY",
+    "state": "COMPLETE",
+    "tick": 15,
+    "estop": false,
+    "cells": [
+      {
+        "id": "foundry",
+        "label": "الفوندري والمصهر",
+        "deps": [],
+        "robot": "مناولة رقمية",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      },
+      {
+        "id": "farm",
+        "label": "المزرعة الصناعية",
+        "deps": [],
+        "robot": "فحص موارد رقمي",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      },
+      {
+        "id": "software",
+        "label": "المصنع البرمجي",
+        "deps": [],
+        "robot": "وكيل إنتاج رقمي",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      },
+      {
+        "id": "factory",
+        "label": "التشكيل والتصنيع",
+        "deps": [
+          "foundry"
+        ],
+        "robot": "ذراع رقمي",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      },
+      {
+        "id": "assembly",
+        "label": "التجميع والتكامل",
+        "deps": [
+          "factory",
+          "farm",
+          "software"
+        ],
+        "robot": "تجميع رقمي",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      },
+      {
+        "id": "quality",
+        "label": "الاختبار والجودة",
+        "deps": [
+          "assembly"
+        ],
+        "robot": "فحص رقمي",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      },
+      {
+        "id": "distribution",
+        "label": "التغليف والتوزيع",
+        "deps": [
+          "quality"
+        ],
+        "robot": "نقل رقمي",
+        "gesture": "COMPLETE",
+        "state": "COMPLETE",
+        "progress": 3,
+        "health": "NOMINAL",
+        "fault": null,
+        "message": "اكتمل العقد التجريبي"
+      }
+    ],
+    "physicalCommandSent": false,
+    "realProductionVerified": "UNKNOWN",
+    "speechAudioVerified": "UNKNOWN",
+    "trace": [
+      {
+        "tick": 0,
+        "cell": "network",
+        "event": "SIMULATION_STARTED"
+      },
+      {
+        "tick": 1,
+        "cell": "foundry",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 1,
+        "cell": "farm",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 1,
+        "cell": "software",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 2,
+        "cell": "foundry",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 2,
+        "cell": "farm",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 2,
+        "cell": "software",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 3,
+        "cell": "foundry",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 3,
+        "cell": "foundry",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      },
+      {
+        "tick": 3,
+        "cell": "farm",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 3,
+        "cell": "farm",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      },
+      {
+        "tick": 3,
+        "cell": "software",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 3,
+        "cell": "software",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      },
+      {
+        "tick": 4,
+        "cell": "factory",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 5,
+        "cell": "factory",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 6,
+        "cell": "factory",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 6,
+        "cell": "factory",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      },
+      {
+        "tick": 7,
+        "cell": "assembly",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 8,
+        "cell": "assembly",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 9,
+        "cell": "assembly",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 9,
+        "cell": "assembly",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      },
+      {
+        "tick": 10,
+        "cell": "quality",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 11,
+        "cell": "quality",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 12,
+        "cell": "quality",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 12,
+        "cell": "quality",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      },
+      {
+        "tick": 13,
+        "cell": "distribution",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 14,
+        "cell": "distribution",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 15,
+        "cell": "distribution",
+        "event": "SIMULATED_WORK_STEP"
+      },
+      {
+        "tick": 15,
+        "cell": "distribution",
+        "event": "SIMULATED_CONTRACT_COMPLETE"
+      }
+    ]
+  },
+  "hostRuntime": "Node.js",
+  "nativeGuestExecution": "UNKNOWN",
+  "hardwareConnection": "UNKNOWN",
+  "manufacturingReleased": false
+}

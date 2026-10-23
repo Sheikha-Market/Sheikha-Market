@@ -1,0 +1,308 @@
+{
+  "schema": "SHEIKHA_NATIVE_FIRMWARE_ACCEPTANCE_PLAN_V1",
+  "created_on": "2026-10-17",
+  "status": "PROPOSED_NOT_EXECUTED",
+  "execution_authorization_granted_by_this_document": false,
+  "scope": "خطة قبول هندسي مكملة للمراجعة القرائية؛ لا تنفيذ بناء أو إقلاع أو تعديل أجهزة في هذه الحزمة.",
+  "current_decision": "HOLD",
+  "bounded_success_label": "FIRMWARE_PROTOTYPE_VERIFIED_ON_NAMED_TARGET_ONLY",
+  "universal_rom_verified": false,
+  "superiority_claim_allowed_now": false,
+  "reference_project": "SHEIKHA UGIT-RP",
+  "target": {
+    "initial_candidate": "One named QEMU x86 virtual platform",
+    "machine_type_version_cpu_and_toolchain": "TO_BE_SPECIFIED_BEFORE_IMPLEMENTATION",
+    "kernel_reference": "ELF32/i386 entry0x101000; current reference has one RWE PT_LOAD",
+    "physical_board": "NOT_SELECTED_NOT_VERIFIED",
+    "other_isa_ports": {
+      "arm64": "NOT_VERIFIED",
+      "riscv64": "NOT_VERIFIED"
+    },
+    "uefi_conformance": "SEPARATE_EXPLICIT_REQUIREMENT_IF_CLAIMED"
+  },
+  "gates": [
+    {
+      "id": "G00",
+      "title_ar": "تحديد المنتج والهدف والعقد",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول المعمارية",
+      "depends_on": [],
+      "scope": "اختيار هدف محاكاة x86 واحد بإصدار QEMU وmachine type وCPU model محددة؛ لوحة فعلية واحدة لاحقًا. فصل اسم المنتج عن ISA والعقد المدعوم.",
+      "deliverables": [
+        "وثيقة متطلبات ذات معرفات ومالك وإصدار وحدود قبول",
+        "قرار موثق: firmware من reset، أم EFI payload يعتمد على OVMF، أم loader يعتمد على firmware آخر",
+        "مصفوفة اعتماد تبين كل مكون سابق وحقوق مصدره وترخيصه"
+      ],
+      "pass_when": [
+        "يمكن تتبع كل ادعاء إلى متطلب واختبار محدد",
+        "لا يُنسب إثبات x86/ELF32 إلى ARM64 أوRISC-V أوتوافق UEFI تلقائيًا",
+        "التحسن على baseline معرّف بمقاييس قبل وصف المنتج بأنه أفضل"
+      ],
+      "references": [
+        "OVMF",
+        "UEFI",
+        "MULTIBOOT",
+        "INTEL",
+        "RISCV"
+      ]
+    },
+    {
+      "id": "G01",
+      "title_ar": "حفظ الأدلة وتسوية اختلاف V31.1",
+      "status": "OPEN",
+      "owner_role_proposed": "أمين الأدلة ومراجع مستقل",
+      "depends_on": [],
+      "deliverables": [
+        "نسخة مراجعة محفوظة من manifest المختلف ومن baseline المسجل دون استبدال أحدهما",
+        "تفسير موثق للتغير بمصدر قابل للتحقق، أو إبقاؤه غير مفسر",
+        "إعادة إتاحة ELF المختبري بملف دائم ومصدره وسجل بنائه؛ لا استبدال القياس المفقود بنص ثابت",
+        "خطة snapshot منسقة للقاعدة عند الحاجة تشمل journal/WAL، دون نسب hash ملف حي إلى تاريخ سابق"
+      ],
+      "pass_when": [
+        "كل مقارنة تحدد actual/expected ووقت القراءة ونوع الدليل",
+        "لا يُعدّل V2 أو baseline لمجرد الحصول على PASS",
+        "تُحفظ الملاحظات الجديدة كإصدارات منفصلة، ولا يُنسب شاهد مستقل إلى الكاتب نفسه"
+      ],
+      "references": []
+    },
+    {
+      "id": "G02",
+      "title_ar": "تقوية الفاحص قبل استخدامه بوابة",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول التحقق من الثنائيات",
+      "depends_on": [
+        "G00"
+      ],
+      "deliverables": [
+        "فاحص محدود بعقد ELF32/i386 المختار دون تشغيل الملف",
+        "اختبارات سلبية مستقلة للـentry في R/RW/BSS، وتجاوز العناوين والمحاذاة والتداخل الفيزيائي/الافتراضي/الصفحي وفق loader المختار",
+        "تحقق كامل من Multiboot header وflags والحقول المطلوبة وحدود أول8192بايت",
+        "قراءة ثابتة تمنع اتباع الروابط غير المسموح بها وتكتشف تغير الملف",
+        "معنى موثق لرموز الخروج يفصل التقرير القرائي عن اجتياز بوابة القبول"
+      ],
+      "pass_when": [
+        "entry ضمن كود مخزن وقابل للتنفيذ حسب عقد الهدف",
+        "كل انحراف يرفض أو يصنف بوضوح ولا يحوّل exit0 إلى اعتماد",
+        "اختبارات تثبت رفض الحالات غير الصالحة ولا تكتفي بتكرار خصائص fixture واحد",
+        "تبقى صلاحيات boot/flash/production منفصلة عن نتيجة الفحص الساكن"
+      ],
+      "references": [
+        "ELF",
+        "MULTIBOOT"
+      ]
+    },
+    {
+      "id": "G03",
+      "title_ar": "إنتاج صورة firmware مختبرية قابلة لإعادة البناء",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول firmware وسلسلة البناء",
+      "depends_on": [
+        "G00",
+        "G02"
+      ],
+      "deliverables": [
+        "شفرة entry/reset وlinker وخريطة ROM للهدف المحدد",
+        "إصدارات المترجم والرابط وأوامر البناء والمدخلات والاعتمادات دون أسرار",
+        "بناء مستقل من نفس المدخلات، مع مقارنة بايتات الصور أو تفسير موثق لأي لا حتمية",
+        "صورة ROM فعلية باسم شيخة وSHA256 وحجم وتخطيط، لا JSON أو إعادة تسمية صورة جهة أخرى"
+      ],
+      "pass_when": [
+        "تتوافق صورة ROM وخريطة العنوان مع الهدف المحدد",
+        "يثبت تتبع reset أن أول تعليمات المرشح ضمن هذه الصورة، مع كشف أي اعتماد سابق",
+        "حفظ سجل كامل وملف إعداد المحاكي ورمز الخروج والمهلة والمعرفات",
+        "المقارنة الوظيفية لا تستبدل النواة المرجعية بنموذج hlt أصغر ثم تسميه مكافئًا"
+      ],
+      "references": [
+        "OVMF",
+        "INTEL"
+      ]
+    },
+    {
+      "id": "G04",
+      "title_ar": "إثبات تسليم التنفيذ للنواة بعقد واضح",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول النواة والـloader",
+      "depends_on": [
+        "G03"
+      ],
+      "deliverables": [
+        "عقد CPU mode وstack وregisters وخريطة الذاكرة والمناطق المحجوزة ونقطة الدخول",
+        "إثبات أن kernel المستهدف استلم العقد وحقق نتيجة قابلة للرصد",
+        "إن كان Multiboot: توثيق magic ومؤشر المعلومات و32bit handoff؛ إن كان UEFI: توثيق EFI System Table وmemory map وExitBootServices واختبار payload مستقل"
+      ],
+      "pass_when": [
+        "اختبار سلبي يكشف pointer أوmode أوmemory map غير صحيح",
+        "يمكن فصل marker التطبيق EFI عن marker دخول kernel الفعلي",
+        "تسمية نتيجة UEFI application داخل OVMF كاختبار يعتمد عليه، لا كاستبدال له"
+      ],
+      "references": [
+        "UEFI",
+        "MULTIBOOT"
+      ]
+    },
+    {
+      "id": "G05",
+      "title_ar": "إثبات W^X وNX أثناء التشغيل",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول حماية الذاكرة",
+      "depends_on": [
+        "G04"
+      ],
+      "deliverables": [
+        "متطلبات CPU وpaging المدعومة على الهدف المختار وإعداداتها الفعلية",
+        "خريطة الصفحات وأذوناتها مع استبعاد alias يسمح بالكتابة إلى الكود",
+        "اختبار معزول لمحاولة تنفيذ صفحة بيانات ومحاولة الكتابة إلى صفحة كود، مع fault متوقع وسجل معالج الاستثناء",
+        "اختبار إيجابي يثبت استمرار وظيفة kernel بعد تطبيق سياسة الذاكرة"
+      ],
+      "pass_when": [
+        "تسجل الحالة الفعلية للمعالج وpaging، لا p_flags فقط",
+        "تقع faults المتوقعة في الاختبارات السلبية، ولا تُعامل crash عشوائية كنجاح",
+        "تظل الخاصية محددة بالهدف والإصدار والتكوين المجرب"
+      ],
+      "references": [
+        "ELF",
+        "INTEL"
+      ]
+    },
+    {
+      "id": "G06",
+      "title_ar": "نقل محدود إلى لوحة فعلية والتعافي",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول هندسة المنصة",
+      "depends_on": [
+        "G03",
+        "G04",
+        "G05"
+      ],
+      "deliverables": [
+        "هوية لوحة وSoC وrevision وشريحة flash وخريطة الذاكرة ومخططات متاحة ووسائل debug/recovery",
+        "دليل تهيئة المعالج والذاكرة والساعة والطاقة والمتحكمات اللازمة للوحة نفسها",
+        "خطة استرجاع وصورة مرجعية والتحقق من القراءة الراجعة قبل تجربة عتاد محددة النطاق",
+        "سجلات نجاح وفشل وقياسات كهربائية/حرارية ذات شروط وأجهزة قياس محددة"
+      ],
+      "pass_when": [
+        "لا تُعمم نتيجة المحاكي على لوحة فعلية",
+        "توثق خصائص اللوحة والتعافي وإقلاع النواة المحددة قبل نسبة دعمها",
+        "لا تضاف ARM64/RISC-V إلا بعقد وبناء واختبارات reset/handoff خاصة بكل هدف"
+      ],
+      "references": [
+        "INTEL",
+        "RISCV"
+      ]
+    },
+    {
+      "id": "G07",
+      "title_ar": "حوكمة الأدلة والإدارة وقياس التحسن",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤول الجودة والأدلة",
+      "depends_on": [
+        "G00",
+        "G01"
+      ],
+      "deliverables": [
+        "سجل claims منفصل عن observations، مع المصدر والدليل والحدود والمراجع",
+        "فصل مسؤول إنشاء الأثر عن المراجع؛ سجل revisions لا يمحو القياسات السابقة",
+        "قرار release مستقل عن hash مطابقة وعن أسماء PASS/FULLY_SEALED في النصوص",
+        "مقارنة المرشح وbaseline OVMF بنفس الهدف والـpayload والوظائف؛ عدد تكرارات ثابت ونسب نجاح وزمن handoff وp50/p95 وحجم ROM وRAM وحدود الثقة"
+      ],
+      "pass_when": [
+        "لا تُستنتج مصادقة أو تشفير أو صلاحية تشغيل من SHA256 لوصف",
+        "لا يُرفع ادعاء الإتقان أو التفوق إلا بمقاييس ومقارنة قابلة للتكرار",
+        "المرجعية المعلنة للكتاب والسنة تسجل كمرجعية المشروع؛ لا تنتج موافقة شرعية أو نظامية آلية من literal ثابت",
+        "الضوابط الإدارية تتحقق قبل الأفعال، ولا تكتفى بإعلان authority_granted=false بعد commit"
+      ],
+      "references": [
+        "OVMF"
+      ]
+    },
+    {
+      "id": "G08",
+      "title_ar": "فهرس الأدوات والعتاد والمواد وخطوط الإنتاج",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤولو المنصة والعتاد وسلسلة الإمداد",
+      "depends_on": [
+        "G00"
+      ],
+      "deliverables": [
+        "مصفوفة مصنفة: firmware/loader/kernel، toolchain، محاكاة، EDA، شبكات وواجهات، لوحات وSoC وموصلات وحساسات وطاقة، مواد موصلة وشبه موصلة وعازلة",
+        "لكل عنصر معرف وفئة ونسخة ومصدر ودور وحالة planned/implemented/tested ونطاق اعتماد",
+        "لكل مادة/قطعة خواص ووحدات وشروط قياس وdatasheet/تقرير اختبار وlot عند توفره؛ لا اختلاق قيم أو شهادات",
+        "لكل خط إنتاج مخطط عمليات ومدخلات ومخرجات ومعدات وفحص جودة وتتبع lot وقيود منشأ/حقوق موثقة"
+      ],
+      "pass_when": [
+        "تصنيف أو وصف مادة لا يتحول إلى إثبات تصنيع أو معمل مرخص",
+        "اسم أداة في جدول لا يعني تثبيتها أو استخدامها لإنتاج أثر",
+        "إثبات firmware لا يغطي الشبكات أو تصنيع السيليكون أو جميع المواد بالتبعية"
+      ],
+      "references": []
+    },
+    {
+      "id": "G09",
+      "title_ar": "فصل تطبيقات المالية والشهادات والمواصفات عن إثبات firmware",
+      "status": "OPEN",
+      "owner_role_proposed": "مسؤولو التطبيقات والمواصفات والمراجعة المختصة",
+      "depends_on": [
+        "G07"
+      ],
+      "deliverables": [
+        "عقود بيانات واختبارات سلوك مستقلة لكل تطبيق، مع تمييز الأوصاف عن المعاملات الفعلية",
+        "للمواصفات: معرف وإصدار ووحدة/حد قبول وطريقة اختبار ونتيجة ودليل",
+        "للشهادات والتراخيص: تحديد جهة الإصدار والمصدر والنطاق والحالة دون استنتاجها من إنشاء جدول",
+        "للمالية: اختبار ترحيل واتزان ودقة مبالغ وسياسات مراجعة على بيانات اختبار، قبل نسبة تشغيل محاسبة فعلية"
+      ],
+      "pass_when": [
+        "لا يسمى إنشاء جدول دون عمليات تطبيقًا محاسبيًا عاملًا أو صندوقًا منشأ فعليًا",
+        "لا يربط ادعاء ترخيص أو موافقة شرعية أو نظامية ببصمة literal",
+        "لا يُفهم نجاح firmware كاعتماد للتطبيقات أو العكس"
+      ],
+      "references": []
+    }
+  ],
+  "primary_sources": [
+    {
+      "id": "OVMF",
+      "title": "EDK II OvmfPkg README",
+      "url": "https://github.com/tianocore/edk2/blob/master/OvmfPkg/README",
+      "supports": "OVMF is an EDK II firmware implementation for virtual machines."
+    },
+    {
+      "id": "UEFI",
+      "title": "UEFI 2.11 EFI System Table",
+      "url": "https://uefi.org/specs/UEFI/2.11/04_EFI_System_Table.html",
+      "supports": "UEFI system table and boot/runtime service interfaces."
+    },
+    {
+      "id": "ELF",
+      "title": "System V gABI, Program Loading, Segment Permissions",
+      "url": "https://gabi.xinuos.com/elf/07-pheader.html#segment-permissions",
+      "supports": "PF_R/PF_W/PF_X describe segments; actual permissions depend on the memory-management implementation."
+    },
+    {
+      "id": "MULTIBOOT",
+      "title": "GNU Multiboot v1, Machine State",
+      "url": "https://www.gnu.org/software/grub/manual/multiboot/html_node/Machine-state.html",
+      "supports": "The i386 Multiboot handoff has a specific CPU/register state."
+    },
+    {
+      "id": "INTEL",
+      "title": "Intel SDM Vol.3A, sections4.13.2 and9.1.4",
+      "url": "https://www.intel.com/content/dam/support/us/en/documents/processors/pentium4/sb/25366821.pdf",
+      "supports": "x86 execute-disable enablement and x86 reset first-instruction address; architecture-specific reference."
+    },
+    {
+      "id": "RISCV",
+      "title": "RISC-V Privileged ISA, Reset",
+      "url": "https://docs.riscv.org/reference/isa/priv/machine.html#_reset",
+      "supports": "RISC-V reset vector is implementation-defined."
+    }
+  ],
+  "relationship_to_existing_work": {
+    "historical_v297_5_tests_rerun": false,
+    "historical_activation_scripts_rerun": false,
+    "previous_review_packages_unchanged": true,
+    "finance_or_certification_implementation_added": false,
+    "guard_repairs_implemented": false,
+    "rom_produced": false,
+    "firmware_flashed": false
+  }
+}

@@ -1,0 +1,18 @@
+{
+  "steps": [
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": ["pull", "${_CACHE_IMAGE}"]
+    },
+    {
+      "name": "gcr.io/cloud-builders/docker",
+      "args": ["build", "--cache-from", "${_CACHE_IMAGE}", "--tag", "${_IMAGE}", "."]
+    }
+  ],
+  "images": ["${_IMAGE}"],
+  "timeout": "1200s",
+  "substitutions": {
+    "_CACHE_IMAGE": "us-central1-docker.pkg.dev/sheikha-marketplace/sheikha-apps/sheikha-main-portal@sha256:6c4999c2d23f68bc4d05b1e18e0763feba691aac4ef723295795558197968ad6",
+    "_IMAGE": "us-central1-docker.pkg.dev/sheikha-marketplace/sheikha-apps/sheikha-main-portal:v43.82"
+  }
+}

@@ -1,0 +1,16 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_GARDENS_LANGUAGE_PLATFORM_TRUST_BRIDGE_V1",
+  "purpose": "ربط خطة لغة شيخة الدنيوية بأدلة ثقة المنصة وبوابات إصدار Firmware دون منح صلاحية تنفيذ.",
+  "metaphorScope": "WORLDLY_ENGINEERING_AND_SOFTWARE_LIFECYCLE_ONLY",
+  "stages": ["soil", "seed", "nursery", "irrigation", "pruning", "fruit", "propagation"],
+  "requiredTrust": ["PLATFORM_IDENTITY", "SECURE_BOOT", "MEASURED_BOOT", "TPM_QUOTE", "AK_ENROLLMENT", "RELEASE_GATE"],
+  "boundaries": {
+    "actualJannahOrUnseenSimulationClaimed": false,
+    "compilationAuthorizesPhysicalExecution": false,
+    "directTpmAccess": false,
+    "firmwareMutation": false,
+    "networkAccess": false,
+    "separateSignedExecutionLeaseRequired": true
+  }
+}

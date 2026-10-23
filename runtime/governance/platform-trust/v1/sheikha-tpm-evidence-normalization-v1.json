@@ -1,0 +1,9 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_TPM_PCR_AND_EVENT_LOG_EVIDENCE_NORMALIZATION_V1",
+  "status": "OFFLINE_NORMALIZER_IMPLEMENTED_REAL_EXPORTS_REQUIRED",
+  "algorithms": ["sha1", "sha256", "sha384", "sha512"],
+  "resultStates": ["MATCH", "MISMATCH", "UNVERIFIED"],
+  "directTpmAccess": false,
+  "claimBoundary": {"normalizationIsNotAttestation": true, "hashMatchDoesNotProvePlatformTrustAlone": true}
+}

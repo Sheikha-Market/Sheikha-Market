@@ -1,0 +1,340 @@
+{
+  "schema": "SHEIKHA_REVIEW_REPAIR_BACKLOG_V1",
+  "organized_on": "2026-10-17",
+  "status": "OPEN_NOT_IMPLEMENTED",
+  "execution_performed": false,
+  "priority_order": [
+    "P1",
+    "P2",
+    "P3"
+  ],
+  "summary": {
+    "total": 14,
+    "by_priority": {
+      "P1": 2,
+      "P2": 10,
+      "P3": 2
+    }
+  },
+  "scope_ar": "هذه قائمة متابعة؛ إنشاء القائمة لا ينفذ أي إصلاح أو تفويض إنتاجي.",
+  "items": [
+    {
+      "id": "AI-001",
+      "priority": "P1",
+      "area": "ai-router",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "منع الإفصاح الخارجي دون تفويض متحقق",
+      "observed_ar": "مسار chat لا يمرر تفويضًا والمزود يرفض authorized:false فقط، رغم إعلان منع الإفصاح.",
+      "next_action_ar": "تطبيق سياسة الإفصاح والتفويض الخادمي قبل اختيار upstream خارجي.",
+      "evidence": [
+        {
+          "path": "routes/ai.js",
+          "line": 757
+        },
+        {
+          "path": "lib/sheikha-ai-router/provider.js",
+          "line": 37
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "غياب التفويض أو رفضه أو تعطيل الإفصاح يؤدي إلى صفر استدعاءات للناقل الوهمي.",
+        "التفويض الصحيح والسياسة المسموحة ينتجان استدعاءً واحدًا؛ المسار المحلي يظل ضمن سياسته."
+      ]
+    },
+    {
+      "id": "AI-002",
+      "priority": "P1",
+      "area": "hostinger-ai-adapter",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "توحيد التحقق من عنوان Hostinger",
+      "observed_ar": "المدقق يقيد العنوان الرسمي، بينما runtime يقبل أي https ثم يرسل Bearer.",
+      "next_action_ar": "استخدام تحقق واحد للعنوان في الفحص والتنفيذ وضبط إعادة التوجيه.",
+      "evidence": [
+        {
+          "path": "scripts/validate-ai-router-config.js",
+          "line": 61
+        },
+        {
+          "path": "lib/sheikha-ai-router.js",
+          "line": 66
+        },
+        {
+          "path": "lib/sheikha-ai-router/hostinger-upstream.js",
+          "line": 18
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "عناوين غير معتمدة أو مشوهة تُرفض قبل أي fetch وهمي.",
+        "العنوان المعتمد ينجح بمفتاح اصطناعي؛ إعادة التوجيه غير المعتمدة لا تنقل بيانات الاعتماد."
+      ]
+    },
+    {
+      "id": "GIT-001",
+      "priority": "P2",
+      "area": "git",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "إسناد تغييرات مساحة العمل وتثبيت مصادر الراوتر",
+      "observed_ar": "اللقطة تحتوي 239 ملفًا معدلاً و1515 غير متتبع؛ ملفات الراوتر والموصل واختباراتهما غير متتبعة.",
+      "next_action_ar": "مراجعة المجموعات في git-change-inventory.json وتحديد المصدر والمالك والغرض لكل مجموعة قبل أي staging انتقائي.",
+      "evidence": [
+        {
+          "path": "docs/canonical/registry/reviews/2026-10-17/git-change-inventory.json"
+        },
+        {
+          "path": "lib/sheikha-ai-router.js"
+        },
+        {
+          "path": "lib/sheikha-ai-router/hostinger-upstream.js"
+        },
+        {
+          "path": "tests/sheikha-ai-router-runtime.test.js"
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "توجد قائمة ملفات معتمدة لكل تغيير، دون git add -A أو ضم أدلة متقلبة تلقائيًا.",
+        "نسخة مراجعة نظيفة تحتوي المصادر اللازمة وتجتاز الفحوص المحددة لاحقًا؛ لا حذف لأعمال المستخدم."
+      ]
+    },
+    {
+      "id": "AI-003",
+      "priority": "P2",
+      "area": "ai-router",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "احتساب المدخلات المركبة والتحقق من بنيتها",
+      "observed_ar": "حساب maxInputChars يقتصر على content النصي المباشر.",
+      "next_action_ar": "تعريف بنية الرسائل واحتساب أجزاء النص المركب ضمن الحد.",
+      "evidence": [
+        {
+          "path": "lib/sheikha-ai-router/governance.js",
+          "line": 35
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "اختبارات النص المباشر والمركب عند الحد وفوقه تعطي قرارًا متسقًا.",
+        "البنية غير الصالحة أو المدخل الأكبر لا يصل إلى المحول."
+      ]
+    },
+    {
+      "id": "AI-004",
+      "priority": "P2",
+      "area": "hostinger-ai-adapter",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "رفض completion غير صالح",
+      "observed_ar": "HTTP 200 مع HTML أو JSON غير صالح يعود كجسم نجاح بلا choices.",
+      "next_action_ar": "التحقق من JSON ومن بنية completion قبل قبول الاستجابة.",
+      "evidence": [
+        {
+          "path": "lib/sheikha-ai-router/hostinger-upstream.js",
+          "line": 30
+        },
+        {
+          "path": "routes/ai.js",
+          "line": 766
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "HTML وJSON التالف والبنية غير المطابقة تعطي أخطاء واضحة باختبارات fetch وهمي.",
+        "رد completion صحيح يمر، ولا يُعامل الرد الفارغ كنجاح مكتمل."
+      ]
+    },
+    {
+      "id": "AI-005",
+      "priority": "P2",
+      "area": "hostinger-ai-adapter",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "جعل حالة fallback مطابقة للسلوك",
+      "observed_ar": "fallbackModels تُقرأ وتعرض، لكن provider يستدعي الناقل مرة واحدة فقط.",
+      "next_action_ar": "تنفيذ سياسة fallback محكومة أو إعلان عدم دعمها صراحة في العقد والتوثيق.",
+      "evidence": [
+        {
+          "path": "lib/sheikha-ai-router.js",
+          "line": 55
+        },
+        {
+          "path": "lib/sheikha-ai-router/provider.js",
+          "line": 44
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "عدد المحاولات والنموذج المختار وحالات الفشل المثبتة بمـocks تطابق السياسة المعلنة.",
+        "لا نموذج خارج allowlist ولا تكرار غير محدود؛ لا ادعاء fallback إذا لم يُنفذ."
+      ]
+    },
+    {
+      "id": "AI-006",
+      "priority": "P3",
+      "area": "hostinger-ai-adapter",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "التحقق من قيمة المهلة",
+      "observed_ar": "parseInt يمرر NaN أو صفرًا أو قيمة سالبة إلى setTimeout.",
+      "next_action_ar": "قبول عدد موجب محدود أو الرجوع إلى المهلة الافتراضية الموثقة.",
+      "evidence": [
+        {
+          "path": "lib/sheikha-ai-router/hostinger-upstream.js",
+          "line": 9
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "القيم المفقودة وغير الصالحة والصفر والسالب والعدد الصحيح تُختبر بمؤقت وهمي.",
+        "تنظيف المؤقت مثبت عند النجاح والفشل والإلغاء."
+      ]
+    },
+    {
+      "id": "DIST-001",
+      "priority": "P2",
+      "area": "distribution-v2-v3",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "تسوية بصمة ربط V2 في V3",
+      "observed_ar": "الحزم مطابقة؛ فهرس V2 الحالي يبدأ 840445 بينما workspaceReleaseIndexSha256 التاريخية تبدأ f363a5.",
+      "next_action_ar": "إصدار توثيق تسوية لاحق يفسر اختلاف metadata ويربط البصمات دون تعديل السجلات التاريخية.",
+      "evidence": [
+        {
+          "path": "distribution/artifacts/v3/1.0.51/release-index.json",
+          "line": 35
+        },
+        {
+          "path": "runtime/distribution/v3/evidence/v2-baseline-integrity-v3.json",
+          "line": 10
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "السجل اللاحق يربط الفهرسين والبصمات والحزم بوضوح.",
+        "تظل الأدلة التاريخية كما هي؛ لا إعادة تشغيل build أو install أو upgrade أو rollback قديم."
+      ]
+    },
+    {
+      "id": "DIST-002",
+      "priority": "P2",
+      "area": "distribution-v2-v3",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "تقوية إثبات ثبات baseline",
+      "observed_ar": "الفاحص يعتمد على الفهرس الحالي وunstaged diff لمسارات محدودة؛ every على قائمة فارغة لا يثبت وجود baseline.",
+      "next_action_ar": "تعريف فحص لاحق لبصمات مثبتة يشمل وجود الفهرس ومجموعة الحزم والتغييرات staged وunstaged.",
+      "evidence": [
+        {
+          "path": "distribution/pipeline/sheikha-native-delivery-v3.js",
+          "line": 385
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "غياب الفهرس أو مجموعة الحزم أو اختلاف بصمة مثبتة يمنع ادعاء الثبات.",
+        "حالات تغيير metadata وartifact وstaged وunstaged تختبر بملفات وGit وهميين في الذاكرة."
+      ]
+    },
+    {
+      "id": "API-001",
+      "priority": "P2",
+      "area": "api-contract-v2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "توحيد غلاف الاستجابة والمدقق",
+      "observed_ar": "ok يضع timestamp داخل meta، والمدقق يطلبه أعلى الرد؛ requiredDataKeys يُتجاوز عند data:null.",
+      "next_action_ar": "تحديد عقد موحد ثم توحيد المساعد والمدقق عليه مع مراعاة توافق المستهلكين.",
+      "evidence": [
+        {
+          "path": "lib/api-contracts/sheikha-api-response.js",
+          "line": 8
+        },
+        {
+          "path": "lib/api-contracts/sheikha-api-contracts.js",
+          "line": 80
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "رد المساعد الصحيح ينجح في المدقق نفسه.",
+        "data:null أو مصفوفة لا تتجاوز عقدًا يشترط مفاتيح كائن؛ حالات الفشل مشمولة."
+      ]
+    },
+    {
+      "id": "API-002",
+      "priority": "P2",
+      "area": "api-contract-v2",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "قياس تطبيق العقد على المسارات المطلوبة",
+      "observed_ar": "السجل يفرض data وmeta بينما رد status في المصدر مسطح وبعض المسارات ناقصة؛ تقرير ready يفحص عينات ووجود ملفات، دون قياس HTTP حي في هذه المراجعة.",
+      "next_action_ar": "ربط كل required_route باختبار استجابة معزول ومحول توافق عند الحاجة.",
+      "evidence": [
+        {
+          "path": "runtime/api-contract-registry/v2/sheikha-api-contract-registry-v2.json",
+          "line": 22
+        },
+        {
+          "path": "server.js",
+          "line": 22338
+        },
+        {
+          "path": "tools/api-contracts/sheikha-api-contract-check-v2.js",
+          "line": 42
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "لكل مسار مطلوب فحص نجاح وفشل يثبت الالتزام بالعقد.",
+        "تقرير الجاهزية يوضح التغطية الفعلية ولا يمنح ready اعتمادًا على وجود الملفات وحده."
+      ]
+    },
+    {
+      "id": "PATH-001",
+      "priority": "P2",
+      "area": "portals",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "تسوية هوية Enterprise ومساره المحلي",
+      "observed_ar": "السجل يذكر Sheikha-top بينما remote enterprise يشير إلى Sheikha-Market؛ المسار المحلي المستقل غير مثبت.",
+      "next_action_ar": "تحديد مستودع Enterprise المعتمد ومساره بالأدلة في سجل لاحق دون تغيير remote تلقائيًا.",
+      "evidence": [
+        {
+          "path": "docs/governance/github-accounts/portals/README_AR.md",
+          "line": 8
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "يُسجل root وrepository وremote ومستوى التحقق لكل بوابة على حدة.",
+        "يُفسر الفرق بين السجل وremote؛ تبقى القيم غير المثبتة UNKNOWN ولا تُستنتج الملكية من الاسم."
+      ]
+    },
+    {
+      "id": "MCP-001",
+      "priority": "P2",
+      "area": "hostinger-mcp",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "توضيح ملف إعداد MCP الفعلي وحدود الاتصال",
+      "observed_ar": "توجد إعدادات streamable_http وstdio في مجلدَي Codex؛ CODEX_HOME في جلسة المراجعة يحدد ~/codex.",
+      "next_action_ar": "توثيق اختيار الإعداد لكل بيئة قبل أي تغيير، وفصل حالة التسجيل عن المصادقة والاستدعاء.",
+      "evidence": [
+        {
+          "path": "docs/canonical/registry/reviews/2026-10-17/review-index.json",
+          "component_id": "hostinger-mcp"
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "يُعرف مصدر الإعداد الفعلي في كل بيئة دون نسخ القيم السرية.",
+        "حالة الاتصال تبقى NOT_VERIFIED إلى أن يوجد تحقق قرائي مستقل موثق؛ لا تغيير حساب أو اعتماد أو استضافة ضمن التنظيم."
+      ]
+    },
+    {
+      "id": "DOC-001",
+      "priority": "P3",
+      "area": "documentation",
+      "status": "OPEN_NOT_IMPLEMENTED",
+      "title_ar": "تصحيح وصف الافتراضي والحالة",
+      "observed_ar": "وثيقة AI Router تصف Hostinger كمزود حالي، بينما المصنع افتراضيه sheikha؛ الحالة تعلن منع الإفصاح دون ارتباط كامل بمسار التنفيذ.",
+      "next_action_ar": "توحيد شرح الافتراضي المحلي والمحول الاختياري ومراحل configured وverified.",
+      "evidence": [
+        {
+          "path": "docs/SHEIKHA_AI_ROUTER.md",
+          "line": 8
+        },
+        {
+          "path": "lib/sheikha-ai-router.js",
+          "line": 19
+        },
+        {
+          "path": "routes/ai.js",
+          "line": 236
+        }
+      ],
+      "acceptance_criteria_ar": [
+        "الوصف والحالة يطابقان التهيئة والسلوك الفعلي المختبر.",
+        "وجود مفتاح أو تسجيل MCP أو خطة PLAN_ONLY لا يُعرض كاتصال ناجح."
+      ]
+    }
+  ]
+}

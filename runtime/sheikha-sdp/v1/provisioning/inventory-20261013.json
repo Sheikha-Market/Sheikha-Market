@@ -1,0 +1,155 @@
+{
+  "timestamp": "2026-10-13T04:36:38.703018+00:00",
+  "status": "PARTIAL_EXISTING_TOOLS_INVENTORIED_INSTALL_BLOCKED_BY_SUDO",
+  "tools": [
+    {
+      "name": "gcc",
+      "path": "/usr/bin/gcc",
+      "state": "PRESENT",
+      "version": "gcc (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+    },
+    {
+      "name": "g++",
+      "path": "/usr/bin/g++",
+      "state": "PRESENT",
+      "version": "g++ (Ubuntu 11.4.0-1ubuntu1~22.04.3) 11.4.0"
+    },
+    {
+      "name": "ld",
+      "path": "/usr/bin/ld",
+      "state": "PRESENT",
+      "version": "GNU ld (GNU Binutils for Ubuntu) 2.38"
+    },
+    {
+      "name": "make",
+      "path": "/usr/bin/make",
+      "state": "PRESENT",
+      "version": "GNU Make 4.3"
+    },
+    {
+      "name": "git",
+      "path": "/usr/bin/git",
+      "state": "PRESENT",
+      "version": "git version 2.34.1"
+    },
+    {
+      "name": "python3",
+      "path": "/usr/bin/python3",
+      "state": "PRESENT",
+      "version": "Python 3.10.12"
+    },
+    {
+      "name": "node",
+      "path": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/node",
+      "state": "PRESENT",
+      "version": "v25.6.1"
+    },
+    {
+      "name": "npm",
+      "path": "/home/sheikha/.var/app/com.visualstudio.code/config/nvm/versions/node/v25.6.1/bin/npm",
+      "state": "PRESENT",
+      "version": "11.9.0"
+    },
+    {
+      "name": "qemu-system-x86_64",
+      "path": "/usr/bin/qemu-system-x86_64",
+      "state": "PRESENT",
+      "version": "QEMU emulator version 6.2.0 (Debian 1:6.2+dfsg-2ubuntu6.31)"
+    },
+    {
+      "name": "readelf",
+      "path": "/usr/bin/readelf",
+      "state": "PRESENT",
+      "version": "GNU readelf (GNU Binutils for Ubuntu) 2.38"
+    },
+    {
+      "name": "objdump",
+      "path": "/usr/bin/objdump",
+      "state": "PRESENT",
+      "version": "GNU objdump (GNU Binutils for Ubuntu) 2.38"
+    },
+    {
+      "name": "cmake",
+      "path": null,
+      "state": "NOT_FOUND_ON_PATH",
+      "version": null
+    },
+    {
+      "name": "ninja",
+      "path": null,
+      "state": "NOT_FOUND_ON_PATH",
+      "version": null
+    },
+    {
+      "name": "clang",
+      "path": null,
+      "state": "NOT_FOUND_ON_PATH",
+      "version": null
+    },
+    {
+      "name": "rustc",
+      "path": null,
+      "state": "NOT_FOUND_ON_PATH",
+      "version": null
+    },
+    {
+      "name": "cargo",
+      "path": null,
+      "state": "NOT_FOUND_ON_PATH",
+      "version": null
+    }
+  ],
+  "assets": [
+    {
+      "path": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/native-linux-LPFTvC/SHA256SUMS",
+      "sha256": "553a99bf74a934ffeda5d6f6883abf24806134b44e9e49e26ee83ece9df0b5f6",
+      "kind": "LOCAL_DEVELOPMENT_ARTIFACT_NOT_EXTERNAL_CERTIFICATION"
+    },
+    {
+      "path": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/native-linux-LPFTvC/license-context.json",
+      "sha256": "39a2af3413fc9a1198f1875e12fa0908047c4f0d6f4fbf7c26d86861b6383675",
+      "kind": "LOCAL_DEVELOPMENT_ARTIFACT_NOT_EXTERNAL_CERTIFICATION"
+    },
+    {
+      "path": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/native-linux-LPFTvC/main.shk",
+      "sha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+      "kind": "LOCAL_DEVELOPMENT_ARTIFACT_NOT_EXTERNAL_CERTIFICATION"
+    },
+    {
+      "path": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/native-linux-LPFTvC/program.c",
+      "sha256": "70af0f4d61873277f7287fd3b0b68302f2c46f7fee1f7cc39b8916825f1b4065",
+      "kind": "LOCAL_DEVELOPMENT_ARTIFACT_NOT_EXTERNAL_CERTIFICATION"
+    },
+    {
+      "path": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/native-linux-LPFTvC/program.elf",
+      "sha256": "43e036206cf91029df6da9dcf7a5304210abf21b765d1d37dc60813b401bd89b",
+      "kind": "LOCAL_DEVELOPMENT_ARTIFACT_NOT_EXTERNAL_CERTIFICATION"
+    },
+    {
+      "path": "runtime/sheikha-sdp/v1/projects/hello-sheikha-v1/builds/native-linux-LPFTvC/verification.json",
+      "sha256": "55dee5ca2932087857686dab66756a4965da88ecec4d19a0e90fa433bb20f313",
+      "kind": "LOCAL_DEVELOPMENT_ARTIFACT_NOT_EXTERNAL_CERTIFICATION"
+    }
+  ],
+  "hardware": {
+    "logical_cpu_count": 22,
+    "platform": "Linux",
+    "machine": "x86_64",
+    "physical_devices_procured": false
+  },
+  "installation": {
+    "requested_packages": [
+      "cmake",
+      "ninja-build",
+      "clang"
+    ],
+    "simulation_new_packages": 19,
+    "simulation_removed": 0,
+    "simulation_upgraded": 0,
+    "attempt_exit_code": 1,
+    "reason": "sudo: a password is required",
+    "installed_by_this_attempt": false
+  },
+  "production_enabled": false,
+  "external_certification_granted": false
+}

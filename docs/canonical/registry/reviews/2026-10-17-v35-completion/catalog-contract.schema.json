@@ -1,0 +1,928 @@
+{
+  "type": "object",
+  "additionalProperties": false,
+  "properties": {
+    "schema": {
+      "const": "SHEIKHA_ENTITY_ARTICLE_EVIDENCE_CATALOG_V1"
+    },
+    "status": {
+      "const": "DRAFT_NOT_DEPLOYED"
+    },
+    "entities": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/entity"
+      },
+      "minItems": 0
+    },
+    "jurisdictions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/jurisdiction"
+      },
+      "minItems": 0
+    },
+    "sources": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/source"
+      },
+      "minItems": 0
+    },
+    "instruments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/instrument"
+      },
+      "minItems": 0
+    },
+    "articles": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/article"
+      },
+      "minItems": 0
+    },
+    "article_versions": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/articleVersion"
+      },
+      "minItems": 0
+    },
+    "assessments": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/assessment"
+      },
+      "minItems": 0
+    },
+    "assets": {
+      "type": "array",
+      "items": {
+        "$ref": "#/definitions/asset"
+      },
+      "minItems": 0
+    }
+  },
+  "required": [
+    "schema",
+    "status",
+    "entities",
+    "jurisdictions",
+    "sources",
+    "instruments",
+    "articles",
+    "article_versions",
+    "assessments",
+    "assets"
+  ],
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "$id": "urn:sheikha:schema:entity-article-evidence-catalog:v1",
+  "title": "Draft entity, instrument, article-version, and evidence catalog",
+  "description": "Proposed data contract only. Internal identifiers do not establish legal existence or official registration. This schema does not decide legal or Shariah applicability.",
+  "x-cross-record-rules": [
+    "All record IDs and internal asset serials must be unique; cross references must resolve to the expected record type.",
+    "An entity may have multiple instruments, each instrument multiple articles, and each article immutable version records; replacing one entity must not delete its articles.",
+    "Supersession must reference an earlier version of the same article; valid_to cannot precede valid_from when both are known.",
+    "OFFICIAL_EVIDENCE_REVIEWED or OFFICIAL_SOURCE_REVIEWED requires verified evidence provenance; syntactic schema validity is not independent verification.",
+    "QUALIFIED_REVIEW_RECORDED requires reviewer reference, reviewed_at, reasoned conclusion, and review evidence; no automatic legal nullification.",
+    "REVIEWED quality requires a non-null measurement, time, method and evidence. Grades must not be synthesized from missing measurements.",
+    "File digests must refer to the measured file or evidence object; a database digest must not be relabeled as a physical chip measurement.",
+    "Legal applicability and Shariah review are separate assessment records for a specific article version; one review does not close the other."
+  ],
+  "definitions": {
+    "id": {
+      "type": "string",
+      "pattern": "^urn:sheikha:(entity|jurisdiction|instrument|article|version|source|assessment|asset):[0-9a-f]{8}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{4}-[0-9a-f]{12}$"
+    },
+    "entity": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "entity_id": {
+          "$ref": "#/definitions/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "STATE",
+            "GOVERNMENT_BODY",
+            "COMMERCIAL_COMPANY",
+            "SOLE_PROPRIETORSHIP",
+            "NONPROFIT",
+            "ACADEMIC",
+            "INDUSTRIAL",
+            "PROJECT_PROPOSAL"
+          ]
+        },
+        "jurisdiction_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "registration_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "namespace": {
+                "type": "string",
+                "minLength": 1
+              },
+              "issuing_authority": {
+                "type": "string",
+                "minLength": 1
+              },
+              "jurisdiction_id": {
+                "$ref": "#/definitions/id"
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "verification_state": {
+                "enum": [
+                  "USER_DECLARED",
+                  "OFFICIAL_SOURCE_REVIEWED"
+                ]
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/id"
+                },
+                "uniqueItems": true,
+                "minItems": 0
+              }
+            },
+            "required": [
+              "namespace",
+              "issuing_authority",
+              "jurisdiction_id",
+              "value",
+              "verification_state",
+              "source_ids"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "verification_state": {
+                      "const": "OFFICIAL_SOURCE_REVIEWED"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "source_ids": {
+                      "minItems": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 0
+        },
+        "legal_existence_state": {
+          "enum": [
+            "NOT_CHECKED",
+            "USER_DECLARED",
+            "OFFICIAL_EVIDENCE_REVIEWED"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        }
+      },
+      "required": [
+        "entity_id",
+        "name",
+        "kind",
+        "jurisdiction_ids",
+        "registration_identifiers",
+        "legal_existence_state",
+        "source_ids"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "legal_existence_state": {
+                "const": "OFFICIAL_EVIDENCE_REVIEWED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "source_ids": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "jurisdiction": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "jurisdiction_id": {
+          "$ref": "#/definitions/id"
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "NATIONAL",
+            "SUBNATIONAL",
+            "TREATY",
+            "INTERNATIONAL_ORGANIZATION"
+          ]
+        },
+        "official_code": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        }
+      },
+      "required": [
+        "jurisdiction_id",
+        "name",
+        "kind",
+        "official_code",
+        "source_ids"
+      ]
+    },
+    "source": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "source_id": {
+          "$ref": "#/definitions/id"
+        },
+        "official_url": {
+          "type": "string",
+          "format": "uri",
+          "pattern": "^https://"
+        },
+        "publisher": {
+          "type": "string",
+          "minLength": 1
+        },
+        "retrieved_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "content_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "verification_state": {
+          "enum": [
+            "NOT_CHECKED",
+            "RETRIEVED",
+            "OFFICIAL_SOURCE_REVIEWED"
+          ]
+        }
+      },
+      "required": [
+        "source_id",
+        "official_url",
+        "publisher",
+        "retrieved_at",
+        "content_sha256",
+        "verification_state"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "verification_state": {
+                "const": "OFFICIAL_SOURCE_REVIEWED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "content_sha256": {
+                "type": "string",
+                "pattern": "^[0-9a-f]{64}$"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "verification_state": {
+                "enum": [
+                  "RETRIEVED",
+                  "OFFICIAL_SOURCE_REVIEWED"
+                ]
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "retrieved_at": {
+                "type": "string",
+                "format": "date-time"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "instrument": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "instrument_id": {
+          "$ref": "#/definitions/id"
+        },
+        "title": {
+          "type": "string",
+          "minLength": 1
+        },
+        "kind": {
+          "enum": [
+            "LAW",
+            "REGULATION",
+            "BYLAW",
+            "POLICY",
+            "TERMS",
+            "STANDARD",
+            "TREATY"
+          ]
+        },
+        "jurisdiction_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "official_identifier": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "issuer_entity_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        }
+      },
+      "required": [
+        "instrument_id",
+        "issuer_entity_id",
+        "title",
+        "kind",
+        "jurisdiction_ids",
+        "official_identifier",
+        "source_ids"
+      ]
+    },
+    "article": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "article_id": {
+          "$ref": "#/definitions/id"
+        },
+        "instrument_id": {
+          "$ref": "#/definitions/id"
+        },
+        "article_locator": {
+          "type": "string",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "article_id",
+        "instrument_id",
+        "article_locator"
+      ]
+    },
+    "articleVersion": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "version_id": {
+          "$ref": "#/definitions/id"
+        },
+        "article_id": {
+          "$ref": "#/definitions/id"
+        },
+        "text": {
+          "type": "string",
+          "minLength": 1
+        },
+        "language": {
+          "type": "string",
+          "pattern": "^[a-z]{2,3}(-[A-Za-z0-9]+)*$"
+        },
+        "enacted_on": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_from": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "valid_to": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date"
+        },
+        "source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "supersedes_version_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "text_verification_state": {
+          "enum": [
+            "UNVERIFIED",
+            "OFFICIAL_TEXT_REVIEWED"
+          ]
+        },
+        "source_locator": {
+          "type": "string",
+          "minLength": 1
+        },
+        "effective_date_verification_state": {
+          "enum": [
+            "NOT_CHECKED",
+            "DATE_UNKNOWN",
+            "OFFICIAL_DATE_REVIEWED"
+          ]
+        }
+      },
+      "required": [
+        "version_id",
+        "article_id",
+        "text",
+        "language",
+        "enacted_on",
+        "valid_from",
+        "valid_to",
+        "source_ids",
+        "supersedes_version_id",
+        "text_verification_state",
+        "source_locator",
+        "effective_date_verification_state"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "effective_date_verification_state": {
+                "const": "OFFICIAL_DATE_REVIEWED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "valid_from": {
+                "type": "string",
+                "format": "date"
+              }
+            }
+          }
+        }
+      ]
+    },
+    "assessment": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "assessment_id": {
+          "$ref": "#/definitions/id"
+        },
+        "version_id": {
+          "$ref": "#/definitions/id"
+        },
+        "jurisdiction_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 1
+        },
+        "assessment_date": {
+          "type": "string",
+          "format": "date"
+        },
+        "legal_scope_notes": {
+          "type": "string",
+          "minLength": 1
+        },
+        "treaty_declarations_considered": {
+          "type": "boolean"
+        },
+        "shariah_references": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "kind": {
+                "enum": [
+                  "QURAN",
+                  "HADITH",
+                  "JURISPRUDENTIAL_RULE"
+                ]
+              },
+              "locator": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/id"
+                },
+                "uniqueItems": true,
+                "minItems": 1
+              },
+              "text_verification_state": {
+                "enum": [
+                  "NOT_CHECKED",
+                  "SOURCE_REVIEWED"
+                ]
+              },
+              "reasoning": {
+                "type": "string",
+                "minLength": 1
+              }
+            },
+            "required": [
+              "kind",
+              "locator",
+              "source_ids",
+              "text_verification_state",
+              "reasoning"
+            ]
+          },
+          "minItems": 0
+        },
+        "review_state": {
+          "enum": [
+            "NOT_REVIEWED",
+            "PENDING_QUALIFIED_REVIEW",
+            "QUALIFIED_REVIEW_RECORDED"
+          ]
+        },
+        "reviewer_reference": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "reviewed_at": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "format": "date-time"
+        },
+        "reasoned_conclusion": {
+          "type": [
+            "string",
+            "null"
+          ]
+        },
+        "review_evidence_source_ids": {
+          "type": "array",
+          "items": {
+            "$ref": "#/definitions/id"
+          },
+          "uniqueItems": true,
+          "minItems": 0
+        },
+        "assessment_type": {
+          "enum": [
+            "LEGAL_APPLICABILITY",
+            "SHARIAH_REVIEW"
+          ]
+        },
+        "reviewer_kind": {
+          "enum": [
+            null,
+            "HUMAN"
+          ]
+        }
+      },
+      "required": [
+        "assessment_id",
+        "version_id",
+        "jurisdiction_ids",
+        "assessment_date",
+        "legal_scope_notes",
+        "treaty_declarations_considered",
+        "shariah_references",
+        "review_state",
+        "reviewer_reference",
+        "reviewed_at",
+        "reasoned_conclusion",
+        "review_evidence_source_ids",
+        "assessment_type",
+        "reviewer_kind"
+      ],
+      "allOf": [
+        {
+          "if": {
+            "properties": {
+              "review_state": {
+                "const": "QUALIFIED_REVIEW_RECORDED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "reviewer_reference": {
+                "type": "string",
+                "minLength": 1
+              },
+              "reviewed_at": {
+                "type": "string",
+                "format": "date-time"
+              },
+              "reasoned_conclusion": {
+                "type": "string",
+                "minLength": 1
+              },
+              "review_evidence_source_ids": {
+                "minItems": 1
+              },
+              "reviewer_kind": {
+                "const": "HUMAN"
+              }
+            }
+          }
+        },
+        {
+          "if": {
+            "properties": {
+              "assessment_type": {
+                "const": "SHARIAH_REVIEW"
+              },
+              "review_state": {
+                "const": "QUALIFIED_REVIEW_RECORDED"
+              }
+            }
+          },
+          "then": {
+            "properties": {
+              "shariah_references": {
+                "minItems": 1
+              }
+            }
+          }
+        }
+      ]
+    },
+    "asset": {
+      "type": "object",
+      "additionalProperties": false,
+      "properties": {
+        "asset_id": {
+          "$ref": "#/definitions/id"
+        },
+        "entity_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "name": {
+          "type": "string",
+          "minLength": 1
+        },
+        "internal_serial": {
+          "type": "string",
+          "minLength": 1
+        },
+        "external_identifiers": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "namespace": {
+                "type": "string",
+                "minLength": 1
+              },
+              "issuer": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "type": "string",
+                "minLength": 1
+              },
+              "source_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/id"
+                },
+                "uniqueItems": true,
+                "minItems": 0
+              }
+            },
+            "required": [
+              "namespace",
+              "issuer",
+              "value",
+              "source_ids"
+            ]
+          },
+          "minItems": 0
+        },
+        "file_sha256": {
+          "type": [
+            "string",
+            "null"
+          ],
+          "pattern": "^[0-9a-f]{64}$"
+        },
+        "file_source_id": {
+          "anyOf": [
+            {
+              "$ref": "#/definitions/id"
+            },
+            {
+              "type": "null"
+            }
+          ]
+        },
+        "quality_measurements": {
+          "type": "array",
+          "items": {
+            "type": "object",
+            "additionalProperties": false,
+            "properties": {
+              "metric": {
+                "type": "string",
+                "minLength": 1
+              },
+              "value": {
+                "type": [
+                  "number",
+                  "null"
+                ]
+              },
+              "unit": {
+                "type": "string",
+                "minLength": 1
+              },
+              "method": {
+                "type": "string",
+                "minLength": 1
+              },
+              "measured_at": {
+                "type": [
+                  "string",
+                  "null"
+                ],
+                "format": "date-time"
+              },
+              "evidence_source_ids": {
+                "type": "array",
+                "items": {
+                  "$ref": "#/definitions/id"
+                },
+                "uniqueItems": true,
+                "minItems": 0
+              },
+              "verification_state": {
+                "enum": [
+                  "NOT_MEASURED",
+                  "MEASURED_NOT_REVIEWED",
+                  "REVIEWED"
+                ]
+              }
+            },
+            "required": [
+              "metric",
+              "value",
+              "unit",
+              "method",
+              "measured_at",
+              "evidence_source_ids",
+              "verification_state"
+            ],
+            "allOf": [
+              {
+                "if": {
+                  "properties": {
+                    "verification_state": {
+                      "const": "REVIEWED"
+                    }
+                  }
+                },
+                "then": {
+                  "properties": {
+                    "value": {
+                      "type": "number"
+                    },
+                    "measured_at": {
+                      "type": "string",
+                      "format": "date-time"
+                    },
+                    "evidence_source_ids": {
+                      "minItems": 1
+                    }
+                  }
+                }
+              }
+            ]
+          },
+          "minItems": 0
+        }
+      },
+      "required": [
+        "asset_id",
+        "entity_id",
+        "name",
+        "internal_serial",
+        "external_identifiers",
+        "file_sha256",
+        "file_source_id",
+        "quality_measurements"
+      ]
+    }
+  }
+}

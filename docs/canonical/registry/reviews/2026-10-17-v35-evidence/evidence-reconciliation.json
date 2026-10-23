@@ -1,0 +1,525 @@
+{
+  "schema": "SHEIKHA_V35_EVIDENCE_RECONCILIATION_V1",
+  "review_date": "2026-10-17",
+  "source_material": "User-provided Gemini conversation and independently inspected local files",
+  "status": "PARTIAL_LOCAL_EVIDENCE_VERIFIED_CLAIMS_OPEN",
+  "registration": "docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md",
+  "previous_review": "docs/canonical/registry/reviews/2026-10-17/README.md",
+  "scope": {
+    "operational_sources_access": "READ_ONLY",
+    "v35_engines_imported_or_executed": false,
+    "v35_9_executed": false,
+    "database_or_v2_modified": false,
+    "credentials_read_or_changed": false,
+    "service_status_checked": false,
+    "legal_entity_registration_verified": false,
+    "historical_phases_rerun": false,
+    "git_merge_commit_push_performed": false,
+    "deployment_or_production_performed": false,
+    "changes": "New documentation bundle and one appended registration link only"
+  },
+  "local_observations": {
+    "ecosystem_root": "/home/sheikha/sheikha_os_ecosystem",
+    "versions": [
+      {
+        "version": "V35.5",
+        "manifest_path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_manifest.json",
+        "manifest_bytes": 1674,
+        "actual_manifest_sha256": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+        "reported_manifest_sha256": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+        "reported_manifest_hash_valid": true,
+        "manifest_matches_report": true,
+        "manifest_stable_during_hash": true,
+        "manifest_recorded_db_sha256": "c041c0aa4aae34b667ecc66aaa4d7404724d9b89b52452894f8009ea7286d8a8",
+        "reported_db_sha256": "c041c0aa4aae34b667ecc66aaa4d7404724d9b89b52452894f8009ea7286d8a8",
+        "reported_db_hash_valid": true,
+        "recorded_db_matches_report": true,
+        "engine_paths": [
+          "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_engine.py"
+        ],
+        "engine_sha256": [
+          "4f345a44f247e7c0697f6a6827c2c010afa8c8bc0ef4bb36537097df70f61304"
+        ],
+        "manifest_status_claim": "SHEIKHA_REALISTIC_SCIFI_AND_FUTURE_COMPUTING_V35_5_FULLY_SEALED"
+      },
+      {
+        "version": "V35.6",
+        "manifest_path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_manifest.json",
+        "manifest_bytes": 1574,
+        "actual_manifest_sha256": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+        "reported_manifest_sha256": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+        "reported_manifest_hash_valid": true,
+        "manifest_matches_report": true,
+        "manifest_stable_during_hash": true,
+        "manifest_recorded_db_sha256": "482970d438c7519442798fe602cb6a2f69f88048a78b1a765e5ae3054c5fc084",
+        "reported_db_sha256": "482970d438c7519442798fe602cb6a2f69f88048a78b1a765e5ae3054c5fc084",
+        "reported_db_hash_valid": true,
+        "recorded_db_matches_report": true,
+        "engine_paths": [
+          "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py"
+        ],
+        "engine_sha256": [
+          "a637510de1fd36ae10c308f453adc6829a3c03893a33a406d38b437b70e6b397"
+        ],
+        "manifest_status_claim": "SHEIKHA_UNIVERSAL_LEGAL_SYSTEM_V35_6_FULLY_SEALED"
+      },
+      {
+        "version": "V35.7",
+        "manifest_path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_manifest.json",
+        "manifest_bytes": 1615,
+        "actual_manifest_sha256": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+        "reported_manifest_sha256": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+        "reported_manifest_hash_valid": true,
+        "manifest_matches_report": true,
+        "manifest_stable_during_hash": true,
+        "manifest_recorded_db_sha256": "7c46a5711214714079179968a8c7580a872af2fffdfea1ca2ec13e732096a93c",
+        "reported_db_sha256": "7c46a5711214714079179968a8c7580a872af2fffdfea1ca2ec13e732096a93c",
+        "reported_db_hash_valid": true,
+        "recorded_db_matches_report": true,
+        "engine_paths": [
+          "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py"
+        ],
+        "engine_sha256": [
+          "4819c4c73198c8dd29ad090218cdc19f1ac54e6fc648076959b51a07fcbfd72e"
+        ],
+        "manifest_status_claim": "SHEIKHA_ENTITY_REGULATION_AND_BYLAWS_V35_7_FULLY_SEALED"
+      },
+      {
+        "version": "V35.8",
+        "manifest_path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_manifest.json",
+        "manifest_bytes": 1556,
+        "actual_manifest_sha256": "ced63c671ddf7104e2aa65ac3f27be71b64ab690e611fd69cd7d22300ccb5501",
+        "reported_manifest_sha256": "10af21d19c771c416a1146f03543086f5a5df903c6893c4e19507cac34456439",
+        "reported_manifest_hash_valid": true,
+        "manifest_matches_report": false,
+        "manifest_stable_during_hash": true,
+        "manifest_recorded_db_sha256": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+        "reported_db_sha256": "61ea3fd3a42fdc1d891782231da4ba01e24d8b9067737398b9f40e9488464c70",
+        "reported_db_hash_valid": true,
+        "recorded_db_matches_report": false,
+        "engine_paths": [
+          "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py"
+        ],
+        "engine_sha256": [
+          "6ffead4269602dfaf4ec05ad77303a3bad35b22be5b6a272930d91586b6b8463"
+        ],
+        "manifest_status_claim": "SHEIKHA_COSMIC_SERIALIZATION_AND_QUALITY_V35_8_FULLY_SEALED"
+      }
+    ],
+    "database": {
+      "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+      "actual_sha256": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+      "bytes": 786432,
+      "stable_during_hash": true,
+      "matches_latest_reported_db": false,
+      "sidecars": [
+        {
+          "name": "sheikha_sovereign_master.sqlite3-wal",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "name": "sheikha_sovereign_master.sqlite3-shm",
+          "exists": false,
+          "bytes": null
+        },
+        {
+          "name": "sheikha_sovereign_master.sqlite3-journal",
+          "exists": false,
+          "bytes": null
+        }
+      ]
+    },
+    "v2_evidence": {
+      "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+      "sha256": "28c40d2d6c78520ace3ee156f58f1e85fa06e491e2ac0fc5761f041b96d40803",
+      "version_digest_entries": {
+        "sheikha_v35_5_realistic_scifi_manifest_hash": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+        "sheikha_sql_db_v35_5_realistic_scifi_hash": "c041c0aa4aae34b667ecc66aaa4d7404724d9b89b52452894f8009ea7286d8a8",
+        "sheikha_v35_6_universal_legal_manifest_hash": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+        "sheikha_sql_db_v35_6_universal_legal_hash": "482970d438c7519442798fe602cb6a2f69f88048a78b1a765e5ae3054c5fc084",
+        "sheikha_v35_7_entity_regulation_manifest_hash": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+        "sheikha_sql_db_v35_7_entity_regulation_hash": "7c46a5711214714079179968a8c7580a872af2fffdfea1ca2ec13e732096a93c",
+        "sheikha_v35_8_cosmic_quality_manifest_hash": "ced63c671ddf7104e2aa65ac3f27be71b64ab690e611fd69cd7d22300ccb5501",
+        "sheikha_sql_db_v35_8_cosmic_quality_hash": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053"
+      }
+    }
+  },
+  "sqlite_readonly_inspection": {
+    "connection_mode": "mode=ro&immutable=1 with query_only=ON; no sidecars present before connection",
+    "counts": {
+      "universal_legal_v35_6_registry": 5,
+      "multi_country_legal_articles_catalog": 4,
+      "entity_regulation_v35_7_registry": 5,
+      "entities_bylaws_articles_catalog": 3,
+      "cosmic_quality_v35_8_registry": 5,
+      "cosmic_serialized_assets_catalog": 4
+    },
+    "entity_article_schema": [
+      {
+        "name": "entity_id",
+        "type": "TEXT",
+        "pk_position": 1
+      },
+      {
+        "name": "cr_or_gov_number",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "entity_name",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "entity_type",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "bylaw_article_code",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "article_text",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "quran_sunnah_taseel",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "shariah_verdict",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "sha256_seal",
+        "type": "TEXT",
+        "pk_position": 0
+      },
+      {
+        "name": "timestamp",
+        "type": "INTEGER",
+        "pk_position": 0
+      }
+    ],
+    "integrity_check": [
+      "ok"
+    ],
+    "database_sha256_before": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+    "database_sha256_after": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+    "database_bytes_unchanged": true,
+    "sidecars_after": [],
+    "engine_syntax": [
+      {
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_engine.py",
+        "syntax": "PASS_WITHOUT_EXECUTION"
+      },
+      {
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py",
+        "syntax": "PASS_WITHOUT_EXECUTION"
+      },
+      {
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py",
+        "syntax": "PASS_WITHOUT_EXECUTION"
+      },
+      {
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+        "syntax": "PASS_WITHOUT_EXECUTION"
+      }
+    ]
+  },
+  "v35_9_static_review": {
+    "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+    "sha256": "d9604e99ea1c85e5900eee39ad36c9d0de4057d46c8d46aad41878a42fb7f6a3",
+    "bytes": 11430,
+    "embedded_python_syntax_pass": true,
+    "heredoc_start_line": 20,
+    "heredoc_end_line": 161,
+    "outer_command_lines": [
+      {
+        "line": 7,
+        "text": "set -e"
+      },
+      {
+        "line": 9,
+        "text": "echo \"=== [1/5] الانتقال للبيئة الجذرية وإعداد المسارات السيادية والأمنية الماستر ===\""
+      },
+      {
+        "line": 10,
+        "text": "cd \"$HOME\""
+      },
+      {
+        "line": 15,
+        "text": "mkdir -p \"$ECOSYSTEM_DIR\""
+      },
+      {
+        "line": 16,
+        "text": "mkdir -p \"$DB_DIR\""
+      },
+      {
+        "line": 17,
+        "text": "mkdir -p \"$EVIDENCE_DIR\""
+      },
+      {
+        "line": 19,
+        "text": "echo \"=== [2/5] إنشاء وتأكيد محرك الحوسبة والتسلسل والجودة الكونية V35.8 ===\""
+      },
+      {
+        "line": 20,
+        "text": "cat << 'EOF' > \"$ECOSYSTEM_DIR/sheikha_v35_8_cosmic_quality_engine.py\""
+      },
+      {
+        "line": 163,
+        "text": "echo \"=== [3/5] تشغيل وتفعيل محرك الحوسبة والتسلسل الكوني V35.8 ===\""
+      },
+      {
+        "line": 164,
+        "text": "python3 \"$ECOSYSTEM_DIR/sheikha_v35_8_cosmic_quality_engine.py\""
+      },
+      {
+        "line": 166,
+        "text": "echo \"=== [4/5] إجراء الفحص والاستخراج الأدلي المادي النهائي للبصمات التشفيرية الماستر ===\""
+      },
+      {
+        "line": 167,
+        "text": "python3 -c \""
+      },
+      {
+        "line": 186,
+        "text": "echo \"=== [5/5] إغلاق وتثبيت حالة التشفير السيادي والحوسبة الماستر النهائية V35.9 ===\""
+      },
+      {
+        "line": 187,
+        "text": "echo \"SHEIKHA_V35_9_ULTIMATE_MASTER_COMPUTATION_AND_CLOSURE_COMPLETE\""
+      }
+    ],
+    "contains_git_merge_command": false,
+    "execution_performed": false
+  },
+  "summary": {
+    "reported_manifest_hashes_matching": 3,
+    "local_manifests_compared": 4,
+    "current_v35_8_manifest_matches_current_v2": true,
+    "current_database_matches_current_v35_8_manifest_and_v2": true,
+    "latest_reported_database_matches_current_database": false,
+    "database_integrity_check": "ok",
+    "legal_article_rows": 4,
+    "entity_article_rows": 3,
+    "serialized_asset_rows": 4,
+    "syntax_checks": "4 Python files parsed with AST; shell parsed with bash -n, no script commands executed",
+    "closure": "Evidence reconciliation documentation only; capability and compliance claims remain open"
+  },
+  "findings": [
+    {
+      "id": "V35-E01",
+      "status": "OBSERVED_DRIFT_CAUSE_NOT_PROVEN",
+      "title_ar": "اختلاف لقطة V35.8 عن المحادثة",
+      "observation_ar": "البصمتان الحاليتان للمانيفست وقاعدة البيانات تطابقان V2 الحالي، وتختلفان عن القيم المرسلة. لا يثبت الاختلاف وحده تلفًا أو تلاعبًا أو تاريخ تشغيل.",
+      "acceptance_ar": "ربط كل ادعاء تاريخي بلقطة مستقلة أو سجل تنفيذ متحقق دون إعادة توليد الدليل القديم."
+    },
+    {
+      "id": "V35-E02",
+      "status": "SAMPLE_COVERAGE_VERIFIED_GLOBAL_COVERAGE_NOT_PROVEN",
+      "title_ar": "نطاق فهرسة محدود العينات",
+      "observation_ar": "توجد 4 مواد قانونية و3 مواد كيانات و4 أصول في الجداول المحددة؛ حالات ALL وFULLY_SEALED ثابتة في المصادر.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py",
+          "line": 63
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py",
+          "line": 65
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 59
+        }
+      ],
+      "acceptance_ar": "تحديد مجموعة مستهدفة معلنة وقياس نسبة تغطيتها بمصادر وتواريخ وإصدارات مثبتة."
+    },
+    {
+      "id": "V35-E03",
+      "status": "DIGEST_IMPLEMENTED_OTHER_CRYPTOGRAPHIC_CLAIMS_NOT_PROVEN",
+      "title_ar": "بصمات دون إثبات نظام التوقيع أو التشفير المعلن",
+      "observation_ar": "المصادر تنفذ hashlib.sha256؛ لم يظهر تنفيذ sign/verify أو encryption/decryption أو نظام PQ. التطابق لا يوثق هوية المصدر مستقلًا.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 74
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 99
+        }
+      ],
+      "acceptance_ar": "تعريف هدف أمني وخوارزمية ومعيار ومفاتيح محكومة واختبار تحقق مستقل، أو تقييد الوصف بالبصمات المنفذة فقط."
+    },
+    {
+      "id": "V35-E04",
+      "status": "ASSET_BINDING_AND_QUALITY_EVIDENCE_MISSING",
+      "title_ar": "درجات جودة وبصمات أصول ثابتة",
+      "observation_ar": "بصمة صف SILICON_FOUNDRY هي بصمة DB تاريخية؛ لا يقرأ هذا الكود أصلًا ماديًا أو ملف شريحة، ودرجات GRADE_AAA ليست ناتج قياس هنا.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 61
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 100
+        }
+      ],
+      "acceptance_ar": "ربط كل أصل بمعرفه وملفه أو دليل قياسه ومعيار جودته ونتيجة الاختبار وجهة الإصدار عند وجودها؛ لا إعادة تصنيف تلقائية لأدلة قديمة."
+    },
+    {
+      "id": "V35-E05",
+      "status": "SCHEMA_LIMITATION_VERIFIED_NO_DATA_LOSS_ASSERTED",
+      "title_ar": "المفتاح الأساسي يمنع مواد متعددة للكيان نفسه",
+      "observation_ar": "entity_id مفتاح وحيد؛ INSERT OR REPLACE سيستبدل الصف عند إدراج مادة ثانية بالمعرف نفسه. لم يُثبت وقوع فقد تاريخي.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py",
+          "line": 50
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py",
+          "line": 75
+        }
+      ],
+      "acceptance_ar": "عقد لاحق يفصل الكيان واللائحة والمادة وإصدارها، مع اختبار يحتفظ بمادتين وإصداراتهما دون هجرة تلقائية للقاعدة الحالية."
+    },
+    {
+      "id": "V35-E06",
+      "status": "LEGAL_AND_SHARIAH_EVALUATOR_NOT_IMPLEMENTED_IN_REVIEWED_SOURCES",
+      "title_ar": "أحكام قانونية وشرعية ثابتة دون مقيم",
+      "observation_ar": "العينات لا تحفظ نصًا رسميًا ومصدرًا ونسخة وتاريخ نفاذ وشروط انطباق؛ الأحكام مكتوبة مسبقًا وتُدرج دون تحليل. لم تُمنح فتوى أو شهادة امتثال.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py",
+          "line": 50
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py",
+          "line": 63
+        }
+      ],
+      "acceptance_ar": "توثيق المصدر الرسمي والنص والنسخة والولاية والتاريخ والتحفظات ووجه الاستدلال ومراجعتها المختصة قبل أي حكم تطبيقي."
+    },
+    {
+      "id": "V35-E07",
+      "status": "FLAGS_AND_SERVICE_CLAIMS_NOT_OPERATIONALLY_VERIFIED",
+      "title_ar": "نصوص السلطة والخدمات ليست بوابات تنفيذ داخل هذه المصادر",
+      "observation_ar": "الكتابة إلى SQLite تسبق تدوين flags؛ لا يثبت الكود حالة systemd أو watchdog أو العزل. لم تُفحص هذه الخدمات، ولا يُستنتج غياب عزل خارجي.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 33
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 105
+        }
+      ],
+      "acceptance_ar": "فحوص حالة مستقلة وضوابط صلاحية مثبتة تمنع الأفعال غير المأذونة قبل الكتابة، ضمن تفويض منفصل عن التوثيق."
+    },
+    {
+      "id": "V35-E08",
+      "status": "CLOSURE_ECHO_NOT_INTEGRATION_PROOF",
+      "title_ar": "V35.9 يعيد تشغيل V35.8 ثم يطبع COMPLETE",
+      "observation_ar": "السكربت يعيد كتابة مصدر V35.8 ويستدعيه، ثم يحسب بصمات دون مقارنة بقيم متوقعة، ويطبع COMPLETE. لا توجد اختبارات تكامل شاملة فيه.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+          "line": 20
+        },
+        {
+          "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+          "line": 164
+        },
+        {
+          "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+          "line": 167
+        },
+        {
+          "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+          "line": 187
+        }
+      ],
+      "acceptance_ar": "يكون الإغلاق لاحقًا مرتبطًا بقائمة تحقق واختبارات مستقلة وأدلة محددة؛ لا إعادة تشغيل مراحل V35 التاريخية ضمن هذه المراجعة."
+    },
+    {
+      "id": "V35-E09",
+      "status": "HISTORICAL_SNAPSHOT_AND_ATOMICITY_NOT_ESTABLISHED",
+      "title_ar": "تحديث DB والمانيفست وV2 ليس سجل لقطات تاريخي مثبتًا",
+      "observation_ar": "تُحدّث قاعدة واحدة ثم ملفا JSON بالتتابع. لا تثبت هذه الآلية وحدها ذرية التحديث أو حفظ كل إصدار سابق؛ لم يكن WAL حاضرًا في اللقطة المقروءة.",
+      "evidence": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 82
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 116
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "line": 121
+        }
+      ],
+      "acceptance_ar": "تعريف لقطات مستقبلية متسقة وسجل إضافي للإصدارات وبصماتها، مع معالجة WAL والكتاب المتزامنين عند وجودهم دون تعديل التاريخ الحالي."
+    }
+  ],
+  "primary_references": [
+    {
+      "id": "nist-sha256",
+      "url": "https://csrc.nist.gov/pubs/fips/180-4/upd1/final",
+      "topic": "Secure hash standard"
+    },
+    {
+      "id": "nist-ml-kem",
+      "url": "https://csrc.nist.gov/pubs/fips/203/final",
+      "topic": "Key encapsulation"
+    },
+    {
+      "id": "nist-ml-dsa",
+      "url": "https://csrc.nist.gov/pubs/fips/204/final",
+      "topic": "Digital signature"
+    },
+    {
+      "id": "nist-slh-dsa",
+      "url": "https://csrc.nist.gov/pubs/fips/205/final",
+      "topic": "Hash-based digital signature"
+    },
+    {
+      "id": "sqlite-wal",
+      "url": "https://sqlite.org/wal.html",
+      "topic": "WAL and consistent database observations"
+    },
+    {
+      "id": "sa-commercial-law",
+      "url": "https://laws.boe.gov.sa/BoeLaws/Laws/LawDetails/c58ba10c-4e89-4c06-98d7-a9a700f1c706/1",
+      "topic": "Official source for commercial-law sample"
+    },
+    {
+      "id": "sa-pdpl",
+      "url": "https://dgp.sdaia.gov.sa/wps/portal/pdp/knowledgecenter/details/!ut/p/z0/04_Sj9CPykssy0xPLMnMz0vMAfIjo8ziPR1dzTwMgw2MDMOcTA3MjH39TE29jY0MQsz1C7IdFQE4Y_ED/",
+      "topic": "Official source for PDPL sample"
+    },
+    {
+      "id": "cisg-text",
+      "url": "https://uncitral.un.org/sites/uncitral.un.org/files/media-documents/uncitral/en/19-09951_e_ebook.pdf",
+      "topic": "Treaty article source"
+    },
+    {
+      "id": "cisg-status",
+      "url": "https://uncitral.un.org/en/texts/salegoods/conventions/sale_of_goods/cisg/status",
+      "topic": "Country status and declarations affecting source interpretation"
+    }
+  ]
+}

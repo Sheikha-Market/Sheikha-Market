@@ -1,0 +1,249 @@
+{
+  "schema": "SHEIKHA_PROJECT_REVIEW_INDEX_V1",
+  "organized_on": "2026-10-17",
+  "review_observation_dates": [
+    "2026-10-16",
+    "2026-10-17"
+  ],
+  "status": "ORGANIZED_REVIEW_OPEN_REPAIRS",
+  "platform": {
+    "name": "SHEIKHA Global Runtime Platform",
+    "official_abbreviation": "SHEIKHA UGIT-RP"
+  },
+  "authoritative_registration": "docs/canonical/registry/ROOT-SOURCE-OF-TRUTH.md",
+  "scope": {
+    "organization_changes": "Five new review documentation files, an additive registry entry, and correction of the pre-existing language-reference relative link only.",
+    "operational_repairs_performed": false,
+    "secrets_changed": false,
+    "historical_evidence_changed": false,
+    "merge_commit_push_performed": false,
+    "production_or_deployment_performed": false,
+    "network_or_cloud_recheck_performed": false
+  },
+  "git_snapshot": {
+    "branch": "main",
+    "head": "a97eb0c9e21808ea4ffdace5b437d33645a914e9",
+    "comparison_ref": "origin/main",
+    "comparison_scope": "Previously fetched local ref; no fetch performed.",
+    "ahead": 0,
+    "behind": 0,
+    "changed_tracked_before_organization": 239,
+    "untracked_files_before_organization": 1515,
+    "staged_changes": 0,
+    "diff_check": "PASS",
+    "inventory": "git-change-inventory.json"
+  },
+  "components": [
+    {
+      "id": "main-portal",
+      "local_root": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+      "repository": "Sheikha-Market/sheikha-main-portal",
+      "verification": "LOCAL_GIT_ROOT_AND_REMOTE_VERIFIED"
+    },
+    {
+      "id": "enterprise-portal",
+      "local_root": null,
+      "registered_repository": "Sheikha-top/sheikha-enterprise-portal",
+      "registered_verification": "SCREENSHOT_OBSERVED_API_NOT_ACCESSIBLE_404",
+      "main_portal_enterprise_remote_repository": "Sheikha-Market/sheikha-enterprise-portal",
+      "local_search_scope": "Direct child directories of /home/sheikha/Projects/sheikha",
+      "status": "IDENTITY_AND_LOCAL_PATH_RECONCILIATION_REQUIRED"
+    },
+    {
+      "id": "ai-router",
+      "factory": "lib/sheikha-ai-router.js",
+      "layers": "lib/sheikha-ai-router",
+      "public_routes": "routes/ai.js",
+      "mount": "/api/ai-core",
+      "default_upstream": "sheikha",
+      "verification": "ISOLATED_TESTS_PASS_OPEN_POLICY_GAPS"
+    },
+    {
+      "id": "router-anywhere",
+      "path": "core/ai-router/sheikha-ai-router-anywhere-v1.js",
+      "status": "PLAN_ONLY",
+      "live_connection_verified": false
+    },
+    {
+      "id": "hostinger-ai-adapter",
+      "path": "lib/sheikha-ai-router/hostinger-upstream.js",
+      "verification": "MOCK_TRANSPORT_CHECKS_PASS",
+      "live_connection_verified": false
+    },
+    {
+      "id": "hostinger-mcp",
+      "distinct_from": "hostinger-ai-adapter",
+      "configs": [
+        {
+          "path": "/home/sheikha/.codex/config.toml",
+          "transport": "streamable_http",
+          "endpoint_host": "mcp.hostinger.com",
+          "registration_observed": true
+        },
+        {
+          "path": "/home/sheikha/codex/config.toml",
+          "transport": "stdio",
+          "command": "npx",
+          "registration_observed": true
+        }
+      ],
+      "review_session_codex_home": "/home/sheikha/codex",
+      "live_connection_verified": false
+    },
+    {
+      "id": "codex-cli",
+      "command_path": "/home/sheikha/.local/bin/codex",
+      "resolved_path": "/home/sheikha/codex/plugins/.plugin-appserver/codex",
+      "file_exists_and_executable": true,
+      "interactive_launch_retested": false
+    },
+    {
+      "id": "distribution-v2-v3",
+      "v2_artifact_count": 6,
+      "v3_artifact_count": 1,
+      "artifact_hashes_and_sizes_verified": true,
+      "v3_desktop_executable_count": 0,
+      "v3_status_api_read_only": true,
+      "v2_workspace_index_current_sha256": "840445d60b0029a6b66809e4acffa969d07ace6a36f1f7448f7e924cd71b37bb",
+      "v3_historical_workspace_index_sha256": "f363a597a709a510ce7e8907630dbabb03db04583938d0455cf064ab7f7bd284",
+      "status": "ARTIFACTS_MATCH_BASELINE_METADATA_RECONCILIATION_REQUIRED",
+      "native_install_upgrade_rollback_proven_by_v3": false
+    },
+    {
+      "id": "api-contract-v2",
+      "registry": "runtime/api-contract-registry/v2/sheikha-api-contract-registry-v2.json",
+      "status": "ENVELOPE_AND_ROUTE_COVERAGE_GAPS",
+      "api_contract_v3_found_in_review_scope": false
+    },
+    {
+      "id": "portals-register",
+      "path": "docs/governance/github-accounts/portals",
+      "integrity_check": "PORTALS_LOCAL_REGISTRY_INTEGRITY_PASS",
+      "pinned_files_matching": 5,
+      "portal_count": 2,
+      "tracked_in_git": false,
+      "private_artifacts_copied_into_review": false
+    }
+  ],
+  "verification": {
+    "performed_during_review_session": [
+      "git status and local HEAD/ref comparison",
+      "git diff --check",
+      "Isolated router runtime and provider hierarchy tests",
+      "Validator and Router Anywhere checks with dotenv disabled in VM",
+      "Six in-memory Hostinger adapter/provider checks using synthetic environment and mocked fetch",
+      "Read-only portal registry verifier with Python isolation",
+      "Independent artifact SHA-256 and size checks",
+      "Read-only distribution status/releaseIndex functions",
+      "Pure API envelope helper checks"
+    ],
+    "not_performed": [
+      "Live Hostinger MCP or AI request",
+      "Git fetch or remote access verification",
+      "Codex interactive TTY launch",
+      "Azure live status or logs",
+      "Historical activation/build/install/upgrade/rollback phases",
+      "Production checks, restart, merge or deployment"
+    ],
+    "note": "Earlier successful tests are session observations; organization does not imply all tests were rerun on 2026-10-17."
+  },
+  "source_fingerprints": [
+    {
+      "path": "core/ai-router/sheikha-ai-router-anywhere-v1.js",
+      "sha256": "6fcae50953f1a8f656b02ce109a9807ab5e9ad00f8580e626b59b1e1f3fbc61b"
+    },
+    {
+      "path": "distribution/artifacts/v2/1.0.51/release-index.json",
+      "sha256": "840445d60b0029a6b66809e4acffa969d07ace6a36f1f7448f7e924cd71b37bb"
+    },
+    {
+      "path": "distribution/artifacts/v3/1.0.51/release-index.json",
+      "sha256": "eaa7025cd930f0e154663535b0b32b832a321404b7fbfdc159abef5d139cb19b"
+    },
+    {
+      "path": "distribution/pipeline/sheikha-native-delivery-v3.js",
+      "sha256": "9f5492f28b98d33b4ab4095c03aa19dac3d56629b53ba903909fc594f22b308b"
+    },
+    {
+      "path": "docs/SHEIKHA_AI_ROUTER.md",
+      "sha256": "8922fa6eca25332baa8332265d3dfd00d4fa5b3a881ff5bbe86814e79ad315ee"
+    },
+    {
+      "path": "docs/governance/github-accounts/portals/README_AR.md",
+      "sha256": "7cb84f045b0807b22ee13ac27144c71d10a5ff916de4a79a3ba32939bf0b355e"
+    },
+    {
+      "path": "docs/governance/github-accounts/portals/verify_portals.py",
+      "sha256": "a5665943f714a6e6212284fd0da10205c860cd17eb2b448d0c3eb36735f923b5"
+    },
+    {
+      "path": "lib/api-contracts/sheikha-api-contracts.js",
+      "sha256": "5fbd3596e902d967fa61a41d409da95b8bf27d771a3434d6dc8b1435c3f8bf04"
+    },
+    {
+      "path": "lib/api-contracts/sheikha-api-response.js",
+      "sha256": "a9594ff8f6b9af6c933db2a586d213ce2ae62fe963ef64b304b3e36df37aaa82"
+    },
+    {
+      "path": "lib/sheikha-ai-router.js",
+      "sha256": "05bed89325998ec619f627c4e31df757a568d0cd407146366f918a369a4b954c"
+    },
+    {
+      "path": "lib/sheikha-ai-router/governance.js",
+      "sha256": "4a31db2779c528e03fcbe9f93e68aeffd975264a780d746034689c2fec1b672f"
+    },
+    {
+      "path": "lib/sheikha-ai-router/hostinger-upstream.js",
+      "sha256": "4755e9695028a2cc7360d8f5b9c3f78dee099e05fb75216337f457b6e203e859"
+    },
+    {
+      "path": "lib/sheikha-ai-router/provider.js",
+      "sha256": "929ff9e27cbee9e4cbcc21efad55b4ae1918d7666503ff103c92c7a83d01e160"
+    },
+    {
+      "path": "routes/ai.js",
+      "sha256": "6558a36eb8413cb14ca4a4411a217803ca12bce276fd7008c058a7da79375c64"
+    },
+    {
+      "path": "runtime/api-contract-registry/v2/sheikha-api-contract-registry-v2.json",
+      "sha256": "d57906f8b4ef6a9a1006185124d712088e350df27974be69a6783c5890a91e67"
+    },
+    {
+      "path": "runtime/distribution/v3/evidence/v2-baseline-integrity-v3.json",
+      "sha256": "f6f453e48595c133c3d91f8410de4f8971ac1a994b26f045342395f27471d403"
+    },
+    {
+      "path": "scripts/validate-ai-router-config.js",
+      "sha256": "b95b5a2901a72d8afe096fd5d83b5fce58748d554c013a1e8ce4c62a5fad002f"
+    },
+    {
+      "path": "server.js",
+      "sha256": "1e9e4c230008549b47a43d8303fc56c13a91dfde1d822cd3bb384465cc9d273e"
+    },
+    {
+      "path": "tests/sheikha-ai-router-runtime.test.js",
+      "sha256": "68273a43934e6ab0f0158a3ab459b3d3be19a03734ff1a1768d6ebb061047d93"
+    },
+    {
+      "path": "tools/api-contracts/sheikha-api-contract-check-v2.js",
+      "sha256": "8f2ce0c1f8fdee85384f0e40cfad8601c65e5705ecf98375fb35aa3e9194248f"
+    }
+  ],
+  "related_files": [
+    "README.md",
+    "repair-backlog.json",
+    "git-change-inventory.json",
+    "SHA256SUMS"
+  ],
+  "organization_validation": {
+    "json_documents_valid": 3,
+    "repair_items": 14,
+    "git_groups": 11,
+    "inventoried_paths": 1754,
+    "evidence_references_valid": 28,
+    "source_fingerprints_matching": 20,
+    "local_markdown_links_checked": true,
+    "checksum_manifest": "SHA256SUMS",
+    "operational_tests_rerun_during_organization": false
+  }
+}

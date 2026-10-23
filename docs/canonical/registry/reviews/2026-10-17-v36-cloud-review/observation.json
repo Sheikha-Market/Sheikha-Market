@@ -1,0 +1,713 @@
+{
+  "schema": "SHEIKHA_V36_CLOUD_LOCAL_REVIEW_V1",
+  "recorded_at_utc": "2026-10-17 01:22:21 UTC",
+  "status": "LOCAL_REVIEW_COMPLETE_CLOUD_CONNECTION_AND_REPAIRS_OPEN",
+  "scope": {
+    "historical_engines_executed": false,
+    "downloaded_binaries_executed": false,
+    "cloud_cli_executed": false,
+    "cloud_account_api_calls": false,
+    "public_documentation_accessed": true,
+    "credential_files_read": false,
+    "database_connection_opened": false,
+    "external_files_written": false,
+    "project_documentation_only": true,
+    "baseline_replaced": false
+  },
+  "v36_stages": [
+    {
+      "version": "36.0",
+      "files": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v36_0_hostinger_connection_engine.py",
+          "bytes": 8837,
+          "sha256": "b39e0f0593fff753e877f4943f24d37dc02cc9fb411e0514be65d06071ca2a06"
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v36_0_hostinger_connection_manifest.json",
+          "bytes": 1536,
+          "sha256": "a46d64b651334a6037889e200474b45208248e3a0198210b7507257936506ea3"
+        }
+      ],
+      "imports": [
+        "os,json,time,hashlib,sqlite3"
+      ],
+      "db_sha256_recorded_in_manifest": "e92802b710c14473e7ad52a844158aa6bd67347b3830fda84366948a77a9a813",
+      "manifest_sha256_in_v2": "a46d64b651334a6037889e200474b45208248e3a0198210b7507257936506ea3",
+      "manifest_matches_v2": true,
+      "db_sha256_recorded_in_v2": "e92802b710c14473e7ad52a844158aa6bd67347b3830fda84366948a77a9a813",
+      "static_behavior": {
+        "pillar_count": 5,
+        "catalog_record_count": 4,
+        "network_calls_in_examined_engine": false,
+        "oauth_flow_in_examined_engine": false,
+        "local_sqlite_mutation_code_present": true,
+        "manifest_statuses_are_constants": true,
+        "connection_verified": false
+      },
+      "references": {
+        "engine_sample_list_line": 61,
+        "engine_commit_line": 86,
+        "engine_scope_claims_line": 103
+      }
+    },
+    {
+      "version": "36.1",
+      "files": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v36_1_data_agent_engine.py",
+          "bytes": 8691,
+          "sha256": "e84b21ace9e74151ca4d3b3956215094f85447cc1650c87326d71205170d7b2a"
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v36_1_data_agent_manifest.json",
+          "bytes": 1578,
+          "sha256": "9e3c6c3be49c3985d6ab85d7cd2dd23910a6538505acb1f95033e72fd1aca778"
+        }
+      ],
+      "imports": [
+        "os,json,time,hashlib,sqlite3"
+      ],
+      "db_sha256_recorded_in_manifest": "d760ef13736656351811932bbc452811c0c23c503db4bcab3e2b1221d5a324b8",
+      "manifest_sha256_in_v2": "9e3c6c3be49c3985d6ab85d7cd2dd23910a6538505acb1f95033e72fd1aca778",
+      "manifest_matches_v2": true,
+      "db_sha256_recorded_in_v2": "d760ef13736656351811932bbc452811c0c23c503db4bcab3e2b1221d5a324b8",
+      "static_behavior": {
+        "pillar_count": 5,
+        "catalog_record_count": 3,
+        "network_calls_in_examined_engine": false,
+        "oauth_flow_in_examined_engine": false,
+        "local_sqlite_mutation_code_present": true,
+        "manifest_statuses_are_constants": true,
+        "connection_verified": false
+      },
+      "references": {
+        "engine_sample_list_line": 61,
+        "engine_commit_line": 85,
+        "engine_scope_claims_line": 102
+      }
+    },
+    {
+      "version": "36.2",
+      "files": [
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v36_2_hostinger_cloud_engine.py",
+          "bytes": 8629,
+          "sha256": "168a417005cc42f982afa767d360917f5dfbe90cd8abab4fa0a7ece82e466651"
+        },
+        {
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v36_2_hostinger_cloud_manifest.json",
+          "bytes": 1443,
+          "sha256": "41b5947a0c445a14bf0d51770ba9634a2bbcdbfbdad58f7de029a12c67d803ae"
+        }
+      ],
+      "imports": [
+        "os,json,time,hashlib,sqlite3"
+      ],
+      "db_sha256_recorded_in_manifest": "1e4cbb3aa7caf817ba8185a8830443b2476ae6a3b9a8af2c87b104a8c680752e",
+      "manifest_sha256_in_v2": "41b5947a0c445a14bf0d51770ba9634a2bbcdbfbdad58f7de029a12c67d803ae",
+      "manifest_matches_v2": true,
+      "db_sha256_recorded_in_v2": "1e4cbb3aa7caf817ba8185a8830443b2476ae6a3b9a8af2c87b104a8c680752e",
+      "static_behavior": {
+        "pillar_count": 5,
+        "catalog_record_count": 6,
+        "network_calls_in_examined_engine": false,
+        "oauth_flow_in_examined_engine": false,
+        "local_sqlite_mutation_code_present": true,
+        "manifest_statuses_are_constants": true,
+        "connection_verified": false
+      },
+      "references": {
+        "engine_sample_list_line": 61,
+        "engine_commit_line": 88,
+        "engine_scope_claims_line": 105
+      }
+    }
+  ],
+  "shared_mutable_files": [
+    {
+      "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+      "bytes": 835584,
+      "sha256": "1e4cbb3aa7caf817ba8185a8830443b2476ae6a3b9a8af2c87b104a8c680752e",
+      "stable_metadata": true,
+      "sidecars": {
+        "-wal": false,
+        "-shm": false,
+        "-journal": false
+      }
+    },
+    {
+      "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+      "bytes": 22264,
+      "sha256": "268a35498a53df4c1deeba3d71fb1f7fa5d1001ff6c153b5a06a24894aa170d6",
+      "stable_metadata": true,
+      "v36_digests": {
+        "sheikha_v36_0_hostinger_connection_manifest_hash": "a46d64b651334a6037889e200474b45208248e3a0198210b7507257936506ea3",
+        "sheikha_sql_db_v36_0_hostinger_connection_hash": "e92802b710c14473e7ad52a844158aa6bd67347b3830fda84366948a77a9a813",
+        "sheikha_v36_1_data_agent_manifest_hash": "9e3c6c3be49c3985d6ab85d7cd2dd23910a6538505acb1f95033e72fd1aca778",
+        "sheikha_sql_db_v36_1_data_agent_hash": "d760ef13736656351811932bbc452811c0c23c503db4bcab3e2b1221d5a324b8",
+        "sheikha_v36_2_hostinger_cloud_manifest_hash": "41b5947a0c445a14bf0d51770ba9634a2bbcdbfbdad58f7de029a12c67d803ae",
+        "sheikha_sql_db_v36_2_hostinger_cloud_hash": "1e4cbb3aa7caf817ba8185a8830443b2476ae6a3b9a8af2c87b104a8c680752e"
+      }
+    }
+  ],
+  "previous_archived_observation": {
+    "path": "docs/canonical/registry/reviews/2026-10-17-v35-completion/verification-result.json",
+    "sha256": "d95a4df94b5b95e5448a539c5657e2e859ec1423da3a4c9a37ade72d73a09266",
+    "recorded_at_utc": "2026-10-16 22:07:55 UTC",
+    "files": [
+      {
+        "id": "sqlite-main-file",
+        "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+        "expected_sha256": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+        "actual_sha256": "e92802b710c14473e7ad52a844158aa6bd67347b3830fda84366948a77a9a813",
+        "status": "MISMATCH"
+      },
+      {
+        "id": "v2-evidence-registry",
+        "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+        "expected_sha256": "28c40d2d6c78520ace3ee156f58f1e85fa06e491e2ac0fc5761f041b96d40803",
+        "actual_sha256": "fee9f2cb5f9b1863f4c9bd3ebf42967dac6a339981168ec2eb28863668cb7218",
+        "status": "MISMATCH"
+      }
+    ]
+  },
+  "lineage_assessment": {
+    "prior_observed_db_matches_recorded_v36_0": true,
+    "current_observed_db_matches_recorded_v36_2": true,
+    "interpretation": "Observed byte hashes are consistent with the later-stage records. The writer, execution order and execution times are not independently established; V2 is mutable.",
+    "historical_v35_baseline_changed": false
+  },
+  "latest_v35_verifier": {
+    "invocation": "python3 -I -S -B docs/canonical/registry/reviews/2026-10-17-v35-completion/verify_evidence.py",
+    "exit_code": 1,
+    "observation": {
+      "schema": "SHEIKHA_V35_READ_ONLY_VERIFICATION_V1",
+      "status": "EVIDENCE_UNSAFE_OR_MISMATCH",
+      "files": [
+        {
+          "id": "V35.5-manifest",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_manifest.json",
+          "expected_sha256": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+          "actual_sha256": "ea455374704e0ba84da6a80f8fa4009dee8a72a550860b0fbb714dfe035b44c8",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.5-engine",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_5_realistic_scifi_engine.py",
+          "expected_sha256": "4f345a44f247e7c0697f6a6827c2c010afa8c8bc0ef4bb36537097df70f61304",
+          "actual_sha256": "4f345a44f247e7c0697f6a6827c2c010afa8c8bc0ef4bb36537097df70f61304",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.6-manifest",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_manifest.json",
+          "expected_sha256": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+          "actual_sha256": "9626fbcf02957a1f5edc7dff5cc8cb4e50425c1e50fcf21146abab33c09fdbff",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.6-engine",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_6_universal_legal_engine.py",
+          "expected_sha256": "a637510de1fd36ae10c308f453adc6829a3c03893a33a406d38b437b70e6b397",
+          "actual_sha256": "a637510de1fd36ae10c308f453adc6829a3c03893a33a406d38b437b70e6b397",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.7-manifest",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_manifest.json",
+          "expected_sha256": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+          "actual_sha256": "3bb0ae97b693f0e7d59bcd59e3ba8c95a9ee6849603d05e44ed8b3794346f093",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.7-engine",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_7_entity_regulation_engine.py",
+          "expected_sha256": "4819c4c73198c8dd29ad090218cdc19f1ac54e6fc648076959b51a07fcbfd72e",
+          "actual_sha256": "4819c4c73198c8dd29ad090218cdc19f1ac54e6fc648076959b51a07fcbfd72e",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.8-manifest",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_manifest.json",
+          "expected_sha256": "ced63c671ddf7104e2aa65ac3f27be71b64ab690e611fd69cd7d22300ccb5501",
+          "actual_sha256": "ced63c671ddf7104e2aa65ac3f27be71b64ab690e611fd69cd7d22300ccb5501",
+          "status": "MATCH"
+        },
+        {
+          "id": "V35.8-engine",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_v35_8_cosmic_quality_engine.py",
+          "expected_sha256": "6ffead4269602dfaf4ec05ad77303a3bad35b22be5b6a272930d91586b6b8463",
+          "actual_sha256": "6ffead4269602dfaf4ec05ad77303a3bad35b22be5b6a272930d91586b6b8463",
+          "status": "MATCH"
+        },
+        {
+          "id": "sqlite-main-file",
+          "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+          "expected_sha256": "3616c1f8139049667b9f19c586bea295c337a729a1e637d9b3b8b3d89568e053",
+          "actual_sha256": "1e4cbb3aa7caf817ba8185a8830443b2476ae6a3b9a8af2c87b104a8c680752e",
+          "status": "MISMATCH"
+        },
+        {
+          "id": "v2-evidence-registry",
+          "path": "/home/sheikha/sheikha_os_ecosystem/04_evidence_integration_hub/sheikha_evidence_v2_specification.json",
+          "expected_sha256": "28c40d2d6c78520ace3ee156f58f1e85fa06e491e2ac0fc5761f041b96d40803",
+          "actual_sha256": "268a35498a53df4c1deeba3d71fb1f7fa5d1001ff6c153b5a06a24894aa170d6",
+          "status": "MISMATCH"
+        },
+        {
+          "id": "V35.9-script",
+          "path": "/home/sheikha/run_sheikha_v35_9_ultimate_master.sh",
+          "expected_sha256": "d9604e99ea1c85e5900eee39ad36c9d0de4057d46c8d46aad41878a42fb7f6a3",
+          "actual_sha256": "d9604e99ea1c85e5900eee39ad36c9d0de4057d46c8d46aad41878a42fb7f6a3",
+          "status": "MATCH"
+        }
+      ],
+      "failures": [
+        {
+          "scope": "sqlite-main-file",
+          "reason": "SHA256_MISMATCH"
+        },
+        {
+          "scope": "v2-evidence-registry",
+          "reason": "SHA256_MISMATCH"
+        }
+      ],
+      "required_file_count": 11,
+      "targetCodeExecuted": false,
+      "databaseConnectionOpened": false,
+      "networkUsed": false,
+      "filesWritten": false,
+      "claimClosurePerformed": false,
+      "claims": [
+        {
+          "id": "V35-E01",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E02",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E03",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E04",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E05",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E06",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E07",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E08",
+          "status": "OPEN_NOT_EVALUATED"
+        },
+        {
+          "id": "V35-E09",
+          "status": "OPEN_NOT_EVALUATED"
+        }
+      ],
+      "limits": [
+        "Baseline authenticity is not established by its own hash.",
+        "Metadata stability observed; no atomic multi-file snapshot is claimed.",
+        "No database integrity or legal, quality, service, or cryptographic capability evaluation."
+      ],
+      "baseline_sha256": "fb6382ec560a7470bd01f5e66d5b86f0f8c8bdac46230f1f1ee52ce9551b0579",
+      "examined_file_count": 11,
+      "matching_file_count": 9
+    }
+  },
+  "sdk_observations": {
+    "sdk_installations": [
+      {
+        "root": "/home/sheikha/google-cloud-sdk",
+        "version_metadata": "588.0.0",
+        "files": [
+          {
+            "path": "/home/sheikha/google-cloud-sdk/VERSION",
+            "bytes": 8,
+            "sha256": "38e9b0c8342fa71a4c0b74f2a86a54f12c8f7b364ca2d4a4efe384af447fc6d5"
+          },
+          {
+            "path": "/home/sheikha/google-cloud-sdk/path.bash.inc",
+            "bytes": 377,
+            "sha256": "8458095edc39bd904342f09d7d7b01938e6e0870a2f83194195fab4b3e466da5"
+          },
+          {
+            "path": "/home/sheikha/google-cloud-sdk/completion.bash.inc",
+            "bytes": 2711,
+            "sha256": "8c9e86cdb82cf777646e868430c1c9d54a47374400cf81d3fd329bb6a8a5e428"
+          },
+          {
+            "path": "/home/sheikha/google-cloud-sdk/.install/core.snapshot.json",
+            "bytes": 1022,
+            "sha256": "dbcfcc72098138229c088611767db12f8e326f94e626f5cc1659df220807af5f"
+          },
+          {
+            "path": "/home/sheikha/google-cloud-sdk/.install/bq.snapshot.json",
+            "bytes": 955,
+            "sha256": "1a614bf9ed2ac0eaa197b5a2dbc13a9c3d46fe1dcfe1d621de04536423ae49aa"
+          },
+          {
+            "path": "/home/sheikha/google-cloud-sdk/.install/bundled-python3-unix-linux-x86_64.snapshot.json",
+            "bytes": 1111,
+            "sha256": "d23ede19c920201dedfc4dd078c7069c8cc1c8988357675f4d20e1da143bee39"
+          },
+          {
+            "path": "/home/sheikha/google-cloud-sdk/.install/gsutil.snapshot.json",
+            "bytes": 974,
+            "sha256": "dc539afd13b1315d791f67bbef254d1ad00132c06b1f7a17358323ba4dadd579"
+          }
+        ],
+        "snapshot_basenames": [
+          "bq-nix.snapshot.json",
+          "bq.snapshot.json",
+          "bundled-python3-unix-linux-x86_64.snapshot.json",
+          "bundled-python3-unix.snapshot.json",
+          "core-nix.snapshot.json",
+          "core.snapshot.json",
+          "gcloud-crc32c-linux-x86_64.snapshot.json",
+          "gcloud-crc32c.snapshot.json",
+          "gcloud-deps-linux-x86_64.snapshot.json",
+          "gcloud-deps.snapshot.json",
+          "gcloud-linux-x86_64.snapshot.json",
+          "gcloud.snapshot.json",
+          "gsutil-nix.snapshot.json",
+          "gsutil.snapshot.json"
+        ],
+        "component_versions_from_local_snapshots": {
+          "core": "2026.10.02",
+          "bq": "2.1.39",
+          "bundled_python": "3.14.7",
+          "gsutil": "5.37"
+        }
+      },
+      {
+        "root": "/home/sheikha/Sheikha/google-cloud-sdk",
+        "version_metadata": "589.0.0",
+        "files": [
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/VERSION",
+            "bytes": 8,
+            "sha256": "cabb46de299bbe9a3e2e0bf9aadc233190794b3badaf584dbace34b7330ab637"
+          },
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/path.bash.inc",
+            "bytes": 377,
+            "sha256": "8458095edc39bd904342f09d7d7b01938e6e0870a2f83194195fab4b3e466da5"
+          },
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/completion.bash.inc",
+            "bytes": 2711,
+            "sha256": "8c9e86cdb82cf777646e868430c1c9d54a47374400cf81d3fd329bb6a8a5e428"
+          },
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/.install/core.snapshot.json",
+            "bytes": 1022,
+            "sha256": "b5bb8e2f1e10912b286cf4ca193c1f39ccfe10c466b994cd7371bc44d49b98cf"
+          },
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/.install/bq.snapshot.json",
+            "bytes": 955,
+            "sha256": "51050f513dcb87816162466a65db03a143b1cc20bb10d48fd383681906a1fced"
+          },
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/.install/bundled-python3-unix-linux-x86_64.snapshot.json",
+            "bytes": 1111,
+            "sha256": "2f1c10c04d29d0f09cb9acef0b247c6892cb45c2417f1784e6e6752f2734756e"
+          },
+          {
+            "path": "/home/sheikha/Sheikha/google-cloud-sdk/.install/gsutil.snapshot.json",
+            "bytes": 974,
+            "sha256": "3f0a8a00a5aedf6781074fc1889dceb320214199733faf8d298294365a0db5ae"
+          }
+        ],
+        "snapshot_basenames": [
+          "bq-nix.snapshot.json",
+          "bq.snapshot.json",
+          "bundled-python3-unix-linux-x86_64.snapshot.json",
+          "bundled-python3-unix.snapshot.json",
+          "core-nix.snapshot.json",
+          "core.snapshot.json",
+          "gcloud-crc32c-linux-x86_64.snapshot.json",
+          "gcloud-crc32c.snapshot.json",
+          "gcloud-deps-linux-x86_64.snapshot.json",
+          "gcloud-deps.snapshot.json",
+          "gcloud-linux-x86_64.snapshot.json",
+          "gcloud.snapshot.json",
+          "gsutil-nix.snapshot.json",
+          "gsutil.snapshot.json"
+        ],
+        "component_versions_from_local_snapshots": {
+          "core": "2026.10.09",
+          "bq": "2.1.40",
+          "bundled_python": "3.14.8",
+          "gsutil": "5.37"
+        }
+      }
+    ],
+    "bashrc_selected_targets": [
+      {
+        "line": 221,
+        "sdk_target": "/home/sheikha/google-cloud-sdk/path.bash.inc"
+      },
+      {
+        "line": 224,
+        "sdk_target": "/home/sheikha/google-cloud-sdk/completion.bash.inc"
+      }
+    ],
+    "review_process_command_resolution": {
+      "gcloud": null,
+      "kubectl": null,
+      "skaffold": null,
+      "minikube": "/usr/local/bin/minikube"
+    },
+    "shell_startup_files_sourced": false,
+    "cli_executed": false
+  },
+  "binary_observations": {
+    "host_architecture": "x86_64",
+    "binaries": [
+      {
+        "path": "/home/sheikha/skaffold",
+        "bytes": 1190237,
+        "executable_bits": false,
+        "sha256": "85316a69df587acdb02110300931744b7233a0249d1ab7ba126e3fbbd436739c",
+        "elf_class": 64,
+        "elf_machine": 62,
+        "load_segments": [
+          {
+            "p_offset": 0,
+            "p_filesz": 1520,
+            "file_end": 1520,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 4096,
+            "p_filesz": 52506269,
+            "file_end": 52510365,
+            "beyond_file": true
+          },
+          {
+            "p_offset": 52510720,
+            "p_filesz": 73124299,
+            "file_end": 125635019,
+            "beyond_file": true
+          },
+          {
+            "p_offset": 125638216,
+            "p_filesz": 2080776,
+            "file_end": 127718992,
+            "beyond_file": true
+          }
+        ],
+        "max_load_file_end": 127718992,
+        "section_header_table_end": 127728552,
+        "declared_load_data_fits_file": false,
+        "stable_metadata": true,
+        "executed": false
+      },
+      {
+        "path": "/usr/local/bin/minikube",
+        "bytes": 4509696,
+        "executable_bits": true,
+        "sha256": "45e87ee5c5e40c49910367a47f6fa6fa0e85891b5ce0c347467ed00467b4b550",
+        "elf_class": 64,
+        "elf_machine": 62,
+        "load_segments": [
+          {
+            "p_offset": 0,
+            "p_filesz": 9096,
+            "file_end": 9096,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 12288,
+            "p_filesz": 42571501,
+            "file_end": 42583789,
+            "beyond_file": true
+          },
+          {
+            "p_offset": 42586112,
+            "p_filesz": 61179240,
+            "file_end": 103765352,
+            "beyond_file": true
+          },
+          {
+            "p_offset": 103767512,
+            "p_filesz": 1170825,
+            "file_end": 104938337,
+            "beyond_file": true
+          }
+        ],
+        "max_load_file_end": 104938337,
+        "section_header_table_end": 142610232,
+        "declared_load_data_fits_file": false,
+        "stable_metadata": true,
+        "executed": false
+      },
+      {
+        "path": "/home/sheikha/.local/state/vs-kubernetes/tools/minikube/linux-amd64/minikube",
+        "bytes": 134891912,
+        "executable_bits": true,
+        "sha256": "099477eaf248bcb5bcea8ce78a2898e93ac01461c35189da1848c3de82ecd22e",
+        "elf_class": 64,
+        "elf_machine": 62,
+        "load_segments": [
+          {
+            "p_offset": 0,
+            "p_filesz": 8632,
+            "file_end": 8632,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 12288,
+            "p_filesz": 41141613,
+            "file_end": 41153901,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 41156608,
+            "p_filesz": 57250664,
+            "file_end": 98407272,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 98409944,
+            "p_filesz": 1506729,
+            "file_end": 99916673,
+            "beyond_file": false
+          }
+        ],
+        "max_load_file_end": 99916673,
+        "section_header_table_end": 134891912,
+        "declared_load_data_fits_file": true,
+        "stable_metadata": true,
+        "executed": false
+      },
+      {
+        "path": "/home/sheikha/.local/state/vs-kubernetes/tools/kubectl/kubectl",
+        "bytes": 59502754,
+        "executable_bits": true,
+        "sha256": "629d3f410e09bf49b64ae7079f7f0bda1191efed311f7d37fdbab0ad5b0ec2b7",
+        "elf_class": 64,
+        "elf_machine": 62,
+        "load_segments": [
+          {
+            "p_offset": 0,
+            "p_filesz": 26759697,
+            "file_end": 26759697,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 26763264,
+            "p_filesz": 31720176,
+            "file_end": 58483440,
+            "beyond_file": false
+          },
+          {
+            "p_offset": 58486784,
+            "p_filesz": 1015392,
+            "file_end": 59502176,
+            "beyond_file": false
+          }
+        ],
+        "max_load_file_end": 59502176,
+        "section_header_table_end": 1424,
+        "declared_load_data_fits_file": true,
+        "stable_metadata": true,
+        "executed": false
+      }
+    ]
+  },
+  "findings": [
+    {
+      "id": "V36-C01",
+      "status": "CONNECTION_UNVERIFIED",
+      "finding": "The three examined V36 engines register constants and local database rows; they do not implement or test the stated OAuth/API connections. Integrations elsewhere are outside this finding."
+    },
+    {
+      "id": "V36-C02",
+      "status": "PARTIAL_EXPLANATION_RECORDED",
+      "finding": "The prior observed DB hash equals V36.0's recorded hash and the current observed DB hash equals V36.2's recorded hash. This narrows the drift explanation without establishing who wrote either snapshot."
+    },
+    {
+      "id": "V36-C03",
+      "status": "SDK_SELECTION_REPAIR_OPEN",
+      "finding": "Two SDK metadata versions exist. The selected SDK hooks in .bashrc point to 588.0.0; this review process has neither SDK in PATH. The installer log's cd ~ error is consistent with entering shell text at the rc-file-name prompt."
+    },
+    {
+      "id": "V36-C04",
+      "status": "BINARY_REPAIR_OPEN",
+      "finding": "/usr/local/bin/minikube and /home/sheikha/skaffold contain PT_LOAD file ranges beyond EOF. They are structurally incomplete or inconsistent as stored and were not executed."
+    },
+    {
+      "id": "V36-C05",
+      "status": "PROVENANCE_UNVERIFIED",
+      "finding": "VS Code-managed Minikube and kubectl have the examined ELF tables and segment file ranges within their lengths, but publisher checksums, signatures, runtime behavior and cluster access were not verified."
+    }
+  ],
+  "repair_sequence": [
+    {
+      "order": 1,
+      "action": "Select one intended SDK installation and prepare an explicit PATH/completion change with a backup of the startup file; keep the other installation until the selected one is validated.",
+      "acceptance": "A newly started intended shell resolves gcloud to the selected absolute path and reports its expected version. No account configuration is inferred from this.",
+      "implemented": false
+    },
+    {
+      "order": 2,
+      "action": "Identify the owner/manager of /usr/local/bin/minikube and the partial Skaffold file. Obtain pinned Linux amd64 releases from official publishers and verify the same-version checksum before any replacement.",
+      "acceptance": "Publisher verification and ELF file-range checks pass before installation; existing files have a recoverable backup.",
+      "implemented": false
+    },
+    {
+      "order": 3,
+      "action": "Validate local client versions only after provenance and file integrity pass. Install only the components required for the selected workflow.",
+      "acceptance": "Client-only version commands succeed without creating or starting a cluster.",
+      "implemented": false
+    },
+    {
+      "order": 4,
+      "action": "Verify each required cloud service with a separately scoped read-only account call and sanitized evidence, rather than marking all service names connected.",
+      "acceptance": "Record provider, exact read-only operation, time, outcome and permitted scope without credentials; no deployment, DNS, billing or cluster mutation.",
+      "implemented": false
+    }
+  ],
+  "limitations": [
+    "No images referenced by filename in the transcript were available for visual inspection.",
+    "Version files and component snapshots describe local metadata, not operational health or authentication.",
+    "An absent command in this review process PATH does not establish absence in every shell or service.",
+    "PT_LOAD bounds use p_offset + p_filesz; memory-only BSS size is not used to classify truncation.",
+    "ELF ranges within EOF do not establish authenticity, complete integrity, runtime compatibility or safety.",
+    "No exhaustive home-directory inventory or current cloud authorization inventory is claimed.",
+    "Public documentation was consulted; no authenticated cloud connection test was performed."
+  ],
+  "primary_sources": [
+    {
+      "title": "Google Cloud CLI installation and initialization",
+      "url": "https://docs.cloud.google.com/sdk/docs/install-sdk"
+    },
+    {
+      "title": "Managing gcloud CLI components",
+      "url": "https://docs.cloud.google.com/sdk/docs/components"
+    },
+    {
+      "title": "Kubernetes kubectl Linux installation and same-version checksum verification",
+      "url": "https://kubernetes.io/docs/tasks/tools/install-kubectl-linux/"
+    },
+    {
+      "title": "Minikube start and platform-specific installation",
+      "url": "https://minikube.sigs.k8s.io/docs/start/"
+    }
+  ]
+}

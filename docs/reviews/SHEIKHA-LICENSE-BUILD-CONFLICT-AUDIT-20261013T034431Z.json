@@ -1,0 +1,123 @@
+{
+  "timestamp": "2026-10-13T03:44:31.596489+00:00",
+  "scope": "Detailed review of main portal; comparison of selected license/platform files across nearby repositories; no remote repository or vendor entitlement portal verification",
+  "status": "EXISTING_INTERNAL_LICENSE_AND_BUILD_FOUND_CONFLICTS_PENDING",
+  "sources": [
+    {
+      "file": "LICENSE-SHEIKHA.md",
+      "sha256": "9d570054fe33c0fce87b8c4c86a7ec46153facaacc0e991f25f8801e1313a42b"
+    },
+    {
+      "file": "LICENSE-PROPRIETARY.md",
+      "sha256": "3ab2b945feb418c3a5dcf911920ba06fc8d6b5851d16df9b1c85393fb52e93d6"
+    },
+    {
+      "file": "LICENSES/SHEIKHA-PROPRIETARY-GOVERNED-USE-LICENSE-V1-AR.md",
+      "sha256": "53f0d86dc9d5ab7a8fac0f0423a458eb9280ba465f6e4057789655d7022dbb87"
+    },
+    {
+      "file": "LICENSES/SHEIKHA-PROPRIETARY-GOVERNED-USE-LICENSE-V1-EN.md",
+      "sha256": "41e48da1e5003705ed02ad5ee6a2a8dbb4f525dbdd8c3b638d45beba08f7e9ad"
+    },
+    {
+      "file": "runtime/licensing-engine/v1/registries/licenses.json",
+      "sha256": "6927d21c62affd101a87f15c9780be3959c163d3db38ef1b41b7070448843e7c"
+    },
+    {
+      "file": "runtime/ownership-licensing/generated/licenses.json",
+      "sha256": "6086654d6724ed31375577ef5ec33b0ae356c740d131d0f6818fbd8ab283fb16"
+    },
+    {
+      "file": "runtime/governance/licensing/v1/sheikha-license-recognition-v1.json",
+      "sha256": "018eeb7e8851a8c1bc6e05c5e2effda699a0b35924a593eeceae1c8acaba1cf9"
+    },
+    {
+      "file": "runtime/sheikha-developer-platform/v1/sheikha-developer-platform-v1.json",
+      "sha256": "33bfa0e30148a978575c1537e3a74c5a96df210680d83b3ebefe033255982882"
+    },
+    {
+      "file": "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json",
+      "sha256": "9e94a8995189f3c4833fbbda6dee4b950f151c6bea0539ede0f58be005106812"
+    },
+    {
+      "file": "runtime/system-builder-fabric/v1/sheikha-system-builder-capability-matrix-v1.json",
+      "sha256": "cc4a28ba2e0fc9639a7483871c8996a16632cce7b2a88c8cab17328c4793e57b"
+    },
+    {
+      "file": "core/platform/sheikha-sdp-v1.cjs",
+      "sha256": "683b7a1f7565854a8a65179d3c41e2050a09318b5f3ffa53eb245658ac3ccafb"
+    },
+    {
+      "file": "tools/environment/sheikha-sdp-v1.cjs",
+      "sha256": "bee868b0eeea9ffcb4692550475ad56cbbfdcb94b8ecc162322e16fcefb4b66c"
+    }
+  ],
+  "artifacts": [
+    {
+      "file": "distribution/artifacts/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+      "bytes": 31006102,
+      "sha256": "05483747afab5c4cbb80607af6eb0cdf6966536cd005df14f8db812f18f94be5"
+    },
+    {
+      "file": "distribution/artifacts/v2/1.0.51/artifacts/sheikha-1.0.51-linux-amd64.deb",
+      "bytes": 25607636,
+      "sha256": "3ca1dfdcf690c01efdbeb382c936f2a1f9a347123d92e663176011b5972ebc42"
+    },
+    {
+      "file": "distribution/artifacts/v7/1.0.51_sheikha.v7.1/artifacts/sheikha-1.0.51-0.sheikha.v7.1.x86_64.rpm",
+      "bytes": 26200270,
+      "sha256": "936bdc0dfbb794e1fe41d8fd7799af95a9e3cc92b117a62c0b8b2383f6a571b9"
+    }
+  ],
+  "internalLicense": {
+    "id": "SHEIKHA_INTERNAL_OPERATION_LICENSE_V1",
+    "declaredState": "ACTIVE",
+    "grants": [
+      "USE",
+      "OPERATE",
+      "TEST",
+      "INTEGRATE_IN_SHEIKHA_CONTROLLED_ENVIRONMENTS"
+    ],
+    "recordContentDigestMatched": true,
+    "legalRegistrationClaimed": false,
+    "externalCertificationProof": false
+  },
+  "externalCertificatesDeclaredInExistingRegistry": 0,
+  "legacyPlatform": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+  "legacyFoundation": "system-builder-platform",
+  "findings": [
+    {
+      "id": "SDP_ARCHITECTURAL_OVERLAP",
+      "status": "UNRESOLVED",
+      "details": "New SDP CLI overlaps existing developer-platform purpose; place it as a bounded tool adapter under the existing platform, not a competing foundation."
+    },
+    {
+      "id": "DEB_SAME_IDENTITY_DIFFERENT_CONTENT",
+      "status": "UNRESOLVED",
+      "details": "Both inspected packages declare Package sheikha, Version 1.0.51, Architecture amd64 but have different file hashes. Select canonical artifact by provenance; hash difference alone is not proof of corruption."
+    },
+    {
+      "id": "RPM_REPORT_REFERENCE_MISSING",
+      "status": "UNRESOLVED",
+      "details": "RPM artifact exists and its hash matches the capability-matrix baseline; referenced runtime/distribution/v7/evidence/sheikha-v7-rpm-native-build-report.json is missing in this checkout. Dependency declarations and native install remain unqualified in the stored profile."
+    },
+    {
+      "id": "INTERNAL_VERSUS_EXTERNAL_LICENSE",
+      "status": "DISTINCTION_CONFIRMED",
+      "details": "Existing internal contractual rights are not third-party QNX/VxWorks/INTEGRITY entitlements or a safety certification."
+    },
+    {
+      "id": "SDP_DISTRIBUTION_LICENSE_NOTICES",
+      "status": "REVIEW_REQUIRED_BEFORE_DISTRIBUTION",
+      "details": "SDP artifacts are local development outputs. Before external distribution, bind them to the existing applicable license and third-party notices; no new or replacement license has been issued."
+    }
+  ],
+  "unchanged": {
+    "existingLicenseRecords": true,
+    "legacyBuilderAndRegistries": true,
+    "packagesInstalled": false,
+    "newBuildTriggered": false,
+    "gitMerge": false,
+    "externalRequestsSent": false
+  }
+}

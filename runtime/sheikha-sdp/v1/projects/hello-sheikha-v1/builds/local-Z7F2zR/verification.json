@@ -1,0 +1,205 @@
+{
+  "id": "hello-sheikha-v1",
+  "status": "PROJECT_BYTECODE_LOCAL_VERIFIED",
+  "binding": {
+    "status": "EXISTING_PLATFORM_AND_INTERNAL_SCOPE_MATCHED",
+    "passed": true,
+    "checks": {
+      "licenseDigest": true,
+      "internalLicense": true,
+      "scope": true,
+      "grants": true,
+      "existingPlatform": true,
+      "parentHierarchy": true,
+      "defaultDeny": true
+    },
+    "parentPlatform": "SHEIKHA_DEVELOPER_PLATFORM_V1",
+    "foundation": "system-builder-platform",
+    "adapter": "SHEIKHA_SDP_LOCAL_BYTECODE_ADAPTER_V1",
+    "role": "BOUNDED_LOCAL_DEVELOPMENT_TOOL",
+    "registryEntryModified": false,
+    "licenseSource": "runtime/ownership-licensing/generated/licenses.json",
+    "externalCertificationGranted": false,
+    "productionAuthorized": false,
+    "rightsAuthenticity": "DECLARED_INTERNAL_RECORD_NOT_INDEPENDENTLY_AUTHENTICATED",
+    "sourceDigests": {
+      "runtime/ownership-licensing/generated/licenses.json": "6086654d6724ed31375577ef5ec33b0ae356c740d131d0f6818fbd8ab283fb16",
+      "runtime/sheikha-developer-platform/v1/sheikha-developer-platform-v1.json": "33bfa0e30148a978575c1537e3a74c5a96df210680d83b3ebefe033255982882",
+      "runtime/system-builder-fabric/v1/sheikha-system-builder-platform-hierarchy-v1.json": "9e94a8995189f3c4833fbbda6dee4b950f151c6bea0539ede0f58be005106812",
+      "runtime/system-builder-fabric/v1/sheikha-system-builder-tool-registry-v1.json": "f07f2c28053383efe6d666155144948d7276fc90c4756e91c506c4263302cce9"
+    }
+  },
+  "sourceSha256": "393e8b8e13300473f9a5345cbfb12852722e44a99ea44697635a17fe3734a6d9",
+  "ir": {
+    "type": "SheikhaIR",
+    "version": "0.2.0",
+    "meta": {
+      "nodes": 2,
+      "generatedAt": "2026-10-13T04:32:48.290Z"
+    },
+    "steps": [
+      {
+        "op": "DIRECTIVE",
+        "name": "بسم_الله",
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        }
+      },
+      {
+        "op": "PROCEDURE_BEGIN",
+        "name": "البداية",
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 1
+          },
+          "end": {
+            "line": 4,
+            "column": 1
+          }
+        }
+      },
+      {
+        "op": "COMMAND",
+        "procedure": "البداية",
+        "command": "اعرض",
+        "argument": "\"SHEIKHA_PROJECT_LOCAL_OK\"",
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 34
+          }
+        }
+      },
+      {
+        "op": "PROCEDURE_END",
+        "name": "البداية",
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 1
+          },
+          "end": {
+            "line": 4,
+            "column": 1
+          }
+        }
+      }
+    ]
+  },
+  "bytecode": {
+    "type": "SheikhaBytecode",
+    "version": "0.1.0",
+    "neuralProfile": {
+      "mesh": "SHEIKHA_GOVERNED_COMPILED_VM_V1",
+      "cells": 57,
+      "metricKind": "compatibility_profile_not_intelligence_claim",
+      "layers": {
+        "lexer": true,
+        "parser": true,
+        "types": true,
+        "ir": true,
+        "bytecode": true,
+        "governance": true,
+        "sandbox": true
+      },
+      "valuesReference": {
+        "basis": "QURAN_AND_AUTHENTIC_SUNNAH",
+        "executable": false,
+        "automatedFatwaAllowed": false,
+        "religiousAuthorityClaimed": false
+      }
+    },
+    "instructions": [
+      {
+        "code": "PUSH_DIRECTIVE",
+        "op": "DIRECTIVE",
+        "name": "بسم_الله",
+        "loc": {
+          "start": {
+            "line": 1,
+            "column": 1
+          },
+          "end": {
+            "line": 1,
+            "column": 9
+          }
+        }
+      },
+      {
+        "code": "OPEN_PROCEDURE",
+        "op": "PROCEDURE_BEGIN",
+        "name": "البداية",
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 1
+          },
+          "end": {
+            "line": 4,
+            "column": 1
+          }
+        }
+      },
+      {
+        "code": "CALL_COMMAND",
+        "op": "COMMAND",
+        "procedure": "البداية",
+        "command": "اعرض",
+        "argument": "\"SHEIKHA_PROJECT_LOCAL_OK\"",
+        "loc": {
+          "start": {
+            "line": 3,
+            "column": 3
+          },
+          "end": {
+            "line": 3,
+            "column": 34
+          }
+        }
+      },
+      {
+        "code": "CLOSE_PROCEDURE",
+        "op": "PROCEDURE_END",
+        "name": "البداية",
+        "loc": {
+          "start": {
+            "line": 2,
+            "column": 1
+          },
+          "end": {
+            "line": 4,
+            "column": 1
+          }
+        }
+      }
+    ]
+  },
+  "execution": {
+    "success": true,
+    "status": "VERIFIED_DRY_RUN",
+    "output": [
+      "\"SHEIKHA_PROJECT_LOCAL_OK\""
+    ],
+    "evidence": {
+      "adapterDryRun": true,
+      "strictIsolation": true,
+      "violations": [],
+      "instructions": 4,
+      "adapterCalls": []
+    }
+  },
+  "nativeBinaryGenerated": false,
+  "productionReady": false
+}

@@ -1,0 +1,83 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>شيخة | سجل الأصول</title>
+  <link rel="icon" href="/images/sheikha-emblem-hd.png"><link rel="stylesheet" href="./workspace.css"><link rel="stylesheet" href="./assets.css">
+  <script src="./assets.js" defer></script>
+</head>
+<body>
+  <a class="skip" href="#main">تجاوز إلى المحتوى</a>
+  <header class="topbar">
+    <a class="brand" href="./#/sheikha"><img src="/images/sheikha-emblem-hd.png" alt="" width="42" height="42"><span>شيخة <small>SHEIKHA</small></span></a>
+    <nav aria-label="التنقل الرئيسي"><a href="./#/sheikha">المنظومة</a><a href="./#/market">السوق</a><a href="./assets.html" aria-current="page">الأصول</a><a href="./industry-runtime.html">التجمع الصناعي</a><a href="./#/operations">التشغيل</a></nav>
+    <span class="local-label">توثيق محلي · الإنتاج متوقف</span>
+  </header>
+  <main id="main" tabindex="-1">
+    <section class="content band" aria-labelledby="title">
+      <div class="heading"><div><p class="eyebrow">SHEIKHA ASSET REGISTER</p><h1 id="title" class="page-title">سجل الأصول والقدرات</h1></div><div class="asset-actions">
+        <button id="asset-refresh" class="icon-button" title="تحديث الأدلة المحلية" aria-label="تحديث الأدلة المحلية"><img class="icon" src="/architecture-explorer/icons/refresh-cw.svg" alt=""></button>
+        <button id="asset-export" class="icon-button" title="تنزيل ملف الرقمنة" aria-label="تنزيل ملف الرقمنة" disabled><img class="icon" src="/architecture-explorer/icons/download.svg" alt=""></button>
+      </div></div>
+      <p class="notice">شراء مُبلّغ عنه من المالك؛ أدلة الشراء ونطاق كل أصل قيد الاستكمال. لا اعتماد تشغيل أو شهادة امتثال آلية.</p>
+      <figure class="asset-panorama"><img src="./assets/campus.png" alt="مرئي تصوري لمرافق شيخة"><figcaption>تصور معماري، لا دليل على شراء منشأة</figcaption></figure>
+      <p id="asset-status" role="status">جارٍ قراءة الأدلة المحلية</p><p id="asset-summary" class="subtle"></p>
+    </section>
+    <div id="asset-content" class="content band" hidden>
+      <div class="asset-tabs" role="tablist" aria-label="عروض الأصول">
+        <button id="tab-register" role="tab" aria-controls="panel-register" aria-selected="true" tabindex="0">السجل</button>
+        <button id="tab-architecture" role="tab" aria-controls="panel-architecture" aria-selected="false" tabindex="-1">المعمارية</button>
+        <button id="tab-readiness" role="tab" aria-controls="panel-readiness" aria-selected="false" tabindex="-1">الجاهزية</button>
+        <button id="tab-plan" role="tab" aria-controls="panel-plan" aria-selected="false" tabindex="-1">المتطلبات</button>
+        <button id="tab-evidence" role="tab" aria-controls="panel-evidence" aria-selected="false" tabindex="-1">الأدلة</button>
+      </div>
+      <section id="panel-register" role="tabpanel" aria-labelledby="tab-register">
+        <details id="asset-inventory-scope" class="inventory-scope" hidden>
+          <summary>نطاق الجرد الشامل</summary>
+          <p class="notice">شمول الفئات مطلوب؛ القائمة التفصيلية وأدلة الشراء غير مكتملة. وجود فئة هنا لا يثبت امتلاك أصول فيها أو تفويض تشغيلها.</p>
+          <div id="inventory-categories"></div>
+        </details>
+        <div class="asset-filters"><label>البحث<input type="search" id="asset-search" maxlength="100" placeholder="أصل أو قدرة"></label><label>نوع الأصل<select id="asset-kind"><option value="">جميع الأنواع</option><option value="DOMAIN">نطاق</option><option value="SERVICE">خدمة</option><option value="SOFTWARE">مصدر برمجي</option><option value="DESIGN_PACKAGE">حزمة تصميم</option></select></label></div>
+        <div class="asset-layout"><div><ul id="asset-list" class="asset-list"></ul><p id="asset-empty" hidden>لا أصول مطابقة.</p></div>
+          <section id="asset-passport" aria-labelledby="passport-title">
+            <div class="heading"><h2 id="passport-title" tabindex="-1"></h2><button id="passport-export" class="icon-button" title="تنزيل بطاقة الأصل" aria-label="تنزيل بطاقة الأصل"><img class="icon" src="/architecture-explorer/icons/download.svg" alt=""></button></div>
+            <p id="passport-code" class="source"></p><p id="passport-role"></p><dl id="passport-facts" class="facts"></dl>
+            <h3>القدرات المقترحة</h3><ul id="passport-capabilities"></ul><h3>الأدلة المطلوبة</h3><ul id="passport-needs"></ul>
+            <h3>الأصول المرتبطة</h3><p id="passport-dependencies"></p>
+            <h3>الخطوة التالية</h3><p id="passport-next"></p><a id="passport-plan" class="asset-plan-link" href="#panel-plan">متطلبات الأصل ومعايير قبوله</a>
+            <a id="passport-lab" class="asset-plan-link" href="./supplier-lab.html" hidden>مختبر الموردين ببيانات تجريبية</a>
+          </section>
+        </div>
+      </section>
+      <section id="panel-architecture" role="tabpanel" aria-labelledby="tab-architecture" hidden>
+        <div class="heading"><h2>المخطط المعماري المقترح</h2><span class="tag">لم يُنشر أو يُربط خارجيًا</span></div>
+        <ol id="asset-layers" class="asset-layers"></ol>
+        <h3>عقود الترابط المقترحة</h3><table class="asset-table"><thead><tr><th scope="col">الأصل</th><th scope="col">يعتمد على</th><th scope="col">الحالة</th></tr></thead><tbody id="asset-links"></tbody></table>
+      </section>
+      <section id="panel-readiness" role="tabpanel" aria-labelledby="tab-readiness" hidden>
+        <div class="heading"><h2>بوابات الجاهزية والمسؤوليات</h2><span class="tag">المسؤولون لم يُعيّنوا بعد</span></div>
+        <p>مرجعية الكتاب والسنة، مع الصدق والأمانة والعدل وحفظ الحقوق والموارد. المسائل الشرعية التطبيقية تحتاج مراجعة مؤهلة؛ لا تمنح البيانات الوصفية شهادة امتثال.</p>
+        <div id="asset-gates"></div>
+      </section>
+      <section id="panel-evidence" role="tabpanel" aria-labelledby="tab-evidence" hidden>
+        <h2>سجل الأدلة المحلية</h2><p id="asset-duplicates"></p><p id="asset-package" class="notice"></p>
+        <div id="asset-sources"></div><details><summary>ملف الرقمنة</summary><pre id="asset-json" dir="ltr"></pre></details>
+      </section>
+      <section id="panel-plan" role="tabpanel" aria-labelledby="tab-plan" hidden>
+        <div class="heading"><h2>متطلبات التنفيذ والقبول</h2><button id="plan-export" class="icon-button" title="تنزيل خطة المتطلبات" aria-label="تنزيل خطة المتطلبات"><img class="icon" src="/architecture-explorer/icons/download.svg" alt=""></button></div>
+        <p class="notice">خطة مقترحة؛ لا موافقات مسجلة ولا اختبارات قبول منفذة. الفحوص المحلية لا تثبت الملكية أو جاهزية التشغيل.</p>
+        <p id="plan-summary"></p>
+        <div class="requirement-filters">
+          <label>البحث في المتطلبات<input type="search" id="requirement-search" maxlength="100" placeholder="متطلب أو معيار قبول"></label>
+          <label>الأصل<select id="requirement-asset"><option value="">جميع الأصول</option></select></label>
+          <label>الحالة<select id="requirement-status"><option value="">جميع الحالات</option><option value="LOCAL_PASS">فحص محلي ناجح</option><option value="LOCAL_FAIL">فحص محلي غير مستوفى</option><option value="NOT_TESTED">قبول غير مختبر</option><option value="REVIEW_REQUIRED">مراجعة مطلوبة</option></select></label>
+        </div>
+        <p id="requirement-count" role="status"></p><p id="requirement-empty" hidden>لا متطلبات مطابقة.</p>
+        <div id="asset-requirements"></div>
+      </section>
+    </div>
+  </main>
+  <footer class="content"><strong>شيخة | SHEIKHA</strong><span>الأدلة لا تنقل الصلاحيات بين GPT وCodex</span><span dir="ltr">SHEIKHA UGIT-RP</span></footer>
+  <noscript><p class="notice">JavaScript غير مفعّل؛ سجل الأصول التفاعلي غير متاح.</p></noscript>
+</body>
+</html>

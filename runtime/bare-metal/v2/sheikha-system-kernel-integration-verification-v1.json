@@ -1,0 +1,56 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_SYSTEM_BARE_METAL_KERNEL_INTEGRATION_VERIFICATION_V1",
+  "verifiedAt": "2026-08-31",
+  "status": "K1_PHYSICAL_BOOT_VERIFIED_SECURE_BOOT_AND_OS_GATES_PENDING",
+  "currentVerification": {
+    "verifiedAt": "2026-08-31T19:18:33.631Z",
+    "scope": "NON_DESTRUCTIVE_BUILD_QEMU_STRUCTURE_AND_TESTS",
+    "tests": {
+      "suitesPassed": 2,
+      "suitesFailed": 0,
+      "testsPassed": 10,
+      "testsFailed": 0
+    }
+  },
+  "artifacts": {
+    "roadmapDocumentSha256": "de1220b4a631ba7f75da8ac22104b9b025a8423c685ee9f614bb615f919991b7",
+    "roadmapRegistrySha256": "65b75fd32ff295af75142ce2556cba34c3a680f3a4ee799e7cf7742613d0832d",
+    "phase2bImageSha256": "2a1965845071475d36b824dad31fa08aa49b91182e7d3724779d07f342ae907c",
+    "msiUsbGptImageSha256": "0470dfd54e73f7b1c2519d6082797b6090daa1a32bb12c97f7163bd82d902cd3",
+    "bootx64EfiSha256": "60a84eea1de80fd9a00ff48ba9482bb656af2e5a7d9512531cdf6f4e21db85f9"
+  },
+  "boundaries": {
+    "historicalQemuEvidencePresent": true,
+    "currentQemuReverificationExecuted": true,
+    "currentQemuReverificationVerified": true,
+    "phase2bVerified": true,
+    "cr3LoadedAtRuntime": true,
+    "tlbInvalidationExecutedAtRuntime": true,
+    "bootArtifactStructurallyVerified": true,
+    "msiUsbImageBuilt": true,
+    "msiUsbImageQemuVerified": true,
+    "msiUsbImageWritten": true,
+    "msiUsbPostWriteReadbackVerified": true,
+    "physicalBootVerified": true,
+    "firstPhysicalBootObserved": true,
+    "firstPhysicalKernelHandoffVerifiedByGreenBar": true,
+    "firstPhysicalControlledHaltObserved": true,
+    "firstPhysicalHostRecoveryVerified": true,
+    "secondIndependentColdBootVerified": true,
+    "secureBootVerified": false,
+    "generalPurposeOperatingSystemComplete": false,
+    "physicalMediaWrittenByThisVerification": true,
+    "internalDiskModified": false,
+    "firmwareOrNvramModified": false
+  },
+  "completionGates": {
+    "generalPurposeOperatingSystemComplete": false,
+    "allDriversComplete": false,
+    "physicalHardwareBootVerified": true,
+    "secureBootVerified": false
+  },
+  "nextGate": "K2_MEMORY_INTERRUPTS_SCHEDULER_AND_24_HOUR_QEMU_STRESS",
+  "temporaryFirmwareSource": "/tmp/sheikha-ovmf/usr/share/OVMF/OVMF_CODE.fd",
+  "claimPolicy": "A valid EFI artifact and boot image do not prove current QEMU boot, physical hardware boot, Secure Boot, or a complete general-purpose operating system."
+}

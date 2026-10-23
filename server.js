@@ -1,3 +1,28 @@
+// بسم الله الرحمن الرحيم - SHEIKHA SUPREME V44
+// لا إله إلا الله محمد رسول الله
+// SHEIKHA_SUPREME_STARTUP_BEGIN
+require('./global-neural-governance-init.js');
+{
+  const activationModule = './core/supreme/sheikha-supreme-full-activation.js';
+  let activationPath;
+  try {
+    activationPath = require.resolve(activationModule);
+  } catch (error) {
+    if (error.code !== 'MODULE_NOT_FOUND') throw error;
+    console.warn('[SHEIKHA_SUPREME] NOT_CONFIGURED: activation module is missing');
+  }
+  if (activationPath) {
+    try {
+      require(activationPath);
+    } catch (_error) {
+      // A partially loaded module must not be reported as successful activation.
+      throw new Error('SHEIKHA_SUPREME_ACTIVATION_LOAD_FAILED');
+    }
+    console.log('[SHEIKHA_SUPREME] MODULE_LOADED: runtime capabilities are not yet verified');
+  }
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+// SHEIKHA_SUPREME_STARTUP_END
+
 const { registerOptionalEngineStubs, governedResolveEngine } = require('./core/engine-registry/sheikha-governed-engine-registry-v2');
 const { resolveEngine } = require('./core/engine-registry/sheikha-engine-registry-v1');
 const {
@@ -37,8 +62,7 @@ function governedCronSchedule(expression, task, options) {
   }
 
   return cron.schedule(expression, task, options);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 const WebSocket = require('ws');
 const appConfig = require('./config/config');
 const unifiedRuntimeRegistry = require('./config/runtime-registry');
@@ -63,8 +87,7 @@ try {
   console.log('✅ SHEIKHA Governed Engine Registry V2 ACTIVE');
 } catch (error) {
   console.warn('⚠️ SHEIKHA Governed Engine Registry V2 bootstrap warning:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 const app = express();
 
 // SHEIKHA_OWNERSHIP_LICENSING_PRODUCTION_ENTRYPOINT_V1
@@ -126,6 +149,15 @@ app.use(
   '/api/site-registry/v2',
   require(
     './routes/site-registry/sheikha-site-registry-routes-v2'
+  )
+);
+
+// SHEIKHA PAGE -> DOMAIN -> ENGINE -> INTEGRATION REGISTRY V3
+// Additive only: V2 remains canonical for public routes and aliases.
+app.use(
+  '/api/site-registry/v3',
+  require(
+    './routes/site-registry/sheikha-engine-domain-routes-v3'
   )
 );
 
@@ -374,9 +406,6 @@ app.use(require('./routes/sheikha-enterprise-inspector-v3-routes'));
 try {
     app.use(require('./routes/recovery-health/sheikha-recovery-health-routes'));
     console.log('[Sheikha] Recovery Health Governance routes mounted');
-} catch (e) {
-    console.warn('[Sheikha] Recovery Health Governance route mount failed:', e.message);
-}
 app.use(require('./routes/sheikha-vscode-extension-experience-apex-routes'));
 app.use(require('./routes/vital-chat-apex/sheikha-vital-chat-apex-routes'));
 app.use(require('./routes/debugging-apex/sheikha-debugging-apex-routes'));
@@ -394,6 +423,9 @@ app.use(require('./routes/log-intelligence-v2/sheikha-log-intelligence-v2-routes
 app.use(require('./routes/backend-registry-intelligence/sheikha-backend-registry-intelligence-routes'));
 app.use(require('./routes/sheikha-technical-life-fabric-routes'));
 app.use(require('./routes/sheikha-extension-chat-compat-routes'));
+app.use('/api/sheikha/robotics/v1', require('./routes/sheikha-robotics-v1.cjs'));
+app.use('/api/sheikha/foundation/managed/v1', require('./routes/sheikha-foundation-management-v1.cjs'));
+app.use('/api/sheikha/language/managed/v1', require('./routes/sheikha-managed-language-v1.cjs'));
 app.use(require('./routes/sheikha-foundry-routes'));
 app.use(require('./routes/sheikha-foundry-v2-routes'));
 app.use(require('./routes/enterprise-saas-runtime-routes'));
@@ -421,23 +453,11 @@ app.use(require('./routes/sheikha-direct-repair-governance-routes'));
 
 try {
   console.log('[Sheikha] Programming route mounted');
-} catch (e) {
-  console.warn('[Sheikha] Programming route mount failed:', e.message);
-}
-
   console.log('[Sheikha] Runtime chat endpoint mounted');
-} catch (e) {
-  console.warn('[Sheikha] Runtime chat endpoint mount failed:', e.message);
-}
-
 app.use('/api/runtime/identity', runtimeIdentityRoutes);
   app.use('/api/operating-system', runtimeIdentityRoutes);
   app.use('/api/root-identity', runtimeIdentityRoutes);
   console.log('✅ Sheikha Operating System identity ACTIVE', SHEIKHA_RUNTIME_IDENTITY.officialName);
-} catch (e) {
-  console.error('❌ Sheikha Operating System identity failed:', e.message);
-}
-
 // ===== Root Control Plane — Central Governance Layer =====
 try {
   const rootControlPlaneRoutes = require('./routes/root-control-plane.routes');
@@ -464,10 +484,6 @@ app.use('/governance', express.static('governance'));
 
 app.use('/api/root-control-plane', rootControlPlaneRoutes);
   console.log('✅ Root Control Plane ACTIVE on /api/root-control-plane');
-} catch (e) {
-  console.error('❌ Root Control Plane failed:', e.message);
-}
-
 function optionalRequire(modulePath) {
     try {
         return require(modulePath);
@@ -478,8 +494,7 @@ function optionalRequire(modulePath) {
         }
         return null;
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // 📜 SHEIKHA CHARTER — Runtime Governance Switches
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -508,8 +523,7 @@ if (typeof runtimeBootstrap === 'function') {
     }
 } else {
     console.log('⚠️ Runtime bootstrap غير متوفر — سيتم تشغيل الوضع الاحتياطي');
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 const {
     SHEIKHA_CHARTER_ENFORCED,
     STARTUP_L0_ONLY,
@@ -568,8 +582,7 @@ function analyzeAndImprove() {
             fs.writeFileSync('self-improvement-latest.json', JSON.stringify(report, null, 2));
         } catch (e) {}
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // مراقبة دورية كل 5 دقائق
 setInterval(analyzeAndImprove, 5 * 60 * 1000);
 // تحليل أولي عند التشغيل
@@ -632,8 +645,7 @@ function loadEngineOnDemand(engineFile) {
         }
     }
     return lazyEngines[engineFile];
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function isEngineCritical(engineFile) {
     return CRITICAL_ENGINES_L0.includes(engineFile);
 }
@@ -658,9 +670,6 @@ let SheikaAIEngine = null;
 try {
     SheikaAIEngine = require('./lib/sheikha-ai-engine.js');
     console.log('✅ محرك ذكاء شيخة المتقدم - تم التحميل');
-} catch (e) {
-    console.log('⚠️ محرك ذكاء شيخة غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] محرك ذكاء شيخة — سيُحمّل عند الطلب');
 
@@ -674,9 +683,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-local-mind.js — سيُحمّل عند الطلب');
     sheikhaLocalMind = new SheikhaLocalMind();
     console.log('✅ 🧠 العقل المحلي المستقل (Neural + Lexicon + Mind) — مُفعّل بدون APIs خارجية');
-} catch (e) {
-    console.log('⚠️ العقل المحلي غير متوفر:', e.message);
-}
 */
 console.log('⏸️ العقل المحلي — معطّل مؤقتاً (P0-1 تسريع)');
 
@@ -687,9 +693,6 @@ let DevelopmentEngine = null;
 try {
     DevelopmentEngine = require('./lib/development-engine.js');
     console.log('✅ محرك التطوير المتكامل (Sheikha IDE + Local AI Gateway) - تم التحميل');
-} catch (e) {
-    console.log('⚠️ محرك التطوير غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Development Engine — سيُحمّل عند الطلب');
 
@@ -703,9 +706,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-navigator.js — سيُحمّل عند الطلب');
     sheikaNav = new SheikaNavigator(path.join(__dirname, 'data'));
     console.log('✅ Navigator — محرك الناقل الذكي مفعّل');
-} catch (e) {
-    console.log('⚠️ Navigator غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Navigator — سيُحمّل عند الطلب');
 
@@ -719,9 +719,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-marketing-engine.js — سيُحمّل عند الطلب');
     marketingEngine = new SheikaMarketingEngine(__dirname);
     console.log('✅ Marketing Engine — محرك التسويق الرقمي مفعّل');
-} catch (e) {
-    console.log('⚠️ Marketing Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Marketing Engine — سيُحمّل عند الطلب');
 
@@ -738,10 +735,6 @@ try {
     } else {
         console.log('⚠️ Pilot Engine غير متوفر: missing');
     }
-} catch (e) {
-    console.log('⚠️ Pilot Engine غير متوفر:', e.message);
-}
-
 // ═══ EXCELLENCE ENGINE — محرك الإتقان والتقدم العلمي والتجاري والتقني ═══
 // ═══ P0-1: LAZY — محرك L1 ═══
 let excellenceEngine = null;
@@ -752,9 +745,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-excellence-engine.js — سيُحمّل عند الطلب');
     excellenceEngine = new SheikaExcellenceEngine(__dirname);
     console.log('✅ Excellence Engine — محرك الإتقان والتقدم مفعّل');
-} catch (e) {
-    console.log('⚠️ Excellence Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Excellence Engine — سيُحمّل عند الطلب');
 
@@ -768,9 +758,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-four-phase-engine.js — سيُحمّل عند الطلب');
     fourPhaseEngine = new SheikaFourPhaseEngine(__dirname);
     console.log(`✅ Four-Phase Engine — المرحلة الحالية: ${fourPhaseEngine.getCurrentPhase()}`);
-} catch (e) {
-    console.log('⚠️ Four-Phase Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Four-Phase Engine — سيُحمّل عند الطلب');
 
@@ -784,9 +771,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-ai-advancement-engine.js — سيُحمّل عند الطلب');
     aiAdvancementEngine = new SheikaAIAdvancementEngine(__dirname);
     console.log(`✅ AI Advancement Engine — المستوى: ${aiAdvancementEngine.getCurrentLevel().name}`);
-} catch (e) {
-    console.log('⚠️ AI Advancement Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] AI Advancement Engine — سيُحمّل عند الطلب');
 
@@ -802,9 +786,6 @@ try {
     // P0-1: تشغيل تلقائي معطّل للتسريع — يُفعّل يدوياً عند الحاجة
     // productionEngine.startAutoProduction();
     console.log('✅ Production Engine — مُحمّل (Auto-start: معطّل مؤقتاً)');
-} catch (e) {
-    console.log('⚠️ Production Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Production Engine — سيُحمّل عند الطلب');
 
@@ -820,9 +801,6 @@ try {
     // P0-1: مراقبة تلقائية معطّلة للتسريع — تُفعّل يدوياً عند الحاجة
     // monitorEngine.startAutoMonitor(30000);
     console.log('✅ Monitor & Index Engine — مُحمّل (Auto-monitor: معطّل مؤقتاً)');
-} catch (e) {
-    console.log('⚠️ Monitor Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Monitor Engine — سيُحمّل عند الطلب');
 
@@ -837,9 +815,6 @@ try {
     dimEngine = new SheikaDIMEngine(__dirname);
     dimEngine.initializeDefaults();
     console.log(`✅ DIM Engine — منهج الإتقان الرقمي (${dimEngine.workItems.length} عنصر عمل، ${dimEngine.decisions.length} قرار)`);
-} catch (e) {
-    console.log('⚠️ DIM Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] DIM Engine — سيُحمّل عند الطلب');
 
@@ -853,9 +828,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-automation-engine.js — سيُحمّل عند الطلب');
     automationEngine = new SheikhaAutomationEngine({ dataDir: path.join(__dirname, 'data') });
     console.log(`✅ Automation Engine v2.0 — ${automationEngine.functions.size} وظيفة حقيقية | ${automationEngine.workflows.size} سير عمل | ${automationEngine.actions.size} إجراء | تغطية ${automationEngine.kpis.automationCoverage}% | n8n bridge: ${automationEngine.n8nBridge.enabled ? 'مُفعَّل' : 'معطّل'}`);
-} catch (e) {
-    console.log('⚠️ Automation Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Automation Engine — سيُحمّل عند الطلب');
 
@@ -870,9 +842,6 @@ try {
     surveyEngine = new SheikhaStandardsSurveyEngine(__dirname);
     const sd = surveyEngine.getDashboard();
     console.log(`✅ Survey & Feedback Engine — ${sd.sum.tpls} استبيان | ${sd.sum.qs} سؤال | ${sd.sum.ch} قناة جمع | ${sd.principles} مبدأ شرعي | إتقان ${sd.itq.score}%`);
-} catch (e) {
-    console.log('⚠️ Survey Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Survey Engine — سيُحمّل عند الطلب');
 
@@ -907,10 +876,6 @@ try {
     });
     const bd = aiCommsBridge.getDashboard();
     console.log(`\u2705 AI-Comms Bridge \u2014 ${bd.summary.totalUniversalChannels || '?'} \u0642\u0646\u0627\u0629 \u0634\u0627\u0645\u0644\u0629 | ${bd.summary.socialMedia || 0} \u062a\u0648\u0627\u0635\u0644 | ${bd.summary.marketingChannels || 0} \u062a\u0633\u0648\u064a\u0642 | ${bd.summary.salesChannels || 0} \u0645\u0628\u064a\u0639\u0627\u062a | ${bd.summary.logisticsChannels || 0} \u0644\u0648\u062c\u0633\u062a\u064a\u0627\u062a | ${bd.summary.dataSources || 0} \u0645\u0635\u062f\u0631 \u0628\u064a\u0627\u0646\u0627\u062a | ${bd.summary.capabilities} \u0642\u062f\u0631\u0629 AI | ${bd.summary.thinkingModes} \u062a\u0641\u0643\u064a\u0631 | AI:${bd.aiConnected ? '\u2705' : '\u274c'} Comms:${bd.commsConnected ? '\u2705' : '\u274c'}`);
-} catch (e) {
-    console.log('\u26a0\ufe0f AI-Comms Bridge \u063a\u064a\u0631 \u0645\u062a\u0648\u0641\u0631:', e.message);
-}
-
 // ═══ IHSAN ENGINE — منظومة شيخة للإحسان الرقمي والأساسي ═══
 let ihsanEngine = null;
 try {
@@ -920,10 +885,6 @@ try {
     ihsanEngine = new SheikhaIhsanEngine(__dirname);
     const d = ihsanEngine.getDashboard();
     console.log(`✅ Ihsan Engine — ${d.ihsanLevels} مستوى إحسان | ${d.digitalApplications} تطبيق رقمي | ${d.principles} مبدأ شرعي | إحسان ${d.ihsanScore}%`);
-} catch (e) {
-    console.log('⚠️ Ihsan Engine غير متوفر:', e.message);
-}
-
 // ═══ ITQAN SYSTEM ENGINE — منظومة شيخة للإتقان الأساسي والرقمي ═══
 let itqanSystemEngine = null;
 try {
@@ -933,10 +894,6 @@ try {
     itqanSystemEngine = new SheikhaItqanSystemEngine();
     const d = itqanSystemEngine.getDashboard();
     console.log(`✅ Itqan System Engine — ${d.domains} مجال إتقان | ${d.levels} مستوى | ${d.zeroDefectsRules} قاعدة صفر أخطاء | ${d.principles} أساس شرعي`);
-} catch (e) {
-    console.log('⚠️ Itqan System Engine غير متوفر:', e.message);
-}
-
 // ═══ QURAN & DHIKR ENGINE — منظومة القرآن والذكر والباقيات الصالحات ═══
 let quranDhikrEngine = null;
 try {
@@ -946,10 +903,6 @@ try {
     quranDhikrEngine = new SheikhaQuranDhikrEngine();
     const d = quranDhikrEngine.getDashboard();
     console.log(`✅ Quran & Dhikr Engine — ${d.surahs} سورة | ${d.ayat} آية | ${d.adhkarCount} ذكر | ${d.baqiyatCount} باقية صالحة | ${d.features} ميزة رقمية`);
-} catch (e) {
-    console.log('⚠️ Quran & Dhikr Engine غير متوفر:', e.message);
-}
-
 // ═══ TAQWA ENGINE — منظومة تقوى الله — إن أكرمكم عند الله أتقاكم ═══
 let taqwaEngine = null;
 try {
@@ -957,10 +910,6 @@ try {
     taqwaEngine = new SheikhaTaqwaEngine();
     const d = taqwaEngine.getDashboard();
     console.log(`✅ Taqwa Engine — ${d.pillars} ركيزة تقوى | ${d.businessRules} ضابط تجاري | ${d.rewards} ثمرة | تقوى ${d.taqwaScore}%`);
-} catch (e) {
-    console.log('⚠️ Taqwa Engine غير متوفر:', e.message);
-}
-
 // ═══ EXPERIENCE ENGINE — محرك التجربة المتكاملة على نهج الرسول ﷺ ═══
 let experienceEngine = null;
 try {
@@ -968,10 +917,6 @@ try {
     experienceEngine = new SheikhaExperienceEngine();
     const d = experienceEngine.getDashboard();
     console.log(`✅ Experience Engine — ${d.summary.totalJourneys} رحلة | ${d.summary.totalSteps} خطوة | ${d.propheticPrinciples.total} مبدأ نبوي | إتقان ${d.metrics.itqanScore}%`);
-} catch (e) {
-    console.log('⚠️ Experience Engine غير متوفر:', e.message);
-}
-
 // ═══ GOV ENGINE — محرك الأنظمة الحكومية الشامل (سعودي + دولي + شركات حكومية) ═══
 let govEngine = null;
 try {
@@ -980,10 +925,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-gov-engine.js — سيُحمّل عند الطلب');
     govEngine = new SheikhaGovEngine();
     console.log(`✅ Gov Engine — ${govEngine.saudiEntities.length} جهة سعودية | ${govEngine.countries.length} دولة | ${govEngine.govCompanies.length} شركة حكومية | ${govEngine.saudiRegulations.length} نظام/تشريع`);
-} catch (e) {
-    console.log('⚠️ Gov Engine غير متوفر:', e.message);
-}
-
 // ═══ BARAKAH ENGINE — منظومة البركة للاقتصاد الإسلامي ═══
 let barakahEngine = null;
 try {
@@ -993,10 +934,6 @@ try {
     barakahEngine = new SheikhaBarakahEngine();
     const bd = barakahEngine.getDashboard();
     console.log(`✅ Barakah Engine — مؤشر البركة: ${bd.barakahIndex.currentScore}/100 | ${bd.summary.pillarsCount} ركن | ${bd.summary.financingModesCount} نمط تمويل | تكامل منتدى البركة ✓`);
-} catch (e) {
-    console.log('⚠️ Barakah Engine غير متوفر:', e.message);
-}
-
 // ═══ MUSHARRI' ENGINE — مُشرِّع شيخة الذكي ═══
 let musharriEngine = null;
 try {
@@ -1004,10 +941,6 @@ try {
     musharriEngine = new SheikhaMusharriEngine();
     const md = musharriEngine.getDashboard();
     console.log(`✅ Musharri' Engine — ${md.summary.totalSources} مصدر | ${md.summary.totalEvidence} دليل | ${md.summary.totalMuamalat} عقد | ${md.summary.totalProhibitions} محرّم | ${md.summary.totalEcommerceRulings} حكم إلكتروني`);
-} catch (e) {
-    console.log('⚠️ Musharri\' Engine غير متوفر:', e.message);
-}
-
 // ═══ COSMOS ENGINE — منظومة الأرض والسماء ═══
 let cosmosEngine = null;
 try {
@@ -1017,10 +950,6 @@ try {
     cosmosEngine = new SheikhaCosmosEngine();
     const cd = cosmosEngine.getDashboard();
     console.log(`✅ Cosmos Engine — ${cd.summary.earthSectors} قطاع أرضي | ${cd.summary.spaceDomains} مجال فضائي | ${cd.summary.celestialBodies} جرم | ${cd.summary.tradeRoutes} ممر تجاري | ${cd.summary.quranVerses} آية`);
-} catch (e) {
-    console.log('⚠️ Cosmos Engine غير متوفر:', e.message);
-}
-
 // ═══ NETWORKS ENGINE — منظومة الشبكات والاتصالات والطاقة ═══
 let networksEngine = null;
 try {
@@ -1030,10 +959,6 @@ try {
     networksEngine = new SheikhaNetworksEngine();
     const nd = networksEngine.getDashboard();
     console.log(`✅ Networks Engine — ${nd.summary.networkTypes} شبكة | ${nd.summary.telecomSectors} اتصالات | ${nd.summary.mobileGenerations} جيل | ${nd.summary.energySectors} طاقة | ${nd.summary.digitalKeyTypes} مفتاح رقمي | ${nd.summary.cyberDomains} أمن`);
-} catch (e) {
-    console.log('⚠️ Networks Engine غير متوفر:', e.message);
-}
-
 // ═══ PETROLEUM ENGINE — منظومة شيخة للبترول والنفط والغاز ═══
 let petroleumEngine = null;
 try {
@@ -1043,10 +968,6 @@ try {
     petroleumEngine = new SheikhaP‌etroleumEngine();
     const pd = petroleumEngine.getDashboard();
     console.log(`✅ Petroleum Engine — ${pd.summary.valueChainStages} مرحلة | ${pd.summary.crudeBenchmarks} معيار خام | ${pd.summary.refiningProducts} منتج تكرير | ${pd.summary.tradingMarkets} سوق | ${pd.summary.organizations} منظمة`);
-} catch (e) {
-    console.log('⚠️ Petroleum Engine غير متوفر:', e.message);
-}
-
 // ═══ EARTH RESOURCES ENGINE — منظومة الزراعة والجغرافيا والمعادن والجيولوجيا ═══
 let earthResourcesEngine = null;
 try {
@@ -1056,10 +977,6 @@ try {
     earthResourcesEngine = new SheikhaEarthResourcesEngine();
     const ed = earthResourcesEngine.getDashboard();
     console.log(`✅ Earth Resources — ${ed.summary.agriSectors} زراعة | ${ed.summary.waterSources} مصدر مياه | ${ed.summary.mineralCategories} تصنيف معادن | ${ed.summary.ecosystems} نظام بيئي | ${ed.summary.continents} قارة | ${ed.summary.quranVerses} آية`);
-} catch (e) {
-    console.log('⚠️ Earth Resources Engine غير متوفر:', e.message);
-}
-
 // ═══ METALS MARKET ENGINE — سوق شيخة للمعادن والسكراب والتشليح ═══
 let metalsMarketEngine = null;
 try {
@@ -1067,10 +984,6 @@ try {
     metalsMarketEngine = new SheikhaMetalsMarketEngine();
     const mm = metalsMarketEngine.getDashboard();
     console.log(`✅ Metals Market — ${mm.summary.preciousMetals} معدن ثمين | ${mm.summary.baseMetals} معدن أساسي | ${mm.summary.scrapCategories} سكراب | ${mm.summary.tashleehSteps} تشليح | ${mm.summary.shariaRules} ضابط شرعي`);
-} catch (e) {
-    console.log('⚠️ Metals Market Engine غير متوفر:', e.message);
-}
-
 // ═══ SUPPLY & LOGISTICS ENGINE — سلاسل الإمداد واللوجستيات ═══
 let supplyLogisticsEngine = null;
 try {
@@ -1078,10 +991,6 @@ try {
     supplyLogisticsEngine = new SheikhaSupplyLogisticsEngine();
     const sl = supplyLogisticsEngine.getDashboard();
     console.log(`✅ Supply & Logistics — ${sl.summary.scmStages} مرحلة إمداد | ${sl.summary.logisticsModes} وسيلة نقل | ${sl.summary.incoterms} إنكوترم | ${sl.summary.saudiPorts} ميناء | ${sl.summary.tradeDocuments} مستند`);
-} catch (e) {
-    console.log('⚠️ Supply & Logistics Engine غير متوفر:', e.message);
-}
-
 // ═══ ECONOMICS ENGINE — التجارة والاقتصاد السعودي والعالمي ═══
 let economicsEngine = null;
 try {
@@ -1091,10 +1000,6 @@ try {
     economicsEngine = new SheikhaEconomicsEngine();
     const ec = economicsEngine.getDashboard();
     console.log(`✅ Economics Engine — ${ec.summary.macroIndicators} مؤشر كلي | ${ec.summary.saudiSectors} قطاع سعودي | ${ec.summary.saudiBanks} بنك | ${ec.summary.globalExchanges} بورصة | ${ec.summary.investmentTypes} نوع استثمار | ${ec.summary.islamicFinancingModes} صيغة إسلامية`);
-} catch (e) {
-    console.log('⚠️ Economics Engine غير متوفر:', e.message);
-}
-
 // ═══ UNIVERSAL ENGINE — النظام الكوني بالكتاب والسنة ═══
 let universalEngine = null;
 try {
@@ -1103,11 +1008,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-universal-engine.js — سيُحمّل عند الطلب');
     universalEngine = new SheikhaUniversalEngine();
     const ue = universalEngine.getDashboard();
-    console.log(`✅ Universal Engine — ${ue.summary.heavens} سماء | ${ue.summary.cosmicLaws} سنة كونية | ${ue.summary.scienceBranches} علم | ${ue.summary.techFundamentals} تقنية | ${ue.summary.mathBranches} رياضيات | ${ue.summary.wisdomPrinciples} حكمة`);
-} catch (e) {
-    console.log('⚠️ Universal Engine غير متوفر:', e.message);
-}
-
 // ═══ TRADE ENGINE — التجارة المحلية السعودية والدولية ═══
 let tradeEngine = null;
 try {
@@ -1115,10 +1015,6 @@ try {
     tradeEngine = new SheikhaTradeEngine();
     const td = tradeEngine.getDashboard();
     console.log(`✅ Trade Engine — ${td.summary.saudiRegulators} منظم | ${td.summary.incoterms} إنكوترم | ${td.summary.ecomModels} نموذج إلكتروني | ${td.summary.tradeRoutes} ممر تجاري | ${td.summary.shariaContracts} عقد شرعي`);
-} catch (e) {
-    console.log('⚠️ Trade Engine غير متوفر:', e.message);
-}
-
 // ═══ AI & COMPUTING ENGINE — الذكاء الاصطناعي والحاسب ═══
 let aiComputingEngine = null;
 try {
@@ -1128,10 +1024,6 @@ try {
     aiComputingEngine = new SheikhaAIComputingEngine();
     const ac = aiComputingEngine.getDashboard();
     console.log(`✅ AI & Computing — ${ac.summary.aiBranches} فرع AI | ${ac.summary.programmingLanguages} لغة | ${ac.summary.cyberDomains} أمن | ${ac.summary.emergingTech} تقنية ناشئة | ${ac.summary.saudiAIEntities} جهة سعودية`);
-} catch (e) {
-    console.log('⚠️ AI & Computing Engine غير متوفر:', e.message);
-}
-
 // ═══ BANK & FUND ENGINE — بنك شيخة الإسلامي + صندوق شيخة الاستثماري ═══
 let bankFundEngine = null;
 try {
@@ -1141,10 +1033,6 @@ try {
     bankFundEngine = new SheikhaBank_FundEngine();
     const bf = bankFundEngine.getDashboard();
     console.log(`✅ Bank & Fund — ${bf.summary.bankAccounts} حساب | ${bf.summary.bankFinancing} تمويل | ${bf.summary.investmentFunds} صندوق | ${bf.summary.riskTypes} مخاطر | ${bf.summary.complianceRegulations} امتثال`);
-} catch (e) {
-    console.log('⚠️ Bank & Fund Engine غير متوفر:', e.message);
-}
-
 // ═══ SECURITY ENGINE — الأمن الشامل والملكية الفكرية ═══
 let securityEngine = null;
 try {
@@ -1152,10 +1040,6 @@ try {
     securityEngine = new SheikhaSecurityEngine();
     const se = securityEngine.getDashboard();
     console.log(`✅ Security Engine — ${se.summary.securityDomains} مجال أمن | ${se.summary.cyberDomains} سيبراني | ${se.summary.ipTypes} ملكية فكرية | ${se.summary.saudiEntities} جهة | ${se.summary.shariaRules} ضابط شرعي`);
-} catch (e) {
-    console.log('⚠️ Security Engine غير متوفر:', e.message);
-}
-
 // 🏭 محرك الصناعة والتصنيع والصناعة الرقمية
 let industryEngine = null;
 try {
@@ -1165,10 +1049,6 @@ try {
     industryEngine = new SheikhaIndustryEngine();
     const ie = industryEngine.getDashboard();
     console.log(`✅ Industry Engine — ${ie.summary.industrialSectors} قطاع صناعي | ${ie.summary.digitalIndustryDomains} مجال رقمي | ${ie.summary.qualityMethodologies} منهجية جودة | ${ie.summary.robotTypes} نوع روبوت | ${ie.summary.saudiIndustrialCities} مدينة صناعية | ${ie.summary.shariaRules} ضابط شرعي`);
-} catch (e) {
-    console.log('⚠️ Industry Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك الشريعة الإسلامية الشامل
 let shariaEngine = null;
 try {
@@ -1176,10 +1056,6 @@ try {
     shariaEngine = new SheikhaShareEngine();
     const sh = shariaEngine.getDashboard();
     console.log(`✅ Sharia Engine — ${sh.summary.quranSurahs} سورة | ${sh.summary.quranAyahs} آية | ${sh.summary.sunnahCollections} مصنف حديث | ${sh.summary.fiqhMadhahib} مذاهب | ${sh.summary.maqasidDaruriyyat} ضروريات | ${sh.summary.islamicFinanceContracts} عقد مالي | ${sh.summary.digitalShariaSystems} نظام رقمي`);
-} catch (e) {
-    console.log('⚠️ Sharia Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك تصنيف المستخدمين والفئات المستهدفة والتسويق
 let segmentsEngine = null;
 try {
@@ -1187,10 +1063,6 @@ try {
     segmentsEngine = new SheikhaSegmentsEngine();
     const seg = segmentsEngine.getDashboard();
     console.log(`✅ Segments Engine — ${seg.summary.userSegments} فئة مستخدم | ${seg.summary.totalSubTypes} نوع فرعي | ${seg.summary.digitalChannelCategories} قناة رقمية | ${seg.summary.nonDigitalChannelCategories} قناة تقليدية | ${seg.summary.socialPlatforms} منصة تواصل | ${seg.summary.marketingMatrixEntries} مصفوفة تسويق | ${seg.summary.shariaRules} ضابط شرعي`);
-} catch (e) {
-    console.log('⚠️ Segments Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك العلوم والابتكار والبحث والمختبرات والتقنية
 let sciencesEngine = null;
 try {
@@ -1200,10 +1072,6 @@ try {
     sciencesEngine = new ShekhaSciencesEngine();
     const sci = sciencesEngine.getDashboard();
     console.log(`✅ Sciences Engine — ${sci.summary.naturalScienceBranches} علوم طبيعية | ${sci.summary.appliedScienceBranches} علوم تطبيقية | ${sci.summary.medicalScienceBranches} علوم طبية | ${sci.summary.humanScienceBranches} علوم إنسانية | ${sci.summary.techDomains} مجال تقني | ${sci.summary.labTypes} نوع مختبر | ${sci.summary.explorationDomains} مجال استكشاف | ${sci.summary.islamicScholars} عالم إسلامي | ${sci.summary.digitalSystems} نظام رقمي`);
-} catch (e) {
-    console.log('⚠️ Sciences Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك المجتمعات والمجموعات
 let communityEngine = null;
 try {
@@ -1212,10 +1080,6 @@ try {
     communityEngine = new SheikhaCommunityEngine();
     const com = communityEngine.getDashboard();
     console.log(`✅ Community Engine — ${com.summary.communityTypes} نوع مجتمع | ${com.summary.totalSubGroups} مجموعة فرعية | ${com.summary.digitalTools} أداة رقمية | ${com.summary.islamicGoals + com.summary.economicGoals + com.summary.socialGoals + com.summary.digitalGoals} هدف`);
-} catch (e) {
-    console.log('⚠️ Community Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك القوانين والأنظمة والمعاهدات
 let legalEngine = null;
 try {
@@ -1223,10 +1087,6 @@ try {
     legalEngine = new SheikhaLegalEngine();
     const leg = legalEngine.getDashboard();
     console.log(`✅ Legal Engine — ${leg.summary.saudiLawCategories} فئة نظام سعودي | ${leg.summary.saudiLawsTotal} نظام | ${leg.summary.internationalLawBranches} فرع قانون دولي | ${leg.summary.internationalOrgs} منظمة | ${leg.summary.treatiesTotal} معاهدة`);
-} catch (e) {
-    console.log('⚠️ Legal Engine غير متوفر:', e.message);
-}
-
 // ☪️ فهرس المحركات الشامل
 let masterCatalog = null;
 try {
@@ -1236,10 +1096,6 @@ try {
     masterCatalog = new SheikhaMasterCatalog();
     const cat = masterCatalog.getDashboard();
     console.log(`✅ Master Catalog — ${cat.summary.totalEngines} محرك | ${cat.summary.totalLayers} طبقة | ${cat.summary.totalAPIs} API | ${cat.summary.activeEngines} نشط`);
-} catch (e) {
-    console.log('⚠️ Master Catalog غير متوفر:', e.message);
-}
-
 // ☪️ محرك التقنية والحاسب الشامل
 let techEngine = null;
 try {
@@ -1249,10 +1105,6 @@ try {
     techEngine = new SheikhaTechComputingEngine();
     const t = techEngine.getDashboard();
     console.log(`✅ Tech Computing Engine — ${t.summary.osCategories} فئة أنظمة تشغيل | ${t.summary.totalOSSystems} نظام | ${t.summary.programmingLanguages} لغة برمجة | ${t.summary.databaseCategories} فئة قواعد بيانات | ${t.summary.automotiveDomains} مجال سيارات | ${t.summary.emergingTechnologies} تقنية ناشئة`);
-} catch (e) {
-    console.log('⚠️ Tech Computing Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك التزامن والرزنامة — التاريخ الهجري أساسي
 let calendarEngine = null;
 try {
@@ -1262,10 +1114,6 @@ try {
     calendarEngine = new SheikhaCalendarEngine();
     const cal = calendarEngine.getDashboard();
     console.log(`✅ Calendar Engine — ${cal.currentTime.hijri} | ${cal.summary.hijriMonths} شهر هجري | ${cal.summary.worldCalendars} تقويم عالمي | ${cal.summary.islamicEvents} مناسبة إسلامية | ${cal.summary.saudiEvents} مناسبة سعودية | ${cal.summary.realTimeEventTypes} نوع حدث لحظي | ${cal.summary.integrations} تكامل | ${cal.summary.digitalSystems} نظام رقمي`);
-} catch (e) {
-    console.log('⚠️ Calendar Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك نظام تشغيل شيخة — SheikhaOS
 let sheikhaOSEngine = null;
 try {
@@ -1275,10 +1123,6 @@ try {
     sheikhaOSEngine = new SheikhaOSEngine();
     const os = sheikhaOSEngine.getDashboard();
     console.log(`✅ نظام شيخة — ${os.brandName} (${os.brandNameEn}) | ${os.summary.editions} إصدار | ${os.summary.builtInApps} تطبيق مدمج | ${os.summary.developerAPIs} API | ${os.summary.securityLayers} طبقة أمان | ${os.summary.sdkLanguages} لغة تطوير | ${os.summary.supremeLaws} قانون شرعي | ${os.summary.domainSpecs} مجال مواصفات | ${os.summary.totalConditions} شرط`);
-} catch (e) {
-    console.log('⚠️ SheikhaOS Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك سوق المدينة المنورة — Souq Al-Madinah Engine
 let souqMadinahEngine = null;
 try {
@@ -1292,10 +1136,6 @@ try {
     } else {
         console.log('⚠️ Souq Madinah Engine غير متوفر: missing');
     }
-} catch (e) {
-    console.log('⚠️ Souq Madinah Engine غير متوفر:', e.message);
-}
-
 // 📜 محرك التوثيق التاريخي الشامل — Historical Documentation Engine
 let historicalEngine = null;
 try {
@@ -1303,10 +1143,6 @@ try {
     historicalEngine = new SheikhaHistoricalEngine();
     const hd = historicalEngine.getDashboard();
     console.log(`✅ محرك التوثيق التاريخي — ${hd.summary.totalEras} عصور | ${hd.summary.totalEvents} حدث | ${hd.summary.totalLaws} قانون | ${hd.summary.specifications} مواصفة`);
-} catch (e) {
-    console.log('⚠️ Historical Engine غير متوفر:', e.message);
-}
-
 // 🏛️ محرك الهيكل الإداري والمخطط الهندسي — Admin Blueprint Engine
 let adminBlueprintEngine = null;
 try {
@@ -1314,10 +1150,6 @@ try {
     adminBlueprintEngine = new SheikhaAdminBlueprintEngine();
     const ab = adminBlueprintEngine.getDashboard();
     console.log(`✅ الهيكل الإداري — ${ab.summary.sectors} قطاع | ${ab.summary.totalDepartments} إدارة | ${ab.summary.estimatedStaff} موظف | ${ab.summary.engines} محرك | ${ab.summary.totalComponents} مكون`);
-} catch (e) {
-    console.log('⚠️ Admin Blueprint Engine غير متوفر:', e.message);
-}
-
 // 📖 محرك الآيات القرآنية للتجارة والأسواق — Quran Trade Engine
 let quranTradeEngine = null;
 try {
@@ -1325,10 +1157,6 @@ try {
     quranTradeEngine = new SheikhaQuranTradeEngine();
     const qt = quranTradeEngine.getDashboard();
     console.log(`✅ آيات التجارة — ${qt.summary.totalVerses} آية | ${qt.summary.totalAbwab} أبواب | ربا + بيع + موازين + دَين + ذهب + زكاة + قوة + أنبياء + عدل`);
-} catch (e) {
-    console.log('⚠️ Quran Trade Engine غير متوفر:', e.message);
-}
-
 // ⚖️ محرك الأحاديث الصحيحة ومعايير السوق — Hadith Standards Engine
 let hadithStandardsEngine = null;
 try {
@@ -1336,10 +1164,6 @@ try {
     hadithStandardsEngine = new SheikhaHadithStandardsEngine();
     const hs = hadithStandardsEngine.getDashboard();
     console.log(`✅ معايير الأحاديث — ${hs.summary.totalHadiths} حديث | ${hs.summary.measureUnits} وحدة قياس | ${hs.summary.totalActiveRules} قاعدة مفعّلة | ٨ أبواب`);
-} catch (e) {
-    console.log('⚠️ Hadith Standards Engine غير متوفر:', e.message);
-}
-
 // 🏦 محرك شيخة للصرافة والبنك المركزي — Banking & Exchange Engine
 let bankingEngine = null;
 try {
@@ -1347,10 +1171,6 @@ try {
     bankingEngine = new SheikhaBankingEngine();
     const bk = bankingEngine.getDashboard();
     console.log(`✅ بنك شيخة المركزي — ${bk.summary.bankDepartments} قسم | ${bk.summary.bankProducts} منتج | ${bk.summary.islamicContracts} عقد | ${bk.summary.totalComponents} مكون`);
-} catch (e) {
-    console.log('⚠️ Banking Engine غير متوفر:', e.message);
-}
-
 // 🌍 محرك العاصمة الاقتصادية العالمية — Global Economic Capital Engine
 let capitalEngine = null;
 try {
@@ -1360,10 +1180,6 @@ try {
     capitalEngine = new SheikhaCapitalEngine();
     const ce = capitalEngine.getDashboard();
     console.log(`✅ العاصمة الاقتصادية — ${ce.summary.pillars} ركن | ${ce.summary.tradeCorridors} ممر | ${ce.summary.phases} مرحلة | ${ce.summary.totalComponents} مكون`);
-} catch (e) {
-    console.log('⚠️ Capital Engine غير متوفر:', e.message);
-}
-
 // 🏗️ محرك هيكل السوق الكامل — Market Structure Engine
 let marketStructureEngine = null;
 try {
@@ -1371,10 +1187,6 @@ try {
     marketStructureEngine = new SheikhaMarketStructureEngine();
     const ms = marketStructureEngine.getDashboard();
     console.log(`✅ هيكل السوق — ${ms.summary.divisions} قطاع | ${ms.summary.marketSections} قسم | ${ms.summary.regulatoryRules} قاعدة | ${ms.summary.totalComponents} مكون`);
-} catch (e) {
-    console.log('⚠️ Market Structure Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك الحكمة والمنطق والبصيرة — SheikhaHikmah
 let hikmahEngine = null;
 try {
@@ -1384,10 +1196,6 @@ try {
     hikmahEngine = new SheikhaHikmahEngine();
     const h = hikmahEngine.getDashboard();
     console.log(`✅ محرك الحكمة — ${h.summary.foundations} أساس | ${h.summary.logicLayers} طبقة منطق | ${h.summary.wisdomRules} قاعدة حكمة | ${h.summary.computationTypes} نوع حساب`);
-} catch (e) {
-    console.log('⚠️ Hikmah Engine غير متوفر:', e.message);
-}
-
 // ☪️ منظومة شيخة التشغيلية الشاملة — ١٥ قطاع و ٧٤ نظام
 let opsSystemsEngine = null;
 try {
@@ -1397,10 +1205,6 @@ try {
     opsSystemsEngine = new SheikhaOpsSystemsEngine();
     const ops = opsSystemsEngine.getDashboard();
     console.log(`✅ Ops Systems Engine — ${ops.summary.sectors} قطاع | ${ops.summary.totalSystems} نظام تشغيلي | ${ops.summary.shariaPrinciples} ضابط شرعي`);
-} catch (e) {
-    console.log('⚠️ Ops Systems Engine غير متوفر:', e.message);
-}
-
 // ☪️ متصفح شيخة — Sheikha Browser
 let browserEngine = null;
 try {
@@ -1410,10 +1214,6 @@ try {
     browserEngine = new SheikhaBrowserEngine();
     const br = browserEngine.getDashboard();
     console.log(`✅ Sheikha Browser — ${br.summary.coreFeatures} ميزة | ${br.summary.securityLayers} طبقة أمان | ${br.summary.platforms} منصة`);
-} catch (e) {
-    console.log('⚠️ Browser Engine غير متوفر:', e.message);
-}
-
 // ☪️ محرك التطوير المستمر والإتقان — DevOps
 let devopsEngine = null;
 try {
@@ -1423,10 +1223,6 @@ try {
     devopsEngine = new SheikhaDevOpsEngine();
     const dv = devopsEngine.getDashboard();
     console.log(`✅ DevOps Engine — ${dv.summary.cicdStages} مرحلة CI/CD | ${dv.summary.improvementKPIs} مؤشر | ${dv.summary.teamRoles} دور`);
-} catch (e) {
-    console.log('⚠️ DevOps Engine غير متوفر:', e.message);
-}
-
 // ☪️ لوحة تحكم شيخة الشاملة — Dashboard
 let dashboardEngine = null;
 try {
@@ -1434,10 +1230,6 @@ try {
     dashboardEngine = new SheikhaDashboardEngine();
     const db = dashboardEngine.getDashboard();
     console.log(`✅ Dashboard Engine — ${db.summary.totalPanels} لوحة | ${db.summary.totalWidgets} ويدجت | ${db.summary.totalViews} عرض | ${db.summary.roles} دور`);
-} catch (e) {
-    console.log('⚠️ Dashboard Engine غير متوفر:', e.message);
-}
-
 // ☪️ المنظومة الطبية والمعالجة — Medical
 let medicalEngine = null;
 try {
@@ -1447,10 +1239,6 @@ try {
     medicalEngine = new SheikhaMedicalEngine();
     const med = medicalEngine.getDashboard();
     console.log(`✅ Medical Engine — ${med.summary.propheticRemedies} علاج نبوي | ${med.summary.medicalSpecialties} تخصص | ${med.summary.digitalSystems} نظام رقمي`);
-} catch (e) {
-    console.log('⚠️ Medical Engine غير متوفر:', e.message);
-}
-
 // ☪️ التعليمات والإجراءات والتعريفات ورحلة المستخدم — Instructions
 let instructionsEngine = null;
 try {
@@ -1460,10 +1248,6 @@ try {
     instructionsEngine = new SheikhaInstructionsEngine();
     const ins = instructionsEngine.getDashboard();
     console.log(`✅ Instructions Engine — ${ins.summary.totalTerms} تعريف | ${ins.summary.journeyStages} مرحلة رحلة | ${ins.summary.procedureCategories} فئة إجراء`);
-} catch (e) {
-    console.log('⚠️ Instructions Engine غير متوفر:', e.message);
-}
-
 // ☪️ منظومة الكتاب والسنة — Quran & Sunnah
 let quranSunnahEngine = null;
 try {
@@ -1471,10 +1255,6 @@ try {
     quranSunnahEngine = new SheikhaQuranSunnahEngine();
     const qs = quranSunnahEngine.getDashboard();
     console.log(`✅ Quran & Sunnah Engine — ${qs.summary.quranSurahs} سورة | ${qs.summary.quranAyahs} آية | ${qs.summary.hadithBooks} كتاب حديث | ${qs.summary.fiqhSchools} مذاهب`);
-} catch (e) {
-    console.log('⚠️ Quran & Sunnah Engine غير متوفر:', e.message);
-}
-
 // ☪️ منظومة هوية شيخة والعلامة التجارية — Brand
 let brandEngine = null;
 try {
@@ -1482,10 +1262,6 @@ try {
     brandEngine = new SheikhaBrandEngine();
     const brd = brandEngine.getDashboard();
     console.log(`✅ Brand Engine — ${brd.summary.brandValues} قيمة | ${brd.summary.reachChannels} قناة وصول | ${brd.summary.brandColors} لون`);
-} catch (e) {
-    console.log('⚠️ Brand Engine غير متوفر:', e.message);
-}
-
 // ☪️ المعالجة الذاتية والإصلاح التلقائي — Self-Heal
 let selfHealEngine = null;
 try {
@@ -1495,10 +1271,6 @@ try {
     selfHealEngine = new SheikhaSelfHealEngine();
     const sh = selfHealEngine.getDashboard();
     console.log(`✅ Self-Heal Engine — ${sh.summary.monitoringChecks} فحص | ${sh.summary.repairStrategies} استراتيجية إصلاح | ${sh.summary.escalationLevels} مستوى تصعيد`);
-} catch (e) {
-    console.log('⚠️ Self-Heal Engine غير متوفر:', e.message);
-}
-
 // ☪️ التكامل الذكي بين كل المنظومات — Integration
 let integrationEngine = null;
 try {
@@ -1508,10 +1280,6 @@ try {
     integrationEngine = new SheikhaIntegrationEngine();
     const ig = integrationEngine.getDashboard();
     console.log(`✅ Integration Engine — ${ig.summary.integrationLayers} طبقة تكامل | ${ig.summary.totalEngines} محرك | ${ig.summary.dataFlowPatterns} نمط تدفق`);
-} catch (e) {
-    console.log('⚠️ Integration Engine غير متوفر:', e.message);
-}
-
 // ═══ منظومة شيخة للتطوير — SDK + MCP + IDE ═══
 let devPlatformEngine;
 try {
@@ -1519,10 +1287,6 @@ try {
     /*     const SheikhaDevPlatformEngine = require('./lib/sheikha-dev-platform-engine.js'); */
     console.log('⏸️ [LAZY] sheikha-dev-platform-engine.js — سيُحمّل عند الطلب');
     devPlatformEngine = new SheikhaDevPlatformEngine();
-} catch (e) {
-    console.log('⚠️ Dev Platform Engine غير متوفر:', e.message);
-}
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // ☪️ بسم الله الرحمن الرحيم
 // نظام سوق شيخة - قائم على الكتاب والسنة
@@ -1563,8 +1327,7 @@ const HIJRI_DAYS = [
 function gregorianToHijri(gYear, gMonth, gDay) {
     const jd = gregorianToJulian(gYear, gMonth, gDay);
     return julianToHijri(jd);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function gregorianToJulian(year, month, day) {
     if (month <= 2) {
         year -= 1;
@@ -2449,8 +2212,7 @@ async function autoTranslate(text, targetLang, sourceLang = 'ar') {
         console.error('Translation error:', error);
         return text;
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ترجمة كائن كامل
 async function translateObject(obj, targetLang, fieldsToTranslate = []) {
     if (!obj || typeof obj !== 'object' || targetLang === 'ar') return obj;
@@ -2493,9 +2255,6 @@ try {
             sheikhaAI = new SheikhaAI();
         }
     }
-} catch (e) {
-    console.log('⚠️ [LAZY] sheikha-ai غير متوفر:', e.message);
-}
 if (!sheikhaAI) {
     sheikhaAI = {
         async generateResponse() {
@@ -2506,8 +2265,7 @@ if (!sheikhaAI) {
         calculateProfit() { return { profit: 0, margin: 0 }; },
         suggestPrice() { return null; }
     };
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══ تهيئة مؤجلة: ربط AI-Comms Bridge بـ sheikhaAI ═══
 if (aiCommsBridge && sheikhaAI) {
     try {
@@ -2517,8 +2275,7 @@ if (aiCommsBridge && sheikhaAI) {
     } catch (e) {
         console.log('⚠️ AI-Comms Bridge — خطأ في الربط المؤجل:', e.message);
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─── مفاتيح الأمان — يجب تعيينها في .env ───
 const JWT_SECRET = process.env.JWT_SECRET;
 const PASSWORD_SALT = process.env.PASSWORD_SALT;
@@ -2659,8 +2416,7 @@ if (observability && typeof observability.createLatencyMiddleware === 'function'
     app.use(observability.createLatencyMiddleware({
         slowMs: Number(process.env.SHEIKHA_SLOW_REQUEST_MS || 1000)
     }));
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🛡️ Security & Performance Middleware — حماية وأداء (حسب تدقيق أمني سابق)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -2864,58 +2620,42 @@ try {
   app.use(require('./routes/developer-tools-apex/sheikha-developer-tools-apex-routes'));
 } catch (error) {
   console.warn('[sheikha-developer-tools-apex] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/ai-notes-governance/sheikha-ai-notes-governance-routes'));
 } catch (error) {
   console.warn('[sheikha-ai-notes-governance] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/supreme-governance-intelligence-fabric/sheikha-supreme-governance-intelligence-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-supreme-governance-intelligence-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/model-core/sheikha-ollama-core-routes'));
 } catch (error) {
   console.warn('[sheikha-ollama-core] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/ai-cluster-pipeline-production/sheikha-ai-cluster-pipeline-production-routes'));
 } catch (error) {
   console.warn('[sheikha-ai-cluster-pipeline-production] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/ha-ai-production-fabric/sheikha-ha-ai-production-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-ha-ai-production-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/autonomous-enterprise-fabric/sheikha-autonomous-enterprise-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-autonomous-enterprise-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/autonomous-execution-bridge/sheikha-autonomous-execution-bridge-routes'));
 } catch (error) {
   console.warn('[sheikha-autonomous-execution-bridge] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA CHAT AUTONOMOUS EXECUTION BINDING V1
 (function registerSheikhaChatAutonomousExecutionBinding() {
   if (typeof app === 'undefined' || !app || app.__sheikhaChatAutonomousExecutionBindingV1) return;
@@ -2995,89 +2735,63 @@ try {
   app.use(require('./routes/sharia-governance-fabric/sheikha-sharia-governance-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-sharia-governance-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/knowledge-evidence-fabric/sheikha-knowledge-evidence-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-knowledge-evidence-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/supreme-operating-fabric/sheikha-supreme-operating-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-supreme-operating-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/live-realtime-fabric/sheikha-live-realtime-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-live-realtime-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/exponential-accounting-engine/sheikha-exponential-accounting-engine-routes'));
 } catch (error) {
   console.warn('[sheikha-exponential-accounting-engine] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/exponential-cluster-taxonomy-fabric/sheikha-exponential-cluster-taxonomy-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-exponential-cluster-taxonomy-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/safe-catalyst-transport-fabric/sheikha-safe-catalyst-transport-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-safe-catalyst-transport-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/industrial-material-lifecycle-fabric/sheikha-industrial-material-lifecycle-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-industrial-material-lifecycle-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/ai-supply-chain-living-production/sheikha-ai-supply-chain-living-production-routes'));
 } catch (error) {
   console.warn('[sheikha-ai-supply-chain-living-production] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/global-industrial-ai-os/sheikha-global-industrial-ai-os-routes'));
 } catch (error) {
   console.warn('[sheikha-global-industrial-ai-os] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/exponential-civilization-fabric/sheikha-exponential-civilization-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-exponential-civilization-fabric] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/universal-civilization-fabric/sheikha-universal-civilization-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-universal-civilization-fabric] route mount skipped:', error.message);
-}
-
-try {
-  app.use(require('./routes/cosmic-production-fabric/sheikha-cosmic-production-fabric-routes'));
-} catch (error) {
-  console.warn('[sheikha-cosmic-production-fabric] route mount skipped:', error.message);
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+try {} catch(e){} catch (error) {
 }
 
 
@@ -3085,337 +2799,242 @@ try {
   app.use(require('./routes/knowledge-graph-engine/sheikha-knowledge-graph-engine-routes'));
 } catch (error) {
   console.warn('[sheikha-knowledge-graph-engine-v63] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/digital-twin-fabric/sheikha-digital-twin-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-digital-twin-fabric-v64] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/industrial-cognitive-factory-fabric/sheikha-industrial-cognitive-factory-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-industrial-cognitive-factory-fabric-v65] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/global-supply-chain-graph/sheikha-global-supply-chain-graph-routes'));
 } catch (error) {
   console.warn('[sheikha-global-supply-chain-graph-v66] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/earth-digital-twin-fabric/sheikha-earth-digital-twin-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-earth-digital-twin-fabric-v67] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/unified-scientific-knowledge-graph/sheikha-unified-scientific-knowledge-graph-routes'));
 } catch (error) {
   console.warn('[sheikha-unified-scientific-knowledge-graph-v68] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/industrial-cluster-fabric/sheikha-industrial-cluster-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-industrial-cluster-fabric-v69] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/civilization-operating-system/sheikha-civilization-operating-system-routes'));
 } catch (error) {
   console.warn('[sheikha-civilization-operating-system-v70] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/quality-safety-fabric/sheikha-quality-safety-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-quality-safety-fabric-v71] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/research-innovation-fabric/sheikha-research-innovation-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-research-innovation-fabric-v72] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/human-model-fabric/sheikha-human-model-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-human-model-fabric-v73] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/self-healing-fabric/sheikha-self-healing-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-self-healing-fabric-v74] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/global-orchestrator-fabric/sheikha-global-orchestrator-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-global-orchestrator-fabric-v75] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/knowledge-universe-graph/sheikha-knowledge-universe-graph-routes'));
 } catch (error) {
   console.warn('[sheikha-knowledge-universe-graph-v76] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/planetary-resource-fabric/sheikha-planetary-resource-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-planetary-resource-fabric-v77] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/industrial-ecosystem-fabric/sheikha-industrial-ecosystem-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-industrial-ecosystem-fabric-v78] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/civilization-intelligence-fabric/sheikha-civilization-intelligence-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-civilization-intelligence-fabric-v79] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/unified-apex-fabric/sheikha-unified-apex-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-unified-apex-fabric-v80] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/global-knowledge-mesh/sheikha-global-knowledge-mesh-routes'));
 } catch (error) {
   console.warn('[sheikha-global-knowledge-mesh-v81] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/universal-runtime-fabric/sheikha-universal-runtime-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-universal-runtime-fabric-v82] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/meta-knowledge-fabric/sheikha-meta-knowledge-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-meta-knowledge-fabric-v83] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/sovereign-intelligence-fabric/sheikha-sovereign-intelligence-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-sovereign-intelligence-fabric-v84] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/global-coordination-fabric/sheikha-global-coordination-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-global-coordination-fabric-v85] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/strategic-execution-fabric/sheikha-strategic-execution-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-strategic-execution-fabric-v86] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/autonomous-improvement-fabric/sheikha-autonomous-improvement-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-autonomous-improvement-fabric-v87] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/multi-agent-federation-fabric/sheikha-multi-agent-federation-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-multi-agent-federation-fabric-v88] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/capability-registry-federation-fabric/sheikha-capability-registry-federation-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-capability-registry-federation-fabric-v89] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/arabic-language-cluster-fabric/sheikha-arabic-language-cluster-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-arabic-language-cluster-fabric-v91] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/arabic-compiler-fabric/sheikha-arabic-compiler-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-arabic-compiler-fabric-v92] route mount skipped:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/arabic-type-system-fabric/sheikha-arabic-type-system-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-arabic-type-system-fabric-v93] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/arabic-standard-library-fabric/sheikha-arabic-standard-library-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-arabic-standard-library-fabric-v94] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/arabic-runtime-fabric/sheikha-arabic-runtime-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-arabic-runtime-fabric-v95] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/arabic-package-manager-fabric/sheikha-arabic-package-manager-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-arabic-package-manager-fabric-v96] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/sheikha-navigator-fabric/sheikha-navigator-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-navigator-fabric-v111] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/sheikha-inter-system-navigator-fabric/sheikha-inter-system-navigator-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-inter-system-navigator-fabric-v112] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/global-transport-mesh-fabric/sheikha-global-transport-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-global-transport-mesh-fabric-v113] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/hyper-routing-fabric/sheikha-hyper-routing-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-hyper-routing-fabric-v114] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/autonomous-service-mesh-fabric/sheikha-autonomous-service-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-autonomous-service-mesh-fabric-v115] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/universal-connector-fabric/sheikha-universal-connector-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-universal-connector-fabric-v116] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/distributed-execution-mesh-fabric/sheikha-distributed-execution-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-distributed-execution-mesh-fabric-v117] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/distributed-knowledge-mesh-fabric/sheikha-distributed-knowledge-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-distributed-knowledge-mesh-fabric-v118] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/intelligence-mesh-fabric/sheikha-intelligence-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-intelligence-mesh-fabric-v119] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/self-improvement-mesh-fabric/sheikha-self-improvement-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-self-improvement-mesh-fabric-v120] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/observability-mesh-fabric/sheikha-observability-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-observability-mesh-fabric-v121] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/policy-enforcement-mesh-fabric/sheikha-policy-enforcement-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-policy-enforcement-mesh-fabric-v122] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/capability-registry-mesh-fabric/sheikha-capability-registry-mesh-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-capability-registry-mesh-fabric-v123] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/living-digital-twin-agriculture-fabric/sheikha-living-digital-twin-agriculture-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-living-digital-twin-agriculture-fabric-v125] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/bio-inspired-growth-fabric/sheikha-bio-inspired-growth-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-bio-inspired-growth-fabric-v126] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(
     require('./routes/ecosystem-intelligence-fabric/sheikha-ecosystem-intelligence-fabric-routes')
@@ -3425,57 +3044,42 @@ try {
     '[sheikha-ecosystem-intelligence-fabric-v127] route mount skipped:',
     error.message
   );
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/regenerative-knowledge-fabric/sheikha-regenerative-knowledge-fabric-routes'));
 } catch (error) {
   console.warn('[sheikha-regenerative-knowledge-fabric-v128] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/master-blueprint/sheikha-master-blueprint-routes'));
 } catch (error) {
   console.warn('[sheikha-master-blueprint-v1] route mount skipped:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/quranic-atlas/sheikha-quranic-atlas-routes'));
 } catch (error) {
   console.warn('[quranic-atlas]', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/quranic-operating-system/sheikha-quranic-operating-system-routes'));
 } catch (error) {
   console.warn('[quranic-operating-system]', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/federation-omega/sheikha-federation-omega-routes'));
 } catch (error) {
   console.warn('[federation-omega]', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/unified-graph/sheikha-unified-graph-routes'));
 } catch (error) {
   console.warn('[unified-graph]', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/execution-cortex/sheikha-execution-cortex-routes'));
 } catch (error) {
   console.warn('[execution-cortex]', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 app.use(express.json());
 app.use(require('./routes/sheikha-programming'));
 app.use(require('./routes/sheikha-tools'));
@@ -3488,21 +3092,19 @@ try {
   console.log('✅ Sheikha Enterprise Management OS V1 routes mounted');
 } catch (err) {
   console.error('⚠️ Sheikha Enterprise Management OS V1 mount failed:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/hub-routes'));
   console.log('✅ Sheikha Hub V1 routes mounted');
 } catch (err) {
   console.error('⚠️ Sheikha Hub V1 mount failed:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
   app.use(require('./routes/master-log-center-routes'));
   console.log('✅ Sheikha Master Log Center V1 routes mounted');
 } catch (err) {
   console.error('⚠️ Sheikha Master Log Center V1 mount failed:', err.message);
-}
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 app.use(runtimeSecurityMiddleware.securityHeaders);
 app.use(runtimeSecurityMiddleware.ipOwnershipHeaders);
 app.use(runtimeSecurityMiddleware.responseIntegritySignature);
@@ -3521,8 +3123,7 @@ if (fs.existsSync(rootNeuralRoutesPath)) {
     console.log('⚠️ security middleware module غير متوفر — fallback للتشغيل الأساسي');
     app.use(cors());
     app.use(express.json({ limit: '10mb' }));
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // سجل أمني — تسجيل محاولات مشبوهة
 const securityLog = (event, details) => {
     console.warn('🔐 أمان:', JSON.stringify({ timestamp: new Date().toISOString(), event, ...details }));
@@ -3552,8 +3153,7 @@ function verifyTokenRole(req) {
     } catch(e) {
         return null;
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // Middleware لحماية الصفحات (HTML)
 const IS_LOCAL = !process.env.NODE_ENV || process.env.NODE_ENV !== 'production';
 app.use('/api/sheikha', require('./routes/sheikha-system-status'));
@@ -3787,8 +3387,6 @@ app.get('/api/government/entities', (req, res) => {
 // Re-initialize status if sheikaNav is available
 if (sheikaNav) {
     try { sheikaNav.generateStatus(); } catch(e) {}
-}
-
 // الحالة الكاملة — تُقرأ من أي بيئة
 app.get('/api/navigator/status', (req, res) => {
     if (!sheikaNav) return res.json({ success: false, message: 'Navigator غير مفعّل' });
@@ -3905,10 +3503,9 @@ function recordPageView(path) {
     PAGE_VIEWS.total++;
     PAGE_VIEWS.byPath[key] = (PAGE_VIEWS.byPath[key] || 0) + 1;
     PAGE_VIEWS.lastUpdated = new Date().toISOString();
-}
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function flushPageViews() {
     try { fs.writeFileSync(PAGE_VIEWS_FILE, JSON.stringify(PAGE_VIEWS, null, 2), 'utf8'); } catch (_) {}
-}
 setInterval(flushPageViews, 10000);
 
 // ═══ Page View Recording + Auto Script Injection ═══
@@ -4652,8 +4249,7 @@ function calculateFairPrice(baseCost, category, metal = null) {
     fairPrice = Math.max(minPrice, Math.min(maxPrice, fairPrice));
 
     return Math.round(fairPrice * 100) / 100;
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🏛️ جمعية شيخة للمعادن والسكراب — Sheikha Metals & Scrap Association
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -6260,8 +5856,7 @@ async function callClaudeChat(messages, maxTokens = 8192, options = {}) {
     } catch (e) {
         return { error: 'CLAUDE_NETWORK_ERROR', detail: e.message };
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─── استدعاء OpenAI-compatible مع Fallback ───────────────────────────────────────
 const OPENAI_FALLBACK_MODELS = [OPENAI_MODEL, 'gpt-4o', 'gpt-4o-mini'].filter((value, index, list) => (
     value && list.indexOf(value) === index
@@ -6349,8 +5944,7 @@ async function callOpenAIChat(messages, maxTokens = 800, temperature = 0.5, opti
 
     // All models failed
     return { error: 'LLM_ALL_MODELS_FAILED', detail: 'تعذر الاتصال بأي نموذج AI' };
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 async function callLocalSheikhaCoreChat(messages, options = {}) {
     try {
         const { askSheikhaCore } = require('./core/ai-gateway/sheikha-ai-gateway');
@@ -6389,8 +5983,7 @@ async function callLocalSheikhaCoreChat(messages, options = {}) {
     } catch (e) {
         return { error: 'LOCAL_AI_GATEWAY_ERROR', detail: e.message };
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─── استدعاء LLM الذكي (local-first governed routing) ────────────────────────────
 async function callLLMChat(messages, maxTokens = 800, temperature = 0.5, options = {}) {
     const isDevelopment = options.mode === 'development' ||
@@ -6765,16 +6358,13 @@ try {
     if (fs.existsSync(AI_LEARNING_FILE)) {
         AI_LEARNING_DATA = JSON.parse(fs.readFileSync(AI_LEARNING_FILE, 'utf8'));
     }
-} catch (e) { console.log('AI learning data init'); }
-
 // حفظ بيانات التعلم
 function saveAILearning() {
     try {
         AI_LEARNING_DATA.statistics.lastUpdated = new Date().toISOString();
         fs.writeFileSync(AI_LEARNING_FILE, JSON.stringify(AI_LEARNING_DATA, null, 2), 'utf8');
     } catch (e) { console.error('Failed to save AI learning data'); }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // تسجيل المحادثة للتعلم
 function recordConversation(userMessage, aiResponse, context, responseTime, wasHelpful = null) {
     const record = {
@@ -7137,8 +6727,7 @@ function getSuggestions(context, message) {
         general: ['كيف أبدأ؟', 'أسعار المعادن', 'تسجيل متجر', 'آلية البيع']
     };
     return suggestions[context] || suggestions.general;
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // API لتقييم الرد
 app.post('/api/ai/feedback', express.json(), (req, res) => {
     const { conversationId, rating, comment } = req.body;
@@ -7195,8 +6784,7 @@ async function getDefaultReply(message) {
 
         return 'شكراً لتواصلك مع سوق شيخة!\n\nيمكنني مساعدتك في:\n• تسجيل متجر جديد\n• عرض بضائعك للبيع\n• معرفة الأسعار المرجعية\n• فهم آلية البيع والشراء';
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // API لنظام الذكاء المستقل (بدون OpenAI)
 app.post('/api/sheikha-ai/chat', express.json(), async (req, res) => {
     const message = (req.body && req.body.message) ? String(req.body.message).trim().slice(0, 2000) : '';
@@ -7376,8 +6964,7 @@ function isEssentialOperation(opType, payload) {
     }
     if (opType === 'container_add' || opType === 'container_edit') return true;
     return false;
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function logOperation(opType, entityType, summary, fullPayload) {
     const ts = new Date().toISOString();
     const id = uuidv4();
@@ -7401,8 +6988,7 @@ function appendEssentialSync(entry) {
         list.push(entry);
         fs.writeFileSync(f, JSON.stringify(list, null, 2), 'utf8');
     } catch (e) { console.error('[ops] appendEssentialSync:', e.message); }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 let CLOUD_QUEUE = [];
 let CLOUD_SYNCING = false;
 function enqueueCloudSync(entry) {
@@ -7429,12 +7015,11 @@ function flushOperationsLog() {
         fs.appendFileSync(logFile, lines, 'utf8');
         OPERATIONS_STATS.lastFlush = new Date().toISOString();
     } catch (e) { console.error('[ops] flushOperationsLog:', e.message); }
-}
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 setInterval(flushOperationsLog, 1000);
 
 function loadJSON(file, def = []) {
     try { return JSON.parse(fs.readFileSync(file, 'utf8')); } catch (_) { return def; }
-}
 function saveJSON(file, data) {
     fs.writeFileSync(file, JSON.stringify(data, null, 2), 'utf8');
 }
@@ -7787,7 +7372,7 @@ function authOptional(req, res, next) {
         if (user) { req.user = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, role: user.role || 'user' }; }
     } catch (_) {}
     next();
-}
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function authRequired(req, res, next) {
     const token = (req.headers.authorization && req.headers.authorization.split(' ')[1]) || req.body?.token || req.query?.token;
     if (!token) return res.status(401).json({ success: false, message: 'يجب تسجيل الدخول.' });
@@ -7798,8 +7383,7 @@ function authRequired(req, res, next) {
         req.user = { id: user.id, phone: user.phone, name: user.name, email: user.email, storeName: user.storeName, region: user.region, marketingEnabled: user.marketingEnabled, role: user.role || 'user' };
         next();
     } catch (_) { res.status(401).json({ success: false, message: 'جلسة منتهية. سجّل الدخول مرة أخرى.' }); }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // تم إزالة البيانات الوهمية نهائياً - المنتجات تأتي فقط من التجار الحقيقيين
 const MARKET_STORES_SAMPLE = [];
 
@@ -8414,8 +7998,7 @@ function calculateSecurityScore(user) {
     if ((user.authMethods || []).length >= 3) score += 10;
     if (user.passwordChangedAt) score += 10;
     return Math.min(100, score);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // سجل الأمان
 app.get('/api/auth/security-log', authRequired, (req, res) => {
     const user = USERS.find(u => u.id === req.user.id);
@@ -8937,8 +8520,7 @@ app.get('/api/stores-by-specialty', (req, res) => {
 function categoryName(id) {
     const c = SCRAP_CATEGORIES.find(x => x.id === id);
     return c ? c.name : 'أخرى';
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // تحويل نص إلى رقم (للكمية، السعر، الوزن)
 function toNum(s) { const n = parseFloat(String(s || '').replace(/[^\d.-]/g, '')); return isNaN(n) ? 0 : n; }
 
@@ -10424,8 +10006,6 @@ try {
     if (fs.existsSync(dataPath)) {
         SHIPPING_COMPANIES_DATA = JSON.parse(fs.readFileSync(dataPath, 'utf8'));
     }
-} catch (e) { console.log('تحذير: لم يتم تحميل بيانات شركات النقل'); }
-
 // API: شركات النقل المسجلة
 app.get('/api/shipping/companies', (req, res) => {
     const { type, country, verified } = req.query;
@@ -10774,10 +10354,6 @@ app.get('/api/performance-indicators', (req, res) => {
 let SAUDI_METALS_ANALYSIS = {};
 try {
     SAUDI_METALS_ANALYSIS = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'saudi-metals-analysis.json'), 'utf8'));
-} catch (e) {
-    console.log('[Data] saudi-metals-analysis.json not found, using defaults');
-}
-
 // API: قائمة الشركات الكبرى
 app.get('/api/companies', (req, res) => {
     const type = (req.query.type || '').toLowerCase(); // mining, scrap, logistics, all
@@ -10905,10 +10481,6 @@ app.get('/api/saudi-metals-report', (req, res) => {
 let COMPANIES_REGISTRY = { registeredCompanies: [], preRegisteredCompanies: [] };
 try {
     COMPANIES_REGISTRY = JSON.parse(fs.readFileSync(path.join(__dirname, 'data', 'companies-registry.json'), 'utf8'));
-} catch (e) {
-    console.log('[Data] companies-registry.json not found');
-}
-
 // تسجيل شركة جديدة
 app.post('/api/companies/register', express.json(), async (req, res) => {
     try {
@@ -11074,8 +10646,7 @@ function saveGovRegistry() {
         if (!fs.existsSync(dir)) fs.mkdirSync(dir, { recursive: true });
         fs.writeFileSync(path.join(dir, 'gov-registry.json'), JSON.stringify(GOV_REGISTRY, null, 2), 'utf8');
     } catch (e) { console.error('خطأ في حفظ السجل الحكومي:', e.message); }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // (تم حذف المسارات المكررة: /api/government/register و /api/government/entities — الأصلية في السطور 1104 و 1164)
 
 // GET /api/government/employees — قائمة الموظفين الحكوميين
@@ -11330,10 +10901,6 @@ try {
         MARKETING_SERVICES = JSON.parse(fs.readFileSync(marketingServicesPath, 'utf8'));
         console.log('✅ تم تحميل خدمات التسويق');
     }
-} catch (e) {
-    console.log('⚠️ لم يتم العثور على ملف خدمات التسويق');
-}
-
 // ═══════════════════════════════════════════════════════════════
 // MARKETING ENGINE API — محرك التسويق الرقمي
 // ═══════════════════════════════════════════════════════════════
@@ -11954,8 +11521,7 @@ function addSystemLog(level, service, message) {
         message
     });
     if (SYSTEM_LOGS.length > 100) SYSTEM_LOGS.pop();
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // إضافة سجلات أولية
 addSystemLog('info', 'Server', 'System initialized successfully');
 addSystemLog('success', 'Database', 'JSON storage connected');
@@ -12137,12 +11703,8 @@ try {
     if (fs.existsSync(SMART_INVENTORY_FILE)) {
         SMART_INVENTORY = { ...SMART_INVENTORY, ...JSON.parse(fs.readFileSync(SMART_INVENTORY_FILE, 'utf8')) };
     }
-} catch (e) { console.log('Smart inventory init'); }
-
 function saveSmartInventory() {
     try { fs.writeFileSync(SMART_INVENTORY_FILE, JSON.stringify(SMART_INVENTORY, null, 2), 'utf8'); } catch (e) {}
-}
-
 // ─── حسابات القيمة والاهلاك ─────────────────────────────────────────────────────
 
 /**
@@ -12188,8 +11750,7 @@ function calculateScrapValue(item) {
         monthsHeld,
         depreciationRate: item.purchasePrice > 0 ? ((depreciation / item.purchasePrice) * 100).toFixed(1) : 0
     };
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 /**
  * توقع امتلاء المخزون
  */
@@ -12371,19 +11932,13 @@ try {
     if (fs.existsSync(FORUM_DATA_FILE)) FORUM_DATA = { ...FORUM_DATA, ...JSON.parse(fs.readFileSync(FORUM_DATA_FILE, 'utf8')) };
     if (fs.existsSync(RESEARCH_DATA_FILE)) RESEARCH_DATA = { ...RESEARCH_DATA, ...JSON.parse(fs.readFileSync(RESEARCH_DATA_FILE, 'utf8')) };
     if (fs.existsSync(INTELLIGENCE_DATA_FILE)) INTELLIGENCE_DATA = { ...INTELLIGENCE_DATA, ...JSON.parse(fs.readFileSync(INTELLIGENCE_DATA_FILE, 'utf8')) };
-} catch (e) { console.log('Forum/Research data init'); }
-
 // حفظ البيانات
 function saveForumData() {
     try { fs.writeFileSync(FORUM_DATA_FILE, JSON.stringify(FORUM_DATA, null, 2), 'utf8'); } catch (e) {}
-}
 function saveResearchData() {
     try { fs.writeFileSync(RESEARCH_DATA_FILE, JSON.stringify(RESEARCH_DATA, null, 2), 'utf8'); } catch (e) {}
-}
 function saveIntelligenceData() {
     try { fs.writeFileSync(INTELLIGENCE_DATA_FILE, JSON.stringify(INTELLIGENCE_DATA, null, 2), 'utf8'); } catch (e) {}
-}
-
 // ─── APIs المنتدى ─────────────────────────────────────────────────────────────
 
 // إحصائيات المنتدى
@@ -12632,8 +12187,7 @@ function collectIntelligence(type, data) {
     if (INTELLIGENCE_DATA.collectedData.length % 50 === 0) {
         generateInsights();
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // توليد رؤى من البيانات المجمعة
 function generateInsights() {
     const recentData = INTELLIGENCE_DATA.collectedData.slice(-100);
@@ -13140,8 +12694,7 @@ function loadCompaniesDB() {
         console.error('Error loading companies DB:', e);
     }
     return { metadata: { totalCompanies: 0 }, companies: [], hsCodeTargets: {} };
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // حفظ قاعدة بيانات الشركات
 function saveCompaniesDB(data) {
     try {
@@ -13153,8 +12706,7 @@ function saveCompaniesDB(data) {
         console.error('Error saving companies DB:', e);
         return false;
     }
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // الحصول على كل الشركات
 app.get('/api/companies', (req, res) => {
     const db = loadCompaniesDB();
@@ -13549,12 +13101,16 @@ app.post('/api/security/backup', (req, res) => {
 // 👤 نظام العميل الافتراضي لاختبار التجربة
 // ═══════════════════════════════════════════════════════════════════════════════
 
+const virtualTestAccounts = require('./core/security/sheikha-virtual-test-accounts.cjs')
+    .createVirtualTestAccounts(process.env, hashPassword);
+app.use('/api/virtual-customer', virtualTestAccounts.guard);
+
 // بيانات العميل الافتراضي
 const VIRTUAL_CUSTOMER = {
     id: 'vc-001',
     name: 'مستخدم عميل',
     email: 'test.customer@sheikha.top',
-    password: hashPassword('Test@Customer2024'),
+    password: virtualTestAccounts.customerHash,
     phone: '+966500000001',
     type: 'customer',
     region: 'الرياض',
@@ -13574,7 +13130,7 @@ const VIRTUAL_TRADER = {
     id: 'vt-001',
     name: 'متجر الاختبار',
     email: 'test.trader@sheikha.top',
-    password: hashPassword('Test@Trader2024'),
+    password: virtualTestAccounts.traderHash,
     crNumber: '1234567890',
     specialties: ['حديد', 'نحاس', 'ألمنيوم'],
     products: [],
@@ -13616,16 +13172,6 @@ app.get('/api/virtual-customer', (req, res) => {
             crNumber: VIRTUAL_TRADER.crNumber,
             specialties: VIRTUAL_TRADER.specialties,
             metrics: VIRTUAL_TRADER.metrics
-        },
-        credentials: {
-            customer: {
-                email: 'test.customer@sheikha.top',
-                password: 'Test@Customer2024'
-            },
-            trader: {
-                email: 'test.trader@sheikha.top',
-                password: 'Test@Trader2024'
-            }
         }
     });
 });
@@ -15924,8 +15470,7 @@ function broadcastNotification(notification) {
             client.send(data);
         }
     });
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 السوق السعودي المجهز مسبقاً - Preloaded Saudi Market
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -15937,10 +15482,6 @@ try {
         SAUDI_MARKET_DATA = JSON.parse(fs.readFileSync(marketPath, 'utf8'));
         console.log(`[Data] Loaded ${(SAUDI_MARKET_DATA.preloadedCompanies || []).length} preloaded companies`);
     }
-} catch (e) {
-    console.log('[Data] saudi-market-preloaded.json not found');
-}
-
 // جلب جميع الشركات المجهزة مسبقاً
 app.get('/api/market/preloaded', (req, res) => {
     const sector = req.query.sector;
@@ -16139,8 +15680,7 @@ function findCompanyInSupplyChain(companyId) {
         }
     }
     return null;
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function suggestBlocksForCompany(company) {
     const blocks = ((SAUDI_MARKET_DATA.blockDesignSystem || {}).blocks || []);
     const suggestions = [];
@@ -16676,10 +16216,6 @@ try {
     /*     ArabicEngine = require('./lib/arabic-language-engine.js'); */
     console.log('⏸️ [LAZY] arabic-language-engine.js — سيُحمّل عند الطلب');
     console.log('✅ محرك اللغة العربية الشامل - تم التحميل');
-} catch (e) {
-    console.log('⚠️ محرك اللغة العربية غير متوفر:', e.message);
-}
-
 // ─── تحليل جملة عربية ─────────────────────────────────────────────────────────
 app.post('/api/arabic/analyze', (req, res) => {
     if (!ArabicEngine) {
@@ -16948,10 +16484,6 @@ try {
     /*     ArabicParserEngine = require('./lib/arabic-parser-engine.js'); */
     console.log('⏸️ [LAZY] arabic-parser-engine.js — سيُحمّل عند الطلب');
     console.log('✅ محرك الإعراب والتحليل النحوي المتقدم - تم التحميل');
-} catch (e) {
-    console.log('⚠️ محرك الإعراب غير متوفر:', e.message);
-}
-
 // ─── إعراب جملة كاملة ────────────────────────────────────────────────────────
 app.post('/api/arabic/parse', (req, res) => {
     if (!ArabicParserEngine) {
@@ -17386,8 +16918,7 @@ if (pilotEngine) {
         pilotEngine.recordError({ message: String(reason) }, { path: 'unhandledRejection', method: 'SYSTEM' });
         console.error('🔴 رفض غير معالج:', reason);
     });
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🧪 PILOT ENGINE API — نقاط نهاية التشغيل التجريبي + AL/ML + الإنتاج الذكي
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -19348,9 +18879,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-digital-market-ecosystem.js — سيُحمّل عند الطلب');
     digitalMarketEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Digital Market Ecosystem — منظومة السوق الرقمي المتكامل مفعّلة');
-} catch (e) {
-    console.log('⚠️ Digital Market Ecosystem غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Digital Market Ecosystem — يُحمّل عند الطلب (السوق الأساسي نشط)');
 
@@ -19363,9 +18891,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-digital-operations-engine.js — سيُحمّل عند الطلب');
     digitalOpsEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Digital Operations Engine — محرك العمليات الرقمية الشامل مفعّل');
-} catch (e) {
-    console.log('⚠️ Digital Operations Engine غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Digital Operations Engine — يُحمّل عند الطلب');
 
@@ -19376,10 +18901,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-continuous-improvement-engine.js — سيُحمّل عند الطلب');
     kaizenEngine(app);
     console.log('✅ Kaizen Engine — محرك التحسين المستمر مفعّل');
-} catch (e) {
-    console.log('⚠️ Kaizen Engine غير متوفر:', e.message);
-}
-
 // ═══ منظومة التعلم والتدريب والمعرفة الرقمية ═══
 try {
     // P0-1: LAZY (L1) - sheikha-digital-learning-engine.js
@@ -19387,10 +18908,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-digital-learning-engine.js — سيُحمّل عند الطلب');
     learningEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Learning Engine — منظومة التعلم والتدريب الرقمي مفعّلة');
-} catch (e) {
-    console.log('⚠️ Learning Engine غير متوفر:', e.message);
-}
-
 // ═══ محرك لوحات التحكم الشامل ═══
 try {
     // P0-1: LAZY (UNKNOWN) - sheikha-dashboards-engine.js
@@ -19398,20 +18915,12 @@ try {
     console.log('⏸️ [LAZY] sheikha-dashboards-engine.js — سيُحمّل عند الطلب');
     dashboardsEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS });
     console.log('✅ Dashboards Engine — محرك لوحات التحكم الشامل مفعّل');
-} catch (e) {
-    console.log('⚠️ Dashboards Engine غير متوفر:', e.message);
-}
-
 // ═══ منظومة المجتمع الرقمي والأساسي الشاملة ═══
 try {
     const communityEcosystem = require('./lib/sheikha-digital-community-ecosystem.js');
     console.log('✅ sheikha-digital-community-ecosystem.js loaded');
     communityEcosystem(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Community Ecosystem — منظومة المجتمع الرقمي الشاملة مفعّلة');
-} catch (e) {
-    console.log('⚠️ Community Ecosystem غير متوفر:', e.message);
-}
-
 // ═══ رياض الجنة — بيت العلم ودار المعرفة ومصنع الابتكار ═══
 try {
     // P0-1: LAZY (L1) - sheikha-riyad-aljannah-engine.js
@@ -19419,10 +18928,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-riyad-aljannah-engine.js — سيُحمّل عند الطلب');
     riyadEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Riyad Al-Jannah — رياض الجنة مفعّلة');
-} catch (e) {
-    console.log('⚠️ Riyad Al-Jannah غير متوفر:', e.message);
-}
-
 // ═══ منصة شيخة التعليمية الجاهزة — محتوى + أدوات + تراخيص + تسويق ═══
 // ═══ P0-1: LAZY — منصة تعليمية ضخمة، ليست حرجة عند startup ═══
 /* LAZY: Educational Launchpad
@@ -19432,9 +18937,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-educational-launchpad-engine.js — سيُحمّل عند الطلب');
     eduLaunchpad(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Edu Launchpad — المنصة التعليمية الجاهزة مفعّلة');
-} catch (e) {
-    console.log('⚠️ Edu Launchpad غير متوفر:', e.message);
-}
 */
 console.log('⏸️ [LAZY] Educational Launchpad — يُحمّل عند الطلب');
 
@@ -19445,10 +18947,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-quran-sunnah-education.js — سيُحمّل عند الطلب');
     quranEdu(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ Quran Education — منظومة تعليم القرآن والسنة مفعّلة');
-} catch (e) {
-    console.log('⚠️ Quran Education غير متوفر:', e.message);
-}
-
 // ═══ محرك الهيكل التنظيمي والتنفيذي والمخطط الرقمي + تغذية AI بالكتاب والسنة ═══
 try {
     // P0-1: LAZY (L1) - sheikha-org-execution-engine.js
@@ -19456,10 +18954,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-org-execution-engine.js — سيُحمّل عند الطلب');
     orgExecEngine(app, { USERS, TRADERS, LISTINGS, ORDERS, CONTAINERS, saveJSON, LISTINGS_FILE, ORDERS_FILE });
     console.log('✅ OrgExec Engine — محرك الهيكل التنظيمي والتنفيذي + تغذية AI مفعّل');
-} catch (e) {
-    console.log('⚠️ OrgExec Engine غير متوفر:', e.message);
-}
-
 // ─── أنواع العقود ────────────────────────────────────────────────────────────
 const CONTRACT_TYPES = {
     supply:       { id: 'supply', nameAr: 'عقد توريد', nameEn: 'Supply Contract', icon: '📦', category: 'trade' },
@@ -19831,10 +19325,6 @@ try {
     console.log(`   🏅 الشهادات: ${dash.summary.certifications} شهادة`);
     console.log(`   📜 العقود الخضراء: ${dash.summary.greenContractTypes} نوع`);
     console.log(`   🤖 أنظمة رقمية: ${dash.summary.digitalSystems} نظام`);
-} catch(e) {
-    console.warn('⚠️ [Green+Circular] لم يتم تحميل المنظومة:', e.message);
-}
-
 // ─── Green & Circular Economy APIs ───────────────────────────────
 // 📊 لوحة منظومة شيخة الخضراء
 app.get('/api/green/dashboard', (req, res) => {
@@ -20047,9 +19537,12 @@ try {
     console.log('      GET  /api/ai-core/production/health — صحة النظام');
     console.log('      GET  /api/ai-core/capabilities — القدرات الكاملة');
     console.log('      GET  /api/ai-core/status — حالة المحركات');
-} catch (e) {
-    console.warn('⚠️ [AI-Core] لم يتم تحميل منظومة RAG/Agents:', e.message);
-}
+// Optional AI status reports are independent of AI-Core boot success.
+const {
+    OPTIONAL_AI_STATUS_MOUNTS,
+    mountOptionalAiStatusRoutes
+} = require('./lib/fabric-bootstrap/optional-ai-status-routes');
+mountOptionalAiStatusRoutes(app);
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // ⚙️ منظومة المعادن والسكراب والأسواق — مرقمنة بالكتاب والسنة
@@ -20067,10 +19560,6 @@ try {
     console.log(`   ♻️ السكراب: ${d.scrap.ferrousGrades} حديدي + ${d.scrap.copperGrades} نحاس + ${d.scrap.aluminumGrades} ألمنيوم + ${d.scrap.eWasteTypes} إلكتروني`);
     console.log(`   📊 الأسواق: ${d.markets.globalExchanges} بورصة + ${d.markets.marketPrinciples} مبدأ شرعي + ${d.markets.contractTypes} نوع عقد`);
     console.log(`   📗 الأساس الشرعي: ${d.metals.quranVerses} آية + ${d.metals.hadith} حديث`);
-} catch(e) {
-    console.warn('⚠️ [Metals+Scrap+Markets] خطأ:', e.message);
-}
-
 // ─── APIs: منظومة المعادن ─────────────────────────────────────
 app.get('/api/metals/dashboard', (req, res) => {
     if (!metalsScrapMarketsEngine) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -20373,10 +19862,6 @@ try {
     const gd = metalsGlobalData.getDashboard();
     console.log(`✅ [Global Metals Data] بيانات ${gd.metalsCount} معدن عالمية — مصادر + إنتاج + احتياطي + تكاليف`);
     console.log(`   📗 الأساس الشرعي: ${gd.islamicFoundation.verses} آية + ${gd.islamicFoundation.miningRules} حكم تعدين`);
-} catch(e) {
-    console.warn('⚠️ [Global Metals Data] خطأ:', e.message);
-}
-
 // بيانات المعدن الشاملة
 app.get('/api/metals/global/:key', (req, res) => {
     if (!metalsGlobalData) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -20437,10 +19922,6 @@ try {
     const sd = scrapGlobalData.getDashboard();
     console.log(`✅ [Scrap Global Data] ${sd.typesCount} نوع سكراب | ${sd.historicalEras} حقبة تاريخية | ${sd.saudiSmelters} مصهر سعودي`);
     console.log(`   📗 الأساس الشرعي: ${sd.shariaEvidence} دليل | مشاكل البيع بدون عقد: ${sd.contractIssues} | حلول ذكية: ${sd.smartContractFeatures}`);
-} catch(e) {
-    console.warn('⚠️ [Scrap Global Data] خطأ:', e.message);
-}
-
 // لوحة التحكم
 app.get('/api/scrap/global/dashboard', (req, res) => {
     if (!scrapGlobalData) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -20524,10 +20005,6 @@ try {
     const hd = metalsHSHistory.getDashboard();
     console.log(`✅ [HS+History] ${hd.hsCodes.total} كود HS | ${hd.history.eras} حقبة تاريخية | ${hd.history.quranMentions} ذكر قرآني للمعادن`);
     console.log(`   📦 أقسام HS: حديد ${hd.hsCodes.iron} | ألمنيوم ${hd.hsCodes.aluminum} | نحاس ${hd.hsCodes.copper} | ثمينة ${hd.hsCodes.precious}`);
-} catch(e) {
-    console.warn('⚠️ [HS+History] خطأ:', e.message);
-}
-
 // لوحة التحكم
 app.get('/api/hs/dashboard', (req, res) => {
     if (!metalsHSHistory) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
@@ -20600,10 +20077,6 @@ try {
     const nd = metalsNetworks.getDashboard();
     console.log(`✅ [Networks+Map] ${nd.networks} شبكة | ${nd.totalNodes} نقطة جغرافية | ${nd.metals} معدن (عرض/طلب)`);
     nd.networkList.forEach(n => console.log(`   🔗 ${n.name}: ${n.nodes} نقطة`));
-} catch(e) {
-    console.warn('⚠️ [Networks+Map] خطأ:', e.message);
-}
-
 app.get('/api/networks/dashboard', (req, res) => {
     if (!metalsNetworks) return res.status(503).json({ error: 'المنظومة غير مفعلة' });
     res.json({ success: true, ...metalsNetworks.getDashboard() });
@@ -20670,8 +20143,6 @@ try {
     autoSalvage = resolveOptionalEngine('AS', 'Auto Salvage');
     const asd = autoSalvage.getDashboard();
     console.log(`✅ [Auto Salvage] سوق التشليح: ${asd.saudi.salvageYards} ساحة | ${asd.saudi.elvAnnual} سيارة/سنة | ${asd.saudi.marketValue}/سنة`);
-} catch(e) { console.warn('⚠️ [Auto Salvage] خطأ:', e.message); }
-
 app.get('/api/salvage/dashboard', (req, res) => {
     if (!autoSalvage) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...autoSalvage.getDashboard() });
@@ -20710,8 +20181,6 @@ try {
     logistics = resolveOptionalEngine('LSC', 'Logistics');
     const ld = logistics.getDashboard();
     console.log(`✅ [Logistics] ${ld.stats.ports} ميناء | ${ld.stats.airports} مطار | ${ld.stats.pipelines} خط أنابيب | ${ld.stats.railways} سكة حديد | ${ld.stats.gapAnalysis} فجوة`);
-} catch(e) { console.warn('⚠️ [Logistics] خطأ:', e.message); }
-
 app.get('/api/logistics/supply-chain-dashboard', (req, res) => {
     if (!logistics) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...logistics.getDashboard() });
@@ -20754,8 +20223,6 @@ try {
     tradeHistory = resolveOptionalEngine('TNH', 'Trade History');
     const td = tradeHistory.getDashboard();
     console.log(`✅ [Trade History] ${td.stats.historicalEras} حقبة | ${td.stats.tradeRoutes} طريق | ${td.stats.tradeNetworks} شبكة | ${td.stats.modernNetworks} شبكة حديثة | ${td.stats.mapPoints} نقطة خريطة`);
-} catch(e) { console.warn('⚠️ [Trade History] خطأ:', e.message); }
-
 app.get('/api/trade-history/dashboard', (req, res) => {
     if (!tradeHistory) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...tradeHistory.getDashboard() });
@@ -20784,7 +20251,6 @@ app.get('/api/trade-history/network-analysis', (req, res) => {
     if (!tradeHistory) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...tradeHistory.getNetworkAnalysis() });
 });
-console.log('   📡 Trade History APIs: /api/trade-history/dashboard, /api/trade-history/cosmic-origins, /api/trade-history/prophet-era, /api/trade-history/modern-networks, /api/trade-history/routes-map, /api/trade-history/attraction-strategy, /api/trade-history/network-analysis');
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 👑 الريادة والقيادة والحوكمة — الهيكلة التنظيمية + المنظمات + القوافل + الشبكات
@@ -20797,8 +20263,6 @@ try {
     leadership = resolveOptionalEngine('LG', 'Leadership');
     const ld = leadership.getDashboard();
     console.log(`✅ [Leadership] ${ld.stats.leadershipPrinciples} مبدأ قيادة | ${ld.stats.organizationalLayers} طبقة تنظيمية | ${ld.stats.organizations} منظمة | ${ld.stats.caravans} قافلة | ${ld.stats.networks} شبكة | ${ld.stats.historicalEras} حقبة`);
-} catch(e) { console.warn('⚠️ [Leadership] خطأ:', e.message); }
-
 app.get('/api/leadership/dashboard', (req, res) => {
     if (!leadership) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...leadership.getDashboard() });
@@ -20849,8 +20313,6 @@ try {
     metalsBank = resolveOptionalEngine('MB', 'Metals Bank');
     const md = metalsBank.getDashboard();
     console.log(`✅ [Metals Bank] ${md.stats.preciousMetals} ثمين | ${md.stats.baseMetals} أساسي | ${md.stats.rareMetals} نادر | ${md.stats.scrapTypes} سكراب | ${md.stats.tradingContracts} عقد | ${md.stats.vaultLocations} خزنة | ${md.stats.shariaEvidence} دليل شرعي`);
-} catch(e) { console.warn('⚠️ [Metals Bank] خطأ:', e.message); }
-
 app.get('/api/metals-bank/dashboard', (req, res) => {
     if (!metalsBank) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...metalsBank.getDashboard() });
@@ -20900,8 +20362,6 @@ try {
     licensesReg = resolveOptionalEngine('LR', 'Licenses');
     const ld = licensesReg.getDashboard();
     console.log(`✅ [Licenses] ${ld.stats.commercialActivities} نشاط تجاري | ${ld.stats.essentialLicenses} ترخيص | ${ld.stats.certificates} شهادة | ${ld.stats.saudiAuthorities} جهة | ${ld.stats.timelinePhases} مرحلة`);
-} catch(e) { console.warn('⚠️ [Licenses] خطأ:', e.message); }
-
 app.get('/api/licenses/dashboard', (req, res) => {
     if (!licensesReg) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...licensesReg.getDashboard() });
@@ -20951,8 +20411,6 @@ try {
     officialDocs = resolveOptionalEngine('OD', 'Official Docs');
     const od = officialDocs.getDashboard();
     console.log(`✅ [Official Docs] ${od.stats.officialDocTemplates} قالب | ${od.stats.stampDesigns} ختم | ${od.stats.signatureTypes} توقيع | ${od.stats.autoFillForms} نموذج آلي | ${od.stats.governmentForms} حكومي | ${od.stats.commercialForms} تجاري`);
-} catch(e) { console.warn('⚠️ [Official Docs] خطأ:', e.message); }
-
 app.get('/api/official-docs/dashboard', (req, res) => {
     if (!officialDocs) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...officialDocs.getDashboard() });
@@ -20999,8 +20457,6 @@ try {
     archiveEngine = resolveOptionalEngine('AE', 'Archive');
     const ad = archiveEngine.getDashboard();
     console.log(`✅ [Archive] ${ad.stats.archiveCategories} فئة أرشفة | ${ad.stats.documentClasses} تصنيف وثائق | ${ad.stats.indexingLevels} مستوى فهرسة | ${ad.stats.retentionPolicies} سياسة حفظ | ${ad.stats.autoWorkflows} سير عمل آلي | ${ad.stats.securityLevels} مستوى أمان | أساس: ${ad.stats.calendarBasis}`);
-} catch(e) { console.warn('⚠️ [Archive] خطأ:', e.message); }
-
 app.get('/api/archive/dashboard', (req, res) => {
     if (!archiveEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...archiveEngine.getDashboard() });
@@ -21055,8 +20511,6 @@ try {
     accountingEngine = resolveOptionalEngine('ACE', 'Accounting');
     const acd = accountingEngine.getDashboard();
     console.log(`✅ [Accounting] ${acd.stats.chartOfAccounts} شجرة حسابات | ${acd.stats.accountCategories} حساب | ${acd.stats.financialStatements} قائمة مالية | ${acd.stats.automationWorkflows} سير عمل آلي | ${acd.stats.archiveIntegrations} تكامل أرشفة | ${acd.stats.shariaRules} ضابط شرعي | أساس: ${acd.stats.calendarBasis}`);
-} catch(e) { console.warn('⚠️ [Accounting] خطأ:', e.message); }
-
 app.get('/api/accounting/dashboard', (req, res) => {
     if (!accountingEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...accountingEngine.getDashboard() });
@@ -21094,8 +20548,6 @@ try {
     govPlatformsEngine = resolveOptionalEngine('GPE', 'GovPlatforms');
     const gpd = govPlatformsEngine.getDashboard();
     console.log(`✅ [GovPlatforms] ${gpd.stats.govPlatforms} منصة حكومية | ${gpd.stats.autoUploadFlows} سير رفع آلي | ${gpd.stats.carrierIntegrations} ناقل | ${gpd.stats.portSystems} ميناء | ${gpd.stats.sheikhaDocuments} وثيقة شيخة | ${gpd.stats.operationPhases} مرحلة عملية | ${gpd.stats.analyticsKPIs} مؤشر أداء | ${gpd.stats.backgroundProcesses} عملية خلفية | أساس: ${gpd.stats.calendarBasis}`);
-} catch(e) { console.warn('⚠️ [GovPlatforms] خطأ:', e.message); }
-
 app.get('/api/gov-platforms/dashboard', (req, res) => {
     if (!govPlatformsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...govPlatformsEngine.getDashboard() });
@@ -21135,8 +20587,6 @@ try {
     logisticsManagementEngine = resolveOptionalEngine('LME', 'LogisticsManagement');
     const lmd = logisticsManagementEngine.getDashboard();
     console.log(`✅ [LogisticsManagement] ${lmd.totalModules} وحدة | ${lmd.registeredCarriers} ناقل مسجل | ${lmd.openSourceDataSources} مصدر مفتوح | ${lmd.integrationPoints} نقطة تكامل | TMS+WMS+OMS+YMS+FMS+CMS+AI`);
-} catch(e) { console.warn('⚠️ [LogisticsManagement] خطأ:', e.message); }
-
 app.get('/api/logistics-mgmt/dashboard', (req, res) => {
     if (!logisticsManagementEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...logisticsManagementEngine.getDashboard() });
@@ -21190,8 +20640,6 @@ try {
     materialsSpecsEngine = resolveOptionalEngine('MSE', 'MaterialsSpecs');
     const msd = materialsSpecsEngine.getDashboard();
     console.log(`✅ [MaterialsSpecs] ${msd.stats.metalCategories} فئات معادن | ${msd.stats.totalProducts} منتج | ${msd.stats.hsCodes} كود HS | ${msd.stats.standards} معيار | ${msd.stats.userIndustries} صناعة | ${msd.stats.geographicSources} مصدر جغرافي | ${msd.stats.islamicReferences} مرجع شرعي`);
-} catch(e) { console.warn('⚠️ [MaterialsSpecs] خطأ:', e.message); }
-
 app.get('/api/materials/dashboard', (req, res) => {
     if (!materialsSpecsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...materialsSpecsEngine.getDashboard() });
@@ -21233,8 +20681,6 @@ try {
     readinessEngine = resolveOptionalEngine('RCE', 'Readiness');
     const rcd = readinessEngine.getDashboard();
     console.log(`✅ [Readiness] ${rcd.stats.saudiPlatforms} منصة سعودية | ${rcd.stats.saudiLaws} نظام سعودي | ${rcd.stats.internationalRegions} مناطق دولية | ${rcd.stats.countriesSupported} دولة | ${rcd.stats.internationalStandards} معيار دولي | ${rcd.stats.tradeAgreements} اتفاقية تجارية | ${rcd.stats.digitalIntegrationPoints} نقطة تكامل رقمي | ${rcd.stats.shariaRules} قاعدة شرعية`);
-} catch(e) { console.warn('⚠️ [Readiness] خطأ:', e.message); }
-
 app.get('/api/readiness/dashboard', (req, res) => {
     if (!readinessEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...readinessEngine.getDashboard() });
@@ -21268,8 +20714,6 @@ try {
     wisdomEngine = resolveOptionalEngine('WPE', 'WisdomPower');
     const wpd = wisdomEngine.getDashboard();
     console.log(`✅ [WisdomPower] ${wpd.totalModules} وحدة | AI:${wpd.domains.AI.modules} | Systems:${wpd.domains.Systems.modules} | Computing:${wpd.domains.Computing.modules} | Tech:${wpd.domains.Technology.modules} | Mgmt:${wpd.domains.Management.modules} | Eng:${wpd.domains.Engineering.modules} | Sci:${wpd.domains.Science.modules} | ${wpd.islamicReferences} مرجع شرعي`);
-} catch(e) { console.warn('⚠️ [WisdomPower] خطأ:', e.message); }
-
 app.get('/api/wisdom/dashboard', (req, res) => {
     if (!wisdomEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...wisdomEngine.getDashboard() });
@@ -21312,8 +20756,6 @@ try {
     metalsImpactEngine = resolveOptionalEngine('MIE', 'MetalsImpact');
     const mid = metalsImpactEngine.getDashboard();
     console.log(`✅ [MetalsImpact] ${mid.stats.metalsTracked} معدن | ${mid.stats.impactDimensions} أبعاد أثر | ${mid.stats.hsCodesCovered} كود HS | ${mid.stats.sdgAlignment} هدف SDG | ${mid.stats.kpis} مؤشر | ${mid.stats.islamicReferences} مرجع شرعي | ${mid.stats.backgroundProcesses} عملية خلفية`);
-} catch(e) { console.warn('⚠️ [MetalsImpact] خطأ:', e.message); }
-
 app.get('/api/metals-impact/dashboard', (req, res) => {
     if (!metalsImpactEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...metalsImpactEngine.getDashboard() });
@@ -21352,8 +20794,6 @@ try {
     metalsMeasurementEngine = resolveOptionalEngine('MME', 'MetalsMeasurement');
     const mmd = metalsMeasurementEngine.getDashboard();
     console.log(`✅ [MetalsMeasurement] ${mmd.stats.propheticMeasures} مقياس نبوي | ${mmd.stats.scientificMeasures} مقياس علمي | ${mmd.stats.economicMeasures} مقياس اقتصادي | ${mmd.stats.classificationAxes} محاور تصنيف | ${mmd.stats.metalsClassified} معدن | ${mmd.stats.backgroundProcesses} عملية خلفية | ${mmd.stats.wisdomDisplayRules} قاعدة عرض حكيم | ${mmd.stats.islamicReferences} مرجع شرعي`);
-} catch(e) { console.warn('⚠️ [MetalsMeasurement] خطأ:', e.message); }
-
 app.get('/api/metals-measure/dashboard', (req, res) => {
     if (!metalsMeasurementEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...metalsMeasurementEngine.getDashboard() });
@@ -21391,8 +20831,6 @@ try {
     logicEngine = resolveOptionalEngine('LE', 'Logic');
     const ld = logicEngine.getDashboard();
     console.log(`✅ [Logic] ${ld.stats.quranicLogicPrinciples} مبدأ قرآني | ${ld.stats.propheticReasoningMethods} منهج نبوي | ${ld.stats.decisionFrameworks} إطار قرار | ${ld.stats.logicalFallacies} مغالطة منطقية | ${ld.stats.businessLogicRules} قاعدة تجارية | ${ld.stats.aiReasoningModels} نموذج AI`);
-} catch(e) { console.warn('⚠️ [Logic] خطأ:', e.message); }
-
 app.get('/api/logic/dashboard', (req, res) => {
     if (!logicEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...logicEngine.getDashboard() });
@@ -21429,9 +20867,6 @@ try {
     /*     const QSE = require('./lib/sheikha-quantum-stats-engine'); */
     quantumStatsEngine = resolveOptionalEngine('QSE', 'QuantumStats');
     const qd = quantumStatsEngine.getDashboard();
-    console.log(`✅ [QuantumStats] ${qd.stats.cosmicMeasures} مقياس كوني | ${qd.stats.propheticEraData} بيانات نبوية | ${qd.stats.earthMeasures} مقياس أرضي | ${qd.stats.heavensMeasures} مقياس سماوي | ${qd.stats.metalQuantities} كمية معدنية | ${qd.stats.systemMetrics} مقياس أنظمة | ${qd.stats.backgroundProcesses} عملية خلفية | ${qd.stats.islamicReferences} مرجع شرعي`);
-} catch(e) { console.warn('⚠️ [QuantumStats] خطأ:', e.message); }
-
 app.get('/api/quantum-stats/dashboard', (req, res) => {
     if (!quantumStatsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...quantumStatsEngine.getDashboard() });
@@ -21464,7 +20899,6 @@ app.get('/api/quantum-stats/background', (req, res) => {
     if (!quantumStatsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...quantumStatsEngine.getBackgroundAndDisplay() });
 });
-console.log('   📡 Quantum Stats APIs: /api/quantum-stats/dashboard, /api/quantum-stats/divine, /api/quantum-stats/cosmic-timeline, /api/quantum-stats/earth, /api/quantum-stats/heavens, /api/quantum-stats/quantum-computing, /api/quantum-stats/systems-metrics, /api/quantum-stats/background');
 
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🔗 منظومة شيخة — دمج المنطق والحكمة بكل العلوم والأنظمة
@@ -21477,8 +20911,6 @@ try {
     wisdomFusionEngine = resolveOptionalEngine('WFE', 'WisdomFusion');
     const wfd = wisdomFusionEngine.getDashboard();
     console.log(`✅ [WisdomFusion] ${wfd.stats.fusionDomains} مجال مدموج | ${wfd.stats.wisdomPrinciples} مبدأ حكمة | ${wfd.stats.crossDomainRules} قاعدة عابرة | ${wfd.stats.integrationPoints} نقطة تكامل | ${wfd.stats.logicLayers} طبقة منطق | ${wfd.stats.backgroundProcesses} عملية خلفية | ${wfd.stats.islamicFoundations} مرجع شرعي`);
-} catch(e) { console.warn('⚠️ [WisdomFusion] خطأ:', e.message); }
-
 app.get('/api/wisdom-fusion/dashboard', (req, res) => {
     if (!wisdomFusionEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...wisdomFusionEngine.getDashboard() });
@@ -21516,8 +20948,6 @@ try {
     qurayshEngine = resolveOptionalEngine('QJE', 'Quraysh');
     const qjd = qurayshEngine.getDashboard();
     console.log(`✅ [Quraysh] ${qjd.stats.divineBlessing} نِعَم إلهية | ${qjd.stats.tradeRoutes} مسار تجاري | ${qjd.stats.partnerCountries} دولة شريكة | ${qjd.stats.securityLayers} طبقة أمان | ${qjd.stats.gratitudePractices} ممارسة شكر | ${qjd.stats.backgroundProcesses} عملية خلفية`);
-} catch(e) { console.warn('⚠️ [Quraysh] خطأ:', e.message); }
-
 app.get('/api/quraysh/dashboard', (req, res) => {
     if (!qurayshEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...qurayshEngine.getDashboard() });
@@ -21559,8 +20989,6 @@ try {
     learningEngine = resolveOptionalEngine('SLE', 'Learning');
     const sld = learningEngine.getDashboard();
     console.log(`✅ [Learning] ${sld.stats.learningDomains} مجال تعلم | ${sld.stats.quranicKnowledgeVerses} آية علم | ${sld.stats.machineLearningModels} نموذج ML | ${sld.stats.wisdomLessons} درس حكمة | ${sld.stats.continuousProcesses} عملية مستمرة | ${sld.stats.knowledgeSources} مصدر معرفة`);
-} catch(e) { console.warn('⚠️ [Learning] خطأ:', e.message); }
-
 app.get('/api/learning/dashboard', (req, res) => {
     if (!learningEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...learningEngine.getDashboard() });
@@ -21598,8 +21026,6 @@ try {
     walaaBaraaEngine = resolveOptionalEngine('WBE', 'WalaaBaraa');
     const wbd = walaaBaraaEngine.getDashboard();
     console.log(`✅ [WalaaBaraa] ${wbd.stats.walaaFoundations} أساس ولاء | ${wbd.stats.baraaShields} درع براء | ${wbd.stats.protectionLayers} طبقة حماية | ${wbd.stats.rejectionRules} قاعدة رفض | ${wbd.stats.victoryPrinciples} مبدأ نصر | ${wbd.stats.backgroundProcesses} عملية خلفية | ${wbd.stats.islamicReferences} مرجع شرعي`);
-} catch(e) { console.warn('⚠️ [WalaaBaraa] خطأ:', e.message); }
-
 app.get('/api/walaa-baraa/dashboard', (req, res) => {
     if (!walaaBaraaEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...walaaBaraaEngine.getDashboard() });
@@ -21634,8 +21060,6 @@ try {
     tradeLegacyEngine = resolveOptionalEngine('TLE', 'TradeLegacy');
     const tld = tradeLegacyEngine.getDashboard();
     console.log(`✅ [TradeLegacy] ${tld.stats.historicalNetworks} شبكة تاريخية | ${tld.stats.tradersAnalyzed} تاجر | ${tld.stats.goodsCategories} بضاعة | ${tld.stats.sheikhGoals} هدف شيخة | ${tld.stats.backgroundGoals} هدف خلفي | ${tld.stats.islamicReferences} مرجع شرعي | إن شاء الله`);
-} catch(e) { console.warn('⚠️ [TradeLegacy] خطأ:', e.message); }
-
 app.get('/api/trade-legacy/dashboard', (req, res) => {
     if (!tradeLegacyEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...tradeLegacyEngine.getDashboard() });
@@ -21668,8 +21092,6 @@ try {
     /*     const AAE = require('./lib/sheikha-adab-anbiya-engine'); */
     adabAnbiyaEngine = resolveOptionalEngine('AAE', 'Private');
     console.log('✅ [🔒 Private] أدب الأنبياء والمقام المباح — مُفعّل — سري وخاص للمالك فقط');
-} catch(e) { console.warn('⚠️ [Private] خطأ:', e.message); }
-
 // حماية: كل API يتطلب مفتاح المالك في الترويسة
 const ownerAuth = (req, res, next) => {
     const key = req.headers['x-owner-key'] || req.query.ownerKey;
@@ -21713,8 +21135,6 @@ try {
     trustAuthEngine = resolveOptionalEngine('TAE', 'TrustAuth');
     const tad = trustAuthEngine.getDashboard();
     console.log(`✅ [TrustAuth] ${tad.stats.trustPillars} ركائز أمانة | ${tad.stats.authLayers} طبقة مصادقة | ${tad.stats.reliabilityMetrics} مقياس موثوقية | ${tad.stats.authMethods} طريقة auth | ${tad.stats.rbacRoles} دور صلاحية | ${tad.stats.securityProtocols} بروتوكول أمان | ${tad.stats.islamicTrustPrinciples} مبدأ أمانة إسلامي | ${tad.stats.backgroundProcesses} عملية خلفية | الأمين ﷺ`);
-} catch(e) { console.warn('⚠️ [TrustAuth] خطأ:', e.message); }
-
 app.get('/api/trust-auth/dashboard', (req, res) => {
     if (!trustAuthEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...trustAuthEngine.getDashboard() });
@@ -21840,10 +21260,6 @@ try {
         architectureEngine = buildArchitectureFallback();
         console.log('⚠️ Architecture engine module غير موجود — fallback mode active');
     }
-} catch (e) {
-    architectureEngine = buildArchitectureFallback();
-    console.log('⚠️ Architecture Engine غير متوفر — fallback mode active:', e.message);
-}
 app.get('/api/architecture/dashboard', (req, res) => {
     if (!architectureEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...architectureEngine.getDashboard() });
@@ -21890,9 +21306,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-os-v2-agentic-engine.js — سيُحمّل عند الطلب');
     agenticOSEngine = new SheikhaAgenticOSEngine();
     console.log('✅ 🖥️ Sheikha OS V2 (Agentic AI) — نظام التشغيل الوكيلي الذكي — أفضل من HUMAIN ONE — مُفعّل');
-} catch (e) {
-    console.log('⚠️ Agentic OS Engine غير متوفر:', e.message);
-}
 app.get('/api/sheikha-os-v2/dashboard', (req, res) => {
     if (!agenticOSEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...agenticOSEngine.getDashboard() });
@@ -21934,8 +21347,6 @@ try {
     customsClearanceEngine = new CCAE();
     const ccd = customsClearanceEngine.getDashboard();
     console.log(`✅ [CustomsClearance] أتمتة التخليص الجمركي — ${Object.keys(ccd.systems).length} أنظمة | ${ccd.transportChannels.length} قنوات نقل | ${ccd.governmentPlatforms.length} منصات حكومية | قاعدة بيانات متكاملة`);
-} catch(e) { console.warn('⚠️ [CustomsClearance] خطأ:', e.message); }
-
 // لوحة التحكم الرئيسية
 app.get('/api/customs/dashboard', (req, res) => {
     if (!customsClearanceEngine) return res.status(503).json({ error: 'غير مفعل' });
@@ -22068,8 +21479,6 @@ try {
     powerEngine = new PE();
     const pd = powerEngine.getDashboard();
     console.log(`✅ [UltimatePower] محرك القوة المطلقة — ${pd.totalPowers} قوة رقمية | ${pd.totalBackgroundOperations} عملية خلفية | بالكتاب والسنة`);
-} catch(e) { console.warn('⚠️ [UltimatePower] خطأ:', e.message); }
-
 // لوحة التحكم
 app.get('/api/power/dashboard', (req, res) => {
     if (!powerEngine) return res.status(503).json({ error: 'غير مفعل' });
@@ -22119,8 +21528,6 @@ try {
     paymentsEngine = new PME();
     const pd = paymentsEngine.getDashboard();
     console.log(`✅ [Payments] قوة المدفوعات — ${pd.stats.totalPaymentMethods} وسيلة دفع | ${pd.stats.activeNow} مفعّلة | ${pd.stats.shariaChecks} فحص شرعي | بيان أجور شفاف`);
-} catch(e) { console.warn('⚠️ [Payments] خطأ:', e.message); }
-
 app.get('/api/payments/dashboard', (req, res) => {
     if (!paymentsEngine) return res.status(503).json({ error: 'غير مفعل' });
     res.json({ success: true, ...paymentsEngine.getDashboard() });
@@ -22486,8 +21893,7 @@ function getSheikhaIslamicIntelligenceEngine() {
 
     sheikhaIslamicIntelligenceEngineInstance = new Engine({ root: process.cwd() });
     return sheikhaIslamicIntelligenceEngineInstance;
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function getSheikhaAIFoundationsNeuralNetwork() {
     if (sheikhaAIFoundationsNeuralNetworkInstance) {
         return sheikhaAIFoundationsNeuralNetworkInstance;
@@ -22715,8 +22121,7 @@ async function sheikhaChatHandler(req, res) {
         },
         timestamp: new Date().toISOString()
     });
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 function sheikhaCompletionsHandler(req, res) {
     const language = req.body && req.body.language ? req.body.language : 'code';
     return res.json({
@@ -23564,8 +22969,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha Enterprise VS Code/Git integration inactive:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
     const {
         getGoverningOsLayerStatus,
@@ -23592,8 +22996,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha Governing OS layer inactive:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
     const {
         getAiServiceProviderStatus,
@@ -23633,8 +23036,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI service provider runtime inactive:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
     const {
         getEnterpriseIdeRuntimeStatus,
@@ -23668,8 +23070,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha Enterprise IDE runtime inactive:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
     const {
         getUniversalToolsFabricStatus,
@@ -23706,8 +23107,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha Universal Tools Fabric inactive:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
     const {
         getSheikhaCoreStatus,
@@ -23763,8 +23163,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha-Core runtime inactive:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ═══════════════════════════════════════════════════════════════════════════════
 // �🚫 404 Handler — صفحة غير موجودة (يجب أن يكون بعد كل المسارات)
 // ═══════════════════════════════════════════════════════════════════════════════
@@ -23987,9 +23386,7 @@ try {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI Neural Cell Network route inactive:', err.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─────────────────────────────────────────────────────────────
 // Sheikha AI Gateway API
 // ─────────────────────────────────────────────────────────────
@@ -24180,8 +23577,7 @@ app.post('/api/sheikha/ai-gateway/ask', express.json(), async (req, res) => {
     });
 } catch (err) {
     console.warn('⚠️ Sheikha AI Gateway غير متوفر:', err.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─────────────────────────────────────────────────────────────
 // Sheikha Root Orchestration API
 // ─────────────────────────────────────────────────────────────
@@ -24191,8 +23587,7 @@ try {
     console.log('✅ Sheikha Root Orchestration API active');
 } catch (error) {
     console.warn('⚠️ Sheikha Root Orchestration API unavailable:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 try {
 
 try {
@@ -24201,9 +23596,7 @@ try {
 console.log('[SHEIKHA] SQL Server routes mounted at /api/database/sqlserver');
 } catch (error) {
   console.warn('[SHEIKHA] SQL Server routes not mounted:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
     app.use('/api/architecture', require('./routes/architecture.routes'));
     console.log('✅ Sheikha Architecture API active');
 } catch (error) {
@@ -24220,8 +23613,7 @@ app.use('/api/sheikha/chat-fabric-v2', require('./routes/chat-fabric-v2/sheikha-
   console.log('✅ Sheikha Chat Fabric V2 API mounted');
 } catch (error) {
   console.warn('⚠️ Sheikha Chat Fabric V2 API unavailable:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─────────────────────────────────────────────────────────────
 // Sheikha Unified Chat Control Fabric API
 // ─────────────────────────────────────────────────────────────
@@ -24230,19 +23622,11 @@ try {
   console.log('✅ Sheikha Chat Fabric API mounted');
 } catch (err) {
   console.error('⚠️ Sheikha Chat Fabric API mount failed:', err.message);
-}
-
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_CANONICAL_RUNTIME_ROUTE
 try {
 
   console.log('✅ Canonical Runtime Status API mounted');
-} catch (e) {
-  console.error('❌ Canonical Runtime Status mount failed:', e.message);
-}
-
-
 // SHEIKHA_CANONICAL_RUNTIME_GATEWAY
 app.use('/api/runtime-root', require('./routes/runtime-root'));
 
@@ -24270,10 +23654,6 @@ try {
   });
 
   console.log('✅ SHEIKHA Kernel Control Plane mounted');
-} catch (e) {
-  console.error('⚠️ SHEIKHA Kernel Control Plane mount failed:', e.message);
-}
-
 app.get('/api/kernel/status', (_req, res) => {
     return res.json(getKernelStatus());
   });
@@ -24285,9 +23665,7 @@ app.get('/api/kernel/status', (_req, res) => {
   console.log('✅ Sheikha Sovereign Kernel API mounted');
 } catch (err) {
   console.warn('⚠️ Sheikha Sovereign Kernel API unavailable:', err.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_PROVIDER_GATEWAY_ROUTE
 app.use('/api/kernel/provider-gateway', require('./routes/kernel/provider-gateway'));
 
@@ -24301,29 +23679,14 @@ try {
   });
 
   console.log('✅ SHEIKHA Runtime Authority mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Authority failed:', e.message);
-}
-
-
 // SHEIKHA_STORAGE_GOVERNOR_ROUTE
 try {
   app.use('/api/storage', require('./routes/storage/governor'));
   console.log('✅ SHEIKHA Storage Governor mounted');
-} catch (e) {
-  console.error('⚠️ Storage Governor mount failed:', e.message);
-}
-
-
 // SHEIKHA_STORAGE_HEALTH_ROUTE
 try {
   app.use('/api/storage/reports', require('./routes/storage/reports/health'));
   console.log('✅ SHEIKHA Storage Health mounted');
-} catch (e) {
-  console.error('⚠️ Storage Health mount failed:', e.message);
-}
-
-
 // SHEIKHA_CANONICAL_ENFORCEMENT_ROUTES
 try {
   const enforcer = require('./core/kernel/enforcement/canonical-runtime-enforcer');
@@ -24333,296 +23696,130 @@ try {
   app.get('/api/runtime/divergence', (_req, res) => res.json(divergence.scan()));
 
   console.log('✅ SHEIKHA Canonical Enforcement mounted');
-} catch (e) {
-  console.error('⚠️ Canonical Enforcement mount failed:', e.message);
-}
-
-
 // SHEIKHA_DATA_PIPELINE_ROUTE
 try {
   app.use('/api/data/pipeline', require('./routes/data/pipeline'));
   console.log('✅ SHEIKHA Data Intelligence Pipeline mounted');
-} catch (e) {
-  console.error('⚠️ Data Pipeline mount failed:', e.message);
-}
-
-
 // SHEIKHA_MEMORY_GOVERNOR_ROUTE
 try {
   app.use('/api/memory', require('./routes/memory/governor'));
   console.log('✅ SHEIKHA Memory Governor mounted');
-} catch (e) {
-  console.error('⚠️ Memory Governor mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_INTELLIGENCE_ROUTE
 try {
   app.use('/api/intelligence', require('./routes/intelligence/orchestrator'));
   console.log('✅ SHEIKHA Runtime Intelligence mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Intelligence mount failed:', e.message);
-}
-
-
 // SHEIKHA_HARDWARE_INSPIRED_AI_ROUTE
 try {
   app.use('/api/architecture/ai-computer', require('./routes/hardware-inspired/architecture'));
   console.log('✅ SHEIKHA Hardware-Inspired AI Architecture mounted');
-} catch (e) {
-  console.error('⚠️ Hardware-Inspired AI mount failed:', e.message);
-}
-
-
 // SHEIKHA_INTEGRATED_SYSTEM_FABRIC_ROUTE
 try {
   app.use('/api/fabric/integrated-system', require('./routes/integration-fabric/fabric'));
   console.log('✅ SHEIKHA Integrated Hardware/Software Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Integrated Fabric mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_FABRIC_ROUTE
 try {
   app.use('/api/runtime/fabric', require('./routes/runtime/fabric'));
   console.log('✅ SHEIKHA Runtime Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Fabric mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_MOTHERBOARD_ROUTE
 try {
   app.use('/api/motherboard/runtime', require('./routes/motherboard/runtime-motherboard'));
   console.log('✅ SHEIKHA Runtime Motherboard mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Motherboard mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_SYNCHRONIZATION_ROUTE
 try {
   app.use('/api/synchronization', require('./routes/synchronization/runtime-synchronization'));
   console.log('✅ SHEIKHA Runtime Synchronization mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Synchronization mount failed:', e.message);
-}
-
-
 // SHEIKHA_UNIFIED_RUNTIME_BUS_V2_ROUTE
 try {
   app.use('/api/bus/runtime', require('./routes/bus/runtime-bus'));
   console.log('✅ SHEIKHA Unified Runtime Bus V2 mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Bus V2 mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_MEMORY_FABRIC_ROUTE
 try {
   app.use('/api/memory', require('./routes/memory/runtime-memory'));
   console.log('✅ SHEIKHA Runtime Memory Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Memory Fabric mount failed:', e.message);
-}
-
-
 // SHEIKHA_SYSTEM_READINESS_ROUTE
 try {
   app.use('/api/readiness/system', require('./routes/readiness/system-readiness'));
   console.log('✅ SHEIKHA System Readiness mounted');
-} catch (e) {
-  console.error('⚠️ System Readiness mount failed:', e.message);
-}
-
-
 // SHEIKHA_HEALTH_RESOURCE_ROUTE
 try {
   app.use('/api/health-governor', require('./routes/health/system-health'));
   console.log('✅ SHEIKHA Health & Resource Governor mounted');
-} catch (e) {
-  console.error('⚠️ Health & Resource Governor mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_BUS_ROUTE
 try {
   app.use('/api/runtime-bus', require('./routes/bus/runtime-bus'));
   console.log('✅ SHEIKHA Runtime Bus mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Bus mount failed:', e.message);
-}
-
-
 // SHEIKHA_EXECUTION_SCHEDULER_ROUTE
 try {
   app.use('/api/scheduler/execution', require('./routes/scheduler/execution-scheduler'));
   console.log('✅ SHEIKHA Execution Scheduler mounted');
-} catch (e) {
-  console.error('⚠️ Execution Scheduler mount failed:', e.message);
-}
-
-
 // SHEIKHA_RESOURCE_GOVERNOR_ROUTE
 try {
   app.use('/api/resources', require('./routes/resources/resource-governor'));
   console.log('✅ SHEIKHA Resource Governor mounted');
-} catch (e) {
-  console.error('⚠️ Resource Governor mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_SIGNAL_ROUTE
 try {
   app.use('/api/signals/runtime', require('./routes/signals/runtime-signals'));
   console.log('✅ SHEIKHA Runtime Signal Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Signal Fabric mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_TELEMETRY_ROUTE
 try {
   app.use('/api/telemetry/runtime', require('./routes/telemetry/runtime-telemetry'));
   console.log('✅ SHEIKHA Runtime Telemetry mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Telemetry mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_ORCHESTRATION_ROUTE
 try {
   app.use('/api/orchestration/runtime', require('./routes/orchestration/runtime-orchestrator'));
   console.log('✅ SHEIKHA Runtime Orchestration mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Orchestration mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_SCHEDULER_ROUTE
 try {
   app.use('/api/scheduler/runtime', require('./routes/scheduler/runtime-scheduler'));
   console.log('✅ SHEIKHA Runtime Scheduler mounted');
-} catch (e) {
-  console.error('⚠️ Runtime Scheduler mount failed:', e.message);
-}
-
-
 // SHEIKHA_UNIFIED_RUNTIME_FABRIC_ROUTE
 try {
   app.use('/api/fabric/unified-runtime', require('./routes/fabric/unified-runtime-fabric'));
   console.log('✅ SHEIKHA Unified Runtime Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Unified Runtime Fabric mount failed:', e.message);
-}
-
-
 // SHEIKHA_RUNTIME_RESOURCE_ROUTE
 try {
   app.use('/api/resources/runtime', require('./routes/resources/runtime-resources'));
 
   console.log(
-    '✅ SHEIKHA Runtime Resources mounted'
   );
-} catch (e) {
-  console.error(
-    '⚠️ Runtime Resources mount failed:',
-    e.message
-  );
-}
-
-
 // SHEIKHA_DATACENTER_SUPERCOMPUTE_ROUTE
 try {
   app.use('/api/supercompute/datacenter', require('./routes/supercompute/datacenter-supercompute'));
   console.log('✅ SHEIKHA Datacenter Supercompute Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Datacenter Supercompute mount failed:', e.message);
-}
-
-
 // SHEIKHA_DISTRIBUTED_CLUSTER_ROUTE
 try {
   app.use('/api/distributed/runtime', require('./routes/distributed/runtime-distributed-cluster'));
 
   console.log(
-    '✅ SHEIKHA Distributed Cluster Fabric mounted'
   );
-} catch (e) {
-  console.error(
-    '⚠️ Distributed Cluster mount failed:',
-    e.message
-  );
-}
-
-
 // SHEIKHA_RUNTIME_CONTROL_PLANE_ROUTE
 try {
   app.use('/api/control-plane/runtime', require('./routes/control-plane/runtime-control-plane'));
 
   console.log(
-    '✅ SHEIKHA Runtime Control Plane mounted'
   );
-} catch (e) {
-  console.error(
-    '⚠️ Runtime Control Plane mount failed:',
-    e.message
-  );
-}
-
-
 // SHEIKHA_RUNTIME_HEALTH_ROUTE
 try {
   app.use('/api/health/runtime', require('./routes/health/runtime-health'));
 
   console.log(
-    '✅ SHEIKHA Runtime Health Fabric mounted'
   );
-} catch (e) {
-  console.error(
-    '⚠️ Runtime Health mount failed:',
-    e.message
-  );
-}
-
-
 // SHEIKHA_ISLAMIC_ROOT_GOVERNANCE_ROUTE
 try {
   app.use('/api/root/islamic-governance', require('./routes/root/islamic-governance'));
   console.log('✅ SHEIKHA Islamic Root Governance mounted');
-} catch (e) {
-  console.error('⚠️ Islamic Root Governance mount failed:', e.message);
-}
-
-
 // SHEIKHA_SUPREME_ISLAMIC_GOVERNANCE_ROUTE
 try {
   app.use('/api/root/supreme-islamic-governance', require('./routes/root/supreme-islamic-governance'));
   console.log('✅ SHEIKHA Supreme Islamic Governance mounted');
-} catch (e) {
-  console.error('⚠️ Supreme Islamic Governance mount failed:', e.message);
-}
-
-
 // SHEIKHA_ROOT_SYSTEMS_ROUTE
 try {
   app.use('/api/root/systems', require('./routes/root/systems/root-systems'));
   console.log('✅ SHEIKHA Root Systems Fabric mounted');
-} catch (e) {
-  console.error('⚠️ Root Systems Fabric mount failed:', e.message);
-}
-
-
 // SHEIKHA_ROOT_CIVILIZATION_GRAPH_ROUTE
 try {
   app.use('/api/root/civilization-graph', require('./routes/root/civilization/root-civilization-graph'));
   console.log('✅ SHEIKHA Root Civilization Graph mounted');
-} catch (e) {
-  console.error('⚠️ Root Civilization Graph mount failed:', e.message);
-}
-
-
 const sheikhaRuntimeRoutes =
 require('./routes/runtime/sheikha-runtime-routes');
 
@@ -24635,17 +23832,14 @@ try {
   console.log('✅ SHEIKHA SQL Query Gateway mounted');
 } catch (error) {
   console.warn('⚠️ SHEIKHA SQL Query Gateway failed:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_DATA_FABRIC_STATUS
 try {
   app.use('/api/data-fabric', require('./routes/data-fabric/status.routes'));
   console.log('✅ SHEIKHA Data Fabric Status mounted');
 } catch (error) {
   console.warn('⚠️ SHEIKHA Data Fabric Status failed:', error.message);
-}
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_NEURAL_CLUSTER_STATUS
 try {
   app.use(
@@ -24661,24 +23855,21 @@ try {
     '⚠️ SHEIKHA Neural Cluster failed:',
     error.message
   );
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_UNIFIED_DATA_HEALTH
 try {
   app.use('/api/data-fabric', require('./routes/data-fabric/unified-health.routes'));
   console.log('✅ SHEIKHA Unified Data Health mounted');
 } catch (error) {
   console.warn('⚠️ SHEIKHA Unified Data Health failed:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_POSTGRESQL_RUNTIME_CORE
 try {
   app.use('/api/data-fabric/postgresql', require('./routes/data-fabric/postgresql/status.routes'));
   console.log('✅ SHEIKHA PostgreSQL Runtime Core mounted');
 } catch (error) {
   console.warn('⚠️ SHEIKHA PostgreSQL Runtime Core failed:', error.message);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_REDIS_NEURAL_CACHE
 try {
   app.use(
@@ -24692,18 +23883,14 @@ try {
     '⚠️ SHEIKHA Redis Neural Cache failed:',
     error.message
   );
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_MONGODB_DOCUMENT_FABRIC
 try {
   app.use('/api/data-fabric/mongodb', require('./routes/data-fabric/mongodb/status.routes'));
   console.log('✅ SHEIKHA MongoDB Document Fabric mounted');
 } catch (error) {
   console.warn('⚠️ SHEIKHA MongoDB Document Fabric failed:', error.message);
-}
-
-
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_UNIFIED_HEALTH_PLATFORM
 try {
   app.use(
@@ -24717,8 +23904,7 @@ try {
     '⚠️ SHEIKHA Unified Health Platform failed:',
     error.message
   );
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // SHEIKHA_DYNAMIC_FABRIC_BOOTSTRAP
 try {
 
@@ -24727,7 +23913,7 @@ try {
   } = require('./lib/fabric-bootstrap/fabric-bootstrap-loader');
 
   const mountedRoutes =
-    loadFabricRoutes(app);
+    loadFabricRoutes(app, { excludedMounts: OPTIONAL_AI_STATUS_MOUNTS });
 
   console.log(
     '✅ SHEIKHA Dynamic Fabric Bootstrap ACTIVE',
@@ -24741,8 +23927,7 @@ try {
     error.message
   );
 
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 app.use(
   '/api/runtime/introspection',
   require('./routes/runtime/introspection/routes.routes')
@@ -24812,7 +23997,16 @@ try {
   if (process.env.NODE_ENV === 'production') {
     throw commercialSalesMountError;
   }
-}
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+// SHEIKHA_INFINITE_AGENT_BEFORE_404 — local descriptors and synthetic simulation.
+const sheikhaInfiniteAgentRouter = require(
+  './routes/sheikha-infinite-agent/sheikha-infinite-agent-routes'
+);
+const sheikhaNaturalEngineeringRouter = sheikhaInfiniteAgentRouter.createNaturalRouter();
+app.use('/api/infinite-agent', sheikhaInfiniteAgentRouter);
+app.use('/api/sheikha-kernel', sheikhaInfiniteAgentRouter);
+app.use('/api/cosmic-engineering', sheikhaNaturalEngineeringRouter);
+app.use('/api/cosmic', sheikhaNaturalEngineeringRouter);
 
 app.use((req, res) => {
     if (req.path.startsWith('/api/')) {
@@ -24861,26 +24055,6 @@ a:hover{transform:translateY(-2px)}
 // SHEIKHA_GLOBAL_IDENTITY
 app.use('/.well-known', express.static('.well-known'));
 app.use('/governance', express.static('governance'));
-
-
-// SHEIKHA_RUNTIME_AUTHORITY
-try {
-  const runtimeGuard =
-    require('./core/kernel/security/runtime-guard');
-
-  app.get('/api/runtime/authority', (_req, res) => {
-    return res.json(runtimeGuard.verify());
-  });
-
-  console.log(
-    '✅ SHEIKHA Runtime Authority mounted'
-  );
-} catch (e) {
-  console.error(
-    '⚠️ Runtime Authority failed:',
-    e.message
-  );
-}
 
 
 app.use((err, req, res, _next) => {
@@ -24949,8 +24123,6 @@ try {
     console.log('⏸️ [LAZY] sheikha-quran-ai-foundations — سيُحمّل عند الطلب');
     quranAIEngine = new QuranAIFoundationsEngine();
     console.log(`   📖 [QuranAI] محرك الأسس القرآنية — ${Object.keys(quranAIEngine.foundations).length} مفهوم | ${quranAIEngine.humanCreation.stages.length} مرحلة خلق | يعمل بالخلفية`);
-} catch (e) { console.warn('⚠️ QuranAI:', e.message); }
-
 // ─── مساهمة سلمان أحمد بن سلمان الراجح — علمياً لله سبحانه ───
 const salmanContribution = {
     بسم_الله: 'بسم الله الرحمن الرحيم',
@@ -25089,13 +24261,11 @@ try {
     } else {
         console.log('⏸️ [LAZY] sheikha-smart-market-engine — سيُحمّل عند الطلب');
     }
-} catch (e) { console.warn('⚠️ SmartMarket:', e.message); }
-
 // ═══════════════════════════════════════════════════════════════════════════════
 // 🚀 بدء الخادم
 // ═══════════════════════════════════════════════════════════════════════════════
 
-const HOST = '127.0.0.1';
+const HOST = process.env.HOST || (process.env.K_SERVICE ? '0.0.0.0' : '127.0.0.1');
 const MAX_PORT_FALLBACK_ATTEMPTS = 10;
 const REQUESTED_PORT = Number(PORT) || 8080;
 
@@ -25110,8 +24280,7 @@ function onServerStarted(activePort) {
             console.log(`⚙️ Automation Engine v2.0 — الجدولة فعّالة | ${automationEngine.kpis.cronJobsActive} مهمة مجدولة | n8n bridge: مُفعَّل`);
         } catch (e) {
             console.log('⚠️ خطأ في تفعيل الأتمتة:', e.message);
-        }
-    }
+} catch (e) { console.error('[SHEIKHA V44 GOVERNED] BOUND_BY_QURAN_SUNNAH:', e.message); }
 
     // ═══ تسجيل مسارات منظومة التطوير ═══
     if (devPlatformEngine) {
@@ -25120,8 +24289,7 @@ function onServerStarted(activePort) {
             console.log(`🛠️ Dev Platform v1.0 — SDK: ${devPlatformEngine.sdk.modules.length} وحدة | MCP: ${devPlatformEngine.mcp.tools.length} أداة | IDE: ${devPlatformEngine.ide.supportedIDEs.length} بيئة`);
         } catch (e) {
             console.log('⚠️ خطأ في تفعيل منظومة التطوير:', e.message);
-        }
-    }
+} catch (e) { console.error('[SHEIKHA V44 GOVERNED] BOUND_BY_QURAN_SUNNAH:', e.message); }
 
     console.log(`
 ╔═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╗
@@ -25134,10 +24302,13 @@ function onServerStarted(activePort) {
 ║   شريكك الموثوق في عالم المعادن والسكراب                                                                           ║
 ╚═══════════════════════════════════════════════════════════════════════════════════════════════════════════════════╝
 `);
-}
-
 let server;
 function startServerWithFallback(port, attempt = 0) {
+// SHEIKHA V43.98 INTEGRATION - NO CONFLICT
+try {
+  const mindsRoutes = require('./routes/minds');
+  app.use('/api/minds', mindsRoutes);
+  console.log('✅ SHEIKHA V43.98 MINDS ACTIVE');
     server = app.listen(port, HOST, () => {
         onServerStarted(port);
     });
@@ -25147,13 +24318,9 @@ function startServerWithFallback(port, attempt = 0) {
             const nextPort = port + 1;
             console.warn(`⚠️ المنفذ ${port} مستخدم — جارٍ المحاولة على ${nextPort}`);
             return startServerWithFallback(nextPort, attempt + 1);
-        }
-
         console.error('❌ تعذّر تشغيل الخادم:', err && err.message ? err.message : err);
         process.exit(1);
     });
-}
-
 startServerWithFallback(REQUESTED_PORT);
 
 // WebSocket
@@ -25169,8 +24336,7 @@ wss.on('connection', (ws) => {
 function broadcastPrices() {
     const data = JSON.stringify({ type: 'priceUpdate', prices: LIVE_PRICES, timestamp: new Date().toISOString() });
     clients.forEach(client => { if (client.readyState === WebSocket.OPEN) client.send(data); });
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 // ─────────────────────────────────────────────────────────────
 // Sheikha Sovereign Union Federation API
 // ─────────────────────────────────────────────────────────────
@@ -25405,11 +24571,8 @@ try {
   });
 } catch (error) {
   console.error('Sheikha system status API failed:', error.message);
-}
-
-
-try {
-} catch (error) {
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
+try {} catch(e){} catch (error) {
 }
 
 let runtimeShutdownRequested = false;
@@ -25447,7 +24610,9 @@ function shutdownRuntime(signal) {
         return;
     }
     server.close(finish);
-}
-
+} catch (err) { console.error('[SHEIKHA] Governed:', err.message); }
 process.once('SIGTERM', () => shutdownRuntime('SIGTERM'));
 process.once('SIGINT', () => shutdownRuntime('SIGINT'));
+
+// SHEIKHA V43.92 - COSMIC & INFINITE AGENT ATOMIC ROUTES
+try {

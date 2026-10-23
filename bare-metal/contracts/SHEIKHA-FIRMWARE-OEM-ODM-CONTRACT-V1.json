@@ -1,0 +1,81 @@
+{
+  "schemaVersion": "1.0.0",
+  "id": "SHEIKHA_FIRMWARE_OEM_ODM_CONTRACT_V1",
+  "status": "ACTIVE",
+  "defaultAuthorization": "DENY",
+  "purpose": "Govern development and delivery of Sheikha Firmware Platform to named OEM and ODM hardware without unsupported rights, safety, or readiness claims.",
+  "engineeringDoctrine": "NO_HARM_NO_RECIPROCAL_HARM",
+  "failureSequence": ["FAIL_CLOSED", "PROTECT", "DETECT", "ISOLATE", "RECOVER", "VERIFY", "RECORD_EVIDENCE"],
+  "enforceableInvariants": {
+    "NO_UNAUTHORIZED_FLASH_WRITE": true,
+    "NO_UNSIGNED_PRODUCTION_FIRMWARE": true,
+    "NO_UNRECOVERABLE_UPDATE": true,
+    "NO_UNAUTHORIZED_BOOT_ORDER_PERSISTENCE": true,
+    "RECOVERY_PATH_REQUIRED": true,
+    "ROLLBACK_PATH_REQUIRED": true,
+    "ANTI_ROLLBACK_POLICY_REQUIRED": true,
+    "PRODUCTION_KEYS_ISOLATED": true,
+    "DEVELOPMENT_KEYS_NOT_PRODUCTION_KEYS": true,
+    "BMC_LEAST_PRIVILEGE_REQUIRED": true,
+    "BMC_NETWORK_EXPOSURE_MINIMIZED": true,
+    "BMC_FAILURE_MUST_NOT_BREAK_BOOT_OR_RECOVERY": true,
+    "AUDIT_LOG_REQUIRED_FOR_PRIVILEGED_FIRMWARE_ACTION": true,
+    "INTERNAL_DISK_WRITE_DURING_SAFE_TRIAL": false,
+    "FIRMWARE_SBOM_REQUIRED": true,
+    "ARTIFACT_PROVENANCE_REQUIRED": true,
+    "PHYSICAL_VALIDATION_REQUIRED": true,
+    "AI_OVERRIDE_OF_SECURITY_POLICY": false
+  },
+  "rights": {
+    "sheikhaOwns": ["SHEIKHA_AUTHORED_SOURCE", "SHEIKHA_BUILD_AND_GOVERNANCE_LOGIC", "SHEIKHA_PRODUCT_MARKS"],
+    "customerOwns": ["CUSTOMER_BOARD_FILES_AS_DEFINED_BY_SIGNED_AGREEMENT", "CUSTOMER_CONFIDENTIAL_CONFIGURATION"],
+    "thirdPartyComponents": "RETAIN_ORIGINAL_OWNERSHIP_AND_LICENSE_TERMS",
+    "proprietaryFirmwareImport": "DENIED_WITHOUT_EXPLICIT_WRITTEN_LICENSE_AND_PROVENANCE",
+    "trademarkRule": "AMIBIOS_AND_APTIO_MAY_ONLY_BE_USED_FOR_ACCURATE_NOMINATIVE_REFERENCE"
+  },
+  "mandatoryPerBoardEvidence": [
+    "BOARD_IDENTITY_AND_REVISION",
+    "SILICON_ENABLEMENT_LICENSE",
+    "REPRODUCIBLE_BUILD_MANIFEST",
+    "SBOM_AND_SOURCE_PROVENANCE",
+    "ACPI_AND_DEVICE_VALIDATION",
+    "SIGNED_UPDATE_AND_ROLLBACK_TEST",
+    "EXTERNAL_RECOVERY_PROCEDURE",
+    "SECURE_AND_MEASURED_BOOT_TEST",
+    "OS_COMPATIBILITY_MATRIX",
+    "FACTORY_PROVISIONING_RECORD",
+    "HUMAN_RELEASE_APPROVAL"
+  ],
+  "standardsAdoptionGate": {
+    "requiredBeforeCommercialComplianceClaim": true,
+    "targets": ["UEFI", "PI", "ACPI", "SMBIOS", "REDFISH", "MCTP", "PLDM", "SPDM"],
+    "rule": "RECORD_APPLICABLE_SPECIFICATION_RIGHTS_VERSION_TEST_SUITE_AND_RESULT"
+  },
+  "brandGate": {
+    "workingName": "Sheikha Foundation Firmware Platform",
+    "globalTrademarkRegistrationClaimed": false,
+    "trademarkClearanceRequiredBeforeCommercialRegistration": true,
+    "thirdPartyProductNamesAllowedOnlyForAccurateNominativeReference": true
+  },
+  "cleanRoomRule": {
+    "required": true,
+    "noThirdPartySourceInterfaceOrTradeSecretCopying": true,
+    "independentRequirementsAndImplementationEvidenceRequired": true
+  },
+  "highImpactHumanApprovalRequired": [
+    "FLASH_PHYSICAL_FIRMWARE",
+    "ENROLL_PRODUCTION_KEYS",
+    "ROTATE_OR_REVOKE_KEYS",
+    "SHIP_OEM_PRODUCTION_IMAGE",
+    "ACTIVATE_REMOTE_FIRMWARE_UPDATE"
+  ],
+  "prohibited": [
+    "FLASH_IMAGE_ON_UNNAMED_BOARD",
+    "SHIP_WITHOUT_RECOVERY_PATH",
+    "EXPORT_PRIVATE_SIGNING_KEYS",
+    "CLAIM_GLOBAL_HARDWARE_COMPATIBILITY",
+    "CLAIM_AMI_PRODUCT_OWNERSHIP_OR_REBRANDING",
+    "AUTO_ISSUE_GOVERNMENT_OR_THIRD_PARTY_CERTIFICATION"
+  ],
+  "commercialReleaseRule": "ALL_F0_THROUGH_F7_GATES_MUST_BE_VERIFIED_FOR_THE_NAMED_PRODUCT_AND_BOARD_FAMILY"
+}

@@ -1,0 +1,148 @@
+{
+  "system": "SHEIKHA_SYSTEM_STACK_V1",
+  "status": "LOCAL_FOUNDATION_REGISTRY_VERIFIED",
+  "source": "sheikha-language/foundations/sheikha-system-stack-v1.shk",
+  "sourceSha256": "e038b4d4a011ff160127a500753d87e821482df3250a1ad5daab45f5367c2832",
+  "components": [
+    {
+      "id": "core",
+      "name": "Sheikha Core",
+      "deps": [],
+      "status": "LOCAL_CONTRACT_COMPOSITION_VERIFIED",
+      "evidence": {
+        "passed": true,
+        "basis": "LOCAL_CONTRACT_COMPOSITION_ONLY",
+        "modules": [
+          "enterprise-constitution-core",
+          "enterprise-core",
+          "fabric-core",
+          "federation-core",
+          "fifo-core",
+          "runtime-core",
+          "knowledge-core",
+          "governance-core",
+          "measurement-core",
+          "improvement-core",
+          "operations-core"
+        ],
+        "runtimeServiceVerified": "UNKNOWN"
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    },
+    {
+      "id": "system",
+      "name": "Sheikha System",
+      "deps": [
+        "core"
+      ],
+      "status": "LOCAL_STACK_REGISTRY_VERIFIED",
+      "evidence": {
+        "basis": "SEVEN_LANGUAGE_ENTITIES_AND_VM_MARKER",
+        "runtimeDaemonVerified": "UNKNOWN"
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    },
+    {
+      "id": "os",
+      "name": "Sheikha OS",
+      "deps": [
+        "core",
+        "system"
+      ],
+      "status": "DEVELOPMENT_VM_RUNTIME_VERIFIED",
+      "evidence": {
+        "basis": "CURRENT_ARTIFACT_HASHES_AND_RECORDED_VM_BOOT",
+        "artifactIntegrityVerified": true,
+        "buildId": "48cc4a2b39b796091091f6307f8229f1b70d0968f1765871ab017e0812bd07ae",
+        "evidenceFile": "runtime/sheikha-native-environment/v1/builds/48cc4a2b39b796091091f6307f8229f1b70d0968f1765871ab017e0812bd07ae/verification.json",
+        "bootExecutedThisSession": false,
+        "blockers": [
+          "NETWORK_STACK",
+          "PERSISTENT_FILESYSTEM",
+          "USER_MODE_ISOLATION",
+          "PREEMPTIVE_SCHEDULER",
+          "DYNAMIC_PACKAGE_LOADER",
+          "TLS_AND_HTTP",
+          "SIGNED_RELEASES",
+          "FULL_SERVICE_MIGRATION"
+        ]
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    },
+    {
+      "id": "cloud",
+      "name": "Sheikha Cloud",
+      "deps": [
+        "system",
+        "os"
+      ],
+      "status": "LOCAL_CONTRACT_DEFINED",
+      "evidence": {
+        "basis": "COMPILED_LANGUAGE_ENTITY_ONLY"
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    },
+    {
+      "id": "saas",
+      "name": "Sheikha SaaS",
+      "deps": [
+        "cloud",
+        "software"
+      ],
+      "status": "LOCAL_CONTRACT_DEFINED",
+      "evidence": {
+        "basis": "COMPILED_LANGUAGE_ENTITY_ONLY"
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    },
+    {
+      "id": "software",
+      "name": "Sheikha Software",
+      "deps": [
+        "core"
+      ],
+      "status": "LOCAL_LANGUAGE_RUNTIME_VERIFIED",
+      "evidence": {
+        "basis": "ACTUAL_COMPILER_AND_VM_PROBE",
+        "languageStatus": "LOCAL_RUNTIME_VERIFIED"
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    },
+    {
+      "id": "hardware",
+      "name": "Sheikha Hardware",
+      "deps": [
+        "core"
+      ],
+      "status": "LOCAL_HARDWARE_POLICY_VERIFIED",
+      "evidence": {
+        "passed": true,
+        "basis": "LOCAL_POLICY_DENIAL_TEST",
+        "flashWithoutApproval": "DENY",
+        "mutationPerformed": false,
+        "physicalFirmwareVerified": "UNKNOWN"
+      },
+      "productionActivation": "UNKNOWN",
+      "physicalActivation": "UNKNOWN",
+      "liveServiceVerified": "UNKNOWN"
+    }
+  ],
+  "hostRuntime": "Node.js",
+  "productionReady": false,
+  "cloudProvisionedThisSession": false,
+  "serviceStartedThisSession": false,
+  "physicalCommandSent": false,
+  "ownerDetailsIncluded": false
+}

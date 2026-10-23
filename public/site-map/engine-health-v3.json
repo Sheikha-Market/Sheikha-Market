@@ -1,0 +1,331 @@
+{
+  "system": "SHEIKHA_ENGINE_DOMAIN_HEALTH_V3",
+  "status": "CLEAR",
+  "summary": {
+    "referencedEngines": 22,
+    "declaredReferencedEngines": 22,
+    "unresolvedReferencedEngines": 0,
+    "routeRecords": 198,
+    "routeIntentConflicts": 0,
+    "criticalL0Files": 21,
+    "missingFromMasterRegistry": 0,
+    "masterCoreEngines": 28,
+    "masterOptionalEngines": 25,
+    "masterEngineRecords": 53
+  },
+  "engineHealth": [
+    {
+      "engine": "universal_networks",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "cloud",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-cloud-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "security",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-security-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "standards",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "sovereign",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "sharia",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-sharia-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "identity",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-digital-identity-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "production_neural",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "market",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-smart-market-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "trade",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-trade-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "resources",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "specialized_neural",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "ai",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-ai-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "lmm",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-lmm-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "payments",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-payments-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "vision",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "consulting",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "knowledge",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-knowledge-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "learning",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-learning-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "quran",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "ENGINE_MANIFEST"
+      ],
+      "sources": [
+        "lib/sheikha-quran-sunnah-engine.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "live-ai",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    },
+    {
+      "engine": "industrial_nn",
+      "declared": true,
+      "sourceExists": true,
+      "registrations": [
+        "EXPLICIT"
+      ],
+      "sources": [
+        "core/engines/index.js"
+      ],
+      "status": "DECLARED"
+    }
+  ],
+  "conflicts": [],
+  "criticalL0": [
+    "sheikha-security-engine.js",
+    "sheikha-sharia-engine.js",
+    "sheikha-admin-blueprint-engine.js",
+    "sheikha-hadith-standards-engine.js",
+    "sheikha-quran-trade-engine.js",
+    "sheikha-taqwa-engine.js",
+    "sheikha-musharri-engine.js",
+    "sheikha-legal-engine.js",
+    "sheikha-souq-madinah-engine.js",
+    "sheikha-market-structure-engine.js",
+    "sheikha-metals-market-engine.js",
+    "sheikha-banking-engine.js",
+    "sheikha-trade-engine.js",
+    "sheikha-supply-logistics-engine.js",
+    "sheikha-dashboard-engine.js",
+    "sheikha-experience-engine.js",
+    "sheikha-pilot-engine.js",
+    "sheikha-segments-engine.js",
+    "sheikha-historical-engine.js",
+    "sheikha-quran-sunnah-engine.js",
+    "sheikha-brand-engine.js"
+  ],
+  "masterRegistry": {
+    "status": "CLEAR",
+    "authority": "MASTER_ENGINE_METADATA_AND_ROUTING_AUTHORITY",
+    "summary": {
+      "coreEngines": 28,
+      "optionalEngines": 25,
+      "totalEngineRecords": 53,
+      "domains": 12,
+      "missingSources": 0,
+      "duplicateIds": 0,
+      "canonicalIntentOwners": 17,
+      "runtimeProjectionEngines": 28,
+      "runtimeMissingFromMaster": 0,
+      "masterMissingFromRuntime": 0,
+      "criticalBootFiles": 21,
+      "criticalMissingFiles": 0,
+      "tiers": {
+        "L0": 8,
+        "L1": 14,
+        "L2": 6,
+        "OPTIONAL": 25
+      }
+    },
+    "missingReferencedEngines": []
+  }
+}

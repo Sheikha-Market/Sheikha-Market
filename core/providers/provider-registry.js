@@ -1,6 +1,6 @@
 'use strict';
 
-const path = require('path');
+const path = require('node:path');
 
 const providers = {
   openai: './openai',
@@ -22,7 +22,8 @@ function loadProvider(name) {
     return provider && typeof provider === 'object'
       ? { ...provider, id: name, path: path.join(__dirname, target) }
       : null;
-  } catch (e) {
+  } catch {
+    // Provider integrations are optional; resolution continues through the fallback chain.
     return null;
   }
 }
@@ -87,39 +88,100 @@ function getProviderRegistryStatus() {
 
 // يُنفذ سلسلة fallback الذكية عبر جميع المزودات
 // يتوقف عند أول مزود يُرجع success:true
-async function askWithFallback({ prompt, system, model, options = {} }, preferredProvider = null) {
+function providerAllowedByDisclosurePolicy(
+  provider,
+  controls = {}
+) {
+  if (provider?.external !== true) {
+    return true;
+  }
+
+  return controls.allowExternalProviders === true;
+}
+
+function providerConfigured(provider) {
+  if (provider.external !== true) return true;
+  const statusResult = typeof provider.status === 'function'
+    ? provider.status()
+    : {};
+  return statusResult?.configured === true;
+}
+
+async function askProvider(provider, request) {
+  try {
+    const result = await provider.ask(request);
+    return {
+      result,
+      error: result?.error || 'provider_returned_failure'
+    };
+  } catch (error) {
+    return {
+      result: null,
+      error: error.message
+    };
+  }
+}
+
+function successfulProviderResult(result, name, blocked, controls) {
+  return {
+    ...result,
+    _providerUsed: name,
+    _externalProvidersBlocked: blocked,
+    _externalDisclosureAuthorized:
+      controls.allowExternalProviders === true
+  };
+}
+
+async function askWithFallback(
+  { prompt, system, model, options = {} },
+  preferredProvider = null,
+  controls = {}
+) {
   const chain = preferredProvider
     ? [preferredProvider, ...priority.filter((p) => p !== preferredProvider)]
     : [...priority];
 
   let lastError = null;
+  const externalProvidersBlocked = [];
 
   for (const name of chain) {
     const provider = loadProvider(name);
     if (!provider || typeof provider.ask !== 'function') continue;
 
-    // المزودات الخارجية تحتاج مفتاح API مُضبط
-    if (provider.external) {
-      const statusResult = typeof provider.status === 'function' ? provider.status() : {};
-      if (!statusResult.configured) continue;
+    if (!providerAllowedByDisclosurePolicy(provider, controls)) {
+      externalProvidersBlocked.push(name);
+      continue;
     }
 
-    try {
-      const result = await provider.ask({ prompt, system, model, options });
-      if (result && result.success) {
-        return { ...result, _providerUsed: name };
-      }
-      lastError = result?.error || 'provider_returned_failure';
-    } catch (err) {
-      lastError = err.message;
+    if (!providerConfigured(provider)) continue;
+
+    const attempt = await askProvider(
+      provider,
+      { prompt, system, model, options }
+    );
+    if (attempt.result?.success) {
+      return successfulProviderResult(
+        attempt.result,
+        name,
+        externalProvidersBlocked,
+        controls
+      );
     }
+    lastError = attempt.error;
   }
 
   // offline دائماً متاح كحل أخير
   const offline = loadProvider('offline');
   if (offline && typeof offline.ask === 'function') {
     const result = await offline.ask({ prompt });
-    return { ...result, _providerUsed: 'offline', _fallbackReason: lastError };
+    return {
+      ...result,
+      _providerUsed: 'offline',
+      _fallbackReason: lastError,
+      _externalProvidersBlocked: externalProvidersBlocked,
+      _externalDisclosureAuthorized:
+        controls.allowExternalProviders === true
+    };
   }
 
   return {
@@ -127,6 +189,7 @@ async function askWithFallback({ prompt, system, model, options = {} }, preferre
     error: 'all_providers_failed',
     lastError,
     output: null,
+    externalProvidersBlocked,
     timestamp: new Date().toISOString()
   };
 }
@@ -136,6 +199,7 @@ module.exports = {
   getProviderRegistryStatus,
   getProviderStatus,
   askWithFallback,
+  providerAllowedByDisclosurePolicy,
   providers,
   priority
 };

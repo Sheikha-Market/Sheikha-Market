@@ -1,0 +1,120 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_ARABIC_LANGUAGE_PRODUCT_RELEASE_GATE_V1",
+  "language": "لغة شيخة البرمجية",
+  "status": "BOUNDED_PRODUCTS_READY_NATIVE_KERNEL_AND_FIRMWARE_BLOCKED",
+  "checks": {
+    "compilerAndVmTestsPassed": true,
+    "foundationTestsPassed": true,
+    "arabicLogicTestsPassed": true,
+    "kernelContractTestsPassed": true,
+    "foundationCompilationPassed": true,
+    "advancedHostedArabicVerified": true,
+    "nativeTargetAvailable": true,
+    "nativeObjectDigestVerified": true,
+    "nativeObjectLinkedIntoKernelImage": true,
+    "nativeObjectRuntimeCallVerified": true,
+    "sheikhaGeneratedKernelLogicVerified": true,
+    "compilerSelfHosted": false,
+    "sheikhaBytecodeRunsInKernel": false,
+    "physicalBareMetalBootVerified": true,
+    "firmwareProductionReleaseAllowed": false,
+    "oemFirmwareReady": false
+  },
+  "products": [
+    {
+      "id": "SHEIKHA_HOSTED_ARABIC_APPLICATIONS",
+      "decision": "RELEASE_CANDIDATE",
+      "targets": [
+        "BYTECODE_VM",
+        "JSON_IR",
+        "JAVASCRIPT",
+        "PYTHON",
+        "PHP"
+      ],
+      "boundary": "HOST_RUNTIME_REQUIRED_FOR_BUILD_AND_EXECUTION"
+    },
+    {
+      "id": "SHEIKHA_ARABIC_GOVERNANCE_AND_ENGINEERING_PRODUCTS",
+      "decision": "RELEASE_CANDIDATE",
+      "targets": [
+        "DOCUMENTS",
+        "PLANS",
+        "POLICY_CONTRACTS",
+        "AUDITABLE_REPORTS"
+      ],
+      "boundary": "HIGH_IMPACT_OUTPUT_REQUIRES_HUMAN_REVIEW"
+    },
+    {
+      "id": "SHEIKHA_BARE_METAL_SEED_TRIAL",
+      "decision": "PHYSICAL_TRIAL_VERIFIED_READ_ONLY",
+      "targets": [
+        "X86_64_UEFI_USB_IMAGE"
+      ],
+      "boundary": "CONTROLLED_HALT_NOT_GENERAL_PURPOSE_OS"
+    },
+    {
+      "id": "SHEIKHA_NATIVE_LANGUAGE_OBJECT_SDK",
+      "decision": "RELEASE_CANDIDATE",
+      "targets": [
+        "X86_64_ELF_RELOCATABLE_OBJECT",
+        "FREESTANDING_C11_SOURCE"
+      ],
+      "boundary": "LINKABLE_METADATA_OBJECT_NOT_BOOTABLE_KERNEL_OR_FIRMWARE"
+    },
+    {
+      "id": "SHEIKHA_LANGUAGE_KERNEL_INTEGRATION_IMAGE",
+      "decision": "QEMU_TRIAL_VERIFIED",
+      "targets": [
+        "X86_64_UEFI_FAT12_IMAGE"
+      ],
+      "boundary": "PARTIAL_KERNEL_LOGIC_GENERATED_FROM_SHEIKHA_AND_QEMU_VERIFIED_NOT_FULL_KERNEL"
+    },
+    {
+      "id": "SHEIKHA_NATIVE_LANGUAGE_KERNEL",
+      "decision": "BLOCKED_SELF_HOSTING_AND_RUNTIME_BOOT_QUALIFICATION_REQUIRED",
+      "targets": [
+        "NATIVE_KERNEL_OBJECTS"
+      ],
+      "boundary": "CURRENT_KERNEL_BACKEND_IS_FREESTANDING_C11"
+    },
+    {
+      "id": "SHEIKHA_OEM_ODM_FIRMWARE",
+      "decision": "BLOCKED_BY_FIRMWARE_RELEASE_GATE",
+      "targets": [
+        "NAMED_BOARD_FIRMWARE",
+        "OEM_ODM_RELEASE"
+      ],
+      "boundary": "TPM_SECURE_BOOT_RECOVERY_SIGNING_AND_RELEASE_EVIDENCE_REQUIRED"
+    }
+  ],
+  "releasableProductIds": [
+    "SHEIKHA_HOSTED_ARABIC_APPLICATIONS",
+    "SHEIKHA_ARABIC_GOVERNANCE_AND_ENGINEERING_PRODUCTS",
+    "SHEIKHA_BARE_METAL_SEED_TRIAL",
+    "SHEIKHA_NATIVE_LANGUAGE_OBJECT_SDK",
+    "SHEIKHA_LANGUAGE_KERNEL_INTEGRATION_IMAGE"
+  ],
+  "evidenceDrift": {
+    "foundationPhysicalHardwareFlag": true,
+    "currentFirmwarePhysicalEvidence": true,
+    "staleFoundationPhysicalFlagDetected": false
+  },
+  "claimBoundary": {
+    "completeGeneralPurposeLanguageClaimed": false,
+    "boundedNativeObjectSdkClaimed": true,
+    "nativeKernelWrittenEntirelyInSheikhaClaimed": false,
+    "productionFirmwareClaimed": false,
+    "productsMayBeReleasedIndependently": true
+  },
+  "generatedAt": "2026-09-01T15:05:56.091Z",
+  "testEvidence": {
+    "record": "runtime/sheikha-language-production/v1/sheikha-language-release-test-evidence-v1.json",
+    "totals": {
+      "passed": 43,
+      "failed": 0
+    },
+    "expiresOnRelevantSourceChange": true
+  },
+  "reportSha256": "89c0a0c65d59e859dd911531342bb42fef9eddc46a52428bebb72380fd3494d4"
+}

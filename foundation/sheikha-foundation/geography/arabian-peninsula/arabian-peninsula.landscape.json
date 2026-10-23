@@ -1,0 +1,36 @@
+{
+  "schema": "SHEIKHA_JAZIRAT_AL_ARAB_LANDSCAPE_V2",
+  "canonicalArabicName": "جزيرة العرب",
+  "canonicalNameSource": {
+    "type": "Authentic Sunnah",
+    "reference": "Sahih Muslim 1767a",
+    "bindingRef": "../../religion/quran-sunnah/arabia-name-source.reference.json"
+  },
+  "arabic": "جزيرة العرب — بنية المروج والأنهار والجنات في شيخة",
+  "technicalEnglishLabel": "Arabian Peninsula",
+  "geographicClassification": "peninsula",
+  "realWorldGeography": "Arabian Peninsula",
+  "architectureRole": "regional landscape model within Sheikha",
+  "hadithLandscapeReference": {
+    "exactArabicPhrase": "أرض العرب",
+    "reference": "Sahih Muslim 157c",
+    "meaning": "the land of Arabia will return to meadows and rivers before the Hour",
+    "systemBoundary": "revelation reference only; no date prediction, certainty model, or claim that software causes this event",
+    "humanSourceReviewRequired": true
+  },
+  "textualPrecision": {
+    "attributeExactPhraseJaziratAlArabToQuranWithoutExplicitVerse": false,
+    "preserveHadithWordingByContext": true,
+    "canonicalArabicNameDoesNotCreatePoliticalSovereignty": true
+  },
+  "roots": {
+    "meadows": "../../roots/meadows/root.contract.json",
+    "rivers": "../../roots/rivers/root.contract.json",
+    "gardens": "../../roots/gardens/root.contract.json"
+  },
+  "integration": {
+    "otherIslandsAndContinents": "through federated/global architecture boundaries",
+    "territorialSovereigntyClaim": false,
+    "politicalStateClaim": false
+  }
+}

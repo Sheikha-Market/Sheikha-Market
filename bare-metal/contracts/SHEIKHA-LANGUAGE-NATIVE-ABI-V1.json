@@ -1,0 +1,29 @@
+{
+  "id": "SHEIKHA_LANGUAGE_NATIVE_ABI_V1",
+  "version": "1.0.0",
+  "architecture": "x86_64",
+  "callingConvention": "System V AMD64 C ABI",
+  "interfaces": {
+    "sheikha_native_contract_version": {
+      "returns": "uint32_t",
+      "requiredValue": 1
+    },
+    "sheikha_native_governance_ready": {
+      "returns": "uint32_t",
+      "requiredValue": 1
+    },
+    "sheikha_native_kernel_handoff_allowed": {
+      "parameter": "uint32_t boot_services_exited",
+      "returns": "uint32_t",
+      "rule": "allow only when boot_services_exited equals 1"
+    },
+    "sheikha_native_kernel_mode": {
+      "returns": "uint32_t",
+      "requiredValue": 1,
+      "meaning": "controlled halt trial mode"
+    }
+  },
+  "runtimeAllocationRequired": false,
+  "hostRuntimeDependencies": [],
+  "boundary": "This ABI proves the UEFI handoff guard and controlled trial mode are generated from Sheikha source, linked, and callable; it does not prove a self-hosted compiler or complete kernel implementation."
+}

@@ -1,0 +1,36 @@
+{
+  "schema": "SHEIKHA_CANONICAL_REPOSITORY_ROOT_V1",
+  "repository": {
+    "name": "sheikha-main-portal",
+    "canonicalRoot": "/home/sheikha/Projects/sheikha/sheikha-main-portal",
+    "role": "SHEIKHA_MAIN_REPOSITORY",
+    "gitRoot": true
+  },
+  "landscape": {
+    "root": "foundation/sheikha-landscape",
+    "gardens": "foundation/sheikha-landscape/gardens",
+    "meadows": "foundation/sheikha-landscape/meadows",
+    "rivers": "foundation/sheikha-landscape/rivers"
+  },
+  "rules": {
+    "singleCanonicalGitRoot": true,
+    "nestedGitRepositoriesAllowed": false,
+    "duplicateMainRepositoryAllowed": false,
+    "landscapeNodesReferenceCanonicalRoot": true
+  },
+  "architecture": {
+   "historicalClosureCandidate": "V60",
+   "historicalClosureCandidateSha256": "bfdfc4ff0d6a9af8eb0ee006efbb833bd17c0d38a6f43468bbdae33d81010bac",
+   "correctiveExtension": "V61",
+   "correctiveExtensionSha256": "a0a4805356583e9d736e9c00e84da003a450e0762f4e495e5be2408e4263c73d",
+   "authoritativeFinalCanon": "V62",
+   "authoritativeFinalCanonSha256": "cd226204e4dcd47c73acabd49f1d3165bf0c34459112f5a909a1d88756558947",
+   "designClosedAt": "V62",
+   "implementationTrack": "POST_V62_CONTROLLED_IMPLEMENTATION"
+ },
+  "pr31": {
+    "targetSha256": "dd9ab8f2a3f45ecdf0cbc19b077c403e41a74b2e0987b4953087f50ad08a6b5a",
+    "consumed": "UNKNOWN_UNTIL_TERMINAL_OUTPUT",
+    "doNotAdvance": true
+  }
+}

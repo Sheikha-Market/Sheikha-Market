@@ -61,7 +61,7 @@ const _routeTable = new Map([
     // الشريعة والفتاوى
     ['fatwa',       { engine: 'sharia',   maqsad: 'DEEN' }],
     ['sharia',      { engine: 'sharia',   maqsad: 'DEEN' }],
-    ['compliance',  { engine: 'sharia',   maqsad: 'DEEN' }],
+    ['sharia.compliance', { engine: 'sharia', maqsad: 'DEEN' }],
     // التعليم والمعرفة
     ['education',   { engine: 'learning', maqsad: 'AQL' }],
     ['knowledge',   { engine: 'learning', maqsad: 'AQL' }],

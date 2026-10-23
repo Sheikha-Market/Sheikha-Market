@@ -1,0 +1,51 @@
+{
+  "system": "SHEIKHA_SINGLE_USE_ACTIVATECREDENTIAL_EXECUTION_V2",
+  "status": "ACTIVATECREDENTIAL_V2_VERIFIED_SINGLE_USE_COMPLETE",
+  "contractSha256": "1735d6e61122bbaf2245442168cd806ffd0cb7faec0cf401a2adad004b0325c4",
+  "nonce": "cc2a25b330a3d5e34b4d57d8b994b7b9",
+  "device": "/dev/tpmrm0",
+  "consumedAt": "2026-09-02T04:50:58.718Z",
+  "completedAt": "2026-09-02T04:50:59.052Z",
+  "activateCredentialCalls": 1,
+  "recoveredCredentialMatches": true,
+  "sessionFlushAttempted": true,
+  "failure": null,
+  "calls": [
+    {
+      "stage": "start-policy-session",
+      "command": "tpm2_startauthsession",
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "authorize-endorsement-policy",
+      "command": "tpm2_policysecret",
+      "exitCode": 0,
+      "stdoutSha256": "1f50e297f4037ca24ceb01f07caca60db78df4965b519e1e129fc2c82eadf597",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "activate-credential-single-use",
+      "command": "tpm2_activatecredential",
+      "exitCode": 0,
+      "stdoutSha256": "4f4db8815d85c89b70a5c3bb6d2e99b3a5dfbc49b227576546e8fa73feec9f58",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    },
+    {
+      "stage": "flush-policy-session",
+      "command": "tpm2_flushcontext",
+      "exitCode": 0,
+      "stdoutSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855",
+      "stderrSha256": "e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855"
+    }
+  ],
+  "controls": {
+    "authorizationConsumedBeforeTpmAccess": true,
+    "retryAllowed": false,
+    "networkUsed": false,
+    "persistentHandleCreated": false,
+    "firmwareOrSecureBootModified": false
+  },
+  "resultSha256": "b0939b512c86e6a19f31ddc7cdbf13a42fa81ec02ad2f4be6ebf3d2301a3d760"
+}

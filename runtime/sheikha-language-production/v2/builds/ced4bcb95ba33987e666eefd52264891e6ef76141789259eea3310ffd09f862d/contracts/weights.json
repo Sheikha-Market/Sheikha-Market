@@ -1,0 +1,27 @@
+{
+  "schemaVersion": "1.0",
+  "component": "weights",
+  "language": "sheikha",
+  "sourceSha256": "3a37c6c42c59aad92fb87bcecd2508d295480942099995bd3b737e9d75b5c97c",
+  "definition": {
+    "name": "أوزان_شيخة",
+    "properties": {
+      "المعرف": "weights",
+      "المسؤولية": "سلامة_ملفات_التخصيص",
+      "التبعيات": "foundry، ownership",
+      "الحد": "لا_نسخ_أوزان_ولا_كشف_أسرار",
+      "المسؤول_الإداري": "غير_معين",
+      "المراجعة": "حوكمة_واختبار_قبل_الإصدار"
+    }
+  },
+  "dependencies": [
+    "foundry",
+    "ownership"
+  ],
+  "status": "LOCAL_CONTRACT_PRODUCED",
+  "verificationScope": "LOCAL_ARTIFACT_OR_PROBE_ONLY",
+  "verificationBasis": "LOCAL_ADAPTER_ARTIFACT_HASHES",
+  "productionServiceActivated": false,
+  "hardwareMutationPerformed": false,
+  "deploymentPerformed": false
+}

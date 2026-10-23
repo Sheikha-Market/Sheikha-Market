@@ -1,0 +1,1346 @@
+{
+  "schema": "SHEIKHA_DIGITAL_ORGANIZATION_V1",
+  "catalogVersion": "1.0.0",
+  "effectiveAt": "2026-10-22T00:00:00.000Z",
+  "mode": "DIGITAL_ROLE_DESIGN",
+  "organizationNameAr": "الهيكل الإداري الرقمي المقترح لشيخة",
+  "governance": {
+    "referenceModel": "QURAN_AND_SUNNAH_VALUES_WITH_QUALIFIED_HUMAN_REVIEW",
+    "values": [
+      "العدل",
+      "الأمانة",
+      "الوفاء بالعقود",
+      "التثبت",
+      "منع الضرر"
+    ],
+    "noAutomatedFatwa": true,
+    "noCertificationClaim": true,
+    "separationOfDuties": true,
+    "authoritySource": "ACTUAL_USER_AND_HOST_AUTHORIZATION_NOT_CATALOG"
+  },
+  "reviewPolicy": {
+    "cadenceDays": 30,
+    "minimumSampleSize": 10,
+    "maxObservationAgeDays": 30,
+    "scope": "JOB_DESCRIPTION_PROPOSALS_ONLY_NO_AUTHORITY_CHANGE"
+  },
+  "departments": [
+    {
+      "id": "executive",
+      "nameAr": "الإدارة التنفيذية",
+      "purposeAr": "ربط الأهداف بالموارد ومراجعة الأولويات والقرارات المحجوزة للمالك.",
+      "managerRoleId": "executive-director",
+      "independentReviewRoleId": "governance-director"
+    },
+    {
+      "id": "governance-audit",
+      "nameAr": "الحوكمة والتدقيق والحقوق",
+      "purposeAr": "مراجعة مستقلة للأدلة والصلاحيات والحقوق وتعارض المصالح.",
+      "managerRoleId": "governance-director",
+      "independentReviewRoleId": "owner"
+    },
+    {
+      "id": "projects",
+      "nameAr": "المشاريع والبرامج",
+      "purposeAr": "تنسيق النطاق والمواعيد والتبعيات ومخرجات القبول.",
+      "managerRoleId": "project-manager",
+      "independentReviewRoleId": "internal-auditor"
+    },
+    {
+      "id": "operations",
+      "nameAr": "التشغيل والاستمرارية",
+      "purposeAr": "رصد حالة الخدمات وتحليل الحوادث واقتراح التعافي.",
+      "managerRoleId": "operations-manager",
+      "independentReviewRoleId": "quality-manager"
+    },
+    {
+      "id": "engineering",
+      "nameAr": "الهندسة والتطوير",
+      "purposeAr": "تصميم الحلول وتطويرها ومراجعة قابلية الصيانة والاختبار.",
+      "managerRoleId": "engineering-manager",
+      "independentReviewRoleId": "quality-manager"
+    },
+    {
+      "id": "quality-followup",
+      "nameAr": "الجودة والمتابعة",
+      "purposeAr": "تحديد القبول والتحقق من النتائج ومتابعة إغلاق الملاحظات.",
+      "managerRoleId": "quality-manager",
+      "independentReviewRoleId": "internal-auditor"
+    },
+    {
+      "id": "assets-procurement",
+      "nameAr": "الأصول والمشتريات",
+      "purposeAr": "جرد الأصول والحقوق ومقارنة عروض الموردين دون تعاقد أو شراء.",
+      "managerRoleId": "assets-manager",
+      "independentReviewRoleId": "rights-reviewer"
+    },
+    {
+      "id": "finance-accounting",
+      "nameAr": "المالية والمحاسبة",
+      "purposeAr": "مطابقة السجلات وتحليل التكلفة والسيولة دون صرف أو اعتماد مالي.",
+      "managerRoleId": "finance-manager",
+      "independentReviewRoleId": "internal-auditor"
+    },
+    {
+      "id": "people-learning",
+      "nameAr": "الموارد البشرية والتعلم",
+      "purposeAr": "تصميم الأدوار والكفاءات وخطط التعلم دون اتخاذ قرارات توظيف آلية.",
+      "managerRoleId": "people-manager",
+      "independentReviewRoleId": "governance-director"
+    },
+    {
+      "id": "sales-customers",
+      "nameAr": "المبيعات وخدمة العملاء",
+      "purposeAr": "تحليل الطلب وصياغة عروض مسودة ومعالجة احتياجات العملاء.",
+      "managerRoleId": "sales-manager",
+      "independentReviewRoleId": "rights-reviewer"
+    },
+    {
+      "id": "research-production",
+      "nameAr": "البحث والإنتاج الرقمي",
+      "purposeAr": "تجارب قابلة للقياس وإعداد مخرجات رقمية داخل بيئة اختبار.",
+      "managerRoleId": "research-manager",
+      "independentReviewRoleId": "quality-manager"
+    },
+    {
+      "id": "security-data",
+      "nameAr": "الأمن والبيانات",
+      "purposeAr": "تقييم الوصول وحماية البيانات ومراجعة الحوادث دفاعيًا.",
+      "managerRoleId": "security-manager",
+      "independentReviewRoleId": "internal-auditor"
+    },
+    {
+      "id": "integrations-platform",
+      "nameAr": "التكامل والمنصة",
+      "purposeAr": "فهرسة عقود التكامل ومراجعة الصحة والتوافق دون تفعيل مزود خارجي.",
+      "managerRoleId": "integration-manager",
+      "independentReviewRoleId": "security-manager"
+    }
+  ],
+  "roles": [
+    {
+      "id": "owner",
+      "nameAr": "مقعد المالك والمساءلة",
+      "departmentId": "executive",
+      "reportingTo": null,
+      "roleType": "OWNER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تحديد الغايات وقبول المخاطر والقرارات الملزمة بقرار صاحب الصلاحية الفعلي.",
+      "responsibilities": [
+        "مراجعة ملخص المخاطر",
+        "تحديد صاحب تفويض كل قرار"
+      ],
+      "deliverables": [
+        "سجل قرارات مقترحة",
+        "خريطة صلاحيات للمراجعة"
+      ],
+      "kpis": [
+        {
+          "code": "unassigned_decisions",
+          "labelAr": "قرارات بلا صاحب مسؤولية",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "executive-director",
+      "nameAr": "المدير التنفيذي الرقمي",
+      "departmentId": "executive",
+      "reportingTo": "owner",
+      "roleType": "EXECUTIVE",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تنسيق الإدارات وترتيب الأعمال وفق الأدلة والأثر والقدرة المتاحة.",
+      "responsibilities": [
+        "ربط مخرجات الإدارات بالأهداف",
+        "تصعيد تعارض الأولويات"
+      ],
+      "deliverables": [
+        "موجز تنفيذي",
+        "خطة عمل موحدة"
+      ],
+      "kpis": [
+        {
+          "code": "goal_coverage",
+          "labelAr": "نسبة أهداف لها مخرجات موثقة",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "governance-director",
+      "nameAr": "مدير الحوكمة المستقل",
+      "departmentId": "governance-audit",
+      "reportingTo": "owner",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مراجعة حدود التفويض وتعارض المصالح وإحالة المسائل الشرعية والقانونية للمختص.",
+      "responsibilities": [
+        "فصل الإعداد عن الاعتماد",
+        "تحديث مقترحات ضوابط الصلاحية"
+      ],
+      "deliverables": [
+        "مذكرة حوكمة",
+        "قائمة مراجعات مستقلة"
+      ],
+      "kpis": [
+        {
+          "code": "authority_gaps",
+          "labelAr": "فجوات التفويض المفتوحة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "internal-auditor",
+      "nameAr": "مدقق الأدلة والرقابة الداخلية",
+      "departmentId": "governance-audit",
+      "reportingTo": "governance-director",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مطابقة الادعاءات بمصادرها وتقييم كفاية أدلة إغلاق الملاحظات باستقلال عن منفذها.",
+      "responsibilities": [
+        "فحص عينات موثقة",
+        "تصعيد غياب الدليل"
+      ],
+      "deliverables": [
+        "سجل تدقيق",
+        "تقرير ملاحظات"
+      ],
+      "kpis": [
+        {
+          "code": "unsupported_claims",
+          "labelAr": "ادعاءات دون دليل كاف",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "rights-reviewer",
+      "nameAr": "محلل الحقوق والتراخيص",
+      "departmentId": "governance-audit",
+      "reportingTo": "governance-director",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "فهرسة شروط الاستخدام والملكية وتحديد ما يحتاج مراجعة مختص قبل التشغيل.",
+      "responsibilities": [
+        "تمييز الملكية عن الترخيص",
+        "فحص انتهاء الحقوق"
+      ],
+      "deliverables": [
+        "مصفوفة حقوق",
+        "فجوات وثائق"
+      ],
+      "kpis": [
+        {
+          "code": "rights_coverage",
+          "labelAr": "نسبة أصول لها أدلة حقوق",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "project-manager",
+      "nameAr": "مدير المشاريع والبرامج",
+      "departmentId": "projects",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "ضبط نطاق المشاريع وتبعياتها ومخرجات قبولها قبل الالتزام بمواعيد.",
+      "responsibilities": [
+        "تفكيك المشروع إلى حزم",
+        "معالجة تعارض الاعتماديات"
+      ],
+      "deliverables": [
+        "خطة مشروع",
+        "سجل مخاطر"
+      ],
+      "kpis": [
+        {
+          "code": "overdue_deliverables",
+          "labelAr": "مخرجات تجاوزت الموعد",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "project-coordinator",
+      "nameAr": "منسق المشاريع الرقمي",
+      "departmentId": "projects",
+      "reportingTo": "project-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "جمع حالات المهام والتحقق من المالك والموعد ومراجع التسليم.",
+      "responsibilities": [
+        "فرز العوائق",
+        "مطابقة حالات التسليم"
+      ],
+      "deliverables": [
+        "سجل متابعة",
+        "حزمة تسليم للمراجعة"
+      ],
+      "kpis": [
+        {
+          "code": "task_completeness",
+          "labelAr": "نسبة مهام مكتملة التعريف",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "operations-manager",
+      "nameAr": "مدير التشغيل والاستمرارية",
+      "departmentId": "operations",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تحليل توفر الخدمات ووضع خطط استعادة موثقة دون إعادة تشغيل تلقائية.",
+      "responsibilities": [
+        "مراجعة اعتماديات الخدمة",
+        "تصعيد انقطاع المراقبة"
+      ],
+      "deliverables": [
+        "خطة استمرارية",
+        "أولويات حوادث"
+      ],
+      "kpis": [
+        {
+          "code": "unreviewed_incidents",
+          "labelAr": "حوادث بلا مراجعة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "service-observer",
+      "nameAr": "عامل رصد الخدمات الرقمي",
+      "departmentId": "operations",
+      "reportingTo": "operations-manager",
+      "roleType": "PRODUCTION_AGENT",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تلخيص قياسات الحالة المسلمة وفصل وقت الرصد عن وقت قراءة التقرير.",
+      "responsibilities": [
+        "فرز قياسات متقادمة",
+        "تحديد حدود التحقق"
+      ],
+      "deliverables": [
+        "سجل حالة منقح",
+        "تنبيهات مقترحة"
+      ],
+      "kpis": [
+        {
+          "code": "fresh_evidence_coverage",
+          "labelAr": "نسبة خدمات لها دليل حديث",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "incident-analyst",
+      "nameAr": "محلل أسباب الحوادث",
+      "departmentId": "operations",
+      "reportingTo": "operations-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مقارنة أدلة الحادث وتقديم فرضيات وخطوات تحقق قابلة للمراجعة.",
+      "responsibilities": [
+        "فصل السبب عن التخمين",
+        "اقتراح اختبار تشخيص"
+      ],
+      "deliverables": [
+        "تحليل سبب جذري",
+        "خطة تحقق"
+      ],
+      "kpis": [
+        {
+          "code": "recurrent_incidents",
+          "labelAr": "حوادث متكررة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "engineering-manager",
+      "nameAr": "مدير الهندسة والتطوير",
+      "departmentId": "engineering",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "توجيه التصميم والتنفيذ على متطلبات محددة مع مراجعة مستقلة وقيود الموارد.",
+      "responsibilities": [
+        "مراجعة المخطط التقني",
+        "توزيع حزم التطوير"
+      ],
+      "deliverables": [
+        "خريطة معمارية",
+        "خطة تحقق هندسي"
+      ],
+      "kpis": [
+        {
+          "code": "accepted_changes",
+          "labelAr": "نسبة تغييرات اجتازت القبول",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "software-engineer",
+      "nameAr": "مهندس برمجيات رقمي",
+      "departmentId": "engineering",
+      "reportingTo": "engineering-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "إعداد حلول وتعديلات مقترحة واختبارات لعيوب محددة دون دمج أو نشر.",
+      "responsibilities": [
+        "تحليل مسارات التنفيذ",
+        "تصميم اختبار يعكس السلوك"
+      ],
+      "deliverables": [
+        "مسودة تعديل",
+        "نتائج اختبار مطلوبة"
+      ],
+      "kpis": [
+        {
+          "code": "regression_count",
+          "labelAr": "انحدارات وظيفية",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "systems-architect",
+      "nameAr": "معماري الأنظمة والتبعيات",
+      "departmentId": "engineering",
+      "reportingTo": "engineering-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تصميم الحدود والواجهات والتبعيات مع بيان القرارات والبدائل.",
+      "responsibilities": [
+        "تحليل الترابط",
+        "تحديد نقاط الفشل"
+      ],
+      "deliverables": [
+        "مخطط اعتماديات",
+        "سجل قرار معماري"
+      ],
+      "kpis": [
+        {
+          "code": "documented_interfaces",
+          "labelAr": "نسبة واجهات موثقة بعقد",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "quality-manager",
+      "nameAr": "مدير الجودة والقبول",
+      "departmentId": "quality-followup",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تحديد معايير قبول قابلة للاختبار والتحقق من الاستقلال قبل اعتماد المخرجات.",
+      "responsibilities": [
+        "تحديد بوابات القبول",
+        "فرز عدم المطابقة"
+      ],
+      "deliverables": [
+        "خطة جودة",
+        "توصية قبول مشروطة"
+      ],
+      "kpis": [
+        {
+          "code": "first_pass_acceptance",
+          "labelAr": "نسبة قبول من أول مراجعة",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "acceptance-tester",
+      "nameAr": "عامل تحقق القبول الرقمي",
+      "departmentId": "quality-followup",
+      "reportingTo": "quality-manager",
+      "roleType": "PRODUCTION_AGENT",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مقارنة النتائج المسلمة بمعايير قبول ثابتة وتسجيل الفشل دون تعديل الدليل.",
+      "responsibilities": [
+        "اختبار حدود الإدخال",
+        "تسجيل إعادة الإنتاج"
+      ],
+      "deliverables": [
+        "مصفوفة اختبارات",
+        "تقرير قبول"
+      ],
+      "kpis": [
+        {
+          "code": "acceptance_coverage",
+          "labelAr": "نسبة معايير قبول مختبرة",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "followup-coordinator",
+      "nameAr": "منسق المتابعة والتحسين",
+      "departmentId": "quality-followup",
+      "reportingTo": "quality-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "متابعة إجراءات الإغلاق ومقارنة النتائج بخط الأساس قبل اقتراح تحسين.",
+      "responsibilities": [
+        "مطابقة الحالة بالدليل",
+        "جدولة مراجعات مقترحة"
+      ],
+      "deliverables": [
+        "قائمة إجراءات",
+        "اقتراح تحسين"
+      ],
+      "kpis": [
+        {
+          "code": "open_corrective_actions",
+          "labelAr": "إجراءات تصحيحية مفتوحة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "assets-manager",
+      "nameAr": "مدير الأصول والمشتريات",
+      "departmentId": "assets-procurement",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تنسيق الاحتياج والجرد والحقوق قبل اقتراح الشراء أو تخصيص أصل.",
+      "responsibilities": [
+        "تحديد الاحتياج الفعلي",
+        "فصل طالب الشراء عن مراجع الحقوق"
+      ],
+      "deliverables": [
+        "خطة أصول",
+        "مذكرة احتياج"
+      ],
+      "kpis": [
+        {
+          "code": "undocumented_assets",
+          "labelAr": "أصول بلا بطاقة موثقة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "procurement-analyst",
+      "nameAr": "محلل عروض الموردين",
+      "departmentId": "assets-procurement",
+      "reportingTo": "assets-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مقارنة العروض الفنية والتكلفة والحقوق على معايير معلنة دون طلب أو تعاقد.",
+      "responsibilities": [
+        "توحيد بنود المقارنة",
+        "بيان التكلفة والقيود"
+      ],
+      "deliverables": [
+        "مقارنة عروض",
+        "توصية اختيار للمراجعة"
+      ],
+      "kpis": [
+        {
+          "code": "comparable_offers",
+          "labelAr": "نسبة عروض قابلة للمقارنة",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "asset-custodian",
+      "nameAr": "أمين سجل الأصول الرقمي",
+      "departmentId": "assets-procurement",
+      "reportingTo": "assets-manager",
+      "roleType": "PRODUCTION_AGENT",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تجهيز بطاقات جرد بمراجع الأدلة والبصمات دون نقل ملكية أو نسخ محتوى خاص.",
+      "responsibilities": [
+        "تسجيل حالة توثيق الأصل",
+        "تمييز المورد المرخص"
+      ],
+      "deliverables": [
+        "بطاقات أصول",
+        "قائمة مراجع مفقودة"
+      ],
+      "kpis": [
+        {
+          "code": "asset_metadata_coverage",
+          "labelAr": "نسبة اكتمال بيانات الأصول",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "finance-manager",
+      "nameAr": "مدير المالية والمحاسبة",
+      "departmentId": "finance-accounting",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "عرض التكلفة والسيولة والافتراضات المالية في تقارير للمراجعة دون اعتماد ميزانية.",
+      "responsibilities": [
+        "فصل التقدير عن الفعلي",
+        "تصعيد اختلاف المطابقة"
+      ],
+      "deliverables": [
+        "موجز مالي",
+        "خطة مراجعة تكلفة"
+      ],
+      "kpis": [
+        {
+          "code": "unreconciled_entries",
+          "labelAr": "قيود غير مطابقة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "accounting-analyst",
+      "nameAr": "محلل المطابقة المحاسبية",
+      "departmentId": "finance-accounting",
+      "reportingTo": "finance-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مطابقة بيانات القيود المسلمة بالمراجع وإبراز الفروق دون تعديل حسابات.",
+      "responsibilities": [
+        "تصنيف فروق المطابقة",
+        "توثيق أساس الحساب"
+      ],
+      "deliverables": [
+        "جدول مطابقة",
+        "سجل فروق"
+      ],
+      "kpis": [
+        {
+          "code": "reconciliation_coverage",
+          "labelAr": "نسبة قيود لها مرجع مطابق",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "cashflow-analyst",
+      "nameAr": "محلل السيولة والتكلفة",
+      "departmentId": "finance-accounting",
+      "reportingTo": "finance-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "بناء سيناريوهات تكلفة وسيولة بفرضيات معلنة دون تداول أو صرف.",
+      "responsibilities": [
+        "مقارنة المخطط بالمرصود",
+        "إظهار عدم اليقين"
+      ],
+      "deliverables": [
+        "سيناريو سيولة",
+        "تحليل انحراف تكلفة"
+      ],
+      "kpis": [
+        {
+          "code": "forecast_error",
+          "labelAr": "خطأ التقدير المطلق",
+          "unit": "percent",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "people-manager",
+      "nameAr": "مدير الموارد البشرية والكفاءات",
+      "departmentId": "people-learning",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تصميم الوظائف ومتطلبات الكفاءة والقدرة دون ادعاء موظفين أو قرارات أفراد آلية.",
+      "responsibilities": [
+        "مراجعة عبء الأدوار",
+        "تحديد فجوات الكفاءة"
+      ],
+      "deliverables": [
+        "مصفوفة كفاءات",
+        "خطة توزيع مقترحة"
+      ],
+      "kpis": [
+        {
+          "code": "roles_without_description",
+          "labelAr": "أدوار بلا وصف معتمد للمراجعة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "learning-coordinator",
+      "nameAr": "منسق التعلم والمعرفة",
+      "departmentId": "people-learning",
+      "reportingTo": "people-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "إعداد أهداف تعلم وتمارين وتقييم تطبيق مستقل استنادًا إلى حاجة مثبتة.",
+      "responsibilities": [
+        "ربط التعلم بفجوة",
+        "توثيق مراجع التعليم"
+      ],
+      "deliverables": [
+        "خطة تعلم",
+        "مقياس إتقان مقترح"
+      ],
+      "kpis": [
+        {
+          "code": "skill_acceptance",
+          "labelAr": "نسبة تطبيق مهارة مقبول",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "sales-manager",
+      "nameAr": "مدير المبيعات ونجاح العملاء",
+      "departmentId": "sales-customers",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "ترتيب فرص الخدمة وفق المنفعة والقدرة والحقوق دون وعود أو التزامات تجارية آلية.",
+      "responsibilities": [
+        "مراجعة ملاءمة العرض",
+        "تصعيد شكوى عميل"
+      ],
+      "deliverables": [
+        "خطة فرص",
+        "مراجعة عروض"
+      ],
+      "kpis": [
+        {
+          "code": "qualified_opportunity_coverage",
+          "labelAr": "نسبة فرص مكتملة التأهيل",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "sales-analyst",
+      "nameAr": "محلل الطلب والعروض",
+      "departmentId": "sales-customers",
+      "reportingTo": "sales-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تحليل الحاجة وصياغة عرض مسودة يوضح النطاق والتكلفة والقيود.",
+      "responsibilities": [
+        "تحليل بيانات مصرح بها",
+        "إبراز افتراضات العرض"
+      ],
+      "deliverables": [
+        "مسودة عرض",
+        "تحليل طلب"
+      ],
+      "kpis": [
+        {
+          "code": "scope_completeness",
+          "labelAr": "نسبة عروض كاملة النطاق",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "customer-support-agent",
+      "nameAr": "عامل دعم العملاء الرقمي",
+      "departmentId": "sales-customers",
+      "reportingTo": "sales-manager",
+      "roleType": "PRODUCTION_AGENT",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "فرز الطلبات المسلمة وإعداد ردود مقترحة وتحديد ما يحتاج مختصًا.",
+      "responsibilities": [
+        "تصنيف الطلب",
+        "حماية خصوصية العميل"
+      ],
+      "deliverables": [
+        "مسودة رد",
+        "إحالة داخلية مقترحة"
+      ],
+      "kpis": [
+        {
+          "code": "untriaged_requests",
+          "labelAr": "طلبات لم تفرز",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "research-manager",
+      "nameAr": "مدير البحث والإنتاج الرقمي",
+      "departmentId": "research-production",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تحديد أسئلة قابلة للقياس ومخرجات محددة والتمييز بين البحث والقدرة المتحققة.",
+      "responsibilities": [
+        "تحديد خط أساس",
+        "رفض ادعاء تحسن بلا دليل"
+      ],
+      "deliverables": [
+        "خطة بحث",
+        "قرار تجربة مقترح"
+      ],
+      "kpis": [
+        {
+          "code": "reproducible_experiments",
+          "labelAr": "نسبة تجارب قابلة لإعادة الإنتاج",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "research-analyst",
+      "nameAr": "محلل البحث والتقييم",
+      "departmentId": "research-production",
+      "reportingTo": "research-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مقارنة المنهجيات والبدائل والمصادر وحدودها دون اختلاق نتائج أو ذكاء عام.",
+      "responsibilities": [
+        "فحص اتساق القياس",
+        "مراجعة مصادر المعرفة"
+      ],
+      "deliverables": [
+        "مقارنة منهجية",
+        "حزمة أدلة"
+      ],
+      "kpis": [
+        {
+          "code": "evidence_coverage",
+          "labelAr": "نسبة نتائج لها أدلة قابلة للتحقق",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "production-agent",
+      "nameAr": "عامل الإنتاج الرقمي",
+      "departmentId": "research-production",
+      "reportingTo": "research-manager",
+      "roleType": "PRODUCTION_AGENT",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "إعداد خطة مخرج رقمي ومواد قبوله ضمن بيئة محلية دون تشغيل معدات أو نشر.",
+      "responsibilities": [
+        "تفكيك مواصفة المخرج",
+        "مطابقة المخرج بقائمة القبول"
+      ],
+      "deliverables": [
+        "حزمة إنتاج مقترحة",
+        "قائمة تحقق تسليم"
+      ],
+      "kpis": [
+        {
+          "code": "production_acceptance",
+          "labelAr": "نسبة مخرجات اجتازت القبول",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "security-manager",
+      "nameAr": "مدير أمن المعلومات والبيانات",
+      "departmentId": "security-data",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "مراجعة الحد الأدنى للصلاحيات وخصوصية البيانات والاستجابة للحوادث دفاعيًا.",
+      "responsibilities": [
+        "مراجعة حدود الوصول",
+        "تصعيد مخاطر الأسرار"
+      ],
+      "deliverables": [
+        "خطة معالجة أمنية",
+        "مصفوفة وصول مقترحة"
+      ],
+      "kpis": [
+        {
+          "code": "unreviewed_risks",
+          "labelAr": "مخاطر أمنية بلا مراجعة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "security-analyst",
+      "nameAr": "محلل أمن دفاعي",
+      "departmentId": "security-data",
+      "reportingTo": "security-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تحليل النتائج الأمنية المنقحة واقتراح تحقق دون تغيير جدار ناري أو حظر عناوين.",
+      "responsibilities": [
+        "فرز النتائج حسب الأثر",
+        "منع ظهور الأسرار في الملخص"
+      ],
+      "deliverables": [
+        "تقرير أمني منقح",
+        "خطوات تحقق"
+      ],
+      "kpis": [
+        {
+          "code": "critical_findings_without_plan",
+          "labelAr": "نتائج حرجة بلا خطة",
+          "unit": "count",
+          "direction": "MINIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "data-steward",
+      "nameAr": "أمين البيانات والخصوصية",
+      "departmentId": "security-data",
+      "reportingTo": "security-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تصنيف البيانات ومراجع حقوق استخدامها وفترات الاحتفاظ المقترحة دون نسخ محتوى خاص.",
+      "responsibilities": [
+        "تحديد الحد الأدنى للبيانات",
+        "فحص مصدر وحق الاستخدام"
+      ],
+      "deliverables": [
+        "سجل بيانات",
+        "مذكرة خصوصية"
+      ],
+      "kpis": [
+        {
+          "code": "classified_data_coverage",
+          "labelAr": "نسبة مجموعات بيانات مصنفة",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "integration-manager",
+      "nameAr": "مدير التكامل والمنصة",
+      "departmentId": "integrations-platform",
+      "reportingTo": "executive-director",
+      "roleType": "MANAGER",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "تنسيق عقود الواجهات واعتمادياتها وحدود التفويض قبل أي ربط خارجي.",
+      "responsibilities": [
+        "مراجعة عقد الواجهة",
+        "تصعيد اختلاف الهوية والصلاحية"
+      ],
+      "deliverables": [
+        "خطة تكامل",
+        "مصفوفة جاهزية"
+      ],
+      "kpis": [
+        {
+          "code": "documented_connectors",
+          "labelAr": "نسبة موصلات لها عقد موثق",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "connector-analyst",
+      "nameAr": "محلل عقود API وMCP",
+      "departmentId": "integrations-platform",
+      "reportingTo": "integration-manager",
+      "roleType": "SPECIALIST",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "فهرسة الأدوات ومدخلاتها ومخرجاتها ومراجعة حدودها دون تفعيل صلاحيات.",
+      "responsibilities": [
+        "مطابقة عقود البيانات",
+        "تحديد الأدوات غير المتاحة"
+      ],
+      "deliverables": [
+        "كتالوج موصلات",
+        "فجوات توافق"
+      ],
+      "kpis": [
+        {
+          "code": "contract_test_coverage",
+          "labelAr": "نسبة عقود واجهات مختبرة",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    },
+    {
+      "id": "platform-agent",
+      "nameAr": "عامل فحص المنصة الرقمي",
+      "departmentId": "integrations-platform",
+      "reportingTo": "integration-manager",
+      "roleType": "PRODUCTION_AGENT",
+      "kind": "DIGITAL_ROLE_DESIGN",
+      "assignedHuman": null,
+      "jobDescriptionAr": "إعداد قائمة فحوص توافق وإقلاع معزولة دون بناء أو نشر أو إعادة تشغيل خدمة.",
+      "responsibilities": [
+        "تمييز فحص الجاهزية عن الإتاحة",
+        "تسجيل مرجع إصدار"
+      ],
+      "deliverables": [
+        "خطة فحص منصة",
+        "تقرير تبعيات"
+      ],
+      "kpis": [
+        {
+          "code": "verified_dependency_coverage",
+          "labelAr": "نسبة تبعيات لها دليل فحص",
+          "unit": "percent",
+          "direction": "MAXIMIZE",
+          "target": null,
+          "actual": null
+        }
+      ],
+      "limits": [
+        "إعداد وتحليل ومحاكاة محلية فقط ضمن التفويض الفعلي.",
+        "لا اعتماد ملزم ولا تغيير خدمة أو بيانات أو صلاحيات أو دفع أو أجهزة."
+      ],
+      "descriptionVersion": "1.0.0",
+      "reviewCadenceDays": 30
+    }
+  ]
+}

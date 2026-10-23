@@ -1,0 +1,42 @@
+{
+  "schema": "SHEIKHA_CREATION_STEWARDSHIP_BETWEEN_THEM_BINDINGS_V1",
+  "bindingMode": "REFERENCE_ONLY",
+  "foundationContract": "../../stewardship/between-them-stewardship.contract.json",
+  "worldDomain": "../../world/between-them/between-them.domain.json",
+  "bindings": [
+    {
+      "path": "config/sheikha-consent-communication-governance-core.json",
+      "role": "communication governance"
+    },
+    {
+      "path": "public/SHEIKHA-COMMUNICATIONS.html",
+      "role": "communications interface"
+    },
+    {
+      "path": "routes/consent-communication.js",
+      "role": "communications route"
+    },
+    {
+      "path": "core/comms/telecom-org/satellite.js",
+      "role": "satellite communications bridge"
+    },
+    {
+      "path": "runtime/space-iot-ml-ai-fabric/v1/registries/environment-intelligence-map.json",
+      "role": "environment intelligence / sensing bridge"
+    }
+  ],
+  "unboundCapabilities": [
+    "weather observation implementation",
+    "climate observation implementation",
+    "air-quality observation implementation",
+    "water-cycle observation implementation"
+  ],
+  "classificationNote": "I7 lexical discovery produced industrial false positives through the substring 'dust' in 'industrial'; those candidates are intentionally excluded.",
+  "rules": {
+    "moveSource": false,
+    "renameSource": false,
+    "duplicateSource": false,
+    "executeSource": false,
+    "controlWeatherClaim": false
+  }
+}

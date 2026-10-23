@@ -1,0 +1,295 @@
+{
+  "schema": "SHEIKHA_R4_SOURCE_MAPPING_AND_GATES_V1",
+  "created_on": "2026-10-17",
+  "status": "SOURCE_INVENTORIED_ADAPTER_LAB_ONLY",
+  "production_ready": false,
+  "r3_resume": {
+    "saved_result_path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/VERIFICATION_RESULT.json",
+    "saved_result_sha256": "3c9670bd1397272bfc3226657236d7d2ff47eec2ff5c92b9ba647eaa28bc0854",
+    "saved_return_code": 0,
+    "saved_checks_passed": 151,
+    "saved_checks_total": 151,
+    "check_composition": {
+      "base_points": 72,
+      "manifest_points": 78,
+      "coverage_points": 1
+    },
+    "results_are_saved_not_reexecuted": true,
+    "not_151_independent_tests": true,
+    "predecessor_schema_tables": 12,
+    "predecessor_schema_triggers": 40,
+    "predecessor_records": 92,
+    "predecessor_source_kind": "REVIEW_REGISTER_NOT_ORIGINAL_MASTER",
+    "predecessor_runner_is_not_an_adapter_for_master": true,
+    "reviewed_reference_files": [
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/VERIFICATION_RESULT.json",
+        "bytes": 16522,
+        "sha256": "3c9670bd1397272bfc3226657236d7d2ff47eec2ff5c92b9ba647eaa28bc0854",
+        "recorded_in_package_manifest": false,
+        "matches_recorded_manifest": null
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/SHA256SUMS.txt",
+        "bytes": 2504,
+        "sha256": "f13501af9fba751894b6d928003b02029ecca6349de1d5a5c005e2490d36ad4e",
+        "recorded_in_package_manifest": false,
+        "matches_recorded_manifest": null
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/NEXT_GATE.json",
+        "bytes": 2304,
+        "sha256": "9dadf57b7a0091d3932e063cde597314626b232a28fc2fdaa340a8896cf6d5f3",
+        "recorded_in_package_manifest": true,
+        "matches_recorded_manifest": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/inputs/REVIEW_SOURCE_R1.sqlite3",
+        "bytes": 147456,
+        "sha256": "e716d0b9fcebed7c8927bd66d5875b13b36f207a873824c7a226fba59d3de797",
+        "recorded_in_package_manifest": true,
+        "matches_recorded_manifest": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/inputs/R1_TABLE_DATA_REFERENCE.json",
+        "bytes": 41255,
+        "sha256": "58b39f7cf94edd0b07d1efb6f33dac757fb4045ed73bf10e15030cd4f4a8c056",
+        "recorded_in_package_manifest": true,
+        "matches_recorded_manifest": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/inputs/LAB_SCHEMA_CANDIDATE_R2.sql",
+        "bytes": 12174,
+        "sha256": "967528d6d227e5a74879aaaba6514feff4119c78f4c3b02c67242fc315f88934",
+        "recorded_in_package_manifest": true,
+        "matches_recorded_manifest": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/rehearsal_runner.py",
+        "bytes": 19797,
+        "sha256": "0e95710ba647744f3d73cef473edc8cb1c0ad77465916380d1fcecd57879cba3",
+        "recorded_in_package_manifest": true,
+        "matches_recorded_manifest": true
+      },
+      {
+        "path": "/home/sheikha/sheikha-package-staging/SHEIKHA_R3_VERIFY_83a88dm7/SHEIKHA_V35_DISK_REHEARSAL_R3_20261016/verify_delivery.py",
+        "bytes": 4757,
+        "sha256": "b80e3c12ea28596c967819de179407e9eae17069724941eafc2330fcc6adacc4",
+        "recorded_in_package_manifest": true,
+        "matches_recorded_manifest": true
+      }
+    ],
+    "full_predecessor_manifest_reverified": false,
+    "selected_manifest_bound_files_checked": 6,
+    "historical_rehearsal_or_verifier_executed": false
+  },
+  "source": {
+    "path": "/home/sheikha/sheikha_os_ecosystem/01_foundry_baremetal_kernel/sheikha_sql_db/sheikha_sovereign_master.sqlite3",
+    "bytes": 856064,
+    "sha256": "39c19d0c7d810c524edd96a291856945aae983bc66e3f2d054283036613228b9",
+    "schema_fingerprint": "92ec9d193c6df7adf831b75e3a30c8876e2a4c0e3d37f7653442a576cc8e9f2b",
+    "non_internal_tables": 94,
+    "explicit_non_internal_indexes": 0,
+    "sqlite_autoindexes": 93,
+    "declared_foreign_keys": 0,
+    "triggers": 0,
+    "views": 0,
+    "source_scope": "Six catalog tables row counts and value fingerprints; all94table structures. Other table values not selected.",
+    "snapshot_class": "STABLE_BYTE_COPY_NOT_COORDINATED_TRANSACTIONAL_SNAPSHOT",
+    "sqlite_original_opened": false,
+    "live_writers_coordinated": false,
+    "stable_byte_copy_integrity": "ok",
+    "persistent_database_copy_retained": false,
+    "original_modified": false
+  },
+  "selected_counts": {
+    "cosmic_quality_v35_8_registry": 5,
+    "cosmic_serialized_assets_catalog": 4,
+    "entities_bylaws_articles_catalog": 3,
+    "entity_regulation_v35_7_registry": 5,
+    "multi_country_legal_articles_catalog": 4,
+    "universal_legal_v35_6_registry": 5
+  },
+  "adapter_scope": {
+    "input": "Explicit bytes of a bounded offline SQLite snapshot, mandatory expected SHA256 and pinned target SQL bytes; no default original path",
+    "source_table": "entities_bylaws_articles_catalog",
+    "other_tables": "Not converted; all93other source tables remain outside this adapter",
+    "destination": "New :memory: review database only",
+    "target_schema_path": "inputs/target-schema-reference.sql",
+    "target_schema_sha256": "967528d6d227e5a74879aaaba6514feff4119c78f4c3b02c67242fc315f88934",
+    "real_source_data_fed_to_adapter": false,
+    "disk_database_output": false,
+    "source_and_target_are_not_live": true
+  },
+  "fields": [
+    {
+      "source": "entity_id",
+      "destination": "Internal IDs derived from snapshot SHA256 and source PK; original ID retained in catalog_claims.payload_json",
+      "policy": "Reject NULL/blank/invalid type or any generated-ID collision; never overwrite"
+    },
+    {
+      "source": "cr_or_gov_number",
+      "destination": "catalog_claims.payload_json",
+      "policy": "Retain verbatim as a source assertion; entity_identifiers remains empty because issuer, scheme and jurisdiction have not been verified"
+    },
+    {
+      "source": "entity_name",
+      "destination": "entity_records.source_name and full source payload",
+      "policy": "Source name is preserved; legal_status stays USER_DECLARED_UNVERIFIED"
+    },
+    {
+      "source": "entity_type",
+      "destination": "entity_records.claimed_entity_type and payload",
+      "policy": "Claimed type is not official registration"
+    },
+    {
+      "source": "bylaw_article_code",
+      "destination": "provisions.article_reference and payload",
+      "policy": "One captured version per source entity; does not reconstruct missing historical versions"
+    },
+    {
+      "source": "article_text",
+      "destination": "provisions.source_text and payload",
+      "policy": "Preserve Unicode and whitespace values; text_role=SOURCE_CLAIM"
+    },
+    {
+      "source": "quran_sunnah_taseel",
+      "destination": "Source payload and review source assertion",
+      "policy": "No automatic interpretation or approval"
+    },
+    {
+      "source": "shariah_verdict",
+      "destination": "Source payload and review source assertion",
+      "policy": "Source label is not a review result; new legal_review/shariah_review=PENDING"
+    },
+    {
+      "source": "sha256_seal",
+      "destination": "Source payload",
+      "policy": "Preserve the recorded string; do not assume it hashes the row, article, ownership or a signed approval"
+    },
+    {
+      "source": "timestamp",
+      "destination": "Source payload",
+      "policy": "Observed source timestamp is not document acceptance/effective time; target dates remain NULL"
+    }
+  ],
+  "target_row_roles": {
+    "sources": "One snapshot source entry",
+    "catalog_claims": "One full source payload per source row, not a promoted fact",
+    "entity_records": "One unverified claimed entity per source row",
+    "documents": "One internal capture container per source entity",
+    "document_versions": "One observation version; SOURCE_SAMPLE_NOT_ADOPTED",
+    "provisions": "One captured article per source row",
+    "review_notes": "One pending review per captured article",
+    "entity_identifiers": "No inferred issuer or registration record",
+    "observed_artifacts": "No runtime proof invented",
+    "legal_references": "No official legal text or applicability rule inferred"
+  },
+  "loss_and_history": {
+    "existing_source_rows_preservation_required": true,
+    "all_columns_preserved_in_payload": true,
+    "prior_overwritten_articles_recoverable_from_this_snapshot": false,
+    "historical_loss_proven": false,
+    "prior_revisions_or_accepted_dates_in_source": false,
+    "known_lifetime_limit": "The current table can retain one row per entity_id. Snapshot inventory does not prove historical loss, and an adapter cannot recreate missing rows or dates.",
+    "migration_of_remaining_tables_defined": false,
+    "source_versus_target_schema_equality_claimed": false
+  },
+  "next_gates": [
+    {
+      "id": "R4-G1",
+      "status": "COMPLETE_FOR_READ_ONLY_INVENTORY",
+      "requirement": "Pin source path/hash, absent sidecars, stable reads; inspect temporary copy and inventory schema without opening original in SQLite."
+    },
+    {
+      "id": "R4-G2",
+      "status": "COMPLETE_FOR_SYNTHETIC_ADAPTER_ONLY",
+      "requirement": "Exercise new adapter on synthetic bytes only with rejection, preservation, no-promotion and collision checks."
+    },
+    {
+      "id": "R4-G3",
+      "status": "OPEN",
+      "requirement": "Plan a coordinated durable snapshot with application writers/backup mechanism and all sidecars considered; do not use immutable on mutable original."
+    },
+    {
+      "id": "R4-G4",
+      "status": "OPEN",
+      "requirement": "After snapshot provenance and handling are settled, try actual source adapter on a private offline copy and reconcile every mapped field and unmapped table."
+    },
+    {
+      "id": "R4-G5",
+      "status": "OPEN",
+      "requirement": "Design file-based output, reconciliation and recovery for this actual adapter before any live cutover. R3 results cannot substitute for this."
+    },
+    {
+      "id": "R4-G6",
+      "status": "OPEN",
+      "requirement": "Hostinger read-only authenticated inventory, deployed version, request authorization path and restore evidence remain separate."
+    }
+  ],
+  "existing_tools_reused": [
+    {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/docs/canonical/registry/reviews/2026-10-17-v35-completion/verify_evidence.py",
+      "sha256": "4cedf7fb72f45f1751feebcbf7dcdefc89e0f247d7b306051f1a480dff152fd9"
+    },
+    {
+      "path": "/home/sheikha/Projects/sheikha/sheikha-main-portal/tools/verification/sheikha-v35-evidence-audit-v1.py",
+      "sha256": "a3027be0469e6177907676f9aada1e3c4e03f4e2809c353bf200b8f450f02feb"
+    }
+  ],
+  "invariants": {
+    "source_authority_granted": false,
+    "live_migration": false,
+    "v2_repin": false,
+    "merge": false,
+    "deploy": false,
+    "hostinger_changed": false,
+    "contracts_signed": false,
+    "bylaws_adopted": false,
+    "shariah_legal_approvals_issued": false,
+    "weights_read_or_uploaded": false
+  },
+  "primary_technical_sources": [
+    {
+      "title": "SQLite URI immutable and mode",
+      "url": "https://www.sqlite.org/uri.html#uriimmutable"
+    },
+    {
+      "title": "SQLite PRAGMA foreign_keys, query_only, trusted_schema, integrity_check",
+      "url": "https://www.sqlite.org/pragma.html"
+    },
+    {
+      "title": "SQLite Backup API",
+      "url": "https://www.sqlite.org/backup.html"
+    },
+    {
+      "title": "SQLite conflict resolution",
+      "url": "https://www.sqlite.org/lang_conflict.html"
+    }
+  ],
+  "hostinger_read_attempt": {
+    "mode": "READ_ONLY",
+    "metadata_search_succeeded": true,
+    "account_read_operation": "hosting_websites_list",
+    "params": {
+      "domain": "sheikha.top",
+      "per_page": 10,
+      "page": 1
+    },
+    "result": "TIMEOUT",
+    "error": "tool call error: tool call failed for `hostinger/execute`\n\nCaused by:\n    timed out awaiting tools/call after 300s",
+    "authenticated_inventory_received": false,
+    "vps_read_discovered_but_not_executed": "vps_virtual-machines_list",
+    "credentials_read_or_changed": false,
+    "server_or_dns_or_billing_changed": false,
+    "skill": "/home/sheikha/codex/plugins/cache/openai-curated-remote/hostinger-connector/0.1.0/skills/hostinger/SKILL.md",
+    "cause_of_timeout": "UNDETERMINED"
+  },
+  "new_adapter_tests": {
+    "test_count": 13,
+    "passed": 13,
+    "exit_code": 0,
+    "result_file": "test-results.json",
+    "original_source_rows_used": false
+  }
+}

@@ -1,0 +1,31 @@
+{
+  "system": "SHEIKHA_REVIEWER_ASSIGNMENT_PROPOSAL_GATE_V1",
+  "version": "1.0.0",
+  "status": "ACTIVE_LOCAL_SOURCE",
+  "mode": "PROPOSAL_AND_RATIFICATION_PREVIEW_ONLY",
+  "states": ["PROPOSED", "REVIEW_REQUIRED", "APPROVED_ASSIGNMENT"],
+  "governance": {
+    "defaultDeny": true,
+    "systemCannotAssignReviewer": true,
+    "proposalDoesNotAssign": true,
+    "reviewDoesNotAssign": true,
+    "approvedAssignmentRequiresExplicitHumanRatification": true,
+    "ratifierIdentityRequired": true,
+    "ratificationEvidenceRequired": true,
+    "ratificationSignatureRequired": true,
+    "ratificationIntegrityRequired": true,
+    "separationOfDutiesRequired": true,
+    "selfAssignmentDenied": true,
+    "scopeMustFitAuthorityRole": true,
+    "baseIdentityRoleMustFitAuthorityRole": true,
+    "noAutomaticPersistence": true,
+    "noAutomaticAssignment": true,
+    "noProductionMutation": true,
+    "noSecretMaterial": true,
+    "principle": "لا ضرر ولا ضرار"
+  },
+  "proposalQueueSource": "runtime/connector-evidence-review/v1/reviewer-assignment-proposals-v1.json",
+  "ratificationLedgerSource": "runtime/connector-evidence-review/v1/reviewer-assignment-ratifications-v1.json",
+  "reviewerAuthoritySource": "config/sheikha-reviewer-authority-registry-v1.json",
+  "identityRolesSource": "runtime/identity-fabric-v1/v1/registries/identity-roles.json"
+}

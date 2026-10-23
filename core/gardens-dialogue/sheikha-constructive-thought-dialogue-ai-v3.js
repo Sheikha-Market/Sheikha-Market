@@ -133,6 +133,60 @@ function cleanText(value, maximum = 4000) {
     .slice(0, maximum);
 }
 
+function resolveDialogueTimeoutMs(options = {}) {
+  const requested = Number(
+    options.dialogueTimeoutMs ||
+    process.env.SHEIKHA_THOUGHT_DIALOGUE_TIMEOUT_MS ||
+    8000
+  );
+  return Math.min(15000, Math.max(1000,
+    Number.isFinite(requested) ? Math.floor(requested) : 8000
+  ));
+}
+
+async function executeWithDialogueDeadline(executor, request, options) {
+  const timeoutMs = resolveDialogueTimeoutMs(options);
+  let timer;
+  const timeoutResult = new Promise((resolve) => {
+    timer = setTimeout(() => resolve({
+      success: false,
+      status: 'LOCAL_MODEL_DEADLINE_EXCEEDED',
+      output: '',
+      execution: {
+        route: 'DETERMINISTIC_GOVERNED_FALLBACK',
+        selectedModels: [],
+        synthesisModel: null,
+        modelInvocations: 0,
+        successfulModelInvocations: 0,
+        failedModelInvocations: 1
+      },
+      quality: {
+        passed: false,
+        status: 'MODEL_OUTPUT_UNAVAILABLE'
+      },
+      request: { promptStored: false },
+      audit: { persisted: false, reason: 'DEADLINE_EXCEEDED' },
+      deadline: { exceeded: true, timeoutMs }
+    }), timeoutMs + 250);
+  });
+  try {
+    return await Promise.race([
+      executor(request, {
+        ...(options.intelligenceOptions || {}),
+        executionTimeoutMs: Math.min(
+          timeoutMs,
+          Number(options.intelligenceOptions?.executionTimeoutMs) || timeoutMs
+        ),
+        persist: options.persist !== false,
+        root: options.root || options.rootDir
+      }),
+      timeoutResult
+    ]);
+  } finally {
+    clearTimeout(timer);
+  }
+}
+
 function normalizeAudienceContext(input = {}) {
   const requested = cleanText(
     input.audienceContext || input.audience || 'GENERAL_PUBLIC',
@@ -509,16 +563,16 @@ async function generateConstructiveDialogue(
   const intelligenceExecutor =
     options.executeIntelligenceRequest ||
     executeIntelligenceRequest;
-  const intelligence = await intelligenceExecutor({
+  const intelligence = await executeWithDialogueDeadline(
+    intelligenceExecutor,
+    {
     prompt: governedPrompt,
     task: 'REASONING',
     mode: input.mode || input.reasoningMode || 'standard',
     ultraBudgetApproved: input.ultraBudgetApproved === true
-  }, {
-    ...(options.intelligenceOptions || {}),
-    persist: options.persist !== false,
-    root: options.root || options.rootDir
-  });
+    },
+    options
+  );
   const assessment = assessGeneratedDialogue(
     intelligence.output,
     anchors,
@@ -568,6 +622,10 @@ async function generateConstructiveDialogue(
     },
     intelligence: {
       invoked: true,
+      deadline: intelligence.deadline || {
+        exceeded: false,
+        timeoutMs: resolveDialogueTimeoutMs(options)
+      },
       ...publicIntelligenceMetadata(intelligence)
     },
     dialogueQuality: assessment,

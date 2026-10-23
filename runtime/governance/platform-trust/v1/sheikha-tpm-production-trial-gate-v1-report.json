@@ -1,0 +1,61 @@
+{
+  "schemaVersion": "1.0.0",
+  "system": "SHEIKHA_TPM_PRODUCTION_TRIAL_GATE_V1",
+  "decision": "LAB_READY_PHYSICAL_TRIAL_BLOCKED",
+  "readiness": {
+    "labReady": true,
+    "physicalTrialReady": false,
+    "productionReady": false
+  },
+  "checks": {
+    "boundedParsersImplemented": true,
+    "physicalBootEvidenceVerified": true,
+    "tpmReadOnlyCollectionReady": false,
+    "governedQuoteReady": false,
+    "secureBootVerified": false,
+    "measuredBootVerified": false,
+    "realQuoteVerified": false,
+    "realAkNameVerified": false,
+    "realTpmResidencyVerified": false,
+    "releaseGateAllowed": false,
+    "fullPart2ClaimAvoided": true
+  },
+  "blockers": [
+    "tpmReadOnlyCollectionReady",
+    "governedQuoteReady",
+    "secureBootVerified",
+    "measuredBootVerified",
+    "realQuoteVerified",
+    "realAkNameVerified",
+    "realTpmResidencyVerified",
+    "releaseGateAllowed"
+  ],
+  "trialSequence": [
+    "T0_CAPTURE_BASELINE_AND_RECOVERY_INFORMATION",
+    "T1_VERIFY_TPM_RESOURCE_MANAGER_AND_PINNED_TOOLS",
+    "T2_EXPORT_EVENT_LOG_AND_PCRS_READ_ONLY",
+    "T3_CREATE_NON_EXPORTABLE_AK_AFTER_HUMAN_APPROVAL",
+    "T4_EXPORT_AK_PUBLIC_AND_CREATE_ENROLLMENT_DRAFT",
+    "T5_COLLECT_NONCE_BOUND_QUOTE_AND_SIGNATURE",
+    "T6_VERIFY_PUBLIC_NAME_SIGNATURE_NONCE_AND_PCR_REPLAY_OFFLINE",
+    "T7_RUN_MAKECREDENTIAL_ACTIVATECREDENTIAL_TRIAL",
+    "T8_REBOOT_AND_REPEAT_FOR_STABILITY",
+    "T9_INDEPENDENT_REVIEW_AND_RELEASE_GATE"
+  ],
+  "stopConditions": [
+    "TPM_OR_EVENT_LOG_DISAPPEARS",
+    "PCR_REPLAY_MISMATCH",
+    "AK_NAME_MISMATCH",
+    "SIGNATURE_OR_NONCE_FAILURE",
+    "UNEXPECTED_FIRMWARE_OR_SECURE_BOOT_CHANGE",
+    "RECOVERY_PATH_UNAVAILABLE"
+  ],
+  "execution": {
+    "performed": false,
+    "tpmCommandsExecuted": false,
+    "firmwareMutationPerformed": false,
+    "networkUsed": false
+  },
+  "checkedAt": "2026-09-01T03:46:44.460Z",
+  "reportSha256": "a2bccae5e935d858bb1a86bc0708b208cfc92cf0dd0a81a342d16ba8db71d51f"
+}
